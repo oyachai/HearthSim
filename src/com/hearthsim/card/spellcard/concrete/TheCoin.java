@@ -1,16 +1,17 @@
-package com.hearthsim.card.spellcard;
+package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.util.BoardState;
 import com.json.JSONObject;
 
-public class SpellTheCoin extends SpellCard {
+public class TheCoin extends SpellCard {
 
-	public SpellTheCoin(boolean hasBeenUsed) {
+	public TheCoin(boolean hasBeenUsed) {
 		super("The Coin", (byte)0, hasBeenUsed);
 	}
 
-	public SpellTheCoin() {
+	public TheCoin() {
 		super("The Coin", (byte)0, false);
 	}
 
@@ -32,7 +33,7 @@ public class SpellTheCoin extends SpellCard {
 	
 	@Override
 	public Object deepCopy() {
-		return new SpellTheCoin(this.hasBeenUsed());
+		return new TheCoin(this.hasBeenUsed());
 	}
 
 	

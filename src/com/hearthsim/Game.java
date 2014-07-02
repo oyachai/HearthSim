@@ -1,6 +1,6 @@
 package com.hearthsim;
 
-import com.hearthsim.card.spellcard.SpellTheCoin;
+import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSPlayer0WinsException;
 import com.hearthsim.exception.HSPlayer1WinsException;
@@ -49,7 +49,7 @@ public class Game {
 		boards_[1].placeCard_hand(players_[1].drawFromDeck(1));
 		boards_[1].placeCard_hand(players_[1].drawFromDeck(2));
 		boards_[1].placeCard_hand(players_[1].drawFromDeck(3));
-		boards_[1].placeCard_hand(new SpellTheCoin());
+		boards_[1].placeCard_hand(new TheCoin());
 		boards_[1].setDeckPos(4);
 		
 		for (int i = 0; i < maxTurns_; ++i) {
