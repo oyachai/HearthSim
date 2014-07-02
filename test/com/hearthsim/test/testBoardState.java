@@ -145,7 +145,6 @@ public class testBoardState {
 				boolean res = boards[i].equals(boards[j]);
 				if (res) nT = nT + 1;
 				nA = nA + 1;
-//				System.out.println("i = " + i + ", j = " + j + ", eq = " + boards[i].equals(boards[j]));
 			}
 		}
 		System.out.println("t frac = " + (double)nT / (double)nA);
