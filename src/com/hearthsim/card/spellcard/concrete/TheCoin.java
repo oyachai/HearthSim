@@ -12,7 +12,7 @@ public class TheCoin extends SpellCard {
 	}
 
 	public TheCoin() {
-		super("The Coin", (byte)0, false);
+		this(false);
 	}
 
 	@Override
