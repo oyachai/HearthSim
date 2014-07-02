@@ -164,3 +164,16 @@ boost_current
 boost_1_53_0
 
 *.pyc
+
+####
+# Eclipse ignore
+.project
+.classpath
+eclipse-build
+*/.project
+*/.classpath
+*/eclipse-build
+/.settings/
+!/.settings/org.eclipse.core.resources.prefs
+!/.settings/org.eclipse.jdt.core.prefs
+!/.settings/org.eclipse.jdt.ui.prefs
