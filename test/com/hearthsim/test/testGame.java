@@ -1,5 +1,7 @@
 package com.hearthsim.test;
 
+import static org.junit.Assert.*;
+
 import org.junit.Test;
 
 import com.hearthsim.Game;
@@ -97,5 +99,7 @@ public class testGame {
 		}
 		
 		System.out.println("w = " + w);
+		
+		assertTrue("testGame0", w == 0);
 	}
 }

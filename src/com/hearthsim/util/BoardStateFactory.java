@@ -41,6 +41,15 @@ public class BoardStateFactory {
 			return null;
 		}
 		
+		if (boardStateNode.numChildren() > 0) {
+			//If this node already has children, just call doMoves on each of its children.
+			//This situation can happen, for example, atfer a battle cry
+			for (HearthTreeNode<BoardState> child : boardStateNode.getChildren()) {
+				this.doMoves(child, deck);
+			}
+			return boardStateNode;
+		}
+		
 		if (boardMap.containsKey(boardStateNode.data())) {
 			//no need to continue down this path
 			return null;

@@ -40,6 +40,18 @@ public class HearthTreeNode<T> {
 		return node;
 	}
 	
+	public List<HearthTreeNode<T>> getChildren() {
+		return children_;
+	}
+	
+	public int numChildren() {
+		if (children_ == null)
+			return 0;
+		else {
+			return children_.size();
+		}
+	}
+	
 	public T data() {
 		return data_;
 	}
