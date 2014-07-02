@@ -14,6 +14,8 @@ public class Minion extends Card {
 	boolean charge_;
 	
 	boolean hasAttacked_;
+	boolean hasWindFuryAttacked_;
+
 	
 	protected byte health_;
 	protected byte maxHealth_;
@@ -23,7 +25,7 @@ public class Minion extends Card {
 	protected byte baseAttack_;
 
 	public Minion(String name, byte mana, byte attack, byte health, byte baseAttack, byte baseHealth, byte maxHealth) {
-		this(name, mana, attack, health, baseAttack, baseHealth, maxHealth, false, false, false, false, false, true, false);
+		this(name, mana, attack, health, baseAttack, baseHealth, maxHealth, false, false, false, false, false, false, true, false);
 	}
 	
 	public Minion(	String name,
@@ -38,6 +40,7 @@ public class Minion extends Card {
 					boolean windFury,
 					boolean charge,
 					boolean hasAttacked,
+					boolean hasWindFuryAttacked,
 					boolean isInHand,
 					boolean hasBeenUsed) {
 		super(name, mana, hasBeenUsed, isInHand);
@@ -49,6 +52,7 @@ public class Minion extends Card {
 		charge_ = charge;
 		hasAttacked_ = hasAttacked;
 		baseAttack_ = baseAttack;
+		hasWindFuryAttacked_ = hasWindFuryAttacked;
 		baseHealth_ = baseHealth;
 		maxHealth_ = maxHealth;
 	}
@@ -91,6 +95,14 @@ public class Minion extends Card {
 	
 	public void hasAttacked(boolean hasAttacked) {
 		hasAttacked_ = hasAttacked;
+	}
+
+	public boolean hasWindFuryAttacked() {
+		return hasWindFuryAttacked_;
+	}
+	
+	public void hasWindFuryAttacked(boolean hasAttacked) {
+		hasWindFuryAttacked_ = hasAttacked;
 	}
 
 	public boolean getCharge() {
@@ -164,6 +176,10 @@ public class Minion extends Card {
 					//To Do:  check for taunts!!!
 					//attack the enemy hero
 					this.attack(boardState.getHero_p1());
+					if (windFury_ && !hasWindFuryAttacked_)
+						hasWindFuryAttacked_ = true;
+					else
+						hasAttacked_ = true;
 					return boardState;
 				} else {
 					Minion target = boardState.getMinion_p1(minionIndex - 1);
@@ -171,9 +187,13 @@ public class Minion extends Card {
 					if (target.getHealth() <= 0) {
 						boardState.removeMinion_p1(target);
 					}
-					if (this.health_ <= 0) {
+					if (health_ <= 0) {
 						boardState.removeMinion_p0(thisCardIndex);
 					}
+					if (windFury_ && !hasWindFuryAttacked_)
+						hasWindFuryAttacked_ = true;
+					else
+						hasAttacked_ = true;
 					return boardState;
 				}
 			} else {
@@ -214,6 +234,7 @@ public class Minion extends Card {
 				this.windFury_,
 				this.charge_,
 				this.hasAttacked_,
+				this.hasWindFuryAttacked_,
 				this.isInHand_,
 				this.hasBeenUsed());
 	}
@@ -223,6 +244,10 @@ public class Minion extends Card {
 		if (!super.equals(other)) {
 			return false;
 		}
+		if (attack_ != ((Minion)other).attack_)
+			return false;
+		if (health_ != ((Minion)other).health_)
+			return false;
 		if (maxHealth_ != ((Minion)other).maxHealth_)
 			return false;
 		if (baseHealth_ != ((Minion)other).baseHealth_)
@@ -235,7 +260,11 @@ public class Minion extends Card {
 			return false;
 		if (windFury_ != ((Minion)other).windFury_)
 			return false;
+		if (charge_ != ((Minion)other).charge_)
+			return false;
 		if (hasAttacked_ != ((Minion)other).hasAttacked_)
+			return false;
+		if (hasWindFuryAttacked_ != ((Minion)other).hasWindFuryAttacked_)
 			return false;
 		
 		return true;

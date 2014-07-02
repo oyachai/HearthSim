@@ -18,9 +18,10 @@ public class Demon extends Minion {
 			boolean windFury,
 			boolean charge,
 			boolean hasAttacked,
+			boolean hasWindFuryAttacked,
 			boolean isInHand,
 			boolean hasBeenUsed) {
-		super(name, mana, attack, health, baseAttack, baseHealth, maxHealth, taunt, divineShield, windFury, charge, hasAttacked, isInHand, hasBeenUsed);
+		super(name, mana, attack, health, baseAttack, baseHealth, maxHealth, taunt, divineShield, windFury, charge, hasAttacked, hasWindFuryAttacked, isInHand, hasBeenUsed);
 	}
 	
 	public Demon(
@@ -32,7 +33,7 @@ public class Demon extends Minion {
 			byte baseHealth,
 			byte maxHealth
 			) {
-		this(name, mana, attack, health, baseAttack, baseHealth, maxHealth, false, false, false, false, false, true, false);
+		this(name, mana, attack, health, baseAttack, baseHealth, maxHealth, false, false, false, false, false, false, true, false);
 	}
 	
 	public JSONObject toJSON() {

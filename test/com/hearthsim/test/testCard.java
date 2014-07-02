@@ -18,7 +18,7 @@ public class testCard {
 		
 		Card card0 = new Card("" + 0, mana);
 		Card card1 = new Card("" + 1, mana);
-		Card card2 = new Card("" + 1, (byte)(mana + 1));
+		Card card2 = new Card("" + 0, (byte)(mana + 1));
 		
 		assertTrue("test0", card0.equals(card0));
 		assertTrue("test1", card1.equals(card1));
@@ -63,12 +63,12 @@ public class testCard {
 		
 		Minion minion0 = new Minion("" + 0, mana, attack, health, attack, health, health);
 		Minion minion1 = new Minion("" + 1, mana, attack, health, attack, health, health);
-		Minion minion2 = new Minion("" + 2, mana, (byte)(attack + 1), health, attack, health, health);
-		Minion minion3 = new Minion("" + 3, mana, attack, (byte)(health + 1), attack, health, health);
-		Minion minion4 = new Minion("" + 1, (byte)(mana + 1), attack, health, attack, health, health);
-		Minion minion5 = new Minion("" + 1, mana, attack, health, (byte)(attack + 1), health, health);
-		Minion minion6 = new Minion("" + 1, mana, attack, health, attack, (byte)(health + 1), health);
-		Minion minion7 = new Minion("" + 1, mana, attack, health, attack, health, (byte)(health + 1));
+		Minion minion2 = new Minion("" + 0, mana, (byte)(attack + 1), health, attack, health, health);
+		Minion minion3 = new Minion("" + 0, mana, attack, (byte)(health + 1), attack, health, health);
+		Minion minion4 = new Minion("" + 0, (byte)(mana + 1), attack, health, attack, health, health);
+		Minion minion5 = new Minion("" + 0, mana, attack, health, (byte)(attack + 1), health, health);
+		Minion minion6 = new Minion("" + 0, mana, attack, health, attack, (byte)(health + 1), health);
+		Minion minion7 = new Minion("" + 0, mana, attack, health, attack, health, (byte)(health + 1));
 		
 		assertTrue("test0", minion0.equals(minion0));
 		assertFalse("test1", minion0.equals(minion1));
