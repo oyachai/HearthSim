@@ -40,17 +40,19 @@ public class SpellTheCoin extends SpellCard {
 	 * 
 	 * Use the card on the given target
 	 * 
-	 * @param playerIndex
-	 * @param minionIndex
-	 * @param boardState
+	 * @param thisCardIndex The index (position) of the card in the hand
+	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
+	 * @param minionIndex The index of the target minion.
+	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
 	 * 
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public BoardState useOn(int playerIndex, int minionIndex, BoardState boardState) {
+	public BoardState useOn(int thisCardIndex, int playerIndex, int minionIndex, BoardState boardState) {
 		int newMana = boardState.getMana_p0();
 		newMana = newMana >= 10 ? newMana : newMana + 1;
 		boardState.setMana_p0(newMana);
+		boardState.removeCard_hand(thisCardIndex);
 		return boardState;
 	}
 

@@ -114,8 +114,22 @@ public class Minion extends Card {
 		}
 	}
 	
+	
+	/**
+	 * 
+	 * Use the card on the given target
+	 * 
+	 * The Minion class can have two states: one as a card in the hand, and the other as a minion on the field.
+	 * 
+	 * @param thisCardIndex The index (position) of the card in the hand
+	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
+	 * @param minionIndex The index of the target minion.
+	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+	 * 
+	 * @return The boardState is manipulated and returned
+	 */
 	@Override
-	public BoardState useOn(int playerIndex, int minionIndex, BoardState boardState) {
+	public BoardState useOn(int thisCardIndex, int playerIndex, int minionIndex, BoardState boardState) {
 		
 		if (this.hasBeenUsed_) {
 			//Card is already used, nothing to do
@@ -135,6 +149,7 @@ public class Minion extends Card {
 				}
 				boardState.placeMinion_p0(this, minionIndex - 1);
 				boardState.setMana_p0(boardState.getMana_p0() - this.mana_);
+				boardState.removeCard_hand(thisCardIndex);
 				return boardState;
 								
 			} else {
@@ -155,6 +170,9 @@ public class Minion extends Card {
 					this.attack(target);
 					if (target.getHealth() <= 0) {
 						boardState.removeMinion_p1(target);
+					}
+					if (this.health_ <= 0) {
+						boardState.removeMinion_p0(thisCardIndex);
 					}
 					return boardState;
 				}

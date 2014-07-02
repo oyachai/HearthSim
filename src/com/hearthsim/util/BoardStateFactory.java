@@ -80,20 +80,18 @@ public class BoardStateFactory {
 				for(int i = 0; i <= boardStateNode.data().getNumMinions_p0() + 1; ++i) {
 					BoardState newState = (BoardState)boardStateNode.data().deepCopy();
 					Card card = newState.getCard_hand(ic);
-					newState = card.useOn(0, i, newState);
+					newState = card.useOn(ic, 0, i, newState);
 					if (newState != null) {
 						HearthTreeNode<BoardState> newNode = boardStateNode.addChild(newState);
-						newNode.data().removeCard_hand(ic);
 						newNode = this.doMoves(newNode, deck);
 					}
 				}
 				for(int i = 0; i <= boardStateNode.data().getNumMinions_p1() + 1; ++i) {
 					BoardState newState = (BoardState)boardStateNode.data().deepCopy();
 					Card card = newState.getCard_hand(ic);
-					newState = card.useOn(1, i, newState);
+					newState = card.useOn(ic, 1, i, newState);
 					if (newState != null) {
 						HearthTreeNode<BoardState> newNode = boardStateNode.addChild(newState);
-						newNode.data().removeCard_hand(ic);
 						newNode = this.doMoves(newNode, deck);
 					}
 				}
@@ -126,10 +124,7 @@ public class BoardStateFactory {
 				BoardState tempBoard = (BoardState)boardStateNode.data().deepCopy();
 				Minion tempMinion = tempBoard.getMinion_p0(ic);
 				tempMinion.hasAttacked(true);
-				BoardState newState = tempMinion.useOn(1, i, tempBoard);
-				if (tempMinion.getHealth() <= 0) {
-					newState.removeMinion_p0(tempMinion);
-				}
+				BoardState newState = tempMinion.useOn(ic, 1, i, tempBoard);
 				if (newState != null) {
 					HearthTreeNode<BoardState> newNode = boardStateNode.addChild(newState);
 					newNode = this.doMoves(newNode, deck);

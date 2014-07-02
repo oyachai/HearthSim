@@ -36,6 +36,14 @@ public class Card implements DeepCopyable {
 	protected boolean hasBeenUsed_;
 	protected boolean isInHand_;
 
+	/**
+	 * Constructor
+	 * 
+	 * @param name Name of the card
+	 * @param mana Mana cost of the card
+	 * @param hasBeenUsed Has the card been used?
+	 * @param isInHand Is the card in your hand?
+	 */
 	public Card(String name, byte mana, boolean hasBeenUsed, boolean isInHand) {
 		name_ = name;
 		mana_ = mana;
@@ -43,44 +51,58 @@ public class Card implements DeepCopyable {
 		isInHand_ = isInHand;
 	}
 
+	/**
+	 * Constructor
+	 * 
+	 * @param name Name of the card
+	 * @param mana Mana cost of the card
+	 */
 	public Card(String name, byte mana) {
 		this(name, mana, true, true);
 	}
 	
+	/**
+	 * Get the name of the card
+	 * 
+	 * @return Name of the card
+	 */
 	public String getName() {
 		return name_;
 	}
-	
 
+	/**
+	 * Get the mana cost of the card
+	 * 
+	 * @return Mana cost of the card
+	 */
 	public byte getMana() {
 		return mana_;
 	}
 	
+	/**
+	 * Set the mana cost of the card
+	 * @param mana The new mana cost
+	 */
 	public void setMana(byte mana) {
 		mana_ = mana;
 	}
 	
-	public JSONObject toJSON() {
-		JSONObject json = new JSONObject();
-		json.put("type", "Card");
-		json.put("name", name_);
-		json.put("mana", mana_);
-		json.put("hasBeenUsed", hasBeenUsed_);
-		return json;
-	}
-	
-	public String toString() {
-		return this.toJSON().toString();
-	}
-	
+	/**
+	 * Returns whether the card has been used or not
+	 * 
+	 * @return
+	 */
 	public boolean hasBeenUsed() {
 		return hasBeenUsed_;
 	}
 	
+	/**
+	 * Sets whether the card has been used or not
+	 * @param value The new hasBeenUsed value
+	 */
 	public void hasBeenUsed(boolean value) {
 		hasBeenUsed_ = value;
 	}
-	
 	
 	public void isInHand(boolean value) {
 		isInHand_ = value;
@@ -129,19 +151,34 @@ public class Card implements DeepCopyable {
 	 * 
 	 * Use the card on the given target
 	 * 
-	 * @param playerIndex
-	 * @param minionIndex
-	 * @param boardState
+	 * @param thisCardIndex The index (position) of the card in the hand
+	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
+	 * @param minionIndex The index of the target minion.
+	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
 	 * 
 	 * @return The boardState is manipulated and returned
 	 */
-	public BoardState useOn(int playerIndex, int minionIndex, BoardState boardState) {
-		
+	public BoardState useOn(int thisCardIndex, int playerIndex, int minionIndex, BoardState boardState) {
 		//A generic card does nothing except for consuming mana
 		boardState.setMana_p0(boardState.getMana_p0() - this.mana_);
+		boardState.removeCard_hand(thisCardIndex);
 		return boardState;
 	}
 	
+	
+	
+	public JSONObject toJSON() {
+		JSONObject json = new JSONObject();
+		json.put("type", "Card");
+		json.put("name", name_);
+		json.put("mana", mana_);
+		json.put("hasBeenUsed", hasBeenUsed_);
+		return json;
+	}
+	
+	public String toString() {
+		return this.toJSON().toString();
+	}
 }
 
 

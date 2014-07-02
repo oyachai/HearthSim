@@ -57,14 +57,15 @@ public class SpellDamage extends SpellCard {
 	 * 
 	 * Use the card on the given target
 	 * 
-	 * @param playerIndex
-	 * @param minionIndex
-	 * @param boardState
+	 * @param thisCardIndex The index (position) of the card in the hand
+	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
+	 * @param minionIndex The index of the target minion.
+	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
 	 * 
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public BoardState useOn(int playerIndex, int minionIndex, BoardState boardState) {
+	public BoardState useOn(int thisCardIndex, int playerIndex, int minionIndex, BoardState boardState) {
 		if (this.hasBeenUsed()) {
 			//Card is already used, nothing to do
 			return null;
@@ -81,6 +82,7 @@ public class SpellDamage extends SpellCard {
 				this.attack(boardState.getHero_p1());
 			}
 			boardState.setMana_p0(boardState.getMana_p0() - this.mana_);
+			boardState.removeCard_hand(thisCardIndex);
 			return boardState;
 		} else {
 			Minion target = null;
@@ -97,6 +99,7 @@ public class SpellDamage extends SpellCard {
 			}
 			this.attack(target);
 			boardState.setMana_p0(boardState.getMana_p0() - this.mana_);
+			boardState.removeCard_hand(thisCardIndex);
 
 			if (target.getHealth() <= 0) {
 				if (playerIndex == 0)
