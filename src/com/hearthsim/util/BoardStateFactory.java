@@ -15,21 +15,46 @@ public class BoardStateFactory {
 
 	HashMap<BoardState, Integer> boardMap;
 	boolean lethal_;
-	static final long maxTime_ = 20000;
+	public final long maxTime_;
 	
 	long startTime_;
 	long curTime_;
 	
 	double curScore_;
 	
+	/**
+	 * Constructor
+	 * 
+	 * maxThinkTime defaults to 20000 milliseconds (20 seconds)
+	 */
 	public BoardStateFactory() {
+		this(20000);
+	}
+	
+	/**
+	 * Constructor
+	 * 
+	 * @param maxThinkTime The maximum amount of time in milliseconds the factory is allowed to spend on generating the simulation tree.
+	 */
+	public BoardStateFactory(long maxThinkTime) {
 		boardMap = new HashMap<BoardState, Integer>(1000000);
 		lethal_ = false;
 		startTime_ = System.currentTimeMillis();
 		curScore_ = -1.e200;
+		maxTime_ = maxThinkTime;
 	}
 	
-
+	/**
+	 * Recursively generate all possible moves
+	 * 
+	 * This function recursively generates all possible moves that can be done starting from a given BoardState.
+	 * The results are stored in a tree structure and returned as a tree of BoardState class.
+	 * 
+	 * @param boardStateNode The initial BoardState wrapped in a HearthTreeNode.
+	 * @param deck The deck that the player is playing with.
+	 * 
+	 * @return boardStateNode manipulated such that all subsequent actions are children of the original boardStateNode input.
+	 */
 	public HearthTreeNode<BoardState> doMoves(HearthTreeNode<BoardState> boardStateNode, Deck deck) {
 
 		if (System.currentTimeMillis() - startTime_ > maxTime_) {
@@ -64,6 +89,10 @@ public class BoardStateFactory {
 				lethal_ = true;
 			return null;
 		}
+		
+		//-----------------------------------------------------------------------------------------
+		// Use the cards in the hand
+		//-----------------------------------------------------------------------------------------
 		
 		//check to see if all the cards have been used already
 		boolean allUsed = true;
@@ -107,6 +136,10 @@ public class BoardStateFactory {
 			}
 		}
 		
+		//-----------------------------------------------------------------------------------------
+		// Attack with the minions on the board
+		//-----------------------------------------------------------------------------------------
+
 		//Use the minions that we have out on the board
 		//the case where I choose to not use any more minions
 		boolean allAttacked = true;
