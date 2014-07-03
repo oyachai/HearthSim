@@ -112,9 +112,7 @@ public class TestTaunt {
 		BoardStateFactory factory = new BoardStateFactory();
 		HearthTreeNode<BoardState> tree = new HearthTreeNode<BoardState>(board);
 		tree = factory.doMoves(tree, null);
-		
-		System.out.println(tree);
-		
+				
 		assertTrue("test4", tree.numChildren() == 4);
 		for (HearthTreeNode<BoardState> child : tree.getChildren()) {
 			assertTrue("test4", child.numChildren() == 0);
