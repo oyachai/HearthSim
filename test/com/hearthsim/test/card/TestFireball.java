@@ -22,9 +22,6 @@ public class TestFireball {
 	@Before
 	public void setup() {
 		board = new BoardState();
-		
-		Hero hero1 = new Hero();
-		Hero hero2 = new Hero();
 
 		Minion minion0_0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
 		Minion minion0_1 = new Minion("" + 0, mana, attack0, health1, attack0, health1, health1);

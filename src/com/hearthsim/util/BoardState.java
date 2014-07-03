@@ -29,7 +29,6 @@ public class BoardState implements DeepCopyable {
 	int p1_maxMana_;
 	
 	int deck_pos_;
-	double boardScore_;
 	
 	public BoardState() {
 		p0_minions_ = new LinkedList<Minion>();
@@ -420,10 +419,6 @@ public class BoardState implements DeepCopyable {
 		for(Card card : p0_hand_) {
 			card.hasBeenUsed(false);
 		}
-	}
-	
-	public void calcScore(ArtificialPlayer ai) {
-		boardScore_ = ai.boardScore(this);
 	}
 	
 	public BoardState flipPlayers(LinkedList<Card> player1_hand, int player1_deck_pos) { 
