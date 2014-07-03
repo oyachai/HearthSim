@@ -143,7 +143,7 @@ public class Minion extends Card {
 	@Override
 	public BoardState useOn(int thisCardIndex, int playerIndex, int minionIndex, BoardState boardState) {
 		
-		if (this.hasBeenUsed_) {
+		if (hasBeenUsed_ && hasAttacked_) {
 			//Card is already used, nothing to do
 			return null;
 		}
@@ -156,9 +156,9 @@ public class Minion extends Card {
 					return null;
 				}
 				if (!charge_) {
-					this.hasAttacked_ = true;
-					this.hasBeenUsed_ = true;
+					hasAttacked_ = true;
 				}
+				hasBeenUsed_ = true;
 				boardState.placeMinion_p0(this, minionIndex - 1);
 				boardState.setMana_p0(boardState.getMana_p0() - this.mana_);
 				boardState.removeCard_hand(thisCardIndex);
