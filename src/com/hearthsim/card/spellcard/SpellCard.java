@@ -1,6 +1,7 @@
 package com.hearthsim.card.spellcard;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.Deck;
 import com.hearthsim.util.BoardState;
 import com.json.JSONObject;
 
@@ -50,7 +51,7 @@ public class SpellCard extends Card {
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public BoardState useOn(int thisCardIndex, int playerIndex, int minionIndex, BoardState boardState) {
+	public BoardState useOn(int thisCardIndex, int playerIndex, int minionIndex, BoardState boardState, Deck deck) {
 		boardState.setMana_p0(boardState.getMana_p0() - this.mana_);
 		boardState.removeCard_hand(thisCardIndex);
 		return boardState;

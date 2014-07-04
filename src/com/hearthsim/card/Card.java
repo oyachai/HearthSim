@@ -158,7 +158,7 @@ public class Card implements DeepCopyable {
 	 * 
 	 * @return The boardState is manipulated and returned
 	 */
-	public BoardState useOn(int thisCardIndex, int playerIndex, int minionIndex, BoardState boardState) {
+	public BoardState useOn(int thisCardIndex, int playerIndex, int minionIndex, BoardState boardState, Deck deck) {
 		//A generic card does nothing except for consuming mana
 		boardState.setMana_p0(boardState.getMana_p0() - this.mana_);
 		boardState.removeCard_hand(thisCardIndex);

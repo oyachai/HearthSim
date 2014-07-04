@@ -13,7 +13,6 @@ public class GameMaster {
 	
 	ArtificialPlayer ai_;
 	
-	int fatigueDamage_;
 	
 	public GameMaster() {
 		this(new ArtificialPlayer());
@@ -21,7 +20,6 @@ public class GameMaster {
 	
 	public GameMaster(ArtificialPlayer ai) {
 		ai_ = ai;
-		fatigueDamage_ = 0;
 	}
 
 	public void initialize(BoardState board, Player player) throws HSException {
@@ -35,8 +33,9 @@ public class GameMaster {
 		Card newCard = player.drawFromDeck(board.getDeckPos());
 		if (newCard == null) {
 			//fatigue
-			++fatigueDamage_;
-			board.getHero_p0().setHealth((byte)(board.getHero_p0().getHealth() - fatigueDamage_));
+			byte fatigueDamage = board.getFatigueDamage_p0();
+			board.setFatigueDamage_p0((byte)(fatigueDamage + 1));
+			board.getHero_p0().setHealth((byte)(board.getHero_p0().getHealth() - fatigueDamage));
 		} else {
 			board.setDeckPos(board.getDeckPos() + 1);
 			board.placeCard_hand(newCard);

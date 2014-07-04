@@ -1,21 +1,20 @@
 package com.hearthsim.card.spellcard.concrete;
 
-import java.util.Iterator;
-
+import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.util.BoardState;
 
-public class ArcaneExplosion extends SpellCard {
-	
+public class ArcaneIntellect extends SpellCard {
+
 	/**
 	 * Constructor
 	 * 
 	 * @param hasBeenUsed Whether the card has already been used or not
 	 */
-	public ArcaneExplosion(boolean hasBeenUsed) {
-		super("Arcane Explosion", (byte)0, hasBeenUsed);
+	public ArcaneIntellect(boolean hasBeenUsed) {
+		super("Arcane Intellect", (byte)3, hasBeenUsed);
 	}
 
 	/**
@@ -23,7 +22,7 @@ public class ArcaneExplosion extends SpellCard {
 	 * 
 	 * Defaults to hasBeenUsed = false
 	 */
-	public ArcaneExplosion() {
+	public ArcaneIntellect() {
 		this(false);
 	}
 
@@ -31,7 +30,7 @@ public class ArcaneExplosion extends SpellCard {
 	 * 
 	 * Use the card on the given target
 	 * 
-	 * This card damages all enemy minions by 1
+	 * This card draws 2 cards from the deck.
 	 * 
 	 * @param thisCardIndex The index (position) of the card in the hand
 	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
@@ -42,20 +41,19 @@ public class ArcaneExplosion extends SpellCard {
 	 */
 	@Override
 	public BoardState useOn(int thisCardIndex, int playerIndex, int minionIndex, BoardState boardState, Deck deck) {
-		if (playerIndex == 0) {
+		if (playerIndex == 1 || minionIndex > 0) {
 			return null;
 		}
 		
-		if (minionIndex > 0) {
-			return null;
-		}
-		
-		Iterator<Minion> iter = boardState.getMinions_p1().iterator();
-		while (iter.hasNext()) {
-			Minion targetMinion = iter.next();
-			targetMinion.setHealth((byte)(targetMinion.getHealth() - 1));
-			if (targetMinion.getHealth() <= 0) {
-				iter.remove();
+		for (int index = 0; index < 2; ++index) {
+			Card card = deck.drawCard(boardState.getDeckPos());
+			if (card == null) {
+				byte fatigueDamage = boardState.getFatigueDamage_p0();
+				boardState.setFatigueDamage_p0((byte)(fatigueDamage + 1));
+				boardState.getHero_p0().setHealth((byte)(boardState.getHero_p0().getHealth() - fatigueDamage));
+			} else {
+				boardState.placeCard_hand(card);
+				boardState.setDeckPos(boardState.getDeckPos() + 1);
 			}
 		}
 

@@ -1,6 +1,7 @@
 package com.hearthsim.card.spellcard;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.util.BoardState;
 import com.json.JSONObject;
@@ -65,7 +66,7 @@ public class SpellDamage extends SpellCard {
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public BoardState useOn(int thisCardIndex, int playerIndex, int minionIndex, BoardState boardState) {
+	public BoardState useOn(int thisCardIndex, int playerIndex, int minionIndex, BoardState boardState, Deck deck) {
 		if (this.hasBeenUsed()) {
 			//Card is already used, nothing to do
 			return null;

@@ -11,7 +11,7 @@ public class Player {
 	String name_;
 	Hero hero_;
 	Hand hand_;
-	Deck deck_;
+	final Deck deck_;
 	int mana_;
 	int maxMana_;
 
@@ -42,6 +42,10 @@ public class Player {
 	
 	public int getNumCardsInHand() {
 		return hand_.getNumCards();
+	}
+	
+	public Deck getDeck() {
+		return deck_;
 	}
 	
 	public int getMana() {

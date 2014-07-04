@@ -36,10 +36,10 @@ public class TestAncestralHealing {
 		Card theCard = board.getCard_hand(0);
 		BoardState res;
 		
-		res = theCard.useOn(0, 0, 0, board);
+		res = theCard.useOn(0, 0, 0, board, null);
 		assertTrue(res == null);
 		
-		res = theCard.useOn(0, 1, 0, board);
+		res = theCard.useOn(0, 1, 0, board, null);
 		assertTrue(res == null);
 		
 	}
@@ -57,7 +57,7 @@ public class TestAncestralHealing {
 		Card theCard = board.getCard_hand(0);
 		BoardState res;
 		
-		res = theCard.useOn(0, 0, 1, board);
+		res = theCard.useOn(0, 0, 1, board, null);
 		assertFalse(res == null);
 		assertTrue(res.getNumCards_hand() == 0);
 		assertTrue(res.getMinion_p0(0).getHealth() == health0);
@@ -79,7 +79,7 @@ public class TestAncestralHealing {
 		Card theCard = board.getCard_hand(0);
 		BoardState res;
 		
-		res = theCard.useOn(0, 0, 1, board);
+		res = theCard.useOn(0, 0, 1, board, null);
 		assertFalse(res == null);
 		assertTrue(res.getNumCards_hand() == 0);
 		assertTrue(res.getMinion_p0(0).getHealth() == health0);
@@ -101,7 +101,7 @@ public class TestAncestralHealing {
 		Card theCard = board.getCard_hand(0);
 		BoardState res;
 		
-		res = theCard.useOn(0, 1, 1, board);
+		res = theCard.useOn(0, 1, 1, board, null);
 		assertFalse(res == null);
 		assertTrue(res.getNumCards_hand() == 0);
 		assertTrue(res.getMinion_p1(0).getHealth() == health0);
@@ -123,7 +123,7 @@ public class TestAncestralHealing {
 		Card theCard = board.getCard_hand(0);
 		BoardState res;
 		
-		res = theCard.useOn(0, 1, 1, board);
+		res = theCard.useOn(0, 1, 1, board, null);
 		assertFalse(res == null);
 		assertTrue(res.getNumCards_hand() == 0);
 		assertTrue(res.getMinion_p1(0).getHealth() == health0);

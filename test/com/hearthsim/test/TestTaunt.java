@@ -34,9 +34,9 @@ public class TestTaunt {
 		Minion minion = new Minion("" + 0, mana, attack0, health1, attack0, health1, health1, true, false, false, false, false, false, false, false);
 		board.placeMinion_p1(minion);
 		
-		BoardStateFactory factory = new BoardStateFactory();
+		BoardStateFactory factory = new BoardStateFactory(null);
 		HearthTreeNode<BoardState> tree = new HearthTreeNode<BoardState>(board);
-		tree = factory.doMoves(tree, null);
+		tree = factory.doMoves(tree);
 		
 		assertTrue("test0", tree.numChildren() == 2);
 		for (HearthTreeNode<BoardState> child : tree.getChildren()) {
@@ -51,9 +51,9 @@ public class TestTaunt {
 		board.placeMinion_p1(minion1);
 		board.placeMinion_p1(minion2);
 		
-		BoardStateFactory factory = new BoardStateFactory();
+		BoardStateFactory factory = new BoardStateFactory(null);
 		HearthTreeNode<BoardState> tree = new HearthTreeNode<BoardState>(board);
-		tree = factory.doMoves(tree, null);
+		tree = factory.doMoves(tree);
 		
 		assertTrue("test1", tree.numChildren() == 2);
 		for (HearthTreeNode<BoardState> child : tree.getChildren()) {
@@ -70,9 +70,9 @@ public class TestTaunt {
 		board.placeMinion_p1(minion2);
 		board.placeMinion_p1(minion3);
 		
-		BoardStateFactory factory = new BoardStateFactory();
+		BoardStateFactory factory = new BoardStateFactory(null);
 		HearthTreeNode<BoardState> tree = new HearthTreeNode<BoardState>(board);
-		tree = factory.doMoves(tree, null);
+		tree = factory.doMoves(tree);
 		
 		assertTrue("test2", tree.numChildren() == 3);
 		for (HearthTreeNode<BoardState> child : tree.getChildren()) {
@@ -89,9 +89,9 @@ public class TestTaunt {
 		board.placeCard_hand(hs);
 		board.placeMinion_p1(minion1);
 		
-		BoardStateFactory factory = new BoardStateFactory();
+		BoardStateFactory factory = new BoardStateFactory(null);
 		HearthTreeNode<BoardState> tree = new HearthTreeNode<BoardState>(board);
-		tree = factory.doMoves(tree, null);
+		tree = factory.doMoves(tree);
 				
 		assertTrue("test3", tree.numChildren() == 1);
 		for (HearthTreeNode<BoardState> child : tree.getChildren()) {
@@ -109,9 +109,9 @@ public class TestTaunt {
 		board.placeMinion_p1(minion1);
 		board.setMana_p0(2);
 		
-		BoardStateFactory factory = new BoardStateFactory();
+		BoardStateFactory factory = new BoardStateFactory(null);
 		HearthTreeNode<BoardState> tree = new HearthTreeNode<BoardState>(board);
-		tree = factory.doMoves(tree, null);
+		tree = factory.doMoves(tree);
 				
 		assertTrue("test4", tree.numChildren() == 4);
 		for (HearthTreeNode<BoardState> child : tree.getChildren()) {

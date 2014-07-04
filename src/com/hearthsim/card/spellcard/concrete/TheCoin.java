@@ -1,6 +1,7 @@
 package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.Deck;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.util.BoardState;
 import com.json.JSONObject;
@@ -49,7 +50,7 @@ public class TheCoin extends SpellCard {
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public BoardState useOn(int thisCardIndex, int playerIndex, int minionIndex, BoardState boardState) {
+	public BoardState useOn(int thisCardIndex, int playerIndex, int minionIndex, BoardState boardState, Deck deck) {
 		int newMana = boardState.getMana_p0();
 		newMana = newMana >= 10 ? newMana : newMana + 1;
 		boardState.setMana_p0(newMana);

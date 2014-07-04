@@ -13,6 +13,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellDamage;
 import com.hearthsim.exception.HSException;
@@ -140,7 +141,7 @@ public class ArtificialPlayer {
 		
 //		this.writeOut("board_" + player.getName() + "_turn" + turn + ".json", board);
 
-		HearthTreeNode<BoardState> allMoves = playPossibilities(turn, board);
+		HearthTreeNode<BoardState> allMoves = playPossibilities(turn, board, player.getDeck());
 //		this.writeOut("allMoves_" + player.getName() + "_turn" + turn + ".json", allMoves);
 
 		System.out.print("turn = " + turn + ", player = " + player.getName() + ", numHand = " + board.getNumCards_hand() + ", numMinion = " + board.getNumMinions_p0() + ", numEnemyMinion = " + board.getNumMinions_p1());
@@ -163,11 +164,11 @@ public class ArtificialPlayer {
 		return bestPlay;
 	}
 
-	public HearthTreeNode<BoardState> playPossibilities(int turn, BoardState board) {
+	public HearthTreeNode<BoardState> playPossibilities(int turn, BoardState board, Deck deck) {
 
 		HearthTreeNode<BoardState> toRet = new HearthTreeNode<BoardState>(board);
-		BoardStateFactory factory = new BoardStateFactory();
-		toRet = factory.doMoves(toRet, null);
+		BoardStateFactory factory = new BoardStateFactory(deck);
+		toRet = factory.doMoves(toRet);
 		return toRet;
 	}
 	

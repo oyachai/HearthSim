@@ -40,22 +40,22 @@ public class TestArcaneExplosion {
 		Card theCard = board.getCard_hand(0);
 		BoardState res;
 		
-		res = theCard.useOn(0, 0, 0, board);
+		res = theCard.useOn(0, 0, 0, board, null);
 		assertTrue(res == null);
 		
-		res = theCard.useOn(0, 0, 1, board);
+		res = theCard.useOn(0, 0, 1, board, null);
 		assertTrue(res == null);
 		
-		res = theCard.useOn(0, 1, 1, board);
+		res = theCard.useOn(0, 1, 1, board, null);
 		assertTrue(res == null);
 		
-		res = theCard.useOn(0, 1, 2, board);
+		res = theCard.useOn(0, 1, 2, board, null);
 		assertTrue(res == null);
 		
-		res = theCard.useOn(0, 1, 3, board);
+		res = theCard.useOn(0, 1, 3, board, null);
 		assertTrue(res == null);
 		
-		res = theCard.useOn(0, 1, 0, board);
+		res = theCard.useOn(0, 1, 0, board, null);
 		assertFalse(res == null);
 		assertTrue(res.getNumCards_hand() == 0);
 		assertTrue(res.getNumMinions_p0() == 1);

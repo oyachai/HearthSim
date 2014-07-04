@@ -14,6 +14,8 @@ import com.hearthsim.util.Pair;
 public class BoardStateFactory {
 
 	HashMap<BoardState, Integer> boardMap;
+	final Deck deck_;
+	
 	boolean lethal_;
 	public final long maxTime_;
 	
@@ -27,8 +29,8 @@ public class BoardStateFactory {
 	 * 
 	 * maxThinkTime defaults to 20000 milliseconds (20 seconds)
 	 */
-	public BoardStateFactory() {
-		this(20000);
+	public BoardStateFactory(Deck deck) {
+		this(deck, 20000);
 	}
 	
 	/**
@@ -36,7 +38,8 @@ public class BoardStateFactory {
 	 * 
 	 * @param maxThinkTime The maximum amount of time in milliseconds the factory is allowed to spend on generating the simulation tree.
 	 */
-	public BoardStateFactory(long maxThinkTime) {
+	public BoardStateFactory(Deck deck, long maxThinkTime) {
+		deck_ = deck;
 		boardMap = new HashMap<BoardState, Integer>(1000000);
 		lethal_ = false;
 		startTime_ = System.currentTimeMillis();
@@ -55,7 +58,7 @@ public class BoardStateFactory {
 	 * 
 	 * @return boardStateNode manipulated such that all subsequent actions are children of the original boardStateNode input.
 	 */
-	public HearthTreeNode<BoardState> doMoves(HearthTreeNode<BoardState> boardStateNode, Deck deck) {
+	public HearthTreeNode<BoardState> doMoves(HearthTreeNode<BoardState> boardStateNode) {
 
 		if (System.currentTimeMillis() - startTime_ > maxTime_) {
 			return null;
@@ -70,7 +73,7 @@ public class BoardStateFactory {
 			//If this node already has children, just call doMoves on each of its children.
 			//This situation can happen, for example, atfer a battle cry
 			for (HearthTreeNode<BoardState> child : boardStateNode.getChildren()) {
-				this.doMoves(child, deck);
+				this.doMoves(child);
 			}
 			return boardStateNode;
 		}
@@ -107,7 +110,7 @@ public class BoardStateFactory {
 				card.hasBeenUsed(true);
 			}
 			HearthTreeNode<BoardState> newNode = boardStateNode.addChild(newState);
-			newNode = this.doMoves(newNode, deck);
+			newNode = this.doMoves(newNode);
 		}
 		
 		
@@ -118,19 +121,19 @@ public class BoardStateFactory {
 				for(int i = 0; i <= boardStateNode.data().getNumMinions_p0() + 1; ++i) {
 					BoardState newState = (BoardState)boardStateNode.data().deepCopy();
 					Card card = newState.getCard_hand(ic);
-					newState = card.useOn(ic, 0, i, newState);
+					newState = card.useOn(ic, 0, i, newState, deck_);
 					if (newState != null) {
 						HearthTreeNode<BoardState> newNode = boardStateNode.addChild(newState);
-						newNode = this.doMoves(newNode, deck);
+						newNode = this.doMoves(newNode);
 					}
 				}
 				for(int i = 0; i <= boardStateNode.data().getNumMinions_p1() + 1; ++i) {
 					BoardState newState = (BoardState)boardStateNode.data().deepCopy();
 					Card card = newState.getCard_hand(ic);
-					newState = card.useOn(ic, 1, i, newState);
+					newState = card.useOn(ic, 1, i, newState, deck_);
 					if (newState != null) {
 						HearthTreeNode<BoardState> newNode = boardStateNode.addChild(newState);
-						newNode = this.doMoves(newNode, deck);
+						newNode = this.doMoves(newNode);
 					}
 				}
 			}
@@ -153,7 +156,7 @@ public class BoardStateFactory {
 				minion.hasAttacked(true);
 			}
 			HearthTreeNode<BoardState> newNode = boardStateNode.addChild(newState);
-			newNode = this.doMoves(newNode, deck);
+			newNode = this.doMoves(newNode);
 		}
 		for (int ic = 0; ic < boardStateNode.data().getNumMinions_p0(); ++ic) {
 			final Minion minion = boardStateNode.data().getMinion_p0(ic);
@@ -165,10 +168,10 @@ public class BoardStateFactory {
 				int i = integer.intValue();
 				BoardState tempBoard = (BoardState)boardStateNode.data().deepCopy();
 				Minion tempMinion = tempBoard.getMinion_p0(ic);
-				BoardState newState = tempMinion.useOn(ic, 1, i, tempBoard);
+				BoardState newState = tempMinion.useOn(ic, 1, i, tempBoard, deck_);
 				if (newState != null) {
 					HearthTreeNode<BoardState> newNode = boardStateNode.addChild(newState);
-					newNode = this.doMoves(newNode, deck);
+					newNode = this.doMoves(newNode);
 				}
 			}
 		}

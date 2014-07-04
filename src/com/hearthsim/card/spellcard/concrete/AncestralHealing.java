@@ -1,5 +1,6 @@
 package com.hearthsim.card.spellcard.concrete;
 
+import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.util.BoardState;
@@ -39,7 +40,7 @@ public class AncestralHealing extends SpellCard {
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public BoardState useOn(int thisCardIndex, int playerIndex, int minionIndex, BoardState boardState) {
+	public BoardState useOn(int thisCardIndex, int playerIndex, int minionIndex, BoardState boardState, Deck deck) {
 		if (minionIndex == 0) {
 			//cant't use it on the heroes
 			return null;

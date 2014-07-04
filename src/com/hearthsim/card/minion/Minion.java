@@ -2,6 +2,7 @@ package com.hearthsim.card.minion;
 
 import com.json.*;
 import com.hearthsim.card.Card;
+import com.hearthsim.card.Deck;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.DeepCopyable;
@@ -157,7 +158,7 @@ public class Minion extends Card {
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public BoardState useOn(int thisCardIndex, int playerIndex, int minionIndex, BoardState boardState) {
+	public BoardState useOn(int thisCardIndex, int playerIndex, int minionIndex, BoardState boardState, Deck deck) {
 		
 		if (hasBeenUsed_ && hasAttacked_) {
 			//Card is already used, nothing to do

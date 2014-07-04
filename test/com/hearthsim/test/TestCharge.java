@@ -31,9 +31,9 @@ public class TestCharge {
 		Minion minion = new Minion("" + 0, mana, attack0, health1, attack0, health1, health1, false, false, false, true, false, false, false, false);
 		board.placeMinion_p0(minion);
 		
-		BoardStateFactory factory = new BoardStateFactory();
+		BoardStateFactory factory = new BoardStateFactory(null);
 		HearthTreeNode<BoardState> tree = new HearthTreeNode<BoardState>(board);
-		tree = factory.doMoves(tree, null);
+		tree = factory.doMoves(tree);
 		
 		assertTrue(tree.numChildren() == 3);
 		for (HearthTreeNode<BoardState> child : tree.getChildren()) {
@@ -47,9 +47,9 @@ public class TestCharge {
 		board.placeCard_hand(minion);
 		board.setMana_p0(2);
 		
-		BoardStateFactory factory = new BoardStateFactory();
+		BoardStateFactory factory = new BoardStateFactory(null);
 		HearthTreeNode<BoardState> tree = new HearthTreeNode<BoardState>(board);
-		tree = factory.doMoves(tree, null);
+		tree = factory.doMoves(tree);
 		
 		assertTrue(tree.numChildren() == 2);
 		for (HearthTreeNode<BoardState> child : tree.getChildren()) {

@@ -28,7 +28,9 @@ public class BoardState implements DeepCopyable {
 	int p0_maxMana_;
 	int p1_maxMana_;
 	
-	int deck_pos_;
+	int deckPos_;
+	byte p0_fatigueDamage_;
+	byte p1_fatigueDamage_;
 	
 	public BoardState() {
 		p0_minions_ = new LinkedList<Minion>();
@@ -38,7 +40,9 @@ public class BoardState implements DeepCopyable {
 		p1_mana_ = 0;
 		p0_maxMana_ = 0;
 		p1_maxMana_ = 0;
-		deck_pos_ = 0;
+		deckPos_ = 0;
+		p0_fatigueDamage_ = 1;
+		p1_fatigueDamage_ = 1;
 		
 		p0_hero_ = new Hero("hero0", (byte)30, (byte)30);
 		p1_hero_ = new Hero("hero1", (byte)30, (byte)30);
@@ -201,13 +205,48 @@ public class BoardState implements DeepCopyable {
 		p1_maxMana_ += mana;
 	}
 	
+	/**
+	 * Index of the next card in deck
+	 * 
+	 * Returns the index of the next card to draw from the deck.
+	 * @return
+	 */
 	public int getDeckPos() {
-		return deck_pos_;
+		return deckPos_;
 	}
 	
 	public void setDeckPos(int position) {
-		deck_pos_ = position;
+		deckPos_ = position;
 	}
+	
+	/**
+	 * Get the fatigue damage for player 0
+	 * 
+	 * Returns the fatigue damage taken when a card draw fails next.
+	 * @return
+	 */
+	public byte getFatigueDamage_p0() {
+		return p0_fatigueDamage_;
+	}
+	
+	public void setFatigueDamage_p0(byte damage) {
+		p0_fatigueDamage_ = damage;
+	}
+	
+	/**
+	 * Get the fatigue damage for player 1
+	 * 
+	 * Returns the fatigue damage taken when a card draw fails next.
+	 * @return
+	 */
+	public byte getFatigueDamage_p1() {
+		return p1_fatigueDamage_;
+	}
+	
+	public void setFatigueDamage_p1(byte damage) {
+		p1_fatigueDamage_ = damage;
+	}
+	
 	
 	//various ways to remove cards / minions
 	public Minion removeMinion_p0(Minion minion) {
@@ -315,9 +354,14 @@ public class BoardState implements DeepCopyable {
 		   return false;
 	   }
 	   
-	   if (deck_pos_ != ((BoardState)other).deck_pos_)
+	   if (deckPos_ != ((BoardState)other).deckPos_)
 		   return false;
 
+	   if (p0_fatigueDamage_ != ((BoardState)other).p0_fatigueDamage_)
+		   return false;
+	   
+	   if (p1_fatigueDamage_ != ((BoardState)other).p1_fatigueDamage_)
+		   return false;
 	   
 	   if (p0_minions_.size() != ((BoardState)other).p0_minions_.size()) 
 		   return false;
@@ -441,7 +485,9 @@ public class BoardState implements DeepCopyable {
 		newState.setMaxMana_p0(p1_maxMana);
 		newState.setMaxMana_p1(p0_maxMana);
 		newState.setCards_hand(player1_hand);
-		newState.deck_pos_ = player1_deck_pos;
+		newState.deckPos_ = player1_deck_pos;
+		newState.p0_fatigueDamage_ = p1_fatigueDamage_;
+		newState.p1_fatigueDamage_ = p0_fatigueDamage_;
 		return newState;
 	}
 	
@@ -463,7 +509,9 @@ public class BoardState implements DeepCopyable {
 		newBoard.setHero_p0((Hero)this.p0_hero_.deepCopy());
 		newBoard.setHero_p1((Hero)this.p1_hero_.deepCopy());
 		
-		newBoard.deck_pos_ = this.deck_pos_;
+		newBoard.deckPos_ = this.deckPos_;
+		newBoard.p0_fatigueDamage_ = this.p0_fatigueDamage_;
+		newBoard.p1_fatigueDamage_ = this.p1_fatigueDamage_;
 		newBoard.p0_mana_ = this.p0_mana_;
 		newBoard.p1_mana_ = this.p1_mana_;
 		newBoard.p0_maxMana_ = this.p0_maxMana_;
