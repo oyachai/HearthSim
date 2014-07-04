@@ -178,3 +178,5 @@ eclipse-build
 !/.settings/org.eclipse.jdt.core.prefs
 !/.settings/org.eclipse.jdt.ui.prefs
 /bin
+
+*.json
