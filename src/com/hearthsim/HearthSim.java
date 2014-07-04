@@ -101,8 +101,8 @@ public class HearthSim {
 		p1_wt_a_ = inJson.optDouble("p1_wt_a", 1.0);
 		p1_wt_h_ = inJson.optDouble("p1_wt_h", 1.0);
 		p1_wTaunt_ = inJson.optDouble("p1_w_taunt", 0.0);
-		p1_my_wHeroHealth_ = inJson.optDouble("p1_my_wHeroHealth", 0.1);
-		p1_enemy_wHeroHealth_ = inJson.optDouble("p1_enemy_wHeroHealth", 0.1);
+		p1_my_wHeroHealth_ = inJson.optDouble("p1_my_w_hero_health", 0.1);
+		p1_enemy_wHeroHealth_ = inJson.optDouble("p1_enemy_w_hero_health", 0.1);
 		p1_wMana_ = inJson.optDouble("p1_w_mana", 0.1);
 		p1_wSd_mult_ = inJson.optDouble("p1_w_sd_mult", 1.0);
 		p1_wSd_add_ = inJson.optDouble("p1_w_sd_add", 0.9);
