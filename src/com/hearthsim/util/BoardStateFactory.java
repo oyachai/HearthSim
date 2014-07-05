@@ -168,7 +168,7 @@ public class BoardStateFactory {
 				int i = integer.intValue();
 				BoardState tempBoard = (BoardState)boardStateNode.data().deepCopy();
 				Minion tempMinion = tempBoard.getMinion_p0(ic);
-				BoardState newState = tempMinion.useOn(ic, 1, i, tempBoard, deck_);
+				BoardState newState = tempMinion.attack(ic, 1, i, tempBoard, deck_);
 				if (newState != null) {
 					HearthTreeNode<BoardState> newNode = boardStateNode.addChild(newState);
 					newNode = this.doMoves(newNode);

@@ -9,13 +9,13 @@ import com.hearthsim.util.DeepCopyable;
 
 public class Minion extends Card {
 	
-	boolean taunt_;
-	boolean divineShield_;
-	boolean windFury_;
-	boolean charge_;
+	protected boolean taunt_;
+	protected boolean divineShield_;
+	protected boolean windFury_;
+	protected boolean charge_;
 	
-	boolean hasAttacked_;
-	boolean hasWindFuryAttacked_;
+	protected boolean hasAttacked_;
+	protected boolean hasWindFuryAttacked_;
 
 	
 	protected byte health_;
@@ -130,7 +130,7 @@ public class Minion extends Card {
 		charge_ = value;
 	}
 	
-	public void attack(Minion minion) {
+	public void attacking(Minion minion) {
 		minion.attacked(attack_);
 		this.attacked(minion.getAttack());
  	}
@@ -148,8 +148,6 @@ public class Minion extends Card {
 	 * 
 	 * Use the card on the given target
 	 * 
-	 * The Minion class can have two states: one as a card in the hand, and the other as a minion on the field.
-	 * 
 	 * @param thisCardIndex The index (position) of the card in the hand
 	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
 	 * @param minionIndex The index of the target minion.
@@ -160,63 +158,77 @@ public class Minion extends Card {
 	@Override
 	public BoardState useOn(int thisCardIndex, int playerIndex, int minionIndex, BoardState boardState, Deck deck) {
 		
-		if (hasBeenUsed_ && hasAttacked_) {
+		if (hasBeenUsed_) {
 			//Card is already used, nothing to do
 			return null;
 		}
 		
-		if (playerIndex == 0) {
-			if (isInHand_ && boardState.getNumMinions_p0() < 7) {
-				//not on the board yet... which means the card is in the hand.  So, place it on the specified location.
-				if (minionIndex == 0) {
-					//can't place it to the left of the hero!
-					return null;
-				}
-				if (!charge_) {
-					hasAttacked_ = true;
-				}
-				hasBeenUsed_ = true;
-				boardState.placeMinion_p0(this, minionIndex - 1);
-				boardState.setMana_p0(boardState.getMana_p0() - this.mana_);
-				boardState.removeCard_hand(thisCardIndex);
-				return boardState;
-								
-			} else {
-				//can't attack the player's own minions or the player's own hero
-				return null;				
-			}
-		} else {
+		if (playerIndex == 1)
+			return null;
 		
-			if (!isInHand_) {
-				//already on the board, so use it to attack stuff
-				if (minionIndex == 0) {
-					//To Do:  check for taunts!!!
-					//attack the enemy hero
-					this.attack(boardState.getHero_p1());
-					if (windFury_ && !hasWindFuryAttacked_)
-						hasWindFuryAttacked_ = true;
-					else
-						hasAttacked_ = true;
-					return boardState;
-				} else {
-					Minion target = boardState.getMinion_p1(minionIndex - 1);
-					this.attack(target);
-					if (target.getHealth() <= 0) {
-						boardState.removeMinion_p1(target);
-					}
-					if (health_ <= 0) {
-						boardState.removeMinion_p0(thisCardIndex);
-					}
-					if (windFury_ && !hasWindFuryAttacked_)
-						hasWindFuryAttacked_ = true;
-					else
-						hasAttacked_ = true;
-					return boardState;
-				}
-			} else {
+		if (boardState.getNumMinions_p0() < 7) {
+			//not on the board yet... which means the card is in the hand.  So, place it on the specified location.
+			if (minionIndex == 0) {
+				//can't place it to the left of the hero!
 				return null;
 			}
+			if (!charge_) {
+				hasAttacked_ = true;
+			}
+			hasBeenUsed_ = true;
+			boardState.placeMinion_p0(this, minionIndex - 1);
+			boardState.setMana_p0(boardState.getMana_p0() - this.mana_);
+			boardState.removeCard_hand(thisCardIndex);
+			return boardState;
+							
+		} else {
+			return null;				
 		}
+
+	}
+
+	/**
+	 * 
+	 * Attack with the minion
+	 * 
+	 * @param thisCardIndex The index (position) of the card in the hand
+	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
+	 * @param minionIndex The index of the target minion.
+	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+	 * 
+	 * @return The boardState is manipulated and returned
+	 */
+	public BoardState attack(int thisCardIndex, int playerIndex, int minionIndex, BoardState boardState, Deck deck) {
+		
+		if (hasAttacked_) {
+			//minion has already attacked
+			return null;
+		}
+		
+		if (minionIndex == 0) {
+			//attack the enemy hero
+			this.attacking(boardState.getHero_p1());
+			if (windFury_ && !hasWindFuryAttacked_)
+				hasWindFuryAttacked_ = true;
+			else
+				hasAttacked_ = true;
+			return boardState;
+		} else {
+			Minion target = boardState.getMinion_p1(minionIndex - 1);
+			this.attacking(target);
+			if (target.getHealth() <= 0) {
+				boardState.removeMinion_p1(target);
+			}
+			if (health_ <= 0) {
+				boardState.removeMinion_p0(thisCardIndex);
+			}
+			if (windFury_ && !hasWindFuryAttacked_)
+				hasWindFuryAttacked_ = true;
+			else
+				hasAttacked_ = true;
+			return boardState;
+		}
+
 	}
 
 	@Override
