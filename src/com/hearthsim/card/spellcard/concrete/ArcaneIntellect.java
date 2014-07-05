@@ -57,7 +57,6 @@ public class ArcaneIntellect extends SpellCard {
 			}
 		}
 
-		boardState.removeCard_hand(thisCardIndex);
-		return boardState;
+		return super.useOn(thisCardIndex, playerIndex, minionIndex, boardState, deck);
 	}
 }

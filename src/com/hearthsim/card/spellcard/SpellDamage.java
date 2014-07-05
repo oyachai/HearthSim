@@ -75,7 +75,6 @@ public class SpellDamage extends SpellCard {
 		this.hasBeenUsed(true);
 
 		if (minionIndex == 0) {
-			//To Do:  check for taunts!!!
 			//attack a hero
 			if (playerIndex == 0) {
 				this.attack(boardState.getHero_p0());

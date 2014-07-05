@@ -21,10 +21,7 @@ public class TestArcaneExplosion {
 	@Before
 	public void setup() {
 		board = new BoardState();
-	}
-	
-	@Test
-	public void test0() {
+		
 		Minion minion0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
 		Minion minion1 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
 		Minion minion2 = new Minion("" + 0, mana, attack0, health1, attack0, health1, health1);
@@ -37,6 +34,12 @@ public class TestArcaneExplosion {
 		board.placeMinion_p1(minion2);
 		board.placeMinion_p1(minion3);
 		
+		board.setMana_p0(3);
+	}
+	
+	@Test
+	public void test0() {
+
 		Card theCard = board.getCard_hand(0);
 		BoardState res;
 		
@@ -57,6 +60,7 @@ public class TestArcaneExplosion {
 		
 		res = theCard.useOn(0, 1, 0, board, null);
 		assertFalse(res == null);
+		assertTrue(res.getMana_p0() == 1);
 		assertTrue(res.getNumCards_hand() == 0);
 		assertTrue(res.getNumMinions_p0() == 1);
 		assertTrue(res.getNumMinions_p1() == 2);

@@ -45,7 +45,6 @@ public class Assassinate extends SpellCard {
 		
 		boardState.getMinion_p1(minionIndex - 1).setHealth((byte)0);
 		boardState.removeMinion_p1(minionIndex - 1);
-		boardState.removeCard_hand(thisCardIndex);
-		return boardState;
+		return super.useOn(thisCardIndex, playerIndex, minionIndex, boardState, deck);
 	}
 }

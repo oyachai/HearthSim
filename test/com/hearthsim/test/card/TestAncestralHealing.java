@@ -20,11 +20,6 @@ public class TestAncestralHealing {
 	@Before
 	public void setup() {
 		board = new BoardState();
-	}
-	
-	
-	@Test
-	public void test0() {
 		Minion minion0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
 		Minion minion1 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
 
@@ -32,6 +27,12 @@ public class TestAncestralHealing {
 		board.placeCard_hand(fb);
 		board.placeMinion_p0(minion0);
 		board.placeMinion_p1(minion1);
+		board.setMana_p0(2);
+	}
+	
+	
+	@Test
+	public void test0() {
 		
 		Card theCard = board.getCard_hand(0);
 		BoardState res;
@@ -46,19 +47,13 @@ public class TestAncestralHealing {
 
 	@Test
 	public void test1() {
-		Minion minion0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
-		Minion minion1 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
-
-		AncestralHealing fb = new AncestralHealing();
-		board.placeCard_hand(fb);
-		board.placeMinion_p0(minion0);
-		board.placeMinion_p1(minion1);
 		
 		Card theCard = board.getCard_hand(0);
 		BoardState res;
 		
 		res = theCard.useOn(0, 0, 1, board, null);
 		assertFalse(res == null);
+		assertTrue(res.getMana_p0() == 2);
 		assertTrue(res.getNumCards_hand() == 0);
 		assertTrue(res.getMinion_p0(0).getHealth() == health0);
 		assertTrue(res.getMinion_p0(0).getAttack() == attack0);
@@ -68,19 +63,13 @@ public class TestAncestralHealing {
 
 	@Test
 	public void test2() {
-		Minion minion0 = new Minion("" + 0, mana, attack0, (byte)(health0-2), attack0, health0, health0);
-		Minion minion1 = new Minion("" + 0, mana, attack0, (byte)(health0-2), attack0, health0, health0);
-
-		AncestralHealing fb = new AncestralHealing();
-		board.placeCard_hand(fb);
-		board.placeMinion_p0(minion0);
-		board.placeMinion_p1(minion1);
 		
 		Card theCard = board.getCard_hand(0);
 		BoardState res;
 		
 		res = theCard.useOn(0, 0, 1, board, null);
 		assertFalse(res == null);
+		assertTrue(res.getMana_p0() == 2);
 		assertTrue(res.getNumCards_hand() == 0);
 		assertTrue(res.getMinion_p0(0).getHealth() == health0);
 		assertTrue(res.getMinion_p0(0).getAttack() == attack0);
@@ -90,19 +79,13 @@ public class TestAncestralHealing {
 
 	@Test
 	public void test3() {
-		Minion minion0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
-		Minion minion1 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
-
-		AncestralHealing fb = new AncestralHealing();
-		board.placeCard_hand(fb);
-		board.placeMinion_p0(minion0);
-		board.placeMinion_p1(minion1);
 		
 		Card theCard = board.getCard_hand(0);
 		BoardState res;
 		
 		res = theCard.useOn(0, 1, 1, board, null);
 		assertFalse(res == null);
+		assertTrue(res.getMana_p0() == 2);
 		assertTrue(res.getNumCards_hand() == 0);
 		assertTrue(res.getMinion_p1(0).getHealth() == health0);
 		assertTrue(res.getMinion_p1(0).getAttack() == attack0);
@@ -112,19 +95,13 @@ public class TestAncestralHealing {
 
 	@Test
 	public void test4() {
-		Minion minion0 = new Minion("" + 0, mana, attack0, (byte)(health0-2), attack0, health0, health0);
-		Minion minion1 = new Minion("" + 0, mana, attack0, (byte)(health0-2), attack0, health0, health0);
-
-		AncestralHealing fb = new AncestralHealing();
-		board.placeCard_hand(fb);
-		board.placeMinion_p0(minion0);
-		board.placeMinion_p1(minion1);
 		
 		Card theCard = board.getCard_hand(0);
 		BoardState res;
 		
 		res = theCard.useOn(0, 1, 1, board, null);
 		assertFalse(res == null);
+		assertTrue(res.getMana_p0() == 2);
 		assertTrue(res.getNumCards_hand() == 0);
 		assertTrue(res.getMinion_p1(0).getHealth() == health0);
 		assertTrue(res.getMinion_p1(0).getAttack() == attack0);

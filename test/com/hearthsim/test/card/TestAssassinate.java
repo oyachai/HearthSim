@@ -34,6 +34,8 @@ public class TestAssassinate {
 		board.placeMinion_p1(minion1);
 		board.placeMinion_p1(minion2);
 		board.placeMinion_p1(minion3);
+		
+		board.setMana_p0(10);
 	}
 	
 	@Test
@@ -64,6 +66,7 @@ public class TestAssassinate {
 		assertTrue(res.getNumCards_hand() == 0);
 		assertTrue(res.getNumMinions_p0() == 1);
 		assertTrue(res.getNumMinions_p1() == 2);
+		assertTrue(res.getMana_p0() == 5);
 		assertTrue(res.getMinion_p0(0).getHealth() == health0);
 		assertTrue(res.getMinion_p0(0).getAttack() == attack0);
 		assertTrue(res.getMinion_p1(0).getHealth() == health1);
@@ -102,6 +105,7 @@ public class TestAssassinate {
 		assertTrue(res.getNumCards_hand() == 0);
 		assertTrue(res.getNumMinions_p0() == 1);
 		assertTrue(res.getNumMinions_p1() == 2);
+		assertTrue(res.getMana_p0() == 5);
 		assertTrue(res.getMinion_p0(0).getHealth() == health0);
 		assertTrue(res.getMinion_p0(0).getAttack() == attack0);
 		assertTrue(res.getMinion_p1(0).getHealth() == health0);
@@ -141,6 +145,7 @@ public class TestAssassinate {
 		assertTrue(res.getNumCards_hand() == 0);
 		assertTrue(res.getNumMinions_p0() == 1);
 		assertTrue(res.getNumMinions_p1() == 2);
+		assertTrue(res.getMana_p0() == 5);
 		assertTrue(res.getMinion_p0(0).getHealth() == health0);
 		assertTrue(res.getMinion_p0(0).getAttack() == attack0);
 		assertTrue(res.getMinion_p1(0).getHealth() == health0);

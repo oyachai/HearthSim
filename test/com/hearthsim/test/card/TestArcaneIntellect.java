@@ -23,10 +23,7 @@ public class TestArcaneIntellect {
 	@Before
 	public void setup() {
 		board = new BoardState();
-	}
-	
-	@Test
-	public void test0() {
+		
 		Minion minion0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
 		Minion minion1 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
 		Minion minion2 = new Minion("" + 0, mana, attack0, health1, attack0, health1, health1);
@@ -38,6 +35,13 @@ public class TestArcaneIntellect {
 		board.placeMinion_p1(minion1);
 		board.placeMinion_p1(minion2);
 		board.placeMinion_p1(minion3);
+		
+		board.setMana_p0(5);
+	}
+	
+	@Test
+	public void test0() {
+
 		
 		Card cards[] = new Card[10];
 		for (int index = 0; index < 10; ++index) {
@@ -69,6 +73,7 @@ public class TestArcaneIntellect {
 		assertTrue(res.getNumCards_hand() == 2);
 		assertTrue(res.getNumMinions_p0() == 1);
 		assertTrue(res.getNumMinions_p1() == 3);
+		assertTrue(res.getMana_p0() == 2);
 		assertTrue(res.getMinion_p0(0).getHealth() == health0);
 		assertTrue(res.getMinion_p0(0).getAttack() == attack0);
 		assertTrue(res.getMinion_p1(0).getHealth() == health0);
@@ -84,17 +89,6 @@ public class TestArcaneIntellect {
 
 	@Test
 	public void test1() {
-		Minion minion0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
-		Minion minion1 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
-		Minion minion2 = new Minion("" + 0, mana, attack0, health1, attack0, health1, health1);
-		Minion minion3 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
-
-		ArcaneIntellect fb = new ArcaneIntellect();
-		board.placeCard_hand(fb);
-		board.placeMinion_p0(minion0);
-		board.placeMinion_p1(minion1);
-		board.placeMinion_p1(minion2);
-		board.placeMinion_p1(minion3);
 		
 		Card cards[] = new Card[1];
 		for (int index = 0; index < 1; ++index) {
@@ -126,6 +120,7 @@ public class TestArcaneIntellect {
 		assertTrue(res.getNumCards_hand() == 1);
 		assertTrue(res.getNumMinions_p0() == 1);
 		assertTrue(res.getNumMinions_p1() == 3);
+		assertTrue(res.getMana_p0() == 2);
 		assertTrue(res.getMinion_p0(0).getHealth() == health0);
 		assertTrue(res.getMinion_p0(0).getAttack() == attack0);
 		assertTrue(res.getMinion_p1(0).getHealth() == health0);
@@ -141,18 +136,7 @@ public class TestArcaneIntellect {
 
 	@Test
 	public void test2() {
-		Minion minion0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
-		Minion minion1 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
-		Minion minion2 = new Minion("" + 0, mana, attack0, health1, attack0, health1, health1);
-		Minion minion3 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
 
-		ArcaneIntellect fb = new ArcaneIntellect();
-		board.placeCard_hand(fb);
-		board.placeMinion_p0(minion0);
-		board.placeMinion_p1(minion1);
-		board.placeMinion_p1(minion2);
-		board.placeMinion_p1(minion3);
-		
 		Card cards[] = new Card[0];
 		
 		Deck deck = new Deck(cards);
@@ -180,6 +164,7 @@ public class TestArcaneIntellect {
 		assertTrue(res.getNumCards_hand() == 0);
 		assertTrue(res.getNumMinions_p0() == 1);
 		assertTrue(res.getNumMinions_p1() == 3);
+		assertTrue(res.getMana_p0() == 2);
 		assertTrue(res.getMinion_p0(0).getHealth() == health0);
 		assertTrue(res.getMinion_p0(0).getAttack() == attack0);
 		assertTrue(res.getMinion_p1(0).getHealth() == health0);

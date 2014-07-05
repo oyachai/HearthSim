@@ -54,7 +54,6 @@ public class AncestralHealing extends SpellCard {
 		}
 		targetMinion.setHealth(targetMinion.getMaxHealth());
 		targetMinion.setTaunt(true);
-		boardState.removeCard_hand(thisCardIndex);
-		return boardState;
+		return super.useOn(thisCardIndex, playerIndex, minionIndex, boardState, deck);
 	}
 }
