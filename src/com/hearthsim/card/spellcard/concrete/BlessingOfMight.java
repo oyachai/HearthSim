@@ -3,6 +3,7 @@ package com.hearthsim.card.spellcard.concrete;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.util.BoardState;
+import com.hearthsim.util.HearthTreeNode;
 
 public class BlessingOfMight extends SpellCard {
 	/**
@@ -37,15 +38,15 @@ public class BlessingOfMight extends SpellCard {
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public BoardState useOn(int thisCardIndex, int playerIndex, int minionIndex, BoardState boardState, Deck deck) {
+	public HearthTreeNode<BoardState> useOn(int thisCardIndex, int playerIndex, int minionIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
 		if (minionIndex == 0) {
 			return null;
 		}
 		
 		if (playerIndex == 0) {
-			boardState.getMinion_p0(minionIndex - 1).setAttack((byte)(boardState.getMinion_p0(minionIndex - 1).getAttack() + 3));
+			boardState.data_.getMinion_p0(minionIndex - 1).setAttack((byte)(boardState.data_.getMinion_p0(minionIndex - 1).getAttack() + 3));
 		} else {
-			boardState.getMinion_p1(minionIndex - 1).setAttack((byte)(boardState.getMinion_p1(minionIndex - 1).getAttack() + 3));
+			boardState.data_.getMinion_p1(minionIndex - 1).setAttack((byte)(boardState.data_.getMinion_p1(minionIndex - 1).getAttack() + 3));
 		}
 		return super.useOn(thisCardIndex, playerIndex, minionIndex, boardState, deck);
 	}

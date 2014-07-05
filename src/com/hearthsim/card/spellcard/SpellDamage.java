@@ -4,6 +4,7 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.util.BoardState;
+import com.hearthsim.util.HearthTreeNode;
 import com.json.JSONObject;
 
 public class SpellDamage extends SpellCard {
@@ -66,7 +67,7 @@ public class SpellDamage extends SpellCard {
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public BoardState useOn(int thisCardIndex, int playerIndex, int minionIndex, BoardState boardState, Deck deck) {
+	public HearthTreeNode<BoardState> useOn(int thisCardIndex, int playerIndex, int minionIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
 		if (this.hasBeenUsed()) {
 			//Card is already used, nothing to do
 			return null;
@@ -77,35 +78,35 @@ public class SpellDamage extends SpellCard {
 		if (minionIndex == 0) {
 			//attack a hero
 			if (playerIndex == 0) {
-				this.attack(boardState.getHero_p0());
+				this.attack(boardState.data_.getHero_p0());
 			} else {
-				this.attack(boardState.getHero_p1());
+				this.attack(boardState.data_.getHero_p1());
 			}
-			boardState.setMana_p0(boardState.getMana_p0() - this.mana_);
-			boardState.removeCard_hand(thisCardIndex);
+			boardState.data_.setMana_p0(boardState.data_.getMana_p0() - this.mana_);
+			boardState.data_.removeCard_hand(thisCardIndex);
 			return boardState;
 		} else {
 			Minion target = null;
 			if (playerIndex == 0) {
-				if (boardState.getNumMinions_p0() + 1 > minionIndex)
-					target = boardState.getMinion_p0(minionIndex - 1);
+				if (boardState.data_.getNumMinions_p0() + 1 > minionIndex)
+					target = boardState.data_.getMinion_p0(minionIndex - 1);
 				else
 					return null;
 			} else {
-				if (boardState.getNumMinions_p1() + 1 > minionIndex)
-					target = boardState.getMinion_p1(minionIndex - 1);
+				if (boardState.data_.getNumMinions_p1() + 1 > minionIndex)
+					target = boardState.data_.getMinion_p1(minionIndex - 1);
 				else
 					return null;
 			}
 			this.attack(target);
-			boardState.setMana_p0(boardState.getMana_p0() - this.mana_);
-			boardState.removeCard_hand(thisCardIndex);
+			boardState.data_.setMana_p0(boardState.data_.getMana_p0() - this.mana_);
+			boardState.data_.removeCard_hand(thisCardIndex);
 
 			if (target.getHealth() <= 0) {
 				if (playerIndex == 0)
-					boardState.removeMinion_p0(target);
+					boardState.data_.removeMinion_p0(target);
 				else
-					boardState.removeMinion_p1(target);
+					boardState.data_.removeMinion_p1(target);
 			}
 			return boardState;
 		}

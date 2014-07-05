@@ -3,6 +3,7 @@ package com.hearthsim.card.spellcard.concrete;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.util.BoardState;
+import com.hearthsim.util.HearthTreeNode;
 
 public class Assassinate extends SpellCard {
 
@@ -38,13 +39,13 @@ public class Assassinate extends SpellCard {
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public BoardState useOn(int thisCardIndex, int playerIndex, int minionIndex, BoardState boardState, Deck deck) {
+	public HearthTreeNode<BoardState> useOn(int thisCardIndex, int playerIndex, int minionIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
 		if (playerIndex == 0 || minionIndex == 0) {
 			return null;
 		}
 		
-		boardState.getMinion_p1(minionIndex - 1).setHealth((byte)0);
-		boardState.removeMinion_p1(minionIndex - 1);
+		boardState.data_.getMinion_p1(minionIndex - 1).setHealth((byte)0);
+		boardState.data_.removeMinion_p1(minionIndex - 1);
 		return super.useOn(thisCardIndex, playerIndex, minionIndex, boardState, deck);
 	}
 }

@@ -6,6 +6,7 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.DeepCopyable;
+import com.hearthsim.util.HearthTreeNode;
 
 public class Minion extends Card {
 	
@@ -156,29 +157,25 @@ public class Minion extends Card {
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public BoardState useOn(int thisCardIndex, int playerIndex, int minionIndex, BoardState boardState, Deck deck) {
+	public HearthTreeNode<BoardState> useOn(int thisCardIndex, int playerIndex, int minionIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
 		
 		if (hasBeenUsed_) {
 			//Card is already used, nothing to do
 			return null;
 		}
 		
-		if (playerIndex == 1)
+		if (playerIndex == 1 || minionIndex == 0)
 			return null;
 		
-		if (boardState.getNumMinions_p0() < 7) {
-			//not on the board yet... which means the card is in the hand.  So, place it on the specified location.
-			if (minionIndex == 0) {
-				//can't place it to the left of the hero!
-				return null;
-			}
+		if (boardState.data_.getNumMinions_p0() < 7) {
+
 			if (!charge_) {
 				hasAttacked_ = true;
 			}
 			hasBeenUsed_ = true;
-			boardState.placeMinion_p0(this, minionIndex - 1);
-			boardState.setMana_p0(boardState.getMana_p0() - this.mana_);
-			boardState.removeCard_hand(thisCardIndex);
+			boardState.data_.placeMinion_p0(this, minionIndex - 1);
+			boardState.data_.setMana_p0(boardState.data_.getMana_p0() - this.mana_);
+			boardState.data_.removeCard_hand(thisCardIndex);
 			return boardState;
 							
 		} else {
@@ -198,7 +195,7 @@ public class Minion extends Card {
 	 * 
 	 * @return The boardState is manipulated and returned
 	 */
-	public BoardState attack(int thisCardIndex, int playerIndex, int minionIndex, BoardState boardState, Deck deck) {
+	public HearthTreeNode<BoardState> attack(int thisCardIndex, int playerIndex, int minionIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
 		
 		if (hasAttacked_) {
 			//minion has already attacked
@@ -207,20 +204,20 @@ public class Minion extends Card {
 		
 		if (minionIndex == 0) {
 			//attack the enemy hero
-			this.attacking(boardState.getHero_p1());
+			this.attacking(boardState.data_.getHero_p1());
 			if (windFury_ && !hasWindFuryAttacked_)
 				hasWindFuryAttacked_ = true;
 			else
 				hasAttacked_ = true;
 			return boardState;
 		} else {
-			Minion target = boardState.getMinion_p1(minionIndex - 1);
+			Minion target = boardState.data_.getMinion_p1(minionIndex - 1);
 			this.attacking(target);
 			if (target.getHealth() <= 0) {
-				boardState.removeMinion_p1(target);
+				boardState.data_.removeMinion_p1(target);
 			}
 			if (health_ <= 0) {
-				boardState.removeMinion_p0(thisCardIndex);
+				boardState.data_.removeMinion_p0(thisCardIndex);
 			}
 			if (windFury_ && !hasWindFuryAttacked_)
 				hasWindFuryAttacked_ = true;

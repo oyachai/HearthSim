@@ -150,9 +150,9 @@ public class ArtificialPlayer {
 		BoardState bestPlay = null;
 		double bestScore = -1000000.0;
 		for (final HearthTreeNode<BoardState> node : allMoves.getAllLeaves()) {
-			double score = this.boardScore(node.data());
+			double score = this.boardScore(node.data_);
 			if (score > bestScore) {
-				bestPlay = node.data();
+				bestPlay = node.data_;
 				bestScore = score;
 			}
 		}

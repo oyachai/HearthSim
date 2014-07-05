@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class HearthTreeNode<T> {
 
-	T data_;
+	public final T data_;
 	HearthTreeNode<T> parent_;
 	List<HearthTreeNode<T>> children_;
 	
@@ -50,10 +50,6 @@ public class HearthTreeNode<T> {
 		else {
 			return children_.size();
 		}
-	}
-	
-	public T data() {
-		return data_;
 	}
 	
 	public boolean isLeaf() {

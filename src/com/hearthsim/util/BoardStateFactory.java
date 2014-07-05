@@ -78,17 +78,17 @@ public class BoardStateFactory {
 			return boardStateNode;
 		}
 		
-		if (boardMap.containsKey(boardStateNode.data())) {
+		if (boardMap.containsKey(boardStateNode.data_)) {
 			//no need to continue down this path
 			return null;
 		} else {
 			//add it to the list of known states
-			boardMap.put(boardStateNode.data(), 1);
+			boardMap.put(boardStateNode.data_, 1);
 		}
 		
-		if ((!boardStateNode.data().isAlive_p0()) || (!boardStateNode.data().isAlive_p1())) {
+		if ((!boardStateNode.data_.isAlive_p0()) || (!boardStateNode.data_.isAlive_p1())) {
 			//one of the players is dead, no reason to keep playing
-			if (!boardStateNode.data().isAlive_p1())
+			if (!boardStateNode.data_.isAlive_p1())
 				lethal_ = true;
 			return null;
 		}
@@ -99,13 +99,13 @@ public class BoardStateFactory {
 		
 		//check to see if all the cards have been used already
 		boolean allUsed = true;
-		for (final Card card : boardStateNode.data().getCards_hand()) {
+		for (final Card card : boardStateNode.data_.getCards_hand()) {
 			allUsed = allUsed && card.hasBeenUsed();
 		}
 		
 		//the case where I chose not to use any more cards
 		if (!allUsed) {
-			BoardState newState = (BoardState)boardStateNode.data().deepCopy();
+			BoardState newState = (BoardState)boardStateNode.data_.deepCopy();
 			for (Card card : newState.getCards_hand()) {
 				card.hasBeenUsed(true);
 			}
@@ -114,22 +114,22 @@ public class BoardStateFactory {
 		}
 		
 		
-		int mana = boardStateNode.data().getMana_p0();
-		for (int ic = 0; ic < boardStateNode.data().getNumCards_hand(); ++ic) {
-			if (boardStateNode.data().getCard_hand(ic).getMana() <= mana && !boardStateNode.data().getCard_hand(ic).hasBeenUsed()) {
+		int mana = boardStateNode.data_.getMana_p0();
+		for (int ic = 0; ic < boardStateNode.data_.getNumCards_hand(); ++ic) {
+			if (boardStateNode.data_.getCard_hand(ic).getMana() <= mana && !boardStateNode.data_.getCard_hand(ic).hasBeenUsed()) {
 				//we can use this card!  Let's try using it on everything
-				for(int i = 0; i <= boardStateNode.data().getNumMinions_p0() + 1; ++i) {
-					BoardState newState = (BoardState)boardStateNode.data().deepCopy();
-					Card card = newState.getCard_hand(ic);
+				for(int i = 0; i <= boardStateNode.data_.getNumMinions_p0() + 1; ++i) {
+					HearthTreeNode<BoardState> newState = new HearthTreeNode<BoardState>((BoardState)boardStateNode.data_.deepCopy());
+					Card card = newState.data_.getCard_hand(ic);
 					newState = card.useOn(ic, 0, i, newState, deck_);
 					if (newState != null) {
 						HearthTreeNode<BoardState> newNode = boardStateNode.addChild(newState);
 						newNode = this.doMoves(newNode);
 					}
 				}
-				for(int i = 0; i <= boardStateNode.data().getNumMinions_p1() + 1; ++i) {
-					BoardState newState = (BoardState)boardStateNode.data().deepCopy();
-					Card card = newState.getCard_hand(ic);
+				for(int i = 0; i <= boardStateNode.data_.getNumMinions_p1() + 1; ++i) {
+					HearthTreeNode<BoardState> newState = new HearthTreeNode<BoardState>((BoardState)boardStateNode.data_.deepCopy());
+					Card card = newState.data_.getCard_hand(ic);
 					newState = card.useOn(ic, 1, i, newState, deck_);
 					if (newState != null) {
 						HearthTreeNode<BoardState> newNode = boardStateNode.addChild(newState);
@@ -146,29 +146,29 @@ public class BoardStateFactory {
 		//Use the minions that we have out on the board
 		//the case where I choose to not use any more minions
 		boolean allAttacked = true;
-		for ( final Minion minion : boardStateNode.data().getMinions_p0()) {
+		for ( final Minion minion : boardStateNode.data_.getMinions_p0()) {
 			allAttacked = allAttacked && minion.hasAttacked();
 		}
 		
 		if (!allAttacked) {
-			BoardState newState = (BoardState)boardStateNode.data().deepCopy();
+			BoardState newState = (BoardState)boardStateNode.data_.deepCopy();
 			for (Minion minion : newState.getMinions_p0()) {
 				minion.hasAttacked(true);
 			}
 			HearthTreeNode<BoardState> newNode = boardStateNode.addChild(newState);
 			newNode = this.doMoves(newNode);
 		}
-		for (int ic = 0; ic < boardStateNode.data().getNumMinions_p0(); ++ic) {
-			final Minion minion = boardStateNode.data().getMinion_p0(ic);
+		for (int ic = 0; ic < boardStateNode.data_.getNumMinions_p0(); ++ic) {
+			final Minion minion = boardStateNode.data_.getMinion_p0(ic);
 			if (minion.hasAttacked()) {
 				continue;
 			}
-			ArrayList<Integer> attackable = boardStateNode.data().getAttackableMinions_p1();
+			ArrayList<Integer> attackable = boardStateNode.data_.getAttackableMinions_p1();
 			for(final Integer integer : attackable) {
 				int i = integer.intValue();
-				BoardState tempBoard = (BoardState)boardStateNode.data().deepCopy();
-				Minion tempMinion = tempBoard.getMinion_p0(ic);
-				BoardState newState = tempMinion.attack(ic, 1, i, tempBoard, deck_);
+				HearthTreeNode<BoardState> tempBoard = new HearthTreeNode<BoardState>((BoardState)boardStateNode.data_.deepCopy());
+				Minion tempMinion = tempBoard.data_.getMinion_p0(ic);
+				HearthTreeNode<BoardState> newState = tempMinion.attack(ic, 1, i, tempBoard, deck_);
 				if (newState != null) {
 					HearthTreeNode<BoardState> newNode = boardStateNode.addChild(newState);
 					newNode = this.doMoves(newNode);

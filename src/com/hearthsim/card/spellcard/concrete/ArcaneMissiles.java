@@ -6,6 +6,7 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.util.BoardState;
+import com.hearthsim.util.HearthTreeNode;
 
 public class ArcaneMissiles extends SpellCard {
 	
@@ -41,7 +42,7 @@ public class ArcaneMissiles extends SpellCard {
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public BoardState useOn(int thisCardIndex, int playerIndex, int minionIndex, BoardState boardState, Deck deck) {
+	public HearthTreeNode<BoardState> useOn(int thisCardIndex, int playerIndex, int minionIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
 		if (playerIndex == 0) {
 			return null;
 		}
@@ -52,18 +53,18 @@ public class ArcaneMissiles extends SpellCard {
 		
 		int numMissiles = 3;
 		
-		int numTargets = boardState.getNumMinions_p1() + 1;
+		int numTargets = boardState.data_.getNumMinions_p1() + 1;
 		int index = 0;
 		while(index < numMissiles) {
 			int targetIndex = (int)(numTargets * Math.random());
-			if (targetIndex == 0 && boardState.getHero_p1().getHealth() > 0) {
-				boardState.getHero_p1().setHealth((byte)(boardState.getHero_p1().getHealth() - 1));
+			if (targetIndex == 0 && boardState.data_.getHero_p1().getHealth() > 0) {
+				boardState.data_.getHero_p1().setHealth((byte)(boardState.data_.getHero_p1().getHealth() - 1));
 				++index;
-			} else if (targetIndex > 0 && boardState.getMinion_p1(targetIndex-1).getHealth() > 0) {
-				boardState.getMinion_p1(targetIndex-1).setHealth((byte)(boardState.getMinion_p1(targetIndex-1).getHealth() - 1));
+			} else if (targetIndex > 0 && boardState.data_.getMinion_p1(targetIndex-1).getHealth() > 0) {
+				boardState.data_.getMinion_p1(targetIndex-1).setHealth((byte)(boardState.data_.getMinion_p1(targetIndex-1).getHealth() - 1));
 				++index;
 			}
-			if (boardState.getHero_p1().getHealth() <= 0) {
+			if (boardState.data_.getHero_p1().getHealth() <= 0) {
 				break;
 			}
 		}

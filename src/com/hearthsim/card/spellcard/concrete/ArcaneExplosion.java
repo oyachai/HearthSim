@@ -6,6 +6,7 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.util.BoardState;
+import com.hearthsim.util.HearthTreeNode;
 
 public class ArcaneExplosion extends SpellCard {
 	
@@ -41,7 +42,7 @@ public class ArcaneExplosion extends SpellCard {
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public BoardState useOn(int thisCardIndex, int playerIndex, int minionIndex, BoardState boardState, Deck deck) {
+	public HearthTreeNode<BoardState> useOn(int thisCardIndex, int playerIndex, int minionIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
 		if (playerIndex == 0) {
 			return null;
 		}
@@ -50,7 +51,7 @@ public class ArcaneExplosion extends SpellCard {
 			return null;
 		}
 		
-		Iterator<Minion> iter = boardState.getMinions_p1().iterator();
+		Iterator<Minion> iter = boardState.data_.getMinions_p1().iterator();
 		while (iter.hasNext()) {
 			Minion targetMinion = iter.next();
 			targetMinion.setHealth((byte)(targetMinion.getHealth() - 1));

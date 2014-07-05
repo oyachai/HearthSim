@@ -5,6 +5,7 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.util.BoardState;
+import com.hearthsim.util.HearthTreeNode;
 
 public class ArcaneIntellect extends SpellCard {
 
@@ -40,20 +41,20 @@ public class ArcaneIntellect extends SpellCard {
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public BoardState useOn(int thisCardIndex, int playerIndex, int minionIndex, BoardState boardState, Deck deck) {
+	public HearthTreeNode<BoardState> useOn(int thisCardIndex, int playerIndex, int minionIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
 		if (playerIndex == 1 || minionIndex > 0) {
 			return null;
 		}
 		
 		for (int index = 0; index < 2; ++index) {
-			Card card = deck.drawCard(boardState.getDeckPos());
+			Card card = deck.drawCard(boardState.data_.getDeckPos());
 			if (card == null) {
-				byte fatigueDamage = boardState.getFatigueDamage_p0();
-				boardState.setFatigueDamage_p0((byte)(fatigueDamage + 1));
-				boardState.getHero_p0().setHealth((byte)(boardState.getHero_p0().getHealth() - fatigueDamage));
+				byte fatigueDamage = boardState.data_.getFatigueDamage_p0();
+				boardState.data_.setFatigueDamage_p0((byte)(fatigueDamage + 1));
+				boardState.data_.getHero_p0().setHealth((byte)(boardState.data_.getHero_p0().getHealth() - fatigueDamage));
 			} else {
-				boardState.placeCard_hand(card);
-				boardState.setDeckPos(boardState.getDeckPos() + 1);
+				boardState.data_.placeCard_hand(card);
+				boardState.data_.setDeckPos(boardState.data_.getDeckPos() + 1);
 			}
 		}
 

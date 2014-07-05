@@ -4,6 +4,7 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.util.BoardState;
+import com.hearthsim.util.HearthTreeNode;
 import com.json.JSONObject;
 
 public class AncestralHealing extends SpellCard {
@@ -40,7 +41,7 @@ public class AncestralHealing extends SpellCard {
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public BoardState useOn(int thisCardIndex, int playerIndex, int minionIndex, BoardState boardState, Deck deck) {
+	public HearthTreeNode<BoardState> useOn(int thisCardIndex, int playerIndex, int minionIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
 		if (minionIndex == 0) {
 			//cant't use it on the heroes
 			return null;
@@ -48,9 +49,9 @@ public class AncestralHealing extends SpellCard {
 		
 		Minion targetMinion;
 		if (playerIndex == 0) {
-			targetMinion = boardState.getMinion_p0(minionIndex-1);			
+			targetMinion = boardState.data_.getMinion_p0(minionIndex-1);			
 		} else {
-			targetMinion = boardState.getMinion_p1(minionIndex-1);
+			targetMinion = boardState.data_.getMinion_p1(minionIndex-1);
 		}
 		targetMinion.setHealth(targetMinion.getMaxHealth());
 		targetMinion.setTaunt(true);
