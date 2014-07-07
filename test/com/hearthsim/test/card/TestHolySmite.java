@@ -40,9 +40,9 @@ public class TestHolySmite {
 	@Test
 	public void test0() {
 		HolySmite hs = new HolySmite();
-		board.data_.placeCard_hand(hs);
+		board.data_.placeCard_hand_p0(hs);
 		
-		Card theCard = board.data_.getCard_hand(0);
+		Card theCard = board.data_.getCard_hand_p0(0);
 		theCard.useOn(0, 0, 0, board, null);
 		
 		assertTrue("test0_1", board.data_.getNumCards_hand() == 0);
@@ -59,9 +59,9 @@ public class TestHolySmite {
 	@Test
 	public void test1() {
 		HolySmite hs = new HolySmite();
-		board.data_.placeCard_hand(hs);
+		board.data_.placeCard_hand_p0(hs);
 		
-		Card theCard = board.data_.getCard_hand(0);
+		Card theCard = board.data_.getCard_hand_p0(0);
 		theCard.useOn(0, 1, 0, board, null);
 		
 		assertTrue("test1_1", board.data_.getNumCards_hand() == 0);
@@ -78,9 +78,9 @@ public class TestHolySmite {
 	@Test
 	public void test2() {
 		HolySmite hs = new HolySmite();
-		board.data_.placeCard_hand(hs);
+		board.data_.placeCard_hand_p0(hs);
 		
-		Card theCard = board.data_.getCard_hand(0);
+		Card theCard = board.data_.getCard_hand_p0(0);
 		theCard.useOn(0, 0, 1, board, null);
 		
 		assertTrue("test2_1", board.data_.getNumCards_hand() == 0);
@@ -96,9 +96,9 @@ public class TestHolySmite {
 	@Test
 	public void test3() {
 		HolySmite hs = new HolySmite();
-		board.data_.placeCard_hand(hs);
+		board.data_.placeCard_hand_p0(hs);
 		
-		Card theCard = board.data_.getCard_hand(0);
+		Card theCard = board.data_.getCard_hand_p0(0);
 		theCard.useOn(0, 0, 2, board, null);
 		
 		assertTrue("test3_1", board.data_.getNumCards_hand() == 0);
@@ -115,9 +115,9 @@ public class TestHolySmite {
 	@Test
 	public void test4() {
 		HolySmite hs = new HolySmite();
-		board.data_.placeCard_hand(hs);
+		board.data_.placeCard_hand_p0(hs);
 		
-		Card theCard = board.data_.getCard_hand(0);
+		Card theCard = board.data_.getCard_hand_p0(0);
 		theCard.useOn(0, 1, 1, board, null);
 		
 		assertTrue("test4_1", board.data_.getNumCards_hand() == 0);
@@ -133,9 +133,9 @@ public class TestHolySmite {
 	@Test
 	public void test5() {
 		HolySmite hs = new HolySmite();
-		board.data_.placeCard_hand(hs);
+		board.data_.placeCard_hand_p0(hs);
 		
-		Card theCard = board.data_.getCard_hand(0);
+		Card theCard = board.data_.getCard_hand_p0(0);
 		theCard.useOn(0, 1, 2, board, null);
 		
 		assertTrue("test5_1", board.data_.getNumCards_hand() == 0);

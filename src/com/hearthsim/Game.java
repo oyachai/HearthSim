@@ -13,93 +13,96 @@ public class Game {
 
 	final static int maxTurns_ = 100;
 	
-	BoardState[] boards_;
+	BoardState boardState_;
 	Player[] players_;
 	GameMaster[] gms_;
-	
-	int cur_turn_;
+
+	int curPlayer_;
+	int curTurn_;
 	
 	public Game(Player player0, Player player1, ArtificialPlayer ai0, ArtificialPlayer ai1) {
 		players_ = new Player[2];
 		players_[0] = player0;
 		players_[1] = player1;
-		boards_ = new BoardState[2];
-		boards_[0] = new BoardState();
-		boards_[1] = new BoardState();
+		boardState_ = new BoardState();
 		gms_ = new GameMaster[2];
 		gms_[0] = new GameMaster(ai0);
 		gms_[1] = new GameMaster(ai1);
 	}
 		
 	public BoardState getBoardState(int playerID) {
-		return boards_[playerID];
+		if (playerID == curPlayer_)
+			return boardState_;
+		else
+			return boardState_.flipPlayers();
 	}
 	
 	public int runGame() throws HSException {
-		cur_turn_ = 0;
-				
+		curTurn_ = 0;
+		curPlayer_ = 0;
+		
 		//the first player draws 3 cards
-		boards_[0].placeCard_hand(players_[0].drawFromDeck(0));
-		boards_[0].placeCard_hand(players_[0].drawFromDeck(1));
-		boards_[0].placeCard_hand(players_[0].drawFromDeck(2));
-		boards_[0].setDeckPos(3);
+		boardState_.placeCard_hand_p0(players_[0].drawFromDeck(0));
+		boardState_.placeCard_hand_p0(players_[0].drawFromDeck(1));
+		boardState_.placeCard_hand_p0(players_[0].drawFromDeck(2));
+		boardState_.setDeckPos_p0(3);
 
 		//the second player draws 4 cards
-		boards_[1].placeCard_hand(players_[1].drawFromDeck(0));
-		boards_[1].placeCard_hand(players_[1].drawFromDeck(1));
-		boards_[1].placeCard_hand(players_[1].drawFromDeck(2));
-		boards_[1].placeCard_hand(players_[1].drawFromDeck(3));
-		boards_[1].placeCard_hand(new TheCoin());
-		boards_[1].setDeckPos(4);
+		boardState_.placeCard_hand_p1(players_[1].drawFromDeck(0));
+		boardState_.placeCard_hand_p1(players_[1].drawFromDeck(1));
+		boardState_.placeCard_hand_p1(players_[1].drawFromDeck(2));
+		boardState_.placeCard_hand_p1(players_[1].drawFromDeck(3));
+		boardState_.placeCard_hand_p1(new TheCoin());
+		boardState_.setDeckPos_p1(4);
 		
 		for (int i = 0; i < maxTurns_; ++i) {
 			
-			gms_[0].beginTurn(i, boards_[0], players_[0]);
+			gms_[0].beginTurn(i, boardState_, players_[0]);
 
-			if (!boards_[0].isAlive_p0()) {
+			if (!boardState_.isAlive_p0()) {
 				//player 0 is dead!
 				System.out.println("player 1 wins");
 				return 1;
-			} else if (!boards_[0].isAlive_p1()) {
+			} else if (!boardState_.isAlive_p1()) {
 				System.out.println("player 0 wins");
 				return 0;
 			}
 
-			boards_[0] = gms_[0].playTurn(i, boards_[0], players_[0]);
-			gms_[0].endTurn(i, boards_[0], players_[0]);
+			boardState_ = gms_[0].playTurn(i, boardState_, players_[0]);
+			gms_[0].endTurn(i, boardState_, players_[0]);
 
-			if (!boards_[0].isAlive_p0()) {
+			if (!boardState_.isAlive_p0()) {
 				//player 0 is dead!
 				System.out.println("player 1 wins");
 				return 1;
-			} else if (!boards_[0].isAlive_p1()) {
+			} else if (!boardState_.isAlive_p1()) {
 				System.out.println("player 0 wins");
 				return 0;
 			}
 
-			boards_[1] = boards_[0].flipPlayers(boards_[1].getCards_hand(), boards_[1].getDeckPos());
+			boardState_ = boardState_.flipPlayers();
 
-			gms_[1].beginTurn(i, boards_[1], players_[1]);
+			gms_[1].beginTurn(i, boardState_, players_[1]);
 
-			if (!boards_[1].isAlive_p0()) {
+			if (!boardState_.isAlive_p0()) {
 				//player 0 is dead!
 				System.out.println("player 0 wins");
 				return 0;
-			} else if (!boards_[1].isAlive_p1()) {
+			} else if (!boardState_.isAlive_p1()) {
 				System.out.println("player 1 wins");
 				return 1;
 			}
 
-			boards_[1] = gms_[1].playTurn(i, boards_[1], players_[1]);
-			gms_[1].endTurn(i, boards_[1], players_[1]);
+			boardState_ = gms_[1].playTurn(i, boardState_, players_[1]);
+			gms_[1].endTurn(i, boardState_, players_[1]);
 
-			boards_[0] = boards_[1].flipPlayers(boards_[0].getCards_hand(), boards_[0].getDeckPos());
+			boardState_ = boardState_.flipPlayers();
 			
-			if (!boards_[0].isAlive_p0()) {
+			if (!boardState_.isAlive_p0()) {
 				//player 0 is dead!
 				System.out.println("player 1 wins");
 				return 1;
-			} else if (!boards_[0].isAlive_p1()) {
+			} else if (!boardState_.isAlive_p1()) {
 				System.out.println("player 0 wins");
 				return 0;
 			}

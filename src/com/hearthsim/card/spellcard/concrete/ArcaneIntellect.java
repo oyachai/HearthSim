@@ -47,14 +47,14 @@ public class ArcaneIntellect extends SpellCard {
 		}
 		
 		for (int index = 0; index < 2; ++index) {
-			Card card = deck.drawCard(boardState.data_.getDeckPos());
+			Card card = deck.drawCard(boardState.data_.getDeckPos_p0());
 			if (card == null) {
 				byte fatigueDamage = boardState.data_.getFatigueDamage_p0();
 				boardState.data_.setFatigueDamage_p0((byte)(fatigueDamage + 1));
 				boardState.data_.getHero_p0().setHealth((byte)(boardState.data_.getHero_p0().getHealth() - fatigueDamage));
 			} else {
-				boardState.data_.placeCard_hand(card);
-				boardState.data_.setDeckPos(boardState.data_.getDeckPos() + 1);
+				boardState.data_.placeCard_hand_p0(card);
+				boardState.data_.setDeckPos_p0(boardState.data_.getDeckPos_p0() + 1);
 			}
 		}
 

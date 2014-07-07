@@ -86,7 +86,7 @@ public class TestTaunt {
 		Minion minion1 = new Minion("" + 0, mana, attack0, health1, attack0, health1, health1, true, false, false, false, false, false, false, false);
 
 		board.removeMinion_p0(0);
-		board.placeCard_hand(hs);
+		board.placeCard_hand_p0(hs);
 		board.placeMinion_p1(minion1);
 		
 		BoardStateFactory factory = new BoardStateFactory(null);
@@ -105,7 +105,7 @@ public class TestTaunt {
 		Minion minion1 = new Minion("" + 0, mana, attack0, health1, attack0, health1, health1, true, false, false, false, false, false, false, false);
 
 		board.removeMinion_p0(0);
-		board.placeCard_hand(hs);
+		board.placeCard_hand_p0(hs);
 		board.placeMinion_p1(minion1);
 		board.setMana_p0(2);
 		

@@ -89,7 +89,7 @@ public class ArtificialPlayer {
 		LinkedList<Card> myHandCards;
 		myBoardCards = board.getMinions_p0();
 		opBoardCards = board.getMinions_p1();
-		myHandCards = board.getCards_hand();
+		myHandCards = board.getCards_hand_p0();
 		
 		//my score
 		double myScore = 0.0;

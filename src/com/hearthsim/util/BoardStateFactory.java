@@ -6,10 +6,8 @@ import java.util.HashMap;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.HearthTreeNode;
-import com.hearthsim.util.Pair;
 
 public class BoardStateFactory {
 
@@ -99,14 +97,14 @@ public class BoardStateFactory {
 		
 		//check to see if all the cards have been used already
 		boolean allUsed = true;
-		for (final Card card : boardStateNode.data_.getCards_hand()) {
+		for (final Card card : boardStateNode.data_.getCards_hand_p0()) {
 			allUsed = allUsed && card.hasBeenUsed();
 		}
 		
 		//the case where I chose not to use any more cards
 		if (!allUsed) {
 			BoardState newState = (BoardState)boardStateNode.data_.deepCopy();
-			for (Card card : newState.getCards_hand()) {
+			for (Card card : newState.getCards_hand_p0()) {
 				card.hasBeenUsed(true);
 			}
 			HearthTreeNode<BoardState> newNode = boardStateNode.addChild(newState);
@@ -116,11 +114,11 @@ public class BoardStateFactory {
 		
 		int mana = boardStateNode.data_.getMana_p0();
 		for (int ic = 0; ic < boardStateNode.data_.getNumCards_hand(); ++ic) {
-			if (boardStateNode.data_.getCard_hand(ic).getMana() <= mana && !boardStateNode.data_.getCard_hand(ic).hasBeenUsed()) {
+			if (boardStateNode.data_.getCard_hand_p0(ic).getMana() <= mana && !boardStateNode.data_.getCard_hand_p0(ic).hasBeenUsed()) {
 				//we can use this card!  Let's try using it on everything
 				for(int i = 0; i <= boardStateNode.data_.getNumMinions_p0() + 1; ++i) {
 					HearthTreeNode<BoardState> newState = new HearthTreeNode<BoardState>((BoardState)boardStateNode.data_.deepCopy());
-					Card card = newState.data_.getCard_hand(ic);
+					Card card = newState.data_.getCard_hand_p0(ic);
 					newState = card.useOn(ic, 0, i, newState, deck_);
 					if (newState != null) {
 						HearthTreeNode<BoardState> newNode = boardStateNode.addChild(newState);
@@ -129,7 +127,7 @@ public class BoardStateFactory {
 				}
 				for(int i = 0; i <= boardStateNode.data_.getNumMinions_p1() + 1; ++i) {
 					HearthTreeNode<BoardState> newState = new HearthTreeNode<BoardState>((BoardState)boardStateNode.data_.deepCopy());
-					Card card = newState.data_.getCard_hand(ic);
+					Card card = newState.data_.getCard_hand_p0(ic);
 					newState = card.useOn(ic, 1, i, newState, deck_);
 					if (newState != null) {
 						HearthTreeNode<BoardState> newNode = boardStateNode.addChild(newState);

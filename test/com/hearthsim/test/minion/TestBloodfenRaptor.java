@@ -41,9 +41,9 @@ public class TestBloodfenRaptor {
 	@Test
 	public void test0() {
 		BloodfenRaptor fb = new BloodfenRaptor();
-		board.data_.placeCard_hand(fb);
+		board.data_.placeCard_hand_p0(fb);
 		
-		Card theCard = board.data_.getCard_hand(0);
+		Card theCard = board.data_.getCard_hand_p0(0);
 		HearthTreeNode<BoardState> ret = theCard.useOn(0, 0, 0, board, null);
 		
 		assertTrue("test0_0", ret == null);
@@ -61,9 +61,9 @@ public class TestBloodfenRaptor {
 	@Test
 	public void test1() {
 		BloodfenRaptor fb = new BloodfenRaptor();
-		board.data_.placeCard_hand(fb);
+		board.data_.placeCard_hand_p0(fb);
 		
-		Card theCard = board.data_.getCard_hand(0);
+		Card theCard = board.data_.getCard_hand_p0(0);
 		HearthTreeNode<BoardState> ret = theCard.useOn(0, 1, 0, board, null);
 		
 		assertTrue("test1_0", ret == null);
@@ -81,9 +81,9 @@ public class TestBloodfenRaptor {
 	@Test
 	public void test2() {
 		BloodfenRaptor fb = new BloodfenRaptor();
-		board.data_.placeCard_hand(fb);
+		board.data_.placeCard_hand_p0(fb);
 		
-		Card theCard = board.data_.getCard_hand(0);
+		Card theCard = board.data_.getCard_hand_p0(0);
 		HearthTreeNode<BoardState> ret = theCard.useOn(0, 0, 1, board, null);
 		
 		assertFalse("test2_0", ret == null);
@@ -142,9 +142,9 @@ public class TestBloodfenRaptor {
 	@Test
 	public void test3() {
 		BloodfenRaptor fb = new BloodfenRaptor();
-		board.data_.placeCard_hand(fb);
+		board.data_.placeCard_hand_p0(fb);
 		
-		Card theCard = board.data_.getCard_hand(0);
+		Card theCard = board.data_.getCard_hand_p0(0);
 		HearthTreeNode<BoardState> ret = theCard.useOn(0, 0, 2, board, null);
 		
 		assertFalse("test3_0", ret == null);
@@ -163,9 +163,9 @@ public class TestBloodfenRaptor {
 	@Test
 	public void test4() {
 		BloodfenRaptor fb = new BloodfenRaptor();
-		board.data_.placeCard_hand(fb);
+		board.data_.placeCard_hand_p0(fb);
 		
-		Card theCard = board.data_.getCard_hand(0);
+		Card theCard = board.data_.getCard_hand_p0(0);
 		HearthTreeNode<BoardState> ret = theCard.useOn(0, 0, 3, board, null);
 		
 		assertFalse("test4_0", ret == null);
@@ -184,9 +184,9 @@ public class TestBloodfenRaptor {
 	@Test
 	public void test5() {
 		BloodfenRaptor fb = new BloodfenRaptor();
-		board.data_.placeCard_hand(fb);
+		board.data_.placeCard_hand_p0(fb);
 		
-		Card theCard = board.data_.getCard_hand(0);
+		Card theCard = board.data_.getCard_hand_p0(0);
 		HearthTreeNode<BoardState> ret = theCard.useOn(0, 1, 1, board, null);
 		
 		assertTrue("test5_0", ret == null);
@@ -204,9 +204,9 @@ public class TestBloodfenRaptor {
 	@Test
 	public void test6() {
 		BloodfenRaptor fb = new BloodfenRaptor();
-		board.data_.placeCard_hand(fb);
+		board.data_.placeCard_hand_p0(fb);
 		
-		Card theCard = board.data_.getCard_hand(0);
+		Card theCard = board.data_.getCard_hand_p0(0);
 		HearthTreeNode<BoardState> ret = theCard.useOn(0, 1, 2, board, null);
 		
 		assertTrue("test6_0", ret == null);
@@ -224,9 +224,9 @@ public class TestBloodfenRaptor {
 	@Test
 	public void test7() {
 		BloodfenRaptor fb = new BloodfenRaptor();
-		board.data_.placeCard_hand(fb);
+		board.data_.placeCard_hand_p0(fb);
 		
-		Card theCard = board.data_.getCard_hand(0);
+		Card theCard = board.data_.getCard_hand_p0(0);
 		HearthTreeNode<BoardState> ret = theCard.useOn(0, 1, 3, board, null);
 		
 		assertTrue("test7_0", ret == null);

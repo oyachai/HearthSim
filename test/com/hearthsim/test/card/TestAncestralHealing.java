@@ -25,7 +25,7 @@ public class TestAncestralHealing {
 		Minion minion1 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
 
 		AncestralHealing fb = new AncestralHealing();
-		board.data_.placeCard_hand(fb);
+		board.data_.placeCard_hand_p0(fb);
 		board.data_.placeMinion_p0(minion0);
 		board.data_.placeMinion_p1(minion1);
 		board.data_.setMana_p0(2);
@@ -35,7 +35,7 @@ public class TestAncestralHealing {
 	@Test
 	public void test0() {
 		
-		Card theCard = board.data_.getCard_hand(0);
+		Card theCard = board.data_.getCard_hand_p0(0);
 		HearthTreeNode<BoardState> res;
 		
 		res = theCard.useOn(0, 0, 0, board, null);
@@ -49,7 +49,7 @@ public class TestAncestralHealing {
 	@Test
 	public void test1() {
 		
-		Card theCard = board.data_.getCard_hand(0);
+		Card theCard = board.data_.getCard_hand_p0(0);
 		HearthTreeNode<BoardState> res;
 		
 		res = theCard.useOn(0, 0, 1, board, null);
@@ -65,7 +65,7 @@ public class TestAncestralHealing {
 	@Test
 	public void test2() {
 		
-		Card theCard = board.data_.getCard_hand(0);
+		Card theCard = board.data_.getCard_hand_p0(0);
 		HearthTreeNode<BoardState> res;
 		
 		res = theCard.useOn(0, 0, 1, board, null);
@@ -81,7 +81,7 @@ public class TestAncestralHealing {
 	@Test
 	public void test3() {
 		
-		Card theCard = board.data_.getCard_hand(0);
+		Card theCard = board.data_.getCard_hand_p0(0);
 		HearthTreeNode<BoardState> res;
 		
 		res = theCard.useOn(0, 1, 1, board, null);
@@ -97,7 +97,7 @@ public class TestAncestralHealing {
 	@Test
 	public void test4() {
 		
-		Card theCard = board.data_.getCard_hand(0);
+		Card theCard = board.data_.getCard_hand_p0(0);
 		HearthTreeNode<BoardState> res;
 		
 		res = theCard.useOn(0, 1, 1, board, null);

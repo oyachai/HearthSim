@@ -6,7 +6,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.hearthsim.card.Card;
-import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.concrete.Fireball;
 import com.hearthsim.util.BoardState;
@@ -40,9 +39,9 @@ public class TestFireball {
 	@Test
 	public void test0() {
 		Fireball fb = new Fireball();
-		board.data_.placeCard_hand(fb);
+		board.data_.placeCard_hand_p0(fb);
 		
-		Card theCard = board.data_.getCard_hand(0);
+		Card theCard = board.data_.getCard_hand_p0(0);
 		theCard.useOn(0, 0, 0, board, null);
 		
 		assertTrue("test0_1", board.data_.getNumCards_hand() == 0);
@@ -59,9 +58,9 @@ public class TestFireball {
 	@Test
 	public void test1() {
 		Fireball fb = new Fireball();
-		board.data_.placeCard_hand(fb);
+		board.data_.placeCard_hand_p0(fb);
 		
-		Card theCard = board.data_.getCard_hand(0);
+		Card theCard = board.data_.getCard_hand_p0(0);
 		theCard.useOn(0, 1, 0, board, null);
 		
 		assertTrue("test1_1", board.data_.getNumCards_hand() == 0);
@@ -78,9 +77,9 @@ public class TestFireball {
 	@Test
 	public void test2() {
 		Fireball fb = new Fireball();
-		board.data_.placeCard_hand(fb);
+		board.data_.placeCard_hand_p0(fb);
 		
-		Card theCard = board.data_.getCard_hand(0);
+		Card theCard = board.data_.getCard_hand_p0(0);
 		theCard.useOn(0, 0, 1, board, null);
 		
 		assertTrue("test2_1", board.data_.getNumCards_hand() == 0);
@@ -96,9 +95,9 @@ public class TestFireball {
 	@Test
 	public void test3() {
 		Fireball fb = new Fireball();
-		board.data_.placeCard_hand(fb);
+		board.data_.placeCard_hand_p0(fb);
 		
-		Card theCard = board.data_.getCard_hand(0);
+		Card theCard = board.data_.getCard_hand_p0(0);
 		theCard.useOn(0, 0, 2, board, null);
 		
 		assertTrue("test3_1", board.data_.getNumCards_hand() == 0);
@@ -115,9 +114,9 @@ public class TestFireball {
 	@Test
 	public void test4() {
 		Fireball fb = new Fireball();
-		board.data_.placeCard_hand(fb);
+		board.data_.placeCard_hand_p0(fb);
 		
-		Card theCard = board.data_.getCard_hand(0);
+		Card theCard = board.data_.getCard_hand_p0(0);
 		theCard.useOn(0, 1, 1, board, null);
 		
 		assertTrue("test4_1", board.data_.getNumCards_hand() == 0);
@@ -133,9 +132,9 @@ public class TestFireball {
 	@Test
 	public void test5() {
 		Fireball fb = new Fireball();
-		board.data_.placeCard_hand(fb);
+		board.data_.placeCard_hand_p0(fb);
 		
-		Card theCard = board.data_.getCard_hand(0);
+		Card theCard = board.data_.getCard_hand_p0(0);
 		theCard.useOn(0, 1, 2, board, null);
 		
 		assertTrue("test5_1", board.data_.getNumCards_hand() == 0);

@@ -44,18 +44,18 @@ public class testBoardState {
 		
 		assertTrue(board1.equals(board2));
 		
-		board1.placeCard_hand(cards1[0]);
-		board3.placeCard_hand(cards3[0]);
+		board1.placeCard_hand_p0(cards1[0]);
+		board3.placeCard_hand_p0(cards3[0]);
 
 		assertFalse(board1.equals(board2));
 		assertTrue(board1.equals(board3));
 		
-		board2.placeCard_hand(cards3[0]);
+		board2.placeCard_hand_p0(cards3[0]);
 		assertTrue(board1.equals(board2));
 		
-		board1.placeCard_hand(cards1[1]);
-		board3.placeCard_hand(cards3[1]);
-		board2.placeCard_hand(cards2[1]);
+		board1.placeCard_hand_p0(cards1[1]);
+		board3.placeCard_hand_p0(cards3[1]);
+		board2.placeCard_hand_p0(cards2[1]);
 		assertFalse(board1.equals(board2));
 		assertTrue(board1.equals(board3));
 		
@@ -126,7 +126,7 @@ public class testBoardState {
 			int nm2 = (int)(Math.random() * 2) + 1;
 			
 			for (int j = 0; j < nh; ++j) {
-				boards[i].placeCard_hand(cards1[(int)(Math.random() * numCards1)]);
+				boards[i].placeCard_hand_p0(cards1[(int)(Math.random() * numCards1)]);
 			}
 
 			for (int j = 0; j < nm1; ++j) {

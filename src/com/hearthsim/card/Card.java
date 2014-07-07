@@ -165,7 +165,7 @@ public class Card implements DeepCopyable {
 		//Notify all other cards/characters of the card's use
 		if (toRet != null) {
 			for (int j = 0; j < toRet.data_.getNumCards_hand(); ++j) {
-				toRet = toRet.data_.getCard_hand(j).otherCardUsedEvent(j, toRet, deck);
+				toRet = toRet.data_.getCard_hand_p0(j).otherCardUsedEvent(j, toRet, deck);
 			}
 			toRet = toRet.data_.getHero_p0().otherCardUsedEvent(0, toRet, deck);
 			for (int j = 0; j < toRet.data_.getNumMinions_p0(); ++j) {

@@ -3,13 +3,10 @@ package com.hearthsim.util;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.List;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.player.Player;
-import com.hearthsim.player.playercontroller.ArtificialPlayer;
 
 
 
@@ -19,6 +16,7 @@ public class BoardState implements DeepCopyable {
 	LinkedList<Minion> p1_minions_;
 	
 	LinkedList<Card> p0_hand_;
+	LinkedList<Card> p1_hand_;
 	
 	Hero p0_hero_;
 	Hero p1_hero_;
@@ -28,7 +26,8 @@ public class BoardState implements DeepCopyable {
 	int p0_maxMana_;
 	int p1_maxMana_;
 	
-	int deckPos_;
+	int p0_deckPos_;
+	int p1_deckPos_;
 	byte p0_fatigueDamage_;
 	byte p1_fatigueDamage_;
 	
@@ -36,11 +35,13 @@ public class BoardState implements DeepCopyable {
 		p0_minions_ = new LinkedList<Minion>();
 		p1_minions_ = new LinkedList<Minion>();
 		p0_hand_ = new LinkedList<Card>();
+		p1_hand_ = new LinkedList<Card>();
 		p0_mana_ = 0;
 		p1_mana_ = 0;
 		p0_maxMana_ = 0;
 		p1_maxMana_ = 0;
-		deckPos_ = 0;
+		p0_deckPos_ = 0;
+		p1_deckPos_ = 0;
 		p0_fatigueDamage_ = 1;
 		p1_fatigueDamage_ = 1;
 		
@@ -56,8 +57,12 @@ public class BoardState implements DeepCopyable {
 		return p1_minions_;
 	}
 	
-	public LinkedList<Card> getCards_hand() {
+	public LinkedList<Card> getCards_hand_p0() {
 		return p0_hand_;
+	}
+
+	public LinkedList<Card> getCards_hand_p1() {
+		return p1_hand_;
 	}
 	
 	public Minion getMinion_p0(int index) {
@@ -68,10 +73,14 @@ public class BoardState implements DeepCopyable {
 		return p1_minions_.get(index);
 	}
 	
-	public Card getCard_hand(int index) {
+	public Card getCard_hand_p0(int index) {
 		return p0_hand_.get(index);
 	}
 	
+	public Card getCard_hand_p1(int index) {
+		return p1_hand_.get(index);
+	}
+
 	public void setMinions_p0(LinkedList<Minion> minions) {
 		p0_minions_ = minions;
 	}
@@ -80,10 +89,14 @@ public class BoardState implements DeepCopyable {
 		p1_minions_ = minions;
 	}
 	
-	public void setCards_hand(LinkedList<Card> cards) {
+	public void setCards_hand_p0(LinkedList<Card> cards) {
 		p0_hand_ = cards;
 	}
 	
+	public void setCards_hand_p1(LinkedList<Card> cards) {
+		p1_hand_ = cards;
+	}
+
 	public void setMinion_p0(Minion card, int index) {
 		p0_minions_.set(index, card);
 	}
@@ -128,9 +141,14 @@ public class BoardState implements DeepCopyable {
 		p1_minions_.add(card);
 	}
 	
-	public void placeCard_hand(Card card) {
+	public void placeCard_hand_p0(Card card) {
 		card.isInHand(true);
 		p0_hand_.add(card);
+	}
+
+	public void placeCard_hand_p1(Card card) {
+		card.isInHand(true);
+		p1_hand_.add(card);
 	}
 	
 	public void removeCard_hand(int index) {
@@ -211,14 +229,28 @@ public class BoardState implements DeepCopyable {
 	 * Returns the index of the next card to draw from the deck.
 	 * @return
 	 */
-	public int getDeckPos() {
-		return deckPos_;
+	public int getDeckPos_p0() {
+		return p0_deckPos_;
 	}
 	
-	public void setDeckPos(int position) {
-		deckPos_ = position;
+	public void setDeckPos_p0(int position) {
+		p0_deckPos_ = position;
 	}
 	
+	/**
+	 * Index of the next card in deck
+	 * 
+	 * Returns the index of the next card to draw from the deck.
+	 * @return
+	 */
+	public int getDeckPos_p1() {
+		return p1_deckPos_;
+	}
+	
+	public void setDeckPos_p1(int position) {
+		p1_deckPos_ = position;
+	}
+
 	/**
 	 * Get the fatigue damage for player 0
 	 * 
@@ -354,7 +386,10 @@ public class BoardState implements DeepCopyable {
 		   return false;
 	   }
 	   
-	   if (deckPos_ != ((BoardState)other).deckPos_)
+	   if (p0_deckPos_ != ((BoardState)other).p0_deckPos_)
+		   return false;
+
+	   if (p1_deckPos_ != ((BoardState)other).p1_deckPos_)
 		   return false;
 
 	   if (p0_fatigueDamage_ != ((BoardState)other).p0_fatigueDamage_)
@@ -388,6 +423,12 @@ public class BoardState implements DeepCopyable {
 		   }
 	   }
 	   
+	   for (int i = 0; i < p1_hand_.size(); ++i) {
+		   if (!p1_hand_.get(i).equals(((BoardState)other).p1_hand_.get(i))) {
+			   return false;
+		   }
+	   }
+
 	   // More logic here to be discuss below...
 	   return true;
 	}
@@ -435,7 +476,6 @@ public class BoardState implements DeepCopyable {
 			mh1 += p1_minions_.get(1).getHealth();
 		}
 		res += (mh1 % 20) * 100000000;
-//		System.out.println("hashCode = " + res);
 		return res;
 	}
 	
@@ -465,27 +505,27 @@ public class BoardState implements DeepCopyable {
 		}
 	}
 	
-	public BoardState flipPlayers(LinkedList<Card> player1_hand, int player1_deck_pos) { 
+	public BoardState flipPlayers() { 
 		BoardState newState = (BoardState)this.deepCopy();
 		LinkedList<Minion> p0_minions = newState.getMinions_p0();
 		LinkedList<Minion> p1_minions = newState.getMinions_p1();
-		Hero p0_hero = newState.getHero_p0();
-		Hero p1_hero = newState.getHero_p1();
 		int p0_mana = newState.getMana_p0();
 		int p1_mana = newState.getMana_p1();
 		int p0_maxMana = newState.getMaxMana_p0();
 		int p1_maxMana = newState.getMaxMana_p1();
 
-		newState.setHero_p0(p1_hero);
-		newState.setHero_p1(p0_hero);
+		newState.p0_hero_ = p1_hero_;
+		newState.p1_hero_ = p0_hero_;
 		newState.setMinions_p0(p1_minions);
 		newState.setMinions_p1(p0_minions);
 		newState.setMana_p0(p1_mana);
 		newState.setMana_p1(p0_mana);
 		newState.setMaxMana_p0(p1_maxMana);
 		newState.setMaxMana_p1(p0_maxMana);
-		newState.setCards_hand(player1_hand);
-		newState.deckPos_ = player1_deck_pos;
+		newState.p0_hand_ = p1_hand_;
+		newState.p1_hand_ = p0_hand_;
+		newState.p0_deckPos_ = p1_deckPos_;
+		newState.p1_deckPos_ = p0_deckPos_;
 		newState.p0_fatigueDamage_ = p1_fatigueDamage_;
 		newState.p1_fatigueDamage_ = p0_fatigueDamage_;
 		return newState;
@@ -503,13 +543,18 @@ public class BoardState implements DeepCopyable {
 		}
 		for (final Card card: p0_hand_) {
 			Card tc = (Card)card.deepCopy();
-			newBoard.placeCard_hand(tc);
+			newBoard.placeCard_hand_p0(tc);
+		}
+		for (final Card card: p1_hand_) {
+			Card tc = (Card)card.deepCopy();
+			newBoard.placeCard_hand_p1(tc);
 		}
 		
 		newBoard.setHero_p0((Hero)this.p0_hero_.deepCopy());
 		newBoard.setHero_p1((Hero)this.p1_hero_.deepCopy());
 		
-		newBoard.deckPos_ = this.deckPos_;
+		newBoard.p0_deckPos_ = this.p0_deckPos_;
+		newBoard.p1_deckPos_ = this.p1_deckPos_;
 		newBoard.p0_fatigueDamage_ = this.p0_fatigueDamage_;
 		newBoard.p1_fatigueDamage_ = this.p1_fatigueDamage_;
 		newBoard.p0_mana_ = this.p0_mana_;

@@ -32,7 +32,7 @@ public class TestHoundmaster {
 		Minion minion4 = new Minion("" + 0, mana, attack0, (byte)(health0-2), attack0, health0, health0);
 
 		Houndmaster fb = new Houndmaster();
-		board.data_.placeCard_hand(fb);
+		board.data_.placeCard_hand_p0(fb);
 		board.data_.placeMinion_p0(minion0);
 		board.data_.placeMinion_p0(minion1);
 		board.data_.placeMinion_p1(minion2);
@@ -48,7 +48,7 @@ public class TestHoundmaster {
 
 		Deck deck = null;
 		
-		Card theCard = board.data_.getCard_hand(0);
+		Card theCard = board.data_.getCard_hand_p0(0);
 		HearthTreeNode<BoardState> res;
 		
 		res = theCard.useOn(0, 1, 0, board, deck);

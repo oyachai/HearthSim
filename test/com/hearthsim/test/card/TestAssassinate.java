@@ -30,7 +30,7 @@ public class TestAssassinate {
 		Minion minion3 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
 
 		Assassinate fb = new Assassinate();
-		board.data_.placeCard_hand(fb);
+		board.data_.placeCard_hand_p0(fb);
 		board.data_.placeMinion_p0(minion0);
 		board.data_.placeMinion_p1(minion1);
 		board.data_.placeMinion_p1(minion2);
@@ -50,7 +50,7 @@ public class TestAssassinate {
 		
 		Deck deck = new Deck(cards);
 		
-		Card theCard = board.data_.getCard_hand(0);
+		Card theCard = board.data_.getCard_hand_p0(0);
 		HearthTreeNode<BoardState> res;
 		
 		res = theCard.useOn(0, 1, 0, board, deck);
@@ -89,7 +89,7 @@ public class TestAssassinate {
 		
 		Deck deck = new Deck(cards);
 		
-		Card theCard = board.data_.getCard_hand(0);
+		Card theCard = board.data_.getCard_hand_p0(0);
 		HearthTreeNode<BoardState> res;
 		
 		res = theCard.useOn(0, 1, 0, board, deck);
@@ -129,7 +129,7 @@ public class TestAssassinate {
 		
 		Deck deck = new Deck(cards);
 		
-		Card theCard = board.data_.getCard_hand(0);
+		Card theCard = board.data_.getCard_hand_p0(0);
 		HearthTreeNode<BoardState> res;
 		
 		res = theCard.useOn(0, 1, 0, board, deck);
