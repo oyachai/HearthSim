@@ -33,13 +33,15 @@ public class SpellDamage extends SpellCard {
 			return false;
 		}
 		
-		if (other == null)
-		{
+		if (other == null) {
 			return false;
 		}
 
-		if (this.getClass() != other.getClass())
-		{
+		if (this.getClass() != other.getClass()) {
+			return false;
+		}
+		
+		if (this.damage_ != ((SpellDamage)other).damage_) {
 			return false;
 		}
 
@@ -51,8 +53,8 @@ public class SpellDamage extends SpellCard {
 		return new SpellDamage(this.getName(), this.getMana(), damage_, this.hasBeenUsed());
 	}
 
-	public void attack(Minion minion) {
-		minion.attacked(damage_);
+	public void attack(Minion minion, int targetPlayerIndex, int targetMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
+		minion.takeDamage(damage_, targetPlayerIndex, targetMinionIndex, boardState, deck);
  	}
 	
 	/**
@@ -67,7 +69,7 @@ public class SpellDamage extends SpellCard {
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public HearthTreeNode<BoardState> useOn(int thisCardIndex, int playerIndex, int minionIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
+	public HearthTreeNode<BoardState> use_core(int thisCardIndex, int playerIndex, int minionIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
 		if (this.hasBeenUsed()) {
 			//Card is already used, nothing to do
 			return null;
@@ -78,9 +80,9 @@ public class SpellDamage extends SpellCard {
 		if (minionIndex == 0) {
 			//attack a hero
 			if (playerIndex == 0) {
-				this.attack(boardState.data_.getHero_p0());
+				this.attack(boardState.data_.getHero_p0(), playerIndex, minionIndex, boardState, deck);
 			} else {
-				this.attack(boardState.data_.getHero_p1());
+				this.attack(boardState.data_.getHero_p1(), playerIndex, minionIndex, boardState, deck);
 			}
 			boardState.data_.setMana_p0(boardState.data_.getMana_p0() - this.mana_);
 			boardState.data_.removeCard_hand(thisCardIndex);
@@ -98,7 +100,7 @@ public class SpellDamage extends SpellCard {
 				else
 					return null;
 			}
-			this.attack(target);
+			this.attack(target, playerIndex, minionIndex, boardState, deck);
 			boardState.data_.setMana_p0(boardState.data_.getMana_p0() - this.mana_);
 			boardState.data_.removeCard_hand(thisCardIndex);
 

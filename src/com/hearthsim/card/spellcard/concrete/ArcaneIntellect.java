@@ -41,7 +41,7 @@ public class ArcaneIntellect extends SpellCard {
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public HearthTreeNode<BoardState> useOn(int thisCardIndex, int playerIndex, int minionIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
+	public HearthTreeNode<BoardState> use_core(int thisCardIndex, int playerIndex, int minionIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
 		if (playerIndex == 1 || minionIndex > 0) {
 			return null;
 		}

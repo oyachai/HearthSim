@@ -160,10 +160,66 @@ public class Card implements DeepCopyable {
 	 */
 	public HearthTreeNode<BoardState> useOn(int thisCardIndex, int playerIndex, int minionIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
 		//A generic card does nothing except for consuming mana
+		HearthTreeNode<BoardState> toRet = this.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
+
+		//Notify all other cards/characters of the card's use
+		if (toRet != null) {
+			for (int j = 0; j < toRet.data_.getNumCards_hand(); ++j) {
+				toRet = toRet.data_.getCard_hand(j).otherCardUsedEvent(j, toRet, deck);
+			}
+			toRet = toRet.data_.getHero_p0().otherCardUsedEvent(0, toRet, deck);
+			for (int j = 0; j < toRet.data_.getNumMinions_p0(); ++j) {
+				toRet = toRet.data_.getMinion_p0(j).otherCardUsedEvent(j, toRet, deck);
+			}
+			toRet = toRet.data_.getHero_p1().otherCardUsedEvent(0, toRet, deck);
+			for (int j = 0; j < toRet.data_.getNumMinions_p1(); ++j) {
+				toRet = toRet.data_.getMinion_p1(j).otherCardUsedEvent(j, toRet, deck);
+			}
+		}
+		return toRet;
+	}
+	
+	/**
+	 * 
+	 * Use the card on the given target
+	 * 
+	 * This is the core implementation of card's ability
+	 * 
+	 * @param thisCardIndex The index (position) of the card in the hand
+	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
+	 * @param minionIndex The index of the target minion.
+	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+	 * 
+	 * @return The boardState is manipulated and returned
+	 */
+	protected HearthTreeNode<BoardState> use_core(int thisCardIndex, int playerIndex, int minionIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
+		//A generic card does nothing except for consuming mana
 		boardState.data_.setMana_p0(boardState.data_.getMana_p0() - this.mana_);
 		boardState.data_.removeCard_hand(thisCardIndex);
 		return boardState;
 	}
+	
+	
+	
+	//======================================================================================
+	// Hooks for various events
+	//======================================================================================	
+	/**
+	 * 
+	 * Called whenever another card is used
+	 * 
+	 * @param thisCardIndex The index (position) of the card in the hand
+	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
+	 * @param minionIndex The index of the target minion.
+	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+	 * 
+	 * @return The boardState is manipulated and returned
+	 */
+	protected HearthTreeNode<BoardState> otherCardUsedEvent(int thisCardIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
+		return boardState;
+	}
+
+	
 	
 	
 	

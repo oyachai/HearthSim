@@ -46,7 +46,7 @@ public class BoardStateFactory {
 		curScore_ = -1.e200;
 		maxTime_ = maxThinkTime;
 	}
-	
+
 	/**
 	 * Recursively generate all possible moves
 	 * 

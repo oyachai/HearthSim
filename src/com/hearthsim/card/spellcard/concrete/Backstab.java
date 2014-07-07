@@ -30,7 +30,7 @@ public class Backstab extends SpellDamage {
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public HearthTreeNode<BoardState> useOn(int thisCardIndex, int playerIndex, int minionIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
+	public HearthTreeNode<BoardState> use_core(int thisCardIndex, int playerIndex, int minionIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
 		if (minionIndex == 0)
 			return null;
 		if (playerIndex == 0) {
