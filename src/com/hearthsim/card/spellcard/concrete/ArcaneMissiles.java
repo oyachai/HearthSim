@@ -5,6 +5,7 @@ import java.util.Iterator;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
+import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.HearthTreeNode;
 
@@ -42,7 +43,14 @@ public class ArcaneMissiles extends SpellCard {
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public HearthTreeNode<BoardState> use_core(int thisCardIndex, int playerIndex, int minionIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
+	protected HearthTreeNode<BoardState> use_core(
+			int thisCardIndex,
+			int playerIndex,
+			int minionIndex,
+			HearthTreeNode<BoardState> boardState,
+			Deck deck)
+		throws HSInvalidPlayerIndexException
+	{
 		if (playerIndex == 0) {
 			return null;
 		}
@@ -69,6 +77,6 @@ public class ArcaneMissiles extends SpellCard {
 			}
 		}
 
-		return super.useOn(thisCardIndex, playerIndex, minionIndex, boardState, deck);
+		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
 	}
 }

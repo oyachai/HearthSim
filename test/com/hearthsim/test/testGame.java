@@ -17,7 +17,7 @@ public class testGame {
 	
 
 	@Test
-	public void testGame() {
+	public void testGame0() {
 		
 		int numCardsInDeck_ = 30;
 		byte minionAttack = 1;

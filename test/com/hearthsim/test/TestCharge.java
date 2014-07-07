@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.BoardStateFactory;
 import com.hearthsim.util.HearthTreeNode;
@@ -33,7 +34,12 @@ public class TestCharge {
 		
 		BoardStateFactory factory = new BoardStateFactory(null);
 		HearthTreeNode<BoardState> tree = new HearthTreeNode<BoardState>(board);
-		tree = factory.doMoves(tree);
+		try {
+			tree = factory.doMoves(tree);			
+		} catch (HSInvalidPlayerIndexException e) {
+			e.printStackTrace();
+			assertTrue(false);
+		}
 		
 		assertTrue(tree.numChildren() == 3);
 		for (HearthTreeNode<BoardState> child : tree.getChildren()) {
@@ -49,7 +55,12 @@ public class TestCharge {
 		
 		BoardStateFactory factory = new BoardStateFactory(null);
 		HearthTreeNode<BoardState> tree = new HearthTreeNode<BoardState>(board);
-		tree = factory.doMoves(tree);
+		try {
+			tree = factory.doMoves(tree);
+		} catch (HSInvalidPlayerIndexException e) {
+			e.printStackTrace();
+			assertTrue(false);
+		}
 		
 		assertTrue(tree.numChildren() == 2);
 		for (HearthTreeNode<BoardState> child : tree.getChildren()) {

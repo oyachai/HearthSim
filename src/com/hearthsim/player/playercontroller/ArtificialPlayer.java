@@ -17,6 +17,7 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellDamage;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.player.Player;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.BoardStateFactory;
@@ -164,7 +165,7 @@ public class ArtificialPlayer {
 		return bestPlay;
 	}
 
-	public HearthTreeNode<BoardState> playPossibilities(int turn, BoardState board, Deck deck) {
+	public HearthTreeNode<BoardState> playPossibilities(int turn, BoardState board, Deck deck) throws HSInvalidPlayerIndexException {
 
 		HearthTreeNode<BoardState> toRet = new HearthTreeNode<BoardState>(board);
 		BoardStateFactory factory = new BoardStateFactory(deck);

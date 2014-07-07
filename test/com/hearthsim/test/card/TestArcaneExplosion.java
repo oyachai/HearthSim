@@ -8,6 +8,7 @@ import org.junit.Test;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.concrete.ArcaneExplosion;
+import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.HearthTreeNode;
 
@@ -39,7 +40,7 @@ public class TestArcaneExplosion {
 	}
 	
 	@Test
-	public void test0() {
+	public void test0() throws HSInvalidPlayerIndexException {
 
 		Card theCard = board.data_.getCard_hand_p0(0);
 		HearthTreeNode<BoardState> res;

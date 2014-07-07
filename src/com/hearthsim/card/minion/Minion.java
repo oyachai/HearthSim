@@ -2,6 +2,7 @@ package com.hearthsim.card.minion;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
+import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.HearthTreeNode;
@@ -130,7 +131,7 @@ public class Minion extends Card {
 		charge_ = value;
 	}
 	
-	public void takeDamage(byte damage, int thisMinionIndex, int thisPlayerIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
+	public void takeDamage(byte damage, int thisPlayerIndex, int thisMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) throws HSInvalidPlayerIndexException {
 		if (!divineShield_) {
 			health_ = (byte)(health_ - damage);
 			
@@ -161,7 +162,7 @@ public class Minion extends Card {
 		}
 	}
 	
-	public void takeHeal(byte healAmount, int thisMinionIndex, int thisPlayerIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
+	public void takeHeal(byte healAmount, int thisPlayerIndex, int thisMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) throws HSInvalidPlayerIndexException {
 		
 		if (health_ < maxHealth_) {
 			if (health_ + healAmount > maxHealth_)
@@ -171,13 +172,13 @@ public class Minion extends Card {
 			
 			//Notify all that it the minion is healed
 			HearthTreeNode<BoardState> toRet = boardState;
-			toRet = toRet.data_.getHero_p0().minionHealedEvent(thisPlayerIndex, thisMinionIndex, toRet, deck);
+			toRet = toRet.data_.getHero_p0().minionHealedEvent(0, 0, thisPlayerIndex, thisMinionIndex, toRet, deck);
 			for (int j = 0; j < toRet.data_.getNumMinions_p0(); ++j) {
-				toRet = toRet.data_.getMinion_p0(j).minionHealedEvent(thisPlayerIndex, thisMinionIndex, toRet, deck);
+				toRet = toRet.data_.getMinion_p0(j).minionHealedEvent(0, j + 1, thisPlayerIndex, thisMinionIndex, toRet, deck);
 			}
-			toRet = toRet.data_.getHero_p1().minionHealedEvent(thisPlayerIndex, thisMinionIndex, toRet, deck);
+			toRet = toRet.data_.getHero_p1().minionHealedEvent(0, 0, thisPlayerIndex, thisMinionIndex, toRet, deck);
 			for (int j = 0; j < toRet.data_.getNumMinions_p1(); ++j) {
-				toRet = toRet.data_.getMinion_p1(j).minionHealedEvent(thisPlayerIndex, thisMinionIndex, toRet, deck);
+				toRet = toRet.data_.getMinion_p1(j).minionHealedEvent(0, j + 1, thisPlayerIndex, thisMinionIndex, toRet, deck);
 			}
 			
 		}
@@ -195,7 +196,14 @@ public class Minion extends Card {
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public final HearthTreeNode<BoardState> useOn(int thisCardIndex, int playerIndex, int minionIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
+	public final HearthTreeNode<BoardState> useOn(
+			int thisCardIndex,
+			int playerIndex,
+			int minionIndex,
+			HearthTreeNode<BoardState> boardState,
+			Deck deck)
+		throws HSInvalidPlayerIndexException
+	{
 		//A generic card does nothing except for consuming mana
 		HearthTreeNode<BoardState> toRet = super.useOn(thisCardIndex, playerIndex, minionIndex, boardState, deck);
 		
@@ -226,8 +234,14 @@ public class Minion extends Card {
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	protected HearthTreeNode<BoardState> use_core(int thisCardIndex, int playerIndex, int minionIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
-		
+	protected HearthTreeNode<BoardState> use_core(
+			int thisCardIndex,
+			int playerIndex,
+			int minionIndex,
+			HearthTreeNode<BoardState> boardState,
+			Deck deck)
+		throws HSInvalidPlayerIndexException
+	{
 		if (hasBeenUsed_) {
 			//Card is already used, nothing to do
 			return null;
@@ -264,11 +278,18 @@ public class Minion extends Card {
 	 * 
 	 * @return The boardState is manipulated and returned
 	 */
-	public final HearthTreeNode<BoardState> attack(int thisMinionIndex, int playerIndex, int minionIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
+	public final HearthTreeNode<BoardState> attack(
+			int thisMinionIndex,
+			int playerIndex,
+			int minionIndex,
+			HearthTreeNode<BoardState> boardState,
+			Deck deck)
+		throws HSInvalidPlayerIndexException
+	{
 		
 		//Notify all that an attack is beginning
 		HearthTreeNode<BoardState> toRet = boardState;
-		if (playerIndex == 0 && toRet != null) {
+		if (toRet != null) {
 			//Notify all that a minion is created
 			toRet = toRet.data_.getHero_p0().minionAttackingEvent(0, thisMinionIndex, playerIndex, minionIndex, toRet, deck);
 			for (int j = 0; j < toRet.data_.getNumMinions_p0(); ++j) {
@@ -297,7 +318,14 @@ public class Minion extends Card {
 	 * 
 	 * @return The boardState is manipulated and returned
 	 */
-	protected HearthTreeNode<BoardState> attack_core(int thisMinionIndex, int playerIndex, int minionIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
+	protected HearthTreeNode<BoardState> attack_core(
+			int thisMinionIndex,
+			int playerIndex,
+			int minionIndex,
+			HearthTreeNode<BoardState> boardState,
+			Deck deck)
+		throws HSInvalidPlayerIndexException
+	{
 		
 		if (hasAttacked_) {
 			//minion has already attacked
@@ -422,7 +450,15 @@ public class Minion extends Card {
 	 * 
 	 * @return The boardState is manipulated and returned
 	 */
-	protected HearthTreeNode<BoardState> minionHealedEvent(int healedMinionPlayerIndex, int healedMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
+	protected HearthTreeNode<BoardState> minionHealedEvent(
+			int thisMinionPlayerIndex,
+			int thisMinionIndex,
+			int healedMinionPlayerIndex,
+			int healedMinionIndex,
+			HearthTreeNode<BoardState> boardState,
+			Deck deck)
+		throws HSInvalidPlayerIndexException
+	{
 		return boardState;
 	}
 

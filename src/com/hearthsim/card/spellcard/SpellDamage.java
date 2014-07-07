@@ -1,8 +1,8 @@
 package com.hearthsim.card.spellcard;
 
-import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.HearthTreeNode;
 import com.json.JSONObject;
@@ -53,7 +53,14 @@ public class SpellDamage extends SpellCard {
 		return new SpellDamage(this.getName(), this.getMana(), damage_, this.hasBeenUsed());
 	}
 
-	public void attack(Minion minion, int targetPlayerIndex, int targetMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
+	public void attack(
+			Minion minion,
+			int targetPlayerIndex,
+			int targetMinionIndex,
+			HearthTreeNode<BoardState> boardState,
+			Deck deck)
+		throws HSInvalidPlayerIndexException
+	{
 		minion.takeDamage(damage_, targetPlayerIndex, targetMinionIndex, boardState, deck);
  	}
 	
@@ -69,7 +76,14 @@ public class SpellDamage extends SpellCard {
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public HearthTreeNode<BoardState> use_core(int thisCardIndex, int playerIndex, int minionIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
+	protected HearthTreeNode<BoardState> use_core(
+			int thisCardIndex,
+			int playerIndex,
+			int minionIndex,
+			HearthTreeNode<BoardState> boardState,
+			Deck deck)
+		throws HSInvalidPlayerIndexException
+	{
 		if (this.hasBeenUsed()) {
 			//Card is already used, nothing to do
 			return null;

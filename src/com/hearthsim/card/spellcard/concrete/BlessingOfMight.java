@@ -2,6 +2,7 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.spellcard.SpellCard;
+import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.HearthTreeNode;
 
@@ -38,7 +39,14 @@ public class BlessingOfMight extends SpellCard {
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public HearthTreeNode<BoardState> use_core(int thisCardIndex, int playerIndex, int minionIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
+	protected HearthTreeNode<BoardState> use_core(
+			int thisCardIndex,
+			int playerIndex,
+			int minionIndex,
+			HearthTreeNode<BoardState> boardState,
+			Deck deck)
+		throws HSInvalidPlayerIndexException
+	{
 		if (minionIndex == 0) {
 			return null;
 		}
@@ -48,6 +56,6 @@ public class BlessingOfMight extends SpellCard {
 		} else {
 			boardState.data_.getMinion_p1(minionIndex - 1).setAttack((byte)(boardState.data_.getMinion_p1(minionIndex - 1).getAttack() + 3));
 		}
-		return super.useOn(thisCardIndex, playerIndex, minionIndex, boardState, deck);
+		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
 	}
 }

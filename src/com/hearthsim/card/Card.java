@@ -1,5 +1,6 @@
 package com.hearthsim.card;
 
+import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.HearthTreeNode;
@@ -158,7 +159,14 @@ public class Card implements DeepCopyable {
 	 * 
 	 * @return The boardState is manipulated and returned
 	 */
-	public HearthTreeNode<BoardState> useOn(int thisCardIndex, int playerIndex, int minionIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
+	public HearthTreeNode<BoardState> useOn(
+			int thisCardIndex,
+			int playerIndex,
+			int minionIndex,
+			HearthTreeNode<BoardState> boardState,
+			Deck deck)
+		throws HSInvalidPlayerIndexException
+	{
 		//A generic card does nothing except for consuming mana
 		HearthTreeNode<BoardState> toRet = this.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
 
@@ -192,7 +200,14 @@ public class Card implements DeepCopyable {
 	 * 
 	 * @return The boardState is manipulated and returned
 	 */
-	protected HearthTreeNode<BoardState> use_core(int thisCardIndex, int playerIndex, int minionIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
+	protected HearthTreeNode<BoardState> use_core(
+			int thisCardIndex,
+			int playerIndex,
+			int minionIndex,
+			HearthTreeNode<BoardState> boardState,
+			Deck deck)
+		throws HSInvalidPlayerIndexException
+	{
 		//A generic card does nothing except for consuming mana
 		boardState.data_.setMana_p0(boardState.data_.getMana_p0() - this.mana_);
 		boardState.data_.removeCard_hand(thisCardIndex);

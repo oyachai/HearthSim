@@ -9,6 +9,7 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.BloodfenRaptor;
+import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.HearthTreeNode;
 
@@ -39,7 +40,7 @@ public class TestBloodfenRaptor {
 	}
 	
 	@Test
-	public void test0() {
+	public void test0() throws HSInvalidPlayerIndexException {
 		BloodfenRaptor fb = new BloodfenRaptor();
 		board.data_.placeCard_hand_p0(fb);
 		
@@ -59,7 +60,7 @@ public class TestBloodfenRaptor {
 	}
 	
 	@Test
-	public void test1() {
+	public void test1() throws HSInvalidPlayerIndexException {
 		BloodfenRaptor fb = new BloodfenRaptor();
 		board.data_.placeCard_hand_p0(fb);
 		
@@ -79,7 +80,7 @@ public class TestBloodfenRaptor {
 	}
 	
 	@Test
-	public void test2() {
+	public void test2() throws HSInvalidPlayerIndexException {
 		BloodfenRaptor fb = new BloodfenRaptor();
 		board.data_.placeCard_hand_p0(fb);
 		
@@ -99,17 +100,17 @@ public class TestBloodfenRaptor {
 		assertTrue("test2_10", board.data_.getMinion_p1(1).getHealth() == health1);
 		
 		Minion theAttacker = board.data_.getMinion_p0(0);
-		ret = theAttacker.useOn(0, 0, 0, board, null);
+		ret = theAttacker.useOn(1, 0, 0, board, null);
 		assertTrue("test2", ret == null);
 
 		theAttacker = board.data_.getMinion_p0(0);
-		ret = theAttacker.useOn(0, 1, 0, board, null);
+		ret = theAttacker.useOn(1, 1, 0, board, null);
 		assertTrue("test2", ret == null);
 
 		theAttacker = board.data_.getMinion_p0(0);
 		theAttacker.hasAttacked(false);
 		theAttacker.hasBeenUsed(false);
-		ret = theAttacker.attack(0, 1, 0, board, null);
+		ret = theAttacker.attack(1, 1, 0, board, null);
 		assertFalse("test2_0", ret == null);
 		assertTrue("test2_1", board.data_.getNumCards_hand() == 0);
 		assertTrue("test2_2", board.data_.getNumMinions_p0() == 3);
@@ -126,7 +127,7 @@ public class TestBloodfenRaptor {
 		theAttacker = board.data_.getMinion_p0(0);
 		theAttacker.hasAttacked(false);
 		theAttacker.hasBeenUsed(false);
-		ret = theAttacker.attack(0, 1, 1, board, null);
+		ret = theAttacker.attack(1, 1, 1, board, null);
 		assertFalse("test2_0", ret == null);
 		assertTrue("test2_1", board.data_.getNumCards_hand() == 0);
 		assertTrue("test2_2", board.data_.getNumMinions_p0() == 2);
@@ -140,7 +141,7 @@ public class TestBloodfenRaptor {
 	}
 
 	@Test
-	public void test3() {
+	public void test3() throws HSInvalidPlayerIndexException {
 		BloodfenRaptor fb = new BloodfenRaptor();
 		board.data_.placeCard_hand_p0(fb);
 		
@@ -161,7 +162,7 @@ public class TestBloodfenRaptor {
 	}
 
 	@Test
-	public void test4() {
+	public void test4() throws HSInvalidPlayerIndexException {
 		BloodfenRaptor fb = new BloodfenRaptor();
 		board.data_.placeCard_hand_p0(fb);
 		
@@ -182,7 +183,7 @@ public class TestBloodfenRaptor {
 	}
 
 	@Test
-	public void test5() {
+	public void test5() throws HSInvalidPlayerIndexException {
 		BloodfenRaptor fb = new BloodfenRaptor();
 		board.data_.placeCard_hand_p0(fb);
 		
@@ -202,7 +203,7 @@ public class TestBloodfenRaptor {
 	}
 
 	@Test
-	public void test6() {
+	public void test6() throws HSInvalidPlayerIndexException {
 		BloodfenRaptor fb = new BloodfenRaptor();
 		board.data_.placeCard_hand_p0(fb);
 		
@@ -222,7 +223,7 @@ public class TestBloodfenRaptor {
 	}
 
 	@Test
-	public void test7() {
+	public void test7() throws HSInvalidPlayerIndexException {
 		BloodfenRaptor fb = new BloodfenRaptor();
 		board.data_.placeCard_hand_p0(fb);
 		

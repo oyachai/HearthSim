@@ -2,6 +2,7 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.spellcard.SpellDamage;
+import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.HearthTreeNode;
 
@@ -30,18 +31,25 @@ public class Backstab extends SpellDamage {
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public HearthTreeNode<BoardState> use_core(int thisCardIndex, int playerIndex, int minionIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
+	protected HearthTreeNode<BoardState> use_core(
+			int thisCardIndex,
+			int playerIndex,
+			int minionIndex,
+			HearthTreeNode<BoardState> boardState,
+			Deck deck)
+		throws HSInvalidPlayerIndexException
+	{
 		if (minionIndex == 0)
 			return null;
 		if (playerIndex == 0) {
 			if (boardState.data_.getMinion_p0(minionIndex - 1).getHealth() == boardState.data_.getMinion_p0(minionIndex-1).getMaxHealth()) {
-				return super.useOn(thisCardIndex, playerIndex, minionIndex, boardState, deck);
+				return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
 			} else {
 				return null;
 			}
 		} else {
 			if (boardState.data_.getMinion_p1(minionIndex - 1).getHealth() == boardState.data_.getMinion_p1(minionIndex-1).getMaxHealth()) {
-				return super.useOn(thisCardIndex, playerIndex, minionIndex, boardState, deck);
+				return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
 			} else {
 				return null;
 			}

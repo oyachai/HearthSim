@@ -6,6 +6,7 @@ import java.util.HashMap;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.HearthTreeNode;
 
@@ -56,7 +57,7 @@ public class BoardStateFactory {
 	 * 
 	 * @return boardStateNode manipulated such that all subsequent actions are children of the original boardStateNode input.
 	 */
-	public HearthTreeNode<BoardState> doMoves(HearthTreeNode<BoardState> boardStateNode) {
+	public HearthTreeNode<BoardState> doMoves(HearthTreeNode<BoardState> boardStateNode) throws HSInvalidPlayerIndexException {
 
 		if (System.currentTimeMillis() - startTime_ > maxTime_) {
 			return null;
@@ -156,8 +157,8 @@ public class BoardStateFactory {
 			HearthTreeNode<BoardState> newNode = boardStateNode.addChild(newState);
 			newNode = this.doMoves(newNode);
 		}
-		for (int ic = 0; ic < boardStateNode.data_.getNumMinions_p0(); ++ic) {
-			final Minion minion = boardStateNode.data_.getMinion_p0(ic);
+		for (int ic = 1; ic < boardStateNode.data_.getNumMinions_p0() + 1; ++ic) {
+			final Minion minion = boardStateNode.data_.getMinion_p0(ic-1);
 			if (minion.hasAttacked()) {
 				continue;
 			}
@@ -165,7 +166,7 @@ public class BoardStateFactory {
 			for(final Integer integer : attackable) {
 				int i = integer.intValue();
 				HearthTreeNode<BoardState> tempBoard = new HearthTreeNode<BoardState>((BoardState)boardStateNode.data_.deepCopy());
-				Minion tempMinion = tempBoard.data_.getMinion_p0(ic);
+				Minion tempMinion = tempBoard.data_.getMinion_p0(ic-1);
 				HearthTreeNode<BoardState> newState = tempMinion.attack(ic, 1, i, tempBoard, deck_);
 				if (newState != null) {
 					HearthTreeNode<BoardState> newNode = boardStateNode.addChild(newState);

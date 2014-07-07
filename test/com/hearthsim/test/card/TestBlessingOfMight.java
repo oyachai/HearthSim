@@ -9,6 +9,7 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.concrete.BlessingOfMight;
+import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.HearthTreeNode;
 
@@ -40,7 +41,7 @@ public class TestBlessingOfMight {
 	}
 	
 	@Test
-	public void test0() {
+	public void test0() throws HSInvalidPlayerIndexException {
 
 		Deck deck = null;
 		
@@ -73,7 +74,7 @@ public class TestBlessingOfMight {
 	}
 	
 	@Test
-	public void test1() {
+	public void test1() throws HSInvalidPlayerIndexException {
 
 		Deck deck = null;
 		
@@ -99,7 +100,7 @@ public class TestBlessingOfMight {
 	}
 	
 	@Test
-	public void test2() {
+	public void test2() throws HSInvalidPlayerIndexException {
 
 		Deck deck = null;
 		

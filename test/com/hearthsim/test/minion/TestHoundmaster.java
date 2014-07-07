@@ -10,6 +10,7 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Beast;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.Houndmaster;
+import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.HearthTreeNode;
 
@@ -43,7 +44,7 @@ public class TestHoundmaster {
 	}
 	
 	@Test
-	public void test0() {
+	public void test0() throws HSInvalidPlayerIndexException {
 
 
 		Deck deck = null;

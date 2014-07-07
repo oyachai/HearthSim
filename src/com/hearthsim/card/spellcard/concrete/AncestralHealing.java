@@ -3,6 +3,7 @@ package com.hearthsim.card.spellcard.concrete;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
+import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.HearthTreeNode;
 import com.json.JSONObject;
@@ -41,7 +42,14 @@ public class AncestralHealing extends SpellCard {
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public HearthTreeNode<BoardState> use_core(int thisCardIndex, int playerIndex, int minionIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
+	protected HearthTreeNode<BoardState> use_core(
+			int thisCardIndex,
+			int playerIndex,
+			int minionIndex,
+			HearthTreeNode<BoardState> boardState,
+			Deck deck)
+		throws HSInvalidPlayerIndexException
+	{
 		if (minionIndex == 0) {
 			//cant't use it on the heroes
 			return null;
@@ -55,6 +63,6 @@ public class AncestralHealing extends SpellCard {
 		}
 		targetMinion.setHealth(targetMinion.getMaxHealth());
 		targetMinion.setTaunt(true);
-		return super.useOn(thisCardIndex, playerIndex, minionIndex, boardState, deck);
+		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
 	}
 }

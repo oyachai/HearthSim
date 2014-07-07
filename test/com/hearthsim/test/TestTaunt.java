@@ -10,6 +10,7 @@ import com.hearthsim.util.BoardState;
 import com.hearthsim.util.BoardStateFactory;
 import com.hearthsim.util.HearthTreeNode;
 import com.hearthsim.card.spellcard.concrete.*;
+import com.hearthsim.exception.HSInvalidPlayerIndexException;
 
 public class TestTaunt {
 	
@@ -36,7 +37,12 @@ public class TestTaunt {
 		
 		BoardStateFactory factory = new BoardStateFactory(null);
 		HearthTreeNode<BoardState> tree = new HearthTreeNode<BoardState>(board);
-		tree = factory.doMoves(tree);
+		try {
+			tree = factory.doMoves(tree);
+		} catch (HSInvalidPlayerIndexException e) {
+			e.printStackTrace();
+			assertTrue(false);
+		}
 		
 		assertTrue("test0", tree.numChildren() == 2);
 		for (HearthTreeNode<BoardState> child : tree.getChildren()) {
@@ -53,7 +59,12 @@ public class TestTaunt {
 		
 		BoardStateFactory factory = new BoardStateFactory(null);
 		HearthTreeNode<BoardState> tree = new HearthTreeNode<BoardState>(board);
-		tree = factory.doMoves(tree);
+		try {
+			tree = factory.doMoves(tree);
+		} catch (HSInvalidPlayerIndexException e) {
+			e.printStackTrace();
+			assertTrue(false);
+		}
 		
 		assertTrue("test1", tree.numChildren() == 2);
 		for (HearthTreeNode<BoardState> child : tree.getChildren()) {
@@ -72,7 +83,12 @@ public class TestTaunt {
 		
 		BoardStateFactory factory = new BoardStateFactory(null);
 		HearthTreeNode<BoardState> tree = new HearthTreeNode<BoardState>(board);
-		tree = factory.doMoves(tree);
+		try {
+			tree = factory.doMoves(tree);
+		} catch (HSInvalidPlayerIndexException e) {
+			e.printStackTrace();
+			assertTrue(false);
+		}
 		
 		assertTrue("test2", tree.numChildren() == 3);
 		for (HearthTreeNode<BoardState> child : tree.getChildren()) {
@@ -91,7 +107,12 @@ public class TestTaunt {
 		
 		BoardStateFactory factory = new BoardStateFactory(null);
 		HearthTreeNode<BoardState> tree = new HearthTreeNode<BoardState>(board);
-		tree = factory.doMoves(tree);
+		try {
+			tree = factory.doMoves(tree);
+		} catch (HSInvalidPlayerIndexException e) {
+			e.printStackTrace();
+			assertTrue(false);
+		}
 				
 		assertTrue("test3", tree.numChildren() == 1);
 		for (HearthTreeNode<BoardState> child : tree.getChildren()) {
@@ -100,7 +121,7 @@ public class TestTaunt {
 	}
 
 	@Test
-	public void test4() {
+	public void test4() throws HSInvalidPlayerIndexException {
 		HolySmite hs = new HolySmite();
 		Minion minion1 = new Minion("" + 0, mana, attack0, health1, attack0, health1, health1, true, false, false, false, false, false, false, false);
 
@@ -111,8 +132,12 @@ public class TestTaunt {
 		
 		BoardStateFactory factory = new BoardStateFactory(null);
 		HearthTreeNode<BoardState> tree = new HearthTreeNode<BoardState>(board);
-		tree = factory.doMoves(tree);
-				
+		try {
+			tree = factory.doMoves(tree);
+		} catch (HSInvalidPlayerIndexException e) {
+			e.printStackTrace();
+			assertTrue(false);
+		}				
 		assertTrue("test4", tree.numChildren() == 4);
 		for (HearthTreeNode<BoardState> child : tree.getChildren()) {
 			assertTrue("test4", child.numChildren() == 0);

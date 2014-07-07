@@ -8,6 +8,7 @@ import org.junit.Test;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.concrete.AncestralHealing;
+import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.HearthTreeNode;
 
@@ -38,11 +39,21 @@ public class TestAncestralHealing {
 		Card theCard = board.data_.getCard_hand_p0(0);
 		HearthTreeNode<BoardState> res;
 		
-		res = theCard.useOn(0, 0, 0, board, null);
-		assertTrue(res == null);
+		try {
+			res = theCard.useOn(0, 0, 0, board, null);
+			assertTrue(res == null);
+		} catch (HSInvalidPlayerIndexException e) {
+			e.printStackTrace();
+			assertTrue(false);
+		}
 		
-		res = theCard.useOn(0, 1, 0, board, null);
-		assertTrue(res == null);
+		try {
+			res = theCard.useOn(0, 1, 0, board, null);
+			assertTrue(res == null);
+		} catch (HSInvalidPlayerIndexException e) {
+			e.printStackTrace();
+			assertTrue(false);
+		}
 		
 	}
 
@@ -52,14 +63,19 @@ public class TestAncestralHealing {
 		Card theCard = board.data_.getCard_hand_p0(0);
 		HearthTreeNode<BoardState> res;
 		
-		res = theCard.useOn(0, 0, 1, board, null);
-		assertFalse(res == null);
-		assertTrue(res.data_.getMana_p0() == 2);
-		assertTrue(res.data_.getNumCards_hand() == 0);
-		assertTrue(res.data_.getMinion_p0(0).getHealth() == health0);
-		assertTrue(res.data_.getMinion_p0(0).getAttack() == attack0);
-		assertTrue(res.data_.getMinion_p0(0).getMaxHealth() == health0);
-		assertTrue(res.data_.getMinion_p0(0).getTaunt());
+		try {
+			res = theCard.useOn(0, 0, 1, board, null);
+			assertFalse(res == null);
+			assertTrue(res.data_.getMana_p0() == 2);
+			assertTrue(res.data_.getNumCards_hand() == 0);
+			assertTrue(res.data_.getMinion_p0(0).getHealth() == health0);
+			assertTrue(res.data_.getMinion_p0(0).getAttack() == attack0);
+			assertTrue(res.data_.getMinion_p0(0).getMaxHealth() == health0);
+			assertTrue(res.data_.getMinion_p0(0).getTaunt());
+		} catch (HSInvalidPlayerIndexException e) {
+			e.printStackTrace();
+			assertTrue(false);
+		}
 	}
 
 	@Test
@@ -68,14 +84,19 @@ public class TestAncestralHealing {
 		Card theCard = board.data_.getCard_hand_p0(0);
 		HearthTreeNode<BoardState> res;
 		
-		res = theCard.useOn(0, 0, 1, board, null);
-		assertFalse(res == null);
-		assertTrue(res.data_.getMana_p0() == 2);
-		assertTrue(res.data_.getNumCards_hand() == 0);
-		assertTrue(res.data_.getMinion_p0(0).getHealth() == health0);
-		assertTrue(res.data_.getMinion_p0(0).getAttack() == attack0);
-		assertTrue(res.data_.getMinion_p0(0).getMaxHealth() == health0);
-		assertTrue(res.data_.getMinion_p0(0).getTaunt());
+		try {
+			res = theCard.useOn(0, 0, 1, board, null);
+			assertFalse(res == null);
+			assertTrue(res.data_.getMana_p0() == 2);
+			assertTrue(res.data_.getNumCards_hand() == 0);
+			assertTrue(res.data_.getMinion_p0(0).getHealth() == health0);
+			assertTrue(res.data_.getMinion_p0(0).getAttack() == attack0);
+			assertTrue(res.data_.getMinion_p0(0).getMaxHealth() == health0);
+			assertTrue(res.data_.getMinion_p0(0).getTaunt());
+		} catch (HSInvalidPlayerIndexException e) {
+			e.printStackTrace();
+			assertTrue(false);
+		}
 	}
 
 	@Test
@@ -84,14 +105,19 @@ public class TestAncestralHealing {
 		Card theCard = board.data_.getCard_hand_p0(0);
 		HearthTreeNode<BoardState> res;
 		
-		res = theCard.useOn(0, 1, 1, board, null);
-		assertFalse(res == null);
-		assertTrue(res.data_.getMana_p0() == 2);
-		assertTrue(res.data_.getNumCards_hand() == 0);
-		assertTrue(res.data_.getMinion_p1(0).getHealth() == health0);
-		assertTrue(res.data_.getMinion_p1(0).getAttack() == attack0);
-		assertTrue(res.data_.getMinion_p1(0).getMaxHealth() == health0);
-		assertTrue(res.data_.getMinion_p1(0).getTaunt());
+		try {
+			res = theCard.useOn(0, 1, 1, board, null);
+			assertFalse(res == null);
+			assertTrue(res.data_.getMana_p0() == 2);
+			assertTrue(res.data_.getNumCards_hand() == 0);
+			assertTrue(res.data_.getMinion_p1(0).getHealth() == health0);
+			assertTrue(res.data_.getMinion_p1(0).getAttack() == attack0);
+			assertTrue(res.data_.getMinion_p1(0).getMaxHealth() == health0);
+			assertTrue(res.data_.getMinion_p1(0).getTaunt());
+		} catch (HSInvalidPlayerIndexException e) {
+			e.printStackTrace();
+			assertTrue(false);
+		}
 	}
 
 	@Test
@@ -100,13 +126,18 @@ public class TestAncestralHealing {
 		Card theCard = board.data_.getCard_hand_p0(0);
 		HearthTreeNode<BoardState> res;
 		
-		res = theCard.useOn(0, 1, 1, board, null);
-		assertFalse(res == null);
-		assertTrue(res.data_.getMana_p0() == 2);
-		assertTrue(res.data_.getNumCards_hand() == 0);
-		assertTrue(res.data_.getMinion_p1(0).getHealth() == health0);
-		assertTrue(res.data_.getMinion_p1(0).getAttack() == attack0);
-		assertTrue(res.data_.getMinion_p1(0).getMaxHealth() == health0);
-		assertTrue(res.data_.getMinion_p1(0).getTaunt());
+		try {
+			res = theCard.useOn(0, 1, 1, board, null);
+			assertFalse(res == null);
+			assertTrue(res.data_.getMana_p0() == 2);
+			assertTrue(res.data_.getNumCards_hand() == 0);
+			assertTrue(res.data_.getMinion_p1(0).getHealth() == health0);
+			assertTrue(res.data_.getMinion_p1(0).getAttack() == attack0);
+			assertTrue(res.data_.getMinion_p1(0).getMaxHealth() == health0);
+			assertTrue(res.data_.getMinion_p1(0).getTaunt());
+		} catch (HSInvalidPlayerIndexException e) {
+			e.printStackTrace();
+			assertTrue(false);
+		}
 	}
 }

@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.exception.HSInvalidPlayerIndexException;
 
 
 
@@ -221,6 +222,30 @@ public class BoardState implements DeepCopyable {
 	
 	public void addMaxMana_p1(int mana) {
 		p1_maxMana_ += mana;
+	}
+	
+	/**
+	 * Index of the next card in deck
+	 * 
+	 * Returns the index of the next card to draw from the deck.
+	 * @return
+	 */
+	public int getDeckPos(int playerIndex) throws HSInvalidPlayerIndexException {
+		if (playerIndex == 0)
+			return p0_deckPos_;
+		else if (playerIndex == 1)
+			return p1_deckPos_;
+		else
+			return -1;
+	}
+	
+	public void setDeckPos(int playerIndex, int position) throws HSInvalidPlayerIndexException {
+		if (playerIndex == 0)
+			p0_deckPos_ = position;
+		else if (playerIndex == 1)
+			p1_deckPos_ = position;
+		else
+			return;
 	}
 	
 	/**

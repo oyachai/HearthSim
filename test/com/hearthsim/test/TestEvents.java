@@ -8,6 +8,7 @@ import org.junit.Test;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.BloodfenRaptor;
+import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.HearthTreeNode;
 
@@ -41,9 +42,15 @@ public class TestEvents {
 	public void test0() {
 
 		Minion minion = board.data_.getMinion_p0(0);
-		HearthTreeNode<BoardState> ret = minion.attack(0, 1, 1, board, null);
+		HearthTreeNode<BoardState> ret;
+		try {
+			ret = minion.attack(0, 1, 1, board, null);
+			assertFalse("test0_0", ret == null);
+		} catch (HSInvalidPlayerIndexException e) {
+			e.printStackTrace();
+			assertTrue(false);
+		}
 		
-		assertFalse("test0_0", ret == null);
 
 	}
 
