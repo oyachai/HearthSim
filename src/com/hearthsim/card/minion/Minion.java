@@ -176,9 +176,9 @@ public class Minion extends Card {
 			for (int j = 0; j < toRet.data_.getNumMinions_p0(); ++j) {
 				toRet = toRet.data_.getMinion_p0(j).minionHealedEvent(0, j + 1, thisPlayerIndex, thisMinionIndex, toRet, deck);
 			}
-			toRet = toRet.data_.getHero_p1().minionHealedEvent(0, 0, thisPlayerIndex, thisMinionIndex, toRet, deck);
+			toRet = toRet.data_.getHero_p1().minionHealedEvent(1, 0, thisPlayerIndex, thisMinionIndex, toRet, deck);
 			for (int j = 0; j < toRet.data_.getNumMinions_p1(); ++j) {
-				toRet = toRet.data_.getMinion_p1(j).minionHealedEvent(0, j + 1, thisPlayerIndex, thisMinionIndex, toRet, deck);
+				toRet = toRet.data_.getMinion_p1(j).minionHealedEvent(1, j + 1, thisPlayerIndex, thisMinionIndex, toRet, deck);
 			}
 			
 		}

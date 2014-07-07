@@ -142,6 +142,16 @@ public class BoardState implements DeepCopyable {
 		p1_minions_.add(card);
 	}
 	
+	public void placeCard_hand(int playerIndex, Card card) throws HSInvalidPlayerIndexException {
+		card.isInHand(true);
+		if (playerIndex == 0)
+			p0_hand_.add(card);
+		else if (playerIndex == 1)
+			p1_hand_.add(card);
+		else
+			throw new HSInvalidPlayerIndexException();
+	}
+	
 	public void placeCard_hand_p0(Card card) {
 		card.isInHand(true);
 		p0_hand_.add(card);
@@ -166,6 +176,15 @@ public class BoardState implements DeepCopyable {
 	
 	public int getNumCards_hand() {
 		return p0_hand_.size();
+	}
+	
+	public Hero getHero(int playerIndex) throws HSInvalidPlayerIndexException {
+		if (playerIndex == 0)
+			return p0_hero_;
+		else if (playerIndex == 1)
+			return p1_hero_;
+		else
+			throw new HSInvalidPlayerIndexException();
 	}
 	
 	public Hero getHero_p0() {
@@ -236,7 +255,7 @@ public class BoardState implements DeepCopyable {
 		else if (playerIndex == 1)
 			return p1_deckPos_;
 		else
-			return -1;
+			throw new HSInvalidPlayerIndexException();
 	}
 	
 	public void setDeckPos(int playerIndex, int position) throws HSInvalidPlayerIndexException {
@@ -245,7 +264,7 @@ public class BoardState implements DeepCopyable {
 		else if (playerIndex == 1)
 			p1_deckPos_ = position;
 		else
-			return;
+			throw new HSInvalidPlayerIndexException();
 	}
 	
 	/**
@@ -276,6 +295,30 @@ public class BoardState implements DeepCopyable {
 		p1_deckPos_ = position;
 	}
 
+	/**
+	 * Get the fatigue damage
+	 * 
+	 * Returns the fatigue damage taken when a card draw fails next.
+	 * @return
+	 */
+	public byte getFatigueDamage(int playerIndex) throws HSInvalidPlayerIndexException {
+		if (playerIndex == 0)
+			return p0_fatigueDamage_;
+		else if (playerIndex == 1) 
+			return p1_fatigueDamage_;
+		else
+			throw new HSInvalidPlayerIndexException();
+	}
+	
+	public void setFatigueDamage(int playerIndex, byte damage) throws HSInvalidPlayerIndexException {
+		if (playerIndex == 0)
+			p0_fatigueDamage_ = damage;
+		else if (playerIndex == 1)
+			p1_fatigueDamage_ = damage;
+		else
+			throw new HSInvalidPlayerIndexException();
+	}
+	
 	/**
 	 * Get the fatigue damage for player 0
 	 * 

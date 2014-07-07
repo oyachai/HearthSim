@@ -94,12 +94,12 @@ public class NorthshireCleric extends Minion {
 
 		Card card = deck.drawCard(boardState.data_.getDeckPos(thisMinionPlayerIndex));
 		if (card == null) {
-			byte fatigueDamage = boardState.data_.getFatigueDamage_p0();
-			boardState.data_.setFatigueDamage_p0((byte)(fatigueDamage + 1));
-			boardState.data_.getHero_p0().setHealth((byte)(boardState.data_.getHero_p0().getHealth() - fatigueDamage));
+			byte fatigueDamage = boardState.data_.getFatigueDamage(thisMinionPlayerIndex);
+			boardState.data_.setFatigueDamage(thisMinionPlayerIndex, (byte)(fatigueDamage + 1));
+			boardState.data_.getHero(thisMinionPlayerIndex).setHealth((byte)(boardState.data_.getHero(thisMinionPlayerIndex).getHealth() - fatigueDamage));
 		} else {
-			boardState.data_.placeCard_hand_p0(card);
-			boardState.data_.setDeckPos_p0(boardState.data_.getDeckPos_p0() + 1);
+			boardState.data_.placeCard_hand(thisMinionPlayerIndex, card);
+			boardState.data_.setDeckPos(thisMinionPlayerIndex, boardState.data_.getDeckPos(thisMinionPlayerIndex) + 1);
 		}
 	
 		
