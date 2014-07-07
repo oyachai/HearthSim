@@ -162,6 +162,23 @@ public class Minion extends Card {
 		}
 	}
 	
+	public void destroyed(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) throws HSInvalidPlayerIndexException {
+		
+		health_ = 0;
+		
+		HearthTreeNode<BoardState> toRet = boardState;
+		//Notify all that it is dead
+		toRet = toRet.data_.getHero_p0().minionDeadEvent(thisPlayerIndex, thisMinionIndex, toRet, deck);
+		for (int j = 0; j < toRet.data_.getNumMinions_p0(); ++j) {
+			toRet = toRet.data_.getMinion_p0(j).minionDeadEvent(thisPlayerIndex, thisMinionIndex, toRet, deck);
+		}
+		toRet = toRet.data_.getHero_p1().minionDeadEvent(thisPlayerIndex, thisMinionIndex, toRet, deck);
+		for (int j = 0; j < toRet.data_.getNumMinions_p1(); ++j) {
+			toRet = toRet.data_.getMinion_p1(j).minionDeadEvent(thisPlayerIndex, thisMinionIndex, toRet, deck);
+		}
+
+	}
+	
 	public void takeHeal(byte healAmount, int thisPlayerIndex, int thisMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) throws HSInvalidPlayerIndexException {
 		
 		if (health_ < maxHealth_) {
