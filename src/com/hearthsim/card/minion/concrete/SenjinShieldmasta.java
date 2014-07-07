@@ -19,6 +19,7 @@ public class SenjinShieldmasta extends Minion {
 				false,
 				false,
 				false,
+				false,
 				true,
 				false
 			);
@@ -37,6 +38,7 @@ public class SenjinShieldmasta extends Minion {
 							boolean charge,
 							boolean hasAttacked,
 							boolean hasWindFuryAttacked,
+							boolean frozen,
 							boolean isInHand,
 							boolean hasBeenUsed) {
 		
@@ -54,6 +56,7 @@ public class SenjinShieldmasta extends Minion {
 			charge,
 			hasAttacked,
 			hasWindFuryAttacked,
+			frozen,
 			isInHand,
 			hasBeenUsed);
 	}

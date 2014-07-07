@@ -120,12 +120,12 @@ public class HearthSim {
 			byte attack0 = (byte)((int)(Math.random() * maxMinionAttack_) + 1);
 			byte health0 = (byte)((int)(Math.random() * maxMinionHealth_) + 1);
 			byte mana0 = (byte)((int)(0.5 * (attack0 + health0)));
-			cards1_[i] = new Minion("" + i, mana0, attack0, health0, attack0, health0, health0, false, false, false, false, false, false, true, false);
+			cards1_[i] = new Minion("" + i, mana0, attack0, health0, attack0, health0, health0, false, false, false, false, false, false, false, true, false);
 
 			byte attack1 = (byte)((int)(Math.random() * maxMinionAttack_) + 1);
 			byte health1 = (byte)((int)(Math.random() * maxMinionHealth_) + 1);
 			byte mana1 = (byte)((int)(0.5 * (attack1 + health1)));
-			cards2_[i] = new Minion("" + i, mana1, attack1, health1, attack1, health1, health1, false, false, false, false, false, false, true, false);
+			cards2_[i] = new Minion("" + i, mana1, attack1, health1, attack1, health1, health1, false, false, false, false, false, false, false, true, false);
 		}
 		
 		int nt = 0;

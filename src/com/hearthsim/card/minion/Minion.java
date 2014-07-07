@@ -17,6 +17,8 @@ public class Minion extends Card {
 	
 	protected boolean hasAttacked_;
 	protected boolean hasWindFuryAttacked_;
+	
+	protected boolean frozen_;
 
 	
 	protected byte health_;
@@ -27,7 +29,7 @@ public class Minion extends Card {
 	protected byte baseAttack_;
 
 	public Minion(String name, byte mana, byte attack, byte health, byte baseAttack, byte baseHealth, byte maxHealth) {
-		this(name, mana, attack, health, baseAttack, baseHealth, maxHealth, false, false, false, false, false, false, true, false);
+		this(name, mana, attack, health, baseAttack, baseHealth, maxHealth, false, false, false, false, false, false, false, true, false);
 	}
 	
 	public Minion(	String name,
@@ -43,6 +45,7 @@ public class Minion extends Card {
 					boolean charge,
 					boolean hasAttacked,
 					boolean hasWindFuryAttacked,
+					boolean frozen,
 					boolean isInHand,
 					boolean hasBeenUsed) {
 		super(name, mana, hasBeenUsed, isInHand);
@@ -55,6 +58,7 @@ public class Minion extends Card {
 		hasAttacked_ = hasAttacked;
 		baseAttack_ = baseAttack;
 		hasWindFuryAttacked_ = hasWindFuryAttacked;
+		frozen_ = frozen;
 		baseHealth_ = baseHealth;
 		maxHealth_ = maxHealth;
 	}
@@ -129,6 +133,14 @@ public class Minion extends Card {
 	
 	public void setCharge(boolean value) {
 		charge_ = value;
+	}
+	
+	public boolean getFrozen() {
+		return frozen_;
+	}
+	
+	public void setFrozen(boolean value) {
+		frozen_ = value;
 	}
 	
 	public void takeDamage(byte damage, int thisPlayerIndex, int thisMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) throws HSInvalidPlayerIndexException {
@@ -303,6 +315,12 @@ public class Minion extends Card {
 			Deck deck)
 		throws HSInvalidPlayerIndexException
 	{
+		
+		if (frozen_) {
+			this.hasAttacked_ = true;
+			this.frozen_ = false;
+			return boardState;
+		}
 		
 		//Notify all that an attack is beginning
 		HearthTreeNode<BoardState> toRet = boardState;
@@ -513,6 +531,7 @@ public class Minion extends Card {
 				this.charge_,
 				this.hasAttacked_,
 				this.hasWindFuryAttacked_,
+				this.frozen_,
 				this.isInHand_,
 				this.hasBeenUsed());
 	}
@@ -544,7 +563,8 @@ public class Minion extends Card {
 			return false;
 		if (hasWindFuryAttacked_ != ((Minion)other).hasWindFuryAttacked_)
 			return false;
-		
+		if (frozen_ != ((Minion)other).frozen_)
+			return false;
 		return true;
 	}
 

@@ -32,7 +32,7 @@ public class TestTaunt {
 	
 	@Test
 	public void test0() {
-		Minion minion = new Minion("" + 0, mana, attack0, health1, attack0, health1, health1, true, false, false, false, false, false, false, false);
+		Minion minion = new Minion("" + 0, mana, attack0, health1, attack0, health1, health1, true, false, false, false, false, false, false, false, false);
 		board.placeMinion_p1(minion);
 		
 		BoardStateFactory factory = new BoardStateFactory(null);
@@ -52,8 +52,8 @@ public class TestTaunt {
 
 	@Test
 	public void test1() {
-		Minion minion1 = new Minion("" + 0, mana, attack0, health1, attack0, health1, health1, true, false, false, false, false, false, false, false);
-		Minion minion2 = new Minion("" + 0, mana, attack0, health1, attack0, health1, health1, false, false, false, false, false, false, false, false);
+		Minion minion1 = new Minion("" + 0, mana, attack0, health1, attack0, health1, health1, true, false, false, false, false, false, false, false, false);
+		Minion minion2 = new Minion("" + 0, mana, attack0, health1, attack0, health1, health1, false, false, false, false, false, false, false, false, false);
 		board.placeMinion_p1(minion1);
 		board.placeMinion_p1(minion2);
 		
@@ -74,9 +74,9 @@ public class TestTaunt {
 
 	@Test
 	public void test2() {
-		Minion minion1 = new Minion("" + 0, mana, attack0, health1, attack0, health1, health1, true, false, false, false, false, false, false, false);
-		Minion minion2 = new Minion("" + 0, mana, attack0, health1, attack0, health1, health1, false, false, false, false, false, false, false, false);
-		Minion minion3 = new Minion("" + 0, mana, attack0, health1, attack0, health1, health1, true, false, false, false, false, false, false, false);
+		Minion minion1 = new Minion("" + 0, mana, attack0, health1, attack0, health1, health1, true, false, false, false, false, false, false, false, false);
+		Minion minion2 = new Minion("" + 0, mana, attack0, health1, attack0, health1, health1, false, false, false, false, false, false, false, false, false);
+		Minion minion3 = new Minion("" + 0, mana, attack0, health1, attack0, health1, health1, true, false, false, false, false, false, false, false, false);
 		board.placeMinion_p1(minion1);
 		board.placeMinion_p1(minion2);
 		board.placeMinion_p1(minion3);
@@ -99,7 +99,7 @@ public class TestTaunt {
 	@Test
 	public void test3() {
 		HolySmite hs = new HolySmite();
-		Minion minion1 = new Minion("" + 0, mana, attack0, health1, attack0, health1, health1, true, false, false, false, false, false, false, false);
+		Minion minion1 = new Minion("" + 0, mana, attack0, health1, attack0, health1, health1, true, false, false, false, false, false, false, false, false);
 
 		board.removeMinion_p0(0);
 		board.placeCard_hand_p0(hs);
@@ -123,7 +123,7 @@ public class TestTaunt {
 	@Test
 	public void test4() throws HSInvalidPlayerIndexException {
 		HolySmite hs = new HolySmite();
-		Minion minion1 = new Minion("" + 0, mana, attack0, health1, attack0, health1, health1, true, false, false, false, false, false, false, false);
+		Minion minion1 = new Minion("" + 0, mana, attack0, health1, attack0, health1, health1, true, false, false, false, false, false, false, false, false);
 
 		board.removeMinion_p0(0);
 		board.placeCard_hand_p0(hs);

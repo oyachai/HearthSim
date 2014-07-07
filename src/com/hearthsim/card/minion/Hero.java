@@ -10,7 +10,7 @@ public class Hero extends Minion {
 	}
 
 	public Hero(String name, byte health, byte maxHealth) {
-		super(name, (byte)0, (byte)0, health, (byte)0, maxHealth, maxHealth, false, false, false, false, false, false, false, false);
+		super(name, (byte)0, (byte)0, health, (byte)0, maxHealth, maxHealth, false, false, false, false, false, false, false, false, false);
 	}
 
 	@Override

@@ -18,6 +18,7 @@ public class MurlocRaider extends Murloc {
 				false,
 				false,
 				false,
+				false,
 				true,
 				false
 			);
@@ -36,6 +37,7 @@ public class MurlocRaider extends Murloc {
 							boolean charge,
 							boolean hasAttacked,
 							boolean hasWindFuryAttacked,
+							boolean frozen,
 							boolean isInHand,
 							boolean hasBeenUsed) {
 		
@@ -53,6 +55,7 @@ public class MurlocRaider extends Murloc {
 			charge,
 			hasAttacked,
 			hasWindFuryAttacked,
+			frozen,
 			isInHand,
 			hasBeenUsed);
 	}

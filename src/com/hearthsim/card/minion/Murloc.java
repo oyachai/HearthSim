@@ -20,9 +20,10 @@ public class Murloc extends Minion {
 			boolean charge,
 			boolean hasAttacked,
 			boolean hasWindFuryAttacked,
+			boolean frozen,
 			boolean isInHand,
 			boolean hasBeenUsed) {
-		super(name, mana, attack, health, baseAttack, baseHealth, maxHealth, taunt, divineShield, windFury, charge, hasAttacked, hasWindFuryAttacked, isInHand, hasBeenUsed);
+		super(name, mana, attack, health, baseAttack, baseHealth, maxHealth, taunt, divineShield, windFury, charge, hasAttacked, hasWindFuryAttacked, frozen, isInHand, hasBeenUsed);
 	}
 	
 	public Murloc(String name, byte mana, byte attack, byte health,
@@ -30,7 +31,7 @@ public class Murloc extends Minion {
 			byte baseHealth,
 			byte maxHealth
 			) {
-		this(name, mana, attack, health, baseAttack, baseHealth, maxHealth, false, false, false, false, false, false, true, false);
+		this(name, mana, attack, health, baseAttack, baseHealth, maxHealth, false, false, false, false, false, false, false, true, false);
 	}
 	
 	public JSONObject toJSON() {
