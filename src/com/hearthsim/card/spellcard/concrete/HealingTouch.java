@@ -6,15 +6,17 @@ import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.HearthTreeNode;
 
-public class HandOfProtection extends SpellCard {
+public class HealingTouch extends SpellCard {
+	
+	private static final byte HEAL_AMOUNT = 8;
 	
 	/**
 	 * Constructor
 	 * 
 	 * @param hasBeenUsed Whether the card has already been used or not
 	 */
-	public HandOfProtection(boolean hasBeenUsed) {
-		super("Hand Of Protection", (byte)1, hasBeenUsed);
+	public HealingTouch(boolean hasBeenUsed) {
+		super("Healing Touch", (byte)3, hasBeenUsed);
 	}
 
 	/**
@@ -22,7 +24,7 @@ public class HandOfProtection extends SpellCard {
 	 * 
 	 * Defaults to hasBeenUsed = false
 	 */
-	public HandOfProtection() {
+	public HealingTouch() {
 		this(false);
 	}
 	
@@ -30,7 +32,7 @@ public class HandOfProtection extends SpellCard {
 	 * 
 	 * Use the card on the given target
 	 * 
-	 * This card gives a minion Divine Shield.
+	 * Heal a character for 8
 	 * 
 	 * @param thisCardIndex The index (position) of the card in the hand
 	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
@@ -48,15 +50,10 @@ public class HandOfProtection extends SpellCard {
 			Deck deck)
 		throws HSInvalidPlayerIndexException
 	{
-		if (minionIndex == 0) {
-			return null;
-		}
-		
-		if (boardState.data_.getMinion(playerIndex, minionIndex - 1).getDivineShield())
-			return null;
-		
-		boardState.data_.getMinion(playerIndex, minionIndex - 1).setDivineShield(true);
+		if (minionIndex == 0)
+			boardState.data_.getHero(playerIndex).takeHeal(HEAL_AMOUNT, playerIndex, minionIndex, boardState, deck);
+		else
+			boardState.data_.getMinion(playerIndex, minionIndex - 1).takeHeal(HEAL_AMOUNT, playerIndex, minionIndex, boardState, deck);
 		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
 	}
-	
 }
