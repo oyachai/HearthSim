@@ -13,7 +13,7 @@ public class FrostShock extends SpellDamage {
 	}
 
 	public FrostShock(boolean hasBeenUsed) {
-		super("Drain Life", (byte)1, (byte)1, hasBeenUsed);
+		super("Frost Shock", (byte)1, (byte)1, hasBeenUsed);
 	}
 
 	/**
