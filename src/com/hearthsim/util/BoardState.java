@@ -66,6 +66,15 @@ public class BoardState implements DeepCopyable {
 		return p1_hand_;
 	}
 	
+	public Minion getMinion(int playerIndex, int index) throws HSInvalidPlayerIndexException {
+		if (playerIndex == 0)
+			return p0_minions_.get(index);
+		else if (playerIndex == 1)
+			return p1_minions_.get(index);
+		else
+			throw new HSInvalidPlayerIndexException();
+	}
+	
 	public Minion getMinion_p0(int index) {
 		return p0_minions_.get(index);
 	}
