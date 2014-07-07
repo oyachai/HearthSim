@@ -1,7 +1,5 @@
 package com.hearthsim.card.spellcard.concrete;
 
-import java.util.Iterator;
-
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
@@ -9,15 +7,15 @@ import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.HearthTreeNode;
 
-public class ArcaneMissiles extends SpellCard {
+public class Charge extends SpellCard {
 	
 	/**
 	 * Constructor
 	 * 
 	 * @param hasBeenUsed Whether the card has already been used or not
 	 */
-	public ArcaneMissiles(boolean hasBeenUsed) {
-		super("Arcane Missiles", (byte)1, hasBeenUsed);
+	public Charge(boolean hasBeenUsed) {
+		super("Ancestral Healing", (byte)0, hasBeenUsed);
 	}
 
 	/**
@@ -25,7 +23,7 @@ public class ArcaneMissiles extends SpellCard {
 	 * 
 	 * Defaults to hasBeenUsed = false
 	 */
-	public ArcaneMissiles() {
+	public Charge() {
 		this(false);
 	}
 
@@ -33,7 +31,7 @@ public class ArcaneMissiles extends SpellCard {
 	 * 
 	 * Use the card on the given target
 	 * 
-	 * Deals 1 damage to three random enemy characters.  The characters can repeat.
+	 * This card gives the target +2 attack and Charge.
 	 * 
 	 * @param thisCardIndex The index (position) of the card in the hand
 	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
@@ -51,40 +49,14 @@ public class ArcaneMissiles extends SpellCard {
 			Deck deck)
 		throws HSInvalidPlayerIndexException
 	{
-		if (playerIndex == 0) {
+		if (minionIndex == 0 || playerIndex == 1) {
+			//cant't use it on the heroes or enemy minions
 			return null;
 		}
 		
-		if (minionIndex > 0) {
-			return null;
-		}
-		
-		int numMissiles = 3;
-		
-		int numTargets = boardState.data_.getNumMinions_p1() + 1;
-		int index = 0;
-		while(index < numMissiles) {
-			int targetIndex = (int)(numTargets * Math.random());
-			if (targetIndex == 0 && boardState.data_.getHero_p1().getHealth() > 0) {
-				boardState.data_.getHero_p1().takeDamage((byte)1, 1, targetIndex, boardState, deck);
-				++index;
-			} else if (targetIndex > 0 && boardState.data_.getMinion_p1(targetIndex-1).getHealth() > 0) {
-				boardState.data_.getMinion_p1(targetIndex-1).takeDamage((byte)1, 1, targetIndex, boardState, deck);
-				++index;
-			}
-			if (boardState.data_.getHero_p1().getHealth() <= 0) {
-				break;
-			}
-		}
-
-		Iterator<Minion> iter = boardState.data_.getMinions_p1().iterator();
-		while (iter.hasNext()) {
-			Minion targetMinion = iter.next();
-			if (targetMinion.getHealth() <= 0) {
-				iter.remove();
-			}
-		}
-
+		Minion targetMinion = boardState.data_.getMinion_p0(minionIndex-1);
+		targetMinion.setAttack((byte)(targetMinion.getAttack() + 2));
+		targetMinion.setCharge(true);
 		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
 	}
 }
