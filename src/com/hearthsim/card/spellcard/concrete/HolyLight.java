@@ -32,7 +32,7 @@ public class HolyLight extends SpellCard {
 	 * 
 	 * Use the card on the given target
 	 * 
-	 * Heal a character for 8
+	 * Heal a character for 6
 	 * 
 	 * @param thisCardIndex The index (position) of the card in the hand
 	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
