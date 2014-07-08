@@ -74,7 +74,6 @@ public class WeaponCard extends SpellCard {
 			return null;
 		}
 				
-		this.hasBeenUsed(true);
 		if (playerIndex == 1 || minionIndex > 0) {
 			return null;
 		}
@@ -83,6 +82,8 @@ public class WeaponCard extends SpellCard {
 		if (toRet != null) {
 			toRet.data_.getHero_p0().setAttack(this.weaponDamage_);
 			toRet.data_.getHero_p0().setWeaponCharge(this.weaponCharge_);
+			this.hasBeenUsed(true);
+
 		}
 		
 		return super.use_core(thisCardIndex, playerIndex, minionIndex, toRet, deck);
