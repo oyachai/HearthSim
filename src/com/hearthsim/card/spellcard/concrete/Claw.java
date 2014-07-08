@@ -30,8 +30,9 @@ public class Claw extends SpellCard {
 	
 
 	/**
+	 * Claw
 	 * 
-	 * Use the weapon card
+	 * Gives the hero +2 attack for this turn and +2 armor
 	 * 
 	 * @param thisCardIndex The index (position) of the card in the hand
 	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
