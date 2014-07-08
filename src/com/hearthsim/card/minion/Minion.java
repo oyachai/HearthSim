@@ -307,7 +307,7 @@ public class Minion extends Card {
 	 * 
 	 * @return The boardState is manipulated and returned
 	 */
-	public final HearthTreeNode<BoardState> attack(
+	public HearthTreeNode<BoardState> attack(
 			int thisMinionIndex,
 			int playerIndex,
 			int minionIndex,

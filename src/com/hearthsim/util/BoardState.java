@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
@@ -46,8 +47,8 @@ public class BoardState implements DeepCopyable {
 		p0_fatigueDamage_ = 1;
 		p1_fatigueDamage_ = 1;
 		
-		p0_hero_ = new Hero("hero0", (byte)30, (byte)30);
-		p1_hero_ = new Hero("hero1", (byte)30, (byte)30);
+		p0_hero_ = new Hero("hero0", (byte)30);
+		p1_hero_ = new Hero("hero1", (byte)30);
 	}
 	
 	public LinkedList<Minion> getMinions_p0() {
@@ -432,6 +433,15 @@ public class BoardState implements DeepCopyable {
 	public void resetMana() {
 		p0_mana_ = p0_maxMana_;
 		p1_mana_ = p1_maxMana_;
+	}
+	
+	public void endTurn(Deck deck) {
+		p0_hero_.endTurn(this, deck);
+		Iterator<Minion> iter = p0_minions_.iterator();
+		while (iter.hasNext()) {
+			Minion targetMinion = iter.next();
+			targetMinion.endTurn(this, deck);
+		}
 	}
 	
 	public boolean equals(Object other)

@@ -147,6 +147,15 @@ public class Card implements DeepCopyable {
 	   return true;
 	}
 
+	/**
+	 * End the turn and resets the card state
+	 * 
+	 * This function is called at the end of the turn.  Any derived class must override it and remove any 
+	 * temporary buffs that it has.
+	 */
+	public BoardState endTurn(BoardState boardState, Deck deck) {
+		return boardState;
+	}
 
 	/**
 	 * 

@@ -2,8 +2,6 @@ package com.hearthsim;
 
 import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.exception.HSPlayer0WinsException;
-import com.hearthsim.exception.HSPlayer1WinsException;
 import com.hearthsim.player.Player;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.player.playercontroller.GameMaster;
