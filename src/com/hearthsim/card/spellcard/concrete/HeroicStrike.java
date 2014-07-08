@@ -30,9 +30,9 @@ public class HeroicStrike extends SpellCard {
 	
 
 	/**
-	 * Claw
+	 * Heroic Strike
 	 * 
-	 * Gives the hero +2 attack for this turn and +2 armor
+	 * Gives the hero +4 attack this turn
 	 * 
 	 * @param thisCardIndex The index (position) of the card in the hand
 	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
