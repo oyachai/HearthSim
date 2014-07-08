@@ -42,6 +42,30 @@ public class Hero extends Minion {
 	}
 
 
+	public byte getWeaponCharge() {
+		return weaponCharge_;
+	}
+	
+	public void setWeaponCharge(byte weaponCharge) {
+		weaponCharge_ = weaponCharge;
+	}
+	
+	public byte getArmor() {
+		return armor_;
+	}
+	
+	public void setArmor(byte armor) {
+		armor_ = armor;
+	}
+	
+	public boolean hasTemporaryAttack() {
+		return hasTemporaryAttack_;
+	}
+	
+	public void hasTemporaryAttack(boolean value) {
+		hasTemporaryAttack_ = value;
+	}
+	
 	@Override
 	public DeepCopyable deepCopy() {
 		return new Hero(
