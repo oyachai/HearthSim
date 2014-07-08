@@ -172,20 +172,24 @@ public class Minion extends Card {
 			
 			//If fatal, notify all that it is dead
 			if (health_ <= 0) {
-				toRet = toRet.data_.getHero_p0().minionDeadEvent(thisPlayerIndex, thisMinionIndex, toRet, deck);
-				for (int j = 0; j < toRet.data_.getNumMinions_p0(); ++j) {
-					toRet = toRet.data_.getMinion_p0(j).minionDeadEvent(thisPlayerIndex, thisMinionIndex, toRet, deck);
-				}
-				toRet = toRet.data_.getHero_p1().minionDeadEvent(thisPlayerIndex, thisMinionIndex, toRet, deck);
-				for (int j = 0; j < toRet.data_.getNumMinions_p1(); ++j) {
-					toRet = toRet.data_.getMinion_p1(j).minionDeadEvent(thisPlayerIndex, thisMinionIndex, toRet, deck);
-				}
+				this.destroyed(thisPlayerIndex, thisMinionIndex, boardState, deck);
 			}
 		} else {
 			divineShield_ = false;
 		}
 	}
 	
+	/**
+	 * Called when this minion dies (destroyed)
+	 * 
+	 * Always use this function to "kill" minions
+	 * 
+	 * @param thisPlayerIndex The player index of this minion
+	 * @param thisMinionIndex The minion index of this minion
+	 * @param boardState 
+	 * @param deck
+	 * @throws HSInvalidPlayerIndexException
+	 */
 	public void destroyed(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) throws HSInvalidPlayerIndexException {
 		
 		health_ = 0;
@@ -203,6 +207,32 @@ public class Minion extends Card {
 
 	}
 	
+	/**
+	 * Called when this minion is silenced
+	 * 
+	 * Always use this function to "silence" minions
+	 * 
+	 * @param thisPlayerIndex The player index of this minion
+	 * @param thisMinionIndex The minion index of this minion
+	 * @param boardState 
+	 * @param deck
+	 * @throws HSInvalidPlayerIndexException
+	 */
+	public void silenced(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) throws HSInvalidPlayerIndexException {
+	}
+	
+	/**
+	 * Called when this minion is healed
+	 * 
+	 * Always use this function to heal minions
+	 * 
+	 * @param healAmount The amount of healing to take
+	 * @param thisPlayerIndex The player index of this minion
+	 * @param thisMinionIndex The minion index of this minion
+	 * @param boardState 
+	 * @param deck
+	 * @throws HSInvalidPlayerIndexException
+	 */
 	public void takeHeal(byte healAmount, int thisPlayerIndex, int thisMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) throws HSInvalidPlayerIndexException {
 		
 		if (health_ < maxHealth_) {
