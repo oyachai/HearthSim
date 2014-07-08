@@ -109,6 +109,10 @@ public class Hero extends Minion {
 		if (attack_ == 0) {
 			return null;
 		}
+
+		if (this.weaponCharge_ == 0 && !this.hasTemporaryAttack_) {
+			return null;
+		}
 		
 		//this is somewhat redundant, but it must be done here...
 		if (frozen_) {
@@ -117,11 +121,16 @@ public class Hero extends Minion {
 			return boardState;
 		}
 		
+		
 		HearthTreeNode<BoardState> toRet = super.attack(thisMinionIndex, playerIndex, minionIndex, boardState, deck);
 		
 		if (toRet != null) {
-			if (this.weaponCharge_ > 0)
+			if (this.weaponCharge_ > 0) {
 				this.weaponCharge_ -= 1;
+				if (this.weaponCharge_ == 0) {
+					this.attack_ = 0;
+				}
+			}
 			if (this.hasTemporaryAttack_)
 				this.hasTemporaryAttack_ = false;
 		}
@@ -135,6 +144,19 @@ public class Hero extends Minion {
 	
 	
 
+	/**
+	 * End the turn and resets the card state
+	 * 
+	 * This function is called at the end of the turn.  Any derived class must override it and remove any 
+	 * temporary buffs that it has.
+	 */
+	@Override
+	public BoardState endTurn(BoardState boardState, Deck deck) {
+		if (this.hasTemporaryAttack_) {
+			this.hasTemporaryAttack_ = false;
+		}
+		return boardState;
+	}
 
 	public JSONObject toJSON() {
 		JSONObject json = super.toJSON();

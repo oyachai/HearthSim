@@ -367,6 +367,10 @@ public class Minion extends Card {
 			return null;
 		}
 		
+		if (playerIndex == 0) {
+			return null;
+		}
+		
 		if (minionIndex == 0) {
 			//attack the enemy hero
 			boardState.data_.getHero_p1().takeDamage(this.attack_, playerIndex, minionIndex, boardState, deck);
