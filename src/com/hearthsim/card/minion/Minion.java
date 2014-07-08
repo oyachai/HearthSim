@@ -143,6 +143,18 @@ public class Minion extends Card {
 		frozen_ = value;
 	}
 	
+	/**
+	 * Called when this minion takes damage
+	 * 
+	 * Always use this function to take damage... it properly notifies all others of its damage and possibly of its death
+	 * 
+	 * @param damage The amount of damage to take
+	 * @param thisPlayerIndex The player index of this minion
+	 * @param thisMinionIndex The minion index of this minion
+	 * @param boardState 
+	 * @param deck
+	 * @throws HSInvalidPlayerIndexException
+	 */
 	public void takeDamage(byte damage, int thisPlayerIndex, int thisMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) throws HSInvalidPlayerIndexException {
 		if (!divineShield_) {
 			health_ = (byte)(health_ - damage);

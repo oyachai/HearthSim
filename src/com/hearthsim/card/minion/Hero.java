@@ -141,8 +141,32 @@ public class Hero extends Minion {
 		return null;
 	}
 	
-	
+	/**
+	 * Called when this minion takes damage
+	 * 
+	 * Overridden from Minion.  Need to handle armor.
+	 * 
+	 * @param damage The amount of damage to take
+	 * @param thisPlayerIndex The player index of this minion
+	 * @param thisMinionIndex The minion index of this minion
+	 * @param boardState 
+	 * @param deck
+	 * @throws HSInvalidPlayerIndexException
+	 */
+	@Override
+	public void takeDamage(byte damage, int thisPlayerIndex, int thisMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) throws HSInvalidPlayerIndexException {
 
+		byte damageRemaining = (byte)(damage - armor_);
+		if (damageRemaining > 0) {
+			armor_ = 0;
+			super.takeDamage(damageRemaining, thisPlayerIndex, thisMinionIndex, boardState, deck);
+		} else {
+			armor_ = (byte)(armor_ - damage);
+			super.takeDamage((byte)0, thisPlayerIndex, thisMinionIndex, boardState, deck);
+		}		
+	}
+	
+	
 	/**
 	 * End the turn and resets the card state
 	 * 
