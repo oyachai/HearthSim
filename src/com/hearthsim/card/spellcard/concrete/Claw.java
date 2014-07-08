@@ -8,7 +8,9 @@ import com.hearthsim.util.HearthTreeNode;
 
 public class Claw extends SpellCard {
 	
-	
+	private static final byte DAMAGE_AMOUNT = 2;
+	private static final byte ARMOR_AMOUNT = 2;
+
 	/**
 	 * Constructor
 	 * 
@@ -61,8 +63,8 @@ public class Claw extends SpellCard {
 		
 		HearthTreeNode<BoardState> toRet = boardState;
 		if (toRet != null) {
-			toRet.data_.getHero_p0().setTemporaryAttackDamage((byte)2);
-			toRet.data_.getHero_p0().setArmor((byte)2);
+			toRet.data_.getHero_p0().setTemporaryAttackDamage((byte)(DAMAGE_AMOUNT + toRet.data_.getHero_p0().getTemporaryAttackDamage()));
+			toRet.data_.getHero_p0().setArmor(ARMOR_AMOUNT);
 			this.hasBeenUsed(true);
 		}
 		
