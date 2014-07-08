@@ -12,14 +12,14 @@ public class Hero extends Minion {
 	protected byte weaponCharge_;
 	protected byte armor_;
 	
-	protected boolean hasTemporaryAttack_;
+	protected byte temporaryAttackDamage_;
 	
 	public Hero() {
 		this("", (byte)30);
 	}
 
 	public Hero(String name, byte health) {
-		this(name, (byte)0, health, (byte)0, (byte)0, false, false, false, false, false, false);
+		this(name, (byte)0, health, (byte)0, (byte)0, false, false, false, false, (byte)0, false);
 	}
 	
 	public Hero(
@@ -32,13 +32,13 @@ public class Hero extends Minion {
 			boolean hasAttacked,
 			boolean hasWindFuryAttacked,
 			boolean frozen,
-			boolean hasTemporaryAttack,
+			byte temporaryAttackDamage,
 			boolean hasBeenUsed) {
 	
 		super(name, (byte)0, attack, health, (byte)0, (byte)30, (byte)30, false, false, windFury, false, hasAttacked, hasWindFuryAttacked, frozen, false, hasBeenUsed);
 		armor_ = armor;
 		weaponCharge_ = weaponCharge;
-		hasTemporaryAttack_ = hasTemporaryAttack;
+		temporaryAttackDamage_ = temporaryAttackDamage;
 	}
 
 
@@ -58,12 +58,13 @@ public class Hero extends Minion {
 		armor_ = armor;
 	}
 	
-	public boolean hasTemporaryAttack() {
-		return hasTemporaryAttack_;
+	public byte getTemporaryAttackDamage() {
+		return temporaryAttackDamage_;
 	}
 	
-	public void hasTemporaryAttack(boolean value) {
-		hasTemporaryAttack_ = value;
+	public void setTemporaryAttackDamage(byte value) {
+		temporaryAttackDamage_ = value;
+		attack_ += temporaryAttackDamage_;
 	}
 	
 	@Override
@@ -78,7 +79,7 @@ public class Hero extends Minion {
 				this.hasAttacked_,
 				this.hasWindFuryAttacked_,
 				this.frozen_,
-				this.hasTemporaryAttack_,
+				this.temporaryAttackDamage_,
 				this.hasBeenUsed_
 				);
 	}
@@ -110,7 +111,7 @@ public class Hero extends Minion {
 			return null;
 		}
 
-		if (this.weaponCharge_ == 0 && !this.hasTemporaryAttack_) {
+		if (this.weaponCharge_ == 0 && this.temporaryAttackDamage_ == 0) {
 			return null;
 		}
 		
@@ -131,8 +132,6 @@ public class Hero extends Minion {
 					this.attack_ = 0;
 				}
 			}
-			if (this.hasTemporaryAttack_)
-				this.hasTemporaryAttack_ = false;
 		}
 		return toRet;
 	}
@@ -152,8 +151,9 @@ public class Hero extends Minion {
 	 */
 	@Override
 	public BoardState endTurn(BoardState boardState, Deck deck) {
-		if (this.hasTemporaryAttack_) {
-			this.hasTemporaryAttack_ = false;
+		if (this.temporaryAttackDamage_ > 0) {
+			this.attack_ -= this.temporaryAttackDamage_;
+			this.temporaryAttackDamage_ = 0;
 		}
 		return boardState;
 	}
