@@ -19,7 +19,7 @@ public class Hellfire extends SpellCard {
 	 * @param hasBeenUsed Whether the card has already been used or not
 	 */
 	public Hellfire(boolean hasBeenUsed) {
-		super("Hellfire", (byte)1, hasBeenUsed);
+		super("Hellfire", (byte)4, hasBeenUsed);
 	}
 
 	/**
