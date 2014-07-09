@@ -8,15 +8,16 @@ import org.junit.Test;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.card.spellcard.concrete.Claw;
+import com.hearthsim.card.spellcard.concrete.Corruption;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.HearthTreeNode;
 
-public class TestClaw {
+public class TestCorruption {
+
 	
-	
+
 	private HearthTreeNode<BoardState> board;
 	private Deck deck;
 	private static final byte mana = 2;
@@ -46,9 +47,15 @@ public class TestClaw {
 	
 		deck = new Deck(cards);
 
-		Claw fb = new Claw();
+		Corruption fb = new Corruption();
 		board.data_.placeCard_hand_p0(fb);
 
+		board.data_.setMana_p0((byte)4);
+		board.data_.setMana_p1((byte)4);
+		
+		board.data_.setMaxMana_p0((byte)4);
+		board.data_.setMaxMana_p1((byte)4);
+		
 	}
 	
 	@Test
@@ -68,31 +75,12 @@ public class TestClaw {
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), health0);
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), health1 - 1);
 	}
-
-
+	
 	@Test
 	public void test1() throws HSInvalidPlayerIndexException {
 		
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode<BoardState> ret = theCard.useOn(0, 0, 1, board, deck);
-		
-		assertTrue(ret == null);
-		assertEquals(board.data_.getNumCards_hand(), 1);
-		assertEquals(board.data_.getNumMinions_p0(), 2);
-		assertEquals(board.data_.getNumMinions_p1(), 2);
-		assertEquals(board.data_.getHero_p0().getHealth(), 30);
-		assertEquals(board.data_.getHero_p1().getHealth(), 30);
-		assertEquals(board.data_.getMinion_p0(0).getHealth(), health0);
-		assertEquals(board.data_.getMinion_p0(1).getHealth(), health1 - 1);
-		assertEquals(board.data_.getMinion_p1(0).getHealth(), health0);
-		assertEquals(board.data_.getMinion_p1(1).getHealth(), health1 - 1);
-	}
-
-	@Test
-	public void test2() throws HSInvalidPlayerIndexException {
-		
-		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode<BoardState> ret = theCard.useOn(0, 0, 0, board, deck);
+		HearthTreeNode<BoardState> ret = theCard.useOn(0, 1, 1, board, deck);
 		
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 0);
@@ -100,32 +88,38 @@ public class TestClaw {
 		assertEquals(board.data_.getNumMinions_p1(), 2);
 		assertEquals(board.data_.getHero_p0().getHealth(), 30);
 		assertEquals(board.data_.getHero_p1().getHealth(), 30);
-		assertEquals(board.data_.getHero_p0().getAttack(), 2);
-		assertEquals(board.data_.getHero_p0().getArmor(), 2);
+		assertEquals(board.data_.getMana_p0(), 3);
+		assertEquals(board.data_.getMana_p1(), 4);
 		assertEquals(board.data_.getMinion_p0(0).getHealth(), health0);
 		assertEquals(board.data_.getMinion_p0(1).getHealth(), health1 - 1);
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), health0);
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), health1 - 1);
 		
-		ret = board.data_.getHero_p0().attack(0, 1, 1, board, deck);
-		assertFalse(ret == null);
+		ret.data_.endTurn(deck);
+		assertEquals(board.data_.getNumCards_hand(), 0);
 		assertEquals(board.data_.getNumMinions_p0(), 2);
 		assertEquals(board.data_.getNumMinions_p1(), 2);
-		assertEquals(board.data_.getHero_p0().getHealth(), 27);
+		assertEquals(board.data_.getHero_p0().getHealth(), 30);
 		assertEquals(board.data_.getHero_p1().getHealth(), 30);
-		assertEquals(board.data_.getHero_p0().getAttack(), 2);
-		assertEquals(board.data_.getHero_p0().getArmor(), 0);
+		assertEquals(board.data_.getMana_p0(), 3);
+		assertEquals(board.data_.getMana_p1(), 4);
 		assertEquals(board.data_.getMinion_p0(0).getHealth(), health0);
 		assertEquals(board.data_.getMinion_p0(1).getHealth(), health1 - 1);
-		assertEquals(board.data_.getMinion_p1(0).getHealth(), health0 - 2);
+		assertEquals(board.data_.getMinion_p1(0).getHealth(), health0);
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), health1 - 1);
+		
+		ret.data_.startTurn(deck);
+		assertEquals(board.data_.getNumCards_hand(), 0);
+		assertEquals(board.data_.getNumMinions_p0(), 2);
+		assertEquals(board.data_.getNumMinions_p1(), 1);
+		assertEquals(board.data_.getHero_p0().getHealth(), 30);
+		assertEquals(board.data_.getHero_p1().getHealth(), 30);
+		assertEquals(board.data_.getMana_p0(), 3);
+		assertEquals(board.data_.getMana_p1(), 4);
+		assertEquals(board.data_.getMinion_p0(0).getHealth(), health0);
+		assertEquals(board.data_.getMinion_p0(1).getHealth(), health1 - 1);
+		assertEquals(board.data_.getMinion_p1(0).getHealth(), health1 - 1);
 
-		
-		board.data_.getHero_p0().endTurn(0, 0, board.data_, deck);
-		assertEquals(board.data_.getHero_p0().getAttack(), 0);
-		assertEquals(board.data_.getHero_p0().getArmor(), 0);
-		
 	}
-
-
+	
 }

@@ -153,7 +153,17 @@ public class Card implements DeepCopyable {
 	 * This function is called at the end of the turn.  Any derived class must override it and remove any 
 	 * temporary buffs that it has.
 	 */
-	public BoardState endTurn(BoardState boardState, Deck deck) {
+	public BoardState endTurn(int thisCardPlayerIndex, int thisCardIndex, BoardState boardState, Deck deck) throws HSInvalidPlayerIndexException {
+		return boardState;
+	}
+	
+	/**
+	 * Called at the start of the turn
+	 * 
+	 * This function is called at the start of the turn.  Any derived class must override it to implement whatever
+	 * "start of the turn" effect the card has.
+	 */
+	public BoardState startTurn(int thisCardPlayerIndex, int thisCardIndex, BoardState boardState, Deck deck) throws HSInvalidPlayerIndexException {
 		return boardState;
 	}
 

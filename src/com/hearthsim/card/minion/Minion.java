@@ -30,6 +30,9 @@ public class Minion extends Card {
 	
 	protected boolean summoned_;
 	protected boolean transformed_;
+	
+	protected boolean destroyOnTurnStart_;
+	protected boolean destroyOnTurnEnd_;
 
 	public Minion(String name, byte mana, byte attack, byte health, byte baseAttack, byte baseHealth, byte maxHealth) {
 		this(
@@ -90,6 +93,8 @@ public class Minion extends Card {
 				frozen,
 				summoned,
 				transformed,
+				false,
+				false,
 				isInHand,
 				hasBeenUsed);
 	}
@@ -111,6 +116,8 @@ public class Minion extends Card {
 					boolean frozen,
 					boolean summoned,
 					boolean transformed,
+					boolean destroyOnTurnStart,
+					boolean destroyOnTurnEnd,
 					boolean isInHand,
 					boolean hasBeenUsed) {
 		super(name, mana, hasBeenUsed, isInHand);
@@ -129,6 +136,8 @@ public class Minion extends Card {
 		maxHealth_ = maxHealth;
 		summoned_ = summoned;
 		transformed_ = transformed;
+		destroyOnTurnStart_ = destroyOnTurnStart;
+		destroyOnTurnEnd_ = destroyOnTurnEnd;
 	}
 	
 	public boolean getTaunt() {
@@ -235,15 +244,50 @@ public class Minion extends Card {
 		extraAttackUntilTurnEnd_ = value;
 	}
 	
+	public boolean getDestroyOnTurnStart() {
+		return destroyOnTurnStart_;
+	}
+	
+	public void setDestroyOnTurnStart(boolean value) {
+		destroyOnTurnStart_ = value;
+	}
+
+	public boolean getDestroyOnTurnEnd() {
+		return destroyOnTurnEnd_;
+	}
+	
+	public void setDestroyOnTurnEnd(boolean value) {
+		destroyOnTurnEnd_ = value;
+	}
+
+	/**
+	 * Called at the start of the turn
+	 * 
+	 * This function is called at the start of the turn.  Any derived class must override it to implement whatever
+	 * "start of the turn" effect the card has.
+	 */
+	@Override
+	public BoardState startTurn(int thisMinionPlayerIndex, int thisMinionIndex, BoardState boardState, Deck deck) throws HSInvalidPlayerIndexException {
+		if (destroyOnTurnStart_) {
+			this.destroyed(thisMinionPlayerIndex, thisMinionIndex, new HearthTreeNode<BoardState>(boardState), deck);
+		}
+		return boardState;
+	}
+	
 	/**
 	 * End the turn and resets the card state
 	 * 
 	 * This function is called at the end of the turn.  Any derived class must override it and remove any 
 	 * temporary buffs that it has.
+	 * 
+	 * This is not the most efficient implementation... luckily, endTurn only happens once per turn
 	 */
 	@Override
-	public BoardState endTurn(BoardState boardState, Deck deck) {
+	public BoardState endTurn(int thisMinionPlayerIndex, int thisMinionIndex, BoardState boardState, Deck deck) throws HSInvalidPlayerIndexException {
 		extraAttackUntilTurnEnd_ = 0;
+		if (destroyOnTurnEnd_) {
+			this.destroyed(thisMinionPlayerIndex, thisMinionIndex, new HearthTreeNode<BoardState>(boardState), deck);
+		}
 		return boardState;
 	}
 	
@@ -577,7 +621,7 @@ public class Minion extends Card {
 			target.takeDamage((byte)(this.attack_ + this.extraAttackUntilTurnEnd_), 0, playerIndex, minionIndex, boardState, deck);
 			this.takeDamage(target.attack_, playerIndex, 0, thisMinionIndex, boardState, deck);
 			if (target.getHealth() <= 0) {
-				boardState.data_.removeMinion_p1(target);
+				boardState.data_.removeMinion_p1(minionIndex - 1);
 			}
 			if (health_ <= 0) {
 				boardState.data_.removeMinion_p0(thisMinionIndex - 1);
@@ -748,6 +792,7 @@ public class Minion extends Card {
 				this.attack_,
 				this.health_,
 				this.baseAttack_,
+				this.extraAttackUntilTurnEnd_,
 				this.baseHealth_,
 				this.maxHealth_,
 				this.taunt_,
@@ -759,6 +804,8 @@ public class Minion extends Card {
 				this.frozen_,
 				this.summoned_,
 				this.transformed_,
+				this.destroyOnTurnStart_,
+				this.destroyOnTurnEnd_,
 				this.isInHand_,
 				this.hasBeenUsed_);
 	}
@@ -778,6 +825,8 @@ public class Minion extends Card {
 			return false;
 		if (baseAttack_ != ((Minion)other).baseAttack_)
 			return false;
+		if (extraAttackUntilTurnEnd_ != ((Minion)other).extraAttackUntilTurnEnd_)
+			return false;
 		if (taunt_ != ((Minion)other).taunt_)
 			return false;
 		if (divineShield_ != ((Minion)other).divineShield_)
@@ -795,6 +844,10 @@ public class Minion extends Card {
 		if (summoned_ != ((Minion)other).summoned_)
 			return false;
 		if (transformed_ != ((Minion)other).transformed_)
+			return false;
+		if (destroyOnTurnStart_ != ((Minion)other).destroyOnTurnStart_)
+			return false;
+		if (destroyOnTurnEnd_ != ((Minion)other).destroyOnTurnEnd_)
 			return false;
 		return true;
 	}

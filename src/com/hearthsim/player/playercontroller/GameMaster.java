@@ -28,8 +28,8 @@ public class GameMaster {
 	
 	public void beginTurn(int turn, BoardState board, Player player) throws HSException
 	{
-		board.resetHand();
-		board.resetMinions();
+		board.startTurn(player.getDeck());
+
 		Card newCard = player.drawFromDeck(board.getDeckPos_p0());
 		if (newCard == null) {
 			//fatigue

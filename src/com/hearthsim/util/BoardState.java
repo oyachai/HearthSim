@@ -390,26 +390,7 @@ public class BoardState implements DeepCopyable {
 			throw new HSInvalidPlayerIndexException();
 	}
 
-	
-	//various ways to remove cards / minions
-	public Minion removeMinion_p0(Minion minion) {
-		boolean success = p0_minions_.remove(minion);
-		if (success) {
-			return minion;
-		} else {
-			return null;
-		}
-	}
-	
-	public Minion removeMinion_p1(Minion minion) {
-		boolean success = p1_minions_.remove(minion);
-		if (success) {
-			return minion;
-		} else {
-			return null;
-		}
-	}
-	
+
 	public Minion removeMinion_p0(int index) {
 		Minion minion = null;
 		try {
@@ -469,11 +450,72 @@ public class BoardState implements DeepCopyable {
 	}
 	
 	public void endTurn(Deck deck) {
-		p0_hero_.endTurn(this, deck);
+		p0_hero_.endTurn(0, 0, this, deck);
+		p1_hero_.endTurn(0, 0, this, deck);
+		for (int index = 0; index < p0_minions_.size(); ++index) {
+			Minion targetMinion = p0_minions_.get(index);
+			try {
+				targetMinion.endTurn(0, index + 1, this, deck);
+			} catch (HSInvalidPlayerIndexException e) {
+				e.printStackTrace();
+			}
+		}
+		for (int index = 0; index < p1_minions_.size(); ++index) {
+			Minion targetMinion = p1_minions_.get(index);
+			try {
+				targetMinion.endTurn(1, index + 1, this, deck);
+			} catch (HSInvalidPlayerIndexException e) {
+				e.printStackTrace();
+			}
+		}
+		
 		Iterator<Minion> iter = p0_minions_.iterator();
 		while (iter.hasNext()) {
 			Minion targetMinion = iter.next();
-			targetMinion.endTurn(this, deck);
+			if (targetMinion.getHealth() <= 0)
+				iter.remove();
+		}
+
+		iter = p1_minions_.iterator();
+		while (iter.hasNext()) {
+			Minion targetMinion = iter.next();
+			if (targetMinion.getHealth() <= 0)
+				iter.remove();
+		}
+	}
+	
+	public void startTurn(Deck deck) {
+		this.resetHand();
+		this.resetMinions();
+
+		for (int index = 0; index < p0_minions_.size(); ++index) {
+			Minion targetMinion = p0_minions_.get(index);
+			try {
+				targetMinion.startTurn(0, index + 1, this, deck);
+			} catch (HSInvalidPlayerIndexException e) {
+				e.printStackTrace();
+			}
+		}
+		for (int index = 0; index < p1_minions_.size(); ++index) {
+			Minion targetMinion = p1_minions_.get(index);
+			try {
+				targetMinion.startTurn(1, index + 1, this, deck);
+			} catch (HSInvalidPlayerIndexException e) {
+				e.printStackTrace();
+			}
+		}
+		Iterator<Minion> iter = p0_minions_.iterator();
+		while (iter.hasNext()) {
+			Minion targetMinion = iter.next();
+			if (targetMinion.getHealth() <= 0)
+				iter.remove();
+		}
+
+		iter = p1_minions_.iterator();
+		while (iter.hasNext()) {
+			Minion targetMinion = iter.next();
+			if (targetMinion.getHealth() <= 0)
+				iter.remove();
 		}
 	}
 	

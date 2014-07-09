@@ -1,21 +1,20 @@
 package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.Deck;
-import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.HearthTreeNode;
 
-public class Execute extends SpellCard {
+public class Corruption extends SpellCard {
 	
 	/**
 	 * Constructor
 	 * 
 	 * @param hasBeenUsed Whether the card has already been used or not
 	 */
-	public Execute(boolean hasBeenUsed) {
-		super("Execute", (byte)1, hasBeenUsed);
+	public Corruption(boolean hasBeenUsed) {
+		super("Corruption", (byte)1, hasBeenUsed);
 	}
 
 	/**
@@ -23,7 +22,7 @@ public class Execute extends SpellCard {
 	 * 
 	 * Defaults to hasBeenUsed = false
 	 */
-	public Execute() {
+	public Corruption() {
 		this(false);
 	}
 
@@ -31,7 +30,7 @@ public class Execute extends SpellCard {
 	 * 
 	 * Use the card on the given target
 	 * 
-	 * Destroy a damaged minion.
+	 * Choose an enemy minion.  At the start of your turn, destroy it.
 	 * 
 	 * @param thisCardIndex The index (position) of the card in the hand
 	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
@@ -49,17 +48,11 @@ public class Execute extends SpellCard {
 			Deck deck)
 		throws HSInvalidPlayerIndexException
 	{
-		if (minionIndex == 0 || playerIndex == 0) {
-			//cant't use it on the heroes or friendly minion
+		if (playerIndex == 0 || minionIndex == 0) {
 			return null;
 		}
 		
-		Minion targetMinion = boardState.data_.getMinion_p1(minionIndex-1);
-		if (targetMinion.getHealth() == targetMinion.getMaxHealth())
-			return null;
-		
-		targetMinion.destroyed(playerIndex, minionIndex, boardState, deck);
-		boardState.data_.removeMinion_p1(minionIndex-1);
+		boardState.data_.getMinion_p1(minionIndex - 1).setDestroyOnTurnStart(true);
 		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
 	}
 }

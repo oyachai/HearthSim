@@ -120,9 +120,9 @@ public class SpellDamage extends SpellCard {
 
 			if (target.getHealth() <= 0) {
 				if (playerIndex == 0)
-					boardState.data_.removeMinion_p0(target);
+					boardState.data_.removeMinion_p0(minionIndex-1);
 				else
-					boardState.data_.removeMinion_p1(target);
+					boardState.data_.removeMinion_p1(minionIndex-1);
 			}
 			return boardState;
 		}

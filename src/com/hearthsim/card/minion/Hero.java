@@ -175,7 +175,7 @@ public class Hero extends Minion {
 	 * temporary buffs that it has.
 	 */
 	@Override
-	public BoardState endTurn(BoardState boardState, Deck deck) {
+	public BoardState endTurn(int thisMinionPlayerIndex, int thisMinionIndex, BoardState boardState, Deck deck) {
 		if (this.temporaryAttackDamage_ > 0) {
 			this.attack_ -= this.temporaryAttackDamage_;
 			this.temporaryAttackDamage_ = 0;
