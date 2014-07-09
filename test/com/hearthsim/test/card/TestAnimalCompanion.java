@@ -155,15 +155,16 @@ public class TestAnimalCompanion {
 		HearthTreeNode<BoardState> ret = theCard.useOn(0, 0, 0, board, deck);
 		
 		assertFalse(ret == null);
-		assertEquals(board.data_.getNumCards_hand(), 0);
-		assertEquals(board.data_.getNumMinions_p0(), 3);
-		assertEquals(board.data_.getNumMinions_p1(), 2);
-		assertEquals(board.data_.getHero_p0().getHealth(), 30);
-		assertEquals(board.data_.getHero_p1().getHealth(), 30);
-		assertEquals(board.data_.getMinion_p0(0).getHealth(), health0);
-		assertEquals(board.data_.getMinion_p0(1).getHealth(), health1 - 1);
-		assertEquals(board.data_.getMinion_p1(0).getHealth(), health0);
-		assertEquals(board.data_.getMinion_p1(1).getHealth(), health1 - 1);
+		assertEquals(0, board.data_.getNumCards_hand());
+		assertEquals(1, board.data_.getMana_p0());
+		assertEquals(3, board.data_.getNumMinions_p0());
+		assertEquals(2, board.data_.getNumMinions_p1());
+		assertEquals(30, board.data_.getHero_p0().getHealth());
+		assertEquals(30, board.data_.getHero_p1().getHealth());
+		assertEquals(health0, board.data_.getMinion_p0(0).getHealth());
+		assertEquals(health1 - 1, board.data_.getMinion_p0(1).getHealth());
+		assertEquals(health0, board.data_.getMinion_p1(0).getHealth());
+		assertEquals(health1  - 1, board.data_.getMinion_p1(1).getHealth());
 
 		if (board.data_.getMinion_p0(2) instanceof Leokk) {
 			assertEquals(board.data_.getMinion_p0(0).getAttack(), attack0 + 1);

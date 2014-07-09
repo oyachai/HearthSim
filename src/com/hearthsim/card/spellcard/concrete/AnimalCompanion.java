@@ -2,7 +2,6 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.card.minion.concrete.Frog;
 import com.hearthsim.card.minion.concrete.Huffer;
 import com.hearthsim.card.minion.concrete.Leokk;
 import com.hearthsim.card.minion.concrete.Misha;
@@ -20,7 +19,7 @@ public class AnimalCompanion extends SpellCard {
 	 * @param hasBeenUsed Whether the card has already been used or not
 	 */
 	public AnimalCompanion(boolean hasBeenUsed) {
-		super("Ancestral Healing", (byte)0, hasBeenUsed);
+		super("Animal Companion", (byte)3, hasBeenUsed);
 	}
 
 	/**
@@ -71,6 +70,7 @@ public class AnimalCompanion extends SpellCard {
 		} else {
 			minion = new Misha();
 		}
+		boardState.data_.setMana_p0(boardState.data_.getMana_p0() + 3);
 		boardState.data_.placeCard_hand_p0(minion);
 		HearthTreeNode<BoardState> toRet = minion.useOn(boardState.data_.getNumCards_hand() - 1, playerIndex, numMinions + 1, boardState, deck);
 		
