@@ -147,6 +147,7 @@ public class Hero extends Minion {
 	 * Overridden from Minion.  Need to handle armor.
 	 * 
 	 * @param damage The amount of damage to take
+	 * @param attackerPlayerIndex The player index of the attacker.  This is needed to do things like +spell damage.
 	 * @param thisPlayerIndex The player index of this minion
 	 * @param thisMinionIndex The minion index of this minion
 	 * @param boardState 
@@ -154,15 +155,15 @@ public class Hero extends Minion {
 	 * @throws HSInvalidPlayerIndexException
 	 */
 	@Override
-	public void takeDamage(byte damage, int thisPlayerIndex, int thisMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) throws HSInvalidPlayerIndexException {
+	public void takeDamage(byte damage, int attackerPlayerIndex, int thisPlayerIndex, int thisMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) throws HSInvalidPlayerIndexException {
 
 		byte damageRemaining = (byte)(damage - armor_);
 		if (damageRemaining > 0) {
 			armor_ = 0;
-			super.takeDamage(damageRemaining, thisPlayerIndex, thisMinionIndex, boardState, deck);
+			super.takeDamage(damageRemaining, attackerPlayerIndex, thisPlayerIndex, thisMinionIndex, boardState, deck);
 		} else {
 			armor_ = (byte)(armor_ - damage);
-			super.takeDamage((byte)0, thisPlayerIndex, thisMinionIndex, boardState, deck);
+			super.takeDamage((byte)0, attackerPlayerIndex, thisPlayerIndex, thisMinionIndex, boardState, deck);
 		}		
 	}
 	

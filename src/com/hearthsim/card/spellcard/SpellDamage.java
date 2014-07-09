@@ -61,7 +61,7 @@ public class SpellDamage extends SpellCard {
 			Deck deck)
 		throws HSInvalidPlayerIndexException
 	{
-		minion.takeDamage(damage_, targetPlayerIndex, targetMinionIndex, boardState, deck, true);
+		minion.takeDamage(damage_, 0, targetPlayerIndex, targetMinionIndex, boardState, deck, true);
  	}
 	
 	/**

@@ -189,14 +189,15 @@ public class Minion extends Card {
 	 * Always use this function to take damage... it properly notifies all others of its damage and possibly of its death
 	 * 
 	 * @param damage The amount of damage to take
+	 * @param attackerPlayerIndex The player index of the attacker.  This is needed to do things like +spell damage.
 	 * @param thisPlayerIndex The player index of this minion
 	 * @param thisMinionIndex The minion index of this minion
 	 * @param boardState 
 	 * @param deck
 	 * @throws HSInvalidPlayerIndexException
 	 */
-	public void takeDamage(byte damage, int thisPlayerIndex, int thisMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) throws HSInvalidPlayerIndexException {
-		this.takeDamage(damage, thisPlayerIndex, thisMinionIndex, boardState, deck, true);
+	public void takeDamage(byte damage, int attackerPlayerIndex, int thisPlayerIndex, int thisMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) throws HSInvalidPlayerIndexException {
+		this.takeDamage(damage, attackerPlayerIndex, thisPlayerIndex, thisMinionIndex, boardState, deck, false);
 	}
 	
 	/**
@@ -205,6 +206,7 @@ public class Minion extends Card {
 	 * Always use this function to take damage... it properly notifies all others of its damage and possibly of its death
 	 * 
 	 * @param damage The amount of damage to take
+	 * @param attackerPlayerIndex The player index of the attacker.  This is needed to do things like +spell damage.
 	 * @param thisPlayerIndex The player index of this minion
 	 * @param thisMinionIndex The minion index of this minion
 	 * @param boardState 
@@ -212,9 +214,9 @@ public class Minion extends Card {
 	 * @param isSpellDamage True if this is a spell damage
 	 * @throws HSInvalidPlayerIndexException
 	 */
-	public void takeDamage(byte damage, int thisPlayerIndex, int thisMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck, boolean isSpellDamage) throws HSInvalidPlayerIndexException {
+	public void takeDamage(byte damage, int attackerPlayerIndex, int thisPlayerIndex, int thisMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck, boolean isSpellDamage) throws HSInvalidPlayerIndexException {
 		if (!divineShield_) {
-			byte totalDamage = isSpellDamage ? (byte)(damage + boardState.data_.getSpellDamage(0)) : damage;
+			byte totalDamage = isSpellDamage ? (byte)(damage + boardState.data_.getSpellDamage(attackerPlayerIndex)) : damage;
 			health_ = (byte)(health_ - totalDamage);
 			
 			//Notify all that the minion is damaged
@@ -499,8 +501,8 @@ public class Minion extends Card {
 		
 		if (minionIndex == 0) {
 			//attack the enemy hero
-			boardState.data_.getHero_p1().takeDamage(this.attack_, playerIndex, minionIndex, boardState, deck);
-			this.takeDamage(boardState.data_.getHero_p1().attack_, 0, thisMinionIndex, boardState, deck);
+			boardState.data_.getHero_p1().takeDamage(this.attack_, 0, playerIndex, minionIndex, boardState, deck);
+			this.takeDamage(boardState.data_.getHero_p1().attack_, playerIndex, 0, thisMinionIndex, boardState, deck);
 			if (windFury_ && !hasWindFuryAttacked_)
 				hasWindFuryAttacked_ = true;
 			else
@@ -508,8 +510,8 @@ public class Minion extends Card {
 			return boardState;
 		} else {
 			Minion target = boardState.data_.getMinion_p1(minionIndex - 1);
-			target.takeDamage(this.attack_, playerIndex, minionIndex, boardState, deck);
-			this.takeDamage(target.attack_, 0, thisMinionIndex, boardState, deck);
+			target.takeDamage(this.attack_, 0, playerIndex, minionIndex, boardState, deck);
+			this.takeDamage(target.attack_, playerIndex, 0, thisMinionIndex, boardState, deck);
 			if (target.getHealth() <= 0) {
 				boardState.data_.removeMinion_p1(target);
 			}

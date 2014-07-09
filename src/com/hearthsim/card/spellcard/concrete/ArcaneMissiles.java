@@ -66,10 +66,10 @@ public class ArcaneMissiles extends SpellCard {
 		while(index < numMissiles) {
 			int targetIndex = (int)(numTargets * Math.random());
 			if (targetIndex == 0 && boardState.data_.getHero_p1().getHealth() > 0) {
-				boardState.data_.getHero_p1().takeDamage((byte)1, 1, targetIndex, boardState, deck);
+				boardState.data_.getHero_p1().takeDamage((byte)1, 0, 1, targetIndex, boardState, deck);
 				++index;
 			} else if (targetIndex > 0 && boardState.data_.getMinion_p1(targetIndex-1).getHealth() > 0) {
-				boardState.data_.getMinion_p1(targetIndex-1).takeDamage((byte)1, 1, targetIndex, boardState, deck);
+				boardState.data_.getMinion_p1(targetIndex-1).takeDamage((byte)1, 0, 1, targetIndex, boardState, deck);
 				++index;
 			}
 			if (boardState.data_.getHero_p1().getHealth() <= 0) {
