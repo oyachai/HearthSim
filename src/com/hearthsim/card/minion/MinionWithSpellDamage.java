@@ -1,44 +1,24 @@
-package com.hearthsim.card.minion.concrete;
+package com.hearthsim.card.minion;
 
 import com.hearthsim.card.Deck;
-import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.HearthTreeNode;
 
-public class Archmage extends Minion {
+public class MinionWithSpellDamage extends Minion {
 
-	private static final byte SPELL_DAMAGE = 1;
+	protected byte spellDamage_;
 	
-	public Archmage() {
-		this(
-				(byte)6,
-				(byte)4,
-				(byte)7,
-				(byte)4,
-				(byte)7,
-				(byte)7,
-				false,
-				false,
-				false,
-				false,
-				false,
-				false,
-				false,
-				false,
-				false,
-				true,
-				false
-			);
-	}
-	
-	public Archmage(	
+	public MinionWithSpellDamage(
+							String name,
 							byte mana,
 							byte attack,
 							byte health,
 							byte baseAttack,
+							byte extraAttackUntilTurnEnd,
 							byte baseHealth,
 							byte maxHealth,
+							byte spellDamage,
 							boolean taunt,
 							boolean divineShield,
 							boolean windFury,
@@ -48,15 +28,18 @@ public class Archmage extends Minion {
 							boolean frozen,
 							boolean summoned,
 							boolean transformed,
+							boolean destroyAtTurnStart,
+							boolean destroyAtTurnEnd,
 							boolean isInHand,
 							boolean hasBeenUsed) {
 		
 		super(
-			"Archmage",
+			name,
 			mana,
 			attack,
 			health,
 			baseAttack,
+			extraAttackUntilTurnEnd,
 			baseHealth,
 			maxHealth,
 			taunt,
@@ -68,8 +51,39 @@ public class Archmage extends Minion {
 			frozen,
 			summoned,
 			transformed,
+			destroyAtTurnStart,
+			destroyAtTurnEnd,
 			isInHand,
 			hasBeenUsed);
+		spellDamage_ = spellDamage;
+	}
+	
+
+	@Override
+	public Object deepCopy() {
+		return new MinionWithSpellDamage(
+				this.name_,
+				this.mana_,
+				this.attack_,
+				this.health_,
+				this.baseAttack_,
+				this.extraAttackUntilTurnEnd_,
+				this.baseHealth_,
+				this.maxHealth_,
+				this.spellDamage_,
+				this.taunt_,
+				this.divineShield_,
+				this.windFury_,
+				this.charge_,
+				this.hasAttacked_,
+				this.hasWindFuryAttacked_,
+				this.frozen_,
+				this.summoned_,
+				this.transformed_,
+				this.destroyOnTurnStart_,
+				this.destroyOnTurnEnd_,
+				this.isInHand_,
+				this.hasBeenUsed_);
 	}
 	
 	/**
@@ -112,7 +126,7 @@ public class Archmage extends Minion {
 			boardState.data_.setMana_p0(boardState.data_.getMana_p0() - this.mana_);
 			boardState.data_.removeCard_hand(thisCardIndex);
 			
-			boardState.data_.setSpellDamage(0, (byte)(boardState.data_.getSpellDamage(0) + SPELL_DAMAGE));
+			boardState.data_.setSpellDamage(0, (byte)(boardState.data_.getSpellDamage(0) + spellDamage_));
 			return boardState;
 							
 		} else {
@@ -132,7 +146,7 @@ public class Archmage extends Minion {
 	 * @throws HSInvalidPlayerIndexException
 	 */
 	public void silenced(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) throws HSInvalidPlayerIndexException {
-		boardState.data_.setSpellDamage(0, (byte)(boardState.data_.getSpellDamage(0) - SPELL_DAMAGE));
+		boardState.data_.setSpellDamage(0, (byte)(boardState.data_.getSpellDamage(0) - spellDamage_));
 	}
 	
 	/**
@@ -147,7 +161,7 @@ public class Archmage extends Minion {
 	 * @throws HSInvalidPlayerIndexException
 	 */
 	public void destroyed(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) throws HSInvalidPlayerIndexException {		
-		boardState.data_.setSpellDamage(0, (byte)(boardState.data_.getSpellDamage(0) - SPELL_DAMAGE));
+		boardState.data_.setSpellDamage(0, (byte)(boardState.data_.getSpellDamage(0) - spellDamage_));
 		super.destroyed(thisPlayerIndex, thisMinionIndex, boardState, deck);
 	}
 }

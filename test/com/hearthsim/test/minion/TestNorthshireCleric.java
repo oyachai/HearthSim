@@ -48,6 +48,48 @@ public class TestNorthshireCleric {
 		deck = new Deck(cards);
 		
 	}
+
+	@Test
+	public void test_deepCopy() {
+		
+
+		Minion card1 = new NorthshireCleric();
+		Minion card1_cloned = (Minion)card1.deepCopy();
+		
+		assertTrue(card1.equals(card1_cloned));
+		assertTrue(card1_cloned.equals(card1));
+		
+		card1.setHealth((byte)(card1.getHealth() + 1));
+		assertFalse(card1.equals(card1_cloned));
+		assertFalse(card1_cloned.equals(card1));
+
+		card1_cloned = (Minion)card1.deepCopy();
+		assertTrue(card1.equals(card1_cloned));
+		assertTrue(card1_cloned.equals(card1));
+
+		card1.setAttack((byte)(card1.getAttack() + 1));
+		assertFalse(card1.equals(card1_cloned));
+		assertFalse(card1_cloned.equals(card1));
+
+		card1_cloned = (Minion)card1.deepCopy();
+		assertTrue(card1.equals(card1_cloned));
+		assertTrue(card1_cloned.equals(card1));
+		
+		card1.setDestroyOnTurnEnd(true);
+		assertFalse(card1.equals(card1_cloned));
+		assertFalse(card1_cloned.equals(card1));
+		card1_cloned = (Minion)card1.deepCopy();
+		assertTrue(card1.equals(card1_cloned));
+		assertTrue(card1_cloned.equals(card1));
+
+		card1.setDestroyOnTurnStart(true);
+		assertFalse(card1.equals(card1_cloned));
+		assertFalse(card1_cloned.equals(card1));
+		card1_cloned = (Minion)card1.deepCopy();
+		assertTrue(card1.equals(card1_cloned));
+		assertTrue(card1_cloned.equals(card1));
+
+	}
 	
 	@Test
 	public void test0() throws HSInvalidPlayerIndexException {

@@ -11,6 +11,7 @@ public class Demon extends Minion {
 			byte attack,
 			byte health,
 			byte baseAttack,
+			byte extraAttackUntilTurnEnd,
 			byte baseHealth,
 			byte maxHealth,
 			boolean taunt,
@@ -22,9 +23,32 @@ public class Demon extends Minion {
 			boolean frozen,
 			boolean summoned,
 			boolean transformed,
+			boolean destroyOnTurnStart,
+			boolean destroyOnTurnEnd,
 			boolean isInHand,
 			boolean hasBeenUsed) {
-		super(name, mana, attack, health, baseAttack, baseHealth, maxHealth, taunt, divineShield, windFury, charge, hasAttacked, hasWindFuryAttacked, frozen, summoned, transformed, isInHand, hasBeenUsed);
+		super(
+				name,
+				mana,
+				attack,
+				health,
+				baseAttack,
+				extraAttackUntilTurnEnd,
+				baseHealth,
+				maxHealth,
+				taunt,
+				divineShield,
+				windFury,
+				charge,
+				hasAttacked,
+				hasWindFuryAttacked,
+				frozen,
+				summoned,
+				transformed,
+				destroyOnTurnStart,
+				destroyOnTurnEnd,
+				isInHand,
+				hasBeenUsed);
 	}
 	
 	public Demon(
@@ -36,7 +60,7 @@ public class Demon extends Minion {
 			byte baseHealth,
 			byte maxHealth
 			) {
-		this(name, mana, attack, health, baseAttack, baseHealth, maxHealth, false, false, false, false, false, false, false, false, false, true, false);
+		this(name, mana, attack, health, baseAttack, (byte)0, baseHealth, maxHealth, false, false, false, false, false, false, false, false, false, false, false, true, false);
 	}
 	
 	public JSONObject toJSON() {
