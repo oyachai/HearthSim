@@ -26,6 +26,7 @@ public class Minion extends Card {
 	
 	protected byte attack_;
 	protected byte baseAttack_;
+	protected byte extraAttackUntilTurnEnd_;
 	
 	protected boolean summoned_;
 	protected boolean transformed_;
@@ -69,6 +70,48 @@ public class Minion extends Card {
 					boolean summoned,
 					boolean transformed,
 					boolean isInHand,
+					boolean hasBeenUsed)
+	{
+		this(
+				name,
+				mana,
+				attack,
+				health,
+				baseAttack,
+				(byte)0,
+				baseHealth,
+				maxHealth,
+				taunt,
+				divineShield,
+				windFury,
+				charge,
+				hasAttacked,
+				hasWindFuryAttacked,
+				frozen,
+				summoned,
+				transformed,
+				isInHand,
+				hasBeenUsed);
+	}
+	
+	public Minion(	String name,
+					byte mana,
+					byte attack,
+					byte health,
+					byte baseAttack,
+					byte extraAttackUntilTurnEnd,
+					byte baseHealth,
+					byte maxHealth,
+					boolean taunt,
+					boolean divineShield,
+					boolean windFury,
+					boolean charge,
+					boolean hasAttacked,
+					boolean hasWindFuryAttacked,
+					boolean frozen,
+					boolean summoned,
+					boolean transformed,
+					boolean isInHand,
 					boolean hasBeenUsed) {
 		super(name, mana, hasBeenUsed, isInHand);
 		attack_ = attack;
@@ -79,6 +122,7 @@ public class Minion extends Card {
 		charge_ = charge;
 		hasAttacked_ = hasAttacked;
 		baseAttack_ = baseAttack;
+		extraAttackUntilTurnEnd_ = extraAttackUntilTurnEnd;
 		hasWindFuryAttacked_ = hasWindFuryAttacked;
 		frozen_ = frozen;
 		baseHealth_ = baseHealth;
@@ -182,7 +226,27 @@ public class Minion extends Card {
 	public void setTransformed(boolean value) {
 		transformed_ = value;
 	}
-
+	
+	public byte getExtraAttackUntilTurnEnd() {
+		return extraAttackUntilTurnEnd_;
+	}
+	
+	public void setExtraAttackUntilTurnEnd(byte value) {
+		extraAttackUntilTurnEnd_ = value;
+	}
+	
+	/**
+	 * End the turn and resets the card state
+	 * 
+	 * This function is called at the end of the turn.  Any derived class must override it and remove any 
+	 * temporary buffs that it has.
+	 */
+	@Override
+	public BoardState endTurn(BoardState boardState, Deck deck) {
+		extraAttackUntilTurnEnd_ = 0;
+		return boardState;
+	}
+	
 	/**
 	 * Called when this minion takes damage
 	 * 
@@ -501,7 +565,7 @@ public class Minion extends Card {
 		
 		if (minionIndex == 0) {
 			//attack the enemy hero
-			boardState.data_.getHero_p1().takeDamage(this.attack_, 0, playerIndex, minionIndex, boardState, deck);
+			boardState.data_.getHero_p1().takeDamage((byte)(this.attack_ + this.extraAttackUntilTurnEnd_), 0, playerIndex, minionIndex, boardState, deck);
 			this.takeDamage(boardState.data_.getHero_p1().attack_, playerIndex, 0, thisMinionIndex, boardState, deck);
 			if (windFury_ && !hasWindFuryAttacked_)
 				hasWindFuryAttacked_ = true;
@@ -510,7 +574,7 @@ public class Minion extends Card {
 			return boardState;
 		} else {
 			Minion target = boardState.data_.getMinion_p1(minionIndex - 1);
-			target.takeDamage(this.attack_, 0, playerIndex, minionIndex, boardState, deck);
+			target.takeDamage((byte)(this.attack_ + this.extraAttackUntilTurnEnd_), 0, playerIndex, minionIndex, boardState, deck);
 			this.takeDamage(target.attack_, playerIndex, 0, thisMinionIndex, boardState, deck);
 			if (target.getHealth() <= 0) {
 				boardState.data_.removeMinion_p1(target);
