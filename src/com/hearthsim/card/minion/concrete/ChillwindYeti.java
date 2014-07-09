@@ -12,9 +12,9 @@ public class ChillwindYeti extends Minion {
 	private static final boolean TAUNT = false;
 	private static final boolean DIVINE_SHIELD = false;
 	private static final boolean WINDFURY = false;
-	private static final boolean CHARGE = true;
+	private static final boolean CHARGE = false;
 	
-	private static final boolean SUMMONED = true;
+	private static final boolean SUMMONED = false;
 	private static final boolean TRANSFORMED = false;
 	
 	public ChillwindYeti() {
