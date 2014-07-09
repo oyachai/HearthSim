@@ -59,13 +59,13 @@ public class Hellfire extends SpellCard {
 		
 		HearthTreeNode<BoardState> toRet = boardState;
 
-		boardState.data_.getHero_p1().takeDamage(DAMAGE_AMOUNT, 0, 0, 0, boardState, deck);
+		boardState.data_.getHero_p1().takeDamage(DAMAGE_AMOUNT, 0, 0, 0, boardState, deck, true);
 		for (int indx = 0; indx < boardState.data_.getNumMinions_p1(); ++indx) {
 			Minion targetMinion = boardState.data_.getMinion_p1(indx);
 			targetMinion.takeDamage(DAMAGE_AMOUNT, 0, 1, indx + 1, boardState, deck, true);
 		}
 
-		boardState.data_.getHero_p0().takeDamage(DAMAGE_AMOUNT, 0, 0, 0, boardState, deck);
+		boardState.data_.getHero_p0().takeDamage(DAMAGE_AMOUNT, 0, 0, 0, boardState, deck, true);
 		for (int indx = 0; indx < boardState.data_.getNumMinions_p0(); ++indx) {
 			Minion targetMinion = boardState.data_.getMinion_p0(indx);
 			targetMinion.takeDamage(DAMAGE_AMOUNT, 0, 0, indx + 1, boardState, deck, true);
