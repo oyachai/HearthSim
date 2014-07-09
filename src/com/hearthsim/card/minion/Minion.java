@@ -4,7 +4,6 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
-import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.HearthTreeNode;
 import com.json.JSONObject;
 
@@ -27,9 +26,30 @@ public class Minion extends Card {
 	
 	protected byte attack_;
 	protected byte baseAttack_;
+	
+	protected boolean summoned_;
+	protected boolean transformed_;
 
 	public Minion(String name, byte mana, byte attack, byte health, byte baseAttack, byte baseHealth, byte maxHealth) {
-		this(name, mana, attack, health, baseAttack, baseHealth, maxHealth, false, false, false, false, false, false, false, true, false);
+		this(
+				name,
+				mana,
+				attack,
+				health,
+				baseAttack,
+				baseHealth,
+				maxHealth,
+				false,
+				false,
+				false,
+				false,
+				false,
+				false,
+				false,
+				false,
+				false,
+				true,
+				false);
 	}
 	
 	public Minion(	String name,
@@ -46,6 +66,8 @@ public class Minion extends Card {
 					boolean hasAttacked,
 					boolean hasWindFuryAttacked,
 					boolean frozen,
+					boolean summoned,
+					boolean transformed,
 					boolean isInHand,
 					boolean hasBeenUsed) {
 		super(name, mana, hasBeenUsed, isInHand);
@@ -61,6 +83,8 @@ public class Minion extends Card {
 		frozen_ = frozen;
 		baseHealth_ = baseHealth;
 		maxHealth_ = maxHealth;
+		summoned_ = summoned;
+		transformed_ = transformed;
 	}
 	
 	public boolean getTaunt() {
@@ -143,6 +167,22 @@ public class Minion extends Card {
 		frozen_ = value;
 	}
 	
+	public boolean getSummoned() {
+		return summoned_;
+	}
+	
+	public void setSummoned(boolean value) {
+		summoned_ = value;
+	}
+	
+	public boolean getTransformed() {
+		return transformed_;
+	}
+	
+	public void setTransformed(boolean value) {
+		transformed_ = value;
+	}
+
 	/**
 	 * Called when this minion takes damage
 	 * 
@@ -267,7 +307,7 @@ public class Minion extends Card {
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public final HearthTreeNode<BoardState> useOn(
+	public HearthTreeNode<BoardState> useOn(
 			int thisCardIndex,
 			int playerIndex,
 			int minionIndex,
@@ -276,17 +316,43 @@ public class Minion extends Card {
 		throws HSInvalidPlayerIndexException
 	{
 		//A generic card does nothing except for consuming mana
-		HearthTreeNode<BoardState> toRet = super.useOn(thisCardIndex, playerIndex, minionIndex, boardState, deck);
+		HearthTreeNode<BoardState> toRet = this.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
 		
-		if (playerIndex == 0 && toRet != null) {
-			//Notify all that a minion is created
-			toRet = toRet.data_.getHero_p0().otherCardUsedEvent(0, toRet, deck);
-			for (int j = 0; j < toRet.data_.getNumMinions_p0(); ++j) {
-				toRet = toRet.data_.getMinion_p0(j).minionCreatedEvent(playerIndex, minionIndex, toRet, deck);
+		if (toRet != null) {
+			//Notify all other cards/characters of the card's use
+			if (!transformed_) {
+				for (int j = 0; j < toRet.data_.getNumCards_hand(); ++j) {
+					toRet = toRet.data_.getCard_hand_p0(j).otherCardUsedEvent(j, toRet, deck);
+				}
+				toRet = toRet.data_.getHero_p0().otherCardUsedEvent(0, toRet, deck);
+				for (int j = 0; j < toRet.data_.getNumMinions_p0(); ++j) {
+					toRet = toRet.data_.getMinion_p0(j).otherCardUsedEvent(j, toRet, deck);
+				}
+				toRet = toRet.data_.getHero_p1().otherCardUsedEvent(0, toRet, deck);
+				for (int j = 0; j < toRet.data_.getNumMinions_p1(); ++j) {
+					toRet = toRet.data_.getMinion_p1(j).otherCardUsedEvent(j, toRet, deck);
+				}
 			}
-			toRet = toRet.data_.getHero_p1().otherCardUsedEvent(0, toRet, deck);
-			for (int j = 0; j < toRet.data_.getNumMinions_p1(); ++j) {
-				toRet = toRet.data_.getMinion_p1(j).minionCreatedEvent(playerIndex, minionIndex, toRet, deck);
+			if (summoned_) {
+				//Notify all that a minion is created
+				toRet = toRet.data_.getHero_p0().minionSummonedEvent(playerIndex, minionIndex, toRet, deck);
+				for (int j = 0; j < toRet.data_.getNumMinions_p0(); ++j) {
+					toRet = toRet.data_.getMinion_p0(j).minionSummonedEvent(playerIndex, minionIndex, toRet, deck);
+				}
+				toRet = toRet.data_.getHero_p1().minionSummonedEvent(playerIndex, minionIndex, toRet, deck);
+				for (int j = 0; j < toRet.data_.getNumMinions_p1(); ++j) {
+					toRet = toRet.data_.getMinion_p1(j).minionSummonedEvent(playerIndex, minionIndex, toRet, deck);
+				}
+			} else {
+				//Notify all that a minion is created
+				toRet = toRet.data_.getHero_p0().minionPlacedEvent(playerIndex, minionIndex, toRet, deck);
+				for (int j = 0; j < toRet.data_.getNumMinions_p0(); ++j) {
+					toRet = toRet.data_.getMinion_p0(j).minionPlacedEvent(playerIndex, minionIndex, toRet, deck);
+				}
+				toRet = toRet.data_.getHero_p1().minionPlacedEvent(playerIndex, minionIndex, toRet, deck);
+				for (int j = 0; j < toRet.data_.getNumMinions_p1(); ++j) {
+					toRet = toRet.data_.getMinion_p1(j).minionPlacedEvent(playerIndex, minionIndex, toRet, deck);
+				}
 			}
 		}
 		
@@ -457,7 +523,36 @@ public class Minion extends Card {
 	 * 
 	 * @return The boardState is manipulated and returned
 	 */
-	protected HearthTreeNode<BoardState> minionCreatedEvent(int createdMinionPlayerIndex, int createdMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
+	public HearthTreeNode<BoardState> minionPlacedEvent(int placedMinionPlayerIndex, int placedMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
+		return boardState;
+	}
+
+
+	/**
+	 * 
+	 * Called whenever another minion is summoned using a spell
+	 * 
+	 * @param playerIndex The index of the created minion's player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
+	 * @param minionIndex The index of the created minion.
+	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+	 * 
+	 * @return The boardState is manipulated and returned
+	 */
+	public HearthTreeNode<BoardState> minionSummonedEvent(int summonedMinionPlayerIndex, int summeonedMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
+		return boardState;
+	}
+	
+	/**
+	 * 
+	 * Called whenever another minion is summoned using a spell
+	 * 
+	 * @param playerIndex The index of the created minion's player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
+	 * @param minionIndex The index of the created minion.
+	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+	 * 
+	 * @return The boardState is manipulated and returned
+	 */
+	public HearthTreeNode<BoardState> minionTransformedEvent(int transformedMinionPlayerIndex, int transformedMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
 		return boardState;
 	}
 
@@ -473,7 +568,7 @@ public class Minion extends Card {
 	 * 
 	 * @return The boardState is manipulated and returned
 	 */
-	protected HearthTreeNode<BoardState> minionAttackedEvent(int attackingPlayerIndex, int attackingMinionIndex, int targetPlayerIndex, int targetMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
+	public HearthTreeNode<BoardState> minionAttackedEvent(int attackingPlayerIndex, int attackingMinionIndex, int targetPlayerIndex, int targetMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
 		return boardState;
 	}
 
@@ -489,7 +584,7 @@ public class Minion extends Card {
 	 * 
 	 * @return The boardState is manipulated and returned
 	 */
-	protected HearthTreeNode<BoardState> minionAttackingEvent(int attackingPlayerIndex, int attackingMinionIndex, int targetPlayerIndex, int targetMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
+	public HearthTreeNode<BoardState> minionAttackingEvent(int attackingPlayerIndex, int attackingMinionIndex, int targetPlayerIndex, int targetMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
 		return boardState;
 	}
 	
@@ -503,7 +598,7 @@ public class Minion extends Card {
 	 * 
 	 * @return The boardState is manipulated and returned
 	 */
-	protected HearthTreeNode<BoardState> minionDamagedEvent(int damagedPlayerIndex, int damagedMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
+	public HearthTreeNode<BoardState> minionDamagedEvent(int damagedPlayerIndex, int damagedMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
 		return boardState;
 	}
 	
@@ -517,7 +612,7 @@ public class Minion extends Card {
 	 * 
 	 * @return The boardState is manipulated and returned
 	 */
-	protected HearthTreeNode<BoardState> minionDeadEvent(int deadMinionPlayerIndex, int deadMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
+	public HearthTreeNode<BoardState> minionDeadEvent(int deadMinionPlayerIndex, int deadMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
 		return boardState;
 	}
 	
@@ -531,7 +626,7 @@ public class Minion extends Card {
 	 * 
 	 * @return The boardState is manipulated and returned
 	 */
-	protected HearthTreeNode<BoardState> minionHealedEvent(
+	public HearthTreeNode<BoardState> minionHealedEvent(
 			int thisMinionPlayerIndex,
 			int thisMinionIndex,
 			int healedMinionPlayerIndex,
@@ -562,7 +657,7 @@ public class Minion extends Card {
 	}
 	
 	@Override
-	public DeepCopyable deepCopy() {
+	public Object deepCopy() {
 		return new Minion(
 				this.name_,
 				this.mana_,
@@ -578,8 +673,10 @@ public class Minion extends Card {
 				this.hasAttacked_,
 				this.hasWindFuryAttacked_,
 				this.frozen_,
+				this.summoned_,
+				this.transformed_,
 				this.isInHand_,
-				this.hasBeenUsed());
+				this.hasBeenUsed_);
 	}
 	
 	@Override
@@ -610,6 +707,10 @@ public class Minion extends Card {
 		if (hasWindFuryAttacked_ != ((Minion)other).hasWindFuryAttacked_)
 			return false;
 		if (frozen_ != ((Minion)other).frozen_)
+			return false;
+		if (summoned_ != ((Minion)other).summoned_)
+			return false;
+		if (transformed_ != ((Minion)other).transformed_)
 			return false;
 		return true;
 	}

@@ -33,6 +33,8 @@ public class NorthshireCleric extends Minion {
 				false,
 				false,
 				false,
+				false,
+				false,
 				true,
 				false
 			);
@@ -52,6 +54,8 @@ public class NorthshireCleric extends Minion {
 							boolean hasAttacked,
 							boolean hasWindFuryAttacked,
 							boolean frozen,
+							boolean summoned,
+							boolean transformed,
 							boolean isInHand,
 							boolean hasBeenUsed) {
 		
@@ -70,6 +74,8 @@ public class NorthshireCleric extends Minion {
 			hasAttacked,
 			hasWindFuryAttacked,
 			frozen,
+			summoned,
+			transformed,
 			isInHand,
 			hasBeenUsed);
 	}
@@ -85,7 +91,7 @@ public class NorthshireCleric extends Minion {
 	 * 
 	 * @return The boardState is manipulated and returned
 	 */
-	protected HearthTreeNode<BoardState> minionHealedEvent(
+	public HearthTreeNode<BoardState> minionHealedEvent(
 			int thisMinionPlayerIndex,
 			int thisMinionIndex,
 			int healedMinionPlayerIndex,

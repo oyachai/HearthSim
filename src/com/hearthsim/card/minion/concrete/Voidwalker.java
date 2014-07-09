@@ -18,6 +18,8 @@ public class Voidwalker extends Demon {
 				false,
 				false,
 				false,
+				false,
+				false,
 				true,
 				false
 			);
@@ -37,6 +39,8 @@ public class Voidwalker extends Demon {
 							boolean hasAttacked,
 							boolean hasWindFuryAttacked,
 							boolean frozen,
+							boolean summoned,
+							boolean transformed,
 							boolean isInHand,
 							boolean hasBeenUsed) {
 		
@@ -55,6 +59,8 @@ public class Voidwalker extends Demon {
 			hasAttacked,
 			hasWindFuryAttacked,
 			frozen,
+			summoned,
+			transformed,
 			isInHand,
 			hasBeenUsed);
 	}

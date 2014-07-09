@@ -35,7 +35,7 @@ public class Hero extends Minion {
 			byte temporaryAttackDamage,
 			boolean hasBeenUsed) {
 	
-		super(name, (byte)0, attack, health, (byte)0, (byte)30, (byte)30, false, false, windFury, false, hasAttacked, hasWindFuryAttacked, frozen, false, hasBeenUsed);
+		super(name, (byte)0, attack, health, (byte)0, (byte)30, (byte)30, false, false, windFury, false, hasAttacked, hasWindFuryAttacked, frozen, false, false, false, hasBeenUsed);
 		armor_ = armor;
 		weaponCharge_ = weaponCharge;
 		temporaryAttackDamage_ = temporaryAttackDamage;

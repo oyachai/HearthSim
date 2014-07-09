@@ -1,32 +1,33 @@
 package com.hearthsim.card.minion.concrete;
 
-import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.minion.Beast;
 
-public class SenjinShieldmasta extends Minion {
+public class Huffer extends Beast {
+
 	
-	public SenjinShieldmasta() {
+	public Huffer() {
 		this(
+				(byte)3,
 				(byte)4,
-				(byte)3,
-				(byte)5,
-				(byte)3,
-				(byte)5,
-				(byte)5,
-				true, //has taunt
+				(byte)2,
+				(byte)4,
+				(byte)2,
+				(byte)2,
 				false,
 				false,
 				false,
+				true, //has charge
 				false,
 				false,
 				false,
-				false,
+				true, //by default summoned
 				false,
 				true,
 				false
 			);
 	}
-		
-	public SenjinShieldmasta(	
+	
+	public Huffer(	
 							byte mana,
 							byte attack,
 							byte health,
@@ -46,7 +47,7 @@ public class SenjinShieldmasta extends Minion {
 							boolean hasBeenUsed) {
 		
 		super(
-			"Sen'jin Shieldmasta",
+			"Huffer",
 			mana,
 			attack,
 			health,

@@ -29,7 +29,7 @@ public class TestCharge {
 	}
 	@Test
 	public void test0() {
-		Minion minion = new Minion("" + 0, mana, attack0, health1, attack0, health1, health1, false, false, false, true, false, false, false, false, false);
+		Minion minion = new Minion("" + 0, mana, attack0, health1, attack0, health1, health1, false, false, false, true, false, false, false, false, false, false, false);
 		board.placeMinion_p0(minion);
 		
 		BoardStateFactory factory = new BoardStateFactory(null);
@@ -49,7 +49,7 @@ public class TestCharge {
 
 	@Test
 	public void test1() {
-		Minion minion = new Minion("" + 0, mana, attack0, health1, attack0, health1, health1, false, false, false, true, false, false, false, false, false);
+		Minion minion = new Minion("" + 0, mana, attack0, health1, attack0, health1, health1, false, false, false, true, false, false, false, false, false, false, false);
 		board.placeCard_hand_p0(minion);
 		board.setMana_p0(2);
 		

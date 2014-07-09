@@ -19,6 +19,8 @@ public class BloodfenRaptor extends Beast {
 				false,
 				false,
 				false,
+				false,
+				false,
 				true,
 				false
 			);
@@ -38,6 +40,8 @@ public class BloodfenRaptor extends Beast {
 							boolean hasAttacked,
 							boolean hasWindFuryAttacked,
 							boolean frozen,
+							boolean summoned,
+							boolean transformed,
 							boolean isInHand,
 							boolean hasBeenUsed) {
 		
@@ -56,6 +60,8 @@ public class BloodfenRaptor extends Beast {
 			hasAttacked,
 			hasWindFuryAttacked,
 			frozen,
+			summoned,
+			transformed,
 			isInHand,
 			hasBeenUsed);
 	}

@@ -239,7 +239,7 @@ public class Card implements DeepCopyable {
 	 * 
 	 * @return The boardState is manipulated and returned
 	 */
-	protected HearthTreeNode<BoardState> otherCardUsedEvent(int thisCardIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
+	public HearthTreeNode<BoardState> otherCardUsedEvent(int thisCardIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
 		return boardState;
 	}
 

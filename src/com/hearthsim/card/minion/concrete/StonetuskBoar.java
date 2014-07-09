@@ -18,6 +18,8 @@ public class StonetuskBoar extends Beast {
 				false,
 				false,
 				false,
+				false,
+				false,
 				true,
 				false
 			);
@@ -37,6 +39,8 @@ public class StonetuskBoar extends Beast {
 							boolean hasAttacked,
 							boolean hasWindFuryAttacked,
 							boolean frozen,
+							boolean summoned,
+							boolean transformed,
 							boolean isInHand,
 							boolean hasBeenUsed) {
 		
@@ -55,6 +59,8 @@ public class StonetuskBoar extends Beast {
 			hasAttacked,
 			hasWindFuryAttacked,
 			frozen,
+			summoned,
+			transformed,
 			isInHand,
 			hasBeenUsed);
 	}

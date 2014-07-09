@@ -24,6 +24,8 @@ public class AcidicSwampOoze extends Minion {
 				false,
 				false,
 				false,
+				false,
+				false,
 				true,
 				false
 			);
@@ -43,6 +45,8 @@ public class AcidicSwampOoze extends Minion {
 							boolean hasAttacked,
 							boolean hasWindFuryAttacked,
 							boolean frozen,
+							boolean summoned,
+							boolean transformed,
 							boolean isInHand,
 							boolean hasBeenUsed) {
 		
@@ -61,6 +65,8 @@ public class AcidicSwampOoze extends Minion {
 			hasAttacked,
 			hasWindFuryAttacked,
 			frozen,
+			summoned,
+			transformed,
 			isInHand,
 			hasBeenUsed);
 	}
