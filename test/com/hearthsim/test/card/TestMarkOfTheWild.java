@@ -18,9 +18,6 @@ import com.hearthsim.util.HearthTreeNode;
 
 public class TestMarkOfTheWild {
 
-	
-	
-
 	private HearthTreeNode<BoardState> board;
 	private Deck deck;
 	private static final byte mana = 2;

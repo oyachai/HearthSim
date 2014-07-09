@@ -196,8 +196,26 @@ public class Minion extends Card {
 	 * @throws HSInvalidPlayerIndexException
 	 */
 	public void takeDamage(byte damage, int thisPlayerIndex, int thisMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) throws HSInvalidPlayerIndexException {
+		this.takeDamage(damage, thisPlayerIndex, thisMinionIndex, boardState, deck, true);
+	}
+	
+	/**
+	 * Called when this minion takes damage
+	 * 
+	 * Always use this function to take damage... it properly notifies all others of its damage and possibly of its death
+	 * 
+	 * @param damage The amount of damage to take
+	 * @param thisPlayerIndex The player index of this minion
+	 * @param thisMinionIndex The minion index of this minion
+	 * @param boardState 
+	 * @param deck
+	 * @param isSpellDamage True if this is a spell damage
+	 * @throws HSInvalidPlayerIndexException
+	 */
+	public void takeDamage(byte damage, int thisPlayerIndex, int thisMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck, boolean isSpellDamage) throws HSInvalidPlayerIndexException {
 		if (!divineShield_) {
-			health_ = (byte)(health_ - damage);
+			byte totalDamage = isSpellDamage ? (byte)(damage + boardState.data_.getSpellDamage(0)) : damage;
+			health_ = (byte)(health_ - totalDamage);
 			
 			//Notify all that the minion is damaged
 			HearthTreeNode<BoardState> toRet = boardState;

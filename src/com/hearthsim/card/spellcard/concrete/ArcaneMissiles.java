@@ -59,7 +59,7 @@ public class ArcaneMissiles extends SpellCard {
 			return null;
 		}
 		
-		int numMissiles = 3;
+		int numMissiles = 3 + boardState.data_.getSpellDamage(0);
 		
 		int numTargets = boardState.data_.getNumMinions_p1() + 1;
 		int index = 0;

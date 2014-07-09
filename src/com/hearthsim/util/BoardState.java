@@ -33,6 +33,9 @@ public class BoardState implements DeepCopyable {
 	byte p0_fatigueDamage_;
 	byte p1_fatigueDamage_;
 	
+	byte p0_spellDamage_;
+	byte p1_spellDamage_;
+	
 	public BoardState() {
 		p0_minions_ = new LinkedList<Minion>();
 		p1_minions_ = new LinkedList<Minion>();
@@ -357,6 +360,36 @@ public class BoardState implements DeepCopyable {
 		p1_fatigueDamage_ = damage;
 	}
 	
+	/**
+	 * Get the spell damage
+	 * 
+	 * Returns the additional spell damage provided by buffs
+	 * @return
+	 */
+	public byte getSpellDamage(int playerIndex) throws HSInvalidPlayerIndexException {
+		if (playerIndex == 0)
+			return p0_spellDamage_;
+		else if (playerIndex == 1) 
+			return p1_spellDamage_;
+		else
+			throw new HSInvalidPlayerIndexException();
+	}
+	
+	/**
+	 * Set the spell damage
+	 * 
+	 * Returns the additional spell damage provided by buffs
+	 * @return
+	 */
+	public void setSpellDamage(int playerIndex, byte damage) throws HSInvalidPlayerIndexException {
+		if (playerIndex == 0)
+			p0_spellDamage_ = damage;
+		else if (playerIndex == 1)
+			p1_spellDamage_ = damage;
+		else
+			throw new HSInvalidPlayerIndexException();
+	}
+
 	
 	//various ways to remove cards / minions
 	public Minion removeMinion_p0(Minion minion) {
@@ -484,7 +517,13 @@ public class BoardState implements DeepCopyable {
 	   
 	   if (p1_fatigueDamage_ != ((BoardState)other).p1_fatigueDamage_)
 		   return false;
-	   
+
+	   if (p0_spellDamage_ != ((BoardState)other).p0_spellDamage_)
+		   return false;
+
+	   if (p1_spellDamage_ != ((BoardState)other).p1_spellDamage_)
+		   return false;
+
 	   if (p0_minions_.size() != ((BoardState)other).p0_minions_.size()) 
 		   return false;
 	   if (p1_minions_.size() != ((BoardState)other).p1_minions_.size()) 
@@ -615,6 +654,8 @@ public class BoardState implements DeepCopyable {
 		newState.p1_deckPos_ = p0_deckPos_;
 		newState.p0_fatigueDamage_ = p1_fatigueDamage_;
 		newState.p1_fatigueDamage_ = p0_fatigueDamage_;
+		newState.p0_spellDamage_ = p1_spellDamage_;
+		newState.p1_spellDamage_ = p0_spellDamage_;
 		return newState;
 	}
 	
@@ -648,7 +689,8 @@ public class BoardState implements DeepCopyable {
 		newBoard.p1_mana_ = this.p1_mana_;
 		newBoard.p0_maxMana_ = this.p0_maxMana_;
 		newBoard.p1_maxMana_ = this.p1_maxMana_;
-		
+		newBoard.p0_spellDamage_ = this.p0_spellDamage_;
+		newBoard.p1_spellDamage_ = this.p1_spellDamage_;
 		return newBoard;
 	}
 	
