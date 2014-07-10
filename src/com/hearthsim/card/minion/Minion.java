@@ -651,7 +651,13 @@ public class Minion extends Card {
 	 * 
 	 * @return The boardState is manipulated and returned
 	 */
-	public HearthTreeNode<BoardState> minionPlacedEvent(int placedMinionPlayerIndex, int placedMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
+	public HearthTreeNode<BoardState> minionPlacedEvent(
+			int placedMinionPlayerIndex,
+			int placedMinionIndex,
+			HearthTreeNode<BoardState> boardState,
+			Deck deck)
+		throws HSInvalidPlayerIndexException
+	{
 		return boardState;
 	}
 
@@ -666,7 +672,13 @@ public class Minion extends Card {
 	 * 
 	 * @return The boardState is manipulated and returned
 	 */
-	public HearthTreeNode<BoardState> minionSummonedEvent(int summonedMinionPlayerIndex, int summeonedMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
+	public HearthTreeNode<BoardState> minionSummonedEvent(
+			int summonedMinionPlayerIndex,
+			int summeonedMinionIndex,
+			HearthTreeNode<BoardState> boardState,
+			Deck deck)
+		throws HSInvalidPlayerIndexException
+	{
 		return boardState;
 	}
 	
@@ -680,7 +692,13 @@ public class Minion extends Card {
 	 * 
 	 * @return The boardState is manipulated and returned
 	 */
-	public HearthTreeNode<BoardState> minionTransformedEvent(int transformedMinionPlayerIndex, int transformedMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
+	public HearthTreeNode<BoardState> minionTransformedEvent(
+			int transformedMinionPlayerIndex,
+			int transformedMinionIndex,
+			HearthTreeNode<BoardState> boardState,
+			Deck deck)
+		throws HSInvalidPlayerIndexException
+	{
 		return boardState;
 	}
 
@@ -696,7 +714,15 @@ public class Minion extends Card {
 	 * 
 	 * @return The boardState is manipulated and returned
 	 */
-	public HearthTreeNode<BoardState> minionAttackedEvent(int attackingPlayerIndex, int attackingMinionIndex, int targetPlayerIndex, int targetMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
+	public HearthTreeNode<BoardState> minionAttackedEvent(
+			int attackingPlayerIndex,
+			int attackingMinionIndex,
+			int targetPlayerIndex,
+			int targetMinionIndex,
+			HearthTreeNode<BoardState> boardState,
+			Deck deck)
+		throws HSInvalidPlayerIndexException
+	{
 		return boardState;
 	}
 
@@ -712,7 +738,15 @@ public class Minion extends Card {
 	 * 
 	 * @return The boardState is manipulated and returned
 	 */
-	public HearthTreeNode<BoardState> minionAttackingEvent(int attackingPlayerIndex, int attackingMinionIndex, int targetPlayerIndex, int targetMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
+	public HearthTreeNode<BoardState> minionAttackingEvent(
+			int attackingPlayerIndex,
+			int attackingMinionIndex,
+			int targetPlayerIndex,
+			int targetMinionIndex,
+			HearthTreeNode<BoardState> boardState,
+			Deck deck)
+		throws HSInvalidPlayerIndexException
+	{
 		return boardState;
 	}
 	
@@ -726,7 +760,13 @@ public class Minion extends Card {
 	 * 
 	 * @return The boardState is manipulated and returned
 	 */
-	public HearthTreeNode<BoardState> minionDamagedEvent(int damagedPlayerIndex, int damagedMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
+	public HearthTreeNode<BoardState> minionDamagedEvent(
+			int damagedPlayerIndex,
+			int damagedMinionIndex,
+			HearthTreeNode<BoardState> boardState,
+			Deck deck)
+		throws HSInvalidPlayerIndexException
+	{
 		return boardState;
 	}
 	
@@ -740,7 +780,13 @@ public class Minion extends Card {
 	 * 
 	 * @return The boardState is manipulated and returned
 	 */
-	public HearthTreeNode<BoardState> minionDeadEvent(int deadMinionPlayerIndex, int deadMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
+	public HearthTreeNode<BoardState> minionDeadEvent(
+			int deadMinionPlayerIndex,
+			int deadMinionIndex,
+			HearthTreeNode<BoardState> boardState,
+			Deck deck)
+		throws HSInvalidPlayerIndexException
+	{
 		return boardState;
 	}
 	
