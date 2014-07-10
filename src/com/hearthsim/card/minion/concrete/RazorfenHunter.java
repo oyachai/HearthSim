@@ -123,7 +123,7 @@ public class RazorfenHunter extends Minion {
 	 * 
 	 * Override for battlecry
 	 * 
-	 * Battlecry: Summons a Mechanical Dragonling
+	 * Battlecry: Summons a 1/1 Boar
 	 * 
 	 * @param thisCardIndex The index (position) of the card in the hand
 	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
