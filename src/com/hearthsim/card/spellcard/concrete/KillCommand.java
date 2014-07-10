@@ -22,7 +22,7 @@ public class KillCommand extends SpellDamage {
 	 * 
 	 * Use the card on the given target
 	 * 
-	 * Deals 2 damage and heals the hero for 2.
+	 * Deals 3 damage.  If you have a beast, deals 5 damage.
 	 * 
 	 * @param thisCardIndex The index (position) of the card in the hand
 	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
