@@ -398,6 +398,20 @@ public class BoardState implements DeepCopyable {
 			throw new HSInvalidPlayerIndexException();
 	}
 
+	public Minion removeMinion(int playerIndex, int index) throws HSInvalidPlayerIndexException {
+		Minion minion = null;
+		try {
+			if (playerIndex == 0)
+				minion = p0_minions_.remove(index);
+			else if (playerIndex == 1)
+				minion = p1_minions_.remove(index);
+			else
+				throw new HSInvalidPlayerIndexException();
+		} catch (IndexOutOfBoundsException e) {
+			
+		}
+		return minion;
+	}
 
 	public Minion removeMinion_p0(int index) {
 		Minion minion = null;
