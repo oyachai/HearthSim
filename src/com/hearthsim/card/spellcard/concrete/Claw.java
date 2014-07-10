@@ -67,7 +67,7 @@ public class Claw extends SpellCard {
 		
 		HearthTreeNode<BoardState> toRet = boardState;
 		if (toRet != null) {
-			toRet.data_.getHero_p0().setTemporaryAttackDamage((byte)(DAMAGE_AMOUNT + toRet.data_.getHero_p0().getTemporaryAttackDamage()));
+			toRet.data_.getHero_p0().setExtraAttackUntilTurnEnd((byte)(DAMAGE_AMOUNT + toRet.data_.getHero_p0().getExtraAttackUntilTurnEnd()));
 			toRet.data_.getHero_p0().setArmor(ARMOR_AMOUNT);
 			this.hasBeenUsed(true);
 		}

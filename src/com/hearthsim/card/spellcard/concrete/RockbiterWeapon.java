@@ -6,17 +6,15 @@ import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.HearthTreeNode;
 
-public class HeroicStrike extends SpellCard {
-	
-	private static final byte DAMAGE_AMOUNT = 3;
+public class RockbiterWeapon extends SpellCard {
 
 	/**
 	 * Constructor
 	 * 
 	 * @param hasBeenUsed Whether the card has already been used or not
 	 */
-	public HeroicStrike(boolean hasBeenUsed) {
-		super("Heroic Strike", (byte)1, hasBeenUsed);
+	public RockbiterWeapon(boolean hasBeenUsed) {
+		super("Rockbiter Weapon", (byte)1, hasBeenUsed);
 	}
 
 	/**
@@ -24,19 +22,20 @@ public class HeroicStrike extends SpellCard {
 	 * 
 	 * Defaults to hasBeenUsed = false
 	 */
-	public HeroicStrike() {
+	public RockbiterWeapon() {
 		this(false);
 	}
-	
+
 	@Override
 	public Object deepCopy() {
-		return new HeroicStrike(this.hasBeenUsed_);
+		return new RockbiterWeapon(this.hasBeenUsed_);
 	}
 	
 	/**
-	 * Heroic Strike
 	 * 
-	 * Gives the hero +4 attack this turn
+	 * Use the card on the given target
+	 * 
+	 * Gives a minion +4/+4
 	 * 
 	 * @param thisCardIndex The index (position) of the card in the hand
 	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
@@ -54,22 +53,14 @@ public class HeroicStrike extends SpellCard {
 			Deck deck)
 		throws HSInvalidPlayerIndexException
 	{
-		if (this.hasBeenUsed()) {
-			//Card is already used, nothing to do
-			return null;
-		}
-				
-		if (playerIndex == 1 || minionIndex > 0) {
-			return null;
-		}
-
 		
 		HearthTreeNode<BoardState> toRet = boardState;
-		if (toRet != null) {
-			toRet.data_.getHero_p0().setExtraAttackUntilTurnEnd((byte)(DAMAGE_AMOUNT + toRet.data_.getHero_p0().getExtraAttackUntilTurnEnd()));
-			this.hasBeenUsed(true);
+		if (minionIndex == 0) {
+			toRet.data_.getHero(playerIndex).setExtraAttackUntilTurnEnd((byte)(3 + toRet.data_.getHero(playerIndex).getExtraAttackUntilTurnEnd()));
+		} else {
+			toRet.data_.getMinion(playerIndex, minionIndex - 1).setExtraAttackUntilTurnEnd((byte)(3 + toRet.data_.getMinion(playerIndex, minionIndex - 1).getExtraAttackUntilTurnEnd()));
 		}
 		
-		return super.use_core(thisCardIndex, playerIndex, minionIndex, toRet, deck);
+		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
 	}
 }

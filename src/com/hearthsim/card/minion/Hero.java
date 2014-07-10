@@ -11,20 +11,19 @@ public class Hero extends Minion {
 
 	protected byte weaponCharge_;
 	protected byte armor_;
-	
-	protected byte temporaryAttackDamage_;
-	
+		
 	public Hero() {
 		this("", (byte)30);
 	}
 
 	public Hero(String name, byte health) {
-		this(name, (byte)0, health, (byte)0, (byte)0, false, false, false, false, (byte)0, false);
+		this(name, (byte)0, (byte)0, health, (byte)0, (byte)0, false, false, false, false, false);
 	}
 	
 	public Hero(
 			String name,
 			byte attack,
+			byte extraAttackUntilTurnEnd,
 			byte health,
 			byte armor,
 			byte weaponCharge,
@@ -32,13 +31,11 @@ public class Hero extends Minion {
 			boolean hasAttacked,
 			boolean hasWindFuryAttacked,
 			boolean frozen,
-			byte temporaryAttackDamage,
 			boolean hasBeenUsed) {
 	
-		super(name, (byte)0, attack, health, (byte)0, (byte)30, (byte)30, false, false, windFury, false, hasAttacked, hasWindFuryAttacked, frozen, false, false, false, hasBeenUsed);
+		super(name, (byte)0, attack, health, (byte)0, extraAttackUntilTurnEnd, (byte)30, (byte)30, false, false, windFury, false, hasAttacked, hasWindFuryAttacked, frozen, false, false, false, false, false, hasBeenUsed);
 		armor_ = armor;
 		weaponCharge_ = weaponCharge;
-		temporaryAttackDamage_ = temporaryAttackDamage;
 	}
 
 
@@ -58,20 +55,12 @@ public class Hero extends Minion {
 		armor_ = armor;
 	}
 	
-	public byte getTemporaryAttackDamage() {
-		return temporaryAttackDamage_;
-	}
-	
-	public void setTemporaryAttackDamage(byte value) {
-		temporaryAttackDamage_ = value;
-		attack_ += temporaryAttackDamage_;
-	}
-	
 	@Override
 	public DeepCopyable deepCopy() {
 		return new Hero(
 				this.name_, 
 				this.attack_,
+				this.extraAttackUntilTurnEnd_,
 				this.health_,
 				this.armor_,
 				this.weaponCharge_,
@@ -79,7 +68,6 @@ public class Hero extends Minion {
 				this.hasAttacked_,
 				this.hasWindFuryAttacked_,
 				this.frozen_,
-				this.temporaryAttackDamage_,
 				this.hasBeenUsed_
 				);
 	}
@@ -107,11 +95,11 @@ public class Hero extends Minion {
 		throws HSInvalidPlayerIndexException
 	{
 		
-		if (attack_ == 0) {
+		if (attack_ + extraAttackUntilTurnEnd_ == 0) {
 			return null;
 		}
 
-		if (this.weaponCharge_ == 0 && this.temporaryAttackDamage_ == 0) {
+		if (this.weaponCharge_ == 0 && this.extraAttackUntilTurnEnd_ == 0) {
 			return null;
 		}
 		
@@ -176,10 +164,7 @@ public class Hero extends Minion {
 	 */
 	@Override
 	public BoardState endTurn(int thisMinionPlayerIndex, int thisMinionIndex, BoardState boardState, Deck deck) {
-		if (this.temporaryAttackDamage_ > 0) {
-			this.attack_ -= this.temporaryAttackDamage_;
-			this.temporaryAttackDamage_ = 0;
-		}
+		this.extraAttackUntilTurnEnd_ = 0;
 		return boardState;
 	}
 
