@@ -16,6 +16,11 @@ public class FrostShock extends SpellDamage {
 		super("Frost Shock", (byte)1, (byte)1, hasBeenUsed);
 	}
 
+	@Override
+	public Object deepCopy() {
+		return new FrostShock(this.hasBeenUsed_);
+	}
+	
 	/**
 	 * 
 	 * Use the card on the given target

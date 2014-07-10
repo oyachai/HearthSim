@@ -31,6 +31,10 @@ public class Hellfire extends SpellCard {
 		this(false);
 	}
 	
+	@Override
+	public Object deepCopy() {
+		return new Hellfire(this.hasBeenUsed_);
+	}
 
 	/**
 	 * 

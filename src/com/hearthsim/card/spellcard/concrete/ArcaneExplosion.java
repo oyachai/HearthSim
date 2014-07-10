@@ -29,6 +29,11 @@ public class ArcaneExplosion extends SpellCard {
 		this(false);
 	}
 
+	@Override
+	public Object deepCopy() {
+		return new ArcaneExplosion(this.hasBeenUsed_);
+	}
+	
 	/**
 	 * 
 	 * Use the card on the given target

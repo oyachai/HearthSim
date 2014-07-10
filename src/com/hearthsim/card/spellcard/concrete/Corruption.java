@@ -25,6 +25,11 @@ public class Corruption extends SpellCard {
 	public Corruption() {
 		this(false);
 	}
+	
+	@Override
+	public Object deepCopy() {
+		return new Corruption(this.hasBeenUsed_);
+	}
 
 	/**
 	 * 

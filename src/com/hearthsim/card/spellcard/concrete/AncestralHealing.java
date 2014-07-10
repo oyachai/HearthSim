@@ -28,6 +28,11 @@ public class AncestralHealing extends SpellCard {
 		this(false);
 	}
 
+	@Override
+	public Object deepCopy() {
+		return new AncestralHealing(this.hasBeenUsed_);
+	}
+	
 	/**
 	 * 
 	 * Use the card on the given target

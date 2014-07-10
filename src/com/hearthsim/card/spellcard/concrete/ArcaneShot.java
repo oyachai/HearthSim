@@ -11,4 +11,10 @@ public class ArcaneShot extends SpellDamage {
 	public ArcaneShot(boolean hasBeenUsed) {
 		super("Arcane Shot", (byte)1, (byte)2, hasBeenUsed);
 	}
+	
+	@Override
+	public Object deepCopy() {
+		return new ArcaneShot(this.hasBeenUsed_);
+	}
+	
 }

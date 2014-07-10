@@ -26,6 +26,11 @@ public class Execute extends SpellCard {
 	public Execute() {
 		this(false);
 	}
+	
+	@Override
+	public Object deepCopy() {
+		return new Execute(this.hasBeenUsed_);
+	}
 
 	/**
 	 * 

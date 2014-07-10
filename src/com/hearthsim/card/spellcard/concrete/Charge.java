@@ -26,6 +26,11 @@ public class Charge extends SpellCard {
 	public Charge() {
 		this(false);
 	}
+	
+	@Override
+	public Object deepCopy() {
+		return new Charge(this.hasBeenUsed_);
+	}
 
 	/**
 	 * 

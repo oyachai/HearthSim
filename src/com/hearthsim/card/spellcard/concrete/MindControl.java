@@ -8,6 +8,7 @@ import com.hearthsim.util.BoardState;
 import com.hearthsim.util.HearthTreeNode;
 
 public class MindControl extends SpellCard {
+	
 	/**
 	 * Constructor
 	 * 

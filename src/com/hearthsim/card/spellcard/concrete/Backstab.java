@@ -16,7 +16,11 @@ public class Backstab extends SpellDamage {
 		super("Arcane Shot", (byte)0, (byte)2, hasBeenUsed);
 	}
 	
-
+	@Override
+	public Object deepCopy() {
+		return new Backstab(this.hasBeenUsed_);
+	}
+	
 	/**
 	 * 
 	 * Use the card on the given target

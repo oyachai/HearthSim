@@ -27,6 +27,11 @@ public class DeadlyPoison extends SpellCard {
 		this(false);
 	}
 	
+	@Override
+	public Object deepCopy() {
+		return new DeadlyPoison(this.hasBeenUsed_);
+	}
+
 	/**
 	 * 
 	 * Use the weapon card

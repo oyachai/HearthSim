@@ -17,6 +17,11 @@ public class Bloodlust extends SpellCard {
 		super("Bloodlust", (byte)5, hasBeenUsed);
 	}
 	
+	@Override
+	public Object deepCopy() {
+		return new Bloodlust(this.hasBeenUsed_);
+	}
+	
 	/**
 	 * 
 	 * Use the card on the given target

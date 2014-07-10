@@ -26,6 +26,11 @@ public class HandOfProtection extends SpellCard {
 		this(false);
 	}
 	
+	@Override
+	public Object deepCopy() {
+		return new HandOfProtection(this.hasBeenUsed_);
+	}
+	
 	/**
 	 * 
 	 * Use the card on the given target

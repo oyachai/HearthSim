@@ -25,7 +25,12 @@ public class Assassinate extends SpellCard {
 	public Assassinate() {
 		this(false);
 	}
-
+	
+	@Override
+	public Object deepCopy() {
+		return new Assassinate(this.hasBeenUsed_);
+	}
+	
 	/**
 	 * 
 	 * Use the card on the given target

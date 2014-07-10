@@ -31,6 +31,10 @@ public class Consecration extends SpellCard {
 		this(false);
 	}
 	
+	@Override
+	public Object deepCopy() {
+		return new Consecration(this.hasBeenUsed_);
+	}
 
 	/**
 	 * 

@@ -26,6 +26,11 @@ public class BlessingOfKings extends SpellCard {
 		this(false);
 	}
 
+	@Override
+	public Object deepCopy() {
+		return new BlessingOfKings(this.hasBeenUsed_);
+	}
+	
 	/**
 	 * 
 	 * Use the card on the given target

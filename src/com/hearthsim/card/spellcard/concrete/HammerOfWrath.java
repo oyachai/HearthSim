@@ -16,6 +16,11 @@ public class HammerOfWrath extends SpellDamage {
 		super("Hammer Of Wrath", (byte)4, (byte)3, hasBeenUsed);
 	}
 
+	@Override
+	public Object deepCopy() {
+		return new HammerOfWrath(this.hasBeenUsed_);
+	}
+	
 	/**
 	 * 
 	 * Use the card on the given target

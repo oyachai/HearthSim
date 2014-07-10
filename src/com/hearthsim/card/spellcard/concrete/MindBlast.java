@@ -16,6 +16,11 @@ public class MindBlast extends SpellDamage {
 		super("Mind Blast", (byte)2, (byte)5, hasBeenUsed);
 	}
 
+	@Override
+	public Object deepCopy() {
+		return new MindBlast(this.hasBeenUsed_);
+	}
+	
 	/**
 	 * 
 	 * Use the card on the given target

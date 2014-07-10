@@ -28,6 +28,11 @@ public class ArcaneIntellect extends SpellCard {
 		this(false);
 	}
 
+	@Override
+	public Object deepCopy() {
+		return new ArcaneIntellect(this.hasBeenUsed_);
+	}
+	
 	/**
 	 * 
 	 * Use the card on the given target

@@ -16,6 +16,11 @@ public class DrainLife extends SpellDamage {
 		super("Drain Life", (byte)3, (byte)2, hasBeenUsed);
 	}
 
+	@Override
+	public Object deepCopy() {
+		return new DrainLife(this.hasBeenUsed_);
+	}
+	
 	/**
 	 * 
 	 * Use the card on the given target

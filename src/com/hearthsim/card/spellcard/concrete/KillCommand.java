@@ -18,6 +18,11 @@ public class KillCommand extends SpellDamage {
 		super("Kill Command", (byte)3, (byte)3, hasBeenUsed);
 	}
 
+	@Override
+	public Object deepCopy() {
+		return new KillCommand(this.hasBeenUsed_);
+	}
+	
 	/**
 	 * 
 	 * Use the card on the given target

@@ -1,5 +1,6 @@
 package com.hearthsim.card.spellcard.concrete;
 
+import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
@@ -7,16 +8,15 @@ import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.HearthTreeNode;
 
-public class MarkOfTheWild extends SpellCard {
-
+public class MindVision extends SpellCard {
 
 	/**
 	 * Constructor
 	 * 
 	 * @param hasBeenUsed Whether the card has already been used or not
 	 */
-	public MarkOfTheWild(boolean hasBeenUsed) {
-		super("Mark of the Wild", (byte)2, hasBeenUsed);
+	public MindVision(boolean hasBeenUsed) {
+		super("Mind Vision", (byte)1, hasBeenUsed);
 	}
 
 	/**
@@ -24,20 +24,20 @@ public class MarkOfTheWild extends SpellCard {
 	 * 
 	 * Defaults to hasBeenUsed = false
 	 */
-	public MarkOfTheWild() {
+	public MindVision() {
 		this(false);
 	}
 
 	@Override
 	public Object deepCopy() {
-		return new MarkOfTheWild(this.hasBeenUsed_);
+		return new MindVision(this.hasBeenUsed_);
 	}
-	
+
 	/**
 	 * 
 	 * Use the card on the given target
 	 * 
-	 * This card heals the target minion up to full health and gives it taunt.  Cannot be used on heroes.
+	 * This card damages all enemy minions by 1
 	 * 
 	 * @param thisCardIndex The index (position) of the card in the hand
 	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
@@ -55,16 +55,18 @@ public class MarkOfTheWild extends SpellCard {
 			Deck deck)
 		throws HSInvalidPlayerIndexException
 	{
-		if (minionIndex == 0) {
-			//cant't use it on the heroes
+		if (minionIndex > 0 || playerIndex == 0) {
 			return null;
 		}
 		
-		Minion targetMinion = boardState.data_.getMinion(playerIndex, minionIndex - 1);
-		targetMinion.setAttack((byte)(targetMinion.getAttack() + 2));
-		targetMinion.setHealth((byte)(targetMinion.getHealth() + 2));
-		targetMinion.setMaxHealth((byte)(targetMinion.getMaxHealth() + 2));
-		targetMinion.setTaunt(true);
+		int numCards = boardState.data_.getNumCards_hand_p1();
+		
+		if (numCards == 0)
+			return null;
+		
+		Card cardToSteal = (Card)boardState.data_.getCard_hand_p1((int)(numCards * Math.random())).deepCopy();
+		boardState.data_.placeCard_hand_p0(cardToSteal);
+		
 		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
 	}
 }

@@ -25,6 +25,11 @@ public class Innervate extends SpellCard {
 	public Innervate() {
 		this(false);
 	}
+
+	@Override
+	public Object deepCopy() {
+		return new Innervate(this.hasBeenUsed_);
+	}
 	
 	/**
 	 * 
