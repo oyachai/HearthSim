@@ -1,12 +1,12 @@
 package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.Deck;
-import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.minion.Demon;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.HearthTreeNode;
 
-public class DreadInfernal extends Minion {
+public class DreadInfernal extends Demon {
 
 	private static final String NAME = "Dread Infernal";
 	private static final byte MANA_COST = 6;
