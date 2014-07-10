@@ -618,8 +618,9 @@ public class Minion extends Card {
 			return boardState;
 		} else {
 			Minion target = boardState.data_.getMinion_p1(minionIndex - 1);
+			byte origAttack = target.attack_;
 			target.takeDamage((byte)(this.attack_ + this.extraAttackUntilTurnEnd_), 0, playerIndex, minionIndex, boardState, deck);
-			this.takeDamage(target.attack_, playerIndex, 0, thisMinionIndex, boardState, deck);
+			this.takeDamage(origAttack, playerIndex, 0, thisMinionIndex, boardState, deck);
 			if (target.getHealth() <= 0) {
 				boardState.data_.removeMinion_p1(minionIndex - 1);
 			}
