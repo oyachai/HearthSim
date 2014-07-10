@@ -61,10 +61,10 @@ public class DivineSpirit extends SpellCard {
 			return null;
 		}
 		
-		Minion targetMinion = boardState.data_.getMinion(playerIndex, minionIndex-1);			
+		Minion targetMinion = boardState.data_.getMinion(playerIndex, minionIndex-1);
+		byte healthDiff = targetMinion.getHealth();
 		targetMinion.setHealth((byte)(targetMinion.getHealth() * 2));
-		if (targetMinion.getMaxHealth() < targetMinion.getHealth())
-			targetMinion.setMaxHealth(targetMinion.getHealth());
+		targetMinion.setMaxHealth((byte)(targetMinion.getMaxHealth() + healthDiff));
 		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
 	}
 }
