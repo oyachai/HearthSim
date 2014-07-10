@@ -9,7 +9,7 @@ import com.json.JSONObject;
 
 public class SpellDamage extends SpellCard {
 
-	byte damage_;
+	protected byte damage_;
 	
 	public SpellDamage(String name, byte mana, byte damage, boolean hasBeenUsed) {
 		super(name, mana, hasBeenUsed);
