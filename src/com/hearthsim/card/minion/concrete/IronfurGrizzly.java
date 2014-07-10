@@ -1,8 +1,8 @@
 package com.hearthsim.card.minion.concrete;
 
-import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.minion.Beast;
 
-public class IronfurGrizzly extends Minion {
+public class IronfurGrizzly extends Beast {
 
 	private static final String NAME = "Ironfur Grizzly";
 	private static final byte MANA_COST = 3;
