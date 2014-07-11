@@ -3,7 +3,6 @@ package com.hearthsim.card.spellcard.concrete;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Beast;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.card.minion.concrete.RaidLeader;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.HearthTreeNode;
