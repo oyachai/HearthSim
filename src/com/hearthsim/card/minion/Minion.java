@@ -329,13 +329,13 @@ public class Minion extends Card {
 			
 			//Notify all that the minion is damaged
 			HearthTreeNode<BoardState> toRet = boardState;
-			toRet = toRet.data_.getHero_p0().minionDamagedEvent(thisPlayerIndex, thisMinionIndex, toRet, deck);
+			toRet = toRet.data_.getHero_p0().minionDamagedEvent(0, 0, thisPlayerIndex, thisMinionIndex, toRet, deck);
 			for (int j = 0; j < toRet.data_.getNumMinions_p0(); ++j) {
-				toRet = toRet.data_.getMinion_p0(j).minionDamagedEvent(thisPlayerIndex, thisMinionIndex, toRet, deck);
+				toRet = toRet.data_.getMinion_p0(j).minionDamagedEvent(0, j + 1, thisPlayerIndex, thisMinionIndex, toRet, deck);
 			}
-			toRet = toRet.data_.getHero_p1().minionDamagedEvent(thisPlayerIndex, thisMinionIndex, toRet, deck);
+			toRet = toRet.data_.getHero_p1().minionDamagedEvent(1, 0, thisPlayerIndex, thisMinionIndex, toRet, deck);
 			for (int j = 0; j < toRet.data_.getNumMinions_p1(); ++j) {
-				toRet = toRet.data_.getMinion_p1(j).minionDamagedEvent(thisPlayerIndex, thisMinionIndex, toRet, deck);
+				toRet = toRet.data_.getMinion_p1(j).minionDamagedEvent(1, j + 1, thisPlayerIndex, thisMinionIndex, toRet, deck);
 			}
 			
 			//If fatal, notify all that it is dead
@@ -364,13 +364,13 @@ public class Minion extends Card {
 		
 		HearthTreeNode<BoardState> toRet = boardState;
 		//Notify all that it is dead
-		toRet = toRet.data_.getHero_p0().minionDeadEvent(thisPlayerIndex, thisMinionIndex, toRet, deck);
+		toRet = toRet.data_.getHero_p0().minionDeadEvent(0, 0, thisPlayerIndex, thisMinionIndex, toRet, deck);
 		for (int j = 0; j < toRet.data_.getNumMinions_p0(); ++j) {
-			toRet = toRet.data_.getMinion_p0(j).minionDeadEvent(thisPlayerIndex, thisMinionIndex, toRet, deck);
+			toRet = toRet.data_.getMinion_p0(j).minionDeadEvent(0, j + 1, thisPlayerIndex, thisMinionIndex, toRet, deck);
 		}
-		toRet = toRet.data_.getHero_p1().minionDeadEvent(thisPlayerIndex, thisMinionIndex, toRet, deck);
+		toRet = toRet.data_.getHero_p1().minionDeadEvent(1, 0, thisPlayerIndex, thisMinionIndex, toRet, deck);
 		for (int j = 0; j < toRet.data_.getNumMinions_p1(); ++j) {
-			toRet = toRet.data_.getMinion_p1(j).minionDeadEvent(thisPlayerIndex, thisMinionIndex, toRet, deck);
+			toRet = toRet.data_.getMinion_p1(j).minionDeadEvent(1, j + 1, thisPlayerIndex, thisMinionIndex, toRet, deck);
 		}
 
 	}
@@ -463,23 +463,23 @@ public class Minion extends Card {
 			}
 			if (summoned_) {
 				//Notify all that a minion is created
-				toRet = toRet.data_.getHero_p0().minionSummonedEvent(playerIndex, minionIndex, toRet, deck);
+				toRet = toRet.data_.getHero_p0().minionSummonedEvent(0, 0, playerIndex, minionIndex, toRet, deck);
 				for (int j = 0; j < toRet.data_.getNumMinions_p0(); ++j) {
-					toRet = toRet.data_.getMinion_p0(j).minionSummonedEvent(playerIndex, minionIndex, toRet, deck);
+					toRet = toRet.data_.getMinion_p0(j).minionSummonedEvent(0, j + 1, playerIndex, minionIndex, toRet, deck);
 				}
-				toRet = toRet.data_.getHero_p1().minionSummonedEvent(playerIndex, minionIndex, toRet, deck);
+				toRet = toRet.data_.getHero_p1().minionSummonedEvent(1, 0, playerIndex, minionIndex, toRet, deck);
 				for (int j = 0; j < toRet.data_.getNumMinions_p1(); ++j) {
-					toRet = toRet.data_.getMinion_p1(j).minionSummonedEvent(playerIndex, minionIndex, toRet, deck);
+					toRet = toRet.data_.getMinion_p1(j).minionSummonedEvent(1, j + 1, playerIndex, minionIndex, toRet, deck);
 				}
 			} else {
 				//Notify all that a minion is created
-				toRet = toRet.data_.getHero_p0().minionPlacedEvent(playerIndex, minionIndex, toRet, deck);
+				toRet = toRet.data_.getHero_p0().minionPlacedEvent(0, 0, playerIndex, minionIndex, toRet, deck);
 				for (int j = 0; j < toRet.data_.getNumMinions_p0(); ++j) {
-					toRet = toRet.data_.getMinion_p0(j).minionPlacedEvent(playerIndex, minionIndex, toRet, deck);
+					toRet = toRet.data_.getMinion_p0(j).minionPlacedEvent(0, j + 1, playerIndex, minionIndex, toRet, deck);
 				}
-				toRet = toRet.data_.getHero_p1().minionPlacedEvent(playerIndex, minionIndex, toRet, deck);
+				toRet = toRet.data_.getHero_p1().minionPlacedEvent(1, 0, playerIndex, minionIndex, toRet, deck);
 				for (int j = 0; j < toRet.data_.getNumMinions_p1(); ++j) {
-					toRet = toRet.data_.getMinion_p1(j).minionPlacedEvent(playerIndex, minionIndex, toRet, deck);
+					toRet = toRet.data_.getMinion_p1(j).minionPlacedEvent(1, j + 1, playerIndex, minionIndex, toRet, deck);
 				}
 			}
 		}
@@ -653,6 +653,8 @@ public class Minion extends Card {
 	 * @return The boardState is manipulated and returned
 	 */
 	public HearthTreeNode<BoardState> minionPlacedEvent(
+			int thisMinionPlayerIndex,
+			int thisMinionIndex,
 			int placedMinionPlayerIndex,
 			int placedMinionIndex,
 			HearthTreeNode<BoardState> boardState,
@@ -674,6 +676,8 @@ public class Minion extends Card {
 	 * @return The boardState is manipulated and returned
 	 */
 	public HearthTreeNode<BoardState> minionSummonedEvent(
+			int thisMinionPlayerIndex,
+			int thisMinionIndex,
 			int summonedMinionPlayerIndex,
 			int summeonedMinionIndex,
 			HearthTreeNode<BoardState> boardState,
@@ -694,6 +698,8 @@ public class Minion extends Card {
 	 * @return The boardState is manipulated and returned
 	 */
 	public HearthTreeNode<BoardState> minionTransformedEvent(
+			int thisMinionPlayerIndex,
+			int thisMinionIndex,
 			int transformedMinionPlayerIndex,
 			int transformedMinionIndex,
 			HearthTreeNode<BoardState> boardState,
@@ -762,6 +768,8 @@ public class Minion extends Card {
 	 * @return The boardState is manipulated and returned
 	 */
 	public HearthTreeNode<BoardState> minionDamagedEvent(
+			int thisMinionPlayerIndex,
+			int thisMinionIndex,
 			int damagedPlayerIndex,
 			int damagedMinionIndex,
 			HearthTreeNode<BoardState> boardState,
@@ -782,6 +790,8 @@ public class Minion extends Card {
 	 * @return The boardState is manipulated and returned
 	 */
 	public HearthTreeNode<BoardState> minionDeadEvent(
+			int thisMinionPlayerIndex,
+			int thisMinionIndex,
 			int deadMinionPlayerIndex,
 			int deadMinionIndex,
 			HearthTreeNode<BoardState> boardState,

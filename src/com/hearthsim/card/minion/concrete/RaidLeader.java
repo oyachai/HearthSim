@@ -182,8 +182,9 @@ public class RaidLeader extends Minion {
 	 * @param deck
 	 * @throws HSInvalidPlayerIndexException
 	 */
+	@Override
 	public void silenced(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) throws HSInvalidPlayerIndexException {
-		for (Minion minion : boardState.data_.getMinions_p0()) {
+		for (Minion minion : boardState.data_.getMinions(thisPlayerIndex)) {
 			if (minion != this) {
 				minion.setAttack((byte)(minion.getAttack() - 1));
 			}
@@ -201,9 +202,10 @@ public class RaidLeader extends Minion {
 	 * @param deck
 	 * @throws HSInvalidPlayerIndexException
 	 */
+	@Override
 	public void destroyed(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) throws HSInvalidPlayerIndexException {
 		
-		for (Minion minion : boardState.data_.getMinions_p0()) {
+		for (Minion minion : boardState.data_.getMinions(thisPlayerIndex)) {
 			if (minion != this) {
 				minion.setAttack((byte)(minion.getAttack() - 1));
 			}
@@ -211,10 +213,10 @@ public class RaidLeader extends Minion {
 		super.destroyed(thisPlayerIndex, thisMinionIndex, boardState, deck);
 	}
 	
-	private HearthTreeNode<BoardState> doBuffs(int targetMinionPlayerIndex, int targetMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
-		if (targetMinionPlayerIndex == 1)
+	private HearthTreeNode<BoardState> doBuffs(int thisMinionPlayerIndex, int thisMinionIndex, int targetMinionPlayerIndex, int targetMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) throws HSInvalidPlayerIndexException {
+		if (targetMinionPlayerIndex != thisMinionPlayerIndex)
 			return boardState;
-		Minion minion = boardState.data_.getMinion_p0(targetMinionIndex - 1);
+		Minion minion = boardState.data_.getMinion(thisMinionPlayerIndex, targetMinionIndex - 1);
 		if (minion != this)
 			minion.setAttack((byte)(minion.getAttack() + 1));
 		return boardState;		
@@ -233,8 +235,8 @@ public class RaidLeader extends Minion {
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public HearthTreeNode<BoardState> minionPlacedEvent(int placedMinionPlayerIndex, int placedMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
-		return this.doBuffs(placedMinionPlayerIndex, placedMinionIndex, boardState, deck);
+	public HearthTreeNode<BoardState> minionPlacedEvent(int thisMinionPlayerIndex, int thisMinionIndex, int placedMinionPlayerIndex, int placedMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) throws HSInvalidPlayerIndexException {
+		return this.doBuffs(thisMinionPlayerIndex, thisMinionIndex, placedMinionPlayerIndex, placedMinionIndex, boardState, deck);
 	}
 
 	/**
@@ -249,8 +251,9 @@ public class RaidLeader extends Minion {
 	 * 
 	 * @return The boardState is manipulated and returned
 	 */
-	public HearthTreeNode<BoardState> minionSummonedEvent(int summonedMinionPlayerIndex, int summeonedMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
-		return this.doBuffs(summonedMinionPlayerIndex, summeonedMinionIndex, boardState, deck);
+	@Override
+	public HearthTreeNode<BoardState> minionSummonedEvent(int thisMinionPlayerIndex, int thisMinionIndex, int summonedMinionPlayerIndex, int summeonedMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) throws HSInvalidPlayerIndexException {
+		return this.doBuffs(thisMinionPlayerIndex, thisMinionIndex, summonedMinionPlayerIndex, summeonedMinionIndex, boardState, deck);
 	}
 	
 	/**
@@ -263,7 +266,8 @@ public class RaidLeader extends Minion {
 	 * 
 	 * @return The boardState is manipulated and returned
 	 */
-	public HearthTreeNode<BoardState> minionTransformedEvent(int transformedMinionPlayerIndex, int transformedMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
-		return this.doBuffs(transformedMinionPlayerIndex, transformedMinionIndex, boardState, deck);
+	@Override
+	public HearthTreeNode<BoardState> minionTransformedEvent(int thisMinionPlayerIndex, int thisMinionIndex, int transformedMinionPlayerIndex, int transformedMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) throws HSInvalidPlayerIndexException {
+		return this.doBuffs(thisMinionPlayerIndex, thisMinionIndex, transformedMinionPlayerIndex, transformedMinionIndex, boardState, deck);
 	}
 }

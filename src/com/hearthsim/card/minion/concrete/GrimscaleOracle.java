@@ -189,6 +189,7 @@ public class GrimscaleOracle extends Murloc {
 	 * @param deck
 	 * @throws HSInvalidPlayerIndexException
 	 */
+	@Override
 	public void silenced(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) throws HSInvalidPlayerIndexException {
 		for (Minion minion : boardState.data_.getMinions_p0()) {
 			if (minion instanceof Murloc && minion != this) {
@@ -213,6 +214,7 @@ public class GrimscaleOracle extends Murloc {
 	 * @param deck
 	 * @throws HSInvalidPlayerIndexException
 	 */
+	@Override
 	public void destroyed(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) throws HSInvalidPlayerIndexException {
 		
 		for (Minion minion : boardState.data_.getMinions_p0()) {
@@ -229,6 +231,8 @@ public class GrimscaleOracle extends Murloc {
 	}
 	
 	private HearthTreeNode<BoardState> doBuffs(
+			int thisMinionPlayerIndex,
+			int thisMinionIndex,
 			int targetMinionPlayerIndex,
 			int targetMinionIndex,
 			HearthTreeNode<BoardState> boardState,
@@ -236,7 +240,7 @@ public class GrimscaleOracle extends Murloc {
 		throws HSInvalidPlayerIndexException
 	{
 		Minion minion = boardState.data_.getMinion(targetMinionPlayerIndex, targetMinionIndex - 1);
-		if (minion != this)
+		if (minion instanceof Murloc && minion != this)
 			minion.setAttack((byte)(minion.getAttack() + 1));
 		return boardState;		
 	}
@@ -255,13 +259,15 @@ public class GrimscaleOracle extends Murloc {
 	 */
 	@Override
 	public HearthTreeNode<BoardState> minionPlacedEvent(
+			int thisMinionPlayerIndex,
+			int thisMinionIndex, 
 			int placedMinionPlayerIndex,
 			int placedMinionIndex,
 			HearthTreeNode<BoardState> boardState,
 			Deck deck)
 		throws HSInvalidPlayerIndexException
 	{
-		return this.doBuffs(placedMinionPlayerIndex, placedMinionIndex, boardState, deck);
+		return this.doBuffs(thisMinionPlayerIndex, thisMinionIndex, placedMinionPlayerIndex, placedMinionIndex, boardState, deck);
 	}
 
 	/**
@@ -276,14 +282,17 @@ public class GrimscaleOracle extends Murloc {
 	 * 
 	 * @return The boardState is manipulated and returned
 	 */
+	@Override
 	public HearthTreeNode<BoardState> minionSummonedEvent(
+			int thisMinionPlayerIndex,
+			int thisMinionIndex, 
 			int summonedMinionPlayerIndex,
 			int summeonedMinionIndex,
 			HearthTreeNode<BoardState> boardState,
 			Deck deck)
 		throws HSInvalidPlayerIndexException
 	{
-		return this.doBuffs(summonedMinionPlayerIndex, summeonedMinionIndex, boardState, deck);
+		return this.doBuffs(thisMinionPlayerIndex, thisMinionIndex, summonedMinionPlayerIndex, summeonedMinionIndex, boardState, deck);
 	}
 	
 	/**
@@ -296,13 +305,16 @@ public class GrimscaleOracle extends Murloc {
 	 * 
 	 * @return The boardState is manipulated and returned
 	 */
+	@Override
 	public HearthTreeNode<BoardState> minionTransformedEvent(
+			int thisMinionPlayerIndex,
+			int thisMinionIndex,
 			int transformedMinionPlayerIndex,
 			int transformedMinionIndex,
 			HearthTreeNode<BoardState> boardState,
 			Deck deck)
 		throws HSInvalidPlayerIndexException
 	{
-		return this.doBuffs(transformedMinionPlayerIndex, transformedMinionIndex, boardState, deck);
+		return this.doBuffs(thisMinionPlayerIndex, thisMinionIndex, transformedMinionPlayerIndex, transformedMinionIndex, boardState, deck);
 	}
 }

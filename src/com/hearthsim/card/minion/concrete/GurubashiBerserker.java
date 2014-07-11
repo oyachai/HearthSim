@@ -139,13 +139,13 @@ public class GurubashiBerserker extends Minion {
 			
 			//Notify all that the minion is damaged
 			HearthTreeNode<BoardState> toRet = boardState;
-			toRet = toRet.data_.getHero_p0().minionDamagedEvent(thisPlayerIndex, thisMinionIndex, toRet, deck);
+			toRet = toRet.data_.getHero_p0().minionDamagedEvent(0, 0, thisPlayerIndex, thisMinionIndex, toRet, deck);
 			for (int j = 0; j < toRet.data_.getNumMinions_p0(); ++j) {
-				toRet = toRet.data_.getMinion_p0(j).minionDamagedEvent(thisPlayerIndex, thisMinionIndex, toRet, deck);
+				toRet = toRet.data_.getMinion_p0(j).minionDamagedEvent(0, j + 1, thisPlayerIndex, thisMinionIndex, toRet, deck);
 			}
-			toRet = toRet.data_.getHero_p1().minionDamagedEvent(thisPlayerIndex, thisMinionIndex, toRet, deck);
+			toRet = toRet.data_.getHero_p1().minionDamagedEvent(1, 0, thisPlayerIndex, thisMinionIndex, toRet, deck);
 			for (int j = 0; j < toRet.data_.getNumMinions_p1(); ++j) {
-				toRet = toRet.data_.getMinion_p1(j).minionDamagedEvent(thisPlayerIndex, thisMinionIndex, toRet, deck);
+				toRet = toRet.data_.getMinion_p1(j).minionDamagedEvent(1, j + 1, thisPlayerIndex, thisMinionIndex, toRet, deck);
 			}
 			
 			//If fatal, notify all that it is dead

@@ -54,6 +54,15 @@ public class BoardState implements DeepCopyable {
 		p1_hero_ = new Hero("hero1", (byte)30);
 	}
 	
+	public LinkedList<Minion> getMinions(int playerIndex) throws HSInvalidPlayerIndexException {
+		if (playerIndex == 0)
+			return p0_minions_;
+		else if (playerIndex == 1)
+			return p1_minions_;
+		else
+			throw new HSInvalidPlayerIndexException();
+	}
+
 	public LinkedList<Minion> getMinions_p0() {
 		return p0_minions_;
 	}
