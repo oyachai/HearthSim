@@ -1,4 +1,4 @@
-package com.hearthsim.card.spellcard.concrete;
+package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Beast;
