@@ -35,7 +35,7 @@ public class Game {
 			return boardState_.flipPlayers();
 	}
 	
-	public int runGame() throws HSException {
+	public GameResult runGame() throws HSException {
 		curTurn_ = 0;
 		curPlayer_ = 0;
 		
@@ -60,10 +60,10 @@ public class Game {
 			if (!boardState_.isAlive_p0()) {
 				//player 0 is dead!
 				System.out.println("player 1 wins");
-				return 1;
+				return new GameResult(1, i + 1);
 			} else if (!boardState_.isAlive_p1()) {
 				System.out.println("player 0 wins");
-				return 0;
+				return new GameResult(0, i + 1);
 			}
 
 			boardState_ = gms_[0].playTurn(i, boardState_, players_[0]);
@@ -72,10 +72,10 @@ public class Game {
 			if (!boardState_.isAlive_p0()) {
 				//player 0 is dead!
 				System.out.println("player 1 wins");
-				return 1;
+				return new GameResult(1, i + 1);
 			} else if (!boardState_.isAlive_p1()) {
 				System.out.println("player 0 wins");
-				return 0;
+				return new GameResult(0, i + 1);
 			}
 
 			boardState_ = boardState_.flipPlayers();
@@ -85,10 +85,10 @@ public class Game {
 			if (!boardState_.isAlive_p0()) {
 				//player 0 is dead!
 				System.out.println("player 0 wins");
-				return 0;
+				return new GameResult(0, i + 1);
 			} else if (!boardState_.isAlive_p1()) {
 				System.out.println("player 1 wins");
-				return 1;
+				return new GameResult(1, i + 1);
 			}
 
 			boardState_ = gms_[1].playTurn(i, boardState_, players_[1]);
@@ -99,12 +99,12 @@ public class Game {
 			if (!boardState_.isAlive_p0()) {
 				//player 0 is dead!
 				System.out.println("player 1 wins");
-				return 1;
+				return new GameResult(1, i + 1);
 			} else if (!boardState_.isAlive_p1()) {
 				System.out.println("player 0 wins");
-				return 0;
+				return new GameResult(0, i + 1);
 			}
 		}
-		return -1;
+		return new GameResult(-1, 0);
 	}
 }

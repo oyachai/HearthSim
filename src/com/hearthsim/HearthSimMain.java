@@ -18,7 +18,7 @@ public class HearthSimMain {
 		
 		Path setupFilePath = FileSystems.getDefault().getPath(args[0]);
 		
-		HearthSim sim = new HearthSim();
+		HearthSim sim = new HearthSimRandom();
 		try {
 			sim.setup(setupFilePath);
 			sim.run();

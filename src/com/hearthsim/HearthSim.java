@@ -18,13 +18,11 @@ import com.hearthsim.player.Player;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.json.*;
 
-public class HearthSim {
+public abstract class HearthSim {
 	
 	int numSims_;
 	
 	int numCardsInDeck_;
-	Card[] cards1_;
-	Card[] cards2_;
 	
 	int maxMinionAttack_;
 	int maxMinionHealth_;
@@ -112,88 +110,42 @@ public class HearthSim {
 		gameResultFileName_ = inJson.optString("output_file", "gameres.txt");
 	}
 	
-	public int runSingleGame() throws HSException {
-		cards1_ = new Card[numCardsInDeck_];
-		cards2_ = new Card[numCardsInDeck_];
+	/**
+	 * Run a single game.
+	 * 
+	 * Must be overridden by a concrete subclass.  The subclass's job is to set up the decks and the AIs and to 
+	 * call runSigleGame(ArtificialPlayer, Hero, Deck, ArtificialPlayer, Hero, Deck).
+	 * 
+	 * @return
+	 * @throws HSException
+	 */
+	public abstract GameResult runSingleGame() throws HSException;
+	
+	/**
+	 * Run a single game
+	 * 
+	 * @param ai0 AI for player 0
+	 * @param hero0 Hero class for player 0
+	 * @param deck0 Deck for player 0
+	 * @param ai1 AI for player 1
+	 * @param hero1 Hero class for player 1
+	 * @param deck1 Deck for player 1
+	 * @return
+	 * @throws HSException
+	 */
+	protected GameResult runSingleGame(ArtificialPlayer ai0, Hero hero0, Deck deck0, ArtificialPlayer ai1, Hero hero1, Deck deck1) throws HSException {
 
-		for (int i = 0; i < numCardsInDeck_; ++i) {
-			byte attack0 = (byte)((int)(Math.random() * maxMinionAttack_) + 1);
-			byte health0 = (byte)((int)(Math.random() * maxMinionHealth_) + 1);
-			byte mana0 = (byte)((int)(0.5 * (attack0 + health0)));
-			cards1_[i] = new Minion("" + i, mana0, attack0, health0, attack0, health0, health0, false, false, false, false, false, false, false, false, false, true, false);
-
-			byte attack1 = (byte)((int)(Math.random() * maxMinionAttack_) + 1);
-			byte health1 = (byte)((int)(Math.random() * maxMinionHealth_) + 1);
-			byte mana1 = (byte)((int)(0.5 * (attack1 + health1)));
-			cards2_[i] = new Minion("" + i, mana1, attack1, health1, attack1, health1, health1, false, false, false, false, false, false, false, false, false, true, false);
-		}
-		
-		int nt = 0;
-		while (nt < numTaunts_) {
-			int irand = (int)(Math.random() * numCardsInDeck_);
-			if (!((Minion)cards1_[irand]).getTaunt()) {
-				((Minion)cards1_[irand]).setTaunt(true);
-				++nt;
-			}
-		}
-		
-		int ns = 0;
-		while (ns < numHolySmite_) {
-			int irand = (int)(Math.random() * numCardsInDeck_);
-			if (!(cards1_[irand] instanceof SpellDamage)) {
-				if (!((Minion)cards1_[irand]).getTaunt()) {
-					cards1_[irand] = new SpellDamage("" + irand, (byte)1, (byte)2, false);
-					++ns;
-				}
-			}
-		}
-		
-		
-		Hero hero1 = new Hero();
-		Hero hero2 = new Hero();
-		
-		Deck deck1 = new Deck(cards1_);
-		Deck deck2 = new Deck(cards2_);
-		
+		//Shuffle the decks!
+		deck0.shuffle();
 		deck1.shuffle();
-		deck2.shuffle();
 		
-		Player player1 = new Player("player0", hero1, deck1);
-		Player player2 = new Player("player1", hero2, deck2);
-		
-		ArtificialPlayer ai0 = new ArtificialPlayer(
-				p0_w_a_,
-				p0_w_h_,
-				p0_wt_a_,
-				p0_wt_h_,
-				p0_wTaunt_,
-				p0_my_wHeroHealth_,
-				p0_enemy_wHeroHealth_,
-				p0_wMana_,
-				p0_my_wNumMinions_,
-				p0_enemy_wNumMinions_,
-				p0_wSd_add_,
-				p0_wSd_mult_
-				);
-		
-		ArtificialPlayer ai1 = new ArtificialPlayer(
-				p1_w_a_,
-				p1_w_h_,
-				p1_wt_a_,
-				p1_wt_h_,
-				p1_wTaunt_,
-				p1_my_wHeroHealth_,
-				p1_enemy_wHeroHealth_,
-				p1_wMana_,
-				p1_my_wNumMinions_,
-				p1_enemy_wNumMinions_,
-				p1_wSd_add_,
-				p1_wSd_mult_
-				);
+		Player player0 = new Player("player0", new Hero(), deck0);
+		Player player1 = new Player("player1", new Hero(), deck1);
 
-		Game game = new Game(player1, player2, ai0, ai1);
+		Game game = new Game(player0, player1, ai0, ai1);
 		return game.runGame();
 	}
+	
 	
 	public void run() {
 		Writer writer = null;
@@ -206,24 +158,17 @@ public class HearthSim {
 		int p1 = 0;
 		for (int i = 0; i < numSims_; ++i) {
 			try {
-				int winner = runSingleGame();
-				if (winner == 0) {
-					try {
-						writer.write(0 + "\n");
-						writer.flush();
-					} catch (IOException e) { 
-						System.err.println("Exception: " + e.getMessage());
-						System.exit(1);
-					}
+				GameResult res = runSingleGame();
+				try {
+					writer.write(res.winnerPlayerIndex_ + "," + res.gameDuration_ + "\n");
+					writer.flush();
+				} catch (IOException e) { 
+					System.err.println("Exception: " + e.getMessage());
+					System.exit(1);
+				}
+				if (res.winnerPlayerIndex_ == 0) {
 					p0++;
-				} else if (winner == 1) {
-					try {
-						writer.write(1 + "\n");
-						writer.flush();
-					} catch (IOException e) { 
-						System.err.println("Exception: " + e.getMessage());
-						System.exit(1);
-					}
+				} else if (res.winnerPlayerIndex_ == 1) {
 					p1++;
 				} else {
 					

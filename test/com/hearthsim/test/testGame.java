@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import com.hearthsim.Game;
+import com.hearthsim.GameResult;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
@@ -90,15 +91,15 @@ public class testGame {
 				);
 
 		Game game = new Game(player1, player2, ai0, ai1);
-		int w;
+		GameResult w = null;
 		try {
 			w = game.runGame();
 		} catch (HSException e) {
-			w = -1;
+			w = new GameResult(-1, 0);
 		}
 		
-		System.out.println("w = " + w);
+		System.out.println("w = " + w.winnerPlayerIndex_);
 		
-		assertTrue("testGame0", w == 0);
+		assertTrue("testGame0", w.winnerPlayerIndex_ == 0);
 	}
 }
