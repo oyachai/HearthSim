@@ -21,7 +21,7 @@ public class DeckListFile {
 	 * @param setupFilePath The file path to the deck list to be read
 	 * @throws IOException 
 	 */
-	DeckListFile(Path setupFilePath) throws HSInvalidCardException, IOException {
+	public DeckListFile(Path setupFilePath) throws HSInvalidCardException, IOException {
 		this.read(setupFilePath);
 	}
 	
@@ -31,7 +31,7 @@ public class DeckListFile {
 	 * @param setupFilePath The file path to the deck list to be read
 	 * @throws IOException 
 	 */
-	void read(Path setupFilePath) throws HSInvalidCardException, IOException {
+	public void read(Path setupFilePath) throws HSInvalidCardException, IOException {
 		String inStr = new String(Files.readAllBytes(setupFilePath));
 		this.parseDeckList(inStr);
 	}
@@ -41,7 +41,7 @@ public class DeckListFile {
 	 * 
 	 * @param deckListStr
 	 */
-	void parseDeckList(String deckListStr) throws HSInvalidCardException {
+	public void parseDeckList(String deckListStr) throws HSInvalidCardException {
 		String[] deckList = deckListStr.split(",");
 		ArrayList<Card> cards = new ArrayList<Card>();
 		//Ignore the first entry for now... hero classes aren't implemented yet!
