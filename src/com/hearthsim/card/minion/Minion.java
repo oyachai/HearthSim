@@ -387,6 +387,8 @@ public class Minion extends Card {
 	 * @throws HSInvalidPlayerIndexException
 	 */
 	public void silenced(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) throws HSInvalidPlayerIndexException {
+		if (divineShield_)
+			divineShield_ = false;
 	}
 	
 	/**
