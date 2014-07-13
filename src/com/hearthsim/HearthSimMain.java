@@ -6,6 +6,7 @@ import java.nio.file.FileSystems;
 import java.nio.file.Path;
 
 import com.hearthsim.HearthSimMain;
+import com.hearthsim.exception.HSException;
 
 public class HearthSimMain {
 
@@ -16,13 +17,16 @@ public class HearthSimMain {
 			System.exit(0);
 		}
 		
-		Path setupFilePath = FileSystems.getDefault().getPath(args[0]);
+		Path simParamFilePath = FileSystems.getDefault().getPath(args[0]);
 		
-		HearthSim sim = new HearthSimRandom();
 		try {
-			sim.setup(setupFilePath);
+			HearthSim sim = new HearthSimConstructed(simParamFilePath);
 			sim.run();
 		} catch (IOException e) {
+			System.err.println("Can't find some files!");
+			e.printStackTrace();
+		} catch (HSException e) {
+			System.err.println("Something went wrong with the simulation: " + e.getMessage());
 			e.printStackTrace();
 		}
 	}

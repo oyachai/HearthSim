@@ -180,3 +180,4 @@ eclipse-build
 /bin
 
 *.json
+*.hsres

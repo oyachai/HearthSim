@@ -9,8 +9,14 @@ import java.util.ArrayList;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
+import com.hearthsim.card.minion.Hero;
 import com.hearthsim.exception.HSInvalidCardException;
 
+
+/**
+ * Class to read in a HearthSim deck specification file
+ *
+ */
 public class DeckListFile {
 
 	Deck deck_;
@@ -32,7 +38,7 @@ public class DeckListFile {
 	 * @throws IOException 
 	 */
 	public void read(Path setupFilePath) throws HSInvalidCardException, IOException {
-		String inStr = new String(Files.readAllBytes(setupFilePath));
+		String inStr = (new String(Files.readAllBytes(setupFilePath))).replace("\\s+", "").replace("'", "").replace("\n", "");
 		this.parseDeckList(inStr);
 	}
 	
@@ -46,16 +52,16 @@ public class DeckListFile {
 		ArrayList<Card> cards = new ArrayList<Card>();
 		//Ignore the first entry for now... hero classes aren't implemented yet!
 		for (int indx = 1; indx < deckList.length; ++indx) {
+			String cleanedString = deckList[indx];
 			try {
-				String cleanedString = deckList[indx].replace(" ", "").replace("'", "");
-				Class<?> clazz = Class.forName(cleanedString);
+				Class<?> clazz = Class.forName("com.hearthsim.card.minion.concrete." + cleanedString);
 				Constructor<?> ctor = clazz.getConstructor();
 				Object object = ctor.newInstance();
 				cards.add((Card)object);
 			} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InvocationTargetException e) {
-				throw new HSInvalidCardException();
+				throw new HSInvalidCardException("Unknown card: " + cleanedString);
 			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException e) {
-				throw new HSInvalidCardException();
+				throw new HSInvalidCardException("Unknown card: " + cleanedString);
 			}
 		}
 		deck_ = new Deck(cards);
@@ -67,5 +73,13 @@ public class DeckListFile {
 	 */
 	public Deck getDeck() {
 		return deck_;
+	}
+
+	/**
+	 * Get the Hero
+	 * @return
+	 */
+	public Hero getHero() {
+		return new Hero();
 	}
 }

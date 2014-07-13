@@ -7,6 +7,7 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -17,7 +18,10 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellDamage;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.exception.HSInvalidParamFileException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
+import com.hearthsim.exception.HSParamNotFoundException;
+import com.hearthsim.io.ParamFile;
 import com.hearthsim.player.Player;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.BoardStateFactory;
@@ -83,6 +87,32 @@ public class ArtificialPlayer {
 		wSd_mult_ = wSd_mult;
 	}
 	
+	public ArtificialPlayer(Path aiParamFile) throws IOException, HSInvalidParamFileException {
+		ParamFile pFile = new ParamFile(aiParamFile);
+		try {
+			my_wAttack_ = pFile.getDouble("w_a");
+			my_wHealth_ = pFile.getDouble("w_h");
+			enemy_wAttack_ = pFile.getDouble("wt_a");
+			enemy_wHealth_ = pFile.getDouble("wt_h");
+			wTaunt_ = pFile.getDouble("w_taunt");
+			my_wHeroHealth_ = pFile.getDouble("w_health");
+			enemy_wHeroHealth_ = pFile.getDouble("wt_health");
+
+			my_wNumMinions_ = pFile.getDouble("w_num_minions");
+			enemy_wNumMinions_ = pFile.getDouble("wt_num_minions");;
+
+			//The following two have default values for now... 
+			//These are rather arcane parameters, so please understand 
+			//them before attempting to change them. 
+			wSd_add_ = pFile.getDouble("w_sd_mult", 1.0);
+			wSd_mult_ = pFile.getDouble("w_sd_add", 0.9);
+
+		} catch (HSParamNotFoundException e) {
+			System.err.println(e.getMessage());
+			System.exit(1);
+		}
+	}
+	
 	public double boardScore(BoardState board) {
 				
 		LinkedList<Minion> myBoardCards;
@@ -140,10 +170,7 @@ public class ArtificialPlayer {
 		//The goal of this ai is to maximize his board score
 		double cur_score = boardScore(board);
 		
-//		this.writeOut("board_" + player.getName() + "_turn" + turn + ".json", board);
-
 		HearthTreeNode<BoardState> allMoves = playPossibilities(turn, board, player.getDeck());
-//		this.writeOut("allMoves_" + player.getName() + "_turn" + turn + ".json", allMoves);
 
 		System.out.print("turn = " + turn + ", player = " + player.getName() + ", numHand = " + board.getNumCards_hand() + ", numMinion = " + board.getNumMinions_p0() + ", numEnemyMinion = " + board.getNumMinions_p1());
 		System.out.flush();
@@ -158,8 +185,6 @@ public class ArtificialPlayer {
 			}
 		}
 
-//		this.writeOut("bestMove_" + player.getName() + "_turn" + turn + ".json", bestPlay);
-		
 		System.out.println(", number of nodes = " + allMoves.getAllLeaves().size() + ", playerHealth = " + bestPlay.getHero_p0().getHealth() + ", rMinion = " + bestPlay.getNumMinions_p0() + ", eMinion = " + bestPlay.getNumMinions_p1());
 
 		return bestPlay;

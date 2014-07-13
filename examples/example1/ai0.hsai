@@ -1,0 +1,14 @@
+
+w_a             =       0.9
+w_h             =       0.9
+wt_a            =       1.0
+wt_h            =       1.0
+
+w_taunt         =       0.0
+w_health        =       0.1
+wt_health       =       0.1
+
+w_mana          =       0.1
+w_num_minions   =       0.5
+wt_num_minions  =       0.5
+

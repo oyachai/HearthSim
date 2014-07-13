@@ -1,11 +1,17 @@
 package com.hearthsim;
 
+import java.io.IOException;
+import java.nio.file.Path;
+
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellDamage;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.exception.HSInvalidParamFileException;
+import com.hearthsim.exception.HSParamNotFoundException;
+import com.hearthsim.io.ParamFile;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
 
 /**
@@ -18,8 +24,31 @@ import com.hearthsim.player.playercontroller.ArtificialPlayer;
  */
 public class HearthSimRandom extends HearthSim {
 
+	int numCardsInDeck_;
+	int maxMinionAttack_;
+	int maxMinionHealth_;
+	int numTaunts_;
+	
+	//for holy smite studies
+	int numHolySmite_;
+	int holySmiteDamage_;
+	int holySmiteMana_;
+
+	public HearthSimRandom(Path setupFilePath) throws HSInvalidParamFileException, HSParamNotFoundException, IOException {
+		super(setupFilePath);
+		ParamFile masterParam = new ParamFile(setupFilePath);
+		numCardsInDeck_ = masterParam.getInt("num_cards_in_deck", 30);
+		maxMinionAttack_ = masterParam.getInt("max_minion_attack", 4);
+		maxMinionHealth_ = masterParam.getInt("max_minion_health", 3);
+		numTaunts_ = masterParam.getInt("num_taunts", 0);
+		numHolySmite_ = masterParam.getInt("num_holy_smite", 0);
+		holySmiteDamage_ = masterParam.getInt("holy_smite_damage", 2);
+		holySmiteMana_ = masterParam.getInt("holy_smite_mana", 1);
+
+	}
+	
 	@Override
-	public GameResult runSingleGame() throws HSException {
+	public GameResult runSingleGame() throws HSException, IOException {
 		
 		//------------------------------------------------------------------------
 		//Create the random decks
@@ -71,36 +100,9 @@ public class HearthSimRandom extends HearthSim {
 		//------------------------------------------------------------------------
 		//Set up the AIs
 		//------------------------------------------------------------------------
-		ArtificialPlayer ai0 = new ArtificialPlayer(
-				p0_w_a_,
-				p0_w_h_,
-				p0_wt_a_,
-				p0_wt_h_,
-				p0_wTaunt_,
-				p0_my_wHeroHealth_,
-				p0_enemy_wHeroHealth_,
-				p0_wMana_,
-				p0_my_wNumMinions_,
-				p0_enemy_wNumMinions_,
-				p0_wSd_add_,
-				p0_wSd_mult_
-				);
-		
-		ArtificialPlayer ai1 = new ArtificialPlayer(
-				p1_w_a_,
-				p1_w_h_,
-				p1_wt_a_,
-				p1_wt_h_,
-				p1_wTaunt_,
-				p1_my_wHeroHealth_,
-				p1_enemy_wHeroHealth_,
-				p1_wMana_,
-				p1_my_wNumMinions_,
-				p1_enemy_wNumMinions_,
-				p1_wSd_add_,
-				p1_wSd_mult_
-				);
-		
+		ArtificialPlayer ai0 = new ArtificialPlayer(this.aiParamFilePath0_);
+		ArtificialPlayer ai1 = new ArtificialPlayer(this.aiParamFilePath1_);
+				
 		return super.runSingleGame(ai0, hero0, deck0, ai1, hero1, deck1);
 	}
 }
