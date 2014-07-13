@@ -171,6 +171,38 @@ public class TestScarletCrusader {
 		assertTrue(board.data_.getMinion_p0(2).getDivineShield());
 		
 		//------------------------------------------------------------
+		//Attacking with divine shield vs Hero, divine shield should
+		// stay on
+		//------------------------------------------------------------
+		Minion m0 = board.data_.getMinion_p0(2);
+		m0.hasAttacked(false);
+		ret = m0.attack(3, 1, 0, board, deck);
+		
+		assertEquals(board.data_.getNumCards_hand(), 0);
+		assertEquals(board.data_.getNumMinions_p0(), 3);
+		assertEquals(board.data_.getNumMinions_p1(), 3);
+		assertEquals(board.data_.getMana_p0(), 5);
+		assertEquals(board.data_.getMana_p1(), 8);
+		assertEquals(board.data_.getHero_p0().getHealth(), 30);
+		assertEquals(board.data_.getHero_p1().getHealth(), 26);
+		assertEquals(board.data_.getMinion_p0(0).getHealth(), 2);
+		assertEquals(board.data_.getMinion_p0(1).getHealth(), 7);
+		assertEquals(board.data_.getMinion_p0(2).getHealth(), 1);
+		assertEquals(board.data_.getMinion_p1(0).getHealth(), 1);
+		assertEquals(board.data_.getMinion_p1(1).getHealth(), 2);
+		assertEquals(board.data_.getMinion_p1(2).getHealth(), 7);
+
+		assertEquals(board.data_.getMinion_p0(0).getAttack(), 2);
+		assertEquals(board.data_.getMinion_p0(1).getAttack(), 7);
+		assertEquals(board.data_.getMinion_p0(2).getAttack(), 4);
+		assertEquals(board.data_.getMinion_p1(0).getAttack(), 4);
+		assertEquals(board.data_.getMinion_p1(1).getAttack(), 2);
+		assertEquals(board.data_.getMinion_p1(2).getAttack(), 7);
+		
+		assertTrue(board.data_.getMinion_p1(0).getDivineShield());
+		assertTrue(board.data_.getMinion_p0(2).getDivineShield());
+		
+		//------------------------------------------------------------
 		//Attacking with divine shield
 		//------------------------------------------------------------
 		Minion m1 = board.data_.getMinion_p0(2);
@@ -183,7 +215,7 @@ public class TestScarletCrusader {
 		assertEquals(board.data_.getMana_p0(), 5);
 		assertEquals(board.data_.getMana_p1(), 8);
 		assertEquals(board.data_.getHero_p0().getHealth(), 30);
-		assertEquals(board.data_.getHero_p1().getHealth(), 30);
+		assertEquals(board.data_.getHero_p1().getHealth(), 26);
 		assertEquals(board.data_.getMinion_p0(0).getHealth(), 2);
 		assertEquals(board.data_.getMinion_p0(1).getHealth(), 7);
 		assertEquals(board.data_.getMinion_p0(2).getHealth(), 1);
@@ -214,7 +246,7 @@ public class TestScarletCrusader {
 		assertEquals(board.data_.getMana_p0(), 5);
 		assertEquals(board.data_.getMana_p1(), 8);
 		assertEquals(board.data_.getHero_p0().getHealth(), 30);
-		assertEquals(board.data_.getHero_p1().getHealth(), 30);
+		assertEquals(board.data_.getHero_p1().getHealth(), 26);
 		assertEquals(board.data_.getMinion_p0(0).getHealth(), 2);
 		assertEquals(board.data_.getMinion_p0(1).getHealth(), 3);
 		assertEquals(board.data_.getMinion_p0(2).getHealth(), 1);
@@ -232,5 +264,30 @@ public class TestScarletCrusader {
 		assertFalse(board.data_.getMinion_p1(0).getDivineShield());
 		assertFalse(board.data_.getMinion_p0(2).getDivineShield());
 		
+		//------------------------------------------------------------
+		//Being attacked with a divine shield that wore off
+		//------------------------------------------------------------
+		Minion m3 = board.data_.getMinion_p0(2);
+		m3.hasAttacked(false);
+		ret = m3.attack(3, 1, 3, board, deck);
+		
+		assertEquals(board.data_.getNumCards_hand(), 0);
+		assertEquals(board.data_.getNumMinions_p0(), 2);
+		assertEquals(board.data_.getNumMinions_p1(), 2);
+		assertEquals(board.data_.getMana_p0(), 5);
+		assertEquals(board.data_.getMana_p1(), 8);
+		assertEquals(board.data_.getHero_p0().getHealth(), 30);
+		assertEquals(board.data_.getHero_p1().getHealth(), 26);
+		assertEquals(board.data_.getMinion_p0(0).getHealth(), 2);
+		assertEquals(board.data_.getMinion_p0(1).getHealth(), 3);
+		assertEquals(board.data_.getMinion_p1(0).getHealth(), 1);
+		assertEquals(board.data_.getMinion_p1(1).getHealth(), 2);
+
+		assertEquals(board.data_.getMinion_p0(0).getAttack(), 2);
+		assertEquals(board.data_.getMinion_p0(1).getAttack(), 7);
+		assertEquals(board.data_.getMinion_p1(0).getAttack(), 4);
+		assertEquals(board.data_.getMinion_p1(1).getAttack(), 2);
+		
+		assertFalse(board.data_.getMinion_p1(0).getDivineShield());
 	}
 }

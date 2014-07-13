@@ -343,7 +343,8 @@ public class Minion extends Card {
 				this.destroyed(thisPlayerIndex, thisMinionIndex, boardState, deck);
 			}
 		} else {
-			divineShield_ = false;
+			if (damage > 0)
+				divineShield_ = false;
 		}
 	}
 	
