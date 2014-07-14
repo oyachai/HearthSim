@@ -158,8 +158,8 @@ public class TestRogue {
 		assertEquals(board.data_.getHero_p1().getArmor(), 0);
 		assertEquals(board.data_.getHero_p0().getAttack(), 1);
 		assertEquals(board.data_.getHero_p1().getAttack(), 0);
-		assertEquals(board.data_.getHero_p0().getAttack(), 1);
-		assertEquals(board.data_.getHero_p1().getAttack(), 0);
+		assertEquals(board.data_.getHero_p0().getWeaponCharge(), 2);
+		assertEquals(board.data_.getHero_p1().getWeaponCharge(), 0);
 		assertEquals(board.data_.getMinion_p0(0).getHealth(), 0);
 		assertEquals(board.data_.getMinion_p0(1).getHealth(), 7);
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), 2);
