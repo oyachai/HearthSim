@@ -53,7 +53,7 @@ public class Druid extends Hero {
 	/**
 	 * Use the hero ability on a given target
 	 * 
-	 * Priest: Heals a target for 2
+	 * Druid: +1 attack this turn and +1 armor
 	 * 
 	 * @param thisPlayerIndex The player index of the hero
 	 * @param targetPlayerIndex The player index of the target character

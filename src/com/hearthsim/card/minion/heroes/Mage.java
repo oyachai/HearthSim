@@ -54,7 +54,7 @@ public class Mage extends Hero {
 	/**
 	 * Use the hero ability on a given target
 	 * 
-	 * Priest: Heals a target for 2
+	 * Mage: deals 1 damage
 	 * 
 	 * @param thisPlayerIndex The player index of the hero
 	 * @param targetPlayerIndex The player index of the target character

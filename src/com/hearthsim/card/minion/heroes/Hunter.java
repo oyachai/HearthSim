@@ -54,7 +54,7 @@ public class Hunter extends Hero {
 	/**
 	 * Use the hero ability on a given target
 	 * 
-	 * Priest: Heals a target for 2
+	 * Hunter: Deals 2 damage to enemy hero
 	 * 
 	 * @param thisPlayerIndex The player index of the hero
 	 * @param targetPlayerIndex The player index of the target character

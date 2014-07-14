@@ -54,7 +54,7 @@ public class Warrior extends Hero {
 	/**
 	 * Use the hero ability on a given target
 	 * 
-	 * Priest: Heals a target for 2
+	 * Warrior: +2 armor
 	 * 
 	 * @param thisPlayerIndex The player index of the hero
 	 * @param targetPlayerIndex The player index of the target character
