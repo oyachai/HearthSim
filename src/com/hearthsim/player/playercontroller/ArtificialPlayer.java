@@ -46,6 +46,9 @@ public class ArtificialPlayer {
 	double my_wDivineShield_;
 	double enemy_wDivineShield_;
 	
+	double my_wWeapon_;
+	double enemy_wWeapon_;
+	
 	public ArtificialPlayer() {
 		this(1.0, 1.0, 1.0, 1.0);
 	}
@@ -111,7 +114,11 @@ public class ArtificialPlayer {
 			
 			//Divine Shield defualts to 0 for now
 			my_wDivineShield_ = pFile.getDouble("w_divine_shield", 0.0);
-			my_wDivineShield_ = pFile.getDouble("wt_divine_shield", 0.0);
+			enemy_wDivineShield_ = pFile.getDouble("wt_divine_shield", 0.0);
+			
+			//weapon score for the hero
+			my_wWeapon_ = pFile.getDouble("w_weapon", 0.0);
+			enemy_wWeapon_ = pFile.getDouble("wt_weapon", 0.0);
 
 		} catch (HSParamNotFoundException e) {
 			System.err.println(e.getMessage());
@@ -136,7 +143,7 @@ public class ArtificialPlayer {
 			myScore += (minion.getTaunt() ? 1.0 : 0.0) * wTaunt_;
 			if (minion.getDivineShield()) myScore += ((minion.getAttack() + minion.getHealth()) * my_wDivineShield_);
 		}
-		
+				
 		//opponent score
 		double opScore = 0.0;
 		for (final Minion minion: opBoardCards) {
@@ -145,6 +152,11 @@ public class ArtificialPlayer {
 			opScore += (minion.getTaunt() ? 1.0 : 0.0) * wTaunt_;
 			if (minion.getDivineShield()) opScore += (minion.getAttack() + minion.getHealth()) * enemy_wDivineShield_;
 		}
+		
+		//weapons
+		double weaponScore = 0.0;
+		weaponScore += board.getHero_p0().getAttack() * board.getHero_p0().getWeaponCharge() * my_wWeapon_;
+		weaponScore -= board.getHero_p1().getAttack() * board.getHero_p1().getWeaponCharge() * enemy_wWeapon_;
 		
 		//my cards.  The more cards that I have, the better
 		double handScore = 0.0;
@@ -175,7 +187,7 @@ public class ArtificialPlayer {
 		minionScore += my_wNumMinions_ * (board.getNumMinions_p0());
 		minionScore -= enemy_wNumMinions_ * (board.getNumMinions_p1());
 		
-		double score = myScore - opScore + handScore + heroScore + minionScore;
+		double score = myScore - opScore + handScore + heroScore + minionScore + weaponScore;
 		
 		return score;
 	}
