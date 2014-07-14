@@ -56,6 +56,24 @@ public class ArtificialPlayer {
 		this(my_wAttack, my_wHealth, enemy_wAttack, enemy_wHealth, 0.0, 0.1, 0.1, 0.1, 0.5, 0.5, 0.0, 0.5, 0.0, 0.0);
 	}
 	
+	/**
+	 * Constructor - Deprecated, do not use!
+	 * 
+	 * @param my_wAttack
+	 * @param my_wHealth
+	 * @param enemy_wAttack
+	 * @param enemy_wHealth
+	 * @param wTaunt
+	 * @param my_wHeroHealth
+	 * @param enemy_wHeroHealth
+	 * @param wMana
+	 * @param my_wNumMinions
+	 * @param enemy_wNumMinions
+	 * @param wSd_add
+	 * @param wSd_mult
+	 * @param my_wDivineShield
+	 * @param enemy_wDivineShield
+	 */
 	public ArtificialPlayer(
 			double my_wAttack,
 			double my_wHealth,
