@@ -72,7 +72,9 @@ public class testGame {
 				0.5,
 				0.5,
 				0.0,
-				0.5
+				0.5,
+				0.0,
+				0.0
 				);
 		
 		ArtificialPlayer ai1 = new ArtificialPlayer(
@@ -87,7 +89,9 @@ public class testGame {
 				0.5,
 				0.5,
 				0.0,
-				0.5
+				0.5,
+				0.0,
+				0.0
 				);
 
 		Game game = new Game(player1, player2, ai0, ai1);

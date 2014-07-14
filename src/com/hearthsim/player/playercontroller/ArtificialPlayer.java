@@ -49,11 +49,14 @@ public class ArtificialPlayer {
 	double wSd_add_;
 	double wSd_mult_;
 	
+	double my_wDivineShield_;
+	double enemy_wDivineShield_;
+	
 	public ArtificialPlayer() {
 		this(1.0, 1.0, 1.0, 1.0);
 	}
 	public ArtificialPlayer(double my_wAttack, double my_wHealth, double enemy_wAttack, double enemy_wHealth) {
-		this(my_wAttack, my_wHealth, enemy_wAttack, enemy_wHealth, 0.0, 0.1, 0.1, 0.1, 0.5, 0.5, 0.0, 0.5);
+		this(my_wAttack, my_wHealth, enemy_wAttack, enemy_wHealth, 0.0, 0.1, 0.1, 0.1, 0.5, 0.5, 0.0, 0.5, 0.0, 0.0);
 	}
 	
 	public ArtificialPlayer(
@@ -68,7 +71,9 @@ public class ArtificialPlayer {
 			double my_wNumMinions,
 			double enemy_wNumMinions,
 			double wSd_add,
-			double wSd_mult) {
+			double wSd_mult,
+			double my_wDivineShield,
+			double enemy_wDivineShield) {
 		nLookahead_ = 1;
 		
 		wMana_ = wMana;
@@ -85,6 +90,9 @@ public class ArtificialPlayer {
 		
 		wSd_add_ = wSd_add;
 		wSd_mult_ = wSd_mult;
+		
+		my_wDivineShield_ = my_wDivineShield;
+		enemy_wDivineShield_ = enemy_wDivineShield;
 	}
 	
 	public ArtificialPlayer(Path aiParamFile) throws IOException, HSInvalidParamFileException {
@@ -106,6 +114,10 @@ public class ArtificialPlayer {
 			//them before attempting to change them. 
 			wSd_add_ = pFile.getDouble("w_sd_mult", 1.0);
 			wSd_mult_ = pFile.getDouble("w_sd_add", 0.9);
+			
+			//Divine Shield defualts to 0 for now
+			my_wDivineShield_ = pFile.getDouble("w_divine_shield", 0.0);
+			my_wDivineShield_ = pFile.getDouble("wt_divine_shield", 0.0);
 
 		} catch (HSParamNotFoundException e) {
 			System.err.println(e.getMessage());
@@ -125,13 +137,13 @@ public class ArtificialPlayer {
 		//my score
 		double myScore = 0.0;
 		for (final Minion card: myBoardCards) {
-			myScore += card.getAttack() * my_wAttack_ + card.getHealth() * my_wHealth_ + (card.getTaunt() ? 1.0 : 0.0) * wTaunt_;
+			myScore += card.getAttack() * my_wAttack_ + card.getHealth() * my_wHealth_ + (card.getTaunt() ? 1.0 : 0.0) * wTaunt_ + (card.getAttack() + card.getHealth()) * my_wDivineShield_;
 		}
 		
 		//opponent score
 		double opScore = 0.0;
 		for (final Minion card: opBoardCards) {
-			opScore += card.getAttack() * enemy_wAttack_ + card.getHealth() * enemy_wHealth_ + (card.getTaunt() ? 1.0 : 0.0) * wTaunt_;
+			opScore += card.getAttack() * enemy_wAttack_ + card.getHealth() * enemy_wHealth_ + (card.getTaunt() ? 1.0 : 0.0) * wTaunt_ + (card.getAttack() + card.getHealth()) * enemy_wDivineShield_;
 		}
 		
 		//my cards.  The more cards that I have, the better
