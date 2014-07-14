@@ -136,14 +136,20 @@ public class ArtificialPlayer {
 		
 		//my score
 		double myScore = 0.0;
-		for (final Minion card: myBoardCards) {
-			myScore += card.getAttack() * my_wAttack_ + card.getHealth() * my_wHealth_ + (card.getTaunt() ? 1.0 : 0.0) * wTaunt_ + (card.getAttack() + card.getHealth()) * my_wDivineShield_;
+		for (final Minion minion: myBoardCards) {
+			myScore += minion.getAttack() * my_wAttack_;
+			myScore += minion.getHealth() * my_wHealth_;
+			myScore += (minion.getTaunt() ? 1.0 : 0.0) * wTaunt_;
+			if (minion.getDivineShield()) myScore += ((minion.getAttack() + minion.getHealth()) * my_wDivineShield_);
 		}
 		
 		//opponent score
 		double opScore = 0.0;
-		for (final Minion card: opBoardCards) {
-			opScore += card.getAttack() * enemy_wAttack_ + card.getHealth() * enemy_wHealth_ + (card.getTaunt() ? 1.0 : 0.0) * wTaunt_ + (card.getAttack() + card.getHealth()) * enemy_wDivineShield_;
+		for (final Minion minion: opBoardCards) {
+			opScore += minion.getAttack() * enemy_wAttack_;
+			opScore += minion.getHealth() * enemy_wHealth_;
+			opScore += (minion.getTaunt() ? 1.0 : 0.0) * wTaunt_;
+			if (minion.getDivineShield()) opScore += (minion.getAttack() + minion.getHealth()) * enemy_wDivineShield_;
 		}
 		
 		//my cards.  The more cards that I have, the better
