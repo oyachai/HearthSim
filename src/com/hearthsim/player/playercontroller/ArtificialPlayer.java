@@ -156,7 +156,9 @@ public class ArtificialPlayer {
 		}
 		
 		//the more we beat on the opponent hero, the better
-		double heroScore = my_wHeroHealth_ * board.getHero_p0().getHealth() - enemy_wHeroHealth_ * board.getHero_p1().getHealth();
+		double heroScore = 0;
+		heroScore += my_wHeroHealth_ * (board.getHero_p0().getHealth() + board.getHero_p0().getArmor());
+		heroScore -= enemy_wHeroHealth_ * (board.getHero_p1().getHealth() + board.getHero_p1().getArmor());
 		
 		if (board.getHero_p1().getHealth() <= 0) {
 			//dead enemy hero is a very good thing
