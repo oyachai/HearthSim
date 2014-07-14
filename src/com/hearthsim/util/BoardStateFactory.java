@@ -6,6 +6,7 @@ import java.util.HashMap;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.HearthTreeNode;
@@ -57,7 +58,7 @@ public class BoardStateFactory {
 	 * 
 	 * @return boardStateNode manipulated such that all subsequent actions are children of the original boardStateNode input.
 	 */
-	public HearthTreeNode<BoardState> doMoves(HearthTreeNode<BoardState> boardStateNode) throws HSInvalidPlayerIndexException {
+	public HearthTreeNode<BoardState> doMoves(HearthTreeNode<BoardState> boardStateNode) throws HSException {
 
 		if (System.currentTimeMillis() - startTime_ > maxTime_) {
 			return null;
@@ -91,7 +92,36 @@ public class BoardStateFactory {
 				lethal_ = true;
 			return null;
 		}
-		
+
+		//-----------------------------------------------------------------------------------------
+		// Use the Hero ability
+		//-----------------------------------------------------------------------------------------
+		{
+			//Case0: Decided not to use the hero ability
+			BoardState newState = (BoardState)boardStateNode.data_.deepCopy();
+			newState.getHero_p0().hasBeenUsed(true);
+			HearthTreeNode<BoardState> newNode = boardStateNode.addChild(newState);
+			newNode = this.doMoves(newNode);
+		}
+		{
+			//Case1: Decided to use the hero ability -- Use it on everthing!
+			for(int i = 0; i <= boardStateNode.data_.getNumMinions_p0() + 1; ++i) {
+				HearthTreeNode<BoardState> newState = new HearthTreeNode<BoardState>((BoardState)boardStateNode.data_.deepCopy());
+				newState = newState.data_.getHero_p0().useHeroAbility(0, 0, i, newState, deck_);
+				if (newState != null) {
+					HearthTreeNode<BoardState> newNode = boardStateNode.addChild(newState);
+					newNode = this.doMoves(newNode);
+				}
+			}
+			for(int i = 0; i <= boardStateNode.data_.getNumMinions_p1() + 1; ++i) {
+				HearthTreeNode<BoardState> newState = new HearthTreeNode<BoardState>((BoardState)boardStateNode.data_.deepCopy());
+				newState = newState.data_.getHero_p0().useHeroAbility(0, 1, i, newState, deck_);
+				if (newState != null) {
+					HearthTreeNode<BoardState> newNode = boardStateNode.addChild(newState);
+					newNode = this.doMoves(newNode);
+				}
+			}
+		}
 		//-----------------------------------------------------------------------------------------
 		// Use the cards in the hand
 		//-----------------------------------------------------------------------------------------

@@ -10,7 +10,7 @@ import com.hearthsim.util.BoardState;
 import com.hearthsim.util.BoardStateFactory;
 import com.hearthsim.util.HearthTreeNode;
 import com.hearthsim.card.spellcard.concrete.*;
-import com.hearthsim.exception.HSInvalidPlayerIndexException;
+import com.hearthsim.exception.HSException;
 
 public class TestTaunt {
 	
@@ -39,7 +39,7 @@ public class TestTaunt {
 		HearthTreeNode<BoardState> tree = new HearthTreeNode<BoardState>(board);
 		try {
 			tree = factory.doMoves(tree);
-		} catch (HSInvalidPlayerIndexException e) {
+		} catch (HSException e) {
 			e.printStackTrace();
 			assertTrue(false);
 		}
@@ -61,7 +61,7 @@ public class TestTaunt {
 		HearthTreeNode<BoardState> tree = new HearthTreeNode<BoardState>(board);
 		try {
 			tree = factory.doMoves(tree);
-		} catch (HSInvalidPlayerIndexException e) {
+		} catch (HSException e) {
 			e.printStackTrace();
 			assertTrue(false);
 		}
@@ -85,7 +85,7 @@ public class TestTaunt {
 		HearthTreeNode<BoardState> tree = new HearthTreeNode<BoardState>(board);
 		try {
 			tree = factory.doMoves(tree);
-		} catch (HSInvalidPlayerIndexException e) {
+		} catch (HSException e) {
 			e.printStackTrace();
 			assertTrue(false);
 		}
@@ -109,7 +109,7 @@ public class TestTaunt {
 		HearthTreeNode<BoardState> tree = new HearthTreeNode<BoardState>(board);
 		try {
 			tree = factory.doMoves(tree);
-		} catch (HSInvalidPlayerIndexException e) {
+		} catch (HSException e) {
 			e.printStackTrace();
 			assertTrue(false);
 		}
@@ -121,7 +121,7 @@ public class TestTaunt {
 	}
 
 	@Test
-	public void test4() throws HSInvalidPlayerIndexException {
+	public void test4() throws HSException {
 		HolySmite hs = new HolySmite();
 		Minion minion1 = new Minion("" + 0, mana, attack0, health1, attack0, health1, health1, true, false, false, false, false, false, false, false, false, false, false);
 
@@ -134,7 +134,7 @@ public class TestTaunt {
 		HearthTreeNode<BoardState> tree = new HearthTreeNode<BoardState>(board);
 		try {
 			tree = factory.doMoves(tree);
-		} catch (HSInvalidPlayerIndexException e) {
+		} catch (HSException e) {
 			e.printStackTrace();
 			assertTrue(false);
 		}				

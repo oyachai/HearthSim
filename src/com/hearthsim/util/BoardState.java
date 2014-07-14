@@ -37,6 +37,10 @@ public class BoardState implements DeepCopyable {
 	byte p1_spellDamage_;
 	
 	public BoardState() {
+		this(new Hero("hero0", (byte)30), new Hero("hero1", (byte)30));
+	}
+	
+	public BoardState(Hero p0_hero, Hero p1_hero) {
 		p0_minions_ = new LinkedList<Minion>();
 		p1_minions_ = new LinkedList<Minion>();
 		p0_hand_ = new LinkedList<Card>();
@@ -50,8 +54,8 @@ public class BoardState implements DeepCopyable {
 		p0_fatigueDamage_ = 1;
 		p1_fatigueDamage_ = 1;
 		
-		p0_hero_ = new Hero("hero0", (byte)30);
-		p1_hero_ = new Hero("hero1", (byte)30);
+		p0_hero_ = p0_hero;
+		p1_hero_ = p1_hero;		
 	}
 	
 	public LinkedList<Minion> getMinions(int playerIndex) throws HSInvalidPlayerIndexException {
@@ -233,6 +237,24 @@ public class BoardState implements DeepCopyable {
 		p1_hero_ = hero;
 	}
 
+	public int getMana(int playerIndex) throws HSInvalidPlayerIndexException {
+		if (playerIndex == 0)
+			return p0_mana_;
+		else if (playerIndex == 1) 
+			return p1_mana_;
+		else
+			throw new HSInvalidPlayerIndexException();
+	}
+	
+	public void setMana(int playerIndex, int mana) throws HSInvalidPlayerIndexException {
+		if (playerIndex == 0)
+			p0_mana_ = mana;
+		else if (playerIndex == 1) 
+			p1_mana_ = mana;
+		else
+			throw new HSInvalidPlayerIndexException();
+	}
+	
 	public int getMana_p0() {
 		return p0_mana_;
 	}

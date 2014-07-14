@@ -1,6 +1,7 @@
 package com.hearthsim.card.minion;
 
 import com.hearthsim.card.Deck;
+import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.DeepCopyable;
@@ -9,6 +10,8 @@ import com.json.JSONObject;
 
 public class Hero extends Minion {
 
+	protected static final byte HERO_ABILITY_COST = 2;  //Assumed to be 2 for all heroes
+	
 	protected byte weaponCharge_;
 	protected byte armor_;
 		
@@ -124,10 +127,31 @@ public class Hero extends Minion {
 		return toRet;
 	}
 
-	
-	public HearthTreeNode<BoardState> useHeroAbility(int targetPlayerIndex, int targetMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
-		return null;
+	/**
+	 * Use the hero ability on a given target
+	 * 
+	 * @param thisPlayerIndex The player index of the hero
+	 * @param targetPlayerIndex The player index of the target character
+	 * @param targetMinionIndex The minion index of the target character
+	 * @param boardState
+	 * @param deck
+	 * @return
+	 */
+	public HearthTreeNode<BoardState> useHeroAbility(
+			int thisPlayerIndex,
+			int targetPlayerIndex,
+			int targetMinionIndex,
+			HearthTreeNode<BoardState> boardState,
+			Deck deck)
+		throws HSException
+	{
+		if (boardState.data_.getMana(thisPlayerIndex) < HERO_ABILITY_COST)
+			return null;
+		boardState.data_.setMana(thisPlayerIndex, boardState.data_.getMana(thisPlayerIndex) - HERO_ABILITY_COST);
+		this.hasBeenUsed_ = true;
+		return boardState;
 	}
+	
 	
 	/**
 	 * Called when this minion takes damage

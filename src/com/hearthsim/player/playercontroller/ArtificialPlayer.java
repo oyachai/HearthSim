@@ -5,13 +5,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
-import java.nio.ByteBuffer;
-import java.nio.channels.FileChannel;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.List;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
@@ -25,7 +20,6 @@ import com.hearthsim.io.ParamFile;
 import com.hearthsim.player.Player;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.BoardStateFactory;
-import com.hearthsim.util.HearthAction;
 import com.hearthsim.util.HearthTreeNode;
 
 public class ArtificialPlayer {
@@ -208,7 +202,7 @@ public class ArtificialPlayer {
 		return bestPlay;
 	}
 
-	public HearthTreeNode<BoardState> playPossibilities(int turn, BoardState board, Deck deck) throws HSInvalidPlayerIndexException {
+	public HearthTreeNode<BoardState> playPossibilities(int turn, BoardState board, Deck deck) throws HSException {
 
 		HearthTreeNode<BoardState> toRet = new HearthTreeNode<BoardState>(board);
 		BoardStateFactory factory = new BoardStateFactory(deck);
