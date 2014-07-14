@@ -1,0 +1,8 @@
+num_simulations           =   1000
+output_file               =   example2.hsres
+
+deckListFilePath0         =       deck0.hsdeck
+deckListFilePath1         =       deck1.hsdeck
+
+aiParamFilePath0          =       ai0.hsai
+aiParamFilePath1          =       ai1.hsai
