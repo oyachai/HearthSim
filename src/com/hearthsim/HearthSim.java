@@ -1,28 +1,21 @@
 package com.hearthsim;
 
 import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.nio.file.FileSystems;
-import java.nio.file.Files;
 import java.nio.file.Path;
 
-import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
-import com.hearthsim.card.minion.Minion;
-import com.hearthsim.card.spellcard.SpellDamage;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidParamFileException;
 import com.hearthsim.exception.HSParamNotFoundException;
 import com.hearthsim.io.ParamFile;
 import com.hearthsim.player.Player;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
-import com.json.*;
 
 public abstract class HearthSim {
 	
