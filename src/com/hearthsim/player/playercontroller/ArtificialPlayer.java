@@ -14,7 +14,6 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellDamage;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidParamFileException;
-import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.exception.HSParamNotFoundException;
 import com.hearthsim.io.ParamFile;
 import com.hearthsim.player.Player;
@@ -110,6 +109,15 @@ public class ArtificialPlayer {
 		enemy_wDivineShield_ = enemy_wDivineShield;
 	}
 	
+	/**
+	 * Constructor
+	 * 
+	 * This is the preferred (non-deprecated) way to instantiate this class
+	 * 
+	 * @param aiParamFile The path to the input parameter file
+	 * @throws IOException
+	 * @throws HSInvalidParamFileException
+	 */
 	public ArtificialPlayer(Path aiParamFile) throws IOException, HSInvalidParamFileException {
 		ParamFile pFile = new ParamFile(aiParamFile);
 		try {
@@ -144,6 +152,15 @@ public class ArtificialPlayer {
 		}
 	}
 	
+	/**
+	 * Board score function
+	 * 
+	 * The all important board score function.  It is a function that measures how 'good' the given board is. 
+	 * As a convention, this function should be an increasing function of the board's goodness.
+	 * 
+	 * @param board The current board state
+	 * @return
+	 */
 	public double boardScore(BoardState board) {
 				
 		LinkedList<Minion> myBoardCards;
@@ -153,7 +170,7 @@ public class ArtificialPlayer {
 		opBoardCards = board.getMinions_p1();
 		myHandCards = board.getCards_hand_p0();
 		
-		//my score
+		//my board score
 		double myScore = 0.0;
 		for (final Minion minion: myBoardCards) {
 			myScore += minion.getAttack() * my_wAttack_;
@@ -162,7 +179,7 @@ public class ArtificialPlayer {
 			if (minion.getDivineShield()) myScore += ((minion.getAttack() + minion.getHealth()) * my_wDivineShield_);
 		}
 				
-		//opponent score
+		//opponent board score
 		double opScore = 0.0;
 		for (final Minion minion: opBoardCards) {
 			opScore += minion.getAttack() * enemy_wAttack_;
@@ -210,10 +227,19 @@ public class ArtificialPlayer {
 		return score;
 	}
 	
+	/**
+	 * Play a turn
+	 * 
+	 * This function is called by GameMaster, and it should return a BoardState resulting from the AI playing its turn.
+	 * 
+	 * @param turn Turn number, 1-based
+	 * @param board The board state at the beginning of the turn (after all card draws and minion deaths)
+	 * @param player The player playing the turn
+	 * @return
+	 * @throws HSException
+	 */
 	public BoardState playTurn(int turn, BoardState board, Player player) throws HSException {
-		//The goal of this ai is to maximize his board score
-		double cur_score = boardScore(board);
-		
+		//The goal of this ai is to maximize his board score		
 		HearthTreeNode<BoardState> allMoves = playPossibilities(turn, board, player.getDeck());
 
 		System.out.print("turn = " + turn + ", player = " + player.getName() + ", numHand = " + board.getNumCards_hand() + ", numMinion = " + board.getNumMinions_p0() + ", numEnemyMinion = " + board.getNumMinions_p1());
@@ -235,7 +261,6 @@ public class ArtificialPlayer {
 	}
 
 	public HearthTreeNode<BoardState> playPossibilities(int turn, BoardState board, Deck deck) throws HSException {
-
 		HearthTreeNode<BoardState> toRet = new HearthTreeNode<BoardState>(board);
 		BoardStateFactory factory = new BoardStateFactory(deck);
 		toRet = factory.doMoves(toRet);
