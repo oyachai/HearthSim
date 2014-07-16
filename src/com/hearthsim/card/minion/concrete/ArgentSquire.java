@@ -4,7 +4,7 @@ import com.hearthsim.card.minion.Minion;
 
 public class ArgentSquire extends Minion {
 	
-	private static final String NAME = "ArgentSquire";
+	private static final String NAME = "Argent Squire";
 	private static final byte MANA_COST = 1;
 	private static final byte ATTACK = 1;
 	private static final byte HEALTH = 1;
