@@ -10,6 +10,7 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.FrostwolfWarlord;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
+import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.HearthTreeNode;
@@ -24,7 +25,7 @@ public class TestFrostwolfWarlord {
 	private static final byte health1 = 7;
 
 	@Before
-	public void setup() {
+	public void setup() throws HSException {
 		board = new HearthTreeNode<BoardState>(new BoardState());
 
 		Minion minion0_0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
@@ -32,11 +33,11 @@ public class TestFrostwolfWarlord {
 		Minion minion1_0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
 		Minion minion1_1 = new Minion("" + 0, mana, attack0, (byte)(health1 - 1), attack0, health1, health1);
 		
-		board.data_.placeMinion_p0(minion0_0);
-		board.data_.placeMinion_p0(minion0_1);
+		board.data_.placeMinion(0, minion0_0);
+		board.data_.placeMinion(0, minion0_1);
 		
-		board.data_.placeMinion_p1(minion1_0);
-		board.data_.placeMinion_p1(minion1_1);
+		board.data_.placeMinion(1, minion1_0);
+		board.data_.placeMinion(1, minion1_1);
 		
 		Card cards[] = new Card[10];
 		for (int index = 0; index < 10; ++index) {

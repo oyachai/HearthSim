@@ -154,7 +154,7 @@ public class IronforgeRifleman extends Minion {
 			hasBeenUsed_ = true;
 			boardState.data_.setMana_p0(boardState.data_.getMana_p0() - this.mana_);
 			boardState.data_.removeCard_hand(thisCardIndex);
-			boardState.data_.placeMinion_p0(this, minionIndex - 1);
+			boardState.data_.placeMinion(0, this, minionIndex - 1);
 			
 			{
 				HearthTreeNode<BoardState> newState = boardState.addChild(new HearthTreeNode<BoardState>((BoardState)boardState.data_.deepCopy()));

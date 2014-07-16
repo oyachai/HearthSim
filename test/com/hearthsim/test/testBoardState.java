@@ -5,14 +5,14 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import com.hearthsim.card.Card;
-import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.exception.HSException;
 import com.hearthsim.util.BoardState;
 
 public class testBoardState {
 
 	@Test
-	public void testBoardState1() {
+	public void testBoardState1() throws HSException {
 		int numCards = 30;
 		
 		Card[] cards1 = new Card[numCards];
@@ -35,8 +35,6 @@ public class testBoardState {
 			cards2[i] = new Minion("" + i, mana, attack, health, attack, health, health);
 		}
 		
-		Hero hero1 = new Hero();
-		Hero hero2 = new Hero();
 
 		BoardState board1 = new BoardState();
 		BoardState board2 = new BoardState();
@@ -59,19 +57,19 @@ public class testBoardState {
 		assertFalse(board1.equals(board2));
 		assertTrue(board1.equals(board3));
 		
-		board1.placeMinion_p0((Minion)cards1[2]);
-		board2.placeMinion_p0((Minion)cards2[2]);
-		board2.placeMinion_p0((Minion)cards2[3]);
-		board3.placeMinion_p0((Minion)cards3[2]);
+		board1.placeMinion(0, (Minion)cards1[2]);
+		board2.placeMinion(0, (Minion)cards2[2]);
+		board2.placeMinion(0, (Minion)cards2[3]);
+		board3.placeMinion(0, (Minion)cards3[2]);
 
 
 		assertTrue(board1.equals(board3));
 		assertFalse(board1.equals(board2));
 
-		board1.placeMinion_p1((Minion)cards1[4]);
-		board1.placeMinion_p1((Minion)cards1[5]);
-		board3.placeMinion_p1((Minion)cards3[4]);
-		board3.placeMinion_p1((Minion)cards3[5]);
+		board1.placeMinion(1, (Minion)cards1[4]);
+		board1.placeMinion(1, (Minion)cards1[5]);
+		board3.placeMinion(1, (Minion)cards3[4]);
+		board3.placeMinion(1, (Minion)cards3[5]);
 		assertTrue(board1.equals(board3));
 
 		
@@ -81,7 +79,7 @@ public class testBoardState {
 	}
 
 	@Test
-	public void testBoardState2() {
+	public void testBoardState2() throws HSException {
 
 		int numBoards = 20000;
 		BoardState[] boards = new BoardState[numBoards];
@@ -130,11 +128,11 @@ public class testBoardState {
 			}
 
 			for (int j = 0; j < nm1; ++j) {
-				boards[i].placeMinion_p0((Minion)cards2[(int)(Math.random() * numCards2)]);
+				boards[i].placeMinion(0, (Minion)cards2[(int)(Math.random() * numCards2)]);
 			}
 
 			for (int j = 0; j < nm2; ++j) {
-				boards[i].placeMinion_p1((Minion)cards3[(int)(Math.random() * numCards3)]);
+				boards[i].placeMinion(1, (Minion)cards3[(int)(Math.random() * numCards3)]);
 			}
 		}
 		

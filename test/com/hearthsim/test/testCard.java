@@ -10,10 +10,8 @@ import com.hearthsim.card.minion.Minion;
 public class testCard {
 
 	@Test
-	public void testCard() {
+	public void testCard0() {
 		
-		byte attack = 3;
-		byte health = 2;
 		byte mana = 2;
 		
 		Card card0 = new Card("" + 0, mana);

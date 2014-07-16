@@ -524,7 +524,7 @@ public class Minion extends Card {
 				hasAttacked_ = true;
 			}
 			hasBeenUsed_ = true;
-			boardState.data_.placeMinion_p0(this, minionIndex - 1);
+			boardState.data_.placeMinion(0, this, minionIndex - 1);
 			boardState.data_.setMana_p0(boardState.data_.getMana_p0() - this.mana_);
 			boardState.data_.removeCard_hand(thisCardIndex);
 			return boardState;

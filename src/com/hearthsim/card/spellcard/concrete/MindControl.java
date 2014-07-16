@@ -60,7 +60,7 @@ public class MindControl extends SpellCard {
 		
 		Minion targetMinion = boardState.data_.getMinion_p1(minionIndex - 1);
 		boardState.data_.removeMinion_p1(minionIndex - 1);
-		boardState.data_.placeMinion_p0(targetMinion);
+		boardState.data_.placeMinion(0, targetMinion);
 		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
 	}
 }

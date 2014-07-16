@@ -21,19 +21,19 @@ public class TestTaunt {
 	private static final byte health1 = 7;
 
 	@Before
-	public void setup() {
+	public void setup() throws HSException {
 		board = new BoardState();
 
 		Minion minion0_0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
 		
-		board.placeMinion_p0(minion0_0);
+		board.placeMinion(0, minion0_0);
 				
 	}
 	
 	@Test
-	public void test0() {
+	public void test0() throws HSException {
 		Minion minion = new Minion("" + 0, mana, attack0, health1, attack0, health1, health1, true, false, false, false, false, false, false, false, false, false, false);
-		board.placeMinion_p1(minion);
+		board.placeMinion(1, minion);
 		
 		BoardStateFactory factory = new BoardStateFactory(null);
 		HearthTreeNode<BoardState> tree = new HearthTreeNode<BoardState>(board);
@@ -44,18 +44,18 @@ public class TestTaunt {
 			assertTrue(false);
 		}
 		
-		assertTrue("test0", tree.numChildren() == 2);
-		for (HearthTreeNode<BoardState> child : tree.getChildren()) {
-			assertTrue("test0", child.numChildren() == 0);
-		}
+		assertEquals(tree.numChildren(), 3);
+//		for (HearthTreeNode<BoardState> child : tree.getChildren()) {
+//			assertEquals(child.numChildren(), 0);
+//		}
 	}
 
 	@Test
-	public void test1() {
+	public void test1() throws HSException {
 		Minion minion1 = new Minion("" + 0, mana, attack0, health1, attack0, health1, health1, true, false, false, false, false, false, false, false, false, false, false);
 		Minion minion2 = new Minion("" + 0, mana, attack0, health1, attack0, health1, health1, false, false, false, false, false, false, false, false, false, false, false);
-		board.placeMinion_p1(minion1);
-		board.placeMinion_p1(minion2);
+		board.placeMinion(1, minion1);
+		board.placeMinion(1, minion2);
 		
 		BoardStateFactory factory = new BoardStateFactory(null);
 		HearthTreeNode<BoardState> tree = new HearthTreeNode<BoardState>(board);
@@ -66,20 +66,20 @@ public class TestTaunt {
 			assertTrue(false);
 		}
 		
-		assertTrue("test1", tree.numChildren() == 2);
-		for (HearthTreeNode<BoardState> child : tree.getChildren()) {
-			assertTrue("test1", child.numChildren() == 0);
-		}
+		assertEquals(tree.numChildren(), 3);
+//		for (HearthTreeNode<BoardState> child : tree.getChildren()) {
+//			assertTrue("test1", child.numChildren() == 0);
+//		}
 	}
 
 	@Test
-	public void test2() {
+	public void test2() throws HSException {
 		Minion minion1 = new Minion("" + 0, mana, attack0, health1, attack0, health1, health1, true, false, false, false, false, false, false, false, false, false, false);
 		Minion minion2 = new Minion("" + 0, mana, attack0, health1, attack0, health1, health1, false, false, false, false, false, false, false, false, false, false, false);
 		Minion minion3 = new Minion("" + 0, mana, attack0, health1, attack0, health1, health1, true, false, false, false, false, false, false, false, false, false, false);
-		board.placeMinion_p1(minion1);
-		board.placeMinion_p1(minion2);
-		board.placeMinion_p1(minion3);
+		board.placeMinion(1, minion1);
+		board.placeMinion(1, minion2);
+		board.placeMinion(1, minion3);
 		
 		BoardStateFactory factory = new BoardStateFactory(null);
 		HearthTreeNode<BoardState> tree = new HearthTreeNode<BoardState>(board);
@@ -90,20 +90,20 @@ public class TestTaunt {
 			assertTrue(false);
 		}
 		
-		assertTrue("test2", tree.numChildren() == 3);
-		for (HearthTreeNode<BoardState> child : tree.getChildren()) {
-			assertTrue("test2", child.numChildren() == 0);
-		}
+		assertEquals(tree.numChildren(), 4);
+//		for (HearthTreeNode<BoardState> child : tree.getChildren()) {
+//			assertTrue("test2", child.numChildren() == 0);
+//		}
 	}
 	
 	@Test
-	public void test3() {
+	public void test3() throws HSException {
 		HolySmite hs = new HolySmite();
 		Minion minion1 = new Minion("" + 0, mana, attack0, health1, attack0, health1, health1, true, false, false, false, false, false, false, false, false, false, false);
 
 		board.removeMinion_p0(0);
 		board.placeCard_hand_p0(hs);
-		board.placeMinion_p1(minion1);
+		board.placeMinion(1, minion1);
 		
 		BoardStateFactory factory = new BoardStateFactory(null);
 		HearthTreeNode<BoardState> tree = new HearthTreeNode<BoardState>(board);
@@ -114,10 +114,10 @@ public class TestTaunt {
 			assertTrue(false);
 		}
 				
-		assertTrue("test3", tree.numChildren() == 1);
-		for (HearthTreeNode<BoardState> child : tree.getChildren()) {
-			assertTrue("test3", child.numChildren() == 0);
-		}
+		assertEquals(tree.numChildren(), 2);
+//		for (HearthTreeNode<BoardState> child : tree.getChildren()) {
+//			assertTrue("test3", child.numChildren() == 0);
+//		}
 	}
 
 	@Test
@@ -127,7 +127,7 @@ public class TestTaunt {
 
 		board.removeMinion_p0(0);
 		board.placeCard_hand_p0(hs);
-		board.placeMinion_p1(minion1);
+		board.placeMinion(1, minion1);
 		board.setMana_p0(2);
 		
 		BoardStateFactory factory = new BoardStateFactory(null);
@@ -138,10 +138,10 @@ public class TestTaunt {
 			e.printStackTrace();
 			assertTrue(false);
 		}				
-		assertTrue("test4", tree.numChildren() == 4);
-		for (HearthTreeNode<BoardState> child : tree.getChildren()) {
-			assertTrue("test4", child.numChildren() == 0);
-		}
+		assertEquals(tree.numChildren(), 10);
+//		for (HearthTreeNode<BoardState> child : tree.getChildren()) {
+//			assertTrue("test4", child.numChildren() == 0);
+//		}
 	}
 
 }

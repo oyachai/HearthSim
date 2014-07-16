@@ -63,10 +63,10 @@ public class Hex extends SpellCard {
 		
 		Frog frog = new Frog();
 		if (playerIndex == 0) {
-			boardState.data_.placeMinion_p0(frog, minionIndex);
+			boardState.data_.placeMinion(0, frog, minionIndex);
 			boardState.data_.removeMinion_p0(minionIndex - 1);
 		} else if (playerIndex == 1) {
-			boardState.data_.placeMinion_p1(frog, minionIndex);
+			boardState.data_.placeMinion(1, frog, minionIndex);
 			boardState.data_.removeMinion_p1(minionIndex - 1);			
 		} else {
 			throw new HSInvalidPlayerIndexException();

@@ -62,10 +62,10 @@ public class Polymorph extends SpellCard {
 		
 		Minion sheep = new Sheep();
 		if (playerIndex == 0) {
-			boardState.data_.placeMinion_p0(sheep, minionIndex);
+			boardState.data_.placeMinion(0, sheep, minionIndex);
 			boardState.data_.removeMinion_p0(minionIndex - 1);
 		} else if (playerIndex == 1) {
-			boardState.data_.placeMinion_p1(sheep, minionIndex);
+			boardState.data_.placeMinion(0, sheep, minionIndex);
 			boardState.data_.removeMinion_p1(minionIndex - 1);			
 		} else {
 			throw new HSInvalidPlayerIndexException();

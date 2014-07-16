@@ -10,6 +10,7 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.concrete.ArcaneIntellect;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
+import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.HearthTreeNode;
@@ -23,7 +24,7 @@ public class TestArcaneIntellect {
 	private static final byte health1 = 1;
 
 	@Before
-	public void setup() {
+	public void setup() throws HSException {
 		board = new HearthTreeNode<BoardState>(new BoardState());
 		
 		Minion minion0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
@@ -33,10 +34,10 @@ public class TestArcaneIntellect {
 
 		ArcaneIntellect fb = new ArcaneIntellect();
 		board.data_.placeCard_hand_p0(fb);
-		board.data_.placeMinion_p0(minion0);
-		board.data_.placeMinion_p1(minion1);
-		board.data_.placeMinion_p1(minion2);
-		board.data_.placeMinion_p1(minion3);
+		board.data_.placeMinion(0, minion0);
+		board.data_.placeMinion(1, minion1);
+		board.data_.placeMinion(1, minion2);
+		board.data_.placeMinion(1, minion3);
 		
 		board.data_.setMana_p0(5);
 	}

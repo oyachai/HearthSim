@@ -9,6 +9,7 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.concrete.BlessingOfMight;
+import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.HearthTreeNode;
@@ -23,7 +24,7 @@ public class TestBlessingOfMight {
 	private static final byte health1 = 1;
 
 	@Before
-	public void setup() {
+	public void setup() throws HSException {
 		board = new HearthTreeNode<BoardState>(new BoardState());
 		Minion minion0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
 		Minion minion1 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
@@ -32,10 +33,10 @@ public class TestBlessingOfMight {
 
 		BlessingOfMight fb = new BlessingOfMight();
 		board.data_.placeCard_hand_p0(fb);
-		board.data_.placeMinion_p0(minion0);
-		board.data_.placeMinion_p1(minion1);
-		board.data_.placeMinion_p1(minion2);
-		board.data_.placeMinion_p1(minion3);
+		board.data_.placeMinion(0, minion0);
+		board.data_.placeMinion(1, minion1);
+		board.data_.placeMinion(1, minion2);
+		board.data_.placeMinion(1, minion3);
 		
 		board.data_.setMana_p0(10);
 	}

@@ -148,26 +148,53 @@ public class BoardState implements DeepCopyable {
 		return p0_hand_.iterator();
 	}
 	
-	public void placeMinion_p0(Minion card, int position) {
-		card.isInHand(false);
-		p0_minions_.add(position, card);
-	}
 	
-	public void placeMinion_p1(Minion card, int position) {
-		card.isInHand(false);
-		p1_minions_.add(position, card);
+	//-----------------------------------------------------------------------------------
+	// Various ways to put a minion onto board
+	//-----------------------------------------------------------------------------------
+	/**
+	 * Place a minion onto the board.  Does not trigger any events.
+	 * 
+	 * This is a function to place a minion on the board.  Use this function only if you
+	 * want no events to be trigger upon placing the minion.
+	 *
+	 * @param minion The minion to be placed on the board.
+	 * @param position The position to place the minion.  The new minion goes to the "left" (lower index) of the postinion index.
+	 * @throws HSInvalidPlayerIndexException 
+	 */
+	public void placeMinion(int playerIndex, Minion minion, int position) throws HSInvalidPlayerIndexException {
+		if (playerIndex == 0)
+			p0_minions_.add(position, minion);
+		else if (playerIndex == 1) 
+			p1_minions_.add(position, minion);
+		else
+			throw new HSInvalidPlayerIndexException();
+		minion.isInHand(false);
 	}
+
 	
-	public void placeMinion_p0(Minion card) {
-		card.isInHand(false);
-		p0_minions_.add(card);
+	/**
+	 * Place a minion onto the board.  Does not trigger any events.
+	 * 
+	 * This is a function to place a minion on the board.  Use this function only if you
+	 * want no events to be trigger upon placing the minion.
+	 *
+	 * @param minion The minion to be placed on the board.  The minion is placed on the right-most space.
+	 * @throws HSInvalidPlayerIndexException 
+	 */
+	public void placeMinion(int playerIndex, Minion minion) throws HSInvalidPlayerIndexException {
+		minion.isInHand(false);
+		if (playerIndex == 0)
+			p0_minions_.add(minion);
+		else if (playerIndex == 1)
+			p1_minions_.add(minion);
+		else
+			throw new HSInvalidPlayerIndexException();
 	}
-	
-	public void placeMinion_p1(Minion card) {
-		card.isInHand(false);
-		p1_minions_.add(card);
-	}
-	
+
+	//-----------------------------------------------------------------------------------
+	//-----------------------------------------------------------------------------------
+
 	public void placeCard_hand(int playerIndex, Card card) throws HSInvalidPlayerIndexException {
 		card.isInHand(true);
 		if (playerIndex == 0)
@@ -758,11 +785,19 @@ public class BoardState implements DeepCopyable {
 		BoardState newBoard = new BoardState();
 		for (final Minion card: p0_minions_) {
 			Minion tc = (Minion)card.deepCopy();
-			newBoard.placeMinion_p0(tc);
+			try {
+				newBoard.placeMinion(0, tc);
+			} catch (HSInvalidPlayerIndexException e) {
+				
+			}
 		}
 		for (final Minion card: p1_minions_) {
 			Minion tc = (Minion)card.deepCopy();
-			newBoard.placeMinion_p1(tc);
+			try {
+				newBoard.placeMinion(1, tc);
+			} catch (HSInvalidPlayerIndexException e) {
+				
+			}
 		}
 		for (final Card card: p0_hand_) {
 			Card tc = (Card)card.deepCopy();
