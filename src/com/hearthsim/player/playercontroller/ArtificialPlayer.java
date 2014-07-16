@@ -48,6 +48,9 @@ public class ArtificialPlayer {
 	double my_wWeapon_;
 	double enemy_wWeapon_;
 	
+	double my_wCharge_;
+	double enemy_wCharge_;
+	
 	public ArtificialPlayer() {
 		this(1.0, 1.0, 1.0, 1.0);
 	}
@@ -88,6 +91,9 @@ public class ArtificialPlayer {
 			double wSd_mult,
 			double my_wDivineShield,
 			double enemy_wDivineShield) {
+		
+		
+		System.err.println("BIG FAT WARNING: This constructor is deprecated!");
 		nLookahead_ = 1;
 		
 		wMana_ = wMana;
@@ -145,6 +151,10 @@ public class ArtificialPlayer {
 			//weapon score for the hero
 			my_wWeapon_ = pFile.getDouble("w_weapon", 0.0);
 			enemy_wWeapon_ = pFile.getDouble("wt_weapon", 0.0);
+			
+			//charge model score
+			my_wCharge_ = pFile.getDouble("w_charge", 0.0);
+			enemy_wCharge_ = pFile.getDouble("wt_charge", 0.0);
 
 		} catch (HSParamNotFoundException e) {
 			System.err.println(e.getMessage());
@@ -198,7 +208,13 @@ public class ArtificialPlayer {
 		for (final Card card: myHandCards) {
 			if (card instanceof SpellDamage)
 				handScore += ((SpellDamage)card).getAttack() * wSd_mult_ + wSd_add_;
-			else
+			else if (card instanceof Minion) {
+				//Charge modeling.  Charge's value primarily comes from the fact that it can be used immediately upon placing it.
+				//After the card is placed, it's really just like any other minion, except maybe for small value in bouncing it.
+				//So, the additional score for charge minions should really only apply when it is still in the hand.
+				Minion minion = (Minion)card;
+				handScore += card.getMana() * wMana_ + (minion.getCharge() ? my_wCharge_ : 0.0);
+			} else
 				handScore += card.getMana() * wMana_;
 		}
 		
