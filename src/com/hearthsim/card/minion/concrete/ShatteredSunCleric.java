@@ -131,37 +131,42 @@ public class ShatteredSunCleric extends Minion {
 	 * 
 	 * @return The boardState is manipulated and returned
 	 */
+	/**
+	 * 
+	 * Override for battlecry
+	 * 
+	 * Battlecry: Give a minion +2 attack this turn
+	 * 
+	 * @param thisCardIndex The index (position) of the card in the hand
+	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
+	 * @param minionIndex The index of the target minion.
+	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+	 * 
+	 * @return The boardState is manipulated and returned
+	 */
 	@Override
-	public HearthTreeNode<BoardState> use_core(int thisCardIndex, int playerIndex, int minionIndex, HearthTreeNode<BoardState> boardState, Deck deck) throws HSInvalidPlayerIndexException {
+	public HearthTreeNode<BoardState> useOn(
+			int thisCardIndex,
+			int playerIndex,
+			int minionIndex,
+			HearthTreeNode<BoardState> boardState,
+			Deck deck)
+		throws HSInvalidPlayerIndexException
+	{
+		//A generic card does nothing except for consuming mana
+		HearthTreeNode<BoardState> toRet = super.useOn(thisCardIndex, playerIndex, minionIndex, boardState, deck);
 		
-		if (hasBeenUsed_) {
-			//Card is already used, nothing to do
-			return null;
-		}
-		
-		if (playerIndex == 1 || minionIndex == 0)
-			return null;
-		
-		if (boardState.data_.getNumMinions_p0() < 7) {
-
-			hasBeenUsed_ = true;
-			boardState.data_.setMana_p0(boardState.data_.getMana_p0() - this.mana_);
-			boardState.data_.removeCard_hand(thisCardIndex);
-			boardState.data_.placeMinion(0, this, minionIndex - 1);
-			
-			for (int index = 0; index < boardState.data_.getNumMinions_p0(); ++index) {
+		if (toRet != null) {
+			for (int index = 0; index < toRet.data_.getNumMinions_p0(); ++index) {
 				if (index != minionIndex - 1) {
-					HearthTreeNode<BoardState> newState = boardState.addChild(new HearthTreeNode<BoardState>((BoardState)boardState.data_.deepCopy()));
+					HearthTreeNode<BoardState> newState = toRet.addChild(new HearthTreeNode<BoardState>((BoardState)toRet.data_.deepCopy()));
 					newState.data_.getMinion_p0(index).setAttack((byte)(newState.data_.getMinion_p0(index).getAttack() + 1));
 					newState.data_.getMinion_p0(index).setHealth((byte)(newState.data_.getMinion_p0(index).getHealth() + 1));
 				}
 			}
-			return boardState;
-							
+			return toRet;
 		} else {
-			return null;				
+			return null;
 		}
-
 	}
-
 }
