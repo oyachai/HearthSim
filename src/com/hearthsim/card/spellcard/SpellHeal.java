@@ -1,6 +1,5 @@
 package com.hearthsim.card.spellcard;
 
-import com.hearthsim.card.minion.Minion;
 
 public class SpellHeal extends SpellCard {
 

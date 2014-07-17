@@ -1,11 +1,7 @@
 package com.hearthsim.player.playercontroller;
 
-import java.util.Iterator;
-import java.util.List;
-
 import com.hearthsim.util.BoardState;
 import com.hearthsim.card.Card;
-import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.player.Player;
 

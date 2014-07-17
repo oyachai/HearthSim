@@ -148,7 +148,7 @@ public class TestGurubashiBerserker {
 		assertEquals(board.data_.getMinion_p1(0).getAttack(), attack0);
 		assertEquals(board.data_.getMinion_p1(1).getAttack(), attack0);
 		
-		HearthTreeNode<BoardState> flipped = new HearthTreeNode(board.data_.flipPlayers());
+		HearthTreeNode<BoardState> flipped = new HearthTreeNode<BoardState>(board.data_.flipPlayers());
 		Minion minion = flipped.data_.getMinion_p0(0);
 		ret = minion.attack(0, 1, 2, flipped, deck);
 		assertFalse(ret == null);
