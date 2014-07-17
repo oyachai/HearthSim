@@ -263,7 +263,7 @@ public class ArtificialPlayer implements StateFunction<BoardState> {
 		//The goal of this ai is to maximize his board score
 		HearthTreeNode<BoardState> toRet = new HearthTreeNode<BoardState>(board);
 		BoardStateFactory factory = new BoardStateFactory(player.getDeck());
-		HearthTreeNode<BoardState> allMoves = factory.doMoves(toRet);
+		HearthTreeNode<BoardState> allMoves = factory.doMoves(toRet, this);
 
 		System.out.print("turn = " + turn + ", p = " + player.getName() + ", nHand = " + board.getNumCards_hand() + ", nMinion = " + board.getNumMinions_p0() + ", nEnemyMinion = " + board.getNumMinions_p1());
 		System.out.flush();

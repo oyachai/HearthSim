@@ -9,20 +9,32 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.BoardStateFactory;
 import com.hearthsim.util.HearthTreeNode;
+import com.hearthsim.util.StateFunction;
 import com.hearthsim.card.spellcard.concrete.*;
 import com.hearthsim.exception.HSException;
 
 public class TestTaunt {
 	
 	private BoardState board;
-	private static final byte mana = 2;
+	private DummyStateFunc scoreFunc;
+	private static final byte mana = 1;
 	private static final byte attack0 = 2;
 	private static final byte health0 = 3;
 	private static final byte health1 = 7;
 
+	private class DummyStateFunc implements StateFunction<BoardState> {
+
+		@Override
+		public double apply(BoardState xval) {
+			return 0;
+		}
+		
+	}
+	
 	@Before
 	public void setup() throws HSException {
 		board = new BoardState();
+		scoreFunc = new DummyStateFunc();
 
 		Minion minion0_0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
 		
@@ -38,16 +50,16 @@ public class TestTaunt {
 		BoardStateFactory factory = new BoardStateFactory(null);
 		HearthTreeNode<BoardState> tree = new HearthTreeNode<BoardState>(board);
 		try {
-			tree = factory.doMoves(tree);
+			tree = factory.doMoves(tree, scoreFunc);
 		} catch (HSException e) {
 			e.printStackTrace();
 			assertTrue(false);
 		}
 		
-		assertEquals(tree.numChildren(), 3);
-//		for (HearthTreeNode<BoardState> child : tree.getChildren()) {
-//			assertEquals(child.numChildren(), 0);
-//		}
+		//2 possibilities:
+		// 1. Do nothing
+		// 2. Attack the Taunt minion
+		assertEquals(tree.getNumNodesTried(), 2);
 	}
 
 	@Test
@@ -60,16 +72,16 @@ public class TestTaunt {
 		BoardStateFactory factory = new BoardStateFactory(null);
 		HearthTreeNode<BoardState> tree = new HearthTreeNode<BoardState>(board);
 		try {
-			tree = factory.doMoves(tree);
+			tree = factory.doMoves(tree, scoreFunc);
 		} catch (HSException e) {
 			e.printStackTrace();
 			assertTrue(false);
 		}
 		
-		assertEquals(tree.numChildren(), 3);
-//		for (HearthTreeNode<BoardState> child : tree.getChildren()) {
-//			assertTrue("test1", child.numChildren() == 0);
-//		}
+		//2 possibilities:
+		// 1. Do nothing
+		// 2. Attack the Taunt minion
+		assertEquals(tree.getNumNodesTried(), 2);
 	}
 
 	@Test
@@ -84,16 +96,17 @@ public class TestTaunt {
 		BoardStateFactory factory = new BoardStateFactory(null);
 		HearthTreeNode<BoardState> tree = new HearthTreeNode<BoardState>(board);
 		try {
-			tree = factory.doMoves(tree);
+			tree = factory.doMoves(tree, scoreFunc);
 		} catch (HSException e) {
 			e.printStackTrace();
 			assertTrue(false);
 		}
 		
-		assertEquals(tree.numChildren(), 4);
-//		for (HearthTreeNode<BoardState> child : tree.getChildren()) {
-//			assertTrue("test2", child.numChildren() == 0);
-//		}
+		//3 possibilities:
+		// 1. Do nothing
+		// 2. Attack the Taunt minion1
+		// 3. Attack the Taunt minion2
+		assertEquals(tree.getNumNodesTried(), 3);
 	}
 	
 	@Test
@@ -105,19 +118,19 @@ public class TestTaunt {
 		board.placeCard_hand_p0(hs);
 		board.placeMinion(1, minion1);
 		
-		BoardStateFactory factory = new BoardStateFactory(null);
+		BoardStateFactory factory = new BoardStateFactory(null, 2000000000);
 		HearthTreeNode<BoardState> tree = new HearthTreeNode<BoardState>(board);
 		try {
-			tree = factory.doMoves(tree);
+			tree = factory.doMoves(tree, scoreFunc);
 		} catch (HSException e) {
 			e.printStackTrace();
 			assertTrue(false);
 		}
-				
-		assertEquals(tree.numChildren(), 2);
-//		for (HearthTreeNode<BoardState> child : tree.getChildren()) {
-//			assertTrue("test3", child.numChildren() == 0);
-//		}
+		
+		//1 possibility:
+		// 1. Do nothing (not enough mana!)
+		assertEquals(tree.getNumNodesTried(), 1);
+
 	}
 
 	@Test
@@ -128,20 +141,45 @@ public class TestTaunt {
 		board.removeMinion_p0(0);
 		board.placeCard_hand_p0(hs);
 		board.placeMinion(1, minion1);
-		board.setMana_p0(2);
+		board.setMana_p0(1);
 		
 		BoardStateFactory factory = new BoardStateFactory(null);
 		HearthTreeNode<BoardState> tree = new HearthTreeNode<BoardState>(board);
 		try {
-			tree = factory.doMoves(tree);
+			tree = factory.doMoves(tree, scoreFunc);
 		} catch (HSException e) {
 			e.printStackTrace();
 			assertTrue(false);
 		}				
-		assertEquals(tree.numChildren(), 10);
-//		for (HearthTreeNode<BoardState> child : tree.getChildren()) {
-//			assertTrue("test4", child.numChildren() == 0);
-//		}
+		//4 possibilities:
+		// 1. Do nothing
+		// 2. Use HS on the Taunt minion1
+		// 3. Use HS on the enemy hero
+		// 4. Use HS on the my own hero
+		assertEquals(tree.getNumNodesTried(), 4);
+
 	}
 
+	@Test
+	public void test5() throws HSException {
+		HolySmite hs = new HolySmite();
+		Minion minion1 = new Minion("" + 0, mana, attack0, health1, attack0, health1, health1, true, false, false, false, false, false, false, false, false, false, false);
+
+		board.removeMinion_p0(0);
+		board.placeCard_hand_p0(hs);
+		board.placeMinion(1, minion1);
+		board.setMana_p0(2);
+		
+		BoardStateFactory factory = new BoardStateFactory(null, 2000000000);
+		HearthTreeNode<BoardState> tree = new HearthTreeNode<BoardState>(board);
+		try {
+			tree = factory.doMoves(tree, scoreFunc);
+		} catch (HSException e) {
+			e.printStackTrace();
+			assertTrue(false);
+		}				
+		//14 possibilities:
+		assertEquals(tree.getNumNodesTried(), 14);
+
+	}
 }

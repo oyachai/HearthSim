@@ -21,7 +21,7 @@ public class testGame {
 	public void testGame0() {
 		
 		int numCardsInDeck_ = 30;
-		byte minionAttack = 1;
+		byte minionAttack = 5;
 		byte minionHealth = 4;
 		byte minionMana = 2;
 		

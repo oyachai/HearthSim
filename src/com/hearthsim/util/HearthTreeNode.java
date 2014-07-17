@@ -10,6 +10,9 @@ import java.util.List;
 public class HearthTreeNode<T> {
 
 	public final T data_;
+	double score_;
+	int numNodesTried_;
+	
 	HearthTreeNode<T> parent_;
 	List<HearthTreeNode<T>> children_;
 	
@@ -22,15 +25,35 @@ public class HearthTreeNode<T> {
 			value_ = value;
 		}
 	}
-	
 	public HearthTreeNode(T data) {
+		this(data, 0.0);
+	}
+	
+	public HearthTreeNode(T data, double score) {
 		data_ = data;
+		score_ = score;
 		parent_ = null;
 		children_ = null;
 	}
 	
-	public HearthTreeNode<T> addChild(T childData) {
-		HearthTreeNode<T> childNode = new HearthTreeNode<T>(childData);
+	public int getNumNodesTried() {
+		return numNodesTried_;
+	}
+	
+	public void setNumNodesTries(int value) {
+		numNodesTried_ = value;
+	}
+	
+	public double getScore() {
+		return score_;
+	}
+	
+	public void setScore(double value) {
+		score_ = value;
+	}
+	
+	public HearthTreeNode<T> addChild(T childData, double score) {
+		HearthTreeNode<T> childNode = new HearthTreeNode<T>(childData, score);
 		childNode.parent_ = this;
 		if (children_ == null) {
 			children_ = new ArrayList<HearthTreeNode<T>>();
@@ -97,13 +120,7 @@ public class HearthTreeNode<T> {
 	 * @return
 	 */
 	public int numLeaves() {
-		if (children_ == null || children_.size() == 0)
-			return 1;
-		int toRet = 0;
-		for (final HearthTreeNode<T> child : children_) {
-			toRet += child.numLeaves();
-		}
-		return toRet;
+		return numNodesTried_;
 	}	
 	
 	public String toString() {
