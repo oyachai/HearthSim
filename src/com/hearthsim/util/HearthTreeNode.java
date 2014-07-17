@@ -5,7 +5,6 @@ import java.util.List;
 
 /**
  * A tree that keeps track of possible game states
- * @author oyachai
  *
  */
 public class HearthTreeNode<T> {
@@ -14,6 +13,15 @@ public class HearthTreeNode<T> {
 	HearthTreeNode<T> parent_;
 	List<HearthTreeNode<T>> children_;
 	
+	private class NodeValPair {
+		public final HearthTreeNode<T> node_;
+		public final double value_;
+		
+		NodeValPair(HearthTreeNode<T> node, double value) {
+			node_ = node;
+			value_ = value;
+		}
+	}
 	
 	public HearthTreeNode(T data) {
 		data_ = data;
@@ -53,31 +61,50 @@ public class HearthTreeNode<T> {
 	}
 	
 	public boolean isLeaf() {
-		if (children_ == null) {
-			return true;
-		}
-		return children_.size() == 0;
+		return children_ == null || children_.size() == 0;
 	}
 	
-	public List<HearthTreeNode<T>> getAllLeaves() {
-		List<HearthTreeNode<T>> toRet = new ArrayList<HearthTreeNode<T>>();
-		if (children_ == null) {
-			toRet.add(this);
-			return toRet;
-		}
-		if (children_.size() == 0) {
-			toRet.add(this);
-			return toRet;
-		}
+	/**
+	 * Returns the node below this node that result in the highest value when a given function is applied
+	 * 
+	 * @param func Function to apply to each node
+	 * @return
+	 */
+	public HearthTreeNode<T> findMaxOfFunc(StateFunction<T> func) {
+		NodeValPair nvp = this.findMaxOfFuncImpl(func);
+		return nvp.node_;
+	}
+	
+	private NodeValPair findMaxOfFuncImpl(StateFunction<T> func) {
+		if (this.isLeaf())
+			return new NodeValPair(this, func.apply(this.data_));
+
+		NodeValPair maxNode = null;
+		double maxSoFar = -1.e300;
 		for (final HearthTreeNode<T> child : children_) {
-			List<HearthTreeNode<T>> childLeaves = child.getAllLeaves();
-			for (final HearthTreeNode<T> leaf : childLeaves) {
-				toRet.add(leaf);
+			NodeValPair maxOfChild = child.findMaxOfFuncImpl(func);
+			if (maxOfChild.value_ > maxSoFar) {
+				maxSoFar = maxOfChild.value_;
+				maxNode = maxOfChild;
 			}
 		}
-		return toRet;
+		return maxNode;
 	}
 	
+	/**
+	 * Get the number of leaf nodes below this node
+	 * 
+	 * @return
+	 */
+	public int numLeaves() {
+		if (children_ == null || children_.size() == 0)
+			return 1;
+		int toRet = 0;
+		for (final HearthTreeNode<T> child : children_) {
+			toRet += child.numLeaves();
+		}
+		return toRet;
+	}	
 	
 	public String toString() {
 		String toRet = "{";

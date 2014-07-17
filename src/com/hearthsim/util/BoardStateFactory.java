@@ -16,6 +16,7 @@ public class BoardStateFactory {
 	final Deck deck_;
 	
 	boolean lethal_;
+	boolean timedOut_;
 	public final long maxTime_;
 	
 	long startTime_;
@@ -44,6 +45,11 @@ public class BoardStateFactory {
 		startTime_ = System.currentTimeMillis();
 		curScore_ = -1.e200;
 		maxTime_ = maxThinkTime;
+		timedOut_ = false;
+	}
+	
+	public boolean didTimeOut() {
+		return timedOut_;
 	}
 
 	/**
@@ -59,12 +65,18 @@ public class BoardStateFactory {
 	 */
 	public HearthTreeNode<BoardState> doMoves(HearthTreeNode<BoardState> boardStateNode) throws HSException {
 
-		if (System.currentTimeMillis() - startTime_ > maxTime_) {
+		if (lethal_) {
+			//if it's lethal, we don't have to do anything ever.  Just play the lethal.
+			return null;
+		}
+
+		if (timedOut_) {
+			//Time's up!  no more thinking... 
 			return null;
 		}
 		
-		if (lethal_) {
-			//if it's lethal, we don't have to do anything ever.  Just play the lethal.
+		if (System.currentTimeMillis() - startTime_ > maxTime_) {
+			timedOut_ = true;
 			return null;
 		}
 		
@@ -95,21 +107,16 @@ public class BoardStateFactory {
 		//-----------------------------------------------------------------------------------------
 		// Use the Hero ability
 		//-----------------------------------------------------------------------------------------
+		boolean heroAbilityUsable = false;
 		{
-			//Case0: Decided not to use the hero ability
-			BoardState newState = (BoardState)boardStateNode.data_.deepCopy();
-			newState.getHero_p0().hasBeenUsed(true);
-			HearthTreeNode<BoardState> newNode = boardStateNode.addChild(newState);
-			newNode = this.doMoves(newNode);
-		}
-		{
-			//Case1: Decided to use the hero ability -- Use it on everthing!
+			//Case0: Decided to use the hero ability -- Use it on everthing!
 			for(int i = 0; i <= boardStateNode.data_.getNumMinions_p0() + 1; ++i) {
 				HearthTreeNode<BoardState> newState = new HearthTreeNode<BoardState>((BoardState)boardStateNode.data_.deepCopy());
 				newState = newState.data_.getHero_p0().useHeroAbility(0, 0, i, newState, deck_);
 				if (newState != null) {
 					HearthTreeNode<BoardState> newNode = boardStateNode.addChild(newState);
 					newNode = this.doMoves(newNode);
+					heroAbilityUsable = true;
 				}
 			}
 			for(int i = 0; i <= boardStateNode.data_.getNumMinions_p1() + 1; ++i) {
@@ -118,9 +125,18 @@ public class BoardStateFactory {
 				if (newState != null) {
 					HearthTreeNode<BoardState> newNode = boardStateNode.addChild(newState);
 					newNode = this.doMoves(newNode);
+					heroAbilityUsable = true;
 				}
 			}
 		}
+		if (heroAbilityUsable) {
+			//Case1: Decided not to use the hero ability
+			BoardState newState = (BoardState)boardStateNode.data_.deepCopy();
+			newState.getHero_p0().hasBeenUsed(true);
+			HearthTreeNode<BoardState> newNode = boardStateNode.addChild(newState);
+			newNode = this.doMoves(newNode);
+		}
+		
 		//-----------------------------------------------------------------------------------------
 		// Use the cards in the hand
 		//-----------------------------------------------------------------------------------------

@@ -19,9 +19,10 @@ import com.hearthsim.io.ParamFile;
 import com.hearthsim.player.Player;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.BoardStateFactory;
+import com.hearthsim.util.StateFunction;
 import com.hearthsim.util.HearthTreeNode;
 
-public class ArtificialPlayer {
+public class ArtificialPlayer implements StateFunction<BoardState> {
 	
 	int nLookahead_;
 	
@@ -162,6 +163,11 @@ public class ArtificialPlayer {
 		}
 	}
 	
+	@Override
+	public double apply(BoardState board) {
+		return this.boardScore(board);
+	}
+	
 	/**
 	 * Board score function
 	 * 
@@ -255,32 +261,22 @@ public class ArtificialPlayer {
 	 * @throws HSException
 	 */
 	public BoardState playTurn(int turn, BoardState board, Player player) throws HSException {
-		//The goal of this ai is to maximize his board score		
-		HearthTreeNode<BoardState> allMoves = playPossibilities(turn, board, player.getDeck());
+		//The goal of this ai is to maximize his board score
+		HearthTreeNode<BoardState> toRet = new HearthTreeNode<BoardState>(board);
+		BoardStateFactory factory = new BoardStateFactory(player.getDeck());
+		HearthTreeNode<BoardState> allMoves = factory.doMoves(toRet);
 
-		System.out.print("turn = " + turn + ", player = " + player.getName() + ", numHand = " + board.getNumCards_hand() + ", numMinion = " + board.getNumMinions_p0() + ", numEnemyMinion = " + board.getNumMinions_p1());
+		System.out.print("turn = " + turn + ", p = " + player.getName() + ", nHand = " + board.getNumCards_hand() + ", nMinion = " + board.getNumMinions_p0() + ", nEnemyMinion = " + board.getNumMinions_p1());
 		System.out.flush();
 		
-		BoardState bestPlay = null;
-		double bestScore = -1000000.0;
-		for (final HearthTreeNode<BoardState> node : allMoves.getAllLeaves()) {
-			double score = this.boardScore(node.data_);
-			if (score > bestScore) {
-				bestPlay = node.data_;
-				bestScore = score;
-			}
-		}
+		HearthTreeNode<BoardState> bestPlay = allMoves.findMaxOfFunc(this);
 
-		System.out.println(", number of nodes = " + allMoves.getAllLeaves().size() + ", playerHealth = " + bestPlay.getHero_p0().getHealth() + ", rMinion = " + bestPlay.getNumMinions_p0() + ", eMinion = " + bestPlay.getNumMinions_p1());
-
-		return bestPlay;
-	}
-
-	public HearthTreeNode<BoardState> playPossibilities(int turn, BoardState board, Deck deck) throws HSException {
-		HearthTreeNode<BoardState> toRet = new HearthTreeNode<BoardState>(board);
-		BoardStateFactory factory = new BoardStateFactory(deck);
-		toRet = factory.doMoves(toRet);
-		return toRet;
+		System.out.print(", number of nodes = " + allMoves.numLeaves() + ", playerHealth = " + bestPlay.data_.getHero_p0().getHealth() + ", rMinion = " + bestPlay.data_.getNumMinions_p0() + ", eMinion = " + bestPlay.data_.getNumMinions_p1());
+		if (factory.didTimeOut())
+			System.out.print(", tO");
+		System.out.println();
+		
+		return bestPlay.data_;
 	}
 	
 	public void writeOut(String filename, Object node) {
