@@ -75,6 +75,10 @@ public class Mage extends Hero {
 		HearthTreeNode<BoardState> toRet = super.useHeroAbility(thisPlayerIndex, targetPlayerIndex, targetMinionIndex, boardState, deck);
 		if (toRet != null) {
 			if (targetMinionIndex == 0) {
+				if (targetPlayerIndex == 0) {
+					//There's never a case where using it on yourself is a good idea
+					return null;
+				}
 				Minion target = boardState.data_.getHero(targetPlayerIndex);
 				target.takeDamage((byte)1, thisPlayerIndex, targetPlayerIndex, targetMinionIndex, boardState, deck);
 			} else {
