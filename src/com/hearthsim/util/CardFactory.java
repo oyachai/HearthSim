@@ -20,7 +20,18 @@ public class CardFactory {
 			Object object = ctor.newInstance();
 			return (Card)object;
 		} catch (ClassNotFoundException e) {
-			throw new HSInvalidCardException("Unknown card: " + cleanedString);
+			try {
+				Class<?> clazz = Class.forName("com.hearthsim.card.spellcard.concrete." + cleanedString);
+				Constructor<?> ctor = clazz.getConstructor();
+				Object object = ctor.newInstance();
+				return (Card)object;
+			} catch (ClassNotFoundException e2) {
+				throw new HSInvalidCardException("Unknown card: " + cleanedString);
+			} catch (NoSuchMethodException | SecurityException | InvocationTargetException e2) {
+				throw new HSInvalidCardException("Unknown card: " + cleanedString);
+			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException e2) {
+				throw new HSInvalidCardException("Unknown card: " + cleanedString);
+			}
 		} catch (NoSuchMethodException | SecurityException | InvocationTargetException e) {
 			throw new HSInvalidCardException("Unknown card: " + cleanedString);
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException e) {
