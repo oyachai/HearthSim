@@ -11,6 +11,7 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.exception.HSInvalidCardException;
+import com.hearthsim.util.CardFactory;
 
 
 /**
@@ -52,17 +53,7 @@ public class DeckListFile {
 		ArrayList<Card> cards = new ArrayList<Card>();
 		//Ignore the first entry for now... hero classes aren't implemented yet!
 		for (int indx = 1; indx < deckList.length; ++indx) {
-			String cleanedString = deckList[indx];
-			try {
-				Class<?> clazz = Class.forName("com.hearthsim.card.minion.concrete." + cleanedString);
-				Constructor<?> ctor = clazz.getConstructor();
-				Object object = ctor.newInstance();
-				cards.add((Card)object);
-			} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InvocationTargetException e) {
-				throw new HSInvalidCardException("Unknown card: " + cleanedString);
-			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException e) {
-				throw new HSInvalidCardException("Unknown card: " + cleanedString);
-			}
+			cards.add(CardFactory.getCard(deckList[indx]));
 		}
 		deck_ = new Deck(cards);
 	}
