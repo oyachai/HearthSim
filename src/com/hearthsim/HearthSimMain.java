@@ -28,6 +28,10 @@ public class HearthSimMain {
 		} catch (HSException e) {
 			System.err.println("Something went wrong with the simulation: " + e.getMessage());
 			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			System.err.println("Interrupted");
+			e.printStackTrace();
 		}
 	}
 

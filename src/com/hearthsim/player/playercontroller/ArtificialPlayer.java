@@ -265,15 +265,15 @@ public class ArtificialPlayer implements StateFunction<BoardState> {
 		BoardStateFactory factory = new BoardStateFactory(player.getDeck());
 		HearthTreeNode<BoardState> allMoves = factory.doMoves(toRet, this);
 
-		System.out.print("turn = " + turn + ", p = " + player.getName() + ", nHand = " + board.getNumCards_hand() + ", nMinion = " + board.getNumMinions_p0() + ", nEnemyMinion = " + board.getNumMinions_p1());
-		System.out.flush();
+//		System.out.print("turn = " + turn + ", p = " + player.getName() + ", nHand = " + board.getNumCards_hand() + ", nMinion = " + board.getNumMinions_p0() + ", nEnemyMinion = " + board.getNumMinions_p1());
+//		System.out.flush();
 		
 		HearthTreeNode<BoardState> bestPlay = allMoves.findMaxOfFunc(this);
 
-		System.out.print(", number of nodes = " + allMoves.numLeaves() + ", playerHealth = " + bestPlay.data_.getHero_p0().getHealth() + ", rMinion = " + bestPlay.data_.getNumMinions_p0() + ", eMinion = " + bestPlay.data_.getNumMinions_p1());
-		if (factory.didTimeOut())
-			System.out.print(", tO");
-		System.out.println();
+//		System.out.print(", number of nodes = " + allMoves.numLeaves() + ", playerHealth = " + bestPlay.data_.getHero_p0().getHealth() + ", rMinion = " + bestPlay.data_.getNumMinions_p0() + ", eMinion = " + bestPlay.data_.getNumMinions_p1());
+//		if (factory.didTimeOut())
+//			System.out.print(", tO");
+//		System.out.println();
 		
 		return bestPlay.data_;
 	}

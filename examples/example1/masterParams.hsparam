@@ -1,4 +1,6 @@
 num_simulations           =   100
+num_threads               =   1
+
 output_file               =   example1.hsres
 
 deckListFilePath0         =       deck0.hsdeck

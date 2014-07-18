@@ -16,16 +16,20 @@ import com.hearthsim.exception.HSParamNotFoundException;
 import com.hearthsim.io.ParamFile;
 import com.hearthsim.player.Player;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
+import com.hearthsim.util.ThreadQueue;
 
 public abstract class HearthSim {
 	
 	int numSims_;
+	int numThreads_;
 	String gameResultFileName_;
 	protected Path rootPath_;
 	
 	protected Path aiParamFilePath0_;
 	protected Path aiParamFilePath1_;
 	
+	
+	GameResult[] results_;
 	/**
 	 * Constructor
 	 * 
@@ -38,9 +42,11 @@ public abstract class HearthSim {
 		rootPath_ = setupFilePath.getParent();
 		ParamFile masterParam = new ParamFile(setupFilePath);
 		numSims_ = masterParam.getInt("num_simulations", 40000);
+		numThreads_ = masterParam.getInt("num_threads", 1);
 		aiParamFilePath0_ = FileSystems.getDefault().getPath(rootPath_.toString(), masterParam.getString("aiParamFilePath0"));
 		aiParamFilePath1_ = FileSystems.getDefault().getPath(rootPath_.toString(), masterParam.getString("aiParamFilePath1"));
 		gameResultFileName_ = masterParam.getString("output_file", "gameres.txt");
+		results_ = new GameResult[numSims_];
 	}
 		
 	/**
@@ -81,29 +87,48 @@ public abstract class HearthSim {
 	}
 	
 	
-	public void run() throws HSException, IOException {
+	public void run() throws HSException, IOException, InterruptedException {
 		Path outputFilePath = FileSystems.getDefault().getPath(rootPath_.toString(), gameResultFileName_);
 		Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outputFilePath.toString()), "utf-8"));
-		int p0 = 0;
-		int p1 = 0;
+
+		ThreadQueue tQueue = new ThreadQueue(numThreads_);
 		for (int i = 0; i < numSims_; ++i) {
-			GameResult res = runSingleGame();
-			writer.write(res.winnerPlayerIndex_ + "," + res.gameDuration_ + "\n");
-			writer.flush();
-			if (res.winnerPlayerIndex_ == 0) {
-				p0++;
-			} else if (res.winnerPlayerIndex_ == 1) {
-				p1++;
-			} else {
-				
-			}
+			GameThread gThread = new GameThread(i, writer);
+			tQueue.queue(gThread);
 		}
 
+		tQueue.runQueue();
 		writer.close();
-		
-		System.out.println("w0 = " + p0 + ", w1 = " + p1);
-		System.out.println("p0 = " + (p0 / (double)numSims_) + ", p1 = " + (p1 / (double)numSims_));
-		
+
 		System.out.println("done");
+	}
+	
+	
+	private class GameThread implements Runnable {
+
+		
+		final int gameId_;
+		Writer writer_;
+		
+		public GameThread(int gameId, Writer writer) {
+			gameId_ = gameId;
+			writer_ = writer;
+		}
+		
+		@Override
+		public void run() {
+			try {
+				GameResult res = runSingleGame();
+				synchronized(writer_) {
+					System.out.println("game " + gameId_ + ", player " + res.winnerPlayerIndex_ + " wins");
+					writer_.write(res.winnerPlayerIndex_ + "," + res.gameDuration_ + "\n");
+					writer_.flush();
+					results_[gameId_] = res;
+				}
+			} catch (HSException | IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
 	}
 }
