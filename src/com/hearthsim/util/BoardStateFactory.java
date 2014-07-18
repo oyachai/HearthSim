@@ -1,7 +1,6 @@
 package com.hearthsim.util;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 
 import com.hearthsim.card.Card;
