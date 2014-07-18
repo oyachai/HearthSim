@@ -61,8 +61,6 @@ public class Hellfire extends SpellCard {
 		if (playerIndex > 0 || minionIndex > 0) 
 			return null;
 		
-		HearthTreeNode<BoardState> toRet = boardState;
-
 		boardState.data_.getHero_p1().takeDamage(DAMAGE_AMOUNT, 0, 0, 0, boardState, deck, true);
 		for (int indx = 0; indx < boardState.data_.getNumMinions_p1(); ++indx) {
 			Minion targetMinion = boardState.data_.getMinion_p1(indx);

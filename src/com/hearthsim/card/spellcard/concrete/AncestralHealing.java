@@ -6,7 +6,6 @@ import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.HearthTreeNode;
-import com.json.JSONObject;
 
 public class AncestralHealing extends SpellCard {
 
