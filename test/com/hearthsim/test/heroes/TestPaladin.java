@@ -110,7 +110,7 @@ public class TestPaladin {
 		assertEquals(board.data_.getNumCards_hand(), 1);
 		assertEquals(board.data_.getNumMinions_p0(), 2);
 		assertEquals(board.data_.getNumMinions_p1(), 2);
-		assertEquals(board.data_.getMana_p0(), 6);
+		assertEquals(board.data_.getMana_p0(), 8);
 		assertEquals(board.data_.getMana_p1(), 8);
 		assertEquals(board.data_.getHero_p0().getHealth(), 30);
 		assertEquals(board.data_.getHero_p1().getHealth(), 28);
@@ -129,7 +129,7 @@ public class TestPaladin {
 		assertEquals(board.data_.getNumCards_hand(), 1);
 		assertEquals(board.data_.getNumMinions_p0(), 2);
 		assertEquals(board.data_.getNumMinions_p1(), 2);
-		assertEquals(board.data_.getMana_p0(), 6);
+		assertEquals(board.data_.getMana_p0(), 8);
 		assertEquals(board.data_.getMana_p1(), 8);
 		assertEquals(board.data_.getHero_p0().getHealth(), 30);
 		assertEquals(board.data_.getHero_p1().getHealth(), 28);
@@ -148,7 +148,7 @@ public class TestPaladin {
 		assertEquals(board.data_.getNumCards_hand(), 1);
 		assertEquals(board.data_.getNumMinions_p0(), 3);
 		assertEquals(board.data_.getNumMinions_p1(), 2);
-		assertEquals(board.data_.getMana_p0(), 4);
+		assertEquals(board.data_.getMana_p0(), 6);
 		assertEquals(board.data_.getMana_p1(), 8);
 		assertEquals(board.data_.getHero_p0().getHealth(), 30);
 		assertEquals(board.data_.getHero_p1().getHealth(), 28);

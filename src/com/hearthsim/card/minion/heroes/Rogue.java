@@ -62,7 +62,7 @@ public class Rogue extends Hero {
 	 * @return
 	 */
 	@Override
-	public HearthTreeNode useHeroAbility(
+	public HearthTreeNode useHeroAbility_core(
 			int thisPlayerIndex,
 			int targetPlayerIndex,
 			int targetMinionIndex,
@@ -70,16 +70,15 @@ public class Rogue extends Hero {
 			Deck deck)
 		throws HSException
 	{
-		HearthTreeNode toRet = null;
+		HearthTreeNode toRet = boardState;
 		if (targetMinionIndex == 0 && targetPlayerIndex == 0) {
-			toRet = super.useHeroAbility(thisPlayerIndex, targetPlayerIndex, targetMinionIndex, boardState, deck);
-			if (toRet != null) {
-				Hero target = boardState.data_.getHero_p0();
-				target.setWeaponCharge((byte)2);
-				target.setAttack((byte)1);
-			}
+			Hero target = boardState.data_.getHero_p0();
+			target.setWeaponCharge((byte)2);
+			target.setAttack((byte)1);
+			return toRet;
+		} else {
+			return null;
 		}
-		return toRet;
 	}
 
 }

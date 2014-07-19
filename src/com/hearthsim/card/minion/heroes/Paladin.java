@@ -64,7 +64,7 @@ public class Paladin extends Hero {
 	 * @return
 	 */
 	@Override
-	public HearthTreeNode useHeroAbility(
+	public HearthTreeNode useHeroAbility_core(
 			int thisPlayerIndex,
 			int targetPlayerIndex,
 			int targetMinionIndex,
@@ -75,19 +75,18 @@ public class Paladin extends Hero {
 		if (boardState.data_.getNumMinions_p0() >= 7)
 			return null;
 
-		HearthTreeNode toRet = super.useHeroAbility(thisPlayerIndex, targetPlayerIndex, targetMinionIndex, boardState, deck);
+		HearthTreeNode toRet = boardState;
 
-		if (toRet != null) {
-			if (targetMinionIndex == 0 && targetPlayerIndex == 0) {
-				Minion theRecruit = new SilverHandRecruit();
-				boardState.data_.placeCard_hand(thisPlayerIndex, theRecruit);
-				//HORRID HACK
-				boardState.data_.setMana_p0(boardState.data_.getMana_p0() + 1);
-				theRecruit.useOn(boardState.data_.getNumCards_hand_p0() - 1, 0, boardState.data_.getNumMinions_p0() + 1, boardState, deck);
-			} else {
-				return null;
-			}
+		if (targetMinionIndex == 0 && targetPlayerIndex == 0) {
+			Minion theRecruit = new SilverHandRecruit();
+			toRet.data_.placeCard_hand(thisPlayerIndex, theRecruit);
+			//HORRID HACK
+			toRet.data_.setMana_p0(toRet.data_.getMana_p0() + 1);
+			theRecruit.useOn(toRet.data_.getNumCards_hand_p0() - 1, 0, toRet.data_.getNumMinions_p0() + 1, toRet, deck);
+		} else {
+			return null;
 		}
+	
 		return toRet;
 	}
 }

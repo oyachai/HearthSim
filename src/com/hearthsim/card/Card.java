@@ -1,5 +1,8 @@
 package com.hearthsim.card;
 
+import java.util.Iterator;
+
+import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.DeepCopyable;
@@ -204,6 +207,23 @@ public class Card implements DeepCopyable {
 				toRet = toRet.data_.getMinion_p1(j).otherCardUsedEvent(j, toRet, deck);
 			}
 		}
+		
+		//check for and remove dead minions
+		Iterator<Minion> iter0 = boardState.data_.getMinions_p0().iterator();
+		while (iter0.hasNext()) {
+			Minion targetMinion = iter0.next();
+			if (targetMinion.getHealth() <= 0) {
+				iter0.remove();
+			}
+		}
+		Iterator<Minion> iter1 = boardState.data_.getMinions_p1().iterator();
+		while (iter1.hasNext()) {
+			Minion targetMinion = iter1.next();
+			if (targetMinion.getHealth() <= 0) {
+				iter1.remove();
+			}
+		}
+		
 		return toRet;
 	}
 	

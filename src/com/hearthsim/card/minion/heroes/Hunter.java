@@ -63,7 +63,7 @@ public class Hunter extends Hero {
 	 * @return
 	 */
 	@Override
-	public HearthTreeNode useHeroAbility(
+	public HearthTreeNode useHeroAbility_core(
 			int thisPlayerIndex,
 			int targetPlayerIndex,
 			int targetMinionIndex,
@@ -71,15 +71,14 @@ public class Hunter extends Hero {
 			Deck deck)
 		throws HSException
 	{
-		HearthTreeNode toRet = null;
+		HearthTreeNode toRet = boardState;
 		if (targetMinionIndex == 0 && targetPlayerIndex == 1) {
-			toRet = super.useHeroAbility(thisPlayerIndex, targetPlayerIndex, targetMinionIndex, boardState, deck);
-			if (toRet != null) {
-				Minion target = boardState.data_.getHero_p1();
-				target.takeDamage((byte)2, thisPlayerIndex, targetPlayerIndex, targetMinionIndex, boardState, deck);
-			}
+			Minion target = boardState.data_.getHero_p1();
+			target.takeDamage((byte)2, thisPlayerIndex, targetPlayerIndex, targetMinionIndex, boardState, deck);
+			return toRet;
+		} else {
+			return null;
 		}
-		return toRet;
 	}
 
 }

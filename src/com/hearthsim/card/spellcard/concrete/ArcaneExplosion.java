@@ -67,14 +67,6 @@ public class ArcaneExplosion extends SpellCard {
 			Minion targetMinion = boardState.data_.getMinion_p1(indx);
 			targetMinion.takeDamage((byte)1, 0, 1, indx + 1, boardState, deck, true);
 		}
-		
-		Iterator<Minion> iter = boardState.data_.getMinions_p1().iterator();
-		while (iter.hasNext()) {
-			Minion targetMinion = iter.next();
-			if (targetMinion.getHealth() <= 0) {
-				iter.remove();
-			}
-		}
 
 		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
 	}

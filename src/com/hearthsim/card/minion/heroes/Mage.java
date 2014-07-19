@@ -63,7 +63,7 @@ public class Mage extends Hero {
 	 * @return
 	 */
 	@Override
-	public HearthTreeNode useHeroAbility(
+	public HearthTreeNode useHeroAbility_core(
 			int thisPlayerIndex,
 			int targetPlayerIndex,
 			int targetMinionIndex,
@@ -71,19 +71,19 @@ public class Mage extends Hero {
 			Deck deck)
 		throws HSException
 	{
-		HearthTreeNode toRet = super.useHeroAbility(thisPlayerIndex, targetPlayerIndex, targetMinionIndex, boardState, deck);
-		if (toRet != null) {
-			if (targetMinionIndex == 0) {
-				if (targetPlayerIndex == 0) {
-					//There's never a case where using it on yourself is a good idea
-					return null;
-				}
-				Minion target = boardState.data_.getHero(targetPlayerIndex);
-				target.takeDamage((byte)1, thisPlayerIndex, targetPlayerIndex, targetMinionIndex, boardState, deck);
-			} else {
-				Minion target = boardState.data_.getMinion(targetPlayerIndex, targetMinionIndex - 1);
-				target.takeDamage((byte)1, thisPlayerIndex, targetPlayerIndex, targetMinionIndex, boardState, deck);
+		HearthTreeNode toRet = boardState;
+		if (targetMinionIndex == 0) {
+			if (targetPlayerIndex == 0) {
+				//There's never a case where using it on yourself is a good idea
+				return null;
 			}
+			Minion target = boardState.data_.getHero(targetPlayerIndex);
+			target.takeDamage((byte)1, thisPlayerIndex, targetPlayerIndex, targetMinionIndex, boardState, deck);
+		} else {
+			Minion target = boardState.data_.getMinion(targetPlayerIndex, targetMinionIndex - 1);
+			target.takeDamage((byte)1, thisPlayerIndex, targetPlayerIndex, targetMinionIndex, boardState, deck);
+			if (target.getHealth() <= 0) 
+				boardState.data_.removeMinion(targetPlayerIndex, targetMinionIndex - 1);
 		}
 		return toRet;
 	}

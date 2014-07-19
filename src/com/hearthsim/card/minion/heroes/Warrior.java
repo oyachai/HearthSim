@@ -62,7 +62,7 @@ public class Warrior extends Hero {
 	 * @return
 	 */
 	@Override
-	public HearthTreeNode useHeroAbility(
+	public HearthTreeNode useHeroAbility_core(
 			int thisPlayerIndex,
 			int targetPlayerIndex,
 			int targetMinionIndex,
@@ -70,15 +70,14 @@ public class Warrior extends Hero {
 			Deck deck)
 		throws HSException
 	{
-		HearthTreeNode toRet = null;
+		HearthTreeNode toRet = boardState;
 		if (targetMinionIndex == 0 && targetPlayerIndex == 0) {
-			toRet = super.useHeroAbility(thisPlayerIndex, targetPlayerIndex, targetMinionIndex, boardState, deck);
-			if (toRet != null) {
-				Hero target = boardState.data_.getHero(thisPlayerIndex);
-				target.setArmor((byte)(target.getArmor() + 2));
-			}
+			Hero target = boardState.data_.getHero(thisPlayerIndex);
+			target.setArmor((byte)(target.getArmor() + 2));
+			return toRet;
+		} else {
+			return null;
 		}
-		return toRet;
 	}
 
 }

@@ -137,7 +137,7 @@ public class Hero extends Minion {
 	 * @param deck
 	 * @return
 	 */
-	public HearthTreeNode useHeroAbility(
+	public final HearthTreeNode useHeroAbility(
 			int thisPlayerIndex,
 			int targetPlayerIndex,
 			int targetMinionIndex,
@@ -147,11 +147,25 @@ public class Hero extends Minion {
 	{
 		if (boardState.data_.getMana(thisPlayerIndex) < HERO_ABILITY_COST)
 			return null;
-		boardState.data_.setMana(thisPlayerIndex, boardState.data_.getMana(thisPlayerIndex) - HERO_ABILITY_COST);
-		this.hasBeenUsed_ = true;
+		
+		boardState = this.useHeroAbility_core(thisPlayerIndex, targetPlayerIndex, targetMinionIndex, boardState, deck);
+		if (boardState != null) {
+			boardState.data_.setMana(thisPlayerIndex, boardState.data_.getMana(thisPlayerIndex) - HERO_ABILITY_COST);
+			this.hasBeenUsed_ = true;
+		}
 		return boardState;
 	}
 	
+	public HearthTreeNode useHeroAbility_core(
+			int thisPlayerIndex,
+			int targetPlayerIndex,
+			int targetMinionIndex,
+			HearthTreeNode boardState,
+			Deck deck)
+		throws HSException
+	{
+		return null;
+	}
 	
 	/**
 	 * Called when this minion takes damage
