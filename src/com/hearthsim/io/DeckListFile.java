@@ -75,6 +75,6 @@ public class DeckListFile {
 	 * @return
 	 */
 	public Hero getHero() {
-		return new Hero();
+		return hero_;
 	}
 }
