@@ -4,8 +4,7 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
-import com.hearthsim.util.BoardState;
-import com.hearthsim.util.HearthTreeNode;
+import com.hearthsim.util.tree.HearthTreeNode;
 
 /**
  * Northshire Cleric
@@ -138,12 +137,12 @@ public class NorthshireCleric extends Minion {
 	 * 
 	 * @return The boardState is manipulated and returned
 	 */
-	public HearthTreeNode<BoardState> minionHealedEvent(
+	public HearthTreeNode minionHealedEvent(
 			int thisMinionPlayerIndex,
 			int thisMinionIndex,
 			int healedMinionPlayerIndex,
 			int healedMinionIndex,
-			HearthTreeNode<BoardState> boardState,
+			HearthTreeNode boardState,
 			Deck deck)
 		throws HSInvalidPlayerIndexException
 	{

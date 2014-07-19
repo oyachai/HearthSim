@@ -19,7 +19,7 @@ import com.hearthsim.player.Player;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.BoardStateFactory;
 import com.hearthsim.util.StateFunction;
-import com.hearthsim.util.HearthTreeNode;
+import com.hearthsim.util.tree.HearthTreeNode;
 
 public class ArtificialPlayer implements StateFunction<BoardState> {
 	
@@ -261,14 +261,14 @@ public class ArtificialPlayer implements StateFunction<BoardState> {
 	 */
 	public BoardState playTurn(int turn, BoardState board, Player player) throws HSException {
 		//The goal of this ai is to maximize his board score
-		HearthTreeNode<BoardState> toRet = new HearthTreeNode<BoardState>(board);
+		HearthTreeNode toRet = new HearthTreeNode(board);
 		BoardStateFactory factory = new BoardStateFactory(player.getDeck());
-		HearthTreeNode<BoardState> allMoves = factory.doMoves(toRet, this);
+		HearthTreeNode allMoves = factory.doMoves(toRet, this);
 
 //		System.out.print("turn = " + turn + ", p = " + player.getName() + ", nHand = " + board.getNumCards_hand() + ", nMinion = " + board.getNumMinions_p0() + ", nEnemyMinion = " + board.getNumMinions_p1());
 //		System.out.flush();
 		
-		HearthTreeNode<BoardState> bestPlay = allMoves.findMaxOfFunc(this);
+		HearthTreeNode bestPlay = allMoves.findMaxOfFunc(this);
 
 //		System.out.print(", number of nodes = " + allMoves.numLeaves() + ", playerHealth = " + bestPlay.data_.getHero_p0().getHealth() + ", rMinion = " + bestPlay.data_.getNumMinions_p0() + ", eMinion = " + bestPlay.data_.getNumMinions_p1());
 //		if (factory.didTimeOut())

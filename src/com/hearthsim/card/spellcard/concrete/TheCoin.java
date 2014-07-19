@@ -2,8 +2,7 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.spellcard.SpellCard;
-import com.hearthsim.util.BoardState;
-import com.hearthsim.util.HearthTreeNode;
+import com.hearthsim.util.tree.HearthTreeNode;
 import com.json.JSONObject;
 
 public class TheCoin extends SpellCard {
@@ -50,7 +49,7 @@ public class TheCoin extends SpellCard {
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public HearthTreeNode<BoardState> use_core(int thisCardIndex, int playerIndex, int minionIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
+	public HearthTreeNode use_core(int thisCardIndex, int playerIndex, int minionIndex, HearthTreeNode boardState, Deck deck) {
 		int newMana = boardState.data_.getMana_p0();
 		newMana = newMana >= 10 ? newMana : newMana + 1;
 		boardState.data_.setMana_p0(newMana);

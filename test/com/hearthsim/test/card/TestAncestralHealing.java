@@ -11,18 +11,18 @@ import com.hearthsim.card.spellcard.concrete.AncestralHealing;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
-import com.hearthsim.util.HearthTreeNode;
+import com.hearthsim.util.tree.HearthTreeNode;
 
 public class TestAncestralHealing {
 	
-	private HearthTreeNode<BoardState> board;
+	private HearthTreeNode board;
 	private static final byte mana = 2;
 	private static final byte attack0 = 2;
 	private static final byte health0 = 5;
 
 	@Before
 	public void setup() throws HSException {
-		board = new HearthTreeNode<BoardState>(new BoardState());
+		board = new HearthTreeNode(new BoardState());
 		Minion minion0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
 		Minion minion1 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
 
@@ -38,7 +38,7 @@ public class TestAncestralHealing {
 	public void test0() {
 		
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode<BoardState> res;
+		HearthTreeNode res;
 		
 		try {
 			res = theCard.useOn(0, 0, 0, board, null);
@@ -62,7 +62,7 @@ public class TestAncestralHealing {
 	public void test1() {
 		
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode<BoardState> res;
+		HearthTreeNode res;
 		
 		try {
 			res = theCard.useOn(0, 0, 1, board, null);
@@ -83,7 +83,7 @@ public class TestAncestralHealing {
 	public void test2() {
 		
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode<BoardState> res;
+		HearthTreeNode res;
 		
 		try {
 			res = theCard.useOn(0, 0, 1, board, null);
@@ -104,7 +104,7 @@ public class TestAncestralHealing {
 	public void test3() {
 		
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode<BoardState> res;
+		HearthTreeNode res;
 		
 		try {
 			res = theCard.useOn(0, 1, 1, board, null);
@@ -125,7 +125,7 @@ public class TestAncestralHealing {
 	public void test4() {
 		
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode<BoardState> res;
+		HearthTreeNode res;
 		
 		try {
 			res = theCard.useOn(0, 1, 1, board, null);

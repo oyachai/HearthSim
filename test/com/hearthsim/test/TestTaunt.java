@@ -8,8 +8,8 @@ import org.junit.Test;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.BoardStateFactory;
-import com.hearthsim.util.HearthTreeNode;
 import com.hearthsim.util.StateFunction;
+import com.hearthsim.util.tree.HearthTreeNode;
 import com.hearthsim.card.spellcard.concrete.*;
 import com.hearthsim.exception.HSException;
 
@@ -48,7 +48,7 @@ public class TestTaunt {
 		board.placeMinion(1, minion);
 		
 		BoardStateFactory factory = new BoardStateFactory(null);
-		HearthTreeNode<BoardState> tree = new HearthTreeNode<BoardState>(board);
+		HearthTreeNode tree = new HearthTreeNode(board);
 		try {
 			tree = factory.doMoves(tree, scoreFunc);
 		} catch (HSException e) {
@@ -70,7 +70,7 @@ public class TestTaunt {
 		board.placeMinion(1, minion2);
 		
 		BoardStateFactory factory = new BoardStateFactory(null);
-		HearthTreeNode<BoardState> tree = new HearthTreeNode<BoardState>(board);
+		HearthTreeNode tree = new HearthTreeNode(board);
 		try {
 			tree = factory.doMoves(tree, scoreFunc);
 		} catch (HSException e) {
@@ -94,7 +94,7 @@ public class TestTaunt {
 		board.placeMinion(1, minion3);
 		
 		BoardStateFactory factory = new BoardStateFactory(null);
-		HearthTreeNode<BoardState> tree = new HearthTreeNode<BoardState>(board);
+		HearthTreeNode tree = new HearthTreeNode(board);
 		try {
 			tree = factory.doMoves(tree, scoreFunc);
 		} catch (HSException e) {
@@ -119,7 +119,7 @@ public class TestTaunt {
 		board.placeMinion(1, minion1);
 		
 		BoardStateFactory factory = new BoardStateFactory(null, 2000000000);
-		HearthTreeNode<BoardState> tree = new HearthTreeNode<BoardState>(board);
+		HearthTreeNode tree = new HearthTreeNode(board);
 		try {
 			tree = factory.doMoves(tree, scoreFunc);
 		} catch (HSException e) {
@@ -144,7 +144,7 @@ public class TestTaunt {
 		board.setMana_p0(1);
 		
 		BoardStateFactory factory = new BoardStateFactory(null);
-		HearthTreeNode<BoardState> tree = new HearthTreeNode<BoardState>(board);
+		HearthTreeNode tree = new HearthTreeNode(board);
 		try {
 			tree = factory.doMoves(tree, scoreFunc);
 		} catch (HSException e) {
@@ -171,7 +171,7 @@ public class TestTaunt {
 		board.setMana_p0(2);
 		
 		BoardStateFactory factory = new BoardStateFactory(null, 2000000000);
-		HearthTreeNode<BoardState> tree = new HearthTreeNode<BoardState>(board);
+		HearthTreeNode tree = new HearthTreeNode(board);
 		try {
 			tree = factory.doMoves(tree, scoreFunc);
 		} catch (HSException e) {

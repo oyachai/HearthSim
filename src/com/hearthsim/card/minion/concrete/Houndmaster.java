@@ -5,7 +5,7 @@ import com.hearthsim.card.minion.Beast;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
-import com.hearthsim.util.HearthTreeNode;
+import com.hearthsim.util.tree.HearthTreeNode;
 
 public class Houndmaster extends Minion {
 
@@ -124,7 +124,7 @@ public class Houndmaster extends Minion {
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public HearthTreeNode<BoardState> use_core(int thisCardIndex, int playerIndex, int minionIndex, HearthTreeNode<BoardState> boardState, Deck deck) throws HSInvalidPlayerIndexException {
+	public HearthTreeNode use_core(int thisCardIndex, int playerIndex, int minionIndex, HearthTreeNode boardState, Deck deck) throws HSInvalidPlayerIndexException {
 		
 		if (hasBeenUsed_) {
 			//Card is already used, nothing to do
@@ -147,7 +147,7 @@ public class Houndmaster extends Minion {
 			for (int index = 0; index < boardState.data_.getNumMinions_p0(); ++index) {
 				if (index != minionIndex - 1) {
 					if (boardState.data_.getMinion_p0(index) instanceof Beast) {
-						HearthTreeNode<BoardState> newState = boardState.addChild(new HearthTreeNode<BoardState>((BoardState)boardState.data_.deepCopy()));
+						HearthTreeNode newState = boardState.addChild(new HearthTreeNode((BoardState)boardState.data_.deepCopy()));
 						newState.data_.getMinion_p0(index).setAttack((byte)(newState.data_.getMinion_p0(index).getAttack() + 2));
 						newState.data_.getMinion_p0(index).setHealth((byte)(newState.data_.getMinion_p0(index).getHealth() + 2));
 						newState.data_.getMinion_p0(index).setTaunt(true);

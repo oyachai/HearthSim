@@ -3,8 +3,7 @@ package com.hearthsim.card.spellcard;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
-import com.hearthsim.util.BoardState;
-import com.hearthsim.util.HearthTreeNode;
+import com.hearthsim.util.tree.HearthTreeNode;
 import com.json.JSONObject;
 
 
@@ -53,11 +52,11 @@ public class SpellCard extends Card {
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	protected HearthTreeNode<BoardState> use_core(
+	protected HearthTreeNode use_core(
 			int thisCardIndex,
 			int playerIndex,
 			int minionIndex,
-			HearthTreeNode<BoardState> boardState,
+			HearthTreeNode boardState,
 			Deck deck)
 		throws HSInvalidPlayerIndexException
 	{

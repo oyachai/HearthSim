@@ -8,7 +8,8 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.util.BoardState;
-import com.hearthsim.util.HearthTreeNode;
+import com.hearthsim.util.tree.HearthTreeNode;
+import com.hearthsim.util.tree.StopNode;
 
 public class BoardStateFactory {
 
@@ -64,7 +65,7 @@ public class BoardStateFactory {
 	 * 
 	 * @return boardStateNode manipulated such that all subsequent actions are children of the original boardStateNode input.
 	 */
-	public HearthTreeNode<BoardState> doMoves(HearthTreeNode<BoardState> boardStateNode, StateFunction<BoardState> scoreFunc) throws HSException {
+	public HearthTreeNode doMoves(HearthTreeNode boardStateNode, StateFunction<BoardState> scoreFunc) throws HSException {
 
 		if (lethal_) {
 			//if it's lethal, we don't have to do anything ever.  Just play the lethal.
@@ -84,7 +85,7 @@ public class BoardStateFactory {
 		if (boardStateNode.numChildren() > 0) {
 			//If this node already has children, just call doMoves on each of its children.
 			//This situation can happen, for example, atfer a battle cry
-			for (HearthTreeNode<BoardState> child : boardStateNode.getChildren()) {
+			for (HearthTreeNode child : boardStateNode.getChildren()) {
 				this.doMoves(child, scoreFunc);
 			}
 			return boardStateNode;
@@ -98,7 +99,7 @@ public class BoardStateFactory {
 				lethalFound = true;
 			}
 		}
-
+		
 		if (!lethalFound) {
 			//-----------------------------------------------------------------------------------------
 			// Use the Hero ability
@@ -107,26 +108,34 @@ public class BoardStateFactory {
 			if (!boardStateNode.data_.getHero_p0().hasBeenUsed()) {
 				//Case0: Decided to use the hero ability -- Use it on everthing!
 				for(int i = 0; i <= boardStateNode.data_.getNumMinions_p0(); ++i) {
-					HearthTreeNode<BoardState> newState = new HearthTreeNode<BoardState>((BoardState)boardStateNode.data_.deepCopy());
+					HearthTreeNode newState = new HearthTreeNode((BoardState)boardStateNode.data_.deepCopy());
 					newState = newState.data_.getHero_p0().useHeroAbility(0, 0, i, newState, deck_);
 					if (newState != null) {
-						newState = this.doMoves(newState, scoreFunc);
-						if (newState != null) boardStateNode.addChild(newState);
-						heroAbilityUsable = true;
+						if (newState instanceof StopNode) {
+							
+						} else {
+							newState = this.doMoves(newState, scoreFunc);
+							if (newState != null) boardStateNode.addChild(newState);
+							heroAbilityUsable = true;
+						}
 					}
 				}
 				for(int i = 0; i <= boardStateNode.data_.getNumMinions_p1(); ++i) {
-					HearthTreeNode<BoardState> newState = new HearthTreeNode<BoardState>((BoardState)boardStateNode.data_.deepCopy());
+					HearthTreeNode newState = new HearthTreeNode((BoardState)boardStateNode.data_.deepCopy());
 					newState = newState.data_.getHero_p0().useHeroAbility(0, 1, i, newState, deck_);
 					if (newState != null) {
-						newState = this.doMoves(newState, scoreFunc);
-						if (newState != null) boardStateNode.addChild(newState);
-						heroAbilityUsable = true;
+						if (newState instanceof StopNode) {
+							
+						} else {
+							newState = this.doMoves(newState, scoreFunc);
+							if (newState != null) boardStateNode.addChild(newState);
+							heroAbilityUsable = true;
+						}
 					}
 				}
 				if (heroAbilityUsable) {
 					//Case1: Decided not to use the hero ability
-					HearthTreeNode<BoardState> newState = new HearthTreeNode<BoardState>((BoardState)boardStateNode.data_.deepCopy());
+					HearthTreeNode newState = new HearthTreeNode((BoardState)boardStateNode.data_.deepCopy());
 					newState.data_.getHero_p0().hasBeenUsed(true);
 					newState = this.doMoves(newState, scoreFunc);
 					if (newState != null) boardStateNode.addChild(newState);
@@ -145,7 +154,7 @@ public class BoardStateFactory {
 			
 			//the case where I chose not to use any more cards
 			if (!allUsed) {
-				HearthTreeNode<BoardState> newState = new HearthTreeNode<BoardState>((BoardState)boardStateNode.data_.deepCopy());
+				HearthTreeNode newState = new HearthTreeNode((BoardState)boardStateNode.data_.deepCopy());
 				for (Card card : newState.data_.getCards_hand_p0()) {
 					card.hasBeenUsed(true);
 				}
@@ -159,21 +168,28 @@ public class BoardStateFactory {
 				if (boardStateNode.data_.getCard_hand_p0(ic).getMana() <= mana && !boardStateNode.data_.getCard_hand_p0(ic).hasBeenUsed()) {
 					//we can use this card!  Let's try using it on everything
 					for(int i = 0; i <= boardStateNode.data_.getNumMinions_p0() + 1; ++i) {
-						HearthTreeNode<BoardState> newState = new HearthTreeNode<BoardState>((BoardState)boardStateNode.data_.deepCopy());
+						HearthTreeNode newState = new HearthTreeNode((BoardState)boardStateNode.data_.deepCopy());
 						Card card = newState.data_.getCard_hand_p0(ic);
 						newState = card.useOn(ic, 0, i, newState, deck_);
 						if (newState != null) {
-							newState = this.doMoves(newState, scoreFunc);
-							if (newState != null) boardStateNode.addChild(newState);
+							if (newState instanceof StopNode) {
+							} else {
+								newState = this.doMoves(newState, scoreFunc);
+								if (newState != null) boardStateNode.addChild(newState);
+							}
 						}
 					}
 					for(int i = 0; i <= boardStateNode.data_.getNumMinions_p1() + 1; ++i) {
-						HearthTreeNode<BoardState> newState = new HearthTreeNode<BoardState>((BoardState)boardStateNode.data_.deepCopy());
+						HearthTreeNode newState = new HearthTreeNode((BoardState)boardStateNode.data_.deepCopy());
 						Card card = newState.data_.getCard_hand_p0(ic);
 						newState = card.useOn(ic, 1, i, newState, deck_);
 						if (newState != null) {
-							newState = this.doMoves(newState, scoreFunc);
-							if (newState != null) boardStateNode.addChild(newState);
+							if (newState instanceof StopNode) {
+							
+							} else {
+								newState = this.doMoves(newState, scoreFunc);
+								if (newState != null) boardStateNode.addChild(newState);
+							}
 						}
 					}
 				}
@@ -191,7 +207,7 @@ public class BoardStateFactory {
 			}
 			
 			if (!allAttacked) {
-				HearthTreeNode<BoardState> newState = new HearthTreeNode<BoardState>((BoardState)boardStateNode.data_.deepCopy());
+				HearthTreeNode newState = new HearthTreeNode((BoardState)boardStateNode.data_.deepCopy());
 				for (Minion minion : newState.data_.getMinions_p0()) {
 					minion.hasAttacked(true);
 				}
@@ -206,17 +222,22 @@ public class BoardStateFactory {
 				ArrayList<Integer> attackable = boardStateNode.data_.getAttackableMinions_p1();
 				for(final Integer integer : attackable) {
 					int i = integer.intValue();
-					HearthTreeNode<BoardState> newState = new HearthTreeNode<BoardState>((BoardState)boardStateNode.data_.deepCopy());
+					HearthTreeNode newState = new HearthTreeNode((BoardState)boardStateNode.data_.deepCopy());
 					Minion tempMinion = newState.data_.getMinion_p0(ic-1);
 					newState = tempMinion.attack(ic, 1, i, newState, deck_);
 					if (newState != null) {
-						newState = this.doMoves(newState, scoreFunc);
-						if (newState != null) boardStateNode.addChild(newState);
+						if (newState instanceof StopNode) {
+							
+						} else {
+							newState = this.doMoves(newState, scoreFunc);
+							if (newState != null) boardStateNode.addChild(newState);
+						}
 					}
 				}
 			}
 		}
 		
+			
 		if (boardStateNode.isLeaf()) {
 			//If at this point the node has no children, it is a leaf node.  Compute its board score and store it.
 			boardStateNode.setScore(scoreFunc.apply(boardStateNode.data_));
@@ -226,9 +247,9 @@ public class BoardStateFactory {
 			//We can also throw out any children that don't have the highest score (boy, this sounds so wrong...)
 			double tmpScore = -1.e300;
 			int tmpNumNodesTried = 0;
-			Iterator<HearthTreeNode<BoardState>> iter = boardStateNode.getChildren().iterator();
+			Iterator<HearthTreeNode> iter = boardStateNode.getChildren().iterator();
 			while (iter.hasNext()) {
-				HearthTreeNode<BoardState> child = iter.next();
+				HearthTreeNode child = iter.next();
 				tmpNumNodesTried += child.getNumNodesTried();
 				if (child.getScore() > tmpScore) {
 					tmpScore = child.getScore();

@@ -3,8 +3,7 @@ package com.hearthsim.card.spellcard.concrete;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.spellcard.SpellDamage;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
-import com.hearthsim.util.BoardState;
-import com.hearthsim.util.HearthTreeNode;
+import com.hearthsim.util.tree.HearthTreeNode;
 
 public class FrostShock extends SpellDamage {
 	
@@ -35,18 +34,18 @@ public class FrostShock extends SpellDamage {
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	protected HearthTreeNode<BoardState> use_core(
+	protected HearthTreeNode use_core(
 			int thisCardIndex,
 			int playerIndex,
 			int minionIndex,
-			HearthTreeNode<BoardState> boardState,
+			HearthTreeNode boardState,
 			Deck deck)
 		throws HSInvalidPlayerIndexException
 	{
 		if (playerIndex == 0) 
 			return null;
 		
-		HearthTreeNode<BoardState> toRet = boardState;
+		HearthTreeNode toRet = boardState;
 		if (toRet != null) {
 			if (minionIndex == 0)
 				toRet.data_.getHero_p1().setFrozen(true);

@@ -4,8 +4,7 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.Beast;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
-import com.hearthsim.util.BoardState;
-import com.hearthsim.util.HearthTreeNode;
+import com.hearthsim.util.tree.HearthTreeNode;
 
 public class Leokk extends Beast {
 
@@ -133,11 +132,11 @@ public class Leokk extends Beast {
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	protected HearthTreeNode<BoardState> use_core(
+	protected HearthTreeNode use_core(
 			int thisCardIndex,
 			int playerIndex,
 			int minionIndex,
-			HearthTreeNode<BoardState> boardState,
+			HearthTreeNode boardState,
 			Deck deck)
 		throws HSInvalidPlayerIndexException
 	{
@@ -184,7 +183,7 @@ public class Leokk extends Beast {
 	 * @throws HSInvalidPlayerIndexException
 	 */
 	@Override
-	public void silenced(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) throws HSInvalidPlayerIndexException {
+	public void silenced(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deck) throws HSInvalidPlayerIndexException {
 		for (Minion minion : boardState.data_.getMinions(thisPlayerIndex)) {
 			if (minion != this) {
 				minion.setAttack((byte)(minion.getAttack() - 1));
@@ -204,7 +203,7 @@ public class Leokk extends Beast {
 	 * @throws HSInvalidPlayerIndexException
 	 */
 	@Override
-	public void destroyed(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) throws HSInvalidPlayerIndexException {
+	public void destroyed(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deck) throws HSInvalidPlayerIndexException {
 		
 		for (Minion minion : boardState.data_.getMinions(thisPlayerIndex)) {
 			if (minion != this) {
@@ -214,7 +213,7 @@ public class Leokk extends Beast {
 		super.destroyed(thisPlayerIndex, thisMinionIndex, boardState, deck);
 	}
 	
-	private HearthTreeNode<BoardState> doBuffs(int thisMinionPlayerIndex, int thisMinionIndex, int targetMinionPlayerIndex, int targetMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) throws HSInvalidPlayerIndexException {
+	private HearthTreeNode doBuffs(int thisMinionPlayerIndex, int thisMinionIndex, int targetMinionPlayerIndex, int targetMinionIndex, HearthTreeNode boardState, Deck deck) throws HSInvalidPlayerIndexException {
 		if (targetMinionPlayerIndex != thisMinionPlayerIndex)
 			return boardState;
 		Minion minion = boardState.data_.getMinion(thisMinionPlayerIndex, targetMinionIndex - 1);
@@ -236,7 +235,7 @@ public class Leokk extends Beast {
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public HearthTreeNode<BoardState> minionPlacedEvent(int thisMinionPlayerIndex, int thisMinionIndex, int placedMinionPlayerIndex, int placedMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) throws HSInvalidPlayerIndexException {
+	public HearthTreeNode minionPlacedEvent(int thisMinionPlayerIndex, int thisMinionIndex, int placedMinionPlayerIndex, int placedMinionIndex, HearthTreeNode boardState, Deck deck) throws HSInvalidPlayerIndexException {
 		return this.doBuffs(thisMinionPlayerIndex, thisMinionIndex, placedMinionPlayerIndex, placedMinionIndex, boardState, deck);
 	}
 
@@ -253,7 +252,7 @@ public class Leokk extends Beast {
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public HearthTreeNode<BoardState> minionSummonedEvent(int thisMinionPlayerIndex, int thisMinionIndex, int summonedMinionPlayerIndex, int summeonedMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) throws HSInvalidPlayerIndexException {
+	public HearthTreeNode minionSummonedEvent(int thisMinionPlayerIndex, int thisMinionIndex, int summonedMinionPlayerIndex, int summeonedMinionIndex, HearthTreeNode boardState, Deck deck) throws HSInvalidPlayerIndexException {
 		return this.doBuffs(thisMinionPlayerIndex, thisMinionIndex, summonedMinionPlayerIndex, summeonedMinionIndex, boardState, deck);
 	}
 	
@@ -268,7 +267,7 @@ public class Leokk extends Beast {
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public HearthTreeNode<BoardState> minionTransformedEvent(int thisMinionPlayerIndex, int thisMinionIndex, int transformedMinionPlayerIndex, int transformedMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) throws HSInvalidPlayerIndexException {
+	public HearthTreeNode minionTransformedEvent(int thisMinionPlayerIndex, int thisMinionIndex, int transformedMinionPlayerIndex, int transformedMinionIndex, HearthTreeNode boardState, Deck deck) throws HSInvalidPlayerIndexException {
 		return this.doBuffs(thisMinionPlayerIndex, thisMinionIndex, transformedMinionPlayerIndex, transformedMinionIndex, boardState, deck);
 	}
 

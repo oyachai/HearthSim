@@ -2,8 +2,7 @@ package com.hearthsim.card.minion;
 
 import com.hearthsim.card.Deck;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
-import com.hearthsim.util.BoardState;
-import com.hearthsim.util.HearthTreeNode;
+import com.hearthsim.util.tree.HearthTreeNode;
 
 public class MinionWithSpellDamage extends Minion {
 
@@ -100,11 +99,11 @@ public class MinionWithSpellDamage extends Minion {
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	protected HearthTreeNode<BoardState> use_core(
+	protected HearthTreeNode use_core(
 			int thisCardIndex,
 			int playerIndex,
 			int minionIndex,
-			HearthTreeNode<BoardState> boardState,
+			HearthTreeNode boardState,
 			Deck deck)
 		throws HSInvalidPlayerIndexException
 	{
@@ -145,7 +144,7 @@ public class MinionWithSpellDamage extends Minion {
 	 * @param deck
 	 * @throws HSInvalidPlayerIndexException
 	 */
-	public void silenced(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) throws HSInvalidPlayerIndexException {
+	public void silenced(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deck) throws HSInvalidPlayerIndexException {
 		boardState.data_.setSpellDamage(0, (byte)(boardState.data_.getSpellDamage(0) - spellDamage_));
 	}
 	
@@ -160,7 +159,7 @@ public class MinionWithSpellDamage extends Minion {
 	 * @param deck
 	 * @throws HSInvalidPlayerIndexException
 	 */
-	public void destroyed(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) throws HSInvalidPlayerIndexException {		
+	public void destroyed(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deck) throws HSInvalidPlayerIndexException {		
 		boardState.data_.setSpellDamage(0, (byte)(boardState.data_.getSpellDamage(0) - spellDamage_));
 		super.destroyed(thisPlayerIndex, thisMinionIndex, boardState, deck);
 	}

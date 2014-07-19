@@ -4,9 +4,8 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.util.BoardState;
 import com.hearthsim.util.DeepCopyable;
-import com.hearthsim.util.HearthTreeNode;
+import com.hearthsim.util.tree.HearthTreeNode;
 
 public class Hunter extends Hero {
 	
@@ -64,15 +63,15 @@ public class Hunter extends Hero {
 	 * @return
 	 */
 	@Override
-	public HearthTreeNode<BoardState> useHeroAbility(
+	public HearthTreeNode useHeroAbility(
 			int thisPlayerIndex,
 			int targetPlayerIndex,
 			int targetMinionIndex,
-			HearthTreeNode<BoardState> boardState,
+			HearthTreeNode boardState,
 			Deck deck)
 		throws HSException
 	{
-		HearthTreeNode<BoardState> toRet = null;
+		HearthTreeNode toRet = null;
 		if (targetMinionIndex == 0 && targetPlayerIndex == 1) {
 			toRet = super.useHeroAbility(thisPlayerIndex, targetPlayerIndex, targetMinionIndex, boardState, deck);
 			if (toRet != null) {

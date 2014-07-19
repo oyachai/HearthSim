@@ -1,4 +1,4 @@
-package com.hearthsim.io;
+	package com.hearthsim.io;
 
 import java.io.IOException;
 import java.nio.file.Files;

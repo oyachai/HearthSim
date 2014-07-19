@@ -14,11 +14,11 @@ import com.hearthsim.card.spellcard.weapon.FieryWarAxe;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
-import com.hearthsim.util.HearthTreeNode;
+import com.hearthsim.util.tree.HearthTreeNode;
 
 public class TestAcidicSwampOoze {
 
-	private HearthTreeNode<BoardState> board;
+	private HearthTreeNode board;
 	private Deck deck;
 	private static final byte mana = 2;
 	private static final byte attack0 = 5;
@@ -27,7 +27,7 @@ public class TestAcidicSwampOoze {
 
 	@Before
 	public void setup() throws HSException {
-		board = new HearthTreeNode<BoardState>(new BoardState());
+		board = new HearthTreeNode(new BoardState());
 
 		Minion minion0_0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
 		Minion minion0_1 = new Minion("" + 0, mana, attack0, (byte)(health1 - 1), attack0, health1, health1);
@@ -62,7 +62,7 @@ public class TestAcidicSwampOoze {
 	public void test0() throws HSInvalidPlayerIndexException {
 		
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode<BoardState> ret = theCard.useOn(0, 1, 0, board, deck);
+		HearthTreeNode ret = theCard.useOn(0, 1, 0, board, deck);
 		
 		assertTrue(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 1);
@@ -80,7 +80,7 @@ public class TestAcidicSwampOoze {
 	public void test1() throws HSInvalidPlayerIndexException {
 		
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode<BoardState> ret = theCard.useOn(0, 0, 0, board, deck);
+		HearthTreeNode ret = theCard.useOn(0, 0, 0, board, deck);
 		
 		assertTrue(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 1);
@@ -99,7 +99,7 @@ public class TestAcidicSwampOoze {
 	public void test2() throws HSInvalidPlayerIndexException {
 		
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode<BoardState> ret = theCard.useOn(0, 0, 3, board, deck);
+		HearthTreeNode ret = theCard.useOn(0, 0, 3, board, deck);
 		
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 0);
@@ -117,10 +117,10 @@ public class TestAcidicSwampOoze {
 	@Test
 	public void test3() throws HSInvalidPlayerIndexException {
 		
-		HearthTreeNode<BoardState> fl = new HearthTreeNode<BoardState>(board.data_.flipPlayers());
+		HearthTreeNode fl = new HearthTreeNode(board.data_.flipPlayers());
 		fl.data_.placeCard_hand_p0(new FieryWarAxe());
 		fl = fl.data_.getCard_hand_p0(0).useOn(0, 0, 0, fl, deck);
-		board = new HearthTreeNode<BoardState>(fl.data_.flipPlayers());
+		board = new HearthTreeNode(fl.data_.flipPlayers());
 		
 		assertEquals(board.data_.getHero_p0().getAttack(), 0);
 		assertEquals(board.data_.getHero_p0().getWeaponCharge(), 0);
@@ -128,7 +128,7 @@ public class TestAcidicSwampOoze {
 		assertEquals(board.data_.getHero_p1().getWeaponCharge(), 2);
 
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode<BoardState> ret = theCard.useOn(0, 0, 3, board, deck);
+		HearthTreeNode ret = theCard.useOn(0, 0, 3, board, deck);
 		
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 0);

@@ -5,7 +5,7 @@ import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.DeepCopyable;
-import com.hearthsim.util.HearthTreeNode;
+import com.hearthsim.util.tree.HearthTreeNode;
 import com.json.JSONObject;
 
 public class Hero extends Minion {
@@ -89,11 +89,11 @@ public class Hero extends Minion {
 	 * 
 	 * @return The boardState is manipulated and returned
 	 */
-	public HearthTreeNode<BoardState> attack(
+	public HearthTreeNode attack(
 			int thisMinionIndex,
 			int playerIndex,
 			int minionIndex,
-			HearthTreeNode<BoardState> boardState,
+			HearthTreeNode boardState,
 			Deck deck)
 		throws HSInvalidPlayerIndexException
 	{
@@ -114,7 +114,7 @@ public class Hero extends Minion {
 		}
 		
 		
-		HearthTreeNode<BoardState> toRet = super.attack(thisMinionIndex, playerIndex, minionIndex, boardState, deck);
+		HearthTreeNode toRet = super.attack(thisMinionIndex, playerIndex, minionIndex, boardState, deck);
 		
 		if (toRet != null) {
 			if (this.weaponCharge_ > 0) {
@@ -137,11 +137,11 @@ public class Hero extends Minion {
 	 * @param deck
 	 * @return
 	 */
-	public HearthTreeNode<BoardState> useHeroAbility(
+	public HearthTreeNode useHeroAbility(
 			int thisPlayerIndex,
 			int targetPlayerIndex,
 			int targetMinionIndex,
-			HearthTreeNode<BoardState> boardState,
+			HearthTreeNode boardState,
 			Deck deck)
 		throws HSException
 	{
@@ -167,7 +167,7 @@ public class Hero extends Minion {
 	 * @throws HSInvalidPlayerIndexException
 	 */
 	@Override
-	public void takeDamage(byte damage, int attackerPlayerIndex, int thisPlayerIndex, int thisMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) throws HSInvalidPlayerIndexException {
+	public void takeDamage(byte damage, int attackerPlayerIndex, int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deck) throws HSInvalidPlayerIndexException {
 
 		byte damageRemaining = (byte)(damage - armor_);
 		if (damageRemaining > 0) {

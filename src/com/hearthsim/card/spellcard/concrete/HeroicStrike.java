@@ -3,8 +3,7 @@ package com.hearthsim.card.spellcard.concrete;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
-import com.hearthsim.util.BoardState;
-import com.hearthsim.util.HearthTreeNode;
+import com.hearthsim.util.tree.HearthTreeNode;
 
 public class HeroicStrike extends SpellCard {
 	
@@ -46,11 +45,11 @@ public class HeroicStrike extends SpellCard {
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	protected HearthTreeNode<BoardState> use_core(
+	protected HearthTreeNode use_core(
 			int thisCardIndex,
 			int playerIndex,
 			int minionIndex,
-			HearthTreeNode<BoardState> boardState,
+			HearthTreeNode boardState,
 			Deck deck)
 		throws HSInvalidPlayerIndexException
 	{
@@ -64,7 +63,7 @@ public class HeroicStrike extends SpellCard {
 		}
 
 		
-		HearthTreeNode<BoardState> toRet = boardState;
+		HearthTreeNode toRet = boardState;
 		if (toRet != null) {
 			toRet.data_.getHero_p0().setExtraAttackUntilTurnEnd((byte)(DAMAGE_AMOUNT + toRet.data_.getHero_p0().getExtraAttackUntilTurnEnd()));
 			this.hasBeenUsed(true);

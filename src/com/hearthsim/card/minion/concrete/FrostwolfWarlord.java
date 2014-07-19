@@ -3,8 +3,7 @@ package com.hearthsim.card.minion.concrete;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
-import com.hearthsim.util.BoardState;
-import com.hearthsim.util.HearthTreeNode;
+import com.hearthsim.util.tree.HearthTreeNode;
 
 public class FrostwolfWarlord extends Minion {
 
@@ -131,11 +130,11 @@ public class FrostwolfWarlord extends Minion {
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public HearthTreeNode<BoardState> use_core(
+	public HearthTreeNode use_core(
 			int thisCardIndex,
 			int playerIndex,
 			int minionIndex,
-			HearthTreeNode<BoardState> boardState,
+			HearthTreeNode boardState,
 			Deck deck)
 		throws HSInvalidPlayerIndexException
 	{
@@ -152,7 +151,7 @@ public class FrostwolfWarlord extends Minion {
 			return null;
 		
 		int numBuffs = boardState.data_.getNumMinions_p0();
-		HearthTreeNode<BoardState> toRet = super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
+		HearthTreeNode toRet = super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
 
 		Minion placedMinion = toRet.data_.getMinion(playerIndex, minionIndex - 1);
 		placedMinion.setAttack((byte)(placedMinion.getAttack() + numBuffs));

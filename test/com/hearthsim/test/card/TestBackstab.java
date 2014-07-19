@@ -12,11 +12,11 @@ import com.hearthsim.card.spellcard.concrete.Backstab;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
-import com.hearthsim.util.HearthTreeNode;
+import com.hearthsim.util.tree.HearthTreeNode;
 
 public class TestBackstab {
 
-	private HearthTreeNode<BoardState> board;
+	private HearthTreeNode board;
 	private static final byte mana = 2;
 	private static final byte attack0 = 2;
 	private static final byte health0 = 5;
@@ -24,7 +24,7 @@ public class TestBackstab {
 
 	@Before
 	public void setup() throws HSException {
-		board = new HearthTreeNode<BoardState>(new BoardState());
+		board = new HearthTreeNode(new BoardState());
 		Minion minion0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
 		Minion minion1 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
 		Minion minion2 = new Minion("" + 0, mana, attack0, health1, attack0, health1, health1);
@@ -47,7 +47,7 @@ public class TestBackstab {
 		Deck deck = null;
 		
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode<BoardState> res;
+		HearthTreeNode res;
 		
 		res = theCard.useOn(0, 1, 0, board, deck);
 		assertTrue(res == null);
@@ -83,7 +83,7 @@ public class TestBackstab {
 		Deck deck = null;
 		
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode<BoardState> res;
+		HearthTreeNode res;
 
 		res = theCard.useOn(0, 1, 1, board, deck);
 		assertFalse(res == null);
@@ -113,7 +113,7 @@ public class TestBackstab {
 		Deck deck = null;
 		
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode<BoardState> res;
+		HearthTreeNode res;
 
 		res = theCard.useOn(0, 1, 2, board, deck);
 		assertFalse(res == null);
@@ -141,7 +141,7 @@ public class TestBackstab {
 		Deck deck = null;
 		
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode<BoardState> res;
+		HearthTreeNode res;
 
 		res = theCard.useOn(0, 1, 3, board, deck);
 		assertTrue(res == null);

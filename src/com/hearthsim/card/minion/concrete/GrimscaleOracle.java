@@ -4,8 +4,7 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.Murloc;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
-import com.hearthsim.util.BoardState;
-import com.hearthsim.util.HearthTreeNode;
+import com.hearthsim.util.tree.HearthTreeNode;
 
 public class GrimscaleOracle extends Murloc {
 
@@ -133,11 +132,11 @@ public class GrimscaleOracle extends Murloc {
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	protected HearthTreeNode<BoardState> use_core(
+	protected HearthTreeNode use_core(
 			int thisCardIndex,
 			int playerIndex,
 			int minionIndex,
-			HearthTreeNode<BoardState> boardState,
+			HearthTreeNode boardState,
 			Deck deck)
 		throws HSInvalidPlayerIndexException
 	{
@@ -190,7 +189,7 @@ public class GrimscaleOracle extends Murloc {
 	 * @throws HSInvalidPlayerIndexException
 	 */
 	@Override
-	public void silenced(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) throws HSInvalidPlayerIndexException {
+	public void silenced(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deck) throws HSInvalidPlayerIndexException {
 		for (Minion minion : boardState.data_.getMinions_p0()) {
 			if (minion instanceof Murloc && minion != this) {
 				minion.setAttack((byte)(minion.getAttack() - 1));
@@ -215,7 +214,7 @@ public class GrimscaleOracle extends Murloc {
 	 * @throws HSInvalidPlayerIndexException
 	 */
 	@Override
-	public void destroyed(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode<BoardState> boardState, Deck deck) throws HSInvalidPlayerIndexException {
+	public void destroyed(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deck) throws HSInvalidPlayerIndexException {
 		
 		for (Minion minion : boardState.data_.getMinions_p0()) {
 			if (minion instanceof Murloc && minion != this) {
@@ -230,12 +229,12 @@ public class GrimscaleOracle extends Murloc {
 		super.destroyed(thisPlayerIndex, thisMinionIndex, boardState, deck);
 	}
 	
-	private HearthTreeNode<BoardState> doBuffs(
+	private HearthTreeNode doBuffs(
 			int thisMinionPlayerIndex,
 			int thisMinionIndex,
 			int targetMinionPlayerIndex,
 			int targetMinionIndex,
-			HearthTreeNode<BoardState> boardState,
+			HearthTreeNode boardState,
 			Deck deck)
 		throws HSInvalidPlayerIndexException
 	{
@@ -258,12 +257,12 @@ public class GrimscaleOracle extends Murloc {
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public HearthTreeNode<BoardState> minionPlacedEvent(
+	public HearthTreeNode minionPlacedEvent(
 			int thisMinionPlayerIndex,
 			int thisMinionIndex, 
 			int placedMinionPlayerIndex,
 			int placedMinionIndex,
-			HearthTreeNode<BoardState> boardState,
+			HearthTreeNode boardState,
 			Deck deck)
 		throws HSInvalidPlayerIndexException
 	{
@@ -283,12 +282,12 @@ public class GrimscaleOracle extends Murloc {
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public HearthTreeNode<BoardState> minionSummonedEvent(
+	public HearthTreeNode minionSummonedEvent(
 			int thisMinionPlayerIndex,
 			int thisMinionIndex, 
 			int summonedMinionPlayerIndex,
 			int summeonedMinionIndex,
-			HearthTreeNode<BoardState> boardState,
+			HearthTreeNode boardState,
 			Deck deck)
 		throws HSInvalidPlayerIndexException
 	{
@@ -306,12 +305,12 @@ public class GrimscaleOracle extends Murloc {
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public HearthTreeNode<BoardState> minionTransformedEvent(
+	public HearthTreeNode minionTransformedEvent(
 			int thisMinionPlayerIndex,
 			int thisMinionIndex,
 			int transformedMinionPlayerIndex,
 			int transformedMinionIndex,
-			HearthTreeNode<BoardState> boardState,
+			HearthTreeNode boardState,
 			Deck deck)
 		throws HSInvalidPlayerIndexException
 	{

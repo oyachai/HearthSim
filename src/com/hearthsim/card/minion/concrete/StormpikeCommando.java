@@ -4,7 +4,7 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
-import com.hearthsim.util.HearthTreeNode;
+import com.hearthsim.util.tree.HearthTreeNode;
 
 public class StormpikeCommando extends Minion {
 
@@ -132,11 +132,11 @@ public class StormpikeCommando extends Minion {
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public HearthTreeNode<BoardState> use_core(
+	public HearthTreeNode use_core(
 			int thisCardIndex,
 			int playerIndex,
 			int minionIndex,
-			HearthTreeNode<BoardState> boardState,
+			HearthTreeNode boardState,
 			Deck deck)
 		throws HSInvalidPlayerIndexException
 	{	
@@ -159,7 +159,7 @@ public class StormpikeCommando extends Minion {
 			boardState.data_.placeMinion(0, this, minionIndex - 1);
 			
 			{
-				HearthTreeNode<BoardState> newState = boardState.addChild(new HearthTreeNode<BoardState>((BoardState)boardState.data_.deepCopy()));
+				HearthTreeNode newState = boardState.addChild(new HearthTreeNode((BoardState)boardState.data_.deepCopy()));
 				newState.data_.getHero_p0().takeDamage((byte)2, 0, 0, 0, newState, deck);
 			}
 
@@ -167,7 +167,7 @@ public class StormpikeCommando extends Minion {
 				for (int index = 0; index < boardState.data_.getNumMinions_p0(); ++index) {
 					if (boardState.data_.getMinion_p0(index) == this)
 						continue;
-					HearthTreeNode<BoardState> newState = boardState.addChild(new HearthTreeNode<BoardState>((BoardState)boardState.data_.deepCopy()));
+					HearthTreeNode newState = boardState.addChild(new HearthTreeNode((BoardState)boardState.data_.deepCopy()));
 					newState.data_.getMinion_p0(index).takeDamage((byte)2, 0, 0, index + 1, newState, deck);
 					if (newState.data_.getMinion_p0(index).getHealth() <= 0) {
 						newState.data_.removeMinion_p0(index);
@@ -176,13 +176,13 @@ public class StormpikeCommando extends Minion {
 			}
 
 			{
-				HearthTreeNode<BoardState> newState = boardState.addChild(new HearthTreeNode<BoardState>((BoardState)boardState.data_.deepCopy()));
+				HearthTreeNode newState = boardState.addChild(new HearthTreeNode((BoardState)boardState.data_.deepCopy()));
 				newState.data_.getHero_p1().takeDamage((byte)2, 0, 1, 0, newState, deck);
 			}
 
 			{
 				for (int index = 0; index < boardState.data_.getNumMinions_p1(); ++index) {		
-					HearthTreeNode<BoardState> newState = boardState.addChild(new HearthTreeNode<BoardState>((BoardState)boardState.data_.deepCopy()));
+					HearthTreeNode newState = boardState.addChild(new HearthTreeNode((BoardState)boardState.data_.deepCopy()));
 					newState.data_.getMinion_p1(index).takeDamage((byte)2, 0, 1, index + 1, newState, deck);
 					if (newState.data_.getMinion_p1(index).getHealth() <= 0) {
 						newState.data_.removeMinion_p1(index);

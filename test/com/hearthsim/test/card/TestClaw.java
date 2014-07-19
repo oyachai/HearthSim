@@ -13,12 +13,12 @@ import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
-import com.hearthsim.util.HearthTreeNode;
+import com.hearthsim.util.tree.HearthTreeNode;
 
 public class TestClaw {
 	
 	
-	private HearthTreeNode<BoardState> board;
+	private HearthTreeNode board;
 	private Deck deck;
 	private static final byte mana = 2;
 	private static final byte attack0 = 5;
@@ -27,7 +27,7 @@ public class TestClaw {
 
 	@Before
 	public void setup() throws HSException {
-		board = new HearthTreeNode<BoardState>(new BoardState());
+		board = new HearthTreeNode(new BoardState());
 
 		Minion minion0_0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
 		Minion minion0_1 = new Minion("" + 0, mana, attack0, (byte)(health1 - 1), attack0, health1, health1);
@@ -56,7 +56,7 @@ public class TestClaw {
 	public void test0() throws HSInvalidPlayerIndexException {
 		
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode<BoardState> ret = theCard.useOn(0, 1, 0, board, deck);
+		HearthTreeNode ret = theCard.useOn(0, 1, 0, board, deck);
 		
 		assertTrue(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 1);
@@ -75,7 +75,7 @@ public class TestClaw {
 	public void test1() throws HSInvalidPlayerIndexException {
 		
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode<BoardState> ret = theCard.useOn(0, 0, 1, board, deck);
+		HearthTreeNode ret = theCard.useOn(0, 0, 1, board, deck);
 		
 		assertTrue(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 1);
@@ -93,7 +93,7 @@ public class TestClaw {
 	public void test2() throws HSInvalidPlayerIndexException {
 		
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode<BoardState> ret = theCard.useOn(0, 0, 0, board, deck);
+		HearthTreeNode ret = theCard.useOn(0, 0, 0, board, deck);
 		
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 0);

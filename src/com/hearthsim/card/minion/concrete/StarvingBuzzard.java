@@ -4,8 +4,7 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Beast;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
-import com.hearthsim.util.BoardState;
-import com.hearthsim.util.HearthTreeNode;
+import com.hearthsim.util.tree.HearthTreeNode;
 
 public class StarvingBuzzard extends Beast {
 
@@ -132,12 +131,12 @@ public class StarvingBuzzard extends Beast {
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public HearthTreeNode<BoardState> minionPlacedEvent(
+	public HearthTreeNode minionPlacedEvent(
 			int thisMinionPlayerIndex,
 			int thisMinionIndex,
 			int placedMinionPlayerIndex,
 			int placedMinionIndex,
-			HearthTreeNode<BoardState> boardState,
+			HearthTreeNode boardState,
 			Deck deck)
 		throws HSInvalidPlayerIndexException
 	{
@@ -172,12 +171,12 @@ public class StarvingBuzzard extends Beast {
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public HearthTreeNode<BoardState> minionSummonedEvent(
+	public HearthTreeNode minionSummonedEvent(
 			int thisMinionPlayerIndex,
 			int thisMinionIndex,
 			int placedMinionPlayerIndex,
 			int placedMinionIndex,
-			HearthTreeNode<BoardState> boardState,
+			HearthTreeNode boardState,
 			Deck deck)
 		throws HSInvalidPlayerIndexException
 	{

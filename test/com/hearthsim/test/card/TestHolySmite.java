@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.hearthsim.util.BoardState;
-import com.hearthsim.util.HearthTreeNode;
+import com.hearthsim.util.tree.HearthTreeNode;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.concrete.HolySmite;
@@ -15,7 +15,7 @@ import com.hearthsim.exception.HSInvalidPlayerIndexException;
 
 public class TestHolySmite {
 
-	private HearthTreeNode<BoardState> board;
+	private HearthTreeNode board;
 	private static final byte mana = 2;
 	private static final byte attack0 = 2;
 	private static final byte health0 = 2;
@@ -23,7 +23,7 @@ public class TestHolySmite {
 
 	@Before
 	public void setup() throws HSException {
-		board = new HearthTreeNode<BoardState>(new BoardState());
+		board = new HearthTreeNode(new BoardState());
 
 		Minion minion0_0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
 		Minion minion0_1 = new Minion("" + 0, mana, attack0, health1, attack0, health1, health1);

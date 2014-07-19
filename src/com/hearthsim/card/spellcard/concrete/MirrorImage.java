@@ -5,8 +5,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.MirrorImageMinion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
-import com.hearthsim.util.BoardState;
-import com.hearthsim.util.HearthTreeNode;
+import com.hearthsim.util.tree.HearthTreeNode;
 
 public class MirrorImage extends SpellCard {
 
@@ -48,11 +47,11 @@ public class MirrorImage extends SpellCard {
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	protected HearthTreeNode<BoardState> use_core(
+	protected HearthTreeNode use_core(
 			int thisCardIndex,
 			int playerIndex,
 			int minionIndex,
-			HearthTreeNode<BoardState> boardState,
+			HearthTreeNode boardState,
 			Deck deck)
 		throws HSInvalidPlayerIndexException
 	{
@@ -66,7 +65,7 @@ public class MirrorImage extends SpellCard {
 
 		Minion mi0 = new MirrorImageMinion();
 		boardState.data_.placeCard_hand_p0(mi0);
-		HearthTreeNode<BoardState> toRet = mi0.useOn(boardState.data_.getNumCards_hand() - 1, playerIndex, numMinions + 1, boardState, deck);
+		HearthTreeNode toRet = mi0.useOn(boardState.data_.getNumCards_hand() - 1, playerIndex, numMinions + 1, boardState, deck);
 		
 		if (numMinions < 6) {
 			Minion mi1 = new MirrorImageMinion();

@@ -11,12 +11,12 @@ import com.hearthsim.card.minion.concrete.BloodfenRaptor;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
-import com.hearthsim.util.HearthTreeNode;
+import com.hearthsim.util.tree.HearthTreeNode;
 
 public class TestBloodfenRaptor {
 
 
-	private HearthTreeNode<BoardState> board;
+	private HearthTreeNode board;
 	private static final byte mana = 2;
 	private static final byte attack0 = 2;
 	private static final byte health0 = 3;
@@ -24,7 +24,7 @@ public class TestBloodfenRaptor {
 
 	@Before
 	public void setup() throws HSException {
-		board = new HearthTreeNode<BoardState>(new BoardState());
+		board = new HearthTreeNode(new BoardState());
 
 		Minion minion0_0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
 		Minion minion0_1 = new Minion("" + 0, mana, attack0, health1, attack0, health1, health1);
@@ -87,7 +87,7 @@ public class TestBloodfenRaptor {
 		board.data_.placeCard_hand_p0(fb);
 		
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode<BoardState> ret = theCard.useOn(0, 0, 0, board, null);
+		HearthTreeNode ret = theCard.useOn(0, 0, 0, board, null);
 		
 		assertTrue("test0_0", ret == null);
 		assertTrue("test0_1", board.data_.getNumCards_hand() == 1);
@@ -107,7 +107,7 @@ public class TestBloodfenRaptor {
 		board.data_.placeCard_hand_p0(fb);
 		
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode<BoardState> ret = theCard.useOn(0, 1, 0, board, null);
+		HearthTreeNode ret = theCard.useOn(0, 1, 0, board, null);
 		
 		assertTrue("test1_0", ret == null);
 		assertTrue("test1_1", board.data_.getNumCards_hand() == 1);
@@ -127,7 +127,7 @@ public class TestBloodfenRaptor {
 		board.data_.placeCard_hand_p0(fb);
 		
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode<BoardState> ret = theCard.useOn(0, 0, 1, board, null);
+		HearthTreeNode ret = theCard.useOn(0, 0, 1, board, null);
 		
 		assertFalse("test2_0", ret == null);
 		assertTrue("test2_1", board.data_.getNumCards_hand() == 0);
@@ -188,7 +188,7 @@ public class TestBloodfenRaptor {
 		board.data_.placeCard_hand_p0(fb);
 		
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode<BoardState> ret = theCard.useOn(0, 0, 2, board, null);
+		HearthTreeNode ret = theCard.useOn(0, 0, 2, board, null);
 		
 		assertFalse("test3_0", ret == null);
 		assertTrue("test3_1", board.data_.getNumCards_hand() == 0);
@@ -209,7 +209,7 @@ public class TestBloodfenRaptor {
 		board.data_.placeCard_hand_p0(fb);
 		
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode<BoardState> ret = theCard.useOn(0, 0, 3, board, null);
+		HearthTreeNode ret = theCard.useOn(0, 0, 3, board, null);
 		
 		assertFalse("test4_0", ret == null);
 		assertTrue("test4_1", board.data_.getNumCards_hand() == 0);
@@ -230,7 +230,7 @@ public class TestBloodfenRaptor {
 		board.data_.placeCard_hand_p0(fb);
 		
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode<BoardState> ret = theCard.useOn(0, 1, 1, board, null);
+		HearthTreeNode ret = theCard.useOn(0, 1, 1, board, null);
 		
 		assertTrue("test5_0", ret == null);
 		assertTrue("test5_1", board.data_.getNumCards_hand() == 1);
@@ -250,7 +250,7 @@ public class TestBloodfenRaptor {
 		board.data_.placeCard_hand_p0(fb);
 		
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode<BoardState> ret = theCard.useOn(0, 1, 2, board, null);
+		HearthTreeNode ret = theCard.useOn(0, 1, 2, board, null);
 		
 		assertTrue("test6_0", ret == null);
 		assertTrue("test6_1", board.data_.getNumCards_hand() == 1);
@@ -270,7 +270,7 @@ public class TestBloodfenRaptor {
 		board.data_.placeCard_hand_p0(fb);
 		
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode<BoardState> ret = theCard.useOn(0, 1, 3, board, null);
+		HearthTreeNode ret = theCard.useOn(0, 1, 3, board, null);
 		
 		assertTrue("test7_0", ret == null);
 		assertTrue("test7_1", board.data_.getNumCards_hand() == 1);

@@ -3,8 +3,7 @@ package com.hearthsim.card.minion.concrete;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
-import com.hearthsim.util.BoardState;
-import com.hearthsim.util.HearthTreeNode;
+import com.hearthsim.util.tree.HearthTreeNode;
 
 public class WaterElemental extends Minion {
 
@@ -132,11 +131,11 @@ public class WaterElemental extends Minion {
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	protected HearthTreeNode<BoardState> attack_core(
+	protected HearthTreeNode attack_core(
 			int thisMinionIndex,
 			int playerIndex,
 			int minionIndex,
-			HearthTreeNode<BoardState> boardState,
+			HearthTreeNode boardState,
 			Deck deck)
 		throws HSInvalidPlayerIndexException
 	{
@@ -144,7 +143,7 @@ public class WaterElemental extends Minion {
 			boardState.data_.getHero_p1().setFrozen(true);
 		else
 			boardState.data_.getMinion(playerIndex, minionIndex - 1).setFrozen(true);
-		HearthTreeNode<BoardState> toRet = super.attack_core(thisMinionIndex, playerIndex, minionIndex, boardState, deck);
+		HearthTreeNode toRet = super.attack_core(thisMinionIndex, playerIndex, minionIndex, boardState, deck);
 		return toRet;
 	}
 }

@@ -14,17 +14,17 @@ import com.hearthsim.card.spellcard.concrete.Sap;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
-import com.hearthsim.util.HearthTreeNode;
+import com.hearthsim.util.tree.HearthTreeNode;
 
 public class TestSap {
 
 
-	private HearthTreeNode<BoardState> board;
+	private HearthTreeNode board;
 	private Deck deck;
 
 	@Before
 	public void setup() {
-		board = new HearthTreeNode<BoardState>(new BoardState());
+		board = new HearthTreeNode(new BoardState());
 
 		Minion minion0_0 = new BloodfenRaptor();
 		Minion minion0_1 = new RaidLeader();
@@ -53,7 +53,7 @@ public class TestSap {
 		board.data_.setMaxMana_p0((byte)10);
 		board.data_.setMaxMana_p1((byte)10);
 		
-		HearthTreeNode<BoardState> tmpBoard = new HearthTreeNode<BoardState>(board.data_.flipPlayers());
+		HearthTreeNode tmpBoard = new HearthTreeNode(board.data_.flipPlayers());
 		try {
 			tmpBoard.data_.getCard_hand_p0(0).useOn(0, 0, 1, tmpBoard, deck);
 			tmpBoard.data_.getCard_hand_p0(0).useOn(0, 0, 1, tmpBoard, deck);
@@ -61,7 +61,7 @@ public class TestSap {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		board = new HearthTreeNode<BoardState>(tmpBoard.data_.flipPlayers());
+		board = new HearthTreeNode(tmpBoard.data_.flipPlayers());
 		try {
 			board.data_.getCard_hand_p0(0).useOn(0, 0, 1, board, deck);
 			board.data_.getCard_hand_p0(0).useOn(0, 0, 1, board, deck);
@@ -77,7 +77,7 @@ public class TestSap {
 	public void test0() throws HSInvalidPlayerIndexException {
 		
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode<BoardState> ret = theCard.useOn(0, 0, 0, board, deck);
+		HearthTreeNode ret = theCard.useOn(0, 0, 0, board, deck);
 		
 		assertTrue(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 1);
@@ -102,7 +102,7 @@ public class TestSap {
 	public void test1() throws HSInvalidPlayerIndexException {
 		
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode<BoardState> ret = theCard.useOn(0, 1, 0, board, deck);
+		HearthTreeNode ret = theCard.useOn(0, 1, 0, board, deck);
 		
 		assertTrue(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 1);
@@ -127,7 +127,7 @@ public class TestSap {
 	public void test2() throws HSInvalidPlayerIndexException {
 		
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode<BoardState> ret = theCard.useOn(0, 1, 1, board, deck);
+		HearthTreeNode ret = theCard.useOn(0, 1, 1, board, deck);
 		
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 0);
@@ -153,7 +153,7 @@ public class TestSap {
 	public void test3() throws HSInvalidPlayerIndexException {
 		
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode<BoardState> ret = theCard.useOn(0, 1, 2, board, deck);
+		HearthTreeNode ret = theCard.useOn(0, 1, 2, board, deck);
 		
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 0);
@@ -182,7 +182,7 @@ public class TestSap {
 			board.data_.placeCard_hand_p1(new TheCoin());
 		
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode<BoardState> ret = theCard.useOn(0, 1, 2, board, deck);
+		HearthTreeNode ret = theCard.useOn(0, 1, 2, board, deck);
 		
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 0);

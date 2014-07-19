@@ -9,8 +9,8 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.BoardStateFactory;
-import com.hearthsim.util.HearthTreeNode;
 import com.hearthsim.util.StateFunction;
+import com.hearthsim.util.tree.HearthTreeNode;
 
 public class TestCharge {
 	
@@ -45,7 +45,7 @@ public class TestCharge {
 		board.placeMinion(0, minion);
 		
 		BoardStateFactory factory = new BoardStateFactory(null, 2000000000);
-		HearthTreeNode<BoardState> tree = new HearthTreeNode<BoardState>(board);
+		HearthTreeNode tree = new HearthTreeNode(board);
 		try {
 			tree = factory.doMoves(tree, scoreFunc);			
 		} catch (HSException e) {
@@ -64,7 +64,7 @@ public class TestCharge {
 		board.setMana_p0(1);
 		
 		BoardStateFactory factory = new BoardStateFactory(null);
-		HearthTreeNode<BoardState> tree = new HearthTreeNode<BoardState>(board);
+		HearthTreeNode tree = new HearthTreeNode(board);
 		try {
 			tree = factory.doMoves(tree, scoreFunc);
 		} catch (HSException e) {

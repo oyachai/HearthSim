@@ -4,7 +4,7 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
-import com.hearthsim.util.HearthTreeNode;
+import com.hearthsim.util.tree.HearthTreeNode;
 
 public class AbusiveSergeant extends Minion {
 
@@ -132,28 +132,28 @@ public class AbusiveSergeant extends Minion {
 	 */
 
 	@Override
-	public HearthTreeNode<BoardState> useOn(
+	public HearthTreeNode useOn(
 			int thisCardIndex,
 			int playerIndex,
 			int minionIndex,
-			HearthTreeNode<BoardState> boardState,
+			HearthTreeNode boardState,
 			Deck deck)
 		throws HSInvalidPlayerIndexException
 	{
 		//A generic card does nothing except for consuming mana
-		HearthTreeNode<BoardState> toRet = super.useOn(thisCardIndex, playerIndex, minionIndex, boardState, deck);
+		HearthTreeNode toRet = super.useOn(thisCardIndex, playerIndex, minionIndex, boardState, deck);
 		
 		if (toRet != null) {
 			for (int index = 0; index < boardState.data_.getNumMinions_p0(); ++index) {
 				if (index != minionIndex - 1) {
-					HearthTreeNode<BoardState> newState = boardState.addChild(new HearthTreeNode<BoardState>((BoardState)boardState.data_.deepCopy()));
+					HearthTreeNode newState = boardState.addChild(new HearthTreeNode((BoardState)boardState.data_.deepCopy()));
 					newState.data_.getMinion_p0(index).setExtraAttackUntilTurnEnd(((byte)(newState.data_.getMinion_p0(index).getExtraAttackUntilTurnEnd() + 2)));
 				}
 			}
 			
 			for (int index = 0; index < boardState.data_.getNumMinions_p1(); ++index) {
 				if (index != minionIndex - 1) {
-					HearthTreeNode<BoardState> newState = boardState.addChild(new HearthTreeNode<BoardState>((BoardState)boardState.data_.deepCopy()));
+					HearthTreeNode newState = boardState.addChild(new HearthTreeNode((BoardState)boardState.data_.deepCopy()));
 					newState.data_.getMinion_p1(index).setExtraAttackUntilTurnEnd(((byte)(newState.data_.getMinion_p1(index).getExtraAttackUntilTurnEnd() + 2)));
 				}
 			}

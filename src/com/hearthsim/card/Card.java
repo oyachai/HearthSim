@@ -3,7 +3,8 @@ package com.hearthsim.card;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.DeepCopyable;
-import com.hearthsim.util.HearthTreeNode;
+import com.hearthsim.util.StateFunction;
+import com.hearthsim.util.tree.HearthTreeNode;
 import com.json.*;
 
 public class Card implements DeepCopyable {
@@ -178,16 +179,16 @@ public class Card implements DeepCopyable {
 	 * 
 	 * @return The boardState is manipulated and returned
 	 */
-	public HearthTreeNode<BoardState> useOn(
+	public HearthTreeNode useOn(
 			int thisCardIndex,
 			int playerIndex,
 			int minionIndex,
-			HearthTreeNode<BoardState> boardState,
+			HearthTreeNode boardState,
 			Deck deck)
 		throws HSInvalidPlayerIndexException
 	{
 		//A generic card does nothing except for consuming mana
-		HearthTreeNode<BoardState> toRet = this.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
+		HearthTreeNode toRet = this.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
 
 		//Notify all other cards/characters of the card's use
 		if (toRet != null) {
@@ -219,11 +220,11 @@ public class Card implements DeepCopyable {
 	 * 
 	 * @return The boardState is manipulated and returned
 	 */
-	protected HearthTreeNode<BoardState> use_core(
+	protected HearthTreeNode use_core(
 			int thisCardIndex,
 			int playerIndex,
 			int minionIndex,
-			HearthTreeNode<BoardState> boardState,
+			HearthTreeNode boardState,
 			Deck deck)
 		throws HSInvalidPlayerIndexException
 	{
@@ -233,6 +234,31 @@ public class Card implements DeepCopyable {
 		return boardState;
 	}
 	
+	
+	/**
+	 * 
+	 * Get the expected value of the card if used on the position
+	 * 
+	 * @param thisCardIndex The index (position) of the card in the hand
+	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
+	 * @param minionIndex The index of the target minion.
+	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+	 * @param deck The initiating player's deck
+	 * @param scoreFunc The scoring function
+	 * 
+	 * @return The expected score
+	 */
+	public double getExpectedScoreIfUsed(
+			int thisCardIndex,
+			int playerIndex,
+			int minionIndex,
+			HearthTreeNode boardState,
+			Deck deck,
+			StateFunction<BoardState> scoreFunc)
+		throws HSInvalidPlayerIndexException
+	{
+		return 0.0;
+	}
 	
 	
 	//======================================================================================
@@ -249,7 +275,7 @@ public class Card implements DeepCopyable {
 	 * 
 	 * @return The boardState is manipulated and returned
 	 */
-	public HearthTreeNode<BoardState> otherCardUsedEvent(int thisCardIndex, HearthTreeNode<BoardState> boardState, Deck deck) {
+	public HearthTreeNode otherCardUsedEvent(int thisCardIndex, HearthTreeNode boardState, Deck deck) {
 		return boardState;
 	}
 

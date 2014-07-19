@@ -17,17 +17,17 @@ import com.hearthsim.card.spellcard.concrete.WildGrowth;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
-import com.hearthsim.util.HearthTreeNode;
+import com.hearthsim.util.tree.HearthTreeNode;
 
 public class TestPriest {
 
 
-	private HearthTreeNode<BoardState> board;
+	private HearthTreeNode board;
 	private Deck deck;
 
 	@Before
 	public void setup() {
-		board = new HearthTreeNode<BoardState>(new BoardState(new Priest(), new Hero()));
+		board = new HearthTreeNode(new BoardState(new Priest(), new Hero()));
 
 		Minion minion0_0 = new BoulderfistOgre();
 		Minion minion0_1 = new RaidLeader();
@@ -56,7 +56,7 @@ public class TestPriest {
 		board.data_.setMaxMana_p0((byte)8);
 		board.data_.setMaxMana_p1((byte)8);
 		
-		HearthTreeNode<BoardState> tmpBoard = new HearthTreeNode<BoardState>(board.data_.flipPlayers());
+		HearthTreeNode tmpBoard = new HearthTreeNode(board.data_.flipPlayers());
 		try {
 			tmpBoard.data_.getCard_hand_p0(0).useOn(0, 0, 1, tmpBoard, deck);
 			tmpBoard.data_.getCard_hand_p0(0).useOn(0, 0, 1, tmpBoard, deck);
@@ -64,7 +64,7 @@ public class TestPriest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		board = new HearthTreeNode<BoardState>(tmpBoard.data_.flipPlayers());
+		board = new HearthTreeNode(tmpBoard.data_.flipPlayers());
 		try {
 			board.data_.getCard_hand_p0(0).useOn(0, 0, 1, board, deck);
 			board.data_.getCard_hand_p0(0).useOn(0, 0, 1, board, deck);
@@ -83,7 +83,7 @@ public class TestPriest {
 		//null case
 		
 		Minion minion = board.data_.getMinion_p0(0);
-		HearthTreeNode<BoardState> ret = minion.attack(0, 1, 0, board, deck);
+		HearthTreeNode ret = minion.attack(0, 1, 0, board, deck);
 		
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 1);

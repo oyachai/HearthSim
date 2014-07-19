@@ -5,9 +5,8 @@ import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.SilverHandRecruit;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.util.BoardState;
 import com.hearthsim.util.DeepCopyable;
-import com.hearthsim.util.HearthTreeNode;
+import com.hearthsim.util.tree.HearthTreeNode;
 
 public class Paladin extends Hero {
 
@@ -65,18 +64,18 @@ public class Paladin extends Hero {
 	 * @return
 	 */
 	@Override
-	public HearthTreeNode<BoardState> useHeroAbility(
+	public HearthTreeNode useHeroAbility(
 			int thisPlayerIndex,
 			int targetPlayerIndex,
 			int targetMinionIndex,
-			HearthTreeNode<BoardState> boardState,
+			HearthTreeNode boardState,
 			Deck deck)
 		throws HSException
 	{
 		if (boardState.data_.getNumMinions_p0() >= 7)
 			return null;
 
-		HearthTreeNode<BoardState> toRet = super.useHeroAbility(thisPlayerIndex, targetPlayerIndex, targetMinionIndex, boardState, deck);
+		HearthTreeNode toRet = super.useHeroAbility(thisPlayerIndex, targetPlayerIndex, targetMinionIndex, boardState, deck);
 
 		if (toRet != null) {
 			if (targetMinionIndex == 0 && targetPlayerIndex == 0) {

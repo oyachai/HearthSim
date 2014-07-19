@@ -1,35 +1,41 @@
-package com.hearthsim.util;
+package com.hearthsim.util.tree;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.hearthsim.card.Card;
+import com.hearthsim.card.minion.Minion;
+import com.hearthsim.util.BoardState;
+import com.hearthsim.util.StateFunction;
 
 /**
  * A tree that keeps track of possible game states
  *
  */
-public class HearthTreeNode<T> {
+public class HearthTreeNode {
 
-	public final T data_;
+	public final BoardState data_;
 	double score_;
 	int numNodesTried_;
 	
-	HearthTreeNode<T> parent_;
-	List<HearthTreeNode<T>> children_;
+	HearthTreeNode parent_;
+	List<HearthTreeNode> children_;
 	
 	private class NodeValPair {
-		public final HearthTreeNode<T> node_;
+		public final HearthTreeNode node_;
 		public final double value_;
 		
-		NodeValPair(HearthTreeNode<T> node, double value) {
+		NodeValPair(HearthTreeNode node, double value) {
 			node_ = node;
 			value_ = value;
 		}
 	}
-	public HearthTreeNode(T data) {
+	
+	public HearthTreeNode(BoardState data) {
 		this(data, 0.0);
 	}
 	
-	public HearthTreeNode(T data, double score) {
+	public HearthTreeNode(BoardState data, double score) {
 		data_ = data;
 		score_ = score;
 		parent_ = null;
@@ -51,27 +57,27 @@ public class HearthTreeNode<T> {
 	public void setScore(double value) {
 		score_ = value;
 	}
-	
-	public HearthTreeNode<T> addChild(T childData, double score) {
-		HearthTreeNode<T> childNode = new HearthTreeNode<T>(childData, score);
+
+	public HearthTreeNode addChild(BoardState childData, double score) {
+		HearthTreeNode childNode = new HearthTreeNode(childData, score);
 		childNode.parent_ = this;
 		if (children_ == null) {
-			children_ = new ArrayList<HearthTreeNode<T>>();
+			children_ = new ArrayList<HearthTreeNode>();
 		}
 		children_.add(childNode);
 		return childNode;
 	}
 	
-	public HearthTreeNode<T> addChild(HearthTreeNode<T> node) {
+	public HearthTreeNode addChild(HearthTreeNode node) {
 		node.parent_ = this;
 		if (children_ == null) {
-			children_ = new ArrayList<HearthTreeNode<T>>();
+			children_ = new ArrayList<HearthTreeNode>();
 		}
 		children_.add(node);
 		return node;
 	}
 	
-	public List<HearthTreeNode<T>> getChildren() {
+	public List<HearthTreeNode> getChildren() {
 		return children_;
 	}
 	
@@ -93,18 +99,18 @@ public class HearthTreeNode<T> {
 	 * @param func Function to apply to each node
 	 * @return
 	 */
-	public HearthTreeNode<T> findMaxOfFunc(StateFunction<T> func) {
+	public HearthTreeNode findMaxOfFunc(StateFunction<BoardState> func) {
 		NodeValPair nvp = this.findMaxOfFuncImpl(func);
 		return nvp.node_;
 	}
 	
-	private NodeValPair findMaxOfFuncImpl(StateFunction<T> func) {
+	private NodeValPair findMaxOfFuncImpl(StateFunction<BoardState> func) {
 		if (this.isLeaf())
 			return new NodeValPair(this, func.apply(this.data_));
 
 		NodeValPair maxNode = null;
 		double maxSoFar = -1.e300;
-		for (final HearthTreeNode<T> child : children_) {
+		for (final HearthTreeNode child : children_) {
 			NodeValPair maxOfChild = child.findMaxOfFuncImpl(func);
 			if (maxOfChild.value_ > maxSoFar) {
 				maxSoFar = maxOfChild.value_;
@@ -129,7 +135,7 @@ public class HearthTreeNode<T> {
 		toRet = toRet + "\"children\": [";
 		if (children_ != null) {
 			boolean hasContent = false;
-			for (final HearthTreeNode<T> child : children_) {
+			for (final HearthTreeNode child : children_) {
 				toRet = toRet + child + ", ";
 				hasContent = true;
 			}

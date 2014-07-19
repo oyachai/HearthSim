@@ -7,8 +7,7 @@ import com.hearthsim.card.minion.concrete.Leokk;
 import com.hearthsim.card.minion.concrete.Misha;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
-import com.hearthsim.util.BoardState;
-import com.hearthsim.util.HearthTreeNode;
+import com.hearthsim.util.tree.HearthTreeNode;
 
 public class AnimalCompanion extends SpellCard {
 
@@ -50,11 +49,11 @@ public class AnimalCompanion extends SpellCard {
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	protected HearthTreeNode<BoardState> use_core(
+	protected HearthTreeNode use_core(
 			int thisCardIndex,
 			int playerIndex,
 			int minionIndex,
-			HearthTreeNode<BoardState> boardState,
+			HearthTreeNode boardState,
 			Deck deck)
 		throws HSInvalidPlayerIndexException
 	{
@@ -77,7 +76,7 @@ public class AnimalCompanion extends SpellCard {
 		}
 		boardState.data_.setMana_p0(boardState.data_.getMana_p0() + 3);
 		boardState.data_.placeCard_hand_p0(minion);
-		HearthTreeNode<BoardState> toRet = minion.useOn(boardState.data_.getNumCards_hand() - 1, playerIndex, numMinions + 1, boardState, deck);
+		HearthTreeNode toRet = minion.useOn(boardState.data_.getNumCards_hand() - 1, playerIndex, numMinions + 1, boardState, deck);
 		
 		return super.use_core(thisCardIndex, playerIndex, minionIndex, toRet, deck);
 	}

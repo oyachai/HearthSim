@@ -2,8 +2,7 @@ package com.hearthsim.card.spellcard;
 
 import com.hearthsim.card.Deck;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
-import com.hearthsim.util.BoardState;
-import com.hearthsim.util.HearthTreeNode;
+import com.hearthsim.util.tree.HearthTreeNode;
 
 public class WeaponCard extends SpellCard {
 
@@ -61,11 +60,11 @@ public class WeaponCard extends SpellCard {
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	protected HearthTreeNode<BoardState> use_core(
+	protected HearthTreeNode use_core(
 			int thisCardIndex,
 			int playerIndex,
 			int minionIndex,
-			HearthTreeNode<BoardState> boardState,
+			HearthTreeNode boardState,
 			Deck deck)
 		throws HSInvalidPlayerIndexException
 	{
@@ -78,7 +77,7 @@ public class WeaponCard extends SpellCard {
 			return null;
 		}
 		
-		HearthTreeNode<BoardState> toRet = boardState;
+		HearthTreeNode toRet = boardState;
 		if (toRet != null) {
 			toRet.data_.getHero_p0().setAttack(this.weaponDamage_);
 			toRet.data_.getHero_p0().setWeaponCharge(this.weaponCharge_);

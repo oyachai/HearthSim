@@ -17,16 +17,16 @@ import com.hearthsim.card.minion.concrete.ScarletCrusader;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
-import com.hearthsim.util.HearthTreeNode;
+import com.hearthsim.util.tree.HearthTreeNode;
 
 public class TestAbusiveSergeant {
 
-	private HearthTreeNode<BoardState> board;
+	private HearthTreeNode board;
 	private Deck deck;
 
 	@Before
 	public void setup() {
-		board = new HearthTreeNode<BoardState>(new BoardState());
+		board = new HearthTreeNode(new BoardState());
 
 		Minion minion0_0 = new BoulderfistOgre();
 		Minion minion0_1 = new RaidLeader();
@@ -57,7 +57,7 @@ public class TestAbusiveSergeant {
 		board.data_.setMaxMana_p0((byte)8);
 		board.data_.setMaxMana_p1((byte)8);
 		
-		HearthTreeNode<BoardState> tmpBoard = new HearthTreeNode<BoardState>(board.data_.flipPlayers());
+		HearthTreeNode tmpBoard = new HearthTreeNode(board.data_.flipPlayers());
 		try {
 			tmpBoard.data_.getCard_hand_p0(0).useOn(0, 0, 1, tmpBoard, deck);
 			tmpBoard.data_.getCard_hand_p0(0).useOn(0, 0, 1, tmpBoard, deck);
@@ -66,7 +66,7 @@ public class TestAbusiveSergeant {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		board = new HearthTreeNode<BoardState>(tmpBoard.data_.flipPlayers());
+		board = new HearthTreeNode(tmpBoard.data_.flipPlayers());
 		try {
 			board.data_.getCard_hand_p0(0).useOn(0, 0, 1, board, deck);
 			board.data_.getCard_hand_p0(0).useOn(0, 0, 1, board, deck);
@@ -86,7 +86,7 @@ public class TestAbusiveSergeant {
 		
 		//null case
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode<BoardState> ret = theCard.useOn(0, 1, 0, board, deck);
+		HearthTreeNode ret = theCard.useOn(0, 1, 0, board, deck);
 		
 		assertTrue(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 1);
@@ -116,7 +116,7 @@ public class TestAbusiveSergeant {
 		
 		//null case
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode<BoardState> ret = theCard.useOn(0, 0, 0, board, deck);
+		HearthTreeNode ret = theCard.useOn(0, 0, 0, board, deck);
 		
 		assertTrue(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 1);
@@ -145,7 +145,7 @@ public class TestAbusiveSergeant {
 	public void test2() throws HSInvalidPlayerIndexException {
 		
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode<BoardState> ret = theCard.useOn(0, 0, 3, board, deck);
+		HearthTreeNode ret = theCard.useOn(0, 0, 3, board, deck);
 		
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 0);
@@ -179,7 +179,7 @@ public class TestAbusiveSergeant {
 		assertEquals(board.getChildren().get(3).data_.getMinion_p1(1).getExtraAttackUntilTurnEnd(), 2);
 		
 		//make sure that the extra attack is working!
-		HearthTreeNode<BoardState> child1 = board.getChildren().get(0);
+		HearthTreeNode child1 = board.getChildren().get(0);
 		Minion minion = child1.data_.getMinion_p0(0);
 		minion.attack(1, 1, 0, child1, deck);
 		assertEquals(child1.data_.getNumCards_hand(), 0);
