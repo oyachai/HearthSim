@@ -248,15 +248,17 @@ public class BoardStateFactory {
 			double tmpScore = -1.e300;
 			int tmpNumNodesTried = 0;
 			Iterator<HearthTreeNode> iter = boardStateNode.getChildren().iterator();
+			HearthTreeNode bestBranch = null;
 			while (iter.hasNext()) {
 				HearthTreeNode child = iter.next();
 				tmpNumNodesTried += child.getNumNodesTried();
 				if (child.getScore() > tmpScore) {
 					tmpScore = child.getScore();
-				} else {
-					iter.remove();
+					bestBranch = child;
 				}
 			}
+			boardStateNode.clearChildren();
+			boardStateNode.addChild(bestBranch);
 			boardStateNode.setScore(tmpScore);
 			boardStateNode.setNumNodesTries(tmpNumNodesTried);
 		}

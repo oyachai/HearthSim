@@ -77,6 +77,10 @@ public class HearthTreeNode {
 		return node;
 	}
 	
+	public void clearChildren() {
+		children_.clear();
+	}
+	
 	public List<HearthTreeNode> getChildren() {
 		return children_;
 	}
