@@ -113,13 +113,39 @@ public class TestHolyNova {
 		assertEquals(board.data_.getHero_p1().getHealth(), 28);
 		assertEquals(board.data_.getMinion_p0(0).getHealth(), health0);
 		assertEquals(board.data_.getMinion_p0(1).getHealth(), health1);
-		assertEquals(board.data_.getMinion_p1(0).getHealth(), health0- 2);
+		assertEquals(board.data_.getMinion_p1(0).getHealth(), health0 - 2);
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), health1 - 1 - 2);
 
 		assertEquals(board.data_.getMinion_p0(0).getAttack(), attack0);
 		assertEquals(board.data_.getMinion_p0(1).getAttack(), attack0);
 		assertEquals(board.data_.getMinion_p1(0).getAttack(), attack0);
 		assertEquals(board.data_.getMinion_p1(1).getAttack(), attack0);
+	}
+
+	@Test
+	public void test3() throws HSInvalidPlayerIndexException {
+		
+		board.data_.getHero_p0().setHealth((byte)23);
+		board.data_.getMinion_p1(0).setHealth((byte)(board.data_.getMinion_p1(0).getHealth() - 1));
+		
+		Card theCard = board.data_.getCard_hand_p0(0);
+		HearthTreeNode ret = theCard.useOn(0, 1, 0, board, deck);
+		
+		assertFalse(ret == null);
+		assertEquals(board.data_.getNumCards_hand(), 0);
+		assertEquals(board.data_.getNumMinions_p0(), 2);
+		assertEquals(board.data_.getNumMinions_p1(), 1);
+		assertEquals(board.data_.getMana_p0(), 2);
+		assertEquals(board.data_.getMana_p1(), 4);
+		assertEquals(board.data_.getHero_p0().getHealth(), 25);
+		assertEquals(board.data_.getHero_p1().getHealth(), 28);
+		assertEquals(board.data_.getMinion_p0(0).getHealth(), health0);
+		assertEquals(board.data_.getMinion_p0(1).getHealth(), health1);
+		assertEquals(board.data_.getMinion_p1(0).getHealth(), health1 - 1 - 2);
+
+		assertEquals(board.data_.getMinion_p0(0).getAttack(), attack0);
+		assertEquals(board.data_.getMinion_p0(1).getAttack(), attack0);
+		assertEquals(board.data_.getMinion_p1(0).getAttack(), attack0);
 	}
 
 }
