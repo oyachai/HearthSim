@@ -2,7 +2,6 @@ package com.hearthsim.util.tree;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.util.BoardState;
 
 /**
  * A tree node that stops AI from picking the "best" outcome from its branches. 
@@ -18,8 +17,11 @@ public abstract class StopNode extends HearthTreeNode {
 	public final int targetMinionIndex_;
 	
 	
-	public StopNode(BoardState data, double score, Card cardUsed, int usedCardPlayerIndex, int usedCardIndex, int targetPlayerIndex, int targetMinionIndex) {
-		super(data, score);
+	public StopNode(HearthTreeNode origNode, Card cardUsed, int usedCardPlayerIndex, int usedCardIndex, int targetPlayerIndex, int targetMinionIndex) {
+		super(origNode.data_, origNode.score_);
+		children_ = origNode.children_;
+		numNodesTried_ = origNode.numNodesTried_;
+		
 		cardUsed_ = cardUsed;
 		minionAttackedWith_ = null;
 		usedCardPlayerIndex_ = usedCardPlayerIndex;
@@ -28,8 +30,11 @@ public abstract class StopNode extends HearthTreeNode {
 		targetMinionIndex_ = targetMinionIndex;
 	}
 	
-	public StopNode(BoardState data, double score, Minion minionAttackedWith, int usedCardPlayerIndex, int usedCardIndex, int targetPlayerIndex, int targetMinionIndex) {
-		super(data, score);
+	public StopNode(HearthTreeNode origNode, Minion minionAttackedWith, int usedCardPlayerIndex, int usedCardIndex, int targetPlayerIndex, int targetMinionIndex) {
+		super(origNode.data_, origNode.score_);
+		children_ = origNode.children_;
+		numNodesTried_ = origNode.numNodesTried_;
+		
 		cardUsed_ = null;
 		minionAttackedWith_ = minionAttackedWith;
 		usedCardPlayerIndex_ = usedCardPlayerIndex;

@@ -79,6 +79,10 @@ public class HearthTreeNode {
 		return children_;
 	}
 	
+	public void setChildren(List<HearthTreeNode> children) {
+		children_ = children;
+	}
+	
 	public int numChildren() {
 		if (children_ == null)
 			return 0;
