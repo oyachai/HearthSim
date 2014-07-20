@@ -16,7 +16,6 @@ public class HearthTreeNode {
 	double score_;
 	int numNodesTried_;
 	
-	HearthTreeNode parent_;
 	List<HearthTreeNode> children_;
 	
 	private class NodeValPair {
@@ -36,7 +35,6 @@ public class HearthTreeNode {
 	public HearthTreeNode(BoardState data, double score) {
 		data_ = data;
 		score_ = score;
-		parent_ = null;
 		children_ = null;
 	}
 	
@@ -58,7 +56,6 @@ public class HearthTreeNode {
 
 	public HearthTreeNode addChild(BoardState childData, double score) {
 		HearthTreeNode childNode = new HearthTreeNode(childData, score);
-		childNode.parent_ = this;
 		if (children_ == null) {
 			children_ = new ArrayList<HearthTreeNode>();
 		}
@@ -67,7 +64,6 @@ public class HearthTreeNode {
 	}
 	
 	public HearthTreeNode addChild(HearthTreeNode node) {
-		node.parent_ = this;
 		if (children_ == null) {
 			children_ = new ArrayList<HearthTreeNode>();
 		}
