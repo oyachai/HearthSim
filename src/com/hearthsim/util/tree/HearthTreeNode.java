@@ -3,8 +3,6 @@ package com.hearthsim.util.tree;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.hearthsim.card.Card;
-import com.hearthsim.card.minion.Minion;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.StateFunction;
 
