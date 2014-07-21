@@ -734,6 +734,10 @@ public class BoardState implements DeepCopyable {
 	 * 
 	 */
 	public void resetMinions() {
+		p0_hero_.hasAttacked(false);
+		p0_hero_.hasBeenUsed(false);
+		p1_hero_.hasAttacked(false);
+		p1_hero_.hasBeenUsed(false);
 		for (Minion minion : p0_minions_) {
 			minion.hasAttacked(false);
 			minion.hasBeenUsed(false);

@@ -22,7 +22,7 @@ public class Game {
 		players_ = new Player[2];
 		players_[0] = player0;
 		players_[1] = player1;
-		boardState_ = new BoardState();
+		boardState_ = new BoardState(player0.hero_, player1.hero_);
 		gms_ = new GameMaster[2];
 		gms_[0] = new GameMaster(ai0);
 		gms_[1] = new GameMaster(ai1);

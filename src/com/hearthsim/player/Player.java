@@ -9,7 +9,7 @@ import com.hearthsim.exception.HSException;
 public class Player {
 
 	String name_;
-	Hero hero_;
+	public final Hero hero_;
 	Hand hand_;
 	final Deck deck_;
 	int mana_;
