@@ -84,7 +84,7 @@ public class BoardStateFactory {
 		
 		if (boardStateNode.numChildren() > 0) {
 			//If this node already has children, just call doMoves on each of its children.
-			//This situation can happen, for example, atfer a battle cry
+			//This situation can happen, for example, after a battle cry
 			for (HearthTreeNode child : boardStateNode.getChildren()) {
 				this.doMoves(child, scoreFunc);
 			}
@@ -106,7 +106,7 @@ public class BoardStateFactory {
 			//-----------------------------------------------------------------------------------------
 			boolean heroAbilityUsable = false;
 			if (!boardStateNode.data_.getHero_p0().hasBeenUsed()) {
-				//Case0: Decided to use the hero ability -- Use it on everthing!
+				//Case0: Decided to use the hero ability -- Use it on everything!
 				for(int i = 0; i <= boardStateNode.data_.getNumMinions_p0(); ++i) {
 					HearthTreeNode newState = new HearthTreeNode((BoardState)boardStateNode.data_.deepCopy());
 					newState = newState.data_.getHero_p0().useHeroAbility(0, 0, i, newState, deck_);
