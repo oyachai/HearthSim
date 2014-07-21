@@ -113,6 +113,9 @@ public class ArtificialPlayer implements StateFunction<BoardState> {
 		
 		my_wDivineShield_ = my_wDivineShield;
 		enemy_wDivineShield_ = enemy_wDivineShield;
+		
+		my_wWeapon_ = 0.5;
+		enemy_wWeapon_ = 0.5;
 	}
 	
 	/**
@@ -149,8 +152,8 @@ public class ArtificialPlayer implements StateFunction<BoardState> {
 			enemy_wDivineShield_ = pFile.getDouble("wt_divine_shield", 0.0);
 			
 			//weapon score for the hero
-			my_wWeapon_ = pFile.getDouble("w_weapon", 0.0);
-			enemy_wWeapon_ = pFile.getDouble("wt_weapon", 0.0);
+			my_wWeapon_ = pFile.getDouble("w_weapon", 0.5);
+			enemy_wWeapon_ = pFile.getDouble("wt_weapon", 0.5);
 			
 			//charge model score
 			my_wCharge_ = pFile.getDouble("w_charge", 0.0);
@@ -265,15 +268,15 @@ public class ArtificialPlayer implements StateFunction<BoardState> {
 		BoardStateFactory factory = new BoardStateFactory(player.getDeck());
 		HearthTreeNode allMoves = factory.doMoves(toRet, this);
 
-//		System.out.print("turn = " + turn + ", p = " + player.getName() + ", nHand = " + board.getNumCards_hand() + ", nMinion = " + board.getNumMinions_p0() + ", nEnemyMinion = " + board.getNumMinions_p1());
-//		System.out.flush();
+		System.out.print("turn = " + turn + ", p = " + player.getName() + ", nHand = " + board.getNumCards_hand() + ", nMinion = " + board.getNumMinions_p0() + ", nEnemyMinion = " + board.getNumMinions_p1());
+		System.out.flush();
 		
 		HearthTreeNode bestPlay = allMoves.findMaxOfFunc(this);
 
-//		System.out.print(", number of nodes = " + allMoves.numLeaves() + ", playerHealth = " + bestPlay.data_.getHero_p0().getHealth() + ", rMinion = " + bestPlay.data_.getNumMinions_p0() + ", eMinion = " + bestPlay.data_.getNumMinions_p1());
-//		if (factory.didTimeOut())
-//			System.out.print(", tO");
-//		System.out.println();
+		System.out.print(", number of nodes = " + allMoves.numLeaves() + ", playerHealth = " + bestPlay.data_.getHero_p0().getHealth() + ", rMinion = " + bestPlay.data_.getNumMinions_p0() + ", eMinion = " + bestPlay.data_.getNumMinions_p1());
+		if (factory.didTimeOut())
+			System.out.print(", tO");
+		System.out.println();
 		
 		return bestPlay.data_;
 	}

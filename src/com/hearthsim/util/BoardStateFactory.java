@@ -201,7 +201,7 @@ public class BoardStateFactory {
 	
 			//Use the minions that we have out on the board
 			//the case where I choose to not use any more minions
-			boolean allAttacked = true;
+			boolean allAttacked = boardStateNode.data_.getHero_p0().hasAttacked();
 			for ( final Minion minion : boardStateNode.data_.getMinions_p0()) {
 				allAttacked = allAttacked && minion.hasAttacked();
 			}
@@ -211,9 +211,28 @@ public class BoardStateFactory {
 				for (Minion minion : newState.data_.getMinions_p0()) {
 					minion.hasAttacked(true);
 				}
+				newState.data_.getHero_p0().hasAttacked(true);
 				newState = this.doMoves(newState, scoreFunc);
 				if (newState != null) boardStateNode.addChild(newState);
 			}
+			//attack with hero if possible
+			if (!boardStateNode.data_.getHero_p0().hasAttacked() && (boardStateNode.data_.getHero_p0().getAttack() + boardStateNode.data_.getHero_p0().getExtraAttackUntilTurnEnd()) > 0) {
+				ArrayList<Integer> attackable = boardStateNode.data_.getAttackableMinions_p1();
+				for(final Integer integer : attackable) {
+					int i = integer.intValue();
+					HearthTreeNode newState = new HearthTreeNode((BoardState)boardStateNode.data_.deepCopy());
+					newState = newState.data_.getHero_p0().attack(0, 1, i, newState, deck_);
+					if (newState != null) {
+						if (newState instanceof StopNode) {
+							
+						} else {
+							newState = this.doMoves(newState, scoreFunc);
+							if (newState != null) boardStateNode.addChild(newState);
+						}
+					}
+				}				
+			}
+			//attack with minion
 			for (int ic = 1; ic < boardStateNode.data_.getNumMinions_p0() + 1; ++ic) {
 				final Minion minion = boardStateNode.data_.getMinion_p0(ic-1);
 				if (minion.hasAttacked()) {

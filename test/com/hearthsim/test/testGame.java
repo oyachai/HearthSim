@@ -10,8 +10,7 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.card.minion.heroes.Mage;
-import com.hearthsim.card.minion.heroes.Priest;
+import com.hearthsim.card.minion.heroes.*;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.player.Player;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
@@ -23,9 +22,9 @@ public class testGame {
 	public void testGame0() {
 		
 		int numCardsInDeck_ = 30;
-		byte minionAttack = 5;
+		byte minionAttack = 3;
 		byte minionHealth = 4;
-		byte minionMana = 2;
+		byte minionMana = 3;
 		
 		int numTaunts_ = 30;
 		
@@ -50,8 +49,8 @@ public class testGame {
 		}
 		
 
-		Hero hero1 = new Mage();
-		Hero hero2 = new Priest();
+		Hero hero1 = new Rogue();
+		Hero hero2 = new Mage();
 		
 		Deck deck1 = new Deck(cards1_);
 		Deck deck2 = new Deck(cards2_);
