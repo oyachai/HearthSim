@@ -13,7 +13,7 @@ import com.hearthsim.exception.HSInvalidPlayerIndexException;
 
 
 public class BoardState implements DeepCopyable {
-	
+		
 	LinkedList<Minion> p0_minions_;
 	LinkedList<Minion> p1_minions_;
 	

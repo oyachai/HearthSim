@@ -18,10 +18,10 @@ import com.hearthsim.io.ParamFile;
 import com.hearthsim.player.Player;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.BoardStateFactory;
-import com.hearthsim.util.StateFunction;
 import com.hearthsim.util.tree.HearthTreeNode;
+import com.hearthsim.util.tree.StopNode;
 
-public class ArtificialPlayer implements StateFunction<BoardState> {
+public class ArtificialPlayer {
 	
 	int nLookahead_;
 	
@@ -165,9 +165,44 @@ public class ArtificialPlayer implements StateFunction<BoardState> {
 		}
 	}
 	
-	@Override
-	public double apply(BoardState board) {
-		return this.boardScore(board);
+	
+	/**
+	 * Returns the card score for a particular card assuming that it is in the hand
+	 * 
+	 * @param card
+	 * @return
+	 */
+	public double cardInHandScore(Card card) {
+		double theScore = 0.0;
+		if (card instanceof SpellDamage)
+			theScore += ((SpellDamage)card).getAttack() * wSd_mult_ + wSd_add_;
+		else if (card instanceof Minion) {
+			//Charge modeling.  Charge's value primarily comes from the fact that it can be used immediately upon placing it.
+			//After the card is placed, it's really just like any other minion, except maybe for small value in bouncing it.
+			//So, the additional score for charge minions should really only apply when it is still in the hand.
+			Minion minion = (Minion)card;
+			theScore += card.getMana() * wMana_ + (minion.getCharge() ? my_wCharge_ : 0.0);
+		} else
+			theScore += card.getMana() * wMana_;
+		return theScore;
+	}
+	
+	public double heroHealthScore_p0(double heroHealth, double heroArmor) {
+		double toRet = my_wHeroHealth_ * (heroHealth + heroArmor);
+		if (heroHealth <= 0) {
+			//dead enemy hero is a very good thing
+			toRet -= 100000000.0;
+		}
+		return toRet;
+	}
+	
+	public double heroHealthScore_p1(double heroHealth, double heroArmor) {
+		double toRet = enemy_wHeroHealth_ * (heroHealth + heroArmor);
+		if (heroHealth <= 0) {
+			//dead enemy hero is a very good thing
+			toRet += 100000.0;
+		}
+		return toRet;
 	}
 	
 	/**
@@ -214,32 +249,13 @@ public class ArtificialPlayer implements StateFunction<BoardState> {
 		//my cards.  The more cards that I have, the better
 		double handScore = 0.0;
 		for (final Card card: myHandCards) {
-			if (card instanceof SpellDamage)
-				handScore += ((SpellDamage)card).getAttack() * wSd_mult_ + wSd_add_;
-			else if (card instanceof Minion) {
-				//Charge modeling.  Charge's value primarily comes from the fact that it can be used immediately upon placing it.
-				//After the card is placed, it's really just like any other minion, except maybe for small value in bouncing it.
-				//So, the additional score for charge minions should really only apply when it is still in the hand.
-				Minion minion = (Minion)card;
-				handScore += card.getMana() * wMana_ + (minion.getCharge() ? my_wCharge_ : 0.0);
-			} else
-				handScore += card.getMana() * wMana_;
+			handScore += this.cardInHandScore(card);
 		}
 		
 		//the more we beat on the opponent hero, the better
 		double heroScore = 0;
-		heroScore += my_wHeroHealth_ * (board.getHero_p0().getHealth() + board.getHero_p0().getArmor());
-		heroScore -= enemy_wHeroHealth_ * (board.getHero_p1().getHealth() + board.getHero_p1().getArmor());
-		
-		if (board.getHero_p1().getHealth() <= 0) {
-			//dead enemy hero is a very good thing
-			heroScore += 100000.0;
-		}
-		
-		if (board.getHero_p0().getHealth() <= 0) {
-			//dead own hero is a very bad thing
-			heroScore -= 100000000.0;
-		}
+		heroScore += heroHealthScore_p0(board.getHero_p0().getHealth(), board.getHero_p0().getArmor());
+		heroScore -= heroHealthScore_p1(board.getHero_p1().getHealth(), board.getHero_p1().getArmor());
 		
 		//the more minions you have, the better.  The less minions the enemy has, the better
 		double minionScore = 0.0;
@@ -265,18 +281,23 @@ public class ArtificialPlayer implements StateFunction<BoardState> {
 	public BoardState playTurn(int turn, BoardState board, Player player) throws HSException {
 		//The goal of this ai is to maximize his board score
 		HearthTreeNode toRet = new HearthTreeNode(board);
-		BoardStateFactory factory = new BoardStateFactory(player.getDeck());
+		BoardStateFactory factory = new BoardStateFactory(player.getDeck(), 2000000000);
 		HearthTreeNode allMoves = factory.doMoves(toRet, this);
 
-		System.out.print("turn = " + turn + ", p = " + player.getName() + ", nHand = " + board.getNumCards_hand() + ", nMinion = " + board.getNumMinions_p0() + ", nEnemyMinion = " + board.getNumMinions_p1());
-		System.out.flush();
+//		System.out.print("turn = " + turn + ", p = " + player.getName() + ", nHand = " + board.getNumCards_hand() + ", nMinion = " + board.getNumMinions_p0() + ", nEnemyMinion = " + board.getNumMinions_p1());
+//		System.out.flush();
 		
 		HearthTreeNode bestPlay = allMoves.findMaxOfFunc(this);
+		while( bestPlay instanceof StopNode ) {
+			HearthTreeNode allEffectsDone = ((StopNode)bestPlay).finishAllEffects(player.getDeck());
+			HearthTreeNode allMovesAtferStopNode = factory.doMoves(allEffectsDone, this);
+			bestPlay = allMovesAtferStopNode.findMaxOfFunc(this);
+		}
 
-		System.out.print(", number of nodes = " + allMoves.numLeaves() + ", playerHealth = " + bestPlay.data_.getHero_p0().getHealth() + ", rMinion = " + bestPlay.data_.getNumMinions_p0() + ", eMinion = " + bestPlay.data_.getNumMinions_p1());
-		if (factory.didTimeOut())
-			System.out.print(", tO");
-		System.out.println();
+//		System.out.print(", number of nodes = " + allMoves.numLeaves() + ", playerHealth = " + bestPlay.data_.getHero_p0().getHealth() + ", rMinion = " + bestPlay.data_.getNumMinions_p0() + ", eMinion = " + bestPlay.data_.getNumMinions_p1());
+//		if (factory.didTimeOut())
+//			System.out.print(", tO");
+//		System.out.println();
 		
 		return bestPlay.data_;
 	}

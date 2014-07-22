@@ -7,7 +7,9 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.util.BoardState;
+import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 import com.hearthsim.util.tree.StopNode;
 
@@ -65,7 +67,7 @@ public class BoardStateFactory {
 	 * 
 	 * @return boardStateNode manipulated such that all subsequent actions are children of the original boardStateNode input.
 	 */
-	public HearthTreeNode doMoves(HearthTreeNode boardStateNode, StateFunction<BoardState> scoreFunc) throws HSException {
+	public HearthTreeNode doMoves(HearthTreeNode boardStateNode, ArtificialPlayer ai) throws HSException {
 
 		if (lethal_) {
 			//if it's lethal, we don't have to do anything ever.  Just play the lethal.
@@ -86,7 +88,7 @@ public class BoardStateFactory {
 			//If this node already has children, just call doMoves on each of its children.
 			//This situation can happen, for example, after a battle cry
 			for (HearthTreeNode child : boardStateNode.getChildren()) {
-				this.doMoves(child, scoreFunc);
+				this.doMoves(child, ai);
 			}
 			return boardStateNode;
 		}
@@ -111,33 +113,25 @@ public class BoardStateFactory {
 					HearthTreeNode newState = new HearthTreeNode((BoardState)boardStateNode.data_.deepCopy());
 					newState = newState.data_.getHero_p0().useHeroAbility(0, 0, i, newState, deck_);
 					if (newState != null) {
-						if (newState instanceof StopNode) {
-							
-						} else {
-							newState = this.doMoves(newState, scoreFunc);
-							if (newState != null) boardStateNode.addChild(newState);
-							heroAbilityUsable = true;
-						}
+						newState = this.doMoves(newState, ai);
+						if (newState != null) boardStateNode.addChild(newState);
+						heroAbilityUsable = true;
 					}
 				}
 				for(int i = 0; i <= boardStateNode.data_.getNumMinions_p1(); ++i) {
 					HearthTreeNode newState = new HearthTreeNode((BoardState)boardStateNode.data_.deepCopy());
 					newState = newState.data_.getHero_p0().useHeroAbility(0, 1, i, newState, deck_);
 					if (newState != null) {
-						if (newState instanceof StopNode) {
-							
-						} else {
-							newState = this.doMoves(newState, scoreFunc);
-							if (newState != null) boardStateNode.addChild(newState);
-							heroAbilityUsable = true;
-						}
+						newState = this.doMoves(newState, ai);
+						if (newState != null) boardStateNode.addChild(newState);
+						heroAbilityUsable = true;
 					}
 				}
 				if (heroAbilityUsable) {
 					//Case1: Decided not to use the hero ability
 					HearthTreeNode newState = new HearthTreeNode((BoardState)boardStateNode.data_.deepCopy());
 					newState.data_.getHero_p0().hasBeenUsed(true);
-					newState = this.doMoves(newState, scoreFunc);
+					newState = this.doMoves(newState, ai);
 					if (newState != null) boardStateNode.addChild(newState);
 				}
 			}
@@ -158,7 +152,7 @@ public class BoardStateFactory {
 				for (Card card : newState.data_.getCards_hand_p0()) {
 					card.hasBeenUsed(true);
 				}
-				newState = this.doMoves(newState, scoreFunc);
+				newState = this.doMoves(newState, ai);
 				if (newState != null) boardStateNode.addChild(newState);
 			}
 			
@@ -172,11 +166,8 @@ public class BoardStateFactory {
 						Card card = newState.data_.getCard_hand_p0(ic);
 						newState = card.useOn(ic, 0, i, newState, deck_);
 						if (newState != null) {
-							if (newState instanceof StopNode) {
-							} else {
-								newState = this.doMoves(newState, scoreFunc);
-								if (newState != null) boardStateNode.addChild(newState);
-							}
+							newState = this.doMoves(newState, ai);
+							if (newState != null) boardStateNode.addChild(newState);
 						}
 					}
 					for(int i = 0; i <= boardStateNode.data_.getNumMinions_p1() + 1; ++i) {
@@ -184,12 +175,8 @@ public class BoardStateFactory {
 						Card card = newState.data_.getCard_hand_p0(ic);
 						newState = card.useOn(ic, 1, i, newState, deck_);
 						if (newState != null) {
-							if (newState instanceof StopNode) {
-							
-							} else {
-								newState = this.doMoves(newState, scoreFunc);
-								if (newState != null) boardStateNode.addChild(newState);
-							}
+							newState = this.doMoves(newState, ai);
+							if (newState != null) boardStateNode.addChild(newState);
 						}
 					}
 				}
@@ -206,13 +193,13 @@ public class BoardStateFactory {
 				allAttacked = allAttacked && minion.hasAttacked();
 			}
 			
-			if (!allAttacked) {
+			if (!allAttacked && boardStateNode.data_.getNumMinions_p0() > 0) {
 				HearthTreeNode newState = new HearthTreeNode((BoardState)boardStateNode.data_.deepCopy());
 				for (Minion minion : newState.data_.getMinions_p0()) {
 					minion.hasAttacked(true);
 				}
 				newState.data_.getHero_p0().hasAttacked(true);
-				newState = this.doMoves(newState, scoreFunc);
+				newState = this.doMoves(newState, ai);
 				if (newState != null) boardStateNode.addChild(newState);
 			}
 			//attack with hero if possible
@@ -223,12 +210,8 @@ public class BoardStateFactory {
 					HearthTreeNode newState = new HearthTreeNode((BoardState)boardStateNode.data_.deepCopy());
 					newState = newState.data_.getHero_p0().attack(0, 1, i, newState, deck_);
 					if (newState != null) {
-						if (newState instanceof StopNode) {
-							
-						} else {
-							newState = this.doMoves(newState, scoreFunc);
-							if (newState != null) boardStateNode.addChild(newState);
-						}
+						newState = this.doMoves(newState, ai);
+						if (newState != null) boardStateNode.addChild(newState);
 					}
 				}				
 			}
@@ -245,12 +228,8 @@ public class BoardStateFactory {
 					Minion tempMinion = newState.data_.getMinion_p0(ic-1);
 					newState = tempMinion.attack(ic, 1, i, newState, deck_);
 					if (newState != null) {
-						if (newState instanceof StopNode) {
-							
-						} else {
-							newState = this.doMoves(newState, scoreFunc);
-							if (newState != null) boardStateNode.addChild(newState);
-						}
+						newState = this.doMoves(newState, ai);
+						if (newState != null) boardStateNode.addChild(newState);
 					}
 				}
 			}
@@ -259,7 +238,7 @@ public class BoardStateFactory {
 			
 		if (boardStateNode.isLeaf()) {
 			//If at this point the node has no children, it is a leaf node.  Compute its board score and store it.
-			boardStateNode.setScore(scoreFunc.apply(boardStateNode.data_));
+			boardStateNode.setScore(ai.boardScore(boardStateNode.data_));
 			boardStateNode.setNumNodesTries(1);
 		} else {
 			//If it is not a leaf, set the score as the maximum score of its children.
@@ -271,10 +250,17 @@ public class BoardStateFactory {
 			while (iter.hasNext()) {
 				HearthTreeNode child = iter.next();
 				tmpNumNodesTried += child.getNumNodesTried();
-				if (child.getScore() > tmpScore) {
+				double theScore = child.getScore();
+				if (child instanceof CardDrawNode)
+					theScore += ((CardDrawNode)child).cardDrawScore(deck_, ai);
+				if (theScore > tmpScore) {
 					tmpScore = child.getScore();
 					bestBranch = child;
 				}
+			}
+
+			if (bestBranch instanceof StopNode) {
+				bestBranch.clearChildren(); //cannot continue past a StopNode
 			}
 			boardStateNode.clearChildren();
 			boardStateNode.addChild(bestBranch);

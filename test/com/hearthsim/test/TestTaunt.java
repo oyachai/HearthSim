@@ -6,9 +6,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.BoardStateFactory;
-import com.hearthsim.util.StateFunction;
 import com.hearthsim.util.tree.HearthTreeNode;
 import com.hearthsim.card.spellcard.concrete.*;
 import com.hearthsim.exception.HSException;
@@ -22,10 +22,10 @@ public class TestTaunt {
 	private static final byte health0 = 3;
 	private static final byte health1 = 7;
 
-	private class DummyStateFunc implements StateFunction<BoardState> {
+	private class DummyStateFunc extends ArtificialPlayer {
 
 		@Override
-		public double apply(BoardState xval) {
+		public double boardScore(BoardState xval) {
 			return 0;
 		}
 		
@@ -178,8 +178,12 @@ public class TestTaunt {
 			e.printStackTrace();
 			assertTrue(false);
 		}				
-		//14 possibilities:
-		assertEquals(tree.getNumNodesTried(), 14);
+		//4 possibilities:
+		// 1. Do nothing
+		// 2. Use HS on the Taunt minion1
+		// 3. Use HS on the enemy hero
+		// 4. Use HS on the my own hero
+		assertEquals(tree.getNumNodesTried(), 4);
 
 	}
 }

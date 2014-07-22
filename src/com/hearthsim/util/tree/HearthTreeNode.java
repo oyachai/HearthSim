@@ -3,8 +3,8 @@ package com.hearthsim.util.tree;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.util.BoardState;
-import com.hearthsim.util.StateFunction;
 
 /**
  * A tree that keeps track of possible game states
@@ -12,8 +12,10 @@ import com.hearthsim.util.StateFunction;
  */
 public class HearthTreeNode {
 
+	byte depth_;
+	
 	public final BoardState data_;
-	double score_;
+	protected double score_;
 	int numNodesTried_;
 	
 	List<HearthTreeNode> children_;
@@ -33,9 +35,23 @@ public class HearthTreeNode {
 	}
 	
 	public HearthTreeNode(BoardState data, double score) {
+		this(data, score, (byte)0);
+	}
+	
+	public HearthTreeNode(BoardState data, double score, byte depth) {
+		this(data, score, depth, null, 0);
+	}
+	
+	public HearthTreeNode(BoardState data, double score, byte depth, List<HearthTreeNode> children) {
+		this(data, score, depth, children, 0);
+	}
+	
+	public HearthTreeNode(BoardState data, double score, byte depth, List<HearthTreeNode> children, int numNodesTried) {
 		data_ = data;
 		score_ = score;
-		children_ = null;
+		children_ = children;
+		depth_ = depth;
+		numNodesTried_ = numNodesTried;
 	}
 	
 	public int getNumNodesTried() {
@@ -44,6 +60,14 @@ public class HearthTreeNode {
 	
 	public void setNumNodesTries(int value) {
 		numNodesTried_ = value;
+	}
+	
+	public byte getDepth() {
+		return depth_;
+	}
+	
+	public void setDepth(byte value) {
+		depth_ = value;
 	}
 	
 	public double getScore() {
@@ -56,6 +80,7 @@ public class HearthTreeNode {
 
 	public HearthTreeNode addChild(BoardState childData, double score) {
 		HearthTreeNode childNode = new HearthTreeNode(childData, score);
+		childNode.setDepth((byte)(depth_+1));
 		if (children_ == null) {
 			children_ = new ArrayList<HearthTreeNode>();
 		}
@@ -64,6 +89,7 @@ public class HearthTreeNode {
 	}
 	
 	public HearthTreeNode addChild(HearthTreeNode node) {
+		node.setDepth((byte)(depth_+1));
 		if (children_ == null) {
 			children_ = new ArrayList<HearthTreeNode>();
 		}
@@ -72,7 +98,8 @@ public class HearthTreeNode {
 	}
 	
 	public void clearChildren() {
-		children_.clear();
+		if (children_ != null)
+			children_.clear();
 	}
 	
 	public List<HearthTreeNode> getChildren() {
@@ -101,19 +128,19 @@ public class HearthTreeNode {
 	 * @param func Function to apply to each node
 	 * @return
 	 */
-	public HearthTreeNode findMaxOfFunc(StateFunction<BoardState> func) {
-		NodeValPair nvp = this.findMaxOfFuncImpl(func);
+	public HearthTreeNode findMaxOfFunc(ArtificialPlayer ai) {
+		NodeValPair nvp = this.findMaxOfFuncImpl(ai);
 		return nvp.node_;
 	}
 	
-	private NodeValPair findMaxOfFuncImpl(StateFunction<BoardState> func) {
+	private NodeValPair findMaxOfFuncImpl(ArtificialPlayer ai) {
 		if (this.isLeaf())
-			return new NodeValPair(this, func.apply(this.data_));
+			return new NodeValPair(this, ai.boardScore(this.data_));
 
 		NodeValPair maxNode = null;
 		double maxSoFar = -1.e300;
 		for (final HearthTreeNode child : children_) {
-			NodeValPair maxOfChild = child.findMaxOfFuncImpl(func);
+			NodeValPair maxOfChild = child.findMaxOfFuncImpl(ai);
 			if (maxOfChild.value_ > maxSoFar) {
 				maxSoFar = maxOfChild.value_;
 				maxNode = maxOfChild;

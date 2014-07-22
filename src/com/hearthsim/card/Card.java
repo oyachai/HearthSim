@@ -4,9 +4,9 @@ import java.util.Iterator;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
+import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.DeepCopyable;
-import com.hearthsim.util.StateFunction;
 import com.hearthsim.util.tree.HearthTreeNode;
 import com.json.*;
 
@@ -274,7 +274,7 @@ public class Card implements DeepCopyable {
 			int minionIndex,
 			HearthTreeNode boardState,
 			Deck deck,
-			StateFunction<BoardState> scoreFunc)
+			ArtificialPlayer ai)
 		throws HSInvalidPlayerIndexException
 	{
 		return 0.0;

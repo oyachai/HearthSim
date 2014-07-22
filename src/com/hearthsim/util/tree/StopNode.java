@@ -1,6 +1,7 @@
 package com.hearthsim.util.tree;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 
 /**
@@ -10,7 +11,6 @@ import com.hearthsim.card.minion.Minion;
 public abstract class StopNode extends HearthTreeNode {
 	
 	public final Card cardUsed_;
-	public final Minion minionAttackedWith_;
 	public final int usedCardPlayerIndex_;
 	public final int usedCardIndex_;
 	public final int targetPlayerIndex_;
@@ -18,37 +18,16 @@ public abstract class StopNode extends HearthTreeNode {
 	
 	
 	public StopNode(HearthTreeNode origNode, Card cardUsed, int usedCardPlayerIndex, int usedCardIndex, int targetPlayerIndex, int targetMinionIndex) {
-		super(origNode.data_, origNode.score_);
+		super(origNode.data_, origNode.score_, origNode.depth_);
 		children_ = origNode.children_;
 		numNodesTried_ = origNode.numNodesTried_;
 		
 		cardUsed_ = cardUsed;
-		minionAttackedWith_ = null;
-		usedCardPlayerIndex_ = usedCardPlayerIndex;
-		usedCardIndex_ = usedCardIndex;
-		targetPlayerIndex_ = targetPlayerIndex;
-		targetMinionIndex_ = targetMinionIndex;
-	}
-	
-	public StopNode(HearthTreeNode origNode, Minion minionAttackedWith, int usedCardPlayerIndex, int usedCardIndex, int targetPlayerIndex, int targetMinionIndex) {
-		super(origNode.data_, origNode.score_);
-		children_ = origNode.children_;
-		numNodesTried_ = origNode.numNodesTried_;
-		
-		cardUsed_ = null;
-		minionAttackedWith_ = minionAttackedWith;
 		usedCardPlayerIndex_ = usedCardPlayerIndex;
 		usedCardIndex_ = usedCardIndex;
 		targetPlayerIndex_ = targetPlayerIndex;
 		targetMinionIndex_ = targetMinionIndex;
 	}
 
-	@Override
-	public abstract double getScore();
-
-	@Override
-	public void setScore(double value) {
-	}
-
-	
+	public abstract HearthTreeNode finishAllEffects(Deck deck);
 }

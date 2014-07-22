@@ -4,6 +4,7 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
+import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class NoviceEngineer extends Minion {
@@ -152,17 +153,7 @@ public class NoviceEngineer extends Minion {
 			return null;
 		
 		HearthTreeNode toRet = super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
-
-		Card card = deck.drawCard(toRet.data_.getDeckPos_p0());
-		if (card == null) {
-			byte fatigueDamage = toRet.data_.getFatigueDamage_p0();
-			toRet.data_.setFatigueDamage_p0((byte)(fatigueDamage + 1));
-			toRet.data_.getHero_p0().setHealth((byte)(toRet.data_.getHero_p0().getHealth() - fatigueDamage));
-		} else {
-			toRet.data_.placeCard_hand_p0(card);
-			toRet.data_.setDeckPos_p0(toRet.data_.getDeckPos_p0() + 1);
-		}
-
-		return toRet;
+		CardDrawNode cNode = new CardDrawNode(toRet, 1, this, 0, thisCardIndex, playerIndex, minionIndex); //draw one card
+		return cNode;
 	}
 }

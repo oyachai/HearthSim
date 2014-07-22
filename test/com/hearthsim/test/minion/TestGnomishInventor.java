@@ -9,12 +9,15 @@ import org.junit.Test;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
+import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.card.minion.concrete.GnomishInventor;
-import com.hearthsim.card.spellcard.concrete.TheCoin;
+import com.hearthsim.card.minion.concrete.*;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
+import com.hearthsim.player.Player;
+import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.util.BoardState;
+import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class TestGnomishInventor {
@@ -43,7 +46,7 @@ public class TestGnomishInventor {
 		
 		Card cards[] = new Card[10];
 		for (int index = 0; index < 10; ++index) {
-			cards[index] = new TheCoin();
+			cards[index] = new BloodfenRaptor();
 		}
 	
 		deck = new Deck(cards);
@@ -52,10 +55,10 @@ public class TestGnomishInventor {
 		board.data_.placeCard_hand_p0(fb);
 
 		board.data_.setMana_p0((byte)7);
-		board.data_.setMana_p1((byte)4);
+		board.data_.setMana_p1((byte)7);
 		
 		board.data_.setMaxMana_p0((byte)7);
-		board.data_.setMaxMana_p1((byte)4);
+		board.data_.setMaxMana_p1((byte)7);
 		
 	}
 	
@@ -102,11 +105,16 @@ public class TestGnomishInventor {
 		HearthTreeNode ret = theCard.useOn(0, 0, 2, board, deck);
 		
 		assertFalse(ret == null);
-		assertEquals(board.data_.getNumCards_hand(), 1);
+		assertTrue( ret instanceof CardDrawNode );
+		
+		CardDrawNode cNode = (CardDrawNode)ret;
+		
+		assertEquals(cNode.getNumCardsToDraw(), 1);
+		assertEquals(board.data_.getNumCards_hand(), 0);
 		assertEquals(board.data_.getNumMinions_p0(), 3);
 		assertEquals(board.data_.getNumMinions_p1(), 2);
 		assertEquals(board.data_.getMana_p0(), 3);
-		assertEquals(board.data_.getMana_p1(), 4);
+		assertEquals(board.data_.getMana_p1(), 7);
 		assertEquals(board.data_.getHero_p0().getHealth(), 30);
 		assertEquals(board.data_.getHero_p1().getHealth(), 30);
 		assertEquals(board.data_.getMinion_p0(0).getHealth(), health0);
@@ -120,5 +128,82 @@ public class TestGnomishInventor {
 		assertEquals(board.data_.getMinion_p0(2).getAttack(), attack0);
 		assertEquals(board.data_.getMinion_p1(0).getAttack(), attack0);
 		assertEquals(board.data_.getMinion_p1(1).getAttack(), attack0);
+	}
+	
+	@Test
+	public void test3() throws HSException {
+		
+		
+		ArtificialPlayer ai0 = new ArtificialPlayer(
+				0.9,
+				0.9,
+				1.0,
+				1.0,
+				1.0,
+				0.1,
+				0.1,
+				0.1,
+				0.5,
+				0.5,
+				0.0,
+				0.5,
+				0.0,
+				0.0
+				);
+		
+		Hero hero = new Hero();		
+		Player player = new Player("player0", hero, deck);
+		
+		board.data_.setMana_p0((byte)5);
+		board.data_.setMana_p1((byte)5);
+		
+		board.data_.setMaxMana_p0((byte)5);
+		board.data_.setMaxMana_p1((byte)5);
+
+		
+		BoardState resBoard = ai0.playTurn(0, board.data_, player);
+		
+		assertEquals(resBoard.getNumCards_hand_p0(), 1); //1 card drawn from GnomishInventor, not enough mana to play it
+		assertEquals(resBoard.getNumMinions_p0(), 3);
+		assertEquals(resBoard.getNumMinions_p1(), 1); //1 minion should have been killed
+		assertEquals(resBoard.getMana_p0(), 1); //4 mana used for Gnomish Inventor
+		assertEquals(resBoard.getMana_p1(), 5);
+		assertEquals(resBoard.getHero_p0().getHealth(), 30);
+		assertEquals(resBoard.getHero_p1().getHealth(), 25); //smacked in the face once
+	}
+	
+	@Test
+	public void test4() throws HSException {
+		
+		
+		ArtificialPlayer ai0 = new ArtificialPlayer(
+				0.9,
+				0.9,
+				1.0,
+				1.0,
+				1.0,
+				0.1,
+				0.1,
+				0.1,
+				0.5,
+				0.5,
+				0.0,
+				0.5,
+				0.0,
+				0.0
+				);
+		
+		Hero hero = new Hero();		
+		Player player = new Player("player0", hero, deck);
+		
+		BoardState resBoard = ai0.playTurn(0, board.data_, player);
+		
+		assertEquals(resBoard.getNumCards_hand_p0(), 0); //1 card drawn from GnomishInventor, and had enough mana to play it
+		assertEquals(resBoard.getNumMinions_p0(), 4);
+		assertEquals(resBoard.getNumMinions_p1(), 1); //1 minion should have been killed
+		assertEquals(resBoard.getMana_p0(), 1); //4 mana used for Gnomish Inventor, 2 for Bloodfen Raptor
+		assertEquals(resBoard.getMana_p1(), 7);
+		assertEquals(resBoard.getHero_p0().getHealth(), 30);
+		assertEquals(resBoard.getHero_p1().getHealth(), 25); //smacked in the face once
 	}
 }

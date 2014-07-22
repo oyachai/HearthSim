@@ -7,9 +7,9 @@ import org.junit.Test;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.BoardStateFactory;
-import com.hearthsim.util.StateFunction;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class TestCharge {
@@ -21,10 +21,10 @@ public class TestCharge {
 	private static final byte health0 = 3;
 	private static final byte health1 = 7;
 
-	private class DummyStateFunc implements StateFunction<BoardState> {
+	private class DummyStateFunc extends ArtificialPlayer {
 
 		@Override
-		public double apply(BoardState xval) {
+		public double boardScore(BoardState xval) {
 			return 0;
 		}
 	}

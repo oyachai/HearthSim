@@ -22,9 +22,9 @@ public class testGame {
 	public void testGame0() {
 		
 		int numCardsInDeck_ = 30;
-		byte minionAttack = 3;
+		byte minionAttack = 5;
 		byte minionHealth = 4;
-		byte minionMana = 3;
+		byte minionMana = 4;
 		
 		int numTaunts_ = 30;
 		
@@ -49,7 +49,7 @@ public class testGame {
 		}
 		
 
-		Hero hero1 = new Rogue();
+		Hero hero1 = new Paladin();
 		Hero hero2 = new Mage();
 		
 		Deck deck1 = new Deck(cards1_);

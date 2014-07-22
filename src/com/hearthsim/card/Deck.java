@@ -47,5 +47,13 @@ public class Deck {
 		return cards_[index];
 	}
 	
+	/**
+	 * Returns the total number of cards in the deck
+	 * 
+	 * @return
+	 */
+	public int getNumCards() {
+		return cards_.length;
+	}
 
 }
