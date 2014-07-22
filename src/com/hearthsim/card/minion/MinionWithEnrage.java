@@ -62,9 +62,11 @@ public abstract class MinionWithEnrage extends Minion {
 	 * @param isSpellDamage True if this is a spell damage
 	 * @throws HSInvalidPlayerIndexException
 	 */
-	public void takeDamage(byte damage, int attackerPlayerIndex, int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deck, boolean isSpellDamage) throws HSInvalidPlayerIndexException {
-		super.takeDamage(damage, attackerPlayerIndex, thisPlayerIndex, thisMinionIndex, boardState, deck, isSpellDamage);
+	@Override
+	public HearthTreeNode takeDamage(byte damage, int attackerPlayerIndex, int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deck, boolean isSpellDamage) throws HSInvalidPlayerIndexException {
+		HearthTreeNode toRet = super.takeDamage(damage, attackerPlayerIndex, thisPlayerIndex, thisMinionIndex, boardState, deck, isSpellDamage);
 		this.enrageCheck();
+		return toRet;
 	}
 	
 	/**
@@ -77,9 +79,11 @@ public abstract class MinionWithEnrage extends Minion {
 	 * @param deck
 	 * @throws HSInvalidPlayerIndexException
 	 */
-	public void takeHeal(byte healAmount, int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deck) throws HSInvalidPlayerIndexException {
-		super.takeHeal(healAmount, thisPlayerIndex, thisMinionIndex, boardState, deck);
+	@Override
+	public HearthTreeNode takeHeal(byte healAmount, int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deck) throws HSInvalidPlayerIndexException {
+		HearthTreeNode toRet = super.takeHeal(healAmount, thisPlayerIndex, thisMinionIndex, boardState, deck);
 		this.enrageCheck();
+		return toRet;
 	}
 	
 	/**
@@ -93,10 +97,12 @@ public abstract class MinionWithEnrage extends Minion {
 	 * @param deck
 	 * @throws HSInvalidPlayerIndexException
 	 */
-	public void silenced(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deck) throws HSInvalidPlayerIndexException {
-		super.silenced(thisPlayerIndex, thisMinionIndex, boardState, deck);
+	@Override
+	public HearthTreeNode silenced(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deck) throws HSInvalidPlayerIndexException {
+		HearthTreeNode toRet = super.silenced(thisPlayerIndex, thisMinionIndex, boardState, deck);
 		if (enraged_)
 			this.pacify();
+		return toRet;
 	}
 	
 	private void enrageCheck() {

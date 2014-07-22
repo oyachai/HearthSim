@@ -57,16 +57,12 @@ public class AncestralHealing extends SpellCard {
 			//cant't use it on the heroes
 			return null;
 		}
-		
+		HearthTreeNode toRet = super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
 		Minion targetMinion;
-		if (playerIndex == 0) {
-			targetMinion = boardState.data_.getMinion_p0(minionIndex-1);			
-		} else {
-			targetMinion = boardState.data_.getMinion_p1(minionIndex-1);
-		}
+		targetMinion = boardState.data_.getMinion(playerIndex, minionIndex-1);			
 		if (targetMinion.getHealth() < targetMinion.getMaxHealth()) 
-			targetMinion.takeHeal((byte)(targetMinion.getMaxHealth() - targetMinion.getHealth()), playerIndex, minionIndex, boardState, deck);
+			toRet = targetMinion.takeHeal((byte)(targetMinion.getMaxHealth() - targetMinion.getHealth()), playerIndex, minionIndex, boardState, deck);
 		targetMinion.setTaunt(true);
-		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
+		return toRet;
 	}
 }

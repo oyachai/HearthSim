@@ -15,6 +15,7 @@ import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
+import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class TestMortalCoil {
@@ -129,7 +130,10 @@ public class TestMortalCoil {
 		HearthTreeNode ret = theCard.useOn(0, 1, 1, board, deck);
 		
 		assertFalse(ret == null);
-		assertEquals(board.data_.getNumCards_hand(), 1);
+		assertEquals(ret.data_.getNumCards_hand(), 0);
+		assertTrue(ret instanceof CardDrawNode);
+		assertEquals(((CardDrawNode)ret).getNumCardsToDraw(), 1);
+
 		assertEquals(board.data_.getNumMinions_p0(), 2);
 		assertEquals(board.data_.getNumMinions_p1(), 1);
 		assertEquals(board.data_.getMana_p0(), 9);
@@ -140,6 +144,5 @@ public class TestMortalCoil {
 		assertEquals(board.data_.getMinion_p0(1).getHealth(), health1 - 1);
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), health1 - 1);
 
-		assertTrue(board.data_.getCard_hand_p0(0) instanceof TheCoin);
 	}
 }

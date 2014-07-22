@@ -54,10 +54,11 @@ public class HolyLight extends SpellCard {
 			Deck deck)
 		throws HSInvalidPlayerIndexException
 	{
+		HearthTreeNode toRet = super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
 		if (minionIndex == 0)
-			boardState.data_.getHero(playerIndex).takeHeal(HEAL_AMOUNT, playerIndex, minionIndex, boardState, deck);
+			toRet = toRet.data_.getHero(playerIndex).takeHeal(HEAL_AMOUNT, playerIndex, minionIndex, toRet, deck);
 		else
-			boardState.data_.getMinion(playerIndex, minionIndex - 1).takeHeal(HEAL_AMOUNT, playerIndex, minionIndex, boardState, deck);
-		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
+			toRet = toRet.data_.getMinion(playerIndex, minionIndex - 1).takeHeal(HEAL_AMOUNT, playerIndex, minionIndex, toRet, deck);
+		return toRet;
 	}
 }

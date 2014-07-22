@@ -189,17 +189,19 @@ public class GrimscaleOracle extends Murloc {
 	 * @throws HSInvalidPlayerIndexException
 	 */
 	@Override
-	public void silenced(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deck) throws HSInvalidPlayerIndexException {
-		for (Minion minion : boardState.data_.getMinions_p0()) {
+	public HearthTreeNode silenced(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deck) throws HSInvalidPlayerIndexException {
+		HearthTreeNode toRet = boardState;
+		for (Minion minion : toRet.data_.getMinions_p0()) {
 			if (minion instanceof Murloc && minion != this) {
 				minion.setAttack((byte)(minion.getAttack() - 1));
 			}
 		}
-		for (Minion minion : boardState.data_.getMinions_p1()) {
+		for (Minion minion : toRet.data_.getMinions_p1()) {
 			if (minion instanceof Murloc && minion != this) {
 				minion.setAttack((byte)(minion.getAttack() - 1));
 			}
 		}
+		return toRet;
 	}
 	
 	/**
@@ -214,19 +216,21 @@ public class GrimscaleOracle extends Murloc {
 	 * @throws HSInvalidPlayerIndexException
 	 */
 	@Override
-	public void destroyed(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deck) throws HSInvalidPlayerIndexException {
+	public HearthTreeNode destroyed(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deck) throws HSInvalidPlayerIndexException {
 		
-		for (Minion minion : boardState.data_.getMinions_p0()) {
+		HearthTreeNode toRet = boardState;
+		for (Minion minion : toRet.data_.getMinions_p0()) {
 			if (minion instanceof Murloc && minion != this) {
 				minion.setAttack((byte)(minion.getAttack() - 1));
 			}
 		}
-		for (Minion minion : boardState.data_.getMinions_p1()) {
+		for (Minion minion : toRet.data_.getMinions_p1()) {
 			if (minion instanceof Murloc && minion != this) {
 				minion.setAttack((byte)(minion.getAttack() - 1));
 			}
 		}
-		super.destroyed(thisPlayerIndex, thisMinionIndex, boardState, deck);
+		toRet = super.destroyed(thisPlayerIndex, thisMinionIndex, toRet, deck);
+		return toRet;
 	}
 	
 	private HearthTreeNode doBuffs(

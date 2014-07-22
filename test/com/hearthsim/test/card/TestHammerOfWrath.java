@@ -13,6 +13,7 @@ import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
+import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class TestHammerOfWrath {
@@ -55,23 +56,25 @@ public class TestHammerOfWrath {
 		Card theCard = board.data_.getCard_hand_p0(0);
 		HearthTreeNode ret = theCard.useOn(0, 0, 0, board, deck);
 		assertFalse(ret == null);
-		assertTrue(board.data_.getNumCards_hand() == 1);
-		assertTrue(board.data_.getNumMinions_p0() == 2);
-		assertTrue(board.data_.getNumMinions_p1() == 2);
-		assertTrue(board.data_.getHero_p0().getHealth() == 27);
-		assertTrue(board.data_.getHero_p1().getHealth() == 30);
-		assertTrue(board.data_.getMinion_p0(0).getHealth() == health0);
-		assertTrue(board.data_.getMinion_p0(1).getHealth() == health1 - 1);
-		assertTrue(board.data_.getMinion_p1(0).getHealth() == health0);
-		assertTrue(board.data_.getMinion_p1(1).getHealth() == health1 - 1);
-		assertTrue(board.data_.getMinion_p0(0).getAttack() == attack0);
-		assertTrue(board.data_.getMinion_p0(1).getAttack() == attack0);
-		assertTrue(board.data_.getMinion_p1(0).getAttack() == attack0);
-		assertTrue(board.data_.getMinion_p1(1).getAttack() == attack0);
-		assertFalse(board.data_.getMinion_p0(0).getCharge());
-		assertFalse(board.data_.getMinion_p0(1).getCharge());
-		assertFalse(board.data_.getMinion_p0(0).getFrozen());
-		assertFalse(board.data_.getMinion_p1(0).getFrozen());
+		assertEquals(ret.data_.getNumCards_hand(), 0);
+		assertTrue(ret instanceof CardDrawNode);
+		assertEquals(((CardDrawNode)ret).getNumCardsToDraw(), 1);
+		assertTrue(ret.data_.getNumMinions_p0() == 2);
+		assertTrue(ret.data_.getNumMinions_p1() == 2);
+		assertTrue(ret.data_.getHero_p0().getHealth() == 27);
+		assertTrue(ret.data_.getHero_p1().getHealth() == 30);
+		assertTrue(ret.data_.getMinion_p0(0).getHealth() == health0);
+		assertTrue(ret.data_.getMinion_p0(1).getHealth() == health1 - 1);
+		assertTrue(ret.data_.getMinion_p1(0).getHealth() == health0);
+		assertTrue(ret.data_.getMinion_p1(1).getHealth() == health1 - 1);
+		assertTrue(ret.data_.getMinion_p0(0).getAttack() == attack0);
+		assertTrue(ret.data_.getMinion_p0(1).getAttack() == attack0);
+		assertTrue(ret.data_.getMinion_p1(0).getAttack() == attack0);
+		assertTrue(ret.data_.getMinion_p1(1).getAttack() == attack0);
+		assertFalse(ret.data_.getMinion_p0(0).getCharge());
+		assertFalse(ret.data_.getMinion_p0(1).getCharge());
+		assertFalse(ret.data_.getMinion_p0(0).getFrozen());
+		assertFalse(ret.data_.getMinion_p1(0).getFrozen());
 	}
 	
 	@Test
@@ -82,7 +85,10 @@ public class TestHammerOfWrath {
 		Card theCard = board.data_.getCard_hand_p0(0);
 		HearthTreeNode ret = theCard.useOn(0, 1, 1, board, deck);
 		assertFalse(ret == null);
-		assertTrue(board.data_.getNumCards_hand() == 1);
+		assertEquals(ret.data_.getNumCards_hand(), 0);
+		assertTrue(ret instanceof CardDrawNode);
+		assertEquals(((CardDrawNode)ret).getNumCardsToDraw(), 1);
+
 		assertTrue(board.data_.getNumMinions_p0() == 2);
 		assertTrue(board.data_.getNumMinions_p1() == 1);
 		assertTrue(board.data_.getHero_p0().getHealth() == 30);

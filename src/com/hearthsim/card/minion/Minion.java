@@ -304,8 +304,8 @@ public class Minion extends Card {
 	 * @param deck
 	 * @throws HSInvalidPlayerIndexException
 	 */
-	public void takeDamage(byte damage, int attackerPlayerIndex, int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deck) throws HSInvalidPlayerIndexException {
-		this.takeDamage(damage, attackerPlayerIndex, thisPlayerIndex, thisMinionIndex, boardState, deck, false);
+	public HearthTreeNode takeDamage(byte damage, int attackerPlayerIndex, int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deck) throws HSInvalidPlayerIndexException {
+		return this.takeDamage(damage, attackerPlayerIndex, thisPlayerIndex, thisMinionIndex, boardState, deck, false);
 	}
 	
 	/**
@@ -322,7 +322,7 @@ public class Minion extends Card {
 	 * @param isSpellDamage True if this is a spell damage
 	 * @throws HSInvalidPlayerIndexException
 	 */
-	public void takeDamage(byte damage, int attackerPlayerIndex, int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deck, boolean isSpellDamage) throws HSInvalidPlayerIndexException {
+	public HearthTreeNode takeDamage(byte damage, int attackerPlayerIndex, int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deck, boolean isSpellDamage) throws HSInvalidPlayerIndexException {
 		if (!divineShield_) {
 			byte totalDamage = isSpellDamage ? (byte)(damage + boardState.data_.getSpellDamage(attackerPlayerIndex)) : damage;
 			health_ = (byte)(health_ - totalDamage);
@@ -340,11 +340,13 @@ public class Minion extends Card {
 			
 			//If fatal, notify all that it is dead
 			if (health_ <= 0) {
-				this.destroyed(thisPlayerIndex, thisMinionIndex, boardState, deck);
+				toRet = this.destroyed(thisPlayerIndex, thisMinionIndex, toRet, deck);
 			}
+			return toRet;
 		} else {
 			if (damage > 0)
 				divineShield_ = false;
+			return boardState;
 		}
 	}
 	
@@ -359,7 +361,7 @@ public class Minion extends Card {
 	 * @param deck
 	 * @throws HSInvalidPlayerIndexException
 	 */
-	public void destroyed(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deck) throws HSInvalidPlayerIndexException {
+	public HearthTreeNode destroyed(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deck) throws HSInvalidPlayerIndexException {
 		
 		health_ = 0;
 		
@@ -373,6 +375,8 @@ public class Minion extends Card {
 		for (int j = 0; j < toRet.data_.getNumMinions_p1(); ++j) {
 			toRet = toRet.data_.getMinion_p1(j).minionDeadEvent(1, j + 1, thisPlayerIndex, thisMinionIndex, toRet, deck);
 		}
+		
+		return toRet;
 
 	}
 	
@@ -387,9 +391,10 @@ public class Minion extends Card {
 	 * @param deck
 	 * @throws HSInvalidPlayerIndexException
 	 */
-	public void silenced(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deck) throws HSInvalidPlayerIndexException {
+	public HearthTreeNode silenced(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deck) throws HSInvalidPlayerIndexException {
 		if (divineShield_)
 			divineShield_ = false;
+		return boardState;
 	}
 	
 	/**
@@ -404,7 +409,7 @@ public class Minion extends Card {
 	 * @param deck
 	 * @throws HSInvalidPlayerIndexException
 	 */
-	public void takeHeal(byte healAmount, int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deck) throws HSInvalidPlayerIndexException {
+	public HearthTreeNode takeHeal(byte healAmount, int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deck) throws HSInvalidPlayerIndexException {
 		
 		if (health_ < maxHealth_) {
 			if (health_ + healAmount > maxHealth_)
@@ -422,8 +427,9 @@ public class Minion extends Card {
 			for (int j = 0; j < toRet.data_.getNumMinions_p1(); ++j) {
 				toRet = toRet.data_.getMinion_p1(j).minionHealedEvent(1, j + 1, thisPlayerIndex, thisMinionIndex, toRet, deck);
 			}
-			
+			return toRet;
 		}
+		return boardState;
 	}
 	
 	/**

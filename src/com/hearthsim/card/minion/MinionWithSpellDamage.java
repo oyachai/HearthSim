@@ -144,8 +144,11 @@ public class MinionWithSpellDamage extends Minion {
 	 * @param deck
 	 * @throws HSInvalidPlayerIndexException
 	 */
-	public void silenced(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deck) throws HSInvalidPlayerIndexException {
-		boardState.data_.setSpellDamage(0, (byte)(boardState.data_.getSpellDamage(0) - spellDamage_));
+	@Override
+	public HearthTreeNode silenced(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deck) throws HSInvalidPlayerIndexException {
+		HearthTreeNode toRet = super.silenced(thisPlayerIndex, thisMinionIndex, boardState, deck);
+		toRet.data_.setSpellDamage(0, (byte)(boardState.data_.getSpellDamage(0) - spellDamage_));
+		return toRet;
 	}
 	
 	/**
@@ -159,8 +162,10 @@ public class MinionWithSpellDamage extends Minion {
 	 * @param deck
 	 * @throws HSInvalidPlayerIndexException
 	 */
-	public void destroyed(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deck) throws HSInvalidPlayerIndexException {		
-		boardState.data_.setSpellDamage(0, (byte)(boardState.data_.getSpellDamage(0) - spellDamage_));
-		super.destroyed(thisPlayerIndex, thisMinionIndex, boardState, deck);
+	@Override
+	public HearthTreeNode destroyed(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deck) throws HSInvalidPlayerIndexException {		
+		HearthTreeNode toRet = super.destroyed(thisPlayerIndex, thisMinionIndex, boardState, deck);
+		toRet.data_.setSpellDamage(0, (byte)(boardState.data_.getSpellDamage(0) - spellDamage_));
+		return toRet;
 	}
 }

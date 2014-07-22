@@ -59,16 +59,17 @@ public class CircleOfHealing extends SpellCard {
 		if (playerIndex > 0 || minionIndex > 0) 
 			return null;
 		
+		HearthTreeNode toRet = super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
 		for (int indx = 0; indx < boardState.data_.getNumMinions_p0(); ++indx) {
 			Minion targetMinion = boardState.data_.getMinion_p0(indx);
-			targetMinion.takeHeal(HEAL_AMOUNT, 0, indx + 1, boardState, deck);
+			toRet = targetMinion.takeHeal(HEAL_AMOUNT, 0, indx + 1, toRet, deck);
 		}
 
 		for (int indx = 0; indx < boardState.data_.getNumMinions_p1(); ++indx) {
 			Minion targetMinion = boardState.data_.getMinion_p1(indx);
-			targetMinion.takeHeal(HEAL_AMOUNT, 1, indx + 1, boardState, deck);
+			toRet = targetMinion.takeHeal(HEAL_AMOUNT, 1, indx + 1, toRet, deck);
 		}
 
-		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
+		return toRet;
 	}
 }

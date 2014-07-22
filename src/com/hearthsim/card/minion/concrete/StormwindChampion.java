@@ -185,14 +185,16 @@ public class StormwindChampion extends Minion {
 	 * @throws HSInvalidPlayerIndexException
 	 */
 	@Override
-	public void silenced(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deck) throws HSInvalidPlayerIndexException {
-		for (Minion minion : boardState.data_.getMinions(thisPlayerIndex)) {
+	public HearthTreeNode silenced(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deck) throws HSInvalidPlayerIndexException {
+		HearthTreeNode toRet = boardState;
+		for (Minion minion : toRet.data_.getMinions(thisPlayerIndex)) {
 			if (minion != this) {
 				minion.setAttack((byte)(minion.getAttack() - 1));
 				minion.setHealth((byte)(minion.getAttack() - 1));
 				minion.setMaxHealth((byte)(minion.getAttack() - 1));
 			}
 		}
+		return toRet;
 	}
 	
 	/**
@@ -207,16 +209,16 @@ public class StormwindChampion extends Minion {
 	 * @throws HSInvalidPlayerIndexException
 	 */
 	@Override
-	public void destroyed(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deck) throws HSInvalidPlayerIndexException {
-		
-		for (Minion minion : boardState.data_.getMinions(thisPlayerIndex)) {
+	public HearthTreeNode destroyed(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deck) throws HSInvalidPlayerIndexException {
+		HearthTreeNode toRet = boardState;
+		for (Minion minion : toRet.data_.getMinions(thisPlayerIndex)) {
 			if (minion != this) {
 				minion.setAttack((byte)(minion.getAttack() - 1));
 				minion.setHealth((byte)(minion.getAttack() - 1));
 				minion.setMaxHealth((byte)(minion.getAttack() - 1));
 			}
 		}
-		super.destroyed(thisPlayerIndex, thisMinionIndex, boardState, deck);
+		return super.destroyed(thisPlayerIndex, thisMinionIndex, toRet, deck);
 	}
 	
 	private HearthTreeNode doBuffs(int thisMinionPlayerIndex, int thisMinionIndex, int targetMinionPlayerIndex, int targetMinionIndex, HearthTreeNode boardState, Deck deck) throws HSInvalidPlayerIndexException {

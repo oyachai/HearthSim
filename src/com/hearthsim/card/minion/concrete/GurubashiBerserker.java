@@ -131,7 +131,8 @@ public class GurubashiBerserker extends Minion {
 	 * @param isSpellDamage True if this is a spell damage
 	 * @throws HSInvalidPlayerIndexException
 	 */
-	public void takeDamage(byte damage, int attackerPlayerIndex, int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deck, boolean isSpellDamage) throws HSInvalidPlayerIndexException {
+	@Override
+	public HearthTreeNode takeDamage(byte damage, int attackerPlayerIndex, int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deck, boolean isSpellDamage) throws HSInvalidPlayerIndexException {
 		if (!divineShield_) {
 			byte totalDamage = isSpellDamage ? (byte)(damage + boardState.data_.getSpellDamage(attackerPlayerIndex)) : damage;
 			health_ = (byte)(health_ - totalDamage);
@@ -149,11 +150,14 @@ public class GurubashiBerserker extends Minion {
 			
 			//If fatal, notify all that it is dead
 			if (health_ <= 0) {
-				this.destroyed(thisPlayerIndex, thisMinionIndex, boardState, deck);
+				toRet = this.destroyed(thisPlayerIndex, thisMinionIndex, toRet, deck);
 			}
+			
 			this.attack_ = (byte)(this.attack_ + 3);
+			return toRet;
 		} else {
 			divineShield_ = false;
+			return boardState;
 		}
 	}
 }

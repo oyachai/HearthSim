@@ -1,7 +1,5 @@
 package com.hearthsim.card.spellcard.concrete;
 
-import java.util.Iterator;
-
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;

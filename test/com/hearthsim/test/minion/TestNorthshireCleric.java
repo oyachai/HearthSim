@@ -1,7 +1,6 @@
 package com.hearthsim.test.minion;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,6 +14,7 @@ import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
+import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class TestNorthshireCleric {
@@ -159,7 +159,9 @@ public class TestNorthshireCleric {
 		ret = theCard.useOn(0, 0, 3, board, deck);
 		
 		assertFalse(ret == null);
-		assertTrue(ret.data_.getNumCards_hand() == 1);  //Northshire Cleric should have drawn a card, so 1 card now
+		assertEquals(ret.data_.getNumCards_hand(), 0);
+		assertTrue(ret instanceof CardDrawNode);
+		assertEquals( ((CardDrawNode)ret).getNumCardsToDraw(), 1); //Northshire Cleric should have drawn a card, so 1 card now
 		assertTrue(ret.data_.getNumMinions_p0() == 3);
 		assertTrue(ret.data_.getNumMinions_p1() == 2);
 		assertTrue(ret.data_.getHero_p0().getHealth() == 30);
@@ -206,7 +208,10 @@ public class TestNorthshireCleric {
 		ret = theCard.useOn(0, 0, 2, board, deck);
 		
 		assertFalse(ret == null);
-		assertTrue(ret.data_.getNumCards_hand() == 2); //Two clerics, one heal means 2 new cards
+		assertEquals(ret.data_.getNumCards_hand(), 0);
+		assertTrue(ret instanceof CardDrawNode);
+		assertEquals( ((CardDrawNode)ret).getNumCardsToDraw(), 2); //Two clerics, one heal means 2 new cards
+
 		assertTrue(ret.data_.getNumMinions_p0() == 4);
 		assertTrue(ret.data_.getNumMinions_p1() == 2);
 		assertTrue(ret.data_.getHero_p0().getHealth() == 30);

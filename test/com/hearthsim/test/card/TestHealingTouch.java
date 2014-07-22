@@ -14,6 +14,7 @@ import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
+import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class TestHealingTouch {
@@ -76,7 +77,9 @@ public class TestHealingTouch {
 		Card theCard = board.data_.getCard_hand_p0(0);
 		HearthTreeNode ret = theCard.useOn(0, 0, 2, board, deck);
 		assertFalse(ret == null);
-		assertTrue(board.data_.getNumCards_hand() == 1);
+		assertTrue( ret instanceof CardDrawNode );
+		assertEquals( ((CardDrawNode)ret).getNumCardsToDraw(), 1);
+		assertTrue(board.data_.getNumCards_hand() == 0);
 		assertTrue(board.data_.getNumMinions_p0() == 2);
 		assertTrue(board.data_.getNumMinions_p1() == 2);
 		assertTrue(board.data_.getHero_p0().getHealth() == 30);
@@ -95,7 +98,9 @@ public class TestHealingTouch {
 		Card theCard = board.data_.getCard_hand_p0(0);
 		HearthTreeNode ret = theCard.useOn(0, 1, 2, board, deck);
 		assertFalse(ret == null);
-		assertTrue(board.data_.getNumCards_hand() == 1);
+		assertTrue( ret instanceof CardDrawNode );
+		assertEquals( ((CardDrawNode)ret).getNumCardsToDraw(), 1);
+		assertTrue(board.data_.getNumCards_hand() == 0);
 		assertTrue(board.data_.getNumMinions_p0() == 2);
 		assertTrue(board.data_.getNumMinions_p1() == 2);
 		assertTrue(board.data_.getHero_p0().getHealth() == 30);

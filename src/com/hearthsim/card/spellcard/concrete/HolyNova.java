@@ -1,7 +1,5 @@
 package com.hearthsim.card.spellcard.concrete;
 
-import java.util.Iterator;
-
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
@@ -64,18 +62,19 @@ public class HolyNova extends SpellCard {
 			return null;
 		}
 		
-		boardState.data_.getHero_p0().takeHeal((byte)2, 0, 0, boardState, deck);
+		HearthTreeNode toRet = super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
+
+		toRet = toRet.data_.getHero_p0().takeHeal((byte)2, 0, 0, toRet, deck);
 		for (int indx = 0; indx < boardState.data_.getNumMinions_p0(); ++indx) {
 			Minion targetMinion = boardState.data_.getMinion_p0(indx);
-			targetMinion.takeHeal((byte)2, 0, indx + 1, boardState, deck);
+			toRet = targetMinion.takeHeal((byte)2, 0, indx + 1, toRet, deck);
 		}
 		
-		boardState.data_.getHero_p1().takeDamage((byte)2, 0, 0, 0, boardState, deck, true);
-		for (int indx = 0; indx < boardState.data_.getNumMinions_p1(); ++indx) {
-			Minion targetMinion = boardState.data_.getMinion_p1(indx);
-			targetMinion.takeDamage((byte)2, 0, 1, indx + 1, boardState, deck, true);
+		toRet = toRet.data_.getHero_p1().takeDamage((byte)2, 0, 0, 0, toRet, deck, true);
+		for (int indx = 0; indx < toRet.data_.getNumMinions_p1(); ++indx) {
+			Minion targetMinion = toRet.data_.getMinion_p1(indx);
+			toRet = targetMinion.takeDamage((byte)2, 0, 1, indx + 1, toRet, deck, true);
 		}
-		
-		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
+		return toRet;
 	}
 }
