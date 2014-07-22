@@ -101,7 +101,8 @@ public class CardDrawNode extends StopNode {
 
 	@Override
 	public HearthTreeNode finishAllEffects(Deck deck) {
-		this.drawCard(deck);
+		for (int i = 0; i < numCardsToDraw_; ++i)
+			this.drawCard(deck);
 		return new HearthTreeNode(this.data_, this.score_, this.depth_, this.children_, this.numNodesTried_);
 	}
 }

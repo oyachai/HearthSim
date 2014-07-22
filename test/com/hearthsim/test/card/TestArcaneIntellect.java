@@ -7,12 +7,17 @@ import org.junit.Test;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
+import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.minion.concrete.BloodfenRaptor;
 import com.hearthsim.card.spellcard.concrete.ArcaneIntellect;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
+import com.hearthsim.player.Player;
+import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.util.BoardState;
+import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class TestArcaneIntellect {
@@ -73,7 +78,10 @@ public class TestArcaneIntellect {
 		
 		res = theCard.useOn(0, 0, 0, board, deck);
 		assertFalse(res == null);
-		assertTrue(res.data_.getNumCards_hand() == 2);
+		assertEquals(res.data_.getNumCards_hand(), 0);
+		assertTrue(res instanceof CardDrawNode);
+		assertEquals( ((CardDrawNode)res).getNumCardsToDraw(), 2);
+		
 		assertTrue(res.data_.getNumMinions_p0() == 1);
 		assertTrue(res.data_.getNumMinions_p1() == 3);
 		assertTrue(res.data_.getMana_p0() == 2);
@@ -120,7 +128,10 @@ public class TestArcaneIntellect {
 		
 		res = theCard.useOn(0, 0, 0, board, deck);
 		assertFalse(res == null);
-		assertTrue(res.data_.getNumCards_hand() == 1);
+		assertEquals(res.data_.getNumCards_hand(), 0);
+		assertTrue(res instanceof CardDrawNode);
+		assertEquals( ((CardDrawNode)res).getNumCardsToDraw(), 2);
+
 		assertTrue(res.data_.getNumMinions_p0() == 1);
 		assertTrue(res.data_.getNumMinions_p1() == 3);
 		assertTrue(res.data_.getMana_p0() == 2);
@@ -132,52 +143,150 @@ public class TestArcaneIntellect {
 		assertTrue(res.data_.getMinion_p1(1).getAttack() == attack0);
 		assertTrue(res.data_.getMinion_p1(2).getHealth() == health0);
 		assertTrue(res.data_.getMinion_p1(2).getAttack() == attack0);
-		assertTrue(res.data_.getHero_p0().getHealth() == 29);
-		assertTrue(res.data_.getHero_p1().getHealth() == 30);
 
 	}
 
 	@Test
-	public void test2() throws HSInvalidPlayerIndexException {
-
-		Card cards[] = new Card[0];
+	public void test2() throws HSException {
+		
+		int numCards = 10;
+		Card cards[] = new Card[numCards];
+		for (int index = 0; index < numCards; ++index) {
+			cards[index] = new BloodfenRaptor();
+		}
 		
 		Deck deck = new Deck(cards);
 		
-		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode res;
+		ArtificialPlayer ai0 = new ArtificialPlayer(
+				0.9,
+				0.9,
+				1.0,
+				1.0,
+				1.0,
+				0.1,
+				0.1,
+				0.1,
+				0.5,
+				0.5,
+				0.0,
+				0.5,
+				0.0,
+				0.0
+				);
 		
-		res = theCard.useOn(0, 1, 0, board, deck);
-		assertTrue(res == null);
+		Hero hero = new Hero();		
+		Player player = new Player("player0", hero, deck);
 		
-		res = theCard.useOn(0, 0, 1, board, deck);
-		assertTrue(res == null);
-		
-		res = theCard.useOn(0, 1, 1, board, deck);
-		assertTrue(res == null);
-		
-		res = theCard.useOn(0, 1, 2, board, deck);
-		assertTrue(res == null);
-		
-		res = theCard.useOn(0, 1, 3, board, deck);
-		assertTrue(res == null);
-		
-		res = theCard.useOn(0, 0, 0, board, deck);
-		assertFalse(res == null);
-		assertTrue(res.data_.getNumCards_hand() == 0);
-		assertTrue(res.data_.getNumMinions_p0() == 1);
-		assertTrue(res.data_.getNumMinions_p1() == 3);
-		assertTrue(res.data_.getMana_p0() == 2);
-		assertTrue(res.data_.getMinion_p0(0).getHealth() == health0);
-		assertTrue(res.data_.getMinion_p0(0).getAttack() == attack0);
-		assertTrue(res.data_.getMinion_p1(0).getHealth() == health0);
-		assertTrue(res.data_.getMinion_p1(0).getAttack() == attack0);
-		assertTrue(res.data_.getMinion_p1(1).getHealth() == health1);
-		assertTrue(res.data_.getMinion_p1(1).getAttack() == attack0);
-		assertTrue(res.data_.getMinion_p1(2).getHealth() == health0);
-		assertTrue(res.data_.getMinion_p1(2).getAttack() == attack0);
-		assertTrue(res.data_.getHero_p0().getHealth() == 27);
-		assertTrue(res.data_.getHero_p1().getHealth() == 30);
+		board.data_.setMana_p0((byte)3);
+		board.data_.setMana_p1((byte)3);
 
+		board.data_.setMaxMana_p0((byte)3);
+		board.data_.setMaxMana_p1((byte)3);
+
+		BoardState resBoard = ai0.playTurn(0, board.data_, player);
+		
+		assertFalse( resBoard == null );
+		
+		assertEquals( resBoard.getMana_p0(), 0 );
+		assertEquals( resBoard.getMana_p1(), 3 );
+		assertEquals( resBoard.getNumCards_hand_p0(), 2 );
+		assertEquals( resBoard.getNumMinions_p0(), 1 );
+		assertEquals( resBoard.getNumMinions_p1(), 2 );
+	}
+	
+	@Test
+	public void test3() throws HSException {
+		
+		int numCards = 10;
+		Card cards[] = new Card[numCards];
+		for (int index = 0; index < numCards; ++index) {
+			cards[index] = new BloodfenRaptor();
+		}
+		
+		Deck deck = new Deck(cards);
+		
+		ArtificialPlayer ai0 = new ArtificialPlayer(
+				0.9,
+				0.9,
+				1.0,
+				1.0,
+				1.0,
+				0.1,
+				0.1,
+				0.1,
+				0.5,
+				0.5,
+				0.0,
+				0.5,
+				0.0,
+				0.0
+				);
+		
+		Hero hero = new Hero();		
+		Player player = new Player("player0", hero, deck);
+		
+		board.data_.setMana_p0((byte)6);
+		board.data_.setMana_p1((byte)6);
+
+		board.data_.setMaxMana_p0((byte)6);
+		board.data_.setMaxMana_p1((byte)6);
+
+		BoardState resBoard = ai0.playTurn(0, board.data_, player);
+		
+		assertFalse( resBoard == null );
+		
+		assertEquals( resBoard.getMana_p0(), 1 );
+		assertEquals( resBoard.getMana_p1(), 6 );
+		assertEquals( resBoard.getNumCards_hand_p0(), 1 );
+		assertEquals( resBoard.getNumMinions_p0(), 2 );
+		assertEquals( resBoard.getNumMinions_p1(), 2 );
+	}
+	
+	@Test
+	public void test4() throws HSException {
+		
+		int numCards = 10;
+		Card cards[] = new Card[numCards];
+		for (int index = 0; index < numCards; ++index) {
+			cards[index] = new BloodfenRaptor();
+		}
+		
+		Deck deck = new Deck(cards);
+		
+		ArtificialPlayer ai0 = new ArtificialPlayer(
+				0.9,
+				0.9,
+				1.0,
+				1.0,
+				1.0,
+				0.1,
+				0.1,
+				0.1,
+				0.5,
+				0.5,
+				0.0,
+				0.5,
+				0.0,
+				0.0
+				);
+		
+		Hero hero = new Hero();		
+		Player player = new Player("player0", hero, deck);
+		
+		board.data_.setMana_p0((byte)9);
+		board.data_.setMana_p1((byte)9);
+
+		board.data_.setMaxMana_p0((byte)9);
+		board.data_.setMaxMana_p1((byte)9);
+
+		BoardState resBoard = ai0.playTurn(0, board.data_, player);
+		
+		assertFalse( resBoard == null );
+		
+		assertEquals( resBoard.getMana_p0(), 2 );
+		assertEquals( resBoard.getMana_p1(), 9 );
+		assertEquals( resBoard.getNumCards_hand_p0(), 0 );
+		assertEquals( resBoard.getNumMinions_p0(), 3 );
+		assertEquals( resBoard.getNumMinions_p1(), 2 );
 	}
 }
