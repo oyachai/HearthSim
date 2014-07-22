@@ -1,27 +1,29 @@
 package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.Deck;
-import com.hearthsim.card.minion.Demon;
+import com.hearthsim.card.minion.MinionWithSpellDamage;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
+import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class Succubus extends Demon {
-
-
-	private static final String NAME = "Succubus";
-	private static final byte MANA_COST = 2;
+public class AzureDrake extends MinionWithSpellDamage {
+	
+	private static final String NAME = "Azure Drake";
+	private static final byte MANA_COST = 5;
 	private static final byte ATTACK = 4;
-	private static final byte HEALTH = 3;
+	private static final byte HEALTH = 4;
 	
 	private static final boolean TAUNT = false;
 	private static final boolean DIVINE_SHIELD = false;
 	private static final boolean WINDFURY = false;
 	private static final boolean CHARGE = false;
 	
-	private static final boolean SUMMONED = false;
+	private static final boolean SUMMONED = true;
 	private static final boolean TRANSFORMED = false;
 	
-	public Succubus() {
+	private static final byte SPELL_DAMAGE = 1;
+	
+	public AzureDrake() {
 		this(
 				MANA_COST,
 				ATTACK,
@@ -46,7 +48,7 @@ public class Succubus extends Demon {
 			);
 	}
 	
-	public Succubus(	
+	public AzureDrake(	
 			byte mana,
 			byte attack,
 			byte health,
@@ -94,7 +96,7 @@ public class Succubus extends Demon {
 	
 	@Override
 	public Object deepCopy() {
-		return new Succubus(
+		return new AzureDrake(
 				this.mana_,
 				this.attack_,
 				this.health_,
@@ -121,7 +123,7 @@ public class Succubus extends Demon {
 	 * 
 	 * Override for battlecry
 	 * 
-	 * Battlecry: Give a friendly minion +1/+1
+	 * Battlecry: Draw one card
 	 * 
 	 * @param thisCardIndex The index (position) of the card in the hand
 	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
@@ -131,7 +133,14 @@ public class Succubus extends Demon {
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public HearthTreeNode use_core(int thisCardIndex, int playerIndex, int minionIndex, HearthTreeNode boardState, Deck deck) throws HSInvalidPlayerIndexException {
+	public HearthTreeNode use_core(
+			int thisCardIndex,
+			int playerIndex,
+			int minionIndex,
+			HearthTreeNode boardState,
+			Deck deck)
+		throws HSInvalidPlayerIndexException
+	{
 		
 		if (hasBeenUsed_) {
 			//Card is already used, nothing to do
@@ -140,15 +149,12 @@ public class Succubus extends Demon {
 		
 		if (playerIndex == 1 || minionIndex == 0)
 			return null;
-
-		super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
 		
-		int numCards = boardState.data_.getNumCards_hand_p0();
-		if (numCards <= 0)
+		if (boardState.data_.getNumMinions_p0() >= 7)
 			return null;
-		int cardToDiscardIndex = (int)(Math.random() * numCards);
-		boardState.data_.removeCard_hand(cardToDiscardIndex);
-							
-		return boardState;
+		
+		HearthTreeNode toRet = super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
+		CardDrawNode cNode = new CardDrawNode(toRet, 1, this, 0, thisCardIndex, playerIndex, minionIndex); //draw one card
+		return cNode;
 	}
 }
