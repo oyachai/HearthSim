@@ -53,7 +53,7 @@ public class Swipe extends SpellCard {
 			int playerIndex,
 			int minionIndex,
 			HearthTreeNode boardState,
-			Deck deck)
+			Deck deckPlayer0, Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
 		if (playerIndex == 0) {
@@ -61,15 +61,15 @@ public class Swipe extends SpellCard {
 		}
 		
 		if (minionIndex == 0)
-			boardState.data_.getHero_p1().takeDamage((byte)4, 0, playerIndex, minionIndex, boardState, deck, true);
+			boardState.data_.getHero_p1().takeDamage((byte)4, 0, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1, true);
 		else
-			boardState.data_.getHero_p1().takeDamage((byte)1, 0, playerIndex, minionIndex, boardState, deck, true);
+			boardState.data_.getHero_p1().takeDamage((byte)1, 0, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1, true);
 		
 		for (int indx = 0; indx < boardState.data_.getNumMinions_p1(); ++indx) {
 			if (indx + 1 == minionIndex) {
-				boardState.data_.getMinion_p1(indx).takeDamage((byte)4, 0, playerIndex, minionIndex, boardState, deck, true);
+				boardState.data_.getMinion_p1(indx).takeDamage((byte)4, 0, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1, true);
 			} else {
-				boardState.data_.getMinion_p1(indx).takeDamage((byte)1, 0, playerIndex, minionIndex, boardState, deck, true);				
+				boardState.data_.getMinion_p1(indx).takeDamage((byte)1, 0, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1, true);				
 			}
 		}
 		
@@ -81,6 +81,6 @@ public class Swipe extends SpellCard {
 			}
 		}
 		
-		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
+		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
 	}
 }

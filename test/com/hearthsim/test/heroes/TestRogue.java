@@ -59,16 +59,16 @@ public class TestRogue {
 		
 		HearthTreeNode tmpBoard = new HearthTreeNode(board.data_.flipPlayers());
 		try {
-			tmpBoard.data_.getCard_hand_p0(0).useOn(0, 0, 1, tmpBoard, deck);
-			tmpBoard.data_.getCard_hand_p0(0).useOn(0, 0, 1, tmpBoard, deck);
+			tmpBoard.data_.getCard_hand_p0(0).useOn(0, 0, 1, tmpBoard, deck, null);
+			tmpBoard.data_.getCard_hand_p0(0).useOn(0, 0, 1, tmpBoard, deck, null);
 		} catch (HSInvalidPlayerIndexException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		board = new HearthTreeNode(tmpBoard.data_.flipPlayers());
 		try {
-			board.data_.getCard_hand_p0(0).useOn(0, 0, 1, board, deck);
-			board.data_.getCard_hand_p0(0).useOn(0, 0, 1, board, deck);
+			board.data_.getCard_hand_p0(0).useOn(0, 0, 1, board, deck, null);
+			board.data_.getCard_hand_p0(0).useOn(0, 0, 1, board, deck, null);
 		} catch (HSInvalidPlayerIndexException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -84,7 +84,7 @@ public class TestRogue {
 		//null case
 		
 		Minion minion = board.data_.getMinion_p0(0);
-		HearthTreeNode ret = minion.attack(0, 1, 0, board, deck);
+		HearthTreeNode ret = minion.attack(0, 1, 0, board, deck, null);
 		
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 1);
@@ -106,7 +106,7 @@ public class TestRogue {
 		
 		
 		Hero hero = board.data_.getHero_p0();
-		ret = hero.useHeroAbility(0, 1, 0, board, deck);
+		ret = hero.useHeroAbility(0, 1, 0, board, deck, null);
 		assertTrue(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 1);
 		assertEquals(board.data_.getNumMinions_p0(), 2);
@@ -126,7 +126,7 @@ public class TestRogue {
 		assertEquals(board.data_.getMinion_p1(1).getAttack(), 7);
 		
 		minion.hasAttacked(false);
-		ret = minion.attack(0, 1, 2, board, deck);
+		ret = minion.attack(0, 1, 2, board, deck, null);
 		assertEquals(board.data_.getNumCards_hand(), 1);
 		assertEquals(board.data_.getNumMinions_p0(), 2);
 		assertEquals(board.data_.getNumMinions_p1(), 2);
@@ -145,7 +145,7 @@ public class TestRogue {
 		assertEquals(board.data_.getMinion_p1(1).getAttack(), 7);
 		
 		minion.hasAttacked(false);
-		ret = hero.useHeroAbility(0, 0, 0, board, deck);
+		ret = hero.useHeroAbility(0, 0, 0, board, deck, null);
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 1);
 		assertEquals(board.data_.getNumMinions_p0(), 2);

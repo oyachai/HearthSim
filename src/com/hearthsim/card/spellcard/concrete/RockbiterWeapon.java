@@ -49,7 +49,7 @@ public class RockbiterWeapon extends SpellCard {
 			int playerIndex,
 			int minionIndex,
 			HearthTreeNode boardState,
-			Deck deck)
+			Deck deckPlayer0, Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
 		
@@ -60,6 +60,6 @@ public class RockbiterWeapon extends SpellCard {
 			toRet.data_.getMinion(playerIndex, minionIndex - 1).setExtraAttackUntilTurnEnd((byte)(3 + toRet.data_.getMinion(playerIndex, minionIndex - 1).getExtraAttackUntilTurnEnd()));
 		}
 		
-		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
+		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
 	}
 }

@@ -49,13 +49,13 @@ public class TestBlessingOfMight {
 		Card theCard = board.data_.getCard_hand_p0(0);
 		HearthTreeNode res;
 		
-		res = theCard.useOn(0, 1, 0, board, deck);
+		res = theCard.useOn(0, 1, 0, board, deck, null);
 		assertTrue(res == null);
 		
-		res = theCard.useOn(0, 0, 0, board, deck);
+		res = theCard.useOn(0, 0, 0, board, deck, null);
 		assertTrue(res == null);
 
-		res = theCard.useOn(0, 0, 1, board, deck);
+		res = theCard.useOn(0, 0, 1, board, deck, null);
 		assertFalse(res == null);
 		assertTrue(res.data_.getNumCards_hand() == 0);
 		assertTrue(res.data_.getNumMinions_p0() == 1);
@@ -82,7 +82,7 @@ public class TestBlessingOfMight {
 		Card theCard = board.data_.getCard_hand_p0(0);
 		HearthTreeNode res;
 
-		res = theCard.useOn(0, 1, 1, board, deck);
+		res = theCard.useOn(0, 1, 1, board, deck, null);
 		assertFalse(res == null);
 		assertTrue(res.data_.getNumCards_hand() == 0);
 		assertTrue(res.data_.getNumMinions_p0() == 1);
@@ -108,7 +108,7 @@ public class TestBlessingOfMight {
 		Card theCard = board.data_.getCard_hand_p0(0);
 		HearthTreeNode res;
 
-		res = theCard.useOn(0, 1, 2, board, deck);
+		res = theCard.useOn(0, 1, 2, board, deck, null);
 		assertFalse(res == null);
 		assertTrue(res.data_.getNumCards_hand() == 0);
 		assertTrue(res.data_.getNumMinions_p0() == 1);

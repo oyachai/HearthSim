@@ -137,11 +137,12 @@ public class AbusiveSergeant extends Minion {
 			int playerIndex,
 			int minionIndex,
 			HearthTreeNode boardState,
-			Deck deck)
+			Deck deckPlayer0,
+			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
 		//A generic card does nothing except for consuming mana
-		HearthTreeNode toRet = super.useOn(thisCardIndex, playerIndex, minionIndex, boardState, deck);
+		HearthTreeNode toRet = super.useOn(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
 		
 		if (toRet != null) {
 			for (int index = 0; index < boardState.data_.getNumMinions_p0(); ++index) {

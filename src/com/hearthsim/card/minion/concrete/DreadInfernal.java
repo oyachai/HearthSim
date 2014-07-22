@@ -135,7 +135,8 @@ public class DreadInfernal extends Demon {
 			int playerIndex,
 			int minionIndex,
 			HearthTreeNode boardState,
-			Deck deck)
+			Deck deckPlayer0,
+			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
 		
@@ -150,16 +151,16 @@ public class DreadInfernal extends Demon {
 		if (boardState.data_.getNumMinions_p0() >= 7)
 			return null;
 		
-		boardState.data_.getHero_p0().takeDamage((byte)1, 0, 0, 0, boardState, deck);
+		boardState.data_.getHero_p0().takeDamage((byte)1, 0, 0, 0, boardState, deckPlayer0, deckPlayer1);
 		for (int indx = 0; indx < boardState.data_.getNumMinions_p0(); ++indx) {
-			boardState.data_.getMinion_p0(indx).takeDamage((byte)1, 0, 0, indx + 1, boardState, deck);
+			boardState.data_.getMinion_p0(indx).takeDamage((byte)1, 0, 0, indx + 1, boardState, deckPlayer0, deckPlayer1);
 		}
 		
-		boardState.data_.getHero_p1().takeDamage((byte)1, 0, 1, 0, boardState, deck);
+		boardState.data_.getHero_p1().takeDamage((byte)1, 0, 1, 0, boardState, deckPlayer0, deckPlayer1);
 		for (int indx = 0; indx < boardState.data_.getNumMinions_p1(); ++indx) {
-			boardState.data_.getMinion_p1(indx).takeDamage((byte)1, 0, 1, indx + 1, boardState, deck);
+			boardState.data_.getMinion_p1(indx).takeDamage((byte)1, 0, 1, indx + 1, boardState, deckPlayer0, deckPlayer1);
 		}
 		
-		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
+		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
 	}
 }

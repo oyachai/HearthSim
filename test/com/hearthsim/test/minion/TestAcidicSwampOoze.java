@@ -62,7 +62,7 @@ public class TestAcidicSwampOoze {
 	public void test0() throws HSInvalidPlayerIndexException {
 		
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 1, 0, board, deck);
+		HearthTreeNode ret = theCard.useOn(0, 1, 0, board, deck, null);
 		
 		assertTrue(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 1);
@@ -80,7 +80,7 @@ public class TestAcidicSwampOoze {
 	public void test1() throws HSInvalidPlayerIndexException {
 		
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 0, 0, board, deck);
+		HearthTreeNode ret = theCard.useOn(0, 0, 0, board, deck, null);
 		
 		assertTrue(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 1);
@@ -99,7 +99,7 @@ public class TestAcidicSwampOoze {
 	public void test2() throws HSInvalidPlayerIndexException {
 		
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 0, 3, board, deck);
+		HearthTreeNode ret = theCard.useOn(0, 0, 3, board, deck, null);
 		
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 0);
@@ -119,7 +119,7 @@ public class TestAcidicSwampOoze {
 		
 		HearthTreeNode fl = new HearthTreeNode(board.data_.flipPlayers());
 		fl.data_.placeCard_hand_p0(new FieryWarAxe());
-		fl = fl.data_.getCard_hand_p0(0).useOn(0, 0, 0, fl, deck);
+		fl = fl.data_.getCard_hand_p0(0).useOn(0, 0, 0, fl, deck, null);
 		board = new HearthTreeNode(fl.data_.flipPlayers());
 		
 		assertEquals(board.data_.getHero_p0().getAttack(), 0);
@@ -128,7 +128,7 @@ public class TestAcidicSwampOoze {
 		assertEquals(board.data_.getHero_p1().getWeaponCharge(), 2);
 
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 0, 3, board, deck);
+		HearthTreeNode ret = theCard.useOn(0, 0, 3, board, deck, null);
 		
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 0);

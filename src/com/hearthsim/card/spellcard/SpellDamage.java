@@ -57,10 +57,11 @@ public class SpellDamage extends SpellCard {
 			int targetPlayerIndex,
 			int targetMinionIndex,
 			HearthTreeNode boardState,
-			Deck deck)
+			Deck deckPlayer0,
+			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
-		minion.takeDamage(damage_, 0, targetPlayerIndex, targetMinionIndex, boardState, deck, true);
+		minion.takeDamage(damage_, 0, targetPlayerIndex, targetMinionIndex, boardState, deckPlayer0, deckPlayer1, true);
  	}
 	
 	/**
@@ -80,7 +81,8 @@ public class SpellDamage extends SpellCard {
 			int playerIndex,
 			int minionIndex,
 			HearthTreeNode boardState,
-			Deck deck)
+			Deck deckPlayer0,
+			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
 		if (this.hasBeenUsed()) {
@@ -93,9 +95,9 @@ public class SpellDamage extends SpellCard {
 		if (minionIndex == 0) {
 			//attack a hero
 			if (playerIndex == 0) {
-				this.attack(boardState.data_.getHero_p0(), playerIndex, minionIndex, boardState, deck);
+				this.attack(boardState.data_.getHero_p0(), playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
 			} else {
-				this.attack(boardState.data_.getHero_p1(), playerIndex, minionIndex, boardState, deck);
+				this.attack(boardState.data_.getHero_p1(), playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
 			}
 			boardState.data_.setMana_p0(boardState.data_.getMana_p0() - this.mana_);
 			boardState.data_.removeCard_hand(thisCardIndex);
@@ -113,7 +115,7 @@ public class SpellDamage extends SpellCard {
 				else
 					return null;
 			}
-			this.attack(target, playerIndex, minionIndex, boardState, deck);
+			this.attack(target, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
 			boardState.data_.setMana_p0(boardState.data_.getMana_p0() - this.mana_);
 			boardState.data_.removeCard_hand(thisCardIndex);
 

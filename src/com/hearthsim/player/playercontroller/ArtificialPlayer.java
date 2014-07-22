@@ -278,10 +278,10 @@ public class ArtificialPlayer {
 	 * @return
 	 * @throws HSException
 	 */
-	public BoardState playTurn(int turn, BoardState board, Player player) throws HSException {
+	public BoardState playTurn(int turn, BoardState board, Player player0, Player player1) throws HSException {
 		//The goal of this ai is to maximize his board score
 		HearthTreeNode toRet = new HearthTreeNode(board);
-		BoardStateFactory factory = new BoardStateFactory(player.getDeck(), 2000000000);
+		BoardStateFactory factory = new BoardStateFactory(player0.getDeck(), player1.getDeck());
 		HearthTreeNode allMoves = factory.doMoves(toRet, this);
 
 //		System.out.print("turn = " + turn + ", p = " + player.getName() + ", nHand = " + board.getNumCards_hand() + ", nMinion = " + board.getNumMinions_p0() + ", nEnemyMinion = " + board.getNumMinions_p1());
@@ -289,7 +289,7 @@ public class ArtificialPlayer {
 		
 		HearthTreeNode bestPlay = allMoves.findMaxOfFunc(this);
 		while( bestPlay instanceof StopNode ) {
-			HearthTreeNode allEffectsDone = ((StopNode)bestPlay).finishAllEffects(player.getDeck());
+			HearthTreeNode allEffectsDone = ((StopNode)bestPlay).finishAllEffects(player0.getDeck());
 			HearthTreeNode allMovesAtferStopNode = factory.doMoves(allEffectsDone, this);
 			bestPlay = allMovesAtferStopNode.findMaxOfFunc(this);
 		}

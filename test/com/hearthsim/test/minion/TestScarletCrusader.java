@@ -56,17 +56,17 @@ public class TestScarletCrusader {
 		
 		HearthTreeNode tmpBoard = new HearthTreeNode(board.data_.flipPlayers());
 		try {
-			tmpBoard.data_.getCard_hand_p0(0).useOn(0, 0, 1, tmpBoard, deck);
-			tmpBoard.data_.getCard_hand_p0(0).useOn(0, 0, 1, tmpBoard, deck);
-			tmpBoard.data_.getCard_hand_p0(0).useOn(0, 0, 1, tmpBoard, deck);
+			tmpBoard.data_.getCard_hand_p0(0).useOn(0, 0, 1, tmpBoard, deck, null);
+			tmpBoard.data_.getCard_hand_p0(0).useOn(0, 0, 1, tmpBoard, deck, null);
+			tmpBoard.data_.getCard_hand_p0(0).useOn(0, 0, 1, tmpBoard, deck, null);
 		} catch (HSInvalidPlayerIndexException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		board = new HearthTreeNode(tmpBoard.data_.flipPlayers());
 		try {
-			board.data_.getCard_hand_p0(0).useOn(0, 0, 1, board, deck);
-			board.data_.getCard_hand_p0(0).useOn(0, 0, 1, board, deck);
+			board.data_.getCard_hand_p0(0).useOn(0, 0, 1, board, deck, null);
+			board.data_.getCard_hand_p0(0).useOn(0, 0, 1, board, deck, null);
 		} catch (HSInvalidPlayerIndexException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -83,7 +83,7 @@ public class TestScarletCrusader {
 		
 		//null case
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 1, 0, board, deck);
+		HearthTreeNode ret = theCard.useOn(0, 1, 0, board, deck, null);
 		
 		assertTrue(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 1);
@@ -113,7 +113,7 @@ public class TestScarletCrusader {
 		
 		//null case
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 0, 0, board, deck);
+		HearthTreeNode ret = theCard.useOn(0, 0, 0, board, deck, null);
 		
 		assertTrue(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 1);
@@ -143,7 +143,7 @@ public class TestScarletCrusader {
 		
 		//null case
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 0, 3, board, deck);
+		HearthTreeNode ret = theCard.useOn(0, 0, 3, board, deck, null);
 		
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 0);
@@ -176,7 +176,7 @@ public class TestScarletCrusader {
 		//------------------------------------------------------------
 		Minion m0 = board.data_.getMinion_p0(2);
 		m0.hasAttacked(false);
-		ret = m0.attack(3, 1, 0, board, deck);
+		ret = m0.attack(3, 1, 0, board, deck, null);
 		
 		assertEquals(board.data_.getNumCards_hand(), 0);
 		assertEquals(board.data_.getNumMinions_p0(), 3);
@@ -207,7 +207,7 @@ public class TestScarletCrusader {
 		//------------------------------------------------------------
 		Minion m1 = board.data_.getMinion_p0(2);
 		m1.hasAttacked(false);
-		ret = m1.attack(3, 1, 3, board, deck);
+		ret = m1.attack(3, 1, 3, board, deck, null);
 		
 		assertEquals(board.data_.getNumCards_hand(), 0);
 		assertEquals(board.data_.getNumMinions_p0(), 3);
@@ -238,7 +238,7 @@ public class TestScarletCrusader {
 		//------------------------------------------------------------
 		Minion m2 = board.data_.getMinion_p0(1);
 		m2.hasAttacked(false);
-		ret = m2.attack(2, 1, 1, board, deck);
+		ret = m2.attack(2, 1, 1, board, deck, null);
 		
 		assertEquals(board.data_.getNumCards_hand(), 0);
 		assertEquals(board.data_.getNumMinions_p0(), 3);
@@ -269,7 +269,7 @@ public class TestScarletCrusader {
 		//------------------------------------------------------------
 		Minion m3 = board.data_.getMinion_p0(2);
 		m3.hasAttacked(false);
-		ret = m3.attack(3, 1, 3, board, deck);
+		ret = m3.attack(3, 1, 3, board, deck, null);
 		
 		assertEquals(board.data_.getNumCards_hand(), 0);
 		assertEquals(board.data_.getNumMinions_p0(), 2);

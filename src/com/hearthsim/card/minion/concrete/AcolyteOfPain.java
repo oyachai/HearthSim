@@ -1,16 +1,18 @@
 package com.hearthsim.card.minion.concrete;
 
+import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
+import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class GurubashiBerserker extends Minion {
+public class AcolyteOfPain extends Minion {
 
-	private static final String NAME = "Gurubashi Berserker";
-	private static final byte MANA_COST = 5;
-	private static final byte ATTACK = 2;
-	private static final byte HEALTH = 7;
+	private static final String NAME = "Acolyte of Pain";
+	private static final byte MANA_COST = 3;
+	private static final byte ATTACK = 1;
+	private static final byte HEALTH = 3;
 	
 	private static final boolean TAUNT = false;
 	private static final boolean DIVINE_SHIELD = false;
@@ -20,7 +22,7 @@ public class GurubashiBerserker extends Minion {
 	private static final boolean SUMMONED = false;
 	private static final boolean TRANSFORMED = false;
 	
-	public GurubashiBerserker() {
+	public AcolyteOfPain() {
 		this(
 				MANA_COST,
 				ATTACK,
@@ -45,7 +47,7 @@ public class GurubashiBerserker extends Minion {
 			);
 	}
 	
-	public GurubashiBerserker(	
+	public AcolyteOfPain(	
 			byte mana,
 			byte attack,
 			byte health,
@@ -93,7 +95,7 @@ public class GurubashiBerserker extends Minion {
 	
 	@Override
 	public Object deepCopy() {
-		return new GurubashiBerserker(
+		return new AcolyteOfPain(
 				this.mana_,
 				this.attack_,
 				this.health_,
@@ -116,11 +118,11 @@ public class GurubashiBerserker extends Minion {
 				this.hasBeenUsed_);
 	}
 	
-	
+
 	/**
 	 * Called when this minion takes damage
 	 * 
-	 * Override for special ability: gain +3 attack whenever this minion takes damage
+	 * Draw a card whenever this minion takes damage
 	 * 
 	 * @param damage The amount of damage to take
 	 * @param attackerPlayerIndex The player index of the attacker.  This is needed to do things like +spell damage.
@@ -134,26 +136,25 @@ public class GurubashiBerserker extends Minion {
 	@Override
 	public HearthTreeNode takeDamage(byte damage, int attackerPlayerIndex, int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean isSpellDamage) throws HSInvalidPlayerIndexException {
 		if (!divineShield_) {
-			byte totalDamage = isSpellDamage ? (byte)(damage + boardState.data_.getSpellDamage(attackerPlayerIndex)) : damage;
-			health_ = (byte)(health_ - totalDamage);
-			
-			//Notify all that the minion is damaged
-			HearthTreeNode toRet = boardState;
-			toRet = toRet.data_.getHero_p0().minionDamagedEvent(0, 0, thisPlayerIndex, thisMinionIndex, toRet, deckPlayer0, deckPlayer1);
-			for (int j = 0; j < toRet.data_.getNumMinions_p0(); ++j) {
-				toRet = toRet.data_.getMinion_p0(j).minionDamagedEvent(0, j + 1, thisPlayerIndex, thisMinionIndex, toRet, deckPlayer0, deckPlayer1);
+			HearthTreeNode toRet = super.takeDamage(damage, attackerPlayerIndex, thisPlayerIndex, thisMinionIndex, boardState, deckPlayer0, deckPlayer1, isSpellDamage);
+			if (damage > 0 && thisPlayerIndex == 0) {
+				if (toRet instanceof CardDrawNode) {
+					((CardDrawNode) toRet).addNumCardsToDraw(1);
+				} else {
+					toRet = new CardDrawNode(toRet, 1, this, 0, thisMinionIndex, thisPlayerIndex, thisMinionIndex); //draw one card
+				}
+			} else if (damage > 0) {
+				//This minion is an enemy minion.  Let's draw a card for the enemy.  No need to use a StopNode for enemy card draws.
+				Card card = deckPlayer1.drawCard(toRet.data_.getDeckPos(1));
+				if (card == null) {
+					byte fatigueDamage = toRet.data_.getFatigueDamage(1);
+					toRet.data_.setFatigueDamage(1, (byte)(fatigueDamage + 1));
+					toRet.data_.getHero(1).setHealth((byte)(toRet.data_.getHero(1).getHealth() - fatigueDamage));
+				} else {
+					toRet.data_.placeCard_hand(1, card);
+					toRet.data_.setDeckPos(1, toRet.data_.getDeckPos(1) + 1);
+				}
 			}
-			toRet = toRet.data_.getHero_p1().minionDamagedEvent(1, 0, thisPlayerIndex, thisMinionIndex, toRet, deckPlayer0, deckPlayer1);
-			for (int j = 0; j < toRet.data_.getNumMinions_p1(); ++j) {
-				toRet = toRet.data_.getMinion_p1(j).minionDamagedEvent(1, j + 1, thisPlayerIndex, thisMinionIndex, toRet, deckPlayer0, deckPlayer1);
-			}
-			
-			//If fatal, notify all that it is dead
-			if (health_ <= 0) {
-				toRet = this.destroyed(thisPlayerIndex, thisMinionIndex, toRet, deckPlayer0, deckPlayer1);
-			}
-			
-			this.attack_ = (byte)(this.attack_ + 3);
 			return toRet;
 		} else {
 			divineShield_ = false;

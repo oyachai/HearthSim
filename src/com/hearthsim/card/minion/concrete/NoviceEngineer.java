@@ -136,7 +136,8 @@ public class NoviceEngineer extends Minion {
 			int playerIndex,
 			int minionIndex,
 			HearthTreeNode boardState,
-			Deck deck)
+			Deck deckPlayer0,
+			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
 		
@@ -151,7 +152,7 @@ public class NoviceEngineer extends Minion {
 		if (boardState.data_.getNumMinions_p0() >= 7)
 			return null;
 		
-		HearthTreeNode toRet = super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
+		HearthTreeNode toRet = super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
 		CardDrawNode cNode = new CardDrawNode(toRet, 1, this, 0, thisCardIndex, playerIndex, minionIndex); //draw one card
 		return cNode;
 	}

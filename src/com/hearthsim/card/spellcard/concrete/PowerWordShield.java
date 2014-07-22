@@ -51,13 +51,13 @@ public class PowerWordShield extends SpellCard {
 			int playerIndex,
 			int minionIndex,
 			HearthTreeNode boardState,
-			Deck deck)
+			Deck deckPlayer0, Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
 		if (minionIndex == 0) {
 			return null;
 		}
-		HearthTreeNode toRet = super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
+		HearthTreeNode toRet = super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
 
 		toRet.data_.getMinion(playerIndex, minionIndex - 1).setHealth((byte)(toRet.data_.getMinion(playerIndex, minionIndex - 1).getHealth() + 2));
 		toRet.data_.getMinion(playerIndex, minionIndex - 1).setMaxHealth((byte)(toRet.data_.getMinion(playerIndex, minionIndex - 1).getMaxHealth() + 2));

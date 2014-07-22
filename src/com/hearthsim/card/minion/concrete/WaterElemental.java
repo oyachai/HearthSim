@@ -136,14 +136,15 @@ public class WaterElemental extends Minion {
 			int playerIndex,
 			int minionIndex,
 			HearthTreeNode boardState,
-			Deck deck)
+			Deck deckPlayer0,
+			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
 		if (minionIndex == 0)
 			boardState.data_.getHero_p1().setFrozen(true);
 		else
 			boardState.data_.getMinion(playerIndex, minionIndex - 1).setFrozen(true);
-		HearthTreeNode toRet = super.attack_core(thisMinionIndex, playerIndex, minionIndex, boardState, deck);
+		HearthTreeNode toRet = super.attack_core(thisMinionIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
 		return toRet;
 	}
 }

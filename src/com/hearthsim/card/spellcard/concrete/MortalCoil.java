@@ -41,7 +41,7 @@ public class MortalCoil extends SpellDamage {
 			int playerIndex,
 			int minionIndex,
 			HearthTreeNode boardState,
-			Deck deck)
+			Deck deckPlayer0, Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
 		if (minionIndex == 0) 
@@ -68,7 +68,7 @@ public class MortalCoil extends SpellDamage {
 				return null;
 		}
 		
-		this.attack(target, playerIndex, minionIndex, boardState, deck);
+		this.attack(target, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
 		boardState.data_.setMana_p0(boardState.data_.getMana_p0() - this.mana_);
 		boardState.data_.removeCard_hand(thisCardIndex);
 

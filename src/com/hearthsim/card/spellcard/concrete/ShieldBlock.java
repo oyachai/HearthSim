@@ -4,6 +4,7 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
+import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class ShieldBlock extends SpellCard {
@@ -51,23 +52,19 @@ public class ShieldBlock extends SpellCard {
 			int playerIndex,
 			int minionIndex,
 			HearthTreeNode boardState,
-			Deck deck)
+			Deck deckPlayer0, Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
 		if (minionIndex > 0 || playerIndex == 1) {
 			return null;
 		}
-		boardState.data_.getHero_p0().setArmor((byte)(boardState.data_.getHero_p0().getArmor() + 5));
-		Card card = deck.drawCard(boardState.data_.getDeckPos_p0());
-		if (card == null) {
-			byte fatigueDamage = boardState.data_.getFatigueDamage_p0();
-			boardState.data_.setFatigueDamage_p0((byte)(fatigueDamage + 1));
-			boardState.data_.getHero_p0().setHealth((byte)(boardState.data_.getHero_p0().getHealth() - fatigueDamage));
-		} else {
-			boardState.data_.placeCard_hand_p0(card);
-			boardState.data_.setDeckPos_p0(boardState.data_.getDeckPos_p0() + 1);
+		
+		HearthTreeNode toRet = super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
+		if (toRet != null) {
+			boardState.data_.getHero_p0().setArmor((byte)(boardState.data_.getHero_p0().getArmor() + 5));
+			toRet = new CardDrawNode(toRet, 1, this, 0, thisCardIndex, playerIndex, minionIndex); //draw two cards
 		}
+		return toRet;
 
-		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
 	}
 }

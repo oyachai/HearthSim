@@ -50,7 +50,7 @@ public class HeroicStrike extends SpellCard {
 			int playerIndex,
 			int minionIndex,
 			HearthTreeNode boardState,
-			Deck deck)
+			Deck deckPlayer0, Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
 		if (this.hasBeenUsed()) {
@@ -69,6 +69,6 @@ public class HeroicStrike extends SpellCard {
 			this.hasBeenUsed(true);
 		}
 		
-		return super.use_core(thisCardIndex, playerIndex, minionIndex, toRet, deck);
+		return super.use_core(thisCardIndex, playerIndex, minionIndex, toRet, deckPlayer0, deckPlayer1);
 	}
 }

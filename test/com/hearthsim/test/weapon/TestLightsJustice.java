@@ -57,7 +57,7 @@ public class TestLightsJustice {
 	public void test0() throws HSInvalidPlayerIndexException {
 		
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 1, 0, board, deck);
+		HearthTreeNode ret = theCard.useOn(0, 1, 0, board, deck, null);
 		
 		assertTrue(ret == null);
 		assertTrue(board.data_.getNumCards_hand() == 1);
@@ -76,7 +76,7 @@ public class TestLightsJustice {
 	public void test1() throws HSInvalidPlayerIndexException {
 		
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 0, 1, board, deck);
+		HearthTreeNode ret = theCard.useOn(0, 0, 1, board, deck, null);
 		
 		assertTrue(ret == null);
 		assertTrue(board.data_.getNumCards_hand() == 1);
@@ -94,7 +94,7 @@ public class TestLightsJustice {
 	public void test2() throws HSInvalidPlayerIndexException {
 		
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 0, 0, board, deck);
+		HearthTreeNode ret = theCard.useOn(0, 0, 0, board, deck, null);
 		
 		assertFalse(ret == null);
 		assertTrue(board.data_.getNumCards_hand() == 0);
@@ -112,7 +112,7 @@ public class TestLightsJustice {
 		
 		
 		Minion hero = ret.data_.getHero_p0();
-		ret = hero.attack(0, 1, 0, ret, deck);
+		ret = hero.attack(0, 1, 0, ret, deck, null);
 
 		assertFalse(ret == null);
 		assertTrue(board.data_.getNumCards_hand() == 0);
@@ -127,12 +127,12 @@ public class TestLightsJustice {
 		assertTrue(board.data_.getMinion_p1(0).getHealth() == health0);
 		assertTrue(board.data_.getMinion_p1(1).getHealth() == health1 - 1);
 		
-		ret = hero.attack(0, 1, 1, ret, deck);
+		ret = hero.attack(0, 1, 1, ret, deck, null);
 		assertTrue(ret == null);
 		
 		
 		hero.hasAttacked(false);
-		ret = hero.attack(0, 1, 1, board, deck);
+		ret = hero.attack(0, 1, 1, board, deck, null);
 		assertFalse(ret == null);
 		assertTrue(board.data_.getNumCards_hand() == 0);
 		assertTrue(board.data_.getNumMinions_p0() == 2);

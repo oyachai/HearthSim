@@ -98,7 +98,7 @@ public class TestNorthshireCleric {
 		board.data_.placeCard_hand_p0(fb);
 		
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 0, 0, board, deck);
+		HearthTreeNode ret = theCard.useOn(0, 0, 0, board, deck, null);
 		assertTrue(ret == null);
 		assertTrue(board.data_.getNumCards_hand() == 1);
 		assertTrue(board.data_.getNumMinions_p0() == 2);
@@ -117,7 +117,7 @@ public class TestNorthshireCleric {
 		board.data_.placeCard_hand_p0(fb);
 		
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 0, 1, board, deck);
+		HearthTreeNode ret = theCard.useOn(0, 0, 1, board, deck, null);
 		assertFalse(ret == null);
 
 		assertTrue(ret.data_.getNumCards_hand() == 0);
@@ -136,7 +136,7 @@ public class TestNorthshireCleric {
 		AncestralHealing ah = new AncestralHealing();
 		board.data_.placeCard_hand_p0(ah);
 		theCard = board.data_.getCard_hand_p0(0);
-		ret = theCard.useOn(0, 0, 1, board, deck);
+		ret = theCard.useOn(0, 0, 1, board, deck, null);
 		
 		assertFalse(ret == null);
 		assertTrue(ret.data_.getNumCards_hand() == 0);
@@ -156,7 +156,7 @@ public class TestNorthshireCleric {
 		ah = new AncestralHealing();
 		board.data_.placeCard_hand_p0(ah);
 		theCard = board.data_.getCard_hand_p0(0);
-		ret = theCard.useOn(0, 0, 3, board, deck);
+		ret = theCard.useOn(0, 0, 3, board, deck, null);
 		
 		assertFalse(ret == null);
 		assertEquals(ret.data_.getNumCards_hand(), 0);
@@ -183,10 +183,10 @@ public class TestNorthshireCleric {
 		board.data_.placeCard_hand_p0(fb2);
 		
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 0, 3, board, deck);
+		HearthTreeNode ret = theCard.useOn(0, 0, 3, board, deck, null);
 		
 		theCard = board.data_.getCard_hand_p0(0);
-		ret = theCard.useOn(0, 0, 4, board, deck);
+		ret = theCard.useOn(0, 0, 4, board, deck, null);
 		assertFalse(ret == null);
 
 		assertTrue(ret.data_.getNumCards_hand() == 0);
@@ -205,7 +205,7 @@ public class TestNorthshireCleric {
 		AncestralHealing ah = new AncestralHealing();
 		board.data_.placeCard_hand_p0(ah);
 		theCard = board.data_.getCard_hand_p0(0);
-		ret = theCard.useOn(0, 0, 2, board, deck);
+		ret = theCard.useOn(0, 0, 2, board, deck, null);
 		
 		assertFalse(ret == null);
 		assertEquals(ret.data_.getNumCards_hand(), 0);

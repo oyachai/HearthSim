@@ -52,7 +52,7 @@ public class Flamestrike extends SpellCard {
 			int playerIndex,
 			int minionIndex,
 			HearthTreeNode boardState,
-			Deck deck)
+			Deck deckPlayer0, Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
 		if (playerIndex == 0) {
@@ -65,7 +65,7 @@ public class Flamestrike extends SpellCard {
 		
 		for (int indx = 0; indx < boardState.data_.getNumMinions_p1(); ++indx) {
 			Minion targetMinion = boardState.data_.getMinion_p1(indx);
-			targetMinion.takeDamage((byte)4, 0, 1, indx + 1, boardState, deck, true);
+			targetMinion.takeDamage((byte)4, 0, 1, indx + 1, boardState, deckPlayer0, deckPlayer1, true);
 		}
 		
 		Iterator<Minion> iter = boardState.data_.getMinions_p1().iterator();
@@ -76,6 +76,6 @@ public class Flamestrike extends SpellCard {
 			}
 		}
 
-		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
+		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
 	}
 }

@@ -66,7 +66,7 @@ public class TestGnomishInventor {
 	public void test0() throws HSInvalidPlayerIndexException {
 		
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 1, 0, board, deck);
+		HearthTreeNode ret = theCard.useOn(0, 1, 0, board, deck, null);
 		
 		assertTrue(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 1);
@@ -84,7 +84,7 @@ public class TestGnomishInventor {
 	public void test1() throws HSInvalidPlayerIndexException {
 		
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 0, 0, board, deck);
+		HearthTreeNode ret = theCard.useOn(0, 0, 0, board, deck, null);
 		
 		assertTrue(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 1);
@@ -102,7 +102,7 @@ public class TestGnomishInventor {
 	public void test2() throws HSInvalidPlayerIndexException {
 		
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 0, 2, board, deck);
+		HearthTreeNode ret = theCard.useOn(0, 0, 2, board, deck, null);
 		
 		assertFalse(ret == null);
 		assertTrue( ret instanceof CardDrawNode );
@@ -151,8 +151,9 @@ public class TestGnomishInventor {
 				0.0
 				);
 		
-		Hero hero = new Hero();		
-		Player player = new Player("player0", hero, deck);
+		Hero hero = new Hero();
+		Player player0 = new Player("player0", hero, deck);
+		Player player1 = new Player("player0", hero, deck);
 		
 		board.data_.setMana_p0((byte)5);
 		board.data_.setMana_p1((byte)5);
@@ -161,7 +162,7 @@ public class TestGnomishInventor {
 		board.data_.setMaxMana_p1((byte)5);
 
 		
-		BoardState resBoard = ai0.playTurn(0, board.data_, player);
+		BoardState resBoard = ai0.playTurn(0, board.data_, player0, player1);
 		
 		assertEquals(resBoard.getNumCards_hand_p0(), 1); //1 card drawn from GnomishInventor, not enough mana to play it
 		assertEquals(resBoard.getNumMinions_p0(), 3);
@@ -194,9 +195,10 @@ public class TestGnomishInventor {
 				);
 		
 		Hero hero = new Hero();		
-		Player player = new Player("player0", hero, deck);
+		Player player0 = new Player("player0", hero, deck);
+		Player player1 = new Player("player0", hero, deck);
 		
-		BoardState resBoard = ai0.playTurn(0, board.data_, player);
+		BoardState resBoard = ai0.playTurn(0, board.data_, player0, player1);
 		
 		assertEquals(resBoard.getNumCards_hand_p0(), 0); //1 card drawn from GnomishInventor, and had enough mana to play it
 		assertEquals(resBoard.getNumMinions_p0(), 4);

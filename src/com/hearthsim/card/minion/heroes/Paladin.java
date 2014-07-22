@@ -69,7 +69,8 @@ public class Paladin extends Hero {
 			int targetPlayerIndex,
 			int targetMinionIndex,
 			HearthTreeNode boardState,
-			Deck deck)
+			Deck deckPlayer0,
+			Deck deckPlayer1)
 		throws HSException
 	{
 		if (boardState.data_.getNumMinions_p0() >= 7)
@@ -82,7 +83,7 @@ public class Paladin extends Hero {
 			toRet.data_.placeCard_hand(thisPlayerIndex, theRecruit);
 			//HORRID HACK
 			toRet.data_.setMana_p0(toRet.data_.getMana_p0() + 1);
-			theRecruit.useOn(toRet.data_.getNumCards_hand_p0() - 1, 0, toRet.data_.getNumMinions_p0() + 1, toRet, deck);
+			toRet = theRecruit.useOn(toRet.data_.getNumCards_hand_p0() - 1, 0, toRet.data_.getNumMinions_p0() + 1, toRet, deckPlayer0, deckPlayer1);
 		} else {
 			return null;
 		}

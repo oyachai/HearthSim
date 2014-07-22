@@ -51,7 +51,7 @@ public class HolyNova extends SpellCard {
 			int playerIndex,
 			int minionIndex,
 			HearthTreeNode boardState,
-			Deck deck)
+			Deck deckPlayer0, Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
 		if (playerIndex == 0) {
@@ -62,18 +62,18 @@ public class HolyNova extends SpellCard {
 			return null;
 		}
 		
-		HearthTreeNode toRet = super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
+		HearthTreeNode toRet = super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
 
-		toRet = toRet.data_.getHero_p0().takeHeal((byte)2, 0, 0, toRet, deck);
+		toRet = toRet.data_.getHero_p0().takeHeal((byte)2, 0, 0, toRet, deckPlayer0, deckPlayer1);
 		for (int indx = 0; indx < boardState.data_.getNumMinions_p0(); ++indx) {
 			Minion targetMinion = boardState.data_.getMinion_p0(indx);
-			toRet = targetMinion.takeHeal((byte)2, 0, indx + 1, toRet, deck);
+			toRet = targetMinion.takeHeal((byte)2, 0, indx + 1, toRet, deckPlayer0, deckPlayer1);
 		}
 		
-		toRet = toRet.data_.getHero_p1().takeDamage((byte)2, 0, 0, 0, toRet, deck, true);
+		toRet = toRet.data_.getHero_p1().takeDamage((byte)2, 0, 0, 0, toRet, deckPlayer0, deckPlayer1, true);
 		for (int indx = 0; indx < toRet.data_.getNumMinions_p1(); ++indx) {
 			Minion targetMinion = toRet.data_.getMinion_p1(indx);
-			toRet = targetMinion.takeDamage((byte)2, 0, 1, indx + 1, toRet, deck, true);
+			toRet = targetMinion.takeDamage((byte)2, 0, 1, indx + 1, toRet, deckPlayer0, deckPlayer1, true);
 		}
 		return toRet;
 	}

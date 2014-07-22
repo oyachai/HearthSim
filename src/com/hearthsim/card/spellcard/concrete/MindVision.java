@@ -50,7 +50,7 @@ public class MindVision extends SpellCard {
 			int playerIndex,
 			int minionIndex,
 			HearthTreeNode boardState,
-			Deck deck)
+			Deck deckPlayer0, Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
 		if (minionIndex > 0 || playerIndex == 0) {
@@ -65,6 +65,6 @@ public class MindVision extends SpellCard {
 		Card cardToSteal = (Card)boardState.data_.getCard_hand_p1((int)(numCards * Math.random())).deepCopy();
 		boardState.data_.placeCard_hand_p0(cardToSteal);
 		
-		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
+		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
 	}
 }

@@ -15,7 +15,8 @@ import com.hearthsim.util.tree.StopNode;
 
 public class BoardStateFactory {
 
-	final Deck deck_;
+	final Deck deckPlayer0_;
+	final Deck deckPlayer1_;
 	
 	boolean lethal_;
 	boolean timedOut_;
@@ -31,8 +32,8 @@ public class BoardStateFactory {
 	 * 
 	 * maxThinkTime defaults to 20000 milliseconds (20 seconds)
 	 */
-	public BoardStateFactory(Deck deck) {
-		this(deck, 20000);
+	public BoardStateFactory(Deck deckPlayer0, Deck deckPlayer1) {
+		this(deckPlayer0, deckPlayer1, 20000);
 	}
 	
 	/**
@@ -40,8 +41,9 @@ public class BoardStateFactory {
 	 * 
 	 * @param maxThinkTime The maximum amount of time in milliseconds the factory is allowed to spend on generating the simulation tree.
 	 */
-	public BoardStateFactory(Deck deck, long maxThinkTime) {
-		deck_ = deck;
+	public BoardStateFactory(Deck deckPlayer0, Deck deckPlayer1, long maxThinkTime) {
+		deckPlayer0_ = deckPlayer1;
+		deckPlayer1_ = deckPlayer1;
 		lethal_ = false;
 		startTime_ = System.currentTimeMillis();
 		curScore_ = -1.e200;
@@ -111,7 +113,7 @@ public class BoardStateFactory {
 				//Case0: Decided to use the hero ability -- Use it on everything!
 				for(int i = 0; i <= boardStateNode.data_.getNumMinions_p0(); ++i) {
 					HearthTreeNode newState = new HearthTreeNode((BoardState)boardStateNode.data_.deepCopy());
-					newState = newState.data_.getHero_p0().useHeroAbility(0, 0, i, newState, deck_);
+					newState = newState.data_.getHero_p0().useHeroAbility(0, 0, i, newState, deckPlayer0_, deckPlayer1_);
 					if (newState != null) {
 						newState = this.doMoves(newState, ai);
 						if (newState != null) boardStateNode.addChild(newState);
@@ -120,7 +122,7 @@ public class BoardStateFactory {
 				}
 				for(int i = 0; i <= boardStateNode.data_.getNumMinions_p1(); ++i) {
 					HearthTreeNode newState = new HearthTreeNode((BoardState)boardStateNode.data_.deepCopy());
-					newState = newState.data_.getHero_p0().useHeroAbility(0, 1, i, newState, deck_);
+					newState = newState.data_.getHero_p0().useHeroAbility(0, 1, i, newState, deckPlayer0_, deckPlayer1_);
 					if (newState != null) {
 						newState = this.doMoves(newState, ai);
 						if (newState != null) boardStateNode.addChild(newState);
@@ -164,7 +166,7 @@ public class BoardStateFactory {
 					for(int i = 0; i <= boardStateNode.data_.getNumMinions_p0() + 1; ++i) {
 						HearthTreeNode newState = new HearthTreeNode((BoardState)boardStateNode.data_.deepCopy());
 						Card card = newState.data_.getCard_hand_p0(ic);
-						newState = card.useOn(ic, 0, i, newState, deck_);
+						newState = card.useOn(ic, 0, i, newState, deckPlayer0_, deckPlayer1_);
 						if (newState != null) {
 							newState = this.doMoves(newState, ai);
 							if (newState != null) boardStateNode.addChild(newState);
@@ -173,7 +175,7 @@ public class BoardStateFactory {
 					for(int i = 0; i <= boardStateNode.data_.getNumMinions_p1() + 1; ++i) {
 						HearthTreeNode newState = new HearthTreeNode((BoardState)boardStateNode.data_.deepCopy());
 						Card card = newState.data_.getCard_hand_p0(ic);
-						newState = card.useOn(ic, 1, i, newState, deck_);
+						newState = card.useOn(ic, 1, i, newState, deckPlayer0_, deckPlayer1_);
 						if (newState != null) {
 							newState = this.doMoves(newState, ai);
 							if (newState != null) boardStateNode.addChild(newState);
@@ -208,7 +210,7 @@ public class BoardStateFactory {
 				for(final Integer integer : attackable) {
 					int i = integer.intValue();
 					HearthTreeNode newState = new HearthTreeNode((BoardState)boardStateNode.data_.deepCopy());
-					newState = newState.data_.getHero_p0().attack(0, 1, i, newState, deck_);
+					newState = newState.data_.getHero_p0().attack(0, 1, i, newState, deckPlayer0_, deckPlayer1_);
 					if (newState != null) {
 						newState = this.doMoves(newState, ai);
 						if (newState != null) boardStateNode.addChild(newState);
@@ -226,7 +228,7 @@ public class BoardStateFactory {
 					int i = integer.intValue();
 					HearthTreeNode newState = new HearthTreeNode((BoardState)boardStateNode.data_.deepCopy());
 					Minion tempMinion = newState.data_.getMinion_p0(ic-1);
-					newState = tempMinion.attack(ic, 1, i, newState, deck_);
+					newState = tempMinion.attack(ic, 1, i, newState, deckPlayer0_, deckPlayer1_);
 					if (newState != null) {
 						newState = this.doMoves(newState, ai);
 						if (newState != null) boardStateNode.addChild(newState);
@@ -252,7 +254,7 @@ public class BoardStateFactory {
 				tmpNumNodesTried += child.getNumNodesTried();
 				double theScore = child.getScore();
 				if (child instanceof CardDrawNode)
-					theScore += ((CardDrawNode)child).cardDrawScore(deck_, ai);
+					theScore += ((CardDrawNode)child).cardDrawScore(deckPlayer0_, ai);
 				if (theScore > tmpScore) {
 					tmpScore = child.getScore();
 					bestBranch = child;

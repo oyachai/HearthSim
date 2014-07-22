@@ -141,7 +141,7 @@ public class Card implements DeepCopyable {
 	 * This function is called at the end of the turn.  Any derived class must override it and remove any 
 	 * temporary buffs that it has.
 	 */
-	public BoardState endTurn(int thisCardPlayerIndex, int thisCardIndex, BoardState boardState, Deck deck) throws HSInvalidPlayerIndexException {
+	public BoardState endTurn(int thisCardPlayerIndex, int thisCardIndex, BoardState boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
 		return boardState;
 	}
 	
@@ -151,7 +151,7 @@ public class Card implements DeepCopyable {
 	 * This function is called at the start of the turn.  Any derived class must override it to implement whatever
 	 * "start of the turn" effect the card has.
 	 */
-	public BoardState startTurn(int thisCardPlayerIndex, int thisCardIndex, BoardState boardState, Deck deck) throws HSInvalidPlayerIndexException {
+	public BoardState startTurn(int thisCardPlayerIndex, int thisCardIndex, BoardState boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
 		return boardState;
 	}
 
@@ -171,24 +171,25 @@ public class Card implements DeepCopyable {
 			int playerIndex,
 			int minionIndex,
 			HearthTreeNode boardState,
-			Deck deck)
+			Deck deckPlayer0,
+			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
 		//A generic card does nothing except for consuming mana
-		HearthTreeNode toRet = this.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
+		HearthTreeNode toRet = this.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
 
 		//Notify all other cards/characters of the card's use
 		if (toRet != null) {
 			for (int j = 0; j < toRet.data_.getNumCards_hand(); ++j) {
-				toRet = toRet.data_.getCard_hand_p0(j).otherCardUsedEvent(j, toRet, deck);
+				toRet = toRet.data_.getCard_hand_p0(j).otherCardUsedEvent(j, toRet, deckPlayer0, deckPlayer1);
 			}
-			toRet = toRet.data_.getHero_p0().otherCardUsedEvent(0, toRet, deck);
+			toRet = toRet.data_.getHero_p0().otherCardUsedEvent(0, toRet, deckPlayer0, deckPlayer1);
 			for (int j = 0; j < toRet.data_.getNumMinions_p0(); ++j) {
-				toRet = toRet.data_.getMinion_p0(j).otherCardUsedEvent(j, toRet, deck);
+				toRet = toRet.data_.getMinion_p0(j).otherCardUsedEvent(j, toRet, deckPlayer0, deckPlayer1);
 			}
-			toRet = toRet.data_.getHero_p1().otherCardUsedEvent(0, toRet, deck);
+			toRet = toRet.data_.getHero_p1().otherCardUsedEvent(0, toRet, deckPlayer0, deckPlayer1);
 			for (int j = 0; j < toRet.data_.getNumMinions_p1(); ++j) {
-				toRet = toRet.data_.getMinion_p1(j).otherCardUsedEvent(j, toRet, deck);
+				toRet = toRet.data_.getMinion_p1(j).otherCardUsedEvent(j, toRet, deckPlayer0, deckPlayer1);
 			}
 		}
 		
@@ -229,7 +230,8 @@ public class Card implements DeepCopyable {
 			int playerIndex,
 			int minionIndex,
 			HearthTreeNode boardState,
-			Deck deck)
+			Deck deckPlayer0,
+			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
 		//A generic card does nothing except for consuming mana
@@ -279,7 +281,7 @@ public class Card implements DeepCopyable {
 	 * 
 	 * @return The boardState is manipulated and returned
 	 */
-	public HearthTreeNode otherCardUsedEvent(int thisCardIndex, HearthTreeNode boardState, Deck deck) {
+	public HearthTreeNode otherCardUsedEvent(int thisCardIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) {
 		return boardState;
 	}
 

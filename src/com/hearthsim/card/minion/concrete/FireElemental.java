@@ -138,7 +138,8 @@ public class FireElemental extends Minion {
 			int playerIndex,
 			int minionIndex,
 			HearthTreeNode boardState,
-			Deck deck)
+			Deck deckPlayer0,
+			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{	
 		if (hasBeenUsed_) {
@@ -161,7 +162,7 @@ public class FireElemental extends Minion {
 			
 			{
 				HearthTreeNode newState = boardState.addChild(new HearthTreeNode((BoardState)boardState.data_.deepCopy()));
-				newState.data_.getHero_p0().takeDamage(BATTLECRY_DAMAGE, 0, 0, 0, newState, deck);
+				newState.data_.getHero_p0().takeDamage(BATTLECRY_DAMAGE, 0, 0, 0, newState, deckPlayer0, deckPlayer1);
 			}
 
 			{
@@ -169,7 +170,7 @@ public class FireElemental extends Minion {
 					if (boardState.data_.getMinion_p0(index) == this)
 						continue;
 					HearthTreeNode newState = boardState.addChild(new HearthTreeNode((BoardState)boardState.data_.deepCopy()));
-					newState.data_.getMinion_p0(index).takeDamage(BATTLECRY_DAMAGE, 0, 0, index + 1, newState, deck);
+					newState.data_.getMinion_p0(index).takeDamage(BATTLECRY_DAMAGE, 0, 0, index + 1, newState, deckPlayer0, deckPlayer1);
 					if (newState.data_.getMinion_p0(index).getHealth() <= 0) {
 						newState.data_.removeMinion_p0(index);
 					}
@@ -178,13 +179,13 @@ public class FireElemental extends Minion {
 
 			{
 				HearthTreeNode newState = boardState.addChild(new HearthTreeNode((BoardState)boardState.data_.deepCopy()));
-				newState.data_.getHero_p1().takeDamage(BATTLECRY_DAMAGE, 0, 1, 0, newState, deck);
+				newState.data_.getHero_p1().takeDamage(BATTLECRY_DAMAGE, 0, 1, 0, newState, deckPlayer0, deckPlayer1);
 			}
 
 			{
 				for (int index = 0; index < boardState.data_.getNumMinions_p1(); ++index) {		
 					HearthTreeNode newState = boardState.addChild(new HearthTreeNode((BoardState)boardState.data_.deepCopy()));
-					newState.data_.getMinion_p1(index).takeDamage(BATTLECRY_DAMAGE, 0, 1, index + 1, newState, deck);
+					newState.data_.getMinion_p1(index).takeDamage(BATTLECRY_DAMAGE, 0, 1, index + 1, newState, deckPlayer0, deckPlayer1);
 					if (newState.data_.getMinion_p1(index).getHealth() <= 0) {
 						newState.data_.removeMinion_p1(index);
 					}

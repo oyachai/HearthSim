@@ -68,16 +68,17 @@ public class Priest extends Hero {
 			int targetPlayerIndex,
 			int targetMinionIndex,
 			HearthTreeNode boardState,
-			Deck deck)
+			Deck deckPlayer0,
+			Deck deckPlayer1)
 		throws HSException
 	{
 		HearthTreeNode toRet = boardState;
 		if (targetMinionIndex == 0) {
 			Minion target = toRet.data_.getHero(targetPlayerIndex);
-			target.takeHeal((byte)2, targetPlayerIndex, targetMinionIndex, toRet, deck);
+			toRet = target.takeHeal((byte)2, targetPlayerIndex, targetMinionIndex, toRet, deckPlayer0, deckPlayer1);
 		} else {
 			Minion target = toRet.data_.getMinion(targetPlayerIndex, targetMinionIndex - 1);
-			target.takeHeal((byte)2, targetPlayerIndex, targetMinionIndex, toRet, deck);
+			toRet = target.takeHeal((byte)2, targetPlayerIndex, targetMinionIndex, toRet, deckPlayer0, deckPlayer1);
 		}
 
 		return toRet;

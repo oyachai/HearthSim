@@ -57,7 +57,8 @@ public class SpellCard extends Card {
 			int playerIndex,
 			int minionIndex,
 			HearthTreeNode boardState,
-			Deck deck)
+			Deck deckPlayer0,
+			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
 		boardState.data_.setMana_p0(boardState.data_.getMana_p0() - this.mana_);

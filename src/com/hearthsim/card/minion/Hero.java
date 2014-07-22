@@ -89,12 +89,14 @@ public class Hero extends Minion {
 	 * 
 	 * @return The boardState is manipulated and returned
 	 */
+	@Override
 	public HearthTreeNode attack(
 			int thisMinionIndex,
 			int playerIndex,
 			int minionIndex,
 			HearthTreeNode boardState,
-			Deck deck)
+			Deck deckPlayer0,
+			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
 		
@@ -114,7 +116,7 @@ public class Hero extends Minion {
 		}
 		
 		
-		HearthTreeNode toRet = super.attack(thisMinionIndex, playerIndex, minionIndex, boardState, deck);
+		HearthTreeNode toRet = super.attack(thisMinionIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
 		
 		if (toRet != null) {
 			if (this.weaponCharge_ > 0) {
@@ -142,13 +144,14 @@ public class Hero extends Minion {
 			int targetPlayerIndex,
 			int targetMinionIndex,
 			HearthTreeNode boardState,
-			Deck deck)
+			Deck deckPlayer0,
+			Deck deckPlayer1)
 		throws HSException
 	{
 		if (boardState.data_.getMana(thisPlayerIndex) < HERO_ABILITY_COST)
 			return null;
 		
-		boardState = this.useHeroAbility_core(thisPlayerIndex, targetPlayerIndex, targetMinionIndex, boardState, deck);
+		boardState = this.useHeroAbility_core(thisPlayerIndex, targetPlayerIndex, targetMinionIndex, boardState, deckPlayer0, deckPlayer1);
 		if (boardState != null) {
 			boardState.data_.setMana(thisPlayerIndex, boardState.data_.getMana(thisPlayerIndex) - HERO_ABILITY_COST);
 			this.hasBeenUsed_ = true;
@@ -161,7 +164,8 @@ public class Hero extends Minion {
 			int targetPlayerIndex,
 			int targetMinionIndex,
 			HearthTreeNode boardState,
-			Deck deck)
+			Deck deckPlayer0,
+			Deck deckPlayer1)
 		throws HSException
 	{
 		return null;
@@ -181,16 +185,16 @@ public class Hero extends Minion {
 	 * @throws HSInvalidPlayerIndexException
 	 */
 	@Override
-	public HearthTreeNode takeDamage(byte damage, int attackerPlayerIndex, int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deck) throws HSInvalidPlayerIndexException {
+	public HearthTreeNode takeDamage(byte damage, int attackerPlayerIndex, int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
 
 		HearthTreeNode toRet = boardState;
 		byte damageRemaining = (byte)(damage - armor_);
 		if (damageRemaining > 0) {
 			armor_ = 0;
-			toRet = super.takeDamage(damageRemaining, attackerPlayerIndex, thisPlayerIndex, thisMinionIndex, toRet, deck);
+			toRet = super.takeDamage(damageRemaining, attackerPlayerIndex, thisPlayerIndex, thisMinionIndex, toRet, deckPlayer0, deckPlayer1);
 		} else {
 			armor_ = (byte)(armor_ - damage);
-			toRet = super.takeDamage((byte)0, attackerPlayerIndex, thisPlayerIndex, thisMinionIndex, toRet, deck);
+			toRet = super.takeDamage((byte)0, attackerPlayerIndex, thisPlayerIndex, thisMinionIndex, toRet, deckPlayer0, deckPlayer1);
 		}
 		return toRet;
 	}
@@ -203,7 +207,7 @@ public class Hero extends Minion {
 	 * temporary buffs that it has.
 	 */
 	@Override
-	public BoardState endTurn(int thisMinionPlayerIndex, int thisMinionIndex, BoardState boardState, Deck deck) {
+	public BoardState endTurn(int thisMinionPlayerIndex, int thisMinionIndex, BoardState boardState, Deck deckPlayer0, Deck deckPlayer1) {
 		this.extraAttackUntilTurnEnd_ = 0;
 		return boardState;
 	}

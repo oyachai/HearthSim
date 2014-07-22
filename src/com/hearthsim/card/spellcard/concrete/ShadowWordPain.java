@@ -50,7 +50,7 @@ public class ShadowWordPain extends SpellCard {
 			int playerIndex,
 			int minionIndex,
 			HearthTreeNode boardState,
-			Deck deck)
+			Deck deckPlayer0, Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
 		if (minionIndex == 0) {
@@ -61,9 +61,9 @@ public class ShadowWordPain extends SpellCard {
 		if (targetMinion.getAttack() + targetMinion.getExtraAttackUntilTurnEnd() > 3)
 			return null;
 		
-		targetMinion.destroyed(playerIndex, minionIndex, boardState, deck);
+		targetMinion.destroyed(playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
 		boardState.data_.removeMinion(playerIndex, minionIndex - 1);
 		
-		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
+		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
 	}
 }

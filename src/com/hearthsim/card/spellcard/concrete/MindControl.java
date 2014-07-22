@@ -50,7 +50,7 @@ public class MindControl extends SpellCard {
 			int playerIndex,
 			int minionIndex,
 			HearthTreeNode boardState,
-			Deck deck)
+			Deck deckPlayer0, Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
 		if (minionIndex == 0 || playerIndex == 0) {
@@ -60,6 +60,6 @@ public class MindControl extends SpellCard {
 		Minion targetMinion = boardState.data_.getMinion_p1(minionIndex - 1);
 		boardState.data_.removeMinion_p1(minionIndex - 1);
 		boardState.data_.placeMinion(0, targetMinion);
-		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
+		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
 	}
 }

@@ -50,7 +50,7 @@ public class Execute extends SpellCard {
 			int playerIndex,
 			int minionIndex,
 			HearthTreeNode boardState,
-			Deck deck)
+			Deck deckPlayer0, Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
 		if (minionIndex == 0 || playerIndex == 0) {
@@ -62,8 +62,8 @@ public class Execute extends SpellCard {
 		if (targetMinion.getHealth() == targetMinion.getMaxHealth())
 			return null;
 		
-		targetMinion.destroyed(playerIndex, minionIndex, boardState, deck);
+		targetMinion.destroyed(playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
 		boardState.data_.removeMinion_p1(minionIndex-1);
-		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
+		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
 	}
 }

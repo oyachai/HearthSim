@@ -1,5 +1,6 @@
 package com.hearthsim.card.minion.concrete;
 
+import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
@@ -143,7 +144,7 @@ public class NorthshireCleric extends Minion {
 			int healedMinionPlayerIndex,
 			int healedMinionIndex,
 			HearthTreeNode boardState,
-			Deck deck)
+			Deck deckPlayer0, Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
 		HearthTreeNode toRet = boardState;
@@ -154,7 +155,16 @@ public class NorthshireCleric extends Minion {
 				toRet = new CardDrawNode(toRet, 1, this, thisMinionPlayerIndex, thisMinionIndex, healedMinionPlayerIndex, healedMinionIndex); //draw one card
 			}
 		} else {
-			//To Do: draw a card for the opponent
+			//This minion is an enemy minion.  Let's draw a card for the enemy.  No need to use a StopNode for enemy card draws.
+			Card card = deckPlayer1.drawCard(toRet.data_.getDeckPos(1));
+			if (card == null) {
+				byte fatigueDamage = toRet.data_.getFatigueDamage(1);
+				toRet.data_.setFatigueDamage(1, (byte)(fatigueDamage + 1));
+				toRet.data_.getHero(1).setHealth((byte)(toRet.data_.getHero(1).getHealth() - fatigueDamage));
+			} else {
+				toRet.data_.placeCard_hand(1, card);
+				toRet.data_.setDeckPos(1, toRet.data_.getDeckPos(1) + 1);
+			}
 		}
 		return toRet;
 	}

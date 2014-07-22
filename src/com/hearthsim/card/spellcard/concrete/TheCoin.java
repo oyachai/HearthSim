@@ -49,7 +49,7 @@ public class TheCoin extends SpellCard {
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public HearthTreeNode use_core(int thisCardIndex, int playerIndex, int minionIndex, HearthTreeNode boardState, Deck deck) {
+	public HearthTreeNode use_core(int thisCardIndex, int playerIndex, int minionIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) {
 		int newMana = boardState.data_.getMana_p0();
 		newMana = newMana >= 10 ? newMana : newMana + 1;
 		boardState.data_.setMana_p0(newMana);

@@ -11,7 +11,10 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 
 
-
+/**
+ * A class that represents the current state of the board (game)
+ *
+ */
 public class BoardState implements DeepCopyable {
 		
 	LinkedList<Minion> p0_minions_;
@@ -529,13 +532,13 @@ public class BoardState implements DeepCopyable {
 		p1_mana_ = p1_maxMana_;
 	}
 	
-	public void endTurn(Deck deck) {
-		p0_hero_.endTurn(0, 0, this, deck);
-		p1_hero_.endTurn(0, 0, this, deck);
+	public void endTurn(Deck deckPlayer0, Deck deckPlayer1) {
+		p0_hero_.endTurn(0, 0, this, deckPlayer0, deckPlayer1);
+		p1_hero_.endTurn(0, 0, this, deckPlayer0, deckPlayer1);
 		for (int index = 0; index < p0_minions_.size(); ++index) {
 			Minion targetMinion = p0_minions_.get(index);
 			try {
-				targetMinion.endTurn(0, index + 1, this, deck);
+				targetMinion.endTurn(0, index + 1, this, deckPlayer0, deckPlayer1);
 			} catch (HSInvalidPlayerIndexException e) {
 				e.printStackTrace();
 			}
@@ -543,7 +546,7 @@ public class BoardState implements DeepCopyable {
 		for (int index = 0; index < p1_minions_.size(); ++index) {
 			Minion targetMinion = p1_minions_.get(index);
 			try {
-				targetMinion.endTurn(1, index + 1, this, deck);
+				targetMinion.endTurn(1, index + 1, this, deckPlayer0, deckPlayer1);
 			} catch (HSInvalidPlayerIndexException e) {
 				e.printStackTrace();
 			}
@@ -564,14 +567,14 @@ public class BoardState implements DeepCopyable {
 		}
 	}
 	
-	public void startTurn(Deck deck) {
+	public void startTurn(Deck deckPlayer0, Deck deckPlayer1) {
 		this.resetHand();
 		this.resetMinions();
 
 		for (int index = 0; index < p0_minions_.size(); ++index) {
 			Minion targetMinion = p0_minions_.get(index);
 			try {
-				targetMinion.startTurn(0, index + 1, this, deck);
+				targetMinion.startTurn(0, index + 1, this, deckPlayer0, deckPlayer1);
 			} catch (HSInvalidPlayerIndexException e) {
 				e.printStackTrace();
 			}
@@ -579,7 +582,7 @@ public class BoardState implements DeepCopyable {
 		for (int index = 0; index < p1_minions_.size(); ++index) {
 			Minion targetMinion = p1_minions_.get(index);
 			try {
-				targetMinion.startTurn(1, index + 1, this, deck);
+				targetMinion.startTurn(1, index + 1, this, deckPlayer0, deckPlayer1);
 			} catch (HSInvalidPlayerIndexException e) {
 				e.printStackTrace();
 			}

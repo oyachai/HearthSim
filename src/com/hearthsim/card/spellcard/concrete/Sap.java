@@ -55,7 +55,7 @@ public class Sap extends SpellCard {
 			int playerIndex,
 			int minionIndex,
 			HearthTreeNode boardState,
-			Deck deck)
+			Deck deckPlayer0, Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
 		if (minionIndex == 0 || playerIndex == 0) {
@@ -63,7 +63,7 @@ public class Sap extends SpellCard {
 		}
 		
 		Minion targetMinion = boardState.data_.getMinion_p1(minionIndex - 1);
-		targetMinion.silenced(playerIndex, minionIndex, boardState, deck);
+		targetMinion.silenced(playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
 		if (boardState.data_.getNumCards_hand_p1() < 10) {
 			try {
 				Class<?> clazz = Class.forName(targetMinion.getClass().getName());
@@ -85,6 +85,6 @@ public class Sap extends SpellCard {
 			}
 		}
 		boardState.data_.removeMinion_p1(minionIndex - 1);
-		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
+		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
 	}
 }

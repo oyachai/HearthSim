@@ -4,6 +4,7 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Beast;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
+import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class StarvingBuzzard extends Beast {
@@ -137,25 +138,23 @@ public class StarvingBuzzard extends Beast {
 			int placedMinionPlayerIndex,
 			int placedMinionIndex,
 			HearthTreeNode boardState,
-			Deck deck)
+			Deck deckPlayer0,
+			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
-		if (placedMinionPlayerIndex == 1)
+		if (placedMinionPlayerIndex == 1 || thisMinionPlayerIndex == 1)
 			return boardState;
 		
-		if (boardState.data_.getMinion_p0(placedMinionPlayerIndex - 1) instanceof Beast) {
-			Card card = deck.drawCard(boardState.data_.getDeckPos(thisMinionPlayerIndex));
-			if (card == null) {
-				byte fatigueDamage = boardState.data_.getFatigueDamage(thisMinionPlayerIndex);
-				boardState.data_.setFatigueDamage(thisMinionPlayerIndex, (byte)(fatigueDamage + 1));
-				boardState.data_.getHero(thisMinionPlayerIndex).setHealth((byte)(boardState.data_.getHero(thisMinionPlayerIndex).getHealth() - fatigueDamage));
+		HearthTreeNode toRet = boardState;
+		if (toRet.data_.getMinion_p0(placedMinionPlayerIndex - 1) instanceof Beast) {
+			if (toRet instanceof CardDrawNode) {
+				((CardDrawNode) toRet).addNumCardsToDraw(1);
 			} else {
-				boardState.data_.placeCard_hand(thisMinionPlayerIndex, card);
-				boardState.data_.setDeckPos(thisMinionPlayerIndex, boardState.data_.getDeckPos(thisMinionPlayerIndex) + 1);
+				toRet = new CardDrawNode(toRet, 1, this, thisMinionPlayerIndex, thisMinionIndex, placedMinionPlayerIndex, placedMinionIndex); //draw one card
 			}
 		}
 		
-		return boardState;
+		return toRet;
 	}
 	
 	/**
@@ -177,24 +176,22 @@ public class StarvingBuzzard extends Beast {
 			int placedMinionPlayerIndex,
 			int placedMinionIndex,
 			HearthTreeNode boardState,
-			Deck deck)
+			Deck deckPlayer0,
+			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
-		if (placedMinionPlayerIndex == 1)
+		if (placedMinionPlayerIndex == 1 || thisMinionPlayerIndex == 1)
 			return boardState;
 		
-		if (boardState.data_.getMinion_p0(placedMinionPlayerIndex - 1) instanceof Beast) {
-			Card card = deck.drawCard(boardState.data_.getDeckPos(thisMinionPlayerIndex));
-			if (card == null) {
-				byte fatigueDamage = boardState.data_.getFatigueDamage(thisMinionPlayerIndex);
-				boardState.data_.setFatigueDamage(thisMinionPlayerIndex, (byte)(fatigueDamage + 1));
-				boardState.data_.getHero(thisMinionPlayerIndex).setHealth((byte)(boardState.data_.getHero(thisMinionPlayerIndex).getHealth() - fatigueDamage));
+		HearthTreeNode toRet = boardState;
+		if (toRet.data_.getMinion_p0(placedMinionPlayerIndex - 1) instanceof Beast) {
+			if (toRet instanceof CardDrawNode) {
+				((CardDrawNode) toRet).addNumCardsToDraw(1);
 			} else {
-				boardState.data_.placeCard_hand(thisMinionPlayerIndex, card);
-				boardState.data_.setDeckPos(thisMinionPlayerIndex, boardState.data_.getDeckPos(thisMinionPlayerIndex) + 1);
+				toRet = new CardDrawNode(toRet, 1, this, thisMinionPlayerIndex, thisMinionIndex, placedMinionPlayerIndex, placedMinionIndex); //draw one card
 			}
 		}
 		
-		return boardState;
+		return toRet;
 	}
 }

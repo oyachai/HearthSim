@@ -66,7 +66,7 @@ public class TestAnimalCompanion {
 		board.data_.placeCard_hand_p0(leokk);
 		
 		Card theCard = board.data_.getCard_hand_p0(1);
-		HearthTreeNode ret = theCard.useOn(1, 1, 0, board, deck);
+		HearthTreeNode ret = theCard.useOn(1, 1, 0, board, deck, null);
 		
 		assertTrue(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 2);
@@ -87,7 +87,7 @@ public class TestAnimalCompanion {
 		board.data_.placeCard_hand_p0(leokk);
 		
 		Card theCard = board.data_.getCard_hand_p0(1);
-		HearthTreeNode ret = theCard.useOn(1, 0, 3, board, deck);
+		HearthTreeNode ret = theCard.useOn(1, 0, 3, board, deck, null);
 		
 		//Use Leokk.  The other minions should now be buffed with +1 attack
 		assertFalse(ret == null);
@@ -112,7 +112,7 @@ public class TestAnimalCompanion {
 		//Now, attack and kill Leokk.  All minions should go back to their original attack
 		Minion minion = board.data_.getMinion_p0(2);
 		minion.hasAttacked(false);
-		ret = minion.attack(3, 1, 1, board, deck);
+		ret = minion.attack(3, 1, 1, board, deck, null);
 		
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 1);
@@ -136,7 +136,7 @@ public class TestAnimalCompanion {
 	public void test0() throws HSInvalidPlayerIndexException {
 		
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 1, 0, board, deck);
+		HearthTreeNode ret = theCard.useOn(0, 1, 0, board, deck, null);
 		
 		assertTrue(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 1);
@@ -154,7 +154,7 @@ public class TestAnimalCompanion {
 	public void test1() throws HSInvalidPlayerIndexException {
 		
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 0, 0, board, deck);
+		HearthTreeNode ret = theCard.useOn(0, 0, 0, board, deck, null);
 		
 		assertFalse(ret == null);
 		assertEquals(0, board.data_.getNumCards_hand());

@@ -136,7 +136,8 @@ public class Nightblade extends Minion {
 			int playerIndex,
 			int minionIndex,
 			HearthTreeNode boardState,
-			Deck deck)
+			Deck deckPlayer0,
+			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
 		
@@ -151,7 +152,7 @@ public class Nightblade extends Minion {
 		if (boardState.data_.getNumMinions_p0() >= 7)
 			return null;
 		
-		boardState.data_.getHero_p1().takeDamage((byte)3, 0, 0, 0, boardState, deck);
-		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
+		boardState.data_.getHero_p1().takeDamage((byte)3, 0, 0, 0, boardState, deckPlayer0, deckPlayer1);
+		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
 	}
 }

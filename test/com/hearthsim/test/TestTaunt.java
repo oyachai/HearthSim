@@ -47,7 +47,7 @@ public class TestTaunt {
 		Minion minion = new Minion("" + 0, mana, attack0, health1, attack0, health1, health1, true, false, false, false, false, false, false, false, false, false, false);
 		board.placeMinion(1, minion);
 		
-		BoardStateFactory factory = new BoardStateFactory(null);
+		BoardStateFactory factory = new BoardStateFactory(null, null);
 		HearthTreeNode tree = new HearthTreeNode(board);
 		try {
 			tree = factory.doMoves(tree, scoreFunc);
@@ -69,7 +69,7 @@ public class TestTaunt {
 		board.placeMinion(1, minion1);
 		board.placeMinion(1, minion2);
 		
-		BoardStateFactory factory = new BoardStateFactory(null);
+		BoardStateFactory factory = new BoardStateFactory(null, null);
 		HearthTreeNode tree = new HearthTreeNode(board);
 		try {
 			tree = factory.doMoves(tree, scoreFunc);
@@ -93,7 +93,7 @@ public class TestTaunt {
 		board.placeMinion(1, minion2);
 		board.placeMinion(1, minion3);
 		
-		BoardStateFactory factory = new BoardStateFactory(null);
+		BoardStateFactory factory = new BoardStateFactory(null, null);
 		HearthTreeNode tree = new HearthTreeNode(board);
 		try {
 			tree = factory.doMoves(tree, scoreFunc);
@@ -118,7 +118,7 @@ public class TestTaunt {
 		board.placeCard_hand_p0(hs);
 		board.placeMinion(1, minion1);
 		
-		BoardStateFactory factory = new BoardStateFactory(null, 2000000000);
+		BoardStateFactory factory = new BoardStateFactory(null, null, 2000000000);
 		HearthTreeNode tree = new HearthTreeNode(board);
 		try {
 			tree = factory.doMoves(tree, scoreFunc);
@@ -143,7 +143,7 @@ public class TestTaunt {
 		board.placeMinion(1, minion1);
 		board.setMana_p0(1);
 		
-		BoardStateFactory factory = new BoardStateFactory(null);
+		BoardStateFactory factory = new BoardStateFactory(null, null);
 		HearthTreeNode tree = new HearthTreeNode(board);
 		try {
 			tree = factory.doMoves(tree, scoreFunc);
@@ -170,7 +170,7 @@ public class TestTaunt {
 		board.placeMinion(1, minion1);
 		board.setMana_p0(2);
 		
-		BoardStateFactory factory = new BoardStateFactory(null, 2000000000);
+		BoardStateFactory factory = new BoardStateFactory(null, null, 2000000000);
 		HearthTreeNode tree = new HearthTreeNode(board);
 		try {
 			tree = factory.doMoves(tree, scoreFunc);

@@ -22,11 +22,11 @@ public class GameMaster {
 		
 	}
 	
-	public void beginTurn(int turn, BoardState board, Player player) throws HSException
+	public void beginTurn(int turn, BoardState board, Player player0, Player player1) throws HSException
 	{
-		board.startTurn(player.getDeck());
+		board.startTurn(player0.getDeck(), player1.getDeck());
 
-		Card newCard = player.drawFromDeck(board.getDeckPos_p0());
+		Card newCard = player0.drawFromDeck(board.getDeckPos_p0());
 		if (newCard == null) {
 			//fatigue
 			byte fatigueDamage = board.getFatigueDamage_p0();
@@ -42,12 +42,12 @@ public class GameMaster {
 		
 	}
 	
-	public BoardState playTurn(int turn, BoardState board, Player player) throws HSException {
-		return ai_.playTurn(turn, board, player);
+	public BoardState playTurn(int turn, BoardState board, Player player0, Player player1) throws HSException {
+		return ai_.playTurn(turn, board, player0, player1);
 	}
 
-	public void endTurn(int turn, BoardState board, Player player) throws HSException {
-		board.endTurn(player.getDeck());
+	public void endTurn(int turn, BoardState board, Player player0, Player player1) throws HSException {
+		board.endTurn(player0.getDeck(), player1.getDeck());
 	}
 
 }

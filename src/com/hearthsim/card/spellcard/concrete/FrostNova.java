@@ -49,7 +49,7 @@ public class FrostNova extends SpellCard {
 			int playerIndex,
 			int minionIndex,
 			HearthTreeNode boardState,
-			Deck deck)
+			Deck deckPlayer0, Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
 		if (playerIndex == 0) {
@@ -65,6 +65,6 @@ public class FrostNova extends SpellCard {
 			targetMinion.setFrozen(true);
 		}
 		
-		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
+		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
 	}
 }

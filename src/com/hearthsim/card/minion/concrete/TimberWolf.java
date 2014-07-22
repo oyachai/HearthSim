@@ -137,7 +137,8 @@ public class TimberWolf extends Beast {
 			int playerIndex,
 			int minionIndex,
 			HearthTreeNode boardState,
-			Deck deck)
+			Deck deckPlayer0,
+			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
 		if (hasBeenUsed_) {
@@ -183,7 +184,7 @@ public class TimberWolf extends Beast {
 	 * @throws HSInvalidPlayerIndexException
 	 */
 	@Override
-	public HearthTreeNode silenced(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deck) throws HSInvalidPlayerIndexException {
+	public HearthTreeNode silenced(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
 		HearthTreeNode toRet = boardState;
 		for (Minion minion : toRet.data_.getMinions(thisPlayerIndex)) {
 			if (minion != this && minion instanceof Beast) {
@@ -205,17 +206,17 @@ public class TimberWolf extends Beast {
 	 * @throws HSInvalidPlayerIndexException
 	 */
 	@Override
-	public HearthTreeNode destroyed(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deck) throws HSInvalidPlayerIndexException {
+	public HearthTreeNode destroyed(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
 		HearthTreeNode toRet = boardState;
 		for (Minion minion : toRet.data_.getMinions(thisPlayerIndex)) {
 			if (minion != this && minion instanceof Beast) {
 				minion.setAttack((byte)(minion.getAttack() - 1));
 			}
 		}
-		return super.destroyed(thisPlayerIndex, thisMinionIndex, toRet, deck);
+		return super.destroyed(thisPlayerIndex, thisMinionIndex, toRet, deckPlayer0, deckPlayer1);
 	}
 	
-	private HearthTreeNode doBuffs(int thisMinionPlayerIndex, int thisMinionIndex, int targetMinionPlayerIndex, int targetMinionIndex, HearthTreeNode boardState, Deck deck) throws HSInvalidPlayerIndexException {
+	private HearthTreeNode doBuffs(int thisMinionPlayerIndex, int thisMinionIndex, int targetMinionPlayerIndex, int targetMinionIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
 		if (targetMinionPlayerIndex != thisMinionPlayerIndex)
 			return boardState;
 		Minion minion = boardState.data_.getMinion(thisMinionPlayerIndex, targetMinionIndex - 1);
@@ -237,8 +238,8 @@ public class TimberWolf extends Beast {
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public HearthTreeNode minionPlacedEvent(int thisMinionPlayerIndex, int thisMinionIndex, int placedMinionPlayerIndex, int placedMinionIndex, HearthTreeNode boardState, Deck deck) throws HSInvalidPlayerIndexException {
-		return this.doBuffs(thisMinionPlayerIndex, thisMinionIndex, placedMinionPlayerIndex, placedMinionIndex, boardState, deck);
+	public HearthTreeNode minionPlacedEvent(int thisMinionPlayerIndex, int thisMinionIndex, int placedMinionPlayerIndex, int placedMinionIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
+		return this.doBuffs(thisMinionPlayerIndex, thisMinionIndex, placedMinionPlayerIndex, placedMinionIndex, boardState, deckPlayer0, deckPlayer1);
 	}
 
 	/**
@@ -254,8 +255,8 @@ public class TimberWolf extends Beast {
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public HearthTreeNode minionSummonedEvent(int thisMinionPlayerIndex, int thisMinionIndex, int summonedMinionPlayerIndex, int summeonedMinionIndex, HearthTreeNode boardState, Deck deck) throws HSInvalidPlayerIndexException {
-		return this.doBuffs(thisMinionPlayerIndex, thisMinionIndex, summonedMinionPlayerIndex, summeonedMinionIndex, boardState, deck);
+	public HearthTreeNode minionSummonedEvent(int thisMinionPlayerIndex, int thisMinionIndex, int summonedMinionPlayerIndex, int summeonedMinionIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
+		return this.doBuffs(thisMinionPlayerIndex, thisMinionIndex, summonedMinionPlayerIndex, summeonedMinionIndex, boardState, deckPlayer0, deckPlayer1);
 	}
 	
 	/**
@@ -269,7 +270,7 @@ public class TimberWolf extends Beast {
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public HearthTreeNode minionTransformedEvent(int thisMinionPlayerIndex, int thisMinionIndex, int transformedMinionPlayerIndex, int transformedMinionIndex, HearthTreeNode boardState, Deck deck) throws HSInvalidPlayerIndexException {
-		return this.doBuffs(thisMinionPlayerIndex, thisMinionIndex, transformedMinionPlayerIndex, transformedMinionIndex, boardState, deck);
+	public HearthTreeNode minionTransformedEvent(int thisMinionPlayerIndex, int thisMinionIndex, int transformedMinionPlayerIndex, int transformedMinionIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
+		return this.doBuffs(thisMinionPlayerIndex, thisMinionIndex, transformedMinionPlayerIndex, transformedMinionIndex, boardState, deckPlayer0, deckPlayer1);
 	}
 }

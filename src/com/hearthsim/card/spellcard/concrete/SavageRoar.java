@@ -52,7 +52,7 @@ public class SavageRoar extends SpellCard {
 			int playerIndex,
 			int minionIndex,
 			HearthTreeNode boardState,
-			Deck deck)
+			Deck deckPlayer0, Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
 		if (minionIndex > 0 || playerIndex == 1) {
@@ -63,6 +63,6 @@ public class SavageRoar extends SpellCard {
 		for (Minion minion : boardState.data_.getMinions_p0())
 			minion.setExtraAttackUntilTurnEnd((byte)2);
 		
-		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
+		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
 	}
 }

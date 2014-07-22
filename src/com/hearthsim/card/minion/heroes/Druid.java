@@ -67,7 +67,8 @@ public class Druid extends Hero {
 			int targetPlayerIndex,
 			int targetMinionIndex,
 			HearthTreeNode boardState,
-			Deck deck)
+			Deck deckPlayer0,
+			Deck deckPlayer1)
 		throws HSException
 	{
 		if (targetMinionIndex == 0 && targetPlayerIndex == 0) {

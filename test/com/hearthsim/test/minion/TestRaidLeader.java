@@ -52,16 +52,16 @@ public class TestRaidLeader {
 		
 		HearthTreeNode tmpBoard = new HearthTreeNode(board.data_.flipPlayers());
 		try {
-			tmpBoard.data_.getCard_hand_p0(0).useOn(0, 0, 1, tmpBoard, deck);
-			tmpBoard.data_.getCard_hand_p0(0).useOn(0, 0, 1, tmpBoard, deck);
+			tmpBoard.data_.getCard_hand_p0(0).useOn(0, 0, 1, tmpBoard, deck, null);
+			tmpBoard.data_.getCard_hand_p0(0).useOn(0, 0, 1, tmpBoard, deck, null);
 		} catch (HSInvalidPlayerIndexException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		board = new HearthTreeNode(tmpBoard.data_.flipPlayers());
 		try {
-			board.data_.getCard_hand_p0(0).useOn(0, 0, 1, board, deck);
-			board.data_.getCard_hand_p0(0).useOn(0, 0, 1, board, deck);
+			board.data_.getCard_hand_p0(0).useOn(0, 0, 1, board, deck, null);
+			board.data_.getCard_hand_p0(0).useOn(0, 0, 1, board, deck, null);
 		} catch (HSInvalidPlayerIndexException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -78,7 +78,7 @@ public class TestRaidLeader {
 	public void test0() throws HSInvalidPlayerIndexException {
 
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 0, 0, board, deck);
+		HearthTreeNode ret = theCard.useOn(0, 0, 0, board, deck, null);
 		assertTrue(ret == null);
 		assertTrue(board.data_.getNumCards_hand() == 1);
 		assertTrue(board.data_.getNumMinions_p0() == 2);
@@ -100,7 +100,7 @@ public class TestRaidLeader {
 	public void test1() throws HSInvalidPlayerIndexException {
 
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 0, 1, board, deck);
+		HearthTreeNode ret = theCard.useOn(0, 0, 1, board, deck, null);
 		assertFalse(ret == null);
 		assertTrue(board.data_.getNumCards_hand() == 0);
 		assertTrue(board.data_.getNumMinions_p0() == 3);
@@ -124,7 +124,7 @@ public class TestRaidLeader {
 	public void test2() throws HSInvalidPlayerIndexException {
 
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 0, 1, board, deck);
+		HearthTreeNode ret = theCard.useOn(0, 0, 1, board, deck, null);
 		assertFalse(ret == null);
 		assertTrue(board.data_.getNumCards_hand() == 0);
 		assertTrue(board.data_.getNumMinions_p0() == 3);
@@ -147,7 +147,7 @@ public class TestRaidLeader {
 		
 		board.data_.placeCard_hand_p0(new HolySmite());
 		theCard = board.data_.getCard_hand_p0(0);
-		ret = theCard.useOn(0, 1, 1, board, deck);
+		ret = theCard.useOn(0, 1, 1, board, deck, null);
 		
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 0);

@@ -61,22 +61,22 @@ public class TestArcaneIntellect {
 		Card theCard = board.data_.getCard_hand_p0(0);
 		HearthTreeNode res;
 		
-		res = theCard.useOn(0, 1, 0, board, deck);
+		res = theCard.useOn(0, 1, 0, board, deck, null);
 		assertTrue(res == null);
 		
-		res = theCard.useOn(0, 0, 1, board, deck);
+		res = theCard.useOn(0, 0, 1, board, deck, null);
 		assertTrue(res == null);
 		
-		res = theCard.useOn(0, 1, 1, board, deck);
+		res = theCard.useOn(0, 1, 1, board, deck, null);
 		assertTrue(res == null);
 		
-		res = theCard.useOn(0, 1, 2, board, deck);
+		res = theCard.useOn(0, 1, 2, board, deck, null);
 		assertTrue(res == null);
 		
-		res = theCard.useOn(0, 1, 3, board, deck);
+		res = theCard.useOn(0, 1, 3, board, deck, null);
 		assertTrue(res == null);
 		
-		res = theCard.useOn(0, 0, 0, board, deck);
+		res = theCard.useOn(0, 0, 0, board, deck, null);
 		assertFalse(res == null);
 		assertEquals(res.data_.getNumCards_hand(), 0);
 		assertTrue(res instanceof CardDrawNode);
@@ -111,22 +111,22 @@ public class TestArcaneIntellect {
 		Card theCard = board.data_.getCard_hand_p0(0);
 		HearthTreeNode res;
 		
-		res = theCard.useOn(0, 1, 0, board, deck);
+		res = theCard.useOn(0, 1, 0, board, deck, null);
 		assertTrue(res == null);
 		
-		res = theCard.useOn(0, 0, 1, board, deck);
+		res = theCard.useOn(0, 0, 1, board, deck, null);
 		assertTrue(res == null);
 		
-		res = theCard.useOn(0, 1, 1, board, deck);
+		res = theCard.useOn(0, 1, 1, board, deck, null);
 		assertTrue(res == null);
 		
-		res = theCard.useOn(0, 1, 2, board, deck);
+		res = theCard.useOn(0, 1, 2, board, deck, null);
 		assertTrue(res == null);
 		
-		res = theCard.useOn(0, 1, 3, board, deck);
+		res = theCard.useOn(0, 1, 3, board, deck, null);
 		assertTrue(res == null);
 		
-		res = theCard.useOn(0, 0, 0, board, deck);
+		res = theCard.useOn(0, 0, 0, board, deck, null);
 		assertFalse(res == null);
 		assertEquals(res.data_.getNumCards_hand(), 0);
 		assertTrue(res instanceof CardDrawNode);
@@ -175,7 +175,8 @@ public class TestArcaneIntellect {
 				);
 		
 		Hero hero = new Hero();		
-		Player player = new Player("player0", hero, deck);
+		Player player0 = new Player("player0", hero, deck);
+		Player player1 = new Player("player0", hero, deck);
 		
 		board.data_.setMana_p0((byte)3);
 		board.data_.setMana_p1((byte)3);
@@ -183,7 +184,7 @@ public class TestArcaneIntellect {
 		board.data_.setMaxMana_p0((byte)3);
 		board.data_.setMaxMana_p1((byte)3);
 
-		BoardState resBoard = ai0.playTurn(0, board.data_, player);
+		BoardState resBoard = ai0.playTurn(0, board.data_, player0, player1);
 		
 		assertFalse( resBoard == null );
 		
@@ -223,7 +224,8 @@ public class TestArcaneIntellect {
 				);
 		
 		Hero hero = new Hero();		
-		Player player = new Player("player0", hero, deck);
+		Player player0 = new Player("player0", hero, deck);
+		Player player1 = new Player("player0", hero, deck);
 		
 		board.data_.setMana_p0((byte)6);
 		board.data_.setMana_p1((byte)6);
@@ -231,7 +233,7 @@ public class TestArcaneIntellect {
 		board.data_.setMaxMana_p0((byte)6);
 		board.data_.setMaxMana_p1((byte)6);
 
-		BoardState resBoard = ai0.playTurn(0, board.data_, player);
+		BoardState resBoard = ai0.playTurn(0, board.data_, player0, player1);
 		
 		assertFalse( resBoard == null );
 		
@@ -271,7 +273,8 @@ public class TestArcaneIntellect {
 				);
 		
 		Hero hero = new Hero();		
-		Player player = new Player("player0", hero, deck);
+		Player player0 = new Player("player0", hero, deck);
+		Player player1 = new Player("player0", hero, deck);
 		
 		board.data_.setMana_p0((byte)9);
 		board.data_.setMana_p1((byte)9);
@@ -279,7 +282,7 @@ public class TestArcaneIntellect {
 		board.data_.setMaxMana_p0((byte)9);
 		board.data_.setMaxMana_p1((byte)9);
 
-		BoardState resBoard = ai0.playTurn(0, board.data_, player);
+		BoardState resBoard = ai0.playTurn(0, board.data_, player0, player1);
 		
 		assertFalse( resBoard == null );
 		

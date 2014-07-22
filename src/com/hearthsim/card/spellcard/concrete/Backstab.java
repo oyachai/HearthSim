@@ -39,20 +39,20 @@ public class Backstab extends SpellDamage {
 			int playerIndex,
 			int minionIndex,
 			HearthTreeNode boardState,
-			Deck deck)
+			Deck deckPlayer0, Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
 		if (minionIndex == 0)
 			return null;
 		if (playerIndex == 0) {
 			if (boardState.data_.getMinion_p0(minionIndex - 1).getHealth() == boardState.data_.getMinion_p0(minionIndex-1).getMaxHealth()) {
-				return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
+				return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
 			} else {
 				return null;
 			}
 		} else {
 			if (boardState.data_.getMinion_p1(minionIndex - 1).getHealth() == boardState.data_.getMinion_p1(minionIndex-1).getMaxHealth()) {
-				return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
+				return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
 			} else {
 				return null;
 			}

@@ -54,7 +54,7 @@ public class TestExecute {
 		board.data_.placeCard_hand_p0(fb);
 		
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 0, 0, board, deck);
+		HearthTreeNode ret = theCard.useOn(0, 0, 0, board, deck, null);
 		assertTrue(ret == null);
 		assertTrue(board.data_.getNumCards_hand() == 1);
 		assertTrue(board.data_.getNumMinions_p0() == 2);
@@ -79,7 +79,7 @@ public class TestExecute {
 		board.data_.placeCard_hand_p0(fb);
 		
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 1, 1, board, deck);
+		HearthTreeNode ret = theCard.useOn(0, 1, 1, board, deck, null);
 		assertTrue(ret == null);
 		assertTrue(board.data_.getNumCards_hand() == 1);
 		assertTrue(board.data_.getNumMinions_p0() == 2);
@@ -104,7 +104,7 @@ public class TestExecute {
 		board.data_.placeCard_hand_p0(fb);
 		
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 1, 2, board, deck);
+		HearthTreeNode ret = theCard.useOn(0, 1, 2, board, deck, null);
 		assertFalse(ret == null);
 		assertTrue(board.data_.getNumCards_hand() == 0);
 		assertTrue(board.data_.getNumMinions_p0() == 2);

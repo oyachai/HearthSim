@@ -39,15 +39,15 @@ public class DrainLife extends SpellDamage {
 			int playerIndex,
 			int minionIndex,
 			HearthTreeNode boardState,
-			Deck deck)
+			Deck deckPlayer0, Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
 		if (playerIndex == 0 && minionIndex == 0) 
 			return null;
 		
-		HearthTreeNode toRet = super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
+		HearthTreeNode toRet = super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
 		if (toRet != null) {
-			toRet.data_.getHero_p0().takeHeal((byte)2, 0, 0, boardState, deck);
+			toRet.data_.getHero_p0().takeHeal((byte)2, 0, 0, boardState, deckPlayer0, deckPlayer1);
 		}
 		return toRet;
 	}

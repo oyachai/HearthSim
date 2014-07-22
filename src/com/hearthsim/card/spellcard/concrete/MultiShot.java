@@ -50,7 +50,7 @@ public class MultiShot extends SpellCard {
 			int playerIndex,
 			int minionIndex,
 			HearthTreeNode boardState,
-			Deck deck)
+			Deck deckPlayer0, Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
 		if (minionIndex > 0 || playerIndex == 0) {
@@ -75,8 +75,8 @@ public class MultiShot extends SpellCard {
 		Minion tgt0 = boardState.data_.getMinion_p1(indx0);
 		Minion tgt1 = boardState.data_.getMinion_p1(indx1);
 		
-		tgt0.takeDamage((byte)3, 0, 1, indx0 + 1, boardState, deck);
-		tgt1.takeDamage((byte)3, 0, 1, indx1 + 1, boardState, deck);
+		tgt0.takeDamage((byte)3, 0, 1, indx0 + 1, boardState, deckPlayer0, deckPlayer1);
+		tgt1.takeDamage((byte)3, 0, 1, indx1 + 1, boardState, deckPlayer0, deckPlayer1);
 
 		if (tgt1.getHealth() <= 0) {
 			boardState.data_.removeMinion_p1(indx1);
@@ -86,7 +86,7 @@ public class MultiShot extends SpellCard {
 			boardState.data_.removeMinion_p1(indx0);
 		}
 		
-		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
+		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
 	}
 
 }

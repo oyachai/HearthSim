@@ -52,7 +52,7 @@ public class MirrorImage extends SpellCard {
 			int playerIndex,
 			int minionIndex,
 			HearthTreeNode boardState,
-			Deck deck)
+			Deck deckPlayer0, Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
 		if (minionIndex > 0 || playerIndex == 1) {
@@ -65,15 +65,15 @@ public class MirrorImage extends SpellCard {
 
 		Minion mi0 = new MirrorImageMinion();
 		boardState.data_.placeCard_hand_p0(mi0);
-		HearthTreeNode toRet = mi0.useOn(boardState.data_.getNumCards_hand() - 1, playerIndex, numMinions + 1, boardState, deck);
+		HearthTreeNode toRet = mi0.useOn(boardState.data_.getNumCards_hand() - 1, playerIndex, numMinions + 1, boardState, deckPlayer0, deckPlayer1);
 		
 		if (numMinions < 6) {
 			Minion mi1 = new MirrorImageMinion();
 			boardState.data_.placeCard_hand_p0(mi1);
-			toRet = mi1.useOn(boardState.data_.getNumCards_hand() - 1, playerIndex, numMinions + 1, boardState, deck);
+			toRet = mi1.useOn(boardState.data_.getNumCards_hand() - 1, playerIndex, numMinions + 1, boardState, deckPlayer0, deckPlayer1);
 		}
 		
-		return super.use_core(thisCardIndex, playerIndex, minionIndex, toRet, deck);
+		return super.use_core(thisCardIndex, playerIndex, minionIndex, toRet, deckPlayer0, deckPlayer1);
 	}
 
 }

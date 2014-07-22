@@ -131,7 +131,7 @@ public class Succubus extends Minion {
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public HearthTreeNode use_core(int thisCardIndex, int playerIndex, int minionIndex, HearthTreeNode boardState, Deck deck) throws HSInvalidPlayerIndexException {
+	public HearthTreeNode use_core(int thisCardIndex, int playerIndex, int minionIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
 		
 		if (hasBeenUsed_) {
 			//Card is already used, nothing to do
@@ -141,7 +141,7 @@ public class Succubus extends Minion {
 		if (playerIndex == 1 || minionIndex == 0)
 			return null;
 
-		super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
+		super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
 		
 		int numCards = boardState.data_.getNumCards_hand_p0();
 		if (numCards <= 0)

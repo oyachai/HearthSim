@@ -51,7 +51,7 @@ public class TotemicMight extends SpellCard {
 			int playerIndex,
 			int minionIndex,
 			HearthTreeNode boardState,
-			Deck deck)
+			Deck deckPlayer0, Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
 		if (minionIndex > 0 || playerIndex == 1) {
@@ -64,6 +64,6 @@ public class TotemicMight extends SpellCard {
 				minion.setMaxHealth((byte)(2 + minion.getMaxHealth()));
 			}
 		}
-		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
+		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
 	}
 }

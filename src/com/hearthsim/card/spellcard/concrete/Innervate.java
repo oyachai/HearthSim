@@ -49,7 +49,7 @@ public class Innervate extends SpellCard {
 			int playerIndex,
 			int minionIndex,
 			HearthTreeNode boardState,
-			Deck deck)
+			Deck deckPlayer0, Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
 		if (playerIndex > 0 || minionIndex > 0) 
@@ -59,7 +59,7 @@ public class Innervate extends SpellCard {
 			boardState.data_.setMana_p0(boardState.data_.getMana_p0() + 2);
 		else
 			boardState.data_.setMana_p0(10);
-		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
+		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
 	}
 	
 }

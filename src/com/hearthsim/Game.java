@@ -55,7 +55,7 @@ public class Game {
 		
 		for (int i = 0; i < maxTurns_; ++i) {
 			
-			gms_[0].beginTurn(i, boardState_, players_[0]);
+			gms_[0].beginTurn(i, boardState_, players_[0], players_[1]);
 
 			if (!boardState_.isAlive_p0()) {
 				return new GameResult(1, i + 1);
@@ -63,8 +63,8 @@ public class Game {
 				return new GameResult(0, i + 1);
 			}
 
-			boardState_ = gms_[0].playTurn(i, boardState_, players_[0]);
-			gms_[0].endTurn(i, boardState_, players_[0]);
+			boardState_ = gms_[0].playTurn(i, boardState_, players_[0], players_[1]);
+			gms_[0].endTurn(i, boardState_, players_[0], players_[1]);
 
 			if (!boardState_.isAlive_p0()) {
 				return new GameResult(1, i + 1);
@@ -74,7 +74,7 @@ public class Game {
 
 			boardState_ = boardState_.flipPlayers();
 
-			gms_[1].beginTurn(i, boardState_, players_[1]);
+			gms_[1].beginTurn(i, boardState_, players_[1], players_[0]);
 
 			if (!boardState_.isAlive_p0()) {
 				return new GameResult(0, i + 1);
@@ -82,8 +82,8 @@ public class Game {
 				return new GameResult(1, i + 1);
 			}
 
-			boardState_ = gms_[1].playTurn(i, boardState_, players_[1]);
-			gms_[1].endTurn(i, boardState_, players_[1]);
+			boardState_ = gms_[1].playTurn(i, boardState_, players_[1], players_[0]);
+			gms_[1].endTurn(i, boardState_, players_[1], players_[0]);
 
 			boardState_ = boardState_.flipPlayers();
 			

@@ -67,12 +67,13 @@ public class Rogue extends Hero {
 			int targetPlayerIndex,
 			int targetMinionIndex,
 			HearthTreeNode boardState,
-			Deck deck)
+			Deck deckPlayer0,
+			Deck deckPlayer1)
 		throws HSException
 	{
 		HearthTreeNode toRet = boardState;
 		if (targetMinionIndex == 0 && targetPlayerIndex == 0) {
-			Hero target = boardState.data_.getHero_p0();
+			Hero target = toRet.data_.getHero_p0();
 			target.setWeaponCharge((byte)2);
 			target.setAttack((byte)1);
 			return toRet;

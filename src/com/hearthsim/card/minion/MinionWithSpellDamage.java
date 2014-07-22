@@ -104,7 +104,8 @@ public class MinionWithSpellDamage extends Minion {
 			int playerIndex,
 			int minionIndex,
 			HearthTreeNode boardState,
-			Deck deck)
+			Deck deckPlayer0,
+			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
 		if (hasBeenUsed_) {
@@ -145,8 +146,8 @@ public class MinionWithSpellDamage extends Minion {
 	 * @throws HSInvalidPlayerIndexException
 	 */
 	@Override
-	public HearthTreeNode silenced(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deck) throws HSInvalidPlayerIndexException {
-		HearthTreeNode toRet = super.silenced(thisPlayerIndex, thisMinionIndex, boardState, deck);
+	public HearthTreeNode silenced(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
+		HearthTreeNode toRet = super.silenced(thisPlayerIndex, thisMinionIndex, boardState, deckPlayer0, deckPlayer1);
 		toRet.data_.setSpellDamage(0, (byte)(boardState.data_.getSpellDamage(0) - spellDamage_));
 		return toRet;
 	}
@@ -163,8 +164,8 @@ public class MinionWithSpellDamage extends Minion {
 	 * @throws HSInvalidPlayerIndexException
 	 */
 	@Override
-	public HearthTreeNode destroyed(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deck) throws HSInvalidPlayerIndexException {		
-		HearthTreeNode toRet = super.destroyed(thisPlayerIndex, thisMinionIndex, boardState, deck);
+	public HearthTreeNode destroyed(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {		
+		HearthTreeNode toRet = super.destroyed(thisPlayerIndex, thisMinionIndex, boardState, deckPlayer0, deckPlayer1);
 		toRet.data_.setSpellDamage(0, (byte)(boardState.data_.getSpellDamage(0) - spellDamage_));
 		return toRet;
 	}

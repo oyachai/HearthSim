@@ -67,12 +67,13 @@ public class Warrior extends Hero {
 			int targetPlayerIndex,
 			int targetMinionIndex,
 			HearthTreeNode boardState,
-			Deck deck)
+			Deck deckPlayer0,
+			Deck deckPlayer1)
 		throws HSException
 	{
 		HearthTreeNode toRet = boardState;
 		if (targetMinionIndex == 0 && targetPlayerIndex == 0) {
-			Hero target = boardState.data_.getHero(thisPlayerIndex);
+			Hero target = toRet.data_.getHero(thisPlayerIndex);
 			target.setArmor((byte)(target.getArmor() + 2));
 			return toRet;
 		} else {

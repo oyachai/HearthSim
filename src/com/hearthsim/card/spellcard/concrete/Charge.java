@@ -50,7 +50,7 @@ public class Charge extends SpellCard {
 			int playerIndex,
 			int minionIndex,
 			HearthTreeNode boardState,
-			Deck deck)
+			Deck deckPlayer0, Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
 		if (minionIndex == 0 || playerIndex == 1) {
@@ -61,6 +61,6 @@ public class Charge extends SpellCard {
 		Minion targetMinion = boardState.data_.getMinion_p0(minionIndex-1);
 		targetMinion.setAttack((byte)(targetMinion.getAttack() + 2));
 		targetMinion.setCharge(true);
-		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
+		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
 	}
 }

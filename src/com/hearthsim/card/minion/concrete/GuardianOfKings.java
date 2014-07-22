@@ -136,7 +136,8 @@ public class GuardianOfKings extends Minion {
 			int playerIndex,
 			int minionIndex,
 			HearthTreeNode boardState,
-			Deck deck)
+			Deck deckPlayer0,
+			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
 		
@@ -151,8 +152,8 @@ public class GuardianOfKings extends Minion {
 		if (boardState.data_.getNumMinions_p0() >= 7)
 			return null;
 		
-		boardState.data_.getHero_p0().takeHeal((byte)6, 0, 0, boardState, deck);
+		boardState.data_.getHero_p0().takeHeal((byte)6, 0, 0, boardState, deckPlayer0, deckPlayer1);
 		
-		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
+		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
 	}
 }

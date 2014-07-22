@@ -51,7 +51,7 @@ public class SacrificialPact extends SpellCard {
 			int playerIndex,
 			int minionIndex,
 			HearthTreeNode boardState,
-			Deck deck)
+			Deck deckPlayer0, Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
 		if (minionIndex == 0) {
@@ -60,11 +60,11 @@ public class SacrificialPact extends SpellCard {
 		
 		Minion targetMinion = boardState.data_.getMinion(playerIndex, minionIndex - 1);
 		if (targetMinion instanceof Demon) {
-			targetMinion.destroyed(playerIndex, minionIndex, boardState, deck);
+			targetMinion.destroyed(playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
 			boardState.data_.removeMinion(playerIndex, minionIndex - 1);
 		} else {
 			return null;
 		}
-		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
+		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
 	}
 }

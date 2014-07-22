@@ -122,7 +122,8 @@ public class AcidicSwampOoze extends Minion {
 			int playerIndex,
 			int minionIndex,
 			HearthTreeNode boardState,
-			Deck deck)
+			Deck deckPlayer0,
+			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
 		
@@ -142,7 +143,7 @@ public class AcidicSwampOoze extends Minion {
 			boardState.data_.getHero_p1().setAttack((byte)0);
 		}
 		
-		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
+		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
 	}
 
 }

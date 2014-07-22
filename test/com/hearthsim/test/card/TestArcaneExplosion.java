@@ -46,22 +46,22 @@ public class TestArcaneExplosion {
 		Card theCard = board.data_.getCard_hand_p0(0);
 		HearthTreeNode res;
 		
-		res = theCard.useOn(0, 0, 0, board, null);
+		res = theCard.useOn(0, 0, 0, board, null, null);
 		assertTrue(res == null);
 		
-		res = theCard.useOn(0, 0, 1, board, null);
+		res = theCard.useOn(0, 0, 1, board, null, null);
 		assertTrue(res == null);
 		
-		res = theCard.useOn(0, 1, 1, board, null);
+		res = theCard.useOn(0, 1, 1, board, null, null);
 		assertTrue(res == null);
 		
-		res = theCard.useOn(0, 1, 2, board, null);
+		res = theCard.useOn(0, 1, 2, board, null, null);
 		assertTrue(res == null);
 		
-		res = theCard.useOn(0, 1, 3, board, null);
+		res = theCard.useOn(0, 1, 3, board, null, null);
 		assertTrue(res == null);
 		
-		res = theCard.useOn(0, 1, 0, board, null);
+		res = theCard.useOn(0, 1, 0, board, null, null);
 		assertFalse(res == null);
 		assertTrue(res.data_.getMana_p0() == 1);
 		assertTrue(res.data_.getNumCards_hand() == 0);

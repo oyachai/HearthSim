@@ -55,16 +55,16 @@ public class TestPriest {
 		
 		HearthTreeNode tmpBoard = new HearthTreeNode(board.data_.flipPlayers());
 		try {
-			tmpBoard.data_.getCard_hand_p0(0).useOn(0, 0, 1, tmpBoard, deck);
-			tmpBoard.data_.getCard_hand_p0(0).useOn(0, 0, 1, tmpBoard, deck);
+			tmpBoard.data_.getCard_hand_p0(0).useOn(0, 0, 1, tmpBoard, deck, null);
+			tmpBoard.data_.getCard_hand_p0(0).useOn(0, 0, 1, tmpBoard, deck, null);
 		} catch (HSInvalidPlayerIndexException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		board = new HearthTreeNode(tmpBoard.data_.flipPlayers());
 		try {
-			board.data_.getCard_hand_p0(0).useOn(0, 0, 1, board, deck);
-			board.data_.getCard_hand_p0(0).useOn(0, 0, 1, board, deck);
+			board.data_.getCard_hand_p0(0).useOn(0, 0, 1, board, deck, null);
+			board.data_.getCard_hand_p0(0).useOn(0, 0, 1, board, deck, null);
 		} catch (HSInvalidPlayerIndexException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -80,7 +80,7 @@ public class TestPriest {
 		//null case
 		
 		Minion minion = board.data_.getMinion_p0(0);
-		HearthTreeNode ret = minion.attack(0, 1, 0, board, deck);
+		HearthTreeNode ret = minion.attack(0, 1, 0, board, deck, null);
 		
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 0);
@@ -102,7 +102,7 @@ public class TestPriest {
 		
 		
 		Hero hero = board.data_.getHero_p0();
-		ret = hero.useHeroAbility(0, 1, 0, board, deck);
+		ret = hero.useHeroAbility(0, 1, 0, board, deck, null);
 		assertEquals(board.data_.getNumCards_hand(), 0);
 		assertEquals(board.data_.getNumMinions_p0(), 2);
 		assertEquals(board.data_.getNumMinions_p1(), 2);
@@ -121,7 +121,7 @@ public class TestPriest {
 		assertEquals(board.data_.getMinion_p1(1).getAttack(), 4);
 		
 		minion.hasAttacked(false);
-		ret = minion.attack(0, 1, 2, board, deck);
+		ret = minion.attack(0, 1, 2, board, deck, null);
 		assertEquals(board.data_.getNumCards_hand(), 0);
 		assertEquals(board.data_.getNumMinions_p0(), 2);
 		assertEquals(board.data_.getNumMinions_p1(), 2);
@@ -140,7 +140,7 @@ public class TestPriest {
 		assertEquals(board.data_.getMinion_p1(1).getAttack(), 4);
 		
 		minion.hasAttacked(false);
-		ret = hero.useHeroAbility(0, 1, 2, board, deck);
+		ret = hero.useHeroAbility(0, 1, 2, board, deck, null);
 		assertEquals(board.data_.getNumCards_hand(), 0);
 		assertEquals(board.data_.getNumMinions_p0(), 2);
 		assertEquals(board.data_.getNumMinions_p1(), 2);
@@ -180,7 +180,7 @@ public class TestPriest {
 				0.0
 				);
 		
-		BoardStateFactory factory = new BoardStateFactory(null, 2000000000);
+		BoardStateFactory factory = new BoardStateFactory(null, null, 2000000000);
 		HearthTreeNode tree = new HearthTreeNode(board.data_);
 		try {
 			tree = factory.doMoves(tree, ai0);
@@ -234,7 +234,7 @@ public class TestPriest {
 				0.0
 				);
 		
-		BoardStateFactory factory = new BoardStateFactory(null, 2000000000);
+		BoardStateFactory factory = new BoardStateFactory(null, null, 2000000000);
 		HearthTreeNode tree = new HearthTreeNode(board.data_);
 		try {
 			tree = factory.doMoves(tree, ai0);

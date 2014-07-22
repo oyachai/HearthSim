@@ -68,7 +68,8 @@ public class Mage extends Hero {
 			int targetPlayerIndex,
 			int targetMinionIndex,
 			HearthTreeNode boardState,
-			Deck deck)
+			Deck deckPlayer0,
+			Deck deckPlayer1)
 		throws HSException
 	{
 		HearthTreeNode toRet = boardState;
@@ -77,13 +78,13 @@ public class Mage extends Hero {
 				//There's never a case where using it on yourself is a good idea
 				return null;
 			}
-			Minion target = boardState.data_.getHero(targetPlayerIndex);
-			target.takeDamage((byte)1, thisPlayerIndex, targetPlayerIndex, targetMinionIndex, boardState, deck);
+			Minion target = toRet.data_.getHero(targetPlayerIndex);
+			toRet = target.takeDamage((byte)1, thisPlayerIndex, targetPlayerIndex, targetMinionIndex, toRet, deckPlayer0, deckPlayer1);
 		} else {
-			Minion target = boardState.data_.getMinion(targetPlayerIndex, targetMinionIndex - 1);
-			target.takeDamage((byte)1, thisPlayerIndex, targetPlayerIndex, targetMinionIndex, boardState, deck);
+			Minion target = toRet.data_.getMinion(targetPlayerIndex, targetMinionIndex - 1);
+			toRet = target.takeDamage((byte)1, thisPlayerIndex, targetPlayerIndex, targetMinionIndex, toRet, deckPlayer0, deckPlayer1);
 			if (target.getHealth() <= 0) 
-				boardState.data_.removeMinion(targetPlayerIndex, targetMinionIndex - 1);
+				toRet.data_.removeMinion(targetPlayerIndex, targetMinionIndex - 1);
 		}
 		return toRet;
 	}

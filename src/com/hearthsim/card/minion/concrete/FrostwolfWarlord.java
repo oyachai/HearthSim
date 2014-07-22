@@ -135,7 +135,8 @@ public class FrostwolfWarlord extends Minion {
 			int playerIndex,
 			int minionIndex,
 			HearthTreeNode boardState,
-			Deck deck)
+			Deck deckPlayer0,
+			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
 		
@@ -151,7 +152,7 @@ public class FrostwolfWarlord extends Minion {
 			return null;
 		
 		int numBuffs = boardState.data_.getNumMinions_p0();
-		HearthTreeNode toRet = super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
+		HearthTreeNode toRet = super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
 
 		Minion placedMinion = toRet.data_.getMinion(playerIndex, minionIndex - 1);
 		placedMinion.setAttack((byte)(placedMinion.getAttack() + numBuffs));

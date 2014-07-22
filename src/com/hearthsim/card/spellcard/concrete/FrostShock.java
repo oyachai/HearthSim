@@ -39,7 +39,7 @@ public class FrostShock extends SpellDamage {
 			int playerIndex,
 			int minionIndex,
 			HearthTreeNode boardState,
-			Deck deck)
+			Deck deckPlayer0, Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
 		if (playerIndex == 0) 
@@ -52,7 +52,7 @@ public class FrostShock extends SpellDamage {
 			else
 				toRet.data_.getMinion_p1(minionIndex - 1).setFrozen(true);
 		}
-		toRet = super.use_core(thisCardIndex, playerIndex, minionIndex, toRet, deck);
+		toRet = super.use_core(thisCardIndex, playerIndex, minionIndex, toRet, deckPlayer0, deckPlayer1);
 
 		return toRet;
 	}

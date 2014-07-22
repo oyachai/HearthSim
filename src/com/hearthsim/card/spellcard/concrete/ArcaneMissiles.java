@@ -52,7 +52,7 @@ public class ArcaneMissiles extends SpellCard {
 			int playerIndex,
 			int minionIndex,
 			HearthTreeNode boardState,
-			Deck deck)
+			Deck deckPlayer0, Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
 		if (playerIndex == 0) {
@@ -70,10 +70,10 @@ public class ArcaneMissiles extends SpellCard {
 		while(index < numMissiles) {
 			int targetIndex = (int)(numTargets * Math.random());
 			if (targetIndex == 0 && boardState.data_.getHero_p1().getHealth() > 0) {
-				boardState.data_.getHero_p1().takeDamage((byte)1, 0, 1, targetIndex, boardState, deck);
+				boardState.data_.getHero_p1().takeDamage((byte)1, 0, 1, targetIndex, boardState, deckPlayer0, deckPlayer1);
 				++index;
 			} else if (targetIndex > 0 && boardState.data_.getMinion_p1(targetIndex-1).getHealth() > 0) {
-				boardState.data_.getMinion_p1(targetIndex-1).takeDamage((byte)1, 0, 1, targetIndex, boardState, deck);
+				boardState.data_.getMinion_p1(targetIndex-1).takeDamage((byte)1, 0, 1, targetIndex, boardState, deckPlayer0, deckPlayer1);
 				++index;
 			}
 			if (boardState.data_.getHero_p1().getHealth() <= 0) {
@@ -89,6 +89,6 @@ public class ArcaneMissiles extends SpellCard {
 			}
 		}
 
-		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
+		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
 	}
 }
