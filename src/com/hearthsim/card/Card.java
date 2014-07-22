@@ -21,22 +21,6 @@ public class Card implements DeepCopyable {
 	 * Mana cost of the card
 	 */
 	protected byte mana_;
-
-	/**
-	 * Hero class
-	 * 
-	 * 0 = none
-	 * 1 = mage
-	 * 2 = hunter
-	 * 3 = paladin
-	 * 4 = warrior
-	 * 5 = druid
-	 * 6 = warlock
-	 * 7 = shaman
-	 * 8 = priest
-	 * 9 = rogue
-	 */
-	byte charClass_;
 	
 	protected boolean hasBeenUsed_;
 	protected boolean isInHand_;
