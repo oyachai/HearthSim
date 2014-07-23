@@ -156,15 +156,7 @@ public class NorthshireCleric extends Minion {
 			}
 		} else {
 			//This minion is an enemy minion.  Let's draw a card for the enemy.  No need to use a StopNode for enemy card draws.
-			Card card = deckPlayer1.drawCard(toRet.data_.getDeckPos(1));
-			if (card == null) {
-				byte fatigueDamage = toRet.data_.getFatigueDamage(1);
-				toRet.data_.setFatigueDamage(1, (byte)(fatigueDamage + 1));
-				toRet.data_.getHero(1).setHealth((byte)(toRet.data_.getHero(1).getHealth() - fatigueDamage));
-			} else {
-				toRet.data_.placeCard_hand(1, card);
-				toRet.data_.setDeckPos(1, toRet.data_.getDeckPos(1) + 1);
-			}
+			toRet.data_.drawCardFromDeck_p1(deckPlayer1, 1);
 		}
 		return toRet;
 	}
