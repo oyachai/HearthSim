@@ -2,8 +2,6 @@ package com.hearthsim.util.tree;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
-import com.hearthsim.card.minion.Minion;
-import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
 
 /**
