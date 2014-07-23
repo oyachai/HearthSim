@@ -378,6 +378,34 @@ public class BoardState implements DeepCopyable {
 	}
 
 	/**
+	 * Draw a card from a deck and place it in the hand
+	 * 
+	 * This function is intentionally only implemented for Player1.  
+	 * For Player0, it is almost always correct to user CardDrawNode instead.
+	 * 
+	 * @param deck Deck from which to draw.
+	 * @param numCards Number of cards to draw.
+	 * @throws HSInvalidPlayerIndexException
+	 */
+	public void drawCardFromDeck_p1(Deck deck, int numCards) throws HSInvalidPlayerIndexException {
+		//This minion is an enemy minion.  Let's draw a card for the enemy.  No need to use a StopNode for enemy card draws.
+		for (int indx = 0; indx < numCards; ++indx) {
+			Card card = deck.drawCard(this.getDeckPos(1));
+			if (card == null) {
+				byte fatigueDamage = this.getFatigueDamage(1);
+				this.setFatigueDamage(1, (byte)(fatigueDamage + 1));
+				this.getHero(1).setHealth((byte)(this.getHero(1).getHealth() - fatigueDamage));
+			} else {
+				if (this.getNumCards_hand_p1() < 10) {
+					this.placeCard_hand(1, card);
+				}
+				this.setDeckPos(1, this.getDeckPos(1) + 1);
+			}
+		}
+	}
+	
+
+	/**
 	 * Get the fatigue damage
 	 * 
 	 * Returns the fatigue damage taken when a card draw fails next.
