@@ -197,7 +197,7 @@ public class ArtificialPlayer {
 	}
 	
 	public double heroHealthScore_p1(double heroHealth, double heroArmor) {
-		double toRet = enemy_wHeroHealth_ * (heroHealth + heroArmor);
+		double toRet = -enemy_wHeroHealth_ * (heroHealth + heroArmor);
 		if (heroHealth <= 0) {
 			//dead enemy hero is a very good thing
 			toRet += 100000.0;
@@ -255,7 +255,7 @@ public class ArtificialPlayer {
 		//the more we beat on the opponent hero, the better
 		double heroScore = 0;
 		heroScore += heroHealthScore_p0(board.getHero_p0().getHealth(), board.getHero_p0().getArmor());
-		heroScore -= heroHealthScore_p1(board.getHero_p1().getHealth(), board.getHero_p1().getArmor());
+		heroScore += heroHealthScore_p1(board.getHero_p1().getHealth(), board.getHero_p1().getArmor());
 		
 		//the more minions you have, the better.  The less minions the enemy has, the better
 		double minionScore = 0.0;
@@ -281,10 +281,10 @@ public class ArtificialPlayer {
 	public BoardState playTurn(int turn, BoardState board, Player player0, Player player1) throws HSException {
 		//The goal of this ai is to maximize his board score
 		HearthTreeNode toRet = new HearthTreeNode(board);
-		BoardStateFactory factory = new BoardStateFactory(player0.getDeck(), player1.getDeck());
+		BoardStateFactory factory = new BoardStateFactory(player0.getDeck(), player1.getDeck(), 2000000000);
 		HearthTreeNode allMoves = factory.doMoves(toRet, this);
 
-//		System.out.print("turn = " + turn + ", p = " + player.getName() + ", nHand = " + board.getNumCards_hand() + ", nMinion = " + board.getNumMinions_p0() + ", nEnemyMinion = " + board.getNumMinions_p1());
+//		System.out.print("turn = " + turn + ", p = " + player0.getName() + ", nHand = " + board.getNumCards_hand() + ", nMinion = " + board.getNumMinions_p0() + ", nEnemyMinion = " + board.getNumMinions_p1());
 //		System.out.flush();
 		
 		HearthTreeNode bestPlay = allMoves.findMaxOfFunc(this);
