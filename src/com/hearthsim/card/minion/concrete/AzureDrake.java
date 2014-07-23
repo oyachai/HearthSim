@@ -32,6 +32,7 @@ public class AzureDrake extends MinionWithSpellDamage {
 				(byte)0,
 				HEALTH,
 				HEALTH,
+				SPELL_DAMAGE,
 				TAUNT,
 				DIVINE_SHIELD,
 				WINDFURY,
@@ -56,6 +57,7 @@ public class AzureDrake extends MinionWithSpellDamage {
 			byte extraAttackUntilTurnEnd,
 			byte baseHealth,
 			byte maxHealth,
+			byte spellDamage,
 			boolean taunt,
 			boolean divineShield,
 			boolean windFury,
@@ -79,6 +81,7 @@ public class AzureDrake extends MinionWithSpellDamage {
 			extraAttackUntilTurnEnd,
 			baseHealth,
 			maxHealth,
+			spellDamage,
 			taunt,
 			divineShield,
 			windFury,
@@ -104,6 +107,7 @@ public class AzureDrake extends MinionWithSpellDamage {
 				this.extraAttackUntilTurnEnd_,
 				this.baseHealth_,
 				this.maxHealth_,
+				this.spellDamage_,
 				this.taunt_,
 				this.divineShield_,
 				this.windFury_,
@@ -138,7 +142,8 @@ public class AzureDrake extends MinionWithSpellDamage {
 			int playerIndex,
 			int minionIndex,
 			HearthTreeNode boardState,
-			Deck deck)
+			Deck deckPlayer0,
+			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
 		
@@ -153,7 +158,7 @@ public class AzureDrake extends MinionWithSpellDamage {
 		if (boardState.data_.getNumMinions_p0() >= 7)
 			return null;
 		
-		HearthTreeNode toRet = super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deck);
+		HearthTreeNode toRet = super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
 		CardDrawNode cNode = new CardDrawNode(toRet, 1, this, 0, thisCardIndex, playerIndex, minionIndex); //draw one card
 		return cNode;
 	}
