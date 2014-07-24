@@ -91,6 +91,7 @@ grSet = GameRecordSet()
 for line in lines:
     ljson = json.loads(line)
     grSet.add(ljson)
+    gduration.append(ljson['duration'])
 
 n0 = grSet.getP0WinCount()
 n1 = grSet.getP1WinCount()
