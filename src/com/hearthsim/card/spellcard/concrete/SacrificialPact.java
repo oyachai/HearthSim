@@ -58,13 +58,14 @@ public class SacrificialPact extends SpellCard {
 			return null;
 		}
 		
-		Minion targetMinion = boardState.data_.getMinion(playerIndex, minionIndex - 1);
+		HearthTreeNode toRet = boardState;
+		Minion targetMinion = toRet.data_.getMinion(playerIndex, minionIndex - 1);
 		if (targetMinion instanceof Demon) {
-			targetMinion.destroyed(playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
-			boardState.data_.removeMinion(playerIndex, minionIndex - 1);
+			toRet = targetMinion.destroyed(playerIndex, minionIndex, toRet, deckPlayer0, deckPlayer1);
+			toRet.data_.removeMinion(playerIndex, minionIndex - 1);
 		} else {
 			return null;
 		}
-		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
+		return super.use_core(thisCardIndex, playerIndex, minionIndex, toRet, deckPlayer0, deckPlayer1);
 	}
 }

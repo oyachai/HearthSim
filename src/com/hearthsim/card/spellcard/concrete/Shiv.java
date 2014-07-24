@@ -48,7 +48,11 @@ public class Shiv extends SpellDamage {
 			return null;
 		
 		HearthTreeNode toRet = super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
-		CardDrawNode cNode = new CardDrawNode(toRet, 1, this, 0, thisCardIndex, playerIndex, minionIndex); //draw two cards
-		return cNode;
+		if (toRet instanceof CardDrawNode) {
+			((CardDrawNode) toRet).addNumCardsToDraw(1);
+		} else {
+			toRet = new CardDrawNode(toRet, 1, this, 0, thisCardIndex, playerIndex, minionIndex); //draw two cards
+		}
+		return toRet;
 	}
 }

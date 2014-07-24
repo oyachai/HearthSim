@@ -60,19 +60,21 @@ public class Hellfire extends SpellCard {
 		if (playerIndex > 0 || minionIndex > 0) 
 			return null;
 		
-		boardState.data_.getHero_p1().takeDamage(DAMAGE_AMOUNT, 0, 0, 0, boardState, deckPlayer0, deckPlayer1, true);
-		for (int indx = 0; indx < boardState.data_.getNumMinions_p1(); ++indx) {
-			Minion targetMinion = boardState.data_.getMinion_p1(indx);
-			targetMinion.takeDamage(DAMAGE_AMOUNT, 0, 1, indx + 1, boardState, deckPlayer0, deckPlayer1, true);
+		HearthTreeNode toRet = boardState;
+		
+		toRet = toRet.data_.getHero_p1().takeDamage(DAMAGE_AMOUNT, 0, 0, 0, toRet, deckPlayer0, deckPlayer1, true);
+		for (int indx = 0; indx < toRet.data_.getNumMinions_p1(); ++indx) {
+			Minion targetMinion = toRet.data_.getMinion_p1(indx);
+			toRet = targetMinion.takeDamage(DAMAGE_AMOUNT, 0, 1, indx + 1, toRet, deckPlayer0, deckPlayer1, true);
 		}
 
-		boardState.data_.getHero_p0().takeDamage(DAMAGE_AMOUNT, 0, 0, 0, boardState, deckPlayer0, deckPlayer1, true);
-		for (int indx = 0; indx < boardState.data_.getNumMinions_p0(); ++indx) {
-			Minion targetMinion = boardState.data_.getMinion_p0(indx);
-			targetMinion.takeDamage(DAMAGE_AMOUNT, 0, 0, indx + 1, boardState, deckPlayer0, deckPlayer1, true);
+		toRet = toRet.data_.getHero_p0().takeDamage(DAMAGE_AMOUNT, 0, 0, 0, toRet, deckPlayer0, deckPlayer1, true);
+		for (int indx = 0; indx < toRet.data_.getNumMinions_p0(); ++indx) {
+			Minion targetMinion = toRet.data_.getMinion_p0(indx);
+			toRet = targetMinion.takeDamage(DAMAGE_AMOUNT, 0, 0, indx + 1, toRet, deckPlayer0, deckPlayer1, true);
 		}
 		
-		Iterator<Minion> iter = boardState.data_.getMinions_p0().iterator();
+		Iterator<Minion> iter = toRet.data_.getMinions_p0().iterator();
 		while (iter.hasNext()) {
 			Minion targetMinion = iter.next();
 			if (targetMinion.getHealth() <= 0) {
@@ -80,7 +82,7 @@ public class Hellfire extends SpellCard {
 			}
 		}
 
-		iter = boardState.data_.getMinions_p1().iterator();
+		iter = toRet.data_.getMinions_p1().iterator();
 		while (iter.hasNext()) {
 			Minion targetMinion = iter.next();
 			if (targetMinion.getHealth() <= 0) {
@@ -88,6 +90,6 @@ public class Hellfire extends SpellCard {
 			}
 		}
 
-		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
+		return super.use_core(thisCardIndex, playerIndex, minionIndex, toRet, deckPlayer0, deckPlayer1);
 	}
 }

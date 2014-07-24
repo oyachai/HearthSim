@@ -65,20 +65,26 @@ public class FanOfKnives extends SpellCard {
 			return null;
 		}
 		
-		for (int indx = 0; indx < boardState.data_.getNumMinions_p1(); ++indx) {
-			Minion targetMinion = boardState.data_.getMinion_p1(indx);
-			targetMinion.takeDamage((byte)1, 0, 1, indx + 1, boardState, deckPlayer0, deckPlayer1, true);
+		HearthTreeNode toRet = boardState;
+		
+		for (int indx = 0; indx < toRet.data_.getNumMinions_p1(); ++indx) {
+			Minion targetMinion = toRet.data_.getMinion_p1(indx);
+			toRet = targetMinion.takeDamage((byte)1, 0, 1, indx + 1, toRet, deckPlayer0, deckPlayer1, true);
 		}
 		
-		Iterator<Minion> iter = boardState.data_.getMinions_p1().iterator();
+		Iterator<Minion> iter = toRet.data_.getMinions_p1().iterator();
 		while (iter.hasNext()) {
 			Minion targetMinion = iter.next();
 			if (targetMinion.getHealth() <= 0) {
 				iter.remove();
 			}
 		}
-
-		CardDrawNode cNode = new CardDrawNode(boardState, 1, this, 0, thisCardIndex, playerIndex, minionIndex); //draw two cards
-		return cNode;
+		
+		if (toRet instanceof CardDrawNode) {
+			((CardDrawNode) toRet).addNumCardsToDraw(1);
+		} else {
+			toRet = new CardDrawNode(toRet, 1, this, 0, thisCardIndex, playerIndex, minionIndex); //draw two cards
+		}
+		return toRet;
 	}
 }

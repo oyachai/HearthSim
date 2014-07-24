@@ -67,19 +67,23 @@ public class MortalCoil extends SpellDamage {
 			else
 				return null;
 		}
-		
-		this.attack(target, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
-		boardState.data_.setMana_p0(boardState.data_.getMana_p0() - this.mana_);
-		boardState.data_.removeCard_hand(thisCardIndex);
-
 		HearthTreeNode toRet = boardState;
+		
+		toRet = this.attack(target, playerIndex, minionIndex, toRet, deckPlayer0, deckPlayer1);
+		toRet.data_.setMana_p0(toRet.data_.getMana_p0() - this.mana_);
+		toRet.data_.removeCard_hand(thisCardIndex);
+
 		if (target.getHealth() <= 0) {
 			if (playerIndex == 0)
-				boardState.data_.removeMinion_p0(minionIndex-1);
+				toRet.data_.removeMinion_p0(minionIndex-1);
 			else
-				boardState.data_.removeMinion_p1(minionIndex-1);
+				toRet.data_.removeMinion_p1(minionIndex-1);
 			
-			toRet = new CardDrawNode(boardState, 1, this, 0, thisCardIndex, playerIndex, minionIndex); //draw two cards
+			if (toRet instanceof CardDrawNode) {
+				((CardDrawNode) toRet).addNumCardsToDraw(1);
+			} else {
+				toRet = new CardDrawNode(toRet, 1, this, 0, thisCardIndex, playerIndex, minionIndex); //draw two cards
+			}
 		}
 		return toRet;
 	}

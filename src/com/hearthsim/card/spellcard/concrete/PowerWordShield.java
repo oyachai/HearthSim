@@ -61,7 +61,11 @@ public class PowerWordShield extends SpellCard {
 		toRet.data_.getMinion(playerIndex, minionIndex - 1).setHealth((byte)(toRet.data_.getMinion(playerIndex, minionIndex - 1).getHealth() + 2));
 		toRet.data_.getMinion(playerIndex, minionIndex - 1).setMaxHealth((byte)(toRet.data_.getMinion(playerIndex, minionIndex - 1).getMaxHealth() + 2));
 		
-		CardDrawNode cNode = new CardDrawNode(toRet, 4, this, 0, thisCardIndex, playerIndex, minionIndex); //draw two cards
-		return cNode;
+		if (toRet instanceof CardDrawNode) {
+			((CardDrawNode) toRet).addNumCardsToDraw(1);
+		} else {
+			toRet = new CardDrawNode(toRet, 4, this, 0, thisCardIndex, playerIndex, minionIndex); //draw two cards
+		}
+		return toRet;
 	}
 }

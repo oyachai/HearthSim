@@ -59,7 +59,11 @@ public class Sprint extends SpellCard {
 		}
 
 		HearthTreeNode toRet = super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
-		CardDrawNode cNode = new CardDrawNode(toRet, 4, this, 0, thisCardIndex, playerIndex, minionIndex); //draw two cards
-		return cNode;
+		if (toRet instanceof CardDrawNode) {
+			((CardDrawNode) toRet).addNumCardsToDraw(4);
+		} else {
+			toRet = new CardDrawNode(toRet, 4, this, 0, thisCardIndex, playerIndex, minionIndex); //draw two cards
+		}
+		return toRet;
 	}
 }

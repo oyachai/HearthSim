@@ -35,8 +35,6 @@ public class MultiShot extends SpellCard {
 	 * 
 	 * Use the card on the given target
 	 * 
-	 * Summons either Huffer, Leokk, or Misha
-	 * 
 	 * @param thisCardIndex The index (position) of the card in the hand
 	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
 	 * @param minionIndex The index of the target minion.

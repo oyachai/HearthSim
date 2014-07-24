@@ -61,11 +61,12 @@ public class ArcaneExplosion extends SpellCard {
 			return null;
 		}
 		
-		for (int indx = 0; indx < boardState.data_.getNumMinions_p1(); ++indx) {
-			Minion targetMinion = boardState.data_.getMinion_p1(indx);
-			targetMinion.takeDamage((byte)1, 0, 1, indx + 1, boardState, deckPlayer0, deckPlayer1, true);
+		HearthTreeNode toRet = boardState;
+		for (int indx = 0; indx < toRet.data_.getNumMinions_p1(); ++indx) {
+			Minion targetMinion = toRet.data_.getMinion_p1(indx);
+			toRet = targetMinion.takeDamage((byte)1, 0, 1, indx + 1, toRet, deckPlayer0, deckPlayer1, true);
 		}
 
-		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
+		return super.use_core(thisCardIndex, playerIndex, minionIndex, toRet, deckPlayer0, deckPlayer1);
 	}
 }

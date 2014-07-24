@@ -57,13 +57,14 @@ public class Execute extends SpellCard {
 			//cant't use it on the heroes or friendly minion
 			return null;
 		}
+		HearthTreeNode toRet = boardState;
 		
-		Minion targetMinion = boardState.data_.getMinion_p1(minionIndex-1);
+		Minion targetMinion = toRet.data_.getMinion_p1(minionIndex-1);
 		if (targetMinion.getHealth() == targetMinion.getMaxHealth())
 			return null;
 		
-		targetMinion.destroyed(playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
-		boardState.data_.removeMinion_p1(minionIndex-1);
-		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
+		toRet = targetMinion.destroyed(playerIndex, minionIndex, toRet, deckPlayer0, deckPlayer1);
+		toRet.data_.removeMinion_p1(minionIndex-1);
+		return super.use_core(thisCardIndex, playerIndex, minionIndex, toRet, deckPlayer0, deckPlayer1);
 	}
 }

@@ -52,7 +52,7 @@ public class SpellDamage extends SpellCard {
 		return new SpellDamage(this.getName(), this.getMana(), damage_, this.hasBeenUsed());
 	}
 
-	public void attack(
+	public HearthTreeNode attack(
 			Minion minion,
 			int targetPlayerIndex,
 			int targetMinionIndex,
@@ -61,7 +61,7 @@ public class SpellDamage extends SpellCard {
 			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
-		minion.takeDamage(damage_, 0, targetPlayerIndex, targetMinionIndex, boardState, deckPlayer0, deckPlayer1, true);
+		return minion.takeDamage(damage_, 0, targetPlayerIndex, targetMinionIndex, boardState, deckPlayer0, deckPlayer1, true);
  	}
 	
 	/**
@@ -91,41 +91,42 @@ public class SpellDamage extends SpellCard {
 		}
 				
 		this.hasBeenUsed(true);
-
+		HearthTreeNode toRet = boardState;
+		
 		if (minionIndex == 0) {
 			//attack a hero
 			if (playerIndex == 0) {
-				this.attack(boardState.data_.getHero_p0(), playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
+				toRet = this.attack(toRet.data_.getHero_p0(), playerIndex, minionIndex, toRet, deckPlayer0, deckPlayer1);
 			} else {
-				this.attack(boardState.data_.getHero_p1(), playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
+				toRet = this.attack(toRet.data_.getHero_p1(), playerIndex, minionIndex, toRet, deckPlayer0, deckPlayer1);
 			}
-			boardState.data_.setMana_p0(boardState.data_.getMana_p0() - this.mana_);
-			boardState.data_.removeCard_hand(thisCardIndex);
-			return boardState;
+			toRet.data_.setMana_p0(toRet.data_.getMana_p0() - this.mana_);
+			toRet.data_.removeCard_hand(thisCardIndex);
+			return toRet;
 		} else {
 			Minion target = null;
 			if (playerIndex == 0) {
-				if (boardState.data_.getNumMinions_p0() + 1 > minionIndex)
-					target = boardState.data_.getMinion_p0(minionIndex - 1);
+				if (toRet.data_.getNumMinions_p0() + 1 > minionIndex)
+					target = toRet.data_.getMinion_p0(minionIndex - 1);
 				else
 					return null;
 			} else {
-				if (boardState.data_.getNumMinions_p1() + 1 > minionIndex)
-					target = boardState.data_.getMinion_p1(minionIndex - 1);
+				if (toRet.data_.getNumMinions_p1() + 1 > minionIndex)
+					target = toRet.data_.getMinion_p1(minionIndex - 1);
 				else
 					return null;
 			}
-			this.attack(target, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
-			boardState.data_.setMana_p0(boardState.data_.getMana_p0() - this.mana_);
-			boardState.data_.removeCard_hand(thisCardIndex);
+			toRet = this.attack(target, playerIndex, minionIndex, toRet, deckPlayer0, deckPlayer1);
+			toRet.data_.setMana_p0(toRet.data_.getMana_p0() - this.mana_);
+			toRet.data_.removeCard_hand(thisCardIndex);
 
 			if (target.getHealth() <= 0) {
 				if (playerIndex == 0)
-					boardState.data_.removeMinion_p0(minionIndex-1);
+					toRet.data_.removeMinion_p0(minionIndex-1);
 				else
-					boardState.data_.removeMinion_p1(minionIndex-1);
+					toRet.data_.removeMinion_p1(minionIndex-1);
 			}
-			return boardState;
+			return toRet;
 		}
 		
 	}

@@ -63,12 +63,13 @@ public class Flamestrike extends SpellCard {
 			return null;
 		}
 		
-		for (int indx = 0; indx < boardState.data_.getNumMinions_p1(); ++indx) {
-			Minion targetMinion = boardState.data_.getMinion_p1(indx);
-			targetMinion.takeDamage((byte)4, 0, 1, indx + 1, boardState, deckPlayer0, deckPlayer1, true);
+		HearthTreeNode toRet = boardState;
+		for (int indx = 0; indx < toRet.data_.getNumMinions_p1(); ++indx) {
+			Minion targetMinion = toRet.data_.getMinion_p1(indx);
+			toRet = targetMinion.takeDamage((byte)4, 0, 1, indx + 1, toRet, deckPlayer0, deckPlayer1, true);
 		}
 		
-		Iterator<Minion> iter = boardState.data_.getMinions_p1().iterator();
+		Iterator<Minion> iter = toRet.data_.getMinions_p1().iterator();
 		while (iter.hasNext()) {
 			Minion targetMinion = iter.next();
 			if (targetMinion.getHealth() <= 0) {
@@ -76,6 +77,6 @@ public class Flamestrike extends SpellCard {
 			}
 		}
 
-		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
+		return super.use_core(thisCardIndex, playerIndex, minionIndex, toRet, deckPlayer0, deckPlayer1);
 	}
 }

@@ -47,7 +47,7 @@ public class DrainLife extends SpellDamage {
 		
 		HearthTreeNode toRet = super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
 		if (toRet != null) {
-			toRet.data_.getHero_p0().takeHeal((byte)2, 0, 0, boardState, deckPlayer0, deckPlayer1);
+			toRet.data_.getHero_p0().takeHeal((byte)2, 0, 0, toRet, deckPlayer0, deckPlayer1);
 		}
 		return toRet;
 	}
