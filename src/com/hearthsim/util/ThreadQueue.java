@@ -46,6 +46,7 @@ public class ThreadQueue
 				    r.run();
 				}
 				catch (RuntimeException e) {
+					e.printStackTrace();
 	            }
 	        }
 	    }

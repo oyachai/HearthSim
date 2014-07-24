@@ -290,6 +290,7 @@ public class ArtificialPlayer {
 		HearthTreeNode bestPlay = allMoves.findMaxOfFunc(this);
 		while( bestPlay instanceof StopNode ) {
 			HearthTreeNode allEffectsDone = ((StopNode)bestPlay).finishAllEffects(player0.getDeck());
+			factory.resetTimeOut();
 			HearthTreeNode allMovesAtferStopNode = factory.doMoves(allEffectsDone, this);
 			bestPlay = allMovesAtferStopNode.findMaxOfFunc(this);
 		}

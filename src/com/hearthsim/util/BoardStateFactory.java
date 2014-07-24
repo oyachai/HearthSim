@@ -54,6 +54,11 @@ public class BoardStateFactory {
 	public boolean didTimeOut() {
 		return timedOut_;
 	}
+	
+	public void resetTimeOut() {
+		startTime_ = System.currentTimeMillis();
+		timedOut_ = false;
+	}
 
 	/**
 	 * Recursively generate all possible moves

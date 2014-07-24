@@ -131,6 +131,7 @@ public abstract class HearthSim {
 					results_[gameId_] = res;
 				}
 			} catch (HSException | IOException e) {
+				System.out.println("Error! " + e);
 				e.printStackTrace();
 			}
 		}
