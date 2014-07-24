@@ -9,6 +9,8 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
+import com.json.JSONArray;
+import com.json.JSONObject;
 
 
 /**
@@ -859,19 +861,48 @@ public class BoardState implements DeepCopyable {
 		return newBoard;
 	}
 	
+	public JSONObject toJSON() {
+		JSONObject json = new JSONObject();
+		json.put("p0_mana", p0_mana_);
+		json.put("p1_mana", p1_mana_);
+		json.put("p0_maxMana", p0_maxMana_);
+		json.put("p1_maxMana", p0_maxMana_);
+		json.put("p0_deckPos", p0_deckPos_);
+		json.put("p1_deckPos", p1_deckPos_);
+
+		JSONArray p0_minions = new JSONArray();
+		for (Minion minion : p0_minions_)
+			p0_minions.put(minion.toJSON());
+		json.put("p0_minions", p0_minions);
+
+		JSONArray p1_minions = new JSONArray();
+		for (Minion minion : p1_minions_)
+			p1_minions.put(minion.toJSON());
+		json.put("p1_minions", p1_minions);
+
+		JSONArray p0_hand = new JSONArray();
+		for (Card card : p0_hand_)
+			p0_hand.put(card.toJSON());
+		json.put("p0_hand", p0_hand);
+		
+		JSONArray p1_hand = new JSONArray();
+		for (Card card : p1_hand_)
+			p1_hand.put(card.toJSON());
+		json.put("p1_hand", p1_hand);
+
+		json.put("p0_hero", p0_hero_.toJSON());
+		json.put("p1_hero", p1_hero_.toJSON());
+
+		json.put("p0_fatigue", p0_fatigueDamage_);
+		json.put("p1_fatigue", p1_fatigueDamage_);
+		json.put("p0_spellDamage", p0_spellDamage_);
+		json.put("p1_spellDamage", p1_spellDamage_);
+		return json;
+	}
+	
 	public String toString() {
-		String toRet = "{";
-		toRet = toRet + "\"p0_minions\": " + p0_minions_ + ", ";
-		toRet = toRet + "\"p1_minions\": " + p1_minions_ + ", ";
-		toRet = toRet + "\"p0_hand\": " + p0_hand_ + ", ";
-		toRet = toRet + "\"p0_hero\": " + p0_hero_ + ", ";
-		toRet = toRet + "\"p1_hero\": " + p1_hero_ + ", ";
-		toRet = toRet + "\"p0_mana\": " + p0_mana_ + ", ";
-		toRet = toRet + "\"p1_mana\": " + p1_mana_ + ", ";
-		toRet = toRet + "\"p0_maxMana\": " + p0_maxMana_ + ", ";
-		toRet = toRet + "\"p1_maxMana\": " + p1_maxMana_ + "";
-		toRet = toRet + "}";
-		return toRet;
+		JSONObject json = this.toJSON();
+		return json.toString();
 	}
 	
 }

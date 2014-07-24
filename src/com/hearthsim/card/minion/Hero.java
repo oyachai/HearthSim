@@ -214,7 +214,8 @@ public class Hero extends Minion {
 
 	public JSONObject toJSON() {
 		JSONObject json = super.toJSON();
-		json.put("type", "Hero");
+		json.put("armor", this.armor_);
+		json.put("weaponCharge", this.weaponCharge_);
 		return json;
 	}
 }

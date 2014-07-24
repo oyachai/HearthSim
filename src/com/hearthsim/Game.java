@@ -53,23 +53,27 @@ public class Game {
 		boardState_.placeCard_hand_p1(new TheCoin());
 		boardState_.setDeckPos_p1(4);
 		
+		GameRecord record = new GameRecord();
+		record.put(0, (BoardState)boardState_.deepCopy());
+		record.put(1, (BoardState)boardState_.flipPlayers().deepCopy());
 		for (int i = 0; i < maxTurns_; ++i) {
 			
 			gms_[0].beginTurn(i, boardState_, players_[0], players_[1]);
 
 			if (!boardState_.isAlive_p0()) {
-				return new GameResult(1, i + 1);
+				return new GameResult(1, i + 1, record);
 			} else if (!boardState_.isAlive_p1()) {
-				return new GameResult(0, i + 1);
+				return new GameResult(0, i + 1, record);
 			}
 
 			boardState_ = gms_[0].playTurn(i, boardState_, players_[0], players_[1]);
 			gms_[0].endTurn(i, boardState_, players_[0], players_[1]);
 
+			record.put(0, (BoardState)boardState_.deepCopy());
 			if (!boardState_.isAlive_p0()) {
-				return new GameResult(1, i + 1);
+				return new GameResult(1, i + 1, record);
 			} else if (!boardState_.isAlive_p1()) {
-				return new GameResult(0, i + 1);
+				return new GameResult(0, i + 1, record);
 			}
 
 			boardState_ = boardState_.flipPlayers();
@@ -77,22 +81,23 @@ public class Game {
 			gms_[1].beginTurn(i, boardState_, players_[1], players_[0]);
 
 			if (!boardState_.isAlive_p0()) {
-				return new GameResult(0, i + 1);
+				return new GameResult(0, i + 1, record);
 			} else if (!boardState_.isAlive_p1()) {
-				return new GameResult(1, i + 1);
+				return new GameResult(1, i + 1, record);
 			}
 
 			boardState_ = gms_[1].playTurn(i, boardState_, players_[1], players_[0]);
 			gms_[1].endTurn(i, boardState_, players_[1], players_[0]);
+			record.put(1, (BoardState)boardState_.deepCopy());
 
 			boardState_ = boardState_.flipPlayers();
 			
 			if (!boardState_.isAlive_p0()) {
-				return new GameResult(1, i + 1);
+				return new GameResult(1, i + 1, record);
 			} else if (!boardState_.isAlive_p1()) {
-				return new GameResult(0, i + 1);
+				return new GameResult(0, i + 1, record);
 			}
 		}
-		return new GameResult(-1, 0);
+		return new GameResult(-1, 0, record);
 	}
 }

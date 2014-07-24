@@ -849,7 +849,6 @@ public class Minion extends Card {
 	@Override
 	public JSONObject toJSON() {
 		JSONObject json = super.toJSON();
-		json.put("type", "Minion");
 		json.put("attack", attack_);
 		json.put("baseAttack", baseAttack_);
 		json.put("health", health_);
@@ -859,6 +858,7 @@ public class Minion extends Card {
 		json.put("divineShield", divineShield_);
 		json.put("windFury", windFury_);
 		json.put("charge", charge_);
+		json.put("frozen", frozen_);
 		json.put("hasAttacked", hasAttacked_);
 		return json;
 	}

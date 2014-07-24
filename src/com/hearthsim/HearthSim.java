@@ -17,6 +17,7 @@ import com.hearthsim.io.ParamFile;
 import com.hearthsim.player.Player;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.util.ThreadQueue;
+import com.json.JSONObject;
 
 public abstract class HearthSim {
 	
@@ -121,7 +122,11 @@ public abstract class HearthSim {
 				GameResult res = runSingleGame();
 				synchronized(writer_) {
 					System.out.println("game " + gameId_ + ", player " + res.winnerPlayerIndex_ + " wins");
-					writer_.write(res.winnerPlayerIndex_ + "," + res.gameDuration_ + "\n");
+					JSONObject json = new JSONObject();
+					json.put("winner", res.winnerPlayerIndex_);
+					json.put("duration", res.gameDuration_);
+					json.put("record", res.record_.toJSON());
+					writer_.write(json.toString() + "\n");
 					writer_.flush();
 					results_[gameId_] = res;
 				}

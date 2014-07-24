@@ -100,7 +100,7 @@ public class testGame {
 		try {
 			w = game.runGame();
 		} catch (HSException e) {
-			w = new GameResult(-1, 0);
+			w = new GameResult(-1, 0, null);
 		}
 		
 		System.out.println("w = " + w.winnerPlayerIndex_);

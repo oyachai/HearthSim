@@ -291,7 +291,6 @@ public class Card implements DeepCopyable {
 	
 	public JSONObject toJSON() {
 		JSONObject json = new JSONObject();
-		json.put("type", "Card");
 		json.put("name", name_);
 		json.put("mana", mana_);
 		json.put("hasBeenUsed", hasBeenUsed_);
