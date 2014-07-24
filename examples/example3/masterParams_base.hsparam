@@ -1,0 +1,10 @@
+num_simulations           =   400
+num_threads               =   3
+
+output_file               =   gnomish_inventor_base.hsres
+
+deckListFilePath0         =       deck0_base.hsdeck
+deckListFilePath1         =       deck1.hsdeck
+
+aiParamFilePath0          =       ai0.hsai
+aiParamFilePath1          =       ai1.hsai
