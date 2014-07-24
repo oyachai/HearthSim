@@ -36,6 +36,7 @@ public class RaidLeader extends Minion {
 				false,
 				false,
 				false,
+				false,
 				SUMMONED,
 				TRANSFORMED,
 				false,
@@ -60,6 +61,7 @@ public class RaidLeader extends Minion {
 			boolean hasAttacked,
 			boolean hasWindFuryAttacked,
 			boolean frozen,
+			boolean silenced,
 			boolean summoned,
 			boolean transformed,
 			boolean destroyOnTurnStart,
@@ -83,6 +85,7 @@ public class RaidLeader extends Minion {
 			hasAttacked,
 			hasWindFuryAttacked,
 			frozen,
+			silenced,
 			summoned,
 			transformed,
 			destroyOnTurnStart,
@@ -108,6 +111,7 @@ public class RaidLeader extends Minion {
 				this.hasAttacked_,
 				this.hasWindFuryAttacked_,
 				this.frozen_,
+				this.silenced_,
 				this.summoned_,
 				this.transformed_,
 				this.destroyOnTurnStart_,
@@ -185,11 +189,14 @@ public class RaidLeader extends Minion {
 	@Override
 	public HearthTreeNode silenced(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
 		HearthTreeNode toRet = boardState;
-		for (Minion minion : toRet.data_.getMinions(thisPlayerIndex)) {
-			if (minion != this) {
-				minion.setAttack((byte)(minion.getAttack() - 1));
+		if (!silenced_) {
+			for (Minion minion : toRet.data_.getMinions(thisPlayerIndex)) {
+				if (minion != this) {
+					minion.setAttack((byte)(minion.getAttack() - 1));
+				}
 			}
 		}
+		toRet = super.silenced(thisPlayerIndex, thisMinionIndex, toRet, deckPlayer0, deckPlayer1);
 		return toRet;
 	}
 	
@@ -206,10 +213,12 @@ public class RaidLeader extends Minion {
 	 */
 	@Override
 	public HearthTreeNode destroyed(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
-		HearthTreeNode toRet = boardState;
-		for (Minion minion : toRet.data_.getMinions(thisPlayerIndex)) {
-			if (minion != this) {
-				minion.setAttack((byte)(minion.getAttack() - 1));
+		HearthTreeNode toRet = super.destroyed(thisPlayerIndex, thisMinionIndex, boardState, deckPlayer0, deckPlayer1);
+		if (!silenced_) {
+			for (Minion minion : toRet.data_.getMinions(thisPlayerIndex)) {
+				if (minion != this) {
+					minion.setAttack((byte)(minion.getAttack() - 1));
+				}
 			}
 		}
 		return super.destroyed(thisPlayerIndex, thisMinionIndex, toRet, deckPlayer0, deckPlayer1);
@@ -218,9 +227,11 @@ public class RaidLeader extends Minion {
 	private HearthTreeNode doBuffs(int thisMinionPlayerIndex, int thisMinionIndex, int targetMinionPlayerIndex, int targetMinionIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
 		if (targetMinionPlayerIndex != thisMinionPlayerIndex)
 			return boardState;
-		Minion minion = boardState.data_.getMinion(thisMinionPlayerIndex, targetMinionIndex - 1);
-		if (minion != this)
-			minion.setAttack((byte)(minion.getAttack() + 1));
+		if (!silenced_) {
+			Minion minion = boardState.data_.getMinion(thisMinionPlayerIndex, targetMinionIndex - 1);
+			if (minion != this)
+				minion.setAttack((byte)(minion.getAttack() + 1));
+		}
 		return boardState;		
 	}
 	

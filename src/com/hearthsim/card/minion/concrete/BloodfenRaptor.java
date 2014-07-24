@@ -24,6 +24,7 @@ public class BloodfenRaptor extends Beast {
 				false,
 				false,
 				false,
+				false,
 				true,
 				false
 			);
@@ -44,6 +45,7 @@ public class BloodfenRaptor extends Beast {
 			boolean hasAttacked,
 			boolean hasWindFuryAttacked,
 			boolean frozen,
+			boolean silenced,
 			boolean summoned,
 			boolean transformed,
 			boolean destroyOnTurnStart,
@@ -67,6 +69,7 @@ public class BloodfenRaptor extends Beast {
 			hasAttacked,
 			hasWindFuryAttacked,
 			frozen,
+			silenced,
 			summoned,
 			transformed,
 			destroyOnTurnStart,
@@ -92,6 +95,7 @@ public class BloodfenRaptor extends Beast {
 				this.hasAttacked_,
 				this.hasWindFuryAttacked_,
 				this.frozen_,
+				this.silenced_,
 				this.summoned_,
 				this.transformed_,
 				this.destroyOnTurnStart_,

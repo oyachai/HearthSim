@@ -20,6 +20,7 @@ public class Totem extends Minion {
 			boolean hasAttacked,
 			boolean hasWindFuryAttacked,
 			boolean frozen,
+			boolean silenced,
 			boolean summoned,
 			boolean transformed,
 			boolean destroyOnTurnStart,
@@ -42,6 +43,7 @@ public class Totem extends Minion {
 				hasAttacked,
 				hasWindFuryAttacked,
 				frozen,
+				silenced,
 				summoned,
 				transformed,
 				destroyOnTurnStart,
@@ -59,7 +61,7 @@ public class Totem extends Minion {
 			byte baseHealth,
 			byte maxHealth
 			) {
-		this(name, mana, attack, health, baseAttack, (byte)0, baseHealth, maxHealth, false, false, false, false, false, false, false, false, false, false, false, true, false);
+		this(name, mana, attack, health, baseAttack, (byte)0, baseHealth, maxHealth, false, false, false, false, false, false, false, false, false, false, false, false, true, false);
 	}
 	
 	public JSONObject toJSON() {

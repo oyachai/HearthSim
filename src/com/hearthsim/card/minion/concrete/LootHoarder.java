@@ -1,6 +1,5 @@
 package com.hearthsim.card.minion.concrete;
 
-import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
@@ -38,6 +37,7 @@ public class LootHoarder extends Minion {
 				false,
 				false,
 				false,
+				false,
 				SUMMONED,
 				TRANSFORMED,
 				false,
@@ -62,6 +62,7 @@ public class LootHoarder extends Minion {
 			boolean hasAttacked,
 			boolean hasWindFuryAttacked,
 			boolean frozen,
+			boolean silenced,
 			boolean summoned,
 			boolean transformed,
 			boolean destroyOnTurnStart,
@@ -85,6 +86,7 @@ public class LootHoarder extends Minion {
 			hasAttacked,
 			hasWindFuryAttacked,
 			frozen,
+			silenced,
 			summoned,
 			transformed,
 			destroyOnTurnStart,
@@ -110,6 +112,7 @@ public class LootHoarder extends Minion {
 				this.hasAttacked_,
 				this.hasWindFuryAttacked_,
 				this.frozen_,
+				this.silenced_,
 				this.summoned_,
 				this.transformed_,
 				this.destroyOnTurnStart_,
@@ -132,15 +135,17 @@ public class LootHoarder extends Minion {
 	public HearthTreeNode destroyed(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
 		
 		HearthTreeNode toRet = super.destroyed(thisPlayerIndex, thisMinionIndex, boardState, deckPlayer0, deckPlayer1);
-		if (thisPlayerIndex == 0) {
-			if (toRet instanceof CardDrawNode) {
-				((CardDrawNode) toRet).addNumCardsToDraw(1);
+		if (!silenced_) {
+			if (thisPlayerIndex == 0) {
+				if (toRet instanceof CardDrawNode) {
+					((CardDrawNode) toRet).addNumCardsToDraw(1);
+				} else {
+					toRet = new CardDrawNode(toRet, 1, this, 0, thisMinionIndex, thisPlayerIndex, thisMinionIndex); //draw one card
+				}
 			} else {
-				toRet = new CardDrawNode(toRet, 1, this, 0, thisMinionIndex, thisPlayerIndex, thisMinionIndex); //draw one card
+				//This minion is an enemy minion.  Let's draw a card for the enemy.  No need to use a StopNode for enemy card draws.
+				toRet.data_.drawCardFromDeck_p1(deckPlayer1, 1);
 			}
-		} else {
-			//This minion is an enemy minion.  Let's draw a card for the enemy.  No need to use a StopNode for enemy card draws.
-			toRet.data_.drawCardFromDeck_p1(deckPlayer1, 1);
 		}
 		return toRet;
 

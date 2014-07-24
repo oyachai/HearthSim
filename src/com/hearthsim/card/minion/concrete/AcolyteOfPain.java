@@ -38,6 +38,7 @@ public class AcolyteOfPain extends Minion {
 				false,
 				false,
 				false,
+				false,
 				SUMMONED,
 				TRANSFORMED,
 				false,
@@ -62,6 +63,7 @@ public class AcolyteOfPain extends Minion {
 			boolean hasAttacked,
 			boolean hasWindFuryAttacked,
 			boolean frozen,
+			boolean silenced,
 			boolean summoned,
 			boolean transformed,
 			boolean destroyOnTurnStart,
@@ -85,6 +87,7 @@ public class AcolyteOfPain extends Minion {
 			hasAttacked,
 			hasWindFuryAttacked,
 			frozen,
+			silenced,
 			summoned,
 			transformed,
 			destroyOnTurnStart,
@@ -110,6 +113,7 @@ public class AcolyteOfPain extends Minion {
 				this.hasAttacked_,
 				this.hasWindFuryAttacked_,
 				this.frozen_,
+				this.silenced_,
 				this.summoned_,
 				this.transformed_,
 				this.destroyOnTurnStart_,
@@ -137,22 +141,16 @@ public class AcolyteOfPain extends Minion {
 	public HearthTreeNode takeDamage(byte damage, int attackerPlayerIndex, int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean isSpellDamage) throws HSInvalidPlayerIndexException {
 		if (!divineShield_) {
 			HearthTreeNode toRet = super.takeDamage(damage, attackerPlayerIndex, thisPlayerIndex, thisMinionIndex, boardState, deckPlayer0, deckPlayer1, isSpellDamage);
-			if (damage > 0 && thisPlayerIndex == 0) {
-				if (toRet instanceof CardDrawNode) {
-					((CardDrawNode) toRet).addNumCardsToDraw(1);
-				} else {
-					toRet = new CardDrawNode(toRet, 1, this, 0, thisMinionIndex, thisPlayerIndex, thisMinionIndex); //draw one card
-				}
-			} else if (damage > 0) {
-				//This minion is an enemy minion.  Let's draw a card for the enemy.  No need to use a StopNode for enemy card draws.
-				Card card = deckPlayer1.drawCard(toRet.data_.getDeckPos(1));
-				if (card == null) {
-					byte fatigueDamage = toRet.data_.getFatigueDamage(1);
-					toRet.data_.setFatigueDamage(1, (byte)(fatigueDamage + 1));
-					toRet.data_.getHero(1).setHealth((byte)(toRet.data_.getHero(1).getHealth() - fatigueDamage));
-				} else {
-					toRet.data_.placeCard_hand(1, card);
-					toRet.data_.setDeckPos(1, toRet.data_.getDeckPos(1) + 1);
+			if (!silenced_) {
+				if (damage > 0 && thisPlayerIndex == 0) {
+					if (toRet instanceof CardDrawNode) {
+						((CardDrawNode) toRet).addNumCardsToDraw(1);
+					} else {
+						toRet = new CardDrawNode(toRet, 1, this, 0, thisMinionIndex, thisPlayerIndex, thisMinionIndex); //draw one card
+					}
+				} else if (damage > 0) {
+					//This minion is an enemy minion.  Let's draw a card for the enemy.  No need to use a StopNode for enemy card draws.
+					toRet.data_.drawCardFromDeck_p1(deckPlayer1, 1);
 				}
 			}
 			return toRet;

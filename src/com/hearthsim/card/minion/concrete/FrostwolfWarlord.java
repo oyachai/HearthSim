@@ -36,6 +36,7 @@ public class FrostwolfWarlord extends Minion {
 				false,
 				false,
 				false,
+				false,
 				SUMMONED,
 				TRANSFORMED,
 				false,
@@ -60,6 +61,7 @@ public class FrostwolfWarlord extends Minion {
 			boolean hasAttacked,
 			boolean hasWindFuryAttacked,
 			boolean frozen,
+			boolean silenced,
 			boolean summoned,
 			boolean transformed,
 			boolean destroyOnTurnStart,
@@ -83,6 +85,7 @@ public class FrostwolfWarlord extends Minion {
 			hasAttacked,
 			hasWindFuryAttacked,
 			frozen,
+			silenced,
 			summoned,
 			transformed,
 			destroyOnTurnStart,
@@ -108,6 +111,7 @@ public class FrostwolfWarlord extends Minion {
 				this.hasAttacked_,
 				this.hasWindFuryAttacked_,
 				this.frozen_,
+				this.silenced_,
 				this.summoned_,
 				this.transformed_,
 				this.destroyOnTurnStart_,
@@ -158,6 +162,29 @@ public class FrostwolfWarlord extends Minion {
 		placedMinion.setAttack((byte)(placedMinion.getAttack() + numBuffs));
 		placedMinion.setHealth((byte)(placedMinion.getHealth() + numBuffs));
 		placedMinion.setMaxHealth((byte)(placedMinion.getMaxHealth() + numBuffs));
+		return toRet;
+	}
+	
+	/**
+	 * Called when this minion is silenced
+	 * 
+	 * Always use this function to "silence" minions
+	 * 
+	 * @param thisPlayerIndex The player index of this minion
+	 * @param thisMinionIndex The minion index of this minion
+	 * @param boardState 
+	 * @param deck
+	 * @throws HSInvalidPlayerIndexException
+	 */
+	@Override
+	public HearthTreeNode silenced(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
+		HearthTreeNode toRet = super.silenced(thisPlayerIndex, thisMinionIndex, boardState, deckPlayer0, deckPlayer1);
+		this.attack_ = this.baseAttack_;
+		if (this.maxHealth_ > this.baseHealth_) {
+			this.maxHealth_ = this.baseHealth_;
+			if (this.health_ > this.maxHealth_)
+				this.health_ = this.maxHealth_;
+		}
 		return toRet;
 	}
 }

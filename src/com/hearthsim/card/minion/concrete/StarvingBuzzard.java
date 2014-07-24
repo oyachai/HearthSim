@@ -37,6 +37,7 @@ public class StarvingBuzzard extends Beast {
 				false,
 				false,
 				false,
+				false,
 				SUMMONED,
 				TRANSFORMED,
 				false,
@@ -61,6 +62,7 @@ public class StarvingBuzzard extends Beast {
 			boolean hasAttacked,
 			boolean hasWindFuryAttacked,
 			boolean frozen,
+			boolean silenced,
 			boolean summoned,
 			boolean transformed,
 			boolean destroyOnTurnStart,
@@ -84,6 +86,7 @@ public class StarvingBuzzard extends Beast {
 			hasAttacked,
 			hasWindFuryAttacked,
 			frozen,
+			silenced,
 			summoned,
 			transformed,
 			destroyOnTurnStart,
@@ -109,6 +112,7 @@ public class StarvingBuzzard extends Beast {
 				this.hasAttacked_,
 				this.hasWindFuryAttacked_,
 				this.frozen_,
+				this.silenced_,
 				this.summoned_,
 				this.transformed_,
 				this.destroyOnTurnStart_,
@@ -172,25 +176,26 @@ public class StarvingBuzzard extends Beast {
 	public HearthTreeNode minionSummonedEvent(
 			int thisMinionPlayerIndex,
 			int thisMinionIndex,
-			int placedMinionPlayerIndex,
-			int placedMinionIndex,
+			int summonedMinionPlayerIndex,
+			int summeonedMinionIndex,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
-		if (placedMinionPlayerIndex == 1 || thisMinionPlayerIndex == 1)
+		if (summonedMinionPlayerIndex == 1 || thisMinionPlayerIndex == 1)
 			return boardState;
 		
-		HearthTreeNode toRet = boardState;
-		if (toRet.data_.getMinion_p0(placedMinionPlayerIndex - 1) instanceof Beast) {
-			if (toRet instanceof CardDrawNode) {
-				((CardDrawNode) toRet).addNumCardsToDraw(1);
-			} else {
-				toRet = new CardDrawNode(toRet, 1, this, thisMinionPlayerIndex, thisMinionIndex, placedMinionPlayerIndex, placedMinionIndex); //draw one card
+		HearthTreeNode toRet = super.minionSummonedEvent(thisMinionPlayerIndex, thisMinionIndex, summonedMinionPlayerIndex, summeonedMinionIndex, boardState, deckPlayer0, deckPlayer1);
+		if (!silenced_) {
+			if (toRet.data_.getMinion_p0(summonedMinionPlayerIndex - 1) instanceof Beast) {
+				if (toRet instanceof CardDrawNode) {
+					((CardDrawNode) toRet).addNumCardsToDraw(1);
+				} else {
+					toRet = new CardDrawNode(toRet, 1, this, thisMinionPlayerIndex, thisMinionIndex, summonedMinionPlayerIndex, summeonedMinionIndex); //draw one card
+				}
 			}
 		}
-		
 		return toRet;
 	}
 }

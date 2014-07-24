@@ -22,6 +22,7 @@ public class Murloc extends Minion {
 			boolean hasAttacked,
 			boolean hasWindFuryAttacked,
 			boolean frozen,
+			boolean silenced,
 			boolean summoned,
 			boolean transformed,
 			boolean destroyOnTurnStart,
@@ -44,6 +45,7 @@ public class Murloc extends Minion {
 				hasAttacked,
 				hasWindFuryAttacked,
 				frozen,
+				silenced,
 				summoned,
 				transformed,
 				destroyOnTurnStart,
@@ -78,6 +80,7 @@ public class Murloc extends Minion {
 				false,
 				false,
 				false,
+				false,
 				true,
 				false);
 	}
@@ -100,6 +103,7 @@ public class Murloc extends Minion {
 				this.hasAttacked_,
 				this.hasWindFuryAttacked_,
 				this.frozen_,
+				this.silenced_,
 				this.summoned_,
 				this.transformed_,
 				this.destroyOnTurnStart_,

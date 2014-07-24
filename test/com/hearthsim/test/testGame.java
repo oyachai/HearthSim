@@ -35,8 +35,8 @@ public class testGame {
 			byte attack = minionAttack;
 			byte health = minionHealth;
 			byte mana = minionMana;
-			cards1_[i] = new Minion("" + i, mana, attack, health, attack, health, health, false, false, false, false, false, false, false, false, false, true, false);
-			cards2_[i] = new Minion("" + i, mana, attack, health, attack, health, health, false, false, false, false, false, false, false, false, false, true, false);
+			cards1_[i] = new Minion("" + i, mana, attack, health, attack, health, health, false, false, false, false, false, false, false, false, false, false, true, false);
+			cards2_[i] = new Minion("" + i, mana, attack, health, attack, health, health, false, false, false, false, false, false, false, false, false, false, true, false);
 		}
 		
 		int nt = 0;

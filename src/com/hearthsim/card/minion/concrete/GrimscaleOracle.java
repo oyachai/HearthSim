@@ -37,6 +37,7 @@ public class GrimscaleOracle extends Murloc {
 				false,
 				false,
 				false,
+				false,
 				SUMMONED,
 				TRANSFORMED,
 				false,
@@ -61,6 +62,7 @@ public class GrimscaleOracle extends Murloc {
 			boolean hasAttacked,
 			boolean hasWindFuryAttacked,
 			boolean frozen,
+			boolean silenced,
 			boolean summoned,
 			boolean transformed,
 			boolean destroyOnTurnStart,
@@ -84,6 +86,7 @@ public class GrimscaleOracle extends Murloc {
 			hasAttacked,
 			hasWindFuryAttacked,
 			frozen,
+			silenced,
 			summoned,
 			transformed,
 			destroyOnTurnStart,
@@ -109,6 +112,7 @@ public class GrimscaleOracle extends Murloc {
 				this.hasAttacked_,
 				this.hasWindFuryAttacked_,
 				this.frozen_,
+				this.silenced_,
 				this.summoned_,
 				this.transformed_,
 				this.destroyOnTurnStart_,
@@ -192,16 +196,19 @@ public class GrimscaleOracle extends Murloc {
 	@Override
 	public HearthTreeNode silenced(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
 		HearthTreeNode toRet = boardState;
-		for (Minion minion : toRet.data_.getMinions_p0()) {
-			if (minion instanceof Murloc && minion != this) {
-				minion.setAttack((byte)(minion.getAttack() - 1));
+		if (!silenced_) {
+			for (Minion minion : toRet.data_.getMinions_p0()) {
+				if (minion instanceof Murloc && minion != this) {
+					minion.setAttack((byte)(minion.getAttack() - 1));
+				}
+			}
+			for (Minion minion : toRet.data_.getMinions_p1()) {
+				if (minion instanceof Murloc && minion != this) {
+					minion.setAttack((byte)(minion.getAttack() - 1));
+				}
 			}
 		}
-		for (Minion minion : toRet.data_.getMinions_p1()) {
-			if (minion instanceof Murloc && minion != this) {
-				minion.setAttack((byte)(minion.getAttack() - 1));
-			}
-		}
+		toRet = this.silenced(thisPlayerIndex, thisMinionIndex, toRet, deckPlayer0, deckPlayer1);
 		return toRet;
 	}
 	
@@ -244,9 +251,11 @@ public class GrimscaleOracle extends Murloc {
 			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
-		Minion minion = boardState.data_.getMinion(targetMinionPlayerIndex, targetMinionIndex - 1);
-		if (minion instanceof Murloc && minion != this)
-			minion.setAttack((byte)(minion.getAttack() + 1));
+		if (!silenced_) {
+			Minion minion = boardState.data_.getMinion(targetMinionPlayerIndex, targetMinionIndex - 1);
+			if (minion instanceof Murloc && minion != this)
+				minion.setAttack((byte)(minion.getAttack() + 1));
+		}
 		return boardState;		
 	}
 	

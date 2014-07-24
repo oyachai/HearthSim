@@ -37,6 +37,7 @@ public class WaterElemental extends Minion {
 				false,
 				false,
 				false,
+				false,
 				SUMMONED,
 				TRANSFORMED,
 				false,
@@ -61,6 +62,7 @@ public class WaterElemental extends Minion {
 			boolean hasAttacked,
 			boolean hasWindFuryAttacked,
 			boolean frozen,
+			boolean silenced,
 			boolean summoned,
 			boolean transformed,
 			boolean destroyOnTurnStart,
@@ -84,6 +86,7 @@ public class WaterElemental extends Minion {
 			hasAttacked,
 			hasWindFuryAttacked,
 			frozen,
+			silenced,
 			summoned,
 			transformed,
 			destroyOnTurnStart,
@@ -109,6 +112,7 @@ public class WaterElemental extends Minion {
 				this.hasAttacked_,
 				this.hasWindFuryAttacked_,
 				this.frozen_,
+				this.silenced_,
 				this.summoned_,
 				this.transformed_,
 				this.destroyOnTurnStart_,
@@ -140,10 +144,12 @@ public class WaterElemental extends Minion {
 			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
-		if (minionIndex == 0)
-			boardState.data_.getHero_p1().setFrozen(true);
-		else
-			boardState.data_.getMinion(playerIndex, minionIndex - 1).setFrozen(true);
+		if (!silenced_) {
+			if (minionIndex == 0)
+				boardState.data_.getHero_p1().setFrozen(true);
+			else
+				boardState.data_.getMinion(playerIndex, minionIndex - 1).setFrozen(true);
+		}
 		HearthTreeNode toRet = super.attack_core(thisMinionIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
 		return toRet;
 	}

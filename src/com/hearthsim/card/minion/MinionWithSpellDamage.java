@@ -25,6 +25,7 @@ public class MinionWithSpellDamage extends Minion {
 							boolean hasAttacked,
 							boolean hasWindFuryAttacked,
 							boolean frozen,
+							boolean silenced,
 							boolean summoned,
 							boolean transformed,
 							boolean destroyAtTurnStart,
@@ -48,6 +49,7 @@ public class MinionWithSpellDamage extends Minion {
 			hasAttacked,
 			hasWindFuryAttacked,
 			frozen,
+			silenced,
 			summoned,
 			transformed,
 			destroyAtTurnStart,
@@ -77,6 +79,7 @@ public class MinionWithSpellDamage extends Minion {
 				this.hasAttacked_,
 				this.hasWindFuryAttacked_,
 				this.frozen_,
+				this.silenced_,
 				this.summoned_,
 				this.transformed_,
 				this.destroyOnTurnStart_,
@@ -147,8 +150,10 @@ public class MinionWithSpellDamage extends Minion {
 	 */
 	@Override
 	public HearthTreeNode silenced(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
-		HearthTreeNode toRet = super.silenced(thisPlayerIndex, thisMinionIndex, boardState, deckPlayer0, deckPlayer1);
-		toRet.data_.setSpellDamage(0, (byte)(boardState.data_.getSpellDamage(0) - spellDamage_));
+		HearthTreeNode toRet = boardState;
+		if (!silenced_)
+			toRet.data_.setSpellDamage(0, (byte)(boardState.data_.getSpellDamage(0) - spellDamage_));
+		toRet = super.silenced(thisPlayerIndex, thisMinionIndex, toRet, deckPlayer0, deckPlayer1);
 		return toRet;
 	}
 	
@@ -165,8 +170,10 @@ public class MinionWithSpellDamage extends Minion {
 	 */
 	@Override
 	public HearthTreeNode destroyed(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {		
-		HearthTreeNode toRet = super.destroyed(thisPlayerIndex, thisMinionIndex, boardState, deckPlayer0, deckPlayer1);
-		toRet.data_.setSpellDamage(0, (byte)(boardState.data_.getSpellDamage(0) - spellDamage_));
+		HearthTreeNode toRet = boardState;
+		if (!silenced_)
+			toRet.data_.setSpellDamage(0, (byte)(boardState.data_.getSpellDamage(0) - spellDamage_));
+		toRet = super.destroyed(thisPlayerIndex, thisMinionIndex, toRet, deckPlayer0, deckPlayer1);
 		return toRet;
 	}
 }

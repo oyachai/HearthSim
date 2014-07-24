@@ -11,6 +11,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.BloodfenRaptor;
 import com.hearthsim.card.minion.concrete.RaidLeader;
 import com.hearthsim.card.spellcard.concrete.HolySmite;
+import com.hearthsim.card.spellcard.concrete.Silence;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
@@ -164,5 +165,100 @@ public class TestRaidLeader {
 		assertEquals(board.data_.getMinion_p0(1).getAttack(), 3);
 		assertEquals(board.data_.getMinion_p0(2).getAttack(), 5);
 		assertEquals(board.data_.getMinion_p1(0).getAttack(), 3);
+	}
+	
+
+	@Test
+	public void test3() throws HSInvalidPlayerIndexException {
+
+		Card theCard = board.data_.getCard_hand_p0(0);
+		HearthTreeNode ret = theCard.useOn(0, 0, 1, board, deck, null);
+		assertFalse(ret == null);
+		assertTrue(board.data_.getNumCards_hand() == 0);
+		assertTrue(board.data_.getNumMinions_p0() == 3);
+		assertTrue(board.data_.getNumMinions_p1() == 2);
+		assertTrue(board.data_.getHero_p0().getHealth() == 30);
+		assertTrue(board.data_.getHero_p1().getHealth() == 30);
+		assertTrue(board.data_.getMinion_p0(0).getHealth() == 2);
+		assertTrue(board.data_.getMinion_p0(1).getHealth() == 2);
+		assertTrue(board.data_.getMinion_p0(2).getHealth() == 2);
+		assertTrue(board.data_.getMinion_p1(0).getHealth() == 2);
+		assertTrue(board.data_.getMinion_p1(1).getHealth() == 2);
+		
+		assertTrue(board.data_.getMinion_p0(0).getAttack() == 3);
+		assertTrue(board.data_.getMinion_p0(1).getAttack() == 3);
+		assertTrue(board.data_.getMinion_p0(2).getAttack() == 5);
+		assertTrue(board.data_.getMinion_p1(0).getAttack() == 2);
+		assertTrue(board.data_.getMinion_p1(1).getAttack() == 4);
+
+		
+		
+		board.data_.placeCard_hand_p0(new Silence());
+		theCard = board.data_.getCard_hand_p0(0);
+		ret = theCard.useOn(0, 1, 1, board, deck, null);
+		
+		assertFalse(ret == null);
+		assertTrue(board.data_.getNumCards_hand() == 0);
+		assertTrue(board.data_.getNumMinions_p0() == 3);
+		assertTrue(board.data_.getNumMinions_p1() == 2);
+		assertTrue(board.data_.getHero_p0().getHealth() == 30);
+		assertTrue(board.data_.getHero_p1().getHealth() == 30);
+		assertTrue(board.data_.getMinion_p0(0).getHealth() == 2);
+		assertTrue(board.data_.getMinion_p0(1).getHealth() == 2);
+		assertTrue(board.data_.getMinion_p0(2).getHealth() == 2);
+		assertTrue(board.data_.getMinion_p1(0).getHealth() == 2);
+		assertTrue(board.data_.getMinion_p1(1).getHealth() == 2);
+		
+		assertTrue(board.data_.getMinion_p0(0).getAttack() == 3);
+		assertTrue(board.data_.getMinion_p0(1).getAttack() == 3);
+		assertTrue(board.data_.getMinion_p0(2).getAttack() == 5);
+		assertTrue(board.data_.getMinion_p1(0).getAttack() == 2);
+		assertTrue(board.data_.getMinion_p1(1).getAttack() == 3);
+		
+		board.data_.placeCard_hand_p0(new Silence());
+		theCard = board.data_.getCard_hand_p0(0);
+		ret = theCard.useOn(0, 0, 1, board, deck, null);
+		
+		assertFalse(ret == null);
+		assertTrue(board.data_.getNumCards_hand() == 0);
+		assertTrue(board.data_.getNumMinions_p0() == 3);
+		assertTrue(board.data_.getNumMinions_p1() == 2);
+		assertTrue(board.data_.getHero_p0().getHealth() == 30);
+		assertTrue(board.data_.getHero_p1().getHealth() == 30);
+		assertTrue(board.data_.getMinion_p0(0).getHealth() == 2);
+		assertTrue(board.data_.getMinion_p0(1).getHealth() == 2);
+		assertTrue(board.data_.getMinion_p0(2).getHealth() == 2);
+		assertTrue(board.data_.getMinion_p1(0).getHealth() == 2);
+		assertTrue(board.data_.getMinion_p1(1).getHealth() == 2);
+		
+		assertTrue(board.data_.getMinion_p0(0).getAttack() == 3);
+		assertTrue(board.data_.getMinion_p0(1).getAttack() == 2);
+		assertTrue(board.data_.getMinion_p0(2).getAttack() == 4);
+		assertTrue(board.data_.getMinion_p1(0).getAttack() == 2);
+		assertTrue(board.data_.getMinion_p1(1).getAttack() == 3);
+		
+		board.data_.placeCard_hand_p0(new BloodfenRaptor());
+		theCard = board.data_.getCard_hand_p0(0);
+		ret = theCard.useOn(0, 0, 4, board, deck, null);
+		
+		assertFalse(ret == null);
+		assertTrue(board.data_.getNumCards_hand() == 0);
+		assertTrue(board.data_.getNumMinions_p0() == 4);
+		assertTrue(board.data_.getNumMinions_p1() == 2);
+		assertTrue(board.data_.getHero_p0().getHealth() == 30);
+		assertTrue(board.data_.getHero_p1().getHealth() == 30);
+		assertTrue(board.data_.getMinion_p0(0).getHealth() == 2);
+		assertTrue(board.data_.getMinion_p0(1).getHealth() == 2);
+		assertTrue(board.data_.getMinion_p0(2).getHealth() == 2);
+		assertTrue(board.data_.getMinion_p0(3).getHealth() == 2);
+		assertTrue(board.data_.getMinion_p1(0).getHealth() == 2);
+		assertTrue(board.data_.getMinion_p1(1).getHealth() == 2);
+		
+		assertTrue(board.data_.getMinion_p0(0).getAttack() == 3);
+		assertTrue(board.data_.getMinion_p0(1).getAttack() == 2);
+		assertTrue(board.data_.getMinion_p0(2).getAttack() == 4);
+		assertTrue(board.data_.getMinion_p0(3).getAttack() == 4);
+		assertTrue(board.data_.getMinion_p1(0).getAttack() == 2);
+		assertTrue(board.data_.getMinion_p1(1).getAttack() == 3);
 	}
 }

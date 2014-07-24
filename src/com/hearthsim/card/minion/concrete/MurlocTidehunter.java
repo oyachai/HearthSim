@@ -38,6 +38,7 @@ public class MurlocTidehunter extends Murloc {
 				false,
 				false,
 				false,
+				false,
 				SUMMONED,
 				TRANSFORMED,
 				false,
@@ -62,6 +63,7 @@ public class MurlocTidehunter extends Murloc {
 			boolean hasAttacked,
 			boolean hasWindFuryAttacked,
 			boolean frozen,
+			boolean silenced,
 			boolean summoned,
 			boolean transformed,
 			boolean destroyOnTurnStart,
@@ -85,6 +87,7 @@ public class MurlocTidehunter extends Murloc {
 			hasAttacked,
 			hasWindFuryAttacked,
 			frozen,
+			silenced,
 			summoned,
 			transformed,
 			destroyOnTurnStart,
@@ -110,6 +113,7 @@ public class MurlocTidehunter extends Murloc {
 				this.hasAttacked_,
 				this.hasWindFuryAttacked_,
 				this.frozen_,
+				this.silenced_,
 				this.summoned_,
 				this.transformed_,
 				this.destroyOnTurnStart_,
@@ -123,7 +127,7 @@ public class MurlocTidehunter extends Murloc {
 	 * 
 	 * Override for battlecry
 	 * 
-	 * Battlecry: Summons a Mechanical Dragonling
+	 * Battlecry: Summons a Murloc Scout
 	 * 
 	 * @param thisCardIndex The index (position) of the card in the hand
 	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy

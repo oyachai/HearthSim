@@ -23,6 +23,7 @@ public abstract class MinionWithEnrage extends Minion {
 					boolean hasAttacked,
 					boolean hasWindFuryAttacked,
 					boolean frozen,
+					boolean silenced,
 					boolean summoned,
 					boolean transformed,
 					boolean destroyOnTurnStart,
@@ -30,7 +31,7 @@ public abstract class MinionWithEnrage extends Minion {
 					boolean enraged,
 					boolean isInHand,
 					boolean hasBeenUsed) {
-		super(name, mana, attack, health, baseAttack, extraAttackUntilTurnEnd, baseHealth, maxHealth, taunt, divineShield, windFury, charge, hasAttacked, hasWindFuryAttacked, frozen, summoned, transformed, destroyOnTurnStart, destroyOnTurnEnd, isInHand, hasBeenUsed);
+		super(name, mana, attack, health, baseAttack, extraAttackUntilTurnEnd, baseHealth, maxHealth, taunt, divineShield, windFury, charge, hasAttacked, hasWindFuryAttacked, frozen, silenced, summoned, transformed, destroyOnTurnStart, destroyOnTurnEnd, isInHand, hasBeenUsed);
 		enraged_ = enraged;
 	}
 	
@@ -106,12 +107,14 @@ public abstract class MinionWithEnrage extends Minion {
 	}
 	
 	private void enrageCheck() {
-		if (health_ < maxHealth_ && !enraged_) {
-			enraged_ = true;
-			this.enrage();
-		} else if (health_ == maxHealth_ && enraged_) {
-			enraged_ = false;
-			this.pacify();
+		if (!silenced_) {
+			if (health_ < maxHealth_ && !enraged_) {
+				enraged_ = true;
+				this.enrage();
+			} else if (health_ == maxHealth_ && enraged_) {
+				enraged_ = false;
+				this.pacify();
+			}
 		}
 	}
 	

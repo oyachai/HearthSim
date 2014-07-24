@@ -18,7 +18,7 @@ public class Minion extends Card {
 	protected boolean hasWindFuryAttacked_;
 	
 	protected boolean frozen_;
-
+	protected boolean silenced_;
 	
 	protected byte health_;
 	protected byte maxHealth_;
@@ -52,6 +52,7 @@ public class Minion extends Card {
 				false,
 				false,
 				false,
+				false,
 				true,
 				false);
 	}
@@ -70,6 +71,7 @@ public class Minion extends Card {
 					boolean hasAttacked,
 					boolean hasWindFuryAttacked,
 					boolean frozen,
+					boolean silenced,
 					boolean summoned,
 					boolean transformed,
 					boolean isInHand,
@@ -91,6 +93,7 @@ public class Minion extends Card {
 				hasAttacked,
 				hasWindFuryAttacked,
 				frozen,
+				silenced,
 				summoned,
 				transformed,
 				false,
@@ -114,6 +117,7 @@ public class Minion extends Card {
 					boolean hasAttacked,
 					boolean hasWindFuryAttacked,
 					boolean frozen,
+					boolean silenced,
 					boolean summoned,
 					boolean transformed,
 					boolean destroyOnTurnStart,
@@ -132,6 +136,7 @@ public class Minion extends Card {
 		extraAttackUntilTurnEnd_ = extraAttackUntilTurnEnd;
 		hasWindFuryAttacked_ = hasWindFuryAttacked;
 		frozen_ = frozen;
+		silenced_ = silenced;
 		baseHealth_ = baseHealth;
 		maxHealth_ = maxHealth;
 		summoned_ = summoned;
@@ -392,8 +397,12 @@ public class Minion extends Card {
 	 * @throws HSInvalidPlayerIndexException
 	 */
 	public HearthTreeNode silenced(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
-		if (divineShield_)
-			divineShield_ = false;
+		divineShield_ = false;
+		taunt_ = false;
+		charge_ = false;
+		frozen_ = false;
+		windFury_ = false;
+		silenced_ = true;
 		return boardState;
 	}
 	
@@ -859,6 +868,7 @@ public class Minion extends Card {
 		json.put("windFury", windFury_);
 		json.put("charge", charge_);
 		json.put("frozen", frozen_);
+		json.put("silenced", silenced_);
 		json.put("hasAttacked", hasAttacked_);
 		return json;
 	}
@@ -881,6 +891,7 @@ public class Minion extends Card {
 				this.hasAttacked_,
 				this.hasWindFuryAttacked_,
 				this.frozen_,
+				this.silenced_,
 				this.summoned_,
 				this.transformed_,
 				this.destroyOnTurnStart_,
@@ -919,6 +930,8 @@ public class Minion extends Card {
 		if (hasWindFuryAttacked_ != ((Minion)other).hasWindFuryAttacked_)
 			return false;
 		if (frozen_ != ((Minion)other).frozen_)
+			return false;
+		if (silenced_ != ((Minion)other).silenced_)
 			return false;
 		if (summoned_ != ((Minion)other).summoned_)
 			return false;
