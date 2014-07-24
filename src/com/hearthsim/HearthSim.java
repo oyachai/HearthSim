@@ -122,11 +122,8 @@ public abstract class HearthSim {
 				GameResult res = runSingleGame();
 				synchronized(writer_) {
 					System.out.println("game " + gameId_ + ", player " + res.winnerPlayerIndex_ + " wins");
-					JSONObject json = new JSONObject();
-					json.put("winner", res.winnerPlayerIndex_);
-					json.put("duration", res.gameDuration_);
-					json.put("record", res.record_.toJSON());
-					writer_.write(json.toString() + "\n");
+					GameResultSummary grs = new GameResultSummary(res);
+					writer_.write(grs.toJSON().toString() + "\n");
 					writer_.flush();
 					results_[gameId_] = res;
 				}

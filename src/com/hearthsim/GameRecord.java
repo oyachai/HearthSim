@@ -23,6 +23,10 @@ public class GameRecord {
 	public BoardState get(int turn, int playerID) {
 		return boards_.get(playerID).get(turn);
 	}
+
+	public int getRecordLength(int playerID) {
+		return boards_.get(playerID).size();
+	}
 	
 	public JSONObject toJSON() {
 		JSONObject json = new JSONObject();
