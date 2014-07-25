@@ -336,11 +336,13 @@ public class Minion extends Card {
 			HearthTreeNode toRet = boardState;
 			toRet = toRet.data_.getHero_p0().minionDamagedEvent(0, 0, thisPlayerIndex, thisMinionIndex, toRet, deckPlayer0, deckPlayer1);
 			for (int j = 0; j < toRet.data_.getNumMinions_p0(); ++j) {
-				toRet = toRet.data_.getMinion_p0(j).minionDamagedEvent(0, j + 1, thisPlayerIndex, thisMinionIndex, toRet, deckPlayer0, deckPlayer1);
+				if (!toRet.data_.getMinion_p0(j).silenced_)
+					toRet = toRet.data_.getMinion_p0(j).minionDamagedEvent(0, j + 1, thisPlayerIndex, thisMinionIndex, toRet, deckPlayer0, deckPlayer1);
 			}
 			toRet = toRet.data_.getHero_p1().minionDamagedEvent(1, 0, thisPlayerIndex, thisMinionIndex, toRet, deckPlayer0, deckPlayer1);
 			for (int j = 0; j < toRet.data_.getNumMinions_p1(); ++j) {
-				toRet = toRet.data_.getMinion_p1(j).minionDamagedEvent(1, j + 1, thisPlayerIndex, thisMinionIndex, toRet, deckPlayer0, deckPlayer1);
+				if (!toRet.data_.getMinion_p1(j).silenced_)
+					toRet = toRet.data_.getMinion_p1(j).minionDamagedEvent(1, j + 1, thisPlayerIndex, thisMinionIndex, toRet, deckPlayer0, deckPlayer1);
 			}
 			
 			//If fatal, notify all that it is dead
@@ -374,11 +376,13 @@ public class Minion extends Card {
 		//Notify all that it is dead
 		toRet = toRet.data_.getHero_p0().minionDeadEvent(0, 0, thisPlayerIndex, thisMinionIndex, toRet, deckPlayer0, deckPlayer1);
 		for (int j = 0; j < toRet.data_.getNumMinions_p0(); ++j) {
-			toRet = toRet.data_.getMinion_p0(j).minionDeadEvent(0, j + 1, thisPlayerIndex, thisMinionIndex, toRet, deckPlayer0, deckPlayer1);
+			if (!toRet.data_.getMinion_p0(j).silenced_)
+				toRet = toRet.data_.getMinion_p0(j).minionDeadEvent(0, j + 1, thisPlayerIndex, thisMinionIndex, toRet, deckPlayer0, deckPlayer1);
 		}
 		toRet = toRet.data_.getHero_p1().minionDeadEvent(1, 0, thisPlayerIndex, thisMinionIndex, toRet, deckPlayer0, deckPlayer1);
 		for (int j = 0; j < toRet.data_.getNumMinions_p1(); ++j) {
-			toRet = toRet.data_.getMinion_p1(j).minionDeadEvent(1, j + 1, thisPlayerIndex, thisMinionIndex, toRet, deckPlayer0, deckPlayer1);
+			if (!toRet.data_.getMinion_p1(j).silenced_)
+				toRet = toRet.data_.getMinion_p1(j).minionDeadEvent(1, j + 1, thisPlayerIndex, thisMinionIndex, toRet, deckPlayer0, deckPlayer1);
 		}
 		
 		return toRet;
@@ -430,11 +434,13 @@ public class Minion extends Card {
 			HearthTreeNode toRet = boardState;
 			toRet = toRet.data_.getHero_p0().minionHealedEvent(0, 0, thisPlayerIndex, thisMinionIndex, toRet, deckPlayer0, deckPlayer1);
 			for (int j = 0; j < toRet.data_.getNumMinions_p0(); ++j) {
-				toRet = toRet.data_.getMinion_p0(j).minionHealedEvent(0, j + 1, thisPlayerIndex, thisMinionIndex, toRet, deckPlayer0, deckPlayer1);
+				if (!toRet.data_.getMinion_p0(j).silenced_)
+					toRet = toRet.data_.getMinion_p0(j).minionHealedEvent(0, j + 1, thisPlayerIndex, thisMinionIndex, toRet, deckPlayer0, deckPlayer1);
 			}
 			toRet = toRet.data_.getHero_p1().minionHealedEvent(1, 0, thisPlayerIndex, thisMinionIndex, toRet, deckPlayer0, deckPlayer1);
 			for (int j = 0; j < toRet.data_.getNumMinions_p1(); ++j) {
-				toRet = toRet.data_.getMinion_p1(j).minionHealedEvent(1, j + 1, thisPlayerIndex, thisMinionIndex, toRet, deckPlayer0, deckPlayer1);
+				if (!toRet.data_.getMinion_p1(j).silenced_)
+					toRet = toRet.data_.getMinion_p1(j).minionHealedEvent(1, j + 1, thisPlayerIndex, thisMinionIndex, toRet, deckPlayer0, deckPlayer1);
 			}
 			return toRet;
 		}
@@ -473,32 +479,38 @@ public class Minion extends Card {
 				}
 				toRet = toRet.data_.getHero_p0().otherCardUsedEvent(0, toRet, deckPlayer0, deckPlayer1);
 				for (int j = 0; j < toRet.data_.getNumMinions_p0(); ++j) {
-					toRet = toRet.data_.getMinion_p0(j).otherCardUsedEvent(j, toRet, deckPlayer0, deckPlayer1);
+					if (!toRet.data_.getMinion_p0(j).silenced_)
+						toRet = toRet.data_.getMinion_p0(j).otherCardUsedEvent(j, toRet, deckPlayer0, deckPlayer1);
 				}
 				toRet = toRet.data_.getHero_p1().otherCardUsedEvent(0, toRet, deckPlayer0, deckPlayer1);
 				for (int j = 0; j < toRet.data_.getNumMinions_p1(); ++j) {
-					toRet = toRet.data_.getMinion_p1(j).otherCardUsedEvent(j, toRet, deckPlayer0, deckPlayer1);
+					if (!toRet.data_.getMinion_p1(j).silenced_)
+						toRet = toRet.data_.getMinion_p1(j).otherCardUsedEvent(j, toRet, deckPlayer0, deckPlayer1);
 				}
 			}
 			if (summoned_) {
 				//Notify all that a minion is created
 				toRet = toRet.data_.getHero_p0().minionSummonedEvent(0, 0, playerIndex, minionIndex, toRet, deckPlayer0, deckPlayer1);
 				for (int j = 0; j < toRet.data_.getNumMinions_p0(); ++j) {
-					toRet = toRet.data_.getMinion_p0(j).minionSummonedEvent(0, j + 1, playerIndex, minionIndex, toRet, deckPlayer0, deckPlayer1);
+					if (!toRet.data_.getMinion_p0(j).silenced_)
+						toRet = toRet.data_.getMinion_p0(j).minionSummonedEvent(0, j + 1, playerIndex, minionIndex, toRet, deckPlayer0, deckPlayer1);
 				}
 				toRet = toRet.data_.getHero_p1().minionSummonedEvent(1, 0, playerIndex, minionIndex, toRet, deckPlayer0, deckPlayer1);
 				for (int j = 0; j < toRet.data_.getNumMinions_p1(); ++j) {
-					toRet = toRet.data_.getMinion_p1(j).minionSummonedEvent(1, j + 1, playerIndex, minionIndex, toRet, deckPlayer0, deckPlayer1);
+					if (!toRet.data_.getMinion_p1(j).silenced_)
+						toRet = toRet.data_.getMinion_p1(j).minionSummonedEvent(1, j + 1, playerIndex, minionIndex, toRet, deckPlayer0, deckPlayer1);
 				}
 			} else {
 				//Notify all that a minion is created
 				toRet = toRet.data_.getHero_p0().minionPlacedEvent(0, 0, playerIndex, minionIndex, toRet, deckPlayer0, deckPlayer1);
 				for (int j = 0; j < toRet.data_.getNumMinions_p0(); ++j) {
-					toRet = toRet.data_.getMinion_p0(j).minionPlacedEvent(0, j + 1, playerIndex, minionIndex, toRet, deckPlayer0, deckPlayer1);
+					if (!toRet.data_.getMinion_p0(j).silenced_)
+						toRet = toRet.data_.getMinion_p0(j).minionPlacedEvent(0, j + 1, playerIndex, minionIndex, toRet, deckPlayer0, deckPlayer1);
 				}
 				toRet = toRet.data_.getHero_p1().minionPlacedEvent(1, 0, playerIndex, minionIndex, toRet, deckPlayer0, deckPlayer1);
 				for (int j = 0; j < toRet.data_.getNumMinions_p1(); ++j) {
-					toRet = toRet.data_.getMinion_p1(j).minionPlacedEvent(1, j + 1, playerIndex, minionIndex, toRet, deckPlayer0, deckPlayer1);
+					if (!toRet.data_.getMinion_p1(j).silenced_)
+						toRet = toRet.data_.getMinion_p1(j).minionPlacedEvent(1, j + 1, playerIndex, minionIndex, toRet, deckPlayer0, deckPlayer1);
 				}
 			}
 		}
@@ -585,11 +597,13 @@ public class Minion extends Card {
 			//Notify all that a minion is created
 			toRet = toRet.data_.getHero_p0().minionAttackingEvent(0, thisMinionIndex, playerIndex, minionIndex, toRet, deckPlayer0, deckPlayer1);
 			for (int j = 0; j < toRet.data_.getNumMinions_p0(); ++j) {
-				toRet = toRet.data_.getMinion_p0(j).minionAttackingEvent(0, thisMinionIndex, playerIndex, minionIndex, toRet, deckPlayer0, deckPlayer1);
+				if (!toRet.data_.getMinion_p0(j).silenced_)
+					toRet = toRet.data_.getMinion_p0(j).minionAttackingEvent(0, thisMinionIndex, playerIndex, minionIndex, toRet, deckPlayer0, deckPlayer1);
 			}
 			toRet = toRet.data_.getHero_p1().minionAttackingEvent(0, thisMinionIndex, playerIndex, minionIndex, toRet, deckPlayer0, deckPlayer1);
 			for (int j = 0; j < toRet.data_.getNumMinions_p1(); ++j) {
-				toRet = toRet.data_.getMinion_p1(j).minionAttackingEvent(0, thisMinionIndex, playerIndex, minionIndex, toRet, deckPlayer0, deckPlayer1);
+				if (!toRet.data_.getMinion_p1(j).silenced_)
+					toRet = toRet.data_.getMinion_p1(j).minionAttackingEvent(0, thisMinionIndex, playerIndex, minionIndex, toRet, deckPlayer0, deckPlayer1);
 			}
 		}
 		

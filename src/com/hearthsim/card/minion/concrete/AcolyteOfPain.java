@@ -141,17 +141,15 @@ public class AcolyteOfPain extends Minion {
 	public HearthTreeNode takeDamage(byte damage, int attackerPlayerIndex, int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean isSpellDamage) throws HSInvalidPlayerIndexException {
 		if (!divineShield_) {
 			HearthTreeNode toRet = super.takeDamage(damage, attackerPlayerIndex, thisPlayerIndex, thisMinionIndex, boardState, deckPlayer0, deckPlayer1, isSpellDamage);
-			if (!silenced_) {
-				if (damage > 0 && thisPlayerIndex == 0) {
-					if (toRet instanceof CardDrawNode) {
-						((CardDrawNode) toRet).addNumCardsToDraw(1);
-					} else {
-						toRet = new CardDrawNode(toRet, 1, this, 0, thisMinionIndex, thisPlayerIndex, thisMinionIndex); //draw one card
-					}
-				} else if (damage > 0) {
-					//This minion is an enemy minion.  Let's draw a card for the enemy.  No need to use a StopNode for enemy card draws.
-					toRet.data_.drawCardFromDeck_p1(deckPlayer1, 1);
+			if (damage > 0 && thisPlayerIndex == 0) {
+				if (toRet instanceof CardDrawNode) {
+					((CardDrawNode) toRet).addNumCardsToDraw(1);
+				} else {
+					toRet = new CardDrawNode(toRet, 1, this, 0, thisMinionIndex, thisPlayerIndex, thisMinionIndex); //draw one card
 				}
+			} else if (damage > 0) {
+				//This minion is an enemy minion.  Let's draw a card for the enemy.  No need to use a StopNode for enemy card draws.
+				toRet.data_.drawCardFromDeck_p1(deckPlayer1, 1);
 			}
 			return toRet;
 		} else {
