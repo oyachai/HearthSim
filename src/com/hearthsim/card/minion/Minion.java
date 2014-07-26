@@ -518,6 +518,15 @@ public class Minion extends Card {
 		return toRet;
 	}
 	
+	@Override
+    public boolean canBeUsedOn(int playerIndex, int minionIndex) {
+		if (playerIndex == 1 || minionIndex == 0)
+			return false;
+		if (hasBeenUsed_) 
+			return false;
+		return true;
+    }
+    
 	/**
 	 * 
 	 * Use the card on the given target

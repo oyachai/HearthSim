@@ -155,6 +155,34 @@ public class Card implements DeepCopyable {
 		return boardState;
 	}
 
+    /**
+     * Returns whether this card can be used on the given target or not
+     * 
+     * This function is an optional optimization feature.  Some cards in 
+     * Hearthstone have limited targets; Shadow Bolt cannot be used on
+     * heroes, Mind Blast can only target enemy heroes, etc.  Even in this 
+     * situation though, BoardStateFactory will still try to play non-
+     * sensical moves because it doesn't know that such moves are invalid
+     * until it tries to play them.  The problem is, the BoardStateFactory
+     * has to go and make a deep copy of the current BoardState before it 
+     * can go and try to play the invalid move, and it turns out that 
+     * 98% of execution time in HearthSim is BoardStateFactory calling 
+     * BoardState.deepCopy().  By overriding this function and returning 
+     * false on appropriate occasions, we can save some calls to deepCopy
+     * and get better performance out of the code.  
+     * 
+     * By default, this function returns true, in which case 
+     * BoardStateFactory will still go and try to use the card.
+     * 
+	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
+	 * @param minionIndex The index of the target minion.
+     * @return 
+     */
+    public boolean canBeUsedOn(int playerIndex, int minionIndex) {
+        return true;
+    }
+        
+        
 	/**
 	 * 
 	 * Use the card on the given target
@@ -297,6 +325,7 @@ public class Card implements DeepCopyable {
 		return json;
 	}
 	
+        @Override
 	public String toString() {
 		return this.toJSON().toString();
 	}

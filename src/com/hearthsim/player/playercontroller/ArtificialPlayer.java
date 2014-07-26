@@ -281,11 +281,11 @@ public class ArtificialPlayer {
 	public BoardState playTurn(int turn, BoardState board, Player player0, Player player1) throws HSException {
 		//The goal of this ai is to maximize his board score
 		HearthTreeNode toRet = new HearthTreeNode(board);
-		BoardStateFactory factory = new BoardStateFactory(player0.getDeck(), player1.getDeck());
+		BoardStateFactory factory = new BoardStateFactory(player0.getDeck(), player1.getDeck(), 2000000000);
 		HearthTreeNode allMoves = factory.doMoves(toRet, this);
 
-//		System.out.print("turn = " + turn + ", p = " + player0.getName() + ", nHand = " + board.getNumCards_hand() + ", nMinion = " + board.getNumMinions_p0() + ", nEnemyMinion = " + board.getNumMinions_p1());
-//		System.out.flush();
+		System.out.print("turn = " + turn + ", p = " + player0.getName() + ", nHand = " + board.getNumCards_hand() + ", nMinion = " + board.getNumMinions_p0() + ", nEnemyMinion = " + board.getNumMinions_p1());
+		System.out.flush();
 		
 		HearthTreeNode bestPlay = allMoves.findMaxOfFunc(this);
 		while( bestPlay instanceof StopNode ) {
@@ -295,10 +295,10 @@ public class ArtificialPlayer {
 			bestPlay = allMovesAtferStopNode.findMaxOfFunc(this);
 		}
 
-//		System.out.print(", number of nodes = " + allMoves.numLeaves() + ", playerHealth = " + bestPlay.data_.getHero_p0().getHealth() + ", rMinion = " + bestPlay.data_.getNumMinions_p0() + ", eMinion = " + bestPlay.data_.getNumMinions_p1());
-//		if (factory.didTimeOut())
-//			System.out.print(", tO");
-//		System.out.println();
+		System.out.print(", number of nodes = " + allMoves.numLeaves() + ", playerHealth = " + bestPlay.data_.getHero_p0().getHealth() + ", rMinion = " + bestPlay.data_.getNumMinions_p0() + ", eMinion = " + bestPlay.data_.getNumMinions_p1());
+		if (factory.didTimeOut())
+			System.out.print(", tO");
+		System.out.println();
 		
 		return bestPlay.data_;
 	}

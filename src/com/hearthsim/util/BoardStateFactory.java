@@ -8,7 +8,6 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
-import com.hearthsim.util.BoardState;
 import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 import com.hearthsim.util.tree.StopNode;
@@ -36,9 +35,11 @@ public class BoardStateFactory {
 		this(deckPlayer0, deckPlayer1, 20000);
 	}
 	
-	/**
-	 * Constructor
-	 * 
+        /**
+         * Constructor
+         * 
+         * @param deckPlayer0
+         * @param deckPlayer1
 	 * @param maxThinkTime The maximum amount of time in milliseconds the factory is allowed to spend on generating the simulation tree.
 	 */
 	public BoardStateFactory(Deck deckPlayer0, Deck deckPlayer1, long maxThinkTime) {
@@ -117,21 +118,25 @@ public class BoardStateFactory {
 			if (!boardStateNode.data_.getHero_p0().hasBeenUsed()) {
 				//Case0: Decided to use the hero ability -- Use it on everything!
 				for(int i = 0; i <= boardStateNode.data_.getNumMinions_p0(); ++i) {
-					HearthTreeNode newState = new HearthTreeNode((BoardState)boardStateNode.data_.deepCopy());
-					newState = newState.data_.getHero_p0().useHeroAbility(0, 0, i, newState, deckPlayer0_, deckPlayer1_);
-					if (newState != null) {
-						newState = this.doMoves(newState, ai);
-						if (newState != null) boardStateNode.addChild(newState);
-						heroAbilityUsable = true;
+					if (boardStateNode.data_.getHero_p0().canBeUsedOn(0, i)) {
+						HearthTreeNode newState = new HearthTreeNode((BoardState)boardStateNode.data_.deepCopy());
+						newState = newState.data_.getHero_p0().useHeroAbility(0, 0, i, newState, deckPlayer0_, deckPlayer1_);
+						if (newState != null) {
+							newState = this.doMoves(newState, ai);
+							if (newState != null) boardStateNode.addChild(newState);
+							heroAbilityUsable = true;
+						}
 					}
 				}
 				for(int i = 0; i <= boardStateNode.data_.getNumMinions_p1(); ++i) {
-					HearthTreeNode newState = new HearthTreeNode((BoardState)boardStateNode.data_.deepCopy());
-					newState = newState.data_.getHero_p0().useHeroAbility(0, 1, i, newState, deckPlayer0_, deckPlayer1_);
-					if (newState != null) {
-						newState = this.doMoves(newState, ai);
-						if (newState != null) boardStateNode.addChild(newState);
-						heroAbilityUsable = true;
+					if (boardStateNode.data_.getHero_p0().canBeUsedOn(1, i)) {
+						HearthTreeNode newState = new HearthTreeNode((BoardState)boardStateNode.data_.deepCopy());
+						newState = newState.data_.getHero_p0().useHeroAbility(0, 1, i, newState, deckPlayer0_, deckPlayer1_);
+						if (newState != null) {
+							newState = this.doMoves(newState, ai);
+							if (newState != null) boardStateNode.addChild(newState);
+							heroAbilityUsable = true;
+						}
 					}
 				}
 				if (heroAbilityUsable) {
@@ -169,21 +174,25 @@ public class BoardStateFactory {
 				if (boardStateNode.data_.getCard_hand_p0(ic).getMana() <= mana && !boardStateNode.data_.getCard_hand_p0(ic).hasBeenUsed()) {
 					//we can use this card!  Let's try using it on everything
 					for(int i = 0; i <= boardStateNode.data_.getNumMinions_p0() + 1; ++i) {
-						HearthTreeNode newState = new HearthTreeNode((BoardState)boardStateNode.data_.deepCopy());
-						Card card = newState.data_.getCard_hand_p0(ic);
-						newState = card.useOn(ic, 0, i, newState, deckPlayer0_, deckPlayer1_);
-						if (newState != null) {
-							newState = this.doMoves(newState, ai);
-							if (newState != null) boardStateNode.addChild(newState);
+						if (boardStateNode.data_.getCard_hand_p0(ic).canBeUsedOn(0, i)) {
+							HearthTreeNode newState = new HearthTreeNode((BoardState)boardStateNode.data_.deepCopy());
+							Card card = newState.data_.getCard_hand_p0(ic);
+							newState = card.useOn(ic, 0, i, newState, deckPlayer0_, deckPlayer1_);
+							if (newState != null) {
+								newState = this.doMoves(newState, ai);
+								if (newState != null) boardStateNode.addChild(newState);
+							}
 						}
 					}
 					for(int i = 0; i <= boardStateNode.data_.getNumMinions_p1() + 1; ++i) {
-						HearthTreeNode newState = new HearthTreeNode((BoardState)boardStateNode.data_.deepCopy());
-						Card card = newState.data_.getCard_hand_p0(ic);
-						newState = card.useOn(ic, 1, i, newState, deckPlayer0_, deckPlayer1_);
-						if (newState != null) {
-							newState = this.doMoves(newState, ai);
-							if (newState != null) boardStateNode.addChild(newState);
+						if (boardStateNode.data_.getCard_hand_p0(ic).canBeUsedOn(1, i)) {
+							HearthTreeNode newState = new HearthTreeNode((BoardState)boardStateNode.data_.deepCopy());
+							Card card = newState.data_.getCard_hand_p0(ic);
+							newState = card.useOn(ic, 1, i, newState, deckPlayer0_, deckPlayer1_);
+							if (newState != null) {
+								newState = this.doMoves(newState, ai);
+								if (newState != null) boardStateNode.addChild(newState);
+							}
 						}
 					}
 				}

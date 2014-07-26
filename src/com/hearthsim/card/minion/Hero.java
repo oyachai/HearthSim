@@ -128,6 +128,13 @@ public class Hero extends Minion {
 		}
 		return toRet;
 	}
+	
+	@Override
+    public boolean canBeUsedOn(int playerIndex, int minionIndex) {
+		if (hasBeenUsed_) 
+			return false;
+		return true;
+    }
 
 	/**
 	 * Use the hero ability on a given target
