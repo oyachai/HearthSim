@@ -4,25 +4,38 @@ import com.hearthsim.card.minion.Minion;
 
 public class BoulderfistOgre extends Minion {
 
+	private static final String NAME = "Boulderfist Ogre";
+	private static final byte MANA_COST = 6;
+	private static final byte ATTACK = 6;
+	private static final byte HEALTH = 7;
+	
+	private static final boolean TAUNT = false;
+	private static final boolean DIVINE_SHIELD = false;
+	private static final boolean WINDFURY = false;
+	private static final boolean CHARGE = false;
+	
+	private static final boolean SUMMONED = false;
+	private static final boolean TRANSFORMED = false;
+	
 	public BoulderfistOgre() {
 		this(
-				(byte)6,
-				(byte)6,
-				(byte)7,
-				(byte)6,
+				MANA_COST,
+				ATTACK,
+				HEALTH,
+				ATTACK,
 				(byte)0,
-				(byte)7,
-				(byte)7,
+				HEALTH,
+				HEALTH,
+				TAUNT,
+				DIVINE_SHIELD,
+				WINDFURY,
+				CHARGE,
 				false,
 				false,
 				false,
 				false,
-				false,
-				false,
-				false,
-				false,
-				false,
-				false,
+				SUMMONED,
+				TRANSFORMED,
 				false,
 				false,
 				true,
@@ -54,7 +67,7 @@ public class BoulderfistOgre extends Minion {
 			boolean hasBeenUsed) {
 		
 		super(
-			"Boulderfist Ogre",
+			NAME,
 			mana,
 			attack,
 			health,

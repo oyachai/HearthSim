@@ -6,26 +6,39 @@ import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class AcidicSwampOoze extends Minion {
-
+	
+	private static final String NAME = "Acidic Swamp Ooze";
+	private static final byte MANA_COST = 2;
+	private static final byte ATTACK = 3;
+	private static final byte HEALTH = 2;
+	
+	private static final boolean TAUNT = false;
+	private static final boolean DIVINE_SHIELD = false;
+	private static final boolean WINDFURY = false;
+	private static final boolean CHARGE = false;
+	
+	private static final boolean SUMMONED = false;
+	private static final boolean TRANSFORMED = false;
+	
 	public AcidicSwampOoze() {
 		this(
-				(byte)2,
-				(byte)3,
-				(byte)2,
-				(byte)3,
+				MANA_COST,
+				ATTACK,
+				HEALTH,
+				ATTACK,
 				(byte)0,
-				(byte)2,
-				(byte)2,
+				HEALTH,
+				HEALTH,
+				TAUNT,
+				DIVINE_SHIELD,
+				WINDFURY,
+				CHARGE,
 				false,
 				false,
 				false,
 				false,
-				false,
-				false,
-				false,
-				false,
-				false,
-				false,
+				SUMMONED,
+				TRANSFORMED,
 				false,
 				false,
 				true,
@@ -57,7 +70,7 @@ public class AcidicSwampOoze extends Minion {
 			boolean hasBeenUsed) {
 		
 		super(
-			"Acidic Swamp Ooze",
+			NAME,
 			mana,
 			attack,
 			health,
@@ -106,7 +119,6 @@ public class AcidicSwampOoze extends Minion {
 				this.isInHand_,
 				this.hasBeenUsed_);
 	}
-
 	/**
 	 * 
 	 * Override for battlecry

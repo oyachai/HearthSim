@@ -3,33 +3,46 @@ package com.hearthsim.card.minion.concrete;
 import com.hearthsim.card.minion.Murloc;
 
 public class BluegillWarrior extends Murloc {
-
+	
+	private static final String NAME = "Bluegill Warrior";
+	private static final byte MANA_COST = 2;
+	private static final byte ATTACK = 1;
+	private static final byte HEALTH = 1;
+	
+	private static final boolean TAUNT = false;
+	private static final boolean DIVINE_SHIELD = false;
+	private static final boolean WINDFURY = false;
+	private static final boolean CHARGE = true;
+	
+	private static final boolean SUMMONED = false;
+	private static final boolean TRANSFORMED = false;
+	
 	public BluegillWarrior() {
 		this(
-				(byte)2,
-				(byte)2,
-				(byte)1,
-				(byte)2,
+				MANA_COST,
+				ATTACK,
+				HEALTH,
+				ATTACK,
 				(byte)0,
-				(byte)1,
-				(byte)1,
-				false,
-				false,
-				false,
-				true, //has charge
-				false,
-				false,
+				HEALTH,
+				HEALTH,
+				TAUNT,
+				DIVINE_SHIELD,
+				WINDFURY,
+				CHARGE,
 				false,
 				false,
 				false,
 				false,
+				SUMMONED,
+				TRANSFORMED,
 				false,
 				false,
 				true,
 				false
 			);
 	}
-
+	
 	public BluegillWarrior(	
 			byte mana,
 			byte attack,
@@ -54,7 +67,7 @@ public class BluegillWarrior extends Murloc {
 			boolean hasBeenUsed) {
 		
 		super(
-			"Bluegill Warrior",
+			NAME,
 			mana,
 			attack,
 			health,

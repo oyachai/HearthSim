@@ -95,6 +95,7 @@ public class testGame {
 				0.0
 				);
 
+		long t1 = System.nanoTime();
 		Game game = new Game(player1, player2, ai0, ai1);
 		GameResult w = null;
 		try {
@@ -103,7 +104,9 @@ public class testGame {
 			w = new GameResult(-1, 0, null);
 		}
 		
-		System.out.println("w = " + w.winnerPlayerIndex_);
+		long t2 = System.nanoTime();
+		
+		System.out.println("w = " + w.winnerPlayerIndex_ + ", time taken = " + (t2 - t1) / 1000000.0 + " ms");
 		
 		assertTrue("testGame0", w.winnerPlayerIndex_ == 0);
 	}

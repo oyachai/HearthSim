@@ -4,32 +4,45 @@ import com.hearthsim.card.minion.Minion;
 
 public class BootyBayBodyguard extends Minion {
 
+	private static final String NAME = "Booty Bay Bodyguard";
+	private static final byte MANA_COST = 5;
+	private static final byte ATTACK = 5;
+	private static final byte HEALTH = 4;
+	
+	private static final boolean TAUNT = true;
+	private static final boolean DIVINE_SHIELD = false;
+	private static final boolean WINDFURY = false;
+	private static final boolean CHARGE = false;
+	
+	private static final boolean SUMMONED = false;
+	private static final boolean TRANSFORMED = false;
+	
 	public BootyBayBodyguard() {
 		this(
-				(byte)5,
-				(byte)5,
-				(byte)4,
-				(byte)5,
+				MANA_COST,
+				ATTACK,
+				HEALTH,
+				ATTACK,
 				(byte)0,
-				(byte)4,
-				(byte)4,
-				true, //has taunt
+				HEALTH,
+				HEALTH,
+				TAUNT,
+				DIVINE_SHIELD,
+				WINDFURY,
+				CHARGE,
 				false,
 				false,
 				false,
 				false,
-				false,
-				false,
-				false,
-				false,
-				false,
+				SUMMONED,
+				TRANSFORMED,
 				false,
 				false,
 				true,
 				false
 			);
 	}
-
+	
 	public BootyBayBodyguard(	
 			byte mana,
 			byte attack,
@@ -54,7 +67,7 @@ public class BootyBayBodyguard extends Minion {
 			boolean hasBeenUsed) {
 		
 		super(
-			"Booty Bay Bodyguard",
+			NAME,
 			mana,
 			attack,
 			health,
