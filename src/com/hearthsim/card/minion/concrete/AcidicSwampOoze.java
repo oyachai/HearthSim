@@ -119,6 +119,7 @@ public class AcidicSwampOoze extends Minion {
 				this.isInHand_,
 				this.hasBeenUsed_);
 	}
+	
 	/**
 	 * 
 	 * Override for battlecry

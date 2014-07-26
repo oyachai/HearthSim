@@ -29,10 +29,10 @@ public class BoardStateFactory {
 	/**
 	 * Constructor
 	 * 
-	 * maxThinkTime defaults to 20000 milliseconds (20 seconds)
+	 * maxThinkTime defaults to 10000 milliseconds (10 seconds)
 	 */
 	public BoardStateFactory(Deck deckPlayer0, Deck deckPlayer1) {
-		this(deckPlayer0, deckPlayer1, 20000);
+		this(deckPlayer0, deckPlayer1, 10000);
 	}
 	
         /**
