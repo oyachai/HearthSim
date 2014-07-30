@@ -640,6 +640,26 @@ public class Minion extends Card {
 		//Do the actual attack
 		toRet = this.attack_core(targetMinionPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
 		
+		//check for and remove dead minions
+		Iterator<Minion> iter0 = toRet.data_.getMinions_p0().iterator();
+		while (iter0.hasNext()) {
+			Minion tMinion = iter0.next();
+			if (tMinion.getHealth() <= 0) {
+				toRet = tMinion.destroyed(0, toRet, deckPlayer0, deckPlayer1);
+				iter0.remove();
+				toRet.data_.getMinions_p0().remove(tMinion);
+			}
+		}
+		Iterator<Minion> iter1 = toRet.data_.getMinions_p1().iterator();
+		while (iter1.hasNext()) {
+			Minion tMinion = iter1.next();
+			if (tMinion.getHealth() <= 0) {
+				toRet = tMinion.destroyed(1, toRet, deckPlayer0, deckPlayer1);
+				iter1.remove();
+				toRet.data_.getMinions_p1().remove(tMinion);
+			}
+		}
+		
 		return toRet;
 	}
 
