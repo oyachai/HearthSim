@@ -80,34 +80,15 @@ public class TestBloodfenRaptor {
 		assertTrue(card1_cloned.equals(card1));
 
 	}
-	
-	@Test
-	public void test0() throws HSInvalidPlayerIndexException {
-		BloodfenRaptor fb = new BloodfenRaptor();
-		board.data_.placeCard_hand_p0(fb);
 		
-		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 0, 0, board, null, null);
-		
-		assertTrue("test0_0", ret == null);
-		assertTrue("test0_1", board.data_.getNumCards_hand() == 1);
-		assertTrue("test0_2", board.data_.getNumMinions_p0() == 2);
-		assertTrue("test0_3", board.data_.getNumMinions_p1() == 2);
-		assertTrue("test0_4", board.data_.getHero_p0().getHealth() == 30);
-		assertTrue("test0_5", board.data_.getHero_p1().getHealth() == 30);
-		assertTrue("test0_6", board.data_.getMinion_p0(0).getHealth() == health0);
-		assertTrue("test0_7", board.data_.getMinion_p0(1).getHealth() == health1);
-		assertTrue("test0_8", board.data_.getMinion_p1(0).getHealth() == health0);
-		assertTrue("test0_9", board.data_.getMinion_p1(1).getHealth() == health1);
-	}
-	
 	@Test
 	public void test1() throws HSInvalidPlayerIndexException {
 		BloodfenRaptor fb = new BloodfenRaptor();
 		board.data_.placeCard_hand_p0(fb);
 		
+		Minion target = board.data_.getCharacter(1, 0);
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 1, 0, board, null, null);
+		HearthTreeNode ret = theCard.useOn(1, target, board, null, null);
 		
 		assertTrue("test1_0", ret == null);
 		assertTrue("test1_1", board.data_.getNumCards_hand() == 1);
@@ -126,8 +107,9 @@ public class TestBloodfenRaptor {
 		BloodfenRaptor fb = new BloodfenRaptor();
 		board.data_.placeCard_hand_p0(fb);
 		
+		Minion target = board.data_.getCharacter(0, 0);
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 0, 1, board, null, null);
+		HearthTreeNode ret = theCard.useOn(0, target, board, null, null);
 		
 		assertFalse("test2_0", ret == null);
 		assertTrue("test2_1", board.data_.getNumCards_hand() == 0);
@@ -142,21 +124,24 @@ public class TestBloodfenRaptor {
 		assertTrue("test2_10", board.data_.getMinion_p1(1).getHealth() == health1);
 		
 		Minion theAttacker = board.data_.getMinion_p0(0);
-		ret = theAttacker.useOn(1, 0, 0, board, null, null);
+		target = board.data_.getCharacter(0, 0);
+		ret = theAttacker.useOn(0, target, board, null, null);
 		assertTrue("test2", ret == null);
 
+		target = board.data_.getCharacter(1, 0);
 		theAttacker = board.data_.getMinion_p0(0);
-		ret = theAttacker.useOn(1, 1, 0, board, null, null);
+		ret = theAttacker.useOn(1, target, board, null, null);
 		assertTrue("test2", ret == null);
 
 		theAttacker = board.data_.getMinion_p0(0);
 		theAttacker.hasAttacked(false);
 		theAttacker.hasBeenUsed(false);
-		ret = theAttacker.attack(1, 1, 0, board, null, null);
+		target = board.data_.getCharacter(1, 0);
+		ret = theAttacker.attack(1, target, board, null, null);
 		assertFalse("test2_0", ret == null);
-		assertTrue("test2_1", board.data_.getNumCards_hand() == 0);
-		assertTrue("test2_2", board.data_.getNumMinions_p0() == 3);
-		assertTrue("test2_3", board.data_.getNumMinions_p1() == 2);
+		assertEquals(board.data_.getNumCards_hand(), 0);
+		assertEquals(board.data_.getNumMinions_p0(), 3);
+		assertEquals(board.data_.getNumMinions_p1(), 2);
 		assertTrue("test2_4", board.data_.getHero_p0().getHealth() == 30);
 		assertTrue("test2_5", board.data_.getHero_p1().getHealth() == 27);
 		assertTrue("test2_6", board.data_.getMinion_p0(0).getHealth() == fb.getHealth());
@@ -169,7 +154,8 @@ public class TestBloodfenRaptor {
 		theAttacker = board.data_.getMinion_p0(0);
 		theAttacker.hasAttacked(false);
 		theAttacker.hasBeenUsed(false);
-		ret = theAttacker.attack(1, 1, 1, board, null, null);
+		target = board.data_.getCharacter(1, 1);
+		ret = theAttacker.attack(1, target, board, null, null);
 		assertFalse("test2_0", ret == null);
 		assertTrue("test2_1", board.data_.getNumCards_hand() == 0);
 		assertTrue("test2_2", board.data_.getNumMinions_p0() == 2);
@@ -187,8 +173,9 @@ public class TestBloodfenRaptor {
 		BloodfenRaptor fb = new BloodfenRaptor();
 		board.data_.placeCard_hand_p0(fb);
 		
+		Minion target = board.data_.getCharacter(0, 1);
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 0, 2, board, null, null);
+		HearthTreeNode ret = theCard.useOn(0, target, board, null, null);
 		
 		assertFalse("test3_0", ret == null);
 		assertTrue("test3_1", board.data_.getNumCards_hand() == 0);
@@ -208,8 +195,9 @@ public class TestBloodfenRaptor {
 		BloodfenRaptor fb = new BloodfenRaptor();
 		board.data_.placeCard_hand_p0(fb);
 		
+		Minion target = board.data_.getCharacter(0, 2);
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 0, 3, board, null, null);
+		HearthTreeNode ret = theCard.useOn(0, target, board, null, null);
 		
 		assertFalse("test4_0", ret == null);
 		assertTrue("test4_1", board.data_.getNumCards_hand() == 0);
@@ -229,8 +217,9 @@ public class TestBloodfenRaptor {
 		BloodfenRaptor fb = new BloodfenRaptor();
 		board.data_.placeCard_hand_p0(fb);
 		
+		Minion target = board.data_.getCharacter(1, 1);
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 1, 1, board, null, null);
+		HearthTreeNode ret = theCard.useOn(1, target, board, null, null);
 		
 		assertTrue("test5_0", ret == null);
 		assertTrue("test5_1", board.data_.getNumCards_hand() == 1);
@@ -249,8 +238,9 @@ public class TestBloodfenRaptor {
 		BloodfenRaptor fb = new BloodfenRaptor();
 		board.data_.placeCard_hand_p0(fb);
 		
+		Minion target = board.data_.getCharacter(1, 2);
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 1, 2, board, null, null);
+		HearthTreeNode ret = theCard.useOn(1, target, board, null, null);
 		
 		assertTrue("test6_0", ret == null);
 		assertTrue("test6_1", board.data_.getNumCards_hand() == 1);
@@ -269,8 +259,9 @@ public class TestBloodfenRaptor {
 		BloodfenRaptor fb = new BloodfenRaptor();
 		board.data_.placeCard_hand_p0(fb);
 		
+		Minion target = board.data_.getCharacter(1, 2);
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 1, 3, board, null, null);
+		HearthTreeNode ret = theCard.useOn(1, target, board, null, null);
 		
 		assertTrue("test7_0", ret == null);
 		assertTrue("test7_1", board.data_.getNumCards_hand() == 1);

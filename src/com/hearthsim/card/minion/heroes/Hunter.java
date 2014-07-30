@@ -55,27 +55,26 @@ public class Hunter extends Hero {
 	 * 
 	 * Hunter: Deals 2 damage to enemy hero
 	 * 
-	 * @param thisPlayerIndex The player index of the hero
 	 * @param targetPlayerIndex The player index of the target character
-	 * @param targetMinionIndex The minion index of the target character
+	 * @param targetMinion The target minion
 	 * @param boardState
-	 * @param deck
+	 * @param deckPlayer0
+	 * @param deckPlayer1
+	 * 
 	 * @return
 	 */
 	@Override
 	public HearthTreeNode useHeroAbility_core(
-			int thisPlayerIndex,
 			int targetPlayerIndex,
-			int targetMinionIndex,
+			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
 		throws HSException
 	{
 		HearthTreeNode toRet = boardState;
-		if (targetMinionIndex == 0 && targetPlayerIndex == 1) {
-			Minion target = boardState.data_.getHero_p1();
-			toRet = target.takeDamage((byte)2, thisPlayerIndex, targetPlayerIndex, targetMinionIndex, toRet, deckPlayer0, deckPlayer1);
+		if ((targetMinion instanceof Hero) && targetPlayerIndex == 1) {
+			toRet = targetMinion.takeDamage((byte)2, 0, targetPlayerIndex, toRet, deckPlayer0, deckPlayer1);
 			return toRet;
 		} else {
 			return null;

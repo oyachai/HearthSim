@@ -2,6 +2,7 @@ package com.hearthsim.card.minion.heroes;
 
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
+import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -63,18 +64,16 @@ public class Warrior extends Hero {
 	 */
 	@Override
 	public HearthTreeNode useHeroAbility_core(
-			int thisPlayerIndex,
 			int targetPlayerIndex,
-			int targetMinionIndex,
+			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
 		throws HSException
 	{
 		HearthTreeNode toRet = boardState;
-		if (targetMinionIndex == 0 && targetPlayerIndex == 0) {
-			Hero target = toRet.data_.getHero(thisPlayerIndex);
-			target.setArmor((byte)(target.getArmor() + 2));
+		if ((targetMinion instanceof Hero) && targetPlayerIndex == 0) {
+			((Hero)targetMinion).setArmor((byte)(((Hero)targetMinion).getArmor() + 2));
 			return toRet;
 		} else {
 			return null;

@@ -1,6 +1,8 @@
 package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.Deck;
+import com.hearthsim.card.minion.Hero;
+import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.tree.CardDrawNode;
@@ -35,7 +37,7 @@ public class PowerWordShield extends SpellCard {
 	 * 
 	 * Use the card on the given target
 	 * 
-	 * Gives a minion +4/+4
+	 * Gives a minion +2 health and draw a card
 	 * 
 	 * @param thisCardIndex The index (position) of the card in the hand
 	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
@@ -46,25 +48,25 @@ public class PowerWordShield extends SpellCard {
 	 */
 	@Override
 	protected HearthTreeNode use_core(
-			int thisCardIndex,
-			int playerIndex,
-			int minionIndex,
+			int targetPlayerIndex,
+			Minion targetMinion,
 			HearthTreeNode boardState,
-			Deck deckPlayer0, Deck deckPlayer1)
+			Deck deckPlayer0,
+			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
-		if (minionIndex == 0) {
+		if (targetMinion instanceof Hero) {
 			return null;
 		}
-		HearthTreeNode toRet = super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
-
-		toRet.data_.getMinion(playerIndex, minionIndex - 1).setHealth((byte)(toRet.data_.getMinion(playerIndex, minionIndex - 1).getHealth() + 2));
-		toRet.data_.getMinion(playerIndex, minionIndex - 1).setMaxHealth((byte)(toRet.data_.getMinion(playerIndex, minionIndex - 1).getMaxHealth() + 2));
-		
+		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
+		if (toRet != null) {
+			targetMinion.setHealth((byte)(targetMinion.getHealth() + 2));
+			targetMinion.setMaxHealth((byte)(targetMinion.getMaxHealth() + 2));
+		}
 		if (toRet instanceof CardDrawNode) {
 			((CardDrawNode) toRet).addNumCardsToDraw(1);
 		} else {
-			toRet = new CardDrawNode(toRet, 4, this, 0, thisCardIndex, playerIndex, minionIndex); //draw two cards
+			toRet = new CardDrawNode(toRet, 1); //draw two cards
 		}
 		return toRet;
 	}

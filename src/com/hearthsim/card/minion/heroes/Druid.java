@@ -2,6 +2,7 @@ package com.hearthsim.card.minion.heroes;
 
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
+import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -54,24 +55,24 @@ public class Druid extends Hero {
 	 * 
 	 * Druid: +1 attack this turn and +1 armor
 	 * 
-	 * @param thisPlayerIndex The player index of the hero
 	 * @param targetPlayerIndex The player index of the target character
-	 * @param targetMinionIndex The minion index of the target character
+	 * @param targetMinion The target minion
 	 * @param boardState
-	 * @param deck
+	 * @param deckPlayer0
+	 * @param deckPlayer1
+	 * 
 	 * @return
 	 */
 	@Override
 	public HearthTreeNode useHeroAbility_core(
-			int thisPlayerIndex,
 			int targetPlayerIndex,
-			int targetMinionIndex,
+			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
 		throws HSException
 	{
-		if (targetMinionIndex == 0 && targetPlayerIndex == 0) {
+		if ((targetMinion instanceof Hero)  && targetPlayerIndex == 0) {
 			Hero target = boardState.data_.getHero_p0();
 			target.setExtraAttackUntilTurnEnd((byte)1);
 			target.setArmor((byte)1);

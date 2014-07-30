@@ -2,6 +2,7 @@ package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Demon;
+import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -125,7 +126,7 @@ public class Succubus extends Demon {
 	 * 
 	 * Override for battlecry
 	 * 
-	 * Battlecry: Give a friendly minion +1/+1
+	 * Battlecry: Discard a random card
 	 * 
 	 * @param thisCardIndex The index (position) of the card in the hand
 	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
@@ -135,23 +136,22 @@ public class Succubus extends Demon {
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public HearthTreeNode use_core(int thisCardIndex, int playerIndex, int minionIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
-		
-		if (hasBeenUsed_) {
-			//Card is already used, nothing to do
-			return null;
-		}
-		
-		if (playerIndex == 1 || minionIndex == 0)
-			return null;
+	public HearthTreeNode use_core(
+			int targetPlayerIndex,
+			Minion targetMinion,
+			HearthTreeNode boardState,
+			Deck deckPlayer0,
+			Deck deckPlayer1)
+		throws HSInvalidPlayerIndexException
+	{
 
-		super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
+		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
 		
-		int numCards = boardState.data_.getNumCards_hand_p0();
+		int numCards = toRet.data_.getNumCards_hand_p0();
 		if (numCards <= 0)
 			return null;
 		int cardToDiscardIndex = (int)(Math.random() * numCards);
-		boardState.data_.removeCard_hand(cardToDiscardIndex);
+		toRet.data_.removeCard_hand(toRet.data_.getMinion_p0(cardToDiscardIndex));
 							
 		return boardState;
 	}

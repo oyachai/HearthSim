@@ -1,6 +1,5 @@
 package com.hearthsim.card.minion.concrete;
 
-import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
@@ -136,19 +135,22 @@ public class NorthshireCleric extends Minion {
 	 * 
 	 * Called whenever another character (including the hero) is healed
 	 * 
-	 * @param playerIndex The index of the healed minion's player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
-	 * @param minionIndex The index of the healed minion.
+	 * @param thisMinionPlayerIndex The index of the damaged minion's player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
+	 * @param healedMinionPlayerIndex The player index of the healed minion.
+	 * @param healedMinion The healed minion
 	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+	 * @param deckPlayer0 The deck of player0
+	 * @param deckPlayer1 The deck of player1
 	 * 
 	 * @return The boardState is manipulated and returned
 	 */
 	public HearthTreeNode minionHealedEvent(
 			int thisMinionPlayerIndex,
-			int thisMinionIndex,
 			int healedMinionPlayerIndex,
-			int healedMinionIndex,
+			Minion healedMinion,
 			HearthTreeNode boardState,
-			Deck deckPlayer0, Deck deckPlayer1)
+			Deck deckPlayer0,
+			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
 		HearthTreeNode toRet = boardState;
@@ -157,7 +159,7 @@ public class NorthshireCleric extends Minion {
 				if (boardState instanceof CardDrawNode) {
 					((CardDrawNode)toRet).addNumCardsToDraw(1);
 				} else {
-					toRet = new CardDrawNode(toRet, 1, this, thisMinionPlayerIndex, thisMinionIndex, healedMinionPlayerIndex, healedMinionIndex); //draw one card
+					toRet = new CardDrawNode(toRet, 1); //draw one card
 				}
 			} else {
 				//This minion is an enemy minion.  Let's draw a card for the enemy.  No need to use a StopNode for enemy card draws.

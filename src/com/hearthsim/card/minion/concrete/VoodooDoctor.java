@@ -137,54 +137,48 @@ public class VoodooDoctor extends Minion {
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public HearthTreeNode use_core(int thisCardIndex, int playerIndex, int minionIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
+	public HearthTreeNode use_core(
+			int targetPlayerIndex,
+			Minion targetMinion,
+			HearthTreeNode boardState,
+			Deck deckPlayer0,
+			Deck deckPlayer1)
+		throws HSInvalidPlayerIndexException
+	{
+		//A generic card does nothing except for consuming mana
+		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
 		
-		if (hasBeenUsed_) {
-			//Card is already used, nothing to do
-			return null;
-		}
-		
-		if (boardState.data_.getNumMinions_p0() < 7) {
-
-			HearthTreeNode toRet = boardState;
-			hasBeenUsed_ = true;
-			toRet.data_.setMana_p0(toRet.data_.getMana_p0() - this.mana_);
-			toRet.data_.removeCard_hand(thisCardIndex);
-			toRet.data_.placeMinion(0, this, minionIndex - 1);
-
+		if (toRet != null) {
 			{
-				HearthTreeNode newState = new HearthTreeNode((BoardState)boardState.data_.deepCopy());
-				newState = newState.data_.getHero_p0().takeHeal((byte)2, 0, 0, newState, deckPlayer0, deckPlayer1);
+				HearthTreeNode newState = new HearthTreeNode((BoardState)toRet.data_.deepCopy());
+				newState = newState.data_.getHero_p0().takeHeal((byte)2, 0, newState, deckPlayer0, deckPlayer1);
 				toRet.addChild(newState);
 			}
 			
 			{
-				for (int index = 0; index < boardState.data_.getNumMinions_p0(); ++index) {
-					HearthTreeNode newState = new HearthTreeNode((BoardState)boardState.data_.deepCopy());
-					newState = newState.data_.getMinion_p0(index).takeHeal((byte)2, 0, index + 1, newState, deckPlayer0, deckPlayer1);
+				for (int index = 0; index < toRet.data_.getNumMinions_p0(); ++index) {
+					HearthTreeNode newState = new HearthTreeNode((BoardState)toRet.data_.deepCopy());
+					newState = newState.data_.getMinion_p0(index).takeHeal((byte)2, 0, newState, deckPlayer0, deckPlayer1);
 					toRet.addChild(newState);
 				}
 			}
 
 			{
-				HearthTreeNode newState = new HearthTreeNode((BoardState)boardState.data_.deepCopy());
-				newState = newState.data_.getHero_p1().takeHeal((byte)2, 1, 0, newState, deckPlayer0, deckPlayer1);
+				HearthTreeNode newState = new HearthTreeNode((BoardState)toRet.data_.deepCopy());
+				newState = newState.data_.getHero_p1().takeHeal((byte)2, 1, newState, deckPlayer0, deckPlayer1);
 				toRet.addChild(newState);
 			}
 			
 			{
-				for (int index = 0; index < boardState.data_.getNumMinions_p1(); ++index) {
-					HearthTreeNode newState = new HearthTreeNode((BoardState)boardState.data_.deepCopy());
-					newState = newState.data_.getMinion_p1(index).takeHeal((byte)2, 1, index + 1, newState, deckPlayer0, deckPlayer1);
+				for (int index = 0; index < toRet.data_.getNumMinions_p1(); ++index) {
+					HearthTreeNode newState = new HearthTreeNode((BoardState)toRet.data_.deepCopy());
+					newState = newState.data_.getMinion_p1(index).takeHeal((byte)2, 1, newState, deckPlayer0, deckPlayer1);
 					toRet.addChild(newState);
 				}
 			}
-
 			return toRet;
-							
 		} else {
 			return null;
 		}
-
 	}
 }

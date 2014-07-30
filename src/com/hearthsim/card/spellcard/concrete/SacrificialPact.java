@@ -36,7 +36,7 @@ public class SacrificialPact extends SpellCard {
 	 * 
 	 * Use the card on the given target
 	 * 
-	 * Gives a minion +4/+4
+	 * Gives a destroy a demon
 	 * 
 	 * @param thisCardIndex The index (position) of the card in the hand
 	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
@@ -47,25 +47,23 @@ public class SacrificialPact extends SpellCard {
 	 */
 	@Override
 	protected HearthTreeNode use_core(
-			int thisCardIndex,
-			int playerIndex,
-			int minionIndex,
+			int targetPlayerIndex,
+			Minion targetMinion,
 			HearthTreeNode boardState,
-			Deck deckPlayer0, Deck deckPlayer1)
+			Deck deckPlayer0,
+			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
-		if (minionIndex == 0) {
+		if (!(targetMinion instanceof Demon)) {
 			return null;
 		}
 		
-		HearthTreeNode toRet = boardState;
-		Minion targetMinion = toRet.data_.getMinion(playerIndex, minionIndex - 1);
-		if (targetMinion instanceof Demon) {
-			toRet = targetMinion.destroyed(playerIndex, minionIndex, toRet, deckPlayer0, deckPlayer1);
-			toRet.data_.removeMinion(playerIndex, minionIndex - 1);
-		} else {
-			return null;
+		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
+		if (toRet != null) {
+			toRet = toRet.data_.getHero_p0().takeHeal((byte)5, 0, toRet, deckPlayer0, deckPlayer1);
+			toRet = targetMinion.destroyed(targetPlayerIndex, toRet, deckPlayer0, deckPlayer1);
+			toRet.data_.removeMinion(targetPlayerIndex, targetMinion);
 		}
-		return super.use_core(thisCardIndex, playerIndex, minionIndex, toRet, deckPlayer0, deckPlayer1);
+		return toRet;
 	}
 }

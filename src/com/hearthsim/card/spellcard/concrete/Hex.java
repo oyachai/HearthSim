@@ -1,6 +1,8 @@
 package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.Deck;
+import com.hearthsim.card.minion.Hero;
+import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.Frog;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
@@ -46,29 +48,31 @@ public class Hex extends SpellCard {
 	 */
 	@Override
 	protected HearthTreeNode use_core(
-			int thisCardIndex,
-			int playerIndex,
-			int minionIndex,
+			int targetPlayerIndex,
+			Minion targetMinion,
 			HearthTreeNode boardState,
-			Deck deckPlayer0, Deck deckPlayer1)
+			Deck deckPlayer0,
+			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
-		if (minionIndex == 0) {
+		if (targetMinion instanceof Hero) {
 			return null;
 		}
 		
-		Frog frog = new Frog();
-		if (playerIndex == 0) {
-			boardState.data_.placeMinion(0, frog, minionIndex);
-			boardState.data_.removeMinion_p0(minionIndex - 1);
-		} else if (playerIndex == 1) {
-			boardState.data_.placeMinion(1, frog, minionIndex);
-			boardState.data_.removeMinion_p1(minionIndex - 1);			
-		} else {
-			throw new HSInvalidPlayerIndexException();
+		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
+		if (toRet != null) {
+			Frog frog = new Frog();
+			if (targetPlayerIndex == 0) {
+				boardState.data_.placeMinion(0, frog, toRet.data_.getMinions_p0().indexOf(targetMinion));
+				boardState.data_.removeMinion_p0(targetMinion);
+			} else if (targetPlayerIndex == 1) {
+				boardState.data_.placeMinion(1, frog, toRet.data_.getMinions_p1().indexOf(targetMinion));
+				boardState.data_.removeMinion_p1(targetMinion);
+			} else {
+				throw new HSInvalidPlayerIndexException();
+			}
 		}
-
-		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
+		return toRet;
 	}
 
 }

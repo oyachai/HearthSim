@@ -1,6 +1,7 @@
 package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.Deck;
+import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellDamage;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
@@ -26,7 +27,7 @@ public class MortalCoil extends SpellDamage {
 	 * 
 	 * Use the card on the given target
 	 * 
-	 * Deals 2 damage and heals the hero for 2.
+	 * Deals 1 damage to a minion.  If the damage kills the minion, draw a card.
 	 * 
 	 * @param thisCardIndex The index (position) of the card in the hand
 	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
@@ -37,14 +38,14 @@ public class MortalCoil extends SpellDamage {
 	 */
 	@Override
 	protected HearthTreeNode use_core(
-			int thisCardIndex,
-			int playerIndex,
-			int minionIndex,
+			int targetPlayerIndex,
+			Minion targetMinion,
 			HearthTreeNode boardState,
-			Deck deckPlayer0, Deck deckPlayer1)
+			Deck deckPlayer0,
+			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
-		if (minionIndex == 0) 
+		if (targetMinion instanceof Hero) 
 			return null;
 
 		if (this.hasBeenUsed()) {
@@ -53,38 +54,22 @@ public class MortalCoil extends SpellDamage {
 		}
 				
 		this.hasBeenUsed(true);
-
-
-		Minion target = null;
-		if (playerIndex == 0) {
-			if (boardState.data_.getNumMinions_p0() + 1 > minionIndex)
-				target = boardState.data_.getMinion_p0(minionIndex - 1);
-			else
-				return null;
-		} else {
-			if (boardState.data_.getNumMinions_p1() + 1 > minionIndex)
-				target = boardState.data_.getMinion_p1(minionIndex - 1);
-			else
-				return null;
-		}
 		HearthTreeNode toRet = boardState;
-		
-		toRet = this.attack(target, playerIndex, minionIndex, toRet, deckPlayer0, deckPlayer1);
-		toRet.data_.setMana_p0(toRet.data_.getMana_p0() - this.mana_);
-		toRet.data_.removeCard_hand(thisCardIndex);
 
-		if (target.getHealth() <= 0) {
-			if (playerIndex == 0)
-				toRet.data_.removeMinion_p0(minionIndex-1);
-			else
-				toRet.data_.removeMinion_p1(minionIndex-1);
-			
-			if (toRet instanceof CardDrawNode) {
-				((CardDrawNode) toRet).addNumCardsToDraw(1);
-			} else {
-				toRet = new CardDrawNode(toRet, 1, this, 0, thisCardIndex, playerIndex, minionIndex); //draw two cards
+		toRet = this.attack(targetPlayerIndex, targetMinion, toRet, deckPlayer0, deckPlayer1);
+		toRet.data_.setMana_p0(toRet.data_.getMana_p0() - this.mana_);
+		toRet.data_.removeCard_hand(this);
+		
+		if (!(targetMinion instanceof Hero)) {
+			if (targetMinion.getHealth() <= 0) {
+				if (toRet instanceof CardDrawNode) {
+					((CardDrawNode) toRet).addNumCardsToDraw(1);
+				} else {
+					toRet = new CardDrawNode(toRet, 1); //draw two cards
+				}
 			}
 		}
+
 		return toRet;
 	}
 }

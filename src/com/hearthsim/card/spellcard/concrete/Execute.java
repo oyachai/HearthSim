@@ -1,6 +1,7 @@
 package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.Deck;
+import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
@@ -46,25 +47,25 @@ public class Execute extends SpellCard {
 	 */
 	@Override
 	protected HearthTreeNode use_core(
-			int thisCardIndex,
-			int playerIndex,
-			int minionIndex,
+			int targetPlayerIndex,
+			Minion targetMinion,
 			HearthTreeNode boardState,
-			Deck deckPlayer0, Deck deckPlayer1)
+			Deck deckPlayer0,
+			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
-		if (minionIndex == 0 || playerIndex == 0) {
+		if ((targetMinion instanceof Hero) || targetPlayerIndex == 0) {
 			//cant't use it on the heroes or friendly minion
 			return null;
 		}
-		HearthTreeNode toRet = boardState;
-		
-		Minion targetMinion = toRet.data_.getMinion_p1(minionIndex-1);
 		if (targetMinion.getHealth() == targetMinion.getMaxHealth())
 			return null;
-		
-		toRet = targetMinion.destroyed(playerIndex, minionIndex, toRet, deckPlayer0, deckPlayer1);
-		toRet.data_.removeMinion_p1(minionIndex-1);
-		return super.use_core(thisCardIndex, playerIndex, minionIndex, toRet, deckPlayer0, deckPlayer1);
+
+		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
+		if (toRet != null) {
+			toRet = targetMinion.destroyed(targetPlayerIndex, toRet, deckPlayer0, deckPlayer1);
+			toRet.data_.removeMinion_p1(targetMinion);
+		}
+		return toRet;
 	}
 }

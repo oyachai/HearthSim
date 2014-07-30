@@ -13,6 +13,7 @@ import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
+import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class TestFanOfKnives {
@@ -60,8 +61,9 @@ public class TestFanOfKnives {
 	@Test
 	public void test0() throws HSInvalidPlayerIndexException {
 		
+		Minion target = board.data_.getCharacter(0, 0);
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 0, 0, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(0, target, board, deck, null);
 		
 		assertTrue(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 1);
@@ -78,8 +80,9 @@ public class TestFanOfKnives {
 	@Test
 	public void test1() throws HSInvalidPlayerIndexException {
 		
+		Minion target = board.data_.getCharacter(1, 1);
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 1, 1, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(1, target, board, deck, null);
 		
 		assertTrue(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 1);
@@ -96,11 +99,14 @@ public class TestFanOfKnives {
 	@Test
 	public void test2() throws HSInvalidPlayerIndexException {
 		
+		Minion target = board.data_.getCharacter(1, 0);
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 1, 0, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(1, target, board, deck, null);
 		
 		assertFalse(ret == null);
-		assertEquals(board.data_.getNumCards_hand(), 1);
+		assertEquals(board.data_.getNumCards_hand(), 0);
+		assertTrue(ret instanceof CardDrawNode);
+		assertEquals(((CardDrawNode)ret).getNumCardsToDraw(), 1);
 		assertEquals(board.data_.getNumMinions_p0(), 2);
 		assertEquals(board.data_.getNumMinions_p1(), 2);
 		assertEquals(board.data_.getHero_p0().getHealth(), 30);

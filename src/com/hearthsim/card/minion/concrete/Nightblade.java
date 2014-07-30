@@ -127,36 +127,28 @@ public class Nightblade extends Minion {
 	 * 
 	 * Battlecry: Heals friendly characters for 2
 	 * 
-	 * @param thisCardIndex The index (position) of the card in the hand
-	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
-	 * @param minionIndex The index of the target minion.
+	 * @param targetPlayerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
+	 * @param targetMinion The target minion (can be a Hero).  If it is a Hero, then the minion is placed on the last (right most) spot on the board.
 	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+	 * @param deckPlayer0 The deck of player0
+	 * @param deckPlayer0 The deck of player1
 	 * 
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public HearthTreeNode use_core(
-			int thisCardIndex,
-			int playerIndex,
-			int minionIndex,
+	public HearthTreeNode useOn(
+			int targetPlayerIndex,
+			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
+		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
+
+		if (toRet != null) 
+			toRet = toRet.data_.getHero_p1().takeDamage((byte)3, 0, 1, boardState, deckPlayer0, deckPlayer1);
 		
-		if (hasBeenUsed_) {
-			//Card is already used, nothing to do
-			return null;
-		}
-		
-		if (playerIndex == 1 || minionIndex == 0)
-			return null;
-		
-		if (boardState.data_.getNumMinions_p0() >= 7)
-			return null;
-		
-		boardState.data_.getHero_p1().takeDamage((byte)3, 0, 0, 0, boardState, deckPlayer0, deckPlayer1);
-		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
+		return toRet;
 	}
 }

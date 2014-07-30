@@ -120,38 +120,27 @@ public class Houndmaster extends Minion {
 	 * 
 	 * Battlecry: Give a friendly beast +2/+2 and Taunt
 	 * 
-	 * @param thisCardIndex The index (position) of the card in the hand
-	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
-	 * @param minionIndex The index of the target minion.
+	 * @param targetPlayerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
+	 * @param targetMinion The target minion
 	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
 	 * 
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public HearthTreeNode use_core(int thisCardIndex, int playerIndex, int minionIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
-		
-		if (hasBeenUsed_) {
-			//Card is already used, nothing to do
-			return null;
-		}
-		
-		if (playerIndex == 1 || minionIndex == 0)
-			return null;
-		
-		if (boardState.data_.getNumMinions_p0() < 7) {
-
-			if (!charge_) {
-				hasAttacked_ = true;
-			}
-			hasBeenUsed_ = true;
-			boardState.data_.setMana_p0(boardState.data_.getMana_p0() - this.mana_);
-			boardState.data_.removeCard_hand(thisCardIndex);
-			boardState.data_.placeMinion(0, this, minionIndex - 1);
-			
-			for (int index = 0; index < boardState.data_.getNumMinions_p0(); ++index) {
-				if (index != minionIndex - 1) {
-					if (boardState.data_.getMinion_p0(index) instanceof Beast) {
-						HearthTreeNode newState = boardState.addChild(new HearthTreeNode((BoardState)boardState.data_.deepCopy()));
+	public HearthTreeNode use_core(
+			int targetPlayerIndex,
+			Minion targetMinion,
+			HearthTreeNode boardState,
+			Deck deckPlayer0,
+			Deck deckPlayer1)
+		throws HSInvalidPlayerIndexException
+	{
+		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
+		if (toRet != null) {
+			for (int index = 0; index < toRet.data_.getNumMinions_p0(); ++index) {
+				if (index != toRet.data_.getMinions_p0().indexOf(this)) {
+					if (toRet.data_.getMinion_p0(index) instanceof Beast) {
+						HearthTreeNode newState = toRet.addChild(new HearthTreeNode((BoardState)toRet.data_.deepCopy()));
 						newState.data_.getMinion_p0(index).setAttack((byte)(newState.data_.getMinion_p0(index).getAttack() + 2));
 						newState.data_.getMinion_p0(index).setHealth((byte)(newState.data_.getMinion_p0(index).getHealth() + 2));
 						newState.data_.getMinion_p0(index).setTaunt(true);
@@ -159,12 +148,8 @@ public class Houndmaster extends Minion {
 					
 				}
 			}
-			return boardState;
-							
-		} else {
-			return null;				
 		}
-
+		return toRet;
 	}
 
 }

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import sun.awt.util.IdentityLinkedList;
+
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
@@ -19,11 +21,11 @@ import com.json.JSONObject;
  */
 public class BoardState implements DeepCopyable {
 		
-	LinkedList<Minion> p0_minions_;
-	LinkedList<Minion> p1_minions_;
+	MinionList p0_minions_;
+	MinionList p1_minions_;
 	
-	LinkedList<Card> p0_hand_;
-	LinkedList<Card> p1_hand_;
+	IdentityLinkedList<Card> p0_hand_;
+	IdentityLinkedList<Card> p1_hand_;
 	
 	Hero p0_hero_;
 	Hero p1_hero_;
@@ -46,10 +48,10 @@ public class BoardState implements DeepCopyable {
 	}
 	
 	public BoardState(Hero p0_hero, Hero p1_hero) {
-		p0_minions_ = new LinkedList<Minion>();
-		p1_minions_ = new LinkedList<Minion>();
-		p0_hand_ = new LinkedList<Card>();
-		p1_hand_ = new LinkedList<Card>();
+		p0_minions_ = new MinionList();
+		p1_minions_ = new MinionList();
+		p0_hand_ = new IdentityLinkedList<Card>();
+		p1_hand_ = new IdentityLinkedList<Card>();
 		p0_mana_ = 0;
 		p1_mana_ = 0;
 		p0_maxMana_ = 0;
@@ -63,7 +65,7 @@ public class BoardState implements DeepCopyable {
 		p1_hero_ = p1_hero;		
 	}
 	
-	public LinkedList<Minion> getMinions(int playerIndex) throws HSInvalidPlayerIndexException {
+	public MinionList getMinions(int playerIndex) throws HSInvalidPlayerIndexException {
 		if (playerIndex == 0)
 			return p0_minions_;
 		else if (playerIndex == 1)
@@ -72,19 +74,19 @@ public class BoardState implements DeepCopyable {
 			throw new HSInvalidPlayerIndexException();
 	}
 
-	public LinkedList<Minion> getMinions_p0() {
+	public MinionList getMinions_p0() {
 		return p0_minions_;
 	}
 	
-	public LinkedList<Minion> getMinions_p1() {
+	public MinionList getMinions_p1() {
 		return p1_minions_;
 	}
 	
-	public LinkedList<Card> getCards_hand_p0() {
+	public IdentityLinkedList<Card> getCards_hand_p0() {
 		return p0_hand_;
 	}
 
-	public LinkedList<Card> getCards_hand_p1() {
+	public IdentityLinkedList<Card> getCards_hand_p1() {
 		return p1_hand_;
 	}
 	
@@ -113,19 +115,19 @@ public class BoardState implements DeepCopyable {
 		return p1_hand_.get(index);
 	}
 
-	public void setMinions_p0(LinkedList<Minion> minions) {
+	public void setMinions_p0(MinionList minions) {
 		p0_minions_ = minions;
 	}
 	
-	public void setMinions_p1(LinkedList<Minion> minions) {
+	public void setMinions_p1(MinionList minions) {
 		p1_minions_ = minions;
 	}
 	
-	public void setCards_hand_p0(LinkedList<Card> cards) {
+	public void setCards_hand_p0(IdentityLinkedList<Card> cards) {
 		p0_hand_ = cards;
 	}
 	
-	public void setCards_hand_p1(LinkedList<Card> cards) {
+	public void setCards_hand_p1(IdentityLinkedList<Card> cards) {
 		p1_hand_ = cards;
 	}
 
@@ -154,6 +156,23 @@ public class BoardState implements DeepCopyable {
 	}
 	
 	
+	public Minion getCharacter(int playerIndex, int index) throws HSInvalidPlayerIndexException {
+		if (playerIndex == 0)
+			return index == 0 ? p0_hero_ : p0_minions_.get(index - 1);
+		else if (playerIndex == 1)
+			return index == 0 ? p1_hero_ : p1_minions_.get(index - 1);
+		else
+			throw new HSInvalidPlayerIndexException();
+	}
+	
+	public Minion getCharacter_p0(int index) {
+		return index == 0 ? p0_hero_ : p0_minions_.get(index - 1);
+	}
+
+	public Minion getCharacter_p1(int index) {
+		return index == 0 ? p1_hero_ : p1_minions_.get(index - 1);
+	}
+
 	//-----------------------------------------------------------------------------------
 	// Various ways to put a minion onto board
 	//-----------------------------------------------------------------------------------
@@ -220,8 +239,8 @@ public class BoardState implements DeepCopyable {
 		p1_hand_.add(card);
 	}
 	
-	public void removeCard_hand(int index) {
-		p0_hand_.remove(index);
+	public void removeCard_hand(Card card) {
+		p0_hand_.remove(card);
 	}
 	
 	public int getNumMinions_p0() {
@@ -524,6 +543,23 @@ public class BoardState implements DeepCopyable {
 		return minion;
 	}
 	
+	public boolean removeMinion(int playerIndex, Minion minion) throws HSInvalidPlayerIndexException {
+		if (playerIndex == 0)
+			return p0_minions_.remove(minion);
+		else if (playerIndex == 1)
+			return p1_minions_.remove(minion);
+		else
+			throw new HSInvalidPlayerIndexException();
+	}
+
+	public boolean removeMinion_p0(Minion minion) {
+		return p0_minions_.remove(minion);
+	}
+	
+	public boolean removeMinion_p1(Minion minion) {
+		return p1_minions_.remove(minion);
+	}
+
 	public boolean isAlive_p0() {
 		return p0_hero_.getHealth() > 0;
 	}
@@ -541,15 +577,15 @@ public class BoardState implements DeepCopyable {
 		if (!hasTaunt) {
 			toRet.add((Integer)0);
 			int counter = 1;
-			for (final Minion minion : p1_minions_) {
+			for (Iterator<Minion> iter = p1_minions_.positionIterator(); iter.hasNext(); iter.next()) {
 				toRet.add((Integer)counter);
 				counter++;
 			}
 			return toRet;
 		} else {
 			int counter = 1;
-			for (final Minion minion : p1_minions_) {
-				if (minion.getTaunt())
+			for (Iterator<Minion> iter = p1_minions_.positionIterator(); iter.hasNext();) {
+				if ((iter.next()).getTaunt())
 					toRet.add((Integer)counter);
 				counter++;
 			}
@@ -562,13 +598,13 @@ public class BoardState implements DeepCopyable {
 		p1_mana_ = p1_maxMana_;
 	}
 	
-	public void endTurn(Deck deckPlayer0, Deck deckPlayer1) {
-		p0_hero_.endTurn(0, 0, this, deckPlayer0, deckPlayer1);
-		p1_hero_.endTurn(0, 0, this, deckPlayer0, deckPlayer1);
+	public void endTurn(Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
+		p0_hero_.endTurn(0, this, deckPlayer0, deckPlayer1);
+		p1_hero_.endTurn(1, this, deckPlayer0, deckPlayer1);
 		for (int index = 0; index < p0_minions_.size(); ++index) {
 			Minion targetMinion = p0_minions_.get(index);
 			try {
-				targetMinion.endTurn(0, index + 1, this, deckPlayer0, deckPlayer1);
+				targetMinion.endTurn(0, this, deckPlayer0, deckPlayer1);
 			} catch (HSInvalidPlayerIndexException e) {
 				e.printStackTrace();
 			}
@@ -576,7 +612,7 @@ public class BoardState implements DeepCopyable {
 		for (int index = 0; index < p1_minions_.size(); ++index) {
 			Minion targetMinion = p1_minions_.get(index);
 			try {
-				targetMinion.endTurn(1, index + 1, this, deckPlayer0, deckPlayer1);
+				targetMinion.endTurn(1, this, deckPlayer0, deckPlayer1);
 			} catch (HSInvalidPlayerIndexException e) {
 				e.printStackTrace();
 			}
@@ -601,18 +637,16 @@ public class BoardState implements DeepCopyable {
 		this.resetHand();
 		this.resetMinions();
 
-		for (int index = 0; index < p0_minions_.size(); ++index) {
-			Minion targetMinion = p0_minions_.get(index);
+		for (Minion targetMinion : p0_minions_) {
 			try {
-				targetMinion.startTurn(0, index + 1, this, deckPlayer0, deckPlayer1);
+				targetMinion.startTurn(0, this, deckPlayer0, deckPlayer1);
 			} catch (HSInvalidPlayerIndexException e) {
 				e.printStackTrace();
 			}
 		}
-		for (int index = 0; index < p1_minions_.size(); ++index) {
-			Minion targetMinion = p1_minions_.get(index);
+		for (Minion targetMinion : p1_minions_) {
 			try {
-				targetMinion.startTurn(1, index + 1, this, deckPlayer0, deckPlayer1);
+				targetMinion.startTurn(1, this, deckPlayer0, deckPlayer1);
 			} catch (HSInvalidPlayerIndexException e) {
 				e.printStackTrace();
 			}
@@ -620,15 +654,19 @@ public class BoardState implements DeepCopyable {
 		Iterator<Minion> iter = p0_minions_.iterator();
 		while (iter.hasNext()) {
 			Minion targetMinion = iter.next();
-			if (targetMinion.getHealth() <= 0)
+			if (targetMinion.getHealth() <= 0) {
 				iter.remove();
+				p0_minions_.remove(targetMinion);
+			}
 		}
 
 		iter = p1_minions_.iterator();
 		while (iter.hasNext()) {
 			Minion targetMinion = iter.next();
-			if (targetMinion.getHealth() <= 0)
+			if (targetMinion.getHealth() <= 0) {
 				iter.remove();
+				p1_minions_.remove(targetMinion);
+			}
 		}
 	}
 	
@@ -792,8 +830,8 @@ public class BoardState implements DeepCopyable {
 	
 	public BoardState flipPlayers() { 
 		BoardState newState = (BoardState)this.deepCopy();
-		LinkedList<Minion> p0_minions = newState.getMinions_p0();
-		LinkedList<Minion> p1_minions = newState.getMinions_p1();
+		MinionList p0_minions = newState.getMinions_p0();
+		MinionList p1_minions = newState.getMinions_p1();
 		int p0_mana = newState.getMana_p0();
 		int p1_mana = newState.getMana_p1();
 		int p0_maxMana = newState.getMaxMana_p0();
@@ -820,16 +858,16 @@ public class BoardState implements DeepCopyable {
 	
 	public Object deepCopy() {
 		BoardState newBoard = new BoardState();
-		for (final Minion card: p0_minions_) {
-			Minion tc = (Minion)card.deepCopy();
+		for (Iterator<Minion> iter = p0_minions_.positionIterator(); iter.hasNext();) {
+			Minion tc = (Minion)(iter.next()).deepCopy();
 			try {
 				newBoard.placeMinion(0, tc);
 			} catch (HSInvalidPlayerIndexException e) {
 				
 			}
 		}
-		for (final Minion card: p1_minions_) {
-			Minion tc = (Minion)card.deepCopy();
+		for (Iterator<Minion> iter = p1_minions_.positionIterator(); iter.hasNext();) {
+			Minion tc = (Minion)(iter.next()).deepCopy();
 			try {
 				newBoard.placeMinion(1, tc);
 			} catch (HSInvalidPlayerIndexException e) {

@@ -59,17 +59,17 @@ public class TestShatteredSunCleric {
 		
 		HearthTreeNode tmpBoard = new HearthTreeNode(board.data_.flipPlayers());
 		try {
-			tmpBoard.data_.getCard_hand_p0(0).useOn(0, 0, 1, tmpBoard, deck, null);
-			tmpBoard.data_.getCard_hand_p0(0).useOn(0, 0, 1, tmpBoard, deck, null);
-			tmpBoard.data_.getCard_hand_p0(0).useOn(0, 0, 1, tmpBoard, deck, null);
+			tmpBoard.data_.getCard_hand_p0(0).useOn(0, tmpBoard.data_.getHero_p0(), tmpBoard, deck, null);
+			tmpBoard.data_.getCard_hand_p0(0).useOn(0, tmpBoard.data_.getHero_p0(), tmpBoard, deck, null);
+			tmpBoard.data_.getCard_hand_p0(0).useOn(0, tmpBoard.data_.getHero_p0(), tmpBoard, deck, null);
 		} catch (HSInvalidPlayerIndexException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		board = new HearthTreeNode(tmpBoard.data_.flipPlayers());
 		try {
-			board.data_.getCard_hand_p0(0).useOn(0, 0, 1, board, deck, null);
-			board.data_.getCard_hand_p0(0).useOn(0, 0, 1, board, deck, null);
+			board.data_.getCard_hand_p0(0).useOn(0, board.data_.getHero_p0(), board, deck, null);
+			board.data_.getCard_hand_p0(0).useOn(0, board.data_.getHero_p0(), board, deck, null);
 		} catch (HSInvalidPlayerIndexException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -85,8 +85,9 @@ public class TestShatteredSunCleric {
 	public void test0() throws HSInvalidPlayerIndexException {
 		
 		//null case
+		Minion target = board.data_.getCharacter(1, 0);
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 1, 0, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(1, target, board, deck, null);
 		
 		assertTrue(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 1);
@@ -111,41 +112,13 @@ public class TestShatteredSunCleric {
 		assertTrue(board.data_.getMinion_p1(0).getDivineShield());
 	}
 	
-	@Test
-	public void test1() throws HSInvalidPlayerIndexException {
-		
-		//null case
-		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 0, 0, board, deck, null);
-		
-		assertTrue(ret == null);
-		assertEquals(board.data_.getNumCards_hand(), 1);
-		assertEquals(board.data_.getNumMinions_p0(), 2);
-		assertEquals(board.data_.getNumMinions_p1(), 3);
-		assertEquals(board.data_.getMana_p0(), 8);
-		assertEquals(board.data_.getMana_p1(), 8);
-		assertEquals(board.data_.getHero_p0().getHealth(), 30);
-		assertEquals(board.data_.getHero_p1().getHealth(), 30);
-		assertEquals(board.data_.getMinion_p0(0).getHealth(), 2);
-		assertEquals(board.data_.getMinion_p0(1).getHealth(), 7);
-		assertEquals(board.data_.getMinion_p1(0).getHealth(), 1);
-		assertEquals(board.data_.getMinion_p1(1).getHealth(), 2);
-		assertEquals(board.data_.getMinion_p1(2).getHealth(), 7);
-
-		assertEquals(board.data_.getMinion_p0(0).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p0(1).getAttack(), 7);
-		assertEquals(board.data_.getMinion_p1(0).getAttack(), 4);
-		assertEquals(board.data_.getMinion_p1(1).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p1(2).getAttack(), 7);
-		
-		assertTrue(board.data_.getMinion_p1(0).getDivineShield());
-	}
 	
 	@Test
 	public void test2() throws HSInvalidPlayerIndexException {
 		
+		Minion target = board.data_.getCharacter(0, 2);
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 0, 3, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(0, target, board, deck, null);
 		
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 0);

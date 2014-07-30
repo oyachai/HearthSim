@@ -61,8 +61,9 @@ public class TestRockbiterWeapon {
 	@Test
 	public void test0() throws HSInvalidPlayerIndexException {
 		
+		Minion target = board.data_.getCharacter(0, 0);
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 0, 0, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(0, target, board, deck, null);
 		
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 0);
@@ -78,7 +79,8 @@ public class TestRockbiterWeapon {
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), health0);
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), health1 - 1);
 		
-		ret = board.data_.getHero_p0().attack(0, 1, 2, board, deck, null);
+		target = board.data_.getCharacter(1, 2);
+		ret = board.data_.getHero_p0().attack(1, target, board, deck, null);
 
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 0);
@@ -99,8 +101,9 @@ public class TestRockbiterWeapon {
 	@Test
 	public void test1() throws HSInvalidPlayerIndexException {
 		
+		Minion target = board.data_.getCharacter(0, 1);
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 0, 1, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(0, target, board, deck, null);
 		
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 0);
@@ -119,7 +122,8 @@ public class TestRockbiterWeapon {
 		assertEquals(board.data_.getMinion_p0(0).getExtraAttackUntilTurnEnd(), 3);
 
 		
-		ret = board.data_.getMinion_p0(0).attack(1, 1, 2, board, deck, null);
+		target = board.data_.getCharacter(1, 2);
+		ret = board.data_.getMinion_p0(0).attack(1, target, board, deck, null);
 
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 0);

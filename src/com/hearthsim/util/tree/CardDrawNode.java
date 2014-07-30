@@ -15,8 +15,8 @@ public class CardDrawNode extends StopNode {
 	
 	int numCardsToDraw_;
 	
-	public CardDrawNode(HearthTreeNode origNode, int numCardsToDraw, Card cardUsed, int usedCardPlayerIndex, int usedCardIndex, int targetPlayerIndex, int targetMinionIndex) {
-		super(origNode, cardUsed, usedCardPlayerIndex, usedCardIndex, targetPlayerIndex, targetMinionIndex);
+	public CardDrawNode(HearthTreeNode origNode, int numCardsToDraw) {
+		super(origNode);
 		numCardsToDraw_ = numCardsToDraw;
 	}
 

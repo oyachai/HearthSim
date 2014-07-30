@@ -57,16 +57,16 @@ public class TestShadowWordPain {
 		
 		HearthTreeNode tmpBoard = new HearthTreeNode(board.data_.flipPlayers());
 		try {
-			tmpBoard.data_.getCard_hand_p0(0).useOn(0, 0, 1, tmpBoard, deck, null);
-			tmpBoard.data_.getCard_hand_p0(0).useOn(0, 0, 1, tmpBoard, deck, null);
+			tmpBoard.data_.getCard_hand_p0(0).useOn(0, tmpBoard.data_.getHero_p0(), tmpBoard, deck, null);
+			tmpBoard.data_.getCard_hand_p0(0).useOn(0, tmpBoard.data_.getHero_p0(), tmpBoard, deck, null);
 		} catch (HSInvalidPlayerIndexException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		board = new HearthTreeNode(tmpBoard.data_.flipPlayers());
 		try {
-			board.data_.getCard_hand_p0(0).useOn(0, 0, 1, board, deck, null);
-			board.data_.getCard_hand_p0(0).useOn(0, 0, 1, board, deck, null);
+			board.data_.getCard_hand_p0(0).useOn(0, board.data_.getHero_p0(), board, deck, null);
+			board.data_.getCard_hand_p0(0).useOn(0, board.data_.getHero_p0(), board, deck, null);
 		} catch (HSInvalidPlayerIndexException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -79,8 +79,9 @@ public class TestShadowWordPain {
 	@Test
 	public void test0() throws HSInvalidPlayerIndexException {
 		
+		Minion target = board.data_.getCharacter(1, 0);
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 1, 0, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(1, target, board, deck, null);
 		
 		assertTrue(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 1);
@@ -104,8 +105,9 @@ public class TestShadowWordPain {
 	@Test
 	public void test1() throws HSInvalidPlayerIndexException {
 		
+		Minion target = board.data_.getCharacter(1, 2);
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 1, 2, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(1, target, board, deck, null);
 		
 		assertTrue(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 1);
@@ -129,8 +131,9 @@ public class TestShadowWordPain {
 	@Test
 	public void test2() throws HSInvalidPlayerIndexException {
 		
+		Minion target = board.data_.getCharacter(1, 1);
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 1, 1, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(1, target, board, deck, null);
 		
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 0);

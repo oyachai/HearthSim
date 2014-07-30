@@ -127,30 +127,26 @@ public class WaterElemental extends Minion {
 	 * 
 	 * Any minion attacked by this minion is frozen.
 	 * 
-	 * @param thisMinionIndex Attacking minion's index (note: attacking player index is assumed to be 0)
-	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
-	 * @param minionIndex The index of the target minion.
+	 * @param targetMinionPlayerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
+	 * @param targetMinion The target minion
 	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+	 * @param deckPlayer0 The deck of player0
+	 * @param deckPlayer0 The deck of player1
 	 * 
 	 * @return The boardState is manipulated and returned
 	 */
-	@Override
 	protected HearthTreeNode attack_core(
-			int thisMinionIndex,
-			int playerIndex,
-			int minionIndex,
+			int targetMinionPlayerIndex,
+			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
-		if (!silenced_) {
-			if (minionIndex == 0)
-				boardState.data_.getHero_p1().setFrozen(true);
-			else
-				boardState.data_.getMinion(playerIndex, minionIndex - 1).setFrozen(true);
+		HearthTreeNode toRet = super.attack_core(targetMinionPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
+		if (!silenced_ && toRet != null) {
+			targetMinion.setFrozen(true);
 		}
-		HearthTreeNode toRet = super.attack_core(thisMinionIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
 		return toRet;
 	}
 }

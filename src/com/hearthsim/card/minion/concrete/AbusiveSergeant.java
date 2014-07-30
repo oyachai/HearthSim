@@ -137,27 +137,26 @@ public class AbusiveSergeant extends Minion {
 
 	@Override
 	public HearthTreeNode useOn(
-			int thisCardIndex,
-			int playerIndex,
-			int minionIndex,
+			int targetPlayerIndex,
+			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
 		//A generic card does nothing except for consuming mana
-		HearthTreeNode toRet = super.useOn(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
+		HearthTreeNode toRet = super.useOn(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
 		
 		if (toRet != null) {
 			for (int index = 0; index < boardState.data_.getNumMinions_p0(); ++index) {
-				if (index != minionIndex - 1) {
+				if (index != toRet.data_.getMinions_p0().indexOf(this)) {
 					HearthTreeNode newState = boardState.addChild(new HearthTreeNode((BoardState)boardState.data_.deepCopy()));
 					newState.data_.getMinion_p0(index).setExtraAttackUntilTurnEnd(((byte)(newState.data_.getMinion_p0(index).getExtraAttackUntilTurnEnd() + 2)));
 				}
 			}
 			
 			for (int index = 0; index < boardState.data_.getNumMinions_p1(); ++index) {
-				if (index != minionIndex - 1) {
+				if (index != toRet.data_.getMinions_p1().indexOf(this)) {
 					HearthTreeNode newState = boardState.addChild(new HearthTreeNode((BoardState)boardState.data_.deepCopy()));
 					newState.data_.getMinion_p1(index).setExtraAttackUntilTurnEnd(((byte)(newState.data_.getMinion_p1(index).getExtraAttackUntilTurnEnd() + 2)));
 				}

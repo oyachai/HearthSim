@@ -1,6 +1,7 @@
 package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.Deck;
+import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.Sheep;
 import com.hearthsim.card.spellcard.SpellCard;
@@ -36,7 +37,7 @@ public class Polymorph extends SpellCard {
 	 * 
 	 * Use the card on the given target
 	 * 
-	 * Transform a minion into 0/1 frog with Taunt
+	 * Transform a minion into 1/1 sheep
 	 * 
 	 * @param thisCardIndex The index (position) of the card in the hand
 	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
@@ -47,29 +48,32 @@ public class Polymorph extends SpellCard {
 	 */
 	@Override
 	protected HearthTreeNode use_core(
-			int thisCardIndex,
-			int playerIndex,
-			int minionIndex,
+			int targetPlayerIndex,
+			Minion targetMinion,
 			HearthTreeNode boardState,
-			Deck deckPlayer0, Deck deckPlayer1)
+			Deck deckPlayer0,
+			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
-		if (minionIndex == 0) {
+		if (targetMinion instanceof Hero) {
 			return null;
 		}
 		
-		Minion sheep = new Sheep();
-		if (playerIndex == 0) {
-			boardState.data_.placeMinion(0, sheep, minionIndex);
-			boardState.data_.removeMinion_p0(minionIndex - 1);
-		} else if (playerIndex == 1) {
-			boardState.data_.placeMinion(0, sheep, minionIndex);
-			boardState.data_.removeMinion_p1(minionIndex - 1);			
-		} else {
-			throw new HSInvalidPlayerIndexException();
+		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
+		if (toRet != null) {
+			Sheep sheep = new Sheep();
+			if (targetPlayerIndex == 0) {
+				boardState.data_.placeMinion(0, sheep, toRet.data_.getMinions_p0().indexOf(targetMinion));
+				boardState.data_.removeMinion_p0(targetMinion);
+			} else if (targetPlayerIndex == 1) {
+				boardState.data_.placeMinion(1, sheep, toRet.data_.getMinions_p1().indexOf(targetMinion));
+				boardState.data_.removeMinion_p1(targetMinion);
+			} else {
+				throw new HSInvalidPlayerIndexException();
+			}
 		}
 
-		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
+		return toRet;
 	}
 
 }

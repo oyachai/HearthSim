@@ -65,9 +65,8 @@ public class Paladin extends Hero {
 	 */
 	@Override
 	public HearthTreeNode useHeroAbility_core(
-			int thisPlayerIndex,
 			int targetPlayerIndex,
-			int targetMinionIndex,
+			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
@@ -78,12 +77,13 @@ public class Paladin extends Hero {
 
 		HearthTreeNode toRet = boardState;
 
-		if (targetMinionIndex == 0 && targetPlayerIndex == 0) {
-			Minion theRecruit = new SilverHandRecruit();
-			toRet.data_.placeCard_hand(thisPlayerIndex, theRecruit);
+		if ((targetMinion instanceof Hero) && targetPlayerIndex == 0) {
 			//HORRID HACK
+			Minion theRecruit = new SilverHandRecruit();
+			toRet.data_.placeCard_hand(targetPlayerIndex, theRecruit);
 			toRet.data_.setMana_p0(toRet.data_.getMana_p0() + 1);
-			toRet = theRecruit.useOn(toRet.data_.getNumCards_hand_p0() - 1, 0, toRet.data_.getNumMinions_p0() + 1, toRet, deckPlayer0, deckPlayer1);
+			Minion targetLocation = toRet.data_.getCharacter(0, toRet.data_.getNumMinions_p0());
+			toRet = theRecruit.useOn(targetPlayerIndex, targetLocation, toRet, deckPlayer0, deckPlayer1);
 		} else {
 			return null;
 		}

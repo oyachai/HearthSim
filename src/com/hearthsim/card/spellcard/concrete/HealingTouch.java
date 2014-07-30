@@ -1,6 +1,7 @@
 package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.Deck;
+import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -47,18 +48,16 @@ public class HealingTouch extends SpellCard {
 	 */
 	@Override
 	protected HearthTreeNode use_core(
-			int thisCardIndex,
-			int playerIndex,
-			int minionIndex,
+			int targetPlayerIndex,
+			Minion targetMinion,
 			HearthTreeNode boardState,
-			Deck deckPlayer0, Deck deckPlayer1)
+			Deck deckPlayer0,
+			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
-		HearthTreeNode toRet = super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
-		if (minionIndex == 0)
-			toRet = toRet.data_.getHero(playerIndex).takeHeal(HEAL_AMOUNT, playerIndex, minionIndex, toRet, deckPlayer0, deckPlayer1);
-		else
-			toRet = toRet.data_.getMinion(playerIndex, minionIndex - 1).takeHeal(HEAL_AMOUNT, playerIndex, minionIndex, toRet, deckPlayer0, deckPlayer1);
+		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
+		if (toRet != null)
+			toRet = targetMinion.takeHeal(HEAL_AMOUNT, targetPlayerIndex, toRet, deckPlayer0, deckPlayer1);
 		return toRet;
 	}
 }

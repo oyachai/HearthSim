@@ -55,37 +55,34 @@ public class Mage extends Hero {
 	 * 
 	 * Mage: deals 1 damage
 	 * 
-	 * @param thisPlayerIndex The player index of the hero
 	 * @param targetPlayerIndex The player index of the target character
-	 * @param targetMinionIndex The minion index of the target character
+	 * @param targetMinion The target minion
 	 * @param boardState
-	 * @param deck
+	 * @param deckPlayer0
+	 * @param deckPlayer1
+	 * 
 	 * @return
 	 */
 	@Override
 	public HearthTreeNode useHeroAbility_core(
-			int thisPlayerIndex,
 			int targetPlayerIndex,
-			int targetMinionIndex,
+			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
 		throws HSException
 	{
 		HearthTreeNode toRet = boardState;
-		if (targetMinionIndex == 0) {
-			if (targetPlayerIndex == 0) {
-				//There's never a case where using it on yourself is a good idea
-				return null;
-			}
-			Minion target = toRet.data_.getHero(targetPlayerIndex);
-			toRet = target.takeDamage((byte)1, thisPlayerIndex, targetPlayerIndex, targetMinionIndex, toRet, deckPlayer0, deckPlayer1);
-		} else {
-			Minion target = toRet.data_.getMinion(targetPlayerIndex, targetMinionIndex - 1);
-			toRet = target.takeDamage((byte)1, thisPlayerIndex, targetPlayerIndex, targetMinionIndex, toRet, deckPlayer0, deckPlayer1);
-			if (target.getHealth() <= 0) 
-				toRet.data_.removeMinion(targetPlayerIndex, targetMinionIndex - 1);
+		if (targetPlayerIndex == 0 && (targetMinion instanceof Hero)) {
+			//There's never a case where using it on yourself is a good idea
+			return null;
 		}
+		toRet = targetMinion.takeDamage((byte)1, 0, targetPlayerIndex, toRet, deckPlayer0, deckPlayer1);
+		if (targetMinion.getHealth() <= 0) {
+			toRet = targetMinion.destroyed(targetPlayerIndex, toRet, deckPlayer0, deckPlayer1);
+			toRet.data_.removeMinion(targetPlayerIndex, targetMinion);
+		}
+		
 		return toRet;
 	}
 

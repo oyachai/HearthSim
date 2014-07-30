@@ -8,6 +8,8 @@ import java.io.Writer;
 import java.nio.file.Path;
 import java.util.LinkedList;
 
+import sun.awt.util.IdentityLinkedList;
+
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellDamage;
@@ -216,9 +218,9 @@ public class ArtificialPlayer {
 	 */
 	public double boardScore(BoardState board) {
 				
-		LinkedList<Minion> myBoardCards;
-		LinkedList<Minion> opBoardCards;
-		LinkedList<Card> myHandCards;
+		IdentityLinkedList<Minion> myBoardCards;
+		IdentityLinkedList<Minion> opBoardCards;
+		IdentityLinkedList<Card> myHandCards;
 		myBoardCards = board.getMinions_p0();
 		opBoardCards = board.getMinions_p1();
 		myHandCards = board.getCards_hand_p0();
@@ -281,7 +283,7 @@ public class ArtificialPlayer {
 	public BoardState playTurn(int turn, BoardState board, Player player0, Player player1) throws HSException {
 		//The goal of this ai is to maximize his board score
 		HearthTreeNode toRet = new HearthTreeNode(board);
-		BoardStateFactory factory = new BoardStateFactory(player0.getDeck(), player1.getDeck(), 2000000000);
+		BoardStateFactory factory = new BoardStateFactory(player0.getDeck(), player1.getDeck(), 40000);
 		HearthTreeNode allMoves = factory.doMoves(toRet, this);
 
 		System.out.print("turn = " + turn + ", p = " + player0.getName() + ", nHand = " + board.getNumCards_hand() + ", nMinion = " + board.getNumMinions_p0() + ", nEnemyMinion = " + board.getNumMinions_p1());

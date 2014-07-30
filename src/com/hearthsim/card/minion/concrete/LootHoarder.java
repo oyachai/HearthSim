@@ -132,15 +132,15 @@ public class LootHoarder extends Minion {
 	 * @param deck
 	 * @throws HSInvalidPlayerIndexException
 	 */
-	public HearthTreeNode destroyed(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
+	public HearthTreeNode destroyed(int thisPlayerIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
 		
-		HearthTreeNode toRet = super.destroyed(thisPlayerIndex, thisMinionIndex, boardState, deckPlayer0, deckPlayer1);
+		HearthTreeNode toRet = super.destroyed(thisPlayerIndex, boardState, deckPlayer0, deckPlayer1);
 		if (!silenced_) {
 			if (thisPlayerIndex == 0) {
 				if (toRet instanceof CardDrawNode) {
 					((CardDrawNode) toRet).addNumCardsToDraw(1);
 				} else {
-					toRet = new CardDrawNode(toRet, 1, this, 0, thisMinionIndex, thisPlayerIndex, thisMinionIndex); //draw one card
+					toRet = new CardDrawNode(toRet, 1); //draw one card
 				}
 			} else {
 				//This minion is an enemy minion.  Let's draw a card for the enemy.  No need to use a StopNode for enemy card draws.

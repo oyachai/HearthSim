@@ -53,16 +53,16 @@ public class TestRaidLeader {
 		
 		HearthTreeNode tmpBoard = new HearthTreeNode(board.data_.flipPlayers());
 		try {
-			tmpBoard.data_.getCard_hand_p0(0).useOn(0, 0, 1, tmpBoard, deck, null);
-			tmpBoard.data_.getCard_hand_p0(0).useOn(0, 0, 1, tmpBoard, deck, null);
+			tmpBoard.data_.getCard_hand_p0(0).useOn(0, tmpBoard.data_.getHero_p0(), tmpBoard, deck, null);
+			tmpBoard.data_.getCard_hand_p0(0).useOn(0, tmpBoard.data_.getHero_p0(), tmpBoard, deck, null);
 		} catch (HSInvalidPlayerIndexException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		board = new HearthTreeNode(tmpBoard.data_.flipPlayers());
 		try {
-			board.data_.getCard_hand_p0(0).useOn(0, 0, 1, board, deck, null);
-			board.data_.getCard_hand_p0(0).useOn(0, 0, 1, board, deck, null);
+			board.data_.getCard_hand_p0(0).useOn(0, board.data_.getHero_p0(), board, deck, null);
+			board.data_.getCard_hand_p0(0).useOn(0, board.data_.getHero_p0(), board, deck, null);
 		} catch (HSInvalidPlayerIndexException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -76,32 +76,11 @@ public class TestRaidLeader {
 	}
 	
 	@Test
-	public void test0() throws HSInvalidPlayerIndexException {
-
-		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 0, 0, board, deck, null);
-		assertTrue(ret == null);
-		assertTrue(board.data_.getNumCards_hand() == 1);
-		assertTrue(board.data_.getNumMinions_p0() == 2);
-		assertTrue(board.data_.getNumMinions_p1() == 2);
-		assertTrue(board.data_.getHero_p0().getHealth() == 30);
-		assertTrue(board.data_.getHero_p1().getHealth() == 30);
-		assertTrue(board.data_.getMinion_p0(0).getHealth() == 2);
-		assertTrue(board.data_.getMinion_p0(1).getHealth() == 2);
-		assertTrue(board.data_.getMinion_p1(0).getHealth() == 2);
-		assertTrue(board.data_.getMinion_p1(1).getHealth() == 2);
-		
-		assertTrue(board.data_.getMinion_p0(0).getAttack() == 2);
-		assertTrue(board.data_.getMinion_p0(1).getAttack() == 4);
-		assertTrue(board.data_.getMinion_p1(0).getAttack() == 2);
-		assertTrue(board.data_.getMinion_p1(1).getAttack() == 4);
-	}
-	
-	@Test
 	public void test1() throws HSInvalidPlayerIndexException {
 
+		Minion target = board.data_.getCharacter(0, 0);
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 0, 1, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(0, target, board, deck, null);
 		assertFalse(ret == null);
 		assertTrue(board.data_.getNumCards_hand() == 0);
 		assertTrue(board.data_.getNumMinions_p0() == 3);
@@ -124,8 +103,9 @@ public class TestRaidLeader {
 	@Test
 	public void test2() throws HSInvalidPlayerIndexException {
 
+		Minion target = board.data_.getCharacter(0, 0);
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 0, 1, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(0, target, board, deck, null);
 		assertFalse(ret == null);
 		assertTrue(board.data_.getNumCards_hand() == 0);
 		assertTrue(board.data_.getNumMinions_p0() == 3);
@@ -148,7 +128,8 @@ public class TestRaidLeader {
 		
 		board.data_.placeCard_hand_p0(new HolySmite());
 		theCard = board.data_.getCard_hand_p0(0);
-		ret = theCard.useOn(0, 1, 1, board, deck, null);
+		target = board.data_.getCharacter(1, 1);
+		ret = theCard.useOn(1, target, board, deck, null);
 		
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 0);
@@ -171,8 +152,9 @@ public class TestRaidLeader {
 	@Test
 	public void test3() throws HSInvalidPlayerIndexException {
 
+		Minion target = board.data_.getCharacter(0, 0);
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 0, 1, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(0, target, board, deck, null);
 		assertFalse(ret == null);
 		assertTrue(board.data_.getNumCards_hand() == 0);
 		assertTrue(board.data_.getNumMinions_p0() == 3);
@@ -195,7 +177,8 @@ public class TestRaidLeader {
 		
 		board.data_.placeCard_hand_p0(new Silence());
 		theCard = board.data_.getCard_hand_p0(0);
-		ret = theCard.useOn(0, 1, 1, board, deck, null);
+		target = board.data_.getCharacter(1, 1);
+		ret = theCard.useOn(1, target, board, deck, null);
 		
 		assertFalse(ret == null);
 		assertTrue(board.data_.getNumCards_hand() == 0);
@@ -217,7 +200,8 @@ public class TestRaidLeader {
 		
 		board.data_.placeCard_hand_p0(new Silence());
 		theCard = board.data_.getCard_hand_p0(0);
-		ret = theCard.useOn(0, 0, 1, board, deck, null);
+		target = board.data_.getCharacter(0, 1);
+		ret = theCard.useOn(0, target, board, deck, null);
 		
 		assertFalse(ret == null);
 		assertTrue(board.data_.getNumCards_hand() == 0);
@@ -239,7 +223,8 @@ public class TestRaidLeader {
 		
 		board.data_.placeCard_hand_p0(new BloodfenRaptor());
 		theCard = board.data_.getCard_hand_p0(0);
-		ret = theCard.useOn(0, 0, 4, board, deck, null);
+		target = board.data_.getCharacter(0, 3);
+		ret = theCard.useOn(0, target, board, deck, null);
 		
 		assertFalse(ret == null);
 		assertTrue(board.data_.getNumCards_hand() == 0);
@@ -256,8 +241,8 @@ public class TestRaidLeader {
 		
 		assertTrue(board.data_.getMinion_p0(0).getAttack() == 3);
 		assertTrue(board.data_.getMinion_p0(1).getAttack() == 2);
-		assertTrue(board.data_.getMinion_p0(2).getAttack() == 4);
-		assertTrue(board.data_.getMinion_p0(3).getAttack() == 4);
+		assertEquals(board.data_.getMinion_p0(2).getAttack(), 4);
+		assertEquals(board.data_.getMinion_p0(3).getAttack(), 4);
 		assertTrue(board.data_.getMinion_p1(0).getAttack() == 2);
 		assertTrue(board.data_.getMinion_p1(1).getAttack() == 3);
 	}

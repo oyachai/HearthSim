@@ -39,16 +39,6 @@ public class TestEvents {
 	
 	@Test
 	public void test0() {
-
-		Minion minion = board.data_.getMinion_p0(0);
-		HearthTreeNode ret;
-		try {
-			ret = minion.attack(0, 1, 1, board, null, null);
-			assertFalse("test0_0", ret == null);
-		} catch (HSInvalidPlayerIndexException e) {
-			e.printStackTrace();
-			assertTrue(false);
-		}
 		
 
 	}

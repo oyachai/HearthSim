@@ -1,6 +1,7 @@
 package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.Deck;
+import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.Huffer;
 import com.hearthsim.card.minion.concrete.Leokk;
@@ -50,14 +51,14 @@ public class AnimalCompanion extends SpellCard {
 	 */
 	@Override
 	protected HearthTreeNode use_core(
-			int thisCardIndex,
-			int playerIndex,
-			int minionIndex,
+			int targetPlayerIndex,
+			Minion targetMinion,
 			HearthTreeNode boardState,
-			Deck deckPlayer0, Deck deckPlayer1)
+			Deck deckPlayer0,
+			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
-		if (minionIndex > 0 || playerIndex == 1) {
+		if (!(targetMinion instanceof Hero) || targetPlayerIndex == 1) {
 			return null;
 		}
 		
@@ -76,9 +77,10 @@ public class AnimalCompanion extends SpellCard {
 		}
 		boardState.data_.setMana_p0(boardState.data_.getMana_p0() + 3);
 		boardState.data_.placeCard_hand_p0(minion);
-		HearthTreeNode toRet = minion.useOn(boardState.data_.getNumCards_hand() - 1, playerIndex, numMinions + 1, boardState, deckPlayer0, deckPlayer1);
-		
-		return super.use_core(thisCardIndex, playerIndex, minionIndex, toRet, deckPlayer0, deckPlayer1);
+		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
+		if (toRet != null) 
+			toRet = minion.useOn(targetPlayerIndex, boardState.data_.getMinion_p0(numMinions - 1), toRet, deckPlayer0, deckPlayer1);
+		return toRet;
 	}
 
 }

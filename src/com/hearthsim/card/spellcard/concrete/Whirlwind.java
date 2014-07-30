@@ -3,6 +3,7 @@ package com.hearthsim.card.spellcard.concrete;
 import java.util.Iterator;
 
 import com.hearthsim.card.Deck;
+import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
@@ -50,44 +51,28 @@ public class Whirlwind extends SpellCard {
 	 */
 	@Override
 	protected HearthTreeNode use_core(
-			int thisCardIndex,
-			int playerIndex,
-			int minionIndex,
+			int targetPlayerIndex,
+			Minion targetMinion,
 			HearthTreeNode boardState,
-			Deck deckPlayer0, Deck deckPlayer1)
+			Deck deckPlayer0,
+			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
-		if (playerIndex == 0 || minionIndex > 0) 
+		if (targetPlayerIndex == 0 || !(targetMinion instanceof Hero)) 
 			return null;
 		
-		HearthTreeNode toRet = boardState;
+		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
 		
-		for (int indx = 0; indx < toRet.data_.getNumMinions_p1(); ++indx) {
-			Minion targetMinion = toRet.data_.getMinion_p1(indx);
-			toRet = targetMinion.takeDamage(DAMAGE_AMOUNT, 0, 1, indx + 1, toRet, deckPlayer0, deckPlayer1, true);
-		}
-
-		for (int indx = 0; indx < toRet.data_.getNumMinions_p0(); ++indx) {
-			Minion targetMinion = toRet.data_.getMinion_p0(indx);
-			toRet = targetMinion.takeDamage(DAMAGE_AMOUNT, 0, 0, indx + 1, toRet, deckPlayer0, deckPlayer1, true);
-		}
-		
-		Iterator<Minion> iter = toRet.data_.getMinions_p0().iterator();
-		while (iter.hasNext()) {
-			Minion targetMinion = iter.next();
-			if (targetMinion.getHealth() <= 0) {
-				iter.remove();
+		if (toRet != null) {
+			for (Minion minion : toRet.data_.getMinions_p1()) {
+				toRet = minion.takeDamage(DAMAGE_AMOUNT, 0, 1, toRet, deckPlayer0, deckPlayer1, true);
+			}
+	
+			for (Minion minion : toRet.data_.getMinions_p0()) {
+				toRet = minion.takeDamage(DAMAGE_AMOUNT, 0, 0, toRet, deckPlayer0, deckPlayer1, true);
 			}
 		}
 
-		iter = toRet.data_.getMinions_p1().iterator();
-		while (iter.hasNext()) {
-			Minion targetMinion = iter.next();
-			if (targetMinion.getHealth() <= 0) {
-				iter.remove();
-			}
-		}
-
-		return super.use_core(thisCardIndex, playerIndex, minionIndex, toRet, deckPlayer0, deckPlayer1);
+		return toRet;
 	}
 }

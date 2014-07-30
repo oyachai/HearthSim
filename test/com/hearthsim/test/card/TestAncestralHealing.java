@@ -41,7 +41,8 @@ public class TestAncestralHealing {
 		HearthTreeNode res;
 		
 		try {
-			res = theCard.useOn(0, 0, 0, board, null, null);
+			Minion target = board.data_.getCharacter(0, 0);
+			res = theCard.useOn(0, target, board, null, null);
 			assertTrue(res == null);
 		} catch (HSInvalidPlayerIndexException e) {
 			e.printStackTrace();
@@ -49,7 +50,8 @@ public class TestAncestralHealing {
 		}
 		
 		try {
-			res = theCard.useOn(0, 1, 0, board, null, null);
+			Minion target = board.data_.getCharacter(1, 0);
+			res = theCard.useOn(1, target, board, null, null);
 			assertTrue(res == null);
 		} catch (HSInvalidPlayerIndexException e) {
 			e.printStackTrace();
@@ -65,7 +67,8 @@ public class TestAncestralHealing {
 		HearthTreeNode res;
 		
 		try {
-			res = theCard.useOn(0, 0, 1, board, null, null);
+			Minion target = board.data_.getCharacter(0, 1);			
+			res = theCard.useOn(0, target, board, null, null);
 			assertFalse(res == null);
 			assertTrue(res.data_.getMana_p0() == 2);
 			assertTrue(res.data_.getNumCards_hand() == 0);
@@ -86,7 +89,8 @@ public class TestAncestralHealing {
 		HearthTreeNode res;
 		
 		try {
-			res = theCard.useOn(0, 0, 1, board, null, null);
+			Minion target = board.data_.getCharacter(0, 1);			
+			res = theCard.useOn(0, target, board, null, null);
 			assertFalse(res == null);
 			assertTrue(res.data_.getMana_p0() == 2);
 			assertTrue(res.data_.getNumCards_hand() == 0);
@@ -107,7 +111,8 @@ public class TestAncestralHealing {
 		HearthTreeNode res;
 		
 		try {
-			res = theCard.useOn(0, 1, 1, board, null, null);
+			Minion target = board.data_.getCharacter(1, 1);
+			res = theCard.useOn(1, target, board, null, null);
 			assertFalse(res == null);
 			assertTrue(res.data_.getMana_p0() == 2);
 			assertTrue(res.data_.getNumCards_hand() == 0);
@@ -128,7 +133,8 @@ public class TestAncestralHealing {
 		HearthTreeNode res;
 		
 		try {
-			res = theCard.useOn(0, 1, 1, board, null, null);
+			Minion target = board.data_.getCharacter(1, 1);
+			res = theCard.useOn(1, target, board, null, null);
 			assertFalse(res == null);
 			assertTrue(res.data_.getMana_p0() == 2);
 			assertTrue(res.data_.getNumCards_hand() == 0);

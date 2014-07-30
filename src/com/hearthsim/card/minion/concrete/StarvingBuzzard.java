@@ -2,6 +2,7 @@ package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Beast;
+import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -128,18 +129,19 @@ public class StarvingBuzzard extends Beast {
 	 * 
 	 * The buzzard draws a card whenever a Beast is placed on the battlefield
 	 * 
-	 * @param playerIndex The index of the healed minion's player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
-	 * @param minionIndex The index of the healed minion.
+	 * @param thisMinionPlayerIndex The player index of this minion
+	 * @param placedMinionPlayerIndex The index of the placed minion's player.
+	 * @param placedMinion The placed minion
 	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+	 * @param deckPlayer0 The deck of player0
+	 * @param deckPlayer0 The deck of player1
 	 * 
 	 * @return The boardState is manipulated and returned
 	 */
-	@Override
 	public HearthTreeNode minionPlacedEvent(
 			int thisMinionPlayerIndex,
-			int thisMinionIndex,
 			int placedMinionPlayerIndex,
-			int placedMinionIndex,
+			Minion placedMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
@@ -148,12 +150,12 @@ public class StarvingBuzzard extends Beast {
 		if (placedMinionPlayerIndex == 1 || thisMinionPlayerIndex == 1)
 			return boardState;
 		
-		HearthTreeNode toRet = boardState;
+		HearthTreeNode toRet = super.minionPlacedEvent(thisMinionPlayerIndex, placedMinionPlayerIndex, placedMinion, boardState, deckPlayer0, deckPlayer1);
 		if (toRet.data_.getMinion_p0(placedMinionPlayerIndex - 1) instanceof Beast) {
 			if (toRet instanceof CardDrawNode) {
 				((CardDrawNode) toRet).addNumCardsToDraw(1);
 			} else {
-				toRet = new CardDrawNode(toRet, 1, this, thisMinionPlayerIndex, thisMinionIndex, placedMinionPlayerIndex, placedMinionIndex); //draw one card
+				toRet = new CardDrawNode(toRet, 1); //draw one card
 			}
 		}
 		
@@ -166,18 +168,19 @@ public class StarvingBuzzard extends Beast {
 	 * 
 	 * The buzzard draws a card whenever a Beast is placed on the battlefield
 	 * 
-	 * @param playerIndex The index of the healed minion's player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
-	 * @param minionIndex The index of the healed minion.
+	 * @param thisMinionPlayerIndex The player index of this minion
+	 * @param summonedMinionPlayerIndex The index of the summoned minion's player.
+	 * @param summonedMinion The summoned minion
 	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+	 * @param deckPlayer0 The deck of player0
+	 * @param deckPlayer0 The deck of player1
 	 * 
 	 * @return The boardState is manipulated and returned
 	 */
-	@Override
 	public HearthTreeNode minionSummonedEvent(
 			int thisMinionPlayerIndex,
-			int thisMinionIndex,
 			int summonedMinionPlayerIndex,
-			int summeonedMinionIndex,
+			Minion summonedMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
@@ -186,16 +189,15 @@ public class StarvingBuzzard extends Beast {
 		if (summonedMinionPlayerIndex == 1 || thisMinionPlayerIndex == 1)
 			return boardState;
 		
-		HearthTreeNode toRet = super.minionSummonedEvent(thisMinionPlayerIndex, thisMinionIndex, summonedMinionPlayerIndex, summeonedMinionIndex, boardState, deckPlayer0, deckPlayer1);
-		if (!silenced_) {
-			if (toRet.data_.getMinion_p0(summonedMinionPlayerIndex - 1) instanceof Beast) {
-				if (toRet instanceof CardDrawNode) {
-					((CardDrawNode) toRet).addNumCardsToDraw(1);
-				} else {
-					toRet = new CardDrawNode(toRet, 1, this, thisMinionPlayerIndex, thisMinionIndex, summonedMinionPlayerIndex, summeonedMinionIndex); //draw one card
-				}
+		HearthTreeNode toRet = super.minionSummonedEvent(thisMinionPlayerIndex, summonedMinionPlayerIndex, summonedMinion, boardState, deckPlayer0, deckPlayer1);
+		if (toRet.data_.getMinion_p0(summonedMinionPlayerIndex - 1) instanceof Beast) {
+			if (toRet instanceof CardDrawNode) {
+				((CardDrawNode) toRet).addNumCardsToDraw(1);
+			} else {
+				toRet = new CardDrawNode(toRet, 1); //draw one card
 			}
 		}
+
 		return toRet;
 	}
 }

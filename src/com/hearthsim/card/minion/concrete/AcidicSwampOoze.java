@@ -1,6 +1,7 @@
 package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.Deck;
+import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -135,9 +136,8 @@ public class AcidicSwampOoze extends Minion {
 	 */
 	@Override
 	public HearthTreeNode use_core(
-			int thisCardIndex,
-			int playerIndex,
-			int minionIndex,
+			int targetPlayerIndex,
+			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
@@ -149,7 +149,7 @@ public class AcidicSwampOoze extends Minion {
 			return null;
 		}
 		
-		if (playerIndex == 1 || minionIndex == 0)
+		if (targetPlayerIndex == 1)
 			return null;
 		
 		if (boardState.data_.getNumMinions_p0() >= 7)
@@ -160,7 +160,7 @@ public class AcidicSwampOoze extends Minion {
 			boardState.data_.getHero_p1().setAttack((byte)0);
 		}
 		
-		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
+		return super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
 	}
 
 }

@@ -1,4 +1,4 @@
-num_simulations           =   400
+num_simulations           =   1000
 num_threads               =   3
 
 output_file               =   gnomish_inventor_base.hsres

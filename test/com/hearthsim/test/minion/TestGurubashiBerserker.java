@@ -62,8 +62,9 @@ public class TestGurubashiBerserker {
 	@Test
 	public void test0() throws HSInvalidPlayerIndexException {
 		
+		Minion target = board.data_.getCharacter(1, 0);
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 1, 0, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(1, target, board, deck, null);
 		
 		assertTrue(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 1);
@@ -78,28 +79,11 @@ public class TestGurubashiBerserker {
 	}
 	
 	@Test
-	public void test1() throws HSInvalidPlayerIndexException {
-		
-		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 0, 0, board, deck, null);
-		
-		assertTrue(ret == null);
-		assertEquals(board.data_.getNumCards_hand(), 1);
-		assertEquals(board.data_.getNumMinions_p0(), 2);
-		assertEquals(board.data_.getNumMinions_p1(), 2);
-		assertEquals(board.data_.getHero_p0().getHealth(), 30);
-		assertEquals(board.data_.getHero_p1().getHealth(), 30);
-		assertEquals(board.data_.getMinion_p0(0).getHealth(), health0);
-		assertEquals(board.data_.getMinion_p0(1).getHealth(), health1 - 1);
-		assertEquals(board.data_.getMinion_p1(0).getHealth(), health0);
-		assertEquals(board.data_.getMinion_p1(1).getHealth(), health1 - 1);
-	}
-
-	@Test
 	public void test2() throws HSInvalidPlayerIndexException {
 		
+		Minion target = board.data_.getCharacter(0, 1);
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 0, 2, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(0, target, board, deck, null);
 		
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 0);
@@ -125,8 +109,9 @@ public class TestGurubashiBerserker {
 	@Test
 	public void test3() throws HSInvalidPlayerIndexException {
 			
+		Minion target = board.data_.getCharacter(0, 1);
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 0, 2, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(0, target, board, deck, null);
 		
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 0);
@@ -150,7 +135,8 @@ public class TestGurubashiBerserker {
 		
 		HearthTreeNode flipped = new HearthTreeNode(board.data_.flipPlayers());
 		Minion minion = flipped.data_.getMinion_p0(0);
-		ret = minion.attack(0, 1, 2, flipped, deck, null);
+		target = flipped.data_.getCharacter(1, 2);
+		ret = minion.attack(1, target, flipped, deck, null);
 		assertFalse(ret == null);
 		assertEquals(ret.data_.getNumCards_hand(), 0);
 		assertEquals(ret.data_.getNumMinions_p0(), 2);

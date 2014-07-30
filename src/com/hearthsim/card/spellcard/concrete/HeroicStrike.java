@@ -1,6 +1,8 @@
 package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.Deck;
+import com.hearthsim.card.minion.Hero;
+import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -46,29 +48,22 @@ public class HeroicStrike extends SpellCard {
 	 */
 	@Override
 	protected HearthTreeNode use_core(
-			int thisCardIndex,
-			int playerIndex,
-			int minionIndex,
+			int targetPlayerIndex,
+			Minion targetMinion,
 			HearthTreeNode boardState,
-			Deck deckPlayer0, Deck deckPlayer1)
+			Deck deckPlayer0,
+			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
-		if (this.hasBeenUsed()) {
-			//Card is already used, nothing to do
-			return null;
-		}
-				
-		if (playerIndex == 1 || minionIndex > 0) {
+		if (targetPlayerIndex == 1 || !(targetMinion instanceof Hero)) {
 			return null;
 		}
 
-		
-		HearthTreeNode toRet = boardState;
+		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
 		if (toRet != null) {
 			toRet.data_.getHero_p0().setExtraAttackUntilTurnEnd((byte)(DAMAGE_AMOUNT + toRet.data_.getHero_p0().getExtraAttackUntilTurnEnd()));
-			this.hasBeenUsed(true);
 		}
 		
-		return super.use_core(thisCardIndex, playerIndex, minionIndex, toRet, deckPlayer0, deckPlayer1);
+		return toRet;
 	}
 }

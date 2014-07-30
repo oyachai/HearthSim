@@ -60,8 +60,9 @@ public class TestDarkscaleHealer {
 	@Test
 	public void test0() throws HSInvalidPlayerIndexException {
 		
+		Minion target = board.data_.getCharacter(1, 0);
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 1, 0, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(1, target, board, deck, null);
 		
 		assertTrue(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 1);
@@ -78,8 +79,9 @@ public class TestDarkscaleHealer {
 	@Test
 	public void test1() throws HSInvalidPlayerIndexException {
 		
+		Minion target = board.data_.getCharacter(1, 1);
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 1, 1, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(1, target, board, deck, null);
 		
 		assertTrue(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 1);
@@ -96,9 +98,10 @@ public class TestDarkscaleHealer {
 	@Test
 	public void test2() throws HSInvalidPlayerIndexException {
 		
+		Minion target = board.data_.getCharacter(0, 2);
 		board.data_.getHero_p0().setHealth((byte)27);
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 0, 3, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(0, target, board, deck, null);
 		
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 0);

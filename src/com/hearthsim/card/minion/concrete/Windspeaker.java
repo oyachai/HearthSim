@@ -136,35 +136,25 @@ public class Windspeaker extends Minion {
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public HearthTreeNode use_core(int thisCardIndex, int playerIndex, int minionIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
+	public HearthTreeNode use_core(
+			int targetPlayerIndex,
+			Minion targetMinion,
+			HearthTreeNode boardState,
+			Deck deckPlayer0,
+			Deck deckPlayer1)
+		throws HSInvalidPlayerIndexException
+	{
+		//A generic card does nothing except for consuming mana
+		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
 		
-		if (hasBeenUsed_) {
-			//Card is already used, nothing to do
-			return null;
-		}
-		
-		if (minionIndex == 0)
-			return null;
-		
-		if (boardState.data_.getNumMinions_p0() < 7) {
-
-			hasBeenUsed_ = true;
-			boardState.data_.setMana_p0(boardState.data_.getMana_p0() - this.mana_);
-			boardState.data_.removeCard_hand(thisCardIndex);
-			boardState.data_.placeMinion(0, this, minionIndex - 1);
-			
-			{
-				for (int index = 0; index < boardState.data_.getNumMinions_p0(); ++index) {
-					HearthTreeNode newState = boardState.addChild(new HearthTreeNode((BoardState)boardState.data_.deepCopy()));
-					newState.data_.getMinion_p0(index).hasWindFuryAttacked(true);
-				}
+		if (toRet != null) {
+			for (int index = 0; index < boardState.data_.getNumMinions_p0(); ++index) {
+				HearthTreeNode newState = boardState.addChild(new HearthTreeNode((BoardState)boardState.data_.deepCopy()));
+				newState.data_.getMinion_p0(index).hasWindFuryAttacked(true);
 			}
-
-			return boardState;
-							
+			return toRet;
 		} else {
 			return null;
 		}
-
 	}
 }

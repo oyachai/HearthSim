@@ -136,28 +136,18 @@ public class GuardianOfKings extends Minion {
 	 */
 	@Override
 	public HearthTreeNode use_core(
-			int thisCardIndex,
-			int playerIndex,
-			int minionIndex,
+			int targetPlayerIndex,
+			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
-	{
+	{		
+		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
 		
-		if (hasBeenUsed_) {
-			//Card is already used, nothing to do
-			return null;
-		}
+		if (toRet != null)
+			toRet = boardState.data_.getHero_p0().takeHeal((byte)6, 0, boardState, deckPlayer0, deckPlayer1);
 		
-		if (playerIndex == 1 || minionIndex == 0)
-			return null;
-		
-		if (boardState.data_.getNumMinions_p0() >= 7)
-			return null;
-		
-		boardState.data_.getHero_p0().takeHeal((byte)6, 0, 0, boardState, deckPlayer0, deckPlayer1);
-		
-		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
+		return toRet;
 	}
 }

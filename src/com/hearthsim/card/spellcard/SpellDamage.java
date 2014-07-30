@@ -1,6 +1,7 @@
 package com.hearthsim.card.spellcard;
 
 import com.hearthsim.card.Deck;
+import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -52,21 +53,34 @@ public class SpellDamage extends SpellCard {
 		return new SpellDamage(this.getName(), this.getMana(), damage_, this.hasBeenUsed());
 	}
 
+	/**
+	 * 
+	 * Attack using this spell
+	 * 
+	 * @param targetMinionPlayerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
+	 * @param targetMinion The target minion
+	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+	 * @param deckPlayer0 The deck of player0
+	 * @param deckPlayer0 The deck of player1
+	 * 
+	 * @return The boardState is manipulated and returned
+	 */
 	public HearthTreeNode attack(
-			Minion minion,
-			int targetPlayerIndex,
-			int targetMinionIndex,
+			int targetMinionPlayerIndex,
+			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
-		return minion.takeDamage(damage_, 0, targetPlayerIndex, targetMinionIndex, boardState, deckPlayer0, deckPlayer1, true);
+		return targetMinion.takeDamage(damage_, 0, targetMinionPlayerIndex, boardState, deckPlayer0, deckPlayer1, true);
  	}
 	
 	/**
 	 * 
 	 * Use the card on the given target
+	 * 
+	 * This is the core implementation of card's ability
 	 * 
 	 * @param thisCardIndex The index (position) of the card in the hand
 	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
@@ -75,11 +89,9 @@ public class SpellDamage extends SpellCard {
 	 * 
 	 * @return The boardState is manipulated and returned
 	 */
-	@Override
 	protected HearthTreeNode use_core(
-			int thisCardIndex,
-			int playerIndex,
-			int minionIndex,
+			int targetPlayerIndex,
+			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
@@ -92,43 +104,21 @@ public class SpellDamage extends SpellCard {
 				
 		this.hasBeenUsed(true);
 		HearthTreeNode toRet = boardState;
-		
-		if (minionIndex == 0) {
-			//attack a hero
-			if (playerIndex == 0) {
-				toRet = this.attack(toRet.data_.getHero_p0(), playerIndex, minionIndex, toRet, deckPlayer0, deckPlayer1);
-			} else {
-				toRet = this.attack(toRet.data_.getHero_p1(), playerIndex, minionIndex, toRet, deckPlayer0, deckPlayer1);
-			}
-			toRet.data_.setMana_p0(toRet.data_.getMana_p0() - this.mana_);
-			toRet.data_.removeCard_hand(thisCardIndex);
-			return toRet;
-		} else {
-			Minion target = null;
-			if (playerIndex == 0) {
-				if (toRet.data_.getNumMinions_p0() + 1 > minionIndex)
-					target = toRet.data_.getMinion_p0(minionIndex - 1);
-				else
-					return null;
-			} else {
-				if (toRet.data_.getNumMinions_p1() + 1 > minionIndex)
-					target = toRet.data_.getMinion_p1(minionIndex - 1);
-				else
-					return null;
-			}
-			toRet = this.attack(target, playerIndex, minionIndex, toRet, deckPlayer0, deckPlayer1);
-			toRet.data_.setMana_p0(toRet.data_.getMana_p0() - this.mana_);
-			toRet.data_.removeCard_hand(thisCardIndex);
 
-			if (target.getHealth() <= 0) {
-				if (playerIndex == 0)
-					toRet.data_.removeMinion_p0(minionIndex-1);
-				else
-					toRet.data_.removeMinion_p1(minionIndex-1);
-			}
-			return toRet;
-		}
+		toRet = this.attack(targetPlayerIndex, targetMinion, toRet, deckPlayer0, deckPlayer1);
+		toRet.data_.setMana_p0(toRet.data_.getMana_p0() - this.mana_);
+		toRet.data_.removeCard_hand(this);
 		
+//		if (!(targetMinion instanceof Hero)) {
+//			if (targetMinion.getHealth() <= 0) {
+//				targetMinion.destroyed(targetPlayerIndex, boardState, deckPlayer0, deckPlayer1);
+//				if (targetPlayerIndex == 0)
+//					toRet.data_.removeMinion_p0(targetMinion);
+//				else
+//					toRet.data_.removeMinion_p1(targetMinion);
+//			}
+//		}
+		return toRet;
 	}
 
 	public JSONObject toJSON() {

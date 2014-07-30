@@ -136,28 +136,20 @@ public class NoviceEngineer extends Minion {
 	 */
 	@Override
 	public HearthTreeNode use_core(
-			int thisCardIndex,
-			int playerIndex,
-			int minionIndex,
+			int targetPlayerIndex,
+			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
-		
-		if (hasBeenUsed_) {
-			//Card is already used, nothing to do
-			return null;
+		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
+		if (toRet != null) {
+			if (toRet instanceof CardDrawNode)
+				((CardDrawNode) toRet).addNumCardsToDraw(1);
+			else
+				toRet = new CardDrawNode(toRet, 1); //draw one card
 		}
-		
-		if (playerIndex == 1 || minionIndex == 0)
-			return null;
-		
-		if (boardState.data_.getNumMinions_p0() >= 7)
-			return null;
-		
-		HearthTreeNode toRet = super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
-		CardDrawNode cNode = new CardDrawNode(toRet, 1, this, 0, thisCardIndex, playerIndex, minionIndex); //draw one card
-		return cNode;
+		return toRet;
 	}
 }

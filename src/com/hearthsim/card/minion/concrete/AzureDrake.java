@@ -1,6 +1,7 @@
 package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.Deck;
+import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionWithSpellDamage;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.tree.CardDrawNode;
@@ -142,9 +143,8 @@ public class AzureDrake extends MinionWithSpellDamage {
 	 */
 	@Override
 	public HearthTreeNode use_core(
-			int thisCardIndex,
-			int playerIndex,
-			int minionIndex,
+			int targetPlayerIndex,
+			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
@@ -156,14 +156,17 @@ public class AzureDrake extends MinionWithSpellDamage {
 			return null;
 		}
 		
-		if (playerIndex == 1 || minionIndex == 0)
+		if (targetPlayerIndex == 1)
 			return null;
 		
 		if (boardState.data_.getNumMinions_p0() >= 7)
 			return null;
 		
-		HearthTreeNode toRet = super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
-		CardDrawNode cNode = new CardDrawNode(toRet, 1, this, 0, thisCardIndex, playerIndex, minionIndex); //draw one card
-		return cNode;
+		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
+		if (toRet instanceof CardDrawNode)
+			((CardDrawNode) toRet).addNumCardsToDraw(1);
+		else
+			toRet = new CardDrawNode(toRet, 1); //draw one card
+		return toRet;
 	}
 }

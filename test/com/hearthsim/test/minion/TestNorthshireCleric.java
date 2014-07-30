@@ -93,31 +93,13 @@ public class TestNorthshireCleric {
 	}
 	
 	@Test
-	public void test0() throws HSInvalidPlayerIndexException {
-		NorthshireCleric fb = new NorthshireCleric();
-		board.data_.placeCard_hand_p0(fb);
-		
-		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 0, 0, board, deck, null);
-		assertTrue(ret == null);
-		assertTrue(board.data_.getNumCards_hand() == 1);
-		assertTrue(board.data_.getNumMinions_p0() == 2);
-		assertTrue(board.data_.getNumMinions_p1() == 2);
-		assertTrue(board.data_.getHero_p0().getHealth() == 30);
-		assertTrue(board.data_.getHero_p1().getHealth() == 30);
-		assertTrue(board.data_.getMinion_p0(0).getHealth() == health0);
-		assertTrue(board.data_.getMinion_p0(1).getHealth() == health1 - 1);
-		assertTrue(board.data_.getMinion_p1(0).getHealth() == health0);
-		assertTrue(board.data_.getMinion_p1(1).getHealth() == health1 - 1);
-	}
-	
-	@Test
 	public void test1() throws HSInvalidPlayerIndexException {
 		NorthshireCleric fb = new NorthshireCleric();
 		board.data_.placeCard_hand_p0(fb);
 		
+		Minion target = board.data_.getCharacter(0, 0);
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 0, 1, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(0, target, board, deck, null);
 		assertFalse(ret == null);
 
 		assertTrue(ret.data_.getNumCards_hand() == 0);
@@ -136,7 +118,8 @@ public class TestNorthshireCleric {
 		AncestralHealing ah = new AncestralHealing();
 		board.data_.placeCard_hand_p0(ah);
 		theCard = board.data_.getCard_hand_p0(0);
-		ret = theCard.useOn(0, 0, 1, board, deck, null);
+		target = board.data_.getCharacter(0, 1);
+		ret = theCard.useOn(0, target, board, deck, null);
 		
 		assertFalse(ret == null);
 		assertTrue(ret.data_.getNumCards_hand() == 0);
@@ -156,7 +139,8 @@ public class TestNorthshireCleric {
 		ah = new AncestralHealing();
 		board.data_.placeCard_hand_p0(ah);
 		theCard = board.data_.getCard_hand_p0(0);
-		ret = theCard.useOn(0, 0, 3, board, deck, null);
+		target = board.data_.getCharacter(0, 3);
+		ret = theCard.useOn(0, target, board, deck, null);
 		
 		assertFalse(ret == null);
 		assertEquals(ret.data_.getNumCards_hand(), 0);
@@ -182,11 +166,13 @@ public class TestNorthshireCleric {
 		board.data_.placeCard_hand_p0(fb1);
 		board.data_.placeCard_hand_p0(fb2);
 		
+		Minion target = board.data_.getCharacter(0, 2);
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 0, 3, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(0, target, board, deck, null);
 		
 		theCard = board.data_.getCard_hand_p0(0);
-		ret = theCard.useOn(0, 0, 4, board, deck, null);
+		target = board.data_.getCharacter(0, 3);
+		ret = theCard.useOn(0, target, board, deck, null);
 		assertFalse(ret == null);
 
 		assertTrue(ret.data_.getNumCards_hand() == 0);
@@ -205,7 +191,8 @@ public class TestNorthshireCleric {
 		AncestralHealing ah = new AncestralHealing();
 		board.data_.placeCard_hand_p0(ah);
 		theCard = board.data_.getCard_hand_p0(0);
-		ret = theCard.useOn(0, 0, 2, board, deck, null);
+		target = board.data_.getCharacter(0, 2);
+		ret = theCard.useOn(0, target, board, deck, null);
 		
 		assertFalse(ret == null);
 		assertEquals(ret.data_.getNumCards_hand(), 0);

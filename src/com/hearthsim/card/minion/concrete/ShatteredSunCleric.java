@@ -139,7 +139,7 @@ public class ShatteredSunCleric extends Minion {
 	 * 
 	 * Override for battlecry
 	 * 
-	 * Battlecry: Give a minion +2 attack this turn
+	 * Battlecry: Give a friendly minion +1/+1
 	 * 
 	 * @param thisCardIndex The index (position) of the card in the hand
 	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
@@ -149,21 +149,20 @@ public class ShatteredSunCleric extends Minion {
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public HearthTreeNode useOn(
-			int thisCardIndex,
-			int playerIndex,
-			int minionIndex,
+	public HearthTreeNode use_core(
+			int targetPlayerIndex,
+			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
 		//A generic card does nothing except for consuming mana
-		HearthTreeNode toRet = super.useOn(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
+		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
 		
 		if (toRet != null) {
 			for (int index = 0; index < toRet.data_.getNumMinions_p0(); ++index) {
-				if (index != minionIndex - 1) {
+				if (index != toRet.data_.getMinions_p0().indexOf(this)) {
 					HearthTreeNode newState = toRet.addChild(new HearthTreeNode((BoardState)toRet.data_.deepCopy()));
 					newState.data_.getMinion_p0(index).setAttack((byte)(newState.data_.getMinion_p0(index).getAttack() + 1));
 					newState.data_.getMinion_p0(index).setHealth((byte)(newState.data_.getMinion_p0(index).getHealth() + 1));

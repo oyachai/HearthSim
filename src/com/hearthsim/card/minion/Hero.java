@@ -82,18 +82,19 @@ public class Hero extends Minion {
 	 * 
 	 * A hero can only attack if it has a temporary buff, such as weapons
 	 * 
-	 * @param thisMinionIndex Attacking minion's index (note: attacking player index is assumed to be 0)
-	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
+	 * @param targetMinionPlayerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
+	 * @param targetMinion The target minion
 	 * @param minionIndex The index of the target minion.
 	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+	 * @param deckPlayer0 The deck of player0
+	 * @param deckPlayer0 The deck of player1
 	 * 
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
 	public HearthTreeNode attack(
-			int thisMinionIndex,
-			int playerIndex,
-			int minionIndex,
+			int targetMinionPlayerIndex,
+			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
@@ -116,7 +117,7 @@ public class Hero extends Minion {
 		}
 		
 		
-		HearthTreeNode toRet = super.attack(thisMinionIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
+		HearthTreeNode toRet = super.attack(targetMinionPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
 		
 		if (toRet != null) {
 			if (this.weaponCharge_ > 0) {
@@ -130,7 +131,7 @@ public class Hero extends Minion {
 	}
 	
 	@Override
-    public boolean canBeUsedOn(int playerIndex, int minionIndex) {
+    public boolean canBeUsedOn(int playerIndex, Minion minioin) {
 		if (hasBeenUsed_) 
 			return false;
 		return true;
@@ -139,37 +140,36 @@ public class Hero extends Minion {
 	/**
 	 * Use the hero ability on a given target
 	 * 
-	 * @param thisPlayerIndex The player index of the hero
-	 * @param targetPlayerIndex The player index of the target character
-	 * @param targetMinionIndex The minion index of the target character
+	 * @param targetPlayerIndex The player index of the target minion
+	 * @param targetMinion The target minion
 	 * @param boardState
-	 * @param deck
+	 * @param deckPlayer0 The deck of player0
+	 * @param deckPlayer0 The deck of player1
+	 * 
 	 * @return
 	 */
 	public final HearthTreeNode useHeroAbility(
-			int thisPlayerIndex,
 			int targetPlayerIndex,
-			int targetMinionIndex,
+			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
 		throws HSException
 	{
-		if (boardState.data_.getMana(thisPlayerIndex) < HERO_ABILITY_COST)
+		if (boardState.data_.getMana_p0() < HERO_ABILITY_COST)
 			return null;
 		
-		boardState = this.useHeroAbility_core(thisPlayerIndex, targetPlayerIndex, targetMinionIndex, boardState, deckPlayer0, deckPlayer1);
+		boardState = this.useHeroAbility_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
 		if (boardState != null) {
-			boardState.data_.setMana(thisPlayerIndex, boardState.data_.getMana(thisPlayerIndex) - HERO_ABILITY_COST);
+			boardState.data_.setMana_p0(boardState.data_.getMana_p0() - HERO_ABILITY_COST);
 			this.hasBeenUsed_ = true;
 		}
 		return boardState;
 	}
 	
 	public HearthTreeNode useHeroAbility_core(
-			int thisPlayerIndex,
 			int targetPlayerIndex,
-			int targetMinionIndex,
+			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
@@ -186,22 +186,24 @@ public class Hero extends Minion {
 	 * @param damage The amount of damage to take
 	 * @param attackerPlayerIndex The player index of the attacker.  This is needed to do things like +spell damage.
 	 * @param thisPlayerIndex The player index of this minion
-	 * @param thisMinionIndex The minion index of this minion
 	 * @param boardState 
-	 * @param deck
+	 * @param deckPlayer0 The deck of player0
+	 * @param deckPlayer0 The deck of player1
+	 * @param isSpellDamage 
+	 * 
 	 * @throws HSInvalidPlayerIndexException
 	 */
 	@Override
-	public HearthTreeNode takeDamage(byte damage, int attackerPlayerIndex, int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
+	public HearthTreeNode takeDamage(byte damage, int attackerPlayerIndex, int thisPlayerIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean isSpellDamage) throws HSInvalidPlayerIndexException {
 
 		HearthTreeNode toRet = boardState;
 		byte damageRemaining = (byte)(damage - armor_);
 		if (damageRemaining > 0) {
 			armor_ = 0;
-			toRet = super.takeDamage(damageRemaining, attackerPlayerIndex, thisPlayerIndex, thisMinionIndex, toRet, deckPlayer0, deckPlayer1);
+			toRet = super.takeDamage(damageRemaining, attackerPlayerIndex, thisPlayerIndex, toRet, deckPlayer0, deckPlayer1, isSpellDamage);
 		} else {
 			armor_ = (byte)(armor_ - damage);
-			toRet = super.takeDamage((byte)0, attackerPlayerIndex, thisPlayerIndex, thisMinionIndex, toRet, deckPlayer0, deckPlayer1);
+			toRet = super.takeDamage((byte)0, attackerPlayerIndex, thisPlayerIndex, toRet, deckPlayer0, deckPlayer1, isSpellDamage);
 		}
 		return toRet;
 	}
@@ -214,7 +216,7 @@ public class Hero extends Minion {
 	 * temporary buffs that it has.
 	 */
 	@Override
-	public BoardState endTurn(int thisMinionPlayerIndex, int thisMinionIndex, BoardState boardState, Deck deckPlayer0, Deck deckPlayer1) {
+	public BoardState endTurn(int thisMinionPlayerIndex, BoardState boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
 		this.extraAttackUntilTurnEnd_ = 0;
 		return boardState;
 	}

@@ -1,6 +1,7 @@
 package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.Deck;
+import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
@@ -49,25 +50,23 @@ public class CircleOfHealing extends SpellCard {
 	 */
 	@Override
 	protected HearthTreeNode use_core(
-			int thisCardIndex,
-			int playerIndex,
-			int minionIndex,
+			int targetPlayerIndex,
+			Minion targetMinion,
 			HearthTreeNode boardState,
-			Deck deckPlayer0, Deck deckPlayer1)
+			Deck deckPlayer0,
+			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
-		if (playerIndex > 0 || minionIndex > 0) 
+		if (targetPlayerIndex > 0 || !(targetMinion instanceof Hero)) 
 			return null;
 		
-		HearthTreeNode toRet = super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
-		for (int indx = 0; indx < boardState.data_.getNumMinions_p0(); ++indx) {
-			Minion targetMinion = boardState.data_.getMinion_p0(indx);
-			toRet = targetMinion.takeHeal(HEAL_AMOUNT, 0, indx + 1, toRet, deckPlayer0, deckPlayer1);
+		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
+		for (Minion minion : toRet.data_.getMinions_p0()) {
+			toRet = minion.takeHeal(HEAL_AMOUNT, 0, toRet, deckPlayer0, deckPlayer1);
 		}
 
-		for (int indx = 0; indx < boardState.data_.getNumMinions_p1(); ++indx) {
-			Minion targetMinion = boardState.data_.getMinion_p1(indx);
-			toRet = targetMinion.takeHeal(HEAL_AMOUNT, 1, indx + 1, toRet, deckPlayer0, deckPlayer1);
+		for (Minion minion : toRet.data_.getMinions_p1()) {
+			toRet = minion.takeHeal(HEAL_AMOUNT, 1, toRet, deckPlayer0, deckPlayer1);
 		}
 
 		return toRet;

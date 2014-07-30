@@ -88,92 +88,74 @@ public class MinionWithSpellDamage extends Minion {
 				this.hasBeenUsed_);
 	}
 	
+    
 	/**
 	 * 
-	 * Use the card on the given target
+	 * Places a minion on the board.
 	 * 
-	 * Override for the temporary buff to spell damage (spell damage +1)
-	 * 
-	 * @param thisCardIndex The index (position) of the card in the hand
-	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
-	 * @param minionIndex The index of the target minion.
+	 * @param targetPlayerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
+	 * @param targetMinion The target minion (can be a Hero).  If it is a Hero, then the minion is placed on the last (right most) spot on the board.
 	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+	 * @param deckPlayer0 The deck of player0
+	 * @param deckPlayer0 The deck of player1
 	 * 
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
 	protected HearthTreeNode use_core(
-			int thisCardIndex,
-			int playerIndex,
-			int minionIndex,
+			int targetPlayerIndex,
+			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
-		if (hasBeenUsed_) {
-			//Card is already used, nothing to do
-			return null;
+		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
+		if (toRet != null) {
+			toRet.data_.setSpellDamage(0, (byte)(toRet.data_.getSpellDamage(0) + spellDamage_));
 		}
-		
-		if (playerIndex == 1 || minionIndex == 0)
-			return null;
-		
-		if (boardState.data_.getNumMinions_p0() < 7) {
-
-			if (!charge_) {
-				hasAttacked_ = true;
-			}
-			hasBeenUsed_ = true;
-			boardState.data_.placeMinion(0, this, minionIndex - 1);
-			boardState.data_.setMana_p0(boardState.data_.getMana_p0() - this.mana_);
-			boardState.data_.removeCard_hand(thisCardIndex);
-			
-			boardState.data_.setSpellDamage(0, (byte)(boardState.data_.getSpellDamage(0) + spellDamage_));
-			return boardState;
-							
-		} else {
-			return null;
-		}
+		return toRet;
 	}
 	
 	/**
 	 * Called when this minion is silenced
 	 * 
-	 * Override for the spell damage
+	 * Always use this function to "silence" minions
 	 * 
 	 * @param thisPlayerIndex The player index of this minion
-	 * @param thisMinionIndex The minion index of this minion
 	 * @param boardState 
-	 * @param deck
+	 * @param deckPlayer0 The deck of player0
+	 * @param deckPlayer0 The deck of player1
+	 * 
 	 * @throws HSInvalidPlayerIndexException
 	 */
 	@Override
-	public HearthTreeNode silenced(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
+	public HearthTreeNode silenced(int thisPlayerIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
 		HearthTreeNode toRet = boardState;
 		if (!silenced_)
 			toRet.data_.setSpellDamage(0, (byte)(boardState.data_.getSpellDamage(0) - spellDamage_));
-		toRet = super.silenced(thisPlayerIndex, thisMinionIndex, toRet, deckPlayer0, deckPlayer1);
+		toRet = super.silenced(thisPlayerIndex, toRet, deckPlayer0, deckPlayer1);
 		return toRet;
 	}
 	
 	/**
 	 * Called when this minion dies (destroyed)
 	 * 
-	 * Override for the spell damage
+	 * Always use this function to "kill" minions
 	 * 
 	 * @param thisPlayerIndex The player index of this minion
-	 * @param thisMinionIndex The minion index of this minion
 	 * @param boardState 
-	 * @param deck
+	 * @param deckPlayer0
+	 * @param deckPlayer1
+	 * 
 	 * @throws HSInvalidPlayerIndexException
 	 */
 	@Override
-	public HearthTreeNode destroyed(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {		
+	public HearthTreeNode destroyed(int thisPlayerIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
 		HearthTreeNode toRet = boardState;
 		if (!silenced_)
 			toRet.data_.setSpellDamage(0, (byte)(boardState.data_.getSpellDamage(0) - spellDamage_));
-		toRet = super.destroyed(thisPlayerIndex, thisMinionIndex, toRet, deckPlayer0, deckPlayer1);
+		toRet = super.destroyed(thisPlayerIndex, toRet, deckPlayer0, deckPlayer1);
 		return toRet;
 	}
 }

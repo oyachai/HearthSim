@@ -137,9 +137,8 @@ public class DarkscaleHealer extends Minion {
 	 */
 	@Override
 	public HearthTreeNode use_core(
-			int thisCardIndex,
-			int playerIndex,
-			int minionIndex,
+			int targetPlayerIndex,
+			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
@@ -151,17 +150,18 @@ public class DarkscaleHealer extends Minion {
 			return null;
 		}
 		
-		if (playerIndex == 1 || minionIndex == 0)
+		if (targetPlayerIndex == 1)
 			return null;
 		
 		if (boardState.data_.getNumMinions_p0() >= 7)
 			return null;
 		
-		boardState.data_.getHero_p0().takeHeal((byte)2, 0, 0, boardState, deckPlayer0, deckPlayer1);
-		for (int indx = 0; indx < boardState.data_.getNumMinions_p0(); ++indx) {
-			boardState.data_.getMinion_p0(indx).takeHeal((byte)2, 0, indx + 1, boardState, deckPlayer0, deckPlayer1);
+		HearthTreeNode toRet = boardState;
+		toRet = toRet.data_.getHero_p0().takeHeal((byte)2, 0, toRet, deckPlayer0, deckPlayer1);
+		for (Minion minion : toRet.data_.getMinions_p0()) {
+			toRet = minion.takeHeal((byte)2, 0, toRet, deckPlayer0, deckPlayer1);
 		}
 		
-		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
+		return super.use_core(targetPlayerIndex, targetMinion, toRet, deckPlayer0, deckPlayer1);
 	}
 }

@@ -1,6 +1,7 @@
 package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.Deck;
+import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellDamage;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -35,24 +36,20 @@ public class Frostbolt extends SpellDamage {
 	 */
 	@Override
 	protected HearthTreeNode use_core(
-			int thisCardIndex,
-			int playerIndex,
-			int minionIndex,
+			int targetPlayerIndex,
+			Minion targetMinion,
 			HearthTreeNode boardState,
-			Deck deckPlayer0, Deck deckPlayer1)
+			Deck deckPlayer0,
+			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
-		if (playerIndex == 0) 
+		if (targetPlayerIndex == 0) 
 			return null;
 		
-		HearthTreeNode toRet = boardState;
+		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
 		if (toRet != null) {
-			if (minionIndex == 0)
-				toRet.data_.getHero_p1().setFrozen(true);
-			else
-				toRet.data_.getMinion_p1(minionIndex - 1).setFrozen(true);
+			targetMinion.setFrozen(true);
 		}
-		toRet = super.use_core(thisCardIndex, playerIndex, minionIndex, toRet, deckPlayer0, deckPlayer1);
 
 		return toRet;
 	}

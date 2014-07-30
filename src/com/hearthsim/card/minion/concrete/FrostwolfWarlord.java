@@ -135,9 +135,8 @@ public class FrostwolfWarlord extends Minion {
 	 */
 	@Override
 	public HearthTreeNode use_core(
-			int thisCardIndex,
-			int playerIndex,
-			int minionIndex,
+			int targetPlayerIndex,
+			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
@@ -149,19 +148,18 @@ public class FrostwolfWarlord extends Minion {
 			return null;
 		}
 		
-		if (playerIndex == 1 || minionIndex == 0)
+		if (targetPlayerIndex == 1)
 			return null;
 		
 		if (boardState.data_.getNumMinions_p0() >= 7)
 			return null;
 		
 		int numBuffs = boardState.data_.getNumMinions_p0();
-		HearthTreeNode toRet = super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
+		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
 
-		Minion placedMinion = toRet.data_.getMinion(playerIndex, minionIndex - 1);
-		placedMinion.setAttack((byte)(placedMinion.getAttack() + numBuffs));
-		placedMinion.setHealth((byte)(placedMinion.getHealth() + numBuffs));
-		placedMinion.setMaxHealth((byte)(placedMinion.getMaxHealth() + numBuffs));
+		this.setAttack((byte)(this.getAttack() + numBuffs));
+		this.setHealth((byte)(this.getHealth() + numBuffs));
+		this.setMaxHealth((byte)(this.getMaxHealth() + numBuffs));
 		return toRet;
 	}
 	
@@ -171,14 +169,13 @@ public class FrostwolfWarlord extends Minion {
 	 * Always use this function to "silence" minions
 	 * 
 	 * @param thisPlayerIndex The player index of this minion
-	 * @param thisMinionIndex The minion index of this minion
 	 * @param boardState 
 	 * @param deck
 	 * @throws HSInvalidPlayerIndexException
 	 */
 	@Override
-	public HearthTreeNode silenced(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
-		HearthTreeNode toRet = super.silenced(thisPlayerIndex, thisMinionIndex, boardState, deckPlayer0, deckPlayer1);
+	public HearthTreeNode silenced(int thisPlayerIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
+		HearthTreeNode toRet = super.silenced(thisPlayerIndex, boardState, deckPlayer0, deckPlayer1);
 		this.attack_ = this.baseAttack_;
 		if (this.maxHealth_ > this.baseHealth_) {
 			this.maxHealth_ = this.baseHealth_;

@@ -2,6 +2,7 @@ package com.hearthsim.card.minion.heroes;
 
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
+import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -63,17 +64,16 @@ public class Rogue extends Hero {
 	 */
 	@Override
 	public HearthTreeNode useHeroAbility_core(
-			int thisPlayerIndex,
 			int targetPlayerIndex,
-			int targetMinionIndex,
+			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
 		throws HSException
 	{
 		HearthTreeNode toRet = boardState;
-		if (targetMinionIndex == 0 && targetPlayerIndex == 0) {
-			Hero target = toRet.data_.getHero_p0();
+		if ((targetMinion instanceof Hero) && targetPlayerIndex == 0) {
+			Hero target = (Hero)targetMinion;
 			target.setWeaponCharge((byte)2);
 			target.setAttack((byte)1);
 			return toRet;

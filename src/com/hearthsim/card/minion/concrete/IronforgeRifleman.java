@@ -7,6 +7,9 @@ import com.hearthsim.util.BoardState;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class IronforgeRifleman extends Minion {
+	
+	private static final byte BATTLECRY_DAMAGE = 1;
+
 	private static final String NAME = "Ironforge Rifleman";
 	private static final byte MANA_COST = 3;
 	private static final byte ATTACK = 2;
@@ -135,61 +138,51 @@ public class IronforgeRifleman extends Minion {
 	 */
 	@Override
 	public HearthTreeNode use_core(
-			int thisCardIndex,
-			int playerIndex,
-			int minionIndex,
+			int targetPlayerIndex,
+			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
-	{	
-		if (hasBeenUsed_) {
-			//Card is already used, nothing to do
-			return null;
-		}
-		
-		if (playerIndex == 1 || minionIndex == 0)
-			return null;
-		
-		if (boardState.data_.getNumMinions_p0() < 7) {
+	{
+		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
+		if (toRet != null) {
 
-			if (!charge_) {
-				hasAttacked_ = true;
-			}
-			hasBeenUsed_ = true;
-			boardState.data_.setMana_p0(boardState.data_.getMana_p0() - this.mana_);
-			boardState.data_.removeCard_hand(thisCardIndex);
-			boardState.data_.placeMinion(0, this, minionIndex - 1);
-			
 			{
-				HearthTreeNode newState = boardState.addChild(new HearthTreeNode((BoardState)boardState.data_.deepCopy()));
-				newState.data_.getHero_p0().takeDamage((byte)1, 0, 0, 0, newState, deckPlayer0, deckPlayer1);
+				HearthTreeNode newState = new HearthTreeNode((BoardState)boardState.data_.deepCopy());
+				newState = newState.data_.getHero_p0().takeDamage(BATTLECRY_DAMAGE, 0, 0, newState, deckPlayer0, deckPlayer1);
+				toRet.addChild(newState);
 			}
 
 			{
 				for (int index = 0; index < boardState.data_.getNumMinions_p0(); ++index) {
 					if (boardState.data_.getMinion_p0(index) == this)
 						continue;
-					HearthTreeNode newState = boardState.addChild(new HearthTreeNode((BoardState)boardState.data_.deepCopy()));
-					newState.data_.getMinion_p0(index).takeDamage((byte)1, 0, 0, index + 1, newState, deckPlayer0, deckPlayer1);
-					if (newState.data_.getMinion_p0(index).getHealth() <= 0) {
-						newState.data_.removeMinion_p0(index);
+					HearthTreeNode newState = new HearthTreeNode((BoardState)boardState.data_.deepCopy());
+					Minion minion = newState.data_.getMinion_p0(index);
+					newState = minion.takeDamage(BATTLECRY_DAMAGE, 0, 0, newState, deckPlayer0, deckPlayer1);
+					if (minion.getHealth() <= 0) {
+						newState.data_.removeMinion_p0(minion);
 					}
+					toRet.addChild(newState);
 				}
 			}
 
 			{
-				HearthTreeNode newState = boardState.addChild(new HearthTreeNode((BoardState)boardState.data_.deepCopy()));
-				newState.data_.getHero_p1().takeDamage((byte)1, 0, 1, 0, newState, deckPlayer0, deckPlayer1);
+				HearthTreeNode newState = new HearthTreeNode((BoardState)boardState.data_.deepCopy());
+				newState = newState.data_.getHero_p1().takeDamage(BATTLECRY_DAMAGE, 0, 1, newState, deckPlayer0, deckPlayer1);
+				toRet.addChild(newState);
 			}
 
 			{
 				for (int index = 0; index < boardState.data_.getNumMinions_p1(); ++index) {		
-					HearthTreeNode newState = boardState.addChild(new HearthTreeNode((BoardState)boardState.data_.deepCopy()));
-					newState.data_.getMinion_p1(index).takeDamage((byte)1, 0, 1, index + 1, newState, deckPlayer0, deckPlayer1);
-					if (newState.data_.getMinion_p1(index).getHealth() <= 0) {
-						newState.data_.removeMinion_p1(index);
+					HearthTreeNode newState = new HearthTreeNode((BoardState)boardState.data_.deepCopy());
+					Minion minion = newState.data_.getMinion_p1(index);
+					newState = minion.takeDamage(BATTLECRY_DAMAGE, 0, 1, newState, deckPlayer0, deckPlayer1);
+					if (minion.getHealth() <= 0) {
+						newState.data_.removeMinion_p1(minion);
 					}
+					toRet.addChild(newState);
 				}
 			}
 

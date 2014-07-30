@@ -1,6 +1,5 @@
 package com.hearthsim.util.tree;
 
-import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 
 /**
@@ -8,24 +7,11 @@ import com.hearthsim.card.Deck;
  *
  */
 public abstract class StopNode extends HearthTreeNode {
-	
-	public final Card cardUsed_;
-	public final int usedCardPlayerIndex_;
-	public final int usedCardIndex_;
-	public final int targetPlayerIndex_;
-	public final int targetMinionIndex_;
-	
-	
-	public StopNode(HearthTreeNode origNode, Card cardUsed, int usedCardPlayerIndex, int usedCardIndex, int targetPlayerIndex, int targetMinionIndex) {
+		
+	public StopNode(HearthTreeNode origNode) {
 		super(origNode.data_, origNode.score_, origNode.depth_);
 		children_ = origNode.children_;
 		numNodesTried_ = origNode.numNodesTried_;
-		
-		cardUsed_ = cardUsed;
-		usedCardPlayerIndex_ = usedCardPlayerIndex;
-		usedCardIndex_ = usedCardIndex;
-		targetPlayerIndex_ = targetPlayerIndex;
-		targetMinionIndex_ = targetMinionIndex;
 	}
 
 	public abstract HearthTreeNode finishAllEffects(Deck deck);

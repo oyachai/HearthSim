@@ -1,6 +1,7 @@
 package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.Deck;
+import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
@@ -45,26 +46,27 @@ public class FrostNova extends SpellCard {
 	 */
 	@Override
 	protected HearthTreeNode use_core(
-			int thisCardIndex,
-			int playerIndex,
-			int minionIndex,
+			int targetPlayerIndex,
+			Minion targetMinion,
 			HearthTreeNode boardState,
-			Deck deckPlayer0, Deck deckPlayer1)
+			Deck deckPlayer0,
+			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
-		if (playerIndex == 0) {
+		if (targetPlayerIndex == 0) {
 			return null;
 		}
 		
-		if (minionIndex > 0) {
+		if (!(targetMinion instanceof Hero)) {
 			return null;
 		}
 		
-		for (int indx = 0; indx < boardState.data_.getNumMinions_p1(); ++indx) {
-			Minion targetMinion = boardState.data_.getMinion_p1(indx);
-			targetMinion.setFrozen(true);
-		}
-		
-		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
+		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
+		if (toRet != null) {
+			for (Minion minion : toRet.data_.getMinions_p1()) {
+				minion.setFrozen(true);
+			}
+		}		
+		return toRet;
 	}
 }

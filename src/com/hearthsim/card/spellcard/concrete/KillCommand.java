@@ -37,13 +37,13 @@ public class KillCommand extends SpellDamage {
 	 */
 	@Override
 	protected HearthTreeNode use_core(
-			int thisCardIndex,
-			int playerIndex,
-			int minionIndex,
+			int targetPlayerIndex,
+			Minion targetMinion,
 			HearthTreeNode boardState,
-			Deck deckPlayer0, Deck deckPlayer1)
+			Deck deckPlayer0,
+			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
-	{		
+	{
 		boolean haveBeast = false;
 		for (final Minion minion : boardState.data_.getMinions_p0()) {
 			haveBeast = haveBeast || (minion instanceof Beast);
@@ -52,7 +52,7 @@ public class KillCommand extends SpellDamage {
 			this.damage_ = (byte)5;
 		else
 			this.damage_ = (byte)3;
-		HearthTreeNode toRet = super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
+		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
 
 		return toRet;
 	}

@@ -62,19 +62,21 @@ public class TestNightblade {
 	@Test
 	public void test0() throws HSInvalidPlayerIndexException {
 		
+		Minion target = board.data_.getCharacter(0, 0);
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 0, 0, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(0, target, board, deck, null);
 		
-		assertTrue(ret == null);
-		assertEquals(board.data_.getNumCards_hand(), 1);
-		assertEquals(board.data_.getNumMinions_p0(), 2);
+		assertFalse(ret == null);
+		assertEquals(board.data_.getNumCards_hand(), 0);
+		assertEquals(board.data_.getNumMinions_p0(), 3);
 		assertEquals(board.data_.getNumMinions_p1(), 2);
-		assertEquals(board.data_.getMana_p0(), 10);
+		assertEquals(board.data_.getMana_p0(), 5);
 		assertEquals(board.data_.getMana_p1(), 4);
 		assertEquals(board.data_.getHero_p0().getHealth(), 30);
-		assertEquals(board.data_.getHero_p1().getHealth(), 30);
-		assertEquals(board.data_.getMinion_p0(0).getHealth(), health0);
-		assertEquals(board.data_.getMinion_p0(1).getHealth(), health1 - 1);
+		assertEquals(board.data_.getHero_p1().getHealth(), 27);
+		assertEquals(board.data_.getMinion_p0(0).getHealth(), 4);
+		assertEquals(board.data_.getMinion_p0(1).getHealth(), health0);
+		assertEquals(board.data_.getMinion_p0(2).getHealth(), health1 - 1);
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), health0);
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), health1 - 1);
 	}
@@ -82,8 +84,9 @@ public class TestNightblade {
 	@Test
 	public void test1() throws HSInvalidPlayerIndexException {
 		
+		Minion target = board.data_.getCharacter(1, 1);
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 1, 1, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(1, target, board, deck, null);
 		
 		assertTrue(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 1);
@@ -103,8 +106,9 @@ public class TestNightblade {
 	@Test
 	public void test2() throws HSInvalidPlayerIndexException {
 		
+		Minion target = board.data_.getCharacter(0, 2);
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 0, 3, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(0, target, board, deck, null);
 		
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 0);

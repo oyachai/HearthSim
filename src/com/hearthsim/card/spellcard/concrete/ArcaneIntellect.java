@@ -1,6 +1,8 @@
 package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.Deck;
+import com.hearthsim.card.minion.Hero;
+import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.tree.CardDrawNode;
@@ -46,20 +48,23 @@ public class ArcaneIntellect extends SpellCard {
 	 */
 	@Override
 	protected HearthTreeNode use_core(
-			int thisCardIndex,
-			int playerIndex,
-			int minionIndex,
+			int targetPlayerIndex,
+			Minion targetMinion,
 			HearthTreeNode boardState,
-			Deck deckPlayer0, Deck deckPlayer1)
+			Deck deckPlayer0,
+			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
-		if (playerIndex == 1 || minionIndex > 0) {
+		if (targetPlayerIndex == 1 || !(targetMinion instanceof Hero)) {
 			return null;
 		}
 		
-		HearthTreeNode toRet = super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
-		CardDrawNode cNode = new CardDrawNode(toRet, 2, this, 0, thisCardIndex, playerIndex, minionIndex); //draw two cards
+		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
+		if (toRet instanceof CardDrawNode)
+			((CardDrawNode) toRet).addNumCardsToDraw(2);
+		else
+			toRet = new CardDrawNode(toRet, 2); //draw two cards
 
-		return cNode;
+		return toRet;
 	}
 }

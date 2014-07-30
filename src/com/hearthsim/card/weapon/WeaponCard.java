@@ -1,16 +1,19 @@
-package com.hearthsim.card.spellcard;
+package com.hearthsim.card.weapon;
 
+import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
+import com.hearthsim.card.minion.Hero;
+import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class WeaponCard extends SpellCard {
+public class WeaponCard extends Card {
 
 	byte weaponCharge_;
 	byte weaponDamage_;
 	
 	public WeaponCard(String name, byte mana, byte weaponDamage, byte weaponCharge, boolean hasBeenUsed) {
-		super(name, mana, hasBeenUsed);
+		super(name, mana, hasBeenUsed, true);
 		weaponCharge_ = weaponCharge;
 		weaponDamage_ = weaponDamage;
 	}
@@ -50,7 +53,9 @@ public class WeaponCard extends SpellCard {
 	
 	/**
 	 * 
-	 * Use the weapon card
+	 * Use the card on the given target
+	 * 
+	 * This is the core implementation of card's ability
 	 * 
 	 * @param thisCardIndex The index (position) of the card in the hand
 	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
@@ -59,11 +64,9 @@ public class WeaponCard extends SpellCard {
 	 * 
 	 * @return The boardState is manipulated and returned
 	 */
-	@Override
 	protected HearthTreeNode use_core(
-			int thisCardIndex,
-			int playerIndex,
-			int minionIndex,
+			int targetPlayerIndex,
+			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
@@ -74,7 +77,7 @@ public class WeaponCard extends SpellCard {
 			return null;
 		}
 				
-		if (playerIndex == 1 || minionIndex > 0) {
+		if (targetPlayerIndex == 1 || !(targetMinion instanceof Hero)) {
 			return null;
 		}
 		
@@ -86,6 +89,6 @@ public class WeaponCard extends SpellCard {
 
 		}
 		
-		return super.use_core(thisCardIndex, playerIndex, minionIndex, toRet, deckPlayer0, deckPlayer1);
+		return super.use_core(targetPlayerIndex, targetMinion, toRet, deckPlayer0, deckPlayer1);
 	}
 }

@@ -1,6 +1,8 @@
 package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.Deck;
+import com.hearthsim.card.minion.Hero;
+import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -33,7 +35,7 @@ public class DeadlyPoison extends SpellCard {
 
 	/**
 	 * 
-	 * Use the weapon card
+	 * Give your weapon +2 attack
 	 * 
 	 * @param thisCardIndex The index (position) of the card in the hand
 	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
@@ -44,34 +46,25 @@ public class DeadlyPoison extends SpellCard {
 	 */
 	@Override
 	protected HearthTreeNode use_core(
-			int thisCardIndex,
-			int playerIndex,
-			int minionIndex,
+			int targetPlayerIndex,
+			Minion targetMinion,
 			HearthTreeNode boardState,
-			Deck deckPlayer0, Deck deckPlayer1)
+			Deck deckPlayer0,
+			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
-		if (this.hasBeenUsed()) {
-			//Card is already used, nothing to do
+		if (targetPlayerIndex == 1 || !(targetMinion instanceof Hero)) {
 			return null;
 		}
-				
-		if (playerIndex == 1 || minionIndex > 0) {
+		Hero hero = (Hero)targetMinion;
+		if (hero.getWeaponCharge() == 0)
 			return null;
-		}
 
-		
-		HearthTreeNode toRet = boardState;
+		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
 		if (toRet != null) {
-			if (toRet.data_.getHero_p0().getWeaponCharge() > 0) {
-				toRet.data_.getHero_p0().setAttack((byte)(toRet.data_.getHero_p0().getAttack() + 2));
-			} else {
-				return null;
-			}
-			this.hasBeenUsed(true);
+			hero.setAttack((byte)(hero.getAttack() + 2));
 		}
-		
-		return super.use_core(thisCardIndex, playerIndex, minionIndex, toRet, deckPlayer0, deckPlayer1);
+		return toRet;
 	}
 	
 }

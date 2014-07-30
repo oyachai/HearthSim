@@ -10,7 +10,7 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.concrete.DeadlyPoison;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
-import com.hearthsim.card.spellcard.weapon.FieryWarAxe;
+import com.hearthsim.card.weapon.concrete.FieryWarAxe;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
@@ -58,8 +58,9 @@ public class TestDeadlyPoison {
 	@Test
 	public void test0() throws HSInvalidPlayerIndexException {
 		
+		Minion target = board.data_.getCharacter(1, 0);
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 1, 0, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(1, target, board, deck, null);
 		
 		assertTrue(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 1);
@@ -76,8 +77,9 @@ public class TestDeadlyPoison {
 	@Test
 	public void test1() throws HSInvalidPlayerIndexException {
 		
+		Minion target = board.data_.getCharacter(0, 1);
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 0, 1, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(0, target, board, deck, null);
 		
 		assertTrue(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 1);
@@ -94,8 +96,9 @@ public class TestDeadlyPoison {
 	@Test
 	public void test2() throws HSInvalidPlayerIndexException {
 		
+		Minion target = board.data_.getCharacter(0, 0);
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 0, 0, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(0, target, board, deck, null);
 		
 		assertTrue(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 1);
@@ -115,9 +118,9 @@ public class TestDeadlyPoison {
 		FieryWarAxe fb = new FieryWarAxe();
 		board.data_.placeCard_hand_p0(fb);
 
-			
+		Minion target = board.data_.getCharacter(0, 0);
 		Card theCard = board.data_.getCard_hand_p0(1);
-		HearthTreeNode ret = theCard.useOn(1, 0, 0, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(0, target, board, deck, null);
 		
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 1);
@@ -133,7 +136,8 @@ public class TestDeadlyPoison {
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), health1 - 1);
 
 		theCard = board.data_.getCard_hand_p0(0);
-		ret = theCard.useOn(0, 0, 0, board, deck, null);
+		target = board.data_.getCharacter(0, 0);
+		ret = theCard.useOn(0, target, board, deck, null);
 
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 0);

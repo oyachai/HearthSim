@@ -43,8 +43,9 @@ public class TestFireball {
 		Fireball fb = new Fireball();
 		board.data_.placeCard_hand_p0(fb);
 		
+		Minion target = board.data_.getCharacter(0, 0);
 		Card theCard = board.data_.getCard_hand_p0(0);
-		theCard.useOn(0, 0, 0, board, null, null);
+		theCard.useOn(0, target, board, null, null);
 		
 		assertTrue("test0_1", board.data_.getNumCards_hand() == 0);
 		assertTrue("test0_2", board.data_.getNumMinions_p0() == 2);
@@ -62,8 +63,9 @@ public class TestFireball {
 		Fireball fb = new Fireball();
 		board.data_.placeCard_hand_p0(fb);
 		
+		Minion target = board.data_.getCharacter(1, 0);
 		Card theCard = board.data_.getCard_hand_p0(0);
-		theCard.useOn(0, 1, 0, board, null, null);
+		theCard.useOn(1, target, board, null, null);
 		
 		assertTrue("test1_1", board.data_.getNumCards_hand() == 0);
 		assertTrue("test1_2", board.data_.getHero_p0().getHealth() == 30);
@@ -81,8 +83,9 @@ public class TestFireball {
 		Fireball fb = new Fireball();
 		board.data_.placeCard_hand_p0(fb);
 		
+		Minion target = board.data_.getCharacter(0, 1);
 		Card theCard = board.data_.getCard_hand_p0(0);
-		theCard.useOn(0, 0, 1, board, null, null);
+		theCard.useOn(0, target, board, null, null);
 		
 		assertTrue("test2_1", board.data_.getNumCards_hand() == 0);
 		assertTrue("test2_2", board.data_.getNumMinions_p0() == 1);
@@ -99,8 +102,9 @@ public class TestFireball {
 		Fireball fb = new Fireball();
 		board.data_.placeCard_hand_p0(fb);
 		
+		Minion target = board.data_.getCharacter(0, 2);
 		Card theCard = board.data_.getCard_hand_p0(0);
-		theCard.useOn(0, 0, 2, board, null, null);
+		theCard.useOn(0, target, board, null, null);
 		
 		assertTrue("test3_1", board.data_.getNumCards_hand() == 0);
 		assertTrue("test3_2", board.data_.getNumMinions_p0() == 2);
@@ -118,8 +122,9 @@ public class TestFireball {
 		Fireball fb = new Fireball();
 		board.data_.placeCard_hand_p0(fb);
 		
+		Minion target = board.data_.getCharacter(1, 1);
 		Card theCard = board.data_.getCard_hand_p0(0);
-		theCard.useOn(0, 1, 1, board, null, null);
+		theCard.useOn(1, target, board, null, null);
 		
 		assertTrue("test4_1", board.data_.getNumCards_hand() == 0);
 		assertTrue("test4_2", board.data_.getNumMinions_p0() == 2);
@@ -136,8 +141,9 @@ public class TestFireball {
 		Fireball fb = new Fireball();
 		board.data_.placeCard_hand_p0(fb);
 		
+		Minion target = board.data_.getCharacter(1, 2);
 		Card theCard = board.data_.getCard_hand_p0(0);
-		theCard.useOn(0, 1, 2, board, null, null);
+		theCard.useOn(1, target, board, null, null);
 		
 		assertTrue("test5_1", board.data_.getNumCards_hand() == 0);
 		assertTrue("test5_2", board.data_.getNumMinions_p0() == 2);

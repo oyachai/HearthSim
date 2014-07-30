@@ -10,7 +10,7 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.AcidicSwampOoze;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
-import com.hearthsim.card.spellcard.weapon.FieryWarAxe;
+import com.hearthsim.card.weapon.concrete.FieryWarAxe;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
@@ -61,8 +61,9 @@ public class TestAcidicSwampOoze {
 	@Test
 	public void test0() throws HSInvalidPlayerIndexException {
 		
+		Minion target = board.data_.getCharacter(1, 0);
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 1, 0, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(1, target, board, deck, null);
 		
 		assertTrue(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 1);
@@ -75,31 +76,13 @@ public class TestAcidicSwampOoze {
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), health0);
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), health1 - 1);
 	}
-	
-	@Test
-	public void test1() throws HSInvalidPlayerIndexException {
 		
-		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 0, 0, board, deck, null);
-		
-		assertTrue(ret == null);
-		assertEquals(board.data_.getNumCards_hand(), 1);
-		assertEquals(board.data_.getNumMinions_p0(), 2);
-		assertEquals(board.data_.getNumMinions_p1(), 2);
-		assertEquals(board.data_.getHero_p0().getHealth(), 30);
-		assertEquals(board.data_.getHero_p1().getHealth(), 30);
-		assertEquals(board.data_.getMinion_p0(0).getHealth(), health0);
-		assertEquals(board.data_.getMinion_p0(1).getHealth(), health1 - 1);
-		assertEquals(board.data_.getMinion_p1(0).getHealth(), health0);
-		assertEquals(board.data_.getMinion_p1(1).getHealth(), health1 - 1);
-	}
-	
-	
 	@Test
 	public void test2() throws HSInvalidPlayerIndexException {
 		
+		Minion target = board.data_.getCharacter(0, 2);
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 0, 3, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(0, target, board, deck, null);
 		
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 0);
@@ -117,9 +100,10 @@ public class TestAcidicSwampOoze {
 	@Test
 	public void test3() throws HSInvalidPlayerIndexException {
 		
+		Minion target = board.data_.getCharacter(0, 0);
 		HearthTreeNode fl = new HearthTreeNode(board.data_.flipPlayers());
 		fl.data_.placeCard_hand_p0(new FieryWarAxe());
-		fl = fl.data_.getCard_hand_p0(0).useOn(0, 0, 0, fl, deck, null);
+		fl = fl.data_.getCard_hand_p0(0).useOn(0, target, fl, deck, null);
 		board = new HearthTreeNode(fl.data_.flipPlayers());
 		
 		assertEquals(board.data_.getHero_p0().getAttack(), 0);
@@ -127,8 +111,9 @@ public class TestAcidicSwampOoze {
 		assertEquals(board.data_.getHero_p1().getAttack(), 3);
 		assertEquals(board.data_.getHero_p1().getWeaponCharge(), 2);
 
+		target = board.data_.getCharacter(0, 2);
 		Card theCard = board.data_.getCard_hand_p0(0);
-		HearthTreeNode ret = theCard.useOn(0, 0, 3, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(0, target, board, deck, null);
 		
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 0);

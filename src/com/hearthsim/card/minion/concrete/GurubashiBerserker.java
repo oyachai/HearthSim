@@ -136,9 +136,9 @@ public class GurubashiBerserker extends Minion {
 	 * @throws HSInvalidPlayerIndexException
 	 */
 	@Override
-	public HearthTreeNode takeDamage(byte damage, int attackerPlayerIndex, int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean isSpellDamage) throws HSInvalidPlayerIndexException {
+	public HearthTreeNode takeDamage(byte damage, int attackerPlayerIndex, int thisPlayerIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean isSpellDamage) throws HSInvalidPlayerIndexException {
 		if (!divineShield_) {
-			HearthTreeNode toRet = super.takeDamage(damage, attackerPlayerIndex, thisPlayerIndex, thisMinionIndex, boardState, deckPlayer0, deckPlayer1, isSpellDamage);
+			HearthTreeNode toRet = super.takeDamage(damage, attackerPlayerIndex, thisPlayerIndex, boardState, deckPlayer0, deckPlayer1, isSpellDamage);
 			if (!silenced_)
 				this.attack_ = (byte)(this.attack_ + 3);
 			return toRet;
@@ -159,8 +159,9 @@ public class GurubashiBerserker extends Minion {
 	 * @param deck
 	 * @throws HSInvalidPlayerIndexException
 	 */
-	public HearthTreeNode silenced(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
-		HearthTreeNode toRet = super.silenced(thisPlayerIndex, thisMinionIndex, boardState, deckPlayer0, deckPlayer1);
+	@Override
+	public HearthTreeNode silenced(int thisPlayerIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
+		HearthTreeNode toRet = super.silenced(thisPlayerIndex, boardState, deckPlayer0, deckPlayer1);
 		this.attack_ = this.baseAttack_;
 		return toRet;
 	}

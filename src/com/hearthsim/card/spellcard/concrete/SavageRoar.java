@@ -2,6 +2,7 @@ package com.hearthsim.card.spellcard.concrete;
 
 
 import com.hearthsim.card.Deck;
+import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
@@ -48,21 +49,21 @@ public class SavageRoar extends SpellCard {
 	 */
 	@Override
 	protected HearthTreeNode use_core(
-			int thisCardIndex,
-			int playerIndex,
-			int minionIndex,
+			int targetPlayerIndex,
+			Minion targetMinion,
 			HearthTreeNode boardState,
-			Deck deckPlayer0, Deck deckPlayer1)
+			Deck deckPlayer0,
+			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
-		if (minionIndex > 0 || playerIndex == 1) {
+		if (!(targetMinion instanceof Hero) || targetPlayerIndex == 1) {
 			return null;
 		}
-		
-		boardState.data_.getHero_p0().setExtraAttackUntilTurnEnd((byte)2);
+		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
+		toRet.data_.getHero_p0().setExtraAttackUntilTurnEnd((byte)2);
 		for (Minion minion : boardState.data_.getMinions_p0())
 			minion.setExtraAttackUntilTurnEnd((byte)2);
 		
-		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
+		return toRet;
 	}
 }

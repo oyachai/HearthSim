@@ -1,6 +1,7 @@
 package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.Deck;
+import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -45,21 +46,17 @@ public class RockbiterWeapon extends SpellCard {
 	 */
 	@Override
 	protected HearthTreeNode use_core(
-			int thisCardIndex,
-			int playerIndex,
-			int minionIndex,
+			int targetPlayerIndex,
+			Minion targetMinion,
 			HearthTreeNode boardState,
-			Deck deckPlayer0, Deck deckPlayer1)
+			Deck deckPlayer0,
+			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
+		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
+		if (toRet != null)
+			targetMinion.setExtraAttackUntilTurnEnd((byte)(3 + targetMinion.getExtraAttackUntilTurnEnd()));
 		
-		HearthTreeNode toRet = boardState;
-		if (minionIndex == 0) {
-			toRet.data_.getHero(playerIndex).setExtraAttackUntilTurnEnd((byte)(3 + toRet.data_.getHero(playerIndex).getExtraAttackUntilTurnEnd()));
-		} else {
-			toRet.data_.getMinion(playerIndex, minionIndex - 1).setExtraAttackUntilTurnEnd((byte)(3 + toRet.data_.getMinion(playerIndex, minionIndex - 1).getExtraAttackUntilTurnEnd()));
-		}
-		
-		return super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
+		return toRet;
 	}
 }

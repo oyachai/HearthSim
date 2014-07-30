@@ -1,6 +1,5 @@
 package com.hearthsim.card.minion.concrete;
 
-import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
@@ -138,14 +137,14 @@ public class AcolyteOfPain extends Minion {
 	 * @throws HSInvalidPlayerIndexException
 	 */
 	@Override
-	public HearthTreeNode takeDamage(byte damage, int attackerPlayerIndex, int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean isSpellDamage) throws HSInvalidPlayerIndexException {
+	public HearthTreeNode takeDamage(byte damage, int attackerPlayerIndex, int thisPlayerIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean isSpellDamage) throws HSInvalidPlayerIndexException {
 		if (!divineShield_) {
-			HearthTreeNode toRet = super.takeDamage(damage, attackerPlayerIndex, thisPlayerIndex, thisMinionIndex, boardState, deckPlayer0, deckPlayer1, isSpellDamage);
+			HearthTreeNode toRet = super.takeDamage(damage, attackerPlayerIndex, thisPlayerIndex, boardState, deckPlayer0, deckPlayer1, isSpellDamage);
 			if (damage > 0 && thisPlayerIndex == 0) {
 				if (toRet instanceof CardDrawNode) {
 					((CardDrawNode) toRet).addNumCardsToDraw(1);
 				} else {
-					toRet = new CardDrawNode(toRet, 1, this, 0, thisMinionIndex, thisPlayerIndex, thisMinionIndex); //draw one card
+					toRet = new CardDrawNode(toRet, 1); //draw one card
 				}
 			} else if (damage > 0) {
 				//This minion is an enemy minion.  Let's draw a card for the enemy.  No need to use a StopNode for enemy card draws.

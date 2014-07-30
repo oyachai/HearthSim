@@ -49,6 +49,7 @@ public abstract class MinionWithEnrage extends Minion {
 	 */
 	public abstract void pacify();
 	
+	
 	/**
 	 * Called when this minion takes damage
 	 * 
@@ -57,15 +58,16 @@ public abstract class MinionWithEnrage extends Minion {
 	 * @param damage The amount of damage to take
 	 * @param attackerPlayerIndex The player index of the attacker.  This is needed to do things like +spell damage.
 	 * @param thisPlayerIndex The player index of this minion
-	 * @param thisMinionIndex The minion index of this minion
 	 * @param boardState 
-	 * @param deck
+	 * @param deckPlayer0 The deck of player0
+	 * @param deckPlayer0 The deck of player1
 	 * @param isSpellDamage True if this is a spell damage
+	 * 
 	 * @throws HSInvalidPlayerIndexException
 	 */
 	@Override
-	public HearthTreeNode takeDamage(byte damage, int attackerPlayerIndex, int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean isSpellDamage) throws HSInvalidPlayerIndexException {
-		HearthTreeNode toRet = super.takeDamage(damage, attackerPlayerIndex, thisPlayerIndex, thisMinionIndex, boardState, deckPlayer0, deckPlayer1, isSpellDamage);
+	public HearthTreeNode takeDamage(byte damage, int attackerPlayerIndex, int thisPlayerIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean isSpellDamage) throws HSInvalidPlayerIndexException {
+		HearthTreeNode toRet = super.takeDamage(damage, attackerPlayerIndex, thisPlayerIndex, boardState, deckPlayer0, deckPlayer1, isSpellDamage);
 		this.enrageCheck();
 		return toRet;
 	}
@@ -73,16 +75,19 @@ public abstract class MinionWithEnrage extends Minion {
 	/**
 	 * Called when this minion is healed
 	 * 
+	 * Always use this function to heal minions
+	 * 
 	 * @param healAmount The amount of healing to take
 	 * @param thisPlayerIndex The player index of this minion
-	 * @param thisMinionIndex The minion index of this minion
 	 * @param boardState 
-	 * @param deck
+	 * @param deckPlayer0 The deck of player0
+	 * @param deckPlayer0 The deck of player1
+	 * 
 	 * @throws HSInvalidPlayerIndexException
 	 */
 	@Override
-	public HearthTreeNode takeHeal(byte healAmount, int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
-		HearthTreeNode toRet = super.takeHeal(healAmount, thisPlayerIndex, thisMinionIndex, boardState, deckPlayer0, deckPlayer1);
+	public HearthTreeNode takeHeal(byte healAmount, int thisPlayerIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
+		HearthTreeNode toRet = super.takeHeal(healAmount, thisPlayerIndex, boardState, deckPlayer0, deckPlayer1);
 		this.enrageCheck();
 		return toRet;
 	}
@@ -93,14 +98,15 @@ public abstract class MinionWithEnrage extends Minion {
 	 * Always use this function to "silence" minions
 	 * 
 	 * @param thisPlayerIndex The player index of this minion
-	 * @param thisMinionIndex The minion index of this minion
 	 * @param boardState 
-	 * @param deck
+	 * @param deckPlayer0 The deck of player0
+	 * @param deckPlayer0 The deck of player1
+	 * 
 	 * @throws HSInvalidPlayerIndexException
 	 */
 	@Override
-	public HearthTreeNode silenced(int thisPlayerIndex, int thisMinionIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
-		HearthTreeNode toRet = super.silenced(thisPlayerIndex, thisMinionIndex, boardState, deckPlayer0, deckPlayer1);
+	public HearthTreeNode silenced(int thisPlayerIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
+		HearthTreeNode toRet = super.silenced(thisPlayerIndex, boardState, deckPlayer0, deckPlayer1);
 		if (enraged_)
 			this.pacify();
 		return toRet;

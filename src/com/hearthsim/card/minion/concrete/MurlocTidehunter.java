@@ -2,6 +2,7 @@ package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
+import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.Murloc;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -138,9 +139,8 @@ public class MurlocTidehunter extends Murloc {
 	 */
 	@Override
 	public HearthTreeNode use_core(
-			int thisCardIndex,
-			int playerIndex,
-			int minionIndex,
+			int targetPlayerIndex,
+			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
@@ -152,19 +152,19 @@ public class MurlocTidehunter extends Murloc {
 			return null;
 		}
 		
-		if (playerIndex == 1 || minionIndex == 0)
+		if (targetPlayerIndex == 1)
 			return null;
 		
 		if (boardState.data_.getNumMinions_p0() >= 7)
 			return null;
 		
-		HearthTreeNode toRet = super.use_core(thisCardIndex, playerIndex, minionIndex, boardState, deckPlayer0, deckPlayer1);
+		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
 		
-		if (boardState.data_.getNumMinions_p0() < 7) {
-			boardState.data_.placeCard_hand_p0(new MurlocScout());
-			int nc = boardState.data_.getNumCards_hand();
-			Card mdragon = boardState.data_.getCard_hand_p0(nc-1);
-			mdragon.useOn(nc-1, playerIndex, minionIndex+1, boardState, deckPlayer0, deckPlayer1);
+		if (toRet != null && toRet.data_.getNumMinions_p0() < 7) {
+			Card card = new MurlocScout();
+			toRet.data_.placeCard_hand_p0(card);
+			toRet.data_.setMana_p0(boardState.data_.getMana_p0() + 1);
+			card.useOn(targetPlayerIndex, this, boardState, deckPlayer0, deckPlayer1);
 		}
 		return toRet;
 	}
