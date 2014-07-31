@@ -7,7 +7,7 @@ import com.hearthsim.card.minion.concrete.Huffer;
 import com.hearthsim.card.minion.concrete.Leokk;
 import com.hearthsim.card.minion.concrete.Misha;
 import com.hearthsim.card.spellcard.SpellCard;
-import com.hearthsim.exception.HSInvalidPlayerIndexException;
+import com.hearthsim.exception.HSException;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class AnimalCompanion extends SpellCard {
@@ -56,7 +56,7 @@ public class AnimalCompanion extends SpellCard {
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
-		throws HSInvalidPlayerIndexException
+		throws HSException
 	{
 		if (!(targetMinion instanceof Hero) || targetPlayerIndex == 1) {
 			return null;

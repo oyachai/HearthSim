@@ -4,7 +4,7 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
-import com.hearthsim.exception.HSInvalidPlayerIndexException;
+import com.hearthsim.exception.HSException;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -152,7 +152,7 @@ public class AbusiveSergeant extends Minion {
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
-		throws HSInvalidPlayerIndexException
+		throws HSException
 	{
 		//A generic card does nothing except for consuming mana
 		HearthTreeNode toRet = super.useOn(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);

@@ -11,7 +11,6 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.concrete.Corruption;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -60,7 +59,7 @@ public class TestCorruption {
 	}
 	
 	@Test
-	public void test0() throws HSInvalidPlayerIndexException {
+	public void test0() throws HSException {
 		
 		Minion target = board.data_.getCharacter(1, 0);
 		Card theCard = board.data_.getCard_hand_p0(0);
@@ -79,7 +78,7 @@ public class TestCorruption {
 	}
 	
 	@Test
-	public void test1() throws HSInvalidPlayerIndexException {
+	public void test1() throws HSException {
 		
 		Minion target = board.data_.getCharacter(1, 1);
 		Card theCard = board.data_.getCard_hand_p0(0);

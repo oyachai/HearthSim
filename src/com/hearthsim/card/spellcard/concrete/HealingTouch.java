@@ -3,7 +3,7 @@ package com.hearthsim.card.spellcard.concrete;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
-import com.hearthsim.exception.HSInvalidPlayerIndexException;
+import com.hearthsim.exception.HSException;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class HealingTouch extends SpellCard {
@@ -53,7 +53,7 @@ public class HealingTouch extends SpellCard {
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
-		throws HSInvalidPlayerIndexException
+		throws HSException
 	{
 		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
 		if (toRet != null)

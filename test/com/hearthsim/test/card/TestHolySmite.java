@@ -11,7 +11,6 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.concrete.HolySmite;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.exception.HSInvalidPlayerIndexException;
 
 public class TestHolySmite {
 
@@ -39,7 +38,7 @@ public class TestHolySmite {
 	}
 	
 	@Test
-	public void test0() throws HSInvalidPlayerIndexException {
+	public void test0() throws HSException {
 		HolySmite hs = new HolySmite();
 		board.data_.placeCard_hand_p0(hs);
 		
@@ -59,7 +58,7 @@ public class TestHolySmite {
 	}
 
 	@Test
-	public void test1() throws HSInvalidPlayerIndexException {
+	public void test1() throws HSException {
 		HolySmite hs = new HolySmite();
 		board.data_.placeCard_hand_p0(hs);
 		
@@ -79,7 +78,7 @@ public class TestHolySmite {
 	}
 
 	@Test
-	public void test2() throws HSInvalidPlayerIndexException {
+	public void test2() throws HSException {
 		HolySmite hs = new HolySmite();
 		board.data_.placeCard_hand_p0(hs);
 		
@@ -98,7 +97,7 @@ public class TestHolySmite {
 	}
 	
 	@Test
-	public void test3() throws HSInvalidPlayerIndexException {
+	public void test3() throws HSException {
 		HolySmite hs = new HolySmite();
 		board.data_.placeCard_hand_p0(hs);
 		
@@ -118,7 +117,7 @@ public class TestHolySmite {
 	}
 	
 	@Test
-	public void test4() throws HSInvalidPlayerIndexException {
+	public void test4() throws HSException {
 		HolySmite hs = new HolySmite();
 		board.data_.placeCard_hand_p0(hs);
 		
@@ -137,7 +136,7 @@ public class TestHolySmite {
 	}
 
 	@Test
-	public void test5() throws HSInvalidPlayerIndexException {
+	public void test5() throws HSException {
 		HolySmite hs = new HolySmite();
 		board.data_.placeCard_hand_p0(hs);
 		

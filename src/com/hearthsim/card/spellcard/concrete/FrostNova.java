@@ -4,7 +4,7 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
-import com.hearthsim.exception.HSInvalidPlayerIndexException;
+import com.hearthsim.exception.HSException;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class FrostNova extends SpellCard {
@@ -51,7 +51,7 @@ public class FrostNova extends SpellCard {
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
-		throws HSInvalidPlayerIndexException
+		throws HSException
 	{
 		if (targetPlayerIndex == 0) {
 			return null;

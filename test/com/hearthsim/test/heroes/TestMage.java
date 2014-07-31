@@ -14,7 +14,6 @@ import com.hearthsim.card.minion.concrete.ChillwindYeti;
 import com.hearthsim.card.minion.heroes.Mage;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -56,7 +55,7 @@ public class TestMage {
 		try {
 			tmpBoard.data_.getCard_hand_p0(0).useOn(0, tmpBoard.data_.getHero_p0(), tmpBoard, deck, null);
 			tmpBoard.data_.getCard_hand_p0(0).useOn(0, tmpBoard.data_.getHero_p0(), tmpBoard, deck, null);
-		} catch (HSInvalidPlayerIndexException e) {
+		} catch (HSException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -64,7 +63,7 @@ public class TestMage {
 		try {
 			board.data_.getCard_hand_p0(0).useOn(0, board.data_.getHero_p0(), board, deck, null);
 			board.data_.getCard_hand_p0(0).useOn(0, board.data_.getHero_p0(), board, deck, null);
-		} catch (HSInvalidPlayerIndexException e) {
+		} catch (HSException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

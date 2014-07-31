@@ -12,7 +12,6 @@ import com.hearthsim.card.minion.concrete.Leokk;
 import com.hearthsim.card.spellcard.concrete.AnimalCompanion;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -60,7 +59,7 @@ public class TestAnimalCompanion {
 	}
 	
 	@Test
-	public void testLeokk0() throws HSInvalidPlayerIndexException {
+	public void testLeokk0() throws HSException {
 		
 		Card leokk = new Leokk();
 		board.data_.placeCard_hand_p0(leokk);
@@ -82,7 +81,7 @@ public class TestAnimalCompanion {
 	}
 	
 	@Test
-	public void testLeokk1() throws HSInvalidPlayerIndexException {
+	public void testLeokk1() throws HSException {
 		
 		Card leokk = new Leokk();
 		board.data_.placeCard_hand_p0(leokk);
@@ -136,7 +135,7 @@ public class TestAnimalCompanion {
 	}
 	
 	@Test
-	public void test0() throws HSInvalidPlayerIndexException {
+	public void test0() throws HSException {
 		
 		Card theCard = board.data_.getCard_hand_p0(0);
 		Minion target = board.data_.getCharacter(1, 0);
@@ -155,7 +154,7 @@ public class TestAnimalCompanion {
 	}
 
 	@Test
-	public void test1() throws HSInvalidPlayerIndexException {
+	public void test1() throws HSException {
 		
 		Card theCard = board.data_.getCard_hand_p0(0);
 		Minion target = board.data_.getCharacter(0, 0);

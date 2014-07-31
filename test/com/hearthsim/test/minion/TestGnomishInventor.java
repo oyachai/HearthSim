@@ -13,7 +13,6 @@ import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.*;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.player.Player;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.util.BoardState;
@@ -63,7 +62,7 @@ public class TestGnomishInventor {
 	}
 	
 	@Test
-	public void test0() throws HSInvalidPlayerIndexException {
+	public void test0() throws HSException {
 		
 		Minion target = board.data_.getCharacter(1, 0);
 		Card theCard = board.data_.getCard_hand_p0(0);
@@ -82,7 +81,7 @@ public class TestGnomishInventor {
 	}
 	
 	@Test
-	public void test2() throws HSInvalidPlayerIndexException {
+	public void test2() throws HSException {
 		
 		Minion target = board.data_.getCharacter(0, 1);
 		Card theCard = board.data_.getCard_hand_p0(0);

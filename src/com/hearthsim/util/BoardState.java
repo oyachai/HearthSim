@@ -2,7 +2,6 @@ package com.hearthsim.util;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
 
 import sun.awt.util.IdentityLinkedList;
 
@@ -10,6 +9,7 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.json.JSONArray;
 import com.json.JSONObject;
@@ -346,6 +346,23 @@ public class BoardState implements DeepCopyable {
 		p1_maxMana_ += mana;
 	}
 	
+	public void addMana(int playerIndex, int mana) throws HSInvalidPlayerIndexException {
+		if (playerIndex == 0)
+			p0_mana_ += mana;
+		else if (playerIndex == 1) 
+			p1_mana_ += mana;
+		else
+			throw new HSInvalidPlayerIndexException();
+	}
+	
+	public void addMana_p0(int mana) {
+		p0_mana_ += mana;
+	}
+
+	public void addMana_p1(int mana) {
+		p1_mana_ += mana;
+	}
+
 	/**
 	 * Index of the next card in deck
 	 * 
@@ -605,7 +622,7 @@ public class BoardState implements DeepCopyable {
 			Minion targetMinion = p0_minions_.get(index);
 			try {
 				targetMinion.endTurn(0, this, deckPlayer0, deckPlayer1);
-			} catch (HSInvalidPlayerIndexException e) {
+			} catch (HSException e) {
 				e.printStackTrace();
 			}
 		}
@@ -613,7 +630,7 @@ public class BoardState implements DeepCopyable {
 			Minion targetMinion = p1_minions_.get(index);
 			try {
 				targetMinion.endTurn(1, this, deckPlayer0, deckPlayer1);
-			} catch (HSInvalidPlayerIndexException e) {
+			} catch (HSException e) {
 				e.printStackTrace();
 			}
 		}
@@ -633,7 +650,7 @@ public class BoardState implements DeepCopyable {
 		}
 	}
 	
-	public void startTurn(Deck deckPlayer0, Deck deckPlayer1) {
+	public void startTurn(Deck deckPlayer0, Deck deckPlayer1) throws HSException {
 		this.resetHand();
 		this.resetMinions();
 

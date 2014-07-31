@@ -98,7 +98,7 @@ public class Hero extends Minion {
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
-		throws HSInvalidPlayerIndexException
+		throws HSException
 	{
 		
 		if (attack_ + extraAttackUntilTurnEnd_ == 0) {

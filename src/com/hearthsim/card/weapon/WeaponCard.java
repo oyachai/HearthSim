@@ -4,7 +4,7 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.exception.HSInvalidPlayerIndexException;
+import com.hearthsim.exception.HSException;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class WeaponCard extends Card {
@@ -70,7 +70,7 @@ public class WeaponCard extends Card {
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
-		throws HSInvalidPlayerIndexException
+		throws HSException
 	{
 		if (this.hasBeenUsed()) {
 			//Card is already used, nothing to do

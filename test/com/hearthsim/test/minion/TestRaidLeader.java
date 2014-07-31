@@ -13,7 +13,7 @@ import com.hearthsim.card.minion.concrete.RaidLeader;
 import com.hearthsim.card.spellcard.concrete.HolySmite;
 import com.hearthsim.card.spellcard.concrete.Silence;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
-import com.hearthsim.exception.HSInvalidPlayerIndexException;
+import com.hearthsim.exception.HSException;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -55,7 +55,7 @@ public class TestRaidLeader {
 		try {
 			tmpBoard.data_.getCard_hand_p0(0).useOn(0, tmpBoard.data_.getHero_p0(), tmpBoard, deck, null);
 			tmpBoard.data_.getCard_hand_p0(0).useOn(0, tmpBoard.data_.getHero_p0(), tmpBoard, deck, null);
-		} catch (HSInvalidPlayerIndexException e) {
+		} catch (HSException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -63,7 +63,7 @@ public class TestRaidLeader {
 		try {
 			board.data_.getCard_hand_p0(0).useOn(0, board.data_.getHero_p0(), board, deck, null);
 			board.data_.getCard_hand_p0(0).useOn(0, board.data_.getHero_p0(), board, deck, null);
-		} catch (HSInvalidPlayerIndexException e) {
+		} catch (HSException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -76,7 +76,7 @@ public class TestRaidLeader {
 	}
 	
 	@Test
-	public void test1() throws HSInvalidPlayerIndexException {
+	public void test1() throws HSException {
 
 		Minion target = board.data_.getCharacter(0, 0);
 		Card theCard = board.data_.getCard_hand_p0(0);
@@ -101,7 +101,7 @@ public class TestRaidLeader {
 	}
 
 	@Test
-	public void test2() throws HSInvalidPlayerIndexException {
+	public void test2() throws HSException {
 
 		Minion target = board.data_.getCharacter(0, 0);
 		Card theCard = board.data_.getCard_hand_p0(0);
@@ -150,7 +150,7 @@ public class TestRaidLeader {
 	
 
 	@Test
-	public void test3() throws HSInvalidPlayerIndexException {
+	public void test3() throws HSException {
 
 		Minion target = board.data_.getCharacter(0, 0);
 		Card theCard = board.data_.getCard_hand_p0(0);

@@ -11,7 +11,6 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.concrete.Charge;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -48,7 +47,7 @@ public class TestCharge {
 	}
 	
 	@Test
-	public void test0() throws HSInvalidPlayerIndexException {
+	public void test0() throws HSException {
 		Charge fb = new Charge();
 		board.data_.placeCard_hand_p0(fb);
 		
@@ -74,7 +73,7 @@ public class TestCharge {
 	}
 	
 	@Test
-	public void test1() throws HSInvalidPlayerIndexException {
+	public void test1() throws HSException {
 		Charge fb = new Charge();
 		board.data_.placeCard_hand_p0(fb);
 		

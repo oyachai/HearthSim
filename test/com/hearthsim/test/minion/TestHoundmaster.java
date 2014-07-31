@@ -11,7 +11,6 @@ import com.hearthsim.card.minion.Beast;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.Houndmaster;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -87,7 +86,7 @@ public class TestHoundmaster {
 
 	}
 	@Test
-	public void test0() throws HSInvalidPlayerIndexException {
+	public void test0() throws HSException {
 
 
 		Deck deck = null;

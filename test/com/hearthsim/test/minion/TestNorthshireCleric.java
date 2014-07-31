@@ -12,7 +12,6 @@ import com.hearthsim.card.minion.concrete.NorthshireCleric;
 import com.hearthsim.card.spellcard.concrete.AncestralHealing;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -93,7 +92,7 @@ public class TestNorthshireCleric {
 	}
 	
 	@Test
-	public void test1() throws HSInvalidPlayerIndexException {
+	public void test1() throws HSException {
 		NorthshireCleric fb = new NorthshireCleric();
 		board.data_.placeCard_hand_p0(fb);
 		
@@ -159,7 +158,7 @@ public class TestNorthshireCleric {
 	}
 	
 	@Test
-	public void test2() throws HSInvalidPlayerIndexException {
+	public void test2() throws HSException {
 		NorthshireCleric fb1 = new NorthshireCleric();
 		NorthshireCleric fb2 = new NorthshireCleric();
 

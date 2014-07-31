@@ -2,11 +2,11 @@ package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.tree.HearthTreeNode;
 import com.hearthsim.event.attack.AttackAction;
-
 import com.hearthsim.event.deathrattle.DeathrattleAction;
+import com.hearthsim.exception.HSException;
+import com.hearthsim.exception.HSInvalidPlayerIndexException;
 
 
 public class FrostwolfWarlord extends Minion {
@@ -152,7 +152,7 @@ public class FrostwolfWarlord extends Minion {
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
-		throws HSInvalidPlayerIndexException
+		throws HSException
 	{
 		
 		if (hasBeenUsed_) {

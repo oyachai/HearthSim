@@ -2,7 +2,7 @@ package com.hearthsim.event.deathrattle;
 
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.exception.HSInvalidPlayerIndexException;
+import com.hearthsim.exception.HSException;
 import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -21,7 +21,7 @@ public class DeathrattleCardDrawAction extends DeathrattleAction {
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1) 
-		throws HSInvalidPlayerIndexException
+		throws HSException
 	{
 		HearthTreeNode toRet = super.performAction(minion, thisPlayerIndex, boardState, deckPlayer0, deckPlayer1);
 		if (!minion.isSilenced()) {

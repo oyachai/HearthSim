@@ -12,7 +12,7 @@ import com.hearthsim.card.minion.concrete.BloodfenRaptor;
 import com.hearthsim.card.minion.concrete.RaidLeader;
 import com.hearthsim.card.spellcard.concrete.Sap;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
-import com.hearthsim.exception.HSInvalidPlayerIndexException;
+import com.hearthsim.exception.HSException;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -23,7 +23,7 @@ public class TestSap {
 	private Deck deck;
 
 	@Before
-	public void setup() {
+	public void setup() throws HSException {
 		board = new HearthTreeNode(new BoardState());
 
 		Minion minion0_0 = new BloodfenRaptor();
@@ -57,7 +57,7 @@ public class TestSap {
 		try {
 			tmpBoard.data_.getCard_hand_p0(0).useOn(0, tmpBoard.data_.getHero_p0(), tmpBoard, deck, null);
 			tmpBoard.data_.getCard_hand_p0(0).useOn(0, tmpBoard.data_.getHero_p0(), tmpBoard, deck, null);
-		} catch (HSInvalidPlayerIndexException e) {
+		} catch (HSException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -65,7 +65,7 @@ public class TestSap {
 		try {
 			board.data_.getCard_hand_p0(0).useOn(0, board.data_.getHero_p0(), board, deck, null);
 			board.data_.getCard_hand_p0(0).useOn(0, board.data_.getHero_p0(), board, deck, null);
-		} catch (HSInvalidPlayerIndexException e) {
+		} catch (HSException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -74,7 +74,7 @@ public class TestSap {
 	}
 	
 	@Test
-	public void test0() throws HSInvalidPlayerIndexException {
+	public void test0() throws HSException {
 		
 		Minion target = board.data_.getCharacter(0, 0);
 		Card theCard = board.data_.getCard_hand_p0(0);
@@ -100,7 +100,7 @@ public class TestSap {
 	}
 
 	@Test
-	public void test1() throws HSInvalidPlayerIndexException {
+	public void test1() throws HSException {
 		
 		Minion target = board.data_.getCharacter(1, 0);
 		Card theCard = board.data_.getCard_hand_p0(0);
@@ -126,7 +126,7 @@ public class TestSap {
 	}
 	
 	@Test
-	public void test2() throws HSInvalidPlayerIndexException {
+	public void test2() throws HSException {
 		
 		Minion target = board.data_.getCharacter(1, 1);
 		Card theCard = board.data_.getCard_hand_p0(0);
@@ -153,7 +153,7 @@ public class TestSap {
 	}
 
 	@Test
-	public void test3() throws HSInvalidPlayerIndexException {
+	public void test3() throws HSException {
 		
 		Minion target = board.data_.getCharacter(1, 2);
 		Card theCard = board.data_.getCard_hand_p0(0);
@@ -180,7 +180,7 @@ public class TestSap {
 	}
 
 	@Test
-	public void test4() throws HSInvalidPlayerIndexException {
+	public void test4() throws HSException {
 		
 		Minion target = board.data_.getCharacter(1, 2);
 		for (int indx = 0; indx < 10; ++indx) 

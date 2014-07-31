@@ -13,7 +13,6 @@ import com.hearthsim.card.minion.concrete.BloodfenRaptor;
 import com.hearthsim.card.spellcard.concrete.ArcaneIntellect;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.player.Player;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.util.BoardState;
@@ -48,7 +47,7 @@ public class TestArcaneIntellect {
 	}
 	
 	@Test
-	public void test0() throws HSInvalidPlayerIndexException {
+	public void test0() throws HSException {
 
 		
 		Card cards[] = new Card[10];
@@ -106,7 +105,7 @@ public class TestArcaneIntellect {
 	}
 
 	@Test
-	public void test1() throws HSInvalidPlayerIndexException {
+	public void test1() throws HSException {
 		
 		Card cards[] = new Card[1];
 		for (int index = 0; index < 1; ++index) {

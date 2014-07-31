@@ -6,6 +6,7 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
+import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -293,7 +294,7 @@ public class Minion extends Card {
 	 * "start of the turn" effect the card has.
 	 */
 	@Override
-	public BoardState startTurn(int thisMinionPlayerIndex, BoardState boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
+	public BoardState startTurn(int thisMinionPlayerIndex, BoardState boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
 		if (destroyOnTurnStart_) {
 			this.destroyed(thisMinionPlayerIndex, new HearthTreeNode(boardState), deckPlayer0, deckPlayer1);
 		}
@@ -309,7 +310,7 @@ public class Minion extends Card {
 	 * This is not the most efficient implementation... luckily, endTurn only happens once per turn
 	 */
 	@Override
-	public BoardState endTurn(int thisMinionPlayerIndex, BoardState boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
+	public BoardState endTurn(int thisMinionPlayerIndex, BoardState boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
 		extraAttackUntilTurnEnd_ = 0;
 		if (destroyOnTurnEnd_) {
 			this.destroyed(thisMinionPlayerIndex, new HearthTreeNode(boardState), deckPlayer0, deckPlayer1);
@@ -389,7 +390,7 @@ public class Minion extends Card {
 	 * 
 	 * @throws HSInvalidPlayerIndexException
 	 */
-	public HearthTreeNode destroyed(int thisPlayerIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
+	public HearthTreeNode destroyed(int thisPlayerIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
 		
 		health_ = 0;
 		HearthTreeNode toRet = boardState;
@@ -495,7 +496,7 @@ public class Minion extends Card {
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
-		throws HSInvalidPlayerIndexException
+		throws HSException
 	{
 		//A generic card does nothing except for consuming mana
 		HearthTreeNode toRet = this.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
@@ -573,6 +574,7 @@ public class Minion extends Card {
 	 * @param deckPlayer0 The deck of player1
 	 * 
 	 * @return The boardState is manipulated and returned
+	 * @throws HSException 
 	 */
 	@Override
 	protected HearthTreeNode use_core(
@@ -581,7 +583,7 @@ public class Minion extends Card {
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
-		throws HSInvalidPlayerIndexException
+		throws HSException
 	{
 		if (hasBeenUsed_) {
 			//Card is already used, nothing to do
@@ -629,9 +631,8 @@ public class Minion extends Card {
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
-		throws HSInvalidPlayerIndexException
+		throws HSException
 	{
-		
 		if (frozen_) {
 			this.hasAttacked_ = true;
 			this.frozen_ = false;
@@ -660,25 +661,26 @@ public class Minion extends Card {
 		toRet = this.attack_core(targetMinionPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
 		
 		//check for and remove dead minions
-		Iterator<Minion> iter0 = toRet.data_.getMinions_p0().iterator();
-		while (iter0.hasNext()) {
-			Minion tMinion = iter0.next();
-			if (tMinion.getHealth() <= 0) {
-				toRet = tMinion.destroyed(0, toRet, deckPlayer0, deckPlayer1);
-				iter0.remove();
-				toRet.data_.getMinions_p0().remove(tMinion);
+		if (toRet != null) {
+			Iterator<Minion> iter0 = toRet.data_.getMinions_p0().iterator();
+			while (iter0.hasNext()) {
+				Minion tMinion = iter0.next();
+				if (tMinion.getHealth() <= 0) {
+					toRet = tMinion.destroyed(0, toRet, deckPlayer0, deckPlayer1);
+					iter0.remove();
+					toRet.data_.getMinions_p0().remove(tMinion);
+				}
 			}
-		}
-		Iterator<Minion> iter1 = toRet.data_.getMinions_p1().iterator();
-		while (iter1.hasNext()) {
-			Minion tMinion = iter1.next();
-			if (tMinion.getHealth() <= 0) {
-				toRet = tMinion.destroyed(1, toRet, deckPlayer0, deckPlayer1);
-				iter1.remove();
-				toRet.data_.getMinions_p1().remove(tMinion);
+			Iterator<Minion> iter1 = toRet.data_.getMinions_p1().iterator();
+			while (iter1.hasNext()) {
+				Minion tMinion = iter1.next();
+				if (tMinion.getHealth() <= 0) {
+					toRet = tMinion.destroyed(1, toRet, deckPlayer0, deckPlayer1);
+					iter1.remove();
+					toRet.data_.getMinions_p1().remove(tMinion);
+				}
 			}
-		}
-		
+		}		
 		return toRet;
 	}
 
@@ -700,7 +702,7 @@ public class Minion extends Card {
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
-		throws HSInvalidPlayerIndexException
+		throws HSException
 	{
 		
 		if (hasAttacked_) {

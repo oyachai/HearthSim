@@ -12,7 +12,6 @@ import com.hearthsim.card.spellcard.concrete.DeadlyPoison;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.card.weapon.concrete.FieryWarAxe;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -56,7 +55,7 @@ public class TestDeadlyPoison {
 	
 
 	@Test
-	public void test0() throws HSInvalidPlayerIndexException {
+	public void test0() throws HSException {
 		
 		Minion target = board.data_.getCharacter(1, 0);
 		Card theCard = board.data_.getCard_hand_p0(0);
@@ -75,7 +74,7 @@ public class TestDeadlyPoison {
 	}
 	
 	@Test
-	public void test1() throws HSInvalidPlayerIndexException {
+	public void test1() throws HSException {
 		
 		Minion target = board.data_.getCharacter(0, 1);
 		Card theCard = board.data_.getCard_hand_p0(0);
@@ -94,7 +93,7 @@ public class TestDeadlyPoison {
 	}
 	
 	@Test
-	public void test2() throws HSInvalidPlayerIndexException {
+	public void test2() throws HSException {
 		
 		Minion target = board.data_.getCharacter(0, 0);
 		Card theCard = board.data_.getCard_hand_p0(0);
@@ -113,7 +112,7 @@ public class TestDeadlyPoison {
 	}
 	
 	@Test
-	public void test3() throws HSInvalidPlayerIndexException {
+	public void test3() throws HSException {
 		
 		FieryWarAxe fb = new FieryWarAxe();
 		board.data_.placeCard_hand_p0(fb);

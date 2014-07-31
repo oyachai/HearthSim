@@ -3,6 +3,7 @@ package com.hearthsim.card;
 import java.util.Iterator;
 
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.util.BoardState;
@@ -141,7 +142,7 @@ public class Card implements DeepCopyable {
 	 * This function is called at the end of the turn.  Any derived class must override it and remove any 
 	 * temporary buffs that it has.
 	 */
-	public BoardState endTurn(int thisCardPlayerIndex, BoardState boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
+	public BoardState endTurn(int thisCardPlayerIndex, BoardState boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
 		return boardState;
 	}
 	
@@ -151,7 +152,7 @@ public class Card implements DeepCopyable {
 	 * This function is called at the start of the turn.  Any derived class must override it to implement whatever
 	 * "start of the turn" effect the card has.
 	 */
-	public BoardState startTurn(int thisCardPlayerIndex, BoardState boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
+	public BoardState startTurn(int thisCardPlayerIndex, BoardState boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
 		return boardState;
 	}
 
@@ -199,7 +200,7 @@ public class Card implements DeepCopyable {
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
-		throws HSInvalidPlayerIndexException
+		throws HSException
 	{
 		//A generic card does nothing except for consuming mana
 		HearthTreeNode toRet = this.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
@@ -266,7 +267,7 @@ public class Card implements DeepCopyable {
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
-		throws HSInvalidPlayerIndexException
+		throws HSException
 	{
 		//A generic card does nothing except for consuming mana
 		boardState.data_.setMana_p0(boardState.data_.getMana_p0() - this.mana_);

@@ -13,7 +13,7 @@ import com.hearthsim.card.minion.concrete.BoulderfistOgre;
 import com.hearthsim.card.minion.concrete.RaidLeader;
 import com.hearthsim.card.minion.concrete.ScarletCrusader;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
-import com.hearthsim.exception.HSInvalidPlayerIndexException;
+import com.hearthsim.exception.HSException;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -60,7 +60,7 @@ public class TestAbomination {
 			tmpBoard.data_.getCard_hand_p0(0).useOn(0, tmpBoard.data_.getHero_p0(), tmpBoard, deck, null);
 			tmpBoard.data_.getCard_hand_p0(0).useOn(0, tmpBoard.data_.getHero_p0(), tmpBoard, deck, null);
 			tmpBoard.data_.getCard_hand_p0(0).useOn(0, tmpBoard.data_.getHero_p0(), tmpBoard, deck, null);
-		} catch (HSInvalidPlayerIndexException e) {
+		} catch (HSException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -68,7 +68,7 @@ public class TestAbomination {
 		try {
 			board.data_.getCard_hand_p0(0).useOn(0, board.data_.getHero_p0(), board, deck, null);
 			board.data_.getCard_hand_p0(0).useOn(0, board.data_.getHero_p0(), board, deck, null);
-		} catch (HSInvalidPlayerIndexException e) {
+		} catch (HSException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -78,7 +78,7 @@ public class TestAbomination {
 	}
 
 	@Test
-	public void test0() throws HSInvalidPlayerIndexException {
+	public void test0() throws HSException {
 		
 		//null case
 		Minion target = board.data_.getCharacter(1, 0);
@@ -109,7 +109,7 @@ public class TestAbomination {
 	}
 
 	@Test
-	public void test1() throws HSInvalidPlayerIndexException {
+	public void test1() throws HSException {
 		
 		//null case
 		Minion target = board.data_.getCharacter(0, 0);
@@ -142,7 +142,7 @@ public class TestAbomination {
 	}
 
 	@Test
-	public void test2() throws HSInvalidPlayerIndexException {
+	public void test2() throws HSException {
 		
 		//null case
 		Minion target = board.data_.getCharacter(0, 0);
@@ -198,7 +198,7 @@ public class TestAbomination {
 	}
 	
 	@Test
-	public void test3() throws HSInvalidPlayerIndexException {
+	public void test3() throws HSException {
 		
 		//null case
 		Minion target = board.data_.getCharacter(0, 0);

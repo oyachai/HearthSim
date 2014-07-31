@@ -15,7 +15,6 @@ import com.hearthsim.card.minion.concrete.AcolyteOfPain;
 import com.hearthsim.card.minion.concrete.BloodfenRaptor;
 import com.hearthsim.card.minion.concrete.GoldshireFootman;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.player.Player;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.util.BoardState;
@@ -61,7 +60,7 @@ public class TestAcolyteOfPain {
 	}
 	
 	@Test
-	public void test0() throws HSInvalidPlayerIndexException {
+	public void test0() throws HSException {
 		
 		Minion target = board.data_.getCharacter(1, 0);
 		Card theCard = board.data_.getCard_hand_p0(0);
@@ -81,7 +80,7 @@ public class TestAcolyteOfPain {
 	
 
 	@Test
-	public void test2() throws HSInvalidPlayerIndexException {
+	public void test2() throws HSException {
 		
 		Minion target = board.data_.getCharacter(0, 2);
 		Card theCard = board.data_.getCard_hand_p0(0);

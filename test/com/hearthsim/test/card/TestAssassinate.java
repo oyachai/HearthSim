@@ -11,7 +11,6 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.concrete.Assassinate;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -42,7 +41,7 @@ public class TestAssassinate {
 	}
 	
 	@Test
-	public void test0() throws HSInvalidPlayerIndexException {
+	public void test0() throws HSException {
 
 		
 		Card cards[] = new Card[10];
@@ -87,7 +86,7 @@ public class TestAssassinate {
 	}
 
 	@Test
-	public void test1() throws HSInvalidPlayerIndexException {
+	public void test1() throws HSException {
 		
 		Card cards[] = new Card[10];
 		for (int index = 0; index < 10; ++index) {
@@ -131,7 +130,7 @@ public class TestAssassinate {
 	}
 	
 	@Test
-	public void test2() throws HSInvalidPlayerIndexException {
+	public void test2() throws HSException {
 
 		
 		Card cards[] = new Card[10];

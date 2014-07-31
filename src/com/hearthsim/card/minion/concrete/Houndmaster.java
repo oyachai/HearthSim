@@ -3,12 +3,9 @@ package com.hearthsim.card.minion.concrete;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Beast;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.exception.HSInvalidPlayerIndexException;
+import com.hearthsim.exception.HSException;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.tree.HearthTreeNode;
-import com.hearthsim.event.attack.AttackAction;
-
-import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 
@@ -147,7 +144,7 @@ public class Houndmaster extends Minion {
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
-		throws HSInvalidPlayerIndexException
+		throws HSException
 	{
 		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
 		if (toRet != null) {

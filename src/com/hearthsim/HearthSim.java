@@ -17,7 +17,6 @@ import com.hearthsim.io.ParamFile;
 import com.hearthsim.player.Player;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.util.ThreadQueue;
-import com.json.JSONObject;
 
 public abstract class HearthSim {
 	

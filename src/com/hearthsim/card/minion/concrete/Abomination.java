@@ -2,6 +2,7 @@ package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.tree.HearthTreeNode;
 import com.hearthsim.event.attack.AttackAction;
@@ -113,7 +114,7 @@ public class Abomination extends Minion {
 	 * @param deck
 	 * @throws HSInvalidPlayerIndexException
 	 */
-	public HearthTreeNode destroyed(int thisPlayerIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
+	public HearthTreeNode destroyed(int thisPlayerIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
 		
 		HearthTreeNode toRet = super.destroyed(thisPlayerIndex, boardState, deckPlayer0, deckPlayer1);
 		if (!silenced_) {

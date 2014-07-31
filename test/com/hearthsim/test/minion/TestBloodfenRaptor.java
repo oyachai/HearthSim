@@ -9,7 +9,6 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.BloodfenRaptor;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -82,7 +81,7 @@ public class TestBloodfenRaptor {
 	}
 		
 	@Test
-	public void test1() throws HSInvalidPlayerIndexException {
+	public void test1() throws HSException {
 		BloodfenRaptor fb = new BloodfenRaptor();
 		board.data_.placeCard_hand_p0(fb);
 		
@@ -103,7 +102,7 @@ public class TestBloodfenRaptor {
 	}
 	
 	@Test
-	public void test2() throws HSInvalidPlayerIndexException {
+	public void test2() throws HSException {
 		BloodfenRaptor fb = new BloodfenRaptor();
 		board.data_.placeCard_hand_p0(fb);
 		
@@ -169,7 +168,7 @@ public class TestBloodfenRaptor {
 	}
 
 	@Test
-	public void test3() throws HSInvalidPlayerIndexException {
+	public void test3() throws HSException {
 		BloodfenRaptor fb = new BloodfenRaptor();
 		board.data_.placeCard_hand_p0(fb);
 		
@@ -191,7 +190,7 @@ public class TestBloodfenRaptor {
 	}
 
 	@Test
-	public void test4() throws HSInvalidPlayerIndexException {
+	public void test4() throws HSException {
 		BloodfenRaptor fb = new BloodfenRaptor();
 		board.data_.placeCard_hand_p0(fb);
 		
@@ -213,7 +212,7 @@ public class TestBloodfenRaptor {
 	}
 
 	@Test
-	public void test5() throws HSInvalidPlayerIndexException {
+	public void test5() throws HSException {
 		BloodfenRaptor fb = new BloodfenRaptor();
 		board.data_.placeCard_hand_p0(fb);
 		
@@ -234,7 +233,7 @@ public class TestBloodfenRaptor {
 	}
 
 	@Test
-	public void test6() throws HSInvalidPlayerIndexException {
+	public void test6() throws HSException {
 		BloodfenRaptor fb = new BloodfenRaptor();
 		board.data_.placeCard_hand_p0(fb);
 		
@@ -255,7 +254,7 @@ public class TestBloodfenRaptor {
 	}
 
 	@Test
-	public void test7() throws HSInvalidPlayerIndexException {
+	public void test7() throws HSException {
 		BloodfenRaptor fb = new BloodfenRaptor();
 		board.data_.placeCard_hand_p0(fb);
 		

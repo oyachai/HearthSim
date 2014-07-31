@@ -35,7 +35,7 @@ public class TestAncestralHealing {
 	
 	
 	@Test
-	public void test0() {
+	public void test0() throws HSException {
 		
 		Card theCard = board.data_.getCard_hand_p0(0);
 		HearthTreeNode res;
@@ -61,7 +61,7 @@ public class TestAncestralHealing {
 	}
 
 	@Test
-	public void test1() {
+	public void test1() throws HSException {
 		
 		Card theCard = board.data_.getCard_hand_p0(0);
 		HearthTreeNode res;
@@ -83,7 +83,7 @@ public class TestAncestralHealing {
 	}
 
 	@Test
-	public void test2() {
+	public void test2() throws HSException {
 		
 		Card theCard = board.data_.getCard_hand_p0(0);
 		HearthTreeNode res;
@@ -105,7 +105,7 @@ public class TestAncestralHealing {
 	}
 
 	@Test
-	public void test3() {
+	public void test3() throws HSException {
 		
 		Card theCard = board.data_.getCard_hand_p0(0);
 		HearthTreeNode res;
@@ -127,7 +127,7 @@ public class TestAncestralHealing {
 	}
 
 	@Test
-	public void test4() {
+	public void test4() throws HSException {
 		
 		Card theCard = board.data_.getCard_hand_p0(0);
 		HearthTreeNode res;
