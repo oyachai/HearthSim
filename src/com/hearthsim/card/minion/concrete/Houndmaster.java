@@ -6,6 +6,12 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.tree.HearthTreeNode;
+import com.hearthsim.event.attack.AttackAction;
+
+import com.hearthsim.event.deathrattle.DeathrattleAction;
+import com.hearthsim.event.attack.AttackAction;
+import com.hearthsim.event.deathrattle.DeathrattleAction;
+
 
 public class Houndmaster extends Minion {
 
@@ -35,6 +41,8 @@ public class Houndmaster extends Minion {
 				false,
 				false,
 				false,
+				null,
+				null,
 				true,
 				false
 			);
@@ -60,6 +68,8 @@ public class Houndmaster extends Minion {
 			boolean transformed,
 			boolean destroyOnTurnStart,
 			boolean destroyOnTurnEnd,
+			DeathrattleAction deathrattleAction,
+			AttackAction attackAction,
 			boolean isInHand,
 			boolean hasBeenUsed) {
 		
@@ -84,6 +94,8 @@ public class Houndmaster extends Minion {
 			transformed,
 			destroyOnTurnStart,
 			destroyOnTurnEnd,
+			deathrattleAction,
+			attackAction,
 			isInHand,
 			hasBeenUsed);
 	}
@@ -110,6 +122,8 @@ public class Houndmaster extends Minion {
 				this.transformed_,
 				this.destroyOnTurnStart_,
 				this.destroyOnTurnEnd_,
+				this.deathrattleAction_,
+				this.attackAction_,
 				this.isInHand_,
 				this.hasBeenUsed_);
 	}

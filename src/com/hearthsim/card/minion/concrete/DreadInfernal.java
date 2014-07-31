@@ -5,6 +5,8 @@ import com.hearthsim.card.minion.Demon;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.tree.HearthTreeNode;
+import com.hearthsim.event.attack.AttackAction;
+import com.hearthsim.event.deathrattle.DeathrattleAction;
 
 public class DreadInfernal extends Demon {
 
@@ -42,6 +44,8 @@ public class DreadInfernal extends Demon {
 				TRANSFORMED,
 				false,
 				false,
+				null,
+				null,
 				true,
 				false
 			);
@@ -67,6 +71,8 @@ public class DreadInfernal extends Demon {
 			boolean transformed,
 			boolean destroyOnTurnStart,
 			boolean destroyOnTurnEnd,
+			DeathrattleAction deathrattleAction,
+			AttackAction attackAction,
 			boolean isInHand,
 			boolean hasBeenUsed) {
 		
@@ -91,6 +97,8 @@ public class DreadInfernal extends Demon {
 			transformed,
 			destroyOnTurnStart,
 			destroyOnTurnEnd,
+			deathrattleAction,
+			attackAction,
 			isInHand,
 			hasBeenUsed);
 	}
@@ -117,6 +125,8 @@ public class DreadInfernal extends Demon {
 				this.transformed_,
 				this.destroyOnTurnStart_,
 				this.destroyOnTurnEnd_,
+				this.deathrattleAction_,
+				this.attackAction_,
 				this.isInHand_,
 				this.hasBeenUsed_);
 	}

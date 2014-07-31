@@ -1,6 +1,8 @@
 package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.minion.Beast;
+import com.hearthsim.event.attack.AttackAction;
+import com.hearthsim.event.deathrattle.DeathrattleAction;
 
 public class Frog extends Beast {
 
@@ -33,6 +35,8 @@ public class Frog extends Beast {
 				TRANSFORMED,
 				false,
 				false,
+				null,
+				null,
 				true,
 				false
 			);
@@ -58,6 +62,8 @@ public class Frog extends Beast {
 			boolean transformed,
 			boolean destroyOnTurnStart,
 			boolean destroyOnTurnEnd,
+			DeathrattleAction deathrattleAction,
+			AttackAction attackAction,
 			boolean isInHand,
 			boolean hasBeenUsed) {
 		
@@ -82,6 +88,8 @@ public class Frog extends Beast {
 			transformed,
 			destroyOnTurnStart,
 			destroyOnTurnEnd,
+			deathrattleAction,
+			attackAction,
 			isInHand,
 			hasBeenUsed);
 	}
@@ -108,6 +116,8 @@ public class Frog extends Beast {
 				this.transformed_,
 				this.destroyOnTurnStart_,
 				this.destroyOnTurnEnd_,
+				this.deathrattleAction_,
+				this.attackAction_,
 				this.isInHand_,
 				this.hasBeenUsed_);
 	}

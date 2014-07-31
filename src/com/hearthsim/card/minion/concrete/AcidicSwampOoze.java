@@ -4,6 +4,8 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.tree.HearthTreeNode;
+import com.hearthsim.event.attack.AttackAction;
+import com.hearthsim.event.deathrattle.DeathrattleAction;
 
 public class AcidicSwampOoze extends Minion {
 	
@@ -41,6 +43,8 @@ public class AcidicSwampOoze extends Minion {
 				TRANSFORMED,
 				false,
 				false,
+				null,
+				null,
 				true,
 				false
 			);
@@ -66,6 +70,8 @@ public class AcidicSwampOoze extends Minion {
 			boolean transformed,
 			boolean destroyOnTurnStart,
 			boolean destroyOnTurnEnd,
+			DeathrattleAction deathrattleAction,
+			AttackAction attackAction,
 			boolean isInHand,
 			boolean hasBeenUsed) {
 		
@@ -90,6 +96,8 @@ public class AcidicSwampOoze extends Minion {
 			transformed,
 			destroyOnTurnStart,
 			destroyOnTurnEnd,
+			deathrattleAction,
+			attackAction,
 			isInHand,
 			hasBeenUsed);
 	}
@@ -116,6 +124,8 @@ public class AcidicSwampOoze extends Minion {
 				this.transformed_,
 				this.destroyOnTurnStart_,
 				this.destroyOnTurnEnd_,
+				this.deathrattleAction_,
+				this.attackAction_,
 				this.isInHand_,
 				this.hasBeenUsed_);
 	}

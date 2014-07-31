@@ -4,6 +4,8 @@ import java.util.Iterator;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
+import com.hearthsim.event.attack.AttackAction;
+import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -36,6 +38,9 @@ public class Minion extends Card {
 	protected boolean destroyOnTurnStart_;
 	protected boolean destroyOnTurnEnd_;
 
+	protected DeathrattleAction deathrattleAction_;
+	protected AttackAction attackAction_;
+	
 	public Minion(String name, byte mana, byte attack, byte health, byte baseAttack, byte baseHealth, byte maxHealth) {
 		this(
 				name,
@@ -100,6 +105,8 @@ public class Minion extends Card {
 				transformed,
 				false,
 				false,
+				null,
+				null,
 				isInHand,
 				hasBeenUsed);
 	}
@@ -124,6 +131,8 @@ public class Minion extends Card {
 					boolean transformed,
 					boolean destroyOnTurnStart,
 					boolean destroyOnTurnEnd,
+					DeathrattleAction deathrattleAction,
+					AttackAction attackAction,
 					boolean isInHand,
 					boolean hasBeenUsed) {
 		super(name, mana, hasBeenUsed, isInHand);
@@ -145,6 +154,8 @@ public class Minion extends Card {
 		transformed_ = transformed;
 		destroyOnTurnStart_ = destroyOnTurnStart;
 		destroyOnTurnEnd_ = destroyOnTurnEnd;
+		deathrattleAction_ = deathrattleAction;
+		attackAction_ = attackAction;
 	}
 	
 	public boolean getTaunt() {
@@ -270,6 +281,10 @@ public class Minion extends Card {
 	public boolean isSilenced() {
 		return silenced_;
 	}
+	
+	public boolean hasDeathrattle() {
+		return deathrattleAction_ == null;
+	}
 
 	/**
 	 * Called at the start of the turn
@@ -377,8 +392,12 @@ public class Minion extends Card {
 	public HearthTreeNode destroyed(int thisPlayerIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
 		
 		health_ = 0;
-		
 		HearthTreeNode toRet = boardState;
+		
+		//perform the deathrattle action if there is one
+		if (deathrattleAction_ != null)
+			toRet =  deathrattleAction_.performAction(this, thisPlayerIndex, toRet, deckPlayer0, deckPlayer1);
+		
 		//Notify all that it is dead
 		toRet = toRet.data_.getHero_p0().minionDeadEvent(0, thisPlayerIndex, this, toRet, deckPlayer0, deckPlayer1);
 		for (int j = 0; j < toRet.data_.getNumMinions_p0(); ++j) {
@@ -947,6 +966,11 @@ public class Minion extends Card {
 		return json;
 	}
 	
+	/**
+	 * Deep copy of the object
+	 * 
+	 * Note: the event actions are not actually deep copied.
+	 */
 	@Override
 	public Object deepCopy() {
 		return new Minion(
@@ -970,6 +994,8 @@ public class Minion extends Card {
 				this.transformed_,
 				this.destroyOnTurnStart_,
 				this.destroyOnTurnEnd_,
+				this.deathrattleAction_,
+				this.attackAction_,
 				this.isInHand_,
 				this.hasBeenUsed_);
 	}
@@ -1015,6 +1041,15 @@ public class Minion extends Card {
 			return false;
 		if (destroyOnTurnEnd_ != ((Minion)other).destroyOnTurnEnd_)
 			return false;
+		
+		//This is checked for reference equality
+		if (deathrattleAction_ != ((Minion)other).deathrattleAction_)
+			return false;
+		
+		//This is checked for reference equality
+		if (attackAction_ != ((Minion)other).attackAction_)
+			return false;
+		
 		return true;
 	}
 

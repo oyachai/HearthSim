@@ -1,6 +1,8 @@
 package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.minion.MinionWithSpellDamage;
+import com.hearthsim.event.attack.AttackAction;
+import com.hearthsim.event.deathrattle.DeathrattleAction;
 
 public class OgreMagi extends MinionWithSpellDamage {
 
@@ -42,6 +44,8 @@ public class OgreMagi extends MinionWithSpellDamage {
 				TRANSFORMED,
 				false,
 				false,
+				null,
+				null,
 				true,
 				false
 			);
@@ -68,6 +72,8 @@ public class OgreMagi extends MinionWithSpellDamage {
 			boolean transformed,
 			boolean destroyOnTurnStart,
 			boolean destroyOnTurnEnd,
+			DeathrattleAction deathrattleAction,
+			AttackAction attackAction,
 			boolean isInHand,
 			boolean hasBeenUsed) {
 		
@@ -93,6 +99,8 @@ public class OgreMagi extends MinionWithSpellDamage {
 			transformed,
 			destroyOnTurnStart,
 			destroyOnTurnEnd,
+			deathrattleAction,
+			attackAction,
 			isInHand,
 			hasBeenUsed);
 	}
@@ -120,6 +128,8 @@ public class OgreMagi extends MinionWithSpellDamage {
 				this.transformed_,
 				this.destroyOnTurnStart_,
 				this.destroyOnTurnEnd_,
+				this.deathrattleAction_,
+				this.attackAction_,
 				this.isInHand_,
 				this.hasBeenUsed_);
 	}

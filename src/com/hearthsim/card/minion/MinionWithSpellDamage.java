@@ -1,6 +1,8 @@
 package com.hearthsim.card.minion;
 
 import com.hearthsim.card.Deck;
+import com.hearthsim.event.attack.AttackAction;
+import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -30,6 +32,8 @@ public class MinionWithSpellDamage extends Minion {
 							boolean transformed,
 							boolean destroyAtTurnStart,
 							boolean destroyAtTurnEnd,
+							DeathrattleAction deathrattleAction,
+							AttackAction attackAction,
 							boolean isInHand,
 							boolean hasBeenUsed) {
 		
@@ -54,6 +58,8 @@ public class MinionWithSpellDamage extends Minion {
 			transformed,
 			destroyAtTurnStart,
 			destroyAtTurnEnd,
+			deathrattleAction,
+			attackAction,
 			isInHand,
 			hasBeenUsed);
 		spellDamage_ = spellDamage;
@@ -84,6 +90,8 @@ public class MinionWithSpellDamage extends Minion {
 				this.transformed_,
 				this.destroyOnTurnStart_,
 				this.destroyOnTurnEnd_,
+				this.deathrattleAction_,
+				this.attackAction_,
 				this.isInHand_,
 				this.hasBeenUsed_);
 	}

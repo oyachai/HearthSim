@@ -1,6 +1,8 @@
 package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.event.attack.AttackAction;
+import com.hearthsim.event.deathrattle.DeathrattleAction;
 
 public class MechanicalDragonling extends Minion {
 
@@ -39,6 +41,8 @@ public class MechanicalDragonling extends Minion {
 				TRANSFORMED,
 				false,
 				false,
+				null,
+				null,
 				true,
 				false
 			);
@@ -64,6 +68,8 @@ public class MechanicalDragonling extends Minion {
 			boolean transformed,
 			boolean destroyOnTurnStart,
 			boolean destroyOnTurnEnd,
+			DeathrattleAction deathrattleAction,
+			AttackAction attackAction,
 			boolean isInHand,
 			boolean hasBeenUsed) {
 		
@@ -88,6 +94,8 @@ public class MechanicalDragonling extends Minion {
 			transformed,
 			destroyOnTurnStart,
 			destroyOnTurnEnd,
+			deathrattleAction,
+			attackAction,
 			isInHand,
 			hasBeenUsed);
 	}
@@ -114,6 +122,8 @@ public class MechanicalDragonling extends Minion {
 				this.transformed_,
 				this.destroyOnTurnStart_,
 				this.destroyOnTurnEnd_,
+				this.deathrattleAction_,
+				this.attackAction_,
 				this.isInHand_,
 				this.hasBeenUsed_);
 	}

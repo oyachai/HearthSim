@@ -5,6 +5,10 @@ import com.hearthsim.card.minion.Beast;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.tree.HearthTreeNode;
+import com.hearthsim.event.attack.AttackAction;
+
+import com.hearthsim.event.deathrattle.DeathrattleAction;
+
 
 public class TimberWolf extends Beast {
 
@@ -42,6 +46,8 @@ public class TimberWolf extends Beast {
 				TRANSFORMED,
 				false,
 				false,
+				null,
+				null,
 				true,
 				false
 			);
@@ -67,6 +73,8 @@ public class TimberWolf extends Beast {
 			boolean transformed,
 			boolean destroyOnTurnStart,
 			boolean destroyOnTurnEnd,
+			DeathrattleAction deathrattleAction,
+			AttackAction attackAction,
 			boolean isInHand,
 			boolean hasBeenUsed) {
 		
@@ -91,6 +99,8 @@ public class TimberWolf extends Beast {
 			transformed,
 			destroyOnTurnStart,
 			destroyOnTurnEnd,
+			deathrattleAction,
+			attackAction,
 			isInHand,
 			hasBeenUsed);
 	}
@@ -117,6 +127,8 @@ public class TimberWolf extends Beast {
 				this.transformed_,
 				this.destroyOnTurnStart_,
 				this.destroyOnTurnEnd_,
+				this.deathrattleAction_,
+				this.attackAction_,
 				this.isInHand_,
 				this.hasBeenUsed_);
 	}

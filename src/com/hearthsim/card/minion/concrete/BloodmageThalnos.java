@@ -3,25 +3,26 @@ package com.hearthsim.card.minion.concrete;
 import com.hearthsim.card.minion.MinionWithSpellDamage;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
+import com.hearthsim.event.deathrattle.DeathrattleCardDrawAction;
 
-public class DalaranMage extends MinionWithSpellDamage {
-
-	private static final String NAME = "Dalaran Mage";
-	private static final byte MANA_COST = 3;
+public class BloodmageThalnos extends MinionWithSpellDamage {
+	
+	private static final String NAME = "Bloodmage Thalnos";
+	private static final byte MANA_COST = 1;
 	private static final byte ATTACK = 1;
-	private static final byte HEALTH = 4;
+	private static final byte HEALTH = 1;
 	
 	private static final boolean TAUNT = false;
 	private static final boolean DIVINE_SHIELD = false;
 	private static final boolean WINDFURY = false;
 	private static final boolean CHARGE = false;
 	
-	private static final boolean SUMMONED = false;
+	private static final boolean SUMMONED = true;
 	private static final boolean TRANSFORMED = false;
 	
 	private static final byte SPELL_DAMAGE = 1;
 	
-	public DalaranMage() {
+	public BloodmageThalnos() {
 		this(
 				MANA_COST,
 				ATTACK,
@@ -43,14 +44,14 @@ public class DalaranMage extends MinionWithSpellDamage {
 				TRANSFORMED,
 				false,
 				false,
-				null,
+				new DeathrattleCardDrawAction(1),
 				null,
 				true,
 				false
 			);
 	}
 	
-	public DalaranMage(	
+	public BloodmageThalnos(	
 			byte mana,
 			byte attack,
 			byte health,
@@ -106,7 +107,7 @@ public class DalaranMage extends MinionWithSpellDamage {
 	
 	@Override
 	public Object deepCopy() {
-		return new DalaranMage(
+		return new BloodmageThalnos(
 				this.mana_,
 				this.attack_,
 				this.health_,
@@ -132,4 +133,5 @@ public class DalaranMage extends MinionWithSpellDamage {
 				this.isInHand_,
 				this.hasBeenUsed_);
 	}
+	
 }

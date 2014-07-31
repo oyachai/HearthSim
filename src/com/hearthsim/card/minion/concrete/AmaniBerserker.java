@@ -1,6 +1,8 @@
 package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.minion.MinionWithEnrage;
+import com.hearthsim.event.attack.AttackAction;
+import com.hearthsim.event.deathrattle.DeathrattleAction;
 
 public class AmaniBerserker extends MinionWithEnrage {
 
@@ -39,6 +41,8 @@ public class AmaniBerserker extends MinionWithEnrage {
 				TRANSFORMED,
 				false,
 				false,
+				null,
+				null,
 				false,
 				true,
 				false
@@ -65,6 +69,8 @@ public class AmaniBerserker extends MinionWithEnrage {
 			boolean transformed,
 			boolean destroyOnTurnStart,
 			boolean destroyOnTurnEnd,
+			DeathrattleAction deathrattleAction,
+			AttackAction attackAction,
 			boolean enraged,
 			boolean isInHand,
 			boolean hasBeenUsed) {
@@ -91,6 +97,8 @@ public class AmaniBerserker extends MinionWithEnrage {
 			destroyOnTurnStart,
 			destroyOnTurnEnd,
 			enraged,
+			deathrattleAction,
+			attackAction,
 			isInHand,
 			hasBeenUsed);
 	}
@@ -117,6 +125,8 @@ public class AmaniBerserker extends MinionWithEnrage {
 				this.transformed_,
 				this.destroyOnTurnStart_,
 				this.destroyOnTurnEnd_,
+				this.deathrattleAction_,
+				this.attackAction_,
 				this.enraged_,
 				this.isInHand_,
 				this.hasBeenUsed_);

@@ -1,5 +1,7 @@
 package com.hearthsim.card.minion;
 
+import com.hearthsim.event.attack.AttackAction;
+import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.json.JSONObject;
 
 public class Totem extends Minion {
@@ -25,6 +27,8 @@ public class Totem extends Minion {
 			boolean transformed,
 			boolean destroyOnTurnStart,
 			boolean destroyOnTurnEnd,
+			DeathrattleAction deathrattleAction,
+			AttackAction attackAction,
 			boolean isInHand,
 			boolean hasBeenUsed) {
 		super(
@@ -48,6 +52,8 @@ public class Totem extends Minion {
 				transformed,
 				destroyOnTurnStart,
 				destroyOnTurnEnd,
+				deathrattleAction,
+				attackAction,
 				isInHand,
 				hasBeenUsed);
 	}
@@ -61,7 +67,7 @@ public class Totem extends Minion {
 			byte baseHealth,
 			byte maxHealth
 			) {
-		this(name, mana, attack, health, baseAttack, (byte)0, baseHealth, maxHealth, false, false, false, false, false, false, false, false, false, false, false, false, true, false);
+		this(name, mana, attack, health, baseAttack, (byte)0, baseHealth, maxHealth, false, false, false, false, false, false, false, false, false, false, false, false, null, null, true, false);
 	}
 	
 	public JSONObject toJSON() {

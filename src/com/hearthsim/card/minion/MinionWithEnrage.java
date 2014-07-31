@@ -1,6 +1,8 @@
 package com.hearthsim.card.minion;
 
 import com.hearthsim.card.Deck;
+import com.hearthsim.event.attack.AttackAction;
+import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -29,9 +31,11 @@ public abstract class MinionWithEnrage extends Minion {
 					boolean destroyOnTurnStart,
 					boolean destroyOnTurnEnd,
 					boolean enraged,
+					DeathrattleAction deathrattleAction,
+					AttackAction attackAction,
 					boolean isInHand,
 					boolean hasBeenUsed) {
-		super(name, mana, attack, health, baseAttack, extraAttackUntilTurnEnd, baseHealth, maxHealth, taunt, divineShield, windFury, charge, hasAttacked, hasWindFuryAttacked, frozen, silenced, summoned, transformed, destroyOnTurnStart, destroyOnTurnEnd, isInHand, hasBeenUsed);
+		super(name, mana, attack, health, baseAttack, extraAttackUntilTurnEnd, baseHealth, maxHealth, taunt, divineShield, windFury, charge, hasAttacked, hasWindFuryAttacked, frozen, silenced, summoned, transformed, destroyOnTurnStart, destroyOnTurnEnd, deathrattleAction, attackAction, isInHand, hasBeenUsed);
 		enraged_ = enraged;
 	}
 	

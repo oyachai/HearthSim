@@ -1,10 +1,9 @@
 package com.hearthsim.card.minion.concrete;
 
-import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.exception.HSInvalidPlayerIndexException;
-import com.hearthsim.util.tree.CardDrawNode;
-import com.hearthsim.util.tree.HearthTreeNode;
+import com.hearthsim.event.attack.AttackAction;
+import com.hearthsim.event.deathrattle.DeathrattleAction;
+import com.hearthsim.event.deathrattle.DeathrattleCardDrawAction;
 
 public class LootHoarder extends Minion {
 	
@@ -42,6 +41,8 @@ public class LootHoarder extends Minion {
 				TRANSFORMED,
 				false,
 				false,
+				new DeathrattleCardDrawAction(1),
+				null,
 				true,
 				false
 			);
@@ -67,6 +68,8 @@ public class LootHoarder extends Minion {
 			boolean transformed,
 			boolean destroyOnTurnStart,
 			boolean destroyOnTurnEnd,
+			DeathrattleAction deathrattleAction,
+			AttackAction attackAction,
 			boolean isInHand,
 			boolean hasBeenUsed) {
 		
@@ -91,6 +94,8 @@ public class LootHoarder extends Minion {
 			transformed,
 			destroyOnTurnStart,
 			destroyOnTurnEnd,
+			deathrattleAction,
+			attackAction,
 			isInHand,
 			hasBeenUsed);
 	}
@@ -117,37 +122,10 @@ public class LootHoarder extends Minion {
 				this.transformed_,
 				this.destroyOnTurnStart_,
 				this.destroyOnTurnEnd_,
+				this.deathrattleAction_,
+				this.attackAction_,
 				this.isInHand_,
 				this.hasBeenUsed_);
 	}
 	
-	/**
-	 * Called when this minion dies (destroyed)
-	 * 
-	 * Death rattle: draw a card
-	 * 
-	 * @param thisPlayerIndex The player index of this minion
-	 * @param thisMinionIndex The minion index of this minion
-	 * @param boardState 
-	 * @param deck
-	 * @throws HSInvalidPlayerIndexException
-	 */
-	public HearthTreeNode destroyed(int thisPlayerIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
-		
-		HearthTreeNode toRet = super.destroyed(thisPlayerIndex, boardState, deckPlayer0, deckPlayer1);
-		if (!silenced_) {
-			if (thisPlayerIndex == 0) {
-				if (toRet instanceof CardDrawNode) {
-					((CardDrawNode) toRet).addNumCardsToDraw(1);
-				} else {
-					toRet = new CardDrawNode(toRet, 1); //draw one card
-				}
-			} else {
-				//This minion is an enemy minion.  Let's draw a card for the enemy.  No need to use a StopNode for enemy card draws.
-				toRet.data_.drawCardFromDeck_p1(deckPlayer1, 1);
-			}
-		}
-		return toRet;
-
-	}
 }
