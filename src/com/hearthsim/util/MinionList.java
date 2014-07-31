@@ -1,7 +1,6 @@
 package com.hearthsim.util;
 
 import java.util.Iterator;
-import java.util.LinkedList;
 
 import sun.awt.util.IdentityLinkedList;
 
