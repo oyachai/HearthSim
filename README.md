@@ -39,6 +39,11 @@ or whatever is the actual path to the simulation parameter file.
 
 You can find some simulation results [HearthSim](https://hearthstone.versify-app.com/board/HearthSim/) board or on [my blog](http://buddypanda.com).
 
+[Effect of The Coin](http://buddypanda.com/?p=65)    
+[Effect of direct damage spells](http://buddypanda.com/?p=119)    
+[Effect of taunts](http://buddypanda.com/?p=183)    
+[Effect of divine shield](http://buddypanda.com/?p=217)    
+[Effect of additional card draw](http://buddypanda.com/?p=279)    
 
 ##Contributing
 
