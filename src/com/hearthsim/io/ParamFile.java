@@ -29,6 +29,8 @@ import com.hearthsim.exception.HSParamNotFoundException;
 public class ParamFile {
 
 	
+	private ParamFile() {}
+
 	/**
 	 * Constructor
 	 * 
@@ -40,6 +42,19 @@ public class ParamFile {
 		this.params_ = new HashMap<String, String>();
 		this.read(paramFilePath);
 	}
+	
+	/**
+	 * Constructor
+	 * 
+	 * @param setupFilePath The file path to the deck list to be read
+	 * @throws IOException 
+	 */
+	public static ParamFile fromHashMap(HashMap<String, String> hashMap) {
+		ParamFile toRet = new ParamFile();
+		toRet.params_ = hashMap;
+		return toRet;
+	}
+	
 	 
 	/**
 	 * Read the given file

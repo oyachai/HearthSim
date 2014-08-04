@@ -16,7 +16,7 @@ public class Hero extends Minion {
 	protected byte armor_;
 		
 	public Hero() {
-		this("", (byte)30);
+		this("NoHero", (byte)30);
 	}
 
 	public Hero(String name, byte health) {

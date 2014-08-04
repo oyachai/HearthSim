@@ -7,9 +7,12 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
+import com.hearthsim.event.HSGameEndEventListener;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidParamFileException;
 import com.hearthsim.exception.HSParamNotFoundException;
@@ -28,8 +31,11 @@ public abstract class HearthSim {
 	protected Path aiParamFilePath0_;
 	protected Path aiParamFilePath1_;
 	
+	boolean isRunning_;
+	protected GameResult[] results_;
 	
-	GameResult[] results_;
+	private List<HSGameEndEventListener> gameEndListeners_;
+
 	/**
 	 * Constructor
 	 * 
@@ -47,8 +53,18 @@ public abstract class HearthSim {
 		aiParamFilePath1_ = FileSystems.getDefault().getPath(rootPath_.toString(), masterParam.getString("aiParamFilePath1"));
 		gameResultFileName_ = masterParam.getString("output_file", "gameres.txt");
 		results_ = new GameResult[numSims_];
+		gameEndListeners_ = new ArrayList<HSGameEndEventListener>();
+		isRunning_ = false;
 	}
-		
+
+	HearthSim(int numSimulations, int numThreads) {
+		numSims_ = numSimulations;
+		numThreads_ = numThreads;
+		results_ = new GameResult[numSims_];
+		gameEndListeners_ = new ArrayList<HSGameEndEventListener>();
+		isRunning_ = false;
+	}
+	
 	/**
 	 * Run a single game.
 	 * 
@@ -79,8 +95,8 @@ public abstract class HearthSim {
 		deck0.shuffle();
 		deck1.shuffle();
 		
-		Player player0 = new Player("player0", new Hero(), deck0);
-		Player player1 = new Player("player1", new Hero(), deck1);
+		Player player0 = new Player("player0", hero0, deck0);
+		Player player1 = new Player("player1", hero1, deck1);
 
 		Game game = new Game(player0, player1, ai0, ai1);
 		return game.runGame();
@@ -104,7 +120,7 @@ public abstract class HearthSim {
 	}
 	
 	
-	private class GameThread implements Runnable {
+	class GameThread implements Runnable {
 
 		
 		final int gameId_;
@@ -119,12 +135,20 @@ public abstract class HearthSim {
 		public void run() {
 			try {
 				GameResult res = runSingleGame();
-				synchronized(writer_) {
+
+				if (writer_ != null) {
+					synchronized(writer_) {
+						GameResultSummary grs = new GameResultSummary(res);
+						writer_.write(grs.toJSON().toString() + "\n");
+						writer_.flush();
+					}
+				}
+				synchronized(results_) {
 					System.out.println("game " + gameId_ + ", player " + res.winnerPlayerIndex_ + " wins");
-					GameResultSummary grs = new GameResultSummary(res);
-					writer_.write(grs.toJSON().toString() + "\n");
-					writer_.flush();
 					results_[gameId_] = res;
+					for (HSGameEndEventListener listener : gameEndListeners_) {
+						listener.gameEnded(res);
+					}
 				}
 			} catch (HSException | IOException e) {
 				System.out.println("Error! " + e);
@@ -133,4 +157,13 @@ public abstract class HearthSim {
 		}
 		
 	}
+	
+    public void addGameEndListener(HSGameEndEventListener toAdd) {
+    	gameEndListeners_.add(toAdd);
+    }
+
+    public void removeGameEndListener(HSGameEndEventListener toAdd) {
+    	gameEndListeners_.remove(toAdd);
+    }
+
 }

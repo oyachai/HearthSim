@@ -31,7 +31,7 @@ public class HearthSimConstructed extends HearthSim {
 		deckListFilePath1_ = FileSystems.getDefault().getPath(rootPath_.toString(), masterParam.getString("deckListFilePath1"));
 	}
 	
-
+	@Override
 	public GameResult runSingleGame() throws IOException, HSException {
 	
 		DeckListFile deckList0 = new DeckListFile(deckListFilePath0_);
