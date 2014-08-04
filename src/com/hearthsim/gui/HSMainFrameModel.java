@@ -1,10 +1,12 @@
 package com.hearthsim.gui;
 
 import java.util.ArrayList;
+
 import org.apache.commons.math3.distribution.*;
 
 import com.hearthsim.GameResult;
 import com.hearthsim.event.HSGameEndEventListener;
+import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.util.BoardState;
 
 public class HSMainFrameModel implements HSGameEndEventListener {
@@ -145,6 +147,13 @@ public class HSMainFrameModel implements HSGameEndEventListener {
 		view_ = view;
 		simulation_ = new HSSimulation(this);
 		gameStats_ = new GameStats();
+		simulation_.getConfig().numSimulations_ = 10;
+		simulation_.getConfig().numThreads_ = 1;
+		simulation_.getConfig().simName_ = "HearthSim";
+		
+		simulation_.setAI_p0(new ArtificialPlayer());
+		simulation_.setAI_p1(new ArtificialPlayer());
+
 	}
 	
 	public HSSimulation getSimulation() {

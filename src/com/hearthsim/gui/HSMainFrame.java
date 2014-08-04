@@ -621,16 +621,26 @@ public class HSMainFrame implements HSSimulationEventListener {
 		lblWin_1.setText("" + nWins_1);
 		lblWinRate_0.setText(pFormatter_.format(100.0 * hsModel_.getGameStats().getWinRate_p0()) + "%");
 		lblWinRate_1.setText(pFormatter_.format(100.0 * hsModel_.getGameStats().getWinRate_p1()) + "%");
-		lblConfNum_0.setText(
-				pFormatter_.format(100.0 * hsModel_.getGameStats().getWinRateContRange_lower(0.95, nWins_0, nWins_0 + nWins_1)) + "%"
-				+ " -- " + 
-				pFormatter_.format(100.0 * hsModel_.getGameStats().getWinRateContRange_upper(0.95, nWins_0, nWins_0 + nWins_1)) + "%"
-				);
-		lblConfNum_1.setText(
-				pFormatter_.format(100.0 * hsModel_.getGameStats().getWinRateContRange_lower(0.95, nWins_1, nWins_0 + nWins_1)) + "%"
-				+ " -- " + 
-				pFormatter_.format(100.0 * hsModel_.getGameStats().getWinRateContRange_upper(0.95, nWins_1, nWins_0 + nWins_1)) + "%"
-				);
+
+		try {
+			lblConfNum_0.setText(
+					pFormatter_.format(100.0 * hsModel_.getGameStats().getWinRateContRange_lower(0.95, nWins_0, nWins_0 + nWins_1)) + "%"
+					+ " -- " + 
+					pFormatter_.format(100.0 * hsModel_.getGameStats().getWinRateContRange_upper(0.95, nWins_0, nWins_0 + nWins_1)) + "%"
+					);
+		} catch (Exception e) {
+			lblConfNum_0.setText("--");
+		}
+		
+		try {
+			lblConfNum_1.setText(
+					pFormatter_.format(100.0 * hsModel_.getGameStats().getWinRateContRange_lower(0.95, nWins_1, nWins_0 + nWins_1)) + "%"
+					+ " -- " + 
+					pFormatter_.format(100.0 * hsModel_.getGameStats().getWinRateContRange_upper(0.95, nWins_1, nWins_0 + nWins_1)) + "%"
+					);
+		} catch (Exception e) {
+			lblConfNum_1.setText("--");
+		}
 		frame.repaint();
 	}
 

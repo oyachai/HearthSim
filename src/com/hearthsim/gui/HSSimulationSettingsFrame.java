@@ -224,7 +224,7 @@ public class HSSimulationSettingsFrame extends JDialog {
 		settings_general.add(lblSettings_general_1, gbc_lblSettings_general_1);
 		
 		fldNumSims = new JTextField();
-		fldNumSims.setText("100");
+		fldNumSims.setText("10");
 		GridBagConstraints gbc_fldNumSims = new GridBagConstraints();
 		gbc_fldNumSims.anchor = GridBagConstraints.NORTH;
 		gbc_fldNumSims.fill = GridBagConstraints.HORIZONTAL;
