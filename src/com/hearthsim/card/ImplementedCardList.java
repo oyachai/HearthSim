@@ -221,7 +221,7 @@ public class ImplementedCardList {
             map_.put(Consecration.class, card);
         }
         {
-            ImplementedCard card = new ImplementedCard(CoreHound.class, "Core Hound", "minion", "neutral", "free", "You dont tame a Core Hound. You just train it to eat someone else before it eats you", 7, 9, 5);
+            ImplementedCard card = new ImplementedCard(CoreHound.class, "Core Hound", "minion", "neutral", "free", "", 7, 9, 5);
             list_.add(card);
             map_.put(CoreHound.class, card);
         }

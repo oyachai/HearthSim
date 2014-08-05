@@ -1,6 +1,9 @@
 package com.hearthsim.gui;
 
 import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -9,7 +12,9 @@ import java.util.Collections;
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JPanel;
 import javax.swing.ListCellRenderer;
+import javax.swing.SwingConstants;
 
 import com.hearthsim.card.ImplementedCardList;
 import com.hearthsim.card.ImplementedCardList.ImplementedCard;
@@ -61,11 +66,60 @@ public class HSCardSelectionList extends JList<ImplementedCard> {
 		cardListPane_ = cardListPane;
 	}
 	
-	class CardSelectionCellRenderer extends JLabel implements ListCellRenderer {
-
+	public static class CardSelectionCellRenderer extends JPanel implements ListCellRenderer {
+		
+		JLabel manaLabel_;
+		JLabel nameLabel_;
+		JLabel textLabel_;
+		JLabel attackLabel_;
+		JLabel healthLabel_;
+		
 		public CardSelectionCellRenderer() {
 			setOpaque(false);
-			setIconTextGap(12);
+			this.setPreferredSize(new Dimension(760, 18));
+			FlowLayout flowLayout = (FlowLayout) this.getLayout();
+			flowLayout.setVgap(1);
+			flowLayout.setHgap(5);
+			manaLabel_ = new JLabel();
+			manaLabel_.setPreferredSize(new Dimension(30, 18));
+			nameLabel_ = new JLabel();
+			nameLabel_.setPreferredSize(new Dimension(180, 18));
+			textLabel_ = new JLabel();
+			textLabel_.setPreferredSize(new Dimension(450, 18));
+			
+			manaLabel_.setHorizontalAlignment(SwingConstants.RIGHT);
+			
+			attackLabel_ = new JLabel();
+			attackLabel_.setPreferredSize(new Dimension(25, 18));
+			healthLabel_ = new JLabel();
+			healthLabel_.setPreferredSize(new Dimension(25, 18));
+			
+			manaLabel_.setForeground(HSColors.TEXT_COLOR);
+			nameLabel_.setForeground(HSColors.TEXT_COLOR);
+			attackLabel_.setForeground(HSColors.TEXT_COLOR);
+			healthLabel_.setForeground(HSColors.TEXT_COLOR);
+			textLabel_.setForeground(HSColors.TEXT_COLOR);
+			
+			manaLabel_.setFont(new Font("Helvetica Neue", Font.PLAIN, 12));
+			attackLabel_.setFont(new Font("Helvetica Neue", Font.PLAIN, 12));
+			healthLabel_.setFont(new Font("Helvetica Neue", Font.PLAIN, 12));
+			nameLabel_.setFont(new Font("Helvetica Neue", Font.PLAIN, 12));
+			textLabel_.setFont(new Font("Helvetica Neue", Font.PLAIN, 12));
+			
+			this.add(manaLabel_);
+			this.add(nameLabel_);
+			this.add(attackLabel_);
+			this.add(healthLabel_);
+			this.add(textLabel_);
+		}
+		
+		public CardSelectionCellRenderer(String manaLabel, String nameLabel, String textLabel, String attackLabel, String healthLabel) {
+			this();
+			manaLabel_.setText(manaLabel);
+			nameLabel_.setText(nameLabel);
+			textLabel_.setText(textLabel);
+			attackLabel_.setText(attackLabel);
+			healthLabel_.setText(healthLabel);
 		}
 		
 		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
@@ -90,7 +144,20 @@ public class HSCardSelectionList extends JList<ImplementedCard> {
 				this.setForeground(HSColors.CARD_FREE_COLOR);
 				break;
 			}
-			setText("[" + entry.mana_ + "] " + entry.name_);
+			manaLabel_.setForeground(this.getForeground());
+			nameLabel_.setForeground(this.getForeground());
+
+			manaLabel_.setText("[" + entry.mana_ + "]");
+			nameLabel_.setText(entry.name_);
+			textLabel_.setText(entry.text_);
+			if (entry.attack_ >= 0)
+				attackLabel_.setText("" + entry.attack_);
+			else
+				attackLabel_.setText("");
+			if (entry.health_ >= 0)
+				healthLabel_.setText("" + entry.health_);
+			else
+				healthLabel_.setText("");
 			return this;
 		}
 	}

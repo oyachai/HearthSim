@@ -78,7 +78,7 @@ Commanding Shout|spell|warrior|rare|2|||Your minions can't be reduced below 1 He
 Conceal|spell|rogue|common|1|||Give your minions Stealth until your next turn|FALSE
 Cone of Cold|spell|mage|common|4|||Freeze a minion and the minions next to it, and deal 1 damage to them|FALSE
 Consecration|spell|paladin|free|4|||Deal 2 damage to all enemies|TRUE
-Core Hound|minion|neutral|free|7|9|5|You don't tame a Core Hound. You just train it to eat someone else before it eats you|TRUE
+Core Hound|minion|neutral|free|7|9|5||TRUE
 Corruption|spell|warlock|free|1|||Choose an enemy minion. At the start of your turn, destroy it|TRUE
 Counterspell|spell|mage|rare|3|||Secret: When your opponent casts a spell, Counter it|FALSE
 Crazed Alchemist|minion|neutral|rare|2|2|2|Battlecry: Swap the Attack and Health of a minion|FALSE

@@ -205,6 +205,7 @@ public class HSMainFrame implements HSSimulationEventListener {
 				if (retVal == JFileChooser.APPROVE_OPTION) {
 					try {
 						DeckListFile deckList = new DeckListFile(fileChooser_.getSelectedFile().toPath());
+						((SortedListModel) deckList_0.getModel()).clear();
 						for (int indx = 0; indx < deckList.getDeck().getNumCards(); ++indx) {
 							Card card = deckList.getDeck().drawCard(indx);
 							((SortedListModel) deckList_0.getModel()).addElement(IMPLEMENTED_CARD_LIST.getCardForClass(card.getClass()));
@@ -288,18 +289,18 @@ public class HSMainFrame implements HSSimulationEventListener {
 		Player0Info.add(rigidArea_2);
 		
 		lblWin_0 = new JLabel("--");
-		lblWin_0.setFont(new Font("Helvetica Neue", Font.PLAIN, 20));
+		lblWin_0.setFont(new Font("Helvetica Neue", Font.PLAIN, 24));
 		lblWin_0.setHorizontalAlignment(SwingConstants.CENTER);
 		lblWin_0.setPreferredSize(new Dimension(135, 40));
 		lblWin_0.setForeground(Color.WHITE);
 		Player0Info.add(lblWin_0);
 		
-		Component rigidArea_1 = Box.createRigidArea(new Dimension(20, 20));
-		rigidArea_1.setPreferredSize(new Dimension(135, 10));
+		Component rigidArea_1 = Box.createRigidArea(new Dimension(20, 10));
+		rigidArea_1.setPreferredSize(new Dimension(135, 2));
 		Player0Info.add(rigidArea_1);
 		
 		lblWinRate_0 = new JLabel("--");
-		lblWinRate_0.setFont(new Font("Helvetica Neue", Font.PLAIN, 20));
+		lblWinRate_0.setFont(new Font("Helvetica Neue", Font.PLAIN, 24));
 		lblWinRate_0.setHorizontalAlignment(SwingConstants.CENTER);
 		lblWinRate_0.setHorizontalTextPosition(SwingConstants.CENTER);
 		lblWinRate_0.setForeground(Color.WHITE);
@@ -340,18 +341,18 @@ public class HSMainFrame implements HSSimulationEventListener {
 		Player1Info.add(rigidArea_1_0);
 		
 		lblWin_1 = new JLabel("--");
-		lblWin_1.setFont(new Font("Helvetica Neue", Font.PLAIN, 20));
+		lblWin_1.setFont(new Font("Helvetica Neue", Font.PLAIN, 24));
 		lblWin_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblWin_1.setPreferredSize(new Dimension(135, 40));
 		lblWin_1.setForeground(Color.WHITE);
 		Player1Info.add(lblWin_1);
 		
 		Component rigidArea_1_1 = Box.createRigidArea(new Dimension(20, 20));
-		rigidArea_1_1.setPreferredSize(new Dimension(135, 10));
+		rigidArea_1_1.setPreferredSize(new Dimension(135, 2));
 		Player1Info.add(rigidArea_1_1);
 		
 		lblWinRate_1 = new JLabel("--");
-		lblWinRate_1.setFont(new Font("Helvetica Neue", Font.PLAIN, 20));
+		lblWinRate_1.setFont(new Font("Helvetica Neue", Font.PLAIN, 24));
 		lblWinRate_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblWinRate_1.setHorizontalTextPosition(SwingConstants.CENTER);
 		lblWinRate_1.setForeground(Color.WHITE);
@@ -617,6 +618,7 @@ public class HSMainFrame implements HSSimulationEventListener {
 				if (retVal == JFileChooser.APPROVE_OPTION) {
 					try {
 						DeckListFile deckList = new DeckListFile(fileChooser_.getSelectedFile().toPath());
+						((SortedListModel) deckList_1.getModel()).clear();
 						for (int indx = 0; indx < deckList.getDeck().getNumCards(); ++indx) {
 							Card card = deckList.getDeck().drawCard(indx);
 							((SortedListModel) deckList_1.getModel()).addElement(IMPLEMENTED_CARD_LIST.getCardForClass(card.getClass()));

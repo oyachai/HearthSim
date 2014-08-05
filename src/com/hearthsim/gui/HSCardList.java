@@ -7,20 +7,15 @@ import java.awt.event.MouseEvent;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Iterator;
 
-import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
-import com.hearthsim.card.ImplementedCardList;
 import com.hearthsim.card.ImplementedCardList.ImplementedCard;
-import com.hearthsim.gui.HSCardSelectionList.CardSelectionCellRenderer;
 
 public class HSCardList extends JList<ImplementedCard> {
 
@@ -40,7 +35,8 @@ public class HSCardList extends JList<ImplementedCard> {
 	        	String name = ((SortedListModel<ImplementedCard>) HSCardList.this.getModel()).getElementAt(index).name_;
 	        	System.out.println("clicked item " + index + ": " + name);
 	        	if (editing_) {
-	        		((SortedListModel<ImplementedCard>) HSCardList.this.getModel()).remove(index);
+	        		if (list.getCellBounds(index, 100000).contains(evt.getPoint())) 
+	        			((SortedListModel<ImplementedCard>) HSCardList.this.getModel()).remove(index);
 	        	}
 		    }
 		});

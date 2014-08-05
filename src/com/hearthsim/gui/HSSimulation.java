@@ -7,7 +7,6 @@ import java.util.List;
 import com.hearthsim.HearthSimGUI;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
-import com.hearthsim.event.HSGameEndEventListener;
 import com.hearthsim.event.HSSimulationEventListener;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;

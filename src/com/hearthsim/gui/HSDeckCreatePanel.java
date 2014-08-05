@@ -46,23 +46,16 @@ public class HSDeckCreatePanel extends JPanel {
 		layout_.putConstraint(SpringLayout.EAST, titlePanel_, 0, SpringLayout.EAST, this);
 		layout_.putConstraint(SpringLayout.WEST, titlePanel_, 0, SpringLayout.WEST, this);
 
-		controlPanel_ = new JPanel();
-		layout_.putConstraint(SpringLayout.NORTH, controlPanel_, -40, SpringLayout.SOUTH, this);
-		layout_.putConstraint(SpringLayout.SOUTH, controlPanel_, 0, SpringLayout.SOUTH, this);
-		layout_.putConstraint(SpringLayout.EAST, controlPanel_, 0, SpringLayout.EAST, this);
-		layout_.putConstraint(SpringLayout.WEST, controlPanel_, 0, SpringLayout.WEST, this);
-
 		mainPanel_ = new JPanel();
 		SpringLayout sl_mainPanel = new SpringLayout();
 		mainPanel_.setLayout(sl_mainPanel);
 		layout_.putConstraint(SpringLayout.NORTH, mainPanel_, 0, SpringLayout.SOUTH, titlePanel_);
-		layout_.putConstraint(SpringLayout.SOUTH, mainPanel_, 0, SpringLayout.NORTH, controlPanel_);
+		layout_.putConstraint(SpringLayout.SOUTH, mainPanel_, 0, SpringLayout.SOUTH, this);
 		layout_.putConstraint(SpringLayout.EAST, mainPanel_, 0, SpringLayout.EAST, this);
 		layout_.putConstraint(SpringLayout.WEST, mainPanel_, 0, SpringLayout.WEST, this);
 
 		this.add(titlePanel_);
 		this.add(mainPanel_);
-		this.add(controlPanel_);
 		
 		JPanel leftArrowPanel = new JPanel();
 		leftArrowPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 20));
@@ -112,14 +105,20 @@ public class HSDeckCreatePanel extends JPanel {
 		cardList_ = new HSCardSelectionList();
 		cardList_.setForeground(Color.WHITE);
 		cardList_.setBackground(HSColors.LIGHTER_BACKGROUND_COLOR);
-		
+
+//		JPanel headerPanel = new HSCardSelectionList.CardSelectionCellRenderer("Mana", "Name", "Attack", "Health", "Text");
+//		sl_mainPanel.putConstraint(SpringLayout.NORTH, headerPanel, 0, SpringLayout.NORTH, mainPanel_);
+//		sl_mainPanel.putConstraint(SpringLayout.SOUTH, headerPanel, 18, SpringLayout.NORTH, mainPanel_);
+//		sl_mainPanel.putConstraint(SpringLayout.WEST, headerPanel, 5, SpringLayout.WEST, mainPanel_);
+//		sl_mainPanel.putConstraint(SpringLayout.EAST, headerPanel, -5, SpringLayout.EAST, mainPanel_);
+
 		JScrollPane DeckPane_0 = new JScrollPane();
 		sl_mainPanel.putConstraint(SpringLayout.NORTH, DeckPane_0, 0, SpringLayout.NORTH, mainPanel_);
 		sl_mainPanel.putConstraint(SpringLayout.SOUTH, DeckPane_0, 0, SpringLayout.SOUTH, mainPanel_);
 		sl_mainPanel.putConstraint(SpringLayout.WEST, DeckPane_0, 5, SpringLayout.WEST, mainPanel_);
 		sl_mainPanel.putConstraint(SpringLayout.EAST, DeckPane_0, -5, SpringLayout.EAST, mainPanel_);
 		DeckPane_0.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-		DeckPane_0.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		DeckPane_0.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		DeckPane_0.setOpaque(false);
 		DeckPane_0.setBackground(Color.DARK_GRAY);
 		DeckPane_0.setLayout(new ScrollPaneLayout());
@@ -127,6 +126,10 @@ public class HSDeckCreatePanel extends JPanel {
 		DeckPane_0.setBorder(BorderFactory.createEmptyBorder());
 		DeckPane_0.setViewportView(cardList_);
 		DeckPane_0.getVerticalScrollBar().setUI(new HSScrollbarUI());
+		DeckPane_0.getHorizontalScrollBar().setUI(new HSScrollbarUI()); 
+		
+		
+//		mainPanel_.add(headerPanel);
 		mainPanel_.add(DeckPane_0);
 	}
 	
