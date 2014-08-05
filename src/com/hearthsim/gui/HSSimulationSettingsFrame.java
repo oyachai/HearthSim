@@ -224,7 +224,10 @@ public class HSSimulationSettingsFrame extends JDialog {
 		settings_general.add(lblSettings_general_1, gbc_lblSettings_general_1);
 		
 		fldNumSims = new JTextField();
-		fldNumSims.setText("10");
+		if (simulation_.getConfig().numSimulations_ > 0)			
+			fldNumSims.setText("" + simulation_.getConfig().numSimulations_);
+		else
+			fldNumSims.setText("10");
 		GridBagConstraints gbc_fldNumSims = new GridBagConstraints();
 		gbc_fldNumSims.anchor = GridBagConstraints.NORTH;
 		gbc_fldNumSims.fill = GridBagConstraints.HORIZONTAL;
@@ -244,7 +247,10 @@ public class HSSimulationSettingsFrame extends JDialog {
 		settings_general.add(lblSettings_general_2, gbc_lblSettings_general_2);
 				
 		fldNumThreads = new JTextField();
-		fldNumThreads.setText("1");
+		if (simulation_.getConfig().numThreads_ > 0)
+			fldNumThreads.setText("" + simulation_.getConfig().numThreads_);
+		else
+			fldNumThreads.setText("1");
 		GridBagConstraints gbc_fldNumThreads = new GridBagConstraints();
 		gbc_fldNumThreads.anchor = GridBagConstraints.NORTH;
 		gbc_fldNumThreads.fill = GridBagConstraints.HORIZONTAL;

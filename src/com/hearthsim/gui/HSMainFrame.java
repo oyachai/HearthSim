@@ -25,7 +25,8 @@ import java.awt.Component;
 
 import javax.swing.Box;
 import javax.swing.border.MatteBorder;
-import javax.swing.JList;
+import javax.swing.event.ListDataEvent;
+import javax.swing.event.ListDataListener;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.ImplementedCardList;
@@ -58,6 +59,9 @@ public class HSMainFrame implements HSSimulationEventListener {
 	
 	private HSCardList deckList_0;
 	private HSCardList deckList_1;
+	
+	private JLabel cardCount_0;
+	private JLabel cardCount_1;
 	
 	private JFileChooser fileChooser_;
 	
@@ -133,11 +137,11 @@ public class HSMainFrame implements HSSimulationEventListener {
 		Player0Panel.setLayout(sl_Player0Panel);
 		
 		JPanel HeroPane_0 = new JPanel();
+		sl_Player0Panel.putConstraint(SpringLayout.SOUTH, HeroPane_0, 50, SpringLayout.NORTH, Player0Panel);
 		HeroPane_0.setOpaque(false);
 		HeroPane_0.setBackground(Color.DARK_GRAY);
 		sl_Player0Panel.putConstraint(SpringLayout.NORTH, HeroPane_0, 0, SpringLayout.NORTH, Player0Panel);
 		sl_Player0Panel.putConstraint(SpringLayout.WEST, HeroPane_0, 0, SpringLayout.WEST, Player0Panel);
-		sl_Player0Panel.putConstraint(SpringLayout.SOUTH, HeroPane_0, 60, SpringLayout.NORTH, Player0Panel);
 		sl_Player0Panel.putConstraint(SpringLayout.EAST, HeroPane_0, 0, SpringLayout.EAST, Player0Panel);
 		springLayout.putConstraint(SpringLayout.NORTH, HeroPane_0, 0, SpringLayout.NORTH, Player0Panel);
 		springLayout.putConstraint(SpringLayout.WEST, HeroPane_0, 0, SpringLayout.WEST, Player0Panel);
@@ -159,13 +163,13 @@ public class HSMainFrame implements HSSimulationEventListener {
 		
 		lblHero_0 = new JLabel("Hero0");
 		lblHero_0.setHorizontalAlignment(SwingConstants.CENTER);
-		lblHero_0.setBounds(6, 6, 187, 48);
+		lblHero_0.setBounds(0, 0, 200, 50);
 		lblHero_0.setFont(new Font("Helvetica Neue", Font.PLAIN, 20));
 		lblHero_0.setForeground(Color.WHITE);
 		HeroPane_0.add(lblHero_0);
 		
 		JButton btnDeckCreate_0 = new HSDeckCreateButton();
-		btnDeckCreate_0.setBounds(160, 23, 20, 15);
+		btnDeckCreate_0.setBounds(160, 18, 20, 15);
 		btnDeckCreate_0.setBackground(HSColors.BACKGROUND_COLOR);
 		btnDeckCreate_0.setForeground(Color.WHITE);
 		HeroPane_0.add(btnDeckCreate_0);
@@ -174,9 +178,9 @@ public class HSMainFrame implements HSSimulationEventListener {
 		Player0Panel.add(DeckPane_0);
 		
 		JPanel ControlPane_0 = new JPanel();
+		sl_Player0Panel.putConstraint(SpringLayout.SOUTH, DeckPane_0, -20, SpringLayout.NORTH, ControlPane_0);
 		ControlPane_0.setBackground(Color.DARK_GRAY);
 		ControlPane_0.setOpaque(false);
-		sl_Player0Panel.putConstraint(SpringLayout.SOUTH, DeckPane_0, 0, SpringLayout.NORTH, ControlPane_0);
 		
 		deckList_0 = new HSCardList();
 		deckList_0.setForeground(Color.WHITE);
@@ -228,7 +232,7 @@ public class HSMainFrame implements HSSimulationEventListener {
 		
 		JButton p0_save = new HSButton("Save...");
 		p0_save.setForeground(Color.WHITE);
-		p0_save.setBackground(HSColors.DEFAULT_BUTTON_COLOR);
+		p0_save.setBackground(HSColors.DISABLED_BUTTON_COLOR);
 		sl_ControlPane_0.putConstraint(SpringLayout.EAST, p0_save, -5, SpringLayout.EAST, ControlPane_0);
 		p0_save.setPreferredSize(new Dimension(80, 30));
 		sl_ControlPane_0.putConstraint(SpringLayout.NORTH, p0_save, 5, SpringLayout.NORTH, ControlPane_0);
@@ -421,7 +425,7 @@ public class HSMainFrame implements HSSimulationEventListener {
 		});
 		tabAveMinions.setBorder(null);
 		tabAveMinions.setFont(new Font("Helvetica Neue", Font.PLAIN, 10));
-		tabAveMinions.setBackground(HSColors.WARNING_BUTTON_COLOW);
+		tabAveMinions.setBackground(HSColors.WARNING_BUTTON_COLOR);
 		tabAveMinions.setForeground(Color.WHITE);
 		plotTabPane.add(tabAveMinions);
 		
@@ -435,7 +439,7 @@ public class HSMainFrame implements HSSimulationEventListener {
 		});
 		tabAveCards.setBorder(null);
 		tabAveCards.setFont(new Font("Helvetica Neue", Font.PLAIN, 10));
-		tabAveCards.setBackground(HSColors.WARNING_BUTTON_COLOW);
+		tabAveCards.setBackground(HSColors.WARNING_BUTTON_COLOR);
 		tabAveCards.setForeground(Color.WHITE);
 		plotTabPane.add(tabAveCards);
 		
@@ -550,15 +554,15 @@ public class HSMainFrame implements HSSimulationEventListener {
 		Player1Panel.setLayout(sl_Player1Panel);
 		
 		JPanel HeroPane_1 = new JPanel();
+		sl_Player1Panel.putConstraint(SpringLayout.SOUTH, HeroPane_1, 50, SpringLayout.NORTH, Player1Panel);
 		HeroPane_1.setOpaque(false);
 		sl_Player1Panel.putConstraint(SpringLayout.NORTH, HeroPane_1, 0, SpringLayout.NORTH, Player1Panel);
 		sl_Player1Panel.putConstraint(SpringLayout.WEST, HeroPane_1, 0, SpringLayout.WEST, Player1Panel);
-		sl_Player1Panel.putConstraint(SpringLayout.SOUTH, HeroPane_1, 60, SpringLayout.NORTH, Player1Panel);
 		sl_Player1Panel.putConstraint(SpringLayout.EAST, HeroPane_1, 0, SpringLayout.EAST, Player1Panel);
 		Player1Panel.add(HeroPane_1);
 
 		JButton btnDeckCreate_1 = new HSDeckCreateButton();
-		btnDeckCreate_1.setBounds(20, 23, 20, 15);
+		btnDeckCreate_1.setBounds(20, 18, 20, 15);
 		btnDeckCreate_1.setBackground(HSColors.BACKGROUND_COLOR);
 		btnDeckCreate_1.setForeground(Color.WHITE);
 		HeroPane_1.add(btnDeckCreate_1);
@@ -575,7 +579,7 @@ public class HSMainFrame implements HSSimulationEventListener {
 		HeroPane_1.setLayout(null);
 		
 		lblHero_1 = new JLabel("Hero1");
-		lblHero_1.setBounds(6, 6, 187, 48);
+		lblHero_1.setBounds(0, 0, 200, 50);
 		lblHero_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblHero_1.setForeground(Color.WHITE);
 		lblHero_1.setFont(new Font("Helvetica Neue", Font.PLAIN, 20));
@@ -584,8 +588,8 @@ public class HSMainFrame implements HSSimulationEventListener {
 		Player1Panel.add(DeckPane_1);
 		
 		JPanel ControlPane_1 = new JPanel();
+		sl_Player1Panel.putConstraint(SpringLayout.SOUTH, DeckPane_1, -20, SpringLayout.NORTH, ControlPane_1);
 		ControlPane_1.setOpaque(false);
-		sl_Player1Panel.putConstraint(SpringLayout.SOUTH, DeckPane_1, 0, SpringLayout.NORTH, ControlPane_1);
 		sl_Player1Panel.putConstraint(SpringLayout.NORTH, ControlPane_1, -40, SpringLayout.SOUTH, Player1Panel);
 		sl_Player1Panel.putConstraint(SpringLayout.WEST, ControlPane_1, 0, SpringLayout.WEST, Player1Panel);
 		sl_Player1Panel.putConstraint(SpringLayout.SOUTH, ControlPane_1, 0, SpringLayout.SOUTH, Player1Panel);
@@ -613,12 +617,10 @@ public class HSMainFrame implements HSSimulationEventListener {
 				if (retVal == JFileChooser.APPROVE_OPTION) {
 					try {
 						DeckListFile deckList = new DeckListFile(fileChooser_.getSelectedFile().toPath());
-						deckListModel1_ = new DefaultListModel();
 						for (int indx = 0; indx < deckList.getDeck().getNumCards(); ++indx) {
 							Card card = deckList.getDeck().drawCard(indx);
-							deckListModel1_.addElement("["+card.getMana()+"] " + card.getName());
+							((SortedListModel) deckList_1.getModel()).addElement(IMPLEMENTED_CARD_LIST.getCardForClass(card.getClass()));
 						}
-						deckList_1.setModel(deckListModel1_);
 						hsModel_.getSimulation().setDeck_p1(deckList.getDeck());
 						hsModel_.getSimulation().setHero_p1(deckList.getHero());
 						lblHero_1.setText(deckList.getHero().getName());
@@ -642,13 +644,92 @@ public class HSMainFrame implements HSSimulationEventListener {
 		
 		JButton p1_save = new HSButton("Save...");
 		p1_save.setForeground(Color.WHITE);
-		p1_save.setBackground(HSColors.DEFAULT_BUTTON_COLOR);
+		p1_save.setBackground(HSColors.DISABLED_BUTTON_COLOR);
 		p1_save.setPreferredSize(new Dimension(80, 30));
 		sl_ControlPane_1.putConstraint(SpringLayout.EAST, p1_save, -5, SpringLayout.EAST, ControlPane_1);
 		sl_ControlPane_1.putConstraint(SpringLayout.NORTH, p1_save, 5, SpringLayout.NORTH, ControlPane_1);
 		ControlPane_1.add(p1_save);
 
+		//--------------------------------------------------------------------------------
+		//--------------------------------------------------------------------------------
+		
+		JPanel cardCountPanel_0 = new JPanel();
+		cardCountPanel_0.setBackground(HSColors.BACKGROUND_COLOR);
+		cardCountPanel_0.setForeground(HSColors.TEXT_COLOR);
+		sl_Player0Panel.putConstraint(SpringLayout.NORTH, cardCountPanel_0, 0, SpringLayout.SOUTH, DeckPane_0);
+		sl_Player0Panel.putConstraint(SpringLayout.WEST, cardCountPanel_0, 0, SpringLayout.WEST, DeckPane_0);
+		sl_Player0Panel.putConstraint(SpringLayout.SOUTH, cardCountPanel_0, 0, SpringLayout.NORTH, ControlPane_0);
+		sl_Player0Panel.putConstraint(SpringLayout.EAST, cardCountPanel_0, 0, SpringLayout.EAST, Player0Panel);
+		Player0Panel.add(cardCountPanel_0);
+		cardCountPanel_0.setLayout(null);
 
+		cardCount_0 = new JLabel("0 / 30");
+		cardCount_0.setHorizontalAlignment(SwingConstants.CENTER);
+		cardCount_0.setBounds(0, 0, 195, 20);
+		cardCount_0.setFont(new Font("Helvetica Neue", Font.PLAIN, 12));
+		cardCount_0.setForeground(HSColors.TEXT_COLOR);
+		cardCountPanel_0.add(cardCount_0);
+		
+		JPanel cardCountPanel_1 = new JPanel();
+		cardCountPanel_1.setBackground(HSColors.BACKGROUND_COLOR);
+		cardCountPanel_1.setForeground(HSColors.TEXT_COLOR);
+		sl_Player1Panel.putConstraint(SpringLayout.NORTH, cardCountPanel_1, 0, SpringLayout.SOUTH, DeckPane_1);
+		sl_Player1Panel.putConstraint(SpringLayout.WEST, cardCountPanel_1, 0, SpringLayout.WEST, DeckPane_1);
+		sl_Player1Panel.putConstraint(SpringLayout.SOUTH, cardCountPanel_1, 0, SpringLayout.NORTH, ControlPane_1);
+		sl_Player1Panel.putConstraint(SpringLayout.EAST, cardCountPanel_1, 0, SpringLayout.EAST, Player1Panel);
+		Player1Panel.add(cardCountPanel_1);
+		cardCountPanel_1.setLayout(null);
+
+		cardCount_1 = new JLabel("0 / 30");
+		cardCount_1.setHorizontalAlignment(SwingConstants.CENTER);
+		cardCount_1.setBounds(0, 0, 195, 20);
+		cardCount_1.setFont(new Font("Helvetica Neue", Font.PLAIN, 12));
+		cardCount_1.setForeground(HSColors.TEXT_COLOR);
+		cardCountPanel_1.add(cardCount_1);
+		
+		deckList_0.getModel().addListDataListener(new ListDataListener() {
+
+			@Override
+			public void intervalAdded(ListDataEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void intervalRemoved(ListDataEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void contentsChanged(ListDataEvent e) {
+				// TODO Auto-generated method stub
+				cardCount_0.setText(deckList_0.getModel().getSize() + " / 30");
+			}
+			
+		});
+		
+		deckList_1.getModel().addListDataListener(new ListDataListener() {
+
+			@Override
+			public void intervalAdded(ListDataEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void intervalRemoved(ListDataEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void contentsChanged(ListDataEvent e) {
+				// TODO Auto-generated method stub
+				cardCount_1.setText(deckList_1.getModel().getSize() + " / 30");
+			}
+			
+		});
 		//--------------------------------------------------------------------
 		// Deck creation
 		//--------------------------------------------------------------------
