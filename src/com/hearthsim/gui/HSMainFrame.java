@@ -27,20 +27,18 @@ import javax.swing.Box;
 import javax.swing.border.MatteBorder;
 import javax.swing.JList;
 
-import com.hearthsim.GameResult;
 import com.hearthsim.card.Card;
+import com.hearthsim.card.ImplementedCardList;
 import com.hearthsim.event.HSSimulationEventListener;
 import com.hearthsim.exception.HSInvalidCardException;
 import com.hearthsim.exception.HSInvalidHeroException;
 import com.hearthsim.io.DeckListFile;
-import com.hearthsim.util.BoardState;
 import com.ptplot.Plot;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.awt.CardLayout;
 import java.awt.FlowLayout;
 
@@ -49,16 +47,17 @@ public class HSMainFrame implements HSSimulationEventListener {
 	private JFrame frame;
 	private final JPanel ControlPane = new JPanel();
 	
-	private static final Color BACKGROUND_COLOR = new Color(32, 32, 32);
-	private static final Color DEFAULT_BUTTON_COLOR = new Color(0, 140, 186);
-	private static final Color SUCCESS_BUTTON_COLOR = new Color(67, 172, 106);
-	private static final Color ERROR_BUTTON_COLOR = new Color(240, 65, 36);
-	private static final Color WARNING_BUTTON_COLOW = new Color(240, 138, 36);
-	
 	private final HSMainFrameModel hsModel_;
 	
 	private DefaultListModel deckListModel0_;
 	private DefaultListModel deckListModel1_;
+	
+	private JPanel middlePanel;
+	private HSDeckCreatePanel deckCreatePanel_0;
+	private HSDeckCreatePanel deckCreatePanel_1;
+	
+	private HSCardList deckList_0;
+	private HSCardList deckList_1;
 	
 	private JFileChooser fileChooser_;
 	
@@ -78,6 +77,8 @@ public class HSMainFrame implements HSSimulationEventListener {
 	private JPanel plotCardPane;
 	private Plot plot_aveMinions;
 	private Plot plot_aveCards;
+	
+	private static final ImplementedCardList IMPLEMENTED_CARD_LIST = new ImplementedCardList();
 	
 	private static final DecimalFormat pFormatter_ = new DecimalFormat("0.00");
 
@@ -113,37 +114,21 @@ public class HSMainFrame implements HSSimulationEventListener {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.getContentPane().setBackground(BACKGROUND_COLOR);
+		frame.getContentPane().setBackground(HSColors.BACKGROUND_COLOR);
 		frame.setBounds(100, 100, 960, 640);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		SpringLayout springLayout = new SpringLayout();
-		springLayout.putConstraint(SpringLayout.NORTH, ControlPane, -40, SpringLayout.SOUTH, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.SOUTH, ControlPane, 0, SpringLayout.SOUTH, frame.getContentPane());
 		frame.getContentPane().setLayout(springLayout);
 		
 		JPanel Player0Panel = new JPanel();
 		Player0Panel.setBorder(new MatteBorder(0, 0, 0, 1, (Color) Color.GRAY));
 		Player0Panel.setOpaque(false);
 		Player0Panel.setBackground(Color.DARK_GRAY);
-		springLayout.putConstraint(SpringLayout.WEST, ControlPane, 0, SpringLayout.EAST, Player0Panel);
 		springLayout.putConstraint(SpringLayout.NORTH, Player0Panel, 0, SpringLayout.NORTH, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.WEST, Player0Panel, 0, SpringLayout.WEST, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.SOUTH, Player0Panel, 0, SpringLayout.SOUTH, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, Player0Panel, 200, SpringLayout.WEST, frame.getContentPane());
 		frame.getContentPane().add(Player0Panel);
-		
-		JPanel InfoPane = new JPanel();
-		InfoPane.setOpaque(false);
-		springLayout.putConstraint(SpringLayout.NORTH, InfoPane, 0, SpringLayout.NORTH, Player0Panel);
-		springLayout.putConstraint(SpringLayout.WEST, InfoPane, 0, SpringLayout.EAST, Player0Panel);
-		springLayout.putConstraint(SpringLayout.SOUTH, InfoPane, 250, SpringLayout.NORTH, frame.getContentPane());
-		frame.getContentPane().add(InfoPane);
-		
-		JPanel PlotPane = new JPanel();
-		PlotPane.setBorder(null);
-		PlotPane.setOpaque(false);
-		springLayout.putConstraint(SpringLayout.NORTH, PlotPane, 0, SpringLayout.SOUTH, InfoPane);
-		springLayout.putConstraint(SpringLayout.WEST, PlotPane, 0, SpringLayout.EAST, Player0Panel);
 		SpringLayout sl_Player0Panel = new SpringLayout();
 		Player0Panel.setLayout(sl_Player0Panel);
 		
@@ -178,6 +163,13 @@ public class HSMainFrame implements HSSimulationEventListener {
 		lblHero_0.setFont(new Font("Helvetica Neue", Font.PLAIN, 20));
 		lblHero_0.setForeground(Color.WHITE);
 		HeroPane_0.add(lblHero_0);
+		
+		JButton btnDeckCreate_0 = new HSDeckCreateButton();
+		btnDeckCreate_0.setBounds(160, 23, 20, 15);
+		btnDeckCreate_0.setBackground(HSColors.BACKGROUND_COLOR);
+		btnDeckCreate_0.setForeground(Color.WHITE);
+		HeroPane_0.add(btnDeckCreate_0);
+		
 		sl_Player0Panel.putConstraint(SpringLayout.EAST, DeckPane_0, 0, SpringLayout.EAST, Player0Panel);
 		Player0Panel.add(DeckPane_0);
 		
@@ -186,9 +178,9 @@ public class HSMainFrame implements HSSimulationEventListener {
 		ControlPane_0.setOpaque(false);
 		sl_Player0Panel.putConstraint(SpringLayout.SOUTH, DeckPane_0, 0, SpringLayout.NORTH, ControlPane_0);
 		
-		final JList deckList_0 = new JList();
+		deckList_0 = new HSCardList();
 		deckList_0.setForeground(Color.WHITE);
-		deckList_0.setBackground(BACKGROUND_COLOR);
+		deckList_0.setBackground(HSColors.BACKGROUND_COLOR);
 		deckList_0.setOpaque(false);
 		DeckPane_0.setViewportView(deckList_0);
 		sl_Player0Panel.putConstraint(SpringLayout.NORTH, ControlPane_0, -40, SpringLayout.SOUTH, Player0Panel);
@@ -209,12 +201,10 @@ public class HSMainFrame implements HSSimulationEventListener {
 				if (retVal == JFileChooser.APPROVE_OPTION) {
 					try {
 						DeckListFile deckList = new DeckListFile(fileChooser_.getSelectedFile().toPath());
-						deckListModel0_ = new DefaultListModel();
 						for (int indx = 0; indx < deckList.getDeck().getNumCards(); ++indx) {
 							Card card = deckList.getDeck().drawCard(indx);
-							deckListModel0_.addElement("["+card.getMana()+"] " + card.getName());
+							((SortedListModel) deckList_0.getModel()).addElement(IMPLEMENTED_CARD_LIST.getCardForClass(card.getClass()));
 						}
-						deckList_0.setModel(deckListModel0_);
 						hsModel_.getSimulation().setDeck_p0(deckList.getDeck());
 						hsModel_.getSimulation().setHero_p0(deckList.getHero());
 						lblHero_0.setText(deckList.getHero().getName());
@@ -230,7 +220,7 @@ public class HSMainFrame implements HSSimulationEventListener {
 			}
 		});
 		p0_load.setForeground(Color.WHITE);
-		p0_load.setBackground(DEFAULT_BUTTON_COLOR);
+		p0_load.setBackground(HSColors.DEFAULT_BUTTON_COLOR);
 		p0_load.setPreferredSize(new Dimension(80, 30));
 		sl_ControlPane_0.putConstraint(SpringLayout.NORTH, p0_load, 5, SpringLayout.NORTH, ControlPane_0);
 		sl_ControlPane_0.putConstraint(SpringLayout.WEST, p0_load, 5, SpringLayout.WEST, ControlPane_0);
@@ -238,19 +228,41 @@ public class HSMainFrame implements HSSimulationEventListener {
 		
 		JButton p0_save = new HSButton("Save...");
 		p0_save.setForeground(Color.WHITE);
-		p0_save.setBackground(DEFAULT_BUTTON_COLOR);
+		p0_save.setBackground(HSColors.DEFAULT_BUTTON_COLOR);
 		sl_ControlPane_0.putConstraint(SpringLayout.EAST, p0_save, -5, SpringLayout.EAST, ControlPane_0);
 		p0_save.setPreferredSize(new Dimension(80, 30));
 		sl_ControlPane_0.putConstraint(SpringLayout.NORTH, p0_save, 5, SpringLayout.NORTH, ControlPane_0);
 		ControlPane_0.add(p0_save);
-		springLayout.putConstraint(SpringLayout.SOUTH, PlotPane, 0, SpringLayout.NORTH, ControlPane);
-		frame.getContentPane().add(PlotPane);
 		
-		JPanel Player1Panel = new JPanel();
-		Player1Panel.setBorder(new MatteBorder(0, 1, 0, 0, (Color) Color.GRAY));
-		Player1Panel.setOpaque(false);
-		springLayout.putConstraint(SpringLayout.EAST, ControlPane, 0, SpringLayout.WEST, Player1Panel);
-		springLayout.putConstraint(SpringLayout.EAST, InfoPane, 0, SpringLayout.WEST, Player1Panel);
+		middlePanel = new JPanel();
+		middlePanel.setForeground(Color.WHITE);
+		middlePanel.setBackground(HSColors.BACKGROUND_COLOR);
+		springLayout.putConstraint(SpringLayout.NORTH, ControlPane, -40, SpringLayout.SOUTH, middlePanel);
+		springLayout.putConstraint(SpringLayout.WEST, ControlPane, 0, SpringLayout.WEST, middlePanel);
+		springLayout.putConstraint(SpringLayout.SOUTH, ControlPane, 0, SpringLayout.SOUTH, middlePanel);
+		springLayout.putConstraint(SpringLayout.EAST, ControlPane, 0, SpringLayout.EAST, middlePanel);
+		springLayout.putConstraint(SpringLayout.NORTH, middlePanel, 0, SpringLayout.NORTH, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.WEST, middlePanel, 0, SpringLayout.EAST, Player0Panel);
+		springLayout.putConstraint(SpringLayout.SOUTH, middlePanel, 0, SpringLayout.SOUTH, frame.getContentPane());
+		frame.getContentPane().add(middlePanel);
+		SpringLayout sl_middlePanel = new SpringLayout();
+		sl_middlePanel.putConstraint(SpringLayout.NORTH, ControlPane, -40, SpringLayout.SOUTH, middlePanel);
+		sl_middlePanel.putConstraint(SpringLayout.WEST, ControlPane, 0, SpringLayout.WEST, middlePanel);
+		sl_middlePanel.putConstraint(SpringLayout.SOUTH, ControlPane, 0, SpringLayout.SOUTH, middlePanel);
+		sl_middlePanel.putConstraint(SpringLayout.EAST, ControlPane, 0, SpringLayout.EAST, middlePanel);
+		middlePanel.setLayout(sl_middlePanel);
+		
+		JPanel InfoPane = new JPanel();
+		sl_middlePanel.putConstraint(SpringLayout.NORTH, InfoPane, 0, SpringLayout.NORTH, middlePanel);
+		sl_middlePanel.putConstraint(SpringLayout.WEST, InfoPane, 0, SpringLayout.WEST, middlePanel);
+		sl_middlePanel.putConstraint(SpringLayout.SOUTH, InfoPane, 240, SpringLayout.NORTH, middlePanel);
+		sl_middlePanel.putConstraint(SpringLayout.EAST, InfoPane, 0, SpringLayout.EAST, middlePanel);
+		springLayout.putConstraint(SpringLayout.NORTH, InfoPane, 0, SpringLayout.NORTH, middlePanel);
+		springLayout.putConstraint(SpringLayout.WEST, InfoPane, 0, SpringLayout.WEST, middlePanel);
+		springLayout.putConstraint(SpringLayout.SOUTH, InfoPane, 250, SpringLayout.NORTH, middlePanel);
+		springLayout.putConstraint(SpringLayout.EAST, InfoPane, 0, SpringLayout.EAST, middlePanel);
+		middlePanel.add(InfoPane);
+		InfoPane.setOpaque(false);
 		SpringLayout sl_InfoPane = new SpringLayout();
 		InfoPane.setLayout(sl_InfoPane);
 		
@@ -313,90 +325,6 @@ public class HSMainFrame implements HSSimulationEventListener {
 		sl_InfoPane.putConstraint(SpringLayout.NORTH, Player1Info, 5, SpringLayout.NORTH, InfoPane);
 		sl_InfoPane.putConstraint(SpringLayout.SOUTH, Player1Info, -5, SpringLayout.SOUTH, InfoPane);
 		InfoPane.add(Player1Info);
-		springLayout.putConstraint(SpringLayout.EAST, PlotPane, 0, SpringLayout.WEST, Player1Panel);
-		SpringLayout sl_PlotPane = new SpringLayout();
-		PlotPane.setLayout(sl_PlotPane);
-		
-		JPanel plotTabPane = new JPanel();
-		sl_PlotPane.putConstraint(SpringLayout.SOUTH, plotTabPane, 20, SpringLayout.NORTH, PlotPane);
-		FlowLayout flowLayout = (FlowLayout) plotTabPane.getLayout();
-		flowLayout.setVgap(1);
-		flowLayout.setHgap(1);
-		plotTabPane.setBackground(BACKGROUND_COLOR);
-		sl_PlotPane.putConstraint(SpringLayout.NORTH, plotTabPane, 0, SpringLayout.NORTH, PlotPane);
-		sl_PlotPane.putConstraint(SpringLayout.WEST, plotTabPane, 0, SpringLayout.WEST, PlotPane);
-		sl_PlotPane.putConstraint(SpringLayout.EAST, plotTabPane, 0, SpringLayout.EAST, PlotPane);
-		PlotPane.add(plotTabPane);
-		
-		plotCardPane = new JPanel();
-		sl_PlotPane.putConstraint(SpringLayout.NORTH, plotCardPane, 0, SpringLayout.SOUTH, plotTabPane);
-		
-		HSTabButton tabAveMinions = new HSTabButton("Ave # Minions");
-		tabAveMinions.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				CardLayout cl = (CardLayout)(plotCardPane.getLayout());
-				cl.show(plotCardPane, "plot_aveMinions");
-			}
-		});
-		tabAveMinions.setBorder(null);
-		tabAveMinions.setFont(new Font("Helvetica Neue", Font.PLAIN, 10));
-		tabAveMinions.setBackground(WARNING_BUTTON_COLOW);
-		tabAveMinions.setForeground(Color.WHITE);
-		plotTabPane.add(tabAveMinions);
-		
-		HSTabButton tabAveCards = new HSTabButton("Ave # Cards");
-		tabAveCards.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				CardLayout cl = (CardLayout)(plotCardPane.getLayout());
-				cl.show(plotCardPane, "plot_aveCards");
-			}
-		});
-		tabAveCards.setBorder(null);
-		tabAveCards.setFont(new Font("Helvetica Neue", Font.PLAIN, 10));
-		tabAveCards.setBackground(WARNING_BUTTON_COLOW);
-		tabAveCards.setForeground(Color.WHITE);
-		plotTabPane.add(tabAveCards);
-
-		sl_PlotPane.putConstraint(SpringLayout.WEST, plotCardPane, 0, SpringLayout.WEST, PlotPane);
-		sl_PlotPane.putConstraint(SpringLayout.SOUTH, plotCardPane, 0, SpringLayout.SOUTH, PlotPane);
-		sl_PlotPane.putConstraint(SpringLayout.EAST, plotCardPane, 0, SpringLayout.EAST, PlotPane);
-		PlotPane.add(plotCardPane);
-		plotCardPane.setLayout(new CardLayout(0, 0));
-		
-		plot_aveMinions = new Plot();
-		FlowLayout flowLayout_1 = (FlowLayout) plot_aveMinions.getLayout();
-		flowLayout_1.setVgap(0);
-		plot_aveMinions.setYRange(0, 6.0);
-		plot_aveMinions.setXRange(0, 30.0);
-		plot_aveMinions.setTitle("Average Number of Minions");
-		plot_aveMinions.addLegend(0, "Player0");
-		plot_aveMinions.addLegend(1, "Player1");
-		plot_aveMinions.setXLabel("Turn");
-		plot_aveMinions.setBackground(BACKGROUND_COLOR);
-		plot_aveMinions.setForeground(Color.WHITE);
-		plot_aveMinions.setGrid(false);
-		plot_aveMinions.setLabelFont("Helvetica Neue");
-		plotCardPane.add(plot_aveMinions, "plot_aveMinions");
-
-		plot_aveCards = new Plot();
-		FlowLayout flowLayout_2 = (FlowLayout) plot_aveCards.getLayout();
-		flowLayout_2.setVgap(0);
-		plot_aveCards.setYRange(0, 6.0);
-		plot_aveCards.setXRange(0, 30.0);
-		plot_aveCards.setTitle("Average Number of Cards");
-		plot_aveCards.addLegend(0, "Player0");
-		plot_aveCards.addLegend(1, "Player1");
-		plot_aveCards.setXLabel("Turn");
-		plot_aveCards.setBackground(BACKGROUND_COLOR);
-		plot_aveCards.setForeground(Color.WHITE);
-		plot_aveCards.setGrid(false);
-		plot_aveCards.setLabelFont("Helvetica Neue");
-		plotCardPane.add(plot_aveCards, "plot_aveCards");
-
-		ControlPane.setOpaque(false);
-		frame.getContentPane().add(ControlPane);
 		
 		JLabel lblLabel1_1 = new JLabel("P1 Wins");
 		lblLabel1_1.setFont(new Font("Helvetica Neue", Font.PLAIN, 18));
@@ -444,12 +372,111 @@ public class HSMainFrame implements HSSimulationEventListener {
 		
 		JPanel generalInfo = new JPanel();
 		generalInfo.setForeground(Color.WHITE);
-		generalInfo.setBackground(BACKGROUND_COLOR);
+		generalInfo.setBackground(HSColors.BACKGROUND_COLOR);
 		sl_InfoPane.putConstraint(SpringLayout.NORTH, generalInfo, 0, SpringLayout.NORTH, InfoPane);
 		sl_InfoPane.putConstraint(SpringLayout.WEST, generalInfo, 0, SpringLayout.EAST, Player0Info);
 		sl_InfoPane.putConstraint(SpringLayout.SOUTH, generalInfo, 0, SpringLayout.SOUTH, InfoPane);
 		sl_InfoPane.putConstraint(SpringLayout.EAST, generalInfo, 0, SpringLayout.WEST, Player1Info);
 		InfoPane.add(generalInfo);
+		
+		JPanel Player1Panel = new JPanel();
+		springLayout.putConstraint(SpringLayout.EAST, middlePanel, 0, SpringLayout.WEST, Player1Panel);
+		
+		JPanel PlotPane = new JPanel();
+		sl_middlePanel.putConstraint(SpringLayout.NORTH, PlotPane, 0, SpringLayout.SOUTH, InfoPane);
+		sl_middlePanel.putConstraint(SpringLayout.WEST, PlotPane, 0, SpringLayout.WEST, middlePanel);
+		sl_middlePanel.putConstraint(SpringLayout.SOUTH, PlotPane, 0, SpringLayout.NORTH, ControlPane);
+		sl_middlePanel.putConstraint(SpringLayout.EAST, PlotPane, 0, SpringLayout.EAST, middlePanel);
+		springLayout.putConstraint(SpringLayout.NORTH, PlotPane, 0, SpringLayout.SOUTH, InfoPane);
+		springLayout.putConstraint(SpringLayout.WEST, PlotPane, 0, SpringLayout.WEST, middlePanel);
+		springLayout.putConstraint(SpringLayout.SOUTH, PlotPane, 0, SpringLayout.NORTH, middlePanel);
+		springLayout.putConstraint(SpringLayout.EAST, PlotPane, 0, SpringLayout.EAST, middlePanel);
+		middlePanel.add(PlotPane);
+		PlotPane.setBorder(null);
+		PlotPane.setOpaque(false);
+		SpringLayout sl_PlotPane = new SpringLayout();
+		PlotPane.setLayout(sl_PlotPane);
+		
+		JPanel plotTabPane = new JPanel();
+		sl_PlotPane.putConstraint(SpringLayout.SOUTH, plotTabPane, 20, SpringLayout.NORTH, PlotPane);
+		FlowLayout flowLayout = (FlowLayout) plotTabPane.getLayout();
+		flowLayout.setVgap(1);
+		flowLayout.setHgap(1);
+		plotTabPane.setBackground(HSColors.BACKGROUND_COLOR);
+		sl_PlotPane.putConstraint(SpringLayout.NORTH, plotTabPane, 0, SpringLayout.NORTH, PlotPane);
+		sl_PlotPane.putConstraint(SpringLayout.WEST, plotTabPane, 0, SpringLayout.WEST, PlotPane);
+		sl_PlotPane.putConstraint(SpringLayout.EAST, plotTabPane, 0, SpringLayout.EAST, PlotPane);
+		PlotPane.add(plotTabPane);
+		
+		plotCardPane = new JPanel();
+		sl_PlotPane.putConstraint(SpringLayout.NORTH, plotCardPane, 0, SpringLayout.SOUTH, plotTabPane);
+		
+		HSTabButton tabAveMinions = new HSTabButton("Ave # Minions");
+		tabAveMinions.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				CardLayout cl = (CardLayout)(plotCardPane.getLayout());
+				cl.show(plotCardPane, "plot_aveMinions");
+			}
+		});
+		tabAveMinions.setBorder(null);
+		tabAveMinions.setFont(new Font("Helvetica Neue", Font.PLAIN, 10));
+		tabAveMinions.setBackground(HSColors.WARNING_BUTTON_COLOW);
+		tabAveMinions.setForeground(Color.WHITE);
+		plotTabPane.add(tabAveMinions);
+		
+		HSTabButton tabAveCards = new HSTabButton("Ave # Cards");
+		tabAveCards.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				CardLayout cl = (CardLayout)(plotCardPane.getLayout());
+				cl.show(plotCardPane, "plot_aveCards");
+			}
+		});
+		tabAveCards.setBorder(null);
+		tabAveCards.setFont(new Font("Helvetica Neue", Font.PLAIN, 10));
+		tabAveCards.setBackground(HSColors.WARNING_BUTTON_COLOW);
+		tabAveCards.setForeground(Color.WHITE);
+		plotTabPane.add(tabAveCards);
+		
+		sl_PlotPane.putConstraint(SpringLayout.WEST, plotCardPane, 0, SpringLayout.WEST, PlotPane);
+		sl_PlotPane.putConstraint(SpringLayout.SOUTH, plotCardPane, 0, SpringLayout.SOUTH, PlotPane);
+		sl_PlotPane.putConstraint(SpringLayout.EAST, plotCardPane, 0, SpringLayout.EAST, PlotPane);
+		PlotPane.add(plotCardPane);
+		plotCardPane.setLayout(new CardLayout(0, 0));
+		
+		plot_aveMinions = new Plot();
+		FlowLayout flowLayout_1 = (FlowLayout) plot_aveMinions.getLayout();
+		flowLayout_1.setVgap(0);
+		plot_aveMinions.setYRange(0, 6.0);
+		plot_aveMinions.setXRange(0, 30.0);
+		plot_aveMinions.setTitle("Average Number of Minions");
+		plot_aveMinions.addLegend(0, "Player0");
+		plot_aveMinions.addLegend(1, "Player1");
+		plot_aveMinions.setXLabel("Turn");
+		plot_aveMinions.setBackground(HSColors.BACKGROUND_COLOR);
+		plot_aveMinions.setForeground(Color.WHITE);
+		plot_aveMinions.setGrid(false);
+		plot_aveMinions.setLabelFont("Helvetica Neue");
+		plotCardPane.add(plot_aveMinions, "plot_aveMinions");
+		
+		plot_aveCards = new Plot();
+		FlowLayout flowLayout_2 = (FlowLayout) plot_aveCards.getLayout();
+		flowLayout_2.setVgap(0);
+		plot_aveCards.setYRange(0, 6.0);
+		plot_aveCards.setXRange(0, 30.0);
+		plot_aveCards.setTitle("Average Number of Cards");
+		plot_aveCards.addLegend(0, "Player0");
+		plot_aveCards.addLegend(1, "Player1");
+		plot_aveCards.setXLabel("Turn");
+		plot_aveCards.setBackground(HSColors.BACKGROUND_COLOR);
+		plot_aveCards.setForeground(Color.WHITE);
+		plot_aveCards.setGrid(false);
+		plot_aveCards.setLabelFont("Helvetica Neue");
+		plotCardPane.add(plot_aveCards, "plot_aveCards");
+		middlePanel.add(ControlPane);
+		
+		ControlPane.setOpaque(false);
 		
 		HSButton btnSetting = new HSButton("Settings");
 		btnSetting.addMouseListener(new MouseAdapter() {
@@ -460,7 +487,7 @@ public class HSMainFrame implements HSSimulationEventListener {
 			}
 		});
 		btnSetting.setForeground(Color.WHITE);
-		btnSetting.setBackground(DEFAULT_BUTTON_COLOR);
+		btnSetting.setBackground(HSColors.DEFAULT_BUTTON_COLOR);
 		ControlPane.add(btnSetting);
 		
 		Component rigidArea_3 = Box.createRigidArea(new Dimension(20, 20));
@@ -477,9 +504,9 @@ public class HSMainFrame implements HSSimulationEventListener {
 			}
 		});
 		btnReset.setForeground(Color.WHITE);
-		btnReset.setBackground(DEFAULT_BUTTON_COLOR);
+		btnReset.setBackground(HSColors.DEFAULT_BUTTON_COLOR);
 		ControlPane.add(btnReset);
-
+		
 		btnRun = new HSButton("Run");
 		btnRun.addMouseListener(new MouseAdapter() {
 			@Override
@@ -507,9 +534,11 @@ public class HSMainFrame implements HSSimulationEventListener {
 				new Thread(runner).start();
 			}
 		});		
-		btnRun.setBackground(SUCCESS_BUTTON_COLOR);
+		btnRun.setBackground(HSColors.SUCCESS_BUTTON_COLOR);
 		btnRun.setForeground(Color.WHITE);
 		ControlPane.add(btnRun);
+		Player1Panel.setBorder(new MatteBorder(0, 1, 0, 0, (Color) Color.GRAY));
+		Player1Panel.setOpaque(false);
 		springLayout.putConstraint(SpringLayout.NORTH, Player1Panel, 0, SpringLayout.NORTH, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.WEST, Player1Panel, -200, SpringLayout.EAST, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.SOUTH, Player1Panel, 0, SpringLayout.SOUTH, frame.getContentPane());
@@ -527,6 +556,13 @@ public class HSMainFrame implements HSSimulationEventListener {
 		sl_Player1Panel.putConstraint(SpringLayout.SOUTH, HeroPane_1, 60, SpringLayout.NORTH, Player1Panel);
 		sl_Player1Panel.putConstraint(SpringLayout.EAST, HeroPane_1, 0, SpringLayout.EAST, Player1Panel);
 		Player1Panel.add(HeroPane_1);
+
+		JButton btnDeckCreate_1 = new HSDeckCreateButton();
+		btnDeckCreate_1.setBounds(20, 23, 20, 15);
+		btnDeckCreate_1.setBackground(HSColors.BACKGROUND_COLOR);
+		btnDeckCreate_1.setForeground(Color.WHITE);
+		HeroPane_1.add(btnDeckCreate_1);
+
 		
 		JScrollPane DeckPane_1 = new JScrollPane();
 		sl_Player1Panel.putConstraint(SpringLayout.WEST, DeckPane_1, 5, SpringLayout.WEST, Player1Panel);
@@ -558,9 +594,9 @@ public class HSMainFrame implements HSSimulationEventListener {
 		SpringLayout sl_ControlPane_1 = new SpringLayout();
 		ControlPane_1.setLayout(sl_ControlPane_1);
 
-		final JList deckList_1 = new JList();
+		deckList_1 = new HSCardList();
 		deckList_1.setForeground(Color.WHITE);
-		deckList_1.setBackground(BACKGROUND_COLOR);
+		deckList_1.setBackground(HSColors.BACKGROUND_COLOR);
 		deckList_1.setOpaque(false);
 		DeckPane_1.setViewportView(deckList_1);
 		sl_Player1Panel.putConstraint(SpringLayout.NORTH, ControlPane_1, -40, SpringLayout.SOUTH, Player1Panel);
@@ -601,16 +637,81 @@ public class HSMainFrame implements HSSimulationEventListener {
 		sl_ControlPane_1.putConstraint(SpringLayout.WEST, p1_Load, 5, SpringLayout.WEST, ControlPane_1);
 		p1_Load.setPreferredSize(new Dimension(80, 30));
 		p1_Load.setForeground(Color.WHITE);
-		p1_Load.setBackground(new Color(0, 140, 186));
+		p1_Load.setBackground(HSColors.DEFAULT_BUTTON_COLOR);
 		ControlPane_1.add(p1_Load);
 		
 		JButton p1_save = new HSButton("Save...");
 		p1_save.setForeground(Color.WHITE);
-		p1_save.setBackground(DEFAULT_BUTTON_COLOR);
+		p1_save.setBackground(HSColors.DEFAULT_BUTTON_COLOR);
 		p1_save.setPreferredSize(new Dimension(80, 30));
 		sl_ControlPane_1.putConstraint(SpringLayout.EAST, p1_save, -5, SpringLayout.EAST, ControlPane_1);
 		sl_ControlPane_1.putConstraint(SpringLayout.NORTH, p1_save, 5, SpringLayout.NORTH, ControlPane_1);
 		ControlPane_1.add(p1_save);
+
+
+		//--------------------------------------------------------------------
+		// Deck creation
+		//--------------------------------------------------------------------
+		
+		btnDeckCreate_0.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (middlePanel.isVisible()) {
+					middlePanel.setVisible(false);
+					deckCreatePanel_0.setVisible(true);
+					deckCreatePanel_0.setEditing(true);
+				} else if (deckCreatePanel_0.isVisible()) {
+					middlePanel.setVisible(true);
+					deckCreatePanel_0.setVisible(false);
+					deckCreatePanel_0.setEditing(false);
+					if (deckList_0.getModel().getSize() > 0)
+						hsModel_.getSimulation().setDeck_p0(deckList_0.getDeck());
+				}
+			}
+		});
+
+		btnDeckCreate_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (middlePanel.isVisible()) {
+					middlePanel.setVisible(false);
+					deckCreatePanel_1.setVisible(true);
+					deckCreatePanel_1.setEditing(true);
+				} else if (deckCreatePanel_1.isVisible()) {
+					middlePanel.setVisible(true);
+					deckCreatePanel_1.setVisible(false);
+					deckCreatePanel_1.setEditing(false);
+					if (deckList_1.getModel().getSize() > 0)
+						hsModel_.getSimulation().setDeck_p1(deckList_1.getDeck());
+				}
+			}
+		});
+		
+		deckCreatePanel_0 = new HSDeckCreatePanel();
+		deckCreatePanel_0.setForeground(Color.WHITE);
+		deckCreatePanel_0.setBackground(HSColors.LIGHTER_BACKGROUND_COLOR);
+		springLayout.putConstraint(SpringLayout.WEST, deckCreatePanel_0, 0, SpringLayout.EAST, Player0Panel);
+		springLayout.putConstraint(SpringLayout.EAST, deckCreatePanel_0, 0, SpringLayout.WEST, Player1Panel);
+		springLayout.putConstraint(SpringLayout.NORTH, deckCreatePanel_0, 0, SpringLayout.NORTH, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, deckCreatePanel_0, 0, SpringLayout.SOUTH, frame.getContentPane());
+		deckCreatePanel_0.setPlayer(0);
+		deckCreatePanel_0.setVisible(false);
+		deckCreatePanel_0.setCardListPane(deckList_0);
+		frame.getContentPane().add(deckCreatePanel_0);
+
+		deckCreatePanel_1 = new HSDeckCreatePanel();
+		deckCreatePanel_1.setForeground(Color.WHITE);
+		deckCreatePanel_1.setBackground(HSColors.LIGHTER_BACKGROUND_COLOR);
+		springLayout.putConstraint(SpringLayout.WEST, deckCreatePanel_1, 0, SpringLayout.EAST, Player0Panel);
+		springLayout.putConstraint(SpringLayout.EAST, deckCreatePanel_1, 0, SpringLayout.WEST, Player1Panel);
+		springLayout.putConstraint(SpringLayout.NORTH, deckCreatePanel_1, 0, SpringLayout.NORTH, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, deckCreatePanel_1, 0, SpringLayout.SOUTH, frame.getContentPane());
+		deckCreatePanel_1.setPlayer(1);
+		deckCreatePanel_1.setVisible(false);
+		deckCreatePanel_1.setCardListPane(deckList_1);
+		frame.getContentPane().add(deckCreatePanel_1);
+		//--------------------------------------------------------------------
+		//--------------------------------------------------------------------
 
 	}
 	
@@ -668,14 +769,14 @@ public class HSMainFrame implements HSSimulationEventListener {
 	@Override
 	public void simulationStarted() {
 		// TODO Auto-generated method stub
-		btnRun.setBackground(ERROR_BUTTON_COLOR);
+		btnRun.setBackground(HSColors.ERROR_BUTTON_COLOR);
 		btnRun.setText("Stop");
 	}
 
 	@Override
 	public void simulationFinished() {
 		// TODO Auto-generated method stub
-		btnRun.setBackground(SUCCESS_BUTTON_COLOR);
+		btnRun.setBackground(HSColors.SUCCESS_BUTTON_COLOR);
 		btnRun.setText("Run");
 	}
 }

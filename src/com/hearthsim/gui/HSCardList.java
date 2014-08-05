@@ -1,0 +1,111 @@
+package com.hearthsim.gui;
+
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
+
+import javax.swing.DefaultListModel;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.ListCellRenderer;
+
+import com.hearthsim.card.Card;
+import com.hearthsim.card.Deck;
+import com.hearthsim.card.ImplementedCardList;
+import com.hearthsim.card.ImplementedCardList.ImplementedCard;
+import com.hearthsim.gui.HSCardSelectionList.CardSelectionCellRenderer;
+
+public class HSCardList extends JList<ImplementedCard> {
+
+	boolean editing_;
+	
+	public HSCardList() {
+		super();
+		editing_ = false;
+		
+		SortedListModel<ImplementedCard> model = new SortedListModel<ImplementedCard>();
+		this.setModel(model);
+		
+		this.addMouseListener(new MouseAdapter() {
+		    public void mousePressed(MouseEvent evt) {
+		        JList list = (JList)evt.getSource();
+	        	int index = list.locationToIndex(evt.getPoint());
+	        	String name = ((SortedListModel<ImplementedCard>) HSCardList.this.getModel()).getElementAt(index).name_;
+	        	System.out.println("clicked item " + index + ": " + name);
+	        	if (editing_) {
+	        		((SortedListModel<ImplementedCard>) HSCardList.this.getModel()).remove(index);
+	        	}
+		    }
+		});
+		this.setCellRenderer(new CardCellRenderer());
+	}
+	
+	public boolean getEditing() { 
+		return editing_;
+	}
+	
+	public void setEditing(boolean editing) {
+		editing_ = editing;
+	}
+	
+	public Deck getDeck() {
+		ArrayList<Card> cards = new ArrayList<Card>();
+		Iterator<ImplementedCard> iter = ((SortedListModel<ImplementedCard>)this.getModel()).iterator();
+		while (iter.hasNext()) {
+			ImplementedCard ic = iter.next();
+			Constructor<?> ctor;
+			try {
+				ctor = ic.cardClass_.getConstructor();
+				Card card = (Card)ctor.newInstance();
+				cards.add(card);
+			} catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return new Deck(cards);
+	}
+	
+	class CardCellRenderer extends JLabel implements ListCellRenderer {
+
+		public CardCellRenderer() {
+			setOpaque(false);
+			setIconTextGap(12);
+			this.setForeground(Color.WHITE);
+		}
+		
+		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+			ImplementedCard entry = (ImplementedCard) value;
+			switch (entry.rarity_) {
+			case "free":
+				this.setForeground(HSColors.CARD_FREE_COLOR);
+				break;
+			case "common":
+				this.setForeground(HSColors.CARD_COMMON_COLOR);
+				break;
+			case "rare":
+				this.setForeground(HSColors.CARD_RARE_COLOR);
+				break;
+			case "epic":
+				this.setForeground(HSColors.CARD_EPIC_COLOR);
+				break;
+			case "legendary":
+				this.setForeground(HSColors.CARD_LEGENDARY_COLOR);
+				break;
+			default:
+				this.setForeground(HSColors.CARD_FREE_COLOR);
+				break;
+			}
+			setText("[" + entry.mana_ + "] " + entry.name_);
+			return this;
+		}
+	}
+
+}

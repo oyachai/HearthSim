@@ -41,6 +41,8 @@ public class HSSimulation {
 		config_ = new SimulationConfig();
 		model_ = model;
 		listeners_ = new ArrayList<HSSimulationEventListener>();
+		hero0_ = new Hero();
+		hero1_ = new Hero();
 	}
 	
 	public void run() {
