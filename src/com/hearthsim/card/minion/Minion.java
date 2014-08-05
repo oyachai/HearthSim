@@ -287,6 +287,10 @@ public class Minion extends Card {
 		return deathrattleAction_ == null;
 	}
 
+	public void setDeathrattle(DeathrattleAction action) {
+		deathrattleAction_ = action;
+	}
+	
 	/**
 	 * Called at the start of the turn
 	 * 

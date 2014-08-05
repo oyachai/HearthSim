@@ -91,6 +91,11 @@ public class ImplementedCardList {
             map_.put(AncestralHealing.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(AncestralSpirit.class, "Ancestral Spirit", "spell", "shaman", "rare", "Give a minion Deathrattle Resummon this minion", 2, -1, -1);
+            list_.add(card);
+            map_.put(AncestralSpirit.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(ArcaneExplosion.class, "Arcane Explosion", "spell", "mage", "free", "Deal 1 damage to all enemy minions", 2, -1, -1);
             list_.add(card);
             map_.put(ArcaneExplosion.class, card);
