@@ -357,6 +357,7 @@ Twilight Drake|minion|neutral|rare|4|4|1|Battlecry: Gain +1 Health for each card
 Twisting Nether|spell|warlock|epic|8|||Destroy all minions|FALSE
 Unbound Elemental|minion|shaman|common|3|2|4|Whenever you play a card with Overload, gain +1/+1|FALSE
 Unleash the Hounds|spell|hunter|common|2|||For each enemy minion, summon a 1/1 Hound with Charge|FALSE
+Unstable Ghoul|minion|neutral|common|2|1|3|Taunt. Deathrattle: Deal 1 damage to all minions|TRUE
 Upgrade!|spell|warrior|rare|1|||If you have a weapon, give it +1/+1. Otherwise equip a 1/3 weapon|FALSE
 Vanish|spell|rogue|free|6|||Return all minions to their owner's hand|FALSE
 Vaporize|spell|mage|rare|3|||Secret: When a minion attacks your hero, destroy it|FALSE

@@ -746,6 +746,11 @@ public class ImplementedCardList {
             map_.put(TotemicMight.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(UnstableGhoul.class, "Unstable Ghoul", "minion", "neutral", "common", "Taunt. Deathrattle Deal 1 damage to all minions", 2, 1, 3);
+            list_.add(card);
+            map_.put(UnstableGhoul.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(Voidwalker.class, "Voidwalker", "minion", "warlock", "free", "Taunt", 1, 1, 3);
             list_.add(card);
             map_.put(Voidwalker.class, card);

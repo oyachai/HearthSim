@@ -438,6 +438,7 @@ public class Minion extends Card {
 		frozen_ = false;
 		windFury_ = false;
 		silenced_ = true;
+		deathrattleAction_ = null;
 		return boardState;
 	}
 	
