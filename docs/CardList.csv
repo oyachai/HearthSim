@@ -315,7 +315,7 @@ Slam|spell|warrior|common|2|||Deal 2 damage to a minion. If it survives, draw a 
 Snake Trap|spell|hunter|epic|2|||Secret: When one of your minions is attacked, summon three 1/1 Snakes|FALSE
 Snipe|spell|hunter|common|2|||Secret: When your opponent plays a minion, deal 4 damage to it|FALSE
 Sorcerer's Apprentice|minion|mage|common|2|3|2|Your spells cost (1) less|FALSE
-Soul of the Forest|spell|neutral|common|4|||"Give your minions ""Deathrattle: Summon a 2/2 Treant."""|FALSE
+Soul of the Forest|spell|neutral|common|4|||Give your minions 'Deathrattle: Summon a 2/2 Treant.'|FALSE
 Soulfire|spell|warlock|free|0|||Deal 4 damage.Discard a random card|FALSE
 Southsea Captain|minion|neutral|epic|3|3|3|Your other Pirates have +1/+1|FALSE
 Southsea Deckhand|minion|neutral|common|1|2|1|Has Charge while you have a weapon equipped|FALSE
