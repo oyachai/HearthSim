@@ -8,7 +8,7 @@ import com.hearthsim.exception.HSException;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.util.ThreadQueue;
 
-public class HearthSimGUI extends HearthSim {
+public class HearthSimGUI extends HearthSimBase {
 
 	private Hero hero0_;
 	private Hero hero1_;

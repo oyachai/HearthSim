@@ -22,7 +22,7 @@ import com.hearthsim.player.playercontroller.ArtificialPlayer;
  * min value and max value, and the mana cost of the cards are assumed to be (attack + health) / 2.
  *
  */
-public class HearthSimRandom extends HearthSim {
+public class HearthSimRandom extends HearthSimBase {
 
 	int numCardsInDeck_;
 	int maxMinionAttack_;

@@ -43,7 +43,7 @@ import java.text.DecimalFormat;
 import java.awt.CardLayout;
 import java.awt.FlowLayout;
 
-public class HSMainFrame implements HSSimulationEventListener {
+public class HearthSim implements HSSimulationEventListener {
 
 	private JFrame frame;
 	private final JPanel ControlPane = new JPanel();
@@ -95,7 +95,7 @@ public class HSMainFrame implements HSSimulationEventListener {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					HSMainFrame window = new HSMainFrame();
+					HearthSim window = new HearthSim();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -107,7 +107,7 @@ public class HSMainFrame implements HSSimulationEventListener {
 	/**
 	 * Create the application.
 	 */
-	public HSMainFrame() {
+	public HearthSim() {
 		hsModel_ = new HSMainFrameModel(this);
 		initialize();
 		hsModel_.getSimulation().addSimulationEventListener(this);
@@ -504,8 +504,8 @@ public class HSMainFrame implements HSSimulationEventListener {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				hsModel_.resetSimulationResults();
-				HSMainFrame.this.updatePlotPanel();
-				HSMainFrame.this.updateInfoPanel();
+				HearthSim.this.updatePlotPanel();
+				HearthSim.this.updateInfoPanel();
 			}
 		});
 		btnReset.setForeground(Color.WHITE);

@@ -21,7 +21,7 @@ import com.hearthsim.player.Player;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.util.ThreadQueue;
 
-public abstract class HearthSim {
+public abstract class HearthSimBase {
 	
 	int numSims_;
 	int numThreads_;
@@ -44,7 +44,7 @@ public abstract class HearthSim {
 	 * @throws HSParamNotFoundException
 	 * @throws IOException
 	 */
-	HearthSim(Path setupFilePath) throws HSInvalidParamFileException, HSParamNotFoundException, IOException {
+	HearthSimBase(Path setupFilePath) throws HSInvalidParamFileException, HSParamNotFoundException, IOException {
 		rootPath_ = setupFilePath.getParent();
 		ParamFile masterParam = new ParamFile(setupFilePath);
 		numSims_ = masterParam.getInt("num_simulations", 40000);
@@ -57,7 +57,7 @@ public abstract class HearthSim {
 		isRunning_ = false;
 	}
 
-	HearthSim(int numSimulations, int numThreads) {
+	HearthSimBase(int numSimulations, int numThreads) {
 		numSims_ = numSimulations;
 		numThreads_ = numThreads;
 		results_ = new GameResult[numSims_];

@@ -19,7 +19,7 @@ import com.hearthsim.player.playercontroller.ArtificialPlayer;
  * 
  * The constructed decks must be specified in a DeckListFile.
  */
-public class HearthSimConstructed extends HearthSim {
+public class HearthSimConstructed extends HearthSimBase {
 
 	Path deckListFilePath0_;
 	Path deckListFilePath1_;

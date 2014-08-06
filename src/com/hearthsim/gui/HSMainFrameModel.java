@@ -11,7 +11,7 @@ import com.hearthsim.util.BoardState;
 
 public class HSMainFrameModel implements HSGameEndEventListener {
 
-	private final HSMainFrame view_;
+	private final HearthSim view_;
 	private final HSSimulation simulation_;
 	private boolean isRunning_;
 
@@ -143,7 +143,7 @@ public class HSMainFrameModel implements HSGameEndEventListener {
 		}
 	}
 	
-	public HSMainFrameModel(HSMainFrame view) {
+	public HSMainFrameModel(HearthSim view) {
 		view_ = view;
 		simulation_ = new HSSimulation(this);
 		gameStats_ = new GameStats();

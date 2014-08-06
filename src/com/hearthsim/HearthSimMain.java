@@ -20,7 +20,7 @@ public class HearthSimMain {
 		Path simParamFilePath = FileSystems.getDefault().getPath(args[0]);
 		
 		try {
-			HearthSim sim = new HearthSimConstructed(simParamFilePath);
+			HearthSimBase sim = new HearthSimConstructed(simParamFilePath);
 			sim.run();
 		} catch (IOException e) {
 			System.err.println("Can't find some files!");
