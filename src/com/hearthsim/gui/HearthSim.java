@@ -48,6 +48,8 @@ public class HearthSim implements HSSimulationEventListener {
 	private JFrame frame;
 	private final JPanel ControlPane = new JPanel();
 	
+	private boolean isRunning_;
+	
 	private final HSMainFrameModel hsModel_;
 	
 	private DefaultListModel deckListModel0_;
@@ -109,6 +111,7 @@ public class HearthSim implements HSSimulationEventListener {
 	 */
 	public HearthSim() {
 		hsModel_ = new HSMainFrameModel(this);
+		isRunning_ = false;
 		initialize();
 		hsModel_.getSimulation().addSimulationEventListener(this);
 	}
@@ -516,27 +519,29 @@ public class HearthSim implements HSSimulationEventListener {
 		btnRun.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if (hsModel_.getSimulation().getDeck_p0() == null) {
-					JOptionPane.showMessageDialog(frame,
-						    "Player0 deck is missing",
-						    "Error",
-						    JOptionPane.ERROR_MESSAGE);
-					return;
-				}
-				if (hsModel_.getSimulation().getDeck_p1() == null) {
-					JOptionPane.showMessageDialog(frame,
-						    "Player1 deck is missing",
-						    "Error",
-						    JOptionPane.ERROR_MESSAGE);
-					return;
-				}
-				
-				Runnable runner = new Runnable() {
-					public void run() {
-						hsModel_.runSimulation();
+				if (!isRunning_) {
+					if (hsModel_.getSimulation().getDeck_p0() == null) {
+						JOptionPane.showMessageDialog(frame,
+							    "Player0 deck is missing",
+							    "Error",
+							    JOptionPane.ERROR_MESSAGE);
+						return;
 					}
-				};
-				new Thread(runner).start();
+					if (hsModel_.getSimulation().getDeck_p1() == null) {
+						JOptionPane.showMessageDialog(frame,
+							    "Player1 deck is missing",
+							    "Error",
+							    JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+					
+					Runnable runner = new Runnable() {
+						public void run() {
+							hsModel_.runSimulation();
+						}
+					};
+					new Thread(runner).start();
+				}
 			}
 		});		
 		btnRun.setBackground(HSColors.SUCCESS_BUTTON_COLOR);
@@ -854,6 +859,7 @@ public class HearthSim implements HSSimulationEventListener {
 		// TODO Auto-generated method stub
 		btnRun.setBackground(HSColors.ERROR_BUTTON_COLOR);
 		btnRun.setText("Stop");
+		isRunning_ = true;
 	}
 
 	@Override
@@ -861,5 +867,6 @@ public class HearthSim implements HSSimulationEventListener {
 		// TODO Auto-generated method stub
 		btnRun.setBackground(HSColors.SUCCESS_BUTTON_COLOR);
 		btnRun.setText("Run");
+		isRunning_ = false;
 	}
 }
