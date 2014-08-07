@@ -254,31 +254,6 @@ public class GrimscaleOracle extends Murloc {
 		}
 		return boardState;		
 	}
-	
-	/**
-	 * 
-	 * Called whenever another minion is placed on board
-	 * 
-	 * Override for the aura effect
-	 *
-	 * @param playerIndex The index of the created minion's player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
-	 * @param minionIndex The index of the created minion.
-	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-	 * 
-	 * @return The boardState is manipulated and returned
-	 */
-	@Override
-	public HearthTreeNode minionPlacedEvent(
-			int thisMinionPlayerIndex,
-			int placedMinionPlayerIndex,
-			Minion placedMinion,
-			HearthTreeNode boardState,
-			Deck deckPlayer0,
-			Deck deckPlayer1)
-		throws HSInvalidPlayerIndexException
-	{
-		return this.doBuffs(thisMinionPlayerIndex, placedMinionPlayerIndex, placedMinion, boardState, deckPlayer0, deckPlayer1);
-	}
 
 	/**
 	 * 

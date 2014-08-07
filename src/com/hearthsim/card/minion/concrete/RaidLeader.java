@@ -228,33 +228,6 @@ public class RaidLeader extends Minion {
 	
 	/**
 	 * 
-	 * Called whenever another minion is placed on board
-	 * 
-	 * Override for the aura effect
-	 *
-	 * @param thisMinionPlayerIndex The player index of this minion
-	 * @param placedMinionPlayerIndex The index of the placed minion's player.
-	 * @param placedMinion The placed minion
-	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-	 * @param deckPlayer0 The deck of player0
-	 * @param deckPlayer0 The deck of player1
-	 * 
-	 * @return The boardState is manipulated and returned
-	 */
-	public HearthTreeNode minionPlacedEvent(
-			int thisMinionPlayerIndex,
-			int placedMinionPlayerIndex,
-			Minion placedMinion,
-			HearthTreeNode boardState,
-			Deck deckPlayer0,
-			Deck deckPlayer1)
-		throws HSInvalidPlayerIndexException
-	{
-		return this.doBuffs(thisMinionPlayerIndex, placedMinionPlayerIndex, placedMinion, boardState, deckPlayer0, deckPlayer1);
-	}
-
-	/**
-	 * 
 	 * Called whenever another minion comes on board
 	 * 
 	 * Override for the aura effect

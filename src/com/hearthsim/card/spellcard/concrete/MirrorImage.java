@@ -68,14 +68,12 @@ public class MirrorImage extends SpellCard {
 		if (toRet != null) {
 			Minion mi0 = new MirrorImageMinion();
 			Minion placementTarget = toRet.data_.getCharacter_p0(numMinions);
-			toRet.data_.placeCard_hand_p0(mi0);
-			toRet = mi0.useOn(targetPlayerIndex, placementTarget, toRet, deckPlayer0, deckPlayer1);
+			toRet = mi0.summonMinion(targetPlayerIndex, placementTarget, toRet, deckPlayer0, deckPlayer1, false);
 			
 			if (numMinions < 6) {
 				Minion mi1 = new MirrorImageMinion();
 				Minion placementTarget2 = toRet.data_.getCharacter_p0(numMinions+1);
-				toRet.data_.placeCard_hand_p0(mi1);
-				toRet = mi1.useOn(targetPlayerIndex, placementTarget2, toRet, deckPlayer0, deckPlayer1);
+				toRet = mi1.summonMinion(targetPlayerIndex, placementTarget2, toRet, deckPlayer0, deckPlayer1, false);
 			}
 		}		
 		return toRet;

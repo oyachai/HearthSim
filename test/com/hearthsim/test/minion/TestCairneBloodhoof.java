@@ -231,4 +231,64 @@ public class TestCairneBloodhoof {
 		
 	}
 
+	@Test
+	public void test4() throws HSException {
+		
+		//null case
+		Minion target = board.data_.getCharacter(0, 1);
+		Card theCard = board.data_.getCard_hand_p0(0);
+		HearthTreeNode ret = theCard.useOn(0, target, board, deck, null);
+		
+		assertFalse(ret == null);
+		assertEquals(board.data_.getNumCards_hand(), 0);
+		assertEquals(board.data_.getNumMinions_p0(), 3);
+		assertEquals(board.data_.getNumMinions_p1(), 2);
+		assertEquals(board.data_.getMana_p0(), 2);
+		assertEquals(board.data_.getMana_p1(), 8);
+		assertEquals(board.data_.getHero_p0().getHealth(), 30);
+		assertEquals(board.data_.getHero_p1().getHealth(), 30);
+		assertEquals(board.data_.getMinion_p0(0).getHealth(), 2);
+		assertEquals(board.data_.getMinion_p0(1).getHealth(), 5);
+		assertEquals(board.data_.getMinion_p0(2).getHealth(), 7);
+		assertEquals(board.data_.getMinion_p1(0).getHealth(), 2);
+		assertEquals(board.data_.getMinion_p1(1).getHealth(), 7);
+
+		assertEquals(board.data_.getMinion_p0(0).getAttack(), 2);
+		assertEquals(board.data_.getMinion_p0(1).getAttack(), 5);
+		assertEquals(board.data_.getMinion_p0(2).getAttack(), 7);
+		assertEquals(board.data_.getMinion_p1(0).getAttack(), 2);
+		assertEquals(board.data_.getMinion_p1(1).getAttack(), 7);
+		
+		
+		//----------------------------------------------------------
+		HearthTreeNode fb = new HearthTreeNode(board.data_.flipPlayers());
+		
+		Minion minion = fb.data_.getMinion_p0(1);
+		
+		minion.hasAttacked(false);
+		target = fb.data_.getCharacter(1, 2);
+		minion.attack(1, target, fb, deck, null);
+
+		assertEquals(fb.data_.getNumCards_hand(), 0);
+		assertEquals(fb.data_.getNumMinions_p0(), 2);
+		assertEquals(fb.data_.getNumMinions_p1(), 3);
+		assertEquals(fb.data_.getMana_p0(), 8);
+		assertEquals(fb.data_.getMana_p1(), 2);
+		assertEquals(fb.data_.getHero_p0().getHealth(), 30);
+		assertEquals(fb.data_.getHero_p1().getHealth(), 30);
+		assertEquals(fb.data_.getMinion_p0(0).getHealth(), 2);
+		assertEquals(fb.data_.getMinion_p0(1).getHealth(), 7 - 5);
+		assertEquals(fb.data_.getMinion_p1(0).getHealth(), 2);
+		assertEquals(fb.data_.getMinion_p1(1).getHealth(), 5);
+		assertEquals(fb.data_.getMinion_p1(2).getHealth(), 7);
+
+		assertEquals(fb.data_.getMinion_p0(0).getAttack(), 2);
+		assertEquals(fb.data_.getMinion_p0(1).getAttack(), 7);
+		assertEquals(fb.data_.getMinion_p1(0).getAttack(), 2);
+		assertEquals(fb.data_.getMinion_p1(1).getAttack(), 5);
+		assertEquals(fb.data_.getMinion_p1(2).getAttack(), 7);
+		
+		assertTrue(fb.data_.getMinion_p1(1) instanceof BaineBloodhoof);
+		
+	}
 }

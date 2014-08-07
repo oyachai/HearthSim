@@ -484,7 +484,7 @@ public class Minion extends Card {
 	
 	/**
 	 * 
-	 * Places the minion on the board
+	 * Places the minion on the board by using the card in hand
 	 * 
 	 * @param targetPlayerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
 	 * @param targetMinion The target minion (can be a Hero).  If it is a Hero, then the minion is placed on the last (right most) spot on the board.
@@ -503,7 +503,6 @@ public class Minion extends Card {
 			Deck deckPlayer1)
 		throws HSException
 	{
-		//A generic card does nothing except for consuming mana
 		HearthTreeNode toRet = this.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
 		
 		if (toRet != null) {
@@ -525,34 +524,18 @@ public class Minion extends Card {
 						toRet = minion.otherCardUsedEvent(toRet, deckPlayer0, deckPlayer1);
 				}
 			}
-			if (summoned_) {
-				//Notify all that a minion is summoned
-				toRet = toRet.data_.getHero_p0().minionSummonedEvent(0, targetPlayerIndex, this, toRet, deckPlayer0, deckPlayer1);
-				for (Iterator<Minion> iter = toRet.data_.getMinions_p0().iterator(); iter.hasNext();) {
-					Minion minion = iter.next();
-					if (!minion.silenced_)
-						toRet = minion.minionSummonedEvent(0, targetPlayerIndex, this, toRet, deckPlayer0, deckPlayer1);
-				}
-				toRet = toRet.data_.getHero_p1().minionSummonedEvent(1, targetPlayerIndex, this, toRet, deckPlayer0, deckPlayer1);
-				for (Iterator<Minion> iter = toRet.data_.getMinions_p1().iterator(); iter.hasNext();) {
-					Minion minion = iter.next();
-					if (!minion.silenced_)
-						toRet = minion.minionSummonedEvent(1, targetPlayerIndex, this, toRet, deckPlayer0, deckPlayer1);
-				}
-			} else {
-				//Notify all that a minion is placed
-				toRet = toRet.data_.getHero_p0().minionPlacedEvent(0, targetPlayerIndex, this, toRet, deckPlayer0, deckPlayer1);
-				for (Iterator<Minion> iter = toRet.data_.getMinions_p0().iterator(); iter.hasNext();) {
-					Minion minion = iter.next();
-					if (!minion.silenced_)
-						toRet = minion.minionPlacedEvent(0, targetPlayerIndex, this, toRet, deckPlayer0, deckPlayer1);
-				}
-				toRet = toRet.data_.getHero_p1().minionPlacedEvent(1, targetPlayerIndex, this, toRet, deckPlayer0, deckPlayer1);
-				for (Iterator<Minion> iter = toRet.data_.getMinions_p1().iterator(); iter.hasNext();) {
-					Minion minion = iter.next();
-					if (!minion.silenced_)
-						toRet = minion.minionPlacedEvent(1, targetPlayerIndex, this, toRet, deckPlayer0, deckPlayer1);
-				}
+			//Notify all that a minion is placed
+			toRet = toRet.data_.getHero_p0().minionPlacedEvent(0, targetPlayerIndex, this, toRet, deckPlayer0, deckPlayer1);
+			for (Iterator<Minion> iter = toRet.data_.getMinions_p0().iterator(); iter.hasNext();) {
+				Minion minion = iter.next();
+				if (!minion.silenced_)
+					toRet = minion.minionPlacedEvent(0, targetPlayerIndex, this, toRet, deckPlayer0, deckPlayer1);
+			}
+			toRet = toRet.data_.getHero_p1().minionPlacedEvent(1, targetPlayerIndex, this, toRet, deckPlayer0, deckPlayer1);
+			for (Iterator<Minion> iter = toRet.data_.getMinions_p1().iterator(); iter.hasNext();) {
+				Minion minion = iter.next();
+				if (!minion.silenced_)
+					toRet = minion.minionPlacedEvent(1, targetPlayerIndex, this, toRet, deckPlayer0, deckPlayer1);
 			}
 		}
 		
@@ -570,7 +553,7 @@ public class Minion extends Card {
     
 	/**
 	 * 
-	 * Places a minion on the board.
+	 * Places a minion on the board by using the card in hand
 	 * 
 	 * @param targetPlayerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
 	 * @param targetMinion The target minion (can be a Hero).  The new minion is always placed to the right of (higher index) the target minion.  If the target minion is a hero, then it is placed at the left-most position.
@@ -598,6 +581,100 @@ public class Minion extends Card {
 		if (targetPlayerIndex == 1)
 			return null;
 		
+		HearthTreeNode toRet = this.summonMinion(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1, false);
+		if (toRet != null) { //summon succeeded, now let's use up our mana
+			toRet.data_.setMana_p0(toRet.data_.getMana_p0() - this.mana_);
+			toRet.data_.removeCard_hand(this);
+		}
+		return toRet;
+	}
+	
+	
+	
+	/**
+	 * 
+	 * Places a minion on the board via a summon effect
+	 * 
+	 * This function is meant to be used when summoning minions through means other than a direct card usage.
+	 * 
+	 * @param targetPlayerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
+	 * @param targetMinion The target minion (can be a Hero).  If it is a Hero, then the minion is placed on the last (right most) spot on the board.
+	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+	 * @param deckPlayer0 The deck of player0
+	 * @param deckPlayer0 The deck of player1
+	 * @param wasTransformed If the minion was 'summoned' as a result of a transform effect (e.g. Hex, Polymorph), set this to true.
+	 * 
+	 * @return The boardState is manipulated and returned
+	 */
+	public HearthTreeNode summonMinion(
+			int targetPlayerIndex,
+			Minion targetMinion,
+			HearthTreeNode boardState,
+			Deck deckPlayer0,
+			Deck deckPlayer1,
+			boolean wasTransformed)
+		throws HSException
+	{
+		HearthTreeNode toRet = this.summonMinion_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
+		
+		if (toRet != null) {
+			if (wasTransformed) {
+				//Notify all that a minion is summoned
+				toRet = toRet.data_.getHero_p0().minionSummonedEvent(0, targetPlayerIndex, this, toRet, deckPlayer0, deckPlayer1);
+				for (Iterator<Minion> iter = toRet.data_.getMinions_p0().iterator(); iter.hasNext();) {
+					Minion minion = iter.next();
+					if (!minion.silenced_)
+						toRet = minion.minionSummonedEvent(0, targetPlayerIndex, this, toRet, deckPlayer0, deckPlayer1);
+				}
+				toRet = toRet.data_.getHero_p1().minionSummonedEvent(1, targetPlayerIndex, this, toRet, deckPlayer0, deckPlayer1);
+				for (Iterator<Minion> iter = toRet.data_.getMinions_p1().iterator(); iter.hasNext();) {
+					Minion minion = iter.next();
+					if (!minion.silenced_)
+						toRet = minion.minionSummonedEvent(1, targetPlayerIndex, this, toRet, deckPlayer0, deckPlayer1);
+				}
+			} else {
+				//Notify all that a minion is summoned
+				toRet = toRet.data_.getHero_p0().minionTransformedEvent(0, targetPlayerIndex, this, toRet, deckPlayer0, deckPlayer1);
+				for (Iterator<Minion> iter = toRet.data_.getMinions_p0().iterator(); iter.hasNext();) {
+					Minion minion = iter.next();
+					if (!minion.silenced_)
+						toRet = minion.minionTransformedEvent(0, targetPlayerIndex, this, toRet, deckPlayer0, deckPlayer1);
+				}
+				toRet = toRet.data_.getHero_p1().minionTransformedEvent(1, targetPlayerIndex, this, toRet, deckPlayer0, deckPlayer1);
+				for (Iterator<Minion> iter = toRet.data_.getMinions_p1().iterator(); iter.hasNext();) {
+					Minion minion = iter.next();
+					if (!minion.silenced_)
+						toRet = minion.minionTransformedEvent(1, targetPlayerIndex, this, toRet, deckPlayer0, deckPlayer1);
+				}				
+			}
+		}
+		
+		return toRet;
+	}
+	
+	/**
+	 * 
+	 * Places a minion on the board via a summon effect
+	 * 
+	 * This function is meant to be used when summoning minions through means other than a direct card usage.
+	 * 
+	 * @param targetPlayerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
+	 * @param targetMinion The target minion (can be a Hero).  The new minion is always placed to the right of (higher index) the target minion.  If the target minion is a hero, then it is placed at the left-most position.
+	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+	 * @param deckPlayer0 The deck of player0
+	 * @param deckPlayer0 The deck of player1
+	 * 
+	 * @return The boardState is manipulated and returned
+	 * @throws HSException 
+	 */
+	protected HearthTreeNode summonMinion_core(
+			int targetPlayerIndex,
+			Minion targetMinion,
+			HearthTreeNode boardState,
+			Deck deckPlayer0,
+			Deck deckPlayer1)
+		throws HSException
+	{		
 		if (boardState.data_.getNumMinions_p0() < 7) {
 
 			if (!charge_) {
@@ -605,11 +682,9 @@ public class Minion extends Card {
 			}
 			hasBeenUsed_ = true;
 			if (targetMinion instanceof Hero)
-				boardState.data_.placeMinion(0, this, 0);
+				boardState.data_.placeMinion(targetPlayerIndex, this, 0);
 			else
-				boardState.data_.placeMinion(0, this, boardState.data_.getMinions_p0().indexOf(targetMinion) + 1);
-			boardState.data_.setMana_p0(boardState.data_.getMana_p0() - this.mana_);
-			boardState.data_.removeCard_hand(this);
+				boardState.data_.placeMinion(targetPlayerIndex, this, boardState.data_.getMinions(targetPlayerIndex).indexOf(targetMinion) + 1);
 			return boardState;
 							
 		} else {
@@ -617,7 +692,6 @@ public class Minion extends Card {
 		}
 
 	}
-	
 	/**
 	 * 
 	 * Attack with the minion

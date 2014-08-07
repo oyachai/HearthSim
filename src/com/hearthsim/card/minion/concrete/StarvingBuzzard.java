@@ -134,46 +134,6 @@ public class StarvingBuzzard extends Beast {
 				this.hasBeenUsed_);
 	}
 	
-	
-	/**
-	 * 
-	 * Called whenever a minion is placed on the board
-	 * 
-	 * The buzzard draws a card whenever a Beast is placed on the battlefield
-	 * 
-	 * @param thisMinionPlayerIndex The player index of this minion
-	 * @param placedMinionPlayerIndex The index of the placed minion's player.
-	 * @param placedMinion The placed minion
-	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-	 * @param deckPlayer0 The deck of player0
-	 * @param deckPlayer0 The deck of player1
-	 * 
-	 * @return The boardState is manipulated and returned
-	 */
-	public HearthTreeNode minionPlacedEvent(
-			int thisMinionPlayerIndex,
-			int placedMinionPlayerIndex,
-			Minion placedMinion,
-			HearthTreeNode boardState,
-			Deck deckPlayer0,
-			Deck deckPlayer1)
-		throws HSInvalidPlayerIndexException
-	{
-		if (placedMinionPlayerIndex == 1 || thisMinionPlayerIndex == 1)
-			return boardState;
-		
-		HearthTreeNode toRet = super.minionPlacedEvent(thisMinionPlayerIndex, placedMinionPlayerIndex, placedMinion, boardState, deckPlayer0, deckPlayer1);
-		if (toRet.data_.getMinion_p0(placedMinionPlayerIndex - 1) instanceof Beast) {
-			if (toRet instanceof CardDrawNode) {
-				((CardDrawNode) toRet).addNumCardsToDraw(1);
-			} else {
-				toRet = new CardDrawNode(toRet, 1); //draw one card
-			}
-		}
-		
-		return toRet;
-	}
-	
 	/**
 	 * 
 	 * Called whenever a minion is summoned on the board

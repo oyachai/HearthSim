@@ -62,16 +62,10 @@ public class Polymorph extends SpellCard {
 		
 		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
 		if (toRet != null) {
+			toRet = targetMinion.silenced(targetPlayerIndex, toRet, deckPlayer0, deckPlayer1);
 			Sheep sheep = new Sheep();
-			if (targetPlayerIndex == 0) {
-				boardState.data_.placeMinion(0, sheep, toRet.data_.getMinions_p0().indexOf(targetMinion));
-				boardState.data_.removeMinion_p0(targetMinion);
-			} else if (targetPlayerIndex == 1) {
-				boardState.data_.placeMinion(1, sheep, toRet.data_.getMinions_p1().indexOf(targetMinion));
-				boardState.data_.removeMinion_p1(targetMinion);
-			} else {
-				throw new HSInvalidPlayerIndexException();
-			}
+			toRet = sheep.summonMinion(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1, true);
+			boardState.data_.removeMinion(targetPlayerIndex, targetMinion);
 		}
 
 		return toRet;

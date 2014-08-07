@@ -1,6 +1,5 @@
 package com.hearthsim.card.minion.concrete;
 
-import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
@@ -170,10 +169,8 @@ public class DragonlingMechanic extends Minion {
 		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
 		
 		if (toRet != null && toRet.data_.getNumMinions_p0() < 7) {
-			Card mdragon = new MechanicalDragonling();
-			toRet.data_.placeCard_hand_p0(mdragon);
-			toRet.data_.setMana_p0(boardState.data_.getMana_p0() + 1);
-			mdragon.useOn(targetPlayerIndex, this, boardState, deckPlayer0, deckPlayer1);
+			Minion mdragon = new MechanicalDragonling();
+			mdragon.summonMinion(targetPlayerIndex, this, boardState, deckPlayer0, deckPlayer1, false);
 		}
 		return toRet;
 	}
