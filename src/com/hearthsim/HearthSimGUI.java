@@ -59,7 +59,7 @@ public class HearthSimGUI extends HearthSimBase {
 	@Override
 	public GameResult runSingleGame() throws IOException, HSException {
 			
-		return super.runSingleGame(ai0_, hero0_, deck0_, ai1_, hero1_, deck1_);
+		return super.runSingleGame(ai0_, hero0_, deck0_, ai1_, hero1_, deck1_, true);
 	}
 
 	

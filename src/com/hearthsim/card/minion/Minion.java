@@ -719,6 +719,10 @@ public class Minion extends Card {
 			return null;
 		}
 		
+		if (attack_ + extraAttackUntilTurnEnd_ <= 0)
+			return null;
+
+		
 		HearthTreeNode toRet = boardState;
 		byte origAttack = targetMinion.attack_;
 		toRet = targetMinion.takeDamage((byte)(this.attack_ + this.extraAttackUntilTurnEnd_), 0, targetMinionPlayerIndex, toRet, deckPlayer0, deckPlayer1);

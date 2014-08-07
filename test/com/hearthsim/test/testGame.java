@@ -96,17 +96,17 @@ public class testGame {
 				);
 
 		long t1 = System.nanoTime();
-		Game game = new Game(player1, player2, ai0, ai1);
+		Game game = new Game(player1, player2, ai0, ai1, true);
 		GameResult w = null;
 		try {
 			w = game.runGame();
 		} catch (HSException e) {
-			w = new GameResult(-1, 0, null);
+			w = new GameResult(0, -1, 0, null);
 		}
 		
 		long t2 = System.nanoTime();
 		
-		System.out.println("w = " + w.winnerPlayerIndex_ + ", time taken = " + (t2 - t1) / 1000000.0 + " ms");
+		System.out.println("f = " + w.firstPlayerIndex_ + ", w = " + w.winnerPlayerIndex_ + ", time taken = " + (t2 - t1) / 1000000.0 + " ms");
 		
 		assertTrue("testGame0", w.winnerPlayerIndex_ == 0);
 	}

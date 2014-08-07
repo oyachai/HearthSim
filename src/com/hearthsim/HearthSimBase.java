@@ -76,6 +76,10 @@ public abstract class HearthSimBase {
 	 * @throws IOException 
 	 */
 	public abstract GameResult runSingleGame() throws HSException, IOException;
+
+	protected GameResult runSingleGame(ArtificialPlayer ai0, Hero hero0, Deck deck0, ArtificialPlayer ai1, Hero hero1, Deck deck1) throws HSException {
+		return this.runSingleGame(ai0, hero0, deck0, ai1, hero1, deck1, false);
+	}
 	
 	/**
 	 * Run a single game
@@ -86,10 +90,11 @@ public abstract class HearthSimBase {
 	 * @param ai1 AI for player 1
 	 * @param hero1 Hero class for player 1
 	 * @param deck1 Deck for player 1
+	 * @param shufflePlayOrder Randomizes the play order if set to true
 	 * @return
 	 * @throws HSException
 	 */
-	protected GameResult runSingleGame(ArtificialPlayer ai0, Hero hero0, Deck deck0, ArtificialPlayer ai1, Hero hero1, Deck deck1) throws HSException {
+	protected GameResult runSingleGame(ArtificialPlayer ai0, Hero hero0, Deck deck0, ArtificialPlayer ai1, Hero hero1, Deck deck1, boolean shufflePlayOrder) throws HSException {
 
 		//Shuffle the decks!
 		deck0.shuffle();
@@ -98,7 +103,7 @@ public abstract class HearthSimBase {
 		Player player0 = new Player("player0", hero0, deck0);
 		Player player1 = new Player("player1", hero1, deck1);
 
-		Game game = new Game(player0, player1, ai0, ai1);
+		Game game = new Game(player0, player1, ai0, ai1, shufflePlayOrder);
 		return game.runGame();
 	}
 	
