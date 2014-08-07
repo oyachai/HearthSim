@@ -1,6 +1,5 @@
 package com.hearthsim.event.deathrattle;
 
-import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
@@ -9,9 +8,9 @@ import com.hearthsim.util.tree.HearthTreeNode;
 public class DeathrattleSummonMinionAction extends DeathrattleAction {
 
 	private final int numMinions_;
-    private final Class minionClass_;
+    private final Class<?> minionClass_;
     
-	public DeathrattleSummonMinionAction(Class minionClass, int numMnions) {
+	public DeathrattleSummonMinionAction(Class<?> minionClass, int numMnions) {
 		numMinions_ = numMnions;
 		minionClass_ = minionClass;
 	}
@@ -29,7 +28,9 @@ public class DeathrattleSummonMinionAction extends DeathrattleAction {
 		for (int index = 0; index < numMinions_; ++index) {
             try {
             	Minion newMinion = (Minion)minionClass_.newInstance();
-				toRet = newMinion.summonMinion(thisPlayerIndex, minion, toRet, deckPlayer0, deckPlayer1, false);
+            	Minion placementTarget = toRet.data_.getCharacter(thisPlayerIndex, toRet.data_.getMinions(thisPlayerIndex).indexOf(minion)); //this minion can't be a hero
+            	toRet.data_.removeMinion(thisPlayerIndex, minion);
+				toRet = newMinion.summonMinion(thisPlayerIndex, placementTarget, toRet, deckPlayer0, deckPlayer1, false);
 			} catch (InstantiationException | IllegalAccessException e) {
 				// TODO Auto-generated catch block
 				throw new HSException();

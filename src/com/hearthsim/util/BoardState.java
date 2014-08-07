@@ -242,7 +242,16 @@ public class BoardState implements DeepCopyable {
 	public void removeCard_hand(Card card) {
 		p0_hand_.remove(card);
 	}
-	
+
+	public int getNumMinions(int playerIndex) throws HSInvalidPlayerIndexException {
+		if (playerIndex == 0)
+			return p0_minions_.size();
+		else if (playerIndex == 1)
+			return p1_minions_.size();
+		else
+			throw new HSInvalidPlayerIndexException();
+	}
+
 	public int getNumMinions_p0() {
 		return p0_minions_.size();
 	}

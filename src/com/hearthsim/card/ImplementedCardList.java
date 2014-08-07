@@ -18,7 +18,7 @@ public class ImplementedCardList {
     private Map<Class<?>, ImplementedCard> map_;
     public class ImplementedCard implements Comparable<ImplementedCard> {
 
-        public final Class cardClass_;
+        public final Class<?> cardClass_;
         public final String name_;
         public final String type_;
         public final String charClass_;
@@ -28,7 +28,7 @@ public class ImplementedCardList {
         public final int attack_;
         public final int health_;
 
-        public ImplementedCard(Class cardClass, String name, String type, String charClass, String rarity, String text, int mana, int attack, int health) {
+        public ImplementedCard(Class<?> cardClass, String name, String type, String charClass, String rarity, String text, int mana, int attack, int health) {
             cardClass_ = cardClass;
             name_ = name;
             type_ = type;

@@ -1,5 +1,6 @@
 package com.hearthsim.card;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import com.hearthsim.card.minion.Minion;
@@ -225,20 +226,25 @@ public class Card implements DeepCopyable {
 
 			//check for and remove dead minions
 			Iterator<Minion> iter0 = toRet.data_.getMinions_p0().iterator();
+			ArrayList<Minion> listOfMinionsToCheck0 = new ArrayList<Minion>(toRet.data_.getNumMinions_p0());
 			while (iter0.hasNext()) {
-				Minion tMinion = iter0.next();
+				listOfMinionsToCheck0.add(iter0.next());
+			}
+			for (Minion tMinion : listOfMinionsToCheck0) {
 				if (tMinion.getHealth() <= 0) {
 					toRet = tMinion.destroyed(0, toRet, deckPlayer0, deckPlayer1);
-					iter0.remove();
 					toRet.data_.getMinions_p0().remove(tMinion);
 				}
 			}
+
 			Iterator<Minion> iter1 = toRet.data_.getMinions_p1().iterator();
+			ArrayList<Minion> listOfMinionsToCheck1 = new ArrayList<Minion>(toRet.data_.getNumMinions_p1());
 			while (iter1.hasNext()) {
-				Minion tMinion = iter1.next();
+				listOfMinionsToCheck1.add(iter1.next());
+			}
+			for (Minion tMinion : listOfMinionsToCheck1) {
 				if (tMinion.getHealth() <= 0) {
 					toRet = tMinion.destroyed(1, toRet, deckPlayer0, deckPlayer1);
-					iter1.remove();
 					toRet.data_.getMinions_p1().remove(tMinion);
 				}
 			}

@@ -11,9 +11,11 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.BaineBloodhoof;
+import com.hearthsim.card.minion.concrete.BloodfenRaptor;
 import com.hearthsim.card.minion.concrete.BoulderfistOgre;
 import com.hearthsim.card.minion.concrete.CairneBloodhoof;
 import com.hearthsim.card.minion.concrete.RaidLeader;
+import com.hearthsim.card.spellcard.concrete.Fireball;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.util.BoardState;
@@ -278,6 +280,155 @@ public class TestCairneBloodhoof {
 		assertEquals(fb.data_.getHero_p1().getHealth(), 30);
 		assertEquals(fb.data_.getMinion_p0(0).getHealth(), 2);
 		assertEquals(fb.data_.getMinion_p0(1).getHealth(), 7 - 5);
+		assertEquals(fb.data_.getMinion_p1(0).getHealth(), 2);
+		assertEquals(fb.data_.getMinion_p1(1).getHealth(), 5);
+		assertEquals(fb.data_.getMinion_p1(2).getHealth(), 7);
+
+		assertEquals(fb.data_.getMinion_p0(0).getAttack(), 2);
+		assertEquals(fb.data_.getMinion_p0(1).getAttack(), 7);
+		assertEquals(fb.data_.getMinion_p1(0).getAttack(), 2);
+		assertEquals(fb.data_.getMinion_p1(1).getAttack(), 5);
+		assertEquals(fb.data_.getMinion_p1(2).getAttack(), 7);
+		
+		assertTrue(fb.data_.getMinion_p1(1) instanceof BaineBloodhoof);
+		
+	}
+	
+	@Test
+	public void test5() throws HSException {
+		
+		//null case
+		Minion target = board.data_.getCharacter(0, 1);
+		Card theCard = board.data_.getCard_hand_p0(0);
+		HearthTreeNode ret = theCard.useOn(0, target, board, deck, null);
+
+		ret = (new BloodfenRaptor()).summonMinion(0, board.data_.getHero_p0(), ret, null, null, false);
+		ret = (new BloodfenRaptor()).summonMinion(0, board.data_.getHero_p0(), ret, null, null, false);
+		ret = (new BloodfenRaptor()).summonMinion(0, board.data_.getHero_p0(), ret, null, null, false);
+		ret = (new BloodfenRaptor()).summonMinion(0, board.data_.getHero_p0(), ret, null, null, false);
+		
+		assertFalse(ret == null);
+		assertEquals(board.data_.getNumCards_hand(), 0);
+		assertEquals(board.data_.getNumMinions_p0(), 7);
+		assertEquals(board.data_.getNumMinions_p1(), 2);
+		assertEquals(board.data_.getMana_p0(), 2);
+		assertEquals(board.data_.getMana_p1(), 8);
+		assertEquals(board.data_.getHero_p0().getHealth(), 30);
+		assertEquals(board.data_.getHero_p1().getHealth(), 30);
+		assertEquals(board.data_.getMinion_p0(0).getHealth(), 2);
+		assertEquals(board.data_.getMinion_p0(1).getHealth(), 2);
+		assertEquals(board.data_.getMinion_p0(2).getHealth(), 2);
+		assertEquals(board.data_.getMinion_p0(3).getHealth(), 2);
+		assertEquals(board.data_.getMinion_p0(4).getHealth(), 2);
+		assertEquals(board.data_.getMinion_p0(5).getHealth(), 5);
+		assertEquals(board.data_.getMinion_p0(6).getHealth(), 7);
+		assertEquals(board.data_.getMinion_p1(0).getHealth(), 2);
+		assertEquals(board.data_.getMinion_p1(1).getHealth(), 7);
+
+		assertEquals(board.data_.getMinion_p0(0).getAttack(), 4);
+		assertEquals(board.data_.getMinion_p0(1).getAttack(), 4);
+		assertEquals(board.data_.getMinion_p0(2).getAttack(), 4);
+		assertEquals(board.data_.getMinion_p0(3).getAttack(), 4);
+		assertEquals(board.data_.getMinion_p0(4).getAttack(), 2);
+		assertEquals(board.data_.getMinion_p0(5).getAttack(), 5);
+		assertEquals(board.data_.getMinion_p0(6).getAttack(), 7);
+		assertEquals(board.data_.getMinion_p1(0).getAttack(), 2);
+		assertEquals(board.data_.getMinion_p1(1).getAttack(), 7);
+		
+		
+		//----------------------------------------------------------
+		HearthTreeNode fb = new HearthTreeNode(board.data_.flipPlayers());
+		
+		Minion minion = fb.data_.getMinion_p0(1);
+		
+		minion.hasAttacked(false);
+		target = fb.data_.getCharacter(1, 6);
+		minion.attack(1, target, fb, deck, null);
+
+		assertEquals(fb.data_.getNumCards_hand(), 0);
+		assertEquals(fb.data_.getNumMinions_p0(), 2);
+		assertEquals(fb.data_.getNumMinions_p1(), 7);
+		assertEquals(fb.data_.getMana_p0(), 8);
+		assertEquals(fb.data_.getMana_p1(), 2);
+		assertEquals(fb.data_.getHero_p0().getHealth(), 30);
+		assertEquals(fb.data_.getHero_p1().getHealth(), 30);
+		assertEquals(fb.data_.getMinion_p0(0).getHealth(), 2);
+		assertEquals(fb.data_.getMinion_p0(1).getHealth(), 7 - 5);
+		assertEquals(fb.data_.getMinion_p1(0).getHealth(), 2);
+		assertEquals(fb.data_.getMinion_p1(1).getHealth(), 2);
+		assertEquals(fb.data_.getMinion_p1(2).getHealth(), 2);
+		assertEquals(fb.data_.getMinion_p1(3).getHealth(), 2);
+		assertEquals(fb.data_.getMinion_p1(4).getHealth(), 2);
+		assertEquals(fb.data_.getMinion_p1(5).getHealth(), 5);
+		assertEquals(fb.data_.getMinion_p1(6).getHealth(), 7);
+
+		assertEquals(fb.data_.getMinion_p0(0).getAttack(), 2);
+		assertEquals(fb.data_.getMinion_p0(1).getAttack(), 7);
+		assertEquals(fb.data_.getMinion_p1(0).getAttack(), 4);
+		assertEquals(fb.data_.getMinion_p1(1).getAttack(), 4);
+		assertEquals(fb.data_.getMinion_p1(2).getAttack(), 4);
+		assertEquals(fb.data_.getMinion_p1(3).getAttack(), 4);
+		assertEquals(fb.data_.getMinion_p1(4).getAttack(), 2);
+		assertEquals(fb.data_.getMinion_p1(5).getAttack(), 5);
+		assertEquals(fb.data_.getMinion_p1(6).getAttack(), 7);
+		
+		assertTrue(fb.data_.getMinion_p1(5) instanceof BaineBloodhoof);
+		
+	}
+	
+	
+	@Test
+	public void test6() throws HSException {
+		
+		//In this test Cairne will be killed by a spell: Fireball
+		
+		//null case
+		Minion target = board.data_.getCharacter(0, 1);
+		Card theCard = board.data_.getCard_hand_p0(0);
+		HearthTreeNode ret = theCard.useOn(0, target, board, deck, null);
+		
+		assertFalse(ret == null);
+		assertEquals(board.data_.getNumCards_hand(), 0);
+		assertEquals(board.data_.getNumMinions_p0(), 3);
+		assertEquals(board.data_.getNumMinions_p1(), 2);
+		assertEquals(board.data_.getMana_p0(), 2);
+		assertEquals(board.data_.getMana_p1(), 8);
+		assertEquals(board.data_.getHero_p0().getHealth(), 30);
+		assertEquals(board.data_.getHero_p1().getHealth(), 30);
+		assertEquals(board.data_.getMinion_p0(0).getHealth(), 2);
+		assertEquals(board.data_.getMinion_p0(1).getHealth(), 5);
+		assertEquals(board.data_.getMinion_p0(2).getHealth(), 7);
+		assertEquals(board.data_.getMinion_p1(0).getHealth(), 2);
+		assertEquals(board.data_.getMinion_p1(1).getHealth(), 7);
+
+		assertEquals(board.data_.getMinion_p0(0).getAttack(), 2);
+		assertEquals(board.data_.getMinion_p0(1).getAttack(), 5);
+		assertEquals(board.data_.getMinion_p0(2).getAttack(), 7);
+		assertEquals(board.data_.getMinion_p1(0).getAttack(), 2);
+		assertEquals(board.data_.getMinion_p1(1).getAttack(), 7);
+		
+		
+		//----------------------------------------------------------
+		HearthTreeNode fb = new HearthTreeNode(board.data_.flipPlayers());
+		
+		Minion minion = fb.data_.getMinion_p0(1);
+		
+		fb.data_.placeCard_hand_p0(new Fireball());
+		Card fireball = fb.data_.getCard_hand_p0(0);
+		
+		minion.hasAttacked(false);
+		target = fb.data_.getCharacter(1, 2);
+		fireball.useOn(1, target, fb, deck, null);
+
+		assertEquals(fb.data_.getNumCards_hand(), 0);
+		assertEquals(fb.data_.getNumMinions_p0(), 2);
+		assertEquals(fb.data_.getNumMinions_p1(), 3);
+		assertEquals(fb.data_.getMana_p0(), 4);
+		assertEquals(fb.data_.getMana_p1(), 2);
+		assertEquals(fb.data_.getHero_p0().getHealth(), 30);
+		assertEquals(fb.data_.getHero_p1().getHealth(), 30);
+		assertEquals(fb.data_.getMinion_p0(0).getHealth(), 2);
+		assertEquals(fb.data_.getMinion_p0(1).getHealth(), 7);
 		assertEquals(fb.data_.getMinion_p1(0).getHealth(), 2);
 		assertEquals(fb.data_.getMinion_p1(1).getHealth(), 5);
 		assertEquals(fb.data_.getMinion_p1(2).getHealth(), 7);

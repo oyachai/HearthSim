@@ -675,7 +675,7 @@ public class Minion extends Card {
 			Deck deckPlayer1)
 		throws HSException
 	{		
-		if (boardState.data_.getNumMinions_p0() < 7) {
+		if (boardState.data_.getNumMinions(targetPlayerIndex) < 7) {
 
 			if (!charge_) {
 				hasAttacked_ = true;
@@ -803,13 +803,13 @@ public class Minion extends Card {
 		toRet = this.takeDamage(origAttack, targetMinionPlayerIndex, 0, toRet, deckPlayer0, deckPlayer1);
 		if (!(targetMinion instanceof Hero)) {
 			if (targetMinion.getHealth() <= 0) {
-				toRet = targetMinion.destroyed(targetMinionPlayerIndex, boardState, deckPlayer0, deckPlayer1);
+				toRet = targetMinion.destroyed(targetMinionPlayerIndex, toRet, deckPlayer0, deckPlayer1);
 				toRet.data_.removeMinion_p1(targetMinion);
 			}
 		}
 		if (!(this instanceof Hero)) {
 			if (health_ <= 0) {
-				toRet = this.destroyed(0, boardState, deckPlayer0, deckPlayer1);
+				toRet = this.destroyed(0, toRet, deckPlayer0, deckPlayer1);
 				toRet.data_.removeMinion_p0(this);
 			}
 		}
