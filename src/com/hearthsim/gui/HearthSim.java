@@ -72,10 +72,12 @@ public class HearthSim implements HSSimulationEventListener {
 	
 	private JLabel lblWin_0;
 	private JLabel lblWinRate_0;
+	private JLabel lblWinRane_frst_0;
 	private JLabel lblConfNum_0;
 	
 	private JLabel lblWin_1;
 	private JLabel lblWinRate_1;
+	private JLabel lblWinRane_frst_1;
 	private JLabel lblConfNum_1;
 	
 	private JButton btnRun;
@@ -275,105 +277,125 @@ public class HearthSim implements HSSimulationEventListener {
 		InfoPane.setLayout(sl_InfoPane);
 		
 		JPanel Player0Info = new JPanel();
-		sl_InfoPane.putConstraint(SpringLayout.WEST, Player0Info, 25, SpringLayout.WEST, InfoPane);
-		sl_InfoPane.putConstraint(SpringLayout.SOUTH, Player0Info, -5, SpringLayout.SOUTH, InfoPane);
-		sl_InfoPane.putConstraint(SpringLayout.EAST, Player0Info, 170, SpringLayout.WEST, InfoPane);
+		sl_InfoPane.putConstraint(SpringLayout.WEST, Player0Info, 15, SpringLayout.WEST, InfoPane);
+		sl_InfoPane.putConstraint(SpringLayout.SOUTH, Player0Info, 0, SpringLayout.SOUTH, InfoPane);
+		sl_InfoPane.putConstraint(SpringLayout.EAST, Player0Info, 225, SpringLayout.WEST, InfoPane);
 		Player0Info.setOpaque(false);
 		sl_InfoPane.putConstraint(SpringLayout.NORTH, Player0Info, 5, SpringLayout.NORTH, InfoPane);
 		InfoPane.add(Player0Info);
 		
 		JLabel lblLabel1_0 = new JLabel("P0 Wins");
-		lblLabel1_0.setFont(new Font("Helvetica Neue", Font.PLAIN, 18));
+		lblLabel1_0.setFont(new Font("Helvetica Neue", Font.BOLD, 16));
 		lblLabel1_0.setForeground(Color.WHITE);
 		Player0Info.add(lblLabel1_0);
 		
-		Component rigidArea_2 = Box.createRigidArea(new Dimension(20, 20));
-		rigidArea_2.setPreferredSize(new Dimension(135, 10));
-		Player0Info.add(rigidArea_2);
-		
 		lblWin_0 = new JLabel("--");
-		lblWin_0.setFont(new Font("Helvetica Neue", Font.PLAIN, 24));
+		lblWin_0.setFont(new Font("Helvetica Neue", Font.PLAIN, 22));
 		lblWin_0.setHorizontalAlignment(SwingConstants.CENTER);
-		lblWin_0.setPreferredSize(new Dimension(135, 40));
+		lblWin_0.setPreferredSize(new Dimension(200, 30));
 		lblWin_0.setForeground(Color.WHITE);
 		Player0Info.add(lblWin_0);
 		
 		Component rigidArea_1 = Box.createRigidArea(new Dimension(20, 10));
-		rigidArea_1.setPreferredSize(new Dimension(135, 2));
+		rigidArea_1.setPreferredSize(new Dimension(200, 5));
 		Player0Info.add(rigidArea_1);
 		
+		JLabel lblLabel2_0 = new JLabel("Win Rate");
+		lblLabel2_0.setFont(new Font("Helvetica Neue", Font.BOLD, 14));
+		lblLabel2_0.setBackground(HSColors.BACKGROUND_COLOR);
+		lblLabel2_0.setForeground(HSColors.TEXT_COLOR);
+		Player0Info.add(lblLabel2_0);
+		
 		lblWinRate_0 = new JLabel("--");
-		lblWinRate_0.setFont(new Font("Helvetica Neue", Font.PLAIN, 24));
+		lblWinRate_0.setFont(new Font("Helvetica Neue", Font.PLAIN, 22));
 		lblWinRate_0.setHorizontalAlignment(SwingConstants.CENTER);
 		lblWinRate_0.setHorizontalTextPosition(SwingConstants.CENTER);
 		lblWinRate_0.setForeground(Color.WHITE);
-		lblWinRate_0.setPreferredSize(new Dimension(135, 40));
+		lblWinRate_0.setPreferredSize(new Dimension(200, 30));
 		Player0Info.add(lblWinRate_0);
 		
+		lblWinRane_frst_0 = new JLabel("--");
+		lblWinRane_frst_0.setPreferredSize(new Dimension(200, 30));
+		lblWinRane_frst_0.setHorizontalTextPosition(SwingConstants.CENTER);
+		lblWinRane_frst_0.setHorizontalAlignment(SwingConstants.CENTER);
+		lblWinRane_frst_0.setForeground(HSColors.TEXT_COLOR);
+		lblWinRane_frst_0.setFont(new Font("Helvetica Neue", Font.PLAIN, 12));
+		Player0Info.add(lblWinRane_frst_0);
+		
 		Component rigidArea = Box.createRigidArea(new Dimension(20, 20));
-		rigidArea.setPreferredSize(new Dimension(135, 20));
+		rigidArea.setPreferredSize(new Dimension(135, 10));
 		Player0Info.add(rigidArea);
 		
 		JLabel lblConf_0 = new JLabel("95% Conf Range");
 		lblConf_0.setForeground(Color.WHITE);
-		lblConf_0.setFont(new Font("Helvetica Neue", Font.PLAIN, 12));
+		lblConf_0.setFont(new Font("Helvetica Neue", Font.BOLD, 12));
 		Player0Info.add(lblConf_0);
 		
 		lblConfNum_0 = new JLabel("--");
 		lblConfNum_0.setHorizontalAlignment(SwingConstants.CENTER);
-		lblConfNum_0.setPreferredSize(new Dimension(135, 30));
+		lblConfNum_0.setPreferredSize(new Dimension(200, 30));
 		lblConfNum_0.setFont(new Font("Helvetica Neue", Font.PLAIN, 16));
 		lblConfNum_0.setForeground(Color.WHITE);
 		Player0Info.add(lblConfNum_0);
 		
 		JPanel Player1Info = new JPanel();
-		sl_InfoPane.putConstraint(SpringLayout.WEST, Player1Info, -170, SpringLayout.EAST, InfoPane);
-		sl_InfoPane.putConstraint(SpringLayout.EAST, Player1Info, -25, SpringLayout.EAST, InfoPane);
+		sl_InfoPane.putConstraint(SpringLayout.WEST, Player1Info, -225, SpringLayout.EAST, InfoPane);
+		sl_InfoPane.putConstraint(SpringLayout.SOUTH, Player1Info, 0, SpringLayout.SOUTH, InfoPane);
+		sl_InfoPane.putConstraint(SpringLayout.EAST, Player1Info, -15, SpringLayout.EAST, InfoPane);
 		Player1Info.setOpaque(false);
 		sl_InfoPane.putConstraint(SpringLayout.NORTH, Player1Info, 5, SpringLayout.NORTH, InfoPane);
-		sl_InfoPane.putConstraint(SpringLayout.SOUTH, Player1Info, -5, SpringLayout.SOUTH, InfoPane);
 		InfoPane.add(Player1Info);
 		
 		JLabel lblLabel1_1 = new JLabel("P1 Wins");
-		lblLabel1_1.setFont(new Font("Helvetica Neue", Font.PLAIN, 18));
+		lblLabel1_1.setFont(new Font("Helvetica Neue", Font.BOLD, 16));
 		lblLabel1_1.setForeground(Color.WHITE);
 		Player1Info.add(lblLabel1_1);
-		
-		Component rigidArea_1_0 = Box.createRigidArea(new Dimension(20, 20));
-		rigidArea_1_0.setPreferredSize(new Dimension(135, 10));
-		Player1Info.add(rigidArea_1_0);
-		
+				
 		lblWin_1 = new JLabel("--");
-		lblWin_1.setFont(new Font("Helvetica Neue", Font.PLAIN, 24));
+		lblWin_1.setFont(new Font("Helvetica Neue", Font.PLAIN, 22));
 		lblWin_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblWin_1.setPreferredSize(new Dimension(135, 40));
+		lblWin_1.setPreferredSize(new Dimension(200, 30));
 		lblWin_1.setForeground(Color.WHITE);
 		Player1Info.add(lblWin_1);
 		
 		Component rigidArea_1_1 = Box.createRigidArea(new Dimension(20, 20));
-		rigidArea_1_1.setPreferredSize(new Dimension(135, 2));
+		rigidArea_1_1.setPreferredSize(new Dimension(200, 5));
 		Player1Info.add(rigidArea_1_1);
 		
+		JLabel lblLabel2_1 = new JLabel("Win Rate");
+		lblLabel2_1.setFont(new Font("Helvetica Neue", Font.BOLD, 14));
+		lblLabel2_1.setBackground(HSColors.BACKGROUND_COLOR);
+		lblLabel2_1.setForeground(HSColors.TEXT_COLOR);
+		Player1Info.add(lblLabel2_1);
+		
 		lblWinRate_1 = new JLabel("--");
-		lblWinRate_1.setFont(new Font("Helvetica Neue", Font.PLAIN, 24));
+		lblWinRate_1.setFont(new Font("Helvetica Neue", Font.PLAIN, 22));
 		lblWinRate_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblWinRate_1.setHorizontalTextPosition(SwingConstants.CENTER);
 		lblWinRate_1.setForeground(Color.WHITE);
-		lblWinRate_1.setPreferredSize(new Dimension(135, 40));
+		lblWinRate_1.setPreferredSize(new Dimension(200, 30));
 		Player1Info.add(lblWinRate_1);
 		
+		lblWinRane_frst_1 = new JLabel("--");
+		lblWinRane_frst_1.setPreferredSize(new Dimension(200, 30));
+		lblWinRane_frst_1.setHorizontalTextPosition(SwingConstants.CENTER);
+		lblWinRane_frst_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblWinRane_frst_1.setForeground(HSColors.TEXT_COLOR);
+		lblWinRane_frst_1.setFont(new Font("Helvetica Neue", Font.PLAIN, 12));
+		Player1Info.add(lblWinRane_frst_1);
+		
 		Component rigidArea_0_2 = Box.createRigidArea(new Dimension(20, 20));
-		rigidArea_0_2.setPreferredSize(new Dimension(135, 20));
+		rigidArea_0_2.setPreferredSize(new Dimension(135, 10));
 		Player1Info.add(rigidArea_0_2);
 		
 		JLabel lblConf_1 = new JLabel("95% Conf Range");
 		lblConf_1.setForeground(Color.WHITE);
-		lblConf_1.setFont(new Font("Helvetica Neue", Font.PLAIN, 12));
+		lblConf_1.setFont(new Font("Helvetica Neue", Font.BOLD, 12));
 		Player1Info.add(lblConf_1);
 		
 		lblConfNum_1 = new JLabel("--");
 		lblConfNum_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblConfNum_1.setPreferredSize(new Dimension(135, 30));
+		lblConfNum_1.setPreferredSize(new Dimension(200, 30));
 		lblConfNum_1.setFont(new Font("Helvetica Neue", Font.PLAIN, 16));
 		lblConfNum_1.setForeground(Color.WHITE);
 		Player1Info.add(lblConfNum_1);
@@ -810,6 +832,9 @@ public class HearthSim implements HSSimulationEventListener {
 		lblWin_1.setText("" + nWins_1);
 		lblWinRate_0.setText(pFormatter_.format(100.0 * hsModel_.getGameStats().getWinRate_p0()) + "%");
 		lblWinRate_1.setText(pFormatter_.format(100.0 * hsModel_.getGameStats().getWinRate_p1()) + "%");
+		
+		lblWinRane_frst_0.setText(pFormatter_.format(100.0 * hsModel_.getGameStats().getWinRateWhenGoingFirst_p0()) + "% (going first)");
+		lblWinRane_frst_1.setText(pFormatter_.format(100.0 * hsModel_.getGameStats().getWinRateWhenGoingFirst_p1()) + "% (going first)");
 
 		try {
 			lblConfNum_0.setText(
