@@ -1,7 +1,6 @@
 package com.hearthsim.card.spellcard;
 
 import com.hearthsim.card.Deck;
-import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -109,15 +108,6 @@ public class SpellDamage extends SpellCard {
 		toRet.data_.setMana_p0(toRet.data_.getMana_p0() - this.mana_);
 		toRet.data_.removeCard_hand(this);
 		
-//		if (!(targetMinion instanceof Hero)) {
-//			if (targetMinion.getHealth() <= 0) {
-//				targetMinion.destroyed(targetPlayerIndex, boardState, deckPlayer0, deckPlayer1);
-//				if (targetPlayerIndex == 0)
-//					toRet.data_.removeMinion_p0(targetMinion);
-//				else
-//					toRet.data_.removeMinion_p1(targetMinion);
-//			}
-//		}
 		return toRet;
 	}
 
