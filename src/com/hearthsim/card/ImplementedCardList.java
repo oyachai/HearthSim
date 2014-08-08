@@ -18,7 +18,7 @@ public class ImplementedCardList {
     private Map<Class<?>, ImplementedCard> map_;
     public class ImplementedCard implements Comparable<ImplementedCard> {
 
-        public final Class<?> cardClass_;
+        public final Class cardClass_;
         public final String name_;
         public final String type_;
         public final String charClass_;
@@ -28,7 +28,7 @@ public class ImplementedCardList {
         public final int attack_;
         public final int health_;
 
-        public ImplementedCard(Class<?> cardClass, String name, String type, String charClass, String rarity, String text, int mana, int attack, int health) {
+        public ImplementedCard(Class cardClass, String name, String type, String charClass, String rarity, String text, int mana, int attack, int health) {
             cardClass_ = cardClass;
             name_ = name;
             type_ = type;
@@ -81,6 +81,16 @@ public class ImplementedCardList {
             map_.put(AlAkirTheWindlord.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(AldorPeacekeeper.class, "Aldor Peacekeeper", "minion", "paladin", "rare", "Battlecry Change an enemy minions Attack to 1", 3, 3, 3);
+            list_.add(card);
+            map_.put(AldorPeacekeeper.class, card);
+        }
+        {
+            ImplementedCard card = new ImplementedCard(Alexstrasza.class, "Alexstrasza", "minion", "neutral", "legendary", "Battlecry Set a heros remaining Health to 15", 9, 8, 8);
+            list_.add(card);
+            map_.put(Alexstrasza.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(AmaniBerserker.class, "Amani Berserker", "minion", "neutral", "common", "Enrage +3 Attack", 2, 2, 3);
             list_.add(card);
             map_.put(AmaniBerserker.class, card);
@@ -111,7 +121,7 @@ public class ImplementedCardList {
             map_.put(ArcaneShot.class, card);
         }
         {
-            ImplementedCard card = new ImplementedCard(ArcaniteReaper.class, "Arcanite Reaper", "weapon", "warrior", "free", "No... actually you should fear the Reaper", 5, 5, -1);
+            ImplementedCard card = new ImplementedCard(ArcaniteReaper.class, "Arcanite Reaper", "weapon", "warrior", "free", "", 5, 5, -1);
             list_.add(card);
             map_.put(ArcaniteReaper.class, card);
         }

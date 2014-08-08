@@ -5,8 +5,8 @@ Acidic Swamp Ooze|minion|neutral|free|2|3|2|Battlecry: Destroy your opponent's w
 Acolyte of Pain|minion|neutral|common|3|1|3|Whenever this minion takes damage, draw a card|TRUE
 Al'Akir the Windlord|minion|shaman|legendary|8|3|5|Windfury, Charge, Divine Shield, Taunt|TRUE
 Alarm-o-Bot|minion|neutral|rare|3|0|3|At the start of your turn, swap this minion with a random one in your hand|FALSE
-Aldor Peacekeeper|minion|paladin|rare|3|3|3|Battlecry: Change an enemy minion's Attack to 1|FALSE
-Alexstrasza|minion|neutral|legendary|9|8|8|Battlecry: Set a hero's remaining Health to 15|FALSE
+Aldor Peacekeeper|minion|paladin|rare|3|3|3|Battlecry: Change an enemy minion's Attack to 1|TRUE
+Alexstrasza|minion|neutral|legendary|9|8|8|Battlecry: Set a hero's remaining Health to 15|TRUE
 Amani Berserker|minion|neutral|common|2|2|3|Enrage: +3 Attack|TRUE
 Ancestral Healing|spell|shaman|free|0|||Restore a minion to full Health and give it Taunt|TRUE
 Ancestral Spirit|spell|shaman|rare|2|||Give a minion 'Deathrattle: Resummon this minion'|TRUE
@@ -23,7 +23,7 @@ Arcane Golem|minion|neutral|rare|3|4|2|Charge. Battlecry: Give your opponent a M
 Arcane Intellect|spell|mage|free|3|||Draw 2 cards|TRUE
 Arcane Missiles|spell|mage|free|1|||Deal 3 damage randomly split among enemy characters|FALSE
 Arcane Shot|spell|hunter|free|1|||Deal 2 damage|TRUE
-Arcanite Reaper|weapon|warrior|free|5|5||No... actually you should fear the Reaper|TRUE
+Arcanite Reaper|weapon|warrior|free|5|5|||TRUE
 Archmage|minion|neutral|free|6|4|7|Spell Damage +1|TRUE
 Archmage Antonidas|minion|mage|legendary|7|5|7|Whenever you cast a spell, put a Fireball spell into your hand|FALSE
 Argent Commander|minion|neutral|rare|6|4|2|Charge, Divine Shield|TRUE
