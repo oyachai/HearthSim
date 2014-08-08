@@ -160,7 +160,7 @@ public class AldorPeacekeeper extends Minion {
 			for (int index = 0; index < toRet.data_.getNumMinions_p1(); ++index) {
 				if (index != toRet.data_.getMinions_p1().indexOf(this)) {
 					HearthTreeNode newState = toRet.addChild(new HearthTreeNode((BoardState)toRet.data_.deepCopy()));
-					newState.data_.getMinion_p0(index).setAttack((byte)1);
+					newState.data_.getMinion_p1(index).setAttack((byte)1);
 				}
 			}
 			return toRet;
