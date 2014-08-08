@@ -19,7 +19,7 @@ Angry Chicken|minion|neutral|rare|1|1|1|Enrage: +5 Attack|TRUE
 Animal Companion|spell|hunter|free|3|||Summon a random Beast Companion|FALSE
 Arathi Weaponsmith|minion|warrior|common|4|3|3|Battlecry: Equip a 2/2 weapon|FALSE
 Arcane Explosion|spell|mage|free|2|||Deal 1 damage to all enemy minions|TRUE
-Arcane Golem|minion|neutral|rare|3|4|2|Charge. Battlecry: Give your opponent a Mana Crystal|FALSE
+Arcane Golem|minion|neutral|rare|3|4|2|Charge. Battlecry: Give your opponent a Mana Crystal|TRUE
 Arcane Intellect|spell|mage|free|3|||Draw 2 cards|TRUE
 Arcane Missiles|spell|mage|free|1|||Deal 3 damage randomly split among enemy characters|FALSE
 Arcane Shot|spell|hunter|free|1|||Deal 2 damage|TRUE
