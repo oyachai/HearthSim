@@ -106,9 +106,19 @@ public class ImplementedCardList {
             map_.put(AncestralSpirit.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(AngryChicken.class, "Angry Chicken", "minion", "neutral", "rare", "Enrage +5 Attack", 1, 1, 1);
+            list_.add(card);
+            map_.put(AngryChicken.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(ArcaneExplosion.class, "Arcane Explosion", "spell", "mage", "free", "Deal 1 damage to all enemy minions", 2, -1, -1);
             list_.add(card);
             map_.put(ArcaneExplosion.class, card);
+        }
+        {
+            ImplementedCard card = new ImplementedCard(ArcaneGolem.class, "Arcane Golem", "minion", "neutral", "rare", "Charge. Battlecry Give your opponent a Mana Crystal", 3, 4, 2);
+            list_.add(card);
+            map_.put(ArcaneGolem.class, card);
         }
         {
             ImplementedCard card = new ImplementedCard(ArcaneIntellect.class, "Arcane Intellect", "spell", "mage", "free", "Draw 2 cards", 3, -1, -1);
