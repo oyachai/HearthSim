@@ -27,6 +27,14 @@ The essence of the AI model is the score function, which is a function of BoardS
 
 ##Running Simulations
 
+###Pre-compiled GUI 
+
+Pre-compiled versions can be downloaded from [HearthSim downloads page](http://buddypanda.com/hearthsim).
+
+<img src="http://buddypanda.com/wp-content/uploads/2014/08/hs_screenshot_2.png" alt="HearthSim GUI" style="width:512;text-align:center;">
+
+###Command line
+
 There is an example simulation setup in the example directory.  Once you have the project compiled (assuming you named the resulting .jar file hearthsim.jar), you can run it like this:
 
 ```
