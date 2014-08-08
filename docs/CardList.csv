@@ -15,7 +15,7 @@ Ancient Mage|minion|neutral|rare|4|2|5|Battlecry: Give adjacent minions Spell Da
 Ancient of Lore|minion|neutral|epic|7|5|5|Choose One - Draw 2 cards; or Restore 5 Health|FALSE
 Ancient of War|minion|neutral|epic|7|5|5|Choose One - Taunt and +5 Health; or +5 Attack|FALSE
 Ancient Watcher|minion|neutral|rare|2|4|5|Can't Attack|FALSE
-Angry Chicken|minion|neutral|rare|1|1|1|Enrage: +5 Attack|FALSE
+Angry Chicken|minion|neutral|rare|1|1|1|Enrage: +5 Attack|TRUE
 Animal Companion|spell|hunter|free|3|||Summon a random Beast Companion|FALSE
 Arathi Weaponsmith|minion|warrior|common|4|3|3|Battlecry: Equip a 2/2 weapon|FALSE
 Arcane Explosion|spell|mage|free|2|||Deal 1 damage to all enemy minions|TRUE
