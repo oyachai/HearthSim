@@ -141,6 +141,11 @@ public class ImplementedCardList {
             map_.put(Archmage.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(ArchmageAntonidas.class, "Archmage Antonidas", "minion", "mage", "legendary", "Whenever you cast a spell, put a Fireball spell into your hand", 7, 5, 7);
+            list_.add(card);
+            map_.put(ArchmageAntonidas.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(ArgentCommander.class, "Argent Commander", "minion", "neutral", "rare", "Charge, Divine Shield", 6, 4, 2);
             list_.add(card);
             map_.put(ArgentCommander.class, card);
