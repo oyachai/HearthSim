@@ -208,12 +208,12 @@ public class Card implements DeepCopyable {
 
 		//Notify all other cards/characters of the card's use
 		if (toRet != null) {
+			ArrayList<Minion> tmpList = new ArrayList<Minion>(7);
 			for (Iterator<Card> iter = toRet.data_.getCards_hand_p0().iterator(); iter.hasNext();) {
 				toRet = (iter.next()).otherCardUsedEvent(0, 0, this, toRet, deckPlayer0, deckPlayer1);
 			}
 			toRet = toRet.data_.getHero_p0().otherCardUsedEvent(0, 0, this, toRet, deckPlayer0, deckPlayer1);
 			{
-				ArrayList<Minion> tmpList = new ArrayList<Minion>(); 
 				for (Iterator<Minion> iter = toRet.data_.getMinions_p0().iterator(); iter.hasNext();) {
 					tmpList.add(iter.next());
 				}
@@ -227,7 +227,7 @@ public class Card implements DeepCopyable {
 			}
 			toRet = toRet.data_.getHero_p1().otherCardUsedEvent(1, 0, this, toRet, deckPlayer0, deckPlayer1);
 			{
-				ArrayList<Minion> tmpList = new ArrayList<Minion>(); 
+				tmpList.clear();
 				for (Iterator<Minion> iter = toRet.data_.getMinions_p1().iterator(); iter.hasNext();) {
 					tmpList.add(iter.next());
 				}
@@ -239,11 +239,11 @@ public class Card implements DeepCopyable {
 
 			//check for and remove dead minions
 			Iterator<Minion> iter0 = toRet.data_.getMinions_p0().iterator();
-			ArrayList<Minion> listOfMinionsToCheck0 = new ArrayList<Minion>(toRet.data_.getNumMinions_p0());
+			tmpList.clear();
 			while (iter0.hasNext()) {
-				listOfMinionsToCheck0.add(iter0.next());
+				tmpList.add(iter0.next());
 			}
-			for (Minion tMinion : listOfMinionsToCheck0) {
+			for (Minion tMinion : tmpList) {
 				if (tMinion.getHealth() <= 0) {
 					toRet = tMinion.destroyed(0, toRet, deckPlayer0, deckPlayer1);
 					toRet.data_.getMinions_p0().remove(tMinion);
@@ -251,11 +251,11 @@ public class Card implements DeepCopyable {
 			}
 
 			Iterator<Minion> iter1 = toRet.data_.getMinions_p1().iterator();
-			ArrayList<Minion> listOfMinionsToCheck1 = new ArrayList<Minion>(toRet.data_.getNumMinions_p1());
+			tmpList.clear();
 			while (iter1.hasNext()) {
-				listOfMinionsToCheck1.add(iter1.next());
+				tmpList.add(iter1.next());
 			}
-			for (Minion tMinion : listOfMinionsToCheck1) {
+			for (Minion tMinion : tmpList) {
 				if (tMinion.getHealth() <= 0) {
 					toRet = tMinion.destroyed(1, toRet, deckPlayer0, deckPlayer1);
 					toRet.data_.getMinions_p1().remove(tMinion);

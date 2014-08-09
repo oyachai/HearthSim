@@ -96,7 +96,7 @@ public class testGame {
 				);
 
 		long t1 = System.nanoTime();
-		Game game = new Game(player1, player2, ai0, ai1, true);
+		Game game = new Game(player1, player2, ai0, ai1, false);
 		GameResult w = null;
 		try {
 			w = game.runGame();
