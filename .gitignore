@@ -181,3 +181,5 @@ eclipse-build
 
 *.json
 *.hsres
+
+docs/.~lock.*
