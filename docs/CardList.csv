@@ -27,7 +27,7 @@ Arcanite Reaper|weapon|warrior|free|5|5|||TRUE
 Archmage|minion|neutral|free|6|4|7|Spell Damage +1|TRUE
 Archmage Antonidas|minion|mage|legendary|7|5|7|Whenever you cast a spell, put a Fireball spell into your hand|TRUE
 Argent Commander|minion|neutral|rare|6|4|2|Charge, Divine Shield|TRUE
-Argent Protector|minion|paladin|common|2|2|2|Battlecry: Give a friendly minion Divine Shield|FALSE
+Argent Protector|minion|paladin|common|2|2|2|Battlecry: Give a friendly minion Divine Shield|TRUE
 Argent Squire|minion|neutral|common|1|1|1|Divine Shield|TRUE
 Armorsmith|minion|warrior|rare|2|1|4|Whenever a friendly minion takes damage, gain 1 Armor|FALSE
 Assassin's Blade|weapon|rogue|free|5|3|||TRUE

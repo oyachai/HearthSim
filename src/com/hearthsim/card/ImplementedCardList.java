@@ -151,6 +151,11 @@ public class ImplementedCardList {
             map_.put(ArgentCommander.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(ArgentProtector.class, "Argent Protector", "minion", "paladin", "common", "Battlecry Give a friendly minion Divine Shield", 2, 2, 2);
+            list_.add(card);
+            map_.put(ArgentProtector.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(ArgentSquire.class, "Argent Squire", "minion", "neutral", "common", "Divine Shield", 1, 1, 1);
             list_.add(card);
             map_.put(ArgentSquire.class, card);
