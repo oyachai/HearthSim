@@ -90,6 +90,7 @@ public class HearthSim implements HSSimulationEventListener {
 	
 	private static final DecimalFormat pFormatter_ = new DecimalFormat("0.00");
 
+	private Plot currentShownPlot_;
 
 	
 	/**
@@ -446,7 +447,9 @@ public class HearthSim implements HSSimulationEventListener {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				CardLayout cl = (CardLayout)(plotCardPane.getLayout());
+				currentShownPlot_ = plot_aveMinions;
 				cl.show(plotCardPane, "plot_aveMinions");
+				HearthSim.this.updatePlotPanel();
 			}
 		});
 		tabAveMinions.setBorder(null);
@@ -460,7 +463,9 @@ public class HearthSim implements HSSimulationEventListener {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				CardLayout cl = (CardLayout)(plotCardPane.getLayout());
+				currentShownPlot_ = plot_aveCards;
 				cl.show(plotCardPane, "plot_aveCards");
+				HearthSim.this.updatePlotPanel();
 			}
 		});
 		tabAveCards.setBorder(null);
@@ -490,6 +495,8 @@ public class HearthSim implements HSSimulationEventListener {
 		plot_aveMinions.setLabelFont("Helvetica Neue");
 		plotCardPane.add(plot_aveMinions, "plot_aveMinions");
 		
+		currentShownPlot_ = plot_aveMinions;
+
 		plot_aveCards = new Plot();
 		FlowLayout flowLayout_2 = (FlowLayout) plot_aveCards.getLayout();
 		flowLayout_2.setVgap(0);
@@ -860,23 +867,26 @@ public class HearthSim implements HSSimulationEventListener {
 
 	public void updatePlotPanel() {
 		plot_aveMinions.clear(false);
-		plot_aveMinions.repaint();
 		plot_aveCards.clear(false);
 		plot_aveCards.repaint();
-		double[] aveMinions_p0 = hsModel_.getGameStats().getAveNumMinions_p0();
-		double[] aveMinions_p1 = hsModel_.getGameStats().getAveNumMinions_p1();
-		for(int indx = 0; indx < 50; ++indx) {
-			plot_aveMinions.addPoint(0, (double)indx, aveMinions_p0[indx], true);
-			plot_aveMinions.addPoint(1, (double)indx, aveMinions_p1[indx], true);
+		
+		double[] data0 = null;
+		double[] data1 = null;
+		
+		if (currentShownPlot_ == plot_aveMinions) {
+			data0 = hsModel_.getGameStats().getAveNumMinions_p0();
+			data1 = hsModel_.getGameStats().getAveNumMinions_p1();
+		} else if (currentShownPlot_ == plot_aveCards) {
+			data0 = hsModel_.getGameStats().getAveNumCards_p0();
+			data1 = hsModel_.getGameStats().getAveNumCards_p1();
+		} else {
+			return;
 		}
-		double[] aveCards_p0 = hsModel_.getGameStats().getAveNumCards_p0();
-		double[] aveCards_p1 = hsModel_.getGameStats().getAveNumCards_p1();
 		for(int indx = 0; indx < 50; ++indx) {
-			plot_aveCards.addPoint(0, (double)indx, aveCards_p0[indx], true);
-			plot_aveCards.addPoint(1, (double)indx, aveCards_p1[indx], true);
+			currentShownPlot_.addPoint(0, (double)indx, data0[indx], true);
+			currentShownPlot_.addPoint(1, (double)indx, data1[indx], true);
 		}
-		plot_aveMinions.repaint();
-		plot_aveCards.repaint();
+		currentShownPlot_.repaint();
 	}
 	
 	@Override
