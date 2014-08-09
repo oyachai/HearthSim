@@ -979,24 +979,28 @@ public class PlotBox extends JPanel implements Printable {
      *  only the axes.
      *  @param graphics The graphics context.
      */
-    public synchronized void paintComponent(Graphics graphics) {
-        //  super.paintComponent(graphics);
-        //         _drawPlot(graphics, true);
-        BufferedImage newPlotImage = _plotImage;
-
-        if (newPlotImage == null) {
-            Rectangle bounds = getBounds();
-            newPlotImage = new BufferedImage(bounds.width, bounds.height,
-                    BufferedImage.TYPE_3BYTE_BGR);
-            _plotImage = newPlotImage;
-
-            Graphics2D offScreenGraphics = newPlotImage.createGraphics();
-            super.paintComponent(offScreenGraphics);
-            _drawPlot(offScreenGraphics, true);
-        }
+    public synchronized void paintComponent(Graphics graphics) {    	
+    	//Modified by Hiroaki Oyaizu, August 9, 2014
+    	// - No longer uses a buffered image, all rendering done directly to Graphics
+    	
+//        BufferedImage newPlotImage = _plotImage;
+//
+//        if (newPlotImage == null) {
+//            Rectangle bounds = getBounds();
+//            newPlotImage = new BufferedImage(bounds.width, bounds.height,
+//                    BufferedImage.TYPE_3BYTE_BGR);
+//            _plotImage = newPlotImage;
+//
+//            Graphics2D offScreenGraphics = newPlotImage.createGraphics();
+//            super.paintComponent(offScreenGraphics);
+//            _drawPlot(offScreenGraphics, true);
+//        }
 
         // Blit the offscreen image onto the screen.
-        graphics.drawImage(newPlotImage, 0, 0, null);
+        //graphics.drawImage(newPlotImage, 0, 0, null);
+
+		super.paintComponent(graphics);
+		_drawPlot(graphics, true);
 
         // Acquire the focus so that key bindings work.
         // NOTE: no longer needed?
@@ -1999,6 +2003,11 @@ public class PlotBox extends JPanel implements Printable {
         if (graphics == null) {
             return;
         }
+
+        Graphics2D antiAlias = (Graphics2D)graphics;
+        antiAlias.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        antiAlias.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+        antiAlias.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
         graphics.setPaintMode();
 
