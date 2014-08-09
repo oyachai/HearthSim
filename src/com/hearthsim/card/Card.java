@@ -212,19 +212,29 @@ public class Card implements DeepCopyable {
 				toRet = (iter.next()).otherCardUsedEvent(0, 0, this, toRet, deckPlayer0, deckPlayer1);
 			}
 			toRet = toRet.data_.getHero_p0().otherCardUsedEvent(0, 0, this, toRet, deckPlayer0, deckPlayer1);
-			for (Iterator<Minion> iter = toRet.data_.getMinions_p0().iterator(); iter.hasNext();) {
-				Minion minion = iter.next();
-				if (!minion.isSilenced())
-					toRet = minion.otherCardUsedEvent(0, 0, this, toRet, deckPlayer0, deckPlayer1);
+			{
+				ArrayList<Minion> tmpList = new ArrayList<Minion>(); 
+				for (Iterator<Minion> iter = toRet.data_.getMinions_p0().iterator(); iter.hasNext();) {
+					tmpList.add(iter.next());
+				}
+				for (Minion minion : tmpList) {
+					if (!minion.isSilenced())
+						toRet = minion.otherCardUsedEvent(0, 0, this, toRet, deckPlayer0, deckPlayer1);
+				}
 			}
 			for (Iterator<Card> iter = toRet.data_.getCards_hand_p1().iterator(); iter.hasNext();) {
 				toRet = (iter.next()).otherCardUsedEvent(1, 0, this, toRet, deckPlayer0, deckPlayer1);
 			}
 			toRet = toRet.data_.getHero_p1().otherCardUsedEvent(1, 0, this, toRet, deckPlayer0, deckPlayer1);
-			for (Iterator<Minion> iter = toRet.data_.getMinions_p1().iterator(); iter.hasNext();) {
-				Minion minion = iter.next();
-				if (!minion.isSilenced())
-					toRet = minion.otherCardUsedEvent(1, 0, this, toRet, deckPlayer0, deckPlayer1);
+			{
+				ArrayList<Minion> tmpList = new ArrayList<Minion>(); 
+				for (Iterator<Minion> iter = toRet.data_.getMinions_p1().iterator(); iter.hasNext();) {
+					tmpList.add(iter.next());
+				}
+				for (Minion minion : tmpList) {
+					if (!minion.isSilenced())
+						toRet = minion.otherCardUsedEvent(1, 0, this, toRet, deckPlayer0, deckPlayer1);
+				}
 			}
 
 			//check for and remove dead minions
@@ -327,7 +337,15 @@ public class Card implements DeepCopyable {
 	 * 
 	 * @return The boardState is manipulated and returned
 	 */
-	public HearthTreeNode otherCardUsedEvent(int thisCardPlayerIndex, int cardUserPlayerIndex, Card usedCard, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) {
+	public HearthTreeNode otherCardUsedEvent(
+			int thisCardPlayerIndex,
+			int cardUserPlayerIndex,
+			Card usedCard,
+			HearthTreeNode boardState,
+			Deck deckPlayer0,
+			Deck deckPlayer1)
+		throws HSException
+	{
 		return boardState;
 	}
 

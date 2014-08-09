@@ -786,6 +786,11 @@ public class ImplementedCardList {
             map_.put(UnstableGhoul.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(VioletTeacher.class, "Violet Teacher", "minion", "neutral", "rare", "Whenever you cast a spell, summon a 1/1 Violet Apprentice", 4, 3, 5);
+            list_.add(card);
+            map_.put(VioletTeacher.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(Voidwalker.class, "Voidwalker", "minion", "warlock", "free", "Taunt", 1, 1, 3);
             list_.add(card);
             map_.put(Voidwalker.class, card);

@@ -1,21 +1,15 @@
 package com.hearthsim.card.minion.concrete;
 
-import com.hearthsim.card.Card;
-import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.card.spellcard.SpellCard;
-import com.hearthsim.card.spellcard.concrete.Fireball;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
-import com.hearthsim.exception.HSException;
-import com.hearthsim.util.tree.HearthTreeNode;
 
-public class ArchmageAntonidas extends Minion {
+public class VioletApprentice extends Minion {
 
-	private static final String NAME = "Archmage Antonidas";
-	private static final byte MANA_COST = 7;
-	private static final byte ATTACK = 5;
-	private static final byte HEALTH = 7;
+	private static final String NAME = "Violet Apprentice";
+	private static final byte MANA_COST = 0;
+	private static final byte ATTACK = 1;
+	private static final byte HEALTH = 1;
 	
 	private static final boolean TAUNT = false;
 	private static final boolean DIVINE_SHIELD = false;
@@ -25,7 +19,7 @@ public class ArchmageAntonidas extends Minion {
 	private static final boolean SUMMONED = false;
 	private static final boolean TRANSFORMED = false;
 	
-	public ArchmageAntonidas() {
+	public VioletApprentice() {
 		this(
 				MANA_COST,
 				ATTACK,
@@ -53,7 +47,7 @@ public class ArchmageAntonidas extends Minion {
 			);
 	}
 	
-	public ArchmageAntonidas(	
+	public VioletApprentice(	
 			byte mana,
 			byte attack,
 			byte health,
@@ -107,7 +101,7 @@ public class ArchmageAntonidas extends Minion {
 	
 	@Override
 	public Object deepCopy() {
-		return new ArchmageAntonidas(
+		return new VioletApprentice(
 				this.mana_,
 				this.attack_,
 				this.health_,
@@ -132,42 +126,5 @@ public class ArchmageAntonidas extends Minion {
 				this.isInHand_,
 				this.hasBeenUsed_);
 	}
-
-	/**
-	 * 
-	 * Called whenever another card is used
-	 * 
-	 * When you cast a spell, put a Fireball spell into your hand
-	 * 
-	 * @param thisCardPlayerIndex The player index of the card receiving the event
-	 * @param cardUserPlayerIndex The player index of the player that used the card
-	 * @param usedCard The card that was used
-	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-	 * @param deckPlayer0 The deck of player0
-	 * @param deckPlayer1 The deck of player1
-	 * 
-	 * @return The boardState is manipulated and returned
-	 */
-	@Override
-	public HearthTreeNode otherCardUsedEvent(
-			int thisCardPlayerIndex,
-			int cardUserPlayerIndex,
-			Card usedCard,
-			HearthTreeNode boardState,
-			Deck deckPlayer0,
-			Deck deckPlayer1)
-		throws HSException
-	{
-		HearthTreeNode toRet = super.otherCardUsedEvent(thisCardPlayerIndex, cardUserPlayerIndex, usedCard, boardState, deckPlayer0, deckPlayer1);
-		if (thisCardPlayerIndex != 0)
-			return toRet;
-		if (isInHand_)
-			return toRet;
-		if (usedCard instanceof SpellCard) {
-			if (toRet.data_.getNumCards_hand_p0() < 10) {
-				toRet.data_.placeCard_hand_p0(new Fireball());
-			}
-		}
-		return toRet;
-	}
+	
 }

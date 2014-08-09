@@ -10,12 +10,12 @@ import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class ArchmageAntonidas extends Minion {
+public class VioletTeacher extends Minion {
 
-	private static final String NAME = "Archmage Antonidas";
-	private static final byte MANA_COST = 7;
-	private static final byte ATTACK = 5;
-	private static final byte HEALTH = 7;
+	private static final String NAME = "Violet Teacher";
+	private static final byte MANA_COST = 4;
+	private static final byte ATTACK = 3;
+	private static final byte HEALTH = 5;
 	
 	private static final boolean TAUNT = false;
 	private static final boolean DIVINE_SHIELD = false;
@@ -25,7 +25,7 @@ public class ArchmageAntonidas extends Minion {
 	private static final boolean SUMMONED = false;
 	private static final boolean TRANSFORMED = false;
 	
-	public ArchmageAntonidas() {
+	public VioletTeacher() {
 		this(
 				MANA_COST,
 				ATTACK,
@@ -53,7 +53,7 @@ public class ArchmageAntonidas extends Minion {
 			);
 	}
 	
-	public ArchmageAntonidas(	
+	public VioletTeacher(	
 			byte mana,
 			byte attack,
 			byte health,
@@ -107,7 +107,7 @@ public class ArchmageAntonidas extends Minion {
 	
 	@Override
 	public Object deepCopy() {
-		return new ArchmageAntonidas(
+		return new VioletTeacher(
 				this.mana_,
 				this.attack_,
 				this.health_,
@@ -132,12 +132,12 @@ public class ArchmageAntonidas extends Minion {
 				this.isInHand_,
 				this.hasBeenUsed_);
 	}
-
+	
 	/**
 	 * 
 	 * Called whenever another card is used
 	 * 
-	 * When you cast a spell, put a Fireball spell into your hand
+	 * When you cast a spell, summon a 1/1 Violet Apprentice
 	 * 
 	 * @param thisCardPlayerIndex The player index of the card receiving the event
 	 * @param cardUserPlayerIndex The player index of the player that used the card
@@ -147,27 +147,22 @@ public class ArchmageAntonidas extends Minion {
 	 * @param deckPlayer1 The deck of player1
 	 * 
 	 * @return The boardState is manipulated and returned
+	 * @throws HSException 
 	 */
 	@Override
-	public HearthTreeNode otherCardUsedEvent(
-			int thisCardPlayerIndex,
-			int cardUserPlayerIndex,
-			Card usedCard,
-			HearthTreeNode boardState,
-			Deck deckPlayer0,
-			Deck deckPlayer1)
-		throws HSException
-	{
+	public HearthTreeNode otherCardUsedEvent(int thisCardPlayerIndex, int cardUserPlayerIndex, Card usedCard, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
 		HearthTreeNode toRet = super.otherCardUsedEvent(thisCardPlayerIndex, cardUserPlayerIndex, usedCard, boardState, deckPlayer0, deckPlayer1);
 		if (thisCardPlayerIndex != 0)
 			return toRet;
 		if (isInHand_)
 			return toRet;
 		if (usedCard instanceof SpellCard) {
-			if (toRet.data_.getNumCards_hand_p0() < 10) {
-				toRet.data_.placeCard_hand_p0(new Fireball());
+			if (toRet.data_.getNumMinions_p0() < 7) {
+				Minion newMinion = new VioletApprentice();
+				toRet = newMinion.summonMinion(thisCardPlayerIndex, this, toRet, deckPlayer0, deckPlayer1, false);
 			}
 		}
 		return toRet;
 	}
+
 }

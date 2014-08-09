@@ -362,7 +362,7 @@ Upgrade!|spell|warrior|rare|1|||If you have a weapon, give it +1/+1. Otherwise e
 Vanish|spell|rogue|free|6|||Return all minions to their owner's hand|FALSE
 Vaporize|spell|mage|rare|3|||Secret: When a minion attacks your hero, destroy it|FALSE
 Venture Co. Mercenary|minion|neutral|common|5|7|6|Your minions cost (3) more|FALSE
-Violet Teacher|minion|neutral|rare|4|3|5|Whenever you cast a spell, summon a 1/1 Violet Apprentice|FALSE
+Violet Teacher|minion|neutral|rare|4|3|5|Whenever you cast a spell, summon a 1/1 Violet Apprentice|TRUE
 Void Terror|minion|warlock|rare|3|3|3|Battlecry: Destroy the minions on either side of this minion and gain their Attack and Health|FALSE
 Voidwalker|minion|warlock|free|1|1|3|Taunt|TRUE
 Voodoo Doctor|minion|neutral|free|1|2|1|Battlecry: Restore 2 Health|TRUE
