@@ -17,7 +17,7 @@ public class UnstableGhoul extends Minion {
 	private static final boolean WINDFURY = false;
 	private static final boolean CHARGE = false;
 	
-	private static final boolean SUMMONED = true;
+	private static final boolean SUMMONED = false;
 	private static final boolean TRANSFORMED = false;
 	
 	public UnstableGhoul() {
