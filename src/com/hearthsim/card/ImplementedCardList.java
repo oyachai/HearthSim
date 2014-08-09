@@ -246,6 +246,11 @@ public class ImplementedCardList {
             map_.put(Claw.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(ColdlightOracle.class, "Coldlight Oracle", "minion", "neutral", "rare", "Battlecry Each player draws 2 cards", 3, 2, 2);
+            list_.add(card);
+            map_.put(ColdlightOracle.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(Consecration.class, "Consecration", "spell", "paladin", "free", "Deal 2 damage to all enemies", 4, -1, -1);
             list_.add(card);
             map_.put(Consecration.class, card);
