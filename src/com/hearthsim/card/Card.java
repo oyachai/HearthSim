@@ -209,19 +209,22 @@ public class Card implements DeepCopyable {
 		//Notify all other cards/characters of the card's use
 		if (toRet != null) {
 			for (Iterator<Card> iter = toRet.data_.getCards_hand_p0().iterator(); iter.hasNext();) {
-				toRet = (iter.next()).otherCardUsedEvent(toRet, deckPlayer0, deckPlayer1);
+				toRet = (iter.next()).otherCardUsedEvent(0, 0, this, toRet, deckPlayer0, deckPlayer1);
 			}
-			toRet = toRet.data_.getHero_p0().otherCardUsedEvent(toRet, deckPlayer0, deckPlayer1);
+			toRet = toRet.data_.getHero_p0().otherCardUsedEvent(0, 0, this, toRet, deckPlayer0, deckPlayer1);
 			for (Iterator<Minion> iter = toRet.data_.getMinions_p0().iterator(); iter.hasNext();) {
 				Minion minion = iter.next();
 				if (!minion.isSilenced())
-					toRet = minion.otherCardUsedEvent(toRet, deckPlayer0, deckPlayer1);
+					toRet = minion.otherCardUsedEvent(0, 0, this, toRet, deckPlayer0, deckPlayer1);
 			}
-			toRet = toRet.data_.getHero_p1().otherCardUsedEvent(toRet, deckPlayer0, deckPlayer1);
+			for (Iterator<Card> iter = toRet.data_.getCards_hand_p1().iterator(); iter.hasNext();) {
+				toRet = (iter.next()).otherCardUsedEvent(1, 0, this, toRet, deckPlayer0, deckPlayer1);
+			}
+			toRet = toRet.data_.getHero_p1().otherCardUsedEvent(1, 0, this, toRet, deckPlayer0, deckPlayer1);
 			for (Iterator<Minion> iter = toRet.data_.getMinions_p1().iterator(); iter.hasNext();) {
 				Minion minion = iter.next();
 				if (!minion.isSilenced())
-					toRet = minion.otherCardUsedEvent(toRet, deckPlayer0, deckPlayer1);
+					toRet = minion.otherCardUsedEvent(1, 0, this, toRet, deckPlayer0, deckPlayer1);
 			}
 
 			//check for and remove dead minions
@@ -315,14 +318,16 @@ public class Card implements DeepCopyable {
 	 * 
 	 * Called whenever another card is used
 	 * 
-	 * @param thisCardIndex The index (position) of the card in the hand
-	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
-	 * @param minionIndex The index of the target minion.
+	 * @param thisCardPlayerIndex The player index of the card receiving the event
+	 * @param cardUserPlayerIndex The player index of the player that used the card
+	 * @param usedCard The card that was used
 	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+	 * @param deckPlayer0 The deck of player0
+	 * @param deckPlayer1 The deck of player1
 	 * 
 	 * @return The boardState is manipulated and returned
 	 */
-	public HearthTreeNode otherCardUsedEvent(HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) {
+	public HearthTreeNode otherCardUsedEvent(int thisCardPlayerIndex, int cardUserPlayerIndex, Card usedCard, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) {
 		return boardState;
 	}
 

@@ -506,24 +506,30 @@ public class Minion extends Card {
 		HearthTreeNode toRet = this.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
 		
 		if (toRet != null) {
+			
+			isInHand_ = false;
+			
 			//Notify all other cards/characters of the card's use
-			if (!transformed_) {
-				for (Iterator<Card> iter = toRet.data_.getCards_hand_p0().iterator(); iter.hasNext();) {
-					toRet = (iter.next()).otherCardUsedEvent(toRet, deckPlayer0, deckPlayer1);
-				}
-				toRet = toRet.data_.getHero_p0().otherCardUsedEvent(toRet, deckPlayer0, deckPlayer1);
-				for (Iterator<Minion> iter = toRet.data_.getMinions_p0().iterator(); iter.hasNext();) {
-					Minion minion = iter.next();
-					if (!minion.silenced_)
-						toRet = minion.otherCardUsedEvent(toRet, deckPlayer0, deckPlayer1);
-				}
-				toRet = toRet.data_.getHero_p1().otherCardUsedEvent(toRet, deckPlayer0, deckPlayer1);
-				for (Iterator<Minion> iter = toRet.data_.getMinions_p1().iterator(); iter.hasNext();) {
-					Minion minion = iter.next();
-					if (!minion.silenced_)
-						toRet = minion.otherCardUsedEvent(toRet, deckPlayer0, deckPlayer1);
-				}
+			for (Iterator<Card> iter = toRet.data_.getCards_hand_p0().iterator(); iter.hasNext();) {
+				toRet = (iter.next()).otherCardUsedEvent(0, 0, this, toRet, deckPlayer0, deckPlayer1);
 			}
+			toRet = toRet.data_.getHero_p0().otherCardUsedEvent(0, 0, this, toRet, deckPlayer0, deckPlayer1);
+			for (Iterator<Minion> iter = toRet.data_.getMinions_p0().iterator(); iter.hasNext();) {
+				Minion minion = iter.next();
+				if (!minion.silenced_)
+					toRet = minion.otherCardUsedEvent(0, 0, this, toRet, deckPlayer0, deckPlayer1);
+			}
+
+			for (Iterator<Card> iter = toRet.data_.getCards_hand_p1().iterator(); iter.hasNext();) {
+				toRet = (iter.next()).otherCardUsedEvent(1, 0, this, toRet, deckPlayer0, deckPlayer1);
+			}
+			toRet = toRet.data_.getHero_p1().otherCardUsedEvent(1, 0, this, toRet, deckPlayer0, deckPlayer1);
+			for (Iterator<Minion> iter = toRet.data_.getMinions_p1().iterator(); iter.hasNext();) {
+				Minion minion = iter.next();
+				if (!minion.silenced_)
+					toRet = minion.otherCardUsedEvent(1, 0, this, toRet, deckPlayer0, deckPlayer1);
+			}
+			
 			//Notify all that a minion is placed
 			toRet = toRet.data_.getHero_p0().minionPlacedEvent(0, targetPlayerIndex, this, toRet, deckPlayer0, deckPlayer1);
 			for (Iterator<Minion> iter = toRet.data_.getMinions_p0().iterator(); iter.hasNext();) {

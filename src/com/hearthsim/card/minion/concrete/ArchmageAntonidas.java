@@ -1,28 +1,30 @@
 package com.hearthsim.card.minion.concrete;
 
+import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.spellcard.SpellCard;
+import com.hearthsim.card.spellcard.concrete.Fireball;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
-import com.hearthsim.exception.HSException;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class ArcaneGolem extends Minion {
+public class ArchmageAntonidas extends Minion {
 
-	private static final String NAME = "Arcane Golem";
-	private static final byte MANA_COST = 3;
-	private static final byte ATTACK = 4;
-	private static final byte HEALTH = 2;
+	private static final String NAME = "Archmage Antonidas";
+	private static final byte MANA_COST = 7;
+	private static final byte ATTACK = 5;
+	private static final byte HEALTH = 7;
 	
 	private static final boolean TAUNT = false;
 	private static final boolean DIVINE_SHIELD = false;
 	private static final boolean WINDFURY = false;
-	private static final boolean CHARGE = true;
+	private static final boolean CHARGE = false;
 	
 	private static final boolean SUMMONED = false;
 	private static final boolean TRANSFORMED = false;
 	
-	public ArcaneGolem() {
+	public ArchmageAntonidas() {
 		this(
 				MANA_COST,
 				ATTACK,
@@ -50,7 +52,7 @@ public class ArcaneGolem extends Minion {
 			);
 	}
 	
-	public ArcaneGolem(	
+	public ArchmageAntonidas(	
 			byte mana,
 			byte attack,
 			byte health,
@@ -104,7 +106,7 @@ public class ArcaneGolem extends Minion {
 	
 	@Override
 	public Object deepCopy() {
-		return new ArcaneGolem(
+		return new ArchmageAntonidas(
 				this.mana_,
 				this.attack_,
 				this.health_,
@@ -132,35 +134,31 @@ public class ArcaneGolem extends Minion {
 
 	/**
 	 * 
-	 * Override for battlecry
+	 * Called whenever another card is used
 	 * 
-	 * Battlecry: Give your opponent a Mana Crystal
+	 * When you cast a spell, put a Fireball spell into your hand
 	 * 
-	 * @param thisCardIndex The index (position) of the card in the hand
-	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
-	 * @param minionIndex The index of the target minion.
+	 * @param thisCardPlayerIndex The player index of the card receiving the event
+	 * @param cardUserPlayerIndex The player index of the player that used the card
+	 * @param usedCard The card that was used
 	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+	 * @param deckPlayer0 The deck of player0
+	 * @param deckPlayer1 The deck of player1
 	 * 
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public HearthTreeNode use_core(
-			int targetPlayerIndex,
-			Minion targetMinion,
-			HearthTreeNode boardState,
-			Deck deckPlayer0,
-			Deck deckPlayer1)
-		throws HSException
-	{
-		//A generic card does nothing except for consuming mana
-		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
-		
-		if (toRet != null) {
-			toRet.data_.addMana_p1(1);
-			toRet.data_.addMaxMana_p1(1);
+	public HearthTreeNode otherCardUsedEvent(int thisCardPlayerIndex, int cardUserPlayerIndex, Card usedCard, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) {
+		HearthTreeNode toRet = super.otherCardUsedEvent(thisCardPlayerIndex, cardUserPlayerIndex, usedCard, boardState, deckPlayer0, deckPlayer1);
+		if (thisCardPlayerIndex != 0)
 			return toRet;
-		} else {
-			return null;
+		if (isInHand_)
+			return toRet;
+		if (usedCard instanceof SpellCard) {
+			if (toRet.data_.getNumCards_hand_p0() < 10) {
+				toRet.data_.placeCard_hand_p0(new Fireball());
+			}
 		}
+		return toRet;
 	}
 }
