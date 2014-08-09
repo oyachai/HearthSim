@@ -2270,13 +2270,14 @@ public class PlotBox extends JPanel implements Printable {
             }
         }
 
-        int legendwidth = _drawLegend(graphics, drawRect.width - _rightPadding,
-                _uly);
 
         if (workingPlotRectangle != null) {
             _lrx = workingPlotRectangle.x + workingPlotRectangle.width;
         } else {
-            _lrx = drawRect.width - legendwidth - _rightPadding;
+            //Modified by Hiroaki Oyaizu Aug 9, 2014
+            //Moving the legend inside the plot box
+//            _lrx = drawRect.width - legendwidth - _rightPadding;
+            _lrx = drawRect.width - _rightPadding;
         }
 
         int width = _lrx - _ulx;
@@ -2293,6 +2294,11 @@ public class PlotBox extends JPanel implements Printable {
 
         graphics.setColor(_foreground);
         graphics.drawRect(_ulx, _uly, width, height);
+
+        //Modified by Hiroaki Oyaizu Aug 9, 2014
+        //Moving the legend inside the plot box
+        int legendwidth = _drawLegend(graphics, drawRect.width - _rightPadding - 30,
+                _uly + 15);
 
         // NOTE: subjective tick length.
         int tickLength = 5;
