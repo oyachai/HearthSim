@@ -21,7 +21,7 @@ public class AzureDrake extends MinionWithSpellDamage {
 	private static final boolean WINDFURY = false;
 	private static final boolean CHARGE = false;
 	
-	private static final boolean SUMMONED = true;
+	private static final boolean SUMMONED = false;
 	private static final boolean TRANSFORMED = false;
 	
 	private static final byte SPELL_DAMAGE = 1;
