@@ -167,7 +167,7 @@ Hellfire|spell|warlock|free|4|||Deal 3 damage to ALL characters|TRUE
 Heroic Strike|spell|warrior|free|2|||Give your hero +4 Attack this turn|TRUE
 Hex|spell|shaman|free|3|||Transform a minion into a 0/1 Frog with Taunt|TRUE
 Hogger|minion|neutral|legendary|6|4|4|At the end of your turn, summon a 2/2 Gnoll with Taunt|FALSE
-Holy Fire|spell|priest|rare|6|||Deal 5 damage. Restore 5 Health to your hero|FALSE
+Holy Fire|spell|priest|rare|6|||Deal 5 damage. Restore 5 Health to your hero|TRUE
 Holy Light|spell|paladin|free|2|||Restore 6 Health|TRUE
 Holy Nova|spell|priest|free|5|||Deal 2 damage to all enemies. Restore 2 Health to all friendly characters|TRUE
 Holy Smite|spell|priest|free|1|||Deal 2 damage|TRUE

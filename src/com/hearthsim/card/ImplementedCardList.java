@@ -431,6 +431,11 @@ public class ImplementedCardList {
             map_.put(Hex.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(HolyFire.class, "Holy Fire", "spell", "priest", "rare", "Deal 5 damage. Restore 5 Health to your hero", 6, -1, -1);
+            list_.add(card);
+            map_.put(HolyFire.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(HolyLight.class, "Holy Light", "spell", "paladin", "free", "Restore 6 Health", 2, -1, -1);
             list_.add(card);
             map_.put(HolyLight.class, card);
