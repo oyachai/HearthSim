@@ -85,6 +85,7 @@ public class HearthSim implements HSSimulationEventListener {
 	private JPanel plotCardPane;
 	private Plot plot_aveMinions;
 	private Plot plot_aveCards;
+	private Plot plot_aveHealth;
 	
 	private static final ImplementedCardList IMPLEMENTED_CARD_LIST = new ImplementedCardList();
 	
@@ -474,6 +475,22 @@ public class HearthSim implements HSSimulationEventListener {
 		tabAveCards.setForeground(Color.WHITE);
 		plotTabPane.add(tabAveCards);
 		
+		HSTabButton tabAveHealth = new HSTabButton("Ave Health");
+		tabAveHealth.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				CardLayout cl = (CardLayout)(plotCardPane.getLayout());
+				currentShownPlot_ = plot_aveHealth;
+				cl.show(plotCardPane, "plot_aveHealth");
+				HearthSim.this.updatePlotPanel();
+			}
+		});
+		tabAveHealth.setBorder(null);
+		tabAveHealth.setFont(new Font("Helvetica Neue", Font.PLAIN, 10));
+		tabAveHealth.setBackground(HSColors.WARNING_BUTTON_COLOR);
+		tabAveHealth.setForeground(HSColors.TEXT_COLOR);
+		plotTabPane.add(tabAveHealth);
+		
 		sl_PlotPane.putConstraint(SpringLayout.WEST, plotCardPane, 0, SpringLayout.WEST, PlotPane);
 		sl_PlotPane.putConstraint(SpringLayout.SOUTH, plotCardPane, 0, SpringLayout.SOUTH, PlotPane);
 		sl_PlotPane.putConstraint(SpringLayout.EAST, plotCardPane, 0, SpringLayout.EAST, PlotPane);
@@ -511,6 +528,22 @@ public class HearthSim implements HSSimulationEventListener {
 		plot_aveCards.setGrid(false);
 		plot_aveCards.setLabelFont("Helvetica Neue");
 		plotCardPane.add(plot_aveCards, "plot_aveCards");
+		
+		plot_aveHealth = new Plot();
+		FlowLayout flowLayout_3 = (FlowLayout) plot_aveHealth.getLayout();
+		flowLayout_3.setVgap(0);
+		plot_aveHealth.setYRange(0, 40.0);
+		plot_aveHealth.setXRange(0, 30.0);
+		plot_aveHealth.setTitle("Average Hero Health");
+		plot_aveHealth.addLegend(0, "Player0");
+		plot_aveHealth.addLegend(1, "Player1");
+		plot_aveHealth.setXLabel("Turn");
+		plot_aveHealth.setBackground(HSColors.BACKGROUND_COLOR);
+		plot_aveHealth.setForeground(Color.WHITE);
+		plot_aveHealth.setGrid(false);
+		plot_aveHealth.setLabelFont("Helvetica Neue");
+		plotCardPane.add(plot_aveHealth, "plot_aveHealth");
+		
 		middlePanel.add(ControlPane);
 		
 		ControlPane.setOpaque(false);
@@ -868,7 +901,11 @@ public class HearthSim implements HSSimulationEventListener {
 	public void updatePlotPanel() {
 		plot_aveMinions.clear(false);
 		plot_aveCards.clear(false);
+		plot_aveHealth.clear(false);
+
+		plot_aveMinions.repaint();
 		plot_aveCards.repaint();
+		plot_aveHealth.repaint();
 		
 		double[] data0 = null;
 		double[] data1 = null;
@@ -879,6 +916,9 @@ public class HearthSim implements HSSimulationEventListener {
 		} else if (currentShownPlot_ == plot_aveCards) {
 			data0 = hsModel_.getGameStats().getAveNumCards_p0();
 			data1 = hsModel_.getGameStats().getAveNumCards_p1();
+		} else if (currentShownPlot_ == plot_aveHealth) {
+			data0 = hsModel_.getGameStats().getAveHeroHealth_p0();
+			data1 = hsModel_.getGameStats().getAveHeroHealth_p1();
 		} else {
 			return;
 		}

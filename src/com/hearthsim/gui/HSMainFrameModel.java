@@ -26,6 +26,8 @@ public class HSMainFrameModel implements HSGameEndEventListener {
 		int[] p1_numMinionsOnTurn_;
 		int[] p0_numCardsOnTurn_;
 		int[] p1_numCardsOnTurn_;
+		int[] p0_heroHealthOnTurn_;
+		int[] p1_heroHealthOnTurn_;
 		
 		int p0_wins_fst_;
 		int p0_fst_;
@@ -39,6 +41,8 @@ public class HSMainFrameModel implements HSGameEndEventListener {
 			p1_numMinionsOnTurn_ = new int[50];
 			p0_numCardsOnTurn_ = new int[50];
 			p1_numCardsOnTurn_ = new int[50];
+			p0_heroHealthOnTurn_ = new int[50];
+			p1_heroHealthOnTurn_ = new int[50];
 		}
 		
 		public synchronized void add(GameResult result) {
@@ -80,6 +84,14 @@ public class HSMainFrameModel implements HSGameEndEventListener {
 				BoardState board = result.record_.get(indx, 1);
 				p1_numCardsOnTurn_[indx] += board.getNumCards_hand_p0();
 			}
+			for (int indx = 0; indx < nR_0; ++indx) {
+				BoardState board = result.record_.get(indx, 0);
+				p0_heroHealthOnTurn_[indx] += board.getHero_p0().getHealth();
+			}
+			for (int indx = 0; indx < nR_1; ++indx) {
+				BoardState board = result.record_.get(indx, 1);
+				p1_heroHealthOnTurn_[indx] += board.getHero_p0().getHealth();
+			}
 		}
 		
 		void reset() {
@@ -94,6 +106,8 @@ public class HSMainFrameModel implements HSGameEndEventListener {
 			p1_numMinionsOnTurn_ = new int[50];
 			p0_numCardsOnTurn_ = new int[50];
 			p1_numCardsOnTurn_ = new int[50];
+			p0_heroHealthOnTurn_ = new int[50];
+			p1_heroHealthOnTurn_ = new int[50];
 		}
 		
 		int getWins_p0() {
@@ -170,6 +184,24 @@ public class HSMainFrameModel implements HSGameEndEventListener {
 			double[] toRet = new double[50];
 			for(int indx = 0; indx < 50; ++indx) {
 				toRet[indx] = (double)p1_numCardsOnTurn_[indx] / (double)nGames;
+			}
+			return toRet;
+		}
+		
+		double[] getAveHeroHealth_p0() {
+			int nGames = gameResults_.size();
+			double[] toRet = new double[50];
+			for(int indx = 0; indx < 50; ++indx) {
+				toRet[indx] = (double)p0_heroHealthOnTurn_[indx] / (double)nGames;
+			}
+			return toRet;
+		}
+		
+		double[] getAveHeroHealth_p1() {
+			int nGames = gameResults_.size();
+			double[] toRet = new double[50];
+			for(int indx = 0; indx < 50; ++indx) {
+				toRet[indx] = (double)p1_heroHealthOnTurn_[indx] / (double)nGames;
 			}
 			return toRet;
 		}
