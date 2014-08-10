@@ -466,6 +466,11 @@ public class ImplementedCardList {
             map_.put(HuntersMark.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(InjuredBlademaster.class, "Injured Blademaster", "minion", "neutral", "rare", "Battlecry Deal 4 damage to HIMSELF", 3, 4, 7);
+            list_.add(card);
+            map_.put(InjuredBlademaster.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(Innervate.class, "Innervate", "spell", "neutral", "free", "Gain 2 Mana Crystals this turn only", 0, -1, -1);
             list_.add(card);
             map_.put(Innervate.class, card);

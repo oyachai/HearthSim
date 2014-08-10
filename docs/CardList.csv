@@ -181,7 +181,7 @@ Ice Block|spell|mage|epic|3|||Secret: When your hero takes fatal damage, prevent
 Ice Lance|spell|mage|common|1|||Freeze a character. If it was already Frozen, deal 4 damage instead|FALSE
 Illidan Stormrage|minion|neutral|legendary|6|7|5|Whenever you play a card, summon a 2/1 Flame of Azzinoth|FALSE
 Imp Master|minion|neutral|rare|3|1|5|At the end of your turn, deal 1 damage to this minion and summon a 1/1 Imp|FALSE
-Injured Blademaster|minion|neutral|rare|3|4|7|Battlecry: Deal 4 damage to HIMSELF|FALSE
+Injured Blademaster|minion|neutral|rare|3|4|7|Battlecry: Deal 4 damage to HIMSELF|TRUE
 Inner Fire|spell|priest|common|1|||Change a minion's Attack to be equal to its Health|FALSE
 Inner Rage|spell|warrior|common|0|||Deal 1 damage to a minion and give it +2 Attack|FALSE
 Innervate|spell|neutral|free|0|||Gain 2 Mana Crystals this turn only|TRUE
