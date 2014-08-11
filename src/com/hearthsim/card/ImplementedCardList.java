@@ -476,6 +476,11 @@ public class ImplementedCardList {
             map_.put(InnerFire.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(InnerRage.class, "Inner Rage", "spell", "warrior", "common", "Deal 1 damage to a minion and give it +2 Attack", 0, -1, -1);
+            list_.add(card);
+            map_.put(InnerRage.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(Innervate.class, "Innervate", "spell", "neutral", "free", "Gain 2 Mana Crystals this turn only", 0, -1, -1);
             list_.add(card);
             map_.put(Innervate.class, card);
