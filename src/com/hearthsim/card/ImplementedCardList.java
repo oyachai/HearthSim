@@ -471,6 +471,11 @@ public class ImplementedCardList {
             map_.put(InjuredBlademaster.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(InnerFire.class, "Inner Fire", "spell", "priest", "common", "Change a minions Attack to be equal to its Health", 1, -1, -1);
+            list_.add(card);
+            map_.put(InnerFire.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(Innervate.class, "Innervate", "spell", "neutral", "free", "Gain 2 Mana Crystals this turn only", 0, -1, -1);
             list_.add(card);
             map_.put(Innervate.class, card);
