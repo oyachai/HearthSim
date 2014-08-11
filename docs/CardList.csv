@@ -193,7 +193,7 @@ Jungle Panther|minion|neutral|common|3|4|2|Stealth|FALSE
 Keeper of the Grove|minion|neutral|rare|4|2|4|Choose One - Deal 2 damage; or Silence a minion|FALSE
 Kidnapper|minion|rogue|epic|6|5|3|Combo: Return a minion to its owner's hand|FALSE
 Kill Command|spell|hunter|free|3|||Deal 3 damage. If you have a Beast, deal 5 damage instead|TRUE
-King Krush|minion|hunter|legendary|9|8|8|Charge|FALSE
+King Krush|minion|hunter|legendary|9|8|8|Charge|TRUE
 King Mukla|minion|neutral|legendary|3|5|5|Battlecry: Give your opponent 2 Bananas|FALSE
 Kirin Tor Mage|minion|mage|rare|3|4|3|Battlecry: The next Secret you play this turn costs (0)|FALSE
 Knife Juggler|minion|neutral|rare|2|3|2|After you summon a minion, deal 1 damage to a random enemy|FALSE

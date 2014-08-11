@@ -506,6 +506,11 @@ public class ImplementedCardList {
             map_.put(KillCommand.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(KingKrush.class, "King Krush", "minion", "hunter", "legendary", "Charge", 9, 8, 8);
+            list_.add(card);
+            map_.put(KingKrush.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(KoboldGeomancer.class, "Kobold Geomancer", "minion", "neutral", "free", "Spell Damage +1", 2, 2, 2);
             list_.add(card);
             map_.put(KoboldGeomancer.class, card);
