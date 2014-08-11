@@ -28,10 +28,12 @@ public class Minion extends Card {
 	protected byte health_;
 	protected byte maxHealth_;
 	protected byte baseHealth_;
+	protected byte auraHealth_;
 	
 	protected byte attack_;
 	protected byte baseAttack_;
 	protected byte extraAttackUntilTurnEnd_;
+	protected byte auraAttack_;
 	
 	protected boolean summoned_;
 	protected boolean transformed_;
@@ -92,8 +94,10 @@ public class Minion extends Card {
 				health,
 				baseAttack,
 				(byte)0,
+				(byte)0,
 				baseHealth,
 				maxHealth,
+				(byte)0,
 				taunt,
 				divineShield,
 				windFury,
@@ -118,8 +122,10 @@ public class Minion extends Card {
 					byte health,
 					byte baseAttack,
 					byte extraAttackUntilTurnEnd,
+					byte auraAttack,
 					byte baseHealth,
 					byte maxHealth,
+					byte auraHealth,
 					boolean taunt,
 					boolean divineShield,
 					boolean windFury,
@@ -157,6 +163,9 @@ public class Minion extends Card {
 		destroyOnTurnEnd_ = destroyOnTurnEnd;
 		deathrattleAction_ = deathrattleAction;
 		attackAction_ = attackAction;
+		
+		auraAttack_ = auraAttack;
+		auraHealth_ = auraHealth;
 	}
 	
 	public boolean getTaunt() {
@@ -289,6 +298,41 @@ public class Minion extends Card {
 
 	public void setDeathrattle(DeathrattleAction action) {
 		deathrattleAction_ = action;
+	}
+	
+	public byte getAuraAttack() {
+		return auraAttack_;
+	}
+
+	public void setAuraAttack(byte value) {
+		auraAttack_ = value;
+	}
+
+	public byte getAuraHealth() {
+		return auraHealth_;
+	}
+
+	public void setAuraHealth(byte value) {
+		auraHealth_ = value;
+	}
+
+	public byte getTotalAttack() {
+		return (byte)(attack_ + auraAttack_ + extraAttackUntilTurnEnd_);
+	}
+	
+	public byte getTotalHealth() {
+		return (byte)(health_ + auraHealth_);
+	}
+	
+	public void addAuraHealth(byte value) {
+		auraHealth_ += value;
+	}
+	
+	public void removeAuraHealth(byte value) {
+		health_ += value;
+		if (health_ > maxHealth_)
+			health_ = maxHealth_;
+		auraHealth_ -= value;
 	}
 	
 	/**
@@ -750,7 +794,7 @@ public class Minion extends Card {
 			Iterator<Minion> iter0 = toRet.data_.getMinions_p0().iterator();
 			while (iter0.hasNext()) {
 				Minion tMinion = iter0.next();
-				if (tMinion.getHealth() <= 0) {
+				if (tMinion.getTotalHealth() <= 0) {
 					toRet = tMinion.destroyed(0, toRet, deckPlayer0, deckPlayer1);
 					iter0.remove();
 					toRet.data_.getMinions_p0().remove(tMinion);
@@ -759,7 +803,7 @@ public class Minion extends Card {
 			Iterator<Minion> iter1 = toRet.data_.getMinions_p1().iterator();
 			while (iter1.hasNext()) {
 				Minion tMinion = iter1.next();
-				if (tMinion.getHealth() <= 0) {
+				if (tMinion.getTotalHealth() <= 0) {
 					toRet = tMinion.destroyed(1, toRet, deckPlayer0, deckPlayer1);
 					iter1.remove();
 					toRet.data_.getMinions_p1().remove(tMinion);
@@ -799,16 +843,16 @@ public class Minion extends Card {
 			return null;
 		}
 		
-		if (attack_ + extraAttackUntilTurnEnd_ <= 0)
+		if (this.getTotalAttack() <= 0)
 			return null;
 
 		
 		HearthTreeNode toRet = boardState;
-		byte origAttack = targetMinion.attack_;
-		toRet = targetMinion.takeDamage((byte)(this.attack_ + this.extraAttackUntilTurnEnd_), 0, targetMinionPlayerIndex, toRet, deckPlayer0, deckPlayer1);
+		byte origAttack = targetMinion.getTotalAttack();
+		toRet = targetMinion.takeDamage(this.getTotalAttack(), 0, targetMinionPlayerIndex, toRet, deckPlayer0, deckPlayer1);
 		toRet = this.takeDamage(origAttack, targetMinionPlayerIndex, 0, toRet, deckPlayer0, deckPlayer1);
 		if (!(targetMinion instanceof Hero)) {
-			if (targetMinion.getHealth() <= 0) {
+			if (targetMinion.getTotalHealth() <= 0) {
 				toRet = targetMinion.destroyed(targetMinionPlayerIndex, toRet, deckPlayer0, deckPlayer1);
 				toRet.data_.removeMinion_p1(targetMinion);
 			}
@@ -1071,8 +1115,10 @@ public class Minion extends Card {
 				this.health_,
 				this.baseAttack_,
 				this.extraAttackUntilTurnEnd_,
+				this.auraAttack_,
 				this.baseHealth_,
 				this.maxHealth_,
+				this.auraHealth_,
 				this.taunt_,
 				this.divineShield_,
 				this.windFury_,

@@ -65,13 +65,13 @@ public class TestBlessingOfMight {
 		assertTrue(res.data_.getNumMinions_p1() == 3);
 		assertTrue(res.data_.getMana_p0() == 9);
 		assertTrue(res.data_.getMinion_p0(0).getHealth() == health0);
-		assertTrue(res.data_.getMinion_p0(0).getAttack() == attack0 + 3);
+		assertTrue(res.data_.getMinion_p0(0).getTotalAttack() == attack0 + 3);
 		assertTrue(res.data_.getMinion_p1(0).getHealth() == health0);
-		assertTrue(res.data_.getMinion_p1(0).getAttack() == attack0);
+		assertTrue(res.data_.getMinion_p1(0).getTotalAttack() == attack0);
 		assertTrue(res.data_.getMinion_p1(1).getHealth() == health1);
-		assertTrue(res.data_.getMinion_p1(1).getAttack() == attack0);
+		assertTrue(res.data_.getMinion_p1(1).getTotalAttack() == attack0);
 		assertTrue(res.data_.getMinion_p1(2).getHealth() == health0-2);
-		assertTrue(res.data_.getMinion_p1(2).getAttack() == attack0);
+		assertTrue(res.data_.getMinion_p1(2).getTotalAttack() == attack0);
 		assertTrue(res.data_.getHero_p0().getHealth() == 30);
 		assertTrue(res.data_.getHero_p1().getHealth() == 30);
 
@@ -94,13 +94,13 @@ public class TestBlessingOfMight {
 		assertTrue(res.data_.getNumMinions_p1() == 3);
 		assertTrue(res.data_.getMana_p0() == 9);
 		assertTrue(res.data_.getMinion_p0(0).getHealth() == health0);
-		assertTrue(res.data_.getMinion_p0(0).getAttack() == attack0);
+		assertTrue(res.data_.getMinion_p0(0).getTotalAttack() == attack0);
 		assertTrue(res.data_.getMinion_p1(0).getHealth() == health0);
-		assertTrue(res.data_.getMinion_p1(0).getAttack() == attack0+3);
+		assertTrue(res.data_.getMinion_p1(0).getTotalAttack() == attack0+3);
 		assertTrue(res.data_.getMinion_p1(1).getHealth() == health1);
-		assertTrue(res.data_.getMinion_p1(1).getAttack() == attack0);
+		assertTrue(res.data_.getMinion_p1(1).getTotalAttack() == attack0);
 		assertTrue(res.data_.getMinion_p1(2).getHealth() == health0-2);
-		assertTrue(res.data_.getMinion_p1(2).getAttack() == attack0);
+		assertTrue(res.data_.getMinion_p1(2).getTotalAttack() == attack0);
 		assertTrue(res.data_.getHero_p0().getHealth() == 30);
 		assertTrue(res.data_.getHero_p1().getHealth() == 30);
 	}
@@ -122,13 +122,13 @@ public class TestBlessingOfMight {
 		assertTrue(res.data_.getNumMinions_p1() == 3);
 		assertTrue(res.data_.getMana_p0() == 9);
 		assertTrue(res.data_.getMinion_p0(0).getHealth() == health0);
-		assertTrue(res.data_.getMinion_p0(0).getAttack() == attack0);
+		assertTrue(res.data_.getMinion_p0(0).getTotalAttack() == attack0);
 		assertTrue(res.data_.getMinion_p1(0).getHealth() == health0);
-		assertTrue(res.data_.getMinion_p1(0).getAttack() == attack0);
+		assertTrue(res.data_.getMinion_p1(0).getTotalAttack() == attack0);
 		assertTrue(res.data_.getMinion_p1(1).getHealth() == health1);
-		assertTrue(res.data_.getMinion_p1(1).getAttack() == attack0+3);
+		assertTrue(res.data_.getMinion_p1(1).getTotalAttack() == attack0+3);
 		assertTrue(res.data_.getMinion_p1(2).getHealth() == health0-2);
-		assertTrue(res.data_.getMinion_p1(2).getAttack() == attack0);
+		assertTrue(res.data_.getMinion_p1(2).getTotalAttack() == attack0);
 		assertTrue(res.data_.getHero_p0().getHealth() == 30);
 		assertTrue(res.data_.getHero_p1().getHealth() == 30);
 	}

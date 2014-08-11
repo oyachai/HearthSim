@@ -58,7 +58,7 @@ public class ShadowWordDeath extends SpellCard {
 			return null;
 		}
 
-		if (targetMinion.getAttack() + targetMinion.getExtraAttackUntilTurnEnd() < 5)
+		if (targetMinion.getTotalAttack() < 5)
 			return null;
 		
 		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);

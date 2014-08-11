@@ -99,11 +99,11 @@ public class TestAbomination {
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), 2);
 		assertEquals(board.data_.getMinion_p1(2).getHealth(), 7);
 
-		assertEquals(board.data_.getMinion_p0(0).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p0(1).getAttack(), 7);
-		assertEquals(board.data_.getMinion_p1(0).getAttack(), 4);
-		assertEquals(board.data_.getMinion_p1(1).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p1(2).getAttack(), 7);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), 7);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), 4);
+		assertEquals(board.data_.getMinion_p1(1).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p1(2).getTotalAttack(), 7);
 		
 		assertTrue(board.data_.getMinion_p1(0).getDivineShield());
 	}
@@ -131,12 +131,12 @@ public class TestAbomination {
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), 2);
 		assertEquals(board.data_.getMinion_p1(2).getHealth(), 7);
 
-		assertEquals(board.data_.getMinion_p0(0).getAttack(), 5);
-		assertEquals(board.data_.getMinion_p0(1).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p0(2).getAttack(), 7);
-		assertEquals(board.data_.getMinion_p1(0).getAttack(), 4);
-		assertEquals(board.data_.getMinion_p1(1).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p1(2).getAttack(), 7);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), 5);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p0(2).getTotalAttack(), 7);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), 4);
+		assertEquals(board.data_.getMinion_p1(1).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p1(2).getTotalAttack(), 7);
 		
 		assertTrue(board.data_.getMinion_p1(0).getDivineShield());
 	}
@@ -164,12 +164,12 @@ public class TestAbomination {
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), 2);
 		assertEquals(board.data_.getMinion_p1(2).getHealth(), 7);
 
-		assertEquals(board.data_.getMinion_p0(0).getAttack(), 5);
-		assertEquals(board.data_.getMinion_p0(1).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p0(2).getAttack(), 7);
-		assertEquals(board.data_.getMinion_p1(0).getAttack(), 4);
-		assertEquals(board.data_.getMinion_p1(1).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p1(2).getAttack(), 7);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), 5);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p0(2).getTotalAttack(), 7);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), 4);
+		assertEquals(board.data_.getMinion_p1(1).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p1(2).getTotalAttack(), 7);
 		
 		assertTrue(board.data_.getMinion_p1(0).getDivineShield());
 		
@@ -190,8 +190,8 @@ public class TestAbomination {
 		assertEquals(board.data_.getMinion_p0(0).getHealth(), 5);
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), 1);
 
-		assertEquals(board.data_.getMinion_p0(0).getAttack(), 6);
-		assertEquals(board.data_.getMinion_p1(0).getAttack(), 3);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), 6);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), 3);
 		
 		assertFalse(board.data_.getMinion_p1(0).getDivineShield());
 
@@ -220,12 +220,12 @@ public class TestAbomination {
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), 2);
 		assertEquals(board.data_.getMinion_p1(2).getHealth(), 7);
 
-		assertEquals(board.data_.getMinion_p0(0).getAttack(), 5);
-		assertEquals(board.data_.getMinion_p0(1).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p0(2).getAttack(), 7);
-		assertEquals(board.data_.getMinion_p1(0).getAttack(), 4);
-		assertEquals(board.data_.getMinion_p1(1).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p1(2).getAttack(), 7);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), 5);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p0(2).getTotalAttack(), 7);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), 4);
+		assertEquals(board.data_.getMinion_p1(1).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p1(2).getTotalAttack(), 7);
 		
 		assertTrue(board.data_.getMinion_p1(0).getDivineShield());
 		
@@ -249,11 +249,11 @@ public class TestAbomination {
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), 2);
 		assertEquals(board.data_.getMinion_p1(2).getHealth(), 2);
 
-		assertEquals(board.data_.getMinion_p0(0).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p0(1).getAttack(), 7);
-		assertEquals(board.data_.getMinion_p1(0).getAttack(), 4);
-		assertEquals(board.data_.getMinion_p1(1).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p1(2).getAttack(), 7);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), 7);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), 4);
+		assertEquals(board.data_.getMinion_p1(1).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p1(2).getTotalAttack(), 7);
 		
 		assertTrue(board.data_.getMinion_p1(0).getDivineShield());
 

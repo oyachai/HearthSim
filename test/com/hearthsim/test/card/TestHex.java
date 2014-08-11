@@ -9,7 +9,6 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.BoulderfistOgre;
-import com.hearthsim.card.minion.concrete.DragonlingMechanic;
 import com.hearthsim.card.minion.concrete.Frog;
 import com.hearthsim.card.minion.concrete.RaidLeader;
 import com.hearthsim.card.spellcard.concrete.Hex;
@@ -22,10 +21,6 @@ public class TestHex {
 
 	private HearthTreeNode board;
 	private Deck deck;
-	private static final byte mana = 2;
-	private static final byte attack0 = 5;
-	private static final byte health0 = 3;
-	private static final byte health1 = 7;
 
 	@Before
 	public void setup() throws HSException {
@@ -101,10 +96,10 @@ public class TestHex {
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), 2);
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), 7);
 
-		assertEquals(board.data_.getMinion_p0(0).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p0(1).getAttack(), 7);
-		assertEquals(board.data_.getMinion_p1(0).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p1(1).getAttack(), 7);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), 7);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p1(1).getTotalAttack(), 7);
 	}
 		
 	@Test
@@ -127,10 +122,10 @@ public class TestHex {
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), 2);
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), 7);
 
-		assertEquals(board.data_.getMinion_p0(0).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p0(1).getAttack(), 7);
-		assertEquals(board.data_.getMinion_p1(0).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p1(1).getAttack(), 7);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), 7);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p1(1).getTotalAttack(), 7);
 	}
 	
 	@Test
@@ -153,10 +148,10 @@ public class TestHex {
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), 1);
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), 7);
 
-		assertEquals(board.data_.getMinion_p0(0).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p0(1).getAttack(), 7);
-		assertEquals(board.data_.getMinion_p1(0).getAttack(), 0);
-		assertEquals(board.data_.getMinion_p1(1).getAttack(), 6);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), 7);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), 0);
+		assertEquals(board.data_.getMinion_p1(1).getTotalAttack(), 6);
 
 		assertTrue(board.data_.getMinion_p1(0) instanceof Frog);
 	}
@@ -181,10 +176,10 @@ public class TestHex {
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), 2);
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), 1);
 
-		assertEquals(board.data_.getMinion_p0(0).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p0(1).getAttack(), 7);
-		assertEquals(board.data_.getMinion_p1(0).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p1(1).getAttack(), 1);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), 7);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p1(1).getTotalAttack(), 1);
 
 		assertTrue(board.data_.getMinion_p1(1) instanceof Frog);
 	}

@@ -93,12 +93,20 @@ public class TestRaidLeader {
 		assertTrue(board.data_.getMinion_p1(0).getHealth() == 2);
 		assertTrue(board.data_.getMinion_p1(1).getHealth() == 2);
 		
-		assertTrue(board.data_.getMinion_p0(0).getAttack() == 3);
-		assertTrue(board.data_.getMinion_p0(1).getAttack() == 3);
-		assertTrue(board.data_.getMinion_p0(2).getAttack() == 5);
-		assertTrue(board.data_.getMinion_p1(0).getAttack() == 2);
-		assertTrue(board.data_.getMinion_p1(1).getAttack() == 4);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), 3);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), 3);
+		assertEquals(board.data_.getMinion_p0(2).getTotalAttack(), 5);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p1(1).getTotalAttack(), 4);
+		
+		assertEquals(board.data_.getMinion_p0(0).getAuraAttack(), 1);
+		assertEquals(board.data_.getMinion_p0(1).getAuraAttack(), 1);
+		assertEquals(board.data_.getMinion_p0(2).getAuraAttack(), 2);
+		assertEquals(board.data_.getMinion_p1(0).getAuraAttack(), 0);
+		assertEquals(board.data_.getMinion_p1(1).getAuraAttack(), 1);
+
 	}
+	
 
 	@Test
 	public void test2() throws HSException {
@@ -112,17 +120,24 @@ public class TestRaidLeader {
 		assertTrue(board.data_.getNumMinions_p1() == 2);
 		assertTrue(board.data_.getHero_p0().getHealth() == 30);
 		assertTrue(board.data_.getHero_p1().getHealth() == 30);
+		
 		assertTrue(board.data_.getMinion_p0(0).getHealth() == 2);
 		assertTrue(board.data_.getMinion_p0(1).getHealth() == 2);
 		assertTrue(board.data_.getMinion_p0(2).getHealth() == 2);
 		assertTrue(board.data_.getMinion_p1(0).getHealth() == 2);
 		assertTrue(board.data_.getMinion_p1(1).getHealth() == 2);
 		
-		assertTrue(board.data_.getMinion_p0(0).getAttack() == 3);
-		assertTrue(board.data_.getMinion_p0(1).getAttack() == 3);
-		assertTrue(board.data_.getMinion_p0(2).getAttack() == 5);
-		assertTrue(board.data_.getMinion_p1(0).getAttack() == 2);
-		assertTrue(board.data_.getMinion_p1(1).getAttack() == 4);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), 3);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), 3);
+		assertEquals(board.data_.getMinion_p0(2).getTotalAttack(), 5);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p1(1).getTotalAttack(), 4);
+		
+		assertEquals(board.data_.getMinion_p0(0).getAuraAttack(), 1);
+		assertEquals(board.data_.getMinion_p0(1).getAuraAttack(), 1);
+		assertEquals(board.data_.getMinion_p0(2).getAuraAttack(), 2);
+		assertEquals(board.data_.getMinion_p1(0).getAuraAttack(), 0);
+		assertEquals(board.data_.getMinion_p1(1).getAuraAttack(), 1);
 
 		
 		
@@ -142,10 +157,15 @@ public class TestRaidLeader {
 		assertEquals(board.data_.getMinion_p0(2).getHealth(), 2);
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), 2);
 		
-		assertEquals(board.data_.getMinion_p0(0).getAttack(), 3);
-		assertEquals(board.data_.getMinion_p0(1).getAttack(), 3);
-		assertEquals(board.data_.getMinion_p0(2).getAttack(), 5);
-		assertEquals(board.data_.getMinion_p1(0).getAttack(), 3);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), 3);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), 3);
+		assertEquals(board.data_.getMinion_p0(2).getTotalAttack(), 5);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), 3);
+		
+		assertEquals(board.data_.getMinion_p0(0).getAuraAttack(), 1);
+		assertEquals(board.data_.getMinion_p0(1).getAuraAttack(), 1);
+		assertEquals(board.data_.getMinion_p0(2).getAuraAttack(), 2);
+		assertEquals(board.data_.getMinion_p1(0).getAuraAttack(), 0);
 	}
 	
 
@@ -167,11 +187,17 @@ public class TestRaidLeader {
 		assertTrue(board.data_.getMinion_p1(0).getHealth() == 2);
 		assertTrue(board.data_.getMinion_p1(1).getHealth() == 2);
 		
-		assertTrue(board.data_.getMinion_p0(0).getAttack() == 3);
-		assertTrue(board.data_.getMinion_p0(1).getAttack() == 3);
-		assertTrue(board.data_.getMinion_p0(2).getAttack() == 5);
-		assertTrue(board.data_.getMinion_p1(0).getAttack() == 2);
-		assertTrue(board.data_.getMinion_p1(1).getAttack() == 4);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), 3);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), 3);
+		assertEquals(board.data_.getMinion_p0(2).getTotalAttack(), 5);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p1(1).getTotalAttack(), 4);
+		
+		assertEquals(board.data_.getMinion_p0(0).getAuraAttack(), 1);
+		assertEquals(board.data_.getMinion_p0(1).getAuraAttack(), 1);
+		assertEquals(board.data_.getMinion_p0(2).getAuraAttack(), 2);
+		assertEquals(board.data_.getMinion_p1(0).getAuraAttack(), 0);
+		assertEquals(board.data_.getMinion_p1(1).getAuraAttack(), 1);
 
 		
 		
@@ -192,11 +218,17 @@ public class TestRaidLeader {
 		assertTrue(board.data_.getMinion_p1(0).getHealth() == 2);
 		assertTrue(board.data_.getMinion_p1(1).getHealth() == 2);
 		
-		assertTrue(board.data_.getMinion_p0(0).getAttack() == 3);
-		assertTrue(board.data_.getMinion_p0(1).getAttack() == 3);
-		assertTrue(board.data_.getMinion_p0(2).getAttack() == 5);
-		assertTrue(board.data_.getMinion_p1(0).getAttack() == 2);
-		assertTrue(board.data_.getMinion_p1(1).getAttack() == 3);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), 3);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), 3);
+		assertEquals(board.data_.getMinion_p0(2).getTotalAttack(), 5);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p1(1).getTotalAttack(), 3);
+		
+		assertEquals(board.data_.getMinion_p0(0).getAuraAttack(), 1);
+		assertEquals(board.data_.getMinion_p0(1).getAuraAttack(), 1);
+		assertEquals(board.data_.getMinion_p0(2).getAuraAttack(), 2);
+		assertEquals(board.data_.getMinion_p1(0).getAuraAttack(), 0);
+		assertEquals(board.data_.getMinion_p1(1).getAuraAttack(), 0);
 		
 		board.data_.placeCard_hand_p0(new Silence());
 		theCard = board.data_.getCard_hand_p0(0);
@@ -215,11 +247,17 @@ public class TestRaidLeader {
 		assertTrue(board.data_.getMinion_p1(0).getHealth() == 2);
 		assertTrue(board.data_.getMinion_p1(1).getHealth() == 2);
 		
-		assertTrue(board.data_.getMinion_p0(0).getAttack() == 3);
-		assertTrue(board.data_.getMinion_p0(1).getAttack() == 2);
-		assertTrue(board.data_.getMinion_p0(2).getAttack() == 4);
-		assertTrue(board.data_.getMinion_p1(0).getAttack() == 2);
-		assertTrue(board.data_.getMinion_p1(1).getAttack() == 3);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), 3);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p0(2).getTotalAttack(), 4);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p1(1).getTotalAttack(), 3);
+		
+		assertEquals(board.data_.getMinion_p0(0).getAuraAttack(), 1);
+		assertEquals(board.data_.getMinion_p0(1).getAuraAttack(), 0);
+		assertEquals(board.data_.getMinion_p0(2).getAuraAttack(), 1);
+		assertEquals(board.data_.getMinion_p1(0).getAuraAttack(), 0);
+		assertEquals(board.data_.getMinion_p1(1).getAuraAttack(), 0);
 		
 		board.data_.placeCard_hand_p0(new BloodfenRaptor());
 		theCard = board.data_.getCard_hand_p0(0);
@@ -239,11 +277,18 @@ public class TestRaidLeader {
 		assertTrue(board.data_.getMinion_p1(0).getHealth() == 2);
 		assertTrue(board.data_.getMinion_p1(1).getHealth() == 2);
 		
-		assertTrue(board.data_.getMinion_p0(0).getAttack() == 3);
-		assertTrue(board.data_.getMinion_p0(1).getAttack() == 2);
-		assertEquals(board.data_.getMinion_p0(2).getAttack(), 4);
-		assertEquals(board.data_.getMinion_p0(3).getAttack(), 4);
-		assertTrue(board.data_.getMinion_p1(0).getAttack() == 2);
-		assertTrue(board.data_.getMinion_p1(1).getAttack() == 3);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), 3);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p0(2).getTotalAttack(), 4);
+		assertEquals(board.data_.getMinion_p0(3).getTotalAttack(), 4);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p1(1).getTotalAttack(), 3);
+		
+		assertEquals(board.data_.getMinion_p0(0).getAuraAttack(), 1);
+		assertEquals(board.data_.getMinion_p0(1).getAuraAttack(), 0);
+		assertEquals(board.data_.getMinion_p0(2).getAuraAttack(), 1);
+		assertEquals(board.data_.getMinion_p0(3).getAuraAttack(), 1);
+		assertEquals(board.data_.getMinion_p1(0).getAuraAttack(), 0);
+		assertEquals(board.data_.getMinion_p1(1).getAuraAttack(), 0);
 	}
 }

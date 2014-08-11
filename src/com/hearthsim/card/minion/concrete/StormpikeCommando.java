@@ -33,8 +33,10 @@ public class StormpikeCommando extends Minion {
 				HEALTH,
 				ATTACK,
 				(byte)0,
+				(byte)0,
 				HEALTH,
 				HEALTH,
+				(byte)0,
 				TAUNT,
 				DIVINE_SHIELD,
 				WINDFURY,
@@ -60,8 +62,10 @@ public class StormpikeCommando extends Minion {
 			byte health,
 			byte baseAttack,
 			byte extraAttackUntilTurnEnd,
+			byte auraAttack,
 			byte baseHealth,
 			byte maxHealth,
+			byte auraHealth,
 			boolean taunt,
 			boolean divineShield,
 			boolean windFury,
@@ -86,8 +90,10 @@ public class StormpikeCommando extends Minion {
 			health,
 			baseAttack,
 			extraAttackUntilTurnEnd,
+			auraAttack,
 			baseHealth,
 			maxHealth,
+			auraHealth,
 			taunt,
 			divineShield,
 			windFury,
@@ -114,8 +120,10 @@ public class StormpikeCommando extends Minion {
 				this.health_,
 				this.baseAttack_,
 				this.extraAttackUntilTurnEnd_,
+				this.auraAttack_,
 				this.baseHealth_,
 				this.maxHealth_,
+				this.auraHealth_,
 				this.taunt_,
 				this.divineShield_,
 				this.windFury_,
@@ -172,7 +180,7 @@ public class StormpikeCommando extends Minion {
 					HearthTreeNode newState = new HearthTreeNode((BoardState)boardState.data_.deepCopy());
 					Minion minion = newState.data_.getMinion_p0(index);
 					newState = minion.takeDamage(BATTLECRY_DAMAGE, 0, 0, newState, deckPlayer0, deckPlayer1);
-					if (minion.getHealth() <= 0) {
+					if (minion.getTotalHealth() <= 0) {
 						newState.data_.removeMinion_p0(minion);
 					}
 					toRet.addChild(newState);
@@ -190,7 +198,7 @@ public class StormpikeCommando extends Minion {
 					HearthTreeNode newState = new HearthTreeNode((BoardState)boardState.data_.deepCopy());
 					Minion minion = newState.data_.getMinion_p1(index);
 					newState = minion.takeDamage(BATTLECRY_DAMAGE, 0, 1, newState, deckPlayer0, deckPlayer1);
-					if (minion.getHealth() <= 0) {
+					if (minion.getTotalHealth() <= 0) {
 						newState.data_.removeMinion_p1(minion);
 					}
 					toRet.addChild(newState);

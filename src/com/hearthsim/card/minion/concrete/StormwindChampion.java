@@ -32,8 +32,10 @@ public class StormwindChampion extends Minion {
 				HEALTH,
 				ATTACK,
 				(byte)0,
+				(byte)0,
 				HEALTH,
 				HEALTH,
+				(byte)0,
 				TAUNT,
 				DIVINE_SHIELD,
 				WINDFURY,
@@ -59,8 +61,10 @@ public class StormwindChampion extends Minion {
 			byte health,
 			byte baseAttack,
 			byte extraAttackUntilTurnEnd,
+			byte auraAttack,
 			byte baseHealth,
 			byte maxHealth,
+			byte auraHealth,
 			boolean taunt,
 			boolean divineShield,
 			boolean windFury,
@@ -85,8 +89,10 @@ public class StormwindChampion extends Minion {
 			health,
 			baseAttack,
 			extraAttackUntilTurnEnd,
+			auraAttack,
 			baseHealth,
 			maxHealth,
+			auraHealth,
 			taunt,
 			divineShield,
 			windFury,
@@ -113,8 +119,10 @@ public class StormwindChampion extends Minion {
 				this.health_,
 				this.baseAttack_,
 				this.extraAttackUntilTurnEnd_,
+				this.auraAttack_,
 				this.baseHealth_,
 				this.maxHealth_,
+				this.auraHealth_,
 				this.taunt_,
 				this.divineShield_,
 				this.windFury_,
@@ -160,9 +168,8 @@ public class StormwindChampion extends Minion {
 		if (toRet != null) {
 			for (Minion minion : toRet.data_.getMinions_p0()) {
 				if (minion != this) {
-					minion.setAttack((byte)(minion.getAttack() + 1));
-					minion.setHealth((byte)(minion.getHealth() + 1));
-					minion.setMaxHealth((byte)(minion.getMaxHealth() + 1));
+					minion.setAuraAttack((byte)(minion.getAuraAttack() + 1));
+					minion.addAuraHealth((byte)1);
 				}
 			}			
 		}
@@ -186,9 +193,8 @@ public class StormwindChampion extends Minion {
 		if (!silenced_) {
 			for (Minion minion : toRet.data_.getMinions(thisPlayerIndex)) {
 				if (minion != this) {
-					minion.setAttack((byte)(minion.getAttack() - 1));
-					minion.setHealth((byte)(minion.getAttack() - 1));
-					minion.setMaxHealth((byte)(minion.getAttack() - 1));
+					minion.setAuraAttack((byte)(minion.getAuraAttack() - 1));
+					minion.removeAuraHealth((byte)1);
 				}
 			}
 		}
@@ -213,9 +219,8 @@ public class StormwindChampion extends Minion {
 		if (!silenced_) {
 			for (Minion minion : toRet.data_.getMinions(thisPlayerIndex)) {
 				if (minion != this) {
-					minion.setAttack((byte)(minion.getAttack() - 1));
-					minion.setHealth((byte)(minion.getAttack() - 1));
-					minion.setMaxHealth((byte)(minion.getAttack() - 1));
+					minion.setAuraAttack((byte)(minion.getAuraAttack() - 1));
+					minion.removeAuraHealth((byte)1);
 				}
 			}
 		}
@@ -233,9 +238,8 @@ public class StormwindChampion extends Minion {
 			return boardState;
 		if (!silenced_) {
 			if (placedMinion != this) {
-				placedMinion.setAttack((byte)(placedMinion.getAttack() + 1));
-				placedMinion.setHealth((byte)(placedMinion.getAttack() + 1));
-				placedMinion.setMaxHealth((byte)(placedMinion.getAttack() + 1));
+				placedMinion.setAuraAttack((byte)(placedMinion.getAuraAttack() + 1));
+				placedMinion.addAuraHealth((byte)1);
 			}
 		}
 		return boardState;		

@@ -98,10 +98,10 @@ public class TestRogue {
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), 2);
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), 7);
 
-		assertEquals(board.data_.getMinion_p0(0).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p0(1).getAttack(), 7);
-		assertEquals(board.data_.getMinion_p1(0).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p1(1).getAttack(), 7);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), 7);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p1(1).getTotalAttack(), 7);
 		
 		
 		target = board.data_.getCharacter(1, 0);
@@ -120,10 +120,10 @@ public class TestRogue {
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), 2);
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), 7);
 
-		assertEquals(board.data_.getMinion_p0(0).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p0(1).getAttack(), 7);
-		assertEquals(board.data_.getMinion_p1(0).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p1(1).getAttack(), 7);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), 7);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p1(1).getTotalAttack(), 7);
 		
 		minion.hasAttacked(false);
 		target = board.data_.getCharacter(1, 2);
@@ -139,9 +139,9 @@ public class TestRogue {
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), 2);
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), 5);
 
-		assertEquals(board.data_.getMinion_p0(0).getAttack(), 6);
-		assertEquals(board.data_.getMinion_p1(0).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p1(1).getAttack(), 7);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), 6);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p1(1).getTotalAttack(), 7);
 		
 		minion.hasAttacked(false);
 		target = board.data_.getCharacter(0, 0);
@@ -156,17 +156,17 @@ public class TestRogue {
 		assertEquals(board.data_.getHero_p1().getHealth(), 28);
 		assertEquals(board.data_.getHero_p0().getArmor(), 0);
 		assertEquals(board.data_.getHero_p1().getArmor(), 0);
-		assertEquals(board.data_.getHero_p0().getAttack(), 1);
-		assertEquals(board.data_.getHero_p1().getAttack(), 0);
+		assertEquals(board.data_.getHero_p0().getTotalAttack(), 1);
+		assertEquals(board.data_.getHero_p1().getTotalAttack(), 0);
 		assertEquals(board.data_.getHero_p0().getWeaponCharge(), 2);
 		assertEquals(board.data_.getHero_p1().getWeaponCharge(), 0);
 		assertEquals(board.data_.getMinion_p0(0).getHealth(), 7);
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), 2);
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), 5);
 
-		assertEquals(board.data_.getMinion_p0(0).getAttack(), 6);
-		assertEquals(board.data_.getMinion_p1(0).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p1(1).getAttack(), 7);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), 6);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p1(1).getTotalAttack(), 7);
 		
 	}
 }

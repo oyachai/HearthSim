@@ -16,8 +16,10 @@ public abstract class MinionWithEnrage extends Minion {
 					byte health,
 					byte baseAttack,
 					byte extraAttackUntilTurnEnd,
+					byte auraAttack,
 					byte baseHealth,
 					byte maxHealth,
+					byte auraHealth,
 					boolean taunt,
 					boolean divineShield,
 					boolean windFury,
@@ -35,7 +37,7 @@ public abstract class MinionWithEnrage extends Minion {
 					AttackAction attackAction,
 					boolean isInHand,
 					boolean hasBeenUsed) {
-		super(name, mana, attack, health, baseAttack, extraAttackUntilTurnEnd, baseHealth, maxHealth, taunt, divineShield, windFury, charge, hasAttacked, hasWindFuryAttacked, frozen, silenced, summoned, transformed, destroyOnTurnStart, destroyOnTurnEnd, deathrattleAction, attackAction, isInHand, hasBeenUsed);
+		super(name, mana, attack, health, baseAttack, extraAttackUntilTurnEnd, auraAttack, baseHealth, maxHealth, auraHealth, taunt, divineShield, windFury, charge, hasAttacked, hasWindFuryAttacked, frozen, silenced, summoned, transformed, destroyOnTurnStart, destroyOnTurnEnd, deathrattleAction, attackAction, isInHand, hasBeenUsed);
 		enraged_ = enraged;
 	}
 	

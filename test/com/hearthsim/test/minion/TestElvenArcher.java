@@ -97,9 +97,9 @@ public class TestElvenArcher {
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), health0);
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), health1 - 1);
 		
-		assertEquals(board.data_.getMinion_p0(0).getAttack(), attack0);
-		assertEquals(board.data_.getMinion_p0(1).getAttack(), 1);
-		assertEquals(board.data_.getMinion_p0(2).getAttack(), attack0);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), attack0);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), 1);
+		assertEquals(board.data_.getMinion_p0(2).getTotalAttack(), attack0);
 		
 		assertEquals(board.numChildren(), 6);
 		
@@ -118,9 +118,9 @@ public class TestElvenArcher {
 			assertEquals(child.data_.getMinion_p1(0).getHealth(), health0);
 			assertEquals(child.data_.getMinion_p1(1).getHealth(), health1 - 1);
 			
-			assertEquals(child.data_.getMinion_p0(0).getAttack(), attack0);
-			assertEquals(child.data_.getMinion_p0(1).getAttack(), 1);
-			assertEquals(child.data_.getMinion_p0(2).getAttack(), attack0);
+			assertEquals(child.data_.getMinion_p0(0).getTotalAttack(), attack0);
+			assertEquals(child.data_.getMinion_p0(1).getTotalAttack(), 1);
+			assertEquals(child.data_.getMinion_p0(2).getTotalAttack(), attack0);
 		}		
 		
 		{
@@ -138,9 +138,9 @@ public class TestElvenArcher {
 			assertEquals(child.data_.getMinion_p1(0).getHealth(), health0);
 			assertEquals(child.data_.getMinion_p1(1).getHealth(), health1 - 1);
 			
-			assertEquals(child.data_.getMinion_p0(0).getAttack(), attack0);
-			assertEquals(child.data_.getMinion_p0(1).getAttack(), 1);
-			assertEquals(child.data_.getMinion_p0(2).getAttack(), attack0);
+			assertEquals(child.data_.getMinion_p0(0).getTotalAttack(), attack0);
+			assertEquals(child.data_.getMinion_p0(1).getTotalAttack(), 1);
+			assertEquals(child.data_.getMinion_p0(2).getTotalAttack(), attack0);
 		}		
 
 		{
@@ -158,9 +158,9 @@ public class TestElvenArcher {
 			assertEquals(child.data_.getMinion_p1(0).getHealth(), health0);
 			assertEquals(child.data_.getMinion_p1(1).getHealth(), health1 - 1);
 			
-			assertEquals(child.data_.getMinion_p0(0).getAttack(), attack0);
-			assertEquals(child.data_.getMinion_p0(1).getAttack(), 1);
-			assertEquals(child.data_.getMinion_p0(2).getAttack(), attack0);
+			assertEquals(child.data_.getMinion_p0(0).getTotalAttack(), attack0);
+			assertEquals(child.data_.getMinion_p0(1).getTotalAttack(), 1);
+			assertEquals(child.data_.getMinion_p0(2).getTotalAttack(), attack0);
 		}		
 
 		{
@@ -178,9 +178,9 @@ public class TestElvenArcher {
 			assertEquals(child.data_.getMinion_p1(0).getHealth(), health0);
 			assertEquals(child.data_.getMinion_p1(1).getHealth(), health1 - 1);
 			
-			assertEquals(child.data_.getMinion_p0(0).getAttack(), attack0);
-			assertEquals(child.data_.getMinion_p0(1).getAttack(), 1);
-			assertEquals(child.data_.getMinion_p0(2).getAttack(), attack0);
+			assertEquals(child.data_.getMinion_p0(0).getTotalAttack(), attack0);
+			assertEquals(child.data_.getMinion_p0(1).getTotalAttack(), 1);
+			assertEquals(child.data_.getMinion_p0(2).getTotalAttack(), attack0);
 		}
 		
 		{
@@ -198,9 +198,9 @@ public class TestElvenArcher {
 			assertEquals(child.data_.getMinion_p1(0).getHealth(), health0 - 1);
 			assertEquals(child.data_.getMinion_p1(1).getHealth(), health1 - 1);
 			
-			assertEquals(child.data_.getMinion_p0(0).getAttack(), attack0);
-			assertEquals(child.data_.getMinion_p0(1).getAttack(), 1);
-			assertEquals(child.data_.getMinion_p0(2).getAttack(), attack0);
+			assertEquals(child.data_.getMinion_p0(0).getTotalAttack(), attack0);
+			assertEquals(child.data_.getMinion_p0(1).getTotalAttack(), 1);
+			assertEquals(child.data_.getMinion_p0(2).getTotalAttack(), attack0);
 		}		
 
 		{
@@ -218,9 +218,9 @@ public class TestElvenArcher {
 			assertEquals(child.data_.getMinion_p1(0).getHealth(), health0);
 			assertEquals(child.data_.getMinion_p1(1).getHealth(), health1 - 1 - 1);
 			
-			assertEquals(child.data_.getMinion_p0(0).getAttack(), attack0);
-			assertEquals(child.data_.getMinion_p0(1).getAttack(), 1);
-			assertEquals(child.data_.getMinion_p0(2).getAttack(), attack0);
+			assertEquals(child.data_.getMinion_p0(0).getTotalAttack(), attack0);
+			assertEquals(child.data_.getMinion_p0(1).getTotalAttack(), 1);
+			assertEquals(child.data_.getMinion_p0(2).getTotalAttack(), attack0);
 		}		
 
 	}

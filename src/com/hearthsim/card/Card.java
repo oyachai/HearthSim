@@ -244,7 +244,7 @@ public class Card implements DeepCopyable {
 				tmpList.add(iter0.next());
 			}
 			for (Minion tMinion : tmpList) {
-				if (tMinion.getHealth() <= 0) {
+				if (tMinion.getTotalHealth() <= 0) {
 					toRet = tMinion.destroyed(0, toRet, deckPlayer0, deckPlayer1);
 					toRet.data_.getMinions_p0().remove(tMinion);
 				}
@@ -256,7 +256,7 @@ public class Card implements DeepCopyable {
 				tmpList.add(iter1.next());
 			}
 			for (Minion tMinion : tmpList) {
-				if (tMinion.getHealth() <= 0) {
+				if (tMinion.getTotalHealth() <= 0) {
 					toRet = tMinion.destroyed(1, toRet, deckPlayer0, deckPlayer1);
 					toRet.data_.getMinions_p1().remove(tMinion);
 				}

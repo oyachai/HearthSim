@@ -93,10 +93,10 @@ public class TestSap {
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), 2);
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), 2);
 
-		assertEquals(board.data_.getMinion_p0(0).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p0(1).getAttack(), 4);
-		assertEquals(board.data_.getMinion_p1(0).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p1(1).getAttack(), 4);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), 4);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p1(1).getTotalAttack(), 4);
 	}
 
 	@Test
@@ -119,10 +119,10 @@ public class TestSap {
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), 2);
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), 2);
 
-		assertEquals(board.data_.getMinion_p0(0).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p0(1).getAttack(), 4);
-		assertEquals(board.data_.getMinion_p1(0).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p1(1).getAttack(), 4);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), 4);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p1(1).getTotalAttack(), 4);
 	}
 	
 	@Test
@@ -145,9 +145,9 @@ public class TestSap {
 		assertEquals(board.data_.getMinion_p0(1).getHealth(), 2);
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), 2);
 
-		assertEquals(board.data_.getMinion_p0(0).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p0(1).getAttack(), 4);
-		assertEquals(board.data_.getMinion_p1(0).getAttack(), 3);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), 4);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), 3);
 		
 		assertTrue(board.data_.getCard_hand_p1(0) instanceof RaidLeader);
 	}
@@ -172,9 +172,9 @@ public class TestSap {
 		assertEquals(board.data_.getMinion_p0(1).getHealth(), 2);
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), 2);
 
-		assertEquals(board.data_.getMinion_p0(0).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p0(1).getAttack(), 4);
-		assertEquals(board.data_.getMinion_p1(0).getAttack(), 2);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), 4);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), 2);
 
 		assertTrue(board.data_.getCard_hand_p1(0) instanceof BloodfenRaptor);
 	}
@@ -202,9 +202,9 @@ public class TestSap {
 		assertEquals(board.data_.getMinion_p0(1).getHealth(), 2);
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), 2);
 
-		assertEquals(board.data_.getMinion_p0(0).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p0(1).getAttack(), 4);
-		assertEquals(board.data_.getMinion_p1(0).getAttack(), 2);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), 4);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), 2);
 
 		for (int indx = 0; indx < 10; ++indx) 
 			assertTrue(board.data_.getCard_hand_p1(0) instanceof TheCoin);

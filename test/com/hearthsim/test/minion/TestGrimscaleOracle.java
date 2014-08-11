@@ -98,11 +98,11 @@ public class TestGrimscaleOracle {
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), health0);
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), health1 - 1);
 
-		assertEquals(board.data_.getMinion_p0(0).getAttack(), attack0);
-		assertEquals(board.data_.getMinion_p0(1).getAttack(), 1);
-		assertEquals(board.data_.getMinion_p0(2).getAttack(), attack0);
-		assertEquals(board.data_.getMinion_p1(0).getAttack(), attack0);
-		assertEquals(board.data_.getMinion_p1(1).getAttack(), attack0);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), attack0);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), 1);
+		assertEquals(board.data_.getMinion_p0(2).getTotalAttack(), attack0);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), attack0);
+		assertEquals(board.data_.getMinion_p1(1).getTotalAttack(), attack0);
 	}
 
 	@Test
@@ -129,11 +129,11 @@ public class TestGrimscaleOracle {
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), health0);
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), health1 - 1);
 
-		assertEquals(board.data_.getMinion_p0(0).getAttack(), attack0);
-		assertEquals(board.data_.getMinion_p0(1).getAttack(), 1);
-		assertEquals(board.data_.getMinion_p0(2).getAttack(), attack0);
-		assertEquals(board.data_.getMinion_p0(3).getAttack(), 3);
-		assertEquals(board.data_.getMinion_p1(0).getAttack(), attack0);
-		assertEquals(board.data_.getMinion_p1(1).getAttack(), attack0);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), attack0);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), 1);
+		assertEquals(board.data_.getMinion_p0(2).getTotalAttack(), attack0);
+		assertEquals(board.data_.getMinion_p0(3).getTotalAttack(), 3);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), attack0);
+		assertEquals(board.data_.getMinion_p1(1).getTotalAttack(), attack0);
 	}
 }

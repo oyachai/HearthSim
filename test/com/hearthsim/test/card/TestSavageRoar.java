@@ -94,10 +94,10 @@ public class TestSavageRoar {
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), 2);
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), 7);
 
-		assertEquals(board.data_.getMinion_p0(0).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p0(1).getAttack(), 7);
-		assertEquals(board.data_.getMinion_p1(0).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p1(1).getAttack(), 7);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), 7);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p1(1).getTotalAttack(), 7);
 	}
 
 	@Test
@@ -120,10 +120,10 @@ public class TestSavageRoar {
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), 2);
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), 7);
 
-		assertEquals(board.data_.getMinion_p0(0).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p0(1).getAttack(), 7);
-		assertEquals(board.data_.getMinion_p1(0).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p1(1).getAttack(), 7);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), 7);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p1(1).getTotalAttack(), 7);
 	}
 
 	@Test
@@ -146,10 +146,10 @@ public class TestSavageRoar {
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), 2);
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), 7);
 
-		assertEquals(board.data_.getMinion_p0(0).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p0(1).getAttack(), 7);
-		assertEquals(board.data_.getMinion_p1(0).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p1(1).getAttack(), 7);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), 4);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), 9);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p1(1).getTotalAttack(), 7);
 
 		assertEquals(board.data_.getHero_p0().getExtraAttackUntilTurnEnd(), 2);
 		assertEquals(board.data_.getHero_p1().getExtraAttackUntilTurnEnd(), 0);
@@ -173,9 +173,9 @@ public class TestSavageRoar {
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), 2);
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), 3);
 
-		assertEquals(board.data_.getMinion_p0(0).getAttack(), 6);
-		assertEquals(board.data_.getMinion_p1(0).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p1(1).getAttack(), 7);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), 8);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p1(1).getTotalAttack(), 7);
 
 		assertEquals(board.data_.getHero_p0().getExtraAttackUntilTurnEnd(), 2);
 		assertEquals(board.data_.getHero_p1().getExtraAttackUntilTurnEnd(), 0);
@@ -198,9 +198,9 @@ public class TestSavageRoar {
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), 2);
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), 1);
 
-		assertEquals(board.data_.getMinion_p0(0).getAttack(), 6);
-		assertEquals(board.data_.getMinion_p1(0).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p1(1).getAttack(), 7);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), 8);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p1(1).getTotalAttack(), 7);
 
 		assertEquals(board.data_.getHero_p0().getExtraAttackUntilTurnEnd(), 2);
 		assertEquals(board.data_.getHero_p1().getExtraAttackUntilTurnEnd(), 0);

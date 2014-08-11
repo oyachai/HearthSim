@@ -99,10 +99,10 @@ public class TestVioletTeacher {
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), 2);
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), 7);
 
-		assertEquals(board.data_.getMinion_p0(0).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p0(1).getAttack(), 7);
-		assertEquals(board.data_.getMinion_p1(0).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p1(1).getAttack(), 7);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), 7);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p1(1).getTotalAttack(), 7);
 	}
 	
 	@Test
@@ -127,11 +127,11 @@ public class TestVioletTeacher {
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), 2);
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), 7);
 
-		assertEquals(board.data_.getMinion_p0(0).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p0(1).getAttack(), 7);
-		assertEquals(board.data_.getMinion_p0(2).getAttack(), 4);
-		assertEquals(board.data_.getMinion_p1(0).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p1(1).getAttack(), 7);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), 7);
+		assertEquals(board.data_.getMinion_p0(2).getTotalAttack(), 4);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p1(1).getTotalAttack(), 7);
 		
 		
 		
@@ -155,11 +155,11 @@ public class TestVioletTeacher {
 		assertEquals(board.data_.getMinion_p0(3).getHealth(), 1);
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), 7);
 
-		assertEquals(board.data_.getMinion_p0(0).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p0(1).getAttack(), 7);
-		assertEquals(board.data_.getMinion_p0(2).getAttack(), 4);
-		assertEquals(board.data_.getMinion_p0(3).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p1(0).getAttack(), 6);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), 7);
+		assertEquals(board.data_.getMinion_p0(2).getTotalAttack(), 4);
+		assertEquals(board.data_.getMinion_p0(3).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), 6);
 		
 		//----------------------------------------------------------
 		// flipped, p1 should not get a Violet Apprentice
@@ -184,10 +184,10 @@ public class TestVioletTeacher {
 		assertEquals(ret.data_.getMinion_p1(1).getHealth(), 5);
 		assertEquals(ret.data_.getMinion_p1(2).getHealth(), 1);
 
-		assertEquals(ret.data_.getMinion_p0(0).getAttack(), 6);
-		assertEquals(ret.data_.getMinion_p1(0).getAttack(), 6);
-		assertEquals(ret.data_.getMinion_p1(1).getAttack(), 3);
-		assertEquals(ret.data_.getMinion_p1(2).getAttack(), 1);
+		assertEquals(ret.data_.getMinion_p0(0).getTotalAttack(), 6);
+		assertEquals(ret.data_.getMinion_p1(0).getTotalAttack(), 6);
+		assertEquals(ret.data_.getMinion_p1(1).getTotalAttack(), 3);
+		assertEquals(ret.data_.getMinion_p1(2).getTotalAttack(), 1);
 		
 	}
 

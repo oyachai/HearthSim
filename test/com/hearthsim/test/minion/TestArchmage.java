@@ -78,7 +78,7 @@ public class TestArchmage {
 		assertTrue(card1.equals(card1_cloned));
 		assertTrue(card1_cloned.equals(card1));
 
-		card1.setAttack((byte)(card1.getAttack() + 1));
+		card1.setAttack((byte)(card1.getTotalAttack() + 1));
 		assertFalse(card1.equals(card1_cloned));
 		assertFalse(card1_cloned.equals(card1));
 
@@ -142,11 +142,11 @@ public class TestArchmage {
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), health0);
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), health1 - 1);
 		
-		assertEquals(attack0, board.data_.getMinion_p0(0).getAttack(), attack0);
-		assertEquals(attack0, board.data_.getMinion_p0(1).getAttack(), attack0);
-		assertEquals(attack0, board.data_.getMinion_p0(2).getAttack(), 4);
-		assertEquals(attack0, board.data_.getMinion_p1(0).getAttack(), attack0);
-		assertEquals(attack0, board.data_.getMinion_p1(1).getAttack(), attack0);
+		assertEquals(attack0, board.data_.getMinion_p0(0).getTotalAttack(), attack0);
+		assertEquals(attack0, board.data_.getMinion_p0(1).getTotalAttack(), attack0);
+		assertEquals(attack0, board.data_.getMinion_p0(2).getTotalAttack(), 4);
+		assertEquals(attack0, board.data_.getMinion_p1(0).getTotalAttack(), attack0);
+		assertEquals(attack0, board.data_.getMinion_p1(1).getTotalAttack(), attack0);
 		
 		assertEquals(1, board.data_.getSpellDamage(0));
 		
@@ -168,11 +168,11 @@ public class TestArchmage {
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), health0);
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), health1 - 1);
 		
-		assertEquals(attack0, board.data_.getMinion_p0(0).getAttack(), attack0);
-		assertEquals(attack0, board.data_.getMinion_p0(1).getAttack(), attack0);
-		assertEquals(attack0, board.data_.getMinion_p0(2).getAttack(), 4);
-		assertEquals(attack0, board.data_.getMinion_p1(0).getAttack(), attack0);
-		assertEquals(attack0, board.data_.getMinion_p1(1).getAttack(), attack0);
+		assertEquals(attack0, board.data_.getMinion_p0(0).getTotalAttack(), attack0);
+		assertEquals(attack0, board.data_.getMinion_p0(1).getTotalAttack(), attack0);
+		assertEquals(attack0, board.data_.getMinion_p0(2).getTotalAttack(), 4);
+		assertEquals(attack0, board.data_.getMinion_p1(0).getTotalAttack(), attack0);
+		assertEquals(attack0, board.data_.getMinion_p1(1).getTotalAttack(), attack0);
 
 	}
 	
@@ -197,11 +197,11 @@ public class TestArchmage {
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), health0);
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), health1 - 1);
 		
-		assertEquals(attack0, board.data_.getMinion_p0(0).getAttack(), attack0);
-		assertEquals(attack0, board.data_.getMinion_p0(1).getAttack(), attack0);
-		assertEquals(attack0, board.data_.getMinion_p0(2).getAttack(), 4);
-		assertEquals(attack0, board.data_.getMinion_p1(0).getAttack(), attack0);
-		assertEquals(attack0, board.data_.getMinion_p1(1).getAttack(), attack0);
+		assertEquals(attack0, board.data_.getMinion_p0(0).getTotalAttack(), attack0);
+		assertEquals(attack0, board.data_.getMinion_p0(1).getTotalAttack(), attack0);
+		assertEquals(attack0, board.data_.getMinion_p0(2).getTotalAttack(), 4);
+		assertEquals(attack0, board.data_.getMinion_p1(0).getTotalAttack(), attack0);
+		assertEquals(attack0, board.data_.getMinion_p1(1).getTotalAttack(), attack0);
 		
 		assertEquals(1, board.data_.getSpellDamage(0));
 		
@@ -222,10 +222,10 @@ public class TestArchmage {
 		assertEquals(board.data_.getMinion_p0(2).getHealth(), 7);
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), health1 - 1);
 		
-		assertEquals(attack0, board.data_.getMinion_p0(0).getAttack(), attack0);
-		assertEquals(attack0, board.data_.getMinion_p0(1).getAttack(), attack0);
-		assertEquals(attack0, board.data_.getMinion_p0(2).getAttack(), 4);
-		assertEquals(attack0, board.data_.getMinion_p1(0).getAttack(), attack0);
+		assertEquals(attack0, board.data_.getMinion_p0(0).getTotalAttack(), attack0);
+		assertEquals(attack0, board.data_.getMinion_p0(1).getTotalAttack(), attack0);
+		assertEquals(attack0, board.data_.getMinion_p0(2).getTotalAttack(), 4);
+		assertEquals(attack0, board.data_.getMinion_p1(0).getTotalAttack(), attack0);
 	}
 
 }

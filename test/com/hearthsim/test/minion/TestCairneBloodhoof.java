@@ -102,10 +102,10 @@ public class TestCairneBloodhoof {
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), 2);
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), 7);
 
-		assertEquals(board.data_.getMinion_p0(0).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p0(1).getAttack(), 7);
-		assertEquals(board.data_.getMinion_p1(0).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p1(1).getAttack(), 7);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), 7);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p1(1).getTotalAttack(), 7);
 	}
 	
 	@Test
@@ -130,11 +130,11 @@ public class TestCairneBloodhoof {
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), 2);
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), 7);
 
-		assertEquals(board.data_.getMinion_p0(0).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p0(1).getAttack(), 7);
-		assertEquals(board.data_.getMinion_p0(2).getAttack(), 5);
-		assertEquals(board.data_.getMinion_p1(0).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p1(1).getAttack(), 7);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), 7);
+		assertEquals(board.data_.getMinion_p0(2).getTotalAttack(), 5);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p1(1).getTotalAttack(), 7);
 		
 		
 		
@@ -160,11 +160,11 @@ public class TestCairneBloodhoof {
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), 2);
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), 7 - 5);
 
-		assertEquals(board.data_.getMinion_p0(0).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p0(1).getAttack(), 7);
-		assertEquals(board.data_.getMinion_p0(2).getAttack(), 5);
-		assertEquals(board.data_.getMinion_p1(0).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p1(1).getAttack(), 7);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), 7);
+		assertEquals(board.data_.getMinion_p0(2).getTotalAttack(), 5);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p1(1).getTotalAttack(), 7);
 		
 		assertTrue(board.data_.getMinion_p0(2) instanceof BaineBloodhoof);
 		
@@ -193,11 +193,11 @@ public class TestCairneBloodhoof {
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), 2);
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), 7);
 
-		assertEquals(board.data_.getMinion_p0(0).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p0(1).getAttack(), 5);
-		assertEquals(board.data_.getMinion_p0(2).getAttack(), 7);
-		assertEquals(board.data_.getMinion_p1(0).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p1(1).getAttack(), 7);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), 5);
+		assertEquals(board.data_.getMinion_p0(2).getTotalAttack(), 7);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p1(1).getTotalAttack(), 7);
 		
 		
 		
@@ -223,11 +223,11 @@ public class TestCairneBloodhoof {
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), 2);
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), 7 - 5);
 
-		assertEquals(board.data_.getMinion_p0(0).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p0(1).getAttack(), 5);
-		assertEquals(board.data_.getMinion_p0(2).getAttack(), 7);
-		assertEquals(board.data_.getMinion_p1(0).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p1(1).getAttack(), 7);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), 5);
+		assertEquals(board.data_.getMinion_p0(2).getTotalAttack(), 7);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p1(1).getTotalAttack(), 7);
 		
 		assertTrue(board.data_.getMinion_p0(1) instanceof BaineBloodhoof);
 		
@@ -255,11 +255,11 @@ public class TestCairneBloodhoof {
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), 2);
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), 7);
 
-		assertEquals(board.data_.getMinion_p0(0).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p0(1).getAttack(), 5);
-		assertEquals(board.data_.getMinion_p0(2).getAttack(), 7);
-		assertEquals(board.data_.getMinion_p1(0).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p1(1).getAttack(), 7);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), 5);
+		assertEquals(board.data_.getMinion_p0(2).getTotalAttack(), 7);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p1(1).getTotalAttack(), 7);
 		
 		
 		//----------------------------------------------------------
@@ -284,11 +284,11 @@ public class TestCairneBloodhoof {
 		assertEquals(fb.data_.getMinion_p1(1).getHealth(), 5);
 		assertEquals(fb.data_.getMinion_p1(2).getHealth(), 7);
 
-		assertEquals(fb.data_.getMinion_p0(0).getAttack(), 2);
-		assertEquals(fb.data_.getMinion_p0(1).getAttack(), 7);
-		assertEquals(fb.data_.getMinion_p1(0).getAttack(), 2);
-		assertEquals(fb.data_.getMinion_p1(1).getAttack(), 5);
-		assertEquals(fb.data_.getMinion_p1(2).getAttack(), 7);
+		assertEquals(fb.data_.getMinion_p0(0).getTotalAttack(), 2);
+		assertEquals(fb.data_.getMinion_p0(1).getTotalAttack(), 7);
+		assertEquals(fb.data_.getMinion_p1(0).getTotalAttack(), 2);
+		assertEquals(fb.data_.getMinion_p1(1).getTotalAttack(), 5);
+		assertEquals(fb.data_.getMinion_p1(2).getTotalAttack(), 7);
 		
 		assertTrue(fb.data_.getMinion_p1(1) instanceof BaineBloodhoof);
 		
@@ -325,15 +325,15 @@ public class TestCairneBloodhoof {
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), 2);
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), 7);
 
-		assertEquals(board.data_.getMinion_p0(0).getAttack(), 4);
-		assertEquals(board.data_.getMinion_p0(1).getAttack(), 4);
-		assertEquals(board.data_.getMinion_p0(2).getAttack(), 4);
-		assertEquals(board.data_.getMinion_p0(3).getAttack(), 4);
-		assertEquals(board.data_.getMinion_p0(4).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p0(5).getAttack(), 5);
-		assertEquals(board.data_.getMinion_p0(6).getAttack(), 7);
-		assertEquals(board.data_.getMinion_p1(0).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p1(1).getAttack(), 7);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), 4);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), 4);
+		assertEquals(board.data_.getMinion_p0(2).getTotalAttack(), 4);
+		assertEquals(board.data_.getMinion_p0(3).getTotalAttack(), 4);
+		assertEquals(board.data_.getMinion_p0(4).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p0(5).getTotalAttack(), 5);
+		assertEquals(board.data_.getMinion_p0(6).getTotalAttack(), 7);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p1(1).getTotalAttack(), 7);
 		
 		
 		//----------------------------------------------------------
@@ -362,15 +362,15 @@ public class TestCairneBloodhoof {
 		assertEquals(fb.data_.getMinion_p1(5).getHealth(), 5);
 		assertEquals(fb.data_.getMinion_p1(6).getHealth(), 7);
 
-		assertEquals(fb.data_.getMinion_p0(0).getAttack(), 2);
-		assertEquals(fb.data_.getMinion_p0(1).getAttack(), 7);
-		assertEquals(fb.data_.getMinion_p1(0).getAttack(), 4);
-		assertEquals(fb.data_.getMinion_p1(1).getAttack(), 4);
-		assertEquals(fb.data_.getMinion_p1(2).getAttack(), 4);
-		assertEquals(fb.data_.getMinion_p1(3).getAttack(), 4);
-		assertEquals(fb.data_.getMinion_p1(4).getAttack(), 2);
-		assertEquals(fb.data_.getMinion_p1(5).getAttack(), 5);
-		assertEquals(fb.data_.getMinion_p1(6).getAttack(), 7);
+		assertEquals(fb.data_.getMinion_p0(0).getTotalAttack(), 2);
+		assertEquals(fb.data_.getMinion_p0(1).getTotalAttack(), 7);
+		assertEquals(fb.data_.getMinion_p1(0).getTotalAttack(), 4);
+		assertEquals(fb.data_.getMinion_p1(1).getTotalAttack(), 4);
+		assertEquals(fb.data_.getMinion_p1(2).getTotalAttack(), 4);
+		assertEquals(fb.data_.getMinion_p1(3).getTotalAttack(), 4);
+		assertEquals(fb.data_.getMinion_p1(4).getTotalAttack(), 2);
+		assertEquals(fb.data_.getMinion_p1(5).getTotalAttack(), 5);
+		assertEquals(fb.data_.getMinion_p1(6).getTotalAttack(), 7);
 		
 		assertTrue(fb.data_.getMinion_p1(5) instanceof BaineBloodhoof);
 		
@@ -401,11 +401,11 @@ public class TestCairneBloodhoof {
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), 2);
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), 7);
 
-		assertEquals(board.data_.getMinion_p0(0).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p0(1).getAttack(), 5);
-		assertEquals(board.data_.getMinion_p0(2).getAttack(), 7);
-		assertEquals(board.data_.getMinion_p1(0).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p1(1).getAttack(), 7);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), 5);
+		assertEquals(board.data_.getMinion_p0(2).getTotalAttack(), 7);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p1(1).getTotalAttack(), 7);
 		
 		
 		//----------------------------------------------------------
@@ -433,11 +433,11 @@ public class TestCairneBloodhoof {
 		assertEquals(fb.data_.getMinion_p1(1).getHealth(), 5);
 		assertEquals(fb.data_.getMinion_p1(2).getHealth(), 7);
 
-		assertEquals(fb.data_.getMinion_p0(0).getAttack(), 2);
-		assertEquals(fb.data_.getMinion_p0(1).getAttack(), 7);
-		assertEquals(fb.data_.getMinion_p1(0).getAttack(), 2);
-		assertEquals(fb.data_.getMinion_p1(1).getAttack(), 5);
-		assertEquals(fb.data_.getMinion_p1(2).getAttack(), 7);
+		assertEquals(fb.data_.getMinion_p0(0).getTotalAttack(), 2);
+		assertEquals(fb.data_.getMinion_p0(1).getTotalAttack(), 7);
+		assertEquals(fb.data_.getMinion_p1(0).getTotalAttack(), 2);
+		assertEquals(fb.data_.getMinion_p1(1).getTotalAttack(), 5);
+		assertEquals(fb.data_.getMinion_p1(2).getTotalAttack(), 7);
 		
 		assertTrue(fb.data_.getMinion_p1(1) instanceof BaineBloodhoof);
 		

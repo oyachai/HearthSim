@@ -7,15 +7,15 @@ import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class ShadowWordPain extends SpellCard {
+public class InnerFire extends SpellCard {
 
 	/**
 	 * Constructor
 	 * 
 	 * @param hasBeenUsed Whether the card has already been used or not
 	 */
-	public ShadowWordPain(boolean hasBeenUsed) {
-		super("Shadow Word: Pain", (byte)2, hasBeenUsed);
+	public InnerFire(boolean hasBeenUsed) {
+		super("Inner Fire", (byte)1, hasBeenUsed);
 	}
 
 	/**
@@ -23,20 +23,20 @@ public class ShadowWordPain extends SpellCard {
 	 * 
 	 * Defaults to hasBeenUsed = false
 	 */
-	public ShadowWordPain() {
+	public InnerFire() {
 		this(false);
 	}
 
 	@Override
 	public Object deepCopy() {
-		return new ShadowWordPain(this.hasBeenUsed_);
+		return new InnerFire(this.hasBeenUsed_);
 	}
 	
 	/**
 	 * 
 	 * Use the card on the given target
 	 * 
-	 * Gives all friendly characters +2 attack for this turn
+	 * Change a minion's Attack to be equal to its Health
 	 * 
 	 * @param thisCardIndex The index (position) of the card in the hand
 	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
@@ -54,18 +54,13 @@ public class ShadowWordPain extends SpellCard {
 			Deck deckPlayer1)
 		throws HSException
 	{
-		if (targetMinion instanceof Hero) {
+		if (targetMinion instanceof Hero) 
 			return null;
-		}
-		if (targetMinion.getTotalAttack() > 3)
-			return null;
-		
+
 		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
-		if (toRet != null) {			
-			toRet = targetMinion.destroyed(targetPlayerIndex, toRet, deckPlayer0, deckPlayer1);
-			toRet.data_.removeMinion(targetPlayerIndex, targetMinion);
-		}		
-		
+		if (toRet != null) {
+			targetMinion.setAttack(targetMinion.getTotalHealth());
+		}
 		return toRet;
 	}
 }

@@ -62,7 +62,7 @@ public class TestHoundmaster {
 		assertTrue(card1.equals(card1_cloned));
 		assertTrue(card1_cloned.equals(card1));
 
-		card1.setAttack((byte)(card1.getAttack() + 1));
+		card1.setAttack((byte)(card1.getTotalAttack() + 1));
 		assertFalse(card1.equals(card1_cloned));
 		assertFalse(card1_cloned.equals(card1));
 
@@ -108,23 +108,23 @@ public class TestHoundmaster {
 		assertTrue(res.data_.getMana_p0() == 6);
 		
 		assertTrue(res.data_.getMinion_p0(0).getHealth() == 3);
-		assertTrue(res.data_.getMinion_p0(0).getAttack() == 4);
+		assertTrue(res.data_.getMinion_p0(0).getTotalAttack() == 4);
 		assertFalse(res.data_.getMinion_p0(0).getTaunt());
 		assertTrue(res.data_.getMinion_p0(1).getHealth() == health0);
-		assertTrue(res.data_.getMinion_p0(1).getAttack() == attack0);
+		assertTrue(res.data_.getMinion_p0(1).getTotalAttack() == attack0);
 		assertFalse(res.data_.getMinion_p0(1).getTaunt());
 		assertTrue(res.data_.getMinion_p0(2).getHealth() == health0);
-		assertTrue(res.data_.getMinion_p0(2).getAttack() == attack0);
+		assertTrue(res.data_.getMinion_p0(2).getTotalAttack() == attack0);
 		assertFalse(res.data_.getMinion_p0(2).getTaunt());
 
 		assertTrue(res.data_.getMinion_p1(0).getHealth() == health0);
-		assertTrue(res.data_.getMinion_p1(0).getAttack() == attack0);
+		assertTrue(res.data_.getMinion_p1(0).getTotalAttack() == attack0);
 		assertFalse(res.data_.getMinion_p1(0).getTaunt());
 		assertTrue(res.data_.getMinion_p1(1).getHealth() == health1);
-		assertTrue(res.data_.getMinion_p1(1).getAttack() == attack0);
+		assertTrue(res.data_.getMinion_p1(1).getTotalAttack() == attack0);
 		assertFalse(res.data_.getMinion_p1(1).getTaunt());
 		assertTrue(res.data_.getMinion_p1(2).getHealth() == health0-2);
-		assertTrue(res.data_.getMinion_p1(2).getAttack() == attack0);
+		assertTrue(res.data_.getMinion_p1(2).getTotalAttack() == attack0);
 		assertFalse(res.data_.getMinion_p1(2).getTaunt());
 		
 		assertTrue(res.data_.getHero_p0().getHealth() == 30);
@@ -132,23 +132,23 @@ public class TestHoundmaster {
 
 		assertTrue(res.numChildren() == 1);
 		assertTrue(res.getChildren().get(0).data_.getMinion_p0(0).getHealth() == 3);
-		assertTrue(res.getChildren().get(0).data_.getMinion_p0(0).getAttack() == 4);
+		assertTrue(res.getChildren().get(0).data_.getMinion_p0(0).getTotalAttack() == 4);
 		assertFalse(res.getChildren().get(0).data_.getMinion_p0(0).getTaunt());
 		assertTrue(res.getChildren().get(0).data_.getMinion_p0(1).getHealth() == health0);
-		assertTrue(res.getChildren().get(0).data_.getMinion_p0(1).getAttack() == attack0);
+		assertTrue(res.getChildren().get(0).data_.getMinion_p0(1).getTotalAttack() == attack0);
 		assertFalse(res.getChildren().get(0).data_.getMinion_p0(1).getTaunt());
 		assertTrue(res.getChildren().get(0).data_.getMinion_p0(2).getHealth() == health0 + 2);
-		assertTrue(res.getChildren().get(0).data_.getMinion_p0(2).getAttack() == attack0 + 2);
+		assertTrue(res.getChildren().get(0).data_.getMinion_p0(2).getTotalAttack() == attack0 + 2);
 		assertTrue(res.getChildren().get(0).data_.getMinion_p0(2).getTaunt());
 		
 		assertTrue(res.getChildren().get(0).data_.getMinion_p1(0).getHealth() == health0);
-		assertTrue(res.getChildren().get(0).data_.getMinion_p1(0).getAttack() == attack0);
+		assertTrue(res.getChildren().get(0).data_.getMinion_p1(0).getTotalAttack() == attack0);
 		assertFalse(res.getChildren().get(0).data_.getMinion_p1(0).getTaunt());
 		assertTrue(res.getChildren().get(0).data_.getMinion_p1(1).getHealth() == health1);
-		assertTrue(res.getChildren().get(0).data_.getMinion_p1(1).getAttack() == attack0);
+		assertTrue(res.getChildren().get(0).data_.getMinion_p1(1).getTotalAttack() == attack0);
 		assertFalse(res.getChildren().get(0).data_.getMinion_p1(1).getTaunt());
 		assertTrue(res.getChildren().get(0).data_.getMinion_p1(2).getHealth() == health0-2);
-		assertTrue(res.getChildren().get(0).data_.getMinion_p1(2).getAttack() == attack0);
+		assertTrue(res.getChildren().get(0).data_.getMinion_p1(2).getTotalAttack() == attack0);
 		assertFalse(res.getChildren().get(0).data_.getMinion_p1(2).getTaunt());
 		
 	}

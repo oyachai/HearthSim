@@ -67,7 +67,7 @@ public class TestNorthshireCleric {
 		assertTrue(card1.equals(card1_cloned));
 		assertTrue(card1_cloned.equals(card1));
 
-		card1.setAttack((byte)(card1.getAttack() + 1));
+		card1.setAttack((byte)(card1.getTotalAttack() + 1));
 		assertFalse(card1.equals(card1_cloned));
 		assertFalse(card1_cloned.equals(card1));
 

@@ -31,8 +31,10 @@ public class RaidLeader extends Minion {
 				HEALTH,
 				ATTACK,
 				(byte)0,
+				(byte)0,
 				HEALTH,
 				HEALTH,
+				(byte)0,
 				TAUNT,
 				DIVINE_SHIELD,
 				WINDFURY,
@@ -58,8 +60,10 @@ public class RaidLeader extends Minion {
 			byte health,
 			byte baseAttack,
 			byte extraAttackUntilTurnEnd,
+			byte auraAttack,
 			byte baseHealth,
 			byte maxHealth,
+			byte auraHealth,
 			boolean taunt,
 			boolean divineShield,
 			boolean windFury,
@@ -84,8 +88,10 @@ public class RaidLeader extends Minion {
 			health,
 			baseAttack,
 			extraAttackUntilTurnEnd,
+			auraAttack,
 			baseHealth,
 			maxHealth,
+			auraHealth,
 			taunt,
 			divineShield,
 			windFury,
@@ -112,8 +118,10 @@ public class RaidLeader extends Minion {
 				this.health_,
 				this.baseAttack_,
 				this.extraAttackUntilTurnEnd_,
+				this.auraAttack_,
 				this.baseHealth_,
 				this.maxHealth_,
+				this.auraHealth_,
 				this.taunt_,
 				this.divineShield_,
 				this.windFury_,
@@ -159,7 +167,7 @@ public class RaidLeader extends Minion {
 		if (toRet != null) {
 			for (Minion minion : toRet.data_.getMinions_p0()) {
 				if (minion != this) {
-					minion.setAttack((byte)(minion.getAttack() + 1));
+					minion.setAuraAttack((byte)(minion.getAuraAttack() + 1));
 				}
 			}			
 		}
@@ -182,7 +190,7 @@ public class RaidLeader extends Minion {
 		HearthTreeNode toRet = boardState;
 		for (Minion minion : toRet.data_.getMinions(thisPlayerIndex)) {
 			if (minion != this) {
-				minion.setAttack((byte)(minion.getAttack() - 1));
+				minion.setAuraAttack((byte)(minion.getAuraAttack() - 1));
 			}
 		}
 		return super.silenced(thisPlayerIndex, toRet, deckPlayer0, deckPlayer1);
@@ -204,7 +212,7 @@ public class RaidLeader extends Minion {
 		HearthTreeNode toRet = boardState;
 		for (Minion minion : toRet.data_.getMinions(thisPlayerIndex)) {
 			if (minion != this) {
-				minion.setAttack((byte)(minion.getAttack() - 1));
+				minion.setAuraAttack((byte)(minion.getAuraAttack() - 1));
 			}
 		}
 		return super.destroyed(thisPlayerIndex, toRet, deckPlayer0, deckPlayer1);
@@ -221,7 +229,7 @@ public class RaidLeader extends Minion {
 			return boardState;
 		if (!silenced_) {
 			if (placedMinion != this)
-				placedMinion.setAttack((byte)(placedMinion.getAttack() + 1));
+				placedMinion.setAuraAttack((byte)(placedMinion.getAuraAttack() + 1));
 		}
 		return boardState;		
 	}

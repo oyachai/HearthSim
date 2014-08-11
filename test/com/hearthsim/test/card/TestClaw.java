@@ -103,7 +103,7 @@ public class TestClaw {
 		assertEquals(board.data_.getNumMinions_p1(), 2);
 		assertEquals(board.data_.getHero_p0().getHealth(), 30);
 		assertEquals(board.data_.getHero_p1().getHealth(), 30);
-		assertEquals(board.data_.getHero_p0().getAttack(), 0);
+		assertEquals(board.data_.getHero_p0().getTotalAttack(), 2);
 		assertEquals(board.data_.getHero_p0().getExtraAttackUntilTurnEnd(), 2);
 		assertEquals(board.data_.getHero_p0().getArmor(), 2);
 		assertEquals(board.data_.getMinion_p0(0).getHealth(), health0);
@@ -118,7 +118,7 @@ public class TestClaw {
 		assertEquals(board.data_.getNumMinions_p1(), 2);
 		assertEquals(board.data_.getHero_p0().getHealth(), 27);
 		assertEquals(board.data_.getHero_p1().getHealth(), 30);
-		assertEquals(board.data_.getHero_p0().getAttack(), 0);
+		assertEquals(board.data_.getHero_p0().getTotalAttack(), 2);
 		assertEquals(board.data_.getHero_p0().getExtraAttackUntilTurnEnd(), 2);
 		assertEquals(board.data_.getHero_p0().getArmor(), 0);
 		assertEquals(board.data_.getMinion_p0(0).getHealth(), health0);
@@ -128,7 +128,7 @@ public class TestClaw {
 
 		
 		board.data_.getHero_p0().endTurn(0, board.data_, deck, null);
-		assertEquals(board.data_.getHero_p0().getAttack(), 0);
+		assertEquals(board.data_.getHero_p0().getTotalAttack(), 0);
 		assertEquals(board.data_.getHero_p0().getArmor(), 0);
 		
 	}

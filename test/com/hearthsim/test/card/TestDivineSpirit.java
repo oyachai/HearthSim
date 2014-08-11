@@ -135,10 +135,10 @@ public class TestDivineSpirit {
 		
 		assertEquals(board.data_.getMinion_p0(0).getMaxHealth(), health0 * 2);
 
-		assertEquals(board.data_.getMinion_p0(0).getAttack(), attack0);
-		assertEquals(board.data_.getMinion_p0(1).getAttack(), attack0);
-		assertEquals(board.data_.getMinion_p1(0).getAttack(), attack0);
-		assertEquals(board.data_.getMinion_p1(1).getAttack(), attack0);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), attack0);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), attack0);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), attack0);
+		assertEquals(board.data_.getMinion_p1(1).getTotalAttack(), attack0);
 	}
 
 	@Test
@@ -163,9 +163,9 @@ public class TestDivineSpirit {
 		
 		assertEquals(board.data_.getMinion_p1(1).getMaxHealth(), health1 + (health1 - 1));
 
-		assertEquals(board.data_.getMinion_p0(0).getAttack(), attack0);
-		assertEquals(board.data_.getMinion_p0(1).getAttack(), attack0);
-		assertEquals(board.data_.getMinion_p1(0).getAttack(), attack0);
-		assertEquals(board.data_.getMinion_p1(1).getAttack(), attack0);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), attack0);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), attack0);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), attack0);
+		assertEquals(board.data_.getMinion_p1(1).getTotalAttack(), attack0);
 	}
 }

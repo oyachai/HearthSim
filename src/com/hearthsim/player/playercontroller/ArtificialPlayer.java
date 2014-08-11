@@ -228,18 +228,18 @@ public class ArtificialPlayer {
 		double myScore = 0.0;
 		for (final Minion minion: myBoardCards) {
 			myScore += minion.getAttack() * my_wAttack_;
-			myScore += minion.getHealth() * my_wHealth_;
+			myScore += minion.getTotalHealth() * my_wHealth_;
 			myScore += (minion.getTaunt() ? 1.0 : 0.0) * wTaunt_;
-			if (minion.getDivineShield()) myScore += ((minion.getAttack() + minion.getHealth()) * my_wDivineShield_);
+			if (minion.getDivineShield()) myScore += ((minion.getAttack() + minion.getTotalHealth()) * my_wDivineShield_);
 		}
 				
 		//opponent board score
 		double opScore = 0.0;
 		for (final Minion minion: opBoardCards) {
 			opScore += minion.getAttack() * enemy_wAttack_;
-			opScore += minion.getHealth() * enemy_wHealth_;
+			opScore += minion.getTotalHealth() * enemy_wHealth_;
 			opScore += (minion.getTaunt() ? 1.0 : 0.0) * wTaunt_;
-			if (minion.getDivineShield()) opScore += (minion.getAttack() + minion.getHealth()) * enemy_wDivineShield_;
+			if (minion.getDivineShield()) opScore += (minion.getAttack() + minion.getTotalHealth()) * enemy_wDivineShield_;
 		}
 		
 		//weapons

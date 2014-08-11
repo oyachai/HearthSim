@@ -61,7 +61,7 @@ public class MortalCoil extends SpellDamage {
 		toRet.data_.removeCard_hand(this);
 		
 		if (!(targetMinion instanceof Hero)) {
-			if (targetMinion.getHealth() <= 0) {
+			if (targetMinion.getTotalHealth() <= 0) {
 				if (toRet instanceof CardDrawNode) {
 					((CardDrawNode) toRet).addNumCardsToDraw(1);
 				} else {

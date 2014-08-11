@@ -32,8 +32,10 @@ public class GrimscaleOracle extends Murloc {
 				HEALTH,
 				ATTACK,
 				(byte)0,
+				(byte)0,
 				HEALTH,
 				HEALTH,
+				(byte)0,
 				TAUNT,
 				DIVINE_SHIELD,
 				WINDFURY,
@@ -59,8 +61,10 @@ public class GrimscaleOracle extends Murloc {
 			byte health,
 			byte baseAttack,
 			byte extraAttackUntilTurnEnd,
+			byte auraAttack,
 			byte baseHealth,
 			byte maxHealth,
+			byte auraHealth,
 			boolean taunt,
 			boolean divineShield,
 			boolean windFury,
@@ -85,8 +89,10 @@ public class GrimscaleOracle extends Murloc {
 			health,
 			baseAttack,
 			extraAttackUntilTurnEnd,
+			auraAttack,
 			baseHealth,
 			maxHealth,
+			auraHealth,
 			taunt,
 			divineShield,
 			windFury,
@@ -113,8 +119,10 @@ public class GrimscaleOracle extends Murloc {
 				this.health_,
 				this.baseAttack_,
 				this.extraAttackUntilTurnEnd_,
+				this.auraAttack_,
 				this.baseHealth_,
 				this.maxHealth_,
+				this.auraHealth_,
 				this.taunt_,
 				this.divineShield_,
 				this.windFury_,
@@ -162,18 +170,18 @@ public class GrimscaleOracle extends Murloc {
 			
 			for (Minion minion : boardState.data_.getMinions_p0()) {
 				if (minion instanceof Murloc && minion != this) {
-					minion.setAttack((byte)(minion.getAttack() + 1));
+					minion.setAuraAttack((byte)(minion.getAuraAttack() + 1));
 				}
 			}
 			
 			for (Minion minion : boardState.data_.getMinions_p1()) {
 				if (minion instanceof Murloc && minion != this) {
-					minion.setAttack((byte)(minion.getAttack() + 1));
+					minion.setAuraAttack((byte)(minion.getAuraAttack() + 1));
 				}
 			}
 
 			return boardState;
-							
+
 		} else {
 			return null;
 		}
@@ -195,12 +203,12 @@ public class GrimscaleOracle extends Murloc {
 		if (!silenced_) {
 			for (Minion minion : toRet.data_.getMinions_p0()) {
 				if (minion instanceof Murloc && minion != this) {
-					minion.setAttack((byte)(minion.getAttack() - 1));
+					minion.setAuraAttack((byte)(minion.getAuraAttack() - 1));
 				}
 			}
 			for (Minion minion : toRet.data_.getMinions_p1()) {
 				if (minion instanceof Murloc && minion != this) {
-					minion.setAttack((byte)(minion.getAttack() - 1));
+					minion.setAuraAttack((byte)(minion.getAuraAttack() - 1));
 				}
 			}
 		}
@@ -226,12 +234,12 @@ public class GrimscaleOracle extends Murloc {
 		if (!silenced_) {
 			for (Minion minion : toRet.data_.getMinions_p0()) {
 				if (minion instanceof Murloc && minion != this) {
-					minion.setAttack((byte)(minion.getAttack() - 1));
+					minion.setAuraAttack((byte)(minion.getAuraAttack() - 1));
 				}
 			}
 			for (Minion minion : toRet.data_.getMinions_p1()) {
 				if (minion instanceof Murloc && minion != this) {
-					minion.setAttack((byte)(minion.getAttack() - 1));
+					minion.setAuraAttack((byte)(minion.getAuraAttack() - 1));
 				}
 			}
 		}
@@ -250,9 +258,9 @@ public class GrimscaleOracle extends Murloc {
 	{
 		if (!silenced_) {
 			if (targetMinion instanceof Murloc && targetMinion != this)
-				targetMinion.setAttack((byte)(targetMinion.getAttack() + 1));
+				targetMinion.setAuraAttack((byte)(targetMinion.getAuraAttack() + 1));
 		}
-		return boardState;		
+		return boardState;
 	}
 
 	/**

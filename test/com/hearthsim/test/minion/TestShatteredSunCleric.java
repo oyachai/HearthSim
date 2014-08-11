@@ -103,11 +103,11 @@ public class TestShatteredSunCleric {
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), 2);
 		assertEquals(board.data_.getMinion_p1(2).getHealth(), 7);
 
-		assertEquals(board.data_.getMinion_p0(0).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p0(1).getAttack(), 7);
-		assertEquals(board.data_.getMinion_p1(0).getAttack(), 4);
-		assertEquals(board.data_.getMinion_p1(1).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p1(2).getAttack(), 7);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), 7);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), 4);
+		assertEquals(board.data_.getMinion_p1(1).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p1(2).getTotalAttack(), 7);
 		
 		assertTrue(board.data_.getMinion_p1(0).getDivineShield());
 	}
@@ -135,24 +135,24 @@ public class TestShatteredSunCleric {
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), 2);
 		assertEquals(board.data_.getMinion_p1(2).getHealth(), 7);
 
-		assertEquals(board.data_.getMinion_p0(0).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p0(1).getAttack(), 7);
-		assertEquals(board.data_.getMinion_p0(2).getAttack(), 4);
-		assertEquals(board.data_.getMinion_p1(0).getAttack(), 4);
-		assertEquals(board.data_.getMinion_p1(1).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p1(2).getAttack(), 7);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), 7);
+		assertEquals(board.data_.getMinion_p0(2).getTotalAttack(), 4);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), 4);
+		assertEquals(board.data_.getMinion_p1(1).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p1(2).getTotalAttack(), 7);
 
 		//At this point, the BoardState should have 2 children: one that buffs the Raid Leader
 		//and another that buffs the Boulderfist Ogre
 		assertEquals(board.numChildren(), 2);
 		
-		assertEquals(board.getChildren().get(0).data_.getMinion_p0(0).getAttack(), 3);
+		assertEquals(board.getChildren().get(0).data_.getMinion_p0(0).getTotalAttack(), 3);
 		assertEquals(board.getChildren().get(0).data_.getMinion_p0(0).getHealth(), 3);
-		assertEquals(board.getChildren().get(0).data_.getMinion_p0(1).getAttack(), 7);
+		assertEquals(board.getChildren().get(0).data_.getMinion_p0(1).getTotalAttack(), 7);
 		assertEquals(board.getChildren().get(0).data_.getMinion_p0(1).getHealth(), 7);
-		assertEquals(board.getChildren().get(1).data_.getMinion_p0(0).getAttack(), 2);
+		assertEquals(board.getChildren().get(1).data_.getMinion_p0(0).getTotalAttack(), 2);
 		assertEquals(board.getChildren().get(1).data_.getMinion_p0(0).getHealth(), 2);
-		assertEquals(board.getChildren().get(1).data_.getMinion_p0(1).getAttack(), 8);
+		assertEquals(board.getChildren().get(1).data_.getMinion_p0(1).getTotalAttack(), 8);
 		assertEquals(board.getChildren().get(1).data_.getMinion_p0(1).getHealth(), 8);
 
 		

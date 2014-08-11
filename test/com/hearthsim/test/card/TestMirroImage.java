@@ -122,10 +122,10 @@ public class TestMirroImage {
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), health0);
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), health1 - 1);
 
-		assertEquals(board.data_.getMinion_p0(0).getAttack(), attack0);
-		assertEquals(board.data_.getMinion_p0(1).getAttack(), attack0);
-		assertEquals(board.data_.getMinion_p0(2).getAttack(), 0);
-		assertEquals(board.data_.getMinion_p0(3).getAttack(), 0);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), attack0);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), attack0);
+		assertEquals(board.data_.getMinion_p0(2).getTotalAttack(), 0);
+		assertEquals(board.data_.getMinion_p0(3).getTotalAttack(), 0);
 
 		assertTrue(board.data_.getMinion_p0(2) instanceof MirrorImageMinion);
 		assertTrue(board.data_.getMinion_p0(3) instanceof MirrorImageMinion);

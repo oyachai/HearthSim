@@ -30,8 +30,10 @@ public class Abomination extends Minion {
 				HEALTH,
 				ATTACK,
 				(byte)0,
+				(byte)0,
 				HEALTH,
 				HEALTH,
+				(byte)0,
 				TAUNT,
 				DIVINE_SHIELD,
 				WINDFURY,
@@ -57,8 +59,10 @@ public class Abomination extends Minion {
 			byte health,
 			byte baseAttack,
 			byte extraAttackUntilTurnEnd,
+			byte auraAttack,
 			byte baseHealth,
 			byte maxHealth,
+			byte auraHealth,
 			boolean taunt,
 			boolean divineShield,
 			boolean windFury,
@@ -83,8 +87,10 @@ public class Abomination extends Minion {
 			health,
 			baseAttack,
 			extraAttackUntilTurnEnd,
+			auraAttack,
 			baseHealth,
 			maxHealth,
+			auraHealth,
 			taunt,
 			divineShield,
 			windFury,
@@ -103,6 +109,35 @@ public class Abomination extends Minion {
 			hasBeenUsed);
 	}
 	
+	@Override
+	public Object deepCopy() {
+		return new Abomination(
+				this.mana_,
+				this.attack_,
+				this.health_,
+				this.baseAttack_,
+				this.extraAttackUntilTurnEnd_,
+				this.auraAttack_,
+				this.baseHealth_,
+				this.maxHealth_,
+				this.auraHealth_,
+				this.taunt_,
+				this.divineShield_,
+				this.windFury_,
+				this.charge_,
+				this.hasAttacked_,
+				this.hasWindFuryAttacked_,
+				this.frozen_,
+				this.silenced_,
+				this.summoned_,
+				this.transformed_,
+				this.destroyOnTurnStart_,
+				this.destroyOnTurnEnd_,
+				this.deathrattleAction_,
+				this.attackAction_,
+				this.isInHand_,
+				this.hasBeenUsed_);
+	}
 	/**
 	 * Called when this minion dies (destroyed)
 	 * 

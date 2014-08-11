@@ -74,11 +74,11 @@ public class TestArcaneExplosion {
 		assertEquals(res.data_.getNumMinions_p0(), 1);
 		assertEquals(res.data_.getNumMinions_p1(), 2);
 		assertEquals(res.data_.getMinion_p0(0).getHealth(), health0);
-		assertEquals(res.data_.getMinion_p0(0).getAttack(), attack0);
+		assertEquals(res.data_.getMinion_p0(0).getTotalAttack(), attack0);
 		assertEquals(res.data_.getMinion_p1(0).getHealth(), health0 - 1);
-		assertEquals(res.data_.getMinion_p1(0).getAttack(), attack0);
+		assertEquals(res.data_.getMinion_p1(0).getTotalAttack(), attack0);
 		assertEquals(res.data_.getMinion_p1(1).getHealth(), health0 - 1);
-		assertEquals(res.data_.getMinion_p1(1).getAttack(), attack0);
+		assertEquals(res.data_.getMinion_p1(1).getTotalAttack(), attack0);
 		
 	}
 }

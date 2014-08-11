@@ -106,11 +106,11 @@ public class TestGnomishInventor {
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), health0);
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), health1 - 1);
 
-		assertEquals(board.data_.getMinion_p0(0).getAttack(), attack0);
-		assertEquals(board.data_.getMinion_p0(1).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p0(2).getAttack(), attack0);
-		assertEquals(board.data_.getMinion_p1(0).getAttack(), attack0);
-		assertEquals(board.data_.getMinion_p1(1).getAttack(), attack0);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), attack0);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p0(2).getTotalAttack(), attack0);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), attack0);
+		assertEquals(board.data_.getMinion_p1(1).getTotalAttack(), attack0);
 	}
 	
 	@Test

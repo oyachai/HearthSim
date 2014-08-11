@@ -73,7 +73,7 @@ public class TestAncestralHealing {
 			assertTrue(res.data_.getMana_p0() == 2);
 			assertTrue(res.data_.getNumCards_hand() == 0);
 			assertTrue(res.data_.getMinion_p0(0).getHealth() == health0);
-			assertTrue(res.data_.getMinion_p0(0).getAttack() == attack0);
+			assertTrue(res.data_.getMinion_p0(0).getTotalAttack() == attack0);
 			assertTrue(res.data_.getMinion_p0(0).getMaxHealth() == health0);
 			assertTrue(res.data_.getMinion_p0(0).getTaunt());
 		} catch (HSInvalidPlayerIndexException e) {
@@ -95,7 +95,7 @@ public class TestAncestralHealing {
 			assertTrue(res.data_.getMana_p0() == 2);
 			assertTrue(res.data_.getNumCards_hand() == 0);
 			assertTrue(res.data_.getMinion_p0(0).getHealth() == health0);
-			assertTrue(res.data_.getMinion_p0(0).getAttack() == attack0);
+			assertTrue(res.data_.getMinion_p0(0).getTotalAttack() == attack0);
 			assertTrue(res.data_.getMinion_p0(0).getMaxHealth() == health0);
 			assertTrue(res.data_.getMinion_p0(0).getTaunt());
 		} catch (HSInvalidPlayerIndexException e) {
@@ -117,7 +117,7 @@ public class TestAncestralHealing {
 			assertTrue(res.data_.getMana_p0() == 2);
 			assertTrue(res.data_.getNumCards_hand() == 0);
 			assertTrue(res.data_.getMinion_p1(0).getHealth() == health0);
-			assertTrue(res.data_.getMinion_p1(0).getAttack() == attack0);
+			assertTrue(res.data_.getMinion_p1(0).getTotalAttack() == attack0);
 			assertTrue(res.data_.getMinion_p1(0).getMaxHealth() == health0);
 			assertTrue(res.data_.getMinion_p1(0).getTaunt());
 		} catch (HSInvalidPlayerIndexException e) {
@@ -139,7 +139,7 @@ public class TestAncestralHealing {
 			assertTrue(res.data_.getMana_p0() == 2);
 			assertTrue(res.data_.getNumCards_hand() == 0);
 			assertTrue(res.data_.getMinion_p1(0).getHealth() == health0);
-			assertTrue(res.data_.getMinion_p1(0).getAttack() == attack0);
+			assertTrue(res.data_.getMinion_p1(0).getTotalAttack() == attack0);
 			assertTrue(res.data_.getMinion_p1(0).getMaxHealth() == health0);
 			assertTrue(res.data_.getMinion_p1(0).getTaunt());
 		} catch (HSInvalidPlayerIndexException e) {

@@ -100,10 +100,10 @@ public class TestArchmageAntonidas {
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), 2);
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), 7);
 
-		assertEquals(board.data_.getMinion_p0(0).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p0(1).getAttack(), 7);
-		assertEquals(board.data_.getMinion_p1(0).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p1(1).getAttack(), 7);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), 7);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p1(1).getTotalAttack(), 7);
 	}
 	
 	@Test
@@ -128,11 +128,11 @@ public class TestArchmageAntonidas {
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), 2);
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), 7);
 
-		assertEquals(board.data_.getMinion_p0(0).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p0(1).getAttack(), 7);
-		assertEquals(board.data_.getMinion_p0(2).getAttack(), 6);
-		assertEquals(board.data_.getMinion_p1(0).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p1(1).getAttack(), 7);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), 7);
+		assertEquals(board.data_.getMinion_p0(2).getTotalAttack(), 6);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p1(1).getTotalAttack(), 7);
 		
 		
 		
@@ -155,10 +155,10 @@ public class TestArchmageAntonidas {
 		assertEquals(board.data_.getMinion_p0(2).getHealth(), 7);
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), 7);
 
-		assertEquals(board.data_.getMinion_p0(0).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p0(1).getAttack(), 7);
-		assertEquals(board.data_.getMinion_p0(2).getAttack(), 6);
-		assertEquals(board.data_.getMinion_p1(0).getAttack(), 6);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), 7);
+		assertEquals(board.data_.getMinion_p0(2).getTotalAttack(), 6);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), 6);
 		
 		//----------------------------------------------------------
 		// flipped, p1 should not get a Fireball
@@ -182,9 +182,9 @@ public class TestArchmageAntonidas {
 		assertEquals(ret.data_.getMinion_p1(0).getHealth(), 7);
 		assertEquals(ret.data_.getMinion_p1(1).getHealth(), 7);
 
-		assertEquals(ret.data_.getMinion_p0(0).getAttack(), 6);
-		assertEquals(ret.data_.getMinion_p1(0).getAttack(), 6);
-		assertEquals(ret.data_.getMinion_p1(1).getAttack(), 5);
+		assertEquals(ret.data_.getMinion_p0(0).getTotalAttack(), 6);
+		assertEquals(ret.data_.getMinion_p1(0).getTotalAttack(), 6);
+		assertEquals(ret.data_.getMinion_p1(1).getTotalAttack(), 5);
 		
 	}
 

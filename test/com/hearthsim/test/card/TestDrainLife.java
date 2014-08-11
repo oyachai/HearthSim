@@ -65,10 +65,10 @@ public class TestDrainLife {
 		assertTrue(board.data_.getMinion_p0(1).getHealth() == health1 - 1);
 		assertTrue(board.data_.getMinion_p1(0).getHealth() == health0);
 		assertTrue(board.data_.getMinion_p1(1).getHealth() == health1 - 1);
-		assertTrue(board.data_.getMinion_p0(0).getAttack() == attack0);
-		assertTrue(board.data_.getMinion_p0(1).getAttack() == attack0);
-		assertTrue(board.data_.getMinion_p1(0).getAttack() == attack0);
-		assertTrue(board.data_.getMinion_p1(1).getAttack() == attack0);
+		assertTrue(board.data_.getMinion_p0(0).getTotalAttack() == attack0);
+		assertTrue(board.data_.getMinion_p0(1).getTotalAttack() == attack0);
+		assertTrue(board.data_.getMinion_p1(0).getTotalAttack() == attack0);
+		assertTrue(board.data_.getMinion_p1(1).getTotalAttack() == attack0);
 		assertFalse(board.data_.getMinion_p0(0).getCharge());
 		assertFalse(board.data_.getMinion_p0(1).getCharge());
 	}
@@ -91,10 +91,10 @@ public class TestDrainLife {
 		assertTrue(board.data_.getMinion_p0(1).getHealth() == health1 - 1);
 		assertTrue(board.data_.getMinion_p1(0).getHealth() == health0);
 		assertTrue(board.data_.getMinion_p1(1).getHealth() == health1 - 1);
-		assertTrue(board.data_.getMinion_p0(0).getAttack() == attack0);
-		assertTrue(board.data_.getMinion_p0(1).getAttack() == attack0);
-		assertTrue(board.data_.getMinion_p1(0).getAttack() == attack0);
-		assertTrue(board.data_.getMinion_p1(1).getAttack() == attack0);
+		assertTrue(board.data_.getMinion_p0(0).getTotalAttack() == attack0);
+		assertTrue(board.data_.getMinion_p0(1).getTotalAttack() == attack0);
+		assertTrue(board.data_.getMinion_p1(0).getTotalAttack() == attack0);
+		assertTrue(board.data_.getMinion_p1(1).getTotalAttack() == attack0);
 		assertFalse(board.data_.getMinion_p0(0).getCharge());
 		assertFalse(board.data_.getMinion_p0(1).getCharge());
 	}
@@ -119,10 +119,10 @@ public class TestDrainLife {
 		assertTrue(board.data_.getMinion_p0(1).getHealth() == health1 - 1);
 		assertTrue(board.data_.getMinion_p1(0).getHealth() == health0);
 		assertTrue(board.data_.getMinion_p1(1).getHealth() == health1 - 1);
-		assertTrue(board.data_.getMinion_p0(0).getAttack() == attack0);
-		assertTrue(board.data_.getMinion_p0(1).getAttack() == attack0);
-		assertTrue(board.data_.getMinion_p1(0).getAttack() == attack0);
-		assertTrue(board.data_.getMinion_p1(1).getAttack() == attack0);
+		assertTrue(board.data_.getMinion_p0(0).getTotalAttack() == attack0);
+		assertTrue(board.data_.getMinion_p0(1).getTotalAttack() == attack0);
+		assertTrue(board.data_.getMinion_p1(0).getTotalAttack() == attack0);
+		assertTrue(board.data_.getMinion_p1(1).getTotalAttack() == attack0);
 		assertFalse(board.data_.getMinion_p0(0).getCharge());
 		assertFalse(board.data_.getMinion_p0(1).getCharge());
 	}

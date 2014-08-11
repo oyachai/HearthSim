@@ -94,10 +94,10 @@ public class TestBloodlust {
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), health0);
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), health1 - 1);
 		
-		assertEquals(board.data_.getMinion_p0(0).getAttack(), attack0);
-		assertEquals(board.data_.getMinion_p0(1).getAttack(), attack0);
-		assertEquals(board.data_.getMinion_p1(0).getAttack(), attack0);
-		assertEquals(board.data_.getMinion_p1(1).getAttack(), attack0);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), attack0 + 3);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), attack0 + 3);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), attack0);
+		assertEquals(board.data_.getMinion_p1(1).getTotalAttack(), attack0);
 		
 		Minion theMinion = board.data_.getMinion_p0(0);
 		target = board.data_.getCharacter(1, 0);
@@ -124,10 +124,10 @@ public class TestBloodlust {
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), health0);
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), health1 - 1);
 		
-		assertEquals(board.data_.getMinion_p0(0).getAttack(), attack0);
-		assertEquals(board.data_.getMinion_p0(1).getAttack(), attack0);
-		assertEquals(board.data_.getMinion_p1(0).getAttack(), attack0);
-		assertEquals(board.data_.getMinion_p1(1).getAttack(), attack0);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), attack0 + 3);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), attack0 + 3);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), attack0);
+		assertEquals(board.data_.getMinion_p1(1).getTotalAttack(), attack0);
 		
 		Minion theMinion = board.data_.getMinion_p0(0);
 		target = board.data_.getCharacter(1, 2);

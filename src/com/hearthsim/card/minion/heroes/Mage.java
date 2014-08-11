@@ -78,7 +78,7 @@ public class Mage extends Hero {
 			return null;
 		}
 		toRet = targetMinion.takeDamage((byte)1, 0, targetPlayerIndex, toRet, deckPlayer0, deckPlayer1);
-		if (targetMinion.getHealth() <= 0) {
+		if (targetMinion.getTotalHealth() <= 0) {
 			toRet = targetMinion.destroyed(targetPlayerIndex, toRet, deckPlayer0, deckPlayer1);
 			toRet.data_.removeMinion(targetPlayerIndex, targetMinion);
 		}

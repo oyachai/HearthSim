@@ -98,8 +98,8 @@ public class TestDreadInfernal {
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), health0 - 1);
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), health1 - 1 - 1);
 		
-		assertEquals(board.data_.getMinion_p0(0).getAttack(), attack0);
-		assertEquals(board.data_.getMinion_p0(1).getAttack(), 6);
-		assertEquals(board.data_.getMinion_p0(2).getAttack(), attack0);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), attack0);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), 6);
+		assertEquals(board.data_.getMinion_p0(2).getTotalAttack(), attack0);
 	}
 }

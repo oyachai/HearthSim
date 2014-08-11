@@ -105,9 +105,9 @@ public class TestAcidicSwampOoze {
 		fl = fl.data_.getCard_hand_p0(0).useOn(0, target, fl, deck, null);
 		board = new HearthTreeNode(fl.data_.flipPlayers());
 		
-		assertEquals(board.data_.getHero_p0().getAttack(), 0);
+		assertEquals(board.data_.getHero_p0().getTotalAttack(), 0);
 		assertEquals(board.data_.getHero_p0().getWeaponCharge(), 0);
-		assertEquals(board.data_.getHero_p1().getAttack(), 3);
+		assertEquals(board.data_.getHero_p1().getTotalAttack(), 3);
 		assertEquals(board.data_.getHero_p1().getWeaponCharge(), 2);
 
 		target = board.data_.getCharacter(0, 2);
@@ -121,9 +121,9 @@ public class TestAcidicSwampOoze {
 		assertEquals(board.data_.getHero_p0().getHealth(), 30);
 		assertEquals(board.data_.getHero_p1().getHealth(), 30);
 
-		assertEquals(board.data_.getHero_p0().getAttack(), 0);
+		assertEquals(board.data_.getHero_p0().getTotalAttack(), 0);
 		assertEquals(board.data_.getHero_p0().getWeaponCharge(), 0);
-		assertEquals(board.data_.getHero_p1().getAttack(), 0);
+		assertEquals(board.data_.getHero_p1().getTotalAttack(), 0);
 		assertEquals(board.data_.getHero_p1().getWeaponCharge(), 0);
 
 		assertEquals(board.data_.getMinion_p0(0).getHealth(), health0);

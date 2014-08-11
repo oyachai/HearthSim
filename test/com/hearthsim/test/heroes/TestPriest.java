@@ -94,10 +94,10 @@ public class TestPriest {
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), 5);
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), 5);
 
-		assertEquals(board.data_.getMinion_p0(0).getAttack(), 4);
-		assertEquals(board.data_.getMinion_p0(1).getAttack(), 4);
-		assertEquals(board.data_.getMinion_p1(0).getAttack(), 4);
-		assertEquals(board.data_.getMinion_p1(1).getAttack(), 4);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), 4);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), 4);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), 4);
+		assertEquals(board.data_.getMinion_p1(1).getTotalAttack(), 4);
 		
 		
 		target = board.data_.getCharacter(1, 0);
@@ -115,10 +115,10 @@ public class TestPriest {
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), 5);
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), 5);
 
-		assertEquals(board.data_.getMinion_p0(0).getAttack(), 4);
-		assertEquals(board.data_.getMinion_p0(1).getAttack(), 4);
-		assertEquals(board.data_.getMinion_p1(0).getAttack(), 4);
-		assertEquals(board.data_.getMinion_p1(1).getAttack(), 4);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), 4);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), 4);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), 4);
+		assertEquals(board.data_.getMinion_p1(1).getTotalAttack(), 4);
 		
 		minion.hasAttacked(false);
 		target = board.data_.getCharacter(1, 2);
@@ -135,10 +135,10 @@ public class TestPriest {
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), 5);
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), 1);
 
-		assertEquals(board.data_.getMinion_p0(0).getAttack(), 4);
-		assertEquals(board.data_.getMinion_p0(1).getAttack(), 4);
-		assertEquals(board.data_.getMinion_p1(0).getAttack(), 4);
-		assertEquals(board.data_.getMinion_p1(1).getAttack(), 4);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), 4);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), 4);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), 4);
+		assertEquals(board.data_.getMinion_p1(1).getTotalAttack(), 4);
 		
 		minion.hasAttacked(false);
 		target = board.data_.getCharacter(1, 2);
@@ -155,10 +155,10 @@ public class TestPriest {
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), 5);
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), 3);
 
-		assertEquals(board.data_.getMinion_p0(0).getAttack(), 4);
-		assertEquals(board.data_.getMinion_p0(1).getAttack(), 4);
-		assertEquals(board.data_.getMinion_p1(0).getAttack(), 4);
-		assertEquals(board.data_.getMinion_p1(1).getAttack(), 4);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), 4);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), 4);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), 4);
+		assertEquals(board.data_.getMinion_p1(1).getTotalAttack(), 4);
 		
 	}
 	
@@ -206,9 +206,9 @@ public class TestPriest {
 		assertEquals(bestPlay.data_.getMinion_p0(1).getHealth(), 1);
 		assertEquals(bestPlay.data_.getMinion_p1(0).getHealth(), 5);
 
-		assertEquals(bestPlay.data_.getMinion_p0(0).getAttack(), 4);
-		assertEquals(bestPlay.data_.getMinion_p0(1).getAttack(), 4);
-		assertEquals(bestPlay.data_.getMinion_p1(0).getAttack(), 4);
+		assertEquals(bestPlay.data_.getMinion_p0(0).getTotalAttack(), 4);
+		assertEquals(bestPlay.data_.getMinion_p0(1).getTotalAttack(), 4);
+		assertEquals(bestPlay.data_.getMinion_p1(0).getTotalAttack(), 4);
 		
 	}
 	
@@ -260,9 +260,9 @@ public class TestPriest {
 		assertEquals(bestPlay.data_.getMinion_p0(1).getHealth(), 1);
 		assertEquals(bestPlay.data_.getMinion_p1(0).getHealth(), 5);
 
-		assertEquals(bestPlay.data_.getMinion_p0(0).getAttack(), 4);
-		assertEquals(bestPlay.data_.getMinion_p0(1).getAttack(), 4);
-		assertEquals(bestPlay.data_.getMinion_p1(0).getAttack(), 4);
+		assertEquals(bestPlay.data_.getMinion_p0(0).getTotalAttack(), 4);
+		assertEquals(bestPlay.data_.getMinion_p0(1).getTotalAttack(), 4);
+		assertEquals(bestPlay.data_.getMinion_p1(0).getTotalAttack(), 4);
 		
 	}
 }

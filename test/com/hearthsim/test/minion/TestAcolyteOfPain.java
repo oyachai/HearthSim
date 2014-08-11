@@ -99,11 +99,11 @@ public class TestAcolyteOfPain {
 		assertEquals(board.data_.getMinion_p0(2).getHealth(), 3);
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), 2);
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), 2);
-		assertEquals(board.data_.getMinion_p0(0).getAttack(), 1);
-		assertEquals(board.data_.getMinion_p0(1).getAttack(), 1);
-		assertEquals(board.data_.getMinion_p0(2).getAttack(), 1);
-		assertEquals(board.data_.getMinion_p1(0).getAttack(), 1);
-		assertEquals(board.data_.getMinion_p1(1).getAttack(), 1);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), 1);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), 1);
+		assertEquals(board.data_.getMinion_p0(2).getTotalAttack(), 1);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), 1);
+		assertEquals(board.data_.getMinion_p1(1).getTotalAttack(), 1);
 	}
 	
 	@Test

@@ -98,11 +98,11 @@ public class TestGurubashiBerserker {
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), health0);
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), health1 - 1);
 
-		assertEquals(board.data_.getMinion_p0(0).getAttack(), attack0);
-		assertEquals(board.data_.getMinion_p0(1).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p0(2).getAttack(), attack0);
-		assertEquals(board.data_.getMinion_p1(0).getAttack(), attack0);
-		assertEquals(board.data_.getMinion_p1(1).getAttack(), attack0);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), attack0);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p0(2).getTotalAttack(), attack0);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), attack0);
+		assertEquals(board.data_.getMinion_p1(1).getTotalAttack(), attack0);
 	}
 
 	@Test
@@ -126,11 +126,11 @@ public class TestGurubashiBerserker {
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), health0);
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), health1 - 1);
 
-		assertEquals(board.data_.getMinion_p0(0).getAttack(), attack0);
-		assertEquals(board.data_.getMinion_p0(1).getAttack(), 2);
-		assertEquals(board.data_.getMinion_p0(2).getAttack(), attack0);
-		assertEquals(board.data_.getMinion_p1(0).getAttack(), attack0);
-		assertEquals(board.data_.getMinion_p1(1).getAttack(), attack0);
+		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), attack0);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), 2);
+		assertEquals(board.data_.getMinion_p0(2).getTotalAttack(), attack0);
+		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), attack0);
+		assertEquals(board.data_.getMinion_p1(1).getTotalAttack(), attack0);
 		
 		HearthTreeNode flipped = new HearthTreeNode(board.data_.flipPlayers());
 		Minion minion = flipped.data_.getMinion_p0(0);
@@ -150,11 +150,11 @@ public class TestGurubashiBerserker {
 		assertEquals(ret.data_.getMinion_p0(0).getHealth(), health0 - 2);
 		assertEquals(ret.data_.getMinion_p0(1).getHealth(), health1 - 1);
 
-		assertEquals(ret.data_.getMinion_p1(0).getAttack(), attack0);
-		assertEquals(ret.data_.getMinion_p1(1).getAttack(), 5);
-		assertEquals(ret.data_.getMinion_p1(2).getAttack(), attack0);
-		assertEquals(ret.data_.getMinion_p0(0).getAttack(), attack0);
-		assertEquals(ret.data_.getMinion_p0(1).getAttack(), attack0);
+		assertEquals(ret.data_.getMinion_p1(0).getTotalAttack(), attack0);
+		assertEquals(ret.data_.getMinion_p1(1).getTotalAttack(), 5);
+		assertEquals(ret.data_.getMinion_p1(2).getTotalAttack(), attack0);
+		assertEquals(ret.data_.getMinion_p0(0).getTotalAttack(), attack0);
+		assertEquals(ret.data_.getMinion_p0(1).getTotalAttack(), attack0);
 
 	}
 }
