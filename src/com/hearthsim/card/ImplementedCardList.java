@@ -521,6 +521,11 @@ public class ImplementedCardList {
             map_.put(KorkronElite.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(LayOnHands.class, "Lay on Hands", "spell", "paladin", "epic", "Restore 8 Health. Draw 3 cards", 8, -1, -1);
+            list_.add(card);
+            map_.put(LayOnHands.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(LeperGnome.class, "Leper Gnome", "minion", "neutral", "common", "Deathrattle Deal 2 damage to the enemy hero", 1, 2, 1);
             list_.add(card);
             map_.put(LeperGnome.class, card);
