@@ -551,6 +551,11 @@ public class ImplementedCardList {
             map_.put(MagmaRager.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(Malygos.class, "Malygos", "minion", "neutral", "legendary", "Spell Damage +5", 9, 4, 12);
+            list_.add(card);
+            map_.put(Malygos.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(MarkOfTheWild.class, "Mark of the Wild", "spell", "neutral", "free", "Give a minion Taunt and +2/+2. (+2 Attack/+2 Health)", 2, -1, -1);
             list_.add(card);
             map_.put(MarkOfTheWild.class, card);
