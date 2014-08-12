@@ -106,6 +106,11 @@ public class ImplementedCardList {
             map_.put(AncestralSpirit.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(AncientOfLore.class, "Ancient of Lore", "minion", "neutral", "epic", "Choose One  Draw 2 cards; or Restore 5 Health", 7, 5, 5);
+            list_.add(card);
+            map_.put(AncientOfLore.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(AngryChicken.class, "Angry Chicken", "minion", "neutral", "rare", "Enrage +5 Attack", 1, 1, 1);
             list_.add(card);
             map_.put(AngryChicken.class, card);

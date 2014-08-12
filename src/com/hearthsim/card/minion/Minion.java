@@ -668,7 +668,7 @@ public class Minion extends Card {
 		HearthTreeNode toRet = this.summonMinion_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
 		
 		if (toRet != null) {
-			if (wasTransformed) {
+			if (!wasTransformed) {
 				//Notify all that a minion is summoned
 				toRet = toRet.data_.getHero_p0().minionSummonedEvent(0, targetPlayerIndex, this, toRet, deckPlayer0, deckPlayer1);
 				for (Iterator<Minion> iter = toRet.data_.getMinions_p0().iterator(); iter.hasNext();) {
@@ -683,7 +683,7 @@ public class Minion extends Card {
 						toRet = minion.minionSummonedEvent(1, targetPlayerIndex, this, toRet, deckPlayer0, deckPlayer1);
 				}
 			} else {
-				//Notify all that a minion is summoned
+				//Notify all that a minion is transformed
 				toRet = toRet.data_.getHero_p0().minionTransformedEvent(0, targetPlayerIndex, this, toRet, deckPlayer0, deckPlayer1);
 				for (Iterator<Minion> iter = toRet.data_.getMinions_p0().iterator(); iter.hasNext();) {
 					Minion minion = iter.next();
