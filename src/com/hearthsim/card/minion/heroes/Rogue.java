@@ -10,7 +10,7 @@ import com.hearthsim.util.tree.HearthTreeNode;
 public class Rogue extends Hero {
 	
 	public Rogue() {
-		this("", (byte)30);
+		this("Rogue", (byte)30);
 	}
 
 	public Rogue(String name, byte health) {

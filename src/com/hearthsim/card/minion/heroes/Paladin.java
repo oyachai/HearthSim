@@ -11,7 +11,7 @@ import com.hearthsim.util.tree.HearthTreeNode;
 public class Paladin extends Hero {
 
 	public Paladin() {
-		this("", (byte)30);
+		this("Paladin", (byte)30);
 	}
 
 	public Paladin(String name, byte health) {

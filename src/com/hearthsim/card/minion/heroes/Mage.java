@@ -10,7 +10,7 @@ import com.hearthsim.util.tree.HearthTreeNode;
 public class Mage extends Hero {
 	
 	public Mage() {
-		this("", (byte)30);
+		this("Mage", (byte)30);
 	}
 
 	public Mage(String name, byte health) {

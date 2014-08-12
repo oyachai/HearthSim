@@ -10,7 +10,7 @@ import com.hearthsim.util.tree.HearthTreeNode;
 public class Warrior extends Hero {
 	
 	public Warrior() {
-		this("", (byte)30);
+		this("Warrior", (byte)30);
 	}
 
 	public Warrior(String name, byte health) {
