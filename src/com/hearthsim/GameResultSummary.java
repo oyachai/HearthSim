@@ -15,6 +15,7 @@ public class GameResultSummary {
 	public JSONObject toJSON() {
 		JSONObject json = new JSONObject();
 		
+		json.put("first_player", result_.firstPlayerIndex_);
 		json.put("winner", result_.winnerPlayerIndex_);
 		json.put("duration", result_.gameDuration_);
 		
