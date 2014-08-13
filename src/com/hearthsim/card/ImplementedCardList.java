@@ -111,6 +111,11 @@ public class ImplementedCardList {
             map_.put(AncientOfLore.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(AncientOfWar.class, "Ancient of War", "minion", "neutral", "epic", "Choose One  Taunt and +5 Health; or +5 Attack", 7, 5, 5);
+            list_.add(card);
+            map_.put(AncientOfWar.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(AngryChicken.class, "Angry Chicken", "minion", "neutral", "rare", "Enrage +5 Attack", 1, 1, 1);
             list_.add(card);
             map_.put(AngryChicken.class, card);

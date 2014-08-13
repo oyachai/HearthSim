@@ -13,7 +13,7 @@ Ancestral Spirit|spell|shaman|rare|2|||Give a minion 'Deathrattle: Resummon this
 Ancient Brewmaster|minion|neutral|common|4|5|4|Battlecry: Return a friendly minion from the battlefield to your hand|FALSE
 Ancient Mage|minion|neutral|rare|4|2|5|Battlecry: Give adjacent minions Spell Damage +1|FALSE
 Ancient of Lore|minion|neutral|epic|7|5|5|Choose One - Draw 2 cards; or Restore 5 Health|TRUE
-Ancient of War|minion|neutral|epic|7|5|5|Choose One - Taunt and +5 Health; or +5 Attack|FALSE
+Ancient of War|minion|neutral|epic|7|5|5|Choose One - Taunt and +5 Health; or +5 Attack|TRUE
 Ancient Watcher|minion|neutral|rare|2|4|5|Can't Attack|FALSE
 Angry Chicken|minion|neutral|rare|1|1|1|Enrage: +5 Attack|TRUE
 Animal Companion|spell|hunter|free|3|||Summon a random Beast Companion|FALSE
