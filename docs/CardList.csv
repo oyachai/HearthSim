@@ -29,7 +29,7 @@ Archmage Antonidas|minion|mage|legendary|7|5|7|Whenever you cast a spell, put a 
 Argent Commander|minion|neutral|rare|6|4|2|Charge, Divine Shield|TRUE
 Argent Protector|minion|paladin|common|2|2|2|Battlecry: Give a friendly minion Divine Shield|TRUE
 Argent Squire|minion|neutral|common|1|1|1|Divine Shield|TRUE
-Armorsmith|minion|warrior|rare|2|1|4|Whenever a friendly minion takes damage, gain 1 Armor|FALSE
+Armorsmith|minion|warrior|rare|2|1|4|Whenever a friendly minion takes damage, gain 1 Armor|TRUE
 Assassin's Blade|weapon|rogue|free|5|3|||TRUE
 Assassinate|spell|rogue|free|5|||Destroy an enemy minion|TRUE
 Auchenai Soulpriest|minion|priest|rare|4|3|5|Your cards and powers that restore Health now deal damage instead|FALSE

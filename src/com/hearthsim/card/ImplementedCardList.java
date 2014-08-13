@@ -171,6 +171,11 @@ public class ImplementedCardList {
             map_.put(ArgentSquire.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(Armorsmith.class, "Armorsmith", "minion", "warrior", "rare", "Whenever a friendly minion takes damage, gain 1 Armor", 2, 1, 4);
+            list_.add(card);
+            map_.put(Armorsmith.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(AssassinsBlade.class, "Assassins Blade", "weapon", "rogue", "free", "", 5, 3, -1);
             list_.add(card);
             map_.put(AssassinsBlade.class, card);
