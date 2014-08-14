@@ -296,6 +296,11 @@ public class ImplementedCardList {
             map_.put(DeadlyPoison.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(DefenderOfArgus.class, "Defender of Argus", "minion", "neutral", "rare", "Battlecry Give adjacent minions +1/+1 and Taunt", 4, 2, 3);
+            list_.add(card);
+            map_.put(DefenderOfArgus.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(DivineSpirit.class, "Divine Spirit", "spell", "priest", "free", "Double a minions Health", 2, -1, -1);
             list_.add(card);
             map_.put(DivineSpirit.class, card);
