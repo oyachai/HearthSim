@@ -281,6 +281,11 @@ public class ImplementedCardList {
             map_.put(Corruption.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(CruelTaskmaster.class, "Cruel Taskmaster", "minion", "warrior", "common", "Battlecry Deal 1 damage to a minion and give it +2 Attack", 2, 2, 2);
+            list_.add(card);
+            map_.put(CruelTaskmaster.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(DalaranMage.class, "Dalaran Mage", "minion", "neutral", "free", "Spell Damage +1", 3, 1, 4);
             list_.add(card);
             map_.put(DalaranMage.class, card);
