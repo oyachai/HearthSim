@@ -4,6 +4,7 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
+import com.hearthsim.util.BoardStateFactory;
 import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.tree.HearthTreeNode;
 import com.json.JSONObject;
@@ -159,12 +160,13 @@ public class Hero extends Minion {
 		if (boardState.data_.getMana_p0() < HERO_ABILITY_COST)
 			return null;
 		
-		boardState = this.useHeroAbility_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
-		if (boardState != null) {
-			boardState.data_.setMana_p0(boardState.data_.getMana_p0() - HERO_ABILITY_COST);
+		HearthTreeNode toRet = this.useHeroAbility_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
+		if (toRet != null) {
+			toRet.data_.setMana_p0(toRet.data_.getMana_p0() - HERO_ABILITY_COST);
 			this.hasBeenUsed_ = true;
+			toRet = BoardStateFactory.handleDeadMinions(toRet, deckPlayer0, deckPlayer1);
 		}
-		return boardState;
+		return toRet;
 	}
 	
 	public HearthTreeNode useHeroAbility_core(
@@ -194,16 +196,24 @@ public class Hero extends Minion {
 	 * @throws HSInvalidPlayerIndexException
 	 */
 	@Override
-	public HearthTreeNode takeDamage(byte damage, int attackerPlayerIndex, int thisPlayerIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean isSpellDamage) throws HSInvalidPlayerIndexException {
-
+	public HearthTreeNode takeDamage(
+			byte damage,
+			int attackerPlayerIndex,
+			int thisPlayerIndex,
+			HearthTreeNode boardState,
+			Deck deckPlayer0, 
+			Deck deckPlayer1,
+			boolean isSpellDamage,
+			boolean handleMinionDeath)
+		throws HSException
+	{
 		HearthTreeNode toRet = boardState;
 		byte damageRemaining = (byte)(damage - armor_);
 		if (damageRemaining > 0) {
 			armor_ = 0;
-			toRet = super.takeDamage(damageRemaining, attackerPlayerIndex, thisPlayerIndex, toRet, deckPlayer0, deckPlayer1, isSpellDamage);
+			toRet = super.takeDamage(damageRemaining, attackerPlayerIndex, thisPlayerIndex, toRet, deckPlayer0, deckPlayer1, isSpellDamage, handleMinionDeath);
 		} else {
 			armor_ = (byte)(armor_ - damage);
-			toRet = super.takeDamage((byte)0, attackerPlayerIndex, thisPlayerIndex, toRet, deckPlayer0, deckPlayer1, isSpellDamage);
 		}
 		return toRet;
 	}

@@ -153,11 +153,11 @@ public class TestLootHorder {
 				);
 		
 		//remove the loot hoarder from player0, add a Wisp
-		board.data_.removeMinion_p0(0);
+		board.data_.removeMinion(0, 0);
 		board.data_.placeMinion(0, new Wisp());
 		
 		//remove the Bloodfen Raptor from player0, add a Loot Hoarder
-		board.data_.removeMinion_p1(0);
+		board.data_.removeMinion(1, 0);
 		board.data_.placeMinion(1, new LootHoarder());
 
 		Hero hero = new Hero();

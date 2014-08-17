@@ -10,6 +10,7 @@ import org.junit.Test;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.minion.concrete.Abomination;
 import com.hearthsim.card.minion.concrete.ElvenArcher;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
@@ -32,12 +33,16 @@ public class TestElvenArcher {
 		Minion minion0_1 = new Minion("" + 0, mana, attack0, (byte)(health1 - 1), attack0, health1, health1);
 		Minion minion1_0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
 		Minion minion1_1 = new Minion("" + 0, mana, attack0, (byte)(health1 - 1), attack0, health1, health1);
+		Minion minion1_2 = new Abomination();
+		
+		minion1_2.setHealth((byte)1);
 		
 		board.data_.placeMinion(0, minion0_0);
 		board.data_.placeMinion(0, minion0_1);
 		
 		board.data_.placeMinion(1, minion1_0);
 		board.data_.placeMinion(1, minion1_1);
+		board.data_.placeMinion(1, minion1_2);
 		
 		Card cards[] = new Card[10];
 		for (int index = 0; index < 10; ++index) {
@@ -67,7 +72,7 @@ public class TestElvenArcher {
 		assertTrue(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 1);
 		assertEquals(board.data_.getNumMinions_p0(), 2);
-		assertEquals(board.data_.getNumMinions_p1(), 2);
+		assertEquals(board.data_.getNumMinions_p1(), 3);
 		assertEquals(board.data_.getHero_p0().getHealth(), 30);
 		assertEquals(board.data_.getHero_p1().getHealth(), 30);
 		assertEquals(board.data_.getMinion_p0(0).getHealth(), health0);
@@ -86,7 +91,7 @@ public class TestElvenArcher {
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 0);
 		assertEquals(board.data_.getNumMinions_p0(), 3);
-		assertEquals(board.data_.getNumMinions_p1(), 2);
+		assertEquals(board.data_.getNumMinions_p1(), 3);
 		assertEquals(board.data_.getMana_p0(), 6);
 		assertEquals(board.data_.getMana_p1(), 4);
 		assertEquals(board.data_.getHero_p0().getHealth(), 30);
@@ -101,13 +106,13 @@ public class TestElvenArcher {
 		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), 1);
 		assertEquals(board.data_.getMinion_p0(2).getTotalAttack(), attack0);
 		
-		assertEquals(board.numChildren(), 6);
+		assertEquals(board.numChildren(), 7);
 		
 		{
 			HearthTreeNode child = board.getChildren().get(0);
 			assertEquals(child.data_.getNumCards_hand(), 0);
 			assertEquals(child.data_.getNumMinions_p0(), 3);
-			assertEquals(child.data_.getNumMinions_p1(), 2);
+			assertEquals(child.data_.getNumMinions_p1(), 3);
 			assertEquals(child.data_.getMana_p0(), 6);
 			assertEquals(child.data_.getMana_p1(), 4);
 			assertEquals(child.data_.getHero_p0().getHealth(), 29);
@@ -127,7 +132,7 @@ public class TestElvenArcher {
 			HearthTreeNode child = board.getChildren().get(1);
 			assertEquals(child.data_.getNumCards_hand(), 0);
 			assertEquals(child.data_.getNumMinions_p0(), 3);
-			assertEquals(child.data_.getNumMinions_p1(), 2);
+			assertEquals(child.data_.getNumMinions_p1(), 3);
 			assertEquals(child.data_.getMana_p0(), 6);
 			assertEquals(child.data_.getMana_p1(), 4);
 			assertEquals(child.data_.getHero_p0().getHealth(), 30);
@@ -147,7 +152,7 @@ public class TestElvenArcher {
 			HearthTreeNode child = board.getChildren().get(2);
 			assertEquals(child.data_.getNumCards_hand(), 0);
 			assertEquals(child.data_.getNumMinions_p0(), 3);
-			assertEquals(child.data_.getNumMinions_p1(), 2);
+			assertEquals(child.data_.getNumMinions_p1(), 3);
 			assertEquals(child.data_.getMana_p0(), 6);
 			assertEquals(child.data_.getMana_p1(), 4);
 			assertEquals(child.data_.getHero_p0().getHealth(), 30);
@@ -167,7 +172,7 @@ public class TestElvenArcher {
 			HearthTreeNode child = board.getChildren().get(3);
 			assertEquals(child.data_.getNumCards_hand(), 0);
 			assertEquals(child.data_.getNumMinions_p0(), 3);
-			assertEquals(child.data_.getNumMinions_p1(), 2);
+			assertEquals(child.data_.getNumMinions_p1(), 3);
 			assertEquals(child.data_.getMana_p0(), 6);
 			assertEquals(child.data_.getMana_p1(), 4);
 			assertEquals(child.data_.getHero_p0().getHealth(), 30);
@@ -187,7 +192,7 @@ public class TestElvenArcher {
 			HearthTreeNode child = board.getChildren().get(4);
 			assertEquals(child.data_.getNumCards_hand(), 0);
 			assertEquals(child.data_.getNumMinions_p0(), 3);
-			assertEquals(child.data_.getNumMinions_p1(), 2);
+			assertEquals(child.data_.getNumMinions_p1(), 3);
 			assertEquals(child.data_.getMana_p0(), 6);
 			assertEquals(child.data_.getMana_p1(), 4);
 			assertEquals(child.data_.getHero_p0().getHealth(), 30);
@@ -207,7 +212,7 @@ public class TestElvenArcher {
 			HearthTreeNode child = board.getChildren().get(5);
 			assertEquals(child.data_.getNumCards_hand(), 0);
 			assertEquals(child.data_.getNumMinions_p0(), 3);
-			assertEquals(child.data_.getNumMinions_p1(), 2);
+			assertEquals(child.data_.getNumMinions_p1(), 3);
 			assertEquals(child.data_.getMana_p0(), 6);
 			assertEquals(child.data_.getMana_p1(), 4);
 			assertEquals(child.data_.getHero_p0().getHealth(), 30);
@@ -221,6 +226,24 @@ public class TestElvenArcher {
 			assertEquals(child.data_.getMinion_p0(0).getTotalAttack(), attack0);
 			assertEquals(child.data_.getMinion_p0(1).getTotalAttack(), 1);
 			assertEquals(child.data_.getMinion_p0(2).getTotalAttack(), attack0);
+		}		
+
+		{
+			HearthTreeNode child = board.getChildren().get(6);
+			assertEquals(child.data_.getNumCards_hand(), 0);
+			assertEquals(child.data_.getNumMinions_p0(), 2);
+			assertEquals(child.data_.getNumMinions_p1(), 2);
+			assertEquals(child.data_.getMana_p0(), 6);
+			assertEquals(child.data_.getMana_p1(), 4);
+			assertEquals(child.data_.getHero_p0().getHealth(), 28);
+			assertEquals(child.data_.getHero_p1().getHealth(), 28);
+			assertEquals(child.data_.getMinion_p0(0).getTotalHealth(), health0 - 2);
+			assertEquals(child.data_.getMinion_p0(1).getTotalHealth(), health1 - 1 - 2);
+			assertEquals(child.data_.getMinion_p1(0).getTotalHealth(), health0 - 2);
+			assertEquals(child.data_.getMinion_p1(1).getTotalHealth(), health1 - 1 - 2);
+			
+			assertEquals(child.data_.getMinion_p0(0).getTotalAttack(), attack0);
+			assertEquals(child.data_.getMinion_p0(1).getTotalAttack(), attack0);
 		}		
 
 	}

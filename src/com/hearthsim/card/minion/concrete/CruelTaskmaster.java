@@ -2,18 +2,19 @@ package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.exception.HSException;
-import com.hearthsim.util.tree.HearthTreeNode;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
+import com.hearthsim.exception.HSException;
+import com.hearthsim.util.BoardState;
+import com.hearthsim.util.BoardStateFactory;
+import com.hearthsim.util.tree.HearthTreeNode;
 
+public class CruelTaskmaster extends Minion {
 
-public class Nightblade extends Minion {
-
-	private static final String NAME = "Nightblade";
-	private static final byte MANA_COST = 5;
-	private static final byte ATTACK = 4;
-	private static final byte HEALTH = 4;
+	private static final String NAME = "Cruel Taskmaster";
+	private static final byte MANA_COST = 2;
+	private static final byte ATTACK = 2;
+	private static final byte HEALTH = 2;
 	
 	private static final boolean TAUNT = false;
 	private static final boolean DIVINE_SHIELD = false;
@@ -23,7 +24,7 @@ public class Nightblade extends Minion {
 	private static final boolean SUMMONED = false;
 	private static final boolean TRANSFORMED = false;
 	
-	public Nightblade() {
+	public CruelTaskmaster() {
 		this(
 				MANA_COST,
 				ATTACK,
@@ -53,7 +54,7 @@ public class Nightblade extends Minion {
 			);
 	}
 	
-	public Nightblade(	
+	public CruelTaskmaster(	
 			byte mana,
 			byte attack,
 			byte health,
@@ -111,7 +112,7 @@ public class Nightblade extends Minion {
 	
 	@Override
 	public Object deepCopy() {
-		return new Nightblade(
+		return new CruelTaskmaster(
 				this.mana_,
 				this.attack_,
 				this.health_,
@@ -139,23 +140,21 @@ public class Nightblade extends Minion {
 				this.hasBeenUsed_);
 	}
 	
-	
 	/**
 	 * 
 	 * Override for battlecry
 	 * 
-	 * Battlecry: Heals friendly characters for 2
+	 * Battlecry: Deal 1 damage to a minion and give it +2 Attack
 	 * 
-	 * @param targetPlayerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
-	 * @param targetMinion The target minion (can be a Hero).  If it is a Hero, then the minion is placed on the last (right most) spot on the board.
+	 * @param thisCardIndex The index (position) of the card in the hand
+	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
+	 * @param minionIndex The index of the target minion.
 	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-	 * @param deckPlayer0 The deck of player0
-	 * @param deckPlayer0 The deck of player1
 	 * 
 	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public HearthTreeNode useOn(
+	public HearthTreeNode use_core(
 			int targetPlayerIndex,
 			Minion targetMinion,
 			HearthTreeNode boardState,
@@ -163,11 +162,30 @@ public class Nightblade extends Minion {
 			Deck deckPlayer1)
 		throws HSException
 	{
+		//A generic card does nothing except for consuming mana
 		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
-
-		if (toRet != null) 
-			toRet = toRet.data_.getHero_p1().takeDamage((byte)3, 0, 1, boardState, deckPlayer0, deckPlayer1, false, false);
 		
-		return toRet;
+		if (toRet != null) {
+			int thisMinionIndex = toRet.data_.getMinions_p0().indexOf(this);
+			for (int index = 0; index < toRet.data_.getNumMinions_p0(); ++index) {
+				if (index != thisMinionIndex) {
+					HearthTreeNode newState = toRet.addChild(new HearthTreeNode((BoardState)toRet.data_.deepCopy()));
+					Minion battlecryTarget = newState.data_.getMinion_p0(index);
+					battlecryTarget.setAttack((byte)(newState.data_.getMinion_p0(index).getAttack() + 2));
+					newState = battlecryTarget.takeDamage((byte)1, 0, 0, newState, deckPlayer0, deckPlayer1, false, true);
+					newState = BoardStateFactory.handleDeadMinions(newState, deckPlayer0, deckPlayer1);
+				}
+			}
+			for (int index = 0; index < toRet.data_.getNumMinions_p1(); ++index) {
+				HearthTreeNode newState = toRet.addChild(new HearthTreeNode((BoardState)toRet.data_.deepCopy()));
+				Minion battlecryTarget = newState.data_.getMinion_p1(index);
+				battlecryTarget.setAttack((byte)(newState.data_.getMinion_p1(index).getAttack() + 2));
+				newState = battlecryTarget.takeDamage((byte)1, 0, 1, newState, deckPlayer0, deckPlayer1, false, true);
+				newState = BoardStateFactory.handleDeadMinions(newState, deckPlayer0, deckPlayer1);
+			}
+			return toRet;
+		} else {
+			return null;
+		}
 	}
 }

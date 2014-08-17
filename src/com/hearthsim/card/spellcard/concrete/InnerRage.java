@@ -59,7 +59,7 @@ public class InnerRage extends SpellCard {
 
 		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
 		if (toRet != null) {
-			toRet = targetMinion.takeDamage((byte)1, 0, targetPlayerIndex, boardState, deckPlayer0, deckPlayer1, true);
+			toRet = targetMinion.takeDamage((byte)1, 0, targetPlayerIndex, boardState, deckPlayer0, deckPlayer1, true, false);
 			targetMinion.setAttack((byte)(targetMinion.getAttack() + 2));
 		}
 		return toRet;

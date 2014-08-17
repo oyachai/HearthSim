@@ -70,9 +70,9 @@ public class HolyNova extends SpellCard {
 				toRet = minion.takeHeal((byte)2, 0, toRet, deckPlayer0, deckPlayer1);
 			}
 			
-			toRet = toRet.data_.getHero_p1().takeDamage((byte)2, 0, 1, toRet, deckPlayer0, deckPlayer1, true);
+			toRet = toRet.data_.getHero_p1().takeDamage((byte)2, 0, 1, toRet, deckPlayer0, deckPlayer1, true, false);
 			for (Minion minion : toRet.data_.getMinions_p1()) {
-				toRet = minion.takeDamage((byte)2, 0, 1, toRet, deckPlayer0, deckPlayer1, true);
+				toRet = minion.takeDamage((byte)2, 0, 1, toRet, deckPlayer0, deckPlayer1, true, false);
 			}
 		}
 		return toRet;

@@ -3,7 +3,7 @@ package com.hearthsim.card.spellcard.concrete;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellDamage;
-import com.hearthsim.exception.HSInvalidPlayerIndexException;
+import com.hearthsim.exception.HSException;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class FrostShock extends SpellDamage {
@@ -41,7 +41,7 @@ public class FrostShock extends SpellDamage {
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
-		throws HSInvalidPlayerIndexException
+		throws HSException
 	{
 		if (targetPlayerIndex == 0) 
 			return null;

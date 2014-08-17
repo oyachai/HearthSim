@@ -1,12 +1,10 @@
 package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.Deck;
-import com.hearthsim.card.minion.Beast;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.util.BoardState;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class InjuredBlademaster extends Minion {
@@ -164,7 +162,7 @@ public class InjuredBlademaster extends Minion {
 	{
 		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
 		if (toRet != null) {
-			toRet = this.takeDamage((byte)4, targetPlayerIndex, targetPlayerIndex, boardState, deckPlayer0, deckPlayer1);
+			toRet = this.takeDamage((byte)4, targetPlayerIndex, targetPlayerIndex, boardState, deckPlayer0, deckPlayer1, false, true);
 		}
 		return toRet;
 	}

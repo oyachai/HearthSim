@@ -63,8 +63,7 @@ public class Execute extends SpellCard {
 
 		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
 		if (toRet != null) {
-			toRet = targetMinion.destroyed(targetPlayerIndex, toRet, deckPlayer0, deckPlayer1);
-			toRet.data_.removeMinion_p1(targetMinion);
+			targetMinion.setHealth((byte)-99);
 		}
 		return toRet;
 	}

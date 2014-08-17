@@ -60,9 +60,7 @@ public class Assassinate extends SpellCard {
 		
 		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
 		if (toRet != null) {
-			targetMinion.setHealth((byte)0);
-			targetMinion.destroyed(targetPlayerIndex, toRet, deckPlayer0, deckPlayer1);
-			toRet.data_.removeMinion_p1(targetMinion);
+			targetMinion.setHealth((byte)-99);
 		}
 		return toRet;
 	}

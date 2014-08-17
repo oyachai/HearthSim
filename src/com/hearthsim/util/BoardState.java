@@ -23,7 +23,7 @@ public class BoardState implements DeepCopyable {
 		
 	MinionList p0_minions_;
 	MinionList p1_minions_;
-	
+		
 	IdentityLinkedList<Card> p0_hand_;
 	IdentityLinkedList<Card> p1_hand_;
 	
@@ -42,6 +42,18 @@ public class BoardState implements DeepCopyable {
 	
 	byte p0_spellDamage_;
 	byte p1_spellDamage_;
+	
+	IdentityLinkedList<MinionPlayerIDPair> allMinionsFIFOList_;
+	
+	public class MinionPlayerIDPair {
+		public final Minion minion_;
+		public int playerIndex_;
+		
+		public MinionPlayerIDPair(Minion minion, int playerIndex) {
+			minion_ = minion;
+			playerIndex_ = playerIndex;
+		}
+	}
 	
 	public BoardState() {
 		this(new Hero("hero0", (byte)30), new Hero("hero1", (byte)30));
@@ -62,7 +74,9 @@ public class BoardState implements DeepCopyable {
 		p1_fatigueDamage_ = 1;
 		
 		p0_hero_ = p0_hero;
-		p1_hero_ = p1_hero;		
+		p1_hero_ = p1_hero;
+		
+		allMinionsFIFOList_ = new IdentityLinkedList<MinionPlayerIDPair>();
 	}
 	
 	public MinionList getMinions(int playerIndex) throws HSInvalidPlayerIndexException {
@@ -193,6 +207,7 @@ public class BoardState implements DeepCopyable {
 			p1_minions_.add(position, minion);
 		else
 			throw new HSInvalidPlayerIndexException();
+		this.allMinionsFIFOList_.add(new MinionPlayerIDPair(minion, playerIndex));
 		minion.isInHand(false);
 	}
 
@@ -214,6 +229,7 @@ public class BoardState implements DeepCopyable {
 			p1_minions_.add(minion);
 		else
 			throw new HSInvalidPlayerIndexException();
+		this.allMinionsFIFOList_.add(new MinionPlayerIDPair(minion, playerIndex));
 	}
 
 	//-----------------------------------------------------------------------------------
@@ -534,57 +550,84 @@ public class BoardState implements DeepCopyable {
 			throw new HSInvalidPlayerIndexException();
 	}
 
-	public Minion removeMinion(int playerIndex, int index) throws HSInvalidPlayerIndexException {
-		Minion minion = null;
-		try {
-			if (playerIndex == 0)
-				minion = p0_minions_.remove(index);
-			else if (playerIndex == 1)
-				minion = p1_minions_.remove(index);
-			else
-				throw new HSInvalidPlayerIndexException();
-		} catch (IndexOutOfBoundsException e) {
-			
-		}
-		return minion;
-	}
+//	public Minion removeMinion(int playerIndex, int index) throws HSInvalidPlayerIndexException {
+//		Minion minion = null;
+//		try {
+//			if (playerIndex == 0)
+//				minion = p0_minions_.remove(index);
+//			else if (playerIndex == 1)
+//				minion = p1_minions_.remove(index);
+//			else
+//				throw new HSInvalidPlayerIndexException();
+//			this.allMinionsFIFOList_.remove(minion);
+//		} catch (IndexOutOfBoundsException e) {
+//			
+//		}
+//		return minion;
+//	}
 
-	public Minion removeMinion_p0(int index) {
-		Minion minion = null;
-		try {
-			minion = p0_minions_.remove(index);
-		} catch (IndexOutOfBoundsException e) {
-			
-		}
-		return minion;
-	}
+//	public Minion removeMinion_p0(int index) {
+//		Minion minion = null;
+//		try {
+//			minion = p0_minions_.remove(index);
+//		} catch (IndexOutOfBoundsException e) {
+//			
+//		}
+//		this.allMinionsFIFOList_.remove(minion);
+//		return minion;
+//	}
+//	
+//	public Minion removeMinion_p1(int index) {
+//		Minion minion = null;
+//		try {
+//			minion = p1_minions_.remove(index);
+//		} catch (IndexOutOfBoundsException e) {
+//			
+//		}
+//		this.allMinionsFIFOList_.remove(minion);
+//		return minion;
+//	}
 	
-	public Minion removeMinion_p1(int index) {
-		Minion minion = null;
-		try {
-			minion = p1_minions_.remove(index);
-		} catch (IndexOutOfBoundsException e) {
-			
-		}
-		return minion;
-	}
-	
-	public boolean removeMinion(int playerIndex, Minion minion) throws HSInvalidPlayerIndexException {
-		if (playerIndex == 0)
-			return p0_minions_.remove(minion);
-		else if (playerIndex == 1)
-			return p1_minions_.remove(minion);
+	public boolean removeMinion(MinionPlayerIDPair minionIdPair) throws HSInvalidPlayerIndexException {
+		this.allMinionsFIFOList_.remove(minionIdPair);
+		if (minionIdPair.playerIndex_ == 0)
+			return p0_minions_.remove(minionIdPair.minion_);
+		else if (minionIdPair.playerIndex_ == 1)
+			return p1_minions_.remove(minionIdPair.minion_);
 		else
 			throw new HSInvalidPlayerIndexException();
 	}
 
-	public boolean removeMinion_p0(Minion minion) {
-		return p0_minions_.remove(minion);
+	public boolean removeMinion(int playerIndex, Minion minion) throws HSException {
+		MinionPlayerIDPair mP = null;
+		for (MinionPlayerIDPair minionIdPair : this.allMinionsFIFOList_) {
+			if (minionIdPair.minion_ == minion) {
+				mP = minionIdPair;
+				break;
+			}
+		}
+		this.allMinionsFIFOList_.remove(mP);
+		if (mP.playerIndex_ == 0)
+			return p0_minions_.remove(mP.minion_);
+		else if (mP.playerIndex_ == 1)
+			return p1_minions_.remove(mP.minion_);
+		else
+			throw new HSInvalidPlayerIndexException();
 	}
 	
-	public boolean removeMinion_p1(Minion minion) {
-		return p1_minions_.remove(minion);
+	public boolean removeMinion(int playerIndex, int minionIndex) throws HSException {
+		return removeMinion(playerIndex, this.getMinion(playerIndex, minionIndex));
 	}
+
+//	public boolean removeMinion_p0(Minion minion) {
+//		this.allMinionsFIFOList_.remove(minion);
+//		return p0_minions_.remove(minion);
+//	}
+	
+//	public boolean removeMinion_p1(Minion minion) {
+//		this.allMinionsFIFOList_.remove(minion);
+//		return p1_minions_.remove(minion);
+//	}
 
 	public boolean isAlive_p0() {
 		return p0_hero_.getHealth() > 0;
@@ -603,20 +646,45 @@ public class BoardState implements DeepCopyable {
 		if (!hasTaunt) {
 			toRet.add((Integer)0);
 			int counter = 1;
-			for (Iterator<Minion> iter = p1_minions_.positionIterator(); iter.hasNext(); iter.next()) {
+			for (Iterator<Minion> iter = p1_minions_.iterator(); iter.hasNext(); iter.next()) {
 				toRet.add((Integer)counter);
 				counter++;
 			}
 			return toRet;
 		} else {
 			int counter = 1;
-			for (Iterator<Minion> iter = p1_minions_.positionIterator(); iter.hasNext();) {
+			for (Iterator<Minion> iter = p1_minions_.iterator(); iter.hasNext();) {
 				if ((iter.next()).getTaunt())
 					toRet.add((Integer)counter);
 				counter++;
 			}
 			return toRet;
 		}
+	}
+	
+	
+	//Dead minion check
+	
+	/**
+	 * Checks to see if there are dead minions
+	 * @return
+	 */
+	public boolean hasDeadMinions() {
+		for (Minion minion : p0_minions_) {
+			if (minion.getTotalHealth() <= 0)
+				return true;
+		}
+		for (Minion minion : p1_minions_) {
+			if (minion.getTotalHealth() <= 0) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+
+	public IdentityLinkedList<MinionPlayerIDPair> getAllMinionsFIFOList() {
+		return allMinionsFIFOList_;
 	}
 	
 	public void resetMana() {
@@ -644,19 +712,21 @@ public class BoardState implements DeepCopyable {
 			}
 		}
 		
-		Iterator<Minion> iter = p0_minions_.iterator();
-		while (iter.hasNext()) {
-			Minion targetMinion = iter.next();
-			if (targetMinion.getHealth() <= 0)
-				iter.remove();
+		ArrayList<Minion> toRemove = new ArrayList<Minion>();
+		for (Minion targetMinion : p0_minions_) {
+			if (targetMinion.getTotalHealth() <= 0)
+				toRemove.add(targetMinion);
 		}
+		for (Minion minion : toRemove) 
+			p0_minions_.remove(minion);
 
-		iter = p1_minions_.iterator();
-		while (iter.hasNext()) {
-			Minion targetMinion = iter.next();
-			if (targetMinion.getHealth() <= 0)
-				iter.remove();
+		toRemove.clear();
+		for (Minion targetMinion : p1_minions_) {
+			if (targetMinion.getTotalHealth() <= 0)
+				toRemove.add(targetMinion);
 		}
+		for (Minion minion : toRemove) 
+			p1_minions_.remove(minion);
 	}
 	
 	public void startTurn(Deck deckPlayer0, Deck deckPlayer1) throws HSException {
@@ -677,23 +747,21 @@ public class BoardState implements DeepCopyable {
 				e.printStackTrace();
 			}
 		}
-		Iterator<Minion> iter = p0_minions_.iterator();
-		while (iter.hasNext()) {
-			Minion targetMinion = iter.next();
-			if (targetMinion.getHealth() <= 0) {
-				iter.remove();
-				p0_minions_.remove(targetMinion);
-			}
+		ArrayList<Minion> toRemove = new ArrayList<Minion>();
+		for (Minion targetMinion : p0_minions_) {
+			if (targetMinion.getTotalHealth() <= 0)
+				toRemove.add(targetMinion);
 		}
+		for (Minion minion : toRemove) 
+			p0_minions_.remove(minion);
 
-		iter = p1_minions_.iterator();
-		while (iter.hasNext()) {
-			Minion targetMinion = iter.next();
-			if (targetMinion.getHealth() <= 0) {
-				iter.remove();
-				p1_minions_.remove(targetMinion);
-			}
+		toRemove.clear();
+		for (Minion targetMinion : p1_minions_) {
+			if (targetMinion.getTotalHealth() <= 0)
+				toRemove.add(targetMinion);
 		}
+		for (Minion minion : toRemove) 
+			p1_minions_.remove(minion);
 	}
 	
 	public boolean equals(Object other)
@@ -879,26 +947,22 @@ public class BoardState implements DeepCopyable {
 		newState.p1_fatigueDamage_ = p0_fatigueDamage_;
 		newState.p0_spellDamage_ = p1_spellDamage_;
 		newState.p1_spellDamage_ = p0_spellDamage_;
+		
+		for (MinionPlayerIDPair minionIdPair : newState.allMinionsFIFOList_) {
+			minionIdPair.playerIndex_ = minionIdPair.playerIndex_ == 0 ? 1 : 0;
+		}
 		return newState;
 	}
 	
 	public Object deepCopy() {
 		BoardState newBoard = new BoardState();
-		for (Iterator<Minion> iter = p0_minions_.positionIterator(); iter.hasNext();) {
+		for (Iterator<Minion> iter = p0_minions_.iterator(); iter.hasNext();) {
 			Minion tc = (Minion)(iter.next()).deepCopy();
-			try {
-				newBoard.placeMinion(0, tc);
-			} catch (HSInvalidPlayerIndexException e) {
-				
-			}
+			newBoard.p0_minions_.add(tc);
 		}
-		for (Iterator<Minion> iter = p1_minions_.positionIterator(); iter.hasNext();) {
+		for (Iterator<Minion> iter = p1_minions_.iterator(); iter.hasNext();) {
 			Minion tc = (Minion)(iter.next()).deepCopy();
-			try {
-				newBoard.placeMinion(1, tc);
-			} catch (HSInvalidPlayerIndexException e) {
-				
-			}
+			newBoard.p1_minions_.add(tc);
 		}
 		for (final Card card: p0_hand_) {
 			Card tc = (Card)card.deepCopy();
@@ -922,6 +986,16 @@ public class BoardState implements DeepCopyable {
 		newBoard.p1_maxMana_ = this.p1_maxMana_;
 		newBoard.p0_spellDamage_ = this.p0_spellDamage_;
 		newBoard.p1_spellDamage_ = this.p1_spellDamage_;
+		
+		for (MinionPlayerIDPair minionIdPair : allMinionsFIFOList_) {
+			if (minionIdPair.playerIndex_ == 0) {
+				int minionIndex = p0_minions_.indexOf(minionIdPair.minion_);
+				newBoard.allMinionsFIFOList_.add(new MinionPlayerIDPair(newBoard.p0_minions_.get(minionIndex), 0));
+			} else if (minionIdPair.playerIndex_ == 1) {
+				int minionIndex = p1_minions_.indexOf(minionIdPair.minion_);
+				newBoard.allMinionsFIFOList_.add(new MinionPlayerIDPair(newBoard.p1_minions_.get(minionIndex), 1));
+			}
+		}
 		return newBoard;
 	}
 	

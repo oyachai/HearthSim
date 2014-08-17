@@ -1,12 +1,9 @@
 package com.hearthsim.card.minion.concrete;
 
-import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.exception.HSException;
-import com.hearthsim.exception.HSInvalidPlayerIndexException;
-import com.hearthsim.util.tree.HearthTreeNode;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
+import com.hearthsim.event.deathrattle.DeathrattleDamageAll;
 
 public class Abomination extends Minion {
 
@@ -46,7 +43,7 @@ public class Abomination extends Minion {
 				TRANSFORMED,
 				false,
 				false,
-				null,
+				new DeathrattleDamageAll((byte)2),
 				null,
 				true,
 				false
@@ -138,31 +135,31 @@ public class Abomination extends Minion {
 				this.isInHand_,
 				this.hasBeenUsed_);
 	}
-	/**
-	 * Called when this minion dies (destroyed)
-	 * 
-	 * Death rattle: deal 2 damage to all characters
-	 * 
-	 * @param thisPlayerIndex The player index of this minion
-	 * @param thisMinionIndex The minion index of this minion
-	 * @param boardState 
-	 * @param deck
-	 * @throws HSInvalidPlayerIndexException
-	 */
-	public HearthTreeNode destroyed(int thisPlayerIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
-		
-		HearthTreeNode toRet = super.destroyed(thisPlayerIndex, boardState, deckPlayer0, deckPlayer1);
-		if (!silenced_) {
-			toRet = toRet.data_.getHero_p1().takeDamage((byte)2, thisPlayerIndex, 1, toRet, deckPlayer0, deckPlayer1);
-			for(Minion minion : toRet.data_.getMinions_p1()) {
-				toRet = minion.takeDamage((byte)2, thisPlayerIndex, 1, toRet, deckPlayer0, deckPlayer1);
-			}
-			toRet = toRet.data_.getHero_p0().takeDamage((byte)2, thisPlayerIndex, 0, toRet, deckPlayer0, deckPlayer1);
-			for(Minion minion : toRet.data_.getMinions_p0()) {
-				toRet = minion.takeDamage((byte)2, thisPlayerIndex, 0, toRet, deckPlayer0, deckPlayer1);
-			}
-		}
-		return toRet;
-
-	}
+//	/**
+//	 * Called when this minion dies (destroyed)
+//	 * 
+//	 * Death rattle: deal 2 damage to all characters
+//	 * 
+//	 * @param thisPlayerIndex The player index of this minion
+//	 * @param thisMinionIndex The minion index of this minion
+//	 * @param boardState 
+//	 * @param deck
+//	 * @throws HSInvalidPlayerIndexException
+//	 */
+//	public HearthTreeNode destroyed(int thisPlayerIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+//		
+//		HearthTreeNode toRet = super.destroyed(thisPlayerIndex, boardState, deckPlayer0, deckPlayer1);
+//		if (!silenced_) {
+//			toRet = toRet.data_.getHero_p1().takeDamage((byte)2, thisPlayerIndex, 1, toRet, deckPlayer0, deckPlayer1, false, false);
+//			for(Minion minion : toRet.data_.getMinions_p1()) {
+//				toRet = minion.takeDamage((byte)2, thisPlayerIndex, 1, toRet, deckPlayer0, deckPlayer1, false, false);
+//			}
+//			toRet = toRet.data_.getHero_p0().takeDamage((byte)2, thisPlayerIndex, 0, toRet, deckPlayer0, deckPlayer1, false, false);
+//			for(Minion minion : toRet.data_.getMinions_p0()) {
+//				toRet = minion.takeDamage((byte)2, thisPlayerIndex, 0, toRet, deckPlayer0, deckPlayer1, false, false);
+//			}
+//		}
+//		return toRet;
+//
+//	}
 }

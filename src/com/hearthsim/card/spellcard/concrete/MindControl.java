@@ -60,7 +60,7 @@ public class MindControl extends SpellCard {
 
 		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
 		if (toRet != null) {
-			toRet.data_.removeMinion_p1(targetMinion);
+			toRet.data_.removeMinion(1, targetMinion);
 			toRet.data_.placeMinion(0, targetMinion);
 		}
 		return toRet;

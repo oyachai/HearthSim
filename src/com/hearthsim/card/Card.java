@@ -8,6 +8,7 @@ import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.util.BoardState;
+import com.hearthsim.util.BoardStateFactory;
 import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.tree.HearthTreeNode;
 import com.json.*;
@@ -238,29 +239,31 @@ public class Card implements DeepCopyable {
 			}
 
 			//check for and remove dead minions
-			Iterator<Minion> iter0 = toRet.data_.getMinions_p0().iterator();
-			tmpList.clear();
-			while (iter0.hasNext()) {
-				tmpList.add(iter0.next());
-			}
-			for (Minion tMinion : tmpList) {
-				if (tMinion.getTotalHealth() <= 0) {
-					toRet = tMinion.destroyed(0, toRet, deckPlayer0, deckPlayer1);
-					toRet.data_.getMinions_p0().remove(tMinion);
-				}
-			}
-
-			Iterator<Minion> iter1 = toRet.data_.getMinions_p1().iterator();
-			tmpList.clear();
-			while (iter1.hasNext()) {
-				tmpList.add(iter1.next());
-			}
-			for (Minion tMinion : tmpList) {
-				if (tMinion.getTotalHealth() <= 0) {
-					toRet = tMinion.destroyed(1, toRet, deckPlayer0, deckPlayer1);
-					toRet.data_.getMinions_p1().remove(tMinion);
-				}
-			}
+			toRet = BoardStateFactory.handleDeadMinions(toRet, deckPlayer0, deckPlayer1);
+			
+//			Iterator<Minion> iter0 = toRet.data_.getMinions_p0().iterator();
+//			tmpList.clear();
+//			while (iter0.hasNext()) {
+//				tmpList.add(iter0.next());
+//			}
+//			for (Minion tMinion : tmpList) {
+//				if (tMinion.getTotalHealth() <= 0) {
+//					toRet = tMinion.destroyed(0, toRet, deckPlayer0, deckPlayer1);
+//					toRet.data_.getMinions_p0().remove(tMinion);
+//				}
+//			}
+//
+//			Iterator<Minion> iter1 = toRet.data_.getMinions_p1().iterator();
+//			tmpList.clear();
+//			while (iter1.hasNext()) {
+//				tmpList.add(iter1.next());
+//			}
+//			for (Minion tMinion : tmpList) {
+//				if (tMinion.getTotalHealth() <= 0) {
+//					toRet = tMinion.destroyed(1, toRet, deckPlayer0, deckPlayer1);
+//					toRet.data_.getMinions_p1().remove(tMinion);
+//				}
+//			}
 		}
 		
 		

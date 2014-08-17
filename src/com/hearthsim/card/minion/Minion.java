@@ -9,6 +9,7 @@ import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.BoardState;
+import com.hearthsim.util.BoardStateFactory;
 import com.hearthsim.util.tree.HearthTreeNode;
 import com.json.JSONObject;
 
@@ -375,32 +376,24 @@ public class Minion extends Card {
 	 * @param attackerPlayerIndex The player index of the attacker.  This is needed to do things like +spell damage.
 	 * @param thisPlayerIndex The player index of this minion
 	 * @param boardState 
-	 * @param deck
-	 * @param deckPlayer0 The deck of player0
-	 * @param deckPlayer0 The deck of player1
-	 * 
-	 * @throws HSInvalidPlayerIndexException
-	 */
-	public HearthTreeNode takeDamage(byte damage, int attackerPlayerIndex, int thisPlayerIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
-		return this.takeDamage(damage, attackerPlayerIndex, thisPlayerIndex, boardState, deckPlayer0, deckPlayer1, false);
-	}
-	
-	/**
-	 * Called when this minion takes damage
-	 * 
-	 * Always use this function to take damage... it properly notifies all others of its damage and possibly of its death
-	 * 
-	 * @param damage The amount of damage to take
-	 * @param attackerPlayerIndex The player index of the attacker.  This is needed to do things like +spell damage.
-	 * @param thisPlayerIndex The player index of this minion
-	 * @param boardState 
 	 * @param deckPlayer0 The deck of player0
 	 * @param deckPlayer0 The deck of player1
 	 * @param isSpellDamage True if this is a spell damage
+	 * @param handleMinionDeath Set this to True if you want the death event to trigger when (if) the minion dies from this damage.  Setting this flag to True will also trigger deathrattle immediately.
 	 * 
 	 * @throws HSInvalidPlayerIndexException
 	 */
-	public HearthTreeNode takeDamage(byte damage, int attackerPlayerIndex, int thisPlayerIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean isSpellDamage) throws HSInvalidPlayerIndexException {
+	public HearthTreeNode takeDamage(
+			byte damage,
+			int attackerPlayerIndex,
+			int thisPlayerIndex,
+			HearthTreeNode boardState,
+			Deck deckPlayer0, 
+			Deck deckPlayer1,
+			boolean isSpellDamage,
+			boolean handleMinionDeath)
+		throws HSException
+	{
 		if (!divineShield_) {
 			byte totalDamage = isSpellDamage ? (byte)(damage + boardState.data_.getSpellDamage(attackerPlayerIndex)) : damage;
 			health_ = (byte)(health_ - totalDamage);
@@ -444,8 +437,9 @@ public class Minion extends Card {
 		HearthTreeNode toRet = boardState;
 		
 		//perform the deathrattle action if there is one
-		if (deathrattleAction_ != null)
+		if (deathrattleAction_ != null) {
 			toRet =  deathrattleAction_.performAction(this, thisPlayerIndex, toRet, deckPlayer0, deckPlayer1);
+		}
 		
 		//Notify all that it is dead
 		toRet = toRet.data_.getHero_p0().minionDeadEvent(0, thisPlayerIndex, this, toRet, deckPlayer0, deckPlayer1);
@@ -791,24 +785,25 @@ public class Minion extends Card {
 		
 		//check for and remove dead minions
 		if (toRet != null) {
-			Iterator<Minion> iter0 = toRet.data_.getMinions_p0().iterator();
-			while (iter0.hasNext()) {
-				Minion tMinion = iter0.next();
-				if (tMinion.getTotalHealth() <= 0) {
-					toRet = tMinion.destroyed(0, toRet, deckPlayer0, deckPlayer1);
-					iter0.remove();
-					toRet.data_.getMinions_p0().remove(tMinion);
-				}
-			}
-			Iterator<Minion> iter1 = toRet.data_.getMinions_p1().iterator();
-			while (iter1.hasNext()) {
-				Minion tMinion = iter1.next();
-				if (tMinion.getTotalHealth() <= 0) {
-					toRet = tMinion.destroyed(1, toRet, deckPlayer0, deckPlayer1);
-					iter1.remove();
-					toRet.data_.getMinions_p1().remove(tMinion);
-				}
-			}
+			toRet = BoardStateFactory.handleDeadMinions(toRet, deckPlayer0, deckPlayer1);
+//			Iterator<Minion> iter0 = toRet.data_.getMinions_p0().iterator();
+//			while (iter0.hasNext()) {
+//				Minion tMinion = iter0.next();
+//				if (tMinion.getTotalHealth() <= 0) {
+//					toRet = tMinion.destroyed(0, toRet, deckPlayer0, deckPlayer1);
+//					iter0.remove();
+//					toRet.data_.getMinions_p0().remove(tMinion);
+//				}
+//			}
+//			Iterator<Minion> iter1 = toRet.data_.getMinions_p1().iterator();
+//			while (iter1.hasNext()) {
+//				Minion tMinion = iter1.next();
+//				if (tMinion.getTotalHealth() <= 0) {
+//					toRet = tMinion.destroyed(1, toRet, deckPlayer0, deckPlayer1);
+//					iter1.remove();
+//					toRet.data_.getMinions_p1().remove(tMinion);
+//				}
+//			}
 		}		
 		return toRet;
 	}
@@ -849,20 +844,8 @@ public class Minion extends Card {
 		
 		HearthTreeNode toRet = boardState;
 		byte origAttack = targetMinion.getTotalAttack();
-		toRet = targetMinion.takeDamage(this.getTotalAttack(), 0, targetMinionPlayerIndex, toRet, deckPlayer0, deckPlayer1);
-		toRet = this.takeDamage(origAttack, targetMinionPlayerIndex, 0, toRet, deckPlayer0, deckPlayer1);
-		if (!(targetMinion instanceof Hero)) {
-			if (targetMinion.getTotalHealth() <= 0) {
-				toRet = targetMinion.destroyed(targetMinionPlayerIndex, toRet, deckPlayer0, deckPlayer1);
-				toRet.data_.removeMinion_p1(targetMinion);
-			}
-		}
-		if (!(this instanceof Hero)) {
-			if (health_ <= 0) {
-				toRet = this.destroyed(0, toRet, deckPlayer0, deckPlayer1);
-				toRet.data_.removeMinion_p0(this);
-			}
-		}
+		toRet = targetMinion.takeDamage(this.getTotalAttack(), 0, targetMinionPlayerIndex, toRet, deckPlayer0, deckPlayer1, false, false);
+		toRet = this.takeDamage(origAttack, targetMinionPlayerIndex, 0, toRet, deckPlayer0, deckPlayer1, false, false);
 		if (windFury_ && !hasWindFuryAttacked_)
 			hasWindFuryAttacked_ = true;
 		else

@@ -3,6 +3,7 @@ package com.hearthsim.card.minion;
 import com.hearthsim.card.Deck;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
+import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -72,8 +73,17 @@ public abstract class MinionWithEnrage extends Minion {
 	 * @throws HSInvalidPlayerIndexException
 	 */
 	@Override
-	public HearthTreeNode takeDamage(byte damage, int attackerPlayerIndex, int thisPlayerIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean isSpellDamage) throws HSInvalidPlayerIndexException {
-		HearthTreeNode toRet = super.takeDamage(damage, attackerPlayerIndex, thisPlayerIndex, boardState, deckPlayer0, deckPlayer1, isSpellDamage);
+	public HearthTreeNode takeDamage(
+			byte damage,
+			int attackerPlayerIndex,
+			int thisPlayerIndex,
+			HearthTreeNode boardState,
+			Deck deckPlayer0, 
+			Deck deckPlayer1,
+			boolean isSpellDamage,
+			boolean handleMinionDeath)
+		throws HSException
+	{		HearthTreeNode toRet = super.takeDamage(damage, attackerPlayerIndex, thisPlayerIndex, boardState, deckPlayer0, deckPlayer1, isSpellDamage, handleMinionDeath);
 		this.enrageCheck();
 		return toRet;
 	}

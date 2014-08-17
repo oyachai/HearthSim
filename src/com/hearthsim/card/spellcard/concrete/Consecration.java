@@ -61,9 +61,9 @@ public class Consecration extends SpellCard {
 		
 		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
 		if (toRet != null) {
-			toRet = toRet.data_.getHero_p1().takeDamage(DAMAGE_AMOUNT, 0, 0, toRet, deckPlayer0, deckPlayer1, true);
+			toRet = toRet.data_.getHero_p1().takeDamage(DAMAGE_AMOUNT, 0, 0, toRet, deckPlayer0, deckPlayer1, true, false);
 			for (Minion minion : toRet.data_.getMinions_p1()) {
-				toRet = minion.takeDamage(DAMAGE_AMOUNT, 0, 1, toRet, deckPlayer0, deckPlayer1, true);
+				toRet = minion.takeDamage(DAMAGE_AMOUNT, 0, 1, toRet, deckPlayer0, deckPlayer1, true, false);
 			}
 		}
 		return toRet;

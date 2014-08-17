@@ -223,8 +223,8 @@ public class TestAcolyteOfPain {
 		board.data_.setMaxMana_p0((byte)3);
 		board.data_.setMaxMana_p1((byte)3);
 
-		board.data_.removeMinion_p1(0);
-		board.data_.removeMinion_p1(0);
+		board.data_.removeMinion(1, 0);
+		board.data_.removeMinion(1, 0);
 		board.data_.placeMinion(1, new AcolyteOfPain());
 		
 		assertEquals(board.data_.getNumCards_hand_p1(), 0);

@@ -3,11 +3,14 @@ package com.hearthsim.util;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import sun.awt.util.IdentityLinkedList;
+
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
+import com.hearthsim.util.BoardState.MinionPlayerIDPair;
 import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 import com.hearthsim.util.tree.StopNode;
@@ -297,4 +300,35 @@ public class BoardStateFactory {
 		return boardStateNode;
 	}
 	
+	
+	
+	/**
+	 * Handles dead minions
+	 * 
+	 * For each dead minion, the function calls its deathrattle in the correct order, and then removes the dead minions from the board.
+	 * 
+	 * @return true if there are dead minions left (minions might have died during deathrattle).  false otherwise.
+	 * @throws HSException 
+	 */
+	public static HearthTreeNode handleDeadMinions(HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+		HearthTreeNode toRet = boardState;
+		IdentityLinkedList<MinionPlayerIDPair> deadMinions = new IdentityLinkedList<MinionPlayerIDPair>();
+		for (MinionPlayerIDPair minionIdPair : toRet.data_.getAllMinionsFIFOList()) {
+			if (minionIdPair.minion_.getTotalHealth() <= 0) {
+				deadMinions.add(minionIdPair);
+			}
+		}
+		for (MinionPlayerIDPair minionIdPair : deadMinions) {
+			toRet = minionIdPair.minion_.destroyed(minionIdPair.playerIndex_, toRet, deckPlayer0, deckPlayer1);
+			toRet.data_.removeMinion(minionIdPair);
+		}
+		if (toRet.data_.hasDeadMinions())
+			return BoardStateFactory.handleDeadMinions(toRet, deckPlayer0, deckPlayer1);
+		else
+			return toRet;
+	}
+	
+	
 }
+
+

@@ -4,6 +4,7 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.util.BoardState;
+import com.hearthsim.util.BoardStateFactory;
 import com.hearthsim.util.tree.HearthTreeNode;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
@@ -169,7 +170,7 @@ public class IronforgeRifleman extends Minion {
 
 			{
 				HearthTreeNode newState = new HearthTreeNode((BoardState)boardState.data_.deepCopy());
-				newState = newState.data_.getHero_p0().takeDamage(BATTLECRY_DAMAGE, 0, 0, newState, deckPlayer0, deckPlayer1);
+				newState = newState.data_.getHero_p0().takeDamage(BATTLECRY_DAMAGE, 0, 0, newState, deckPlayer0, deckPlayer1, false, false);
 				toRet.addChild(newState);
 			}
 
@@ -179,17 +180,15 @@ public class IronforgeRifleman extends Minion {
 						continue;
 					HearthTreeNode newState = new HearthTreeNode((BoardState)boardState.data_.deepCopy());
 					Minion minion = newState.data_.getMinion_p0(index);
-					newState = minion.takeDamage(BATTLECRY_DAMAGE, 0, 0, newState, deckPlayer0, deckPlayer1);
-					if (minion.getTotalHealth() <= 0) {
-						newState.data_.removeMinion_p0(minion);
-					}
+					newState = minion.takeDamage(BATTLECRY_DAMAGE, 0, 0, newState, deckPlayer0, deckPlayer1, false, true);
+					newState = BoardStateFactory.handleDeadMinions(newState, deckPlayer0, deckPlayer1);
 					toRet.addChild(newState);
 				}
 			}
 
 			{
 				HearthTreeNode newState = new HearthTreeNode((BoardState)boardState.data_.deepCopy());
-				newState = newState.data_.getHero_p1().takeDamage(BATTLECRY_DAMAGE, 0, 1, newState, deckPlayer0, deckPlayer1);
+				newState = newState.data_.getHero_p1().takeDamage(BATTLECRY_DAMAGE, 0, 1, newState, deckPlayer0, deckPlayer1, false, false);
 				toRet.addChild(newState);
 			}
 
@@ -197,10 +196,8 @@ public class IronforgeRifleman extends Minion {
 				for (int index = 0; index < boardState.data_.getNumMinions_p1(); ++index) {		
 					HearthTreeNode newState = new HearthTreeNode((BoardState)boardState.data_.deepCopy());
 					Minion minion = newState.data_.getMinion_p1(index);
-					newState = minion.takeDamage(BATTLECRY_DAMAGE, 0, 1, newState, deckPlayer0, deckPlayer1);
-					if (minion.getTotalHealth() <= 0) {
-						newState.data_.removeMinion_p1(minion);
-					}
+					newState = minion.takeDamage(BATTLECRY_DAMAGE, 0, 1, newState, deckPlayer0, deckPlayer1, false, true);
+					newState = BoardStateFactory.handleDeadMinions(newState, deckPlayer0, deckPlayer1);
 					toRet.addChild(newState);
 				}
 			}

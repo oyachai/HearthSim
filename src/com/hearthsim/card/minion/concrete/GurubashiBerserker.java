@@ -2,10 +2,10 @@ package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.tree.HearthTreeNode;
 import com.hearthsim.event.attack.AttackAction;
-
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 
 
@@ -156,9 +156,19 @@ public class GurubashiBerserker extends Minion {
 	 * @throws HSInvalidPlayerIndexException
 	 */
 	@Override
-	public HearthTreeNode takeDamage(byte damage, int attackerPlayerIndex, int thisPlayerIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean isSpellDamage) throws HSInvalidPlayerIndexException {
+	public HearthTreeNode takeDamage(
+			byte damage,
+			int attackerPlayerIndex,
+			int thisPlayerIndex,
+			HearthTreeNode boardState,
+			Deck deckPlayer0, 
+			Deck deckPlayer1,
+			boolean isSpellDamage,
+			boolean handleMinionDeath)
+		throws HSException
+	{
 		if (!divineShield_) {
-			HearthTreeNode toRet = super.takeDamage(damage, attackerPlayerIndex, thisPlayerIndex, boardState, deckPlayer0, deckPlayer1, isSpellDamage);
+			HearthTreeNode toRet = super.takeDamage(damage, attackerPlayerIndex, thisPlayerIndex, boardState, deckPlayer0, deckPlayer1, isSpellDamage, handleMinionDeath);
 			if (!silenced_)
 				this.attack_ = (byte)(this.attack_ + 3);
 			return toRet;

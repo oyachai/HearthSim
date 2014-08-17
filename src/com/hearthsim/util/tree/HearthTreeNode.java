@@ -1,10 +1,17 @@
 package com.hearthsim.util.tree;
 
 import java.util.ArrayList;
+import java.util.IdentityHashMap;
 import java.util.List;
 
+import sun.awt.util.IdentityLinkedList;
+
+import com.hearthsim.card.Deck;
+import com.hearthsim.card.minion.Minion;
+import com.hearthsim.exception.HSException;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.util.BoardState;
+import com.hearthsim.util.BoardState.MinionPlayerIDPair;
 
 /**
  * A tree that keeps track of possible game states
@@ -157,6 +164,10 @@ public class HearthTreeNode {
 	public int numLeaves() {
 		return numNodesTried_;
 	}	
+	
+	
+	
+
 	
 	public String toString() {
 		String toRet = "{";

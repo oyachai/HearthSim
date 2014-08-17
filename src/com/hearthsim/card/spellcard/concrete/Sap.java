@@ -86,7 +86,7 @@ public class Sap extends SpellCard {
 					e.printStackTrace();
 				}
 			}
-			toRet.data_.removeMinion_p1(targetMinion);
+			toRet.data_.removeMinion(1, targetMinion);
 		}
 		return toRet;
 	}

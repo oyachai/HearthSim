@@ -157,12 +157,12 @@ public class TestAbomination {
 		assertEquals(board.data_.getMana_p1(), 8);
 		assertEquals(board.data_.getHero_p0().getHealth(), 30);
 		assertEquals(board.data_.getHero_p1().getHealth(), 30);
-		assertEquals(board.data_.getMinion_p0(0).getHealth(), 4);
-		assertEquals(board.data_.getMinion_p0(1).getHealth(), 2);
-		assertEquals(board.data_.getMinion_p0(2).getHealth(), 7);
-		assertEquals(board.data_.getMinion_p1(0).getHealth(), 1);
-		assertEquals(board.data_.getMinion_p1(1).getHealth(), 2);
-		assertEquals(board.data_.getMinion_p1(2).getHealth(), 7);
+		assertEquals(board.data_.getMinion_p0(0).getTotalHealth(), 4);
+		assertEquals(board.data_.getMinion_p0(1).getTotalHealth(), 2);
+		assertEquals(board.data_.getMinion_p0(2).getTotalHealth(), 7);
+		assertEquals(board.data_.getMinion_p1(0).getTotalHealth(), 1);
+		assertEquals(board.data_.getMinion_p1(1).getTotalHealth(), 2);
+		assertEquals(board.data_.getMinion_p1(2).getTotalHealth(), 7);
 
 		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), 5);
 		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), 2);

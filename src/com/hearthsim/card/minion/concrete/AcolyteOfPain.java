@@ -2,6 +2,7 @@ package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -155,9 +156,19 @@ public class AcolyteOfPain extends Minion {
 	 * @throws HSInvalidPlayerIndexException
 	 */
 	@Override
-	public HearthTreeNode takeDamage(byte damage, int attackerPlayerIndex, int thisPlayerIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean isSpellDamage) throws HSInvalidPlayerIndexException {
+	public HearthTreeNode takeDamage(
+			byte damage,
+			int attackerPlayerIndex,
+			int thisPlayerIndex,
+			HearthTreeNode boardState,
+			Deck deckPlayer0, 
+			Deck deckPlayer1,
+			boolean isSpellDamage,
+			boolean handleMinionDeath)
+		throws HSException
+	{
 		if (!divineShield_) {
-			HearthTreeNode toRet = super.takeDamage(damage, attackerPlayerIndex, thisPlayerIndex, boardState, deckPlayer0, deckPlayer1, isSpellDamage);
+			HearthTreeNode toRet = super.takeDamage(damage, attackerPlayerIndex, thisPlayerIndex, boardState, deckPlayer0, deckPlayer1, isSpellDamage, handleMinionDeath);
 			if (damage > 0 && thisPlayerIndex == 0) {
 				if (toRet instanceof CardDrawNode) {
 					((CardDrawNode) toRet).addNumCardsToDraw(1);

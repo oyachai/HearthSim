@@ -74,7 +74,7 @@ public class Hunter extends Hero {
 	{
 		HearthTreeNode toRet = boardState;
 		if ((targetMinion instanceof Hero) && targetPlayerIndex == 1) {
-			toRet = targetMinion.takeDamage((byte)2, 0, targetPlayerIndex, toRet, deckPlayer0, deckPlayer1);
+			toRet = targetMinion.takeDamage((byte)2, 0, targetPlayerIndex, toRet, deckPlayer0, deckPlayer1, false, false);
 			return toRet;
 		} else {
 			return null;

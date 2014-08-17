@@ -2,7 +2,7 @@ package com.hearthsim.card.spellcard;
 
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.exception.HSInvalidPlayerIndexException;
+import com.hearthsim.exception.HSException;
 import com.hearthsim.util.tree.HearthTreeNode;
 import com.json.JSONObject;
 
@@ -70,9 +70,9 @@ public class SpellDamage extends SpellCard {
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
-		throws HSInvalidPlayerIndexException
+		throws HSException
 	{
-		return targetMinion.takeDamage(damage_, 0, targetMinionPlayerIndex, boardState, deckPlayer0, deckPlayer1, true);
+		return targetMinion.takeDamage(damage_, 0, targetMinionPlayerIndex, boardState, deckPlayer0, deckPlayer1, true, false);
  	}
 	
 	/**
@@ -94,7 +94,7 @@ public class SpellDamage extends SpellCard {
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
-		throws HSInvalidPlayerIndexException
+		throws HSException
 	{
 		if (this.hasBeenUsed()) {
 			//Card is already used, nothing to do

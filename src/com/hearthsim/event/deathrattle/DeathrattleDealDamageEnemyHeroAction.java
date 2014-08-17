@@ -23,7 +23,7 @@ public class DeathrattleDealDamageEnemyHeroAction extends DeathrattleAction {
 	{
 		HearthTreeNode toRet = super.performAction(minion, thisPlayerIndex, boardState, deckPlayer0, deckPlayer1);
 		if (toRet != null) {
-			toRet = toRet.data_.getHero_p1().takeDamage(damage_, (thisPlayerIndex + 1) % 2, thisPlayerIndex, toRet, deckPlayer0, deckPlayer1);
+			toRet = toRet.data_.getHero_p1().takeDamage(damage_, (thisPlayerIndex + 1) % 2, thisPlayerIndex, toRet, deckPlayer0, deckPlayer1, false, false);
 		}
 		return toRet;
 	}
