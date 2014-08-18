@@ -336,6 +336,11 @@ public class ImplementedCardList {
             map_.put(DustDevil.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(EarthElemental.class, "Earth Elemental", "minion", "shaman", "epic", "Taunt. Overload (3)", 5, 7, 8);
+            list_.add(card);
+            map_.put(EarthElemental.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(ElvenArcher.class, "Elven Archer", "minion", "neutral", "free", "Battlecry Deal 1 damage", 1, 1, 1);
             list_.add(card);
             map_.put(ElvenArcher.class, card);
