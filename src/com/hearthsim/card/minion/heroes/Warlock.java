@@ -77,7 +77,11 @@ public class Warlock extends Hero {
 			return null;
 		HearthTreeNode toRet = targetMinion.takeDamage((byte)2, 0, 0, boardState, deckPlayer0, deckPlayer1, false, false);
 		if (toRet != null) {
-			toRet = new CardDrawNode(toRet, 1);
+			if (toRet instanceof CardDrawNode) {
+				((CardDrawNode)toRet).addNumCardsToDraw(1);
+			} else {
+				toRet = new CardDrawNode(toRet, 1);
+			}
 		}
 		return toRet;
 	}
