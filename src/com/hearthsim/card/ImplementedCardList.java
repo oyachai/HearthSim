@@ -331,6 +331,11 @@ public class ImplementedCardList {
             map_.put(DreadInfernal.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(DustDevil.class, "Dust Devil", "minion", "shaman", "common", "Windfury. Overload (2)", 1, 3, 1);
+            list_.add(card);
+            map_.put(DustDevil.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(ElvenArcher.class, "Elven Archer", "minion", "neutral", "free", "Battlecry Deal 1 damage", 1, 1, 1);
             list_.add(card);
             map_.put(ElvenArcher.class, card);

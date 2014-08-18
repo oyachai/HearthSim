@@ -105,7 +105,7 @@ Drain Life|spell|warlock|free|3|||Deal 2 damage. Restore 2 Health to your hero|T
 Dread Corsair|minion|neutral|common|4|3|3|Taunt. Costs (1) less per Attack of your weapon|FALSE
 Dread Infernal|minion|warlock|free|6|6|6|Battlecry: Deal 1 damage to ALL other characters|TRUE
 Druid of the Claw|minion|neutral|common|5|4|4|Choose One - Charge; or +2 Health and Taunt|FALSE
-Dust Devil|minion|shaman|common|1|3|1|Windfury. Overload: (2)|FALSE
+Dust Devil|minion|shaman|common|1|3|1|Windfury. Overload: (2)|TRUE
 Eaglehorn Bow|weapon|hunter|rare|3|3||Whenever a Secret is revealed, gain +1 Durability|FALSE
 Earth Elemental|minion|shaman|epic|5|7|8|Taunt. Overload: (3)|FALSE
 Earth Shock|spell|shaman|common|1|||Silence a minion, then deal 1 damage to it|FALSE

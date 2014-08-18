@@ -43,6 +43,9 @@ public class BoardState implements DeepCopyable {
 	byte p0_spellDamage_;
 	byte p1_spellDamage_;
 	
+	byte p0_overload_;
+	byte p1_overload_;
+	
 	IdentityLinkedList<MinionPlayerIDPair> allMinionsFIFOList_;
 	
 	public class MinionPlayerIDPair {
@@ -550,43 +553,7 @@ public class BoardState implements DeepCopyable {
 			throw new HSInvalidPlayerIndexException();
 	}
 
-//	public Minion removeMinion(int playerIndex, int index) throws HSInvalidPlayerIndexException {
-//		Minion minion = null;
-//		try {
-//			if (playerIndex == 0)
-//				minion = p0_minions_.remove(index);
-//			else if (playerIndex == 1)
-//				minion = p1_minions_.remove(index);
-//			else
-//				throw new HSInvalidPlayerIndexException();
-//			this.allMinionsFIFOList_.remove(minion);
-//		} catch (IndexOutOfBoundsException e) {
-//			
-//		}
-//		return minion;
-//	}
 
-//	public Minion removeMinion_p0(int index) {
-//		Minion minion = null;
-//		try {
-//			minion = p0_minions_.remove(index);
-//		} catch (IndexOutOfBoundsException e) {
-//			
-//		}
-//		this.allMinionsFIFOList_.remove(minion);
-//		return minion;
-//	}
-//	
-//	public Minion removeMinion_p1(int index) {
-//		Minion minion = null;
-//		try {
-//			minion = p1_minions_.remove(index);
-//		} catch (IndexOutOfBoundsException e) {
-//			
-//		}
-//		this.allMinionsFIFOList_.remove(minion);
-//		return minion;
-//	}
 	
 	public boolean removeMinion(MinionPlayerIDPair minionIdPair) throws HSInvalidPlayerIndexException {
 		this.allMinionsFIFOList_.remove(minionIdPair);
@@ -619,16 +586,28 @@ public class BoardState implements DeepCopyable {
 		return removeMinion(playerIndex, this.getMinion(playerIndex, minionIndex));
 	}
 
-//	public boolean removeMinion_p0(Minion minion) {
-//		this.allMinionsFIFOList_.remove(minion);
-//		return p0_minions_.remove(minion);
-//	}
-	
-//	public boolean removeMinion_p1(Minion minion) {
-//		this.allMinionsFIFOList_.remove(minion);
-//		return p1_minions_.remove(minion);
-//	}
+	//----------------------------------------------------------------------------
+	//----------------------------------------------------------------------------
+	// Overload support
+	//----------------------------------------------------------------------------
+	//----------------------------------------------------------------------------
 
+	public void addOverload(int playerIndex, byte overloadToAdd) throws HSException {
+		if (playerIndex == 0) {
+			p0_overload_ += overloadToAdd;
+		} else if (playerIndex == 1) {
+			p1_overload_ += overloadToAdd;
+		} else {
+			throw new HSInvalidPlayerIndexException();
+		}
+	}
+	
+	//----------------------------------------------------------------------------
+	//----------------------------------------------------------------------------
+	//----------------------------------------------------------------------------
+	//----------------------------------------------------------------------------
+	
+	
 	public boolean isAlive_p0() {
 		return p0_hero_.getHealth() > 0;
 	}
@@ -690,6 +669,13 @@ public class BoardState implements DeepCopyable {
 	public void resetMana() {
 		p0_mana_ = p0_maxMana_;
 		p1_mana_ = p1_maxMana_;
+		
+		//handle the overload
+		p0_mana_ -= p0_overload_;
+		p1_mana_ -= p1_overload_;
+		
+		p0_overload_ = 0;
+		p1_overload_ = 0;
 	}
 	
 	public void endTurn(Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
