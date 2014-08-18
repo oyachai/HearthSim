@@ -1,10 +1,10 @@
 package com.hearthsim.card.minion.concrete;
 
-import com.hearthsim.card.minion.MinionWithSpellDamage;
+import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 
-public class OgreMagi extends MinionWithSpellDamage {
+public class OgreMagi extends Minion {
 
 
 	private static final String NAME = "Ogre Magi";

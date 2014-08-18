@@ -17,6 +17,15 @@ public class Houndmaster extends Minion {
 	private static final byte ATTACK = 4;
 	private static final byte HEALTH = 3;
 	
+	private static final boolean TAUNT = false;
+	private static final boolean DIVINE_SHIELD = false;
+	private static final boolean WINDFURY = false;
+	private static final boolean CHARGE = false;
+	
+	private static final boolean SUMMONED = false;
+	private static final boolean TRANSFORMED = false;
+	private static final byte SPELL_DAMAGE = 0;
+	
 	public Houndmaster() {
 		this(
 				MANA_COST,
@@ -28,16 +37,17 @@ public class Houndmaster extends Minion {
 				HEALTH,
 				HEALTH,
 				(byte)0,
+				SPELL_DAMAGE,
+				TAUNT,
+				DIVINE_SHIELD,
+				WINDFURY,
+				CHARGE,
 				false,
 				false,
 				false,
 				false,
-				false,
-				false,
-				false,
-				false,
-				false,
-				false,
+				SUMMONED,
+				TRANSFORMED,
 				false,
 				false,
 				null,
@@ -57,6 +67,7 @@ public class Houndmaster extends Minion {
 			byte baseHealth,
 			byte maxHealth,
 			byte auraHealth,
+			byte spellDamage,
 			boolean taunt,
 			boolean divineShield,
 			boolean windFury,
@@ -85,6 +96,7 @@ public class Houndmaster extends Minion {
 			baseHealth,
 			maxHealth,
 			auraHealth,
+			spellDamage,
 			taunt,
 			divineShield,
 			windFury,
@@ -115,6 +127,7 @@ public class Houndmaster extends Minion {
 				this.baseHealth_,
 				this.maxHealth_,
 				this.auraHealth_,
+				this.spellDamage_,
 				this.taunt_,
 				this.divineShield_,
 				this.windFury_,

@@ -1,11 +1,11 @@
 package com.hearthsim.card.minion.concrete;
 
-import com.hearthsim.card.minion.MinionWithSpellDamage;
+import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.event.deathrattle.DeathrattleCardDrawAction;
 
-public class BloodmageThalnos extends MinionWithSpellDamage {
+public class BloodmageThalnos extends Minion {
 	
 	private static final String NAME = "Bloodmage Thalnos";
 	private static final byte MANA_COST = 1;

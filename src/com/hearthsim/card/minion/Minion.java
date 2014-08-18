@@ -42,6 +42,8 @@ public class Minion extends Card {
 	protected boolean destroyOnTurnStart_;
 	protected boolean destroyOnTurnEnd_;
 
+	protected byte spellDamage_;
+
 	protected DeathrattleAction deathrattleAction_;
 	protected AttackAction attackAction_;
 	
@@ -99,6 +101,7 @@ public class Minion extends Card {
 				baseHealth,
 				maxHealth,
 				(byte)0,
+				(byte)0,
 				taunt,
 				divineShield,
 				windFury,
@@ -127,6 +130,7 @@ public class Minion extends Card {
 					byte baseHealth,
 					byte maxHealth,
 					byte auraHealth,
+					byte spellDamage,
 					boolean taunt,
 					boolean divineShield,
 					boolean windFury,
@@ -167,6 +171,8 @@ public class Minion extends Card {
 		
 		auraAttack_ = auraAttack;
 		auraHealth_ = auraHealth;
+		
+		spellDamage_ = spellDamage;
 	}
 	
 	public boolean getTaunt() {
@@ -436,6 +442,9 @@ public class Minion extends Card {
 		health_ = 0;
 		HearthTreeNode toRet = boardState;
 		
+		if (!silenced_)
+			toRet.data_.setSpellDamage(0, (byte)(boardState.data_.getSpellDamage(0) - spellDamage_));
+		
 		//perform the deathrattle action if there is one
 		if (deathrattleAction_ != null) {
 			toRet =  deathrattleAction_.performAction(this, thisPlayerIndex, toRet, deckPlayer0, deckPlayer1);
@@ -470,6 +479,11 @@ public class Minion extends Card {
 	 * @throws HSInvalidPlayerIndexException
 	 */
 	public HearthTreeNode silenced(int thisPlayerIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
+		HearthTreeNode toRet = boardState;
+		if (!silenced_) {
+			toRet.data_.setSpellDamage(0, (byte)(boardState.data_.getSpellDamage(0) - spellDamage_));
+		}
+
 		divineShield_ = false;
 		taunt_ = false;
 		charge_ = false;
@@ -477,7 +491,8 @@ public class Minion extends Card {
 		windFury_ = false;
 		silenced_ = true;
 		deathrattleAction_ = null;
-		return boardState;
+
+		return toRet;
 	}
 	
 	/**
@@ -544,6 +559,8 @@ public class Minion extends Card {
 		HearthTreeNode toRet = this.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
 		
 		if (toRet != null) {
+			
+			toRet.data_.setSpellDamage(0, (byte)(toRet.data_.getSpellDamage(0) + spellDamage_));
 			
 			isInHand_ = false;
 			
@@ -1102,6 +1119,7 @@ public class Minion extends Card {
 				this.baseHealth_,
 				this.maxHealth_,
 				this.auraHealth_,
+				this.spellDamage_,
 				this.taunt_,
 				this.divineShield_,
 				this.windFury_,

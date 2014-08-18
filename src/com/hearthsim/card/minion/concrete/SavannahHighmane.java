@@ -19,6 +19,7 @@ public class SavannahHighmane extends Beast {
 	
 	private static final boolean SUMMONED = false;
 	private static final boolean TRANSFORMED = false;
+	private static final byte SPELL_DAMAGE = 0;
 	
 	public SavannahHighmane() {
 		this(
@@ -31,6 +32,7 @@ public class SavannahHighmane extends Beast {
 				HEALTH,
 				HEALTH,
 				(byte)0,
+				SPELL_DAMAGE,
 				TAUNT,
 				DIVINE_SHIELD,
 				WINDFURY,
@@ -60,6 +62,7 @@ public class SavannahHighmane extends Beast {
 			byte baseHealth,
 			byte maxHealth,
 			byte auraHealth,
+			byte spellDamage,
 			boolean taunt,
 			boolean divineShield,
 			boolean windFury,
@@ -88,6 +91,7 @@ public class SavannahHighmane extends Beast {
 			baseHealth,
 			maxHealth,
 			auraHealth,
+			spellDamage,
 			taunt,
 			divineShield,
 			windFury,
@@ -118,6 +122,7 @@ public class SavannahHighmane extends Beast {
 				this.baseHealth_,
 				this.maxHealth_,
 				this.auraHealth_,
+				this.spellDamage_,
 				this.taunt_,
 				this.divineShield_,
 				this.windFury_,

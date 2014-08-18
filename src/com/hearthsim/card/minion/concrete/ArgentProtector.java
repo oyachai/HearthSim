@@ -22,6 +22,7 @@ public class ArgentProtector extends Minion {
 	
 	private static final boolean SUMMONED = false;
 	private static final boolean TRANSFORMED = false;
+	private static final byte SPELL_DAMAGE = 0;
 	
 	public ArgentProtector() {
 		this(
@@ -34,6 +35,7 @@ public class ArgentProtector extends Minion {
 				HEALTH,
 				HEALTH,
 				(byte)0,
+				SPELL_DAMAGE,
 				TAUNT,
 				DIVINE_SHIELD,
 				WINDFURY,
@@ -63,6 +65,7 @@ public class ArgentProtector extends Minion {
 			byte baseHealth,
 			byte maxHealth,
 			byte auraHealth,
+			byte spellDamage,
 			boolean taunt,
 			boolean divineShield,
 			boolean windFury,
@@ -91,6 +94,7 @@ public class ArgentProtector extends Minion {
 			baseHealth,
 			maxHealth,
 			auraHealth,
+			spellDamage,
 			taunt,
 			divineShield,
 			windFury,
@@ -121,6 +125,7 @@ public class ArgentProtector extends Minion {
 				this.baseHealth_,
 				this.maxHealth_,
 				this.auraHealth_,
+				this.spellDamage_,
 				this.taunt_,
 				this.divineShield_,
 				this.windFury_,

@@ -19,6 +19,7 @@ public class AmaniBerserker extends MinionWithEnrage {
 	
 	private static final boolean SUMMONED = false;
 	private static final boolean TRANSFORMED = false;
+	private static final byte SPELL_DAMAGE = 0;
 	
 	public AmaniBerserker() {
 		this(
@@ -31,6 +32,7 @@ public class AmaniBerserker extends MinionWithEnrage {
 				HEALTH,
 				HEALTH,
 				(byte)0,
+				SPELL_DAMAGE,
 				TAUNT,
 				DIVINE_SHIELD,
 				WINDFURY,
@@ -61,6 +63,7 @@ public class AmaniBerserker extends MinionWithEnrage {
 			byte baseHealth,
 			byte maxHealth,
 			byte auraHealth,
+			byte spellDamage,
 			boolean taunt,
 			boolean divineShield,
 			boolean windFury,
@@ -90,6 +93,7 @@ public class AmaniBerserker extends MinionWithEnrage {
 			baseHealth,
 			maxHealth,
 			auraHealth,
+			spellDamage,
 			taunt,
 			divineShield,
 			windFury,
@@ -121,6 +125,7 @@ public class AmaniBerserker extends MinionWithEnrage {
 				this.baseHealth_,
 				this.maxHealth_,
 				this.auraHealth_,
+				this.spellDamage_,
 				this.taunt_,
 				this.divineShield_,
 				this.windFury_,

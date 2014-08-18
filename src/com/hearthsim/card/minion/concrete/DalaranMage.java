@@ -1,10 +1,10 @@
 package com.hearthsim.card.minion.concrete;
 
-import com.hearthsim.card.minion.MinionWithSpellDamage;
+import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 
-public class DalaranMage extends MinionWithSpellDamage {
+public class DalaranMage extends Minion {
 
 	private static final String NAME = "Dalaran Mage";
 	private static final byte MANA_COST = 3;

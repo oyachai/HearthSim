@@ -23,6 +23,7 @@ public class GurubashiBerserker extends Minion {
 	
 	private static final boolean SUMMONED = false;
 	private static final boolean TRANSFORMED = false;
+	private static final byte SPELL_DAMAGE = 0;
 	
 	public GurubashiBerserker() {
 		this(
@@ -35,6 +36,7 @@ public class GurubashiBerserker extends Minion {
 				HEALTH,
 				HEALTH,
 				(byte)0,
+				SPELL_DAMAGE,
 				TAUNT,
 				DIVINE_SHIELD,
 				WINDFURY,
@@ -64,6 +66,7 @@ public class GurubashiBerserker extends Minion {
 			byte baseHealth,
 			byte maxHealth,
 			byte auraHealth,
+			byte spellDamage,
 			boolean taunt,
 			boolean divineShield,
 			boolean windFury,
@@ -92,6 +95,7 @@ public class GurubashiBerserker extends Minion {
 			baseHealth,
 			maxHealth,
 			auraHealth,
+			spellDamage,
 			taunt,
 			divineShield,
 			windFury,
@@ -122,6 +126,7 @@ public class GurubashiBerserker extends Minion {
 				this.baseHealth_,
 				this.maxHealth_,
 				this.auraHealth_,
+				this.spellDamage_,
 				this.taunt_,
 				this.divineShield_,
 				this.windFury_,

@@ -1,10 +1,10 @@
 package com.hearthsim.card.minion.concrete;
 
-import com.hearthsim.card.minion.MinionWithSpellDamage;
+import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 
-public class KoboldGeomancer extends MinionWithSpellDamage {
+public class KoboldGeomancer extends Minion {
 
 
 	private static final String NAME = "Kobold Geomancer";
