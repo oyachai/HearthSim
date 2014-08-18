@@ -196,6 +196,11 @@ public class ImplementedCardList {
             map_.put(Backstab.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(BigGameHunter.class, "Big Game Hunter", "minion", "neutral", "epic", "Battlecry Destroy a minion with an Attack of 7 or more", 3, 4, 2);
+            list_.add(card);
+            map_.put(BigGameHunter.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(BlessingOfKings.class, "Blessing of Kings", "spell", "paladin", "free", "Give a minion +4/+4. (+4 Attack/+4 Health)", 4, -1, -1);
             list_.add(card);
             map_.put(BlessingOfKings.class, card);
