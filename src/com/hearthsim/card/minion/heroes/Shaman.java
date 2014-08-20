@@ -123,13 +123,18 @@ public class Shaman extends Hero {
 		if (toRet != null) {
 			this.hasBeenUsed_ = true;
 			Minion[] minions = {new SearingTotem(), new StoneclawTotem(), new HealingTotem(), new WrathOfAirTotem()};
+			boolean allTotemsNotSummonable = true;
 			for (Minion minionToSummon : minions) {
 				boolean totemAlreadySummoned = false;
 				for (Minion minion : toRet.data_.getMinions(targetPlayerIndex)) {
 					if (minion.getClass().equals(minionToSummon.getClass())) {
 						totemAlreadySummoned = true;
+					} else {
+						allTotemsNotSummonable = false;
 					}
 				}
+				if (allTotemsNotSummonable) 
+					return null;
 				if (!totemAlreadySummoned) {
 					HearthTreeNode newState = toRet.addChild(new HearthTreeNode((BoardState)toRet.data_.deepCopy()));
 					Minion summonTarget = newState.data_.getCharacter(targetPlayerIndex, numMinions);
