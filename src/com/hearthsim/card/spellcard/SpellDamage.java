@@ -93,7 +93,8 @@ public class SpellDamage extends SpellCard {
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
-			Deck deckPlayer1)
+			Deck deckPlayer1,
+			boolean singleRealizationOnly)
 		throws HSException
 	{
 		if (this.hasBeenUsed()) {

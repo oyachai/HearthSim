@@ -63,12 +63,13 @@ public class TheCoin extends SpellCard {
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
-			Deck deckPlayer1)
+			Deck deckPlayer1,
+			boolean singleRealizationOnly)
 		throws HSException
 	{
 		if (!this.canBeUsedOn(targetPlayerIndex, targetMinion))
 			return null;
-		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
+		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
 			int newMana = toRet.data_.getMana_p0();
 			newMana = newMana >= 10 ? newMana : newMana + 1;

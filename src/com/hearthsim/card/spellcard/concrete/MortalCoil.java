@@ -42,7 +42,8 @@ public class MortalCoil extends SpellDamage {
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
-			Deck deckPlayer1)
+			Deck deckPlayer1,
+			boolean singleRealizationOnly)
 		throws HSException
 	{
 		if (targetMinion instanceof Hero) 

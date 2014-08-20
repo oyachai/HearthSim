@@ -51,14 +51,15 @@ public class SacrificialPact extends SpellCard {
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
-			Deck deckPlayer1)
+			Deck deckPlayer1,
+			boolean singleRealizationOnly)
 		throws HSException
 	{
 		if (!(targetMinion instanceof Demon)) {
 			return null;
 		}
 		
-		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
+		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
 			toRet = toRet.data_.getHero_p0().takeHeal((byte)5, 0, toRet, deckPlayer0, deckPlayer1);
 			targetMinion.setHealth((byte)-99);

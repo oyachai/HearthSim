@@ -2,6 +2,7 @@ package com.hearthsim.util.tree;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
+import com.hearthsim.exception.HSException;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
 
 /**
@@ -90,17 +91,17 @@ public class CardDrawNode extends StopNode {
 		int healthLeft = armorLeft > 0 ? heroHealth : heroHealth - (totalFatigueDamage - heroArmor);
 		toRet += ai.heroHealthScore_p0(healthLeft, armorLeft) - ai.heroHealthScore_p0(heroHealth, heroArmor);
 		
-		//If you are going to draw a card 2 different ways, it is usually better to draw the cards first
-		double depthPenalty = 1.e-4 * depth_;
-		toRet -= depthPenalty;
+		//If you are going to draw a card 2 different ways, it is usually better to draw the cards when you have more mana
+		double manaBenefit = 1.e-2 * data_.getMana_p0();
+		toRet += manaBenefit;
 		
 		return toRet;
 	}
 
 	@Override
-	public HearthTreeNode finishAllEffects(Deck deck) {
+	public HearthTreeNode finishAllEffects(Deck deckPlayer0, Deck deckPlayer1) throws HSException  {
 		for (int i = 0; i < numCardsToDraw_; ++i)
-			this.drawCard(deck);
+			this.drawCard(deckPlayer0);
 		return new HearthTreeNode(this.data_, this.score_, this.depth_, this.children_, this.numNodesTried_);
 	}
 }

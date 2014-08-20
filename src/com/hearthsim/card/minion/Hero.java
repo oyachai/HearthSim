@@ -138,6 +138,16 @@ public class Hero extends Minion {
 		return true;
     }
 
+	public final HearthTreeNode useHeroAbility(
+			int targetPlayerIndex,
+			Minion targetMinion,
+			HearthTreeNode boardState,
+			Deck deckPlayer0,
+			Deck deckPlayer1)
+		throws HSException
+	{
+		return this.useHeroAbility(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1, false);
+	}
 	/**
 	 * Use the hero ability on a given target
 	 * 
@@ -154,16 +164,15 @@ public class Hero extends Minion {
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
-			Deck deckPlayer1)
+			Deck deckPlayer1,
+			boolean singleRealizationOnly)
 		throws HSException
 	{
 		if (boardState.data_.getMana_p0() < HERO_ABILITY_COST)
 			return null;
 		
-		HearthTreeNode toRet = this.useHeroAbility_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
+		HearthTreeNode toRet = this.useHeroAbility_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
-			toRet.data_.setMana_p0(toRet.data_.getMana_p0() - HERO_ABILITY_COST);
-			this.hasBeenUsed_ = true;
 			toRet = BoardStateFactory.handleDeadMinions(toRet, deckPlayer0, deckPlayer1);
 		}
 		return toRet;
@@ -174,7 +183,8 @@ public class Hero extends Minion {
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
-			Deck deckPlayer1)
+			Deck deckPlayer1,
+			boolean singleRealizationOnly)
 		throws HSException
 	{
 		return null;

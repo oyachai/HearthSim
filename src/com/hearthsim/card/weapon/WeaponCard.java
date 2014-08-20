@@ -69,7 +69,8 @@ public class WeaponCard extends Card {
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
-			Deck deckPlayer1)
+			Deck deckPlayer1,
+			boolean singleRealizationOnly)
 		throws HSException
 	{
 		if (this.hasBeenUsed()) {
@@ -89,6 +90,6 @@ public class WeaponCard extends Card {
 
 		}
 		
-		return super.use_core(targetPlayerIndex, targetMinion, toRet, deckPlayer0, deckPlayer1);
+		return super.use_core(targetPlayerIndex, targetMinion, toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
 	}
 }

@@ -181,7 +181,7 @@ public class TestAcolyteOfPain {
 		board.data_.setMaxMana_p1((byte)3);
 
 
-		BoardState resBoard = ai0.playTurn(0, board.data_, player0, player1);
+		BoardState resBoard = ai0.playTurn(0, board.data_, player0, player1, 200000000);
 		
 		assertEquals(resBoard.getNumCards_hand_p0(), 1); //1 card drawn from AcolyteOfPain, then played the Bloodfen Raptor
 		assertEquals(resBoard.getNumMinions_p0(), 3);

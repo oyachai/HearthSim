@@ -1,6 +1,7 @@
 package com.hearthsim.util.tree;
 
 import com.hearthsim.card.Deck;
+import com.hearthsim.exception.HSException;
 
 /**
  * A tree node that stops AI from picking the "best" outcome from its branches. 
@@ -14,5 +15,5 @@ public abstract class StopNode extends HearthTreeNode {
 		numNodesTried_ = origNode.numNodesTried_;
 	}
 
-	public abstract HearthTreeNode finishAllEffects(Deck deck);
+	public abstract HearthTreeNode finishAllEffects(Deck deckPlayer0, Deck deckPlayer1) throws HSException;
 }

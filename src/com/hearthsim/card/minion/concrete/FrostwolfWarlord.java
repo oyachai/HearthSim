@@ -164,7 +164,8 @@ public class FrostwolfWarlord extends Minion {
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
-			Deck deckPlayer1)
+			Deck deckPlayer1,
+			boolean singleRealizationOnly)
 		throws HSException
 	{
 		
@@ -180,7 +181,7 @@ public class FrostwolfWarlord extends Minion {
 			return null;
 		
 		int numBuffs = boardState.data_.getNumMinions_p0();
-		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
+		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 
 		this.setAttack((byte)(this.getAttack() + numBuffs));
 		this.setHealth((byte)(this.getHealth() + numBuffs));

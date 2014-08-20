@@ -69,10 +69,13 @@ public class Druid extends Hero {
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
-			Deck deckPlayer1)
+			Deck deckPlayer1,
+			boolean singleRealizationOnly)
 		throws HSException
 	{
 		if ((targetMinion instanceof Hero)  && targetPlayerIndex == 0) {
+			this.hasBeenUsed_ = true;
+			boardState.data_.setMana_p0(boardState.data_.getMana_p0() - HERO_ABILITY_COST);
 			Hero target = boardState.data_.getHero_p0();
 			target.setExtraAttackUntilTurnEnd((byte)1);
 			target.setArmor((byte)1);

@@ -42,14 +42,15 @@ public class Silence extends SpellCard {
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
-			Deck deckPlayer1)
+			Deck deckPlayer1,
+			boolean singleRealizationOnly)
 		throws HSException
 	{
 		if (targetMinion instanceof Hero) {
 			return null;
 		}
 		
-		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
+		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null)
 			toRet = targetMinion.silenced(targetPlayerIndex, boardState, deckPlayer0, deckPlayer1);
 		return toRet;

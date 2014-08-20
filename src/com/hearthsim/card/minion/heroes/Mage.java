@@ -69,7 +69,8 @@ public class Mage extends Hero {
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
-			Deck deckPlayer1)
+			Deck deckPlayer1,
+			boolean singleRealizationOnly)
 		throws HSException
 	{
 		HearthTreeNode toRet = boardState;
@@ -77,6 +78,8 @@ public class Mage extends Hero {
 			//There's never a case where using it on yourself is a good idea
 			return null;
 		}
+		this.hasBeenUsed_ = true;
+		toRet.data_.setMana_p0(toRet.data_.getMana_p0() - HERO_ABILITY_COST);
 		toRet = targetMinion.takeDamage((byte)1, 0, targetPlayerIndex, toRet, deckPlayer0, deckPlayer1, false, true);
 		
 		return toRet;

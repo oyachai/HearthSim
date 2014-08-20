@@ -164,7 +164,8 @@ public class DarkscaleHealer extends Minion {
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
-			Deck deckPlayer1)
+			Deck deckPlayer1,
+			boolean singleRealizationOnly)
 		throws HSException
 	{
 		
@@ -185,6 +186,6 @@ public class DarkscaleHealer extends Minion {
 			toRet = minion.takeHeal((byte)2, 0, toRet, deckPlayer0, deckPlayer1);
 		}
 		
-		return super.use_core(targetPlayerIndex, targetMinion, toRet, deckPlayer0, deckPlayer1);
+		return super.use_core(targetPlayerIndex, targetMinion, toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
 	}
 }

@@ -162,7 +162,8 @@ public class AcidicSwampOoze extends Minion {
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
-			Deck deckPlayer1)
+			Deck deckPlayer1,
+			boolean singleRealizationOnly)
 		throws HSException
 	{
 		
@@ -182,7 +183,7 @@ public class AcidicSwampOoze extends Minion {
 			boardState.data_.getHero_p1().setAttack((byte)0);
 		}
 		
-		return super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
+		return super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 	}
 
 }

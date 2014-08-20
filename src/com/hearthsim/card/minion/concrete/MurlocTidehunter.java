@@ -166,7 +166,8 @@ public class MurlocTidehunter extends Murloc {
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
-			Deck deckPlayer1)
+			Deck deckPlayer1,
+			boolean singleRealizationOnly)
 		throws HSException
 	{
 		
@@ -181,7 +182,7 @@ public class MurlocTidehunter extends Murloc {
 		if (boardState.data_.getNumMinions_p0() >= 7)
 			return null;
 		
-		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
+		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		
 		if (toRet != null && toRet.data_.getNumMinions_p0() < 7) {
 			Minion newMinion = new MurlocScout();

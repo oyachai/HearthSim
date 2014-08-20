@@ -186,6 +186,17 @@ public class Card implements DeepCopyable {
     }
 
         
+	public final HearthTreeNode useOn(
+			int targetPlayerIndex,
+			Minion targetMinion,
+			HearthTreeNode boardState,
+			Deck deckPlayer0,
+			Deck deckPlayer1)
+		throws HSException
+	{
+		return this.useOn(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1, false);
+	}    
+    
 	/**
 	 * 
 	 * Use the card on the given target
@@ -193,6 +204,9 @@ public class Card implements DeepCopyable {
 	 * @param targetPlayerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
 	 * @param targetMinion The target minion (can be a Hero)
 	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+	 * @param deckPlayer0 The deck for player0
+	 * @param deckPlayer1 The deck for player1
+	 * @param singleRealizationOnly For cards with random effects, setting this to true will return only a single realization of the random event.
 	 * 
 	 * @return The boardState is manipulated and returned
 	 */
@@ -201,11 +215,12 @@ public class Card implements DeepCopyable {
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
-			Deck deckPlayer1)
+			Deck deckPlayer1,
+			boolean singleRealizationOnly)
 		throws HSException
 	{
 		//A generic card does nothing except for consuming mana
-		HearthTreeNode toRet = this.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
+		HearthTreeNode toRet = this.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 
 		//Notify all other cards/characters of the card's use
 		if (toRet != null) {
@@ -239,31 +254,7 @@ public class Card implements DeepCopyable {
 			}
 
 			//check for and remove dead minions
-			toRet = BoardStateFactory.handleDeadMinions(toRet, deckPlayer0, deckPlayer1);
-			
-//			Iterator<Minion> iter0 = toRet.data_.getMinions_p0().iterator();
-//			tmpList.clear();
-//			while (iter0.hasNext()) {
-//				tmpList.add(iter0.next());
-//			}
-//			for (Minion tMinion : tmpList) {
-//				if (tMinion.getTotalHealth() <= 0) {
-//					toRet = tMinion.destroyed(0, toRet, deckPlayer0, deckPlayer1);
-//					toRet.data_.getMinions_p0().remove(tMinion);
-//				}
-//			}
-//
-//			Iterator<Minion> iter1 = toRet.data_.getMinions_p1().iterator();
-//			tmpList.clear();
-//			while (iter1.hasNext()) {
-//				tmpList.add(iter1.next());
-//			}
-//			for (Minion tMinion : tmpList) {
-//				if (tMinion.getTotalHealth() <= 0) {
-//					toRet = tMinion.destroyed(1, toRet, deckPlayer0, deckPlayer1);
-//					toRet.data_.getMinions_p1().remove(tMinion);
-//				}
-//			}
+			toRet = BoardStateFactory.handleDeadMinions(toRet, deckPlayer0, deckPlayer1);			
 		}
 		
 		
@@ -288,7 +279,8 @@ public class Card implements DeepCopyable {
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
-			Deck deckPlayer1)
+			Deck deckPlayer1,
+			boolean singleRealizationOnly)
 		throws HSException
 	{
 		//A generic card does nothing except for consuming mana

@@ -69,7 +69,8 @@ public class Paladin extends Hero {
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
-			Deck deckPlayer1)
+			Deck deckPlayer1,
+			boolean singleRealizationOnly)
 		throws HSException
 	{
 		if (boardState.data_.getNumMinions_p0() >= 7)
@@ -78,6 +79,8 @@ public class Paladin extends Hero {
 		HearthTreeNode toRet = boardState;
 
 		if ((targetMinion instanceof Hero) && targetPlayerIndex == 0) {
+			this.hasBeenUsed_ = true;
+			toRet.data_.setMana_p0(toRet.data_.getMana_p0() - HERO_ABILITY_COST);
 			Minion theRecruit = new SilverHandRecruit();
 			Minion targetLocation = toRet.data_.getCharacter(0, toRet.data_.getNumMinions_p0());
 			toRet = theRecruit.summonMinion(targetPlayerIndex, targetLocation, toRet, deckPlayer0, deckPlayer1, false);

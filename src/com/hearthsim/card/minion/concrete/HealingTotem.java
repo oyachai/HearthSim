@@ -2,19 +2,20 @@ package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.exception.HSException;
-import com.hearthsim.util.tree.CardDrawNode;
-import com.hearthsim.util.tree.HearthTreeNode;
+import com.hearthsim.card.minion.Totem;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
+import com.hearthsim.exception.HSException;
+import com.hearthsim.util.BoardState;
+import com.hearthsim.util.tree.CardDrawNode;
+import com.hearthsim.util.tree.HearthTreeNode;
 
+public class HealingTotem extends Totem {
 
-public class NoviceEngineer extends Minion {
-
-	private static final String NAME = "Novice Engineer";
-	private static final byte MANA_COST = 2;
-	private static final byte ATTACK = 1;
-	private static final byte HEALTH = 1;
+	private static final String NAME = "Healing Totem";
+	private static final byte MANA_COST = 1;
+	private static final byte ATTACK = 0;
+	private static final byte HEALTH = 2;
 	
 	private static final boolean TAUNT = false;
 	private static final boolean DIVINE_SHIELD = false;
@@ -25,7 +26,7 @@ public class NoviceEngineer extends Minion {
 	private static final boolean TRANSFORMED = false;
 	private static final byte SPELL_DAMAGE = 0;
 	
-	public NoviceEngineer() {
+	public HealingTotem() {
 		this(
 				MANA_COST,
 				ATTACK,
@@ -56,7 +57,7 @@ public class NoviceEngineer extends Minion {
 			);
 	}
 	
-	public NoviceEngineer(	
+	public HealingTotem(	
 			byte mana,
 			byte attack,
 			byte health,
@@ -116,7 +117,7 @@ public class NoviceEngineer extends Minion {
 	
 	@Override
 	public Object deepCopy() {
-		return new NoviceEngineer(
+		return new HealingTotem(
 				this.mana_,
 				this.attack_,
 				this.health_,
@@ -145,36 +146,31 @@ public class NoviceEngineer extends Minion {
 				this.hasBeenUsed_);
 	}
 	
+	
 	/**
+	 * Called at the end of a turn
 	 * 
-	 * Override for battlecry
-	 * 
-	 * Battlecry: draw one card
-	 * 
-	 * @param thisCardIndex The index (position) of the card in the hand
-	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
-	 * @param minionIndex The index of the target minion.
-	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-	 * 
-	 * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public HearthTreeNode use_core(
-			int targetPlayerIndex,
-			Minion targetMinion,
-			HearthTreeNode boardState,
-			Deck deckPlayer0,
-			Deck deckPlayer1,
-			boolean singleRealizationOnly)
-		throws HSException
-	{
-		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
-		if (toRet != null) {
-			if (toRet instanceof CardDrawNode)
-				((CardDrawNode) toRet).addNumCardsToDraw(1);
-			else
-				toRet = new CardDrawNode(toRet, 1); //draw one card
+	public BoardState endTurn(int thisMinionPlayerIndex, BoardState boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+		BoardState tmpState = super.endTurn(thisMinionPlayerIndex, boardState, deckPlayer0, deckPlayer1);
+		if (thisMinionPlayerIndex > 0)
+			return tmpState;
+		
+		HearthTreeNode toRet = new HearthTreeNode(tmpState);
+	
+		for (Minion minion : toRet.data_.getMinions_p0()) {
+			toRet = minion.takeHeal((byte)2, 0, toRet, deckPlayer0, deckPlayer1);
 		}
-		return toRet;
+		
+		for(Minion minion : toRet.data_.getMinions_p1()) {
+			toRet = minion.takeHeal((byte)2, 1, toRet, deckPlayer0, deckPlayer1);
+		}
+		
+		if (toRet instanceof CardDrawNode) {
+			toRet = ((CardDrawNode) toRet).finishAllEffects(deckPlayer0, deckPlayer1);
+		}
+		
+		return toRet.data_;
 	}
 }

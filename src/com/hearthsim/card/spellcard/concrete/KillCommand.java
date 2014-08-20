@@ -41,7 +41,8 @@ public class KillCommand extends SpellDamage {
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
-			Deck deckPlayer1)
+			Deck deckPlayer1,
+			boolean singleRealizationOnly)
 		throws HSException
 	{
 		boolean haveBeast = false;
@@ -52,7 +53,7 @@ public class KillCommand extends SpellDamage {
 			this.damage_ = (byte)5;
 		else
 			this.damage_ = (byte)3;
-		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
+		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 
 		return toRet;
 	}

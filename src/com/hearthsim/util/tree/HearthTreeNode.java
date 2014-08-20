@@ -84,16 +84,6 @@ public class HearthTreeNode {
 	public void setScore(double value) {
 		score_ = value;
 	}
-
-	public HearthTreeNode addChild(BoardState childData, double score) {
-		HearthTreeNode childNode = new HearthTreeNode(childData, score);
-		childNode.setDepth((byte)(depth_+1));
-		if (children_ == null) {
-			children_ = new ArrayList<HearthTreeNode>();
-		}
-		children_.add(childNode);
-		return childNode;
-	}
 	
 	public HearthTreeNode addChild(HearthTreeNode node) {
 		node.setDepth((byte)(depth_+1));

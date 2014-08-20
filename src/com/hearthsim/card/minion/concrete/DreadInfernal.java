@@ -163,7 +163,8 @@ public class DreadInfernal extends Demon {
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
-			Deck deckPlayer1)
+			Deck deckPlayer1,
+			boolean singleRealizationOnly)
 		throws HSException
 	{
 		
@@ -189,6 +190,6 @@ public class DreadInfernal extends Demon {
 			toRet = minion.takeDamage((byte)1, 0, 1, boardState, deckPlayer0, deckPlayer1, false, false);
 		}
 		
-		return super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
+		return super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 	}
 }

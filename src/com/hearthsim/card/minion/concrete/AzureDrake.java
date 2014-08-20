@@ -164,7 +164,8 @@ public class AzureDrake extends Minion {
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
-			Deck deckPlayer1)
+			Deck deckPlayer1,
+			boolean singleRealizationOnly)
 		throws HSException
 	{
 		
@@ -179,7 +180,7 @@ public class AzureDrake extends Minion {
 		if (boardState.data_.getNumMinions_p0() >= 7)
 			return null;
 		
-		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
+		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet instanceof CardDrawNode)
 			((CardDrawNode) toRet).addNumCardsToDraw(1);
 		else

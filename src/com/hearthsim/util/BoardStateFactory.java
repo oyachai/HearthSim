@@ -13,6 +13,7 @@ import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.util.BoardState.MinionPlayerIDPair;
 import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
+import com.hearthsim.util.tree.RandomEffectNode;
 import com.hearthsim.util.tree.StopNode;
 
 public class BoardStateFactory {
@@ -125,7 +126,7 @@ public class BoardStateFactory {
 					if (boardStateNode.data_.getHero_p0().canBeUsedOn(0, targetMinion)) {
 						HearthTreeNode newState = new HearthTreeNode((BoardState)boardStateNode.data_.deepCopy());
 						Minion copiedTargetMinion = newState.data_.getCharacter_p0(i);
-						newState = newState.data_.getHero_p0().useHeroAbility(0, copiedTargetMinion, newState, deckPlayer0_, deckPlayer1_);
+						newState = newState.data_.getHero_p0().useHeroAbility(0, copiedTargetMinion, newState, deckPlayer0_, deckPlayer1_, false);
 						if (newState != null) {
 							newState = this.doMoves(newState, ai);
 							if (newState != null) boardStateNode.addChild(newState);
@@ -138,7 +139,7 @@ public class BoardStateFactory {
 					if (boardStateNode.data_.getHero_p0().canBeUsedOn(1, targetMinion)) {
 						HearthTreeNode newState = new HearthTreeNode((BoardState)boardStateNode.data_.deepCopy());
 						Minion copiedTargetMinion = newState.data_.getCharacter_p1(i);
-						newState = newState.data_.getHero_p0().useHeroAbility(1, copiedTargetMinion, newState, deckPlayer0_, deckPlayer1_);
+						newState = newState.data_.getHero_p0().useHeroAbility(1, copiedTargetMinion, newState, deckPlayer0_, deckPlayer1_, false);
 						if (newState != null) {
 							newState = this.doMoves(newState, ai);
 							if (newState != null) boardStateNode.addChild(newState);
@@ -186,7 +187,7 @@ public class BoardStateFactory {
 							HearthTreeNode newState = new HearthTreeNode((BoardState)boardStateNode.data_.deepCopy());
 							Minion copiedTargetMinion = newState.data_.getCharacter_p0(i);
 							Card card = newState.data_.getCard_hand_p0(ic);
-							newState = card.useOn(0, copiedTargetMinion, newState, deckPlayer0_, deckPlayer1_);
+							newState = card.useOn(0, copiedTargetMinion, newState, deckPlayer0_, deckPlayer1_, false);
 							if (newState != null) {
 								newState = this.doMoves(newState, ai);
 								if (newState != null) boardStateNode.addChild(newState);
@@ -199,7 +200,7 @@ public class BoardStateFactory {
 							HearthTreeNode newState = new HearthTreeNode((BoardState)boardStateNode.data_.deepCopy());
 							Minion copiedTargetMinion = newState.data_.getCharacter_p1(i);
 							Card card = newState.data_.getCard_hand_p0(ic);
-							newState = card.useOn(1, copiedTargetMinion, newState, deckPlayer0_, deckPlayer1_);
+							newState = card.useOn(1, copiedTargetMinion, newState, deckPlayer0_, deckPlayer1_, false);
 							if (newState != null) {
 								newState = this.doMoves(newState, ai);
 								if (newState != null) boardStateNode.addChild(newState);
@@ -276,14 +277,18 @@ public class BoardStateFactory {
 			int tmpNumNodesTried = 0;
 			Iterator<HearthTreeNode> iter = boardStateNode.getChildren().iterator();
 			HearthTreeNode bestBranch = null;
+			
 			while (iter.hasNext()) {
 				HearthTreeNode child = iter.next();
 				tmpNumNodesTried += child.getNumNodesTried();
-				double theScore = child.getScore();
+				double origScore = child.getScore();
+				double theScore = origScore;
 				if (child instanceof CardDrawNode)
 					theScore += ((CardDrawNode)child).cardDrawScore(deckPlayer0_, ai);
+				if (child instanceof RandomEffectNode)
+					theScore = ((RandomEffectNode)child).weightedAverageScore(deckPlayer0_, ai);
 				if (theScore > tmpScore) {
-					tmpScore = child.getScore();
+					tmpScore = theScore;
 					bestBranch = child;
 				}
 			}

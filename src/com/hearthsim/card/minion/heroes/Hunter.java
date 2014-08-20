@@ -69,11 +69,14 @@ public class Hunter extends Hero {
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
-			Deck deckPlayer1)
+			Deck deckPlayer1,
+			boolean singleRealizationOnly)
 		throws HSException
 	{
 		HearthTreeNode toRet = boardState;
 		if ((targetMinion instanceof Hero) && targetPlayerIndex == 1) {
+			this.hasBeenUsed_ = true;
+			toRet.data_.setMana_p0(toRet.data_.getMana_p0() - HERO_ABILITY_COST);
 			toRet = targetMinion.takeDamage((byte)2, 0, targetPlayerIndex, toRet, deckPlayer0, deckPlayer1, false, false);
 			return toRet;
 		} else {

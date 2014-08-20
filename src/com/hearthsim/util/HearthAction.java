@@ -1,75 +1,63 @@
 package com.hearthsim.util;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.Deck;
+import com.hearthsim.card.minion.Hero;
+import com.hearthsim.card.minion.Minion;
+import com.hearthsim.exception.HSException;
+import com.hearthsim.util.tree.HearthTreeNode;
 
 
-
+/**
+ * A class representing an action that a player can take
+ * 
+ *
+ */
 public class HearthAction {
+	
 	public enum Verb {
-		USE, PLACE, BUFF
+		USE_CARD, HERO_ABILITY, ATTACK
 	}
+		
+	public final Verb verb_;
 	
-	public class Target {
-		
-		int playerID_;
-		int targetID_;
-		
-		public Target(int playerID, int targetID) {
-			playerID_ = playerID;
-			targetID_ = targetID;
-		}
-		
-		public String toString() {
-			String toRet = "{\"p\": " + playerID_ + ", \"t\": " + targetID_ + "}";
-			return toRet;
-		}
-		
-	}
+	public final int actionPerformerPlayerIndex_;
+	public final int cardOrCharacterIndex_;
 	
-	Verb verb_;
-	Card object_;
-	Target target1_;
-	Target target2_;
-	Target target3_;
-	Target target4_;
+	public final int targetPlayerIndex_;
+	public final int targetCharacterIndex_;
 	
-	public HearthAction(Verb verb, Card object, Target target) {
-		this(verb, object, target, null, null, null);
-	}
-
-	public HearthAction(Verb verb, Card object, Target target1, Target target2) {
-		this(verb, object, target1, target2, null, null);
-	}
-
-	public HearthAction(Verb verb, Card object, Target target1, Target target2, Target target3) {
-		this(verb, object, target1, target2, target3, null);
-	}
-
-	public HearthAction(Verb verb, Card object, Target target1, Target target2, Target target3, Target target4) {
+	public HearthAction(Verb verb, int actionPerformerPlayerIndex, int cardOrCharacterIndex, int targetPlayerIndex, int targetCharacterIndex) {
 		verb_ = verb;
-		object_ = object;
-		target1_ = target1;
-		target2_ = target2;
-		target3_ = target3;
-		target4_ = target4;
+		actionPerformerPlayerIndex_ = actionPerformerPlayerIndex;
+		cardOrCharacterIndex_ = cardOrCharacterIndex;
+
+		targetPlayerIndex_ = targetPlayerIndex;
+		targetCharacterIndex_ = targetCharacterIndex;
 	}
-	
-	public String toString() {
-		String toRet = "{\"verb\": ";
-		switch (verb_) {
-		case USE:
-			toRet = toRet + "\"USE\"";
-		case PLACE:
-			toRet = toRet + "\"PLACE\"";
+
+	public HearthTreeNode perform(HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+		HearthTreeNode toRet = boardState;
+		switch(verb_) {
+			case USE_CARD: {
+				Card card = boardState.data_.getCard_hand(actionPerformerPlayerIndex_, cardOrCharacterIndex_);
+				Minion target = boardState.data_.getCharacter(targetPlayerIndex_, targetCharacterIndex_);
+				toRet = card.useOn(targetPlayerIndex_, target, toRet, deckPlayer0, deckPlayer1, true);
+			}
+			break;
+			case HERO_ABILITY: {
+				Hero hero = boardState.data_.getHero(actionPerformerPlayerIndex_);
+				Minion target = boardState.data_.getCharacter(targetPlayerIndex_, targetCharacterIndex_);
+				toRet = hero.useHeroAbility(targetPlayerIndex_, target, toRet, deckPlayer0, deckPlayer1, true);
+			}
+			break;
+			case ATTACK: {
+				Minion attacker = boardState.data_.getCharacter(actionPerformerPlayerIndex_, cardOrCharacterIndex_);
+				Minion target = boardState.data_.getCharacter(targetPlayerIndex_, targetCharacterIndex_);
+				toRet = attacker.attack(targetPlayerIndex_, target, toRet, deckPlayer0, deckPlayer1);
+			}
+			break;
 		}
-		
-		toRet = toRet + ", \"card\": " + object_;
-		toRet = toRet + ", \"target1\": " + target1_;
-		toRet = toRet + ", \"target2\": " + target2_;
-		toRet = toRet + ", \"target3\": " + target3_;
-		toRet = toRet + ", \"target4\": " + target4_;
-		toRet = toRet + "}";
-		
 		return toRet;
 	}
 }

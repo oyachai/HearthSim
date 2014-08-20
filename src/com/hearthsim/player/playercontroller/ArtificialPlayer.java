@@ -267,6 +267,22 @@ public class ArtificialPlayer {
 		
 		return score;
 	}
+
+	/**
+	 * Play a turn
+	 * 
+	 * This function is called by GameMaster, and it should return a BoardState resulting from the AI playing its turn.
+	 * 
+	 * @param turn Turn number, 1-based
+	 * @param board The board state at the beginning of the turn (after all card draws and minion deaths)
+	 * @param player The player playing the turn
+	 * 
+	 * @return
+	 * @throws HSException
+	 */
+	public BoardState playTurn(int turn, BoardState board, Player player0, Player player1) throws HSException {
+		return this.playTurn(turn, board, player0, player1, 20000);
+	}
 	
 	/**
 	 * Play a turn
@@ -276,13 +292,15 @@ public class ArtificialPlayer {
 	 * @param turn Turn number, 1-based
 	 * @param board The board state at the beginning of the turn (after all card draws and minion deaths)
 	 * @param player The player playing the turn
+	 * @param maxThinkTime The maximum number of milliseconds the AI will spend per tree
+	 * 
 	 * @return
 	 * @throws HSException
 	 */
-	public BoardState playTurn(int turn, BoardState board, Player player0, Player player1) throws HSException {
+	public BoardState playTurn(int turn, BoardState board, Player player0, Player player1, int maxThinkTime) throws HSException {
 		//The goal of this ai is to maximize his board score
 		HearthTreeNode toRet = new HearthTreeNode(board);
-		BoardStateFactory factory = new BoardStateFactory(player0.getDeck(), player1.getDeck(), 20000);
+		BoardStateFactory factory = new BoardStateFactory(player0.getDeck(), player1.getDeck(), maxThinkTime);
 		HearthTreeNode allMoves = factory.doMoves(toRet, this);
 
 //		System.out.print("turn = " + turn + ", p = " + player0.getName() + ", nHand = " + board.getNumCards_hand() + ", nMinion = " + board.getNumMinions_p0() + ", nEnemyMinion = " + board.getNumMinions_p1());
@@ -290,8 +308,8 @@ public class ArtificialPlayer {
 		
 		HearthTreeNode bestPlay = allMoves.findMaxOfFunc(this);
 		while( bestPlay instanceof StopNode ) {
-			HearthTreeNode allEffectsDone = ((StopNode)bestPlay).finishAllEffects(player0.getDeck());
-			BoardStateFactory tmpFactory = new BoardStateFactory(player0.getDeck(), player1.getDeck(), 20000);
+			HearthTreeNode allEffectsDone = ((StopNode)bestPlay).finishAllEffects(player0.getDeck(), player1.getDeck());
+			BoardStateFactory tmpFactory = new BoardStateFactory(player0.getDeck(), player1.getDeck(), maxThinkTime);
 			HearthTreeNode allMovesAtferStopNode = tmpFactory.doMoves(allEffectsDone, this);
 			bestPlay = allMovesAtferStopNode.findMaxOfFunc(this);
 		}

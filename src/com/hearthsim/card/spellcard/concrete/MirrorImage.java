@@ -53,7 +53,8 @@ public class MirrorImage extends SpellCard {
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
-			Deck deckPlayer1)
+			Deck deckPlayer1,
+			boolean singleRealizationOnly)
 		throws HSException
 	{
 		if (!(targetMinion instanceof Hero) || targetPlayerIndex == 1) {
@@ -64,7 +65,7 @@ public class MirrorImage extends SpellCard {
 		if (numMinions >= 7)
 			return null;
 
-		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
+		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
 			Minion mi0 = new MirrorImageMinion();
 			Minion placementTarget = toRet.data_.getCharacter_p0(numMinions);

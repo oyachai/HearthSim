@@ -52,7 +52,8 @@ public class DivineSpirit extends SpellCard {
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
-			Deck deckPlayer1)
+			Deck deckPlayer1,
+			boolean singleRealizationOnly)
 		throws HSException
 	{
 		if (targetMinion instanceof Hero) {
@@ -60,7 +61,7 @@ public class DivineSpirit extends SpellCard {
 			return null;
 		}
 
-		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
+		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
 			byte healthDiff = targetMinion.getHealth();
 			targetMinion.setHealth((byte)(targetMinion.getHealth() * 2));
