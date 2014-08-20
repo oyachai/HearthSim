@@ -121,27 +121,27 @@ public class Shaman extends Hero {
 		
 		HearthTreeNode toRet = new RandomEffectNode(boardState, new HearthAction(HearthAction.Verb.HERO_ABILITY, 0, 0, targetPlayerIndex, 0));
 		if (toRet != null) {
-			this.hasBeenUsed_ = true;
-			Minion[] minions = {new SearingTotem(), new StoneclawTotem(), new HealingTotem(), new WrathOfAirTotem()};
+			Minion[] totems = {new SearingTotem(), new StoneclawTotem(), new HealingTotem(), new WrathOfAirTotem()};
 			boolean allTotemsNotSummonable = true;
-			for (Minion minionToSummon : minions) {
+			for (Minion totemToSummon : totems) {
 				boolean totemAlreadySummoned = false;
 				for (Minion minion : toRet.data_.getMinions(targetPlayerIndex)) {
-					if (minion.getClass().equals(minionToSummon.getClass())) {
+					if (minion.getClass().equals(totemToSummon.getClass())) {
 						totemAlreadySummoned = true;
-					} else {
-						allTotemsNotSummonable = false;
+						break;
 					}
 				}
-				if (allTotemsNotSummonable) 
-					return null;
 				if (!totemAlreadySummoned) {
+					allTotemsNotSummonable = false;
 					HearthTreeNode newState = toRet.addChild(new HearthTreeNode((BoardState)toRet.data_.deepCopy()));
 					Minion summonTarget = newState.data_.getCharacter(targetPlayerIndex, numMinions);
 					newState.data_.setMana_p0(newState.data_.getMana_p0() - HERO_ABILITY_COST);
-					newState = minionToSummon.summonMinion(targetPlayerIndex, summonTarget, newState, deckPlayer0, deckPlayer1, false);
+					newState.data_.getHero_p0().hasBeenUsed(true);
+					newState = totemToSummon.summonMinion(targetPlayerIndex, summonTarget, newState, deckPlayer0, deckPlayer1, false);
 				}
 			}
+			if (allTotemsNotSummonable) 
+				return null;
 		}
 		return toRet;
 	}
