@@ -11,6 +11,8 @@ public class HSArrowButton extends JButton  {
 
 	public static final int LEFT = 10;
 	public static final int RIGHT = 20;
+	public static final int UP = 30;
+	public static final int DOWN = 40;
 	
 	int direction_;
 	
@@ -47,6 +49,13 @@ public class HSArrowButton extends JButton  {
         	tr_y[0] = 0;
         	tr_y[1] = height / 2;
         	tr_y[2] = height;
+        } else if (direction_ == DOWN) {
+        	tr_x[0] = 2 * width / 7;
+        	tr_x[1] = 5 * width / 7;
+        	tr_x[2] = width / 2;
+        	tr_y[0] = 3 * height / 7;
+        	tr_y[1] = 3 * height / 7;
+        	tr_y[2] = 5 * height / 7;
         } else {
         	return;
         }

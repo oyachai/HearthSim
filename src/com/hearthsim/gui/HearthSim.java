@@ -837,7 +837,7 @@ public class HearthSim implements HSSimulationEventListener {
 			}
 		});
 		
-		deckCreatePanel_0 = new HSDeckCreatePanel();
+		deckCreatePanel_0 = new HSDeckCreatePanel(0, hsModel_, lblHero_0);
 		deckCreatePanel_0.setForeground(Color.WHITE);
 		deckCreatePanel_0.setBackground(HSColors.LIGHTER_BACKGROUND_COLOR);
 		springLayout.putConstraint(SpringLayout.WEST, deckCreatePanel_0, 0, SpringLayout.EAST, Player0Panel);
@@ -849,7 +849,7 @@ public class HearthSim implements HSSimulationEventListener {
 		deckCreatePanel_0.setCardListPane(deckList_0);
 		frame.getContentPane().add(deckCreatePanel_0);
 
-		deckCreatePanel_1 = new HSDeckCreatePanel();
+		deckCreatePanel_1 = new HSDeckCreatePanel(1, hsModel_, lblHero_1);
 		deckCreatePanel_1.setForeground(Color.WHITE);
 		deckCreatePanel_1.setBackground(HSColors.LIGHTER_BACKGROUND_COLOR);
 		springLayout.putConstraint(SpringLayout.WEST, deckCreatePanel_1, 0, SpringLayout.EAST, Player0Panel);

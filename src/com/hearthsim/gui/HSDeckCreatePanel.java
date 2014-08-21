@@ -5,14 +5,20 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.LayoutManager;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.ScrollPaneLayout;
 import javax.swing.SpringLayout;
+
+import com.hearthsim.exception.HSException;
+import com.hearthsim.util.HeroFactory;
 
 public class HSDeckCreatePanel extends JPanel {
 
@@ -24,6 +30,8 @@ public class HSDeckCreatePanel extends JPanel {
 	JPanel titlePanel_;
 	JPanel controlPanel_;
 	JPanel mainPanel_;
+	JPanel heroChoicePanel_;
+	JComboBox<String> heroChoice_;
 	
 	JLabel title_;
 	
@@ -32,9 +40,9 @@ public class HSDeckCreatePanel extends JPanel {
 	
 	HSCardSelectionList cardList_;
 	
-	public HSDeckCreatePanel() {
+	public HSDeckCreatePanel(int playerIndex, final HSMainFrameModel hsModel, final JLabel label) {
 		super();
-		playerIndex_ = 0;
+		playerIndex_ = playerIndex;
 		layout_ = new SpringLayout();
 		super.setLayout(layout_);
 		
@@ -46,14 +54,58 @@ public class HSDeckCreatePanel extends JPanel {
 		layout_.putConstraint(SpringLayout.EAST, titlePanel_, 0, SpringLayout.EAST, this);
 		layout_.putConstraint(SpringLayout.WEST, titlePanel_, 0, SpringLayout.WEST, this);
 
+		heroChoicePanel_ = new JPanel();
+		heroChoicePanel_.setOpaque(false);
+		layout_.putConstraint(SpringLayout.NORTH, heroChoicePanel_, 0, SpringLayout.SOUTH, titlePanel_);
+		layout_.putConstraint(SpringLayout.SOUTH, heroChoicePanel_, 50, SpringLayout.SOUTH, titlePanel_);
+		layout_.putConstraint(SpringLayout.EAST, heroChoicePanel_, 0, SpringLayout.EAST, this);
+		layout_.putConstraint(SpringLayout.WEST, heroChoicePanel_, 0, SpringLayout.WEST, this);
+
+		String[] heroes = {"None", "Druid", "Hunter", "Mage", "Paladin", "Priest", "Rogue", "Shaman", "Warlock", "Warrior"};
+		heroChoice_ = new HSHeroChoiceComboBox(heroes);
+		heroChoice_.setPreferredSize(new Dimension(150, 40));
+		if (playerIndex == 0)
+			heroChoice_.setSelectedItem(hsModel.getSimulation().getHero_p0().getName());
+		else if (playerIndex == 1)
+			heroChoice_.setSelectedItem(hsModel.getSimulation().getHero_p1().getName());
+		heroChoice_.setFont(new Font("Helvetica Neue", Font.PLAIN, 22));
+
+		
+		heroChoice_.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					if (playerIndex_ == 0) {
+						hsModel.getSimulation().setHero_p0(HeroFactory.getHero((String)heroChoice_.getSelectedItem()));
+					} else if (playerIndex_ == 1) {
+						hsModel.getSimulation().setHero_p1(HeroFactory.getHero((String)heroChoice_.getSelectedItem()));
+					}
+					label.setText((String)heroChoice_.getSelectedItem());
+				} catch (HSException exception) {
+					
+				}
+			}
+			
+		});
+
+		
+		JLabel heroChoiceLegend = new JLabel("Hero:");
+		heroChoiceLegend.setFont(new Font("Helvetica Neue", Font.PLAIN, 14));
+		heroChoiceLegend.setForeground(HSColors.TEXT_COLOR);
+		heroChoicePanel_.add(heroChoiceLegend);
+		heroChoicePanel_.add(heroChoice_);
+		
 		mainPanel_ = new JPanel();
 		SpringLayout sl_mainPanel = new SpringLayout();
 		mainPanel_.setLayout(sl_mainPanel);
-		layout_.putConstraint(SpringLayout.NORTH, mainPanel_, 0, SpringLayout.SOUTH, titlePanel_);
+		layout_.putConstraint(SpringLayout.NORTH, mainPanel_, 0, SpringLayout.SOUTH, heroChoicePanel_);
 		layout_.putConstraint(SpringLayout.SOUTH, mainPanel_, 0, SpringLayout.SOUTH, this);
 		layout_.putConstraint(SpringLayout.EAST, mainPanel_, 0, SpringLayout.EAST, this);
 		layout_.putConstraint(SpringLayout.WEST, mainPanel_, 0, SpringLayout.WEST, this);
 
+
+		this.add(heroChoicePanel_);
 		this.add(titlePanel_);
 		this.add(mainPanel_);
 		
