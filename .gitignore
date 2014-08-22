@@ -179,6 +179,18 @@ eclipse-build
 !/.settings/org.eclipse.jdt.ui.prefs
 /bin
 
+####
+# Intellij ignore
+HearthSim.iml
+HearthSim.ipr
+HearthSim.iws
+
+####
+# Gradle ignore
+out
+.gradle
+
+
 *.json
 *.hsres
 
