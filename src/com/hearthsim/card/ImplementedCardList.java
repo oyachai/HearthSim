@@ -930,6 +930,11 @@ public class ImplementedCardList {
             list_.add(card);
             map_.put(YoungDragonhawk.class, card);
         }
+        {
+            ImplementedCard card = new ImplementedCard(ZombieChow.class, "Zombie Chow", "minion", "neutral", "common", "Deathrattle Restore 5 Health to the enemy hero.", 1, 2, 3);
+            list_.add(card);
+            map_.put(ZombieChow.class, card);
+        }
     }
 
     public ArrayList<ImplementedCard> getCardList() {

@@ -5,11 +5,14 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class DeathrattleDealDamageEnemyHeroAction extends DeathrattleAction {
-	private final byte damage_;
+public class DeathrattleHealHeroAction extends DeathrattleAction {
+
+	private final byte amount_;
+	private final boolean targetEnemyHero_;
     
-	public DeathrattleDealDamageEnemyHeroAction(byte damage) {
-		damage_ = damage;
+	public DeathrattleHealHeroAction(byte amount, boolean targetEnemyHero) {
+		amount_ = amount;
+		targetEnemyHero_ = targetEnemyHero;
 	}
 	
 	@Override
@@ -23,8 +26,10 @@ public class DeathrattleDealDamageEnemyHeroAction extends DeathrattleAction {
 	{
 		HearthTreeNode toRet = super.performAction(minion, thisPlayerIndex, boardState, deckPlayer0, deckPlayer1);
 		if (toRet != null) {
-			toRet = toRet.data_.getHero((thisPlayerIndex + 1) % 2).takeDamage(damage_, thisPlayerIndex, thisPlayerIndex, toRet, deckPlayer0, deckPlayer1, false, false);
+			int targetPlayerIndex = targetEnemyHero_ ? (thisPlayerIndex + 1) % 2 : thisPlayerIndex;
+			toRet = toRet.data_.getHero(targetPlayerIndex).takeHeal(amount_, targetPlayerIndex, toRet, deckPlayer0, deckPlayer1);
 		}
 		return toRet;
 	}
+
 }
