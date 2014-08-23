@@ -135,7 +135,7 @@ Flame Imp|minion|warlock|common|1|3|2|Battlecry: Deal 3 damage to your hero|FALS
 Flamestrike|spell|mage|free|7|||Deal 4 damage to all enemy minions|TRUE
 Flametongue Totem|minion|shaman|free|2|0|3|Adjacent minions have +2 Attack|FALSE
 Flare|spell|hunter|rare|1|||All minions lose Stealth.Destroy all enemy Secrets. Draw a card|FALSE
-Flesheating Ghoul|minion|neutral|common|3|2|3|Whenever a minion dies, gain +1 Attack|FALSE
+Flesheating Ghoul|minion|neutral|common|3|2|3|Whenever a minion dies, gain +1 Attack|TRUE
 Force of Nature|spell|neutral|epic|6|||Summon three 2/2 Treants with Charge that die at the end of the turn|FALSE
 Forked Lightning|spell|shaman|common|1|||Deal 2 damage to 2 random enemy minions. Overload: (2)|FALSE
 Freezing Trap|spell|hunter|common|2|||Secret: When an enemy minion attacks, return it to its owner's hand and it costs (2) more|FALSE

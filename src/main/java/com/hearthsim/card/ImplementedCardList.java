@@ -386,6 +386,11 @@ public class ImplementedCardList {
             map_.put(Flamestrike.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(FlesheatingGhoul.class, "Flesheating Ghoul", "minion", "neutral", "common", "Whenever a minion dies, gain +1 Attack", 3, 2, 3);
+            list_.add(card);
+            map_.put(FlesheatingGhoul.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(FrostNova.class, "Frost Nova", "spell", "mage", "free", "Freeze all enemy minions", 3, -1, -1);
             list_.add(card);
             map_.put(FrostNova.class, card);
