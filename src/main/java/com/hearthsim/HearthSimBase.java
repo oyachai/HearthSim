@@ -19,6 +19,8 @@ import com.hearthsim.exception.HSParamNotFoundException;
 import com.hearthsim.io.ParamFile;
 import com.hearthsim.player.Player;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
+import com.hearthsim.results.GameResult;
+import com.hearthsim.results.GameResultSummary;
 import com.hearthsim.util.ThreadQueue;
 
 public abstract class HearthSimBase {
@@ -32,9 +34,10 @@ public abstract class HearthSimBase {
 	protected Path aiParamFilePath1_;
 	
 	boolean isRunning_;
-	protected GameResult[] results_;
 	
 	private List<HSGameEndEventListener> gameEndListeners_;
+	
+	private Object lockObject = new Object();
 
 	/**
 	 * Constructor
@@ -52,7 +55,6 @@ public abstract class HearthSimBase {
 		aiParamFilePath0_ = FileSystems.getDefault().getPath(rootPath_.toString(), masterParam.getString("aiParamFilePath0"));
 		aiParamFilePath1_ = FileSystems.getDefault().getPath(rootPath_.toString(), masterParam.getString("aiParamFilePath1"));
 		gameResultFileName_ = masterParam.getString("output_file", "gameres.txt");
-		results_ = new GameResult[numSims_];
 		gameEndListeners_ = new ArrayList<HSGameEndEventListener>();
 		isRunning_ = false;
 	}
@@ -60,7 +62,6 @@ public abstract class HearthSimBase {
 	HearthSimBase(int numSimulations, int numThreads) {
 		numSims_ = numSimulations;
 		numThreads_ = numThreads;
-		results_ = new GameResult[numSims_];
 		gameEndListeners_ = new ArrayList<HSGameEndEventListener>();
 		isRunning_ = false;
 	}
@@ -148,9 +149,8 @@ public abstract class HearthSimBase {
 						writer_.flush();
 					}
 				}
-				synchronized(results_) {
+				synchronized(lockObject) {
 					System.out.println("game " + gameId_ + ", player " + res.winnerPlayerIndex_ + " wins");
-					results_[gameId_] = res;
 					for (HSGameEndEventListener listener : gameEndListeners_) {
 						listener.gameEnded(res);
 					}

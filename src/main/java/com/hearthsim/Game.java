@@ -5,6 +5,10 @@ import com.hearthsim.exception.HSException;
 import com.hearthsim.player.Player;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.player.playercontroller.GameMaster;
+import com.hearthsim.results.GameDetailedRecord;
+import com.hearthsim.results.GameRecord;
+import com.hearthsim.results.GameResult;
+import com.hearthsim.results.GameSimpleRecord;
 import com.hearthsim.util.BoardState;
 
 public class Game {
@@ -68,9 +72,9 @@ public class Game {
 		boardState_.placeCard_hand_p1(new TheCoin());
 		boardState_.setDeckPos_p1(4);
 		
-		GameRecord record = new GameRecord();
-		record.put(s0_, (BoardState)boardState_.deepCopy());
-		record.put(s1_, (BoardState)boardState_.flipPlayers().deepCopy());
+		GameRecord record = new GameSimpleRecord();
+		record.put(0, s0_, (BoardState)boardState_.deepCopy());
+		record.put(0, s1_, (BoardState)boardState_.flipPlayers().deepCopy());
 				
 		for (int i = 0; i < maxTurns_; ++i) {
 			
@@ -85,7 +89,7 @@ public class Game {
 			boardState_ = gms_[s0_].playTurn(i, boardState_, players_[s0_], players_[s1_]);
 			gms_[s0_].endTurn(i, boardState_, players_[s0_], players_[s1_]);
 
-			record.put(s0_, (BoardState)boardState_.deepCopy());
+			record.put(i + 1, s0_, (BoardState)boardState_.deepCopy());
 			if (!boardState_.isAlive_p0()) {
 				return new GameResult(s0_, s1_, i + 1, record);
 			} else if (!boardState_.isAlive_p1()) {
@@ -104,7 +108,7 @@ public class Game {
 
 			boardState_ = gms_[s1_].playTurn(i, boardState_, players_[s1_], players_[s0_]);
 			gms_[s1_].endTurn(i, boardState_, players_[s1_], players_[s0_]);
-			record.put(s1_, (BoardState)boardState_.deepCopy());
+			record.put(i + 1, s1_, (BoardState)boardState_.deepCopy());
 
 			if (!boardState_.isAlive_p0()) {
 				return new GameResult(s0_, s0_, i + 1, record);

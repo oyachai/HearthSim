@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 import org.apache.commons.math3.distribution.*;
 
-import com.hearthsim.GameResult;
 import com.hearthsim.event.HSGameEndEventListener;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
+import com.hearthsim.results.GameResult;
 import com.hearthsim.util.BoardState;
 
 public class HSMainFrameModel implements HSGameEndEventListener {
@@ -69,28 +69,22 @@ public class HSMainFrameModel implements HSGameEndEventListener {
 			if (nR_1 > 50) nR_1 = 50;
 
 			for (int indx = 0; indx < nR_0; ++indx) {
-				BoardState board = result.record_.get(indx, 0);
-				p0_numMinionsOnTurn_[indx] += board.getNumMinions_p0();
+				p0_numMinionsOnTurn_[indx] += result.record_.getNumMinions(0, indx, 0);
 			}
 			for (int indx = 0; indx < nR_1; ++indx) {
-				BoardState board = result.record_.get(indx, 1);
-				p1_numMinionsOnTurn_[indx] += board.getNumMinions_p0();
+				p1_numMinionsOnTurn_[indx] += result.record_.getNumMinions(1, indx, 1);
 			}
 			for (int indx = 0; indx < nR_0; ++indx) {
-				BoardState board = result.record_.get(indx, 0);
-				p0_numCardsOnTurn_[indx] += board.getNumCards_hand_p0();
+				p0_numCardsOnTurn_[indx] += result.record_.getNumCardsInHand(0, indx, 0);
 			}
 			for (int indx = 0; indx < nR_1; ++indx) {
-				BoardState board = result.record_.get(indx, 1);
-				p1_numCardsOnTurn_[indx] += board.getNumCards_hand_p0();
+				p1_numCardsOnTurn_[indx] += result.record_.getNumCardsInHand(1, indx, 1);
 			}
 			for (int indx = 0; indx < nR_0; ++indx) {
-				BoardState board = result.record_.get(indx, 0);
-				p0_heroHealthOnTurn_[indx] += board.getHero_p0().getHealth();
+				p0_heroHealthOnTurn_[indx] += result.record_.getHeroHealth(0, indx, 0);
 			}
 			for (int indx = 0; indx < nR_1; ++indx) {
-				BoardState board = result.record_.get(indx, 1);
-				p1_heroHealthOnTurn_[indx] += board.getHero_p0().getHealth();
+				p1_heroHealthOnTurn_[indx] += result.record_.getHeroHealth(1, indx, 1);
 			}
 		}
 		

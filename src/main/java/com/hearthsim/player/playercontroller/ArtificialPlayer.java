@@ -160,6 +160,8 @@ public class ArtificialPlayer {
 			my_wCharge_ = pFile.getDouble("w_charge", 0.0);
 			enemy_wCharge_ = pFile.getDouble("wt_charge", 0.0);
 
+			wMana_ = pFile.getDouble("w_mana", 0.1);
+			
 		} catch (HSParamNotFoundException e) {
 			System.err.println(e.getMessage());
 			System.exit(1);

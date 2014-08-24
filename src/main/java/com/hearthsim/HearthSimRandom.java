@@ -13,6 +13,7 @@ import com.hearthsim.exception.HSInvalidParamFileException;
 import com.hearthsim.exception.HSParamNotFoundException;
 import com.hearthsim.io.ParamFile;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
+import com.hearthsim.results.GameResult;
 
 /**
  * A Game setup to play a random (fictitious) minion vs random (fictitious) minion games.

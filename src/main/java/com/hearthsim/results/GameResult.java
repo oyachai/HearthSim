@@ -1,4 +1,4 @@
-package com.hearthsim;
+package com.hearthsim.results;
 
 public class GameResult {
 

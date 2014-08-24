@@ -13,6 +13,7 @@ import com.hearthsim.exception.HSParamNotFoundException;
 import com.hearthsim.io.DeckListFile;
 import com.hearthsim.io.ParamFile;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
+import com.hearthsim.results.GameResult;
 
 /**
  * A Game setup to play a constructed deck vs constructed deck games.

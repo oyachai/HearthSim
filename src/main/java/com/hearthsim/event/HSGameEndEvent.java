@@ -1,6 +1,6 @@
 package com.hearthsim.event;
 
-import com.hearthsim.GameResult;
+import com.hearthsim.results.GameResult;
 
 public class HSGameEndEvent {
 
