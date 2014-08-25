@@ -11,6 +11,9 @@ public class Frog extends Beast {
 	private static final byte ATTACK = 0;
 	private static final byte HEALTH = 1;
 	
+	private static final boolean STEALTHED = false;
+	private static final boolean HERO_TARGETABLE = true;
+
 	private static final boolean TAUNT = true;
 	private static final boolean TRANSFORMED = true;
 	private static final byte SPELL_DAMAGE = 0;
@@ -35,6 +38,8 @@ public class Frog extends Beast {
 				false,
 				false,
 				false,
+				STEALTHED,
+				HERO_TARGETABLE,
 				false,
 				TRANSFORMED,
 				false,
@@ -65,6 +70,8 @@ public class Frog extends Beast {
 			boolean hasWindFuryAttacked,
 			boolean frozen,
 			boolean silenced,
+			boolean stealthed,
+			boolean hero_targetable,
 			boolean summoned,
 			boolean transformed,
 			boolean destroyOnTurnStart,
@@ -94,6 +101,8 @@ public class Frog extends Beast {
 			hasWindFuryAttacked,
 			frozen,
 			silenced,
+			stealthed,
+			hero_targetable,
 			summoned,
 			transformed,
 			destroyOnTurnStart,
@@ -125,6 +134,8 @@ public class Frog extends Beast {
 				this.hasWindFuryAttacked_,
 				this.frozen_,
 				this.silenced_,
+				this.stealthed_,
+				this.heroTargetable_,
 				this.summoned_,
 				this.transformed_,
 				this.destroyOnTurnStart_,

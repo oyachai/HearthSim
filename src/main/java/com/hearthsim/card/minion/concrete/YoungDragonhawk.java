@@ -16,6 +16,8 @@ public class YoungDragonhawk extends Minion {
 	private static final boolean WINDFURY = true;
 	private static final boolean CHARGE = false;
 	
+	private static final boolean STEALTHED = false;
+	private static final boolean HERO_TARGETABLE = true;
 	private static final boolean SUMMONED = false;
 	private static final boolean TRANSFORMED = false;
 	private static final byte SPELL_DAMAGE = 0;
@@ -40,6 +42,8 @@ public class YoungDragonhawk extends Minion {
 				false,
 				false,
 				false,
+				STEALTHED,
+				HERO_TARGETABLE,
 				SUMMONED,
 				TRANSFORMED,
 				false,
@@ -70,6 +74,8 @@ public class YoungDragonhawk extends Minion {
 			boolean hasWindFuryAttacked,
 			boolean frozen,
 			boolean silenced,
+			boolean stealthed,
+			boolean hero_targetable,
 			boolean summoned,
 			boolean transformed,
 			boolean destroyOnTurnStart,
@@ -99,6 +105,8 @@ public class YoungDragonhawk extends Minion {
 			hasWindFuryAttacked,
 			frozen,
 			silenced,
+			stealthed,
+			hero_targetable,
 			summoned,
 			transformed,
 			destroyOnTurnStart,
@@ -130,6 +138,8 @@ public class YoungDragonhawk extends Minion {
 				this.hasWindFuryAttacked_,
 				this.frozen_,
 				this.silenced_,
+				this.stealthed_,
+				this.heroTargetable_,
 				this.summoned_,
 				this.transformed_,
 				this.destroyOnTurnStart_,

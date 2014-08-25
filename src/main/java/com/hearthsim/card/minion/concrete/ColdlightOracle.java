@@ -22,6 +22,8 @@ public class ColdlightOracle extends Murloc {
 	private static final boolean WINDFURY = false;
 	private static final boolean CHARGE = false;
 	
+	private static final boolean STEALTHED = false;
+	private static final boolean HERO_TARGETABLE = true;
 	private static final boolean SUMMONED = false;
 	private static final boolean TRANSFORMED = false;
 	private static final byte SPELL_DAMAGE = 0;
@@ -47,6 +49,8 @@ public class ColdlightOracle extends Murloc {
 				false,
 				false,
 				false,
+				STEALTHED,
+				HERO_TARGETABLE,
 				SUMMONED,
 				TRANSFORMED,
 				false,
@@ -77,6 +81,8 @@ public class ColdlightOracle extends Murloc {
 			boolean hasWindFuryAttacked,
 			boolean frozen,
 			boolean silenced,
+			boolean stealthed,
+			boolean hero_targetable,
 			boolean summoned,
 			boolean transformed,
 			boolean destroyOnTurnStart,
@@ -106,6 +112,8 @@ public class ColdlightOracle extends Murloc {
 			hasWindFuryAttacked,
 			frozen,
 			silenced,
+			stealthed,
+			hero_targetable,
 			summoned,
 			transformed,
 			destroyOnTurnStart,
@@ -137,6 +145,8 @@ public class ColdlightOracle extends Murloc {
 				this.hasWindFuryAttacked_,
 				this.frozen_,
 				this.silenced_,
+				this.stealthed_,
+				this.heroTargetable_,
 				this.summoned_,
 				this.transformed_,
 				this.destroyOnTurnStart_,

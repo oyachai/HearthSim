@@ -27,6 +27,8 @@ public class Demon extends Minion {
 			boolean hasWindFuryAttacked,
 			boolean frozen,
 			boolean silenced,
+			boolean stealthed,
+			boolean heroTargetable,
 			boolean summoned,
 			boolean transformed,
 			boolean destroyOnTurnStart,
@@ -55,6 +57,8 @@ public class Demon extends Minion {
 				hasWindFuryAttacked,
 				frozen,
 				silenced,
+				stealthed,
+				heroTargetable,
 				summoned,
 				transformed,
 				destroyOnTurnStart,
@@ -74,7 +78,7 @@ public class Demon extends Minion {
 			byte baseHealth,
 			byte maxHealth
 			) {
-		this(name, mana, attack, health, baseAttack, (byte)0, (byte)0, baseHealth, maxHealth, (byte)0, (byte)0, false, false, false, false, false, false, false, false, false, false, false, false, null, null, true, false);
+		this(name, mana, attack, health, baseAttack, (byte)0, (byte)0, baseHealth, maxHealth, (byte)0, (byte)0, false, false, false, false, false, false, false, false, false, false, false, false, false, false, null, null, true, false);
 	}
 	
 	public JSONObject toJSON() {

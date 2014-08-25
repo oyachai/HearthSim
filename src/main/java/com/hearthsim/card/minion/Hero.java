@@ -37,7 +37,7 @@ public class Hero extends Minion {
 			boolean frozen,
 			boolean hasBeenUsed) {
 	
-		super(name, (byte)0, attack, health, (byte)0, extraAttackUntilTurnEnd, (byte)0, (byte)30, (byte)30, (byte)0, (byte)0, false, false, windFury, false, hasAttacked, hasWindFuryAttacked, frozen, false, false, false, false, false, null, null, false, hasBeenUsed);
+		super(name, (byte)0, attack, health, (byte)0, extraAttackUntilTurnEnd, (byte)0, (byte)30, (byte)30, (byte)0, (byte)0, false, false, windFury, false, hasAttacked, hasWindFuryAttacked, frozen, false, false, false, false, false, false, false, null, null, false, hasBeenUsed);
 		armor_ = armor;
 		weaponCharge_ = weaponCharge;
 	}

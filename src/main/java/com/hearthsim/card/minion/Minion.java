@@ -25,6 +25,8 @@ public class Minion extends Card {
 	
 	protected boolean frozen_;
 	protected boolean silenced_;
+	protected boolean stealthed_;
+	protected boolean heroTargetable_;
 	
 	protected byte health_;
 	protected byte maxHealth_;
@@ -54,8 +56,12 @@ public class Minion extends Card {
 				attack,
 				health,
 				baseAttack,
+				(byte)0,
+				(byte)0,
 				baseHealth,
 				maxHealth,
+				(byte)0,
+				(byte)0,
 				false,
 				false,
 				false,
@@ -66,58 +72,14 @@ public class Minion extends Card {
 				false,
 				false,
 				false,
+				false,
+				false,
+				false,
+				false,
+				null,
+				null,
 				true,
 				false);
-	}
-	
-	public Minion(	String name,
-					byte mana,
-					byte attack,
-					byte health,
-					byte baseAttack,
-					byte baseHealth,
-					byte maxHealth,
-					boolean taunt,
-					boolean divineShield,
-					boolean windFury,
-					boolean charge,
-					boolean hasAttacked,
-					boolean hasWindFuryAttacked,
-					boolean frozen,
-					boolean silenced,
-					boolean summoned,
-					boolean transformed,
-					boolean isInHand,
-					boolean hasBeenUsed)
-	{
-		this(
-				name,
-				mana,
-				attack,
-				health,
-				baseAttack,
-				(byte)0,
-				(byte)0,
-				baseHealth,
-				maxHealth,
-				(byte)0,
-				(byte)0,
-				taunt,
-				divineShield,
-				windFury,
-				charge,
-				hasAttacked,
-				hasWindFuryAttacked,
-				frozen,
-				silenced,
-				summoned,
-				transformed,
-				false,
-				false,
-				null,
-				null,
-				isInHand,
-				hasBeenUsed);
 	}
 	
 	public Minion(	String name,
@@ -139,6 +101,8 @@ public class Minion extends Card {
 					boolean hasWindFuryAttacked,
 					boolean frozen,
 					boolean silenced,
+					boolean stealthed,
+					boolean heroTargetable,
 					boolean summoned,
 					boolean transformed,
 					boolean destroyOnTurnStart,
@@ -173,6 +137,9 @@ public class Minion extends Card {
 		auraHealth_ = auraHealth;
 		
 		spellDamage_ = spellDamage;
+		
+		stealthed_ = stealthed;
+		heroTargetable_ = heroTargetable;
 	}
 	
 	public boolean getTaunt() {
@@ -1130,6 +1097,8 @@ public class Minion extends Card {
 				this.hasWindFuryAttacked_,
 				this.frozen_,
 				this.silenced_,
+				this.stealthed_,
+				this.heroTargetable_,
 				this.summoned_,
 				this.transformed_,
 				this.destroyOnTurnStart_,
