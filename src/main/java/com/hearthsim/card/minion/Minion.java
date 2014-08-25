@@ -309,6 +309,14 @@ public class Minion extends Card {
 		auraHealth_ -= value;
 	}
 	
+	public boolean getStealthed() {
+		return stealthed_;
+	}
+	
+	public void setStealthed(boolean value) {
+		stealthed_ = value;
+	}
+	
 	/**
 	 * Called at the start of the turn
 	 * 
@@ -458,6 +466,8 @@ public class Minion extends Card {
 		windFury_ = false;
 		silenced_ = true;
 		deathrattleAction_ = null;
+		stealthed_ = false;
+		heroTargetable_ = true;
 
 		return toRet;
 	}
@@ -742,6 +752,11 @@ public class Minion extends Card {
 			Deck deckPlayer1)
 		throws HSException
 	{
+		
+		//can't attack a stealthed target
+		if (targetMinion.getStealthed())
+			return null;
+		
 		if (frozen_) {
 			this.hasAttacked_ = true;
 			this.frozen_ = false;
@@ -772,25 +787,12 @@ public class Minion extends Card {
 		//check for and remove dead minions
 		if (toRet != null) {
 			toRet = BoardStateFactory.handleDeadMinions(toRet, deckPlayer0, deckPlayer1);
-//			Iterator<Minion> iter0 = toRet.data_.getMinions_p0().iterator();
-//			while (iter0.hasNext()) {
-//				Minion tMinion = iter0.next();
-//				if (tMinion.getTotalHealth() <= 0) {
-//					toRet = tMinion.destroyed(0, toRet, deckPlayer0, deckPlayer1);
-//					iter0.remove();
-//					toRet.data_.getMinions_p0().remove(tMinion);
-//				}
-//			}
-//			Iterator<Minion> iter1 = toRet.data_.getMinions_p1().iterator();
-//			while (iter1.hasNext()) {
-//				Minion tMinion = iter1.next();
-//				if (tMinion.getTotalHealth() <= 0) {
-//					toRet = tMinion.destroyed(1, toRet, deckPlayer0, deckPlayer1);
-//					iter1.remove();
-//					toRet.data_.getMinions_p1().remove(tMinion);
-//				}
-//			}
-		}		
+		}
+		
+		//Attacking means you lose stealth
+		if (toRet != null)
+			this.stealthed_ = false;
+		
 		return toRet;
 	}
 

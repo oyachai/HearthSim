@@ -38,7 +38,7 @@ public class SpellCard extends Card {
 
 	@Override
     public boolean canBeUsedOn(int playerIndex, Minion minion) {
-        return !hasBeenUsed_;
+        return !hasBeenUsed_ && !minion.getStealthed();
     }
 
 	

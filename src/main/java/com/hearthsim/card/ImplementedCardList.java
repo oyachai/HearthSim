@@ -18,7 +18,7 @@ public class ImplementedCardList {
     private Map<Class<?>, ImplementedCard> map_;
     public class ImplementedCard implements Comparable<ImplementedCard> {
 
-        public final Class cardClass_;
+        public final Class<?> cardClass_;
         public final String name_;
         public final String type_;
         public final String charClass_;
@@ -28,7 +28,7 @@ public class ImplementedCardList {
         public final int attack_;
         public final int health_;
 
-        public ImplementedCard(Class cardClass, String name, String type, String charClass, String rarity, String text, int mana, int attack, int health) {
+        public ImplementedCard(Class<?> cardClass, String name, String type, String charClass, String rarity, String text, int mana, int attack, int health) {
             cardClass_ = cardClass;
             name_ = name;
             type_ = type;
@@ -551,6 +551,11 @@ public class ImplementedCardList {
             map_.put(IronfurGrizzly.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(JunglePanther.class, "Jungle Panther", "minion", "neutral", "common", "Stealth", 3, 4, 2);
+            list_.add(card);
+            map_.put(JunglePanther.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(KillCommand.class, "Kill Command", "spell", "hunter", "free", "Deal 3 damage. If you have a Beast, deal 5 damage instead", 3, -1, -1);
             list_.add(card);
             map_.put(KillCommand.class, card);
@@ -696,6 +701,11 @@ public class ImplementedCardList {
             map_.put(RaidLeader.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(RavenholdtAssassin.class, "Ravenholdt Assassin", "minion", "neutral", "rare", "Stealth", 7, 7, 5);
+            list_.add(card);
+            map_.put(RavenholdtAssassin.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(RazorfenHunter.class, "Razorfen Hunter", "minion", "neutral", "free", "Battlecry Summon a 1/1 Boar", 3, 2, 3);
             list_.add(card);
             map_.put(RazorfenHunter.class, card);
@@ -836,6 +846,11 @@ public class ImplementedCardList {
             map_.put(StormwindKnight.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(StranglethornTiger.class, "Stranglethorn Tiger", "minion", "neutral", "common", "Stealth", 5, 5, 5);
+            list_.add(card);
+            map_.put(StranglethornTiger.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(Sunwalker.class, "Sunwalker", "minion", "neutral", "rare", "Taunt. Divine Shield", 6, 4, 5);
             list_.add(card);
             map_.put(Sunwalker.class, card);
@@ -929,6 +944,11 @@ public class ImplementedCardList {
             ImplementedCard card = new ImplementedCard(Wolfrider.class, "Wolfrider", "minion", "neutral", "free", "Charge", 3, 3, 1);
             list_.add(card);
             map_.put(Wolfrider.class, card);
+        }
+        {
+            ImplementedCard card = new ImplementedCard(WorgenInfiltrator.class, "Worgen Infiltrator", "minion", "neutral", "common", "Stealth", 1, 2, 1);
+            list_.add(card);
+            map_.put(WorgenInfiltrator.class, card);
         }
         {
             ImplementedCard card = new ImplementedCard(YoungDragonhawk.class, "Young Dragonhawk", "minion", "neutral", "common", "Windfury", 1, 1, 1);

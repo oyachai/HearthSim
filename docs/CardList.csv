@@ -189,7 +189,7 @@ Ironbark Protector|minion|neutral|free|8|8|8|Taunt|TRUE
 Ironbeak Owl|minion|neutral|common|2|2|1|Battlecry: Silence a minion|FALSE
 Ironforge Rifleman|minion|neutral|free|3|2|2|Battlecry: Deal 1 damage|TRUE
 Ironfur Grizzly|minion|neutral|free|3|3|3|Taunt|TRUE
-Jungle Panther|minion|neutral|common|3|4|2|Stealth|FALSE
+Jungle Panther|minion|neutral|common|3|4|2|Stealth|TRUE
 Keeper of the Grove|minion|neutral|rare|4|2|4|Choose One - Deal 2 damage; or Silence a minion|FALSE
 Kidnapper|minion|rogue|epic|6|5|3|Combo: Return a minion to its owner's hand|FALSE
 Kill Command|spell|hunter|free|3|||Deal 3 damage. If you have a Beast, deal 5 damage instead|TRUE
@@ -274,7 +274,7 @@ Raging Worgen|minion|neutral|common|3|3|3|Enrage: Windfury and +1 Attack|TRUE
 Ragnaros the Firelord|minion|neutral|legendary|8|8|8|Can't Attack. At the end of your turn, deal 8 damage to a random enemy|FALSE
 Raid Leader|minion|neutral|free|3|2|2|Your other minions have +1 Attack|TRUE
 Rampage|spell|warrior|common|2|||Give a damaged minion +3/+3|FALSE
-Ravenholdt Assassin|minion|neutral|rare|7|7|5|Stealth|FALSE
+Ravenholdt Assassin|minion|neutral|rare|7|7|5|Stealth|TRUE
 Razorfen Hunter|minion|neutral|free|3|2|3|Battlecry: Summon a 1/1 Boar|TRUE
 Reckless Rocketeer|minion|neutral|free|6|5|2|Charge|TRUE
 Redemption|spell|paladin|common|1|||Secret: When one of your minions dies, return it to life with 1 Health|FALSE
@@ -332,7 +332,7 @@ Stormforged Axe|weapon|shaman|common|2|2||Overload: (1)|FALSE
 Stormpike Commando|minion|neutral|free|5|4|2|Battlecry: Deal 2 damage|TRUE
 Stormwind Champion|minion|neutral|free|7|6|6|Your other minions have +1/+1|TRUE
 Stormwind Knight|minion|neutral|free|4|2|5|Charge|TRUE
-Stranglethorn Tiger|minion|neutral|common|5|5|5|Stealth|FALSE
+Stranglethorn Tiger|minion|neutral|common|5|5|5|Stealth|TRUE
 Succubus|minion|warlock|free|2|4|3|Battlecry: Discard a random card|FALSE
 Summoning Portal|minion|warlock|common|4|0|4|Your minions cost (2) less, but not less than (1)|FALSE
 Sunfury Protector|minion|neutral|rare|2|2|3|Battlecry: Give adjacent minions Taunt|FALSE
@@ -377,7 +377,7 @@ Windfury Harpy|minion|neutral|common|6|4|5|Windfury|TRUE
 Windspeaker|minion|shaman|free|4|3|3|Battlecry: Give a friendly minion Windfury|TRUE
 Wisp|minion|neutral|common|0|1|1||TRUE
 Wolfrider|minion|neutral|free|3|3|1|Charge|TRUE
-Worgen Infiltrator|minion|neutral|common|1|2|1|Stealth|FALSE
+Worgen Infiltrator|minion|neutral|common|1|2|1|Stealth|TRUE
 Wrath|spell|neutral|common|2|||Choose One - Deal 3 damage to a minion; or 1 damage and draw a card|FALSE
 Young Dragonhawk|minion|neutral|common|1|1|1|Windfury|TRUE
 Young Priestess|minion|neutral|rare|1|2|1|At the end of your turn, give another random friendly minion +1 Health|FALSE
