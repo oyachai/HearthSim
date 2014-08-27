@@ -266,7 +266,7 @@ Power of the Wild|spell|neutral|common|2|||Choose One - Give your minions +1/+1;
 Power Overwhelming|spell|warlock|common|1|||Give a friendly minion +4/+4 until end of turn.Then, it dies. Horribly|FALSE
 Power Word: Shield|spell|priest|free|1|||Give a minion +2 Health. Draw a card|TRUE
 Preparation|spell|rogue|epic|0|||The next spell you cast this turn costs (3) less|FALSE
-Priestess of Elune|minion|neutral|common|6|5|4|Battlecry: Restore 4 Health to your hero|FALSE
+Priestess of Elune|minion|neutral|common|6|5|4|Battlecry: Restore 4 Health to your hero|TRUE
 Prophet Velen|minion|priest|legendary|7|7|7|Double the damage and healing of your spells and Hero Power|FALSE
 Pyroblast|spell|mage|epic|10|||Deal 10 damage|TRUE
 Questing Adventurer|minion|neutral|rare|3|2|2|Whenever you play a card, gain +1/+1|FALSE

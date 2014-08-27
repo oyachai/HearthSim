@@ -691,6 +691,11 @@ public class ImplementedCardList {
             map_.put(PowerWordShield.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(PriestessOfElune.class, "Priestess of Elune", "minion", "neutral", "common", "Battlecry Restore 4 Health to your hero", 6, 5, 4);
+            list_.add(card);
+            map_.put(PriestessOfElune.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(Pyroblast.class, "Pyroblast", "spell", "mage", "epic", "Deal 10 damage", 10, -1, -1);
             list_.add(card);
             map_.put(Pyroblast.class, card);
