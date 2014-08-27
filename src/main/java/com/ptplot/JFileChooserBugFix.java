@@ -26,12 +26,11 @@
  */
 package com.ptplot;
 
-import java.awt.Color;
-
-import javax.swing.UIManager;
+import javax.swing.*;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.text.html.StyleSheet;
+import java.awt.*;
 
 ///////////////////////////////////////////////////////////////////
 //// JFileChooserBugFix

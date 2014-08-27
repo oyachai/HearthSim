@@ -1,15 +1,15 @@
 package com.hearthsim.gui;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.hearthsim.HearthSimGUI;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.event.HSSimulationEventListener;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HSSimulation {
 	

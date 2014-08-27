@@ -1,10 +1,15 @@
 package com.hearthsim.card;
+
+import com.hearthsim.card.minion.concrete.*;
+import com.hearthsim.card.spellcard.concrete.*;
+import com.hearthsim.card.weapon.concrete.ArcaniteReaper;
+import com.hearthsim.card.weapon.concrete.AssassinsBlade;
+import com.hearthsim.card.weapon.concrete.FieryWarAxe;
+import com.hearthsim.card.weapon.concrete.LightsJustice;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import com.hearthsim.card.minion.concrete.*;
-import com.hearthsim.card.spellcard.concrete.*;
-import com.hearthsim.card.weapon.concrete.*;
 /**
  * A list of all implemented cards
  *

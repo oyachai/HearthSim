@@ -1,7 +1,5 @@
 package com.hearthsim.test;
 
-import org.junit.Before;
-
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
@@ -10,6 +8,7 @@ import com.hearthsim.card.minion.concrete.GnomishInventor;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.util.boardstate.BoardState;
 import com.hearthsim.util.tree.HearthTreeNode;
+import org.junit.Before;
 
 public class TestJson {
 

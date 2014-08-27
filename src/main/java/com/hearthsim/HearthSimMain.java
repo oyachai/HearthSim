@@ -1,12 +1,11 @@
 package com.hearthsim;
 
 
+import com.hearthsim.exception.HSException;
+
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
-
-import com.hearthsim.HearthSimMain;
-import com.hearthsim.exception.HSException;
 
 public class HearthSimMain {
 

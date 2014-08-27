@@ -1,13 +1,13 @@
 package com.hearthsim;
 
-import java.io.IOException;
-
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.results.GameResult;
 import com.hearthsim.util.ThreadQueue;
+
+import java.io.IOException;
 
 public class HearthSimGUI extends HearthSimBase {
 

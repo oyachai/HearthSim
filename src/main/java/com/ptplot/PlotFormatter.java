@@ -26,14 +26,11 @@
  */
 package com.ptplot;
 
-import java.awt.BorderLayout;
-import java.awt.Container;
-import java.awt.Frame;
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Vector;
-
-import javax.swing.JPanel;
 
 ///////////////////////////////////////////////////////////////////
 //// PlotFormatter

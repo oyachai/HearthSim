@@ -1,33 +1,5 @@
 package com.hearthsim.gui;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JScrollPane;
-import javax.swing.BorderFactory;
-import javax.swing.DefaultListModel;
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.ScrollPaneLayout;
-import javax.swing.SpringLayout;
-import javax.swing.JPanel;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Dimension;
-
-import javax.swing.SwingConstants;
-
-import java.awt.Component;
-
-import javax.swing.Box;
-import javax.swing.border.MatteBorder;
-import javax.swing.event.ListDataEvent;
-import javax.swing.event.ListDataListener;
-
 import com.hearthsim.card.Card;
 import com.hearthsim.card.ImplementedCardList;
 import com.hearthsim.event.HSSimulationEventListener;
@@ -36,12 +8,15 @@ import com.hearthsim.exception.HSInvalidHeroException;
 import com.hearthsim.io.DeckListFile;
 import com.ptplot.Plot;
 
+import javax.swing.*;
+import javax.swing.border.MatteBorder;
+import javax.swing.event.ListDataEvent;
+import javax.swing.event.ListDataListener;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.text.DecimalFormat;
-import java.awt.CardLayout;
-import java.awt.FlowLayout;
 
 public class HearthSim implements HSSimulationEventListener {
 

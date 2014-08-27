@@ -25,14 +25,7 @@
 
 package com.hearthsim.util;
 
-import java.util.AbstractSequentialList;
-import java.util.Collection;
-import java.util.ConcurrentModificationException;
-import java.util.Deque;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 /**
  * Linked list implementation of the <tt>List</tt> interface.  Implements all

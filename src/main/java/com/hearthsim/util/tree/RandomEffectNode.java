@@ -1,13 +1,11 @@
 package com.hearthsim.util.tree;
 
-import java.util.ArrayList;
-
-import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
-import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.util.HearthAction;
+
+import java.util.ArrayList;
 
 /**
  * Random effect node

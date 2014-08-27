@@ -1,8 +1,5 @@
 package com.hearthsim;
 
-import java.io.IOException;
-import java.nio.file.Path;
-
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
@@ -14,6 +11,9 @@ import com.hearthsim.exception.HSParamNotFoundException;
 import com.hearthsim.io.ParamFile;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.results.GameResult;
+
+import java.io.IOException;
+import java.nio.file.Path;
 
 /**
  * A Game setup to play a random (fictitious) minion vs random (fictitious) minion games.

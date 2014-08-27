@@ -1,7 +1,5 @@
 package com.hearthsim.card.minion;
 
-import java.util.Iterator;
-
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.event.attack.AttackAction;
@@ -13,6 +11,8 @@ import com.hearthsim.util.boardstate.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 import org.json.JSONObject;
+
+import java.util.Iterator;
 
 public class Minion extends Card {
 	

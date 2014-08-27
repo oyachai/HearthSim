@@ -1,21 +1,17 @@
 package com.hearthsim.gui;
 
-import java.awt.Color;
-import java.awt.Component;
+import com.hearthsim.card.Card;
+import com.hearthsim.card.Deck;
+import com.hearthsim.card.ImplementedCardList.ImplementedCard;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Iterator;
-
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.ListCellRenderer;
-
-import com.hearthsim.card.Card;
-import com.hearthsim.card.Deck;
-import com.hearthsim.card.ImplementedCardList.ImplementedCard;
 
 public class HSCardList extends JList<ImplementedCard> {
 

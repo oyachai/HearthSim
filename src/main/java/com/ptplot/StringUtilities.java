@@ -29,12 +29,8 @@ package com.ptplot;
 
 // Note that classes in ptolemy.util do not depend on any
 // other ptolemy packages.
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.StreamTokenizer;
-import java.io.StringReader;
-import java.net.MalformedURLException;
+
+import java.io.*;
 import java.net.URI;
 import java.net.URL;
 import java.util.LinkedList;
