@@ -190,7 +190,6 @@ public class ArtificialPlayer {
 		double theScore = 0.0;
 		if (card instanceof SpellDamage) {
 			theScore += ((SpellDamage)card).getAttack() * wSd_mult_ + wSd_add_;
-			System.out.println("blah");
 		} else if (card instanceof Minion) {
 			//Charge modeling.  Charge's value primarily comes from the fact that it can be used immediately upon placing it.
 			//After the card is placed, it's really just like any other minion, except maybe for small value in bouncing it.
