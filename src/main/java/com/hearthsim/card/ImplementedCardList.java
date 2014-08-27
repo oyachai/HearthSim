@@ -806,6 +806,11 @@ public class ImplementedCardList {
             map_.put(SilverbackPatriarch.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(SilvermoonGuardian.class, "Silvermoon Guardian", "minion", "neutral", "common", "Divine Shield", 4, 3, 3);
+            list_.add(card);
+            map_.put(SilvermoonGuardian.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(SinisterStrike.class, "Sinister Strike", "spell", "rogue", "free", "Deal 3 damage to the enemy hero", 1, -1, -1);
             list_.add(card);
             map_.put(SinisterStrike.class, card);
