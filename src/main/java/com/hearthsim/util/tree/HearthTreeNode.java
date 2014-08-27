@@ -1,16 +1,10 @@
 package com.hearthsim.util.tree;
 
-import java.util.ArrayList;
-import java.util.IdentityHashMap;
-import java.util.List;
-
-import com.hearthsim.util.IdentityLinkedList;
-import com.hearthsim.card.Deck;
-import com.hearthsim.card.minion.Minion;
-import com.hearthsim.exception.HSException;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.util.boardstate.BoardState;
-import com.hearthsim.util.boardstate.BoardState.MinionPlayerIDPair;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A tree that keeps track of possible game states

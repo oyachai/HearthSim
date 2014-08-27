@@ -1,13 +1,5 @@
 package com.hearthsim.player.playercontroller;
 
-import java.io.BufferedWriter;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
-import java.nio.file.Path;
-
-import com.hearthsim.util.IdentityLinkedList;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellDamage;
@@ -16,11 +8,15 @@ import com.hearthsim.exception.HSInvalidParamFileException;
 import com.hearthsim.exception.HSParamNotFoundException;
 import com.hearthsim.io.ParamFile;
 import com.hearthsim.player.Player;
+import com.hearthsim.util.IdentityLinkedList;
 import com.hearthsim.util.boardstate.BoardState;
 import com.hearthsim.util.boardstate.BoardStateFactoryBase;
 import com.hearthsim.util.boardstate.SparseBoardStateFactory;
 import com.hearthsim.util.tree.HearthTreeNode;
 import com.hearthsim.util.tree.StopNode;
+
+import java.io.*;
+import java.nio.file.Path;
 
 public class ArtificialPlayer {
 	

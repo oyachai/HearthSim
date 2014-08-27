@@ -1,9 +1,9 @@
 package com.hearthsim.player.playercontroller;
 
-import com.hearthsim.util.boardstate.BoardState;
 import com.hearthsim.card.Card;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.player.Player;
+import com.hearthsim.util.boardstate.BoardState;
 
 public class GameMaster {
 	

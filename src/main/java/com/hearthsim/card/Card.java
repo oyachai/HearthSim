@@ -1,8 +1,5 @@
 package com.hearthsim.card;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
@@ -11,8 +8,10 @@ import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.boardstate.BoardState;
 import com.hearthsim.util.boardstate.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
+import org.json.JSONObject;
 
-import org.json.*;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Card implements DeepCopyable {
 

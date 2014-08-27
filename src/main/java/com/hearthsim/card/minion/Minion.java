@@ -9,7 +9,6 @@ import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.boardstate.BoardState;
 import com.hearthsim.util.boardstate.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
-
 import org.json.JSONObject;
 
 import java.util.Iterator;

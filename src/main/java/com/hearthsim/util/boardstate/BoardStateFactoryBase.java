@@ -1,19 +1,19 @@
 package com.hearthsim.util.boardstate;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-
-import com.hearthsim.util.IdentityLinkedList;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
+import com.hearthsim.util.IdentityLinkedList;
 import com.hearthsim.util.boardstate.BoardState.MinionPlayerIDPair;
 import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 import com.hearthsim.util.tree.RandomEffectNode;
 import com.hearthsim.util.tree.StopNode;
+
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class BoardStateFactoryBase {
 
