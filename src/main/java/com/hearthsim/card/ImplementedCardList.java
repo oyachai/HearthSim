@@ -691,6 +691,11 @@ public class ImplementedCardList {
             map_.put(PowerWordShield.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(Pyroblast.class, "Pyroblast", "spell", "mage", "epic", "Deal 10 damage", 10, -1, -1);
+            list_.add(card);
+            map_.put(Pyroblast.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(RagingWorgen.class, "Raging Worgen", "minion", "neutral", "common", "Enrage Windfury and +1 Attack", 3, 3, 3);
             list_.add(card);
             map_.put(RagingWorgen.class, card);

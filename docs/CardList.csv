@@ -268,7 +268,7 @@ Power Word: Shield|spell|priest|free|1|||Give a minion +2 Health. Draw a card|TR
 Preparation|spell|rogue|epic|0|||The next spell you cast this turn costs (3) less|FALSE
 Priestess of Elune|minion|neutral|common|6|5|4|Battlecry: Restore 4 Health to your hero|FALSE
 Prophet Velen|minion|priest|legendary|7|7|7|Double the damage and healing of your spells and Hero Power|FALSE
-Pyroblast|spell|mage|epic|10|||Deal 10 damage|FALSE
+Pyroblast|spell|mage|epic|10|||Deal 10 damage|TRUE
 Questing Adventurer|minion|neutral|rare|3|2|2|Whenever you play a card, gain +1/+1|FALSE
 Raging Worgen|minion|neutral|common|3|3|3|Enrage: Windfury and +1 Attack|TRUE
 Ragnaros the Firelord|minion|neutral|legendary|8|8|8|Can't Attack. At the end of your turn, deal 8 damage to a random enemy|FALSE
