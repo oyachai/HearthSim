@@ -8,7 +8,6 @@ import java.io.Writer;
 import java.nio.file.Path;
 
 import com.hearthsim.util.IdentityLinkedList;
-
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellDamage;
@@ -17,8 +16,9 @@ import com.hearthsim.exception.HSInvalidParamFileException;
 import com.hearthsim.exception.HSParamNotFoundException;
 import com.hearthsim.io.ParamFile;
 import com.hearthsim.player.Player;
-import com.hearthsim.util.BoardState;
-import com.hearthsim.util.BoardStateFactory;
+import com.hearthsim.util.boardstate.BoardState;
+import com.hearthsim.util.boardstate.BoardStateFactoryBase;
+import com.hearthsim.util.boardstate.SparseBoardStateFactory;
 import com.hearthsim.util.tree.HearthTreeNode;
 import com.hearthsim.util.tree.StopNode;
 
@@ -52,11 +52,13 @@ public class ArtificialPlayer {
 	double my_wCharge_;
 	double enemy_wCharge_;
 	
+	boolean useSparseBoardStateFactory_ = true;
+	
 	public ArtificialPlayer() {
-		this(1.0, 1.0, 1.0, 1.0);
+		this(0.9, 0.9, 1.0, 1.0);
 	}
 	public ArtificialPlayer(double my_wAttack, double my_wHealth, double enemy_wAttack, double enemy_wHealth) {
-		this(my_wAttack, my_wHealth, enemy_wAttack, enemy_wHealth, 0.0, 0.1, 0.1, 0.1, 0.5, 0.5, 0.0, 0.5, 0.0, 0.0);
+		this(my_wAttack, my_wHealth, enemy_wAttack, enemy_wHealth, 0.0, 0.1, 0.1, 0.1, 0.5, 0.5, 0.9, 1.0, 1.0, 1.0);
 	}
 	
 	/**
@@ -145,9 +147,9 @@ public class ArtificialPlayer {
 			//The following two have default values for now... 
 			//These are rather arcane parameters, so please understand 
 			//them before attempting to change them. 
-			wSd_add_ = pFile.getDouble("w_sd_mult", 1.0);
-			wSd_mult_ = pFile.getDouble("w_sd_add", 0.9);
-			
+			wSd_mult_ = pFile.getDouble("w_sd_mult", 1.0);
+			wSd_add_ = pFile.getDouble("w_sd_add", 0.9);
+
 			//Divine Shield defualts to 0 for now
 			my_wDivineShield_ = pFile.getDouble("w_divine_shield", 0.0);
 			enemy_wDivineShield_ = pFile.getDouble("wt_divine_shield", 0.0);
@@ -162,12 +164,21 @@ public class ArtificialPlayer {
 
 			wMana_ = pFile.getDouble("w_mana", 0.1);
 			
+			useSparseBoardStateFactory_ = pFile.getBoolean("use_sparse_board_state_factory", true);
+			
 		} catch (HSParamNotFoundException e) {
 			System.err.println(e.getMessage());
 			System.exit(1);
 		}
 	}
 	
+	public boolean getUseSparseBoardStateFactory() {
+		return useSparseBoardStateFactory_;
+	}
+
+	public  void setUseSparseBoardStateFactory(boolean value) {
+		useSparseBoardStateFactory_ = value;
+	}
 	
 	/**
 	 * Returns the card score for a particular card assuming that it is in the hand
@@ -177,9 +188,10 @@ public class ArtificialPlayer {
 	 */
 	public double cardInHandScore(Card card) {
 		double theScore = 0.0;
-		if (card instanceof SpellDamage)
+		if (card instanceof SpellDamage) {
 			theScore += ((SpellDamage)card).getAttack() * wSd_mult_ + wSd_add_;
-		else if (card instanceof Minion) {
+			System.out.println("blah");
+		} else if (card instanceof Minion) {
 			//Charge modeling.  Charge's value primarily comes from the fact that it can be used immediately upon placing it.
 			//After the card is placed, it's really just like any other minion, except maybe for small value in bouncing it.
 			//So, the additional score for charge minions should really only apply when it is still in the hand.
@@ -302,7 +314,12 @@ public class ArtificialPlayer {
 	public BoardState playTurn(int turn, BoardState board, Player player0, Player player1, int maxThinkTime) throws HSException {
 		//The goal of this ai is to maximize his board score
 		HearthTreeNode toRet = new HearthTreeNode(board);
-		BoardStateFactory factory = new BoardStateFactory(player0.getDeck(), player1.getDeck(), maxThinkTime);
+		BoardStateFactoryBase factory = null;
+		if (useSparseBoardStateFactory_) {
+			factory = new SparseBoardStateFactory(player0.getDeck(), player1.getDeck(), maxThinkTime);
+		} else {
+			factory = new BoardStateFactoryBase(player0.getDeck(), player1.getDeck(), maxThinkTime);
+		}
 		HearthTreeNode allMoves = factory.doMoves(toRet, this);
 
 //		System.out.print("turn = " + turn + ", p = " + player0.getName() + ", nHand = " + board.getNumCards_hand() + ", nMinion = " + board.getNumMinions_p0() + ", nEnemyMinion = " + board.getNumMinions_p1());
@@ -311,7 +328,12 @@ public class ArtificialPlayer {
 		HearthTreeNode bestPlay = allMoves.findMaxOfFunc(this);
 		while( bestPlay instanceof StopNode ) {
 			HearthTreeNode allEffectsDone = ((StopNode)bestPlay).finishAllEffects(player0.getDeck(), player1.getDeck());
-			BoardStateFactory tmpFactory = new BoardStateFactory(player0.getDeck(), player1.getDeck(), maxThinkTime);
+			BoardStateFactoryBase tmpFactory = null;
+			if (useSparseBoardStateFactory_) {
+				tmpFactory = new SparseBoardStateFactory(player0.getDeck(), player1.getDeck(), maxThinkTime);
+			} else {
+				tmpFactory = new BoardStateFactoryBase(player0.getDeck(), player1.getDeck(), maxThinkTime);
+			}
 			HearthTreeNode allMovesAtferStopNode = tmpFactory.doMoves(allEffectsDone, this);
 			bestPlay = allMovesAtferStopNode.findMaxOfFunc(this);
 		}

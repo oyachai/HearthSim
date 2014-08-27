@@ -12,7 +12,7 @@ import com.hearthsim.card.minion.concrete.NorthshireCleric;
 import com.hearthsim.card.spellcard.concrete.AncestralHealing;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.util.BoardState;
+import com.hearthsim.util.boardstate.BoardState;
 import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 

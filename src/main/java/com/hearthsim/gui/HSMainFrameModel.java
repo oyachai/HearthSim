@@ -7,7 +7,7 @@ import org.apache.commons.math3.distribution.*;
 import com.hearthsim.event.HSGameEndEventListener;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.results.GameResult;
-import com.hearthsim.util.BoardState;
+import com.hearthsim.util.boardstate.BoardState;
 
 public class HSMainFrameModel implements HSGameEndEventListener {
 

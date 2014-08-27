@@ -14,7 +14,7 @@ import com.hearthsim.card.minion.concrete.GrimscaleOracle;
 import com.hearthsim.card.minion.concrete.MurlocRaider;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.util.BoardState;
+import com.hearthsim.util.boardstate.BoardState;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class TestGrimscaleOracle {

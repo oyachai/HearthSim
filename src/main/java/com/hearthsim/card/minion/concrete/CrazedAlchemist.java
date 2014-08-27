@@ -5,8 +5,8 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.util.BoardState;
-import com.hearthsim.util.BoardStateFactory;
+import com.hearthsim.util.boardstate.BoardState;
+import com.hearthsim.util.boardstate.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class CrazedAlchemist extends Minion {
@@ -193,7 +193,7 @@ public class CrazedAlchemist extends Minion {
 					byte newAttack = battlecryTarget.getTotalHealth();
 					battlecryTarget.setAttack(newAttack);
 					battlecryTarget.setHealth(newHealth);
-					newState = BoardStateFactory.handleDeadMinions(newState, deckPlayer0, deckPlayer1);
+					newState = BoardStateFactoryBase.handleDeadMinions(newState, deckPlayer0, deckPlayer1);
 				}
 			}
 			for (int index = 0; index < toRet.data_.getNumMinions_p1(); ++index) {
@@ -203,7 +203,7 @@ public class CrazedAlchemist extends Minion {
 				byte newAttack = battlecryTarget.getTotalHealth();
 				battlecryTarget.setAttack(newAttack);
 				battlecryTarget.setHealth(newHealth);
-				newState = BoardStateFactory.handleDeadMinions(newState, deckPlayer0, deckPlayer1);
+				newState = BoardStateFactoryBase.handleDeadMinions(newState, deckPlayer0, deckPlayer1);
 			}
 			return toRet;
 		} else {

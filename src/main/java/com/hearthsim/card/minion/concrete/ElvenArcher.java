@@ -3,8 +3,8 @@ package com.hearthsim.card.minion.concrete;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.util.BoardState;
-import com.hearthsim.util.BoardStateFactory;
+import com.hearthsim.util.boardstate.BoardState;
+import com.hearthsim.util.boardstate.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
@@ -196,7 +196,7 @@ public class ElvenArcher extends Minion {
 					HearthTreeNode newState = new HearthTreeNode((BoardState)boardState.data_.deepCopy());
 					Minion minion = newState.data_.getMinion_p0(index);
 					newState = minion.takeDamage((byte)1, 0, 0, newState, deckPlayer0, deckPlayer1, false, true);
-					newState = BoardStateFactory.handleDeadMinions(newState, deckPlayer0, deckPlayer1);
+					newState = BoardStateFactoryBase.handleDeadMinions(newState, deckPlayer0, deckPlayer1);
 					toRet.addChild(newState);
 				}
 			}
@@ -212,7 +212,7 @@ public class ElvenArcher extends Minion {
 					HearthTreeNode newState = new HearthTreeNode((BoardState)boardState.data_.deepCopy());
 					Minion minion = newState.data_.getMinion_p1(index);
 					newState = minion.takeDamage((byte)1, 0, 1, newState, deckPlayer0, deckPlayer1, false, true);
-					newState = BoardStateFactory.handleDeadMinions(newState, deckPlayer0, deckPlayer1);
+					newState = BoardStateFactoryBase.handleDeadMinions(newState, deckPlayer0, deckPlayer1);
 					toRet.addChild(newState);
 				}
 			}

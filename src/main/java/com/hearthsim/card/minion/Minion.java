@@ -8,9 +8,10 @@ import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
-import com.hearthsim.util.BoardState;
-import com.hearthsim.util.BoardStateFactory;
+import com.hearthsim.util.boardstate.BoardState;
+import com.hearthsim.util.boardstate.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
+
 import org.json.JSONObject;
 
 public class Minion extends Card {
@@ -48,6 +49,9 @@ public class Minion extends Card {
 
 	protected DeathrattleAction deathrattleAction_;
 	protected AttackAction attackAction_;
+	
+	//This is a flag to tell the BoardState that it can't cheat on the placement of this minion
+	protected boolean placementImportant_ = false;
 	
 	public Minion(String name, byte mana, byte attack, byte health, byte baseAttack, byte baseHealth, byte maxHealth) {
 		this(
@@ -315,6 +319,14 @@ public class Minion extends Card {
 	
 	public void setStealthed(boolean value) {
 		stealthed_ = value;
+	}
+	
+	public boolean getPlacementImportant() {
+		return placementImportant_;
+	}
+	
+	public void setPlacementImportant(boolean value) {
+		placementImportant_ = value;
 	}
 	
 	/**
@@ -786,7 +798,7 @@ public class Minion extends Card {
 		
 		//check for and remove dead minions
 		if (toRet != null) {
-			toRet = BoardStateFactory.handleDeadMinions(toRet, deckPlayer0, deckPlayer1);
+			toRet = BoardStateFactoryBase.handleDeadMinions(toRet, deckPlayer0, deckPlayer1);
 		}
 		
 		//Attacking means you lose stealth

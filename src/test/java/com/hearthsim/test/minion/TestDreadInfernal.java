@@ -13,7 +13,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.DreadInfernal;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.util.BoardState;
+import com.hearthsim.util.boardstate.BoardState;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class TestDreadInfernal {

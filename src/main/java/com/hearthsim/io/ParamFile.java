@@ -162,6 +162,35 @@ public class ParamFile {
 		}
 	}
 
+	/**
+	 * Get a Boolean valued parameter
+	 * 
+	 * @param paramKey
+	 * @return
+	 * @throws HSParamNotFoundException
+	 */
+	public boolean getBoolean(String paramKey) throws HSParamNotFoundException {
+		if (!params_.containsKey(paramKey))
+			throw new HSParamNotFoundException("Param not found: File = " + paramFilePath_ + ", param = " + paramKey);
+		return Boolean.parseBoolean(params_.get(paramKey));
+	}
+
+	/**
+	 * Get a String valued parameter
+	 * 
+	 * @param paramKey
+	 * @param defaultValue
+	 * @return
+	 */
+	public boolean getBoolean(String paramKey, boolean defaultValue) {
+		try {
+			return this.getBoolean(paramKey);
+		} catch (HSParamNotFoundException e) {
+			return defaultValue;
+		}
+	}
+	
+	
 	Map<String, String> params_;
 	Path paramFilePath_;
 	

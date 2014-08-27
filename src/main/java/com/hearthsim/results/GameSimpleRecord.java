@@ -3,7 +3,7 @@ package com.hearthsim.results;
 import org.json.JSONObject;
 
 import com.hearthsim.exception.HSException;
-import com.hearthsim.util.BoardState;
+import com.hearthsim.util.boardstate.BoardState;
 
 public class GameSimpleRecord implements GameRecord {
 

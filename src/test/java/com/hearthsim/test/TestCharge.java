@@ -8,8 +8,8 @@ import org.junit.Test;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
-import com.hearthsim.util.BoardState;
-import com.hearthsim.util.BoardStateFactory;
+import com.hearthsim.util.boardstate.BoardState;
+import com.hearthsim.util.boardstate.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class TestCharge {
@@ -44,7 +44,7 @@ public class TestCharge {
 		Minion minion = new Minion("" + 0, mana, attack0, health1, attack0, (byte)0, (byte)0, health1, health1, (byte)0, (byte)0, false, false, false, true, false, false, false, false, false, false, false, false, false, false, null, null, false, false);
 		board.placeMinion(0, minion);
 		
-		BoardStateFactory factory = new BoardStateFactory(null, null, 2000000000);
+		BoardStateFactoryBase factory = new BoardStateFactoryBase(null, null, 2000000000);
 		HearthTreeNode tree = new HearthTreeNode(board);
 		try {
 			tree = factory.doMoves(tree, scoreFunc);			
@@ -63,7 +63,7 @@ public class TestCharge {
 		board.placeCard_hand_p0(minion);
 		board.setMana_p0(1);
 		
-		BoardStateFactory factory = new BoardStateFactory(null, null);
+		BoardStateFactoryBase factory = new BoardStateFactoryBase(null, null);
 		HearthTreeNode tree = new HearthTreeNode(board);
 		try {
 			tree = factory.doMoves(tree, scoreFunc);

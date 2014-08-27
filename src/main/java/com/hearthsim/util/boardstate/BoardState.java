@@ -1,16 +1,18 @@
-package com.hearthsim.util;
+package com.hearthsim.util.boardstate;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.IdentityLinkedList;
-
+import com.hearthsim.util.MinionList;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 

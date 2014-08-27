@@ -3,10 +3,11 @@ package com.hearthsim.card.minion;
 import com.hearthsim.card.Deck;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
-import com.hearthsim.util.BoardState;
-import com.hearthsim.util.BoardStateFactory;
 import com.hearthsim.util.DeepCopyable;
+import com.hearthsim.util.boardstate.BoardState;
+import com.hearthsim.util.boardstate.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
+
 import org.json.JSONObject;
 
 public class Hero extends Minion {
@@ -173,7 +174,7 @@ public class Hero extends Minion {
 		
 		HearthTreeNode toRet = this.useHeroAbility_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
-			toRet = BoardStateFactory.handleDeadMinions(toRet, deckPlayer0, deckPlayer1);
+			toRet = BoardStateFactoryBase.handleDeadMinions(toRet, deckPlayer0, deckPlayer1);
 		}
 		return toRet;
 	}

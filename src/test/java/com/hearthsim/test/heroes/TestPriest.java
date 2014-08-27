@@ -14,8 +14,8 @@ import com.hearthsim.card.minion.heroes.Priest;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
-import com.hearthsim.util.BoardState;
-import com.hearthsim.util.BoardStateFactory;
+import com.hearthsim.util.boardstate.BoardState;
+import com.hearthsim.util.boardstate.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class TestPriest {
@@ -182,7 +182,7 @@ public class TestPriest {
 				0.0
 				);
 		
-		BoardStateFactory factory = new BoardStateFactory(null, null, 2000000000);
+		BoardStateFactoryBase factory = new BoardStateFactoryBase(null, null, 2000000000);
 		HearthTreeNode tree = new HearthTreeNode(board.data_);
 		try {
 			tree = factory.doMoves(tree, ai0);
@@ -236,7 +236,7 @@ public class TestPriest {
 				0.0
 				);
 		
-		BoardStateFactory factory = new BoardStateFactory(null, null, 2000000000);
+		BoardStateFactoryBase factory = new BoardStateFactoryBase(null, null, 2000000000);
 		HearthTreeNode tree = new HearthTreeNode(board.data_);
 		try {
 			tree = factory.doMoves(tree, ai0);

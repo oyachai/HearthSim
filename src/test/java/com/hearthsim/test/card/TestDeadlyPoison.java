@@ -12,7 +12,7 @@ import com.hearthsim.card.spellcard.concrete.DeadlyPoison;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.card.weapon.concrete.FieryWarAxe;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.util.BoardState;
+import com.hearthsim.util.boardstate.BoardState;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class TestDeadlyPoison {

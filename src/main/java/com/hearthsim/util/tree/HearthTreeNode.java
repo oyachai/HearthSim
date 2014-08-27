@@ -5,13 +5,12 @@ import java.util.IdentityHashMap;
 import java.util.List;
 
 import com.hearthsim.util.IdentityLinkedList;
-
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
-import com.hearthsim.util.BoardState;
-import com.hearthsim.util.BoardState.MinionPlayerIDPair;
+import com.hearthsim.util.boardstate.BoardState;
+import com.hearthsim.util.boardstate.BoardState.MinionPlayerIDPair;
 
 /**
  * A tree that keeps track of possible game states

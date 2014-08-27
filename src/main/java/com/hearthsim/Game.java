@@ -9,7 +9,7 @@ import com.hearthsim.results.GameDetailedRecord;
 import com.hearthsim.results.GameRecord;
 import com.hearthsim.results.GameResult;
 import com.hearthsim.results.GameSimpleRecord;
-import com.hearthsim.util.BoardState;
+import com.hearthsim.util.boardstate.BoardState;
 
 public class Game {
 
