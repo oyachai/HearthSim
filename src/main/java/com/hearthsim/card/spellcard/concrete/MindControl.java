@@ -55,7 +55,7 @@ public class MindControl extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if ((targetMinion instanceof Hero) || targetPlayerIndex == 0) {
+		if (targetMinion instanceof Hero || targetPlayerIndex == 0) {
 			return null;
 		}
 

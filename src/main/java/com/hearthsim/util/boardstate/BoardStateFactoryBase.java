@@ -254,15 +254,13 @@ public class BoardStateFactoryBase {
 		}
 		
 		boolean lethalFound = false;
-		if ((!boardStateNode.data_.isAlive_p0()) || (!boardStateNode.data_.isAlive_p1())) {
-			//one of the players is dead, no reason to keep playing
-			if (!boardStateNode.data_.isAlive_p1()) {
-				lethal_ = true;
-				lethalFound = true;
-			}
-		}
-		
-		if (!lethalFound) {
+        if (!boardStateNode.data_.isAlive_p0() || !boardStateNode.data_.isAlive_p1() && !boardStateNode.data_.isAlive_p1()) {
+            //one of the players is dead, no reason to keep playing
+            lethal_ = true;
+            lethalFound = true;
+        }
+
+        if (!lethalFound) {
 
 			//-----------------------------------------------------------------------------------------
 			// Use the Hero ability

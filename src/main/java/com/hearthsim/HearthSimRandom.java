@@ -81,13 +81,11 @@ public class HearthSimRandom extends HearthSimBase {
 		int ns = 0;
 		while (ns < numHolySmite_) {
 			int irand = (int)(Math.random() * numCardsInDeck_);
-			if (!(cards1_[irand] instanceof SpellDamage)) {
-				if (!((Minion)cards1_[irand]).getTaunt()) {
-					cards1_[irand] = new SpellDamage("" + irand, (byte)1, (byte)2, false);
-					++ns;
-				}
-			}
-		}
+            if (!(cards1_[irand] instanceof SpellDamage) && !((Minion) cards1_[irand]).getTaunt()) {
+                cards1_[irand] = new SpellDamage("" + irand, (byte) 1, (byte) 2, false);
+                ++ns;
+            }
+        }
 		Deck deck0 = new Deck(cards0_);
 		Deck deck1 = new Deck(cards1_);
 

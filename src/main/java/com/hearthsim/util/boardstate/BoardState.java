@@ -651,11 +651,11 @@ public class BoardState implements DeepCopyable {
 			return toRet;
 		} else {
 			int counter = 1;
-			for (Iterator<Minion> iter = p1_minions_.iterator(); iter.hasNext();) {
-				if ((iter.next()).getTaunt())
-					toRet.add((Integer)counter);
-				counter++;
-			}
+            for (Minion aP1_minions_ : p1_minions_) {
+                if (aP1_minions_.getTaunt())
+                    toRet.add(counter);
+                counter++;
+            }
 			return toRet;
 		}
 	}
@@ -863,27 +863,27 @@ public class BoardState implements DeepCopyable {
 			Card cc = p0_hand_.get(0);
 			try {
 				Minion mm = (Minion)cc;
-				th += ((cc.hasBeenUsed() ? 1 : 0) + mm.getAttack() + mm.getHealth() + cc.getMana());
+				th += (cc.hasBeenUsed() ? 1 : 0) + mm.getAttack() + mm.getHealth() + cc.getMana();
 			} catch (ClassCastException e) {
-				th += ((cc.hasBeenUsed() ? 1 : 0) + cc.getMana());
+				th += (cc.hasBeenUsed() ? 1 : 0) + cc.getMana();
 			}
 		}
 		if (hs > 1) {
 			Card cc = p0_hand_.get(1);
 			try {
 				Minion mm = (Minion)cc;
-				th += ((cc.hasBeenUsed() ? 1 : 0) + mm.getAttack() + mm.getHealth() + cc.getMana());
+				th += (cc.hasBeenUsed() ? 1 : 0) + mm.getAttack() + mm.getHealth() + cc.getMana();
 			} catch (ClassCastException e) {
-				th += ((cc.hasBeenUsed() ? 1 : 0) + cc.getMana());				
+				th += (cc.hasBeenUsed() ? 1 : 0) + cc.getMana();
 			}
 		}
 		res += (th % 10) * 1000000;
 		int mh0 = 0;
 		if (p0_minions_.size() > 0) {
-			mh0 += (p0_minions_.get(0).getHealth());
+			mh0 += p0_minions_.get(0).getHealth();
 		}
 		if (p0_minions_.size() > 1) {
-			mh0 += (p0_minions_.get(1).getHealth());
+			mh0 += p0_minions_.get(1).getHealth();
 		}
 		res += (mh0 % 100) * 10000000;
 		int mh1 = 0;

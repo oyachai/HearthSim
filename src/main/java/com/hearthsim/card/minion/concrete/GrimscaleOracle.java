@@ -272,11 +272,10 @@ public class GrimscaleOracle extends Murloc {
 			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
-		if (!silenced_) {
-			if (targetMinion instanceof Murloc && targetMinion != this)
-				targetMinion.setAuraAttack((byte)(targetMinion.getAuraAttack() + 1));
-		}
-		return boardState;
+        if (!silenced_ && targetMinion instanceof Murloc && targetMinion != this) {
+            targetMinion.setAuraAttack((byte) (targetMinion.getAuraAttack() + 1));
+        }
+        return boardState;
 	}
 
 	/**

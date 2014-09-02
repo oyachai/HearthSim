@@ -250,11 +250,10 @@ public class TimberWolf extends Beast {
 	{
 		if (placedMinionPlayerIndex != thisMinionPlayerIndex)
 			return boardState;
-		if (!silenced_) {
-			if (placedMinion != this && placedMinion instanceof Beast)
-				placedMinion.setAuraAttack((byte)(placedMinion.getAuraAttack() + 1));
-		}
-		return boardState;		
+        if (!silenced_ && placedMinion != this && placedMinion instanceof Beast) {
+            placedMinion.setAuraAttack((byte) (placedMinion.getAuraAttack() + 1));
+        }
+        return boardState;
 	}
 	
 

@@ -19,22 +19,6 @@ public class TheCoin extends SpellCard {
 	}
 
 	@Override
-	public boolean equals(Object other)
-	{
-	   if (other == null)
-	   {
-	      return false;
-	   }
-
-	   if (this.getClass() != other.getClass())
-	   {
-	      return false;
-	   }
-	   
-	   return true;
-	}
-	
-	@Override
 	public Object deepCopy() {
 		return new TheCoin(this.hasBeenUsed());
 	}

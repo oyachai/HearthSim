@@ -47,7 +47,7 @@ public class KillCommand extends SpellDamage {
 	{
 		boolean haveBeast = false;
 		for (final Minion minion : boardState.data_.getMinions_p0()) {
-			haveBeast = haveBeast || (minion instanceof Beast);
+			haveBeast = haveBeast || minion instanceof Beast;
 		}
 		if (haveBeast)
 			this.damage_ = (byte)5;

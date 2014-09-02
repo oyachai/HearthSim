@@ -160,7 +160,7 @@ public class TestDivineSpirit {
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), health0);
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), (health1 - 1) * 2);
 		
-		assertEquals(board.data_.getMinion_p1(1).getMaxHealth(), health1 + (health1 - 1));
+		assertEquals(board.data_.getMinion_p1(1).getMaxHealth(), health1 + health1 - 1);
 
 		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), attack0);
 		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), attack0);

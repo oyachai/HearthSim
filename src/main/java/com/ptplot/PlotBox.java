@@ -203,6 +203,7 @@ import java.util.Timer;
  @Pt.ProposedRating Yellow (cxh)
  @Pt.AcceptedRating Yellow (cxh)
  */
+@SuppressWarnings("PMD")
 public class PlotBox extends JPanel implements Printable {
     private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
     ///////////////////////////////////////////////////////////////////

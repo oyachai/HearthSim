@@ -61,6 +61,7 @@ import java.util.*;
  @Pt.ProposedRating Yellow (eal)
  @Pt.AcceptedRating Red (eal)
  */
+@SuppressWarnings("PMD")
 public class Query extends JPanel {
     /** Construct a panel with no entries in it.
      */

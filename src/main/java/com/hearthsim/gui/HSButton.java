@@ -17,11 +17,6 @@ public class HSButton extends JButton {
     }
         
     @Override
-    public void setPreferredSize(Dimension dimension) {
-    	super.setPreferredSize(dimension);
-    }
-
-    @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 

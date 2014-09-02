@@ -176,8 +176,7 @@ public class HSDeckCreatePanel extends JPanel {
 	@Override
 	public void setLayout(LayoutManager mgr) {
 		//can't change the layout of this panel
-		return;
-	}
+    }
 	
 	@Override
 	public void setBackground(Color color) {

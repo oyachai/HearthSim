@@ -51,6 +51,7 @@ import java.util.StringTokenizer;
  @Pt.ProposedRating Green (eal)
  @Pt.AcceptedRating Green (cxh)
  */
+@SuppressWarnings("PMD")
 public class StringUtilities {
     /** Instances of this class cannot be created.
      */

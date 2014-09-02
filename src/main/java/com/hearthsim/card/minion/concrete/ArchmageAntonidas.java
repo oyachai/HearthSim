@@ -186,11 +186,9 @@ public class ArchmageAntonidas extends Minion {
 			return toRet;
 		if (isInHand_)
 			return toRet;
-		if (usedCard instanceof SpellCard) {
-			if (toRet.data_.getNumCards_hand_p0() < 10) {
-				toRet.data_.placeCard_hand_p0(new Fireball());
-			}
-		}
-		return toRet;
+        if (usedCard instanceof SpellCard && toRet.data_.getNumCards_hand_p0() < 10) {
+            toRet.data_.placeCard_hand_p0(new Fireball());
+        }
+        return toRet;
 	}
 }

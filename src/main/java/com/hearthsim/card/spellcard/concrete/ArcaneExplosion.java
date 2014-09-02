@@ -63,7 +63,7 @@ public class ArcaneExplosion extends SpellCard {
 			return null;
 		}
 		
-		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);;
+		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
 			for (Minion minion : toRet.data_.getMinions_p1()) {
 				toRet = minion.takeDamage((byte)1, 0, 1, toRet, deckPlayer0, deckPlayer1, true, false);

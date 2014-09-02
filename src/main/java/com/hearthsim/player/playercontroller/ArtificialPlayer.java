@@ -140,7 +140,7 @@ public class ArtificialPlayer {
 			enemy_wHeroHealth_ = pFile.getDouble("wt_health");
 
 			my_wNumMinions_ = pFile.getDouble("w_num_minions");
-			enemy_wNumMinions_ = pFile.getDouble("wt_num_minions");;
+			enemy_wNumMinions_ = pFile.getDouble("wt_num_minions");
 
 			//The following two have default values for now... 
 			//These are rather arcane parameters, so please understand 
@@ -241,7 +241,8 @@ public class ArtificialPlayer {
 			myScore += minion.getAttack() * my_wAttack_;
 			myScore += minion.getTotalHealth() * my_wHealth_;
 			myScore += (minion.getTaunt() ? 1.0 : 0.0) * wTaunt_;
-			if (minion.getDivineShield()) myScore += ((minion.getAttack() + minion.getTotalHealth()) * my_wDivineShield_);
+			if (minion.getDivineShield())
+                myScore += (minion.getAttack() + minion.getTotalHealth()) * my_wDivineShield_;
 		}
 				
 		//opponent board score

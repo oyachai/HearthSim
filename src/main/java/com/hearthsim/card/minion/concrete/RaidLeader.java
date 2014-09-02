@@ -243,11 +243,10 @@ public class RaidLeader extends Minion {
 			Deck deckPlayer1) throws HSInvalidPlayerIndexException {
 		if (thisMinionPlayerIndex != placedMinionPlayerIndex)
 			return boardState;
-		if (!silenced_) {
-			if (placedMinion != this)
-				placedMinion.setAuraAttack((byte)(placedMinion.getAuraAttack() + 1));
-		}
-		return boardState;		
+        if (!silenced_ && placedMinion != this) {
+            placedMinion.setAuraAttack((byte) (placedMinion.getAuraAttack() + 1));
+        }
+        return boardState;
 	}
 	
 	/**

@@ -295,10 +295,10 @@ public class TestCairneBloodhoof {
 		Card theCard = board.data_.getCard_hand_p0(0);
 		HearthTreeNode ret = theCard.useOn(0, target, board, deck, null);
 
-		ret = (new BloodfenRaptor()).summonMinion(0, board.data_.getHero_p0(), ret, null, null, false);
-		ret = (new BloodfenRaptor()).summonMinion(0, board.data_.getHero_p0(), ret, null, null, false);
-		ret = (new BloodfenRaptor()).summonMinion(0, board.data_.getHero_p0(), ret, null, null, false);
-		ret = (new BloodfenRaptor()).summonMinion(0, board.data_.getHero_p0(), ret, null, null, false);
+		ret = new BloodfenRaptor().summonMinion(0, board.data_.getHero_p0(), ret, null, null, false);
+		ret = new BloodfenRaptor().summonMinion(0, board.data_.getHero_p0(), ret, null, null, false);
+		ret = new BloodfenRaptor().summonMinion(0, board.data_.getHero_p0(), ret, null, null, false);
+		ret = new BloodfenRaptor().summonMinion(0, board.data_.getHero_p0(), ret, null, null, false);
 		
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 0);

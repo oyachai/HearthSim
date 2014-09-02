@@ -55,6 +55,7 @@ import java.util.Hashtable;
  @Pt.ProposedRating Yellow (cxh)
  @Pt.AcceptedRating Yellow (cxh)
  */
+@SuppressWarnings("PMD")
 public class EPSGraphics extends Graphics {
     /** Constructor for a graphics object that writes encapsulated
      *  PostScript to the specified output stream.  If the out argument is

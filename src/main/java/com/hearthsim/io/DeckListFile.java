@@ -42,7 +42,7 @@ public class DeckListFile {
 	 * @throws HSInvalidHeroException 
 	 */
 	public void read(Path setupFilePath) throws HSInvalidCardException, IOException, HSInvalidHeroException {
-		String inStr = (new String(Files.readAllBytes(setupFilePath))).replace("\\s+", "").replace("'", "").replace("\n", "");
+		String inStr = new String(Files.readAllBytes(setupFilePath)).replace("\\s+", "").replace("'", "").replace("\n", "");
 		this.parseDeckList(inStr);
 	}
 	

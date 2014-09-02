@@ -16,27 +16,7 @@ public class SpellCard extends Card {
 		this(name, mana, false);
 	}
 
-	@Override
-	public boolean equals(Object other)
-	{
-		if (!super.equals(other)) {
-			return false;
-		}
-		
-		if (other == null)
-		{
-		   return false;
-		}
-		
-		if (this.getClass() != other.getClass())
-		{
-		   return false;
-		}
-
-	return true;
-	}
-
-	@Override
+    @Override
     public boolean canBeUsedOn(int playerIndex, Minion minion) {
         return !hasBeenUsed_ && !minion.getStealthed();
     }

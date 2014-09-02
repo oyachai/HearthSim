@@ -30,11 +30,10 @@ public class HSCardList extends JList<ImplementedCard> {
 	        	int index = list.locationToIndex(evt.getPoint());
 	        	String name = ((SortedListModel<ImplementedCard>) HSCardList.this.getModel()).getElementAt(index).name_;
 	        	System.out.println("clicked item " + index + ": " + name);
-	        	if (editing_) {
-	        		if (list.getCellBounds(index, 100000).contains(evt.getPoint())) 
-	        			((SortedListModel<ImplementedCard>) HSCardList.this.getModel()).remove(index);
-	        	}
-		    }
+                if (editing_ && list.getCellBounds(index, 100000).contains(evt.getPoint())) {
+                    ((SortedListModel<ImplementedCard>) HSCardList.this.getModel()).remove(index);
+                }
+            }
 		});
 		this.setCellRenderer(new CardCellRenderer());
 	}
