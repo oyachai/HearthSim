@@ -67,6 +67,7 @@ import java.awt.*;
  @Pt.AcceptedRating Red (cxh)
  */
 public class JFileChooserBugFix {
+    private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
 
     /** Instantiate a JFileChooserBugFix object. */
     public JFileChooserBugFix() {
@@ -117,6 +118,7 @@ public class JFileChooserBugFix {
                     javax.swing.text.StyleConstants.ResolveAttribute);
             background = styleSheet.getBackground(bodyAttribute);
         } catch (Exception ex) {
+            log.warn("ignoring..", ex);
             // Ignore, we just won't set the background.
         }
 

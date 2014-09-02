@@ -82,6 +82,8 @@ import java.net.URL;
  @Pt.AcceptedRating Yellow (cxh)
  */
 public class PlotFrame extends JFrame {
+
+    private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
     /** Construct a plot frame with a default title and by default contains
      *  an instance of Plot. After constructing this, it is necessary
      *  to call setVisible(true) to make the plot appear.
@@ -114,7 +116,7 @@ public class PlotFrame extends JFrame {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
-            // Ignore exceptions, which only result in the wrong look and feel.
+            log.warn("ignoring..", e);
         }
 
         if (plotArg == null) {

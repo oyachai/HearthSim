@@ -19,8 +19,10 @@ import java.io.*;
 import java.nio.file.Path;
 
 public class ArtificialPlayer {
-	
-	int nLookahead_;
+
+    private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
+
+    int nLookahead_;
 	
 	double my_wAttack_; //weight for the attack score
 	double my_wHealth_;
@@ -349,7 +351,9 @@ public class ArtificialPlayer {
 		} catch (IOException e) { 
 			System.err.println("Exception: " + e.getMessage());
 		} finally {
-			try {writer.close();} catch (Exception e) {}
+			try {writer.close();} catch (Exception e) {
+                log.warn("ignoring..", e);
+            }
 		}
 	}
 

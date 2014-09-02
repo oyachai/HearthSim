@@ -71,10 +71,10 @@ public class HSDeckCreatePanel extends JPanel {
 					}
 					label.setText((String)heroChoice_.getSelectedItem());
 				} catch (HSException exception) {
-					
-				}
+                    System.out.println(exception);
+                }
 			}
-			
+
 		});
 
 		

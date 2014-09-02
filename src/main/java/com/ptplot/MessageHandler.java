@@ -56,6 +56,7 @@ import java.io.InputStreamReader;
  @Pt.AcceptedRating Green (cxh)
  */
 public class MessageHandler {
+    private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
     ///////////////////////////////////////////////////////////////////
     ////                         public methods                    ////
 
@@ -280,6 +281,7 @@ public class MessageHandler {
                 return true;
             }
         } catch (IOException ex) {
+            log.warn("ignoring..", ex);
         }
 
         return false;
@@ -317,6 +319,7 @@ public class MessageHandler {
                 }
             }
         } catch (IOException ex) {
+            log.warn("ignoring..", ex);
         }
 
         return false;

@@ -1521,6 +1521,7 @@ public class Query extends JPanel {
      *  @return A string representing the color.
      */
     public static Color stringToColor(String description) {
+        final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(Query.class);
         String[] specArray = description.split("[{},]");
         float red = 0f;
         float green = 0f;
@@ -1571,7 +1572,7 @@ public class Query extends JPanel {
                 alpha = Float.parseFloat(specArray[i]);
             }
         } catch (Exception ex) {
-            // Ignore and use default color.
+            log.warn("ignoring..", ex);
         }
         return new Color(red, green, blue, alpha);
     }
@@ -1891,6 +1892,8 @@ public class Query extends JPanel {
      *
      */
     public static class QueryFileChooser extends Box implements ActionListener {
+
+        private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
         /** Construct a query file chooser.  The background will be white and
          *  the foreground will be black.
          * @param owner The query object that owns the file chooser
@@ -2052,7 +2055,7 @@ public class Query extends JPanel {
                         try {
                             selectedFile = selectedFile.getCanonicalFile();
                         } catch (IOException ex) {
-                            // Ignore, since we can't do much about it anyway.
+                            log.warn("ignoring", ex);
                         }
 
                         URI relativeURI = _base

@@ -214,6 +214,7 @@ import java.util.HashMap;
  @Pt.AcceptedRating Yellow (cxh)
  */
 public class Plot extends PlotBox {
+    private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
     ///////////////////////////////////////////////////////////////////
     ////                         public methods                    ////
 
@@ -1613,6 +1614,7 @@ public class Plot extends PlotBox {
 
                         setBars(bwidth, boffset);
                     } catch (NumberFormatException e) {
+                        log.warn("ignoring..", e);
                         // ignore if format is bogus.
                     }
                 }
@@ -1719,6 +1721,7 @@ public class Plot extends PlotBox {
                         return true;
                     }
                 } catch (NumberFormatException e) {
+                    log.warn("ignoring", e);
                     // ignore if format is bogus.
                 }
             }
