@@ -13,10 +13,6 @@ task wrapper(type: Wrapper) {
     gradleVersion = "2.0"
 }
 
-pmd {
-    ignoreFailures = true
-}
-
 dependencies {
     compile 'ch.qos.logback:logback-classic:1.1.2'
 
