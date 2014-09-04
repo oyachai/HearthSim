@@ -55,7 +55,7 @@ public class HandOfProtection extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if ((targetMinion instanceof Hero)) {
+		if (targetMinion instanceof Hero) {
 			return null;
 		}
 		

@@ -2,11 +2,11 @@ package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.event.attack.AttackAction;
+import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.tree.HearthTreeNode;
-import com.hearthsim.event.attack.AttackAction;
-import com.hearthsim.event.deathrattle.DeathrattleAction;
 
 
 public class RaidLeader extends Minion {
@@ -243,11 +243,10 @@ public class RaidLeader extends Minion {
 			Deck deckPlayer1) throws HSInvalidPlayerIndexException {
 		if (thisMinionPlayerIndex != placedMinionPlayerIndex)
 			return boardState;
-		if (!silenced_) {
-			if (placedMinion != this)
-				placedMinion.setAuraAttack((byte)(placedMinion.getAuraAttack() + 1));
-		}
-		return boardState;		
+        if (!silenced_ && placedMinion != this) {
+            placedMinion.setAuraAttack((byte) (placedMinion.getAuraAttack() + 1));
+        }
+        return boardState;
 	}
 	
 	/**

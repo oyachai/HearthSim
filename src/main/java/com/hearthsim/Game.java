@@ -5,7 +5,6 @@ import com.hearthsim.exception.HSException;
 import com.hearthsim.player.Player;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.player.playercontroller.GameMaster;
-import com.hearthsim.results.GameDetailedRecord;
 import com.hearthsim.results.GameRecord;
 import com.hearthsim.results.GameResult;
 import com.hearthsim.results.GameSimpleRecord;
@@ -32,13 +31,11 @@ public class Game {
 	public Game(Player player0, Player player1, ArtificialPlayer ai0, ArtificialPlayer ai1, boolean shufflePlayOrder) {
 		s0_ = 0;
 		s1_ = 1;
-		if (shufflePlayOrder) {
-			if (Math.random() > 0.5) {
-				s0_ = 1;
-				s1_ = 0;
-			}
-		}
-		players_ = new Player[2];
+        if (shufflePlayOrder && Math.random() > 0.5) {
+            s0_ = 1;
+            s1_ = 0;
+        }
+        players_ = new Player[2];
 		players_[0] = player0;
 		players_[1] = player1;
 		boardState_ = new BoardState(players_[s0_].hero_, players_[s1_].hero_);

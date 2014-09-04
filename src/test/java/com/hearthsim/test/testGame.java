@@ -1,19 +1,19 @@
 package com.hearthsim.test;
 
-import static org.junit.Assert.*;
-
-import org.junit.Test;
-
 import com.hearthsim.Game;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.card.minion.heroes.*;
+import com.hearthsim.card.minion.heroes.Mage;
+import com.hearthsim.card.minion.heroes.Paladin;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.player.Player;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.results.GameResult;
+import org.junit.Test;
+
+import static org.junit.Assert.assertTrue;
 
 public class testGame {
 	

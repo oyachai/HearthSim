@@ -1,9 +1,8 @@
 package com.hearthsim.results;
 
-import org.json.JSONObject;
-
 import com.hearthsim.exception.HSException;
 import com.hearthsim.util.boardstate.BoardState;
+import org.json.JSONObject;
 
 public class GameSimpleRecord implements GameRecord {
 

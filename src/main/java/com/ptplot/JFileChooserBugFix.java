@@ -26,12 +26,11 @@
  */
 package com.ptplot;
 
-import java.awt.Color;
-
-import javax.swing.UIManager;
+import javax.swing.*;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.text.html.StyleSheet;
+import java.awt.*;
 
 ///////////////////////////////////////////////////////////////////
 //// JFileChooserBugFix
@@ -68,6 +67,7 @@ import javax.swing.text.html.StyleSheet;
  @Pt.AcceptedRating Red (cxh)
  */
 public class JFileChooserBugFix {
+    private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
 
     /** Instantiate a JFileChooserBugFix object. */
     public JFileChooserBugFix() {
@@ -118,6 +118,7 @@ public class JFileChooserBugFix {
                     javax.swing.text.StyleConstants.ResolveAttribute);
             background = styleSheet.getBackground(bodyAttribute);
         } catch (Exception ex) {
+            log.warn("ignoring..", ex);
             // Ignore, we just won't set the background.
         }
 

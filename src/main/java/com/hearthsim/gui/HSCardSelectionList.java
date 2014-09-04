@@ -1,23 +1,14 @@
 package com.hearthsim.gui;
 
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
+import com.hearthsim.card.ImplementedCardList;
+import com.hearthsim.card.ImplementedCardList.ImplementedCard;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Collections;
-
-import javax.swing.DefaultListModel;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.ListCellRenderer;
-import javax.swing.SwingConstants;
-
-import com.hearthsim.card.ImplementedCardList;
-import com.hearthsim.card.ImplementedCardList.ImplementedCard;
 
 public class HSCardSelectionList extends JList<ImplementedCard> {
 	

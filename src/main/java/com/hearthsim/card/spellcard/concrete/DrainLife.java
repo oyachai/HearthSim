@@ -45,7 +45,7 @@ public class DrainLife extends SpellDamage {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (targetPlayerIndex == 0 && (targetMinion instanceof Hero)) 
+		if (targetPlayerIndex == 0 && targetMinion instanceof Hero)
 			return null;
 		
 		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);

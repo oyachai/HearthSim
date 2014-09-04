@@ -7,7 +7,6 @@ import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.boardstate.BoardState;
 import com.hearthsim.util.boardstate.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
-
 import org.json.JSONObject;
 
 public class Hero extends Minion {
@@ -120,16 +119,14 @@ public class Hero extends Minion {
 		
 		
 		HearthTreeNode toRet = super.attack(targetMinionPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
-		
-		if (toRet != null) {
-			if (this.weaponCharge_ > 0) {
-				this.weaponCharge_ -= 1;
-				if (this.weaponCharge_ == 0) {
-					this.attack_ = 0;
-				}
-			}
-		}
-		return toRet;
+
+        if (toRet != null && this.weaponCharge_ > 0) {
+            this.weaponCharge_ -= 1;
+            if (this.weaponCharge_ == 0) {
+                this.attack_ = 0;
+            }
+        }
+        return toRet;
 	}
 	
 	@Override

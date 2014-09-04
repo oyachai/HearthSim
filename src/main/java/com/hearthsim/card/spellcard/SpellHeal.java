@@ -42,8 +42,15 @@ public class SpellHeal extends SpellCard {
 
 	   return true;
 	}
-	
-	@Override
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (int) healAmount_;
+        return result;
+    }
+
+    @Override
 	public Object deepCopy() {
 		return new SpellHeal(this.getName(), this.getMana(), healAmount_, this.hasBeenUsed());
 	}

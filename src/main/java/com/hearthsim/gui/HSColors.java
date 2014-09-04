@@ -1,6 +1,6 @@
 package com.hearthsim.gui;
 
-import java.awt.Color;
+import java.awt.*;
 
 public class HSColors {
 

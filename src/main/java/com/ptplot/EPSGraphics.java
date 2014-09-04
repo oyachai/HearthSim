@@ -26,15 +26,7 @@
  */
 package com.ptplot;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.Shape;
-import java.awt.Toolkit;
+import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.image.ImageObserver;
@@ -63,6 +55,7 @@ import java.util.Hashtable;
  @Pt.ProposedRating Yellow (cxh)
  @Pt.AcceptedRating Yellow (cxh)
  */
+@SuppressWarnings("PMD")
 public class EPSGraphics extends Graphics {
     /** Constructor for a graphics object that writes encapsulated
      *  PostScript to the specified output stream.  If the out argument is

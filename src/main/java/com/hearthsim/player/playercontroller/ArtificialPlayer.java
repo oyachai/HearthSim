@@ -1,13 +1,5 @@
 package com.hearthsim.player.playercontroller;
 
-import java.io.BufferedWriter;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
-import java.nio.file.Path;
-
-import com.hearthsim.util.IdentityLinkedList;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellDamage;
@@ -16,15 +8,21 @@ import com.hearthsim.exception.HSInvalidParamFileException;
 import com.hearthsim.exception.HSParamNotFoundException;
 import com.hearthsim.io.ParamFile;
 import com.hearthsim.player.Player;
+import com.hearthsim.util.IdentityLinkedList;
 import com.hearthsim.util.boardstate.BoardState;
 import com.hearthsim.util.boardstate.BoardStateFactoryBase;
 import com.hearthsim.util.boardstate.SparseBoardStateFactory;
 import com.hearthsim.util.tree.HearthTreeNode;
 import com.hearthsim.util.tree.StopNode;
 
+import java.io.*;
+import java.nio.file.Path;
+
 public class ArtificialPlayer {
-	
-	int nLookahead_;
+
+    private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
+
+    int nLookahead_;
 	
 	double my_wAttack_; //weight for the attack score
 	double my_wHealth_;
@@ -142,7 +140,7 @@ public class ArtificialPlayer {
 			enemy_wHeroHealth_ = pFile.getDouble("wt_health");
 
 			my_wNumMinions_ = pFile.getDouble("w_num_minions");
-			enemy_wNumMinions_ = pFile.getDouble("wt_num_minions");;
+			enemy_wNumMinions_ = pFile.getDouble("wt_num_minions");
 
 			//The following two have default values for now... 
 			//These are rather arcane parameters, so please understand 
@@ -243,7 +241,8 @@ public class ArtificialPlayer {
 			myScore += minion.getAttack() * my_wAttack_;
 			myScore += minion.getTotalHealth() * my_wHealth_;
 			myScore += (minion.getTaunt() ? 1.0 : 0.0) * wTaunt_;
-			if (minion.getDivineShield()) myScore += ((minion.getAttack() + minion.getTotalHealth()) * my_wDivineShield_);
+			if (minion.getDivineShield())
+                myScore += (minion.getAttack() + minion.getTotalHealth()) * my_wDivineShield_;
 		}
 				
 		//opponent board score
@@ -353,7 +352,9 @@ public class ArtificialPlayer {
 		} catch (IOException e) { 
 			System.err.println("Exception: " + e.getMessage());
 		} finally {
-			try {writer.close();} catch (Exception e) {}
+			try {writer.close();} catch (Exception e) {
+                log.warn("ignoring..", e);
+            }
 		}
 	}
 

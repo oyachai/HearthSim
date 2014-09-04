@@ -1,10 +1,5 @@
 package com.hearthsim.test.minion;
 
-import static org.junit.Assert.*;
-
-import org.junit.Before;
-import org.junit.Test;
-
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
@@ -15,6 +10,10 @@ import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.util.boardstate.BoardState;
 import com.hearthsim.util.tree.HearthTreeNode;
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 public class TestScarletCrusader {
 

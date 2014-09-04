@@ -1,7 +1,5 @@
 package com.hearthsim.card.minion;
 
-import java.util.Iterator;
-
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.event.attack.AttackAction;
@@ -11,8 +9,9 @@ import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.boardstate.BoardState;
 import com.hearthsim.util.boardstate.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
-
 import org.json.JSONObject;
+
+import java.util.Iterator;
 
 public class Minion extends Card {
 	
@@ -556,7 +555,7 @@ public class Minion extends Card {
 			
 			//Notify all other cards/characters of the card's use
 			for (Iterator<Card> iter = toRet.data_.getCards_hand_p0().iterator(); iter.hasNext();) {
-				toRet = (iter.next()).otherCardUsedEvent(0, 0, this, toRet, deckPlayer0, deckPlayer1);
+				toRet = iter.next().otherCardUsedEvent(0, 0, this, toRet, deckPlayer0, deckPlayer1);
 			}
 			toRet = toRet.data_.getHero_p0().otherCardUsedEvent(0, 0, this, toRet, deckPlayer0, deckPlayer1);
 			for (Iterator<Minion> iter = toRet.data_.getMinions_p0().iterator(); iter.hasNext();) {
@@ -566,7 +565,7 @@ public class Minion extends Card {
 			}
 
 			for (Iterator<Card> iter = toRet.data_.getCards_hand_p1().iterator(); iter.hasNext();) {
-				toRet = (iter.next()).otherCardUsedEvent(1, 0, this, toRet, deckPlayer0, deckPlayer1);
+				toRet = iter.next().otherCardUsedEvent(1, 0, this, toRet, deckPlayer0, deckPlayer1);
 			}
 			toRet = toRet.data_.getHero_p1().otherCardUsedEvent(1, 0, this, toRet, deckPlayer0, deckPlayer1);
 			for (Iterator<Minion> iter = toRet.data_.getMinions_p1().iterator(); iter.hasNext();) {
@@ -1176,4 +1175,35 @@ public class Minion extends Card {
 		return true;
 	}
 
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (taunt_ ? 1 : 0);
+        result = 31 * result + (divineShield_ ? 1 : 0);
+        result = 31 * result + (windFury_ ? 1 : 0);
+        result = 31 * result + (charge_ ? 1 : 0);
+        result = 31 * result + (hasAttacked_ ? 1 : 0);
+        result = 31 * result + (hasWindFuryAttacked_ ? 1 : 0);
+        result = 31 * result + (frozen_ ? 1 : 0);
+        result = 31 * result + (silenced_ ? 1 : 0);
+        result = 31 * result + (stealthed_ ? 1 : 0);
+        result = 31 * result + (heroTargetable_ ? 1 : 0);
+        result = 31 * result + (int) health_;
+        result = 31 * result + (int) maxHealth_;
+        result = 31 * result + (int) baseHealth_;
+        result = 31 * result + (int) auraHealth_;
+        result = 31 * result + (int) attack_;
+        result = 31 * result + (int) baseAttack_;
+        result = 31 * result + (int) extraAttackUntilTurnEnd_;
+        result = 31 * result + (int) auraAttack_;
+        result = 31 * result + (summoned_ ? 1 : 0);
+        result = 31 * result + (transformed_ ? 1 : 0);
+        result = 31 * result + (destroyOnTurnStart_ ? 1 : 0);
+        result = 31 * result + (destroyOnTurnEnd_ ? 1 : 0);
+        result = 31 * result + (int) spellDamage_;
+        result = 31 * result + (deathrattleAction_ != null ? deathrattleAction_.hashCode() : 0);
+        result = 31 * result + (attackAction_ != null ? attackAction_.hashCode() : 0);
+        result = 31 * result + (placementImportant_ ? 1 : 0);
+        return result;
+    }
 }

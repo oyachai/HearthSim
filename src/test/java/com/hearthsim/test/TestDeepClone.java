@@ -1,11 +1,11 @@
 package com.hearthsim.test;
 
-import static org.junit.Assert.*;
-
-import org.junit.Test;
-
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.AcidicSwampOoze;
+import org.junit.Test;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class TestDeepClone {
 

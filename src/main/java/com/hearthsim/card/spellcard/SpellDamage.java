@@ -46,8 +46,15 @@ public class SpellDamage extends SpellCard {
 
 	   return true;
 	}
-	
-	@Override
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (int) damage_;
+        return result;
+    }
+
+    @Override
 	public Object deepCopy() {
 		return new SpellDamage(this.getName(), this.getMana(), damage_, this.hasBeenUsed());
 	}

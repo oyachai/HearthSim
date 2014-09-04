@@ -3,11 +3,11 @@ package com.hearthsim.card.minion.concrete;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.Murloc;
+import com.hearthsim.event.attack.AttackAction;
+import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.tree.HearthTreeNode;
-import com.hearthsim.event.attack.AttackAction;
-import com.hearthsim.event.deathrattle.DeathrattleAction;
 
 
 public class GrimscaleOracle extends Murloc {
@@ -272,11 +272,10 @@ public class GrimscaleOracle extends Murloc {
 			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
-		if (!silenced_) {
-			if (targetMinion instanceof Murloc && targetMinion != this)
-				targetMinion.setAuraAttack((byte)(targetMinion.getAuraAttack() + 1));
-		}
-		return boardState;
+        if (!silenced_ && targetMinion instanceof Murloc && targetMinion != this) {
+            targetMinion.setAuraAttack((byte) (targetMinion.getAuraAttack() + 1));
+        }
+        return boardState;
 	}
 
 	/**

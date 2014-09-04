@@ -1,10 +1,7 @@
 package com.hearthsim.gui;
 
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-
-import javax.swing.JButton;
+import javax.swing.*;
+import java.awt.*;
 
 public class HSDeckCreateButton extends JButton {
 	

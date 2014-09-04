@@ -1,17 +1,17 @@
 	package com.hearthsim.io;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.ArrayList;
+    import com.hearthsim.card.Card;
+    import com.hearthsim.card.Deck;
+    import com.hearthsim.card.minion.Hero;
+    import com.hearthsim.exception.HSInvalidCardException;
+    import com.hearthsim.exception.HSInvalidHeroException;
+    import com.hearthsim.util.CardFactory;
+    import com.hearthsim.util.HeroFactory;
 
-import com.hearthsim.card.Card;
-import com.hearthsim.card.Deck;
-import com.hearthsim.card.minion.Hero;
-import com.hearthsim.exception.HSInvalidCardException;
-import com.hearthsim.exception.HSInvalidHeroException;
-import com.hearthsim.util.CardFactory;
-import com.hearthsim.util.HeroFactory;
+    import java.io.IOException;
+    import java.nio.file.Files;
+    import java.nio.file.Path;
+    import java.util.ArrayList;
 
 
 /**
@@ -42,7 +42,7 @@ public class DeckListFile {
 	 * @throws HSInvalidHeroException 
 	 */
 	public void read(Path setupFilePath) throws HSInvalidCardException, IOException, HSInvalidHeroException {
-		String inStr = (new String(Files.readAllBytes(setupFilePath))).replace("\\s+", "").replace("'", "").replace("\n", "");
+		String inStr = new String(Files.readAllBytes(setupFilePath)).replace("\\s+", "").replace("'", "").replace("\n", "");
 		this.parseDeckList(inStr);
 	}
 	

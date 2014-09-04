@@ -1,19 +1,9 @@
 package com.hearthsim.gui;
 
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.awt.geom.Rectangle2D;
-
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.ListCellRenderer;
+import javax.swing.*;
 import javax.swing.plaf.basic.BasicComboBoxUI;
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
 
 public class HSHeroChoiceComboBox extends JComboBox<String> {
 	

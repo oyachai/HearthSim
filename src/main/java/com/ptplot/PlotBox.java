@@ -27,60 +27,21 @@
  */
 package com.ptplot;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.EventQueue;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.RenderingHints;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+import javax.print.attribute.HashPrintRequestAttributeSet;
+import javax.print.attribute.PrintRequestAttributeSet;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.DataInputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.io.Writer;
+import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Enumeration;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Set;
+import java.util.*;
 import java.util.Timer;
-import java.util.TimerTask;
-import java.util.Vector;
-
-import javax.print.attribute.HashPrintRequestAttributeSet;
-import javax.print.attribute.PrintRequestAttributeSet;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 
 
 // TO DO:
@@ -242,7 +203,9 @@ import javax.swing.SwingUtilities;
  @Pt.ProposedRating Yellow (cxh)
  @Pt.AcceptedRating Yellow (cxh)
  */
+@SuppressWarnings("PMD")
 public class PlotBox extends JPanel implements Printable {
+    private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
     ///////////////////////////////////////////////////////////////////
     ////                         constructor                       ////
 
@@ -460,6 +423,7 @@ public class PlotBox extends JPanel implements Printable {
                     // deadlock.  Don't do it!
                     SwingUtilities.invokeLater(doActions);
                 } catch (Exception ex) {
+                    log.warn("ignoring", ex);
                     // Ignore InterruptedException.
                     // Other exceptions should not occur.
                 }
@@ -668,6 +632,7 @@ public class PlotBox extends JPanel implements Printable {
      *  @return An instance of Color.
      */
     public static Color getColorByName(String name) {
+        final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(PlotBox.class);
         try {
             // Check to see if it is a hexadecimal
             if (name.startsWith("#")) {
@@ -677,6 +642,7 @@ public class PlotBox extends JPanel implements Printable {
             Color col = new Color(Integer.parseInt(name, 16));
             return col;
         } catch (NumberFormatException e) {
+            log.warn("ignoring", e);
         }
 
         // FIXME: This is a poor excuse for a list of colors and values.
@@ -692,6 +658,7 @@ public class PlotBox extends JPanel implements Printable {
                     Color col = new Color(Integer.parseInt(names[i][1], 16));
                     return col;
                 } catch (NumberFormatException e) {
+                    log.warn("ignoring", e);
                 }
             }
         }
@@ -1094,6 +1061,7 @@ public class PlotBox extends JPanel implements Printable {
             try {
                 in.close();
             } catch (IOException me) {
+                log.warn("ignoring", me);
             }
         }
     }
@@ -2795,6 +2763,7 @@ public class PlotBox extends JPanel implements Printable {
                     Double dmax = Double.valueOf(max);
                     setXRange(dmin.doubleValue(), dmax.doubleValue());
                 } catch (NumberFormatException e) {
+                    log.warn("ignoring", e);
                     // ignore if format is bogus.
                 }
             }
@@ -2812,6 +2781,7 @@ public class PlotBox extends JPanel implements Printable {
                     Double dmax = Double.valueOf(max);
                     setYRange(dmin.doubleValue(), dmax.doubleValue());
                 } catch (NumberFormatException e) {
+                    log.warn("ignoring", e);
                     // ignore if format is bogus.
                 }
             }
@@ -3526,8 +3496,7 @@ public class PlotBox extends JPanel implements Printable {
         // or equal to x.  This sets us up to process the first point.
         for (_gridCurJuke = -1; ((_gridCurJuke + 1) < grid.size())
                 && (x >= ((Double) grid.elementAt(_gridCurJuke + 1))
-                        .doubleValue()); _gridCurJuke++) {
-        }
+                        .doubleValue()); _gridCurJuke++) ;
 
         return grid;
     }
@@ -3539,9 +3508,7 @@ public class PlotBox extends JPanel implements Printable {
         double x = pos - Math.floor(pos);
         int i;
 
-        for (i = 0; (i < grid.size())
-                && (x >= ((Double) grid.elementAt(i)).doubleValue()); i++) {
-        }
+        for (i = 0; (i < grid.size()) && (x >= ((Double) grid.elementAt(i)).doubleValue()); i++);
 
         if (i >= grid.size()) {
             return pos;

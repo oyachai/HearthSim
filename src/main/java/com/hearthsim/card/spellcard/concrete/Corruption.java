@@ -55,7 +55,7 @@ public class Corruption extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (targetPlayerIndex == 0 || (targetMinion instanceof Hero)) {
+		if (targetPlayerIndex == 0 || targetMinion instanceof Hero) {
 			return null;
 		}
 		

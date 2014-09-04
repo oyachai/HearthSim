@@ -1,11 +1,5 @@
 package com.hearthsim.test.heroes;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-
-import org.junit.Before;
-import org.junit.Test;
-
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
@@ -18,6 +12,11 @@ import com.hearthsim.card.spellcard.concrete.WildGrowth;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.util.boardstate.BoardState;
 import com.hearthsim.util.tree.HearthTreeNode;
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 public class TestPaladin {
 

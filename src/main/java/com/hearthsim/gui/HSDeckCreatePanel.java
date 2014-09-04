@@ -1,24 +1,12 @@
 package com.hearthsim.gui;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.LayoutManager;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.BorderFactory;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.ScrollPaneLayout;
-import javax.swing.SpringLayout;
-
 import com.hearthsim.exception.HSException;
 import com.hearthsim.util.HeroFactory;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class HSDeckCreatePanel extends JPanel {
 
@@ -83,10 +71,10 @@ public class HSDeckCreatePanel extends JPanel {
 					}
 					label.setText((String)heroChoice_.getSelectedItem());
 				} catch (HSException exception) {
-					
-				}
+                    System.out.println(exception);
+                }
 			}
-			
+
 		});
 
 		
@@ -188,8 +176,7 @@ public class HSDeckCreatePanel extends JPanel {
 	@Override
 	public void setLayout(LayoutManager mgr) {
 		//can't change the layout of this panel
-		return;
-	}
+    }
 	
 	@Override
 	public void setBackground(Color color) {

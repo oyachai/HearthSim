@@ -1,9 +1,5 @@
 package com.hearthsim.util;
 
-import java.util.Iterator;
-
-import com.hearthsim.util.IdentityLinkedList;
-
 import com.hearthsim.card.minion.Minion;
 
 /**

@@ -1,8 +1,5 @@
 package com.hearthsim.card;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
@@ -11,8 +8,10 @@ import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.boardstate.BoardState;
 import com.hearthsim.util.boardstate.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
+import org.json.JSONObject;
 
-import org.json.*;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Card implements DeepCopyable {
 
@@ -139,7 +138,16 @@ public class Card implements DeepCopyable {
 	   return true;
 	}
 
-	/**
+    @Override
+    public int hashCode() {
+        int result = name_ != null ? name_.hashCode() : 0;
+        result = 31 * result + (int) mana_;
+        result = 31 * result + (hasBeenUsed_ ? 1 : 0);
+        result = 31 * result + (isInHand_ ? 1 : 0);
+        return result;
+    }
+
+    /**
 	 * End the turn and resets the card state
 	 * 
 	 * This function is called at the end of the turn.  Any derived class must override it and remove any 
@@ -227,7 +235,7 @@ public class Card implements DeepCopyable {
 		if (toRet != null) {
 			ArrayList<Minion> tmpList = new ArrayList<Minion>(7);
 			for (Iterator<Card> iter = toRet.data_.getCards_hand_p0().iterator(); iter.hasNext();) {
-				toRet = (iter.next()).otherCardUsedEvent(0, 0, this, toRet, deckPlayer0, deckPlayer1);
+				toRet = iter.next().otherCardUsedEvent(0, 0, this, toRet, deckPlayer0, deckPlayer1);
 			}
 			toRet = toRet.data_.getHero_p0().otherCardUsedEvent(0, 0, this, toRet, deckPlayer0, deckPlayer1);
 			{
@@ -240,7 +248,7 @@ public class Card implements DeepCopyable {
 				}
 			}
 			for (Iterator<Card> iter = toRet.data_.getCards_hand_p1().iterator(); iter.hasNext();) {
-				toRet = (iter.next()).otherCardUsedEvent(1, 0, this, toRet, deckPlayer0, deckPlayer1);
+				toRet = iter.next().otherCardUsedEvent(1, 0, this, toRet, deckPlayer0, deckPlayer1);
 			}
 			toRet = toRet.data_.getHero_p1().otherCardUsedEvent(1, 0, this, toRet, deckPlayer0, deckPlayer1);
 			{

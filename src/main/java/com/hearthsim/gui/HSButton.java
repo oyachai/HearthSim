@@ -1,14 +1,8 @@
 package com.hearthsim.gui;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.geom.Rectangle2D;
-
-import javax.swing.JButton;
 
 public class HSButton extends JButton {
 
@@ -22,11 +16,6 @@ public class HSButton extends JButton {
         setFocusable(true);
     }
         
-    @Override
-    public void setPreferredSize(Dimension dimension) {
-    	super.setPreferredSize(dimension);
-    }
-
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);

@@ -1,10 +1,5 @@
 package com.hearthsim.test.card;
 
-import static org.junit.Assert.*;
-
-import org.junit.Before;
-import org.junit.Test;
-
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
@@ -13,6 +8,10 @@ import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.util.boardstate.BoardState;
 import com.hearthsim.util.tree.HearthTreeNode;
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 public class TestBloodlust {
 
@@ -93,9 +92,10 @@ public class TestBloodlust {
 		assertEquals(board.data_.getMinion_p0(1).getHealth(), health1 - 1);
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), health0);
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), health1 - 1);
-		
-		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), attack0 + 3);
-		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), attack0 + 3);
+
+        int attackPlus3 = attack0 + 3;
+        assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), attackPlus3);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), attackPlus3);
 		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), attack0);
 		assertEquals(board.data_.getMinion_p1(1).getTotalAttack(), attack0);
 		
@@ -103,7 +103,7 @@ public class TestBloodlust {
 		target = board.data_.getCharacter(1, 0);
 		ret = theMinion.attack(1, target, ret, deck, null);
 		assertEquals(board.data_.getHero_p0().getHealth(), 30);
-		assertEquals(board.data_.getHero_p1().getHealth(), 30 - (attack0 + 3));
+		assertEquals(board.data_.getHero_p1().getHealth(), 30 - attackPlus3);
 	}
 	
 	@Test
@@ -123,9 +123,10 @@ public class TestBloodlust {
 		assertEquals(board.data_.getMinion_p0(1).getHealth(), health1 - 1);
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), health0);
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), health1 - 1);
-		
-		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), attack0 + 3);
-		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), attack0 + 3);
+
+        int attackPlus3 = attack0 + 3;
+        assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), attackPlus3);
+		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), attackPlus3);
 		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), attack0);
 		assertEquals(board.data_.getMinion_p1(1).getTotalAttack(), attack0);
 		
@@ -137,6 +138,6 @@ public class TestBloodlust {
 		assertEquals(board.data_.getMinion_p0(0).getHealth(), health0 - attack0);
 		assertEquals(board.data_.getMinion_p0(1).getHealth(), health1 - 1);
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), health0);
-		assertEquals(board.data_.getMinion_p1(1).getHealth(), health1 - 1 - (attack0 + 3));
+		assertEquals(board.data_.getMinion_p1(1).getHealth(), health1 - 1 - attackPlus3);
 	}
 }

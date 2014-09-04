@@ -50,8 +50,16 @@ public class WeaponCard extends Card {
 
 		return true;
 	}
-	
-	/**
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (int) weaponCharge_;
+        result = 31 * result + (int) weaponDamage_;
+        return result;
+    }
+
+    /**
 	 * 
 	 * Use the card on the given target
 	 * 

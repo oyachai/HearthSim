@@ -27,18 +27,7 @@
  */
 package com.ptplot;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.io.Writer;
+import java.io.*;
 import java.net.URI;
 import java.net.URL;
 import java.util.Enumeration;
@@ -60,7 +49,10 @@ import java.util.jar.JarFile;
  @Pt.ProposedRating Green (cxh)
  @Pt.AcceptedRating Green (cxh)
  */
+@SuppressWarnings("PMD")
 public class FileUtilities {
+
+    private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
     /** Instances of this class cannot be created.
      */
     private FileUtilities() {
@@ -219,6 +211,7 @@ public class FileUtilities {
      *  @see #nameToURL(String, URI, ClassLoader)
      */
     public static File nameToFile(String name, URI base) {
+        final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(FileUtilities.class);
         if ((name == null) || name.trim().equals("")) {
             return null;
         }
@@ -228,6 +221,7 @@ public class FileUtilities {
             try {
                 result = _searchClassPath(name, null);
             } catch (IOException ex) {
+                log.warn("error in nameToFile", ex);
                 // Ignore.  In nameToFile(), it is ok if we don't find the variable
             }
             if (result != null) {
@@ -291,6 +285,7 @@ public class FileUtilities {
      */
     public static URL nameToURL(String name, URI baseDirectory,
             ClassLoader classLoader) throws IOException {
+        final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(FileUtilities.class);
         if ((name == null) || name.trim().equals("")) {
             return null;
         }
@@ -420,14 +415,13 @@ public class FileUtilities {
                         // requires this because the URL is relative.
                         return new URL(baseDirectory.toURL(), urlString);
                     } catch (Exception ex4) {
-
                         try {
                             // Under Webstart, ptalon, EightChannelFFT
                             // requires this.
                             return new URL(baseDirectory.toURL(), newURI
                                     .toString());
                         } catch (Exception ex5) {
-                            // Ignore
+                            log.warn("ignoring..", ex5);
                         }
 
                         IOException io = new IOException(
@@ -460,7 +454,7 @@ public class FileUtilities {
                         "(https?:)//?", "$1//");
                 url = new URL(fixedURLAsString);
             } catch (Exception e) {
-                // Ignore
+                log.warn("ignoring..",e);
             }
             return url;
         }
@@ -485,6 +479,7 @@ public class FileUtilities {
      */
     public static BufferedReader openForReading(String name, URI base,
             ClassLoader classLoader) throws IOException {
+        final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(FileUtilities.class);
         if ((name == null) || name.trim().equals("")) {
             return null;
         }
@@ -527,7 +522,7 @@ public class FileUtilities {
                         inputStreamReader.close();
                     }
                 } catch (IOException ex3) {
-                    // Ignore
+                    log.warn("ignoring..", ex3);
                 }
                 IOException ioException = new IOException("Failed to open \""
                         + url + "\".");

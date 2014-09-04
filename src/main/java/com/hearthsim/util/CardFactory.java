@@ -1,10 +1,10 @@
 package com.hearthsim.util;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-
 import com.hearthsim.card.Card;
 import com.hearthsim.exception.HSInvalidCardException;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * A utility class to convert a card name into a Card class instance

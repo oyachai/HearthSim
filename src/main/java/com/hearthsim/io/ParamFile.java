@@ -1,5 +1,8 @@
 package com.hearthsim.io;
 
+import com.hearthsim.exception.HSInvalidParamFileException;
+import com.hearthsim.exception.HSParamNotFoundException;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -7,9 +10,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
-
-import com.hearthsim.exception.HSInvalidParamFileException;
-import com.hearthsim.exception.HSParamNotFoundException;
 
 /**
  * Class to read in a HearthSim parameter file

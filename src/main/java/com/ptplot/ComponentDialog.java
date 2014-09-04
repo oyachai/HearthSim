@@ -26,22 +26,12 @@
  */
 package com.ptplot;
 
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Frame;
-import java.awt.Toolkit;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.JDialog;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
 
 ///////////////////////////////////////////////////////////////////
 //// ComponentDialog
@@ -70,6 +60,7 @@ import javax.swing.JTextArea;
  @Pt.ProposedRating Yellow (eal)
  @Pt.AcceptedRating Yellow (janneck)
  */
+@SuppressWarnings("PMD")
 public class ComponentDialog extends JDialog {
     /** Construct a dialog with the specified owner, title, and component.
      *  An "OK" and a "Cancel" button are added to the dialog.

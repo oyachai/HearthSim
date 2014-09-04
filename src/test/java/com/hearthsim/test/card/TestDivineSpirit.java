@@ -1,10 +1,5 @@
 package com.hearthsim.test.card;
 
-import static org.junit.Assert.*;
-
-import org.junit.Before;
-import org.junit.Test;
-
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
@@ -13,6 +8,10 @@ import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.util.boardstate.BoardState;
 import com.hearthsim.util.tree.HearthTreeNode;
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 public class TestDivineSpirit {
 
@@ -161,7 +160,7 @@ public class TestDivineSpirit {
 		assertEquals(board.data_.getMinion_p1(0).getHealth(), health0);
 		assertEquals(board.data_.getMinion_p1(1).getHealth(), (health1 - 1) * 2);
 		
-		assertEquals(board.data_.getMinion_p1(1).getMaxHealth(), health1 + (health1 - 1));
+		assertEquals(board.data_.getMinion_p1(1).getMaxHealth(), health1 + health1 - 1);
 
 		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), attack0);
 		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), attack0);

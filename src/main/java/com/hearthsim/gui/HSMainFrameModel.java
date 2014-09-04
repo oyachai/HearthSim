@@ -1,13 +1,11 @@
 package com.hearthsim.gui;
 
-import java.util.ArrayList;
-
-import org.apache.commons.math3.distribution.*;
-
 import com.hearthsim.event.HSGameEndEventListener;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.results.GameResult;
-import com.hearthsim.util.boardstate.BoardState;
+import org.apache.commons.math3.distribution.BetaDistribution;
+
+import java.util.ArrayList;
 
 public class HSMainFrameModel implements HSGameEndEventListener {
 

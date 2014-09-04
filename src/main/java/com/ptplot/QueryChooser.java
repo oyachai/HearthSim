@@ -28,13 +28,9 @@
 
 package com.ptplot;
 
-import java.awt.Color;
-import java.awt.Component;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionListener;
-
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.JLabel;
 
 /**
  * Abstract superclass for customized entry boxes. Used to make protected

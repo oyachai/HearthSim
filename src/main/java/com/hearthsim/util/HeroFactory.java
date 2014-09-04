@@ -1,10 +1,10 @@
 package com.hearthsim.util;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.exception.HSInvalidHeroException;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * A utility to convert a hero string to a Hero class instance

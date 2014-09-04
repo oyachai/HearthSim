@@ -1,10 +1,9 @@
 package com.hearthsim.gui;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
-
-import javax.swing.AbstractListModel;
 
 public class SortedListModel<E extends Comparable> extends AbstractListModel<E> {
 

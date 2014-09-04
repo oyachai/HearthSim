@@ -60,16 +60,14 @@ public class MortalCoil extends SpellDamage {
 		toRet = this.attack(targetPlayerIndex, targetMinion, toRet, deckPlayer0, deckPlayer1);
 		toRet.data_.setMana_p0(toRet.data_.getMana_p0() - this.mana_);
 		toRet.data_.removeCard_hand(this);
-		
-		if (!(targetMinion instanceof Hero)) {
-			if (targetMinion.getTotalHealth() <= 0) {
-				if (toRet instanceof CardDrawNode) {
-					((CardDrawNode) toRet).addNumCardsToDraw(1);
-				} else {
-					toRet = new CardDrawNode(toRet, 1); //draw two cards
-				}
-			}
-		}
+
+        if (!(targetMinion instanceof Hero && targetMinion.getTotalHealth() <= 0)) {
+            if (toRet instanceof CardDrawNode) {
+                ((CardDrawNode) toRet).addNumCardsToDraw(1);
+            } else {
+                toRet = new CardDrawNode(toRet, 1); //draw two cards
+            }
+        }
 
 		return toRet;
 	}

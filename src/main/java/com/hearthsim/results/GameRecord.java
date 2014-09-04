@@ -1,8 +1,7 @@
 package com.hearthsim.results;
 
-import org.json.JSONObject;
-
 import com.hearthsim.util.boardstate.BoardState;
+import org.json.JSONObject;
 
 public interface GameRecord {
 	

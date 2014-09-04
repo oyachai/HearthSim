@@ -29,12 +29,8 @@ package com.ptplot;
 
 // Note that classes in ptolemy.util do not depend on any
 // other ptolemy packages.
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.StreamTokenizer;
-import java.io.StringReader;
-import java.net.MalformedURLException;
+
+import java.io.*;
 import java.net.URI;
 import java.net.URL;
 import java.util.LinkedList;
@@ -55,6 +51,7 @@ import java.util.StringTokenizer;
  @Pt.ProposedRating Green (eal)
  @Pt.AcceptedRating Green (cxh)
  */
+@SuppressWarnings("PMD")
 public class StringUtilities {
     /** Instances of this class cannot be created.
      */
@@ -334,6 +331,7 @@ public class StringUtilities {
      *  If the property is not found, then we return the empty string.
      */
     public static String getProperty(String propertyName) {
+        final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(FileUtilities.class);
         // NOTE: getProperty() will probably fail in applets, which
         // is why this is in a try block.
         String property = null;
@@ -506,7 +504,7 @@ public class StringUtilities {
                     // will get the correct value.
                     System.setProperty("ptolemy.ptII.dir", _ptolemyPtIIDir);
                 } catch (SecurityException security) {
-                    // Ignore, we are probably running as an applet or -sandbox
+                    log.warn("ignoring", security);
                 }
 
                 return _ptolemyPtIIDir;
@@ -852,6 +850,7 @@ public class StringUtilities {
      */
     public static String substituteFilePrefix(String prefix, String string,
             String replacement) {
+        final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(StringUtilities.class);
         // This method is currently used by $PTII/util/testsuite/auto.tcl
         if (string.startsWith(prefix)) {
             // Hmm, what about file separators?
@@ -870,7 +869,7 @@ public class StringUtilities {
                                     .length());
                 }
             } catch (Throwable throwable) {
-                // ignore.
+                log.warn("ignoring", throwable);
             }
         }
 

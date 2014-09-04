@@ -74,7 +74,7 @@ public class Mage extends Hero {
 		throws HSException
 	{
 		HearthTreeNode toRet = boardState;
-		if (targetPlayerIndex == 0 && (targetMinion instanceof Hero)) {
+		if (targetPlayerIndex == 0 && targetMinion instanceof Hero) {
 			//There's never a case where using it on yourself is a good idea
 			return null;
 		}

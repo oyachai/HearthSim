@@ -1,15 +1,5 @@
 package com.hearthsim;
 
-import java.io.BufferedWriter;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
-import java.nio.file.FileSystems;
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.event.HSGameEndEventListener;
@@ -22,6 +12,12 @@ import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.results.GameResult;
 import com.hearthsim.results.GameResultSummary;
 import com.hearthsim.util.ThreadQueue;
+
+import java.io.*;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class HearthSimBase {
 	

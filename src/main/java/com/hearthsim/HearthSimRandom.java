@@ -1,8 +1,5 @@
 package com.hearthsim;
 
-import java.io.IOException;
-import java.nio.file.Path;
-
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
@@ -14,6 +11,9 @@ import com.hearthsim.exception.HSParamNotFoundException;
 import com.hearthsim.io.ParamFile;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.results.GameResult;
+
+import java.io.IOException;
+import java.nio.file.Path;
 
 /**
  * A Game setup to play a random (fictitious) minion vs random (fictitious) minion games.
@@ -81,13 +81,11 @@ public class HearthSimRandom extends HearthSimBase {
 		int ns = 0;
 		while (ns < numHolySmite_) {
 			int irand = (int)(Math.random() * numCardsInDeck_);
-			if (!(cards1_[irand] instanceof SpellDamage)) {
-				if (!((Minion)cards1_[irand]).getTaunt()) {
-					cards1_[irand] = new SpellDamage("" + irand, (byte)1, (byte)2, false);
-					++ns;
-				}
-			}
-		}
+            if (!(cards1_[irand] instanceof SpellDamage) && !((Minion) cards1_[irand]).getTaunt()) {
+                cards1_[irand] = new SpellDamage("" + irand, (byte) 1, (byte) 2, false);
+                ++ns;
+            }
+        }
 		Deck deck0 = new Deck(cards0_);
 		Deck deck1 = new Deck(cards1_);
 
