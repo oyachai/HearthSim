@@ -831,6 +831,11 @@ public class ImplementedCardList {
             map_.put(SinisterStrike.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(Slam.class, "Slam", "spell", "warrior", "common", "Deal 2 damage to a minion. If it survives, draw a card", 2, -1, -1);
+            list_.add(card);
+            map_.put(Slam.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(Sprint.class, "Sprint", "spell", "rogue", "free", "Draw 4 cards", 7, -1, -1);
             list_.add(card);
             map_.put(Sprint.class, card);
