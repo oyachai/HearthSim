@@ -41,7 +41,7 @@ import java.io.InputStreamReader;
  is only one instance, set up by the application, so the class is
  a singleton.  But this is not enforced.
  <p>
- This base class simply writes the errors to System.err.
+ This base class simply writes the errors to log.error.
  When an applet or application starts up, it may wish to set a subclass
  of this class as the message handler, to allow a nicer way of
  reporting errors.  For example, a Swing application will probably
@@ -78,22 +78,22 @@ public class MessageHandler {
      *  @see CancelException
      */
     public static void error(String info, Throwable throwable) {
+        final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(MessageHandler.class);
         // Sometimes you find that errors are reported multiple times.
         // To find out who is calling this method, uncomment the following.
-        // System.out.println("------ reporting error:" + throwable);
+        // log.info("------ reporting error:" + throwable);
         // throwable.printStackTrace();
-        // System.out.println("------ called from:");
+        // log.info("------ called from:");
         // (new Exception()).printStackTrace();
         try {
             _handler._error(info, throwable);
         } catch (Throwable throwable2) {
             // An applet was throwing an exception while handling
             // the error - so we print the original message if _error() fails.
-            System.err.println("Internal Error, exception thrown while "
+            log.error("Internal Error, exception thrown while "
                     + "handling error: \"" + info + "\"\n");
-            throwable.printStackTrace();
-            System.err.println("Internal Error:\n");
-            throwable2.printStackTrace();
+            log.error("{}", throwable);
+            log.error("Internal Error: {}",throwable2);
         }
     }
 
@@ -204,7 +204,7 @@ public class MessageHandler {
      *  @param info The message.
      */
     protected void _error(String info) {
-        System.err.println(info);
+        log.error(info);
     }
 
     /** Show the specified message and throwable information.
@@ -220,7 +220,7 @@ public class MessageHandler {
             return;
         }
 
-        System.err.println(info);
+        log.error(info);
         throwable.printStackTrace();
     }
 
@@ -229,7 +229,7 @@ public class MessageHandler {
      *  @param info The message.
      */
     protected void _message(String info) {
-        System.err.println(info);
+        log.error(info);
     }
 
     /** Show the specified message.  In this base class, the message
@@ -266,8 +266,8 @@ public class MessageHandler {
      *  @return True if the answer is yes.
      */
     protected boolean _yesNoQuestion(String question) {
-        System.out.print(question);
-        System.out.print(" (yes or no) ");
+        log.info(question);
+        log.info(" (yes or no) ");
 
         BufferedReader stdIn = new BufferedReader(new InputStreamReader(
                 System.in));
@@ -299,8 +299,8 @@ public class MessageHandler {
      */
     protected boolean _yesNoCancelQuestion(String question)
             throws CancelException {
-        System.out.print(question);
-        System.out.print(" (yes or no or cancel) ");
+        log.info(question);
+        log.info(" (yes or no or cancel) ");
 
         BufferedReader stdIn = new BufferedReader(new InputStreamReader(
                 System.in));

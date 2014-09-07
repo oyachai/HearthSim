@@ -20,6 +20,8 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class TestShaman {
+
+    private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
 	
 	private HearthTreeNode board;
 	private Deck deck;
@@ -237,7 +239,7 @@ public class TestShaman {
 		RandomEffectNode rn = (RandomEffectNode)ret;
 		double score = rn.weightedAverageScore(deck, ai0);
 		
-		System.out.println("score = " + score);
+		log.info("score = " + score);
 	}
 	
 
@@ -271,6 +273,6 @@ public class TestShaman {
 		assertEquals(resBoard.getNumMinions_p0(), 3);
 		assertEquals(resBoard.getNumMinions_p1(), 1);
 
-		System.out.println(resBoard.getMinion_p0(2).getClass());
+		log.info("{}",resBoard.getMinion_p0(2).getClass());
 	}
 }

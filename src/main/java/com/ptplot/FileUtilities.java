@@ -151,8 +151,9 @@ public class FileUtilities {
      *  argument is optional.
      */
     public static void main(String[] args) {
+        final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(FileUtilities.class);
         if (args.length < 1 || args.length > 2) {
-            System.err.println("Usage: java -classpath $PTII "
+            log.info("Usage: java -classpath $PTII "
                     + "ptolemy.util.FileUtilities jarFile [directory]\n"
                     + "where jarFile is the name of the jar file\n"
                     + "and directory is the optional directory in which to "
@@ -167,8 +168,8 @@ public class FileUtilities {
         try {
             extractJarFile(jarFileName, directoryName);
         } catch (Throwable throwable) {
-            System.err.println("Failed to extract \"" + jarFileName + "\"");
-            throwable.printStackTrace();
+            log.error("Failed to extract \"" + jarFileName + "\"");
+            log.error("{}",throwable);
             StringUtilities.exit(3);
         }
     }
@@ -532,45 +533,6 @@ public class FileUtilities {
         }
 
         return new BufferedReader(inputStreamReader);
-    }
-
-    /** Open the specified file for writing or appending. If the
-     *  specified name is "System.out", then a writer to standard out
-     *  is returned; otherwise, pass the name and base to {@link
-     *  #nameToFile(String, URI)} and create a file writer.  If the
-     *  file does not exist, then create it.  If the file name is not
-     *  absolute, the it is assumed to be relative to the specified
-     *  base directory.  If permitted, this method will return a
-     *  Writer that will simply overwrite the contents of the file. It
-     *  is up to the user of this method to check whether this is OK
-     *  (by first calling {@link #nameToFile(String, URI)} and calling
-     *  exists() on the returned value).
-     *
-     *  @param name File name.
-     *  @param base The base URI for relative references.
-     *  @param append If true, then append to the file rather than
-     *   overwriting.
-     *  @return If the name is null or the empty string,
-     *  then null is returned, otherwise a writer is returned.
-     *  @exception IOException If the file cannot be opened
-     *   or created.
-     */
-    public static Writer openForWriting(String name, URI base, boolean append)
-            throws IOException {
-        if ((name == null) || name.trim().equals("")) {
-            return null;
-        }
-
-        if (name.trim().equals("System.out")) {
-            if (STD_OUT == null) {
-                STD_OUT = new PrintWriter(System.out);
-            }
-
-            return STD_OUT;
-        }
-
-        File file = nameToFile(name, base);
-        return new FileWriter(file, append);
     }
 
     ///////////////////////////////////////////////////////////////////

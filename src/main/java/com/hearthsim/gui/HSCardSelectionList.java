@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class HSCardSelectionList extends JList<ImplementedCard> {
+
+    private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
 	
 	ImplementedCardList list_;
 	ArrayList<ImplementedCard> cards_;
@@ -34,7 +36,7 @@ public class HSCardSelectionList extends JList<ImplementedCard> {
 		    public void mousePressed(MouseEvent evt) {
 		        JList list = (JList)evt.getSource();
 	        	int index = list.locationToIndex(evt.getPoint());
-	        	System.out.println("clicked item " + index + ": " + cards_.get(index).name_);
+	        	log.debug("clicked item " + index + ": " + cards_.get(index).name_);
 	        	if (editing_ && cardListPane_ != null) {
 	        		((SortedListModel<ImplementedCard>) cardListPane_.getModel()).addElement(cards_.get(index));
 	        	}

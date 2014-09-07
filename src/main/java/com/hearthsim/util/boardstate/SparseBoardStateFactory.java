@@ -96,7 +96,7 @@ public class SparseBoardStateFactory extends BoardStateFactoryBase {
 							}
 						}
 						if (cardPlacementIndex < 0)
-							System.out.println("blah");
+							log.info("blah");
 					}
 					//actually place the card now
 					Minion targetMinion = boardStateNode.data_.getCharacter_p0(cardPlacementIndex);

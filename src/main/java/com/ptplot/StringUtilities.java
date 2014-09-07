@@ -247,12 +247,13 @@ public class StringUtilities {
      *  non-zero values indicate an error.
      */
     public static void exit(int returnValue) {
+        final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(StringUtilities.class);
         try {
             if (StringUtilities.getProperty("ptolemy.ptII.doNotExit").length() > 0) {
                 return;
             }
         } catch (SecurityException ex) {
-            System.out.println("Warning: failed to get property \""
+            log.error("Warning: failed to get property \""
                     + "ptolemy.ptII.doNotExit\". "
                     + "(-sandbox always causes this)");
         }
@@ -267,7 +268,7 @@ public class StringUtilities {
                         + "is set, we throw this exception instead.");
             }
         } catch (SecurityException ex) {
-            System.out.println("Warning: failed to get property \""
+            log.info("Warning: failed to get property \""
                     + "ptolemy.ptII.exitAfterWrapup\". "
                     + "(-sandbox always causes this)");
 
@@ -371,7 +372,7 @@ public class StringUtilities {
                 // This error only occurs when users build their own,
                 // so it is safe to print to stderr
                 _printedCygwinWarning = true;
-                System.err.println("ptolemy.ptII.dir property = \"" + property
+                log.error("ptolemy.ptII.dir property = \"" + property
                         + "\", which contains \"cygdrive\". "
                         + "This is almost always an error under Cygwin that "
                         + "is occurs when one does PTII=`pwd`.  Instead, do "

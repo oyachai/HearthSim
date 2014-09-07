@@ -330,9 +330,8 @@ public class PlotFrame extends JFrame {
                     try {
                         fout.close();
                     } catch (Throwable throwable) {
-                        System.out.println("Ignoring failure to close stream "
-                                + "on " + file);
-                        throwable.printStackTrace();
+                        log.error("Ignoring failure to close stream on {}", file);
+                        log.error(throwable.toString());
                     }
                 }
             } catch (IOException ex) {
@@ -642,7 +641,7 @@ public class PlotFrame extends JFrame {
                 // If we do not catch exceptions here, then they
                 // disappear to stdout, which is bad if we launched
                 // where there is no stdout visible.
-                System.out.println("Format Exception: " + exception);
+                log.info("Format Exception: " + exception);
                 exception.printStackTrace();
                 JOptionPane.showMessageDialog(null, "Format Exception:\n"
                         + exception.toString(), "Ptolemy Plot Error",
