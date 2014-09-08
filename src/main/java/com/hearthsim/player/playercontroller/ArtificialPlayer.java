@@ -21,6 +21,7 @@ import java.nio.file.Path;
 public class ArtificialPlayer {
 
     private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
+    public final static int MAX_THINK_TIME = 20000;
 
     int nLookahead_;
 	
@@ -51,7 +52,7 @@ public class ArtificialPlayer {
 	double enemy_wCharge_;
 	
 	boolean useSparseBoardStateFactory_ = true;
-	
+
 	public ArtificialPlayer() {
 		this(0.9, 0.9, 1.0, 1.0);
 	}
@@ -293,7 +294,7 @@ public class ArtificialPlayer {
 	 * @throws HSException
 	 */
 	public BoardState playTurn(int turn, BoardState board, Player player0, Player player1) throws HSException {
-		return this.playTurn(turn, board, player0, player1, 20000);
+        return this.playTurn(turn, board, player0, player1, MAX_THINK_TIME);
 	}
 	
 	/**
@@ -323,6 +324,7 @@ public class ArtificialPlayer {
 		HearthTreeNode allMoves = factory.doMoves(toRet, this);
 		
 		HearthTreeNode bestPlay = allMoves.findMaxOfFunc(this);
+        log.debug("best play has score {}", bestPlay.getScore());
 		while( bestPlay instanceof StopNode ) {
 			HearthTreeNode allEffectsDone = ((StopNode)bestPlay).finishAllEffects(player0.getDeck(), player1.getDeck());
 			BoardStateFactoryBase tmpFactory = null;

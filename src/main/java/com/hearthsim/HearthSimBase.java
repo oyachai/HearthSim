@@ -108,7 +108,9 @@ public abstract class HearthSimBase {
 	
 	
 	public void run() throws HSException, IOException, InterruptedException {
-		Path outputFilePath = FileSystems.getDefault().getPath(rootPath_.toString(), gameResultFileName_);
+        long simStartTime = System.currentTimeMillis();
+
+        Path outputFilePath = FileSystems.getDefault().getPath(rootPath_.toString(), gameResultFileName_);
 		Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outputFilePath.toString()), "utf-8"));
 
 		ThreadQueue tQueue = new ThreadQueue(numThreads_);
@@ -120,8 +122,15 @@ public abstract class HearthSimBase {
 		tQueue.runQueue();
 		writer.close();
 
-		log.info("done");
-	}
+        long simEndTime = System.currentTimeMillis();
+        double  simDeltaTimeSeconds = (simEndTime - simStartTime) / 1000.0;
+        String prettyDeltaTimeSeconds = String.format("%.2f", simDeltaTimeSeconds);
+        double secondsPerGame = simDeltaTimeSeconds / numSims_;
+        String prettySecondsPerGame = String.format("%.2f", secondsPerGame);
+
+        log.info("completed simulation of {} games in {} seconds on {} thread(s)", numSims_, prettyDeltaTimeSeconds, numThreads_);
+        log.info("average time per game: {} seconds", prettySecondsPerGame);
+    }
 	
 	
 	class GameThread implements Runnable {

@@ -4,9 +4,17 @@ apply plugin: 'idea'
 apply plugin: 'jacoco'
 apply plugin: 'checkstyle'
 apply plugin: 'pmd'
-apply plugin: 'application'
 
-mainClassName = "com.hearthsim.gui.HearthSim"
+task(runGui, dependsOn: 'classes', type: JavaExec) {
+    main = 'com.hearthsim.gui.HearthSim'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task(runSim, dependsOn: 'classes', type: JavaExec) {
+    main = 'com.hearthsim.HearthSimMain'
+    args = [hsparam]
+    classpath = sourceSets.main.runtimeClasspath
+}
 
 repositories {
     jcenter()

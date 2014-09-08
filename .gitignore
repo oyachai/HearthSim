@@ -187,7 +187,7 @@ HearthSim.iws
 
 ####
 # Gradle ignore
-out
+/out
 .gradle
 
 
@@ -199,4 +199,4 @@ docs/.~lock.*
 
 ####
 # Logging
-log
+/log

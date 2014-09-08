@@ -35,13 +35,19 @@ Pre-compiled versions can be downloaded from [HearthSim downloads page](http://b
 
 ###Command line
 
-There is an example simulation setup in the example directory.  Once you have the project compiled (assuming you named the resulting .jar file hearthsim.jar), you can run it like this:
+There is an example simulation setup in the example directory.  You can run the project easily by executing:
 
 ```
-java -jar hearthsim.jar masterParams.hsparam
+./gradlew runSim
 ```
 
-or whatever is the actual path to the simulation parameter file.
+and configure the simulation parameter file within gradle.properties.
+
+The GUI can be run via
+
+```
+./gradlew runGui
+```
 
 ##Some Results
 
@@ -51,11 +57,63 @@ You can find some simulation results [HearthSim](https://hearthstone.versify-app
 [Effect of direct damage spells](http://buddypanda.com/?p=119)    
 [Effect of taunts](http://buddypanda.com/?p=183)    
 [Effect of divine shield](http://buddypanda.com/?p=217)    
-[Effect of additional card draw](http://buddypanda.com/?p=279)    
+[Effect of additional card draw](http://buddypanda.com/?p=279)
+    
+##Some Benchmarks
+
+Simulations have been run on Digital Ocean machines for some performance benchmarks. Currently the simulations have been run once, with no variation in decks/ai/etc. Eventually we would like to keep track of performance with each release, and perform more varied testing with different BoardStateFactories etc. Decks were always deck0.hsdeck and deck1.hsdeck from example1.
+
+
+##### Machine 1
+DigitalOcean 1 CPU, 512MB Ram
+
+* CPU op-mode(s):        32-bit, 64-bit
+* CPU(s):                1
+* Thread(s) per core:    1
+* Vendor ID:             GenuineIntel
+* CPU MHz:               2399.998
+* L1d cache:             32K
+* L1i cache:             32K
+* L2 cache:              256K
+* L3 cache:              15360K
+
+###### Test 1
+* num_simulations: 1000
+* num_threads: 4
+* average time per game: 4.14 seconds
+
+###### Test 2
+* num_simulations: 1000
+* num_threads: 1
+* average time per game: 5.73 seconds
+
+##### Machine 2
+DigitalOcean 4 CPU, 8GB Ram
+
+* Architecture:          x86_64
+* CPU op-mode(s):        32-bit, 64-bit
+* CPU(s):                4
+* Thread(s) per core:    1
+* Vendor ID:             GenuineIntel
+* CPU MHz:               2399.998
+* L1d cache:             32K
+* L1i cache:             32K
+* L2 cache:              256K
+* L3 cache:              15360K
+
+###### Test 1
+* num_simulations: 100
+* num_threads: 4
+* average time per game: 1.58 seconds
+
+###### Test 2
+* num_simulations: 10
+* num_threads: 1
+* average time per game: 5.58 seconds
+
 
 ##Contributing
 
 To contribute, follow the usual procedure: fork, make changes, and submit a pull request.
 
 For discussions, questions, or comments, join the dev board [here](https://hearthstone.versify-app.com/board/HearthSim_dev/).
-
