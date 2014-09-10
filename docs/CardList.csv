@@ -328,7 +328,7 @@ Starfall|spell|neutral|rare|5|||Choose One - Deal 5 damage to a minion; or 2 dam
 Starfire|spell|neutral|free|6|||Deal 5 damage. Draw a card|TRUE
 Starving Buzzard|minion|hunter|free|2|2|1|Whenever you summon a Beast, draw a card|TRUE
 Stonetusk Boar|minion|neutral|free|1|1|1|Charge|TRUE
-Stormforged Axe|weapon|shaman|common|2|2||Overload: (1)|FALSE
+Stormforged Axe|weapon|shaman|common|2|2||Overload: (1)|TRUE
 Stormpike Commando|minion|neutral|free|5|4|2|Battlecry: Deal 2 damage|TRUE
 Stormwind Champion|minion|neutral|free|7|6|6|Your other minions have +1/+1|TRUE
 Stormwind Knight|minion|neutral|free|4|2|5|Charge|TRUE

@@ -866,6 +866,11 @@ public class ImplementedCardList {
             map_.put(StonetuskBoar.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(StormforgedAxe.class, "Stormforged Axe", "weapon", "shaman", "common", "Overload (1)", 2, 2, -1);
+            list_.add(card);
+            map_.put(StormforgedAxe.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(StormpikeCommando.class, "Stormpike Commando", "minion", "neutral", "free", "Battlecry Deal 2 damage", 5, 4, 2);
             list_.add(card);
             map_.put(StormpikeCommando.class, card);
