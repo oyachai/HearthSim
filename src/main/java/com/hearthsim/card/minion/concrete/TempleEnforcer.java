@@ -8,12 +8,12 @@ import com.hearthsim.exception.HSException;
 import com.hearthsim.util.boardstate.BoardState;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class Spellbreaker extends Minion {
+public class TempleEnforcer extends Minion {
 
-	private static final String NAME = "Spellbreaker";
-	private static final byte MANA_COST = 4;
-	private static final byte ATTACK = 4;
-	private static final byte HEALTH = 3;
+	private static final String NAME = "Temple Enforcer";
+	private static final byte MANA_COST = 6;
+	private static final byte ATTACK = 6;
+	private static final byte HEALTH = 6;
 	
 	private static final boolean TAUNT = false;
 	private static final boolean DIVINE_SHIELD = false;
@@ -26,7 +26,7 @@ public class Spellbreaker extends Minion {
 	private static final boolean TRANSFORMED = false;
 	private static final byte SPELL_DAMAGE = 0;
 	
-	public Spellbreaker() {
+	public TempleEnforcer() {
 		this(
 				MANA_COST,
 				ATTACK,
@@ -59,7 +59,7 @@ public class Spellbreaker extends Minion {
 			);
 	}
 	
-	public Spellbreaker(	
+	public TempleEnforcer(	
 			byte mana,
 			byte attack,
 			byte health,
@@ -123,7 +123,7 @@ public class Spellbreaker extends Minion {
 	
 	@Override
 	public Object deepCopy() {
-		return new Spellbreaker(
+		return new TempleEnforcer(
 				this.mana_,
 				this.attack_,
 				this.health_,
@@ -158,7 +158,7 @@ public class Spellbreaker extends Minion {
 	 * 
 	 * Override for battlecry
 	 * 
-	 * Battlecry: Silence a minion
+	 * Battlecry: Give a friendly minion +3 health
 	 * 
 	 * @param thisCardIndex The index (position) of the card in the hand
 	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
@@ -181,25 +181,15 @@ public class Spellbreaker extends Minion {
 		if (toRet != null) {
 
 			{
-				for (int index = 0; index < boardState.data_.getNumMinions_p0(); ++index) {
-					if (boardState.data_.getMinion_p0(index) == this)
+				for (int index = 0; index < toRet.data_.getNumMinions_p0(); ++index) {
+					if (toRet.data_.getMinion_p0(index) == this)
 						continue;
-					HearthTreeNode newState = new HearthTreeNode((BoardState)boardState.data_.deepCopy());
+					HearthTreeNode newState = new HearthTreeNode((BoardState)toRet.data_.deepCopy());
 					Minion minion = newState.data_.getMinion_p0(index);
-					newState = minion.silenced(0, newState, deckPlayer0, deckPlayer1);
+					minion.setHealth((byte)(minion.getHealth() + 3));
 					toRet.addChild(newState);
 				}
 			}
-
-			{
-				for (int index = 0; index < boardState.data_.getNumMinions_p1(); ++index) {		
-					HearthTreeNode newState = new HearthTreeNode((BoardState)boardState.data_.deepCopy());
-					Minion minion = newState.data_.getMinion_p1(index);
-					newState = minion.silenced(1, newState, deckPlayer0, deckPlayer1);
-					toRet.addChild(newState);
-				}
-			}
-
 			return toRet;
 							
 		} else {

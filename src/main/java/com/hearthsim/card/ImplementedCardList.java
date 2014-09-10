@@ -906,6 +906,11 @@ public class ImplementedCardList {
             map_.put(TaurenWarrior.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(TempleEnforcer.class, "Temple Enforcer", "minion", "priest", "common", "Battlecry Give a friendly minion +3 Health", 6, 6, 6);
+            list_.add(card);
+            map_.put(TempleEnforcer.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(ThrallmarFarseer.class, "Thrallmar Farseer", "minion", "neutral", "common", "Windfury", 3, 2, 3);
             list_.add(card);
             map_.put(ThrallmarFarseer.class, card);

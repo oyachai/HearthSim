@@ -341,7 +341,7 @@ Swipe|spell|neutral|free|4|||Deal 4 damage to an enemy and 1 damage to all other
 Sword of Justice|weapon|paladin|epic|3|1||Whenever you summon a minion, give it +1/+1 and this loses 1 Durability|FALSE
 Sylvanas Windrunner|minion|neutral|legendary|6|5|5|Deathrattle: Take control of a random enemy minion|FALSE
 Tauren Warrior|minion|neutral|common|3|2|3|Taunt.Enrage: +3 Attack|TRUE
-Temple Enforcer|minion|priest|common|6|6|6|Battlecry: Give a friendly minion +3 Health|FALSE
+Temple Enforcer|minion|priest|common|6|6|6|Battlecry: Give a friendly minion +3 Health|TRUE
 The Beast|minion|neutral|legendary|6|9|7|Deathrattle: Summon a 3/3 Finkle Einhorn for your opponent|FALSE
 The Black Knight|minion|neutral|legendary|6|4|5|Battlecry: Destroy an enemy minion with Taunt|FALSE
 Thoughtsteal|spell|priest|common|3|||Copy 2 cards from your opponent's deck and put them into your hand|FALSE

@@ -200,7 +200,7 @@ public class IronbeakOwl extends Minion {
 				}
 			}
 
-			return boardState;
+			return toRet;
 							
 		} else {
 			return null;				
