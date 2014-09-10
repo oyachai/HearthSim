@@ -841,6 +841,11 @@ public class ImplementedCardList {
             map_.put(Slam.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(Spellbreaker.class, "Spellbreaker", "minion", "neutral", "common", "Battlecry Silence a minion", 4, 4, 3);
+            list_.add(card);
+            map_.put(Spellbreaker.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(Sprint.class, "Sprint", "spell", "rogue", "free", "Draw 4 cards", 7, -1, -1);
             list_.add(card);
             map_.put(Sprint.class, card);

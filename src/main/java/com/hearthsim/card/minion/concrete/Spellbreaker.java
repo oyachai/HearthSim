@@ -8,12 +8,12 @@ import com.hearthsim.exception.HSException;
 import com.hearthsim.util.boardstate.BoardState;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class IronbeakOwl extends Minion {
+public class Spellbreaker extends Minion {
 
-	private static final String NAME = "Ironbeak Owl";
-	private static final byte MANA_COST = 2;
-	private static final byte ATTACK = 2;
-	private static final byte HEALTH = 1;
+	private static final String NAME = "Spellbreaker";
+	private static final byte MANA_COST = 4;
+	private static final byte ATTACK = 4;
+	private static final byte HEALTH = 3;
 	
 	private static final boolean TAUNT = false;
 	private static final boolean DIVINE_SHIELD = false;
@@ -26,7 +26,7 @@ public class IronbeakOwl extends Minion {
 	private static final boolean TRANSFORMED = false;
 	private static final byte SPELL_DAMAGE = 0;
 	
-	public IronbeakOwl() {
+	public Spellbreaker() {
 		this(
 				MANA_COST,
 				ATTACK,
@@ -59,7 +59,7 @@ public class IronbeakOwl extends Minion {
 			);
 	}
 	
-	public IronbeakOwl(	
+	public Spellbreaker(	
 			byte mana,
 			byte attack,
 			byte health,
@@ -123,7 +123,7 @@ public class IronbeakOwl extends Minion {
 	
 	@Override
 	public Object deepCopy() {
-		return new IronbeakOwl(
+		return new Spellbreaker(
 				this.mana_,
 				this.attack_,
 				this.health_,
