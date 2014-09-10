@@ -546,6 +546,11 @@ public class ImplementedCardList {
             map_.put(IronbarkProtector.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(IronbeakOwl.class, "Ironbeak Owl", "minion", "neutral", "common", "Battlecry Silence a minion", 2, 2, 1);
+            list_.add(card);
+            map_.put(IronbeakOwl.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(IronforgeRifleman.class, "Ironforge Rifleman", "minion", "neutral", "free", "Battlecry Deal 1 damage", 3, 2, 2);
             list_.add(card);
             map_.put(IronforgeRifleman.class, card);
