@@ -9,6 +9,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import javax.swing.border.MatteBorder;
+import java.awt.SystemColor;
+import javax.swing.JCheckBox;
 
 public class HSSimulationSettingsFrame extends JDialog {
 
@@ -21,6 +24,9 @@ public class HSSimulationSettingsFrame extends JDialog {
 	private JTextField fldNumSims;
 	private JTextField fldNumThreads;
 	private JTextField fldSimName;
+	
+	private JCheckBox flag_useFastPlacement_p0;
+	private JCheckBox flag_useFastPlacement_p1;
 
 	/**
 	 * Create the frame.
@@ -40,6 +46,7 @@ public class HSSimulationSettingsFrame extends JDialog {
 		contentPane.setLayout(sl_contentPane);
 		
 		JPanel bottom_panel = new JPanel();
+		bottom_panel.setBorder(new MatteBorder(1, 0, 0, 0, (Color) Color.GRAY));
 		bottom_panel.setBackground(BACKGROUND_COLOR);
 		sl_contentPane.putConstraint(SpringLayout.WEST, bottom_panel, 0, SpringLayout.WEST, contentPane);
 		sl_contentPane.putConstraint(SpringLayout.SOUTH, bottom_panel, 0, SpringLayout.SOUTH, contentPane);
@@ -70,10 +77,11 @@ public class HSSimulationSettingsFrame extends JDialog {
 		main_panel.setLayout(sl_main_panel);
 		
 		JPanel settings_P0 = new JPanel();
+		sl_main_panel.putConstraint(SpringLayout.EAST, settings_P0, 240, SpringLayout.WEST, main_panel);
+		settings_P0.setBorder(new MatteBorder(0, 0, 0, 1, (Color) Color.GRAY));
 		sl_main_panel.putConstraint(SpringLayout.NORTH, settings_P0, 0, SpringLayout.NORTH, main_panel);
 		sl_main_panel.putConstraint(SpringLayout.WEST, settings_P0, 0, SpringLayout.WEST, main_panel);
 		sl_main_panel.putConstraint(SpringLayout.SOUTH, settings_P0, 0, SpringLayout.SOUTH, main_panel);
-		sl_main_panel.putConstraint(SpringLayout.EAST, settings_P0, 260, SpringLayout.WEST, main_panel);
 		sl_contentPane.putConstraint(SpringLayout.NORTH, settings_P0, 0, SpringLayout.NORTH, main_panel);
 		sl_contentPane.putConstraint(SpringLayout.WEST, settings_P0, 0, SpringLayout.WEST, main_panel);
 		sl_contentPane.putConstraint(SpringLayout.SOUTH, settings_P0, 0, SpringLayout.SOUTH, main_panel);
@@ -104,15 +112,31 @@ public class HSSimulationSettingsFrame extends JDialog {
 		sl_settings_P0.putConstraint(SpringLayout.EAST, settings_P0_main, 0, SpringLayout.EAST, settings_P0);
 		settings_P0.add(settings_P0_main);
 		GridBagLayout gbl_settings_P0_main = new GridBagLayout();
-		gbl_settings_P0_main.columnWidths = new int[]{0};
-		gbl_settings_P0_main.rowHeights = new int[]{0};
-		gbl_settings_P0_main.columnWeights = new double[]{Double.MIN_VALUE};
-		gbl_settings_P0_main.rowWeights = new double[]{Double.MIN_VALUE};
+		gbl_settings_P0_main.rowHeights = new int[] {0, 28, 28, 28, 0};
+		gbl_settings_P0_main.columnWeights = new double[]{0.0, 0.0};
+		gbl_settings_P0_main.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		settings_P0_main.setLayout(gbl_settings_P0_main);
 		
+		JLabel lblSettings_p0_0 = new JLabel("Fast Minion Placement");
+		lblSettings_p0_0.setForeground(HSColors.TEXT_COLOR);
+		GridBagConstraints gbc_lblSettings_p0_0 = new GridBagConstraints();
+		gbc_lblSettings_p0_0.insets = new Insets(0, 0, 0, 5);
+		gbc_lblSettings_p0_0.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblSettings_p0_0.gridx = 0;
+		gbc_lblSettings_p0_0.gridy = 0;
+		settings_P0_main.add(lblSettings_p0_0, gbc_lblSettings_p0_0);
+		
+		flag_useFastPlacement_p0 = new JCheckBox("");
+		GridBagConstraints gbc_flag_useFastPlacement_p0 = new GridBagConstraints();
+		gbc_flag_useFastPlacement_p0.gridx = 1;
+		gbc_flag_useFastPlacement_p0.gridy = 0;
+		flag_useFastPlacement_p0.setSelected(simulation_.getAI_p0().getUseSparseBoardStateFactory());
+		settings_P0_main.add(flag_useFastPlacement_p0, gbc_flag_useFastPlacement_p0);
+		
 		JPanel settings_P1 = new JPanel();
+		settings_P1.setBorder(new MatteBorder(0, 1, 0, 0, (Color) Color.GRAY));
 		sl_main_panel.putConstraint(SpringLayout.NORTH, settings_P1, 0, SpringLayout.NORTH, main_panel);
-		sl_main_panel.putConstraint(SpringLayout.WEST, settings_P1, -260, SpringLayout.EAST, main_panel);
+		sl_main_panel.putConstraint(SpringLayout.WEST, settings_P1, -240, SpringLayout.EAST, main_panel);
 		sl_main_panel.putConstraint(SpringLayout.SOUTH, settings_P1, 0, SpringLayout.SOUTH, main_panel);
 		sl_main_panel.putConstraint(SpringLayout.EAST, settings_P1, 0, SpringLayout.EAST, main_panel);
 		sl_contentPane.putConstraint(SpringLayout.NORTH, settings_P1, 0, SpringLayout.NORTH, main_panel);
@@ -145,17 +169,33 @@ public class HSSimulationSettingsFrame extends JDialog {
 		sl_settings_P1.putConstraint(SpringLayout.EAST, settings_P1_main, 0, SpringLayout.EAST, settings_P1);
 		settings_P1.add(settings_P1_main);
 		GridBagLayout gbl_settings_P1_main = new GridBagLayout();
-		gbl_settings_P1_main.columnWidths = new int[]{0};
-		gbl_settings_P1_main.rowHeights = new int[]{0};
-		gbl_settings_P1_main.columnWeights = new double[]{Double.MIN_VALUE};
-		gbl_settings_P1_main.rowWeights = new double[]{Double.MIN_VALUE};
+		gbl_settings_P1_main.rowHeights = new int[] {0, 28, 28, 28, 0};
+		gbl_settings_P1_main.columnWeights = new double[]{0.0, 0.0};
+		gbl_settings_P1_main.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		settings_P1_main.setLayout(gbl_settings_P1_main);
+		
+		JLabel lblSettings_p1_0 = new JLabel("Fast Minion Placement");
+		lblSettings_p1_0.setForeground(HSColors.TEXT_COLOR);
+		GridBagConstraints gbc_lblSettings_p1_0 = new GridBagConstraints();
+		gbc_lblSettings_p1_0.insets = new Insets(0, 0, 0, 5);
+		gbc_lblSettings_p1_0.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblSettings_p1_0.gridx = 0;
+		gbc_lblSettings_p1_0.gridy = 0;
+		settings_P1_main.add(lblSettings_p1_0, gbc_lblSettings_p1_0);
+		
+		flag_useFastPlacement_p1 = new JCheckBox("");
+		GridBagConstraints gbc_flag_useFastPlacement_p1 = new GridBagConstraints();
+		gbc_flag_useFastPlacement_p1.gridx = 1;
+		gbc_flag_useFastPlacement_p1.gridy = 0;
+		flag_useFastPlacement_p1.setSelected(simulation_.getAI_p1().getUseSparseBoardStateFactory());
+		settings_P1_main.add(flag_useFastPlacement_p1, gbc_flag_useFastPlacement_p1);
+		
 		
 		JPanel settings_sim = new JPanel();
 		sl_main_panel.putConstraint(SpringLayout.NORTH, settings_sim, 0, SpringLayout.NORTH, main_panel);
-		sl_main_panel.putConstraint(SpringLayout.WEST, settings_sim, 0, SpringLayout.EAST, settings_P0);
+		sl_main_panel.putConstraint(SpringLayout.WEST, settings_sim, 20, SpringLayout.EAST, settings_P0);
 		sl_main_panel.putConstraint(SpringLayout.SOUTH, settings_sim, 0, SpringLayout.SOUTH, main_panel);
-		sl_main_panel.putConstraint(SpringLayout.EAST, settings_sim, 0, SpringLayout.WEST, settings_P1);
+		sl_main_panel.putConstraint(SpringLayout.EAST, settings_sim, -20, SpringLayout.WEST, settings_P1);
 		sl_contentPane.putConstraint(SpringLayout.NORTH, settings_sim, 5, SpringLayout.NORTH, main_panel);
 		sl_contentPane.putConstraint(SpringLayout.WEST, settings_sim, 425, SpringLayout.WEST, main_panel);
 		main_panel.add(settings_sim);
@@ -173,7 +213,7 @@ public class HSSimulationSettingsFrame extends JDialog {
 		settings_sim.add(settings_general);
 		settings_general.setBackground(BACKGROUND_COLOR);
 		GridBagLayout gbl_settings_general = new GridBagLayout();
-		gbl_settings_general.columnWidths = new int[]{160, 140, 0};
+		gbl_settings_general.columnWidths = new int[] {160, 150, 0};
 		gbl_settings_general.rowHeights = new int[]{28, 28, 28, 0};
 		gbl_settings_general.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 		gbl_settings_general.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
@@ -274,6 +314,9 @@ public class HSSimulationSettingsFrame extends JDialog {
 				
 				simulation_.setAI_p0(new ArtificialPlayer());
 				simulation_.setAI_p1(new ArtificialPlayer());
+				
+				simulation_.getAI_p0().setUseSparseBoardStateFactory(flag_useFastPlacement_p0.isSelected());
+				simulation_.getAI_p1().setUseSparseBoardStateFactory(flag_useFastPlacement_p1.isSelected());
 			}
 		});
 
