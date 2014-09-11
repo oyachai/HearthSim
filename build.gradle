@@ -4,13 +4,12 @@ apply plugin: 'idea'
 apply plugin: 'jacoco'
 apply plugin: 'checkstyle'
 apply plugin: 'pmd'
+apply plugin: 'application'
+
+mainClassName = "com.hearthsim.gui.HearthSim"
 
 repositories {
     jcenter()
-}
-
-task wrapper(type: Wrapper) {
-    gradleVersion = "2.0"
 }
 
 dependencies {
