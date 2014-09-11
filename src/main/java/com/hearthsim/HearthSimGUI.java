@@ -10,6 +10,7 @@ import com.hearthsim.util.ThreadQueue;
 import java.io.IOException;
 
 public class HearthSimGUI extends HearthSimBase {
+    private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
 
 	private Hero hero0_;
 	private Hero hero1_;
@@ -54,7 +55,7 @@ public class HearthSimGUI extends HearthSimBase {
 
 		tQueue.runQueue();
 
-		System.out.println("done");
+		log.info("done");
 	}
 
 	@Override

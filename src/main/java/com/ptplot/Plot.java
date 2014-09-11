@@ -570,7 +570,7 @@ public class Plot extends PlotBox {
                         // time that this method is called.  The print
                         // statement below shows that the value is
                         // correct before the call.
-                        // System.out.println("x value: " + xvalue);
+                        // log.info("x value: " + xvalue);
                         // For some bizarre reason, this problem goes
                         // away when this code is executed in the event
                         // dispatch thread.
@@ -1354,7 +1354,7 @@ public class Plot extends PlotBox {
      */
     protected synchronized void _drawPlot(Graphics graphics,
             boolean clearfirst, Rectangle drawRectangle) {
-        // BRDebug System.err.println("_drawPlot(begin)");
+        // BRDebug log.error.println("_drawPlot(begin)");
         if (_graphics == null) {
             _graphics = graphics;
         } else if (graphics != _graphics) {
@@ -1417,7 +1417,7 @@ public class Plot extends PlotBox {
                     _setColorForDrawing(graphics, dataset, false);
                     long xpos = bin.xpos;
                     long ypos = _lry - (long) ((lastPoint.y - _yMin) * _yscale);
-                    // BRDebug System.out.println("_drawPlot");
+                    // BRDebug log.info("_drawPlot");
                     _drawPoint(graphics, dataset, xpos, ypos, true, 2 /*dots*/);
                     _resetColorForDrawing(graphics, false);
 
@@ -2013,7 +2013,7 @@ public class Plot extends PlotBox {
 
         if (_xlog) {
             if (x <= 0.0) {
-                System.err.println("Can't plot non-positive X values "
+                log.error("Can't plot non-positive X values "
                         + "when the logarithmic X axis value is specified: "
                         + x);
                 return;
@@ -2024,7 +2024,7 @@ public class Plot extends PlotBox {
 
         if (_ylog) {
             if (y <= 0.0) {
-                System.err.println("Can't plot non-positive Y values "
+                log.error("Can't plot non-positive Y values "
                         + "when the logarithmic Y axis value is specified: "
                         + y);
                 return;
@@ -2034,8 +2034,7 @@ public class Plot extends PlotBox {
 
             if (errorBar) {
                 if ((yLowEB <= 0.0) || (yHighEB <= 0.0)) {
-                    System.err
-                            .println("Can't plot non-positive Y values "
+                    log.error("Can't plot non-positive Y values "
                                     + "when the logarithmic Y axis value is specified: "
                                     + y);
                     return;
@@ -2424,7 +2423,7 @@ public class Plot extends PlotBox {
      * when being used to write to the screen.
      */
     private void _drawBin(Graphics graphics, int dataset, int binIndex) {
-        // BRDebug System.out.println("_drawBin");
+        // BRDebug log.info("_drawBin");
 
         _setColorForDrawing(graphics, dataset, false);
 
@@ -2474,11 +2473,11 @@ public class Plot extends PlotBox {
                     if (_lastPointWithExtraDot.get(dataset) != previousPoint) {
                         long prevypos = _prevypos.get(dataset);
                         long prevxpos = _prevxpos.get(dataset);
-                        // BRDebug System.out.println("Plotting point:" + prevxpos + ", " + prevypos +  ", position :" + (startPosition-1) + ", previous");
+                        // BRDebug log.info("Plotting point:" + prevxpos + ", " + prevypos +  ", position :" + (startPosition-1) + ", previous");
                         _drawPoint(graphics, dataset, prevxpos, prevypos, true,
                                 2 /*dots*/);
                     } else {
-                        // BRDebug System.out.println("Skipping point");
+                        // BRDebug log.info("Skipping point");
 
                         // We already painted this dot in the _drawplot code. No need
                         // to draw the same point again here.
@@ -2490,7 +2489,7 @@ public class Plot extends PlotBox {
                 if (_lastPointWithExtraDot.get(dataset) == previousPoint) {
                     long prevypos = _prevypos.get(dataset);
                     long prevxpos = _prevxpos.get(dataset);
-                    // BRDebug System.err.println("Erasing point:" + prevxpos + ", " + prevypos +  ", position :" + (startPosition-1) + ", previous");
+                    // BRDebug log.error.println("Erasing point:" + prevxpos + ", " + prevypos +  ", position :" + (startPosition-1) + ", previous");
 
                     // We keep track of the last dot that has been add to be able to
                     // remove the dot again in case an extra point was added afterwards.
@@ -2549,7 +2548,7 @@ public class Plot extends PlotBox {
                         if (!(connectedFlag && point.connected) && marks == 0) {
                             updatedMarks = 2; // marking style: dots
                         }
-                        // BRDebug System.out.println("Plotting point:" + xpos + ", " + ypos +  ", position :" + (i) + ", current");
+                        // BRDebug log.info("Plotting point:" + xpos + ", " + ypos +  ", position :" + (i) + ", current");
                         _drawPoint(graphics, dataset, xpos, ypos, true,
                                 updatedMarks);
                         prevypos = ypos;
@@ -2623,7 +2622,7 @@ public class Plot extends PlotBox {
      */
     private void _drawPoint(Graphics graphics, int dataset, long xpos,
             long ypos, boolean clip, final int marks) {
-        // BRDebug System.out.println("_drawPoint, " + xpos + ", " + ypos);
+        // BRDebug log.info("_drawPoint, " + xpos + ", " + ypos);
 
         // If the point is not out of range, draw it.
         boolean pointinside = (ypos <= _lry) && (ypos >= _uly)
@@ -2921,7 +2920,7 @@ public class Plot extends PlotBox {
                                     && marks == 0) {
                                 updatedMarks = 2; // marking style: dots
                             }
-                            // BRDebug System.out.println("Erasing point:" + xpos + ", " + ypos +  ", position :" + (i) +", current");
+                            // BRDebug log.info("Erasing point:" + xpos + ", " + ypos +  ", position :" + (i) +", current");
 
                             _drawPoint(graphics, dataset, xpos, ypos, true,
                                     updatedMarks);
@@ -2945,7 +2944,7 @@ public class Plot extends PlotBox {
                     PlotPoint nextPoint = points.get(endPosition);
                     if (!(connectedFlag && nextPoint.connected)) {
                         long ypos = _lry - (long) ((point.y - _yMin) * _yscale);
-                        // BRDebug System.out.println("Erasing point:" + xpos + ", " + ypos +  ", position :" + (endPosition-1) + ", previous");
+                        // BRDebug log.info("Erasing point:" + xpos + ", " + ypos +  ", position :" + (endPosition-1) + ", previous");
                         _drawPoint(graphics, dataset, xpos, ypos, true, 2 /*dots*/);
                     }
                 }

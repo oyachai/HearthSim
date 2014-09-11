@@ -10,6 +10,8 @@ import java.awt.event.ActionListener;
 
 public class HSDeckCreatePanel extends JPanel {
 
+    private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
+
 	private static final int TITLE_HEIGHT = 60;
 
 	int playerIndex_;
@@ -71,7 +73,7 @@ public class HSDeckCreatePanel extends JPanel {
 					}
 					label.setText((String)heroChoice_.getSelectedItem());
 				} catch (HSException exception) {
-                    System.out.println(exception);
+                    log.error(exception.toString());
                 }
 			}
 

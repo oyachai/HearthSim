@@ -90,8 +90,7 @@ public class JFileChooserBugFix {
                 _HTMLEditorKit.setStyleSheet(styleSheet);
             }
         } catch (Exception ex) {
-            System.out.println("Problem restoring background color.");
-            ex.printStackTrace();
+            log.error("Problem restoring background color. {}", ex);
         }
     }
 
@@ -131,8 +130,7 @@ public class JFileChooserBugFix {
             styleSheet.addRule(rule);
             _HTMLEditorKit.setStyleSheet(styleSheet);
         } catch (Exception ex) {
-            System.err.println("Problem setting background color");
-            ex.printStackTrace();
+            log.error("Problem setting background color: {}", ex);
         }
         return background;
     }

@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class HearthSimBase {
+
+    private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
 	
 	int numSims_;
 	int numThreads_;
@@ -118,7 +120,7 @@ public abstract class HearthSimBase {
 		tQueue.runQueue();
 		writer.close();
 
-		System.out.println("done");
+		log.info("done");
 	}
 	
 	
@@ -146,14 +148,13 @@ public abstract class HearthSimBase {
 					}
 				}
 				synchronized(lockObject) {
-					System.out.println("game " + gameId_ + ", player " + res.winnerPlayerIndex_ + " wins");
+					log.info("game " + gameId_ + ", player " + res.winnerPlayerIndex_ + " wins");
 					for (HSGameEndEventListener listener : gameEndListeners_) {
 						listener.gameEnded(res);
 					}
 				}
 			} catch (HSException | IOException e) {
-				System.out.println("Error! " + e);
-				e.printStackTrace();
+				log.error("Error! " + e);
 			}
 		}
 		

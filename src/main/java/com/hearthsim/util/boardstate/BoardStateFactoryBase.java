@@ -17,6 +17,8 @@ import java.util.Iterator;
 
 public class BoardStateFactoryBase {
 
+    protected final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
+
 	protected final Deck deckPlayer0_;
 	protected final Deck deckPlayer1_;
 	
@@ -65,7 +67,8 @@ public class BoardStateFactoryBase {
 	}
 	
 	public HearthTreeNode createHeroAbilityBranches(HearthTreeNode boardStateNode, ArtificialPlayer ai) throws HSException {
-		
+        log.trace("creating hero ability branches");
+
 		boolean heroAbilityUsable = false;
 		if (!boardStateNode.data_.getHero_p0().hasBeenUsed()) {
 			//Case0: Decided to use the hero ability -- Use it on everything!
@@ -108,6 +111,7 @@ public class BoardStateFactoryBase {
 	}
 	
 	public HearthTreeNode createMinionAttackBranches(HearthTreeNode boardStateNode, ArtificialPlayer ai) throws HSException {
+        log.trace("creating minion attack branches");
 		//Use the minions that we have out on the board
 		//the case where I choose to not use any more minions
 		boolean allAttacked = boardStateNode.data_.getHero_p0().hasAttacked();
@@ -161,6 +165,8 @@ public class BoardStateFactoryBase {
 	}
 	
 	public HearthTreeNode createCardUseBranches(HearthTreeNode boardStateNode, ArtificialPlayer ai) throws HSException {
+        log.trace("creating card use branches");
+
 		//check to see if all the cards have been used already
 		boolean allUsed = true;
 		for (final Card card : boardStateNode.data_.getCards_hand_p0()) {
@@ -228,18 +234,22 @@ public class BoardStateFactoryBase {
 	 * @return boardStateNode manipulated such that all subsequent actions are children of the original boardStateNode input.
 	 */
 	public HearthTreeNode doMoves(HearthTreeNode boardStateNode, ArtificialPlayer ai) throws HSException {
+        log.trace("recursively performing moves");
 
 		if (lethal_) {
+            log.debug("found lethal");
 			//if it's lethal, we don't have to do anything ever.  Just play the lethal.
 			return null;
 		}
 
 		if (timedOut_) {
+            log.debug("think time is already over");
 			//Time's up!  no more thinking... 
 			return null;
 		}
 		
 		if (System.currentTimeMillis() - startTime_ > maxTime_) {
+            log.debug("setting think time over");
 			timedOut_ = true;
 			return null;
 		}

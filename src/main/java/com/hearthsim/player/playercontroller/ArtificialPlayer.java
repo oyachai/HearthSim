@@ -94,7 +94,7 @@ public class ArtificialPlayer {
 			double enemy_wDivineShield) {
 		
 		
-		System.err.println("BIG FAT WARNING: This constructor is deprecated!");
+		log.error("BIG FAT WARNING: This constructor is deprecated!");
 		nLookahead_ = 1;
 		
 		wMana_ = wMana;
@@ -165,7 +165,7 @@ public class ArtificialPlayer {
 			useSparseBoardStateFactory_ = pFile.getBoolean("use_sparse_board_state_factory", true);
 			
 		} catch (HSParamNotFoundException e) {
-			System.err.println(e.getMessage());
+			log.error(e.getMessage());
 			System.exit(1);
 		}
 	}
@@ -310,7 +310,9 @@ public class ArtificialPlayer {
 	 * @throws HSException
 	 */
 	public BoardState playTurn(int turn, BoardState board, Player player0, Player player1, int maxThinkTime) throws HSException {
-		//The goal of this ai is to maximize his board score
+        log.info("playing turn for " + player0.getName());
+        //The goal of this ai is to maximize his board score
+        log.debug("start turn board state is {}", board);
 		HearthTreeNode toRet = new HearthTreeNode(board);
 		BoardStateFactoryBase factory = null;
 		if (useSparseBoardStateFactory_) {
@@ -319,9 +321,6 @@ public class ArtificialPlayer {
 			factory = new BoardStateFactoryBase(player0.getDeck(), player1.getDeck(), maxThinkTime);
 		}
 		HearthTreeNode allMoves = factory.doMoves(toRet, this);
-
-//		System.out.print("turn = " + turn + ", p = " + player0.getName() + ", nHand = " + board.getNumCards_hand() + ", nMinion = " + board.getNumMinions_p0() + ", nEnemyMinion = " + board.getNumMinions_p1());
-//		System.out.flush();
 		
 		HearthTreeNode bestPlay = allMoves.findMaxOfFunc(this);
 		while( bestPlay instanceof StopNode ) {
@@ -336,26 +335,8 @@ public class ArtificialPlayer {
 			bestPlay = allMovesAtferStopNode.findMaxOfFunc(this);
 		}
 
-//		System.out.print(", number of nodes = " + allMoves.numLeaves() + ", playerHealth = " + bestPlay.data_.getHero_p0().getHealth() + ", rMinion = " + bestPlay.data_.getNumMinions_p0() + ", eMinion = " + bestPlay.data_.getNumMinions_p1());
-//		if (factory.didTimeOut())
-//			System.out.print(", tO");
-//		System.out.println();
-		
+        log.debug("end turn board state is {}", bestPlay.data_);
 		return bestPlay.data_;
-	}
-	
-	public void writeOut(String filename, Object node) {
-		Writer writer = null;
-		try {
-			writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filename), "utf-8"));
-			writer.write(node.toString());
-		} catch (IOException e) { 
-			System.err.println("Exception: " + e.getMessage());
-		} finally {
-			try {writer.close();} catch (Exception e) {
-                log.warn("ignoring..", e);
-            }
-		}
 	}
 
 }

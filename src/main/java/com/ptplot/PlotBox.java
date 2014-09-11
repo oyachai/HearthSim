@@ -1996,10 +1996,10 @@ public class PlotBox extends JPanel implements Printable {
             int msgy = fheight;
             graphics.setColor(Color.black);
 
-            for (int i = 0; i < _errorMsg.length; i++) {
-                graphics.drawString(_errorMsg[i], 10, msgy);
+            for (String a_errorMsg : _errorMsg) {
+                graphics.drawString(a_errorMsg, 10, msgy);
                 msgy += fheight;
-                System.err.println(_errorMsg[i]);
+                log.error(a_errorMsg);
             }
 
             return;
@@ -2162,25 +2162,25 @@ public class PlotBox extends JPanel implements Printable {
             int numfracdigits = _numFracDigits(yStep);
 
             // NOTE: Test cases kept in case they are needed again.
-            // System.out.println("0.1 with 3 digits: " + _formatNum(0.1, 3));
-            // System.out.println("0.0995 with 3 digits: " +
+            // log.info("0.1 with 3 digits: " + _formatNum(0.1, 3));
+            // log.info("0.0995 with 3 digits: " +
             //                    _formatNum(0.0995, 3));
-            // System.out.println("0.9995 with 3 digits: " +
+            // log.info("0.9995 with 3 digits: " +
             //                    _formatNum(0.9995, 3));
-            // System.out.println("1.9995 with 0 digits: " +
+            // log.info("1.9995 with 0 digits: " +
             //                    _formatNum(1.9995, 0));
-            // System.out.println("1 with 3 digits: " + _formatNum(1, 3));
-            // System.out.println("10 with 0 digits: " + _formatNum(10, 0));
-            // System.out.println("997 with 3 digits: " + _formatNum(997, 3));
-            // System.out.println("0.005 needs: " + _numFracDigits(0.005));
-            // System.out.println("1 needs: " + _numFracDigits(1));
-            // System.out.println("999 needs: " + _numFracDigits(999));
-            // System.out.println("999.0001 needs: "+_numFracDigits(999.0001));
-            // System.out.println("0.005 integer digits: " +
+            // log.info("1 with 3 digits: " + _formatNum(1, 3));
+            // log.info("10 with 0 digits: " + _formatNum(10, 0));
+            // log.info("997 with 3 digits: " + _formatNum(997, 3));
+            // log.info("0.005 needs: " + _numFracDigits(0.005));
+            // log.info("1 needs: " + _numFracDigits(1));
+            // log.info("999 needs: " + _numFracDigits(999));
+            // log.info("999.0001 needs: "+_numFracDigits(999.0001));
+            // log.info("0.005 integer digits: " +
             //                    _numIntDigits(0.005));
-            // System.out.println("1 integer digits: " + _numIntDigits(1));
-            // System.out.println("999 integer digits: " + _numIntDigits(999));
-            // System.out.println("-999.0001 integer digits: " +
+            // log.info("1 integer digits: " + _numIntDigits(1));
+            // log.info("999 integer digits: " + _numIntDigits(999));
+            // log.info("-999.0001 integer digits: " +
             //                    _numIntDigits(999.0001));
             double yTmpStart = yStart;
 
@@ -3661,7 +3661,7 @@ public class PlotBox extends JPanel implements Printable {
                         addYTick(label, idx);
                     }
                 } catch (NumberFormatException e) {
-                    System.err.println("Warning from PlotBox: "
+                    log.error("Warning from PlotBox: "
                             + "Unable to parse ticks: " + e.getMessage());
 
                     // ignore if format is bogus.
@@ -4439,7 +4439,7 @@ public class PlotBox extends JPanel implements Printable {
             }
             // Want to convert from mouse presses to data points?
             // Comment out the if clause above and uncomment this println:
-            //System.out.println("PlotBox.mousePressed(): ("
+            //log.info("PlotBox.mousePressed(): ("
             //                       + event.getX() + ", " + event.getY()
             //                       + ") = ("
             //                       + (_xMin + ((event.getX() - _ulx) / _xscale))

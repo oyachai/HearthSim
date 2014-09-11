@@ -15,6 +15,8 @@ import java.util.Iterator;
 
 public class HSCardList extends JList<ImplementedCard> {
 
+    private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
+
 	boolean editing_;
 	
 	public HSCardList() {
@@ -29,7 +31,7 @@ public class HSCardList extends JList<ImplementedCard> {
 		        JList list = (JList)evt.getSource();
 	        	int index = list.locationToIndex(evt.getPoint());
 	        	String name = ((SortedListModel<ImplementedCard>) HSCardList.this.getModel()).getElementAt(index).name_;
-	        	System.out.println("clicked item " + index + ": " + name);
+	        	log.debug("clicked item " + index + ": " + name);
                 if (editing_ && list.getCellBounds(index, 100000).contains(evt.getPoint())) {
                     ((SortedListModel<ImplementedCard>) HSCardList.this.getModel()).remove(index);
                 }

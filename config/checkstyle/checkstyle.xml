@@ -7,4 +7,10 @@
         <module name="UnusedImports"/>
         <module name="EmptyBlock"/>
     </module>
+    <module name="RegexpMultiline">
+        <property name="format" value="System\.out\.print."/>
+    </module>
+    <module name="RegexpMultiline">
+        <property name="format" value="System\.err\.print."/>
+    </module>
 </module>

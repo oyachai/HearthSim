@@ -11,6 +11,8 @@ import static org.junit.Assert.assertTrue;
 
 public class testBoardState {
 
+    private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
+
 	@Test
 	public void testBoardState1() throws HSException {
 		int numCards = 30;
@@ -73,9 +75,9 @@ public class testBoardState {
 		assertTrue(board1.equals(board3));
 
 		
-		System.out.println("board1 hashCode = " + board1.hashCode());
-		System.out.println("board1 hashCode = " + board2.hashCode());
-		System.out.println("board1 hashCode = " + board3.hashCode());
+		log.info("board1 hashCode = " + board1.hashCode());
+        log.info("board1 hashCode = " + board2.hashCode());
+        log.info("board1 hashCode = " + board3.hashCode());
 	}
 
 	@Test
@@ -145,7 +147,7 @@ public class testBoardState {
 				nA = nA + 1;
 			}
 		}
-		System.out.println("t frac = " + (double)nT / (double)nA);
+		log.info("t frac = " + (double)nT / (double)nA);
 	}
 	
 }

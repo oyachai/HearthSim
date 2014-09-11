@@ -11,6 +11,7 @@ import com.hearthsim.results.GameSimpleRecord;
 import com.hearthsim.util.boardstate.BoardState;
 
 public class Game {
+    private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
 
 	final static int maxTurns_ = 100;
 	
@@ -74,6 +75,7 @@ public class Game {
 		record.put(0, s1_, (BoardState)boardState_.flipPlayers().deepCopy());
 				
 		for (int i = 0; i < maxTurns_; ++i) {
+            log.info("starting turn "+ i);
 			
 			gms_[s0_].beginTurn(i, boardState_, players_[s0_], players_[s1_]);
 

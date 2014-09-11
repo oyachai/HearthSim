@@ -10,9 +10,10 @@ import java.nio.file.Path;
 public class HearthSimMain {
 
 	public static void main(String[] args) {
+        final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(HearthSimMain.class);
 		
 		if (args.length < 1) {
-			System.out.println("Usage: java -jar hearthsim.jar setupFilePath");
+			log.info("Usage: java -jar hearthsim.jar setupFilePath");
 			System.exit(0);
 		}
 		
@@ -22,15 +23,11 @@ public class HearthSimMain {
 			HearthSimBase sim = new HearthSimConstructed(simParamFilePath);
 			sim.run();
 		} catch (IOException e) {
-			System.err.println("Can't find some files!");
-			e.printStackTrace();
+            log.error("Can't find some files! {}", e);
 		} catch (HSException e) {
-			System.err.println("Something went wrong with the simulation: " + e.getMessage());
-			e.printStackTrace();
+            log.error("Something went wrong with the simulation: {}" + e);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			System.err.println("Interrupted");
-			e.printStackTrace();
+            log.error("Interrupted: {}" + e);
 		}
 	}
 

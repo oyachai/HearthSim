@@ -196,3 +196,7 @@ out
 
 docs/.~lock.*
 /.nb-gradle/private/
+
+####
+# Logging
+log

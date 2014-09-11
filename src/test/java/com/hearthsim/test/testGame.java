@@ -16,6 +16,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertTrue;
 
 public class testGame {
+    private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
 	
 
 	@Test
@@ -106,7 +107,7 @@ public class testGame {
 		
 		long t2 = System.nanoTime();
 		
-		System.out.println("f = " + w.firstPlayerIndex_ + ", w = " + w.winnerPlayerIndex_ + ", time taken = " + (t2 - t1) / 1000000.0 + " ms");
+		log.info("f = " + w.firstPlayerIndex_ + ", w = " + w.winnerPlayerIndex_ + ", time taken = " + (t2 - t1) / 1000000.0 + " ms");
 		
 		assertTrue("testGame0", w.winnerPlayerIndex_ == 0);
 	}
