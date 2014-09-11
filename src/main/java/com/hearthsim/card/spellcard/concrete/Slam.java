@@ -50,15 +50,13 @@ public class Slam extends SpellDamage {
 			return null;
 		
 		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
-		if (toRet != null) {
-			if (targetMinion.getTotalHealth() > 0) {
-				if (toRet instanceof CardDrawNode) {
-					((CardDrawNode)toRet).addNumCardsToDraw(1);
-				} else {
-					toRet = new CardDrawNode(toRet, 1);
-				}
-			}
-		}
-		return toRet;
+        if (toRet != null && targetMinion.getTotalHealth() > 0) {
+            if (toRet instanceof CardDrawNode) {
+                ((CardDrawNode) toRet).addNumCardsToDraw(1);
+            } else {
+                toRet = new CardDrawNode(toRet, 1);
+            }
+        }
+        return toRet;
 	}
 }
