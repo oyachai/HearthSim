@@ -541,6 +541,11 @@ public class ImplementedCardList {
             map_.put(IronbarkProtector.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(IronbeakOwl.class, "Ironbeak Owl", "minion", "neutral", "common", "Battlecry Silence a minion", 2, 2, 1);
+            list_.add(card);
+            map_.put(IronbeakOwl.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(IronforgeRifleman.class, "Ironforge Rifleman", "minion", "neutral", "free", "Battlecry Deal 1 damage", 3, 2, 2);
             list_.add(card);
             map_.put(IronforgeRifleman.class, card);
@@ -831,6 +836,11 @@ public class ImplementedCardList {
             map_.put(Slam.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(Spellbreaker.class, "Spellbreaker", "minion", "neutral", "common", "Battlecry Silence a minion", 4, 4, 3);
+            list_.add(card);
+            map_.put(Spellbreaker.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(Sprint.class, "Sprint", "spell", "rogue", "free", "Draw 4 cards", 7, -1, -1);
             list_.add(card);
             map_.put(Sprint.class, card);
@@ -849,6 +859,11 @@ public class ImplementedCardList {
             ImplementedCard card = new ImplementedCard(StonetuskBoar.class, "Stonetusk Boar", "minion", "neutral", "free", "Charge", 1, 1, 1);
             list_.add(card);
             map_.put(StonetuskBoar.class, card);
+        }
+        {
+            ImplementedCard card = new ImplementedCard(StormforgedAxe.class, "Stormforged Axe", "weapon", "shaman", "common", "Overload (1)", 2, 2, -1);
+            list_.add(card);
+            map_.put(StormforgedAxe.class, card);
         }
         {
             ImplementedCard card = new ImplementedCard(StormpikeCommando.class, "Stormpike Commando", "minion", "neutral", "free", "Battlecry Deal 2 damage", 5, 4, 2);
@@ -884,6 +899,11 @@ public class ImplementedCardList {
             ImplementedCard card = new ImplementedCard(TaurenWarrior.class, "Tauren Warrior", "minion", "neutral", "common", "Taunt.Enrage +3 Attack", 3, 2, 3);
             list_.add(card);
             map_.put(TaurenWarrior.class, card);
+        }
+        {
+            ImplementedCard card = new ImplementedCard(TempleEnforcer.class, "Temple Enforcer", "minion", "priest", "common", "Battlecry Give a friendly minion +3 Health", 6, 6, 6);
+            list_.add(card);
+            map_.put(TempleEnforcer.class, card);
         }
         {
             ImplementedCard card = new ImplementedCard(ThrallmarFarseer.class, "Thrallmar Farseer", "minion", "neutral", "common", "Windfury", 3, 2, 3);
