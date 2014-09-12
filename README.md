@@ -1,5 +1,7 @@
 #HearthSim
 
+[![Build Status](https://travis-ci.org/oyachai/HearthSim.svg)](https://travis-ci.org/oyachai/HearthSim)
+
 HearthSim is a generic [Hearthstone](http://us.battle.net/hearthstone/en/) game simulator and AI, designed to run large numbers of simulated AI vs AI games in order to test and understand the values of various game mechanics and cards.  
 
 The code has two main components: the game mechanics and the AI.
