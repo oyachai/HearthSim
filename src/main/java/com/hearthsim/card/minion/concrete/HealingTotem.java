@@ -160,6 +160,8 @@ public class HealingTotem extends Totem {
 	/**
 	 * Called at the end of a turn
 	 * 
+	 * At the end of your turn, restore 1 Health to all friendly minions
+	 * 
 	 */
 	@Override
 	public BoardState endTurn(int thisMinionPlayerIndex, BoardState boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
@@ -170,11 +172,7 @@ public class HealingTotem extends Totem {
 		HearthTreeNode toRet = new HearthTreeNode(tmpState);
 	
 		for (Minion minion : toRet.data_.getMinions_p0()) {
-			toRet = minion.takeHeal((byte)2, 0, toRet, deckPlayer0, deckPlayer1);
-		}
-		
-		for(Minion minion : toRet.data_.getMinions_p1()) {
-			toRet = minion.takeHeal((byte)2, 1, toRet, deckPlayer0, deckPlayer1);
+			toRet = minion.takeHeal((byte)1, 0, toRet, deckPlayer0, deckPlayer1);
 		}
 		
 		if (toRet instanceof CardDrawNode) {
