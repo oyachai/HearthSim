@@ -36,6 +36,9 @@ public class Game {
             s0_ = 1;
             s1_ = 0;
         }
+        log.debug("shuffle play order: {}", shufflePlayOrder);
+        log.debug("first player index: {}", s0_);
+
         players_ = new Player[2];
 		players_[0] = player0;
 		players_[1] = player1;
@@ -55,7 +58,7 @@ public class Game {
 	public GameResult runGame() throws HSException {
 		curTurn_ = 0;
 		curPlayer_ = 0;
-		
+
 		//the first player draws 3 cards
 		boardState_.placeCard_hand_p0(players_[s0_].drawFromDeck(0));
 		boardState_.placeCard_hand_p0(players_[s0_].drawFromDeck(1));
@@ -76,8 +79,9 @@ public class Game {
 				
 		for (int i = 0; i < maxTurns_; ++i) {
             log.info("starting turn "+ i);
-			
-			gms_[s0_].beginTurn(i, boardState_, players_[s0_], players_[s1_]);
+            long turnStart = System.currentTimeMillis();
+
+            gms_[s0_].beginTurn(i, boardState_, players_[s0_], players_[s1_]);
 
 			if (!boardState_.isAlive_p0()) {
 				return new GameResult(s0_, s1_, i + 1, record);
@@ -116,7 +120,15 @@ public class Game {
 			}
 
 			boardState_ = boardState_.flipPlayers();
-			
+
+            long turnEnd = System.currentTimeMillis();
+            long turnDelta = turnEnd - turnStart;
+            if (turnDelta > ArtificialPlayer.MAX_THINK_TIME / 2) {
+                log.warn("turn took {} ms, more than half of alloted think time ({})", turnDelta);
+            } else {
+                log.debug("turn took {} ms", turnDelta);
+            }
+
 		}
 		return new GameResult(s0_, -1, 0, record);
 	}

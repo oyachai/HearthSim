@@ -2,8 +2,9 @@ package com.hearthsim.util;
 
 import java.util.LinkedList;
 
-public class ThreadQueue
-{
+public class ThreadQueue {
+    private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
+
     private final int nThreads;
     private final PoolWorker[] threads;
     private final LinkedList queue;

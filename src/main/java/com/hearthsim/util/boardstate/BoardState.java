@@ -11,6 +11,7 @@ import com.hearthsim.util.IdentityLinkedList;
 import com.hearthsim.util.MinionList;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.slf4j.MDC;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -21,6 +22,8 @@ import java.util.Iterator;
  *
  */
 public class BoardState implements DeepCopyable {
+
+    private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
 		
 	MinionList p0_minions_;
 	MinionList p1_minions_;
@@ -1044,8 +1047,27 @@ public class BoardState implements DeepCopyable {
 	}
 	
 	public String toString() {
-		JSONObject json = this.toJSON();
-		return json.toString();
-	}
-	
+        String boardFormat = MDC.get("board_format");
+        if (boardFormat != null && boardFormat.equals("simple")) {
+            return simpleString();
+        } else {
+            return jsonString();
+        }
+    }
+
+    private String simpleString() {
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append("[");
+        stringBuffer.append("P0_health:").append(p0_hero_.getHealth()).append(", ");
+        stringBuffer.append("P0_mana:").append(p0_mana_).append(", ");
+        stringBuffer.append("P1_health:").append(p1_hero_.getHealth()).append(", ");
+        stringBuffer.append("P1_mana:").append(p1_mana_).append(", ");
+        stringBuffer.append("]");
+        return stringBuffer.toString();
+    }
+
+    private String jsonString() {
+        return this.toJSON().toString();
+    }
+
 }

@@ -17,7 +17,7 @@ import java.nio.file.Path;
 
 /**
  * A Game setup to play a random (fictitious) minion vs random (fictitious) minion games.
- * 
+ *
  * This class can be used to set up a game where each player plays a deck consisting of
  * 30 minions with random stats.  The attacks and healths are set to random numbers between
  * min value and max value, and the mana cost of the cards are assumed to be (attack + health) / 2.

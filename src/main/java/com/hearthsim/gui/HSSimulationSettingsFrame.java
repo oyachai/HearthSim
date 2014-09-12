@@ -10,7 +10,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.border.MatteBorder;
-import java.awt.SystemColor;
 import javax.swing.JCheckBox;
 
 public class HSSimulationSettingsFrame extends JDialog {
