@@ -5,7 +5,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.util.boardstate.BoardState;
+import com.hearthsim.model.BoardModel;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class AncientOfWar extends Minion {
@@ -180,13 +180,13 @@ public class AncientOfWar extends Minion {
 		if (toRet != null) {
 			int thisMinionIndex = toRet.data_.getMinions_p0().indexOf(this);
 			{
-				HearthTreeNode newState = toRet.addChild(new HearthTreeNode((BoardState)toRet.data_.deepCopy()));
+				HearthTreeNode newState = toRet.addChild(new HearthTreeNode((BoardModel)toRet.data_.deepCopy()));
 				newState.data_.getMinion_p0(thisMinionIndex).setTaunt(true);
 				newState.data_.getMinion_p0(thisMinionIndex).setMaxHealth((byte)10);
 				newState.data_.getMinion_p0(thisMinionIndex).setHealth((byte)10);
 			}
 			{
-				HearthTreeNode newState = toRet.addChild(new HearthTreeNode((BoardState)toRet.data_.deepCopy()));
+				HearthTreeNode newState = toRet.addChild(new HearthTreeNode((BoardModel)toRet.data_.deepCopy()));
 				newState.data_.getMinion_p0(thisMinionIndex).setAttack((byte)10);
 			}
 		}

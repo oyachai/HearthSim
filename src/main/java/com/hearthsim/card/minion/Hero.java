@@ -3,9 +3,9 @@ package com.hearthsim.card.minion;
 import com.hearthsim.card.Deck;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
+import com.hearthsim.model.BoardModel;
 import com.hearthsim.util.DeepCopyable;
-import com.hearthsim.util.boardstate.BoardState;
-import com.hearthsim.util.boardstate.BoardStateFactoryBase;
+import com.hearthsim.util.factory.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
 import org.json.JSONObject;
 
@@ -234,9 +234,9 @@ public class Hero extends Minion {
 	 * temporary buffs that it has.
 	 */
 	@Override
-	public BoardState endTurn(int thisMinionPlayerIndex, BoardState boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
+	public BoardModel endTurn(int thisMinionPlayerIndex, BoardModel boardModel, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
 		this.extraAttackUntilTurnEnd_ = 0;
-		return boardState;
+		return boardModel;
 	}
 
 	public JSONObject toJSON() {

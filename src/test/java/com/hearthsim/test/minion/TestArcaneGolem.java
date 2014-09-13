@@ -9,9 +9,9 @@ import com.hearthsim.card.minion.concrete.BoulderfistOgre;
 import com.hearthsim.card.minion.concrete.RaidLeader;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.player.Player;
+import com.hearthsim.model.BoardModel;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
-import com.hearthsim.util.boardstate.BoardState;
 import com.hearthsim.util.tree.HearthTreeNode;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,7 +25,7 @@ public class TestArcaneGolem {
 
 	@Before
 	public void setup() {
-		board = new HearthTreeNode(new BoardState());
+		board = new HearthTreeNode(new BoardModel());
 
 		Minion minion0_0 = new BoulderfistOgre();
 		Minion minion0_1 = new RaidLeader();
@@ -167,8 +167,8 @@ public class TestArcaneGolem {
 	public void test2() throws HSException {
 		
 		Hero hero = new Hero();
-		Player player0 = new Player("player0", hero, deck);
-		Player player1 = new Player("player0", hero, deck);
+		PlayerModel playerModel0 = new PlayerModel("player0", hero, deck);
+		PlayerModel playerModel1 = new PlayerModel("player0", hero, deck);
 		
 		board.data_.setMana_p0((byte)3);
 		board.data_.setMana_p1((byte)3);
@@ -180,7 +180,7 @@ public class TestArcaneGolem {
 		board.data_.getCharacter(0, 2).hasAttacked(true);
 
         ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
-		BoardState resBoard = ai0.playTurn(0, board.data_, player0, player1);
+		BoardModel resBoard = ai0.playTurn(0, board.data_, playerModel0, playerModel1);
 		
 		assertEquals(resBoard.getNumCards_hand_p0(), 0);
 		assertEquals(resBoard.getNumMinions_p0(), 3);

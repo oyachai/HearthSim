@@ -5,7 +5,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.util.boardstate.BoardState;
+import com.hearthsim.model.BoardModel;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class AbusiveSergeant extends Minion {
@@ -184,14 +184,14 @@ public class AbusiveSergeant extends Minion {
 		if (toRet != null) {
 			for (int index = 0; index < boardState.data_.getNumMinions_p0(); ++index) {
 				if (index != toRet.data_.getMinions_p0().indexOf(this)) {
-					HearthTreeNode newState = boardState.addChild(new HearthTreeNode((BoardState)boardState.data_.deepCopy()));
+					HearthTreeNode newState = boardState.addChild(new HearthTreeNode((BoardModel)boardState.data_.deepCopy()));
 					newState.data_.getMinion_p0(index).setExtraAttackUntilTurnEnd(((byte)(newState.data_.getMinion_p0(index).getExtraAttackUntilTurnEnd() + 2)));
 				}
 			}
 			
 			for (int index = 0; index < boardState.data_.getNumMinions_p1(); ++index) {
 				if (index != toRet.data_.getMinions_p1().indexOf(this)) {
-					HearthTreeNode newState = boardState.addChild(new HearthTreeNode((BoardState)boardState.data_.deepCopy()));
+					HearthTreeNode newState = boardState.addChild(new HearthTreeNode((BoardModel)boardState.data_.deepCopy()));
 					newState.data_.getMinion_p1(index).setExtraAttackUntilTurnEnd(((byte)(newState.data_.getMinion_p1(index).getExtraAttackUntilTurnEnd() + 2)));
 				}
 			}

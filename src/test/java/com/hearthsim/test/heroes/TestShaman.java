@@ -9,9 +9,9 @@ import com.hearthsim.card.minion.heroes.Shaman;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.card.spellcard.concrete.WildGrowth;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.player.Player;
+import com.hearthsim.model.BoardModel;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
-import com.hearthsim.util.boardstate.BoardState;
 import com.hearthsim.util.tree.HearthTreeNode;
 import com.hearthsim.util.tree.RandomEffectNode;
 import org.junit.Before;
@@ -29,7 +29,7 @@ public class TestShaman {
 
 	@Before
 	public void setup() {
-		board = new HearthTreeNode(new BoardState(new Shaman(), new Hero()));
+		board = new HearthTreeNode(new BoardModel(new Shaman(), new Hero()));
 
 		Minion minion0_0 = new BoulderfistOgre();
 		Minion minion0_1 = new RaidLeader();
@@ -233,10 +233,10 @@ public class TestShaman {
 	public void test1() throws HSException {
 
 		
-		Player player0 = new Player("player0", new Shaman(), deck);
-		Player player1 = new Player("player1", new Hero(), deck);
+		PlayerModel playerModel0 = new PlayerModel("player0", new Shaman(), deck);
+		PlayerModel playerModel1 = new PlayerModel("player1", new Hero(), deck);
         ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
-		BoardState resBoard = ai0.playTurn(0, board.data_, player0, player1, 200000000);
+		BoardModel resBoard = ai0.playTurn(0, board.data_, playerModel0, playerModel1, 200000000);
 
 		assertEquals(resBoard.getMana_p0(), 6);
 		assertEquals(resBoard.getMana_p1(), 8);

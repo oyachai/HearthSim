@@ -7,11 +7,11 @@ import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidParamFileException;
 import com.hearthsim.exception.HSParamNotFoundException;
 import com.hearthsim.io.ParamFile;
-import com.hearthsim.player.Player;
+import com.hearthsim.model.BoardModel;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.util.IdentityLinkedList;
-import com.hearthsim.util.boardstate.BoardState;
-import com.hearthsim.util.boardstate.BoardStateFactoryBase;
-import com.hearthsim.util.boardstate.SparseBoardStateFactory;
+import com.hearthsim.util.factory.BoardStateFactoryBase;
+import com.hearthsim.util.factory.SparseBoardStateFactory;
 import com.hearthsim.util.tree.HearthTreeNode;
 import com.hearthsim.util.tree.StopNode;
 
@@ -187,7 +187,7 @@ public class ArtificialPlayer {
 	 * @param board The current board state
 	 * @return
 	 */
-	public double boardScore(BoardState board) {
+	public double boardScore(BoardModel board) {
 
 		IdentityLinkedList<Minion> myBoardCards;
 		IdentityLinkedList<Minion> opBoardCards;
@@ -253,8 +253,8 @@ public class ArtificialPlayer {
 	 * @return
 	 * @throws HSException
 	 */
-	public BoardState playTurn(int turn, BoardState board, Player player0, Player player1) throws HSException {
-        return this.playTurn(turn, board, player0, player1, MAX_THINK_TIME);
+	public BoardModel playTurn(int turn, BoardModel board, PlayerModel playerModel0, PlayerModel playerModel1) throws HSException {
+        return this.playTurn(turn, board, playerModel0, playerModel1, MAX_THINK_TIME);
 	}
 	
 	/**
@@ -270,28 +270,28 @@ public class ArtificialPlayer {
 	 * @return
 	 * @throws HSException
 	 */
-	public BoardState playTurn(int turn, BoardState board, Player player0, Player player1, int maxThinkTime) throws HSException {
-        log.info("playing turn for " + player0.getName());
+	public BoardModel playTurn(int turn, BoardModel board, PlayerModel playerModel0, PlayerModel playerModel1, int maxThinkTime) throws HSException {
+        log.info("playing turn for " + playerModel0.getName());
         //The goal of this ai is to maximize his board score
         log.debug("start turn board state is {}", board);
 		HearthTreeNode toRet = new HearthTreeNode(board);
 		BoardStateFactoryBase factory = null;
 		if (useSparseBoardStateFactory_) {
-			factory = new SparseBoardStateFactory(player0.getDeck(), player1.getDeck(), maxThinkTime);
+			factory = new SparseBoardStateFactory(playerModel0.getDeck(), playerModel1.getDeck(), maxThinkTime);
 		} else {
-			factory = new BoardStateFactoryBase(player0.getDeck(), player1.getDeck(), maxThinkTime);
+			factory = new BoardStateFactoryBase(playerModel0.getDeck(), playerModel1.getDeck(), maxThinkTime);
 		}
 		HearthTreeNode allMoves = factory.doMoves(toRet, this);
 		
 		HearthTreeNode bestPlay = allMoves.findMaxOfFunc(this);
         log.debug("best play has score {}", bestPlay.getScore());
 		while( bestPlay instanceof StopNode ) {
-			HearthTreeNode allEffectsDone = ((StopNode)bestPlay).finishAllEffects(player0.getDeck(), player1.getDeck());
+			HearthTreeNode allEffectsDone = ((StopNode)bestPlay).finishAllEffects(playerModel0.getDeck(), playerModel1.getDeck());
 			BoardStateFactoryBase tmpFactory = null;
 			if (useSparseBoardStateFactory_) {
-				tmpFactory = new SparseBoardStateFactory(player0.getDeck(), player1.getDeck(), maxThinkTime);
+				tmpFactory = new SparseBoardStateFactory(playerModel0.getDeck(), playerModel1.getDeck(), maxThinkTime);
 			} else {
-				tmpFactory = new BoardStateFactoryBase(player0.getDeck(), player1.getDeck(), maxThinkTime);
+				tmpFactory = new BoardStateFactoryBase(playerModel0.getDeck(), playerModel1.getDeck(), maxThinkTime);
 			}
 			HearthTreeNode allMovesAtferStopNode = tmpFactory.doMoves(allEffectsDone, this);
 			bestPlay = allMovesAtferStopNode.findMaxOfFunc(this);

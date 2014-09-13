@@ -1,4 +1,4 @@
-package com.hearthsim.util.boardstate;
+package com.hearthsim.model;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
@@ -21,7 +21,7 @@ import java.util.Iterator;
  * A class that represents the current state of the board (game)
  *
  */
-public class BoardState implements DeepCopyable {
+public class BoardModel implements DeepCopyable {
 
     private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
 		
@@ -62,11 +62,11 @@ public class BoardState implements DeepCopyable {
 		}
 	}
 	
-	public BoardState() {
+	public BoardModel() {
 		this(new Hero("hero0", (byte)30), new Hero("hero1", (byte)30));
 	}
 	
-	public BoardState(Hero p0_hero, Hero p1_hero) {
+	public BoardModel(Hero p0_hero, Hero p1_hero) {
 		p0_minions_ = new MinionList();
 		p1_minions_ = new MinionList();
 		p0_hand_ = new IdentityLinkedList<Card>();
@@ -784,68 +784,68 @@ public class BoardState implements DeepCopyable {
 	      return false;
 	   }
 	   
-	   if (p0_mana_ != ((BoardState)other).p0_mana_)
+	   if (p0_mana_ != ((BoardModel)other).p0_mana_)
 		   return false;
-	   if (p1_mana_ != ((BoardState)other).p1_mana_)
+	   if (p1_mana_ != ((BoardModel)other).p1_mana_)
 		   return false;
-	   if (p0_maxMana_ != ((BoardState)other).p0_maxMana_)
+	   if (p0_maxMana_ != ((BoardModel)other).p0_maxMana_)
 		   return false;
-	   if (p1_maxMana_ != ((BoardState)other).p1_maxMana_)
+	   if (p1_maxMana_ != ((BoardModel)other).p1_maxMana_)
 		   return false;
 	   
-	   if (!p0_hero_.equals(((BoardState)other).p0_hero_)) {
+	   if (!p0_hero_.equals(((BoardModel)other).p0_hero_)) {
 		   return false;
 	   }
 
-	   if (!p1_hero_.equals(((BoardState)other).p1_hero_)) {
+	   if (!p1_hero_.equals(((BoardModel)other).p1_hero_)) {
 		   return false;
 	   }
 	   
-	   if (p0_deckPos_ != ((BoardState)other).p0_deckPos_)
+	   if (p0_deckPos_ != ((BoardModel)other).p0_deckPos_)
 		   return false;
 
-	   if (p1_deckPos_ != ((BoardState)other).p1_deckPos_)
+	   if (p1_deckPos_ != ((BoardModel)other).p1_deckPos_)
 		   return false;
 
-	   if (p0_fatigueDamage_ != ((BoardState)other).p0_fatigueDamage_)
+	   if (p0_fatigueDamage_ != ((BoardModel)other).p0_fatigueDamage_)
 		   return false;
 	   
-	   if (p1_fatigueDamage_ != ((BoardState)other).p1_fatigueDamage_)
+	   if (p1_fatigueDamage_ != ((BoardModel)other).p1_fatigueDamage_)
 		   return false;
 
-	   if (p0_spellDamage_ != ((BoardState)other).p0_spellDamage_)
+	   if (p0_spellDamage_ != ((BoardModel)other).p0_spellDamage_)
 		   return false;
 
-	   if (p1_spellDamage_ != ((BoardState)other).p1_spellDamage_)
+	   if (p1_spellDamage_ != ((BoardModel)other).p1_spellDamage_)
 		   return false;
 
-	   if (p0_minions_.size() != ((BoardState)other).p0_minions_.size()) 
+	   if (p0_minions_.size() != ((BoardModel)other).p0_minions_.size())
 		   return false;
-	   if (p1_minions_.size() != ((BoardState)other).p1_minions_.size()) 
+	   if (p1_minions_.size() != ((BoardModel)other).p1_minions_.size())
 		   return false;
-	   if (p0_hand_.size() != ((BoardState)other).p0_hand_.size()) 
+	   if (p0_hand_.size() != ((BoardModel)other).p0_hand_.size())
 		   return false;
 
 	   for (int i = 0; i < p0_minions_.size(); ++i) {
-		   if (!p0_minions_.get(i).equals(((BoardState)other).p0_minions_.get(i))) {
+		   if (!p0_minions_.get(i).equals(((BoardModel)other).p0_minions_.get(i))) {
 			   return false;
 		   }
 	   }
 
 	   for (int i = 0; i < p1_minions_.size(); ++i) {
-		   if (!p1_minions_.get(i).equals(((BoardState)other).p1_minions_.get(i))) {
+		   if (!p1_minions_.get(i).equals(((BoardModel)other).p1_minions_.get(i))) {
 			   return false;
 		   }
 	   }
 
 	   for (int i = 0; i < p0_hand_.size(); ++i) {
-		   if (!p0_hand_.get(i).equals(((BoardState)other).p0_hand_.get(i))) {
+		   if (!p0_hand_.get(i).equals(((BoardModel)other).p0_hand_.get(i))) {
 			   return false;
 		   }
 	   }
 	   
 	   for (int i = 0; i < p1_hand_.size(); ++i) {
-		   if (!p1_hand_.get(i).equals(((BoardState)other).p1_hand_.get(i))) {
+		   if (!p1_hand_.get(i).equals(((BoardModel)other).p1_hand_.get(i))) {
 			   return false;
 		   }
 	   }
@@ -930,8 +930,8 @@ public class BoardState implements DeepCopyable {
 		}
 	}
 	
-	public BoardState flipPlayers() { 
-		BoardState newState = (BoardState)this.deepCopy();
+	public BoardModel flipPlayers() {
+		BoardModel newState = (BoardModel)this.deepCopy();
 		MinionList p0_minions = newState.getMinions_p0();
 		MinionList p1_minions = newState.getMinions_p1();
 		int p0_mana = newState.getMana_p0();
@@ -963,7 +963,7 @@ public class BoardState implements DeepCopyable {
 	}
 	
 	public Object deepCopy() {
-		BoardState newBoard = new BoardState();
+		BoardModel newBoard = new BoardModel();
 		for (Iterator<Minion> iter = p0_minions_.iterator(); iter.hasNext();) {
 			Minion tc = (Minion)(iter.next()).deepCopy();
 			newBoard.p0_minions_.add(tc);
@@ -981,8 +981,8 @@ public class BoardState implements DeepCopyable {
 			newBoard.placeCard_hand_p1(tc);
 		}
 		
-		newBoard.setHero_p0((Hero)this.p0_hero_.deepCopy());
-		newBoard.setHero_p1((Hero)this.p1_hero_.deepCopy());
+		newBoard.setHero_p0((Hero) this.p0_hero_.deepCopy());
+		newBoard.setHero_p1((Hero) this.p1_hero_.deepCopy());
 		
 		newBoard.p0_deckPos_ = this.p0_deckPos_;
 		newBoard.p1_deckPos_ = this.p1_deckPos_;

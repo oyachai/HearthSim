@@ -8,9 +8,9 @@ import com.hearthsim.card.minion.concrete.ChillwindYeti;
 import com.hearthsim.card.minion.heroes.Priest;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.BoardModel;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
-import com.hearthsim.util.boardstate.BoardState;
-import com.hearthsim.util.boardstate.BoardStateFactoryBase;
+import com.hearthsim.util.factory.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,7 +25,7 @@ public class TestPriest {
 
 	@Before
 	public void setup() {
-		board = new HearthTreeNode(new BoardState(new Priest(), new Hero()));
+		board = new HearthTreeNode(new BoardModel(new Priest(), new Hero()));
 
 		Minion minion0_0 = new ChillwindYeti();
 		Minion minion0_1 = new ChillwindYeti();

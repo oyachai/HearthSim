@@ -10,7 +10,7 @@ import com.hearthsim.card.spellcard.concrete.InnerRage;
 import com.hearthsim.card.spellcard.concrete.Silence;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.util.boardstate.BoardState;
+import com.hearthsim.model.BoardModel;
 import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 import org.junit.Before;
@@ -25,7 +25,7 @@ public class TestInnerRage {
 
 	@Before
 	public void setup() throws HSException {
-		board = new HearthTreeNode(new BoardState());
+		board = new HearthTreeNode(new BoardModel());
 
 		Minion minion0_0 = new BoulderfistOgre();
 		Minion minion0_1 = new RaidLeader();

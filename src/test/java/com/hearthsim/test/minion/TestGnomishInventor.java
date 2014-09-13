@@ -7,9 +7,9 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.BloodfenRaptor;
 import com.hearthsim.card.minion.concrete.GnomishInventor;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.player.Player;
+import com.hearthsim.model.BoardModel;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
-import com.hearthsim.util.boardstate.BoardState;
 import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 import org.junit.Before;
@@ -28,7 +28,7 @@ public class TestGnomishInventor {
 
 	@Before
 	public void setup() throws HSException {
-		board = new HearthTreeNode(new BoardState());
+		board = new HearthTreeNode(new BoardModel());
 
 		Minion minion0_0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
 		Minion minion0_1 = new Minion("" + 0, mana, attack0, (byte)(health1 - 1), attack0, health1, health1);
@@ -117,8 +117,8 @@ public class TestGnomishInventor {
 
 		
 		Hero hero = new Hero();
-		Player player0 = new Player("player0", hero, deck);
-		Player player1 = new Player("player0", hero, deck);
+		PlayerModel playerModel0 = new PlayerModel("player0", hero, deck);
+		PlayerModel playerModel1 = new PlayerModel("player0", hero, deck);
 		
 		board.data_.setMana_p0((byte)5);
 		board.data_.setMana_p1((byte)5);
@@ -128,7 +128,7 @@ public class TestGnomishInventor {
 
 
         ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
-		BoardState resBoard = ai0.playTurn(0, board.data_, player0, player1);
+		BoardModel resBoard = ai0.playTurn(0, board.data_, playerModel0, playerModel1);
 		
 		assertEquals(resBoard.getNumCards_hand_p0(), 1); //1 card drawn from GnomishInventor, not enough mana to play it
 		assertEquals(resBoard.getNumMinions_p0(), 3);
@@ -144,11 +144,11 @@ public class TestGnomishInventor {
 		
 
 		Hero hero = new Hero();		
-		Player player0 = new Player("player0", hero, deck);
-		Player player1 = new Player("player0", hero, deck);
+		PlayerModel playerModel0 = new PlayerModel("player0", hero, deck);
+		PlayerModel playerModel1 = new PlayerModel("player0", hero, deck);
 
         ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
-		BoardState resBoard = ai0.playTurn(0, board.data_, player0, player1);
+		BoardModel resBoard = ai0.playTurn(0, board.data_, playerModel0, playerModel1);
 		
 		assertEquals(resBoard.getNumCards_hand_p0(), 0); //1 card drawn from GnomishInventor, and had enough mana to play it
 		assertEquals(resBoard.getNumMinions_p0(), 4);

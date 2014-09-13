@@ -4,7 +4,7 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.concrete.ArcaneExplosion;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.util.boardstate.BoardState;
+import com.hearthsim.model.BoardModel;
 import com.hearthsim.util.tree.HearthTreeNode;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,7 +21,7 @@ public class TestArcaneExplosion {
 
 	@Before
 	public void setup() throws HSException {
-		board = new HearthTreeNode(new BoardState());
+		board = new HearthTreeNode(new BoardModel());
 		
 		Minion minion0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
 		Minion minion1 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);

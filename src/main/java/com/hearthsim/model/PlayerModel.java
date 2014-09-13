@@ -1,18 +1,18 @@
-package com.hearthsim.player;
+package com.hearthsim.model;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import org.json.JSONObject;
 
-public class Player {
+public class PlayerModel {
 
 	String name_;
 	public final Hero hero_;
 	final Deck deck_;
 	int mana_;
 
-	public Player(String name, Hero hero, Deck deck) {
+	public PlayerModel(String name, Hero hero, Deck deck) {
 		name_ = name;
 		hero_ = hero;
 		deck_ = deck;

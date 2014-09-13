@@ -8,7 +8,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.heroes.Mage;
 import com.hearthsim.card.minion.heroes.Paladin;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.player.Player;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.results.GameResult;
 import org.junit.Test;
@@ -59,15 +59,15 @@ public class testGame {
 		deck1.shuffle();
 		deck2.shuffle();
 		
-		Player player1 = new Player("player0", hero1, deck1);
-		Player player2 = new Player("player1", hero2, deck2);
+		PlayerModel playerModel1 = new PlayerModel("player0", hero1, deck1);
+		PlayerModel playerModel2 = new PlayerModel("player1", hero2, deck2);
 
         ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
 
         ArtificialPlayer ai1 = ArtificialPlayer.buildStandardAI1();
 
 		long t1 = System.nanoTime();
-		Game game = new Game(player1, player2, ai0, ai1, false);
+		Game game = new Game(playerModel1, playerModel2, ai0, ai1, false);
 		GameResult w = null;
 		try {
 			w = game.runGame();

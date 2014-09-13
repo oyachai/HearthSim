@@ -1,7 +1,7 @@
 package com.hearthsim.results;
 
 import com.hearthsim.exception.HSException;
-import com.hearthsim.util.boardstate.BoardState;
+import com.hearthsim.model.BoardModel;
 import org.json.JSONObject;
 
 public class GameSimpleRecord implements GameRecord {
@@ -25,7 +25,7 @@ public class GameSimpleRecord implements GameRecord {
 	}
 	
 	@Override
-	public void put(int turn, int activePlayerIndex, BoardState board) {
+	public void put(int turn, int activePlayerIndex, BoardModel board) {
 		try {
 			int inactivePlayerIndex = (activePlayerIndex + 1) % 2;
 			

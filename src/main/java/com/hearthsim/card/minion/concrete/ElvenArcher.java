@@ -5,8 +5,8 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.util.boardstate.BoardState;
-import com.hearthsim.util.boardstate.BoardStateFactoryBase;
+import com.hearthsim.model.BoardModel;
+import com.hearthsim.util.factory.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 
@@ -184,7 +184,7 @@ public class ElvenArcher extends Minion {
 		if (toRet != null) {
 
 			{
-				HearthTreeNode newState = new HearthTreeNode((BoardState)boardState.data_.deepCopy());
+				HearthTreeNode newState = new HearthTreeNode((BoardModel)boardState.data_.deepCopy());
 				newState = newState.data_.getHero_p0().takeDamage((byte)1, 0, 0, newState, deckPlayer0, deckPlayer1, false, false);
 				toRet.addChild(newState);
 			}
@@ -193,7 +193,7 @@ public class ElvenArcher extends Minion {
 				for (int index = 0; index < boardState.data_.getNumMinions_p0(); ++index) {
 					if (boardState.data_.getMinion_p0(index) == this)
 						continue;
-					HearthTreeNode newState = new HearthTreeNode((BoardState)boardState.data_.deepCopy());
+					HearthTreeNode newState = new HearthTreeNode((BoardModel)boardState.data_.deepCopy());
 					Minion minion = newState.data_.getMinion_p0(index);
 					newState = minion.takeDamage((byte)1, 0, 0, newState, deckPlayer0, deckPlayer1, false, true);
 					newState = BoardStateFactoryBase.handleDeadMinions(newState, deckPlayer0, deckPlayer1);
@@ -202,14 +202,14 @@ public class ElvenArcher extends Minion {
 			}
 
 			{
-				HearthTreeNode newState = new HearthTreeNode((BoardState)boardState.data_.deepCopy());
+				HearthTreeNode newState = new HearthTreeNode((BoardModel)boardState.data_.deepCopy());
 				newState = newState.data_.getHero_p1().takeDamage((byte)1, 0, 1, newState, deckPlayer0, deckPlayer1, false, false);
 				toRet.addChild(newState);
 			}
 
 			{
 				for (int index = 0; index < boardState.data_.getNumMinions_p1(); ++index) {		
-					HearthTreeNode newState = new HearthTreeNode((BoardState)boardState.data_.deepCopy());
+					HearthTreeNode newState = new HearthTreeNode((BoardModel)boardState.data_.deepCopy());
 					Minion minion = newState.data_.getMinion_p1(index);
 					newState = minion.takeDamage((byte)1, 0, 1, newState, deckPlayer0, deckPlayer1, false, true);
 					newState = BoardStateFactoryBase.handleDeadMinions(newState, deckPlayer0, deckPlayer1);

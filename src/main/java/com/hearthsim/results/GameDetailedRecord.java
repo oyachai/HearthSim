@@ -1,7 +1,7 @@
 package com.hearthsim.results;
 
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
-import com.hearthsim.util.boardstate.BoardState;
+import com.hearthsim.model.BoardModel;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -9,16 +9,16 @@ import java.util.TreeMap;
 
 public class GameDetailedRecord implements GameRecord {
 	
-	ArrayList<TreeMap<Integer, BoardState>> boards_;
+	ArrayList<TreeMap<Integer, BoardModel>> boards_;
 	
 	public GameDetailedRecord() {
-		boards_ = new ArrayList<TreeMap<Integer, BoardState>>(2);
-		boards_.add(new TreeMap<Integer, BoardState>());
-		boards_.add(new TreeMap<Integer, BoardState>());
+		boards_ = new ArrayList<TreeMap<Integer, BoardModel>>(2);
+		boards_.add(new TreeMap<Integer, BoardModel>());
+		boards_.add(new TreeMap<Integer, BoardModel>());
 	}
 	
 	@Override
-	public void put(int turn, int activePlayerIndex, BoardState board) {
+	public void put(int turn, int activePlayerIndex, BoardModel board) {
 		boards_.get(activePlayerIndex).put(turn, board);
 	}
 	
@@ -69,7 +69,7 @@ public class GameDetailedRecord implements GameRecord {
 		return json;
 	}
 	
-	public BoardState get(int turn, int playerID) {
+	public BoardModel get(int turn, int playerID) {
 		return boards_.get(playerID).get(turn);
 	}
 

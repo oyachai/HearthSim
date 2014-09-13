@@ -1,9 +1,10 @@
-package com.hearthsim.util.boardstate;
+package com.hearthsim.util.factory;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.BoardModel;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -43,7 +44,7 @@ public class SparseBoardStateFactory extends BoardStateFactoryBase {
 		
 		//the case where I chose not to use any more cards
 		if (!allUsed) {
-			HearthTreeNode newState = new HearthTreeNode((BoardState)boardStateNode.data_.deepCopy());
+			HearthTreeNode newState = new HearthTreeNode((BoardModel)boardStateNode.data_.deepCopy());
 			for (Card card : newState.data_.getCards_hand_p0()) {
 				card.hasBeenUsed(true);
 			}
@@ -101,7 +102,7 @@ public class SparseBoardStateFactory extends BoardStateFactoryBase {
 					//actually place the card now
 					Minion targetMinion = boardStateNode.data_.getCharacter_p0(cardPlacementIndex);
 					if (cardToUse.canBeUsedOn(0, targetMinion)) {
-						HearthTreeNode newState = new HearthTreeNode((BoardState)boardStateNode.data_.deepCopy());
+						HearthTreeNode newState = new HearthTreeNode((BoardModel)boardStateNode.data_.deepCopy());
 						Minion copiedTargetMinion = newState.data_.getCharacter_p0(cardPlacementIndex);
 						Card card = newState.data_.getCard_hand_p0(ic);
 						newState = card.useOn(0, copiedTargetMinion, newState, deckPlayer0_, deckPlayer1_, false);
@@ -115,7 +116,7 @@ public class SparseBoardStateFactory extends BoardStateFactoryBase {
 					for(int i = 0; i <= boardStateNode.data_.getNumMinions_p0(); ++i) {
 						Minion targetMinion = boardStateNode.data_.getCharacter_p0(i);
 						if (cardToUse.canBeUsedOn(0, targetMinion)) {
-							HearthTreeNode newState = new HearthTreeNode((BoardState)boardStateNode.data_.deepCopy());
+							HearthTreeNode newState = new HearthTreeNode((BoardModel)boardStateNode.data_.deepCopy());
 							Minion copiedTargetMinion = newState.data_.getCharacter_p0(i);
 							Card card = newState.data_.getCard_hand_p0(ic);
 							newState = card.useOn(0, copiedTargetMinion, newState, deckPlayer0_, deckPlayer1_, false);
@@ -128,7 +129,7 @@ public class SparseBoardStateFactory extends BoardStateFactoryBase {
 					for(int i = 0; i <= boardStateNode.data_.getNumMinions_p1(); ++i) {
 						Minion targetMinion = boardStateNode.data_.getCharacter_p1(i);
 						if (cardToUse.canBeUsedOn(1, targetMinion)) {
-							HearthTreeNode newState = new HearthTreeNode((BoardState)boardStateNode.data_.deepCopy());
+							HearthTreeNode newState = new HearthTreeNode((BoardModel)boardStateNode.data_.deepCopy());
 							Minion copiedTargetMinion = newState.data_.getCharacter_p1(i);
 							Card card = newState.data_.getCard_hand_p0(ic);
 							newState = card.useOn(1, copiedTargetMinion, newState, deckPlayer0_, deckPlayer1_, false);
