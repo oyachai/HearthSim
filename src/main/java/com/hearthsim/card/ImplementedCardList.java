@@ -201,6 +201,11 @@ public class ImplementedCardList {
             map_.put(BigGameHunter.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(Bite.class, "Bite", "spell", "druid", "rare", "Give your hero +4 Attack this turn and 4 Armor", 4, -1, -1);
+            list_.add(card);
+            map_.put(Bite.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(BlessingOfKings.class, "Blessing of Kings", "spell", "paladin", "free", "Give a minion +4/+4. (+4 Attack/+4 Health)", 4, -1, -1);
             list_.add(card);
             map_.put(BlessingOfKings.class, card);
