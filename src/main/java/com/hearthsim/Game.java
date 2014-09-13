@@ -1,10 +1,10 @@
 package com.hearthsim;
 
+import com.hearthsim.card.Card;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.player.Player;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
-import com.hearthsim.player.playercontroller.GameMaster;
 import com.hearthsim.results.GameRecord;
 import com.hearthsim.results.GameResult;
 import com.hearthsim.results.GameSimpleRecord;
@@ -14,10 +14,10 @@ public class Game {
     private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
 
 	final static int maxTurns_ = 100;
-	
-	BoardState boardState_;
+
+    BoardState boardState_;
 	Player[] players_;
-	GameMaster[] gms_;
+    ArtificialPlayer [] ais;
 
 	int curPlayer_;
 	int curTurn_;
@@ -43,16 +43,11 @@ public class Game {
 		players_[0] = player0;
 		players_[1] = player1;
 		boardState_ = new BoardState(players_[s0_].hero_, players_[s1_].hero_);
-		gms_ = new GameMaster[2];
-		gms_[0] = new GameMaster(ai0);
-		gms_[1] = new GameMaster(ai1);
-	}
-		
-	public BoardState getBoardState(int playerID) {
-		if (playerID == curPlayer_)
-			return boardState_;
-		else
-			return boardState_.flipPlayers();
+
+        this.ais = new ArtificialPlayer[2];
+
+        this.ais[0] = ai0;
+        this.ais[1] = ai1;
 	}
 	
 	public GameResult runGame() throws HSException {
@@ -81,7 +76,7 @@ public class Game {
             log.info("starting turn "+ i);
             long turnStart = System.currentTimeMillis();
 
-            gms_[s0_].beginTurn(i, boardState_, players_[s0_], players_[s1_]);
+            beginTurn(i, boardState_, players_[s0_], players_[s1_]);
 
 			if (!boardState_.isAlive_p0()) {
 				return new GameResult(s0_, s1_, i + 1, record);
@@ -89,8 +84,8 @@ public class Game {
 				return new GameResult(s0_, s0_, i + 1, record);
 			}
 
-			boardState_ = gms_[s0_].playTurn(i, boardState_, players_[s0_], players_[s1_]);
-			gms_[s0_].endTurn(i, boardState_, players_[s0_], players_[s1_]);
+			boardState_ = playTurn(i, boardState_, players_[s0_], players_[s1_], ais[s0_]);
+			endTurn(i, boardState_, players_[s0_], players_[s1_]);
 
 			record.put(i + 1, s0_, (BoardState)boardState_.deepCopy());
 			if (!boardState_.isAlive_p0()) {
@@ -101,7 +96,7 @@ public class Game {
 
 			boardState_ = boardState_.flipPlayers();
 
-			gms_[s1_].beginTurn(i, boardState_, players_[s1_], players_[s0_]);
+			beginTurn(i, boardState_, players_[s1_], players_[s0_]);
 
 			if (!boardState_.isAlive_p0()) {
 				return new GameResult(s0_, s0_, i + 1, record);
@@ -109,8 +104,8 @@ public class Game {
 				return new GameResult(s0_, s1_, i + 1, record);
 			}
 
-			boardState_ = gms_[s1_].playTurn(i, boardState_, players_[s1_], players_[s0_]);
-			gms_[s1_].endTurn(i, boardState_, players_[s1_], players_[s0_]);
+			boardState_ = playTurn(i, boardState_, players_[s1_], players_[s0_], ais[s1_]);
+			endTurn(i, boardState_, players_[s1_], players_[s0_]);
 			record.put(i + 1, s1_, (BoardState)boardState_.deepCopy());
 
 			if (!boardState_.isAlive_p0()) {
@@ -132,4 +127,32 @@ public class Game {
 		}
 		return new GameResult(s0_, -1, 0, record);
 	}
+
+    public void beginTurn(int turn, BoardState board, Player player0, Player player1) throws HSException
+    {
+        board.startTurn(player0.getDeck(), player1.getDeck());
+
+        Card newCard = player0.drawFromDeck(board.getDeckPos_p0());
+        if (newCard == null) {
+            //fatigue
+            byte fatigueDamage = board.getFatigueDamage_p0();
+            board.setFatigueDamage_p0((byte)(fatigueDamage + 1));
+            board.getHero_p0().setHealth((byte)(board.getHero_p0().getHealth() - fatigueDamage));
+        } else {
+            board.setDeckPos_p0(board.getDeckPos_p0() + 1);
+            board.placeCard_hand_p0(newCard);
+        }
+        if (board.getMana_p0() < 10)
+            board.addMaxMana_p0(1);
+        board.resetMana();
+
+    }
+
+    public BoardState playTurn(int turn, BoardState board, Player player0, Player player1, ArtificialPlayer ai) throws HSException {
+        return ai.playTurn(turn, board, player0, player1);
+    }
+
+    public void endTurn(int turn, BoardState board, Player player0, Player player1) throws HSException {
+        board.endTurn(player0.getDeck(), player1.getDeck());
+    }
 }
