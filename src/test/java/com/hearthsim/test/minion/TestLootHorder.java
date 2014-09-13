@@ -46,26 +46,11 @@ public class TestLootHorder {
 	
 	@Test
 	public void test0() throws HSException {
-		
-		
-		ArtificialPlayer ai0 = new ArtificialPlayer(
-				0.9,
-				0.9,
-				1.0,
-				1.0,
-				1.0,
-				0.1,
-				0.1,
-				0.1,
-				0.5,
-				0.5,
-				0.0,
-				0.5,
-				0.0,
-				0.0
-				);
-		
-		Hero hero = new Hero();
+
+
+        ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
+
+        Hero hero = new Hero();
 		Player player0 = new Player("player0", hero, deck);
 		Player player1 = new Player("player0", hero, deck);
 		
@@ -90,25 +75,9 @@ public class TestLootHorder {
 
 	@Test
 	public void test1() throws HSException {
-		
-		
-		ArtificialPlayer ai0 = new ArtificialPlayer(
-				0.9,
-				0.9,
-				1.0,
-				1.0,
-				1.0,
-				0.1,
-				0.1,
-				0.1,
-				0.5,
-				0.5,
-				0.0,
-				0.5,
-				0.0,
-				0.0
-				);
-		
+
+        ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
+
 		Hero hero = new Hero();
 		Player player0 = new Player("player0", hero, deck);
 		Player player1 = new Player("player0", hero, deck);
@@ -133,23 +102,8 @@ public class TestLootHorder {
 	
 	@Test
 	public void test2() throws HSException {
-				
-		ArtificialPlayer ai0 = new ArtificialPlayer(
-				0.9,
-				0.9,
-				1.0,
-				1.0,
-				1.0,
-				0.1,
-				0.1,
-				0.1,
-				0.5,
-				0.5,
-				0.0,
-				0.5,
-				0.0,
-				0.0
-				);
+
+        ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
 		
 		//remove the loot hoarder from player0, add a Wisp
 		board.data_.removeMinion(0, 0);

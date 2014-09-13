@@ -61,40 +61,10 @@ public class testGame {
 		
 		Player player1 = new Player("player0", hero1, deck1);
 		Player player2 = new Player("player1", hero2, deck2);
-		
-		ArtificialPlayer ai0 = new ArtificialPlayer(
-				0.9,
-				0.9,
-				1.0,
-				1.0,
-				1.0,
-				0.1,
-				0.1,
-				0.1,
-				0.5,
-				0.5,
-				0.0,
-				0.5,
-				0.0,
-				0.0
-				);
-		
-		ArtificialPlayer ai1 = new ArtificialPlayer(
-				0.9,
-				0.9,
-				1.0,
-				1.0,
-				1.0,
-				0.1,
-				0.1,
-				0.1,
-				0.5,
-				0.5,
-				0.0,
-				0.5,
-				0.0,
-				0.0
-				);
+
+        ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
+
+        ArtificialPlayer ai1 = ArtificialPlayer.buildStandardAI1();
 
 		long t1 = System.nanoTime();
 		Game game = new Game(player1, player2, ai0, ai1, false);

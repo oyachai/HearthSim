@@ -114,23 +114,7 @@ public class TestGnomishInventor {
 	@Test
 	public void test3() throws HSException {
 		
-		
-		ArtificialPlayer ai0 = new ArtificialPlayer(
-				0.9,
-				0.9,
-				1.0,
-				1.0,
-				1.0,
-				0.1,
-				0.1,
-				0.1,
-				0.5,
-				0.5,
-				0.0,
-				0.5,
-				0.0,
-				0.0
-				);
+
 		
 		Hero hero = new Hero();
 		Player player0 = new Player("player0", hero, deck);
@@ -142,7 +126,8 @@ public class TestGnomishInventor {
 		board.data_.setMaxMana_p0((byte)5);
 		board.data_.setMaxMana_p1((byte)5);
 
-		
+
+        ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
 		BoardState resBoard = ai0.playTurn(0, board.data_, player0, player1);
 		
 		assertEquals(resBoard.getNumCards_hand_p0(), 1); //1 card drawn from GnomishInventor, not enough mana to play it
@@ -157,28 +142,12 @@ public class TestGnomishInventor {
 	@Test
 	public void test4() throws HSException {
 		
-		
-		ArtificialPlayer ai0 = new ArtificialPlayer(
-				0.9,
-				0.9,
-				1.0,
-				1.0,
-				1.0,
-				0.1,
-				0.1,
-				0.1,
-				0.5,
-				0.5,
-				0.0,
-				0.5,
-				0.0,
-				0.0
-				);
-		
+
 		Hero hero = new Hero();		
 		Player player0 = new Player("player0", hero, deck);
 		Player player1 = new Player("player0", hero, deck);
-		
+
+        ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
 		BoardState resBoard = ai0.playTurn(0, board.data_, player0, player1);
 		
 		assertEquals(resBoard.getNumCards_hand_p0(), 0); //1 card drawn from GnomishInventor, and had enough mana to play it

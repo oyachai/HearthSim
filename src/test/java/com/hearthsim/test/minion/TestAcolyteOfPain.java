@@ -107,22 +107,7 @@ public class TestAcolyteOfPain {
 	public void test3() throws HSException {
 		
 		
-		ArtificialPlayer ai0 = new ArtificialPlayer(
-				0.9,
-				0.9,
-				1.0,
-				1.0,
-				1.0,
-				0.1,
-				0.1,
-				0.1,
-				0.5,
-				0.5,
-				0.0,
-				0.5,
-				0.0,
-				0.0
-				);
+
 		
 		Hero hero = new Hero();
 		Player player0 = new Player("player0", hero, deck);
@@ -134,7 +119,8 @@ public class TestAcolyteOfPain {
 		board.data_.setMaxMana_p0((byte)1);
 		board.data_.setMaxMana_p1((byte)1);
 
-		
+
+        ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
 		BoardState resBoard = ai0.playTurn(0, board.data_, player0, player1);
 		
 		assertEquals(resBoard.getNumCards_hand_p0(), 2); //1 card drawn from AcolyteOfPain, not enough mana to play it
@@ -149,23 +135,7 @@ public class TestAcolyteOfPain {
 	@Test
 	public void test4() throws HSException {
 		
-		
-		ArtificialPlayer ai0 = new ArtificialPlayer(
-				0.9,
-				0.9,
-				1.0,
-				1.0,
-				1.0,
-				0.1,
-				0.1,
-				0.1,
-				0.5,
-				0.5,
-				0.0,
-				0.5,
-				0.0,
-				0.0
-				);
+
 		
 		Hero hero = new Hero();
 		Player player0 = new Player("player0", hero, deck);
@@ -178,6 +148,7 @@ public class TestAcolyteOfPain {
 		board.data_.setMaxMana_p1((byte)3);
 
 
+        ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
 		BoardState resBoard = ai0.playTurn(0, board.data_, player0, player1, 200000000);
 		
 		assertEquals(resBoard.getNumCards_hand_p0(), 1); //1 card drawn from AcolyteOfPain, then played the Bloodfen Raptor
@@ -192,23 +163,7 @@ public class TestAcolyteOfPain {
 	@Test
 	public void test5() throws HSException {
 		
-		
-		ArtificialPlayer ai0 = new ArtificialPlayer(
-				0.9,
-				0.9,
-				1.0,
-				1.0,
-				1.0,
-				0.1,
-				0.1,
-				0.1,
-				0.5,
-				0.5,
-				0.0,
-				0.5,
-				0.0,
-				0.0
-				);
+
 		
 		Hero hero = new Hero();
 		Player player0 = new Player("player0", hero, deck);
@@ -226,6 +181,7 @@ public class TestAcolyteOfPain {
 		
 		assertEquals(board.data_.getNumCards_hand_p1(), 0);
 
+        ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
 		BoardState resBoard = ai0.playTurn(0, board.data_, player0, player1);
 		
 		assertEquals(resBoard.getNumCards_hand_p0(), 1); //1 card drawn from AcolyteOfPain, then played the Bloodfen Raptor

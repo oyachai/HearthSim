@@ -207,8 +207,8 @@ public class HSMainFrameModel implements HSGameEndEventListener {
 		simulation_.getConfig().numThreads_ = 1;
 		simulation_.getConfig().simName_ = "HearthSim";
 		
-		simulation_.setAI_p0(new ArtificialPlayer());
-		simulation_.setAI_p1(new ArtificialPlayer());
+		simulation_.setAI_p0(ArtificialPlayer.buildStandardAI2());
+		simulation_.setAI_p1(ArtificialPlayer.buildStandardAI2());
 
 	}
 	

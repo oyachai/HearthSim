@@ -168,23 +168,7 @@ public class TestArcaneIntellect {
 		}
 		
 		Deck deck = new Deck(cards);
-		
-		ArtificialPlayer ai0 = new ArtificialPlayer(
-				0.9,
-				0.9,
-				1.0,
-				1.0,
-				1.0,
-				0.1,
-				0.1,
-				0.1,
-				0.5,
-				0.5,
-				0.0,
-				0.5,
-				0.0,
-				0.0
-				);
+
 		
 		Hero hero = new Hero();		
 		Player player0 = new Player("player0", hero, deck);
@@ -196,6 +180,7 @@ public class TestArcaneIntellect {
 		board.data_.setMaxMana_p0((byte)3);
 		board.data_.setMaxMana_p1((byte)3);
 
+        ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
 		BoardState resBoard = ai0.playTurn(0, board.data_, player0, player1);
 		
 		assertFalse( resBoard == null );
@@ -217,24 +202,7 @@ public class TestArcaneIntellect {
 		}
 		
 		Deck deck = new Deck(cards);
-		
-		ArtificialPlayer ai0 = new ArtificialPlayer(
-				0.9,
-				0.9,
-				1.0,
-				1.0,
-				1.0,
-				0.1,
-				0.1,
-				0.1,
-				0.5,
-				0.5,
-				0.0,
-				0.5,
-				0.0,
-				0.0
-				);
-		
+
 		Hero hero = new Hero();		
 		Player player0 = new Player("player0", hero, deck);
 		Player player1 = new Player("player0", hero, deck);
@@ -245,6 +213,7 @@ public class TestArcaneIntellect {
 		board.data_.setMaxMana_p0((byte)6);
 		board.data_.setMaxMana_p1((byte)6);
 
+        ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
 		BoardState resBoard = ai0.playTurn(0, board.data_, player0, player1);
 		
 		assertFalse( resBoard == null );
@@ -266,23 +235,7 @@ public class TestArcaneIntellect {
 		}
 		
 		Deck deck = new Deck(cards);
-		
-		ArtificialPlayer ai0 = new ArtificialPlayer(
-				0.9,
-				0.9,
-				1.0,
-				1.0,
-				1.0,
-				0.1,
-				0.1,
-				0.1,
-				0.5,
-				0.5,
-				0.0,
-				0.5,
-				0.0,
-				0.0
-				);
+
 		
 		Hero hero = new Hero();		
 		Player player0 = new Player("player0", hero, deck);
@@ -294,6 +247,7 @@ public class TestArcaneIntellect {
 		board.data_.setMaxMana_p0((byte)9);
 		board.data_.setMaxMana_p1((byte)9);
 
+        ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
 		BoardState resBoard = ai0.playTurn(0, board.data_, player0, player1);
 		
 		assertFalse( resBoard == null );

@@ -96,28 +96,12 @@ public class TestStranglethornTiger {
 	public void test1() throws HSException {
 		
 		//In this test, the Stranglethorn Tiger is stealthed, so player0 has no choice but to hit the enemy hero for 12 damage
-		
-		ArtificialPlayer ai0 = new ArtificialPlayer(
-				0.9,
-				0.9,
-				1.0,
-				1.0,
-				1.0,
-				0.1,
-				0.1,
-				0.1,
-				0.5,
-				0.5,
-				0.0,
-				0.5,
-				0.0,
-				0.0
-				);
-		
+
 		Hero hero = new Hero();
 		Player player0 = new Player("player0", hero, deck);
 		Player player1 = new Player("player0", hero, deck);
-		
+
+        ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
 		BoardState resBoard = ai0.playTurn(0, board.data_, player0, player1);
 
 		assertEquals(resBoard.getNumCards_hand_p0(), 0);
@@ -141,30 +125,15 @@ public class TestStranglethornTiger {
 	public void test2() throws HSException {
 		
 		//In this test, player0 is given a Silence.  It can't use it though because it can't target the stealthed Stranglethorn Tiger.
-		
-		ArtificialPlayer ai0 = new ArtificialPlayer(
-				0.9,
-				0.9,
-				1.0,
-				1.0,
-				1.0,
-				0.1,
-				0.1,
-				0.1,
-				0.5,
-				0.5,
-				0.0,
-				0.5,
-				0.0,
-				0.0
-				);
+
 		
 		Hero hero = new Hero();
 		Player player0 = new Player("player0", hero, deck);
 		Player player1 = new Player("player0", hero, deck);
 		
 		board.data_.placeCard_hand_p0(new Silence());
-		
+
+        ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
 		BoardState resBoard = ai0.playTurn(0, board.data_, player0, player1);
 
 		assertEquals(resBoard.getNumCards_hand_p0(), 1);
@@ -190,27 +159,12 @@ public class TestStranglethornTiger {
 		//In this test, player1 goes first.  It uses the Stranglethorn Tiger to attack the hero, which removes stealth from 
 		// the tiger.  Then, player0 plays a turn in which it is able to kill the tiger and hit the player1's hero for 6.  
 		
-		ArtificialPlayer ai0 = new ArtificialPlayer(
-				0.9,
-				0.9,
-				1.0,
-				1.0,
-				1.0,
-				0.1,
-				0.1,
-				0.1,
-				0.5,
-				0.5,
-				0.0,
-				0.5,
-				0.0,
-				0.0
-				);
-		
+
 		Hero hero = new Hero();
 		Player player0 = new Player("player0", hero, deck);
 		Player player1 = new Player("player1", hero, deck);
-		
+
+        ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
 		BoardState resBoard0 = ai0.playTurn(0, board.data_.flipPlayers(), player1, player0, 2000000000);
 		BoardState resBoard1 = ai0.playTurn(0, resBoard0.flipPlayers(), player0, player1, 2000000000);
 

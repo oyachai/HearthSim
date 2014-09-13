@@ -23,7 +23,7 @@ public class TestCharge {
 
 	private class DummyStateFunc extends ArtificialPlayer {
 
-		@Override
+        @Override
 		public double boardScore(BoardState xval) {
 			return 0;
 		}

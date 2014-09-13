@@ -155,23 +155,7 @@ public class TestWarlock {
 		assertEquals(board.data_.getMinion_p1(1).getTotalAttack(), 7);
 		
 		
-		
-		ArtificialPlayer ai0 = new ArtificialPlayer(
-				0.9,
-				0.9,
-				1.0,
-				1.0,
-				1.0,
-				0.1,
-				0.1,
-				0.1,
-				0.5,
-				0.5,
-				0.0,
-				0.5,
-				0.0,
-				0.0
-				);
+
 		
 		
 		board.data_.setDeckPos_p0(30);
@@ -183,7 +167,8 @@ public class TestWarlock {
 		
 		assertTrue(ret instanceof CardDrawNode);
 		assertEquals(((CardDrawNode)ret).getNumCardsToDraw(), 1);
-		
+
+        ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
 		double cardDrawScore = ((CardDrawNode)ret).cardDrawScore(deck, ai0);
 		assertTrue(cardDrawScore < 0.0);		
 		

@@ -22,104 +22,65 @@ public class ArtificialPlayer {
 
     private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
     public final static int MAX_THINK_TIME = 20000;
-
-    int nLookahead_;
 	
-	double my_wAttack_; //weight for the attack score
-	double my_wHealth_;
-	double enemy_wAttack_; //weight for the attack score
-	double enemy_wHealth_;
-	
-	double my_wHeroHealth_;
-	double enemy_wHeroHealth_;
-	
-	double wTaunt_;
-	double wMana_;
-	
-	double my_wNumMinions_;
-	double enemy_wNumMinions_;
-	
-	double wSd_add_;
-	double wSd_mult_;
-	
-	double my_wDivineShield_;
-	double enemy_wDivineShield_;
-	
-	double my_wWeapon_;
-	double enemy_wWeapon_;
-	
-	double my_wCharge_;
-	double enemy_wCharge_;
-	
+	double myAttackWeight; //weight for the attack score
+	double myHealthWeight;
+	double enemyAttackWeight; //weight for the attack score
+	double enemyHealthWeight;
+	double myHeroHealthWeight;
+	double enemyHeroHealthWeight;
+	double tauntWeight;
+	double manaWeight;
+	double myNumMinionsWeight;
+	double enemyNumMinionsWeight;
+	double spellDamageAddWeight;
+	double spellDamageMultiplierWeight;
+	double myDivineShieldWeight;
+	double enemyDivineShieldWeight;
+	double myWeaponWeight;
+	double enemyWeaponWeight;
+	double myChargeWeight;
 	boolean useSparseBoardStateFactory_ = true;
 
-	public ArtificialPlayer() {
-		this(0.9, 0.9, 1.0, 1.0);
-	}
-	public ArtificialPlayer(double my_wAttack, double my_wHealth, double enemy_wAttack, double enemy_wHealth) {
-		this(my_wAttack, my_wHealth, enemy_wAttack, enemy_wHealth, 0.0, 0.1, 0.1, 0.1, 0.5, 0.5, 0.9, 1.0, 1.0, 1.0);
-	}
-	
-	/**
-	 * Constructor - Deprecated, do not use!
-	 * 
-	 * @param my_wAttack
-	 * @param my_wHealth
-	 * @param enemy_wAttack
-	 * @param enemy_wHealth
-	 * @param wTaunt
-	 * @param my_wHeroHealth
-	 * @param enemy_wHeroHealth
-	 * @param wMana
-	 * @param my_wNumMinions
-	 * @param enemy_wNumMinions
-	 * @param wSd_add
-	 * @param wSd_mult
-	 * @param my_wDivineShield
-	 * @param enemy_wDivineShield
-	 */
-	public ArtificialPlayer(
-			double my_wAttack,
-			double my_wHealth,
-			double enemy_wAttack,
-			double enemy_wHealth,
-			double wTaunt, 
-			double my_wHeroHealth,
-			double enemy_wHeroHealth,
-			double wMana,
-			double my_wNumMinions,
-			double enemy_wNumMinions,
-			double wSd_add,
-			double wSd_mult,
-			double my_wDivineShield,
-			double enemy_wDivineShield) {
-		
-		
-		log.error("BIG FAT WARNING: This constructor is deprecated!");
-		nLookahead_ = 1;
-		
-		wMana_ = wMana;
-		my_wAttack_ = my_wAttack;
-		my_wHealth_ = my_wHealth;
-		enemy_wAttack_ = enemy_wAttack;
-		enemy_wHealth_ = enemy_wHealth;
-		my_wHeroHealth_ = my_wHeroHealth;
-		enemy_wHeroHealth_ = enemy_wHeroHealth;
-		wTaunt_ = wTaunt;
-		
-		my_wNumMinions_ = my_wNumMinions;
-		enemy_wNumMinions_ = enemy_wNumMinions;
-		
-		wSd_add_ = wSd_add;
-		wSd_mult_ = wSd_mult;
-		
-		my_wDivineShield_ = my_wDivineShield;
-		enemy_wDivineShield_ = enemy_wDivineShield;
-		
-		my_wWeapon_ = 0.5;
-		enemy_wWeapon_ = 0.5;
-	}
-	
+	protected ArtificialPlayer() {}
+
+    //todo: come up with more meaningful names for these different AI 'styles'
+    public static ArtificialPlayer buildStandardAI2() {
+        ArtificialPlayer artificialPlayer = buildStandardAI1();
+        artificialPlayer.setTauntWeight(0);
+        artificialPlayer.setSpellDamageAddWeight(0.9);
+        artificialPlayer.setSpellDamageMultiplierWeight(1);
+        artificialPlayer.setMyDivineShieldWeight(1);
+        artificialPlayer.setEnemyDivineShieldWeight(1);
+
+        return artificialPlayer;
+    }
+
+    public static ArtificialPlayer buildStandardAI1() {
+        ArtificialPlayer artificialPlayer = new ArtificialPlayer();
+
+        artificialPlayer.setMyAttackWeight(0.9);
+        artificialPlayer.setMyHealthWeight(0.9);
+        artificialPlayer.setEnemyAttackWeight(1.0);
+        artificialPlayer.setEnemyHealthWeight(1.0);
+        artificialPlayer.setTauntWeight(1.0);
+        artificialPlayer.setMyHeroHealthWeight(0.1);
+        artificialPlayer.setEnemyHeroHealthWeight(0.1);
+        artificialPlayer.setManaWeight(0.1);
+        artificialPlayer.setMyNumMinionsWeight(0.5);
+        artificialPlayer.setEnemyNumMinionsWeight(0.5);
+        artificialPlayer.setSpellDamageAddWeight(0.0);
+        artificialPlayer.setSpellDamageMultiplierWeight(0.5);
+        artificialPlayer.setMyDivineShieldWeight(0.0);
+        artificialPlayer.setEnemyDivineShieldWeight(0.0);
+
+        artificialPlayer.setMyWeaponWeight(0.5);
+        artificialPlayer.setEnemyWeaponWeight(0.5);
+
+        return artificialPlayer;
+    }
+
+
 	/**
 	 * Constructor
 	 * 
@@ -132,36 +93,35 @@ public class ArtificialPlayer {
 	public ArtificialPlayer(Path aiParamFile) throws IOException, HSInvalidParamFileException {
 		ParamFile pFile = new ParamFile(aiParamFile);
 		try {
-			my_wAttack_ = pFile.getDouble("w_a");
-			my_wHealth_ = pFile.getDouble("w_h");
-			enemy_wAttack_ = pFile.getDouble("wt_a");
-			enemy_wHealth_ = pFile.getDouble("wt_h");
-			wTaunt_ = pFile.getDouble("w_taunt");
-			my_wHeroHealth_ = pFile.getDouble("w_health");
-			enemy_wHeroHealth_ = pFile.getDouble("wt_health");
+			myAttackWeight = pFile.getDouble("w_a");
+			myHealthWeight = pFile.getDouble("w_h");
+			enemyAttackWeight = pFile.getDouble("wt_a");
+			enemyHealthWeight = pFile.getDouble("wt_h");
+			tauntWeight = pFile.getDouble("w_taunt");
+			myHeroHealthWeight = pFile.getDouble("w_health");
+			enemyHeroHealthWeight = pFile.getDouble("wt_health");
 
-			my_wNumMinions_ = pFile.getDouble("w_num_minions");
-			enemy_wNumMinions_ = pFile.getDouble("wt_num_minions");
+			myNumMinionsWeight = pFile.getDouble("w_num_minions");
+			enemyNumMinionsWeight = pFile.getDouble("wt_num_minions");
 
 			//The following two have default values for now... 
 			//These are rather arcane parameters, so please understand 
 			//them before attempting to change them. 
-			wSd_mult_ = pFile.getDouble("w_sd_mult", 1.0);
-			wSd_add_ = pFile.getDouble("w_sd_add", 0.9);
+			spellDamageMultiplierWeight = pFile.getDouble("w_sd_mult", 1.0);
+			spellDamageAddWeight = pFile.getDouble("w_sd_add", 0.9);
 
 			//Divine Shield defualts to 0 for now
-			my_wDivineShield_ = pFile.getDouble("w_divine_shield", 0.0);
-			enemy_wDivineShield_ = pFile.getDouble("wt_divine_shield", 0.0);
+			myDivineShieldWeight = pFile.getDouble("w_divine_shield", 0.0);
+			enemyDivineShieldWeight = pFile.getDouble("wt_divine_shield", 0.0);
 			
 			//weapon score for the hero
-			my_wWeapon_ = pFile.getDouble("w_weapon", 0.5);
-			enemy_wWeapon_ = pFile.getDouble("wt_weapon", 0.5);
+			myWeaponWeight = pFile.getDouble("w_weapon", 0.5);
+			enemyWeaponWeight = pFile.getDouble("wt_weapon", 0.5);
 			
 			//charge model score
-			my_wCharge_ = pFile.getDouble("w_charge", 0.0);
-			enemy_wCharge_ = pFile.getDouble("wt_charge", 0.0);
+			myChargeWeight = pFile.getDouble("w_charge", 0.0);
 
-			wMana_ = pFile.getDouble("w_mana", 0.1);
+			manaWeight = pFile.getDouble("w_mana", 0.1);
 			
 			useSparseBoardStateFactory_ = pFile.getBoolean("use_sparse_board_state_factory", true);
 			
@@ -188,20 +148,20 @@ public class ArtificialPlayer {
 	public double cardInHandScore(Card card) {
 		double theScore = 0.0;
 		if (card instanceof SpellDamage) {
-			theScore += ((SpellDamage)card).getAttack() * wSd_mult_ + wSd_add_;
+			theScore += ((SpellDamage)card).getAttack() * spellDamageMultiplierWeight + spellDamageAddWeight;
 		} else if (card instanceof Minion) {
 			//Charge modeling.  Charge's value primarily comes from the fact that it can be used immediately upon placing it.
 			//After the card is placed, it's really just like any other minion, except maybe for small value in bouncing it.
 			//So, the additional score for charge minions should really only apply when it is still in the hand.
 			Minion minion = (Minion)card;
-			theScore += card.getMana() * wMana_ + (minion.getCharge() ? my_wCharge_ : 0.0);
+			theScore += card.getMana() * manaWeight + (minion.getCharge() ? myChargeWeight : 0.0);
 		} else
-			theScore += card.getMana() * wMana_;
+			theScore += card.getMana() * manaWeight;
 		return theScore;
 	}
 	
 	public double heroHealthScore_p0(double heroHealth, double heroArmor) {
-		double toRet = my_wHeroHealth_ * (heroHealth + heroArmor);
+		double toRet = myHeroHealthWeight * (heroHealth + heroArmor);
 		if (heroHealth <= 0) {
 			//dead enemy hero is a very good thing
 			toRet -= 100000000.0;
@@ -210,7 +170,7 @@ public class ArtificialPlayer {
 	}
 	
 	public double heroHealthScore_p1(double heroHealth, double heroArmor) {
-		double toRet = -enemy_wHeroHealth_ * (heroHealth + heroArmor);
+		double toRet = -enemyHeroHealthWeight * (heroHealth + heroArmor);
 		if (heroHealth <= 0) {
 			//dead enemy hero is a very good thing
 			toRet += 100000.0;
@@ -239,26 +199,26 @@ public class ArtificialPlayer {
 		//my board score
 		double myScore = 0.0;
 		for (final Minion minion: myBoardCards) {
-			myScore += minion.getAttack() * my_wAttack_;
-			myScore += minion.getTotalHealth() * my_wHealth_;
-			myScore += (minion.getTaunt() ? 1.0 : 0.0) * wTaunt_;
+			myScore += minion.getAttack() * myAttackWeight;
+			myScore += minion.getTotalHealth() * myHealthWeight;
+			myScore += (minion.getTaunt() ? 1.0 : 0.0) * tauntWeight;
 			if (minion.getDivineShield())
-                myScore += (minion.getAttack() + minion.getTotalHealth()) * my_wDivineShield_;
+                myScore += (minion.getAttack() + minion.getTotalHealth()) * myDivineShieldWeight;
 		}
 				
 		//opponent board score
 		double opScore = 0.0;
 		for (final Minion minion: opBoardCards) {
-			opScore += minion.getAttack() * enemy_wAttack_;
-			opScore += minion.getTotalHealth() * enemy_wHealth_;
-			opScore += (minion.getTaunt() ? 1.0 : 0.0) * wTaunt_;
-			if (minion.getDivineShield()) opScore += (minion.getAttack() + minion.getTotalHealth()) * enemy_wDivineShield_;
+			opScore += minion.getAttack() * enemyAttackWeight;
+			opScore += minion.getTotalHealth() * enemyHealthWeight;
+			opScore += (minion.getTaunt() ? 1.0 : 0.0) * tauntWeight;
+			if (minion.getDivineShield()) opScore += (minion.getAttack() + minion.getTotalHealth()) * enemyDivineShieldWeight;
 		}
 		
 		//weapons
 		double weaponScore = 0.0;
-		weaponScore += board.getHero_p0().getAttack() * board.getHero_p0().getWeaponCharge() * my_wWeapon_;
-		weaponScore -= board.getHero_p1().getAttack() * board.getHero_p1().getWeaponCharge() * enemy_wWeapon_;
+		weaponScore += board.getHero_p0().getAttack() * board.getHero_p0().getWeaponCharge() * myWeaponWeight;
+		weaponScore -= board.getHero_p1().getAttack() * board.getHero_p1().getWeaponCharge() * enemyWeaponWeight;
 		
 		//my cards.  The more cards that I have, the better
 		double handScore = 0.0;
@@ -273,8 +233,8 @@ public class ArtificialPlayer {
 		
 		//the more minions you have, the better.  The less minions the enemy has, the better
 		double minionScore = 0.0;
-		minionScore += my_wNumMinions_ * (board.getNumMinions_p0());
-		minionScore -= enemy_wNumMinions_ * (board.getNumMinions_p1());
+		minionScore += myNumMinionsWeight * (board.getNumMinions_p0());
+		minionScore -= enemyNumMinionsWeight * (board.getNumMinions_p1());
 		
 		double score = myScore - opScore + handScore + heroScore + minionScore + weaponScore;
 		
@@ -341,4 +301,139 @@ public class ArtificialPlayer {
 		return bestPlay.data_;
 	}
 
+    public double getMyChargeWeight() {
+        return myChargeWeight;
+    }
+
+    public void setMyChargeWeight(double myChargeWeight) {
+        this.myChargeWeight = myChargeWeight;
+    }
+
+    public double getMyAttackWeight() {
+        return myAttackWeight;
+    }
+
+    public void setMyAttackWeight(double myAttackWeight) {
+        this.myAttackWeight = myAttackWeight;
+    }
+
+    public double getMyHealthWeight() {
+        return myHealthWeight;
+    }
+
+    public void setMyHealthWeight(double myHealthWeight) {
+        this.myHealthWeight = myHealthWeight;
+    }
+
+    public double getEnemyAttackWeight() {
+        return enemyAttackWeight;
+    }
+
+    public void setEnemyAttackWeight(double enemyAttackWeight) {
+        this.enemyAttackWeight = enemyAttackWeight;
+    }
+
+    public double getEnemyHealthWeight() {
+        return enemyHealthWeight;
+    }
+
+    public void setEnemyHealthWeight(double enemyHealthWeight) {
+        this.enemyHealthWeight = enemyHealthWeight;
+    }
+
+    public double getMyHeroHealthWeight() {
+        return myHeroHealthWeight;
+    }
+
+    public void setMyHeroHealthWeight(double myHeroHealthWeight) {
+        this.myHeroHealthWeight = myHeroHealthWeight;
+    }
+
+    public double getEnemyHeroHealthWeight() {
+        return enemyHeroHealthWeight;
+    }
+
+    public void setEnemyHeroHealthWeight(double enemyHeroHealthWeight) {
+        this.enemyHeroHealthWeight = enemyHeroHealthWeight;
+    }
+
+    public double getTauntWeight() {
+        return tauntWeight;
+    }
+
+    public void setTauntWeight(double tauntWeight) {
+        this.tauntWeight = tauntWeight;
+    }
+
+    public double getManaWeight() {
+        return manaWeight;
+    }
+
+    public void setManaWeight(double manaWeight) {
+        this.manaWeight = manaWeight;
+    }
+
+    public double getMyNumMinionsWeight() {
+        return myNumMinionsWeight;
+    }
+
+    public void setMyNumMinionsWeight(double myNumMinionsWeight) {
+        this.myNumMinionsWeight = myNumMinionsWeight;
+    }
+
+    public double getEnemyNumMinionsWeight() {
+        return enemyNumMinionsWeight;
+    }
+
+    public void setEnemyNumMinionsWeight(double enemyNumMinionsWeight) {
+        this.enemyNumMinionsWeight = enemyNumMinionsWeight;
+    }
+
+    public double getSpellDamageAddWeight() {
+        return spellDamageAddWeight;
+    }
+
+    public void setSpellDamageAddWeight(double spellDamageAddWeight) {
+        this.spellDamageAddWeight = spellDamageAddWeight;
+    }
+
+    public double getSpellDamageMultiplierWeight() {
+        return spellDamageMultiplierWeight;
+    }
+
+    public void setSpellDamageMultiplierWeight(double spellDamageMultiplierWeight) {
+        this.spellDamageMultiplierWeight = spellDamageMultiplierWeight;
+    }
+
+    public double getMyDivineShieldWeight() {
+        return myDivineShieldWeight;
+    }
+
+    public void setMyDivineShieldWeight(double myDivineShieldWeight) {
+        this.myDivineShieldWeight = myDivineShieldWeight;
+    }
+
+    public double getEnemyDivineShieldWeight() {
+        return enemyDivineShieldWeight;
+    }
+
+    public void setEnemyDivineShieldWeight(double enemyDivineShieldWeight) {
+        this.enemyDivineShieldWeight = enemyDivineShieldWeight;
+    }
+
+    public double getMyWeaponWeight() {
+        return myWeaponWeight;
+    }
+
+    public void setMyWeaponWeight(double myWeaponWeight) {
+        this.myWeaponWeight = myWeaponWeight;
+    }
+
+    public double getEnemyWeaponWeight() {
+        return enemyWeaponWeight;
+    }
+
+    public void setEnemyWeaponWeight(double enemyWeaponWeight) {
+        this.enemyWeaponWeight = enemyWeaponWeight;
+    }
 }

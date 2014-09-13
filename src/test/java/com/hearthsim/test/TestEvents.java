@@ -5,7 +5,6 @@ import com.hearthsim.exception.HSException;
 import com.hearthsim.util.boardstate.BoardState;
 import com.hearthsim.util.tree.HearthTreeNode;
 import org.junit.Before;
-import org.junit.Test;
 
 public class TestEvents {
 
@@ -30,13 +29,6 @@ public class TestEvents {
 		board.data_.placeMinion(1, minion1_0);
 		board.data_.placeMinion(1, minion1_1);
 				
-	}
-	
-	
-	@Test
-	public void test0() {
-		
-
 	}
 
 }

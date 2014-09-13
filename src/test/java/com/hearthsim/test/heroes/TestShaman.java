@@ -219,24 +219,9 @@ public class TestShaman {
 		assertEquals(cn3.data_.getMinion_p1(0).getTotalAttack(), 2);
 		assertEquals(cn3.data_.getMinion_p1(1).getTotalAttack(), 7);
 		 
-		ArtificialPlayer ai0 = new ArtificialPlayer(
-				0.9,
-				0.9,
-				1.0,
-				1.0,
-				1.0,
-				0.1,
-				0.1,
-				0.1,
-				0.5,
-				0.5,
-				0.0,
-				0.5,
-				0.0,
-				0.0
-				);
-		
+
 		RandomEffectNode rn = (RandomEffectNode)ret;
+        ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
 		double score = rn.weightedAverageScore(deck, ai0);
 		
 		log.info("score = " + score);
@@ -246,26 +231,11 @@ public class TestShaman {
 
 	@Test
 	public void test1() throws HSException {
-		 
-		ArtificialPlayer ai0 = new ArtificialPlayer(
-				0.9,
-				0.9,
-				1.0,
-				1.0,
-				1.0,
-				0.1,
-				0.1,
-				0.1,
-				0.5,
-				0.5,
-				0.0,
-				0.5,
-				0.0,
-				0.0
-				);
+
 		
 		Player player0 = new Player("player0", new Shaman(), deck);
 		Player player1 = new Player("player1", new Hero(), deck);
+        ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
 		BoardState resBoard = ai0.playTurn(0, board.data_, player0, player1, 200000000);
 
 		assertEquals(resBoard.getMana_p0(), 6);
