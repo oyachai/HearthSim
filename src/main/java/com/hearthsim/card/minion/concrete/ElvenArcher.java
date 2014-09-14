@@ -6,6 +6,7 @@ import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
+import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.factory.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -154,7 +155,7 @@ public class ElvenArcher extends Minion {
 				this.deathrattleAction_,
 				this.attackAction_,
 				this.isInHand_,
-				this.hasBeenUsed_);
+				this.hasBeenUsed);
 	}
 	
 	/**
@@ -163,16 +164,16 @@ public class ElvenArcher extends Minion {
 	 * 
 	 * Battlecry: Deal 1 damage to a chosen target
 	 * 
-	 * @param thisCardIndex The index (position) of the card in the hand
-	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
-	 * @param minionIndex The index of the target minion.
-	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-	 * 
-	 * @return The boardState is manipulated and returned
+	 *
+     *
+     * @param side
+     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+     *
+     * @return The boardState is manipulated and returned
 	 */
 	@Override
 	public HearthTreeNode use_core(
-			int targetPlayerIndex,
+			PlayerSide side,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -180,22 +181,22 @@ public class ElvenArcher extends Minion {
 			boolean singleRealizationOnly)
 		throws HSException
 	{	
-		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
 
 			{
 				HearthTreeNode newState = new HearthTreeNode((BoardModel)boardState.data_.deepCopy());
-				newState = newState.data_.getHero_p0().takeDamage((byte)1, 0, 0, newState, deckPlayer0, deckPlayer1, false, false);
+				newState = newState.data_.getCurrentPlayerHero().takeDamage((byte)1, PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, newState, deckPlayer0, deckPlayer1, false, false);
 				toRet.addChild(newState);
 			}
 
 			{
-				for (int index = 0; index < boardState.data_.getNumMinions_p0(); ++index) {
-					if (boardState.data_.getMinion_p0(index) == this)
+				for (int index = 0; index < PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getNumMinions(); ++index) {
+					if (PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions().get(index) == this)
 						continue;
 					HearthTreeNode newState = new HearthTreeNode((BoardModel)boardState.data_.deepCopy());
-					Minion minion = newState.data_.getMinion_p0(index);
-					newState = minion.takeDamage((byte)1, 0, 0, newState, deckPlayer0, deckPlayer1, false, true);
+					Minion minion = PlayerSide.CURRENT_PLAYER.getPlayer(newState).getMinions().get(index);
+					newState = minion.takeDamage((byte)1, PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, newState, deckPlayer0, deckPlayer1, false, true);
 					newState = BoardStateFactoryBase.handleDeadMinions(newState, deckPlayer0, deckPlayer1);
 					toRet.addChild(newState);
 				}
@@ -203,15 +204,15 @@ public class ElvenArcher extends Minion {
 
 			{
 				HearthTreeNode newState = new HearthTreeNode((BoardModel)boardState.data_.deepCopy());
-				newState = newState.data_.getHero_p1().takeDamage((byte)1, 0, 1, newState, deckPlayer0, deckPlayer1, false, false);
+				newState = newState.data_.getWaitingPlayerHero().takeDamage((byte)1, PlayerSide.CURRENT_PLAYER, PlayerSide.WAITING_PLAYER, newState, deckPlayer0, deckPlayer1, false, false);
 				toRet.addChild(newState);
 			}
 
 			{
-				for (int index = 0; index < boardState.data_.getNumMinions_p1(); ++index) {		
+				for (int index = 0; index < PlayerSide.WAITING_PLAYER.getPlayer(toRet).getNumMinions(); ++index) {
 					HearthTreeNode newState = new HearthTreeNode((BoardModel)boardState.data_.deepCopy());
-					Minion minion = newState.data_.getMinion_p1(index);
-					newState = minion.takeDamage((byte)1, 0, 1, newState, deckPlayer0, deckPlayer1, false, true);
+					Minion minion = PlayerSide.WAITING_PLAYER.getPlayer(newState).getMinions().get(index);
+					newState = minion.takeDamage((byte)1, PlayerSide.CURRENT_PLAYER, PlayerSide.WAITING_PLAYER, newState, deckPlayer0, deckPlayer1, false, true);
 					newState = BoardStateFactoryBase.handleDeadMinions(newState, deckPlayer0, deckPlayer1);
 					toRet.addChild(newState);
 				}

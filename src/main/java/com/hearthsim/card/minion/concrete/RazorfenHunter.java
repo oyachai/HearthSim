@@ -5,6 +5,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 
@@ -151,7 +152,7 @@ public class RazorfenHunter extends Minion {
 				this.deathrattleAction_,
 				this.attackAction_,
 				this.isInHand_,
-				this.hasBeenUsed_);
+				this.hasBeenUsed);
 	}
 	
 	
@@ -161,16 +162,16 @@ public class RazorfenHunter extends Minion {
 	 * 
 	 * Battlecry: Summons a 1/1 Boar
 	 * 
-	 * @param thisCardIndex The index (position) of the card in the hand
-	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
-	 * @param minionIndex The index of the target minion.
-	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-	 * 
-	 * @return The boardState is manipulated and returned
+	 *
+     *
+     * @param side
+     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+     *
+     * @return The boardState is manipulated and returned
 	 */
 	@Override
 	public HearthTreeNode use_core(
-			int targetPlayerIndex,
+			PlayerSide side,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -179,22 +180,22 @@ public class RazorfenHunter extends Minion {
 		throws HSException
 	{
 		
-		if (hasBeenUsed_) {
+		if (hasBeenUsed) {
 			//Card is already used, nothing to do
 			return null;
 		}
 		
-		if (targetPlayerIndex == 1)
+		if (isWaitingPlayer(side))
 			return null;
 		
-		if (boardState.data_.getNumMinions_p0() >= 7)
+		if (currentPlayerBoardFull(boardState))
 			return null;
 		
-		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		
-		if (toRet != null && toRet.data_.getNumMinions_p0() < 7) {
+		if (toRet != null && PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getNumMinions() < 7) {
 			Minion newMinion = new Boar();
-			newMinion.summonMinion(targetPlayerIndex, this, boardState, deckPlayer0, deckPlayer1, false);
+			newMinion.summonMinion(side, this, boardState, deckPlayer0, deckPlayer1, false);
 		}
 		return toRet;
 	}

@@ -6,6 +6,7 @@ import com.hearthsim.card.minion.Murloc;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -154,7 +155,7 @@ public class ColdlightOracle extends Murloc {
 				this.deathrattleAction_,
 				this.attackAction_,
 				this.isInHand_,
-				this.hasBeenUsed_);
+				this.hasBeenUsed);
 	}
 	
 	/**
@@ -163,16 +164,16 @@ public class ColdlightOracle extends Murloc {
 	 * 
 	 * Battlecry: Each player draws 2 cards
 	 * 
-	 * @param thisCardIndex The index (position) of the card in the hand
-	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
-	 * @param minionIndex The index of the target minion.
-	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-	 * 
-	 * @return The boardState is manipulated and returned
+	 *
+     *
+     * @param side
+     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+     *
+     * @return The boardState is manipulated and returned
 	 */
 	@Override
 	public HearthTreeNode use_core(
-			int targetPlayerIndex,
+			PlayerSide side,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -180,14 +181,14 @@ public class ColdlightOracle extends Murloc {
 			boolean singleRealizationOnly)
 		throws HSException
 	{		
-		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
 			if (toRet instanceof CardDrawNode)
 				((CardDrawNode) toRet).addNumCardsToDraw(2);
 			else
 				toRet = new CardDrawNode(toRet, 2); //draw two cards
 			
-			toRet.data_.drawCardFromDeck_p1(deckPlayer1, 2);
+			toRet.data_.drawCardFromWaitingPlayerDeck(deckPlayer1, 2);
 		}
 		return toRet;
 	}

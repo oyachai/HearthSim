@@ -4,6 +4,7 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -46,7 +47,7 @@ public class Druid extends Hero {
 				this.hasAttacked_,
 				this.hasWindFuryAttacked_,
 				this.frozen_,
-				this.hasBeenUsed_
+				this.hasBeenUsed
 				);
 	}
 	
@@ -55,17 +56,19 @@ public class Druid extends Hero {
 	 * 
 	 * Druid: +1 attack this turn and +1 armor
 	 * 
-	 * @param targetPlayerIndex The player index of the target character
-	 * @param targetMinion The target minion
-	 * @param boardState
-	 * @param deckPlayer0
-	 * @param deckPlayer1
-	 * 
-	 * @return
+	 *
+     *
+     * @param targetPlayerSide
+     * @param targetMinion The target minion
+     * @param boardState
+     * @param deckPlayer0
+     * @param deckPlayer1
+     *
+     * @return
 	 */
 	@Override
 	public HearthTreeNode useHeroAbility_core(
-			int targetPlayerIndex,
+			PlayerSide targetPlayerSide,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -73,10 +76,10 @@ public class Druid extends Hero {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (targetMinion instanceof Hero  && targetPlayerIndex == 0) {
-			this.hasBeenUsed_ = true;
+		if (isHero(targetMinion) && targetPlayerSide == PlayerSide.CURRENT_PLAYER) {
+			this.hasBeenUsed = true;
 			boardState.data_.setMana_p0(boardState.data_.getMana_p0() - HERO_ABILITY_COST);
-			Hero target = boardState.data_.getHero_p0();
+			Hero target = boardState.data_.getCurrentPlayerHero();
 			target.setExtraAttackUntilTurnEnd((byte)1);
 			target.setArmor((byte)1);
 			return boardState;

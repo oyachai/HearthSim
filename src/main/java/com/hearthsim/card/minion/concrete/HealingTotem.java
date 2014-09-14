@@ -7,6 +7,7 @@ import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
+import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -153,7 +154,7 @@ public class HealingTotem extends Totem {
 				this.deathrattleAction_,
 				this.attackAction_,
 				this.isInHand_,
-				this.hasBeenUsed_);
+				this.hasBeenUsed);
 	}
 	
 	
@@ -164,15 +165,15 @@ public class HealingTotem extends Totem {
 	 * 
 	 */
 	@Override
-	public BoardModel endTurn(int thisMinionPlayerIndex, BoardModel boardModel, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
-		BoardModel tmpState = super.endTurn(thisMinionPlayerIndex, boardModel, deckPlayer0, deckPlayer1);
-		if (thisMinionPlayerIndex > 0)
+	public BoardModel endTurn(PlayerSide thisMinionPlayerSide, BoardModel boardModel, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+		BoardModel tmpState = super.endTurn(thisMinionPlayerSide, boardModel, deckPlayer0, deckPlayer1);
+		if (isWaitingPlayer(thisMinionPlayerSide))
 			return tmpState;
 		
 		HearthTreeNode toRet = new HearthTreeNode(tmpState);
 	
-		for (Minion minion : toRet.data_.getMinions_p0()) {
-			toRet = minion.takeHeal((byte)1, 0, toRet, deckPlayer0, deckPlayer1);
+		for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
+			toRet = minion.takeHeal((byte)1, PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1);
 		}
 		
 		if (toRet instanceof CardDrawNode) {

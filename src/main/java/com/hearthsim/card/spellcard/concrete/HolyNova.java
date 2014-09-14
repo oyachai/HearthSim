@@ -1,10 +1,10 @@
 package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.Deck;
-import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class HolyNova extends SpellCard {
@@ -30,7 +30,7 @@ public class HolyNova extends SpellCard {
 
 	@Override
 	public Object deepCopy() {
-		return new HolyNova(this.hasBeenUsed_);
+		return new HolyNova(this.hasBeenUsed);
 	}
 
 	/**
@@ -39,16 +39,16 @@ public class HolyNova extends SpellCard {
 	 * 
 	 * Deal 2 damage to all enemy characters and heal all friendly characters by 2
 	 * 
-	 * @param thisCardIndex The index (position) of the card in the hand
-	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
-	 * @param minionIndex The index of the target minion.
-	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-	 * 
-	 * @return The boardState is manipulated and returned
+	 *
+     *
+     * @param side
+     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+     *
+     * @return The boardState is manipulated and returned
 	 */
 	@Override
 	protected HearthTreeNode use_core(
-			int targetPlayerIndex,
+			PlayerSide side,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -56,24 +56,24 @@ public class HolyNova extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (targetPlayerIndex == 0) {
+		if (isCurrentPlayer(side)) {
 			return null;
 		}
 		
-		if (!(targetMinion instanceof Hero)) {
+		if (isNotHero(targetMinion)) {
 			return null;
 		}
 		
-		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
-			toRet = toRet.data_.getHero_p0().takeHeal((byte)2, 0, toRet, deckPlayer0, deckPlayer1);
-			for (Minion minion : toRet.data_.getMinions_p0()) {
-				toRet = minion.takeHeal((byte)2, 0, toRet, deckPlayer0, deckPlayer1);
+			toRet = toRet.data_.getCurrentPlayerHero().takeHeal((byte)2, PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1);
+			for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
+				toRet = minion.takeHeal((byte)2, PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1);
 			}
 			
-			toRet = toRet.data_.getHero_p1().takeDamage((byte)2, 0, 1, toRet, deckPlayer0, deckPlayer1, true, false);
-			for (Minion minion : toRet.data_.getMinions_p1()) {
-				toRet = minion.takeDamage((byte)2, 0, 1, toRet, deckPlayer0, deckPlayer1, true, false);
+			toRet = toRet.data_.getWaitingPlayerHero().takeDamage((byte)2, PlayerSide.CURRENT_PLAYER, PlayerSide.WAITING_PLAYER, toRet, deckPlayer0, deckPlayer1, true, false);
+			for (Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
+				toRet = minion.takeDamage((byte)2, PlayerSide.CURRENT_PLAYER, PlayerSide.WAITING_PLAYER, toRet, deckPlayer0, deckPlayer1, true, false);
 			}
 		}
 		return toRet;

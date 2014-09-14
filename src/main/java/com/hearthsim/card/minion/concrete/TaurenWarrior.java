@@ -151,7 +151,7 @@ public class TaurenWarrior extends MinionWithEnrage {
 				this.attackAction_,
 				this.enraged_,
 				this.isInHand_,
-				this.hasBeenUsed_);
+				this.hasBeenUsed);
 	}
 	
 

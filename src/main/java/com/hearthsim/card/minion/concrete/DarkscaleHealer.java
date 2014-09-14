@@ -5,6 +5,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class DarkscaleHealer extends Minion {
@@ -151,7 +152,7 @@ public class DarkscaleHealer extends Minion {
 				this.deathrattleAction_,
 				this.attackAction_,
 				this.isInHand_,
-				this.hasBeenUsed_);
+				this.hasBeenUsed);
 	}
 	
 	
@@ -161,16 +162,16 @@ public class DarkscaleHealer extends Minion {
 	 * 
 	 * Battlecry: Heals friendly characters for 2
 	 * 
-	 * @param thisCardIndex The index (position) of the card in the hand
-	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
-	 * @param minionIndex The index of the target minion.
-	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-	 * 
-	 * @return The boardState is manipulated and returned
+	 *
+     *
+     * @param side
+     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+     *
+     * @return The boardState is manipulated and returned
 	 */
 	@Override
 	public HearthTreeNode use_core(
-			int targetPlayerIndex,
+			PlayerSide side,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -179,23 +180,23 @@ public class DarkscaleHealer extends Minion {
 		throws HSException
 	{
 		
-		if (hasBeenUsed_) {
+		if (hasBeenUsed) {
 			//Card is already used, nothing to do
 			return null;
 		}
 		
-		if (targetPlayerIndex == 1)
+		if (isWaitingPlayer(side))
 			return null;
 		
-		if (boardState.data_.getNumMinions_p0() >= 7)
+		if (currentPlayerBoardFull(boardState))
 			return null;
 		
 		HearthTreeNode toRet = boardState;
-		toRet = toRet.data_.getHero_p0().takeHeal((byte)2, 0, toRet, deckPlayer0, deckPlayer1);
-		for (Minion minion : toRet.data_.getMinions_p0()) {
-			toRet = minion.takeHeal((byte)2, 0, toRet, deckPlayer0, deckPlayer1);
+		toRet = toRet.data_.getCurrentPlayerHero().takeHeal((byte)2, PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1);
+		for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
+			toRet = minion.takeHeal((byte)2, PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1);
 		}
 		
-		return super.use_core(targetPlayerIndex, targetMinion, toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
+		return super.use_core(side, targetMinion, toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
 	}
 }

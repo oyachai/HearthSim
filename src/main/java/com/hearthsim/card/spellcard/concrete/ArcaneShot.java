@@ -14,7 +14,7 @@ public class ArcaneShot extends SpellDamage {
 	
 	@Override
 	public Object deepCopy() {
-		return new ArcaneShot(this.hasBeenUsed_);
+		return new ArcaneShot(this.hasBeenUsed);
 	}
 	
 }

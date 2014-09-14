@@ -5,6 +5,9 @@ import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.PlayerModel;
+import com.hearthsim.model.PlayerSide;
+import com.hearthsim.util.MinionList;
 import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -31,7 +34,7 @@ public class BattleRage extends SpellCard {
 
 	@Override
 	public Object deepCopy() {
-		return new BattleRage(this.hasBeenUsed_);
+		return new BattleRage(this.hasBeenUsed);
 	}
 	
 	/**
@@ -49,7 +52,7 @@ public class BattleRage extends SpellCard {
 	 */
 	@Override
 	protected HearthTreeNode use_core(
-			int targetPlayerIndex,
+			PlayerSide targetPlayerSide,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -57,14 +60,17 @@ public class BattleRage extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (targetPlayerIndex == 1 || !(targetMinion instanceof Hero)) {
+		if (isWaitingPlayer(targetPlayerSide) || isNotHero(targetMinion)) {
 			return null;
 		}
 
-		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+		HearthTreeNode toRet = super.use_core(targetPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
-			int numCardsToDraw = toRet.data_.getHero_p0().getTotalHealth() < toRet.data_.getHero_p0().getTotalMaxHealth() ? 1 : 0;
-			for (Minion minion : toRet.data_.getMinions_p0()) {
+            PlayerModel playerModel = targetPlayerSide.getPlayer(toRet);
+            Hero hero = playerModel.getHero();
+            MinionList minions = playerModel.getMinions();
+            int numCardsToDraw = hero.getTotalHealth() < hero.getTotalMaxHealth() ? 1 : 0;
+			for (Minion minion : minions) {
 				numCardsToDraw += minion.getTotalHealth() < minion.getTotalMaxHealth() ? 1 : 0;
 			}
 			if (toRet instanceof CardDrawNode) {

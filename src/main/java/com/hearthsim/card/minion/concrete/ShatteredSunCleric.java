@@ -6,6 +6,7 @@ import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
+import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 
@@ -153,7 +154,7 @@ public class ShatteredSunCleric extends Minion {
 				this.deathrattleAction_,
 				this.attackAction_,
 				this.isInHand_,
-				this.hasBeenUsed_);
+				this.hasBeenUsed);
 	}
 	
 	/**
@@ -175,16 +176,16 @@ public class ShatteredSunCleric extends Minion {
 	 * 
 	 * Battlecry: Give a friendly minion +1/+1
 	 * 
-	 * @param thisCardIndex The index (position) of the card in the hand
-	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
-	 * @param minionIndex The index of the target minion.
-	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-	 * 
-	 * @return The boardState is manipulated and returned
+	 *
+     *
+     * @param side
+     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+     *
+     * @return The boardState is manipulated and returned
 	 */
 	@Override
 	public HearthTreeNode use_core(
-			int targetPlayerIndex,
+			PlayerSide side,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -193,14 +194,14 @@ public class ShatteredSunCleric extends Minion {
 		throws HSException
 	{
 		//A generic card does nothing except for consuming mana
-		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		
 		if (toRet != null) {
-			for (int index = 0; index < toRet.data_.getNumMinions_p0(); ++index) {
-				if (index != toRet.data_.getMinions_p0().indexOf(this)) {
+			for (int index = 0; index < PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getNumMinions(); ++index) {
+				if (index != PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions().indexOf(this)) {
 					HearthTreeNode newState = toRet.addChild(new HearthTreeNode((BoardModel)toRet.data_.deepCopy()));
-					newState.data_.getMinion_p0(index).setAttack((byte)(newState.data_.getMinion_p0(index).getAttack() + 1));
-					newState.data_.getMinion_p0(index).setHealth((byte)(newState.data_.getMinion_p0(index).getHealth() + 1));
+					PlayerSide.CURRENT_PLAYER.getPlayer(newState).getMinions().get(index).setAttack((byte)(PlayerSide.CURRENT_PLAYER.getPlayer(newState).getMinions().get(index).getAttack() + 1));
+					PlayerSide.CURRENT_PLAYER.getPlayer(newState).getMinions().get(index).setHealth((byte)(PlayerSide.CURRENT_PLAYER.getPlayer(newState).getMinions().get(index).getHealth() + 1));
 				}
 			}
 			return toRet;

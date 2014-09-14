@@ -4,13 +4,12 @@ import com.hearthsim.player.playercontroller.ArtificialPlayer;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.MatteBorder;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import javax.swing.border.MatteBorder;
-import javax.swing.JCheckBox;
 
 public class HSSimulationSettingsFrame extends JDialog {
 

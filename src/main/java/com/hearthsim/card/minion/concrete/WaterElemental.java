@@ -5,6 +5,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 
@@ -152,7 +153,7 @@ public class WaterElemental extends Minion {
 				this.deathrattleAction_,
 				this.attackAction_,
 				this.isInHand_,
-				this.hasBeenUsed_);
+				this.hasBeenUsed);
 	}
 	
 	/**
@@ -161,23 +162,23 @@ public class WaterElemental extends Minion {
 	 * 
 	 * Any minion attacked by this minion is frozen.
 	 * 
-	 * @param targetMinionPlayerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
-	 * @param targetMinion The target minion
-	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-	 * @param deckPlayer0 The deck of player0
-	 * @param deckPlayer0 The deck of player1
-	 * 
-	 * @return The boardState is manipulated and returned
+	 *
+     *
+     * @param targetMinionPlayerSide
+     * @param targetMinion The target minion
+     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+     * @param deckPlayer0 The deck of player0
+     * @return The boardState is manipulated and returned
 	 */
 	protected HearthTreeNode attack_core(
-			int targetMinionPlayerIndex,
+			PlayerSide targetMinionPlayerSide,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
 		throws HSException
 	{
-		HearthTreeNode toRet = super.attack_core(targetMinionPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1);
+		HearthTreeNode toRet = super.attack_core(targetMinionPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1);
 		if (!silenced_ && toRet != null) {
 			targetMinion.setFrozen(true);
 		}

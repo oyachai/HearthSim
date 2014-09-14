@@ -5,6 +5,7 @@ import com.hearthsim.card.minion.Beast;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellDamage;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class KillCommand extends SpellDamage {
@@ -19,7 +20,7 @@ public class KillCommand extends SpellDamage {
 
 	@Override
 	public Object deepCopy() {
-		return new KillCommand(this.hasBeenUsed_);
+		return new KillCommand(this.hasBeenUsed);
 	}
 	
 	/**
@@ -28,16 +29,16 @@ public class KillCommand extends SpellDamage {
 	 * 
 	 * Deals 3 damage.  If you have a beast, deals 5 damage.
 	 * 
-	 * @param thisCardIndex The index (position) of the card in the hand
-	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
-	 * @param minionIndex The index of the target minion.
-	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-	 * 
-	 * @return The boardState is manipulated and returned
+	 *
+     *
+     * @param side
+     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+     *
+     * @return The boardState is manipulated and returned
 	 */
 	@Override
 	protected HearthTreeNode use_core(
-			int targetPlayerIndex,
+			PlayerSide side,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -46,14 +47,14 @@ public class KillCommand extends SpellDamage {
 		throws HSException
 	{
 		boolean haveBeast = false;
-		for (final Minion minion : boardState.data_.getMinions_p0()) {
+		for (final Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(boardState).getMinions()) {
 			haveBeast = haveBeast || minion instanceof Beast;
 		}
 		if (haveBeast)
 			this.damage_ = (byte)5;
 		else
 			this.damage_ = (byte)3;
-		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 
 		return toRet;
 	}
