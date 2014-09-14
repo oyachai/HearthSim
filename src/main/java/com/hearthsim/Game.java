@@ -16,7 +16,6 @@ public class Game {
 	final static int maxTurns_ = 100;
 
     BoardModel boardModel_;
-	PlayerModel[] players_;
     ArtificialPlayer [] ais;
 
 	int curPlayer_;
@@ -32,17 +31,17 @@ public class Game {
 	public Game(PlayerModel playerModel0, PlayerModel playerModel1, ArtificialPlayer ai0, ArtificialPlayer ai1, boolean shufflePlayOrder) {
 		s0_ = 0;
 		s1_ = 1;
+
+        PlayerModel firstPlayer = playerModel0;
         if (shufflePlayOrder && Math.random() > 0.5) {
             s0_ = 1;
             s1_ = 0;
+            firstPlayer = playerModel1;
         }
         log.debug("shuffle play order: {}", shufflePlayOrder);
         log.debug("first player index: {}", s0_);
 
-        players_ = new PlayerModel[2];
-		players_[0] = playerModel0;
-		players_[1] = playerModel1;
-		boardModel_ = new BoardModel(players_[s0_].hero_, players_[s1_].hero_);
+		boardModel_ = new BoardModel(playerModel0, playerModel1, firstPlayer);
 
         this.ais = new ArtificialPlayer[2];
 
@@ -55,66 +54,35 @@ public class Game {
 		curPlayer_ = 0;
 
 		//the first player draws 3 cards
-		boardModel_.placeCard_hand_p0(players_[s0_].drawFromDeck(0));
-		boardModel_.placeCard_hand_p0(players_[s0_].drawFromDeck(1));
-		boardModel_.placeCard_hand_p0(players_[s0_].drawFromDeck(2));
+		boardModel_.placeCard_hand_p0(0);
+		boardModel_.placeCard_hand_p0(1);
+		boardModel_.placeCard_hand_p0(2);
 		boardModel_.setDeckPos_p0(3);
 
 		//the second player draws 4 cards
-		boardModel_.placeCard_hand_p1(players_[s1_].drawFromDeck(0));
-		boardModel_.placeCard_hand_p1(players_[s1_].drawFromDeck(1));
-		boardModel_.placeCard_hand_p1(players_[s1_].drawFromDeck(2));
-		boardModel_.placeCard_hand_p1(players_[s1_].drawFromDeck(3));
+		boardModel_.placeCard_hand_p1(0);
+		boardModel_.placeCard_hand_p1(1);
+		boardModel_.placeCard_hand_p1(2);
+		boardModel_.placeCard_hand_p1(3);
 		boardModel_.placeCard_hand_p1(new TheCoin());
 		boardModel_.setDeckPos_p1(4);
 		
 		GameRecord record = new GameSimpleRecord();
 		record.put(0, s0_, (BoardModel) boardModel_.deepCopy());
 		record.put(0, s1_, (BoardModel) boardModel_.flipPlayers().deepCopy());
-				
-		for (int i = 0; i < maxTurns_; ++i) {
-            log.info("starting turn "+ i);
+
+        GameResult gameResult;
+        for (int turnCount = 0; turnCount < maxTurns_; ++turnCount) {
+            log.info("starting turn " + turnCount);
             long turnStart = System.currentTimeMillis();
 
-            beginTurn(i, boardModel_, players_[s0_], players_[s1_]);
+            gameResult = playTurn(turnCount, record, ais[s0_]);
+            if (gameResult != null)
+                return gameResult;
 
-			if (!boardModel_.isAlive_p0()) {
-				return new GameResult(s0_, s1_, i + 1, record);
-			} else if (!boardModel_.isAlive_p1()) {
-				return new GameResult(s0_, s0_, i + 1, record);
-			}
-
-			boardModel_ = playTurn(i, boardModel_, players_[s0_], players_[s1_], ais[s0_]);
-			endTurn(i, boardModel_, players_[s0_], players_[s1_]);
-
-			record.put(i + 1, s0_, (BoardModel) boardModel_.deepCopy());
-			if (!boardModel_.isAlive_p0()) {
-				return new GameResult(s0_, s1_, i + 1, record);
-			} else if (!boardModel_.isAlive_p1()) {
-				return new GameResult(s0_, s0_, i + 1, record);
-			}
-
-			boardModel_ = boardModel_.flipPlayers();
-
-			beginTurn(i, boardModel_, players_[s1_], players_[s0_]);
-
-			if (!boardModel_.isAlive_p0()) {
-				return new GameResult(s0_, s0_, i + 1, record);
-			} else if (!boardModel_.isAlive_p1()) {
-				return new GameResult(s0_, s1_, i + 1, record);
-			}
-
-			boardModel_ = playTurn(i, boardModel_, players_[s1_], players_[s0_], ais[s1_]);
-			endTurn(i, boardModel_, players_[s1_], players_[s0_]);
-			record.put(i + 1, s1_, (BoardModel) boardModel_.deepCopy());
-
-			if (!boardModel_.isAlive_p0()) {
-				return new GameResult(s0_, s0_, i + 1, record);
-			} else if (!boardModel_.isAlive_p1()) {
-				return new GameResult(s0_, s1_, i + 1, record);
-			}
-
-			boardModel_ = boardModel_.flipPlayers();
+            gameResult = playTurn(turnCount, record, ais[s1_]);
+            if (gameResult != null)
+                return gameResult;
 
             long turnEnd = System.currentTimeMillis();
             long turnDelta = turnEnd - turnStart;
@@ -128,11 +96,42 @@ public class Game {
 		return new GameResult(s0_, -1, 0, record);
 	}
 
-    public void beginTurn(int turn, BoardModel board, PlayerModel playerModel0, PlayerModel playerModel1) throws HSException
-    {
-        board.startTurn(playerModel0.getDeck(), playerModel1.getDeck());
+    private GameResult playTurn(int turnCount, GameRecord record, ArtificialPlayer ai) throws HSException {
+        beginTurn(turnCount, boardModel_);
 
-        Card newCard = playerModel0.drawFromDeck(board.getDeckPos_p0());
+        GameResult gameResult;
+
+        gameResult = checkGameOver(turnCount, record);
+        if (gameResult != null) return gameResult;
+
+        boardModel_ = playAITurn(turnCount, boardModel_, ai);
+        endTurn(boardModel_);
+
+        record.put(turnCount + 1, s0_, (BoardModel) boardModel_.deepCopy());
+
+        gameResult = checkGameOver(turnCount, record);
+        if (gameResult != null) return gameResult;
+
+        boardModel_ = boardModel_.flipPlayers();
+
+        return null;
+    }
+
+    public GameResult checkGameOver(int turnCount, GameRecord record){
+        if (!boardModel_.isAlive_p0()) {
+            return new GameResult(s0_, s1_, turnCount + 1, record);
+        } else if (!boardModel_.isAlive_p1()) {
+            return new GameResult(s0_, s0_, turnCount + 1, record);
+        }
+
+        return null;
+    }
+
+    public void beginTurn(int turn, BoardModel board) throws HSException {
+
+        board.startTurn();
+
+        Card newCard = board.getCurrentPlayer().drawFromDeck(board.getDeckPos_p0());
         if (newCard == null) {
             //fatigue
             byte fatigueDamage = board.getFatigueDamage_p0();
@@ -148,11 +147,11 @@ public class Game {
 
     }
 
-    public BoardModel playTurn(int turn, BoardModel board, PlayerModel playerModel0, PlayerModel playerModel1, ArtificialPlayer ai) throws HSException {
-        return ai.playTurn(turn, board, playerModel0, playerModel1);
+    public BoardModel playAITurn(int turn, BoardModel board, ArtificialPlayer ai) throws HSException {
+        return ai.playTurn(turn, board, board.getCurrentPlayer(), board.getWaitingPlayer());
     }
 
-    public void endTurn(int turn, BoardModel board, PlayerModel playerModel0, PlayerModel playerModel1) throws HSException {
-        board.endTurn(playerModel0.getDeck(), playerModel1.getDeck());
+    public void endTurn(BoardModel board) throws HSException {
+        board.endTurn(board.getCurrentPlayer().getDeck(), board.getWaitingPlayer().getDeck());
     }
 }

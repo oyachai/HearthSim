@@ -7,43 +7,56 @@ import org.json.JSONObject;
 
 public class PlayerModel {
 
-	String name_;
-	public final Hero hero_;
-	final Deck deck_;
-	int mana_;
+	String name;
+	public final Hero hero;
+	final Deck deck;
+	int mana;
 
 	public PlayerModel(String name, Hero hero, Deck deck) {
-		name_ = name;
-		hero_ = hero;
-		deck_ = deck;
+		this.name = name;
+		this.hero = hero;
+		this.deck = deck;
 	}
 	
 	public Card drawFromDeck(int index) {
-		Card card = deck_.drawCard(index);
+		Card card = deck.drawCard(index);
 		if (card == null) {
 			return null;
 		}
 		card.isInHand(true);
 		return card;
 	}
-	
-	public String getName() {
-		return name_;
-	}
-	
+
+
 	public Deck getDeck() {
-		return deck_;
-	}
-	
-	public int getMana() {
-		return mana_;
-	}
-	
-	public void setMana(int mana) {
-		mana_ = mana;
+		return deck;
 	}
 
-	public String toString() {
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Hero getHero() {
+        return hero;
+    }
+
+    public Deck getDeck_() {
+        return deck;
+    }
+
+    public int getMana() {
+        return mana;
+    }
+
+    public void setMana(int mana) {
+        this.mana = mana;
+    }
+
+    public String toString() {
         return new JSONObject(this).toString();
 	}
 }
