@@ -55,9 +55,9 @@ public class CardDrawNode extends StopNode {
 		if (card == null) {
 			byte fatigueDamage = data_.getFatigueDamage_p0();
 			data_.setFatigueDamage_p0((byte)(fatigueDamage + 1));
-			data_.getHero_p0().setHealth((byte)(data_.getHero_p0().getHealth() - fatigueDamage));
+			data_.getCurrentPlayerHero().setHealth((byte)(data_.getCurrentPlayerHero().getHealth() - fatigueDamage));
 		} else {
-			data_.placeCard_hand_p0(card);
+			data_.placeCardHandCurrentPlayer(card);
 			data_.setDeckPos_p0(data_.getDeckPos_p0() + 1);
 		}
 	}
@@ -85,8 +85,8 @@ public class CardDrawNode extends StopNode {
 		averageCardScore = numCardsRemaining <= 0 ? 0.0 : averageCardScore / numCardsRemaining;
 		
 		double toRet = averageCardScore * numCardsToActuallyDraw;
-		int heroHealth = data_.getHero_p0().getHealth();
-		int heroArmor = data_.getHero_p0().getArmor();
+		int heroHealth = data_.getCurrentPlayerHero().getHealth();
+		int heroArmor = data_.getCurrentPlayerHero().getArmor();
 		int armorLeft = heroArmor > totalFatigueDamage ? heroArmor - totalFatigueDamage : 0;
 		int healthLeft = armorLeft > 0 ? heroHealth : heroHealth - (totalFatigueDamage - heroArmor);
 		toRet += ai.heroHealthScore_p0(healthLeft, armorLeft) - ai.heroHealthScore_p0(heroHealth, heroArmor);

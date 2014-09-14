@@ -6,6 +6,7 @@ import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class AldorPeacekeeper extends Minion {
@@ -160,16 +161,15 @@ public class AldorPeacekeeper extends Minion {
 	 * 
 	 * Battlecry: Change an enemy minion's attack to 1
 	 * 
-	 * @param thisCardIndex The index (position) of the card in the hand
-	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
-	 * @param minionIndex The index of the target minion.
-	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-	 * 
-	 * @return The boardState is manipulated and returned
+	 *
+     * @param playerModel
+     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+     *
+     * @return The boardState is manipulated and returned
 	 */
 	@Override
 	public HearthTreeNode use_core(
-			int targetPlayerIndex,
+			PlayerModel playerModel,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -178,13 +178,13 @@ public class AldorPeacekeeper extends Minion {
 		throws HSException
 	{
 		//A generic card does nothing except for consuming mana
-		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+		HearthTreeNode toRet = super.use_core(playerModel, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		
 		if (toRet != null) {
-			for (int index = 0; index < toRet.data_.getNumMinions_p1(); ++index) {
-				if (index != toRet.data_.getMinions_p1().indexOf(this)) {
+			for (int index = 0; index < toRet.data_.getWaitingPlayer().getNumMinions(); ++index) {
+				if (index != toRet.data_.getWaitingPlayer().getMinions().indexOf(this)) {
 					HearthTreeNode newState = toRet.addChild(new HearthTreeNode((BoardModel)toRet.data_.deepCopy()));
-					newState.data_.getMinion_p1(index).setAttack((byte)1);
+					newState.data_.getWaitingPlayer().getMinions().get(index).setAttack((byte)1);
 				}
 			}
 			return toRet;

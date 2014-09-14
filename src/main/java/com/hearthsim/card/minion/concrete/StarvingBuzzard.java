@@ -6,6 +6,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -162,29 +163,28 @@ public class StarvingBuzzard extends Beast {
 	 * 
 	 * The buzzard draws a card whenever a Beast is placed on the battlefield
 	 * 
-	 * @param thisMinionPlayerIndex The player index of this minion
-	 * @param summonedMinionPlayerIndex The index of the summoned minion's player.
-	 * @param summonedMinion The summoned minion
-	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-	 * @param deckPlayer0 The deck of player0
-	 * @param deckPlayer0 The deck of player1
-	 * 
-	 * @return The boardState is manipulated and returned
+	 *
+     * @param thisMinionPlayerModel
+     * @param summonedMinionPlayerModel
+     *@param summonedMinion The summoned minion
+     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+     * @param deckPlayer0 The deck of player0    @return The boardState is manipulated and returned
 	 */
 	public HearthTreeNode minionSummonedEvent(
-			int thisMinionPlayerIndex,
-			int summonedMinionPlayerIndex,
+			PlayerModel thisMinionPlayerModel,
+			PlayerModel summonedMinionPlayerModel,
 			Minion summonedMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
-		if (summonedMinionPlayerIndex == 1 || thisMinionPlayerIndex == 1)
+        PlayerModel waitingPlayer = boardState.data_.getWaitingPlayer();
+        if (summonedMinionPlayerModel == waitingPlayer || thisMinionPlayerModel == waitingPlayer)
 			return boardState;
 		
-		HearthTreeNode toRet = super.minionSummonedEvent(thisMinionPlayerIndex, summonedMinionPlayerIndex, summonedMinion, boardState, deckPlayer0, deckPlayer1);
-		if (toRet.data_.getMinion_p0(summonedMinionPlayerIndex - 1) instanceof Beast) {
+		HearthTreeNode toRet = super.minionSummonedEvent(thisMinionPlayerModel, summonedMinionPlayerModel, summonedMinion, boardState, deckPlayer0, deckPlayer1);
+		if (summonedMinion instanceof Beast) { //todo: this might be wrong..
 			if (toRet instanceof CardDrawNode) {
 				((CardDrawNode) toRet).addNumCardsToDraw(1);
 			} else {

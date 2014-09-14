@@ -38,14 +38,14 @@ public class TestTaunt {
 
 		Minion minion0_0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
 		
-		board.placeMinion(0, minion0_0);
+		board.placeMinion(board.getCurrentPlayer(), minion0_0);
 				
 	}
 	
 	@Test
 	public void test0() throws HSException {
 		Minion minion = new Minion("" + 0, mana, attack0, health1, attack0, (byte)0, (byte)0, health1, health1, (byte)0, (byte)0, true, false, false, false, false, false, false, false, false, false, false, false, false, false, null, null, false, false);
-		board.placeMinion(1, minion);
+		board.placeMinion(board.getWaitingPlayer(), minion);
 		
 		BoardStateFactoryBase factory = new BoardStateFactoryBase(null, null);
 		HearthTreeNode tree = new HearthTreeNode(board);
@@ -66,8 +66,8 @@ public class TestTaunt {
 	public void test1() throws HSException {
 		Minion minion1 = new Minion("" + 0, mana, attack0, health1, attack0, (byte)0, (byte)0, health1, health1, (byte)0, (byte)0, true, false, false, false, false, false, false, false, false, false, false, false, false, false, null, null, false, false);
 		Minion minion2 = new Minion("" + 0, mana, attack0, health1, attack0, (byte)0, (byte)0, health1, health1, (byte)0, (byte)0, false, false, false, false, false, false, false, false, false, false, false, false, false, false, null, null, false, false);
-		board.placeMinion(1, minion1);
-		board.placeMinion(1, minion2);
+		board.placeMinion(board.getWaitingPlayer(), minion1);
+		board.placeMinion(board.getWaitingPlayer(), minion2);
 		
 		BoardStateFactoryBase factory = new BoardStateFactoryBase(null, null);
 		HearthTreeNode tree = new HearthTreeNode(board);
@@ -89,9 +89,9 @@ public class TestTaunt {
 		Minion minion1 = new Minion("" + 0, mana, attack0, health1, attack0, (byte)0, (byte)0, health1, health1, (byte)0, (byte)0, true, false, false, false, false, false, false, false, false, false, false, false, false, false, null, null, false, false);
 		Minion minion2 = new Minion("" + 0, mana, attack0, health1, attack0, (byte)0, (byte)0, health1, health1, (byte)0, (byte)0, false, false, false, false, false, false, false, false, false, false, false, false, false, false, null, null, false, false);
 		Minion minion3 = new Minion("" + 0, mana, attack0, health1, attack0, (byte)0, (byte)0, health1, health1, (byte)0, (byte)0, true, false, false, false, false, false, false, false, false, false, false, false, false, false, null, null, false, false);
-		board.placeMinion(1, minion1);
-		board.placeMinion(1, minion2);
-		board.placeMinion(1, minion3);
+		board.placeMinion(board.getWaitingPlayer(), minion1);
+		board.placeMinion(board.getWaitingPlayer(), minion2);
+		board.placeMinion(board.getWaitingPlayer(), minion3);
 		
 		BoardStateFactoryBase factory = new BoardStateFactoryBase(null, null);
 		HearthTreeNode tree = new HearthTreeNode(board);
@@ -114,9 +114,9 @@ public class TestTaunt {
 		HolySmite hs = new HolySmite();
 		Minion minion1 = new Minion("" + 0, mana, attack0, health1, attack0, (byte)0, (byte)0, health1, health1, (byte)0, (byte)0, true, false, false, false, false, false, false, false, false, false, false, false, false, false, null, null, false, false);
 
-		board.removeMinion(0, 0);
-		board.placeCard_hand_p0(hs);
-		board.placeMinion(1, minion1);
+		board.removeMinion(board.getCurrentPlayer(), 0);
+		board.placeCardHandCurrentPlayer(hs);
+		board.placeMinion(board.getWaitingPlayer(), minion1);
 		
 		BoardStateFactoryBase factory = new BoardStateFactoryBase(null, null, 2000000000);
 		HearthTreeNode tree = new HearthTreeNode(board);
@@ -138,9 +138,9 @@ public class TestTaunt {
 		HolySmite hs = new HolySmite();
 		Minion minion1 = new Minion("" + 0, mana, attack0, health1, attack0, (byte)0, (byte)0, health1, health1, (byte)0, (byte)0, true, false, false, false, false, false, false, false, false, false, false, false, false, false, null, null, false, false);
 
-		board.removeMinion(0, 0);
-		board.placeCard_hand_p0(hs);
-		board.placeMinion(1, minion1);
+		board.removeMinion(board.getCurrentPlayer(), 0);
+		board.placeCardHandCurrentPlayer(hs);
+		board.placeMinion(board.getWaitingPlayer(), minion1);
 		board.setMana_p0(1);
 		
 		BoardStateFactoryBase factory = new BoardStateFactoryBase(null, null);
@@ -165,9 +165,9 @@ public class TestTaunt {
 		HolySmite hs = new HolySmite();
 		Minion minion1 = new Minion("" + 0, mana, attack0, health1, attack0, (byte)0, (byte)0, health1, health1, (byte)0, (byte)0, true, false, false, false, false, false, false, false, false, false, false, false, false, false, null, null, false, false);
 
-		board.removeMinion(0, 0);
-		board.placeCard_hand_p0(hs);
-		board.placeMinion(1, minion1);
+		board.removeMinion(board.getCurrentPlayer(), 0);
+		board.placeCardHandCurrentPlayer(hs);
+		board.placeMinion(board.getWaitingPlayer(), minion1);
 		board.setMana_p0(2);
 		
 		BoardStateFactoryBase factory = new BoardStateFactoryBase(null, null, 2000000000);

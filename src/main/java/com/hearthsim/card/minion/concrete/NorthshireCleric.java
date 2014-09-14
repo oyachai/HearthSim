@@ -5,6 +5,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -169,18 +170,18 @@ public class NorthshireCleric extends Minion {
 	 * 
 	 * Called whenever another character (including the hero) is healed
 	 * 
-	 * @param thisMinionPlayerIndex The index of the damaged minion's player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
-	 * @param healedMinionPlayerIndex The player index of the healed minion.
-	 * @param healedMinion The healed minion
-	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-	 * @param deckPlayer0 The deck of player0
-	 * @param deckPlayer1 The deck of player1
-	 * 
-	 * @return The boardState is manipulated and returned
+	 *
+     * @param thisMinionPlayerModel
+     * @param healedMinionPlayerModel
+     *@param healedMinion The healed minion
+     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+     * @param deckPlayer0 The deck of player0
+     * @param deckPlayer1 The deck of player1
+*     @return The boardState is manipulated and returned
 	 */
 	public HearthTreeNode minionHealedEvent(
-			int thisMinionPlayerIndex,
-			int healedMinionPlayerIndex,
+			PlayerModel thisMinionPlayerModel,
+			PlayerModel healedMinionPlayerModel,
 			Minion healedMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -189,7 +190,7 @@ public class NorthshireCleric extends Minion {
 	{
 		HearthTreeNode toRet = boardState;
 		if (!silenced_) {
-			if (thisMinionPlayerIndex == 0) {
+			if (thisMinionPlayerModel == boardState.data_.getCurrentPlayer()) {
 				if (boardState instanceof CardDrawNode) {
 					((CardDrawNode)toRet).addNumCardsToDraw(1);
 				} else {
@@ -197,7 +198,7 @@ public class NorthshireCleric extends Minion {
 				}
 			} else {
 				//This minion is an enemy minion.  Let's draw a card for the enemy.  No need to use a StopNode for enemy card draws.
-				toRet.data_.drawCardFromDeck_p1(deckPlayer1, 1);
+				toRet.data_.drawCardFromWaitingPlayerDeck(deckPlayer1, 1);
 			}
 		}
 		return toRet;

@@ -6,6 +6,7 @@ import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.util.factory.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -163,16 +164,15 @@ public class CrazedAlchemist extends Minion {
 	 * 
 	 * Battlecry: Swap the attack and Health of a minion
 	 * 
-	 * @param thisCardIndex The index (position) of the card in the hand
-	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
-	 * @param minionIndex The index of the target minion.
-	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-	 * 
-	 * @return The boardState is manipulated and returned
+	 *
+     * @param playerModel
+     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+     *
+     * @return The boardState is manipulated and returned
 	 */
 	@Override
 	public HearthTreeNode use_core(
-			int targetPlayerIndex,
+			PlayerModel playerModel,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -181,14 +181,14 @@ public class CrazedAlchemist extends Minion {
 		throws HSException
 	{
 		//A generic card does nothing except for consuming mana
-		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+		HearthTreeNode toRet = super.use_core(playerModel, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		
 		if (toRet != null) {
-			int thisMinionIndex = toRet.data_.getMinions_p0().indexOf(this);
-			for (int index = 0; index < toRet.data_.getNumMinions_p0(); ++index) {
+			int thisMinionIndex = toRet.data_.getCurrentPlayer().getMinions().indexOf(this);
+			for (int index = 0; index < toRet.data_.getCurrentPlayer().getNumMinions(); ++index) {
 				if (index != thisMinionIndex) {
 					HearthTreeNode newState = toRet.addChild(new HearthTreeNode((BoardModel)toRet.data_.deepCopy()));
-					Minion battlecryTarget = newState.data_.getMinion_p0(index);
+					Minion battlecryTarget = newState.data_.getCurrentPlayer().getMinions().get(index);
 					byte newHealth = battlecryTarget.getTotalAttack();
 					byte newAttack = battlecryTarget.getTotalHealth();
 					battlecryTarget.setAttack(newAttack);
@@ -196,9 +196,9 @@ public class CrazedAlchemist extends Minion {
 					newState = BoardStateFactoryBase.handleDeadMinions(newState, deckPlayer0, deckPlayer1);
 				}
 			}
-			for (int index = 0; index < toRet.data_.getNumMinions_p1(); ++index) {
+			for (int index = 0; index < toRet.data_.getWaitingPlayer().getNumMinions(); ++index) {
 				HearthTreeNode newState = toRet.addChild(new HearthTreeNode((BoardModel)toRet.data_.deepCopy()));
-				Minion battlecryTarget = newState.data_.getMinion_p1(index);
+				Minion battlecryTarget = newState.data_.getWaitingPlayer().getMinions().get(index);
 				byte newHealth = battlecryTarget.getTotalAttack();
 				byte newAttack = battlecryTarget.getTotalHealth();
 				battlecryTarget.setAttack(newAttack);

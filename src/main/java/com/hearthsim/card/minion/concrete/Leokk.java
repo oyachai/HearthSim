@@ -7,6 +7,7 @@ import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 
@@ -163,15 +164,16 @@ public class Leokk extends Beast {
 	 * 
 	 * Override for the temporary buff to attack
 	 * 
-	 * @param targetPlayerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
-	 * @param targetMinion The target minion
-	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-	 * 
-	 * @return The boardState is manipulated and returned
+	 *
+     * @param playerModel
+     * @param targetMinion The target minion
+     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+     *
+     * @return The boardState is manipulated and returned
 	 */
 	@Override
 	protected HearthTreeNode use_core(
-			int targetPlayerIndex,
+			PlayerModel playerModel,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -179,9 +181,9 @@ public class Leokk extends Beast {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+		HearthTreeNode toRet = super.use_core(playerModel, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
-			for (Minion minion : toRet.data_.getMinions_p0()) {
+			for (Minion minion : toRet.data_.getCurrentPlayer().getMinions()) {
 				if (minion != this) {
 					minion.setAuraAttack((byte)(minion.getAuraAttack() + 1));
 				}
@@ -195,21 +197,22 @@ public class Leokk extends Beast {
 	 * 
 	 * Override for the aura effect
 	 * 
-	 * @param thisPlayerIndex The player index of this minion
-	 * @param boardState 
-	 * @param deckPlayer0
-	 * @param deckPlayer1
-	 * @throws HSInvalidPlayerIndexException
+	 *
+     * @param thisPlayerModel
+     * @param boardState
+     * @param deckPlayer0
+     * @param deckPlayer1
+     * @throws HSInvalidPlayerIndexException
 	 */
 	@Override
-	public HearthTreeNode silenced(int thisPlayerIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
+	public HearthTreeNode silenced(PlayerModel thisPlayerModel, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
 		HearthTreeNode toRet = boardState;
-		for (Minion minion : toRet.data_.getMinions(thisPlayerIndex)) {
+		for (Minion minion : toRet.data_.getMinions(thisPlayerModel)) {
 			if (minion != this) {
 				minion.setAuraAttack((byte)(minion.getAuraAttack() - 1));
 			}
 		}
-		return super.silenced(thisPlayerIndex, toRet, deckPlayer0, deckPlayer1);
+		return super.silenced(thisPlayerModel, toRet, deckPlayer0, deckPlayer1);
 	}
 	
 	/**
@@ -217,31 +220,30 @@ public class Leokk extends Beast {
 	 * 
 	 * Override for the aura effect
 	 * 
-	 * @param thisPlayerIndex The player index of this minion
-	 * @param boardState 
-	 * @param deckPlayer0
-	 * @param deckPlayer1
-	 * @throws HSInvalidPlayerIndexException
+	 *
+     * @param thisPlayerModel
+     * @param boardState
+     * @param deckPlayer0
+     * @param deckPlayer1
+     * @throws HSInvalidPlayerIndexException
 	 */
 	@Override
-	public HearthTreeNode destroyed(int thisPlayerIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+	public HearthTreeNode destroyed(PlayerModel thisPlayerModel, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
 		HearthTreeNode toRet = boardState;
-		for (Minion minion : toRet.data_.getMinions(thisPlayerIndex)) {
+		for (Minion minion : toRet.data_.getMinions(thisPlayerModel)) {
 			if (minion != this) {
 				minion.setAuraAttack((byte)(minion.getAuraAttack() - 1));
 			}
 		}
-		return super.destroyed(thisPlayerIndex, toRet, deckPlayer0, deckPlayer1);
+		return super.destroyed(thisPlayerModel, toRet, deckPlayer0, deckPlayer1);
 	}
 	
 	private HearthTreeNode doBuffs(
-			int thisMinionPlayerIndex,
-			int placedMinionPlayerIndex,
-			Minion placedMinion,
-			HearthTreeNode boardState,
-			Deck deckPlayer0,
-			Deck deckPlayer1) throws HSInvalidPlayerIndexException {
-		if (thisMinionPlayerIndex != placedMinionPlayerIndex)
+            PlayerModel thisMinionPlayerModel,
+            PlayerModel placedMinionPlayerModel,
+            Minion placedMinion,
+            HearthTreeNode boardState) throws HSInvalidPlayerIndexException {
+		if (thisMinionPlayerModel != placedMinionPlayerModel)
 			return boardState;
 		if (placedMinion != this)
 			placedMinion.setAuraAttack((byte)(placedMinion.getAuraAttack() + 1));
@@ -254,50 +256,45 @@ public class Leokk extends Beast {
 	 * 
 	 * Override for the aura effect
 	 *
-	 * @param thisMinionPlayerIndex The player index of this minion
-	 * @param summonedMinionPlayerIndex The index of the summoned minion's player.
-	 * @param summonedMinion The summoned minion
-	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-	 * @param deckPlayer0 The deck of player0
-	 * @param deckPlayer0 The deck of player1
-	 * 
-	 * @return The boardState is manipulated and returned
+	 *
+     * @param thisMinionPlayerModel
+     * @param summonedMinionPlayerModel
+     *@param summonedMinion The summoned minion
+     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+     * @param deckPlayer0 The deck of player0    @return The boardState is manipulated and returned
 	 */
 	public HearthTreeNode minionSummonedEvent(
-			int thisMinionPlayerIndex,
-			int summonedMinionPlayerIndex,
+			PlayerModel thisMinionPlayerModel,
+			PlayerModel summonedMinionPlayerModel,
 			Minion summonedMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
-		return this.doBuffs(thisMinionPlayerIndex, summonedMinionPlayerIndex, summonedMinion, boardState, deckPlayer0, deckPlayer1);
+		return this.doBuffs(thisMinionPlayerModel, summonedMinionPlayerModel, summonedMinion, boardState);
 	}
 	
 	/**
 	 * 
 	 * Called whenever another minion is summoned using a spell
 	 * 
-	 * @param thisMinionPlayerIndex The player index of this minion
-	 * @param transformedMinionPlayerIndex The index of the transformed minion's player.
-	 * @param transformedMinion The transformed minion (the minion that resulted from a transformation)
-	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-	 * @param deckPlayer0 The deck of player0
-	 * @param deckPlayer0 The deck of player1
-	 * 
-	 * @return The boardState is manipulated and returned
+	 * @param thisMinionPlayerModel The player index of this minion
+	 * @param transformedMinionPlayerModel
+     *@param transformedMinion The transformed minion (the minion that resulted from a transformation)
+     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+     * @param deckPlayer0 The deck of player0    @return The boardState is manipulated and returned
 	 */
 	public HearthTreeNode minionTransformedEvent(
-			int thisMinionPlayerIndex,
-			int transformedMinionPlayerIndex,
+			PlayerModel thisMinionPlayerModel,
+			PlayerModel transformedMinionPlayerModel,
 			Minion transformedMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
-		return this.doBuffs(thisMinionPlayerIndex, transformedMinionPlayerIndex, transformedMinion, boardState, deckPlayer0, deckPlayer1);
+		return this.doBuffs(thisMinionPlayerModel, transformedMinionPlayerModel, transformedMinion, boardState);
 	}
 
 }

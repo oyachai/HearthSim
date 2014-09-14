@@ -6,6 +6,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.MirrorImageMinion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class MirrorImage extends SpellCard {
@@ -40,16 +41,15 @@ public class MirrorImage extends SpellCard {
 	 * 
 	 * Summons 2 mirror images
 	 * 
-	 * @param thisCardIndex The index (position) of the card in the hand
-	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
-	 * @param minionIndex The index of the target minion.
-	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-	 * 
-	 * @return The boardState is manipulated and returned
+	 *
+     * @param playerModel
+     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+     *
+     * @return The boardState is manipulated and returned
 	 */
 	@Override
 	protected HearthTreeNode use_core(
-			int targetPlayerIndex,
+			PlayerModel playerModel,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -57,24 +57,24 @@ public class MirrorImage extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (!(targetMinion instanceof Hero) || targetPlayerIndex == 1) {
+		if (!(targetMinion instanceof Hero) || boardState.data_.getWaitingPlayer() == playerModel) {
 			return null;
 		}
 		
-		int numMinions = boardState.data_.getNumMinions_p0();
+		int numMinions = boardState.data_.getCurrentPlayer().getNumMinions();
 		if (numMinions >= 7)
 			return null;
 
-		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+		HearthTreeNode toRet = super.use_core(playerModel, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
 			Minion mi0 = new MirrorImageMinion();
-			Minion placementTarget = toRet.data_.getCharacter_p0(numMinions);
-			toRet = mi0.summonMinion(targetPlayerIndex, placementTarget, toRet, deckPlayer0, deckPlayer1, false);
+			Minion placementTarget = toRet.data_.getCharacter(toRet.data_.getCurrentPlayer(), numMinions);
+			toRet = mi0.summonMinion(playerModel, placementTarget, toRet, deckPlayer0, deckPlayer1, false);
 			
 			if (numMinions < 6) {
 				Minion mi1 = new MirrorImageMinion();
-				Minion placementTarget2 = toRet.data_.getCharacter_p0(numMinions+1);
-				toRet = mi1.summonMinion(targetPlayerIndex, placementTarget2, toRet, deckPlayer0, deckPlayer1, false);
+				Minion placementTarget2 = toRet.data_.getCharacter(toRet.data_.getCurrentPlayer(), numMinions+1);
+				toRet = mi1.summonMinion(playerModel, placementTarget2, toRet, deckPlayer0, deckPlayer1, false);
 			}
 		}		
 		return toRet;

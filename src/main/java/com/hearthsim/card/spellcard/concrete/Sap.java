@@ -6,6 +6,7 @@ import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 import java.lang.reflect.Constructor;
@@ -43,16 +44,15 @@ public class Sap extends SpellCard {
 	 * 
 	 * Return an enemy minion to its hand
 	 * 
-	 * @param thisCardIndex The index (position) of the card in the hand
-	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
-	 * @param minionIndex The index of the target minion.
-	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-	 * 
-	 * @return The boardState is manipulated and returned
+	 *
+     * @param playerModel
+     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+     *
+     * @return The boardState is manipulated and returned
 	 */
 	@Override
 	protected HearthTreeNode use_core(
-			int targetPlayerIndex,
+			PlayerModel playerModel,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -60,19 +60,19 @@ public class Sap extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (targetMinion instanceof Hero || targetPlayerIndex == 0) {
+		if (targetMinion instanceof Hero || boardState.data_.getCurrentPlayer() == playerModel) {
 			return null;
 		}
 		
-		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+		HearthTreeNode toRet = super.use_core(playerModel, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
-			targetMinion.silenced(targetPlayerIndex, toRet, deckPlayer0, deckPlayer1);
-			if (boardState.data_.getNumCards_hand_p1() < 10) {
+			targetMinion.silenced(playerModel, toRet, deckPlayer0, deckPlayer1);
+			if (boardState.data_.getNumCardsHandWaitingPlayer() < 10) {
 				try {
 					Class<?> clazz = Class.forName(targetMinion.getClass().getName());
 					Constructor<?> ctor = clazz.getConstructor();
 					Object object = ctor.newInstance();
-					toRet.data_.placeCard_hand_p1((Card)object);
+					toRet.data_.placeCardHandWaitingPlayer((Card) object);
 				} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InvocationTargetException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -87,7 +87,7 @@ public class Sap extends SpellCard {
 					e.printStackTrace();
 				}
 			}
-			toRet.data_.removeMinion(1, targetMinion);
+			toRet.data_.removeMinion(targetMinion);
 		}
 		return toRet;
 	}

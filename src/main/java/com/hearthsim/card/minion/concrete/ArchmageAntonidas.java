@@ -8,6 +8,7 @@ import com.hearthsim.card.spellcard.concrete.Fireball;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class ArchmageAntonidas extends Minion {
@@ -162,32 +163,31 @@ public class ArchmageAntonidas extends Minion {
 	 * 
 	 * When you cast a spell, put a Fireball spell into your hand
 	 * 
-	 * @param thisCardPlayerIndex The player index of the card receiving the event
-	 * @param cardUserPlayerIndex The player index of the player that used the card
-	 * @param usedCard The card that was used
-	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-	 * @param deckPlayer0 The deck of player0
-	 * @param deckPlayer1 The deck of player1
-	 * 
-	 * @return The boardState is manipulated and returned
+	 * @param thisCardPlayerModel The player index of the card receiving the event
+	 * @param cardUserPlayerModel
+     *@param usedCard The card that was used
+     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+     * @param deckPlayer0 The deck of player0
+     * @param deckPlayer1 The deck of player1
+*     @return The boardState is manipulated and returned
 	 */
 	@Override
 	public HearthTreeNode otherCardUsedEvent(
-			int thisCardPlayerIndex,
-			int cardUserPlayerIndex,
+			PlayerModel thisCardPlayerModel,
+			PlayerModel cardUserPlayerModel,
 			Card usedCard,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
 		throws HSException
 	{
-		HearthTreeNode toRet = super.otherCardUsedEvent(thisCardPlayerIndex, cardUserPlayerIndex, usedCard, boardState, deckPlayer0, deckPlayer1);
-		if (thisCardPlayerIndex != 0)
+		HearthTreeNode toRet = super.otherCardUsedEvent(thisCardPlayerModel, cardUserPlayerModel, usedCard, boardState, deckPlayer0, deckPlayer1);
+		if (thisCardPlayerModel != boardState.data_.getCurrentPlayer())
 			return toRet;
 		if (isInHand_)
 			return toRet;
-        if (usedCard instanceof SpellCard && toRet.data_.getNumCards_hand_p0() < 10) {
-            toRet.data_.placeCard_hand_p0(new Fireball());
+        if (usedCard instanceof SpellCard && toRet.data_.getNumCardsHandCurrentPlayer() < 10) {
+            toRet.data_.placeCardHandCurrentPlayer(new Fireball());
         }
         return toRet;
 	}

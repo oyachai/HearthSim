@@ -3,6 +3,7 @@ package com.hearthsim.event.deathrattle;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class DeathrattleDealDamageEnemyHeroAction extends DeathrattleAction {
@@ -15,15 +16,16 @@ public class DeathrattleDealDamageEnemyHeroAction extends DeathrattleAction {
 	@Override
 	public HearthTreeNode performAction(
 			Minion minion,
-			int thisPlayerIndex,
+			PlayerModel playerModel,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1) 
 		throws HSException
 	{
-		HearthTreeNode toRet = super.performAction(minion, thisPlayerIndex, boardState, deckPlayer0, deckPlayer1);
+		HearthTreeNode toRet = super.performAction(minion, playerModel, boardState, deckPlayer0, deckPlayer1);
 		if (toRet != null) {
-			toRet = toRet.data_.getHero((thisPlayerIndex + 1) % 2).takeDamage(damage_, thisPlayerIndex, thisPlayerIndex, toRet, deckPlayer0, deckPlayer1, false, false);
+            PlayerModel otherPlayer = boardState.data_.getOtherPlayer(playerModel);
+			toRet = otherPlayer.getHero().takeDamage(damage_, playerModel, playerModel, toRet, deckPlayer0, deckPlayer1, false, false);
 		}
 		return toRet;
 	}

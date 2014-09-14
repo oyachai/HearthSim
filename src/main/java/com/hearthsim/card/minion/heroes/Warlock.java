@@ -4,6 +4,7 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -56,17 +57,18 @@ public class Warlock extends Hero {
 	 * 
 	 * Warlock: draw a card and take 2 damage
 	 * 
-	 * @param targetPlayerIndex The player index of the target character
-	 * @param targetMinion The target minion
-	 * @param boardState
-	 * @param deckPlayer0
-	 * @param deckPlayer1
-	 * 
-	 * @return
+	 *
+     * @param targetPlayerModel
+     * @param targetMinion The target minion
+     * @param boardState
+     * @param deckPlayer0
+     * @param deckPlayer1
+     *
+     * @return
 	 */
 	@Override
 	public HearthTreeNode useHeroAbility_core(
-			int targetPlayerIndex,
+			PlayerModel targetPlayerModel,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -74,9 +76,9 @@ public class Warlock extends Hero {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (targetPlayerIndex != 0 || !(targetMinion instanceof Hero))
+		if (targetPlayerModel == boardState.data_.getWaitingPlayer() || !(targetMinion instanceof Hero))
 			return null;
-		HearthTreeNode toRet = targetMinion.takeDamage((byte)2, 0, 0, boardState, deckPlayer0, deckPlayer1, false, false);
+		HearthTreeNode toRet = targetMinion.takeDamage((byte)2, boardState.data_.getCurrentPlayer(), boardState.data_.getCurrentPlayer(), boardState, deckPlayer0, deckPlayer1, false, false);
 		if (toRet != null) {
 			this.hasBeenUsed_ = true;
 			toRet.data_.setMana_p0(toRet.data_.getMana_p0() - HERO_ABILITY_COST);

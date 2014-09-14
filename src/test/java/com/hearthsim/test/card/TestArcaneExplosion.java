@@ -29,11 +29,11 @@ public class TestArcaneExplosion {
 		Minion minion3 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
 
 		ArcaneExplosion fb = new ArcaneExplosion();
-		board.data_.placeCard_hand_p0(fb);
-		board.data_.placeMinion(0, minion0);
-		board.data_.placeMinion(1, minion1);
-		board.data_.placeMinion(1, minion2);
-		board.data_.placeMinion(1, minion3);
+		board.data_.placeCardHandCurrentPlayer(fb);
+		board.data_.placeMinion(board.data_.getCurrentPlayer(), minion0);
+		board.data_.placeMinion(board.data_.getWaitingPlayer(), minion1);
+		board.data_.placeMinion(board.data_.getWaitingPlayer(), minion2);
+		board.data_.placeMinion(board.data_.getWaitingPlayer(), minion3);
 		
 		board.data_.setMana_p0(3);
 	}
@@ -41,43 +41,43 @@ public class TestArcaneExplosion {
 	@Test
 	public void test0() throws HSException {
 
-		Card theCard = board.data_.getCard_hand_p0(0);
+		Card theCard = board.data_.getCurrentPlayerCardHand(0);
 		HearthTreeNode res;
 		Minion target = null;
 		
-		target = board.data_.getCharacter(0, 0);
-		res = theCard.useOn(0, target, board, null, null);
+		target = board.data_.getCharacter(board.data_.getCurrentPlayer(), 0);
+		res = theCard.useOn(board.data_.getCurrentPlayer(), target, board, null, null);
 		assertTrue(res == null);
 		
-		target = board.data_.getCharacter(0, 1);
-		res = theCard.useOn(0, target, board, null, null);
+		target = board.data_.getCharacter(board.data_.getCurrentPlayer(), 1);
+		res = theCard.useOn(board.data_.getCurrentPlayer(), target, board, null, null);
 		assertTrue(res == null);
 		
-		target = board.data_.getCharacter(1, 1);
-		res = theCard.useOn(1, target, board, null, null);
+		target = board.data_.getCharacter(board.data_.getWaitingPlayer(), 1);
+		res = theCard.useOn(board.data_.getWaitingPlayer(), target, board, null, null);
 		assertTrue(res == null);
 		
-		target = board.data_.getCharacter(1, 2);
-		res = theCard.useOn(1, target, board, null, null);
+		target = board.data_.getCharacter(board.data_.getWaitingPlayer(), 2);
+		res = theCard.useOn(board.data_.getWaitingPlayer(), target, board, null, null);
 		assertTrue(res == null);
 		
-		target = board.data_.getCharacter(1, 3);
-		res = theCard.useOn(1, target, board, null, null);
+		target = board.data_.getCharacter(board.data_.getWaitingPlayer(), 3);
+		res = theCard.useOn(board.data_.getWaitingPlayer(), target, board, null, null);
 		assertTrue(res == null);
 		
-		target = board.data_.getCharacter(1, 0);
-		res = theCard.useOn(1, target, board, null, null);
+		target = board.data_.getCharacter(board.data_.getWaitingPlayer(), 0);
+		res = theCard.useOn(board.data_.getWaitingPlayer(), target, board, null, null);
 		assertFalse(res == null);
 		assertEquals(res.data_.getMana_p0(), 1);
 		assertEquals(res.data_.getNumCards_hand(), 0);
-		assertEquals(res.data_.getNumMinions_p0(), 1);
-		assertEquals(res.data_.getNumMinions_p1(), 2);
-		assertEquals(res.data_.getMinion_p0(0).getHealth(), health0);
-		assertEquals(res.data_.getMinion_p0(0).getTotalAttack(), attack0);
-		assertEquals(res.data_.getMinion_p1(0).getHealth(), health0 - 1);
-		assertEquals(res.data_.getMinion_p1(0).getTotalAttack(), attack0);
-		assertEquals(res.data_.getMinion_p1(1).getHealth(), health0 - 1);
-		assertEquals(res.data_.getMinion_p1(1).getTotalAttack(), attack0);
+		assertEquals(res.data_.getCurrentPlayer().getNumMinions(), 1);
+		assertEquals(res.data_.getWaitingPlayer().getNumMinions(), 2);
+		assertEquals(res.data_.getCurrentPlayer().getMinions().get(0).getHealth(), health0);
+		assertEquals(res.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack(), attack0);
+		assertEquals(res.data_.getWaitingPlayer().getMinions().get(0).getHealth(), health0 - 1);
+		assertEquals(res.data_.getWaitingPlayer().getMinions().get(0).getTotalAttack(), attack0);
+		assertEquals(res.data_.getWaitingPlayer().getMinions().get(1).getHealth(), health0 - 1);
+		assertEquals(res.data_.getWaitingPlayer().getMinions().get(1).getTotalAttack(), attack0);
 		
 	}
 }

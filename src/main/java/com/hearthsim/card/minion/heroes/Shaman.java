@@ -9,6 +9,7 @@ import com.hearthsim.card.minion.concrete.StoneclawTotem;
 import com.hearthsim.card.minion.concrete.WrathOfAirTotem;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.HearthAction;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -62,17 +63,18 @@ public class Shaman extends Hero {
 	 * 
 	 * Warlock: place random totem on the board
 	 * 
-	 * @param targetPlayerIndex The player index of the target character
-	 * @param targetMinion The target minion
-	 * @param boardState
-	 * @param deckPlayer0
-	 * @param deckPlayer1
-	 * 
-	 * @return
+	 *
+     * @param targetPlayerModel
+     * @param targetMinion The target minion
+     * @param boardState
+     * @param deckPlayer0
+     * @param deckPlayer1
+     *
+     * @return
 	 */
 	@Override
 	public HearthTreeNode useHeroAbility_core(
-			int targetPlayerIndex,
+			PlayerModel targetPlayerModel,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -80,10 +82,10 @@ public class Shaman extends Hero {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (targetPlayerIndex != 0 || !(targetMinion instanceof Hero))
+		if (targetPlayerModel != boardState.data_.getCurrentPlayer() || !(targetMinion instanceof Hero))
 			return null;
 
-		int numMinions = boardState.data_.getNumMinions(targetPlayerIndex);
+		int numMinions = targetPlayerModel.getNumMinions();
 		if (numMinions >= 7) {
 			return null;
 		}
@@ -100,7 +102,7 @@ public class Shaman extends Hero {
 			}
 			for (int index = 0; index < 4; ++index) {
 				boolean totemAlreadySummoned = false;
-				for (Minion minion : toRet.data_.getMinions(targetPlayerIndex)) {
+				for (Minion minion : toRet.data_.getMinions(targetPlayerModel)) {
 					if (minion.getClass().equals(allTotems[index].getClass())) {
 						totemAlreadySummoned = true;
 					}
@@ -114,18 +116,18 @@ public class Shaman extends Hero {
 				return null;
 			this.hasBeenUsed_ = true;
 			toRet.data_.setMana_p0(toRet.data_.getMana_p0() - HERO_ABILITY_COST);
-			Minion summonTarget = toRet.data_.getCharacter(targetPlayerIndex, numMinions);
-			toRet = minionToSummon.summonMinion(targetPlayerIndex, summonTarget, toRet, deckPlayer0, deckPlayer1, false);
+			Minion summonTarget = toRet.data_.getCharacter(targetPlayerModel, numMinions);
+			toRet = minionToSummon.summonMinion(targetPlayerModel, summonTarget, toRet, deckPlayer0, deckPlayer1, false);
 			return toRet;
 		}
 		
-		HearthTreeNode toRet = new RandomEffectNode(boardState, new HearthAction(HearthAction.Verb.HERO_ABILITY, 0, 0, targetPlayerIndex, 0));
+		HearthTreeNode toRet = new RandomEffectNode(boardState, new HearthAction(HearthAction.Verb.HERO_ABILITY, boardState.data_.getCurrentPlayer(), 0, targetPlayerModel, 0));
 		if (toRet != null) {
 			Minion[] totems = {new SearingTotem(), new StoneclawTotem(), new HealingTotem(), new WrathOfAirTotem()};
 			boolean allTotemsNotSummonable = true;
 			for (Minion totemToSummon : totems) {
 				boolean totemAlreadySummoned = false;
-				for (Minion minion : toRet.data_.getMinions(targetPlayerIndex)) {
+				for (Minion minion : toRet.data_.getMinions(targetPlayerModel)) {
 					if (minion.getClass().equals(totemToSummon.getClass())) {
 						totemAlreadySummoned = true;
 						break;
@@ -133,11 +135,22 @@ public class Shaman extends Hero {
 				}
 				if (!totemAlreadySummoned) {
 					allTotemsNotSummonable = false;
+
 					HearthTreeNode newState = toRet.addChild(new HearthTreeNode((BoardModel)toRet.data_.deepCopy()));
-					Minion summonTarget = newState.data_.getCharacter(targetPlayerIndex, numMinions);
+                    PlayerModel newTargetPlayerModel;
+                    if (toRet.data_.getCurrentPlayer().equals(targetPlayerModel)){
+                        newTargetPlayerModel = newState.data_.getCurrentPlayer();
+                    }else{
+                        newTargetPlayerModel = newState.data_.getWaitingPlayer();
+                    }
+
+					Minion summonTarget = newState.data_.getCharacter(newTargetPlayerModel, numMinions);
 					newState.data_.setMana_p0(newState.data_.getMana_p0() - HERO_ABILITY_COST);
-					newState.data_.getHero_p0().hasBeenUsed(true);
-					newState = totemToSummon.summonMinion(targetPlayerIndex, summonTarget, newState, deckPlayer0, deckPlayer1, false);
+					newState.data_.getCurrentPlayerHero().hasBeenUsed(true);
+
+
+
+					newState = totemToSummon.summonMinion(newTargetPlayerModel, summonTarget, newState, deckPlayer0, deckPlayer1, false);
 				}
 			}
 			if (allTotemsNotSummonable) 

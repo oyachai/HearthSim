@@ -6,6 +6,7 @@ import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.util.factory.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -164,16 +165,15 @@ public class FireElemental extends Minion {
 	 * 
 	 * Battlecry: Deal 3 damage to a chosen target
 	 * 
-	 * @param thisCardIndex The index (position) of the card in the hand
-	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
-	 * @param minionIndex The index of the target minion.
-	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-	 * 
-	 * @return The boardState is manipulated and returned
+	 *
+     * @param playerModel
+     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+     *
+     * @return The boardState is manipulated and returned
 	 */
 	@Override
 	public HearthTreeNode use_core(
-			int targetPlayerIndex,
+			PlayerModel playerModel,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -181,22 +181,22 @@ public class FireElemental extends Minion {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+		HearthTreeNode toRet = super.use_core(playerModel, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
 
 			{
 				HearthTreeNode newState = new HearthTreeNode((BoardModel)boardState.data_.deepCopy());
-				newState = newState.data_.getHero_p0().takeDamage(BATTLECRY_DAMAGE, 0, 0, newState, deckPlayer0, deckPlayer1, false, false);
+				newState = newState.data_.getCurrentPlayerHero().takeDamage(BATTLECRY_DAMAGE, newState.data_.getCurrentPlayer(), newState.data_.getCurrentPlayer(), newState, deckPlayer0, deckPlayer1, false, false);
 				toRet.addChild(newState);
 			}
 
 			{
-				for (int index = 0; index < boardState.data_.getNumMinions_p0(); ++index) {
-					if (boardState.data_.getMinion_p0(index) == this)
+				for (int index = 0; index < boardState.data_.getCurrentPlayer().getNumMinions(); ++index) {
+					if (boardState.data_.getCurrentPlayer().getMinions().get(index) == this)
 						continue;
 					HearthTreeNode newState = new HearthTreeNode((BoardModel)boardState.data_.deepCopy());
-					Minion minion = newState.data_.getMinion_p0(index);
-					newState = minion.takeDamage(BATTLECRY_DAMAGE, 0, 0, newState, deckPlayer0, deckPlayer1, false, true);
+					Minion minion = newState.data_.getCurrentPlayer().getMinions().get(index);
+					newState = minion.takeDamage(BATTLECRY_DAMAGE, newState.data_.getCurrentPlayer(), newState.data_.getCurrentPlayer(), newState, deckPlayer0, deckPlayer1, false, true);
 					newState = BoardStateFactoryBase.handleDeadMinions(newState, deckPlayer0, deckPlayer1);
 					toRet.addChild(newState);
 				}
@@ -204,15 +204,15 @@ public class FireElemental extends Minion {
 
 			{
 				HearthTreeNode newState = new HearthTreeNode((BoardModel)boardState.data_.deepCopy());
-				newState = newState.data_.getHero_p1().takeDamage(BATTLECRY_DAMAGE, 0, 1, newState, deckPlayer0, deckPlayer1, false, false);
+				newState = newState.data_.getWaitingPlayerHero().takeDamage(BATTLECRY_DAMAGE, newState.data_.getCurrentPlayer(), newState.data_.getWaitingPlayer(), newState, deckPlayer0, deckPlayer1, false, false);
 				toRet.addChild(newState);
 			}
 
 			{
-				for (int index = 0; index < boardState.data_.getNumMinions_p1(); ++index) {		
+				for (int index = 0; index < boardState.data_.getWaitingPlayer().getNumMinions(); ++index) {
 					HearthTreeNode newState = new HearthTreeNode((BoardModel)boardState.data_.deepCopy());
-					Minion minion = newState.data_.getMinion_p1(index);
-					newState = minion.takeDamage(BATTLECRY_DAMAGE, 0, 1, newState, deckPlayer0, deckPlayer1, false, true);
+					Minion minion = newState.data_.getWaitingPlayer().getMinions().get(index);
+					newState = minion.takeDamage(BATTLECRY_DAMAGE, newState.data_.getCurrentPlayer(), newState.data_.getWaitingPlayer(), newState, deckPlayer0, deckPlayer1, false, true);
 					newState = BoardStateFactoryBase.handleDeadMinions(newState, deckPlayer0, deckPlayer1);
 					toRet.addChild(newState);
 				}

@@ -4,6 +4,7 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -55,16 +56,14 @@ public class Warrior extends Hero {
 	 * 
 	 * Warrior: +2 armor
 	 * 
-	 * @param thisPlayerIndex The player index of the hero
-	 * @param targetPlayerIndex The player index of the target character
-	 * @param targetMinionIndex The minion index of the target character
-	 * @param boardState
-	 * @param deck
-	 * @return
+	 *
+     * @param targetPlayerModel
+     * @param boardState
+     * @return
 	 */
 	@Override
 	public HearthTreeNode useHeroAbility_core(
-			int targetPlayerIndex,
+			PlayerModel targetPlayerModel,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -73,7 +72,7 @@ public class Warrior extends Hero {
 		throws HSException
 	{
 		HearthTreeNode toRet = boardState;
-		if (targetMinion instanceof Hero && targetPlayerIndex == 0) {
+		if (targetMinion instanceof Hero && targetPlayerModel == boardState.data_.getCurrentPlayer()) {
 			this.hasBeenUsed_ = true;
 			toRet.data_.setMana_p0(toRet.data_.getMana_p0() - HERO_ABILITY_COST);
 			((Hero)targetMinion).setArmor((byte)(((Hero)targetMinion).getArmor() + 2));

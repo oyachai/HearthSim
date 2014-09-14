@@ -4,6 +4,7 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -55,17 +56,18 @@ public class Mage extends Hero {
 	 * 
 	 * Mage: deals 1 damage
 	 * 
-	 * @param targetPlayerIndex The player index of the target character
-	 * @param targetMinion The target minion
-	 * @param boardState
-	 * @param deckPlayer0
-	 * @param deckPlayer1
-	 * 
-	 * @return
+	 *
+     * @param targetPlayerModel
+     * @param targetMinion The target minion
+     * @param boardState
+     * @param deckPlayer0
+     * @param deckPlayer1
+     *
+     * @return
 	 */
 	@Override
 	public HearthTreeNode useHeroAbility_core(
-			int targetPlayerIndex,
+			PlayerModel targetPlayerModel,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -74,13 +76,13 @@ public class Mage extends Hero {
 		throws HSException
 	{
 		HearthTreeNode toRet = boardState;
-		if (targetPlayerIndex == 0 && targetMinion instanceof Hero) {
+		if (targetPlayerModel == boardState.data_.getCurrentPlayer() && targetMinion instanceof Hero) {
 			//There's never a case where using it on yourself is a good idea
 			return null;
 		}
 		this.hasBeenUsed_ = true;
 		toRet.data_.setMana_p0(toRet.data_.getMana_p0() - HERO_ABILITY_COST);
-		toRet = targetMinion.takeDamage((byte)1, 0, targetPlayerIndex, toRet, deckPlayer0, deckPlayer1, false, true);
+		toRet = targetMinion.takeDamage((byte)1, boardState.data_.getCurrentPlayer(), targetPlayerModel, toRet, deckPlayer0, deckPlayer1, false, true);
 		
 		return toRet;
 	}

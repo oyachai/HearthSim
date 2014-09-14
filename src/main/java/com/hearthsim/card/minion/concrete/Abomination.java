@@ -165,13 +165,13 @@ public class Abomination extends Minion {
 //		
 //		HearthTreeNode toRet = super.destroyed(thisPlayerIndex, boardState, deckPlayer0, deckPlayer1);
 //		if (!silenced_) {
-//			toRet = toRet.data_.getHero_p1().takeDamage((byte)2, thisPlayerIndex, 1, toRet, deckPlayer0, deckPlayer1, false, false);
-//			for(Minion minion : toRet.data_.getMinions_p1()) {
+//			toRet = toRet.data_.getWaitingPlayerHero().takeDamage((byte)2, thisPlayerIndex, 1, toRet, deckPlayer0, deckPlayer1, false, false);
+//			for(Minion minion : toRet.data_.getWaitingPlayer().getMinions()) {
 //				toRet = minion.takeDamage((byte)2, thisPlayerIndex, 1, toRet, deckPlayer0, deckPlayer1, false, false);
 //			}
-//			toRet = toRet.data_.getHero_p0().takeDamage((byte)2, thisPlayerIndex, 0, toRet, deckPlayer0, deckPlayer1, false, false);
-//			for(Minion minion : toRet.data_.getMinions_p0()) {
-//				toRet = minion.takeDamage((byte)2, thisPlayerIndex, 0, toRet, deckPlayer0, deckPlayer1, false, false);
+//			toRet = toRet.data_.getCurrentPlayerHero().takeDamage((byte)2, thisPlayerIndex, toRet.data_.getCurrentPlayer(), toRet, deckPlayer0, deckPlayer1, false, false);
+//			for(Minion minion : toRet.data_.getCurrentPlayer().getMinions()) {
+//				toRet = minion.takeDamage((byte)2, thisPlayerIndex, toRet.data_.getCurrentPlayer(), toRet, deckPlayer0, deckPlayer1, false, false);
 //			}
 //		}
 //		return toRet;

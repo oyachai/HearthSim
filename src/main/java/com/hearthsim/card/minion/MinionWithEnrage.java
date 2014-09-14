@@ -5,6 +5,7 @@ import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public abstract class MinionWithEnrage extends Minion {
@@ -66,27 +67,25 @@ public abstract class MinionWithEnrage extends Minion {
 	 * Override for enrage
 	 * 
 	 * @param damage The amount of damage to take
-	 * @param attackerPlayerIndex The player index of the attacker.  This is needed to do things like +spell damage.
-	 * @param thisPlayerIndex The player index of this minion
-	 * @param boardState 
-	 * @param deckPlayer0 The deck of player0
-	 * @param deckPlayer0 The deck of player1
-	 * @param isSpellDamage True if this is a spell damage
-	 * 
-	 * @throws HSInvalidPlayerIndexException
+	 * @param attackPlayerModel The player index of the attacker.  This is needed to do things like +spell damage.
+	 * @param thisPlayerModel
+     *@param boardState
+     * @param deckPlayer0 The deck of player0
+     * @param isSpellDamage True if this is a spell damage
+*    @throws HSInvalidPlayerIndexException
 	 */
 	@Override
 	public HearthTreeNode takeDamage(
 			byte damage,
-			int attackerPlayerIndex,
-			int thisPlayerIndex,
+			PlayerModel attackPlayerModel,
+			PlayerModel thisPlayerModel,
 			HearthTreeNode boardState,
 			Deck deckPlayer0, 
 			Deck deckPlayer1,
 			boolean isSpellDamage,
 			boolean handleMinionDeath)
 		throws HSException
-	{		HearthTreeNode toRet = super.takeDamage(damage, attackerPlayerIndex, thisPlayerIndex, boardState, deckPlayer0, deckPlayer1, isSpellDamage, handleMinionDeath);
+	{		HearthTreeNode toRet = super.takeDamage(damage, attackPlayerModel, thisPlayerModel, boardState, deckPlayer0, deckPlayer1, isSpellDamage, handleMinionDeath);
 		this.enrageCheck();
 		return toRet;
 	}
@@ -97,16 +96,13 @@ public abstract class MinionWithEnrage extends Minion {
 	 * Always use this function to heal minions
 	 * 
 	 * @param healAmount The amount of healing to take
-	 * @param thisPlayerIndex The player index of this minion
-	 * @param boardState 
-	 * @param deckPlayer0 The deck of player0
-	 * @param deckPlayer0 The deck of player1
-	 * 
-	 * @throws HSInvalidPlayerIndexException
+	 * @param thisPlayerModel
+     *@param boardState
+     * @param deckPlayer0 The deck of player0   @throws HSInvalidPlayerIndexException
 	 */
 	@Override
-	public HearthTreeNode takeHeal(byte healAmount, int thisPlayerIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
-		HearthTreeNode toRet = super.takeHeal(healAmount, thisPlayerIndex, boardState, deckPlayer0, deckPlayer1);
+	public HearthTreeNode takeHeal(byte healAmount, PlayerModel thisPlayerModel, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
+		HearthTreeNode toRet = super.takeHeal(healAmount, thisPlayerModel, boardState, deckPlayer0, deckPlayer1);
 		this.enrageCheck();
 		return toRet;
 	}
@@ -116,16 +112,15 @@ public abstract class MinionWithEnrage extends Minion {
 	 * 
 	 * Always use this function to "silence" minions
 	 * 
-	 * @param thisPlayerIndex The player index of this minion
-	 * @param boardState 
-	 * @param deckPlayer0 The deck of player0
-	 * @param deckPlayer0 The deck of player1
-	 * 
-	 * @throws HSInvalidPlayerIndexException
+	 *
+     * @param thisPlayerModel
+     * @param boardState
+     * @param deckPlayer0 The deck of player0
+     * @throws HSInvalidPlayerIndexException
 	 */
 	@Override
-	public HearthTreeNode silenced(int thisPlayerIndex, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
-		HearthTreeNode toRet = super.silenced(thisPlayerIndex, boardState, deckPlayer0, deckPlayer1);
+	public HearthTreeNode silenced(PlayerModel thisPlayerModel, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
+		HearthTreeNode toRet = super.silenced(thisPlayerModel, boardState, deckPlayer0, deckPlayer1);
 		if (enraged_)
 			this.pacify();
 		return toRet;

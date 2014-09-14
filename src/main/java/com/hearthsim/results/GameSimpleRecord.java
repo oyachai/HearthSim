@@ -1,7 +1,9 @@
 package com.hearthsim.results;
 
+import com.hearthsim.card.minion.Hero;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
+import com.hearthsim.model.PlayerModel;
 import org.json.JSONObject;
 
 public class GameSimpleRecord implements GameRecord {
@@ -25,26 +27,31 @@ public class GameSimpleRecord implements GameRecord {
 	}
 	
 	@Override
-	public void put(int turn, int activePlayerIndex, BoardModel board) {
-		try {
-			int inactivePlayerIndex = (activePlayerIndex + 1) % 2;
-			
-			numMinions_[activePlayerIndex][turn][activePlayerIndex] = (byte)board.getNumMinions(0);
-			numMinions_[activePlayerIndex][turn][inactivePlayerIndex] = (byte)board.getNumMinions(1);
+	public void put(int turn, PlayerModel activePlayerModel, BoardModel board) {
+        int activePlayerIndex;
+        int inactivePlayerIndex;
+        if (board.getCurrentPlayer() == activePlayerModel) {
+            activePlayerIndex = 0;
+            inactivePlayerIndex = 1;
+        } else {
+            activePlayerIndex = 1;
+            inactivePlayerIndex = 0;
+        }
 
-			numCards_[activePlayerIndex][turn][activePlayerIndex] = (byte)board.getNumCards_hand(0);
-			numCards_[activePlayerIndex][turn][inactivePlayerIndex] = (byte)board.getNumCards_hand(1);
+        numMinions_[activePlayerIndex][turn][activePlayerIndex] = (byte)board.getCurrentPlayer().getNumMinions();
+        numMinions_[activePlayerIndex][turn][inactivePlayerIndex] = (byte)board.getWaitingPlayer().getNumMinions();
 
-			heroHealth_[activePlayerIndex][turn][activePlayerIndex] = board.getHero(0).getHealth();
-			heroHealth_[activePlayerIndex][turn][inactivePlayerIndex] = board.getHero(1).getHealth();
+        numCards_[activePlayerIndex][turn][activePlayerIndex] = (byte)board.getNumCardsHandCurrentPlayer();
+        numCards_[activePlayerIndex][turn][inactivePlayerIndex] = (byte)board.getNumCardsHandWaitingPlayer();
 
-			heroArmor_[activePlayerIndex][turn][activePlayerIndex] = board.getHero(0).getArmor();
-			heroArmor_[activePlayerIndex][turn][inactivePlayerIndex] = board.getHero(1).getArmor();
+        Hero currentPlayerHero = board.getCurrentPlayerHero();
+        heroHealth_[activePlayerIndex][turn][activePlayerIndex] = currentPlayerHero.getHealth();
+        Hero waitingPlayerHero = board.getWaitingPlayerHero();
+        heroHealth_[activePlayerIndex][turn][inactivePlayerIndex] = waitingPlayerHero.getHealth();
 
-		} catch (HSException e) {
-			e.printStackTrace();
-		}
-	}
+        heroArmor_[activePlayerIndex][turn][activePlayerIndex] = currentPlayerHero.getArmor();
+        heroArmor_[activePlayerIndex][turn][inactivePlayerIndex] = waitingPlayerHero.getArmor();
+    }
 
 	@Override
 	public int getRecordLength(int playerIndex) {

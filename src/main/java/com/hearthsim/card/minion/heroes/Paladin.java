@@ -5,6 +5,7 @@ import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.SilverHandRecruit;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -56,16 +57,14 @@ public class Paladin extends Hero {
 	 * 
 	 * Paladin: summon a 1/1 Silver Hand Recruit
 	 * 
-	 * @param thisPlayerIndex The player index of the hero
-	 * @param targetPlayerIndex The player index of the target character
-	 * @param targetMinionIndex The minion index of the target character
-	 * @param boardState
-	 * @param deck
-	 * @return
+	 *
+     * @param targetPlayerModel
+     * @param boardState
+     * @return
 	 */
 	@Override
 	public HearthTreeNode useHeroAbility_core(
-			int targetPlayerIndex,
+			PlayerModel targetPlayerModel,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -73,17 +72,17 @@ public class Paladin extends Hero {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (boardState.data_.getNumMinions_p0() >= 7)
+		if (boardState.data_.getCurrentPlayer().getNumMinions() >= 7)
 			return null;
 
 		HearthTreeNode toRet = boardState;
 
-		if (targetMinion instanceof Hero && targetPlayerIndex == 0) {
+		if (targetMinion instanceof Hero && targetPlayerModel == boardState.data_.getCurrentPlayer()) {
 			this.hasBeenUsed_ = true;
 			toRet.data_.setMana_p0(toRet.data_.getMana_p0() - HERO_ABILITY_COST);
 			Minion theRecruit = new SilverHandRecruit();
-			Minion targetLocation = toRet.data_.getCharacter(0, toRet.data_.getNumMinions_p0());
-			toRet = theRecruit.summonMinion(targetPlayerIndex, targetLocation, toRet, deckPlayer0, deckPlayer1, false);
+			Minion targetLocation = toRet.data_.getCharacter(toRet.data_.getCurrentPlayer(), toRet.data_.getCurrentPlayer().getNumMinions());
+			toRet = theRecruit.summonMinion(targetPlayerModel, targetLocation, toRet, deckPlayer0, deckPlayer1, false);
 		} else {
 			return null;
 		}

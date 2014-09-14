@@ -31,11 +31,11 @@ public class TestBlessingOfMight {
 		Minion minion3 = new Minion("" + 0, mana, attack0, (byte)(health0-2), attack0, health0, health0);
 
 		BlessingOfMight fb = new BlessingOfMight();
-		board.data_.placeCard_hand_p0(fb);
-		board.data_.placeMinion(0, minion0);
-		board.data_.placeMinion(1, minion1);
-		board.data_.placeMinion(1, minion2);
-		board.data_.placeMinion(1, minion3);
+		board.data_.placeCardHandCurrentPlayer(fb);
+		board.data_.placeMinion(board.data_.getCurrentPlayer(), minion0);
+		board.data_.placeMinion(board.data_.getWaitingPlayer(), minion1);
+		board.data_.placeMinion(board.data_.getWaitingPlayer(), minion2);
+		board.data_.placeMinion(board.data_.getWaitingPlayer(), minion3);
 		
 		board.data_.setMana_p0(10);
 	}
@@ -45,35 +45,35 @@ public class TestBlessingOfMight {
 
 		Deck deck = null;
 		
-		Card theCard = board.data_.getCard_hand_p0(0);
+		Card theCard = board.data_.getCurrentPlayerCardHand(0);
 		HearthTreeNode res;
 		Minion target = null;
 		
-		target = board.data_.getCharacter(1, 0);
-		res = theCard.useOn(1, target, board, deck, null);
+		target = board.data_.getCharacter(board.data_.getWaitingPlayer(), 0);
+		res = theCard.useOn(board.data_.getWaitingPlayer(), target, board, deck, null);
 		assertTrue(res == null);
 		
-		target = board.data_.getCharacter(0, 0);
-		res = theCard.useOn(0, target, board, deck, null);
+		target = board.data_.getCharacter(board.data_.getCurrentPlayer(), 0);
+		res = theCard.useOn(board.data_.getCurrentPlayer(), target, board, deck, null);
 		assertTrue(res == null);
 
-		target = board.data_.getCharacter(0, 1);
-		res = theCard.useOn(0, target, board, deck, null);
+		target = board.data_.getCharacter(board.data_.getCurrentPlayer(), 1);
+		res = theCard.useOn(board.data_.getCurrentPlayer(), target, board, deck, null);
 		assertFalse(res == null);
 		assertTrue(res.data_.getNumCards_hand() == 0);
-		assertTrue(res.data_.getNumMinions_p0() == 1);
-		assertTrue(res.data_.getNumMinions_p1() == 3);
+		assertTrue(res.data_.getCurrentPlayer().getNumMinions() == 1);
+		assertTrue(res.data_.getWaitingPlayer().getNumMinions() == 3);
 		assertTrue(res.data_.getMana_p0() == 9);
-		assertTrue(res.data_.getMinion_p0(0).getHealth() == health0);
-		assertTrue(res.data_.getMinion_p0(0).getTotalAttack() == attack0 + 3);
-		assertTrue(res.data_.getMinion_p1(0).getHealth() == health0);
-		assertTrue(res.data_.getMinion_p1(0).getTotalAttack() == attack0);
-		assertTrue(res.data_.getMinion_p1(1).getHealth() == health1);
-		assertTrue(res.data_.getMinion_p1(1).getTotalAttack() == attack0);
-		assertTrue(res.data_.getMinion_p1(2).getHealth() == health0-2);
-		assertTrue(res.data_.getMinion_p1(2).getTotalAttack() == attack0);
-		assertTrue(res.data_.getHero_p0().getHealth() == 30);
-		assertTrue(res.data_.getHero_p1().getHealth() == 30);
+		assertTrue(res.data_.getCurrentPlayer().getMinions().get(0).getHealth() == health0);
+		assertTrue(res.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack() == attack0 + 3);
+		assertTrue(res.data_.getWaitingPlayer().getMinions().get(0).getHealth() == health0);
+		assertTrue(res.data_.getWaitingPlayer().getMinions().get(0).getTotalAttack() == attack0);
+		assertTrue(res.data_.getWaitingPlayer().getMinions().get(1).getHealth() == health1);
+		assertTrue(res.data_.getWaitingPlayer().getMinions().get(1).getTotalAttack() == attack0);
+		assertTrue(res.data_.getWaitingPlayer().getMinions().get(2).getHealth() == health0-2);
+		assertTrue(res.data_.getWaitingPlayer().getMinions().get(2).getTotalAttack() == attack0);
+		assertTrue(res.data_.getCurrentPlayerHero().getHealth() == 30);
+		assertTrue(res.data_.getWaitingPlayerHero().getHealth() == 30);
 
 	}
 	
@@ -82,27 +82,27 @@ public class TestBlessingOfMight {
 
 		Deck deck = null;
 		
-		Card theCard = board.data_.getCard_hand_p0(0);
+		Card theCard = board.data_.getCurrentPlayerCardHand(0);
 		HearthTreeNode res;
 		Minion target = null;
 
-		target = board.data_.getCharacter(1, 1);
-		res = theCard.useOn(1, target, board, deck, null);
+		target = board.data_.getCharacter(board.data_.getWaitingPlayer(), 1);
+		res = theCard.useOn(board.data_.getWaitingPlayer(), target, board, deck, null);
 		assertFalse(res == null);
 		assertTrue(res.data_.getNumCards_hand() == 0);
-		assertTrue(res.data_.getNumMinions_p0() == 1);
-		assertTrue(res.data_.getNumMinions_p1() == 3);
+		assertTrue(res.data_.getCurrentPlayer().getNumMinions() == 1);
+		assertTrue(res.data_.getWaitingPlayer().getNumMinions() == 3);
 		assertTrue(res.data_.getMana_p0() == 9);
-		assertTrue(res.data_.getMinion_p0(0).getHealth() == health0);
-		assertTrue(res.data_.getMinion_p0(0).getTotalAttack() == attack0);
-		assertTrue(res.data_.getMinion_p1(0).getHealth() == health0);
-		assertTrue(res.data_.getMinion_p1(0).getTotalAttack() == attack0+3);
-		assertTrue(res.data_.getMinion_p1(1).getHealth() == health1);
-		assertTrue(res.data_.getMinion_p1(1).getTotalAttack() == attack0);
-		assertTrue(res.data_.getMinion_p1(2).getHealth() == health0-2);
-		assertTrue(res.data_.getMinion_p1(2).getTotalAttack() == attack0);
-		assertTrue(res.data_.getHero_p0().getHealth() == 30);
-		assertTrue(res.data_.getHero_p1().getHealth() == 30);
+		assertTrue(res.data_.getCurrentPlayer().getMinions().get(0).getHealth() == health0);
+		assertTrue(res.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack() == attack0);
+		assertTrue(res.data_.getWaitingPlayer().getMinions().get(0).getHealth() == health0);
+		assertTrue(res.data_.getWaitingPlayer().getMinions().get(0).getTotalAttack() == attack0+3);
+		assertTrue(res.data_.getWaitingPlayer().getMinions().get(1).getHealth() == health1);
+		assertTrue(res.data_.getWaitingPlayer().getMinions().get(1).getTotalAttack() == attack0);
+		assertTrue(res.data_.getWaitingPlayer().getMinions().get(2).getHealth() == health0-2);
+		assertTrue(res.data_.getWaitingPlayer().getMinions().get(2).getTotalAttack() == attack0);
+		assertTrue(res.data_.getCurrentPlayerHero().getHealth() == 30);
+		assertTrue(res.data_.getWaitingPlayerHero().getHealth() == 30);
 	}
 	
 	@Test
@@ -110,26 +110,26 @@ public class TestBlessingOfMight {
 
 		Deck deck = null;
 		
-		Card theCard = board.data_.getCard_hand_p0(0);
+		Card theCard = board.data_.getCurrentPlayerCardHand(0);
 		HearthTreeNode res;
 		Minion target = null;
 
-		target = board.data_.getCharacter(1, 2);
-		res = theCard.useOn(1, target, board, deck, null);
+		target = board.data_.getCharacter(board.data_.getWaitingPlayer(), 2);
+		res = theCard.useOn(board.data_.getWaitingPlayer(), target, board, deck, null);
 		assertFalse(res == null);
 		assertTrue(res.data_.getNumCards_hand() == 0);
-		assertTrue(res.data_.getNumMinions_p0() == 1);
-		assertTrue(res.data_.getNumMinions_p1() == 3);
+		assertTrue(res.data_.getCurrentPlayer().getNumMinions() == 1);
+		assertTrue(res.data_.getWaitingPlayer().getNumMinions() == 3);
 		assertTrue(res.data_.getMana_p0() == 9);
-		assertTrue(res.data_.getMinion_p0(0).getHealth() == health0);
-		assertTrue(res.data_.getMinion_p0(0).getTotalAttack() == attack0);
-		assertTrue(res.data_.getMinion_p1(0).getHealth() == health0);
-		assertTrue(res.data_.getMinion_p1(0).getTotalAttack() == attack0);
-		assertTrue(res.data_.getMinion_p1(1).getHealth() == health1);
-		assertTrue(res.data_.getMinion_p1(1).getTotalAttack() == attack0+3);
-		assertTrue(res.data_.getMinion_p1(2).getHealth() == health0-2);
-		assertTrue(res.data_.getMinion_p1(2).getTotalAttack() == attack0);
-		assertTrue(res.data_.getHero_p0().getHealth() == 30);
-		assertTrue(res.data_.getHero_p1().getHealth() == 30);
+		assertTrue(res.data_.getCurrentPlayer().getMinions().get(0).getHealth() == health0);
+		assertTrue(res.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack() == attack0);
+		assertTrue(res.data_.getWaitingPlayer().getMinions().get(0).getHealth() == health0);
+		assertTrue(res.data_.getWaitingPlayer().getMinions().get(0).getTotalAttack() == attack0);
+		assertTrue(res.data_.getWaitingPlayer().getMinions().get(1).getHealth() == health1);
+		assertTrue(res.data_.getWaitingPlayer().getMinions().get(1).getTotalAttack() == attack0+3);
+		assertTrue(res.data_.getWaitingPlayer().getMinions().get(2).getHealth() == health0-2);
+		assertTrue(res.data_.getWaitingPlayer().getMinions().get(2).getTotalAttack() == attack0);
+		assertTrue(res.data_.getCurrentPlayerHero().getHealth() == 30);
+		assertTrue(res.data_.getWaitingPlayerHero().getHealth() == 30);
 	}
 }

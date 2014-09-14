@@ -7,6 +7,7 @@ import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class VioletTeacher extends Minion {
@@ -161,26 +162,25 @@ public class VioletTeacher extends Minion {
 	 * 
 	 * When you cast a spell, summon a 1/1 Violet Apprentice
 	 * 
-	 * @param thisCardPlayerIndex The player index of the card receiving the event
-	 * @param cardUserPlayerIndex The player index of the player that used the card
-	 * @param usedCard The card that was used
-	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-	 * @param deckPlayer0 The deck of player0
-	 * @param deckPlayer1 The deck of player1
-	 * 
-	 * @return The boardState is manipulated and returned
+	 * @param thisCardPlayerModel The player index of the card receiving the event
+	 * @param cardUserPlayerModel
+     *@param usedCard The card that was used
+     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+     * @param deckPlayer0 The deck of player0
+     * @param deckPlayer1 The deck of player1
+*     @return The boardState is manipulated and returned
 	 * @throws HSException 
 	 */
 	@Override
-	public HearthTreeNode otherCardUsedEvent(int thisCardPlayerIndex, int cardUserPlayerIndex, Card usedCard, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
-		HearthTreeNode toRet = super.otherCardUsedEvent(thisCardPlayerIndex, cardUserPlayerIndex, usedCard, boardState, deckPlayer0, deckPlayer1);
-		if (thisCardPlayerIndex != 0)
+	public HearthTreeNode otherCardUsedEvent(PlayerModel thisCardPlayerModel, PlayerModel cardUserPlayerModel, Card usedCard, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+		HearthTreeNode toRet = super.otherCardUsedEvent(thisCardPlayerModel, cardUserPlayerModel, usedCard, boardState, deckPlayer0, deckPlayer1);
+		if (thisCardPlayerModel != toRet.data_.getCurrentPlayer())
 			return toRet;
 		if (isInHand_)
 			return toRet;
-        if (usedCard instanceof SpellCard && toRet.data_.getNumMinions_p0() < 7) {
+        if (usedCard instanceof SpellCard && toRet.data_.getCurrentPlayer().getNumMinions() < 7) {
             Minion newMinion = new VioletApprentice();
-            toRet = newMinion.summonMinion(thisCardPlayerIndex, this, toRet, deckPlayer0, deckPlayer1, false);
+            toRet = newMinion.summonMinion(thisCardPlayerModel, this, toRet, deckPlayer0, deckPlayer1, false);
         }
         return toRet;
 	}

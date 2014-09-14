@@ -6,6 +6,7 @@ import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class AncientOfWar extends Minion {
@@ -158,16 +159,15 @@ public class AncientOfWar extends Minion {
 	 * 
 	 * Choose one: +5 health and Taunt; or +5 Attack
 	 * 
-	 * @param thisCardIndex The index (position) of the card in the hand
-	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
-	 * @param minionIndex The index of the target minion.
-	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-	 * 
-	 * @return The boardState is manipulated and returned
+	 *
+     * @param playerModel
+     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+     *
+     * @return The boardState is manipulated and returned
 	 */
 	@Override
 	public HearthTreeNode use_core(
-			int targetPlayerIndex,
+			PlayerModel playerModel,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -175,19 +175,19 @@ public class AncientOfWar extends Minion {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+		HearthTreeNode toRet = super.use_core(playerModel, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		
 		if (toRet != null) {
-			int thisMinionIndex = toRet.data_.getMinions_p0().indexOf(this);
+			int thisMinionIndex = toRet.data_.getCurrentPlayer().getMinions().indexOf(this);
 			{
 				HearthTreeNode newState = toRet.addChild(new HearthTreeNode((BoardModel)toRet.data_.deepCopy()));
-				newState.data_.getMinion_p0(thisMinionIndex).setTaunt(true);
-				newState.data_.getMinion_p0(thisMinionIndex).setMaxHealth((byte)10);
-				newState.data_.getMinion_p0(thisMinionIndex).setHealth((byte)10);
+				newState.data_.getCurrentPlayer().getMinions().get(thisMinionIndex).setTaunt(true);
+				newState.data_.getCurrentPlayer().getMinions().get(thisMinionIndex).setMaxHealth((byte)10);
+				newState.data_.getCurrentPlayer().getMinions().get(thisMinionIndex).setHealth((byte)10);
 			}
 			{
 				HearthTreeNode newState = toRet.addChild(new HearthTreeNode((BoardModel)toRet.data_.deepCopy()));
-				newState.data_.getMinion_p0(thisMinionIndex).setAttack((byte)10);
+				newState.data_.getCurrentPlayer().getMinions().get(thisMinionIndex).setAttack((byte)10);
 			}
 		}
 		return toRet;

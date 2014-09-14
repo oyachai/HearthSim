@@ -3,6 +3,7 @@ package com.hearthsim.card.spellcard;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.util.tree.HearthTreeNode;
 import org.json.JSONObject;
 
@@ -63,23 +64,22 @@ public class SpellDamage extends SpellCard {
 	 * 
 	 * Attack using this spell
 	 * 
-	 * @param targetMinionPlayerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
-	 * @param targetMinion The target minion
-	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-	 * @param deckPlayer0 The deck of player0
-	 * @param deckPlayer0 The deck of player1
-	 * 
-	 * @return The boardState is manipulated and returned
+	 *
+     * @param targetMinionPlayerModel
+     * @param targetMinion The target minion
+     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+     * @param deckPlayer0 The deck of player0
+     * @return The boardState is manipulated and returned
 	 */
 	public HearthTreeNode attack(
-			int targetMinionPlayerIndex,
+			PlayerModel targetMinionPlayerModel,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
 		throws HSException
 	{
-		return targetMinion.takeDamage(damage_, 0, targetMinionPlayerIndex, boardState, deckPlayer0, deckPlayer1, true, false);
+		return targetMinion.takeDamage(damage_, boardState.data_.getCurrentPlayer(), targetMinionPlayerModel, boardState, deckPlayer0, deckPlayer1, true, false);
  	}
 	
 	/**
@@ -88,15 +88,14 @@ public class SpellDamage extends SpellCard {
 	 * 
 	 * This is the core implementation of card's ability
 	 * 
-	 * @param thisCardIndex The index (position) of the card in the hand
-	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
-	 * @param minionIndex The index of the target minion.
-	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-	 * 
-	 * @return The boardState is manipulated and returned
+	 *
+     * @param playerModel
+     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+     *
+     * @return The boardState is manipulated and returned
 	 */
 	protected HearthTreeNode use_core(
-			int targetPlayerIndex,
+			PlayerModel playerModel,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -112,7 +111,7 @@ public class SpellDamage extends SpellCard {
 		this.hasBeenUsed(true);
 		HearthTreeNode toRet = boardState;
 
-		toRet = this.attack(targetPlayerIndex, targetMinion, toRet, deckPlayer0, deckPlayer1);
+		toRet = this.attack(playerModel, targetMinion, toRet, deckPlayer0, deckPlayer1);
 		toRet.data_.setMana_p0(toRet.data_.getMana_p0() - this.mana_);
 		toRet.data_.removeCard_hand(this);
 		

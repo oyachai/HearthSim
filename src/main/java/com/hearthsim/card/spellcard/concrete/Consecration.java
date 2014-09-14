@@ -5,6 +5,7 @@ import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class Consecration extends SpellCard {
@@ -40,16 +41,15 @@ public class Consecration extends SpellCard {
 	 * 
 	 * Deals 2 damage to all enemy characters
 	 * 
-	 * @param thisCardIndex The index (position) of the card in the hand
-	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
-	 * @param minionIndex The index of the target minion.
-	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-	 * 
-	 * @return The boardState is manipulated and returned
+	 *
+     * @param playerModel
+     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+     *
+     * @return The boardState is manipulated and returned
 	 */
 	@Override
 	protected HearthTreeNode use_core(
-			int targetPlayerIndex,
+			PlayerModel playerModel,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -57,14 +57,14 @@ public class Consecration extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (targetPlayerIndex > 0 || !(targetMinion instanceof Hero)) 
+		if (boardState.data_.getWaitingPlayer() == playerModel || !(targetMinion instanceof Hero))
 			return null;
 		
-		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+		HearthTreeNode toRet = super.use_core(playerModel, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
-			toRet = toRet.data_.getHero_p1().takeDamage(DAMAGE_AMOUNT, 0, 0, toRet, deckPlayer0, deckPlayer1, true, false);
-			for (Minion minion : toRet.data_.getMinions_p1()) {
-				toRet = minion.takeDamage(DAMAGE_AMOUNT, 0, 1, toRet, deckPlayer0, deckPlayer1, true, false);
+			toRet = toRet.data_.getWaitingPlayerHero().takeDamage(DAMAGE_AMOUNT, toRet.data_.getCurrentPlayer(), toRet.data_.getCurrentPlayer(), toRet, deckPlayer0, deckPlayer1, true, false);
+			for (Minion minion : toRet.data_.getWaitingPlayer().getMinions()) {
+				toRet = minion.takeDamage(DAMAGE_AMOUNT, toRet.data_.getCurrentPlayer(), toRet.data_.getWaitingPlayer(), toRet, deckPlayer0, deckPlayer1, true, false);
 			}
 		}
 		return toRet;

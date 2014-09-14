@@ -5,6 +5,7 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 
@@ -21,18 +22,18 @@ public class HearthAction {
 		
 	public final Verb verb_;
 	
-	public final int actionPerformerPlayerIndex_;
+	public final PlayerModel actionPerformerPlayerModel;
 	public final int cardOrCharacterIndex_;
 	
-	public final int targetPlayerIndex_;
+	public final PlayerModel targetPlayerModel;
 	public final int targetCharacterIndex_;
 	
-	public HearthAction(Verb verb, int actionPerformerPlayerIndex, int cardOrCharacterIndex, int targetPlayerIndex, int targetCharacterIndex) {
+	public HearthAction(Verb verb, PlayerModel actionPerformerPlayerModel, int cardOrCharacterIndex, PlayerModel targetPlayerModel, int targetCharacterIndex) {
 		verb_ = verb;
-		actionPerformerPlayerIndex_ = actionPerformerPlayerIndex;
+		this.actionPerformerPlayerModel = actionPerformerPlayerModel;
 		cardOrCharacterIndex_ = cardOrCharacterIndex;
 
-		targetPlayerIndex_ = targetPlayerIndex;
+		this.targetPlayerModel = targetPlayerModel;
 		targetCharacterIndex_ = targetCharacterIndex;
 	}
 
@@ -40,21 +41,21 @@ public class HearthAction {
 		HearthTreeNode toRet = boardState;
 		switch(verb_) {
 			case USE_CARD: {
-				Card card = boardState.data_.getCard_hand(actionPerformerPlayerIndex_, cardOrCharacterIndex_);
-				Minion target = boardState.data_.getCharacter(targetPlayerIndex_, targetCharacterIndex_);
-				toRet = card.useOn(targetPlayerIndex_, target, toRet, deckPlayer0, deckPlayer1, true);
+				Card card = boardState.data_.getCard_hand(actionPerformerPlayerModel, cardOrCharacterIndex_);
+				Minion target = boardState.data_.getCharacter(targetPlayerModel, targetCharacterIndex_);
+				toRet = card.useOn(targetPlayerModel, target, toRet, deckPlayer0, deckPlayer1, true);
 			}
 			break;
 			case HERO_ABILITY: {
-				Hero hero = boardState.data_.getHero(actionPerformerPlayerIndex_);
-				Minion target = boardState.data_.getCharacter(targetPlayerIndex_, targetCharacterIndex_);
-				toRet = hero.useHeroAbility(targetPlayerIndex_, target, toRet, deckPlayer0, deckPlayer1, true);
+				Hero hero = boardState.data_.getHero(actionPerformerPlayerModel);
+				Minion target = boardState.data_.getCharacter(targetPlayerModel, targetCharacterIndex_);
+				toRet = hero.useHeroAbility(targetPlayerModel, target, toRet, deckPlayer0, deckPlayer1, true);
 			}
 			break;
 			case ATTACK: {
-				Minion attacker = boardState.data_.getCharacter(actionPerformerPlayerIndex_, cardOrCharacterIndex_);
-				Minion target = boardState.data_.getCharacter(targetPlayerIndex_, targetCharacterIndex_);
-				toRet = attacker.attack(targetPlayerIndex_, target, toRet, deckPlayer0, deckPlayer1);
+				Minion attacker = boardState.data_.getCharacter(actionPerformerPlayerModel, cardOrCharacterIndex_);
+				Minion target = boardState.data_.getCharacter(targetPlayerModel, targetCharacterIndex_);
+				toRet = attacker.attack(targetPlayerModel, target, toRet, deckPlayer0, deckPlayer1);
 			}
 			break;
 		}

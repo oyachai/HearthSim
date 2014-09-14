@@ -6,6 +6,7 @@ import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class AbusiveSergeant extends Minion {
@@ -160,17 +161,17 @@ public class AbusiveSergeant extends Minion {
 	 * 
 	 * Battlecry: Give a minion +2 attack this turn
 	 * 
-	 * @param thisCardIndex The index (position) of the card in the hand
-	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
-	 * @param minionIndex The index of the target minion.
-	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-	 * 
-	 * @return The boardState is manipulated and returned
+	 *
+     *
+     * @param targetPlayer
+     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+     *
+     * return The boardState is manipulated and returned
 	 */
 
 	@Override
 	public HearthTreeNode useOn(
-			int targetPlayerIndex,
+			PlayerModel  targetPlayer,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -179,20 +180,20 @@ public class AbusiveSergeant extends Minion {
 		throws HSException
 	{
 		//A generic card does nothing except for consuming mana
-		HearthTreeNode toRet = super.useOn(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+		HearthTreeNode toRet = super.useOn(targetPlayer, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		
 		if (toRet != null) {
-			for (int index = 0; index < boardState.data_.getNumMinions_p0(); ++index) {
-				if (index != toRet.data_.getMinions_p0().indexOf(this)) {
+			for (int index = 0; index < boardState.data_.getCurrentPlayer().getNumMinions(); ++index) {
+				if (index != toRet.data_.getCurrentPlayer().getMinions().indexOf(this)) {
 					HearthTreeNode newState = boardState.addChild(new HearthTreeNode((BoardModel)boardState.data_.deepCopy()));
-					newState.data_.getMinion_p0(index).setExtraAttackUntilTurnEnd(((byte)(newState.data_.getMinion_p0(index).getExtraAttackUntilTurnEnd() + 2)));
+					newState.data_.getCurrentPlayer().getMinions().get(index).setExtraAttackUntilTurnEnd(((byte)(newState.data_.getCurrentPlayer().getMinions().get(index).getExtraAttackUntilTurnEnd() + 2)));
 				}
 			}
 			
-			for (int index = 0; index < boardState.data_.getNumMinions_p1(); ++index) {
-				if (index != toRet.data_.getMinions_p1().indexOf(this)) {
+			for (int index = 0; index < boardState.data_.getWaitingPlayer().getNumMinions(); ++index) {
+				if (index != toRet.data_.getWaitingPlayer().getMinions().indexOf(this)) {
 					HearthTreeNode newState = boardState.addChild(new HearthTreeNode((BoardModel)boardState.data_.deepCopy()));
-					newState.data_.getMinion_p1(index).setExtraAttackUntilTurnEnd(((byte)(newState.data_.getMinion_p1(index).getExtraAttackUntilTurnEnd() + 2)));
+					newState.data_.getWaitingPlayer().getMinions().get(index).setExtraAttackUntilTurnEnd(((byte)(newState.data_.getWaitingPlayer().getMinions().get(index).getExtraAttackUntilTurnEnd() + 2)));
 				}
 			}
 			return toRet;

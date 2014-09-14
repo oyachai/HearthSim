@@ -6,6 +6,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class Armorsmith extends Minion {
@@ -158,27 +159,25 @@ public class Armorsmith extends Minion {
 	 * 
 	 * Whenever a friendly minion takes damage, gain 1 Armor
 	 * 
-	 * @param thisMinionPlayerIndex The index of the damaged minion's player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
-	 * @param damagedPlayerIndex The player index of the damaged minion.
-	 * @param damagedMinion The damaged minion
-	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-	 * @param deckPlayer0 The deck of player0
-	 * @param deckPlayer0 The deck of player1
-	 * 
-	 * @return The boardState is manipulated and returned
+	 *
+     * @param thisMinionPlayerModel
+     * @param damagedPlayerModel
+     *@param damagedMinion The damaged minion
+     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+     * @param deckPlayer0 The deck of player0    @return The boardState is manipulated and returned
 	 */
 	public HearthTreeNode minionDamagedEvent(
-			int thisMinionPlayerIndex,
-			int damagedPlayerIndex,
+			PlayerModel thisMinionPlayerModel,
+			PlayerModel damagedPlayerModel,
 			Minion damagedMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
-		HearthTreeNode toRet = super.minionDamagedEvent(thisMinionPlayerIndex, damagedPlayerIndex, damagedMinion, boardState, deckPlayer0, deckPlayer1);
-		if (thisMinionPlayerIndex == damagedPlayerIndex) {
-			Hero hero = toRet.data_.getHero(thisMinionPlayerIndex);
+		HearthTreeNode toRet = super.minionDamagedEvent(thisMinionPlayerModel, damagedPlayerModel, damagedMinion, boardState, deckPlayer0, deckPlayer1);
+		if (thisMinionPlayerModel == damagedPlayerModel) {
+			Hero hero = toRet.data_.getHero(thisMinionPlayerModel);
 			hero.setArmor((byte)(hero.getArmor() + 1));
 		}
 		return toRet;

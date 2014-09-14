@@ -5,6 +5,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class DefenderOfArgus extends Minion {
@@ -160,16 +161,15 @@ public class DefenderOfArgus extends Minion {
 	 * 
 	 * Battlecry: Give adjacent minions +1/+1 and Taunt
 	 * 
-	 * @param thisCardIndex The index (position) of the card in the hand
-	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
-	 * @param minionIndex The index of the target minion.
-	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-	 * 
-	 * @return The boardState is manipulated and returned
+	 *
+     * @param playerModel
+     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+     *
+     * @return The boardState is manipulated and returned
 	 */
 	@Override
 	public HearthTreeNode use_core(
-			int targetPlayerIndex,
+			PlayerModel playerModel,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -177,25 +177,25 @@ public class DefenderOfArgus extends Minion {
 			boolean singleRealizationOnly)
 		throws HSException
 	{		
-		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+		HearthTreeNode toRet = super.use_core(playerModel, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
-			int thisMinionIndex = toRet.data_.getMinions(targetPlayerIndex).indexOf(this);
+			int thisMinionIndex = toRet.data_.getMinions(playerModel).indexOf(this);
 			if (thisMinionIndex == 0) {
-				Minion minionToBuff = toRet.data_.getMinion(targetPlayerIndex, 1);
+				Minion minionToBuff = toRet.data_.getMinion(playerModel, 1);
 				minionToBuff.setAttack((byte)(minionToBuff.getAttack() + 1));
 				minionToBuff.setHealth((byte)(minionToBuff.getHealth() + 1));
 				minionToBuff.setTaunt(true);
 			} else if (thisMinionIndex == 6) {
-				Minion minionToBuff = toRet.data_.getMinion(targetPlayerIndex, 5);
+				Minion minionToBuff = toRet.data_.getMinion(playerModel, 5);
 				minionToBuff.setAttack((byte)(minionToBuff.getAttack() + 1));
 				minionToBuff.setHealth((byte)(minionToBuff.getHealth() + 1));
 				minionToBuff.setTaunt(true);				
 			} else {
-				Minion minionToBuff0 = toRet.data_.getMinion(targetPlayerIndex, thisMinionIndex - 1);
+				Minion minionToBuff0 = toRet.data_.getMinion(playerModel, thisMinionIndex - 1);
 				minionToBuff0.setAttack((byte)(minionToBuff0.getAttack() + 1));
 				minionToBuff0.setHealth((byte)(minionToBuff0.getHealth() + 1));
 				minionToBuff0.setTaunt(true);				
-				Minion minionToBuff1 = toRet.data_.getMinion(targetPlayerIndex, thisMinionIndex + 1);
+				Minion minionToBuff1 = toRet.data_.getMinion(playerModel, thisMinionIndex + 1);
 				minionToBuff1.setAttack((byte)(minionToBuff1.getAttack() + 1));
 				minionToBuff1.setHealth((byte)(minionToBuff1.getHealth() + 1));
 				minionToBuff1.setTaunt(true);				

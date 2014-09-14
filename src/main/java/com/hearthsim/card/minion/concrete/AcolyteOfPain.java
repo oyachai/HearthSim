@@ -5,6 +5,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -161,19 +162,16 @@ public class AcolyteOfPain extends Minion {
 	 * Draw a card whenever this minion takes damage
 	 * 
 	 * @param damage The amount of damage to take
-	 * @param attackerPlayerIndex The player index of the attacker.  This is needed to do things like +spell damage.
-	 * @param thisPlayerIndex The player index of this minion
-	 * @param thisMinionIndex The minion index of this minion
-	 * @param boardState 
-	 * @param deck
-	 * @param isSpellDamage True if this is a spell damage
-	 * @throws HSException
+	 * @param attackPlayerModel The player index of the attacker.  This is needed to do things like +spell damage.
+	 * @param thisPlayerModel
+     *@param boardState
+     * @param isSpellDamage True if this is a spell damage   @throws HSException
 	 */
 	@Override
 	public HearthTreeNode takeDamage(
 			byte damage,
-			int attackerPlayerIndex,
-			int thisPlayerIndex,
+			PlayerModel attackPlayerModel,
+			PlayerModel thisPlayerModel,
 			HearthTreeNode boardState,
 			Deck deckPlayer0, 
 			Deck deckPlayer1,
@@ -182,8 +180,8 @@ public class AcolyteOfPain extends Minion {
 		throws HSException
 	{
 		if (!divineShield_) {
-			HearthTreeNode toRet = super.takeDamage(damage, attackerPlayerIndex, thisPlayerIndex, boardState, deckPlayer0, deckPlayer1, isSpellDamage, handleMinionDeath);
-			if (damage > 0 && thisPlayerIndex == 0) {
+			HearthTreeNode toRet = super.takeDamage(damage, attackPlayerModel, thisPlayerModel, boardState, deckPlayer0, deckPlayer1, isSpellDamage, handleMinionDeath);
+			if (damage > 0 && thisPlayerModel == boardState.data_.getCurrentPlayer()) {
 				if (toRet instanceof CardDrawNode) {
 					((CardDrawNode) toRet).addNumCardsToDraw(1);
 				} else {
@@ -191,7 +189,7 @@ public class AcolyteOfPain extends Minion {
 				}
 			} else if (damage > 0) {
 				//This minion is an enemy minion.  Let's draw a card for the enemy.  No need to use a StopNode for enemy card draws.
-				toRet.data_.drawCardFromDeck_p1(deckPlayer1, 1);
+				toRet.data_.drawCardFromWaitingPlayerDeck(deckPlayer1, 1);
 			}
 			return toRet;
 		} else {

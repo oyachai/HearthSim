@@ -7,6 +7,7 @@ import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 
@@ -162,15 +163,16 @@ public class Houndmaster extends Minion {
 	 * 
 	 * Battlecry: Give a friendly beast +2/+2 and Taunt
 	 * 
-	 * @param targetPlayerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
-	 * @param targetMinion The target minion
-	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-	 * 
-	 * @return The boardState is manipulated and returned
+	 *
+     * @param playerModel
+     * @param targetMinion The target minion
+     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+     *
+     * @return The boardState is manipulated and returned
 	 */
 	@Override
 	public HearthTreeNode use_core(
-			int targetPlayerIndex,
+			PlayerModel playerModel,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -178,14 +180,14 @@ public class Houndmaster extends Minion {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+		HearthTreeNode toRet = super.use_core(playerModel, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
-			for (int index = 0; index < toRet.data_.getNumMinions_p0(); ++index) {
-                if (index != toRet.data_.getMinions_p0().indexOf(this) && toRet.data_.getMinion_p0(index) instanceof Beast) {
+			for (int index = 0; index < toRet.data_.getCurrentPlayer().getNumMinions(); ++index) {
+                if (index != toRet.data_.getCurrentPlayer().getMinions().indexOf(this) && toRet.data_.getCurrentPlayer().getMinions().get(index) instanceof Beast) {
                     HearthTreeNode newState = toRet.addChild(new HearthTreeNode((BoardModel) toRet.data_.deepCopy()));
-                    newState.data_.getMinion_p0(index).setAttack((byte) (newState.data_.getMinion_p0(index).getAttack() + 2));
-                    newState.data_.getMinion_p0(index).setHealth((byte) (newState.data_.getMinion_p0(index).getHealth() + 2));
-                    newState.data_.getMinion_p0(index).setTaunt(true);
+                    newState.data_.getCurrentPlayer().getMinions().get(index).setAttack((byte) (newState.data_.getCurrentPlayer().getMinions().get(index).getAttack() + 2));
+                    newState.data_.getCurrentPlayer().getMinions().get(index).setHealth((byte) (newState.data_.getCurrentPlayer().getMinions().get(index).getHealth() + 2));
+                    newState.data_.getCurrentPlayer().getMinions().get(index).setTaunt(true);
                 }
 			}
 		}

@@ -54,22 +54,24 @@ public class Game {
 		curPlayer_ = 0;
 
 		//the first player draws 3 cards
-		boardModel_.placeCard_hand_p0(0);
-		boardModel_.placeCard_hand_p0(1);
-		boardModel_.placeCard_hand_p0(2);
+		boardModel_.placeCardHandCurrentPlayer(0);
+		boardModel_.placeCardHandCurrentPlayer(1);
+		boardModel_.placeCardHandCurrentPlayer(2);
 		boardModel_.setDeckPos_p0(3);
 
 		//the second player draws 4 cards
-		boardModel_.placeCard_hand_p1(0);
-		boardModel_.placeCard_hand_p1(1);
-		boardModel_.placeCard_hand_p1(2);
-		boardModel_.placeCard_hand_p1(3);
-		boardModel_.placeCard_hand_p1(new TheCoin());
+		boardModel_.placeCardHandWaitingPlayer(0);
+		boardModel_.placeCardHandWaitingPlayer(1);
+		boardModel_.placeCardHandWaitingPlayer(2);
+		boardModel_.placeCardHandWaitingPlayer(3);
+		boardModel_.placeCardHandWaitingPlayer(new TheCoin());
 		boardModel_.setDeckPos_p1(4);
 		
 		GameRecord record = new GameSimpleRecord();
-		record.put(0, s0_, (BoardModel) boardModel_.deepCopy());
-		record.put(0, s1_, (BoardModel) boardModel_.flipPlayers().deepCopy());
+
+
+		record.put(0, boardModel_.getCurrentPlayer(), (BoardModel) boardModel_.deepCopy());
+		record.put(0, boardModel_.getWaitingPlayer(), (BoardModel) boardModel_.flipPlayers().deepCopy());
 
         GameResult gameResult;
         for (int turnCount = 0; turnCount < maxTurns_; ++turnCount) {
@@ -107,7 +109,7 @@ public class Game {
         boardModel_ = playAITurn(turnCount, boardModel_, ai);
         endTurn(boardModel_);
 
-        record.put(turnCount + 1, s0_, (BoardModel) boardModel_.deepCopy());
+        record.put(turnCount + 1, boardModel_.getCurrentPlayer(), (BoardModel) boardModel_.deepCopy());
 
         gameResult = checkGameOver(turnCount, record);
         if (gameResult != null) return gameResult;
@@ -118,9 +120,9 @@ public class Game {
     }
 
     public GameResult checkGameOver(int turnCount, GameRecord record){
-        if (!boardModel_.isAlive_p0()) {
+        if (!boardModel_.isAlive(boardModel_.getCurrentPlayer())) {
             return new GameResult(s0_, s1_, turnCount + 1, record);
-        } else if (!boardModel_.isAlive_p1()) {
+        } else if (!boardModel_.isAlive(boardModel_.getWaitingPlayer())) {
             return new GameResult(s0_, s0_, turnCount + 1, record);
         }
 
@@ -136,10 +138,10 @@ public class Game {
             //fatigue
             byte fatigueDamage = board.getFatigueDamage_p0();
             board.setFatigueDamage_p0((byte)(fatigueDamage + 1));
-            board.getHero_p0().setHealth((byte)(board.getHero_p0().getHealth() - fatigueDamage));
+            board.getCurrentPlayerHero().setHealth((byte)(board.getCurrentPlayerHero().getHealth() - fatigueDamage));
         } else {
             board.setDeckPos_p0(board.getDeckPos_p0() + 1);
-            board.placeCard_hand_p0(newCard);
+            board.placeCardHandCurrentPlayer(newCard);
         }
         if (board.getMana_p0() < 10)
             board.addMaxMana_p0(1);
