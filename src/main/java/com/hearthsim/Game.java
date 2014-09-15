@@ -76,11 +76,11 @@ public class Game {
             log.info("starting turn " + turnCount);
             long turnStart = System.currentTimeMillis();
 
-            gameResult = playTurn(turnCount, record, ais[s0_]);
+            gameResult = playTurn(turnCount, record, s0_, ais[s0_]);
             if (gameResult != null)
                 return gameResult;
 
-            gameResult = playTurn(turnCount, record, ais[s1_]);
+            gameResult = playTurn(turnCount, record, s1_, ais[s1_]);
             if (gameResult != null)
                 return gameResult;
 
@@ -96,7 +96,7 @@ public class Game {
 		return new GameResult(s0_, -1, 0, record);
 	}
 
-    private GameResult playTurn(int turnCount, GameRecord record, ArtificialPlayer ai) throws HSException {
+    private GameResult playTurn(int turnCount, GameRecord record, int activePlayerIndex, ArtificialPlayer ai) throws HSException {
         beginTurn(turnCount, boardModel_);
 
         GameResult gameResult;
@@ -107,7 +107,7 @@ public class Game {
         boardModel_ = playAITurn(turnCount, boardModel_, ai);
         endTurn(boardModel_);
 
-        record.put(turnCount + 1, s0_, (BoardModel) boardModel_.deepCopy());
+        record.put(turnCount + 1, activePlayerIndex, (BoardModel) boardModel_.deepCopy());
 
         gameResult = checkGameOver(turnCount, record);
         if (gameResult != null) return gameResult;
