@@ -6,7 +6,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.util.boardstate.BoardState;
+import com.hearthsim.model.BoardModel;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 
@@ -182,7 +182,7 @@ public class Houndmaster extends Minion {
 		if (toRet != null) {
 			for (int index = 0; index < toRet.data_.getNumMinions_p0(); ++index) {
                 if (index != toRet.data_.getMinions_p0().indexOf(this) && toRet.data_.getMinion_p0(index) instanceof Beast) {
-                    HearthTreeNode newState = toRet.addChild(new HearthTreeNode((BoardState) toRet.data_.deepCopy()));
+                    HearthTreeNode newState = toRet.addChild(new HearthTreeNode((BoardModel) toRet.data_.deepCopy()));
                     newState.data_.getMinion_p0(index).setAttack((byte) (newState.data_.getMinion_p0(index).getAttack() + 2));
                     newState.data_.getMinion_p0(index).setHealth((byte) (newState.data_.getMinion_p0(index).getHealth() + 2));
                     newState.data_.getMinion_p0(index).setTaunt(true);

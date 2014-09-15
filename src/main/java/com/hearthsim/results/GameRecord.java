@@ -1,6 +1,6 @@
 package com.hearthsim.results;
 
-import com.hearthsim.util.boardstate.BoardState;
+import com.hearthsim.model.BoardModel;
 import org.json.JSONObject;
 
 public interface GameRecord {
@@ -12,7 +12,7 @@ public interface GameRecord {
 	 * @param activePlayerIndex Index of the player that just played a turn
 	 * @param board
 	 */
-	public void put(int turn, int activePlayerIndex, BoardState board);
+	public void put(int turn, int activePlayerIndex, BoardModel board);
 	
 	/**
 	 * Return the number of turns recorded for each player

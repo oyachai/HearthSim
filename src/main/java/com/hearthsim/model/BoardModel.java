@@ -1,4 +1,4 @@
-package com.hearthsim.util.boardstate;
+package com.hearthsim.model;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
@@ -21,9 +21,15 @@ import java.util.Iterator;
  * A class that represents the current state of the board (game)
  *
  */
-public class BoardState implements DeepCopyable {
+public class BoardModel implements DeepCopyable {
 
     private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
+
+    private PlayerModel currentPlayer;
+    private PlayerModel waitingPlayer;
+
+    PlayerModel playerModel0;
+    PlayerModel playerModel1;
 		
 	MinionList p0_minions_;
 	MinionList p1_minions_;
@@ -61,32 +67,60 @@ public class BoardState implements DeepCopyable {
 			playerIndex_ = playerIndex;
 		}
 	}
-	
-	public BoardState() {
-		this(new Hero("hero0", (byte)30), new Hero("hero1", (byte)30));
-	}
-	
-	public BoardState(Hero p0_hero, Hero p1_hero) {
-		p0_minions_ = new MinionList();
-		p1_minions_ = new MinionList();
-		p0_hand_ = new IdentityLinkedList<Card>();
-		p1_hand_ = new IdentityLinkedList<Card>();
-		p0_mana_ = 0;
-		p1_mana_ = 0;
-		p0_maxMana_ = 0;
-		p1_maxMana_ = 0;
-		p0_deckPos_ = 0;
-		p1_deckPos_ = 0;
-		p0_fatigueDamage_ = 1;
-		p1_fatigueDamage_ = 1;
-		
-		p0_hero_ = p0_hero;
-		p1_hero_ = p1_hero;
-		
-		allMinionsFIFOList_ = new IdentityLinkedList<MinionPlayerIDPair>();
-	}
-	
-	public MinionList getMinions(int playerIndex) throws HSInvalidPlayerIndexException {
+
+    public BoardModel() {
+        Hero hero0 = new Hero("hero0", (byte) 30);
+        Hero hero1 = new Hero("hero1", (byte) 30);
+        this.playerModel0 = new PlayerModel("player0", hero0, null);
+        this.playerModel1 = new PlayerModel("player1", hero1, null);
+
+        this.currentPlayer = playerModel0;
+        this.waitingPlayer = playerModel1;
+
+        buildModel(hero0, hero1);
+    }
+
+    public BoardModel(PlayerModel playerModel0, PlayerModel playerModel1, PlayerModel firstPlayer) {
+        this.playerModel0 = playerModel0;
+        this.playerModel1 = playerModel1;
+
+        if (firstPlayer == playerModel0){
+            this.currentPlayer = playerModel0;
+            this.waitingPlayer = playerModel1;
+        }else{
+            this.currentPlayer = playerModel1;
+            this.waitingPlayer = playerModel0;
+        }
+
+
+        buildModel(playerModel0.getHero(), playerModel1.getHero());
+    }
+
+    public BoardModel(Hero p0_hero, Hero p1_hero) {
+        buildModel(p0_hero, p1_hero);
+    }
+
+    public void buildModel(Hero p0_hero, Hero p1_hero) {
+        p0_minions_ = new MinionList();
+        p1_minions_ = new MinionList();
+        p0_hand_ = new IdentityLinkedList<Card>();
+        p1_hand_ = new IdentityLinkedList<Card>();
+        p0_mana_ = 0;
+        p1_mana_ = 0;
+        p0_maxMana_ = 0;
+        p1_maxMana_ = 0;
+        p0_deckPos_ = 0;
+        p1_deckPos_ = 0;
+        p0_fatigueDamage_ = 1;
+        p1_fatigueDamage_ = 1;
+
+        p0_hero_ = p0_hero;
+        p1_hero_ = p1_hero;
+
+        allMinionsFIFOList_ = new IdentityLinkedList<MinionPlayerIDPair>();
+    }
+
+    public MinionList getMinions(int playerIndex) throws HSInvalidPlayerIndexException {
 		if (playerIndex == 0)
 			return p0_minions_;
 		else if (playerIndex == 1)
@@ -261,15 +295,27 @@ public class BoardState implements DeepCopyable {
 			throw new HSInvalidPlayerIndexException();
 	}
 	
-	public void placeCard_hand_p0(Card card) {
-		card.isInHand(true);
+	public void placeCard_hand_p0(int cardIndex) {
+        Card card = currentPlayer.drawFromDeck(cardIndex);
+        card.isInHand(true);
 		p0_hand_.add(card);
 	}
 
-	public void placeCard_hand_p1(Card card) {
+    public void placeCard_hand_p0(Card card) {
+        card.isInHand(true);
+        p0_hand_.add(card);
+    }
+
+	public void placeCard_hand_p1(int cardIndex) {
+        Card card = waitingPlayer.drawFromDeck(cardIndex);
 		card.isInHand(true);
 		p1_hand_.add(card);
 	}
+
+    public void placeCard_hand_p1(Card card) {
+        card.isInHand(true);
+        p1_hand_.add(card);
+    }
 	
 	public void removeCard_hand(Card card) {
 		p0_hand_.remove(card);
@@ -737,20 +783,20 @@ public class BoardState implements DeepCopyable {
 			p1_minions_.remove(minion);
 	}
 	
-	public void startTurn(Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+	public void startTurn() throws HSException {
 		this.resetHand();
 		this.resetMinions();
 
 		for (Minion targetMinion : p0_minions_) {
 			try {
-				targetMinion.startTurn(0, this, deckPlayer0, deckPlayer1);
+				targetMinion.startTurn(0, this, currentPlayer.getDeck(), waitingPlayer.getDeck());
 			} catch (HSInvalidPlayerIndexException e) {
 				e.printStackTrace();
 			}
 		}
 		for (Minion targetMinion : p1_minions_) {
 			try {
-				targetMinion.startTurn(1, this, deckPlayer0, deckPlayer1);
+				targetMinion.startTurn(1, this, currentPlayer.getDeck(), waitingPlayer.getDeck());
 			} catch (HSInvalidPlayerIndexException e) {
 				e.printStackTrace();
 			}
@@ -784,68 +830,68 @@ public class BoardState implements DeepCopyable {
 	      return false;
 	   }
 	   
-	   if (p0_mana_ != ((BoardState)other).p0_mana_)
+	   if (p0_mana_ != ((BoardModel)other).p0_mana_)
 		   return false;
-	   if (p1_mana_ != ((BoardState)other).p1_mana_)
+	   if (p1_mana_ != ((BoardModel)other).p1_mana_)
 		   return false;
-	   if (p0_maxMana_ != ((BoardState)other).p0_maxMana_)
+	   if (p0_maxMana_ != ((BoardModel)other).p0_maxMana_)
 		   return false;
-	   if (p1_maxMana_ != ((BoardState)other).p1_maxMana_)
+	   if (p1_maxMana_ != ((BoardModel)other).p1_maxMana_)
 		   return false;
 	   
-	   if (!p0_hero_.equals(((BoardState)other).p0_hero_)) {
+	   if (!p0_hero_.equals(((BoardModel)other).p0_hero_)) {
 		   return false;
 	   }
 
-	   if (!p1_hero_.equals(((BoardState)other).p1_hero_)) {
+	   if (!p1_hero_.equals(((BoardModel)other).p1_hero_)) {
 		   return false;
 	   }
 	   
-	   if (p0_deckPos_ != ((BoardState)other).p0_deckPos_)
+	   if (p0_deckPos_ != ((BoardModel)other).p0_deckPos_)
 		   return false;
 
-	   if (p1_deckPos_ != ((BoardState)other).p1_deckPos_)
+	   if (p1_deckPos_ != ((BoardModel)other).p1_deckPos_)
 		   return false;
 
-	   if (p0_fatigueDamage_ != ((BoardState)other).p0_fatigueDamage_)
+	   if (p0_fatigueDamage_ != ((BoardModel)other).p0_fatigueDamage_)
 		   return false;
 	   
-	   if (p1_fatigueDamage_ != ((BoardState)other).p1_fatigueDamage_)
+	   if (p1_fatigueDamage_ != ((BoardModel)other).p1_fatigueDamage_)
 		   return false;
 
-	   if (p0_spellDamage_ != ((BoardState)other).p0_spellDamage_)
+	   if (p0_spellDamage_ != ((BoardModel)other).p0_spellDamage_)
 		   return false;
 
-	   if (p1_spellDamage_ != ((BoardState)other).p1_spellDamage_)
+	   if (p1_spellDamage_ != ((BoardModel)other).p1_spellDamage_)
 		   return false;
 
-	   if (p0_minions_.size() != ((BoardState)other).p0_minions_.size()) 
+	   if (p0_minions_.size() != ((BoardModel)other).p0_minions_.size())
 		   return false;
-	   if (p1_minions_.size() != ((BoardState)other).p1_minions_.size()) 
+	   if (p1_minions_.size() != ((BoardModel)other).p1_minions_.size())
 		   return false;
-	   if (p0_hand_.size() != ((BoardState)other).p0_hand_.size()) 
+	   if (p0_hand_.size() != ((BoardModel)other).p0_hand_.size())
 		   return false;
 
 	   for (int i = 0; i < p0_minions_.size(); ++i) {
-		   if (!p0_minions_.get(i).equals(((BoardState)other).p0_minions_.get(i))) {
+		   if (!p0_minions_.get(i).equals(((BoardModel)other).p0_minions_.get(i))) {
 			   return false;
 		   }
 	   }
 
 	   for (int i = 0; i < p1_minions_.size(); ++i) {
-		   if (!p1_minions_.get(i).equals(((BoardState)other).p1_minions_.get(i))) {
+		   if (!p1_minions_.get(i).equals(((BoardModel)other).p1_minions_.get(i))) {
 			   return false;
 		   }
 	   }
 
 	   for (int i = 0; i < p0_hand_.size(); ++i) {
-		   if (!p0_hand_.get(i).equals(((BoardState)other).p0_hand_.get(i))) {
+		   if (!p0_hand_.get(i).equals(((BoardModel)other).p0_hand_.get(i))) {
 			   return false;
 		   }
 	   }
 	   
 	   for (int i = 0; i < p1_hand_.size(); ++i) {
-		   if (!p1_hand_.get(i).equals(((BoardState)other).p1_hand_.get(i))) {
+		   if (!p1_hand_.get(i).equals(((BoardModel)other).p1_hand_.get(i))) {
 			   return false;
 		   }
 	   }
@@ -930,8 +976,9 @@ public class BoardState implements DeepCopyable {
 		}
 	}
 	
-	public BoardState flipPlayers() { 
-		BoardState newState = (BoardState)this.deepCopy();
+	public BoardModel flipPlayers() {
+
+		BoardModel newState = (BoardModel)this.deepCopy();
 		MinionList p0_minions = newState.getMinions_p0();
 		MinionList p1_minions = newState.getMinions_p1();
 		int p0_mana = newState.getMana_p0();
@@ -939,6 +986,8 @@ public class BoardState implements DeepCopyable {
 		int p0_maxMana = newState.getMaxMana_p0();
 		int p1_maxMana = newState.getMaxMana_p1();
 
+        newState.currentPlayer = waitingPlayer;
+        newState.waitingPlayer = currentPlayer;
 		newState.p0_hero_ = p1_hero_;
 		newState.p1_hero_ = p0_hero_;
 		newState.setMinions_p0(p1_minions);
@@ -963,7 +1012,13 @@ public class BoardState implements DeepCopyable {
 	}
 	
 	public Object deepCopy() {
-		BoardState newBoard = new BoardState();
+		BoardModel newBoard = new BoardModel();
+
+        newBoard.setCurrentPlayer(currentPlayer);
+        newBoard.setWaitingPlayer(waitingPlayer);
+        newBoard.setPlayerModel0(playerModel0);
+        newBoard.setPlayerModel1(playerModel1);
+
 		for (Iterator<Minion> iter = p0_minions_.iterator(); iter.hasNext();) {
 			Minion tc = (Minion)(iter.next()).deepCopy();
 			newBoard.p0_minions_.add(tc);
@@ -981,8 +1036,8 @@ public class BoardState implements DeepCopyable {
 			newBoard.placeCard_hand_p1(tc);
 		}
 		
-		newBoard.setHero_p0((Hero)this.p0_hero_.deepCopy());
-		newBoard.setHero_p1((Hero)this.p1_hero_.deepCopy());
+		newBoard.setHero_p0((Hero) this.p0_hero_.deepCopy());
+		newBoard.setHero_p1((Hero) this.p1_hero_.deepCopy());
 		
 		newBoard.p0_deckPos_ = this.p0_deckPos_;
 		newBoard.p1_deckPos_ = this.p1_deckPos_;
@@ -1070,4 +1125,35 @@ public class BoardState implements DeepCopyable {
         return this.toJSON().toString();
     }
 
+    public PlayerModel getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public void setCurrentPlayer(PlayerModel currentPlayer) {
+        this.currentPlayer = currentPlayer;
+    }
+
+    public PlayerModel getWaitingPlayer() {
+        return waitingPlayer;
+    }
+
+    public void setWaitingPlayer(PlayerModel waitingPlayer) {
+        this.waitingPlayer = waitingPlayer;
+    }
+
+    public PlayerModel getPlayerModel0() {
+        return playerModel0;
+    }
+
+    public void setPlayerModel0(PlayerModel playerModel0) {
+        this.playerModel0 = playerModel0;
+    }
+
+    public PlayerModel getPlayerModel1() {
+        return playerModel1;
+    }
+
+    public void setPlayerModel1(PlayerModel playerModel1) {
+        this.playerModel1 = playerModel1;
+    }
 }

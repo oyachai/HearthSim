@@ -2,9 +2,9 @@ package com.hearthsim.test;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.BoardModel;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
-import com.hearthsim.util.boardstate.BoardState;
-import com.hearthsim.util.boardstate.BoardStateFactoryBase;
+import com.hearthsim.util.factory.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,7 +14,7 @@ import static org.junit.Assert.assertTrue;
 
 public class TestCharge {
 	
-	private BoardState board;
+	private BoardModel board;
 	private DummyStateFunc scoreFunc;
 	private static final byte mana = 1;
 	private static final byte attack0 = 2;
@@ -23,8 +23,8 @@ public class TestCharge {
 
 	private class DummyStateFunc extends ArtificialPlayer {
 
-		@Override
-		public double boardScore(BoardState xval) {
+        @Override
+		public double boardScore(BoardModel xval) {
 			return 0;
 		}
 	}
@@ -32,7 +32,7 @@ public class TestCharge {
 	
 	@Before
 	public void setup() throws HSException {
-		board = new BoardState();
+		board = new BoardModel();
 		scoreFunc = new DummyStateFunc();
 
 		Minion minion1_0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);

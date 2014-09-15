@@ -3,7 +3,7 @@ package com.hearthsim.test;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.util.boardstate.BoardState;
+import com.hearthsim.model.BoardModel;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
@@ -38,9 +38,9 @@ public class testBoardState {
 		}
 		
 
-		BoardState board1 = new BoardState();
-		BoardState board2 = new BoardState();
-		BoardState board3 = new BoardState();
+		BoardModel board1 = new BoardModel();
+		BoardModel board2 = new BoardModel();
+		BoardModel board3 = new BoardModel();
 		
 		assertTrue(board1.equals(board2));
 		
@@ -84,7 +84,7 @@ public class testBoardState {
 	public void testBoardState2() throws HSException {
 
 		int numBoards = 20000;
-		BoardState[] boards = new BoardState[numBoards];
+		BoardModel[] boards = new BoardModel[numBoards];
 
 		int numCards1 = 1;
 		int numCards2 = 1;
@@ -119,7 +119,7 @@ public class testBoardState {
 		}
 
 		for (int i = 0; i < numBoards; ++i) {
-			boards[i] = new BoardState();
+			boards[i] = new BoardModel();
 			
 			int nh = (int)(Math.random() * 1) + 1;
 			int nm1 = (int)(Math.random() * 1) + 1;

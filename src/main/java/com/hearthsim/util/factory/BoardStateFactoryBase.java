@@ -1,12 +1,13 @@
-package com.hearthsim.util.boardstate;
+package com.hearthsim.util.factory;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.BoardModel;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.util.IdentityLinkedList;
-import com.hearthsim.util.boardstate.BoardState.MinionPlayerIDPair;
+import com.hearthsim.model.BoardModel.MinionPlayerIDPair;
 import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 import com.hearthsim.util.tree.RandomEffectNode;
@@ -75,7 +76,7 @@ public class BoardStateFactoryBase {
 			for(int i = 0; i <= boardStateNode.data_.getNumMinions_p0(); ++i) {
 				Minion targetMinion = boardStateNode.data_.getCharacter_p0(i);
 				if (boardStateNode.data_.getHero_p0().canBeUsedOn(0, targetMinion)) {
-					HearthTreeNode newState = new HearthTreeNode((BoardState)boardStateNode.data_.deepCopy());
+					HearthTreeNode newState = new HearthTreeNode((BoardModel)boardStateNode.data_.deepCopy());
 					Minion copiedTargetMinion = newState.data_.getCharacter_p0(i);
 					newState = newState.data_.getHero_p0().useHeroAbility(0, copiedTargetMinion, newState, deckPlayer0_, deckPlayer1_, false);
 					if (newState != null) {
@@ -88,7 +89,7 @@ public class BoardStateFactoryBase {
 			for(int i = 0; i <= boardStateNode.data_.getNumMinions_p1(); ++i) {
 				Minion targetMinion = boardStateNode.data_.getCharacter_p1(i);
 				if (boardStateNode.data_.getHero_p0().canBeUsedOn(1, targetMinion)) {
-					HearthTreeNode newState = new HearthTreeNode((BoardState)boardStateNode.data_.deepCopy());
+					HearthTreeNode newState = new HearthTreeNode((BoardModel)boardStateNode.data_.deepCopy());
 					Minion copiedTargetMinion = newState.data_.getCharacter_p1(i);
 					newState = newState.data_.getHero_p0().useHeroAbility(1, copiedTargetMinion, newState, deckPlayer0_, deckPlayer1_, false);
 					if (newState != null) {
@@ -100,7 +101,7 @@ public class BoardStateFactoryBase {
 			}
 			if (heroAbilityUsable) {
 				//Case1: Decided not to use the hero ability
-				HearthTreeNode newState = new HearthTreeNode((BoardState)boardStateNode.data_.deepCopy());
+				HearthTreeNode newState = new HearthTreeNode((BoardModel)boardStateNode.data_.deepCopy());
 				newState.data_.getHero_p0().hasBeenUsed(true);
 				newState = this.doMoves(newState, ai);
 				if (newState != null) boardStateNode.addChild(newState);
@@ -120,7 +121,7 @@ public class BoardStateFactoryBase {
 		}
 		
 		if (!allAttacked && boardStateNode.data_.getNumMinions_p0() > 0) {
-			HearthTreeNode newState = new HearthTreeNode((BoardState)boardStateNode.data_.deepCopy());
+			HearthTreeNode newState = new HearthTreeNode((BoardModel)boardStateNode.data_.deepCopy());
 			for (Minion minion : newState.data_.getMinions_p0()) {
 				minion.hasAttacked(true);
 			}
@@ -133,7 +134,7 @@ public class BoardStateFactoryBase {
 			ArrayList<Integer> attackable = boardStateNode.data_.getAttackableMinions_p1();
 			for(final Integer integer : attackable) {
 				int i = integer.intValue();
-				HearthTreeNode newState = new HearthTreeNode((BoardState)boardStateNode.data_.deepCopy());
+				HearthTreeNode newState = new HearthTreeNode((BoardModel)boardStateNode.data_.deepCopy());
 				Minion targetMinion = newState.data_.getCharacter_p1(i);
 				newState = newState.data_.getHero_p0().attack(1, targetMinion, newState, deckPlayer0_, deckPlayer1_);
 				if (newState != null) {
@@ -151,7 +152,7 @@ public class BoardStateFactoryBase {
 			ArrayList<Integer> attackable = boardStateNode.data_.getAttackableMinions_p1();
 			for(final Integer integer : attackable) {
 				int i = integer.intValue();
-				HearthTreeNode newState = new HearthTreeNode((BoardState)boardStateNode.data_.deepCopy());
+				HearthTreeNode newState = new HearthTreeNode((BoardModel)boardStateNode.data_.deepCopy());
 				Minion targetMinion = newState.data_.getCharacter_p1(i);
 				Minion tempMinion = newState.data_.getMinion_p0(ic);
 				newState = tempMinion.attack(1, targetMinion, newState, deckPlayer0_, deckPlayer1_);
@@ -175,7 +176,7 @@ public class BoardStateFactoryBase {
 		
 		//the case where I chose not to use any more cards
 		if (!allUsed) {
-			HearthTreeNode newState = new HearthTreeNode((BoardState)boardStateNode.data_.deepCopy());
+			HearthTreeNode newState = new HearthTreeNode((BoardModel)boardStateNode.data_.deepCopy());
 			for (Card card : newState.data_.getCards_hand_p0()) {
 				card.hasBeenUsed(true);
 			}
@@ -191,7 +192,7 @@ public class BoardStateFactoryBase {
 				for(int i = 0; i <= boardStateNode.data_.getNumMinions_p0(); ++i) {
 					Minion targetMinion = boardStateNode.data_.getCharacter_p0(i);
 					if (boardStateNode.data_.getCard_hand_p0(ic).canBeUsedOn(0, targetMinion)) {
-						HearthTreeNode newState = new HearthTreeNode((BoardState)boardStateNode.data_.deepCopy());
+						HearthTreeNode newState = new HearthTreeNode((BoardModel)boardStateNode.data_.deepCopy());
 						Minion copiedTargetMinion = newState.data_.getCharacter_p0(i);
 						Card card = newState.data_.getCard_hand_p0(ic);
 						newState = card.useOn(0, copiedTargetMinion, newState, deckPlayer0_, deckPlayer1_, false);
@@ -204,7 +205,7 @@ public class BoardStateFactoryBase {
 				for(int i = 0; i <= boardStateNode.data_.getNumMinions_p1(); ++i) {
 					Minion targetMinion = boardStateNode.data_.getCharacter_p1(i);
 					if (boardStateNode.data_.getCard_hand_p0(ic).canBeUsedOn(1, targetMinion)) {
-						HearthTreeNode newState = new HearthTreeNode((BoardState)boardStateNode.data_.deepCopy());
+						HearthTreeNode newState = new HearthTreeNode((BoardModel)boardStateNode.data_.deepCopy());
 						Minion copiedTargetMinion = newState.data_.getCharacter_p1(i);
 						Card card = newState.data_.getCard_hand_p0(ic);
 						newState = card.useOn(1, copiedTargetMinion, newState, deckPlayer0_, deckPlayer1_, false);

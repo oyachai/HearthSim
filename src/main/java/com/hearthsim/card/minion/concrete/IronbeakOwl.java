@@ -5,7 +5,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.util.boardstate.BoardState;
+import com.hearthsim.model.BoardModel;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class IronbeakOwl extends Minion {
@@ -184,7 +184,7 @@ public class IronbeakOwl extends Minion {
 				for (int index = 0; index < boardState.data_.getNumMinions_p0(); ++index) {
 					if (boardState.data_.getMinion_p0(index) == this)
 						continue;
-					HearthTreeNode newState = new HearthTreeNode((BoardState)boardState.data_.deepCopy());
+					HearthTreeNode newState = new HearthTreeNode((BoardModel)boardState.data_.deepCopy());
 					Minion minion = newState.data_.getMinion_p0(index);
 					newState = minion.silenced(0, newState, deckPlayer0, deckPlayer1);
 					toRet.addChild(newState);
@@ -193,7 +193,7 @@ public class IronbeakOwl extends Minion {
 
 			{
 				for (int index = 0; index < boardState.data_.getNumMinions_p1(); ++index) {		
-					HearthTreeNode newState = new HearthTreeNode((BoardState)boardState.data_.deepCopy());
+					HearthTreeNode newState = new HearthTreeNode((BoardModel)boardState.data_.deepCopy());
 					Minion minion = newState.data_.getMinion_p1(index);
 					newState = minion.silenced(1, newState, deckPlayer0, deckPlayer1);
 					toRet.addChild(newState);

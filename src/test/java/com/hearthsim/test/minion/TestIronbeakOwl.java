@@ -2,6 +2,7 @@ package com.hearthsim.test.minion;
 
 import static org.junit.Assert.*;
 
+import com.hearthsim.model.BoardModel;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,7 +18,6 @@ import com.hearthsim.card.minion.concrete.RaidLeader;
 import com.hearthsim.card.minion.concrete.StormwindChampion;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.util.boardstate.BoardState;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class TestIronbeakOwl {
@@ -27,7 +27,7 @@ public class TestIronbeakOwl {
 
 	@Before
 	public void setup() {
-		board = new HearthTreeNode(new BoardState());
+		board = new HearthTreeNode(new BoardModel());
 
 		Minion minion0_0 = new StormwindChampion();
 		Minion minion0_1 = new RaidLeader();

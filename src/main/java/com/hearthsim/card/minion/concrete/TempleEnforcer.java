@@ -5,7 +5,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.util.boardstate.BoardState;
+import com.hearthsim.model.BoardModel;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class TempleEnforcer extends Minion {
@@ -184,7 +184,7 @@ public class TempleEnforcer extends Minion {
 				for (int index = 0; index < toRet.data_.getNumMinions_p0(); ++index) {
 					if (toRet.data_.getMinion_p0(index) == this)
 						continue;
-					HearthTreeNode newState = new HearthTreeNode((BoardState)toRet.data_.deepCopy());
+					HearthTreeNode newState = new HearthTreeNode((BoardModel)toRet.data_.deepCopy());
 					Minion minion = newState.data_.getMinion_p0(index);
 					minion.setHealth((byte)(minion.getHealth() + 3));
 					toRet.addChild(newState);

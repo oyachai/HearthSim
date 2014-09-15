@@ -8,9 +8,9 @@ import com.hearthsim.card.minion.concrete.ChillwindYeti;
 import com.hearthsim.card.minion.heroes.Priest;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.BoardModel;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
-import com.hearthsim.util.boardstate.BoardState;
-import com.hearthsim.util.boardstate.BoardStateFactoryBase;
+import com.hearthsim.util.factory.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,7 +25,7 @@ public class TestPriest {
 
 	@Before
 	public void setup() {
-		board = new HearthTreeNode(new BoardState(new Priest(), new Hero()));
+		board = new HearthTreeNode(new BoardModel(new Priest(), new Hero()));
 
 		Minion minion0_0 = new ChillwindYeti();
 		Minion minion0_1 = new ChillwindYeti();
@@ -164,25 +164,11 @@ public class TestPriest {
 	@Test
 	public void test1() throws HSException {
 		
-		ArtificialPlayer ai0 = new ArtificialPlayer(
-				0.9,
-				0.9,
-				1.0,
-				1.0,
-				1.0,
-				0.1,
-				0.1,
-				0.1,
-				0.5,
-				0.5,
-				0.0,
-				0.5,
-				0.0,
-				0.0
-				);
+
 		
 		BoardStateFactoryBase factory = new BoardStateFactoryBase(null, null, 2000000000);
 		HearthTreeNode tree = new HearthTreeNode(board.data_);
+        ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
 		try {
 			tree = factory.doMoves(tree, ai0);
 		} catch (HSException e) {
@@ -218,25 +204,11 @@ public class TestPriest {
 		//one of your yeti is damaged
 		board.data_.getMinion_p0(0).setHealth((byte)3);
 		
-		ArtificialPlayer ai0 = new ArtificialPlayer(
-				0.9,
-				0.9,
-				1.0,
-				1.0,
-				1.0,
-				0.1,
-				0.1,
-				0.1,
-				0.5,
-				0.5,
-				0.0,
-				0.5,
-				0.0,
-				0.0
-				);
+
 		
 		BoardStateFactoryBase factory = new BoardStateFactoryBase(null, null, 2000000000);
 		HearthTreeNode tree = new HearthTreeNode(board.data_);
+        ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
 		try {
 			tree = factory.doMoves(tree, ai0);
 		} catch (HSException e) {

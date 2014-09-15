@@ -6,7 +6,7 @@ import com.hearthsim.card.minion.Totem;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.util.boardstate.BoardState;
+import com.hearthsim.model.BoardModel;
 import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -164,8 +164,8 @@ public class HealingTotem extends Totem {
 	 * 
 	 */
 	@Override
-	public BoardState endTurn(int thisMinionPlayerIndex, BoardState boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
-		BoardState tmpState = super.endTurn(thisMinionPlayerIndex, boardState, deckPlayer0, deckPlayer1);
+	public BoardModel endTurn(int thisMinionPlayerIndex, BoardModel boardModel, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+		BoardModel tmpState = super.endTurn(thisMinionPlayerIndex, boardModel, deckPlayer0, deckPlayer1);
 		if (thisMinionPlayerIndex > 0)
 			return tmpState;
 		

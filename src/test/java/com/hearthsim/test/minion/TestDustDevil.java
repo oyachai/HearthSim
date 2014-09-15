@@ -8,7 +8,7 @@ import com.hearthsim.card.minion.concrete.BloodfenRaptor;
 import com.hearthsim.card.minion.concrete.DustDevil;
 import com.hearthsim.card.minion.concrete.GoldshireFootman;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.util.boardstate.BoardState;
+import com.hearthsim.model.BoardModel;
 import com.hearthsim.util.tree.HearthTreeNode;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,7 +22,7 @@ public class TestDustDevil {
 
 	@Before
 	public void setup() throws HSException {
-		board = new HearthTreeNode(new BoardState());
+		board = new HearthTreeNode(new BoardModel());
 
 		Minion minion0_0 = new GoldshireFootman();
 		Minion minion0_1 = new GoldshireFootman();

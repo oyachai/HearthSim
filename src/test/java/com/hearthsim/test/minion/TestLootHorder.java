@@ -9,9 +9,9 @@ import com.hearthsim.card.minion.concrete.LootHoarder;
 import com.hearthsim.card.minion.concrete.RiverCrocolisk;
 import com.hearthsim.card.minion.concrete.Wisp;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.player.Player;
+import com.hearthsim.model.BoardModel;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
-import com.hearthsim.util.boardstate.BoardState;
 import com.hearthsim.util.tree.HearthTreeNode;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,7 +25,7 @@ public class TestLootHorder {
 
 	@Before
 	public void setup() throws HSException {
-		board = new HearthTreeNode(new BoardState());
+		board = new HearthTreeNode(new BoardModel());
 
 		Minion minion0_0 = new LootHoarder();
 		Minion minion1_0 = new BloodfenRaptor();
@@ -46,28 +46,13 @@ public class TestLootHorder {
 	
 	@Test
 	public void test0() throws HSException {
-		
-		
-		ArtificialPlayer ai0 = new ArtificialPlayer(
-				0.9,
-				0.9,
-				1.0,
-				1.0,
-				1.0,
-				0.1,
-				0.1,
-				0.1,
-				0.5,
-				0.5,
-				0.0,
-				0.5,
-				0.0,
-				0.0
-				);
-		
-		Hero hero = new Hero();
-		Player player0 = new Player("player0", hero, deck);
-		Player player1 = new Player("player0", hero, deck);
+
+
+        ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
+
+        Hero hero = new Hero();
+		PlayerModel playerModel0 = new PlayerModel("player0", hero, deck);
+		PlayerModel playerModel1 = new PlayerModel("player0", hero, deck);
 		
 		board.data_.setMana_p0((byte)1);
 		board.data_.setMana_p1((byte)1);
@@ -76,7 +61,7 @@ public class TestLootHorder {
 		board.data_.setMaxMana_p1((byte)1);
 
 
-		BoardState resBoard = ai0.playTurn(0, board.data_, player0, player1);
+		BoardModel resBoard = ai0.playTurn(0, board.data_, playerModel0, playerModel1);
 		
 		assertEquals(resBoard.getNumCards_hand_p0(), 1); //1 card drawn from Loot Horder attacking and dying, no mana left to play the card
 		assertEquals(resBoard.getNumMinions_p0(), 0);
@@ -90,28 +75,12 @@ public class TestLootHorder {
 
 	@Test
 	public void test1() throws HSException {
-		
-		
-		ArtificialPlayer ai0 = new ArtificialPlayer(
-				0.9,
-				0.9,
-				1.0,
-				1.0,
-				1.0,
-				0.1,
-				0.1,
-				0.1,
-				0.5,
-				0.5,
-				0.0,
-				0.5,
-				0.0,
-				0.0
-				);
-		
+
+        ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
+
 		Hero hero = new Hero();
-		Player player0 = new Player("player0", hero, deck);
-		Player player1 = new Player("player0", hero, deck);
+		PlayerModel playerModel0 = new PlayerModel("player0", hero, deck);
+		PlayerModel playerModel1 = new PlayerModel("player0", hero, deck);
 		
 		board.data_.setMana_p0((byte)3);
 		board.data_.setMana_p1((byte)3);
@@ -120,7 +89,7 @@ public class TestLootHorder {
 		board.data_.setMaxMana_p1((byte)3);
 
 
-		BoardState resBoard = ai0.playTurn(0, board.data_, player0, player1);
+		BoardModel resBoard = ai0.playTurn(0, board.data_, playerModel0, playerModel1);
 		
 		assertEquals(resBoard.getNumCards_hand_p0(), 0); //1 card drawn from Loot Horder attacking and dying, then played the drawn card
 		assertEquals(resBoard.getNumMinions_p0(), 1);
@@ -133,23 +102,8 @@ public class TestLootHorder {
 	
 	@Test
 	public void test2() throws HSException {
-				
-		ArtificialPlayer ai0 = new ArtificialPlayer(
-				0.9,
-				0.9,
-				1.0,
-				1.0,
-				1.0,
-				0.1,
-				0.1,
-				0.1,
-				0.5,
-				0.5,
-				0.0,
-				0.5,
-				0.0,
-				0.0
-				);
+
+        ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
 		
 		//remove the loot hoarder from player0, add a Wisp
 		board.data_.removeMinion(0, 0);
@@ -160,8 +114,8 @@ public class TestLootHorder {
 		board.data_.placeMinion(1, new LootHoarder());
 
 		Hero hero = new Hero();
-		Player player0 = new Player("player0", hero, deck);
-		Player player1 = new Player("player0", hero, deck);
+		PlayerModel playerModel0 = new PlayerModel("player0", hero, deck);
+		PlayerModel playerModel1 = new PlayerModel("player0", hero, deck);
 		
 		board.data_.setMana_p0((byte)3);
 		board.data_.setMana_p1((byte)3);
@@ -170,7 +124,7 @@ public class TestLootHorder {
 		board.data_.setMaxMana_p1((byte)3);
 
 
-		BoardState resBoard = ai0.playTurn(0, board.data_, player0, player1);
+		BoardModel resBoard = ai0.playTurn(0, board.data_, playerModel0, playerModel1);
 		
 		assertEquals(resBoard.getNumCards_hand_p0(), 0); //no cards in hand
 		assertEquals(resBoard.getNumCards_hand_p1(), 1); //drew cards from the loot horder that was killed
