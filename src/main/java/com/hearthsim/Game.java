@@ -101,7 +101,7 @@ public class Game {
 
         GameResult gameResult;
 
-        gameResult = checkGameOver(turnCount, record);
+        gameResult = checkGameOver(turnCount, activePlayerIndex, record);
         if (gameResult != null) return gameResult;
 
         boardModel_ = playAITurn(turnCount, boardModel_, ai);
@@ -109,7 +109,7 @@ public class Game {
 
         record.put(turnCount + 1, activePlayerIndex, (BoardModel) boardModel_.deepCopy());
 
-        gameResult = checkGameOver(turnCount, record);
+        gameResult = checkGameOver(turnCount, activePlayerIndex, record);
         if (gameResult != null) return gameResult;
 
         boardModel_ = boardModel_.flipPlayers();
@@ -117,11 +117,12 @@ public class Game {
         return null;
     }
 
-    public GameResult checkGameOver(int turnCount, GameRecord record){
-        if (!boardModel_.isAlive_p0()) {
-            return new GameResult(s0_, s1_, turnCount + 1, record);
+    public GameResult checkGameOver(int turnCount, int activePlayerIndex, GameRecord record){
+    	int inactivePlayerIndex = (activePlayerIndex + 1) % 2;
+    	if (!boardModel_.isAlive_p0()) {
+            return new GameResult(s0_, inactivePlayerIndex, turnCount + 1, record);
         } else if (!boardModel_.isAlive_p1()) {
-            return new GameResult(s0_, s0_, turnCount + 1, record);
+            return new GameResult(s0_, activePlayerIndex, turnCount + 1, record);
         }
 
         return null;

@@ -90,10 +90,12 @@ public class BoardModel implements DeepCopyable {
         }else{
             this.currentPlayer = playerModel1;
             this.waitingPlayer = playerModel0;
+            this.playerModel0 = playerModel1;
+            this.playerModel1 = playerModel0;
         }
 
 
-        buildModel(playerModel0.getHero(), playerModel1.getHero());
+        buildModel(this.playerModel0.getHero(), this.playerModel1.getHero());
     }
 
     public BoardModel(Hero p0_hero, Hero p1_hero) {
@@ -988,6 +990,8 @@ public class BoardModel implements DeepCopyable {
 
         newState.currentPlayer = waitingPlayer;
         newState.waitingPlayer = currentPlayer;
+        newState.playerModel0 = playerModel1;
+        newState.playerModel1 = playerModel0;
 		newState.p0_hero_ = p1_hero_;
 		newState.p1_hero_ = p0_hero_;
 		newState.setMinions_p0(p1_minions);
