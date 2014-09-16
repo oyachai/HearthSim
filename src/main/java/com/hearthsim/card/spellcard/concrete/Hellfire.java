@@ -64,12 +64,12 @@ public class Hellfire extends SpellCard {
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
 			toRet = toRet.data_.getCurrentPlayerHero().takeDamage(DAMAGE_AMOUNT, PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1, true, false);
-			for (Minion minion : PlayerSide.CURRENT_PLAYER.getMinions()) {
+			for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
 				toRet = minion.takeDamage(DAMAGE_AMOUNT, PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1, true, false);
 			}
 	
 			toRet = toRet.data_.getWaitingPlayerHero().takeDamage(DAMAGE_AMOUNT, PlayerSide.CURRENT_PLAYER, PlayerSide.WAITING_PLAYER, toRet, deckPlayer0, deckPlayer1, true, false);
-			for (Minion minion : PlayerSide.WAITING_PLAYER.getMinions()) {
+			for (Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
 				toRet = minion.takeDamage(DAMAGE_AMOUNT, PlayerSide.CURRENT_PLAYER, PlayerSide.WAITING_PLAYER, toRet, deckPlayer0, deckPlayer1, true, false);
 			}
 		}		

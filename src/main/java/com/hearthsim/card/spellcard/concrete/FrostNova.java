@@ -65,7 +65,7 @@ public class FrostNova extends SpellCard {
 		
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
-			for (Minion minion : PlayerSide.WAITING_PLAYER.getMinions()) {
+			for (Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
 				minion.setFrozen(true);
 			}
 		}		

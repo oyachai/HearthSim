@@ -65,7 +65,7 @@ public class Swipe extends SpellCard {
 		toRet = targetMinion.takeDamage((byte)4, PlayerSide.CURRENT_PLAYER, side, toRet, deckPlayer0, deckPlayer1, true, false);
 		if (!(targetMinion instanceof Hero))
 			toRet = toRet.data_.getWaitingPlayerHero().takeDamage((byte)1, PlayerSide.CURRENT_PLAYER, side, boardState, deckPlayer0, deckPlayer1, true, false);
-		for (Minion minion : PlayerSide.WAITING_PLAYER.getMinions()) {
+		for (Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
 			if (minion != targetMinion)
 				toRet = minion.takeDamage((byte)1, PlayerSide.CURRENT_PLAYER, side, toRet, deckPlayer0, deckPlayer1, true, false);
 		}

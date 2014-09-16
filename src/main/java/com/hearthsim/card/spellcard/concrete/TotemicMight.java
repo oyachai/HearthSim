@@ -63,7 +63,7 @@ public class TotemicMight extends SpellCard {
 		
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
-			for (Minion minion : PlayerSide.CURRENT_PLAYER.getMinions()) {
+			for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
 				if (minion instanceof Totem) {
 					minion.setHealth((byte)(2 + minion.getHealth()));
 					minion.setMaxHealth((byte)(2 + minion.getMaxHealth()));

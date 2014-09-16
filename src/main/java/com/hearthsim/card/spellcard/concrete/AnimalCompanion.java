@@ -64,7 +64,7 @@ public class AnimalCompanion extends SpellCard {
 			return null;
 		}
 		
-		int numMinions = PlayerSide.CURRENT_PLAYER.getNumMinions();
+		int numMinions = PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getNumMinions();
 		if (numMinions >= 7)
 			return null;
 		
@@ -81,7 +81,7 @@ public class AnimalCompanion extends SpellCard {
 		boardState.data_.placeCardHandCurrentPlayer(minion);
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) 
-			toRet = minion.useOn(side, PlayerSide.CURRENT_PLAYER.getMinions().get(numMinions - 1), toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
+			toRet = minion.useOn(side, PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions().get(numMinions - 1), toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		return toRet;
 	}
 

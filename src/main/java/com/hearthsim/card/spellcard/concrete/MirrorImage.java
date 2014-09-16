@@ -62,7 +62,7 @@ public class MirrorImage extends SpellCard {
 			return null;
 		}
 		
-		int numMinions = PlayerSide.CURRENT_PLAYER.getNumMinions();
+		int numMinions = PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getNumMinions();
 		if (numMinions >= 7)
 			return null;
 
