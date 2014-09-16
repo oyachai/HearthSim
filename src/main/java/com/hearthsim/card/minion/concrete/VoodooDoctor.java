@@ -5,7 +5,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.util.boardstate.BoardState;
+import com.hearthsim.model.BoardModel;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 
@@ -185,28 +185,28 @@ public class VoodooDoctor extends Minion {
 		
 		if (toRet != null) {
 			{
-				HearthTreeNode newState = new HearthTreeNode((BoardState)toRet.data_.deepCopy());
+				HearthTreeNode newState = new HearthTreeNode((BoardModel)toRet.data_.deepCopy());
 				newState = newState.data_.getHero_p0().takeHeal((byte)2, 0, newState, deckPlayer0, deckPlayer1);
 				toRet.addChild(newState);
 			}
 			
 			{
 				for (int index = 0; index < toRet.data_.getNumMinions_p0(); ++index) {
-					HearthTreeNode newState = new HearthTreeNode((BoardState)toRet.data_.deepCopy());
+					HearthTreeNode newState = new HearthTreeNode((BoardModel)toRet.data_.deepCopy());
 					newState = newState.data_.getMinion_p0(index).takeHeal((byte)2, 0, newState, deckPlayer0, deckPlayer1);
 					toRet.addChild(newState);
 				}
 			}
 
 			{
-				HearthTreeNode newState = new HearthTreeNode((BoardState)toRet.data_.deepCopy());
+				HearthTreeNode newState = new HearthTreeNode((BoardModel)toRet.data_.deepCopy());
 				newState = newState.data_.getHero_p1().takeHeal((byte)2, 1, newState, deckPlayer0, deckPlayer1);
 				toRet.addChild(newState);
 			}
 			
 			{
 				for (int index = 0; index < toRet.data_.getNumMinions_p1(); ++index) {
-					HearthTreeNode newState = new HearthTreeNode((BoardState)toRet.data_.deepCopy());
+					HearthTreeNode newState = new HearthTreeNode((BoardModel)toRet.data_.deepCopy());
 					newState = newState.data_.getMinion_p1(index).takeHeal((byte)2, 1, newState, deckPlayer0, deckPlayer1);
 					toRet.addChild(newState);
 				}

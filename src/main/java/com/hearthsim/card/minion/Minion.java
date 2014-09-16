@@ -6,8 +6,8 @@ import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
-import com.hearthsim.util.boardstate.BoardState;
-import com.hearthsim.util.boardstate.BoardStateFactoryBase;
+import com.hearthsim.model.BoardModel;
+import com.hearthsim.util.factory.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
 import org.json.JSONObject;
 
@@ -340,11 +340,11 @@ public class Minion extends Card {
 	 * "start of the turn" effect the card has.
 	 */
 	@Override
-	public BoardState startTurn(int thisMinionPlayerIndex, BoardState boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+	public BoardModel startTurn(int thisMinionPlayerIndex, BoardModel boardModel, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
 		if (destroyOnTurnStart_) {
-			this.destroyed(thisMinionPlayerIndex, new HearthTreeNode(boardState), deckPlayer0, deckPlayer1);
+			this.destroyed(thisMinionPlayerIndex, new HearthTreeNode(boardModel), deckPlayer0, deckPlayer1);
 		}
-		return boardState;
+		return boardModel;
 	}
 	
 	/**
@@ -356,12 +356,12 @@ public class Minion extends Card {
 	 * This is not the most efficient implementation... luckily, endTurn only happens once per turn
 	 */
 	@Override
-	public BoardState endTurn(int thisMinionPlayerIndex, BoardState boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+	public BoardModel endTurn(int thisMinionPlayerIndex, BoardModel boardModel, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
 		extraAttackUntilTurnEnd_ = 0;
 		if (destroyOnTurnEnd_) {
-			this.destroyed(thisMinionPlayerIndex, new HearthTreeNode(boardState), deckPlayer0, deckPlayer1);
+			this.destroyed(thisMinionPlayerIndex, new HearthTreeNode(boardModel), deckPlayer0, deckPlayer1);
 		}
-		return boardState;
+		return boardModel;
 	}
 	
 	/**

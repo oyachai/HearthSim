@@ -5,8 +5,8 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.util.boardstate.BoardState;
-import com.hearthsim.util.boardstate.BoardStateFactoryBase;
+import com.hearthsim.model.BoardModel;
+import com.hearthsim.util.factory.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class BigGameHunter extends Minion {
@@ -184,7 +184,7 @@ public class BigGameHunter extends Minion {
 			int thisMinionIndex = toRet.data_.getMinions_p0().indexOf(this);
 			for (int index = 0; index < toRet.data_.getNumMinions_p0(); ++index) {
 				if (toRet.data_.getMinion_p0(index).getTotalAttack() >= 7 && index != thisMinionIndex) {
-					HearthTreeNode newState = toRet.addChild(new HearthTreeNode((BoardState)toRet.data_.deepCopy()));
+					HearthTreeNode newState = toRet.addChild(new HearthTreeNode((BoardModel)toRet.data_.deepCopy()));
 					Minion battlecryTarget = newState.data_.getMinion_p0(index);
 					battlecryTarget.setHealth((byte)-99);
 					newState = BoardStateFactoryBase.handleDeadMinions(newState, deckPlayer0, deckPlayer1);
@@ -192,7 +192,7 @@ public class BigGameHunter extends Minion {
 			}
 			for (int index = 0; index < toRet.data_.getNumMinions_p1(); ++index) {
 				if (toRet.data_.getMinion_p1(index).getTotalAttack() >= 7) {
-					HearthTreeNode newState = toRet.addChild(new HearthTreeNode((BoardState)toRet.data_.deepCopy()));
+					HearthTreeNode newState = toRet.addChild(new HearthTreeNode((BoardModel)toRet.data_.deepCopy()));
 					Minion battlecryTarget = newState.data_.getMinion_p1(index);
 					battlecryTarget.setHealth((byte)-99);
 					newState = BoardStateFactoryBase.handleDeadMinions(newState, deckPlayer0, deckPlayer1);

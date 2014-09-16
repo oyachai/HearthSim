@@ -18,19 +18,19 @@ class GameRecord(object):
         return self.getNums(turn, "p0", "p0_m")
 
     def getNumMinions_p1(self, turn):
-        return self.getNums(turn, "p1", "p0_m")
+        return self.getNums(turn, "p1", "p1_m")
 
     def getNumCards_p0(self, turn):
         return self.getNums(turn, "p0", "p0_c")
 
     def getNumCards_p1(self, turn):
-        return self.getNums(turn, "p1", "p0_c")
+        return self.getNums(turn, "p1", "p1_c")
 
     def getHealth_p0(self, turn):
         return self.getNums(turn, "p0", "p0_h")
 
     def getHealth_p1(self, turn):
-        return self.getNums(turn, "p1", "p0_h")
+        return self.getNums(turn, "p1", "p1_h")
 
 class GameRecordSet(object):
     def __init__(self):
@@ -58,19 +58,19 @@ class GameRecordSet(object):
         return self.getAverageNumbers(turn, "p0", "p0_m")
 
     def getAverageNumMinions_p1(self, turn):
-        return self.getAverageNumbers(turn, "p1", "p0_m")
+        return self.getAverageNumbers(turn, "p1", "p1_m")
 
     def getAverageNumCards_p0(self, turn):
         return self.getAverageNumbers(turn, "p0", "p0_c")
 
     def getAverageNumCards_p1(self, turn):
-        return self.getAverageNumbers(turn, "p1", "p0_c")
+        return self.getAverageNumbers(turn, "p1", "p1_c")
 
     def getAverageHealth_p0(self, turn):
         return self.getAverageNumbers(turn, "p0", "p0_h")
 
     def getAverageHealth_p1(self, turn):
-        return self.getAverageNumbers(turn, "p1", "p0_h")
+        return self.getAverageNumbers(turn, "p1", "p1_h")
     
 if len(sys.argv) < 2:
     print 'Usage: ./analyzeGameData.py inputFileName.hsres'
@@ -117,5 +117,5 @@ for gd in gduration:
     gd_dist[gd] = gd_dist[gd] + 1.0
     
 for i in range(50):
-    print i + 1, gd_dist[i] / nl, grSet.getAverageNumMinions_p0(i+1), grSet.getAverageNumMinions_p1(i+1), grSet.getAverageNumCards_p0(i+1), grSet.getAverageNumCards_p1(i+1), grSet.getAverageHealth_p0(i+1), grSet.getAverageHealth_p1(i+1)
+    print i, gd_dist[i] / nl, grSet.getAverageNumMinions_p0(i), grSet.getAverageNumMinions_p1(i), grSet.getAverageNumCards_p0(i), grSet.getAverageNumCards_p1(i), grSet.getAverageHealth_p0(i), grSet.getAverageHealth_p1(i)
     

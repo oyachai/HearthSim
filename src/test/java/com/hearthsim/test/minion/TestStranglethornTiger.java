@@ -9,9 +9,9 @@ import com.hearthsim.card.minion.concrete.StranglethornTiger;
 import com.hearthsim.card.spellcard.concrete.Silence;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.player.Player;
+import com.hearthsim.model.BoardModel;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
-import com.hearthsim.util.boardstate.BoardState;
 import com.hearthsim.util.tree.HearthTreeNode;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,7 +26,7 @@ public class TestStranglethornTiger {
 
 	@Before
 	public void setup() {
-		board = new HearthTreeNode(new BoardState());
+		board = new HearthTreeNode(new BoardModel());
 
 		Minion minion0_0 = new BoulderfistOgre();
 		Minion minion0_1 = new BoulderfistOgre();
@@ -96,29 +96,13 @@ public class TestStranglethornTiger {
 	public void test1() throws HSException {
 		
 		//In this test, the Stranglethorn Tiger is stealthed, so player0 has no choice but to hit the enemy hero for 12 damage
-		
-		ArtificialPlayer ai0 = new ArtificialPlayer(
-				0.9,
-				0.9,
-				1.0,
-				1.0,
-				1.0,
-				0.1,
-				0.1,
-				0.1,
-				0.5,
-				0.5,
-				0.0,
-				0.5,
-				0.0,
-				0.0
-				);
-		
+
 		Hero hero = new Hero();
-		Player player0 = new Player("player0", hero, deck);
-		Player player1 = new Player("player0", hero, deck);
-		
-		BoardState resBoard = ai0.playTurn(0, board.data_, player0, player1);
+		PlayerModel playerModel0 = new PlayerModel("player0", hero, deck);
+		PlayerModel playerModel1 = new PlayerModel("player0", hero, deck);
+
+        ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
+		BoardModel resBoard = ai0.playTurn(0, board.data_, playerModel0, playerModel1);
 
 		assertEquals(resBoard.getNumCards_hand_p0(), 0);
 		assertEquals(resBoard.getNumCards_hand_p1(), 0);
@@ -141,31 +125,16 @@ public class TestStranglethornTiger {
 	public void test2() throws HSException {
 		
 		//In this test, player0 is given a Silence.  It can't use it though because it can't target the stealthed Stranglethorn Tiger.
-		
-		ArtificialPlayer ai0 = new ArtificialPlayer(
-				0.9,
-				0.9,
-				1.0,
-				1.0,
-				1.0,
-				0.1,
-				0.1,
-				0.1,
-				0.5,
-				0.5,
-				0.0,
-				0.5,
-				0.0,
-				0.0
-				);
+
 		
 		Hero hero = new Hero();
-		Player player0 = new Player("player0", hero, deck);
-		Player player1 = new Player("player0", hero, deck);
+		PlayerModel playerModel0 = new PlayerModel("player0", hero, deck);
+		PlayerModel playerModel1 = new PlayerModel("player0", hero, deck);
 		
 		board.data_.placeCard_hand_p0(new Silence());
-		
-		BoardState resBoard = ai0.playTurn(0, board.data_, player0, player1);
+
+        ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
+		BoardModel resBoard = ai0.playTurn(0, board.data_, playerModel0, playerModel1);
 
 		assertEquals(resBoard.getNumCards_hand_p0(), 1);
 		assertEquals(resBoard.getNumCards_hand_p1(), 0);
@@ -190,29 +159,14 @@ public class TestStranglethornTiger {
 		//In this test, player1 goes first.  It uses the Stranglethorn Tiger to attack the hero, which removes stealth from 
 		// the tiger.  Then, player0 plays a turn in which it is able to kill the tiger and hit the player1's hero for 6.  
 		
-		ArtificialPlayer ai0 = new ArtificialPlayer(
-				0.9,
-				0.9,
-				1.0,
-				1.0,
-				1.0,
-				0.1,
-				0.1,
-				0.1,
-				0.5,
-				0.5,
-				0.0,
-				0.5,
-				0.0,
-				0.0
-				);
-		
+
 		Hero hero = new Hero();
-		Player player0 = new Player("player0", hero, deck);
-		Player player1 = new Player("player1", hero, deck);
-		
-		BoardState resBoard0 = ai0.playTurn(0, board.data_.flipPlayers(), player1, player0, 2000000000);
-		BoardState resBoard1 = ai0.playTurn(0, resBoard0.flipPlayers(), player0, player1, 2000000000);
+		PlayerModel playerModel0 = new PlayerModel("player0", hero, deck);
+		PlayerModel playerModel1 = new PlayerModel("player1", hero, deck);
+
+        ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
+		BoardModel resBoard0 = ai0.playTurn(0, board.data_.flipPlayers(), playerModel1, playerModel0, 2000000000);
+		BoardModel resBoard1 = ai0.playTurn(0, resBoard0.flipPlayers(), playerModel0, playerModel1, 2000000000);
 
 		assertEquals(resBoard1.getNumCards_hand_p1(), 0);
 		assertEquals(resBoard1.getNumCards_hand_p1(), 0);

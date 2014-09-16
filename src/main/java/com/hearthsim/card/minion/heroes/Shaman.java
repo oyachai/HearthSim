@@ -8,9 +8,9 @@ import com.hearthsim.card.minion.concrete.SearingTotem;
 import com.hearthsim.card.minion.concrete.StoneclawTotem;
 import com.hearthsim.card.minion.concrete.WrathOfAirTotem;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.BoardModel;
 import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.HearthAction;
-import com.hearthsim.util.boardstate.BoardState;
 import com.hearthsim.util.tree.HearthTreeNode;
 import com.hearthsim.util.tree.RandomEffectNode;
 
@@ -133,7 +133,7 @@ public class Shaman extends Hero {
 				}
 				if (!totemAlreadySummoned) {
 					allTotemsNotSummonable = false;
-					HearthTreeNode newState = toRet.addChild(new HearthTreeNode((BoardState)toRet.data_.deepCopy()));
+					HearthTreeNode newState = toRet.addChild(new HearthTreeNode((BoardModel)toRet.data_.deepCopy()));
 					Minion summonTarget = newState.data_.getCharacter(targetPlayerIndex, numMinions);
 					newState.data_.setMana_p0(newState.data_.getMana_p0() - HERO_ABILITY_COST);
 					newState.data_.getHero_p0().hasBeenUsed(true);

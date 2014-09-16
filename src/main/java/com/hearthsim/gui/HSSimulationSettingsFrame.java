@@ -311,8 +311,8 @@ public class HSSimulationSettingsFrame extends JDialog {
 				simulation_.getConfig().numThreads_ = Integer.parseInt(fldNumThreads.getText());
 				simulation_.getConfig().simName_ = fldSimName.getText();
 				
-				simulation_.setAI_p0(new ArtificialPlayer());
-				simulation_.setAI_p1(new ArtificialPlayer());
+				simulation_.setAI_p0(ArtificialPlayer.buildStandardAI2());
+				simulation_.setAI_p1(ArtificialPlayer.buildStandardAI2());
 				
 				simulation_.getAI_p0().setUseSparseBoardStateFactory(flag_useFastPlacement_p0.isSelected());
 				simulation_.getAI_p1().setUseSparseBoardStateFactory(flag_useFastPlacement_p1.isSelected());

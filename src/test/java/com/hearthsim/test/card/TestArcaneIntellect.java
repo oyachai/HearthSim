@@ -8,9 +8,9 @@ import com.hearthsim.card.minion.concrete.BloodfenRaptor;
 import com.hearthsim.card.spellcard.concrete.ArcaneIntellect;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.player.Player;
+import com.hearthsim.model.BoardModel;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
-import com.hearthsim.util.boardstate.BoardState;
 import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 import org.junit.Before;
@@ -28,7 +28,7 @@ public class TestArcaneIntellect {
 
 	@Before
 	public void setup() throws HSException {
-		board = new HearthTreeNode(new BoardState());
+		board = new HearthTreeNode(new BoardModel());
 		
 		Minion minion0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
 		Minion minion1 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
@@ -168,27 +168,11 @@ public class TestArcaneIntellect {
 		}
 		
 		Deck deck = new Deck(cards);
-		
-		ArtificialPlayer ai0 = new ArtificialPlayer(
-				0.9,
-				0.9,
-				1.0,
-				1.0,
-				1.0,
-				0.1,
-				0.1,
-				0.1,
-				0.5,
-				0.5,
-				0.0,
-				0.5,
-				0.0,
-				0.0
-				);
+
 		
 		Hero hero = new Hero();		
-		Player player0 = new Player("player0", hero, deck);
-		Player player1 = new Player("player0", hero, deck);
+		PlayerModel playerModel0 = new PlayerModel("player0", hero, deck);
+		PlayerModel playerModel1 = new PlayerModel("player0", hero, deck);
 		
 		board.data_.setMana_p0((byte)3);
 		board.data_.setMana_p1((byte)3);
@@ -196,7 +180,8 @@ public class TestArcaneIntellect {
 		board.data_.setMaxMana_p0((byte)3);
 		board.data_.setMaxMana_p1((byte)3);
 
-		BoardState resBoard = ai0.playTurn(0, board.data_, player0, player1);
+        ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
+		BoardModel resBoard = ai0.playTurn(0, board.data_, playerModel0, playerModel1);
 		
 		assertFalse( resBoard == null );
 		
@@ -217,27 +202,10 @@ public class TestArcaneIntellect {
 		}
 		
 		Deck deck = new Deck(cards);
-		
-		ArtificialPlayer ai0 = new ArtificialPlayer(
-				0.9,
-				0.9,
-				1.0,
-				1.0,
-				1.0,
-				0.1,
-				0.1,
-				0.1,
-				0.5,
-				0.5,
-				0.0,
-				0.5,
-				0.0,
-				0.0
-				);
-		
+
 		Hero hero = new Hero();		
-		Player player0 = new Player("player0", hero, deck);
-		Player player1 = new Player("player0", hero, deck);
+		PlayerModel playerModel0 = new PlayerModel("player0", hero, deck);
+		PlayerModel playerModel1 = new PlayerModel("player0", hero, deck);
 		
 		board.data_.setMana_p0((byte)6);
 		board.data_.setMana_p1((byte)6);
@@ -245,7 +213,8 @@ public class TestArcaneIntellect {
 		board.data_.setMaxMana_p0((byte)6);
 		board.data_.setMaxMana_p1((byte)6);
 
-		BoardState resBoard = ai0.playTurn(0, board.data_, player0, player1);
+        ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
+		BoardModel resBoard = ai0.playTurn(0, board.data_, playerModel0, playerModel1);
 		
 		assertFalse( resBoard == null );
 		
@@ -266,27 +235,11 @@ public class TestArcaneIntellect {
 		}
 		
 		Deck deck = new Deck(cards);
-		
-		ArtificialPlayer ai0 = new ArtificialPlayer(
-				0.9,
-				0.9,
-				1.0,
-				1.0,
-				1.0,
-				0.1,
-				0.1,
-				0.1,
-				0.5,
-				0.5,
-				0.0,
-				0.5,
-				0.0,
-				0.0
-				);
+
 		
 		Hero hero = new Hero();		
-		Player player0 = new Player("player0", hero, deck);
-		Player player1 = new Player("player0", hero, deck);
+		PlayerModel playerModel0 = new PlayerModel("player0", hero, deck);
+		PlayerModel playerModel1 = new PlayerModel("player0", hero, deck);
 		
 		board.data_.setMana_p0((byte)9);
 		board.data_.setMana_p1((byte)9);
@@ -294,7 +247,8 @@ public class TestArcaneIntellect {
 		board.data_.setMaxMana_p0((byte)9);
 		board.data_.setMaxMana_p1((byte)9);
 
-		BoardState resBoard = ai0.playTurn(0, board.data_, player0, player1);
+        ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
+		BoardModel resBoard = ai0.playTurn(0, board.data_, playerModel0, playerModel1);
 		
 		assertFalse( resBoard == null );
 		

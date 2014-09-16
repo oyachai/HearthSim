@@ -7,7 +7,7 @@ import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidParamFileException;
 import com.hearthsim.exception.HSParamNotFoundException;
 import com.hearthsim.io.ParamFile;
-import com.hearthsim.player.Player;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.results.GameResult;
 import com.hearthsim.results.GameResultSummary;
@@ -99,10 +99,10 @@ public abstract class HearthSimBase {
 		deck0.shuffle();
 		deck1.shuffle();
 		
-		Player player0 = new Player("player0", hero0, deck0);
-		Player player1 = new Player("player1", hero1, deck1);
+		PlayerModel playerModel0 = new PlayerModel("player0", hero0, deck0);
+		PlayerModel playerModel1 = new PlayerModel("player1", hero1, deck1);
 
-		Game game = new Game(player0, player1, ai0, ai1, shufflePlayOrder);
+		Game game = new Game(playerModel0, playerModel1, ai0, ai1, shufflePlayOrder);
 		return game.runGame();
 	}
 	

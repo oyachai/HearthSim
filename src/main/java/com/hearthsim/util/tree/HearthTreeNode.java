@@ -1,7 +1,7 @@
 package com.hearthsim.util.tree;
 
+import com.hearthsim.model.BoardModel;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
-import com.hearthsim.util.boardstate.BoardState;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ public class HearthTreeNode {
 
 	byte depth_;
 	
-	public final BoardState data_;
+	public final BoardModel data_;
 	protected double score_;
 	int numNodesTried_;
 	
@@ -30,23 +30,23 @@ public class HearthTreeNode {
 		}
 	}
 	
-	public HearthTreeNode(BoardState data) {
+	public HearthTreeNode(BoardModel data) {
 		this(data, 0.0);
 	}
 	
-	public HearthTreeNode(BoardState data, double score) {
+	public HearthTreeNode(BoardModel data, double score) {
 		this(data, score, (byte)0);
 	}
 	
-	public HearthTreeNode(BoardState data, double score, byte depth) {
+	public HearthTreeNode(BoardModel data, double score, byte depth) {
 		this(data, score, depth, null, 0);
 	}
 	
-	public HearthTreeNode(BoardState data, double score, byte depth, List<HearthTreeNode> children) {
+	public HearthTreeNode(BoardModel data, double score, byte depth, List<HearthTreeNode> children) {
 		this(data, score, depth, children, 0);
 	}
 	
-	public HearthTreeNode(BoardState data, double score, byte depth, List<HearthTreeNode> children, int numNodesTried) {
+	public HearthTreeNode(BoardModel data, double score, byte depth, List<HearthTreeNode> children, int numNodesTried) {
 		data_ = data;
 		score_ = score;
 		children_ = children;

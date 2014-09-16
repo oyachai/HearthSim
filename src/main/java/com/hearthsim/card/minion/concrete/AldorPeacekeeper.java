@@ -5,7 +5,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.util.boardstate.BoardState;
+import com.hearthsim.model.BoardModel;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class AldorPeacekeeper extends Minion {
@@ -183,7 +183,7 @@ public class AldorPeacekeeper extends Minion {
 		if (toRet != null) {
 			for (int index = 0; index < toRet.data_.getNumMinions_p1(); ++index) {
 				if (index != toRet.data_.getMinions_p1().indexOf(this)) {
-					HearthTreeNode newState = toRet.addChild(new HearthTreeNode((BoardState)toRet.data_.deepCopy()));
+					HearthTreeNode newState = toRet.addChild(new HearthTreeNode((BoardModel)toRet.data_.deepCopy()));
 					newState.data_.getMinion_p1(index).setAttack((byte)1);
 				}
 			}
