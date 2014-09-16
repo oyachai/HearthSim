@@ -57,7 +57,7 @@ public class LayOnHands extends SpellCard {
 		throws HSException
 	{
 		//Let's assume that it is never beneficial to heal an opponent... though this may not strictly be true under some very corner cases (e.g., with a Northshire Cleric)
-		if (PlayerSide.WAITING_PLAYER == side) {
+		if (isWaitingPlayer(side)) {
 			return null;
 		}
 		

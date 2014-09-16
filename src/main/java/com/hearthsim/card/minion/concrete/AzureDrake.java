@@ -185,10 +185,10 @@ public class AzureDrake extends Minion {
 			return null;
 		}
 		
-		if (PlayerSide.WAITING_PLAYER == side)
+		if (isWaitingPlayer(side))
 			return null;
 		
-		if (PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getNumMinions() >= 7)
+		if (currentPlayerBoardFull(boardState))
 			return null;
 		
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
@@ -198,4 +198,5 @@ public class AzureDrake extends Minion {
 			toRet = new CardDrawNode(toRet, 1); //draw one card
 		return toRet;
 	}
+
 }

@@ -60,7 +60,7 @@ public class AnimalCompanion extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (!(targetMinion instanceof Hero) || PlayerSide.WAITING_PLAYER == side) {
+		if (isNotHero(targetMinion) || isWaitingPlayer(side)) {
 			return null;
 		}
 		

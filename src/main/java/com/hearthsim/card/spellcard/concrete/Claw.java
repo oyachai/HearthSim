@@ -58,7 +58,7 @@ public class Claw extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (PlayerSide.WAITING_PLAYER == side || !(targetMinion instanceof Hero)) {
+		if (isWaitingPlayer(side) || isNotHero(targetMinion)) {
 			return null;
 		}
 		

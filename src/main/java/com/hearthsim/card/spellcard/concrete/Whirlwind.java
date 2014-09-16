@@ -58,7 +58,7 @@ public class Whirlwind extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (PlayerSide.CURRENT_PLAYER == side || !(targetMinion instanceof Hero))
+		if (PlayerSide.CURRENT_PLAYER == side || isNotHero(targetMinion))
 			return null;
 		
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);

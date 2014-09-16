@@ -1,5 +1,6 @@
 package com.hearthsim.card;
 
+import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
@@ -346,6 +347,14 @@ public class Card implements DeepCopyable {
 	public String toString() {
 		return this.toJSON().toString();
 	}
+
+    public boolean isWaitingPlayer(PlayerSide side) {
+        return PlayerSide.WAITING_PLAYER == side;
+    }
+
+    protected boolean isNotHero(Minion targetMinion) {
+        return !(targetMinion instanceof Hero);
+    }
 }
 
 

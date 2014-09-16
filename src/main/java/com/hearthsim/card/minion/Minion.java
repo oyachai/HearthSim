@@ -1131,4 +1131,8 @@ public class Minion extends Card {
         result = 31 * result + (placementImportant_ ? 1 : 0);
         return result;
     }
+
+    public boolean currentPlayerBoardFull(HearthTreeNode boardState) {
+        return PlayerSide.CURRENT_PLAYER.getPlayer(boardState).getNumMinions() >= 7;
+    }
 }

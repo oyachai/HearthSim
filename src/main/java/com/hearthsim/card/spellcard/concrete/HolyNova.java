@@ -61,7 +61,7 @@ public class HolyNova extends SpellCard {
 			return null;
 		}
 		
-		if (!(targetMinion instanceof Hero)) {
+		if (isNotHero(targetMinion)) {
 			return null;
 		}
 		

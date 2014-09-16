@@ -84,7 +84,7 @@ public class Shaman extends Hero {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (targetPlayerSide != PlayerSide.CURRENT_PLAYER || !(targetMinion instanceof Hero))
+		if (targetPlayerSide != PlayerSide.CURRENT_PLAYER || isNotHero(targetMinion))
 			return null;
 
 		int numMinions = targetPlayerSide.getNumMinions();

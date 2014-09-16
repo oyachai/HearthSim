@@ -185,10 +185,10 @@ public class DarkscaleHealer extends Minion {
 			return null;
 		}
 		
-		if (PlayerSide.WAITING_PLAYER == side)
+		if (isWaitingPlayer(side))
 			return null;
 		
-		if (PlayerSide.CURRENT_PLAYER.getPlayer(boardState).getNumMinions() >= 7)
+		if (currentPlayerBoardFull(boardState))
 			return null;
 		
 		HearthTreeNode toRet = boardState;

@@ -59,7 +59,7 @@ public class FrostNova extends SpellCard {
 			return null;
 		}
 		
-		if (!(targetMinion instanceof Hero)) {
+		if (isNotHero(targetMinion)) {
 			return null;
 		}
 		

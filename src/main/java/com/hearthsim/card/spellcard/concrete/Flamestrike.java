@@ -60,7 +60,7 @@ public class Flamestrike extends SpellCard {
 			return null;
 		}
 		
-		if (!(targetMinion instanceof Hero)) {
+		if (isNotHero(targetMinion)) {
 			return null;
 		}
 		

@@ -87,7 +87,7 @@ public class WeaponCard extends Card {
 			return null;
 		}
 
-		if (PlayerSide.WAITING_PLAYER == side || !(targetMinion instanceof Hero)) {
+		if (isWaitingPlayer(side) || isNotHero(targetMinion)) {
 			return null;
 		}
 		

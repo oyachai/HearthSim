@@ -214,24 +214,23 @@ public class BoardModel implements DeepCopyable {
      * want no events to be trigger upon placing the minion.
      *
      *
-     * @param playerModel
+     * @param playerSide
      * @param minion The minion to be placed on the board.  The minion is placed on the right-most space.
      * @throws HSInvalidPlayerIndexException
      */
-    public void placeMinion(PlayerModel playerModel, Minion minion) throws HSInvalidPlayerIndexException {
+    public void placeMinion(PlayerSide playerSide, Minion minion) throws HSInvalidPlayerIndexException {
         minion.isInHand(false);
+        PlayerModel playerModel = modelForSide(playerSide);
         playerModel.getMinions().add(minion);
-        if (!playerModel.equals(currentPlayer) && !(playerModel.equals(waitingPlayer)))
-            throw new RuntimeException("WAHAHSKDLA");
         this.allMinionsFIFOList_.add(new MinionPlayerPair(minion, playerModel));
     }
 
     //-----------------------------------------------------------------------------------
     //-----------------------------------------------------------------------------------
 
-    public void placeCard_hand(PlayerModel playerModel, Card card) throws HSInvalidPlayerIndexException {
+    public void placeCard_hand(PlayerSide playerSide, Card card) throws HSInvalidPlayerIndexException {
         card.isInHand(true);
-        playerModel.getHand().add(card);
+        modelForSide(playerSide).getHand().add(card);
     }
 
     public void placeCardHandCurrentPlayer(int cardIndex) {
@@ -258,8 +257,8 @@ public class BoardModel implements DeepCopyable {
         return currentPlayer.getHand().size();
     }
 
-    public int getNumCards_hand(PlayerModel playerModel) throws HSInvalidPlayerIndexException {
-        return playerModel.getHand().size();
+    public int getNumCards_hand(PlayerSide playerSide) throws HSInvalidPlayerIndexException {
+        return modelForSide(playerSide).getHand().size();
     }
 
     public int getNumCardsHandCurrentPlayer() {
@@ -270,8 +269,8 @@ public class BoardModel implements DeepCopyable {
         return waitingPlayer.getHand().size();
     }
 
-    public Hero getHero(PlayerModel playerModel) throws HSInvalidPlayerIndexException {
-        return playerModel.getHero();
+    public Hero getHero(PlayerSide playerSide) throws HSInvalidPlayerIndexException {
+        return modelForSide(playerSide).getHero();
     }
 
     public Hero getCurrentPlayerHero() {
@@ -399,7 +398,7 @@ public class BoardModel implements DeepCopyable {
                 waitingPlayerHero.setHealth((byte) (waitingPlayerHero.getHealth() - fatigueDamage));
             } else {
                 if (this.getNumCardsHandWaitingPlayer() < 10) {
-                    this.placeCard_hand(waitingPlayer, card);
+                    this.placeCard_hand(PlayerSide.WAITING_PLAYER, card);
                 }
                 this.setDeckPos(1, this.getDeckPos(1) + 1);
             }

@@ -185,10 +185,10 @@ public class FrostwolfWarlord extends Minion {
 			return null;
 		}
 		
-		if (PlayerSide.WAITING_PLAYER == side)
+		if (isWaitingPlayer(side))
 			return null;
 		
-		if (PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getNumMinions() >= 7)
+		if (currentPlayerBoardFull(boardState))
 			return null;
 		
 		int numBuffs = PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getNumMinions();

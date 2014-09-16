@@ -58,7 +58,7 @@ public class SavageRoar extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (!(targetMinion instanceof Hero) || PlayerSide.WAITING_PLAYER == side) {
+		if (isNotHero(targetMinion) || isWaitingPlayer(side)) {
 			return null;
 		}
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);

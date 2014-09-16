@@ -58,7 +58,7 @@ public class Consecration extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (PlayerSide.WAITING_PLAYER == side || !(targetMinion instanceof Hero))
+		if (isWaitingPlayer(side) || isNotHero(targetMinion))
 			return null;
 		
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
@@ -70,4 +70,5 @@ public class Consecration extends SpellCard {
 		}
 		return toRet;
 	}
+
 }
