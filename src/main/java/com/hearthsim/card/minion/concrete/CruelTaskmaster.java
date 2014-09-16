@@ -187,17 +187,17 @@ public class CruelTaskmaster extends Minion {
 			for (int index = 0; index < PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getNumMinions(); ++index) {
 				if (index != thisMinionIndex) {
 					HearthTreeNode newState = toRet.addChild(new HearthTreeNode((BoardModel)toRet.data_.deepCopy()));
-					Minion battlecryTarget = newState.data_.getCurrentPlayer().getMinions().get(index);
-					battlecryTarget.setAttack((byte)(newState.data_.getCurrentPlayer().getMinions().get(index).getAttack() + 2));
-					newState = battlecryTarget.takeDamage((byte)1, newState.data_.getCurrentPlayer(), newState.data_.getCurrentPlayer(), newState, deckPlayer0, deckPlayer1, false, true);
+					Minion battlecryTarget = PlayerSide.CURRENT_PLAYER.getPlayer(newState).getMinions().get(index);
+					battlecryTarget.setAttack((byte)(PlayerSide.CURRENT_PLAYER.getPlayer(newState).getMinions().get(index).getAttack() + 2));
+					newState = battlecryTarget.takeDamage((byte)1, PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, newState, deckPlayer0, deckPlayer1, false, true);
 					newState = BoardStateFactoryBase.handleDeadMinions(newState, deckPlayer0, deckPlayer1);
 				}
 			}
 			for (int index = 0; index < PlayerSide.WAITING_PLAYER.getPlayer(toRet).getNumMinions(); ++index) {
 				HearthTreeNode newState = toRet.addChild(new HearthTreeNode((BoardModel)toRet.data_.deepCopy()));
-				Minion battlecryTarget = newState.data_.getWaitingPlayer().getMinions().get(index);
-				battlecryTarget.setAttack((byte)(newState.data_.getWaitingPlayer().getMinions().get(index).getAttack() + 2));
-				newState = battlecryTarget.takeDamage((byte)1, newState.data_.getCurrentPlayer(), newState.data_.getWaitingPlayer(), newState, deckPlayer0, deckPlayer1, false, true);
+				Minion battlecryTarget = PlayerSide.WAITING_PLAYER.getMinions().get(index);
+				battlecryTarget.setAttack((byte)(PlayerSide.WAITING_PLAYER.getMinions().get(index).getAttack() + 2));
+				newState = battlecryTarget.takeDamage((byte)1, PlayerSide.CURRENT_PLAYER, PlayerSide.WAITING_PLAYER, newState, deckPlayer0, deckPlayer1, false, true);
 				newState = BoardStateFactoryBase.handleDeadMinions(newState, deckPlayer0, deckPlayer1);
 			}
 			return toRet;

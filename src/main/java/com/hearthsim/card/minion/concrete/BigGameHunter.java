@@ -186,7 +186,7 @@ public class BigGameHunter extends Minion {
 			for (int index = 0; index < PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getNumMinions(); ++index) {
 				if (PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions().get(index).getTotalAttack() >= 7 && index != thisMinionIndex) {
 					HearthTreeNode newState = toRet.addChild(new HearthTreeNode((BoardModel)toRet.data_.deepCopy()));
-					Minion battlecryTarget = newState.data_.getCurrentPlayer().getMinions().get(index);
+					Minion battlecryTarget = PlayerSide.CURRENT_PLAYER.getPlayer(newState).getMinions().get(index);
 					battlecryTarget.setHealth((byte)-99);
 					newState = BoardStateFactoryBase.handleDeadMinions(newState, deckPlayer0, deckPlayer1);
 				}
@@ -194,7 +194,7 @@ public class BigGameHunter extends Minion {
 			for (int index = 0; index < PlayerSide.WAITING_PLAYER.getPlayer(toRet).getNumMinions(); ++index) {
 				if (PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions().get(index).getTotalAttack() >= 7) {
 					HearthTreeNode newState = toRet.addChild(new HearthTreeNode((BoardModel)toRet.data_.deepCopy()));
-					Minion battlecryTarget = newState.data_.getWaitingPlayer().getMinions().get(index);
+					Minion battlecryTarget = PlayerSide.WAITING_PLAYER.getMinions().get(index);
 					battlecryTarget.setHealth((byte)-99);
 					newState = BoardStateFactoryBase.handleDeadMinions(newState, deckPlayer0, deckPlayer1);
 				}

@@ -139,9 +139,9 @@ public class Shaman extends Hero {
 					HearthTreeNode newState = toRet.addChild(new HearthTreeNode((BoardModel)toRet.data_.deepCopy()));
                     PlayerModel newTargetPlayerModel;
                     if (PlayerSide.CURRENT_PLAYER.equals(targetPlayerModel)){
-                        newTargetPlayerModel = newState.data_.getCurrentPlayer();
+                        newTargetPlayerModel = PlayerSide.CURRENT_PLAYER;
                     }else{
-                        newTargetPlayerModel = newState.data_.getWaitingPlayer();
+                        newTargetPlayerModel = PlayerSide.WAITING_PLAYER;
                     }
 
 					Minion summonTarget = newState.data_.getCharacter(newTargetPlayerModel, numMinions);

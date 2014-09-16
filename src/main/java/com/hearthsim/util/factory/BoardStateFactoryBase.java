@@ -77,7 +77,7 @@ public class BoardStateFactoryBase {
 				if (boardStateNode.data_.getCurrentPlayerHero().canBeUsedOn(boardStateNode.data_.getCurrentPlayer(), targetMinion, boardStateNode.data_)) {
 					HearthTreeNode newState = new HearthTreeNode((BoardModel)boardStateNode.data_.deepCopy());
 					Minion copiedTargetMinion = newState.data_.getCurrentPlayerCharacter(i);
-					newState = newState.data_.getCurrentPlayerHero().useHeroAbility(newState.data_.getCurrentPlayer(), copiedTargetMinion, newState, deckPlayer0_, deckPlayer1_, false);
+					newState = newState.data_.getCurrentPlayerHero().useHeroAbility(PlayerSide.CURRENT_PLAYER, copiedTargetMinion, newState, deckPlayer0_, deckPlayer1_, false);
 					if (newState != null) {
 						newState = this.doMoves(newState, ai);
 						if (newState != null) boardStateNode.addChild(newState);
@@ -90,7 +90,7 @@ public class BoardStateFactoryBase {
 				if (boardStateNode.data_.getCurrentPlayerHero().canBeUsedOn(boardStateNode.data_.getWaitingPlayer(), targetMinion, boardStateNode.data_)) {
 					HearthTreeNode newState = new HearthTreeNode((BoardModel)boardStateNode.data_.deepCopy());
 					Minion copiedTargetMinion = newState.data_.getWaitingPlayerCharacter(i);
-					newState = newState.data_.getCurrentPlayerHero().useHeroAbility(newState.data_.getWaitingPlayer(), copiedTargetMinion, newState, deckPlayer0_, deckPlayer1_, false);
+					newState = newState.data_.getCurrentPlayerHero().useHeroAbility(PlayerSide.WAITING_PLAYER, copiedTargetMinion, newState, deckPlayer0_, deckPlayer1_, false);
 					if (newState != null) {
 						newState = this.doMoves(newState, ai);
 						if (newState != null) boardStateNode.addChild(newState);
@@ -121,7 +121,7 @@ public class BoardStateFactoryBase {
 		
 		if (!allAttacked && boardStateNode.data_.getCurrentPlayer().getNumMinions() > 0) {
 			HearthTreeNode newState = new HearthTreeNode((BoardModel)boardStateNode.data_.deepCopy());
-			for (Minion minion : newState.data_.getCurrentPlayer().getMinions()) {
+			for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(newState).getMinions()) {
 				minion.hasAttacked(true);
 			}
 			newState.data_.getCurrentPlayerHero().hasAttacked(true);
@@ -135,7 +135,7 @@ public class BoardStateFactoryBase {
 				int i = integer.intValue();
 				HearthTreeNode newState = new HearthTreeNode((BoardModel)boardStateNode.data_.deepCopy());
 				Minion targetMinion = newState.data_.getWaitingPlayerCharacter(i);
-				newState = newState.data_.getCurrentPlayerHero().attack(newState.data_.getWaitingPlayer(), targetMinion, newState, deckPlayer0_, deckPlayer1_);
+				newState = newState.data_.getCurrentPlayerHero().attack(PlayerSide.WAITING_PLAYER, targetMinion, newState, deckPlayer0_, deckPlayer1_);
 				if (newState != null) {
 					newState = this.doMoves(newState, ai);
 					if (newState != null) boardStateNode.addChild(newState);
@@ -153,8 +153,8 @@ public class BoardStateFactoryBase {
 				int i = integer.intValue();
 				HearthTreeNode newState = new HearthTreeNode((BoardModel)boardStateNode.data_.deepCopy());
 				Minion targetMinion = newState.data_.getWaitingPlayerCharacter(i);
-				Minion tempMinion = newState.data_.getCurrentPlayer().getMinions().get(ic);
-				newState = tempMinion.attack(newState.data_.getWaitingPlayer(), targetMinion, newState, deckPlayer0_, deckPlayer1_);
+				Minion tempMinion = PlayerSide.CURRENT_PLAYER.getPlayer(newState).getMinions().get(ic);
+				newState = tempMinion.attack(PlayerSide.WAITING_PLAYER, targetMinion, newState, deckPlayer0_, deckPlayer1_);
 				if (newState != null) {
 					newState = this.doMoves(newState, ai);
 					if (newState != null) boardStateNode.addChild(newState);
@@ -194,7 +194,7 @@ public class BoardStateFactoryBase {
 						HearthTreeNode newState = new HearthTreeNode((BoardModel)boardStateNode.data_.deepCopy());
 						Minion copiedTargetMinion = newState.data_.getCurrentPlayerCharacter(i);
 						Card card = newState.data_.getCurrentPlayerCardHand(ic);
-						newState = card.useOn(newState.data_.getCurrentPlayer(), copiedTargetMinion, newState, deckPlayer0_, deckPlayer1_, false);
+						newState = card.useOn(PlayerSide.CURRENT_PLAYER, copiedTargetMinion, newState, deckPlayer0_, deckPlayer1_, false);
 						if (newState != null) {
 							newState = this.doMoves(newState, ai);
 							if (newState != null) boardStateNode.addChild(newState);
@@ -207,7 +207,7 @@ public class BoardStateFactoryBase {
 						HearthTreeNode newState = new HearthTreeNode((BoardModel)boardStateNode.data_.deepCopy());
 						Minion copiedTargetMinion = newState.data_.getWaitingPlayerCharacter(i);
 						Card card = newState.data_.getCurrentPlayerCardHand(ic);
-						newState = card.useOn(newState.data_.getWaitingPlayer(), copiedTargetMinion, newState, deckPlayer0_, deckPlayer1_, false);
+						newState = card.useOn(PlayerSide.WAITING_PLAYER, copiedTargetMinion, newState, deckPlayer0_, deckPlayer1_, false);
 						if (newState != null) {
 							newState = this.doMoves(newState, ai);
 							if (newState != null) boardStateNode.addChild(newState);

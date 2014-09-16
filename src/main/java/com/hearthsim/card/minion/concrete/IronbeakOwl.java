@@ -186,8 +186,8 @@ public class IronbeakOwl extends Minion {
 					if (PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions().get(index) == this)
 						continue;
 					HearthTreeNode newState = new HearthTreeNode((BoardModel)boardState.data_.deepCopy());
-					Minion minion = newState.data_.getCurrentPlayer().getMinions().get(index);
-					newState = minion.silenced(newState.data_.getCurrentPlayer(), newState, deckPlayer0, deckPlayer1);
+					Minion minion = PlayerSide.CURRENT_PLAYER.getPlayer(newState).getMinions().get(index);
+					newState = minion.silenced(PlayerSide.CURRENT_PLAYER, newState, deckPlayer0, deckPlayer1);
 					toRet.addChild(newState);
 				}
 			}
@@ -195,8 +195,8 @@ public class IronbeakOwl extends Minion {
 			{
 				for (int index = 0; index < PlayerSide.WAITING_PLAYER.getPlayer(toRet).getNumMinions(); ++index) {
 					HearthTreeNode newState = new HearthTreeNode((BoardModel)boardState.data_.deepCopy());
-					Minion minion = newState.data_.getWaitingPlayer().getMinions().get(index);
-					newState = minion.silenced(newState.data_.getWaitingPlayer(), newState, deckPlayer0, deckPlayer1);
+					Minion minion = PlayerSide.WAITING_PLAYER.getMinions().get(index);
+					newState = minion.silenced(PlayerSide.WAITING_PLAYER, newState, deckPlayer0, deckPlayer1);
 					toRet.addChild(newState);
 				}
 			}

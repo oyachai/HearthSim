@@ -189,7 +189,7 @@ public class AncientOfLore extends Minion {
 			{
 				{
 					HearthTreeNode newState = new HearthTreeNode((BoardModel)toRet.data_.deepCopy());
-					newState = newState.data_.getCurrentPlayerHero().takeHeal(HEAL_AMOUNT, newState.data_.getCurrentPlayer(), newState, deckPlayer0, deckPlayer1);
+					newState = newState.data_.getCurrentPlayerHero().takeHeal(HEAL_AMOUNT, PlayerSide.CURRENT_PLAYER, newState, deckPlayer0, deckPlayer1);
 					toRet.addChild(newState);
 				}
 				
@@ -197,7 +197,7 @@ public class AncientOfLore extends Minion {
 					for (int index = 0; index < PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getNumMinions(); ++index) {
 						if (index != thisMinionIndex) {
 							HearthTreeNode newState = new HearthTreeNode((BoardModel)toRet.data_.deepCopy());
-							newState = newState.data_.getCurrentPlayer().getMinions().get(index).takeHeal(HEAL_AMOUNT, newState.data_.getCurrentPlayer(), newState, deckPlayer0, deckPlayer1);
+							newState = PlayerSide.CURRENT_PLAYER.getPlayer(newState).getMinions().get(index).takeHeal(HEAL_AMOUNT, PlayerSide.CURRENT_PLAYER, newState, deckPlayer0, deckPlayer1);
 							toRet.addChild(newState);
 						}
 					}
@@ -205,14 +205,14 @@ public class AncientOfLore extends Minion {
 
 				{
 					HearthTreeNode newState = new HearthTreeNode((BoardModel)toRet.data_.deepCopy());
-					newState = newState.data_.getWaitingPlayerHero().takeHeal(HEAL_AMOUNT, newState.data_.getWaitingPlayer(), newState, deckPlayer0, deckPlayer1);
+					newState = newState.data_.getWaitingPlayerHero().takeHeal(HEAL_AMOUNT, PlayerSide.WAITING_PLAYER, newState, deckPlayer0, deckPlayer1);
 					toRet.addChild(newState);
 				}
 				
 				{
 					for (int index = 0; index < PlayerSide.WAITING_PLAYER.getPlayer(toRet).getNumMinions(); ++index) {
 						HearthTreeNode newState = new HearthTreeNode((BoardModel)toRet.data_.deepCopy());
-						newState = newState.data_.getWaitingPlayer().getMinions().get(index).takeHeal(HEAL_AMOUNT, newState.data_.getWaitingPlayer(), newState, deckPlayer0, deckPlayer1);
+						newState = PlayerSide.WAITING_PLAYER.getMinions().get(index).takeHeal(HEAL_AMOUNT, PlayerSide.WAITING_PLAYER, newState, deckPlayer0, deckPlayer1);
 						toRet.addChild(newState);
 					}
 				}

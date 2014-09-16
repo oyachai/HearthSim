@@ -64,7 +64,7 @@ public class AnimalCompanion extends SpellCard {
 			return null;
 		}
 		
-		int numMinions = PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getNumMinions();
+		int numMinions = PlayerSide.CURRENT_PLAYER.getPlayer(boardState).getNumMinions();
 		if (numMinions >= 7)
 			return null;
 		

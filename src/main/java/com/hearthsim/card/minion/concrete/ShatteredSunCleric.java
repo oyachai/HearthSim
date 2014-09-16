@@ -200,8 +200,8 @@ public class ShatteredSunCleric extends Minion {
 			for (int index = 0; index < PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getNumMinions(); ++index) {
 				if (index != PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions().indexOf(this)) {
 					HearthTreeNode newState = toRet.addChild(new HearthTreeNode((BoardModel)toRet.data_.deepCopy()));
-					newState.data_.getCurrentPlayer().getMinions().get(index).setAttack((byte)(newState.data_.getCurrentPlayer().getMinions().get(index).getAttack() + 1));
-					newState.data_.getCurrentPlayer().getMinions().get(index).setHealth((byte)(newState.data_.getCurrentPlayer().getMinions().get(index).getHealth() + 1));
+					PlayerSide.CURRENT_PLAYER.getPlayer(newState).getMinions().get(index).setAttack((byte)(PlayerSide.CURRENT_PLAYER.getPlayer(newState).getMinions().get(index).getAttack() + 1));
+					PlayerSide.CURRENT_PLAYER.getPlayer(newState).getMinions().get(index).setHealth((byte)(PlayerSide.CURRENT_PLAYER.getPlayer(newState).getMinions().get(index).getHealth() + 1));
 				}
 			}
 			return toRet;

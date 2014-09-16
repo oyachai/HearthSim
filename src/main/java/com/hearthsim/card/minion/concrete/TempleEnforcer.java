@@ -186,7 +186,7 @@ public class TempleEnforcer extends Minion {
 					if (PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions().get(index) == this)
 						continue;
 					HearthTreeNode newState = new HearthTreeNode((BoardModel)toRet.data_.deepCopy());
-					Minion minion = newState.data_.getCurrentPlayer().getMinions().get(index);
+					Minion minion = PlayerSide.CURRENT_PLAYER.getPlayer(newState).getMinions().get(index);
 					minion.setHealth((byte)(minion.getHealth() + 3));
 					toRet.addChild(newState);
 				}

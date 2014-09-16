@@ -26,11 +26,11 @@ public class DeathrattleDamageAll extends DeathrattleAction {
 		HearthTreeNode toRet = super.performAction(minion, playerSide, boardState, deckPlayer0, deckPlayer1);
 		if (toRet != null) {
 			toRet = toRet.data_.getCurrentPlayerHero().takeDamage(damage_, playerSide, PlayerSide.CURRENT_PLAYER, boardState, deckPlayer0, deckPlayer1, false, false);
-			for(Minion aMinion : PlayerSide.CURRENT_PLAYER.getMinions()) {
+			for(Minion aMinion : PlayerSide.CURRENT_PLAYER.getPlayer(newState).getMinions()) {
 				toRet = aMinion.takeDamage(damage_, playerSide, PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1, false, false);
 			}
 			toRet = toRet.data_.getWaitingPlayerHero().takeDamage(damage_, playerSide, PlayerSide.WAITING_PLAYER, boardState, deckPlayer0, deckPlayer1, false, false);
-			for(Minion aMinion : PlayerSide.WAITING_PLAYER.getMinions()) {
+			for(Minion aMinion : PlayerSide.WAITING_PLAYER.getPlayer(newState).getMinions()) {
 				toRet = aMinion.takeDamage(damage_, playerSide, PlayerSide.WAITING_PLAYER, toRet, deckPlayer0, deckPlayer1, false, false);
 			}
 		}
