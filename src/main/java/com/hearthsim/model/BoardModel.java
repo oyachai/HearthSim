@@ -570,12 +570,12 @@ public class BoardModel implements DeepCopyable {
     }
 
     public void endTurn(Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
-        currentPlayer.getHero().endTurn(currentPlayer, this, deckPlayer0, deckPlayer1);
-        waitingPlayer.getHero().endTurn(waitingPlayer, this, deckPlayer0, deckPlayer1);
+        currentPlayer.getHero().endTurn(PlayerSide.CURRENT_PLAYER, this, deckPlayer0, deckPlayer1);
+        waitingPlayer.getHero().endTurn(PlayerSide.WAITING_PLAYER, this, deckPlayer0, deckPlayer1);
         for (int index = 0; index < currentPlayer.getMinions().size(); ++index) {
             Minion targetMinion = currentPlayer.getMinions().get(index);
             try {
-                targetMinion.endTurn(currentPlayer, this, deckPlayer0, deckPlayer1);
+                targetMinion.endTurn(PlayerSide.CURRENT_PLAYER, this, deckPlayer0, deckPlayer1);
             } catch (HSException e) {
                 e.printStackTrace();
             }
@@ -583,7 +583,7 @@ public class BoardModel implements DeepCopyable {
         for (int index = 0; index < waitingPlayer.getMinions().size(); ++index) {
             Minion targetMinion = waitingPlayer.getMinions().get(index);
             try {
-                targetMinion.endTurn(waitingPlayer, this, deckPlayer0, deckPlayer1);
+                targetMinion.endTurn(PlayerSide.WAITING_PLAYER, this, deckPlayer0, deckPlayer1);
             } catch (HSException e) {
                 e.printStackTrace();
             }
@@ -612,14 +612,14 @@ public class BoardModel implements DeepCopyable {
 
         for (Minion targetMinion : currentPlayer.getMinions()) {
             try {
-                targetMinion.startTurn(currentPlayer, this, currentPlayer.getDeck(), waitingPlayer.getDeck());
+                targetMinion.startTurn(PlayerSide.CURRENT_PLAYER, this, currentPlayer.getDeck(), waitingPlayer.getDeck());
             } catch (HSInvalidPlayerIndexException e) {
                 e.printStackTrace();
             }
         }
         for (Minion targetMinion : waitingPlayer.getMinions()) {
             try {
-                targetMinion.startTurn(waitingPlayer, this, currentPlayer.getDeck(), waitingPlayer.getDeck());
+                targetMinion.startTurn(PlayerSide.WAITING_PLAYER, this, currentPlayer.getDeck(), waitingPlayer.getDeck());
             } catch (HSInvalidPlayerIndexException e) {
                 e.printStackTrace();
             }
