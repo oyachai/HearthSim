@@ -182,8 +182,8 @@ public class ArgentProtector extends Minion {
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		
 		if (toRet != null) {
-			for (int index = 0; index < toRet.data_.getCurrentPlayer().getNumMinions(); ++index) {
-				if (index != toRet.data_.getCurrentPlayer().getMinions().indexOf(this)) {
+			for (int index = 0; index < PlayerSide.CURRENT_PLAYER.getNumMinions(); ++index) {
+				if (index != PlayerSide.CURRENT_PLAYER.getMinions().indexOf(this)) {
 					HearthTreeNode newState = toRet.addChild(new HearthTreeNode((BoardModel)toRet.data_.deepCopy()));
 					newState.data_.getCurrentPlayer().getMinions().get(index).setDivineShield(true);
 				}

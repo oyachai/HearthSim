@@ -184,7 +184,7 @@ public class StormwindChampion extends Minion {
 	{
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
-			for (Minion minion : toRet.data_.getCurrentPlayer().getMinions()) {
+			for (Minion minion : PlayerSide.CURRENT_PLAYER.getMinions()) {
 				if (minion != this) {
 					minion.setAuraAttack((byte)(minion.getAuraAttack() + 1));
 					minion.addAuraHealth((byte)1);

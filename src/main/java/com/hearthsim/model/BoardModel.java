@@ -450,10 +450,10 @@ public class BoardModel implements DeepCopyable {
      *
      * Returns the additional spell damage provided by buffs
      * @return
-     * @param playerModel
+     * @param playerSide
      */
-    public byte getSpellDamage(PlayerModel playerModel) throws HSInvalidPlayerIndexException {
-        return playerModel.getSpellDamage();
+    public byte getSpellDamage(PlayerSide playerSide) throws HSInvalidPlayerIndexException {
+        return modelForSide(playerSide).getSpellDamage();
     }
 
     /**
@@ -462,8 +462,8 @@ public class BoardModel implements DeepCopyable {
      * Returns the additional spell damage provided by buffs
      * @return
      */
-    public void setSpellDamage(PlayerModel playerModel, byte damage) throws HSInvalidPlayerIndexException {
-        playerModel.setSpellDamage(damage);
+    public void setSpellDamage(PlayerSide playerSide, byte damage) throws HSInvalidPlayerIndexException {
+        modelForSide(playerSide).setSpellDamage(damage);
     }
 
 

@@ -68,8 +68,8 @@ public class FanOfKnives extends SpellCard {
 		
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
-			for (Minion minion : toRet.data_.getWaitingPlayer().getMinions()) {
-				toRet = minion.takeDamage((byte)1, toRet.data_.getCurrentPlayer(), toRet.data_.getWaitingPlayer(), toRet, deckPlayer0, deckPlayer1, true, false);
+			for (Minion minion : PlayerSide.WAITING_PLAYER.getMinions()) {
+				toRet = minion.takeDamage((byte)1, PlayerSide.CURRENT_PLAYER, PlayerSide.WAITING_PLAYER, toRet, deckPlayer0, deckPlayer1, true, false);
 			}
 			
 			if (toRet instanceof CardDrawNode) {

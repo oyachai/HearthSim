@@ -183,8 +183,8 @@ public class Houndmaster extends Minion {
 	{
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
-			for (int index = 0; index < toRet.data_.getCurrentPlayer().getNumMinions(); ++index) {
-                if (index != toRet.data_.getCurrentPlayer().getMinions().indexOf(this) && toRet.data_.getCurrentPlayer().getMinions().get(index) instanceof Beast) {
+			for (int index = 0; index < PlayerSide.CURRENT_PLAYER.getNumMinions(); ++index) {
+                if (index != PlayerSide.CURRENT_PLAYER.getMinions().indexOf(this) && PlayerSide.CURRENT_PLAYER.getMinions().get(index) instanceof Beast) {
                     HearthTreeNode newState = toRet.addChild(new HearthTreeNode((BoardModel) toRet.data_.deepCopy()));
                     newState.data_.getCurrentPlayer().getMinions().get(index).setAttack((byte) (newState.data_.getCurrentPlayer().getMinions().get(index).getAttack() + 2));
                     newState.data_.getCurrentPlayer().getMinions().get(index).setHealth((byte) (newState.data_.getCurrentPlayer().getMinions().get(index).getHealth() + 2));

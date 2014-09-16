@@ -52,7 +52,7 @@ public class HolyFire extends SpellDamage {
 		
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
-			toRet.data_.getCurrentPlayerHero().takeHeal((byte)5, toRet.data_.getCurrentPlayer(), toRet, deckPlayer0, deckPlayer1);
+			toRet.data_.getCurrentPlayerHero().takeHeal((byte)5, PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1);
 		}
 		return toRet;
 	}

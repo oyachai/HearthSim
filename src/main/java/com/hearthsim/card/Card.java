@@ -2,11 +2,8 @@ package com.hearthsim.card;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.model.BoardModel;
-import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
-import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.factory.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -243,30 +240,30 @@ public class Card implements DeepCopyable {
 		if (toRet != null) {
 			ArrayList<Minion> tmpList = new ArrayList<Minion>(7);
             for (Card card : toRet.data_.getCurrentPlayerHand()) {
-                toRet = card.otherCardUsedEvent(toRet.data_.getCurrentPlayer(), toRet.data_.getCurrentPlayer(), this, toRet, deckPlayer0, deckPlayer1);
+                toRet = card.otherCardUsedEvent(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1);
             }
-			toRet = toRet.data_.getCurrentPlayerHero().otherCardUsedEvent(toRet.data_.getCurrentPlayer(), toRet.data_.getCurrentPlayer(), this, toRet, deckPlayer0, deckPlayer1);
+			toRet = toRet.data_.getCurrentPlayerHero().otherCardUsedEvent(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1);
 			{
-                for (Minion minion : toRet.data_.getCurrentPlayer().getMinions()) {
+                for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
                     tmpList.add(minion);
                 }
 				for (Minion minion : tmpList) {
 					if (!minion.isSilenced())
-						toRet = minion.otherCardUsedEvent(toRet.data_.getCurrentPlayer(), toRet.data_.getCurrentPlayer(), this, toRet, deckPlayer0, deckPlayer1);
+						toRet = minion.otherCardUsedEvent(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1);
 				}
 			}
             for (Card card : toRet.data_.getWaitingPlayerHand()) {
-                toRet = card.otherCardUsedEvent(toRet.data_.getWaitingPlayer(), toRet.data_.getCurrentPlayer(), this, toRet, deckPlayer0, deckPlayer1);
+                toRet = card.otherCardUsedEvent(PlayerSide.WAITING_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1);
             }
-			toRet = toRet.data_.getWaitingPlayerHero().otherCardUsedEvent(toRet.data_.getWaitingPlayer(), toRet.data_.getCurrentPlayer(), this, toRet, deckPlayer0, deckPlayer1);
+			toRet = toRet.data_.getWaitingPlayerHero().otherCardUsedEvent(PlayerSide.WAITING_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1);
 			{
 				tmpList.clear();
-                for (Minion minion : toRet.data_.getWaitingPlayer().getMinions()) {
+                for (Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
                     tmpList.add(minion);
                 }
 				for (Minion minion : tmpList) {
 					if (!minion.isSilenced())
-						toRet = minion.otherCardUsedEvent(toRet.data_.getWaitingPlayer(), toRet.data_.getCurrentPlayer(), this, toRet, deckPlayer0, deckPlayer1);
+						toRet = minion.otherCardUsedEvent(PlayerSide.WAITING_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1);
 				}
 			}
 
@@ -306,51 +303,24 @@ public class Card implements DeepCopyable {
 		return boardState;
 	}
 	
-	
-	/**
-	 * 
-	 * Get the expected value of the card if used on the position
-	 * 
-	 * @param thisCardIndex The index (position) of the card in the hand
-	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
-	 * @param minionIndex The index of the target minion.
-	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-	 * @param deck The initiating player's deck
-	 * @param scoreFunc The scoring function
-	 * 
-	 * @return The expected score
-	 */
-	public double getExpectedScoreIfUsed(
-			int thisCardIndex,
-			int playerIndex,
-			int minionIndex,
-			HearthTreeNode boardState,
-			Deck deck,
-			ArtificialPlayer ai)
-		throws HSInvalidPlayerIndexException
-	{
-		return 0.0;
-	}
-	
-	
+
 	//======================================================================================
 	// Hooks for various events
 	//======================================================================================	
 	/**
 	 * 
 	 * Called whenever another card is used
-	 * 
-	 * @param thisCardPlayerModel The player index of the card receiving the event
-	 * @param cardUserPlayerModel
-     *@param usedCard The card that was used
+	 *  @param thisCardPlayerSide The player index of the card receiving the event
+	 * @param cardUserPlayerSide
+     * @param usedCard The card that was used
      * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
      * @param deckPlayer0 The deck of player0
      * @param deckPlayer1 The deck of player1
-*     @return The boardState is manipulated and returned
+     * @return The boardState is manipulated and returned
 	 */
 	public HearthTreeNode otherCardUsedEvent(
-			PlayerModel thisCardPlayerModel,
-			PlayerModel cardUserPlayerModel,
+			PlayerSide thisCardPlayerSide,
+			PlayerSide cardUserPlayerSide,
 			Card usedCard,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,

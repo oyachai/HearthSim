@@ -193,7 +193,7 @@ public class RazorfenHunter extends Minion {
 		
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		
-		if (toRet != null && toRet.data_.getCurrentPlayer().getNumMinions() < 7) {
+		if (toRet != null && PlayerSide.CURRENT_PLAYER.getNumMinions() < 7) {
 			Minion newMinion = new Boar();
 			newMinion.summonMinion(side, this, boardState, deckPlayer0, deckPlayer1, false);
 		}

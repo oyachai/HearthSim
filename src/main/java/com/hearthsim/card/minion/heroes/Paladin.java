@@ -81,7 +81,7 @@ public class Paladin extends Hero {
 			this.hasBeenUsed = true;
 			toRet.data_.setMana_p0(toRet.data_.getMana_p0() - HERO_ABILITY_COST);
 			Minion theRecruit = new SilverHandRecruit();
-			Minion targetLocation = toRet.data_.getCharacter(toRet.data_.getCurrentPlayer(), toRet.data_.getCurrentPlayer().getNumMinions());
+			Minion targetLocation = toRet.data_.getCharacter(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER.getNumMinions());
 			toRet = theRecruit.summonMinion(targetPlayerModel, targetLocation, toRet, deckPlayer0, deckPlayer1, false);
 		} else {
 			return null;

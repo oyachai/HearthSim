@@ -192,7 +192,7 @@ public class VoodooDoctor extends Minion {
 			}
 			
 			{
-				for (int index = 0; index < toRet.data_.getCurrentPlayer().getNumMinions(); ++index) {
+				for (int index = 0; index < PlayerSide.CURRENT_PLAYER.getNumMinions(); ++index) {
 					HearthTreeNode newState = new HearthTreeNode((BoardModel)toRet.data_.deepCopy());
 					newState = newState.data_.getCurrentPlayer().getMinions().get(index).takeHeal((byte)2, newState.data_.getCurrentPlayer(), newState, deckPlayer0, deckPlayer1);
 					toRet.addChild(newState);
@@ -206,7 +206,7 @@ public class VoodooDoctor extends Minion {
 			}
 			
 			{
-				for (int index = 0; index < toRet.data_.getWaitingPlayer().getNumMinions(); ++index) {
+				for (int index = 0; index < PlayerSide.WAITING_PLAYER.getNumMinions(); ++index) {
 					HearthTreeNode newState = new HearthTreeNode((BoardModel)toRet.data_.deepCopy());
 					newState = newState.data_.getWaitingPlayer().getMinions().get(index).takeHeal((byte)2, newState.data_.getWaitingPlayer(), newState, deckPlayer0, deckPlayer1);
 					toRet.addChild(newState);

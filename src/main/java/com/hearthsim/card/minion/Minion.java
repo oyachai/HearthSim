@@ -391,15 +391,15 @@ public class Minion extends Card {
 			
 			//Notify all that the minion is damaged
 			HearthTreeNode toRet = boardState;
-			toRet = toRet.data_.getCurrentPlayerHero().minionDamagedEvent(toRet.data_.getCurrentPlayer(), thisPlayerSide, this, toRet, deckPlayer0, deckPlayer1);
-			for (int j = 0; j < toRet.data_.getCurrentPlayer().getNumMinions(); ++j) {
-				if (!toRet.data_.getCurrentPlayer().getMinions().get(j).silenced_)
-					toRet = toRet.data_.getCurrentPlayer().getMinions().get(j).minionDamagedEvent(toRet.data_.getCurrentPlayer(), thisPlayerSide, this, toRet, deckPlayer0, deckPlayer1);
+			toRet = toRet.data_.getCurrentPlayerHero().minionDamagedEvent(PlayerSide.CURRENT_PLAYER, thisPlayerSide, this, toRet, deckPlayer0, deckPlayer1);
+			for (int j = 0; j < PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getNumMinions(); ++j) {
+				if (!PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions().get(j).silenced_)
+					toRet = PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions().get(j).minionDamagedEvent(PlayerSide.CURRENT_PLAYER, thisPlayerSide, this, toRet, deckPlayer0, deckPlayer1);
 			}
-			toRet = toRet.data_.getWaitingPlayerHero().minionDamagedEvent(toRet.data_.getWaitingPlayer(), thisPlayerSide, this, toRet, deckPlayer0, deckPlayer1);
-			for (int j = 0; j < toRet.data_.getWaitingPlayer().getNumMinions(); ++j) {
-				if (!toRet.data_.getWaitingPlayer().getMinions().get(j).silenced_)
-					toRet = toRet.data_.getWaitingPlayer().getMinions().get(j).minionDamagedEvent(toRet.data_.getWaitingPlayer(), thisPlayerSide, this, toRet, deckPlayer0, deckPlayer1);
+			toRet = toRet.data_.getWaitingPlayerHero().minionDamagedEvent(PlayerSide.WAITING_PLAYER, thisPlayerSide, this, toRet, deckPlayer0, deckPlayer1);
+			for (int j = 0; j < PlayerSide.WAITING_PLAYER.getPlayer(toRet).getNumMinions(); ++j) {
+				if (!PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions().get(j).silenced_)
+					toRet = PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions().get(j).minionDamagedEvent(PlayerSide.WAITING_PLAYER, thisPlayerSide, this, toRet, deckPlayer0, deckPlayer1);
 			}
 			
 			return toRet;
@@ -431,8 +431,7 @@ public class Minion extends Card {
 
         if (!silenced_) {
             BoardModel data_ = boardState.data_;
-            PlayerModel currentPlayer = data_.getCurrentPlayer();
-            toRet.data_.setSpellDamage(currentPlayer, (byte)(data_.getSpellDamage(currentPlayer) - spellDamage_));
+            toRet.data_.setSpellDamage(PlayerSide.CURRENT_PLAYER, (byte)(data_.getSpellDamage(PlayerSide.CURRENT_PLAYER) - spellDamage_));
         }
 
         //perform the deathrattle action if there is one
@@ -441,15 +440,15 @@ public class Minion extends Card {
         }
 
         //Notify all that it is dead
-        toRet = toRet.data_.getCurrentPlayerHero().minionDeadEvent(toRet.data_.getCurrentPlayer(), thisPlayerSide, this, toRet, deckPlayer0, deckPlayer1);
-        for (int j = 0; j < toRet.data_.getCurrentPlayer().getNumMinions(); ++j) {
-            if (!toRet.data_.getCurrentPlayer().getMinions().get(j).silenced_)
-                toRet = toRet.data_.getCurrentPlayer().getMinions().get(j).minionDeadEvent(toRet.data_.getCurrentPlayer(), thisPlayerSide, this, toRet, deckPlayer0, deckPlayer1);
+        toRet = toRet.data_.getCurrentPlayerHero().minionDeadEvent(PlayerSide.CURRENT_PLAYER, thisPlayerSide, this, toRet, deckPlayer0, deckPlayer1);
+        for (int j = 0; j < PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getNumMinions(); ++j) {
+            if (!PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions().get(j).silenced_)
+                toRet = PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions().get(j).minionDeadEvent(PlayerSide.CURRENT_PLAYER, thisPlayerSide, this, toRet, deckPlayer0, deckPlayer1);
         }
-        toRet = toRet.data_.getWaitingPlayerHero().minionDeadEvent(toRet.data_.getWaitingPlayer(), thisPlayerSide, this, toRet, deckPlayer0, deckPlayer1);
-        for (int j = 0; j < toRet.data_.getWaitingPlayer().getNumMinions(); ++j) {
-            if (!toRet.data_.getWaitingPlayer().getMinions().get(j).silenced_)
-                toRet = toRet.data_.getWaitingPlayer().getMinions().get(j).minionDeadEvent(toRet.data_.getWaitingPlayer(), thisPlayerSide, this, toRet, deckPlayer0, deckPlayer1);
+        toRet = toRet.data_.getWaitingPlayerHero().minionDeadEvent(PlayerSide.WAITING_PLAYER, thisPlayerSide, this, toRet, deckPlayer0, deckPlayer1);
+        for (int j = 0; j < PlayerSide.WAITING_PLAYER.getPlayer(toRet).getNumMinions(); ++j) {
+            if (!PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions().get(j).silenced_)
+                toRet = PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions().get(j).minionDeadEvent(PlayerSide.WAITING_PLAYER, thisPlayerSide, this, toRet, deckPlayer0, deckPlayer1);
         }
 
         return toRet;
@@ -508,13 +507,13 @@ public class Minion extends Card {
 			//Notify all that it the minion is healed
 			HearthTreeNode toRet = boardState;
 			toRet = toRet.data_.getCurrentPlayerHero().minionHealedEvent(PlayerSide.CURRENT_PLAYER, thisPlayerSide, this, toRet, deckPlayer0, deckPlayer1);
-			for (Iterator<Minion> iter = toRet.data_.getCurrentPlayer().getMinions().iterator(); iter.hasNext();) {
+			for (Iterator<Minion> iter = PlayerSide.CURRENT_PLAYER.getMinions().iterator(); iter.hasNext();) {
 				Minion minion = iter.next();
 				if (!minion.silenced_)
 					toRet = minion.minionHealedEvent(PlayerSide.CURRENT_PLAYER, thisPlayerSide, this, toRet, deckPlayer0, deckPlayer1);
 			}
 			toRet = toRet.data_.getWaitingPlayerHero().minionHealedEvent(PlayerSide.WAITING_PLAYER, thisPlayerSide, this, toRet, deckPlayer0, deckPlayer1);
-			for (Iterator<Minion> iter = toRet.data_.getWaitingPlayer().getMinions().iterator(); iter.hasNext();) {
+			for (Iterator<Minion> iter = PlayerSide.WAITING_PLAYER.getMinions().iterator(); iter.hasNext();) {
 				Minion minion = iter.next();
 				if (!minion.silenced_)
 					toRet = minion.minionHealedEvent(PlayerSide.WAITING_PLAYER, thisPlayerSide, this, toRet, deckPlayer0, deckPlayer1);
@@ -558,21 +557,21 @@ public class Minion extends Card {
 			
 			//Notify all other cards/characters of the card's use
             for (Card card : data_.getCurrentPlayerHand()) {
-                toRet = card.otherCardUsedEvent(toRet.data_.getCurrentPlayer(), toRet.data_.getCurrentPlayer(), this, toRet, deckPlayer0, deckPlayer1);
+                toRet = card.otherCardUsedEvent(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1);
             }
-			toRet = data_.getCurrentPlayerHero().otherCardUsedEvent(toRet.data_.getCurrentPlayer(), toRet.data_.getCurrentPlayer(), this, toRet, deckPlayer0, deckPlayer1);
+			toRet = data_.getCurrentPlayerHero().otherCardUsedEvent(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1);
             for (Minion minion : data_.getCurrentPlayer().getMinions()) {
                 if (!minion.silenced_)
-                    toRet = minion.otherCardUsedEvent(toRet.data_.getCurrentPlayer(), toRet.data_.getCurrentPlayer(), this, toRet, deckPlayer0, deckPlayer1);
+                    toRet = minion.otherCardUsedEvent(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1);
             }
 
             for (Card card : data_.getWaitingPlayerHand()) {
-                toRet = card.otherCardUsedEvent(toRet.data_.getWaitingPlayer(), toRet.data_.getCurrentPlayer(), this, toRet, deckPlayer0, deckPlayer1);
+                toRet = card.otherCardUsedEvent(PlayerSide.WAITING_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1);
             }
-			toRet = data_.getWaitingPlayerHero().otherCardUsedEvent(toRet.data_.getWaitingPlayer(), toRet.data_.getCurrentPlayer(), this, toRet, deckPlayer0, deckPlayer1);
+			toRet = data_.getWaitingPlayerHero().otherCardUsedEvent(PlayerSide.WAITING_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1);
             for (Minion minion : data_.getWaitingPlayer().getMinions()) {
                 if (!minion.silenced_)
-                    toRet = minion.otherCardUsedEvent(toRet.data_.getWaitingPlayer(), toRet.data_.getCurrentPlayer(), this, toRet, deckPlayer0, deckPlayer1);
+                    toRet = minion.otherCardUsedEvent(PlayerSide.WAITING_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1);
             }
 			
 			//Notify all that a minion is placed
@@ -670,24 +669,24 @@ public class Minion extends Card {
 				//Notify all that a minion is summoned
 
 				toRet = toRet.data_.getCurrentPlayerHero().minionSummonedEvent(PlayerSide.CURRENT_PLAYER, targetSide, this, toRet, deckPlayer0, deckPlayer1);
-                for (Minion minion : toRet.data_.getCurrentPlayer().getMinions()) {
+                for (Minion minion : PlayerSide.CURRENT_PLAYER.getMinions()) {
                     if (!minion.silenced_)
                         toRet = minion.minionSummonedEvent(PlayerSide.CURRENT_PLAYER, targetSide, this, toRet, deckPlayer0, deckPlayer1);
                 }
 				toRet = toRet.data_.getWaitingPlayerHero().minionSummonedEvent(PlayerSide.WAITING_PLAYER, targetSide, this, toRet, deckPlayer0, deckPlayer1);
-                for (Minion minion : toRet.data_.getWaitingPlayer().getMinions()) {
+                for (Minion minion : PlayerSide.WAITING_PLAYER.getMinions()) {
                     if (!minion.silenced_)
                         toRet = minion.minionSummonedEvent(PlayerSide.WAITING_PLAYER, targetSide, this, toRet, deckPlayer0, deckPlayer1);
                 }
 			} else {
 				//Notify all that a minion is transformed
 				toRet = toRet.data_.getCurrentPlayerHero().minionTransformedEvent(PlayerSide.CURRENT_PLAYER, targetSide, this, toRet, deckPlayer0, deckPlayer1);
-                for (Minion minion : toRet.data_.getCurrentPlayer().getMinions()) {
+                for (Minion minion : PlayerSide.CURRENT_PLAYER.getMinions()) {
                     if (!minion.silenced_)
                         toRet = minion.minionTransformedEvent(PlayerSide.CURRENT_PLAYER, targetSide, this, toRet, deckPlayer0, deckPlayer1);
                 }
 				toRet = toRet.data_.getWaitingPlayerHero().minionTransformedEvent(PlayerSide.WAITING_PLAYER, targetSide, this, toRet, deckPlayer0, deckPlayer1);
-                for (Minion minion : toRet.data_.getWaitingPlayer().getMinions()) {
+                for (Minion minion : PlayerSide.WAITING_PLAYER.getMinions()) {
                     if (!minion.silenced_)
                         toRet = minion.minionTransformedEvent(PlayerSide.WAITING_PLAYER, targetSide, this, toRet, deckPlayer0, deckPlayer1);
                 }
@@ -769,12 +768,12 @@ public class Minion extends Card {
 		if (toRet != null) {
 			//Notify all that a minion is created
 			toRet = toRet.data_.getCurrentPlayerHero().minionAttackingEvent(toRet);
-            for (Minion minion : toRet.data_.getCurrentPlayer().getMinions()) {
+            for (Minion minion : PlayerSide.CURRENT_PLAYER.getMinions()) {
                 if (!minion.silenced_)
                     toRet = minion.minionAttackingEvent(toRet);
             }
 			toRet = toRet.data_.getWaitingPlayerHero().minionAttackingEvent(toRet);
-            for (Minion minion : toRet.data_.getWaitingPlayer().getMinions()) {
+            for (Minion minion : PlayerSide.WAITING_PLAYER.getMinions()) {
                 if (!minion.silenced_)
                     toRet = minion.minionAttackingEvent(toRet);
             }
@@ -835,8 +834,8 @@ public class Minion extends Card {
 		
 		HearthTreeNode toRet = boardState;
 		byte origAttack = targetMinion.getTotalAttack();
-		toRet = targetMinion.takeDamage(this.getTotalAttack(), toRet.data_.getCurrentPlayer(), targetMinionPlayerSide, toRet, deckPlayer0, deckPlayer1, false, false);
-		toRet = this.takeDamage(origAttack, targetMinionPlayerSide, toRet.data_.getCurrentPlayer(), toRet, deckPlayer0, deckPlayer1, false, false);
+		toRet = targetMinion.takeDamage(this.getTotalAttack(), PlayerSide.CURRENT_PLAYER, targetMinionPlayerSide, toRet, deckPlayer0, deckPlayer1, false, false);
+		toRet = this.takeDamage(origAttack, targetMinionPlayerSide, PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1, false, false);
 		if (windFury_ && !hasWindFuryAttacked_)
 			hasWindFuryAttacked_ = true;
 		else

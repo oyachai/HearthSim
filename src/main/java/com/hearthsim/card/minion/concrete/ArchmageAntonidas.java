@@ -8,7 +8,7 @@ import com.hearthsim.card.spellcard.concrete.Fireball;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.model.PlayerModel;
+import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class ArchmageAntonidas extends Minion {
@@ -162,27 +162,26 @@ public class ArchmageAntonidas extends Minion {
 	 * Called whenever another card is used
 	 * 
 	 * When you cast a spell, put a Fireball spell into your hand
-	 * 
-	 * @param thisCardPlayerModel The player index of the card receiving the event
-	 * @param cardUserPlayerModel
-     *@param usedCard The card that was used
+	 *  @param thisCardPlayerSide The player index of the card receiving the event
+	 * @param cardUserPlayerSide
+     * @param usedCard The card that was used
      * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
      * @param deckPlayer0 The deck of player0
      * @param deckPlayer1 The deck of player1
-*     @return The boardState is manipulated and returned
+     * @return The boardState is manipulated and returned
 	 */
 	@Override
 	public HearthTreeNode otherCardUsedEvent(
-			PlayerModel thisCardPlayerModel,
-			PlayerModel cardUserPlayerModel,
+			PlayerSide thisCardPlayerSide,
+			PlayerSide cardUserPlayerSide,
 			Card usedCard,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
 		throws HSException
 	{
-		HearthTreeNode toRet = super.otherCardUsedEvent(thisCardPlayerModel, cardUserPlayerModel, usedCard, boardState, deckPlayer0, deckPlayer1);
-		if (thisCardPlayerModel != PlayerSide.CURRENT_PLAYER)
+		HearthTreeNode toRet = super.otherCardUsedEvent(thisCardPlayerSide, cardUserPlayerSide, usedCard, boardState, deckPlayer0, deckPlayer1);
+		if (thisCardPlayerSide != PlayerSide.CURRENT_PLAYER)
 			return toRet;
 		if (isInHand_)
 			return toRet;

@@ -62,12 +62,12 @@ public class Swipe extends SpellCard {
 		}
 		
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
-		toRet = targetMinion.takeDamage((byte)4, toRet.data_.getCurrentPlayer(), side, toRet, deckPlayer0, deckPlayer1, true, false);
+		toRet = targetMinion.takeDamage((byte)4, PlayerSide.CURRENT_PLAYER, side, toRet, deckPlayer0, deckPlayer1, true, false);
 		if (!(targetMinion instanceof Hero))
 			toRet = toRet.data_.getWaitingPlayerHero().takeDamage((byte)1, PlayerSide.CURRENT_PLAYER, side, boardState, deckPlayer0, deckPlayer1, true, false);
-		for (Minion minion : toRet.data_.getWaitingPlayer().getMinions()) {
+		for (Minion minion : PlayerSide.WAITING_PLAYER.getMinions()) {
 			if (minion != targetMinion)
-				toRet = minion.takeDamage((byte)1, toRet.data_.getCurrentPlayer(), side, toRet, deckPlayer0, deckPlayer1, true, false);
+				toRet = minion.takeDamage((byte)1, PlayerSide.CURRENT_PLAYER, side, toRet, deckPlayer0, deckPlayer1, true, false);
 		}
 				
 		return toRet;
