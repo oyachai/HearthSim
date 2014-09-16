@@ -154,7 +154,7 @@ public class MurlocTidehunter extends Murloc {
 				this.deathrattleAction_,
 				this.attackAction_,
 				this.isInHand_,
-				this.hasBeenUsed_);
+				this.hasBeenUsed);
 	}
 	
 	
@@ -182,7 +182,7 @@ public class MurlocTidehunter extends Murloc {
 		throws HSException
 	{
 		
-		if (hasBeenUsed_) {
+		if (hasBeenUsed) {
 			//Card is already used, nothing to do
 			return null;
 		}

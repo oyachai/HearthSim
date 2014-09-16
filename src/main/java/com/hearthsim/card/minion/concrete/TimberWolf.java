@@ -155,7 +155,7 @@ public class TimberWolf extends Beast {
 				this.deathrattleAction_,
 				this.attackAction_,
 				this.isInHand_,
-				this.hasBeenUsed_);
+				this.hasBeenUsed);
 	}
 	
 	
@@ -224,21 +224,22 @@ public class TimberWolf extends Beast {
 	 * Override for the aura effect
 	 * 
 	 *
-     * @param thisPlayerModel
+     *
+     * @param thisPlayerSide
      * @param boardState
      * @throws HSInvalidPlayerIndexException
 	 */
 	@Override
-	public HearthTreeNode destroyed(PlayerModel thisPlayerModel, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
-		HearthTreeNode toRet = super.destroyed(thisPlayerModel, boardState, deckPlayer0, deckPlayer1);
+	public HearthTreeNode destroyed(PlayerSide thisPlayerSide, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+		HearthTreeNode toRet = super.destroyed(thisPlayerSide, boardState, deckPlayer0, deckPlayer1);
 		if (!silenced_) {
-			for (Minion minion : toRet.data_.getMinions(thisPlayerModel)) {
+			for (Minion minion : toRet.data_.getMinions(thisPlayerSide)) {
 				if (minion != this && minion instanceof Beast) {
 					minion.setAuraAttack((byte)(minion.getAuraAttack() - 1));
 				}
 			}
 		}
-		return super.destroyed(thisPlayerModel, toRet, deckPlayer0, deckPlayer1);
+		return super.destroyed(thisPlayerSide, toRet, deckPlayer0, deckPlayer1);
 	}
 	
 	private HearthTreeNode doBuffs(

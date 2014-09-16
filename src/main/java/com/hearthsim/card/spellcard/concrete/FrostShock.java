@@ -19,7 +19,7 @@ public class FrostShock extends SpellDamage {
 
 	@Override
 	public Object deepCopy() {
-		return new FrostShock(this.hasBeenUsed_);
+		return new FrostShock(this.hasBeenUsed);
 	}
 	
 	/**

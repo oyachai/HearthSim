@@ -47,7 +47,7 @@ public class Warrior extends Hero {
 				this.hasAttacked_,
 				this.hasWindFuryAttacked_,
 				this.frozen_,
-				this.hasBeenUsed_
+				this.hasBeenUsed
 				);
 	}
 	
@@ -73,7 +73,7 @@ public class Warrior extends Hero {
 	{
 		HearthTreeNode toRet = boardState;
 		if (targetMinion instanceof Hero && targetPlayerModel == PlayerSide.CURRENT_PLAYER) {
-			this.hasBeenUsed_ = true;
+			this.hasBeenUsed = true;
 			toRet.data_.setMana_p0(toRet.data_.getMana_p0() - HERO_ABILITY_COST);
 			((Hero)targetMinion).setArmor((byte)(((Hero)targetMinion).getArmor() + 2));
 			return toRet;

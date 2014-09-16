@@ -20,7 +20,7 @@ public class HammerOfWrath extends SpellDamage {
 
 	@Override
 	public Object deepCopy() {
-		return new HammerOfWrath(this.hasBeenUsed_);
+		return new HammerOfWrath(this.hasBeenUsed);
 	}
 	
 	/**

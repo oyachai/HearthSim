@@ -147,6 +147,6 @@ public class StonetuskBoar extends Beast {
 				this.deathrattleAction_,
 				this.attackAction_,
 				this.isInHand_,
-				this.hasBeenUsed_);
+				this.hasBeenUsed);
 	}
 }

@@ -32,7 +32,7 @@ public class HeroicStrike extends SpellCard {
 	
 	@Override
 	public Object deepCopy() {
-		return new HeroicStrike(this.hasBeenUsed_);
+		return new HeroicStrike(this.hasBeenUsed);
 	}
 	
 	/**

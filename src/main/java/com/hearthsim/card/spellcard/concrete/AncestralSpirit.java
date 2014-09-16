@@ -30,7 +30,7 @@ public class AncestralSpirit extends SpellCard {
 
 	@Override
 	public Object deepCopy() {
-		return new AncestralSpirit(this.hasBeenUsed_);
+		return new AncestralSpirit(this.hasBeenUsed);
 	}
 	
 	/**

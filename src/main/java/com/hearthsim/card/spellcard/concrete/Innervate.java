@@ -30,7 +30,7 @@ public class Innervate extends SpellCard {
 
 	@Override
 	public Object deepCopy() {
-		return new Innervate(this.hasBeenUsed_);
+		return new Innervate(this.hasBeenUsed);
 	}
 	
 	/**

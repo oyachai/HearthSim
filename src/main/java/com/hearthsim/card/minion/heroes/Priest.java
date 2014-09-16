@@ -47,7 +47,7 @@ public class Priest extends Hero {
 				this.hasAttacked_,
 				this.hasWindFuryAttacked_,
 				this.frozen_,
-				this.hasBeenUsed_
+				this.hasBeenUsed
 				);
 	}
 	
@@ -72,7 +72,7 @@ public class Priest extends Hero {
 		throws HSException
 	{
 		HearthTreeNode toRet = boardState;
-		this.hasBeenUsed_ = true;
+		this.hasBeenUsed = true;
 		toRet.data_.setMana_p0(toRet.data_.getMana_p0() - HERO_ABILITY_COST);
 		toRet = targetMinion.takeHeal((byte)2, targetPlayerModel, toRet, deckPlayer0, deckPlayer1);
 

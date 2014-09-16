@@ -20,7 +20,7 @@ public class ShadowBolt extends SpellDamage {
 	
 	@Override
 	public Object deepCopy() {
-		return new ShadowBolt(this.hasBeenUsed_);
+		return new ShadowBolt(this.hasBeenUsed);
 	}
 
 

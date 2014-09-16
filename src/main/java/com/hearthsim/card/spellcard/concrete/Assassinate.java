@@ -30,7 +30,7 @@ public class Assassinate extends SpellCard {
 	
 	@Override
 	public Object deepCopy() {
-		return new Assassinate(this.hasBeenUsed_);
+		return new Assassinate(this.hasBeenUsed);
 	}
 	
 	/**

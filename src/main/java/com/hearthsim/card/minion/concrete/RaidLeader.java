@@ -154,7 +154,7 @@ public class RaidLeader extends Minion {
 				this.deathrattleAction_,
 				this.attackAction_,
 				this.isInHand_,
-				this.hasBeenUsed_);
+				this.hasBeenUsed);
 	}
 	
 	
@@ -222,21 +222,22 @@ public class RaidLeader extends Minion {
 	 * Override for the aura effect
 	 * 
 	 *
-     * @param thisPlayerModel
+     *
+     * @param thisPlayerSide
      * @param boardState
      * @param deckPlayer0
      * @param deckPlayer1
      * @throws HSInvalidPlayerIndexException
 	 */
 	@Override
-	public HearthTreeNode destroyed(PlayerModel thisPlayerModel, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+	public HearthTreeNode destroyed(PlayerSide thisPlayerSide, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
 		HearthTreeNode toRet = boardState;
-		for (Minion minion : toRet.data_.getMinions(thisPlayerModel)) {
+		for (Minion minion : toRet.data_.getMinions(thisPlayerSide)) {
 			if (minion != this) {
 				minion.setAuraAttack((byte)(minion.getAuraAttack() - 1));
 			}
 		}
-		return super.destroyed(thisPlayerModel, toRet, deckPlayer0, deckPlayer1);
+		return super.destroyed(thisPlayerSide, toRet, deckPlayer0, deckPlayer1);
 	}
 	
 	private HearthTreeNode doBuffs(

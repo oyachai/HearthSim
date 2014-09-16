@@ -31,7 +31,7 @@ public class WildGrowth extends SpellCard {
 
 	@Override
 	public Object deepCopy() {
-		return new WildGrowth(this.hasBeenUsed_);
+		return new WildGrowth(this.hasBeenUsed);
 	}
 	
 	/**

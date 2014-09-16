@@ -22,7 +22,7 @@ public class Shiv extends SpellDamage {
 
 	@Override
 	public Object deepCopy() {
-		return new Shiv(this.hasBeenUsed_);
+		return new Shiv(this.hasBeenUsed);
 	}
 	
 	/**

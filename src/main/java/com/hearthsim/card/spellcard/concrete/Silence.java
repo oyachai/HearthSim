@@ -21,7 +21,7 @@ public class Silence extends SpellCard {
 
 	@Override
 	public Object deepCopy() {
-		return new Silence(this.hasBeenUsed_);
+		return new Silence(this.hasBeenUsed);
 	}
 	
 	/**

@@ -19,7 +19,7 @@ public class Frostbolt extends SpellDamage {
 	
 	@Override
 	public Object deepCopy() {
-		return new Frostbolt(this.hasBeenUsed_);
+		return new Frostbolt(this.hasBeenUsed);
 	}
 
 	/**

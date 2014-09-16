@@ -30,7 +30,7 @@ public class AncestralHealing extends SpellCard {
 
 	@Override
 	public Object deepCopy() {
-		return new AncestralHealing(this.hasBeenUsed_);
+		return new AncestralHealing(this.hasBeenUsed);
 	}
 	
 	/**

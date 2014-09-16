@@ -31,7 +31,7 @@ public class Polymorph extends SpellCard {
 	
 	@Override
 	public Object deepCopy() {
-		return new Polymorph(this.hasBeenUsed_);
+		return new Polymorph(this.hasBeenUsed);
 	}
 	
 	/**

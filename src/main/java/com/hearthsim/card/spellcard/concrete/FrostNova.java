@@ -29,7 +29,7 @@ public class FrostNova extends SpellCard {
 
 	@Override
 	public Object deepCopy() {
-		return new Flamestrike(this.hasBeenUsed_);
+		return new Flamestrike(this.hasBeenUsed);
 	}
 
 	/**

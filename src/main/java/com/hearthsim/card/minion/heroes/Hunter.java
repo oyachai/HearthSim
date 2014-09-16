@@ -47,7 +47,7 @@ public class Hunter extends Hero {
 				this.hasAttacked_,
 				this.hasWindFuryAttacked_,
 				this.frozen_,
-				this.hasBeenUsed_
+				this.hasBeenUsed
 				);
 	}
 	
@@ -77,7 +77,7 @@ public class Hunter extends Hero {
 	{
 		HearthTreeNode toRet = boardState;
 		if (targetMinion instanceof Hero && targetPlayerModel == toRet.data_.getWaitingPlayer()) {
-			this.hasBeenUsed_ = true;
+			this.hasBeenUsed = true;
 			toRet.data_.setMana_p0(toRet.data_.getMana_p0() - HERO_ABILITY_COST);
 			toRet = targetMinion.takeDamage((byte)2, toRet.data_.getCurrentPlayer(), targetPlayerModel, toRet, deckPlayer0, deckPlayer1, false, false);
 			return toRet;

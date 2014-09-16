@@ -6,7 +6,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
-import com.hearthsim.model.PlayerModel;
+import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class Armorsmith extends Minion {
@@ -152,7 +152,7 @@ public class Armorsmith extends Minion {
 				this.deathrattleAction_,
 				this.attackAction_,
 				this.isInHand_,
-				this.hasBeenUsed_);
+				this.hasBeenUsed);
 	}
 	
 	/**
@@ -160,24 +160,24 @@ public class Armorsmith extends Minion {
 	 * Whenever a friendly minion takes damage, gain 1 Armor
 	 * 
 	 *
-     * @param thisMinionPlayerModel
-     * @param damagedPlayerModel
-     *@param damagedMinion The damaged minion
+     * @param thisMinionPlayerSide
+     * @param damagedPlayerSide
+     * @param damagedMinion The damaged minion
      * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
      * @param deckPlayer0 The deck of player0    @return The boardState is manipulated and returned
-	 */
+     * */
 	public HearthTreeNode minionDamagedEvent(
-			PlayerModel thisMinionPlayerModel,
-			PlayerModel damagedPlayerModel,
+			PlayerSide thisMinionPlayerSide,
+			PlayerSide damagedPlayerSide,
 			Minion damagedMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
-		HearthTreeNode toRet = super.minionDamagedEvent(thisMinionPlayerModel, damagedPlayerModel, damagedMinion, boardState, deckPlayer0, deckPlayer1);
-		if (thisMinionPlayerModel == damagedPlayerModel) {
-			Hero hero = toRet.data_.getHero(thisMinionPlayerModel);
+		HearthTreeNode toRet = super.minionDamagedEvent(thisMinionPlayerSide, damagedPlayerSide, damagedMinion, boardState, deckPlayer0, deckPlayer1);
+		if (thisMinionPlayerSide == damagedPlayerSide) {
+			Hero hero = toRet.data_.getHero(thisMinionPlayerSide);
 			hero.setArmor((byte)(hero.getArmor() + 1));
 		}
 		return toRet;

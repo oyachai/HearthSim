@@ -21,7 +21,7 @@ public class HolyFire extends SpellDamage {
 
 	@Override
 	public Object deepCopy() {
-		return new HolyFire(this.hasBeenUsed_);
+		return new HolyFire(this.hasBeenUsed);
 	}
 	
 	/**

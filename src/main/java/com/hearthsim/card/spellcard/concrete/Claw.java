@@ -33,7 +33,7 @@ public class Claw extends SpellCard {
 	
 	@Override
 	public Object deepCopy() {
-		return new Claw(this.hasBeenUsed_);
+		return new Claw(this.hasBeenUsed);
 	}
 
 	/**

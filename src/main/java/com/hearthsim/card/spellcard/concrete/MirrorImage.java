@@ -32,7 +32,7 @@ public class MirrorImage extends SpellCard {
 
 	@Override
 	public Object deepCopy() {
-		return new MirrorImage(this.hasBeenUsed_);
+		return new MirrorImage(this.hasBeenUsed);
 	}
 	
 	/**

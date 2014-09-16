@@ -31,7 +31,7 @@ public class Swipe extends SpellCard {
 
 	@Override
 	public Object deepCopy() {
-		return new Swipe(this.hasBeenUsed_);
+		return new Swipe(this.hasBeenUsed);
 	}
 	
 	/**

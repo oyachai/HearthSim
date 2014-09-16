@@ -48,7 +48,7 @@ public class Warlock extends Hero {
 				this.hasAttacked_,
 				this.hasWindFuryAttacked_,
 				this.frozen_,
-				this.hasBeenUsed_
+				this.hasBeenUsed
 				);
 	}
 	
@@ -80,7 +80,7 @@ public class Warlock extends Hero {
 			return null;
 		HearthTreeNode toRet = targetMinion.takeDamage((byte)2, PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, boardState, deckPlayer0, deckPlayer1, false, false);
 		if (toRet != null) {
-			this.hasBeenUsed_ = true;
+			this.hasBeenUsed = true;
 			toRet.data_.setMana_p0(toRet.data_.getMana_p0() - HERO_ABILITY_COST);
 			if (toRet instanceof CardDrawNode) {
 				((CardDrawNode)toRet).addNumCardsToDraw(1);

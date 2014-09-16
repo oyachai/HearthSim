@@ -32,7 +32,7 @@ public class CircleOfHealing extends SpellCard {
 	
 	@Override
 	public Object deepCopy() {
-		return new CircleOfHealing(this.hasBeenUsed_);
+		return new CircleOfHealing(this.hasBeenUsed);
 	}
 
 	

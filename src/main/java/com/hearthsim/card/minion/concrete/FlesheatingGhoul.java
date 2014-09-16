@@ -5,7 +5,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
-import com.hearthsim.model.PlayerModel;
+import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class FlesheatingGhoul extends Minion {
@@ -151,7 +151,7 @@ public class FlesheatingGhoul extends Minion {
 				this.deathrattleAction_,
 				this.attackAction_,
 				this.isInHand_,
-				this.hasBeenUsed_);
+				this.hasBeenUsed);
 	}
 	
 	
@@ -160,15 +160,15 @@ public class FlesheatingGhoul extends Minion {
 	 * Whenever a minion dies, gain +1 Attack
 	 * 
 	 *
-     * @param thisMinionPlayerModel
-     * @param deadMinionPlayerModel
-     *@param deadMinion The dead minion
+     * @param thisMinionPlayerSide
+     * @param deadMinionPlayerSide
+     * @param deadMinion The dead minion
      * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
      * @param deckPlayer0 The deck of player0    @return The boardState is manipulated and returned
-	 */
+     * */
 	public HearthTreeNode minionDeadEvent(
-			PlayerModel thisMinionPlayerModel,
-			PlayerModel deadMinionPlayerModel,
+			PlayerSide thisMinionPlayerSide,
+			PlayerSide deadMinionPlayerSide,
 			Minion deadMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,

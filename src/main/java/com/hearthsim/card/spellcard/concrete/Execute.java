@@ -30,7 +30,7 @@ public class Execute extends SpellCard {
 	
 	@Override
 	public Object deepCopy() {
-		return new Execute(this.hasBeenUsed_);
+		return new Execute(this.hasBeenUsed);
 	}
 
 	/**

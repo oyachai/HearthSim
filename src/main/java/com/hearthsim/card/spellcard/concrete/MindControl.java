@@ -30,7 +30,7 @@ public class MindControl extends SpellCard {
 
 	@Override
 	public Object deepCopy() {
-		return new MindControl(this.hasBeenUsed_);
+		return new MindControl(this.hasBeenUsed);
 	}
 
 	/**

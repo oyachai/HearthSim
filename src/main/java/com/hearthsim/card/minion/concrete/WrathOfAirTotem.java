@@ -147,7 +147,7 @@ public class WrathOfAirTotem extends Totem {
 				this.deathrattleAction_,
 				this.attackAction_,
 				this.isInHand_,
-				this.hasBeenUsed_);
+				this.hasBeenUsed);
 	}
 	
 }

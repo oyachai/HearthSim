@@ -30,7 +30,7 @@ public class HandOfProtection extends SpellCard {
 	
 	@Override
 	public Object deepCopy() {
-		return new HandOfProtection(this.hasBeenUsed_);
+		return new HandOfProtection(this.hasBeenUsed);
 	}
 	
 	/**

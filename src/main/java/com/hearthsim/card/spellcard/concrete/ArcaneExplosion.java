@@ -30,7 +30,7 @@ public class ArcaneExplosion extends SpellCard {
 
 	@Override
 	public Object deepCopy() {
-		return new ArcaneExplosion(this.hasBeenUsed_);
+		return new ArcaneExplosion(this.hasBeenUsed);
 	}
 	
 	/**

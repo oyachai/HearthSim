@@ -29,7 +29,7 @@ public class Card implements DeepCopyable {
 	 */
 	protected byte mana_;
 	
-	protected boolean hasBeenUsed_;
+	protected boolean hasBeenUsed;
 	protected boolean isInHand_;
 
 	/**
@@ -43,7 +43,7 @@ public class Card implements DeepCopyable {
 	public Card(String name, byte mana, boolean hasBeenUsed, boolean isInHand) {
 		name_ = name;
 		mana_ = mana;
-		hasBeenUsed_ = hasBeenUsed;
+		this.hasBeenUsed = hasBeenUsed;
 		isInHand_ = isInHand;
 	}
 
@@ -89,7 +89,7 @@ public class Card implements DeepCopyable {
 	 * @return
 	 */
 	public boolean hasBeenUsed() {
-		return hasBeenUsed_;
+		return hasBeenUsed;
 	}
 	
 	/**
@@ -97,7 +97,7 @@ public class Card implements DeepCopyable {
 	 * @param value The new hasBeenUsed value
 	 */
 	public void hasBeenUsed(boolean value) {
-		hasBeenUsed_ = value;
+		hasBeenUsed = value;
 	}
 	
 	public void isInHand(boolean value) {
@@ -110,7 +110,7 @@ public class Card implements DeepCopyable {
 	
 	@Override
 	public Object deepCopy() {
-		return new Card(this.name_, this.mana_, this.hasBeenUsed_, this.isInHand_);
+		return new Card(this.name_, this.mana_, this.hasBeenUsed, this.isInHand_);
 	}
 	
 	@Override
@@ -130,7 +130,7 @@ public class Card implements DeepCopyable {
 	   if (mana_ != ((Card)other).mana_)
 		   return false;
 	   
-	   if (hasBeenUsed_ != ((Card)other).hasBeenUsed_)
+	   if (hasBeenUsed != ((Card)other).hasBeenUsed)
 		   return false;
 
 	   if (isInHand_ != ((Card)other).isInHand_)
@@ -146,7 +146,7 @@ public class Card implements DeepCopyable {
     public int hashCode() {
         int result = name_ != null ? name_.hashCode() : 0;
         result = 31 * result + (int) mana_;
-        result = 31 * result + (hasBeenUsed_ ? 1 : 0);
+        result = 31 * result + (hasBeenUsed ? 1 : 0);
         result = 31 * result + (isInHand_ ? 1 : 0);
         return result;
     }
@@ -157,7 +157,7 @@ public class Card implements DeepCopyable {
 	 * This function is called at the end of the turn.  Any derived class must override it and remove any 
 	 * temporary buffs that it has.
 	 */
-	public BoardModel endTurn(PlayerModel thisCardPlayerModel, BoardModel boardModel, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+	public BoardModel endTurn(PlayerSide thisCardPlayerSide, BoardModel boardModel, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
 		return boardModel;
 	}
 	
@@ -167,7 +167,7 @@ public class Card implements DeepCopyable {
 	 * This function is called at the start of the turn.  Any derived class must override it to implement whatever
 	 * "start of the turn" effect the card has.
 	 */
-	public BoardModel startTurn(PlayerModel thisCardPlayerModel, BoardModel boardModel, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+	public BoardModel startTurn(PlayerSide thisCardPlayerSide, BoardModel boardModel, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
 		return boardModel;
 	}
 
@@ -190,11 +190,12 @@ public class Card implements DeepCopyable {
      * By default, this function returns true, in which case 
      * BoardStateFactory will still go and try to use the card.
      * 
-	 * @param playerModel The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
-	 * @param boardModel
-     * @return
+	 *
+     * @param playerSide
+     * @param boardModel
+* @return
      */
-    public boolean canBeUsedOn(PlayerModel playerModel, Minion minion, BoardModel boardModel) {
+    public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
         return true;
     }
 
@@ -367,7 +368,7 @@ public class Card implements DeepCopyable {
 		JSONObject json = new JSONObject();
 		json.put("name", name_);
 		json.put("mana", mana_);
-		json.put("hasBeenUsed", hasBeenUsed_);
+		json.put("hasBeenUsed", hasBeenUsed);
 		return json;
 	}
 	

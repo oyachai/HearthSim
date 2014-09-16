@@ -152,7 +152,7 @@ public class GrommashHellscream extends MinionWithEnrage {
 				this.attackAction_,
 				this.enraged_,
 				this.isInHand_,
-				this.hasBeenUsed_);
+				this.hasBeenUsed);
 	}
 	
 

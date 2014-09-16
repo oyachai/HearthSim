@@ -32,7 +32,7 @@ public class Sprint extends SpellCard {
 
 	@Override
 	public Object deepCopy() {
-		return new Sprint(this.hasBeenUsed_);
+		return new Sprint(this.hasBeenUsed);
 	}
 	
 	/**

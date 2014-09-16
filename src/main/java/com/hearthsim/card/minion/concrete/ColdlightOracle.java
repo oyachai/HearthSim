@@ -155,7 +155,7 @@ public class ColdlightOracle extends Murloc {
 				this.deathrattleAction_,
 				this.attackAction_,
 				this.isInHand_,
-				this.hasBeenUsed_);
+				this.hasBeenUsed);
 	}
 	
 	/**

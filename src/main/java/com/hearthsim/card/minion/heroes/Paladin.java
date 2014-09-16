@@ -48,7 +48,7 @@ public class Paladin extends Hero {
 				this.hasAttacked_,
 				this.hasWindFuryAttacked_,
 				this.frozen_,
-				this.hasBeenUsed_
+				this.hasBeenUsed
 				);
 	}
 	
@@ -78,7 +78,7 @@ public class Paladin extends Hero {
 		HearthTreeNode toRet = boardState;
 
 		if (targetMinion instanceof Hero && targetPlayerModel == PlayerSide.CURRENT_PLAYER) {
-			this.hasBeenUsed_ = true;
+			this.hasBeenUsed = true;
 			toRet.data_.setMana_p0(toRet.data_.getMana_p0() - HERO_ABILITY_COST);
 			Minion theRecruit = new SilverHandRecruit();
 			Minion targetLocation = toRet.data_.getCharacter(toRet.data_.getCurrentPlayer(), toRet.data_.getCurrentPlayer().getNumMinions());

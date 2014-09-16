@@ -153,7 +153,7 @@ public class FrostwolfWarlord extends Minion {
 				this.deathrattleAction_,
 				this.attackAction_,
 				this.isInHand_,
-				this.hasBeenUsed_);
+				this.hasBeenUsed);
 	}
 	
 	/**
@@ -180,7 +180,7 @@ public class FrostwolfWarlord extends Minion {
 		throws HSException
 	{
 		
-		if (hasBeenUsed_) {
+		if (hasBeenUsed) {
 			//Card is already used, nothing to do
 			return null;
 		}

@@ -47,7 +47,7 @@ public class Druid extends Hero {
 				this.hasAttacked_,
 				this.hasWindFuryAttacked_,
 				this.frozen_,
-				this.hasBeenUsed_
+				this.hasBeenUsed
 				);
 	}
 	
@@ -76,7 +76,7 @@ public class Druid extends Hero {
 		throws HSException
 	{
 		if (targetMinion instanceof Hero  && targetPlayerModel == PlayerSide.CURRENT_PLAYER) {
-			this.hasBeenUsed_ = true;
+			this.hasBeenUsed = true;
 			boardState.data_.setMana_p0(boardState.data_.getMana_p0() - HERO_ABILITY_COST);
 			Hero target = boardState.data_.getCurrentPlayerHero();
 			target.setExtraAttackUntilTurnEnd((byte)1);

@@ -74,7 +74,7 @@ public class Hero extends Minion {
 				this.hasAttacked_,
 				this.hasWindFuryAttacked_,
 				this.frozen_,
-				this.hasBeenUsed_
+				this.hasBeenUsed
 				);
 	}
 	
@@ -86,7 +86,8 @@ public class Hero extends Minion {
 	 * A hero can only attack if it has a temporary buff, such as weapons
 	 * 
 	 *
-     * @param targetMinionPlayerModel
+     *
+     * @param targetMinionPlayerSide
      * @param targetMinion The target minion
      * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
      * @param deckPlayer0 The deck of player0
@@ -94,7 +95,7 @@ public class Hero extends Minion {
 	 */
 	@Override
 	public HearthTreeNode attack(
-			PlayerModel targetMinionPlayerModel,
+			PlayerSide targetMinionPlayerSide,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -118,7 +119,7 @@ public class Hero extends Minion {
 		}
 		
 		
-		HearthTreeNode toRet = super.attack(targetMinionPlayerModel, targetMinion, boardState, deckPlayer0, deckPlayer1);
+		HearthTreeNode toRet = super.attack(targetMinionPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1);
 
         if (toRet != null && this.weaponCharge_ > 0) {
             this.weaponCharge_ -= 1;
@@ -130,8 +131,8 @@ public class Hero extends Minion {
 	}
 	
 	@Override
-    public boolean canBeUsedOn(PlayerModel playerModel, Minion minioin, BoardModel boardModel) {
-		if (hasBeenUsed_) 
+    public boolean canBeUsedOn(PlayerSide playerSide, Minion minioin, BoardModel boardModel) {
+		if (hasBeenUsed)
 			return false;
 		return true;
     }
@@ -230,7 +231,7 @@ public class Hero extends Minion {
 	 * temporary buffs that it has.
 	 */
 	@Override
-	public BoardModel endTurn(PlayerModel thisMinionPlayerIndex, BoardModel boardModel, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
+	public BoardModel endTurn(PlayerSide thisMinionPlayerIndex, BoardModel boardModel, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
 		this.extraAttackUntilTurnEnd_ = 0;
 		return boardModel;
 	}

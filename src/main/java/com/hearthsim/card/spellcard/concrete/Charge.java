@@ -30,7 +30,7 @@ public class Charge extends SpellCard {
 	
 	@Override
 	public Object deepCopy() {
-		return new Charge(this.hasBeenUsed_);
+		return new Charge(this.hasBeenUsed);
 	}
 
 	/**

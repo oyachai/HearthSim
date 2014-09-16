@@ -148,7 +148,7 @@ public class Abomination extends Minion {
 				this.deathrattleAction_,
 				this.attackAction_,
 				this.isInHand_,
-				this.hasBeenUsed_);
+				this.hasBeenUsed);
 	}
 //	/**
 //	 * Called when this minion dies (destroyed)

@@ -139,7 +139,7 @@ public class Murloc extends Minion {
 				this.deathrattleAction_,
 				this.attackAction_,
 				this.isInHand_,
-				this.hasBeenUsed_);
+				this.hasBeenUsed);
 	}
 	
 	public JSONObject toJSON() {

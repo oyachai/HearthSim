@@ -47,7 +47,7 @@ public class Mage extends Hero {
 				this.hasAttacked_,
 				this.hasWindFuryAttacked_,
 				this.frozen_,
-				this.hasBeenUsed_
+				this.hasBeenUsed
 				);
 	}
 	
@@ -80,7 +80,7 @@ public class Mage extends Hero {
 			//There's never a case where using it on yourself is a good idea
 			return null;
 		}
-		this.hasBeenUsed_ = true;
+		this.hasBeenUsed = true;
 		toRet.data_.setMana_p0(toRet.data_.getMana_p0() - HERO_ABILITY_COST);
 		toRet = targetMinion.takeDamage((byte)1, PlayerSide.CURRENT_PLAYER, targetPlayerModel, toRet, deckPlayer0, deckPlayer1, false, true);
 		

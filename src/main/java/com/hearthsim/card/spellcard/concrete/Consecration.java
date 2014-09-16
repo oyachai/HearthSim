@@ -32,7 +32,7 @@ public class Consecration extends SpellCard {
 	
 	@Override
 	public Object deepCopy() {
-		return new Consecration(this.hasBeenUsed_);
+		return new Consecration(this.hasBeenUsed);
 	}
 
 	/**

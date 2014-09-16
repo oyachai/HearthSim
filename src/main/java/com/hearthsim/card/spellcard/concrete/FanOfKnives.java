@@ -32,7 +32,7 @@ public class FanOfKnives extends SpellCard {
 
 	@Override
 	public Object deepCopy() {
-		return new FanOfKnives(this.hasBeenUsed_);
+		return new FanOfKnives(this.hasBeenUsed);
 	}
 
 	/**

@@ -152,7 +152,7 @@ public class DreadInfernal extends Demon {
 				this.deathrattleAction_,
 				this.attackAction_,
 				this.isInHand_,
-				this.hasBeenUsed_);
+				this.hasBeenUsed);
 	}
 	
 	/**
@@ -179,7 +179,7 @@ public class DreadInfernal extends Demon {
 		throws HSException
 	{
 		
-		if (hasBeenUsed_) {
+		if (hasBeenUsed) {
 			//Card is already used, nothing to do
 			return null;
 		}

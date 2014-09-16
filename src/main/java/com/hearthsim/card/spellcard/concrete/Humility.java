@@ -32,7 +32,7 @@ public class Humility extends SpellCard {
 
 	@Override
 	public Object deepCopy() {
-		return new Humility(this.hasBeenUsed_);
+		return new Humility(this.hasBeenUsed);
 	}
 
 	/**

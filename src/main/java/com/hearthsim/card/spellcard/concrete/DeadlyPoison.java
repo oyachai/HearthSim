@@ -31,7 +31,7 @@ public class DeadlyPoison extends SpellCard {
 	
 	@Override
 	public Object deepCopy() {
-		return new DeadlyPoison(this.hasBeenUsed_);
+		return new DeadlyPoison(this.hasBeenUsed);
 	}
 
 	/**

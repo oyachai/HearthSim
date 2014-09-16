@@ -30,7 +30,7 @@ public class SacrificialPact extends SpellCard {
 
 	@Override
 	public Object deepCopy() {
-		return new SacrificialPact(this.hasBeenUsed_);
+		return new SacrificialPact(this.hasBeenUsed);
 	}
 	
 	/**

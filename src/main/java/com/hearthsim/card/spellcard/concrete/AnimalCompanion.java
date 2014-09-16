@@ -34,7 +34,7 @@ public class AnimalCompanion extends SpellCard {
 
 	@Override
 	public Object deepCopy() {
-		return new AnimalCompanion(this.hasBeenUsed_);
+		return new AnimalCompanion(this.hasBeenUsed);
 	}
 	
 	/**

@@ -29,7 +29,7 @@ public class HuntersMark extends SpellCard {
 
 	@Override
 	public Object deepCopy() {
-		return new HuntersMark(this.hasBeenUsed_);
+		return new HuntersMark(this.hasBeenUsed);
 	}
 
 	/**

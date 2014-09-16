@@ -6,7 +6,6 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
-import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 import org.json.JSONObject;
@@ -27,8 +26,8 @@ public class TheCoin extends SpellCard {
 	}
 
 	@Override
-    public boolean canBeUsedOn(PlayerModel playerModel, Minion minion, BoardModel boardModel) {
-		if (playerModel == boardModel.getWaitingPlayer() || !(minion instanceof Hero))
+    public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
+		if (playerSide == boardModel.getWaitingPlayer() || !(minion instanceof Hero))
 			return false;
 		return true;
 	}

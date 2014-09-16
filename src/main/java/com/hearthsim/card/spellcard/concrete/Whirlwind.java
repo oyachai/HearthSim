@@ -32,7 +32,7 @@ public class Whirlwind extends SpellCard {
 	
 	@Override
 	public Object deepCopy() {
-		return new Whirlwind(this.hasBeenUsed_);
+		return new Whirlwind(this.hasBeenUsed);
 	}
 
 	/**

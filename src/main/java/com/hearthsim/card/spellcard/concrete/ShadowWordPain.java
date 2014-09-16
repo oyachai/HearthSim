@@ -30,7 +30,7 @@ public class ShadowWordPain extends SpellCard {
 
 	@Override
 	public Object deepCopy() {
-		return new ShadowWordPain(this.hasBeenUsed_);
+		return new ShadowWordPain(this.hasBeenUsed);
 	}
 	
 	/**

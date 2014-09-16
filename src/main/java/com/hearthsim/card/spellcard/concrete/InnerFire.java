@@ -30,7 +30,7 @@ public class InnerFire extends SpellCard {
 
 	@Override
 	public Object deepCopy() {
-		return new InnerFire(this.hasBeenUsed_);
+		return new InnerFire(this.hasBeenUsed);
 	}
 	
 	/**

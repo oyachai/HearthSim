@@ -30,7 +30,7 @@ public class Corruption extends SpellCard {
 	
 	@Override
 	public Object deepCopy() {
-		return new Corruption(this.hasBeenUsed_);
+		return new Corruption(this.hasBeenUsed);
 	}
 
 	/**

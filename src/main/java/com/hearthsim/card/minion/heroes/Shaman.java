@@ -54,7 +54,7 @@ public class Shaman extends Hero {
 				this.hasAttacked_,
 				this.hasWindFuryAttacked_,
 				this.frozen_,
-				this.hasBeenUsed_
+				this.hasBeenUsed
 				);
 	}
 	
@@ -114,7 +114,7 @@ public class Shaman extends Hero {
 			}
 			if (minionToSummon == null)
 				return null;
-			this.hasBeenUsed_ = true;
+			this.hasBeenUsed = true;
 			toRet.data_.setMana_p0(toRet.data_.getMana_p0() - HERO_ABILITY_COST);
 			Minion summonTarget = toRet.data_.getCharacter(targetPlayerModel, numMinions);
 			toRet = minionToSummon.summonMinion(targetPlayerModel, summonTarget, toRet, deckPlayer0, deckPlayer1, false);

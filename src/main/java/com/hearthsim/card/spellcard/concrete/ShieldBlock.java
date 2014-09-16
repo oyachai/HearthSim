@@ -32,7 +32,7 @@ public class ShieldBlock extends SpellCard {
 
 	@Override
 	public Object deepCopy() {
-		return new ShieldBlock(this.hasBeenUsed_);
+		return new ShieldBlock(this.hasBeenUsed);
 	}
 	
 	/**

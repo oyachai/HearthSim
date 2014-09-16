@@ -20,7 +20,7 @@ public class Bloodlust extends SpellCard {
 	
 	@Override
 	public Object deepCopy() {
-		return new Bloodlust(this.hasBeenUsed_);
+		return new Bloodlust(this.hasBeenUsed);
 	}
 	
 	/**

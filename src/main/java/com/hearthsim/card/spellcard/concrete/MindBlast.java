@@ -20,7 +20,7 @@ public class MindBlast extends SpellDamage {
 
 	@Override
 	public Object deepCopy() {
-		return new MindBlast(this.hasBeenUsed_);
+		return new MindBlast(this.hasBeenUsed);
 	}
 	
 	/**

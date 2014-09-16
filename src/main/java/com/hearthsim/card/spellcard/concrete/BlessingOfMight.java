@@ -29,7 +29,7 @@ public class BlessingOfMight extends SpellCard {
 	
 	@Override
 	public Object deepCopy() {
-		return new BlessingOfMight(this.hasBeenUsed_);
+		return new BlessingOfMight(this.hasBeenUsed);
 	}
 
 	/**

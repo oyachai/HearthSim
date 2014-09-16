@@ -20,7 +20,7 @@ public class Backstab extends SpellDamage {
 	
 	@Override
 	public Object deepCopy() {
-		return new Backstab(this.hasBeenUsed_);
+		return new Backstab(this.hasBeenUsed);
 	}
 	
 	/**

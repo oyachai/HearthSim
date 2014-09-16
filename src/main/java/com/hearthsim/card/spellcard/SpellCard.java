@@ -3,7 +3,7 @@ package com.hearthsim.card.spellcard;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.model.BoardModel;
-import com.hearthsim.model.PlayerModel;
+import com.hearthsim.model.PlayerSide;
 import org.json.JSONObject;
 
 
@@ -19,8 +19,8 @@ public class SpellCard extends Card {
 	}
 
     @Override
-    public boolean canBeUsedOn(PlayerModel playerModel, Minion minion, BoardModel boardModel) {
-        return !hasBeenUsed_ && !minion.getStealthed();
+    public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
+        return !hasBeenUsed && !minion.getStealthed();
     }
 
 	

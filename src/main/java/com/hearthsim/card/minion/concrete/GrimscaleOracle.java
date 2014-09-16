@@ -7,7 +7,6 @@ import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
-import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -155,7 +154,7 @@ public class GrimscaleOracle extends Murloc {
 				this.deathrattleAction_,
 				this.attackAction_,
 				this.isInHand_,
-				this.hasBeenUsed_);
+				this.hasBeenUsed);
 	}
 	
 	
@@ -243,12 +242,13 @@ public class GrimscaleOracle extends Murloc {
 	 * Override for the aura effect
 	 * 
 	 *
-     * @param thisPlayerModel
+     *
+     * @param thisPlayerSide
      * @param boardState
      * @throws HSInvalidPlayerIndexException
 	 */
 	@Override
-	public HearthTreeNode destroyed(PlayerModel thisPlayerModel, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+	public HearthTreeNode destroyed(PlayerSide thisPlayerSide, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
 		
 		HearthTreeNode toRet = boardState;
 		if (!silenced_) {
@@ -263,7 +263,7 @@ public class GrimscaleOracle extends Murloc {
 				}
 			}
 		}
-		toRet = super.destroyed(thisPlayerModel, toRet, deckPlayer0, deckPlayer1);
+		toRet = super.destroyed(thisPlayerSide, toRet, deckPlayer0, deckPlayer1);
 		return toRet;
 	}
 	

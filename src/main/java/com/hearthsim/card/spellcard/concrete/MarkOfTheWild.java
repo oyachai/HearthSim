@@ -31,7 +31,7 @@ public class MarkOfTheWild extends SpellCard {
 
 	@Override
 	public Object deepCopy() {
-		return new MarkOfTheWild(this.hasBeenUsed_);
+		return new MarkOfTheWild(this.hasBeenUsed);
 	}
 	
 	/**

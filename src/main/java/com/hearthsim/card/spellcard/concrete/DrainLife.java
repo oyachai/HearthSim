@@ -20,7 +20,7 @@ public class DrainLife extends SpellDamage {
 
 	@Override
 	public Object deepCopy() {
-		return new DrainLife(this.hasBeenUsed_);
+		return new DrainLife(this.hasBeenUsed);
 	}
 	
 	/**
