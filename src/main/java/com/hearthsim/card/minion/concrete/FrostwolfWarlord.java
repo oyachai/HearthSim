@@ -188,10 +188,10 @@ public class FrostwolfWarlord extends Minion {
 		if (PlayerSide.WAITING_PLAYER == side)
 			return null;
 		
-		if (PlayerSide.CURRENT_PLAYER.getNumMinions() >= 7)
+		if (PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getNumMinions() >= 7)
 			return null;
 		
-		int numBuffs = PlayerSide.CURRENT_PLAYER.getNumMinions();
+		int numBuffs = PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getNumMinions();
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 
 		this.setAttack((byte)(this.getAttack() + numBuffs));

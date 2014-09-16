@@ -172,7 +172,7 @@ public class HealingTotem extends Totem {
 		
 		HearthTreeNode toRet = new HearthTreeNode(tmpState);
 	
-		for (Minion minion : PlayerSide.CURRENT_PLAYER.getMinions()) {
+		for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
 			toRet = minion.takeHeal((byte)1, PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1);
 		}
 		

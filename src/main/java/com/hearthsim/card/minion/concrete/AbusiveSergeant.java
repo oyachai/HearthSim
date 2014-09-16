@@ -182,15 +182,15 @@ public class AbusiveSergeant extends Minion {
 		HearthTreeNode toRet = super.useOn(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		
 		if (toRet != null) {
-			for (int index = 0; index < PlayerSide.CURRENT_PLAYER.getNumMinions(); ++index) {
-				if (index != PlayerSide.CURRENT_PLAYER.getMinions().indexOf(this)) {
+			for (int index = 0; index < PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getNumMinions(); ++index) {
+				if (index != PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions().indexOf(this)) {
 					HearthTreeNode newState = boardState.addChild(new HearthTreeNode((BoardModel)boardState.data_.deepCopy()));
 					newState.data_.getCurrentPlayer().getMinions().get(index).setExtraAttackUntilTurnEnd(((byte)(newState.data_.getCurrentPlayer().getMinions().get(index).getExtraAttackUntilTurnEnd() + 2)));
 				}
 			}
 			
-			for (int index = 0; index < PlayerSide.WAITING_PLAYER.getNumMinions(); ++index) {
-				if (index != PlayerSide.WAITING_PLAYER.getMinions().indexOf(this)) {
+			for (int index = 0; index < PlayerSide.WAITING_PLAYER.getPlayer(toRet).getNumMinions(); ++index) {
+				if (index != PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions().indexOf(this)) {
 					HearthTreeNode newState = boardState.addChild(new HearthTreeNode((BoardModel)boardState.data_.deepCopy()));
 					newState.data_.getWaitingPlayer().getMinions().get(index).setExtraAttackUntilTurnEnd(((byte)(newState.data_.getWaitingPlayer().getMinions().get(index).getExtraAttackUntilTurnEnd() + 2)));
 				}

@@ -192,8 +192,8 @@ public class IronforgeRifleman extends Minion {
 			}
 
 			{
-				for (int index = 0; index < PlayerSide.CURRENT_PLAYER.getNumMinions(); ++index) {
-					if (PlayerSide.CURRENT_PLAYER.getMinions().get(index) == this)
+				for (int index = 0; index < PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getNumMinions(); ++index) {
+					if (PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions().get(index) == this)
 						continue;
 					HearthTreeNode newState = new HearthTreeNode((BoardModel)boardState.data_.deepCopy());
 					Minion minion = newState.data_.getCurrentPlayer().getMinions().get(index);
@@ -210,7 +210,7 @@ public class IronforgeRifleman extends Minion {
 			}
 
 			{
-				for (int index = 0; index < PlayerSide.WAITING_PLAYER.getNumMinions(); ++index) {
+				for (int index = 0; index < PlayerSide.WAITING_PLAYER.getPlayer(toRet).getNumMinions(); ++index) {
 					HearthTreeNode newState = new HearthTreeNode((BoardModel)boardState.data_.deepCopy());
 					Minion minion = newState.data_.getWaitingPlayer().getMinions().get(index);
 					newState = minion.takeDamage(BATTLECRY_DAMAGE, newState.data_.getCurrentPlayer(), newState.data_.getWaitingPlayer(), newState, deckPlayer0, deckPlayer1, false, true);

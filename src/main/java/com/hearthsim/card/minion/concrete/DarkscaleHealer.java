@@ -188,12 +188,12 @@ public class DarkscaleHealer extends Minion {
 		if (PlayerSide.WAITING_PLAYER == side)
 			return null;
 		
-		if (PlayerSide.CURRENT_PLAYER.getNumMinions() >= 7)
+		if (PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getNumMinions() >= 7)
 			return null;
 		
 		HearthTreeNode toRet = boardState;
 		toRet = toRet.data_.getCurrentPlayerHero().takeHeal((byte)2, PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1);
-		for (Minion minion : PlayerSide.CURRENT_PLAYER.getMinions()) {
+		for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
 			toRet = minion.takeHeal((byte)2, PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1);
 		}
 		

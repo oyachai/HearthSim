@@ -177,7 +177,7 @@ public class VioletTeacher extends Minion {
 			return toRet;
 		if (isInHand_)
 			return toRet;
-        if (usedCard instanceof SpellCard && PlayerSide.CURRENT_PLAYER.getNumMinions() < 7) {
+        if (usedCard instanceof SpellCard && PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getNumMinions() < 7) {
             Minion newMinion = new VioletApprentice();
             toRet = newMinion.summonMinion(thisCardPlayerSide, this, toRet, deckPlayer0, deckPlayer1, false);
         }

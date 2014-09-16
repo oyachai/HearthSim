@@ -179,7 +179,7 @@ public class AncientOfWar extends Minion {
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		
 		if (toRet != null) {
-			int thisMinionIndex = PlayerSide.CURRENT_PLAYER.getMinions().indexOf(this);
+			int thisMinionIndex = PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions().indexOf(this);
 			{
 				HearthTreeNode newState = toRet.addChild(new HearthTreeNode((BoardModel)toRet.data_.deepCopy()));
 				newState.data_.getCurrentPlayer().getMinions().get(thisMinionIndex).setTaunt(true);

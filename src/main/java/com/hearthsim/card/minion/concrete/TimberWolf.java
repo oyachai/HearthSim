@@ -184,7 +184,7 @@ public class TimberWolf extends Beast {
 	{
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
-			for (Minion minion : PlayerSide.CURRENT_PLAYER.getMinions()) {
+			for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
 				if (minion != this && minion instanceof Beast) {
 					minion.setAuraAttack((byte)(minion.getAuraAttack() + 1));
 				}

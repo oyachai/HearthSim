@@ -182,17 +182,17 @@ public class BigGameHunter extends Minion {
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		
 		if (toRet != null) {
-			int thisMinionIndex = PlayerSide.CURRENT_PLAYER.getMinions().indexOf(this);
-			for (int index = 0; index < PlayerSide.CURRENT_PLAYER.getNumMinions(); ++index) {
-				if (PlayerSide.CURRENT_PLAYER.getMinions().get(index).getTotalAttack() >= 7 && index != thisMinionIndex) {
+			int thisMinionIndex = PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions().indexOf(this);
+			for (int index = 0; index < PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getNumMinions(); ++index) {
+				if (PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions().get(index).getTotalAttack() >= 7 && index != thisMinionIndex) {
 					HearthTreeNode newState = toRet.addChild(new HearthTreeNode((BoardModel)toRet.data_.deepCopy()));
 					Minion battlecryTarget = newState.data_.getCurrentPlayer().getMinions().get(index);
 					battlecryTarget.setHealth((byte)-99);
 					newState = BoardStateFactoryBase.handleDeadMinions(newState, deckPlayer0, deckPlayer1);
 				}
 			}
-			for (int index = 0; index < PlayerSide.WAITING_PLAYER.getNumMinions(); ++index) {
-				if (PlayerSide.WAITING_PLAYER.getMinions().get(index).getTotalAttack() >= 7) {
+			for (int index = 0; index < PlayerSide.WAITING_PLAYER.getPlayer(toRet).getNumMinions(); ++index) {
+				if (PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions().get(index).getTotalAttack() >= 7) {
 					HearthTreeNode newState = toRet.addChild(new HearthTreeNode((BoardModel)toRet.data_.deepCopy()));
 					Minion battlecryTarget = newState.data_.getWaitingPlayer().getMinions().get(index);
 					battlecryTarget.setHealth((byte)-99);

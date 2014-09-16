@@ -187,17 +187,17 @@ public class DreadInfernal extends Demon {
 		if (PlayerSide.WAITING_PLAYER == side)
 			return null;
 		
-		if (PlayerSide.CURRENT_PLAYER.getNumMinions() >= 7)
+		if (PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getNumMinions() >= 7)
 			return null;
 		
 		HearthTreeNode toRet = boardState;
 		toRet = toRet.data_.getCurrentPlayerHero().takeDamage((byte)1, PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1, false, false);
-		for (Minion minion : PlayerSide.CURRENT_PLAYER.getMinions()) {
+		for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
 			toRet = minion.takeDamage((byte)1, PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, boardState, deckPlayer0, deckPlayer1, false, false);
 		}
 		
 		toRet = toRet.data_.getWaitingPlayerHero().takeDamage((byte)1, PlayerSide.CURRENT_PLAYER, PlayerSide.WAITING_PLAYER, boardState, deckPlayer0, deckPlayer1, false, false);
-		for (Minion minion : PlayerSide.WAITING_PLAYER.getMinions()) {
+		for (Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
 			toRet = minion.takeDamage((byte)1, PlayerSide.CURRENT_PLAYER, PlayerSide.WAITING_PLAYER, boardState, deckPlayer0, deckPlayer1, false, false);
 		}
 		

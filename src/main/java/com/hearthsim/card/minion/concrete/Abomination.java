@@ -166,11 +166,11 @@ public class Abomination extends Minion {
 //		HearthTreeNode toRet = super.destroyed(thisPlayerIndex, boardState, deckPlayer0, deckPlayer1);
 //		if (!silenced_) {
 //			toRet = toRet.data_.getWaitingPlayerHero().takeDamage((byte)2, thisPlayerIndex, 1, toRet, deckPlayer0, deckPlayer1, false, false);
-//			for(Minion minion : PlayerSide.WAITING_PLAYER.getMinions()) {
+//			for(Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
 //				toRet = minion.takeDamage((byte)2, thisPlayerIndex, 1, toRet, deckPlayer0, deckPlayer1, false, false);
 //			}
 //			toRet = toRet.data_.getCurrentPlayerHero().takeDamage((byte)2, thisPlayerIndex, PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1, false, false);
-//			for(Minion minion : PlayerSide.CURRENT_PLAYER.getMinions()) {
+//			for(Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
 //				toRet = minion.takeDamage((byte)2, thisPlayerIndex, PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1, false, false);
 //			}
 //		}

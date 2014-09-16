@@ -186,7 +186,7 @@ public class AcidicSwampOoze extends Minion {
 		if (PlayerSide.WAITING_PLAYER == side)
 			return null;
 		
-		if (PlayerSide.CURRENT_PLAYER.getNumMinions() >= 7)
+		if (PlayerSide.CURRENT_PLAYER.getPlayer(boardState).getNumMinions() >= 7)
 			return null;
 		
 		if (boardState.data_.getWaitingPlayerHero().getWeaponCharge() > 0) {

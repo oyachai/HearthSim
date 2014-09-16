@@ -184,7 +184,7 @@ public class Windspeaker extends Minion {
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		
 		if (toRet != null) {
-			for (int index = 0; index < PlayerSide.CURRENT_PLAYER.getNumMinions(); ++index) {
+			for (int index = 0; index < PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getNumMinions(); ++index) {
 				HearthTreeNode newState = boardState.addChild(new HearthTreeNode((BoardModel)boardState.data_.deepCopy()));
 				newState.data_.getCurrentPlayer().getMinions().get(index).hasWindFuryAttacked(true);
 			}

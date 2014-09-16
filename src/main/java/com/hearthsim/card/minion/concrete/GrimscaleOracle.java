@@ -187,13 +187,13 @@ public class GrimscaleOracle extends Murloc {
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
 			
-			for (Minion minion : PlayerSide.CURRENT_PLAYER.getMinions()) {
+			for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
 				if (minion instanceof Murloc && minion != this) {
 					minion.setAuraAttack((byte)(minion.getAuraAttack() + 1));
 				}
 			}
 			
-			for (Minion minion : PlayerSide.WAITING_PLAYER.getMinions()) {
+			for (Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
 				if (minion instanceof Murloc && minion != this) {
 					minion.setAuraAttack((byte)(minion.getAuraAttack() + 1));
 				}
@@ -221,12 +221,12 @@ public class GrimscaleOracle extends Murloc {
 	public HearthTreeNode silenced(PlayerSide thisPlayerSide, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
 		HearthTreeNode toRet = boardState;
 		if (!silenced_) {
-			for (Minion minion : PlayerSide.CURRENT_PLAYER.getMinions()) {
+			for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
 				if (minion instanceof Murloc && minion != this) {
 					minion.setAuraAttack((byte)(minion.getAuraAttack() - 1));
 				}
 			}
-			for (Minion minion : PlayerSide.WAITING_PLAYER.getMinions()) {
+			for (Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
 				if (minion instanceof Murloc && minion != this) {
 					minion.setAuraAttack((byte)(minion.getAuraAttack() - 1));
 				}
@@ -252,12 +252,12 @@ public class GrimscaleOracle extends Murloc {
 		
 		HearthTreeNode toRet = boardState;
 		if (!silenced_) {
-			for (Minion minion : PlayerSide.CURRENT_PLAYER.getMinions()) {
+			for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
 				if (minion instanceof Murloc && minion != this) {
 					minion.setAuraAttack((byte)(minion.getAuraAttack() - 1));
 				}
 			}
-			for (Minion minion : PlayerSide.WAITING_PLAYER.getMinions()) {
+			for (Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
 				if (minion instanceof Murloc && minion != this) {
 					minion.setAuraAttack((byte)(minion.getAuraAttack() - 1));
 				}
