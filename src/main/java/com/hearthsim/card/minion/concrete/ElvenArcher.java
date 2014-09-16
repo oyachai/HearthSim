@@ -211,7 +211,7 @@ public class ElvenArcher extends Minion {
 			{
 				for (int index = 0; index < PlayerSide.WAITING_PLAYER.getPlayer(toRet).getNumMinions(); ++index) {
 					HearthTreeNode newState = new HearthTreeNode((BoardModel)boardState.data_.deepCopy());
-					Minion minion = PlayerSide.WAITING_PLAYER.getMinions().get(index);
+					Minion minion = PlayerSide.WAITING_PLAYER.getPlayer(newState).getMinions().get(index);
 					newState = minion.takeDamage((byte)1, PlayerSide.CURRENT_PLAYER, PlayerSide.WAITING_PLAYER, newState, deckPlayer0, deckPlayer1, false, true);
 					newState = BoardStateFactoryBase.handleDeadMinions(newState, deckPlayer0, deckPlayer1);
 					toRet.addChild(newState);

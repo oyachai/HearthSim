@@ -199,7 +199,7 @@ public class CrazedAlchemist extends Minion {
 			}
 			for (int index = 0; index < PlayerSide.WAITING_PLAYER.getPlayer(toRet).getNumMinions(); ++index) {
 				HearthTreeNode newState = toRet.addChild(new HearthTreeNode((BoardModel)toRet.data_.deepCopy()));
-				Minion battlecryTarget = PlayerSide.WAITING_PLAYER.getMinions().get(index);
+				Minion battlecryTarget = PlayerSide.WAITING_PLAYER.getPlayer(newState).getMinions().get(index);
 				byte newHealth = battlecryTarget.getTotalAttack();
 				byte newAttack = battlecryTarget.getTotalHealth();
 				battlecryTarget.setAttack(newAttack);

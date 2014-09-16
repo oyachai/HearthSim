@@ -208,7 +208,7 @@ public class VoodooDoctor extends Minion {
 			{
 				for (int index = 0; index < PlayerSide.WAITING_PLAYER.getPlayer(toRet).getNumMinions(); ++index) {
 					HearthTreeNode newState = new HearthTreeNode((BoardModel)toRet.data_.deepCopy());
-					newState = PlayerSide.WAITING_PLAYER.getMinions().get(index).takeHeal((byte)2, PlayerSide.WAITING_PLAYER, newState, deckPlayer0, deckPlayer1);
+					newState = PlayerSide.WAITING_PLAYER.getPlayer(newState).getMinions().get(index).takeHeal((byte)2, PlayerSide.WAITING_PLAYER, newState, deckPlayer0, deckPlayer1);
 					toRet.addChild(newState);
 				}
 			}

@@ -195,8 +195,8 @@ public class CruelTaskmaster extends Minion {
 			}
 			for (int index = 0; index < PlayerSide.WAITING_PLAYER.getPlayer(toRet).getNumMinions(); ++index) {
 				HearthTreeNode newState = toRet.addChild(new HearthTreeNode((BoardModel)toRet.data_.deepCopy()));
-				Minion battlecryTarget = PlayerSide.WAITING_PLAYER.getMinions().get(index);
-				battlecryTarget.setAttack((byte)(PlayerSide.WAITING_PLAYER.getMinions().get(index).getAttack() + 2));
+				Minion battlecryTarget = PlayerSide.WAITING_PLAYER.getPlayer(newState).getMinions().get(index);
+				battlecryTarget.setAttack((byte)(PlayerSide.WAITING_PLAYER.getPlayer(newState).getMinions().get(index).getAttack() + 2));
 				newState = battlecryTarget.takeDamage((byte)1, PlayerSide.CURRENT_PLAYER, PlayerSide.WAITING_PLAYER, newState, deckPlayer0, deckPlayer1, false, true);
 				newState = BoardStateFactoryBase.handleDeadMinions(newState, deckPlayer0, deckPlayer1);
 			}

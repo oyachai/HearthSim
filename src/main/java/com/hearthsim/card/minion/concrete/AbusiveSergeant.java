@@ -192,7 +192,8 @@ public class AbusiveSergeant extends Minion {
 			for (int index = 0; index < PlayerSide.WAITING_PLAYER.getPlayer(toRet).getNumMinions(); ++index) {
 				if (index != PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions().indexOf(this)) {
 					HearthTreeNode newState = boardState.addChild(new HearthTreeNode((BoardModel)boardState.data_.deepCopy()));
-					PlayerSide.WAITING_PLAYER.getMinions().get(index).setExtraAttackUntilTurnEnd(((byte)(PlayerSide.WAITING_PLAYER.getMinions().get(index).getExtraAttackUntilTurnEnd() + 2)));
+
+					PlayerSide.WAITING_PLAYER.getPlayer(newState).getMinions().get(index).setExtraAttackUntilTurnEnd(((byte)(PlayerSide.WAITING_PLAYER.getPlayer(newState).getMinions().get(index).getExtraAttackUntilTurnEnd() + 2)));
 				}
 			}
 			return toRet;
