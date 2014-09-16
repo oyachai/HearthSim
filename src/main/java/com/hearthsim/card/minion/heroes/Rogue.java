@@ -4,7 +4,7 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.model.PlayerModel;
+import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -57,13 +57,14 @@ public class Rogue extends Hero {
 	 * Rogue: equip a 1 attack, 2 charge weapon
 	 * 
 	 *
-     * @param targetPlayerModel
+     *
+     * @param targetPlayerSide
      * @param boardState
      * @return
 	 */
 	@Override
 	public HearthTreeNode useHeroAbility_core(
-			PlayerModel targetPlayerModel,
+			PlayerSide targetPlayerSide,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -72,7 +73,7 @@ public class Rogue extends Hero {
 		throws HSException
 	{
 		HearthTreeNode toRet = boardState;
-		if (targetMinion instanceof Hero && targetPlayerModel == PlayerSide.CURRENT_PLAYER) {
+		if (targetMinion instanceof Hero && targetPlayerSide == PlayerSide.CURRENT_PLAYER) {
 			this.hasBeenUsed = true;
 			toRet.data_.setMana_p0(toRet.data_.getMana_p0() - HERO_ABILITY_COST);
 			Hero target = (Hero)targetMinion;

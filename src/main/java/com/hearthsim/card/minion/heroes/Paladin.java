@@ -5,7 +5,7 @@ import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.SilverHandRecruit;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.model.PlayerModel;
+import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -58,13 +58,14 @@ public class Paladin extends Hero {
 	 * Paladin: summon a 1/1 Silver Hand Recruit
 	 * 
 	 *
-     * @param targetPlayerModel
+     *
+     * @param targetPlayerSide
      * @param boardState
      * @return
 	 */
 	@Override
 	public HearthTreeNode useHeroAbility_core(
-			PlayerModel targetPlayerModel,
+			PlayerSide targetPlayerSide,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -77,12 +78,12 @@ public class Paladin extends Hero {
 
 		HearthTreeNode toRet = boardState;
 
-		if (targetMinion instanceof Hero && targetPlayerModel == PlayerSide.CURRENT_PLAYER) {
+		if (targetMinion instanceof Hero && targetPlayerSide == PlayerSide.CURRENT_PLAYER) {
 			this.hasBeenUsed = true;
 			toRet.data_.setMana_p0(toRet.data_.getMana_p0() - HERO_ABILITY_COST);
 			Minion theRecruit = new SilverHandRecruit();
 			Minion targetLocation = toRet.data_.getCharacter(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER.getNumMinions());
-			toRet = theRecruit.summonMinion(targetPlayerModel, targetLocation, toRet, deckPlayer0, deckPlayer1, false);
+			toRet = theRecruit.summonMinion(targetPlayerSide, targetLocation, toRet, deckPlayer0, deckPlayer1, false);
 		} else {
 			return null;
 		}

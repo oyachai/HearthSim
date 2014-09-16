@@ -4,7 +4,7 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.model.PlayerModel;
+import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -58,7 +58,8 @@ public class Warlock extends Hero {
 	 * Warlock: draw a card and take 2 damage
 	 * 
 	 *
-     * @param targetPlayerModel
+     *
+     * @param targetPlayerSide
      * @param targetMinion The target minion
      * @param boardState
      * @param deckPlayer0
@@ -68,7 +69,7 @@ public class Warlock extends Hero {
 	 */
 	@Override
 	public HearthTreeNode useHeroAbility_core(
-			PlayerModel targetPlayerModel,
+			PlayerSide targetPlayerSide,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -76,7 +77,7 @@ public class Warlock extends Hero {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (targetPlayerModel == PlayerSide.WAITING_PLAYER || !(targetMinion instanceof Hero))
+		if (targetPlayerSide == PlayerSide.WAITING_PLAYER || !(targetMinion instanceof Hero))
 			return null;
 		HearthTreeNode toRet = targetMinion.takeDamage((byte)2, PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, boardState, deckPlayer0, deckPlayer1, false, false);
 		if (toRet != null) {

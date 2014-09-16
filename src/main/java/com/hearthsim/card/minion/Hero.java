@@ -138,27 +138,28 @@ public class Hero extends Minion {
     }
 
 	public final HearthTreeNode useHeroAbility(
-			PlayerModel targetPlayerModel,
+			PlayerSide targetPlayerSide,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
 		throws HSException
 	{
-		return this.useHeroAbility(targetPlayerModel, targetMinion, boardState, deckPlayer0, deckPlayer1, false);
+		return this.useHeroAbility(targetPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1, false);
 	}
 	/**
 	 * Use the hero ability on a given target
 	 * 
 	 *
-     * @param targetPlayerModel
+     *
+     * @param targetPlayerSide
      * @param targetMinion The target minion
      * @param boardState
      * @param deckPlayer0 The deck of player0
      * @return
 	 */
 	public final HearthTreeNode useHeroAbility(
-			PlayerModel targetPlayerModel,
+			PlayerSide targetPlayerSide,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -169,7 +170,7 @@ public class Hero extends Minion {
 		if (boardState.data_.getMana_p0() < HERO_ABILITY_COST)
 			return null;
 		
-		HearthTreeNode toRet = this.useHeroAbility_core(targetPlayerModel, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+		HearthTreeNode toRet = this.useHeroAbility_core(targetPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
 			toRet = BoardStateFactoryBase.handleDeadMinions(toRet, deckPlayer0, deckPlayer1);
 		}
@@ -177,7 +178,7 @@ public class Hero extends Minion {
 	}
 	
 	public HearthTreeNode useHeroAbility_core(
-			PlayerModel targetPlayerModel,
+			PlayerSide targetPlayerSide,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,

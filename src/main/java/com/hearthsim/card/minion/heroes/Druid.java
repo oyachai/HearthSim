@@ -4,7 +4,7 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.model.PlayerModel;
+import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -57,7 +57,8 @@ public class Druid extends Hero {
 	 * Druid: +1 attack this turn and +1 armor
 	 * 
 	 *
-     * @param targetPlayerModel
+     *
+     * @param targetPlayerSide
      * @param targetMinion The target minion
      * @param boardState
      * @param deckPlayer0
@@ -67,7 +68,7 @@ public class Druid extends Hero {
 	 */
 	@Override
 	public HearthTreeNode useHeroAbility_core(
-			PlayerModel targetPlayerModel,
+			PlayerSide targetPlayerSide,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -75,7 +76,7 @@ public class Druid extends Hero {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (targetMinion instanceof Hero  && targetPlayerModel == PlayerSide.CURRENT_PLAYER) {
+		if (targetMinion instanceof Hero  && targetPlayerSide == PlayerSide.CURRENT_PLAYER) {
 			this.hasBeenUsed = true;
 			boardState.data_.setMana_p0(boardState.data_.getMana_p0() - HERO_ABILITY_COST);
 			Hero target = boardState.data_.getCurrentPlayerHero();

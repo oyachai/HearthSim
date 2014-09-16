@@ -3,7 +3,6 @@ package com.hearthsim.card.spellcard;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 import org.json.JSONObject;
@@ -66,21 +65,22 @@ public class SpellDamage extends SpellCard {
 	 * Attack using this spell
 	 * 
 	 *
-     * @param targetMinionPlayerModel
+     *
+     * @param targetMinionPlayerSide
      * @param targetMinion The target minion
      * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
      * @param deckPlayer0 The deck of player0
      * @return The boardState is manipulated and returned
 	 */
 	public HearthTreeNode attack(
-			PlayerModel targetMinionPlayerModel,
+			PlayerSide targetMinionPlayerSide,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
 		throws HSException
 	{
-		return targetMinion.takeDamage(damage_, PlayerSide.CURRENT_PLAYER, targetMinionPlayerModel, boardState, deckPlayer0, deckPlayer1, true, false);
+		return targetMinion.takeDamage(damage_, PlayerSide.CURRENT_PLAYER, targetMinionPlayerSide, boardState, deckPlayer0, deckPlayer1, true, false);
  	}
 	
 	/**
