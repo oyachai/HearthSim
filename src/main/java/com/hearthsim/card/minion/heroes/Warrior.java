@@ -73,7 +73,7 @@ public class Warrior extends Hero {
 		throws HSException
 	{
 		HearthTreeNode toRet = boardState;
-		if (targetMinion instanceof Hero && targetPlayerSide == PlayerSide.CURRENT_PLAYER) {
+		if (isHero(targetMinion) && targetPlayerSide == PlayerSide.CURRENT_PLAYER) {
 			this.hasBeenUsed = true;
 			toRet.data_.setMana_p0(toRet.data_.getMana_p0() - HERO_ABILITY_COST);
 			((Hero)targetMinion).setArmor((byte)(((Hero)targetMinion).getArmor() + 2));

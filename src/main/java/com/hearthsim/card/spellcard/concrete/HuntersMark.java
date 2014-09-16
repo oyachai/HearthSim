@@ -55,7 +55,7 @@ public class HuntersMark extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (targetMinion instanceof Hero) {
+		if (isHero(targetMinion)) {
 			return null;
 		}
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);

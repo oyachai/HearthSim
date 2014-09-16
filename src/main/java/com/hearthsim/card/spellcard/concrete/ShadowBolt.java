@@ -47,7 +47,7 @@ public class ShadowBolt extends SpellDamage {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (targetMinion instanceof Hero) 
+		if (isHero(targetMinion))
 			return null;
 		
 		return super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);

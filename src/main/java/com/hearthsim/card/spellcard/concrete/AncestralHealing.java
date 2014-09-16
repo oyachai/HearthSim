@@ -56,7 +56,7 @@ public class AncestralHealing extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (targetMinion instanceof Hero) {
+		if (isHero(targetMinion)) {
 			//cant't use it on the heroes
 			return null;
 		}

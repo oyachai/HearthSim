@@ -56,7 +56,7 @@ public class Assassinate extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (PlayerSide.CURRENT_PLAYER == side || targetMinion instanceof Hero) {
+		if (isCurrentPlayer(side) || isHero(targetMinion)) {
 			return null;
 		}
 		

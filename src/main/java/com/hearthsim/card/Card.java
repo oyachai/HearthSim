@@ -353,7 +353,15 @@ public class Card implements DeepCopyable {
     }
 
     protected boolean isNotHero(Minion targetMinion) {
-        return !(targetMinion instanceof Hero);
+        return !isHero(targetMinion);
+    }
+
+    protected boolean isCurrentPlayer(PlayerSide side) {
+        return PlayerSide.CURRENT_PLAYER == side;
+    }
+
+    protected boolean isHero(Minion targetMinion) {
+        return targetMinion instanceof Hero;
     }
 }
 

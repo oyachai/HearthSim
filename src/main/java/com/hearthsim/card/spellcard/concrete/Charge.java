@@ -56,7 +56,7 @@ public class Charge extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (targetMinion instanceof Hero || isWaitingPlayer(side)) {
+		if (isHero(targetMinion) || isWaitingPlayer(side)) {
 			//cant't use it on the heroes or enemy minions
 			return null;
 		}

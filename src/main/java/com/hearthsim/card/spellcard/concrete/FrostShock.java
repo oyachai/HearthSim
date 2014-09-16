@@ -45,7 +45,7 @@ public class FrostShock extends SpellDamage {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (PlayerSide.CURRENT_PLAYER == side)
+		if (isCurrentPlayer(side))
 			return null;
 		
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);

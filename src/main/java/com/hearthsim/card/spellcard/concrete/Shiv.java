@@ -49,7 +49,7 @@ public class Shiv extends SpellDamage {
 		throws HSException
 	{
 
-		if (PlayerSide.CURRENT_PLAYER == side && targetMinion instanceof Hero)
+		if (isCurrentPlayer(side) && isHero(targetMinion))
 			return null;
 		
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);

@@ -56,7 +56,7 @@ public class Execute extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (targetMinion instanceof Hero || PlayerSide.CURRENT_PLAYER == side) {
+		if (isHero(targetMinion) || isCurrentPlayer(side)) {
 			//cant't use it on the heroes or friendly minion
 			return null;
 		}

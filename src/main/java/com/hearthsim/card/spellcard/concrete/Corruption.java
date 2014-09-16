@@ -56,7 +56,7 @@ public class Corruption extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (side == PlayerSide.CURRENT_PLAYER || targetMinion instanceof Hero) {
+		if (side == PlayerSide.CURRENT_PLAYER || isHero(targetMinion)) {
 			return null;
 		}
 		

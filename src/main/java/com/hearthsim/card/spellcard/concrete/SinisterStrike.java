@@ -46,7 +46,7 @@ public class SinisterStrike extends SpellDamage {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (PlayerSide.CURRENT_PLAYER == side || isNotHero(targetMinion))
+		if (isCurrentPlayer(side) || isNotHero(targetMinion))
 			return null;
 		
 		return super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);

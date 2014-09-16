@@ -46,7 +46,7 @@ public class Backstab extends SpellDamage {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (targetMinion instanceof Hero)
+		if (isHero(targetMinion))
 			return null;
 		if (targetMinion.getHealth() == targetMinion.getMaxHealth()) {
 			return super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);

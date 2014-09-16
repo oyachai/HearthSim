@@ -56,7 +56,7 @@ public class BlessingOfKings extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (targetMinion instanceof Hero) {
+		if (isHero(targetMinion)) {
 			return null;
 		}
 		

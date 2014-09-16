@@ -47,7 +47,7 @@ public class MortalCoil extends SpellDamage {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (targetMinion instanceof Hero) 
+		if (isHero(targetMinion))
 			return null;
 
 		if (this.hasBeenUsed()) {
@@ -62,7 +62,7 @@ public class MortalCoil extends SpellDamage {
 		toRet.data_.setMana_p0(toRet.data_.getMana_p0() - this.mana_);
 		toRet.data_.removeCard_hand(this);
 
-        if (!(targetMinion instanceof Hero && targetMinion.getTotalHealth() <= 0)) {
+        if (!(isHero(targetMinion) && targetMinion.getTotalHealth() <= 0)) {
             if (toRet instanceof CardDrawNode) {
                 ((CardDrawNode) toRet).addNumCardsToDraw(1);
             } else {

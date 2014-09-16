@@ -61,7 +61,7 @@ public class Sap extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (targetMinion instanceof Hero || PlayerSide.CURRENT_PLAYER == side) {
+		if (isHero(targetMinion) || isCurrentPlayer(side)) {
 			return null;
 		}
 		

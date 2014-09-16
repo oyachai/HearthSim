@@ -719,7 +719,7 @@ public class Minion extends Card {
 				hasAttacked_ = true;
 			}
 			hasBeenUsed = true;
-			if (targetMinion instanceof Hero)
+			if (isHero(targetMinion))
 				boardState.data_.placeMinion(targetSide, this, 0);
 			else
 				boardState.data_.placeMinion(targetSide, this, targetSide.getPlayer(boardState).getMinions().indexOf(targetMinion) + 1);

@@ -56,7 +56,7 @@ public class Flamestrike extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (PlayerSide.CURRENT_PLAYER == side) {
+		if (isCurrentPlayer(side)) {
 			return null;
 		}
 		
