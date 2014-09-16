@@ -47,7 +47,7 @@ public class KillCommand extends SpellDamage {
 		throws HSException
 	{
 		boolean haveBeast = false;
-		for (final Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
+		for (final Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(boardState).getMinions()) {
 			haveBeast = haveBeast || minion instanceof Beast;
 		}
 		if (haveBeast)

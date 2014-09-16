@@ -165,9 +165,9 @@ public class HealingTotem extends Totem {
 	 * 
 	 */
 	@Override
-	public BoardModel endTurn(PlayerSide thisMinionPlayerIndex, BoardModel boardModel, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
-		BoardModel tmpState = super.endTurn(thisMinionPlayerIndex, boardModel, deckPlayer0, deckPlayer1);
-		if (thisMinionPlayerIndex == boardModel.getWaitingPlayer())
+	public BoardModel endTurn(PlayerSide thisMinionPlayerSide, BoardModel boardModel, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+		BoardModel tmpState = super.endTurn(thisMinionPlayerSide, boardModel, deckPlayer0, deckPlayer1);
+		if (isWaitingPlayer(thisMinionPlayerSide))
 			return tmpState;
 		
 		HearthTreeNode toRet = new HearthTreeNode(tmpState);

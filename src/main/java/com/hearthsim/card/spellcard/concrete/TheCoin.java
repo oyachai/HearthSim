@@ -27,10 +27,8 @@ public class TheCoin extends SpellCard {
 
 	@Override
     public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
-		if (playerSide == boardModel.getWaitingPlayer() || isNotHero(minion))
-			return false;
-		return true;
-	}
+        return !(isWaitingPlayer(playerSide) || isNotHero(minion));
+    }
 	
 	/**
 	 * 

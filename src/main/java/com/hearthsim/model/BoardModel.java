@@ -154,8 +154,8 @@ public class BoardModel implements DeepCopyable {
         return modelForSide(side).getMinions().get(index);
     }
 
-    public Card getCard_hand(PlayerModel playerModel, int index) throws HSInvalidPlayerIndexException {
-        return playerModel.getHand().get(index);
+    public Card getCard_hand(PlayerSide playerSide, int index) throws HSInvalidPlayerIndexException {
+        return modelForSide(playerSide).getHand().get(index);
     }
 
     public Card getCurrentPlayerCardHand(int index) {
@@ -166,19 +166,21 @@ public class BoardModel implements DeepCopyable {
         return waitingPlayer.getHand().get(index);
     }
 
-    public Minion getCharacter(PlayerModel playerModel, int index) throws HSInvalidPlayerIndexException {
+    public Minion getCharacter(PlayerSide playerSide, int index) throws HSInvalidPlayerIndexException {
+        PlayerModel playerModel = modelForSide(playerSide);
         return index == 0 ? playerModel.getHero() : playerModel.getMinions().get(index - 1);
     }
 
     public Minion getCurrentPlayerCharacter(int index) {
-        return getMinionForCharacter(currentPlayer, index);
+        return getMinionForCharacter(PlayerSide.CURRENT_PLAYER, index);
     }
 
     public Minion getWaitingPlayerCharacter(int index) {
-        return getMinionForCharacter(waitingPlayer, index);
+        return getMinionForCharacter(PlayerSide.WAITING_PLAYER, index);
     }
 
-    public Minion getMinionForCharacter(PlayerModel playerModel, int index) {
+    public Minion getMinionForCharacter(PlayerSide playerSide, int index) {
+        PlayerModel playerModel = modelForSide(playerSide);
         return index == 0 ? playerModel.getHero() : playerModel.getMinions().get(index - 1);
     }
 
@@ -493,8 +495,9 @@ public class BoardModel implements DeepCopyable {
     //----------------------------------------------------------------------------
     //----------------------------------------------------------------------------
 
-    public void addOverload(PlayerModel playerModel, byte overloadToAdd) throws HSException {
-        playerModel.setOverload((byte) (currentPlayer.getOverload() + overloadToAdd));
+    public void addOverload(PlayerSide playerSide, byte overloadToAdd) throws HSException {
+        PlayerModel playerModel = modelForSide(playerSide);
+        playerModel.setOverload((byte) (playerModel.getOverload() + overloadToAdd));
     }
 
     //----------------------------------------------------------------------------
