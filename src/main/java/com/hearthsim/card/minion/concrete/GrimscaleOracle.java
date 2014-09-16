@@ -8,6 +8,7 @@ import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.model.PlayerModel;
+import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 
@@ -165,7 +166,8 @@ public class GrimscaleOracle extends Murloc {
 	 * Override for the temporary buff to attack
 	 * 
 	 *
-     * @param playerModel
+     *
+     * @param side
      * @param targetMinion The index of the target minion.
      * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
      * @param deckPlayer0
@@ -175,7 +177,7 @@ public class GrimscaleOracle extends Murloc {
 	 */
 	@Override
 	protected HearthTreeNode use_core(
-			PlayerModel playerModel,
+			PlayerSide side,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -183,16 +185,16 @@ public class GrimscaleOracle extends Murloc {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		HearthTreeNode toRet = super.use_core(playerModel, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
 			
-			for (Minion minion : boardState.data_.getCurrentPlayer().getMinions()) {
+			for (Minion minion : PlayerSide.CURRENT_PLAYER.getMinions()) {
 				if (minion instanceof Murloc && minion != this) {
 					minion.setAuraAttack((byte)(minion.getAuraAttack() + 1));
 				}
 			}
 			
-			for (Minion minion : boardState.data_.getWaitingPlayer().getMinions()) {
+			for (Minion minion : PlayerSide.WAITING_PLAYER.getMinions()) {
 				if (minion instanceof Murloc && minion != this) {
 					minion.setAuraAttack((byte)(minion.getAuraAttack() + 1));
 				}
@@ -211,12 +213,13 @@ public class GrimscaleOracle extends Murloc {
 	 * Override for the aura effect
 	 * 
 	 *
-     * @param thisPlayerModel
+     *
+     * @param thisPlayerSide
      * @param boardState
      * @throws HSInvalidPlayerIndexException
 	 */
 	@Override
-	public HearthTreeNode silenced(PlayerModel thisPlayerModel, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
+	public HearthTreeNode silenced(PlayerSide thisPlayerSide, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
 		HearthTreeNode toRet = boardState;
 		if (!silenced_) {
 			for (Minion minion : toRet.data_.getCurrentPlayer().getMinions()) {
@@ -230,7 +233,7 @@ public class GrimscaleOracle extends Murloc {
 				}
 			}
 		}
-		toRet = this.silenced(thisPlayerModel, toRet, deckPlayer0, deckPlayer1);
+		toRet = this.silenced(thisPlayerSide, toRet, deckPlayer0, deckPlayer1);
 		return toRet;
 	}
 	
@@ -282,15 +285,15 @@ public class GrimscaleOracle extends Murloc {
 	 * Override for the aura effect
 	 *
 	 *
-     * @param thisMinionPlayerModel
-     * @param summonedMinionPlayerModel
-     *@param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-     *  @return The boardState is manipulated and returned
+     * @param thisMinionPlayerSide
+     * @param summonedMinionPlayerSide
+     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+     * @return The boardState is manipulated and returned
 	 */
 	@Override
 	public HearthTreeNode minionSummonedEvent(
-			PlayerModel thisMinionPlayerModel,
-			PlayerModel summonedMinionPlayerModel,
+			PlayerSide thisMinionPlayerSide,
+			PlayerSide summonedMinionPlayerSide,
 			Minion summonedMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -304,16 +307,15 @@ public class GrimscaleOracle extends Murloc {
 	 * 
 	 * Called whenever another minion is summoned using a spell
 	 * 
-	 *
-     * @param thisMinionPlayerModel
-     * @param transformedMinionPlayerModel
-     *@param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-     *  @return The boardState is manipulated and returned
+	 *  @param thisMinionPlayerSide
+     * @param transformedMinionPlayerSide
+     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+     * @return The boardState is manipulated and returned
 	 */
 	@Override
 	public HearthTreeNode minionTransformedEvent(
-			PlayerModel thisMinionPlayerModel,
-			PlayerModel transformedMinionPlayerModel,
+			PlayerSide thisMinionPlayerSide,
+			PlayerSide transformedMinionPlayerSide,
 			Minion transformedMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,

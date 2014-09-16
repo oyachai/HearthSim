@@ -4,6 +4,7 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerModel;
+import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 import org.json.JSONObject;
 
@@ -79,7 +80,7 @@ public class SpellDamage extends SpellCard {
 			Deck deckPlayer1)
 		throws HSException
 	{
-		return targetMinion.takeDamage(damage_, boardState.data_.getCurrentPlayer(), targetMinionPlayerModel, boardState, deckPlayer0, deckPlayer1, true, false);
+		return targetMinion.takeDamage(damage_, PlayerSide.CURRENT_PLAYER, targetMinionPlayerModel, boardState, deckPlayer0, deckPlayer1, true, false);
  	}
 	
 	/**
@@ -89,13 +90,14 @@ public class SpellDamage extends SpellCard {
 	 * This is the core implementation of card's ability
 	 * 
 	 *
-     * @param playerModel
+     *
+     * @param side
      * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
      *
      * @return The boardState is manipulated and returned
 	 */
 	protected HearthTreeNode use_core(
-			PlayerModel playerModel,
+			PlayerSide side,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -111,7 +113,7 @@ public class SpellDamage extends SpellCard {
 		this.hasBeenUsed(true);
 		HearthTreeNode toRet = boardState;
 
-		toRet = this.attack(playerModel, targetMinion, toRet, deckPlayer0, deckPlayer1);
+		toRet = this.attack(side, targetMinion, toRet, deckPlayer0, deckPlayer1);
 		toRet.data_.setMana_p0(toRet.data_.getMana_p0() - this.mana_);
 		toRet.data_.removeCard_hand(this);
 		

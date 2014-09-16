@@ -182,7 +182,7 @@ public class ArchmageAntonidas extends Minion {
 		throws HSException
 	{
 		HearthTreeNode toRet = super.otherCardUsedEvent(thisCardPlayerModel, cardUserPlayerModel, usedCard, boardState, deckPlayer0, deckPlayer1);
-		if (thisCardPlayerModel != boardState.data_.getCurrentPlayer())
+		if (thisCardPlayerModel != PlayerSide.CURRENT_PLAYER)
 			return toRet;
 		if (isInHand_)
 			return toRet;

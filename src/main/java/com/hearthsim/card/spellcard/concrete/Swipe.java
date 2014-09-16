@@ -5,7 +5,7 @@ import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.model.PlayerModel;
+import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class Swipe extends SpellCard {
@@ -41,14 +41,15 @@ public class Swipe extends SpellCard {
 	 * Deals 4 damage to an enemy and 1 damage to all other enemies
 	 * 
 	 *
-     * @param playerModel
+     *
+     * @param side
      * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
      *
      * @return The boardState is manipulated and returned
 	 */
 	@Override
 	protected HearthTreeNode use_core(
-			PlayerModel playerModel,
+			PlayerSide side,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -56,17 +57,17 @@ public class Swipe extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (boardState.data_.getCurrentPlayer() == playerModel) {
+		if (PlayerSide.CURRENT_PLAYER == side) {
 			return null;
 		}
 		
-		HearthTreeNode toRet = super.use_core(playerModel, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
-		toRet = targetMinion.takeDamage((byte)4, toRet.data_.getCurrentPlayer(), playerModel, toRet, deckPlayer0, deckPlayer1, true, false);
+		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+		toRet = targetMinion.takeDamage((byte)4, toRet.data_.getCurrentPlayer(), side, toRet, deckPlayer0, deckPlayer1, true, false);
 		if (!(targetMinion instanceof Hero))
-			toRet = toRet.data_.getWaitingPlayerHero().takeDamage((byte)1, boardState.data_.getCurrentPlayer(), playerModel, boardState, deckPlayer0, deckPlayer1, true, false);
+			toRet = toRet.data_.getWaitingPlayerHero().takeDamage((byte)1, PlayerSide.CURRENT_PLAYER, side, boardState, deckPlayer0, deckPlayer1, true, false);
 		for (Minion minion : toRet.data_.getWaitingPlayer().getMinions()) {
 			if (minion != targetMinion)
-				toRet = minion.takeDamage((byte)1, toRet.data_.getCurrentPlayer(), playerModel, toRet, deckPlayer0, deckPlayer1, true, false);
+				toRet = minion.takeDamage((byte)1, toRet.data_.getCurrentPlayer(), side, toRet, deckPlayer0, deckPlayer1, true, false);
 		}
 				
 		return toRet;

@@ -6,7 +6,7 @@ import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
-import com.hearthsim.model.PlayerModel;
+import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class ArgentProtector extends Minion {
@@ -162,14 +162,15 @@ public class ArgentProtector extends Minion {
 	 * Battlecry: Give a friendly minion Divine Shield
 	 * 
 	 *
-     * @param playerModel
+     *
+     * @param side
      * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
      *
      * @return The boardState is manipulated and returned
 	 */
 	@Override
 	public HearthTreeNode use_core(
-			PlayerModel playerModel,
+			PlayerSide side,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -178,7 +179,7 @@ public class ArgentProtector extends Minion {
 		throws HSException
 	{
 		//A generic card does nothing except for consuming mana
-		HearthTreeNode toRet = super.use_core(playerModel, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		
 		if (toRet != null) {
 			for (int index = 0; index < toRet.data_.getCurrentPlayer().getNumMinions(); ++index) {

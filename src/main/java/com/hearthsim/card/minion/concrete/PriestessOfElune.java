@@ -5,7 +5,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.model.PlayerModel;
+import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class PriestessOfElune extends Minion {
@@ -162,14 +162,15 @@ public class PriestessOfElune extends Minion {
 	 * Battlecry: Restore 4 health to your hero
 	 * 
 	 *
-     * @param playerModel
+     *
+     * @param side
      * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
      *
      * @return The boardState is manipulated and returned
 	 */
 	@Override
 	public HearthTreeNode use_core(
-			PlayerModel playerModel,
+			PlayerSide side,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -178,7 +179,7 @@ public class PriestessOfElune extends Minion {
 		throws HSException
 	{
 		//A generic card does nothing except for consuming mana
-		HearthTreeNode toRet = super.use_core(playerModel, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		
 		if (toRet != null) {
 			toRet.data_.getCurrentPlayerHero().takeHeal((byte)4, toRet.data_.getCurrentPlayer(), toRet, deckPlayer0, deckPlayer1);

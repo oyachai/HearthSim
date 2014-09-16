@@ -5,7 +5,7 @@ import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.model.PlayerModel;
+import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class ShadowWordPain extends SpellCard {
@@ -40,14 +40,15 @@ public class ShadowWordPain extends SpellCard {
 	 * Gives all friendly characters +2 attack for this turn
 	 * 
 	 *
-     * @param playerModel
+     *
+     * @param side
      * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
      *
      * @return The boardState is manipulated and returned
 	 */
 	@Override
 	protected HearthTreeNode use_core(
-			PlayerModel playerModel,
+			PlayerSide side,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -61,7 +62,7 @@ public class ShadowWordPain extends SpellCard {
 		if (targetMinion.getTotalAttack() > 3)
 			return null;
 		
-		HearthTreeNode toRet = super.use_core(playerModel, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {		
 			targetMinion.setHealth((byte)(-99));
 		}		

@@ -5,6 +5,7 @@ import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
+import com.hearthsim.model.PlayerSide;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.factory.BoardStateFactoryBase;
@@ -16,7 +17,7 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 
 public class Card implements DeepCopyable {
-    final Logger log = LoggerFactory.getLogger(getClass());
+    protected final Logger log = LoggerFactory.getLogger(getClass());
 
 	/**
 	 * Name of the card
@@ -199,14 +200,14 @@ public class Card implements DeepCopyable {
 
         
 	public final HearthTreeNode useOn(
-			PlayerModel playerModel,
+			PlayerSide side,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
 		throws HSException
 	{
-		return this.useOn(playerModel, targetMinion, boardState, deckPlayer0, deckPlayer1, false);
+		return this.useOn(side, targetMinion, boardState, deckPlayer0, deckPlayer1, false);
 	}    
     
 	/**
@@ -215,7 +216,8 @@ public class Card implements DeepCopyable {
 	 * 
 	 *
      *
-     * @param targetPlayer
+     *
+     * @param side
      * @param targetMinion The target minion (can be a Hero)
      * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
      * @param deckPlayer0 The deck for player0
@@ -225,7 +227,7 @@ public class Card implements DeepCopyable {
      * @return The boardState is manipulated and returned
 	 */
 	public HearthTreeNode useOn(
-			PlayerModel targetPlayer,
+			PlayerSide side,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -234,7 +236,7 @@ public class Card implements DeepCopyable {
 		throws HSException
 	{
 		//A generic card does nothing except for consuming mana
-		HearthTreeNode toRet = this.use_core(targetPlayer, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+		HearthTreeNode toRet = this.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 
 		//Notify all other cards/characters of the card's use
 		if (toRet != null) {
@@ -282,13 +284,14 @@ public class Card implements DeepCopyable {
 	 * This is the core implementation of card's ability
 	 * 
 	 *
-     * @param playerModel
+     *
+     * @param side
      * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
      *
      * @return The boardState is manipulated and returned
 	 */
 	protected HearthTreeNode use_core(
-			PlayerModel playerModel,
+			PlayerSide side,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,

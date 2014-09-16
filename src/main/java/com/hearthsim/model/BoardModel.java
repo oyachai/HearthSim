@@ -22,12 +22,6 @@ import java.util.ArrayList;
  */
 public class BoardModel implements DeepCopyable {
 
-    //todo: replace all the calls using 'getCurrentPlayer' and 'getWaitingPlayer' with one of these.
-    public enum PlayerSide {
-        CURRENT_PLAYER,
-        WAITING_PLAYER
-    }
-
     private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
 
     private PlayerModel currentPlayer;
@@ -129,8 +123,8 @@ public class BoardModel implements DeepCopyable {
         allMinionsFIFOList_ = new IdentityLinkedList<MinionPlayerPair>();
     }
 
-    public MinionList getMinions(PlayerModel playerModel) throws HSInvalidPlayerIndexException {
-        return playerModel.getMinions();
+    public MinionList getMinions(PlayerSide side) throws HSInvalidPlayerIndexException {
+        return modelForSide(side).getMinions();
     }
 
 
@@ -142,8 +136,22 @@ public class BoardModel implements DeepCopyable {
         return waitingPlayer.getHand();
     }
 
-    public Minion getMinion(PlayerModel playerModel, int index) throws HSInvalidPlayerIndexException {
-        return playerModel.getMinions().get(index);
+    public PlayerModel modelForSide(PlayerSide side){
+        PlayerModel model;
+        switch (side) {
+            case CURRENT_PLAYER: model = currentPlayer;
+                break;
+            case WAITING_PLAYER: model = waitingPlayer;
+                break;
+            default:
+                throw new RuntimeException("unexpected player side");
+        }
+
+        return model;
+    }
+
+    public Minion getMinion(PlayerSide side, int index) throws HSInvalidPlayerIndexException {
+        return modelForSide(side).getMinions().get(index);
     }
 
     public Card getCard_hand(PlayerModel playerModel, int index) throws HSInvalidPlayerIndexException {
@@ -184,16 +192,16 @@ public class BoardModel implements DeepCopyable {
      * want no events to be trigger upon placing the minion.
      *
      *
-     * @param playerIndex
+     *
+     * @param playerSide
      * @param minion The minion to be placed on the board.
      * @param position The position to place the minion.  The new minion goes to the "left" (lower index) of the postinion index.
      * @throws HSInvalidPlayerIndexException
      */
-    public void placeMinion(PlayerModel playerModel, Minion minion, int position) throws HSInvalidPlayerIndexException {
+    public void placeMinion(PlayerSide playerSide, Minion minion, int position) throws HSInvalidPlayerIndexException {
+        PlayerModel playerModel = modelForSide(playerSide);
         playerModel.getMinions().add(position, minion);
 
-        if (!playerModel.equals(currentPlayer) && !(playerModel.equals(waitingPlayer)))
-            throw new RuntimeException("WAHAHSKDLA");
         this.allMinionsFIFOList_.add(new MinionPlayerPair(minion, playerModel));
         minion.isInHand(false);
     }
@@ -476,8 +484,8 @@ public class BoardModel implements DeepCopyable {
         return mP.getPlayerModel().getMinions().remove(mP.minion);
     }
 
-    public boolean removeMinion(PlayerModel playerModel, int minionIndex) throws HSException {
-        return removeMinion(getMinion(playerModel, minionIndex));
+    public boolean removeMinion(PlayerSide side, int minionIndex) throws HSException {
+        return removeMinion(getMinion(side, minionIndex));
     }
 
     //----------------------------------------------------------------------------

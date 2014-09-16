@@ -5,7 +5,7 @@ import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
-import com.hearthsim.model.PlayerModel;
+import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public abstract class MinionWithEnrage extends Minion {
@@ -65,27 +65,26 @@ public abstract class MinionWithEnrage extends Minion {
 	 * Called when this minion takes damage
 	 * 
 	 * Override for enrage
-	 * 
-	 * @param damage The amount of damage to take
-	 * @param attackPlayerModel The player index of the attacker.  This is needed to do things like +spell damage.
-	 * @param thisPlayerModel
-     *@param boardState
+	 *  @param damage The amount of damage to take
+	 * @param attackPlayerSide The player index of the attacker.  This is needed to do things like +spell damage.
+     * @param thisPlayerSide
+     * @param boardState
      * @param deckPlayer0 The deck of player0
      * @param isSpellDamage True if this is a spell damage
-*    @throws HSInvalidPlayerIndexException
+     * @throws HSInvalidPlayerIndexException
 	 */
 	@Override
 	public HearthTreeNode takeDamage(
 			byte damage,
-			PlayerModel attackPlayerModel,
-			PlayerModel thisPlayerModel,
+			PlayerSide attackPlayerSide,
+			PlayerSide thisPlayerSide,
 			HearthTreeNode boardState,
 			Deck deckPlayer0, 
 			Deck deckPlayer1,
 			boolean isSpellDamage,
 			boolean handleMinionDeath)
 		throws HSException
-	{		HearthTreeNode toRet = super.takeDamage(damage, attackPlayerModel, thisPlayerModel, boardState, deckPlayer0, deckPlayer1, isSpellDamage, handleMinionDeath);
+	{		HearthTreeNode toRet = super.takeDamage(damage, attackPlayerSide, thisPlayerSide, boardState, deckPlayer0, deckPlayer1, isSpellDamage, handleMinionDeath);
 		this.enrageCheck();
 		return toRet;
 	}
@@ -94,15 +93,14 @@ public abstract class MinionWithEnrage extends Minion {
 	 * Called when this minion is healed
 	 * 
 	 * Always use this function to heal minions
-	 * 
-	 * @param healAmount The amount of healing to take
-	 * @param thisPlayerModel
-     *@param boardState
+	 *  @param healAmount The amount of healing to take
+	 * @param thisPlayerSide
+     * @param boardState
      * @param deckPlayer0 The deck of player0   @throws HSInvalidPlayerIndexException
-	 */
+     * */
 	@Override
-	public HearthTreeNode takeHeal(byte healAmount, PlayerModel thisPlayerModel, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
-		HearthTreeNode toRet = super.takeHeal(healAmount, thisPlayerModel, boardState, deckPlayer0, deckPlayer1);
+	public HearthTreeNode takeHeal(byte healAmount, PlayerSide thisPlayerSide, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
+		HearthTreeNode toRet = super.takeHeal(healAmount, thisPlayerSide, boardState, deckPlayer0, deckPlayer1);
 		this.enrageCheck();
 		return toRet;
 	}
@@ -113,14 +111,15 @@ public abstract class MinionWithEnrage extends Minion {
 	 * Always use this function to "silence" minions
 	 * 
 	 *
-     * @param thisPlayerModel
+     *
+     * @param thisPlayerSide
      * @param boardState
      * @param deckPlayer0 The deck of player0
      * @throws HSInvalidPlayerIndexException
 	 */
 	@Override
-	public HearthTreeNode silenced(PlayerModel thisPlayerModel, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
-		HearthTreeNode toRet = super.silenced(thisPlayerModel, boardState, deckPlayer0, deckPlayer1);
+	public HearthTreeNode silenced(PlayerSide thisPlayerSide, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
+		HearthTreeNode toRet = super.silenced(thisPlayerSide, boardState, deckPlayer0, deckPlayer1);
 		if (enraged_)
 			this.pacify();
 		return toRet;

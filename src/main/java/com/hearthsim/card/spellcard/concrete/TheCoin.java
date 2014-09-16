@@ -7,6 +7,7 @@ import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
+import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 import org.json.JSONObject;
 
@@ -37,14 +38,15 @@ public class TheCoin extends SpellCard {
 	 * Use the card on the given target
 	 * 
 	 *
-     * @param playerModel
+     *
+     * @param side
      * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
      *
      * @return The boardState is manipulated and returned
 	 */
 	@Override
 	protected HearthTreeNode use_core(
-			PlayerModel playerModel,
+			PlayerSide side,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -52,9 +54,9 @@ public class TheCoin extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (!this.canBeUsedOn(playerModel, targetMinion, boardState.data_))
+		if (!this.canBeUsedOn(side, targetMinion, boardState.data_))
 			return null;
-		HearthTreeNode toRet = super.use_core(playerModel, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
 			int newMana = toRet.data_.getMana_p0();
 			newMana = newMana >= 10 ? newMana : newMana + 1;

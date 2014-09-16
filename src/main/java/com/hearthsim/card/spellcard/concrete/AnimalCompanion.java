@@ -8,7 +8,7 @@ import com.hearthsim.card.minion.concrete.Leokk;
 import com.hearthsim.card.minion.concrete.Misha;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.model.PlayerModel;
+import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class AnimalCompanion extends SpellCard {
@@ -44,14 +44,15 @@ public class AnimalCompanion extends SpellCard {
 	 * Summons either Huffer, Leokk, or Misha
 	 * 
 	 *
-     * @param playerModel
+     *
+     * @param side
      * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
      *
      * @return The boardState is manipulated and returned
 	 */
 	@Override
 	protected HearthTreeNode use_core(
-			PlayerModel playerModel,
+			PlayerSide side,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -59,11 +60,11 @@ public class AnimalCompanion extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (!(targetMinion instanceof Hero) || boardState.data_.getWaitingPlayer() == playerModel) {
+		if (!(targetMinion instanceof Hero) || PlayerSide.WAITING_PLAYER == side) {
 			return null;
 		}
 		
-		int numMinions = boardState.data_.getCurrentPlayer().getNumMinions();
+		int numMinions = PlayerSide.CURRENT_PLAYER.getNumMinions();
 		if (numMinions >= 7)
 			return null;
 		
@@ -78,9 +79,9 @@ public class AnimalCompanion extends SpellCard {
 		}
 		boardState.data_.setMana_p0(boardState.data_.getMana_p0() + 3);
 		boardState.data_.placeCardHandCurrentPlayer(minion);
-		HearthTreeNode toRet = super.use_core(playerModel, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) 
-			toRet = minion.useOn(playerModel, boardState.data_.getCurrentPlayer().getMinions().get(numMinions - 1), toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
+			toRet = minion.useOn(side, PlayerSide.CURRENT_PLAYER.getMinions().get(numMinions - 1), toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		return toRet;
 	}
 

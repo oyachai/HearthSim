@@ -6,7 +6,7 @@ import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
-import com.hearthsim.model.PlayerModel;
+import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 
@@ -163,14 +163,15 @@ public class FrostwolfWarlord extends Minion {
 	 * Battlecry: gain +1/+1 for each friendly minion on the battlefield
 	 * 
 	 *
-     * @param playerModel
+     *
+     * @param side
      * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
      *
      * @return The boardState is manipulated and returned
 	 */
 	@Override
 	public HearthTreeNode use_core(
-			PlayerModel playerModel,
+			PlayerSide side,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -184,14 +185,14 @@ public class FrostwolfWarlord extends Minion {
 			return null;
 		}
 		
-		if (boardState.data_.getWaitingPlayer() == playerModel)
+		if (PlayerSide.WAITING_PLAYER == side)
 			return null;
 		
-		if (boardState.data_.getCurrentPlayer().getNumMinions() >= 7)
+		if (PlayerSide.CURRENT_PLAYER.getNumMinions() >= 7)
 			return null;
 		
-		int numBuffs = boardState.data_.getCurrentPlayer().getNumMinions();
-		HearthTreeNode toRet = super.use_core(playerModel, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+		int numBuffs = PlayerSide.CURRENT_PLAYER.getNumMinions();
+		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 
 		this.setAttack((byte)(this.getAttack() + numBuffs));
 		this.setHealth((byte)(this.getHealth() + numBuffs));
@@ -205,13 +206,14 @@ public class FrostwolfWarlord extends Minion {
 	 * Always use this function to "silence" minions
 	 * 
 	 *
-     * @param thisPlayerModel
+     *
+     * @param thisPlayerSide
      * @param boardState
      * @throws HSInvalidPlayerIndexException
 	 */
 	@Override
-	public HearthTreeNode silenced(PlayerModel thisPlayerModel, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
-		HearthTreeNode toRet = super.silenced(thisPlayerModel, boardState, deckPlayer0, deckPlayer1);
+	public HearthTreeNode silenced(PlayerSide thisPlayerSide, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
+		HearthTreeNode toRet = super.silenced(thisPlayerSide, boardState, deckPlayer0, deckPlayer1);
 		this.attack_ = this.baseAttack_;
 		if (this.maxHealth_ > this.baseHealth_) {
 			this.maxHealth_ = this.baseHealth_;

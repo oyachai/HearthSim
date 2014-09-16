@@ -5,7 +5,7 @@ import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.model.PlayerModel;
+import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class Silence extends SpellCard {
@@ -31,14 +31,15 @@ public class Silence extends SpellCard {
 	 * Deals 1 damage and draws a card
 	 * 
 	 *
-     * @param playerModel
+     *
+     * @param side
      * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
      *
      * @return The boardState is manipulated and returned
 	 */
 	@Override
 	protected HearthTreeNode use_core(
-			PlayerModel playerModel,
+			PlayerSide side,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -50,9 +51,9 @@ public class Silence extends SpellCard {
 			return null;
 		}
 		
-		HearthTreeNode toRet = super.use_core(playerModel, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null)
-			toRet = targetMinion.silenced(playerModel, boardState, deckPlayer0, deckPlayer1);
+			toRet = targetMinion.silenced(side, boardState, deckPlayer0, deckPlayer1);
 		return toRet;
 	}
 }

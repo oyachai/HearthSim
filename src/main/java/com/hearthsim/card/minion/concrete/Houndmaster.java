@@ -7,7 +7,7 @@ import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
-import com.hearthsim.model.PlayerModel;
+import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 
@@ -164,7 +164,8 @@ public class Houndmaster extends Minion {
 	 * Battlecry: Give a friendly beast +2/+2 and Taunt
 	 * 
 	 *
-     * @param playerModel
+     *
+     * @param side
      * @param targetMinion The target minion
      * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
      *
@@ -172,7 +173,7 @@ public class Houndmaster extends Minion {
 	 */
 	@Override
 	public HearthTreeNode use_core(
-			PlayerModel playerModel,
+			PlayerSide side,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -180,7 +181,7 @@ public class Houndmaster extends Minion {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		HearthTreeNode toRet = super.use_core(playerModel, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
 			for (int index = 0; index < toRet.data_.getCurrentPlayer().getNumMinions(); ++index) {
                 if (index != toRet.data_.getCurrentPlayer().getMinions().indexOf(this) && toRet.data_.getCurrentPlayer().getMinions().get(index) instanceof Beast) {

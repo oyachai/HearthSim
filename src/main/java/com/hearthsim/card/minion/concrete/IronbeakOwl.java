@@ -6,7 +6,7 @@ import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
-import com.hearthsim.model.PlayerModel;
+import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class IronbeakOwl extends Minion {
@@ -162,14 +162,15 @@ public class IronbeakOwl extends Minion {
 	 * Battlecry: Silence a minion
 	 * 
 	 *
-     * @param playerModel
+     *
+     * @param side
      * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
      *
      * @return The boardState is manipulated and returned
 	 */
 	@Override
 	public HearthTreeNode use_core(
-			PlayerModel playerModel,
+			PlayerSide side,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -177,12 +178,12 @@ public class IronbeakOwl extends Minion {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		HearthTreeNode toRet = super.use_core(playerModel, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
 
 			{
-				for (int index = 0; index < boardState.data_.getCurrentPlayer().getNumMinions(); ++index) {
-					if (boardState.data_.getCurrentPlayer().getMinions().get(index) == this)
+				for (int index = 0; index < PlayerSide.CURRENT_PLAYER.getNumMinions(); ++index) {
+					if (PlayerSide.CURRENT_PLAYER.getMinions().get(index) == this)
 						continue;
 					HearthTreeNode newState = new HearthTreeNode((BoardModel)boardState.data_.deepCopy());
 					Minion minion = newState.data_.getCurrentPlayer().getMinions().get(index);
@@ -192,7 +193,7 @@ public class IronbeakOwl extends Minion {
 			}
 
 			{
-				for (int index = 0; index < boardState.data_.getWaitingPlayer().getNumMinions(); ++index) {
+				for (int index = 0; index < PlayerSide.WAITING_PLAYER.getNumMinions(); ++index) {
 					HearthTreeNode newState = new HearthTreeNode((BoardModel)boardState.data_.deepCopy());
 					Minion minion = newState.data_.getWaitingPlayer().getMinions().get(index);
 					newState = minion.silenced(newState.data_.getWaitingPlayer(), newState, deckPlayer0, deckPlayer1);

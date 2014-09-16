@@ -75,7 +75,7 @@ public class Druid extends Hero {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (targetMinion instanceof Hero  && targetPlayerModel == boardState.data_.getCurrentPlayer()) {
+		if (targetMinion instanceof Hero  && targetPlayerModel == PlayerSide.CURRENT_PLAYER) {
 			this.hasBeenUsed_ = true;
 			boardState.data_.setMana_p0(boardState.data_.getMana_p0() - HERO_ABILITY_COST);
 			Hero target = boardState.data_.getCurrentPlayerHero();

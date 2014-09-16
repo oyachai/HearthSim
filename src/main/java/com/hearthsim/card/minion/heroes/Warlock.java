@@ -76,9 +76,9 @@ public class Warlock extends Hero {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (targetPlayerModel == boardState.data_.getWaitingPlayer() || !(targetMinion instanceof Hero))
+		if (targetPlayerModel == PlayerSide.WAITING_PLAYER || !(targetMinion instanceof Hero))
 			return null;
-		HearthTreeNode toRet = targetMinion.takeDamage((byte)2, boardState.data_.getCurrentPlayer(), boardState.data_.getCurrentPlayer(), boardState, deckPlayer0, deckPlayer1, false, false);
+		HearthTreeNode toRet = targetMinion.takeDamage((byte)2, PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, boardState, deckPlayer0, deckPlayer1, false, false);
 		if (toRet != null) {
 			this.hasBeenUsed_ = true;
 			toRet.data_.setMana_p0(toRet.data_.getMana_p0() - HERO_ABILITY_COST);

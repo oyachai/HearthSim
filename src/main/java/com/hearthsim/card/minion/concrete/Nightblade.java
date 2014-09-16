@@ -5,7 +5,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.model.PlayerModel;
+import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 
@@ -164,7 +164,8 @@ public class Nightblade extends Minion {
 	 * 
 	 *
      *
-     * @param targetPlayer
+     *
+     * @param side
      * @param targetMinion The target minion (can be a Hero).  If it is a Hero, then the minion is placed on the last (right most) spot on the board.
      * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
      * @param deckPlayer0 The deck of player0
@@ -172,7 +173,7 @@ public class Nightblade extends Minion {
 	 */
 	@Override
 	public HearthTreeNode useOn(
-			PlayerModel targetPlayer,
+			PlayerSide side,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -180,10 +181,10 @@ public class Nightblade extends Minion {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		HearthTreeNode toRet = super.use_core(targetPlayer, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 
 		if (toRet != null) 
-			toRet = toRet.data_.getWaitingPlayerHero().takeDamage((byte)3, boardState.data_.getCurrentPlayer(), boardState.data_.getWaitingPlayer(), boardState, deckPlayer0, deckPlayer1, false, false);
+			toRet = toRet.data_.getWaitingPlayerHero().takeDamage((byte)3, PlayerSide.CURRENT_PLAYER, PlayerSide.WAITING_PLAYER, boardState, deckPlayer0, deckPlayer1, false, false);
 		
 		return toRet;
 	}

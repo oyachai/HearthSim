@@ -8,6 +8,7 @@ import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
+import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.factory.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
 import org.json.JSONObject;
@@ -364,20 +365,19 @@ public class Minion extends Card {
 	 * Called when this minion takes damage
 	 * 
 	 * Always use this function to take damage... it properly notifies all others of its damage and possibly of its death
-	 * 
-	 * @param damage The amount of damage to take
-	 * @param attackPlayerModel The player index of the attacker.  This is needed to do things like +spell damage.
-	 * @param thisPlayerModel
-     *@param boardState
+	 *  @param damage The amount of damage to take
+	 * @param attackPlayerSide The player index of the attacker.  This is needed to do things like +spell damage.
+     * @param thisPlayerSide
+     * @param boardState
      * @param deckPlayer0 The deck of player0
      * @param isSpellDamage True if this is a spell damage
      * @param handleMinionDeath Set this to True if you want the death event to trigger when (if) the minion dies from this damage.  Setting this flag to True will also trigger deathrattle immediately.
-*     @throws HSInvalidPlayerIndexException
+     * @throws HSInvalidPlayerIndexException
 	 */
 	public HearthTreeNode takeDamage(
 			byte damage,
-			PlayerModel attackPlayerModel,
-			PlayerModel thisPlayerModel,
+			PlayerSide attackPlayerSide,
+			PlayerSide thisPlayerSide,
 			HearthTreeNode boardState,
 			Deck deckPlayer0, 
 			Deck deckPlayer1,
@@ -386,20 +386,20 @@ public class Minion extends Card {
 		throws HSException
 	{
 		if (!divineShield_) {
-			byte totalDamage = isSpellDamage ? (byte)(damage + boardState.data_.getSpellDamage(attackPlayerModel)) : damage;
+			byte totalDamage = isSpellDamage ? (byte)(damage + boardState.data_.getSpellDamage(attackPlayerSide)) : damage;
 			health_ = (byte)(health_ - totalDamage);
 			
 			//Notify all that the minion is damaged
 			HearthTreeNode toRet = boardState;
-			toRet = toRet.data_.getCurrentPlayerHero().minionDamagedEvent(toRet.data_.getCurrentPlayer(), thisPlayerModel, this, toRet, deckPlayer0, deckPlayer1);
+			toRet = toRet.data_.getCurrentPlayerHero().minionDamagedEvent(toRet.data_.getCurrentPlayer(), thisPlayerSide, this, toRet, deckPlayer0, deckPlayer1);
 			for (int j = 0; j < toRet.data_.getCurrentPlayer().getNumMinions(); ++j) {
 				if (!toRet.data_.getCurrentPlayer().getMinions().get(j).silenced_)
-					toRet = toRet.data_.getCurrentPlayer().getMinions().get(j).minionDamagedEvent(toRet.data_.getCurrentPlayer(), thisPlayerModel, this, toRet, deckPlayer0, deckPlayer1);
+					toRet = toRet.data_.getCurrentPlayer().getMinions().get(j).minionDamagedEvent(toRet.data_.getCurrentPlayer(), thisPlayerSide, this, toRet, deckPlayer0, deckPlayer1);
 			}
-			toRet = toRet.data_.getWaitingPlayerHero().minionDamagedEvent(toRet.data_.getWaitingPlayer(), thisPlayerModel, this, toRet, deckPlayer0, deckPlayer1);
+			toRet = toRet.data_.getWaitingPlayerHero().minionDamagedEvent(toRet.data_.getWaitingPlayer(), thisPlayerSide, this, toRet, deckPlayer0, deckPlayer1);
 			for (int j = 0; j < toRet.data_.getWaitingPlayer().getNumMinions(); ++j) {
 				if (!toRet.data_.getWaitingPlayer().getMinions().get(j).silenced_)
-					toRet = toRet.data_.getWaitingPlayer().getMinions().get(j).minionDamagedEvent(toRet.data_.getWaitingPlayer(), thisPlayerModel, this, toRet, deckPlayer0, deckPlayer1);
+					toRet = toRet.data_.getWaitingPlayer().getMinions().get(j).minionDamagedEvent(toRet.data_.getWaitingPlayer(), thisPlayerSide, this, toRet, deckPlayer0, deckPlayer1);
 			}
 			
 			return toRet;
@@ -461,12 +461,13 @@ public class Minion extends Card {
 	 * Always use this function to "silence" minions
 	 * 
 	 *
-     * @param thisPlayerModel
+     *
+     * @param thisPlayerSide
      * @param boardState
      * @param deckPlayer0 The deck of player0
      * @throws HSInvalidPlayerIndexException
 	 */
-	public HearthTreeNode silenced(PlayerModel thisPlayerModel, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
+	public HearthTreeNode silenced(PlayerSide thisPlayerSide, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
 		HearthTreeNode toRet = boardState;
 		if (!silenced_) {
             BoardModel data_ = boardState.data_;
@@ -490,13 +491,12 @@ public class Minion extends Card {
 	 * Called when this minion is healed
 	 * 
 	 * Always use this function to heal minions
-	 * 
-	 * @param healAmount The amount of healing to take
-	 * @param thisPlayerModel
-     *@param boardState
+	 *  @param healAmount The amount of healing to take
+	 * @param thisPlayerSide
+     * @param boardState
      * @param deckPlayer0 The deck of player0   @throws HSInvalidPlayerIndexException
-	 */
-	public HearthTreeNode takeHeal(byte healAmount, PlayerModel thisPlayerModel, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
+     * */
+	public HearthTreeNode takeHeal(byte healAmount, PlayerSide thisPlayerSide, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
 		
 		if (health_ < maxHealth_) {
 			if (health_ + healAmount > maxHealth_)
@@ -506,17 +506,17 @@ public class Minion extends Card {
 			
 			//Notify all that it the minion is healed
 			HearthTreeNode toRet = boardState;
-			toRet = toRet.data_.getCurrentPlayerHero().minionHealedEvent(boardState.data_.getCurrentPlayer(), thisPlayerModel, this, toRet, deckPlayer0, deckPlayer1);
+			toRet = toRet.data_.getCurrentPlayerHero().minionHealedEvent(PlayerSide.CURRENT_PLAYER, thisPlayerSide, this, toRet, deckPlayer0, deckPlayer1);
 			for (Iterator<Minion> iter = toRet.data_.getCurrentPlayer().getMinions().iterator(); iter.hasNext();) {
 				Minion minion = iter.next();
 				if (!minion.silenced_)
-					toRet = minion.minionHealedEvent(boardState.data_.getCurrentPlayer(), thisPlayerModel, this, toRet, deckPlayer0, deckPlayer1);
+					toRet = minion.minionHealedEvent(PlayerSide.CURRENT_PLAYER, thisPlayerSide, this, toRet, deckPlayer0, deckPlayer1);
 			}
-			toRet = toRet.data_.getWaitingPlayerHero().minionHealedEvent(boardState.data_.getWaitingPlayer(), thisPlayerModel, this, toRet, deckPlayer0, deckPlayer1);
+			toRet = toRet.data_.getWaitingPlayerHero().minionHealedEvent(PlayerSide.WAITING_PLAYER, thisPlayerSide, this, toRet, deckPlayer0, deckPlayer1);
 			for (Iterator<Minion> iter = toRet.data_.getWaitingPlayer().getMinions().iterator(); iter.hasNext();) {
 				Minion minion = iter.next();
 				if (!minion.silenced_)
-					toRet = minion.minionHealedEvent(boardState.data_.getWaitingPlayer(), thisPlayerModel, this, toRet, deckPlayer0, deckPlayer1);
+					toRet = minion.minionHealedEvent(PlayerSide.WAITING_PLAYER, thisPlayerSide, this, toRet, deckPlayer0, deckPlayer1);
 			}
 			return toRet;
 		}
@@ -529,7 +529,8 @@ public class Minion extends Card {
 	 * 
 	 *
      *
-     * @param targetPlayer
+     *
+     * @param side
      * @param targetMinion The target minion (can be a Hero).  If it is a Hero, then the minion is placed on the last (right most) spot on the board.
      * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
      * @param deckPlayer0 The deck of player0
@@ -537,7 +538,7 @@ public class Minion extends Card {
 	 */
 	@Override
 	public HearthTreeNode useOn(
-			PlayerModel targetPlayer,
+			PlayerSide side,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -545,7 +546,7 @@ public class Minion extends Card {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		HearthTreeNode toRet = this.use_core(targetPlayer, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+		HearthTreeNode toRet = this.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		
 		if (toRet != null) {
 
@@ -574,17 +575,17 @@ public class Minion extends Card {
             }
 			
 			//Notify all that a minion is placed
-			toRet = data_.getCurrentPlayerHero().minionPlacedEvent(0, targetPlayer, this, toRet, deckPlayer0, deckPlayer1);
+			toRet = data_.getCurrentPlayerHero().minionPlacedEvent(toRet);
 			for (Iterator<Minion> iter = data_.getCurrentPlayer().getMinions().iterator(); iter.hasNext();) {
 				Minion minion = iter.next();
 				if (!minion.silenced_)
-					toRet = minion.minionPlacedEvent(0, targetPlayer, this, toRet, deckPlayer0, deckPlayer1);
+					toRet = minion.minionPlacedEvent(toRet);
 			}
-			toRet = data_.getWaitingPlayerHero().minionPlacedEvent(1, targetPlayer, this, toRet, deckPlayer0, deckPlayer1);
+			toRet = data_.getWaitingPlayerHero().minionPlacedEvent(toRet);
 			for (Iterator<Minion> iter = data_.getWaitingPlayer().getMinions().iterator(); iter.hasNext();) {
 				Minion minion = iter.next();
 				if (!minion.silenced_)
-					toRet = minion.minionPlacedEvent(1, targetPlayer, this, toRet, deckPlayer0, deckPlayer1);
+					toRet = minion.minionPlacedEvent(toRet);
 			}
 		}
 		
@@ -605,7 +606,8 @@ public class Minion extends Card {
 	 * Places a minion on the board by using the card in hand
 	 * 
 	 *
-     * @param playerModel
+     *
+     * @param side
      * @param targetMinion The target minion (can be a Hero).  The new minion is always placed to the right of (higher index) the target minion.  If the target minion is a hero, then it is placed at the left-most position.
      * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
      * @param deckPlayer0 The deck of player0
@@ -614,7 +616,7 @@ public class Minion extends Card {
 	 */
 	@Override
 	protected HearthTreeNode use_core(
-			PlayerModel playerModel,
+			PlayerSide side,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -627,10 +629,10 @@ public class Minion extends Card {
 			return null;
 		}
 		
-		if (boardState.data_.getWaitingPlayer() == playerModel)
+		if (side == PlayerSide.WAITING_PLAYER)
 			return null;
 		
-		HearthTreeNode toRet = this.summonMinion(playerModel, targetMinion, boardState, deckPlayer0, deckPlayer1, false);
+		HearthTreeNode toRet = this.summonMinion(side, targetMinion, boardState, deckPlayer0, deckPlayer1, false);
 		if (toRet != null) { //summon succeeded, now let's use up our mana
 			toRet.data_.setMana_p0(toRet.data_.getMana_p0() - this.mana_);
 			toRet.data_.removeCard_hand(this);
@@ -646,15 +648,17 @@ public class Minion extends Card {
 	 * 
 	 * This function is meant to be used when summoning minions through means other than a direct card usage.
 	 * 
-	 * @param targetMinion The target minion (can be a Hero).  If it is a Hero, then the minion is placed on the last (right most) spot on the board.
-	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-	 * @param deckPlayer0 The deck of player0
-	 * @param wasTransformed If the minion was 'summoned' as a result of a transform effect (e.g. Hex, Polymorph), set this to true.
 	 *
-	 * @return The boardState is manipulated and returned
+     * @param targetSide
+     * @param targetMinion The target minion (can be a Hero).  If it is a Hero, then the minion is placed on the last (right most) spot on the board.
+     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+     * @param deckPlayer0 The deck of player0
+     * @param wasTransformed If the minion was 'summoned' as a result of a transform effect (e.g. Hex, Polymorph), set this to true.
+     *
+     * @return The boardState is manipulated and returned
 	 */
 	public HearthTreeNode summonMinion(
-            PlayerModel targetPlayer,
+            PlayerSide targetSide,
             Minion targetMinion,
             HearthTreeNode boardState,
             Deck deckPlayer0,
@@ -662,32 +666,33 @@ public class Minion extends Card {
             boolean wasTransformed)
 		throws HSException
 	{
-		HearthTreeNode toRet = this.summonMinion_core(targetPlayer, targetMinion, boardState);
+		HearthTreeNode toRet = this.summonMinion_core(targetSide, targetMinion, boardState);
 		
 		if (toRet != null) {
 			if (!wasTransformed) {
 				//Notify all that a minion is summoned
-				toRet = toRet.data_.getCurrentPlayerHero().minionSummonedEvent(boardState.data_.getCurrentPlayer(), targetPlayer, this, toRet, deckPlayer0, deckPlayer1);
+
+				toRet = toRet.data_.getCurrentPlayerHero().minionSummonedEvent(PlayerSide.CURRENT_PLAYER, targetSide, this, toRet, deckPlayer0, deckPlayer1);
                 for (Minion minion : toRet.data_.getCurrentPlayer().getMinions()) {
                     if (!minion.silenced_)
-                        toRet = minion.minionSummonedEvent(boardState.data_.getCurrentPlayer(), targetPlayer, this, toRet, deckPlayer0, deckPlayer1);
+                        toRet = minion.minionSummonedEvent(PlayerSide.CURRENT_PLAYER, targetSide, this, toRet, deckPlayer0, deckPlayer1);
                 }
-				toRet = toRet.data_.getWaitingPlayerHero().minionSummonedEvent(boardState.data_.getWaitingPlayer(), targetPlayer, this, toRet, deckPlayer0, deckPlayer1);
+				toRet = toRet.data_.getWaitingPlayerHero().minionSummonedEvent(PlayerSide.WAITING_PLAYER, targetSide, this, toRet, deckPlayer0, deckPlayer1);
                 for (Minion minion : toRet.data_.getWaitingPlayer().getMinions()) {
                     if (!minion.silenced_)
-                        toRet = minion.minionSummonedEvent(boardState.data_.getWaitingPlayer(), targetPlayer, this, toRet, deckPlayer0, deckPlayer1);
+                        toRet = minion.minionSummonedEvent(PlayerSide.WAITING_PLAYER, targetSide, this, toRet, deckPlayer0, deckPlayer1);
                 }
 			} else {
 				//Notify all that a minion is transformed
-				toRet = toRet.data_.getCurrentPlayerHero().minionTransformedEvent(boardState.data_.getCurrentPlayer(), targetPlayer, this, toRet, deckPlayer0, deckPlayer1);
+				toRet = toRet.data_.getCurrentPlayerHero().minionTransformedEvent(PlayerSide.CURRENT_PLAYER, targetSide, this, toRet, deckPlayer0, deckPlayer1);
                 for (Minion minion : toRet.data_.getCurrentPlayer().getMinions()) {
                     if (!minion.silenced_)
-                        toRet = minion.minionTransformedEvent(boardState.data_.getCurrentPlayer(), targetPlayer, this, toRet, deckPlayer0, deckPlayer1);
+                        toRet = minion.minionTransformedEvent(PlayerSide.CURRENT_PLAYER, targetSide, this, toRet, deckPlayer0, deckPlayer1);
                 }
-				toRet = toRet.data_.getWaitingPlayerHero().minionTransformedEvent(boardState.data_.getWaitingPlayer(), targetPlayer, this, toRet, deckPlayer0, deckPlayer1);
+				toRet = toRet.data_.getWaitingPlayerHero().minionTransformedEvent(PlayerSide.WAITING_PLAYER, targetSide, this, toRet, deckPlayer0, deckPlayer1);
                 for (Minion minion : toRet.data_.getWaitingPlayer().getMinions()) {
                     if (!minion.silenced_)
-                        toRet = minion.minionTransformedEvent(boardState.data_.getWaitingPlayer(), targetPlayer, this, toRet, deckPlayer0, deckPlayer1);
+                        toRet = minion.minionTransformedEvent(PlayerSide.WAITING_PLAYER, targetSide, this, toRet, deckPlayer0, deckPlayer1);
                 }
 			}
 		}
@@ -701,31 +706,29 @@ public class Minion extends Card {
 	 * 
 	 * This function is meant to be used when summoning minions through means other than a direct card usage.
 	 * 
-	 * @param targetPlayerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
-	 * @param targetMinion The target minion (can be a Hero).  The new minion is always placed to the right of (higher index) the target minion.  If the target minion is a hero, then it is placed at the left-most position.
-	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-	 * @param deckPlayer0 The deck of player0
-	 * @param deckPlayer0 The deck of player1
-	 * 
-	 * @return The boardState is manipulated and returned
+	 *
+     * @param targetSide
+     * @param targetMinion The target minion (can be a Hero).  The new minion is always placed to the right of (higher index) the target minion.  If the target minion is a hero, then it is placed at the left-most position.
+     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+     * @return The boardState is manipulated and returned
 	 * @throws HSException 
 	 */
 	protected HearthTreeNode summonMinion_core(
-            PlayerModel targetPlayer,
+            PlayerSide targetSide,
 			Minion targetMinion,
 			HearthTreeNode boardState)
 		throws HSException
 	{		
-		if (targetPlayer.getNumMinions() < 7) {
+		if (boardState.data_.modelForSide(targetSide).getNumMinions() < 7) {
 
 			if (!charge_) {
 				hasAttacked_ = true;
 			}
 			hasBeenUsed_ = true;
 			if (targetMinion instanceof Hero)
-				boardState.data_.placeMinion(targetPlayer, this, 0);
+				boardState.data_.placeMinion(targetSide, this, 0);
 			else
-				boardState.data_.placeMinion(targetPlayer, this, targetPlayer.getMinions().indexOf(targetMinion) + 1);
+				boardState.data_.placeMinion(targetSide, this, targetSide.getPlayer(boardState).getMinions().indexOf(targetMinion) + 1);
 			return boardState;
 							
 		} else {
@@ -799,14 +802,15 @@ public class Minion extends Card {
 	 * Attack with the minion
 	 * 
 	 *
-     * @param targetMinionPlayerModel
+     *
+     * @param targetMinionPlayerSide
      * @param targetMinion The target minion
      * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
      * @param deckPlayer0 The deck of player0
      * @return The boardState is manipulated and returned
 	 */
 	protected HearthTreeNode attack_core(
-			PlayerModel targetMinionPlayerModel,
+			PlayerSide targetMinionPlayerSide,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -816,21 +820,25 @@ public class Minion extends Card {
 		
 		if (hasAttacked_) {
 			//minion has already attacked
+            log.debug("trying to attack when card has already attacked.");
 			return null;
 		}
 		
-		if (targetMinionPlayerModel == boardState.data_.getCurrentPlayer()) {
+		if (targetMinionPlayerSide == PlayerSide.CURRENT_PLAYER) {
+            log.debug("trying to attack ourself, derp..");
 			return null;
 		}
 		
-		if (this.getTotalAttack() <= 0)
-			return null;
+		if (this.getTotalAttack() <= 0) {
+            log.debug("unable to attack with zero attack damage.");
+            return null;
+        }
 
 		
 		HearthTreeNode toRet = boardState;
 		byte origAttack = targetMinion.getTotalAttack();
-		toRet = targetMinion.takeDamage(this.getTotalAttack(), toRet.data_.getCurrentPlayer(), targetMinionPlayerModel, toRet, deckPlayer0, deckPlayer1, false, false);
-		toRet = this.takeDamage(origAttack, targetMinionPlayerModel, toRet.data_.getCurrentPlayer(), toRet, deckPlayer0, deckPlayer1, false, false);
+		toRet = targetMinion.takeDamage(this.getTotalAttack(), toRet.data_.getCurrentPlayer(), targetMinionPlayerSide, toRet, deckPlayer0, deckPlayer1, false, false);
+		toRet = this.takeDamage(origAttack, targetMinionPlayerSide, toRet.data_.getCurrentPlayer(), toRet, deckPlayer0, deckPlayer1, false, false);
 		if (windFury_ && !hasWindFuryAttacked_)
 			hasWindFuryAttacked_ = true;
 		else
@@ -848,20 +856,11 @@ public class Minion extends Card {
 	/**
 	 * 
 	 * Called whenever another minion comes on board
-	 * 
-	 * @param thisMinionPlayerIndex The player index of this minion
-	 * @param playerModel
-     *@param placedMinion The placed minion
-     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-     * @param deckPlayer0 The deck of player0    @return The boardState is manipulated and returned
-	 */
+	 *  @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+     *
+     * */
 	public HearthTreeNode minionPlacedEvent(
-			int thisMinionPlayerIndex,
-			PlayerModel playerModel,
-			Minion placedMinion,
-			HearthTreeNode boardState,
-			Deck deckPlayer0,
-			Deck deckPlayer1)
+            HearthTreeNode boardState)
 		throws HSInvalidPlayerIndexException
 	{
 		return boardState;
@@ -873,15 +872,15 @@ public class Minion extends Card {
 	 * Called whenever another minion is summoned using a spell
 	 * 
 	 *
-     * @param thisMinionPlayerModel
-     * @param summonedMinionPlayerModel
-     *@param summonedMinion The summoned minion
+     * @param thisMinionPlayerSide
+     * @param summonedMinionPlayerSide
+     * @param summonedMinion The summoned minion
      * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
      * @param deckPlayer0 The deck of player0    @return The boardState is manipulated and returned
-	 */
+     * */
 	public HearthTreeNode minionSummonedEvent(
-			PlayerModel thisMinionPlayerModel,
-			PlayerModel summonedMinionPlayerModel,
+			PlayerSide thisMinionPlayerSide,
+			PlayerSide summonedMinionPlayerSide,
 			Minion summonedMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -894,16 +893,15 @@ public class Minion extends Card {
 	/**
 	 * 
 	 * Called whenever another minion is summoned using a spell
-	 * 
-	 * @param thisMinionPlayerModel The player index of this minion
-	 * @param transformedMinionPlayerModel
-     *@param transformedMinion The transformed minion (the minion that resulted from a transformation)
+	 *  @param thisMinionPlayerSide The player index of this minion
+	 * @param transformedMinionPlayerSide
+     * @param transformedMinion The transformed minion (the minion that resulted from a transformation)
      * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
      * @param deckPlayer0 The deck of player0    @return The boardState is manipulated and returned
-	 */
+     * */
 	public HearthTreeNode minionTransformedEvent(
-			PlayerModel thisMinionPlayerModel,
-			PlayerModel transformedMinionPlayerModel,
+			PlayerSide thisMinionPlayerSide,
+			PlayerSide transformedMinionPlayerSide,
 			Minion transformedMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -1016,15 +1014,15 @@ public class Minion extends Card {
 	 * Called whenever another character (including the hero) is healed
 	 * 
 	 *
-     * @param thisMinionPlayerModel
-     * @param healedMinionPlayerModel
-     *@param healedMinion The healed minion
+     * @param thisMinionPlayerSide
+     * @param healedMinionPlayerSide
+     * @param healedMinion The healed minion
      * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
      * @param deckPlayer0 The deck of player0    @return The boardState is manipulated and returned
-	 */
+     * */
 	public HearthTreeNode minionHealedEvent(
-			PlayerModel thisMinionPlayerModel,
-			PlayerModel healedMinionPlayerModel,
+			PlayerSide thisMinionPlayerSide,
+			PlayerSide healedMinionPlayerSide,
 			Minion healedMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,

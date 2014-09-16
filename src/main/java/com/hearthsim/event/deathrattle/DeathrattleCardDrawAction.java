@@ -26,7 +26,7 @@ public class DeathrattleCardDrawAction extends DeathrattleAction {
 	{
 		HearthTreeNode toRet = super.performAction(minion, playerModel, boardState, deckPlayer0, deckPlayer1);
 		if (!minion.isSilenced()) {
-			if (playerModel == boardState.data_.getCurrentPlayer()) {
+			if (playerModel == PlayerSide.CURRENT_PLAYER) {
 				if (toRet instanceof CardDrawNode) {
 					((CardDrawNode) toRet).addNumCardsToDraw(numCards_);
 				} else {

@@ -7,6 +7,7 @@ import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.model.PlayerModel;
+import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 
@@ -164,14 +165,15 @@ public class RaidLeader extends Minion {
 	 * Override for the temporary buff to attack
 	 * 
 	 *
-     * @param playerModel
+     *
+     * @param side
      * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
      *
      * @return The boardState is manipulated and returned
 	 */
 	@Override
 	public HearthTreeNode use_core(
-			PlayerModel playerModel,
+			PlayerSide side,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -179,7 +181,7 @@ public class RaidLeader extends Minion {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		HearthTreeNode toRet = super.use_core(playerModel, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
 			for (Minion minion : toRet.data_.getCurrentPlayer().getMinions()) {
 				if (minion != this) {
@@ -196,21 +198,22 @@ public class RaidLeader extends Minion {
 	 * Override for the aura effect
 	 * 
 	 *
-     * @param thisPlayerModel
+     *
+     * @param thisPlayerSide
      * @param boardState
      * @param deckPlayer0
      * @param deckPlayer1
      * @throws HSInvalidPlayerIndexException
 	 */
 	@Override
-	public HearthTreeNode silenced(PlayerModel thisPlayerModel, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
+	public HearthTreeNode silenced(PlayerSide thisPlayerSide, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
 		HearthTreeNode toRet = boardState;
-		for (Minion minion : toRet.data_.getMinions(thisPlayerModel)) {
+		for (Minion minion : toRet.data_.getMinions(thisPlayerSide)) {
 			if (minion != this) {
 				minion.setAuraAttack((byte)(minion.getAuraAttack() - 1));
 			}
 		}
-		return super.silenced(thisPlayerModel, toRet, deckPlayer0, deckPlayer1);
+		return super.silenced(thisPlayerSide, toRet, deckPlayer0, deckPlayer1);
 	}
 	
 	/**
@@ -258,43 +261,42 @@ public class RaidLeader extends Minion {
 	 * Override for the aura effect
 	 *
 	 *
-     * @param thisMinionPlayerModel
-     * @param summonedMinionPlayerModel
-     *@param summonedMinion The summoned minion
+     * @param thisMinionPlayerSide
+     * @param summonedMinionPlayerSide
+     * @param summonedMinion The summoned minion
      * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
      * @param deckPlayer0 The deck of player0    @return The boardState is manipulated and returned
-	 */
+     * */
 	public HearthTreeNode minionSummonedEvent(
-			PlayerModel thisMinionPlayerModel,
-			PlayerModel summonedMinionPlayerModel,
+			PlayerSide thisMinionPlayerSide,
+			PlayerSide summonedMinionPlayerSide,
 			Minion summonedMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
-		return this.doBuffs(thisMinionPlayerModel, summonedMinionPlayerModel, summonedMinion, boardState, deckPlayer0, deckPlayer1);
+		return this.doBuffs(thisMinionPlayerSide, summonedMinionPlayerSide, summonedMinion, boardState, deckPlayer0, deckPlayer1);
 	}
 	
 	/**
 	 * 
 	 * Called whenever another minion is summoned using a spell
-	 * 
-	 * @param thisMinionPlayerModel The player index of this minion
-	 * @param transformedMinionPlayerModel
-     *@param transformedMinion The transformed minion (the minion that resulted from a transformation)
+	 *  @param thisMinionPlayerSide The player index of this minion
+	 * @param transformedMinionPlayerSide
+     * @param transformedMinion The transformed minion (the minion that resulted from a transformation)
      * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
      * @param deckPlayer0 The deck of player0    @return The boardState is manipulated and returned
-	 */
+     * */
 	public HearthTreeNode minionTransformedEvent(
-			PlayerModel thisMinionPlayerModel,
-			PlayerModel transformedMinionPlayerModel,
+			PlayerSide thisMinionPlayerSide,
+			PlayerSide transformedMinionPlayerSide,
 			Minion transformedMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
-		return this.doBuffs(thisMinionPlayerModel, transformedMinionPlayerModel, transformedMinion, boardState, deckPlayer0, deckPlayer1);
+		return this.doBuffs(thisMinionPlayerSide, transformedMinionPlayerSide, transformedMinion, boardState, deckPlayer0, deckPlayer1);
 	}
 }

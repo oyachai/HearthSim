@@ -5,7 +5,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.model.PlayerModel;
+import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class DarkscaleHealer extends Minion {
@@ -163,14 +163,15 @@ public class DarkscaleHealer extends Minion {
 	 * Battlecry: Heals friendly characters for 2
 	 * 
 	 *
-     * @param playerModel
+     *
+     * @param side
      * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
      *
      * @return The boardState is manipulated and returned
 	 */
 	@Override
 	public HearthTreeNode use_core(
-			PlayerModel playerModel,
+			PlayerSide side,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -184,10 +185,10 @@ public class DarkscaleHealer extends Minion {
 			return null;
 		}
 		
-		if (boardState.data_.getWaitingPlayer() == playerModel)
+		if (PlayerSide.WAITING_PLAYER == side)
 			return null;
 		
-		if (boardState.data_.getCurrentPlayer().getNumMinions() >= 7)
+		if (PlayerSide.CURRENT_PLAYER.getNumMinions() >= 7)
 			return null;
 		
 		HearthTreeNode toRet = boardState;
@@ -196,6 +197,6 @@ public class DarkscaleHealer extends Minion {
 			toRet = minion.takeHeal((byte)2, toRet.data_.getCurrentPlayer(), toRet, deckPlayer0, deckPlayer1);
 		}
 		
-		return super.use_core(playerModel, targetMinion, toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
+		return super.use_core(side, targetMinion, toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
 	}
 }

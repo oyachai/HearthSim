@@ -82,7 +82,7 @@ public class Shaman extends Hero {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (targetPlayerModel != boardState.data_.getCurrentPlayer() || !(targetMinion instanceof Hero))
+		if (targetPlayerModel != PlayerSide.CURRENT_PLAYER || !(targetMinion instanceof Hero))
 			return null;
 
 		int numMinions = targetPlayerModel.getNumMinions();
@@ -121,7 +121,7 @@ public class Shaman extends Hero {
 			return toRet;
 		}
 		
-		HearthTreeNode toRet = new RandomEffectNode(boardState, new HearthAction(HearthAction.Verb.HERO_ABILITY, boardState.data_.getCurrentPlayer(), 0, targetPlayerModel, 0));
+		HearthTreeNode toRet = new RandomEffectNode(boardState, new HearthAction(HearthAction.Verb.HERO_ABILITY, PlayerSide.CURRENT_PLAYER, 0, targetPlayerModel, 0));
 		if (toRet != null) {
 			Minion[] totems = {new SearingTotem(), new StoneclawTotem(), new HealingTotem(), new WrathOfAirTotem()};
 			boolean allTotemsNotSummonable = true;

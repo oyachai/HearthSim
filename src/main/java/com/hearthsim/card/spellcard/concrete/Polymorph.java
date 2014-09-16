@@ -6,7 +6,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.Sheep;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.model.PlayerModel;
+import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class Polymorph extends SpellCard {
@@ -41,14 +41,15 @@ public class Polymorph extends SpellCard {
 	 * Transform a minion into 1/1 sheep
 	 * 
 	 *
-     * @param playerModel
+     *
+     * @param side
      * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
      *
      * @return The boardState is manipulated and returned
 	 */
 	@Override
 	protected HearthTreeNode use_core(
-			PlayerModel playerModel,
+			PlayerSide side,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -60,11 +61,11 @@ public class Polymorph extends SpellCard {
 			return null;
 		}
 		
-		HearthTreeNode toRet = super.use_core(playerModel, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
-			toRet = targetMinion.silenced(playerModel, toRet, deckPlayer0, deckPlayer1);
+			toRet = targetMinion.silenced(side, toRet, deckPlayer0, deckPlayer1);
 			Sheep sheep = new Sheep();
-			toRet = sheep.summonMinion(playerModel, targetMinion, boardState, deckPlayer0, deckPlayer1, true);
+			toRet = sheep.summonMinion(side, targetMinion, boardState, deckPlayer0, deckPlayer1, true);
 			boardState.data_.removeMinion(targetMinion);
 		}
 

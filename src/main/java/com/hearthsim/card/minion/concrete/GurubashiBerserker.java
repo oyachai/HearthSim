@@ -6,7 +6,7 @@ import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
-import com.hearthsim.model.PlayerModel;
+import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 
@@ -161,18 +161,17 @@ public class GurubashiBerserker extends Minion {
 	 * Called when this minion takes damage
 	 * 
 	 * Override for special ability: gain +3 attack whenever this minion takes damage
-	 * 
-	 * @param damage The amount of damage to take
-	 * @param attackPlayerModel The player index of the attacker.  This is needed to do things like +spell damage.
-	 * @param thisPlayerModel
-     *@param boardState
+	 *  @param damage The amount of damage to take
+	 * @param attackPlayerSide The player index of the attacker.  This is needed to do things like +spell damage.
+     * @param thisPlayerSide
+     * @param boardState
      * @param isSpellDamage True if this is a spell damage   @throws HSInvalidPlayerIndexException
-	 */
+     * */
 	@Override
 	public HearthTreeNode takeDamage(
 			byte damage,
-			PlayerModel attackPlayerModel,
-			PlayerModel thisPlayerModel,
+			PlayerSide attackPlayerSide,
+			PlayerSide thisPlayerSide,
 			HearthTreeNode boardState,
 			Deck deckPlayer0, 
 			Deck deckPlayer1,
@@ -181,7 +180,7 @@ public class GurubashiBerserker extends Minion {
 		throws HSException
 	{
 		if (!divineShield_) {
-			HearthTreeNode toRet = super.takeDamage(damage, attackPlayerModel, thisPlayerModel, boardState, deckPlayer0, deckPlayer1, isSpellDamage, handleMinionDeath);
+			HearthTreeNode toRet = super.takeDamage(damage, attackPlayerSide, thisPlayerSide, boardState, deckPlayer0, deckPlayer1, isSpellDamage, handleMinionDeath);
 			if (!silenced_)
 				this.attack_ = (byte)(this.attack_ + 3);
 			return toRet;
@@ -197,13 +196,14 @@ public class GurubashiBerserker extends Minion {
 	 * Always use this function to "silence" minions
 	 * 
 	 *
-     * @param thisPlayerModel
+     *
+     * @param thisPlayerSide
      * @param boardState
      * @throws HSInvalidPlayerIndexException
 	 */
 	@Override
-	public HearthTreeNode silenced(PlayerModel thisPlayerModel, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
-		HearthTreeNode toRet = super.silenced(thisPlayerModel, boardState, deckPlayer0, deckPlayer1);
+	public HearthTreeNode silenced(PlayerSide thisPlayerSide, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
+		HearthTreeNode toRet = super.silenced(thisPlayerSide, boardState, deckPlayer0, deckPlayer1);
 		this.attack_ = this.baseAttack_;
 		return toRet;
 	}

@@ -6,7 +6,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.Frog;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.model.PlayerModel;
+import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class Hex extends SpellCard {
@@ -41,14 +41,15 @@ public class Hex extends SpellCard {
 	 * Transform a minion into 0/1 frog with Taunt
 	 * 
 	 *
-     * @param playerModel
+     *
+     * @param side
      * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
      *
      * @return The boardState is manipulated and returned
 	 */
 	@Override
 	protected HearthTreeNode use_core(
-			PlayerModel playerModel,
+			PlayerSide side,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -60,11 +61,11 @@ public class Hex extends SpellCard {
 			return null;
 		}
 		
-		HearthTreeNode toRet = super.use_core(playerModel, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
-			toRet = targetMinion.silenced(playerModel, toRet, deckPlayer0, deckPlayer1);
+			toRet = targetMinion.silenced(side, toRet, deckPlayer0, deckPlayer1);
 			Frog frog = new Frog();
-			toRet = frog.summonMinion(playerModel, targetMinion, toRet, deckPlayer0, deckPlayer1, true);
+			toRet = frog.summonMinion(side, targetMinion, toRet, deckPlayer0, deckPlayer1, true);
 			toRet.data_.removeMinion(targetMinion);
 		}
 		return toRet;

@@ -5,6 +5,7 @@ import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
+import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.factory.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -190,20 +191,19 @@ public class Hero extends Minion {
 	 * Called when this minion takes damage
 	 * 
 	 * Overridden from Minion.  Need to handle armor.
-	 * 
-	 * @param damage The amount of damage to take
-	 * @param attackPlayerModel The player index of the attacker.  This is needed to do things like +spell damage.
-	 * @param thisPlayerModel
-     *@param boardState
+	 *  @param damage The amount of damage to take
+	 * @param attackPlayerSide The player index of the attacker.  This is needed to do things like +spell damage.
+     * @param thisPlayerSide
+     * @param boardState
      * @param deckPlayer0 The deck of player0
      * @param isSpellDamage
-*    @throws HSInvalidPlayerIndexException
+     * @throws HSInvalidPlayerIndexException
 	 */
 	@Override
 	public HearthTreeNode takeDamage(
 			byte damage,
-			PlayerModel attackPlayerModel,
-			PlayerModel thisPlayerModel,
+			PlayerSide attackPlayerSide,
+			PlayerSide thisPlayerSide,
 			HearthTreeNode boardState,
 			Deck deckPlayer0, 
 			Deck deckPlayer1,
@@ -215,7 +215,7 @@ public class Hero extends Minion {
 		byte damageRemaining = (byte)(damage - armor_);
 		if (damageRemaining > 0) {
 			armor_ = 0;
-			toRet = super.takeDamage(damageRemaining, attackPlayerModel, thisPlayerModel, toRet, deckPlayer0, deckPlayer1, isSpellDamage, handleMinionDeath);
+			toRet = super.takeDamage(damageRemaining, attackPlayerSide, thisPlayerSide, toRet, deckPlayer0, deckPlayer1, isSpellDamage, handleMinionDeath);
 		} else {
 			armor_ = (byte)(armor_ - damage);
 		}
