@@ -196,6 +196,11 @@ public class ImplementedCardList {
             map_.put(Backstab.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(BattleRage.class, "Battle Rage", "spell", "warrior", "common", "Draw a card for each damaged friendly character", 2, -1, -1);
+            list_.add(card);
+            map_.put(BattleRage.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(BigGameHunter.class, "Big Game Hunter", "minion", "neutral", "epic", "Battlecry Destroy a minion with an Attack of 7 or more", 3, 4, 2);
             list_.add(card);
             map_.put(BigGameHunter.class, card);

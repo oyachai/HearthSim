@@ -301,6 +301,11 @@ public class Minion extends Card {
 		return (byte)(health_ + auraHealth_);
 	}
 	
+	public byte getTotalMaxHealth() {
+		return (byte)(maxHealth_ + auraHealth_);
+	}
+
+	
 	public void addAuraHealth(byte value) {
 		auraHealth_ += value;
 	}

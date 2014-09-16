@@ -39,7 +39,7 @@ Azure Drake|minion|neutral|rare|5|4|4|Spell Damage +1.Battlecry: Draw a card|TRU
 Backstab|spell|rogue|free|0|||Deal 2 damage to an undamaged minion|TRUE
 Bane of Doom|spell|warlock|epic|5|||Deal 2 damage to a character. If that kills it, summon a random Demon|FALSE
 Baron Geddon|minion|neutral|legendary|7|7|5|At the end of your turn, deal 2 damage to ALL other characters|FALSE
-Battle Rage|spell|warrior|common|2|||Draw a card for each damaged friendly character|FALSE
+Battle Rage|spell|warrior|common|2|||Draw a card for each damaged friendly character|TRUE
 Bestial Wrath|spell|hunter|epic|1|||Give a Beast +2 Attack and Immune this turn|FALSE
 Betrayal|spell|rogue|common|2|||An enemy minion deals its damage to the minions next to it|FALSE
 Big Game Hunter|minion|neutral|epic|3|4|2|Battlecry: Destroy a minion with an Attack of 7 or more|TRUE
