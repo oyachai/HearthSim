@@ -106,19 +106,19 @@ public class TestStranglethornTiger {
 
 		assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 0);
 		assertEquals(resBoard.getNumCardsHandWaitingPlayer(), 0);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(ret).getNumMinions(), 2);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getNumMinions(), 1);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getNumMinions(), 2);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(resBoard).getNumMinions(), 1);
 		assertEquals(resBoard.getMana_p0(), 8);
 		assertEquals(resBoard.getMana_p1(), 8);
 		assertEquals(resBoard.getCurrentPlayerHero().getHealth(), 30);
 		assertEquals(resBoard.getWaitingPlayerHero().getHealth(), 18);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(ret).getMinions().get(0).getTotalHealth(), 7);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(ret).getMinions().get(1).getTotalHealth(), 7);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(0).getTotalHealth(), 5);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getMinions().get(0).getTotalHealth(), 7);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getMinions().get(1).getTotalHealth(), 7);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(resBoard).getMinions().get(0).getTotalHealth(), 5);
 
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(ret).getMinions().get(0).getTotalAttack(), 6);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(ret).getMinions().get(1).getTotalAttack(), 6);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(0).getTotalAttack(), 5);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getMinions().get(0).getTotalAttack(), 6);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getMinions().get(1).getTotalAttack(), 6);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(resBoard).getMinions().get(0).getTotalAttack(), 5);
 	}
 	
 	@Test
@@ -138,19 +138,19 @@ public class TestStranglethornTiger {
 
 		assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 1);
 		assertEquals(resBoard.getNumCardsHandWaitingPlayer(), 0);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(ret).getNumMinions(), 2);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getNumMinions(), 1);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getNumMinions(), 2);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(resBoard).getNumMinions(), 1);
 		assertEquals(resBoard.getMana_p0(), 8);
 		assertEquals(resBoard.getMana_p1(), 8);
 		assertEquals(resBoard.getCurrentPlayerHero().getHealth(), 30);
 		assertEquals(resBoard.getWaitingPlayerHero().getHealth(), 18);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(ret).getMinions().get(0).getTotalHealth(), 7);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(ret).getMinions().get(1).getTotalHealth(), 7);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(0).getTotalHealth(), 5);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getMinions().get(0).getTotalHealth(), 7);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getMinions().get(1).getTotalHealth(), 7);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(resBoard).getMinions().get(0).getTotalHealth(), 5);
 
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(ret).getMinions().get(0).getTotalAttack(), 6);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(ret).getMinions().get(1).getTotalAttack(), 6);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(0).getTotalAttack(), 5);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getMinions().get(0).getTotalAttack(), 6);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getMinions().get(1).getTotalAttack(), 6);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(resBoard).getMinions().get(0).getTotalAttack(), 5);
 	}
 	
 	@Test
@@ -170,16 +170,16 @@ public class TestStranglethornTiger {
 
 		assertEquals(resBoard1.getNumCardsHandWaitingPlayer(), 0);
 		assertEquals(resBoard1.getNumCardsHandWaitingPlayer(), 0);
-		assertEquals(resBoard1.getCurrentPlayer().getNumMinions(), 2);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard1).getNumMinions(), 2);
 		assertEquals(resBoard1.getWaitingPlayer().getNumMinions(), 0);
 		assertEquals(resBoard1.getMana_p0(), 8);
 		assertEquals(resBoard1.getMana_p1(), 8);
 		assertEquals(resBoard1.getCurrentPlayerHero().getHealth(), 25);
 		assertEquals(resBoard1.getWaitingPlayerHero().getHealth(), 24);
-		assertEquals(resBoard1.getCurrentPlayer().getMinions().get(0).getTotalHealth(), 7);
-		assertEquals(resBoard1.getCurrentPlayer().getMinions().get(1).getTotalHealth(), 2);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard1).getMinions().get(0).getTotalHealth(), 7);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard1).getMinions().get(1).getTotalHealth(), 2);
 
-		assertEquals(resBoard1.getCurrentPlayer().getMinions().get(0).getTotalAttack(), 6);
-		assertEquals(resBoard1.getCurrentPlayer().getMinions().get(1).getTotalAttack(), 6);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard1).getMinions().get(0).getTotalAttack(), 6);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard1).getMinions().get(1).getTotalAttack(), 6);
 	}
 }

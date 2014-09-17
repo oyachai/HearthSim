@@ -162,8 +162,8 @@ public class TestColdlightOracle {
 		BoardModel resBoard = ai0.playTurn(0, board.data_, playerModel0, playerModel1);
 		
 		assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 2); //1 card drawn from Loot Horder attacking and dying, no mana left to play the card
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(ret).getNumMinions(), 3);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getNumMinions(), 2); //1 minion should have been killed
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getNumMinions(), 3);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(resBoard).getNumMinions(), 2); //1 minion should have been killed
 		assertEquals(resBoard.getMana_p0(), 0);
 		assertEquals(resBoard.getMana_p1(), 3);
 		assertEquals(resBoard.getCurrentPlayerHero().getHealth(), 30);
