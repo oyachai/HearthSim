@@ -149,12 +149,12 @@ public class TestAbusiveSergeant {
 		
 		//make sure that the extra attack is working!
 		HearthTreeNode child1 = board.getChildren().get(0);
-		target = child1.data_.getCharacter(child1.data_.getWaitingPlayer(), 0);
+		target = child1.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
 		Minion minion = child1.data_.getCurrentPlayer().getMinions().get(0);
-		minion.attack(child1.data_.getWaitingPlayer(), target, child1, deck, null);
+		minion.attack(PlayerSide.WAITING_PLAYER, target, child1, deck, null);
 		assertEquals(child1.data_.getNumCards_hand(), 0);
 		assertEquals(child1.data_.getCurrentPlayer().getNumMinions(), 3);
-		assertEquals(child1.data_.getWaitingPlayer().getNumMinions(), 3);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(child1).getNumMinions(), 3);
 		assertEquals(child1.data_.getMana_p0(), 7);
 		assertEquals(child1.data_.getMana_p1(), 8);
 		assertEquals(child1.data_.getCurrentPlayerHero().getHealth(), 30);
@@ -162,16 +162,16 @@ public class TestAbusiveSergeant {
 		assertEquals(child1.data_.getCurrentPlayer().getMinions().get(0).getHealth(), 2);
 		assertEquals(child1.data_.getCurrentPlayer().getMinions().get(1).getHealth(), 7);
 		assertEquals(child1.data_.getCurrentPlayer().getMinions().get(2).getHealth(), 1);
-		assertEquals(child1.data_.getWaitingPlayer().getMinions().get(0).getHealth(), 1);
-		assertEquals(child1.data_.getWaitingPlayer().getMinions().get(1).getHealth(), 2);
-		assertEquals(child1.data_.getWaitingPlayer().getMinions().get(2).getHealth(), 7);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(child1).getMinions().get(0).getHealth(), 1);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(child1).getMinions().get(1).getHealth(), 2);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(child1).getMinions().get(2).getHealth(), 7);
 
 		assertEquals(child1.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack(), 4);
 		assertEquals(child1.data_.getCurrentPlayer().getMinions().get(1).getTotalAttack(), 7);
 		assertEquals(child1.data_.getCurrentPlayer().getMinions().get(2).getTotalAttack(), 3);
-		assertEquals(child1.data_.getWaitingPlayer().getMinions().get(0).getTotalAttack(), 4);
-		assertEquals(child1.data_.getWaitingPlayer().getMinions().get(1).getTotalAttack(), 2);
-		assertEquals(child1.data_.getWaitingPlayer().getMinions().get(2).getTotalAttack(), 7);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(child1).getMinions().get(0).getTotalAttack(), 4);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(child1).getMinions().get(1).getTotalAttack(), 2);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(child1).getMinions().get(2).getTotalAttack(), 7);
 		
 	}
 }

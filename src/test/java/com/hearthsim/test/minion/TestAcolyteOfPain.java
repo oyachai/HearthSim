@@ -124,8 +124,8 @@ public class TestAcolyteOfPain {
 		BoardModel resBoard = ai0.playTurn(0, board.data_, playerModel0, playerModel1);
 		
 		assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 2); //1 card drawn from AcolyteOfPain, not enough mana to play it
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(ret).getNumMinions(), 2);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getNumMinions(), 1); //1 minion should have been killed
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getNumMinions(), 2);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(resBoard).getNumMinions(), 1); //1 minion should have been killed
 		assertEquals(resBoard.getMana_p0(), 1); //0 mana used
 		assertEquals(resBoard.getMana_p1(), 1);
 		assertEquals(resBoard.getCurrentPlayerHero().getHealth(), 30);
@@ -152,8 +152,8 @@ public class TestAcolyteOfPain {
 		BoardModel resBoard = ai0.playTurn(0, board.data_, playerModel0, playerModel1, 200000000);
 		
 		assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 1); //1 card drawn from AcolyteOfPain, then played the Bloodfen Raptor
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(ret).getNumMinions(), 3);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getNumMinions(), 1); //1 minion should have been killed
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getNumMinions(), 3);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(resBoard).getNumMinions(), 1); //1 minion should have been killed
 		assertEquals(resBoard.getMana_p0(), 1); //2 mana used... it's better to put down a Bloodfen Raptor than an Acolyte of Pain
 		assertEquals(resBoard.getMana_p1(), 3);
 		assertEquals(resBoard.getCurrentPlayerHero().getHealth(), 30);
@@ -186,8 +186,8 @@ public class TestAcolyteOfPain {
 		
 		assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 1); //1 card drawn from AcolyteOfPain, then played the Bloodfen Raptor
 		assertEquals(resBoard.getNumCardsHandWaitingPlayer(), 1); //1 card drawn from AcolyteOfPain.  The Acolytes smack into each other.
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(ret).getNumMinions(), 3);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getNumMinions(), 1); //1 minion should have been killed
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getNumMinions(), 3);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(resBoard).getNumMinions(), 1); //1 minion should have been killed
 		assertEquals(resBoard.getMana_p0(), 1); //2 mana used... it's better to put down a Bloodfen Raptor than an Acolyte of Pain
 		assertEquals(resBoard.getMana_p1(), 3);
 		assertEquals(resBoard.getCurrentPlayerHero().getHealth(), 30);
