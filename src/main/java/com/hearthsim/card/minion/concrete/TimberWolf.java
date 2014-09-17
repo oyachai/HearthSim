@@ -7,7 +7,6 @@ import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
-import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -243,14 +242,12 @@ public class TimberWolf extends Beast {
 	}
 	
 	private HearthTreeNode doBuffs(
-			PlayerModel thisMinionPlayerModel,
-			PlayerModel placedMinionPlayerModel,
-			Minion placedMinion,
-			HearthTreeNode boardState,
-			Deck deckPlayer0,
-			Deck deckPlayer1) throws HSInvalidPlayerIndexException
+            PlayerSide thisMinionPlayerSide,
+            PlayerSide placedMinionPlayerSide,
+            Minion placedMinion,
+            HearthTreeNode boardState) throws HSInvalidPlayerIndexException
 	{
-		if (placedMinionPlayerModel != thisMinionPlayerModel)
+		if (placedMinionPlayerSide != thisMinionPlayerSide)
 			return boardState;
         if (!silenced_ && placedMinion != this && placedMinion instanceof Beast) {
             placedMinion.setAuraAttack((byte) (placedMinion.getAuraAttack() + 1));
@@ -281,7 +278,7 @@ public class TimberWolf extends Beast {
 			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
-		return this.doBuffs(thisMinionPlayerSide, summonedMinionPlayerSide, summonedMinion, boardState, deckPlayer0, deckPlayer1);
+		return this.doBuffs(thisMinionPlayerSide, summonedMinionPlayerSide, summonedMinion, boardState);
 	}
 	
 	/**
@@ -302,6 +299,6 @@ public class TimberWolf extends Beast {
 			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
-		return this.doBuffs(thisMinionPlayerSide, transformedMinionPlayerSide, transformedMinion, boardState, deckPlayer0, deckPlayer1);
+		return this.doBuffs(thisMinionPlayerSide, transformedMinionPlayerSide, transformedMinion, boardState);
 	}
 }

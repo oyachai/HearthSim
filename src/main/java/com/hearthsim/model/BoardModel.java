@@ -975,14 +975,6 @@ public class BoardModel implements DeepCopyable {
         this.waitingPlayer = waitingPlayer;
     }
 
-    public PlayerSide getOtherPlayer(PlayerSide playerSide){
-        if (playerSide == PlayerSide.CURRENT_PLAYER){
-            return PlayerSide.WAITING_PLAYER;
-        }else{
-            return PlayerSide.CURRENT_PLAYER;
-        }
-    }
-
     // todo: remove asap, simply to aid in refactoring
     public int getIndexOfPlayer(PlayerSide playerSide) {
         if (playerSide == PlayerSide.CURRENT_PLAYER){

@@ -29,7 +29,8 @@ public class GameSimpleRecord implements GameRecord {
 	public void put(int turn, PlayerSide activePlayerSide, BoardModel board) {
         int activePlayerIndex;
         int inactivePlayerIndex;
-        if (board.getCurrentPlayer() == activePlayerSide) {
+        //todo: I don't think this is correct.. perhaps we need to store a unique player ID in the playermodel?
+        if (PlayerSide.CURRENT_PLAYER== activePlayerSide) {
             activePlayerIndex = 0;
             inactivePlayerIndex = 1;
         } else {

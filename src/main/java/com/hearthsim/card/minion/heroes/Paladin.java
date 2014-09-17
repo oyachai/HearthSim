@@ -73,7 +73,7 @@ public class Paladin extends Hero {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (PlayerSide.CURRENT_PLAYER.getNumMinions() >= 7)
+		if (currentPlayerBoardFull(boardState))
 			return null;
 
 		HearthTreeNode toRet = boardState;
@@ -82,7 +82,7 @@ public class Paladin extends Hero {
 			this.hasBeenUsed = true;
 			toRet.data_.setMana_p0(toRet.data_.getMana_p0() - HERO_ABILITY_COST);
 			Minion theRecruit = new SilverHandRecruit();
-			Minion targetLocation = toRet.data_.getCharacter(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER.getNumMinions());
+			Minion targetLocation = toRet.data_.getCharacter(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getNumMinions());
 			toRet = theRecruit.summonMinion(targetPlayerSide, targetLocation, toRet, deckPlayer0, deckPlayer1, false);
 		} else {
 			return null;

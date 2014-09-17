@@ -33,7 +33,7 @@ public class GameDetailedRecord implements GameRecord {
     public int getNumMinions(int playerIndex, int turn, int activePlayerIndex) {
         BoardModel boardModel = boards_.get(activePlayerIndex).get(turn);
         PlayerSide playerByIndex = boardModel.getPlayerByIndex(playerIndex);
-        PlayerSide otherPlayer = boardModel.getOtherPlayer(playerByIndex);
+        PlayerSide otherPlayer = playerByIndex.getOtherPlayer();
         return otherPlayer.getPlayer(boardModel).getNumMinions();
     }
 
@@ -42,7 +42,7 @@ public class GameDetailedRecord implements GameRecord {
 		try {
             BoardModel boardModel = boards_.get(activePlayerIndex).get(turn);
             PlayerSide playerByIndex = boardModel.getPlayerByIndex(playerIndex);
-            PlayerSide otherPlayer = boardModel.getOtherPlayer(playerByIndex);
+            PlayerSide otherPlayer = playerByIndex.getOtherPlayer();
 
             return boardModel.getNumCards_hand(otherPlayer);
 		} catch (HSInvalidPlayerIndexException e) {
@@ -55,7 +55,7 @@ public class GameDetailedRecord implements GameRecord {
 		try {
             BoardModel boardModel = boards_.get(activePlayerIndex).get(turn);
             PlayerSide playerByIndex = boardModel.getPlayerByIndex(playerIndex);
-            PlayerSide otherPlayer = boardModel.getOtherPlayer(playerByIndex);
+            PlayerSide otherPlayer = playerByIndex.getOtherPlayer();
             return boardModel.getHero(otherPlayer).getHealth();
 		} catch (HSInvalidPlayerIndexException e) {
 			return 0;
@@ -67,7 +67,7 @@ public class GameDetailedRecord implements GameRecord {
 		try {
             BoardModel boardModel = boards_.get(activePlayerIndex).get(turn);
             PlayerSide playerByIndex = boardModel.getPlayerByIndex(playerIndex);
-            PlayerSide otherPlayer = boardModel.getOtherPlayer(playerByIndex);
+            PlayerSide otherPlayer = playerByIndex.getOtherPlayer();
             return boardModel.getHero(otherPlayer).getArmor();
 		} catch (HSInvalidPlayerIndexException e) {
 			return 0;

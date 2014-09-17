@@ -180,8 +180,7 @@ public class StarvingBuzzard extends Beast {
 			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
-        PlayerModel waitingPlayer = PlayerSide.WAITING_PLAYER;
-        if (summonedMinionPlayerSide == waitingPlayer || thisMinionPlayerSide == waitingPlayer)
+        if (summonedMinionPlayerSide == PlayerSide.WAITING_PLAYER || thisMinionPlayerSide == PlayerSide.WAITING_PLAYER)
 			return boardState;
 		
 		HearthTreeNode toRet = super.minionSummonedEvent(thisMinionPlayerSide, summonedMinionPlayerSide, summonedMinion, boardState, deckPlayer0, deckPlayer1);

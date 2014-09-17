@@ -16,4 +16,12 @@ public enum PlayerSide {
     public PlayerModel getPlayer(BoardModel boardModel) {
         return boardModel.modelForSide(this);
     }
+
+    public PlayerSide getOtherPlayer() {
+        if (this == CURRENT_PLAYER) {
+            return WAITING_PLAYER;
+        } else {
+            return CURRENT_PLAYER;
+        }
+    }
 }
