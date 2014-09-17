@@ -849,17 +849,6 @@ public class BoardModel implements DeepCopyable {
         newBoard.p0_maxMana_ = this.p0_maxMana_;
         newBoard.p1_maxMana_ = this.p1_maxMana_;
 
-//        for (MinionPlayerIDPair minionIdPair : allMinionsFIFOList_) {
-//            if (minionIdPair.playerIndex_ == 0) {
-//                int minionIndex = p0_minions_.indexOf(minionIdPair.minion_);
-//                newBoard.allMinionsFIFOList_.add(new MinionPlayerIDPair(newBoard.p0_minions_.get(minionIndex), 0));
-//            } else if (minionIdPair.playerIndex_ == 1) {
-//                int minionIndex = p1_minions_.indexOf(minionIdPair.minion_);
-//                newBoard.allMinionsFIFOList_.add(new MinionPlayerIDPair(newBoard.p1_minions_.get(minionIndex), 1));
-//            }
-//        }
-
-        // todo: need to get the minion from the new board and update it to the new player
         for (MinionPlayerPair minionPlayerPair : allMinionsFIFOList_) {
 
             PlayerModel oldPlayerModel = minionPlayerPair.getPlayerModel();
@@ -874,25 +863,13 @@ public class BoardModel implements DeepCopyable {
             } else if (oldPlayerModel.equals(waitingPlayer)) {
                 newPlayerModel = newWaitingPlayer;
             } else {
-                System.out.println(System.identityHashCode(oldPlayerModel));
-                throw new RuntimeException("WHAHAHAA"); // how is this possible? where does the missing player get in?
+                throw new RuntimeException("unexpected player");
             }
 
             newBoard.allMinionsFIFOList_.add(new MinionPlayerPair(newPlayerModel.getMinions().get(indexOfOldMinion), newPlayerModel));
 
         }
 
-        //todo: the problem here is that player references are not updated to new players..
-//        for (MinionPlayerPair minionIdPair : allMinionsFIFOList_) {
-//
-//            if (minionIdPair.playerModel == currentPlayer) {
-//                int minionIndex = currentPlayer.getMinions().indexOf(minionIdPair.minion);
-//                newBoard.allMinionsFIFOList_.add(new MinionPlayerPair(newBoard.getCurrentPlayer().getMinions().get(minionIndex), minionIdPair.playerModel));
-//            } else {
-//                int minionIndex = waitingPlayer.getMinions().indexOf(minionIdPair.minion);
-//                newBoard.allMinionsFIFOList_.add(new MinionPlayerPair(newBoard.getWaitingPlayer().getMinions().get(minionIndex), minionIdPair.playerModel));
-//            }
-//        }
         return newBoard;
     }
 
