@@ -87,23 +87,23 @@ public class TestLeperGnome {
 		
 		assertTrue(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 1);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getNumMinions(), 2);
-		assertEquals(PlayerSide.WAITING_PLAYER.getNumMinions(), 3);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 3);
 		assertEquals(board.data_.getMana_p0(), 8);
 		assertEquals(board.data_.getMana_p1(), 8);
 		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
 		assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getMinions().get(0).getTotalHealth(), 2);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getMinions().get(1).getTotalHealth(), 7);
-		assertEquals(PlayerSide.WAITING_PLAYER.getMinions().get(0).getTotalHealth(), 2);
-		assertEquals(PlayerSide.WAITING_PLAYER.getMinions().get(1).getTotalHealth(), 7);
-		assertEquals(PlayerSide.WAITING_PLAYER.getMinions().get(2).getTotalHealth(), 1);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getTotalHealth(), 2);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getTotalHealth(), 7);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getTotalHealth(), 2);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getTotalHealth(), 7);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(2).getTotalHealth(), 1);
 
-		assertEquals(PlayerSide.CURRENT_PLAYER.getMinions().get(0).getTotalAttack(), 2);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getMinions().get(1).getTotalAttack(), 7);
-		assertEquals(PlayerSide.WAITING_PLAYER.getMinions().get(0).getTotalAttack(), 2);
-		assertEquals(PlayerSide.WAITING_PLAYER.getMinions().get(1).getTotalAttack(), 7);
-		assertEquals(PlayerSide.WAITING_PLAYER.getMinions().get(2).getTotalAttack(), 3);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack(), 2);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack(), 7);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack(), 2);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack(), 7);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(2).getTotalAttack(), 3);
 	}
 	
 	@Test
@@ -116,31 +116,31 @@ public class TestLeperGnome {
 		
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 0);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getNumMinions(), 3);
-		assertEquals(PlayerSide.WAITING_PLAYER.getNumMinions(), 3);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 3);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 3);
 		assertEquals(board.data_.getMana_p0(), 7);
 		assertEquals(board.data_.getMana_p1(), 8);
 		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
 		assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getMinions().get(0).getTotalHealth(), 2);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getMinions().get(1).getTotalHealth(), 7);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getMinions().get(2).getTotalHealth(), 1);
-		assertEquals(PlayerSide.WAITING_PLAYER.getMinions().get(0).getTotalHealth(), 2);
-		assertEquals(PlayerSide.WAITING_PLAYER.getMinions().get(1).getTotalHealth(), 7);
-		assertEquals(PlayerSide.WAITING_PLAYER.getMinions().get(2).getTotalHealth(), 1);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getTotalHealth(), 2);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getTotalHealth(), 7);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(2).getTotalHealth(), 1);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getTotalHealth(), 2);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getTotalHealth(), 7);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(2).getTotalHealth(), 1);
 
-		assertEquals(PlayerSide.CURRENT_PLAYER.getMinions().get(0).getTotalAttack(), 2);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getMinions().get(1).getTotalAttack(), 7);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getMinions().get(2).getTotalAttack(), 3);
-		assertEquals(PlayerSide.WAITING_PLAYER.getMinions().get(0).getTotalAttack(), 2);
-		assertEquals(PlayerSide.WAITING_PLAYER.getMinions().get(1).getTotalAttack(), 7);
-		assertEquals(PlayerSide.WAITING_PLAYER.getMinions().get(2).getTotalAttack(), 3);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack(), 2);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack(), 7);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(2).getTotalAttack(), 3);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack(), 2);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack(), 7);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(2).getTotalAttack(), 3);
 		
 		
 		
 		//----------------------------------------------------------
 		
-		Minion minion = PlayerSide.CURRENT_PLAYER.getMinions().get(2);
+		Minion minion = PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(2);
 		assertTrue(minion instanceof LeperGnome);
 		
 		minion.hasAttacked(false);
@@ -148,48 +148,48 @@ public class TestLeperGnome {
 		minion.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null);
 
 		assertEquals(board.data_.getNumCards_hand(), 0);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getNumMinions(), 2);
-		assertEquals(PlayerSide.WAITING_PLAYER.getNumMinions(), 3);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 3);
 		assertEquals(board.data_.getMana_p0(), 7);
 		assertEquals(board.data_.getMana_p1(), 8);
 		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
 		assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 28);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getMinions().get(0).getTotalHealth(), 2);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getMinions().get(1).getTotalHealth(), 7);
-		assertEquals(PlayerSide.WAITING_PLAYER.getMinions().get(0).getTotalHealth(), 2);
-		assertEquals(PlayerSide.WAITING_PLAYER.getMinions().get(1).getTotalHealth(), 7 - 3);
-		assertEquals(PlayerSide.WAITING_PLAYER.getMinions().get(2).getTotalHealth(), 1);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getTotalHealth(), 2);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getTotalHealth(), 7);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getTotalHealth(), 2);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getTotalHealth(), 7 - 3);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(2).getTotalHealth(), 1);
 
-		assertEquals(PlayerSide.CURRENT_PLAYER.getMinions().get(0).getTotalAttack(), 2);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getMinions().get(1).getTotalAttack(), 7);
-		assertEquals(PlayerSide.WAITING_PLAYER.getMinions().get(0).getTotalAttack(), 2);
-		assertEquals(PlayerSide.WAITING_PLAYER.getMinions().get(1).getTotalAttack(), 7);
-		assertEquals(PlayerSide.WAITING_PLAYER.getMinions().get(2).getTotalAttack(), 3);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack(), 2);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack(), 7);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack(), 2);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack(), 7);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(2).getTotalAttack(), 3);
 
 		//----------------------------------------------------------
 		
-		minion = PlayerSide.CURRENT_PLAYER.getMinions().get(1);
+		minion = PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1);
 		
 		minion.hasAttacked(false);
 		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 3);
 		minion.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null);
 
 		assertEquals(board.data_.getNumCards_hand(), 0);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getNumMinions(), 2);
-		assertEquals(PlayerSide.WAITING_PLAYER.getNumMinions(), 2);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
 		assertEquals(board.data_.getMana_p0(), 7);
 		assertEquals(board.data_.getMana_p1(), 8);
 		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 28);
 		assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 28);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getMinions().get(0).getTotalHealth(), 2);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getMinions().get(1).getTotalHealth(), 7 - 3);
-		assertEquals(PlayerSide.WAITING_PLAYER.getMinions().get(0).getTotalHealth(), 2);
-		assertEquals(PlayerSide.WAITING_PLAYER.getMinions().get(1).getTotalHealth(), 7 - 3);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getTotalHealth(), 2);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getTotalHealth(), 7 - 3);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getTotalHealth(), 2);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getTotalHealth(), 7 - 3);
 
-		assertEquals(PlayerSide.CURRENT_PLAYER.getMinions().get(0).getTotalAttack(), 2);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getMinions().get(1).getTotalAttack(), 7);
-		assertEquals(PlayerSide.WAITING_PLAYER.getMinions().get(0).getTotalAttack(), 2);
-		assertEquals(PlayerSide.WAITING_PLAYER.getMinions().get(1).getTotalAttack(), 7);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack(), 2);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack(), 7);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack(), 2);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack(), 7);
 		
 	}
 

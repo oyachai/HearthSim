@@ -89,15 +89,15 @@ public class TestHammerOfWrath {
 		assertTrue(ret instanceof CardDrawNode);
 		assertEquals(((CardDrawNode)ret).getNumCardsToDraw(), 1);
 
-		assertTrue(PlayerSide.CURRENT_PLAYER.getNumMinions() == 2);
-		assertTrue(PlayerSide.WAITING_PLAYER.getNumMinions() == 1);
+		assertTrue(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions() == 2);
+		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions() == 1);
 		assertTrue(board.data_.getCurrentPlayerHero().getHealth() == 30);
 		assertTrue(board.data_.getWaitingPlayerHero().getHealth() == 30);
-		assertTrue(PlayerSide.CURRENT_PLAYER.getMinions().get(0).getHealth() == health0);
-		assertTrue(PlayerSide.CURRENT_PLAYER.getMinions().get(1).getHealth() == health1 - 1);
-		assertTrue(PlayerSide.WAITING_PLAYER.getMinions().get(0).getHealth() == health1 - 1);
-		assertTrue(PlayerSide.CURRENT_PLAYER.getMinions().get(0).getTotalAttack() == attack0);
-		assertTrue(PlayerSide.CURRENT_PLAYER.getMinions().get(1).getTotalAttack() == attack0);
-		assertTrue(PlayerSide.WAITING_PLAYER.getMinions().get(0).getTotalAttack() == attack0);
+		assertTrue(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth() == health0);
+		assertTrue(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getHealth() == health1 - 1);
+		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getHealth() == health1 - 1);
+		assertTrue(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack() == attack0);
+		assertTrue(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack() == attack0);
+		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack() == attack0);
 	}
 }

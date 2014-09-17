@@ -56,22 +56,22 @@ public class TestFrostShock {
 		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
 		assertTrue(ret == null);
 		assertTrue(board.data_.getNumCards_hand() == 1);
-		assertTrue(PlayerSide.CURRENT_PLAYER.getNumMinions() == 2);
-		assertTrue(PlayerSide.WAITING_PLAYER.getNumMinions() == 2);
+		assertTrue(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions() == 2);
+		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions() == 2);
 		assertTrue(board.data_.getCurrentPlayerHero().getHealth() == 30);
 		assertTrue(board.data_.getWaitingPlayerHero().getHealth() == 30);
-		assertTrue(PlayerSide.CURRENT_PLAYER.getMinions().get(0).getHealth() == health0);
-		assertTrue(PlayerSide.CURRENT_PLAYER.getMinions().get(1).getHealth() == health1 - 1);
-		assertTrue(PlayerSide.WAITING_PLAYER.getMinions().get(0).getHealth() == health0);
-		assertTrue(PlayerSide.WAITING_PLAYER.getMinions().get(1).getHealth() == health1 - 1);
-		assertTrue(PlayerSide.CURRENT_PLAYER.getMinions().get(0).getTotalAttack() == attack0);
-		assertTrue(PlayerSide.CURRENT_PLAYER.getMinions().get(1).getTotalAttack() == attack0);
-		assertTrue(PlayerSide.WAITING_PLAYER.getMinions().get(0).getTotalAttack() == attack0);
-		assertTrue(PlayerSide.WAITING_PLAYER.getMinions().get(1).getTotalAttack() == attack0);
-		assertFalse(PlayerSide.CURRENT_PLAYER.getMinions().get(0).getCharge());
-		assertFalse(PlayerSide.CURRENT_PLAYER.getMinions().get(1).getCharge());
-		assertFalse(PlayerSide.CURRENT_PLAYER.getMinions().get(0).getFrozen());
-		assertFalse(PlayerSide.WAITING_PLAYER.getMinions().get(0).getFrozen());
+		assertTrue(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth() == health0);
+		assertTrue(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getHealth() == health1 - 1);
+		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getHealth() == health0);
+		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getHealth() == health1 - 1);
+		assertTrue(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack() == attack0);
+		assertTrue(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack() == attack0);
+		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack() == attack0);
+		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack() == attack0);
+		assertFalse(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getCharge());
+		assertFalse(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getCharge());
+		assertFalse(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getFrozen());
+		assertFalse(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getFrozen());
 	}
 
 	@Test
@@ -84,22 +84,22 @@ public class TestFrostShock {
 		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
 		assertFalse(ret == null);
 		assertTrue(board.data_.getNumCards_hand() == 0);
-		assertTrue(PlayerSide.CURRENT_PLAYER.getNumMinions() == 2);
-		assertTrue(PlayerSide.WAITING_PLAYER.getNumMinions() == 2);
+		assertTrue(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions() == 2);
+		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions() == 2);
 		assertTrue(board.data_.getCurrentPlayerHero().getHealth() == 30);
 		assertTrue(board.data_.getWaitingPlayerHero().getHealth() == 30);
-		assertTrue(PlayerSide.CURRENT_PLAYER.getMinions().get(0).getHealth() == health0);
-		assertTrue(PlayerSide.CURRENT_PLAYER.getMinions().get(1).getHealth() == health1 - 1);
-		assertTrue(PlayerSide.WAITING_PLAYER.getMinions().get(0).getHealth() == health0 - 1);
-		assertTrue(PlayerSide.WAITING_PLAYER.getMinions().get(1).getHealth() == health1 - 1);
-		assertTrue(PlayerSide.CURRENT_PLAYER.getMinions().get(0).getTotalAttack() == attack0);
-		assertTrue(PlayerSide.CURRENT_PLAYER.getMinions().get(1).getTotalAttack() == attack0);
-		assertTrue(PlayerSide.WAITING_PLAYER.getMinions().get(0).getTotalAttack() == attack0);
-		assertTrue(PlayerSide.WAITING_PLAYER.getMinions().get(1).getTotalAttack() == attack0);
-		assertFalse(PlayerSide.CURRENT_PLAYER.getMinions().get(0).getCharge());
-		assertFalse(PlayerSide.CURRENT_PLAYER.getMinions().get(1).getCharge());
-		assertFalse(PlayerSide.CURRENT_PLAYER.getMinions().get(0).getFrozen());
-		assertTrue(PlayerSide.WAITING_PLAYER.getMinions().get(0).getFrozen());
+		assertTrue(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth() == health0);
+		assertTrue(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getHealth() == health1 - 1);
+		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getHealth() == health0 - 1);
+		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getHealth() == health1 - 1);
+		assertTrue(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack() == attack0);
+		assertTrue(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack() == attack0);
+		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack() == attack0);
+		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack() == attack0);
+		assertFalse(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getCharge());
+		assertFalse(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getCharge());
+		assertFalse(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getFrozen());
+		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getFrozen());
 	}
 
 }

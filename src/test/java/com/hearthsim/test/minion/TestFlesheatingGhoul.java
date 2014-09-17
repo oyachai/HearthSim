@@ -92,28 +92,28 @@ public class TestFlesheatingGhoul {
 		
 		assertTrue(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 1);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getNumMinions(), 3);
-		assertEquals(PlayerSide.WAITING_PLAYER.getNumMinions(), 4);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 3);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 4);
 		assertEquals(board.data_.getMana_p0(), 10);
 		assertEquals(board.data_.getMana_p1(), 10);
 		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
 		assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
 		
-		assertEquals(PlayerSide.CURRENT_PLAYER.getMinions().get(0).getTotalHealth(), 4);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getMinions().get(1).getTotalHealth(), 3);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getMinions().get(2).getTotalHealth(), 6);
-		assertEquals(PlayerSide.WAITING_PLAYER.getMinions().get(0).getTotalHealth(), 1);
-		assertEquals(PlayerSide.WAITING_PLAYER.getMinions().get(1).getTotalHealth(), 4);
-		assertEquals(PlayerSide.WAITING_PLAYER.getMinions().get(2).getTotalHealth(), 2);
-		assertEquals(PlayerSide.WAITING_PLAYER.getMinions().get(3).getTotalHealth(), 7);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getTotalHealth(), 4);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getTotalHealth(), 3);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(2).getTotalHealth(), 6);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getTotalHealth(), 1);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getTotalHealth(), 4);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(2).getTotalHealth(), 2);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(3).getTotalHealth(), 7);
 
-		assertEquals(PlayerSide.CURRENT_PLAYER.getMinions().get(0).getTotalAttack(), 4);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getMinions().get(1).getTotalAttack(), 3);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getMinions().get(2).getTotalAttack(), 7);
-		assertEquals(PlayerSide.WAITING_PLAYER.getMinions().get(0).getTotalAttack(), 3);
-		assertEquals(PlayerSide.WAITING_PLAYER.getMinions().get(1).getTotalAttack(), 5);
-		assertEquals(PlayerSide.WAITING_PLAYER.getMinions().get(2).getTotalAttack(), 2);
-		assertEquals(PlayerSide.WAITING_PLAYER.getMinions().get(3).getTotalAttack(), 7);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack(), 4);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack(), 3);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(2).getTotalAttack(), 7);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack(), 3);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack(), 5);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(2).getTotalAttack(), 2);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(3).getTotalAttack(), 7);
 	}
 
 	@Test
@@ -126,36 +126,36 @@ public class TestFlesheatingGhoul {
 		
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 0);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getNumMinions(), 4);
-		assertEquals(PlayerSide.WAITING_PLAYER.getNumMinions(), 4);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 4);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 4);
 		assertEquals(board.data_.getMana_p0(), 7);
 		assertEquals(board.data_.getMana_p1(), 10);
 		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
 		assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
 		
-		assertEquals(PlayerSide.CURRENT_PLAYER.getMinions().get(0).getTotalHealth(), 4);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getMinions().get(1).getTotalHealth(), 3);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getMinions().get(2).getTotalHealth(), 6);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getMinions().get(3).getTotalHealth(), 4);
-		assertEquals(PlayerSide.WAITING_PLAYER.getMinions().get(0).getTotalHealth(), 1);
-		assertEquals(PlayerSide.WAITING_PLAYER.getMinions().get(1).getTotalHealth(), 4);
-		assertEquals(PlayerSide.WAITING_PLAYER.getMinions().get(2).getTotalHealth(), 2);
-		assertEquals(PlayerSide.WAITING_PLAYER.getMinions().get(3).getTotalHealth(), 7);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getTotalHealth(), 4);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getTotalHealth(), 3);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(2).getTotalHealth(), 6);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(3).getTotalHealth(), 4);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getTotalHealth(), 1);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getTotalHealth(), 4);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(2).getTotalHealth(), 2);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(3).getTotalHealth(), 7);
 		
-		assertEquals(PlayerSide.CURRENT_PLAYER.getMinions().get(0).getAuraHealth(), 1);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getMinions().get(1).getAuraHealth(), 1);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getMinions().get(2).getAuraHealth(), 0);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getMinions().get(3).getAuraHealth(), 1);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getAuraHealth(), 1);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getAuraHealth(), 1);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(2).getAuraHealth(), 0);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(3).getAuraHealth(), 1);
 		
 
-		assertEquals(PlayerSide.CURRENT_PLAYER.getMinions().get(0).getTotalAttack(), 4);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getMinions().get(1).getTotalAttack(), 3);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getMinions().get(2).getTotalAttack(), 7);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getMinions().get(3).getTotalAttack(), 4);
-		assertEquals(PlayerSide.WAITING_PLAYER.getMinions().get(0).getTotalAttack(), 3);
-		assertEquals(PlayerSide.WAITING_PLAYER.getMinions().get(1).getTotalAttack(), 5);
-		assertEquals(PlayerSide.WAITING_PLAYER.getMinions().get(2).getTotalAttack(), 2);
-		assertEquals(PlayerSide.WAITING_PLAYER.getMinions().get(3).getTotalAttack(), 7);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack(), 4);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack(), 3);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(2).getTotalAttack(), 7);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(3).getTotalAttack(), 4);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack(), 3);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack(), 5);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(2).getTotalAttack(), 2);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(3).getTotalAttack(), 7);
 
 		
 		//---------------------------------------------------------------
@@ -177,9 +177,9 @@ public class TestFlesheatingGhoul {
 		assertEquals(ret.data_.getCurrentPlayer().getMinions().get(2).getTotalHealth(), 2);
 		assertEquals(ret.data_.getWaitingPlayer().getMinions().get(0).getTotalHealth(), 5);
 
-		assertEquals(PlayerSide.CURRENT_PLAYER.getMinions().get(0).getAuraHealth(), 0);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getMinions().get(1).getAuraHealth(), 0);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getMinions().get(2).getAuraHealth(), 0);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getAuraHealth(), 0);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getAuraHealth(), 0);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(2).getAuraHealth(), 0);
 
 		assertEquals(ret.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack(), 3);
 		assertEquals(ret.data_.getCurrentPlayer().getMinions().get(1).getTotalAttack(), 2);

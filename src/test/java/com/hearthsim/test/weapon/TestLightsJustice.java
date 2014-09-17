@@ -60,14 +60,14 @@ public class TestLightsJustice {
 		
 		assertTrue(ret == null);
 		assertTrue(board.data_.getNumCards_hand() == 1);
-		assertTrue(PlayerSide.CURRENT_PLAYER.getNumMinions() == 2);
-		assertTrue(PlayerSide.WAITING_PLAYER.getNumMinions() == 2);
+		assertTrue(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions() == 2);
+		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions() == 2);
 		assertTrue(board.data_.getCurrentPlayerHero().getHealth() == 30);
 		assertTrue(board.data_.getWaitingPlayerHero().getHealth() == 30);
-		assertTrue(PlayerSide.CURRENT_PLAYER.getMinions().get(0).getHealth() == health0);
-		assertTrue(PlayerSide.CURRENT_PLAYER.getMinions().get(1).getHealth() == health1 - 1);
-		assertTrue(PlayerSide.WAITING_PLAYER.getMinions().get(0).getHealth() == health0);
-		assertTrue(PlayerSide.WAITING_PLAYER.getMinions().get(1).getHealth() == health1 - 1);
+		assertTrue(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth() == health0);
+		assertTrue(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getHealth() == health1 - 1);
+		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getHealth() == health0);
+		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getHealth() == health1 - 1);
 	}
 
 
@@ -80,14 +80,14 @@ public class TestLightsJustice {
 		
 		assertTrue(ret == null);
 		assertTrue(board.data_.getNumCards_hand() == 1);
-		assertTrue(PlayerSide.CURRENT_PLAYER.getNumMinions() == 2);
-		assertTrue(PlayerSide.WAITING_PLAYER.getNumMinions() == 2);
+		assertTrue(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions() == 2);
+		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions() == 2);
 		assertTrue(board.data_.getCurrentPlayerHero().getHealth() == 30);
 		assertTrue(board.data_.getWaitingPlayerHero().getHealth() == 30);
-		assertTrue(PlayerSide.CURRENT_PLAYER.getMinions().get(0).getHealth() == health0);
-		assertTrue(PlayerSide.CURRENT_PLAYER.getMinions().get(1).getHealth() == health1 - 1);
-		assertTrue(PlayerSide.WAITING_PLAYER.getMinions().get(0).getHealth() == health0);
-		assertTrue(PlayerSide.WAITING_PLAYER.getMinions().get(1).getHealth() == health1 - 1);
+		assertTrue(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth() == health0);
+		assertTrue(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getHealth() == health1 - 1);
+		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getHealth() == health0);
+		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getHealth() == health1 - 1);
 	}
 
 	@Test
@@ -99,16 +99,16 @@ public class TestLightsJustice {
 		
 		assertFalse(ret == null);
 		assertTrue(board.data_.getNumCards_hand() == 0);
-		assertTrue(PlayerSide.CURRENT_PLAYER.getNumMinions() == 2);
-		assertTrue(PlayerSide.WAITING_PLAYER.getNumMinions() == 2);
+		assertTrue(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions() == 2);
+		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions() == 2);
 		assertTrue(board.data_.getCurrentPlayerHero().getHealth() == 30);
 		assertTrue(board.data_.getWaitingPlayerHero().getHealth() == 30);
 		assertTrue(board.data_.getCurrentPlayerHero().getAttack() == 1);
 		assertTrue(board.data_.getCurrentPlayerHero().getWeaponCharge() == 4);
-		assertTrue(PlayerSide.CURRENT_PLAYER.getMinions().get(0).getHealth() == health0);
-		assertTrue(PlayerSide.CURRENT_PLAYER.getMinions().get(1).getHealth() == health1 - 1);
-		assertTrue(PlayerSide.WAITING_PLAYER.getMinions().get(0).getHealth() == health0);
-		assertTrue(PlayerSide.WAITING_PLAYER.getMinions().get(1).getHealth() == health1 - 1);
+		assertTrue(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth() == health0);
+		assertTrue(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getHealth() == health1 - 1);
+		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getHealth() == health0);
+		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getHealth() == health1 - 1);
 		
 		
 		
@@ -118,16 +118,16 @@ public class TestLightsJustice {
 
 		assertFalse(ret == null);
 		assertTrue(board.data_.getNumCards_hand() == 0);
-		assertTrue(PlayerSide.CURRENT_PLAYER.getNumMinions() == 2);
-		assertTrue(PlayerSide.WAITING_PLAYER.getNumMinions() == 2);
+		assertTrue(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions() == 2);
+		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions() == 2);
 		assertTrue(board.data_.getCurrentPlayerHero().getHealth() == 30);
 		assertTrue(board.data_.getWaitingPlayerHero().getHealth() == 29);
 		assertTrue(board.data_.getCurrentPlayerHero().getAttack() == 1);
 		assertTrue(board.data_.getCurrentPlayerHero().getWeaponCharge() == 3);
-		assertTrue(PlayerSide.CURRENT_PLAYER.getMinions().get(0).getHealth() == health0);
-		assertTrue(PlayerSide.CURRENT_PLAYER.getMinions().get(1).getHealth() == health1 - 1);
-		assertTrue(PlayerSide.WAITING_PLAYER.getMinions().get(0).getHealth() == health0);
-		assertTrue(PlayerSide.WAITING_PLAYER.getMinions().get(1).getHealth() == health1 - 1);
+		assertTrue(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth() == health0);
+		assertTrue(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getHealth() == health1 - 1);
+		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getHealth() == health0);
+		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getHealth() == health1 - 1);
 		
 		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
 		ret = hero.attack(ret.data_.getWaitingPlayer(), target, ret, deck, null);
@@ -139,16 +139,16 @@ public class TestLightsJustice {
 		ret = hero.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null);
 		assertFalse(ret == null);
 		assertTrue(board.data_.getNumCards_hand() == 0);
-		assertTrue(PlayerSide.CURRENT_PLAYER.getNumMinions() == 2);
-		assertTrue(PlayerSide.WAITING_PLAYER.getNumMinions() == 2);
+		assertTrue(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions() == 2);
+		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions() == 2);
 		assertTrue(board.data_.getCurrentPlayerHero().getHealth() == 30 - attack0);
 		assertTrue(board.data_.getWaitingPlayerHero().getHealth() == 29);
 		assertTrue(board.data_.getCurrentPlayerHero().getAttack() == 1);
 		assertTrue(board.data_.getCurrentPlayerHero().getWeaponCharge() == 2);
-		assertTrue(PlayerSide.CURRENT_PLAYER.getMinions().get(0).getHealth() == health0);
-		assertTrue(PlayerSide.CURRENT_PLAYER.getMinions().get(1).getHealth() == health1 - 1);
-		assertTrue(PlayerSide.WAITING_PLAYER.getMinions().get(0).getHealth() == health0 - 1);
-		assertTrue(PlayerSide.WAITING_PLAYER.getMinions().get(1).getHealth() == health1 - 1);
+		assertTrue(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth() == health0);
+		assertTrue(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getHealth() == health1 - 1);
+		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getHealth() == health0 - 1);
+		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getHealth() == health1 - 1);
 
 	}
 }
