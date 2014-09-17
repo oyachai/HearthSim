@@ -1,9 +1,8 @@
 package com.hearthsim.results;
 
 import com.hearthsim.card.minion.Hero;
-import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
-import com.hearthsim.model.PlayerModel;
+import com.hearthsim.model.PlayerSide;
 import org.json.JSONObject;
 
 public class GameSimpleRecord implements GameRecord {
@@ -27,10 +26,10 @@ public class GameSimpleRecord implements GameRecord {
 	}
 	
 	@Override
-	public void put(int turn, PlayerModel activePlayerModel, BoardModel board) {
+	public void put(int turn, PlayerSide activePlayerSide, BoardModel board) {
         int activePlayerIndex;
         int inactivePlayerIndex;
-        if (board.getCurrentPlayer() == activePlayerModel) {
+        if (board.getCurrentPlayer() == activePlayerSide) {
             activePlayerIndex = 0;
             inactivePlayerIndex = 1;
         } else {

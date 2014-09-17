@@ -5,6 +5,7 @@ import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
+import com.hearthsim.model.PlayerSide;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.results.GameRecord;
 import com.hearthsim.results.GameResult;
@@ -70,8 +71,8 @@ public class Game {
 		GameRecord record = new GameSimpleRecord();
 
 
-		record.put(0, boardModel_.getCurrentPlayer(), (BoardModel) boardModel_.deepCopy());
-		record.put(0, boardModel_.getWaitingPlayer(), (BoardModel) boardModel_.flipPlayers().deepCopy());
+		record.put(0, PlayerSide.CURRENT_PLAYER, (BoardModel) boardModel_.deepCopy());
+		record.put(0, PlayerSide.WAITING_PLAYER, (BoardModel) boardModel_.flipPlayers().deepCopy());
 
         GameResult gameResult;
         for (int turnCount = 0; turnCount < maxTurns_; ++turnCount) {
@@ -109,7 +110,7 @@ public class Game {
         boardModel_ = playAITurn(turnCount, boardModel_, ai);
         endTurn(boardModel_);
 
-        record.put(turnCount + 1, boardModel_.getCurrentPlayer(), (BoardModel) boardModel_.deepCopy());
+        record.put(turnCount + 1, PlayerSide.CURRENT_PLAYER, (BoardModel) boardModel_.deepCopy());
 
         gameResult = checkGameOver(turnCount, record);
         if (gameResult != null) return gameResult;
@@ -120,9 +121,9 @@ public class Game {
     }
 
     public GameResult checkGameOver(int turnCount, GameRecord record){
-        if (!boardModel_.isAlive(boardModel_.getCurrentPlayer())) {
+        if (!boardModel_.isAlive(PlayerSide.CURRENT_PLAYER)) {
             return new GameResult(s0_, s1_, turnCount + 1, record);
-        } else if (!boardModel_.isAlive(boardModel_.getWaitingPlayer())) {
+        } else if (!boardModel_.isAlive(PlayerSide.WAITING_PLAYER)) {
             return new GameResult(s0_, s0_, turnCount + 1, record);
         }
 

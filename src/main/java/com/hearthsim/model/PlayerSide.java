@@ -12,4 +12,8 @@ public enum PlayerSide {
     public PlayerModel getPlayer(HearthTreeNode boardState) {
         return boardState.data_.modelForSide(this);
     }
+
+    public PlayerModel getPlayer(BoardModel boardModel) {
+        return boardModel.modelForSide(this);
+    }
 }

@@ -150,6 +150,16 @@ public class BoardModel implements DeepCopyable {
         return model;
     }
 
+    public PlayerSide sideForModel(PlayerModel model){
+        if (model.equals(currentPlayer)){
+            return PlayerSide.CURRENT_PLAYER;
+        }else if (model.equals(waitingPlayer)){
+            return PlayerSide.WAITING_PLAYER;
+        }else {
+            throw new RuntimeException("unexpected player model");
+        }
+    }
+
     public Minion getMinion(PlayerSide side, int index) throws HSInvalidPlayerIndexException {
         return modelForSide(side).getMinions().get(index);
     }
@@ -506,8 +516,8 @@ public class BoardModel implements DeepCopyable {
     //----------------------------------------------------------------------------
 
 
-    public boolean isAlive(PlayerModel playerModel) {
-        return playerModel.getHero().getHealth() > 0;
+    public boolean isAlive(PlayerSide playerSide) {
+        return modelForSide(playerSide).getHero().getHealth() > 0;
     }
 
     public ArrayList<Integer> getAttackableMinions() {
@@ -965,19 +975,17 @@ public class BoardModel implements DeepCopyable {
         this.waitingPlayer = waitingPlayer;
     }
 
-    public PlayerModel getOtherPlayer(PlayerModel playerModel){
-        PlayerModel otherPlayer;
-        if (playerModel == currentPlayer){
-            otherPlayer = waitingPlayer;
+    public PlayerSide getOtherPlayer(PlayerSide playerSide){
+        if (playerSide == PlayerSide.CURRENT_PLAYER){
+            return PlayerSide.WAITING_PLAYER;
         }else{
-            otherPlayer = currentPlayer;
+            return PlayerSide.CURRENT_PLAYER;
         }
-        return otherPlayer;
     }
 
     // todo: remove asap, simply to aid in refactoring
-    public int getIndexOfPlayer(PlayerModel playerModel) {
-        if (playerModel == currentPlayer){
+    public int getIndexOfPlayer(PlayerSide playerSide) {
+        if (playerSide == PlayerSide.CURRENT_PLAYER){
             return 0;
         }else{
             return 1;
@@ -985,11 +993,11 @@ public class BoardModel implements DeepCopyable {
     }
 
     // todo: remove asap, simply to aid in refactoring
-    public PlayerModel getPlayerByIndex(int index) {
+    public PlayerSide getPlayerByIndex(int index) {
         if (index == 0){
-            return currentPlayer;
+            return PlayerSide.CURRENT_PLAYER;
         }else{
-            return waitingPlayer;
+            return PlayerSide.WAITING_PLAYER;
         }
     }
 

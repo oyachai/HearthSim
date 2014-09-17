@@ -7,7 +7,6 @@ import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
-import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -243,11 +242,11 @@ public class Leokk extends Beast {
 	}
 	
 	private HearthTreeNode doBuffs(
-            PlayerModel thisMinionPlayerModel,
-            PlayerModel placedMinionPlayerModel,
+            PlayerSide thisMinionPlayerSide,
+            PlayerSide placedMinionPlayerSide,
             Minion placedMinion,
             HearthTreeNode boardState) throws HSInvalidPlayerIndexException {
-		if (thisMinionPlayerModel != placedMinionPlayerModel)
+		if (thisMinionPlayerSide != placedMinionPlayerSide)
 			return boardState;
 		if (placedMinion != this)
 			placedMinion.setAuraAttack((byte)(placedMinion.getAuraAttack() + 1));

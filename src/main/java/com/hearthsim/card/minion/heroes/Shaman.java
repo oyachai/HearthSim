@@ -87,7 +87,7 @@ public class Shaman extends Hero {
 		if (targetPlayerSide != PlayerSide.CURRENT_PLAYER || isNotHero(targetMinion))
 			return null;
 
-		int numMinions = targetPlayerSide.getNumMinions();
+		int numMinions = targetPlayerSide.getPlayer(boardState).getNumMinions();
 		if (numMinions >= 7) {
 			return null;
 		}
@@ -139,20 +139,15 @@ public class Shaman extends Hero {
 					allTotemsNotSummonable = false;
 
 					HearthTreeNode newState = toRet.addChild(new HearthTreeNode((BoardModel)toRet.data_.deepCopy()));
-                    PlayerModel newTargetPlayerModel;
-                    if (PlayerSide.CURRENT_PLAYER.equals(targetPlayerSide)){
-                        newTargetPlayerModel = PlayerSide.CURRENT_PLAYER;
-                    }else{
-                        newTargetPlayerModel = PlayerSide.WAITING_PLAYER;
-                    }
+                    PlayerSide newTargetPlayerSide = newState.data_.getOtherPlayer(targetPlayerSide);
 
-					Minion summonTarget = newState.data_.getCharacter(newTargetPlayerModel, numMinions);
+					Minion summonTarget = newState.data_.getCharacter(newTargetPlayerSide, numMinions);
 					newState.data_.setMana_p0(newState.data_.getMana_p0() - HERO_ABILITY_COST);
 					newState.data_.getCurrentPlayerHero().hasBeenUsed(true);
 
 
 
-					newState = totemToSummon.summonMinion(newTargetPlayerModel, summonTarget, newState, deckPlayer0, deckPlayer1, false);
+					newState = totemToSummon.summonMinion(newTargetPlayerSide, summonTarget, newState, deckPlayer0, deckPlayer1, false);
 				}
 			}
 			if (allTotemsNotSummonable) 

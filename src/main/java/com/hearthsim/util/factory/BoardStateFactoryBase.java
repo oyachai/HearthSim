@@ -5,6 +5,7 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
+import com.hearthsim.model.PlayerSide;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.util.IdentityLinkedList;
 import com.hearthsim.util.tree.CardDrawNode;
@@ -72,9 +73,9 @@ public class BoardStateFactoryBase {
 		boolean heroAbilityUsable = false;
 		if (!boardStateNode.data_.getCurrentPlayerHero().hasBeenUsed()) {
 			//Case0: Decided to use the hero ability -- Use it on everything!
-			for(int i = 0; i <= boardStateNode.data_.getCurrentPlayer().getNumMinions(); ++i) {
+			for(int i = 0; i <= PlayerSide.CURRENT_PLAYER.getPlayer(boardStateNode).getNumMinions(); ++i) {
 				Minion targetMinion = boardStateNode.data_.getCurrentPlayerCharacter(i);
-				if (boardStateNode.data_.getCurrentPlayerHero().canBeUsedOn(boardStateNode.data_.getCurrentPlayer(), targetMinion, boardStateNode.data_)) {
+				if (boardStateNode.data_.getCurrentPlayerHero().canBeUsedOn(PlayerSide.CURRENT_PLAYER, targetMinion, boardStateNode.data_)) {
 					HearthTreeNode newState = new HearthTreeNode((BoardModel)boardStateNode.data_.deepCopy());
 					Minion copiedTargetMinion = newState.data_.getCurrentPlayerCharacter(i);
 					newState = newState.data_.getCurrentPlayerHero().useHeroAbility(PlayerSide.CURRENT_PLAYER, copiedTargetMinion, newState, deckPlayer0_, deckPlayer1_, false);
@@ -85,9 +86,9 @@ public class BoardStateFactoryBase {
 					}
 				}
 			}
-			for(int i = 0; i <= boardStateNode.data_.getWaitingPlayer().getNumMinions(); ++i) {
+			for(int i = 0; i <= PlayerSide.WAITING_PLAYER.getPlayer(boardStateNode).getNumMinions(); ++i) {
 				Minion targetMinion = boardStateNode.data_.getWaitingPlayerCharacter(i);
-				if (boardStateNode.data_.getCurrentPlayerHero().canBeUsedOn(boardStateNode.data_.getWaitingPlayer(), targetMinion, boardStateNode.data_)) {
+				if (boardStateNode.data_.getCurrentPlayerHero().canBeUsedOn(PlayerSide.WAITING_PLAYER, targetMinion, boardStateNode.data_)) {
 					HearthTreeNode newState = new HearthTreeNode((BoardModel)boardStateNode.data_.deepCopy());
 					Minion copiedTargetMinion = newState.data_.getWaitingPlayerCharacter(i);
 					newState = newState.data_.getCurrentPlayerHero().useHeroAbility(PlayerSide.WAITING_PLAYER, copiedTargetMinion, newState, deckPlayer0_, deckPlayer1_, false);
@@ -115,11 +116,11 @@ public class BoardStateFactoryBase {
 		//Use the minions that we have out on the board
 		//the case where I choose to not use any more minions
 		boolean allAttacked = boardStateNode.data_.getCurrentPlayerHero().hasAttacked();
-		for ( final Minion minion : boardStateNode.data_.getCurrentPlayer().getMinions()) {
+		for ( final Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(boardStateNode).getMinions()) {
 			allAttacked = allAttacked && minion.hasAttacked();
 		}
 		
-		if (!allAttacked && boardStateNode.data_.getCurrentPlayer().getNumMinions() > 0) {
+		if (!allAttacked && PlayerSide.CURRENT_PLAYER.getPlayer(boardStateNode).getNumMinions() > 0) {
 			HearthTreeNode newState = new HearthTreeNode((BoardModel)boardStateNode.data_.deepCopy());
 			for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(newState).getMinions()) {
 				minion.hasAttacked(true);
@@ -143,8 +144,8 @@ public class BoardStateFactoryBase {
 			}				
 		}
 		//attack with minion
-		for (int ic = 0; ic < boardStateNode.data_.getCurrentPlayer().getNumMinions(); ++ic) {
-			final Minion minion = boardStateNode.data_.getCurrentPlayer().getMinions().get(ic);
+		for (int ic = 0; ic < PlayerSide.CURRENT_PLAYER.getPlayer(boardStateNode).getNumMinions(); ++ic) {
+			final Minion minion = PlayerSide.CURRENT_PLAYER.getPlayer(boardStateNode).getMinions().get(ic);
 			if (minion.hasAttacked()) {
 				continue;
 			}
@@ -188,9 +189,9 @@ public class BoardStateFactoryBase {
 		for (int ic = 0; ic < boardStateNode.data_.getNumCards_hand(); ++ic) {
 			if (boardStateNode.data_.getCurrentPlayerCardHand(ic).getMana() <= mana && !boardStateNode.data_.getCurrentPlayerCardHand(ic).hasBeenUsed()) {
 				//we can use this card!  Let's try using it on everything
-				for(int i = 0; i <= boardStateNode.data_.getCurrentPlayer().getNumMinions(); ++i) {
+				for(int i = 0; i <= PlayerSide.CURRENT_PLAYER.getPlayer(boardStateNode).getNumMinions(); ++i) {
 					Minion targetMinion = boardStateNode.data_.getCurrentPlayerCharacter(i);
-					if (boardStateNode.data_.getCurrentPlayerCardHand(ic).canBeUsedOn(boardStateNode.data_.getCurrentPlayer(), targetMinion, boardStateNode.data_)) {
+					if (boardStateNode.data_.getCurrentPlayerCardHand(ic).canBeUsedOn(PlayerSide.CURRENT_PLAYER, targetMinion, boardStateNode.data_)) {
 						HearthTreeNode newState = new HearthTreeNode((BoardModel)boardStateNode.data_.deepCopy());
 						Minion copiedTargetMinion = newState.data_.getCurrentPlayerCharacter(i);
 						Card card = newState.data_.getCurrentPlayerCardHand(ic);
@@ -201,9 +202,9 @@ public class BoardStateFactoryBase {
 						}
 					}
 				}
-				for(int i = 0; i <= boardStateNode.data_.getWaitingPlayer().getNumMinions(); ++i) {
+				for(int i = 0; i <= PlayerSide.WAITING_PLAYER.getPlayer(boardStateNode).getNumMinions(); ++i) {
 					Minion targetMinion = boardStateNode.data_.getWaitingPlayerCharacter(i);
-					if (boardStateNode.data_.getCurrentPlayerCardHand(ic).canBeUsedOn(boardStateNode.data_.getWaitingPlayer(), targetMinion, boardStateNode.data_)) {
+					if (boardStateNode.data_.getCurrentPlayerCardHand(ic).canBeUsedOn(PlayerSide.WAITING_PLAYER, targetMinion, boardStateNode.data_)) {
 						HearthTreeNode newState = new HearthTreeNode((BoardModel)boardStateNode.data_.deepCopy());
 						Minion copiedTargetMinion = newState.data_.getWaitingPlayerCharacter(i);
 						Card card = newState.data_.getCurrentPlayerCardHand(ic);
@@ -264,7 +265,7 @@ public class BoardStateFactoryBase {
 		}
 		
 		boolean lethalFound = false;
-        if (!boardStateNode.data_.isAlive(boardStateNode.data_.getCurrentPlayer()) || !boardStateNode.data_.isAlive(boardStateNode.data_.getWaitingPlayer()) && !boardStateNode.data_.isAlive(boardStateNode.data_.getWaitingPlayer())) {
+        if (!boardStateNode.data_.isAlive(PlayerSide.CURRENT_PLAYER) || !boardStateNode.data_.isAlive(PlayerSide.WAITING_PLAYER) && !boardStateNode.data_.isAlive(PlayerSide.WAITING_PLAYER)) {
             //one of the players is dead, no reason to keep playing
             lethal_ = true;
             lethalFound = true;
@@ -351,7 +352,8 @@ public class BoardStateFactoryBase {
 			}
 		}
 		for (BoardModel.MinionPlayerPair minionIdPair : deadMinions) {
-			toRet = minionIdPair.getMinion().destroyed(minionIdPair.getPlayerModel(), toRet, deckPlayer0, deckPlayer1);
+            PlayerSide playerSide = boardState.data_.sideForModel(minionIdPair.getPlayerModel());
+            toRet = minionIdPair.getMinion().destroyed(playerSide, toRet, deckPlayer0, deckPlayer1);
 			toRet.data_.removeMinion(minionIdPair);
 		}
 		if (toRet.data_.hasDeadMinions())
