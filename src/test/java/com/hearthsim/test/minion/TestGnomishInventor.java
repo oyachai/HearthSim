@@ -131,8 +131,8 @@ public class TestGnomishInventor {
 		BoardModel resBoard = ai0.playTurn(0, board.data_, playerModel0, playerModel1);
 		
 		assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 1); //1 card drawn from GnomishInventor, not enough mana to play it
-		assertEquals(resBoard.getCurrentPlayer().getNumMinions(), 3);
-		assertEquals(resBoard.getWaitingPlayer().getNumMinions(), 1); //1 minion should have been killed
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(ret).getNumMinions(), 3);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getNumMinions(), 1); //1 minion should have been killed
 		assertEquals(resBoard.getMana_p0(), 1); //4 mana used for Gnomish Inventor
 		assertEquals(resBoard.getMana_p1(), 5);
 		assertEquals(resBoard.getCurrentPlayerHero().getHealth(), 30);
@@ -151,8 +151,8 @@ public class TestGnomishInventor {
 		BoardModel resBoard = ai0.playTurn(0, board.data_, playerModel0, playerModel1);
 		
 		assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 0); //1 card drawn from GnomishInventor, and had enough mana to play it
-		assertEquals(resBoard.getCurrentPlayer().getNumMinions(), 4);
-		assertEquals(resBoard.getWaitingPlayer().getNumMinions(), 1); //1 minion should have been killed
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(ret).getNumMinions(), 4);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getNumMinions(), 1); //1 minion should have been killed
 		assertEquals(resBoard.getMana_p0(), 1); //4 mana used for Gnomish Inventor, 2 for Bloodfen Raptor
 		assertEquals(resBoard.getMana_p1(), 7);
 		assertEquals(resBoard.getCurrentPlayerHero().getHealth(), 30);

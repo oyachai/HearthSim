@@ -54,10 +54,10 @@ public class TestCruelTaskmaster {
 		
 		HearthTreeNode tmpBoard = new HearthTreeNode(board.data_.flipPlayers());
 		try {
-			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(tmpPlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
-			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(tmpPlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
-			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(tmpPlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
-			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(tmpPlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
+			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
+			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
+			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
+			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
 		} catch (HSException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -129,7 +129,7 @@ public class TestCruelTaskmaster {
 		assertFalse(ret == null);
 		assertEquals(ret.data_.getNumCards_hand(), 0);
 		assertEquals(ret.data_.getCurrentPlayer().getNumMinions(), 4);
-		assertEquals(ret.data_.getWaitingPlayer().getNumMinions(), 4);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getNumMinions(), 4);
 		assertEquals(ret.data_.getMana_p0(), 8);
 		assertEquals(ret.data_.getMana_p1(), 10);
 		assertEquals(ret.data_.getCurrentPlayerHero().getHealth(), 30);
@@ -139,19 +139,19 @@ public class TestCruelTaskmaster {
 		assertEquals(ret.data_.getCurrentPlayer().getMinions().get(1).getTotalHealth(), 4);
 		assertEquals(ret.data_.getCurrentPlayer().getMinions().get(2).getTotalHealth(), 3);
 		assertEquals(ret.data_.getCurrentPlayer().getMinions().get(3).getTotalHealth(), 6);
-		assertEquals(ret.data_.getWaitingPlayer().getMinions().get(0).getTotalHealth(), 1);
-		assertEquals(ret.data_.getWaitingPlayer().getMinions().get(1).getTotalHealth(), 1);
-		assertEquals(ret.data_.getWaitingPlayer().getMinions().get(2).getTotalHealth(), 2);
-		assertEquals(ret.data_.getWaitingPlayer().getMinions().get(3).getTotalHealth(), 7);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(0).getTotalHealth(), 1);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(1).getTotalHealth(), 1);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(2).getTotalHealth(), 2);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(3).getTotalHealth(), 7);
 
 		assertEquals(ret.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack(), 4);
 		assertEquals(ret.data_.getCurrentPlayer().getMinions().get(1).getTotalAttack(), 4);
 		assertEquals(ret.data_.getCurrentPlayer().getMinions().get(2).getTotalAttack(), 3);
 		assertEquals(ret.data_.getCurrentPlayer().getMinions().get(3).getTotalAttack(), 7);
-		assertEquals(ret.data_.getWaitingPlayer().getMinions().get(0).getTotalAttack(), 3);
-		assertEquals(ret.data_.getWaitingPlayer().getMinions().get(1).getTotalAttack(), 5);
-		assertEquals(ret.data_.getWaitingPlayer().getMinions().get(2).getTotalAttack(), 2);
-		assertEquals(ret.data_.getWaitingPlayer().getMinions().get(3).getTotalAttack(), 7);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(0).getTotalAttack(), 3);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(1).getTotalAttack(), 5);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(2).getTotalAttack(), 2);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(3).getTotalAttack(), 7);
 		
 		assertEquals(ret.numChildren(), 7);
 		

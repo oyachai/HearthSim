@@ -59,21 +59,21 @@ public class TestHammerOfWrath {
 		assertTrue(ret instanceof CardDrawNode);
 		assertEquals(((CardDrawNode)ret).getNumCardsToDraw(), 1);
 		assertTrue(ret.data_.getCurrentPlayer().getNumMinions() == 2);
-		assertTrue(ret.data_.getWaitingPlayer().getNumMinions() == 2);
+		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(ret).getNumMinions() == 2);
 		assertTrue(ret.data_.getCurrentPlayerHero().getHealth() == 27);
 		assertTrue(ret.data_.getWaitingPlayerHero().getHealth() == 30);
 		assertTrue(ret.data_.getCurrentPlayer().getMinions().get(0).getHealth() == health0);
 		assertTrue(ret.data_.getCurrentPlayer().getMinions().get(1).getHealth() == health1 - 1);
-		assertTrue(ret.data_.getWaitingPlayer().getMinions().get(0).getHealth() == health0);
-		assertTrue(ret.data_.getWaitingPlayer().getMinions().get(1).getHealth() == health1 - 1);
+		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(0).getHealth() == health0);
+		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(1).getHealth() == health1 - 1);
 		assertTrue(ret.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack() == attack0);
 		assertTrue(ret.data_.getCurrentPlayer().getMinions().get(1).getTotalAttack() == attack0);
-		assertTrue(ret.data_.getWaitingPlayer().getMinions().get(0).getTotalAttack() == attack0);
-		assertTrue(ret.data_.getWaitingPlayer().getMinions().get(1).getTotalAttack() == attack0);
+		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(0).getTotalAttack() == attack0);
+		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(1).getTotalAttack() == attack0);
 		assertFalse(ret.data_.getCurrentPlayer().getMinions().get(0).getCharge());
 		assertFalse(ret.data_.getCurrentPlayer().getMinions().get(1).getCharge());
 		assertFalse(ret.data_.getCurrentPlayer().getMinions().get(0).getFrozen());
-		assertFalse(ret.data_.getWaitingPlayer().getMinions().get(0).getFrozen());
+		assertFalse(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(0).getFrozen());
 	}
 	
 	@Test

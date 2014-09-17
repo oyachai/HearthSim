@@ -113,7 +113,7 @@ public class TestFieryWarAxe {
 		
 		Minion hero = ret.data_.getCurrentPlayerHero();
 		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
-		ret = hero.attack(ret.data_.getWaitingPlayer(), target, ret, deck, null);
+		ret = hero.attack(PlayerSide.WAITING_PLAYER, target, ret, deck, null);
 
 		assertFalse(ret == null);
 		assertTrue(board.data_.getNumCards_hand() == 0);
@@ -129,7 +129,7 @@ public class TestFieryWarAxe {
 		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getHealth() == health1 - 1);
 		
 		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
-		ret = hero.attack(ret.data_.getWaitingPlayer(), target, ret, deck, null);
+		ret = hero.attack(PlayerSide.WAITING_PLAYER, target, ret, deck, null);
 		assertTrue(ret == null);
 		
 		

@@ -55,8 +55,8 @@ public class TestArchmageAntonidas {
 		
 		HearthTreeNode tmpBoard = new HearthTreeNode(board.data_.flipPlayers());
 		try {
-			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(tmpPlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
-			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(tmpPlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
+			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
+			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
 		} catch (HSException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -138,7 +138,7 @@ public class TestArchmageAntonidas {
 		Card cardToUse = new HolySmite();
 		board.data_.placeCardHandCurrentPlayer(cardToUse);
 		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
-		ret = cardToUse.useOn(ret.data_.getWaitingPlayer(), target, ret, deck, null);
+		ret = cardToUse.useOn(PlayerSide.WAITING_PLAYER, target, ret, deck, null);
 
 		assertEquals(board.data_.getNumCards_hand(), 1);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 3);
@@ -165,23 +165,23 @@ public class TestArchmageAntonidas {
 
 		assertEquals(ret.data_.getNumCards_hand(), 1);
 
-		target = flp.data_.getCharacter(flp.data_.getWaitingPlayer(), 1);
-		ret = cardToUse2.useOn(flp.data_.getWaitingPlayer(), target, flp, deck, null);
+		target = flp.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
+		ret = cardToUse2.useOn(PlayerSide.WAITING_PLAYER, target, flp, deck, null);
 
 		assertEquals(ret.data_.getNumCards_hand(), 0);
 		assertEquals(ret.data_.getCurrentPlayer().getNumMinions(), 1);
-		assertEquals(ret.data_.getWaitingPlayer().getNumMinions(), 2);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getNumMinions(), 2);
 		assertEquals(ret.data_.getMana_p0(), 7);
 		assertEquals(ret.data_.getMana_p1(), 0);
 		assertEquals(ret.data_.getCurrentPlayerHero().getHealth(), 30);
 		assertEquals(ret.data_.getWaitingPlayerHero().getHealth(), 30);
 		assertEquals(ret.data_.getCurrentPlayer().getMinions().get(0).getHealth(), 7);
-		assertEquals(ret.data_.getWaitingPlayer().getMinions().get(0).getHealth(), 7);
-		assertEquals(ret.data_.getWaitingPlayer().getMinions().get(1).getHealth(), 7);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(0).getHealth(), 7);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(1).getHealth(), 7);
 
 		assertEquals(ret.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack(), 6);
-		assertEquals(ret.data_.getWaitingPlayer().getMinions().get(0).getTotalAttack(), 6);
-		assertEquals(ret.data_.getWaitingPlayer().getMinions().get(1).getTotalAttack(), 5);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(0).getTotalAttack(), 6);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(1).getTotalAttack(), 5);
 		
 	}
 

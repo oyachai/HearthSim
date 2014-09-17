@@ -55,10 +55,10 @@ public class TestFlesheatingGhoul {
 		
 		HearthTreeNode tmpBoard = new HearthTreeNode(board.data_.flipPlayers());
 		try {
-			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(tmpPlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
-			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(tmpPlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
-			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(tmpPlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
-			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(tmpPlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
+			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
+			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
+			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
+			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
 		} catch (HSException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -166,7 +166,7 @@ public class TestFlesheatingGhoul {
 		assertFalse(ret == null);
 		assertEquals(ret.data_.getNumCards_hand(), 0);
 		assertEquals(ret.data_.getCurrentPlayer().getNumMinions(), 3);
-		assertEquals(ret.data_.getWaitingPlayer().getNumMinions(), 1);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getNumMinions(), 1);
 		assertEquals(ret.data_.getMana_p0(), 7);
 		assertEquals(ret.data_.getMana_p1(), 10);
 		assertEquals(ret.data_.getCurrentPlayerHero().getHealth(), 28); //2 damage from Abomination's deathrattle
@@ -175,7 +175,7 @@ public class TestFlesheatingGhoul {
 		assertEquals(ret.data_.getCurrentPlayer().getMinions().get(0).getTotalHealth(), 2);
 		assertEquals(ret.data_.getCurrentPlayer().getMinions().get(1).getTotalHealth(), 1);
 		assertEquals(ret.data_.getCurrentPlayer().getMinions().get(2).getTotalHealth(), 2);
-		assertEquals(ret.data_.getWaitingPlayer().getMinions().get(0).getTotalHealth(), 5);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(0).getTotalHealth(), 5);
 
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getAuraHealth(), 0);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getAuraHealth(), 0);
@@ -184,7 +184,7 @@ public class TestFlesheatingGhoul {
 		assertEquals(ret.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack(), 3);
 		assertEquals(ret.data_.getCurrentPlayer().getMinions().get(1).getTotalAttack(), 2);
 		assertEquals(ret.data_.getCurrentPlayer().getMinions().get(2).getTotalAttack(), 4 + 4); //4 minions died
-		assertEquals(ret.data_.getWaitingPlayer().getMinions().get(0).getTotalAttack(), 6);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(0).getTotalAttack(), 6);
 
 	}
 

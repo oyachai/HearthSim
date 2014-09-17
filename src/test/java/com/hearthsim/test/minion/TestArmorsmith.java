@@ -53,8 +53,8 @@ public class TestArmorsmith {
 		
 		HearthTreeNode tmpBoard = new HearthTreeNode(board.data_.flipPlayers());
 		try {
-			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(tmpPlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
-			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(tmpPlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
+			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
+			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
 		} catch (HSException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -119,7 +119,7 @@ public class TestArmorsmith {
 
 		assertEquals(ret.data_.getNumCards_hand(), 0);
 		assertEquals(ret.data_.getCurrentPlayer().getNumMinions(), 3);
-		assertEquals(ret.data_.getWaitingPlayer().getNumMinions(), 2);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getNumMinions(), 2);
 		assertEquals(ret.data_.getCurrentPlayerHero().getHealth(), 30);
 		assertEquals(ret.data_.getWaitingPlayerHero().getHealth(), 30);
 		assertEquals(ret.data_.getCurrentPlayerHero().getArmor(), 1);
@@ -128,20 +128,20 @@ public class TestArmorsmith {
 		assertEquals(ret.data_.getCurrentPlayer().getMinions().get(0).getTotalHealth(), 5);
 		assertEquals(ret.data_.getCurrentPlayer().getMinions().get(1).getTotalHealth(), 3);
 		assertEquals(ret.data_.getCurrentPlayer().getMinions().get(2).getTotalHealth(), 4);
-		assertEquals(ret.data_.getWaitingPlayer().getMinions().get(0).getTotalHealth(), 2);
-		assertEquals(ret.data_.getWaitingPlayer().getMinions().get(1).getTotalHealth(), 2);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(0).getTotalHealth(), 2);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(1).getTotalHealth(), 2);
 		
 		assertEquals(ret.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack(), 3);
 		assertEquals(ret.data_.getCurrentPlayer().getMinions().get(1).getTotalAttack(), 3);
 		assertEquals(ret.data_.getCurrentPlayer().getMinions().get(2).getTotalAttack(), 7);
-		assertEquals(ret.data_.getWaitingPlayer().getMinions().get(0).getTotalAttack(), 2);
-		assertEquals(ret.data_.getWaitingPlayer().getMinions().get(1).getTotalAttack(), 4);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(0).getTotalAttack(), 2);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(1).getTotalAttack(), 4);
 		
 		assertEquals(ret.data_.getCurrentPlayer().getMinions().get(0).getAuraAttack(), 2);
 		assertEquals(ret.data_.getCurrentPlayer().getMinions().get(1).getAuraAttack(), 1);
 		assertEquals(ret.data_.getCurrentPlayer().getMinions().get(2).getAuraAttack(), 1);
-		assertEquals(ret.data_.getWaitingPlayer().getMinions().get(0).getAuraAttack(), 0);
-		assertEquals(ret.data_.getWaitingPlayer().getMinions().get(1).getAuraAttack(), 1);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(0).getAuraAttack(), 0);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(1).getAuraAttack(), 1);
 
 		
 		
@@ -149,11 +149,11 @@ public class TestArmorsmith {
 		board.data_.placeCardHandCurrentPlayer(new HolySmite());
 		theCard = board.data_.getCurrentPlayerCardHand(0);
 		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
-		ret = theCard.useOn(ret.data_.getWaitingPlayer(), target, ret, deck, null);
+		ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, ret, deck, null);
 		assertFalse(ret == null);
 		assertEquals(ret.data_.getNumCards_hand(), 0);
 		assertEquals(ret.data_.getCurrentPlayer().getNumMinions(), 3);
-		assertEquals(ret.data_.getWaitingPlayer().getNumMinions(), 1);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getNumMinions(), 1);
 		assertEquals(ret.data_.getCurrentPlayerHero().getHealth(), 30);
 		assertEquals(ret.data_.getWaitingPlayerHero().getHealth(), 30);
 		assertEquals(ret.data_.getCurrentPlayerHero().getArmor(), 1);
@@ -162,46 +162,46 @@ public class TestArmorsmith {
 		assertEquals(ret.data_.getCurrentPlayer().getMinions().get(0).getTotalHealth(), 5);
 		assertEquals(ret.data_.getCurrentPlayer().getMinions().get(1).getTotalHealth(), 3);
 		assertEquals(ret.data_.getCurrentPlayer().getMinions().get(2).getTotalHealth(), 4);
-		assertEquals(ret.data_.getWaitingPlayer().getMinions().get(0).getTotalHealth(), 2);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(0).getTotalHealth(), 2);
 		
 		assertEquals(ret.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack(), 3);
 		assertEquals(ret.data_.getCurrentPlayer().getMinions().get(1).getTotalAttack(), 3);
 		assertEquals(ret.data_.getCurrentPlayer().getMinions().get(2).getTotalAttack(), 7);
-		assertEquals(ret.data_.getWaitingPlayer().getMinions().get(0).getTotalAttack(), 2);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(0).getTotalAttack(), 2);
 		
 		assertEquals(ret.data_.getCurrentPlayer().getMinions().get(0).getAuraAttack(), 2);
 		assertEquals(ret.data_.getCurrentPlayer().getMinions().get(1).getAuraAttack(), 1);
 		assertEquals(ret.data_.getCurrentPlayer().getMinions().get(2).getAuraAttack(), 1);
-		assertEquals(ret.data_.getWaitingPlayer().getMinions().get(0).getAuraAttack(), 0);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(0).getAuraAttack(), 0);
 		
 		
 		ret = new HearthTreeNode(ret.data_.flipPlayers());
 		ret.data_.placeCardHandCurrentPlayer(new HolySmite());
 		theCard = ret.data_.getCurrentPlayerCardHand(0);
-		target = ret.data_.getCharacter(ret.data_.getWaitingPlayer(), 2);
-		ret = theCard.useOn(ret.data_.getWaitingPlayer(), target, ret, deck, null);
+		target = ret.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
+		ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, ret, deck, null);
 		assertFalse(ret == null);
 		assertEquals(ret.data_.getNumCards_hand(), 0);
-		assertEquals(ret.data_.getWaitingPlayer().getNumMinions(), 3);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getNumMinions(), 3);
 		assertEquals(ret.data_.getCurrentPlayer().getNumMinions(), 1);
 		assertEquals(ret.data_.getWaitingPlayerHero().getHealth(), 30);
 		assertEquals(ret.data_.getCurrentPlayerHero().getHealth(), 30);
 		assertEquals(ret.data_.getWaitingPlayerHero().getArmor(), 2);
 		assertEquals(ret.data_.getCurrentPlayerHero().getArmor(), 0);
 
-		assertEquals(ret.data_.getWaitingPlayer().getMinions().get(0).getTotalHealth(), 5);
-		assertEquals(ret.data_.getWaitingPlayer().getMinions().get(1).getTotalHealth(), 1);
-		assertEquals(ret.data_.getWaitingPlayer().getMinions().get(2).getTotalHealth(), 4);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(0).getTotalHealth(), 5);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(1).getTotalHealth(), 1);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(2).getTotalHealth(), 4);
 		assertEquals(ret.data_.getCurrentPlayer().getMinions().get(0).getTotalHealth(), 2);
 		
-		assertEquals(ret.data_.getWaitingPlayer().getMinions().get(0).getTotalAttack(), 3);
-		assertEquals(ret.data_.getWaitingPlayer().getMinions().get(1).getTotalAttack(), 3);
-		assertEquals(ret.data_.getWaitingPlayer().getMinions().get(2).getTotalAttack(), 7);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(0).getTotalAttack(), 3);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(1).getTotalAttack(), 3);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(2).getTotalAttack(), 7);
 		assertEquals(ret.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack(), 2);
 		
-		assertEquals(ret.data_.getWaitingPlayer().getMinions().get(0).getAuraAttack(), 2);
-		assertEquals(ret.data_.getWaitingPlayer().getMinions().get(1).getAuraAttack(), 1);
-		assertEquals(ret.data_.getWaitingPlayer().getMinions().get(2).getAuraAttack(), 1);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(0).getAuraAttack(), 2);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(1).getAuraAttack(), 1);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(2).getAuraAttack(), 1);
 		assertEquals(ret.data_.getCurrentPlayer().getMinions().get(0).getAuraAttack(), 0);
 	}
 	

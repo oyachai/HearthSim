@@ -56,9 +56,9 @@ public class TestUnstableGhoul {
 		
 		HearthTreeNode tmpBoard = new HearthTreeNode(board.data_.flipPlayers());
 		try {
-			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(tmpPlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
-			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(tmpPlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
-			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(tmpPlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
+			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
+			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
+			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
 		} catch (HSException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -176,7 +176,7 @@ public class TestUnstableGhoul {
 		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 3);
 		Minion attacker = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
 		attacker.hasAttacked(false);
-		ret = attacker.attack(ret.data_.getWaitingPlayer(), target, ret, null, null);
+		ret = attacker.attack(PlayerSide.WAITING_PLAYER, target, ret, null, null);
 
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 0);
@@ -240,7 +240,7 @@ public class TestUnstableGhoul {
 		Minion attacker = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
 		attacker.silenced(PlayerSide.CURRENT_PLAYER, board, null, null);
 		attacker.hasAttacked(false);
-		ret = attacker.attack(ret.data_.getWaitingPlayer(), target, ret, null, null);
+		ret = attacker.attack(PlayerSide.WAITING_PLAYER, target, ret, null, null);
 
 		assertEquals(board.data_.getNumCards_hand(), 0);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);

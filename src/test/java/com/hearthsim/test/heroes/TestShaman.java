@@ -60,8 +60,8 @@ public class TestShaman {
 		
 		HearthTreeNode tmpBoard = new HearthTreeNode(board.data_.flipPlayers());
 		try {
-			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(tmpPlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
-			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(tmpPlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
+			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
+			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
 		} catch (HSException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -240,9 +240,9 @@ public class TestShaman {
 
 		assertEquals(resBoard.getMana_p0(), 6);
 		assertEquals(resBoard.getMana_p1(), 8);
-		assertEquals(resBoard.getCurrentPlayer().getNumMinions(), 3);
-		assertEquals(resBoard.getWaitingPlayer().getNumMinions(), 1);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getNumMinions(), 3);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(resBoard).getNumMinions(), 1);
 
-		log.info("{}",resBoard.getCurrentPlayer().getMinions().get(2).getClass());
+		log.info("{}",PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getMinions().get(2).getClass());
 	}
 }

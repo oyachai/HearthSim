@@ -131,25 +131,25 @@ public class TestGurubashiBerserker {
 		
 		HearthTreeNode flipped = new HearthTreeNode(board.data_.flipPlayers());
 		Minion minion = flipped.data_.getCurrentPlayer().getMinions().get(0);
-		target = flipped.data_.getCharacter(flipped.data_.getWaitingPlayer(), 2);
-		ret = minion.attack(flipped.data_.getWaitingPlayer(), target, flipped, deck, null);
+		target = flipped.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
+		ret = minion.attack(PlayerSide.WAITING_PLAYER, target, flipped, deck, null);
 		assertFalse(ret == null);
 		assertEquals(ret.data_.getNumCards_hand(), 0);
 		assertEquals(ret.data_.getCurrentPlayer().getNumMinions(), 2);
-		assertEquals(ret.data_.getWaitingPlayer().getNumMinions(), 3);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getNumMinions(), 3);
 		assertEquals(ret.data_.getMana_p0(), 4);
 		assertEquals(ret.data_.getMana_p1(), 2);
 		assertEquals(ret.data_.getCurrentPlayerHero().getHealth(), 30);
 		assertEquals(ret.data_.getWaitingPlayerHero().getHealth(), 30);
-		assertEquals(ret.data_.getWaitingPlayer().getMinions().get(0).getHealth(), health0);
-		assertEquals(ret.data_.getWaitingPlayer().getMinions().get(1).getHealth(), 7 - attack0);
-		assertEquals(ret.data_.getWaitingPlayer().getMinions().get(2).getHealth(), health1 - 1);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(0).getHealth(), health0);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(1).getHealth(), 7 - attack0);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(2).getHealth(), health1 - 1);
 		assertEquals(ret.data_.getCurrentPlayer().getMinions().get(0).getHealth(), health0 - 2);
 		assertEquals(ret.data_.getCurrentPlayer().getMinions().get(1).getHealth(), health1 - 1);
 
-		assertEquals(ret.data_.getWaitingPlayer().getMinions().get(0).getTotalAttack(), attack0);
-		assertEquals(ret.data_.getWaitingPlayer().getMinions().get(1).getTotalAttack(), 5);
-		assertEquals(ret.data_.getWaitingPlayer().getMinions().get(2).getTotalAttack(), attack0);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(0).getTotalAttack(), attack0);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(1).getTotalAttack(), 5);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(2).getTotalAttack(), attack0);
 		assertEquals(ret.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack(), attack0);
 		assertEquals(ret.data_.getCurrentPlayer().getMinions().get(1).getTotalAttack(), attack0);
 

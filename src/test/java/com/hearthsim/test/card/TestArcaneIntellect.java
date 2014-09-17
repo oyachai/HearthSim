@@ -188,8 +188,8 @@ public class TestArcaneIntellect {
 		assertEquals( resBoard.getMana_p0(), 0 );
 		assertEquals( resBoard.getMana_p1(), 3 );
 		assertEquals( resBoard.getNumCardsHandCurrentPlayer(), 2 );
-		assertEquals( resBoard.getCurrentPlayer().getNumMinions(), 1 );
-		assertEquals( resBoard.getWaitingPlayer().getNumMinions(), 2 );
+		assertEquals( PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getNumMinions(), 1 );
+		assertEquals( PlayerSide.WAITING_PLAYER.getPlayer(resBoard).getNumMinions(), 2 );
 	}
 	
 	@Test
@@ -221,8 +221,8 @@ public class TestArcaneIntellect {
 		assertEquals( resBoard.getMana_p0(), 1 );
 		assertEquals( resBoard.getMana_p1(), 6 );
 		assertEquals( resBoard.getNumCardsHandCurrentPlayer(), 1 );
-		assertEquals( resBoard.getCurrentPlayer().getNumMinions(), 2 );
-		assertEquals( resBoard.getWaitingPlayer().getNumMinions(), 2 );
+		assertEquals( PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getNumMinions(), 2 );
+		assertEquals( PlayerSide.WAITING_PLAYER.getPlayer(resBoard).getNumMinions(), 2 );
 	}
 	
 	@Test
@@ -255,7 +255,7 @@ public class TestArcaneIntellect {
 		assertEquals( resBoard.getMana_p0(), 2 );
 		assertEquals( resBoard.getMana_p1(), 9 );
 		assertEquals( resBoard.getNumCardsHandCurrentPlayer(), 0 );
-		assertEquals( resBoard.getCurrentPlayer().getNumMinions(), 3 );
-		assertEquals( resBoard.getWaitingPlayer().getNumMinions(), 2 );
+		assertEquals( PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getNumMinions(), 3 );
+		assertEquals( PlayerSide.WAITING_PLAYER.getPlayer(resBoard).getNumMinions(), 2 );
 	}
 }

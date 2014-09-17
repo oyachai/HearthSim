@@ -57,8 +57,8 @@ public class TestColdlightOracle {
 		
 		HearthTreeNode tmpBoard = new HearthTreeNode(board.data_.flipPlayers());
 		try {
-			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(tmpPlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
-			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(tmpPlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
+			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
+			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
 		} catch (HSException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -162,8 +162,8 @@ public class TestColdlightOracle {
 		BoardModel resBoard = ai0.playTurn(0, board.data_, playerModel0, playerModel1);
 		
 		assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 2); //1 card drawn from Loot Horder attacking and dying, no mana left to play the card
-		assertEquals(resBoard.getCurrentPlayer().getNumMinions(), 3);
-		assertEquals(resBoard.getWaitingPlayer().getNumMinions(), 2); //1 minion should have been killed
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(ret).getNumMinions(), 3);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getNumMinions(), 2); //1 minion should have been killed
 		assertEquals(resBoard.getMana_p0(), 0);
 		assertEquals(resBoard.getMana_p1(), 3);
 		assertEquals(resBoard.getCurrentPlayerHero().getHealth(), 30);

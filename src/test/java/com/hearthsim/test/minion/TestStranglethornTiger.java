@@ -52,7 +52,7 @@ public class TestStranglethornTiger {
 		
 		HearthTreeNode tmpBoard = new HearthTreeNode(board.data_.flipPlayers());
 		try {
-			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(tmpPlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
+			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
 		} catch (HSException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -106,19 +106,19 @@ public class TestStranglethornTiger {
 
 		assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 0);
 		assertEquals(resBoard.getNumCardsHandWaitingPlayer(), 0);
-		assertEquals(resBoard.getCurrentPlayer().getNumMinions(), 2);
-		assertEquals(resBoard.getWaitingPlayer().getNumMinions(), 1);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(ret).getNumMinions(), 2);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getNumMinions(), 1);
 		assertEquals(resBoard.getMana_p0(), 8);
 		assertEquals(resBoard.getMana_p1(), 8);
 		assertEquals(resBoard.getCurrentPlayerHero().getHealth(), 30);
 		assertEquals(resBoard.getWaitingPlayerHero().getHealth(), 18);
-		assertEquals(resBoard.getCurrentPlayer().getMinions().get(0).getTotalHealth(), 7);
-		assertEquals(resBoard.getCurrentPlayer().getMinions().get(1).getTotalHealth(), 7);
-		assertEquals(resBoard.getWaitingPlayer().getMinions().get(0).getTotalHealth(), 5);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(ret).getMinions().get(0).getTotalHealth(), 7);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(ret).getMinions().get(1).getTotalHealth(), 7);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(0).getTotalHealth(), 5);
 
-		assertEquals(resBoard.getCurrentPlayer().getMinions().get(0).getTotalAttack(), 6);
-		assertEquals(resBoard.getCurrentPlayer().getMinions().get(1).getTotalAttack(), 6);
-		assertEquals(resBoard.getWaitingPlayer().getMinions().get(0).getTotalAttack(), 5);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(ret).getMinions().get(0).getTotalAttack(), 6);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(ret).getMinions().get(1).getTotalAttack(), 6);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(0).getTotalAttack(), 5);
 	}
 	
 	@Test
@@ -138,19 +138,19 @@ public class TestStranglethornTiger {
 
 		assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 1);
 		assertEquals(resBoard.getNumCardsHandWaitingPlayer(), 0);
-		assertEquals(resBoard.getCurrentPlayer().getNumMinions(), 2);
-		assertEquals(resBoard.getWaitingPlayer().getNumMinions(), 1);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(ret).getNumMinions(), 2);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getNumMinions(), 1);
 		assertEquals(resBoard.getMana_p0(), 8);
 		assertEquals(resBoard.getMana_p1(), 8);
 		assertEquals(resBoard.getCurrentPlayerHero().getHealth(), 30);
 		assertEquals(resBoard.getWaitingPlayerHero().getHealth(), 18);
-		assertEquals(resBoard.getCurrentPlayer().getMinions().get(0).getTotalHealth(), 7);
-		assertEquals(resBoard.getCurrentPlayer().getMinions().get(1).getTotalHealth(), 7);
-		assertEquals(resBoard.getWaitingPlayer().getMinions().get(0).getTotalHealth(), 5);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(ret).getMinions().get(0).getTotalHealth(), 7);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(ret).getMinions().get(1).getTotalHealth(), 7);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(0).getTotalHealth(), 5);
 
-		assertEquals(resBoard.getCurrentPlayer().getMinions().get(0).getTotalAttack(), 6);
-		assertEquals(resBoard.getCurrentPlayer().getMinions().get(1).getTotalAttack(), 6);
-		assertEquals(resBoard.getWaitingPlayer().getMinions().get(0).getTotalAttack(), 5);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(ret).getMinions().get(0).getTotalAttack(), 6);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(ret).getMinions().get(1).getTotalAttack(), 6);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(0).getTotalAttack(), 5);
 	}
 	
 	@Test

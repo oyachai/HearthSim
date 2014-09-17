@@ -36,13 +36,13 @@ public class TestCharge {
 		scoreFunc = new DummyStateFunc();
 
 		Minion minion1_0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
-		board.placeMinion(board.getWaitingPlayer(), minion1_0);
+		board.placeMinion(PlayerSide.WAITING_PLAYER, minion1_0);
 				
 	}
 	@Test
 	public void test0() throws HSException {
 		Minion minion = new Minion("" + 0, mana, attack0, health1, attack0, (byte)0, (byte)0, health1, health1, (byte)0, (byte)0, false, false, false, true, false, false, false, false, false, false, false, false, false, false, null, null, false, false);
-		board.placeMinion(board.getCurrentPlayer(), minion);
+		board.placeMinion(PlayerSide.CURRENT_PLAYER, minion);
 		
 		BoardStateFactoryBase factory = new BoardStateFactoryBase(null, null, 2000000000);
 		HearthTreeNode tree = new HearthTreeNode(board);

@@ -101,7 +101,7 @@ public class TestAcidicSwampOoze {
 		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
 		HearthTreeNode fl = new HearthTreeNode(board.data_.flipPlayers());
 		fl.data_.placeCardHandCurrentPlayer(new FieryWarAxe());
-		fl = fl.data_.getCurrentPlayerCardHand(0).useOn(fl.data_.getCurrentPlayer(), target, fl, deck, null);
+		fl = fl.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, target, fl, deck, null);
 		board = new HearthTreeNode(fl.data_.flipPlayers());
 		
 		assertEquals(board.data_.getCurrentPlayerHero().getTotalAttack(), 0);
