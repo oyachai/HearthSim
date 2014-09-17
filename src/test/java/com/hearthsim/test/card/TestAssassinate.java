@@ -6,7 +6,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.concrete.Assassinate;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.model.BoardModel;
+import com.hearthsim.model.*;
 import com.hearthsim.util.tree.HearthTreeNode;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,10 +32,10 @@ public class TestAssassinate {
 
 		Assassinate fb = new Assassinate();
 		board.data_.placeCardHandCurrentPlayer(fb);
-		board.data_.placeMinion(board.data_.getCurrentPlayer(), minion0);
-		board.data_.placeMinion(board.data_.getWaitingPlayer(), minion1);
-		board.data_.placeMinion(board.data_.getWaitingPlayer(), minion2);
-		board.data_.placeMinion(board.data_.getWaitingPlayer(), minion3);
+		board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, minion0);
+		board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion1);
+		board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion2);
+		board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion3);
 		
 		board.data_.setMana_p0(10);
 	}
@@ -55,20 +55,20 @@ public class TestAssassinate {
 		HearthTreeNode res;
 		Minion target = null;
 		
-		target = board.data_.getCharacter(board.data_.getWaitingPlayer(), 0);
-		res = theCard.useOn(board.data_.getWaitingPlayer(), target, board, deck, null);
+		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
+		res = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
 		assertTrue(res == null);
 		
-		target = board.data_.getCharacter(board.data_.getCurrentPlayer(), 1);
-		res = theCard.useOn(board.data_.getCurrentPlayer(), target, board, deck, null);
+		target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
+		res = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
 		assertTrue(res == null);
 		
-		target = board.data_.getCharacter(board.data_.getCurrentPlayer(), 0);
-		res = theCard.useOn(board.data_.getCurrentPlayer(), target, board, deck, null);
+		target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
+		res = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
 		assertTrue(res == null);
 		
-		target = board.data_.getCharacter(board.data_.getWaitingPlayer(), 1);
-		res = theCard.useOn(board.data_.getWaitingPlayer(), target, board, deck, null);
+		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
+		res = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
 		assertFalse(res == null);
 		assertTrue(res.data_.getNumCards_hand() == 0);
 		assertTrue(res.data_.getCurrentPlayer().getNumMinions() == 1);
@@ -99,20 +99,20 @@ public class TestAssassinate {
 		HearthTreeNode res;
 		Minion target = null;
 		
-		target = board.data_.getCharacter(board.data_.getWaitingPlayer(), 0);
-		res = theCard.useOn(board.data_.getWaitingPlayer(), target, board, deck, null);
+		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
+		res = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
 		assertTrue(res == null);
 		
-		target = board.data_.getCharacter(board.data_.getCurrentPlayer(), 1);
-		res = theCard.useOn(board.data_.getCurrentPlayer(), target, board, deck, null);
+		target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
+		res = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
 		assertTrue(res == null);
 		
-		target = board.data_.getCharacter(board.data_.getCurrentPlayer(), 0);
-		res = theCard.useOn(board.data_.getCurrentPlayer(), target, board, deck, null);
+		target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
+		res = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
 		assertTrue(res == null);
 		
-		target = board.data_.getCharacter(board.data_.getWaitingPlayer(), 2);
-		res = theCard.useOn(board.data_.getWaitingPlayer(), target, board, deck, null);
+		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
+		res = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
 		assertFalse(res == null);
 		assertTrue(res.data_.getNumCards_hand() == 0);
 		assertTrue(res.data_.getCurrentPlayer().getNumMinions() == 1);
@@ -144,20 +144,20 @@ public class TestAssassinate {
 		HearthTreeNode res;
 		Minion target = null;
 		
-		target = board.data_.getCharacter(board.data_.getWaitingPlayer(), 0);
-		res = theCard.useOn(board.data_.getWaitingPlayer(), target, board, deck, null);
+		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
+		res = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
 		assertTrue(res == null);
 		
-		target = board.data_.getCharacter(board.data_.getCurrentPlayer(), 1);
-		res = theCard.useOn(board.data_.getCurrentPlayer(), target, board, deck, null);
+		target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
+		res = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
 		assertTrue(res == null);
 		
-		target = board.data_.getCharacter(board.data_.getCurrentPlayer(), 0);
-		res = theCard.useOn(board.data_.getCurrentPlayer(), target, board, deck, null);
+		target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
+		res = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
 		assertTrue(res == null);
 		
-		target = board.data_.getCharacter(board.data_.getWaitingPlayer(), 3);
-		res = theCard.useOn(board.data_.getWaitingPlayer(), target, board, deck, null);
+		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 3);
+		res = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
 		assertFalse(res == null);
 		assertTrue(res.data_.getNumCards_hand() == 0);
 		assertTrue(res.data_.getCurrentPlayer().getNumMinions() == 1);

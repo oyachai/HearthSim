@@ -2,7 +2,7 @@ package com.hearthsim.test;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.model.BoardModel;
+import com.hearthsim.model.*;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.util.factory.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;

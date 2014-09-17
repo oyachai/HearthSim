@@ -9,7 +9,7 @@ import com.hearthsim.card.minion.concrete.LootHoarder;
 import com.hearthsim.card.minion.concrete.RiverCrocolisk;
 import com.hearthsim.card.minion.concrete.Wisp;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.model.BoardModel;
+import com.hearthsim.model.*;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -30,9 +30,9 @@ public class TestLootHorder {
 		Minion minion0_0 = new LootHoarder();
 		Minion minion1_0 = new BloodfenRaptor();
 		
-		board.data_.placeMinion(board.data_.getCurrentPlayer(), minion0_0);
+		board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, minion0_0);
 		
-		board.data_.placeMinion(board.data_.getWaitingPlayer(), minion1_0);
+		board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion1_0);
 		
 		Card cards[] = new Card[10];
 		for (int index = 0; index < 10; ++index) {
@@ -106,12 +106,12 @@ public class TestLootHorder {
         ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
 		
 		//remove the loot hoarder from player0, add a Wisp
-		board.data_.removeMinion(board.data_.getCurrentPlayer(), 0);
-		board.data_.placeMinion(board.data_.getCurrentPlayer(), new Wisp());
+		board.data_.removeMinion(PlayerSide.CURRENT_PLAYER, 0);
+		board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new Wisp());
 		
 		//remove the Bloodfen Raptor from player0, add a Loot Hoarder
-		board.data_.removeMinion(board.data_.getWaitingPlayer(), 0);
-		board.data_.placeMinion(board.data_.getWaitingPlayer(), new LootHoarder());
+		board.data_.removeMinion(PlayerSide.WAITING_PLAYER, 0);
+		board.data_.placeMinion(PlayerSide.WAITING_PLAYER, new LootHoarder());
 
 		Hero hero = new Hero();
 		PlayerModel playerModel0 = new PlayerModel("player0", hero, deck);

@@ -3,7 +3,7 @@ package com.hearthsim.test;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.model.BoardModel;
+import com.hearthsim.model.*;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;

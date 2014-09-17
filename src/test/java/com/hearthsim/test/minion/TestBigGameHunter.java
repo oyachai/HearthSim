@@ -6,7 +6,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.*;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.model.BoardModel;
+import com.hearthsim.model.*;
 import com.hearthsim.util.tree.HearthTreeNode;
 import org.junit.Before;
 import org.junit.Test;
@@ -55,19 +55,19 @@ public class TestBigGameHunter {
 		
 		HearthTreeNode tmpBoard = new HearthTreeNode(board.data_.flipPlayers());
 		try {
-			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(tmpBoard.data_.getCurrentPlayer(), tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
-			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(tmpBoard.data_.getCurrentPlayer(), tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
-			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(tmpBoard.data_.getCurrentPlayer(), tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
-			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(tmpBoard.data_.getCurrentPlayer(), tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
+			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(tmpPlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
+			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(tmpPlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
+			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(tmpPlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
+			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(tmpPlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
 		} catch (HSException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		board = new HearthTreeNode(tmpBoard.data_.flipPlayers());
 		try {
-			board.data_.getCurrentPlayerCardHand(0).useOn(board.data_.getCurrentPlayer(), board.data_.getCurrentPlayerHero(), board, deck, null);
-			board.data_.getCurrentPlayerCardHand(0).useOn(board.data_.getCurrentPlayer(), board.data_.getCurrentPlayerHero(), board, deck, null);
-			board.data_.getCurrentPlayerCardHand(0).useOn(board.data_.getCurrentPlayer(), board.data_.getCurrentPlayerHero(), board, deck, null);
+			board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayerHero(), board, deck, null);
+			board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayerHero(), board, deck, null);
+			board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayerHero(), board, deck, null);
 		} catch (HSException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -86,51 +86,51 @@ public class TestBigGameHunter {
 	public void test0() throws HSException {
 		
 		//null case
-		Minion target = board.data_.getCharacter(board.data_.getWaitingPlayer(), 0);
+		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(board.data_.getWaitingPlayer(), target, board, deck, deck);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, deck);
 		
 		assertTrue(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 1);
-		assertEquals(board.data_.getCurrentPlayer().getNumMinions(), 3);
-		assertEquals(board.data_.getWaitingPlayer().getNumMinions(), 4);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getNumMinions(), 3);
+		assertEquals(PlayerSide.WAITING_PLAYER.getNumMinions(), 4);
 		assertEquals(board.data_.getMana_p0(), 10);
 		assertEquals(board.data_.getMana_p1(), 10);
 		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
 		assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
 		
-		assertEquals(board.data_.getCurrentPlayer().getMinions().get(0).getTotalHealth(), 4);
-		assertEquals(board.data_.getCurrentPlayer().getMinions().get(1).getTotalHealth(), 3);
-		assertEquals(board.data_.getCurrentPlayer().getMinions().get(2).getTotalHealth(), 6);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getMinions().get(0).getTotalHealth(), 4);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getMinions().get(1).getTotalHealth(), 3);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getMinions().get(2).getTotalHealth(), 6);
 		
-		assertEquals(board.data_.getWaitingPlayer().getMinions().get(0).getTotalHealth(), 1);
-		assertEquals(board.data_.getWaitingPlayer().getMinions().get(1).getTotalHealth(), 4);
-		assertEquals(board.data_.getWaitingPlayer().getMinions().get(2).getTotalHealth(), 2);
-		assertEquals(board.data_.getWaitingPlayer().getMinions().get(3).getTotalHealth(), 7);
+		assertEquals(PlayerSide.WAITING_PLAYER.getMinions().get(0).getTotalHealth(), 1);
+		assertEquals(PlayerSide.WAITING_PLAYER.getMinions().get(1).getTotalHealth(), 4);
+		assertEquals(PlayerSide.WAITING_PLAYER.getMinions().get(2).getTotalHealth(), 2);
+		assertEquals(PlayerSide.WAITING_PLAYER.getMinions().get(3).getTotalHealth(), 7);
 
-		assertEquals(board.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack(), 4);
-		assertEquals(board.data_.getCurrentPlayer().getMinions().get(1).getTotalAttack(), 3);
-		assertEquals(board.data_.getCurrentPlayer().getMinions().get(2).getTotalAttack(), 7);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getMinions().get(0).getTotalAttack(), 4);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getMinions().get(1).getTotalAttack(), 3);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getMinions().get(2).getTotalAttack(), 7);
 		
-		assertEquals(board.data_.getWaitingPlayer().getMinions().get(0).getTotalAttack(), 3);
-		assertEquals(board.data_.getWaitingPlayer().getMinions().get(1).getTotalAttack(), 5);
-		assertEquals(board.data_.getWaitingPlayer().getMinions().get(2).getTotalAttack(), 2);
-		assertEquals(board.data_.getWaitingPlayer().getMinions().get(3).getTotalAttack(), 7);
+		assertEquals(PlayerSide.WAITING_PLAYER.getMinions().get(0).getTotalAttack(), 3);
+		assertEquals(PlayerSide.WAITING_PLAYER.getMinions().get(1).getTotalAttack(), 5);
+		assertEquals(PlayerSide.WAITING_PLAYER.getMinions().get(2).getTotalAttack(), 2);
+		assertEquals(PlayerSide.WAITING_PLAYER.getMinions().get(3).getTotalAttack(), 7);
 	}
 	
 	@Test
 	public void test1() throws HSException {	
 		
 		//set the remaining total health of Abomination to 1
-		board.data_.getWaitingPlayer().getMinions().get(1).setHealth((byte)1);
+		PlayerSide.WAITING_PLAYER.getMinions().get(1).setHealth((byte)1);
 		
 		//And the Abomination was somehow buffed to 8 attack
-		board.data_.getWaitingPlayer().getMinions().get(1).setAttack((byte)8);
+		PlayerSide.WAITING_PLAYER.getMinions().get(1).setAttack((byte)8);
 		
 		//null case
-		Minion target = board.data_.getCharacter(board.data_.getCurrentPlayer(), 0);
+		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(board.data_.getCurrentPlayer(), target, board, deck, deck);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, deck);
 		
 		assertFalse(ret == null);
 		assertEquals(ret.data_.getNumCards_hand(), 0);

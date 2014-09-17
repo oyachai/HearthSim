@@ -6,7 +6,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.concrete.HammerOfWrath;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.model.BoardModel;
+import com.hearthsim.model.*;
 import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 import org.junit.Before;
@@ -32,11 +32,11 @@ public class TestHammerOfWrath {
 		Minion minion1_0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
 		Minion minion1_1 = new Minion("" + 0, mana, attack0, (byte)(health1 - 1), attack0, health1, health1);
 		
-		board.data_.placeMinion(board.data_.getCurrentPlayer(), minion0_0);
-		board.data_.placeMinion(board.data_.getCurrentPlayer(), minion0_1);
+		board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, minion0_0);
+		board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, minion0_1);
 		
-		board.data_.placeMinion(board.data_.getWaitingPlayer(), minion1_0);
-		board.data_.placeMinion(board.data_.getWaitingPlayer(), minion1_1);
+		board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion1_0);
+		board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion1_1);
 		
 		Card cards[] = new Card[10];
 		for (int index = 0; index < 10; ++index) {
@@ -51,9 +51,9 @@ public class TestHammerOfWrath {
 		HammerOfWrath fb = new HammerOfWrath();
 		board.data_.placeCardHandCurrentPlayer(fb);
 		
-		Minion target = board.data_.getCharacter(board.data_.getCurrentPlayer(), 0);
+		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(board.data_.getCurrentPlayer(), target, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
 		assertFalse(ret == null);
 		assertEquals(ret.data_.getNumCards_hand(), 0);
 		assertTrue(ret instanceof CardDrawNode);
@@ -81,23 +81,23 @@ public class TestHammerOfWrath {
 		HammerOfWrath fb = new HammerOfWrath();
 		board.data_.placeCardHandCurrentPlayer(fb);
 		
-		Minion target = board.data_.getCharacter(board.data_.getWaitingPlayer(), 1);
+		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(board.data_.getWaitingPlayer(), target, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
 		assertFalse(ret == null);
 		assertEquals(ret.data_.getNumCards_hand(), 0);
 		assertTrue(ret instanceof CardDrawNode);
 		assertEquals(((CardDrawNode)ret).getNumCardsToDraw(), 1);
 
-		assertTrue(board.data_.getCurrentPlayer().getNumMinions() == 2);
-		assertTrue(board.data_.getWaitingPlayer().getNumMinions() == 1);
+		assertTrue(PlayerSide.CURRENT_PLAYER.getNumMinions() == 2);
+		assertTrue(PlayerSide.WAITING_PLAYER.getNumMinions() == 1);
 		assertTrue(board.data_.getCurrentPlayerHero().getHealth() == 30);
 		assertTrue(board.data_.getWaitingPlayerHero().getHealth() == 30);
-		assertTrue(board.data_.getCurrentPlayer().getMinions().get(0).getHealth() == health0);
-		assertTrue(board.data_.getCurrentPlayer().getMinions().get(1).getHealth() == health1 - 1);
-		assertTrue(board.data_.getWaitingPlayer().getMinions().get(0).getHealth() == health1 - 1);
-		assertTrue(board.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack() == attack0);
-		assertTrue(board.data_.getCurrentPlayer().getMinions().get(1).getTotalAttack() == attack0);
-		assertTrue(board.data_.getWaitingPlayer().getMinions().get(0).getTotalAttack() == attack0);
+		assertTrue(PlayerSide.CURRENT_PLAYER.getMinions().get(0).getHealth() == health0);
+		assertTrue(PlayerSide.CURRENT_PLAYER.getMinions().get(1).getHealth() == health1 - 1);
+		assertTrue(PlayerSide.WAITING_PLAYER.getMinions().get(0).getHealth() == health1 - 1);
+		assertTrue(PlayerSide.CURRENT_PLAYER.getMinions().get(0).getTotalAttack() == attack0);
+		assertTrue(PlayerSide.CURRENT_PLAYER.getMinions().get(1).getTotalAttack() == attack0);
+		assertTrue(PlayerSide.WAITING_PLAYER.getMinions().get(0).getTotalAttack() == attack0);
 	}
 }
