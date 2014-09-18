@@ -190,8 +190,6 @@ HearthSim.iws
 /out
 .gradle
 
-
-*.json
 *.hsres
 
 docs/.~lock.*
