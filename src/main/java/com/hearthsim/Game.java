@@ -23,6 +23,8 @@ public class Game {
 	
 	int s0_; //player index of the player that goes first //todo: get rid of these ASAP
 	int s1_; //player index of the player that goes second
+    int firstPlayerIndex;
+    int secondPlayerIndex;
 	
 	public Game(PlayerModel playerModel0, PlayerModel playerModel1, ArtificialPlayer ai0, ArtificialPlayer ai1) {
 		this(playerModel0, playerModel1, ai0, ai1, false);
@@ -31,11 +33,15 @@ public class Game {
 	public Game(PlayerModel playerModel0, PlayerModel playerModel1, ArtificialPlayer ai0, ArtificialPlayer ai1, boolean shufflePlayOrder) {
 		s0_ = 0;
 		s1_ = 1;
+        firstPlayerIndex = 0;
+        secondPlayerIndex = 1;
 
         PlayerModel firstPlayer = playerModel0;
         if (shufflePlayOrder && Math.random() > 0.5) {
             s0_ = 1;
             s1_ = 0;
+            firstPlayerIndex = 1;
+            secondPlayerIndex = 0;
             firstPlayer = playerModel1;
         }
         log.debug("shuffle play order: {}", shufflePlayOrder);
@@ -121,9 +127,19 @@ public class Game {
 
     public GameResult checkGameOver(int turnCount, GameRecord record){
         if (!boardModel_.isAlive(PlayerSide.CURRENT_PLAYER)) {
-            return new GameResult(s0_, s1_, turnCount + 1, record);
+            PlayerModel winner = boardModel_.modelForSide(PlayerSide.WAITING_PLAYER);
+            if (winner.isFirstPlayer()) {
+                return new GameResult(s0_, firstPlayerIndex, turnCount + 1, record);
+            } else {
+                return new GameResult(s0_, secondPlayerIndex, turnCount + 1, record);
+            }
         } else if (!boardModel_.isAlive(PlayerSide.WAITING_PLAYER)) {
-            return new GameResult(s0_, s0_, turnCount + 1, record);
+            PlayerModel winner = boardModel_.modelForSide(PlayerSide.CURRENT_PLAYER);
+            if (winner.isFirstPlayer()) {
+                return new GameResult(s0_, firstPlayerIndex, turnCount + 1, record);
+            } else {
+                return new GameResult(s0_, secondPlayerIndex, turnCount + 1, record);
+            }
         }
 
         return null;
