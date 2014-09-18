@@ -81,4 +81,54 @@ public class testGame {
 		
 		assertTrue("testGame0", w.winnerPlayerIndex_ == 0);
 	}
+
+	@Test
+	public void testGame1() {
+		
+		int numCardsInDeck_ = 30;
+		byte minionAttack = 5;
+		byte minionHealth = 4;
+		byte minionMana = 4;
+				
+		Card[] cards1_ = new Card[numCardsInDeck_];
+		Card[] cards2_ = new Card[numCardsInDeck_];
+
+		for (int i = 0; i < numCardsInDeck_; ++i) {
+			byte attack = minionAttack;
+			byte health = minionHealth;
+			byte mana = minionMana;
+			cards1_[i] = new Minion("" + i, mana, attack, health, attack, health, health);
+			cards2_[i] = new Minion("" + i, (byte)9, (byte)1, (byte)1, (byte)1, (byte)1, (byte)1);
+		}
+
+		Hero hero1 = new Hero();
+		Hero hero2 = new Hero();
+		
+		Deck deck1 = new Deck(cards1_);
+		Deck deck2 = new Deck(cards2_);
+		
+		deck1.shuffle();
+		deck2.shuffle();
+		
+		PlayerModel playerModel1 = new PlayerModel("player0", hero1, deck1);
+		PlayerModel playerModel2 = new PlayerModel("player1", hero2, deck2);
+
+        ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
+
+        ArtificialPlayer ai1 = ArtificialPlayer.buildStandardAI1();
+
+		for (int iter = 0; iter < 10; ++iter) {
+			long t1 = System.nanoTime();
+			Game game = new Game(playerModel1, playerModel2, ai0, ai1, true);
+			GameResult w = null;
+			try {
+				w = game.runGame();
+			} catch (HSException e) {
+				w = new GameResult(0, -1, 0, null);
+			}
+			long t2 = System.nanoTime();
+			log.info("f = " + w.firstPlayerIndex_ + ", w = " + w.winnerPlayerIndex_ + ", time taken = " + (t2 - t1) / 1000000.0 + " ms");
+			assertTrue("testGame0", w.winnerPlayerIndex_ == 0);
+		}		
+	}
 }
