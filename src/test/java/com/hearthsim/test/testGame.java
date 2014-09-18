@@ -101,24 +101,24 @@ public class testGame {
 			cards2_[i] = new Minion("" + i, (byte)9, (byte)1, (byte)1, (byte)1, (byte)1, (byte)1);
 		}
 
-		Hero hero1 = new Hero();
-		Hero hero2 = new Hero();
-		
-		Deck deck1 = new Deck(cards1_);
-		Deck deck2 = new Deck(cards2_);
-		
-		deck1.shuffle();
-		deck2.shuffle();
-		
-		PlayerModel playerModel1 = new PlayerModel("player0", hero1, deck1);
-		PlayerModel playerModel2 = new PlayerModel("player1", hero2, deck2);
-
-        ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
-
-        ArtificialPlayer ai1 = ArtificialPlayer.buildStandardAI1();
 
 		for (int iter = 0; iter < 10; ++iter) {
 			long t1 = System.nanoTime();
+			Hero hero1 = new Hero();
+			Hero hero2 = new Hero();
+			
+			Deck deck1 = new Deck(cards1_);
+			Deck deck2 = new Deck(cards2_);
+			
+			deck1.shuffle();
+			deck2.shuffle();
+			
+			PlayerModel playerModel1 = new PlayerModel("player0", hero1, deck1);
+			PlayerModel playerModel2 = new PlayerModel("player1", hero2, deck2);
+
+	        ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
+	        ArtificialPlayer ai1 = ArtificialPlayer.buildStandardAI1();
+
 			Game game = new Game(playerModel1, playerModel2, ai0, ai1, true);
 			GameResult w = null;
 			try {
