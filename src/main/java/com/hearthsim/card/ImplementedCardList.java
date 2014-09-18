@@ -123,6 +123,11 @@ public class ImplementedCardList {
             map_.put(AngryChicken.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(ArathiWeaponsmith.class, "Arathi Weaponsmith", "minion", "warrior", "common", "Battlecry Equip a 2/2 weapon", 4, 3, 3);
+            list_.add(card);
+            map_.put(ArathiWeaponsmith.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(ArcaneExplosion.class, "Arcane Explosion", "spell", "mage", "free", "Deal 1 damage to all enemy minions", 2, -1, -1);
             list_.add(card);
             map_.put(ArcaneExplosion.class, card);

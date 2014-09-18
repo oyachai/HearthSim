@@ -17,7 +17,7 @@ Ancient of War|minion|neutral|epic|7|5|5|Choose One - Taunt and +5 Health; or +5
 Ancient Watcher|minion|neutral|rare|2|4|5|Can't Attack|FALSE
 Angry Chicken|minion|neutral|rare|1|1|1|Enrage: +5 Attack|TRUE
 Animal Companion|spell|hunter|free|3|||Summon a random Beast Companion|FALSE
-Arathi Weaponsmith|minion|warrior|common|4|3|3|Battlecry: Equip a 2/2 weapon|FALSE
+Arathi Weaponsmith|minion|warrior|common|4|3|3|Battlecry: Equip a 2/2 weapon|TRUE
 Arcane Explosion|spell|mage|free|2|||Deal 1 damage to all enemy minions|TRUE
 Arcane Golem|minion|neutral|rare|3|4|2|Charge. Battlecry: Give your opponent a Mana Crystal|TRUE
 Arcane Intellect|spell|mage|free|3|||Draw 2 cards|TRUE
