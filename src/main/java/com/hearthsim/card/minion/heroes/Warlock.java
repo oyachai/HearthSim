@@ -4,6 +4,7 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -47,7 +48,7 @@ public class Warlock extends Hero {
 				this.hasAttacked_,
 				this.hasWindFuryAttacked_,
 				this.frozen_,
-				this.hasBeenUsed_
+				this.hasBeenUsed
 				);
 	}
 	
@@ -56,17 +57,19 @@ public class Warlock extends Hero {
 	 * 
 	 * Warlock: draw a card and take 2 damage
 	 * 
-	 * @param targetPlayerIndex The player index of the target character
-	 * @param targetMinion The target minion
-	 * @param boardState
-	 * @param deckPlayer0
-	 * @param deckPlayer1
-	 * 
-	 * @return
+	 *
+     *
+     * @param targetPlayerSide
+     * @param targetMinion The target minion
+     * @param boardState
+     * @param deckPlayer0
+     * @param deckPlayer1
+     *
+     * @return
 	 */
 	@Override
 	public HearthTreeNode useHeroAbility_core(
-			int targetPlayerIndex,
+			PlayerSide targetPlayerSide,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -74,11 +77,11 @@ public class Warlock extends Hero {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (targetPlayerIndex != 0 || !(targetMinion instanceof Hero))
+		if (targetPlayerSide == PlayerSide.WAITING_PLAYER || isNotHero(targetMinion))
 			return null;
-		HearthTreeNode toRet = targetMinion.takeDamage((byte)2, 0, 0, boardState, deckPlayer0, deckPlayer1, false, false);
+		HearthTreeNode toRet = targetMinion.takeDamage((byte)2, PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, boardState, deckPlayer0, deckPlayer1, false, false);
 		if (toRet != null) {
-			this.hasBeenUsed_ = true;
+			this.hasBeenUsed = true;
 			toRet.data_.setMana_p0(toRet.data_.getMana_p0() - HERO_ABILITY_COST);
 			if (toRet instanceof CardDrawNode) {
 				((CardDrawNode)toRet).addNumCardsToDraw(1);

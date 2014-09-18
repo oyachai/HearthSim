@@ -6,6 +6,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class DreadInfernal extends Demon {
@@ -151,7 +152,7 @@ public class DreadInfernal extends Demon {
 				this.deathrattleAction_,
 				this.attackAction_,
 				this.isInHand_,
-				this.hasBeenUsed_);
+				this.hasBeenUsed);
 	}
 	
 	/**
@@ -160,16 +161,16 @@ public class DreadInfernal extends Demon {
 	 * 
 	 * Battlecry: Deals 1 damage to all characters
 	 * 
-	 * @param thisCardIndex The index (position) of the card in the hand
-	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
-	 * @param minionIndex The index of the target minion.
-	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-	 * 
-	 * @return The boardState is manipulated and returned
+	 *
+     *
+     * @param side
+     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+     *
+     * @return The boardState is manipulated and returned
 	 */
 	@Override
 	public HearthTreeNode use_core(
-			int targetPlayerIndex,
+			PlayerSide side,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -178,28 +179,28 @@ public class DreadInfernal extends Demon {
 		throws HSException
 	{
 		
-		if (hasBeenUsed_) {
+		if (hasBeenUsed) {
 			//Card is already used, nothing to do
 			return null;
 		}
 		
-		if (targetPlayerIndex == 1)
+		if (isWaitingPlayer(side))
 			return null;
 		
-		if (boardState.data_.getNumMinions_p0() >= 7)
+		if (currentPlayerBoardFull(boardState))
 			return null;
 		
 		HearthTreeNode toRet = boardState;
-		toRet = toRet.data_.getHero_p0().takeDamage((byte)1, 0, 0, toRet, deckPlayer0, deckPlayer1, false, false);
-		for (Minion minion : toRet.data_.getMinions_p0()) {
-			toRet = minion.takeDamage((byte)1, 0, 0, boardState, deckPlayer0, deckPlayer1, false, false);
+		toRet = toRet.data_.getCurrentPlayerHero().takeDamage((byte)1, PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1, false, false);
+		for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
+			toRet = minion.takeDamage((byte)1, PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, boardState, deckPlayer0, deckPlayer1, false, false);
 		}
 		
-		toRet = toRet.data_.getHero_p1().takeDamage((byte)1, 0, 1, boardState, deckPlayer0, deckPlayer1, false, false);
-		for (Minion minion : toRet.data_.getMinions_p1()) {
-			toRet = minion.takeDamage((byte)1, 0, 1, boardState, deckPlayer0, deckPlayer1, false, false);
+		toRet = toRet.data_.getWaitingPlayerHero().takeDamage((byte)1, PlayerSide.CURRENT_PLAYER, PlayerSide.WAITING_PLAYER, boardState, deckPlayer0, deckPlayer1, false, false);
+		for (Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
+			toRet = minion.takeDamage((byte)1, PlayerSide.CURRENT_PLAYER, PlayerSide.WAITING_PLAYER, boardState, deckPlayer0, deckPlayer1, false, false);
 		}
 		
-		return super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+		return super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 	}
 }

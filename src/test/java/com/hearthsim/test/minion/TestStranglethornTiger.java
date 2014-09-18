@@ -11,6 +11,7 @@ import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
+import com.hearthsim.model.PlayerSide;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.util.tree.HearthTreeNode;
 import org.junit.Before;
@@ -32,10 +33,10 @@ public class TestStranglethornTiger {
 		Minion minion0_1 = new BoulderfistOgre();
 		Minion minion1_1 = new StranglethornTiger();
 		
-		board.data_.placeCard_hand_p0(minion0_0);
-		board.data_.placeCard_hand_p0(minion0_1);
+		board.data_.placeCardHandCurrentPlayer(minion0_0);
+		board.data_.placeCardHandCurrentPlayer(minion0_1);
 				
-		board.data_.placeCard_hand_p1(minion1_1);
+		board.data_.placeCardHandWaitingPlayer(minion1_1);
 
 		Card cards[] = new Card[10];
 		for (int index = 0; index < 10; ++index) {
@@ -52,15 +53,15 @@ public class TestStranglethornTiger {
 		
 		HearthTreeNode tmpBoard = new HearthTreeNode(board.data_.flipPlayers());
 		try {
-			tmpBoard.data_.getCard_hand_p0(0).useOn(0, tmpBoard.data_.getHero_p0(), tmpBoard, deck, null);
+			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
 		} catch (HSException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		board = new HearthTreeNode(tmpBoard.data_.flipPlayers());
 		try {
-			board.data_.getCard_hand_p0(0).useOn(0, board.data_.getHero_p0(), board, deck, null);
-			board.data_.getCard_hand_p0(0).useOn(0, board.data_.getHero_p0(), board, deck, null);
+			board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayerHero(), board, deck, null);
+			board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayerHero(), board, deck, null);
 		} catch (HSException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -76,19 +77,19 @@ public class TestStranglethornTiger {
 	public void test0() throws HSException {
 		
 		assertEquals(board.data_.getNumCards_hand(), 0);
-		assertEquals(board.data_.getNumMinions_p0(), 2);
-		assertEquals(board.data_.getNumMinions_p1(), 1);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 1);
 		assertEquals(board.data_.getMana_p0(), 8);
 		assertEquals(board.data_.getMana_p1(), 8);
-		assertEquals(board.data_.getHero_p0().getHealth(), 30);
-		assertEquals(board.data_.getHero_p1().getHealth(), 30);
-		assertEquals(board.data_.getMinion_p0(0).getTotalHealth(), 7);
-		assertEquals(board.data_.getMinion_p0(1).getTotalHealth(), 7);
-		assertEquals(board.data_.getMinion_p1(0).getTotalHealth(), 5);
+		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
+		assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getTotalHealth(), 7);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getTotalHealth(), 7);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getTotalHealth(), 5);
 
-		assertEquals(board.data_.getMinion_p0(0).getTotalAttack(), 6);
-		assertEquals(board.data_.getMinion_p0(1).getTotalAttack(), 6);
-		assertEquals(board.data_.getMinion_p1(0).getTotalAttack(), 5);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack(), 6);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack(), 6);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack(), 5);
 	}
 	
 	
@@ -104,21 +105,21 @@ public class TestStranglethornTiger {
         ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
 		BoardModel resBoard = ai0.playTurn(0, board.data_, playerModel0, playerModel1);
 
-		assertEquals(resBoard.getNumCards_hand_p0(), 0);
-		assertEquals(resBoard.getNumCards_hand_p1(), 0);
-		assertEquals(resBoard.getNumMinions_p0(), 2);
-		assertEquals(resBoard.getNumMinions_p1(), 1);
+		assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 0);
+		assertEquals(resBoard.getNumCardsHandWaitingPlayer(), 0);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getNumMinions(), 2);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(resBoard).getNumMinions(), 1);
 		assertEquals(resBoard.getMana_p0(), 8);
 		assertEquals(resBoard.getMana_p1(), 8);
-		assertEquals(resBoard.getHero_p0().getHealth(), 30);
-		assertEquals(resBoard.getHero_p1().getHealth(), 18);
-		assertEquals(resBoard.getMinion_p0(0).getTotalHealth(), 7);
-		assertEquals(resBoard.getMinion_p0(1).getTotalHealth(), 7);
-		assertEquals(resBoard.getMinion_p1(0).getTotalHealth(), 5);
+		assertEquals(resBoard.getCurrentPlayerHero().getHealth(), 30);
+		assertEquals(resBoard.getWaitingPlayerHero().getHealth(), 18);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getMinions().get(0).getTotalHealth(), 7);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getMinions().get(1).getTotalHealth(), 7);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(resBoard).getMinions().get(0).getTotalHealth(), 5);
 
-		assertEquals(resBoard.getMinion_p0(0).getTotalAttack(), 6);
-		assertEquals(resBoard.getMinion_p0(1).getTotalAttack(), 6);
-		assertEquals(resBoard.getMinion_p1(0).getTotalAttack(), 5);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getMinions().get(0).getTotalAttack(), 6);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getMinions().get(1).getTotalAttack(), 6);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(resBoard).getMinions().get(0).getTotalAttack(), 5);
 	}
 	
 	@Test
@@ -131,26 +132,26 @@ public class TestStranglethornTiger {
 		PlayerModel playerModel0 = new PlayerModel("player0", hero, deck);
 		PlayerModel playerModel1 = new PlayerModel("player0", hero, deck);
 		
-		board.data_.placeCard_hand_p0(new Silence());
+		board.data_.placeCardHandCurrentPlayer(new Silence());
 
         ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
 		BoardModel resBoard = ai0.playTurn(0, board.data_, playerModel0, playerModel1);
 
-		assertEquals(resBoard.getNumCards_hand_p0(), 1);
-		assertEquals(resBoard.getNumCards_hand_p1(), 0);
-		assertEquals(resBoard.getNumMinions_p0(), 2);
-		assertEquals(resBoard.getNumMinions_p1(), 1);
+		assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 1);
+		assertEquals(resBoard.getNumCardsHandWaitingPlayer(), 0);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getNumMinions(), 2);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(resBoard).getNumMinions(), 1);
 		assertEquals(resBoard.getMana_p0(), 8);
 		assertEquals(resBoard.getMana_p1(), 8);
-		assertEquals(resBoard.getHero_p0().getHealth(), 30);
-		assertEquals(resBoard.getHero_p1().getHealth(), 18);
-		assertEquals(resBoard.getMinion_p0(0).getTotalHealth(), 7);
-		assertEquals(resBoard.getMinion_p0(1).getTotalHealth(), 7);
-		assertEquals(resBoard.getMinion_p1(0).getTotalHealth(), 5);
+		assertEquals(resBoard.getCurrentPlayerHero().getHealth(), 30);
+		assertEquals(resBoard.getWaitingPlayerHero().getHealth(), 18);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getMinions().get(0).getTotalHealth(), 7);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getMinions().get(1).getTotalHealth(), 7);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(resBoard).getMinions().get(0).getTotalHealth(), 5);
 
-		assertEquals(resBoard.getMinion_p0(0).getTotalAttack(), 6);
-		assertEquals(resBoard.getMinion_p0(1).getTotalAttack(), 6);
-		assertEquals(resBoard.getMinion_p1(0).getTotalAttack(), 5);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getMinions().get(0).getTotalAttack(), 6);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getMinions().get(1).getTotalAttack(), 6);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(resBoard).getMinions().get(0).getTotalAttack(), 5);
 	}
 	
 	@Test
@@ -168,18 +169,18 @@ public class TestStranglethornTiger {
 		BoardModel resBoard0 = ai0.playTurn(0, board.data_.flipPlayers(), playerModel1, playerModel0, 2000000000);
 		BoardModel resBoard1 = ai0.playTurn(0, resBoard0.flipPlayers(), playerModel0, playerModel1, 2000000000);
 
-		assertEquals(resBoard1.getNumCards_hand_p1(), 0);
-		assertEquals(resBoard1.getNumCards_hand_p1(), 0);
-		assertEquals(resBoard1.getNumMinions_p0(), 2);
-		assertEquals(resBoard1.getNumMinions_p1(), 0);
+		assertEquals(resBoard1.getNumCardsHandWaitingPlayer(), 0);
+		assertEquals(resBoard1.getNumCardsHandWaitingPlayer(), 0);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard1).getNumMinions(), 2);
+		assertEquals(resBoard1.getWaitingPlayer().getNumMinions(), 0);
 		assertEquals(resBoard1.getMana_p0(), 8);
 		assertEquals(resBoard1.getMana_p1(), 8);
-		assertEquals(resBoard1.getHero_p0().getHealth(), 25);
-		assertEquals(resBoard1.getHero_p1().getHealth(), 24);
-		assertEquals(resBoard1.getMinion_p0(0).getTotalHealth(), 7);
-		assertEquals(resBoard1.getMinion_p0(1).getTotalHealth(), 2);
+		assertEquals(resBoard1.getCurrentPlayerHero().getHealth(), 25);
+		assertEquals(resBoard1.getWaitingPlayerHero().getHealth(), 24);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard1).getMinions().get(0).getTotalHealth(), 7);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard1).getMinions().get(1).getTotalHealth(), 2);
 
-		assertEquals(resBoard1.getMinion_p0(0).getTotalAttack(), 6);
-		assertEquals(resBoard1.getMinion_p0(1).getTotalAttack(), 6);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard1).getMinions().get(0).getTotalAttack(), 6);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard1).getMinions().get(1).getTotalAttack(), 6);
 	}
 }

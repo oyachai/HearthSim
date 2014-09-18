@@ -4,6 +4,7 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -46,7 +47,7 @@ public class Hunter extends Hero {
 				this.hasAttacked_,
 				this.hasWindFuryAttacked_,
 				this.frozen_,
-				this.hasBeenUsed_
+				this.hasBeenUsed
 				);
 	}
 	
@@ -55,17 +56,19 @@ public class Hunter extends Hero {
 	 * 
 	 * Hunter: Deals 2 damage to enemy hero
 	 * 
-	 * @param targetPlayerIndex The player index of the target character
-	 * @param targetMinion The target minion
-	 * @param boardState
-	 * @param deckPlayer0
-	 * @param deckPlayer1
-	 * 
-	 * @return
+	 *
+     *
+     * @param targetPlayerSide
+     * @param targetMinion The target minion
+     * @param boardState
+     * @param deckPlayer0
+     * @param deckPlayer1
+     *
+     * @return
 	 */
 	@Override
 	public HearthTreeNode useHeroAbility_core(
-			int targetPlayerIndex,
+			PlayerSide targetPlayerSide,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -74,10 +77,10 @@ public class Hunter extends Hero {
 		throws HSException
 	{
 		HearthTreeNode toRet = boardState;
-		if (targetMinion instanceof Hero && targetPlayerIndex == 1) {
-			this.hasBeenUsed_ = true;
+		if (isHero(targetMinion) && targetPlayerSide == PlayerSide.WAITING_PLAYER) {
+			this.hasBeenUsed = true;
 			toRet.data_.setMana_p0(toRet.data_.getMana_p0() - HERO_ABILITY_COST);
-			toRet = targetMinion.takeDamage((byte)2, 0, targetPlayerIndex, toRet, deckPlayer0, deckPlayer1, false, false);
+			toRet = targetMinion.takeDamage((byte)2, PlayerSide.CURRENT_PLAYER, targetPlayerSide, toRet, deckPlayer0, deckPlayer1, false, false);
 			return toRet;
 		} else {
 			return null;

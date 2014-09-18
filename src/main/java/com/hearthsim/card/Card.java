@@ -1,10 +1,10 @@
 package com.hearthsim.card;
 
+import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.model.BoardModel;
-import com.hearthsim.player.playercontroller.ArtificialPlayer;
+import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.factory.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -13,10 +13,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class Card implements DeepCopyable {
-    final Logger log = LoggerFactory.getLogger(getClass());
+    protected final Logger log = LoggerFactory.getLogger(getClass());
 
 	/**
 	 * Name of the card
@@ -28,7 +27,7 @@ public class Card implements DeepCopyable {
 	 */
 	protected byte mana_;
 	
-	protected boolean hasBeenUsed_;
+	protected boolean hasBeenUsed;
 	protected boolean isInHand_;
 
 	/**
@@ -42,7 +41,7 @@ public class Card implements DeepCopyable {
 	public Card(String name, byte mana, boolean hasBeenUsed, boolean isInHand) {
 		name_ = name;
 		mana_ = mana;
-		hasBeenUsed_ = hasBeenUsed;
+		this.hasBeenUsed = hasBeenUsed;
 		isInHand_ = isInHand;
 	}
 
@@ -88,7 +87,7 @@ public class Card implements DeepCopyable {
 	 * @return
 	 */
 	public boolean hasBeenUsed() {
-		return hasBeenUsed_;
+		return hasBeenUsed;
 	}
 	
 	/**
@@ -96,7 +95,7 @@ public class Card implements DeepCopyable {
 	 * @param value The new hasBeenUsed value
 	 */
 	public void hasBeenUsed(boolean value) {
-		hasBeenUsed_ = value;
+		hasBeenUsed = value;
 	}
 	
 	public void isInHand(boolean value) {
@@ -109,7 +108,7 @@ public class Card implements DeepCopyable {
 	
 	@Override
 	public Object deepCopy() {
-		return new Card(this.name_, this.mana_, this.hasBeenUsed_, this.isInHand_);
+		return new Card(this.name_, this.mana_, this.hasBeenUsed, this.isInHand_);
 	}
 	
 	@Override
@@ -129,7 +128,7 @@ public class Card implements DeepCopyable {
 	   if (mana_ != ((Card)other).mana_)
 		   return false;
 	   
-	   if (hasBeenUsed_ != ((Card)other).hasBeenUsed_)
+	   if (hasBeenUsed != ((Card)other).hasBeenUsed)
 		   return false;
 
 	   if (isInHand_ != ((Card)other).isInHand_)
@@ -145,7 +144,7 @@ public class Card implements DeepCopyable {
     public int hashCode() {
         int result = name_ != null ? name_.hashCode() : 0;
         result = 31 * result + (int) mana_;
-        result = 31 * result + (hasBeenUsed_ ? 1 : 0);
+        result = 31 * result + (hasBeenUsed ? 1 : 0);
         result = 31 * result + (isInHand_ ? 1 : 0);
         return result;
     }
@@ -156,7 +155,7 @@ public class Card implements DeepCopyable {
 	 * This function is called at the end of the turn.  Any derived class must override it and remove any 
 	 * temporary buffs that it has.
 	 */
-	public BoardModel endTurn(int thisCardPlayerIndex, BoardModel boardModel, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+	public BoardModel endTurn(PlayerSide thisCardPlayerSide, BoardModel boardModel, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
 		return boardModel;
 	}
 	
@@ -166,7 +165,7 @@ public class Card implements DeepCopyable {
 	 * This function is called at the start of the turn.  Any derived class must override it to implement whatever
 	 * "start of the turn" effect the card has.
 	 */
-	public BoardModel startTurn(int thisCardPlayerIndex, BoardModel boardModel, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+	public BoardModel startTurn(PlayerSide thisCardPlayerSide, BoardModel boardModel, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
 		return boardModel;
 	}
 
@@ -189,41 +188,45 @@ public class Card implements DeepCopyable {
      * By default, this function returns true, in which case 
      * BoardStateFactory will still go and try to use the card.
      * 
-	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
-	 * @param minionIndex The index of the target minion.
-     * @return 
+	 *
+     * @param playerSide
+     * @param boardModel
+* @return
      */
-    public boolean canBeUsedOn(int playerIndex, Minion minion) {
+    public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
         return true;
     }
 
         
 	public final HearthTreeNode useOn(
-			int targetPlayerIndex,
+			PlayerSide side,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
 		throws HSException
 	{
-		return this.useOn(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1, false);
+		return this.useOn(side, targetMinion, boardState, deckPlayer0, deckPlayer1, false);
 	}    
     
 	/**
 	 * 
 	 * Use the card on the given target
 	 * 
-	 * @param targetPlayerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
-	 * @param targetMinion The target minion (can be a Hero)
-	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-	 * @param deckPlayer0 The deck for player0
-	 * @param deckPlayer1 The deck for player1
-	 * @param singleRealizationOnly For cards with random effects, setting this to true will return only a single realization of the random event.
-	 * 
-	 * @return The boardState is manipulated and returned
+	 *
+     *
+     *
+     * @param side
+     * @param targetMinion The target minion (can be a Hero)
+     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+     * @param deckPlayer0 The deck for player0
+     * @param deckPlayer1 The deck for player1
+     * @param singleRealizationOnly For cards with random effects, setting this to true will return only a single realization of the random event.
+     *
+     * @return The boardState is manipulated and returned
 	 */
 	public HearthTreeNode useOn(
-			int targetPlayerIndex,
+			PlayerSide side,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -232,36 +235,36 @@ public class Card implements DeepCopyable {
 		throws HSException
 	{
 		//A generic card does nothing except for consuming mana
-		HearthTreeNode toRet = this.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+		HearthTreeNode toRet = this.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 
 		//Notify all other cards/characters of the card's use
 		if (toRet != null) {
 			ArrayList<Minion> tmpList = new ArrayList<Minion>(7);
-			for (Iterator<Card> iter = toRet.data_.getCards_hand_p0().iterator(); iter.hasNext();) {
-				toRet = iter.next().otherCardUsedEvent(0, 0, this, toRet, deckPlayer0, deckPlayer1);
-			}
-			toRet = toRet.data_.getHero_p0().otherCardUsedEvent(0, 0, this, toRet, deckPlayer0, deckPlayer1);
+            for (Card card : toRet.data_.getCurrentPlayerHand()) {
+                toRet = card.otherCardUsedEvent(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1);
+            }
+			toRet = toRet.data_.getCurrentPlayerHero().otherCardUsedEvent(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1);
 			{
-				for (Iterator<Minion> iter = toRet.data_.getMinions_p0().iterator(); iter.hasNext();) {
-					tmpList.add(iter.next());
-				}
+                for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
+                    tmpList.add(minion);
+                }
 				for (Minion minion : tmpList) {
 					if (!minion.isSilenced())
-						toRet = minion.otherCardUsedEvent(0, 0, this, toRet, deckPlayer0, deckPlayer1);
+						toRet = minion.otherCardUsedEvent(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1);
 				}
 			}
-			for (Iterator<Card> iter = toRet.data_.getCards_hand_p1().iterator(); iter.hasNext();) {
-				toRet = iter.next().otherCardUsedEvent(1, 0, this, toRet, deckPlayer0, deckPlayer1);
-			}
-			toRet = toRet.data_.getHero_p1().otherCardUsedEvent(1, 0, this, toRet, deckPlayer0, deckPlayer1);
+            for (Card card : toRet.data_.getWaitingPlayerHand()) {
+                toRet = card.otherCardUsedEvent(PlayerSide.WAITING_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1);
+            }
+			toRet = toRet.data_.getWaitingPlayerHero().otherCardUsedEvent(PlayerSide.WAITING_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1);
 			{
 				tmpList.clear();
-				for (Iterator<Minion> iter = toRet.data_.getMinions_p1().iterator(); iter.hasNext();) {
-					tmpList.add(iter.next());
-				}
+                for (Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
+                    tmpList.add(minion);
+                }
 				for (Minion minion : tmpList) {
 					if (!minion.isSilenced())
-						toRet = minion.otherCardUsedEvent(1, 0, this, toRet, deckPlayer0, deckPlayer1);
+						toRet = minion.otherCardUsedEvent(PlayerSide.WAITING_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1);
 				}
 			}
 
@@ -279,15 +282,15 @@ public class Card implements DeepCopyable {
 	 * 
 	 * This is the core implementation of card's ability
 	 * 
-	 * @param thisCardIndex The index (position) of the card in the hand
-	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
-	 * @param minionIndex The index of the target minion.
-	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-	 * 
-	 * @return The boardState is manipulated and returned
+	 *
+     *
+     * @param side
+     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+     *
+     * @return The boardState is manipulated and returned
 	 */
 	protected HearthTreeNode use_core(
-			int targetPlayerIndex,
+			PlayerSide side,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -301,52 +304,24 @@ public class Card implements DeepCopyable {
 		return boardState;
 	}
 	
-	
-	/**
-	 * 
-	 * Get the expected value of the card if used on the position
-	 * 
-	 * @param thisCardIndex The index (position) of the card in the hand
-	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
-	 * @param minionIndex The index of the target minion.
-	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-	 * @param deck The initiating player's deck
-	 * @param scoreFunc The scoring function
-	 * 
-	 * @return The expected score
-	 */
-	public double getExpectedScoreIfUsed(
-			int thisCardIndex,
-			int playerIndex,
-			int minionIndex,
-			HearthTreeNode boardState,
-			Deck deck,
-			ArtificialPlayer ai)
-		throws HSInvalidPlayerIndexException
-	{
-		return 0.0;
-	}
-	
-	
+
 	//======================================================================================
 	// Hooks for various events
 	//======================================================================================	
 	/**
 	 * 
 	 * Called whenever another card is used
-	 * 
-	 * @param thisCardPlayerIndex The player index of the card receiving the event
-	 * @param cardUserPlayerIndex The player index of the player that used the card
-	 * @param usedCard The card that was used
-	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-	 * @param deckPlayer0 The deck of player0
-	 * @param deckPlayer1 The deck of player1
-	 * 
-	 * @return The boardState is manipulated and returned
+	 *  @param thisCardPlayerSide The player index of the card receiving the event
+	 * @param cardUserPlayerSide
+     * @param usedCard The card that was used
+     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+     * @param deckPlayer0 The deck of player0
+     * @param deckPlayer1 The deck of player1
+     * @return The boardState is manipulated and returned
 	 */
 	public HearthTreeNode otherCardUsedEvent(
-			int thisCardPlayerIndex,
-			int cardUserPlayerIndex,
+			PlayerSide thisCardPlayerSide,
+			PlayerSide cardUserPlayerSide,
 			Card usedCard,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -364,7 +339,7 @@ public class Card implements DeepCopyable {
 		JSONObject json = new JSONObject();
 		json.put("name", name_);
 		json.put("mana", mana_);
-		json.put("hasBeenUsed", hasBeenUsed_);
+		json.put("hasBeenUsed", hasBeenUsed);
 		return json;
 	}
 	
@@ -372,6 +347,22 @@ public class Card implements DeepCopyable {
 	public String toString() {
 		return this.toJSON().toString();
 	}
+
+    public boolean isWaitingPlayer(PlayerSide side) {
+        return PlayerSide.WAITING_PLAYER == side;
+    }
+
+    protected boolean isNotHero(Minion targetMinion) {
+        return !isHero(targetMinion);
+    }
+
+    protected boolean isCurrentPlayer(PlayerSide side) {
+        return PlayerSide.CURRENT_PLAYER == side;
+    }
+
+    protected boolean isHero(Minion targetMinion) {
+        return targetMinion instanceof Hero;
+    }
 }
 
 

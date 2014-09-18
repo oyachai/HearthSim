@@ -1,10 +1,10 @@
 package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.Deck;
-import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class CircleOfHealing extends SpellCard {
@@ -31,7 +31,7 @@ public class CircleOfHealing extends SpellCard {
 	
 	@Override
 	public Object deepCopy() {
-		return new CircleOfHealing(this.hasBeenUsed_);
+		return new CircleOfHealing(this.hasBeenUsed);
 	}
 
 	
@@ -41,16 +41,16 @@ public class CircleOfHealing extends SpellCard {
 	 * 
 	 * Heals all minions for 4
 	 * 
-	 * @param thisCardIndex The index (position) of the card in the hand
-	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
-	 * @param minionIndex The index of the target minion.
-	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-	 * 
-	 * @return The boardState is manipulated and returned
+	 *
+     *
+     * @param side
+     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+     *
+     * @return The boardState is manipulated and returned
 	 */
 	@Override
 	protected HearthTreeNode use_core(
-			int targetPlayerIndex,
+			PlayerSide side,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -58,16 +58,16 @@ public class CircleOfHealing extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (targetPlayerIndex > 0 || !(targetMinion instanceof Hero)) 
+		if (isWaitingPlayer(side) || isNotHero(targetMinion))
 			return null;
 		
-		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
-		for (Minion minion : toRet.data_.getMinions_p0()) {
-			toRet = minion.takeHeal(HEAL_AMOUNT, 0, toRet, deckPlayer0, deckPlayer1);
+		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+		for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
+			toRet = minion.takeHeal(HEAL_AMOUNT, PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1);
 		}
 
-		for (Minion minion : toRet.data_.getMinions_p1()) {
-			toRet = minion.takeHeal(HEAL_AMOUNT, 1, toRet, deckPlayer0, deckPlayer1);
+		for (Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
+			toRet = minion.takeHeal(HEAL_AMOUNT, PlayerSide.WAITING_PLAYER, toRet, deckPlayer0, deckPlayer1);
 		}
 
 		return toRet;

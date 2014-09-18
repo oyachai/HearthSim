@@ -2,9 +2,9 @@ package com.hearthsim.card.weapon;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
-import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class WeaponCard extends Card {
@@ -65,15 +65,15 @@ public class WeaponCard extends Card {
 	 * 
 	 * This is the core implementation of card's ability
 	 * 
-	 * @param thisCardIndex The index (position) of the card in the hand
-	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
-	 * @param minionIndex The index of the target minion.
-	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-	 * 
-	 * @return The boardState is manipulated and returned
+	 *
+     *
+     * @param side
+     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+     *
+     * @return The boardState is manipulated and returned
 	 */
 	protected HearthTreeNode use_core(
-			int targetPlayerIndex,
+			PlayerSide side,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -85,19 +85,19 @@ public class WeaponCard extends Card {
 			//Card is already used, nothing to do
 			return null;
 		}
-				
-		if (targetPlayerIndex == 1 || !(targetMinion instanceof Hero)) {
+
+		if (isWaitingPlayer(side) || isNotHero(targetMinion)) {
 			return null;
 		}
 		
 		HearthTreeNode toRet = boardState;
 		if (toRet != null) {
-			toRet.data_.getHero_p0().setAttack(this.weaponDamage_);
-			toRet.data_.getHero_p0().setWeaponCharge(this.weaponCharge_);
+			toRet.data_.getCurrentPlayerHero().setAttack(this.weaponDamage_);
+			toRet.data_.getCurrentPlayerHero().setWeaponCharge(this.weaponCharge_);
 			this.hasBeenUsed(true);
 
 		}
 		
-		return super.use_core(targetPlayerIndex, targetMinion, toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
+		return super.use_core(side, targetMinion, toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
 	}
 }

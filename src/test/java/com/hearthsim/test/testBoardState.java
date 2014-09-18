@@ -4,6 +4,7 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
+import com.hearthsim.model.PlayerSide;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
@@ -44,34 +45,34 @@ public class testBoardState {
 		
 		assertTrue(board1.equals(board2));
 		
-		board1.placeCard_hand_p0(cards1[0]);
-		board3.placeCard_hand_p0(cards3[0]);
+		board1.placeCardHandCurrentPlayer(cards1[0]);
+		board3.placeCardHandCurrentPlayer(cards3[0]);
 
 		assertFalse(board1.equals(board2));
 		assertTrue(board1.equals(board3));
 		
-		board2.placeCard_hand_p0(cards3[0]);
+		board2.placeCardHandCurrentPlayer(cards3[0]);
 		assertTrue(board1.equals(board2));
 		
-		board1.placeCard_hand_p0(cards1[1]);
-		board3.placeCard_hand_p0(cards3[1]);
-		board2.placeCard_hand_p0(cards2[1]);
+		board1.placeCardHandCurrentPlayer(cards1[1]);
+		board3.placeCardHandCurrentPlayer(cards3[1]);
+		board2.placeCardHandCurrentPlayer(cards2[1]);
 		assertFalse(board1.equals(board2));
 		assertTrue(board1.equals(board3));
 		
-		board1.placeMinion(0, (Minion)cards1[2]);
-		board2.placeMinion(0, (Minion)cards2[2]);
-		board2.placeMinion(0, (Minion)cards2[3]);
-		board3.placeMinion(0, (Minion)cards3[2]);
+		board1.placeMinion(PlayerSide.CURRENT_PLAYER, (Minion)cards1[2]);
+		board2.placeMinion(PlayerSide.CURRENT_PLAYER, (Minion)cards2[2]);
+		board2.placeMinion(PlayerSide.CURRENT_PLAYER, (Minion)cards2[3]);
+		board3.placeMinion(PlayerSide.CURRENT_PLAYER, (Minion)cards3[2]);
 
 
 		assertTrue(board1.equals(board3));
 		assertFalse(board1.equals(board2));
 
-		board1.placeMinion(1, (Minion)cards1[4]);
-		board1.placeMinion(1, (Minion)cards1[5]);
-		board3.placeMinion(1, (Minion)cards3[4]);
-		board3.placeMinion(1, (Minion)cards3[5]);
+		board1.placeMinion(PlayerSide.WAITING_PLAYER, (Minion)cards1[4]);
+		board1.placeMinion(PlayerSide.WAITING_PLAYER, (Minion)cards1[5]);
+		board3.placeMinion(PlayerSide.WAITING_PLAYER, (Minion)cards3[4]);
+		board3.placeMinion(PlayerSide.WAITING_PLAYER, (Minion)cards3[5]);
 		assertTrue(board1.equals(board3));
 
 		
@@ -126,15 +127,15 @@ public class testBoardState {
 			int nm2 = (int)(Math.random() * 2) + 1;
 			
 			for (int j = 0; j < nh; ++j) {
-				boards[i].placeCard_hand_p0(cards1[(int)(Math.random() * numCards1)]);
+				boards[i].placeCardHandCurrentPlayer(cards1[(int) (Math.random() * numCards1)]);
 			}
 
 			for (int j = 0; j < nm1; ++j) {
-				boards[i].placeMinion(0, (Minion)cards2[(int)(Math.random() * numCards2)]);
+				boards[i].placeMinion(PlayerSide.CURRENT_PLAYER, (Minion)cards2[(int)(Math.random() * numCards2)]);
 			}
 
 			for (int j = 0; j < nm2; ++j) {
-				boards[i].placeMinion(1, (Minion)cards3[(int)(Math.random() * numCards3)]);
+				boards[i].placeMinion(PlayerSide.WAITING_PLAYER, (Minion) cards3[(int) (Math.random() * numCards3)]);
 			}
 		}
 		

@@ -1,10 +1,12 @@
 package com.hearthsim.card;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+
 import com.hearthsim.card.minion.concrete.*;
 import com.hearthsim.card.spellcard.concrete.*;
 import com.hearthsim.card.weapon.concrete.*;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 /**
  * A list of all implemented cards
  *

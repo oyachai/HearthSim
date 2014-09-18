@@ -5,6 +5,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 
@@ -151,7 +152,7 @@ public class Nightblade extends Minion {
 				this.deathrattleAction_,
 				this.attackAction_,
 				this.isInHand_,
-				this.hasBeenUsed_);
+				this.hasBeenUsed);
 	}
 	
 	
@@ -161,17 +162,18 @@ public class Nightblade extends Minion {
 	 * 
 	 * Battlecry: Heals friendly characters for 2
 	 * 
-	 * @param targetPlayerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
-	 * @param targetMinion The target minion (can be a Hero).  If it is a Hero, then the minion is placed on the last (right most) spot on the board.
-	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-	 * @param deckPlayer0 The deck of player0
-	 * @param deckPlayer0 The deck of player1
-	 * 
-	 * @return The boardState is manipulated and returned
+	 *
+     *
+     *
+     * @param side
+     * @param targetMinion The target minion (can be a Hero).  If it is a Hero, then the minion is placed on the last (right most) spot on the board.
+     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+     * @param deckPlayer0 The deck of player0
+     * @return The boardState is manipulated and returned
 	 */
 	@Override
 	public HearthTreeNode useOn(
-			int targetPlayerIndex,
+			PlayerSide side,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -179,10 +181,10 @@ public class Nightblade extends Minion {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 
 		if (toRet != null) 
-			toRet = toRet.data_.getHero_p1().takeDamage((byte)3, 0, 1, boardState, deckPlayer0, deckPlayer1, false, false);
+			toRet = toRet.data_.getWaitingPlayerHero().takeDamage((byte)3, PlayerSide.CURRENT_PLAYER, PlayerSide.WAITING_PLAYER, boardState, deckPlayer0, deckPlayer1, false, false);
 		
 		return toRet;
 	}

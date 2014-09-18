@@ -4,6 +4,7 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -46,7 +47,7 @@ public class Priest extends Hero {
 				this.hasAttacked_,
 				this.hasWindFuryAttacked_,
 				this.frozen_,
-				this.hasBeenUsed_
+				this.hasBeenUsed
 				);
 	}
 	
@@ -55,16 +56,15 @@ public class Priest extends Hero {
 	 * 
 	 * Priest: Heals a target for 2
 	 * 
-	 * @param thisPlayerIndex The player index of the hero
-	 * @param targetPlayerIndex The player index of the target character
-	 * @param targetMinionIndex The minion index of the target character
-	 * @param boardState
-	 * @param deck
-	 * @return
+	 *
+     *
+     * @param targetPlayerSide
+     * @param boardState
+     * @return
 	 */
 	@Override
 	public HearthTreeNode useHeroAbility_core(
-			int targetPlayerIndex,
+			PlayerSide targetPlayerSide,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -73,9 +73,9 @@ public class Priest extends Hero {
 		throws HSException
 	{
 		HearthTreeNode toRet = boardState;
-		this.hasBeenUsed_ = true;
+		this.hasBeenUsed = true;
 		toRet.data_.setMana_p0(toRet.data_.getMana_p0() - HERO_ABILITY_COST);
-		toRet = targetMinion.takeHeal((byte)2, targetPlayerIndex, toRet, deckPlayer0, deckPlayer1);
+		toRet = targetMinion.takeHeal((byte)2, targetPlayerSide, toRet, deckPlayer0, deckPlayer1);
 
 		return toRet;
 	}

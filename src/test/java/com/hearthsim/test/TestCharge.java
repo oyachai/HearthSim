@@ -3,6 +3,7 @@ package com.hearthsim.test;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
+import com.hearthsim.model.PlayerSide;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.util.factory.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -36,13 +37,13 @@ public class TestCharge {
 		scoreFunc = new DummyStateFunc();
 
 		Minion minion1_0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
-		board.placeMinion(1, minion1_0);
+		board.placeMinion(PlayerSide.WAITING_PLAYER, minion1_0);
 				
 	}
 	@Test
 	public void test0() throws HSException {
 		Minion minion = new Minion("" + 0, mana, attack0, health1, attack0, (byte)0, (byte)0, health1, health1, (byte)0, (byte)0, false, false, false, true, false, false, false, false, false, false, false, false, false, false, null, null, false, false);
-		board.placeMinion(0, minion);
+		board.placeMinion(PlayerSide.CURRENT_PLAYER, minion);
 		
 		BoardStateFactoryBase factory = new BoardStateFactoryBase(null, null, 2000000000);
 		HearthTreeNode tree = new HearthTreeNode(board);
@@ -60,7 +61,7 @@ public class TestCharge {
 	@Test
 	public void test1() {
 		Minion minion = new Minion("" + 0, mana, attack0, health1, attack0, (byte)0, (byte)0, health1, health1, (byte)0, (byte)0, false, false, false, true, false, false, false, false, false, false, false, false, false, false, null, null, true, false);
-		board.placeCard_hand_p0(minion);
+		board.placeCardHandCurrentPlayer(minion);
 		board.setMana_p0(1);
 		
 		BoardStateFactoryBase factory = new BoardStateFactoryBase(null, null);

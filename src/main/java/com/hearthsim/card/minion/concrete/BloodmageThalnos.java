@@ -149,7 +149,7 @@ public class BloodmageThalnos extends Minion {
 				this.deathrattleAction_,
 				this.attackAction_,
 				this.isInHand_,
-				this.hasBeenUsed_);
+				this.hasBeenUsed);
 	}
 	
 }

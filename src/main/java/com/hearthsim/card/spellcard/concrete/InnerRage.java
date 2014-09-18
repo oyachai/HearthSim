@@ -1,10 +1,10 @@
 package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.Deck;
-import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class InnerRage extends SpellCard {
@@ -29,7 +29,7 @@ public class InnerRage extends SpellCard {
 
 	@Override
 	public Object deepCopy() {
-		return new InnerRage(this.hasBeenUsed_);
+		return new InnerRage(this.hasBeenUsed);
 	}
 	
 	/**
@@ -38,16 +38,16 @@ public class InnerRage extends SpellCard {
 	 * 
 	 * Deal 1 damage to a minion and give it +2 attack
 	 * 
-	 * @param thisCardIndex The index (position) of the card in the hand
-	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
-	 * @param minionIndex The index of the target minion.
-	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-	 * 
-	 * @return The boardState is manipulated and returned
+	 *
+     *
+     * @param side
+     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+     *
+     * @return The boardState is manipulated and returned
 	 */
 	@Override
 	protected HearthTreeNode use_core(
-			int targetPlayerIndex,
+			PlayerSide side,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
@@ -55,12 +55,12 @@ public class InnerRage extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (targetMinion instanceof Hero) 
+		if (isHero(targetMinion))
 			return null;
 
-		HearthTreeNode toRet = super.use_core(targetPlayerIndex, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
-			toRet = targetMinion.takeDamage((byte)1, 0, targetPlayerIndex, boardState, deckPlayer0, deckPlayer1, true, false);
+			toRet = targetMinion.takeDamage((byte)1, PlayerSide.CURRENT_PLAYER, side, boardState, deckPlayer0, deckPlayer1, true, false);
 			targetMinion.setAttack((byte)(targetMinion.getAttack() + 2));
 		}
 		return toRet;

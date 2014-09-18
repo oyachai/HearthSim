@@ -15,7 +15,7 @@ import com.hearthsim.util.factory.SparseBoardStateFactory;
 import com.hearthsim.util.tree.HearthTreeNode;
 import com.hearthsim.util.tree.StopNode;
 
-import java.io.*;
+import java.io.IOException;
 import java.nio.file.Path;
 
 public class ArtificialPlayer {
@@ -192,9 +192,9 @@ public class ArtificialPlayer {
 		IdentityLinkedList<Minion> myBoardCards;
 		IdentityLinkedList<Minion> opBoardCards;
 		IdentityLinkedList<Card> myHandCards;
-		myBoardCards = board.getMinions_p0();
-		opBoardCards = board.getMinions_p1();
-		myHandCards = board.getCards_hand_p0();
+		myBoardCards = board.getCurrentPlayer().getMinions();
+		opBoardCards = board.getWaitingPlayer().getMinions();
+		myHandCards = board.getCurrentPlayerHand();
 		
 		//my board score
 		double myScore = 0.0;
@@ -217,8 +217,8 @@ public class ArtificialPlayer {
 		
 		//weapons
 		double weaponScore = 0.0;
-		weaponScore += board.getHero_p0().getAttack() * board.getHero_p0().getWeaponCharge() * myWeaponWeight;
-		weaponScore -= board.getHero_p1().getAttack() * board.getHero_p1().getWeaponCharge() * enemyWeaponWeight;
+		weaponScore += board.getCurrentPlayerHero().getAttack() * board.getCurrentPlayerHero().getWeaponCharge() * myWeaponWeight;
+		weaponScore -= board.getWaitingPlayerHero().getAttack() * board.getWaitingPlayerHero().getWeaponCharge() * enemyWeaponWeight;
 		
 		//my cards.  The more cards that I have, the better
 		double handScore = 0.0;
@@ -228,13 +228,13 @@ public class ArtificialPlayer {
 		
 		//the more we beat on the opponent hero, the better
 		double heroScore = 0;
-		heroScore += heroHealthScore_p0(board.getHero_p0().getHealth(), board.getHero_p0().getArmor());
-		heroScore += heroHealthScore_p1(board.getHero_p1().getHealth(), board.getHero_p1().getArmor());
+		heroScore += heroHealthScore_p0(board.getCurrentPlayerHero().getHealth(), board.getCurrentPlayerHero().getArmor());
+		heroScore += heroHealthScore_p1(board.getWaitingPlayerHero().getHealth(), board.getWaitingPlayerHero().getArmor());
 		
 		//the more minions you have, the better.  The less minions the enemy has, the better
 		double minionScore = 0.0;
-		minionScore += myNumMinionsWeight * (board.getNumMinions_p0());
-		minionScore -= enemyNumMinionsWeight * (board.getNumMinions_p1());
+		minionScore += myNumMinionsWeight * (board.getCurrentPlayer().getNumMinions());
+		minionScore -= enemyNumMinionsWeight * (board.getWaitingPlayer().getNumMinions());
 		
 		double score = myScore - opScore + handScore + heroScore + minionScore + weaponScore;
 		
