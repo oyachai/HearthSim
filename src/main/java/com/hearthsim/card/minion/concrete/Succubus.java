@@ -187,7 +187,7 @@ public class Succubus extends Demon {
 		if (numCards <= 0)
 			return null;
 		int cardToDiscardIndex = (int)(Math.random() * numCards);
-		toRet.data_.removeCard_hand(PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions().get(cardToDiscardIndex));
+		toRet.data_.removeCardFromHand(PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions().get(cardToDiscardIndex), PlayerSide.CURRENT_PLAYER);
 							
 		return boardState;
 	}

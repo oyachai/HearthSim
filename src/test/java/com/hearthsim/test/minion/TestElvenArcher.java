@@ -27,6 +27,7 @@ public class TestElvenArcher {
 	public void setup() throws HSException {
 		board = new HearthTreeNode(new BoardModel());
 
+        //public Minion(String name, byte mana, byte attack, byte health, byte baseAttack, byte baseHealth, byte maxHealth) {
 		Minion minion0_0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
 		Minion minion0_1 = new Minion("" + 0, mana, attack0, (byte)(health1 - 1), attack0, health1, health1);
 		Minion minion1_0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);

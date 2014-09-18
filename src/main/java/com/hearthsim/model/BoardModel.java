@@ -244,6 +244,14 @@ public class BoardModel implements DeepCopyable {
         currentPlayer.getHand().remove(card);
     }
 
+    public void placeCardHand(PlayerSide side, Card card){
+        modelForSide(side).placeCardHand(card);
+    }
+
+    public void removeCardFromHand(Card card, PlayerSide playerSide){
+        modelForSide(playerSide).getHand().remove(card);
+    }
+
     public int getNumCards_hand() {
         return currentPlayer.getHand().size();
     }
@@ -270,6 +278,22 @@ public class BoardModel implements DeepCopyable {
 
     public Hero getWaitingPlayerHero() {
         return waitingPlayer.getHero();
+    }
+
+    public void setFatigueDamage(PlayerSide playerSide, byte fatigueDamage) {
+        if (playerSide == PlayerSide.CURRENT_PLAYER){
+            p0_fatigueDamage_= fatigueDamage;
+        }else{
+            p1_fatigueDamage_= fatigueDamage;
+        }
+    }
+
+    public int getFatigueDamage(PlayerSide playerSide){
+        if (playerSide==PlayerSide.CURRENT_PLAYER){
+            return p0_fatigueDamage_;
+        }else{
+            return p1_fatigueDamage_;
+        }
     }
 
     /**
