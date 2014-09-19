@@ -119,3 +119,12 @@ DigitalOcean 4 CPU, 8GB Ram
 To contribute, follow the usual procedure: fork, make changes, and submit a pull request.
 
 For discussions, questions, or comments, join the dev board [here](https://hearthstone.versify-app.com/board/HearthSim_dev/).
+
+##Acknowledgements
+YourKit supports the HearthSim project with its full-featured Java Profiler.
+
+YourKit, LLC is the creator of <a href="http://www.yourkit.com/java/profiler/index.jsp">YourKit Java Profiler</a>
+and <a href="http://www.yourkit.com/.net/profiler/index.jsp">YourKit .NET Profiler</a>,
+innovative and intelligent tools for profiling Java and .NET applications.
+
+![yourkit](https://cloud.githubusercontent.com/assets/158169/4337009/a4a34b22-400b-11e4-852b-cf43ff6ebd00.png)
