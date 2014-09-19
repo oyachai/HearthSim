@@ -312,6 +312,7 @@ Silvermoon Guardian|minion|neutral|common|4|3|3|Divine Shield|TRUE
 Sinister Strike|spell|rogue|free|1|||Deal 3 damage to the enemy hero|TRUE
 Siphon Soul|spell|warlock|rare|6|||Destroy a minion.Restore 3 Health to your hero|FALSE
 Slam|spell|warrior|common|2|||Deal 2 damage to a minion. If it survives, draw a card|TRUE
+Sludge Belcher|minion|neutral|rare|5|3|5|Taunt.  Deathrattle: Summon a 1 / 2 Slime with Taunt|TRUE
 Snake Trap|spell|hunter|epic|2|||Secret: When one of your minions is attacked, summon three 1/1 Snakes|FALSE
 Snipe|spell|hunter|common|2|||Secret: When your opponent plays a minion, deal 4 damage to it|FALSE
 Sorcerer's Apprentice|minion|mage|common|2|3|2|Your spells cost (1) less|FALSE

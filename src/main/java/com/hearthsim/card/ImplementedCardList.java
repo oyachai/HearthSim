@@ -1,12 +1,10 @@
 package com.hearthsim.card;
-
-import com.hearthsim.card.minion.concrete.*;
-import com.hearthsim.card.spellcard.concrete.*;
-import com.hearthsim.card.weapon.concrete.*;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import com.hearthsim.card.minion.concrete.*;
+import com.hearthsim.card.spellcard.concrete.*;
+import com.hearthsim.card.weapon.concrete.*;
 /**
  * A list of all implemented cards
  *
@@ -851,6 +849,11 @@ public class ImplementedCardList {
             ImplementedCard card = new ImplementedCard(Slam.class, "Slam", "spell", "warrior", "common", "Deal 2 damage to a minion. If it survives, draw a card", 2, -1, -1);
             list_.add(card);
             map_.put(Slam.class, card);
+        }
+        {
+            ImplementedCard card = new ImplementedCard(SludgeBelcher.class, "Sludge Belcher", "minion", "neutral", "rare", "Taunt.  Deathrattle Summon a 1 / 2 Slime with Taunt", 5, 3, 5);
+            list_.add(card);
+            map_.put(SludgeBelcher.class, card);
         }
         {
             ImplementedCard card = new ImplementedCard(Spellbreaker.class, "Spellbreaker", "minion", "neutral", "common", "Battlecry Silence a minion", 4, 4, 3);
