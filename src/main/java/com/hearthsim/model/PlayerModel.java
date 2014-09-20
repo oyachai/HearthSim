@@ -11,17 +11,19 @@ import org.json.JSONObject;
 
 public class PlayerModel implements DeepCopyable {
 
-    private String name;
-    private boolean isFirstPlayer; // used for identifying player 1 vs player 2
-    private Hero hero;
-    private Deck deck;
+    private final String name;
+    private final int playerId; // used for identifying player 0 vs player 1
+    private final Hero hero;
+    private final Deck deck;
+    
     private int mana;
     private MinionList minions;
     private byte spellDamage;
     private IdentityLinkedList<Card> hand;
     byte overload;
 
-    public PlayerModel(String name, Hero hero, Deck deck) {
+    public PlayerModel(int playerId, String name, Hero hero, Deck deck) {
+    	this.playerId = playerId;
         this.name = name;
         this.hero = hero;
         this.deck = deck;
@@ -50,10 +52,6 @@ public class PlayerModel implements DeepCopyable {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public Hero getHero() {
         return hero;
     }
@@ -76,14 +74,6 @@ public class PlayerModel implements DeepCopyable {
 
     public void setMinions(MinionList minions) {
         this.minions = minions;
-    }
-
-    public void setHero(Hero hero) {
-        this.hero = hero;
-    }
-
-    public void setDeck(Deck deck) {
-        this.deck = deck;
     }
 
     public byte getSpellDamage() {
@@ -117,14 +107,15 @@ public class PlayerModel implements DeepCopyable {
     @Override
     public Object deepCopy() {
         PlayerModel copiedPlayerModel = new PlayerModel(
+        		this.playerId,
                 this.name,
                 (Hero) this.hero.deepCopy(),
                 this.deck //todo should be a deep copy, we're just using the index in boardmodel right now to compensate..
+                //oyachai: the use of the deck position index is actually an attempt to reduce memory usage.
         );
 
         copiedPlayerModel.setMana(mana);
         copiedPlayerModel.setOverload(overload);
-        copiedPlayerModel.setFirstPlayer(isFirstPlayer);
 
         for (Minion minion : minions) {
             copiedPlayerModel.getMinions().add((Minion) (minion).deepCopy());
@@ -151,11 +142,8 @@ public class PlayerModel implements DeepCopyable {
         hand.add(card);
     }
 
-    public boolean isFirstPlayer() {
-        return isFirstPlayer;
+    public int getPlayerId() {
+        return playerId;
     }
 
-    public void setFirstPlayer(boolean isFirstPlayer) {
-        this.isFirstPlayer = isFirstPlayer;
-    }
 }

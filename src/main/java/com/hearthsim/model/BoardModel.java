@@ -84,28 +84,23 @@ public class BoardModel implements DeepCopyable {
         Hero hero0 = new Hero("hero0", (byte) 30);
         Hero hero1 = new Hero("hero1", (byte) 30);
 
-        this.currentPlayer = new PlayerModel("player0", hero0, null);
-        this.waitingPlayer = new PlayerModel("player1", hero1, null);
+        this.currentPlayer = new PlayerModel(0, "player0", hero0, null);
+        this.waitingPlayer = new PlayerModel(1, "player1", hero1, null);
 
         buildModel();
     }
 
-    public BoardModel(PlayerModel playerModel0, PlayerModel playerModel1, PlayerModel firstPlayer) {
+    public BoardModel(PlayerModel currentPlayerModel, PlayerModel waitingPlayerModel) {
 
-        if (firstPlayer == playerModel0){
-            this.currentPlayer = playerModel0;
-            this.waitingPlayer = playerModel1;
-        }else{
-            this.currentPlayer = playerModel1;
-            this.waitingPlayer = playerModel0;
-        }
+        this.currentPlayer = currentPlayerModel;
+        this.waitingPlayer = waitingPlayerModel;
 
         buildModel();
     }
 
     public BoardModel(Hero p0_hero, Hero p1_hero) {
-        this.currentPlayer = new PlayerModel("p0",p0_hero,null);
-        this.waitingPlayer = new PlayerModel("p1",p1_hero,null);
+        this.currentPlayer = new PlayerModel(0, "p0",p0_hero,null);
+        this.waitingPlayer = new PlayerModel(0, "p1",p1_hero,null);
         buildModel();
     }
 

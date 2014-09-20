@@ -25,23 +25,23 @@ public class GameDetailedRecord implements GameRecord {
 	}
 	
 	@Override
-	public int getRecordLength(int playerID) {
-		return boards_.get(playerID).size();
+	public int getRecordLength(int playerId) {
+		return boards_.get(playerId).size();
 	}
 
 	@Override
-    public int getNumMinions(int playerIndex, int turn, int activePlayerIndex) {
-        BoardModel boardModel = boards_.get(activePlayerIndex).get(turn);
-        PlayerSide playerByIndex = boardModel.getPlayerByIndex(playerIndex);
+    public int getNumMinions(int playerId, int turn, int currentPlayerId) {
+        BoardModel boardModel = boards_.get(currentPlayerId).get(turn);
+        PlayerSide playerByIndex = boardModel.getPlayerByIndex(playerId);
         PlayerSide otherPlayer = playerByIndex.getOtherPlayer();
         return otherPlayer.getPlayer(boardModel).getNumMinions();
     }
 
 	@Override
-	public int getNumCardsInHand(int playerIndex, int turn, int activePlayerIndex) {
+	public int getNumCardsInHand(int playerId, int turn, int currentPlayerId) {
 		try {
-            BoardModel boardModel = boards_.get(activePlayerIndex).get(turn);
-            PlayerSide playerByIndex = boardModel.getPlayerByIndex(playerIndex);
+            BoardModel boardModel = boards_.get(currentPlayerId).get(turn);
+            PlayerSide playerByIndex = boardModel.getPlayerByIndex(playerId);
             PlayerSide otherPlayer = playerByIndex.getOtherPlayer();
 
             return boardModel.getNumCards_hand(otherPlayer);
@@ -51,10 +51,10 @@ public class GameDetailedRecord implements GameRecord {
 	}
 
 	@Override
-	public int getHeroHealth(int playerIndex, int turn, int activePlayerIndex) {
+	public int getHeroHealth(int playerId, int turn, int currentPlayerId) {
 		try {
-            BoardModel boardModel = boards_.get(activePlayerIndex).get(turn);
-            PlayerSide playerByIndex = boardModel.getPlayerByIndex(playerIndex);
+            BoardModel boardModel = boards_.get(currentPlayerId).get(turn);
+            PlayerSide playerByIndex = boardModel.getPlayerByIndex(playerId);
             PlayerSide otherPlayer = playerByIndex.getOtherPlayer();
             return boardModel.getHero(otherPlayer).getHealth();
 		} catch (HSInvalidPlayerIndexException e) {
@@ -63,10 +63,10 @@ public class GameDetailedRecord implements GameRecord {
 	}
 
 	@Override
-	public int getHeroArmor(int playerIndex, int turn, int activePlayerIndex) {
+	public int getHeroArmor(int playerId, int turn, int currentPlayerId) {
 		try {
-            BoardModel boardModel = boards_.get(activePlayerIndex).get(turn);
-            PlayerSide playerByIndex = boardModel.getPlayerByIndex(playerIndex);
+            BoardModel boardModel = boards_.get(currentPlayerId).get(turn);
+            PlayerSide playerByIndex = boardModel.getPlayerByIndex(playerId);
             PlayerSide otherPlayer = playerByIndex.getOtherPlayer();
             return boardModel.getHero(otherPlayer).getArmor();
 		} catch (HSInvalidPlayerIndexException e) {

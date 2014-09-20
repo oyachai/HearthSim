@@ -28,57 +28,49 @@ public class GameSimpleRecord implements GameRecord {
 	
 	@Override
 	public void put(int turn, PlayerSide activePlayerSide, BoardModel board) {
-        int activePlayerIndex;
-        int inactivePlayerIndex;
-
         PlayerModel playerModel = board.modelForSide(activePlayerSide);
 
-        if (playerModel.isFirstPlayer()) {
-            activePlayerIndex = 0;
-            inactivePlayerIndex = 1; //todo: let's agree on active/inactive vs current/waiting
-        } else {
-            activePlayerIndex = 1;
-            inactivePlayerIndex = 0;
-        }
+        int currentPlayerId = playerModel.getPlayerId();
+        int waitingPlayerId = board.modelForSide(activePlayerSide.getOtherPlayer()).getPlayerId();
 
-        numMinions_[activePlayerIndex][turn][activePlayerIndex] = (byte)board.getCurrentPlayer().getNumMinions();
-        numMinions_[activePlayerIndex][turn][inactivePlayerIndex] = (byte)board.getWaitingPlayer().getNumMinions();
+        numMinions_[currentPlayerId][turn][currentPlayerId] = (byte)board.getCurrentPlayer().getNumMinions();
+        numMinions_[currentPlayerId][turn][waitingPlayerId] = (byte)board.getWaitingPlayer().getNumMinions();
 
-        numCards_[activePlayerIndex][turn][activePlayerIndex] = (byte)board.getNumCardsHandCurrentPlayer();
-        numCards_[activePlayerIndex][turn][inactivePlayerIndex] = (byte)board.getNumCardsHandWaitingPlayer();
+        numCards_[currentPlayerId][turn][currentPlayerId] = (byte)board.getNumCardsHandCurrentPlayer();
+        numCards_[currentPlayerId][turn][waitingPlayerId] = (byte)board.getNumCardsHandWaitingPlayer();
 
         Hero currentPlayerHero = board.getCurrentPlayerHero();
-        heroHealth_[activePlayerIndex][turn][activePlayerIndex] = currentPlayerHero.getHealth();
+        heroHealth_[currentPlayerId][turn][currentPlayerId] = currentPlayerHero.getHealth();
         Hero waitingPlayerHero = board.getWaitingPlayerHero();
-        heroHealth_[activePlayerIndex][turn][inactivePlayerIndex] = waitingPlayerHero.getHealth();
+        heroHealth_[currentPlayerId][turn][waitingPlayerId] = waitingPlayerHero.getHealth();
 
-        heroArmor_[activePlayerIndex][turn][activePlayerIndex] = currentPlayerHero.getArmor();
-        heroArmor_[activePlayerIndex][turn][inactivePlayerIndex] = waitingPlayerHero.getArmor();
+        heroArmor_[currentPlayerId][turn][currentPlayerId] = currentPlayerHero.getArmor();
+        heroArmor_[currentPlayerId][turn][waitingPlayerId] = waitingPlayerHero.getArmor();
     }
 
 	@Override
-	public int getRecordLength(int playerIndex) {
+	public int getRecordLength(int playerId) {
 		return maxTurns_;
 	}
 
 	@Override
-	public int getNumMinions(int playerIndex, int turn, int activePlayerIndex) {
-		return numMinions_[activePlayerIndex][turn][playerIndex];
+	public int getNumMinions(int playerId, int turn, int currentPlayerId) {
+		return numMinions_[currentPlayerId][turn][playerId];
 	}
 
 	@Override
-	public int getNumCardsInHand(int playerIndex, int turn, int activePlayerIndex) {
-		return numCards_[activePlayerIndex][turn][playerIndex];
+	public int getNumCardsInHand(int playerId, int turn, int currentPlayerId) {
+		return numCards_[currentPlayerId][turn][playerId];
 	}
 
 	@Override
-	public int getHeroHealth(int playerIndex, int turn, int activePlayerIndex) {
-		return heroHealth_[activePlayerIndex][turn][playerIndex];
+	public int getHeroHealth(int playerId, int turn, int currentPlayerId) {
+		return heroHealth_[currentPlayerId][turn][playerId];
 	}
 
 	@Override
-	public int getHeroArmor(int playerIndex, int turn, int activePlayerIndex) {
-		return heroArmor_[activePlayerIndex][turn][playerIndex];
+	public int getHeroArmor(int playerId, int turn, int currentPlayerId) {
+		return heroArmor_[currentPlayerId][turn][playerId];
 	}
 
 	@Override

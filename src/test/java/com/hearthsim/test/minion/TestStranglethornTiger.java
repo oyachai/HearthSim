@@ -99,8 +99,8 @@ public class TestStranglethornTiger {
 		//In this test, the Stranglethorn Tiger is stealthed, so player0 has no choice but to hit the enemy hero for 12 damage
 
 		Hero hero = new Hero();
-		PlayerModel playerModel0 = new PlayerModel("player0", hero, deck);
-		PlayerModel playerModel1 = new PlayerModel("player0", hero, deck);
+		PlayerModel playerModel0 = new PlayerModel(0, "player0", hero, deck);
+		PlayerModel playerModel1 = new PlayerModel(1, "player0", hero, deck);
 
         ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
 		BoardModel resBoard = ai0.playTurn(0, board.data_, playerModel0, playerModel1);
@@ -129,8 +129,8 @@ public class TestStranglethornTiger {
 
 		
 		Hero hero = new Hero();
-		PlayerModel playerModel0 = new PlayerModel("player0", hero, deck);
-		PlayerModel playerModel1 = new PlayerModel("player0", hero, deck);
+		PlayerModel playerModel0 = new PlayerModel(0, "player0", hero, deck);
+		PlayerModel playerModel1 = new PlayerModel(1, "player0", hero, deck);
 		
 		board.data_.placeCardHandCurrentPlayer(new Silence());
 
@@ -162,8 +162,8 @@ public class TestStranglethornTiger {
 		
 
 		Hero hero = new Hero();
-		PlayerModel playerModel0 = new PlayerModel("player0", hero, deck);
-		PlayerModel playerModel1 = new PlayerModel("player1", hero, deck);
+		PlayerModel playerModel0 = new PlayerModel(0, "player0", hero, deck);
+		PlayerModel playerModel1 = new PlayerModel(1, "player1", hero, deck);
 
         ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
 		BoardModel resBoard0 = ai0.playTurn(0, board.data_.flipPlayers(), playerModel1, playerModel0, 2000000000);

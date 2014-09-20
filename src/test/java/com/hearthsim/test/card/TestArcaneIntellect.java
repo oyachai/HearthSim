@@ -172,8 +172,8 @@ public class TestArcaneIntellect {
 
 		
 		Hero hero = new Hero();		
-		PlayerModel playerModel0 = new PlayerModel("player0", hero, deck);
-		PlayerModel playerModel1 = new PlayerModel("player0", hero, deck);
+		PlayerModel playerModel0 = new PlayerModel(0, "player0", hero, deck);
+		PlayerModel playerModel1 = new PlayerModel(1, "player0", hero, deck);
 		
 		board.data_.setMana_p0((byte)3);
 		board.data_.setMana_p1((byte)3);
@@ -205,8 +205,8 @@ public class TestArcaneIntellect {
 		Deck deck = new Deck(cards);
 
 		Hero hero = new Hero();		
-		PlayerModel playerModel0 = new PlayerModel("player0", hero, deck);
-		PlayerModel playerModel1 = new PlayerModel("player0", hero, deck);
+		PlayerModel playerModel0 = new PlayerModel(0, "player0", hero, deck);
+		PlayerModel playerModel1 = new PlayerModel(1, "player0", hero, deck);
 		
 		board.data_.setMana_p0((byte)6);
 		board.data_.setMana_p1((byte)6);
@@ -239,8 +239,8 @@ public class TestArcaneIntellect {
 
 		
 		Hero hero = new Hero();		
-		PlayerModel playerModel0 = new PlayerModel("player0", hero, deck);
-		PlayerModel playerModel1 = new PlayerModel("player0", hero, deck);
+		PlayerModel playerModel0 = new PlayerModel(0, "player0", hero, deck);
+		PlayerModel playerModel1 = new PlayerModel(1, "player0", hero, deck);
 		
 		board.data_.setMana_p0((byte)9);
 		board.data_.setMana_p1((byte)9);

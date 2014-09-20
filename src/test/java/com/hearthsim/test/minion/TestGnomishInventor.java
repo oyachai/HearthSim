@@ -118,8 +118,8 @@ public class TestGnomishInventor {
 
 		
 		Hero hero = new Hero();
-		PlayerModel playerModel0 = new PlayerModel("player0", hero, deck);
-		PlayerModel playerModel1 = new PlayerModel("player0", hero, deck);
+		PlayerModel playerModel0 = new PlayerModel(0, "player0", hero, deck);
+		PlayerModel playerModel1 = new PlayerModel(1, "player0", hero, deck);
 		
 		board.data_.setMana_p0((byte)5);
 		board.data_.setMana_p1((byte)5);
@@ -145,8 +145,8 @@ public class TestGnomishInventor {
 		
 
 		Hero hero = new Hero();		
-		PlayerModel playerModel0 = new PlayerModel("player0", hero, deck);
-		PlayerModel playerModel1 = new PlayerModel("player0", hero, deck);
+		PlayerModel playerModel0 = new PlayerModel(0, "player0", hero, deck);
+		PlayerModel playerModel1 = new PlayerModel(1, "player0", hero, deck);
 
         ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
 		BoardModel resBoard = ai0.playTurn(0, board.data_, playerModel0, playerModel1);

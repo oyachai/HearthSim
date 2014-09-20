@@ -234,8 +234,8 @@ public class TestShaman {
 	public void test1() throws HSException {
 
 		
-		PlayerModel playerModel0 = new PlayerModel("player0", new Shaman(), deck);
-		PlayerModel playerModel1 = new PlayerModel("player1", new Hero(), deck);
+		PlayerModel playerModel0 = new PlayerModel(0, "player0", new Shaman(), deck);
+		PlayerModel playerModel1 = new PlayerModel(1, "player1", new Hero(), deck);
         ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
 		BoardModel resBoard = ai0.playTurn(0, board.data_, playerModel0, playerModel1, 200000000);
 
