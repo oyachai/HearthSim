@@ -173,16 +173,13 @@ public class Leokk extends Beast {
      * @return The boardState is manipulated and returned
 	 */
 	@Override
-	protected HearthTreeNode use_core(
-			PlayerSide side,
+	protected HearthTreeNode summonMinion_core(
+            PlayerSide targetSide,
 			Minion targetMinion,
-			HearthTreeNode boardState,
-			Deck deckPlayer0,
-			Deck deckPlayer1,
-			boolean singleRealizationOnly)
+			HearthTreeNode boardState)
 		throws HSException
-	{
-		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+	{	
+		HearthTreeNode toRet = super.summonMinion_core(targetSide, targetMinion, boardState);
 		if (toRet != null) {
 			for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
 				if (minion != this) {

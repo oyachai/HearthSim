@@ -121,6 +121,11 @@ public class ImplementedCardList {
             map_.put(AngryChicken.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(AnimalCompanion.class, "Animal Companion", "spell", "hunter", "free", "Summon a random Beast Companion", 3, -1, -1);
+            list_.add(card);
+            map_.put(AnimalCompanion.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(ArathiWeaponsmith.class, "Arathi Weaponsmith", "minion", "warrior", "common", "Battlecry Equip a 2/2 weapon", 4, 3, 3);
             list_.add(card);
             map_.put(ArathiWeaponsmith.class, card);
