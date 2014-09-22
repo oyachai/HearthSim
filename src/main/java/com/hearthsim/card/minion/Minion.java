@@ -651,6 +651,7 @@ public class Minion extends Card {
      * @param targetMinion The target minion (can be a Hero).  If it is a Hero, then the minion is placed on the last (right most) spot on the board.
      * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
      * @param deckPlayer0 The deck of player0
+     * @param deckPlayer1 The deck of player1
      * @param wasTransformed If the minion was 'summoned' as a result of a transform effect (e.g. Hex, Polymorph), set this to true.
      *
      * @return The boardState is manipulated and returned
@@ -664,7 +665,7 @@ public class Minion extends Card {
             boolean wasTransformed)
 		throws HSException
 	{
-		HearthTreeNode toRet = this.summonMinion_core(targetSide, targetMinion, boardState);
+		HearthTreeNode toRet = this.summonMinion_core(targetSide, targetMinion, boardState, deckPlayer0, deckPlayer1);
 		
 		if (toRet != null) {
 			if (!wasTransformed) {
@@ -709,12 +710,17 @@ public class Minion extends Card {
      * @param targetMinion The target minion (can be a Hero).  The new minion is always placed to the right of (higher index) the target minion.  If the target minion is a hero, then it is placed at the left-most position.
      * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
      * @return The boardState is manipulated and returned
+     * @param deckPlayer0 The deck of player0
+     * @param deckPlayer1 The deck of player1
 	 * @throws HSException 
 	 */
 	protected HearthTreeNode summonMinion_core(
             PlayerSide targetSide,
 			Minion targetMinion,
-			HearthTreeNode boardState)
+			HearthTreeNode boardState,
+            Deck deckPlayer0,
+            Deck deckPlayer1
+			)
 		throws HSException
 	{		
 		if (boardState.data_.modelForSide(targetSide).getNumMinions() < 7) {

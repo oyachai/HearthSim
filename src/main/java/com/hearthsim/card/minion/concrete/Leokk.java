@@ -176,10 +176,12 @@ public class Leokk extends Beast {
 	protected HearthTreeNode summonMinion_core(
             PlayerSide targetSide,
 			Minion targetMinion,
-			HearthTreeNode boardState)
+			HearthTreeNode boardState,
+			Deck deckPlayer0,
+			Deck deckPlayer1)
 		throws HSException
 	{	
-		HearthTreeNode toRet = super.summonMinion_core(targetSide, targetMinion, boardState);
+		HearthTreeNode toRet = super.summonMinion_core(targetSide, targetMinion, boardState, deckPlayer0, deckPlayer1);
 		if (toRet != null) {
 			for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
 				if (minion != this) {

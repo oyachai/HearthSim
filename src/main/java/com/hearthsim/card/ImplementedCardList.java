@@ -336,6 +336,11 @@ public class ImplementedCardList {
             map_.put(DefenderOfArgus.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(Demonfire.class, "Demonfire", "spell", "warlock", "common", "Deal 2 damage to a minion. If its a friendly Demon, give it +2/+2 instead", 2, -1, -1);
+            list_.add(card);
+            map_.put(Demonfire.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(DivineSpirit.class, "Divine Spirit", "spell", "priest", "free", "Double a minions Health", 2, -1, -1);
             list_.add(card);
             map_.put(DivineSpirit.class, card);
