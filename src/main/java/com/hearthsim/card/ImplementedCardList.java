@@ -371,6 +371,11 @@ public class ImplementedCardList {
             map_.put(EarthElemental.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(EarthenRingFarseer.class, "Earthen Ring Farseer", "minion", "neutral", "common", "Battlecry Restore 3 Health", 3, 3, 3);
+            list_.add(card);
+            map_.put(EarthenRingFarseer.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(ElvenArcher.class, "Elven Archer", "minion", "neutral", "free", "Battlecry Deal 1 damage", 1, 1, 1);
             list_.add(card);
             map_.put(ElvenArcher.class, card);

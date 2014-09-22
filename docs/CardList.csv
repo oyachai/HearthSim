@@ -109,7 +109,7 @@ Dust Devil|minion|shaman|common|1|3|1|Windfury. Overload: (2)|TRUE
 Eaglehorn Bow|weapon|hunter|rare|3|3||Whenever a Secret is revealed, gain +1 Durability|FALSE
 Earth Elemental|minion|shaman|epic|5|7|8|Taunt. Overload: (3)|TRUE
 Earth Shock|spell|shaman|common|1|||Silence a minion, then deal 1 damage to it|FALSE
-Earthen Ring Farseer|minion|neutral|common|3|3|3|Battlecry: Restore 3 Health|FALSE
+Earthen Ring Farseer|minion|neutral|common|3|3|3|Battlecry: Restore 3 Health|TRUE
 Edwin VanCleef|minion|rogue|legendary|3|2|2|Combo: Gain +2/+2 for each card played earlier this turn|FALSE
 Elite Tauren Chieftain|minion|neutral|legendary|5|5|5|Battlecry: Give both players the power to ROCK! (with a Power Chord card)|FALSE
 Elven Archer|minion|neutral|free|1|1|1|Battlecry: Deal 1 damage|TRUE
