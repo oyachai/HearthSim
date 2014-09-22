@@ -74,7 +74,7 @@ public class Game {
 
         GameResult gameResult;
         for (int turnCount = 0; turnCount < maxTurns_; ++turnCount) {
-            log.info("starting turn " + turnCount);
+            log.debug("starting turn " + turnCount);
             long turnStart = System.currentTimeMillis();
 
             gameResult = playTurn(turnCount, record, aiForPlayerGoingFirst);

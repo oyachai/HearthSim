@@ -271,7 +271,7 @@ public class ArtificialPlayer {
 	 * @throws HSException
 	 */
 	public BoardModel playTurn(int turn, BoardModel board, PlayerModel playerModel0, PlayerModel playerModel1, int maxThinkTime) throws HSException {
-        log.info("playing turn for " + playerModel0.getName());
+        log.debug("playing turn for " + playerModel0.getName());
         //The goal of this ai is to maximize his board score
         log.debug("start turn board state is {}", board);
 		HearthTreeNode toRet = new HearthTreeNode(board);
