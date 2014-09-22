@@ -4,6 +4,7 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -50,6 +51,11 @@ public class Priest extends Hero {
 				this.hasBeenUsed
 				);
 	}
+
+	@Override
+    public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
+		return super.canBeUsedOn(playerSide, minion, boardModel) && minion.getTotalHealth() < minion.getTotalMaxHealth();
+    }
 	
 	/**
 	 * Use the hero ability on a given target
