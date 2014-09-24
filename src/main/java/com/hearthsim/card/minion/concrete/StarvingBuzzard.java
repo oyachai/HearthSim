@@ -14,9 +14,9 @@ import com.hearthsim.util.tree.HearthTreeNode;
 public class StarvingBuzzard extends Beast {
 
 	private static final String NAME = "Starving Buzzard";
-	private static final byte MANA_COST = 2;
-	private static final byte ATTACK = 2;
-	private static final byte HEALTH = 1;
+	private static final byte MANA_COST = 5;
+	private static final byte ATTACK = 3;
+	private static final byte HEALTH = 2;
 	
 	private static final boolean TAUNT = false;
 	private static final boolean DIVINE_SHIELD = false;

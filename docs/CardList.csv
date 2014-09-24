@@ -201,7 +201,7 @@ Kobold Geomancer|minion|neutral|free|2|2|2|Spell Damage +1|TRUE
 Kor'kron Elite|minion|warrior|free|4|4|3|Charge|TRUE
 Lava Burst|spell|shaman|rare|3|||Deal 5 damage. Overload: (2)|FALSE
 Lay on Hands|spell|paladin|epic|8|||Restore 8 Health. Draw 3 cards|TRUE
-Leeroy Jenkins|minion|neutral|legendary|4|6|2|Charge. Battlecry: Summon two 1/1 Whelps for your opponent|FALSE
+Leeroy Jenkins|minion|neutral|legendary|5|6|2|Charge. Battlecry: Summon two 1/1 Whelps for your opponent|FALSE
 Leper Gnome|minion|neutral|common|1|2|1|Deathrattle: Deal 2 damage to the enemy hero|TRUE
 Light's Justice|weapon|paladin|free|1|1|||TRUE
 Lightning Bolt|spell|shaman|common|1|||Deal 3 damage. Overload: (1)|FALSE
@@ -327,7 +327,7 @@ Sprint|spell|rogue|free|7|||Draw 4 cards|TRUE
 Stampeding Kodo|minion|neutral|rare|5|3|5|Battlecry: Destroy a random enemy minion with 2 or less Attack|FALSE
 Starfall|spell|neutral|rare|5|||Choose One - Deal 5 damage to a minion; or 2 damage to all enemy minions|FALSE
 Starfire|spell|neutral|free|6|||Deal 5 damage. Draw a card|TRUE
-Starving Buzzard|minion|hunter|free|2|2|1|Whenever you summon a Beast, draw a card|TRUE
+Starving Buzzard|minion|hunter|free|5|3|2|Whenever you summon a Beast, draw a card|TRUE
 Stonetusk Boar|minion|neutral|free|1|1|1|Charge|TRUE
 Stormforged Axe|weapon|shaman|common|2|2||Overload: (1)|TRUE
 Stormpike Commando|minion|neutral|free|5|4|2|Battlecry: Deal 2 damage|TRUE

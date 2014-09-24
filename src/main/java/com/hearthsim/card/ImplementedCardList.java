@@ -886,7 +886,7 @@ public class ImplementedCardList {
             map_.put(Starfire.class, card);
         }
         {
-            ImplementedCard card = new ImplementedCard(StarvingBuzzard.class, "Starving Buzzard", "minion", "hunter", "free", "Whenever you summon a Beast, draw a card", 2, 2, 1);
+            ImplementedCard card = new ImplementedCard(StarvingBuzzard.class, "Starving Buzzard", "minion", "hunter", "free", "Whenever you summon a Beast, draw a card", 5, 3, 2);
             list_.add(card);
             map_.put(StarvingBuzzard.class, card);
         }
