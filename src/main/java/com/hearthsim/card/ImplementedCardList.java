@@ -351,6 +351,11 @@ public class ImplementedCardList {
             map_.put(Demonfire.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(DivineFavor.class, "Divine Favor", "spell", "paladin", "rare", "Draw cards until you have as many in hand as your opponent", 3, -1, -1);
+            list_.add(card);
+            map_.put(DivineFavor.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(DivineSpirit.class, "Divine Spirit", "spell", "priest", "free", "Double a minions Health", 2, -1, -1);
             list_.add(card);
             map_.put(DivineSpirit.class, card);

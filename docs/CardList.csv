@@ -95,7 +95,7 @@ Defias Ringleader|minion|rogue|common|2|2|2|Combo: Summon a 2/1 Defias Bandit|FA
 Demolisher|minion|neutral|rare|3|1|4|At the start of your turn, deal 2 damage to a random enemy|FALSE
 Demonfire|spell|warlock|common|2|||Deal 2 damage to a minion. If it's a friendly Demon, give it +2/+2 instead|TRUE
 Dire Wolf Alpha|minion|neutral|common|2|2|2|Adjacent minions have +1 Attack|FALSE
-Divine Favor|spell|paladin|rare|3|||Draw cards until you have as many in hand as your opponent|FALSE
+Divine Favor|spell|paladin|rare|3|||Draw cards until you have as many in hand as your opponent|TRUE
 Divine Spirit|spell|priest|free|2|||Double a minion's Health|TRUE
 Doomguard|minion|warlock|rare|5|5|7|Charge.Battlecry: Discard two random cards|FALSE
 Doomhammer|weapon|shaman|epic|5|2||Windfury, Overload: (2)|FALSE
