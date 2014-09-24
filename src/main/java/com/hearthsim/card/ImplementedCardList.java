@@ -221,6 +221,11 @@ public class ImplementedCardList {
             map_.put(Bite.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(BlessedChampion.class, "Blessed Champion", "spell", "paladin", "rare", "Double a minions Attack", 5, -1, -1);
+            list_.add(card);
+            map_.put(BlessedChampion.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(BlessingOfKings.class, "Blessing of Kings", "spell", "paladin", "free", "Give a minion +4/+4. (+4 Attack/+4 Health)", 4, -1, -1);
             list_.add(card);
             map_.put(BlessingOfKings.class, card);

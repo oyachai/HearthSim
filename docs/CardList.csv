@@ -45,7 +45,7 @@ Betrayal|spell|rogue|common|2|||An enemy minion deals its damage to the minions 
 Big Game Hunter|minion|neutral|epic|3|4|2|Battlecry: Destroy a minion with an Attack of 7 or more|TRUE
 Bite|spell|druid|rare|4|||Give your hero +4 Attack this turn and 4 Armor|TRUE
 Blade Flurry|spell|rogue|rare|2|||Destroy your weapon and deal its damage to all enemies|FALSE
-Blessed Champion|spell|paladin|rare|5|||Double a minion's Attack|FALSE
+Blessed Champion|spell|paladin|rare|5|||Double a minion's Attack|TRUE
 Blessing of Kings|spell|paladin|free|4|||Give a minion +4/+4. (+4 Attack/+4 Health)|TRUE
 Blessing of Might|spell|paladin|free|1|||Give a minion +3 Attack|TRUE
 Blessing of Wisdom|spell|paladin|common|1|||Choose a minion. Whenever it attacks, draw a card|FALSE
