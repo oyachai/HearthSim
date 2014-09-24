@@ -406,6 +406,11 @@ public class ImplementedCardList {
             map_.put(FanOfKnives.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(Felguard.class, "Felguard", "minion", "warlock", "rare", "Taunt. Battlecry Destroy one of your Mana Crystals", 3, 3, 5);
+            list_.add(card);
+            map_.put(Felguard.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(FenCreeper.class, "Fen Creeper", "minion", "neutral", "common", "Taunt", 5, 3, 6);
             list_.add(card);
             map_.put(FenCreeper.class, card);

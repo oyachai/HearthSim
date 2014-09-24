@@ -125,7 +125,7 @@ Faceless Manipulator|minion|neutral|epic|5|3|3|Battlecry: Choose a minion and be
 Faerie Dragon|minion|neutral|common|2|3|2|Can't be targeted by Spells or Hero Powers|FALSE
 Fan of Knives|spell|rogue|free|3|||Deal 1 damage to all enemy minions. Draw a card|TRUE
 Far Sight|spell|shaman|epic|3|||Draw a card.That card costs (3) less|FALSE
-Felguard|minion|warlock|rare|3|3|5|Taunt. Battlecry: Destroy one of your Mana Crystals|FALSE
+Felguard|minion|warlock|rare|3|3|5|Taunt. Battlecry: Destroy one of your Mana Crystals|TRUE
 Fen Creeper|minion|neutral|common|5|3|6|Taunt|TRUE
 Feral Spirit|spell|shaman|rare|3|||Summon two 2/3 Spirit Wolves with Taunt. Overload: (2)|FALSE
 Fiery War Axe|weapon|warrior|free|2|3|||TRUE
