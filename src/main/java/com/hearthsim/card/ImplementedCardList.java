@@ -236,6 +236,11 @@ public class ImplementedCardList {
             map_.put(BlessingOfMight.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(BloodKnight.class, "Blood Knight", "minion", "neutral", "epic", "Battlecry All minions lose Divine Shield.Gain +3/+3 for each Shield lost", 3, 3, 3);
+            list_.add(card);
+            map_.put(BloodKnight.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(BloodfenRaptor.class, "Bloodfen Raptor", "minion", "neutral", "free", "", 2, 3, 2);
             list_.add(card);
             map_.put(BloodfenRaptor.class, card);

@@ -51,7 +51,7 @@ Blessing of Might|spell|paladin|free|1|||Give a minion +3 Attack|TRUE
 Blessing of Wisdom|spell|paladin|common|1|||Choose a minion. Whenever it attacks, draw a card|FALSE
 Blizzard|spell|mage|rare|6|||Deal 2 damage to all enemy minions and Freeze them|FALSE
 Blood Imp|minion|warlock|common|1|0|1|Stealth. At the end of your turn, give another random friendly minion +1 Health|FALSE
-Blood Knight|minion|neutral|epic|3|3|3|Battlecry: All minions lose Divine Shield.Gain +3/+3 for each Shield lost|FALSE
+Blood Knight|minion|neutral|epic|3|3|3|Battlecry: All minions lose Divine Shield.Gain +3/+3 for each Shield lost|TRUE
 Bloodfen Raptor|minion|neutral|free|2|3|2||TRUE
 Bloodlust|spell|shaman|free|5|||Give your minions +3 Attack this turn|TRUE
 Bloodmage Thalnos|minion|neutral|legendary|2|1|1|Spell Damage +1. Deathrattle: Draw a card|TRUE
