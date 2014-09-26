@@ -131,7 +131,7 @@ Feral Spirit|spell|shaman|rare|3|||Summon two 2/3 Spirit Wolves with Taunt. Over
 Fiery War Axe|weapon|warrior|free|2|3|||TRUE
 Fire Elemental|minion|shaman|free|6|6|5|Battlecry: Deal 3 damage|TRUE
 Fireball|spell|mage|free|4|||Deal 6 damage|TRUE
-Flame Imp|minion|warlock|common|1|3|2|Battlecry: Deal 3 damage to your hero|FALSE
+Flame Imp|minion|warlock|common|1|3|2|Battlecry: Deal 3 damage to your hero|TRUE
 Flamestrike|spell|mage|free|7|||Deal 4 damage to all enemy minions|TRUE
 Flametongue Totem|minion|shaman|free|2|0|3|Adjacent minions have +2 Attack|FALSE
 Flare|spell|hunter|rare|1|||All minions lose Stealth.Destroy all enemy Secrets. Draw a card|FALSE

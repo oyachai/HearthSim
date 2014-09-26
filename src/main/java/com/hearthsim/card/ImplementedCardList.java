@@ -431,6 +431,11 @@ public class ImplementedCardList {
             map_.put(Fireball.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(FlameImp.class, "Flame Imp", "minion", "warlock", "common", "Battlecry Deal 3 damage to your hero", 1, 3, 2);
+            list_.add(card);
+            map_.put(FlameImp.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(Flamestrike.class, "Flamestrike", "spell", "mage", "free", "Deal 4 damage to all enemy minions", 7, -1, -1);
             list_.add(card);
             map_.put(Flamestrike.class, card);
