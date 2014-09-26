@@ -52,11 +52,11 @@ public class TestArchmage {
 		Card hs = new HolySmite();
 		board.data_.placeCardHandCurrentPlayer(hs);
 
-		board.data_.setMana_p0((byte)8);
-		board.data_.setMana_p1((byte)8);
+		board.data_.getCurrentPlayer().setMana((byte)8);
+		board.data_.getWaitingPlayer().setMana((byte)8);
 		
-		board.data_.setMaxMana_p0((byte)8);
-		board.data_.setMaxMana_p1((byte)8);
+		board.data_.getCurrentPlayer().setMaxMana((byte)8);
+		board.data_.getWaitingPlayer().setMaxMana((byte)8);
 		
 	}
 	
@@ -132,8 +132,8 @@ public class TestArchmage {
 		assertEquals(board.data_.getNumCards_hand(), 1);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 3);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
-		assertEquals(board.data_.getMana_p0(), 2);
-		assertEquals(board.data_.getMana_p1(), 8);		
+		assertEquals(board.data_.getCurrentPlayer().getMana(), 2);
+		assertEquals(board.data_.getWaitingPlayer().getMana(), 8);		
 		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
 		assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0);
@@ -160,8 +160,8 @@ public class TestArchmage {
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
 		assertEquals(30, board.data_.getCurrentPlayerHero().getHealth());
 		assertEquals(27, board.data_.getWaitingPlayerHero().getHealth());
-		assertEquals(board.data_.getMana_p0(), 1);
-		assertEquals(board.data_.getMana_p1(), 8);
+		assertEquals(board.data_.getCurrentPlayer().getMana(), 1);
+		assertEquals(board.data_.getWaitingPlayer().getMana(), 8);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), health1 - 1);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(2).getHealth(), 7);
@@ -187,8 +187,8 @@ public class TestArchmage {
 		assertEquals(board.data_.getNumCards_hand(), 1);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 3);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
-		assertEquals(board.data_.getMana_p0(), 2);
-		assertEquals(board.data_.getMana_p1(), 8);		
+		assertEquals(board.data_.getCurrentPlayer().getMana(), 2);
+		assertEquals(board.data_.getWaitingPlayer().getMana(), 8);		
 		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
 		assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0);
@@ -215,8 +215,8 @@ public class TestArchmage {
 		assertEquals(1, PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions());
 		assertEquals(30, board.data_.getCurrentPlayerHero().getHealth());
 		assertEquals(30, board.data_.getWaitingPlayerHero().getHealth());
-		assertEquals(board.data_.getMana_p0(), 1);
-		assertEquals(board.data_.getMana_p1(), 8);
+		assertEquals(board.data_.getCurrentPlayer().getMana(), 1);
+		assertEquals(board.data_.getWaitingPlayer().getMana(), 8);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), health1 - 1);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(2).getHealth(), 7);

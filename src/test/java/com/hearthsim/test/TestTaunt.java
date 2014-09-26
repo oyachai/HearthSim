@@ -142,7 +142,7 @@ public class TestTaunt {
 		board.removeMinion(PlayerSide.CURRENT_PLAYER, 0);
 		board.placeCardHandCurrentPlayer(hs);
 		board.placeMinion(PlayerSide.WAITING_PLAYER, minion1);
-		board.setMana_p0(1);
+		board.getCurrentPlayer().setMana(1);
 		
 		BoardStateFactoryBase factory = new BoardStateFactoryBase(null, null);
 		HearthTreeNode tree = new HearthTreeNode(board);
@@ -169,7 +169,7 @@ public class TestTaunt {
 		board.removeMinion(PlayerSide.CURRENT_PLAYER, 0);
 		board.placeCardHandCurrentPlayer(hs);
 		board.placeMinion(PlayerSide.WAITING_PLAYER, minion1);
-		board.setMana_p0(2);
+		board.getCurrentPlayer().setMana(2);
 		
 		BoardStateFactoryBase factory = new BoardStateFactoryBase(null, null, 2000000000);
 		HearthTreeNode tree = new HearthTreeNode(board);

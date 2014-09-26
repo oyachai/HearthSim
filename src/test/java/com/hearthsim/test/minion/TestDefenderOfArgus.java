@@ -45,11 +45,11 @@ public class TestDefenderOfArgus {
 	
 		deck = new Deck(cards);
 
-		board.data_.setMana_p0((byte)10);
-		board.data_.setMana_p1((byte)10);
+		board.data_.getCurrentPlayer().setMana((byte)10);
+		board.data_.getWaitingPlayer().setMana((byte)10);
 		
-		board.data_.setMaxMana_p0((byte)10);
-		board.data_.setMaxMana_p1((byte)10);
+		board.data_.getCurrentPlayer().setMaxMana((byte)10);
+		board.data_.getWaitingPlayer().setMaxMana((byte)10);
 		
 		HearthTreeNode tmpBoard = new HearthTreeNode(board.data_.flipPlayers());
 		try {
@@ -86,8 +86,8 @@ public class TestDefenderOfArgus {
 		assertEquals(board.data_.getNumCards_hand(), 0);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 3);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
-		assertEquals(board.data_.getMana_p0(), 6);
-		assertEquals(board.data_.getMana_p1(), 10);
+		assertEquals(board.data_.getCurrentPlayer().getMana(), 6);
+		assertEquals(board.data_.getWaitingPlayer().getMana(), 10);
 		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
 		assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getTotalHealth(), 4);
@@ -123,8 +123,8 @@ public class TestDefenderOfArgus {
 		assertEquals(board.data_.getNumCards_hand(), 0);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 3);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
-		assertEquals(board.data_.getMana_p0(), 6);
-		assertEquals(board.data_.getMana_p1(), 10);
+		assertEquals(board.data_.getCurrentPlayer().getMana(), 6);
+		assertEquals(board.data_.getWaitingPlayer().getMana(), 10);
 		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
 		assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getTotalHealth(), 4);

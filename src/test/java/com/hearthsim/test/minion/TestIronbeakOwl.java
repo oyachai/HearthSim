@@ -48,11 +48,11 @@ public class TestIronbeakOwl {
 	
 		deck = new Deck(cards);
 
-		board.data_.setMana_p0((byte)10);
-		board.data_.setMana_p1((byte)10);
+		board.data_.getCurrentPlayer().setMana((byte)10);
+		board.data_.getWaitingPlayer().setMana((byte)10);
 		
-		board.data_.setMaxMana_p0((byte)10);
-		board.data_.setMaxMana_p1((byte)10);
+		board.data_.getCurrentPlayer().setMaxMana((byte)10);
+		board.data_.getWaitingPlayer().setMaxMana((byte)10);
 		
 		HearthTreeNode tmpBoard = new HearthTreeNode(board.data_.flipPlayers());
 		try {
@@ -95,8 +95,8 @@ public class TestIronbeakOwl {
 		assertEquals(board.data_.getNumCards_hand(), 1);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 3);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 4);
-		assertEquals(board.data_.getMana_p0(), 10);
-		assertEquals(board.data_.getMana_p1(), 10);
+		assertEquals(board.data_.getCurrentPlayer().getMana(), 10);
+		assertEquals(board.data_.getWaitingPlayer().getMana(), 10);
 		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
 		assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
 		
@@ -131,8 +131,8 @@ public class TestIronbeakOwl {
 		assertEquals(board.data_.getNumCards_hand(), 0);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 4);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 4);
-		assertEquals(board.data_.getMana_p0(), 8);
-		assertEquals(board.data_.getMana_p1(), 10);
+		assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
+		assertEquals(board.data_.getWaitingPlayer().getMana(), 10);
 		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
 		assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
 		
@@ -166,8 +166,8 @@ public class TestIronbeakOwl {
 		assertEquals(ret0.data_.getNumCards_hand(), 0);
 		assertEquals(ret0.data_.getCurrentPlayer().getNumMinions(), 4);
 		assertEquals(ret0.data_.getWaitingPlayer().getNumMinions(), 4);
-		assertEquals(ret0.data_.getMana_p0(), 8);
-		assertEquals(ret0.data_.getMana_p1(), 10);
+		assertEquals(ret0.data_.getCurrentPlayer().getMana(), 8);
+		assertEquals(ret0.data_.getWaitingPlayer().getMana(), 10);
 		assertEquals(ret0.data_.getCurrentPlayerHero().getHealth(), 30);
 		assertEquals(ret0.data_.getWaitingPlayerHero().getHealth(), 30);
 		
@@ -198,8 +198,8 @@ public class TestIronbeakOwl {
 		assertEquals(ret1.data_.getNumCards_hand(), 0);
 		assertEquals(ret1.data_.getCurrentPlayer().getNumMinions(), 4);
 		assertEquals(ret1.data_.getWaitingPlayer().getNumMinions(), 4);
-		assertEquals(ret1.data_.getMana_p0(), 8);
-		assertEquals(ret1.data_.getMana_p1(), 10);
+		assertEquals(ret1.data_.getCurrentPlayer().getMana(), 8);
+		assertEquals(ret1.data_.getWaitingPlayer().getMana(), 10);
 		assertEquals(ret1.data_.getCurrentPlayerHero().getHealth(), 30);
 		assertEquals(ret1.data_.getWaitingPlayerHero().getHealth(), 30);
 		
@@ -230,8 +230,8 @@ public class TestIronbeakOwl {
 		assertEquals(ret2.data_.getNumCards_hand(), 0);
 		assertEquals(ret2.data_.getCurrentPlayer().getNumMinions(), 4);
 		assertEquals(ret2.data_.getWaitingPlayer().getNumMinions(), 4);
-		assertEquals(ret2.data_.getMana_p0(), 8);
-		assertEquals(ret2.data_.getMana_p1(), 10);
+		assertEquals(ret2.data_.getCurrentPlayer().getMana(), 8);
+		assertEquals(ret2.data_.getWaitingPlayer().getMana(), 10);
 		assertEquals(ret2.data_.getCurrentPlayerHero().getHealth(), 30);
 		assertEquals(ret2.data_.getWaitingPlayerHero().getHealth(), 30);
 		

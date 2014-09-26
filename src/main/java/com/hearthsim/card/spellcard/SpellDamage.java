@@ -114,7 +114,7 @@ public class SpellDamage extends SpellCard {
 		HearthTreeNode toRet = boardState;
 
 		toRet = this.attack(side, targetMinion, toRet, deckPlayer0, deckPlayer1);
-		toRet.data_.setMana_p0(toRet.data_.getMana_p0() - this.mana_);
+		toRet.data_.getCurrentPlayer().subtractMana(this.mana_);
 		toRet.data_.removeCard_hand(this);
 		
 		return toRet;

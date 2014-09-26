@@ -53,11 +53,11 @@ public class TestShaman {
 		Card fb = new WildGrowth();
 		board.data_.placeCardHandCurrentPlayer(fb);
 
-		board.data_.setMana_p0((byte)8);
-		board.data_.setMana_p1((byte)8);
+		board.data_.getCurrentPlayer().setMana((byte)8);
+		board.data_.getWaitingPlayer().setMana((byte)8);
 		
-		board.data_.setMaxMana_p0((byte)8);
-		board.data_.setMaxMana_p1((byte)8);
+		board.data_.getCurrentPlayer().setMaxMana((byte)8);
+		board.data_.getWaitingPlayer().setMaxMana((byte)8);
 		
 		HearthTreeNode tmpBoard = new HearthTreeNode(board.data_.flipPlayers());
 		try {
@@ -92,8 +92,8 @@ public class TestShaman {
 		assertEquals(board.data_.getNumCards_hand(), 1);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
-		assertEquals(board.data_.getMana_p0(), 8);
-		assertEquals(board.data_.getMana_p1(), 8);
+		assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
+		assertEquals(board.data_.getWaitingPlayer().getMana(), 8);
 		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
 		assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 28);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), 2);
@@ -118,8 +118,8 @@ public class TestShaman {
 		
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
-		assertEquals(board.data_.getMana_p0(), 8);
-		assertEquals(board.data_.getMana_p1(), 8);
+		assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
+		assertEquals(board.data_.getWaitingPlayer().getMana(), 8);
 		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
 		assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 28);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), 2);
@@ -135,8 +135,8 @@ public class TestShaman {
 		HearthTreeNode cn0 = ret.getChildren().get(0);
 		assertEquals(cn0.data_.getCurrentPlayer().getNumMinions(), 3);
 		assertEquals(cn0.data_.getWaitingPlayer().getNumMinions(), 2);
-		assertEquals(cn0.data_.getMana_p0(), 6);
-		assertEquals(cn0.data_.getMana_p1(), 8);
+		assertEquals(cn0.data_.getCurrentPlayer().getMana(), 6);
+		assertEquals(cn0.data_.getWaitingPlayer().getMana(), 8);
 		assertEquals(cn0.data_.getCurrentPlayerHero().getHealth(), 30);
 		assertEquals(cn0.data_.getWaitingPlayerHero().getHealth(), 28);
 		
@@ -157,8 +157,8 @@ public class TestShaman {
 		HearthTreeNode cn1 = ret.getChildren().get(1);
 		assertEquals(cn1.data_.getCurrentPlayer().getNumMinions(), 3);
 		assertEquals(cn1.data_.getWaitingPlayer().getNumMinions(), 2);
-		assertEquals(cn1.data_.getMana_p0(), 6);
-		assertEquals(cn1.data_.getMana_p1(), 8);
+		assertEquals(cn1.data_.getCurrentPlayer().getMana(), 6);
+		assertEquals(cn1.data_.getWaitingPlayer().getMana(), 8);
 		assertEquals(cn1.data_.getCurrentPlayerHero().getHealth(), 30);
 		assertEquals(cn1.data_.getWaitingPlayerHero().getHealth(), 28);
 		
@@ -179,8 +179,8 @@ public class TestShaman {
 		HearthTreeNode cn2 = ret.getChildren().get(2);
 		assertEquals(cn2.data_.getCurrentPlayer().getNumMinions(), 3);
 		assertEquals(cn2.data_.getWaitingPlayer().getNumMinions(), 2);
-		assertEquals(cn2.data_.getMana_p0(), 6);
-		assertEquals(cn2.data_.getMana_p1(), 8);
+		assertEquals(cn2.data_.getCurrentPlayer().getMana(), 6);
+		assertEquals(cn2.data_.getWaitingPlayer().getMana(), 8);
 		assertEquals(cn2.data_.getCurrentPlayerHero().getHealth(), 30);
 		assertEquals(cn2.data_.getWaitingPlayerHero().getHealth(), 28);
 		
@@ -201,8 +201,8 @@ public class TestShaman {
 		HearthTreeNode cn3 = ret.getChildren().get(3);
 		assertEquals(cn3.data_.getCurrentPlayer().getNumMinions(), 3);
 		assertEquals(cn3.data_.getWaitingPlayer().getNumMinions(), 2);
-		assertEquals(cn3.data_.getMana_p0(), 6);
-		assertEquals(cn3.data_.getMana_p1(), 8);
+		assertEquals(cn3.data_.getCurrentPlayer().getMana(), 6);
+		assertEquals(cn3.data_.getWaitingPlayer().getMana(), 8);
 		assertEquals(cn3.data_.getCurrentPlayerHero().getHealth(), 30);
 		assertEquals(cn3.data_.getWaitingPlayerHero().getHealth(), 28);
 		
@@ -239,8 +239,8 @@ public class TestShaman {
         ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
 		BoardModel resBoard = ai0.playTurn(0, board.data_, playerModel0, playerModel1, 200000000);
 
-		assertEquals(resBoard.getMana_p0(), 6);
-		assertEquals(resBoard.getMana_p1(), 8);
+		assertEquals(resBoard.getCurrentPlayer().getMana(), 6);
+		assertEquals(resBoard.getWaitingPlayer().getMana(), 8);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getNumMinions(), 3);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(resBoard).getNumMinions(), 1);
 

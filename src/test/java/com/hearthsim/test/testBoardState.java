@@ -84,7 +84,7 @@ public class testBoardState {
 	@Test
 	public void testBoardState2() throws HSException {
 
-		int numBoards = 20000;
+		int numBoards = 2000;
 		BoardModel[] boards = new BoardModel[numBoards];
 
 		int numCards1 = 1;

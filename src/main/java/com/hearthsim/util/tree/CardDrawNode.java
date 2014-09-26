@@ -92,7 +92,7 @@ public class CardDrawNode extends StopNode {
 		toRet += ai.heroHealthScore_p0(healthLeft, armorLeft) - ai.heroHealthScore_p0(heroHealth, heroArmor);
 		
 		//If you are going to draw a card 2 different ways, it is usually better to draw the cards when you have more mana
-		double manaBenefit = 1.e-2 * data_.getMana_p0();
+		double manaBenefit = 1.e-2 * data_.getCurrentPlayer().getMana();
 		toRet += manaBenefit;
 		
 		return toRet;

@@ -17,6 +17,8 @@ public class PlayerModel implements DeepCopyable {
     private final Deck deck;
     
     private int mana;
+    private int maxMana;
+    
     private MinionList minions;
     private byte spellDamage;
     private IdentityLinkedList<Card> hand;
@@ -68,6 +70,30 @@ public class PlayerModel implements DeepCopyable {
         this.mana = mana;
     }
 
+    public void addMana(int value) {
+        this.mana += value;
+    }
+
+    public void subtractMana(int value) {
+        this.mana -= value;
+    }
+
+	public int getMaxMana() {
+		return maxMana;
+	}
+
+	public void setMaxMana(int maxMana) {
+		this.maxMana = maxMana;
+	}
+	
+	public void addMaxMana(int value) {
+		this.maxMana += value;
+	}
+	
+	public void subtractMaxMana(int value) {
+		this.maxMana -= value;
+	}
+	
     public MinionList getMinions() {
         return minions;
     }
@@ -115,6 +141,7 @@ public class PlayerModel implements DeepCopyable {
         );
 
         copiedPlayerModel.setMana(mana);
+        copiedPlayerModel.setMaxMana(maxMana);
         copiedPlayerModel.setOverload(overload);
 
         for (Minion minion : minions) {
@@ -144,6 +171,12 @@ public class PlayerModel implements DeepCopyable {
 
     public int getPlayerId() {
         return playerId;
+    }
+
+    public void resetMana() {
+    	mana = maxMana;
+    	mana -= overload;
+    	overload = 0;
     }
 
 }

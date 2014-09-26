@@ -46,11 +46,11 @@ public class TestShadowWordDeath {
 		Card fb = new ShadowWordDeath();
 		board.data_.placeCardHandCurrentPlayer(fb);
 
-		board.data_.setMana_p0((byte)10);
-		board.data_.setMana_p1((byte)10);
+		board.data_.getCurrentPlayer().setMana((byte)10);
+		board.data_.getWaitingPlayer().setMana((byte)10);
 		
-		board.data_.setMaxMana_p0((byte)10);
-		board.data_.setMaxMana_p1((byte)10);
+		board.data_.getCurrentPlayer().setMaxMana((byte)10);
+		board.data_.getWaitingPlayer().setMaxMana((byte)10);
 		
 		HearthTreeNode tmpBoard = new HearthTreeNode(board.data_.flipPlayers());
 		try {
@@ -84,8 +84,8 @@ public class TestShadowWordDeath {
 		assertEquals(board.data_.getNumCards_hand(), 1);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
-		assertEquals(board.data_.getMana_p0(), 10);
-		assertEquals(board.data_.getMana_p1(), 10);
+		assertEquals(board.data_.getCurrentPlayer().getMana(), 10);
+		assertEquals(board.data_.getWaitingPlayer().getMana(), 10);
 		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
 		assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), 2);
@@ -110,8 +110,8 @@ public class TestShadowWordDeath {
 		assertEquals(board.data_.getNumCards_hand(), 1);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
-		assertEquals(board.data_.getMana_p0(), 10);
-		assertEquals(board.data_.getMana_p1(), 10);
+		assertEquals(board.data_.getCurrentPlayer().getMana(), 10);
+		assertEquals(board.data_.getWaitingPlayer().getMana(), 10);
 		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
 		assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), 2);
@@ -136,8 +136,8 @@ public class TestShadowWordDeath {
 		assertEquals(board.data_.getNumCards_hand(), 0);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 1);
-		assertEquals(board.data_.getMana_p0(), 7);
-		assertEquals(board.data_.getMana_p1(), 10);
+		assertEquals(board.data_.getCurrentPlayer().getMana(), 7);
+		assertEquals(board.data_.getWaitingPlayer().getMana(), 10);
 		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
 		assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), 2);

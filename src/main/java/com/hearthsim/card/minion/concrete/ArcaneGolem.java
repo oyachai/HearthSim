@@ -181,8 +181,8 @@ public class ArcaneGolem extends Minion {
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		
 		if (toRet != null) {
-			toRet.data_.addMana_p1(1);
-			toRet.data_.addMaxMana_p1(1);
+			toRet.data_.getWaitingPlayer().addMana(1);
+			toRet.data_.getWaitingPlayer().addMaxMana(1);
 			return toRet;
 		} else {
 			return null;

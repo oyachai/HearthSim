@@ -166,7 +166,7 @@ public class Hero extends Minion {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (boardState.data_.getMana_p0() < HERO_ABILITY_COST)
+		if (boardState.data_.getCurrentPlayer().getMana() < HERO_ABILITY_COST)
 			return null;
 		
 		HearthTreeNode toRet = this.useHeroAbility_core(targetPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
@@ -231,7 +231,7 @@ public class Hero extends Minion {
 	 * temporary buffs that it has.
 	 */
 	@Override
-	public BoardModel endTurn(PlayerSide thisMinionPlayerIndex, BoardModel boardModel, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
+	public HearthTreeNode endTurn(PlayerSide thisMinionPlayerIndex, HearthTreeNode boardModel, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
 		this.extraAttackUntilTurnEnd_ = 0;
 		return boardModel;
 	}

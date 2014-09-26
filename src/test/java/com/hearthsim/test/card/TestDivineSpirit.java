@@ -48,11 +48,11 @@ public class TestDivineSpirit {
 		DivineSpirit fb = new DivineSpirit();
 		board.data_.placeCardHandCurrentPlayer(fb);
 
-		board.data_.setMana_p0((byte)4);
-		board.data_.setMana_p1((byte)4);
+		board.data_.getCurrentPlayer().setMana((byte)4);
+		board.data_.getWaitingPlayer().setMana((byte)4);
 		
-		board.data_.setMaxMana_p0((byte)4);
-		board.data_.setMaxMana_p1((byte)4);
+		board.data_.getCurrentPlayer().setMaxMana((byte)4);
+		board.data_.getWaitingPlayer().setMaxMana((byte)4);
 		
 	}
 	
@@ -124,8 +124,8 @@ public class TestDivineSpirit {
 		assertEquals(board.data_.getNumCards_hand(), 0);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
-		assertEquals(board.data_.getMana_p0(), 3);
-		assertEquals(board.data_.getMana_p1(), 4);
+		assertEquals(board.data_.getCurrentPlayer().getMana(), 3);
+		assertEquals(board.data_.getWaitingPlayer().getMana(), 4);
 		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
 		assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0 * 2);
@@ -152,8 +152,8 @@ public class TestDivineSpirit {
 		assertEquals(board.data_.getNumCards_hand(), 0);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
-		assertEquals(board.data_.getMana_p0(), 3);
-		assertEquals(board.data_.getMana_p1(), 4);
+		assertEquals(board.data_.getCurrentPlayer().getMana(), 3);
+		assertEquals(board.data_.getWaitingPlayer().getMana(), 4);
 		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
 		assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0);

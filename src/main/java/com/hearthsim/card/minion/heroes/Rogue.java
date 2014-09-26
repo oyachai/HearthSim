@@ -75,7 +75,7 @@ public class Rogue extends Hero {
 		HearthTreeNode toRet = boardState;
 		if (isHero(targetMinion) && targetPlayerSide == PlayerSide.CURRENT_PLAYER) {
 			this.hasBeenUsed = true;
-			toRet.data_.setMana_p0(toRet.data_.getMana_p0() - HERO_ABILITY_COST);
+			toRet.data_.getCurrentPlayer().subtractMana(HERO_ABILITY_COST);
 			Hero target = (Hero)targetMinion;
 			target.setWeaponCharge((byte)2);
 			target.setAttack((byte)1);

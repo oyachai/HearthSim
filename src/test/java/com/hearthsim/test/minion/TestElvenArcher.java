@@ -52,11 +52,11 @@ public class TestElvenArcher {
 		Minion fb = new ElvenArcher();
 		board.data_.placeCardHandCurrentPlayer(fb);
 
-		board.data_.setMana_p0((byte)7);
-		board.data_.setMana_p1((byte)4);
+		board.data_.getCurrentPlayer().setMana((byte)7);
+		board.data_.getWaitingPlayer().setMana((byte)4);
 		
-		board.data_.setMaxMana_p0((byte)7);
-		board.data_.setMaxMana_p1((byte)4);
+		board.data_.getCurrentPlayer().setMaxMana((byte)7);
+		board.data_.getWaitingPlayer().setMaxMana((byte)4);
 		
 	}
 	
@@ -90,8 +90,8 @@ public class TestElvenArcher {
 		assertEquals(board.data_.getNumCards_hand(), 0);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 3);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 3);
-		assertEquals(board.data_.getMana_p0(), 6);
-		assertEquals(board.data_.getMana_p1(), 4);
+		assertEquals(board.data_.getCurrentPlayer().getMana(), 6);
+		assertEquals(board.data_.getWaitingPlayer().getMana(), 4);
 		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
 		assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0);
@@ -111,8 +111,8 @@ public class TestElvenArcher {
 			assertEquals(child.data_.getNumCards_hand(), 0);
 			assertEquals(child.data_.getCurrentPlayer().getNumMinions(), 3);
 			assertEquals(child.data_.getWaitingPlayer().getNumMinions(), 3);
-			assertEquals(child.data_.getMana_p0(), 6);
-			assertEquals(child.data_.getMana_p1(), 4);
+			assertEquals(child.data_.getCurrentPlayer().getMana(), 6);
+			assertEquals(child.data_.getWaitingPlayer().getMana(), 4);
 			assertEquals(child.data_.getCurrentPlayerHero().getHealth(), 29);
 			assertEquals(child.data_.getWaitingPlayerHero().getHealth(), 30);
 			assertEquals(child.data_.getCurrentPlayer().getMinions().get(0).getHealth(), health0);
@@ -131,8 +131,8 @@ public class TestElvenArcher {
 			assertEquals(child.data_.getNumCards_hand(), 0);
 			assertEquals(child.data_.getCurrentPlayer().getNumMinions(), 3);
 			assertEquals(child.data_.getWaitingPlayer().getNumMinions(), 3);
-			assertEquals(child.data_.getMana_p0(), 6);
-			assertEquals(child.data_.getMana_p1(), 4);
+			assertEquals(child.data_.getCurrentPlayer().getMana(), 6);
+			assertEquals(child.data_.getWaitingPlayer().getMana(), 4);
 			assertEquals(child.data_.getCurrentPlayerHero().getHealth(), 30);
 			assertEquals(child.data_.getWaitingPlayerHero().getHealth(), 30);
 			assertEquals(child.data_.getCurrentPlayer().getMinions().get(0).getHealth(), health0 - 1);
@@ -151,8 +151,8 @@ public class TestElvenArcher {
 			assertEquals(child.data_.getNumCards_hand(), 0);
 			assertEquals(child.data_.getCurrentPlayer().getNumMinions(), 3);
 			assertEquals(child.data_.getWaitingPlayer().getNumMinions(), 3);
-			assertEquals(child.data_.getMana_p0(), 6);
-			assertEquals(child.data_.getMana_p1(), 4);
+			assertEquals(child.data_.getCurrentPlayer().getMana(), 6);
+			assertEquals(child.data_.getWaitingPlayer().getMana(), 4);
 			assertEquals(child.data_.getCurrentPlayerHero().getHealth(), 30);
 			assertEquals(child.data_.getWaitingPlayerHero().getHealth(), 30);
 			assertEquals(child.data_.getCurrentPlayer().getMinions().get(0).getHealth(), health0);
@@ -171,8 +171,8 @@ public class TestElvenArcher {
 			assertEquals(child.data_.getNumCards_hand(), 0);
 			assertEquals(child.data_.getCurrentPlayer().getNumMinions(), 3);
 			assertEquals(child.data_.getWaitingPlayer().getNumMinions(), 3);
-			assertEquals(child.data_.getMana_p0(), 6);
-			assertEquals(child.data_.getMana_p1(), 4);
+			assertEquals(child.data_.getCurrentPlayer().getMana(), 6);
+			assertEquals(child.data_.getWaitingPlayer().getMana(), 4);
 			assertEquals(child.data_.getCurrentPlayerHero().getHealth(), 30);
 			assertEquals(child.data_.getWaitingPlayerHero().getHealth(), 29);
 			assertEquals(child.data_.getCurrentPlayer().getMinions().get(0).getHealth(), health0);
@@ -191,8 +191,8 @@ public class TestElvenArcher {
 			assertEquals(child.data_.getNumCards_hand(), 0);
 			assertEquals(child.data_.getCurrentPlayer().getNumMinions(), 3);
 			assertEquals(child.data_.getWaitingPlayer().getNumMinions(), 3);
-			assertEquals(child.data_.getMana_p0(), 6);
-			assertEquals(child.data_.getMana_p1(), 4);
+			assertEquals(child.data_.getCurrentPlayer().getMana(), 6);
+			assertEquals(child.data_.getWaitingPlayer().getMana(), 4);
 			assertEquals(child.data_.getCurrentPlayerHero().getHealth(), 30);
 			assertEquals(child.data_.getWaitingPlayerHero().getHealth(), 30);
 			assertEquals(child.data_.getCurrentPlayer().getMinions().get(0).getHealth(), health0);
@@ -211,8 +211,8 @@ public class TestElvenArcher {
 			assertEquals(child.data_.getNumCards_hand(), 0);
 			assertEquals(child.data_.getCurrentPlayer().getNumMinions(), 3);
 			assertEquals(child.data_.getWaitingPlayer().getNumMinions(), 3);
-			assertEquals(child.data_.getMana_p0(), 6);
-			assertEquals(child.data_.getMana_p1(), 4);
+			assertEquals(child.data_.getCurrentPlayer().getMana(), 6);
+			assertEquals(child.data_.getWaitingPlayer().getMana(), 4);
 			assertEquals(child.data_.getCurrentPlayerHero().getHealth(), 30);
 			assertEquals(child.data_.getWaitingPlayerHero().getHealth(), 30);
 			assertEquals(child.data_.getCurrentPlayer().getMinions().get(0).getHealth(), health0);
@@ -231,8 +231,8 @@ public class TestElvenArcher {
 			assertEquals(child.data_.getNumCards_hand(), 0);
 			assertEquals(child.data_.getCurrentPlayer().getNumMinions(), 2);
 			assertEquals(child.data_.getWaitingPlayer().getNumMinions(), 2);
-			assertEquals(child.data_.getMana_p0(), 6);
-			assertEquals(child.data_.getMana_p1(), 4);
+			assertEquals(child.data_.getCurrentPlayer().getMana(), 6);
+			assertEquals(child.data_.getWaitingPlayer().getMana(), 4);
 			assertEquals(child.data_.getCurrentPlayerHero().getHealth(), 28);
 			assertEquals(child.data_.getWaitingPlayerHero().getHealth(), 28);
 			assertEquals(child.data_.getCurrentPlayer().getMinions().get(0).getTotalHealth(), health0 - 2);

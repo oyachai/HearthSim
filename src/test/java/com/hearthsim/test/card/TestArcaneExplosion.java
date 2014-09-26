@@ -36,7 +36,7 @@ public class TestArcaneExplosion {
 		board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion2);
 		board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion3);
 		
-		board.data_.setMana_p0(3);
+		board.data_.getCurrentPlayer().setMana(3);
 	}
 	
 	@Test
@@ -69,7 +69,7 @@ public class TestArcaneExplosion {
 		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
 		res = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, null, null);
 		assertFalse(res == null);
-		assertEquals(res.data_.getMana_p0(), 1);
+		assertEquals(res.data_.getCurrentPlayer().getMana(), 1);
 		assertEquals(res.data_.getNumCards_hand(), 0);
 		assertEquals(res.data_.getCurrentPlayer().getNumMinions(), 1);
 		assertEquals(res.data_.getWaitingPlayer().getNumMinions(), 2);

@@ -48,11 +48,11 @@ public class TestBloodlust {
 		Bloodlust fb = new Bloodlust();
 		board.data_.placeCardHandCurrentPlayer(fb);
 
-		board.data_.setMana_p0((byte)4);
-		board.data_.setMana_p1((byte)4);
+		board.data_.getCurrentPlayer().setMana((byte)4);
+		board.data_.getWaitingPlayer().setMana((byte)4);
 		
-		board.data_.setMaxMana_p0((byte)4);
-		board.data_.setMaxMana_p1((byte)4);
+		board.data_.getCurrentPlayer().setMaxMana((byte)4);
+		board.data_.getWaitingPlayer().setMaxMana((byte)4);
 		
 	}
 	

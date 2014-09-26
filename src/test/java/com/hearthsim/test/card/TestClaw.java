@@ -127,7 +127,7 @@ public class TestClaw {
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), health1 - 1);
 
 		
-		board.data_.getCurrentPlayerHero().endTurn(PlayerSide.CURRENT_PLAYER, board.data_, deck, null);
+		board.data_.getCurrentPlayerHero().endTurn(PlayerSide.CURRENT_PLAYER, board, deck, null);
 		assertEquals(board.data_.getCurrentPlayerHero().getTotalAttack(), 0);
 		assertEquals(board.data_.getCurrentPlayerHero().getArmor(), 0);
 		

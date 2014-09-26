@@ -58,11 +58,11 @@ public class TestAnimalCompanion {
 		AnimalCompanion fb = new AnimalCompanion();
 		board.data_.placeCardHandCurrentPlayer(fb);
 
-		board.data_.setMana_p0((byte)4);
-		board.data_.setMana_p1((byte)4);
+		board.data_.getCurrentPlayer().setMana((byte)4);
+		board.data_.getWaitingPlayer().setMana((byte)4);
 		
-		board.data_.setMaxMana_p0((byte)4);
-		board.data_.setMaxMana_p1((byte)4);
+		board.data_.getCurrentPlayer().setMaxMana((byte)4);
+		board.data_.getWaitingPlayer().setMaxMana((byte)4);
 		
 	}
 	
@@ -170,7 +170,7 @@ public class TestAnimalCompanion {
 		
 		assertFalse(ret == null);
 		assertEquals(1, board.data_.getNumCards_hand());
-		assertEquals(4, board.data_.getMana_p0());
+		assertEquals(4, board.data_.getCurrentPlayer().getMana());
 		
 		assertTrue(ret instanceof RandomEffectNode);
 		
@@ -270,19 +270,19 @@ public class TestAnimalCompanion {
 		AnimalCompanion fb = new AnimalCompanion();
 		board.data_.placeCardHandCurrentPlayer(fb);
 
-		board.data_.setMana_p0((byte)4);
-		board.data_.setMana_p1((byte)4);
+		board.data_.getCurrentPlayer().setMana((byte)4);
+		board.data_.getWaitingPlayer().setMana((byte)4);
 		
-		board.data_.setMaxMana_p0((byte)4);
-		board.data_.setMaxMana_p1((byte)4);
+		board.data_.getCurrentPlayer().setMaxMana((byte)4);
+		board.data_.getWaitingPlayer().setMaxMana((byte)4);
 		
 		PlayerModel playerModel0 = new PlayerModel(0, "player0", new Shaman(), deck);
 		PlayerModel playerModel1 = new PlayerModel(1, "player1", new Hero(), deck);
         ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
 		BoardModel resBoard = ai0.playTurn(0, board.data_, playerModel0, playerModel1, 200000000);
 
-		assertEquals(resBoard.getMana_p0(), 1);
-		assertEquals(resBoard.getMana_p1(), 4);
+		assertEquals(resBoard.getCurrentPlayer().getMana(), 1);
+		assertEquals(resBoard.getWaitingPlayer().getMana(), 4);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getNumMinions(), 1);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(resBoard).getNumMinions(), 0);
 		

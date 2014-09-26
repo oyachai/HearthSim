@@ -54,9 +54,9 @@ public class TheCoin extends SpellCard {
 			return null;
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
-			int newMana = toRet.data_.getMana_p0();
+			int newMana = toRet.data_.getCurrentPlayer().getMana();
 			newMana = newMana >= 10 ? newMana : newMana + 1;
-			toRet.data_.setMana_p0(newMana);
+			toRet.data_.getCurrentPlayer().setMana(newMana);
 		}
 		return boardState;
 	}

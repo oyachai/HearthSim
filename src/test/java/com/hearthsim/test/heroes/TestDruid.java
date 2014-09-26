@@ -48,11 +48,11 @@ public class TestDruid {
 		Card fb = new WildGrowth();
 		board.data_.placeCardHandCurrentPlayer(fb);
 
-		board.data_.setMana_p0((byte)8);
-		board.data_.setMana_p1((byte)8);
+		board.data_.getCurrentPlayer().setMana((byte)8);
+		board.data_.getWaitingPlayer().setMana((byte)8);
 		
-		board.data_.setMaxMana_p0((byte)8);
-		board.data_.setMaxMana_p1((byte)8);
+		board.data_.getCurrentPlayer().setMaxMana((byte)8);
+		board.data_.getWaitingPlayer().setMaxMana((byte)8);
 		
 		HearthTreeNode tmpBoard = new HearthTreeNode(board.data_.flipPlayers());
 		try {
@@ -87,8 +87,8 @@ public class TestDruid {
 		assertEquals(board.data_.getNumCards_hand(), 1);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
-		assertEquals(board.data_.getMana_p0(), 8);
-		assertEquals(board.data_.getMana_p1(), 8);
+		assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
+		assertEquals(board.data_.getWaitingPlayer().getMana(), 8);
 		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
 		assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 28);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), 2);
@@ -109,8 +109,8 @@ public class TestDruid {
 		assertEquals(board.data_.getNumCards_hand(), 1);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
-		assertEquals(board.data_.getMana_p0(), 8);
-		assertEquals(board.data_.getMana_p1(), 8);
+		assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
+		assertEquals(board.data_.getWaitingPlayer().getMana(), 8);
 		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
 		assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 28);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), 2);
@@ -129,8 +129,8 @@ public class TestDruid {
 		assertEquals(board.data_.getNumCards_hand(), 1);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 1);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
-		assertEquals(board.data_.getMana_p0(), 8);
-		assertEquals(board.data_.getMana_p1(), 8);
+		assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
+		assertEquals(board.data_.getWaitingPlayer().getMana(), 8);
 		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
 		assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 28);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), 7);
@@ -148,8 +148,8 @@ public class TestDruid {
 		assertEquals(board.data_.getNumCards_hand(), 1);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 1);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
-		assertEquals(board.data_.getMana_p0(), 6);
-		assertEquals(board.data_.getMana_p1(), 8);
+		assertEquals(board.data_.getCurrentPlayer().getMana(), 6);
+		assertEquals(board.data_.getWaitingPlayer().getMana(), 8);
 		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
 		assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 28);
 		assertEquals(board.data_.getCurrentPlayerHero().getArmor(), 1);

@@ -54,7 +54,7 @@ public class SparseBoardStateFactory extends BoardStateFactoryBase {
 		}
 		
 		
-		int mana = boardStateNode.data_.getMana_p0();
+		int mana = boardStateNode.data_.getCurrentPlayer().getMana();
 		for (int ic = 0; ic < boardStateNode.data_.getNumCards_hand(); ++ic) {
 			Card cardToUse = boardStateNode.data_.getCurrentPlayerCardHand(ic);
 			if (cardToUse.getMana() <= mana && !cardToUse.hasBeenUsed()) {

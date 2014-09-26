@@ -97,7 +97,7 @@ public class AnimalCompanion extends SpellCard {
 					newState = super.use_core(side, side.getPlayer(newState).getHero(), newState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 	            	Minion placementTarget = newState.data_.getCharacter(side, newState.data_.getMinions(side).size()); //this minion can't be a hero
 	            	newState = minion.summonMinion(side, placementTarget, newState, deckPlayer0, deckPlayer1, false);					
-					newState.data_.setMana_p0(newState.data_.getMana_p0() - this.mana_);
+					newState.data_.getCurrentPlayer().subtractMana(this.mana_);
 					side.getPlayer(newState).getHand().remove(thisCardIndex);
 				}
 			}

@@ -48,11 +48,11 @@ public class TestInnervate {
 		Innervate fb = new Innervate();
 		board.data_.placeCardHandCurrentPlayer(fb);
 
-		board.data_.setMana_p0((byte)4);
-		board.data_.setMana_p1((byte)4);
+		board.data_.getCurrentPlayer().setMana((byte)4);
+		board.data_.getWaitingPlayer().setMana((byte)4);
 		
-		board.data_.setMaxMana_p0((byte)4);
-		board.data_.setMaxMana_p1((byte)4);
+		board.data_.getCurrentPlayer().setMaxMana((byte)4);
+		board.data_.getWaitingPlayer().setMaxMana((byte)4);
 		
 	}
 	
@@ -107,10 +107,10 @@ public class TestInnervate {
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
 		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
 		assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
-		assertEquals(board.data_.getMana_p0(), 6);
-		assertEquals(board.data_.getMana_p1(), 4);
-		assertEquals(board.data_.getMaxMana_p0(), 4);
-		assertEquals(board.data_.getMaxMana_p1(), 4);
+		assertEquals(board.data_.getCurrentPlayer().getMana(), 6);
+		assertEquals(board.data_.getWaitingPlayer().getMana(), 4);
+		assertEquals(board.data_.getCurrentPlayer().getMaxMana(), 4);
+		assertEquals(board.data_.getWaitingPlayer().getMaxMana(), 4);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), health1 - 1);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0);
@@ -120,8 +120,8 @@ public class TestInnervate {
 	@Test
 	public void test3() throws HSException {
 		
-		board.data_.setMana_p0((byte)10);
-		board.data_.setMaxMana_p0((byte)10);
+		board.data_.getCurrentPlayer().setMana((byte)10);
+		board.data_.getCurrentPlayer().setMaxMana((byte)10);
 		
 		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
@@ -134,10 +134,10 @@ public class TestInnervate {
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
 		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
 		assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
-		assertEquals(board.data_.getMana_p0(), 10);
-		assertEquals(board.data_.getMana_p1(), 4);
-		assertEquals(board.data_.getMaxMana_p0(), 10);
-		assertEquals(board.data_.getMaxMana_p1(), 4);
+		assertEquals(board.data_.getCurrentPlayer().getMana(), 10);
+		assertEquals(board.data_.getWaitingPlayer().getMana(), 4);
+		assertEquals(board.data_.getCurrentPlayer().getMaxMana(), 10);
+		assertEquals(board.data_.getWaitingPlayer().getMaxMana(), 4);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), health1 - 1);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0);

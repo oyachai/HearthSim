@@ -55,7 +55,7 @@ public class RandomEffectNode extends StopNode {
 		toRet = toRet / children_.size();
 		
 		//If you are going to play a random effect card, it's usually better to play it when you have more mana
-		double manaBenefit = 1.e-2 * data_.getMana_p0();
+		double manaBenefit = 1.e-2 * data_.getCurrentPlayer().getMana();
 		toRet += manaBenefit;
 
 		return toRet;

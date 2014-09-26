@@ -44,11 +44,11 @@ public class TestEarthenRingFarseer {
 		Card fb = new EarthenRingFarseer();
 		board.data_.placeCardHandCurrentPlayer(fb);
 
-		board.data_.setMana_p0((byte)8);
-		board.data_.setMana_p1((byte)8);
+		board.data_.getCurrentPlayer().setMana((byte)8);
+		board.data_.getWaitingPlayer().setMana((byte)8);
 		
-		board.data_.setMaxMana_p0((byte)8);
-		board.data_.setMaxMana_p1((byte)8);
+		board.data_.getCurrentPlayer().setMaxMana((byte)8);
+		board.data_.getWaitingPlayer().setMaxMana((byte)8);
 		
 		minion0_0.summonMinion(PlayerSide.CURRENT_PLAYER, board.data_.getHero(PlayerSide.CURRENT_PLAYER), board, null, null, false);
 		minion0_1.summonMinion(PlayerSide.CURRENT_PLAYER, board.data_.getHero(PlayerSide.CURRENT_PLAYER), board, null, null, false);
@@ -77,8 +77,8 @@ public class TestEarthenRingFarseer {
 		assertEquals(board.data_.getNumCards_hand(), 1);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 3);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
-		assertEquals(board.data_.getMana_p0(), 8);
-		assertEquals(board.data_.getMana_p1(), 8);
+		assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
+		assertEquals(board.data_.getWaitingPlayer().getMana(), 8);
 		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 20);
 		assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 20);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getTotalHealth(), 2);
@@ -106,8 +106,8 @@ public class TestEarthenRingFarseer {
 		assertEquals(board.data_.getNumCards_hand(), 0);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 4);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
-		assertEquals(board.data_.getMana_p0(), 5);
-		assertEquals(board.data_.getMana_p1(), 8);
+		assertEquals(board.data_.getCurrentPlayer().getMana(), 5);
+		assertEquals(board.data_.getWaitingPlayer().getMana(), 8);
 		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 20);
 		assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 20);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getTotalHealth(), 2);
@@ -130,8 +130,8 @@ public class TestEarthenRingFarseer {
 		assertEquals(c0.data_.getNumCards_hand(), 0);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(c0).getNumMinions(), 4);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(c0).getNumMinions(), 2);
-		assertEquals(c0.data_.getMana_p0(), 5);
-		assertEquals(c0.data_.getMana_p1(), 8);
+		assertEquals(c0.data_.getCurrentPlayer().getMana(), 5);
+		assertEquals(c0.data_.getWaitingPlayer().getMana(), 8);
 		assertEquals(c0.data_.getCurrentPlayerHero().getHealth(), 23);
 		assertEquals(c0.data_.getWaitingPlayerHero().getHealth(), 20);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(c0).getMinions().get(0).getTotalHealth(), 2);
@@ -153,8 +153,8 @@ public class TestEarthenRingFarseer {
 		assertEquals(c1.data_.getNumCards_hand(), 0);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(c1).getNumMinions(), 4);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(c1).getNumMinions(), 2);
-		assertEquals(c1.data_.getMana_p0(), 5);
-		assertEquals(c1.data_.getMana_p1(), 8);
+		assertEquals(c1.data_.getCurrentPlayer().getMana(), 5);
+		assertEquals(c1.data_.getWaitingPlayer().getMana(), 8);
 		assertEquals(c1.data_.getCurrentPlayerHero().getHealth(), 20);
 		assertEquals(c1.data_.getWaitingPlayerHero().getHealth(), 20);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(c1).getMinions().get(0).getTotalHealth(), 2);
@@ -176,8 +176,8 @@ public class TestEarthenRingFarseer {
 		assertEquals(c2.data_.getNumCards_hand(), 0);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(c2).getNumMinions(), 4);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(c2).getNumMinions(), 2);
-		assertEquals(c2.data_.getMana_p0(), 5);
-		assertEquals(c2.data_.getMana_p1(), 8);
+		assertEquals(c2.data_.getCurrentPlayer().getMana(), 5);
+		assertEquals(c2.data_.getWaitingPlayer().getMana(), 8);
 		assertEquals(c2.data_.getCurrentPlayerHero().getHealth(), 20);
 		assertEquals(c2.data_.getWaitingPlayerHero().getHealth(), 20);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(c2).getMinions().get(0).getTotalHealth(), 2);
@@ -199,8 +199,8 @@ public class TestEarthenRingFarseer {
 		assertEquals(c4.data_.getNumCards_hand(), 0);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(c4).getNumMinions(), 4);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(c4).getNumMinions(), 2);
-		assertEquals(c4.data_.getMana_p0(), 5);
-		assertEquals(c4.data_.getMana_p1(), 8);
+		assertEquals(c4.data_.getCurrentPlayer().getMana(), 5);
+		assertEquals(c4.data_.getWaitingPlayer().getMana(), 8);
 		assertEquals(c4.data_.getCurrentPlayerHero().getHealth(), 20);
 		assertEquals(c4.data_.getWaitingPlayerHero().getHealth(), 23);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(c4).getMinions().get(0).getTotalHealth(), 2);
@@ -222,8 +222,8 @@ public class TestEarthenRingFarseer {
 		assertEquals(c6.data_.getNumCards_hand(), 0);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(c6).getNumMinions(), 4);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(c6).getNumMinions(), 2);
-		assertEquals(c6.data_.getMana_p0(), 5);
-		assertEquals(c6.data_.getMana_p1(), 8);
+		assertEquals(c6.data_.getCurrentPlayer().getMana(), 5);
+		assertEquals(c6.data_.getWaitingPlayer().getMana(), 8);
 		assertEquals(c6.data_.getCurrentPlayerHero().getHealth(), 20);
 		assertEquals(c6.data_.getWaitingPlayerHero().getHealth(), 20);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(c6).getMinions().get(0).getTotalHealth(), 2);

@@ -43,7 +43,7 @@ public class TestArcaneIntellect {
 		board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion2);
 		board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion3);
 		
-		board.data_.setMana_p0(5);
+		board.data_.getCurrentPlayer().setMana(5);
 	}
 	
 	@Test
@@ -90,7 +90,7 @@ public class TestArcaneIntellect {
 		
 		assertTrue(res.data_.getCurrentPlayer().getNumMinions() == 1);
 		assertTrue(res.data_.getWaitingPlayer().getNumMinions() == 3);
-		assertTrue(res.data_.getMana_p0() == 2);
+		assertTrue(res.data_.getCurrentPlayer().getMana() == 2);
 		assertTrue(res.data_.getCurrentPlayer().getMinions().get(0).getHealth() == health0);
 		assertTrue(res.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack() == attack0);
 		assertTrue(res.data_.getWaitingPlayer().getMinions().get(0).getHealth() == health0);
@@ -147,7 +147,7 @@ public class TestArcaneIntellect {
 
 		assertTrue(res.data_.getCurrentPlayer().getNumMinions() == 1);
 		assertTrue(res.data_.getWaitingPlayer().getNumMinions() == 3);
-		assertTrue(res.data_.getMana_p0() == 2);
+		assertTrue(res.data_.getCurrentPlayer().getMana() == 2);
 		assertTrue(res.data_.getCurrentPlayer().getMinions().get(0).getHealth() == health0);
 		assertTrue(res.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack() == attack0);
 		assertTrue(res.data_.getWaitingPlayer().getMinions().get(0).getHealth() == health0);
@@ -175,19 +175,19 @@ public class TestArcaneIntellect {
 		PlayerModel playerModel0 = new PlayerModel(0, "player0", hero, deck);
 		PlayerModel playerModel1 = new PlayerModel(1, "player0", hero, deck);
 		
-		board.data_.setMana_p0((byte)3);
-		board.data_.setMana_p1((byte)3);
+		board.data_.getCurrentPlayer().setMana((byte)3);
+		board.data_.getWaitingPlayer().setMana((byte)3);
 
-		board.data_.setMaxMana_p0((byte)3);
-		board.data_.setMaxMana_p1((byte)3);
+		board.data_.getCurrentPlayer().setMaxMana((byte)3);
+		board.data_.getWaitingPlayer().setMaxMana((byte)3);
 
         ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
 		BoardModel resBoard = ai0.playTurn(0, board.data_, playerModel0, playerModel1);
 		
 		assertFalse( resBoard == null );
 		
-		assertEquals( resBoard.getMana_p0(), 0 );
-		assertEquals( resBoard.getMana_p1(), 3 );
+		assertEquals( resBoard.getCurrentPlayer().getMana(), 0 );
+		assertEquals( resBoard.getWaitingPlayer().getMana(), 3 );
 		assertEquals( resBoard.getNumCardsHandCurrentPlayer(), 2 );
 		assertEquals( PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getNumMinions(), 1 );
 		assertEquals( PlayerSide.WAITING_PLAYER.getPlayer(resBoard).getNumMinions(), 2 );
@@ -208,19 +208,19 @@ public class TestArcaneIntellect {
 		PlayerModel playerModel0 = new PlayerModel(0, "player0", hero, deck);
 		PlayerModel playerModel1 = new PlayerModel(1, "player0", hero, deck);
 		
-		board.data_.setMana_p0((byte)6);
-		board.data_.setMana_p1((byte)6);
+		board.data_.getCurrentPlayer().setMana((byte)6);
+		board.data_.getWaitingPlayer().setMana((byte)6);
 
-		board.data_.setMaxMana_p0((byte)6);
-		board.data_.setMaxMana_p1((byte)6);
+		board.data_.getCurrentPlayer().setMaxMana((byte)6);
+		board.data_.getWaitingPlayer().setMaxMana((byte)6);
 
         ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
 		BoardModel resBoard = ai0.playTurn(0, board.data_, playerModel0, playerModel1);
 		
 		assertFalse( resBoard == null );
 		
-		assertEquals( resBoard.getMana_p0(), 1 );
-		assertEquals( resBoard.getMana_p1(), 6 );
+		assertEquals( resBoard.getCurrentPlayer().getMana(), 1 );
+		assertEquals( resBoard.getWaitingPlayer().getMana(), 6 );
 		assertEquals( resBoard.getNumCardsHandCurrentPlayer(), 1 );
 		assertEquals( PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getNumMinions(), 2 );
 		assertEquals( PlayerSide.WAITING_PLAYER.getPlayer(resBoard).getNumMinions(), 2 );
@@ -242,19 +242,19 @@ public class TestArcaneIntellect {
 		PlayerModel playerModel0 = new PlayerModel(0, "player0", hero, deck);
 		PlayerModel playerModel1 = new PlayerModel(1, "player0", hero, deck);
 		
-		board.data_.setMana_p0((byte)9);
-		board.data_.setMana_p1((byte)9);
+		board.data_.getCurrentPlayer().setMana((byte)9);
+		board.data_.getWaitingPlayer().setMana((byte)9);
 
-		board.data_.setMaxMana_p0((byte)9);
-		board.data_.setMaxMana_p1((byte)9);
+		board.data_.getCurrentPlayer().setMaxMana((byte)9);
+		board.data_.getWaitingPlayer().setMaxMana((byte)9);
 
         ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
 		BoardModel resBoard = ai0.playTurn(0, board.data_, playerModel0, playerModel1);
 		
 		assertFalse( resBoard == null );
 		
-		assertEquals( resBoard.getMana_p0(), 2 );
-		assertEquals( resBoard.getMana_p1(), 9 );
+		assertEquals( resBoard.getCurrentPlayer().getMana(), 2 );
+		assertEquals( resBoard.getWaitingPlayer().getMana(), 9 );
 		assertEquals( resBoard.getNumCardsHandCurrentPlayer(), 0 );
 		assertEquals( PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getNumMinions(), 3 );
 		assertEquals( PlayerSide.WAITING_PLAYER.getPlayer(resBoard).getNumMinions(), 2 );

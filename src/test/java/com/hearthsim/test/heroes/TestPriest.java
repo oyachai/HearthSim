@@ -46,11 +46,11 @@ public class TestPriest {
 	
 		deck = new Deck(cards);
 
-		board.data_.setMana_p0((byte)8);
-		board.data_.setMana_p1((byte)8);
+		board.data_.getCurrentPlayer().setMana((byte)8);
+		board.data_.getWaitingPlayer().setMana((byte)8);
 		
-		board.data_.setMaxMana_p0((byte)8);
-		board.data_.setMaxMana_p1((byte)8);
+		board.data_.getCurrentPlayer().setMaxMana((byte)8);
+		board.data_.getWaitingPlayer().setMaxMana((byte)8);
 		
 		HearthTreeNode tmpBoard = new HearthTreeNode(board.data_.flipPlayers());
 		try {
@@ -85,8 +85,8 @@ public class TestPriest {
 		assertEquals(board.data_.getNumCards_hand(), 0);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
-		assertEquals(board.data_.getMana_p0(), 8);
-		assertEquals(board.data_.getMana_p1(), 8);
+		assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
+		assertEquals(board.data_.getWaitingPlayer().getMana(), 8);
 		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
 		assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 26);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), 5);
@@ -106,8 +106,8 @@ public class TestPriest {
 		assertEquals(board.data_.getNumCards_hand(), 0);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
-		assertEquals(board.data_.getMana_p0(), 6);
-		assertEquals(board.data_.getMana_p1(), 8);
+		assertEquals(board.data_.getCurrentPlayer().getMana(), 6);
+		assertEquals(board.data_.getWaitingPlayer().getMana(), 8);
 		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
 		assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 28);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), 5);
@@ -126,8 +126,8 @@ public class TestPriest {
 		assertEquals(board.data_.getNumCards_hand(), 0);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
-		assertEquals(board.data_.getMana_p0(), 6);
-		assertEquals(board.data_.getMana_p1(), 8);
+		assertEquals(board.data_.getCurrentPlayer().getMana(), 6);
+		assertEquals(board.data_.getWaitingPlayer().getMana(), 8);
 		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
 		assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 28);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), 1);
@@ -146,8 +146,8 @@ public class TestPriest {
 		assertEquals(board.data_.getNumCards_hand(), 0);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
-		assertEquals(board.data_.getMana_p0(), 4);
-		assertEquals(board.data_.getMana_p1(), 8);
+		assertEquals(board.data_.getCurrentPlayer().getMana(), 4);
+		assertEquals(board.data_.getWaitingPlayer().getMana(), 8);
 		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
 		assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 28);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), 1);
@@ -184,8 +184,8 @@ public class TestPriest {
 		assertEquals(bestPlay.data_.getNumCards_hand(), 0);
 		assertEquals(bestPlay.data_.getCurrentPlayer().getNumMinions(), 2);
 		assertEquals(bestPlay.data_.getWaitingPlayer().getNumMinions(), 1);
-		assertEquals(bestPlay.data_.getMana_p0(), 6);
-		assertEquals(bestPlay.data_.getMana_p1(), 8);
+		assertEquals(bestPlay.data_.getCurrentPlayer().getMana(), 6);
+		assertEquals(bestPlay.data_.getWaitingPlayer().getMana(), 8);
 		assertEquals(bestPlay.data_.getCurrentPlayerHero().getHealth(), 30);
 		assertEquals(bestPlay.data_.getWaitingPlayerHero().getHealth(), 30);
 		assertEquals(bestPlay.data_.getCurrentPlayer().getMinions().get(0).getHealth(), 3);
@@ -224,8 +224,8 @@ public class TestPriest {
 		assertEquals(bestPlay.data_.getNumCards_hand(), 0);
 		assertEquals(bestPlay.data_.getCurrentPlayer().getNumMinions(), 2);
 		assertEquals(bestPlay.data_.getWaitingPlayer().getNumMinions(), 1);
-		assertEquals(bestPlay.data_.getMana_p0(), 6);
-		assertEquals(bestPlay.data_.getMana_p1(), 8);
+		assertEquals(bestPlay.data_.getCurrentPlayer().getMana(), 6);
+		assertEquals(bestPlay.data_.getWaitingPlayer().getMana(), 8);
 		assertEquals(bestPlay.data_.getCurrentPlayerHero().getHealth(), 30);
 		assertEquals(bestPlay.data_.getWaitingPlayerHero().getHealth(), 30);
 		assertEquals(bestPlay.data_.getCurrentPlayer().getMinions().get(0).getHealth(), 1);

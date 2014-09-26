@@ -1,8 +1,13 @@
 package com.hearthsim;
 
+import java.util.ArrayList;
+
 import com.hearthsim.card.Card;
+import com.hearthsim.card.Deck;
+import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
@@ -10,6 +15,7 @@ import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.results.GameRecord;
 import com.hearthsim.results.GameResult;
 import com.hearthsim.results.GameSimpleRecord;
+import com.hearthsim.util.tree.HearthTreeNode;
 
 public class Game {
     private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
@@ -106,7 +112,7 @@ public class Game {
         if (gameResult != null) return gameResult;
 
         boardModel_ = playAITurn(turnCount, boardModel_, ai);
-        endTurn(boardModel_);
+        boardModel_ = endTurn(boardModel_);
 
         record.put(turnCount + 1, PlayerSide.CURRENT_PLAYER, (BoardModel) boardModel_.deepCopy());
 
@@ -143,8 +149,8 @@ public class Game {
             board.setDeckPos_p0(board.getDeckPos_p0() + 1);
             board.placeCardHandCurrentPlayer(newCard);
         }
-        if (board.getMana_p0() < 10)
-            board.addMaxMana_p0(1);
+        if (board.getCurrentPlayer().getMaxMana() < 10)
+            board.getCurrentPlayer().addMaxMana(1);
         board.resetMana();
 
     }
@@ -153,7 +159,47 @@ public class Game {
         return ai.playTurn(turn, board, board.getCurrentPlayer(), board.getWaitingPlayer());
     }
 
-    public void endTurn(BoardModel board) throws HSException {
-        board.endTurn(board.getCurrentPlayer().getDeck(), board.getWaitingPlayer().getDeck());
+    public BoardModel endTurn(BoardModel board) throws HSException {
+    	Deck deckPlayer0 = board.getCurrentPlayer().getDeck();
+    	Deck deckPlayer1 = board.getWaitingPlayer().getDeck();
+    	
+    	HearthTreeNode toRet = new HearthTreeNode(board);
+    	
+    	toRet = toRet.data_.getCurrentPlayer().getHero().endTurn(PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1);
+    	toRet = toRet.data_.getWaitingPlayer().getHero().endTurn(PlayerSide.WAITING_PLAYER, toRet, deckPlayer0, deckPlayer1);
+        for (int index = 0; index < toRet.data_.getCurrentPlayer().getMinions().size(); ++index) {
+            Minion targetMinion = toRet.data_.getCurrentPlayer().getMinions().get(index);
+            try {
+                toRet = targetMinion.endTurn(PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1);
+            } catch (HSException e) {
+                e.printStackTrace();
+            }
+        }
+        for (int index = 0; index < toRet.data_.getWaitingPlayer().getMinions().size(); ++index) {
+            Minion targetMinion = toRet.data_.getWaitingPlayer().getMinions().get(index);
+            try {
+                toRet = targetMinion.endTurn(PlayerSide.WAITING_PLAYER, toRet, deckPlayer0, deckPlayer1);
+            } catch (HSException e) {
+                e.printStackTrace();
+            }
+        }
+
+        ArrayList<Minion> toRemove = new ArrayList<Minion>();
+        for (Minion targetMinion : toRet.data_.getCurrentPlayer().getMinions()) {
+            if (targetMinion.getTotalHealth() <= 0)
+                toRemove.add(targetMinion);
+        }
+        for (Minion minion : toRemove)
+        	toRet.data_.getCurrentPlayer().getMinions().remove(minion);
+
+        toRemove.clear();
+        for (Minion targetMinion : toRet.data_.getWaitingPlayer().getMinions()) {
+            if (targetMinion.getTotalHealth() <= 0)
+                toRemove.add(targetMinion);
+        }
+        for (Minion minion : toRemove)
+        	toRet.data_.getWaitingPlayer().getMinions().remove(minion);
+        
+        return toRet.data_;
     }
 }

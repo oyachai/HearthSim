@@ -41,7 +41,7 @@ public class TestHoundmaster {
 		board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion3);
 		board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion4);
 		
-		board.data_.setMana_p0(10);
+		board.data_.getCurrentPlayer().setMana(10);
 	}
 	
 
@@ -106,7 +106,7 @@ public class TestHoundmaster {
 		assertTrue(res.data_.getNumCards_hand() == 0);
 		assertTrue(res.data_.getCurrentPlayer().getNumMinions() == 3);
 		assertTrue(res.data_.getWaitingPlayer().getNumMinions() == 3);
-		assertTrue(res.data_.getMana_p0() == 6);
+		assertTrue(res.data_.getCurrentPlayer().getMana() == 6);
 		
 		assertTrue(res.data_.getCurrentPlayer().getMinions().get(0).getHealth() == 3);
 		assertTrue(res.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack() == 4);

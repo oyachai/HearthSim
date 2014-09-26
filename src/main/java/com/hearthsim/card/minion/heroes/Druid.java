@@ -78,7 +78,7 @@ public class Druid extends Hero {
 	{
 		if (isHero(targetMinion) && targetPlayerSide == PlayerSide.CURRENT_PLAYER) {
 			this.hasBeenUsed = true;
-			boardState.data_.setMana_p0(boardState.data_.getMana_p0() - HERO_ABILITY_COST);
+			boardState.data_.getCurrentPlayer().subtractMana(HERO_ABILITY_COST);
 			Hero target = boardState.data_.getCurrentPlayerHero();
 			target.setExtraAttackUntilTurnEnd((byte)1);
 			target.setArmor((byte)1);

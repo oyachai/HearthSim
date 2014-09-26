@@ -37,7 +37,7 @@ public class TestBackstab {
 		board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion2);
 		board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion3);
 		
-		board.data_.setMana_p0(10);
+		board.data_.getCurrentPlayer().setMana(10);
 	}
 	
 	@Test
@@ -64,7 +64,7 @@ public class TestBackstab {
 		assertTrue(res.data_.getNumCards_hand() == 0);
 		assertTrue(res.data_.getCurrentPlayer().getNumMinions() == 1);
 		assertTrue(res.data_.getWaitingPlayer().getNumMinions() == 3);
-		assertTrue(res.data_.getMana_p0() == 10);
+		assertTrue(res.data_.getCurrentPlayer().getMana() == 10);
 		assertTrue(res.data_.getCurrentPlayer().getMinions().get(0).getHealth() == health0-2);
 		assertTrue(res.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack() == attack0);
 		assertTrue(res.data_.getWaitingPlayer().getMinions().get(0).getHealth() == health0);
@@ -94,7 +94,7 @@ public class TestBackstab {
 		assertTrue(res.data_.getNumCards_hand() == 0);
 		assertTrue(res.data_.getCurrentPlayer().getNumMinions() == 1);
 		assertTrue(res.data_.getWaitingPlayer().getNumMinions() == 3);
-		assertTrue(res.data_.getMana_p0() == 10);
+		assertTrue(res.data_.getCurrentPlayer().getMana() == 10);
 		assertTrue(res.data_.getCurrentPlayer().getMinions().get(0).getHealth() == health0);
 		assertTrue(res.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack() == attack0);
 		assertTrue(res.data_.getWaitingPlayer().getMinions().get(0).getHealth() == health0-2);
@@ -124,7 +124,7 @@ public class TestBackstab {
 		assertTrue(res.data_.getNumCards_hand() == 0);
 		assertTrue(res.data_.getCurrentPlayer().getNumMinions() == 1);
 		assertTrue(res.data_.getWaitingPlayer().getNumMinions() == 2);
-		assertTrue(res.data_.getMana_p0() == 10);
+		assertTrue(res.data_.getCurrentPlayer().getMana() == 10);
 		assertTrue(res.data_.getCurrentPlayer().getMinions().get(0).getHealth() == health0);
 		assertTrue(res.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack() == attack0);
 		assertTrue(res.data_.getWaitingPlayer().getMinions().get(0).getHealth() == health0);

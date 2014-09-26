@@ -55,11 +55,11 @@ public class TestLootHorder {
 		PlayerModel playerModel0 = new PlayerModel(0, "player0", hero, deck);
 		PlayerModel playerModel1 = new PlayerModel(1, "player0", hero, deck);
 		
-		board.data_.setMana_p0((byte)1);
-		board.data_.setMana_p1((byte)1);
+		board.data_.getCurrentPlayer().setMana((byte)1);
+		board.data_.getWaitingPlayer().setMana((byte)1);
 		
-		board.data_.setMaxMana_p0((byte)1);
-		board.data_.setMaxMana_p1((byte)1);
+		board.data_.getCurrentPlayer().setMaxMana((byte)1);
+		board.data_.getWaitingPlayer().setMaxMana((byte)1);
 
 
 		BoardModel resBoard = ai0.playTurn(0, board.data_, playerModel0, playerModel1);
@@ -67,8 +67,8 @@ public class TestLootHorder {
 		assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 1); //1 card drawn from Loot Horder attacking and dying, no mana left to play the card
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getNumMinions(), 0);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(resBoard).getNumMinions(), 0); //1 minion should have been killed
-		assertEquals(resBoard.getMana_p0(), 1); //no mana used
-		assertEquals(resBoard.getMana_p1(), 1);
+		assertEquals(resBoard.getCurrentPlayer().getMana(), 1); //no mana used
+		assertEquals(resBoard.getWaitingPlayer().getMana(), 1);
 		assertEquals(resBoard.getCurrentPlayerHero().getHealth(), 30);
 		assertEquals(resBoard.getWaitingPlayerHero().getHealth(), 30);
 	}
@@ -83,11 +83,11 @@ public class TestLootHorder {
 		PlayerModel playerModel0 = new PlayerModel(0, "player0", hero, deck);
 		PlayerModel playerModel1 = new PlayerModel(1, "player0", hero, deck);
 		
-		board.data_.setMana_p0((byte)3);
-		board.data_.setMana_p1((byte)3);
+		board.data_.getCurrentPlayer().setMana((byte)3);
+		board.data_.getWaitingPlayer().setMana((byte)3);
 		
-		board.data_.setMaxMana_p0((byte)3);
-		board.data_.setMaxMana_p1((byte)3);
+		board.data_.getCurrentPlayer().setMaxMana((byte)3);
+		board.data_.getWaitingPlayer().setMaxMana((byte)3);
 
 
 		BoardModel resBoard = ai0.playTurn(0, board.data_, playerModel0, playerModel1);
@@ -95,8 +95,8 @@ public class TestLootHorder {
 		assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 0); //1 card drawn from Loot Horder attacking and dying, then played the drawn card
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getNumMinions(), 1);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(resBoard).getNumMinions(), 0); //1 minion should have been killed
-		assertEquals(resBoard.getMana_p0(), 1); //2 mana used
-		assertEquals(resBoard.getMana_p1(), 3);
+		assertEquals(resBoard.getCurrentPlayer().getMana(), 1); //2 mana used
+		assertEquals(resBoard.getWaitingPlayer().getMana(), 3);
 		assertEquals(resBoard.getCurrentPlayerHero().getHealth(), 30);
 		assertEquals(resBoard.getWaitingPlayerHero().getHealth(), 30);
 	}
@@ -118,11 +118,11 @@ public class TestLootHorder {
 		PlayerModel playerModel0 = new PlayerModel(0, "player0", hero, deck);
 		PlayerModel playerModel1 = new PlayerModel(1, "player0", hero, deck);
 		
-		board.data_.setMana_p0((byte)3);
-		board.data_.setMana_p1((byte)3);
+		board.data_.getCurrentPlayer().setMana((byte)3);
+		board.data_.getWaitingPlayer().setMana((byte)3);
 		
-		board.data_.setMaxMana_p0((byte)3);
-		board.data_.setMaxMana_p1((byte)3);
+		board.data_.getCurrentPlayer().setMaxMana((byte)3);
+		board.data_.getWaitingPlayer().setMaxMana((byte)3);
 
 
 		BoardModel resBoard = ai0.playTurn(0, board.data_, playerModel0, playerModel1);
@@ -131,8 +131,8 @@ public class TestLootHorder {
 		assertEquals(resBoard.getNumCardsHandWaitingPlayer(), 1); //drew cards from the loot horder that was killed
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getNumMinions(), 0);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(resBoard).getNumMinions(), 0); //1 minion should have been killed
-		assertEquals(resBoard.getMana_p0(), 3); //no mana used
-		assertEquals(resBoard.getMana_p1(), 3);
+		assertEquals(resBoard.getCurrentPlayer().getMana(), 3); //no mana used
+		assertEquals(resBoard.getWaitingPlayer().getMana(), 3);
 		assertEquals(resBoard.getCurrentPlayerHero().getHealth(), 30);
 		assertEquals(resBoard.getWaitingPlayerHero().getHealth(), 30);
 	}

@@ -46,11 +46,11 @@ public class TestDustDevil {
 		Minion fb = new DustDevil();
 		board.data_.placeCardHandCurrentPlayer(fb);
 
-		board.data_.setMana_p0((byte)7);
-		board.data_.setMana_p1((byte)7);
+		board.data_.getCurrentPlayer().setMana((byte)7);
+		board.data_.getWaitingPlayer().setMana((byte)7);
 		
-		board.data_.setMaxMana_p0((byte)7);
-		board.data_.setMaxMana_p1((byte)7);
+		board.data_.getCurrentPlayer().setMaxMana((byte)7);
+		board.data_.getWaitingPlayer().setMaxMana((byte)7);
 		
 	}
 	
@@ -65,8 +65,8 @@ public class TestDustDevil {
 		assertEquals(board.data_.getNumCards_hand(), 1);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
-		assertEquals(board.data_.getMana_p0(), 7);
-		assertEquals(board.data_.getMana_p1(), 7);
+		assertEquals(board.data_.getCurrentPlayer().getMana(), 7);
+		assertEquals(board.data_.getWaitingPlayer().getMana(), 7);
 		assertEquals(board.data_.getCurrentPlayerHero().getTotalHealth(), 30);
 		assertEquals(board.data_.getWaitingPlayerHero().getTotalHealth(), 30);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getTotalHealth(), 2);
@@ -88,8 +88,8 @@ public class TestDustDevil {
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 3);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
 		
-		assertEquals(board.data_.getMana_p0(), 6);
-		assertEquals(board.data_.getMana_p1(), 7);
+		assertEquals(board.data_.getCurrentPlayer().getMana(), 6);
+		assertEquals(board.data_.getWaitingPlayer().getMana(), 7);
 		
 		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
 		assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
@@ -107,8 +107,8 @@ public class TestDustDevil {
 		
 		//overloaded for 2, so when resetMana is called, it should set the mana to 5
 		board.data_.resetMana();
-		assertEquals(board.data_.getMana_p0(), 5);
-		assertEquals(board.data_.getMana_p1(), 7);
+		assertEquals(board.data_.getCurrentPlayer().getMana(), 5);
+		assertEquals(board.data_.getWaitingPlayer().getMana(), 7);
 		
 	}
 }

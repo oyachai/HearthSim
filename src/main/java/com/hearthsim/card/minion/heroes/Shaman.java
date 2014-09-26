@@ -116,7 +116,7 @@ public class Shaman extends Hero {
 			if (minionToSummon == null)
 				return null;
 			this.hasBeenUsed = true;
-			toRet.data_.setMana_p0(toRet.data_.getMana_p0() - HERO_ABILITY_COST);
+			toRet.data_.getCurrentPlayer().subtractMana(HERO_ABILITY_COST);
 			Minion summonTarget = toRet.data_.getCharacter(targetPlayerSide, numMinions);
 			toRet = minionToSummon.summonMinion(targetPlayerSide, summonTarget, toRet, deckPlayer0, deckPlayer1, false);
 			return toRet;
@@ -140,7 +140,7 @@ public class Shaman extends Hero {
 					HearthTreeNode newState = toRet.addChild(new HearthTreeNode((BoardModel) toRet.data_.deepCopy()));
 
 					Minion summonTarget = newState.data_.getCharacter(targetPlayerSide, numMinions);
-					newState.data_.setMana_p0(newState.data_.getMana_p0() - HERO_ABILITY_COST);
+					newState.data_.getCurrentPlayer().subtractMana(HERO_ABILITY_COST);
 					newState.data_.getCurrentPlayerHero().hasBeenUsed(true);
 
 					newState = totemToSummon.summonMinion(targetPlayerSide, summonTarget, newState, deckPlayer0, deckPlayer1, false);

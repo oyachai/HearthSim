@@ -52,11 +52,11 @@ public class TestGnomishInventor {
 		Minion fb = new GnomishInventor();
 		board.data_.placeCardHandCurrentPlayer(fb);
 
-		board.data_.setMana_p0((byte)7);
-		board.data_.setMana_p1((byte)7);
+		board.data_.getCurrentPlayer().setMana((byte)7);
+		board.data_.getWaitingPlayer().setMana((byte)7);
 		
-		board.data_.setMaxMana_p0((byte)7);
-		board.data_.setMaxMana_p1((byte)7);
+		board.data_.getCurrentPlayer().setMaxMana((byte)7);
+		board.data_.getWaitingPlayer().setMaxMana((byte)7);
 		
 	}
 	
@@ -95,8 +95,8 @@ public class TestGnomishInventor {
 		assertEquals(board.data_.getNumCards_hand(), 0);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 3);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
-		assertEquals(board.data_.getMana_p0(), 3);
-		assertEquals(board.data_.getMana_p1(), 7);
+		assertEquals(board.data_.getCurrentPlayer().getMana(), 3);
+		assertEquals(board.data_.getWaitingPlayer().getMana(), 7);
 		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
 		assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0);
@@ -121,11 +121,11 @@ public class TestGnomishInventor {
 		PlayerModel playerModel0 = new PlayerModel(0, "player0", hero, deck);
 		PlayerModel playerModel1 = new PlayerModel(1, "player0", hero, deck);
 		
-		board.data_.setMana_p0((byte)5);
-		board.data_.setMana_p1((byte)5);
+		board.data_.getCurrentPlayer().setMana((byte)5);
+		board.data_.getWaitingPlayer().setMana((byte)5);
 		
-		board.data_.setMaxMana_p0((byte)5);
-		board.data_.setMaxMana_p1((byte)5);
+		board.data_.getCurrentPlayer().setMaxMana((byte)5);
+		board.data_.getWaitingPlayer().setMaxMana((byte)5);
 
 
         ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
@@ -134,8 +134,8 @@ public class TestGnomishInventor {
 		assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 1); //1 card drawn from GnomishInventor, not enough mana to play it
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getNumMinions(), 3);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(resBoard).getNumMinions(), 1); //1 minion should have been killed
-		assertEquals(resBoard.getMana_p0(), 1); //4 mana used for Gnomish Inventor
-		assertEquals(resBoard.getMana_p1(), 5);
+		assertEquals(resBoard.getCurrentPlayer().getMana(), 1); //4 mana used for Gnomish Inventor
+		assertEquals(resBoard.getWaitingPlayer().getMana(), 5);
 		assertEquals(resBoard.getCurrentPlayerHero().getHealth(), 30);
 		assertEquals(resBoard.getWaitingPlayerHero().getHealth(), 25); //smacked in the face once
 	}
@@ -154,8 +154,8 @@ public class TestGnomishInventor {
 		assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 0); //1 card drawn from GnomishInventor, and had enough mana to play it
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getNumMinions(), 4);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(resBoard).getNumMinions(), 1); //1 minion should have been killed
-		assertEquals(resBoard.getMana_p0(), 1); //4 mana used for Gnomish Inventor, 2 for Bloodfen Raptor
-		assertEquals(resBoard.getMana_p1(), 7);
+		assertEquals(resBoard.getCurrentPlayer().getMana(), 1); //4 mana used for Gnomish Inventor, 2 for Bloodfen Raptor
+		assertEquals(resBoard.getWaitingPlayer().getMana(), 7);
 		assertEquals(resBoard.getCurrentPlayerHero().getHealth(), 30);
 		assertEquals(resBoard.getWaitingPlayerHero().getHealth(), 25); //smacked in the face once
 	}

@@ -62,7 +62,7 @@ public class TestCharge {
 	public void test1() {
 		Minion minion = new Minion("" + 0, mana, attack0, health1, attack0, (byte)0, (byte)0, health1, health1, (byte)0, (byte)0, false, false, false, true, false, false, false, false, false, false, false, false, false, false, null, null, true, false);
 		board.placeCardHandCurrentPlayer(minion);
-		board.setMana_p0(1);
+		board.getCurrentPlayer().setMana(1);
 		
 		BoardStateFactoryBase factory = new BoardStateFactoryBase(null, null);
 		HearthTreeNode tree = new HearthTreeNode(board);

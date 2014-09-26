@@ -63,11 +63,10 @@ public class WildGrowth extends SpellCard {
 
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
-			if (toRet.data_.getMaxMana_p0() >= 10) {
+			if (toRet.data_.getCurrentPlayer().getMaxMana() >= 10) {
 				toRet.data_.placeCardHandCurrentPlayer(new ExcessMana());
 			} else {
-				if (toRet.data_.getMaxMana_p0() < 10)
-					toRet.data_.addMaxMana_p0(1);			
+				toRet.data_.getCurrentPlayer().addMaxMana(1);
 			}
 		}
 		return toRet;

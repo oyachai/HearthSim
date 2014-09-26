@@ -180,7 +180,7 @@ public class Felguard extends Demon {
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		
 		if (toRet != null) {
-			toRet.data_.setMaxMana_p0(toRet.data_.getMaxMana_p0() - 1);
+			toRet.data_.getCurrentPlayer().subtractMaxMana(1);
 			return toRet;
 		} else {
 			return null;

@@ -185,7 +185,7 @@ public class BoardStateFactoryBase {
 		}
 		
 		
-		int mana = boardStateNode.data_.getMana_p0();
+		int mana = boardStateNode.data_.getCurrentPlayer().getMana();
 		for (int ic = 0; ic < boardStateNode.data_.getNumCards_hand(); ++ic) {
 			if (boardStateNode.data_.getCurrentPlayerCardHand(ic).getMana() <= mana && !boardStateNode.data_.getCurrentPlayerCardHand(ic).hasBeenUsed()) {
 				//we can use this card!  Let's try using it on everything

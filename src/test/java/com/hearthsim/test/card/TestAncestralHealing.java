@@ -31,7 +31,8 @@ public class TestAncestralHealing {
 		board.data_.placeCardHandCurrentPlayer(fb);
 		board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, minion0);
 		board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion1);
-		board.data_.setMana_p0(2);
+		board.data_.getCurrentPlayer().setMana(2);
+
 	}
 	
 	
@@ -71,7 +72,7 @@ public class TestAncestralHealing {
 			Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
 			res = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
 			assertFalse(res == null);
-			assertTrue(res.data_.getMana_p0() == 2);
+			assertTrue(res.data_.getCurrentPlayer().getMana() == 2);
 			assertTrue(res.data_.getNumCards_hand() == 0);
 			assertTrue(res.data_.getCurrentPlayer().getMinions().get(0).getHealth() == health0);
 			assertTrue(res.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack() == attack0);
@@ -93,7 +94,7 @@ public class TestAncestralHealing {
 			Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
 			res = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
 			assertFalse(res == null);
-			assertTrue(res.data_.getMana_p0() == 2);
+			assertTrue(res.data_.getCurrentPlayer().getMana() == 2);
 			assertTrue(res.data_.getNumCards_hand() == 0);
 			assertTrue(res.data_.getCurrentPlayer().getMinions().get(0).getHealth() == health0);
 			assertTrue(res.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack() == attack0);
@@ -115,7 +116,7 @@ public class TestAncestralHealing {
 			Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
 			res = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, null, null);
 			assertFalse(res == null);
-			assertTrue(res.data_.getMana_p0() == 2);
+			assertTrue(res.data_.getCurrentPlayer().getMana() == 2);
 			assertTrue(res.data_.getNumCards_hand() == 0);
 			assertTrue(res.data_.getWaitingPlayer().getMinions().get(0).getHealth() == health0);
 			assertTrue(res.data_.getWaitingPlayer().getMinions().get(0).getTotalAttack() == attack0);
@@ -137,7 +138,7 @@ public class TestAncestralHealing {
 			Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
 			res = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, null, null);
 			assertFalse(res == null);
-			assertTrue(res.data_.getMana_p0() == 2);
+			assertTrue(res.data_.getCurrentPlayer().getMana() == 2);
 			assertTrue(res.data_.getNumCards_hand() == 0);
 			assertTrue(res.data_.getWaitingPlayer().getMinions().get(0).getHealth() == health0);
 			assertTrue(res.data_.getWaitingPlayer().getMinions().get(0).getTotalAttack() == attack0);

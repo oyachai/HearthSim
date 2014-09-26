@@ -82,7 +82,7 @@ public class Warlock extends Hero {
 		HearthTreeNode toRet = targetMinion.takeDamage((byte)2, PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, boardState, deckPlayer0, deckPlayer1, false, false);
 		if (toRet != null) {
 			this.hasBeenUsed = true;
-			toRet.data_.setMana_p0(toRet.data_.getMana_p0() - HERO_ABILITY_COST);
+			toRet.data_.getCurrentPlayer().subtractMana(HERO_ABILITY_COST);
 			if (toRet instanceof CardDrawNode) {
 				((CardDrawNode)toRet).addNumCardsToDraw(1);
 			} else {

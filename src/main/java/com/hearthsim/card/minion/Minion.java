@@ -357,12 +357,13 @@ public class Minion extends Card {
 	 * This is not the most efficient implementation... luckily, endTurn only happens once per turn
 	 */
 	@Override
-	public BoardModel endTurn(PlayerSide thisMinionPlayerIndex, BoardModel boardModel, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+	public HearthTreeNode endTurn(PlayerSide thisMinionPlayerIndex, HearthTreeNode boardModel, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
 		extraAttackUntilTurnEnd_ = 0;
+		HearthTreeNode toRet = boardModel;
 		if (destroyOnTurnEnd_) {
-			this.destroyed(thisMinionPlayerIndex, new HearthTreeNode(boardModel), deckPlayer0, deckPlayer1);
+			toRet = this.destroyed(thisMinionPlayerIndex, toRet, deckPlayer0, deckPlayer1);
 		}
-		return boardModel;
+		return toRet;
 	}
 	
 	/**
@@ -632,7 +633,7 @@ public class Minion extends Card {
 		
 		HearthTreeNode toRet = this.summonMinion(side, targetMinion, boardState, deckPlayer0, deckPlayer1, false);
 		if (toRet != null) { //summon succeeded, now let's use up our mana
-			toRet.data_.setMana_p0(toRet.data_.getMana_p0() - this.mana_);
+			toRet.data_.getCurrentPlayer().subtractMana(this.mana_);
 			toRet.data_.removeCard_hand(this);
 		}
 		return toRet;

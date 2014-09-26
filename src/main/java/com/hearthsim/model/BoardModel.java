@@ -23,13 +23,8 @@ public class BoardModel implements DeepCopyable {
 
     private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
 
-    private PlayerModel currentPlayer;
-    private PlayerModel waitingPlayer;
-
-    int p0_mana_;
-    int p1_mana_;
-    int p0_maxMana_;
-    int p1_maxMana_;
+    private final PlayerModel currentPlayer;
+    private final PlayerModel waitingPlayer;
 
     int p0_deckPos_;
     int p1_deckPos_;
@@ -81,34 +76,24 @@ public class BoardModel implements DeepCopyable {
     }
 
     public BoardModel() {
-        Hero hero0 = new Hero("hero0", (byte) 30);
-        Hero hero1 = new Hero("hero1", (byte) 30);
-
-        this.currentPlayer = new PlayerModel(0, "player0", hero0, null);
-        this.waitingPlayer = new PlayerModel(1, "player1", hero1, null);
-
-        buildModel();
+    	this(new PlayerModel(0, "player0", new Hero("hero0", (byte)30), null),
+    		 new PlayerModel(1, "player1", new Hero("hero1", (byte)30), null));
     }
-
+    
+    public BoardModel(Hero p0_hero, Hero p1_hero) {
+    	this(new PlayerModel(0, "p0",p0_hero,null), new PlayerModel(1, "p1",p1_hero,null));
+    }
+    
     public BoardModel(PlayerModel currentPlayerModel, PlayerModel waitingPlayerModel) {
 
         this.currentPlayer = currentPlayerModel;
         this.waitingPlayer = waitingPlayerModel;
-
         buildModel();
     }
 
-    public BoardModel(Hero p0_hero, Hero p1_hero) {
-        this.currentPlayer = new PlayerModel(0, "p0",p0_hero,null);
-        this.waitingPlayer = new PlayerModel(0, "p1",p1_hero,null);
-        buildModel();
-    }
+
 
     public void buildModel() {
-        p0_mana_ = 0;
-        p1_mana_ = 0;
-        p0_maxMana_ = 0;
-        p1_maxMana_ = 0;
         p0_deckPos_ = 0;
         p1_deckPos_ = 0;
         p0_fatigueDamage_ = 1;
@@ -285,50 +270,6 @@ public class BoardModel implements DeepCopyable {
 
     public Hero getWaitingPlayerHero() {
         return waitingPlayer.getHero();
-    }
-
-    public int getMana_p0() {
-        return p0_mana_;
-    }
-
-    public void setMana_p0(int mana) {
-        p0_mana_ = mana;
-    }
-
-    public int getMana_p1() {
-        return p1_mana_;
-    }
-
-    public void setMana_p1(int mana) {
-        p1_mana_ = mana;
-    }
-
-    public int getMaxMana_p0() {
-        return p0_maxMana_;
-    }
-
-    public void setMaxMana_p0(int mana) {
-        p0_maxMana_ = mana;
-    }
-
-    public int getMaxMana_p1() {
-        return p1_maxMana_;
-    }
-
-    public void setMaxMana_p1(int mana) {
-        p1_maxMana_ = mana;
-    }
-
-    public void addMaxMana_p0(int mana) {
-        p0_maxMana_ += mana;
-    }
-
-    public void addMaxMana_p1(int mana) {
-        p1_maxMana_ += mana;
-    }
-
-    public void addMana_p1(int mana) {
-        p1_mana_ += mana;
     }
 
     /**
@@ -564,52 +505,8 @@ public class BoardModel implements DeepCopyable {
     }
 
     public void resetMana() {
-        p0_mana_ = p0_maxMana_;
-        p1_mana_ = p1_maxMana_;
-
-        //handle the overload
-        p0_mana_ -= currentPlayer.getOverload();
-        p1_mana_ -= waitingPlayer.getOverload();
-
-        currentPlayer.setOverload((byte) 0);
-        waitingPlayer.setOverload((byte) 0);
-    }
-
-    public void endTurn(Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
-        currentPlayer.getHero().endTurn(PlayerSide.CURRENT_PLAYER, this, deckPlayer0, deckPlayer1);
-        waitingPlayer.getHero().endTurn(PlayerSide.WAITING_PLAYER, this, deckPlayer0, deckPlayer1);
-        for (int index = 0; index < currentPlayer.getMinions().size(); ++index) {
-            Minion targetMinion = currentPlayer.getMinions().get(index);
-            try {
-                targetMinion.endTurn(PlayerSide.CURRENT_PLAYER, this, deckPlayer0, deckPlayer1);
-            } catch (HSException e) {
-                e.printStackTrace();
-            }
-        }
-        for (int index = 0; index < waitingPlayer.getMinions().size(); ++index) {
-            Minion targetMinion = waitingPlayer.getMinions().get(index);
-            try {
-                targetMinion.endTurn(PlayerSide.WAITING_PLAYER, this, deckPlayer0, deckPlayer1);
-            } catch (HSException e) {
-                e.printStackTrace();
-            }
-        }
-
-        ArrayList<Minion> toRemove = new ArrayList<Minion>();
-        for (Minion targetMinion : currentPlayer.getMinions()) {
-            if (targetMinion.getTotalHealth() <= 0)
-                toRemove.add(targetMinion);
-        }
-        for (Minion minion : toRemove)
-            currentPlayer.getMinions().remove(minion);
-
-        toRemove.clear();
-        for (Minion targetMinion : waitingPlayer.getMinions()) {
-            if (targetMinion.getTotalHealth() <= 0)
-                toRemove.add(targetMinion);
-        }
-        for (Minion minion : toRemove)
-            waitingPlayer.getMinions().remove(minion);
+    	currentPlayer.resetMana();
+    	waitingPlayer.resetMana();
     }
 
     public void startTurn() throws HSException {
@@ -659,13 +556,13 @@ public class BoardModel implements DeepCopyable {
             return false;
         }
 
-        if (p0_mana_ != ((BoardModel)other).p0_mana_)
+        if (currentPlayer.getMana() != ((BoardModel)other).currentPlayer.getMana())
             return false;
-        if (p1_mana_ != ((BoardModel)other).p1_mana_)
+        if (waitingPlayer.getMana() != ((BoardModel)other).waitingPlayer.getMana())
             return false;
-        if (p0_maxMana_ != ((BoardModel)other).p0_maxMana_)
+        if (currentPlayer.getMaxMana() != ((BoardModel)other).currentPlayer.getMaxMana())
             return false;
-        if (p1_maxMana_ != ((BoardModel)other).p1_maxMana_)
+        if (waitingPlayer.getMaxMana() != ((BoardModel)other).waitingPlayer.getMaxMana())
             return false;
 
         if (!currentPlayer.getHero().equals(((BoardModel)other).currentPlayer.getHero())) {
@@ -734,7 +631,7 @@ public class BoardModel implements DeepCopyable {
         int hs = currentPlayer.getHand().size();
         if (hs < 0) hs = 0;
         int res = hs + getCurrentPlayer().getMinions().size() * 10 + waitingPlayer.getMinions().size() * 100;
-        res += (p0_mana_ <= 0 ? 0 : (p0_mana_ - 1) * 1000);
+        res += (currentPlayer.getMana() <= 0 ? 0 : (currentPlayer.getMana() - 1) * 1000);
         res += ((currentPlayer.getHero().getHealth() + waitingPlayer.getHero().getHealth()) % 100) * 10000;
         int th = 0;
         if (hs > 0) {
@@ -807,41 +704,44 @@ public class BoardModel implements DeepCopyable {
 
     public BoardModel flipPlayers() {
 
-        BoardModel newState = (BoardModel)this.deepCopy();
-        int p0_mana = newState.getMana_p0();
-        int p1_mana = newState.getMana_p1();
-        int p0_maxMana = newState.getMaxMana_p0();
-        int p1_maxMana = newState.getMaxMana_p1();
+        BoardModel newBoard = new BoardModel((PlayerModel) waitingPlayer.deepCopy(), (PlayerModel) currentPlayer.deepCopy());
 
-        PlayerModel tmpPlayer = newState.getCurrentPlayer();
-        newState.setCurrentPlayer(newState.getWaitingPlayer());
-        newState.setWaitingPlayer(tmpPlayer);
-        newState.setMana_p0(p1_mana);
-        newState.setMana_p1(p0_mana);
-        newState.setMaxMana_p0(p1_maxMana);
-        newState.setMaxMana_p1(p0_maxMana);
-        newState.p0_deckPos_ = p1_deckPos_;
-        newState.p1_deckPos_ = p0_deckPos_;
-        newState.p0_fatigueDamage_ = p1_fatigueDamage_;
-        newState.p1_fatigueDamage_ = p0_fatigueDamage_;
+        newBoard.p0_deckPos_ = this.p1_deckPos_;
+        newBoard.p1_deckPos_ = this.p0_deckPos_;
+        newBoard.p0_fatigueDamage_ = this.p1_fatigueDamage_;
+        newBoard.p1_fatigueDamage_ = this.p0_fatigueDamage_;
 
-        return newState;
+        for (MinionPlayerPair minionPlayerPair : allMinionsFIFOList_) {
+
+            PlayerModel oldPlayerModel = minionPlayerPair.getPlayerModel();
+            Minion oldMinion = minionPlayerPair.getMinion();
+            int indexOfOldMinion = oldPlayerModel.getMinions().indexOf(oldMinion);
+
+            PlayerModel newPlayerModel;
+            PlayerModel newWaitingPlayer = newBoard.getWaitingPlayer();
+            PlayerModel newCurrentPlayer = newBoard.getCurrentPlayer();
+            if (oldPlayerModel.equals(currentPlayer)) {
+                newPlayerModel = newWaitingPlayer;
+            } else if (oldPlayerModel.equals(waitingPlayer)) {
+                newPlayerModel = newCurrentPlayer;
+            } else {
+                throw new RuntimeException("unexpected player");
+            }
+
+            newBoard.allMinionsFIFOList_.add(new MinionPlayerPair(newPlayerModel.getMinions().get(indexOfOldMinion), newPlayerModel));
+
+        }
+        
+        return newBoard;
     }
 
     public Object deepCopy() {
-        BoardModel newBoard = new BoardModel();
-
-        newBoard.setCurrentPlayer((PlayerModel) currentPlayer.deepCopy());
-        newBoard.setWaitingPlayer((PlayerModel) waitingPlayer.deepCopy());
+        BoardModel newBoard = new BoardModel((PlayerModel) currentPlayer.deepCopy(), (PlayerModel) waitingPlayer.deepCopy());
 
         newBoard.p0_deckPos_ = this.p0_deckPos_;
         newBoard.p1_deckPos_ = this.p1_deckPos_;
         newBoard.p0_fatigueDamage_ = this.p0_fatigueDamage_;
         newBoard.p1_fatigueDamage_ = this.p1_fatigueDamage_;
-        newBoard.p0_mana_ = this.p0_mana_;
-        newBoard.p1_mana_ = this.p1_mana_;
-        newBoard.p0_maxMana_ = this.p0_maxMana_;
-        newBoard.p1_maxMana_ = this.p1_maxMana_;
 
         for (MinionPlayerPair minionPlayerPair : allMinionsFIFOList_) {
 
@@ -869,10 +769,6 @@ public class BoardModel implements DeepCopyable {
 
     public JSONObject toJSON() {
         JSONObject json = new JSONObject();
-        json.put("p0_mana", p0_mana_);
-        json.put("p1_mana", p1_mana_);
-        json.put("p0_maxMana", p0_maxMana_);
-        json.put("p1_maxMana", p0_maxMana_);
         json.put("p0_deckPos", p0_deckPos_);
         json.put("p1_deckPos", p1_deckPos_);
 
@@ -919,9 +815,9 @@ public class BoardModel implements DeepCopyable {
         StringBuffer stringBuffer = new StringBuffer();
         stringBuffer.append("[");
         stringBuffer.append("P0_health:").append(currentPlayer.getHero().getHealth()).append(", ");
-        stringBuffer.append("P0_mana:").append(p0_mana_).append(", ");
+        stringBuffer.append("P0_mana:").append(currentPlayer.getMana()).append(", ");
         stringBuffer.append("P1_health:").append(waitingPlayer.getHero().getHealth()).append(", ");
-        stringBuffer.append("P1_mana:").append(p1_mana_).append(", ");
+        stringBuffer.append("P1_mana:").append(waitingPlayer.getMana()).append(", ");
         stringBuffer.append("]");
         return stringBuffer.toString();
     }
@@ -934,16 +830,8 @@ public class BoardModel implements DeepCopyable {
         return currentPlayer;
     }
 
-    public void setCurrentPlayer(PlayerModel currentPlayer) {
-        this.currentPlayer = currentPlayer;
-    }
-
     public PlayerModel getWaitingPlayer() {
         return waitingPlayer;
-    }
-
-    public void setWaitingPlayer(PlayerModel waitingPlayer) {
-        this.waitingPlayer = waitingPlayer;
     }
 
     // todo: remove asap, simply to aid in refactoring

@@ -8,6 +8,7 @@ import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.factory.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
+
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -155,7 +156,7 @@ public class Card implements DeepCopyable {
 	 * This function is called at the end of the turn.  Any derived class must override it and remove any 
 	 * temporary buffs that it has.
 	 */
-	public BoardModel endTurn(PlayerSide thisCardPlayerSide, BoardModel boardModel, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+	public HearthTreeNode endTurn(PlayerSide thisMinionPlayerIndex, HearthTreeNode boardModel, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
 		return boardModel;
 	}
 	
@@ -299,7 +300,7 @@ public class Card implements DeepCopyable {
 		throws HSException
 	{
 		//A generic card does nothing except for consuming mana
-		boardState.data_.setMana_p0(boardState.data_.getMana_p0() - this.mana_);
+		boardState.data_.getCurrentPlayer().subtractMana(this.mana_);
 		boardState.data_.removeCard_hand(this);
 		return boardState;
 	}
