@@ -509,40 +509,7 @@ public class BoardModel implements DeepCopyable {
     	waitingPlayer.resetMana();
     }
 
-    public void startTurn() throws HSException {
-        this.resetHand();
-        this.resetMinions();
 
-        for (Minion targetMinion : currentPlayer.getMinions()) {
-            try {
-                targetMinion.startTurn(PlayerSide.CURRENT_PLAYER, this, currentPlayer.getDeck(), waitingPlayer.getDeck());
-            } catch (HSInvalidPlayerIndexException e) {
-                e.printStackTrace();
-            }
-        }
-        for (Minion targetMinion : waitingPlayer.getMinions()) {
-            try {
-                targetMinion.startTurn(PlayerSide.WAITING_PLAYER, this, currentPlayer.getDeck(), waitingPlayer.getDeck());
-            } catch (HSInvalidPlayerIndexException e) {
-                e.printStackTrace();
-            }
-        }
-        ArrayList<Minion> toRemove = new ArrayList<Minion>();
-        for (Minion targetMinion : currentPlayer.getMinions()) {
-            if (targetMinion.getTotalHealth() <= 0)
-                toRemove.add(targetMinion);
-        }
-        for (Minion minion : toRemove)
-            currentPlayer.getMinions().remove(minion);
-
-        toRemove.clear();
-        for (Minion targetMinion : waitingPlayer.getMinions()) {
-            if (targetMinion.getTotalHealth() <= 0)
-                toRemove.add(targetMinion);
-        }
-        for (Minion minion : toRemove)
-            waitingPlayer.getMinions().remove(minion);
-    }
 
     public boolean equals(Object other)
     {

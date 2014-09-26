@@ -135,24 +135,60 @@ public class Game {
         return null;
     }
 
-    public void beginTurn(int turn, BoardModel board) throws HSException {
+    
+    public BoardModel beginTurn(int turn, BoardModel board) throws HSException {
 
-        board.startTurn();
+    	HearthTreeNode toRet = new HearthTreeNode(board);
+        
+    	toRet.data_.resetHand();
+    	toRet.data_.resetMinions();
+        
+        for (Minion targetMinion : toRet.data_.getCurrentPlayer().getMinions()) {
+            try {
+                toRet = targetMinion.startTurn(PlayerSide.CURRENT_PLAYER, toRet, toRet.data_.getCurrentPlayer().getDeck(), toRet.data_.getWaitingPlayer().getDeck());
+            } catch (HSInvalidPlayerIndexException e) {
+                e.printStackTrace();
+            }
+        }
+        for (Minion targetMinion : toRet.data_.getWaitingPlayer().getMinions()) {
+            try {
+            	toRet = targetMinion.startTurn(PlayerSide.WAITING_PLAYER, toRet, toRet.data_.getCurrentPlayer().getDeck(), toRet.data_.getWaitingPlayer().getDeck());
+            } catch (HSInvalidPlayerIndexException e) {
+                e.printStackTrace();
+            }
+        }
+        ArrayList<Minion> toRemove = new ArrayList<Minion>();
+        for (Minion targetMinion : toRet.data_.getCurrentPlayer().getMinions()) {
+            if (targetMinion.getTotalHealth() <= 0)
+                toRemove.add(targetMinion);
+        }
+        for (Minion minion : toRemove)
+            toRet.data_.getCurrentPlayer().getMinions().remove(minion);
 
-        Card newCard = board.getCurrentPlayer().drawFromDeck(board.getDeckPos_p0());
+        toRemove.clear();
+        for (Minion targetMinion : toRet.data_.getWaitingPlayer().getMinions()) {
+            if (targetMinion.getTotalHealth() <= 0)
+                toRemove.add(targetMinion);
+        }
+        for (Minion minion : toRemove)
+            toRet.data_.getWaitingPlayer().getMinions().remove(minion);
+        
+        
+        Card newCard = toRet.data_.getCurrentPlayer().drawFromDeck(toRet.data_.getDeckPos_p0());
         if (newCard == null) {
             //fatigue
-            byte fatigueDamage = board.getFatigueDamage_p0();
-            board.setFatigueDamage_p0((byte)(fatigueDamage + 1));
-            board.getCurrentPlayerHero().setHealth((byte)(board.getCurrentPlayerHero().getHealth() - fatigueDamage));
+            byte fatigueDamage = toRet.data_.getFatigueDamage_p0();
+            toRet.data_.setFatigueDamage_p0((byte)(fatigueDamage + 1));
+            toRet.data_.getCurrentPlayerHero().setHealth((byte)(toRet.data_.getCurrentPlayerHero().getHealth() - fatigueDamage));
         } else {
-            board.setDeckPos_p0(board.getDeckPos_p0() + 1);
-            board.placeCardHandCurrentPlayer(newCard);
+        	toRet.data_.setDeckPos_p0(toRet.data_.getDeckPos_p0() + 1);
+        	toRet.data_.placeCardHandCurrentPlayer(newCard);
         }
-        if (board.getCurrentPlayer().getMaxMana() < 10)
-            board.getCurrentPlayer().addMaxMana(1);
-        board.resetMana();
-
+        if (toRet.data_.getCurrentPlayer().getMaxMana() < 10)
+        	toRet.data_.getCurrentPlayer().addMaxMana(1);
+        toRet.data_.resetMana();
+        
+        return toRet.data_;
     }
 
     public BoardModel playAITurn(int turn, BoardModel board, ArtificialPlayer ai) throws HSException {
