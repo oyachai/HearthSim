@@ -55,14 +55,12 @@ public class MortalCoil extends SpellDamage {
 		}
 		
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
-		if (toRet != null) {
-	        if (targetMinion.getTotalHealth() <= 0) {
-	            if (toRet instanceof CardDrawNode) {
-	                ((CardDrawNode) toRet).addNumCardsToDraw(1);
-	            } else {
-	                toRet = new CardDrawNode(toRet, 1); //draw two cards
-	            }
-	        }			
+		if (toRet != null && targetMinion.getTotalHealth() <= 0) {
+            if (toRet instanceof CardDrawNode) {
+                ((CardDrawNode) toRet).addNumCardsToDraw(1);
+            } else {
+                toRet = new CardDrawNode(toRet, 1); //draw two cards
+            }
 		}
 
 		return toRet;
