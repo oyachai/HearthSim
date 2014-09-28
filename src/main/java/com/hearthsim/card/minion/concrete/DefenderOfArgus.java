@@ -184,7 +184,7 @@ public class DefenderOfArgus extends Minion {
 			int numMinions = side.getPlayer(boardState).getNumMinions();
 			if (numMinions > 1) {
 				int minionToTheLeft = thisMinionIndex > 0 ? thisMinionIndex - 1 : -1;
-				int minionToTheRight = thisMinionIndex < numMinions - 1 ? thisMinionIndex - 1 : -1;
+				int minionToTheRight = thisMinionIndex < numMinions - 1 ? thisMinionIndex + 1 : -1;
 				if (minionToTheLeft >= 0) {
 					Minion minionToBuff = toRet.data_.getMinion(side, minionToTheLeft);
 					minionToBuff.setAttack((byte)(minionToBuff.getAttack() + 1));
