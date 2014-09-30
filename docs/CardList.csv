@@ -204,7 +204,7 @@ Lay on Hands|spell|paladin|epic|8|||Restore 8 Health. Draw 3 cards|TRUE
 Leeroy Jenkins|minion|neutral|legendary|5|6|2|Charge. Battlecry: Summon two 1/1 Whelps for your opponent|FALSE
 Leper Gnome|minion|neutral|common|1|2|1|Deathrattle: Deal 2 damage to the enemy hero|TRUE
 Light's Justice|weapon|paladin|free|1|1|||TRUE
-Lightning Bolt|spell|shaman|common|1|||Deal 3 damage. Overload: (1)|FALSE
+Lightning Bolt|spell|shaman|common|1|||Deal 3 damage. Overload: (1)|TRUE
 Lightning Storm|spell|shaman|rare|3|||Deal 2-3 damage to all enemy minions. Overload: (2)|FALSE
 Lightspawn|minion|priest|common|4|0|5|This minion's Attack is always equal to its Health|FALSE
 Lightwarden|minion|neutral|rare|1|1|2|Whenever a character is healed, gain +2 Attack|FALSE

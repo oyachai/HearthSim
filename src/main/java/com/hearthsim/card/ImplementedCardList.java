@@ -656,6 +656,11 @@ public class ImplementedCardList {
             map_.put(LightsJustice.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(LightningBolt.class, "Lightning Bolt", "spell", "shaman", "common", "Deal 3 damage. Overload (1)", 1, -1, -1);
+            list_.add(card);
+            map_.put(LightningBolt.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(LootHoarder.class, "Loot Hoarder", "minion", "neutral", "common", "Deathrattle Draw a card", 2, 2, 1);
             list_.add(card);
             map_.put(LootHoarder.class, card);
