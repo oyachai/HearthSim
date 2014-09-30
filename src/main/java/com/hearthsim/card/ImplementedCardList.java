@@ -636,6 +636,11 @@ public class ImplementedCardList {
             map_.put(KorkronElite.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(LavaBurst.class, "Lava Burst", "spell", "shaman", "rare", "Deal 5 damage. Overload (2)", 3, -1, -1);
+            list_.add(card);
+            map_.put(LavaBurst.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(LayOnHands.class, "Lay on Hands", "spell", "paladin", "epic", "Restore 8 Health. Draw 3 cards", 8, -1, -1);
             list_.add(card);
             map_.put(LayOnHands.class, card);

@@ -199,7 +199,7 @@ Kirin Tor Mage|minion|mage|rare|3|4|3|Battlecry: The next Secret you play this t
 Knife Juggler|minion|neutral|rare|2|3|2|After you summon a minion, deal 1 damage to a random enemy|FALSE
 Kobold Geomancer|minion|neutral|free|2|2|2|Spell Damage +1|TRUE
 Kor'kron Elite|minion|warrior|free|4|4|3|Charge|TRUE
-Lava Burst|spell|shaman|rare|3|||Deal 5 damage. Overload: (2)|FALSE
+Lava Burst|spell|shaman|rare|3|||Deal 5 damage. Overload: (2)|TRUE
 Lay on Hands|spell|paladin|epic|8|||Restore 8 Health. Draw 3 cards|TRUE
 Leeroy Jenkins|minion|neutral|legendary|5|6|2|Charge. Battlecry: Summon two 1/1 Whelps for your opponent|FALSE
 Leper Gnome|minion|neutral|common|1|2|1|Deathrattle: Deal 2 damage to the enemy hero|TRUE
