@@ -21,10 +21,10 @@ public class Minion extends Card {
 	public enum BattlecryTargetType {
 		NO_BATTLECRY,
 		NO_TARGET,
-    	ENEMY_HERO, FRIENDLY_HERO,
-    	ENEMY_MINIONS, FRIENDLY_MINIONS,
-    	ENEMY_BEASTS, FRIENDLY_BEASTS,
-    	ENEMY_MURLOCS, FRIENDLY_MURLOCS
+		FRIENDLY_HERO, ENEMY_HERO,
+    	FRIENDLY_MINIONS, ENEMY_MINIONS,
+    	FRIENDLY_BEASTS, ENEMY_BEASTS,
+    	FRIENDLY_MURLOCS, ENEMY_MURLOCS
     }
 	
 	protected boolean taunt_;
@@ -564,7 +564,14 @@ public class Minion extends Card {
 		) throws HSException
 	{
 		HearthTreeNode node = new HearthTreeNode((BoardModel)boardState.data_.deepCopy());
-		node = this.useTargetableBattlecry_core(side, targetMinion, node, deckPlayer0, deckPlayer1);
+		int targetMinionIndex = side.getPlayer(boardState).getMinions().indexOf(targetMinion);
+		if (targetMinionIndex >= 0) {
+			node = this.useTargetableBattlecry_core(side, side.getPlayer(node).getMinions().get(targetMinionIndex), node, deckPlayer0, deckPlayer1);
+		} else if (targetMinion instanceof Hero) {
+			node = this.useTargetableBattlecry_core(side, side.getPlayer(node).getHero(), node, deckPlayer0, deckPlayer1);
+		} else {
+			node = null;
+		}
 		if (node != null) {
 			//Check for dead minions
 			node = BoardStateFactoryBase.handleDeadMinions(node, deckPlayer0, deckPlayer1);

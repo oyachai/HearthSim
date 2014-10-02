@@ -1,11 +1,12 @@
 package com.hearthsim.card.minion.concrete;
 
+import java.util.EnumSet;
+
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -155,51 +156,25 @@ public class AbusiveSergeant extends Minion {
 				this.hasBeenUsed);
 	}
 	
-	/**
-	 * 
-	 * Override for battlecry
-	 * 
-	 * Battlecry: Give a minion +2 attack this turn
-	 * 
-	 *
-     *
-     * @param side
-     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-     *
-     */
-
 	@Override
-	public HearthTreeNode useOn(
+	public EnumSet<BattlecryTargetType> getBattlecryTargets() {
+		return EnumSet.of(BattlecryTargetType.FRIENDLY_MINIONS, BattlecryTargetType.ENEMY_MINIONS);
+	}
+	
+	/**
+	 * Battlecry: Give a minion +2 attack this turn
+	 */
+	@Override
+	public HearthTreeNode useTargetableBattlecry_core(
 			PlayerSide side,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
-			Deck deckPlayer1,
-			boolean singleRealizationOnly)
-		throws HSException
+			Deck deckPlayer1
+		) throws HSException
 	{
-		//A generic card does nothing except for consuming mana
-		HearthTreeNode toRet = super.useOn(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
-		
-		if (toRet != null) {
-			for (int index = 0; index < PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getNumMinions(); ++index) {
-				if (index != PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions().indexOf(this)) {
-					HearthTreeNode newState = boardState.addChild(new HearthTreeNode((BoardModel)boardState.data_.deepCopy()));
-					PlayerSide.CURRENT_PLAYER.getPlayer(newState).getMinions().get(index).setExtraAttackUntilTurnEnd(((byte)(PlayerSide.CURRENT_PLAYER.getPlayer(newState).getMinions().get(index).getExtraAttackUntilTurnEnd() + 2)));
-				}
-			}
-			
-			for (int index = 0; index < PlayerSide.WAITING_PLAYER.getPlayer(toRet).getNumMinions(); ++index) {
-				if (index != PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions().indexOf(this)) {
-					HearthTreeNode newState = boardState.addChild(new HearthTreeNode((BoardModel)boardState.data_.deepCopy()));
-
-					PlayerSide.WAITING_PLAYER.getPlayer(newState).getMinions().get(index).setExtraAttackUntilTurnEnd(((byte)(PlayerSide.WAITING_PLAYER.getPlayer(newState).getMinions().get(index).getExtraAttackUntilTurnEnd() + 2)));
-				}
-			}
-			return toRet;
-		} else {
-			return null;
-		}
+		targetMinion.setExtraAttackUntilTurnEnd(((byte)(targetMinion.getExtraAttackUntilTurnEnd() + 2)));
+		return boardState;
 	}
 
 }
