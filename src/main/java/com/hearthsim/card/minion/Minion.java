@@ -10,11 +10,22 @@ import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.factory.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
+
 import org.json.JSONObject;
 
+import java.util.EnumSet;
 import java.util.Iterator;
 
 public class Minion extends Card {
+
+	public enum BattlecryTargetType {
+		NO_BATTLECRY,
+		NO_TARGET,
+    	ENEMY_HERO, FRIENDLY_HERO,
+    	ENEMY_MINIONS, FRIENDLY_MINIONS,
+    	ENEMY_BEASTS, FRIENDLY_BEASTS,
+    	ENEMY_MURLOCS, FRIENDLY_MURLOCS
+    }
 	
 	protected boolean taunt_;
 	protected boolean divineShield_;
@@ -532,7 +543,63 @@ public class Minion extends Card {
     public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
         return playerSide != PlayerSide.WAITING_PLAYER && !hasBeenUsed;
     }
-    
+
+	/**
+	 * Use a battlecry.
+	 * 
+	 * @param side
+	 * @param targetMinion
+	 * @param boardState
+	 * @param deckPlayer0
+	 * @param deckPlayer1
+	 * @return
+	 * @throws HSException
+	 */
+	public HearthTreeNode useTargetableBattlecry(
+			PlayerSide side,
+			Minion targetMinion,
+			HearthTreeNode boardState,
+			Deck deckPlayer0,
+			Deck deckPlayer1
+		) throws HSException
+	{
+		HearthTreeNode node = new HearthTreeNode((BoardModel)boardState.data_.deepCopy());
+		node = this.useTargetableBattlecry_core(side, targetMinion, node, deckPlayer0, deckPlayer1);
+		if (node != null) {
+			//Check for dead minions
+			node = BoardStateFactoryBase.handleDeadMinions(node, deckPlayer0, deckPlayer1);
+			//add the new node to the tree
+			boardState.addChild(node);
+		}
+		return boardState;
+	}
+
+	/**
+	 * Derived classes should implement this function for targtable battlecries.
+	 * 
+	 * @param side
+	 * @param targetMinion
+	 * @param boardState
+	 * @param deckPlayer0
+	 * @param deckPlayer1
+	 * @return
+	 * @throws HSException
+	 */
+	public HearthTreeNode useTargetableBattlecry_core(
+			PlayerSide side,
+			Minion targetMinion,
+			HearthTreeNode boardState,
+			Deck deckPlayer0,
+			Deck deckPlayer1
+		) throws HSException
+	{
+		return null;
+	}
+	
+	public EnumSet<BattlecryTargetType> getBattlecryTargets() {
+		return EnumSet.of(BattlecryTargetType.NO_BATTLECRY);
+	}
+	
 	/**
 	 * 
 	 * Places a minion on the board by using the card in hand
@@ -569,6 +636,56 @@ public class Minion extends Card {
 			toRet.data_.getCurrentPlayer().subtractMana(this.mana_);
 			toRet.data_.removeCard_hand(this);
 
+			//Battlecry if available
+			for (BattlecryTargetType btt : this.getBattlecryTargets()) {
+				switch  (btt) {
+				case ENEMY_HERO:
+					toRet = this.useTargetableBattlecry(PlayerSide.WAITING_PLAYER, PlayerSide.WAITING_PLAYER.getPlayer(toRet).getHero(), toRet, deckPlayer0, deckPlayer1);
+					break;
+				case FRIENDLY_HERO:
+					toRet = this.useTargetableBattlecry(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getHero(), toRet, deckPlayer0, deckPlayer1);
+					break;
+				case ENEMY_MINIONS:
+					for (Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
+						toRet = this.useTargetableBattlecry(PlayerSide.WAITING_PLAYER, minion, toRet, deckPlayer0, deckPlayer1);
+					}
+					break;
+				case FRIENDLY_MINIONS:
+					for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
+						if (minion != this)
+							toRet = this.useTargetableBattlecry(PlayerSide.CURRENT_PLAYER, minion, toRet, deckPlayer0, deckPlayer1);
+					}
+					break;
+				case ENEMY_BEASTS:
+					for (Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
+						if (minion instanceof Beast)
+							toRet = this.useTargetableBattlecry(PlayerSide.WAITING_PLAYER, minion, toRet, deckPlayer0, deckPlayer1);
+					}
+					break;
+				case FRIENDLY_BEASTS:
+					for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
+						if (minion != this && minion instanceof Beast)
+							toRet = this.useTargetableBattlecry(PlayerSide.CURRENT_PLAYER, minion, toRet, deckPlayer0, deckPlayer1);
+					}
+					break;
+				case ENEMY_MURLOCS:
+					for (Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
+						if (minion instanceof Murloc)
+							toRet = this.useTargetableBattlecry(PlayerSide.WAITING_PLAYER, minion, toRet, deckPlayer0, deckPlayer1);
+					}
+					break;
+				case FRIENDLY_MURLOCS:
+					for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
+						if (minion != this && minion instanceof Murloc)
+							toRet = this.useTargetableBattlecry(PlayerSide.CURRENT_PLAYER, minion, toRet, deckPlayer0, deckPlayer1);
+					}
+					break;
+				default:
+					break;
+				}
+			}
+			
+			
 			//Notify all that a minion is placed
 			toRet = toRet.data_.getCurrentPlayerHero().minionPlacedEvent(toRet);
 			for (Iterator<Minion> iter = toRet.data_.getCurrentPlayer().getMinions().iterator(); iter.hasNext();) {
@@ -581,7 +698,7 @@ public class Minion extends Card {
 				Minion minion = iter.next();
 				if (!minion.silenced_)
 					toRet = minion.minionPlacedEvent(toRet);
-			}			
+			}
 		
 		}
 		
@@ -1096,4 +1213,7 @@ public class Minion extends Card {
     public boolean currentPlayerBoardFull(HearthTreeNode boardState) {
         return PlayerSide.CURRENT_PLAYER.getPlayer(boardState).getNumMinions() >= 7;
     }
+    
+    
+    
 }

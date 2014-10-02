@@ -1,16 +1,18 @@
 package com.hearthsim.card.minion.concrete;
 
+import java.util.EnumSet;
+
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Dragon;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class Alexstrasza extends Dragon {
+
 
 	private static final String NAME = "Alexstrasza";
 	private static final byte MANA_COST = 9;
@@ -156,44 +158,25 @@ public class Alexstrasza extends Dragon {
 				this.hasBeenUsed);
 	}
 
+	@Override
+	public EnumSet<BattlecryTargetType> getBattlecryTargets() {
+		return EnumSet.of(BattlecryTargetType.FRIENDLY_HERO, BattlecryTargetType.ENEMY_HERO);
+	}
+	
 	/**
-	 * 
-	 * Override for battlecry
-	 * 
 	 * Battlecry: Set a hero's remaining health to 15
-	 * 
-	 *
-     *
-     * @param side
-     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-     *
-     * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public HearthTreeNode use_core(
+	public HearthTreeNode useTargetableBattlecry_core(
 			PlayerSide side,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
-			Deck deckPlayer1,
-			boolean singleRealizationOnly)
-		throws HSException
+			Deck deckPlayer1
+		) throws HSException
 	{
-		//A generic card does nothing except for consuming mana
-		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
-		
-		if (toRet != null) {
-			{
-				HearthTreeNode newState = toRet.addChild(new HearthTreeNode((BoardModel)toRet.data_.deepCopy()));
-				newState.data_.getCurrentPlayerHero().setHealth((byte)15);
-			}
-			{
-				HearthTreeNode newState = toRet.addChild(new HearthTreeNode((BoardModel)toRet.data_.deepCopy()));
-				newState.data_.getWaitingPlayerHero().setHealth((byte)15);
-			}
-			return toRet;
-		} else {
-			return null;
-		}
+		side.getPlayer(boardState).getHero().setHealth((byte)15);
+		return boardState;
 	}
+
 }
