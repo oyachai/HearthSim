@@ -545,7 +545,7 @@ public class Minion extends Card {
     }
 
 	/**
-	 * Use a battlecry.
+	 * Use a targetable battlecry.
 	 * 
 	 * @param side
 	 * @param targetMinion
@@ -607,6 +607,29 @@ public class Minion extends Card {
 		return EnumSet.of(BattlecryTargetType.NO_BATTLECRY);
 	}
 	
+	
+	public HearthTreeNode useUntargetableBattlecry(
+			HearthTreeNode boardState,
+			Deck deckPlayer0,
+			Deck deckPlayer1
+		) throws HSException
+	{
+		HearthTreeNode toRet = this.useUntargetableBattlecry_core(boardState, deckPlayer0, deckPlayer1);
+		if (toRet != null) {
+			//Check for dead minions
+			toRet = BoardStateFactoryBase.handleDeadMinions(toRet, deckPlayer0, deckPlayer1);
+		}
+		return toRet;
+	}
+	
+	public HearthTreeNode useUntargetableBattlecry_core(
+			HearthTreeNode boardState,
+			Deck deckPlayer0,
+			Deck deckPlayer1
+		) throws HSException
+	{
+		return null;
+	}	
 	/**
 	 * 
 	 * Places a minion on the board by using the card in hand
@@ -646,6 +669,9 @@ public class Minion extends Card {
 			//Battlecry if available
 			for (BattlecryTargetType btt : this.getBattlecryTargets()) {
 				switch  (btt) {
+				case NO_TARGET:
+					toRet = this.useUntargetableBattlecry(toRet, deckPlayer0, deckPlayer1);
+					break;
 				case ENEMY_HERO:
 					toRet = this.useTargetableBattlecry(PlayerSide.WAITING_PLAYER, PlayerSide.WAITING_PLAYER.getPlayer(toRet).getHero(), toRet, deckPlayer0, deckPlayer1);
 					break;
