@@ -527,74 +527,6 @@ public class Minion extends Card {
 		return boardState;
 	}
 	
-	/**
-	 * 
-	 * Places the minion on the board by using the card in hand
-	 * 
-	 *
-     *
-     *
-     * @param side
-     * @param targetMinion The target minion (can be a Hero).  If it is a Hero, then the minion is placed on the last (right most) spot on the board.
-     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-     * @param deckPlayer0 The deck of player0
-     * @return The boardState is manipulated and returned
-	 */
-	@Override
-	public HearthTreeNode useOn(
-			PlayerSide side,
-			Minion targetMinion,
-			HearthTreeNode boardState,
-			Deck deckPlayer0,
-			Deck deckPlayer1,
-			boolean singleRealizationOnly)
-		throws HSException
-	{
-		HearthTreeNode toRet = this.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
-		
-		if (toRet != null) {
-
-            BoardModel data_ = toRet.data_;
-            data_.setSpellDamage(PlayerSide.CURRENT_PLAYER, (byte) (data_.getSpellDamage(PlayerSide.CURRENT_PLAYER) + spellDamage_));
-			
-			isInHand_ = false;
-			
-			//Notify all other cards/characters of the card's use
-            for (Card card : data_.getCurrentPlayerHand()) {
-                toRet = card.otherCardUsedEvent(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1);
-            }
-			toRet = data_.getCurrentPlayerHero().otherCardUsedEvent(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1);
-            for (Minion minion : data_.getCurrentPlayer().getMinions()) {
-                if (!minion.silenced_)
-                    toRet = minion.otherCardUsedEvent(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1);
-            }
-
-            for (Card card : data_.getWaitingPlayerHand()) {
-                toRet = card.otherCardUsedEvent(PlayerSide.WAITING_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1);
-            }
-			toRet = data_.getWaitingPlayerHero().otherCardUsedEvent(PlayerSide.WAITING_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1);
-            for (Minion minion : data_.getWaitingPlayer().getMinions()) {
-                if (!minion.silenced_)
-                    toRet = minion.otherCardUsedEvent(PlayerSide.WAITING_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1);
-            }
-			
-			//Notify all that a minion is placed
-			toRet = data_.getCurrentPlayerHero().minionPlacedEvent(toRet);
-			for (Iterator<Minion> iter = data_.getCurrentPlayer().getMinions().iterator(); iter.hasNext();) {
-				Minion minion = iter.next();
-				if (!minion.silenced_)
-					toRet = minion.minionPlacedEvent(toRet);
-			}
-			toRet = data_.getWaitingPlayerHero().minionPlacedEvent(toRet);
-			for (Iterator<Minion> iter = data_.getWaitingPlayer().getMinions().iterator(); iter.hasNext();) {
-				Minion minion = iter.next();
-				if (!minion.silenced_)
-					toRet = minion.minionPlacedEvent(toRet);
-			}
-		}
-		
-		return toRet;
-	}
 	
 	@Override
     public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
@@ -636,7 +568,23 @@ public class Minion extends Card {
 		if (toRet != null) { //summon succeeded, now let's use up our mana
 			toRet.data_.getCurrentPlayer().subtractMana(this.mana_);
 			toRet.data_.removeCard_hand(this);
+
+			//Notify all that a minion is placed
+			toRet = toRet.data_.getCurrentPlayerHero().minionPlacedEvent(toRet);
+			for (Iterator<Minion> iter = toRet.data_.getCurrentPlayer().getMinions().iterator(); iter.hasNext();) {
+				Minion minion = iter.next();
+				if (!minion.silenced_)
+					toRet = minion.minionPlacedEvent(toRet);
+			}
+			toRet = toRet.data_.getWaitingPlayerHero().minionPlacedEvent(toRet);
+			for (Iterator<Minion> iter = toRet.data_.getWaitingPlayer().getMinions().iterator(); iter.hasNext();) {
+				Minion minion = iter.next();
+				if (!minion.silenced_)
+					toRet = minion.minionPlacedEvent(toRet);
+			}			
+		
 		}
+		
 		return toRet;
 	}
 	
@@ -670,6 +618,7 @@ public class Minion extends Card {
 		HearthTreeNode toRet = this.summonMinion_core(targetSide, targetMinion, boardState, deckPlayer0, deckPlayer1);
 		
 		if (toRet != null) {
+			toRet.data_.addSpellDamage(targetSide, this.spellDamage_);
 			if (!wasTransformed) {
 				//Notify all that a minion is summoned
 

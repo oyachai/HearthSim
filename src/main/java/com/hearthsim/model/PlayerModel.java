@@ -110,6 +110,14 @@ public class PlayerModel implements DeepCopyable {
         this.spellDamage = spellDamage;
     }
 
+    public void addSpellDamage(byte spellDamage) {
+        this.spellDamage += spellDamage;
+    }
+
+    public void subtractSpellDamage(byte spellDamage) {
+        this.spellDamage -= spellDamage;
+    }
+
     public IdentityLinkedList<Card> getHand() {
         return hand;
     }
