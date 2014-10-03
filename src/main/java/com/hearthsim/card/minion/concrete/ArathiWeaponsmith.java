@@ -1,12 +1,13 @@
 package com.hearthsim.card.minion.concrete;
 
+import java.util.EnumSet;
+
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class ArathiWeaponsmith extends Minion {
@@ -155,37 +156,26 @@ public class ArathiWeaponsmith extends Minion {
 				this.hasBeenUsed);
 	}
 	
+	@Override
+	public EnumSet<BattlecryTargetType> getBattlecryTargets() {
+		return EnumSet.of(BattlecryTargetType.NO_TARGET);
+	}
+	
 	/**
-	 * 
-	 * Override for battlecry
-	 * 
-	 * Battlecry: Equip a 2/2 weapon
-	 * 
-	 * @param thisCardIndex The index (position) of the card in the hand
-	 * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
-	 * @param minionIndex The index of the target minion.
-	 * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-	 * 
-	 * @return The boardState is manipulated and returned
+	 * Battlecry: Destroy your opponent's weapon
 	 */
 	@Override
-	public HearthTreeNode use_core(
-			PlayerSide side,
-			Minion targetMinion,
+	public HearthTreeNode useUntargetableBattlecry_core(
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
-			Deck deckPlayer1,
-			boolean singleRealizationOnly)
-		throws HSException
+			Deck deckPlayer1
+		) throws HSException
 	{
-		//A generic card does nothing except for consuming mana
-		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+		HearthTreeNode toRet = boardState;
+		Hero theHero = toRet.data_.getCurrentPlayerHero();
+		theHero.setWeaponCharge((byte)2);
+		theHero.setAttack((byte)2);
 		
-		if (toRet != null) {
-			Hero theHero = toRet.data_.getCurrentPlayerHero();
-			theHero.setWeaponCharge((byte)2);
-			theHero.setAttack((byte)2);
-		}
 		return toRet;
 	}
 

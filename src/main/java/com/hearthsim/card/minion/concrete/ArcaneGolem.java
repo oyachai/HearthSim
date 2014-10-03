@@ -1,11 +1,12 @@
 package com.hearthsim.card.minion.concrete;
 
+import java.util.EnumSet;
+
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class ArcaneGolem extends Minion {
@@ -154,38 +155,25 @@ public class ArcaneGolem extends Minion {
 				this.hasBeenUsed);
 	}
 
+	@Override
+	public EnumSet<BattlecryTargetType> getBattlecryTargets() {
+		return EnumSet.of(BattlecryTargetType.NO_TARGET);
+	}
+	
 	/**
-	 * 
-	 * Override for battlecry
-	 * 
-	 * Battlecry: Give your opponent a Mana Crystal
-	 * 
-	 *
-     *
-     * @param side
-     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-     *
-     * @return The boardState is manipulated and returned
+	 * Battlecry: Destroy your opponent's weapon
 	 */
 	@Override
-	public HearthTreeNode use_core(
-			PlayerSide side,
-			Minion targetMinion,
+	public HearthTreeNode useUntargetableBattlecry_core(
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
-			Deck deckPlayer1,
-			boolean singleRealizationOnly)
-		throws HSException
+			Deck deckPlayer1
+		) throws HSException
 	{
-		//A generic card does nothing except for consuming mana
-		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
-		
-		if (toRet != null) {
-			toRet.data_.getWaitingPlayer().addMana(1);
-			toRet.data_.getWaitingPlayer().addMaxMana(1);
-			return toRet;
-		} else {
-			return null;
-		}
+		HearthTreeNode toRet = boardState;
+		toRet.data_.getWaitingPlayer().addMana(1);
+		toRet.data_.getWaitingPlayer().addMaxMana(1);
+		return toRet;
 	}
+	
 }

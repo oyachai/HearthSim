@@ -1,11 +1,12 @@
 package com.hearthsim.card.minion.concrete;
 
+import java.util.EnumSet;
+
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class AcidicSwampOoze extends Minion {
@@ -154,47 +155,27 @@ public class AcidicSwampOoze extends Minion {
 				this.hasBeenUsed);
 	}
 	
+	@Override
+	public EnumSet<BattlecryTargetType> getBattlecryTargets() {
+		return EnumSet.of(BattlecryTargetType.NO_TARGET);
+	}
+	
 	/**
-	 * 
-	 * Override for battlecry
-	 * 
 	 * Battlecry: Destroy your opponent's weapon
-	 * 
-	 *
-     *
-     * @param side
-     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-     *
-     * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public HearthTreeNode use_core(
-			PlayerSide side,
-			Minion targetMinion,
+	public HearthTreeNode useUntargetableBattlecry_core(
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
-			Deck deckPlayer1,
-			boolean singleRealizationOnly)
-		throws HSException
+			Deck deckPlayer1
+		) throws HSException
 	{
-		
-		if (hasBeenUsed) {
-			//Card is already used, nothing to do
-			return null;
+		HearthTreeNode toRet = boardState;
+		if (toRet.data_.getWaitingPlayerHero().getWeaponCharge() > 0) {
+			toRet.data_.getWaitingPlayerHero().setWeaponCharge((byte)0);
+			toRet.data_.getWaitingPlayerHero().setAttack((byte)0);
 		}
-		
-		if (isWaitingPlayer(side))
-			return null;
-		
-		if (currentPlayerBoardFull(boardState))
-			return null;
-		
-		if (boardState.data_.getWaitingPlayerHero().getWeaponCharge() > 0) {
-			boardState.data_.getWaitingPlayerHero().setWeaponCharge((byte)0);
-			boardState.data_.getWaitingPlayerHero().setAttack((byte)0);
-		}
-		
-		return super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+		return toRet;
 	}
 
 }

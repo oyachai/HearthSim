@@ -1,5 +1,7 @@
 package com.hearthsim.card.minion.concrete;
 
+import java.util.EnumSet;
+
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.attack.AttackAction;
@@ -154,48 +156,37 @@ public class BloodKnight extends Minion {
 				this.hasBeenUsed);
 	}
 	
+	@Override
+	public EnumSet<BattlecryTargetType> getBattlecryTargets() {
+		return EnumSet.of(BattlecryTargetType.NO_TARGET);
+	}
+	
 	/**
-	 * 
-	 * Override for battlecry
-	 * 
 	 * Battlecry: All minions lose Divine Shield.  Gain +3/+3 for each Shield lost
-	 *
-     *
-     * @param side
-     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-     *
-     * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public HearthTreeNode use_core(
-			PlayerSide side,
-			Minion targetMinion,
+	public HearthTreeNode useUntargetableBattlecry_core(
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
-			Deck deckPlayer1,
-			boolean singleRealizationOnly)
-		throws HSException
+			Deck deckPlayer1
+		) throws HSException
 	{
-		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
-		
-		if (toRet != null) {
-			for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
-				if (minion != this && minion.getDivineShield()) {
-					minion.setDivineShield(false);
-					this.setHealth((byte)(this.getHealth() + 3));
-					this.setAttack((byte)(this.getAttack() + 3));
-				}
+		HearthTreeNode toRet = boardState;
+		for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
+			if (minion != this && minion.getDivineShield()) {
+				minion.setDivineShield(false);
+				this.setHealth((byte)(this.getHealth() + 3));
+				this.setAttack((byte)(this.getAttack() + 3));
 			}
-			for (Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
-				if (minion.getDivineShield()) {
-					minion.setDivineShield(false);
-					this.setHealth((byte)(this.getHealth() + 3));
-					this.setAttack((byte)(this.getAttack() + 3));
-				}
-			}
-			return toRet;
-		} else {
-			return null;
 		}
+		for (Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
+			if (minion.getDivineShield()) {
+				minion.setDivineShield(false);
+				this.setHealth((byte)(this.getHealth() + 3));
+				this.setAttack((byte)(this.getAttack() + 3));
+			}
+		}
+		return toRet;
 	}
+	
 }

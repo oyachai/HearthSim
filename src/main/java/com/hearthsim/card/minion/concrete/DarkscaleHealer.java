@@ -1,5 +1,7 @@
 package com.hearthsim.card.minion.concrete;
 
+import java.util.EnumSet;
+
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.attack.AttackAction;
@@ -155,48 +157,27 @@ public class DarkscaleHealer extends Minion {
 				this.hasBeenUsed);
 	}
 	
+	@Override
+	public EnumSet<BattlecryTargetType> getBattlecryTargets() {
+		return EnumSet.of(BattlecryTargetType.NO_TARGET);
+	}
 	
 	/**
-	 * 
-	 * Override for battlecry
-	 * 
 	 * Battlecry: Heals friendly characters for 2
-	 * 
-	 *
-     *
-     * @param side
-     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-     *
-     * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public HearthTreeNode use_core(
-			PlayerSide side,
-			Minion targetMinion,
+	public HearthTreeNode useUntargetableBattlecry_core(
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
-			Deck deckPlayer1,
-			boolean singleRealizationOnly)
-		throws HSException
+			Deck deckPlayer1
+		) throws HSException
 	{
-		
-		if (hasBeenUsed) {
-			//Card is already used, nothing to do
-			return null;
-		}
-		
-		if (isWaitingPlayer(side))
-			return null;
-		
-		if (currentPlayerBoardFull(boardState))
-			return null;
-		
 		HearthTreeNode toRet = boardState;
 		toRet = toRet.data_.getCurrentPlayerHero().takeHeal((byte)2, PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1);
 		for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
 			toRet = minion.takeHeal((byte)2, PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1);
 		}
-		
-		return super.use_core(side, targetMinion, toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
+		return toRet;
 	}
+	
 }

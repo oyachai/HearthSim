@@ -1,13 +1,13 @@
 package com.hearthsim.card.minion.concrete;
 
+import java.util.EnumSet;
+
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.factory.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class BigGameHunter extends Minion {
@@ -156,52 +156,29 @@ public class BigGameHunter extends Minion {
 				this.hasBeenUsed);
 	}
 	
+	@Override
+	public EnumSet<BattlecryTargetType> getBattlecryTargets() {
+		return EnumSet.of(BattlecryTargetType.FRIENDLY_MINIONS, BattlecryTargetType.ENEMY_MINIONS);
+	}
+	
 	/**
-	 * 
-	 * Override for battlecry
-	 * 
 	 * Battlecry: Destroy a minion with an Attack of 7 or more
-	 * 
-	 *
-     *
-     * @param side
-     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-     *
-     * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public HearthTreeNode use_core(
+	public HearthTreeNode useTargetableBattlecry_core(
 			PlayerSide side,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
-			Deck deckPlayer1,
-			boolean singleRealizationOnly)
-		throws HSException
+			Deck deckPlayer1
+		) throws HSException
 	{
-		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
-		
-		if (toRet != null) {
-			int thisMinionIndex = PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions().indexOf(this);
-			for (int index = 0; index < PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getNumMinions(); ++index) {
-				if (PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions().get(index).getTotalAttack() >= 7 && index != thisMinionIndex) {
-					HearthTreeNode newState = toRet.addChild(new HearthTreeNode((BoardModel)toRet.data_.deepCopy()));
-					Minion battlecryTarget = PlayerSide.CURRENT_PLAYER.getPlayer(newState).getMinions().get(index);
-					battlecryTarget.setHealth((byte)-99);
-					newState = BoardStateFactoryBase.handleDeadMinions(newState, deckPlayer0, deckPlayer1);
-				}
-			}
-			for (int index = 0; index < PlayerSide.WAITING_PLAYER.getPlayer(toRet).getNumMinions(); ++index) {
-				if (PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions().get(index).getTotalAttack() >= 7) {
-					HearthTreeNode newState = toRet.addChild(new HearthTreeNode((BoardModel)toRet.data_.deepCopy()));
-					Minion battlecryTarget = PlayerSide.WAITING_PLAYER.getPlayer(newState).getMinions().get(index);
-					battlecryTarget.setHealth((byte)-99);
-					newState = BoardStateFactoryBase.handleDeadMinions(newState, deckPlayer0, deckPlayer1);
-				}
-			}
-			return toRet;
+		if (targetMinion.getTotalAttack() >= 7) {
+			targetMinion.setHealth((byte)-99);
+			return boardState;
 		} else {
 			return null;
 		}
 	}
+
 }
