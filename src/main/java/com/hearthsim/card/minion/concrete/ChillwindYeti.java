@@ -6,7 +6,7 @@ import com.hearthsim.event.deathrattle.DeathrattleAction;
 
 public class ChillwindYeti extends Minion {
 
-	private static final String NAME = "Cillwind Yeti";
+	private static final String NAME = "Chillwind Yeti";
 	private static final byte MANA_COST = 4;
 	private static final byte ATTACK = 4;
 	private static final byte HEALTH = 5;
