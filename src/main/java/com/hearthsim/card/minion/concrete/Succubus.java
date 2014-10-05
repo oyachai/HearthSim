@@ -163,7 +163,7 @@ public class Succubus extends Demon {
 	 * 
 	 * Battlecry: Discard a random card
 	 * 
-	 *
+	 * INCOMPLETE IMPLEMENTATION!!!!!!!!!!!!!!
      *
      * @param side
      * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.

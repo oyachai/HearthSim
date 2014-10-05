@@ -237,6 +237,14 @@ public class Minion extends Card {
 		frozen_ = value;
 	}
 	
+	public boolean getWindfury() {
+		return windFury_;
+	}
+	
+	public void setWindfury(boolean value) {
+		windFury_ = value;
+	}
+	
 	public boolean getSummoned() {
 		return summoned_;
 	}

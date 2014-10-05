@@ -1,11 +1,12 @@
 package com.hearthsim.card.minion.concrete;
 
+import java.util.EnumSet;
+
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -126,7 +127,7 @@ public class Windspeaker extends Minion {
 	
 	@Override
 	public Object deepCopy() {
-		return new VoodooDoctor(
+		return new Windspeaker(
 				this.mana_,
 				this.attack_,
 				this.health_,
@@ -157,40 +158,26 @@ public class Windspeaker extends Minion {
 				this.hasBeenUsed);
 	}
 	
+	@Override
+	public EnumSet<BattlecryTargetType> getBattlecryTargets() {
+		return EnumSet.of(BattlecryTargetType.FRIENDLY_MINIONS);
+	}
+	
 	/**
-	 * 
-	 * Override for battlecry
-	 * 
-	 * Battlecry: Give a friendly minion windfury
-	 * 
-	 *
-     *
-     * @param side
-     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-     *
-     * @return The boardState is manipulated and returned
+	 * Battlecry: Give a friendly minion +3 Health
 	 */
 	@Override
-	public HearthTreeNode use_core(
+	public HearthTreeNode useTargetableBattlecry_core(
 			PlayerSide side,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
-			Deck deckPlayer1,
-			boolean singleRealizationOnly)
-		throws HSException
+			Deck deckPlayer1
+		) throws HSException
 	{
-		//A generic card does nothing except for consuming mana
-		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
-		
-		if (toRet != null) {
-			for (int index = 0; index < PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getNumMinions(); ++index) {
-				HearthTreeNode newState = boardState.addChild(new HearthTreeNode((BoardModel)boardState.data_.deepCopy()));
-				PlayerSide.CURRENT_PLAYER.getPlayer(newState).getMinions().get(index).hasWindFuryAttacked(true);
-			}
-			return toRet;
-		} else {
-			return null;
-		}
+		HearthTreeNode toRet = boardState;
+		targetMinion.setWindfury(true);
+		return toRet;
 	}
+
 }
