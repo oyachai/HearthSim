@@ -156,7 +156,7 @@ public class TestEarthenRingFarseer {
 		assertEquals(c1.data_.getCurrentPlayer().getMana(), 5);
 		assertEquals(c1.data_.getWaitingPlayer().getMana(), 8);
 		assertEquals(c1.data_.getCurrentPlayerHero().getHealth(), 20);
-		assertEquals(c1.data_.getWaitingPlayerHero().getHealth(), 20);
+		assertEquals(c1.data_.getWaitingPlayerHero().getHealth(), 23);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(c1).getMinions().get(0).getTotalHealth(), 2);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(c1).getMinions().get(1).getTotalHealth(), 1);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(c1).getMinions().get(2).getTotalHealth(), 1);
@@ -171,51 +171,53 @@ public class TestEarthenRingFarseer {
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(c1).getMinions().get(0).getTotalAttack(), 2);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(c1).getMinions().get(1).getTotalAttack(), 7);
 
-		//------------------------------------------------------------------------------------------------
-		HearthTreeNode c2 = ret.getChildren().get(2);
-		assertEquals(c2.data_.getNumCards_hand(), 0);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(c2).getNumMinions(), 4);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(c2).getNumMinions(), 2);
-		assertEquals(c2.data_.getCurrentPlayer().getMana(), 5);
-		assertEquals(c2.data_.getWaitingPlayer().getMana(), 8);
-		assertEquals(c2.data_.getCurrentPlayerHero().getHealth(), 20);
-		assertEquals(c2.data_.getWaitingPlayerHero().getHealth(), 20);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(c2).getMinions().get(0).getTotalHealth(), 2);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(c2).getMinions().get(1).getTotalHealth(), 4);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(c2).getMinions().get(2).getTotalHealth(), 1);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(c2).getMinions().get(3).getTotalHealth(), 3);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(c2).getMinions().get(0).getTotalHealth(), 2);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(c2).getMinions().get(1).getTotalHealth(), 1);
-
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(c2).getMinions().get(0).getTotalAttack(), 2);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(c2).getMinions().get(1).getTotalAttack(), 7);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(c2).getMinions().get(2).getTotalAttack(), 7);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(c2).getMinions().get(3).getTotalAttack(), 4);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(c2).getMinions().get(0).getTotalAttack(), 2);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(c2).getMinions().get(1).getTotalAttack(), 7);
 
 		//------------------------------------------------------------------------------------------------
-		HearthTreeNode c4 = ret.getChildren().get(4);
-		assertEquals(c4.data_.getNumCards_hand(), 0);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(c4).getNumMinions(), 4);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(c4).getNumMinions(), 2);
-		assertEquals(c4.data_.getCurrentPlayer().getMana(), 5);
-		assertEquals(c4.data_.getWaitingPlayer().getMana(), 8);
-		assertEquals(c4.data_.getCurrentPlayerHero().getHealth(), 20);
-		assertEquals(c4.data_.getWaitingPlayerHero().getHealth(), 23);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(c4).getMinions().get(0).getTotalHealth(), 2);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(c4).getMinions().get(1).getTotalHealth(), 1);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(c4).getMinions().get(2).getTotalHealth(), 1);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(c4).getMinions().get(3).getTotalHealth(), 3);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(c4).getMinions().get(0).getTotalHealth(), 2);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(c4).getMinions().get(1).getTotalHealth(), 1);
+		HearthTreeNode c3 = ret.getChildren().get(3);
+		assertEquals(c3.data_.getNumCards_hand(), 0);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(c3).getNumMinions(), 4);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(c3).getNumMinions(), 2);
+		assertEquals(c3.data_.getCurrentPlayer().getMana(), 5);
+		assertEquals(c3.data_.getWaitingPlayer().getMana(), 8);
+		assertEquals(c3.data_.getCurrentPlayerHero().getHealth(), 20);
+		assertEquals(c3.data_.getWaitingPlayerHero().getHealth(), 20);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(c3).getMinions().get(0).getTotalHealth(), 2);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(c3).getMinions().get(1).getTotalHealth(), 4);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(c3).getMinions().get(2).getTotalHealth(), 1);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(c3).getMinions().get(3).getTotalHealth(), 3);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(c3).getMinions().get(0).getTotalHealth(), 2);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(c3).getMinions().get(1).getTotalHealth(), 1);
 
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(c4).getMinions().get(0).getTotalAttack(), 2);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(c4).getMinions().get(1).getTotalAttack(), 7);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(c4).getMinions().get(2).getTotalAttack(), 7);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(c4).getMinions().get(3).getTotalAttack(), 4);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(c4).getMinions().get(0).getTotalAttack(), 2);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(c4).getMinions().get(1).getTotalAttack(), 7);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(c3).getMinions().get(0).getTotalAttack(), 2);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(c3).getMinions().get(1).getTotalAttack(), 7);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(c3).getMinions().get(2).getTotalAttack(), 7);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(c3).getMinions().get(3).getTotalAttack(), 4);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(c3).getMinions().get(0).getTotalAttack(), 2);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(c3).getMinions().get(1).getTotalAttack(), 7);
+
+		//------------------------------------------------------------------------------------------------
+
+		HearthTreeNode c5 = ret.getChildren().get(5);
+		assertEquals(c5.data_.getNumCards_hand(), 0);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(c5).getNumMinions(), 4);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(c5).getNumMinions(), 2);
+		assertEquals(c5.data_.getCurrentPlayer().getMana(), 5);
+		assertEquals(c5.data_.getWaitingPlayer().getMana(), 8);
+		assertEquals(c5.data_.getCurrentPlayerHero().getHealth(), 20);
+		assertEquals(c5.data_.getWaitingPlayerHero().getHealth(), 20);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(c5).getMinions().get(0).getTotalHealth(), 2);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(c5).getMinions().get(1).getTotalHealth(), 1);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(c5).getMinions().get(2).getTotalHealth(), 1);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(c5).getMinions().get(3).getTotalHealth(), 3);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(c5).getMinions().get(0).getTotalHealth(), 2);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(c5).getMinions().get(1).getTotalHealth(), 1);
+
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(c5).getMinions().get(0).getTotalAttack(), 2);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(c5).getMinions().get(1).getTotalAttack(), 7);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(c5).getMinions().get(2).getTotalAttack(), 7);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(c5).getMinions().get(3).getTotalAttack(), 4);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(c5).getMinions().get(0).getTotalAttack(), 2);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(c5).getMinions().get(1).getTotalAttack(), 7);
 
 		//------------------------------------------------------------------------------------------------
 		HearthTreeNode c6 = ret.getChildren().get(6);

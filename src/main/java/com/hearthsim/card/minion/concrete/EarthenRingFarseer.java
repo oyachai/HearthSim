@@ -1,13 +1,13 @@
 package com.hearthsim.card.minion.concrete;
 
+import java.util.EnumSet;
+
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.factory.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class EarthenRingFarseer extends Minion {
@@ -156,69 +156,26 @@ public class EarthenRingFarseer extends Minion {
 				this.hasBeenUsed);
 	}
 	
+	@Override
+	public EnumSet<BattlecryTargetType> getBattlecryTargets() {
+		return EnumSet.of(BattlecryTargetType.FRIENDLY_HERO, BattlecryTargetType.ENEMY_HERO, BattlecryTargetType.FRIENDLY_MINIONS, BattlecryTargetType.ENEMY_MINIONS);
+	}
+	
 	/**
-	 * 
-	 * Override for battlecry
-	 * 
 	 * Battlecry: Restore 3 health
-     *
-     * @param side
-     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-     *
-     * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public HearthTreeNode use_core(
+	public HearthTreeNode useTargetableBattlecry_core(
 			PlayerSide side,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
-			Deck deckPlayer1,
-			boolean singleRealizationOnly)
-		throws HSException
-	{	
-		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
-		if (toRet != null) {
-
-			{
-				HearthTreeNode newState = new HearthTreeNode((BoardModel)boardState.data_.deepCopy());
-				newState = newState.data_.getCurrentPlayerHero().takeHeal((byte)3, PlayerSide.CURRENT_PLAYER, newState, deckPlayer0, deckPlayer1);
-				toRet.addChild(newState);
-			}
-
-			{
-				for (int index = 0; index < PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getNumMinions(); ++index) {
-					if (PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions().get(index) == this)
-						continue;
-					HearthTreeNode newState = new HearthTreeNode((BoardModel)boardState.data_.deepCopy());
-					Minion minion = PlayerSide.CURRENT_PLAYER.getPlayer(newState).getMinions().get(index);
-					newState = minion.takeHeal((byte)3, PlayerSide.CURRENT_PLAYER, newState, deckPlayer0, deckPlayer1);
-					newState = BoardStateFactoryBase.handleDeadMinions(newState, deckPlayer0, deckPlayer1);
-					toRet.addChild(newState);
-				}
-			}
-
-			{
-				HearthTreeNode newState = new HearthTreeNode((BoardModel)boardState.data_.deepCopy());
-				newState = newState.data_.getWaitingPlayerHero().takeHeal((byte)3, PlayerSide.WAITING_PLAYER, newState, deckPlayer0, deckPlayer1);
-				toRet.addChild(newState);
-			}
-
-			{
-				for (int index = 0; index < PlayerSide.WAITING_PLAYER.getPlayer(toRet).getNumMinions(); ++index) {
-					HearthTreeNode newState = new HearthTreeNode((BoardModel)boardState.data_.deepCopy());
-					Minion minion = PlayerSide.WAITING_PLAYER.getPlayer(newState).getMinions().get(index);
-					newState = minion.takeHeal((byte)3, PlayerSide.WAITING_PLAYER, newState, deckPlayer0, deckPlayer1);
-					newState = BoardStateFactoryBase.handleDeadMinions(newState, deckPlayer0, deckPlayer1);
-					toRet.addChild(newState);
-				}
-			}
-
-			return boardState;
-							
-		} else {
-			return null;				
-		}
-
+			Deck deckPlayer1
+		) throws HSException
+	{
+		HearthTreeNode toRet = boardState;
+		toRet = targetMinion.takeHeal((byte)3, side, toRet, deckPlayer0, deckPlayer1);
+		return toRet;
 	}
+	
 }
