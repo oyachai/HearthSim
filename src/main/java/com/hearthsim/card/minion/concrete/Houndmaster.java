@@ -1,12 +1,12 @@
 package com.hearthsim.card.minion.concrete;
 
+import java.util.EnumSet;
+
 import com.hearthsim.card.Deck;
-import com.hearthsim.card.minion.Beast;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -157,41 +157,27 @@ public class Houndmaster extends Minion {
 				this.hasBeenUsed);
 	}
 	
+	@Override
+	public EnumSet<BattlecryTargetType> getBattlecryTargets() {
+		return EnumSet.of(BattlecryTargetType.FRIENDLY_BEASTS);
+	}
+	
 	/**
-	 * 
-	 * Override for battlecry
-	 * 
 	 * Battlecry: Give a friendly beast +2/+2 and Taunt
-	 * 
-	 *
-     *
-     * @param side
-     * @param targetMinion The target minion
-     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-     *
-     * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public HearthTreeNode use_core(
+	public HearthTreeNode useTargetableBattlecry_core(
 			PlayerSide side,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
-			Deck deckPlayer1,
-			boolean singleRealizationOnly)
-		throws HSException
+			Deck deckPlayer1
+		) throws HSException
 	{
-		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
-		if (toRet != null) {
-			for (int index = 0; index < PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getNumMinions(); ++index) {
-                if (index != PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions().indexOf(this) && PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions().get(index) instanceof Beast) {
-                    HearthTreeNode newState = toRet.addChild(new HearthTreeNode((BoardModel) toRet.data_.deepCopy()));
-                    PlayerSide.CURRENT_PLAYER.getPlayer(newState).getMinions().get(index).setAttack((byte) (PlayerSide.CURRENT_PLAYER.getPlayer(newState).getMinions().get(index).getAttack() + 2));
-                    PlayerSide.CURRENT_PLAYER.getPlayer(newState).getMinions().get(index).setHealth((byte) (PlayerSide.CURRENT_PLAYER.getPlayer(newState).getMinions().get(index).getHealth() + 2));
-                    PlayerSide.CURRENT_PLAYER.getPlayer(newState).getMinions().get(index).setTaunt(true);
-                }
-			}
-		}
+		HearthTreeNode toRet = boardState;
+        targetMinion.setAttack((byte) (targetMinion.getAttack() + 2));
+        targetMinion.setHealth((byte) (targetMinion.getHealth() + 2));
+        targetMinion.setTaunt(true);
 		return toRet;
 	}
 

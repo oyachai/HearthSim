@@ -1,5 +1,7 @@
 package com.hearthsim.card.minion.concrete;
 
+import java.util.EnumSet;
+
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.attack.AttackAction;
@@ -156,34 +158,24 @@ public class GuardianOfKings extends Minion {
 				this.hasBeenUsed);
 	}
 	
+	@Override
+	public EnumSet<BattlecryTargetType> getBattlecryTargets() {
+		return EnumSet.of(BattlecryTargetType.NO_TARGET);
+	}
+	
 	/**
-	 * 
-	 * Override for battlecry
-	 * 
-	 * Battlecry: Restore 6 health to your hero
-	 * 
-	 *
-     *
-     * @param side
-     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-     *
-     * @return The boardState is manipulated and returned
+	 * Battlecry: Restore 6 Health to your Hero
 	 */
 	@Override
-	public HearthTreeNode use_core(
-			PlayerSide side,
-			Minion targetMinion,
+	public HearthTreeNode useUntargetableBattlecry_core(
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
-			Deck deckPlayer1,
-			boolean singleRealizationOnly)
-		throws HSException
-	{		
-		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
-		
-		if (toRet != null)
-			toRet = boardState.data_.getCurrentPlayerHero().takeHeal((byte)6, PlayerSide.CURRENT_PLAYER, boardState, deckPlayer0, deckPlayer1);
-		
+			Deck deckPlayer1
+		) throws HSException
+	{
+		HearthTreeNode toRet = boardState;
+		toRet = toRet.data_.getCurrentPlayerHero().takeHeal((byte)6, PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1);
 		return toRet;
 	}
+
 }

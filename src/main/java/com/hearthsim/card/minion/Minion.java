@@ -500,6 +500,15 @@ public class Minion extends Card {
 		deathrattleAction_ = null;
 		stealthed_ = false;
 		heroTargetable_ = true;
+		
+		//Reset the attack and health to base
+		this.attack_ = this.baseAttack_;
+		if (this.maxHealth_ > this.baseHealth_) {
+			this.maxHealth_ = this.baseHealth_;
+			if (this.health_ > this.maxHealth_)
+				this.health_ = this.maxHealth_;
+		}
+
 
 		return toRet;
 	}

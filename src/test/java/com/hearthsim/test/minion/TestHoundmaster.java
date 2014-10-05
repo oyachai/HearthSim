@@ -9,11 +9,11 @@ import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
+
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class TestHoundmaster {
 
@@ -131,7 +131,7 @@ public class TestHoundmaster {
 		assertTrue(res.data_.getCurrentPlayerHero().getHealth() == 30);
 		assertTrue(res.data_.getWaitingPlayerHero().getHealth() == 30);
 
-		assertTrue(res.numChildren() == 1);
+		assertEquals(res.numChildren(), 1);
 		assertTrue(res.getChildren().get(0).data_.getCurrentPlayer().getMinions().get(0).getHealth() == 3);
 		assertTrue(res.getChildren().get(0).data_.getCurrentPlayer().getMinions().get(0).getTotalAttack() == 4);
 		assertFalse(res.getChildren().get(0).data_.getCurrentPlayer().getMinions().get(0).getTaunt());

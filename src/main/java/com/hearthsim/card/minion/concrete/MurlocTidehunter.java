@@ -1,5 +1,7 @@
 package com.hearthsim.card.minion.concrete;
 
+import java.util.EnumSet;
+
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.Murloc;
@@ -157,48 +159,27 @@ public class MurlocTidehunter extends Murloc {
 				this.hasBeenUsed);
 	}
 	
+	@Override
+	public EnumSet<BattlecryTargetType> getBattlecryTargets() {
+		return EnumSet.of(BattlecryTargetType.NO_TARGET);
+	}
 	
 	/**
-	 * 
-	 * Override for battlecry
-	 * 
-	 * Battlecry: Summons a Murloc Scout
-	 * 
-	 *
-     *
-     * @param side
-     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-     *
-     * @return The boardState is manipulated and returned
+	 * Battlecry: Summon a Murloc Scout
 	 */
 	@Override
-	public HearthTreeNode use_core(
-			PlayerSide side,
-			Minion targetMinion,
+	public HearthTreeNode useUntargetableBattlecry_core(
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
-			Deck deckPlayer1,
-			boolean singleRealizationOnly)
-		throws HSException
+			Deck deckPlayer1
+		) throws HSException
 	{
-		
-		if (hasBeenUsed) {
-			//Card is already used, nothing to do
-			return null;
-		}
-		
-		if (isWaitingPlayer(side))
-			return null;
-		
-		if (currentPlayerBoardFull(boardState))
-			return null;
-		
-		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
-		
+		HearthTreeNode toRet = boardState;
 		if (toRet != null && PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getNumMinions() < 7) {
-			Minion newMinion = new MurlocScout();
-			newMinion.summonMinion(side, this, boardState, deckPlayer0, deckPlayer1, false);
+			Minion mdragon = new MurlocScout();
+			toRet = mdragon.summonMinion(PlayerSide.CURRENT_PLAYER, this, boardState, deckPlayer0, deckPlayer1, false);
 		}
 		return toRet;
 	}
+
 }
