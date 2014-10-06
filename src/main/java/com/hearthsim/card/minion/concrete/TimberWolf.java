@@ -166,22 +166,21 @@ public class TimberWolf extends Beast {
 	 * 
 	 *
      *
-     * @param side
+     * @param targetSide
+     * @param targetMinion The target minion (can be a Hero).  The new minion is always placed to the right of (higher index) the target minion.  If the target minion is a hero, then it is placed at the left-most position.
      * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-     *
      * @return The boardState is manipulated and returned
+	 * @throws HSException 
 	 */
-	@Override
-	public HearthTreeNode use_core(
-			PlayerSide side,
+	protected HearthTreeNode summonMinion_core(
+            PlayerSide targetSide,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
-			Deck deckPlayer1,
-			boolean singleRealizationOnly)
+			Deck deckPlayer1)
 		throws HSException
 	{
-		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+		HearthTreeNode toRet = super.summonMinion_core(targetSide, targetMinion, boardState, deckPlayer0, deckPlayer1);
 		if (toRet != null) {
 			for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
 				if (minion != this && minion instanceof Beast) {
