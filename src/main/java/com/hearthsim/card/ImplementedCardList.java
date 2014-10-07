@@ -956,6 +956,11 @@ public class ImplementedCardList {
             map_.put(StranglethornTiger.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(SunfuryProtector.class, "Sunfury Protector", "minion", "neutral", "rare", "Battlecry Give adjacent minions Taunt", 2, 2, 3);
+            list_.add(card);
+            map_.put(SunfuryProtector.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(Sunwalker.class, "Sunwalker", "minion", "neutral", "rare", "Taunt. Divine Shield", 6, 4, 5);
             list_.add(card);
             map_.put(Sunwalker.class, card);

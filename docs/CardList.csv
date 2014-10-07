@@ -336,7 +336,7 @@ Stormwind Knight|minion|neutral|free|4|2|5|Charge|TRUE
 Stranglethorn Tiger|minion|neutral|common|5|5|5|Stealth|TRUE
 Succubus|minion|warlock|free|2|4|3|Battlecry: Discard a random card|FALSE
 Summoning Portal|minion|warlock|common|4|0|4|Your minions cost (2) less, but not less than (1)|FALSE
-Sunfury Protector|minion|neutral|rare|2|2|3|Battlecry: Give adjacent minions Taunt|FALSE
+Sunfury Protector|minion|neutral|rare|2|2|3|Battlecry: Give adjacent minions Taunt|TRUE
 Sunwalker|minion|neutral|rare|6|4|5|Taunt. Divine Shield|TRUE
 Swipe|spell|neutral|free|4|||Deal 4 damage to an enemy and 1 damage to all other enemies|TRUE
 Sword of Justice|weapon|paladin|epic|3|1||Whenever you summon a minion, give it +1/+1 and this loses 1 Durability|FALSE
