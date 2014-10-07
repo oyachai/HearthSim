@@ -192,7 +192,7 @@ public class Game {
     }
 
     public BoardModel playAITurn(int turn, BoardModel board, ArtificialPlayer ai) throws HSException {
-        return ai.playTurn(turn, board, board.getCurrentPlayer(), board.getWaitingPlayer());
+        return ai.playTurn(turn, board);
     }
 
     public BoardModel endTurn(BoardModel board) throws HSException {

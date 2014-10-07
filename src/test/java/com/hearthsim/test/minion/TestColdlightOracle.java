@@ -15,6 +15,7 @@ import com.hearthsim.model.PlayerSide;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -27,7 +28,16 @@ public class TestColdlightOracle {
 
 	@Before
 	public void setup() {
-		board = new HearthTreeNode(new BoardModel());
+		Card cards[] = new Card[10];
+		for (int index = 0; index < 10; ++index) {
+			cards[index] = new TheCoin();
+		}
+	
+		deck = new Deck(cards);
+		PlayerModel playerModel0 = new PlayerModel(0, "player0", new Hero(), deck);
+		PlayerModel playerModel1 = new PlayerModel(1, "player1", new Hero(), deck);
+
+		board = new HearthTreeNode(new BoardModel(playerModel0, playerModel1));
 
 		Minion minion0_0 = new BoulderfistOgre();
 		Minion minion0_1 = new RaidLeader();
@@ -39,11 +49,6 @@ public class TestColdlightOracle {
 				
 		board.data_.placeCardHandWaitingPlayer(minion1_0);
 		board.data_.placeCardHandWaitingPlayer(minion1_1);
-
-		Card cards[] = new Card[10];
-		for (int index = 0; index < 10; ++index) {
-			cards[index] = new TheCoin();
-		}
 	
 		deck = new Deck(cards);
 
@@ -144,11 +149,6 @@ public class TestColdlightOracle {
 
 	@Test
 	public void test2() throws HSException {
-
-		
-		Hero hero = new Hero();
-		PlayerModel playerModel0 = new PlayerModel(0, "player0", hero, deck);
-		PlayerModel playerModel1 = new PlayerModel(1, "player0", hero, deck);
 		
 		board.data_.getCurrentPlayer().setMana((byte)3);
 		board.data_.getWaitingPlayer().setMana((byte)3);
@@ -160,7 +160,7 @@ public class TestColdlightOracle {
 		board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 2).hasAttacked(true);
 
         ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
-		BoardModel resBoard = ai0.playTurn(0, board.data_, playerModel0, playerModel1);
+		BoardModel resBoard = ai0.playTurn(0, board.data_);
 		
 		assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 2); //1 card drawn from Loot Horder attacking and dying, no mana left to play the card
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getNumMinions(), 3);

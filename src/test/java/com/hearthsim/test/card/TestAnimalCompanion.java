@@ -2,17 +2,14 @@ package com.hearthsim.test.card;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
-import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.Huffer;
 import com.hearthsim.card.minion.concrete.Leokk;
 import com.hearthsim.card.minion.concrete.Misha;
-import com.hearthsim.card.minion.heroes.Shaman;
 import com.hearthsim.card.spellcard.concrete.AnimalCompanion;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
-import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -275,11 +272,9 @@ public class TestAnimalCompanion {
 		
 		board.data_.getCurrentPlayer().setMaxMana((byte)4);
 		board.data_.getWaitingPlayer().setMaxMana((byte)4);
-		
-		PlayerModel playerModel0 = new PlayerModel(0, "player0", new Shaman(), deck);
-		PlayerModel playerModel1 = new PlayerModel(1, "player1", new Hero(), deck);
+
         ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
-		BoardModel resBoard = ai0.playTurn(0, board.data_, playerModel0, playerModel1, 200000000);
+		BoardModel resBoard = ai0.playTurn(0, board.data_, 200000000);
 
 		assertEquals(resBoard.getCurrentPlayer().getMana(), 1);
 		assertEquals(resBoard.getWaitingPlayer().getMana(), 4);

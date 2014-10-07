@@ -14,6 +14,7 @@ import com.hearthsim.model.PlayerSide;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -29,7 +30,18 @@ public class TestArcaneIntellect {
 
 	@Before
 	public void setup() throws HSException {
-		board = new HearthTreeNode(new BoardModel());
+		
+		int numCards = 10;
+		Card cards[] = new Card[numCards];
+		for (int index = 0; index < numCards; ++index) {
+			cards[index] = new BloodfenRaptor();
+		}
+		
+		Deck deck = new Deck(cards);
+		PlayerModel playerModel0 = new PlayerModel(0, "player0", new Hero(), deck);
+		PlayerModel playerModel1 = new PlayerModel(1, "player1", new Hero(), deck);
+
+		board = new HearthTreeNode(new BoardModel(playerModel0, playerModel1));
 		
 		Minion minion0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
 		Minion minion1 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
@@ -168,13 +180,6 @@ public class TestArcaneIntellect {
 			cards[index] = new BloodfenRaptor();
 		}
 		
-		Deck deck = new Deck(cards);
-
-		
-		Hero hero = new Hero();		
-		PlayerModel playerModel0 = new PlayerModel(0, "player0", hero, deck);
-		PlayerModel playerModel1 = new PlayerModel(1, "player0", hero, deck);
-		
 		board.data_.getCurrentPlayer().setMana((byte)3);
 		board.data_.getWaitingPlayer().setMana((byte)3);
 
@@ -182,7 +187,7 @@ public class TestArcaneIntellect {
 		board.data_.getWaitingPlayer().setMaxMana((byte)3);
 
         ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
-		BoardModel resBoard = ai0.playTurn(0, board.data_, playerModel0, playerModel1);
+		BoardModel resBoard = ai0.playTurn(0, board.data_, 20000000);
 		
 		assertFalse( resBoard == null );
 		
@@ -201,13 +206,7 @@ public class TestArcaneIntellect {
 		for (int index = 0; index < numCards; ++index) {
 			cards[index] = new BloodfenRaptor();
 		}
-		
-		Deck deck = new Deck(cards);
 
-		Hero hero = new Hero();		
-		PlayerModel playerModel0 = new PlayerModel(0, "player0", hero, deck);
-		PlayerModel playerModel1 = new PlayerModel(1, "player0", hero, deck);
-		
 		board.data_.getCurrentPlayer().setMana((byte)6);
 		board.data_.getWaitingPlayer().setMana((byte)6);
 
@@ -215,7 +214,7 @@ public class TestArcaneIntellect {
 		board.data_.getWaitingPlayer().setMaxMana((byte)6);
 
         ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
-		BoardModel resBoard = ai0.playTurn(0, board.data_, playerModel0, playerModel1);
+		BoardModel resBoard = ai0.playTurn(0, board.data_);
 		
 		assertFalse( resBoard == null );
 		
@@ -234,14 +233,7 @@ public class TestArcaneIntellect {
 		for (int index = 0; index < numCards; ++index) {
 			cards[index] = new BloodfenRaptor();
 		}
-		
-		Deck deck = new Deck(cards);
 
-		
-		Hero hero = new Hero();		
-		PlayerModel playerModel0 = new PlayerModel(0, "player0", hero, deck);
-		PlayerModel playerModel1 = new PlayerModel(1, "player0", hero, deck);
-		
 		board.data_.getCurrentPlayer().setMana((byte)9);
 		board.data_.getWaitingPlayer().setMana((byte)9);
 
@@ -249,7 +241,7 @@ public class TestArcaneIntellect {
 		board.data_.getWaitingPlayer().setMaxMana((byte)9);
 
         ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
-		BoardModel resBoard = ai0.playTurn(0, board.data_, playerModel0, playerModel1);
+		BoardModel resBoard = ai0.playTurn(0, board.data_);
 		
 		assertFalse( resBoard == null );
 		

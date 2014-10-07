@@ -122,7 +122,7 @@ Explosive Shot|spell|hunter|rare|5|||Deal 5 damage to a minion and 2 damage to a
 Explosive Trap|spell|hunter|common|2|||Secret: When your hero is attacked, deal 2 damage to all enemies|FALSE
 Eye for an Eye|spell|paladin|common|1|||Secret: When your hero takes damage, deal that much damage to the enemy hero|FALSE
 Faceless Manipulator|minion|neutral|epic|5|3|3|Battlecry: Choose a minion and become a copy of it|FALSE
-Faerie Dragon|minion|neutral|common|2|3|2|Can't be targeted by Spells or Hero Powers|FALSE
+Faerie Dragon|minion|neutral|common|2|3|2|Can't be targeted by Spells or Hero Powers|TRUE
 Fan of Knives|spell|rogue|free|3|||Deal 1 damage to all enemy minions. Draw a card|TRUE
 Far Sight|spell|shaman|epic|3|||Draw a card.That card costs (3) less|FALSE
 Felguard|minion|warlock|rare|3|3|5|Taunt. Battlecry: Destroy one of your Mana Crystals|TRUE

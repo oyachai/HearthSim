@@ -2,7 +2,6 @@ package com.hearthsim.test.minion;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
-import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.BoulderfistOgre;
 import com.hearthsim.card.minion.concrete.StranglethornTiger;
@@ -10,7 +9,6 @@ import com.hearthsim.card.spellcard.concrete.Silence;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
-import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -98,12 +96,8 @@ public class TestStranglethornTiger {
 		
 		//In this test, the Stranglethorn Tiger is stealthed, so player0 has no choice but to hit the enemy hero for 12 damage
 
-		Hero hero = new Hero();
-		PlayerModel playerModel0 = new PlayerModel(0, "player0", hero, deck);
-		PlayerModel playerModel1 = new PlayerModel(1, "player0", hero, deck);
-
         ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
-		BoardModel resBoard = ai0.playTurn(0, board.data_, playerModel0, playerModel1);
+		BoardModel resBoard = ai0.playTurn(0, board.data_);
 
 		assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 0);
 		assertEquals(resBoard.getNumCardsHandWaitingPlayer(), 0);
@@ -127,15 +121,10 @@ public class TestStranglethornTiger {
 		
 		//In this test, player0 is given a Silence.  It can't use it though because it can't target the stealthed Stranglethorn Tiger.
 
-		
-		Hero hero = new Hero();
-		PlayerModel playerModel0 = new PlayerModel(0, "player0", hero, deck);
-		PlayerModel playerModel1 = new PlayerModel(1, "player0", hero, deck);
-		
 		board.data_.placeCardHandCurrentPlayer(new Silence());
 
         ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
-		BoardModel resBoard = ai0.playTurn(0, board.data_, playerModel0, playerModel1);
+		BoardModel resBoard = ai0.playTurn(0, board.data_);
 
 		assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 1);
 		assertEquals(resBoard.getNumCardsHandWaitingPlayer(), 0);
@@ -159,15 +148,10 @@ public class TestStranglethornTiger {
 
 		//In this test, player1 goes first.  It uses the Stranglethorn Tiger to attack the hero, which removes stealth from 
 		// the tiger.  Then, player0 plays a turn in which it is able to kill the tiger and hit the player1's hero for 6.  
-		
-
-		Hero hero = new Hero();
-		PlayerModel playerModel0 = new PlayerModel(0, "player0", hero, deck);
-		PlayerModel playerModel1 = new PlayerModel(1, "player1", hero, deck);
 
         ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
-		BoardModel resBoard0 = ai0.playTurn(0, board.data_.flipPlayers(), playerModel1, playerModel0, 2000000000);
-		BoardModel resBoard1 = ai0.playTurn(0, resBoard0.flipPlayers(), playerModel0, playerModel1, 2000000000);
+		BoardModel resBoard0 = ai0.playTurn(0, board.data_.flipPlayers(), 2000000000);
+		BoardModel resBoard1 = ai0.playTurn(0, resBoard0.flipPlayers(), 2000000000);
 
 		assertEquals(resBoard1.getNumCardsHandWaitingPlayer(), 0);
 		assertEquals(resBoard1.getNumCardsHandWaitingPlayer(), 0);

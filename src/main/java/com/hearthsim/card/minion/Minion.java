@@ -86,7 +86,7 @@ public class Minion extends Card {
 				false,
 				false,
 				false,
-				false,
+				true,
 				false,
 				false,
 				false,
@@ -359,6 +359,14 @@ public class Minion extends Card {
 	
 	public void setPlacementImportant(boolean value) {
 		placementImportant_ = value;
+	}
+	
+	public boolean isHeroTargetable() {
+		return heroTargetable_;
+	}
+	
+	public void setHeroTargetable(boolean value) {
+		heroTargetable_ = value;
 	}
 	
 	/**

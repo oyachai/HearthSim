@@ -2,7 +2,6 @@ package com.hearthsim.test.minion;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
-import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.ArcaneGolem;
 import com.hearthsim.card.minion.concrete.BoulderfistOgre;
@@ -10,7 +9,6 @@ import com.hearthsim.card.minion.concrete.RaidLeader;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
-import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -166,11 +164,7 @@ public class TestArcaneGolem {
 
 	@Test
 	public void test2() throws HSException {
-		
-		Hero hero = new Hero();
-		PlayerModel playerModel0 = new PlayerModel(0, "player0", hero, deck);
-		PlayerModel playerModel1 = new PlayerModel(1, "player0", hero, deck);
-		
+
 		board.data_.getCurrentPlayer().setMana((byte)3);
 		board.data_.getWaitingPlayer().setMana((byte)3);
 		
@@ -181,7 +175,7 @@ public class TestArcaneGolem {
 		board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 2).hasAttacked(true);
 
         ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
-		BoardModel resBoard = ai0.playTurn(0, board.data_, playerModel0, playerModel1);
+		BoardModel resBoard = ai0.playTurn(0, board.data_);
 		
 		assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 0);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getNumMinions(), 3);

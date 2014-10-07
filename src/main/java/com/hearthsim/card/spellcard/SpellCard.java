@@ -20,7 +20,7 @@ public class SpellCard extends Card {
 
     @Override
     public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
-        return !hasBeenUsed && !minion.getStealthed();
+        return !hasBeenUsed && !minion.getStealthed() && minion.isHeroTargetable();
     }
 
 	

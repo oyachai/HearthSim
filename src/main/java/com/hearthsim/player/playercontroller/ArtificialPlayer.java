@@ -253,8 +253,8 @@ public class ArtificialPlayer {
 	 * @return
 	 * @throws HSException
 	 */
-	public BoardModel playTurn(int turn, BoardModel board, PlayerModel playerModel0, PlayerModel playerModel1) throws HSException {
-        return this.playTurn(turn, board, playerModel0, playerModel1, MAX_THINK_TIME);
+	public BoardModel playTurn(int turn, BoardModel board) throws HSException {
+        return this.playTurn(turn, board, MAX_THINK_TIME);
 	}
 	
 	/**
@@ -264,18 +264,24 @@ public class ArtificialPlayer {
 	 * 
 	 * @param turn Turn number, 1-based
 	 * @param board The board state at the beginning of the turn (after all card draws and minion deaths)
-	 * @param player The player playing the turn
+	 * @param playerModel0 The player playing the turn
+	 * @param playerModel1 The player waiting the turn
 	 * @param maxThinkTime The maximum number of milliseconds the AI will spend per tree
 	 * 
 	 * @return
 	 * @throws HSException
 	 */
-	public BoardModel playTurn(int turn, BoardModel board, PlayerModel playerModel0, PlayerModel playerModel1, int maxThinkTime) throws HSException {
-        log.debug("playing turn for " + playerModel0.getName());
+	public BoardModel playTurn(int turn, BoardModel board, int maxThinkTime) throws HSException {
+		PlayerModel playerModel0 = board.getCurrentPlayer();
+		PlayerModel playerModel1 = board.getWaitingPlayer();
+
+		log.debug("playing turn for " + playerModel0.getName());
         //The goal of this ai is to maximize his board score
         log.debug("start turn board state is {}", board);
 		HearthTreeNode toRet = new HearthTreeNode(board);
 		BoardStateFactoryBase factory = null;
+		
+		
 		if (useSparseBoardStateFactory_) {
 			factory = new SparseBoardStateFactory(playerModel0.getDeck(), playerModel1.getDeck(), maxThinkTime);
 		} else {

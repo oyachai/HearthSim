@@ -14,6 +14,7 @@ import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.util.tree.HearthTreeNode;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -26,7 +27,16 @@ public class TestLootHorder {
 
 	@Before
 	public void setup() throws HSException {
-		board = new HearthTreeNode(new BoardModel());
+		Card cards[] = new Card[10];
+		for (int index = 0; index < 10; ++index) {
+			cards[index] = new RiverCrocolisk();
+		}
+	
+		deck = new Deck(cards);
+		PlayerModel playerModel0 = new PlayerModel(0, "player0", new Hero(), deck);
+		PlayerModel playerModel1 = new PlayerModel(1, "player1", new Hero(), deck);
+
+		board = new HearthTreeNode(new BoardModel(playerModel0, playerModel1));
 
 		Minion minion0_0 = new LootHoarder();
 		Minion minion1_0 = new BloodfenRaptor();
@@ -34,14 +44,7 @@ public class TestLootHorder {
 		board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, minion0_0);
 		
 		board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion1_0);
-		
-		Card cards[] = new Card[10];
-		for (int index = 0; index < 10; ++index) {
-			cards[index] = new RiverCrocolisk();
-		}
-	
-		deck = new Deck(cards);
-		
+
 	}
 	
 	
@@ -50,10 +53,6 @@ public class TestLootHorder {
 
 
         ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
-
-        Hero hero = new Hero();
-		PlayerModel playerModel0 = new PlayerModel(0, "player0", hero, deck);
-		PlayerModel playerModel1 = new PlayerModel(1, "player0", hero, deck);
 		
 		board.data_.getCurrentPlayer().setMana((byte)1);
 		board.data_.getWaitingPlayer().setMana((byte)1);
@@ -62,7 +61,7 @@ public class TestLootHorder {
 		board.data_.getWaitingPlayer().setMaxMana((byte)1);
 
 
-		BoardModel resBoard = ai0.playTurn(0, board.data_, playerModel0, playerModel1);
+		BoardModel resBoard = ai0.playTurn(0, board.data_);
 		
 		assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 1); //1 card drawn from Loot Horder attacking and dying, no mana left to play the card
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getNumMinions(), 0);
@@ -79,10 +78,6 @@ public class TestLootHorder {
 
         ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
 
-		Hero hero = new Hero();
-		PlayerModel playerModel0 = new PlayerModel(0, "player0", hero, deck);
-		PlayerModel playerModel1 = new PlayerModel(1, "player0", hero, deck);
-		
 		board.data_.getCurrentPlayer().setMana((byte)3);
 		board.data_.getWaitingPlayer().setMana((byte)3);
 		
@@ -90,7 +85,7 @@ public class TestLootHorder {
 		board.data_.getWaitingPlayer().setMaxMana((byte)3);
 
 
-		BoardModel resBoard = ai0.playTurn(0, board.data_, playerModel0, playerModel1);
+		BoardModel resBoard = ai0.playTurn(0, board.data_);
 		
 		assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 0); //1 card drawn from Loot Horder attacking and dying, then played the drawn card
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getNumMinions(), 1);
@@ -114,10 +109,6 @@ public class TestLootHorder {
 		board.data_.removeMinion(PlayerSide.WAITING_PLAYER, 0);
 		board.data_.placeMinion(PlayerSide.WAITING_PLAYER, new LootHoarder());
 
-		Hero hero = new Hero();
-		PlayerModel playerModel0 = new PlayerModel(0, "player0", hero, deck);
-		PlayerModel playerModel1 = new PlayerModel(1, "player0", hero, deck);
-		
 		board.data_.getCurrentPlayer().setMana((byte)3);
 		board.data_.getWaitingPlayer().setMana((byte)3);
 		
@@ -125,7 +116,7 @@ public class TestLootHorder {
 		board.data_.getWaitingPlayer().setMaxMana((byte)3);
 
 
-		BoardModel resBoard = ai0.playTurn(0, board.data_, playerModel0, playerModel1);
+		BoardModel resBoard = ai0.playTurn(0, board.data_);
 		
 		assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 0); //no cards in hand
 		assertEquals(resBoard.getNumCardsHandWaitingPlayer(), 1); //drew cards from the loot horder that was killed

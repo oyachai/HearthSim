@@ -411,6 +411,11 @@ public class ImplementedCardList {
             map_.put(Execute.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(FaerieDragon.class, "Faerie Dragon", "minion", "neutral", "common", "Cant be targeted by Spells or Hero Powers", 2, 3, 2);
+            list_.add(card);
+            map_.put(FaerieDragon.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(FanOfKnives.class, "Fan of Knives", "spell", "rogue", "free", "Deal 1 damage to all enemy minions. Draw a card", 3, -1, -1);
             list_.add(card);
             map_.put(FanOfKnives.class, card);

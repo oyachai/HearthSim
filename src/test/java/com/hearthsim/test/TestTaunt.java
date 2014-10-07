@@ -45,7 +45,7 @@ public class TestTaunt {
 	
 	@Test
 	public void test0() throws HSException {
-		Minion minion = new Minion("" + 0, mana, attack0, health1, attack0, (byte)0, (byte)0, health1, health1, (byte)0, (byte)0, true, false, false, false, false, false, false, false, false, false, false, false, false, false, null, null, false, false);
+		Minion minion = new Minion("" + 0, mana, attack0, health1, attack0, (byte)0, (byte)0, health1, health1, (byte)0, (byte)0, true, false, false, false, false, false, false, false, false, true, false, false, false, false, null, null, false, false);
 		board.placeMinion(PlayerSide.WAITING_PLAYER, minion);
 		
 		BoardStateFactoryBase factory = new BoardStateFactoryBase(null, null);
@@ -65,8 +65,8 @@ public class TestTaunt {
 
 	@Test
 	public void test1() throws HSException {
-		Minion minion1 = new Minion("" + 0, mana, attack0, health1, attack0, (byte)0, (byte)0, health1, health1, (byte)0, (byte)0, true, false, false, false, false, false, false, false, false, false, false, false, false, false, null, null, false, false);
-		Minion minion2 = new Minion("" + 0, mana, attack0, health1, attack0, (byte)0, (byte)0, health1, health1, (byte)0, (byte)0, false, false, false, false, false, false, false, false, false, false, false, false, false, false, null, null, false, false);
+		Minion minion1 = new Minion("" + 0, mana, attack0, health1, attack0, (byte)0, (byte)0, health1, health1, (byte)0, (byte)0, true, false, false, false, false, false, false, false, false, true, false, false, false, false, null, null, false, false);
+		Minion minion2 = new Minion("" + 0, mana, attack0, health1, attack0, (byte)0, (byte)0, health1, health1, (byte)0, (byte)0, false, false, false, false, false, false, false, false, false, true, false, false, false, false, null, null, false, false);
 		board.placeMinion(PlayerSide.WAITING_PLAYER, minion1);
 		board.placeMinion(PlayerSide.WAITING_PLAYER, minion2);
 		
@@ -87,9 +87,9 @@ public class TestTaunt {
 
 	@Test
 	public void test2() throws HSException {
-		Minion minion1 = new Minion("" + 0, mana, attack0, health1, attack0, (byte)0, (byte)0, health1, health1, (byte)0, (byte)0, true, false, false, false, false, false, false, false, false, false, false, false, false, false, null, null, false, false);
-		Minion minion2 = new Minion("" + 0, mana, attack0, health1, attack0, (byte)0, (byte)0, health1, health1, (byte)0, (byte)0, false, false, false, false, false, false, false, false, false, false, false, false, false, false, null, null, false, false);
-		Minion minion3 = new Minion("" + 0, mana, attack0, health1, attack0, (byte)0, (byte)0, health1, health1, (byte)0, (byte)0, true, false, false, false, false, false, false, false, false, false, false, false, false, false, null, null, false, false);
+		Minion minion1 = new Minion("" + 0, mana, attack0, health1, attack0, (byte)0, (byte)0, health1, health1, (byte)0, (byte)0, true, false, false, false, false, false, false, false, false, true, false, false, false, false, null, null, false, false);
+		Minion minion2 = new Minion("" + 0, mana, attack0, health1, attack0, (byte)0, (byte)0, health1, health1, (byte)0, (byte)0, false, false, false, false, false, false, false, false, false, true, false, false, false, false, null, null, false, false);
+		Minion minion3 = new Minion("" + 0, mana, attack0, health1, attack0, (byte)0, (byte)0, health1, health1, (byte)0, (byte)0, true, false, false, false, false, false, false, false, false, true, false, false, false, false, null, null, false, false);
 		board.placeMinion(PlayerSide.WAITING_PLAYER, minion1);
 		board.placeMinion(PlayerSide.WAITING_PLAYER, minion2);
 		board.placeMinion(PlayerSide.WAITING_PLAYER, minion3);
@@ -113,7 +113,7 @@ public class TestTaunt {
 	@Test
 	public void test3() throws HSException {
 		HolySmite hs = new HolySmite();
-		Minion minion1 = new Minion("" + 0, mana, attack0, health1, attack0, (byte)0, (byte)0, health1, health1, (byte)0, (byte)0, true, false, false, false, false, false, false, false, false, false, false, false, false, false, null, null, false, false);
+		Minion minion1 = new Minion("" + 0, mana, attack0, health1, attack0, (byte)0, (byte)0, health1, health1, (byte)0, (byte)0, true, false, false, false, false, false, false, false, false, true, false, false, false, false, null, null, false, false);
 
 		board.removeMinion(PlayerSide.CURRENT_PLAYER, 0);
 		board.placeCardHandCurrentPlayer(hs);
@@ -137,7 +137,7 @@ public class TestTaunt {
 	@Test
 	public void test4() throws HSException {
 		HolySmite hs = new HolySmite();
-		Minion minion1 = new Minion("" + 0, mana, attack0, health1, attack0, (byte)0, (byte)0, health1, health1, (byte)0, (byte)0, true, false, false, false, false, false, false, false, false, false, false, false, false, false, null, null, false, false);
+		Minion minion1 = new Minion("" + 0, mana, attack0, health1, attack0, (byte)0, (byte)0, health1, health1, (byte)0, (byte)0, true, false, false, false, false, false, false, false, false, true, false, false, false, false, null, null, false, false);
 
 		board.removeMinion(PlayerSide.CURRENT_PLAYER, 0);
 		board.placeCardHandCurrentPlayer(hs);
@@ -164,7 +164,7 @@ public class TestTaunt {
 	@Test
 	public void test5() throws HSException {
 		HolySmite hs = new HolySmite();
-		Minion minion1 = new Minion("" + 0, mana, attack0, health1, attack0, (byte)0, (byte)0, health1, health1, (byte)0, (byte)0, true, false, false, false, false, false, false, false, false, false, false, false, false, false, null, null, false, false);
+		Minion minion1 = new Minion("" + 0, mana, attack0, health1, attack0, (byte)0, (byte)0, health1, health1, (byte)0, (byte)0, true, false, false, false, false, false, false, false, false, true, false, false, false, false, null, null, false, false);
 
 		board.removeMinion(PlayerSide.CURRENT_PLAYER, 0);
 		board.placeCardHandCurrentPlayer(hs);

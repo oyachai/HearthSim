@@ -10,7 +10,6 @@ import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.card.spellcard.concrete.WildGrowth;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
-import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -233,11 +232,8 @@ public class TestShaman {
 	@Test
 	public void test1() throws HSException {
 
-		
-		PlayerModel playerModel0 = new PlayerModel(0, "player0", new Shaman(), deck);
-		PlayerModel playerModel1 = new PlayerModel(1, "player1", new Hero(), deck);
         ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
-		BoardModel resBoard = ai0.playTurn(0, board.data_, playerModel0, playerModel1, 200000000);
+		BoardModel resBoard = ai0.playTurn(0, board.data_, 200000000);
 
 		assertEquals(resBoard.getCurrentPlayer().getMana(), 6);
 		assertEquals(resBoard.getWaitingPlayer().getMana(), 8);

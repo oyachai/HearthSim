@@ -13,6 +13,7 @@ import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.util.tree.HearthTreeNode;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -26,7 +27,16 @@ public class TestAcolyteOfPain {
 
 	@Before
 	public void setup() throws HSException {
-		board = new HearthTreeNode(new BoardModel());
+		Card cards[] = new Card[10];
+		for (int index = 0; index < 10; ++index) {
+			cards[index] = new BloodfenRaptor();
+		}
+	
+		deck = new Deck(cards);
+		PlayerModel playerModel0 = new PlayerModel(0, "player0", new Hero(), deck);
+		PlayerModel playerModel1 = new PlayerModel(1, "player1", new Hero(), deck);
+
+		board = new HearthTreeNode(new BoardModel(playerModel0, playerModel1));
 
 		Minion minion0_0 = new AcolyteOfPain();
 		Minion minion0_1 = new GoldshireFootman();
@@ -39,12 +49,7 @@ public class TestAcolyteOfPain {
 		board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion1_0);
 		board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion1_1);
 		
-		Card cards[] = new Card[10];
-		for (int index = 0; index < 10; ++index) {
-			cards[index] = new BloodfenRaptor();
-		}
-	
-		deck = new Deck(cards);
+
 
 		Minion fb = new AcolyteOfPain();
 		board.data_.placeCardHandCurrentPlayer(fb);
@@ -107,13 +112,6 @@ public class TestAcolyteOfPain {
 	@Test
 	public void test3() throws HSException {
 		
-		
-
-		
-		Hero hero = new Hero();
-		PlayerModel playerModel0 = new PlayerModel(0, "player0", hero, deck);
-		PlayerModel playerModel1 = new PlayerModel(1, "player0", hero, deck);
-		
 		board.data_.getCurrentPlayer().setMana((byte)1);
 		board.data_.getWaitingPlayer().setMana((byte)1);
 		
@@ -122,7 +120,7 @@ public class TestAcolyteOfPain {
 
 
         ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
-		BoardModel resBoard = ai0.playTurn(0, board.data_, playerModel0, playerModel1);
+		BoardModel resBoard = ai0.playTurn(0, board.data_);
 		
 		assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 2); //1 card drawn from AcolyteOfPain, not enough mana to play it
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getNumMinions(), 2);
@@ -136,12 +134,6 @@ public class TestAcolyteOfPain {
 	@Test
 	public void test4() throws HSException {
 		
-
-		
-		Hero hero = new Hero();
-		PlayerModel playerModel0 = new PlayerModel(0, "player0", hero, deck);
-		PlayerModel playerModel1 = new PlayerModel(1, "player0", hero, deck);
-		
 		board.data_.getCurrentPlayer().setMana((byte)3);
 		board.data_.getWaitingPlayer().setMana((byte)3);
 		
@@ -150,7 +142,7 @@ public class TestAcolyteOfPain {
 
 
         ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
-		BoardModel resBoard = ai0.playTurn(0, board.data_, playerModel0, playerModel1, 200000000);
+		BoardModel resBoard = ai0.playTurn(0, board.data_, 200000000);
 		
 		assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 1); //1 card drawn from AcolyteOfPain, then played the Bloodfen Raptor
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getNumMinions(), 3);
@@ -163,13 +155,7 @@ public class TestAcolyteOfPain {
 	
 	@Test
 	public void test5() throws HSException {
-		
 
-		
-		Hero hero = new Hero();
-		PlayerModel playerModel0 = new PlayerModel(0, "player0", hero, deck);
-		PlayerModel playerModel1 = new PlayerModel(1, "player0", hero, deck);
-		
 		board.data_.getCurrentPlayer().setMana((byte)3);
 		board.data_.getWaitingPlayer().setMana((byte)3);
 		
@@ -183,7 +169,7 @@ public class TestAcolyteOfPain {
 		assertEquals(board.data_.getNumCardsHandWaitingPlayer(), 0);
 
         ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
-		BoardModel resBoard = ai0.playTurn(0, board.data_, playerModel0, playerModel1);
+		BoardModel resBoard = ai0.playTurn(0, board.data_);
 		
 		assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 1); //1 card drawn from AcolyteOfPain, then played the Bloodfen Raptor
 		assertEquals(resBoard.getNumCardsHandWaitingPlayer(), 1); //1 card drawn from AcolyteOfPain.  The Acolytes smack into each other.
