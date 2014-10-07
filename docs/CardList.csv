@@ -85,7 +85,7 @@ Crazed Alchemist|minion|neutral|rare|2|2|2|Battlecry: Swap the Attack and Health
 Cruel Taskmaster|minion|warrior|common|2|2|2|Battlecry: Deal 1 damage to a minion and give it +2 Attack|TRUE
 Cult Master|minion|neutral|common|4|4|2|Whenever one of your other minions dies, draw a card|FALSE
 Dalaran Mage|minion|neutral|free|3|1|4|Spell Damage +1|TRUE
-Dark Iron Dwarf|minion|neutral|common|4|4|4|Battlecry: Give a minion +2 Attack this turn|FALSE
+Dark Iron Dwarf|minion|neutral|common|4|4|4|Battlecry: Give a minion +2 Attack this turn|TRUE
 Darkscale Healer|minion|neutral|free|5|4|5|Battlecry: Restore 2 Health to all friendly characters|TRUE
 Deadly Poison|spell|rogue|free|1|||Give your weapon +2 Attack|TRUE
 Deadly Shot|spell|hunter|common|3|||Destroy a random enemy minion|FALSE

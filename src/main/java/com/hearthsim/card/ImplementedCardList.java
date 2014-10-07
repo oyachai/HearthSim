@@ -336,6 +336,11 @@ public class ImplementedCardList {
             map_.put(DalaranMage.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(DarkIronDwarf.class, "Dark Iron Dwarf", "minion", "neutral", "common", "Battlecry Give a minion +2 Attack this turn", 4, 4, 4);
+            list_.add(card);
+            map_.put(DarkIronDwarf.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(DarkscaleHealer.class, "Darkscale Healer", "minion", "neutral", "free", "Battlecry Restore 2 Health to all friendly characters", 5, 4, 5);
             list_.add(card);
             map_.put(DarkscaleHealer.class, card);
