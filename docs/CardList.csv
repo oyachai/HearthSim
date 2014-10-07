@@ -381,7 +381,7 @@ Wolfrider|minion|neutral|free|3|3|1|Charge|TRUE
 Worgen Infiltrator|minion|neutral|common|1|2|1|Stealth|TRUE
 Wrath|spell|neutral|common|2|||Choose One - Deal 3 damage to a minion; or 1 damage and draw a card|FALSE
 Young Dragonhawk|minion|neutral|common|1|1|1|Windfury|TRUE
-Young Priestess|minion|neutral|rare|1|2|1|At the end of your turn, give another random friendly minion +1 Health|FALSE
+Young Priestess|minion|neutral|rare|1|2|1|At the end of your turn, give another random friendly minion +1 Health|TRUE
 Youthful Brewmaster|minion|neutral|common|2|3|2|Battlecry: Return a friendly minion from the battlefield to your hand|FALSE
 Ysera|minion|neutral|legendary|9|4|12|At the end of your turn, draw a Dream Card|FALSE
 Zombie Chow|minion|neutral|common|1|2|3|Deathrattle: Restore 5 Health to the enemy hero.|TRUE

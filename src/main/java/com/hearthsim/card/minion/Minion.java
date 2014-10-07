@@ -173,12 +173,20 @@ public class Minion extends Card {
 		health_ = health;
 	}
 	
+	public void addHealth(byte value) {
+		health_ += value;
+	}
+	
 	public byte getMaxHealth() {
 		return maxHealth_;
 	}
 	
 	public void setMaxHealth(byte health) {
 		maxHealth_ = health;
+	}
+	
+	public void addMaxHealth(byte value) {
+		maxHealth_ += value;
 	}
 	
 	public byte getBaseHealth() {

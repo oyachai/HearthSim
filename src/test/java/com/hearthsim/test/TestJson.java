@@ -1,7 +1,6 @@
 package com.hearthsim.test;
 
 import com.hearthsim.card.Card;
-import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.BloodfenRaptor;
 import com.hearthsim.card.minion.concrete.GnomishInventor;
@@ -15,7 +14,6 @@ public class TestJson {
 
 
 	private HearthTreeNode board;
-	private Deck deck;
 	private static final byte mana = 2;
 	private static final byte attack0 = 5;
 	private static final byte health0 = 3;
@@ -41,7 +39,6 @@ public class TestJson {
 			cards[index] = new BloodfenRaptor();
 		}
 	
-		deck = new Deck(cards);
 
 		Minion fb = new GnomishInventor();
 		board.data_.placeCardHandCurrentPlayer(fb);

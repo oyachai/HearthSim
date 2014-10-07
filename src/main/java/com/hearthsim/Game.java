@@ -203,6 +203,8 @@ public class Game {
     	
     	toRet = toRet.data_.getCurrentPlayer().getHero().endTurn(PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1);
     	toRet = toRet.data_.getWaitingPlayer().getHero().endTurn(PlayerSide.WAITING_PLAYER, toRet, deckPlayer0, deckPlayer1);
+
+    	//To Do: The minions should trigger end-of-turn effects in the order that they were played
         for (int index = 0; index < toRet.data_.getCurrentPlayer().getMinions().size(); ++index) {
             Minion targetMinion = toRet.data_.getCurrentPlayer().getMinions().get(index);
             try {

@@ -1066,6 +1066,11 @@ public class ImplementedCardList {
             map_.put(YoungDragonhawk.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(YoungPriestess.class, "Young Priestess", "minion", "neutral", "rare", "At the end of your turn, give another random friendly minion +1 Health", 1, 2, 1);
+            list_.add(card);
+            map_.put(YoungPriestess.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(ZombieChow.class, "Zombie Chow", "minion", "neutral", "common", "Deathrattle Restore 5 Health to the enemy hero.", 1, 2, 3);
             list_.add(card);
             map_.put(ZombieChow.class, card);
