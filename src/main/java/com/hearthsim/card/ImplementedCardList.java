@@ -921,6 +921,11 @@ public class ImplementedCardList {
             map_.put(SludgeBelcher.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(SpectralKnight.class, "Spectral Knight", "minion", "neutral", "common", "Cant be targeted by Hero ability or spells.", 5, 4, 6);
+            list_.add(card);
+            map_.put(SpectralKnight.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(Spellbreaker.class, "Spellbreaker", "minion", "neutral", "common", "Battlecry Silence a minion", 4, 4, 3);
             list_.add(card);
             map_.put(Spellbreaker.class, card);

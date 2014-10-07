@@ -320,6 +320,7 @@ Soul of the Forest|spell|neutral|common|4|||Give your minions 'Deathrattle: Summ
 Soulfire|spell|warlock|free|0|||Deal 4 damage.Discard a random card|FALSE
 Southsea Captain|minion|neutral|epic|3|3|3|Your other Pirates have +1/+1|FALSE
 Southsea Deckhand|minion|neutral|common|1|2|1|Has Charge while you have a weapon equipped|FALSE
+Spectral Knight|minion|neutral|common|5|4|6|Can't be targeted by Hero ability or spells.|TRUE
 Spellbender|spell|mage|epic|3|||Secret: When an enemy casts a spell on a minion, summon a 1/3 as the new target|FALSE
 Spellbreaker|minion|neutral|common|4|4|3|Battlecry: Silence a minion|TRUE
 Spiteful Smith|minion|neutral|common|5|4|6|Enrage: Your weapon has +2 Attack|FALSE
