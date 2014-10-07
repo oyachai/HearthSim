@@ -301,6 +301,11 @@ public class ImplementedCardList {
             map_.put(ColdlightOracle.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(ColdlightSeer.class, "Coldlight Seer", "minion", "neutral", "rare", "Battlecry Give ALL other Murlocs +2 Health", 3, 2, 3);
+            list_.add(card);
+            map_.put(ColdlightSeer.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(Consecration.class, "Consecration", "spell", "paladin", "free", "Deal 2 damage to all enemies", 4, -1, -1);
             list_.add(card);
             map_.put(Consecration.class, card);

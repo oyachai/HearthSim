@@ -73,7 +73,7 @@ Claw|spell|neutral|free|1|||Give your hero +2 Attack this turn and 2 Armor|TRUE
 Cleave|spell|warrior|free|2|||Deal 2 damage to two random enemy minions|FALSE
 Cold Blood|spell|rogue|common|1|||Give a minion +2 Attack. Combo: +4 Attack instead|FALSE
 Coldlight Oracle|minion|neutral|rare|3|2|2|Battlecry: Each player draws 2 cards|TRUE
-Coldlight Seer|minion|neutral|rare|3|2|3|Battlecry: Give ALL other Murlocs +2 Health|FALSE
+Coldlight Seer|minion|neutral|rare|3|2|3|Battlecry: Give ALL other Murlocs +2 Health|TRUE
 Commanding Shout|spell|warrior|rare|2|||Your minions can't be reduced below 1 Health this turn. Draw a card|FALSE
 Conceal|spell|rogue|common|1|||Give your minions Stealth until your next turn|FALSE
 Cone of Cold|spell|mage|common|4|||Freeze a minion and the minions next to it, and deal 1 damage to them|FALSE
