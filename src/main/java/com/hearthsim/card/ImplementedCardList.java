@@ -1026,6 +1026,11 @@ public class ImplementedCardList {
             map_.put(TotemicMight.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(Undertaker.class, "Undertaker", "minion", "neutral", "common", "Whenever you summon a minion with Deathrattle, gain +1/+1", 1, 1, 2);
+            list_.add(card);
+            map_.put(Undertaker.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(UnstableGhoul.class, "Unstable Ghoul", "minion", "neutral", "common", "Taunt. Deathrattle Deal 1 damage to all minions", 2, 1, 3);
             list_.add(card);
             map_.put(UnstableGhoul.class, card);

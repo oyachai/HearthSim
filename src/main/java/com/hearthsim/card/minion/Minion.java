@@ -205,6 +205,10 @@ public class Minion extends Card {
 		attack_ = attack;
 	}
 	
+	public void addAttack(byte value) {
+		attack_ += value;
+	}
+	
 	public boolean getDivineShield() {
 		return divineShield_;
 	}
@@ -298,7 +302,7 @@ public class Minion extends Card {
 	}
 	
 	public boolean hasDeathrattle() {
-		return deathrattleAction_ == null;
+		return deathrattleAction_ != null;
 	}
 
 	public void setDeathrattle(DeathrattleAction action) {
