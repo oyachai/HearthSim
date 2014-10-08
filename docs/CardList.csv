@@ -114,7 +114,7 @@ Edwin VanCleef|minion|rogue|legendary|3|2|2|Combo: Gain +2/+2 for each card play
 Elite Tauren Chieftain|minion|neutral|legendary|5|5|5|Battlecry: Give both players the power to ROCK! (with a Power Chord card)|FALSE
 Elven Archer|minion|neutral|free|1|1|1|Battlecry: Deal 1 damage|TRUE
 Emperor Cobra|minion|neutral|rare|3|2|3|Destroy any minion damaged by this minion|FALSE
-Equality|spell|paladin|rare|2|||Change the Health of ALL minions to 1|FALSE
+Equality|spell|paladin|rare|2|||Change the Health of ALL minions to 1|TRUE
 Ethereal Arcanist|minion|mage|rare|4|3|3|If you control a Secret at the end of your turn, gain +2/+2|FALSE
 Eviscerate|spell|rogue|common|2|||Deal 2 damage.Combo: Deal 4 damage instead|FALSE
 Execute|spell|warrior|free|1|||Destroy a damaged enemy minion|TRUE

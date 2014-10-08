@@ -406,6 +406,11 @@ public class ImplementedCardList {
             map_.put(ElvenArcher.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(Equality.class, "Equality", "spell", "paladin", "rare", "Change the Health of ALL minions to 1", 2, -1, -1);
+            list_.add(card);
+            map_.put(Equality.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(Execute.class, "Execute", "spell", "warrior", "free", "Destroy a damaged enemy minion", 1, -1, -1);
             list_.add(card);
             map_.put(Execute.class, card);
