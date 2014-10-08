@@ -9,7 +9,7 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.Abomination;
-import com.hearthsim.card.minion.concrete.BlackKnight;
+import com.hearthsim.card.minion.concrete.TheBlackKnight;
 import com.hearthsim.card.minion.concrete.BoulderfistOgre;
 import com.hearthsim.card.minion.concrete.HarvestGolem;
 import com.hearthsim.card.minion.concrete.LootHoarder;
@@ -21,7 +21,7 @@ import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class TestBlackKnight {
+public class TestTheBlackKnight {
 
 	private HearthTreeNode board;
 	private Deck deck;
@@ -85,7 +85,7 @@ public class TestBlackKnight {
 		board.data_.resetMana();
 		board.data_.resetMinions();
 		
-		Minion fb = new BlackKnight();
+		Minion fb = new TheBlackKnight();
 		board.data_.placeCardHandCurrentPlayer(fb);
 
 	}

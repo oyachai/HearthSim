@@ -10,7 +10,7 @@ import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class BlackKnight extends Minion {
+public class TheBlackKnight extends Minion {
 
 
 	private static final String NAME = "Black Knight";
@@ -29,7 +29,7 @@ public class BlackKnight extends Minion {
 	private static final boolean TRANSFORMED = false;
 	private static final byte SPELL_DAMAGE = 0;
 	
-	public BlackKnight() {
+	public TheBlackKnight() {
 		this(
 				MANA_COST,
 				ATTACK,
@@ -62,7 +62,7 @@ public class BlackKnight extends Minion {
 			);
 	}
 	
-	public BlackKnight(	
+	public TheBlackKnight(	
 			byte mana,
 			byte attack,
 			byte health,
@@ -126,7 +126,7 @@ public class BlackKnight extends Minion {
 	
 	@Override
 	public Object deepCopy() {
-		return new BlackKnight(
+		return new TheBlackKnight(
 				this.mana_,
 				this.attack_,
 				this.health_,
