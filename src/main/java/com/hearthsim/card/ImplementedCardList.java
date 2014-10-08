@@ -1006,6 +1006,11 @@ public class ImplementedCardList {
             map_.put(TempleEnforcer.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(TheBlackKnight.class, "The Black Knight", "minion", "neutral", "legendary", "Battlecry Destroy an enemy minion with Taunt", 6, 4, 5);
+            list_.add(card);
+            map_.put(TheBlackKnight.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(ThrallmarFarseer.class, "Thrallmar Farseer", "minion", "neutral", "common", "Windfury", 3, 2, 3);
             list_.add(card);
             map_.put(ThrallmarFarseer.class, card);

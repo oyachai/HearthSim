@@ -345,7 +345,7 @@ Sylvanas Windrunner|minion|neutral|legendary|6|5|5|Deathrattle: Take control of 
 Tauren Warrior|minion|neutral|common|3|2|3|Taunt.Enrage: +3 Attack|TRUE
 Temple Enforcer|minion|priest|common|6|6|6|Battlecry: Give a friendly minion +3 Health|TRUE
 The Beast|minion|neutral|legendary|6|9|7|Deathrattle: Summon a 3/3 Finkle Einhorn for your opponent|FALSE
-The Black Knight|minion|neutral|legendary|6|4|5|Battlecry: Destroy an enemy minion with Taunt|FALSE
+The Black Knight|minion|neutral|legendary|6|4|5|Battlecry: Destroy an enemy minion with Taunt|TRUE
 Thoughtsteal|spell|priest|common|3|||Copy 2 cards from your opponent's deck and put them into your hand|FALSE
 Thrallmar Farseer|minion|neutral|common|3|2|3|Windfury|TRUE
 Timber Wolf|minion|hunter|free|1|1|1|Your other Beasts have +1 Attack|TRUE
