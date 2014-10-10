@@ -21,7 +21,7 @@ import java.util.ArrayList;
  */
 public class BoardModel implements DeepCopyable {
 
-    private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
+//    private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
 
     private final PlayerModel currentPlayer;
     private final PlayerModel waitingPlayer;
@@ -526,7 +526,7 @@ public class BoardModel implements DeepCopyable {
     }
 
 
-
+    @Override
     public boolean equals(Object other)
     {
         if (other == null)
@@ -539,120 +539,30 @@ public class BoardModel implements DeepCopyable {
             return false;
         }
 
-        if (currentPlayer.getMana() != ((BoardModel)other).currentPlayer.getMana())
-            return false;
-        if (waitingPlayer.getMana() != ((BoardModel)other).waitingPlayer.getMana())
-            return false;
-        if (currentPlayer.getMaxMana() != ((BoardModel)other).currentPlayer.getMaxMana())
-            return false;
-        if (waitingPlayer.getMaxMana() != ((BoardModel)other).waitingPlayer.getMaxMana())
-            return false;
+        BoardModel bOther = (BoardModel)other;
 
-        if (!currentPlayer.getHero().equals(((BoardModel)other).currentPlayer.getHero())) {
-            return false;
-        }
+        if (p0_deckPos_ != bOther.p0_deckPos_) return false;
+        if (p1_deckPos_ != bOther.p1_deckPos_) return false;
+        if (p0_fatigueDamage_ != bOther.p0_fatigueDamage_) return false;
+        if (p1_fatigueDamage_ != bOther.p1_fatigueDamage_) return false;
 
-        if (!waitingPlayer.getHero().equals(((BoardModel)other).waitingPlayer.getHero())) {
-            return false;
-        }
-
-        if (p0_deckPos_ != ((BoardModel)other).p0_deckPos_)
-            return false;
-
-        if (p1_deckPos_ != ((BoardModel)other).p1_deckPos_)
-            return false;
-
-        if (p0_fatigueDamage_ != ((BoardModel)other).p0_fatigueDamage_)
-            return false;
-
-        if (p1_fatigueDamage_ != ((BoardModel)other).p1_fatigueDamage_)
-            return false;
-
-        if (currentPlayer.getSpellDamage() != ((BoardModel)other).getCurrentPlayer().getSpellDamage())
-            return false;
-
-        if (getWaitingPlayer().getSpellDamage() != ((BoardModel)other).getWaitingPlayer().getSpellDamage())
-            return false;
-
-        if (currentPlayer.getMinions().size() != ((BoardModel)other).getCurrentPlayer().getMinions().size())
-            return false;
-        if (waitingPlayer.getMinions().size() != ((BoardModel)other).getWaitingPlayer().getMinions().size())
-            return false;
-        if (currentPlayer.getHand().size() != ((BoardModel)other).getCurrentPlayer().getHand().size())
-            return false;
-
-        for (int i = 0; i < currentPlayer.getMinions().size(); ++i) {
-            if (!currentPlayer.getMinions().get(i).equals(((BoardModel)other).getCurrentPlayer().getMinions().get(i))) {
-                return false;
-            }
-        }
-
-        for (int i = 0; i < waitingPlayer.getMinions().size(); ++i) {
-            if (!waitingPlayer.getMinions().get(i).equals(((BoardModel)other).getWaitingPlayer().getMinions().get(i))) {
-                return false;
-            }
-        }
-
-        for (int i = 0; i < currentPlayer.getHand().size(); ++i) {
-            if (!currentPlayer.getHand().get(i).equals(((BoardModel) other).getCurrentPlayer().getHand().get(i))) {
-                return false;
-            }
-        }
-
-        for (int i = 0; i < waitingPlayer.getHand().size(); ++i) {
-            if (!waitingPlayer.getHand().get(i).equals(((BoardModel)other).waitingPlayer.getHand().get(i))) {
-                return false;
-            }
-        }
-
-        // More logic here to be discuss below...
+        if (!currentPlayer.equals(bOther.currentPlayer)) return false;
+        if (!waitingPlayer.equals(bOther.waitingPlayer)) return false;
+     
         return true;
     }
 
     @Override
     public int hashCode() {
-        int hs = currentPlayer.getHand().size();
-        if (hs < 0) hs = 0;
-        int res = hs + getCurrentPlayer().getMinions().size() * 10 + waitingPlayer.getMinions().size() * 100;
-        res += (currentPlayer.getMana() <= 0 ? 0 : (currentPlayer.getMana() - 1) * 1000);
-        res += ((currentPlayer.getHero().getHealth() + waitingPlayer.getHero().getHealth()) % 100) * 10000;
-        int th = 0;
-        if (hs > 0) {
-            Card cc = currentPlayer.getHand().get(0);
-            try {
-                Minion mm = (Minion)cc;
-                th += (cc.hasBeenUsed() ? 1 : 0) + mm.getAttack() + mm.getHealth() + cc.getMana();
-            } catch (ClassCastException e) {
-                th += (cc.hasBeenUsed() ? 1 : 0) + cc.getMana();
-            }
-        }
-        if (hs > 1) {
-            Card cc = currentPlayer.getHand().get(1);
-            try {
-                Minion mm = (Minion)cc;
-                th += (cc.hasBeenUsed() ? 1 : 0) + mm.getAttack() + mm.getHealth() + cc.getMana();
-            } catch (ClassCastException e) {
-                th += (cc.hasBeenUsed() ? 1 : 0) + cc.getMana();
-            }
-        }
-        res += (th % 10) * 1000000;
-        int mh0 = 0;
-        if (currentPlayer.getMinions().size() > 0) {
-            mh0 += currentPlayer.getMinions().get(0).getHealth();
-        }
-        if (currentPlayer.getMinions().size() > 1) {
-            mh0 += currentPlayer.getMinions().get(1).getHealth();
-        }
-        res += (mh0 % 100) * 10000000;
-        int mh1 = 0;
-        if (waitingPlayer.getMinions().size() > 0) {
-            mh1 += waitingPlayer.getMinions().get(0).getHealth();
-        }
-        if (waitingPlayer.getMinions().size() > 1) {
-            mh1 += waitingPlayer.getMinions().get(1).getHealth();
-        }
-        res += (mh1 % 20) * 100000000;
-        return res;
+    	int hash = 1;
+    	hash = hash * 31 + currentPlayer.hashCode();
+    	hash = hash * 31 + waitingPlayer.hashCode();
+    	hash = hash * 31 + p0_deckPos_;
+    	hash = hash * 31 + p1_deckPos_;
+    	hash = hash * 31 + p0_fatigueDamage_;
+    	hash = hash * 31 + p1_fatigueDamage_;
+    	
+        return hash;
     }
 
     /**

@@ -33,14 +33,6 @@ public class SpellDamage extends SpellCard {
 			return false;
 		}
 		
-		if (other == null) {
-			return false;
-		}
-
-		if (this.getClass() != other.getClass()) {
-			return false;
-		}
-		
 		if (this.damage_ != ((SpellDamage)other).damage_) {
 			return false;
 		}

@@ -1,5 +1,7 @@
 package com.hearthsim.model;
 
+import org.json.JSONObject;
+
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
@@ -7,7 +9,6 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.IdentityLinkedList;
 import com.hearthsim.util.MinionList;
-import org.json.JSONObject;
 
 public class PlayerModel implements DeepCopyable {
 
@@ -186,5 +187,49 @@ public class PlayerModel implements DeepCopyable {
     	mana -= overload;
     	overload = 0;
     }
+    
+    @Override
+    public int hashCode() {
+    	int hash = 1;
+    	hash = hash * 31 + (null == name ? 0 : name.hashCode());
+    	hash = hash * 31 + playerId;
+    	hash = hash * 31 + (null == hero ? 0 : hero.hashCode());
+    	hash = hash * 31 + (null == deck ? 0 : deck.hashCode());
+    	hash = hash * 31 + mana;
+    	hash = hash * 31 + maxMana;
+    	hash = hash * 31 + (null == minions ? 0 : minions.hashCode());
+    	hash = hash * 31 + spellDamage;
+    	hash = hash * 31 + (null == hand ? 0 : hand.hashCode());
+    	hash = hash * 31 + overload;
+    	        
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        
+        if (other == null)
+            return false;
+
+        if (this.getClass() != other.getClass())
+            return false;
+
+        PlayerModel otherPlayer = (PlayerModel)other;
+
+        if (playerId != otherPlayer.playerId) return false;
+        if (mana != otherPlayer.mana) return false;
+        if (maxMana != otherPlayer.maxMana) return false;
+        if (spellDamage != otherPlayer.spellDamage) return false;
+        if (overload != otherPlayer.overload) return false;
+
+        if (!name.equals(otherPlayer.name)) return false;
+        if (!hero.equals(otherPlayer.hero)) return false;
+        if (deck != null && !deck.equals(otherPlayer.deck)) return false;
+        if (!minions.equals(otherPlayer.minions)) return false;
+        if (!hand.equals(otherPlayer.hand)) return false;
+        
+        return true;
+    }
+
 
 }

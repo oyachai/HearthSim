@@ -64,6 +64,17 @@ public class Minion extends Card {
 	//This is a flag to tell the BoardState that it can't cheat on the placement of this minion
 	protected boolean placementImportant_ = false;
 	
+	/**
+	 * Simplified constructor
+	 * 
+	 * @param name
+	 * @param mana
+	 * @param attack
+	 * @param health
+	 * @param baseAttack
+	 * @param baseHealth
+	 * @param maxHealth
+	 */
 	public Minion(String name, byte mana, byte attack, byte health, byte baseAttack, byte baseHealth, byte maxHealth) {
 		this(
 				name,
@@ -1200,43 +1211,35 @@ public class Minion extends Card {
 		if (!super.equals(other)) {
 			return false;
 		}
-		if (attack_ != ((Minion)other).attack_)
-			return false;
-		if (health_ != ((Minion)other).health_)
-			return false;
-		if (maxHealth_ != ((Minion)other).maxHealth_)
-			return false;
-		if (baseHealth_ != ((Minion)other).baseHealth_)
-			return false;
-		if (baseAttack_ != ((Minion)other).baseAttack_)
-			return false;
-		if (extraAttackUntilTurnEnd_ != ((Minion)other).extraAttackUntilTurnEnd_)
-			return false;
-		if (taunt_ != ((Minion)other).taunt_)
-			return false;
-		if (divineShield_ != ((Minion)other).divineShield_)
-			return false;
-		if (windFury_ != ((Minion)other).windFury_)
-			return false;
-		if (charge_ != ((Minion)other).charge_)
-			return false;
-		if (hasAttacked_ != ((Minion)other).hasAttacked_)
-			return false;
-		if (hasWindFuryAttacked_ != ((Minion)other).hasWindFuryAttacked_)
-			return false;
-		if (frozen_ != ((Minion)other).frozen_)
-			return false;
-		if (silenced_ != ((Minion)other).silenced_)
-			return false;
-		if (summoned_ != ((Minion)other).summoned_)
-			return false;
-		if (transformed_ != ((Minion)other).transformed_)
-			return false;
-		if (destroyOnTurnStart_ != ((Minion)other).destroyOnTurnStart_)
-			return false;
-		if (destroyOnTurnEnd_ != ((Minion)other).destroyOnTurnEnd_)
-			return false;
 		
+		Minion otherMinion = (Minion)other;
+		if (health_ != otherMinion.health_) return false;
+		if (maxHealth_ != otherMinion.maxHealth_) return false;
+		if (baseHealth_ != otherMinion.baseHealth_) return false;
+		if (auraHealth_ != otherMinion.auraHealth_) return false;
+
+		if (attack_ != otherMinion.attack_) return false;
+		if (baseAttack_ != otherMinion.baseAttack_) return false;
+		if (extraAttackUntilTurnEnd_ != otherMinion.extraAttackUntilTurnEnd_) return false;
+		if (auraAttack_ != otherMinion.auraAttack_) return false;
+
+		if (taunt_ != otherMinion.taunt_) return false;
+		if (divineShield_ != otherMinion.divineShield_) return false;
+		if (windFury_ != otherMinion.windFury_) return false;
+		if (charge_ != otherMinion.charge_) return false;
+		if (stealthed_ != otherMinion.stealthed_) return false;
+		if (hasAttacked_ != otherMinion.hasAttacked_) return false;
+		if (heroTargetable_ != otherMinion.heroTargetable_) return false;
+		if (hasWindFuryAttacked_ != otherMinion.hasWindFuryAttacked_) return false;
+		if (frozen_ != otherMinion.frozen_) return false;
+		if (silenced_ != otherMinion.silenced_) return false;
+		if (summoned_ != otherMinion.summoned_) return false;
+		if (transformed_ != otherMinion.transformed_) return false;
+		if (destroyOnTurnStart_ != otherMinion.destroyOnTurnStart_) return false;
+		if (destroyOnTurnEnd_ != otherMinion.destroyOnTurnEnd_) return false;
+		
+		if (spellDamage_ != otherMinion.spellDamage_) return false;
+
 		//This is checked for reference equality
 		if (deathrattleAction_ != ((Minion)other).deathrattleAction_)
 			return false;

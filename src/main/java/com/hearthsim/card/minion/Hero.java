@@ -7,6 +7,7 @@ import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.factory.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
+
 import org.json.JSONObject;
 
 public class Hero extends Minion {
@@ -243,4 +244,24 @@ public class Hero extends Minion {
 		json.put("weaponCharge", this.weaponCharge_);
 		return json;
 	}
+	
+	@Override
+	public boolean equals(Object other) {
+		if (!super.equals(other)) {
+			return false;
+		}
+		Hero hero = (Hero)other;
+		if (weaponCharge_ != hero.weaponCharge_) return false;
+		if (armor_ != hero.armor_) return false;
+		
+		return true;
+	}
+	
+    @Override
+    public int hashCode() {
+    	int hash = super.hashCode();
+    	hash = 31 * hash + (int) weaponCharge_;
+    	hash = 31 * hash + (int) armor_;
+    	return hash;
+    }
 }

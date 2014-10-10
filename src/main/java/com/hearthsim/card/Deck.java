@@ -56,4 +56,28 @@ public class Deck {
 		return cards_.length;
 	}
 
+	@Override
+	public int hashCode() {
+		int hash = 1;
+		for (Card card : cards_) {
+			hash = hash * 31 + (card != null ? card.hashCode() : 0);
+		}
+		return hash;
+	}
+	
+	@Override
+	public boolean equals(Object other) {
+        if (other == null)
+            return false;
+
+        if (this.getClass() != other.getClass())
+            return false;
+        
+        Deck oD = (Deck)other;
+        for (int indx = 0; indx < cards_.length; ++indx) {
+    		if (!cards_[indx].equals(oD.cards_[indx])) return false;
+        }
+        
+        return true;
+	}
 }

@@ -254,7 +254,7 @@ public class BoardStateFactoryBase {
 			timedOut_ = true;
 			return null;
 		}
-		
+				
 		if (boardStateNode.numChildren() > 0) {
 			//If this node already has children, just call doMoves on each of its children.
 			//This situation can happen, for example, after a battle cry
