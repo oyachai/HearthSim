@@ -1,5 +1,5 @@
 package com.hearthsim.util;
 
-public interface DeepCopyable {
-	public Object deepCopy();
+public interface DeepCopyable<T> {
+	public T deepCopy();
 }
