@@ -52,6 +52,9 @@ class BoardModelBuilder {
         if (options.deltaHealth) {
             minion.health += options.deltaHealth
         }
+        if (options.deltaAttack) {
+            minion.attack += options.deltaAttack
+        }
     }
 
     private fatigueDamage(Number fatigueDamage) {
