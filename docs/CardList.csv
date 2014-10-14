@@ -355,7 +355,7 @@ Totemic Might|spell|shaman|free|0|||Give your Totems +2 Health|TRUE
 Tracking|spell|hunter|free|1|||Look at the top three cards of your deck.Draw one and discard the others|FALSE
 Truesilver Champion|weapon|paladin|free|4|4||Whenever your hero attacks, restore 2 Health to it|FALSE
 Tundra Rhino|minion|hunter|free|5|2|5|Your Beasts have Charge|FALSE
-Twilight Drake|minion|neutral|rare|4|4|1|Battlecry: Gain +1 Health for each card in your hand|FALSE
+Twilight Drake|minion|neutral|rare|4|4|1|Battlecry: Gain +1 Health for each card in your hand|TRUE
 Twisting Nether|spell|warlock|epic|8|||Destroy all minions|FALSE
 Unbound Elemental|minion|shaman|common|3|2|4|Whenever you play a card with Overload, gain +1/+1|FALSE
 Undertaker|minion|neutral|common|1|1|2|Whenever you summon a minion with Deathrattle, gain +1/+1|TRUE

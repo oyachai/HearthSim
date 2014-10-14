@@ -1026,6 +1026,11 @@ public class ImplementedCardList {
             map_.put(TotemicMight.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(TwilightDrake.class, "Twilight Drake", "minion", "neutral", "rare", "Battlecry Gain +1 Health for each card in your hand", 4, 4, 1);
+            list_.add(card);
+            map_.put(TwilightDrake.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(Undertaker.class, "Undertaker", "minion", "neutral", "common", "Whenever you summon a minion with Deathrattle, gain +1/+1", 1, 1, 2);
             list_.add(card);
             map_.put(Undertaker.class, card);
