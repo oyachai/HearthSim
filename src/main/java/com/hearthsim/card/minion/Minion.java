@@ -656,13 +656,26 @@ public class Minion extends Card {
 	}
 	
 	
+	/**
+	 * Use an untargetable battlecry.  
+	 * 
+	 * @param minionPlacementTarget
+	 * @param boardState
+	 * @param deckPlayer0
+	 * @param deckPlayer1
+	 * @param singleRealizationOnly
+	 * @return
+	 * @throws HSException
+	 */
 	public HearthTreeNode useUntargetableBattlecry(
+			Minion minionPlacementTarget,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
-			Deck deckPlayer1
+			Deck deckPlayer1,
+			boolean singleRealizationOnly
 		) throws HSException
 	{
-		HearthTreeNode toRet = this.useUntargetableBattlecry_core(boardState, deckPlayer0, deckPlayer1);
+		HearthTreeNode toRet = this.useUntargetableBattlecry_core(minionPlacementTarget, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
 			//Check for dead minions
 			toRet = BoardStateFactoryBase.handleDeadMinions(toRet, deckPlayer0, deckPlayer1);
@@ -671,9 +684,11 @@ public class Minion extends Card {
 	}
 	
 	public HearthTreeNode useUntargetableBattlecry_core(
+			Minion minionPlacementTarget,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
-			Deck deckPlayer1
+			Deck deckPlayer1,
+			boolean singleRealizationOnly
 		) throws HSException
 	{
 		return null;
@@ -718,7 +733,7 @@ public class Minion extends Card {
 			for (BattlecryTargetType btt : this.getBattlecryTargets()) {
 				switch  (btt) {
 				case NO_TARGET:
-					toRet = this.useUntargetableBattlecry(toRet, deckPlayer0, deckPlayer1);
+					toRet = this.useUntargetableBattlecry(targetMinion, toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
 					break;
 				case ENEMY_HERO:
 					toRet = this.useTargetableBattlecry(PlayerSide.WAITING_PLAYER, PlayerSide.WAITING_PLAYER.getPlayer(toRet).getHero(), toRet, deckPlayer0, deckPlayer1);

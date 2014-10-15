@@ -28,6 +28,7 @@ class CardSpec extends Specification{
 		Assert.assertEquals(oldPlayerModel.maxMana, newPlayerModel.maxMana)
 		Assert.assertEquals(oldPlayerModel.overload, newPlayerModel.overload)
 		assertHeroEquals(oldPlayerModel.hero, newPlayerModel.hero)
+		Assert.assertEquals(oldPlayerModel.minions.size(), newPlayerModel.minions.size())
 		Assert.assertEquals(oldPlayerModel, newPlayerModel) //catch all
 	}
 

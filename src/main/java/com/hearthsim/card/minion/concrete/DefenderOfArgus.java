@@ -166,9 +166,11 @@ public class DefenderOfArgus extends Minion {
 	 */
 	@Override
 	public HearthTreeNode useUntargetableBattlecry_core(
+			Minion minionPlacementTarget,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
-			Deck deckPlayer1
+			Deck deckPlayer1,
+			boolean singleRealizationOnly
 		) throws HSException
 	{
 		HearthTreeNode toRet = boardState;
@@ -192,51 +194,5 @@ public class DefenderOfArgus extends Minion {
 		}
 		return toRet;
 	}
-//
-//	/**
-//	 * 
-//	 * Override for battlecry
-//	 * 
-//	 * Battlecry: Give adjacent minions +1/+1 and Taunt
-//	 * 
-//	 *
-//     *
-//     * @param side
-//     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-//     *
-//     * @return The boardState is manipulated and returned
-//	 */
-//	@Override
-//	public HearthTreeNode use_core(
-//			PlayerSide side,
-//			Minion targetMinion,
-//			HearthTreeNode boardState,
-//			Deck deckPlayer0,
-//			Deck deckPlayer1,
-//			boolean singleRealizationOnly)
-//		throws HSException
-//	{		
-//		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
-//		if (toRet != null) {
-//			int thisMinionIndex = toRet.data_.getMinions(side).indexOf(this);
-//			int numMinions = side.getPlayer(boardState).getNumMinions();
-//			if (numMinions > 1) {
-//				int minionToTheLeft = thisMinionIndex > 0 ? thisMinionIndex - 1 : -1;
-//				int minionToTheRight = thisMinionIndex < numMinions - 1 ? thisMinionIndex + 1 : -1;
-//				if (minionToTheLeft >= 0) {
-//					Minion minionToBuff = toRet.data_.getMinion(side, minionToTheLeft);
-//					minionToBuff.setAttack((byte)(minionToBuff.getAttack() + 1));
-//					minionToBuff.setHealth((byte)(minionToBuff.getHealth() + 1));
-//					minionToBuff.setTaunt(true);					
-//				}
-//				if (minionToTheRight >= 0) {
-//					Minion minionToBuff = toRet.data_.getMinion(side, minionToTheRight);
-//					minionToBuff.setAttack((byte)(minionToBuff.getAttack() + 1));
-//					minionToBuff.setHealth((byte)(minionToBuff.getHealth() + 1));
-//					minionToBuff.setTaunt(true);					
-//				}
-//			}
-//		}
-//		return toRet;
-//	}
+
 }

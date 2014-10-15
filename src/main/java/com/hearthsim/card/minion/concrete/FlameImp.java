@@ -4,6 +4,7 @@ import java.util.EnumSet;
 
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Demon;
+import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
@@ -166,9 +167,11 @@ public class FlameImp extends Demon {
 	 */
 	@Override
 	public HearthTreeNode useUntargetableBattlecry_core(
+			Minion minionPlacementTarget,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
-			Deck deckPlayer1
+			Deck deckPlayer1,
+			boolean singleRealizationOnly
 		) throws HSException
 	{
 		HearthTreeNode toRet = boardState;
