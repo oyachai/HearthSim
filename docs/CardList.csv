@@ -325,7 +325,7 @@ Spellbender|spell|mage|epic|3|||Secret: When an enemy casts a spell on a minion,
 Spellbreaker|minion|neutral|common|4|4|3|Battlecry: Silence a minion|TRUE
 Spiteful Smith|minion|neutral|common|5|4|6|Enrage: Your weapon has +2 Attack|FALSE
 Sprint|spell|rogue|free|7|||Draw 4 cards|TRUE
-Stampeding Kodo|minion|neutral|rare|5|3|5|Battlecry: Destroy a random enemy minion with 2 or less Attack|FALSE
+Stampeding Kodo|minion|neutral|rare|5|3|5|Battlecry: Destroy a random enemy minion with 2 or less Attack|TRUE
 Starfall|spell|neutral|rare|5|||Choose One - Deal 5 damage to a minion; or 2 damage to all enemy minions|FALSE
 Starfire|spell|neutral|free|6|||Deal 5 damage. Draw a card|TRUE
 Starving Buzzard|minion|hunter|free|5|3|2|Whenever you summon a Beast, draw a card|TRUE

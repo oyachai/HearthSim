@@ -197,7 +197,7 @@ public class StampedingKodo extends Beast {
 				}
 			}
 		} else {
-			int placementTargetIndex = (minionPlacementTarget instanceof Hero) ? 0 : PlayerSide.CURRENT_PLAYER.getPlayer(boardState).getMinions().indexOf(minionPlacementTarget) + 1;
+			int placementTargetIndex = minionPlacementTarget instanceof Hero ? 0 : PlayerSide.CURRENT_PLAYER.getPlayer(boardState).getMinions().indexOf(minionPlacementTarget) + 1;
 			int thisMinionIndex = PlayerSide.CURRENT_PLAYER.getPlayer(boardState).getMinions().indexOf(this) + 1;
 			toRet = new RandomEffectNode(boardState, new HearthAction(HearthAction.Verb.USE_CARD, PlayerSide.CURRENT_PLAYER, thisMinionIndex, PlayerSide.CURRENT_PLAYER, placementTargetIndex));
 			if (toRet != null) {

@@ -941,6 +941,11 @@ public class ImplementedCardList {
             map_.put(Sprint.class, card);
         }
         {
+            ImplementedCard card = new ImplementedCard(StampedingKodo.class, "Stampeding Kodo", "minion", "neutral", "rare", "Battlecry Destroy a random enemy minion with 2 or less Attack", 5, 3, 5);
+            list_.add(card);
+            map_.put(StampedingKodo.class, card);
+        }
+        {
             ImplementedCard card = new ImplementedCard(Starfire.class, "Starfire", "spell", "neutral", "free", "Deal 5 damage. Draw a card", 6, -1, -1);
             list_.add(card);
             map_.put(Starfire.class, card);
