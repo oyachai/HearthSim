@@ -270,4 +270,13 @@ class AllSetsSpec extends Specification {
         10   | 0     | 'Warrior'
     }
 
+    def 'able to find card by name '(){
+        when:
+        def instance = CardRegistry.getInstance()
+
+        then:
+        def definition = instance.cardByName('Abomination')
+        definition.id=='EX1_097'
+    }
+
 }
