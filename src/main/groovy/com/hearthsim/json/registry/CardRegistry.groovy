@@ -10,8 +10,7 @@ class CardRegistry {
             'Adrenaline Rush'
     ]
 
-    private List<MinionDefinition> minionDefinitions = []
-    private List<CardDefinition> spellDefinitions = []
+    List<CardDefinition> cardDefinitions = []
 
     public synchronized static CardRegistry getInstance() {
         if (!instance) {
@@ -54,28 +53,19 @@ class CardRegistry {
 
                 def playerClass = card.playerClass != null ? card.playerClass.toString() : 'Neutral'
 
-                if (card.type == 'Minion') {
-                    minionDefinitions << new MinionDefinition(
-                            name: card.name,
-                            set: setName,
-                            playerClass: playerClass,
-                            cost: card.cost,
-                            attack: card.attack,
-                            health: card.health,
-                            text: card.text,
-                            mechanics: card.mechanics
-                    )
-                } else if (card.type == 'Spell') {
-                    spellDefinitions << new CardDefinition(
-                            name: card.name,
-                            type: card.type,
-                            set: setName,
-                            playerClass: playerClass,
-                            cost: card.cost,
-                            text: card.text,
-                            mechanics: card.mechanics
-                    )
-                }
+                cardDefinitions << new CardDefinition(
+                        id: card.id,
+                        type: card.type,
+                        name: card.name,
+                        set: setName,
+                        playerClass: playerClass,
+                        cost: card.cost,
+                        attack: card.attack ?: -1,
+                        health: card.health ?: -1,
+                        text: card.text,
+                        rarity: card.rarity,
+                        mechanics: card.mechanics
+                )
 
 
             }
@@ -83,15 +73,20 @@ class CardRegistry {
         }
     }
 
-    public List<MinionDefinition> minionsByManaCostAndClass(int cost, String playerClass) {
-        minionDefinitions.findAll {
-            it.cost == cost && it.playerClass == playerClass
+    public List<CardDefinition> minionsByManaCostAndClass(int cost, String playerClass) {
+        cardDefinitions.findAll {
+            it.cost == cost && it.playerClass == playerClass && it.type == 'Minion'
         }
     }
 
-    public List<MinionDefinition> spellsByManaCostAndClass(int cost, String playerClass) {
-        spellDefinitions.findAll {
-            it.cost == cost && it.playerClass == playerClass && !it.mechanics?.contains('Secret')
+    public List<CardDefinition> spellsByManaCostAndClass(int cost, String playerClass) {
+        cardDefinitions.findAll {
+            it.cost == cost && it.playerClass == playerClass && !it.mechanics?.contains('Secret') && it.type == 'Spell'
         }
     }
+
+    public CardDefinition cardByName(String name) {
+        cardDefinitions.find { it.name == name }
+    }
+
 }
