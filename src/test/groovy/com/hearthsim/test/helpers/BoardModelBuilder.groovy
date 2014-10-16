@@ -49,12 +49,11 @@ class BoardModelBuilder {
 
     private updateMinion(int position, Map options){
         def minion = boardModel.getMinion(playerSide, position)
-        if (options.deltaHealth) {
-            minion.health += options.deltaHealth
-        }
-        if (options.deltaAttack) {
-            minion.attack += options.deltaAttack
-        }
+        minion.attack += options.deltaAttack ? options.deltaAttack : 0;
+        minion.health += options.deltaHealth ? options.deltaHealth : 0;
+
+		minion.auraAttack += options.deltaAuraAttack ? options.deltaAuraAttack : 0;
+        minion.auraHealth += options.deltaAuraHealth ? options.deltaAuraHealth : 0;
     }
 
     private fatigueDamage(Number fatigueDamage) {
@@ -90,13 +89,18 @@ class BoardModelBuilder {
     private removeMinion(int index){
         boardModel.removeMinion(playerSide, index)
     }
-
+	
+	private addCardToHand(Class cardClass) {
+		Card card = cardClass.newInstance()
+		boardModel.placeCardHandCurrentPlayer(card)
+	}
+	
     private removeCardFromHand(Class card) {
         def hand = boardModel.modelForSide(playerSide).hand
         def cardInHand = hand.find { it.class == card }
         boardModel.removeCardFromHand(cardInHand, playerSide)
     }
-
+		
     private addMinionToField(Class<Minion> minionClass) {
         Minion minion = minionClass.newInstance()
         minion.hasAttacked(true)

@@ -52,7 +52,7 @@ public class Silence extends SpellCard {
 		
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null)
-			toRet = targetMinion.silenced(side, boardState, deckPlayer0, deckPlayer1);
+			targetMinion.silenced(side, boardState);
 		return toRet;
 	}
 }

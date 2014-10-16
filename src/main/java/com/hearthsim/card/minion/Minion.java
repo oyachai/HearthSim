@@ -394,7 +394,8 @@ public class Minion extends Card {
 	public HearthTreeNode startTurn(PlayerSide thisMinionPlayerIndex, HearthTreeNode boardModel, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
 		HearthTreeNode toRet = boardModel;
 		if (destroyOnTurnStart_) {
-			toRet = this.destroyed(thisMinionPlayerIndex, toRet, deckPlayer0, deckPlayer1);
+//			toRet = this.destroyed(thisMinionPlayerIndex, toRet, deckPlayer0, deckPlayer1);
+			this.setHealth((byte)-99);
 		}
 		return toRet;
 	}
@@ -412,7 +413,8 @@ public class Minion extends Card {
 		extraAttackUntilTurnEnd_ = 0;
 		HearthTreeNode toRet = boardModel;
 		if (destroyOnTurnEnd_) {
-			toRet = this.destroyed(thisMinionPlayerIndex, toRet, deckPlayer0, deckPlayer1);
+//			toRet = this.destroyed(thisMinionPlayerIndex, toRet, deckPlayer0, deckPlayer1);
+			this.setHealth((byte)-99);
 		}
 		return toRet;
 	}
@@ -485,11 +487,6 @@ public class Minion extends Card {
         health_ = 0;
         HearthTreeNode toRet = boardState;
 
-        if (!silenced_) {
-            BoardModel data_ = boardState.data_;
-            toRet.data_.setSpellDamage(PlayerSide.CURRENT_PLAYER, (byte)(data_.getSpellDamage(PlayerSide.CURRENT_PLAYER) - spellDamage_));
-        }
-
         //perform the deathrattle action if there is one
         if (deathrattleAction_ != null) {
             toRet =  deathrattleAction_.performAction(this, thisPlayerSide, toRet, deckPlayer0, deckPlayer1);
@@ -510,24 +507,24 @@ public class Minion extends Card {
         return toRet;
 
 	}
+
+	
+	public void silenced(PlayerSide thisPlayerSide, HearthTreeNode boardState) throws HSInvalidPlayerIndexException {
+		this.silenced(thisPlayerSide, boardState.data_);
+	}
 	
 	/**
 	 * Called when this minion is silenced
 	 * 
 	 * Always use this function to "silence" minions
-	 * 
-	 *
      *
      * @param thisPlayerSide
      * @param boardState
-     * @param deckPlayer0 The deck of player0
      * @throws HSInvalidPlayerIndexException
 	 */
-	public HearthTreeNode silenced(PlayerSide thisPlayerSide, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
-		HearthTreeNode toRet = boardState;
+	public void silenced(PlayerSide thisPlayerSide, BoardModel boardState) throws HSInvalidPlayerIndexException {
 		if (!silenced_) {
-            BoardModel data_ = boardState.data_;
-            toRet.data_.setSpellDamage(PlayerSide.CURRENT_PLAYER, (byte)(data_.getSpellDamage(PlayerSide.CURRENT_PLAYER) - spellDamage_));
+			boardState.setSpellDamage(PlayerSide.CURRENT_PLAYER, (byte)(boardState.getSpellDamage(PlayerSide.CURRENT_PLAYER) - spellDamage_));
 		}
 
 		divineShield_ = false;
@@ -547,9 +544,6 @@ public class Minion extends Card {
 			if (this.health_ > this.maxHealth_)
 				this.health_ = this.maxHealth_;
 		}
-
-
-		return toRet;
 	}
 	
 	/**

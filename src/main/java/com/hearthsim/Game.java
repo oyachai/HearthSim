@@ -1,7 +1,5 @@
 package com.hearthsim;
 
-import java.util.ArrayList;
-
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
@@ -15,6 +13,7 @@ import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.results.GameRecord;
 import com.hearthsim.results.GameResult;
 import com.hearthsim.results.GameSimpleRecord;
+import com.hearthsim.util.factory.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class Game {
@@ -157,22 +156,8 @@ public class Game {
                 e.printStackTrace();
             }
         }
-        ArrayList<Minion> toRemove = new ArrayList<Minion>();
-        for (Minion targetMinion : toRet.data_.getCurrentPlayer().getMinions()) {
-            if (targetMinion.getTotalHealth() <= 0)
-                toRemove.add(targetMinion);
-        }
-        for (Minion minion : toRemove)
-            toRet.data_.getCurrentPlayer().getMinions().remove(minion);
-
-        toRemove.clear();
-        for (Minion targetMinion : toRet.data_.getWaitingPlayer().getMinions()) {
-            if (targetMinion.getTotalHealth() <= 0)
-                toRemove.add(targetMinion);
-        }
-        for (Minion minion : toRemove)
-            toRet.data_.getWaitingPlayer().getMinions().remove(minion);
         
+        toRet = BoardStateFactoryBase.handleDeadMinions(toRet, toRet.data_.getCurrentPlayer().getDeck(), toRet.data_.getWaitingPlayer().getDeck());        
         
         Card newCard = toRet.data_.getCurrentPlayer().drawFromDeck(toRet.data_.getDeckPos_p0());
         if (newCard == null) {
@@ -222,21 +207,7 @@ public class Game {
             }
         }
 
-        ArrayList<Minion> toRemove = new ArrayList<Minion>();
-        for (Minion targetMinion : toRet.data_.getCurrentPlayer().getMinions()) {
-            if (targetMinion.getTotalHealth() <= 0)
-                toRemove.add(targetMinion);
-        }
-        for (Minion minion : toRemove)
-        	toRet.data_.getCurrentPlayer().getMinions().remove(minion);
-
-        toRemove.clear();
-        for (Minion targetMinion : toRet.data_.getWaitingPlayer().getMinions()) {
-            if (targetMinion.getTotalHealth() <= 0)
-                toRemove.add(targetMinion);
-        }
-        for (Minion minion : toRemove)
-        	toRet.data_.getWaitingPlayer().getMinions().remove(minion);
+        toRet = BoardStateFactoryBase.handleDeadMinions(toRet, toRet.data_.getCurrentPlayer().getDeck(), toRet.data_.getWaitingPlayer().getDeck());
         
         return toRet.data_;
     }

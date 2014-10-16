@@ -455,6 +455,10 @@ public class BoardModel implements DeepCopyable {
 
     public boolean removeMinion(MinionPlayerPair minionIdPair) throws HSInvalidPlayerIndexException {
         this.allMinionsFIFOList_.remove(minionIdPair);
+        if (minionIdPair.getPlayerModel() == currentPlayer)
+        	minionIdPair.minion.silenced(PlayerSide.CURRENT_PLAYER, this);
+        else
+        	minionIdPair.minion.silenced(PlayerSide.WAITING_PLAYER, this);
         return minionIdPair.getPlayerModel().getMinions().remove(minionIdPair.minion);
     }
 
@@ -466,8 +470,7 @@ public class BoardModel implements DeepCopyable {
                 break;
             }
         }
-        this.allMinionsFIFOList_.remove(mP);
-        return mP.getPlayerModel().getMinions().remove(mP.minion);
+        return this.removeMinion(mP);
     }
 
     public boolean removeMinion(PlayerSide side, int minionIndex) throws HSException {

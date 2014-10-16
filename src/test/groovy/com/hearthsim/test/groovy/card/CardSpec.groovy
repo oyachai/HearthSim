@@ -1,9 +1,11 @@
 package com.hearthsim.test.groovy.card
 
 import com.hearthsim.card.minion.Hero
+import com.hearthsim.card.minion.Minion
 import com.hearthsim.model.BoardModel
 import com.hearthsim.model.PlayerModel
 import com.hearthsim.test.helpers.BoardModelBuilder
+import com.hearthsim.util.MinionList
 import org.junit.Assert
 import spock.lang.Specification
 
@@ -27,8 +29,9 @@ class CardSpec extends Specification{
 		Assert.assertEquals(oldPlayerModel.mana, newPlayerModel.mana)
 		Assert.assertEquals(oldPlayerModel.maxMana, newPlayerModel.maxMana)
 		Assert.assertEquals(oldPlayerModel.overload, newPlayerModel.overload)
+		Assert.assertEquals(oldPlayerModel.spellDamage, newPlayerModel.spellDamage)
 		assertHeroEquals(oldPlayerModel.hero, newPlayerModel.hero)
-		Assert.assertEquals(oldPlayerModel.minions.size(), newPlayerModel.minions.size())
+		assertMinionsEqual(oldPlayerModel.minions, newPlayerModel.minions)
 		Assert.assertEquals(oldPlayerModel, newPlayerModel) //catch all
 	}
 
@@ -38,5 +41,29 @@ class CardSpec extends Specification{
 		Assert.assertEquals(oldHero.attack, newHero.attack)
 		Assert.assertEquals(oldHero.frozen, newHero.frozen)
 		Assert.assertEquals(oldHero, newHero) //catch all
+	}
+	
+	void assertMinionsEqual(MinionList oldMinions, MinionList newMinions) {
+		Assert.assertEquals(oldMinions.size(), newMinions.size())
+		for (int indx = 0; indx < oldMinions.size(); ++indx) {
+			Minion oldMinion = oldMinions.get(indx)
+			Minion newMinion = newMinions.get(indx)
+			Assert.assertEquals(oldMinion.attack, newMinion.attack)
+			Assert.assertEquals(oldMinion.baseAttack_, newMinion.baseAttack_)
+			Assert.assertEquals(oldMinion.auraAttack, newMinion.auraAttack)
+			Assert.assertEquals(oldMinion.health, newMinion.health)
+			Assert.assertEquals(oldMinion.baseHealth, newMinion.baseHealth)
+			Assert.assertEquals(oldMinion.auraHealth, newMinion.auraHealth)
+			Assert.assertEquals(oldMinion.charge, newMinion.charge)
+			Assert.assertEquals(oldMinion.taunt, newMinion.taunt)
+			Assert.assertEquals(oldMinion.divineShield, newMinion.divineShield)
+			Assert.assertEquals(oldMinion.frozen, newMinion.frozen)
+			Assert.assertEquals(oldMinion.hasAttacked(), newMinion.hasAttacked())
+			Assert.assertEquals(oldMinion.heroTargetable, newMinion.heroTargetable)
+			Assert.assertEquals(oldMinion.silenced, newMinion.silenced)
+			Assert.assertEquals(oldMinion.stealthed, newMinion.stealthed)
+			Assert.assertEquals(oldMinion, newMinion) //catch all
+		}
+		
 	}
 }

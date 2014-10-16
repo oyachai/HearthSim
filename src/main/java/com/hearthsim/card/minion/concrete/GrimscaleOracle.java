@@ -7,6 +7,7 @@ import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
+import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -214,55 +215,22 @@ public class GrimscaleOracle extends Murloc {
      * @throws HSInvalidPlayerIndexException
 	 */
 	@Override
-	public HearthTreeNode silenced(PlayerSide thisPlayerSide, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
-		HearthTreeNode toRet = boardState;
+	public void silenced(PlayerSide thisPlayerSide, BoardModel boardState) throws HSInvalidPlayerIndexException {
 		if (!silenced_) {
-			for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
+			for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(boardState).getMinions()) {
 				if (minion instanceof Murloc && minion != this) {
 					minion.setAuraAttack((byte)(minion.getAuraAttack() - 1));
 				}
 			}
-			for (Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
+			for (Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(boardState).getMinions()) {
 				if (minion instanceof Murloc && minion != this) {
 					minion.setAuraAttack((byte)(minion.getAuraAttack() - 1));
 				}
 			}
 		}
-		toRet = this.silenced(thisPlayerSide, toRet, deckPlayer0, deckPlayer1);
-		return toRet;
+		this.silenced(thisPlayerSide, boardState);
 	}
-	
-	/**
-	 * Called when this minion dies (destroyed)
-	 * 
-	 * Override for the aura effect
-	 * 
-	 *
-     *
-     * @param thisPlayerSide
-     * @param boardState
-     * @throws HSInvalidPlayerIndexException
-	 */
-	@Override
-	public HearthTreeNode destroyed(PlayerSide thisPlayerSide, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
 		
-		HearthTreeNode toRet = boardState;
-		if (!silenced_) {
-			for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
-				if (minion instanceof Murloc && minion != this) {
-					minion.setAuraAttack((byte)(minion.getAuraAttack() - 1));
-				}
-			}
-			for (Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
-				if (minion instanceof Murloc && minion != this) {
-					minion.setAuraAttack((byte)(minion.getAuraAttack() - 1));
-				}
-			}
-		}
-		toRet = super.destroyed(thisPlayerSide, toRet, deckPlayer0, deckPlayer1);
-		return toRet;
-	}
-	
 	private HearthTreeNode doBuffs(
             Minion targetMinion,
             HearthTreeNode boardState)

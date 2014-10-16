@@ -7,6 +7,7 @@ import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
+import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -203,43 +204,17 @@ public class TimberWolf extends Beast {
      * @throws HSInvalidPlayerIndexException
 	 */
 	@Override
-	public HearthTreeNode silenced(PlayerSide thisPlayerSide, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
-		HearthTreeNode toRet = boardState;
+	public void silenced(PlayerSide thisPlayerSide, BoardModel boardState) throws HSInvalidPlayerIndexException {
 		if (!silenced_) {
-			for (Minion minion : toRet.data_.getMinions(thisPlayerSide)) {
+			for (Minion minion : boardState.getMinions(thisPlayerSide)) {
 				if (minion != this && minion instanceof Beast) {
 					minion.setAuraAttack((byte)(minion.getAuraAttack() - 1));
 				}
 			}
 		}
-		toRet = super.silenced(thisPlayerSide, toRet, deckPlayer0, deckPlayer1);
-		return toRet;
+		super.silenced(thisPlayerSide, boardState);
 	}
-	
-	/**
-	 * Called when this minion dies (destroyed)
-	 * 
-	 * Override for the aura effect
-	 * 
-	 *
-     *
-     * @param thisPlayerSide
-     * @param boardState
-     * @throws HSInvalidPlayerIndexException
-	 */
-	@Override
-	public HearthTreeNode destroyed(PlayerSide thisPlayerSide, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
-		HearthTreeNode toRet = super.destroyed(thisPlayerSide, boardState, deckPlayer0, deckPlayer1);
-		if (!silenced_) {
-			for (Minion minion : toRet.data_.getMinions(thisPlayerSide)) {
-				if (minion != this && minion instanceof Beast) {
-					minion.setAuraAttack((byte)(minion.getAuraAttack() - 1));
-				}
-			}
-		}
-		return super.destroyed(thisPlayerSide, toRet, deckPlayer0, deckPlayer1);
-	}
-	
+		
 	private HearthTreeNode doBuffs(
             PlayerSide thisMinionPlayerSide,
             PlayerSide placedMinionPlayerSide,

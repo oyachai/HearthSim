@@ -66,7 +66,6 @@ public class Sap extends SpellCard {
 		
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
-			targetMinion.silenced(side, toRet, deckPlayer0, deckPlayer1);
 			if (boardState.data_.getNumCardsHandWaitingPlayer() < 10) {
 				try {
 					Class<?> clazz = Class.forName(targetMinion.getClass().getName());

@@ -174,7 +174,7 @@ public class Spellbreaker extends Minion {
 		) throws HSException
 	{
 		HearthTreeNode toRet = boardState;
-		toRet = targetMinion.silenced(PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1);
+		targetMinion.silenced(PlayerSide.CURRENT_PLAYER, toRet.data_);
 		return toRet;
 	}
 

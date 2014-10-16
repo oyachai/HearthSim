@@ -232,7 +232,7 @@ public class TestAbomination {
 		//Silence the Abomination first, then attack with it
 		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 3);
 		Minion attacker = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
-		attacker.silenced(PlayerSide.CURRENT_PLAYER, board, null, null);
+		attacker.silenced(PlayerSide.CURRENT_PLAYER, board);
 		attacker.hasAttacked(false);
 		ret = attacker.attack(PlayerSide.WAITING_PLAYER, target, ret, null, null);
 

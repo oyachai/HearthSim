@@ -184,7 +184,7 @@ public class TestFlesheatingGhoul {
 
 		assertEquals(ret.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack(), 3);
 		assertEquals(ret.data_.getCurrentPlayer().getMinions().get(1).getTotalAttack(), 2);
-		assertEquals(ret.data_.getCurrentPlayer().getMinions().get(2).getTotalAttack(), 4 + 4); //4 minions died
+		assertEquals(ret.data_.getCurrentPlayer().getMinions().get(2).getTotalAttack(), 3 + 4); //4 minions died, including the Stormwind Champion
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(0).getTotalAttack(), 6);
 
 	}

@@ -1,18 +1,26 @@
 package com.hearthsim.card.minion.concrete;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.EnumSet;
+
+import com.hearthsim.card.Card;
+import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
-import com.hearthsim.event.deathrattle.DeathrattleDamageAll;
+import com.hearthsim.exception.HSException;
+import com.hearthsim.model.PlayerSide;
+import com.hearthsim.util.tree.HearthTreeNode;
 
-public class Abomination extends Minion {
+public class AncientBrewmaster extends Minion {
 
-	private static final String NAME = "Abomination";
-	private static final byte MANA_COST = 5;
-	private static final byte ATTACK = 4;
+	private static final String NAME = "Ancient Brewmaster";
+	private static final byte MANA_COST = 4;
+	private static final byte ATTACK = 5;
 	private static final byte HEALTH = 4;
 	
-	private static final boolean TAUNT = true;
+	private static final boolean TAUNT = false;
 	private static final boolean DIVINE_SHIELD = false;
 	private static final boolean WINDFURY = false;
 	private static final boolean CHARGE = false;
@@ -23,7 +31,7 @@ public class Abomination extends Minion {
 	private static final boolean TRANSFORMED = false;
 	private static final byte SPELL_DAMAGE = 0;
 	
-	public Abomination() {
+	public AncientBrewmaster() {
 		this(
 				MANA_COST,
 				ATTACK,
@@ -49,14 +57,14 @@ public class Abomination extends Minion {
 				TRANSFORMED,
 				false,
 				false,
-				new DeathrattleDamageAll((byte)2),
+				null,
 				null,
 				true,
 				false
 			);
 	}
 	
-	public Abomination(	
+	public AncientBrewmaster(	
 			byte mana,
 			byte attack,
 			byte health,
@@ -120,7 +128,7 @@ public class Abomination extends Minion {
 	
 	@Override
 	public Object deepCopy() {
-		return new Abomination(
+		return new AncientBrewmaster(
 				this.mana_,
 				this.attack_,
 				this.health_,
@@ -149,5 +157,49 @@ public class Abomination extends Minion {
 				this.attackAction_,
 				this.isInHand_,
 				this.hasBeenUsed);
+	}
+
+	@Override
+	public EnumSet<BattlecryTargetType> getBattlecryTargets() {
+		return EnumSet.of(BattlecryTargetType.FRIENDLY_MINIONS);
+	}
+	
+	/**
+	 * Battlecry: Change an enemy minion's attack to 1
+	 */
+	@Override
+	public HearthTreeNode useTargetableBattlecry_core(
+			PlayerSide side,
+			Minion targetMinion,
+			HearthTreeNode boardState,
+			Deck deckPlayer0,
+			Deck deckPlayer1
+		) throws HSException
+	{
+		HearthTreeNode toRet = boardState;
+		if (toRet != null) {
+			if (boardState.data_.getNumCardsHandCurrentPlayer() < 10) {
+				try {
+					Class<?> clazz = Class.forName(targetMinion.getClass().getName());
+					Constructor<?> ctor = clazz.getConstructor();
+					Object object = ctor.newInstance();
+					toRet.data_.placeCardHandCurrentPlayer((Card) object);
+				} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InvocationTargetException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InstantiationException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IllegalAccessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IllegalArgumentException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			toRet.data_.removeMinion(targetMinion);
+		}
+		return toRet;
 	}
 }

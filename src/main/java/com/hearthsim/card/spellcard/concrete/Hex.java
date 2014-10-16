@@ -62,7 +62,6 @@ public class Hex extends SpellCard {
 		
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
-			toRet = targetMinion.silenced(side, toRet, deckPlayer0, deckPlayer1);
 			Frog frog = new Frog();
 			toRet = frog.summonMinion(side, targetMinion, toRet, deckPlayer0, deckPlayer1, true);
 			toRet.data_.removeMinion(targetMinion);
