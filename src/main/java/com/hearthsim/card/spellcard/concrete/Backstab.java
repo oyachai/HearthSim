@@ -14,7 +14,7 @@ public class Backstab extends SpellDamage {
 	}
 
 	public Backstab(boolean hasBeenUsed) {
-		super("Arcane Shot", (byte)0, (byte)2, hasBeenUsed);
+		super((byte)0, (byte)2, hasBeenUsed);
 	}
 	
 	@Override

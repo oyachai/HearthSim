@@ -15,7 +15,7 @@ public class ShadowWordPain extends SpellCard {
 	 * @param hasBeenUsed Whether the card has already been used or not
 	 */
 	public ShadowWordPain(boolean hasBeenUsed) {
-		super("Shadow Word: Pain", (byte)2, hasBeenUsed);
+		super((byte)2, hasBeenUsed);
 	}
 
 	/**

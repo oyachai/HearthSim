@@ -15,7 +15,7 @@ public class BlessingOfKings extends SpellCard {
 	 * @param hasBeenUsed Whether the card has already been used or not
 	 */
 	public BlessingOfKings(boolean hasBeenUsed) {
-		super("Blessing of Kings", (byte)4, hasBeenUsed);
+		super((byte)4, hasBeenUsed);
 	}
 
 	/**

@@ -15,7 +15,7 @@ public class HandOfProtection extends SpellCard {
 	 * @param hasBeenUsed Whether the card has already been used or not
 	 */
 	public HandOfProtection(boolean hasBeenUsed) {
-		super("Hand Of Protection", (byte)1, hasBeenUsed);
+		super((byte)1, hasBeenUsed);
 	}
 
 	/**

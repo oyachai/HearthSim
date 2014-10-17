@@ -14,7 +14,7 @@ public class LavaBurst extends SpellDamage {
 	}
 
 	public LavaBurst(boolean hasBeenUsed) {
-		super("Lava Burst", (byte)3, (byte)5, hasBeenUsed);
+		super((byte)3, (byte)5, hasBeenUsed);
 	}
 
 	@Override

@@ -16,7 +16,7 @@ public class MarkOfTheWild extends SpellCard {
 	 * @param hasBeenUsed Whether the card has already been used or not
 	 */
 	public MarkOfTheWild(boolean hasBeenUsed) {
-		super("Mark of the Wild", (byte)2, hasBeenUsed);
+		super((byte)2, hasBeenUsed);
 	}
 
 	/**

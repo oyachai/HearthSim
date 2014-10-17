@@ -16,7 +16,7 @@ public class ArcaneIntellect extends SpellCard {
 	 * @param hasBeenUsed Whether the card has already been used or not
 	 */
 	public ArcaneIntellect(boolean hasBeenUsed) {
-		super("Arcane Intellect", (byte)3, hasBeenUsed);
+		super((byte)3, hasBeenUsed);
 	}
 
 	/**

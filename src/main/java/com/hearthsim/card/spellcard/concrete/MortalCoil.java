@@ -15,7 +15,7 @@ public class MortalCoil extends SpellDamage {
 	}
 
 	public MortalCoil(boolean hasBeenUsed) {
-		super("Mortal Coil", (byte)1, (byte)1, hasBeenUsed);
+		super((byte)1, (byte)1, hasBeenUsed);
 	}
 
 	@Override

@@ -16,7 +16,7 @@ public class Hex extends SpellCard {
 	 * @param hasBeenUsed Whether the card has already been used or not
 	 */
 	public Hex(boolean hasBeenUsed) {
-		super("Hex", (byte)3, hasBeenUsed);
+		super((byte)3, hasBeenUsed);
 	}
 
 	/**

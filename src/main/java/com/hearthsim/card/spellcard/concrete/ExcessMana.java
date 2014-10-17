@@ -16,7 +16,7 @@ public class ExcessMana extends SpellCard {
 	 * @param hasBeenUsed Whether the card has already been used or not
 	 */
 	public ExcessMana(boolean hasBeenUsed) {
-		super("Excess Mana", (byte)0, hasBeenUsed);
+		super((byte)0, hasBeenUsed);
 	}
 
 	/**

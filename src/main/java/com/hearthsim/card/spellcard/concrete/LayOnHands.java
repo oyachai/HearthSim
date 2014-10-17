@@ -16,7 +16,7 @@ public class LayOnHands extends SpellCard {
 	 * @param hasBeenUsed Whether the card has already been used or not
 	 */
 	public LayOnHands(boolean hasBeenUsed) {
-		super("Lay on Hands", (byte)8, hasBeenUsed);
+		super((byte)8, hasBeenUsed);
 	}
 
 	/**

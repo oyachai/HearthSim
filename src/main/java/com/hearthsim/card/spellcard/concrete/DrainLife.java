@@ -14,7 +14,7 @@ public class DrainLife extends SpellDamage {
 	}
 
 	public DrainLife(boolean hasBeenUsed) {
-		super("Drain Life", (byte)3, (byte)2, hasBeenUsed);
+		super((byte)3, (byte)2, hasBeenUsed);
 	}
 
 	@Override

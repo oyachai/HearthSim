@@ -20,7 +20,7 @@ public class BattleRage extends SpellCard {
 	 * @param hasBeenUsed Whether the card has already been used or not
 	 */
 	public BattleRage(boolean hasBeenUsed) {
-		super("Battle Rage", (byte)2, hasBeenUsed);
+		super((byte)2, hasBeenUsed);
 	}
 
 	/**

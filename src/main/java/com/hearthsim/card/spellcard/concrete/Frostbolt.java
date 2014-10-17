@@ -14,7 +14,7 @@ public class Frostbolt extends SpellDamage {
 	}
 
 	public Frostbolt(boolean hasBeenUsed) {
-		super("Frostbolt", (byte)2, (byte)3, hasBeenUsed);
+		super((byte)2, (byte)3, hasBeenUsed);
 	}
 	
 	@Override

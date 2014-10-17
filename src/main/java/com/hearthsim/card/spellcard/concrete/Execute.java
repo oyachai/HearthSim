@@ -15,7 +15,7 @@ public class Execute extends SpellCard {
 	 * @param hasBeenUsed Whether the card has already been used or not
 	 */
 	public Execute(boolean hasBeenUsed) {
-		super("Execute", (byte)1, hasBeenUsed);
+		super((byte)1, hasBeenUsed);
 	}
 
 	/**

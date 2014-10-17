@@ -15,7 +15,7 @@ public class HolyFire extends SpellDamage {
 	}
 
 	public HolyFire(boolean hasBeenUsed) {
-		super("Holy Fire", (byte)6, (byte)5, hasBeenUsed);
+		super((byte)6, (byte)5, hasBeenUsed);
 	}
 
 	@Override

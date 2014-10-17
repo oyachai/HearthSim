@@ -17,7 +17,7 @@ public class HolyLight extends SpellCard {
 	 * @param hasBeenUsed Whether the card has already been used or not
 	 */
 	public HolyLight(boolean hasBeenUsed) {
-		super("Holy Light", (byte)2, hasBeenUsed);
+		super((byte)2, hasBeenUsed);
 	}
 
 	/**

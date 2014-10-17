@@ -17,7 +17,7 @@ public class MirrorImage extends SpellCard {
 	 * @param hasBeenUsed Whether the card has already been used or not
 	 */
 	public MirrorImage(boolean hasBeenUsed) {
-		super("Mirror Image", (byte)1, hasBeenUsed);
+		super((byte)1, hasBeenUsed);
 	}
 
 	/**

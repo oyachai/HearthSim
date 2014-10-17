@@ -14,7 +14,7 @@ public class MindBlast extends SpellDamage {
 	}
 
 	public MindBlast(boolean hasBeenUsed) {
-		super("Mind Blast", (byte)2, (byte)5, hasBeenUsed);
+		super((byte)2, (byte)5, hasBeenUsed);
 	}
 
 	@Override

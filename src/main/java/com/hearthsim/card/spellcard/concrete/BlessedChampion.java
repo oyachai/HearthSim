@@ -15,7 +15,7 @@ public class BlessedChampion extends SpellCard {
 	 * @param hasBeenUsed Whether the card has already been used or not
 	 */
 	public BlessedChampion(boolean hasBeenUsed) {
-		super("Blessed Champion", (byte)5, hasBeenUsed);
+		super((byte)5, hasBeenUsed);
 	}
 
 	/**

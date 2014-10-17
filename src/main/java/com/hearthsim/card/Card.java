@@ -40,11 +40,18 @@ public class Card implements DeepCopyable {
 	 * @param isInHand Is the card in your hand?
 	 */
 	public Card(String name, byte mana, boolean hasBeenUsed, boolean isInHand) {
-		name_ = name;
 		mana_ = mana;
 		this.hasBeenUsed = hasBeenUsed;
 		isInHand_ = isInHand;
+        name_ = name;
 	}
+    public Card(byte mana, boolean hasBeenUsed, boolean isInHand) {
+        ImplementedCardList cardList = ImplementedCardList.getInstance();
+        ImplementedCardList.ImplementedCard implementedCard = cardList.getCardForClass(this.getClass());
+        name_ = implementedCard.name_;mana_ = mana;
+        this.hasBeenUsed = hasBeenUsed;
+        isInHand_ = isInHand;
+    }
 
 	/**
 	 * Constructor

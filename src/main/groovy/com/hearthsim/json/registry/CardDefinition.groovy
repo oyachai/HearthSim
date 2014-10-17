@@ -16,5 +16,6 @@ class CardDefinition {
     List<String> mechanics
     Integer attack
     Integer health
+    Boolean collectible
 
 }

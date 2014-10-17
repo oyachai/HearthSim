@@ -15,7 +15,7 @@ public class Flamestrike extends SpellCard {
 	 * @param hasBeenUsed Whether the card has already been used or not
 	 */
 	public Flamestrike(boolean hasBeenUsed) {
-		super("Flamestrike", (byte)7, hasBeenUsed);
+		super((byte)7, hasBeenUsed);
 	}
 
 	/**

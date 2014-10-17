@@ -5,8 +5,20 @@ import groovy.json.JsonSlurper
 
 class ImplementedCardList {
 
+    private static ImplementedCardList instance
+
     public ArrayList<ImplementedCard> list_;
     public Map<Class<?>, ImplementedCard> map_;
+
+    //todo: give singleton constructor, then use that in Card constructor
+
+    public synchronized static ImplementedCardList getInstance() {
+        if (!instance) {
+            instance = new ImplementedCardList()
+        }
+        return instance
+    }
+
 
     public class ImplementedCard implements Comparable<ImplementedCard> {
 
@@ -48,8 +60,8 @@ class ImplementedCardList {
                     name_: cardDefinition.name,
                     type_: cardDefinition.type.toLowerCase(),
                     charClass_: cardDefinition.playerClass.toLowerCase(),
-                    rarity_: cardDefinition.rarity.toLowerCase(),
-                    mana_: cardDefinition.cost,
+                    rarity_: cardDefinition.rarity?.toLowerCase(),
+                    mana_: cardDefinition.cost?: 0,
                     attack_: cardDefinition.attack ?: -1,
                     health_: cardDefinition.health ?: -1
             )
@@ -65,6 +77,7 @@ class ImplementedCardList {
         return list_;
     }
 
+    // todo: existing clients need to filter out collectibles
     public ImplementedCard getCardForClass(Class<?> clazz) {
         def card = map_.get(clazz)
         if (!card)

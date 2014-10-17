@@ -16,7 +16,7 @@ public class PowerWordShield extends SpellCard {
 	 * @param hasBeenUsed Whether the card has already been used or not
 	 */
 	public PowerWordShield(boolean hasBeenUsed) {
-		super("Power Word: Shield", (byte)1, hasBeenUsed);
+		super((byte)1, hasBeenUsed);
 	}
 
 	/**

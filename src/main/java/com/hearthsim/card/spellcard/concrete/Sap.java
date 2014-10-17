@@ -20,7 +20,7 @@ public class Sap extends SpellCard {
 	 * @param hasBeenUsed Whether the card has already been used or not
 	 */
 	public Sap(boolean hasBeenUsed) {
-		super("Sap", (byte)2, hasBeenUsed);
+		super((byte)2, hasBeenUsed);
 	}
 
 	/**

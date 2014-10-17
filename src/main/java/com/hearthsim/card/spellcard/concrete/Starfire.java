@@ -16,7 +16,7 @@ public class Starfire extends SpellDamage {
 	}
 
 	public Starfire(boolean hasBeenUsed) {
-		super("Starfire", (byte)6, (byte)5, hasBeenUsed);
+		super((byte)6, (byte)5, hasBeenUsed);
 	}
 
 	@Override

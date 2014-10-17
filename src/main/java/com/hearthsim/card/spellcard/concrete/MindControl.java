@@ -15,7 +15,7 @@ public class MindControl extends SpellCard {
 	 * @param hasBeenUsed Whether the card has already been used or not
 	 */
 	public MindControl(boolean hasBeenUsed) {
-		super("Mind Control", (byte)10, hasBeenUsed);
+		super((byte)10, hasBeenUsed);
 	}
 
 	/**

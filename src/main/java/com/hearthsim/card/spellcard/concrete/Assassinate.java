@@ -15,7 +15,7 @@ public class Assassinate extends SpellCard {
 	 * @param hasBeenUsed Whether the card has already been used or not
 	 */
 	public Assassinate(boolean hasBeenUsed) {
-		super("Assassinate", (byte)5, hasBeenUsed);
+		super((byte)5, hasBeenUsed);
 	}
 
 	/**

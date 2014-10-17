@@ -15,7 +15,7 @@ public class Slam extends SpellDamage {
 	}
 
 	public Slam(boolean hasBeenUsed) {
-		super("Slam", (byte)2, (byte)2, hasBeenUsed);
+		super((byte)2, (byte)2, hasBeenUsed);
 	}
 
 	@Override

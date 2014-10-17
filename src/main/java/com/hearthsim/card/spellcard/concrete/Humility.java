@@ -17,7 +17,7 @@ public class Humility extends SpellCard {
 	 * @param hasBeenUsed Whether the card has already been used or not
 	 */
 	public Humility(boolean hasBeenUsed) {
-		super("Humility", (byte)1, hasBeenUsed);
+		super((byte)1, hasBeenUsed);
 	}
 
 	/**

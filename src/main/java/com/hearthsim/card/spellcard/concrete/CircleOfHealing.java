@@ -17,7 +17,7 @@ public class CircleOfHealing extends SpellCard {
 	 * @param hasBeenUsed Whether the card has already been used or not
 	 */
 	public CircleOfHealing(boolean hasBeenUsed) {
-		super("Circle of Healing", (byte)0, hasBeenUsed);
+		super((byte)0, hasBeenUsed);
 	}
 
 	/**

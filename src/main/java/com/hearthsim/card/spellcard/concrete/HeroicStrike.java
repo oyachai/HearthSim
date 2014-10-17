@@ -17,7 +17,7 @@ public class HeroicStrike extends SpellCard {
 	 * @param hasBeenUsed Whether the card has already been used or not
 	 */
 	public HeroicStrike(boolean hasBeenUsed) {
-		super("Heroic Strike", (byte)1, hasBeenUsed);
+		super((byte)1, hasBeenUsed);
 	}
 
 	/**

@@ -14,7 +14,7 @@ public class FrostShock extends SpellDamage {
 	}
 
 	public FrostShock(boolean hasBeenUsed) {
-		super("Frost Shock", (byte)1, (byte)1, hasBeenUsed);
+		super((byte)1, (byte)1, hasBeenUsed);
 	}
 
 	@Override

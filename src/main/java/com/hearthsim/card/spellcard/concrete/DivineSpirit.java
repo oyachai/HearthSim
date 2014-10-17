@@ -16,7 +16,7 @@ public class DivineSpirit extends SpellCard {
 	 * @param hasBeenUsed Whether the card has already been used or not
 	 */
 	public DivineSpirit(boolean hasBeenUsed) {
-		super("Divine Spirit", (byte)1, hasBeenUsed);
+		super((byte)1, hasBeenUsed);
 	}
 
 	/**

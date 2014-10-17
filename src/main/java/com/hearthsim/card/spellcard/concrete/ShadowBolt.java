@@ -14,7 +14,7 @@ public class ShadowBolt extends SpellDamage {
 	}
 	
 	public ShadowBolt(boolean hasBeenUsed) {
-		super("Shadow Bolt", (byte)3, (byte)4, hasBeenUsed);
+		super((byte)3, (byte)4, hasBeenUsed);
 	}
 	
 	@Override

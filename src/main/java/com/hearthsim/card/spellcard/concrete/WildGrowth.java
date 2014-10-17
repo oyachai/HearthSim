@@ -16,7 +16,7 @@ public class WildGrowth extends SpellCard {
 	 * @param hasBeenUsed Whether the card has already been used or not
 	 */
 	public WildGrowth(boolean hasBeenUsed) {
-		super("Wild Growth", (byte)2, hasBeenUsed);
+		super((byte)2, hasBeenUsed);
 	}
 
 	/**

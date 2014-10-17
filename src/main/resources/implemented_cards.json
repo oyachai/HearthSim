@@ -858,5 +858,15 @@
     {
         "name": "Zombie Chow",
         "class": "com.hearthsim.card.minion.concrete.ZombieChow"
+    },
+    {
+        "name": "The Coin",
+        "class": "com.hearthsim.card.spellcard.concrete.TheCoin"
+    },
+    {
+        "name": "Excess Mana",
+        "class": "com.hearthsim.card.spellcard.concrete.ExcessMana"
     }
+
+
 ]
