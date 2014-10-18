@@ -117,26 +117,31 @@ public class HSCardSelectionList extends JList<ImplementedCard> {
 		
 		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
 			ImplementedCardList.ImplementedCard entry = (ImplementedCardList.ImplementedCard) value;
-			switch (entry.rarity_) {
-			case "free":
-				this.setForeground(HSColors.CARD_FREE_COLOR);
-				break;
-			case "common":
-				this.setForeground(HSColors.CARD_COMMON_COLOR);
-				break;
-			case "rare":
-				this.setForeground(HSColors.CARD_RARE_COLOR);
-				break;
-			case "epic":
-				this.setForeground(HSColors.CARD_EPIC_COLOR);
-				break;
-			case "legendary":
-				this.setForeground(HSColors.CARD_LEGENDARY_COLOR);
-				break;
-			default:
-				this.setForeground(HSColors.CARD_FREE_COLOR);
-				break;
-			}
+            if (entry.rarity_!=null){
+                switch (entry.rarity_) {
+                    case "free":
+                        this.setForeground(HSColors.CARD_FREE_COLOR);
+                        break;
+                    case "common":
+                        this.setForeground(HSColors.CARD_COMMON_COLOR);
+                        break;
+                    case "rare":
+                        this.setForeground(HSColors.CARD_RARE_COLOR);
+                        break;
+                    case "epic":
+                        this.setForeground(HSColors.CARD_EPIC_COLOR);
+                        break;
+                    case "legendary":
+                        this.setForeground(HSColors.CARD_LEGENDARY_COLOR);
+                        break;
+                    default:
+                        this.setForeground(HSColors.CARD_FREE_COLOR);
+                        break;
+                }
+            }else{
+                this.setForeground(HSColors.CARD_FREE_COLOR);
+            }
+
 			manaLabel_.setForeground(this.getForeground());
 			nameLabel_.setForeground(this.getForeground());
 

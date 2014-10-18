@@ -137,7 +137,7 @@ public class TestBigGameHunter {
 		assertEquals(ret.data_.getNumCards_hand(), 0);
 		assertEquals(ret.data_.getCurrentPlayer().getNumMinions(), 4);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getNumMinions(), 4);
-		assertEquals(ret.data_.getCurrentPlayer().getMana(), 6);
+		assertEquals(ret.data_.getCurrentPlayer().getMana(), 7);
 		assertEquals(ret.data_.getWaitingPlayer().getMana(), 10);
 		assertEquals(ret.data_.getCurrentPlayerHero().getHealth(), 30);
 		assertEquals(ret.data_.getWaitingPlayerHero().getHealth(), 30);
@@ -171,7 +171,7 @@ public class TestBigGameHunter {
 		assertEquals(cn3.data_.getNumCardsHandWaitingPlayer(), 0);
 		assertEquals(cn3.data_.getCurrentPlayer().getNumMinions(), 3);
 		assertEquals(cn3.data_.getWaitingPlayer().getNumMinions(), 4);
-		assertEquals(cn3.data_.getCurrentPlayer().getMana(), 6);
+		assertEquals(cn3.data_.getCurrentPlayer().getMana(), 7);
 		assertEquals(cn3.data_.getWaitingPlayer().getMana(), 10);
 		assertEquals(cn3.data_.getCurrentPlayerHero().getHealth(), 30);
 		assertEquals(cn3.data_.getWaitingPlayerHero().getHealth(), 30);
@@ -200,7 +200,7 @@ public class TestBigGameHunter {
 		assertEquals(cn4.data_.getNumCardsHandWaitingPlayer(), 1);
 		assertEquals(cn4.data_.getCurrentPlayer().getNumMinions(), 4);
 		assertEquals(cn4.data_.getWaitingPlayer().getNumMinions(), 1);
-		assertEquals(cn4.data_.getCurrentPlayer().getMana(), 6);
+		assertEquals(cn4.data_.getCurrentPlayer().getMana(), 7);
 		assertEquals(cn4.data_.getWaitingPlayer().getMana(), 10);
 		assertEquals(cn4.data_.getCurrentPlayerHero().getHealth(), 28);
 		assertEquals(cn4.data_.getWaitingPlayerHero().getHealth(), 28);

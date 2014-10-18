@@ -1,8 +1,6 @@
 package com.hearthsim.card.minion;
 
 import com.hearthsim.card.Deck;
-import com.hearthsim.event.attack.AttackAction;
-import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.model.BoardModel;
@@ -11,44 +9,18 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public abstract class MinionWithEnrage extends Minion {
 
+    protected boolean enraged_;
 
-	public MinionWithEnrage(
-					String name,
-					byte mana,
-					byte attack,
-					byte health,
-					byte baseAttack,
-					byte extraAttackUntilTurnEnd,
-					byte auraAttack,
-					byte baseHealth,
-					byte maxHealth,
-					byte auraHealth,
-					byte spellDamage,
-					boolean taunt,
-					boolean divineShield,
-					boolean windFury,
-					boolean charge,
-					boolean hasAttacked,
-					boolean hasWindFuryAttacked,
-					boolean frozen,
-					boolean silenced,
-					boolean stealthed_,
-					boolean heroTargetable_,
-					boolean summoned,
-					boolean transformed,
-					boolean destroyOnTurnStart,
-					boolean destroyOnTurnEnd,
-					boolean enraged,
-					DeathrattleAction deathrattleAction,
-					AttackAction attackAction,
-					boolean isInHand,
-					boolean hasBeenUsed) {
-		super(name, mana, attack, health, baseAttack, extraAttackUntilTurnEnd, auraAttack, baseHealth, maxHealth, auraHealth, spellDamage, taunt, divineShield, windFury, charge, hasAttacked, hasWindFuryAttacked, frozen, silenced, stealthed_, heroTargetable_, summoned, transformed, destroyOnTurnStart, destroyOnTurnEnd, deathrattleAction, attackAction, isInHand, hasBeenUsed);
-		enraged_ = enraged;
-	}
-	
+    protected MinionWithEnrage() {
+        super();
+    }
+
 	@Override
-	public abstract Object deepCopy();
+	public Object deepCopy() {
+        MinionWithEnrage minionWithEnrage = (MinionWithEnrage) super.deepCopy();
+        minionWithEnrage.enraged_ = enraged_;
+        return  minionWithEnrage;
+    }
 	
 	/**
 	 * Turn on enrage
@@ -136,8 +108,4 @@ public abstract class MinionWithEnrage extends Minion {
 			}
 		}
 	}
-	
-	protected boolean enraged_;
-	
-
 }

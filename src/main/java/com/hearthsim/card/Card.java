@@ -8,7 +8,6 @@ import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.factory.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
-
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,7 +52,10 @@ public class Card implements DeepCopyable {
         isInHand_ = isInHand;
     }
 
-	/**
+    public Card() {
+    }
+
+    /**
 	 * Constructor
 	 * 
 	 * @param name Name of the card
