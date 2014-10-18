@@ -15,7 +15,7 @@ public class HammerOfWrath extends SpellDamage {
 	}
 
 	public HammerOfWrath(boolean hasBeenUsed) {
-		super("Hammer Of Wrath", (byte)4, (byte)3, hasBeenUsed);
+		super((byte)4, (byte)3, hasBeenUsed);
 	}
 
 	@Override

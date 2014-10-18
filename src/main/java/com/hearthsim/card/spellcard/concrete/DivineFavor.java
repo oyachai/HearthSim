@@ -15,7 +15,7 @@ public class DivineFavor extends SpellCard {
 	 * @param hasBeenUsed Whether the card has already been used or not
 	 */
 	public DivineFavor(boolean hasBeenUsed) {
-		super("Divine Favor", (byte)3, hasBeenUsed);
+		super((byte)3, hasBeenUsed);
 	}
 
 	/**

@@ -16,7 +16,7 @@ public class HolyNova extends SpellCard {
 	 * @param hasBeenUsed Whether the card has already been used or not
 	 */
 	public HolyNova(boolean hasBeenUsed) {
-		super("Holy Nova", (byte)5, hasBeenUsed);
+		super((byte)5, hasBeenUsed);
 	}
 
 	/**

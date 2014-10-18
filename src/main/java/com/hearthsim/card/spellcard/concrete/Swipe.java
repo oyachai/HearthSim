@@ -16,7 +16,7 @@ public class Swipe extends SpellCard {
 	 * @param hasBeenUsed Whether the card has already been used or not
 	 */
 	public Swipe(boolean hasBeenUsed) {
-		super("Swipe", (byte)4, hasBeenUsed);
+		super((byte)4, hasBeenUsed);
 	}
 
 	/**

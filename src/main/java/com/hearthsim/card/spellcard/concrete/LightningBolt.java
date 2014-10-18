@@ -14,7 +14,7 @@ public class LightningBolt extends SpellDamage {
 	}
 
 	public LightningBolt(boolean hasBeenUsed) {
-		super("Lightning Bolt", (byte)1, (byte)3, hasBeenUsed);
+		super((byte)1, (byte)3, hasBeenUsed);
 	}
 
 	@Override

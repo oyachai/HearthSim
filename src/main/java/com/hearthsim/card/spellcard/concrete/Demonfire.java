@@ -16,7 +16,7 @@ public class Demonfire extends SpellCard {
 	 * @param hasBeenUsed Whether the card has already been used or not
 	 */
 	public Demonfire(boolean hasBeenUsed) {
-		super("Demonfire", (byte)2, hasBeenUsed);
+		super((byte)2, hasBeenUsed);
 	}
 
 	/**

@@ -17,7 +17,7 @@ public class FanOfKnives extends SpellCard {
 	 * @param hasBeenUsed Whether the card has already been used or not
 	 */
 	public FanOfKnives(boolean hasBeenUsed) {
-		super("Fan of Knives", (byte)3, hasBeenUsed);
+		super((byte)3, hasBeenUsed);
 	}
 
 	/**

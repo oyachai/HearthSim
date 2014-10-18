@@ -16,7 +16,7 @@ public class Polymorph extends SpellCard {
 	 * @param hasBeenUsed Whether the card has already been used or not
 	 */
 	public Polymorph(boolean hasBeenUsed) {
-		super("Polymorph", (byte)4, hasBeenUsed);
+		super((byte)4, hasBeenUsed);
 	}
 
 	/**

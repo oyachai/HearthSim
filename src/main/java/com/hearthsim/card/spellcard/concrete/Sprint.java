@@ -17,7 +17,7 @@ public class Sprint extends SpellCard {
 	 * @param hasBeenUsed Whether the card has already been used or not
 	 */
 	public Sprint(boolean hasBeenUsed) {
-		super("Sprint", (byte)7, hasBeenUsed);
+		super((byte)7, hasBeenUsed);
 	}
 
 	/**

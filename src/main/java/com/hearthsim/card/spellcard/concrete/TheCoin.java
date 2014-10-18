@@ -12,7 +12,7 @@ import org.json.JSONObject;
 public class TheCoin extends SpellCard {
 
 	public TheCoin(boolean hasBeenUsed) {
-		super("The Coin", (byte)0, hasBeenUsed);
+		super((byte)0, hasBeenUsed);
 	}
 
 	public TheCoin() {

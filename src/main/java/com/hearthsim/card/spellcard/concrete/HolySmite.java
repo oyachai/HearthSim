@@ -9,7 +9,7 @@ public class HolySmite extends SpellDamage {
 	}
 	
 	public HolySmite(boolean hasBeenUsed) {
-		super("Holy Smite", (byte)1, (byte)2, hasBeenUsed);
+		super((byte)1, (byte)2, hasBeenUsed);
 	}
 	
 	@Override

@@ -7,12 +7,12 @@ public class SpellHeal extends SpellCard {
 	byte healAmount_;
 	
 	public SpellHeal(String name, byte mana, byte healAmount, boolean hasBeenUsed) {
-		super(name, mana, hasBeenUsed);
+		super(mana, hasBeenUsed);
 		healAmount_ = healAmount;
 	}
 
 	public SpellHeal() {
-		super("Heal Spell", (byte)0, false);
+		super((byte)0, false);
 		healAmount_ = 0;
 	}
 

@@ -17,7 +17,7 @@ public class Whirlwind extends SpellCard {
 	 * @param hasBeenUsed Whether the card has already been used or not
 	 */
 	public Whirlwind(boolean hasBeenUsed) {
-		super("Whirlwind", (byte)1, hasBeenUsed);
+		super((byte)1, hasBeenUsed);
 	}
 
 	/**

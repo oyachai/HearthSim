@@ -9,7 +9,7 @@ public class Pyroblast extends SpellDamage {
 	}
 	
 	public Pyroblast(boolean hasBeenUsed) {
-		super("Pyroblast", (byte)10, (byte)10, hasBeenUsed);
+		super((byte)10, (byte)10, hasBeenUsed);
 	}
 	
 	@Override

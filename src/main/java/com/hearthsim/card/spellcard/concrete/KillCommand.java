@@ -15,7 +15,7 @@ public class KillCommand extends SpellDamage {
 	}
 
 	public KillCommand(boolean hasBeenUsed) {
-		super("Kill Command", (byte)3, (byte)3, hasBeenUsed);
+		super((byte)3, (byte)3, hasBeenUsed);
 	}
 
 	@Override

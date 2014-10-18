@@ -15,7 +15,7 @@ public class Innervate extends SpellCard {
 	 * @param hasBeenUsed Whether the card has already been used or not
 	 */
 	public Innervate(boolean hasBeenUsed) {
-		super("Innervate", (byte)0, hasBeenUsed);
+		super((byte)0, hasBeenUsed);
 	}
 
 	/**

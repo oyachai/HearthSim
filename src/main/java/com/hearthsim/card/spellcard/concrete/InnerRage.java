@@ -15,7 +15,7 @@ public class InnerRage extends SpellCard {
 	 * @param hasBeenUsed Whether the card has already been used or not
 	 */
 	public InnerRage(boolean hasBeenUsed) {
-		super("Inner Rage", (byte)0, hasBeenUsed);
+		super((byte)0, hasBeenUsed);
 	}
 
 	/**

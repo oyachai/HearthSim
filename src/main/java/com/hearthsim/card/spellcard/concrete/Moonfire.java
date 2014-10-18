@@ -9,7 +9,7 @@ public class Moonfire extends SpellDamage {
 	}
 
 	public Moonfire(boolean hasBeenUsed) {
-		super("Moonfire", (byte)0, (byte)1, hasBeenUsed);
+		super((byte)0, (byte)1, hasBeenUsed);
 	}
 
 	@Override

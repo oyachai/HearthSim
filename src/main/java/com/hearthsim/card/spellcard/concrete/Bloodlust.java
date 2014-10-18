@@ -14,7 +14,7 @@ public class Bloodlust extends SpellCard {
 	}
 
 	public Bloodlust(boolean hasBeenUsed) {
-		super("Bloodlust", (byte)5, hasBeenUsed);
+		super((byte)5, hasBeenUsed);
 	}
 	
 	@Override

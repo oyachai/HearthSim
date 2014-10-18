@@ -16,7 +16,7 @@ public class Shiv extends SpellDamage {
 	}
 
 	public Shiv(boolean hasBeenUsed) {
-		super("Shiv", (byte)2, (byte)1, hasBeenUsed);
+		super((byte)2, (byte)1, hasBeenUsed);
 	}
 
 	@Override

@@ -15,7 +15,7 @@ public class Windfury extends SpellCard {
 	 * @param hasBeenUsed Whether the card has already been used or not
 	 */
 	public Windfury(boolean hasBeenUsed) {
-		super("Windfury", (byte)2, hasBeenUsed);
+		super((byte)2, hasBeenUsed);
 	}
 
 	/**

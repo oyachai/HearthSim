@@ -17,7 +17,7 @@ public class SavageRoar extends SpellCard {
 	 * @param hasBeenUsed Whether the card has already been used or not
 	 */
 	public SavageRoar(boolean hasBeenUsed) {
-		super("Savage Roar", (byte)3, hasBeenUsed);
+		super((byte)3, hasBeenUsed);
 	}
 
 	/**

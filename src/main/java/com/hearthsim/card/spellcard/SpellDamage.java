@@ -11,13 +11,13 @@ public class SpellDamage extends SpellCard {
 
 	protected byte damage_;
 	
-	public SpellDamage(String name, byte mana, byte damage, boolean hasBeenUsed) {
-		super(name, mana, hasBeenUsed);
+	public SpellDamage(byte mana, byte damage, boolean hasBeenUsed) {
+		super(mana, hasBeenUsed);
 		damage_ = damage;
 	}
 
 	public SpellDamage() {
-		super("Damage Spell", (byte)0, false);
+		super((byte)0, false);
 		damage_ = 0;
 	}
 
@@ -49,7 +49,7 @@ public class SpellDamage extends SpellCard {
 
     @Override
 	public Object deepCopy() {
-		return new SpellDamage(this.getName(), this.getMana(), damage_, this.hasBeenUsed());
+		return new SpellDamage(this.getMana(), damage_, this.hasBeenUsed());
 	}
 
 	/**

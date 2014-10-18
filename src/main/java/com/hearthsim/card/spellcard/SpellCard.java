@@ -10,12 +10,12 @@ import org.json.JSONObject;
 
 public class SpellCard extends Card {
 
-	public SpellCard(String name, byte mana, boolean hasBeenUsed) {
-		super(name, mana, hasBeenUsed, true);
+	public SpellCard(byte mana, boolean hasBeenUsed) {
+		super(mana, hasBeenUsed, true);
 	}
 
-	public SpellCard(String name, byte mana) {
-		this(name, mana, false);
+	public SpellCard(byte mana) {
+		this(mana, false);
 	}
 
     @Override

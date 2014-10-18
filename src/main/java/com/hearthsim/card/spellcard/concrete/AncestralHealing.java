@@ -15,7 +15,7 @@ public class AncestralHealing extends SpellCard {
 	 * @param hasBeenUsed Whether the card has already been used or not
 	 */
 	public AncestralHealing(boolean hasBeenUsed) {
-		super("Ancestral Healing", (byte)0, hasBeenUsed);
+		super((byte)0, hasBeenUsed);
 	}
 
 	/**

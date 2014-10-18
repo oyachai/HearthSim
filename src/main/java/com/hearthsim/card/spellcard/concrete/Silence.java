@@ -15,7 +15,7 @@ public class Silence extends SpellCard {
 	}
 
 	public Silence(boolean hasBeenUsed) {
-		super("Silence", (byte)0, hasBeenUsed);
+		super((byte)0, hasBeenUsed);
 	}
 
 	@Override

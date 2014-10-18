@@ -9,7 +9,7 @@ public class ArcaneShot extends SpellDamage {
 	}
 
 	public ArcaneShot(boolean hasBeenUsed) {
-		super("Arcane Shot", (byte)1, (byte)2, hasBeenUsed);
+		super((byte)1, (byte)2, hasBeenUsed);
 	}
 	
 	@Override

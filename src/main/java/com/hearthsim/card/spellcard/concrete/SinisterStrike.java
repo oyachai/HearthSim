@@ -14,7 +14,7 @@ public class SinisterStrike extends SpellDamage {
 	}
 
 	public SinisterStrike(boolean hasBeenUsed) {
-		super("Sinister Strike", (byte)1, (byte)3, hasBeenUsed);
+		super((byte)1, (byte)3, hasBeenUsed);
 	}
 
 	@Override

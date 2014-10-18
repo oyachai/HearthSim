@@ -14,7 +14,7 @@ public class HuntersMark extends SpellCard {
 	 * @param hasBeenUsed Whether the card has already been used or not
 	 */
 	public HuntersMark(boolean hasBeenUsed) {
-		super("Hunter's Mark", (byte)0, hasBeenUsed);
+		super((byte)0, hasBeenUsed);
 	}
 
 	/**

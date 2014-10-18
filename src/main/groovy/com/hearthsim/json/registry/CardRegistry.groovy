@@ -49,7 +49,7 @@ class CardRegistry {
 
         cards.each { card ->
 
-            if (card.collectible && !disabledCards.contains(card.name)) {
+            if (!disabledCards.contains(card.name) && !(card.type == 'Enchantment')) {
 
                 def playerClass = card.playerClass != null ? card.playerClass.toString() : 'Neutral'
 
@@ -64,7 +64,8 @@ class CardRegistry {
                         health: card.health ?: -1,
                         text: card.text,
                         rarity: card.rarity,
-                        mechanics: card.mechanics
+                        mechanics: card.mechanics,
+                        collectible: card.collectible
                 )
 
 
@@ -75,13 +76,13 @@ class CardRegistry {
 
     public List<CardDefinition> minionsByManaCostAndClass(int cost, String playerClass) {
         cardDefinitions.findAll {
-            it.cost == cost && it.playerClass == playerClass && it.type == 'Minion'
+            it.collectible && it.cost == cost && it.playerClass == playerClass && it.type == 'Minion'
         }
     }
 
     public List<CardDefinition> spellsByManaCostAndClass(int cost, String playerClass) {
         cardDefinitions.findAll {
-            it.cost == cost && it.playerClass == playerClass && !it.mechanics?.contains('Secret') && it.type == 'Spell'
+            it.collectible && it.cost == cost && it.playerClass == playerClass && !it.mechanics?.contains('Secret') && it.type == 'Spell'
         }
     }
 

@@ -15,7 +15,7 @@ public class ShadowWordDeath extends SpellCard {
 	 * @param hasBeenUsed Whether the card has already been used or not
 	 */
 	public ShadowWordDeath(boolean hasBeenUsed) {
-		super("Shadow Word: Death", (byte)3, hasBeenUsed);
+		super((byte)3, hasBeenUsed);
 	}
 
 	/**

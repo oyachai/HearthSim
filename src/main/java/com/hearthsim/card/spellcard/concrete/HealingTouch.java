@@ -17,7 +17,7 @@ public class HealingTouch extends SpellCard {
 	 * @param hasBeenUsed Whether the card has already been used or not
 	 */
 	public HealingTouch(boolean hasBeenUsed) {
-		super("Healing Touch", (byte)3, hasBeenUsed);
+		super((byte)3, hasBeenUsed);
 	}
 
 	/**

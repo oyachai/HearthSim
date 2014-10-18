@@ -15,7 +15,7 @@ public class Equality extends SpellCard {
 	 * @param hasBeenUsed Whether the card has already been used or not
 	 */
 	public Equality(boolean hasBeenUsed) {
-		super("Equality", (byte)2, hasBeenUsed);
+		super((byte)2, hasBeenUsed);
 	}
 
 	/**
