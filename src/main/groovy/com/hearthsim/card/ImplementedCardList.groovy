@@ -1,8 +1,12 @@
 package com.hearthsim.card
 
+import com.hearthsim.card.minion.Beast
+import com.hearthsim.card.minion.Minion
 import com.hearthsim.json.registry.CardRegistry
 import groovy.json.JsonSlurper
+import groovy.util.logging.Slf4j
 
+@Slf4j
 class ImplementedCardList {
 
     private static ImplementedCardList instance
@@ -28,6 +32,11 @@ class ImplementedCardList {
         public String charClass_;
         public String rarity_;
         public String text_;
+        public boolean taunt_;
+        public boolean divineShield_;
+        public boolean windfury_;
+        public boolean charge_;
+        public boolean stealth_;
         public int mana_;
         public int attack_;
         public int health_;
@@ -62,8 +71,14 @@ class ImplementedCardList {
                     charClass_: cardDefinition.playerClass.toLowerCase(),
                     rarity_: cardDefinition.rarity?.toLowerCase(),
                     mana_: cardDefinition.cost?: 0,
-                    attack_: cardDefinition.attack ?: -1,
-                    health_: cardDefinition.health ?: -1
+                    attack_: (cardDefinition.attack == null) ? -1 : cardDefinition.attack, //return -1 if it's 0. only if null.
+                    health_: (cardDefinition.health == null) ? -1 : cardDefinition.health,
+                    taunt_: cardDefinition.mechanics?.contains('Taunt') ?: false, //todo: extract mechanics as constants
+                    divineShield_: cardDefinition.mechanics?.contains('Divine Shield') ?: false,
+                    windfury_: cardDefinition.mechanics?.contains('Windfury') ?: false,
+                    charge_: cardDefinition.mechanics?.contains('Charge') ?: false,
+                    stealth_: cardDefinition.mechanics?.contains('Stealth') ?: false,
+
             )
             list_ << implementedCard
 
@@ -79,9 +94,15 @@ class ImplementedCardList {
 
     // todo: existing clients need to filter out collectibles
     public ImplementedCard getCardForClass(Class<?> clazz) {
-        def card = map_.get(clazz)
-        if (!card)
-            throw new RuntimeException("unable to find card for class [$clazz]")
+        def card =map_.get(clazz)
+        if (!card) {
+            if (clazz == Minion || clazz == Beast) {
+                return null
+            } else {
+                throw new RuntimeException("unable to find card for class [$clazz]")
+            }
+        }
+
         return card;
     }
 }

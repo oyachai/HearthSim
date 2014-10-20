@@ -60,15 +60,13 @@ class CardRegistry {
                         set: setName,
                         playerClass: playerClass,
                         cost: card.cost,
-                        attack: card.attack ?: -1,
-                        health: card.health ?: -1,
+                        attack: card.attack,
+                        health: card.health,
                         text: card.text,
                         rarity: card.rarity,
                         mechanics: card.mechanics,
-                        collectible: card.collectible
+                        collectible: card.collectible, //todo: let's add some tests for these conditions
                 )
-
-
             }
 
         }

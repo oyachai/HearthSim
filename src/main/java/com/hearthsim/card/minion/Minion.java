@@ -2,6 +2,7 @@ package com.hearthsim.card.minion;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
+import com.hearthsim.card.ImplementedCardList;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
@@ -10,7 +11,6 @@ import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.factory.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
-
 import org.json.JSONObject;
 
 import java.util.EnumSet;
@@ -63,8 +63,32 @@ public class Minion extends Card {
 	
 	//This is a flag to tell the BoardState that it can't cheat on the placement of this minion
 	protected boolean placementImportant_ = false;
-	
-	/**
+
+    public Minion() {
+        super();
+        ImplementedCardList cardList = ImplementedCardList.getInstance();
+        ImplementedCardList.ImplementedCard implementedCard = cardList.getCardForClass(this.getClass());
+        if (implementedCard!=null){
+            // only 'Minion' class is not implemented
+            mana_ = (byte) implementedCard.mana_;
+            name_ = implementedCard.name_;
+            attack_ = (byte) implementedCard.attack_;
+            baseAttack_ = attack_;
+            health_ = (byte) implementedCard.health_;
+            maxHealth_ = health_;
+            baseHealth_ = health_;
+            taunt_ = implementedCard.taunt_;
+            divineShield_ = implementedCard.divineShield_;
+            windFury_ = implementedCard.windfury_;
+            charge_ = implementedCard.charge_;
+            stealthed_ = implementedCard.stealth_;
+            isInHand_ = true;
+            //todo: spellpower could be deduced from text quite easily
+        }
+
+    }
+
+    /**
 	 * Simplified constructor
 	 * 
 	 * @param name
@@ -107,7 +131,7 @@ public class Minion extends Card {
 				true,
 				false);
 	}
-	
+
 	public Minion(	String name,
 					byte mana,
 					byte attack,
@@ -158,12 +182,12 @@ public class Minion extends Card {
 		destroyOnTurnEnd_ = destroyOnTurnEnd;
 		deathrattleAction_ = deathrattleAction;
 		attackAction_ = attackAction;
-		
+
 		auraAttack_ = auraAttack;
 		auraHealth_ = auraHealth;
-		
+
 		spellDamage_ = spellDamage;
-		
+
 		stealthed_ = stealthed;
 		heroTargetable_ = heroTargetable;
 	}
@@ -383,8 +407,9 @@ public class Minion extends Card {
 	public void setHeroTargetable(boolean value) {
 		heroTargetable_ = value;
 	}
-	
-	/**
+
+
+    /**
 	 * Called at the start of the turn
 	 * 
 	 * This function is called at the start of the turn.  Any derived class must override it to implement whatever
@@ -1183,39 +1208,56 @@ public class Minion extends Card {
 	 */
 	@Override
 	public Object deepCopy() {
-		return new Minion(
-				this.name_,
-				this.mana_,
-				this.attack_,
-				this.health_,
-				this.baseAttack_,
-				this.extraAttackUntilTurnEnd_,
-				this.auraAttack_,
-				this.baseHealth_,
-				this.maxHealth_,
-				this.auraHealth_,
-				this.spellDamage_,
-				this.taunt_,
-				this.divineShield_,
-				this.windFury_,
-				this.charge_,
-				this.hasAttacked_,
-				this.hasWindFuryAttacked_,
-				this.frozen_,
-				this.silenced_,
-				this.stealthed_,
-				this.heroTargetable_,
-				this.summoned_,
-				this.transformed_,
-				this.destroyOnTurnStart_,
-				this.destroyOnTurnEnd_,
-				this.deathrattleAction_,
-				this.attackAction_,
-				this.isInHand_,
-				this.hasBeenUsed);
-	}
-	
-	@Override
+
+        Minion minion = null;
+        try {
+            minion = getClass().newInstance();
+        } catch (InstantiationException e) {
+            log.error("instantiation error", e);
+        } catch (IllegalAccessException e) {
+            log.error("illegal access error", e);
+        }
+        if (minion == null) {
+            throw new RuntimeException("unable to instantiate minion.");
+        }
+
+
+        minion.name_ = name_;
+        minion.mana_ = mana_;
+        minion.attack_ = attack_;
+        minion.health_ = health_;
+        minion.baseAttack_ = baseAttack_;
+        minion.extraAttackUntilTurnEnd_ = extraAttackUntilTurnEnd_;
+        minion.auraAttack_ = auraAttack_;
+        minion.baseHealth_ = baseHealth_;
+        minion.maxHealth_ = maxHealth_;
+        minion.auraHealth_ = auraHealth_;
+        minion.spellDamage_ = spellDamage_;
+        minion.taunt_ = taunt_;
+        minion.divineShield_ = divineShield_;
+        minion.windFury_ = windFury_;
+        minion.charge_ = charge_;
+        minion.hasAttacked_ = hasAttacked_;
+        minion.hasWindFuryAttacked_ = hasWindFuryAttacked_;
+        minion.frozen_ = frozen_;
+        minion.silenced_ = silenced_;
+        minion.stealthed_ = stealthed_;
+        minion.heroTargetable_ = heroTargetable_;
+        minion.summoned_ = summoned_;
+        minion.transformed_ = transformed_;
+        minion.destroyOnTurnStart_ = destroyOnTurnStart_;
+        minion.destroyOnTurnEnd_ = destroyOnTurnEnd_;
+        minion.deathrattleAction_ = deathrattleAction_;
+        minion.attackAction_ = attackAction_;
+        minion.isInHand_ = isInHand_;
+        minion.hasBeenUsed = hasBeenUsed;
+        //todo: continue here.
+
+
+        return minion;
+    }
+
+    @Override
 	public boolean equals(Object other) {
 		if (!super.equals(other)) {
 			return false;

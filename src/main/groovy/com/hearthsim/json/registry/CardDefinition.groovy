@@ -17,5 +17,4 @@ class CardDefinition {
     Integer attack
     Integer health
     Boolean collectible
-
 }

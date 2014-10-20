@@ -1,87 +1,20 @@
 package com.hearthsim.card.minion;
 
-import com.hearthsim.event.attack.AttackAction;
-import com.hearthsim.event.deathrattle.DeathrattleAction;
 import org.json.JSONObject;
 
 
 public class Beast extends Minion {
-		
-	public Beast(
-			String name,
-			byte mana,
-			byte attack,
-			byte health,
-			byte baseAttack,
-			byte extraAttackUntilTurnEnd,
-			byte auraAttack,
-			byte baseHealth,
-			byte maxHealth,
-			byte auraHealth,
-			byte spellDamage,
-			boolean taunt,
-			boolean divineShield,
-			boolean windFury,
-			boolean charge,
-			boolean hasAttacked,
-			boolean hasWindFuryAttacked,
-			boolean frozen,
-			boolean silenced,
-			boolean stealthed,
-			boolean heroTargetable,
-			boolean summoned,
-			boolean transformed,
-			boolean destroyOnTurnStart,
-			boolean destroyOnTurnEnd,
-			DeathrattleAction deathrattleAction,
-			AttackAction attackAction,
-			boolean isInHand,
-			boolean hasBeenUsed) {
-		super(
-				name,
-				mana,
-				attack,
-				health,
-				baseAttack,
-				extraAttackUntilTurnEnd,
-				auraAttack,
-				baseHealth,
-				maxHealth,
-				auraHealth,
-				spellDamage,
-				taunt,
-				divineShield,
-				windFury,
-				charge,
-				hasAttacked,
-				hasWindFuryAttacked,
-				frozen,
-				silenced,
-				stealthed,
-				heroTargetable,
-				summoned,
-				transformed,
-				destroyOnTurnStart,
-				destroyOnTurnEnd,
-				deathrattleAction,
-				attackAction,
-				isInHand,
-				hasBeenUsed);
-	}
-	
-	public Beast(
-			String name,
-			byte mana,
-			byte attack,
-			byte health,
-			byte baseAttack,
-			byte baseHealth,
-			byte maxHealth
-			) {
-		this(name, mana, attack, health, baseAttack, (byte)0, (byte)0, baseHealth, maxHealth, (byte)0, (byte)0, false, false, false, false, false, false, false, false, false, false, false, false, false, false, null, null, true, false);
-	}
-	
-	public JSONObject toJSON() {
+    //todo: replace all the race intermediary classes with race attribute on minion
+
+    public Beast() {
+        super();
+    }
+
+    public Beast(String name, byte mana, byte attack, byte health, byte baseAttack, byte baseHealth, byte maxHealth) {
+        super(name, mana, attack, health, baseAttack, baseHealth, maxHealth);
+    }
+
+    public JSONObject toJSON() {
 		JSONObject json = super.toJSON();
 		json.put("type", "Beast");
 		return json;
