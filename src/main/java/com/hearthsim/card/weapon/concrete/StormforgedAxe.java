@@ -9,14 +9,6 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class StormforgedAxe extends WeaponCard {
 
-	public StormforgedAxe() {
-		this(false);
-	}
-
-	public StormforgedAxe(boolean hasBeenUsed) {
-		super("Stormforged Axe", (byte)2, (byte)2, (byte)3, hasBeenUsed);
-	}
-
 	/**
 	 * 
 	 * Use the card on the given target
