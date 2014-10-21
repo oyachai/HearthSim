@@ -5,8 +5,11 @@ import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.DeepCopyable;
+import com.hearthsim.util.HearthAction;
+import com.hearthsim.util.HearthAction.Verb;
 import com.hearthsim.util.factory.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
+
 import org.json.JSONObject;
 
 public class Hero extends Minion {
@@ -60,7 +63,7 @@ public class Hero extends Minion {
 	}
 	
 	@Override
-	public DeepCopyable deepCopy() {
+	public DeepCopyable<?> deepCopy() {
 		return new Hero(
 				this.name_, 
 				this.attack_,
@@ -115,11 +118,14 @@ public class Hero extends Minion {
 			this.frozen_ = false;
 			return boardState;
 		}
-		
+
+		int attackerIndex = 0;
+    	int targetIndex = targetMinion instanceof Hero ? 0 : targetMinionPlayerSide.getPlayer(boardState).getMinions().indexOf(targetMinion) + 1;
 		
 		HearthTreeNode toRet = super.attack(targetMinionPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1);
 
         if (toRet != null && this.weaponCharge_ > 0) {
+        	toRet.setAction(new HearthAction(Verb.ATTACK, PlayerSide.CURRENT_PLAYER, attackerIndex, targetMinionPlayerSide, targetIndex));
             this.weaponCharge_ -= 1;
             if (this.weaponCharge_ == 0) {
                 this.attack_ = 0;
@@ -169,9 +175,12 @@ public class Hero extends Minion {
 	{
 		if (boardState.data_.getCurrentPlayer().getMana() < HERO_ABILITY_COST)
 			return null;
+
+		int targetIndex = targetMinion instanceof Hero ? 0 : targetPlayerSide.getPlayer(boardState).getMinions().indexOf(targetMinion);
 		
 		HearthTreeNode toRet = this.useHeroAbility_core(targetPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
+			toRet.setAction(new HearthAction(Verb.HERO_ABILITY, PlayerSide.CURRENT_PLAYER, 0, targetPlayerSide, targetIndex));
 			toRet = BoardStateFactoryBase.handleDeadMinions(toRet, deckPlayer0, deckPlayer1);
 		}
 		return toRet;

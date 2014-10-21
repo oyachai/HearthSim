@@ -9,8 +9,11 @@ import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
+import com.hearthsim.util.HearthAction;
+import com.hearthsim.util.HearthAction.Verb;
 import com.hearthsim.util.factory.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
+
 import org.json.JSONObject;
 
 import java.util.EnumSet;
@@ -969,12 +972,16 @@ public class Minion extends Card {
                     toRet = minion.minionAttackingEvent(toRet);
             }
 		}
+
+		int attackerIndex = this instanceof Hero ? 0 : PlayerSide.CURRENT_PLAYER.getPlayer(boardState).getMinions().indexOf(this) + 1;
+    	int targetIndex = targetMinion instanceof Hero ? 0 : targetMinionPlayerSide.getPlayer(boardState).getMinions().indexOf(targetMinion) + 1;
 		
 		//Do the actual attack
 		toRet = this.attack_core(targetMinionPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1);
 		
 		//check for and remove dead minions
 		if (toRet != null) {
+        	toRet.setAction(new HearthAction(Verb.ATTACK, PlayerSide.CURRENT_PLAYER, attackerIndex, targetMinionPlayerSide, targetIndex));
 			toRet = BoardStateFactoryBase.handleDeadMinions(toRet, deckPlayer0, deckPlayer1);
 		}
 		

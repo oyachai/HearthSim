@@ -6,8 +6,11 @@ import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.DeepCopyable;
+import com.hearthsim.util.HearthAction;
+import com.hearthsim.util.HearthAction.Verb;
 import com.hearthsim.util.factory.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
+
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -216,7 +219,13 @@ public class Card implements DeepCopyable {
 			Deck deckPlayer1)
 		throws HSException
 	{
-		return this.useOn(side, targetMinion, boardState, deckPlayer0, deckPlayer1, false);
+		int cardIndex = PlayerSide.CURRENT_PLAYER.getPlayer(boardState).getHand().indexOf(this);
+		int targetIndex = targetMinion instanceof Hero ? 0 : side.getPlayer(boardState).getMinions().indexOf(targetMinion);
+		HearthTreeNode toRet = this.useOn(side, targetMinion, boardState, deckPlayer0, deckPlayer1, false);
+		if (toRet != null) {
+        	toRet.setAction(new HearthAction(Verb.USE_CARD, PlayerSide.CURRENT_PLAYER, cardIndex, side, targetIndex));
+		}
+		return toRet;
 	}    
     
 	/**
