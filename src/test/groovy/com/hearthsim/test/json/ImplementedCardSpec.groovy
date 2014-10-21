@@ -18,7 +18,7 @@ class ImplementedCardSpec extends Specification {
         then:
 
         def missingCards = []
-        registry.cardDefinitions.each { cardDefinition ->
+        registry.collectibles.each { cardDefinition ->
             def card = list.list_.find {
                 it.name_ == cardDefinition.name
             }

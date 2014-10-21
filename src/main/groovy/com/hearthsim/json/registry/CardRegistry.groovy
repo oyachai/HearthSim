@@ -62,6 +62,7 @@ class CardRegistry {
                         cost: card.cost,
                         attack: card.attack,
                         health: card.health,
+                        durability: card.durability,
                         text: card.text,
                         rarity: card.rarity,
                         mechanics: card.mechanics,
@@ -86,6 +87,10 @@ class CardRegistry {
 
     public CardDefinition cardByName(String name) {
         cardDefinitions.find { it.name == name }
+    }
+
+    public List<CardDefinition> getCollectibles(){
+        cardDefinitions.findAll { it.collectible }
     }
 
 }

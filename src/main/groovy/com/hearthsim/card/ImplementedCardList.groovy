@@ -40,6 +40,7 @@ class ImplementedCardList {
         public int mana_;
         public int attack_;
         public int health_;
+        public int durability;
 
         @Override
         public int compareTo(ImplementedCard o) {
@@ -73,6 +74,7 @@ class ImplementedCardList {
                     mana_: cardDefinition.cost?: 0,
                     attack_: (cardDefinition.attack == null) ? -1 : cardDefinition.attack, //return -1 if it's 0. only if null.
                     health_: (cardDefinition.health == null) ? -1 : cardDefinition.health,
+                    durability: (cardDefinition.durability == null) ? -1 : cardDefinition.durability,
                     taunt_: cardDefinition.mechanics?.contains('Taunt') ?: false, //todo: extract mechanics as constants
                     divineShield_: cardDefinition.mechanics?.contains('Divine Shield') ?: false,
                     windfury_: cardDefinition.mechanics?.contains('Windfury') ?: false,

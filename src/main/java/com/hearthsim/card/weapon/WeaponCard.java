@@ -2,6 +2,7 @@ package com.hearthsim.card.weapon;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
+import com.hearthsim.card.ImplementedCardList;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
@@ -11,16 +12,37 @@ public class WeaponCard extends Card {
 
 	byte weaponCharge_;
 	byte weaponDamage_;
-	
-	public WeaponCard(String name, byte mana, byte weaponDamage, byte weaponCharge, boolean hasBeenUsed) {
-		super(name, mana, hasBeenUsed, true);
-		weaponCharge_ = weaponCharge;
-		weaponDamage_ = weaponDamage;
-	}
+
+    public WeaponCard(){
+        ImplementedCardList cardList = ImplementedCardList.getInstance();
+        ImplementedCardList.ImplementedCard implementedCard = cardList.getCardForClass(this.getClass());
+        weaponCharge_ = (byte) implementedCard.durability;
+        weaponDamage_ = (byte) implementedCard.attack_;
+        name_ = implementedCard.name_;
+        mana_ = (byte) implementedCard.mana_;
+        isInHand_ = true;
+    }
 
 	@Override
 	public Object deepCopy() {
-		return new WeaponCard(this.getName(), this.getMana(), this.weaponDamage_, this.weaponCharge_, this.hasBeenUsed());
+        WeaponCard weapon = null;
+        try {
+            weapon = getClass().newInstance();
+        } catch (InstantiationException e) {
+            log.error("instantiation error", e);
+        } catch (IllegalAccessException e) {
+            log.error("illegal access error", e);
+        }
+        if (weapon == null) {
+            throw new RuntimeException("unable to instantiate weapon.");
+        }
+        weapon.name_ = name_;
+        weapon.mana_ = mana_;
+        weapon.weaponCharge_ = weaponCharge_;
+        weapon.weaponDamage_ = weaponDamage_;
+        weapon.hasBeenUsed = hasBeenUsed;
+
+        return weapon;
 	}
 	
 	@Override
