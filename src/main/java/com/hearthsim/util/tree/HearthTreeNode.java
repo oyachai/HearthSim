@@ -2,6 +2,7 @@ package com.hearthsim.util.tree;
 
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
+import com.hearthsim.util.HearthAction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,7 @@ public class HearthTreeNode {
 	byte depth_;
 	
 	public final BoardModel data_;
+	HearthAction action;
 	protected double score_;
 	int numNodesTried_;
 	
@@ -31,23 +33,28 @@ public class HearthTreeNode {
 	}
 	
 	public HearthTreeNode(BoardModel data) {
-		this(data, 0.0);
+		this(data, null);
+	}
+
+	public HearthTreeNode(BoardModel data, HearthAction action) {
+		this(data, action, 0.0);
 	}
 	
-	public HearthTreeNode(BoardModel data, double score) {
-		this(data, score, (byte)0);
+	public HearthTreeNode(BoardModel data, HearthAction action, double score) {
+		this(data, action, score, (byte)0);
 	}
 	
-	public HearthTreeNode(BoardModel data, double score, byte depth) {
-		this(data, score, depth, null, 0);
+	public HearthTreeNode(BoardModel data, HearthAction action, double score, byte depth) {
+		this(data, action, score, depth, null, 0);
 	}
 	
-	public HearthTreeNode(BoardModel data, double score, byte depth, List<HearthTreeNode> children) {
-		this(data, score, depth, children, 0);
+	public HearthTreeNode(BoardModel data, HearthAction action, double score, byte depth, List<HearthTreeNode> children) {
+		this(data, action, score, depth, children, 0);
 	}
 	
-	public HearthTreeNode(BoardModel data, double score, byte depth, List<HearthTreeNode> children, int numNodesTried) {
+	public HearthTreeNode(BoardModel data, HearthAction action, double score, byte depth, List<HearthTreeNode> children, int numNodesTried) {
 		data_ = data;
+		this.action = action;
 		score_ = score;
 		children_ = children;
 		depth_ = depth;
@@ -56,6 +63,14 @@ public class HearthTreeNode {
 	
 	public int getNumNodesTried() {
 		return numNodesTried_;
+	}
+	
+	public HearthAction getAction() {
+		return action;
+	}
+	
+	public void setAction(HearthAction action) {
+		this.action = action;
 	}
 	
 	public void setNumNodesTries(int value) {

@@ -207,7 +207,7 @@ public class PlayerModel implements DeepCopyable {
 
     @Override
     public boolean equals(Object other) {
-        
+            	
         if (other == null)
             return false;
 

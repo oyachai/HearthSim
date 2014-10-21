@@ -17,7 +17,7 @@ import com.hearthsim.util.tree.HearthTreeNode;
 public class HearthAction {
 	
 	public enum Verb {
-		USE_CARD, HERO_ABILITY, ATTACK
+		USE_CARD, HERO_ABILITY, ATTACK, UNTARGETABLE_BATTLECRY, TARGETABLE_BATTLECRY
 	}
 		
 	public final Verb verb_;
@@ -68,6 +68,16 @@ public class HearthAction {
 				toRet = attacker.attack(targetPlayerSide, target, toRet, deckPlayer0, deckPlayer1);
 			}
 			break;
+			case UNTARGETABLE_BATTLECRY: {
+				Minion minion = boardState.data_.getCharacter(actionPerformerPlayerSide, cardOrCharacterIndex_);
+				Minion placementTarget = boardState.data_.getCharacter(targetPlayerSide, targetCharacterIndex_);
+				toRet = minion.useUntargetableBattlecry(placementTarget, toRet, deckPlayer0, deckPlayer1, true);
+			}
+			case TARGETABLE_BATTLECRY: {
+				Minion minion = boardState.data_.getCharacter(actionPerformerPlayerSide, cardOrCharacterIndex_);
+				Minion battlecryTarget = boardState.data_.getCharacter(targetPlayerSide, targetCharacterIndex_);
+				toRet = minion.useTargetableBattlecry(targetPlayerSide, battlecryTarget, toRet, deckPlayer0, deckPlayer1);
+			}
 		}
 		return toRet;
 	}

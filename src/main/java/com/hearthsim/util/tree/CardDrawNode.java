@@ -102,6 +102,6 @@ public class CardDrawNode extends StopNode {
 	public HearthTreeNode finishAllEffects(Deck deckPlayer0, Deck deckPlayer1) throws HSException  {
 		for (int i = 0; i < numCardsToDraw_; ++i)
 			this.drawCard(deckPlayer0);
-		return new HearthTreeNode(this.data_, this.score_, this.depth_, this.children_, this.numNodesTried_);
+		return new HearthTreeNode(this.data_, this.action, this.score_, this.depth_, this.children_, this.numNodesTried_);
 	}
 }

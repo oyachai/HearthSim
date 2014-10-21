@@ -10,7 +10,7 @@ import com.hearthsim.exception.HSException;
 public abstract class StopNode extends HearthTreeNode {
 		
 	public StopNode(HearthTreeNode origNode) {
-		super(origNode.data_, origNode.score_, origNode.depth_);
+		super(origNode.data_, origNode.action, origNode.score_, origNode.depth_);
 		children_ = origNode.children_;
 		numNodesTried_ = origNode.numNodesTried_;
 	}
