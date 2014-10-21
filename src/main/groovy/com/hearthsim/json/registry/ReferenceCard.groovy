@@ -3,7 +3,7 @@ package com.hearthsim.json.registry
 import groovy.transform.ToString
 
 @ToString
-class CardDefinition {
+class ReferenceCard {
 
     String id
     String name

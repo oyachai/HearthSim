@@ -1,6 +1,7 @@
 package com.hearthsim.util;
 
 import com.hearthsim.card.minion.Hero;
+import com.hearthsim.card.minion.heroes.TestHero;
 import com.hearthsim.exception.HSInvalidHeroException;
 
 import java.lang.reflect.Constructor;
@@ -14,7 +15,7 @@ public class HeroFactory {
 	public static Hero getHero(String heroName) throws HSInvalidHeroException {
 		String cleanedString = heroName.trim();
 		if (cleanedString.equals("None"))
-			return new Hero();
+			return new TestHero();
 		try {
 			Class<?> clazz = Class.forName("com.hearthsim.card.minion.heroes." + cleanedString);
 			Constructor<?> ctor = clazz.getConstructor();

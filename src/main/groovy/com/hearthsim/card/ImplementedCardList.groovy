@@ -2,7 +2,8 @@ package com.hearthsim.card
 
 import com.hearthsim.card.minion.Beast
 import com.hearthsim.card.minion.Minion
-import com.hearthsim.json.registry.CardRegistry
+import com.hearthsim.card.minion.heroes.TestHero
+import com.hearthsim.json.registry.ReferenceCardRegistry
 import groovy.json.JsonSlurper
 import groovy.util.logging.Slf4j
 
@@ -60,7 +61,7 @@ class ImplementedCardList {
         def slurper = new JsonSlurper()
         def implementedCardsFromJson = slurper.parse(getClass().getResourceAsStream('/implemented_cards.json'))
 
-        def registry = CardRegistry.instance
+        def registry = ReferenceCardRegistry.instance
         implementedCardsFromJson.each { implementedCardFromJson ->
             def cardDefinition = registry.cardByName(implementedCardFromJson.name)
 
@@ -98,7 +99,7 @@ class ImplementedCardList {
     public ImplementedCard getCardForClass(Class<?> clazz) {
         def card =map_.get(clazz)
         if (!card) {
-            if (clazz == Minion || clazz == Beast) {
+            if ([Minion, Beast, TestHero].contains(clazz)) {
                 return null
             } else {
                 throw new RuntimeException("unable to find card for class [$clazz]")

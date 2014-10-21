@@ -918,7 +918,61 @@
     {
         "name": "Violet Apprentice",
         "class": "com.hearthsim.card.minion.concrete.VioletApprentice"
+    },
+    {
+        "name": "Truesilver Champion",
+        "class": "com.hearthsim.card.weapon.concrete.TruesilverChampion"
+    },
+    {
+        "name": "Wicked Knife",
+        "class": "com.hearthsim.card.weapon.concrete.WickedKnife"
+    },
+    {
+        "name": "Battle Axe",
+        "class": "com.hearthsim.card.weapon.concrete.BattleAxe"
+    },
+    {
+        "name": "Anduin Wrynn",
+        "class": "com.hearthsim.card.minion.heroes.Priest"
+    },
+    {
+        "name": "Thrall",
+        "class": "com.hearthsim.card.minion.heroes.Shaman"
+    },
+    {
+        "name": "Uther Lightbringer",
+        "class": "com.hearthsim.card.minion.heroes.Paladin"
+    },
+    {
+        "name": "Malfurion Stormrage",
+        "class": "com.hearthsim.card.minion.heroes.Druid"
+    },
+    {
+        "name": "Rexxar",
+        "class": "com.hearthsim.card.minion.heroes.Hunter"
+    },
+    {
+        "name": "Jaina Proudmoore",
+        "class": "com.hearthsim.card.minion.heroes.Mage"
+    },
+    {
+        "name": "Valeera Sanguinar",
+        "class": "com.hearthsim.card.minion.heroes.Rogue"
+    },
+    {
+        "name": "Gul'dan",
+        "class": "com.hearthsim.card.minion.heroes.Warlock"
+    },
+    {
+        "name": "Garrosh Hellscream",
+        "class": "com.hearthsim.card.minion.heroes.Warrior"
+    },
+    {
+        "name": "Doomhammer",
+        "class": "com.hearthsim.card.weapon.concrete.Doomhammer"
+    },
+    {
+        "name": "Sword of Justice",
+        "class": "com.hearthsim.card.weapon.concrete.SwordOfJustice"
     }
-
-
 ]

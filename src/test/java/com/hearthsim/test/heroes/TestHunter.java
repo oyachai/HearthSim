@@ -7,6 +7,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.BoulderfistOgre;
 import com.hearthsim.card.minion.concrete.RaidLeader;
 import com.hearthsim.card.minion.heroes.Hunter;
+import com.hearthsim.card.minion.heroes.TestHero;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.card.spellcard.concrete.WildGrowth;
 import com.hearthsim.exception.HSException;
@@ -26,7 +27,7 @@ public class TestHunter {
 
 	@Before
 	public void setup() {
-		board = new HearthTreeNode(new BoardModel(new Hunter(), new Hero()));
+		board = new HearthTreeNode(new BoardModel(new Hunter(), new TestHero()));
 
 		Minion minion0_0 = new BoulderfistOgre();
 		Minion minion0_1 = new RaidLeader();

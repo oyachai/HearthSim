@@ -4,6 +4,7 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.minion.heroes.TestHero;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.DeepCopyable;
@@ -76,8 +77,8 @@ public class BoardModel implements DeepCopyable {
     }
 
     public BoardModel() {
-    	this(new PlayerModel(0, "player0", new Hero("hero0", (byte)30), null),
-    		 new PlayerModel(1, "player1", new Hero("hero1", (byte)30), null));
+    	this(new PlayerModel(0, "player0", new TestHero("hero0", (byte)30), null),
+    		 new PlayerModel(1, "player1", new TestHero("hero1", (byte)30), null));
     }
     
     public BoardModel(Hero p0_hero, Hero p1_hero) {

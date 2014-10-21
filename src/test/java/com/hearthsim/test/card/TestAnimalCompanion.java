@@ -14,7 +14,6 @@ import com.hearthsim.model.PlayerSide;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.util.tree.HearthTreeNode;
 import com.hearthsim.util.tree.RandomEffectNode;
-
 import org.junit.Before;
 import org.junit.Test;
 

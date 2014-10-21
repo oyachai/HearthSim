@@ -5,7 +5,6 @@ import com.hearthsim.card.minion.concrete.ElvenArcher
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.helpers.BoardModelBuilder
 import com.hearthsim.util.tree.HearthTreeNode
-import spock.lang.Specification
 
 import static com.hearthsim.model.PlayerSide.CURRENT_PLAYER
 import static com.hearthsim.model.PlayerSide.WAITING_PLAYER
