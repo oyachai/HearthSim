@@ -9,6 +9,7 @@ import com.hearthsim.exception.HSParamNotFoundException;
 import com.hearthsim.io.ParamFile;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
+import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.IdentityLinkedList;
 import com.hearthsim.util.factory.BoardStateFactoryBase;
 import com.hearthsim.util.factory.SparseBoardStateFactory;
@@ -18,7 +19,7 @@ import com.hearthsim.util.tree.StopNode;
 import java.io.IOException;
 import java.nio.file.Path;
 
-public class ArtificialPlayer {
+public class ArtificialPlayer implements DeepCopyable {
 
     private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
     public final static int MAX_THINK_TIME = 20000;
@@ -43,7 +44,7 @@ public class ArtificialPlayer {
 	boolean useSparseBoardStateFactory_ = true;
 
 	protected ArtificialPlayer() {}
-
+	
     //todo: come up with more meaningful names for these different AI 'styles'
     public static ArtificialPlayer buildStandardAI2() {
         ArtificialPlayer artificialPlayer = buildStandardAI1();
@@ -442,4 +443,29 @@ public class ArtificialPlayer {
     public void setEnemyWeaponWeight(double enemyWeaponWeight) {
         this.enemyWeaponWeight = enemyWeaponWeight;
     }
+
+	@Override
+	public Object deepCopy() {
+		// TODO Auto-generated method stub
+		ArtificialPlayer copied = new ArtificialPlayer();
+		copied.myAttackWeight = myAttackWeight; //weight for the attack score
+		copied.myHealthWeight = myHealthWeight;
+		copied.enemyAttackWeight = enemyAttackWeight; //weight for the attack score
+		copied.enemyHealthWeight = enemyHealthWeight;
+		copied.myHeroHealthWeight = myHeroHealthWeight;
+		copied.enemyHeroHealthWeight = enemyHeroHealthWeight;
+		copied.tauntWeight = tauntWeight;
+		copied.manaWeight = manaWeight;
+		copied.myNumMinionsWeight = myNumMinionsWeight;
+		copied.enemyNumMinionsWeight = enemyNumMinionsWeight;
+		copied.spellDamageAddWeight = spellDamageAddWeight;
+		copied.spellDamageMultiplierWeight = spellDamageMultiplierWeight;
+		copied.myDivineShieldWeight = myDivineShieldWeight;
+		copied.enemyDivineShieldWeight = enemyDivineShieldWeight;
+		copied.myWeaponWeight = myWeaponWeight;
+		copied.enemyWeaponWeight = enemyWeaponWeight;
+		copied.myChargeWeight = myChargeWeight;
+		copied.useSparseBoardStateFactory_ = useSparseBoardStateFactory_;
+		return copied;
+	}
 }

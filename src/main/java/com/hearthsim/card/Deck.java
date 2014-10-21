@@ -2,7 +2,9 @@ package com.hearthsim.card;
 
 import java.util.ArrayList;
 
-public class Deck {
+import com.hearthsim.util.DeepCopyable;
+
+public class Deck implements DeepCopyable {
 
 	Card[] cards_;
 	
@@ -79,5 +81,16 @@ public class Deck {
         }
         
         return true;
+	}
+
+	@Override
+	public Object deepCopy() {
+		Card[] copiedCards = new Card[cards_.length];
+		int indx = 0;
+		for (Card card : cards_) {
+			copiedCards[indx++] = (Card)card.deepCopy();
+		}
+		Deck copied = new Deck(copiedCards);
+		return copied;
 	}
 }
