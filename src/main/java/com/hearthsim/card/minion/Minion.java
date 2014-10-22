@@ -90,7 +90,7 @@ public class Minion extends Card {
 
     /**
 	 * Simplified constructor
-	 * 
+	 *
 	 * @param name
 	 * @param mana
 	 * @param attack

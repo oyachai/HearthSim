@@ -6,6 +6,7 @@ import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.BoulderfistOgre;
 import com.hearthsim.card.minion.concrete.RaidLeader;
+import com.hearthsim.card.minion.heroes.TestHero;
 import com.hearthsim.card.minion.heroes.Warrior;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.card.spellcard.concrete.WildGrowth;
@@ -25,7 +26,7 @@ public class TestWarrior {
 
 	@Before
 	public void setup() {
-		board = new HearthTreeNode(new BoardModel(new Warrior(), new Hero()));
+		board = new HearthTreeNode(new BoardModel(new Warrior(), new TestHero()));
 
 		Minion minion0_0 = new BoulderfistOgre();
 		Minion minion0_1 = new RaidLeader();

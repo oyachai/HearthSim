@@ -2,9 +2,9 @@ package com.hearthsim.test.card;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
-import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.BloodfenRaptor;
+import com.hearthsim.card.minion.heroes.TestHero;
 import com.hearthsim.card.spellcard.concrete.ArcaneIntellect;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
@@ -14,7 +14,6 @@ import com.hearthsim.model.PlayerSide;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -38,8 +37,8 @@ public class TestArcaneIntellect {
 		}
 		
 		Deck deck = new Deck(cards);
-		PlayerModel playerModel0 = new PlayerModel(0, "player0", new Hero(), deck);
-		PlayerModel playerModel1 = new PlayerModel(1, "player1", new Hero(), deck);
+		PlayerModel playerModel0 = new PlayerModel(0, "player0", new TestHero(), deck);
+		PlayerModel playerModel1 = new PlayerModel(1, "player1", new TestHero(), deck);
 
 		board = new HearthTreeNode(new BoardModel(playerModel0, playerModel1));
 		

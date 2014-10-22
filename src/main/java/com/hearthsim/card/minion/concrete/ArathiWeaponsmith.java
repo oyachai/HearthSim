@@ -3,6 +3,7 @@ package com.hearthsim.card.minion.concrete;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.weapon.concrete.BattleAxe;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -41,9 +42,8 @@ public class ArathiWeaponsmith extends Minion {
 	{
 		HearthTreeNode toRet = boardState;
 		Hero theHero = toRet.data_.getCurrentPlayerHero();
-		theHero.setWeaponCharge((byte)2);
-		theHero.setAttack((byte)2);
-		
+        theHero.setWeapon(new BattleAxe());
+
 		return toRet;
 	}
 

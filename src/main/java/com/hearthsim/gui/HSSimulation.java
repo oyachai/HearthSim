@@ -3,6 +3,7 @@ package com.hearthsim.gui;
 import com.hearthsim.HearthSimGUI;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
+import com.hearthsim.card.minion.heroes.TestHero;
 import com.hearthsim.event.HSSimulationEventListener;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
@@ -40,8 +41,8 @@ public class HSSimulation {
 		config_ = new SimulationConfig();
 		model_ = model;
 		listeners_ = new ArrayList<HSSimulationEventListener>();
-		hero0_ = new Hero();
-		hero1_ = new Hero();
+		hero0_ = new TestHero();
+		hero1_ = new TestHero();
 	}
 	
 	public void run() {

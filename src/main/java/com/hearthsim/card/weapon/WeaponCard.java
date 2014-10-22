@@ -5,10 +5,11 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.ImplementedCardList;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class WeaponCard extends Card {
+public abstract class WeaponCard extends Card {
 
 	byte weaponCharge_;
 	byte weaponDamage_;
@@ -114,12 +115,34 @@ public class WeaponCard extends Card {
 		
 		HearthTreeNode toRet = boardState;
 		if (toRet != null) {
-			toRet.data_.getCurrentPlayerHero().setAttack(this.weaponDamage_);
-			toRet.data_.getCurrentPlayerHero().setWeaponCharge(this.weaponCharge_);
+            toRet.data_.getCurrentPlayerHero().setWeapon(this);
 			this.hasBeenUsed(true);
-
 		}
 		
 		return super.use_core(side, targetMinion, toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
 	}
+
+    public byte getWeaponCharge_() {
+        return weaponCharge_;
+    }
+
+    public void setWeaponCharge_(byte weaponCharge_) {
+        this.weaponCharge_ = weaponCharge_;
+    }
+
+    public byte getWeaponDamage_() {
+        return weaponDamage_;
+    }
+
+    public void setWeaponDamage_(byte weaponDamage_) {
+        this.weaponDamage_ = weaponDamage_;
+    }
+
+    public void onAttack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode toRet, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
+
+    }
+
+    public void minionSummonedEvent(PlayerSide thisMinionPlayerSide, PlayerSide summonedMinionPlayerSide, Minion summonedMinion, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) {
+
+    }
 }

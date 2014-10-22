@@ -2,24 +2,24 @@ package com.hearthsim.json.registry
 
 import groovy.json.JsonSlurper
 
-class CardRegistry {
+class ReferenceCardRegistry {
 
-    private static CardRegistry instance
+    private static ReferenceCardRegistry instance
 
     private final static List<String> disabledCards = [
             'Adrenaline Rush'
     ]
 
-    List<CardDefinition> cardDefinitions = []
+    List<ReferenceCard> cardDefinitions = []
 
-    public synchronized static CardRegistry getInstance() {
+    public synchronized static ReferenceCardRegistry getInstance() {
         if (!instance) {
-            instance = new CardRegistry()
+            instance = new ReferenceCardRegistry()
         }
         return instance
     }
 
-    private CardRegistry() {
+    private ReferenceCardRegistry() {
 
         def setNames = [
                 'Basic',
@@ -53,7 +53,7 @@ class CardRegistry {
 
                 def playerClass = card.playerClass != null ? card.playerClass.toString() : 'Neutral'
 
-                cardDefinitions << new CardDefinition(
+                cardDefinitions << new ReferenceCard(
                         id: card.id,
                         type: card.type,
                         name: card.name,
@@ -73,23 +73,23 @@ class CardRegistry {
         }
     }
 
-    public List<CardDefinition> minionsByManaCostAndClass(int cost, String playerClass) {
+    public List<ReferenceCard> minionsByManaCostAndClass(int cost, String playerClass) {
         cardDefinitions.findAll {
             it.collectible && it.cost == cost && it.playerClass == playerClass && it.type == 'Minion'
         }
     }
 
-    public List<CardDefinition> spellsByManaCostAndClass(int cost, String playerClass) {
+    public List<ReferenceCard> spellsByManaCostAndClass(int cost, String playerClass) {
         cardDefinitions.findAll {
             it.collectible && it.cost == cost && it.playerClass == playerClass && !it.mechanics?.contains('Secret') && it.type == 'Spell'
         }
     }
 
-    public CardDefinition cardByName(String name) {
+    public ReferenceCard cardByName(String name) {
         cardDefinitions.find { it.name == name }
     }
 
-    public List<CardDefinition> getCollectibles(){
+    public List<ReferenceCard> getCollectibles(){
         cardDefinitions.findAll { it.collectible }
     }
 

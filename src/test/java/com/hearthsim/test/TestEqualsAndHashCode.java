@@ -1,21 +1,9 @@
 package com.hearthsim.test;
 
-import static org.junit.Assert.*;
-
-import java.util.Arrays;
-import java.util.List;
-
-import org.junit.Before;
-import org.junit.Test;
-
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.card.minion.concrete.AbusiveSergeant;
-import com.hearthsim.card.minion.concrete.BloodfenRaptor;
-import com.hearthsim.card.minion.concrete.BoulderfistOgre;
-import com.hearthsim.card.minion.concrete.RaidLeader;
-import com.hearthsim.card.minion.concrete.ScarletCrusader;
+import com.hearthsim.card.minion.concrete.*;
 import com.hearthsim.card.minion.heroes.Priest;
 import com.hearthsim.card.minion.heroes.Warlock;
 import com.hearthsim.card.spellcard.concrete.HolySmite;
@@ -25,6 +13,13 @@ import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.util.Arrays;
+import java.util.List;
+
+import static org.junit.Assert.*;
 
 public class TestEqualsAndHashCode {
 
