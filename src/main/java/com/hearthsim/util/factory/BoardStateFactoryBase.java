@@ -6,7 +6,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
-import com.hearthsim.player.playercontroller.ArtificialPlayer;
+import com.hearthsim.player.playercontroller.BruteForceSearchAI;
 import com.hearthsim.util.IdentityLinkedList;
 import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -67,7 +67,7 @@ public class BoardStateFactoryBase {
 		timedOut_ = false;
 	}
 	
-	public HearthTreeNode createHeroAbilityBranches(HearthTreeNode boardStateNode, ArtificialPlayer ai) throws HSException {
+	public HearthTreeNode createHeroAbilityBranches(HearthTreeNode boardStateNode, BruteForceSearchAI ai) throws HSException {
         log.trace("creating hero ability branches");
 
 		boolean heroAbilityUsable = false;
@@ -111,7 +111,7 @@ public class BoardStateFactoryBase {
 		return boardStateNode;
 	}
 	
-	public HearthTreeNode createMinionAttackBranches(HearthTreeNode boardStateNode, ArtificialPlayer ai) throws HSException {
+	public HearthTreeNode createMinionAttackBranches(HearthTreeNode boardStateNode, BruteForceSearchAI ai) throws HSException {
         log.trace("creating minion attack branches");
 		//Use the minions that we have out on the board
 		//the case where I choose to not use any more minions
@@ -165,7 +165,7 @@ public class BoardStateFactoryBase {
 		return boardStateNode;
 	}
 	
-	public HearthTreeNode createCardUseBranches(HearthTreeNode boardStateNode, ArtificialPlayer ai) throws HSException {
+	public HearthTreeNode createCardUseBranches(HearthTreeNode boardStateNode, BruteForceSearchAI ai) throws HSException {
         log.trace("creating card use branches");
 
 		//check to see if all the cards have been used already
@@ -234,7 +234,7 @@ public class BoardStateFactoryBase {
 	 * 
 	 * @return boardStateNode manipulated such that all subsequent actions are children of the original boardStateNode input.
 	 */
-	public HearthTreeNode doMoves(HearthTreeNode boardStateNode, ArtificialPlayer ai) throws HSException {
+	public HearthTreeNode doMoves(HearthTreeNode boardStateNode, BruteForceSearchAI ai) throws HSException {
         log.trace("recursively performing moves");
 
 		if (lethal_) {

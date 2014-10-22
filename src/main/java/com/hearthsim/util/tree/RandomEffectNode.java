@@ -2,7 +2,7 @@ package com.hearthsim.util.tree;
 
 import com.hearthsim.card.Deck;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.player.playercontroller.ArtificialPlayer;
+import com.hearthsim.player.playercontroller.BruteForceSearchAI;
 import com.hearthsim.util.HearthAction;
 
 import java.util.ArrayList;
@@ -47,7 +47,7 @@ public class RandomEffectNode extends StopNode {
 	}
 
 	
-	public double weightedAverageScore(Deck deck, ArtificialPlayer ai) {
+	public double weightedAverageScore(Deck deck, BruteForceSearchAI ai) {
 		double toRet = 0.0;
 		for (int index = 0; index < children_.size(); ++index) {
 			toRet += childWeighting_.get(index).doubleValue() * children_.get(index).getScore();

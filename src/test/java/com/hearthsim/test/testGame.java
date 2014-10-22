@@ -9,7 +9,7 @@ import com.hearthsim.card.minion.heroes.Mage;
 import com.hearthsim.card.minion.heroes.Paladin;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerModel;
-import com.hearthsim.player.playercontroller.ArtificialPlayer;
+import com.hearthsim.player.playercontroller.BruteForceSearchAI;
 import com.hearthsim.results.GameResult;
 import org.junit.Test;
 
@@ -62,9 +62,9 @@ public class testGame {
 		PlayerModel playerModel1 = new PlayerModel(0, "player0", hero1, deck1);
 		PlayerModel playerModel2 = new PlayerModel(1, "player1", hero2, deck2);
 
-        ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
+        BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
 
-        ArtificialPlayer ai1 = ArtificialPlayer.buildStandardAI1();
+        BruteForceSearchAI ai1 = BruteForceSearchAI.buildStandardAI1();
 
 		long t1 = System.nanoTime();
 		Game game = new Game(playerModel1, playerModel2, ai0, ai1, false);
@@ -116,8 +116,8 @@ public class testGame {
 			PlayerModel playerModel1 = new PlayerModel(0, "player0", hero1, deck1);
 			PlayerModel playerModel2 = new PlayerModel(1, "player1", hero2, deck2);
 
-	        ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
-	        ArtificialPlayer ai1 = ArtificialPlayer.buildStandardAI1();
+	        BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
+	        BruteForceSearchAI ai1 = BruteForceSearchAI.buildStandardAI1();
 
 			Game game = new Game(playerModel1, playerModel2, ai0, ai1, true);
 			GameResult w = null;

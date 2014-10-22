@@ -4,7 +4,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
-import com.hearthsim.player.playercontroller.ArtificialPlayer;
+import com.hearthsim.player.playercontroller.BruteForceSearchAI;
 import com.hearthsim.util.factory.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
 import org.junit.Before;
@@ -22,7 +22,7 @@ public class TestCharge {
 	private static final byte health0 = 3;
 	private static final byte health1 = 7;
 
-	private class DummyStateFunc extends ArtificialPlayer {
+	private class DummyStateFunc extends BruteForceSearchAI {
 
         @Override
 		public double boardScore(BoardModel xval) {

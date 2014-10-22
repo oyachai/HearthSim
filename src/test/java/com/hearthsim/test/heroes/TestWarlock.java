@@ -12,7 +12,7 @@ import com.hearthsim.card.spellcard.concrete.WildGrowth;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
-import com.hearthsim.player.playercontroller.ArtificialPlayer;
+import com.hearthsim.player.playercontroller.BruteForceSearchAI;
 import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 import org.junit.Before;
@@ -169,7 +169,7 @@ public class TestWarlock {
 		assertTrue(ret instanceof CardDrawNode);
 		assertEquals(((CardDrawNode) ret).getNumCardsToDraw(), 1);
 
-        ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
+        BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
 		double cardDrawScore = ((CardDrawNode)ret).cardDrawScore(deck, ai0);
 		assertTrue(cardDrawScore < 0.0);		
 		

@@ -12,7 +12,7 @@ import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
-import com.hearthsim.player.playercontroller.ArtificialPlayer;
+import com.hearthsim.player.playercontroller.BruteForceSearchAI;
 import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -159,7 +159,7 @@ public class TestColdlightOracle {
 		board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1).hasAttacked(true);
 		board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 2).hasAttacked(true);
 
-        ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
+        BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
 		BoardModel resBoard = ai0.playTurn(0, board.data_);
 		
 		assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 2); //1 card drawn from Loot Horder attacking and dying, no mana left to play the card

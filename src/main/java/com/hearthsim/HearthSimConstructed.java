@@ -9,6 +9,7 @@ import com.hearthsim.exception.HSParamNotFoundException;
 import com.hearthsim.io.DeckListFile;
 import com.hearthsim.io.ParamFile;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
+import com.hearthsim.player.playercontroller.BruteForceSearchAI;
 import com.hearthsim.results.GameResult;
 
 import java.io.IOException;
@@ -53,8 +54,8 @@ public class HearthSimConstructed extends HearthSimBase {
 		//------------------------------------------------------------------------
 		//Set up the AIs
 		//------------------------------------------------------------------------
-		ArtificialPlayer ai0 = new ArtificialPlayer(this.aiParamFilePath0_);
-		ArtificialPlayer ai1 = new ArtificialPlayer(this.aiParamFilePath1_);
+		ArtificialPlayer ai0 = new BruteForceSearchAI(this.aiParamFilePath0_);
+		ArtificialPlayer ai1 = new BruteForceSearchAI(this.aiParamFilePath1_);
 		
 		return super.runSingleGame(ai0, hero0, deck0, ai1, hero1, deck1, true);
 	}

@@ -10,7 +10,7 @@ import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
-import com.hearthsim.player.playercontroller.ArtificialPlayer;
+import com.hearthsim.player.playercontroller.BruteForceSearchAI;
 import com.hearthsim.util.tree.HearthTreeNode;
 import org.junit.Before;
 import org.junit.Test;
@@ -174,7 +174,7 @@ public class TestArcaneGolem {
 		board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1).hasAttacked(true);
 		board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 2).hasAttacked(true);
 
-        ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
+        BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
 		BoardModel resBoard = ai0.playTurn(0, board.data_);
 		
 		assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 0);

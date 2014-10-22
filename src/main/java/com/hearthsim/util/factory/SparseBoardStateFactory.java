@@ -6,7 +6,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
-import com.hearthsim.player.playercontroller.ArtificialPlayer;
+import com.hearthsim.player.playercontroller.BruteForceSearchAI;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 /**
@@ -36,7 +36,7 @@ public class SparseBoardStateFactory extends BoardStateFactoryBase {
 	}
 
 	@Override
-	public HearthTreeNode createCardUseBranches(HearthTreeNode boardStateNode, ArtificialPlayer ai) throws HSException {
+	public HearthTreeNode createCardUseBranches(HearthTreeNode boardStateNode, BruteForceSearchAI ai) throws HSException {
 		//check to see if all the cards have been used already
 		boolean allUsed = true;
 		for (final Card card : boardStateNode.data_.getCurrentPlayerHand()) {

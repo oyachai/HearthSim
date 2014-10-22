@@ -1,6 +1,6 @@
 package com.hearthsim.gui;
 
-import com.hearthsim.player.playercontroller.ArtificialPlayer;
+import com.hearthsim.player.playercontroller.BruteForceSearchAI;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -128,7 +128,7 @@ public class HSSimulationSettingsFrame extends JDialog {
 		GridBagConstraints gbc_flag_useFastPlacement_p0 = new GridBagConstraints();
 		gbc_flag_useFastPlacement_p0.gridx = 1;
 		gbc_flag_useFastPlacement_p0.gridy = 0;
-		flag_useFastPlacement_p0.setSelected(simulation_.getAI_p0().getUseSparseBoardStateFactory());
+		flag_useFastPlacement_p0.setSelected(((BruteForceSearchAI)simulation_.getAI_p0()).getUseSparseBoardStateFactory());
 		settings_P0_main.add(flag_useFastPlacement_p0, gbc_flag_useFastPlacement_p0);
 		
 		JPanel settings_P1 = new JPanel();
@@ -185,7 +185,7 @@ public class HSSimulationSettingsFrame extends JDialog {
 		GridBagConstraints gbc_flag_useFastPlacement_p1 = new GridBagConstraints();
 		gbc_flag_useFastPlacement_p1.gridx = 1;
 		gbc_flag_useFastPlacement_p1.gridy = 0;
-		flag_useFastPlacement_p1.setSelected(simulation_.getAI_p1().getUseSparseBoardStateFactory());
+		flag_useFastPlacement_p1.setSelected(((BruteForceSearchAI)simulation_.getAI_p1()).getUseSparseBoardStateFactory());
 		settings_P1_main.add(flag_useFastPlacement_p1, gbc_flag_useFastPlacement_p1);
 		
 		
@@ -310,11 +310,11 @@ public class HSSimulationSettingsFrame extends JDialog {
 				simulation_.getConfig().numThreads_ = Integer.parseInt(fldNumThreads.getText());
 				simulation_.getConfig().simName_ = fldSimName.getText();
 				
-				simulation_.setAI_p0(ArtificialPlayer.buildStandardAI2());
-				simulation_.setAI_p1(ArtificialPlayer.buildStandardAI2());
+				simulation_.setAI_p0(BruteForceSearchAI.buildStandardAI2());
+				simulation_.setAI_p1(BruteForceSearchAI.buildStandardAI2());
 				
-				simulation_.getAI_p0().setUseSparseBoardStateFactory(flag_useFastPlacement_p0.isSelected());
-				simulation_.getAI_p1().setUseSparseBoardStateFactory(flag_useFastPlacement_p1.isSelected());
+				((BruteForceSearchAI)simulation_.getAI_p0()).setUseSparseBoardStateFactory(flag_useFastPlacement_p0.isSelected());
+				((BruteForceSearchAI)simulation_.getAI_p1()).setUseSparseBoardStateFactory(flag_useFastPlacement_p1.isSelected());
 			}
 		});
 

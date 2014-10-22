@@ -11,7 +11,7 @@ import com.hearthsim.card.spellcard.concrete.WildGrowth;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
-import com.hearthsim.player.playercontroller.ArtificialPlayer;
+import com.hearthsim.player.playercontroller.BruteForceSearchAI;
 import com.hearthsim.util.tree.HearthTreeNode;
 import com.hearthsim.util.tree.RandomEffectNode;
 import org.junit.Before;
@@ -221,7 +221,7 @@ public class TestShaman {
 		 
 
 		RandomEffectNode rn = (RandomEffectNode)ret;
-        ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
+        BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
 		double score = rn.weightedAverageScore(deck, ai0);
 		
 		log.info("score = " + score);
@@ -232,7 +232,7 @@ public class TestShaman {
 	@Test
 	public void test1() throws HSException {
 
-        ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
+        BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
 		BoardModel resBoard = ai0.playTurn(0, board.data_, 200000000);
 
 		assertEquals(resBoard.getCurrentPlayer().getMana(), 6);

@@ -11,7 +11,7 @@ import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
-import com.hearthsim.player.playercontroller.ArtificialPlayer;
+import com.hearthsim.player.playercontroller.BruteForceSearchAI;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 import org.junit.Before;
@@ -119,7 +119,7 @@ public class TestAcolyteOfPain {
 		board.data_.getWaitingPlayer().setMaxMana((byte)1);
 
 
-        ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
+        BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
 		BoardModel resBoard = ai0.playTurn(0, board.data_);
 		
 		assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 2); //1 card drawn from AcolyteOfPain, not enough mana to play it
@@ -141,7 +141,7 @@ public class TestAcolyteOfPain {
 		board.data_.getWaitingPlayer().setMaxMana((byte)3);
 
 
-        ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
+        BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
 		BoardModel resBoard = ai0.playTurn(0, board.data_, 200000000);
 		
 		assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 1); //1 card drawn from AcolyteOfPain, then played the Bloodfen Raptor
@@ -168,7 +168,7 @@ public class TestAcolyteOfPain {
 		
 		assertEquals(board.data_.getNumCardsHandWaitingPlayer(), 0);
 
-        ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
+        BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
 		BoardModel resBoard = ai0.playTurn(0, board.data_);
 		
 		assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 1); //1 card drawn from AcolyteOfPain, then played the Bloodfen Raptor

@@ -1,7 +1,7 @@
 package com.hearthsim.gui;
 
 import com.hearthsim.event.HSGameEndEventListener;
-import com.hearthsim.player.playercontroller.ArtificialPlayer;
+import com.hearthsim.player.playercontroller.BruteForceSearchAI;
 import com.hearthsim.results.GameResult;
 import org.apache.commons.math3.distribution.BetaDistribution;
 
@@ -207,8 +207,8 @@ public class HSMainFrameModel implements HSGameEndEventListener {
 		simulation_.getConfig().numThreads_ = 1;
 		simulation_.getConfig().simName_ = "HearthSim";
 		
-		simulation_.setAI_p0(ArtificialPlayer.buildStandardAI2());
-		simulation_.setAI_p1(ArtificialPlayer.buildStandardAI2());
+		simulation_.setAI_p0(BruteForceSearchAI.buildStandardAI2());
+		simulation_.setAI_p1(BruteForceSearchAI.buildStandardAI2());
 
 	}
 	

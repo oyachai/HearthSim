@@ -92,8 +92,8 @@ public class Game {
 
             long turnEnd = System.currentTimeMillis();
             long turnDelta = turnEnd - turnStart;
-            if (turnDelta > ArtificialPlayer.MAX_THINK_TIME / 2) {
-                log.warn("turn took {} ms, more than half of alloted think time ({})", turnDelta, ArtificialPlayer.MAX_THINK_TIME);
+            if (turnDelta > aiForPlayerGoingFirst.getMaxThinkTime() / 2) {
+                log.warn("turn took {} ms, more than half of alloted think time ({})", turnDelta, aiForPlayerGoingFirst.getMaxThinkTime());
             } else {
                 log.debug("turn took {} ms", turnDelta);
             }

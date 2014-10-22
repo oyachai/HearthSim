@@ -3,7 +3,7 @@ package com.hearthsim.util.tree;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.player.playercontroller.ArtificialPlayer;
+import com.hearthsim.player.playercontroller.BruteForceSearchAI;
 
 /**
  * A card draw triggers a stop
@@ -63,7 +63,7 @@ public class CardDrawNode extends StopNode {
 	}
 	
 
-	public double cardDrawScore(Deck deck, ArtificialPlayer ai) {
+	public double cardDrawScore(Deck deck, BruteForceSearchAI ai) {
 		int numCardsInDeck = deck.getNumCards();
 		int numCardsRemaining = numCardsInDeck - data_.getDeckPos_p0();
 		int numCardsToActuallyDraw = numCardsToDraw_;

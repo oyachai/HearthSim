@@ -12,7 +12,7 @@ import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
-import com.hearthsim.player.playercontroller.ArtificialPlayer;
+import com.hearthsim.player.playercontroller.BruteForceSearchAI;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 import org.junit.Before;
@@ -52,7 +52,7 @@ public class TestLootHorder {
 	public void test0() throws HSException {
 
 
-        ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
+        BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
 		
 		board.data_.getCurrentPlayer().setMana((byte)1);
 		board.data_.getWaitingPlayer().setMana((byte)1);
@@ -76,7 +76,7 @@ public class TestLootHorder {
 	@Test
 	public void test1() throws HSException {
 
-        ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
+        BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
 
 		board.data_.getCurrentPlayer().setMana((byte)3);
 		board.data_.getWaitingPlayer().setMana((byte)3);
@@ -99,7 +99,7 @@ public class TestLootHorder {
 	@Test
 	public void test2() throws HSException {
 
-        ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
+        BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
 		
 		//remove the loot hoarder from player0, add a Wisp
 		board.data_.removeMinion(PlayerSide.CURRENT_PLAYER, 0);

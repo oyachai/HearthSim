@@ -16,7 +16,7 @@ import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
-import com.hearthsim.player.playercontroller.ArtificialPlayer;
+import com.hearthsim.player.playercontroller.BruteForceSearchAI;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class TestYoungPriestess {
@@ -135,7 +135,7 @@ public class TestYoungPriestess {
 		//In this test, player1 goes first.  It uses the Stranglethorn Tiger to attack the hero, which removes stealth from 
 		// the tiger.  Then, player0 plays a turn in which it is able to kill the tiger and hit the player1's hero for 6.  
 
-        ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
+        BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
     	Game game = new Game(board.data_.getCurrentPlayer(), board.data_.getWaitingPlayer(), ai0, ai0);
 
 		BoardModel resBoard0 = ai0.playTurn(0, board.data_, 2000000000);

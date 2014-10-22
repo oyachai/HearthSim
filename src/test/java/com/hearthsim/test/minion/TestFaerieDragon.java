@@ -20,7 +20,7 @@ import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
-import com.hearthsim.player.playercontroller.ArtificialPlayer;
+import com.hearthsim.player.playercontroller.BruteForceSearchAI;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class TestFaerieDragon {
@@ -136,7 +136,7 @@ public class TestFaerieDragon {
 		//Also, the Mage will normally use its hero ability on the 3/2... but again, it cannot be targeted.
 		board.data_.placeCardHandCurrentPlayer(new HolySmite());
 
-        ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
+        BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
 
 		BoardModel resBoard0 = ai0.playTurn(0, board.data_, 2000000000);
 		

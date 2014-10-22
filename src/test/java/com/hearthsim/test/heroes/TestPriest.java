@@ -10,7 +10,7 @@ import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
-import com.hearthsim.player.playercontroller.ArtificialPlayer;
+import com.hearthsim.player.playercontroller.BruteForceSearchAI;
 import com.hearthsim.util.factory.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
 import org.junit.Before;
@@ -169,7 +169,7 @@ public class TestPriest {
 		
 		BoardStateFactoryBase factory = new BoardStateFactoryBase(null, null, 2000000000);
 		HearthTreeNode tree = new HearthTreeNode(board.data_);
-        ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
+        BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
 		try {
 			tree = factory.doMoves(tree, ai0);
 		} catch (HSException e) {
@@ -209,7 +209,7 @@ public class TestPriest {
 		
 		BoardStateFactoryBase factory = new BoardStateFactoryBase(null, null, 2000000000);
 		HearthTreeNode tree = new HearthTreeNode(board.data_);
-        ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
+        BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
 		try {
 			tree = factory.doMoves(tree, ai0);
 		} catch (HSException e) {

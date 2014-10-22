@@ -1,85 +1,74 @@
 package com.hearthsim.test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Before;
 import org.junit.Test;
 
-import com.hearthsim.Game;
-import com.hearthsim.card.Card;
-import com.hearthsim.card.Deck;
-import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.card.minion.heroes.Mage;
-import com.hearthsim.card.minion.heroes.Paladin;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.model.PlayerModel;
-import com.hearthsim.player.playercontroller.ArtificialPlayer;
-import com.hearthsim.results.GameResult;
+import com.hearthsim.model.BoardModel;
+import com.hearthsim.model.PlayerSide;
+import com.hearthsim.player.playercontroller.BruteForceSearchAI;
+import com.hearthsim.util.HearthAction.Verb;
+import com.hearthsim.util.factory.BoardStateFactoryBase;
+import com.hearthsim.util.tree.HearthTreeNode;
 
 public class TestAction {
 	
     private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
+	private BoardModel board;
+	private static final byte mana = 1;
+	private static final byte attack0 = 2;
+	private static final byte attack1 = 10;
+	private static final byte health0 = 3;
+	private static final byte health1 = 7;
+	private static final byte health2 = 10;
+	
+	@Before
+	public void setup() throws HSException {
+		board = new BoardModel();
 
+		Minion minion0_0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
+		
+		board.placeMinion(PlayerSide.CURRENT_PLAYER, minion0_0);
+				
+	}
+	
 	@Test
-	public void testGame0() {
+	public void test0() throws HSException {
+		Minion minion = new Minion("" + 0, mana, attack0, health1, attack0, health1, health1);
+		board.placeMinion(PlayerSide.WAITING_PLAYER, minion);
 		
-		int numCardsInDeck_ = 30;
-		byte minionAttack = 5;
-		byte minionHealth = 4;
-		byte minionMana = 4;
-		
-		int numTaunts_ = 30;
-		
-		Card[] cards1_ = new Card[numCardsInDeck_];
-		Card[] cards2_ = new Card[numCardsInDeck_];
-
-		for (int i = 0; i < numCardsInDeck_; ++i) {
-			byte attack = minionAttack;
-			byte health = minionHealth;
-			byte mana = minionMana;
-			cards1_[i] = new Minion("" + i, mana, attack, health, attack, health, health);
-			cards2_[i] = new Minion("" + i, mana, attack, health, attack, health, health);
-		}
-		
-		int nt = 0;
-		while (nt < numTaunts_) {
-			int irand = (int)(Math.random() * numCardsInDeck_);
-			if (!((Minion)cards1_[irand]).getTaunt()) {
-				((Minion)cards1_[irand]).setTaunt(true);
-				++nt;
-			}
-		}
-		
-
-		Hero hero1 = new Paladin();
-		Hero hero2 = new Mage();
-		
-		Deck deck1 = new Deck(cards1_);
-		Deck deck2 = new Deck(cards2_);
-		
-		deck1.shuffle();
-		deck2.shuffle();
-		
-		PlayerModel playerModel1 = new PlayerModel(0, "player0", hero1, deck1);
-		PlayerModel playerModel2 = new PlayerModel(1, "player1", hero2, deck2);
-
-        ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
-
-        ArtificialPlayer ai1 = ArtificialPlayer.buildStandardAI1();
-
-		long t1 = System.nanoTime();
-		Game game = new Game(playerModel1, playerModel2, ai0, ai1, false);
-		GameResult w = null;
+		BoardStateFactoryBase factory = new BoardStateFactoryBase(null, null, 2000000000);
+		HearthTreeNode tree = new HearthTreeNode(board);
 		try {
-			w = game.runGame();
+			tree = factory.doMoves(tree, BruteForceSearchAI.buildStandardAI2());
 		} catch (HSException e) {
-			w = new GameResult(0, -1, 0, null);
+			e.printStackTrace();
+			assertTrue(false);
 		}
 		
-		long t2 = System.nanoTime();
+		assertEquals(tree.getChildren().get(0).getAction().verb_, Verb.ATTACK);
+		assertEquals(tree.getChildren().get(0).getAction().targetCharacterIndex_, 1); //should hit the enemy minion
+	}
+	
+	@Test
+	public void test1() throws HSException {
+		Minion minion = new Minion("" + 0, mana, attack1, health2, attack1, health2, health2);
+		board.placeMinion(PlayerSide.WAITING_PLAYER, minion);
 		
-		log.info("f = " + w.firstPlayerIndex_ + ", w = " + w.winnerPlayerIndex_ + ", time taken = " + (t2 - t1) / 1000000.0 + " ms");
+		BoardStateFactoryBase factory = new BoardStateFactoryBase(null, null, 2000000000);
+		HearthTreeNode tree = new HearthTreeNode(board);
+		try {
+			tree = factory.doMoves(tree, BruteForceSearchAI.buildStandardAI2());
+		} catch (HSException e) {
+			e.printStackTrace();
+			assertTrue(false);
+		}
 		
-		assertTrue("testGame0", w.winnerPlayerIndex_ == 0);
+		assertEquals(tree.getChildren().get(0).getAction().verb_, Verb.ATTACK);
+		assertEquals(tree.getChildren().get(0).getAction().targetCharacterIndex_, 0); //should hit the enemy hero
 	}
 }

@@ -10,7 +10,7 @@ import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
-import com.hearthsim.player.playercontroller.ArtificialPlayer;
+import com.hearthsim.player.playercontroller.BruteForceSearchAI;
 import com.hearthsim.util.tree.HearthTreeNode;
 import org.junit.Before;
 import org.junit.Test;
@@ -96,7 +96,7 @@ public class TestStranglethornTiger {
 		
 		//In this test, the Stranglethorn Tiger is stealthed, so player0 has no choice but to hit the enemy hero for 12 damage
 
-        ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
+        BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
 		BoardModel resBoard = ai0.playTurn(0, board.data_);
 
 		assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 0);
@@ -123,7 +123,7 @@ public class TestStranglethornTiger {
 
 		board.data_.placeCardHandCurrentPlayer(new Silence());
 
-        ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
+        BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
 		BoardModel resBoard = ai0.playTurn(0, board.data_);
 
 		assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 1);
@@ -149,7 +149,7 @@ public class TestStranglethornTiger {
 		//In this test, player1 goes first.  It uses the Stranglethorn Tiger to attack the hero, which removes stealth from 
 		// the tiger.  Then, player0 plays a turn in which it is able to kill the tiger and hit the player1's hero for 6.  
 
-        ArtificialPlayer ai0 = ArtificialPlayer.buildStandardAI1();
+        BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
 		BoardModel resBoard0 = ai0.playTurn(0, board.data_.flipPlayers(), 2000000000);
 		BoardModel resBoard1 = ai0.playTurn(0, resBoard0.flipPlayers(), 2000000000);
 

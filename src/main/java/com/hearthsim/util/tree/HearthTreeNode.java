@@ -1,7 +1,7 @@
 package com.hearthsim.util.tree;
 
 import com.hearthsim.model.BoardModel;
-import com.hearthsim.player.playercontroller.ArtificialPlayer;
+import com.hearthsim.player.playercontroller.BruteForceSearchAI;
 import com.hearthsim.util.HearthAction;
 
 import java.util.ArrayList;
@@ -21,6 +21,7 @@ public class HearthTreeNode {
 	int numNodesTried_;
 	
 	List<HearthTreeNode> children_;
+	HearthTreeNode parent;
 	
 	private class NodeValPair {
 		public final HearthTreeNode node_;
@@ -99,6 +100,7 @@ public class HearthTreeNode {
 			children_ = new ArrayList<HearthTreeNode>();
 		}
 		children_.add(node);
+		node.parent = this;
 		return node;
 	}
 	
@@ -113,6 +115,9 @@ public class HearthTreeNode {
 	
 	public void setChildren(List<HearthTreeNode> children) {
 		children_ = children;
+		for (HearthTreeNode node : children) {
+			node.parent = this;
+		}
 	}
 	
 	public int numChildren() {
@@ -133,12 +138,12 @@ public class HearthTreeNode {
 	 * @param func Function to apply to each node
 	 * @return
 	 */
-	public HearthTreeNode findMaxOfFunc(ArtificialPlayer ai) {
+	public HearthTreeNode findMaxOfFunc(BruteForceSearchAI ai) {
 		NodeValPair nvp = this.findMaxOfFuncImpl(ai);
 		return nvp.node_;
 	}
 	
-	private NodeValPair findMaxOfFuncImpl(ArtificialPlayer ai) {
+	private NodeValPair findMaxOfFuncImpl(BruteForceSearchAI ai) {
 		if (this.isLeaf())
 			return new NodeValPair(this, ai.boardScore(this.data_));
 
