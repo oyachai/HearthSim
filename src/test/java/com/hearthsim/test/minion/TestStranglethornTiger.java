@@ -1,5 +1,7 @@
 package com.hearthsim.test.minion;
 
+import java.util.List;
+
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
@@ -11,7 +13,9 @@ import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.player.playercontroller.BruteForceSearchAI;
+import com.hearthsim.util.HearthActionBoardPair;
 import com.hearthsim.util.tree.HearthTreeNode;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -97,7 +101,8 @@ public class TestStranglethornTiger {
 		//In this test, the Stranglethorn Tiger is stealthed, so player0 has no choice but to hit the enemy hero for 12 damage
 
         BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
-		BoardModel resBoard = ai0.playTurn(0, board.data_);
+        List<HearthActionBoardPair> ab = ai0.playTurn(0, board.data_, 200000000);
+		BoardModel resBoard = ab.get(ab.size() - 1).board;
 
 		assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 0);
 		assertEquals(resBoard.getNumCardsHandWaitingPlayer(), 0);
@@ -124,7 +129,8 @@ public class TestStranglethornTiger {
 		board.data_.placeCardHandCurrentPlayer(new Silence());
 
         BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
-		BoardModel resBoard = ai0.playTurn(0, board.data_);
+        List<HearthActionBoardPair> ab = ai0.playTurn(0, board.data_, 200000000);
+		BoardModel resBoard = ab.get(ab.size() - 1).board;
 
 		assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 1);
 		assertEquals(resBoard.getNumCardsHandWaitingPlayer(), 0);
@@ -150,8 +156,10 @@ public class TestStranglethornTiger {
 		// the tiger.  Then, player0 plays a turn in which it is able to kill the tiger and hit the player1's hero for 6.  
 
         BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
-		BoardModel resBoard0 = ai0.playTurn(0, board.data_.flipPlayers(), 2000000000);
-		BoardModel resBoard1 = ai0.playTurn(0, resBoard0.flipPlayers(), 2000000000);
+        List<HearthActionBoardPair> ab0 = ai0.playTurn(0, board.data_.flipPlayers(), 200000000);
+		BoardModel resBoard0 = ab0.get(ab0.size() - 1).board;
+        List<HearthActionBoardPair> ab1 = ai0.playTurn(0, resBoard0.flipPlayers(), 200000000);
+		BoardModel resBoard1 = ab1.get(ab1.size() - 1).board;
 
 		assertEquals(resBoard1.getNumCardsHandWaitingPlayer(), 0);
 		assertEquals(resBoard1.getNumCardsHandWaitingPlayer(), 0);

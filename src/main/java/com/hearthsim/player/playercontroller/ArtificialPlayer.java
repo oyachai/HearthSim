@@ -1,8 +1,11 @@
 package com.hearthsim.player.playercontroller;
 
+import java.util.List;
+
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.util.DeepCopyable;
+import com.hearthsim.util.HearthActionBoardPair;
 
 public interface ArtificialPlayer extends DeepCopyable {
 
@@ -26,10 +29,10 @@ public interface ArtificialPlayer extends DeepCopyable {
 	 * @param turn Turn number, 1-based
 	 * @param board The board state at the beginning of the turn (after all card draws and minion deaths)
 	 * 
-	 * @return
+	 * @return A list of HearthActionBoardPair that the AI has performed, starting from the earliest play to the last.
 	 * @throws HSException
 	 */
-	public BoardModel playTurn(int turn, BoardModel board) throws HSException;
+	public List<HearthActionBoardPair> playTurn(int turn, BoardModel board) throws HSException;
 	
 	
 	/**
@@ -41,10 +44,10 @@ public interface ArtificialPlayer extends DeepCopyable {
 	 * @param board The board state at the beginning of the turn (after all card draws and minion deaths)
 	 * @param maxThinkTime The maximum number of milliseconds the AI will spend per tree
 	 * 
-	 * @return
+	 * @return A list of HearthActionBoardPair that the AI has performed, starting from the earliest play to the last.
 	 * @throws HSException
 	 */
-	public BoardModel playTurn(int turn, BoardModel board, int maxThinkTime) throws HSException;
+	public List<HearthActionBoardPair> playTurn(int turn, BoardModel board, int maxThinkTime) throws HSException;
 		
 	
 	public int getMaxThinkTime();

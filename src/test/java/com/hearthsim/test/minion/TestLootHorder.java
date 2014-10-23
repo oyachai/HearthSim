@@ -1,5 +1,7 @@
 package com.hearthsim.test.minion;
 
+import java.util.List;
+
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
@@ -13,6 +15,7 @@ import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.player.playercontroller.BruteForceSearchAI;
+import com.hearthsim.util.HearthActionBoardPair;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 import org.junit.Before;
@@ -61,7 +64,8 @@ public class TestLootHorder {
 		board.data_.getWaitingPlayer().setMaxMana((byte)1);
 
 
-		BoardModel resBoard = ai0.playTurn(0, board.data_);
+        List<HearthActionBoardPair> ab = ai0.playTurn(0, board.data_, 200000000);
+		BoardModel resBoard = ab.get(ab.size() - 1).board;
 		
 		assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 1); //1 card drawn from Loot Horder attacking and dying, no mana left to play the card
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getNumMinions(), 0);
@@ -85,7 +89,8 @@ public class TestLootHorder {
 		board.data_.getWaitingPlayer().setMaxMana((byte)3);
 
 
-		BoardModel resBoard = ai0.playTurn(0, board.data_);
+        List<HearthActionBoardPair> ab = ai0.playTurn(0, board.data_, 200000000);
+		BoardModel resBoard = ab.get(ab.size() - 1).board;
 		
 		assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 0); //1 card drawn from Loot Horder attacking and dying, then played the drawn card
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getNumMinions(), 1);
@@ -116,7 +121,8 @@ public class TestLootHorder {
 		board.data_.getWaitingPlayer().setMaxMana((byte)3);
 
 
-		BoardModel resBoard = ai0.playTurn(0, board.data_);
+        List<HearthActionBoardPair> ab = ai0.playTurn(0, board.data_, 200000000);
+		BoardModel resBoard = ab.get(ab.size() - 1).board;
 		
 		assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 0); //no cards in hand
 		assertEquals(resBoard.getNumCardsHandWaitingPlayer(), 1); //drew cards from the loot horder that was killed

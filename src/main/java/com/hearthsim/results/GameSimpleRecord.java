@@ -1,9 +1,13 @@
 package com.hearthsim.results;
 
+import java.util.List;
+
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
+import com.hearthsim.util.HearthActionBoardPair;
+
 import org.json.JSONObject;
 
 public class GameSimpleRecord implements GameRecord {
@@ -27,7 +31,7 @@ public class GameSimpleRecord implements GameRecord {
 	}
 	
 	@Override
-	public void put(int turn, PlayerSide activePlayerSide, BoardModel board) {
+	public void put(int turn, PlayerSide activePlayerSide, BoardModel board, List<HearthActionBoardPair> plays) {
         PlayerModel playerModel = board.modelForSide(activePlayerSide);
 
         int currentPlayerId = playerModel.getPlayerId();

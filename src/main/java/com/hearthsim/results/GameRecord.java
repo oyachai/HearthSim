@@ -1,7 +1,11 @@
 package com.hearthsim.results;
 
+import java.util.List;
+
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
+import com.hearthsim.util.HearthActionBoardPair;
+
 import org.json.JSONObject;
 
 public interface GameRecord {
@@ -12,7 +16,7 @@ public interface GameRecord {
      * @param activePlayerSide Index of the player that just played a turn
      * @param board
      */
-	public void put(int turn, PlayerSide activePlayerSide, BoardModel board);
+	public void put(int turn, PlayerSide activePlayerSide, BoardModel board, List<HearthActionBoardPair> plays);
 	
 	/**
 	 * Return the number of turns recorded for each player

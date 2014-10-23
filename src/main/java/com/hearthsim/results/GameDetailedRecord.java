@@ -3,9 +3,12 @@ package com.hearthsim.results;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
+import com.hearthsim.util.HearthActionBoardPair;
+
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.TreeMap;
 
 public class GameDetailedRecord implements GameRecord {
@@ -19,7 +22,7 @@ public class GameDetailedRecord implements GameRecord {
 	}
 	
 	@Override
-	public void put(int turn, PlayerSide activePlayerSide, BoardModel board) {
+	public void put(int turn, PlayerSide activePlayerSide, BoardModel board, List<HearthActionBoardPair> plays) {
         int index = board.getIndexOfPlayer(activePlayerSide);
         boards_.get(index).put(turn, board);
 	}

@@ -1,5 +1,7 @@
 package com.hearthsim.test.heroes;
 
+import java.util.List;
+
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
@@ -12,8 +14,10 @@ import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.player.playercontroller.BruteForceSearchAI;
+import com.hearthsim.util.HearthActionBoardPair;
 import com.hearthsim.util.tree.HearthTreeNode;
 import com.hearthsim.util.tree.RandomEffectNode;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -233,7 +237,8 @@ public class TestShaman {
 	public void test1() throws HSException {
 
         BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
-		BoardModel resBoard = ai0.playTurn(0, board.data_, 200000000);
+        List<HearthActionBoardPair> ab = ai0.playTurn(0, board.data_, 200000000);
+		BoardModel resBoard = ab.get(ab.size() - 1).board;
 
 		assertEquals(resBoard.getCurrentPlayer().getMana(), 6);
 		assertEquals(resBoard.getWaitingPlayer().getMana(), 8);

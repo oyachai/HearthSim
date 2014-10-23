@@ -9,6 +9,7 @@ import com.hearthsim.exception.HSParamNotFoundException;
 import com.hearthsim.io.ParamFile;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
+import com.hearthsim.util.HearthActionBoardPair;
 import com.hearthsim.util.IdentityLinkedList;
 import com.hearthsim.util.factory.BoardStateFactoryBase;
 import com.hearthsim.util.factory.SparseBoardStateFactory;
@@ -17,6 +18,8 @@ import com.hearthsim.util.tree.StopNode;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BruteForceSearchAI implements ArtificialPlayer {
 
@@ -232,11 +235,11 @@ public class BruteForceSearchAI implements ArtificialPlayer {
 		return score;
 	}
 
-	public BoardModel playTurn(int turn, BoardModel board) throws HSException {
+	public List<HearthActionBoardPair> playTurn(int turn, BoardModel board) throws HSException {
         return this.playTurn(turn, board, MAX_THINK_TIME);
 	}
 	
-	public BoardModel playTurn(int turn, BoardModel board, int maxThinkTime) throws HSException {
+	public List<HearthActionBoardPair> playTurn(int turn, BoardModel board, int maxThinkTime) throws HSException {
 		PlayerModel playerModel0 = board.getCurrentPlayer();
 		PlayerModel playerModel1 = board.getWaitingPlayer();
 
@@ -254,22 +257,23 @@ public class BruteForceSearchAI implements ArtificialPlayer {
 		}
 		
 		HearthTreeNode allMoves = factory.doMoves(toRet, this);
-		HearthTreeNode bestPlay = allMoves.findMaxOfFunc(this);
-        log.debug("best play has score {}", bestPlay.getScore());
-		while( bestPlay instanceof StopNode ) {
-			HearthTreeNode allEffectsDone = ((StopNode)bestPlay).finishAllEffects(playerModel0.getDeck(), playerModel1.getDeck());
-			BoardStateFactoryBase tmpFactory = null;
-			if (useSparseBoardStateFactory_) {
-				tmpFactory = new SparseBoardStateFactory(playerModel0.getDeck(), playerModel1.getDeck(), maxThinkTime);
+		ArrayList<HearthActionBoardPair> retList = new ArrayList<HearthActionBoardPair>();
+		HearthTreeNode curMove = allMoves;
+		
+		while (curMove.getChildren() != null) {
+			curMove = curMove.getChildren().get(0);
+			if (curMove instanceof StopNode) {
+				HearthTreeNode allEffectsDone = ((StopNode)curMove).finishAllEffects(playerModel0.getDeck(), playerModel1.getDeck());
+				List<HearthActionBoardPair> nextMoves = this.playTurn(turn, allEffectsDone.data_, maxThinkTime);
+				for( HearthActionBoardPair actionBoard : nextMoves) {
+					retList.add(actionBoard);
+				}
+				break;
 			} else {
-				tmpFactory = new BoardStateFactoryBase(playerModel0.getDeck(), playerModel1.getDeck(), maxThinkTime);
+				retList.add(new HearthActionBoardPair(curMove.getAction(), curMove.data_));
 			}
-			HearthTreeNode allMovesAtferStopNode = tmpFactory.doMoves(allEffectsDone, this);
-			bestPlay = allMovesAtferStopNode.findMaxOfFunc(this);
 		}
-
-        log.debug("end turn board state is {}", bestPlay.data_);
-		return bestPlay.data_;
+		return retList;
 	}
 
     public double getMyChargeWeight() {

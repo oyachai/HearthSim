@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,6 +23,7 @@ import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.player.playercontroller.BruteForceSearchAI;
+import com.hearthsim.util.HearthActionBoardPair;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class TestFaerieDragon {
@@ -137,8 +140,8 @@ public class TestFaerieDragon {
 		board.data_.placeCardHandCurrentPlayer(new HolySmite());
 
         BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
-
-		BoardModel resBoard0 = ai0.playTurn(0, board.data_, 2000000000);
+        List<HearthActionBoardPair> ab = ai0.playTurn(0, board.data_, 200000000);
+		BoardModel resBoard0 = ab.get(ab.size() - 1).board;
 		
 		assertEquals(resBoard0.getNumCards_hand(), 1);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard0).getNumMinions(), 2);

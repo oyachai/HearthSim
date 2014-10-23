@@ -1,5 +1,7 @@
 package com.hearthsim;
 
+import java.util.List;
+
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
@@ -13,6 +15,7 @@ import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.results.GameRecord;
 import com.hearthsim.results.GameResult;
 import com.hearthsim.results.GameSimpleRecord;
+import com.hearthsim.util.HearthActionBoardPair;
 import com.hearthsim.util.factory.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -74,8 +77,8 @@ public class Game {
 		
 		GameRecord record = new GameSimpleRecord();
 
-		record.put(0, PlayerSide.CURRENT_PLAYER, (BoardModel) boardModel_.deepCopy());
-		record.put(0, PlayerSide.CURRENT_PLAYER, (BoardModel) boardModel_.flipPlayers().deepCopy());
+		record.put(0, PlayerSide.CURRENT_PLAYER, (BoardModel) boardModel_.deepCopy(), null);
+		record.put(0, PlayerSide.CURRENT_PLAYER, (BoardModel) boardModel_.flipPlayers().deepCopy(), null);
 
         GameResult gameResult;
         for (int turnCount = 0; turnCount < maxTurns_; ++turnCount) {
@@ -110,10 +113,15 @@ public class Game {
         gameResult = checkGameOver(turnCount, record);
         if (gameResult != null) return gameResult;
 
-        boardModel_ = playAITurn(turnCount, boardModel_, ai);
+        List<HearthActionBoardPair> allMoves = playAITurn(turnCount, boardModel_, ai);
+        if (allMoves.size() > 0) {
+        	//If allMoves is empty, it means that there was absolutely nothing the AI could do
+            boardModel_ = allMoves.get(allMoves.size() - 1).board;        	
+        }
+        
         boardModel_ = endTurn(boardModel_);
 
-        record.put(turnCount + 1, PlayerSide.CURRENT_PLAYER, (BoardModel) boardModel_.deepCopy());
+        record.put(turnCount + 1, PlayerSide.CURRENT_PLAYER, (BoardModel) boardModel_.deepCopy(), allMoves);
 
         gameResult = checkGameOver(turnCount, record);
         if (gameResult != null) return gameResult;
@@ -176,7 +184,7 @@ public class Game {
         return toRet.data_;
     }
 
-    public BoardModel playAITurn(int turn, BoardModel board, ArtificialPlayer ai) throws HSException {
+    public List<HearthActionBoardPair> playAITurn(int turn, BoardModel board, ArtificialPlayer ai) throws HSException {
         return ai.playTurn(turn, board);
     }
 

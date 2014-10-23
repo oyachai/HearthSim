@@ -1,5 +1,7 @@
 package com.hearthsim.test.minion;
 
+import java.util.List;
+
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
@@ -12,6 +14,7 @@ import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.player.playercontroller.BruteForceSearchAI;
+import com.hearthsim.util.HearthActionBoardPair;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 import org.junit.Before;
@@ -120,7 +123,8 @@ public class TestAcolyteOfPain {
 
 
         BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
-		BoardModel resBoard = ai0.playTurn(0, board.data_);
+        List<HearthActionBoardPair> ab = ai0.playTurn(0, board.data_, 200000000);
+		BoardModel resBoard = ab.get(ab.size() - 1).board;
 		
 		assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 2); //1 card drawn from AcolyteOfPain, not enough mana to play it
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getNumMinions(), 2);
@@ -142,7 +146,8 @@ public class TestAcolyteOfPain {
 
 
         BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
-		BoardModel resBoard = ai0.playTurn(0, board.data_, 200000000);
+        List<HearthActionBoardPair> ab = ai0.playTurn(0, board.data_, 200000000);
+		BoardModel resBoard = ab.get(ab.size() - 1).board;
 		
 		assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 1); //1 card drawn from AcolyteOfPain, then played the Bloodfen Raptor
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getNumMinions(), 3);
@@ -169,7 +174,8 @@ public class TestAcolyteOfPain {
 		assertEquals(board.data_.getNumCardsHandWaitingPlayer(), 0);
 
         BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
-		BoardModel resBoard = ai0.playTurn(0, board.data_);
+        List<HearthActionBoardPair> ab = ai0.playTurn(0, board.data_, 200000000);
+		BoardModel resBoard = ab.get(ab.size() - 1).board;
 		
 		assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 1); //1 card drawn from AcolyteOfPain, then played the Bloodfen Raptor
 		assertEquals(resBoard.getNumCardsHandWaitingPlayer(), 1); //1 card drawn from AcolyteOfPain.  The Acolytes smack into each other.

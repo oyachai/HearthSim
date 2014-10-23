@@ -2,6 +2,8 @@ package com.hearthsim.test.minion;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,6 +19,7 @@ import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.player.playercontroller.BruteForceSearchAI;
+import com.hearthsim.util.HearthActionBoardPair;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class TestYoungPriestess {
@@ -138,7 +141,8 @@ public class TestYoungPriestess {
         BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
     	Game game = new Game(board.data_.getCurrentPlayer(), board.data_.getWaitingPlayer(), ai0, ai0);
 
-		BoardModel resBoard0 = ai0.playTurn(0, board.data_, 2000000000);
+        List<HearthActionBoardPair> ab = ai0.playTurn(0, board.data_, 200000000);
+		BoardModel resBoard0 = ab.get(ab.size() - 1).board;
 		
 		assertEquals(resBoard0.getNumCards_hand(), 0);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard0).getNumMinions(), 3);
