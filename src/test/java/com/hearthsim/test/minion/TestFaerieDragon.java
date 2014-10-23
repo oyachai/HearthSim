@@ -1,21 +1,14 @@
 package com.hearthsim.test.minion;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
 import java.util.List;
-
-import org.junit.Before;
-import org.junit.Test;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
-import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.FaerieDragon;
 import com.hearthsim.card.minion.concrete.GoldshireFootman;
 import com.hearthsim.card.minion.heroes.Mage;
+import com.hearthsim.card.minion.heroes.TestHero;
 import com.hearthsim.card.spellcard.concrete.HolySmite;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
@@ -25,6 +18,11 @@ import com.hearthsim.model.PlayerSide;
 import com.hearthsim.player.playercontroller.BruteForceSearchAI;
 import com.hearthsim.util.HearthActionBoardPair;
 import com.hearthsim.util.tree.HearthTreeNode;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 public class TestFaerieDragon {
 
@@ -41,7 +39,7 @@ public class TestFaerieDragon {
 		deck = new Deck(cards);
 
 		PlayerModel playerModel0 = new PlayerModel(0, "player0", new Mage(), deck);
-		PlayerModel playerModel1 = new PlayerModel(1, "player1", new Hero(), deck);
+		PlayerModel playerModel1 = new PlayerModel(1, "player1", new TestHero(), deck);
 
 		board = new HearthTreeNode(new BoardModel(playerModel0, playerModel1));
 

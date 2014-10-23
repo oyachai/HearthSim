@@ -2,6 +2,7 @@ package com.hearthsim.test.helpers
 
 import com.hearthsim.card.Card
 import com.hearthsim.card.minion.Minion
+import com.hearthsim.card.weapon.WeaponCard
 import com.hearthsim.model.BoardModel
 import com.hearthsim.model.PlayerSide
 
@@ -64,6 +65,10 @@ class BoardModelBuilder {
         boardModel.modelForSide(playerSide).overload = (byte) overload
     }
 
+    private windFury(Boolean hasWindFury) {
+        boardModel.modelForSide(playerSide).hero.windfury = hasWindFury
+    }
+
     private spellDamage(Number spellDamage) {
         boardModel.modelForSide(playerSide).spellDamage = (byte) spellDamage
     }
@@ -71,6 +76,11 @@ class BoardModelBuilder {
     private heroHealth(Number health){
         def side = boardModel.modelForSide(playerSide)
         side.hero.health = health
+    }
+
+    private heroAttack(Number attack){
+        def side = boardModel.modelForSide(playerSide)
+        side.hero.attack = attack
     }
 
     private mana(Number mana) {
@@ -110,6 +120,25 @@ class BoardModelBuilder {
         // todo: eventually this will need to be configurable
         boardModel.placeMinion(playerSide, minion, numMinions)
     }
+
+    private heroHasAttacked(Boolean hasAttacked){
+        def side = boardModel.modelForSide(playerSide)
+        side.hero.hasAttacked(hasAttacked)
+    }
+
+    private weapon(Class<WeaponCard> weaponCard, Closure weaponClosure){
+        def side = boardModel.modelForSide(playerSide)
+        side.hero.weapon = weaponCard.newInstance()
+        side.hero.weapon.hasBeenUsed(true)
+
+        runClosure weaponClosure
+    }
+
+    private weaponCharge(Number charge){
+        def side = boardModel.modelForSide(playerSide)
+        side.hero.weapon.weaponCharge_ = charge
+    }
+
 
     private currentPlayer(Closure player) {
         playerSide = PlayerSide.CURRENT_PLAYER

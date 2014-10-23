@@ -10,54 +10,12 @@ import com.hearthsim.card.minion.concrete.WrathOfAirTotem;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.HearthAction;
 import com.hearthsim.util.tree.HearthTreeNode;
 import com.hearthsim.util.tree.RandomEffectNode;
 
 public class Shaman extends Hero {
 
-	public Shaman() {
-		this("Shaman", (byte)30);
-	}
-
-	public Shaman(String name, byte health) {
-		this(name, (byte)0, (byte)0, health, (byte)0, (byte)0, false, false, false, false, false);
-	}
-	
-	public Shaman(
-			String name,
-			byte attack,
-			byte extraAttackUntilTurnEnd,
-			byte health,
-			byte armor,
-			byte weaponCharge,
-			boolean windFury,
-			boolean hasAttacked,
-			boolean hasWindFuryAttacked,
-			boolean frozen,
-			boolean hasBeenUsed) {
-	
-		super(name, attack, extraAttackUntilTurnEnd, health, armor, weaponCharge, windFury, hasAttacked, hasWindFuryAttacked, frozen, hasBeenUsed);
-	}
-	
-	@Override
-	public DeepCopyable deepCopy() {
-		return new Shaman(
-				this.name_, 
-				this.attack_,
-				this.extraAttackUntilTurnEnd_,
-				this.health_,
-				this.armor_,
-				this.weaponCharge_,
-				this.windFury_,
-				this.hasAttacked_,
-				this.hasWindFuryAttacked_,
-				this.frozen_,
-				this.hasBeenUsed
-				);
-	}
-	
 	/**
 	 * Use the hero ability on a given target
 	 * 

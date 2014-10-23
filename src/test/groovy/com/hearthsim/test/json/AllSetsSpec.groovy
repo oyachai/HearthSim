@@ -1,13 +1,13 @@
 package com.hearthsim.test.json
 
-import com.hearthsim.json.registry.CardRegistry
+import com.hearthsim.json.registry.ReferenceCardRegistry
 import spock.lang.Specification
 
 class AllSetsSpec extends Specification {
 
     def "correct number of neutrals in registry with correct cost"() {
         when:
-        def instance = CardRegistry.getInstance()
+        def instance = ReferenceCardRegistry.getInstance()
 
         then:
         instance.minionsByManaCostAndClass(cost, hero).size() == count
@@ -140,7 +140,7 @@ class AllSetsSpec extends Specification {
 
     def "correct number of spells by hero"() {
         when:
-        def instance = CardRegistry.getInstance()
+        def instance = ReferenceCardRegistry.getInstance()
 
         then:
         instance.spellsByManaCostAndClass(cost, hero).size() == count
@@ -272,7 +272,7 @@ class AllSetsSpec extends Specification {
 
     def 'able to find card by name '(){
         when:
-        def instance = CardRegistry.getInstance()
+        def instance = ReferenceCardRegistry.getInstance()
 
         then:
         def definition = instance.cardByName('Abomination')

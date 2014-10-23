@@ -38,12 +38,8 @@ public class AcidicSwampOoze extends Minion {
 			boolean singleRealizationOnly
 		) throws HSException
 	{
-		HearthTreeNode toRet = boardState;
-		if (toRet.data_.getWaitingPlayerHero().getWeaponCharge() > 0) {
-			toRet.data_.getWaitingPlayerHero().setWeaponCharge((byte)0);
-			toRet.data_.getWaitingPlayerHero().setAttack((byte)0);
-		}
-		return toRet;
+        boardState.data_.getWaitingPlayerHero().destroyWeapon();
+		return boardState;
 	}
 
 }

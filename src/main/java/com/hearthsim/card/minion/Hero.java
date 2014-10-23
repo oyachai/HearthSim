@@ -1,7 +1,10 @@
 package com.hearthsim.card.minion;
 
 import com.hearthsim.card.Deck;
+import com.hearthsim.card.ImplementedCardList;
+import com.hearthsim.card.weapon.WeaponCard;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.DeepCopyable;
@@ -12,49 +15,43 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 import org.json.JSONObject;
 
-public class Hero extends Minion {
+public abstract class Hero extends Minion {
 
 	protected static final byte HERO_ABILITY_COST = 2;  //Assumed to be 2 for all heroes
-	
-	protected byte weaponCharge_;
+
+    protected WeaponCard weapon;
 	protected byte armor_;
 		
 	public Hero() {
-		this("NoHero", (byte)30);
+        ImplementedCardList cardList = ImplementedCardList.getInstance();
+        ImplementedCardList.ImplementedCard implementedCard = cardList.getCardForClass(this.getClass());
+        if (implementedCard!=null){
+            this.name_ = implementedCard.name_;
+            this.health_ = (byte) implementedCard.health_;
+            this.attack_ = 0;
+            this.baseHealth_ = health_;
+            this.maxHealth_ = health_;
+            this.heroTargetable_ = true;
+        }
 	}
-
-	public Hero(String name, byte health) {
-		this(name, (byte)0, (byte)0, health, (byte)0, (byte)0, false, false, false, false, false);
-	}
-	
-	public Hero(
-			String name,
-			byte attack,
-			byte extraAttackUntilTurnEnd,
-			byte health,
-			byte armor,
-			byte weaponCharge,
-			boolean windFury,
-			boolean hasAttacked,
-			boolean hasWindFuryAttacked,
-			boolean frozen,
-			boolean hasBeenUsed) {
-	
-		super(name, (byte)0, attack, health, (byte)0, extraAttackUntilTurnEnd, (byte)0, (byte)30, (byte)30, (byte)0, (byte)0, false, false, windFury, false, hasAttacked, hasWindFuryAttacked, frozen, false, false, true, false, false, false, false, null, null, false, hasBeenUsed);
-		armor_ = armor;
-		weaponCharge_ = weaponCharge;
-	}
-
 
 	public byte getWeaponCharge() {
-		return weaponCharge_;
+        if (weapon == null){
+            return 0;
+        }else{
+            return weapon.getWeaponCharge_();
+        }
 	}
-	
-	public void setWeaponCharge(byte weaponCharge) {
-		weaponCharge_ = weaponCharge;
-	}
-	
-	public byte getArmor() {
+
+    public void setWeaponCharge(byte weaponCharge) {
+        if (weaponCharge == 0) {
+            weapon = null;
+        } else {
+            weapon.setWeaponCharge_(weaponCharge);
+        }
+    }
+
+    public byte getArmor() {
 		return armor_;
 	}
 	
@@ -63,20 +60,14 @@ public class Hero extends Minion {
 	}
 	
 	@Override
-	public DeepCopyable<?> deepCopy() {
-		return new Hero(
-				this.name_, 
-				this.attack_,
-				this.extraAttackUntilTurnEnd_,
-				this.health_,
-				this.armor_,
-				this.weaponCharge_,
-				this.windFury_,
-				this.hasAttacked_,
-				this.hasWindFuryAttacked_,
-				this.frozen_,
-				this.hasBeenUsed
-				);
+	public DeepCopyable deepCopy() {
+        Hero copy = (Hero) super.deepCopy();
+        if (weapon!=null){
+            copy.weapon = (WeaponCard) weapon.deepCopy();
+        }
+        copy.armor_ = armor_;
+
+        return copy;
 	}
 	
 	
@@ -108,29 +99,33 @@ public class Hero extends Minion {
 			return null;
 		}
 
-		if (this.weaponCharge_ == 0 && this.extraAttackUntilTurnEnd_ == 0) {
-			return null;
-		}
-		
-		//this is somewhat redundant, but it must be done here...
+        if (this.getWeapon() != null && this.getWeapon().getWeaponCharge_() == 0 && this.extraAttackUntilTurnEnd_ == 0) {
+            return null;
+        }
+
+        //this is somewhat redundant, but it must be done here...
 		if (frozen_) {
 			this.hasAttacked_ = true;
 			this.frozen_ = false;
 			return boardState;
 		}
+        HearthTreeNode toRet = super.attack(targetMinionPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1);
+        if (toRet != null && this.getWeapon() != null) {
+            this.weapon.onAttack(targetMinionPlayerSide,
+                    targetMinion,
+                    boardState,
+                    deckPlayer0,
+                    deckPlayer1);
 
-		int attackerIndex = 0;
-    	int targetIndex = targetMinion instanceof Hero ? 0 : targetMinionPlayerSide.getPlayer(boardState).getMinions().indexOf(targetMinion) + 1;
-		
-		HearthTreeNode toRet = super.attack(targetMinionPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1);
-
-        if (toRet != null && this.weaponCharge_ > 0) {
-        	toRet.setAction(new HearthAction(Verb.ATTACK, PlayerSide.CURRENT_PLAYER, attackerIndex, targetMinionPlayerSide, targetIndex));
-            this.weaponCharge_ -= 1;
-            if (this.weaponCharge_ == 0) {
-                this.attack_ = 0;
+            if (getWeaponCharge() > 0) {
+                this.getWeapon().setWeaponCharge_((byte) (getWeaponCharge() - 1));
+                if (getWeaponCharge() == 0) {
+                    destroyWeapon();
+                }
             }
+
         }
+
         return toRet;
 	}
 	
@@ -249,27 +244,58 @@ public class Hero extends Minion {
 	public JSONObject toJSON() {
 		JSONObject json = super.toJSON();
 		json.put("armor", this.armor_);
-		json.put("weaponCharge", this.weaponCharge_);
+		json.put("weapon", this.weapon);
 		return json;
 	}
-	
-	@Override
-	public boolean equals(Object other) {
-		if (!super.equals(other)) {
-			return false;
-		}
-		Hero hero = (Hero)other;
-		if (weaponCharge_ != hero.weaponCharge_) return false;
-		if (armor_ != hero.armor_) return false;
-		
-		return true;
-	}
-	
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        Hero hero = (Hero) o;
+
+        if (armor_ != hero.armor_) return false;
+        if (weapon != null ? !weapon.equals(hero.weapon) : hero.weapon != null) return false;
+
+        return true;
+    }
+
     @Override
     public int hashCode() {
-    	int hash = super.hashCode();
-    	hash = 31 * hash + (int) weaponCharge_;
-    	hash = 31 * hash + (int) armor_;
-    	return hash;
+        int result = super.hashCode();
+        result = 31 * result + (weapon != null ? weapon.hashCode() : 0);
+        result = 31 * result + (int) armor_;
+        return result;
+    }
+
+    public void setWeapon(WeaponCard weapon) {
+        if (weapon == null) {
+            throw new RuntimeException("use 'destroy weapon' method if trying to remove weapon.");
+        } else {
+            this.weapon = weapon;
+            this.attack_ = weapon.getWeaponDamage_();
+        }
+    }
+
+    public WeaponCard getWeapon() {
+        return weapon;
+    }
+
+    public void destroyWeapon() {
+        if (weapon!=null){
+            attack_ = 0;
+            weapon = null;
+        }
+    }
+
+    @Override
+    public HearthTreeNode minionSummonedEvent(PlayerSide thisMinionPlayerSide, PlayerSide summonedMinionPlayerSide, Minion summonedMinion, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
+        HearthTreeNode hearthTreeNode = super.minionSummonedEvent(thisMinionPlayerSide, summonedMinionPlayerSide, summonedMinion, boardState, deckPlayer0, deckPlayer1);
+        if (weapon!=null){
+            weapon.minionSummonedEvent(thisMinionPlayerSide, summonedMinionPlayerSide, summonedMinion, boardState, deckPlayer0, deckPlayer1);
+        }
+        return hearthTreeNode;
     }
 }

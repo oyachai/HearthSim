@@ -1,7 +1,5 @@
 package com.hearthsim.model;
 
-import org.json.JSONObject;
-
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
@@ -9,6 +7,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.IdentityLinkedList;
 import com.hearthsim.util.MinionList;
+import org.json.JSONObject;
 
 public class PlayerModel implements DeepCopyable {
 

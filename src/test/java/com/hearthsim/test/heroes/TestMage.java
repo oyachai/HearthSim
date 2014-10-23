@@ -6,6 +6,7 @@ import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.ChillwindYeti;
 import com.hearthsim.card.minion.heroes.Mage;
+import com.hearthsim.card.minion.heroes.TestHero;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
@@ -25,7 +26,7 @@ public class TestMage {
 
 	@Before
 	public void setup() {
-		board = new HearthTreeNode(new BoardModel(new Mage(), new Hero()));
+		board = new HearthTreeNode(new BoardModel(new Mage(), new TestHero()));
 
 		Minion minion0_0 = new ChillwindYeti();
 		Minion minion0_1 = new ChillwindYeti();

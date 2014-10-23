@@ -1,18 +1,19 @@
 package com.hearthsim.test;
 
-import static org.junit.Assert.*;
-
-import org.junit.Test;
-
 import com.hearthsim.Game;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.minion.heroes.TestHero;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.player.playercontroller.BruteForceSearchAI;
 import com.hearthsim.results.GameResult;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class TestGameRecord {
 
@@ -42,8 +43,8 @@ public class TestGameRecord {
 
 		for (int iter = 0; iter < 10; ++iter) {
 			long t1 = System.nanoTime();
-			Hero hero1 = new Hero();
-			Hero hero2 = new Hero();
+			Hero hero1 = new TestHero();
+			Hero hero2 = new TestHero();
 			
 			Deck deck1 = new Deck(cards1_);
 			Deck deck2 = new Deck(cards2_);

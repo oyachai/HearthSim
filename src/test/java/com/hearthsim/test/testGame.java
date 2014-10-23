@@ -7,6 +7,7 @@ import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.heroes.Mage;
 import com.hearthsim.card.minion.heroes.Paladin;
+import com.hearthsim.card.minion.heroes.TestHero;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.player.playercontroller.BruteForceSearchAI;
@@ -104,8 +105,8 @@ public class testGame {
 
 		for (int iter = 0; iter < 10; ++iter) {
 			long t1 = System.nanoTime();
-			Hero hero1 = new Hero();
-			Hero hero2 = new Hero();
+			Hero hero1 = new TestHero();
+			Hero hero2 = new TestHero();
 			
 			Deck deck1 = new Deck(cards1_);
 			Deck deck2 = new Deck(cards2_);
