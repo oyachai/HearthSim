@@ -576,6 +576,10 @@
         "class": "com.hearthsim.card.minion.concrete.OgreMagi"
     },
     {
+        "name": "Pit Lord",
+        "class": "com.hearthsim.card.minion.concrete.PitLord"
+    },
+    {
         "name": "Polymorph",
         "class": "com.hearthsim.card.spellcard.concrete.Polymorph"
     },
