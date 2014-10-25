@@ -55,6 +55,9 @@ class BoardModelBuilder {
 
 		minion.auraAttack += options.deltaAuraAttack ? options.deltaAuraAttack : 0;
         minion.auraHealth += options.deltaAuraHealth ? options.deltaAuraHealth : 0;
+		
+		minion.spellDamage += options.deltaSpellDamage ? options.deltaSpellDamage : 0;
+		
     }
 
     private fatigueDamage(Number fatigueDamage) {

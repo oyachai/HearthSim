@@ -410,7 +410,22 @@ public class Minion extends Card {
 	public void setHeroTargetable(boolean value) {
 		heroTargetable_ = value;
 	}
+	
+	public byte getSpellDamage() {
+		return spellDamage_;
+	}
 
+	public void setSpellDamage(byte value) {
+		spellDamage_ = value;
+	}
+
+	public void addSpellDamage(byte value) {
+		spellDamage_ += value;
+	}
+
+	public void subtractSpellDamage(byte value) {
+		spellDamage_ -= value;
+	}
 
     /**
 	 * Called at the start of the turn

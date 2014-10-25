@@ -40,6 +40,10 @@
         "class": "com.hearthsim.card.spellcard.concrete.AncestralSpirit"
     },
     {
+        "name": "Ancient Mage",
+        "class": "com.hearthsim.card.minion.concrete.AncientMage"
+    },
+    {
         "name": "Ancient of Lore",
         "class": "com.hearthsim.card.minion.concrete.AncientOfLore"
     },
