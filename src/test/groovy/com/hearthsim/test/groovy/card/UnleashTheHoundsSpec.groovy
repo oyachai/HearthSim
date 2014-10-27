@@ -52,7 +52,8 @@ class UnleashTheHoundsSpec extends CardSpec {
 
 		assertBoardDelta(copiedBoard, ret.data_) {
 			currentPlayer {
-				playMinion(Hound)
+				removeCardFromHand(UnleashTheHounds)
+				addMinionToField(Hound, false, true)
 				mana(4)
 			}
 		}

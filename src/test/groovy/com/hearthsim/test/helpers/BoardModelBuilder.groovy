@@ -113,11 +113,15 @@ class BoardModelBuilder {
         def cardInHand = hand.find { it.class == card }
         boardModel.removeCardFromHand(cardInHand, playerSide)
     }
-		
-    private addMinionToField(Class<Minion> minionClass) {
+
+	private addMinionToField(Class<Minion> minionClass) {
+		addMinionToField(minionClass, true, true)	
+	}
+	
+    private addMinionToField(Class<Minion> minionClass, boolean hasAttacked, boolean hasBeenUsed) {
         Minion minion = minionClass.newInstance()
-        minion.hasAttacked(true)
-        minion.hasBeenUsed(true)
+        minion.hasAttacked(hasAttacked)
+        minion.hasBeenUsed(hasBeenUsed)
         def numMinions = boardModel.modelForSide(playerSide).numMinions
         // place the minion at the end by default
         // todo: eventually this will need to be configurable

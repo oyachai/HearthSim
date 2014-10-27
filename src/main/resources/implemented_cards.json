@@ -424,6 +424,10 @@
         "class": "com.hearthsim.card.spellcard.concrete.HolySmite"
     },
     {
+        "name": "Hound",
+        "class": "com.hearthsim.card.minion.concrete.Hound"
+    },
+    {
         "name": "Houndmaster",
         "class": "com.hearthsim.card.minion.concrete.Houndmaster"
     },
