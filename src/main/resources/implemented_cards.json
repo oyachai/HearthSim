@@ -800,6 +800,10 @@
         "class": "com.hearthsim.card.minion.concrete.Undertaker"
     },
     {
+        "name": "UnleashTheHounds",
+        "class": "com.hearthsim.card.minion.concrete.UnleashTheHounds"
+    },
+    {
         "name": "Unstable Ghoul",
         "class": "com.hearthsim.card.minion.concrete.UnstableGhoul"
     },
