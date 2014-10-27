@@ -254,43 +254,14 @@ public class Card implements DeepCopyable {
 		throws HSException
 	{
 		//A generic card does nothing except for consuming mana
-		HearthTreeNode toRet = this.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
-
-		//Notify all other cards/characters of the card's use
-		if (toRet != null) {
-			ArrayList<Minion> tmpList = new ArrayList<Minion>(7);
-            for (Card card : toRet.data_.getCurrentPlayerHand()) {
-                toRet = card.otherCardUsedEvent(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1);
-            }
-			toRet = toRet.data_.getCurrentPlayerHero().otherCardUsedEvent(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1);
-			{
-                for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
-                    tmpList.add(minion);
-                }
-				for (Minion minion : tmpList) {
-					if (!minion.isSilenced())
-						toRet = minion.otherCardUsedEvent(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1);
-				}
-			}
-            for (Card card : toRet.data_.getWaitingPlayerHand()) {
-                toRet = card.otherCardUsedEvent(PlayerSide.WAITING_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1);
-            }
-			toRet = toRet.data_.getWaitingPlayerHero().otherCardUsedEvent(PlayerSide.WAITING_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1);
-			{
-				tmpList.clear();
-                for (Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
-                    tmpList.add(minion);
-                }
-				for (Minion minion : tmpList) {
-					if (!minion.isSilenced())
-						toRet = minion.otherCardUsedEvent(PlayerSide.WAITING_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1);
-				}
-			}
-
-			//check for and remove dead minions
-			toRet = BoardStateFactoryBase.handleDeadMinions(toRet, deckPlayer0, deckPlayer1);			
-		}
+		if (!this.canBeUsedOn(side, targetMinion, boardState.data_))
+			return null;
 		
+		HearthTreeNode toRet = this.notifyCardOnPlay(boardState, deckPlayer0, deckPlayer1);
+		toRet = this.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+
+		if (toRet != null)
+			toRet = this.notifyCardAfterPlayed(toRet, deckPlayer0, deckPlayer1);
 		
 		return toRet;
 	}
@@ -323,14 +294,88 @@ public class Card implements DeepCopyable {
 		return boardState;
 	}
 	
+	//======================================================================================
+	// Various notifications
+	//======================================================================================	
+	protected HearthTreeNode notifyCardOnPlay(HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+		HearthTreeNode toRet = boardState;
+		ArrayList<Minion> tmpList = new ArrayList<Minion>(7);
+        for (Card card : toRet.data_.getCurrentPlayerHand()) {
+            toRet = card.cardOnPlayEvent(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1);
+        }
+		toRet = toRet.data_.getCurrentPlayerHero().cardOnPlayEvent(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1);
+		{
+            for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
+                tmpList.add(minion);
+            }
+			for (Minion minion : tmpList) {
+				if (!minion.isSilenced())
+					toRet = minion.cardOnPlayEvent(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1);
+			}
+		}
+        for (Card card : toRet.data_.getWaitingPlayerHand()) {
+            toRet = card.cardOnPlayEvent(PlayerSide.WAITING_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1);
+        }
+		toRet = toRet.data_.getWaitingPlayerHero().cardOnPlayEvent(PlayerSide.WAITING_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1);
+		{
+			tmpList.clear();
+            for (Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
+                tmpList.add(minion);
+            }
+			for (Minion minion : tmpList) {
+				if (!minion.isSilenced())
+					toRet = minion.cardOnPlayEvent(PlayerSide.WAITING_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1);
+			}
+		}
+
+		//check for and remove dead minions
+		toRet = BoardStateFactoryBase.handleDeadMinions(toRet, deckPlayer0, deckPlayer1);
+		return toRet;
+	}
+	
+	protected HearthTreeNode notifyCardAfterPlayed(HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+		HearthTreeNode toRet = boardState;
+		ArrayList<Minion> tmpList = new ArrayList<Minion>(7);
+        for (Card card : toRet.data_.getCurrentPlayerHand()) {
+            toRet = card.cardAfterPlayedEvent(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1);
+        }
+		toRet = toRet.data_.getCurrentPlayerHero().cardAfterPlayedEvent(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1);
+		{
+            for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
+                tmpList.add(minion);
+            }
+			for (Minion minion : tmpList) {
+				if (!minion.isSilenced())
+					toRet = minion.cardAfterPlayedEvent(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1);
+			}
+		}
+        for (Card card : toRet.data_.getWaitingPlayerHand()) {
+            toRet = card.cardAfterPlayedEvent(PlayerSide.WAITING_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1);
+        }
+		toRet = toRet.data_.getWaitingPlayerHero().cardAfterPlayedEvent(PlayerSide.WAITING_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1);
+		{
+			tmpList.clear();
+            for (Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
+                tmpList.add(minion);
+            }
+			for (Minion minion : tmpList) {
+				if (!minion.isSilenced())
+					toRet = minion.cardAfterPlayedEvent(PlayerSide.WAITING_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1);
+			}
+		}
+
+		//check for and remove dead minions
+		toRet = BoardStateFactoryBase.handleDeadMinions(toRet, deckPlayer0, deckPlayer1);
+		return toRet;
+	}
 
 	//======================================================================================
 	// Hooks for various events
 	//======================================================================================	
 	/**
 	 * 
-	 * Called whenever another card is used
-	 *  @param thisCardPlayerSide The player index of the card receiving the event
+	 * Called whenever another card is played, before the card is actually played
+	 * @param thisCardPlayerSide The player index of the card receiving the event
 	 * @param cardUserPlayerSide
      * @param usedCard The card that was used
      * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
@@ -338,7 +383,7 @@ public class Card implements DeepCopyable {
      * @param deckPlayer1 The deck of player1
      * @return The boardState is manipulated and returned
 	 */
-	public HearthTreeNode otherCardUsedEvent(
+	public HearthTreeNode cardOnPlayEvent(
 			PlayerSide thisCardPlayerSide,
 			PlayerSide cardUserPlayerSide,
 			Card usedCard,
@@ -350,6 +395,28 @@ public class Card implements DeepCopyable {
 		return boardState;
 	}
 
+	/**
+	 * 
+	 * Called whenever another card is played, after it is actually played
+	 * @param thisCardPlayerSide The player index of the card receiving the event
+	 * @param cardUserPlayerSide
+     * @param usedCard The card that was used
+     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+     * @param deckPlayer0 The deck of player0
+     * @param deckPlayer1 The deck of player1
+     * @return The boardState is manipulated and returned
+	 */
+	public HearthTreeNode cardAfterPlayedEvent(
+			PlayerSide thisCardPlayerSide,
+			PlayerSide cardUserPlayerSide,
+			Card usedCard,
+			HearthTreeNode boardState,
+			Deck deckPlayer0,
+			Deck deckPlayer1)
+		throws HSException
+	{
+		return boardState;
+	}
 	
 	
 	

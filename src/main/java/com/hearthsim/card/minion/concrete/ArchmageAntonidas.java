@@ -37,7 +37,7 @@ public class ArchmageAntonidas extends Minion {
      * @return The boardState is manipulated and returned
 	 */
 	@Override
-	public HearthTreeNode otherCardUsedEvent(
+	public HearthTreeNode cardOnPlayEvent(
 			PlayerSide thisCardPlayerSide,
 			PlayerSide cardUserPlayerSide,
 			Card usedCard,
@@ -46,7 +46,7 @@ public class ArchmageAntonidas extends Minion {
 			Deck deckPlayer1)
 		throws HSException
 	{
-		HearthTreeNode toRet = super.otherCardUsedEvent(thisCardPlayerSide, cardUserPlayerSide, usedCard, boardState, deckPlayer0, deckPlayer1);
+		HearthTreeNode toRet = super.cardOnPlayEvent(thisCardPlayerSide, cardUserPlayerSide, usedCard, boardState, deckPlayer0, deckPlayer1);
 		if (thisCardPlayerSide != PlayerSide.CURRENT_PLAYER)
 			return toRet;
 		if (isInHand_)
