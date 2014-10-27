@@ -672,6 +672,10 @@
         "class": "com.hearthsim.card.minion.concrete.ShatteredSunCleric"
     },
     {
+        "name": "Sheep",
+        "class": "com.hearthsim.card.minion.concrete.Sheep"
+    },
+    {
         "name": "Shield Block",
         "class": "com.hearthsim.card.spellcard.concrete.ShieldBlock"
     },
