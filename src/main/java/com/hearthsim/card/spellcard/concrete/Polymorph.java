@@ -63,7 +63,7 @@ public class Polymorph extends SpellCard {
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
 			Sheep sheep = new Sheep();
-			toRet = sheep.summonMinion(side, targetMinion, boardState, deckPlayer0, deckPlayer1, true);
+			toRet = sheep.placeMinion(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 			boardState.data_.removeMinion(targetMinion);
 		}
 

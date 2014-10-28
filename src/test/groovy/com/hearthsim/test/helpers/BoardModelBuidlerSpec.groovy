@@ -84,7 +84,6 @@ class BoardModelBuidlerSpec extends HearthBaseSpec {
                 mana(1)
                 fatigueDamage(1)
                 overload(1)
-                spellDamage(1)
             }
         }
 
@@ -96,7 +95,6 @@ class BoardModelBuidlerSpec extends HearthBaseSpec {
 
         def playerModel = currentPlayer
         expect playerModel.overload, isByteEqual(1)
-        expect playerModel.spellDamage, isByteEqual(1)
     }
 
     def 'build current and waiting player'() {

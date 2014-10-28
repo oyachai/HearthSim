@@ -39,15 +39,17 @@ public class GrimscaleOracle extends Murloc {
      * @return The boardState is manipulated and returned
 	 * @throws HSException 
 	 */
-	protected HearthTreeNode summonMinion_core(
+	@Override
+	public HearthTreeNode placeMinion(
             PlayerSide targetSide,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
-			Deck deckPlayer1)
+			Deck deckPlayer1,
+			boolean singleRealizationOnly)
 		throws HSException
 	{
-		HearthTreeNode toRet = super.summonMinion_core(targetSide, targetMinion, boardState, deckPlayer0, deckPlayer1);
+		HearthTreeNode toRet = super.placeMinion(targetSide, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
 			
 			for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
@@ -108,20 +110,8 @@ public class GrimscaleOracle extends Murloc {
         return boardState;
 	}
 
-	/**
-	 * 
-	 * Called whenever another minion comes on board
-	 * 
-	 * Override for the aura effect
-	 *
-	 *
-     * @param thisMinionPlayerSide
-     * @param summonedMinionPlayerSide
-     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-     * @return The boardState is manipulated and returned
-	 */
 	@Override
-	public HearthTreeNode minionSummonedEvent(
+	public HearthTreeNode minionPlacedEvent(
 			PlayerSide thisMinionPlayerSide,
 			PlayerSide summonedMinionPlayerSide,
 			Minion summonedMinion,
@@ -130,28 +120,7 @@ public class GrimscaleOracle extends Murloc {
 			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
-		return this.doBuffs(summonedMinion, boardState);
-	}
-	
-	/**
-	 * 
-	 * Called whenever another minion is summoned using a spell
-	 * 
-	 *  @param thisMinionPlayerSide
-     * @param transformedMinionPlayerSide
-     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-     * @return The boardState is manipulated and returned
-	 */
-	@Override
-	public HearthTreeNode minionTransformedEvent(
-			PlayerSide thisMinionPlayerSide,
-			PlayerSide transformedMinionPlayerSide,
-			Minion transformedMinion,
-			HearthTreeNode boardState,
-			Deck deckPlayer0,
-			Deck deckPlayer1)
-		throws HSInvalidPlayerIndexException
-	{
-		return this.doBuffs(transformedMinion, boardState);
-	}
+		HearthTreeNode toRet = super.minionPlacedEvent(thisMinionPlayerSide, summonedMinionPlayerSide, summonedMinion, boardState, deckPlayer0, deckPlayer1);
+		return this.doBuffs(summonedMinion, toRet);
+	}	
 }

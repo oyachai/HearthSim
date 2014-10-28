@@ -24,7 +24,8 @@ public class Undertaker extends Minion {
 	/**
 	 * Whenever a minion with Deathrattle is summoned, gain +1/+1
      * */
-	public HearthTreeNode minionSummonedEvent(
+	@Override
+	public HearthTreeNode minionSummonEvent(
 			PlayerSide thisMinionPlayerSide,
 			PlayerSide summonedMinionPlayerSide,
 			Minion summonedMinion,
@@ -33,7 +34,7 @@ public class Undertaker extends Minion {
 			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
-		HearthTreeNode toRet = super.minionSummonedEvent(thisMinionPlayerSide, summonedMinionPlayerSide, summonedMinion, boardState, deckPlayer0, deckPlayer1);
+		HearthTreeNode toRet = super.minionSummonEvent(thisMinionPlayerSide, summonedMinionPlayerSide, summonedMinion, boardState, deckPlayer0, deckPlayer1);
 		if (toRet != null && summonedMinion.hasDeathrattle() && thisMinionPlayerSide == summonedMinionPlayerSide) {
 			this.addHealth((byte)1);
 			this.addAttack((byte)1);

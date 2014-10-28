@@ -246,6 +246,13 @@ public class TestShaman {
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getNumMinions(), 3);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(resBoard).getNumMinions(), 1);
 
+		boolean isRightTotem = false;
+		isRightTotem = isRightTotem || resBoard.getCurrentPlayer().getMinions().getLast() instanceof HealingTotem;
+		isRightTotem = isRightTotem || resBoard.getCurrentPlayer().getMinions().getLast() instanceof SearingTotem;
+		isRightTotem = isRightTotem || resBoard.getCurrentPlayer().getMinions().getLast() instanceof StoneclawTotem;
+		isRightTotem = isRightTotem || resBoard.getCurrentPlayer().getMinions().getLast() instanceof WrathOfAirTotem;
+		assertTrue(isRightTotem);
+		
 		log.info("{}",PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getMinions().get(2).getClass());
 	}
 }

@@ -76,7 +76,7 @@ public class Shaman extends Hero {
 			this.hasBeenUsed = true;
 			toRet.data_.getCurrentPlayer().subtractMana(HERO_ABILITY_COST);
 			Minion summonTarget = toRet.data_.getCharacter(targetPlayerSide, numMinions);
-			toRet = minionToSummon.summonMinion(targetPlayerSide, summonTarget, toRet, deckPlayer0, deckPlayer1, false);
+			toRet = minionToSummon.summonMinion(targetPlayerSide, summonTarget, toRet, deckPlayer0, deckPlayer1, false, singleRealizationOnly);
 			return toRet;
 		}
 		
@@ -101,7 +101,7 @@ public class Shaman extends Hero {
 					newState.data_.getCurrentPlayer().subtractMana(HERO_ABILITY_COST);
 					newState.data_.getCurrentPlayerHero().hasBeenUsed(true);
 
-					newState = totemToSummon.summonMinion(targetPlayerSide, summonTarget, newState, deckPlayer0, deckPlayer1, false);
+					newState = totemToSummon.summonMinion(targetPlayerSide, summonTarget, newState, deckPlayer0, deckPlayer1, false, singleRealizationOnly);
 				}
 			}
 			if (allTotemsNotSummonable) 

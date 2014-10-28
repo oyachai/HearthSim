@@ -40,15 +40,16 @@ public class Leokk extends Beast {
      * @return The boardState is manipulated and returned
 	 */
 	@Override
-	protected HearthTreeNode summonMinion_core(
+	public HearthTreeNode placeMinion(
             PlayerSide targetSide,
 			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
-			Deck deckPlayer1)
+			Deck deckPlayer1,
+			boolean singleRealizationOnly)
 		throws HSException
 	{	
-		HearthTreeNode toRet = super.summonMinion_core(targetSide, targetMinion, boardState, deckPlayer0, deckPlayer1);
+		HearthTreeNode toRet = super.placeMinion(targetSide, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
 			for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
 				if (minion != this) {
@@ -107,7 +108,8 @@ public class Leokk extends Beast {
      * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
      * @param deckPlayer0 The deck of player0    @return The boardState is manipulated and returned
      * */
-	public HearthTreeNode minionSummonedEvent(
+	@Override
+	public HearthTreeNode minionPlacedEvent(
 			PlayerSide thisMinionPlayerSide,
 			PlayerSide summonedMinionPlayerSide,
 			Minion summonedMinion,
@@ -116,28 +118,8 @@ public class Leokk extends Beast {
 			Deck deckPlayer1)
 		throws HSInvalidPlayerIndexException
 	{
-		return this.doBuffs(thisMinionPlayerSide, summonedMinionPlayerSide, summonedMinion, boardState);
+		HearthTreeNode toRet = super.minionPlacedEvent(thisMinionPlayerSide, summonedMinionPlayerSide, summonedMinion, boardState, deckPlayer0, deckPlayer1);
+		return this.doBuffs(thisMinionPlayerSide, summonedMinionPlayerSide, summonedMinion, toRet);
 	}
 	
-	/**
-	 * 
-	 * Called whenever another minion is summoned using a spell
-	 *  @param thisMinionPlayerSide The player index of this minion
-	 * @param transformedMinionPlayerSide
-     * @param transformedMinion The transformed minion (the minion that resulted from a transformation)
-     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-     * @param deckPlayer0 The deck of player0    @return The boardState is manipulated and returned
-     * */
-	public HearthTreeNode minionTransformedEvent(
-			PlayerSide thisMinionPlayerSide,
-			PlayerSide transformedMinionPlayerSide,
-			Minion transformedMinion,
-			HearthTreeNode boardState,
-			Deck deckPlayer0,
-			Deck deckPlayer1)
-		throws HSInvalidPlayerIndexException
-	{
-		return this.doBuffs(thisMinionPlayerSide, transformedMinionPlayerSide, transformedMinion, boardState);
-	}
-
 }

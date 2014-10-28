@@ -257,11 +257,11 @@ public class Card implements DeepCopyable {
 		if (!this.canBeUsedOn(side, targetMinion, boardState.data_))
 			return null;
 		
-		HearthTreeNode toRet = this.notifyCardOnPlay(boardState, deckPlayer0, deckPlayer1);
+		HearthTreeNode toRet = this.notifyCardPlayBegin(boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		toRet = this.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 
 		if (toRet != null)
-			toRet = this.notifyCardAfterPlayed(toRet, deckPlayer0, deckPlayer1);
+			toRet = this.notifyCardPlayResolve(toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		
 		return toRet;
 	}
@@ -297,26 +297,26 @@ public class Card implements DeepCopyable {
 	//======================================================================================
 	// Various notifications
 	//======================================================================================	
-	protected HearthTreeNode notifyCardOnPlay(HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+	protected HearthTreeNode notifyCardPlayBegin(HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
 		HearthTreeNode toRet = boardState;
 		ArrayList<Minion> tmpList = new ArrayList<Minion>(7);
         for (Card card : toRet.data_.getCurrentPlayerHand()) {
-            toRet = card.cardOnPlayEvent(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1);
+            toRet = card.onCardPlayBegin(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
         }
-		toRet = toRet.data_.getCurrentPlayerHero().cardOnPlayEvent(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1);
+		toRet = toRet.data_.getCurrentPlayerHero().onCardPlayBegin(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		{
             for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
                 tmpList.add(minion);
             }
 			for (Minion minion : tmpList) {
 				if (!minion.isSilenced())
-					toRet = minion.cardOnPlayEvent(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1);
+					toRet = minion.onCardPlayBegin(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
 			}
 		}
         for (Card card : toRet.data_.getWaitingPlayerHand()) {
-            toRet = card.cardOnPlayEvent(PlayerSide.WAITING_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1);
+            toRet = card.onCardPlayBegin(PlayerSide.WAITING_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
         }
-		toRet = toRet.data_.getWaitingPlayerHero().cardOnPlayEvent(PlayerSide.WAITING_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1);
+		toRet = toRet.data_.getWaitingPlayerHero().onCardPlayBegin(PlayerSide.WAITING_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		{
 			tmpList.clear();
             for (Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
@@ -324,7 +324,7 @@ public class Card implements DeepCopyable {
             }
 			for (Minion minion : tmpList) {
 				if (!minion.isSilenced())
-					toRet = minion.cardOnPlayEvent(PlayerSide.WAITING_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1);
+					toRet = minion.onCardPlayBegin(PlayerSide.WAITING_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
 			}
 		}
 
@@ -333,26 +333,26 @@ public class Card implements DeepCopyable {
 		return toRet;
 	}
 	
-	protected HearthTreeNode notifyCardAfterPlayed(HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+	protected HearthTreeNode notifyCardPlayResolve(HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
 		HearthTreeNode toRet = boardState;
 		ArrayList<Minion> tmpList = new ArrayList<Minion>(7);
         for (Card card : toRet.data_.getCurrentPlayerHand()) {
-            toRet = card.cardAfterPlayedEvent(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1);
+            toRet = card.onCardPlayResolve(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
         }
-		toRet = toRet.data_.getCurrentPlayerHero().cardAfterPlayedEvent(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1);
+		toRet = toRet.data_.getCurrentPlayerHero().onCardPlayResolve(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		{
             for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
                 tmpList.add(minion);
             }
 			for (Minion minion : tmpList) {
 				if (!minion.isSilenced())
-					toRet = minion.cardAfterPlayedEvent(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1);
+					toRet = minion.onCardPlayResolve(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
 			}
 		}
         for (Card card : toRet.data_.getWaitingPlayerHand()) {
-            toRet = card.cardAfterPlayedEvent(PlayerSide.WAITING_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1);
+            toRet = card.onCardPlayResolve(PlayerSide.WAITING_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
         }
-		toRet = toRet.data_.getWaitingPlayerHero().cardAfterPlayedEvent(PlayerSide.WAITING_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1);
+		toRet = toRet.data_.getWaitingPlayerHero().onCardPlayResolve(PlayerSide.WAITING_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		{
 			tmpList.clear();
             for (Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
@@ -360,7 +360,7 @@ public class Card implements DeepCopyable {
             }
 			for (Minion minion : tmpList) {
 				if (!minion.isSilenced())
-					toRet = minion.cardAfterPlayedEvent(PlayerSide.WAITING_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1);
+					toRet = minion.onCardPlayResolve(PlayerSide.WAITING_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
 			}
 		}
 
@@ -383,14 +383,15 @@ public class Card implements DeepCopyable {
      * @param deckPlayer1 The deck of player1
      * @return The boardState is manipulated and returned
 	 */
-	public HearthTreeNode cardOnPlayEvent(
+	public HearthTreeNode onCardPlayBegin(
 			PlayerSide thisCardPlayerSide,
 			PlayerSide cardUserPlayerSide,
 			Card usedCard,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
-			Deck deckPlayer1)
-		throws HSException
+			Deck deckPlayer1,
+			boolean singleRealizationOnly)
+	throws HSException
 	{
 		return boardState;
 	}
@@ -406,13 +407,14 @@ public class Card implements DeepCopyable {
      * @param deckPlayer1 The deck of player1
      * @return The boardState is manipulated and returned
 	 */
-	public HearthTreeNode cardAfterPlayedEvent(
+	public HearthTreeNode onCardPlayResolve(
 			PlayerSide thisCardPlayerSide,
 			PlayerSide cardUserPlayerSide,
 			Card usedCard,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
-			Deck deckPlayer1)
+			Deck deckPlayer1,
+			boolean singleRealizationOnly)
 		throws HSException
 	{
 		return boardState;

@@ -427,33 +427,6 @@ public class BoardModel implements DeepCopyable {
         return modelForSide(playerSide).getSpellDamage();
     }
 
-    /**
-     * Set the spell damage
-     *
-     * @return
-     */
-    public void setSpellDamage(PlayerSide playerSide, byte damage) throws HSInvalidPlayerIndexException {
-        modelForSide(playerSide).setSpellDamage(damage);
-    }
-
-    /**
-     * Add spell damage
-     *
-     * @return
-     */
-    public void addSpellDamage(PlayerSide playerSide, byte damage) throws HSInvalidPlayerIndexException {
-        modelForSide(playerSide).addSpellDamage(damage);
-    }
-
-    /**
-     * Add spell damage
-     *
-     * @return
-     */
-    public void subtractSpellDamage(PlayerSide playerSide, byte damage) throws HSInvalidPlayerIndexException {
-        modelForSide(playerSide).subtractSpellDamage(damage);
-    }
-
     public boolean removeMinion(MinionPlayerPair minionIdPair) throws HSInvalidPlayerIndexException {
         this.allMinionsFIFOList_.remove(minionIdPair);
         if (minionIdPair.getPlayerModel() == currentPlayer)

@@ -38,15 +38,24 @@ public class VioletTeacher extends Minion {
 	 * @throws HSException 
 	 */
 	@Override
-	public HearthTreeNode cardOnPlayEvent(PlayerSide thisCardPlayerSide, PlayerSide cardUserPlayerSide, Card usedCard, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
-		HearthTreeNode toRet = super.cardOnPlayEvent(thisCardPlayerSide, cardUserPlayerSide, usedCard, boardState, deckPlayer0, deckPlayer1);
+	public HearthTreeNode onCardPlayBegin(
+			PlayerSide thisCardPlayerSide,
+			PlayerSide cardUserPlayerSide,
+			Card usedCard,
+			HearthTreeNode boardState,
+			Deck deckPlayer0,
+			Deck deckPlayer1,
+			boolean singleRealizationOnly)
+		throws HSException
+	{
+		HearthTreeNode toRet = super.onCardPlayBegin(thisCardPlayerSide, cardUserPlayerSide, usedCard, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (thisCardPlayerSide != PlayerSide.CURRENT_PLAYER)
 			return toRet;
 		if (isInHand_)
 			return toRet;
         if (usedCard instanceof SpellCard && PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getNumMinions() < 7) {
             Minion newMinion = new VioletApprentice();
-            toRet = newMinion.summonMinion(thisCardPlayerSide, this, toRet, deckPlayer0, deckPlayer1, false);
+            toRet = newMinion.summonMinion(thisCardPlayerSide, this, toRet, deckPlayer0, deckPlayer1, false, singleRealizationOnly);
         }
         return toRet;
 	}

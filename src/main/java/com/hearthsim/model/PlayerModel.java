@@ -20,7 +20,6 @@ public class PlayerModel implements DeepCopyable {
     private int maxMana;
     
     private MinionList minions;
-    private byte spellDamage;
     private IdentityLinkedList<Card> hand;
     byte overload;
 
@@ -103,19 +102,10 @@ public class PlayerModel implements DeepCopyable {
     }
 
     public byte getSpellDamage() {
+    	byte spellDamage = 0;
+    	for(Minion minion : minions) 
+    		spellDamage += minion.getSpellDamage();
         return spellDamage;
-    }
-
-    public void setSpellDamage(byte spellDamage) {
-        this.spellDamage = spellDamage;
-    }
-
-    public void addSpellDamage(byte spellDamage) {
-        this.spellDamage += spellDamage;
-    }
-
-    public void subtractSpellDamage(byte spellDamage) {
-        this.spellDamage -= spellDamage;
     }
 
     public IdentityLinkedList<Card> getHand() {
@@ -156,8 +146,6 @@ public class PlayerModel implements DeepCopyable {
             copiedPlayerModel.getMinions().add((Minion) (minion).deepCopy());
         }
 
-        copiedPlayerModel.setSpellDamage(spellDamage);
-
         for (final Card card: hand) {
             Card tc = (Card)card.deepCopy();
             copiedPlayerModel.placeCardHand(tc);
@@ -197,7 +185,6 @@ public class PlayerModel implements DeepCopyable {
     	hash = hash * 31 + mana;
     	hash = hash * 31 + maxMana;
     	hash = hash * 31 + (null == minions ? 0 : minions.hashCode());
-    	hash = hash * 31 + spellDamage;
     	hash = hash * 31 + (null == hand ? 0 : hand.hashCode());
     	hash = hash * 31 + overload;
     	        
@@ -218,7 +205,6 @@ public class PlayerModel implements DeepCopyable {
         if (playerId != otherPlayer.playerId) return false;
         if (mana != otherPlayer.mana) return false;
         if (maxMana != otherPlayer.maxMana) return false;
-        if (spellDamage != otherPlayer.spellDamage) return false;
         if (overload != otherPlayer.overload) return false;
 
         if (!name.equals(otherPlayer.name)) return false;

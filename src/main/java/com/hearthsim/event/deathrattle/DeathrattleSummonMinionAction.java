@@ -31,7 +31,7 @@ public class DeathrattleSummonMinionAction extends DeathrattleAction {
             	Minion newMinion = (Minion)minionClass_.newInstance();
             	Minion placementTarget = toRet.data_.getCharacter(playerSide, toRet.data_.getMinions(playerSide).indexOf(minion)); //this minion can't be a hero
             	toRet.data_.removeMinion(minion);
-				toRet = newMinion.summonMinion(playerSide, placementTarget, toRet, deckPlayer0, deckPlayer1, false);
+				toRet = newMinion.summonMinion(playerSide, placementTarget, toRet, deckPlayer0, deckPlayer1, false, true);
 			} catch (InstantiationException | IllegalAccessException e) {
 				// TODO Auto-generated catch block
 				throw new HSException();

@@ -43,7 +43,7 @@ public class DragonlingMechanic extends Minion {
 		HearthTreeNode toRet = boardState;
 		if (toRet != null && PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getNumMinions() < 7) {
 			Minion mdragon = new MechanicalDragonling();
-			toRet = mdragon.summonMinion(PlayerSide.CURRENT_PLAYER, this, boardState, deckPlayer0, deckPlayer1, false);
+			toRet = mdragon.summonMinion(PlayerSide.CURRENT_PLAYER, this, boardState, deckPlayer0, deckPlayer1, false, singleRealizationOnly);
 		}
 		return toRet;
 	}

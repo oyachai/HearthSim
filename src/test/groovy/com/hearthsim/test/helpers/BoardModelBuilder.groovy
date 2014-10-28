@@ -72,10 +72,6 @@ class BoardModelBuilder {
         boardModel.modelForSide(playerSide).hero.windfury = hasWindFury
     }
 
-    private spellDamage(Number spellDamage) {
-        boardModel.modelForSide(playerSide).spellDamage = (byte) spellDamage
-    }
-
     private heroHealth(Number health){
         def side = boardModel.modelForSide(playerSide)
         side.hero.health = health
