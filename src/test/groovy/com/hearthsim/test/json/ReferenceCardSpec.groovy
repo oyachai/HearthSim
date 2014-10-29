@@ -9,7 +9,7 @@ import spock.lang.Specification
 @Slf4j
 class ReferenceCardSpec extends Specification {
 
-//    @Ignore
+    @Ignore
     def 'all collectible cards implemented'() {
         // let's count by weapon etc.
 
