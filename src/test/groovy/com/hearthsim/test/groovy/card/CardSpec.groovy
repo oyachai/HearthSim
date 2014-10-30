@@ -1,11 +1,13 @@
 package com.hearthsim.test.groovy.card
 
+import com.hearthsim.card.Card
 import com.hearthsim.card.minion.Hero
 import com.hearthsim.card.minion.Minion
 import com.hearthsim.card.weapon.WeaponCard
 import com.hearthsim.model.BoardModel
 import com.hearthsim.model.PlayerModel
 import com.hearthsim.test.helpers.BoardModelBuilder
+import com.hearthsim.util.IdentityLinkedList
 import com.hearthsim.util.MinionList
 import org.junit.Assert
 import spock.lang.Specification
@@ -30,7 +32,7 @@ class CardSpec extends Specification {
         assert oldPlayerModel.maxMana == newPlayerModel.maxMana
         assert oldPlayerModel.overload == newPlayerModel.overload
         assert oldPlayerModel.spellDamage == newPlayerModel.spellDamage
-        assert oldPlayerModel.hand == newPlayerModel.hand
+		assertHandEquals(oldPlayerModel.hand, newPlayerModel.hand)
         assertHeroEquals(oldPlayerModel.hero, newPlayerModel.hero)
         assertMinionsEqual(oldPlayerModel.minions, newPlayerModel.minions)
         assert oldPlayerModel == newPlayerModel //catch all
@@ -45,6 +47,16 @@ class CardSpec extends Specification {
         assertWeaponEquals(oldHero.weapon, newHero.weapon)
         assert oldHero == newHero //catch all
     }
+
+	void assertHandEquals(IdentityLinkedList<Card> oldHand, IdentityLinkedList<Card> newHand) {
+		assert oldHand.size == newHand.size
+		for (int indx = 0; indx < oldHand.size; ++indx) {
+			assert oldHand.get(indx).mana == newHand.get(indx).mana
+			assert oldHand.get(indx).hasBeenUsed == newHand.get(indx).hasBeenUsed
+			assert oldHand.get(indx).isInHand_ == newHand.get(indx).isInHand_
+			assert oldHand.get(indx) == newHand.get(indx)
+		}
+	}
 
     void assertWeaponEquals(WeaponCard oldWeapon, WeaponCard newWeapon) {
         assert oldWeapon?.weaponCharge_ == newWeapon?.weaponCharge_

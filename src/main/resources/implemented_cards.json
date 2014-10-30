@@ -716,6 +716,10 @@
         "class": "com.hearthsim.card.minion.concrete.SludgeBelcher"
     },
     {
+        "name": "Soulfire",
+        "class": "com.hearthsim.card.spellcard.concrete.Soulfire"
+    },
+    {
         "name": "Spectral Knight",
         "class": "com.hearthsim.card.minion.concrete.SpectralKnight"
     },
