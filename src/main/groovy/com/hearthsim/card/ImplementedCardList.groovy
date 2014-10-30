@@ -1,6 +1,7 @@
 package com.hearthsim.card
 
 import com.hearthsim.card.minion.Beast
+import com.hearthsim.card.minion.Hero
 import com.hearthsim.card.minion.Minion
 import com.hearthsim.card.minion.heroes.TestHero
 import com.hearthsim.json.registry.ReferenceCardRegistry
@@ -33,6 +34,8 @@ class ImplementedCardList {
         public String charClass_;
         public String rarity_;
         public String text_;
+		public boolean isHero;
+		public boolean collectible;
         public boolean taunt_;
         public boolean divineShield_;
         public boolean windfury_;
@@ -66,6 +69,7 @@ class ImplementedCardList {
             def cardDefinition = registry.cardByName(implementedCardFromJson.name)
 
             def className = implementedCardFromJson['class']
+            def clazz = Class.forName(className)
             def implementedCard = new ImplementedCard(
                     cardClass_: className,
                     name_: cardDefinition.name,
@@ -82,10 +86,11 @@ class ImplementedCardList {
                     charge_: cardDefinition.mechanics?.contains('Charge') ?: false,
                     stealth_: cardDefinition.mechanics?.contains('Stealth') ?: false,
 					text_: cardDefinition.text?: '',
+					isHero: Hero.class.isAssignableFrom(clazz),
+					collectible: cardDefinition.collectible?: false,
             )
             list_ << implementedCard
 
-            def clazz = Class.forName(className)
             map_[clazz] = implementedCard
         }
 

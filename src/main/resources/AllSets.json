@@ -1623,7 +1623,7 @@
     },
     {
         "id": "CS2_mirror",
-        "name": "Mirror Image",
+        "name": "Mirror Image Minion",
         "type": "Minion",
         "faction": "Neutral",
         "rarity": "Common",

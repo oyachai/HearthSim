@@ -936,7 +936,7 @@
         "class": "com.hearthsim.card.minion.concrete.BaineBloodhoof"
     },
     {
-        "name": "Mirror Image",
+        "name": "Mirror Image Minion",
         "class": "com.hearthsim.card.minion.concrete.MirrorImageMinion"
     },
     {
