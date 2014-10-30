@@ -147,7 +147,7 @@ public class HSCardSelectionList extends JList<ImplementedCard> {
 
 			manaLabel_.setText("[" + entry.mana_ + "]");
 			nameLabel_.setText(entry.name_);
-			textLabel_.setText(entry.text_);
+			textLabel_.setText(entry.text_.replaceAll("<.+?>", "").replaceAll("\\$([0-9]+)", "$1").replaceAll("\\#([0-9]+)", "$1"));
 			if (entry.attack_ >= 0)
 				attackLabel_.setText("" + entry.attack_);
 			else

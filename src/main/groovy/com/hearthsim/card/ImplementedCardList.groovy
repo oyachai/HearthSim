@@ -81,7 +81,7 @@ class ImplementedCardList {
                     windfury_: cardDefinition.mechanics?.contains('Windfury') ?: false,
                     charge_: cardDefinition.mechanics?.contains('Charge') ?: false,
                     stealth_: cardDefinition.mechanics?.contains('Stealth') ?: false,
-
+					text_: cardDefinition.text?: '',
             )
             list_ << implementedCard
 
