@@ -41,6 +41,7 @@ class BoardModelBuilder {
             if (it.minion) {
                 minion = it.minion.newInstance()
                 minion.health = health
+                minion.maxHealth = maxHealth
             } else {
                 minion = new Minion("" + 0, (byte) mana, (byte) attack, (byte) health, (byte) attack, (byte) health, (byte) maxHealth)
             }

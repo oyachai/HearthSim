@@ -172,6 +172,10 @@
         "class": "com.hearthsim.card.minion.concrete.BluegillWarrior"
     },
     {
+        "name": "Boar",
+        "class": "com.hearthsim.card.minion.concrete.Boar"
+    },
+    {
         "name": "Booty Bay Bodyguard",
         "class": "com.hearthsim.card.minion.concrete.BootyBayBodyguard"
     },
@@ -278,6 +282,10 @@
     {
         "name": "Earth Elemental",
         "class": "com.hearthsim.card.minion.concrete.EarthElemental"
+    },
+    {
+        "name": "Earth Shock",
+        "class": "com.hearthsim.card.spellcard.concrete.EarthShock"
     },
     {
         "name": "Earthen Ring Farseer",
