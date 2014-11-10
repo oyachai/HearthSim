@@ -1,7 +1,6 @@
 package com.hearthsim.test.heroes;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import org.junit.Before;
@@ -81,7 +80,7 @@ public class TestWarrior {
 		Hero hunter = board.data_.getCurrentPlayerHero();
 
 		HearthTreeNode ret = hunter.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
-		assertNotNull(ret);
+		assertEquals(board, ret);
 
 		assertEquals(board.data_.getCurrentPlayerHero().getArmor(), 2);
 	}
@@ -93,7 +92,7 @@ public class TestWarrior {
 
 		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0); // Warrior hero
 		HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
-		assertNotNull(ret);
+		assertEquals(board, ret);
 		assertEquals(board.data_.getCurrentPlayerHero().getArmor(), 3);
 	}
 

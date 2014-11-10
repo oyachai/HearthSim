@@ -2,7 +2,6 @@ package com.hearthsim.test.heroes;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
@@ -86,7 +85,7 @@ public class TestRogue {
 		Hero hero = board.data_.getCurrentPlayerHero();
 		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0); // Rogue hero
 		HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
-		assertNotNull(ret);
+		assertEquals(board, ret);
 
 		assertTrue(hero.hasBeenUsed());
 		assertEquals(board.data_.getCurrentPlayer().getMana(), 6);
@@ -104,7 +103,7 @@ public class TestRogue {
 		Hero hero = board.data_.getCurrentPlayerHero();
 		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0); // Rogue hero
 		HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
-		assertNotNull(ret);
+		assertEquals(board, ret);
 
 		assertTrue(hero.hasBeenUsed());
 		assertEquals(board.data_.getCurrentPlayer().getMana(), 1);

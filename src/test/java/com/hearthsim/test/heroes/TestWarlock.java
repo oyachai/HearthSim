@@ -89,13 +89,17 @@ public class TestWarlock {
 		Hero warrior = board.data_.getCurrentPlayerHero();
 
 		HearthTreeNode ret = warrior.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
-		assertNotNull(ret);
+		assertNotEquals(board, ret);
 		assertTrue(ret instanceof CardDrawNode);
 
 		assertEquals(board.data_.getNumCards_hand(), 1);
-		assertEquals(((CardDrawNode) ret).getNumCardsToDraw(), 1);
 		assertEquals(board.data_.getCurrentPlayer().getMana(), 6);
 		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 28);
+
+		assertEquals(ret.data_.getNumCards_hand(), 1);
+		assertEquals(((CardDrawNode) ret).getNumCardsToDraw(), 1);
+		assertEquals(ret.data_.getCurrentPlayer().getMana(), 6);
+		assertEquals(ret.data_.getCurrentPlayerHero().getHealth(), 28);
 	}
 
 	@Test
@@ -133,10 +137,10 @@ public class TestWarlock {
 		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
 		Minion minion = PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0);
 		HearthTreeNode ret = minion.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null);
-		assertNotNull(ret);
+		assertEquals(board, ret);
 		
 		board.data_.getCurrentPlayer().setDeckPos(30);
-		
+
 		target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
 		Hero hero = board.data_.getCurrentPlayerHero();
 		ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);

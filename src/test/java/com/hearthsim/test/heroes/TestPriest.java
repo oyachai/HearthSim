@@ -2,7 +2,6 @@ package com.hearthsim.test.heroes;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
@@ -184,7 +183,7 @@ public class TestPriest {
 
 		HearthTreeNode ret = priest.useHeroAbility(PlayerSide.WAITING_PLAYER,
 				target, board, deck, null);
-		assertNotNull(ret);
+		assertEquals(board, ret);
 
 		assertEquals(board.data_.getCurrentPlayer().getMana(), 6);
 		assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 22);
@@ -199,7 +198,7 @@ public class TestPriest {
 
 		HearthTreeNode ret = priest.useHeroAbility(PlayerSide.WAITING_PLAYER,
 				target, board, deck, null);
-		assertNotNull(ret);
+		assertEquals(board, ret);
 
 		assertEquals(board.data_.getCurrentPlayer().getMana(), 6);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions()
@@ -215,7 +214,7 @@ public class TestPriest {
 
 		HearthTreeNode ret = priest.useHeroAbility(PlayerSide.WAITING_PLAYER,
 				target, board, deck, null);
-		assertNotNull(ret);
+		assertEquals(board, ret);
 
 		assertEquals(board.data_.getCurrentPlayer().getMana(), 6);
 		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 22);
@@ -230,7 +229,7 @@ public class TestPriest {
 
 		HearthTreeNode ret = priest.useHeroAbility(PlayerSide.CURRENT_PLAYER,
 				target, board, deck, null);
-		assertNotNull(ret);
+		assertEquals(board, ret);
 
 		assertEquals(board.data_.getCurrentPlayer().getMana(), 6);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions()
