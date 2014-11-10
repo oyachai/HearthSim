@@ -241,10 +241,9 @@ public class TestDruid {
 	}
 
 	@Test
-	@Ignore("Existing bug")
 	public void testNotEnoughMana() throws HSException {
 		Hero hero = board.data_.getCurrentPlayerHero();
-		hero.setMana((byte)1);
+		board.data_.getCurrentPlayer().setMana((byte)1);
 
 		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0); // Druid hero
 		HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
