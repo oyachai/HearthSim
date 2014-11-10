@@ -1,7 +1,6 @@
 package com.hearthsim.test.heroes;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -219,41 +218,5 @@ public class TestDruid {
 		assertEquals(board.data_.getWaitingPlayerHero().getTotalAttack(), 0);
 		assertEquals(board.data_.getCurrentPlayerHero().getExtraAttackUntilTurnEnd(), 0);
 		assertEquals(board.data_.getWaitingPlayerHero().getExtraAttackUntilTurnEnd(), 0);
-	}
-
-	@Test
-	@Ignore("Existing bug")
-	public void testCannotUseTwice() throws HSException {
-		Hero hero = board.data_.getCurrentPlayerHero();
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0); // Druid hero
-		HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
-		assertNotNull(ret);
-
-		target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0); // Druid hero
-		ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
-		assertNull(ret);
-
-		assertEquals(board.data_.getCurrentPlayer().getMana(), 6);
-		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
-		assertEquals(board.data_.getCurrentPlayerHero().getArmor(), 1);
-		assertEquals(board.data_.getCurrentPlayerHero().getTotalAttack(), 1);
-		assertEquals(board.data_.getCurrentPlayerHero().getExtraAttackUntilTurnEnd(), 1);
-	}
-
-	@Test
-	public void testNotEnoughMana() throws HSException {
-		Hero hero = board.data_.getCurrentPlayerHero();
-		board.data_.getCurrentPlayer().setMana((byte)1);
-
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0); // Druid hero
-		HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
-		assertNull(ret);
-
-		assertFalse(hero.hasBeenUsed());
-		assertEquals(board.data_.getCurrentPlayer().getMana(), 1);
-		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
-		assertEquals(board.data_.getCurrentPlayerHero().getArmor(), 0);
-		assertEquals(board.data_.getCurrentPlayerHero().getTotalAttack(), 0);
-		assertEquals(board.data_.getCurrentPlayerHero().getExtraAttackUntilTurnEnd(), 0);
 	}
 }
