@@ -15,7 +15,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class TestTaunt {
-	
+
 	private BoardModel board;
 	private DummyStateFunc scoreFunc;
 	private static final byte mana = 1;
@@ -29,25 +29,27 @@ public class TestTaunt {
 		public double boardScore(BoardModel xval) {
 			return 0;
 		}
-		
+
 	}
-	
+
 	@Before
 	public void setup() throws HSException {
 		board = new BoardModel();
 		scoreFunc = new DummyStateFunc();
 
 		Minion minion0_0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
-		
+
 		board.placeMinion(PlayerSide.CURRENT_PLAYER, minion0_0);
-				
+
 	}
-	
+
 	@Test
 	public void test0() throws HSException {
-		Minion minion = new Minion("" + 0, mana, attack0, health1, attack0, (byte)0, (byte)0, health1, health1, (byte)0, (byte)0, true, false, false, false, false, false, false, false, false, true, false, false, false, false, null, null, false, false);
+		Minion minion = new Minion("" + 0, mana, attack0, health1, attack0, (byte) 0, (byte) 0, health1, health1,
+				(byte) 0, (byte) 0, true, false, false, false, false, false, false, false, false, true, false, false,
+				false, false, null, null, false, false);
 		board.placeMinion(PlayerSide.WAITING_PLAYER, minion);
-		
+
 		BoardStateFactoryBase factory = new BoardStateFactoryBase(null, null);
 		HearthTreeNode tree = new HearthTreeNode(board);
 		try {
@@ -56,8 +58,8 @@ public class TestTaunt {
 			e.printStackTrace();
 			assertTrue(false);
 		}
-		
-		//2 possibilities:
+
+		// 2 possibilities:
 		// 1. Do nothing
 		// 2. Attack the Taunt minion
 		assertEquals(tree.getNumNodesTried(), 2);
@@ -65,11 +67,15 @@ public class TestTaunt {
 
 	@Test
 	public void test1() throws HSException {
-		Minion minion1 = new Minion("" + 0, mana, attack0, health1, attack0, (byte)0, (byte)0, health1, health1, (byte)0, (byte)0, true, false, false, false, false, false, false, false, false, true, false, false, false, false, null, null, false, false);
-		Minion minion2 = new Minion("" + 0, mana, attack0, health1, attack0, (byte)0, (byte)0, health1, health1, (byte)0, (byte)0, false, false, false, false, false, false, false, false, false, true, false, false, false, false, null, null, false, false);
+		Minion minion1 = new Minion("" + 0, mana, attack0, health1, attack0, (byte) 0, (byte) 0, health1, health1,
+				(byte) 0, (byte) 0, true, false, false, false, false, false, false, false, false, true, false, false,
+				false, false, null, null, false, false);
+		Minion minion2 = new Minion("" + 0, mana, attack0, health1, attack0, (byte) 0, (byte) 0, health1, health1,
+				(byte) 0, (byte) 0, false, false, false, false, false, false, false, false, false, true, false, false,
+				false, false, null, null, false, false);
 		board.placeMinion(PlayerSide.WAITING_PLAYER, minion1);
 		board.placeMinion(PlayerSide.WAITING_PLAYER, minion2);
-		
+
 		BoardStateFactoryBase factory = new BoardStateFactoryBase(null, null);
 		HearthTreeNode tree = new HearthTreeNode(board);
 		try {
@@ -78,8 +84,8 @@ public class TestTaunt {
 			e.printStackTrace();
 			assertTrue(false);
 		}
-		
-		//2 possibilities:
+
+		// 2 possibilities:
 		// 1. Do nothing
 		// 2. Attack the Taunt minion
 		assertEquals(tree.getNumNodesTried(), 2);
@@ -87,13 +93,19 @@ public class TestTaunt {
 
 	@Test
 	public void test2() throws HSException {
-		Minion minion1 = new Minion("" + 0, mana, attack0, health1, attack0, (byte)0, (byte)0, health1, health1, (byte)0, (byte)0, true, false, false, false, false, false, false, false, false, true, false, false, false, false, null, null, false, false);
-		Minion minion2 = new Minion("" + 0, mana, attack0, health1, attack0, (byte)0, (byte)0, health1, health1, (byte)0, (byte)0, false, false, false, false, false, false, false, false, false, true, false, false, false, false, null, null, false, false);
-		Minion minion3 = new Minion("" + 0, mana, attack0, health1, attack0, (byte)0, (byte)0, health1, health1, (byte)0, (byte)0, true, false, false, false, false, false, false, false, false, true, false, false, false, false, null, null, false, false);
+		Minion minion1 = new Minion("" + 0, mana, attack0, health1, attack0, (byte) 0, (byte) 0, health1, health1,
+				(byte) 0, (byte) 0, true, false, false, false, false, false, false, false, false, true, false, false,
+				false, false, null, null, false, false);
+		Minion minion2 = new Minion("" + 0, mana, attack0, health1, attack0, (byte) 0, (byte) 0, health1, health1,
+				(byte) 0, (byte) 0, false, false, false, false, false, false, false, false, false, true, false, false,
+				false, false, null, null, false, false);
+		Minion minion3 = new Minion("" + 0, mana, attack0, health1, attack0, (byte) 0, (byte) 0, health1, health1,
+				(byte) 0, (byte) 0, true, false, false, false, false, false, false, false, false, true, false, false,
+				false, false, null, null, false, false);
 		board.placeMinion(PlayerSide.WAITING_PLAYER, minion1);
 		board.placeMinion(PlayerSide.WAITING_PLAYER, minion2);
 		board.placeMinion(PlayerSide.WAITING_PLAYER, minion3);
-		
+
 		BoardStateFactoryBase factory = new BoardStateFactoryBase(null, null);
 		HearthTreeNode tree = new HearthTreeNode(board);
 		try {
@@ -102,23 +114,25 @@ public class TestTaunt {
 			e.printStackTrace();
 			assertTrue(false);
 		}
-		
-		//3 possibilities:
+
+		// 3 possibilities:
 		// 1. Do nothing
 		// 2. Attack the Taunt minion1
 		// 3. Attack the Taunt minion2
 		assertEquals(tree.getNumNodesTried(), 3);
 	}
-	
+
 	@Test
 	public void test3() throws HSException {
 		HolySmite hs = new HolySmite();
-		Minion minion1 = new Minion("" + 0, mana, attack0, health1, attack0, (byte)0, (byte)0, health1, health1, (byte)0, (byte)0, true, false, false, false, false, false, false, false, false, true, false, false, false, false, null, null, false, false);
+		Minion minion1 = new Minion("" + 0, mana, attack0, health1, attack0, (byte) 0, (byte) 0, health1, health1,
+				(byte) 0, (byte) 0, true, false, false, false, false, false, false, false, false, true, false, false,
+				false, false, null, null, false, false);
 
 		board.removeMinion(PlayerSide.CURRENT_PLAYER, 0);
 		board.placeCardHandCurrentPlayer(hs);
 		board.placeMinion(PlayerSide.WAITING_PLAYER, minion1);
-		
+
 		BoardStateFactoryBase factory = new BoardStateFactoryBase(null, null, 2000000000);
 		HearthTreeNode tree = new HearthTreeNode(board);
 		try {
@@ -127,8 +141,8 @@ public class TestTaunt {
 			e.printStackTrace();
 			assertTrue(false);
 		}
-		
-		//1 possibility:
+
+		// 1 possibility:
 		// 1. Do nothing (not enough mana!)
 		assertEquals(tree.getNumNodesTried(), 1);
 
@@ -137,13 +151,15 @@ public class TestTaunt {
 	@Test
 	public void test4() throws HSException {
 		HolySmite hs = new HolySmite();
-		Minion minion1 = new Minion("" + 0, mana, attack0, health1, attack0, (byte)0, (byte)0, health1, health1, (byte)0, (byte)0, true, false, false, false, false, false, false, false, false, true, false, false, false, false, null, null, false, false);
+		Minion minion1 = new Minion("" + 0, mana, attack0, health1, attack0, (byte) 0, (byte) 0, health1, health1,
+				(byte) 0, (byte) 0, true, false, false, false, false, false, false, false, false, true, false, false,
+				false, false, null, null, false, false);
 
 		board.removeMinion(PlayerSide.CURRENT_PLAYER, 0);
 		board.placeCardHandCurrentPlayer(hs);
 		board.placeMinion(PlayerSide.WAITING_PLAYER, minion1);
 		board.getCurrentPlayer().setMana(1);
-		
+
 		BoardStateFactoryBase factory = new BoardStateFactoryBase(null, null);
 		HearthTreeNode tree = new HearthTreeNode(board);
 		try {
@@ -151,8 +167,8 @@ public class TestTaunt {
 		} catch (HSException e) {
 			e.printStackTrace();
 			assertTrue(false);
-		}				
-		//4 possibilities:
+		}
+		// 4 possibilities:
 		// 1. Do nothing
 		// 2. Use HS on the Taunt minion1
 		// 3. Use HS on the enemy hero
@@ -164,13 +180,15 @@ public class TestTaunt {
 	@Test
 	public void test5() throws HSException {
 		HolySmite hs = new HolySmite();
-		Minion minion1 = new Minion("" + 0, mana, attack0, health1, attack0, (byte)0, (byte)0, health1, health1, (byte)0, (byte)0, true, false, false, false, false, false, false, false, false, true, false, false, false, false, null, null, false, false);
+		Minion minion1 = new Minion("" + 0, mana, attack0, health1, attack0, (byte) 0, (byte) 0, health1, health1,
+				(byte) 0, (byte) 0, true, false, false, false, false, false, false, false, false, true, false, false,
+				false, false, null, null, false, false);
 
 		board.removeMinion(PlayerSide.CURRENT_PLAYER, 0);
 		board.placeCardHandCurrentPlayer(hs);
 		board.placeMinion(PlayerSide.WAITING_PLAYER, minion1);
 		board.getCurrentPlayer().setMana(2);
-		
+
 		BoardStateFactoryBase factory = new BoardStateFactoryBase(null, null, 2000000000);
 		HearthTreeNode tree = new HearthTreeNode(board);
 		try {
@@ -178,8 +196,8 @@ public class TestTaunt {
 		} catch (HSException e) {
 			e.printStackTrace();
 			assertTrue(false);
-		}				
-		//4 possibilities:
+		}
+		// 4 possibilities:
 		// 1. Do nothing
 		// 2. Use HS on the Taunt minion1
 		// 3. Use HS on the enemy hero

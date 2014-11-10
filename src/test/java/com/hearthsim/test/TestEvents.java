@@ -23,13 +23,13 @@ public class TestEvents {
 		Minion minion0_1 = new Minion("" + 0, mana, attack0, health1, attack0, health1, health1);
 		Minion minion1_0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
 		Minion minion1_1 = new Minion("" + 0, mana, attack0, health1, attack0, health1, health1);
-		
+
 		board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, minion0_0);
 		board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, minion0_1);
-		
+
 		board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion1_0);
 		board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion1_1);
-				
+
 	}
 
 }

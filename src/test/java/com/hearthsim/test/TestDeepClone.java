@@ -9,17 +9,15 @@ import static org.junit.Assert.assertTrue;
 
 public class TestDeepClone {
 
-	
 	@Test
 	public void test_AcidicSwampOoze() {
-		
 
 		Minion card1 = new AcidicSwampOoze();
 		Minion card1_cloned = (Minion)card1.deepCopy();
-		
+
 		assertTrue(card1.equals(card1_cloned));
 		assertTrue(card1_cloned.equals(card1));
-		
+
 		card1.setHealth((byte)(card1.getHealth() + 1));
 		assertFalse(card1.equals(card1_cloned));
 		assertFalse(card1_cloned.equals(card1));
@@ -35,7 +33,7 @@ public class TestDeepClone {
 		card1_cloned = (Minion)card1.deepCopy();
 		assertTrue(card1.equals(card1_cloned));
 		assertTrue(card1_cloned.equals(card1));
-		
+
 		card1.setDestroyOnTurnEnd(true);
 		assertFalse(card1.equals(card1_cloned));
 		assertFalse(card1_cloned.equals(card1));

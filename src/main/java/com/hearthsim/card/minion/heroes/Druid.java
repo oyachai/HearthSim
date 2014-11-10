@@ -45,5 +45,4 @@ public class Druid extends Hero {
 			return null;
 		}
 	}
-
 }

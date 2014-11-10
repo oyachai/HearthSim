@@ -55,7 +55,7 @@ public class TestClaw {
 	}
 	
 	@Test
-	public void test0() throws HSException {
+	public void testCannotTargetOpponent() throws HSException {
 		
 		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
