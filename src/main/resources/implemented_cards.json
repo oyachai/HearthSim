@@ -508,6 +508,10 @@
         "class": "com.hearthsim.card.spellcard.concrete.LayOnHands"
     },
     {
+        "name": "Leeroy Jenkins",
+        "class": "com.hearthsim.card.minion.concrete.LeeroyJenkins"
+    },
+    {
         "name": "Leper Gnome",
         "class": "com.hearthsim.card.minion.concrete.LeperGnome"
     },
@@ -846,6 +850,10 @@
     {
         "name": "Water Elemental",
         "class": "com.hearthsim.card.minion.concrete.WaterElemental"
+    },
+    {
+        "name": "Whelp",
+        "class": "com.hearthsim.card.minion.concrete.Whelp"
     },
     {
         "name": "Whirlwind",

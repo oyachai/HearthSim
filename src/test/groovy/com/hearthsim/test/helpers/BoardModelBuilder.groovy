@@ -97,6 +97,11 @@ class BoardModelBuilder {
         addMinionToField(minionClass)
     }
 
+	private playMinionWithCharge(Class<Minion> minionClass) {
+		removeCardFromHand(minionClass)
+		addMinionToField(minionClass, false, true)
+	}
+
     private removeMinion(int index){
         boardModel.removeMinion(playerSide, index)
     }
