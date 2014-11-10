@@ -16,7 +16,6 @@ import com.hearthsim.card.minion.concrete.RaidLeader;
 import com.hearthsim.card.minion.heroes.TestHero;
 import com.hearthsim.card.minion.heroes.Warrior;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
-import com.hearthsim.card.spellcard.concrete.WildGrowth;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
@@ -48,9 +47,6 @@ public class TestWarrior {
 		}
 	
 		deck = new Deck(cards);
-
-		Card fb = new WildGrowth();
-		board.data_.placeCardHandCurrentPlayer(fb);
 
 		board.data_.getCurrentPlayer().setMana((byte)9);
 		board.data_.getWaitingPlayer().setMana((byte)9);
@@ -88,7 +84,6 @@ public class TestWarrior {
 		assertNotNull(ret);
 
 		assertEquals(board.data_.getCurrentPlayerHero().getArmor(), 2);
-		assertEquals(board.data_.getWaitingPlayerHero().getArmor(), 0);
 	}
 
 	@Test
@@ -110,10 +105,7 @@ public class TestWarrior {
 		HearthTreeNode ret = hunter.useHeroAbility(PlayerSide.WAITING_PLAYER, target, board, deck, null);
 		assertNull(ret);
 
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
 		assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
-		assertEquals(board.data_.getWaitingPlayer().getMana(), 8);
 		assertEquals(board.data_.getCurrentPlayerHero().getArmor(), 0);
 		assertEquals(board.data_.getWaitingPlayerHero().getArmor(), 0);
 	}
@@ -126,12 +118,7 @@ public class TestWarrior {
 		HearthTreeNode ret = hunter.useHeroAbility(PlayerSide.WAITING_PLAYER, target, board, deck, null);
 		assertNull(ret);
 
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
 		assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
-		assertEquals(board.data_.getWaitingPlayer().getMana(), 8);
-		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
-		assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
 		assertEquals(board.data_.getCurrentPlayerHero().getArmor(), 0);
 		assertEquals(board.data_.getWaitingPlayerHero().getArmor(), 0);
 	}
