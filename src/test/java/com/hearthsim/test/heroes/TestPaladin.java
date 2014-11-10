@@ -1,11 +1,18 @@
 package com.hearthsim.test.heroes;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+
+import org.junit.Before;
+import org.junit.Test;
+
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.BoulderfistOgre;
 import com.hearthsim.card.minion.concrete.RaidLeader;
+import com.hearthsim.card.minion.concrete.SilverHandRecruit;
 import com.hearthsim.card.minion.heroes.Paladin;
 import com.hearthsim.card.minion.heroes.TestHero;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
@@ -14,14 +21,6 @@ import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
-
-import org.junit.Before;
-import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNull;
 
 public class TestPaladin {
 
@@ -102,6 +101,24 @@ public class TestPaladin {
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(ret).getMinions().get(0).getTotalAttack(), 2);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(ret).getMinions().get(1).getTotalAttack(), 7);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(ret).getMinions().get(2).getTotalAttack(), 2);
+	}
+
+	@Test
+	public void testHeropowerWithFullBoard() throws HSException {
+		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
+		Hero paladin = board.data_.getCurrentPlayerHero();
+		board = paladin.placeMinion(PlayerSide.CURRENT_PLAYER, new SilverHandRecruit(), board, deck, null, false);
+		board = paladin.placeMinion(PlayerSide.CURRENT_PLAYER, new SilverHandRecruit(), board, deck, null, false);
+		board = paladin.placeMinion(PlayerSide.CURRENT_PLAYER, new SilverHandRecruit(), board, deck, null, false);
+		board = paladin.placeMinion(PlayerSide.CURRENT_PLAYER, new SilverHandRecruit(), board, deck, null, false);
+		board = paladin.placeMinion(PlayerSide.CURRENT_PLAYER, new SilverHandRecruit(), board, deck, null, false);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 7);
+
+		HearthTreeNode ret = paladin.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
+		assertNull(ret);
+
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 7);
+		assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
 	}
 
 	@Test
