@@ -1,12 +1,27 @@
 package com.hearthsim.test.heroes;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
 import java.util.List;
+
+import org.junit.Before;
+import org.junit.Test;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.card.minion.concrete.*;
+import com.hearthsim.card.minion.concrete.BoulderfistOgre;
+import com.hearthsim.card.minion.concrete.HealingTotem;
+import com.hearthsim.card.minion.concrete.RaidLeader;
+import com.hearthsim.card.minion.concrete.SearingTotem;
+import com.hearthsim.card.minion.concrete.SilverHandRecruit;
+import com.hearthsim.card.minion.concrete.StoneclawTotem;
+import com.hearthsim.card.minion.concrete.WrathOfAirTotem;
 import com.hearthsim.card.minion.heroes.Shaman;
 import com.hearthsim.card.minion.heroes.TestHero;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
@@ -19,18 +34,12 @@ import com.hearthsim.util.HearthActionBoardPair;
 import com.hearthsim.util.tree.HearthTreeNode;
 import com.hearthsim.util.tree.RandomEffectNode;
 
-import org.junit.Before;
-import org.junit.Test;
-
-import static org.junit.Assert.*;
-
 public class TestShaman {
 
-    private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
-	
+	private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
+
 	private HearthTreeNode board;
 	private Deck deck;
-
 
 	@Before
 	public void setup() {
@@ -40,10 +49,10 @@ public class TestShaman {
 		Minion minion0_1 = new RaidLeader();
 		Minion minion1_0 = new BoulderfistOgre();
 		Minion minion1_1 = new RaidLeader();
-		
+
 		board.data_.placeCardHandCurrentPlayer(minion0_0);
 		board.data_.placeCardHandCurrentPlayer(minion0_1);
-				
+
 		board.data_.placeCardHandWaitingPlayer(minion1_0);
 		board.data_.placeCardHandWaitingPlayer(minion1_1);
 
@@ -51,7 +60,7 @@ public class TestShaman {
 		for (int index = 0; index < 30; ++index) {
 			cards[index] = new TheCoin();
 		}
-	
+
 		deck = new Deck(cards);
 
 		Card fb = new WildGrowth();
@@ -65,180 +74,130 @@ public class TestShaman {
 		
 		HearthTreeNode tmpBoard = new HearthTreeNode(board.data_.flipPlayers());
 		try {
-			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
-			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
+			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER,
+					tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
+			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER,
+					tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
 		} catch (HSException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		board = new HearthTreeNode(tmpBoard.data_.flipPlayers());
 		try {
-			board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayerHero(), board, deck, null);
-			board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayerHero(), board, deck, null);
+			board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER,
+					board.data_.getCurrentPlayerHero(), board, deck, null);
+			board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER,
+					board.data_.getCurrentPlayerHero(), board, deck, null);
 		} catch (HSException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		board.data_.resetMana();
 		board.data_.resetMinions();
-		
+
 	}
-	
 
 	@Test
-	public void test0() throws HSException {
-		
-		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
-		Minion minion = PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0);
-		HearthTreeNode ret = minion.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null);
-		
-		assertFalse(ret == null);
-		assertEquals(board.data_.getNumCards_hand(), 1);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
-		assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
-		assertEquals(board.data_.getWaitingPlayer().getMana(), 8);
-		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
-		assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 28);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), 2);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), 7);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), 2);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), 7);
-
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack(), 2);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack(), 7);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack(), 2);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack(), 7);
-		
-		
-		target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
+	public void testHeropowerNode() throws HSException {
+		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
 		Hero hero = board.data_.getCurrentPlayerHero();
-		ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
-		assertEquals(board.data_.getNumCards_hand(), 1);
-		
+		HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
+		assertNotEquals(board, ret);
 		assertTrue(ret instanceof RandomEffectNode);
 		assertEquals(ret.getChildren().size(), 4);
-		
-		
+
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
 		assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
-		assertEquals(board.data_.getWaitingPlayer().getMana(), 8);
-		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
-		assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 28);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), 2);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), 7);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), 2);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), 7);
-
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack(), 2);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack(), 7);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack(), 2);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack(), 7);
-
-		HearthTreeNode cn0 = ret.getChildren().get(0);
-		assertEquals(cn0.data_.getCurrentPlayer().getNumMinions(), 3);
-		assertEquals(cn0.data_.getWaitingPlayer().getNumMinions(), 2);
-		assertEquals(cn0.data_.getCurrentPlayer().getMana(), 6);
-		assertEquals(cn0.data_.getWaitingPlayer().getMana(), 8);
-		assertEquals(cn0.data_.getCurrentPlayerHero().getHealth(), 30);
-		assertEquals(cn0.data_.getWaitingPlayerHero().getHealth(), 28);
-		
-		assertTrue(cn0.data_.getCurrentPlayer().getMinions().get(2) instanceof SearingTotem);
-		
-		assertEquals(cn0.data_.getCurrentPlayer().getMinions().get(0).getTotalHealth(), 2);
-		assertEquals(cn0.data_.getCurrentPlayer().getMinions().get(1).getTotalHealth(), 7);
-		assertEquals(cn0.data_.getCurrentPlayer().getMinions().get(2).getTotalHealth(), 1);
-		assertEquals(cn0.data_.getWaitingPlayer().getMinions().get(0).getTotalHealth(), 2);
-		assertEquals(cn0.data_.getWaitingPlayer().getMinions().get(1).getTotalHealth(), 7);
-
-		assertEquals(cn0.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack(), 2);
-		assertEquals(cn0.data_.getCurrentPlayer().getMinions().get(1).getTotalAttack(), 7);
-		assertEquals(cn0.data_.getCurrentPlayer().getMinions().get(2).getTotalAttack(), 2);
-		assertEquals(cn0.data_.getWaitingPlayer().getMinions().get(0).getTotalAttack(), 2);
-		assertEquals(cn0.data_.getWaitingPlayer().getMinions().get(1).getTotalAttack(), 7);
-		
-		HearthTreeNode cn1 = ret.getChildren().get(1);
-		assertEquals(cn1.data_.getCurrentPlayer().getNumMinions(), 3);
-		assertEquals(cn1.data_.getWaitingPlayer().getNumMinions(), 2);
-		assertEquals(cn1.data_.getCurrentPlayer().getMana(), 6);
-		assertEquals(cn1.data_.getWaitingPlayer().getMana(), 8);
-		assertEquals(cn1.data_.getCurrentPlayerHero().getHealth(), 30);
-		assertEquals(cn1.data_.getWaitingPlayerHero().getHealth(), 28);
-		
-		assertTrue(cn1.data_.getCurrentPlayer().getMinions().get(2) instanceof StoneclawTotem);
-		
-		assertEquals(cn1.data_.getCurrentPlayer().getMinions().get(0).getTotalHealth(), 2);
-		assertEquals(cn1.data_.getCurrentPlayer().getMinions().get(1).getTotalHealth(), 7);
-		assertEquals(cn1.data_.getCurrentPlayer().getMinions().get(2).getTotalHealth(), 2);
-		assertEquals(cn1.data_.getWaitingPlayer().getMinions().get(0).getTotalHealth(), 2);
-		assertEquals(cn1.data_.getWaitingPlayer().getMinions().get(1).getTotalHealth(), 7);
-
-		assertEquals(cn1.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack(), 2);
-		assertEquals(cn1.data_.getCurrentPlayer().getMinions().get(1).getTotalAttack(), 7);
-		assertEquals(cn1.data_.getCurrentPlayer().getMinions().get(2).getTotalAttack(), 1);
-		assertEquals(cn1.data_.getWaitingPlayer().getMinions().get(0).getTotalAttack(), 2);
-		assertEquals(cn1.data_.getWaitingPlayer().getMinions().get(1).getTotalAttack(), 7);
-		
-		HearthTreeNode cn2 = ret.getChildren().get(2);
-		assertEquals(cn2.data_.getCurrentPlayer().getNumMinions(), 3);
-		assertEquals(cn2.data_.getWaitingPlayer().getNumMinions(), 2);
-		assertEquals(cn2.data_.getCurrentPlayer().getMana(), 6);
-		assertEquals(cn2.data_.getWaitingPlayer().getMana(), 8);
-		assertEquals(cn2.data_.getCurrentPlayerHero().getHealth(), 30);
-		assertEquals(cn2.data_.getWaitingPlayerHero().getHealth(), 28);
-		
-		assertTrue(cn2.data_.getCurrentPlayer().getMinions().get(2) instanceof HealingTotem);
-		
-		assertEquals(cn2.data_.getCurrentPlayer().getMinions().get(0).getTotalHealth(), 2);
-		assertEquals(cn2.data_.getCurrentPlayer().getMinions().get(1).getTotalHealth(), 7);
-		assertEquals(cn2.data_.getCurrentPlayer().getMinions().get(2).getTotalHealth(), 2);
-		assertEquals(cn2.data_.getWaitingPlayer().getMinions().get(0).getTotalHealth(), 2);
-		assertEquals(cn2.data_.getWaitingPlayer().getMinions().get(1).getTotalHealth(), 7);
-
-		assertEquals(cn2.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack(), 2);
-		assertEquals(cn2.data_.getCurrentPlayer().getMinions().get(1).getTotalAttack(), 7);
-		assertEquals(cn2.data_.getCurrentPlayer().getMinions().get(2).getTotalAttack(), 1);
-		assertEquals(cn2.data_.getWaitingPlayer().getMinions().get(0).getTotalAttack(), 2);
-		assertEquals(cn2.data_.getWaitingPlayer().getMinions().get(1).getTotalAttack(), 7);
-		
-		HearthTreeNode cn3 = ret.getChildren().get(3);
-		assertEquals(cn3.data_.getCurrentPlayer().getNumMinions(), 3);
-		assertEquals(cn3.data_.getWaitingPlayer().getNumMinions(), 2);
-		assertEquals(cn3.data_.getCurrentPlayer().getMana(), 6);
-		assertEquals(cn3.data_.getWaitingPlayer().getMana(), 8);
-		assertEquals(cn3.data_.getCurrentPlayerHero().getHealth(), 30);
-		assertEquals(cn3.data_.getWaitingPlayerHero().getHealth(), 28);
-		
-		assertTrue(cn3.data_.getCurrentPlayer().getMinions().get(2) instanceof WrathOfAirTotem);
-		
-		assertEquals(cn3.data_.getCurrentPlayer().getMinions().get(0).getTotalHealth(), 2);
-		assertEquals(cn3.data_.getCurrentPlayer().getMinions().get(1).getTotalHealth(), 7);
-		assertEquals(cn3.data_.getCurrentPlayer().getMinions().get(2).getTotalHealth(), 2);
-		assertEquals(cn3.data_.getWaitingPlayer().getMinions().get(0).getTotalHealth(), 2);
-		assertEquals(cn3.data_.getWaitingPlayer().getMinions().get(1).getTotalHealth(), 7);
-
-		assertEquals(cn3.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack(), 2);
-		assertEquals(cn3.data_.getCurrentPlayer().getMinions().get(1).getTotalAttack(), 7);
-		assertEquals(cn3.data_.getCurrentPlayer().getMinions().get(2).getTotalAttack(), 1);
-		assertEquals(cn3.data_.getWaitingPlayer().getMinions().get(0).getTotalAttack(), 2);
-		assertEquals(cn3.data_.getWaitingPlayer().getMinions().get(1).getTotalAttack(), 7);
-		 
-
-		RandomEffectNode rn = (RandomEffectNode)ret;
-        BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
-		double score = rn.weightedAverageScore(deck, ai0);
-		
-		log.info("score = " + score);
 	}
-	
-
 
 	@Test
-	public void test1() throws HSException {
+	public void testTotemSearing() throws HSException {
+		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
+		Hero hero = board.data_.getCurrentPlayerHero();
+		HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
 
-        BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
-        List<HearthActionBoardPair> ab = ai0.playTurn(0, board.data_, 200000000);
+		HearthTreeNode searingNode = ret.getChildren().get(0);
+		assertEquals(searingNode.data_.getCurrentPlayer().getNumMinions(), 3);
+		assertEquals(searingNode.data_.getCurrentPlayer().getMana(), 6);
+		assertTrue(searingNode.data_.getCurrentPlayer().getMinions().get(2) instanceof SearingTotem);
+
+		assertEquals(searingNode.data_.getCurrentPlayer().getMinions().get(0).getTotalHealth(), 2);
+		assertEquals(searingNode.data_.getCurrentPlayer().getMinions().get(1).getTotalHealth(), 7);
+		assertEquals(searingNode.data_.getCurrentPlayer().getMinions().get(2).getTotalHealth(), 1);
+
+		// Raid Leader is in effect
+		assertEquals(searingNode.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack(), 2);
+		assertEquals(searingNode.data_.getCurrentPlayer().getMinions().get(1).getTotalAttack(), 7);
+		assertEquals(searingNode.data_.getCurrentPlayer().getMinions().get(2).getTotalAttack(), 2);
+	}
+
+	@Test
+	public void testTotemStoneclaw() throws HSException {
+		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
+		Hero hero = board.data_.getCurrentPlayerHero();
+		HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
+
+		HearthTreeNode searingNode = ret.getChildren().get(1);
+		assertEquals(searingNode.data_.getCurrentPlayer().getNumMinions(), 3);
+		assertEquals(searingNode.data_.getCurrentPlayer().getMana(), 6);
+		assertTrue(searingNode.data_.getCurrentPlayer().getMinions().get(2) instanceof StoneclawTotem);
+
+		assertEquals(searingNode.data_.getCurrentPlayer().getMinions().get(0).getTotalHealth(), 2);
+		assertEquals(searingNode.data_.getCurrentPlayer().getMinions().get(1).getTotalHealth(), 7);
+		assertEquals(searingNode.data_.getCurrentPlayer().getMinions().get(2).getTotalHealth(), 2);
+
+		// Raid Leader is in effect
+		assertEquals(searingNode.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack(), 2);
+		assertEquals(searingNode.data_.getCurrentPlayer().getMinions().get(1).getTotalAttack(), 7);
+		assertEquals(searingNode.data_.getCurrentPlayer().getMinions().get(2).getTotalAttack(), 1);
+	}
+
+	@Test
+	public void testTotemHealing() throws HSException {
+		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
+		Hero hero = board.data_.getCurrentPlayerHero();
+		HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
+
+		HearthTreeNode healingNode = ret.getChildren().get(2);
+		assertEquals(healingNode.data_.getCurrentPlayer().getNumMinions(), 3);
+		assertEquals(healingNode.data_.getCurrentPlayer().getMana(), 6);
+		assertTrue(healingNode.data_.getCurrentPlayer().getMinions().get(2) instanceof HealingTotem);
+
+		assertEquals(healingNode.data_.getCurrentPlayer().getMinions().get(0).getTotalHealth(), 2);
+		assertEquals(healingNode.data_.getCurrentPlayer().getMinions().get(1).getTotalHealth(), 7);
+		assertEquals(healingNode.data_.getCurrentPlayer().getMinions().get(2).getTotalHealth(), 2);
+
+		// Raid Leader is in effect
+		assertEquals(healingNode.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack(), 2);
+		assertEquals(healingNode.data_.getCurrentPlayer().getMinions().get(1).getTotalAttack(), 7);
+		assertEquals(healingNode.data_.getCurrentPlayer().getMinions().get(2).getTotalAttack(), 1);
+	}
+	
+	@Test
+	public void testTotemWrathOfAir() throws HSException {
+		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
+		Hero hero = board.data_.getCurrentPlayerHero();
+		HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
+
+		HearthTreeNode wrathOfAirNode = ret.getChildren().get(3);
+		assertEquals(wrathOfAirNode.data_.getCurrentPlayer().getNumMinions(), 3);
+		assertEquals(wrathOfAirNode.data_.getCurrentPlayer().getMana(), 6);
+		assertTrue(wrathOfAirNode.data_.getCurrentPlayer().getMinions().get(2) instanceof WrathOfAirTotem);
+
+		assertEquals(wrathOfAirNode.data_.getCurrentPlayer().getMinions().get(0).getTotalHealth(), 2);
+		assertEquals(wrathOfAirNode.data_.getCurrentPlayer().getMinions().get(1).getTotalHealth(), 7);
+		assertEquals(wrathOfAirNode.data_.getCurrentPlayer().getMinions().get(2).getTotalHealth(), 2);
+
+		// Raid Leader is in effect
+		assertEquals(wrathOfAirNode.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack(), 2);
+		assertEquals(wrathOfAirNode.data_.getCurrentPlayer().getMinions().get(1).getTotalAttack(), 7);
+		assertEquals(wrathOfAirNode.data_.getCurrentPlayer().getMinions().get(2).getTotalAttack(), 1);
+	}
+
+	@Test
+	public void testTotemPosition() throws HSException {
+		BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
+		List<HearthActionBoardPair> ab = ai0.playTurn(0, board.data_, 200000000);
 		BoardModel resBoard = ab.get(ab.size() - 1).board;
 
 		assertEquals(resBoard.getCurrentPlayer().getMana(), 6);
@@ -252,7 +211,67 @@ public class TestShaman {
 		isRightTotem = isRightTotem || resBoard.getCurrentPlayer().getMinions().getLast() instanceof StoneclawTotem;
 		isRightTotem = isRightTotem || resBoard.getCurrentPlayer().getMinions().getLast() instanceof WrathOfAirTotem;
 		assertTrue(isRightTotem);
-		
-		log.info("{}",PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getMinions().get(2).getClass());
+
+		log.info("{}", PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getMinions().get(2).getClass());
+	}
+
+	@Test
+	public void testHeropowerWithFullBoard() throws HSException {
+		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
+		Hero shaman = board.data_.getCurrentPlayerHero();
+		board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new SilverHandRecruit());
+		board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new SilverHandRecruit());
+		board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new SilverHandRecruit());
+		board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new SilverHandRecruit());
+		board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new SilverHandRecruit());
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 7);
+
+		HearthTreeNode ret = shaman.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
+		assertNull(ret);
+
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 7);
+		assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
+	}
+
+	@Test
+	public void testHeropowerWithExistingTotem() throws HSException {
+		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
+		Hero shaman = board.data_.getCurrentPlayerHero();
+		board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new SearingTotem());
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 3);
+
+		HearthTreeNode ret = shaman.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
+		assertNotEquals(board, ret);
+		assertTrue(ret instanceof RandomEffectNode);
+		assertEquals(ret.getChildren().size(), 3);
+
+		HearthTreeNode childNode = ret.getChildren().get(0);
+		assertFalse(childNode.data_.getCurrentPlayer().getMinions().get(3) instanceof SearingTotem);
+
+		childNode = ret.getChildren().get(1);
+		assertFalse(childNode.data_.getCurrentPlayer().getMinions().get(3) instanceof SearingTotem);
+
+		childNode = ret.getChildren().get(2);
+		assertFalse(childNode.data_.getCurrentPlayer().getMinions().get(3) instanceof SearingTotem);
+
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 3);
+		assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
+	}
+
+	@Test
+	public void testHeropowerWithAllTotems() throws HSException {
+		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
+		Hero shaman = board.data_.getCurrentPlayerHero();
+		board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new SearingTotem());
+		board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new StoneclawTotem());
+		board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new HealingTotem());
+		board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new WrathOfAirTotem());
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 6);
+
+		HearthTreeNode ret = shaman.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
+		assertNull(ret);
+
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 6);
+		assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
 	}
 }
