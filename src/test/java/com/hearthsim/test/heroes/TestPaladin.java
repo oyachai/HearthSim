@@ -107,11 +107,11 @@ public class TestPaladin {
 	public void testHeropowerWithFullBoard() throws HSException {
 		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
 		Hero paladin = board.data_.getCurrentPlayerHero();
-		board = paladin.placeMinion(PlayerSide.CURRENT_PLAYER, new SilverHandRecruit(), board, deck, null, false);
-		board = paladin.placeMinion(PlayerSide.CURRENT_PLAYER, new SilverHandRecruit(), board, deck, null, false);
-		board = paladin.placeMinion(PlayerSide.CURRENT_PLAYER, new SilverHandRecruit(), board, deck, null, false);
-		board = paladin.placeMinion(PlayerSide.CURRENT_PLAYER, new SilverHandRecruit(), board, deck, null, false);
-		board = paladin.placeMinion(PlayerSide.CURRENT_PLAYER, new SilverHandRecruit(), board, deck, null, false);
+		board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new SilverHandRecruit());
+		board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new SilverHandRecruit());
+		board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new SilverHandRecruit());
+		board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new SilverHandRecruit());
+		board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new SilverHandRecruit());
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 7);
 
 		HearthTreeNode ret = paladin.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
