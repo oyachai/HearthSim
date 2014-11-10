@@ -1,7 +1,6 @@
 package com.hearthsim.test.heroes;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
@@ -17,7 +16,6 @@ import com.hearthsim.card.minion.concrete.RaidLeader;
 import com.hearthsim.card.minion.heroes.Hunter;
 import com.hearthsim.card.minion.heroes.TestHero;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
-import com.hearthsim.card.spellcard.concrete.WildGrowth;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
@@ -51,9 +49,6 @@ public class TestHunter {
 	
 		deck = new Deck(cards);
 
-		Card fb = new WildGrowth();
-		board.data_.placeCardHandCurrentPlayer(fb);
-
 		board.data_.getCurrentPlayer().setMana((byte)9);
 		board.data_.getWaitingPlayer().setMana((byte)9);
 		
@@ -81,33 +76,6 @@ public class TestHunter {
 		
 	}
 	
-	@Test
-	public void test0() throws HSException {
-		
-		//null case
-		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
-		Minion minion = PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0);
-		HearthTreeNode ret = minion.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null);
-		
-		assertFalse(ret == null);
-		assertEquals(board.data_.getNumCards_hand(), 1);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
-		assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
-		assertEquals(board.data_.getWaitingPlayer().getMana(), 8);
-		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
-		assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 28);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), 2);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), 7);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), 2);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), 7);
-
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack(), 2);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack(), 7);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack(), 2);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack(), 7);
-	}
-		
 	@Test
 	public void testHeropower() throws HSException {
 		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);

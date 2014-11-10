@@ -18,7 +18,6 @@ import com.hearthsim.card.minion.concrete.RaidLeader;
 import com.hearthsim.card.minion.heroes.Druid;
 import com.hearthsim.card.minion.heroes.TestHero;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
-import com.hearthsim.card.spellcard.concrete.WildGrowth;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
@@ -51,9 +50,6 @@ public class TestDruid {
 	
 		deck = new Deck(cards);
 
-		Card fb = new WildGrowth();
-		board.data_.placeCardHandCurrentPlayer(fb);
-
 		board.data_.getCurrentPlayer().setMana((byte)9);
 		board.data_.getWaitingPlayer().setMana((byte)9);
 		
@@ -78,52 +74,6 @@ public class TestDruid {
 		}
 		board.data_.resetMana();
 		board.data_.resetMinions();
-		
-	}
-	
-	@Test
-	public void test0() throws HSException {
-		//null case
-		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0); // Enemy hero
-		Minion raidLeader = PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0);
-		HearthTreeNode ret = raidLeader.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null);
-		
-		assertNotNull(ret);
-		assertEquals(board.data_.getNumCards_hand(), 1);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
-		assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
-		assertEquals(board.data_.getWaitingPlayer().getMana(), 8);
-		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
-		assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 28);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), 2);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), 7);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), 2);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), 7);
-
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack(), 2);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack(), 7);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack(), 2);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack(), 7);
-		
-		
-		raidLeader.hasAttacked(false);
-		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2); // Boulderfist Ogre
-		ret = raidLeader.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null);
-		assertEquals(board.data_.getNumCards_hand(), 1);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 1);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
-		assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
-		assertEquals(board.data_.getWaitingPlayer().getMana(), 8);
-		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
-		assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 28);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), 7);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), 2);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), 5);
-
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack(), 6);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack(), 2);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack(), 7);
 	}
 
 	@Test
@@ -133,7 +83,7 @@ public class TestDruid {
 		HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
 		assertNotNull(ret);
 
-		assertEquals(board.data_.getNumCards_hand(), 1);
+		assertEquals(board.data_.getNumCards_hand(), 0);
 
 		assertTrue(hero.hasBeenUsed());
 		assertEquals(board.data_.getCurrentPlayer().getMana(), 6);
@@ -206,7 +156,7 @@ public class TestDruid {
 		HearthTreeNode ret = hero.useHeroAbility(PlayerSide.WAITING_PLAYER, target, board, deck, null);
 		assertNull(ret);
 
-		assertEquals(board.data_.getNumCards_hand(), 1);
+		assertEquals(board.data_.getNumCards_hand(), 0);
 
 		assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
 		assertEquals(board.data_.getWaitingPlayer().getMana(), 8);
