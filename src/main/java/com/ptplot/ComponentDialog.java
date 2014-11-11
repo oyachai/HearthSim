@@ -62,7 +62,9 @@ import java.beans.PropertyChangeListener;
  */
 @SuppressWarnings("PMD")
 public class ComponentDialog extends JDialog {
-    /** Construct a dialog with the specified owner, title, and component.
+	private static final long serialVersionUID = 1L;
+
+	/** Construct a dialog with the specified owner, title, and component.
      *  An "OK" and a "Cancel" button are added to the dialog.
      *  The dialog is placed relative to the owner.
      *  @param owner The object that, per the user, appears to be
