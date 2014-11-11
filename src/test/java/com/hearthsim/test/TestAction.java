@@ -17,7 +17,6 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class TestAction {
 
-	private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
 	private BoardModel board;
 	private static final byte mana = 1;
 	private static final byte attack0 = 2;
@@ -30,15 +29,15 @@ public class TestAction {
 	public void setup() throws HSException {
 		board = new BoardModel();
 
-		Minion minion0_0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
+		Minion minion0_0 = new Minion("alpha", mana, attack0, health0, attack0, health0, health0);
 
 		board.placeMinion(PlayerSide.CURRENT_PLAYER, minion0_0);
 
 	}
 
 	@Test
-	public void test0() throws HSException {
-		Minion minion = new Minion("" + 0, mana, attack0, health1, attack0, health1, health1);
+	public void testAiShouldAttackMinion() throws HSException {
+		Minion minion = new Minion("beta", mana, attack0, health1, attack0, health1, health1);
 		board.placeMinion(PlayerSide.WAITING_PLAYER, minion);
 
 		BoardStateFactoryBase factory = new BoardStateFactoryBase(null, null, 2000000000);
@@ -55,8 +54,8 @@ public class TestAction {
 	}
 
 	@Test
-	public void test1() throws HSException {
-		Minion minion = new Minion("" + 0, mana, attack1, health2, attack1, health2, health2);
+	public void testAiShouldAttackOpponent() throws HSException {
+		Minion minion = new Minion("beta", mana, attack1, health2, attack1, health2, health2);
 		board.placeMinion(PlayerSide.WAITING_PLAYER, minion);
 
 		BoardStateFactoryBase factory = new BoardStateFactoryBase(null, null, 2000000000);

@@ -1,85 +1,85 @@
 package com.hearthsim.test;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+
+import org.junit.Test;
+
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
-import org.junit.Test;
-
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 public class TestBoardState {
 
 	private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
 
+	private static Minion CreateMinionAlpha() {
+		return new Minion("alpha", (byte)2, (byte)1, (byte)4, (byte)1, (byte)4, (byte)4);
+	}
+
+	private static Minion CreateMinionBeta() {
+		return new Minion("beta", (byte)2, (byte)1, (byte)5, (byte)1, (byte)5, (byte)4);
+	}
+
+	private static Minion CreateMinionCharlie() {
+		return new Minion("charlie", (byte)2, (byte)1, (byte)4, (byte)1, (byte)4, (byte)4);
+	}
+
 	@Test
-	public void testBoardState1() throws HSException {
-		int numCards = 30;
+	public void testEqualsEmpty() throws HSException {
+		BoardModel board1 = new BoardModel();
+		BoardModel board2 = new BoardModel();
+		assertEquals(board1, board2);
+	}
 
-		Card[] cards1 = new Card[numCards];
-		Card[] cards2 = new Card[numCards];
-		Card[] cards3 = new Card[numCards];
-
-		for(int i = 0; i < numCards; ++i) {
-			byte attack = (byte)((int)(Math.random() * 6) + 1);
-			byte health = (byte)((int)(Math.random() * 2) + 1);
-			byte mana = (byte)((int)(0.5 * (attack + health)));
-
-			attack = 1;
-			health = 4;
-			mana = 2;
-
-			cards1[i] = new Minion("" + i, mana, attack, health, attack, health, health);
-			cards3[i] = new Minion("" + i, mana, attack, health, attack, health, health);
-
-			attack++;
-			cards2[i] = new Minion("" + i, mana, attack, health, attack, health, health);
-		}
-
+	@Test
+	public void testEqualsWithCardHand() throws HSException {
 		BoardModel board1 = new BoardModel();
 		BoardModel board2 = new BoardModel();
 		BoardModel board3 = new BoardModel();
 
-		assertTrue(board1.equals(board2));
+		board1.placeCardHandCurrentPlayer(TestBoardState.CreateMinionAlpha());
+		board3.placeCardHandCurrentPlayer(TestBoardState.CreateMinionAlpha());
 
-		board1.placeCardHandCurrentPlayer(cards1[0]);
-		board3.placeCardHandCurrentPlayer(cards3[0]);
-
-		assertFalse(board1.equals(board2));
-		assertTrue(board1.equals(board3));
-
-		board2.placeCardHandCurrentPlayer(cards3[0]);
-		assertTrue(board1.equals(board2));
-
-		board1.placeCardHandCurrentPlayer(cards1[1]);
-		board3.placeCardHandCurrentPlayer(cards3[1]);
-		board2.placeCardHandCurrentPlayer(cards2[1]);
-		assertFalse(board1.equals(board2));
-		assertTrue(board1.equals(board3));
-
-		board1.placeMinion(PlayerSide.CURRENT_PLAYER, (Minion)cards1[2]);
-		board2.placeMinion(PlayerSide.CURRENT_PLAYER, (Minion)cards2[2]);
-		board2.placeMinion(PlayerSide.CURRENT_PLAYER, (Minion)cards2[3]);
-		board3.placeMinion(PlayerSide.CURRENT_PLAYER, (Minion)cards3[2]);
-
-		assertTrue(board1.equals(board3));
-		assertFalse(board1.equals(board2));
-
-		board1.placeMinion(PlayerSide.WAITING_PLAYER, (Minion)cards1[4]);
-		board1.placeMinion(PlayerSide.WAITING_PLAYER, (Minion)cards1[5]);
-		board3.placeMinion(PlayerSide.WAITING_PLAYER, (Minion)cards3[4]);
-		board3.placeMinion(PlayerSide.WAITING_PLAYER, (Minion)cards3[5]);
-		assertTrue(board1.equals(board3));
-
-		log.info("board1 hashCode = " + board1.hashCode());
-		log.info("board1 hashCode = " + board2.hashCode());
-		log.info("board1 hashCode = " + board3.hashCode());
+		assertNotEquals(board1, board2);
+		assertEquals(board1, board3);
 	}
 
 	@Test
-	public void testBoardState2() throws HSException {
+	public void testEqualsWithPlacedMinions() throws HSException {
+		BoardModel board1 = new BoardModel();
+		BoardModel board2 = new BoardModel();
+		BoardModel board3 = new BoardModel();
+
+		board1.placeMinion(PlayerSide.CURRENT_PLAYER, TestBoardState.CreateMinionAlpha());
+		board3.placeMinion(PlayerSide.CURRENT_PLAYER, TestBoardState.CreateMinionAlpha());
+		assertEquals(board1, board3);
+
+		board2.placeMinion(PlayerSide.CURRENT_PLAYER, TestBoardState.CreateMinionAlpha());
+		board2.placeMinion(PlayerSide.CURRENT_PLAYER, TestBoardState.CreateMinionBeta());
+		assertNotEquals(board1, board2);
+	}
+
+	@Test
+	public void testEqualsWithMultiplePlacedMinions() throws HSException {
+		BoardModel board1 = new BoardModel();
+		BoardModel board3 = new BoardModel();
+
+		board1.placeMinion(PlayerSide.CURRENT_PLAYER, TestBoardState.CreateMinionAlpha());
+		board3.placeMinion(PlayerSide.CURRENT_PLAYER, TestBoardState.CreateMinionAlpha());
+
+		board1.placeMinion(PlayerSide.WAITING_PLAYER, TestBoardState.CreateMinionAlpha());
+		board3.placeMinion(PlayerSide.WAITING_PLAYER, TestBoardState.CreateMinionAlpha());
+
+		board1.placeMinion(PlayerSide.WAITING_PLAYER, TestBoardState.CreateMinionCharlie());
+		board3.placeMinion(PlayerSide.WAITING_PLAYER, TestBoardState.CreateMinionCharlie());
+		assertEquals(board1, board3);
+	}
+
+	@Test
+	public void testBoardState() throws HSException {
 
 		int numBoards = 2000;
 		BoardModel[] boards = new BoardModel[numBoards];

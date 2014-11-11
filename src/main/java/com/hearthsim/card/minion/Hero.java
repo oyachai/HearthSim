@@ -170,11 +170,10 @@ public abstract class Hero extends Minion {
 	{
 		if (boardState.data_.getCurrentPlayer().getMana() < HERO_ABILITY_COST)
 			return null;
-
-		int targetIndex = targetMinion instanceof Hero ? 0 : targetPlayerSide.getPlayer(boardState).getMinions().indexOf(targetMinion);
 		
 		HearthTreeNode toRet = this.useHeroAbility_core(targetPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
+			int targetIndex = targetMinion instanceof Hero ? 0 : targetPlayerSide.getPlayer(boardState).getMinions().indexOf(targetMinion);
 			toRet.setAction(new HearthAction(Verb.HERO_ABILITY, PlayerSide.CURRENT_PLAYER, 0, targetPlayerSide, targetIndex));
 			toRet = BoardStateFactoryBase.handleDeadMinions(toRet, deckPlayer0, deckPlayer1);
 		}
