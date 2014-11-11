@@ -72,8 +72,8 @@ public class ClassUtilities {
      *  @exception IOException If opening the connection fails or if
      *  getting the jar file from the connection fails
      */
-    public static List jarURLDirectories(URL jarURL) throws IOException {
-        List directories = new LinkedList();
+    public static List<String> jarURLDirectories(URL jarURL) throws IOException {
+        List<String> directories = new LinkedList<String>();
         JarURLConnection connection = (JarURLConnection) (jarURL
                 .openConnection());
         String jarEntryName = connection.getEntryName();
@@ -81,7 +81,7 @@ public class ClassUtilities {
             jarEntryName = jarEntryName.substring(0, jarEntryName.length() - 1);
         }
         JarFile jarFile = connection.getJarFile();
-        Enumeration entries = jarFile.entries();
+        Enumeration<JarEntry> entries = jarFile.entries();
         while (entries.hasMoreElements()) {
             JarEntry entry = (JarEntry) entries.nextElement();
             String name = entry.getName();

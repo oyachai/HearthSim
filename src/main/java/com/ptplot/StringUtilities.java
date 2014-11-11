@@ -514,7 +514,7 @@ public class StringUtilities {
 
         // If the property is not set then we return the empty string.
         if (property == null) {
-            return "";
+        	property = "";
         }
 
         return property;
@@ -630,9 +630,9 @@ public class StringUtilities {
      * @return A LinkedList of the lines that aren't comments.
      * @exception IOException If thrown when reading from the input String.
      */
-    public static LinkedList readLines(String lines) throws IOException {
+    public static LinkedList<String> readLines(String lines) throws IOException {
         BufferedReader bufferedReader = null;
-        LinkedList returnList = new LinkedList();
+        LinkedList<String> returnList = new LinkedList<String>();
         String line;
         bufferedReader = new BufferedReader(new StringReader(lines));
         try {
@@ -903,7 +903,7 @@ public class StringUtilities {
         // single tokens.  We then call java.lang.Runtime.exec(String []
         // commands);
         // Parse the command into tokens
-        List commandList = new LinkedList();
+        List<String> commandList = new LinkedList<String>();
 
         StreamTokenizer streamTokenizer = new StreamTokenizer(new StringReader(
                 inputString));
