@@ -9,7 +9,7 @@ import com.hearthsim.util.IdentityLinkedList;
 import com.hearthsim.util.MinionList;
 import org.json.JSONObject;
 
-public class PlayerModel implements DeepCopyable {
+public class PlayerModel implements DeepCopyable<PlayerModel> {
 
     private final String name;
     private final int playerId; // used for identifying player 0 vs player 1
@@ -159,7 +159,7 @@ public class PlayerModel implements DeepCopyable {
     }
 
     @Override
-    public Object deepCopy() {
+    public PlayerModel deepCopy() {
         PlayerModel copiedPlayerModel = new PlayerModel(
         		this.playerId,
                 this.name,

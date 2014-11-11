@@ -19,7 +19,7 @@ import java.util.ArrayList;
  * A class that represents the current state of the board (game)
  *
  */
-public class BoardModel implements DeepCopyable {
+public class BoardModel implements DeepCopyable<BoardModel> {
 
 //    private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
 
@@ -510,7 +510,7 @@ public class BoardModel implements DeepCopyable {
         return newBoard;
     }
 
-    public Object deepCopy() {
+    public BoardModel deepCopy() {
         BoardModel newBoard = new BoardModel((PlayerModel) currentPlayer.deepCopy(), (PlayerModel) waitingPlayer.deepCopy());
 
         for (MinionPlayerPair minionPlayerPair : allMinionsFIFOList_) {
