@@ -13,6 +13,7 @@ public class TestMinion {
 		Minion minion0 = new Minion("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
 		Minion copy = (Minion)minion0.deepCopy();
 		assertEquals(minion0, copy);
+		assertEquals(copy, minion0);
 
 		copy.setAttack((byte)10);
 		assertNotEquals(minion0, copy);
@@ -42,6 +43,22 @@ public class TestMinion {
 	public void testNotEqualsBaseHealth() {
 		Minion minion0 = new Minion("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
 		Minion minion1 = new Minion("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)40, (byte)4);
+		assertNotEquals(minion0, minion1);
+	}
+
+	@Test
+	public void testNotEqualsDestroyOnTurnEnd() {
+		Minion minion0 = new Minion("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
+		Minion minion1 = (Minion)minion0.deepCopy();
+		minion1.setDestroyOnTurnEnd(true);
+		assertNotEquals(minion0, minion1);
+	}
+
+	@Test
+	public void testNotEqualsDestroyOnTurnStart() {
+		Minion minion0 = new Minion("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
+		Minion minion1 = (Minion)minion0.deepCopy();
+		minion1.setDestroyOnTurnStart(true);
 		assertNotEquals(minion0, minion1);
 	}
 
