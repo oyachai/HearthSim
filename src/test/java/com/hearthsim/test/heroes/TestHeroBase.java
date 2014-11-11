@@ -6,7 +6,6 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.hearthsim.card.Card;
@@ -158,7 +157,6 @@ public class TestHeroBase {
 	}
 
 	@Test
-	@Ignore("Existing bug")
 	public void testHeropowerCannotBeUsedTwice() throws HSException {
 		Hero hero = board.data_.getCurrentPlayerHero();
 		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0); // Hero
@@ -171,6 +169,17 @@ public class TestHeroBase {
 
 		assertTrue(hero.hasBeenUsed());
 		assertEquals(board.data_.getCurrentPlayer().getMana(), 6);
+	}
+
+	@Test
+	public void testHeropowerResets() throws HSException {
+		Hero hero = board.data_.getCurrentPlayerHero();
+		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0); // Hero
+		HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
+		assertEquals(board, ret);
+
+		board.data_.resetMinions();
+		assertFalse(hero.hasBeenUsed());
 	}
 
 	@Test
