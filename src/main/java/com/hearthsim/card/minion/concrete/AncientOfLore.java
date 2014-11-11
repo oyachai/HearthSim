@@ -5,7 +5,6 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class AncientOfLore extends Minion {
@@ -50,9 +49,6 @@ public class AncientOfLore extends Minion {
 		
 		if (toRet != null) {
 			int thisMinionIndex = PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions().indexOf(this);
-			{
-				HearthTreeNode newState = toRet.addChild(new CardDrawNode(new HearthTreeNode((BoardModel)toRet.data_.deepCopy()), 2));
-			}
 			{
 				{
 					HearthTreeNode newState = new HearthTreeNode((BoardModel)toRet.data_.deepCopy());
