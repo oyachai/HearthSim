@@ -28,7 +28,7 @@ public class Windfury extends SpellCard {
 	}
 
 	@Override
-	public Object deepCopy() {
+	public SpellCard deepCopy() {
 		return new Windfury(this.hasBeenUsed);
 	}
 	

@@ -29,7 +29,7 @@ public class ExcessMana extends SpellCard {
 	}
 
 	@Override
-	public Object deepCopy() {
+	public SpellCard deepCopy() {
 		return new ExcessMana(this.hasBeenUsed);
 	}
 	

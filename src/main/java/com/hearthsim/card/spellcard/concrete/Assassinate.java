@@ -28,7 +28,7 @@ public class Assassinate extends SpellCard {
 	}
 	
 	@Override
-	public Object deepCopy() {
+	public SpellCard deepCopy() {
 		return new Assassinate(this.hasBeenUsed);
 	}
 	

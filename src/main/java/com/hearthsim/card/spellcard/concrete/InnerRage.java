@@ -28,7 +28,7 @@ public class InnerRage extends SpellCard {
 	}
 
 	@Override
-	public Object deepCopy() {
+	public SpellCard deepCopy() {
 		return new InnerRage(this.hasBeenUsed);
 	}
 	

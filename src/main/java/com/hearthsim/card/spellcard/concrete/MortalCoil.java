@@ -19,7 +19,7 @@ public class MortalCoil extends SpellDamage {
 	}
 
 	@Override
-	public Object deepCopy() {
+	public SpellDamage deepCopy() {
 		return new MortalCoil(this.hasBeenUsed);
 	}
 	

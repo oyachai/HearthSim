@@ -28,7 +28,7 @@ public class RockbiterWeapon extends SpellCard {
 	}
 
 	@Override
-	public Object deepCopy() {
+	public SpellCard deepCopy() {
 		return new RockbiterWeapon(this.hasBeenUsed);
 	}
 	

@@ -19,7 +19,7 @@ public class KillCommand extends SpellDamage {
 	}
 
 	@Override
-	public Object deepCopy() {
+	public SpellDamage deepCopy() {
 		return new KillCommand(this.hasBeenUsed);
 	}
 	

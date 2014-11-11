@@ -29,7 +29,7 @@ public class HolyNova extends SpellCard {
 	}
 
 	@Override
-	public Object deepCopy() {
+	public SpellCard deepCopy() {
 		return new HolyNova(this.hasBeenUsed);
 	}
 

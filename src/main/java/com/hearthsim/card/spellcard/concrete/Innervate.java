@@ -28,7 +28,7 @@ public class Innervate extends SpellCard {
 	}
 
 	@Override
-	public Object deepCopy() {
+	public SpellCard deepCopy() {
 		return new Innervate(this.hasBeenUsed);
 	}
 	

@@ -51,7 +51,7 @@ public class SpellHeal extends SpellCard {
     }
 
     @Override
-	public Object deepCopy() {
+	public SpellCard deepCopy() {
 		return new SpellHeal(this.getName(), this.baseManaCost, healAmount_, this.hasBeenUsed());
 	}
 

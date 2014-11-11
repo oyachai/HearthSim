@@ -417,7 +417,7 @@ public class BruteForceSearchAI implements ArtificialPlayer {
     }
 
 	@Override
-	public Object deepCopy() {
+	public ArtificialPlayer deepCopy() {
 		// TODO Auto-generated method stub
 		BruteForceSearchAI copied = new BruteForceSearchAI();
 		copied.myAttackWeight = myAttackWeight; //weight for the attack score

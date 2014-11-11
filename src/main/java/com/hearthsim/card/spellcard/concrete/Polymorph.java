@@ -29,7 +29,7 @@ public class Polymorph extends SpellCard {
 	}
 	
 	@Override
-	public Object deepCopy() {
+	public SpellCard deepCopy() {
 		return new Polymorph(this.hasBeenUsed);
 	}
 	

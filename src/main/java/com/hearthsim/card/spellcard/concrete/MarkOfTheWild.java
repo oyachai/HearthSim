@@ -29,7 +29,7 @@ public class MarkOfTheWild extends SpellCard {
 	}
 
 	@Override
-	public Object deepCopy() {
+	public SpellCard deepCopy() {
 		return new MarkOfTheWild(this.hasBeenUsed);
 	}
 	

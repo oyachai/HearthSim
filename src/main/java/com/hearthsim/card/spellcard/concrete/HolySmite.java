@@ -13,7 +13,7 @@ public class HolySmite extends SpellDamage {
 	}
 	
 	@Override
-	public Object deepCopy() {
+	public SpellDamage deepCopy() {
 		return new HolySmite(this.hasBeenUsed);
 	}
 

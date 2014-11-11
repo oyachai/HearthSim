@@ -30,7 +30,7 @@ public class SavageRoar extends SpellCard {
 	}
 
 	@Override
-	public Object deepCopy() {
+	public SpellCard deepCopy() {
 		return new SavageRoar(this.hasBeenUsed);
 	}
 	

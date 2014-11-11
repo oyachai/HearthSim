@@ -28,7 +28,7 @@ public class MindControl extends SpellCard {
 	}
 
 	@Override
-	public Object deepCopy() {
+	public SpellCard deepCopy() {
 		return new MindControl(this.hasBeenUsed);
 	}
 

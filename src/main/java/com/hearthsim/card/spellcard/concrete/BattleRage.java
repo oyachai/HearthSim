@@ -33,7 +33,7 @@ public class BattleRage extends SpellCard {
 	}
 
 	@Override
-	public Object deepCopy() {
+	public SpellCard deepCopy() {
 		return new BattleRage(this.hasBeenUsed);
 	}
 	

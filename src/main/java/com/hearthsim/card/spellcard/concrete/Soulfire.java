@@ -24,7 +24,7 @@ public class Soulfire extends SpellDamage {
 	}
 
 	@Override
-	public Object deepCopy() {
+	public SpellDamage deepCopy() {
 		return new Soulfire(this.hasBeenUsed);
 	}
 	

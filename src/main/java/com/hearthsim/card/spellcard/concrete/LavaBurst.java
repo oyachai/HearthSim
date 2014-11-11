@@ -18,7 +18,7 @@ public class LavaBurst extends SpellDamage {
 	}
 
 	@Override
-	public Object deepCopy() {
+	public SpellDamage deepCopy() {
 		return new LavaBurst(this.hasBeenUsed);
 	}
 	

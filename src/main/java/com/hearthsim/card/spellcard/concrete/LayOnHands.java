@@ -29,7 +29,7 @@ public class LayOnHands extends SpellCard {
 	}
 
 	@Override
-	public Object deepCopy() {
+	public SpellCard deepCopy() {
 		return new LayOnHands(this.hasBeenUsed);
 	}
 	

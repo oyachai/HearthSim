@@ -13,7 +13,7 @@ public class Pyroblast extends SpellDamage {
 	}
 	
 	@Override
-	public Object deepCopy() {
+	public SpellDamage deepCopy() {
 		return new Pyroblast(this.hasBeenUsed);
 	}
 }

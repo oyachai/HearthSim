@@ -18,7 +18,7 @@ public class MindBlast extends SpellDamage {
 	}
 
 	@Override
-	public Object deepCopy() {
+	public SpellDamage deepCopy() {
 		return new MindBlast(this.hasBeenUsed);
 	}
 	

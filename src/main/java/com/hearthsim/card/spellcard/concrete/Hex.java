@@ -29,7 +29,7 @@ public class Hex extends SpellCard {
 	}
 	
 	@Override
-	public Object deepCopy() {
+	public SpellCard deepCopy() {
 		return new Hex(this.hasBeenUsed);
 	}
 	

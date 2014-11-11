@@ -28,7 +28,7 @@ public class Charge extends SpellCard {
 	}
 	
 	@Override
-	public Object deepCopy() {
+	public SpellCard deepCopy() {
 		return new Charge(this.hasBeenUsed);
 	}
 

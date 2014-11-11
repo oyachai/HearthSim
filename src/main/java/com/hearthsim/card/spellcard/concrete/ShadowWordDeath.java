@@ -28,7 +28,7 @@ public class ShadowWordDeath extends SpellCard {
 	}
 
 	@Override
-	public Object deepCopy() {
+	public SpellCard deepCopy() {
 		return new ShadowWordDeath(this.hasBeenUsed);
 	}
 	

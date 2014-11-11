@@ -29,7 +29,7 @@ public class Bite extends SpellCard {
 	}
 
 	@Override
-	public Object deepCopy() {
+	public SpellCard deepCopy() {
 		return new Bite(this.hasBeenUsed);
 	}
 	

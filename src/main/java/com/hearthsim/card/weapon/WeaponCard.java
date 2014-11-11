@@ -25,7 +25,7 @@ public abstract class WeaponCard extends Card {
     }
 
 	@Override
-	public Object deepCopy() {
+	public Card deepCopy() {
         WeaponCard weapon = null;
         try {
             weapon = getClass().newInstance();

@@ -52,7 +52,7 @@ public class TestHero extends Hero {
 	}
 
 	@Override
-	public DeepCopyable deepCopy() {
+	public Hero deepCopy() {
 		TestHero copy = (TestHero)super.deepCopy();
 		copy.enableHeroAbility = this.enableHeroAbility;
 		return copy;

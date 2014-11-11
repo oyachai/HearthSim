@@ -20,7 +20,7 @@ public class Shiv extends SpellDamage {
 	}
 
 	@Override
-	public Object deepCopy() {
+	public SpellDamage deepCopy() {
 		return new Shiv(this.hasBeenUsed);
 	}
 	

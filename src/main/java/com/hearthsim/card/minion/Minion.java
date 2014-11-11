@@ -1158,7 +1158,7 @@ public class Minion extends Card {
 	 * Note: the event actions are not actually deep copied.
 	 */
 	@Override
-	public Object deepCopy() {
+	public Card deepCopy() {
 
 		Minion minion = null;
 		try {

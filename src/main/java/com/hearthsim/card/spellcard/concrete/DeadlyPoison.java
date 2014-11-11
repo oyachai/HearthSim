@@ -30,7 +30,7 @@ public class DeadlyPoison extends SpellCard {
 	}
 	
 	@Override
-	public Object deepCopy() {
+	public SpellCard deepCopy() {
 		return new DeadlyPoison(this.hasBeenUsed);
 	}
 

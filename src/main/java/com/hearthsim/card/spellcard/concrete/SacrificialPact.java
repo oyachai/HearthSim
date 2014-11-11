@@ -29,7 +29,7 @@ public class SacrificialPact extends SpellCard {
 	}
 
 	@Override
-	public Object deepCopy() {
+	public SpellCard deepCopy() {
 		return new SacrificialPact(this.hasBeenUsed);
 	}
 	

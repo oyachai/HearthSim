@@ -28,7 +28,7 @@ public class ArcaneExplosion extends SpellCard {
 	}
 
 	@Override
-	public Object deepCopy() {
+	public SpellCard deepCopy() {
 		return new ArcaneExplosion(this.hasBeenUsed);
 	}
 	

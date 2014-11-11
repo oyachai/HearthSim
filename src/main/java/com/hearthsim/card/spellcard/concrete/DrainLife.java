@@ -18,7 +18,7 @@ public class DrainLife extends SpellDamage {
 	}
 
 	@Override
-	public Object deepCopy() {
+	public SpellDamage deepCopy() {
 		return new DrainLife(this.hasBeenUsed);
 	}
 	

@@ -28,7 +28,7 @@ public class DivineFavor extends SpellCard {
 	}
 
 	@Override
-	public Object deepCopy() {
+	public SpellCard deepCopy() {
 		return new DivineFavor(this.hasBeenUsed);
 	}
 	

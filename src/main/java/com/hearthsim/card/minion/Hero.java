@@ -64,7 +64,7 @@ public abstract class Hero extends Minion {
 	}
 
 	@Override
-	public DeepCopyable deepCopy() {
+	public Hero deepCopy() {
 		Hero copy = (Hero)super.deepCopy();
 		if(weapon != null) {
 			copy.weapon = (WeaponCard)weapon.deepCopy();

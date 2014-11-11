@@ -20,7 +20,7 @@ public class Starfire extends SpellDamage {
 	}
 
 	@Override
-	public Object deepCopy() {
+	public SpellDamage deepCopy() {
 		return new Starfire(this.hasBeenUsed);
 	}
 	

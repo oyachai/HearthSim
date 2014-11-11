@@ -30,7 +30,7 @@ public class Sprint extends SpellCard {
 	}
 
 	@Override
-	public Object deepCopy() {
+	public SpellCard deepCopy() {
 		return new Sprint(this.hasBeenUsed);
 	}
 	

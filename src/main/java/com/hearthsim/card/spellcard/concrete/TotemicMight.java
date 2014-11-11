@@ -29,7 +29,7 @@ public class TotemicMight extends SpellCard {
 	}
 
 	@Override
-	public Object deepCopy() {
+	public SpellCard deepCopy() {
 		return new TotemicMight(this.hasBeenUsed);
 	}
 	

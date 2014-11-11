@@ -7,7 +7,7 @@ import com.hearthsim.model.BoardModel;
 import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.HearthActionBoardPair;
 
-public interface ArtificialPlayer extends DeepCopyable {
+public interface ArtificialPlayer extends DeepCopyable<ArtificialPlayer> {
 
 	/**
 	 * Board score function

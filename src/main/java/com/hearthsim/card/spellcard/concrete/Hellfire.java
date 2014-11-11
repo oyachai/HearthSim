@@ -30,7 +30,7 @@ public class Hellfire extends SpellCard {
 	}
 	
 	@Override
-	public Object deepCopy() {
+	public SpellCard deepCopy() {
 		return new Hellfire(this.hasBeenUsed);
 	}
 

@@ -19,7 +19,7 @@ public class EarthShock extends SpellDamage {
 	}
 
 	@Override
-	public Object deepCopy() {
+	public SpellDamage deepCopy() {
 		return new EarthShock(this.hasBeenUsed);
 	}
 	

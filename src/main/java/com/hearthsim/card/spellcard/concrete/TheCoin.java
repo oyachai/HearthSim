@@ -20,7 +20,7 @@ public class TheCoin extends SpellCard {
 	}
 
 	@Override
-	public Object deepCopy() {
+	public SpellCard deepCopy() {
 		return new TheCoin(this.hasBeenUsed());
 	}
 

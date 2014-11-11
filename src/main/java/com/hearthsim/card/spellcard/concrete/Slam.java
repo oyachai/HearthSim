@@ -19,7 +19,7 @@ public class Slam extends SpellDamage {
 	}
 
 	@Override
-	public Object deepCopy() {
+	public SpellDamage deepCopy() {
 		return new Slam(this.hasBeenUsed);
 	}
 
