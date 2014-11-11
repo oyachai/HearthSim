@@ -30,7 +30,9 @@ public class TestHeroBase {
 
 	@Before
 	public void setup() {
-		board = new HearthTreeNode(new BoardModel(new TestHero(), new TestHero()));
+		TestHero self = new TestHero();
+		self.enableHeroAbility = true;
+		board = new HearthTreeNode(new BoardModel(self, new TestHero()));
 
 		Minion minion0_0 = new BoulderfistOgre();
 		Minion minion0_1 = new RaidLeader();
