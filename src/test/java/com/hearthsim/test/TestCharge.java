@@ -41,7 +41,7 @@ public class TestCharge {
 	}
 
 	@Test
-	public void test0() throws HSException {
+	public void testAiMinionAttack() throws HSException {
 		Minion minion = new Minion("" + 0, mana, attack0, health1, attack0, (byte) 0, (byte) 0, health1, health1,
 				(byte) 0, (byte) 0, false, false, false, true, false, false, false, false, false, false, false, false,
 				false, false, null, null, false, false);
@@ -61,7 +61,7 @@ public class TestCharge {
 	}
 
 	@Test
-	public void test1() {
+	public void testAiPlayChargeAndAttack() {
 		Minion minion = new Minion("" + 0, mana, attack0, health1, attack0, (byte) 0, (byte) 0, health1, health1,
 				(byte) 0, (byte) 0, false, false, false, true, false, false, false, false, false, false, false, false,
 				false, false, null, null, true, false);
@@ -84,5 +84,4 @@ public class TestCharge {
 		// 4. Play card, charge attack enemy minion
 		assertEquals(tree.getNumNodesTried(), 4);
 	}
-
 }

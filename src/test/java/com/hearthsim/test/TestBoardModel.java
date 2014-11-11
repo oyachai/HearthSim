@@ -1,19 +1,30 @@
 package com.hearthsim.test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.minion.concrete.AbusiveSergeant;
+import com.hearthsim.card.minion.concrete.BoulderfistOgre;
+import com.hearthsim.card.minion.concrete.RaidLeader;
+import com.hearthsim.card.minion.concrete.ScarletCrusader;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
+import com.hearthsim.util.tree.HearthTreeNode;
 
-public class TestBoardState {
+public class TestBoardModel {
 
 	private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
+
+	private Deck deck0;
+	private Deck deck1;
 
 	private static Minion CreateMinionAlpha() {
 		return new Minion("alpha", (byte)2, (byte)1, (byte)4, (byte)1, (byte)4, (byte)4);
@@ -40,8 +51,8 @@ public class TestBoardState {
 		BoardModel board2 = new BoardModel();
 		BoardModel board3 = new BoardModel();
 
-		board1.placeCardHandCurrentPlayer(TestBoardState.CreateMinionAlpha());
-		board3.placeCardHandCurrentPlayer(TestBoardState.CreateMinionAlpha());
+		board1.placeCardHandCurrentPlayer(TestBoardModel.CreateMinionAlpha());
+		board3.placeCardHandCurrentPlayer(TestBoardModel.CreateMinionAlpha());
 
 		assertNotEquals(board1, board2);
 		assertEquals(board1, board3);
@@ -53,12 +64,12 @@ public class TestBoardState {
 		BoardModel board2 = new BoardModel();
 		BoardModel board3 = new BoardModel();
 
-		board1.placeMinion(PlayerSide.CURRENT_PLAYER, TestBoardState.CreateMinionAlpha());
-		board3.placeMinion(PlayerSide.CURRENT_PLAYER, TestBoardState.CreateMinionAlpha());
+		board1.placeMinion(PlayerSide.CURRENT_PLAYER, TestBoardModel.CreateMinionAlpha());
+		board3.placeMinion(PlayerSide.CURRENT_PLAYER, TestBoardModel.CreateMinionAlpha());
 		assertEquals(board1, board3);
 
-		board2.placeMinion(PlayerSide.CURRENT_PLAYER, TestBoardState.CreateMinionAlpha());
-		board2.placeMinion(PlayerSide.CURRENT_PLAYER, TestBoardState.CreateMinionBeta());
+		board2.placeMinion(PlayerSide.CURRENT_PLAYER, TestBoardModel.CreateMinionAlpha());
+		board2.placeMinion(PlayerSide.CURRENT_PLAYER, TestBoardModel.CreateMinionBeta());
 		assertNotEquals(board1, board2);
 	}
 
@@ -67,14 +78,14 @@ public class TestBoardState {
 		BoardModel board1 = new BoardModel();
 		BoardModel board3 = new BoardModel();
 
-		board1.placeMinion(PlayerSide.CURRENT_PLAYER, TestBoardState.CreateMinionAlpha());
-		board3.placeMinion(PlayerSide.CURRENT_PLAYER, TestBoardState.CreateMinionAlpha());
+		board1.placeMinion(PlayerSide.CURRENT_PLAYER, TestBoardModel.CreateMinionAlpha());
+		board3.placeMinion(PlayerSide.CURRENT_PLAYER, TestBoardModel.CreateMinionAlpha());
 
-		board1.placeMinion(PlayerSide.WAITING_PLAYER, TestBoardState.CreateMinionAlpha());
-		board3.placeMinion(PlayerSide.WAITING_PLAYER, TestBoardState.CreateMinionAlpha());
+		board1.placeMinion(PlayerSide.WAITING_PLAYER, TestBoardModel.CreateMinionAlpha());
+		board3.placeMinion(PlayerSide.WAITING_PLAYER, TestBoardModel.CreateMinionAlpha());
 
-		board1.placeMinion(PlayerSide.WAITING_PLAYER, TestBoardState.CreateMinionCharlie());
-		board3.placeMinion(PlayerSide.WAITING_PLAYER, TestBoardState.CreateMinionCharlie());
+		board1.placeMinion(PlayerSide.WAITING_PLAYER, TestBoardModel.CreateMinionCharlie());
+		board3.placeMinion(PlayerSide.WAITING_PLAYER, TestBoardModel.CreateMinionCharlie());
 		assertEquals(board1, board3);
 	}
 
@@ -149,4 +160,60 @@ public class TestBoardState {
 		log.info("t frac = " + (double)nT / (double)nA);
 	}
 
+	@Test
+	public void testBoardModelEquals() {
+
+		HearthTreeNode board = new HearthTreeNode(new BoardModel());
+
+		Minion minion0_0 = new BoulderfistOgre();
+		Minion minion0_1 = new RaidLeader();
+		Minion minion0_2 = new AbusiveSergeant();
+		Minion minion1_0 = new BoulderfistOgre();
+		Minion minion1_1 = new RaidLeader();
+		Minion minion1_2 = new ScarletCrusader();
+
+		board.data_.placeCardHandCurrentPlayer(minion0_0);
+		board.data_.placeCardHandCurrentPlayer(minion0_1);
+		board.data_.placeCardHandCurrentPlayer(minion0_2);
+
+		board.data_.placeCardHandWaitingPlayer(minion1_0);
+		board.data_.placeCardHandWaitingPlayer(minion1_1);
+		board.data_.placeCardHandWaitingPlayer(minion1_2);
+
+		board.data_.getCurrentPlayer().setMana((byte)8);
+		board.data_.getWaitingPlayer().setMana((byte)8);
+
+		board.data_.getCurrentPlayer().setMaxMana((byte)8);
+		board.data_.getWaitingPlayer().setMaxMana((byte)8);
+
+		HearthTreeNode tmpBoard = new HearthTreeNode(board.data_.flipPlayers());
+		try {
+			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER,
+					tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck1, deck0);
+			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER,
+					tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck1, deck0);
+			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER,
+					tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck1, deck0);
+		} catch(HSException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		board = new HearthTreeNode(tmpBoard.data_.flipPlayers());
+		try {
+			board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER,
+					board.data_.getCurrentPlayerHero(), board, deck0, deck1);
+			board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER,
+					board.data_.getCurrentPlayerHero(), board, deck0, deck1);
+		} catch(HSException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		board.data_.resetMana();
+		board.data_.resetMinions();
+
+		assertTrue(board.data_.equals(board.data_));
+		assertTrue(board.data_.equals((BoardModel)board.data_.deepCopy()));
+		assertEquals(board.data_.hashCode(), ((BoardModel)board.data_.deepCopy()).hashCode());
+		assertFalse(board.data_.equals((BoardModel)board.data_.flipPlayers().deepCopy()));
+	}
 }
