@@ -127,7 +127,7 @@ public class FileUtilities {
     public static void extractJarFile(String jarFileName, String directoryName)
             throws IOException {
         JarFile jarFile = new JarFile(jarFileName);
-        Enumeration entries = jarFile.entries();
+        Enumeration<JarEntry> entries = jarFile.entries();
         while (entries.hasMoreElements()) {
             JarEntry jarEntry = (JarEntry) entries.nextElement();
             File destinationFile = new File(directoryName, jarEntry.getName());
