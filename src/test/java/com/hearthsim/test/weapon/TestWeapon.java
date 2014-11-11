@@ -53,6 +53,7 @@ public class TestWeapon {
 		FieryWarAxe fb = new FieryWarAxe();
 		board.data_.placeCardHandCurrentPlayer(fb);
 
+		board.data_.getCurrentPlayer().setMana((byte)2);
 	}
 
 	@Test
@@ -136,6 +137,7 @@ public class TestWeapon {
 
 		AssassinsBlade otherWeapon = new AssassinsBlade();
 		board.data_.placeCardHandCurrentPlayer(otherWeapon);
+		board.data_.getCurrentPlayer().setMana((byte)7);
 		board.data_.getCurrentPlayerCardHand(1).useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
 
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);

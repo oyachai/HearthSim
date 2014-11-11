@@ -5,7 +5,6 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.hearthsim.card.Card;
@@ -43,7 +42,7 @@ public class TestDruid {
 		board.data_.placeCardHandWaitingPlayer(minion1_1);
 
 		Card cards[] = new Card[10];
-		for (int index = 0; index < 10; ++index) {
+		for(int index = 0; index < 10; ++index) {
 			cards[index] = new TheCoin();
 		}
 
@@ -61,7 +60,7 @@ public class TestDruid {
 					tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
 			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER,
 					tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
-		} catch (HSException e) {
+		} catch(HSException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -71,7 +70,7 @@ public class TestDruid {
 					board.data_.getCurrentPlayerHero(), board, deck, null);
 			board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER,
 					board.data_.getCurrentPlayerHero(), board, deck, null);
-		} catch (HSException e) {
+		} catch(HSException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -82,8 +81,7 @@ public class TestDruid {
 	@Test
 	public void testHeropower() throws HSException {
 		Hero hero = board.data_.getCurrentPlayerHero();
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0); // Druid
-																				// hero
+		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0); // Druid hero
 		HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
 		assertEquals(board, ret);
 
@@ -91,26 +89,22 @@ public class TestDruid {
 	}
 
 	@Test
-	@Ignore("Existing bug")
 	public void testArmorIsAdditive() throws HSException {
 		Hero hero = board.data_.getCurrentPlayerHero();
-		hero.setArmor((byte) 1);
+		hero.setArmor((byte)1);
 
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0); // Druid
-																				// hero
+		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0); // Druid hero
 		HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
 		assertEquals(board, ret);
 		assertEquals(board.data_.getCurrentPlayerHero().getArmor(), 2);
 	}
 
 	@Test
-	@Ignore("Existing bug")
 	public void testAttackIsAdditive() throws HSException {
 		Hero hero = board.data_.getCurrentPlayerHero();
-		hero.setExtraAttackUntilTurnEnd((byte) 1);
+		hero.setExtraAttackUntilTurnEnd((byte)1);
 
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0); // Druid
-																				// hero
+		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0); // Druid hero
 		HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
 		assertEquals(board, ret);
 		assertEquals(board.data_.getCurrentPlayerHero().getExtraAttackUntilTurnEnd(), 2);
@@ -118,8 +112,7 @@ public class TestDruid {
 
 	@Test
 	public void testCannotTargetMinion() throws HSException {
-		Minion raidLeader = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1); // Raid
-																					// leader
+		Minion raidLeader = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1); // Raid leader
 		Hero hero = board.data_.getCurrentPlayerHero();
 		HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, raidLeader, board, deck, null);
 		assertNull(ret);

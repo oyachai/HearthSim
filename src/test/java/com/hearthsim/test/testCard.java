@@ -14,7 +14,7 @@ public class TestCard {
 		Card copy = (Card)card0.deepCopy();
 		assertEquals(card0, copy);
 
-		copy.setMana((byte)3);
+		copy.setBaseManaCost((byte)3);
 		assertNotEquals(card0, copy);
 	}
 

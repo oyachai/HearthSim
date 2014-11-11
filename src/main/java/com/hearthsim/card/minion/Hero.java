@@ -51,6 +51,10 @@ public abstract class Hero extends Minion {
         }
     }
 
+	public void addArmor(byte armor) {
+		armor_ += armor;
+	}
+
     public byte getArmor() {
 		return armor_;
 	}
