@@ -4,6 +4,7 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -32,6 +33,19 @@ public class BlessedChampion extends SpellCard {
 		return new BlessedChampion(this.hasBeenUsed);
 	}
 	
+	@Override
+	public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
+		if(!super.canBeUsedOn(playerSide, minion, boardModel)) {
+			return false;
+		}
+
+		if (isHero(minion)) {
+			return false;
+		}
+		
+		return true;
+	}
+	
 	/**
 	 * 
 	 * Use the card on the given target
@@ -55,10 +69,6 @@ public class BlessedChampion extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (isHero(targetMinion)) {
-			return null;
-		}
-		
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
 			targetMinion.setAttack((byte)(2 * targetMinion.getTotalAttack()));

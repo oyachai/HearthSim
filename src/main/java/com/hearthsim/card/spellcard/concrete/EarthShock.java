@@ -25,11 +25,18 @@ public class EarthShock extends SpellDamage {
 	
 	
 	@Override
-    public boolean canBeUsedOn(PlayerSide side, Minion minion, BoardModel boardModel) {
-		if (isHero(minion))
+	public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
+		if(!super.canBeUsedOn(playerSide, minion, boardModel)) {
 			return false;
+		}
+
+		if (isHero(minion)) {
+			return false;
+		}
+		
 		return true;
 	}
+
 	/**
 	 * 
 	 * Use the card on the given target

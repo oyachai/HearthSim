@@ -51,7 +51,7 @@ public class HammerOfWrath extends SpellDamage {
 			if (toRet instanceof CardDrawNode) {
 				((CardDrawNode) toRet).addNumCardsToDraw(1);
 			} else {
-				toRet = new CardDrawNode(toRet, 1); //draw two cards
+				toRet = new CardDrawNode(toRet, 1);
 			}
 		}
 		return toRet;

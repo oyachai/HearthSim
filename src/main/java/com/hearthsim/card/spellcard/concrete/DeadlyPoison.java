@@ -5,6 +5,7 @@ import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -34,6 +35,23 @@ public class DeadlyPoison extends SpellCard {
 		return new DeadlyPoison(this.hasBeenUsed);
 	}
 
+	@Override
+	public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
+		if(!super.canBeUsedOn(playerSide, minion, boardModel)) {
+			return false;
+		}
+
+		if (isWaitingPlayer(playerSide) || isNotHero(minion)) {
+			return false;
+		}
+
+		if (((Hero)minion).getWeaponCharge() <= 0) {
+			return false;
+		}
+		
+		return true;
+	}
+
 	/**
 	 * 
 	 * Give your weapon +2 attack
@@ -55,15 +73,9 @@ public class DeadlyPoison extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (isWaitingPlayer(side) || isNotHero(targetMinion)) {
-			return null;
-		}
-		Hero hero = (Hero)targetMinion;
-		if (hero.getWeaponCharge() == 0)
-			return null;
-
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
+			Hero hero = (Hero)targetMinion;
 			hero.setAttack((byte)(hero.getAttack() + 2));
 		}
 		return toRet;
