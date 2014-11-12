@@ -31,6 +31,7 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.plaf.basic.BasicComboBoxEditor;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
@@ -63,7 +64,10 @@ import java.util.*;
  */
 @SuppressWarnings("PMD")
 public class Query extends JPanel {
-    /** Construct a panel with no entries in it.
+
+	private static final long serialVersionUID = 1L;
+
+	/** Construct a panel with no entries in it.
      */
     public Query() {
         _grid = new GridBagLayout();
@@ -192,13 +196,13 @@ public class Query extends JPanel {
      *  @param foreground The foreground color for the editable part.
      *  @return The combo box for the choice.
      */
-    public JComboBox addChoice(String name, String label, Object[] values,
+    public JComboBox<Object> addChoice(String name, String label, Object[] values,
             Object defaultChoice, boolean editable, final Color background,
             final Color foreground) {
         JLabel lbl = new JLabel(label + ": ");
         lbl.setBackground(_background);
 
-        JComboBox combobox = new JComboBox(values);
+        JComboBox<Object> combobox = new JComboBox<Object>(values);
         combobox.setEditable(editable);
 
         // NOTE: Typical of Swing, the following does not set
@@ -512,7 +516,7 @@ public class Query extends JPanel {
      */
     public void addQueryListener(QueryListener listener) {
         if (_listeners == null) {
-            _listeners = new Vector();
+            _listeners = new Vector<QueryListener>();
         }
 
         if (_listeners.contains(listener)) {
@@ -581,7 +585,7 @@ public class Query extends JPanel {
      *   to indicate that none are selected.
      */
     public void addSelectButtons(String name, String label, String[] values,
-            Set initiallySelected) {
+            Set<String> initiallySelected) {
         JLabel lbl = new JLabel(label + ": ");
         lbl.setBackground(_background);
 
@@ -594,7 +598,7 @@ public class Query extends JPanel {
         QueryActionListener listener = new QueryActionListener(this, name);
 
         if (initiallySelected == null) {
-            initiallySelected = new HashSet();
+            initiallySelected = new HashSet<String>();
         }
 
         JRadioButton[] buttons = new JRadioButton[values.length];
@@ -941,7 +945,7 @@ public class Query extends JPanel {
         } else if (result instanceof JSlider) {
             return ((JSlider) result).getValue();
         } else if (result instanceof JComboBox) {
-            return ((JComboBox) result).getSelectedIndex();
+            return ((JComboBox<?>) result).getSelectedIndex();
         } else if (result instanceof JToggleButton[]) {
             // Regrettably, ButtonGroup gives no way to determine
             // which button is selected, so we have to search...
@@ -1027,7 +1031,7 @@ public class Query extends JPanel {
         } else if (result instanceof JSlider) {
             return "" + ((JSlider) result).getValue();
         } else if (result instanceof JComboBox) {
-            return (((JComboBox) result).getSelectedItem());
+            return (((JComboBox<?>) result).getSelectedItem());
         } else if (result instanceof JToggleButton[]) {
             // JRadioButton and JCheckButton are subclasses of JToggleButton
             // Regrettably, ButtonGroup gives no way to determine
@@ -1137,7 +1141,7 @@ public class Query extends JPanel {
      *  those entries have not changed since the last notification.
      */
     public void notifyListeners() {
-        Iterator names = _entries.keySet().iterator();
+        Iterator<String> names = _entries.keySet().iterator();
 
         while (names.hasNext()) {
             String name = (String) names.next();
@@ -1198,10 +1202,10 @@ public class Query extends JPanel {
             Integer parsed = Integer.valueOf(value);
             ((JSlider) result).setValue(parsed.intValue());
         } else if (result instanceof JComboBox) {
-            ((JComboBox) result).setSelectedItem(value);
+            ((JComboBox<?>) result).setSelectedItem(value);
         } else if (result instanceof JToggleButton[]) {
             // First, parse the value, which may be a comma-separated list.
-            Set selectedValues = new HashSet();
+            Set<String> selectedValues = new HashSet<String>();
             StringTokenizer tokenizer = new StringTokenizer(value, ",");
 
             while (tokenizer.hasMoreTokens()) {
@@ -1687,13 +1691,13 @@ public class Query extends JPanel {
     protected GridBagConstraints _constraints;
 
     /** The hashtable of items in the query. */
-    protected Map _entries = new HashMap();
+    protected Map<String, Object> _entries = new HashMap<String, Object>();
 
     /** Layout control. */
     protected GridBagLayout _grid;
 
     /** List of registered listeners. */
-    protected Vector _listeners;
+    protected Vector<QueryListener> _listeners;
 
     ///////////////////////////////////////////////////////////////////
     ////                         friendly methods                  ////
@@ -1721,7 +1725,7 @@ public class Query extends JPanel {
             // if the value has not changed.
             _previous.put(name, newValue);
 
-            Enumeration listeners = _listeners.elements();
+            Enumeration<QueryListener> listeners = _listeners.elements();
 
             while (listeners.hasMoreElements()) {
                 QueryListener queryListener = (QueryListener) (listeners
@@ -1746,7 +1750,7 @@ public class Query extends JPanel {
     private int _height = DEFAULT_ENTRY_HEIGHT;
 
     // The hashtable of labels in the query.
-    private Map _labels = new HashMap();
+    private Map<String, JLabel> _labels = new HashMap<String, JLabel>();
 
     // Left padding insets.
     private Insets _leftPadding = new Insets(0, 10, 0, 0);
@@ -1764,7 +1768,7 @@ public class Query extends JPanel {
     private Insets _insets = new Insets(0, 0, 0, 0);
 
     // The hashtable of previous values, indexed by entry name.
-    private Map _previous = new HashMap();
+    private Map<String, Object> _previous = new HashMap<String, Object>();
 
     // The sum of the height of the widgets added using _addPair
     // If you adjust this, try the GR/Pendulum demo, which has
@@ -1804,7 +1808,9 @@ public class Query extends JPanel {
     /** Panel containing an entry box and color chooser.
      */
     public static class QueryColorChooser extends Box implements ActionListener {
-        /** Create a panel containing an entry box and a color chooser.
+		private static final long serialVersionUID = 1L;
+
+		/** Create a panel containing an entry box and a color chooser.
          *  @param owner The owner query
          *  @param name The name of the query
          *  @param defaultColor  The initial default color of the color chooser.
@@ -1894,7 +1900,9 @@ public class Query extends JPanel {
      */
     public static class QueryFileChooser extends Box implements ActionListener {
 
-        private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
+		private static final long serialVersionUID = 1L;
+
+		private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
         /** Construct a query file chooser.  The background will be white and
          *  the foreground will be black.
          * @param owner The query object that owns the file chooser
@@ -2177,7 +2185,9 @@ public class Query extends JPanel {
         // FindBugs suggests making this class static so as to decrease
         // the size of instances and avoid dangling references.
 
-        public JTextArea textArea;
+		private static final long serialVersionUID = 1L;
+
+		public JTextArea textArea;
 
         QueryScrollPane(JTextArea c) {
             super(c);
