@@ -471,7 +471,7 @@ public class EPSGraphics extends Graphics {
 
     private int _height;
 
-    private Hashtable _linepattern = new Hashtable();
+    private Hashtable<Color, String> _linepattern = new Hashtable<Color, String>();
 
     private OutputStream _out;
 

@@ -30,6 +30,7 @@ package com.ptplot;
 import javax.print.attribute.HashPrintRequestAttributeSet;
 import javax.print.attribute.PrintRequestAttributeSet;
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
@@ -205,7 +206,9 @@ import java.util.Timer;
  */
 @SuppressWarnings("PMD")
 public class PlotBox extends JPanel implements Printable {
-    private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
+	private static final long serialVersionUID = 1L;
+
+	private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
     ///////////////////////////////////////////////////////////////////
     ////                         constructor                       ////
 
@@ -282,8 +285,8 @@ public class PlotBox extends JPanel implements Printable {
         _plotImage = null;
 
         if (_xticks == null) {
-            _xticks = new Vector();
-            _xticklabels = new Vector();
+            _xticks = new Vector<Double>();
+            _xticklabels = new Vector<String>();
         }
 
         _xticks.addElement(Double.valueOf(position));
@@ -307,8 +310,8 @@ public class PlotBox extends JPanel implements Printable {
         _plotImage = null;
 
         if (_yticks == null) {
-            _yticks = new Vector();
-            _yticklabels = new Vector();
+            _yticks = new Vector<Double>();
+            _yticklabels = new Vector<String>();
         }
 
         _yticks.addElement(Double.valueOf(position));
@@ -352,8 +355,8 @@ public class PlotBox extends JPanel implements Printable {
             _xlabel = null;
             _ylabel = null;
             _title = null;
-            _legendStrings = new Vector();
-            _legendDatasets = new Vector();
+            _legendStrings = new Vector<String>();
+            _legendDatasets = new Vector<Integer>();
             _xticks = null;
             _xticklabels = null;
             _yticks = null;
@@ -368,7 +371,7 @@ public class PlotBox extends JPanel implements Printable {
     public synchronized void clearCaptions() {
         // Changing caption means we need to repaint the offscreen buffer.
         _plotImage = null;
-        _captionStrings = new Vector();
+        _captionStrings = new Vector<String>();
     }
 
     /** Clear all legends.  This will show up on the next redraw.
@@ -377,8 +380,8 @@ public class PlotBox extends JPanel implements Printable {
         // Changing legend means we need to repaint the offscreen buffer.
         _plotImage = null;
 
-        _legendStrings = new Vector();
-        _legendDatasets = new Vector();
+        _legendStrings = new Vector<String>();
+        _legendDatasets = new Vector<Integer>();
     }
 
     /** If this method is called in the event thread, then simply
@@ -607,7 +610,7 @@ public class PlotBox extends JPanel implements Printable {
      *  @see #addCaptionLine(String)
      *  @see #setCaptions(Vector)
      */
-    public Vector getCaptions() {
+    public Vector<String> getCaptions() {
         return _captionStrings;
     }
 
@@ -1435,7 +1438,7 @@ public class PlotBox extends JPanel implements Printable {
      *  @see #getCaptions()
      *  @see #clearCaptions()
      */
-    public void setCaptions(Vector captionStrings) {
+    public void setCaptions(Vector<String> captionStrings) {
         // Changing caption means we need to repaint the offscreen buffer.
         _plotImage = null;
         _captionStrings = captionStrings;
@@ -1806,7 +1809,7 @@ public class PlotBox extends JPanel implements Printable {
         }
 
         if (_captionStrings != null) {
-            for (Enumeration captions = _captionStrings.elements(); captions
+            for (Enumeration<String> captions = _captionStrings.elements(); captions
                     .hasMoreElements();) {
                 String captionLine = (String) captions.nextElement();
                 output.println("<caption>" + captionLine + "</caption>");
@@ -2150,7 +2153,7 @@ public class PlotBox extends JPanel implements Printable {
         int ind = 0;
 
         if (_yticks == null) {
-            Vector ygrid = null;
+            Vector<Double> ygrid = null;
 
             if (_ylog) {
                 ygrid = _gridInit(yStart, yStep, true, null);
@@ -2214,7 +2217,7 @@ public class PlotBox extends JPanel implements Printable {
             }
         } else {
             // explicitly specified ticks
-            Enumeration nl = _yticklabels.elements();
+            Enumeration<String> nl = _yticklabels.elements();
 
             while (nl.hasMoreElements()) {
                 String label = (String) nl.nextElement();
@@ -2263,11 +2266,6 @@ public class PlotBox extends JPanel implements Printable {
         graphics.setColor(_foreground);
         graphics.drawRect(_ulx, _uly, width, height);
 
-        //Modified by Hiroaki Oyaizu Aug 9, 2014
-        //Moving the legend inside the plot box
-        int legendwidth = _drawLegend(graphics, drawRect.width - _rightPadding - 30,
-                _uly + 15);
-
         // NOTE: subjective tick length.
         int tickLength = 5;
         int xCoord1 = _ulx + tickLength;
@@ -2275,7 +2273,7 @@ public class PlotBox extends JPanel implements Printable {
 
         if (_yticks == null) {
             // auto-ticks
-            Vector ygrid = null;
+            Vector<Double> ygrid = null;
             double yTmpStart = yStart;
 
             if (_ylog) {
@@ -2328,7 +2326,7 @@ public class PlotBox extends JPanel implements Printable {
 
             if (_ylog) {
                 // Draw in grid lines that don't have labels.
-                Vector unlabeledgrid = _gridInit(yStart, yStep, false, ygrid);
+                Vector<Double> unlabeledgrid = _gridInit(yStart, yStep, false, ygrid);
 
                 if (unlabeledgrid.size() > 0) {
                     // If the step is greater than 1, clamp it to 1 so that
@@ -2369,8 +2367,8 @@ public class PlotBox extends JPanel implements Printable {
             }
         } else {
             // ticks have been explicitly specified
-            Enumeration nt = _yticks.elements();
-            Enumeration nl = _yticklabels.elements();
+            Enumeration<Double> nt = _yticks.elements();
+            Enumeration<String> nl = _yticklabels.elements();
 
             while (nl.hasMoreElements()) {
                 String label = (String) nl.nextElement();
@@ -2462,7 +2460,7 @@ public class PlotBox extends JPanel implements Printable {
 
             // NOTE: Following disables first tick.  Not a good idea?
             // if (xStart == _xMin) xStart += xStep;
-            Vector xgrid = null;
+            Vector<Double> xgrid = null;
             double xTmpStart = xStart;
 
             if (_xlog) {
@@ -2519,7 +2517,7 @@ public class PlotBox extends JPanel implements Printable {
                 // Recalculate the start using the new step.
                 xTmpStart = tmpStep * Math.ceil(_xtickMin / tmpStep);
 
-                Vector unlabeledgrid = _gridInit(xTmpStart, tmpStep, false,
+                Vector<Double> unlabeledgrid = _gridInit(xTmpStart, tmpStep, false,
                         xgrid);
 
                 if (unlabeledgrid.size() > 0) {
@@ -2552,8 +2550,8 @@ public class PlotBox extends JPanel implements Printable {
             }
         } else {
             // ticks have been explicitly specified
-            Enumeration nt = _xticks.elements();
-            Enumeration nl = _xticklabels.elements();
+            Enumeration<Double> nt = _xticks.elements();
+            Enumeration<String> nl = _xticklabels.elements();
 
             // Code contributed by Jun Wu (jwu@inin.com.au)
             double preLength = 0.0;
@@ -2654,7 +2652,7 @@ public class PlotBox extends JPanel implements Printable {
         graphics.setFont(_captionFont);
         int fontHt = _captionFontMetrics.getHeight();
         int yCapPosn = drawRect.height - captionHeight + 14;
-        for (Enumeration captions = _captionStrings.elements(); captions
+        for (Enumeration<String> captions = _captionStrings.elements(); captions
                 .hasMoreElements();) {
             String captionLine = (String) captions.nextElement();
             int labelx = _ulx
@@ -2912,7 +2910,7 @@ public class PlotBox extends JPanel implements Printable {
         }
 
         if (_captionStrings != null) {
-            for (Enumeration captions = _captionStrings.elements(); captions
+            for (Enumeration<String> captions = _captionStrings.elements(); captions
                     .hasMoreElements();) {
                 String captionLine = (String) captions.nextElement();
                 output.println("Caption: " + captionLine);
@@ -3204,8 +3202,8 @@ public class PlotBox extends JPanel implements Printable {
 
         int spacing = _labelFontMetrics.getHeight();
 
-        Enumeration v = _legendStrings.elements();
-        Enumeration i = _legendDatasets.elements();
+        Enumeration<String> v = _legendStrings.elements();
+        Enumeration<Integer> i = _legendDatasets.elements();
         int ypos = ury + spacing;
         int maxwidth = 0;
 
@@ -3388,8 +3386,8 @@ public class PlotBox extends JPanel implements Printable {
      * Determine what values to use for log axes.
      * Based on initGrid() from xgraph.c by David Harrison.
      */
-    private Vector _gridInit(double low, double step, boolean labeled,
-            Vector oldgrid) {
+    private Vector<Double> _gridInit(double low, double step, boolean labeled,
+            Vector<Double> oldgrid) {
         // How log axes work:
         // _gridInit() creates a vector with the values to use for the
         // log axes.  For example, the vector might contain
@@ -3405,7 +3403,7 @@ public class PlotBox extends JPanel implements Printable {
         // binary, which is the basis of this code.  The problem is that
         // as ratio gets closer to 1.0, we need to add more and more
         // grid marks.
-        Vector grid = new Vector(10);
+        Vector<Double> grid = new Vector<Double>(10);
 
         //grid.addElement(Double.valueOf(0.0));
         double ratio = Math.pow(10.0, step);
@@ -3504,7 +3502,7 @@ public class PlotBox extends JPanel implements Printable {
     /*
      * Round pos up to the nearest value in the grid.
      */
-    private double _gridRoundUp(Vector grid, double pos) {
+    private double _gridRoundUp(Vector<Double> grid, double pos) {
         double x = pos - Math.floor(pos);
         int i;
 
@@ -3527,7 +3525,7 @@ public class PlotBox extends JPanel implements Printable {
      * calling _gridStep().
      * Based on stepGrid() from xgraph.c by David Harrison.
      */
-    private double _gridStep(Vector grid, double pos, double step,
+    private double _gridStep(Vector<Double> grid, double pos, double step,
             boolean logflag) {
         if (logflag) {
             if (++_gridCurJuke >= grid.size()) {
@@ -4189,25 +4187,25 @@ public class PlotBox extends JPanel implements Printable {
     private String _title;
 
     /** Caption information. */
-    private Vector _captionStrings = new Vector();
+    private Vector<String> _captionStrings = new Vector<String>();
 
     /** Legend information. */
-    private Vector _legendStrings = new Vector();
+    private Vector<String> _legendStrings = new Vector<String>();
 
     /** Legend information. */
-    private Vector _legendDatasets = new Vector();
+    private Vector<Integer> _legendDatasets = new Vector<Integer>();
 
     /** If XTicks or YTicks are given/ */
-    private Vector _xticks = null;
+    private Vector<Double> _xticks = null;
 
     /** If XTicks or YTicks are given/ */
-    private Vector _xticklabels = null;
+    private Vector<String> _xticklabels = null;
 
     /** If XTicks or YTicks are given/ */
-    private Vector _yticks = null;
+    private Vector<Double> _yticks = null;
 
     /** If XTicks or YTicks are given/ */
-    private Vector _yticklabels = null;
+    private Vector<String> _yticklabels = null;
 
     // A button for filling the plot
     private transient JButton _fillButton = null;

@@ -2,6 +2,7 @@ package com.hearthsim.gui;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.ImplementedCardList;
+import com.hearthsim.card.ImplementedCardList.ImplementedCard;
 import com.hearthsim.event.HSSimulationEventListener;
 import com.hearthsim.exception.HSInvalidCardException;
 import com.hearthsim.exception.HSInvalidHeroException;
@@ -12,6 +13,7 @@ import javax.swing.*;
 import javax.swing.border.MatteBorder;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
+
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -26,9 +28,6 @@ public class HearthSim implements HSSimulationEventListener {
 	private boolean isRunning_;
 	
 	private final HSMainFrameModel hsModel_;
-	
-	private DefaultListModel deckListModel0_;
-	private DefaultListModel deckListModel1_;
 	
 	private JPanel middlePanel;
 	private HSDeckCreatePanel deckCreatePanel_0;
@@ -187,10 +186,10 @@ public class HearthSim implements HSSimulationEventListener {
 				if (retVal == JFileChooser.APPROVE_OPTION) {
 					try {
 						DeckListFile deckList = new DeckListFile(fileChooser_.getSelectedFile().toPath());
-						((SortedListModel) deckList_0.getModel()).clear();
+						((SortedListModel<ImplementedCard>) deckList_0.getModel()).clear();
 						for (int indx = 0; indx < deckList.getDeck().getNumCards(); ++indx) {
 							Card card = deckList.getDeck().drawCard(indx);
-							((SortedListModel) deckList_0.getModel()).addElement(IMPLEMENTED_CARD_LIST.getCardForClass(card.getClass()));
+							((SortedListModel<ImplementedCard>) deckList_0.getModel()).addElement(IMPLEMENTED_CARD_LIST.getCardForClass(card.getClass()));
 						}
 						hsModel_.getSimulation().setDeck_p0(deckList.getDeck());
 						hsModel_.getSimulation().setHero_p0(deckList.getHero());
@@ -660,10 +659,10 @@ public class HearthSim implements HSSimulationEventListener {
 				if (retVal == JFileChooser.APPROVE_OPTION) {
 					try {
 						DeckListFile deckList = new DeckListFile(fileChooser_.getSelectedFile().toPath());
-						((SortedListModel) deckList_1.getModel()).clear();
+						((SortedListModel<ImplementedCard>) deckList_1.getModel()).clear();
 						for (int indx = 0; indx < deckList.getDeck().getNumCards(); ++indx) {
 							Card card = deckList.getDeck().drawCard(indx);
-							((SortedListModel) deckList_1.getModel()).addElement(IMPLEMENTED_CARD_LIST.getCardForClass(card.getClass()));
+							((SortedListModel<ImplementedCard>) deckList_1.getModel()).addElement(IMPLEMENTED_CARD_LIST.getCardForClass(card.getClass()));
 						}
 						hsModel_.getSimulation().setDeck_p1(deckList.getDeck());
 						hsModel_.getSimulation().setHero_p1(deckList.getHero());
