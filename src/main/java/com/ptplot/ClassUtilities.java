@@ -160,7 +160,7 @@ public class ClassUtilities {
             // We might be in the Swing Event thread, so
             // Thread.currentThread().getContextClassLoader()
             // .getResource(entry) probably will not work.
-            Class refClass = Class.forName("ptolemy.util.ClassUtilities");
+            Class<?> refClass = Class.forName("ptolemy.util.ClassUtilities");
             URL entryURL = refClass.getClassLoader().getResource(entry);
             if (entryURL == null && entry.indexOf("#") != -1) { 
                 // If entry contains a #, then strip it off and try again.

@@ -273,7 +273,8 @@ public class IdentityLinkedList<E>
         Entry<E> successor = (index==size ? header : entry(index));
         Entry<E> predecessor = successor.previous;
         for (int i=0; i<numNew; i++) {
-            Entry<E> e = new Entry<E>((E)a[i], successor, predecessor);
+            @SuppressWarnings("unchecked")
+			Entry<E> e = new Entry<E>((E)a[i], successor, predecessor);
             predecessor.next = e;
             predecessor = e;
         }
@@ -853,7 +854,8 @@ public class IdentityLinkedList<E>
      *         this list
      * @throws NullPointerException if the specified array is null
      */
-    public <T> T[] toArray(T[] a) {
+    @SuppressWarnings("unchecked")
+	public <T> T[] toArray(T[] a) {
         if (a.length < size)
             a = (T[])java.lang.reflect.Array.newInstance(
                                 a.getClass().getComponentType(), size);

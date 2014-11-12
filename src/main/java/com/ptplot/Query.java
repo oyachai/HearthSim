@@ -1988,7 +1988,8 @@ public class Query extends JPanel {
                 // NOTE: If the last argument is null, then choose a
                 // default dir.
                 JFileChooser fileChooser = new JFileChooser(_startingDirectory) {
-                    public void approveSelection() {
+					private static final long serialVersionUID = 1L;
+					public void approveSelection() {
                         File file = getSelectedFile();
                         if (file.exists() && getDialogType() == SAVE_DIALOG) {
                             String queryString = file.getName()

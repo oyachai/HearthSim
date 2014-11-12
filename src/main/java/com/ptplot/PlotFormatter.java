@@ -502,9 +502,11 @@ public class PlotFormatter extends JPanel {
 
     private double[] _originalYRange;
 
-    private Vector[] _originalXTicks;
+    @SuppressWarnings("rawtypes")
+	private Vector[] _originalXTicks;
 
-    private Vector[] _originalYTicks;
+    @SuppressWarnings("rawtypes")
+	private Vector[] _originalYTicks;
 
     private boolean _originalGrid;
 

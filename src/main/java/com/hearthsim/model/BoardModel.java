@@ -367,7 +367,8 @@ public class BoardModel implements DeepCopyable<BoardModel> {
         return modelForSide(playerSide).getHero().getHealth() > 0;
     }
 
-    public ArrayList<Integer> getAttackableMinions() {
+    @SuppressWarnings("unused")
+	public ArrayList<Integer> getAttackableMinions() {
         ArrayList<Integer> toRet = new ArrayList<Integer>();
         boolean hasTaunt = false;
         for (final Minion minion : waitingPlayer.getMinions()) {

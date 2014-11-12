@@ -849,7 +849,8 @@ public class PlotBox extends JPanel implements Printable {
      *  and the second of which specifies the corresponding labels.
      *  @return The X ticks.
      */
-    public synchronized Vector[] getXTicks() {
+    @SuppressWarnings("rawtypes")
+	public synchronized Vector[] getXTicks() {
         if (_xticks == null) {
             return null;
         }
@@ -921,7 +922,8 @@ public class PlotBox extends JPanel implements Printable {
      *  and the second of which specifies the corresponding labels.
      *  @return The Y ticks.
      */
-    public synchronized Vector[] getYTicks() {
+    @SuppressWarnings("rawtypes")
+	public synchronized Vector[] getYTicks() {
         if (_yticks == null) {
             return null;
         }
@@ -3190,7 +3192,8 @@ public class PlotBox extends JPanel implements Printable {
      * (in pixels)  used up.  The arguments give the upper right corner
      * of the region where the legend should be placed.
      */
-    private int _drawLegend(Graphics graphics, int urx, int ury) {
+    @SuppressWarnings("unused")
+	private int _drawLegend(Graphics graphics, int urx, int ury) {
         // Ignore if there is no graphics object to draw on.
         if (graphics == null) {
             return 0;
