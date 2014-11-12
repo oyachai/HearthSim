@@ -7,7 +7,6 @@ import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.HearthAction;
 import com.hearthsim.util.HearthAction.Verb;
 import com.hearthsim.util.factory.BoardStateFactoryBase;

@@ -52,7 +52,6 @@ import java.util.jar.JarFile;
 @SuppressWarnings("PMD")
 public class FileUtilities {
 
-    private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
     /** Instances of this class cannot be created.
      */
     private FileUtilities() {
