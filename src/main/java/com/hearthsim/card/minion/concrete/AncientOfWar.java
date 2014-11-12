@@ -9,17 +9,6 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class AncientOfWar extends Minion {
 
-	private static final String NAME = "Ancient of War";
-	private static final byte MANA_COST = 7;
-	private static final byte ATTACK = 5;
-	private static final byte HEALTH = 5;
-	
-	private static final boolean TAUNT = false;
-	private static final boolean DIVINE_SHIELD = false;
-	private static final boolean WINDFURY = false;
-	private static final boolean CHARGE = false;
-	
-	private static final boolean STEALTHED = false;
 	private static final boolean HERO_TARGETABLE = true;
 	private static final boolean SUMMONED = false;
 	private static final boolean TRANSFORMED = false;

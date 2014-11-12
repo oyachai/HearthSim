@@ -62,11 +62,9 @@ public class GurubashiBerserker extends Minion {
 	 * 
 	 * Always use this function to "silence" minions
 	 * 
-	 *
-     *
-     * @param thisPlayerSide
-     * @param boardState
-     * @throws HSInvalidPlayerIndexException
+	 * @param thisPlayerSide
+	 * @param boardState
+	 * @throws HSInvalidPlayerIndexException
 	 */
 	@Override
 	public void silenced(PlayerSide thisPlayerSide, BoardModel boardState) throws HSInvalidPlayerIndexException {
