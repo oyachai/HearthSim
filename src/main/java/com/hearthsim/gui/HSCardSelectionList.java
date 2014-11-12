@@ -64,7 +64,8 @@ public class HSCardSelectionList extends JList<ImplementedCard> {
 	}
 	
 	public static class CardSelectionCellRenderer extends JPanel implements ListCellRenderer {
-		
+		private static final long serialVersionUID = 1L;
+
 		JLabel manaLabel_;
 		JLabel nameLabel_;
 		JLabel textLabel_;

@@ -215,7 +215,9 @@ import java.util.HashMap;
  */
 @SuppressWarnings("PMD")
 public class Plot extends PlotBox {
-    private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
+	private static final long serialVersionUID = 1L;
+
+	private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
     ///////////////////////////////////////////////////////////////////
     ////                         public methods                    ////
 
@@ -3567,7 +3569,9 @@ public class Plot extends PlotBox {
         // FindBugs suggests making this class static so as to decrease
         // the size of instances and avoid dangling references.
 
-        // Indicate whether the current dataset is connected.
+		private static final long serialVersionUID = 1L;
+
+		// Indicate whether the current dataset is connected.
         public boolean connected;
 
         // Indicate whether the above variable should be ignored.

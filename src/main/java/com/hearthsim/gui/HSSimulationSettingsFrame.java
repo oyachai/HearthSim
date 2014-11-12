@@ -12,7 +12,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class HSSimulationSettingsFrame extends JDialog {
-
+	private static final long serialVersionUID = 1L;
 	private static final Color BACKGROUND_COLOR = new Color(64, 64, 64);
 	private static final Color SUCCESS_BUTTON_COLOR = new Color(67, 172, 106);
 

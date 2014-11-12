@@ -41,7 +41,9 @@ package com.ptplot;
  @Pt.AcceptedRating Yellow (cxh)
  */
 class PlotDataException extends Throwable {
-    public PlotDataException() {
+	private static final long serialVersionUID = 1L;
+
+	public PlotDataException() {
         super();
     }
 

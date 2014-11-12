@@ -4,8 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 
 public class HSDeckCreateButton extends JButton {
-	
-    public HSDeckCreateButton() {
+	private static final long serialVersionUID = 1L;
+
+	public HSDeckCreateButton() {
         super("");
         enableInputMethods(true);
         setFocusable(true);
