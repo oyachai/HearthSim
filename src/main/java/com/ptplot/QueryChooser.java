@@ -45,7 +45,9 @@ import java.awt.event.ActionListener;
 public abstract class QueryChooser extends Box implements SettableQueryChooser,
         ActionListener {
 
-    /**
+	private static final long serialVersionUID = 1L;
+
+	/**
      * Initializes the chooser.
      *
      * @param owner       the owning query

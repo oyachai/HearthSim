@@ -116,7 +116,9 @@ public class UndoListener implements UndoableEditListener {
      * Perform the undo action.
      */
     protected class UndoAction extends AbstractAction {
-        public UndoAction() {
+		private static final long serialVersionUID = 1L;
+
+		public UndoAction() {
             super("Undo");
             setEnabled(false);
         }
@@ -147,7 +149,9 @@ public class UndoListener implements UndoableEditListener {
      * Peform the redo action.
      */
     protected class RedoAction extends AbstractAction {
-        public RedoAction() {
+		private static final long serialVersionUID = 1L;
+
+		public RedoAction() {
             super("Redo");
             setEnabled(false);
         }

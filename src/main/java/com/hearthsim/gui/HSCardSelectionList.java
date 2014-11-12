@@ -4,6 +4,7 @@ import com.hearthsim.card.ImplementedCardList;
 import com.hearthsim.card.ImplementedCardList.ImplementedCard;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -12,7 +13,9 @@ import java.util.Collections;
 
 public class HSCardSelectionList extends JList<ImplementedCard> {
 
-    private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
+	private static final long serialVersionUID = 1L;
+
+	private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
 	
 	ImplementedCardList list_;
 	ArrayList<ImplementedCard> cards_;
@@ -38,7 +41,7 @@ public class HSCardSelectionList extends JList<ImplementedCard> {
 		this.setModel(model);
 		this.addMouseListener(new MouseAdapter() {
 		    public void mousePressed(MouseEvent evt) {
-		        JList list = (JList)evt.getSource();
+		        JList<?> list = (JList<?>)evt.getSource();
 	        	int index = list.locationToIndex(evt.getPoint());
 	        	log.debug("clicked item " + index + ": " + cards_.get(index).name_);
 	        	if (editing_ && cardListPane_ != null) {
@@ -63,7 +66,7 @@ public class HSCardSelectionList extends JList<ImplementedCard> {
 		cardListPane_ = cardListPane;
 	}
 	
-	public static class CardSelectionCellRenderer extends JPanel implements ListCellRenderer {
+	public static class CardSelectionCellRenderer extends JPanel implements ListCellRenderer<ImplementedCard> {
 		private static final long serialVersionUID = 1L;
 
 		JLabel manaLabel_;
@@ -120,7 +123,7 @@ public class HSCardSelectionList extends JList<ImplementedCard> {
 			healthLabel_.setText(healthLabel);
 		}
 		
-		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+		public Component getListCellRendererComponent(JList<? extends ImplementedCard> list, ImplementedCard value, int index, boolean isSelected, boolean cellHasFocus) {
 			ImplementedCardList.ImplementedCard entry = (ImplementedCardList.ImplementedCard) value;
             if (entry.rarity_!=null){
                 switch (entry.rarity_) {

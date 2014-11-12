@@ -5,6 +5,7 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.ImplementedCardList.ImplementedCard;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -15,7 +16,9 @@ import java.util.Iterator;
 
 public class HSCardList extends JList<ImplementedCard> {
 
-    private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
+	private static final long serialVersionUID = 1L;
+
+	private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
 
 	boolean editing_;
 	
@@ -28,7 +31,7 @@ public class HSCardList extends JList<ImplementedCard> {
 		
 		this.addMouseListener(new MouseAdapter() {
 		    public void mousePressed(MouseEvent evt) {
-		        JList list = (JList)evt.getSource();
+		        JList<?> list = (JList<?>)evt.getSource();
 	        	int index = list.locationToIndex(evt.getPoint());
 	        	String name = ((SortedListModel<ImplementedCard>) HSCardList.this.getModel()).getElementAt(index).name_;
 	        	log.debug("clicked item " + index + ": " + name);
@@ -66,7 +69,8 @@ public class HSCardList extends JList<ImplementedCard> {
 		return new Deck(cards);
 	}
 	
-	class CardCellRenderer extends JLabel implements ListCellRenderer {
+	class CardCellRenderer extends JLabel implements ListCellRenderer<ImplementedCard> {
+		private static final long serialVersionUID = 1L;
 
 		public CardCellRenderer() {
 			setOpaque(false);
@@ -74,7 +78,7 @@ public class HSCardList extends JList<ImplementedCard> {
 			this.setForeground(Color.WHITE);
 		}
 		
-		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+		public Component getListCellRendererComponent(JList<? extends ImplementedCard> list, ImplementedCard value, int index, boolean isSelected, boolean cellHasFocus) {
 			ImplementedCard entry = (ImplementedCard) value;
 			switch (entry.rarity_) {
 			case "free":

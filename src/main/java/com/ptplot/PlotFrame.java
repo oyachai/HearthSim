@@ -83,7 +83,9 @@ import java.net.URL;
  */
 public class PlotFrame extends JFrame {
 
-    private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
+	private static final long serialVersionUID = 1L;
+
+	private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
     /** Construct a plot frame with a default title and by default contains
      *  an instance of Plot. After constructing this, it is necessary
      *  to call setVisible(true) to make the plot appear.
