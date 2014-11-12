@@ -51,7 +51,7 @@ public class AncientOfLore extends Minion {
 		if (toRet != null) {
 			int thisMinionIndex = PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions().indexOf(this);
 			{
-				HearthTreeNode newState = toRet.addChild(new CardDrawNode(new HearthTreeNode((BoardModel)toRet.data_.deepCopy()), 2));
+				toRet.addChild(new CardDrawNode(new HearthTreeNode((BoardModel)toRet.data_.deepCopy()), 2));
 			}
 			{
 				{
