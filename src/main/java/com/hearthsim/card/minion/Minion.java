@@ -208,6 +208,10 @@ public class Minion extends Card {
 		divineShield_ = divineShield;
 	}
 
+	public boolean canAttack() {
+		return !this.hasAttacked_ && (this.attack_ + this.extraAttackUntilTurnEnd_ > 0);
+	}
+	
 	public boolean hasAttacked() {
 		return hasAttacked_;
 	}

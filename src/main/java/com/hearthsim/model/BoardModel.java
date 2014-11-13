@@ -366,6 +366,10 @@ public class BoardModel implements DeepCopyable<BoardModel> {
     public boolean isAlive(PlayerSide playerSide) {
         return modelForSide(playerSide).getHero().getHealth() > 0;
     }
+    
+    public boolean isLethalState() {
+        return !this.isAlive(PlayerSide.CURRENT_PLAYER) || !this.isAlive(PlayerSide.WAITING_PLAYER);
+    }
 
     @SuppressWarnings("unused")
 	public ArrayList<Integer> getAttackableMinions() {

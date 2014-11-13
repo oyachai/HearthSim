@@ -47,6 +47,10 @@ public class PlayerModel implements DeepCopyable<PlayerModel> {
         return card;
     }
 
+    public int getNumCharacters() {
+    	return this.getNumMinions() + 1;
+    }
+    
     public int getNumMinions() {
         return minions.size();
     }
