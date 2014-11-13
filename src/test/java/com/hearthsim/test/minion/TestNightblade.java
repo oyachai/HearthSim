@@ -1,4 +1,4 @@
-package com.hearthsim.test.card;
+package com.hearthsim.test.minion;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
