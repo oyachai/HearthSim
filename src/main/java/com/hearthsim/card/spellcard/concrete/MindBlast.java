@@ -15,6 +15,10 @@ public class MindBlast extends SpellDamage {
 
 	public MindBlast(boolean hasBeenUsed) {
 		super((byte)2, (byte)5, hasBeenUsed);
+
+		this.canTargetEnemyMinions = false;
+		this.canTargetOwnHero = false;
+		this.canTargetOwnMinions = false;
 	}
 
 	@Override
@@ -45,9 +49,6 @@ public class MindBlast extends SpellDamage {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (isCurrentPlayer(side) || isNotHero(targetMinion))
-			return null;
-		
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		return toRet;
 	}	

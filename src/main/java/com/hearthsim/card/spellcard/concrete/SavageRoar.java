@@ -18,6 +18,10 @@ public class SavageRoar extends SpellCard {
 	 */
 	public SavageRoar(boolean hasBeenUsed) {
 		super((byte)3, hasBeenUsed);
+
+		this.canTargetEnemyHero = false;
+		this.canTargetEnemyMinions = false;
+		this.canTargetOwnMinions = false;
 	}
 
 	/**

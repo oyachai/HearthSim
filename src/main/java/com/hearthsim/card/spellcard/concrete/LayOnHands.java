@@ -17,6 +17,10 @@ public class LayOnHands extends SpellCard {
 	 */
 	public LayOnHands(boolean hasBeenUsed) {
 		super((byte)8, hasBeenUsed);
+		
+		//Let's assume that it is never beneficial to heal an opponent... though this may not strictly be true under some very corner cases (e.g., with a Northshire Cleric)
+		this.canTargetEnemyHero = false; // TODO card as printed allows this
+		this.canTargetEnemyMinions = false;
 	}
 
 	/**
@@ -56,11 +60,6 @@ public class LayOnHands extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		//Let's assume that it is never beneficial to heal an opponent... though this may not strictly be true under some very corner cases (e.g., with a Northshire Cleric)
-		if (isWaitingPlayer(side)) {
-			return null;
-		}
-		
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		toRet = targetMinion.takeHeal((byte)8, side, boardState, deckPlayer0, deckPlayer1);
 		if (toRet instanceof CardDrawNode)

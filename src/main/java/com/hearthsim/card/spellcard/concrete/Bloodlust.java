@@ -4,7 +4,6 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -16,24 +15,15 @@ public class Bloodlust extends SpellCard {
 
 	public Bloodlust(boolean hasBeenUsed) {
 		super((byte)5, hasBeenUsed);
+		
+		this.canTargetEnemyHero = false;
+		this.canTargetEnemyMinions = false;
+		this.canTargetOwnMinions = false;
 	}
 	
 	@Override
 	public SpellCard deepCopy() {
 		return new Bloodlust(this.hasBeenUsed);
-	}
-	
-	@Override
-	public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
-		if(!super.canBeUsedOn(playerSide, minion, boardModel)) {
-			return false;
-		}
-
-		if (isWaitingPlayer(playerSide) || isNotHero(minion)) {
-			return false;
-		}
-		
-		return true;
 	}
 
 	/**

@@ -17,6 +17,9 @@ public class Polymorph extends SpellCard {
 	 */
 	public Polymorph(boolean hasBeenUsed) {
 		super((byte)4, hasBeenUsed);
+
+		this.canTargetEnemyHero = false;
+		this.canTargetOwnHero = false;
 	}
 
 	/**
@@ -56,10 +59,6 @@ public class Polymorph extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (isHero(targetMinion)) {
-			return null;
-		}
-		
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
 			Sheep sheep = new Sheep();

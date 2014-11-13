@@ -13,10 +13,10 @@ public class Hellfire extends SpellDamageAoe {
 	 */
 	public Hellfire(boolean hasBeenUsed) {
 		super((byte)4, DAMAGE_AMOUNT, hasBeenUsed);
-		this.targetOpponent = true;
-		this.targetOpponentMinions = true;
-		this.targetOwnMinions = true;
-		this.targetSelf = true;
+		this.hitsEnemyHero = true;
+		this.hitsEnemyMinions = true;
+		this.hitsOwnMinions = true;
+		this.hitsOwnHero = true;
 	}
 
 	/**

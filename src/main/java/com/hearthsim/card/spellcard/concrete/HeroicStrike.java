@@ -18,6 +18,10 @@ public class HeroicStrike extends SpellCard {
 	 */
 	public HeroicStrike(boolean hasBeenUsed) {
 		super((byte)1, hasBeenUsed);
+		
+		this.canTargetEnemyHero = false;
+		this.canTargetEnemyMinions = false;
+		this.canTargetOwnMinions = false;
 	}
 
 	/**
@@ -56,10 +60,6 @@ public class HeroicStrike extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (isWaitingPlayer(side) || isNotHero(targetMinion)) {
-			return null;
-		}
-
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
 			toRet.data_.getCurrentPlayerHero().setExtraAttackUntilTurnEnd((byte)(DAMAGE_AMOUNT + toRet.data_.getCurrentPlayerHero().getExtraAttackUntilTurnEnd()));

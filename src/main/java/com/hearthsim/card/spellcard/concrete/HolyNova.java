@@ -18,8 +18,8 @@ public class HolyNova extends SpellDamageAoe {
 	 */
 	public HolyNova(boolean hasBeenUsed) {
 		super((byte)5, DAMAGE_AMOUNT, hasBeenUsed);
-		this.targetOpponent = true;
-		this.targetOpponentMinions = true;
+		this.hitsEnemyHero = true;
+		this.hitsEnemyMinions = true;
 	}
 
 	/**

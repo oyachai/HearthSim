@@ -16,6 +16,9 @@ public class HandOfProtection extends SpellCard {
 	 */
 	public HandOfProtection(boolean hasBeenUsed) {
 		super((byte)1, hasBeenUsed);
+		
+		this.canTargetEnemyHero = false;
+		this.canTargetOwnHero = false;
 	}
 
 	/**
@@ -55,16 +58,13 @@ public class HandOfProtection extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (isHero(targetMinion)) {
-			return null;
-		}
-		
 		if (targetMinion.getDivineShield())
 			return null;
 		
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
-		if (toRet != null)
+		if (toRet != null) {
 			targetMinion.setDivineShield(true);
+		}
 		return toRet;
 	}
 	

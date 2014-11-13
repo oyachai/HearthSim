@@ -17,6 +17,8 @@ public class Shiv extends SpellDamage {
 
 	public Shiv(boolean hasBeenUsed) {
 		super((byte)2, (byte)1, hasBeenUsed);
+
+		this.canTargetOwnHero = false; // TODO card as printed allows this
 	}
 
 	@Override
@@ -47,10 +49,6 @@ public class Shiv extends SpellDamage {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-
-		if (isCurrentPlayer(side) && isHero(targetMinion))
-			return null;
-		
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet instanceof CardDrawNode) {
 			((CardDrawNode) toRet).addNumCardsToDraw(1);

@@ -4,7 +4,6 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -19,6 +18,10 @@ public class CircleOfHealing extends SpellCard {
 	 */
 	public CircleOfHealing(boolean hasBeenUsed) {
 		super((byte)0, hasBeenUsed);
+		
+		this.canTargetEnemyHero = false;
+		this.canTargetEnemyMinions = false;
+		this.canTargetOwnMinions = false;
 	}
 
 	/**
@@ -35,19 +38,6 @@ public class CircleOfHealing extends SpellCard {
 		return new CircleOfHealing(this.hasBeenUsed);
 	}
 
-	@Override
-	public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
-		if(!super.canBeUsedOn(playerSide, minion, boardModel)) {
-			return false;
-		}
-
-		if (isWaitingPlayer(playerSide) || isNotHero(minion)) {
-			return false;
-		}
-		
-		return true;
-	}
-	
 	/**
 	 * 
 	 * Circle of Healing

@@ -16,6 +16,9 @@ public class ShadowWordDeath extends SpellCard {
 	 */
 	public ShadowWordDeath(boolean hasBeenUsed) {
 		super((byte)3, hasBeenUsed);
+
+		this.canTargetEnemyHero = false;
+		this.canTargetOwnHero = false;
 	}
 
 	/**
@@ -55,10 +58,6 @@ public class ShadowWordDeath extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (isHero(targetMinion)) {
-			return null;
-		}
-
 		if (targetMinion.getTotalAttack() < 5)
 			return null;
 		

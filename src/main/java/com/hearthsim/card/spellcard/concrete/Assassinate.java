@@ -4,7 +4,6 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -17,6 +16,10 @@ public class Assassinate extends SpellCard {
 	 */
 	public Assassinate(boolean hasBeenUsed) {
 		super((byte)5, hasBeenUsed);
+		
+		this.canTargetEnemyHero = false;
+		this.canTargetOwnHero = false;
+		this.canTargetOwnMinions = false;
 	}
 
 	/**
@@ -31,17 +34,6 @@ public class Assassinate extends SpellCard {
 	@Override
 	public SpellCard deepCopy() {
 		return new Assassinate(this.hasBeenUsed);
-	}
-	
-	@Override
-	public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
-		if(!super.canBeUsedOn(playerSide, minion, boardModel)) {
-			return false;
-		}
-		if (isCurrentPlayer(playerSide) || isHero(minion)) {
-			return false;
-		}
-		return true;
 	}
 
 	/**

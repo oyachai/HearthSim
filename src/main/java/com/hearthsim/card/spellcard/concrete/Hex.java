@@ -17,6 +17,9 @@ public class Hex extends SpellCard {
 	 */
 	public Hex(boolean hasBeenUsed) {
 		super((byte)3, hasBeenUsed);
+		
+		this.canTargetEnemyHero = false;
+		this.canTargetOwnHero = false;
 	}
 
 	/**
@@ -56,10 +59,6 @@ public class Hex extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (isHero(targetMinion)) {
-			return null;
-		}
-		
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
 			Frog frog = new Frog();

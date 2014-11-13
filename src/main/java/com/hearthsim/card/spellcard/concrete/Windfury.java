@@ -16,6 +16,9 @@ public class Windfury extends SpellCard {
 	 */
 	public Windfury(boolean hasBeenUsed) {
 		super((byte)2, hasBeenUsed);
+
+		this.canTargetEnemyHero = false;
+		this.canTargetOwnHero = false;
 	}
 
 	/**
@@ -55,9 +58,6 @@ public class Windfury extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (isHero(targetMinion)) {
-			return null;
-		}
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null)
 			targetMinion.hasWindFuryAttacked(true);

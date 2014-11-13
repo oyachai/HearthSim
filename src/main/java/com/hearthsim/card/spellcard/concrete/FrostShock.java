@@ -4,7 +4,6 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellDamage;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -16,6 +15,9 @@ public class FrostShock extends SpellDamage {
 
 	public FrostShock(boolean hasBeenUsed) {
 		super((byte)1, (byte)1, hasBeenUsed);
+		
+		this.canTargetOwnHero = false;
+		this.canTargetOwnMinions = false;
 	}
 
 	@Override
@@ -23,19 +25,6 @@ public class FrostShock extends SpellDamage {
 		return new FrostShock(this.hasBeenUsed);
 	}
 	
-	@Override
-	public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
-		if(!super.canBeUsedOn(playerSide, minion, boardModel)) {
-			return false;
-		}
-
-		if (isCurrentPlayer(playerSide)) {
-			return false;
-		}
-		
-		return true;
-	}
-
 	/**
 	 * 
 	 * Use the card on the given target

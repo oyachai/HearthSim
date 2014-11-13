@@ -17,6 +17,10 @@ public class DivineFavor extends SpellCard {
 	 */
 	public DivineFavor(boolean hasBeenUsed) {
 		super((byte)3, hasBeenUsed);
+		
+		this.canTargetEnemyHero = false;
+		this.canTargetEnemyMinions = false;
+		this.canTargetOwnMinions = false;
 	}
 
 	/**
@@ -39,10 +43,6 @@ public class DivineFavor extends SpellCard {
 			return false;
 		}
 
-		if (isWaitingPlayer(playerSide) || isHero(minion)) {
-			return false;
-		}
-		
 		int numCardsToDraw = PlayerSide.WAITING_PLAYER.getPlayer(boardModel).getHand().size() - PlayerSide.CURRENT_PLAYER.getPlayer(boardModel).getHand().size() + 1;
 		if (numCardsToDraw < 1) {
 			return false;

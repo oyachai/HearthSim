@@ -16,6 +16,10 @@ public class MindControl extends SpellCard {
 	 */
 	public MindControl(boolean hasBeenUsed) {
 		super((byte)10, hasBeenUsed);
+
+		this.canTargetEnemyHero = false;
+		this.canTargetOwnHero = false;
+		this.canTargetOwnMinions = false;
 	}
 
 	/**
@@ -55,10 +59,6 @@ public class MindControl extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (isHero(targetMinion) || isCurrentPlayer(side)) {
-			return null;
-		}
-
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
 			toRet.data_.removeMinion(targetMinion);

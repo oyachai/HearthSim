@@ -16,6 +16,8 @@ public class HolyFire extends SpellDamage {
 
 	public HolyFire(boolean hasBeenUsed) {
 		super((byte)6, (byte)5, hasBeenUsed);
+		
+		this.canTargetOwnHero = false; // TODO card as printed allows this
 	}
 
 	@Override
@@ -46,9 +48,6 @@ public class HolyFire extends SpellDamage {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (isCurrentPlayer(side) && isHero(targetMinion))
-			return null;
-		
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
 			toRet.data_.getCurrentPlayerHero().takeHeal((byte)5, PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1);

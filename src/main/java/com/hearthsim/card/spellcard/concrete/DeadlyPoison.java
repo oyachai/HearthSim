@@ -19,6 +19,10 @@ public class DeadlyPoison extends SpellCard {
 	 */
 	public DeadlyPoison(boolean hasBeenUsed) {
 		super((byte)1, hasBeenUsed);
+		
+		this.canTargetEnemyHero = false;
+		this.canTargetEnemyMinions = false;
+		this.canTargetOwnMinions = false;
 	}
 
 	/**
@@ -38,10 +42,6 @@ public class DeadlyPoison extends SpellCard {
 	@Override
 	public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
 		if(!super.canBeUsedOn(playerSide, minion, boardModel)) {
-			return false;
-		}
-
-		if (isWaitingPlayer(playerSide) || isNotHero(minion)) {
 			return false;
 		}
 

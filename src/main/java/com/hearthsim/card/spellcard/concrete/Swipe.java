@@ -19,6 +19,9 @@ public class Swipe extends SpellDamage {
 	 */
 	public Swipe(boolean hasBeenUsed) {
 		super((byte)4, DAMAGE_AMOUNT, hasBeenUsed);
+
+		this.canTargetOwnHero = false;
+		this.canTargetOwnMinions = false;
 	}
 
 	/**
@@ -45,10 +48,6 @@ public class Swipe extends SpellDamage {
 	@Override
 	protected HearthTreeNode use_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState,
 			Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
-
-		if(isCurrentPlayer(side)) {
-			return null;
-		}
 
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1,
 				singleRealizationOnly);

@@ -4,7 +4,6 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -17,6 +16,10 @@ public class Equality extends SpellCard {
 	 */
 	public Equality(boolean hasBeenUsed) {
 		super((byte)2, hasBeenUsed);
+		
+		this.canTargetEnemyHero = false;
+		this.canTargetEnemyMinions = false;
+		this.canTargetOwnMinions = false;
 	}
 
 	/**
@@ -31,19 +34,6 @@ public class Equality extends SpellCard {
 	@Override
 	public SpellCard deepCopy() {
 		return new Equality(this.hasBeenUsed);
-	}
-
-	@Override
-	public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
-		if(!super.canBeUsedOn(playerSide, minion, boardModel)) {
-			return false;
-		}
-
-		if (isWaitingPlayer(playerSide) || isNotHero(minion)) {
-			return false;
-		}
-		
-		return true;
 	}
 
 	/**

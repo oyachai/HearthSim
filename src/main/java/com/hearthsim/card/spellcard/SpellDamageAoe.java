@@ -9,10 +9,10 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class SpellDamageAoe extends SpellDamage {
 	
-	protected boolean targetSelf = false;
-	protected boolean targetOwnMinions = false;
-	protected boolean targetOpponent = false;
-	protected boolean targetOpponentMinions = true;
+	protected boolean hitsOwnHero = false;
+	protected boolean hitsOwnMinions = false;
+	protected boolean hitsEnemyHero = false;
+	protected boolean hitsEnemyMinions = true;
 	
 	/**
 	 * Constructor
@@ -51,20 +51,20 @@ public class SpellDamageAoe extends SpellDamage {
 	@Override
 	protected HearthTreeNode use_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState,
 			Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
-		if(boardState != null && this.targetSelf) {
+		if(boardState != null && this.hitsOwnHero) {
 			Minion self = boardState.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
 			boardState = this.attack(PlayerSide.CURRENT_PLAYER, self, boardState, deckPlayer0, deckPlayer1);
 		}
 
-		if(boardState != null && this.targetOwnMinions) {
+		if(boardState != null && this.hitsOwnMinions) {
 			boardState = this.attackAllMinionsOnSide(PlayerSide.CURRENT_PLAYER, boardState, deckPlayer0, deckPlayer1);
 		}
 
-		if(boardState != null && this.targetOpponent) {
+		if(boardState != null && this.hitsEnemyHero) {
 			boardState = this.attack(PlayerSide.WAITING_PLAYER, targetMinion, boardState, deckPlayer0, deckPlayer1);
 		}
 
-		if(boardState != null && this.targetOpponentMinions) {
+		if(boardState != null && this.hitsEnemyMinions) {
 			boardState = this.attackAllMinionsOnSide(PlayerSide.WAITING_PLAYER, boardState, deckPlayer0, deckPlayer1);
 		}
 

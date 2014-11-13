@@ -13,6 +13,9 @@ public class Backstab extends SpellDamage {
 
 	public Backstab(boolean hasBeenUsed) {
 		super((byte)0, (byte)2, hasBeenUsed);
+		
+		this.canTargetEnemyHero = false;
+		this.canTargetOwnHero = false;
 	}
 	
 	@Override
@@ -26,10 +29,6 @@ public class Backstab extends SpellDamage {
 			return false;
 		}
 		
-		if (isHero(minion)) {
-			return false;
-		}
-
 		if (minion.getHealth() != minion.getMaxHealth()) {
 			return false;
 		}

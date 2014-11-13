@@ -15,6 +15,9 @@ public class HuntersMark extends SpellCard {
 	 */
 	public HuntersMark(boolean hasBeenUsed) {
 		super((byte)0, hasBeenUsed);
+		
+		this.canTargetEnemyHero = false;
+		this.canTargetOwnHero = false;
 	}
 
 	/**
@@ -54,9 +57,6 @@ public class HuntersMark extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (isHero(targetMinion)) {
-			return null;
-		}
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
 			targetMinion.setHealth((byte)1);

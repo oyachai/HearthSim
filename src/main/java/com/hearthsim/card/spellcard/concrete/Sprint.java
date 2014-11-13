@@ -18,6 +18,10 @@ public class Sprint extends SpellCard {
 	 */
 	public Sprint(boolean hasBeenUsed) {
 		super((byte)7, hasBeenUsed);
+
+		this.canTargetEnemyHero = false;
+		this.canTargetEnemyMinions = false;
+		this.canTargetOwnMinions = false;
 	}
 
 	/**
@@ -57,10 +61,6 @@ public class Sprint extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (isWaitingPlayer(side) || isNotHero(targetMinion)) {
-			return null;
-		}
-
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet instanceof CardDrawNode) {
 			((CardDrawNode) toRet).addNumCardsToDraw(4);

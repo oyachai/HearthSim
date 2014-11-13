@@ -16,6 +16,9 @@ public class InnerRage extends SpellCard {
 	 */
 	public InnerRage(boolean hasBeenUsed) {
 		super((byte)0, hasBeenUsed);
+		
+		this.canTargetEnemyHero = false;
+		this.canTargetOwnHero = false;
 	}
 
 	/**
@@ -55,9 +58,6 @@ public class InnerRage extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (isHero(targetMinion))
-			return null;
-
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
 			toRet = targetMinion.takeDamage((byte)1, PlayerSide.CURRENT_PLAYER, side, boardState, deckPlayer0, deckPlayer1, true, false);

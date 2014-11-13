@@ -17,6 +17,9 @@ public class PowerWordShield extends SpellCard {
 	 */
 	public PowerWordShield(boolean hasBeenUsed) {
 		super((byte)1, hasBeenUsed);
+
+		this.canTargetEnemyHero = false;
+		this.canTargetOwnHero = false;
 	}
 
 	/**
@@ -56,9 +59,6 @@ public class PowerWordShield extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (isHero(targetMinion)) {
-			return null;
-		}
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
 			targetMinion.setHealth((byte)(targetMinion.getHealth() + 2));

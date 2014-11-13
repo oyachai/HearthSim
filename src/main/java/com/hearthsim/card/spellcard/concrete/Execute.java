@@ -17,6 +17,10 @@ public class Execute extends SpellCard {
 	 */
 	public Execute(boolean hasBeenUsed) {
 		super((byte)1, hasBeenUsed);
+		
+		this.canTargetEnemyHero = false;
+		this.canTargetOwnHero = false;
+		this.canTargetOwnMinions = false;
 	}
 
 	/**
@@ -39,10 +43,6 @@ public class Execute extends SpellCard {
 			return false;
 		}
 
-		if (isCurrentPlayer(playerSide) || isHero(minion)) {
-			return false;
-		}
-		
 		if (minion.getHealth() == minion.getMaxHealth()) {
 			return false;
 		}

@@ -17,6 +17,9 @@ public class MarkOfTheWild extends SpellCard {
 	 */
 	public MarkOfTheWild(boolean hasBeenUsed) {
 		super((byte)2, hasBeenUsed);
+
+		this.canTargetEnemyHero = false;
+		this.canTargetOwnHero = false;
 	}
 
 	/**
@@ -56,11 +59,6 @@ public class MarkOfTheWild extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (isHero(targetMinion)) {
-			//cant't use it on the heroes
-			return null;
-		}
-		
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
 			targetMinion.setAttack((byte)(targetMinion.getAttack() + 2));

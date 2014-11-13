@@ -4,7 +4,6 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -16,6 +15,10 @@ public class FrostNova extends SpellCard {
 	 */
 	public FrostNova(boolean hasBeenUsed) {
 		super((byte)3, hasBeenUsed);
+	
+		this.canTargetEnemyHero = false;
+		this.canTargetEnemyMinions = false;
+		this.canTargetOwnMinions = false;
 	}
 
 	/**
@@ -30,19 +33,6 @@ public class FrostNova extends SpellCard {
 	@Override
 	public SpellCard deepCopy() {
 		return new Flamestrike(this.hasBeenUsed);
-	}
-
-	@Override
-	public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
-		if(!super.canBeUsedOn(playerSide, minion, boardModel)) {
-			return false;
-		}
-
-		if (isCurrentPlayer(playerSide) || isNotHero(minion)) {
-			return false;
-		}
-		
-		return true;
 	}
 
 	/**

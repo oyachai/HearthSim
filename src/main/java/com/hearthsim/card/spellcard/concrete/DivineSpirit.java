@@ -4,7 +4,6 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -18,6 +17,9 @@ public class DivineSpirit extends SpellCard {
 	 */
 	public DivineSpirit(boolean hasBeenUsed) {
 		super((byte)1, hasBeenUsed);
+		
+		this.canTargetEnemyHero = false;
+		this.canTargetOwnHero = false;
 	}
 
 	/**
@@ -32,19 +34,6 @@ public class DivineSpirit extends SpellCard {
 	@Override
 	public SpellCard deepCopy() {
 		return new DivineSpirit(this.hasBeenUsed);
-	}
-	
-	@Override
-	public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
-		if(!super.canBeUsedOn(playerSide, minion, boardModel)) {
-			return false;
-		}
-
-		if (isHero(minion)) {
-			return false;
-		}
-		
-		return true;
 	}
 
 	/**

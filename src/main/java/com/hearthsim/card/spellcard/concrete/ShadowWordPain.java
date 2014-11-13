@@ -16,6 +16,9 @@ public class ShadowWordPain extends SpellCard {
 	 */
 	public ShadowWordPain(boolean hasBeenUsed) {
 		super((byte)2, hasBeenUsed);
+
+		this.canTargetEnemyHero = false;
+		this.canTargetOwnHero = false;
 	}
 
 	/**
@@ -55,9 +58,6 @@ public class ShadowWordPain extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (isHero(targetMinion)) {
-			return null;
-		}
 		if (targetMinion.getTotalAttack() > 3)
 			return null;
 		

@@ -16,6 +16,9 @@ public class MortalCoil extends SpellDamage {
 
 	public MortalCoil(boolean hasBeenUsed) {
 		super((byte)1, (byte)1, hasBeenUsed);
+
+		this.canTargetEnemyHero = false;
+		this.canTargetOwnHero = false;
 	}
 
 	@Override
@@ -46,14 +49,6 @@ public class MortalCoil extends SpellDamage {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (isHero(targetMinion))
-			return null;
-
-		if (this.hasBeenUsed()) {
-			//Card is already used, nothing to do
-			return null;
-		}
-		
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null && targetMinion.getTotalHealth() <= 0) {
             if (toRet instanceof CardDrawNode) {

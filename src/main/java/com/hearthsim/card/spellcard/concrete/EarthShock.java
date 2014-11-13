@@ -4,7 +4,6 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellDamage;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -16,6 +15,9 @@ public class EarthShock extends SpellDamage {
 
 	public EarthShock(boolean hasBeenUsed) {
 		super((byte)1, (byte)1, hasBeenUsed);
+		
+		this.canTargetEnemyHero = false;
+		this.canTargetOwnHero = false;
 	}
 
 	@Override
@@ -23,20 +25,6 @@ public class EarthShock extends SpellDamage {
 		return new EarthShock(this.hasBeenUsed);
 	}
 	
-	
-	@Override
-	public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
-		if(!super.canBeUsedOn(playerSide, minion, boardModel)) {
-			return false;
-		}
-
-		if (isHero(minion)) {
-			return false;
-		}
-		
-		return true;
-	}
-
 	/**
 	 * 
 	 * Use the card on the given target

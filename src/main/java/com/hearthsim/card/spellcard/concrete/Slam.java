@@ -16,6 +16,9 @@ public class Slam extends SpellDamage {
 
 	public Slam(boolean hasBeenUsed) {
 		super((byte)2, (byte)2, hasBeenUsed);
+
+		this.canTargetEnemyHero = false;
+		this.canTargetOwnHero = false;
 	}
 
 	@Override
@@ -46,9 +49,6 @@ public class Slam extends SpellDamage {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (isHero(targetMinion))
-			return null;
-		
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
         if (toRet != null && targetMinion.getTotalHealth() > 0) {
             if (toRet instanceof CardDrawNode) {

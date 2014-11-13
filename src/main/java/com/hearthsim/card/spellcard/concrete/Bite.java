@@ -5,7 +5,6 @@ import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -18,6 +17,10 @@ public class Bite extends SpellCard {
 	 */
 	public Bite(boolean hasBeenUsed) {
 		super((byte)4, hasBeenUsed);
+		
+		this.canTargetEnemyHero = false;
+		this.canTargetEnemyMinions = false;
+		this.canTargetOwnMinions = false;
 	}
 
 	/**
@@ -32,19 +35,6 @@ public class Bite extends SpellCard {
 	@Override
 	public SpellCard deepCopy() {
 		return new Bite(this.hasBeenUsed);
-	}
-	
-	@Override
-	public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
-		if(!super.canBeUsedOn(playerSide, minion, boardModel)) {
-			return false;
-		}
-
-		if (isNotHero(minion) || isWaitingPlayer(playerSide)) {
-			return false;
-		}
-
-		return true;
 	}
 	
 	/**

@@ -15,7 +15,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class TestMirroImage {
+public class TestMirrorImage {
 
 
 	private HearthTreeNode board;

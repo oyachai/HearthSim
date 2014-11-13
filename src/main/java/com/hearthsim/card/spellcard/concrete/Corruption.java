@@ -4,7 +4,6 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -17,6 +16,10 @@ public class Corruption extends SpellCard {
 	 */
 	public Corruption(boolean hasBeenUsed) {
 		super((byte)1, hasBeenUsed);
+
+		this.canTargetEnemyHero = false;
+		this.canTargetOwnHero = false;
+		this.canTargetOwnMinions = false;
 	}
 
 	/**
@@ -31,19 +34,6 @@ public class Corruption extends SpellCard {
 	@Override
 	public SpellCard deepCopy() {
 		return new Corruption(this.hasBeenUsed);
-	}
-
-	@Override
-	public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
-		if(!super.canBeUsedOn(playerSide, minion, boardModel)) {
-			return false;
-		}
-
-		if (isCurrentPlayer(playerSide) || isHero(minion)) {
-			return false;
-		}
-		
-		return true;
 	}
 
 	/**
@@ -70,7 +60,7 @@ public class Corruption extends SpellCard {
 		throws HSException
 	{
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
-		if (toRet != null)
+		if(toRet != null)
 			targetMinion.setDestroyOnTurnStart(true);
 		return toRet;
 	}

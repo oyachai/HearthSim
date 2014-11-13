@@ -13,7 +13,7 @@ public class Consecration extends SpellDamageAoe {
 	 */
 	public Consecration(boolean hasBeenUsed) {
 		super((byte)4, DAMAGE_AMOUNT, hasBeenUsed);
-		this.targetOpponent = true;
+		this.hitsEnemyHero = true;
 	}
 
 	/**
