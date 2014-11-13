@@ -62,7 +62,7 @@ public class TestDrainLife {
 		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
 		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
-		assertNull(ret);
+		assertNull(ret); // TODO I think this is technically possible. Leave this test here in case we enable this behavior.
 		assertEquals(board.data_.getNumCards_hand(), 1);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);

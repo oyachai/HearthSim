@@ -55,48 +55,9 @@ public class TestDeadlyPoison {
 		board.data_.getCurrentPlayer().setMaxMana(10);
 
 	}
-	
-
+		
 	@Test
-	public void test0() throws HSException {
-		
-		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
-		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
-		
-		assertNull(ret);
-		assertEquals(board.data_.getNumCards_hand(), 1);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
-		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
-		assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), health1 - 1);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), health1 - 1);
-	}
-	
-	@Test
-	public void test1() throws HSException {
-		
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
-		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
-		
-		assertNull(ret);
-		assertEquals(board.data_.getNumCards_hand(), 1);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
-		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
-		assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), health1 - 1);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), health1 - 1);
-	}
-	
-	@Test
-	public void test2() throws HSException {
+	public void testCannotPlayWithoutWeapon() throws HSException {
 		
 		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
@@ -115,7 +76,7 @@ public class TestDeadlyPoison {
 	}
 	
 	@Test
-	public void test3() throws HSException {
+	public void testBuffsWeapon() throws HSException {
 		
 		FieryWarAxe fb = new FieryWarAxe();
 		board.data_.placeCardHandCurrentPlayer(fb);

@@ -32,19 +32,19 @@ public class TestArcaneIntellect {
 
 	@Before
 	public void setup() throws HSException {
-		
+
 		int numCards = 10;
 		Card cards[] = new Card[numCards];
-		for (int index = 0; index < numCards; ++index) {
+		for(int index = 0; index < numCards; ++index) {
 			cards[index] = new BloodfenRaptor();
 		}
-		
+
 		Deck deck = new Deck(cards);
 		PlayerModel playerModel0 = new PlayerModel(0, "player0", new TestHero(), deck);
 		PlayerModel playerModel1 = new PlayerModel(1, "player1", new TestHero(), deck);
 
 		board = new HearthTreeNode(new BoardModel(playerModel0, playerModel1));
-		
+
 		Minion minion0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
 		Minion minion1 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
 		Minion minion2 = new Minion("" + 0, mana, attack0, health1, attack0, health1, health1);
@@ -56,52 +56,31 @@ public class TestArcaneIntellect {
 		board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion1);
 		board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion2);
 		board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion3);
-		
+
 		board.data_.getCurrentPlayer().setMana(5);
 	}
-	
-	@Test
-	public void test0() throws HSException {
 
-		
+	@Test
+	public void testWithFullDeck() throws HSException {
+
 		Card cards[] = new Card[10];
-		for (int index = 0; index < 10; ++index) {
+		for(int index = 0; index < 10; ++index) {
 			cards[index] = new TheCoin();
 		}
-		
+
 		Deck deck = new Deck(cards);
-		
+
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
 		HearthTreeNode res;
 		Minion target = null;
-		
-		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
-		res = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
-		assertNull(res);
-		
-		target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
-		res = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
-		assertNull(res);
-		
-		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
-		res = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
-		assertNull(res);
-		
-		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
-		res = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
-		assertNull(res);
-		
-		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 3);
-		res = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
-		assertNull(res);
-		
+
 		target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
 		res = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
 		assertNotNull(res);
 		assertEquals(res.data_.getNumCards_hand(), 0);
 		assertTrue(res instanceof CardDrawNode);
-		assertEquals( ((CardDrawNode)res).getNumCardsToDraw(), 2);
-		
+		assertEquals(((CardDrawNode)res).getNumCardsToDraw(), 2);
+
 		assertEquals(res.data_.getCurrentPlayer().getNumMinions(), 1);
 		assertEquals(res.data_.getWaitingPlayer().getNumMinions(), 3);
 		assertEquals(res.data_.getCurrentPlayer().getMana(), 2);
@@ -119,45 +98,25 @@ public class TestArcaneIntellect {
 	}
 
 	@Test
-	public void test1() throws HSException {
-		
+	public void testWithNearlyEmptyDeck() throws HSException {
+
 		Card cards[] = new Card[1];
-		for (int index = 0; index < 1; ++index) {
+		for(int index = 0; index < 1; ++index) {
 			cards[index] = new TheCoin();
 		}
-		
+
 		Deck deck = new Deck(cards);
-		
+
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
 		HearthTreeNode res;
 		Minion target = null;
-		
-		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
-		res = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
-		assertNull(res);
-		
-		target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
-		res = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
-		assertNull(res);
-		
-		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
-		res = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
-		assertNull(res);
-		
-		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
-		res = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
-		assertNull(res);
-		
-		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 3);
-		res = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
-		assertNull(res);
-		
+
 		target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
 		res = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
 		assertNotNull(res);
 		assertEquals(res.data_.getNumCards_hand(), 0);
 		assertTrue(res instanceof CardDrawNode);
-		assertEquals( ((CardDrawNode)res).getNumCardsToDraw(), 2);
+		assertEquals(((CardDrawNode)res).getNumCardsToDraw(), 2);
 
 		assertEquals(res.data_.getCurrentPlayer().getNumMinions(), 1);
 		assertEquals(res.data_.getWaitingPlayer().getNumMinions(), 3);
@@ -175,38 +134,38 @@ public class TestArcaneIntellect {
 
 	@Test
 	public void test2() throws HSException {
-		
+
 		int numCards = 10;
 		Card cards[] = new Card[numCards];
-		for (int index = 0; index < numCards; ++index) {
+		for(int index = 0; index < numCards; ++index) {
 			cards[index] = new BloodfenRaptor();
 		}
-		
+
 		board.data_.getCurrentPlayer().setMana((byte)3);
 		board.data_.getWaitingPlayer().setMana((byte)3);
 
 		board.data_.getCurrentPlayer().setMaxMana((byte)3);
 		board.data_.getWaitingPlayer().setMaxMana((byte)3);
 
-        BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
-        List<HearthActionBoardPair> ab = ai0.playTurn(0, board.data_, 200000000);
+		BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
+		List<HearthActionBoardPair> ab = ai0.playTurn(0, board.data_, 200000000);
 		BoardModel resBoard = ab.get(ab.size() - 1).board;
-		
-		assertFalse( resBoard == null );
-		
-		assertEquals( resBoard.getCurrentPlayer().getMana(), 0 );
-		assertEquals( resBoard.getWaitingPlayer().getMana(), 3 );
-		assertEquals( resBoard.getNumCardsHandCurrentPlayer(), 2 );
-		assertEquals( PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getNumMinions(), 1 );
-		assertEquals( PlayerSide.WAITING_PLAYER.getPlayer(resBoard).getNumMinions(), 2 );
+
+		assertFalse(resBoard == null);
+
+		assertEquals(resBoard.getCurrentPlayer().getMana(), 0);
+		assertEquals(resBoard.getWaitingPlayer().getMana(), 3);
+		assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 2);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getNumMinions(), 1);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(resBoard).getNumMinions(), 2);
 	}
-	
+
 	@Test
 	public void test3() throws HSException {
-		
+
 		int numCards = 10;
 		Card cards[] = new Card[numCards];
-		for (int index = 0; index < numCards; ++index) {
+		for(int index = 0; index < numCards; ++index) {
 			cards[index] = new BloodfenRaptor();
 		}
 
@@ -216,25 +175,25 @@ public class TestArcaneIntellect {
 		board.data_.getCurrentPlayer().setMaxMana((byte)6);
 		board.data_.getWaitingPlayer().setMaxMana((byte)6);
 
-        BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
-        List<HearthActionBoardPair> ab = ai0.playTurn(0, board.data_, 200000000);
+		BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
+		List<HearthActionBoardPair> ab = ai0.playTurn(0, board.data_, 200000000);
 		BoardModel resBoard = ab.get(ab.size() - 1).board;
-		
-		assertFalse( resBoard == null );
-		
-		assertEquals( resBoard.getCurrentPlayer().getMana(), 1 );
-		assertEquals( resBoard.getWaitingPlayer().getMana(), 6 );
-		assertEquals( resBoard.getNumCardsHandCurrentPlayer(), 1 );
-		assertEquals( PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getNumMinions(), 2 );
-		assertEquals( PlayerSide.WAITING_PLAYER.getPlayer(resBoard).getNumMinions(), 2 );
+
+		assertFalse(resBoard == null);
+
+		assertEquals(resBoard.getCurrentPlayer().getMana(), 1);
+		assertEquals(resBoard.getWaitingPlayer().getMana(), 6);
+		assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 1);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getNumMinions(), 2);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(resBoard).getNumMinions(), 2);
 	}
-	
+
 	@Test
 	public void test4() throws HSException {
-		
+
 		int numCards = 10;
 		Card cards[] = new Card[numCards];
-		for (int index = 0; index < numCards; ++index) {
+		for(int index = 0; index < numCards; ++index) {
 			cards[index] = new BloodfenRaptor();
 		}
 
@@ -244,16 +203,16 @@ public class TestArcaneIntellect {
 		board.data_.getCurrentPlayer().setMaxMana((byte)9);
 		board.data_.getWaitingPlayer().setMaxMana((byte)9);
 
-        BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
-        List<HearthActionBoardPair> ab = ai0.playTurn(0, board.data_, 200000000);
+		BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
+		List<HearthActionBoardPair> ab = ai0.playTurn(0, board.data_, 200000000);
 		BoardModel resBoard = ab.get(ab.size() - 1).board;
-		
-		assertFalse( resBoard == null );
-		
-		assertEquals( resBoard.getCurrentPlayer().getMana(), 2 );
-		assertEquals( resBoard.getWaitingPlayer().getMana(), 9 );
-		assertEquals( resBoard.getNumCardsHandCurrentPlayer(), 0 );
-		assertEquals( PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getNumMinions(), 3 );
-		assertEquals( PlayerSide.WAITING_PLAYER.getPlayer(resBoard).getNumMinions(), 2 );
+
+		assertFalse(resBoard == null);
+
+		assertEquals(resBoard.getCurrentPlayer().getMana(), 2);
+		assertEquals(resBoard.getWaitingPlayer().getMana(), 9);
+		assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 0);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getNumMinions(), 3);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(resBoard).getNumMinions(), 2);
 	}
 }

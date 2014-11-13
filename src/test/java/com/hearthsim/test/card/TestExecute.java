@@ -54,33 +54,7 @@ public class TestExecute {
 	}
 	
 	@Test
-	public void test0() throws HSException {
-		Execute fb = new Execute();
-		board.data_.placeCardHandCurrentPlayer(fb);
-		
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
-		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
-		assertNull(ret);
-		assertEquals(board.data_.getNumCards_hand(), 1);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
-		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
-		assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), health1 - 1);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), health1 - 1);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack(), attack0);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack(), attack0);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack(), attack0);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack(), attack0);
-		assertFalse(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getCharge());
-		assertFalse(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getCharge());
-	}
-
-	@Test
-	public void test1() throws HSException {
+	public void testCannotTargetUndamagedMinion() throws HSException {
 		Execute fb = new Execute();
 		board.data_.placeCardHandCurrentPlayer(fb);
 		
