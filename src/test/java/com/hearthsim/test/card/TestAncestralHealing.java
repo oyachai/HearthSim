@@ -1,5 +1,13 @@
 package com.hearthsim.test.card;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Before;
+import org.junit.Test;
+
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.concrete.AncestralHealing;
@@ -8,11 +16,6 @@ import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
-import org.junit.Before;
-import org.junit.Test;
-
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 public class TestAncestralHealing {
 	
@@ -45,7 +48,7 @@ public class TestAncestralHealing {
 		try {
 			Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
 			res = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
-			assertTrue(res == null);
+			assertNull(res);
 		} catch (HSInvalidPlayerIndexException e) {
 			e.printStackTrace();
 			assertTrue(false);
@@ -54,7 +57,7 @@ public class TestAncestralHealing {
 		try {
 			Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
 			res = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, null, null);
-			assertTrue(res == null);
+			assertNull(res);
 		} catch (HSInvalidPlayerIndexException e) {
 			e.printStackTrace();
 			assertTrue(false);
@@ -71,12 +74,12 @@ public class TestAncestralHealing {
 		try {
 			Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
 			res = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
-			assertFalse(res == null);
-			assertTrue(res.data_.getCurrentPlayer().getMana() == 2);
-			assertTrue(res.data_.getNumCards_hand() == 0);
-			assertTrue(res.data_.getCurrentPlayer().getMinions().get(0).getHealth() == health0);
-			assertTrue(res.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack() == attack0);
-			assertTrue(res.data_.getCurrentPlayer().getMinions().get(0).getMaxHealth() == health0);
+			assertNotNull(res);
+			assertEquals(res.data_.getCurrentPlayer().getMana(), 2);
+			assertEquals(res.data_.getNumCards_hand(), 0);
+			assertEquals(res.data_.getCurrentPlayer().getMinions().get(0).getHealth(), health0);
+			assertEquals(res.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack(), attack0);
+			assertEquals(res.data_.getCurrentPlayer().getMinions().get(0).getMaxHealth(), health0);
 			assertTrue(res.data_.getCurrentPlayer().getMinions().get(0).getTaunt());
 		} catch (HSInvalidPlayerIndexException e) {
 			e.printStackTrace();
@@ -93,12 +96,12 @@ public class TestAncestralHealing {
 		try {
 			Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
 			res = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
-			assertFalse(res == null);
-			assertTrue(res.data_.getCurrentPlayer().getMana() == 2);
-			assertTrue(res.data_.getNumCards_hand() == 0);
-			assertTrue(res.data_.getCurrentPlayer().getMinions().get(0).getHealth() == health0);
-			assertTrue(res.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack() == attack0);
-			assertTrue(res.data_.getCurrentPlayer().getMinions().get(0).getMaxHealth() == health0);
+			assertNotNull(res);
+			assertEquals(res.data_.getCurrentPlayer().getMana(), 2);
+			assertEquals(res.data_.getNumCards_hand(), 0);
+			assertEquals(res.data_.getCurrentPlayer().getMinions().get(0).getHealth(), health0);
+			assertEquals(res.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack(), attack0);
+			assertEquals(res.data_.getCurrentPlayer().getMinions().get(0).getMaxHealth(), health0);
 			assertTrue(res.data_.getCurrentPlayer().getMinions().get(0).getTaunt());
 		} catch (HSInvalidPlayerIndexException e) {
 			e.printStackTrace();
@@ -115,12 +118,12 @@ public class TestAncestralHealing {
 		try {
 			Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
 			res = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, null, null);
-			assertFalse(res == null);
-			assertTrue(res.data_.getCurrentPlayer().getMana() == 2);
-			assertTrue(res.data_.getNumCards_hand() == 0);
-			assertTrue(res.data_.getWaitingPlayer().getMinions().get(0).getHealth() == health0);
-			assertTrue(res.data_.getWaitingPlayer().getMinions().get(0).getTotalAttack() == attack0);
-			assertTrue(res.data_.getWaitingPlayer().getMinions().get(0).getMaxHealth() == health0);
+			assertNotNull(res);
+			assertEquals(res.data_.getCurrentPlayer().getMana(), 2);
+			assertEquals(res.data_.getNumCards_hand(), 0);
+			assertEquals(res.data_.getWaitingPlayer().getMinions().get(0).getHealth(), health0);
+			assertEquals(res.data_.getWaitingPlayer().getMinions().get(0).getTotalAttack(), attack0);
+			assertEquals(res.data_.getWaitingPlayer().getMinions().get(0).getMaxHealth(), health0);
 			assertTrue(res.data_.getWaitingPlayer().getMinions().get(0).getTaunt());
 		} catch (HSInvalidPlayerIndexException e) {
 			e.printStackTrace();
@@ -137,12 +140,12 @@ public class TestAncestralHealing {
 		try {
 			Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
 			res = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, null, null);
-			assertFalse(res == null);
-			assertTrue(res.data_.getCurrentPlayer().getMana() == 2);
-			assertTrue(res.data_.getNumCards_hand() == 0);
-			assertTrue(res.data_.getWaitingPlayer().getMinions().get(0).getHealth() == health0);
-			assertTrue(res.data_.getWaitingPlayer().getMinions().get(0).getTotalAttack() == attack0);
-			assertTrue(res.data_.getWaitingPlayer().getMinions().get(0).getMaxHealth() == health0);
+			assertNotNull(res);
+			assertEquals(res.data_.getCurrentPlayer().getMana(), 2);
+			assertEquals(res.data_.getNumCards_hand(), 0);
+			assertEquals(res.data_.getWaitingPlayer().getMinions().get(0).getHealth(), health0);
+			assertEquals(res.data_.getWaitingPlayer().getMinions().get(0).getTotalAttack(), attack0);
+			assertEquals(res.data_.getWaitingPlayer().getMinions().get(0).getMaxHealth(), health0);
 			assertTrue(res.data_.getWaitingPlayer().getMinions().get(0).getTaunt());
 		} catch (HSInvalidPlayerIndexException e) {
 			e.printStackTrace();

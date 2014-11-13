@@ -91,16 +91,16 @@ public class TestBloodfenRaptor {
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
 		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, null, null);
 		
-		assertTrue("test1_0", ret == null);
-		assertTrue("test1_1", board.data_.getNumCards_hand() == 1);
-		assertTrue("test1_2", PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions() == 2);
-		assertTrue("test1_3", PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions() == 2);
-		assertTrue("test1_4", board.data_.getCurrentPlayerHero().getHealth() == 30);
-		assertTrue("test1_5", board.data_.getWaitingPlayerHero().getHealth() == 30);
-		assertTrue("test1_6", PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth() == health0);
-		assertTrue("test1_7", PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getHealth() == health1);
-		assertTrue("test1_8", PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getHealth() == health0);
-		assertTrue("test1_9", PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getHealth() == health1);
+		assertNull("test1_0", ret);
+		assertEquals("test1_1", board.data_.getNumCards_hand(), 1);
+		assertEquals("test1_2", PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);
+		assertEquals("test1_3", PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
+		assertEquals("test1_4", board.data_.getCurrentPlayerHero().getHealth(), 30);
+		assertEquals("test1_5", board.data_.getWaitingPlayerHero().getHealth(), 30);
+		assertEquals("test1_6", PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0);
+		assertEquals("test1_7", PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), health1);
+		assertEquals("test1_8", PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0);
+		assertEquals("test1_9", PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), health1);
 	}
 	
 	@Test
@@ -113,26 +113,26 @@ public class TestBloodfenRaptor {
 		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
 		
 		assertFalse("test2_0", ret == null);
-		assertTrue("test2_1", board.data_.getNumCards_hand() == 0);
-		assertTrue("test2_2", PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions() == 3);
-		assertTrue("test2_3", PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions() == 2);
-		assertTrue("test2_4", board.data_.getCurrentPlayerHero().getHealth() == 30);
-		assertTrue("test2_5", board.data_.getWaitingPlayerHero().getHealth() == 30);
-		assertTrue("test2_6", PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth() == fb.getHealth());
-		assertTrue("test2_7", PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getHealth() == health0);
-		assertTrue("test2_8", PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(2).getHealth() == health1);
-		assertTrue("test2_9", PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getHealth() == health0);
-		assertTrue("test2_10", PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getHealth() == health1);
+		assertEquals("test2_1", board.data_.getNumCards_hand(), 0);
+		assertEquals("test2_2", PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 3);
+		assertEquals("test2_3", PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
+		assertEquals("test2_4", board.data_.getCurrentPlayerHero().getHealth(), 30);
+		assertEquals("test2_5", board.data_.getWaitingPlayerHero().getHealth(), 30);
+		assertEquals("test2_6", PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), fb.getHealth());
+		assertEquals("test2_7", PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), health0);
+		assertEquals("test2_8", PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(2).getHealth(), health1);
+		assertEquals("test2_9", PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0);
+		assertEquals("test2_10", PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), health1);
 		
 		Minion theAttacker = PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0);
 		target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
 		ret = theAttacker.useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
-		assertTrue("test2", ret == null);
+		assertNull("test2", ret);
 
 		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
 		theAttacker = PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0);
 		ret = theAttacker.useOn(PlayerSide.WAITING_PLAYER, target, board, null, null);
-		assertTrue("test2", ret == null);
+		assertNull("test2", ret);
 
 		theAttacker = PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0);
 		theAttacker.hasAttacked(false);
@@ -143,13 +143,13 @@ public class TestBloodfenRaptor {
 		assertEquals(board.data_.getNumCards_hand(), 0);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 3);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
-		assertTrue("test2_4", board.data_.getCurrentPlayerHero().getHealth() == 30);
-		assertTrue("test2_5", board.data_.getWaitingPlayerHero().getHealth() == 27);
-		assertTrue("test2_6", PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth() == fb.getHealth());
-		assertTrue("test2_7", PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getHealth() == health0);
-		assertTrue("test2_8", PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(2).getHealth() == health1);
-		assertTrue("test2_9", PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getHealth() == health0);
-		assertTrue("test2_10", PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getHealth() == health1);
+		assertEquals("test2_4", board.data_.getCurrentPlayerHero().getHealth(), 30);
+		assertEquals("test2_5", board.data_.getWaitingPlayerHero().getHealth(), 27);
+		assertEquals("test2_6", PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), fb.getHealth());
+		assertEquals("test2_7", PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), health0);
+		assertEquals("test2_8", PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(2).getHealth(), health1);
+		assertEquals("test2_9", PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0);
+		assertEquals("test2_10", PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), health1);
 		assertTrue("test2", PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).hasAttacked());
 		
 		theAttacker = PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0);
@@ -158,14 +158,14 @@ public class TestBloodfenRaptor {
 		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
 		ret = theAttacker.attack(PlayerSide.WAITING_PLAYER, target, board, null, null);
 		assertFalse("test2_0", ret == null);
-		assertTrue("test2_1", board.data_.getNumCards_hand() == 0);
-		assertTrue("test2_2", PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions() == 2);
-		assertTrue("test2_3", PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions() == 1);
-		assertTrue("test2_4", board.data_.getCurrentPlayerHero().getHealth() == 30);
-		assertTrue("test2_5", board.data_.getWaitingPlayerHero().getHealth() == 27);
-		assertTrue("test2_7", PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth() == health0);
-		assertTrue("test2_8", PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getHealth() == health1);
-		assertTrue("test2_9", PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getHealth() == health1);
+		assertEquals("test2_1", board.data_.getNumCards_hand(), 0);
+		assertEquals("test2_2", PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);
+		assertEquals("test2_3", PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 1);
+		assertEquals("test2_4", board.data_.getCurrentPlayerHero().getHealth(), 30);
+		assertEquals("test2_5", board.data_.getWaitingPlayerHero().getHealth(), 27);
+		assertEquals("test2_7", PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0);
+		assertEquals("test2_8", PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), health1);
+		assertEquals("test2_9", PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health1);
 		
 	}
 
@@ -179,16 +179,16 @@ public class TestBloodfenRaptor {
 		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
 		
 		assertFalse("test3_0", ret == null);
-		assertTrue("test3_1", board.data_.getNumCards_hand() == 0);
-		assertTrue("test3_2", PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions() == 3);
-		assertTrue("test3_3", PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions() == 2);
-		assertTrue("test3_4", board.data_.getCurrentPlayerHero().getHealth() == 30);
-		assertTrue("test3_5", board.data_.getWaitingPlayerHero().getHealth() == 30);
-		assertTrue("test3_6", PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth() == health0);
-		assertTrue("test3_7", PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getHealth() == fb.getHealth());
-		assertTrue("test3_8", PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(2).getHealth() == health1);
-		assertTrue("test3_9", PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getHealth() == health0);
-		assertTrue("test3_10", PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getHealth() == health1);
+		assertEquals("test3_1", board.data_.getNumCards_hand(), 0);
+		assertEquals("test3_2", PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 3);
+		assertEquals("test3_3", PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
+		assertEquals("test3_4", board.data_.getCurrentPlayerHero().getHealth(), 30);
+		assertEquals("test3_5", board.data_.getWaitingPlayerHero().getHealth(), 30);
+		assertEquals("test3_6", PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0);
+		assertEquals("test3_7", PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), fb.getHealth());
+		assertEquals("test3_8", PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(2).getHealth(), health1);
+		assertEquals("test3_9", PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0);
+		assertEquals("test3_10", PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), health1);
 	}
 
 	@Test
@@ -201,16 +201,16 @@ public class TestBloodfenRaptor {
 		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
 		
 		assertFalse("test4_0", ret == null);
-		assertTrue("test4_1", board.data_.getNumCards_hand() == 0);
-		assertTrue("test4_2", PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions() == 3);
-		assertTrue("test4_3", PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions() == 2);
-		assertTrue("test4_4", board.data_.getCurrentPlayerHero().getHealth() == 30);
-		assertTrue("test4_5", board.data_.getWaitingPlayerHero().getHealth() == 30);
-		assertTrue("test4_6", PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth() == health0);
-		assertTrue("test4_7", PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getHealth() == health1);
-		assertTrue("test4_8", PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(2).getHealth() == fb.getHealth());
-		assertTrue("test4_9", PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getHealth() == health0);
-		assertTrue("test4_10", PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getHealth() == health1);
+		assertEquals("test4_1", board.data_.getNumCards_hand(), 0);
+		assertEquals("test4_2", PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 3);
+		assertEquals("test4_3", PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
+		assertEquals("test4_4", board.data_.getCurrentPlayerHero().getHealth(), 30);
+		assertEquals("test4_5", board.data_.getWaitingPlayerHero().getHealth(), 30);
+		assertEquals("test4_6", PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0);
+		assertEquals("test4_7", PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), health1);
+		assertEquals("test4_8", PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(2).getHealth(), fb.getHealth());
+		assertEquals("test4_9", PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0);
+		assertEquals("test4_10", PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), health1);
 	}
 
 	@Test
@@ -222,16 +222,16 @@ public class TestBloodfenRaptor {
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
 		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, null, null);
 		
-		assertTrue("test5_0", ret == null);
-		assertTrue("test5_1", board.data_.getNumCards_hand() == 1);
-		assertTrue("test5_2", PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions() == 2);
-		assertTrue("test5_3", PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions() == 2);
-		assertTrue("test5_4", board.data_.getCurrentPlayerHero().getHealth() == 30);
-		assertTrue("test5_5", board.data_.getWaitingPlayerHero().getHealth() == 30);
-		assertTrue("test5_6", PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth() == health0);
-		assertTrue("test5_7", PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getHealth() == health1);
-		assertTrue("test5_9", PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getHealth() == health0);
-		assertTrue("test5_10", PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getHealth() == health1);
+		assertNull("test5_0", ret);
+		assertEquals("test5_1", board.data_.getNumCards_hand(), 1);
+		assertEquals("test5_2", PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);
+		assertEquals("test5_3", PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
+		assertEquals("test5_4", board.data_.getCurrentPlayerHero().getHealth(), 30);
+		assertEquals("test5_5", board.data_.getWaitingPlayerHero().getHealth(), 30);
+		assertEquals("test5_6", PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0);
+		assertEquals("test5_7", PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), health1);
+		assertEquals("test5_9", PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0);
+		assertEquals("test5_10", PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), health1);
 	}
 
 	@Test
@@ -243,16 +243,16 @@ public class TestBloodfenRaptor {
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
 		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, null, null);
 		
-		assertTrue("test6_0", ret == null);
-		assertTrue("test6_1", board.data_.getNumCards_hand() == 1);
-		assertTrue("test6_2", PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions() == 2);
-		assertTrue("test6_3", PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions() == 2);
-		assertTrue("test6_4", board.data_.getCurrentPlayerHero().getHealth() == 30);
-		assertTrue("test6_5", board.data_.getWaitingPlayerHero().getHealth() == 30);
-		assertTrue("test6_6", PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth() == health0);
-		assertTrue("test6_7", PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getHealth() == health1);
-		assertTrue("test6_9", PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getHealth() == health0);
-		assertTrue("test6_10", PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getHealth() == health1);
+		assertNull("test6_0", ret);
+		assertEquals("test6_1", board.data_.getNumCards_hand(), 1);
+		assertEquals("test6_2", PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);
+		assertEquals("test6_3", PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
+		assertEquals("test6_4", board.data_.getCurrentPlayerHero().getHealth(), 30);
+		assertEquals("test6_5", board.data_.getWaitingPlayerHero().getHealth(), 30);
+		assertEquals("test6_6", PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0);
+		assertEquals("test6_7", PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), health1);
+		assertEquals("test6_9", PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0);
+		assertEquals("test6_10", PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), health1);
 	}
 
 	@Test
@@ -264,15 +264,15 @@ public class TestBloodfenRaptor {
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
 		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, null, null);
 		
-		assertTrue("test7_0", ret == null);
-		assertTrue("test7_1", board.data_.getNumCards_hand() == 1);
-		assertTrue("test7_2", PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions() == 2);
-		assertTrue("test7_3", PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions() == 2);
-		assertTrue("test7_4", board.data_.getCurrentPlayerHero().getHealth() == 30);
-		assertTrue("test7_5", board.data_.getWaitingPlayerHero().getHealth() == 30);
-		assertTrue("test7_6", PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth() == health0);
-		assertTrue("test7_7", PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getHealth() == health1);
-		assertTrue("test7_9", PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getHealth() == health0);
-		assertTrue("test7_10", PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getHealth() == health1);
+		assertNull("test7_0", ret);
+		assertEquals("test7_1", board.data_.getNumCards_hand(), 1);
+		assertEquals("test7_2", PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);
+		assertEquals("test7_3", PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
+		assertEquals("test7_4", board.data_.getCurrentPlayerHero().getHealth(), 30);
+		assertEquals("test7_5", board.data_.getWaitingPlayerHero().getHealth(), 30);
+		assertEquals("test7_6", PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0);
+		assertEquals("test7_7", PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), health1);
+		assertEquals("test7_9", PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0);
+		assertEquals("test7_10", PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), health1);
 	}
 }

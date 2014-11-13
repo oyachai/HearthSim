@@ -77,44 +77,44 @@ public class TestArcaneIntellect {
 		
 		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
 		res = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
-		assertTrue(res == null);
+		assertNull(res);
 		
 		target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
 		res = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
-		assertTrue(res == null);
+		assertNull(res);
 		
 		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
 		res = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
-		assertTrue(res == null);
+		assertNull(res);
 		
 		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
 		res = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
-		assertTrue(res == null);
+		assertNull(res);
 		
 		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 3);
 		res = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
-		assertTrue(res == null);
+		assertNull(res);
 		
 		target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
 		res = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
-		assertFalse(res == null);
+		assertNotNull(res);
 		assertEquals(res.data_.getNumCards_hand(), 0);
 		assertTrue(res instanceof CardDrawNode);
 		assertEquals( ((CardDrawNode)res).getNumCardsToDraw(), 2);
 		
-		assertTrue(res.data_.getCurrentPlayer().getNumMinions() == 1);
-		assertTrue(res.data_.getWaitingPlayer().getNumMinions() == 3);
-		assertTrue(res.data_.getCurrentPlayer().getMana() == 2);
-		assertTrue(res.data_.getCurrentPlayer().getMinions().get(0).getHealth() == health0);
-		assertTrue(res.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack() == attack0);
-		assertTrue(res.data_.getWaitingPlayer().getMinions().get(0).getHealth() == health0);
-		assertTrue(res.data_.getWaitingPlayer().getMinions().get(0).getTotalAttack() == attack0);
-		assertTrue(res.data_.getWaitingPlayer().getMinions().get(1).getHealth() == health1);
-		assertTrue(res.data_.getWaitingPlayer().getMinions().get(1).getTotalAttack() == attack0);
-		assertTrue(res.data_.getWaitingPlayer().getMinions().get(2).getHealth() == health0);
-		assertTrue(res.data_.getWaitingPlayer().getMinions().get(2).getTotalAttack() == attack0);
-		assertTrue(res.data_.getCurrentPlayerHero().getHealth() == 30);
-		assertTrue(res.data_.getWaitingPlayerHero().getHealth() == 30);
+		assertEquals(res.data_.getCurrentPlayer().getNumMinions(), 1);
+		assertEquals(res.data_.getWaitingPlayer().getNumMinions(), 3);
+		assertEquals(res.data_.getCurrentPlayer().getMana(), 2);
+		assertEquals(res.data_.getCurrentPlayer().getMinions().get(0).getHealth(), health0);
+		assertEquals(res.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack(), attack0);
+		assertEquals(res.data_.getWaitingPlayer().getMinions().get(0).getHealth(), health0);
+		assertEquals(res.data_.getWaitingPlayer().getMinions().get(0).getTotalAttack(), attack0);
+		assertEquals(res.data_.getWaitingPlayer().getMinions().get(1).getHealth(), health1);
+		assertEquals(res.data_.getWaitingPlayer().getMinions().get(1).getTotalAttack(), attack0);
+		assertEquals(res.data_.getWaitingPlayer().getMinions().get(2).getHealth(), health0);
+		assertEquals(res.data_.getWaitingPlayer().getMinions().get(2).getTotalAttack(), attack0);
+		assertEquals(res.data_.getCurrentPlayerHero().getHealth(), 30);
+		assertEquals(res.data_.getWaitingPlayerHero().getHealth(), 30);
 
 	}
 
@@ -134,42 +134,42 @@ public class TestArcaneIntellect {
 		
 		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
 		res = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
-		assertTrue(res == null);
+		assertNull(res);
 		
 		target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
 		res = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
-		assertTrue(res == null);
+		assertNull(res);
 		
 		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
 		res = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
-		assertTrue(res == null);
+		assertNull(res);
 		
 		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
 		res = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
-		assertTrue(res == null);
+		assertNull(res);
 		
 		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 3);
 		res = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
-		assertTrue(res == null);
+		assertNull(res);
 		
 		target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
 		res = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
-		assertFalse(res == null);
+		assertNotNull(res);
 		assertEquals(res.data_.getNumCards_hand(), 0);
 		assertTrue(res instanceof CardDrawNode);
 		assertEquals( ((CardDrawNode)res).getNumCardsToDraw(), 2);
 
-		assertTrue(res.data_.getCurrentPlayer().getNumMinions() == 1);
-		assertTrue(res.data_.getWaitingPlayer().getNumMinions() == 3);
-		assertTrue(res.data_.getCurrentPlayer().getMana() == 2);
-		assertTrue(res.data_.getCurrentPlayer().getMinions().get(0).getHealth() == health0);
-		assertTrue(res.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack() == attack0);
-		assertTrue(res.data_.getWaitingPlayer().getMinions().get(0).getHealth() == health0);
-		assertTrue(res.data_.getWaitingPlayer().getMinions().get(0).getTotalAttack() == attack0);
-		assertTrue(res.data_.getWaitingPlayer().getMinions().get(1).getHealth() == health1);
-		assertTrue(res.data_.getWaitingPlayer().getMinions().get(1).getTotalAttack() == attack0);
-		assertTrue(res.data_.getWaitingPlayer().getMinions().get(2).getHealth() == health0);
-		assertTrue(res.data_.getWaitingPlayer().getMinions().get(2).getTotalAttack() == attack0);
+		assertEquals(res.data_.getCurrentPlayer().getNumMinions(), 1);
+		assertEquals(res.data_.getWaitingPlayer().getNumMinions(), 3);
+		assertEquals(res.data_.getCurrentPlayer().getMana(), 2);
+		assertEquals(res.data_.getCurrentPlayer().getMinions().get(0).getHealth(), health0);
+		assertEquals(res.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack(), attack0);
+		assertEquals(res.data_.getWaitingPlayer().getMinions().get(0).getHealth(), health0);
+		assertEquals(res.data_.getWaitingPlayer().getMinions().get(0).getTotalAttack(), attack0);
+		assertEquals(res.data_.getWaitingPlayer().getMinions().get(1).getHealth(), health1);
+		assertEquals(res.data_.getWaitingPlayer().getMinions().get(1).getTotalAttack(), attack0);
+		assertEquals(res.data_.getWaitingPlayer().getMinions().get(2).getHealth(), health0);
+		assertEquals(res.data_.getWaitingPlayer().getMinions().get(2).getTotalAttack(), attack0);
 
 	}
 

@@ -1,5 +1,12 @@
 package com.hearthsim.test.card;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
+import org.junit.Before;
+import org.junit.Test;
+
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
@@ -9,11 +16,6 @@ import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
-import org.junit.Before;
-import org.junit.Test;
-
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 public class TestAssassinate {
 
@@ -58,31 +60,31 @@ public class TestAssassinate {
 		
 		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
 		res = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
-		assertTrue(res == null);
+		assertNull(res);
 		
 		target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
 		res = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
-		assertTrue(res == null);
+		assertNull(res);
 		
 		target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
 		res = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
-		assertTrue(res == null);
+		assertNull(res);
 		
 		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
 		res = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
-		assertFalse(res == null);
-		assertTrue(res.data_.getNumCards_hand() == 0);
-		assertTrue(res.data_.getCurrentPlayer().getNumMinions() == 1);
-		assertTrue(res.data_.getWaitingPlayer().getNumMinions() == 2);
-		assertTrue(res.data_.getCurrentPlayer().getMana() == 5);
-		assertTrue(res.data_.getCurrentPlayer().getMinions().get(0).getHealth() == health0);
-		assertTrue(res.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack() == attack0);
-		assertTrue(res.data_.getWaitingPlayer().getMinions().get(0).getHealth() == health1);
-		assertTrue(res.data_.getWaitingPlayer().getMinions().get(0).getTotalAttack() == attack0);
-		assertTrue(res.data_.getWaitingPlayer().getMinions().get(1).getHealth() == health0);
-		assertTrue(res.data_.getWaitingPlayer().getMinions().get(1).getTotalAttack() == attack0);
-		assertTrue(res.data_.getCurrentPlayerHero().getHealth() == 30);
-		assertTrue(res.data_.getWaitingPlayerHero().getHealth() == 30);
+		assertNotNull(res);
+		assertEquals(res.data_.getNumCards_hand(), 0);
+		assertEquals(res.data_.getCurrentPlayer().getNumMinions(), 1);
+		assertEquals(res.data_.getWaitingPlayer().getNumMinions(), 2);
+		assertEquals(res.data_.getCurrentPlayer().getMana(), 5);
+		assertEquals(res.data_.getCurrentPlayer().getMinions().get(0).getHealth(), health0);
+		assertEquals(res.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack(), attack0);
+		assertEquals(res.data_.getWaitingPlayer().getMinions().get(0).getHealth(), health1);
+		assertEquals(res.data_.getWaitingPlayer().getMinions().get(0).getTotalAttack(), attack0);
+		assertEquals(res.data_.getWaitingPlayer().getMinions().get(1).getHealth(), health0);
+		assertEquals(res.data_.getWaitingPlayer().getMinions().get(1).getTotalAttack(), attack0);
+		assertEquals(res.data_.getCurrentPlayerHero().getHealth(), 30);
+		assertEquals(res.data_.getWaitingPlayerHero().getHealth(), 30);
 
 	}
 
@@ -102,31 +104,31 @@ public class TestAssassinate {
 		
 		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
 		res = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
-		assertTrue(res == null);
+		assertNull(res);
 		
 		target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
 		res = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
-		assertTrue(res == null);
+		assertNull(res);
 		
 		target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
 		res = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
-		assertTrue(res == null);
+		assertNull(res);
 		
 		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
 		res = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
-		assertFalse(res == null);
-		assertTrue(res.data_.getNumCards_hand() == 0);
-		assertTrue(res.data_.getCurrentPlayer().getNumMinions() == 1);
-		assertTrue(res.data_.getWaitingPlayer().getNumMinions() == 2);
-		assertTrue(res.data_.getCurrentPlayer().getMana() == 5);
-		assertTrue(res.data_.getCurrentPlayer().getMinions().get(0).getHealth() == health0);
-		assertTrue(res.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack() == attack0);
-		assertTrue(res.data_.getWaitingPlayer().getMinions().get(0).getHealth() == health0);
-		assertTrue(res.data_.getWaitingPlayer().getMinions().get(0).getTotalAttack() == attack0);
-		assertTrue(res.data_.getWaitingPlayer().getMinions().get(1).getHealth() == health0);
-		assertTrue(res.data_.getWaitingPlayer().getMinions().get(1).getTotalAttack() == attack0);
-		assertTrue(res.data_.getCurrentPlayerHero().getHealth() == 30);
-		assertTrue(res.data_.getWaitingPlayerHero().getHealth() == 30);
+		assertNotNull(res);
+		assertEquals(res.data_.getNumCards_hand(), 0);
+		assertEquals(res.data_.getCurrentPlayer().getNumMinions(), 1);
+		assertEquals(res.data_.getWaitingPlayer().getNumMinions(), 2);
+		assertEquals(res.data_.getCurrentPlayer().getMana(), 5);
+		assertEquals(res.data_.getCurrentPlayer().getMinions().get(0).getHealth(), health0);
+		assertEquals(res.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack(), attack0);
+		assertEquals(res.data_.getWaitingPlayer().getMinions().get(0).getHealth(), health0);
+		assertEquals(res.data_.getWaitingPlayer().getMinions().get(0).getTotalAttack(), attack0);
+		assertEquals(res.data_.getWaitingPlayer().getMinions().get(1).getHealth(), health0);
+		assertEquals(res.data_.getWaitingPlayer().getMinions().get(1).getTotalAttack(), attack0);
+		assertEquals(res.data_.getCurrentPlayerHero().getHealth(), 30);
+		assertEquals(res.data_.getWaitingPlayerHero().getHealth(), 30);
 
 	}
 	
@@ -147,31 +149,31 @@ public class TestAssassinate {
 		
 		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
 		res = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
-		assertTrue(res == null);
+		assertNull(res);
 		
 		target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
 		res = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
-		assertTrue(res == null);
+		assertNull(res);
 		
 		target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
 		res = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
-		assertTrue(res == null);
+		assertNull(res);
 		
 		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 3);
 		res = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
-		assertFalse(res == null);
-		assertTrue(res.data_.getNumCards_hand() == 0);
-		assertTrue(res.data_.getCurrentPlayer().getNumMinions() == 1);
-		assertTrue(res.data_.getWaitingPlayer().getNumMinions() == 2);
-		assertTrue(res.data_.getCurrentPlayer().getMana() == 5);
-		assertTrue(res.data_.getCurrentPlayer().getMinions().get(0).getHealth() == health0);
-		assertTrue(res.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack() == attack0);
-		assertTrue(res.data_.getWaitingPlayer().getMinions().get(0).getHealth() == health0);
-		assertTrue(res.data_.getWaitingPlayer().getMinions().get(0).getTotalAttack() == attack0);
-		assertTrue(res.data_.getWaitingPlayer().getMinions().get(1).getHealth() == health1);
-		assertTrue(res.data_.getWaitingPlayer().getMinions().get(1).getTotalAttack() == attack0);
-		assertTrue(res.data_.getCurrentPlayerHero().getHealth() == 30);
-		assertTrue(res.data_.getWaitingPlayerHero().getHealth() == 30);
+		assertNotNull(res);
+		assertEquals(res.data_.getNumCards_hand(), 0);
+		assertEquals(res.data_.getCurrentPlayer().getNumMinions(), 1);
+		assertEquals(res.data_.getWaitingPlayer().getNumMinions(), 2);
+		assertEquals(res.data_.getCurrentPlayer().getMana(), 5);
+		assertEquals(res.data_.getCurrentPlayer().getMinions().get(0).getHealth(), health0);
+		assertEquals(res.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack(), attack0);
+		assertEquals(res.data_.getWaitingPlayer().getMinions().get(0).getHealth(), health0);
+		assertEquals(res.data_.getWaitingPlayer().getMinions().get(0).getTotalAttack(), attack0);
+		assertEquals(res.data_.getWaitingPlayer().getMinions().get(1).getHealth(), health1);
+		assertEquals(res.data_.getWaitingPlayer().getMinions().get(1).getTotalAttack(), attack0);
+		assertEquals(res.data_.getCurrentPlayerHero().getHealth(), 30);
+		assertEquals(res.data_.getWaitingPlayerHero().getHealth(), 30);
 
 	}
 }

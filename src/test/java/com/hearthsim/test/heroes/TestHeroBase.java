@@ -164,6 +164,8 @@ public class TestHeroBase {
 		assertEquals(board, ret);
 
 		target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0); // Hero
+		assertFalse(hero.canBeUsedOn(PlayerSide.CURRENT_PLAYER, target, board.data_));
+
 		ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
 		assertNull(ret);
 
@@ -188,6 +190,8 @@ public class TestHeroBase {
 		board.data_.getCurrentPlayer().setMana((byte) 1);
 
 		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0); // Hero
+		//assertFalse(hero.canBeUsedOn(PlayerSide.CURRENT_PLAYER, target, board.data_)); // TODO doesn't work yet
+		
 		HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
 		assertNull(ret);
 
