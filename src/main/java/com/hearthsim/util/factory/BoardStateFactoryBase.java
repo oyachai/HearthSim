@@ -124,22 +124,6 @@ public class BoardStateFactoryBase {
 		return nodes;
 	}
 
-	private HearthTreeNode createHeroAbilityBranches(HearthTreeNode boardStateNode, BruteForceSearchAI ai)
-			throws HSException {
-		log.trace("creating hero ability branches");
-
-		HearthTreeNode newState = null;
-		ArrayList<HearthTreeNode> nodes = this.getNextLayerOfHeroAbilityBranches(boardStateNode);
-
-		for(HearthTreeNode node : nodes) {
-			newState = this.doMoves(node, ai);
-			if(newState != null)
-				boardStateNode.addChild(newState);
-		}
-
-		return boardStateNode;
-	}
-
 	private ArrayList<HearthTreeNode> getNextLayerOfAttackBranches(HearthTreeNode boardStateNode) throws HSException {
 		ArrayList<HearthTreeNode> nodes = new ArrayList<HearthTreeNode>();
 
@@ -183,23 +167,6 @@ public class BoardStateFactoryBase {
 		}
 
 		return nodes;
-	}
-
-	private HearthTreeNode createMinionAttackBranches(HearthTreeNode boardStateNode, BruteForceSearchAI ai)
-			throws HSException {
-		log.trace("creating minion attack branches");
-
-		ArrayList<HearthTreeNode> nodes = this.getNextLayerOfAttackBranches(boardStateNode);
-		HearthTreeNode newState = null;
-
-		for(HearthTreeNode node : nodes) {
-			newState = this.doMoves(node, ai);
-			if(newState != null) {
-				boardStateNode.addChild(newState);
-			}
-		}
-
-		return boardStateNode;
 	}
 
 	protected ArrayList<HearthTreeNode> getNextLayerOfCardBranches(HearthTreeNode boardStateNode) throws HSException {
@@ -263,22 +230,6 @@ public class BoardStateFactoryBase {
 		return nodes;
 	}
 
-	private HearthTreeNode createCardUseBranches(HearthTreeNode boardStateNode, BruteForceSearchAI ai)
-			throws HSException {
-		log.trace("creating card use branches");
-
-		ArrayList<HearthTreeNode> nodes = this.getNextLayerOfCardBranches(boardStateNode);
-
-		HearthTreeNode newState = null;
-		for(HearthTreeNode node : nodes) {
-			newState = this.doMoves(node, ai);
-			if(newState != null) {
-				boardStateNode.addChild(newState);
-			}
-		}
-		return boardStateNode;
-	}
-
 	/**
 	 * Recursively generate all possible moves
 	 * This function recursively generates all possible moves that can be done starting from a given BoardState.
@@ -328,21 +279,17 @@ public class BoardStateFactoryBase {
 
 		if(!lethalFound) {
 
-			// -----------------------------------------------------------------------------------------
-			// Use the Hero ability
-			// -----------------------------------------------------------------------------------------
-			boardStateNode = this.createHeroAbilityBranches(boardStateNode, ai);
-
-			// -----------------------------------------------------------------------------------------
-			// Use the cards in the hand
-			// -----------------------------------------------------------------------------------------
-			boardStateNode = this.createCardUseBranches(boardStateNode, ai);
-
-			// -----------------------------------------------------------------------------------------
-			// Attack with the minions on the board
-			// -----------------------------------------------------------------------------------------
-			boardStateNode = this.createMinionAttackBranches(boardStateNode, ai);
-
+			ArrayList<HearthTreeNode> nodes = new ArrayList<HearthTreeNode>();
+			nodes.addAll(this.getNextLayerOfHeroAbilityBranches(boardStateNode));
+			nodes.addAll(this.getNextLayerOfCardBranches(boardStateNode));
+			nodes.addAll(this.getNextLayerOfAttackBranches(boardStateNode));
+			
+			HearthTreeNode newState = null;
+			for(HearthTreeNode node : nodes) {
+				newState = this.doMoves(node, ai);
+				if(newState != null)
+					boardStateNode.addChild(newState);
+			}
 		}
 
 		if(boardStateNode.isLeaf()) {
