@@ -42,32 +42,6 @@ public class TestBackstab {
 	}
 
 	@Test
-	public void testCannotTargetEnemyHero() throws HSException {
-		Deck deck = null;
-
-		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode res;
-		Minion target = null;
-
-		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
-		res = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
-		assertNull(res);
-	}
-
-	@Test
-	public void testCannotTargetOwnHero() throws HSException {
-		Deck deck = null;
-
-		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode res;
-		Minion target = null;
-
-		target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
-		res = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
-		assertNull(res);
-	}
-
-	@Test
 	public void testTargetOwnMinion() throws HSException {
 		Deck deck = null;
 
