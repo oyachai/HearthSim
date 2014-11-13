@@ -105,7 +105,7 @@ class BoardModelBuilder {
     private mana(Number mana) {
         def model = boardModel.modelForSide(playerSide)
         model.setMana((int) mana)
-        //todo: only do this if maxMana hasn't been set explicitly already
+        //TODO: only do this if maxMana hasn't been set explicitly already
         if (model.getMaxMana() == 0)
             model.setMaxMana((int) mana)
     }
@@ -150,7 +150,7 @@ class BoardModelBuilder {
         minion.hasBeenUsed(hasBeenUsed)
         def numMinions = boardModel.modelForSide(playerSide).numMinions
         // place the minion at the end by default
-        // todo: eventually this will need to be configurable
+        // TODO: eventually this will need to be configurable
         boardModel.placeMinion(playerSide, minion, numMinions)
     }
 

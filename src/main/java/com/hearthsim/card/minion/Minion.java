@@ -89,7 +89,7 @@ public class Minion extends Card {
 			charge_ = implementedCard.charge_;
 			stealthed_ = implementedCard.stealth_;
 			isInHand_ = true;
-			// todo: spellpower could be deduced from text quite easily
+			// TODO: spellpower could be deduced from text quite easily
 		}
 
 	}
@@ -1201,7 +1201,7 @@ public class Minion extends Card {
 		minion.attackAction_ = attackAction_;
 		minion.isInHand_ = isInHand_;
 		minion.hasBeenUsed = hasBeenUsed;
-		// todo: continue here.
+		// TODO: continue here.
 
 		return minion;
 	}

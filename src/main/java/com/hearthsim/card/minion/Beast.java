@@ -4,7 +4,7 @@ import org.json.JSONObject;
 
 
 public class Beast extends Minion {
-    //todo: replace all the race intermediary classes with race attribute on minion
+    //TODO: replace all the race intermediary classes with race attribute on minion
 
     public Beast() {
         super();

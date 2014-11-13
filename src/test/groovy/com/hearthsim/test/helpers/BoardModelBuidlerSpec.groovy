@@ -23,8 +23,8 @@ class BoardModelBuidlerSpec extends HearthBaseSpec {
         expect boardModel.waitingPlayer, notNullValue()
         [CURRENT_PLAYER, WAITING_PLAYER].each { PlayerSide side ->
             def playerModel = boardModel.modelForSide(side)
-            //todo: see if there is an 'isTrue' matcher. better yet one for collections
-            //todo: see if we want to use hamcrest at all...
+            //TODO: see if there is an 'isTrue' matcher. better yet one for collections
+            //TODO: see if we want to use hamcrest at all...
             assert playerModel.hero != null
             assert playerModel.hero.armor == 0
             assert playerModel.hero.weaponCharge == 0

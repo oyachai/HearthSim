@@ -66,7 +66,7 @@ class ReferenceCardRegistry {
                         text: card.text,
                         rarity: card.rarity,
                         mechanics: card.mechanics,
-                        collectible: card.collectible, //todo: let's add some tests for these conditions
+                        collectible: card.collectible, //TODO: let's add some tests for these conditions
                 )
             }
 

@@ -47,7 +47,7 @@ public class BruteForceSearchAI implements ArtificialPlayer {
 
 	protected BruteForceSearchAI() {}
 	
-    //todo: come up with more meaningful names for these different AI 'styles'
+    //TODO: come up with more meaningful names for these different AI 'styles'
     public static BruteForceSearchAI buildStandardAI2() {
         BruteForceSearchAI artificialPlayer = buildStandardAI1();
         artificialPlayer.setTauntWeight(0);

@@ -16,7 +16,7 @@ class ImplementedCardList {
     public ArrayList<ImplementedCard> list_;
     public Map<Class<?>, ImplementedCard> map_;
 
-    //todo: give singleton constructor, then use that in Card constructor
+    //TODO: give singleton constructor, then use that in Card constructor
 
     public synchronized static ImplementedCardList getInstance() {
         if (!instance) {
@@ -80,7 +80,7 @@ class ImplementedCardList {
                     attack_: (cardDefinition.attack == null) ? -1 : cardDefinition.attack, //return -1 if it's 0. only if null.
                     health_: (cardDefinition.health == null) ? -1 : cardDefinition.health,
                     durability: (cardDefinition.durability == null) ? -1 : cardDefinition.durability,
-                    taunt_: cardDefinition.mechanics?.contains('Taunt') ?: false, //todo: extract mechanics as constants
+                    taunt_: cardDefinition.mechanics?.contains('Taunt') ?: false, //TODO: extract mechanics as constants
                     divineShield_: cardDefinition.mechanics?.contains('Divine Shield') ?: false,
                     windfury_: cardDefinition.mechanics?.contains('Windfury') ?: false,
                     charge_: cardDefinition.mechanics?.contains('Charge') ?: false,
@@ -100,7 +100,7 @@ class ImplementedCardList {
         return list_;
     }
 
-    // todo: existing clients need to filter out collectibles
+    // TODO: existing clients need to filter out collectibles
     public ImplementedCard getCardForClass(Class<?> clazz) {
         def card =map_.get(clazz)
         if (!card) {
