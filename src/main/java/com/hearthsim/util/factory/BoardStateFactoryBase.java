@@ -67,8 +67,8 @@ public class BoardStateFactoryBase {
 		timedOut_ = false;
 	}
 
-	private ArrayList<HearthTreeNode> getNextLayerOfHeroAbilityBranches(HearthTreeNode boardStateNode,
-			BruteForceSearchAI ai) throws HSException {
+	private ArrayList<HearthTreeNode> getNextLayerOfHeroAbilityBranches(HearthTreeNode boardStateNode)
+			throws HSException {
 		ArrayList<HearthTreeNode> nodes = new ArrayList<HearthTreeNode>();
 
 		Hero player = boardStateNode.data_.getCurrentPlayerHero();
@@ -112,7 +112,15 @@ public class BoardStateFactoryBase {
 				}
 			}
 		}
-		
+
+		// Don't need to check hasBeenUsed here because we checked it above
+		if(!nodes.isEmpty()) {
+			// Case1: Decided not to use the hero ability
+			newState = new HearthTreeNode((BoardModel)boardStateNode.data_.deepCopy());
+			newState.data_.getCurrentPlayerHero().hasBeenUsed(true);
+			nodes.add(newState);
+		}
+
 		return nodes;
 	}
 
@@ -121,28 +129,18 @@ public class BoardStateFactoryBase {
 		log.trace("creating hero ability branches");
 
 		HearthTreeNode newState = null;
-		if(!boardStateNode.data_.getCurrentPlayerHero().hasBeenUsed()) {
-			ArrayList<HearthTreeNode> nodes = this.getNextLayerOfHeroAbilityBranches(boardStateNode, ai);
-			
-			if(!nodes.isEmpty()) {
-				// Case1: Decided not to use the hero ability
-				newState = new HearthTreeNode((BoardModel)boardStateNode.data_.deepCopy());
-				newState.data_.getCurrentPlayerHero().hasBeenUsed(true);
-				nodes.add(newState);
-			}
+		ArrayList<HearthTreeNode> nodes = this.getNextLayerOfHeroAbilityBranches(boardStateNode);
 
-			for(HearthTreeNode node : nodes) {
-				newState = this.doMoves(node, ai);
-				if(newState != null)
-					boardStateNode.addChild(newState);
-			}
+		for(HearthTreeNode node : nodes) {
+			newState = this.doMoves(node, ai);
+			if(newState != null)
+				boardStateNode.addChild(newState);
 		}
 
 		return boardStateNode;
 	}
 
-	private ArrayList<HearthTreeNode> getNextLayerOfAttackBranches(HearthTreeNode boardStateNode,
-			BruteForceSearchAI ai) throws HSException {
+	private ArrayList<HearthTreeNode> getNextLayerOfAttackBranches(HearthTreeNode boardStateNode) throws HSException {
 		ArrayList<HearthTreeNode> nodes = new ArrayList<HearthTreeNode>();
 
 		ArrayList<Integer> attackable = boardStateNode.data_.getAttackableMinions();
@@ -152,11 +150,12 @@ public class BoardStateFactoryBase {
 		Minion tempMinion = null;
 
 		// attack with characters
-		for(int attackerIndex = 0; attackerIndex < PlayerSide.CURRENT_PLAYER.getPlayer(boardStateNode).getNumCharacters(); ++attackerIndex) {
+		for(int attackerIndex = 0; attackerIndex < PlayerSide.CURRENT_PLAYER.getPlayer(boardStateNode)
+				.getNumCharacters(); ++attackerIndex) {
 			if(!boardStateNode.data_.getCurrentPlayerCharacter(attackerIndex).canAttack()) {
 				continue;
 			}
-			
+
 			for(final Integer integer : attackable) {
 				int targetIndex = integer.intValue();
 				newState = new HearthTreeNode((BoardModel)boardStateNode.data_.deepCopy());
@@ -172,24 +171,9 @@ public class BoardStateFactoryBase {
 				}
 			}
 		}
-		
-		return nodes;
-	}
-	
-	private HearthTreeNode createMinionAttackBranches(HearthTreeNode boardStateNode, BruteForceSearchAI ai)
-			throws HSException {
-		log.trace("creating minion attack branches");
-		// Use the minions that we have out on the board
-		ArrayList<HearthTreeNode> nodes = this.getNextLayerOfAttackBranches(boardStateNode, ai);
-		HearthTreeNode newState = null;
 
-		// the case where I choose to not use any more minions
-		boolean allAttacked = boardStateNode.data_.getCurrentPlayerHero().hasAttacked();
-		for(final Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(boardStateNode).getMinions()) {
-			allAttacked = allAttacked && minion.hasAttacked();
-		}
-
-		if(!allAttacked && PlayerSide.CURRENT_PLAYER.getPlayer(boardStateNode).getNumMinions() > 0) {
+		// If no nodes were created then nothing could attack. If something could attack, we want to explicitly do nothing in its own node.
+		if(!nodes.isEmpty()) {
 			newState = new HearthTreeNode((BoardModel)boardStateNode.data_.deepCopy());
 			for(Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(newState).getMinions()) {
 				minion.hasAttacked(true);
@@ -198,18 +182,27 @@ public class BoardStateFactoryBase {
 			nodes.add(newState);
 		}
 
+		return nodes;
+	}
+
+	private HearthTreeNode createMinionAttackBranches(HearthTreeNode boardStateNode, BruteForceSearchAI ai)
+			throws HSException {
+		log.trace("creating minion attack branches");
+
+		ArrayList<HearthTreeNode> nodes = this.getNextLayerOfAttackBranches(boardStateNode);
+		HearthTreeNode newState = null;
+
 		for(HearthTreeNode node : nodes) {
 			newState = this.doMoves(node, ai);
 			if(newState != null) {
 				boardStateNode.addChild(newState);
 			}
 		}
-				
+
 		return boardStateNode;
 	}
 
-	private ArrayList<HearthTreeNode> getNextLayerOfCardBranches(HearthTreeNode boardStateNode,
-			BruteForceSearchAI ai) throws HSException {
+	protected ArrayList<HearthTreeNode> getNextLayerOfCardBranches(HearthTreeNode boardStateNode) throws HSException {
 		ArrayList<HearthTreeNode> nodes = new ArrayList<HearthTreeNode>();
 
 		Minion targetMinion = null;
@@ -220,34 +213,36 @@ public class BoardStateFactoryBase {
 
 		int mana = boardStateNode.data_.getCurrentPlayer().getMana();
 		for(int cardIndex = 0; cardIndex < boardStateNode.data_.getNumCards_hand(); ++cardIndex) {
-			card = boardStateNode.data_.getCurrentPlayerCardHand(cardIndex); 
+			card = boardStateNode.data_.getCurrentPlayerCardHand(cardIndex);
 			if(card.getManaCost(PlayerSide.CURRENT_PLAYER, boardStateNode) <= mana && !card.hasBeenUsed()) {
 
 				// we can use this card! Let's try using it on everything
-				for(int targetIndex = 0; targetIndex <= PlayerSide.CURRENT_PLAYER.getPlayer(boardStateNode).getNumMinions(); ++targetIndex) {
+				for(int targetIndex = 0; targetIndex <= PlayerSide.CURRENT_PLAYER.getPlayer(boardStateNode)
+						.getNumMinions(); ++targetIndex) {
 					targetMinion = boardStateNode.data_.getCurrentPlayerCharacter(targetIndex);
 
 					if(card.canBeUsedOn(PlayerSide.CURRENT_PLAYER, targetMinion, boardStateNode.data_)) {
 						newState = new HearthTreeNode((BoardModel)boardStateNode.data_.deepCopy());
 						copiedTargetMinion = newState.data_.getCurrentPlayerCharacter(targetIndex);
 						copiedCard = newState.data_.getCurrentPlayerCardHand(cardIndex);
-						newState = copiedCard.useOn(PlayerSide.CURRENT_PLAYER, copiedTargetMinion, newState, deckPlayer0_,
-								deckPlayer1_, false);
+						newState = copiedCard.useOn(PlayerSide.CURRENT_PLAYER, copiedTargetMinion, newState,
+								deckPlayer0_, deckPlayer1_, false);
 						if(newState != null) {
 							nodes.add(newState);
 						}
 					}
 				}
 
-				for(int targetIndex = 0; targetIndex <= PlayerSide.WAITING_PLAYER.getPlayer(boardStateNode).getNumMinions(); ++targetIndex) {
+				for(int targetIndex = 0; targetIndex <= PlayerSide.WAITING_PLAYER.getPlayer(boardStateNode)
+						.getNumMinions(); ++targetIndex) {
 					targetMinion = boardStateNode.data_.getWaitingPlayerCharacter(targetIndex);
 
 					if(card.canBeUsedOn(PlayerSide.WAITING_PLAYER, targetMinion, boardStateNode.data_)) {
 						newState = new HearthTreeNode((BoardModel)boardStateNode.data_.deepCopy());
 						copiedTargetMinion = newState.data_.getWaitingPlayerCharacter(targetIndex);
 						copiedCard = newState.data_.getCurrentPlayerCardHand(cardIndex);
-						newState = copiedCard.useOn(PlayerSide.WAITING_PLAYER, copiedTargetMinion, newState, deckPlayer0_,
-								deckPlayer1_, false);
+						newState = copiedCard.useOn(PlayerSide.WAITING_PLAYER, copiedTargetMinion, newState,
+								deckPlayer0_, deckPlayer1_, false);
 						if(newState != null) {
 							nodes.add(newState);
 						}
@@ -255,29 +250,24 @@ public class BoardStateFactoryBase {
 				}
 			}
 		}
-		return nodes;
-	}
 
-	protected HearthTreeNode createCardUseBranches(HearthTreeNode boardStateNode, BruteForceSearchAI ai)
-			throws HSException {
-		log.trace("creating card use branches");
-
-		ArrayList<HearthTreeNode> nodes = this.getNextLayerOfCardBranches(boardStateNode, ai);
-
-		// check to see if all the cards have been used already (we want to pre-check this since deepCopy is expensive)
-		boolean allUsed = true;
-		for(final Card card : boardStateNode.data_.getCurrentPlayerHand()) {
-			allUsed = allUsed && card.hasBeenUsed();
-		}
-
-		// the case where I chose not to use any more cards
-		if(!allUsed) {
-			HearthTreeNode newState = new HearthTreeNode((BoardModel)boardStateNode.data_.deepCopy());
-			for(Card card : newState.data_.getCurrentPlayerHand()) {
-				card.hasBeenUsed(true);
+		// If no nodes were created then nothing could be played. If something could be played, we want to explicitly do nothing in its own node.
+		if(!nodes.isEmpty()) {
+			newState = new HearthTreeNode((BoardModel)boardStateNode.data_.deepCopy());
+			for(Card c : newState.data_.getCurrentPlayerHand()) {
+				c.hasBeenUsed(true);
 			}
 			nodes.add(newState);
 		}
+
+		return nodes;
+	}
+
+	private HearthTreeNode createCardUseBranches(HearthTreeNode boardStateNode, BruteForceSearchAI ai)
+			throws HSException {
+		log.trace("creating card use branches");
+
+		ArrayList<HearthTreeNode> nodes = this.getNextLayerOfCardBranches(boardStateNode);
 
 		HearthTreeNode newState = null;
 		for(HearthTreeNode node : nodes) {

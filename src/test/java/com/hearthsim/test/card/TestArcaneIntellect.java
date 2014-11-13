@@ -161,7 +161,7 @@ public class TestArcaneIntellect {
 	}
 
 	@Test
-	public void test3() throws HSException {
+	public void testCanPlayDrawnCard() throws HSException {
 
 		int numCards = 10;
 		Card cards[] = new Card[numCards];

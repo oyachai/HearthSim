@@ -165,9 +165,8 @@ public class TestColdlightOracle {
         List<HearthActionBoardPair> ab = ai0.playTurn(0, board.data_, 200000000);
 		BoardModel resBoard = ab.get(ab.size() - 1).board;
 		
-		assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 2); //1 card drawn from Loot Horder attacking and dying, no mana left to play the card
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getNumMinions(), 3);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(resBoard).getNumMinions(), 2); //1 minion should have been killed
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(resBoard).getNumMinions(), 2);
 		assertEquals(resBoard.getCurrentPlayer().getMana(), 0);
 		assertEquals(resBoard.getWaitingPlayer().getMana(), 3);
 		assertEquals(resBoard.getCurrentPlayerHero().getHealth(), 30);

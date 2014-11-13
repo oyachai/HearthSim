@@ -1,5 +1,7 @@
 package com.hearthsim.test.card;
 
+import java.util.List;
+
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
@@ -8,7 +10,10 @@ import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
+import com.hearthsim.player.playercontroller.BruteForceSearchAI;
+import com.hearthsim.util.HearthActionBoardPair;
 import com.hearthsim.util.tree.HearthTreeNode;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -104,5 +109,31 @@ public class TestInnervate {
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), health1 - 1);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), health1 - 1);
+	}
+
+	@Test
+	public void testAiDoesNotPlayWithoutReason() throws HSException {
+		
+		board.data_.getCurrentPlayer().setMana((byte)3);
+		board.data_.getWaitingPlayer().setMana((byte)3);
+		
+		board.data_.getCurrentPlayer().setMaxMana((byte)3);
+		board.data_.getWaitingPlayer().setMaxMana((byte)3);
+
+		board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1).hasAttacked(true);
+		board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 2).hasAttacked(true);
+
+        BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
+        List<HearthActionBoardPair> ab = ai0.playTurn(0, board.data_, 200000000);
+		BoardModel resBoard = ab.get(ab.size() - 1).board;
+		
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getNumMinions(), 2);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(resBoard).getNumMinions(), 2);
+		assertEquals(resBoard.getCurrentPlayer().getMana(), 3);
+		assertEquals(resBoard.getWaitingPlayer().getMana(), 3);
+		assertEquals(resBoard.getCurrentPlayerHero().getHealth(), 30);
+		assertEquals(resBoard.getWaitingPlayerHero().getHealth(), 30);
+		assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 1);
+		assertEquals(resBoard.getNumCardsHandWaitingPlayer(), 0);
 	}
 }

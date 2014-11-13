@@ -149,7 +149,7 @@ public class BruteForceSearchAI implements ArtificialPlayer {
 	 * @return
 	 */
 	public double cardInHandScore(Card card) {
-		double theScore = 0.0;
+		double theScore = 0.001; // need non-zero so the AI values TheCoin and Innervate
 		if (card instanceof SpellDamage) {
 			theScore += ((SpellDamage)card).getAttack() * spellDamageMultiplierWeight + spellDamageAddWeight;
 		} else if (card instanceof Minion) {
