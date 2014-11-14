@@ -67,7 +67,7 @@ public class BoardStateFactoryBase {
 		timedOut_ = false;
 	}
 
-	private ArrayList<HearthTreeNode> getNextLayerOfHeroAbilityBranches(HearthTreeNode boardStateNode)
+	public ArrayList<HearthTreeNode> getNextLayerOfHeroAbilityBranches(HearthTreeNode boardStateNode)
 			throws HSException {
 		ArrayList<HearthTreeNode> nodes = new ArrayList<HearthTreeNode>();
 
@@ -124,7 +124,7 @@ public class BoardStateFactoryBase {
 		return nodes;
 	}
 
-	private ArrayList<HearthTreeNode> getNextLayerOfAttackBranches(HearthTreeNode boardStateNode) throws HSException {
+	public ArrayList<HearthTreeNode> getNextLayerOfAttackBranches(HearthTreeNode boardStateNode) throws HSException {
 		ArrayList<HearthTreeNode> nodes = new ArrayList<HearthTreeNode>();
 
 		ArrayList<Integer> attackable = boardStateNode.data_.getAttackableMinions();
@@ -169,7 +169,7 @@ public class BoardStateFactoryBase {
 		return nodes;
 	}
 
-	protected ArrayList<HearthTreeNode> getNextLayerOfCardBranches(HearthTreeNode boardStateNode) throws HSException {
+	public ArrayList<HearthTreeNode> getNextLayerOfCardBranches(HearthTreeNode boardStateNode) throws HSException {
 		ArrayList<HearthTreeNode> nodes = new ArrayList<HearthTreeNode>();
 
 		Minion targetMinion = null;

@@ -107,7 +107,7 @@ public class TestMage {
 		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0); // Self
 		Hero mage = board.data_.getCurrentPlayerHero();
 
-		HearthTreeNode ret = mage.useHeroAbility(PlayerSide.WAITING_PLAYER, target, board, deck, null);
+		HearthTreeNode ret = mage.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
 		assertEquals(board, ret);
 
 		assertEquals(board.data_.getCurrentPlayer().getMana(), 6);
