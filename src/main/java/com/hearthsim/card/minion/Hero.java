@@ -161,6 +161,9 @@ public abstract class Hero extends Minion {
 		if(this.hasBeenUsed())
 			return null;
 
+		if(!targetMinion.isHeroTargetable())
+			return null;
+
 		HearthTreeNode toRet = this.useHeroAbility_core(targetPlayerSide, targetMinion, boardState, deckPlayer0,
 				deckPlayer1, singleRealizationOnly);
 		if(toRet != null) {

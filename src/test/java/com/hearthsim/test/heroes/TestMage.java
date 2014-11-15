@@ -1,6 +1,8 @@
 package com.hearthsim.test.heroes;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -11,6 +13,7 @@ import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.BoulderfistOgre;
 import com.hearthsim.card.minion.concrete.ChillwindYeti;
+import com.hearthsim.card.minion.concrete.FaerieDragon;
 import com.hearthsim.card.minion.heroes.Mage;
 import com.hearthsim.card.minion.heroes.TestHero;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
@@ -106,7 +109,7 @@ public class TestMage {
 	public void testHeropowerAgainstSelf() throws HSException {
 		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0); // Self
 		Hero mage = board.data_.getCurrentPlayerHero();
-
+		
 		HearthTreeNode ret = mage.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
 		assertEquals(board, ret);
 
@@ -130,6 +133,21 @@ public class TestMage {
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), 7);
 	}
 
+	@Test
+	public void testHeropowerAgainstFaerieMinion() throws HSException {
+		board.data_.placeMinion(PlayerSide.WAITING_PLAYER, new FaerieDragon());
+
+		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 3); // Faerie
+		Hero mage = board.data_.getCurrentPlayerHero();
+
+		assertFalse(mage.canBeUsedOn(PlayerSide.WAITING_PLAYER, target, board.data_));
+		HearthTreeNode ret = mage.useHeroAbility(PlayerSide.WAITING_PLAYER, target, board, deck, null);
+		assertNull(ret);
+
+		assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(2).getHealth(), 2);
+	}
+	
 	@Test
 	public void testHeropowerKillsMinion() throws HSException {
 		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1); // Yeti

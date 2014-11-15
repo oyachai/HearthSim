@@ -9,6 +9,7 @@ import org.junit.Test;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.BloodfenRaptor;
+import com.hearthsim.card.minion.concrete.FaerieDragon;
 import com.hearthsim.card.minion.concrete.RiverCrocolisk;
 import com.hearthsim.card.spellcard.concrete.HolySmite;
 import com.hearthsim.card.spellcard.concrete.RockbiterWeapon;
@@ -104,6 +105,26 @@ public class TestSpellCard {
 		board.data_.placeCardHandCurrentPlayer(new RockbiterWeapon());
 
 		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
+		Card theCard = board.data_.getCurrentPlayerCardHand(0);
+		assertFalse(theCard.canBeUsedOn(PlayerSide.WAITING_PLAYER, target, board.data_));
+	}
+
+	@Test
+	public void testTargetStealthedMinion() throws HSException {
+		board.data_.placeCardHandCurrentPlayer(new HolySmite());
+
+		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
+		target.setStealthed(true);
+		Card theCard = board.data_.getCurrentPlayerCardHand(0);
+		assertFalse(theCard.canBeUsedOn(PlayerSide.WAITING_PLAYER, target, board.data_));
+	}
+
+	@Test
+	public void testTargetFaerieMinion() throws HSException {
+		board.data_.placeCardHandCurrentPlayer(new HolySmite());
+		board.data_.placeMinion(PlayerSide.WAITING_PLAYER, new FaerieDragon());
+
+		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
 		assertFalse(theCard.canBeUsedOn(PlayerSide.WAITING_PLAYER, target, board.data_));
 	}
