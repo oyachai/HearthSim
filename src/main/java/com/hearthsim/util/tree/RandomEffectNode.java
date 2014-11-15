@@ -1,11 +1,10 @@
 package com.hearthsim.util.tree;
 
+import java.util.ArrayList;
+
 import com.hearthsim.card.Deck;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.player.playercontroller.BruteForceSearchAI;
 import com.hearthsim.util.HearthAction;
-
-import java.util.ArrayList;
 
 /**
  * Random effect node
@@ -51,7 +50,7 @@ public class RandomEffectNode extends StopNode {
 		return 1.e-2 * data_.getCurrentPlayer().getMana();
 	}
 	
-	public double weightedAverageScore(Deck deck, BruteForceSearchAI ai) {
+	public double weightedAverageScore() {
 		double toRet = 0.0;
 		for (int index = 0; index < children_.size(); ++index) {
 			toRet += childWeighting_.get(index).doubleValue() * children_.get(index).getScore();
@@ -61,7 +60,7 @@ public class RandomEffectNode extends StopNode {
 		return toRet;
 	}
 
-	public double weightedBestAverageScore(Deck deck, BruteForceSearchAI ai) {
+	public double weightedAverageBestChildScore() {
 		double toRet = 0.0;
 		for (int index = 0; index < children_.size(); ++index) {
 			toRet += childWeighting_.get(index).doubleValue() * children_.get(index).getBestChildScore();
