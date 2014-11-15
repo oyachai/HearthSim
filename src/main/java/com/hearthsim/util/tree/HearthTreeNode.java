@@ -113,6 +113,12 @@ public class HearthTreeNode {
 		return node;
 	}
 	
+	public void addChildren(ArrayList<HearthTreeNode> nodes) {
+		for(HearthTreeNode node : nodes) {
+			this.addChild(node);
+		}
+	}
+
 	public void clearChildren() {
 		if (children_ != null)
 			children_.clear();

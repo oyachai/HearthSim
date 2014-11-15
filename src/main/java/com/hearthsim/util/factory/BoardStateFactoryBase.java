@@ -1,5 +1,7 @@
 package com.hearthsim.util.factory;
 
+import java.util.ArrayList;
+
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
@@ -13,9 +15,6 @@ import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 import com.hearthsim.util.tree.RandomEffectNode;
 import com.hearthsim.util.tree.StopNode;
-
-import java.util.ArrayList;
-import java.util.Iterator;
 
 public class BoardStateFactoryBase {
 
@@ -67,8 +66,7 @@ public class BoardStateFactoryBase {
 		timedOut_ = false;
 	}
 
-	public ArrayList<HearthTreeNode> getNextLayerOfHeroAbilityBranches(HearthTreeNode boardStateNode)
-			throws HSException {
+	public ArrayList<HearthTreeNode> createHeroAbilityChildren(HearthTreeNode boardStateNode) throws HSException {
 		ArrayList<HearthTreeNode> nodes = new ArrayList<HearthTreeNode>();
 
 		Hero player = boardStateNode.data_.getCurrentPlayerHero();
@@ -124,7 +122,7 @@ public class BoardStateFactoryBase {
 		return nodes;
 	}
 
-	public ArrayList<HearthTreeNode> getNextLayerOfAttackBranches(HearthTreeNode boardStateNode) throws HSException {
+	public ArrayList<HearthTreeNode> createAttackChildren(HearthTreeNode boardStateNode) throws HSException {
 		ArrayList<HearthTreeNode> nodes = new ArrayList<HearthTreeNode>();
 
 		ArrayList<Integer> attackable = boardStateNode.data_.getAttackableMinions();
@@ -169,7 +167,7 @@ public class BoardStateFactoryBase {
 		return nodes;
 	}
 
-	public ArrayList<HearthTreeNode> getNextLayerOfCardBranches(HearthTreeNode boardStateNode) throws HSException {
+	public ArrayList<HearthTreeNode> createPlayCardChildren(HearthTreeNode boardStateNode) throws HSException {
 		ArrayList<HearthTreeNode> nodes = new ArrayList<HearthTreeNode>();
 
 		Minion targetMinion = null;
@@ -230,6 +228,14 @@ public class BoardStateFactoryBase {
 		return nodes;
 	}
 
+	public ArrayList<HearthTreeNode> createChildren(HearthTreeNode boardStateNode) throws HSException {
+		ArrayList<HearthTreeNode> nodes = new ArrayList<HearthTreeNode>();
+		nodes.addAll(this.createHeroAbilityChildren(boardStateNode));
+		nodes.addAll(this.createPlayCardChildren(boardStateNode));
+		nodes.addAll(this.createAttackChildren(boardStateNode));
+		return nodes;
+	}
+
 	/**
 	 * Recursively generate all possible moves
 	 * This function recursively generates all possible moves that can be done starting from a given BoardState.
@@ -241,7 +247,7 @@ public class BoardStateFactoryBase {
 	 * @param scoreFunc The scoring function for AI.
 	 * @return boardStateNode manipulated such that all subsequent actions are children of the original boardStateNode input.
 	 */
-	public HearthTreeNode doMoves(HearthTreeNode boardStateNode, BruteForceSearchAI ai) throws HSException {
+	public HearthTreeNode depthFirstSearch(HearthTreeNode boardStateNode, BruteForceSearchAI ai) throws HSException {
 		log.trace("recursively performing moves");
 
 		if(lethal_) {
@@ -250,35 +256,15 @@ public class BoardStateFactoryBase {
 			return null;
 		}
 
+		if(System.currentTimeMillis() - startTime_ > maxTime_) {
+			log.debug("setting think time over");
+			timedOut_ = true;
+		}
+
 		if(timedOut_) {
 			log.debug("think time is already over");
 			// Time's up! no more thinking...
 			return null;
-		}
-
-		if(System.currentTimeMillis() - startTime_ > maxTime_) {
-			log.debug("setting think time over");
-			timedOut_ = true;
-			return null;
-		}
-
-		boardStateNode.setScore(ai.boardScore(boardStateNode.data_));
-
-		if(boardStateNode.numChildren() > 0) {
-			// If this node already has children, just call doMoves on each of its children.
-			// This situation can happen, for example, after a battle cry
-			for(HearthTreeNode child : boardStateNode.getChildren()) {
-				this.doMoves(child, ai);
-			}
-
-			// TODO this is kind of a hack so we don't have to calculate it later.
-			if(boardStateNode instanceof RandomEffectNode) {
-				double boardScore = ((RandomEffectNode)boardStateNode).weightedBestAverageScore(deckPlayer0_, ai);
-				boardStateNode.setScore(boardScore);
-				boardStateNode.setBestChildScore(boardScore);
-			}
-			
-			return boardStateNode;
 		}
 
 		boolean lethalFound = false;
@@ -287,19 +273,12 @@ public class BoardStateFactoryBase {
 			lethalFound = true;
 		}
 
-		if(!lethalFound) {
+		boardStateNode.setScore(ai.boardScore(boardStateNode.data_));
 
-			ArrayList<HearthTreeNode> nodes = new ArrayList<HearthTreeNode>();
-			nodes.addAll(this.getNextLayerOfHeroAbilityBranches(boardStateNode));
-			nodes.addAll(this.getNextLayerOfCardBranches(boardStateNode));
-			nodes.addAll(this.getNextLayerOfAttackBranches(boardStateNode));
-
-			HearthTreeNode newState = null;
-			for(HearthTreeNode node : nodes) {
-				newState = this.doMoves(node, ai);
-				if(newState != null)
-					boardStateNode.addChild(newState);
-			}
+		// We can end up with children at this state, for example, after a battle cry. If we don't have children yet, create them.
+		if(!lethalFound && boardStateNode.numChildren() <= 0) {
+			ArrayList<HearthTreeNode> nodes = this.createChildren(boardStateNode);
+			boardStateNode.addChildren(nodes);
 		}
 
 		if(boardStateNode.isLeaf()) {
@@ -307,25 +286,32 @@ public class BoardStateFactoryBase {
 			boardStateNode.setBestChildScore(boardStateNode.getScore());
 			boardStateNode.setNumNodesTries(1);
 		} else {
+			if(boardStateNode instanceof RandomEffectNode) {
+				// Set best child score according to the random effect score. This works here since this effect "bubbles up" the tree.
+				double boardScore = ((RandomEffectNode)boardStateNode).weightedBestAverageScore(deckPlayer0_, ai);
+				boardStateNode.setScore(boardScore);
+				boardStateNode.setBestChildScore(boardScore);
+			}
+
 			// If it is not a leaf, set the score as the maximum score of its children.
 			// We can also throw out any children that don't have the highest score (boy, this sounds so wrong...)
 			double tmpScore;
 			double bestScore = 0;
 			int tmpNumNodesTried = 0;
-			Iterator<HearthTreeNode> iter = boardStateNode.getChildren().iterator();
 			HearthTreeNode bestBranch = null;
 
-			while(iter.hasNext()) {
-				HearthTreeNode child = iter.next();
-				tmpNumNodesTried += child.getNumNodesTried();
+			for(HearthTreeNode child : boardStateNode.getChildren()) {
+				this.depthFirstSearch(child, ai); // Don't need to check lethal because lethal states shouldn't get children. Even if they do, doMoves resolves the issue.
 
+				tmpNumNodesTried += child.getNumNodesTried();
 				tmpScore = child.getBestChildScore();
 
 				// We need to add the card score after child scoring because CardDrawNode children
 				// do not inherit the value of drawn cards
 				// TODO Children of CardDrawNodes should be able to track this on their own. Doing
 				// it this way "breaks" the best score chain and makes it harder to isolate and test
-				// scoring.
+				// scoring. It effectively "bubbles down" the tree but it isn't sent through when
+				// creating children.
 				if(child instanceof CardDrawNode) {
 					tmpScore += ((CardDrawNode)child).cardDrawScore(deckPlayer0_, ai);
 				}

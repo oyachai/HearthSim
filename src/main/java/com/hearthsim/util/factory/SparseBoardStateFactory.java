@@ -35,7 +35,7 @@ public class SparseBoardStateFactory extends BoardStateFactoryBase {
 	}
 
 	@Override
-	public ArrayList<HearthTreeNode> getNextLayerOfCardBranches(HearthTreeNode boardStateNode) throws HSException {
+	public ArrayList<HearthTreeNode> createPlayCardChildren(HearthTreeNode boardStateNode) throws HSException {
 		ArrayList<HearthTreeNode> nodes = new ArrayList<HearthTreeNode>();
 
 		Minion targetMinion = null;

@@ -17,7 +17,6 @@ import com.hearthsim.card.minion.concrete.Boar;
 import com.hearthsim.card.minion.concrete.RiverCrocolisk;
 import com.hearthsim.card.minion.heroes.Mage;
 import com.hearthsim.card.minion.heroes.TestHero;
-import com.hearthsim.card.spellcard.concrete.Claw;
 import com.hearthsim.card.spellcard.concrete.HolySmite;
 import com.hearthsim.card.spellcard.concrete.ShadowBolt;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
@@ -63,7 +62,7 @@ public class TestBoardStateFactoryBase {
 		BoardStateFactoryBase factory = new BoardStateFactoryBase(this.deck0, this.deck1);
 		HearthTreeNode root = new HearthTreeNode(startingBoard);
 
-		ArrayList<HearthTreeNode> actuals = factory.getNextLayerOfCardBranches(root);
+		ArrayList<HearthTreeNode> actuals = factory.createPlayCardChildren(root);
 		assertEquals(2, actuals.size());
 		assertNodeListContainsBoardModel(actuals, expectedBoard);
 	}
@@ -78,7 +77,7 @@ public class TestBoardStateFactoryBase {
 
 		BoardStateFactoryBase factory = new BoardStateFactoryBase(this.deck0, this.deck1);
 		HearthTreeNode root = new HearthTreeNode(startingBoard);
-		ArrayList<HearthTreeNode> actuals = factory.getNextLayerOfCardBranches(root);
+		ArrayList<HearthTreeNode> actuals = factory.createPlayCardChildren(root);
 		assertEquals(3, actuals.size());
 
 		BoardModel expectedBoard = new BoardModel();
@@ -115,7 +114,7 @@ public class TestBoardStateFactoryBase {
 		BoardStateFactoryBase factory = new BoardStateFactoryBase(this.deck0, this.deck1);
 		HearthTreeNode root = new HearthTreeNode(startingBoard);
 
-		ArrayList<HearthTreeNode> actuals = factory.getNextLayerOfCardBranches(root);
+		ArrayList<HearthTreeNode> actuals = factory.createPlayCardChildren(root);
 		assertEquals(0, actuals.size());
 	}
 
@@ -131,7 +130,7 @@ public class TestBoardStateFactoryBase {
 
 		BoardStateFactoryBase factory = new BoardStateFactoryBase(this.deck0, this.deck1);
 		HearthTreeNode root = new HearthTreeNode(startingBoard);
-		ArrayList<HearthTreeNode> actuals = factory.getNextLayerOfCardBranches(root);
+		ArrayList<HearthTreeNode> actuals = factory.createPlayCardChildren(root);
 		assertEquals(3, actuals.size());
 
 		BoardModel expectedBoardA = new BoardModel();
@@ -163,7 +162,7 @@ public class TestBoardStateFactoryBase {
 
 		BoardStateFactoryBase factory = new BoardStateFactoryBase(this.deck0, this.deck1);
 		HearthTreeNode root = new HearthTreeNode(startingBoard);
-		ArrayList<HearthTreeNode> actuals = factory.getNextLayerOfCardBranches(root);
+		ArrayList<HearthTreeNode> actuals = factory.createPlayCardChildren(root);
 		assertEquals(3, actuals.size());
 
 		BoardModel expectedBoardA = new BoardModel();
@@ -191,7 +190,7 @@ public class TestBoardStateFactoryBase {
 
 		BoardStateFactoryBase factory = new BoardStateFactoryBase(this.deck0, this.deck1);
 		HearthTreeNode root = new HearthTreeNode(startingBoard);
-		ArrayList<HearthTreeNode> actuals = factory.getNextLayerOfCardBranches(root);
+		ArrayList<HearthTreeNode> actuals = factory.createPlayCardChildren(root);
 		assertEquals(3, actuals.size());
 
 		BoardModel expectedBoardA = new BoardModel();
@@ -215,7 +214,7 @@ public class TestBoardStateFactoryBase {
 
 		BoardStateFactoryBase factory = new BoardStateFactoryBase(this.deck0, this.deck1);
 		HearthTreeNode root = new HearthTreeNode(startingBoard);
-		ArrayList<HearthTreeNode> actuals = factory.getNextLayerOfHeroAbilityBranches(root);
+		ArrayList<HearthTreeNode> actuals = factory.createHeroAbilityChildren(root);
 		assertEquals(3, actuals.size());
 
 		BoardModel expectedBoardA = new BoardModel(new Mage(), new TestHero());
@@ -242,7 +241,7 @@ public class TestBoardStateFactoryBase {
 
 		BoardStateFactoryBase factory = new BoardStateFactoryBase(this.deck0, this.deck1);
 		HearthTreeNode root = new HearthTreeNode(startingBoard);
-		ArrayList<HearthTreeNode> actuals = factory.getNextLayerOfHeroAbilityBranches(root);
+		ArrayList<HearthTreeNode> actuals = factory.createHeroAbilityChildren(root);
 		assertEquals(5, actuals.size());
 
 		BoardModel expectedBoardA = new BoardModel(new Mage(), new TestHero());
@@ -269,7 +268,7 @@ public class TestBoardStateFactoryBase {
 
 		BoardStateFactoryBase factory = new BoardStateFactoryBase(this.deck0, this.deck1);
 		HearthTreeNode root = new HearthTreeNode(startingBoard);
-		ArrayList<HearthTreeNode> actuals = factory.getNextLayerOfAttackBranches(root);
+		ArrayList<HearthTreeNode> actuals = factory.createAttackChildren(root);
 		assertEquals(4, actuals.size());
 
 		// Killed Boar
@@ -307,7 +306,7 @@ public class TestBoardStateFactoryBase {
 
 		BoardStateFactoryBase factory = new BoardStateFactoryBase(this.deck0, this.deck1);
 		HearthTreeNode root = new HearthTreeNode(startingBoard);
-		ArrayList<HearthTreeNode> actuals = factory.getNextLayerOfAttackBranches(root);
+		ArrayList<HearthTreeNode> actuals = factory.createAttackChildren(root);
 		assertEquals(4, actuals.size());
 
 		// Killed Boar

@@ -93,7 +93,7 @@ public class TestPriest {
 		HearthTreeNode tree = new HearthTreeNode(board.data_);
 		BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
 		try {
-			tree = factory.doMoves(tree, ai0);
+			tree = factory.depthFirstSearch(tree, ai0);
 		} catch (HSException e) {
 			e.printStackTrace();
 			assertTrue(false);
@@ -139,7 +139,7 @@ public class TestPriest {
 		HearthTreeNode tree = new HearthTreeNode(board.data_);
 		BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
 		try {
-			tree = factory.doMoves(tree, ai0);
+			tree = factory.depthFirstSearch(tree, ai0);
 		} catch (HSException e) {
 			e.printStackTrace();
 			assertTrue(false);
