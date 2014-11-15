@@ -273,7 +273,14 @@ public class BoardStateFactoryBase {
 			lethalFound = true;
 		}
 
-		boardStateNode.setScore(ai.boardScore(boardStateNode.data_));
+		if(boardStateNode instanceof RandomEffectNode) {
+			// Set best child score according to the random effect score. This works here since this effect "bubbles up" the tree.
+			double boardScore = ((RandomEffectNode)boardStateNode).weightedAverageBestChildScore();
+			boardStateNode.setScore(boardScore);
+			boardStateNode.setBestChildScore(boardScore);
+		} else {
+			boardStateNode.setScore(ai.boardScore(boardStateNode.data_));
+		}
 
 		// We can end up with children at this state, for example, after a battle cry. If we don't have children yet, create them.
 		if(!lethalFound && boardStateNode.numChildren() <= 0) {
@@ -286,13 +293,6 @@ public class BoardStateFactoryBase {
 			boardStateNode.setBestChildScore(boardStateNode.getScore());
 			boardStateNode.setNumNodesTries(1);
 		} else {
-			if(boardStateNode instanceof RandomEffectNode) {
-				// Set best child score according to the random effect score. This works here since this effect "bubbles up" the tree.
-				double boardScore = ((RandomEffectNode)boardStateNode).weightedBestAverageScore(deckPlayer0_, ai);
-				boardStateNode.setScore(boardScore);
-				boardStateNode.setBestChildScore(boardScore);
-			}
-
 			// If it is not a leaf, set the score as the maximum score of its children.
 			// We can also throw out any children that don't have the highest score (boy, this sounds so wrong...)
 			double tmpScore;
