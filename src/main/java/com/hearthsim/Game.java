@@ -143,7 +143,7 @@ public class Game {
     }
 
     
-    public BoardModel beginTurn(int turn, BoardModel board) throws HSException {
+    public static BoardModel beginTurn(int turn, BoardModel board) throws HSException {
 
     	HearthTreeNode toRet = new HearthTreeNode(board);
         
@@ -188,7 +188,7 @@ public class Game {
         return ai.playTurn(turn, board);
     }
 
-    public BoardModel endTurn(BoardModel board) throws HSException {
+    public static BoardModel endTurn(BoardModel board) throws HSException {
     	Deck deckPlayer0 = board.getCurrentPlayer().getDeck();
     	Deck deckPlayer1 = board.getWaitingPlayer().getDeck();
     	

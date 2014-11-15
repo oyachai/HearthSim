@@ -152,6 +152,10 @@
         "class": "com.hearthsim.card.spellcard.concrete.BlessingOfMight"
     },
     {
+        "name": "Blood Imp",
+        "class": "com.hearthsim.card.minion.concrete.BloodImp"
+    },
+    {
         "name": "Blood Knight",
         "class": "com.hearthsim.card.minion.concrete.BloodKnight"
     },
