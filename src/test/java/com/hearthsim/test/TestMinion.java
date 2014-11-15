@@ -23,6 +23,20 @@ public class TestMinion {
 	}
 
 	@Test
+	public void testEqualsDeepCopySpellpower() {
+		Minion minion0 = new Minion("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
+		minion0.setSpellDamage((byte)3);
+
+		Minion copy = (Minion)minion0.deepCopy();
+		assertEquals(minion0, copy);
+		assertEquals(copy, minion0);
+		assertEquals(minion0.hashCode(), copy.hashCode());
+
+		copy.setSpellDamage((byte)10);
+		assertNotEquals(minion0, copy);
+	}
+
+	@Test
 	public void testEquals() {
 		Minion minion0 = new Minion("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
 		Minion minion1 = new Minion("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
