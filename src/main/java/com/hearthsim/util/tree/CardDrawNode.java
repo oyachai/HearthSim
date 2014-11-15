@@ -72,10 +72,12 @@ public class CardDrawNode extends StopNode {
 		}
 		//find the average card score of the remaining cards
 		double averageCardScore = 0.0;
-		for (int indx = data_.getCurrentPlayer().getDeckPos(); indx < numCardsInDeck; ++indx) {
-			averageCardScore += ai.cardInHandScore(deck.drawCard(indx));
+		if(numCardsRemaining > 0) {
+			for (int indx = data_.getCurrentPlayer().getDeckPos(); indx < numCardsInDeck; ++indx) {
+				averageCardScore += ai.cardInHandScore(deck.drawCard(indx));
+			}
+			averageCardScore = averageCardScore / numCardsRemaining;
 		}
-		averageCardScore = numCardsRemaining <= 0 ? 0.0 : averageCardScore / numCardsRemaining;
 		
 		double toRet = averageCardScore * numCardsToActuallyDraw;
 		int heroHealth = data_.getCurrentPlayerHero().getHealth();
