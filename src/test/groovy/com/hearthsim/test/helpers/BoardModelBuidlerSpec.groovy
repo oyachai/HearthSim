@@ -30,7 +30,7 @@ class BoardModelBuidlerSpec extends HearthBaseSpec {
             assert playerModel.hero.weaponCharge == 0
             assert playerModel.hero.health == 30
 
-            assert playerModel.deck == null
+            assert playerModel.deck.getNumCards() == 0
             assert playerModel.hand.isEmpty()
             assert playerModel.minions.isEmpty()
             assert playerModel.overload == 0

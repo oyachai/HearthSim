@@ -77,12 +77,12 @@ public class BoardModel implements DeepCopyable {
     }
 
     public BoardModel() {
-    	this(new PlayerModel(0, "player0", new TestHero("hero0", (byte)30), null),
-    		 new PlayerModel(1, "player1", new TestHero("hero1", (byte)30), null));
+    	this(new PlayerModel(0, "player0", new TestHero("hero0", (byte)30), new Deck()),
+    		 new PlayerModel(1, "player1", new TestHero("hero1", (byte)30), new Deck()));
     }
     
     public BoardModel(Hero p0_hero, Hero p1_hero) {
-    	this(new PlayerModel(0, "p0",p0_hero,null), new PlayerModel(1, "p1",p1_hero,null));
+    	this(new PlayerModel(0, "p0",p0_hero,new Deck()), new PlayerModel(1, "p1",p1_hero,new Deck()));
     }
     
     public BoardModel(PlayerModel currentPlayerModel, PlayerModel waitingPlayerModel) {
@@ -267,6 +267,10 @@ public class BoardModel implements DeepCopyable {
 
     public int getNumCardsHandWaitingPlayer() {
         return waitingPlayer.getHand().size();
+    }
+
+    public void placeCardDeck(PlayerSide side, Card card){
+        modelForSide(side).placeCardDeck(card);
     }
 
     public Hero getHero(PlayerSide playerSide) throws HSInvalidPlayerIndexException {

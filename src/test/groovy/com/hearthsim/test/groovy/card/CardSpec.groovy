@@ -24,6 +24,8 @@ class CardSpec extends Specification {
     void assertBoardEquals(BoardModel oldBoard, BoardModel newBoard) {
         assertPlayerEquals(oldBoard.currentPlayer, newBoard.currentPlayer)
         assertPlayerEquals(oldBoard.waitingPlayer, newBoard.waitingPlayer)
+		assert oldBoard.p0_deckPos_ == newBoard.p0_deckPos_
+		assert oldBoard.p1_deckPos_ == newBoard.p1_deckPos_
         assert oldBoard == newBoard //for now, a catch all at the end
     }
 

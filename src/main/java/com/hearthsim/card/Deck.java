@@ -6,14 +6,25 @@ import com.hearthsim.util.DeepCopyable;
 
 public class Deck implements DeepCopyable {
 
-	Card[] cards_;
+	ArrayList<Card> cards;
+	
+	
+	/**
+	 * Constructor
+	 */
+	public Deck() {
+		this.cards = new ArrayList<Card>();
+	}
 	
 	/**
 	 * Constructor
 	 * @param cards An array of cards from which to make the deck
 	 */
 	public Deck(Card[] cards) {
-		cards_ = cards;
+		this.cards = new ArrayList<Card>();
+		for (Card c : cards) {
+			this.cards.add(c);
+		}
 	}
 
 	/**
@@ -21,19 +32,18 @@ public class Deck implements DeepCopyable {
 	 * @param cards An list of cards from which to make the deck
 	 */
 	public Deck(ArrayList<Card> cards) {
-		cards_ = new Card[cards.size()];
-		cards.toArray(cards_);
+		this.cards = cards;
 	}
 
 	/**
 	 * Shuffles the deck
 	 */
 	public void shuffle() {
-		for(int i = cards_.length - 1; i > 0; --i) {
+		for(int i = cards.size() - 1; i > 0; --i) {
 			int j = (int)(Math.random() * (i + 1));
-			Card ci = cards_[i];
-			cards_[i] = cards_[j];
-			cards_[j] = ci;
+			Card ci = cards.get(i);
+			cards.set(i, cards.get(j));
+			cards.set(j, ci);
 		}
 	}
 	
@@ -44,9 +54,9 @@ public class Deck implements DeepCopyable {
 	 * @return
 	 */
 	public Card drawCard(int index) {
-		if (index >= cards_.length)
+		if (index >= cards.size())
 			return null;
-		return cards_[index];
+		return cards.get(index);
 	}
 	
 	/**
@@ -55,13 +65,21 @@ public class Deck implements DeepCopyable {
 	 * @return
 	 */
 	public int getNumCards() {
-		return cards_.length;
+		return cards.size();
+	}
+	
+	/**
+	 * Add a card to the end of the deck
+	 * @param card
+	 */
+	public void addCard(Card card) {
+		cards.add(card);
 	}
 
 	@Override
 	public int hashCode() {
 		int hash = 1;
-		for (Card card : cards_) {
+		for (Card card : cards) {
 			hash = hash * 31 + (card != null ? card.hashCode() : 0);
 		}
 		return hash;
@@ -76,8 +94,8 @@ public class Deck implements DeepCopyable {
             return false;
         
         Deck oD = (Deck)other;
-        for (int indx = 0; indx < cards_.length; ++indx) {
-    		if (!cards_[indx].equals(oD.cards_[indx])) return false;
+        for (int indx = 0; indx < cards.size(); ++indx) {
+    		if (!cards.get(indx).equals(oD.cards.get(indx))) return false;
         }
         
         return true;
@@ -85,12 +103,10 @@ public class Deck implements DeepCopyable {
 
 	@Override
 	public Object deepCopy() {
-		Card[] copiedCards = new Card[cards_.length];
-		int indx = 0;
-		for (Card card : cards_) {
-			copiedCards[indx++] = (Card)card.deepCopy();
+		ArrayList<Card> copiedCards = new ArrayList<Card>();
+		for (Card card : cards) {
+			copiedCards.add((Card)card.deepCopy());
 		}
-		Deck copied = new Deck(copiedCards);
-		return copied;
+		return new Deck(copiedCards);
 	}
 }

@@ -256,6 +256,10 @@
         "class": "com.hearthsim.card.minion.concrete.DefenderOfArgus"
     },
     {
+        "name": "Demolisher",
+        "class": "com.hearthsim.card.minion.concrete.Demolisher"
+    },
+    {
         "name": "Demonfire",
         "class": "com.hearthsim.card.spellcard.concrete.Demonfire"
     },

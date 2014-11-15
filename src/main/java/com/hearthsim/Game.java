@@ -106,7 +106,7 @@ public class Game {
 	}
 
     private GameResult playTurn(int turnCount, GameRecord record, ArtificialPlayer ai) throws HSException {
-        beginTurn(turnCount, boardModel_);
+        beginTurn(boardModel_);
 
         GameResult gameResult;
 
@@ -143,7 +143,7 @@ public class Game {
     }
 
     
-    public static BoardModel beginTurn(int turn, BoardModel board) throws HSException {
+    public static BoardModel beginTurn(BoardModel board) throws HSException {
 
     	HearthTreeNode toRet = new HearthTreeNode(board);
         
@@ -153,6 +153,7 @@ public class Game {
         for (Minion targetMinion : toRet.data_.getCurrentPlayer().getMinions()) {
             try {
                 toRet = targetMinion.startTurn(PlayerSide.CURRENT_PLAYER, toRet, toRet.data_.getCurrentPlayer().getDeck(), toRet.data_.getWaitingPlayer().getDeck());
+                toRet = BoardStateFactoryBase.handleDeadMinions(toRet, toRet.data_.getCurrentPlayer().getDeck(), toRet.data_.getWaitingPlayer().getDeck());        
             } catch (HSInvalidPlayerIndexException e) {
                 e.printStackTrace();
             }
@@ -160,12 +161,12 @@ public class Game {
         for (Minion targetMinion : toRet.data_.getWaitingPlayer().getMinions()) {
             try {
             	toRet = targetMinion.startTurn(PlayerSide.WAITING_PLAYER, toRet, toRet.data_.getCurrentPlayer().getDeck(), toRet.data_.getWaitingPlayer().getDeck());
+                toRet = BoardStateFactoryBase.handleDeadMinions(toRet, toRet.data_.getCurrentPlayer().getDeck(), toRet.data_.getWaitingPlayer().getDeck());        
             } catch (HSInvalidPlayerIndexException e) {
                 e.printStackTrace();
             }
         }
         
-        toRet = BoardStateFactoryBase.handleDeadMinions(toRet, toRet.data_.getCurrentPlayer().getDeck(), toRet.data_.getWaitingPlayer().getDeck());        
         
         Card newCard = toRet.data_.getCurrentPlayer().drawFromDeck(toRet.data_.getDeckPos_p0());
         if (newCard == null) {
