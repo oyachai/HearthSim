@@ -262,12 +262,22 @@ public class BoardStateFactoryBase {
 			return null;
 		}
 
+		boardStateNode.setScore(ai.boardScore(boardStateNode.data_));
+
 		if(boardStateNode.numChildren() > 0) {
 			// If this node already has children, just call doMoves on each of its children.
 			// This situation can happen, for example, after a battle cry
 			for(HearthTreeNode child : boardStateNode.getChildren()) {
 				this.doMoves(child, ai);
 			}
+
+			// TODO this is kind of a hack so we don't have to calculate it later.
+			if(boardStateNode instanceof RandomEffectNode) {
+				double boardScore = ((RandomEffectNode)boardStateNode).weightedBestAverageScore(deckPlayer0_, ai);
+				boardStateNode.setScore(boardScore);
+				boardStateNode.setBestChildScore(boardScore);
+			}
+			
 			return boardStateNode;
 		}
 
@@ -283,7 +293,7 @@ public class BoardStateFactoryBase {
 			nodes.addAll(this.getNextLayerOfHeroAbilityBranches(boardStateNode));
 			nodes.addAll(this.getNextLayerOfCardBranches(boardStateNode));
 			nodes.addAll(this.getNextLayerOfAttackBranches(boardStateNode));
-			
+
 			HearthTreeNode newState = null;
 			for(HearthTreeNode node : nodes) {
 				newState = this.doMoves(node, ai);
@@ -293,13 +303,14 @@ public class BoardStateFactoryBase {
 		}
 
 		if(boardStateNode.isLeaf()) {
-			// If at this point the node has no children, it is a leaf node. Compute its board score and store it.
-			boardStateNode.setScore(ai.boardScore(boardStateNode.data_));
+			// If at this point the node has no children, it is a leaf node. Set its best child score to its own score.
+			boardStateNode.setBestChildScore(boardStateNode.getScore());
 			boardStateNode.setNumNodesTries(1);
 		} else {
 			// If it is not a leaf, set the score as the maximum score of its children.
 			// We can also throw out any children that don't have the highest score (boy, this sounds so wrong...)
-			double tmpScore = -1.e300;
+			double tmpScore;
+			double bestScore = 0;
 			int tmpNumNodesTried = 0;
 			Iterator<HearthTreeNode> iter = boardStateNode.getChildren().iterator();
 			HearthTreeNode bestBranch = null;
@@ -307,24 +318,31 @@ public class BoardStateFactoryBase {
 			while(iter.hasNext()) {
 				HearthTreeNode child = iter.next();
 				tmpNumNodesTried += child.getNumNodesTried();
-				double origScore = child.getScore();
-				double theScore = origScore;
-				if(child instanceof CardDrawNode)
-					theScore += ((CardDrawNode)child).cardDrawScore(deckPlayer0_, ai);
-				if(child instanceof RandomEffectNode)
-					theScore = ((RandomEffectNode)child).weightedAverageScore(deckPlayer0_, ai);
-				if(theScore > tmpScore) {
-					tmpScore = theScore;
+
+				tmpScore = child.getBestChildScore();
+
+				// We need to add the card score after child scoring because CardDrawNode children
+				// do not inherit the value of drawn cards
+				// TODO Children of CardDrawNodes should be able to track this on their own. Doing
+				// it this way "breaks" the best score chain and makes it harder to isolate and test
+				// scoring.
+				if(child instanceof CardDrawNode) {
+					tmpScore += ((CardDrawNode)child).cardDrawScore(deckPlayer0_, ai);
+				}
+
+				if(bestBranch == null || tmpScore > bestScore) {
 					bestBranch = child;
+					bestScore = tmpScore;
 				}
 			}
 
+			// TODO this should be automatically handled elsewhere...
 			if(bestBranch instanceof StopNode) {
 				bestBranch.clearChildren(); // cannot continue past a StopNode
 			}
 			boardStateNode.clearChildren();
 			boardStateNode.addChild(bestBranch);
-			boardStateNode.setScore(tmpScore);
+			boardStateNode.setBestChildScore(bestBranch.getBestChildScore());
 			boardStateNode.setNumNodesTries(tmpNumNodesTried);
 		}
 

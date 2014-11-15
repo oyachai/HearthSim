@@ -18,6 +18,7 @@ public class HearthTreeNode {
 	public final BoardModel data_;
 	HearthAction action;
 	protected double score_;
+	protected double bestChildScore_;
 	int numNodesTried_;
 	
 	List<HearthTreeNode> children_;
@@ -94,6 +95,14 @@ public class HearthTreeNode {
 		score_ = value;
 	}
 	
+	public double getBestChildScore() {
+		return bestChildScore_;
+	}
+
+	public void setBestChildScore(double bestChildScore) {
+		this.bestChildScore_ = bestChildScore;
+	}
+
 	public HearthTreeNode addChild(HearthTreeNode node) {
 		node.setDepth((byte)(depth_+1));
 		if (children_ == null) {
