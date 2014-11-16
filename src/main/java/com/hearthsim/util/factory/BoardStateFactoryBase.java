@@ -236,6 +236,28 @@ public class BoardStateFactoryBase {
 		return nodes;
 	}
 
+	// Currently only used to test lethal combinations. AI should use depthFirstSearch instead.
+	public void addChildLayers(HearthTreeNode boardStateNode, int maxDepth) throws HSException {
+		if(maxDepth <= 0) {
+			return;
+		}
+		
+		this.addChildLayer(boardStateNode);
+		
+		if(maxDepth > 1 && !boardStateNode.isLeaf()) {
+			for(HearthTreeNode node : boardStateNode.getChildren()) {
+				this.addChildLayers(node, maxDepth - 1);
+			}
+		}
+	}
+
+	private void addChildLayer(HearthTreeNode boardStateNode) throws HSException {
+		if(boardStateNode.numChildren() <= 0) {
+			ArrayList<HearthTreeNode> nodes = this.createChildren(boardStateNode);
+			boardStateNode.addChildren(nodes);
+		}
+	}
+	
 	/**
 	 * Recursively generate all possible moves
 	 * This function recursively generates all possible moves that can be done starting from a given BoardState.
