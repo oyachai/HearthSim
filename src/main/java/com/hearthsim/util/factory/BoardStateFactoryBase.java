@@ -10,6 +10,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
+import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.player.playercontroller.BruteForceSearchAI;
 import com.hearthsim.util.IdentityLinkedList;
 import com.hearthsim.util.tree.CardDrawNode;
@@ -239,57 +240,117 @@ public class BoardStateFactoryBase {
 
 	// Currently only used to test lethal combinations. AI should use depthFirstSearch instead.
 	public void addChildLayers(HearthTreeNode boardStateNode, int maxDepth) throws HSException {
+
+		// Saving seen states lets us prune duplicate states. This saves us a ton of time when the trees get deep.
 		TreeSet<Integer> states = new TreeSet<Integer>();
+
+		// We need to process things by batch so we can track how deep we've gone.
 		ArrayList<HearthTreeNode> currentDepth = new ArrayList<HearthTreeNode>();
 		ArrayList<HearthTreeNode> nextDepth = new ArrayList<HearthTreeNode>();
 		currentDepth.add(boardStateNode);
 
+		// Debugging variables for tracking loop complications
 		boolean dupeSkipOn = true;
-		int outerCount = 0;
-		int innerCount = 0;
+		int depthReached = 0;
+		int processedCount = 0;
 		int childCount = 0;
 		int stateCompareCount = 0;
 		int dupeSkip = 0;
 
 		HearthTreeNode current = null;
 		while(maxDepth > 0) {
-			outerCount++;
 			while(!currentDepth.isEmpty()) {
-				innerCount++;
+				processedCount++;
 				current = currentDepth.remove(0);
 
+				// The game ended; nothing left to do.
 				if(current.data_.isLethalState()) {
 					continue;
 				}
 
 				ArrayList<HearthTreeNode> children = this.createChildren(current);
-				if(children != null && children.size() > 0) {
-					for(HearthTreeNode child : children) {
-						childCount++;
-						if(dupeSkipOn) {
-							stateCompareCount += states.size();
+				for(HearthTreeNode child : children) {
+					childCount++;
+					if(dupeSkipOn) {
+						if(states.size() > 0) {
+							stateCompareCount += Math.log(states.size()); // .contains uses quick search
+							// Using .hashCode lets us use TreeSet and .contains to look for dupes
 							if(states.contains(child.data_.hashCode())) {
 								dupeSkip++;
 								continue;
 							}
 						}
-						current.addChild(child);
-						nextDepth.add(child);
-						states.add(child.data_.hashCode());
 					}
+					current.addChild(child);
+					nextDepth.add(child); // Add to next depth so the inner loop will eventually process it
+					states.add(child.data_.hashCode());
 				}
 			}
 
+			if(nextDepth.isEmpty()) {
+				break;
+			}
+
+			depthReached++;
 			maxDepth--;
 			ArrayList<HearthTreeNode> old = currentDepth;
 			currentDepth = nextDepth;
-			nextDepth = old;
+			nextDepth = old; // We processed all of the previous depth so we don't need to .clear().
 		}
 
-		log.debug("createChildLayers summary outerCount=" + outerCount + " innerCount=" + innerCount + " childCount="
-				+ childCount + " compareCount=" + stateCompareCount + " dupeSkip=" + dupeSkip);
+		log.debug("createChildLayers summary depthReached=" + depthReached + " processedCount=" + processedCount
+				+ " childCount=" + childCount + " compareCount=" + stateCompareCount + " dupeSkip=" + dupeSkip);
 
 		return;
+	}
+
+	public void processScoresForTree(HearthTreeNode root, ArtificialPlayer ai) {
+		this.processScoresForTree(root, ai, false);
+	}
+
+	public void processScoresForTree(HearthTreeNode root, ArtificialPlayer ai, boolean scoringPruning) {
+		double score = ai.boardScore(root.data_);
+		root.setScore(score);
+
+		if(root.isLeaf()) {
+			root.setBestChildScore(score);
+		} else {
+			HearthTreeNode best = null;
+			for(HearthTreeNode child : root.getChildren()) {
+				this.processScoresForTree(child, ai);
+
+				if(best == null || best.getBestChildScore() < child.getBestChildScore()) {
+					best = child;
+				}
+			}
+
+			if(root instanceof RandomEffectNode) {
+				// We need to process this after the children have populated their scores
+				double boardScore = ((RandomEffectNode)root).weightedAverageBestChildScore();
+				root.setScore(boardScore);
+				root.setBestChildScore(boardScore);
+			} else {
+				root.setBestChildScore(best.getBestChildScore());
+				if(scoringPruning) {
+					root.clearChildren();
+					root.addChild(best);
+				}
+			}
+		}
+	}
+
+	public void breadthFirstSearch(HearthTreeNode root, ArtificialPlayer ai) throws HSException {
+		this.breadthFirstSearch(root, ai, 100, false);
+	}
+
+	public void breadthFirstSearch(HearthTreeNode root, ArtificialPlayer ai, boolean prune) throws HSException {
+		this.breadthFirstSearch(root, ai, 100, prune);
+	}
+
+	public void breadthFirstSearch(HearthTreeNode root, ArtificialPlayer ai, int maxDepth, boolean prune)
+			throws HSException {
+		this.addChildLayers(root, maxDepth);
+		this.processScoresForTree(root, ai, prune);
 	}
 
 	/**
