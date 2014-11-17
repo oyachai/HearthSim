@@ -360,6 +360,10 @@
         "class": "com.hearthsim.card.minion.concrete.FlesheatingGhoul"
     },
     {
+        "name": "Frost Elemental",
+        "class": "com.hearthsim.card.minion.concrete.FrostElemental"
+    },
+    {
         "name": "Frost Nova",
         "class": "com.hearthsim.card.spellcard.concrete.FrostNova"
     },

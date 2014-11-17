@@ -69,6 +69,9 @@ class BoardModelBuilder {
 		
 		minion.hasAttacked_ = options.containsKey('hasAttacked') ? options.hasAttacked : minion.hasAttacked_
 		minion.hasBeenUsed = options.containsKey('hasBeenUsed') ? options.hasBeenUsed : minion.hasBeenUsed
+		
+		minion.frozen = options.containsKey('frozen') ? options.frozen : minion.frozen
+		
     }
 
     private fatigueDamage(Number fatigueDamage) {
@@ -92,6 +95,11 @@ class BoardModelBuilder {
         def side = boardModel.modelForSide(playerSide)
         side.hero.attack = attack
     }
+
+	private heroFrozen(Boolean isFrozen){
+		def side = boardModel.modelForSide(playerSide)
+		side.hero.frozen = isFrozen
+	}
 
     private mana(Number mana) {
         def model = boardModel.modelForSide(playerSide)

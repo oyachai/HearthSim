@@ -1,0 +1,87 @@
+package com.hearthsim.test.groovy.card
+
+
+import com.hearthsim.card.minion.concrete.FrostElemental
+import com.hearthsim.model.BoardModel
+import com.hearthsim.test.helpers.BoardModelBuilder
+import com.hearthsim.util.tree.HearthTreeNode
+
+import static com.hearthsim.model.PlayerSide.CURRENT_PLAYER
+import static com.hearthsim.model.PlayerSide.WAITING_PLAYER
+import static org.junit.Assert.*
+
+class FrostElementalSpec extends CardSpec {
+
+	HearthTreeNode root
+	BoardModel startingBoard
+
+	def setup() {
+
+		def minionMana = 2;
+		def attack = 5;
+		def health0 = 3;
+		def health1 = 7;
+
+		def commonField = [
+				[mana: minionMana, attack: attack, maxHealth: health0], //todo: attack may be irrelevant here
+				[mana: minionMana, attack: attack, health: health1 - 1, maxHealth: health1]
+		]
+
+		startingBoard = new BoardModelBuilder().make {
+			currentPlayer {
+				hand([FrostElemental])
+				field(commonField)
+				mana(7)
+			}
+			waitingPlayer {
+				field(commonField)
+				mana(4)
+			}
+		}
+
+		root = new HearthTreeNode(startingBoard)
+	}
+
+
+	def "playing for current player returns expected child states"() {
+		def minionPlayedBoard = startingBoard.deepCopy()
+		def copiedRoot = new HearthTreeNode(minionPlayedBoard)
+		def target = minionPlayedBoard.getCharacter(CURRENT_PLAYER, 2);
+		def theCard = minionPlayedBoard.getCurrentPlayerCardHand(0);
+		def ret = theCard.useOn(CURRENT_PLAYER, target, copiedRoot, null, null);
+
+		expect:
+		assertFalse(ret == null);
+		assertEquals(ret.numChildren(), 3);
+
+		assertBoardDelta(startingBoard, minionPlayedBoard) {
+			currentPlayer {
+				playMinion(FrostElemental)
+				mana(1)
+			}
+		}
+
+		HearthTreeNode child0 = ret.getChildren().get(0);
+		assertBoardDelta(minionPlayedBoard, child0.data_) {
+			waitingPlayer {
+				heroFrozen(true)
+			}
+		}
+
+		HearthTreeNode child1 = ret.getChildren().get(1);
+		assertBoardDelta(minionPlayedBoard, child1.data_) {
+			waitingPlayer {
+				updateMinion(0, [frozen : true])
+			}
+		}
+
+		HearthTreeNode child2 = ret.getChildren().get(2);
+		assertBoardDelta(minionPlayedBoard, child2.data_) {
+			waitingPlayer {
+				updateMinion(1, [frozen : true])
+			}
+		}
+
+	}
+
+}
