@@ -12,6 +12,7 @@ import com.hearthsim.model.PlayerModel;
 import com.hearthsim.util.HearthActionBoardPair;
 import com.hearthsim.util.IdentityLinkedList;
 import com.hearthsim.util.factory.BoardStateFactoryBase;
+import com.hearthsim.util.factory.DepthBoardStateFactory;
 import com.hearthsim.util.factory.SparseBoardStateFactory;
 import com.hearthsim.util.tree.HearthTreeNode;
 import com.hearthsim.util.tree.StopNode;
@@ -253,7 +254,7 @@ public class BruteForceSearchAI implements ArtificialPlayer {
 		if (useSparseBoardStateFactory_) {
 			factory = new SparseBoardStateFactory(playerModel0.getDeck(), playerModel1.getDeck(), maxThinkTime);
 		} else {
-			factory = new BoardStateFactoryBase(playerModel0.getDeck(), playerModel1.getDeck(), maxThinkTime);
+			factory = new DepthBoardStateFactory(playerModel0.getDeck(), playerModel1.getDeck(), maxThinkTime);
 		}
 		
 		HearthTreeNode allMoves = factory.doMoves(toRet, this);

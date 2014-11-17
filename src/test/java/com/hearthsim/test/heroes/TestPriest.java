@@ -20,6 +20,7 @@ import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.player.playercontroller.BruteForceSearchAI;
 import com.hearthsim.util.factory.BoardStateFactoryBase;
+import com.hearthsim.util.factory.DepthBoardStateFactory;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class TestPriest {
@@ -88,7 +89,7 @@ public class TestPriest {
 
 	@Test
 	public void testAiHealAfterTrading() throws HSException {
-		BoardStateFactoryBase factory = new BoardStateFactoryBase(null, null,
+		BoardStateFactoryBase factory = new DepthBoardStateFactory(null, null,
 				2000000000);
 		HearthTreeNode tree = new HearthTreeNode(board.data_);
 		BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
@@ -134,7 +135,7 @@ public class TestPriest {
 		PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0)
 				.setHealth((byte) 3);
 
-		BoardStateFactoryBase factory = new BoardStateFactoryBase(null, null,
+		BoardStateFactoryBase factory = new DepthBoardStateFactory(null, null,
 				2000000000);
 		HearthTreeNode tree = new HearthTreeNode(board.data_);
 		BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();

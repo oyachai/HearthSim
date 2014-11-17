@@ -5,7 +5,7 @@ import com.hearthsim.card.Deck;
 /**
  * A BoardStateFactory in which the minion placement is simplified in order to reduce simulation time
  */
-public class SparseBoardStateFactory extends BoardStateFactoryBase {
+public class SparseBoardStateFactory extends DepthBoardStateFactory {
 
 	/**
 	 * Constructor

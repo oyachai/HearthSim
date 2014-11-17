@@ -6,7 +6,9 @@ import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.player.playercontroller.BruteForceSearchAI;
 import com.hearthsim.util.factory.BoardStateFactoryBase;
+import com.hearthsim.util.factory.DepthBoardStateFactory;
 import com.hearthsim.util.tree.HearthTreeNode;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -47,7 +49,7 @@ public class TestCharge {
 				false, false, null, null, false, false);
 		board.placeMinion(PlayerSide.CURRENT_PLAYER, minion);
 
-		BoardStateFactoryBase factory = new BoardStateFactoryBase(null, null, 2000000000);
+		BoardStateFactoryBase factory = new DepthBoardStateFactory(null, null, 2000000000);
 		HearthTreeNode tree = new HearthTreeNode(board);
 		try {
 			tree = factory.doMoves(tree, scoreFunc);
@@ -68,7 +70,7 @@ public class TestCharge {
 		board.placeCardHandCurrentPlayer(minion);
 		board.getCurrentPlayer().setMana(1);
 
-		BoardStateFactoryBase factory = new BoardStateFactoryBase(null, null);
+		BoardStateFactoryBase factory = new DepthBoardStateFactory(null, null);
 		HearthTreeNode tree = new HearthTreeNode(board);
 		try {
 			tree = factory.doMoves(tree, scoreFunc);

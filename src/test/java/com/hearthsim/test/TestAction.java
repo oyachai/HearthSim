@@ -13,6 +13,7 @@ import com.hearthsim.model.PlayerSide;
 import com.hearthsim.player.playercontroller.BruteForceSearchAI;
 import com.hearthsim.util.HearthAction.Verb;
 import com.hearthsim.util.factory.BoardStateFactoryBase;
+import com.hearthsim.util.factory.DepthBoardStateFactory;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class TestAction {
@@ -40,7 +41,7 @@ public class TestAction {
 		Minion minion = new Minion("beta", mana, attack0, health1, attack0, health1, health1);
 		board.placeMinion(PlayerSide.WAITING_PLAYER, minion);
 
-		BoardStateFactoryBase factory = new BoardStateFactoryBase(null, null, 2000000000);
+		BoardStateFactoryBase factory = new DepthBoardStateFactory(null, null, 2000000000);
 		HearthTreeNode tree = new HearthTreeNode(board);
 		try {
 			tree = factory.doMoves(tree, BruteForceSearchAI.buildStandardAI2());
@@ -58,7 +59,7 @@ public class TestAction {
 		Minion minion = new Minion("beta", mana, attack1, health2, attack1, health2, health2);
 		board.placeMinion(PlayerSide.WAITING_PLAYER, minion);
 
-		BoardStateFactoryBase factory = new BoardStateFactoryBase(null, null, 2000000000);
+		BoardStateFactoryBase factory = new DepthBoardStateFactory(null, null, 2000000000);
 		HearthTreeNode tree = new HearthTreeNode(board);
 		try {
 			tree = factory.doMoves(tree, BruteForceSearchAI.buildStandardAI2());
