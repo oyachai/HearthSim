@@ -778,7 +778,8 @@ public class Query extends JPanel {
      *   checkbox.  This is a runtime exception, so it
      *   need not be declared explicitly.
      */
-    public boolean booleanValue(String name) throws NoSuchElementException,
+    @Deprecated
+	public boolean booleanValue(String name) throws NoSuchElementException,
             IllegalArgumentException {
         return getBooleanValue(name);
     }
@@ -800,7 +801,8 @@ public class Query extends JPanel {
      *   line.  This is a runtime exception, so it
      *   need not be declared explicitly.
      */
-    public double doubleValue(String name) throws IllegalArgumentException,
+    @Deprecated
+	public double doubleValue(String name) throws IllegalArgumentException,
             NoSuchElementException, NumberFormatException {
         return getDoubleValue(name);
     }
@@ -1134,7 +1136,8 @@ public class Query extends JPanel {
      *   choice, line, or slider.  This is a runtime exception, so it
      *   need not be declared explicitly.
      */
-    public int intValue(String name) throws IllegalArgumentException,
+    @Deprecated
+	public int intValue(String name) throws IllegalArgumentException,
             NoSuchElementException, NumberFormatException {
         return getIntValue(name);
     }
@@ -1600,7 +1603,8 @@ public class Query extends JPanel {
      *  @exception IllegalArgumentException If the entry type does not
      *   have a string representation (this should not be thrown).
      */
-    public String stringValue(String name) throws NoSuchElementException,
+    @Deprecated
+	public String stringValue(String name) throws NoSuchElementException,
             IllegalArgumentException {
         return getStringValue(name);
     }

@@ -674,7 +674,8 @@ public class PlotBox extends JPanel implements Printable {
      *  This method is deprecated.  Use read() instead.
      *  @deprecated
      */
-    public String getDataurl() {
+    @Deprecated
+	public String getDataurl() {
         return _filespec;
     }
 
@@ -682,7 +683,8 @@ public class PlotBox extends JPanel implements Printable {
      *  This method is deprecated.  Use read() instead.
      *  @deprecated
      */
-    public URL getDocumentBase() {
+    @Deprecated
+	public URL getDocumentBase() {
         return _documentBase;
     }
 
@@ -941,7 +943,8 @@ public class PlotBox extends JPanel implements Printable {
      *  Call setButtons() and read() instead.
      *  @deprecated
      */
-    public void init() {
+    @Deprecated
+	public void init() {
         setButtons(true);
 
         if (_filespec != null) {
@@ -988,14 +991,16 @@ public class PlotBox extends JPanel implements Printable {
      *  read the XML-based file format.
      *  @deprecated
      */
-    public void parseFile(String filespec) {
+    @Deprecated
+	public void parseFile(String filespec) {
         parseFile(filespec, (URL) null);
     }
 
     /** Open up the input file, which could be stdin, a URL, or a file.
      *  @deprecated This method is deprecated.  Use read() instead.
      */
-    public synchronized void parseFile(String filespec, URL documentBase) {
+    @Deprecated
+	public synchronized void parseFile(String filespec, URL documentBase) {
         DataInputStream in = null;
 
         if ((filespec == null) || (filespec.length() == 0)) {
@@ -1480,7 +1485,8 @@ public class PlotBox extends JPanel implements Printable {
      *  This method is deprecated.  Use read() instead.
      *  @deprecated
      */
-    public void setDataurl(String filespec) {
+    @Deprecated
+	public void setDataurl(String filespec) {
         _filespec = filespec;
     }
 
@@ -1488,7 +1494,8 @@ public class PlotBox extends JPanel implements Printable {
      *  This method is deprecated.  Use read() instead.
      *  @deprecated
      */
-    public void setDocumentBase(URL documentBase) {
+    @Deprecated
+	public void setDocumentBase(URL documentBase) {
         _documentBase = documentBase;
     }
 
@@ -1901,7 +1908,8 @@ public class PlotBox extends JPanel implements Printable {
      *  @param out An output stream.
      *  @deprecated
      */
-    public synchronized void writeOldSyntax(OutputStream out) {
+    @Deprecated
+	public synchronized void writeOldSyntax(OutputStream out) {
         // Auto-flush is disabled.
         PrintWriter output = new PrintWriter(new BufferedOutputStream(out),
                 false);
@@ -2871,6 +2879,7 @@ public class PlotBox extends JPanel implements Printable {
      *  This is deprecated.  Use setButtons().
      *  @deprecated
      */
+    @Deprecated
     protected void _setButtonsVisibility(boolean vis) {
         // Changing legend means we need to repaint the offscreen buffer.
         _plotImage = null;
@@ -2912,7 +2921,8 @@ public class PlotBox extends JPanel implements Printable {
      *  @param output A buffered print writer.
      *  @deprecated
      */
-    protected void _writeOldSyntax(PrintWriter output) {
+    @Deprecated
+	protected void _writeOldSyntax(PrintWriter output) {
         output.println("# Ptolemy plot, version 2.0");
 
         if (_title != null) {

@@ -793,7 +793,8 @@ public class StringUtilities {
      *  @exception MalformedURLException If the URL is malformed.
      *  @deprecated Use FileUtilities.nameToURL instead.
      */
-    public static URL stringToURL(String name, URI baseDirectory,
+    @Deprecated
+	public static URL stringToURL(String name, URI baseDirectory,
             ClassLoader classLoader) throws IOException {
         return FileUtilities.nameToURL(name, baseDirectory, classLoader);
     }
