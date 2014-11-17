@@ -9,12 +9,14 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.concrete.BluegillWarrior;
+import com.hearthsim.card.minion.concrete.Boar;
 import com.hearthsim.card.minion.concrete.BoulderfistOgre;
 import com.hearthsim.card.minion.concrete.ChillwindYeti;
 import com.hearthsim.card.minion.concrete.GoldshireFootman;
 import com.hearthsim.card.minion.concrete.KoboldGeomancer;
 import com.hearthsim.card.minion.concrete.RiverCrocolisk;
 import com.hearthsim.card.minion.concrete.SenjinShieldmasta;
+import com.hearthsim.card.minion.concrete.TimberWolf;
 import com.hearthsim.card.spellcard.concrete.Assassinate;
 import com.hearthsim.card.spellcard.concrete.Frostbolt;
 import com.hearthsim.card.spellcard.concrete.HolySmite;
@@ -126,6 +128,17 @@ public class TestLethal {
 		this.enemyHero.setHealth((byte)6);
 		this.startingBoard.placeMinion(PlayerSide.CURRENT_PLAYER, new ChillwindYeti());
 		this.startingBoard.placeCardHand(PlayerSide.CURRENT_PLAYER, new BluegillWarrior());
+
+		this.factory.addChildLayers(this.root, 3);
+		assertTrue(this.hasLethalAtDepth(this.root, 3));
+	}
+
+	@Test
+	public void testMinionWithBuff() throws HSException {
+		this.enemyHero.setHealth((byte)3);
+		this.startingBoard.placeMinion(PlayerSide.CURRENT_PLAYER, new RiverCrocolisk());
+		this.startingBoard.placeCardHand(PlayerSide.CURRENT_PLAYER, new Boar());
+		this.startingBoard.placeCardHand(PlayerSide.CURRENT_PLAYER, new TimberWolf());
 
 		this.factory.addChildLayers(this.root, 3);
 		assertTrue(this.hasLethalAtDepth(this.root, 3));

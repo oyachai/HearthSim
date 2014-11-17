@@ -241,6 +241,10 @@ public class BoardStateFactoryBase {
 		if(maxDepth <= 0) {
 			return;
 		}
+		// game is over; no more moves allowed
+		if(boardStateNode.data_.isLethalState()) {
+			return;
+		}
 		
 		this.addChildLayer(boardStateNode);
 		
