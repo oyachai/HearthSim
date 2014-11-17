@@ -1614,19 +1614,19 @@ public class Plot extends PlotBox {
                     setBars(true);
 
                     int comma = line.indexOf(",", 5);
-                    String _barWidth;
+                    String _thisBarWidth;
                     String baroffset = null;
 
                     if (comma > 0) {
-                        _barWidth = (line.substring(5, comma)).trim();
+                        _thisBarWidth = (line.substring(5, comma)).trim();
                         baroffset = (line.substring(comma + 1)).trim();
                     } else {
-                        _barWidth = (line.substring(5)).trim();
+                        _thisBarWidth = (line.substring(5)).trim();
                     }
 
                     try {
                         // Use Double.parseDouble() and avoid creating a Double
-                        double bwidth = Double.parseDouble(_barWidth);
+                        double bwidth = Double.parseDouble(_thisBarWidth);
                         double boffset = _barOffset;
 
                         if (baroffset != null) {
@@ -2328,7 +2328,7 @@ public class Plot extends PlotBox {
         //Cached since it came out in JProfiler (everything becomes costly if you do
         //  it a lot of times)
 
-        if (nbrOfBins == 0 || lastBin.xpos != xpos) {
+        if (nbrOfBins == 0 || lastBin == null || lastBin.xpos != xpos) {
             // Does not fall within last bin => add one bin
             // nbrOfBins += 1;
             lastBin = new Bin(xpos, dataset);

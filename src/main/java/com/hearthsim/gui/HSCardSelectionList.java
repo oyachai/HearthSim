@@ -126,7 +126,7 @@ public class HSCardSelectionList extends JList<ImplementedCard> {
 		
 		@Override
 		public Component getListCellRendererComponent(JList<? extends ImplementedCard> list, ImplementedCard value, int index, boolean isSelected, boolean cellHasFocus) {
-			ImplementedCardList.ImplementedCard entry = (ImplementedCardList.ImplementedCard) value;
+			ImplementedCardList.ImplementedCard entry = value;
             if (entry.rarity_!=null){
                 switch (entry.rarity_) {
                     case "free":

@@ -37,7 +37,7 @@ public class ThreadQueue {
 	            	if (queue.isEmpty()) {
 	            		break;
 	            	}
-	                r = (Runnable) queue.removeFirst();
+	                r = queue.removeFirst();
 	            }
 	
 	            // If we don't catch RuntimeException, 

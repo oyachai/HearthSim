@@ -107,7 +107,7 @@ public class HearthSim implements HSSimulationEventListener {
 		frame.getContentPane().setLayout(springLayout);
 		
 		JPanel Player0Panel = new JPanel();
-		Player0Panel.setBorder(new MatteBorder(0, 0, 0, 1, (Color) Color.GRAY));
+		Player0Panel.setBorder(new MatteBorder(0, 0, 0, 1, Color.GRAY));
 		Player0Panel.setOpaque(false);
 		Player0Panel.setBackground(Color.DARK_GRAY);
 		springLayout.putConstraint(SpringLayout.NORTH, Player0Panel, 0, SpringLayout.NORTH, frame.getContentPane());
@@ -585,7 +585,7 @@ public class HearthSim implements HSSimulationEventListener {
 		btnRun.setBackground(HSColors.SUCCESS_BUTTON_COLOR);
 		btnRun.setForeground(Color.WHITE);
 		ControlPane.add(btnRun);
-		Player1Panel.setBorder(new MatteBorder(0, 1, 0, 0, (Color) Color.GRAY));
+		Player1Panel.setBorder(new MatteBorder(0, 1, 0, 0, Color.GRAY));
 		Player1Panel.setOpaque(false);
 		springLayout.putConstraint(SpringLayout.NORTH, Player1Panel, 0, SpringLayout.NORTH, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.WEST, Player1Panel, -200, SpringLayout.EAST, frame.getContentPane());
@@ -899,8 +899,8 @@ public class HearthSim implements HSSimulationEventListener {
 			return;
 		}
 		for(int indx = 0; indx < 50; ++indx) {
-			currentShownPlot_.addPoint(0, (double)indx, data0[indx], true);
-			currentShownPlot_.addPoint(1, (double)indx, data1[indx], true);
+			currentShownPlot_.addPoint(0, indx, data0[indx], true);
+			currentShownPlot_.addPoint(1, indx, data1[indx], true);
 		}
 		currentShownPlot_.repaint();
 	}

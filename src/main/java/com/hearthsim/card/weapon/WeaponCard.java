@@ -77,8 +77,8 @@ public abstract class WeaponCard extends Card {
     @Override
     public int hashCode() {
         int result = super.hashCode();
-        result = 31 * result + (int) weaponCharge_;
-        result = 31 * result + (int) weaponDamage_;
+        result = 31 * result + weaponCharge_;
+        result = 31 * result + weaponDamage_;
         return result;
     }
 

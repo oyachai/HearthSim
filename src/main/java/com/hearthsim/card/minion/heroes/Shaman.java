@@ -8,7 +8,6 @@ import com.hearthsim.card.minion.concrete.SearingTotem;
 import com.hearthsim.card.minion.concrete.StoneclawTotem;
 import com.hearthsim.card.minion.concrete.WrathOfAirTotem;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.HearthAction;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -95,7 +94,7 @@ public class Shaman extends Hero {
 				if (!totemAlreadySummoned) {
 					allTotemsNotSummonable = false;
 
-					HearthTreeNode newState = toRet.addChild(new HearthTreeNode((BoardModel) toRet.data_.deepCopy()));
+					HearthTreeNode newState = toRet.addChild(new HearthTreeNode(toRet.data_.deepCopy()));
 
 					Minion summonTarget = newState.data_.getCharacter(targetPlayerSide, numMinions);
 					newState.data_.getCurrentPlayer().subtractMana(HERO_ABILITY_COST);

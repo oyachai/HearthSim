@@ -155,7 +155,9 @@ public class DepthBoardStateFactory extends BoardStateFactoryBase {
 			}
 			boardStateNode.clearChildren();
 			boardStateNode.addChild(bestBranch);
-			boardStateNode.setBestChildScore(bestBranch.getBestChildScore());
+			if(bestBranch != null) {
+				boardStateNode.setBestChildScore(bestBranch.getBestChildScore());
+			}
 			boardStateNode.setNumNodesTries(tmpNumNodesTried);
 		}
 

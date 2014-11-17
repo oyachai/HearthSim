@@ -390,7 +390,7 @@ public class EPSGraphics extends Graphics {
             _buffer.append("0.5 setlinewidth\n");
         } else {
             if (_linepattern.containsKey(c)) {
-                _buffer.append((String) _linepattern.get(c) + " 0 setdash\n");
+                _buffer.append(_linepattern.get(c) + " 0 setdash\n");
                 _buffer.append("1 setlinewidth\n");
             } else {
                 _buffer.append("0 setgray\n");

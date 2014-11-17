@@ -489,7 +489,7 @@ public class BoardModel implements DeepCopyable<BoardModel> {
 
     public BoardModel flipPlayers() {
 
-        BoardModel newBoard = new BoardModel((PlayerModel) waitingPlayer.deepCopy(), (PlayerModel) currentPlayer.deepCopy());
+        BoardModel newBoard = new BoardModel(waitingPlayer.deepCopy(), currentPlayer.deepCopy());
 
         for (MinionPlayerPair minionPlayerPair : allMinionsFIFOList_) {
 
@@ -517,7 +517,7 @@ public class BoardModel implements DeepCopyable<BoardModel> {
 
     @Override
 	public BoardModel deepCopy() {
-        BoardModel newBoard = new BoardModel((PlayerModel) currentPlayer.deepCopy(), (PlayerModel) waitingPlayer.deepCopy());
+        BoardModel newBoard = new BoardModel(currentPlayer.deepCopy(), waitingPlayer.deepCopy());
 
         for (MinionPlayerPair minionPlayerPair : allMinionsFIFOList_) {
 

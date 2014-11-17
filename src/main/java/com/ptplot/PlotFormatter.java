@@ -77,7 +77,7 @@ public class PlotFormatter extends JPanel {
             if (captionsString.length() > 0) {
                 captionsString.append('\n');
             }
-            captionsString.append((String) captions.nextElement());
+            captionsString.append(captions.nextElement());
         }
         _wideQuery.addTextArea("caption", "Caption", captionsString.toString());
 

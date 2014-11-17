@@ -105,7 +105,7 @@ public class Deck implements DeepCopyable<Deck> {
 	public Deck deepCopy() {
 		ArrayList<Card> copiedCards = new ArrayList<Card>();
 		for (Card card : cards) {
-			copiedCards.add((Card)card.deepCopy());
+			copiedCards.add(card.deepCopy());
 		}
 		return new Deck(copiedCards);
 	}

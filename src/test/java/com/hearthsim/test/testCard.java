@@ -11,7 +11,7 @@ public class TestCard {
 	@Test
 	public void testEqualsDeepCopy() {
 		Card card0 = new Card("" + 0, (byte)2);
-		Card copy = (Card)card0.deepCopy();
+		Card copy = card0.deepCopy();
 		assertEquals(card0, copy);
 
 		copy.setBaseManaCost((byte)3);

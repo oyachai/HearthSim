@@ -60,7 +60,7 @@ public class TestDivineSpirit {
 	public void test_deepClone() throws HSException {
 		
 		Card card1 = new DivineSpirit();
-		Card card1_cloned = (Card)card1.deepCopy();
+		Card card1_cloned = card1.deepCopy();
 		
 		assertTrue(card1.equals(card1_cloned));
 		assertTrue(card1_cloned.equals(card1));
@@ -69,7 +69,7 @@ public class TestDivineSpirit {
 		assertFalse(card1.equals(card1_cloned));
 		assertFalse(card1_cloned.equals(card1));
 
-		card1_cloned = (Card)card1.deepCopy();
+		card1_cloned = card1.deepCopy();
 		assertTrue(card1.equals(card1_cloned));
 		assertTrue(card1_cloned.equals(card1));
 		

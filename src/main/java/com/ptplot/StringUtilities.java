@@ -982,7 +982,7 @@ public class StringUtilities {
             }
         }
 
-        return (String[]) commandList.toArray(new String[commandList.size()]);
+        return commandList.toArray(new String[commandList.size()]);
     }
 
     /** Return a string with a maximum line length of <i>lineLength</i>

@@ -168,7 +168,7 @@ public class PlayerModel implements DeepCopyable<PlayerModel> {
         PlayerModel copiedPlayerModel = new PlayerModel(
         		this.playerId,
                 this.name,
-                (Hero) this.hero.deepCopy(),
+                this.hero.deepCopy(),
                 this.deck //TODO should be a deep copy, we're just using the index in boardmodel right now to compensate..
                 //oyachai: the use of the deck position index is actually an attempt to reduce memory usage.
         );
@@ -184,7 +184,7 @@ public class PlayerModel implements DeepCopyable<PlayerModel> {
         }
 
         for (final Card card: hand) {
-            Card tc = (Card)card.deepCopy();
+            Card tc = card.deepCopy();
             copiedPlayerModel.placeCardHand(tc);
         }
 

@@ -46,7 +46,7 @@ public class SpellHeal extends SpellCard {
     @Override
     public int hashCode() {
         int result = super.hashCode();
-        result = 31 * result + (int) healAmount_;
+        result = 31 * result + healAmount_;
         return result;
     }
 

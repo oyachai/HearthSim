@@ -113,13 +113,13 @@ public class HSMainFrameModel implements HSGameEndEventListener {
 		double getWinRate_p0() {
 			if (p0_wins_ + p1_wins_ == 0)
 				return 0.0;
-			return (double)p0_wins_ / ((double)p0_wins_ + (double)p1_wins_);
+			return p0_wins_ / ((double)p0_wins_ + (double)p1_wins_);
 		}
 
 		double getWinRate_p1() {
 			if (p0_wins_ + p1_wins_ == 0)
 				return 0.0;
-			return (double)p1_wins_ / ((double)p0_wins_ + (double)p1_wins_);
+			return p1_wins_ / ((double)p0_wins_ + (double)p1_wins_);
 		}
 		
 		double getWinRateWhenGoingFirst_p0() {

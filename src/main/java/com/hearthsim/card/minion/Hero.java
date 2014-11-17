@@ -274,7 +274,7 @@ public abstract class Hero extends Minion {
 	public int hashCode() {
 		int result = super.hashCode();
 		result = 31 * result + (weapon != null ? weapon.hashCode() : 0);
-		result = 31 * result + (int)armor_;
+		result = 31 * result + armor_;
 		return result;
 	}
 

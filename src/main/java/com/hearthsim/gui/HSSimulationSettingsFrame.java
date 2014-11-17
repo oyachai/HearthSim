@@ -44,7 +44,7 @@ public class HSSimulationSettingsFrame extends JDialog {
 		contentPane.setLayout(sl_contentPane);
 		
 		JPanel bottom_panel = new JPanel();
-		bottom_panel.setBorder(new MatteBorder(1, 0, 0, 0, (Color) Color.GRAY));
+		bottom_panel.setBorder(new MatteBorder(1, 0, 0, 0, Color.GRAY));
 		bottom_panel.setBackground(BACKGROUND_COLOR);
 		sl_contentPane.putConstraint(SpringLayout.WEST, bottom_panel, 0, SpringLayout.WEST, contentPane);
 		sl_contentPane.putConstraint(SpringLayout.SOUTH, bottom_panel, 0, SpringLayout.SOUTH, contentPane);
@@ -76,7 +76,7 @@ public class HSSimulationSettingsFrame extends JDialog {
 		
 		JPanel settings_P0 = new JPanel();
 		sl_main_panel.putConstraint(SpringLayout.EAST, settings_P0, 240, SpringLayout.WEST, main_panel);
-		settings_P0.setBorder(new MatteBorder(0, 0, 0, 1, (Color) Color.GRAY));
+		settings_P0.setBorder(new MatteBorder(0, 0, 0, 1, Color.GRAY));
 		sl_main_panel.putConstraint(SpringLayout.NORTH, settings_P0, 0, SpringLayout.NORTH, main_panel);
 		sl_main_panel.putConstraint(SpringLayout.WEST, settings_P0, 0, SpringLayout.WEST, main_panel);
 		sl_main_panel.putConstraint(SpringLayout.SOUTH, settings_P0, 0, SpringLayout.SOUTH, main_panel);
@@ -132,7 +132,7 @@ public class HSSimulationSettingsFrame extends JDialog {
 		settings_P0_main.add(flag_useFastPlacement_p0, gbc_flag_useFastPlacement_p0);
 		
 		JPanel settings_P1 = new JPanel();
-		settings_P1.setBorder(new MatteBorder(0, 1, 0, 0, (Color) Color.GRAY));
+		settings_P1.setBorder(new MatteBorder(0, 1, 0, 0, Color.GRAY));
 		sl_main_panel.putConstraint(SpringLayout.NORTH, settings_P1, 0, SpringLayout.NORTH, main_panel);
 		sl_main_panel.putConstraint(SpringLayout.WEST, settings_P1, -240, SpringLayout.EAST, main_panel);
 		sl_main_panel.putConstraint(SpringLayout.SOUTH, settings_P1, 0, SpringLayout.SOUTH, main_panel);

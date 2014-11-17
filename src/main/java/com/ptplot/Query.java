@@ -1149,7 +1149,7 @@ public class Query extends JPanel {
         Iterator<String> names = _entries.keySet().iterator();
 
         while (names.hasNext()) {
-            String name = (String) names.next();
+            String name = names.next();
             _notifyListeners(name);
         }
     }
@@ -1516,7 +1516,7 @@ public class Query extends JPanel {
      *  @param tip The text of the tool tip.
      */
     public void setToolTip(String name, String tip) {
-        JLabel label = (JLabel) _labels.get(name);
+        JLabel label = _labels.get(name);
 
         if (label != null) {
             label.setToolTipText(tip);
@@ -1735,7 +1735,7 @@ public class Query extends JPanel {
             Enumeration<QueryListener> listeners = _listeners.elements();
 
             while (listeners.hasMoreElements()) {
-                QueryListener queryListener = (QueryListener) (listeners
+                QueryListener queryListener = (listeners
                         .nextElement());
                 queryListener.changed(name);
             }
@@ -2095,7 +2095,7 @@ public class Query extends JPanel {
                             } catch (IOException ex) {
                                 _entryBox.setText(file.toString());
                             }
-                        } else {
+                        } else if(relativeURI != null) { // TODO need else clause
                             _entryBox.setText(relativeURI.toString());
                         }
                     }

@@ -204,8 +204,8 @@ public class TestBoardModel {
 		board.data_.resetMinions();
 
 		assertTrue(board.data_.equals(board.data_));
-		assertTrue(board.data_.equals((BoardModel)board.data_.deepCopy()));
-		assertEquals(board.data_.hashCode(), ((BoardModel)board.data_.deepCopy()).hashCode());
-		assertFalse(board.data_.equals((BoardModel)board.data_.flipPlayers().deepCopy()));
+		assertTrue(board.data_.equals(board.data_.deepCopy()));
+		assertEquals(board.data_.hashCode(), board.data_.deepCopy().hashCode());
+		assertFalse(board.data_.equals(board.data_.flipPlayers().deepCopy()));
 	}
 }

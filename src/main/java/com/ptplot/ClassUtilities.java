@@ -83,7 +83,7 @@ public class ClassUtilities {
         JarFile jarFile = connection.getJarFile();
         Enumeration<JarEntry> entries = jarFile.entries();
         while (entries.hasMoreElements()) {
-            JarEntry entry = (JarEntry) entries.nextElement();
+            JarEntry entry = entries.nextElement();
             String name = entry.getName();
             int jarEntryIndex = name.indexOf(jarEntryName + "/");
             int jarEntrySlashIndex = jarEntryIndex + jarEntryName.length() + 1;
@@ -98,6 +98,7 @@ public class ClassUtilities {
                 directories.add(name);
             }
         }
+        jarFile.close();
         return directories;
     }
 

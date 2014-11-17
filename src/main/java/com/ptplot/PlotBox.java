@@ -704,7 +704,7 @@ public class PlotBox extends JPanel implements Printable {
         int idx = _legendDatasets.indexOf(Integer.valueOf(dataset), 0);
 
         if (idx != -1) {
-            return (String) _legendStrings.elementAt(idx);
+            return _legendStrings.elementAt(idx);
         } else {
             return null;
         }
@@ -724,7 +724,7 @@ public class PlotBox extends JPanel implements Printable {
             return -1;
         }
 
-        return ((Integer) _legendDatasets.get(index)).intValue();
+        return _legendDatasets.get(index).intValue();
     }
 
     /** If the size of the plot has been set by setSize(),
@@ -1060,6 +1060,7 @@ public class PlotBox extends JPanel implements Printable {
                 _parseLine(line);
                 line = din.readLine();
             }
+            din.close();
         } catch (MalformedURLException e) {
             _errorMsg = new String[2];
             _errorMsg[0] = "Malformed URL: " + filespec;
@@ -1190,7 +1191,7 @@ public class PlotBox extends JPanel implements Printable {
         boolean found = false;
 
         for (int i = 0; (i < len) && !found; ++i) {
-            if (((Integer) _legendDatasets.get(i)).intValue() == dataset) {
+            if (_legendDatasets.get(i).intValue() == dataset) {
                 foundIndex = i;
                 found = true;
             }
@@ -1828,7 +1829,7 @@ public class PlotBox extends JPanel implements Printable {
         if (_captionStrings != null) {
             for (Enumeration<String> captions = _captionStrings.elements(); captions
                     .hasMoreElements();) {
-                String captionLine = (String) captions.nextElement();
+                String captionLine = captions.nextElement();
                 output.println("<caption>" + captionLine + "</caption>");
             }
         }
@@ -1858,7 +1859,7 @@ public class PlotBox extends JPanel implements Printable {
 
             for (int i = 0; i <= last; i++) {
                 output.println("  <tick label=\""
-                        + (String) _xticklabels.elementAt(i) + "\" position=\""
+                        + _xticklabels.elementAt(i) + "\" position=\""
                         + _xticks.elementAt(i) + "\"/>");
             }
 
@@ -1872,7 +1873,7 @@ public class PlotBox extends JPanel implements Printable {
 
             for (int i = 0; i <= last; i++) {
                 output.println("  <tick label=\""
-                        + (String) _yticklabels.elementAt(i) + "\" position=\""
+                        + _yticklabels.elementAt(i) + "\" position=\""
                         + _yticks.elementAt(i) + "\"/>");
             }
 
@@ -2238,7 +2239,7 @@ public class PlotBox extends JPanel implements Printable {
             Enumeration<String> nl = _yticklabels.elements();
 
             while (nl.hasMoreElements()) {
-                String label = (String) nl.nextElement();
+                String label = nl.nextElement();
                 int lw = _labelFontMetrics.stringWidth(label);
 
                 if (lw > widesty) {
@@ -2389,8 +2390,8 @@ public class PlotBox extends JPanel implements Printable {
             Enumeration<String> nl = _yticklabels.elements();
 
             while (nl.hasMoreElements()) {
-                String label = (String) nl.nextElement();
-                double ypos = ((Double) (nt.nextElement())).doubleValue();
+                String label = nl.nextElement();
+                double ypos = (nt.nextElement()).doubleValue();
 
                 if ((ypos > _yMax) || (ypos < _yMin)) {
                     continue;
@@ -2575,8 +2576,8 @@ public class PlotBox extends JPanel implements Printable {
             double preLength = 0.0;
 
             while (nl.hasMoreElements()) {
-                String label = (String) nl.nextElement();
-                double xpos = ((Double) (nt.nextElement())).doubleValue();
+                String label = nl.nextElement();
+                double xpos = (nt.nextElement()).doubleValue();
 
                 // If xpos is out of range, ignore.
                 if ((xpos > _xMax) || (xpos < _xMin)) {
@@ -2672,7 +2673,7 @@ public class PlotBox extends JPanel implements Printable {
         int yCapPosn = drawRect.height - captionHeight + 14;
         for (Enumeration<String> captions = _captionStrings.elements(); captions
                 .hasMoreElements();) {
-            String captionLine = (String) captions.nextElement();
+            String captionLine = captions.nextElement();
             int labelx = _ulx
                     + ((width - _captionFontMetrics.stringWidth(captionLine)) / 2);
             graphics.drawString(captionLine, labelx, yCapPosn);
@@ -2932,7 +2933,7 @@ public class PlotBox extends JPanel implements Printable {
         if (_captionStrings != null) {
             for (Enumeration<String> captions = _captionStrings.elements(); captions
                     .hasMoreElements();) {
-                String captionLine = (String) captions.nextElement();
+                String captionLine = captions.nextElement();
                 output.println("Caption: " + captionLine);
             }
         }
@@ -2959,11 +2960,11 @@ public class PlotBox extends JPanel implements Printable {
             int last = _xticks.size() - 1;
 
             for (int i = 0; i < last; i++) {
-                output.print("\"" + (String) _xticklabels.elementAt(i) + "\" "
+                output.print("\"" + _xticklabels.elementAt(i) + "\" "
                         + _xticks.elementAt(i) + ", ");
             }
 
-            output.println("\"" + (String) _xticklabels.elementAt(last) + "\" "
+            output.println("\"" + _xticklabels.elementAt(last) + "\" "
                     + _xticks.elementAt(last));
         }
 
@@ -2973,11 +2974,11 @@ public class PlotBox extends JPanel implements Printable {
             int last = _yticks.size() - 1;
 
             for (int i = 0; i < last; i++) {
-                output.print("\"" + (String) _yticklabels.elementAt(i) + "\" "
+                output.print("\"" + _yticklabels.elementAt(i) + "\" "
                         + _yticks.elementAt(i) + ", ");
             }
 
-            output.println("\"" + (String) _yticklabels.elementAt(last) + "\" "
+            output.println("\"" + _yticklabels.elementAt(last) + "\" "
                     + _yticks.elementAt(last));
         }
 
@@ -3229,10 +3230,10 @@ public class PlotBox extends JPanel implements Printable {
         int maxwidth = 0;
 
         while (v.hasMoreElements()) {
-            String legend = (String) v.nextElement();
+            String legend = v.nextElement();
 
             // NOTE: relies on _legendDatasets having the same num. of entries.
-            int dataset = ((Integer) i.nextElement()).intValue();
+            int dataset = i.nextElement().intValue();
 
             if (dataset >= 0) {
                 if (_usecolor) {
@@ -3479,7 +3480,7 @@ public class PlotBox extends JPanel implements Printable {
                 // that is equal to or greater than the element we are
                 // trying to add.
                 while ((oldgridi < oldgrid.size())
-                        && (((Double) oldgrid.elementAt(oldgridi))
+                        && (oldgrid.elementAt(oldgridi)
                                 .doubleValue() < logval)) {
                     oldgridi++;
                 }
@@ -3487,7 +3488,7 @@ public class PlotBox extends JPanel implements Printable {
                 if (oldgridi < oldgrid.size()) {
                     // Using == on doubles is bad if the numbers are close,
                     // but not exactly equal.
-                    if (Math.abs(((Double) oldgrid.elementAt(oldgridi))
+                    if (Math.abs(oldgrid.elementAt(oldgridi)
                             .doubleValue()
                             - logval) > 0.00001) {
                         grid.addElement(Double.valueOf(logval));
@@ -3514,7 +3515,7 @@ public class PlotBox extends JPanel implements Printable {
         // Set gridCurJuke so that the value in grid is greater than
         // or equal to x.  This sets us up to process the first point.
         for (_gridCurJuke = -1; ((_gridCurJuke + 1) < grid.size())
-                && (x >= ((Double) grid.elementAt(_gridCurJuke + 1))
+                && (x >= grid.elementAt(_gridCurJuke + 1)
                         .doubleValue()); _gridCurJuke++) ;
 
         return grid;
@@ -3527,12 +3528,12 @@ public class PlotBox extends JPanel implements Printable {
         double x = pos - Math.floor(pos);
         int i;
 
-        for (i = 0; (i < grid.size()) && (x >= ((Double) grid.elementAt(i)).doubleValue()); i++);
+        for (i = 0; (i < grid.size()) && (x >= grid.elementAt(i).doubleValue()); i++);
 
         if (i >= grid.size()) {
             return pos;
         } else {
-            return Math.floor(pos) + ((Double) grid.elementAt(i)).doubleValue();
+            return Math.floor(pos) + grid.elementAt(i).doubleValue();
         }
     }
 
@@ -3559,7 +3560,7 @@ public class PlotBox extends JPanel implements Printable {
             }
 
             return _gridBase
-                    + ((Double) grid.elementAt(_gridCurJuke)).doubleValue();
+                    + grid.elementAt(_gridCurJuke).doubleValue();
         } else {
             return pos + step;
         }

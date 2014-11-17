@@ -107,10 +107,12 @@ public class BreadthBoardStateFactory extends BoardStateFactoryBase {
 				root.setScore(boardScore);
 				root.setBestChildScore(boardScore);
 			} else {
-				root.setBestChildScore(best.getBestChildScore());
-				if(scoringPruning) {
-					root.clearChildren();
-					root.addChild(best);
+				if(best != null) {
+					root.setBestChildScore(best.getBestChildScore());
+					if(scoringPruning) {
+						root.clearChildren();
+						root.addChild(best);
+					}
 				}
 			}
 		}
@@ -126,8 +128,7 @@ public class BreadthBoardStateFactory extends BoardStateFactoryBase {
 		this.breadthFirstSearch(root, ai, 100, prune);
 	}
 
-	public void breadthFirstSearch(HearthTreeNode root, BoardScorer ai, int maxDepth, boolean prune)
-			throws HSException {
+	public void breadthFirstSearch(HearthTreeNode root, BoardScorer ai, int maxDepth, boolean prune) throws HSException {
 		this.addChildLayers(root, maxDepth);
 		this.processScoresForTree(root, ai, prune);
 	}

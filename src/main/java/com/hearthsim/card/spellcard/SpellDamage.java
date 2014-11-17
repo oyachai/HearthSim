@@ -42,7 +42,7 @@ public class SpellDamage extends SpellCard {
 	@Override
 	public int hashCode() {
 		int result = super.hashCode();
-		result = 31 * result + (int)damage_;
+		result = 31 * result + damage_;
 		return result;
 	}
 

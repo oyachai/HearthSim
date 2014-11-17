@@ -129,7 +129,7 @@ public class FileUtilities {
         try {
 	        Enumeration<JarEntry> entries = jarFile.entries();
 	        while (entries.hasMoreElements()) {
-	            JarEntry jarEntry = (JarEntry) entries.nextElement();
+	            JarEntry jarEntry = entries.nextElement();
 	            File destinationFile = new File(directoryName, jarEntry.getName());
 	            if (jarEntry.isDirectory()) {
 	                if (!destinationFile.isDirectory() && !destinationFile.mkdirs()) {

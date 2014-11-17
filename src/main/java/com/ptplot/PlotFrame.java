@@ -330,12 +330,14 @@ public class PlotFrame extends JFrame {
                     fout = new FileOutputStream(file);
                     plot.export(fout);
                 } finally {
-                    try {
-                        fout.close();
-                    } catch (Throwable throwable) {
-                        log.error("Ignoring failure to close stream on {}", file);
-                        log.error(throwable.toString());
-                    }
+                	if(fout != null) {
+	                    try {
+	                        fout.close();
+	                    } catch (Throwable throwable) {
+	                        log.error("Ignoring failure to close stream on {}", file);
+	                        log.error(throwable.toString());
+	                    }
+                	}
                 }
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(this, "Error exporting plot: "

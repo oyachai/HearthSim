@@ -6,7 +6,6 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -32,6 +31,9 @@ public class SparseChildNodeCreator extends ChildNodeCreatorBase {
 		int mana = boardStateNode.data_.getCurrentPlayer().getMana();
 		for(int cardIndex = 0; cardIndex < boardStateNode.data_.getNumCards_hand(); ++cardIndex) {
 			card = boardStateNode.data_.getCurrentPlayerCardHand(cardIndex);
+			if(card == null)
+				continue; // Should be impossible
+
 			allUsed = allUsed && card.hasBeenUsed();
 			if(card.getManaCost(PlayerSide.CURRENT_PLAYER, boardStateNode) > mana || card.hasBeenUsed()) {
 				continue;
@@ -44,7 +46,7 @@ public class SparseChildNodeCreator extends ChildNodeCreatorBase {
 				// actually place the card now
 				targetMinion = boardStateNode.data_.getCurrentPlayerCharacter(cardPlacementIndex);
 				if(card.canBeUsedOn(PlayerSide.CURRENT_PLAYER, targetMinion, boardStateNode.data_)) {
-					newState = new HearthTreeNode((BoardModel)boardStateNode.data_.deepCopy());
+					newState = new HearthTreeNode(boardStateNode.data_.deepCopy());
 					copiedTargetMinion = newState.data_.getCurrentPlayerCharacter(cardPlacementIndex);
 					copiedCard = newState.data_.getCurrentPlayerCardHand(cardIndex);
 					newState = copiedCard.useOn(PlayerSide.CURRENT_PLAYER, copiedTargetMinion, newState, deckPlayer0_,
@@ -60,7 +62,7 @@ public class SparseChildNodeCreator extends ChildNodeCreatorBase {
 					targetMinion = boardStateNode.data_.getCurrentPlayerCharacter(targetIndex);
 
 					if(card.canBeUsedOn(PlayerSide.CURRENT_PLAYER, targetMinion, boardStateNode.data_)) {
-						newState = new HearthTreeNode((BoardModel)boardStateNode.data_.deepCopy());
+						newState = new HearthTreeNode(boardStateNode.data_.deepCopy());
 						copiedTargetMinion = newState.data_.getCurrentPlayerCharacter(targetIndex);
 						copiedCard = newState.data_.getCurrentPlayerCardHand(cardIndex);
 						newState = copiedCard.useOn(PlayerSide.CURRENT_PLAYER, copiedTargetMinion, newState,
@@ -76,7 +78,7 @@ public class SparseChildNodeCreator extends ChildNodeCreatorBase {
 					targetMinion = boardStateNode.data_.getWaitingPlayerCharacter(targetIndex);
 
 					if(card.canBeUsedOn(PlayerSide.WAITING_PLAYER, targetMinion, boardStateNode.data_)) {
-						newState = new HearthTreeNode((BoardModel)boardStateNode.data_.deepCopy());
+						newState = new HearthTreeNode(boardStateNode.data_.deepCopy());
 						copiedTargetMinion = newState.data_.getWaitingPlayerCharacter(targetIndex);
 						copiedCard = newState.data_.getCurrentPlayerCardHand(cardIndex);
 						newState = copiedCard.useOn(PlayerSide.WAITING_PLAYER, copiedTargetMinion, newState,
@@ -91,7 +93,7 @@ public class SparseChildNodeCreator extends ChildNodeCreatorBase {
 
 		// If no nodes were created then nothing could be played. If something could be played, we want to explicitly do nothing in its own node.
 		if(!nodes.isEmpty()) {
-			newState = new HearthTreeNode((BoardModel)boardStateNode.data_.deepCopy());
+			newState = new HearthTreeNode(boardStateNode.data_.deepCopy());
 			for(Card c : newState.data_.getCurrentPlayerHand()) {
 				c.hasBeenUsed(true);
 			}
@@ -108,7 +110,7 @@ public class SparseChildNodeCreator extends ChildNodeCreatorBase {
 
 		// if there are minions on the board already, place the minion farthest away from the highest attack minion on the board
 		if(PlayerSide.CURRENT_PLAYER.getPlayer(boardStateNode).getNumMinions() > 1) {
-			byte thisMinionAttack = ((Minion)minion).getTotalAttack();
+			byte thisMinionAttack = minion.getTotalAttack();
 			int numMinions = PlayerSide.CURRENT_PLAYER.getPlayer(boardStateNode).getNumMinions();
 			byte maxAttack = -100;
 			int maxAttackIndex = 0;

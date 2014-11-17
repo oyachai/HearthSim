@@ -81,7 +81,7 @@ public class HSCardList extends JList<ImplementedCard> {
 		
 		@Override
 		public Component getListCellRendererComponent(JList<? extends ImplementedCard> list, ImplementedCard value, int index, boolean isSelected, boolean cellHasFocus) {
-			ImplementedCard entry = (ImplementedCard) value;
+			ImplementedCard entry = value;
 			switch (entry.rarity_) {
 			case "free":
 				this.setForeground(HSColors.CARD_FREE_COLOR);
