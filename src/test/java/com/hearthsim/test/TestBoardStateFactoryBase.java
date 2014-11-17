@@ -36,6 +36,7 @@ import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.player.playercontroller.BruteForceSearchAI;
 import com.hearthsim.util.factory.BoardStateFactoryBase;
+import com.hearthsim.util.factory.BreadthBoardStateFactory;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class TestBoardStateFactoryBase {
@@ -371,7 +372,7 @@ public class TestBoardStateFactoryBase {
 		startingBoard.placeMinion(PlayerSide.CURRENT_PLAYER, new RiverCrocolisk());
 		startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new StonetuskBoar());
 
-		BoardStateFactoryBase factory = new BoardStateFactoryBase(this.deck0, this.deck1);
+		BreadthBoardStateFactory factory = new BreadthBoardStateFactory(this.deck0, this.deck1);
 		HearthTreeNode root = new HearthTreeNode(startingBoard);
 		factory.addChildLayers(root, 2);
 		assertDescendentsDoNotContainDuplicates(root);
@@ -385,7 +386,7 @@ public class TestBoardStateFactoryBase {
 		startingBoard.getCurrentPlayer().placeCardHand(new BloodfenRaptor());
 		startingBoard.getCurrentPlayer().placeCardHand(new ArgentSquire());
 
-		BoardStateFactoryBase factory = new BoardStateFactoryBase(this.deck0, this.deck1);
+		BreadthBoardStateFactory factory = new BreadthBoardStateFactory(this.deck0, this.deck1);
 		HearthTreeNode root = new HearthTreeNode(startingBoard);
 		factory.addChildLayers(root, 2);
 		assertDescendentsDoNotContainDuplicates(root);
@@ -402,7 +403,7 @@ public class TestBoardStateFactoryBase {
 		startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new BloodfenRaptor());
 		startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new RiverCrocolisk());
 
-		BoardStateFactoryBase factory = new BoardStateFactoryBase(this.deck0, this.deck1);
+		BreadthBoardStateFactory factory = new BreadthBoardStateFactory(this.deck0, this.deck1);
 		HearthTreeNode root = new HearthTreeNode(startingBoard);
 		factory.addChildLayers(root, 2);
 		assertDescendentsDoNotContainDuplicates(root);
@@ -494,16 +495,16 @@ public class TestBoardStateFactoryBase {
 	}
 
 	private void testBreadthDepth(BoardModel startingBoard, BruteForceSearchAI ai) throws HSException {
-		BoardStateFactoryBase factory = new BoardStateFactoryBase(this.deck0, this.deck1);
+		BreadthBoardStateFactory factory = new BreadthBoardStateFactory(this.deck0, this.deck1);
 
 		HearthTreeNode rootBreadth = new HearthTreeNode(startingBoard);
 		double breadthTimer = System.currentTimeMillis();
-		factory.breadthFirstSearch(rootBreadth, ai);
+		factory.doMoves(rootBreadth, ai);
 		breadthTimer = System.currentTimeMillis() - breadthTimer;
 
 		HearthTreeNode rootDepth = new HearthTreeNode(startingBoard);
 		double depthTimer = System.currentTimeMillis();
-		factory.depthFirstSearch(rootDepth, ai);
+		factory.doMoves(rootDepth, ai);
 		depthTimer = System.currentTimeMillis() - depthTimer;
 
 		log.debug("testBreadthDepth" + name.getMethodName() + " breadthTimer=" + breadthTimer + " depthTimer="

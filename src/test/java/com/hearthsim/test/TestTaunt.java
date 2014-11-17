@@ -51,7 +51,7 @@ public class TestTaunt {
 		BoardStateFactoryBase factory = new BoardStateFactoryBase(null, null);
 		HearthTreeNode tree = new HearthTreeNode(board);
 		try {
-			tree = factory.depthFirstSearch(tree, scoreFunc);
+			tree = factory.doMoves(tree, scoreFunc);
 		} catch(HSException e) {
 			e.printStackTrace();
 			assertTrue(false);
@@ -71,7 +71,7 @@ public class TestTaunt {
 		BoardStateFactoryBase factory = new BoardStateFactoryBase(null, null);
 		HearthTreeNode tree = new HearthTreeNode(board);
 		try {
-			tree = factory.depthFirstSearch(tree, scoreFunc);
+			tree = factory.doMoves(tree, scoreFunc);
 		} catch(HSException e) {
 			e.printStackTrace();
 			assertTrue(false);
@@ -95,7 +95,7 @@ public class TestTaunt {
 		BoardStateFactoryBase factory = new BoardStateFactoryBase(null, null);
 		HearthTreeNode tree = new HearthTreeNode(board);
 		try {
-			tree = factory.depthFirstSearch(tree, scoreFunc);
+			tree = factory.doMoves(tree, scoreFunc);
 		} catch(HSException e) {
 			e.printStackTrace();
 			assertTrue(false);
@@ -118,7 +118,7 @@ public class TestTaunt {
 		BoardStateFactoryBase factory = new BoardStateFactoryBase(null, null, 2000000000);
 		HearthTreeNode tree = new HearthTreeNode(board);
 		try {
-			tree = factory.depthFirstSearch(tree, scoreFunc);
+			tree = factory.doMoves(tree, scoreFunc);
 		} catch(HSException e) {
 			e.printStackTrace();
 			assertTrue(false);
@@ -140,7 +140,7 @@ public class TestTaunt {
 		BoardStateFactoryBase factory = new BoardStateFactoryBase(null, null);
 		HearthTreeNode tree = new HearthTreeNode(board);
 		try {
-			tree = factory.depthFirstSearch(tree, scoreFunc);
+			tree = factory.doMoves(tree, scoreFunc);
 		} catch(HSException e) {
 			e.printStackTrace();
 			assertTrue(false);

@@ -29,7 +29,7 @@ import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.factory.BoardStateFactoryBase;
+import com.hearthsim.util.factory.BreadthBoardStateFactory;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class TestLethal {
@@ -37,7 +37,7 @@ public class TestLethal {
 	public Deck deck0;
 	public Deck deck1;
 
-	BoardStateFactoryBase factory;
+	BreadthBoardStateFactory factory;
 	public BoardModel startingBoard;
 	HearthTreeNode root;
 
@@ -54,7 +54,7 @@ public class TestLethal {
 		deck0 = new Deck(cards);
 		deck1 = deck0.deepCopy();
 
-		factory = new BoardStateFactoryBase(this.deck0, this.deck1);
+		factory = new BreadthBoardStateFactory(this.deck0, this.deck1);
 		startingBoard = new BoardModel();
 		startingBoard.getCurrentPlayer().addMana(10);
 		startingBoard.getCurrentPlayer().addMaxMana(10);
