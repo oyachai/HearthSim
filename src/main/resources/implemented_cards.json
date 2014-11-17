@@ -172,6 +172,14 @@
         "class": "com.hearthsim.card.minion.concrete.BloodmageThalnos"
     },
     {
+        "name": "Bloodsail Raider",
+        "class": "com.hearthsim.card.minion.concrete.BloodsailRaider"
+    },
+    {
+        "name": "Bloodsail Corsair",
+        "class": "com.hearthsim.card.minion.concrete.BloodsailCorsair"
+    },
+    {
         "name": "Bluegill Warrior",
         "class": "com.hearthsim.card.minion.concrete.BluegillWarrior"
     },
