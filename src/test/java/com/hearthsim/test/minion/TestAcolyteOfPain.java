@@ -122,7 +122,7 @@ public class TestAcolyteOfPain {
 
 
         BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
-        List<HearthActionBoardPair> ab = ai0.playTurn(0, board.data_, 200000000);
+        List<HearthActionBoardPair> ab = ai0.playTurn(0, board.data_);
 		BoardModel resBoard = ab.get(ab.size() - 1).board;
 		
 		assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 2); //1 card drawn from AcolyteOfPain, not enough mana to play it
@@ -145,7 +145,7 @@ public class TestAcolyteOfPain {
 
 
         BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
-        List<HearthActionBoardPair> ab = ai0.playTurn(0, board.data_, 200000000);
+        List<HearthActionBoardPair> ab = ai0.playTurn(0, board.data_);
 		BoardModel resBoard = ab.get(ab.size() - 1).board;
 		
 		assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 1); //1 card drawn from AcolyteOfPain, then played the Bloodfen Raptor
@@ -173,7 +173,7 @@ public class TestAcolyteOfPain {
 		assertEquals(board.data_.getNumCardsHandWaitingPlayer(), 0);
 
         BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
-        List<HearthActionBoardPair> ab = ai0.playTurn(0, board.data_, 200000000);
+        List<HearthActionBoardPair> ab = ai0.playTurn(0, board.data_);
 		BoardModel resBoard = ab.get(ab.size() - 1).board;
 		
 		assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 1); //1 card drawn from AcolyteOfPain, then played the Bloodfen Raptor

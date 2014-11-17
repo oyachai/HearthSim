@@ -140,7 +140,7 @@ public class TestYoungPriestess {
 
         BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
 
-        List<HearthActionBoardPair> ab = ai0.playTurn(0, board.data_, 200000000);
+        List<HearthActionBoardPair> ab = ai0.playTurn(0, board.data_);
 		BoardModel resBoard0 = ab.get(ab.size() - 1).board;
 		
 		assertEquals(resBoard0.getNumCards_hand(), 0);

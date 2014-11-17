@@ -19,8 +19,6 @@ public class DepthBoardStateFactory extends BoardStateFactoryBase {
 	protected long startTime_;
 	protected long curTime_;
 
-	protected double curScore_;
-
 	/**
 	 * Constructor
 	 * maxThinkTime defaults to 10000 milliseconds (10 seconds)
@@ -41,7 +39,6 @@ public class DepthBoardStateFactory extends BoardStateFactoryBase {
 
 		lethal_ = false;
 		startTime_ = System.currentTimeMillis();
-		curScore_ = -1.e200;
 		maxTime_ = maxThinkTime;
 		timedOut_ = false;
 	}
@@ -52,7 +49,6 @@ public class DepthBoardStateFactory extends BoardStateFactoryBase {
 
 		lethal_ = false;
 		startTime_ = System.currentTimeMillis();
-		curScore_ = -1.e200;
 		maxTime_ = maxThinkTime;
 		timedOut_ = false;
 	}
