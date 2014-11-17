@@ -87,7 +87,7 @@ class SoulfireSpec extends CardSpec {
 		BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1()
 		ai0.enemyHeroHealthWeight = 20.0
 		ai0.myHeroHealthWeight = 20.0
-		def allMoves = ai0.playTurn(7, startingBoard, 10000000)
+		def allMoves = ai0.playTurn(7, startingBoard)
 
 		expect:
 		assertTrue(allMoves.size() > 0)
@@ -121,7 +121,7 @@ class SoulfireSpec extends CardSpec {
         BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1()
 		ai0.enemyHeroHealthWeight = 20.0
 		ai0.myHeroHealthWeight = 20.0
-		def allMoves = ai0.playTurn(7, startingBoard, 10000000)
+		def allMoves = ai0.playTurn(7, startingBoard)
 
 		expect:
 		assertTrue(allMoves.size() > 0)
@@ -155,7 +155,7 @@ class SoulfireSpec extends CardSpec {
 		BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1()
 		ai0.enemyHeroHealthWeight = 20.0
 		ai0.myHeroHealthWeight = 20.0
-		def allMoves = ai0.playTurn(7, startingBoard, 10000000)
+		def allMoves = ai0.playTurn(7, startingBoard)
 
 		expect:
 		assertTrue(allMoves.size() > 0)

@@ -6,6 +6,7 @@ import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.HearthActionBoardPair;
+import com.hearthsim.util.factory.BoardStateFactoryBase;
 
 public interface ArtificialPlayer extends DeepCopyable<ArtificialPlayer> {
 
@@ -42,13 +43,12 @@ public interface ArtificialPlayer extends DeepCopyable<ArtificialPlayer> {
 	 * 
 	 * @param turn Turn number, 1-based
 	 * @param board The board state at the beginning of the turn (after all card draws and minion deaths)
-	 * @param maxThinkTime The maximum number of milliseconds the AI will spend per tree
+	 * @param factory The factory to use for node generation
 	 * 
 	 * @return A list of HearthActionBoardPair that the AI has performed, starting from the earliest play to the last.
 	 * @throws HSException
 	 */
-	public List<HearthActionBoardPair> playTurn(int turn, BoardModel board, int maxThinkTime) throws HSException;
-		
+	public List<HearthActionBoardPair> playTurn(int turn, BoardModel board, BoardStateFactoryBase factory) throws HSException;
 	
 	public int getMaxThinkTime();
 }

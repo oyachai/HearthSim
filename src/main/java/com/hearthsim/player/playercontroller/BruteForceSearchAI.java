@@ -237,25 +237,26 @@ public class BruteForceSearchAI implements ArtificialPlayer {
 	}
 
 	public List<HearthActionBoardPair> playTurn(int turn, BoardModel board) throws HSException {
-        return this.playTurn(turn, board, MAX_THINK_TIME);
+		PlayerModel playerModel0 = board.getCurrentPlayer();
+		PlayerModel playerModel1 = board.getWaitingPlayer();
+		
+		BoardStateFactoryBase factory = null;
+		if (useSparseBoardStateFactory_) {
+			factory = new SparseBoardStateFactory(playerModel0.getDeck(), playerModel1.getDeck(), MAX_THINK_TIME);
+		} else {
+			factory = new DepthBoardStateFactory(playerModel0.getDeck(), playerModel1.getDeck(), MAX_THINK_TIME);
+		}
+		return this.playTurn(turn, board, factory);
 	}
 	
-	public List<HearthActionBoardPair> playTurn(int turn, BoardModel board, int maxThinkTime) throws HSException {
+	public List<HearthActionBoardPair> playTurn(int turn, BoardModel board, BoardStateFactoryBase factory) throws HSException {
 		PlayerModel playerModel0 = board.getCurrentPlayer();
 		PlayerModel playerModel1 = board.getWaitingPlayer();
 
 		log.debug("playing turn for " + playerModel0.getName());
         //The goal of this ai is to maximize his board score
         log.debug("start turn board state is {}", board);
-		HearthTreeNode toRet = new HearthTreeNode(board);
-		BoardStateFactoryBase factory = null;
-		
-		
-		if (useSparseBoardStateFactory_) {
-			factory = new SparseBoardStateFactory(playerModel0.getDeck(), playerModel1.getDeck(), maxThinkTime);
-		} else {
-			factory = new DepthBoardStateFactory(playerModel0.getDeck(), playerModel1.getDeck(), maxThinkTime);
-		}
+		HearthTreeNode toRet = new HearthTreeNode(board);		
 		
 		HearthTreeNode allMoves = factory.doMoves(toRet, this);
 		ArrayList<HearthActionBoardPair> retList = new ArrayList<HearthActionBoardPair>();
@@ -265,7 +266,7 @@ public class BruteForceSearchAI implements ArtificialPlayer {
 			curMove = curMove.getChildren().get(0);
 			if (curMove instanceof StopNode) {
 				HearthTreeNode allEffectsDone = ((StopNode)curMove).finishAllEffects(playerModel0.getDeck(), playerModel1.getDeck());
-				List<HearthActionBoardPair> nextMoves = this.playTurn(turn, allEffectsDone.data_, maxThinkTime);
+				List<HearthActionBoardPair> nextMoves = this.playTurn(turn, allEffectsDone.data_);
 				if (nextMoves.size() > 0) {
 					for( HearthActionBoardPair actionBoard : nextMoves) {
 						retList.add(actionBoard);
