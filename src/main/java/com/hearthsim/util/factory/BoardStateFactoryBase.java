@@ -1,6 +1,7 @@
 package com.hearthsim.util.factory;
 
 import java.util.ArrayList;
+import java.util.TreeSet;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
@@ -238,30 +239,59 @@ public class BoardStateFactoryBase {
 
 	// Currently only used to test lethal combinations. AI should use depthFirstSearch instead.
 	public void addChildLayers(HearthTreeNode boardStateNode, int maxDepth) throws HSException {
-		if(maxDepth <= 0) {
-			return;
-		}
-		// game is over; no more moves allowed
-		if(boardStateNode.data_.isLethalState()) {
-			return;
-		}
-		
-		this.addChildLayer(boardStateNode);
-		
-		if(maxDepth > 1 && !boardStateNode.isLeaf()) {
-			for(HearthTreeNode node : boardStateNode.getChildren()) {
-				this.addChildLayers(node, maxDepth - 1);
+		TreeSet<Integer> states = new TreeSet<Integer>();
+		ArrayList<HearthTreeNode> currentDepth = new ArrayList<HearthTreeNode>();
+		ArrayList<HearthTreeNode> nextDepth = new ArrayList<HearthTreeNode>();
+		currentDepth.add(boardStateNode);
+
+		boolean dupeSkipOn = true;
+		int outerCount = 0;
+		int innerCount = 0;
+		int childCount = 0;
+		int stateCompareCount = 0;
+		int dupeSkip = 0;
+
+		HearthTreeNode current = null;
+		while(maxDepth > 0) {
+			outerCount++;
+			while(!currentDepth.isEmpty()) {
+				innerCount++;
+				current = currentDepth.remove(0);
+
+				if(current.data_.isLethalState()) {
+					continue;
+				}
+
+				ArrayList<HearthTreeNode> children = this.createChildren(current);
+				if(children != null && children.size() > 0) {
+					for(HearthTreeNode child : children) {
+						childCount++;
+						if(dupeSkipOn) {
+							stateCompareCount += states.size();
+							if(states.contains(child.data_.hashCode())) {
+								dupeSkip++;
+								continue;
+							}
+						}
+						current.addChild(child);
+						nextDepth.add(child);
+						states.add(child.data_.hashCode());
+					}
+				}
 			}
+
+			maxDepth--;
+			ArrayList<HearthTreeNode> old = currentDepth;
+			currentDepth = nextDepth;
+			nextDepth = old;
 		}
+
+		log.debug("createChildLayers summary outerCount=" + outerCount + " innerCount=" + innerCount + " childCount="
+				+ childCount + " compareCount=" + stateCompareCount + " dupeSkip=" + dupeSkip);
+
+		return;
 	}
 
-	private void addChildLayer(HearthTreeNode boardStateNode) throws HSException {
-		if(boardStateNode.numChildren() <= 0) {
-			ArrayList<HearthTreeNode> nodes = this.createChildren(boardStateNode);
-			boardStateNode.addChildren(nodes);
-		}
-	}
-	
 	/**
 	 * Recursively generate all possible moves
 	 * This function recursively generates all possible moves that can be done starting from a given BoardState.

@@ -16,6 +16,7 @@ import com.hearthsim.card.minion.concrete.GoldshireFootman;
 import com.hearthsim.card.minion.concrete.KoboldGeomancer;
 import com.hearthsim.card.minion.concrete.RiverCrocolisk;
 import com.hearthsim.card.minion.concrete.SenjinShieldmasta;
+import com.hearthsim.card.minion.concrete.SilverHandRecruit;
 import com.hearthsim.card.minion.concrete.TimberWolf;
 import com.hearthsim.card.spellcard.concrete.Assassinate;
 import com.hearthsim.card.spellcard.concrete.Frostbolt;
@@ -57,7 +58,7 @@ public class TestLethal {
 		startingBoard = new BoardModel();
 		startingBoard.getCurrentPlayer().addMana(10);
 		startingBoard.getCurrentPlayer().addMaxMana(10);
-		
+
 		root = new HearthTreeNode(startingBoard);
 		this.ownHero = startingBoard.getCurrentPlayerHero();
 		this.enemyHero = startingBoard.getWaitingPlayerHero();
@@ -163,7 +164,7 @@ public class TestLethal {
 	public void testMindControlTauntAndAttack() throws HSException {
 		this.removeTauntTest(new MindControl());
 	}
-	
+
 	@Test
 	public void testKillTauntWithSmallerAttack() throws HSException {
 		this.enemyHero.setHealth((byte)6);
@@ -191,6 +192,29 @@ public class TestLethal {
 		this.factory.addChildLayers(this.root, 5);
 		assertTrue(this.hasLethalAtDepth(this.root, 5));
 		assertTrue(this.hasLethalAtDepth(this.root, 5));
+	}
+
+	@Test
+	public void testReallyComplicatedTauntMath() throws HSException {
+		this.enemyHero.setHealth((byte)6);
+		this.startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new GoldshireFootman());
+		this.startingBoard.placeCardHand(PlayerSide.CURRENT_PLAYER, new BluegillWarrior()); // +2 = 2
+
+		this.startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new SenjinShieldmasta());
+		this.startingBoard.placeMinion(PlayerSide.CURRENT_PLAYER, new RiverCrocolisk()); // +1 = 3
+		this.startingBoard.placeMinion(PlayerSide.CURRENT_PLAYER, new RiverCrocolisk()); // +1 = 4
+		this.startingBoard.placeMinion(PlayerSide.CURRENT_PLAYER, new SilverHandRecruit()); // +1 = 5
+
+		this.startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new GoldshireFootman());
+		this.startingBoard.placeMinion(PlayerSide.CURRENT_PLAYER, new RiverCrocolisk()); // +1 = 6
+
+		this.startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new GoldshireFootman());
+		this.startingBoard.placeMinion(PlayerSide.CURRENT_PLAYER, new RiverCrocolisk()); // +1 = 7
+
+		this.startingBoard.placeMinion(PlayerSide.CURRENT_PLAYER, new BoulderfistOgre()); // +1 = 8
+
+		this.factory.addChildLayers(this.root, 8);
+		assertTrue(this.hasLethalAtDepth(this.root, 8));
 	}
 
 	private void removeTauntTest(Card removal) throws HSException {
