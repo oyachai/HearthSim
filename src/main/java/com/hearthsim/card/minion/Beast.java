@@ -14,7 +14,8 @@ public class Beast extends Minion {
         super(name, mana, attack, health, baseAttack, baseHealth, maxHealth);
     }
 
-    public JSONObject toJSON() {
+    @Override
+	public JSONObject toJSON() {
 		JSONObject json = super.toJSON();
 		json.put("type", "Beast");
 		return json;

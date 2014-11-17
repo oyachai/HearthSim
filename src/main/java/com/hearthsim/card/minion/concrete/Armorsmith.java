@@ -33,6 +33,7 @@ public class Armorsmith extends Minion {
      * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
      * @param deckPlayer0 The deck of player0    @return The boardState is manipulated and returned
      * */
+	@Override
 	public HearthTreeNode minionDamagedEvent(
 			PlayerSide thisMinionPlayerSide,
 			PlayerSide damagedPlayerSide,

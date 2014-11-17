@@ -35,6 +35,7 @@ public class Hand {
 		return numCards_;
 	}
 	
+	@Override
 	public String toString() {
 		String toRet = "{\"nc\": " + numCards_ + ", \"cards\": [";
 		for (int i = 0; i < cards_.size() - 1; ++i) {

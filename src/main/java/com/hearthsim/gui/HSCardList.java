@@ -30,7 +30,8 @@ public class HSCardList extends JList<ImplementedCard> {
 		this.setModel(model);
 		
 		this.addMouseListener(new MouseAdapter() {
-		    public void mousePressed(MouseEvent evt) {
+		    @Override
+			public void mousePressed(MouseEvent evt) {
 		        JList<?> list = (JList<?>)evt.getSource();
 	        	int index = list.locationToIndex(evt.getPoint());
 	        	String name = ((SortedListModel<ImplementedCard>) HSCardList.this.getModel()).getElementAt(index).name_;
@@ -78,6 +79,7 @@ public class HSCardList extends JList<ImplementedCard> {
 			this.setForeground(Color.WHITE);
 		}
 		
+		@Override
 		public Component getListCellRendererComponent(JList<? extends ImplementedCard> list, ImplementedCard value, int index, boolean isSelected, boolean cellHasFocus) {
 			ImplementedCard entry = (ImplementedCard) value;
 			switch (entry.rarity_) {

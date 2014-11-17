@@ -73,6 +73,7 @@ public class HearthSim implements HSSimulationEventListener {
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				try {
 					HearthSim window = new HearthSim();
@@ -572,6 +573,7 @@ public class HearthSim implements HSSimulationEventListener {
 					}
 					
 					Runnable runner = new Runnable() {
+						@Override
 						public void run() {
 							hsModel_.runSimulation();
 						}

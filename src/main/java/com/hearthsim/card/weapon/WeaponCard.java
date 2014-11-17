@@ -95,6 +95,7 @@ public abstract class WeaponCard extends Card {
      *
      * @return The boardState is manipulated and returned
 	 */
+	@Override
 	protected HearthTreeNode use_core(
 			PlayerSide side,
 			Minion targetMinion,

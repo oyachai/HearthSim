@@ -81,51 +81,63 @@ public class EPSGraphics extends Graphics {
 
     ///////////////////////////////////////////////////////////////////
     ////                         public methods                    ////
-    public void clearRect(int x, int y, int width, int height) {
+    @Override
+	public void clearRect(int x, int y, int width, int height) {
     }
 
-    public void clipRect(int x, int y, int width, int height) {
+    @Override
+	public void clipRect(int x, int y, int width, int height) {
     }
 
-    public void copyArea(int x, int y, int width, int height, int dx, int dy) {
+    @Override
+	public void copyArea(int x, int y, int width, int height, int dx, int dy) {
     }
 
-    public Graphics create() {
+    @Override
+	public Graphics create() {
         return new EPSGraphics(_out, _width, _height);
     }
 
-    public void dispose() {
+    @Override
+	public void dispose() {
     }
 
-    public void drawArc(int x, int y, int width, int height, int startAngle,
+    @Override
+	public void drawArc(int x, int y, int width, int height, int startAngle,
             int arcAngle) {
     }
 
-    public boolean drawImage(Image img, int x, int y, ImageObserver observer) {
+    @Override
+	public boolean drawImage(Image img, int x, int y, ImageObserver observer) {
         return true;
     }
 
-    public boolean drawImage(Image img, int x, int y, int width, int height,
+    @Override
+	public boolean drawImage(Image img, int x, int y, int width, int height,
             ImageObserver observer) {
         return true;
     }
 
-    public boolean drawImage(Image img, int x, int y, Color bgcolor,
+    @Override
+	public boolean drawImage(Image img, int x, int y, Color bgcolor,
             ImageObserver observer) {
         return true;
     }
 
-    public boolean drawImage(Image img, int x, int y, int width, int height,
+    @Override
+	public boolean drawImage(Image img, int x, int y, int width, int height,
             Color bgcolor, ImageObserver observer) {
         return true;
     }
 
-    public boolean drawImage(Image img, int dx1, int dy1, int dx2, int dy2,
+    @Override
+	public boolean drawImage(Image img, int dx1, int dy1, int dx2, int dy2,
             int sx1, int sy1, int sx2, int sy2, ImageObserver observer) {
         return true;
     }
 
-    public boolean drawImage(Image img, int dx1, int dy1, int dx2, int dy2,
+    @Override
+	public boolean drawImage(Image img, int dx1, int dy1, int dx2, int dy2,
             int sx1, int sy1, int sx2, int sy2, Color bgcolor,
             ImageObserver observer) {
         return true;
@@ -138,7 +150,8 @@ public class EPSGraphics extends Graphics {
      *  @param x2 the x coordinate of the second point.
      *  @param y2 the y coordinate of the second point.
      */
-    public void drawLine(int x1, int y1, int x2, int y2) {
+    @Override
+	public void drawLine(int x1, int y1, int x2, int y2) {
         Point start = _convert(x1, y1);
         Point end = _convert(x2, y2);
         _buffer.append("newpath " + start.x + " " + start.y + " moveto\n");
@@ -146,7 +159,8 @@ public class EPSGraphics extends Graphics {
         _buffer.append("stroke\n");
     }
 
-    public void drawPolyline(int[] xPoints, int[] yPoints, int nPoints) {
+    @Override
+	public void drawPolyline(int[] xPoints, int[] yPoints, int nPoints) {
     }
 
     /** Draw a closed polygon defined by arrays of x and y coordinates.
@@ -158,7 +172,8 @@ public class EPSGraphics extends Graphics {
      *  @param yPoints An array of y coordinates.
      *  @param nPoints The total number of vertices.
      */
-    public void drawPolygon(int[] xPoints, int[] yPoints, int nPoints) {
+    @Override
+	public void drawPolygon(int[] xPoints, int[] yPoints, int nPoints) {
         if (!_polygon(xPoints, yPoints, nPoints)) {
             return;
         } else {
@@ -175,14 +190,16 @@ public class EPSGraphics extends Graphics {
 
     // FIXME: Currently, this ignores the fourth argument and draws a circle
     // with diameter given by the third argument.
-    public void drawOval(int x, int y, int width, int height) {
+    @Override
+	public void drawOval(int x, int y, int width, int height) {
         int radius = width / 2;
         Point center = _convert(x + radius, y + radius);
         _buffer.append("newpath " + center.x + " " + center.y + " " + radius
                 + " 0 360 arc closepath stroke\n");
     }
 
-    public void drawRect(int x, int y, int width, int height) {
+    @Override
+	public void drawRect(int x, int y, int width, int height) {
         Point start = _convert(x, y);
         _buffer.append("newpath " + start.x + " " + start.y + " moveto\n");
         _buffer.append("0 " + (-height) + " rlineto\n");
@@ -192,11 +209,13 @@ public class EPSGraphics extends Graphics {
         _buffer.append("closepath stroke\n");
     }
 
-    public void drawRoundRect(int x, int y, int width, int height,
+    @Override
+	public void drawRoundRect(int x, int y, int width, int height,
             int arcWidth, int arcHeight) {
     }
 
-    public void drawString(java.text.AttributedCharacterIterator iterator,
+    @Override
+	public void drawString(java.text.AttributedCharacterIterator iterator,
             int x, int y) {
         // FIXME: This method is present in the graphics class in JDK1.2,
         // but not in JDK1.1.
@@ -211,7 +230,8 @@ public class EPSGraphics extends Graphics {
      *  @param x  The x location of the string.
      *  @param y  The y location of the string.
      */
-    public void drawString(String str, int x, int y) {
+    @Override
+	public void drawString(String str, int x, int y) {
         Point start = _convert(x, y);
         _buffer.append("" + start.x + " " + start.y + " moveto\n");
 
@@ -226,7 +246,8 @@ public class EPSGraphics extends Graphics {
         _buffer.append("(" + str + ") show\n");
     }
 
-    public void fillArc(int x, int y, int width, int height, int startAngle,
+    @Override
+	public void fillArc(int x, int y, int width, int height, int startAngle,
             int arcAngle) {
     }
 
@@ -239,7 +260,8 @@ public class EPSGraphics extends Graphics {
      *  @param yPoints An array of y coordinates.
      *  @param nPoints The total number of vertices.
      */
-    public void fillPolygon(int[] xPoints, int[] yPoints, int nPoints) {
+    @Override
+	public void fillPolygon(int[] xPoints, int[] yPoints, int nPoints) {
         if (!_polygon(xPoints, yPoints, nPoints)) {
             return;
         } else {
@@ -256,7 +278,8 @@ public class EPSGraphics extends Graphics {
 
     // FIXME: Currently, this ignores the fourth argument and draws a circle
     // with diameter given by the third argument.
-    public void fillOval(int x, int y, int width, int height) {
+    @Override
+	public void fillOval(int x, int y, int width, int height) {
         int radius = width / 2;
         Point center = _convert(x + radius, y + radius);
         _buffer.append("newpath " + center.x + " " + center.y + " " + radius
@@ -274,7 +297,8 @@ public class EPSGraphics extends Graphics {
      *  @param width The width of the rectangle.
      *  @param height The height of the rectangle.
      */
-    public void fillRect(int x, int y, int width, int height) {
+    @Override
+	public void fillRect(int x, int y, int width, int height) {
         Point start = _convert(x, y);
         _fillPattern();
         _buffer.append("newpath " + start.x + " " + start.y + " moveto\n");
@@ -289,31 +313,38 @@ public class EPSGraphics extends Graphics {
         _buffer.append("1 setlinewidth\n");
     }
 
-    public void fillRoundRect(int x, int y, int width, int height,
+    @Override
+	public void fillRoundRect(int x, int y, int width, int height,
             int arcWidth, int arcHeight) {
     }
 
-    public Shape getClip() {
+    @Override
+	public Shape getClip() {
         return null;
     }
 
-    public Rectangle getClipBounds() {
+    @Override
+	public Rectangle getClipBounds() {
         return null;
     }
 
-    public Color getColor() {
+    @Override
+	public Color getColor() {
         return _currentColor;
     }
 
-    public Font getFont() {
+    @Override
+	public Font getFont() {
         return _currentFont;
     }
 
-    public FontMetrics getFontMetrics(Font f) {
+    @Override
+	public FontMetrics getFontMetrics(Font f) {
         return null;
     }
 
-    public void setFont(Font font) {
+    @Override
+	public void setFont(Font font) {
         if (font == null) {
             return;
         }
@@ -331,17 +362,20 @@ public class EPSGraphics extends Graphics {
         _currentFont = font;
     }
 
-    public void setClip(Shape clip) {
+    @Override
+	public void setClip(Shape clip) {
     }
 
-    public void setClip(int x, int y, int width, int height) {
+    @Override
+	public void setClip(int x, int y, int width, int height) {
     }
 
     /** Set the current color.  Since we are generating gray scale
      *  postscript, set a line style. Set the gray level to zero (black).
      *  @param c The desired current color.
      */
-    public void setColor(Color c) {
+    @Override
+	public void setColor(Color c) {
         if (c == Color.black) {
             _buffer.append("0 setgray\n");
             _buffer.append("[] 0 setdash\n");
@@ -376,10 +410,12 @@ public class EPSGraphics extends Graphics {
         _currentColor = c;
     }
 
-    public void setPaintMode() {
+    @Override
+	public void setPaintMode() {
     }
 
-    public void setXORMode(Color c1) {
+    @Override
+	public void setXORMode(Color c1) {
     }
 
     /** Issue the PostScript showpage command, then write and flush the output.
@@ -406,7 +442,8 @@ public class EPSGraphics extends Graphics {
         }
     }
 
-    public void translate(int x, int y) {
+    @Override
+	public void translate(int x, int y) {
     }
 
     ///////////////////////////////////////////////////////////////////

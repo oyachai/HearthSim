@@ -40,7 +40,8 @@ public class HSCardSelectionList extends JList<ImplementedCard> {
 		}
 		this.setModel(model);
 		this.addMouseListener(new MouseAdapter() {
-		    public void mousePressed(MouseEvent evt) {
+		    @Override
+			public void mousePressed(MouseEvent evt) {
 		        JList<?> list = (JList<?>)evt.getSource();
 	        	int index = list.locationToIndex(evt.getPoint());
 	        	log.debug("clicked item " + index + ": " + cards_.get(index).name_);
@@ -123,6 +124,7 @@ public class HSCardSelectionList extends JList<ImplementedCard> {
 			healthLabel_.setText(healthLabel);
 		}
 		
+		@Override
 		public Component getListCellRendererComponent(JList<? extends ImplementedCard> list, ImplementedCard value, int index, boolean isSelected, boolean cellHasFocus) {
 			ImplementedCardList.ImplementedCard entry = (ImplementedCardList.ImplementedCard) value;
             if (entry.rarity_!=null){

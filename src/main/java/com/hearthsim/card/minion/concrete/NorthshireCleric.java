@@ -45,6 +45,7 @@ public class NorthshireCleric extends Minion {
      * @param deckPlayer1 The deck of player1
      * @return The boardState is manipulated and returned
 	 */
+	@Override
 	public HearthTreeNode minionHealedEvent(
 			PlayerSide thisMinionPlayerSide,
 			PlayerSide healedMinionPlayerSide,

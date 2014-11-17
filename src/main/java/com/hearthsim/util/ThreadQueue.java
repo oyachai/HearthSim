@@ -29,7 +29,8 @@ public class ThreadQueue {
     
 	private class PoolWorker extends Thread {
 
-	    public void run() {
+	    @Override
+		public void run() {
 	        Runnable r;
 	        while (true) {
 	            synchronized(queue) {

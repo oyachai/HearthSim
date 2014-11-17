@@ -225,7 +225,8 @@ public class PlotFrame extends JFrame {
      *  @param visible True if the Frame is to be visible, false
      *  if it is not visible.
      */
-    public void setVisible(boolean visible) {
+    @Override
+	public void setVisible(boolean visible) {
         super.setVisible(visible);
         _editMenu.setBackground(_menubar.getBackground());
         _fileMenu.setBackground(_menubar.getBackground());
@@ -601,7 +602,8 @@ public class PlotFrame extends JFrame {
     ///////////////////////////////////////////////////////////////////
     ////                         inner classes                     ////
     class FileMenuListener implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
+        @Override
+		public void actionPerformed(ActionEvent e) {
             JMenuItem target = (JMenuItem) e.getSource();
             String actionCommand = target.getActionCommand();
 
@@ -636,7 +638,8 @@ public class PlotFrame extends JFrame {
     }
 
     class FormatListener implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
+        @Override
+		public void actionPerformed(ActionEvent e) {
             try {
                 _editFormat();
             } catch (Exception exception) {
@@ -659,7 +662,8 @@ public class PlotFrame extends JFrame {
     }
 
     class SpecialMenuListener implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
+        @Override
+		public void actionPerformed(ActionEvent e) {
             JMenuItem target = (JMenuItem) e.getSource();
             String actionCommand = target.getActionCommand();
 
@@ -704,7 +708,8 @@ public class PlotFrame extends JFrame {
          *  @param fileOrDirectory The file or directory to be checked.
          *  @return true if the file is a directory, a .eps file
          */
-        public boolean accept(File fileOrDirectory) {
+        @Override
+		public boolean accept(File fileOrDirectory) {
             if (fileOrDirectory.isDirectory()) {
                 return true;
             }
@@ -730,7 +735,8 @@ public class PlotFrame extends JFrame {
         }
 
         /**  The description of this filter */
-        public String getDescription() {
+        @Override
+		public String getDescription() {
             return "Encapsulated PostScript (.eps) files";
         }
     }
@@ -741,7 +747,8 @@ public class PlotFrame extends JFrame {
          *  @param fileOrDirectory The file to be checked.
          *  @return true if the file is a directory, a .plot or a .xml file.
          */
-        public boolean accept(File fileOrDirectory) {
+        @Override
+		public boolean accept(File fileOrDirectory) {
             if (fileOrDirectory.isDirectory()) {
                 return true;
             }
@@ -768,7 +775,8 @@ public class PlotFrame extends JFrame {
         }
 
         /**  The description of this filter */
-        public String getDescription() {
+        @Override
+		public String getDescription() {
             return ".plt and .xml files";
         }
     }

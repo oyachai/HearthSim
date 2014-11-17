@@ -191,7 +191,8 @@ public class PlotFormatter extends JPanel {
         //}
         // Attach listeners.
         _wideQuery.addQueryListener(new QueryListener() {
-            public void changed(String name) {
+            @Override
+			public void changed(String name) {
                 if (name.equals("title")) {
                     _plot.setTitle(_wideQuery.getStringValue("title"));
                 } else if (name.equals("caption")) {
@@ -247,7 +248,8 @@ public class PlotFormatter extends JPanel {
         });
 
         _narrowQuery.addQueryListener(new QueryListener() {
-            public void changed(String name) {
+            @Override
+			public void changed(String name) {
                 if (name.equals("grid")) {
                     _plot.setGrid(_narrowQuery.getBooleanValue("grid"));
                 } else if (name.equals("stems")) {

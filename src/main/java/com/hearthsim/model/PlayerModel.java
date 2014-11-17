@@ -158,7 +158,8 @@ public class PlayerModel implements DeepCopyable<PlayerModel> {
     	fatigueDamage += value;
     }
     
-    public String toString() {
+    @Override
+	public String toString() {
         return new JSONObject(this).toString();
     }
 

@@ -11,7 +11,8 @@ public class Totem extends Minion {
         super(name, mana, attack, health, baseAttack, baseHealth, maxHealth);
     }
 
-    public JSONObject toJSON() {
+    @Override
+	public JSONObject toJSON() {
 		JSONObject json = super.toJSON();
 		json.put("type", "Totem");
 		return json;

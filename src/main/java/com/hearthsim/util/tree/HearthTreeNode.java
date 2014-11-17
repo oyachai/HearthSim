@@ -188,6 +188,7 @@ public class HearthTreeNode {
 		return numNodesTried_;
 	}
 
+	@Override
 	public String toString() {
 		String toRet = "{";
 		toRet = toRet + "\"data\": " + data_ + ", ";

@@ -22,6 +22,7 @@ public class StormforgedAxe extends WeaponCard {
      *
      * @return The boardState is manipulated and returned
 	 */
+	@Override
 	protected HearthTreeNode use_core(
 			PlayerSide side,
 			Minion targetMinion,

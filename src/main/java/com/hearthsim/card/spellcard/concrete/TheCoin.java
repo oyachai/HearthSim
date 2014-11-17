@@ -58,6 +58,7 @@ public class TheCoin extends SpellCard {
 		return boardState;
 	}
 
+	@Override
 	public JSONObject toJSON() {
 		JSONObject json = super.toJSON();
 		json.put("type", "SpellTheCoin");

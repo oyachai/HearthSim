@@ -210,7 +210,8 @@ public class Query extends JPanel {
         // custom editor.  #$(#&$#(@#!!
         // combobox.setBackground(background);
         combobox.setEditor(new BasicComboBoxEditor() {
-            public Component getEditorComponent() {
+            @Override
+			public Component getEditorComponent() {
                 Component result = super.getEditorComponent();
                 result.setBackground(background);
                 result.setForeground(foreground);
@@ -973,7 +974,8 @@ public class Query extends JPanel {
      *
      *  @return The maximum desired size.
      */
-    public Dimension getMaximumSize() {
+    @Override
+	public Dimension getMaximumSize() {
         // Unfortunately, if we don't have a message, then we end up with
         // an empty space that is difficult to control the size of, which
         // requires us to set the maximum size to be the same as
@@ -1259,7 +1261,8 @@ public class Query extends JPanel {
     /** Set the background color for all the widgets.
      *  @param color The background color.
      */
-    public void setBackground(Color color) {
+    @Override
+	public void setBackground(Color color) {
         super.setBackground(color);
         _background = color;
 
@@ -1796,7 +1799,8 @@ public class Query extends JPanel {
         /** Call all registered QueryListeners.
         *  @param event The event, ignored in this method.
         */
-        public void actionPerformed(ActionEvent event) {
+        @Override
+		public void actionPerformed(ActionEvent event) {
             _owner._notifyListeners(_name);
         }
 
@@ -1846,7 +1850,8 @@ public class Query extends JPanel {
             _name = name;
         }
 
-        public void actionPerformed(ActionEvent e) {
+        @Override
+		public void actionPerformed(ActionEvent e) {
             // Read the current color from the text field.
             String spec = getSelectedColor().trim();
             Color newColor = JColorChooser.showDialog(_owner, "Choose Color",
@@ -1978,7 +1983,8 @@ public class Query extends JPanel {
             _name = name;
         }
 
-        public void actionPerformed(ActionEvent e) {
+        @Override
+		public void actionPerformed(ActionEvent e) {
 
             // Swap backgrounds and avoid white boxes in "common places" dialog
             JFileChooserBugFix jFileChooserBugFix = new JFileChooserBugFix();
@@ -1989,6 +1995,7 @@ public class Query extends JPanel {
                 // default dir.
                 JFileChooser fileChooser = new JFileChooser(_startingDirectory) {
 					private static final long serialVersionUID = 1L;
+					@Override
 					public void approveSelection() {
                         File file = getSelectedFile();
                         if (file.exists() && getDialogType() == SAVE_DIALOG) {
@@ -2139,11 +2146,13 @@ public class Query extends JPanel {
             _owner = owner;
         }
 
-        public void focusGained(FocusEvent e) {
+        @Override
+		public void focusGained(FocusEvent e) {
             // Nothing to do.
         }
 
-        public void focusLost(FocusEvent e) {
+        @Override
+		public void focusLost(FocusEvent e) {
             // NOTE: Java's lame AWT has no reliable way
             // to take action on window closing, so this focus lost
             // notification is the only reliable way we have of reacting
@@ -2172,7 +2181,8 @@ public class Query extends JPanel {
         }
 
         /** Call all registered QueryListeners. */
-        public void itemStateChanged(ItemEvent e) {
+        @Override
+		public void itemStateChanged(ItemEvent e) {
             _owner._notifyListeners(_name);
         }
 
@@ -2223,7 +2233,8 @@ public class Query extends JPanel {
         }
 
         /** Call all registered QueryListeners. */
-        public void stateChanged(ChangeEvent event) {
+        @Override
+		public void stateChanged(ChangeEvent event) {
             _owner._notifyListeners(_name);
         }
 

@@ -84,6 +84,7 @@ public class SpellDamage extends SpellCard {
 	 * @param boardState The BoardState before this card has performed its action. It will be manipulated and returned.
 	 * @return The boardState is manipulated and returned
 	 */
+	@Override
 	protected HearthTreeNode use_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState,
 			Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
 		if(this.hasBeenUsed()) {
@@ -101,6 +102,7 @@ public class SpellDamage extends SpellCard {
 		return toRet;
 	}
 
+	@Override
 	public JSONObject toJSON() {
 		JSONObject json = super.toJSON();
 		json.put("type", "SpellDamage");

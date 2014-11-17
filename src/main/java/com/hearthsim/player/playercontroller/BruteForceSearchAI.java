@@ -123,6 +123,7 @@ public class BruteForceSearchAI implements ArtificialPlayer {
 		useSparseBoardStateFactory_ = value;
 	}
 
+	@Override
 	public List<HearthActionBoardPair> playTurn(int turn, BoardModel board) throws HSException {
 		PlayerModel playerModel0 = board.getCurrentPlayer();
 		PlayerModel playerModel1 = board.getWaitingPlayer();
@@ -136,6 +137,7 @@ public class BruteForceSearchAI implements ArtificialPlayer {
 		return this.playTurn(turn, board, factory);
 	}
 
+	@Override
 	public List<HearthActionBoardPair> playTurn(int turn, BoardModel board, BoardStateFactoryBase factory)
 			throws HSException {
 		PlayerModel playerModel0 = board.getCurrentPlayer();

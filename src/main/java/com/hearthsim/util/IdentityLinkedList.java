@@ -112,7 +112,8 @@ public class IdentityLinkedList<E>
      * @return the first element in this list
      * @throws java.util.NoSuchElementException if this list is empty
      */
-    public E getFirst() {
+    @Override
+	public E getFirst() {
         if (size==0)
             throw new NoSuchElementException();
 
@@ -125,7 +126,8 @@ public class IdentityLinkedList<E>
      * @return the last element in this list
      * @throws java.util.NoSuchElementException if this list is empty
      */
-    public E getLast()  {
+    @Override
+	public E getLast()  {
         if (size==0)
             throw new NoSuchElementException();
 
@@ -138,7 +140,8 @@ public class IdentityLinkedList<E>
      * @return the first element from this list
      * @throws java.util.NoSuchElementException if this list is empty
      */
-    public E removeFirst() {
+    @Override
+	public E removeFirst() {
         return remove(header.next);
     }
 
@@ -148,7 +151,8 @@ public class IdentityLinkedList<E>
      * @return the last element from this list
      * @throws java.util.NoSuchElementException if this list is empty
      */
-    public E removeLast() {
+    @Override
+	public E removeLast() {
         return remove(header.previous);
     }
 
@@ -157,7 +161,8 @@ public class IdentityLinkedList<E>
      *
      * @param e the element to add
      */
-    public void addFirst(E e) {
+    @Override
+	public void addFirst(E e) {
         addBefore(e, header.next);
     }
 
@@ -168,7 +173,8 @@ public class IdentityLinkedList<E>
      *
      * @param e the element to add
      */
-    public void addLast(E e) {
+    @Override
+	public void addLast(E e) {
         addBefore(e, header);
     }
 
@@ -181,7 +187,8 @@ public class IdentityLinkedList<E>
      * @param o element whose presence in this list is to be tested
      * @return <tt>true</tt> if this list contains the specified element
      */
-    public boolean contains(Object o) {
+    @Override
+	public boolean contains(Object o) {
         return indexOf(o) != -1;
     }
 
@@ -190,7 +197,8 @@ public class IdentityLinkedList<E>
      *
      * @return the number of elements in this list
      */
-    public int size() {
+    @Override
+	public int size() {
         return size;
     }
 
@@ -202,7 +210,8 @@ public class IdentityLinkedList<E>
      * @param e element to be appended to this list
      * @return <tt>true</tt> (as specified by {@link java.util.Collection#add})
      */
-    public boolean add(E e) {
+    @Override
+	public boolean add(E e) {
         addBefore(e, header);
         return true;
     }
@@ -219,7 +228,8 @@ public class IdentityLinkedList<E>
      * @param o element to be removed from this list, if present
      * @return <tt>true</tt> if this list contained the specified element
      */
-    public boolean remove(Object o) {
+    @Override
+	public boolean remove(Object o) {
         for (Entry<E> e = header.next; e != header; e = e.next) {
             if (o == e.element) {
                 remove(e);
@@ -241,7 +251,8 @@ public class IdentityLinkedList<E>
      * @return <tt>true</tt> if this list changed as a result of the call
      * @throws NullPointerException if the specified collection is null
      */
-    public boolean addAll(Collection<? extends E> c) {
+    @Override
+	public boolean addAll(Collection<? extends E> c) {
         return addAll(size, c);
     }
 
@@ -260,7 +271,8 @@ public class IdentityLinkedList<E>
      * @throws IndexOutOfBoundsException {@inheritDoc}
      * @throws NullPointerException if the specified collection is null
      */
-    public boolean addAll(int index, Collection<? extends E> c) {
+    @Override
+	public boolean addAll(int index, Collection<? extends E> c) {
         if (index < 0 || index > size)
             throw new IndexOutOfBoundsException("Index: "+index+
                                                 ", Size: "+size);
@@ -287,7 +299,8 @@ public class IdentityLinkedList<E>
     /**
      * Removes all of the elements from this list.
      */
-    public void clear() {
+    @Override
+	public void clear() {
         Entry<E> e = header.next;
         while (e != header) {
             Entry<E> next = e.next;
@@ -310,7 +323,8 @@ public class IdentityLinkedList<E>
      * @return the element at the specified position in this list
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
-    public E get(int index) {
+    @Override
+	public E get(int index) {
         return entry(index).element;
     }
 
@@ -323,7 +337,8 @@ public class IdentityLinkedList<E>
      * @return the element previously at the specified position
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
-    public E set(int index, E element) {
+    @Override
+	public E set(int index, E element) {
         Entry<E> e = entry(index);
         E oldVal = e.element;
         e.element = element;
@@ -339,7 +354,8 @@ public class IdentityLinkedList<E>
      * @param element element to be inserted
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
-    public void add(int index, E element) {
+    @Override
+	public void add(int index, E element) {
         addBefore(element, (index==size ? header : entry(index)));
     }
 
@@ -352,7 +368,8 @@ public class IdentityLinkedList<E>
      * @return the element previously at the specified position
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
-    public E remove(int index) {
+    @Override
+	public E remove(int index) {
         return remove(entry(index));
     }
 
@@ -388,7 +405,8 @@ public class IdentityLinkedList<E>
      * @return the index of the first occurrence of the specified element in
      *         this list, or -1 if this list does not contain the element
      */
-    public int indexOf(Object o) {
+    @Override
+	public int indexOf(Object o) {
         int index = 0;
         for (Entry<E> e = header.next; e != header; e = e.next) {
             if (o == e.element) {
@@ -410,7 +428,8 @@ public class IdentityLinkedList<E>
      * @return the index of the last occurrence of the specified element in
      *         this list, or -1 if this list does not contain the element
      */
-    public int lastIndexOf(Object o) {
+    @Override
+	public int lastIndexOf(Object o) {
         int index = size;
         for (Entry<E> e = header.previous; e != header; e = e.previous) {
             index--;
@@ -428,7 +447,8 @@ public class IdentityLinkedList<E>
      * @return the head of this list, or <tt>null</tt> if this list is empty
      * @since 1.5
      */
-    public E peek() {
+    @Override
+	public E peek() {
         if (size==0)
             return null;
         return getFirst();
@@ -440,7 +460,8 @@ public class IdentityLinkedList<E>
      * @throws java.util.NoSuchElementException if this list is empty
      * @since 1.5
      */
-    public E element() {
+    @Override
+	public E element() {
         return getFirst();
     }
 
@@ -449,7 +470,8 @@ public class IdentityLinkedList<E>
      * @return the head of this list, or <tt>null</tt> if this list is empty
      * @since 1.5
      */
-    public E poll() {
+    @Override
+	public E poll() {
         if (size==0)
             return null;
         return removeFirst();
@@ -462,7 +484,8 @@ public class IdentityLinkedList<E>
      * @throws java.util.NoSuchElementException if this list is empty
      * @since 1.5
      */
-    public E remove() {
+    @Override
+	public E remove() {
         return removeFirst();
     }
 
@@ -473,7 +496,8 @@ public class IdentityLinkedList<E>
      * @return <tt>true</tt> (as specified by {@link Queue#offer})
      * @since 1.5
      */
-    public boolean offer(E e) {
+    @Override
+	public boolean offer(E e) {
         return add(e);
     }
 
@@ -485,7 +509,8 @@ public class IdentityLinkedList<E>
      * @return <tt>true</tt> (as specified by {@link java.util.Deque#offerFirst})
      * @since 1.6
      */
-    public boolean offerFirst(E e) {
+    @Override
+	public boolean offerFirst(E e) {
         addFirst(e);
         return true;
     }
@@ -497,7 +522,8 @@ public class IdentityLinkedList<E>
      * @return <tt>true</tt> (as specified by {@link java.util.Deque#offerLast})
      * @since 1.6
      */
-    public boolean offerLast(E e) {
+    @Override
+	public boolean offerLast(E e) {
         addLast(e);
         return true;
     }
@@ -510,7 +536,8 @@ public class IdentityLinkedList<E>
      *         if this list is empty
      * @since 1.6
      */
-    public E peekFirst() {
+    @Override
+	public E peekFirst() {
         if (size==0)
             return null;
         return getFirst();
@@ -524,7 +551,8 @@ public class IdentityLinkedList<E>
      *         if this list is empty
      * @since 1.6
      */
-    public E peekLast() {
+    @Override
+	public E peekLast() {
         if (size==0)
             return null;
         return getLast();
@@ -538,7 +566,8 @@ public class IdentityLinkedList<E>
      *     this list is empty
      * @since 1.6
      */
-    public E pollFirst() {
+    @Override
+	public E pollFirst() {
         if (size==0)
             return null;
         return removeFirst();
@@ -552,7 +581,8 @@ public class IdentityLinkedList<E>
      *     this list is empty
      * @since 1.6
      */
-    public E pollLast() {
+    @Override
+	public E pollLast() {
         if (size==0)
             return null;
         return removeLast();
@@ -567,7 +597,8 @@ public class IdentityLinkedList<E>
      * @param e the element to push
      * @since 1.6
      */
-    public void push(E e) {
+    @Override
+	public void push(E e) {
         addFirst(e);
     }
 
@@ -582,7 +613,8 @@ public class IdentityLinkedList<E>
      * @throws java.util.NoSuchElementException if this list is empty
      * @since 1.6
      */
-    public E pop() {
+    @Override
+	public E pop() {
         return removeFirst();
     }
 
@@ -595,7 +627,8 @@ public class IdentityLinkedList<E>
      * @return <tt>true</tt> if the list contained the specified element
      * @since 1.6
      */
-    public boolean removeFirstOccurrence(Object o) {
+    @Override
+	public boolean removeFirstOccurrence(Object o) {
         return remove(o);
     }
 
@@ -608,7 +641,8 @@ public class IdentityLinkedList<E>
      * @return <tt>true</tt> if the list contained the specified element
      * @since 1.6
      */
-    public boolean removeLastOccurrence(Object o) {
+    @Override
+	public boolean removeLastOccurrence(Object o) {
         for (Entry<E> e = header.previous; e != header; e = e.previous) {
             if (o == e.element) {
                 remove(e);
@@ -639,7 +673,8 @@ public class IdentityLinkedList<E>
      * @throws IndexOutOfBoundsException {@inheritDoc}
      * @see java.util.List#listIterator(int)
      */
-    public ListIterator<E> listIterator(int index) {
+    @Override
+	public ListIterator<E> listIterator(int index) {
         return new ListItr(index);
     }
 
@@ -664,11 +699,13 @@ public class IdentityLinkedList<E>
             }
         }
 
-        public boolean hasNext() {
+        @Override
+		public boolean hasNext() {
             return nextIndex != size;
         }
 
-        public E next() {
+        @Override
+		public E next() {
             checkForComodification();
             if (nextIndex == size)
                 throw new NoSuchElementException();
@@ -679,11 +716,13 @@ public class IdentityLinkedList<E>
             return lastReturned.element;
         }
 
-        public boolean hasPrevious() {
+        @Override
+		public boolean hasPrevious() {
             return nextIndex != 0;
         }
 
-        public E previous() {
+        @Override
+		public E previous() {
             if (nextIndex == 0)
                 throw new NoSuchElementException();
 
@@ -693,15 +732,18 @@ public class IdentityLinkedList<E>
             return lastReturned.element;
         }
 
-        public int nextIndex() {
+        @Override
+		public int nextIndex() {
             return nextIndex;
         }
 
-        public int previousIndex() {
+        @Override
+		public int previousIndex() {
             return nextIndex-1;
         }
 
-        public void remove() {
+        @Override
+		public void remove() {
             checkForComodification();
             Entry<E> lastNext = lastReturned.next;
             try {
@@ -717,14 +759,16 @@ public class IdentityLinkedList<E>
             expectedModCount++;
         }
 
-        public void set(E e) {
+        @Override
+		public void set(E e) {
             if (lastReturned == header)
                 throw new IllegalStateException();
             checkForComodification();
             lastReturned.element = e;
         }
 
-        public void add(E e) {
+        @Override
+		public void add(E e) {
             checkForComodification();
             lastReturned = header;
             addBefore(e, next);
@@ -776,20 +820,24 @@ public class IdentityLinkedList<E>
     /**
      * @since 1.6
      */
-    public Iterator<E> descendingIterator() {
+    @Override
+	public Iterator<E> descendingIterator() {
         return new DescendingIterator();
     }
 
     /** Adapter to provide descending iterators via ListItr.previous */
     private class DescendingIterator implements Iterator<E> {
         final ListItr itr = new ListItr(size());
-        public boolean hasNext() {
+        @Override
+		public boolean hasNext() {
             return itr.hasPrevious();
         }
-        public E next() {
+        @Override
+		public E next() {
             return itr.previous();
         }
-        public void remove() {
+        @Override
+		public void remove() {
             itr.remove();
         }
     }
@@ -808,7 +856,8 @@ public class IdentityLinkedList<E>
      * @return an array containing all of the elements in this list
      *         in proper sequence
      */
-    public Object[] toArray() {
+    @Override
+	public Object[] toArray() {
         Object[] result = new Object[size];
         int i = 0;
         for (Entry<E> e = header.next; e != header; e = e.next)
@@ -854,7 +903,8 @@ public class IdentityLinkedList<E>
      *         this list
      * @throws NullPointerException if the specified array is null
      */
-    @SuppressWarnings("unchecked")
+    @Override
+	@SuppressWarnings("unchecked")
 	public <T> T[] toArray(T[] a) {
         if (a.length < size)
             a = (T[])java.lang.reflect.Array.newInstance(

@@ -414,7 +414,8 @@ public class PlotBox extends JPanel implements Printable {
             // be performed in the event dispatch thread.
             if (!_actionsDeferred) {
                 Runnable doActions = new Runnable() {
-                    public void run() {
+                    @Override
+					public void run() {
                         _executeDeferredActions();
                     }
                 };
@@ -772,7 +773,8 @@ public class PlotBox extends JPanel implements Printable {
      *  otherwise (500 by 300).
      *  @return The preferred size.
      */
-    public synchronized Dimension getPreferredSize() {
+    @Override
+	public synchronized Dimension getPreferredSize() {
         return new Dimension(_preferredWidth, _preferredHeight);
     }
 
@@ -951,7 +953,8 @@ public class PlotBox extends JPanel implements Printable {
      *  only the axes.
      *  @param graphics The graphics context.
      */
-    public synchronized void paintComponent(Graphics graphics) {    	
+    @Override
+	public synchronized void paintComponent(Graphics graphics) {    	
     	//Modified by Hiroaki Oyaizu, August 9, 2014
     	// - No longer uses a buffered image, all rendering done directly to Graphics
     	
@@ -1080,7 +1083,8 @@ public class PlotBox extends JPanel implements Printable {
      *   NO_SUCH_PAGE if pageIndex specifies a non-existent page.
      *  @exception PrinterException If the print job is terminated.
      */
-    public synchronized int print(Graphics graphics, PageFormat format,
+    @Override
+	public synchronized int print(Graphics graphics, PageFormat format,
             int index) throws PrinterException {
 
         if (graphics == null) {
@@ -1255,7 +1259,8 @@ public class PlotBox extends JPanel implements Printable {
     /** Set the background color.
      *  @param background The background color.
      */
-    public synchronized void setBackground(Color background) {
+    @Override
+	public synchronized void setBackground(Color background) {
         // Changing legend means we need to repaint the offscreen buffer.
         _plotImage = null;
 
@@ -1272,7 +1277,8 @@ public class PlotBox extends JPanel implements Printable {
      *  @param width The new width of this component.
      *  @param height The new height of this component.
      */
-    public synchronized void setBounds(int x, int y, int width, int height) {
+    @Override
+	public synchronized void setBounds(int x, int y, int width, int height) {
         _width = width;
         _height = height;
 
@@ -1489,7 +1495,8 @@ public class PlotBox extends JPanel implements Printable {
     /** Set the foreground color.
      *  @param foreground The foreground color.
      */
-    public synchronized void setForeground(Color foreground) {
+    @Override
+	public synchronized void setForeground(Color foreground) {
         // Changing legend means we need to repaint the offscreen buffer.
         _plotImage = null;
 
@@ -1543,7 +1550,8 @@ public class PlotBox extends JPanel implements Printable {
      *  @param width The width, in pixels.
      *  @param height The height, in pixels.
      */
-    public synchronized void setSize(int width, int height) {
+    @Override
+	public synchronized void setSize(int width, int height) {
         // Changing legend means we need to repaint the offscreen buffer.
         _plotImage = null;
 
@@ -4334,7 +4342,8 @@ public class PlotBox extends JPanel implements Printable {
     ///////////////////////////////////////////////////////////////////
     ////                         inner classes                     ////
     class ButtonListener implements ActionListener {
-        public void actionPerformed(ActionEvent event) {
+        @Override
+		public void actionPerformed(ActionEvent event) {
             if (event.getSource() == _fillButton) {
                 fillPlot();
             } else if (event.getSource() == _printButton) {
@@ -4408,17 +4417,21 @@ public class PlotBox extends JPanel implements Printable {
     }
 
     public class ZoomListener implements MouseListener {
-        public void mouseClicked(MouseEvent event) {
+        @Override
+		public void mouseClicked(MouseEvent event) {
             requestFocus();
         }
 
-        public void mouseEntered(MouseEvent event) {
+        @Override
+		public void mouseEntered(MouseEvent event) {
         }
 
-        public void mouseExited(MouseEvent event) {
+        @Override
+		public void mouseExited(MouseEvent event) {
         }
 
-        public void mousePressed(MouseEvent event) {
+        @Override
+		public void mousePressed(MouseEvent event) {
             // http://developer.java.sun.com/developer/bugParade/bugs/4072703.html
             // BUTTON1_MASK still not set for MOUSE_PRESSED events
             // suggests:
@@ -4449,7 +4462,8 @@ public class PlotBox extends JPanel implements Printable {
             //                 + ")");
         }
 
-        public void mouseReleased(MouseEvent event) {
+        @Override
+		public void mouseReleased(MouseEvent event) {
             if (((event.getModifiers() & InputEvent.BUTTON1_MASK) != 0)
                     && ((event.getModifiers() & InputEvent.BUTTON3_MASK) == 0)
                     || (event.getModifiers() == 0)) {
@@ -4459,7 +4473,8 @@ public class PlotBox extends JPanel implements Printable {
     }
 
     public class DragListener implements MouseMotionListener {
-        public void mouseDragged(MouseEvent event) {
+        @Override
+		public void mouseDragged(MouseEvent event) {
             // NOTE: Due to a bug in JDK 1.1.7B, the BUTTON1_MASK does
             // not work on mouse drags.  It does work on MouseListener
             // methods, so those methods set a variable _zooming that
@@ -4470,12 +4485,14 @@ public class PlotBox extends JPanel implements Printable {
             }
         }
 
-        public void mouseMoved(MouseEvent event) {
+        @Override
+		public void mouseMoved(MouseEvent event) {
         }
     }
 
     class CommandListener implements KeyListener {
-        public void keyPressed(KeyEvent e) {
+        @Override
+		public void keyPressed(KeyEvent e) {
             int keycode = e.getKeyCode();
 
             switch (keycode) {
@@ -4573,7 +4590,8 @@ public class PlotBox extends JPanel implements Printable {
             }
         }
 
-        public void keyReleased(KeyEvent e) {
+        @Override
+		public void keyReleased(KeyEvent e) {
             int keycode = e.getKeyCode();
 
             switch (keycode) {
@@ -4592,7 +4610,8 @@ public class PlotBox extends JPanel implements Printable {
 
         // The keyTyped method is broken in jdk 1.1.4.
         // It always gets "unknown key code".
-        public void keyTyped(KeyEvent e) {
+        @Override
+		public void keyTyped(KeyEvent e) {
         }
 
         private boolean _control = false;
@@ -4611,7 +4630,8 @@ public class PlotBox extends JPanel implements Printable {
             _listeners.add(plotBox);
             if (_listeners.size() == 1) {
                 scheduleAtFixedRate(new TimerTask() {
-                    public void run() {
+                    @Override
+					public void run() {
                         synchronized (this) {
                             // synchronized (this) to avoid changes to
                             // _listeners while repainting.

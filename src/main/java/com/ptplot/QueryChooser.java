@@ -80,7 +80,8 @@ public abstract class QueryChooser extends Box implements SettableQueryChooser,
      *
      * @return            the name of the component
      */
-    public String getName() {
+    @Override
+	public String getName() {
         return _name;
     }
 
