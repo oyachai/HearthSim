@@ -31,7 +31,9 @@ import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.player.playercontroller.BruteForceSearchAI;
+import com.hearthsim.util.factory.BoardStateFactoryBase;
 import com.hearthsim.util.factory.BreadthBoardStateFactory;
+import com.hearthsim.util.factory.DepthBoardStateFactory;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class TestBreadthBoardStateFactory {
@@ -184,26 +186,31 @@ public class TestBreadthBoardStateFactory {
 	}
 
 	private void testBreadthDepth(BoardModel startingBoard, BruteForceSearchAI ai) throws HSException {
-		BreadthBoardStateFactory factory = new BreadthBoardStateFactory(this.deck0, this.deck1);
+		BreadthBoardStateFactory breadthFactory = new BreadthBoardStateFactory(this.deck0, this.deck1);
+		DepthBoardStateFactory depthFactory = new DepthBoardStateFactory(this.deck0, this.deck1);
 
-		HearthTreeNode rootBreadth = new HearthTreeNode(startingBoard);
-		double breadthTimer = System.currentTimeMillis();
-		factory.doMoves(rootBreadth, ai);
-		breadthTimer = System.currentTimeMillis() - breadthTimer;
+		this.testFactories(startingBoard, ai, breadthFactory, depthFactory);
+	}
 
-		HearthTreeNode rootDepth = new HearthTreeNode(startingBoard);
-		double depthTimer = System.currentTimeMillis();
-		factory.doMoves(rootDepth, ai);
-		depthTimer = System.currentTimeMillis() - depthTimer;
+	private void testFactories(BoardModel startingBoard, BruteForceSearchAI ai, BoardStateFactoryBase us, BoardStateFactoryBase them) throws HSException {
+		HearthTreeNode usRoot = new HearthTreeNode(startingBoard);
+		double usTimer = System.currentTimeMillis();
+		us.doMoves(usRoot, ai);
+		usTimer = System.currentTimeMillis() - usTimer;
 
-		log.debug("testBreadthDepth" + name.getMethodName() + " breadthTimer=" + breadthTimer + " depthTimer="
-				+ depthTimer);
+		HearthTreeNode themRoot = new HearthTreeNode(startingBoard);
+		double themTimer = System.currentTimeMillis();
+		them.doMoves(themRoot, ai);
+		themTimer = System.currentTimeMillis() - themTimer;
 
-		assertEquals(rootDepth.data_, rootBreadth.data_);
-		assertEquals(rootDepth.getBestChildScore(), rootBreadth.getBestChildScore(), 0);
-		assertEquals(rootDepth.isLeaf(), rootBreadth.isLeaf());
+		log.debug("testFactories " + name.getMethodName() + " usTimer=" + usTimer + " themTimer="
+				+ themTimer);
 
-		assertDescendentsCoversNode(rootBreadth, rootDepth);
+		assertEquals(themRoot.data_, usRoot.data_);
+		assertEquals(themRoot.getBestChildScore(), usRoot.getBestChildScore(), 0);
+		assertEquals(themRoot.isLeaf(), usRoot.isLeaf());
+
+		assertDescendentsCoversNode(usRoot, themRoot);
 	}
 
 	private void assertDescendentsCoversNode(HearthTreeNode us, HearthTreeNode them) {
