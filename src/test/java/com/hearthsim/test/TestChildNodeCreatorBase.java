@@ -35,11 +35,11 @@ import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.player.playercontroller.BruteForceSearchAI;
-import com.hearthsim.util.factory.BoardStateFactoryBase;
 import com.hearthsim.util.factory.BreadthBoardStateFactory;
+import com.hearthsim.util.factory.ChildNodeCreatorBase;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class TestBoardStateFactoryBase {
+public class TestChildNodeCreatorBase {
 	@Rule
 	public TestName name = new TestName();
 
@@ -75,7 +75,7 @@ public class TestBoardStateFactoryBase {
 		expectedBoard.getCurrentPlayer().setMana(0);
 		expectedBoard.getCurrentPlayer().setMaxMana(2);
 
-		BoardStateFactoryBase factory = new BoardStateFactoryBase(this.deck0, this.deck1);
+		ChildNodeCreatorBase factory = new ChildNodeCreatorBase(this.deck0, this.deck1);
 		HearthTreeNode root = new HearthTreeNode(startingBoard);
 
 		ArrayList<HearthTreeNode> actuals = factory.createPlayCardChildren(root);
@@ -92,7 +92,7 @@ public class TestBoardStateFactoryBase {
 		startingBoard.getCurrentPlayer().placeCardHand(new BloodfenRaptor());
 		startingBoard.getCurrentPlayer().placeCardHand(new ArgentSquire());
 
-		BoardStateFactoryBase factory = new BoardStateFactoryBase(this.deck0, this.deck1);
+		ChildNodeCreatorBase factory = new ChildNodeCreatorBase(this.deck0, this.deck1);
 		HearthTreeNode root = new HearthTreeNode(startingBoard);
 		ArrayList<HearthTreeNode> actuals = factory.createPlayCardChildren(root);
 		assertEquals(3, actuals.size());
@@ -129,7 +129,7 @@ public class TestBoardStateFactoryBase {
 		firstPlayer.addMaxMana(1);
 		firstPlayer.placeCardHand(new BloodfenRaptor());
 
-		BoardStateFactoryBase factory = new BoardStateFactoryBase(this.deck0, this.deck1);
+		ChildNodeCreatorBase factory = new ChildNodeCreatorBase(this.deck0, this.deck1);
 		HearthTreeNode root = new HearthTreeNode(startingBoard);
 
 		ArrayList<HearthTreeNode> actuals = factory.createPlayCardChildren(root);
@@ -146,7 +146,7 @@ public class TestBoardStateFactoryBase {
 		bloodfenRaptor.hasAttacked(true);
 		startingBoard.placeMinion(PlayerSide.CURRENT_PLAYER, bloodfenRaptor);
 
-		BoardStateFactoryBase factory = new BoardStateFactoryBase(this.deck0, this.deck1);
+		ChildNodeCreatorBase factory = new ChildNodeCreatorBase(this.deck0, this.deck1);
 		HearthTreeNode root = new HearthTreeNode(startingBoard);
 		ArrayList<HearthTreeNode> actuals = factory.createPlayCardChildren(root);
 		assertEquals(3, actuals.size());
@@ -179,7 +179,7 @@ public class TestBoardStateFactoryBase {
 		startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new BloodfenRaptor());
 		startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new RiverCrocolisk());
 
-		BoardStateFactoryBase factory = new BoardStateFactoryBase(this.deck0, this.deck1);
+		ChildNodeCreatorBase factory = new ChildNodeCreatorBase(this.deck0, this.deck1);
 		HearthTreeNode root = new HearthTreeNode(startingBoard);
 		ArrayList<HearthTreeNode> actuals = factory.createPlayCardChildren(root);
 		assertEquals(3, actuals.size());
@@ -208,7 +208,7 @@ public class TestBoardStateFactoryBase {
 		firstPlayer.addMaxMana(2);
 		firstPlayer.placeCardHand(new HolySmite());
 
-		BoardStateFactoryBase factory = new BoardStateFactoryBase(this.deck0, this.deck1);
+		ChildNodeCreatorBase factory = new ChildNodeCreatorBase(this.deck0, this.deck1);
 		HearthTreeNode root = new HearthTreeNode(startingBoard);
 		ArrayList<HearthTreeNode> actuals = factory.createPlayCardChildren(root);
 		assertEquals(3, actuals.size());
@@ -233,7 +233,7 @@ public class TestBoardStateFactoryBase {
 		firstPlayer.addMana(2);
 		firstPlayer.addMaxMana(2);
 
-		BoardStateFactoryBase factory = new BoardStateFactoryBase(this.deck0, this.deck1);
+		ChildNodeCreatorBase factory = new ChildNodeCreatorBase(this.deck0, this.deck1);
 		HearthTreeNode root = new HearthTreeNode(startingBoard);
 		ArrayList<HearthTreeNode> actuals = factory.createHeroAbilityChildren(root);
 		assertEquals(3, actuals.size());
@@ -261,7 +261,7 @@ public class TestBoardStateFactoryBase {
 		startingBoard.placeMinion(PlayerSide.CURRENT_PLAYER, new BloodfenRaptor());
 		startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new RiverCrocolisk());
 
-		BoardStateFactoryBase factory = new BoardStateFactoryBase(this.deck0, this.deck1);
+		ChildNodeCreatorBase factory = new ChildNodeCreatorBase(this.deck0, this.deck1);
 		HearthTreeNode root = new HearthTreeNode(startingBoard);
 		ArrayList<HearthTreeNode> actuals = factory.createHeroAbilityChildren(root);
 		assertEquals(5, actuals.size());
@@ -289,7 +289,7 @@ public class TestBoardStateFactoryBase {
 		startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new RiverCrocolisk());
 		startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new StonetuskBoar());
 
-		BoardStateFactoryBase factory = new BoardStateFactoryBase(this.deck0, this.deck1);
+		ChildNodeCreatorBase factory = new ChildNodeCreatorBase(this.deck0, this.deck1);
 		HearthTreeNode root = new HearthTreeNode(startingBoard);
 		ArrayList<HearthTreeNode> actuals = factory.createAttackChildren(root);
 		assertEquals(4, actuals.size());
@@ -328,7 +328,7 @@ public class TestBoardStateFactoryBase {
 		startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new StonetuskBoar());
 		startingBoard.getCharacter(PlayerSide.CURRENT_PLAYER, 0).addAttack((byte)1);
 
-		BoardStateFactoryBase factory = new BoardStateFactoryBase(this.deck0, this.deck1);
+		ChildNodeCreatorBase factory = new ChildNodeCreatorBase(this.deck0, this.deck1);
 		HearthTreeNode root = new HearthTreeNode(startingBoard);
 		ArrayList<HearthTreeNode> actuals = factory.createAttackChildren(root);
 		assertEquals(4, actuals.size());
