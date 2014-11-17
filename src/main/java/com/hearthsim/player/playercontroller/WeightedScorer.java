@@ -9,23 +9,23 @@ import com.hearthsim.util.IdentityLinkedList;
 
 public class WeightedScorer implements BoardScorer, DeepCopyable<WeightedScorer> {
 
-	double myAttackWeight; // weight for the attack score
-	double myHealthWeight;
-	double enemyAttackWeight; // weight for the attack score
-	double enemyHealthWeight;
-	double myHeroHealthWeight;
-	double enemyHeroHealthWeight;
-	double tauntWeight;
-	double manaWeight;
-	double myNumMinionsWeight;
-	double enemyNumMinionsWeight;
-	double spellDamageAddWeight;
-	double spellDamageMultiplierWeight;
-	double myDivineShieldWeight;
-	double enemyDivineShieldWeight;
-	double myWeaponWeight;
-	double enemyWeaponWeight;
-	double myChargeWeight;
+	private double myAttackWeight; // weight for the attack score
+	private double myHealthWeight;
+	private double enemyAttackWeight; // weight for the attack score
+	private double enemyHealthWeight;
+	private double myHeroHealthWeight;
+	private double enemyHeroHealthWeight;
+	private double tauntWeight;
+	private double manaWeight;
+	private double myNumMinionsWeight;
+	private double enemyNumMinionsWeight;
+	private double spellDamageAddWeight;
+	private double spellDamageMultiplierWeight;
+	private double myDivineShieldWeight;
+	private double enemyDivineShieldWeight;
+	private double myWeaponWeight;
+	private double enemyWeaponWeight;
+	private double myChargeWeight;
 
 	public WeightedScorer() {
 		// TODO Auto-generated constructor stub
@@ -270,7 +270,6 @@ public class WeightedScorer implements BoardScorer, DeepCopyable<WeightedScorer>
 
 	@Override
 	public WeightedScorer deepCopy() {
-		// TODO Auto-generated method stub
 		WeightedScorer copied = new WeightedScorer();
 		copied.myAttackWeight = myAttackWeight; // weight for the attack score
 		copied.myHealthWeight = myHealthWeight;

@@ -78,35 +78,35 @@ public class BruteForceSearchAI implements ArtificialPlayer {
 	public BruteForceSearchAI(Path aiParamFile) throws IOException, HSInvalidParamFileException {		
 		ParamFile pFile = new ParamFile(aiParamFile);
 		try {
-			this.scorer.myAttackWeight = pFile.getDouble("w_a");
-			this.scorer.myHealthWeight = pFile.getDouble("w_h");
-			this.scorer.enemyAttackWeight = pFile.getDouble("wt_a");
-			this.scorer.enemyHealthWeight = pFile.getDouble("wt_h");
-			this.scorer.tauntWeight = pFile.getDouble("w_taunt");
-			this.scorer.myHeroHealthWeight = pFile.getDouble("w_health");
-			this.scorer.enemyHeroHealthWeight = pFile.getDouble("wt_health");
+			this.scorer.setMyAttackWeight(pFile.getDouble("w_a"));
+			this.scorer.setMyHealthWeight(pFile.getDouble("w_h"));
+			this.scorer.setEnemyAttackWeight(pFile.getDouble("wt_a"));
+			this.scorer.setEnemyHealthWeight(pFile.getDouble("wt_h"));
+			this.scorer.setTauntWeight(pFile.getDouble("w_taunt"));
+			this.scorer.setMyHeroHealthWeight(pFile.getDouble("w_health"));
+			this.scorer.setEnemyHeroHealthWeight(pFile.getDouble("wt_health"));
 
-			this.scorer.myNumMinionsWeight = pFile.getDouble("w_num_minions");
-			this.scorer.enemyNumMinionsWeight = pFile.getDouble("wt_num_minions");
+			this.scorer.setMyNumMinionsWeight(pFile.getDouble("w_num_minions"));
+			this.scorer.setEnemyNumMinionsWeight(pFile.getDouble("wt_num_minions"));
 
 			//The following two have default values for now... 
 			//These are rather arcane parameters, so please understand 
 			//them before attempting to change them. 
-			this.scorer.spellDamageMultiplierWeight = pFile.getDouble("w_sd_mult", 1.0);
-			this.scorer.spellDamageAddWeight = pFile.getDouble("w_sd_add", 0.9);
+			this.scorer.setSpellDamageMultiplierWeight(pFile.getDouble("w_sd_mult", 1.0));
+			this.scorer.setSpellDamageAddWeight(pFile.getDouble("w_sd_add", 0.9));
 
 			//Divine Shield defualts to 0 for now
-			this.scorer.myDivineShieldWeight = pFile.getDouble("w_divine_shield", 0.0);
-			this.scorer.enemyDivineShieldWeight = pFile.getDouble("wt_divine_shield", 0.0);
+			this.scorer.setMyDivineShieldWeight(pFile.getDouble("w_divine_shield", 0.0));
+			this.scorer.setEnemyDivineShieldWeight(pFile.getDouble("wt_divine_shield", 0.0));
 			
 			//weapon score for the hero
-			this.scorer.myWeaponWeight = pFile.getDouble("w_weapon", 0.5);
-			this.scorer.enemyWeaponWeight = pFile.getDouble("wt_weapon", 0.5);
+			this.scorer.setMyWeaponWeight(pFile.getDouble("w_weapon", 0.5));
+			this.scorer.setEnemyWeaponWeight(pFile.getDouble("wt_weapon", 0.5));
 			
 			//charge model score
-			this.scorer.myChargeWeight = pFile.getDouble("w_charge", 0.0);
+			this.scorer.setMyChargeWeight(pFile.getDouble("w_charge", 0.0));
 
-			this.scorer.manaWeight = pFile.getDouble("w_mana", 0.1);
+			this.scorer.setManaWeight(pFile.getDouble("w_mana", 0.1));
 			
 			useSparseBoardStateFactory_ = pFile.getBoolean("use_sparse_board_state_factory", true);
 			
