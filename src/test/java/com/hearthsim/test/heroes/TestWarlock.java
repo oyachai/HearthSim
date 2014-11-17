@@ -150,7 +150,7 @@ public class TestWarlock {
 		assertEquals(((CardDrawNode) ret).getNumCardsToDraw(), 1);
 
 		BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
-		double cardDrawScore = ((CardDrawNode) ret).cardDrawScore(deck, ai0);
+		double cardDrawScore = ((CardDrawNode) ret).cardDrawScore(deck, ai0.scorer);
 		assertTrue(cardDrawScore < 0.0);
 	}
 }

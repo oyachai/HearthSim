@@ -44,7 +44,7 @@ public class TestAction {
 		BoardStateFactoryBase factory = new DepthBoardStateFactory(null, null, 2000000000);
 		HearthTreeNode tree = new HearthTreeNode(board);
 		try {
-			tree = factory.doMoves(tree, BruteForceSearchAI.buildStandardAI2());
+			tree = factory.doMoves(tree, BruteForceSearchAI.buildStandardAI2().scorer);
 		} catch(HSException e) {
 			e.printStackTrace();
 			assertTrue(false);
@@ -62,7 +62,7 @@ public class TestAction {
 		BoardStateFactoryBase factory = new DepthBoardStateFactory(null, null, 2000000000);
 		HearthTreeNode tree = new HearthTreeNode(board);
 		try {
-			tree = factory.doMoves(tree, BruteForceSearchAI.buildStandardAI2());
+			tree = factory.doMoves(tree, BruteForceSearchAI.buildStandardAI2().scorer);
 		} catch(HSException e) {
 			e.printStackTrace();
 			assertTrue(false);

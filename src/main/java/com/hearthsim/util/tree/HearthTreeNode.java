@@ -1,11 +1,11 @@
 package com.hearthsim.util.tree;
 
-import com.hearthsim.model.BoardModel;
-import com.hearthsim.player.playercontroller.BruteForceSearchAI;
-import com.hearthsim.util.HearthAction;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import com.hearthsim.model.BoardModel;
+import com.hearthsim.player.playercontroller.BoardScorer;
+import com.hearthsim.util.HearthAction;
 
 /**
  * A tree that keeps track of possible game states
@@ -158,12 +158,12 @@ public class HearthTreeNode {
 	 * @param func Function to apply to each node
 	 * @return
 	 */
-	public HearthTreeNode findMaxOfFunc(BruteForceSearchAI ai) {
+	public HearthTreeNode findMaxOfFunc(BoardScorer ai) {
 		NodeValPair nvp = this.findMaxOfFuncImpl(ai);
 		return nvp.node_;
 	}
 
-	private NodeValPair findMaxOfFuncImpl(BruteForceSearchAI ai) {
+	private NodeValPair findMaxOfFuncImpl(BoardScorer ai) {
 		if(this.isLeaf())
 			return new NodeValPair(this, ai.boardScore(this.data_));
 

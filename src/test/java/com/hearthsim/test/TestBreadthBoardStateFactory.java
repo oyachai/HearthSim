@@ -30,6 +30,7 @@ import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
+import com.hearthsim.player.playercontroller.BoardScorer;
 import com.hearthsim.player.playercontroller.BruteForceSearchAI;
 import com.hearthsim.util.factory.BoardStateFactoryBase;
 import com.hearthsim.util.factory.BreadthBoardStateFactory;
@@ -182,17 +183,17 @@ public class TestBreadthBoardStateFactory {
 	}
 
 	private void testBreadthDepth(BoardModel startingBoard) throws HSException {
-		this.testBreadthDepth(startingBoard, BruteForceSearchAI.buildStandardAI2());
+		this.testBreadthDepth(startingBoard, BruteForceSearchAI.buildStandardAI2().scorer);
 	}
 
-	private void testBreadthDepth(BoardModel startingBoard, BruteForceSearchAI ai) throws HSException {
+	private void testBreadthDepth(BoardModel startingBoard, BoardScorer ai) throws HSException {
 		BreadthBoardStateFactory breadthFactory = new BreadthBoardStateFactory(this.deck0, this.deck1);
 		DepthBoardStateFactory depthFactory = new DepthBoardStateFactory(this.deck0, this.deck1);
 
 		this.testFactories(startingBoard, ai, breadthFactory, depthFactory);
 	}
 
-	private void testFactories(BoardModel startingBoard, BruteForceSearchAI ai, BoardStateFactoryBase us, BoardStateFactoryBase them) throws HSException {
+	private void testFactories(BoardModel startingBoard, BoardScorer ai, BoardStateFactoryBase us, BoardStateFactoryBase them) throws HSException {
 		HearthTreeNode usRoot = new HearthTreeNode(startingBoard);
 		double usTimer = System.currentTimeMillis();
 		us.doMoves(usRoot, ai);

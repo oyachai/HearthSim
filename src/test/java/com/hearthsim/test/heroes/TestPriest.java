@@ -94,7 +94,7 @@ public class TestPriest {
 		HearthTreeNode tree = new HearthTreeNode(board.data_);
 		BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
 		try {
-			tree = factory.doMoves(tree, ai0);
+			tree = factory.doMoves(tree, ai0.scorer);
 		} catch (HSException e) {
 			e.printStackTrace();
 			assertTrue(false);
@@ -102,7 +102,7 @@ public class TestPriest {
 
 		// best move is to kill one enemy yeti with 2 of your own yeti and heal
 		// one of your own yeti
-		HearthTreeNode bestPlay = tree.findMaxOfFunc(ai0);
+		HearthTreeNode bestPlay = tree.findMaxOfFunc(ai0.scorer);
 
 		assertFalse(tree == null);
 		assertEquals(bestPlay.data_.getNumCards_hand(), 0);
@@ -140,7 +140,7 @@ public class TestPriest {
 		HearthTreeNode tree = new HearthTreeNode(board.data_);
 		BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
 		try {
-			tree = factory.doMoves(tree, ai0);
+			tree = factory.doMoves(tree, ai0.scorer);
 		} catch (HSException e) {
 			e.printStackTrace();
 			assertTrue(false);
@@ -148,7 +148,7 @@ public class TestPriest {
 
 		// best move is to heal the damaged yeti and attack with both to kill
 		// one of the enemy's yeti
-		HearthTreeNode bestPlay = tree.findMaxOfFunc(ai0);
+		HearthTreeNode bestPlay = tree.findMaxOfFunc(ai0.scorer);
 
 		assertFalse(tree == null);
 		assertEquals(bestPlay.data_.getNumCards_hand(), 0);
