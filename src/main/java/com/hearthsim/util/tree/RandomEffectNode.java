@@ -28,7 +28,6 @@ public class RandomEffectNode extends StopNode {
 	
 	@Override
 	public HearthTreeNode finishAllEffects(Deck deckPlayer0, Deck deckPlayer1) throws HSException {
-		// TODO Auto-generated method stub
 		return action_.perform(new HearthTreeNode(this.data_, this.action, this.score_, this.depth_, this.children_, this.numNodesTried_), deckPlayer0, deckPlayer1);
 	}
 

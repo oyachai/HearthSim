@@ -42,7 +42,7 @@ public class TestShaman {
 	private Deck deck;
 
 	@Before
-	public void setup() {
+	public void setup() throws HSException {
 		board = new HearthTreeNode(new BoardModel(new Shaman(), new TestHero()));
 
 		Minion minion0_0 = new BoulderfistOgre();
@@ -57,7 +57,7 @@ public class TestShaman {
 		board.data_.placeCardHandWaitingPlayer(minion1_1);
 
 		Card cards[] = new Card[30];
-		for (int index = 0; index < 30; ++index) {
+		for(int index = 0; index < 30; ++index) {
 			cards[index] = new TheCoin();
 		}
 
@@ -73,25 +73,17 @@ public class TestShaman {
 		board.data_.getWaitingPlayer().setMaxMana((byte)8);
 		
 		HearthTreeNode tmpBoard = new HearthTreeNode(board.data_.flipPlayers());
-		try {
-			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER,
-					tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
-			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER,
-					tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
-		} catch (HSException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER,
+				tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
+		tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER,
+				tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
+
 		board = new HearthTreeNode(tmpBoard.data_.flipPlayers());
-		try {
-			board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER,
-					board.data_.getCurrentPlayerHero(), board, deck, null);
-			board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER,
-					board.data_.getCurrentPlayerHero(), board, deck, null);
-		} catch (HSException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayerHero(),
+				board, deck, null);
+		board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayerHero(),
+				board, deck, null);
+
 		board.data_.resetMana();
 		board.data_.resetMinions();
 
@@ -172,7 +164,7 @@ public class TestShaman {
 		assertEquals(healingNode.data_.getCurrentPlayer().getMinions().get(1).getTotalAttack(), 7);
 		assertEquals(healingNode.data_.getCurrentPlayer().getMinions().get(2).getTotalAttack(), 1);
 	}
-	
+
 	@Test
 	public void testTotemWrathOfAir() throws HSException {
 		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);

@@ -28,7 +28,7 @@ public class TestWarlock {
 	private Deck deck;
 
 	@Before
-	public void setup() {
+	public void setup() throws HSException {
 		board = new HearthTreeNode(new BoardModel(new Warlock(), new TestHero()));
 
 		Minion minion0_0 = new BoulderfistOgre();
@@ -43,7 +43,7 @@ public class TestWarlock {
 		board.data_.placeCardHandWaitingPlayer(minion1_1);
 
 		Card cards[] = new Card[30];
-		for (int index = 0; index < 30; ++index) {
+		for(int index = 0; index < 30; ++index) {
 			cards[index] = new TheCoin();
 		}
 
@@ -59,25 +59,17 @@ public class TestWarlock {
 		board.data_.getWaitingPlayer().setMaxMana((byte)8);
 		
 		HearthTreeNode tmpBoard = new HearthTreeNode(board.data_.flipPlayers());
-		try {
-			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER,
-					tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
-			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER,
-					tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
-		} catch (HSException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER,
+				tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
+		tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER,
+				tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
+
 		board = new HearthTreeNode(tmpBoard.data_.flipPlayers());
-		try {
-			board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER,
-					board.data_.getCurrentPlayerHero(), board, deck, null);
-			board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER,
-					board.data_.getCurrentPlayerHero(), board, deck, null);
-		} catch (HSException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayerHero(),
+				board, deck, null);
+		board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayerHero(),
+				board, deck, null);
+
 		board.data_.resetMana();
 		board.data_.resetMinions();
 
@@ -97,7 +89,7 @@ public class TestWarlock {
 		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 28);
 
 		assertEquals(ret.data_.getNumCards_hand(), 1);
-		assertEquals(((CardDrawNode) ret).getNumCardsToDraw(), 1);
+		assertEquals(((CardDrawNode)ret).getNumCardsToDraw(), 1);
 		assertEquals(ret.data_.getCurrentPlayer().getMana(), 6);
 		assertEquals(ret.data_.getCurrentPlayerHero().getHealth(), 28);
 	}
@@ -147,10 +139,10 @@ public class TestWarlock {
 		assertEquals(board.data_.getNumCards_hand(), 1);
 
 		assertTrue(ret instanceof CardDrawNode);
-		assertEquals(((CardDrawNode) ret).getNumCardsToDraw(), 1);
+		assertEquals(((CardDrawNode)ret).getNumCardsToDraw(), 1);
 
 		BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
-		double cardDrawScore = ((CardDrawNode) ret).cardDrawScore(deck, ai0.scorer);
+		double cardDrawScore = ((CardDrawNode)ret).cardDrawScore(deck, ai0.scorer);
 		assertTrue(cardDrawScore < 0.0);
 	}
 }

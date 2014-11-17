@@ -25,7 +25,7 @@ public class TestSwipe {
 	private Deck deck;
 
 	@Before
-	public void setup() {
+	public void setup() throws HSException {
 		board = new HearthTreeNode(new BoardModel());
 
 		Minion minion0_0 = new BoulderfistOgre();
@@ -56,21 +56,13 @@ public class TestSwipe {
 		board.data_.getWaitingPlayer().setMaxMana((byte)10);
 		
 		HearthTreeNode tmpBoard = new HearthTreeNode(board.data_.flipPlayers());
-		try {
-			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
-			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
-		} catch (HSException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
+		tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
+
 		board = new HearthTreeNode(tmpBoard.data_.flipPlayers());
-		try {
-			board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayerHero(), board, deck, null);
-			board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayerHero(), board, deck, null);
-		} catch (HSException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayerHero(), board, deck, null);
+		board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayerHero(), board, deck, null);
+
 		board.data_.resetMana();
 		board.data_.resetMinions();
 		

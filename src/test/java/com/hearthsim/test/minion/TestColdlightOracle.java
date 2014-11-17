@@ -29,7 +29,7 @@ public class TestColdlightOracle {
 	private Deck deck;
 
 	@Before
-	public void setup() {
+	public void setup() throws HSException {
 		Card cards[] = new Card[10];
 		for (int index = 0; index < 10; ++index) {
 			cards[index] = new TheCoin();
@@ -64,21 +64,13 @@ public class TestColdlightOracle {
 		board.data_.getWaitingPlayer().setMaxMana((byte)8);
 		
 		HearthTreeNode tmpBoard = new HearthTreeNode(board.data_.flipPlayers());
-		try {
-			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
-			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
-		} catch (HSException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
+		tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
+
 		board = new HearthTreeNode(tmpBoard.data_.flipPlayers());
-		try {
-			board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayerHero(), board, deck, null);
-			board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayerHero(), board, deck, null);
-		} catch (HSException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayerHero(), board, deck, null);
+		board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayerHero(), board, deck, null);
+
 		board.data_.resetMana();
 		board.data_.resetMinions();
 		

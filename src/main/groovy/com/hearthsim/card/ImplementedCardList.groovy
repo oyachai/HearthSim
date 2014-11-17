@@ -12,6 +12,12 @@ import groovy.util.logging.Slf4j
 class ImplementedCardList {
 
     private static ImplementedCardList instance
+	
+	private static String MECHANICS_TAUNT = "Taunt";
+	private static String MECHANICS_SHIELD = "Divine Shield";
+	private static String MECHANICS_WINDFURY = "Windfury";
+	private static String MECHANICS_CHARGE = "Charge";
+	private static String MECHANICS_STEALTH = "Stealth";
 
     public ArrayList<ImplementedCard> list_;
     public Map<Class<?>, ImplementedCard> map_;
@@ -80,11 +86,11 @@ class ImplementedCardList {
                     attack_: (cardDefinition.attack == null) ? -1 : cardDefinition.attack, //return -1 if it's 0. only if null.
                     health_: (cardDefinition.health == null) ? -1 : cardDefinition.health,
                     durability: (cardDefinition.durability == null) ? -1 : cardDefinition.durability,
-                    taunt_: cardDefinition.mechanics?.contains('Taunt') ?: false, //TODO: extract mechanics as constants
-                    divineShield_: cardDefinition.mechanics?.contains('Divine Shield') ?: false,
-                    windfury_: cardDefinition.mechanics?.contains('Windfury') ?: false,
-                    charge_: cardDefinition.mechanics?.contains('Charge') ?: false,
-                    stealth_: cardDefinition.mechanics?.contains('Stealth') ?: false,
+                    taunt_: cardDefinition.mechanics?.contains(ImplementedCardList.MECHANICS_TAUNT) ?: false,
+                    divineShield_: cardDefinition.mechanics?.contains(ImplementedCardList.MECHANICS_SHIELD) ?: false,
+                    windfury_: cardDefinition.mechanics?.contains(ImplementedCardList.MECHANICS_WINDFURY) ?: false,
+                    charge_: cardDefinition.mechanics?.contains(ImplementedCardList.MECHANICS_CHARGE) ?: false,
+                    stealth_: cardDefinition.mechanics?.contains(ImplementedCardList.MECHANICS_STEALTH) ?: false,
 					text_: cardDefinition.text?: '',
 					isHero: Hero.class.isAssignableFrom(clazz),
 					collectible: cardDefinition.collectible?: false,

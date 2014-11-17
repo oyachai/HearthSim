@@ -222,7 +222,6 @@ public class HSMainFrameModel implements HSGameEndEventListener {
 	
 	@Override
 	public void gameEnded(GameResult result) {
-		// TODO Auto-generated method stub
 		gameStats_.add(result);
 		view_.updatePlotPanel();
 		view_.updateInfoPanel();
