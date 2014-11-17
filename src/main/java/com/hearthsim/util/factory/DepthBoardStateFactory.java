@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.hearthsim.card.Deck;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.player.playercontroller.BruteForceSearchAI;
+import com.hearthsim.player.playercontroller.BoardScorer;
 import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 import com.hearthsim.util.tree.RandomEffectNode;
@@ -73,7 +73,8 @@ public class DepthBoardStateFactory extends BoardStateFactoryBase {
 	 * @param scoreFunc The scoring function for AI.
 	 * @return boardStateNode manipulated such that all subsequent actions are children of the original boardStateNode input.
 	 */
-	public HearthTreeNode doMoves(HearthTreeNode boardStateNode, BruteForceSearchAI ai) throws HSException {
+	@Override
+	public HearthTreeNode doMoves(HearthTreeNode boardStateNode, BoardScorer ai) throws HSException {
 		log.trace("recursively performing moves");
 
 		if(lethal_) {

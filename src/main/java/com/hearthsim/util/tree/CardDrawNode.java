@@ -2,7 +2,7 @@ package com.hearthsim.util.tree;
 
 import com.hearthsim.card.Deck;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.player.playercontroller.BruteForceSearchAI;
+import com.hearthsim.player.playercontroller.BoardScorer;
 
 /**
  * A card draw triggers a stop
@@ -56,7 +56,7 @@ public class CardDrawNode extends StopNode {
 	}
 	
 
-	public double cardDrawScore(Deck deck, BruteForceSearchAI ai) {
+	public double cardDrawScore(Deck deck, BoardScorer ai) {
 		int numCardsInDeck = deck.getNumCards();
 		int numCardsRemaining = numCardsInDeck - data_.getCurrentPlayer().getDeckPos();
 		int numCardsToActuallyDraw = numCardsToDraw_;

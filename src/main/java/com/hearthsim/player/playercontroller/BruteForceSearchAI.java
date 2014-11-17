@@ -22,7 +22,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BruteForceSearchAI implements ArtificialPlayer {
+public class BruteForceSearchAI implements ArtificialPlayer, BoardScorer {
 
     private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
     public final static int MAX_THINK_TIME = 20000;

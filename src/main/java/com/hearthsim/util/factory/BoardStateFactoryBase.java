@@ -6,7 +6,7 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
-import com.hearthsim.player.playercontroller.BruteForceSearchAI;
+import com.hearthsim.player.playercontroller.BoardScorer;
 import com.hearthsim.util.IdentityLinkedList;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -61,7 +61,7 @@ public abstract class BoardStateFactoryBase {
 	 * @param scoreFunc The scoring function for AI.
 	 * @return boardStateNode manipulated such that all subsequent actions are children of the original boardStateNode input.
 	 */
-	public abstract HearthTreeNode doMoves(HearthTreeNode boardStateNode, BruteForceSearchAI ai) throws HSException;
+	public abstract HearthTreeNode doMoves(HearthTreeNode boardStateNode, BoardScorer ai) throws HSException;
 
 	/**
 	 * Handles dead minions

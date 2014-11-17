@@ -5,8 +5,7 @@ import java.util.TreeSet;
 
 import com.hearthsim.card.Deck;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.player.playercontroller.ArtificialPlayer;
-import com.hearthsim.player.playercontroller.BruteForceSearchAI;
+import com.hearthsim.player.playercontroller.BoardScorer;
 import com.hearthsim.util.tree.HearthTreeNode;
 import com.hearthsim.util.tree.RandomEffectNode;
 
@@ -82,11 +81,11 @@ public class BreadthBoardStateFactory extends BoardStateFactoryBase {
 		return;
 	}
 
-	public void processScoresForTree(HearthTreeNode root, ArtificialPlayer ai) {
+	public void processScoresForTree(HearthTreeNode root, BoardScorer ai) {
 		this.processScoresForTree(root, ai, false);
 	}
 
-	public void processScoresForTree(HearthTreeNode root, ArtificialPlayer ai, boolean scoringPruning) {
+	public void processScoresForTree(HearthTreeNode root, BoardScorer ai, boolean scoringPruning) {
 		double score = ai.boardScore(root.data_);
 		root.setScore(score);
 
@@ -95,7 +94,7 @@ public class BreadthBoardStateFactory extends BoardStateFactoryBase {
 		} else {
 			HearthTreeNode best = null;
 			for(HearthTreeNode child : root.getChildren()) {
-				this.processScoresForTree(child, ai);
+				this.processScoresForTree(child, ai, scoringPruning);
 
 				if(best == null || best.getBestChildScore() < child.getBestChildScore()) {
 					best = child;
@@ -118,16 +117,16 @@ public class BreadthBoardStateFactory extends BoardStateFactoryBase {
 	}
 
 	@Override
-	public HearthTreeNode doMoves(HearthTreeNode root, BruteForceSearchAI ai) throws HSException {
+	public HearthTreeNode doMoves(HearthTreeNode root, BoardScorer ai) throws HSException {
 		this.breadthFirstSearch(root, ai, 100, false);
 		return root;
 	}
 
-	public void breadthFirstSearch(HearthTreeNode root, ArtificialPlayer ai, boolean prune) throws HSException {
+	public void breadthFirstSearch(HearthTreeNode root, BoardScorer ai, boolean prune) throws HSException {
 		this.breadthFirstSearch(root, ai, 100, prune);
 	}
 
-	public void breadthFirstSearch(HearthTreeNode root, ArtificialPlayer ai, int maxDepth, boolean prune)
+	public void breadthFirstSearch(HearthTreeNode root, BoardScorer ai, int maxDepth, boolean prune)
 			throws HSException {
 		this.addChildLayers(root, maxDepth);
 		this.processScoresForTree(root, ai, prune);
