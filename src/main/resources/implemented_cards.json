@@ -388,6 +388,10 @@
         "class": "com.hearthsim.card.minion.concrete.GnomishInventor"
     },
     {
+        "name": "Gnoll",
+        "class": "com.hearthsim.card.minion.concrete.Gnoll"
+    },
+    {
         "name": "Goldshire Footman",
         "class": "com.hearthsim.card.minion.concrete.GoldshireFootman"
     },
@@ -434,6 +438,10 @@
     {
         "name": "Hex",
         "class": "com.hearthsim.card.spellcard.concrete.Hex"
+    },
+    {
+        "name": "Hogger",
+        "class": "com.hearthsim.card.minion.concrete.Hogger"
     },
     {
         "name": "Holy Fire",
