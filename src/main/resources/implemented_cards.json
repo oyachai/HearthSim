@@ -572,6 +572,10 @@
         "class": "com.hearthsim.card.spellcard.concrete.MarkOfTheWild"
     },
     {
+        "name": "Master Swordsmith",
+        "class": "com.hearthsim.card.minion.concrete.MasterSwordsmith"
+    },
+    {
         "name": "Mind Blast",
         "class": "com.hearthsim.card.spellcard.concrete.MindBlast"
     },
