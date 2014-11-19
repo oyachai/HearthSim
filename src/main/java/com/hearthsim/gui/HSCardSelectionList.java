@@ -26,11 +26,14 @@ public class HSCardSelectionList extends JList<ImplementedCard> {
 		editing_ = false;
 		
 		DefaultListModel<ImplementedCard> model = new DefaultListModel<ImplementedCard>();
-		cards_ = list_.getCardList();
-		Collections.sort(cards_);
+		cards_ = new ArrayList<ImplementedCard>();
 		for (ImplementedCard card : list_.getCardList()) {
 			if (!card.isHero && card.collectible)
-				model.addElement(card);
+				cards_.add(card);
+		}
+		Collections.sort(cards_);
+		for (ImplementedCard card : cards_) {
+			model.addElement(card);
 		}
 		this.setModel(model);
 		this.addMouseListener(new MouseAdapter() {
