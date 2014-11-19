@@ -12,10 +12,12 @@ import com.hearthsim.card.minion.concrete.BluegillWarrior;
 import com.hearthsim.card.minion.concrete.Boar;
 import com.hearthsim.card.minion.concrete.BoulderfistOgre;
 import com.hearthsim.card.minion.concrete.ChillwindYeti;
+import com.hearthsim.card.minion.concrete.DarkIronDwarf;
 import com.hearthsim.card.minion.concrete.GoldshireFootman;
 import com.hearthsim.card.minion.concrete.KoboldGeomancer;
 import com.hearthsim.card.minion.concrete.RiverCrocolisk;
 import com.hearthsim.card.minion.concrete.SenjinShieldmasta;
+import com.hearthsim.card.minion.concrete.ShatteredSunCleric;
 import com.hearthsim.card.minion.concrete.SilverHandRecruit;
 import com.hearthsim.card.minion.concrete.TimberWolf;
 import com.hearthsim.card.spellcard.concrete.Assassinate;
@@ -215,6 +217,20 @@ public class TestLethal {
 
 		this.factory.addChildLayers(this.root, 8);
 		assertTrue(this.hasLethalAtDepth(this.root, 8));
+	}
+
+	@Test
+	public void testBattlecries() throws HSException {
+		this.enemyHero.setHealth((byte)6);
+		this.startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new SenjinShieldmasta());
+
+		this.startingBoard.placeCardHand(PlayerSide.CURRENT_PLAYER, new DarkIronDwarf()); // +2 = 2
+		this.startingBoard.placeCardHand(PlayerSide.CURRENT_PLAYER, new ShatteredSunCleric()); // +2 = 4
+		this.startingBoard.placeMinion(PlayerSide.CURRENT_PLAYER, new ChillwindYeti()); // +1 = 5
+		this.startingBoard.placeMinion(PlayerSide.CURRENT_PLAYER, new ChillwindYeti()); // +1 = 6
+
+		this.factory.addChildLayers(this.root, 6);
+		assertTrue(this.hasLethalAtDepth(this.root, 6));
 	}
 
 	private void removeTauntTest(Card removal) throws HSException {

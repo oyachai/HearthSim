@@ -45,7 +45,15 @@ public class BreadthBoardStateFactory extends BoardStateFactoryBase {
 					continue;
 				}
 
-				ArrayList<HearthTreeNode> children = this.createChildren(current);
+				// Try to use existing children if possible. This can happen after an auto-populating node (e.g., Battlecries)
+				ArrayList<HearthTreeNode> children = null;
+				if(current.isLeaf()) {
+					children = this.createChildren(current);
+				} else {
+					children = new ArrayList<HearthTreeNode>(current.getChildren());
+				}
+				current.clearChildren(); // TODO suboptimal but we need to remove existing children so we can check for duplicates
+
 				for(HearthTreeNode child : children) {
 					childCount++;
 					if(dupeSkipOn) {

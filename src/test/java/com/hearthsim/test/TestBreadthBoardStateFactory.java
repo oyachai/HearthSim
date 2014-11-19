@@ -17,8 +17,10 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.ArgentSquire;
 import com.hearthsim.card.minion.concrete.BloodfenRaptor;
+import com.hearthsim.card.minion.concrete.DarkIronDwarf;
 import com.hearthsim.card.minion.concrete.FenCreeper;
 import com.hearthsim.card.minion.concrete.RiverCrocolisk;
+import com.hearthsim.card.minion.concrete.ShatteredSunCleric;
 import com.hearthsim.card.minion.concrete.StonetuskBoar;
 import com.hearthsim.card.minion.concrete.Sunwalker;
 import com.hearthsim.card.spellcard.concrete.EarthShock;
@@ -136,6 +138,20 @@ public class TestBreadthBoardStateFactory {
 		Minion bloodfenRaptor = new BloodfenRaptor();
 		bloodfenRaptor.hasAttacked(true);
 		startingBoard.placeMinion(PlayerSide.CURRENT_PLAYER, bloodfenRaptor);
+
+		this.testBreadthDepth(startingBoard);
+	}
+
+	@Test
+	public void testBreadthDepthMinionBattlecry() throws HSException {
+		BoardModel startingBoard = new BoardModel();
+		startingBoard.getCurrentPlayer().addMana(4);
+		startingBoard.getCurrentPlayer().addMaxMana(4);
+		startingBoard.getCurrentPlayer().placeCardHand(new DarkIronDwarf());
+		startingBoard.getCurrentPlayer().placeCardHand(new ShatteredSunCleric());
+
+		startingBoard.placeMinion(PlayerSide.CURRENT_PLAYER, new BloodfenRaptor());
+		startingBoard.placeMinion(PlayerSide.CURRENT_PLAYER, new BloodfenRaptor());
 
 		this.testBreadthDepth(startingBoard);
 	}
