@@ -166,7 +166,7 @@ public class TestMinionAttacking {
 	@Test
 	public void testWindfury() throws HSException {
 		raptor.setWindfury(true);
-		
+
 		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
 		HearthTreeNode ret = raptor.attack(PlayerSide.WAITING_PLAYER, target, board, null, null);
 		assertEquals(board, ret);
@@ -203,5 +203,20 @@ public class TestMinionAttacking {
 		assertFalse(raptor.canAttack());
 		assertEquals(30, board.data_.getCurrentPlayerHero().getHealth());
 		assertEquals(24, board.data_.getWaitingPlayerHero().getHealth());
+	}
+
+	@Test
+	public void testExtraAttackDamage() throws HSException {
+		raptor.setExtraAttackUntilTurnEnd((byte)2);
+
+		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
+		HearthTreeNode ret = raptor.attack(PlayerSide.WAITING_PLAYER, target, board, null, null);
+		assertEquals(board, ret);
+
+		assertFalse(raptor.canAttack());
+		assertEquals(30, board.data_.getCurrentPlayerHero().getHealth());
+		assertEquals(25, board.data_.getWaitingPlayerHero().getHealth());
+
+		assertEquals(2, raptor.getExtraAttackUntilTurnEnd());
 	}
 }
