@@ -552,6 +552,10 @@
         "class": "com.hearthsim.card.spellcard.concrete.LightningBolt"
     },
     {
+        "name": "Lightwell",
+        "class": "com.hearthsim.card.minion.concrete.Lightwell"
+    },
+    {
         "name": "Loot Hoarder",
         "class": "com.hearthsim.card.minion.concrete.LootHoarder"
     },
