@@ -181,7 +181,7 @@ public class Card implements DeepCopyable<Card> {
 	@Override
 	public int hashCode() {
 		int result = name_ != null ? name_.hashCode() : 0;
-		result = 31 * result + (int)baseManaCost;
+		result = 31 * result + baseManaCost;
 		result = 31 * result + (hasBeenUsed ? 1 : 0);
 		result = 31 * result + (isInHand_ ? 1 : 0);
 		return result;

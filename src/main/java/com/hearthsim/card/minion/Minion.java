@@ -622,7 +622,7 @@ public class Minion extends Card {
 	 */
 	public HearthTreeNode useTargetableBattlecry(PlayerSide side, Minion targetMinion, HearthTreeNode boardState,
 			Deck deckPlayer0, Deck deckPlayer1) throws HSException {
-		HearthTreeNode node = new HearthTreeNode((BoardModel)boardState.data_.deepCopy());
+		HearthTreeNode node = new HearthTreeNode(boardState.data_.deepCopy());
 		int targetMinionIndex = side.getPlayer(boardState).getMinions().indexOf(targetMinion);
 		if(targetMinionIndex >= 0) {
 			node = this.useTargetableBattlecry_core(side, side.getPlayer(node).getMinions().get(targetMinionIndex),
@@ -1291,19 +1291,19 @@ public class Minion extends Card {
 		result = 31 * result + (silenced_ ? 1 : 0);
 		result = 31 * result + (stealthed_ ? 1 : 0);
 		result = 31 * result + (heroTargetable_ ? 1 : 0);
-		result = 31 * result + (int)health_;
-		result = 31 * result + (int)maxHealth_;
-		result = 31 * result + (int)baseHealth_;
-		result = 31 * result + (int)auraHealth_;
-		result = 31 * result + (int)attack_;
-		result = 31 * result + (int)baseAttack_;
-		result = 31 * result + (int)extraAttackUntilTurnEnd_;
-		result = 31 * result + (int)auraAttack_;
+		result = 31 * result + health_;
+		result = 31 * result + maxHealth_;
+		result = 31 * result + baseHealth_;
+		result = 31 * result + auraHealth_;
+		result = 31 * result + attack_;
+		result = 31 * result + baseAttack_;
+		result = 31 * result + extraAttackUntilTurnEnd_;
+		result = 31 * result + auraAttack_;
 		result = 31 * result + (summoned_ ? 1 : 0);
 		result = 31 * result + (transformed_ ? 1 : 0);
 		result = 31 * result + (destroyOnTurnStart_ ? 1 : 0);
 		result = 31 * result + (destroyOnTurnEnd_ ? 1 : 0);
-		result = 31 * result + (int)spellDamage_;
+		result = 31 * result + spellDamage_;
 		result = 31 * result + (deathrattleAction_ != null ? deathrattleAction_.hashCode() : 0);
 		result = 31 * result + (attackAction_ != null ? attackAction_.hashCode() : 0);
 		result = 31 * result + (placementImportant_ ? 1 : 0);
