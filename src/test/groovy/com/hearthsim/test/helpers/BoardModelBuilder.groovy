@@ -133,7 +133,7 @@ class BoardModelBuilder {
 	
 	private addCardToHand(Class cardClass) {
 		Card card = cardClass.newInstance()
-		boardModel.placeCardHandCurrentPlayer(card)
+		boardModel.placeCardHand(playerSide, card)
 	}
 	
     private removeCardFromHand(Class card) {
