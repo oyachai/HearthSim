@@ -131,8 +131,7 @@ public class TestYoungPriestess {
 		// the tiger.  Then, player0 plays a turn in which it is able to kill the tiger and hit the player1's hero for 6.  
 
         BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
-
-        List<HearthActionBoardPair> ab = ai0.playTurn(0, board.data_);
+    	List<HearthActionBoardPair> ab = ai0.playTurn(0, board.data_);
 		BoardModel resBoard0 = ab.get(ab.size() - 1).board;
 		
 		assertEquals(resBoard0.getNumCards_hand(), 0);

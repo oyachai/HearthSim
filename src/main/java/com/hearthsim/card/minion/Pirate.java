@@ -11,6 +11,7 @@ public class Pirate extends Minion {
     public Pirate() {
     }
 
+    @Override
     public JSONObject toJSON() {
 		JSONObject json = super.toJSON();
 		json.put("type", "Pirate");
