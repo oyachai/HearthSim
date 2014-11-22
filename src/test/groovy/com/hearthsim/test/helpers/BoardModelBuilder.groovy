@@ -60,7 +60,9 @@ class BoardModelBuilder {
     private updateMinion(int position, Map options){
         def minion = boardModel.getMinion(playerSide, position)
         minion.attack += options.deltaAttack ? options.deltaAttack : 0;
-        minion.health += options.deltaHealth ? options.deltaHealth : 0;
+		minion.extraAttackUntilTurnEnd += options.deltaExtraAttack ? options.deltaExtraAttack : 0;
+
+		minion.health += options.deltaHealth ? options.deltaHealth : 0;
 		minion.maxHealth += options.deltaMaxHealth ? options.deltaMaxHealth : 0;
 		
 		minion.auraAttack += options.deltaAuraAttack ? options.deltaAuraAttack : 0;

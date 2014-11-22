@@ -4,14 +4,13 @@ import static com.hearthsim.model.PlayerSide.CURRENT_PLAYER
 import static com.hearthsim.model.PlayerSide.WAITING_PLAYER
 import static org.junit.Assert.*
 
+import com.hearthsim.card.minion.concrete.AbusiveSergeant
 import com.hearthsim.card.minion.concrete.BoulderfistOgre
-import com.hearthsim.card.minion.concrete.ShatteredSunCleric
-import com.hearthsim.model.BoardModel
-import com.hearthsim.model.PlayerSide
+import com.hearthsim.model.BoardModel;
 import com.hearthsim.test.helpers.BoardModelBuilder
-import com.hearthsim.util.tree.HearthTreeNode
+import com.hearthsim.util.tree.HearthTreeNode;
 
-class ShatteredSunClericSpec extends CardSpec {
+class AbusiveSergeantSpec extends CardSpec {
 
 	HearthTreeNode root
 	BoardModel startingBoard
@@ -26,10 +25,10 @@ class ShatteredSunClericSpec extends CardSpec {
 		root = new HearthTreeNode(startingBoard)
 	}
 
-	def "adds extra stats"() {
+	def "adds extra attack"() {
 		def copiedBoard = startingBoard.deepCopy()
 		def target = root.data_.getCharacter(CURRENT_PLAYER, 1)
-		def theCard = new ShatteredSunCleric()
+		def theCard = new AbusiveSergeant()
 		def ret = theCard.useTargetableBattlecry_core(CURRENT_PLAYER, target, root, null, null)
 
 		expect:
@@ -37,8 +36,7 @@ class ShatteredSunClericSpec extends CardSpec {
 
 		assertBoardDelta(copiedBoard, ret.data_) {
 			currentPlayer {
-				updateMinion(0, [deltaAttack: +1])
-				updateMinion(0, [deltaHealth: +1])
+				updateMinion(0, [deltaExtraAttack: +2])
 			}
 		}
 	}
@@ -46,17 +44,16 @@ class ShatteredSunClericSpec extends CardSpec {
 	def "buff is additive"() {
 		def copiedBoard = startingBoard.deepCopy()
 		def target = root.data_.getCharacter(CURRENT_PLAYER, 1)
-		def theCard = new ShatteredSunCleric()
+		target.extraAttackUntilTurnEnd = 2
+		def theCard = new AbusiveSergeant()
 		def ret = theCard.useTargetableBattlecry_core(CURRENT_PLAYER, target, root, null, null)
-		ret = theCard.useTargetableBattlecry_core(CURRENT_PLAYER, target, root, null, null)
 
 		expect:
 		assertEquals(root, ret);
 
 		assertBoardDelta(copiedBoard, ret.data_) {
 			currentPlayer {
-				updateMinion(0, [deltaAttack: +2])
-				updateMinion(0, [deltaHealth: +2])
+				updateMinion(0, [deltaExtraAttack: +4])
 			}
 		}
 	}
