@@ -195,8 +195,13 @@ public class HearthSim implements HSSimulationEventListener {
 						hsModel_.getSimulation().setDeck_p0(deckList.getDeck());
 						hsModel_.getSimulation().setHero_p0(deckList.getHero());
 						lblHero_0.setText(deckList.getHero().getName());
-					} catch (HSInvalidCardException | HSInvalidHeroException
-							| IOException e1) {
+					} catch (HSInvalidCardException e1) {
+						// TODO Auto-generated catch block
+						JOptionPane.showMessageDialog(frame,
+							    e1.getMessage(),
+							    "Error",
+							    JOptionPane.ERROR_MESSAGE);
+					} catch (HSInvalidHeroException | IOException e1) {
 						// TODO Auto-generated catch block
 						JOptionPane.showMessageDialog(frame,
 							    "Error opening the deck file",
@@ -669,8 +674,13 @@ public class HearthSim implements HSSimulationEventListener {
 						hsModel_.getSimulation().setDeck_p1(deckList.getDeck());
 						hsModel_.getSimulation().setHero_p1(deckList.getHero());
 						lblHero_1.setText(deckList.getHero().getName());
-					} catch (HSInvalidCardException | HSInvalidHeroException
-							| IOException e1) {
+					} catch (HSInvalidCardException e1) {
+						// TODO Auto-generated catch block
+						JOptionPane.showMessageDialog(frame,
+							    e1.getMessage(),
+							    "Error",
+							    JOptionPane.ERROR_MESSAGE);
+					} catch (HSInvalidHeroException | IOException e1) {
 						// TODO Auto-generated catch block
 						JOptionPane.showMessageDialog(frame,
 							    "Error opening the deck file",
