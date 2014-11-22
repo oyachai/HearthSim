@@ -79,7 +79,7 @@ public class Soulfire extends SpellDamage {
 		return toRet;
 	}
 	
-	//To do: find a better way to do this...
+	// TODO: find a better way to do this...
 	private HearthTreeNode callSuperUseOn(
 			PlayerSide side,
 			Minion targetMinion,
