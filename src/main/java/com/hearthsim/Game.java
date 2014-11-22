@@ -1,5 +1,6 @@
 package com.hearthsim;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.hearthsim.card.Deck;
@@ -14,6 +15,8 @@ import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.results.GameRecord;
 import com.hearthsim.results.GameResult;
 import com.hearthsim.results.GameSimpleRecord;
+import com.hearthsim.util.HearthAction;
+import com.hearthsim.util.HearthAction.Verb;
 import com.hearthsim.util.HearthActionBoardPair;
 import com.hearthsim.util.factory.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -30,6 +33,8 @@ public class Game {
     
     ArtificialPlayer aiForPlayerGoingFirst;
     ArtificialPlayer aiForPlayerGoingSecond;
+
+	public ArrayList<HearthActionBoardPair> gameHistory = new ArrayList<HearthActionBoardPair>();
 
 	int curTurn_;
 
@@ -98,6 +103,8 @@ public class Game {
 		record.put(0, PlayerSide.CURRENT_PLAYER, boardModel.deepCopy(), null);
 		record.put(0, PlayerSide.CURRENT_PLAYER, boardModel.flipPlayers().deepCopy(), null);
 
+		gameHistory.add(new HearthActionBoardPair(null, boardModel));
+
 		GameResult gameResult;
 		for(int turnCount = 0; turnCount < maxTurns_; ++turnCount) {
 			log.debug("starting turn " + turnCount);
@@ -125,7 +132,9 @@ public class Game {
 	}
 
 	private GameResult playTurn(int turnCount, GameRecord record, ArtificialPlayer ai) throws HSException {
-		beginTurn(boardModel);
+		boardModel = Game.beginTurn(boardModel.deepCopy()); // Deep copy here to make sure history is preserved properly
+		gameHistory.add(new HearthActionBoardPair(new HearthAction(Verb.START_TURN, PlayerSide.CURRENT_PLAYER, 0,
+				PlayerSide.CURRENT_PLAYER, 0), boardModel.deepCopy()));
 
 		GameResult gameResult;
 
@@ -137,9 +146,10 @@ public class Game {
 		if(allMoves.size() > 0) {
 			// If allMoves is empty, it means that there was absolutely nothing the AI could do
 			boardModel = allMoves.get(allMoves.size() - 1).board;
+			gameHistory.addAll(allMoves);
 		}
 
-		boardModel = endTurn(boardModel);
+		boardModel = Game.endTurn(boardModel);
 
 		record.put(turnCount + 1, PlayerSide.CURRENT_PLAYER, boardModel.deepCopy(), allMoves);
 
@@ -148,6 +158,8 @@ public class Game {
 			return gameResult;
 
 		boardModel = boardModel.flipPlayers();
+		gameHistory.add(new HearthActionBoardPair(new HearthAction(Verb.END_TURN, PlayerSide.CURRENT_PLAYER, 0,
+				PlayerSide.CURRENT_PLAYER, 0), boardModel.deepCopy()));
 
 		return null;
 	}

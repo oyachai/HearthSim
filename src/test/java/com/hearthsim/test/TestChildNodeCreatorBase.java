@@ -2,6 +2,7 @@ package com.hearthsim.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -69,6 +70,7 @@ public class TestChildNodeCreatorBase {
 		assertEquals(2, actuals.size());
 		assertNodeListContainsBoardModel(actuals, expectedBoard);
 		assertNodeDoesNotContainDuplicates(actuals);
+		assertNodeListActionsAreRepeatable(startingBoard, actuals);
 	}
 
 	@Test
@@ -84,6 +86,7 @@ public class TestChildNodeCreatorBase {
 		ArrayList<HearthTreeNode> actuals = factory.createPlayCardChildren(root);
 		assertEquals(3, actuals.size());
 		assertNodeDoesNotContainDuplicates(actuals);
+		assertNodeListActionsAreRepeatable(startingBoard, actuals);
 
 		BoardModel expectedBoard = new BoardModel();
 		Minion expectedMinion = new BloodfenRaptor();
@@ -138,6 +141,7 @@ public class TestChildNodeCreatorBase {
 		ArrayList<HearthTreeNode> actuals = factory.createPlayCardChildren(root);
 		assertEquals(3, actuals.size());
 		assertNodeDoesNotContainDuplicates(actuals);
+		assertNodeListActionsAreRepeatable(startingBoard, actuals);
 
 		BoardModel expectedBoardA = new BoardModel();
 		expectedBoardA.placeMinion(PlayerSide.CURRENT_PLAYER, (Minion)bloodfenRaptor.deepCopy());
@@ -171,6 +175,7 @@ public class TestChildNodeCreatorBase {
 		ArrayList<HearthTreeNode> actuals = factory.createPlayCardChildren(root);
 		assertEquals(3, actuals.size());
 		assertNodeDoesNotContainDuplicates(actuals);
+		assertNodeListActionsAreRepeatable(startingBoard, actuals);
 
 		BoardModel expectedBoardA = new BoardModel();
 		expectedBoardA.getCurrentPlayer().setMana(1);
@@ -200,6 +205,7 @@ public class TestChildNodeCreatorBase {
 		ArrayList<HearthTreeNode> actuals = factory.createPlayCardChildren(root);
 		assertEquals(3, actuals.size());
 		assertNodeDoesNotContainDuplicates(actuals);
+		assertNodeListActionsAreRepeatable(startingBoard, actuals);
 
 		BoardModel expectedBoardA = new BoardModel();
 		expectedBoardA.getCurrentPlayer().setMana(1);
@@ -225,6 +231,7 @@ public class TestChildNodeCreatorBase {
 		ArrayList<HearthTreeNode> actuals = factory.createHeroAbilityChildren(root);
 		assertEquals(3, actuals.size());
 		assertNodeDoesNotContainDuplicates(actuals);
+		assertNodeListActionsAreRepeatable(startingBoard, actuals);
 
 		BoardModel expectedBoardA = new BoardModel(new Mage(), new TestHero());
 		expectedBoardA.getCurrentPlayer().setMana(0);
@@ -253,6 +260,7 @@ public class TestChildNodeCreatorBase {
 		ArrayList<HearthTreeNode> actuals = factory.createHeroAbilityChildren(root);
 		assertEquals(5, actuals.size());
 		assertNodeDoesNotContainDuplicates(actuals);
+		assertNodeListActionsAreRepeatable(startingBoard, actuals);
 
 		BoardModel expectedBoardA = new BoardModel(new Mage(), new TestHero());
 		expectedBoardA.getCurrentPlayer().setMana(0);
@@ -281,6 +289,7 @@ public class TestChildNodeCreatorBase {
 		ArrayList<HearthTreeNode> actuals = factory.createAttackChildren(root);
 		assertEquals(4, actuals.size());
 		assertNodeDoesNotContainDuplicates(actuals);
+		assertNodeListActionsAreRepeatable(startingBoard, actuals);
 
 		// Killed Boar
 		BoardModel expectedBoardA = new BoardModel();
@@ -320,6 +329,7 @@ public class TestChildNodeCreatorBase {
 		ArrayList<HearthTreeNode> actuals = factory.createAttackChildren(root);
 		assertEquals(4, actuals.size());
 		assertNodeDoesNotContainDuplicates(actuals);
+		assertNodeListActionsAreRepeatable(startingBoard, actuals);
 
 		// Killed Boar
 		BoardModel expectedBoardA = new BoardModel();
@@ -350,6 +360,16 @@ public class TestChildNodeCreatorBase {
 		expectedBoardC.getCharacter(PlayerSide.WAITING_PLAYER, 0).setHealth((byte)29);
 
 		assertNodeListContainsBoardModel(actuals, expectedBoardC);
+	}
+
+	private void assertNodeListActionsAreRepeatable(BoardModel model, List<HearthTreeNode> children) throws HSException {
+		for(HearthTreeNode child : children) {
+			HearthTreeNode origin = new HearthTreeNode(model.deepCopy());
+			assertNotNull(child.getAction());
+			HearthTreeNode reproduced = child.getAction().perform(origin, null, null);
+			assertNotNull(reproduced);
+			assertEquals(child.data_, reproduced.data_);
+		}
 	}
 
 	private void assertNodeListContainsBoardModel(List<HearthTreeNode> nodes, BoardModel expectedBoard) {

@@ -1,5 +1,6 @@
 package com.hearthsim.util;
 
+import com.hearthsim.Game;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
@@ -16,8 +17,9 @@ import com.hearthsim.util.tree.HearthTreeNode;
  */
 public class HearthAction {
 	
+	// TODO the DO_NOT_ verbs are used for history tracking but we can probably optimize them away in the future.
 	public enum Verb {
-		USE_CARD, HERO_ABILITY, ATTACK, UNTARGETABLE_BATTLECRY, TARGETABLE_BATTLECRY
+		USE_CARD, HERO_ABILITY, ATTACK, UNTARGETABLE_BATTLECRY, TARGETABLE_BATTLECRY, START_TURN, END_TURN, DO_NOT_USE_CARD, DO_NOT_ATTACK, DO_NOT_USE_HEROPOWER
 	}
 		
 	public final Verb verb_;
@@ -72,11 +74,38 @@ public class HearthAction {
 				Minion minion = boardState.data_.getCharacter(actionPerformerPlayerSide, cardOrCharacterIndex_);
 				Minion placementTarget = boardState.data_.getCharacter(targetPlayerSide, targetCharacterIndex_);
 				toRet = minion.useUntargetableBattlecry(placementTarget, toRet, deckPlayer0, deckPlayer1, true);
+				break;
 			}
 			case TARGETABLE_BATTLECRY: {
 				Minion minion = boardState.data_.getCharacter(actionPerformerPlayerSide, cardOrCharacterIndex_);
 				Minion battlecryTarget = boardState.data_.getCharacter(targetPlayerSide, targetCharacterIndex_);
 				toRet = minion.useTargetableBattlecry(targetPlayerSide, battlecryTarget, toRet, deckPlayer0, deckPlayer1);
+				break;
+			}
+			case START_TURN: {
+				toRet = new HearthTreeNode(Game.beginTurn(boardState.data_.deepCopy()));
+				break;
+			}
+			case END_TURN: {
+				toRet = new HearthTreeNode(Game.endTurn(boardState.data_.deepCopy()).flipPlayers());
+				break;
+			}
+			case DO_NOT_USE_CARD: {
+				for(Card c : boardState.data_.getCurrentPlayerHand()) {
+					c.hasBeenUsed(true);
+				}
+				break;
+			}
+			case DO_NOT_ATTACK: {
+				for(Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(boardState).getMinions()) {
+					minion.hasAttacked(true);
+				}
+				boardState.data_.getCurrentPlayerHero().hasAttacked(true);
+				break;
+			}
+			case DO_NOT_USE_HEROPOWER: {
+				boardState.data_.getCurrentPlayerHero().hasBeenUsed(true);
+				break;
 			}
 		}
 		return toRet;

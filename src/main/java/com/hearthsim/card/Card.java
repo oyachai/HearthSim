@@ -230,7 +230,7 @@ public class Card implements DeepCopyable<Card> {
 			Deck deckPlayer0, Deck deckPlayer1) throws HSException {
 		int cardIndex = PlayerSide.CURRENT_PLAYER.getPlayer(boardState).getHand().indexOf(this);
 		int targetIndex = targetMinion instanceof Hero ? 0 : side.getPlayer(boardState).getMinions()
-				.indexOf(targetMinion);
+				.indexOf(targetMinion) + 1;
 		HearthTreeNode toRet = this.useOn(side, targetMinion, boardState, deckPlayer0, deckPlayer1, false);
 		if(toRet != null) {
 			toRet.setAction(new HearthAction(Verb.USE_CARD, PlayerSide.CURRENT_PLAYER, cardIndex, side, targetIndex));

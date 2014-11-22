@@ -291,5 +291,4 @@ public class PlayerModel implements DeepCopyable<PlayerModel> {
     
         return json;
     }
-
 }

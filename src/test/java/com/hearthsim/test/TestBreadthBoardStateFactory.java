@@ -2,6 +2,7 @@ package com.hearthsim.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -57,6 +58,50 @@ public class TestBreadthBoardStateFactory {
 
 		deck0 = new Deck(cards);
 		deck1 = deck0.deepCopy();
+	}
+
+	@Test
+	public void testRepeatableStatesMinionAttacks() throws HSException {
+		BoardModel startingBoard = new BoardModel();
+		startingBoard.placeMinion(PlayerSide.CURRENT_PLAYER, new BloodfenRaptor());
+		startingBoard.placeMinion(PlayerSide.CURRENT_PLAYER, new RiverCrocolisk());
+		startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new StonetuskBoar());
+
+		BreadthBoardStateFactory factory = new BreadthBoardStateFactory(this.deck0, this.deck1);
+		HearthTreeNode root = new HearthTreeNode(startingBoard);
+		factory.addChildLayers(root, 2);
+		assertActionTreeIsRepeatable(root);
+	}
+
+	@Test
+	public void testRepeatableStatesMinionPlacement() throws HSException {
+		BoardModel startingBoard = new BoardModel();
+		startingBoard.getCurrentPlayer().addMana(3);
+		startingBoard.getCurrentPlayer().addMaxMana(3);
+		startingBoard.getCurrentPlayer().placeCardHand(new BloodfenRaptor());
+		startingBoard.getCurrentPlayer().placeCardHand(new ArgentSquire());
+
+		BreadthBoardStateFactory factory = new BreadthBoardStateFactory(this.deck0, this.deck1);
+		HearthTreeNode root = new HearthTreeNode(startingBoard);
+		factory.addChildLayers(root, 2);
+		assertActionTreeIsRepeatable(root);
+	}
+
+	@Test
+	public void testRepeatableStatesCardTargets() throws HSException {
+		BoardModel startingBoard = new BoardModel();
+		PlayerModel firstPlayer = startingBoard.getCurrentPlayer();
+		firstPlayer.addMana(4);
+		firstPlayer.addMaxMana(4);
+		firstPlayer.placeCardHand(new HolySmite());
+		firstPlayer.placeCardHand(new Frostbolt());
+		startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new BloodfenRaptor());
+		startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new RiverCrocolisk());
+
+		BreadthBoardStateFactory factory = new BreadthBoardStateFactory(this.deck0, this.deck1);
+		HearthTreeNode root = new HearthTreeNode(startingBoard);
+		factory.addChildLayers(root, 2);
+		assertActionTreeIsRepeatable(root);
 	}
 
 	@Test
@@ -209,7 +254,8 @@ public class TestBreadthBoardStateFactory {
 		this.testFactories(startingBoard, ai, breadthFactory, depthFactory);
 	}
 
-	private void testFactories(BoardModel startingBoard, BoardScorer ai, BoardStateFactoryBase us, BoardStateFactoryBase them) throws HSException {
+	private void testFactories(BoardModel startingBoard, BoardScorer ai, BoardStateFactoryBase us,
+			BoardStateFactoryBase them) throws HSException {
 		HearthTreeNode usRoot = new HearthTreeNode(startingBoard);
 		double usTimer = System.currentTimeMillis();
 		us.doMoves(usRoot, ai);
@@ -220,14 +266,33 @@ public class TestBreadthBoardStateFactory {
 		them.doMoves(themRoot, ai);
 		themTimer = System.currentTimeMillis() - themTimer;
 
-		log.debug("testFactories " + name.getMethodName() + " usTimer=" + usTimer + " themTimer="
-				+ themTimer);
+		log.debug("testFactories " + name.getMethodName() + " usTimer=" + usTimer + " themTimer=" + themTimer);
 
 		assertEquals(themRoot.data_, usRoot.data_);
 		assertEquals(themRoot.getBestChildScore(), usRoot.getBestChildScore(), 0);
 		assertEquals(themRoot.isLeaf(), usRoot.isLeaf());
 
 		assertDescendentsCoversNode(usRoot, themRoot);
+	}
+
+	private void assertActionTreeIsRepeatable(HearthTreeNode root) throws HSException {
+		ArrayList<HearthTreeNode> unprocessed = new ArrayList<HearthTreeNode>();
+		unprocessed.add(root);
+
+		HearthTreeNode current = null;
+		while(!unprocessed.isEmpty()) {
+			current = unprocessed.remove(0);
+			if(!current.isLeaf()) {
+				for(HearthTreeNode child : current.getChildren()) {
+					HearthTreeNode origin = new HearthTreeNode(current.data_.deepCopy());
+					assertNotNull(child.getAction());
+					HearthTreeNode reproduced = child.getAction().perform(origin, null, null);
+					assertNotNull(reproduced);
+					assertEquals(child.data_, reproduced.data_);
+				}
+				unprocessed.addAll(current.getChildren());
+			}
+		}
 	}
 
 	private void assertDescendentsCoversNode(HearthTreeNode us, HearthTreeNode them) {
