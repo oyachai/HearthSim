@@ -16,6 +16,8 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 import org.json.JSONObject;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.EnumSet;
 
 public class Minion extends Card {
@@ -91,7 +93,6 @@ public class Minion extends Card {
 			isInHand_ = true;
 			// TODO: spellpower could be deduced from text quite easily
 		}
-
 	}
 
 	/**
@@ -528,6 +529,25 @@ public class Minion extends Card {
 
 		return toRet;
 
+	}
+
+	// Use for bounce (e.g., Brewmaster) or recreate (e.g., Reincarnate)
+	public Minion createResetCopy() {
+		try {
+			Constructor<? extends Minion> ctor = this.getClass().getConstructor();
+			Minion object = ctor.newInstance();
+			return object;
+		} catch(NoSuchMethodException | InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch(InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch(IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	public void silenced(PlayerSide thisPlayerSide, HearthTreeNode boardState) throws HSInvalidPlayerIndexException {
@@ -1146,13 +1166,14 @@ public class Minion extends Card {
 		json.put("health", health_);
 		json.put("baseHealth", baseHealth_);
 		json.put("maxHealth", maxHealth_);
-		json.put("taunt", taunt_);
-		json.put("divineShield", divineShield_);
-		json.put("windFury", windFury_);
-		json.put("charge", charge_);
-		json.put("frozen", frozen_);
-		json.put("silenced", silenced_);
-		json.put("hasAttacked", hasAttacked_);
+		if(taunt_) json.put("taunt", taunt_);
+		if(divineShield_) json.put("divineShield", divineShield_);
+		if(windFury_) json.put("windFury", windFury_);
+		if(charge_) json.put("charge", charge_);
+		if(frozen_) json.put("frozen", frozen_);
+		if(silenced_) json.put("silenced", silenced_);
+		if(hasAttacked_) json.put("hasAttacked", hasAttacked_);
+		if(spellDamage_ != 0) json.put("spellDamage", spellDamage_);
 		return json;
 	}
 
