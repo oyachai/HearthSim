@@ -24,7 +24,7 @@ public class TestShatteredSunCleric {
 	public void testAddsExtraStats() throws HSException {
 		BoulderfistOgre ogre = new BoulderfistOgre();
 		ShatteredSunCleric shattered = new ShatteredSunCleric();
-		shattered.useTargetableBattlecry_core(PlayerSide.WAITING_PLAYER, ogre, board, null, null);
+		shattered.useTargetableBattlecry_core(PlayerSide.CURRENT_PLAYER, ogre, board, null, null);
 		assertEquals(7, ogre.getAttack());
 		assertEquals(8, ogre.getHealth());
 	}
@@ -33,8 +33,8 @@ public class TestShatteredSunCleric {
 	public void testBuffIsAdditive() throws HSException {
 		BoulderfistOgre ogre = new BoulderfistOgre();
 		ShatteredSunCleric shattered = new ShatteredSunCleric();
-		shattered.useTargetableBattlecry_core(PlayerSide.WAITING_PLAYER, ogre, board, null, null);
-		shattered.useTargetableBattlecry_core(PlayerSide.WAITING_PLAYER, ogre, board, null, null);
+		shattered.useTargetableBattlecry_core(PlayerSide.CURRENT_PLAYER, ogre, board, null, null);
+		shattered.useTargetableBattlecry_core(PlayerSide.CURRENT_PLAYER, ogre, board, null, null);
 		assertEquals(8, ogre.getAttack());
 		assertEquals(9, ogre.getHealth());
 	}
