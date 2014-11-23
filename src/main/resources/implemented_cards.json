@@ -280,6 +280,10 @@
         "class": "com.hearthsim.card.spellcard.concrete.DivineSpirit"
     },
     {
+        "name": "Doomguard",
+        "class": "com.hearthsim.card.minion.concrete.Doomguard"
+    },
+    {
         "name": "Dragonling Mechanic",
         "class": "com.hearthsim.card.minion.concrete.DragonlingMechanic"
     },
