@@ -64,7 +64,7 @@ public class NorthshireCleric extends Minion {
 				}
 			} else {
 				//This minion is an enemy minion.  Let's draw a card for the enemy.  No need to use a StopNode for enemy card draws.
-				toRet.data_.drawCardFromWaitingPlayerDeck(deckPlayer1, 1);
+				toRet.data_.drawCardFromWaitingPlayerDeck(1);
 			}
 		}
 		return toRet;

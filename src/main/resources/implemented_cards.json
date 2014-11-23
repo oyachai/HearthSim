@@ -616,6 +616,10 @@
         "class": "com.hearthsim.card.minion.concrete.MurlocTidehunter"
     },
     {
+        "name": "Nat Pagle",
+        "class": "com.hearthsim.card.minion.concrete.NatPagle"
+    },
+    {
         "name": "Nightblade",
         "class": "com.hearthsim.card.minion.concrete.Nightblade"
     },

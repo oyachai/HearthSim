@@ -34,7 +34,7 @@ public class DeathrattleCardDrawAction extends DeathrattleAction {
 				}
 			} else {
 				//This minion is an enemy minion.  Let's draw a card for the enemy.  No need to use a StopNode for enemy card draws.
-				toRet.data_.drawCardFromWaitingPlayerDeck(deckPlayer1, numCards_);
+				toRet.data_.drawCardFromWaitingPlayerDeck(numCards_);
 			}
 		}
 		return toRet;		

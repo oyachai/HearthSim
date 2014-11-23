@@ -48,7 +48,7 @@ public class ColdlightOracle extends Murloc {
 		else
 			toRet = new CardDrawNode(toRet, 2); //draw two cards
 		
-		toRet.data_.drawCardFromWaitingPlayerDeck(deckPlayer1, 2);
+		toRet.data_.drawCardFromWaitingPlayerDeck(2);
 		return toRet;
 	}
 

@@ -21,7 +21,14 @@ public class TestTheBlackKnight {
 
 	@Before
 	public void setup() {
-		board = new HearthTreeNode(new BoardModel());
+		Card cards[] = new Card[10];
+		for (int index = 0; index < 10; ++index) {
+			cards[index] = new TheCoin();
+		}
+	
+		deck = new Deck(cards);
+
+		board = new HearthTreeNode(new BoardModel(deck, deck));
 
 		Minion minion0_0 = new StormwindChampion();
 		Minion minion0_1 = new RaidLeader();
@@ -43,12 +50,6 @@ public class TestTheBlackKnight {
 		board.data_.placeCardHandWaitingPlayer(minion1_2);
 		board.data_.placeCardHandWaitingPlayer(minion1_3);
 
-		Card cards[] = new Card[10];
-		for (int index = 0; index < 10; ++index) {
-			cards[index] = new TheCoin();
-		}
-	
-		deck = new Deck(cards);
 
 		board.data_.getCurrentPlayer().setMana((byte)10);
 		board.data_.getWaitingPlayer().setMana((byte)10);

@@ -80,6 +80,11 @@ public class BoardModel implements DeepCopyable {
     	this(new PlayerModel(0, "player0", new TestHero("hero0", (byte)30), new Deck()),
     		 new PlayerModel(1, "player1", new TestHero("hero1", (byte)30), new Deck()));
     }
+
+    public BoardModel(Deck deckPlayer0, Deck deckPlayer1) {
+    	this(new PlayerModel(0, "player0", new TestHero("hero0", (byte)30), deckPlayer0),
+    		 new PlayerModel(1, "player1", new TestHero("hero1", (byte)30), deckPlayer1));
+    }
     
     public BoardModel(Hero p0_hero, Hero p1_hero) {
     	this(new PlayerModel(0, "p0",p0_hero,new Deck()), new PlayerModel(1, "p1",p1_hero,new Deck()));
@@ -356,17 +361,14 @@ public class BoardModel implements DeepCopyable {
     /**
      * Draw a card from a deck and place it in the hand
      *
-     * This function is intentionally only implemented for Player1.
-     * For Player0, it is almost always correct to user CardDrawNode instead.
-     *
      * @param deck Deck from which to draw.
      * @param numCards Number of cards to draw.
      * @throws HSInvalidPlayerIndexException
      */
-    public void drawCardFromWaitingPlayerDeck(Deck deck, int numCards) throws HSInvalidPlayerIndexException {
+    public void drawCardFromWaitingPlayerDeck(int numCards) throws HSInvalidPlayerIndexException {
         //This minion is an enemy minion.  Let's draw a card for the enemy.  No need to use a StopNode for enemy card draws.
         for (int indx = 0; indx < numCards; ++indx) {
-            Card card = deck.drawCard(this.getDeckPos(1));
+            Card card = this.getWaitingPlayer().getDeck().drawCard(this.getDeckPos(1));
             if (card == null) {
                 byte fatigueDamage = this.getFatigueDamage(1);
                 this.setFatigueDamage(1, (byte)(fatigueDamage + 1));
@@ -377,6 +379,33 @@ public class BoardModel implements DeepCopyable {
                     this.placeCard_hand(PlayerSide.WAITING_PLAYER, card);
                 }
                 this.setDeckPos(1, this.getDeckPos(1) + 1);
+            }
+        }
+    }
+
+    /**
+     * Draw a card from a deck and place it in the hand
+     *
+     * Note: It is almost always correct to use CardDrawNode instead of this function!!!!
+     *
+     * @param deck Deck from which to draw.
+     * @param numCards Number of cards to draw.
+     * @throws HSInvalidPlayerIndexException
+     */
+    public void drawCardFromCurrentPlayerDeck(int numCards) throws HSInvalidPlayerIndexException {
+        //This minion is an enemy minion.  Let's draw a card for the enemy.  No need to use a StopNode for enemy card draws.
+        for (int indx = 0; indx < numCards; ++indx) {
+            Card card = this.getCurrentPlayer().getDeck().drawCard(this.getDeckPos(1));
+            if (card == null) {
+                byte fatigueDamage = this.getFatigueDamage(1);
+                this.setFatigueDamage(1, (byte)(fatigueDamage + 1));
+                Hero currentPlayerHero = this.getCurrentPlayer().getHero();
+                currentPlayerHero.setHealth((byte) (currentPlayerHero.getHealth() - fatigueDamage));
+            } else {
+                if (this.getNumCardsHandCurrentPlayer() < 10) {
+                    this.placeCard_hand(PlayerSide.CURRENT_PLAYER, card);
+                }
+                this.setDeckPos(0, this.getDeckPos(1) + 1);
             }
         }
     }

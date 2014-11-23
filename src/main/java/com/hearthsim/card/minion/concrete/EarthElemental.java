@@ -8,7 +8,6 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class EarthElemental extends Minion {
 	
-	private static final boolean STEALTHED = false;
 	private static final boolean HERO_TARGETABLE = true;
 	private static final boolean SUMMONED = false;
 	private static final boolean TRANSFORMED = false;
