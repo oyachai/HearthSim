@@ -36,7 +36,7 @@ public class HearthAction {
 	public HearthAction(Verb verb, PlayerSide actionPerformerPlayerSide, int cardOrCharacterIndex, PlayerSide targetPlayerSide, int targetCharacterIndex) {
 		this(verb, actionPerformerPlayerSide, cardOrCharacterIndex, targetPlayerSide, targetCharacterIndex, null, -1);
 	}
-	
+
 	public HearthAction(Verb verb, PlayerSide actionPerformerPlayerSide, int cardOrCharacterIndex, PlayerSide targetPlayerSide, int targetCharacterIndex, PlayerSide battlecryTargetPlayerSide, int battlecryTargetCharacterIndex) {
 		verb_ = verb;
 		this.actionPerformerPlayerSide = actionPerformerPlayerSide;
@@ -50,18 +50,22 @@ public class HearthAction {
 	}
 
 	public HearthTreeNode perform(HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+		return this.perform(boardState, deckPlayer0, deckPlayer1, true);
+	}
+
+	public HearthTreeNode perform(HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealization) throws HSException {
 		HearthTreeNode toRet = boardState;
 		switch(verb_) {
 			case USE_CARD: {
 				Card card = boardState.data_.getCard_hand(actionPerformerPlayerSide, cardOrCharacterIndex_);
 				Minion target = boardState.data_.getCharacter(targetPlayerSide, targetCharacterIndex_);
-				toRet = card.useOn(targetPlayerSide, target, toRet, deckPlayer0, deckPlayer1, true);
+				toRet = card.useOn(targetPlayerSide, target, toRet, deckPlayer0, deckPlayer1, singleRealization);
 			}
 			break;
 			case HERO_ABILITY: {
 				Hero hero = boardState.data_.getHero(actionPerformerPlayerSide);
 				Minion target = boardState.data_.getCharacter(targetPlayerSide, targetCharacterIndex_);
-				toRet = hero.useHeroAbility(targetPlayerSide, target, toRet, deckPlayer0, deckPlayer1, true);
+				toRet = hero.useHeroAbility(targetPlayerSide, target, toRet, deckPlayer0, deckPlayer1, singleRealization);
 			}
 			break;
 			case ATTACK: {
@@ -73,7 +77,7 @@ public class HearthAction {
 			case UNTARGETABLE_BATTLECRY: {
 				Minion minion = boardState.data_.getCharacter(actionPerformerPlayerSide, cardOrCharacterIndex_);
 				Minion placementTarget = boardState.data_.getCharacter(targetPlayerSide, targetCharacterIndex_);
-				toRet = minion.useUntargetableBattlecry(placementTarget, toRet, deckPlayer0, deckPlayer1, true);
+				toRet = minion.useUntargetableBattlecry(placementTarget, toRet, deckPlayer0, deckPlayer1, singleRealization);
 				break;
 			}
 			case TARGETABLE_BATTLECRY: {
