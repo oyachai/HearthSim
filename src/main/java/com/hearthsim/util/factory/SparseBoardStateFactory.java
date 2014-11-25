@@ -57,7 +57,7 @@ public class SparseBoardStateFactory extends BoardStateFactoryBase {
 		int mana = boardStateNode.data_.getCurrentPlayer().getMana();
 		for (int ic = 0; ic < boardStateNode.data_.getNumCards_hand(); ++ic) {
 			Card cardToUse = boardStateNode.data_.getCurrentPlayerCardHand(ic);
-			if (cardToUse.getMana() <= mana && !cardToUse.hasBeenUsed()) {
+			if (cardToUse.getManaCost(PlayerSide.CURRENT_PLAYER, boardStateNode) <= mana && !cardToUse.hasBeenUsed()) {
 				//we can use this card!  Let's try using it on everything
 				if (cardToUse instanceof Minion && !((Minion)cardToUse).getPlacementImportant()) {
 					//If this card is a minion, then reduce the set of possible minion placement position

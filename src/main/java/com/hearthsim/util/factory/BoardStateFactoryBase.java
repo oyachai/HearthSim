@@ -187,7 +187,7 @@ public class BoardStateFactoryBase {
 		
 		int mana = boardStateNode.data_.getCurrentPlayer().getMana();
 		for (int ic = 0; ic < boardStateNode.data_.getNumCards_hand(); ++ic) {
-			if (boardStateNode.data_.getCurrentPlayerCardHand(ic).getMana() <= mana && !boardStateNode.data_.getCurrentPlayerCardHand(ic).hasBeenUsed()) {
+			if (boardStateNode.data_.getCurrentPlayerCardHand(ic).getManaCost(PlayerSide.CURRENT_PLAYER, boardStateNode) <= mana && !boardStateNode.data_.getCurrentPlayerCardHand(ic).hasBeenUsed()) {
 				//we can use this card!  Let's try using it on everything
 				for(int i = 0; i <= PlayerSide.CURRENT_PLAYER.getPlayer(boardStateNode).getNumMinions(); ++i) {
 					Minion targetMinion = boardStateNode.data_.getCurrentPlayerCharacter(i);

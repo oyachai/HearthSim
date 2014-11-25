@@ -56,7 +56,7 @@ class BoardModelBuidlerSpec extends HearthBaseSpec {
         expect currentPlayer.minions.size(), is(1)
 
         def firstMinion = currentPlayer.minions[0]
-        expect firstMinion.mana, isByteEqual(2)
+        expect firstMinion.baseManaCost, isByteEqual(2)
         expect firstMinion.attack, isByteEqual(5)
         expect firstMinion.health, isByteEqual(3)
         expect firstMinion.maxHealth, isByteEqual(3)

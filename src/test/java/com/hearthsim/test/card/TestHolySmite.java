@@ -34,7 +34,10 @@ public class TestHolySmite {
 		
 		board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion1_0);
 		board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion1_1);
-				
+
+		board.data_.getCurrentPlayer().setMana(10);
+		board.data_.getCurrentPlayer().setMaxMana(10);
+
 	}
 	
 	@Test

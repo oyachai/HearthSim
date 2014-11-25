@@ -49,6 +49,9 @@ public class TestFieryWarAxe {
 		FieryWarAxe fb = new FieryWarAxe();
 		board.data_.placeCardHandCurrentPlayer(fb);
 
+		board.data_.getCurrentPlayer().setMana(10);
+		board.data_.getCurrentPlayer().setMaxMana(10);
+
 	}
 	
 	@Test

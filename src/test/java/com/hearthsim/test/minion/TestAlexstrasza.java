@@ -49,8 +49,8 @@ public class TestAlexstrasza {
 		Card fb = new Alexstrasza();
 		board.data_.placeCardHandCurrentPlayer(fb);
 
-		board.data_.getCurrentPlayer().setMana((byte)9);
-		board.data_.getWaitingPlayer().setMana((byte)9);
+		board.data_.getCurrentPlayer().setMana((byte)10);
+		board.data_.getWaitingPlayer().setMana((byte)10);
 		
 		board.data_.getCurrentPlayer().setMaxMana((byte)9);
 		board.data_.getWaitingPlayer().setMaxMana((byte)9);

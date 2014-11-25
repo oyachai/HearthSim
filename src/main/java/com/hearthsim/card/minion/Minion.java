@@ -72,7 +72,7 @@ public class Minion extends Card {
         ImplementedCardList.ImplementedCard implementedCard = cardList.getCardForClass(this.getClass());
         if (implementedCard!=null){
             // only 'Minion' class is not implemented
-            mana_ = (byte) implementedCard.mana_;
+        	baseManaCost = (byte) implementedCard.mana_;
             name_ = implementedCard.name_;
             attack_ = (byte) implementedCard.attack_;
             baseAttack_ = attack_;
@@ -753,7 +753,7 @@ public class Minion extends Card {
 			return null;
 		
 		HearthTreeNode toRet = boardState;
-		toRet.data_.getCurrentPlayer().subtractMana(this.mana_);
+		toRet.data_.getCurrentPlayer().subtractMana(this.getManaCost(PlayerSide.CURRENT_PLAYER, boardState));
 		toRet.data_.removeCard_hand(this);
 		toRet = this.summonMinion(side, targetMinion, boardState, deckPlayer0, deckPlayer1, true, singleRealizationOnly);
 		return toRet;
@@ -1272,7 +1272,7 @@ public class Minion extends Card {
 
 
         minion.name_ = name_;
-        minion.mana_ = mana_;
+        minion.baseManaCost = baseManaCost;
         minion.attack_ = attack_;
         minion.health_ = health_;
         minion.baseAttack_ = baseAttack_;

@@ -44,8 +44,8 @@ public class TestBloodKnight {
 		Card fb = new BloodKnight();
 		board.data_.placeCardHandCurrentPlayer(fb);
 
-		board.data_.getCurrentPlayer().setMana((byte)8);
-		board.data_.getWaitingPlayer().setMana((byte)8);
+		board.data_.getCurrentPlayer().setMana((byte)18);
+		board.data_.getWaitingPlayer().setMana((byte)18);
 		
 		board.data_.getCurrentPlayer().setMaxMana((byte)8);
 		board.data_.getWaitingPlayer().setMaxMana((byte)8);
@@ -56,6 +56,8 @@ public class TestBloodKnight {
 		minion1_0.summonMinion(PlayerSide.WAITING_PLAYER, board.data_.getHero(PlayerSide.WAITING_PLAYER), board, null, null, false, true);
 		minion1_1.summonMinion(PlayerSide.WAITING_PLAYER, board.data_.getHero(PlayerSide.WAITING_PLAYER), board, null, null, false, true);
 		minion1_2.summonMinion(PlayerSide.WAITING_PLAYER, board.data_.getHero(PlayerSide.WAITING_PLAYER), board, null, null, false, true);
+
+		board.data_.resetMana();
 
 	}
 	

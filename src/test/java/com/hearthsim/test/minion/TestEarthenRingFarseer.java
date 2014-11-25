@@ -43,8 +43,8 @@ public class TestEarthenRingFarseer {
 		Card fb = new EarthenRingFarseer();
 		board.data_.placeCardHandCurrentPlayer(fb);
 
-		board.data_.getCurrentPlayer().setMana((byte)8);
-		board.data_.getWaitingPlayer().setMana((byte)8);
+		board.data_.getCurrentPlayer().setMana((byte)18);
+		board.data_.getWaitingPlayer().setMana((byte)18);
 		
 		board.data_.getCurrentPlayer().setMaxMana((byte)8);
 		board.data_.getWaitingPlayer().setMaxMana((byte)8);
@@ -62,6 +62,9 @@ public class TestEarthenRingFarseer {
 
 		board.data_.getHero(PlayerSide.CURRENT_PLAYER).setHealth((byte)20);
 		board.data_.getHero(PlayerSide.WAITING_PLAYER).setHealth((byte)20);
+		
+		board.data_.resetMana();
+
 	}
 	
 	@Test

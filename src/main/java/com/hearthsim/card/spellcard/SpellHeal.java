@@ -6,8 +6,8 @@ public class SpellHeal extends SpellCard {
 
 	byte healAmount_;
 	
-	public SpellHeal(String name, byte mana, byte healAmount, boolean hasBeenUsed) {
-		super(mana, hasBeenUsed);
+	public SpellHeal(String name, byte baseManaCost, byte healAmount, boolean hasBeenUsed) {
+		super(baseManaCost, hasBeenUsed);
 		healAmount_ = healAmount;
 	}
 
@@ -52,7 +52,7 @@ public class SpellHeal extends SpellCard {
 
     @Override
 	public Object deepCopy() {
-		return new SpellHeal(this.getName(), this.getMana(), healAmount_, this.hasBeenUsed());
+		return new SpellHeal(this.getName(), this.baseManaCost, healAmount_, this.hasBeenUsed());
 	}
 
 }

@@ -52,8 +52,8 @@ public class TestYoungPriestess {
 		Card fb = new YoungPriestess();
 		board.data_.placeCardHandCurrentPlayer(fb);
 
-		board.data_.getCurrentPlayer().setMana((byte)8);
-		board.data_.getWaitingPlayer().setMana((byte)8);
+		board.data_.getCurrentPlayer().setMana((byte)18);
+		board.data_.getWaitingPlayer().setMana((byte)18);
 		
 		board.data_.getCurrentPlayer().setMaxMana((byte)8);
 		board.data_.getWaitingPlayer().setMaxMana((byte)8);
@@ -139,7 +139,6 @@ public class TestYoungPriestess {
 		// the tiger.  Then, player0 plays a turn in which it is able to kill the tiger and hit the player1's hero for 6.  
 
         BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
-    	Game game = new Game(board.data_.getCurrentPlayer(), board.data_.getWaitingPlayer(), ai0, ai0);
 
         List<HearthActionBoardPair> ab = ai0.playTurn(0, board.data_, 200000000);
 		BoardModel resBoard0 = ab.get(ab.size() - 1).board;
@@ -163,7 +162,7 @@ public class TestYoungPriestess {
 		int origHealthMinion1 = 2;
 		int origHealthMinion2 = 5;
 		
-		BoardModel resBoard1 = game.endTurn(resBoard0);
+		BoardModel resBoard1 = Game.endTurn(resBoard0);
 		
 		log.info("Raid Leader Health = " + PlayerSide.CURRENT_PLAYER.getPlayer(resBoard1).getMinions().get(1).getHealth());
 		log.info("Boulderfist Ogre Health = " + PlayerSide.CURRENT_PLAYER.getPlayer(resBoard1).getMinions().get(2).getHealth());

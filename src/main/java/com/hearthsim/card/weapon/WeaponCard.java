@@ -20,7 +20,7 @@ public abstract class WeaponCard extends Card {
         weaponCharge_ = (byte) implementedCard.durability;
         weaponDamage_ = (byte) implementedCard.attack_;
         name_ = implementedCard.name_;
-        mana_ = (byte) implementedCard.mana_;
+        baseManaCost = (byte) implementedCard.mana_;
         isInHand_ = true;
     }
 
@@ -38,7 +38,7 @@ public abstract class WeaponCard extends Card {
             throw new RuntimeException("unable to instantiate weapon.");
         }
         weapon.name_ = name_;
-        weapon.mana_ = mana_;
+        weapon.baseManaCost = baseManaCost;
         weapon.weaponCharge_ = weaponCharge_;
         weapon.weaponDamage_ = weaponDamage_;
         weapon.hasBeenUsed = hasBeenUsed;

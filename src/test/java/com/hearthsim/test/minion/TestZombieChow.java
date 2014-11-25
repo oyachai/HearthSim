@@ -48,12 +48,12 @@ public class TestZombieChow {
 		Card fb = new ZombieChow();
 		board.data_.placeCardHandCurrentPlayer(fb);
 
-		board.data_.getCurrentPlayer().setMana((byte)8);
-		board.data_.getWaitingPlayer().setMana((byte)8);
+		board.data_.getCurrentPlayer().setMana((byte)18);
+		board.data_.getWaitingPlayer().setMana((byte)18);
 		
 		board.data_.getCurrentPlayer().setMaxMana((byte)8);
 		board.data_.getWaitingPlayer().setMaxMana((byte)8);
-		
+				
 		HearthTreeNode tmpBoard = new HearthTreeNode(board.data_.flipPlayers());
 		try {
 			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);

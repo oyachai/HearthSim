@@ -54,8 +54,8 @@ public class TestAmaniBerserker {
 		Card fb = new AmaniBerserker();
 		board.data_.placeCardHandCurrentPlayer(fb);
 
-		board.data_.getCurrentPlayer().setMana((byte)8);
-		board.data_.getWaitingPlayer().setMana((byte)8);
+		board.data_.getCurrentPlayer().setMana((byte)10);
+		board.data_.getWaitingPlayer().setMana((byte)10);
 		
 		board.data_.getCurrentPlayer().setMaxMana((byte)8);
 		board.data_.getWaitingPlayer().setMaxMana((byte)8);

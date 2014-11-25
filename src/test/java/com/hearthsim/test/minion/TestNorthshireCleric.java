@@ -27,7 +27,13 @@ public class TestNorthshireCleric {
 
 	@Before
 	public void setup() throws HSException {
-		board = new HearthTreeNode(new BoardModel());
+		Card cards[] = new Card[10];
+		for (int index = 0; index < 10; ++index) {
+			cards[index] = new TheCoin();
+		}
+	
+		deck = new Deck(cards);
+		board = new HearthTreeNode(new BoardModel(deck, deck));
 
 		Minion minion0_0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
 		Minion minion0_1 = new Minion("" + 0, mana, attack0, (byte)(health1 - 1), attack0, health1, health1);
@@ -40,12 +46,12 @@ public class TestNorthshireCleric {
 		board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion1_0);
 		board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion1_1);
 		
-		Card cards[] = new Card[10];
-		for (int index = 0; index < 10; ++index) {
-			cards[index] = new TheCoin();
-		}
-	
-		deck = new Deck(cards);
+		board.data_.getCurrentPlayer().setMana((byte)10);
+		board.data_.getWaitingPlayer().setMana((byte)10);
+		
+		board.data_.getCurrentPlayer().setMaxMana((byte)10);
+		board.data_.getWaitingPlayer().setMaxMana((byte)10);
+
 		
 	}
 

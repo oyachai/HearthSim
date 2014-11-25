@@ -47,6 +47,9 @@ public class TestHealingTouch {
 	
 		deck = new Deck(cards);
 		
+		board.data_.getCurrentPlayer().setMana(10);
+		board.data_.getCurrentPlayer().setMaxMana(10);
+
 	}
 	
 	@Test

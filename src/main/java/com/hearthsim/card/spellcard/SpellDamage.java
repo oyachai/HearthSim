@@ -11,8 +11,8 @@ public class SpellDamage extends SpellCard {
 
 	protected byte damage_;
 	
-	public SpellDamage(byte mana, byte damage, boolean hasBeenUsed) {
-		super(mana, hasBeenUsed);
+	public SpellDamage(byte baseManaCost, byte damage, boolean hasBeenUsed) {
+		super(baseManaCost, hasBeenUsed);
 		damage_ = damage;
 	}
 
@@ -49,7 +49,7 @@ public class SpellDamage extends SpellCard {
 
     @Override
 	public Object deepCopy() {
-		return new SpellDamage(this.getMana(), damage_, this.hasBeenUsed());
+		return new SpellDamage(this.baseManaCost, damage_, this.hasBeenUsed());
 	}
 
 	/**
@@ -106,7 +106,7 @@ public class SpellDamage extends SpellCard {
 		HearthTreeNode toRet = boardState;
 
 		toRet = this.attack(side, targetMinion, toRet, deckPlayer0, deckPlayer1);
-		toRet.data_.getCurrentPlayer().subtractMana(this.mana_);
+		toRet.data_.getCurrentPlayer().subtractMana(this.getManaCost(PlayerSide.CURRENT_PLAYER, toRet));
 		toRet.data_.removeCard_hand(this);
 		
 		return toRet;

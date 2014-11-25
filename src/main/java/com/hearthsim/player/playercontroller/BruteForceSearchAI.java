@@ -157,9 +157,9 @@ public class BruteForceSearchAI implements ArtificialPlayer {
 			//After the card is placed, it's really just like any other minion, except maybe for small value in bouncing it.
 			//So, the additional score for charge minions should really only apply when it is still in the hand.
 			Minion minion = (Minion)card;
-			theScore += card.getMana() * manaWeight + (minion.getCharge() ? myChargeWeight : 0.0);
+			theScore += card.getBaseManaCost() * manaWeight + (minion.getCharge() ? myChargeWeight : 0.0);
 		} else
-			theScore += card.getMana() * manaWeight;
+			theScore += card.getBaseManaCost() * manaWeight;
 		return theScore;
 	}
 	

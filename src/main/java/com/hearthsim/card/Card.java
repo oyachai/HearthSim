@@ -28,7 +28,7 @@ public class Card implements DeepCopyable {
 	/**
 	 * Mana cost of the card
 	 */
-	protected byte mana_;
+	protected byte baseManaCost;
 	
 	protected boolean hasBeenUsed;
 	protected boolean isInHand_;
@@ -41,16 +41,17 @@ public class Card implements DeepCopyable {
 	 * @param hasBeenUsed Has the card been used?
 	 * @param isInHand Is the card in your hand?
 	 */
-	public Card(String name, byte mana, boolean hasBeenUsed, boolean isInHand) {
-		mana_ = mana;
+	public Card(String name, byte baseManaCost, boolean hasBeenUsed, boolean isInHand) {
+		this.baseManaCost = baseManaCost;
 		this.hasBeenUsed = hasBeenUsed;
 		isInHand_ = isInHand;
         name_ = name;
 	}
-    public Card(byte mana, boolean hasBeenUsed, boolean isInHand) {
+    public Card(byte baseManaCost, boolean hasBeenUsed, boolean isInHand) {
         ImplementedCardList cardList = ImplementedCardList.getInstance();
         ImplementedCardList.ImplementedCard implementedCard = cardList.getCardForClass(this.getClass());
-        name_ = implementedCard.name_;mana_ = mana;
+        name_ = implementedCard.name_;
+        this.baseManaCost = baseManaCost;
         this.hasBeenUsed = hasBeenUsed;
         isInHand_ = isInHand;
     }
@@ -80,19 +81,43 @@ public class Card implements DeepCopyable {
 	/**
 	 * Get the mana cost of the card
 	 * 
+	 * @param side The PlayerSide of the card for which you want the mana cost
+	 * @param board The HearthTreeNode representing the current board state
 	 * @return Mana cost of the card
 	 */
-	public byte getMana() {
-		return mana_;
+	public final byte getManaCost(PlayerSide side, HearthTreeNode boardState) {
+		return getManaCost(side, boardState.data_);
+	}
+
+	/**
+	 * Get the mana cost of the card
+	 * 
+	 * @param side The PlayerSide of the card for which you want the mana cost
+	 * @param board The BoardModel representing the current board state
+	 * 
+	 * @return Mana cost of the card
+	 */
+	public byte getManaCost(PlayerSide side, BoardModel board) {
+		return baseManaCost;
 	}
 	
 	/**
 	 * Set the mana cost of the card
 	 * @param mana The new mana cost
 	 */
-	public void setMana(byte mana) {
-		mana_ = mana;
+	public void setBaseManaCost(byte mana) {
+		this.baseManaCost = mana;
 	}
+	
+	/**
+	 * Get the base mana cost of the card
+	 * 
+	 * @return Mana cost of the card
+	 */
+	public byte getBaseManaCost() {
+		return baseManaCost;
+	}
+	
 	
 	/**
 	 * Returns whether the card has been used or not
@@ -121,7 +146,7 @@ public class Card implements DeepCopyable {
 	
 	@Override
 	public Object deepCopy() {
-		return new Card(this.name_, this.mana_, this.hasBeenUsed, this.isInHand_);
+		return new Card(this.name_, this.baseManaCost, this.hasBeenUsed, this.isInHand_);
 	}
 	
 	@Override
@@ -138,7 +163,7 @@ public class Card implements DeepCopyable {
 	   }
 
 	   // More logic here to be discuss below...
-	   if (mana_ != ((Card)other).mana_)
+	   if (baseManaCost != ((Card)other).baseManaCost)
 		   return false;
 	   
 	   if (hasBeenUsed != ((Card)other).hasBeenUsed)
@@ -156,7 +181,7 @@ public class Card implements DeepCopyable {
     @Override
     public int hashCode() {
         int result = name_ != null ? name_.hashCode() : 0;
-        result = 31 * result + (int) mana_;
+        result = 31 * result + (int) baseManaCost;
         result = 31 * result + (hasBeenUsed ? 1 : 0);
         result = 31 * result + (isInHand_ ? 1 : 0);
         return result;
@@ -226,7 +251,7 @@ public class Card implements DeepCopyable {
         	toRet.setAction(new HearthAction(Verb.USE_CARD, PlayerSide.CURRENT_PLAYER, cardIndex, side, targetIndex));
 		}
 		return toRet;
-	}    
+	} 
     
 	/**
 	 * 
@@ -255,6 +280,9 @@ public class Card implements DeepCopyable {
 	{
 		//A generic card does nothing except for consuming mana
 		if (!this.canBeUsedOn(side, targetMinion, boardState.data_))
+			return null;
+		
+		if (this.getManaCost(PlayerSide.CURRENT_PLAYER, boardState) > boardState.data_.getCurrentPlayer().getMana())
 			return null;
 		
 		HearthTreeNode toRet = this.notifyCardPlayBegin(boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
@@ -289,7 +317,7 @@ public class Card implements DeepCopyable {
 		throws HSException
 	{
 		//A generic card does nothing except for consuming mana
-		boardState.data_.getCurrentPlayer().subtractMana(this.mana_);
+		boardState.data_.getCurrentPlayer().subtractMana(this.getManaCost(PlayerSide.CURRENT_PLAYER, boardState));
 		boardState.data_.removeCard_hand(this);
 		return boardState;
 	}
@@ -426,7 +454,7 @@ public class Card implements DeepCopyable {
 	public JSONObject toJSON() {
 		JSONObject json = new JSONObject();
 		json.put("name", name_);
-		json.put("mana", mana_);
+		json.put("mana", baseManaCost);
 		json.put("hasBeenUsed", hasBeenUsed);
 		return json;
 	}

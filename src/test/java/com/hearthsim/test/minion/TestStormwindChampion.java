@@ -46,8 +46,8 @@ public class TestStormwindChampion {
 	
 		deck = new Deck(cards);
 
-		board.data_.getCurrentPlayer().setMana((byte)10);
-		board.data_.getWaitingPlayer().setMana((byte)10);
+		board.data_.getCurrentPlayer().setMana((byte)20);
+		board.data_.getWaitingPlayer().setMana((byte)20);
 		
 		board.data_.getCurrentPlayer().setMaxMana((byte)10);
 		board.data_.getWaitingPlayer().setMaxMana((byte)10);
@@ -156,6 +156,7 @@ public class TestStormwindChampion {
 		
 		
 		board.data_.placeCardHandCurrentPlayer(new Fireball());
+		board.data_.resetMana();
 		theCard = board.data_.getCurrentPlayerCardHand(0);
 		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
 		ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);

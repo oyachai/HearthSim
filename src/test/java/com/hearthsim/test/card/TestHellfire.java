@@ -50,6 +50,9 @@ public class TestHellfire {
 		Hellfire fb = new Hellfire();
 		board.data_.placeCardHandCurrentPlayer(fb);
 
+		board.data_.getCurrentPlayer().setMana(10);
+		board.data_.getCurrentPlayer().setMaxMana(10);
+
 	}
 	
 	@Test

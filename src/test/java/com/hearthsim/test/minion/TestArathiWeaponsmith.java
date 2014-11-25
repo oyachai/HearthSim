@@ -43,8 +43,8 @@ public class TestArathiWeaponsmith {
 	
 		deck = new Deck(cards);
 
-		board.data_.getCurrentPlayer().setMana((byte)10);
-		board.data_.getWaitingPlayer().setMana((byte)10);
+		board.data_.getCurrentPlayer().setMana((byte)20);
+		board.data_.getWaitingPlayer().setMana((byte)20);
 		
 		board.data_.getCurrentPlayer().setMaxMana((byte)10);
 		board.data_.getWaitingPlayer().setMaxMana((byte)10);
