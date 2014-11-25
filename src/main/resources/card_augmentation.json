@@ -1,0 +1,403 @@
+[
+    {
+        "name": "Abusive Sergeant",
+        "attributes": [
+            "buff"
+        ]
+    },
+    {
+        "name": "Elven Archer",
+        "attributes": [
+            "removal"
+        ]
+    },
+    {
+        "name": "Grimscale Oracle",
+        "attributes": [
+            "buff"
+        ]
+    },
+    {
+        "name": "Hungry Crab",
+        "attributes": [
+            "removal"
+        ]
+    },
+    {
+        "name": "Southsea Deckhand",
+        "attributes": [
+            "removal"
+        ]
+    },
+    {
+        "name": "Stonetusk Boar",
+        "attributes": [
+            "removal"
+        ]
+    },
+    {
+        "name": "Voodoo Doctor",
+        "attributes": [
+            "heal"
+        ]
+    },
+    {
+        "name": "Acidic Swamp Ooze",
+        "attributes": [
+            "removal"
+        ]
+    },
+    {
+        "name": "Bluegill Warrior",
+        "attributes": [
+            "removal"
+        ]
+    },
+    {
+        "name": "Crazed Alchemist",
+        "attributes": [
+            "removal",
+            "buff"
+        ]
+    },
+    {
+        "name": "Doomsayer",
+        "attributes": [
+            "removal"
+        ]
+    },
+    {
+        "name": "Ironbeak Owl",
+        "attributes": [
+            "removal"
+        ]
+    },
+    {
+        "name": "Kobold Geomancer",
+        "attributes": [
+            "spell_damage"
+        ]
+    },
+    {
+        "name": "Mad Bomber",
+        "attributes": [
+            "removal"
+        ]
+    },
+    {
+        "name": "Knife Juggler",
+        "attributes": [
+            "removal"
+        ]
+    },
+    {
+        "name": "Mana Wraith",
+        "attributes": [
+            "mana_modifier"
+        ]
+    },
+    {
+        "name": "Millhouse Manastorm",
+        "attributes": [
+            "mana_modifier"
+        ]
+    },
+    {
+        "name": "Nerub'ar Weblord",
+        "attributes": [
+            "mana_modifier"
+        ]
+    },
+    {
+        "name": "Pint-Sized Summoner",
+        "attributes": [
+            "mana_modifier"
+        ]
+    },
+    {
+        "name": "Sunfury Protector",
+        "attributes": [
+            "buff"
+        ]
+    },
+    {
+        "name": "Wild Pyromancer",
+        "attributes": [
+            "removal"
+        ]
+    },
+    {
+        "name": "Arcane Golem",
+        "attributes": [
+            "removal",
+            "mana_modifier"
+        ]
+    },
+    {
+        "name": "Big Game Hunter",
+        "attributes": [
+            "removal"
+        ]
+    },
+    {
+        "name": "Coldlight Oracle",
+        "attributes": [
+            "draw"
+        ]
+    },
+    {
+        "name": "Coldlight Seer",
+        "attributes": [
+            "buff"
+        ]
+    },
+    {
+        "name": "Dalaran Mage",
+        "attributes": [
+            "spell_damage"
+        ]
+    },
+    {
+        "name": "Earthen Ring Farseer",
+        "attributes": [
+            "heal"
+        ]
+    },
+    {
+        "name": "Ironforge Rifleman",
+        "attributes": [
+            "removal"
+        ]
+    },
+    {
+        "name": "Mind Control Tech",
+        "attributes": [
+            "removal"
+        ]
+    },
+    {
+        "name": "Murloc Warleader",
+        "attributes": [
+            "buff"
+        ]
+    },
+    {
+        "name": "Raid Leader",
+        "attributes": [
+            "buff"
+        ]
+    },
+    {
+        "name": "Shattered Sun Cleric",
+        "attributes": [
+            "buff"
+        ]
+    },
+    {
+        "name": "Southsea Captain",
+        "attributes": [
+            "buff"
+        ]
+    },
+    {
+        "name": "Tinkmaster Overspark",
+        "attributes": [
+            "buff"
+        ]
+    },
+    {
+        "name": "Wolfrider",
+        "attributes": [
+            "removal"
+        ]
+    },
+    {
+        "name": "Ancient Mage",
+        "attributes": [
+            "spell_damage"
+        ]
+    },
+    {
+        "name": "Cultmaster",
+        "attributes": [
+            "draw"
+        ]
+    },
+    {
+        "name": "Dark Iron Dwarf",
+        "attributes": [
+            "buff"
+        ]
+    },
+    {
+        "name": "Defender of Argus",
+        "attributes": [
+            "buff"
+        ]
+    },
+    {
+        "name": "Gnomish Inventor",
+        "attributes": [
+            "draw"
+        ]
+    },
+    {
+        "name": "Ogre Magi",
+        "attributes": [
+            "spell_damage"
+        ]
+    },
+    {
+        "name": "Old Murk-Eye",
+        "attributes": [
+            "removal"
+        ]
+    },
+    {
+        "name": "Spellbreaker",
+        "attributes": [
+            "removal"
+        ]
+    },
+    {
+        "name": "Stormwind Knight",
+        "attributes": [
+            "removal"
+        ]
+    },
+    {
+        "name": "Azure Drake",
+        "attributes": [
+            "draw",
+            "spell_damage"
+        ]
+    },
+    {
+        "name": "Captain Greenskin",
+        "attributes": [
+            "Darkscale Healer"
+        ]
+    },
+    {
+        "name": "Gadgetzan Auctioneer",
+        "attributes": [
+            "draw"
+        ]
+    },
+    {
+        "name": "Harrison Jones",
+        "attributes": [
+            "removal",
+            "draw"
+        ]
+    },
+    {
+        "name": "Leeroy Jenkins",
+        "attributes": [
+            "removal"
+        ]
+    },
+    {
+        "name": "Stampeding Kodo",
+        "attributes": [
+            "removal"
+        ]
+    },
+    {
+        "name": "Stormpike Commando",
+        "attributes": [
+            "removal"
+        ]
+    },
+    {
+        "name": "Archmage",
+        "attributes": [
+            "spell_damage"
+        ]
+    },
+    {
+        "name": "Argent Commander",
+        "attributes": [
+            "removal"
+        ]
+    },
+    {
+        "name": "Frost Elemental",
+        "attributes": [
+            "removal"
+        ]
+    },
+    {
+        "name": "Reckless Rocketeer",
+        "attributes": [
+            "removal"
+        ]
+    },
+    {
+        "name": "The Black Knight",
+        "attributes": [
+            "removal"
+        ]
+    },
+    {
+        "name": "Baron Geddon",
+        "attributes": [
+            "removal"
+        ]
+    },
+    {
+        "name": "Stormwind Champion",
+        "attributes": [
+            "buff"
+        ]
+    },
+    {
+        "name": "Ragnaros the Firelord",
+        "attributes": [
+            ""
+        ]
+    },
+    {
+        "name": "Malygos",
+        "attributes": [
+            "spell_damage"
+        ]
+    },
+    {
+        "name": "Deathwing",
+        "attributes": [
+            "removal"
+        ]
+    },
+    {
+        "name": "Ysera",
+        "attributes": [
+            "draw"
+        ]
+    },
+    {
+        "name": "Sea Giant",
+        "attributes": [
+            "variable_cost"
+        ]
+    },
+    {
+        "name": "Mountain Giant",
+        "attributes": [
+            "variable_cost"
+        ]
+    },
+    {
+        "name": "Molten Giant",
+        "attributes": [
+            "variable_cost"
+        ]
+    }
+
+
+
+
+
+
+
+]
