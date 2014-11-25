@@ -600,12 +600,20 @@
         "class": "com.hearthsim.card.minion.concrete.MogushanWarden"
     },
     {
+        "name": "Molten Giant",
+        "class": "com.hearthsim.card.minion.concrete.MoltenGiant"
+    },
+    {
         "name": "Moonfire",
         "class": "com.hearthsim.card.spellcard.concrete.Moonfire"
     },
     {
         "name": "Mortal Coil",
         "class": "com.hearthsim.card.spellcard.concrete.MortalCoil"
+    },
+    {
+        "name": "Mountain Giant",
+        "class": "com.hearthsim.card.minion.concrete.MountainGiant"
     },
     {
         "name": "Murloc Raider",
@@ -706,6 +714,10 @@
     {
         "name": "Scarlet Crusader",
         "class": "com.hearthsim.card.minion.concrete.ScarletCrusader"
+    },
+    {
+        "name": "Sea Giant",
+        "class": "com.hearthsim.card.minion.concrete.SeaGiant"
     },
     {
         "name": "Sen'jin Shieldmasta",

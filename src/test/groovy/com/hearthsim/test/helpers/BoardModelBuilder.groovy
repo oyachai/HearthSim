@@ -40,7 +40,8 @@ class BoardModelBuilder {
             def minion
             if (it.minion) {
                 minion = it.minion.newInstance()
-                minion.health = health
+				if (health)
+					minion.health = health
 				if (it.maxHealth)
 					minion.maxHealth = maxHealth
             } else {
