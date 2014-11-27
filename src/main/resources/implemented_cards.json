@@ -284,6 +284,10 @@
         "class": "com.hearthsim.card.minion.concrete.Doomguard"
     },
     {
+        "name": "Doomsayer",
+        "class": "com.hearthsim.card.minion.concrete.Doomsayer"
+    },
+    {
         "name": "Dragonling Mechanic",
         "class": "com.hearthsim.card.minion.concrete.DragonlingMechanic"
     },
