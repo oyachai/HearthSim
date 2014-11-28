@@ -1,12 +1,19 @@
 package com.hearthsim.test.groovy.card
 
+import com.hearthsim.Game;
 import com.hearthsim.model.BoardModel;
+import com.hearthsim.model.PlayerModel;
+import com.hearthsim.player.playercontroller.BruteForceSearchAI;
 import com.hearthsim.test.helpers.BoardModelBuilder
 import com.hearthsim.util.tree.HearthTreeNode;
 import com.hearthsim.util.tree.RandomEffectNode
+import com.hearthsim.card.Deck;
 import com.hearthsim.card.spellcard.concrete.Soulfire
 import com.hearthsim.card.spellcard.concrete.Polymorph
+import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.concrete.WarGolem
+import com.hearthsim.card.minion.heroes.Mage;
+import com.hearthsim.card.minion.heroes.Paladin;
 
 import static com.hearthsim.model.PlayerSide.CURRENT_PLAYER
 import static com.hearthsim.model.PlayerSide.WAITING_PLAYER
@@ -17,33 +24,18 @@ class SoulfireSpec extends CardSpec {
 	HearthTreeNode root
 	BoardModel startingBoard
 
-	def setup() {
-
-		def minionMana = 2;
-		def attack = 5;
-		def health0 = 3;
-		def health1 = 7;
-
-		def commonField = [
-			[mana: minionMana, attack: attack, maxHealth: health0], //todo: attack may be irrelevant here
-		]
-
+	def "playing Soulfire"() {
 		startingBoard = new BoardModelBuilder().make {
 			currentPlayer {
 				hand([Soulfire, Polymorph, WarGolem])
 				mana(7)
 			}
 			waitingPlayer {
-				field(commonField)
 				mana(4)
 			}
 		}
-
-		
 		root = new HearthTreeNode(startingBoard)
-	}
-
-	def "playing Soulfire"() {
+		
 		def copiedBoard = startingBoard.deepCopy()
 		def target = root.data_.getCharacter(CURRENT_PLAYER, 0)
 		def theCard = root.data_.getCurrentPlayerCardHand(0)
@@ -78,6 +70,109 @@ class SoulfireSpec extends CardSpec {
 				removeCardFromHand(WarGolem)
 			}
 		}
-
 	}
+	def "playing a complete turn with Soulfire"() {
+		
+		startingBoard = new BoardModelBuilder().make {
+			currentPlayer {
+				hand([Soulfire])
+				mana(7)
+			}
+			waitingPlayer {
+				mana(7)
+			}
+		}
+		def copiedBoard = startingBoard.deepCopy()
+		
+		BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1()
+		ai0.enemyHeroHealthWeight = 20.0
+		ai0.myHeroHealthWeight = 20.0
+		def allMoves = ai0.playTurn(7, startingBoard, 10000000)
+
+		expect:
+		assertTrue(allMoves.size() > 0)
+		if (allMoves.size() > 0) {
+			//If allMoves is empty, it means that there was absolutely nothing the AI could do
+			def resBoard = allMoves.get(allMoves.size() - 1).board;
+			assertBoardDelta(copiedBoard, resBoard) {
+				currentPlayer {
+					removeCardFromHand(Soulfire)
+				}
+				waitingPlayer {
+					heroHealth(26)
+				}
+			}
+		}
+	}
+
+	def "playing a complete turn with 2 Soulfire"() {		
+		
+		startingBoard = new BoardModelBuilder().make {
+			currentPlayer {
+				hand([Soulfire, Soulfire])
+				mana(7)
+			}
+			waitingPlayer {
+				mana(7)
+			}
+		}
+		def copiedBoard = startingBoard.deepCopy()
+		
+        BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1()
+		ai0.enemyHeroHealthWeight = 20.0
+		ai0.myHeroHealthWeight = 20.0
+		def allMoves = ai0.playTurn(7, startingBoard, 10000000)
+
+		expect:
+		assertTrue(allMoves.size() > 0)
+		if (allMoves.size() > 0) {
+			def resBoard = allMoves.get(allMoves.size() - 1).board;
+			assertBoardDelta(copiedBoard, resBoard) {
+				currentPlayer {
+					removeCardFromHand(Soulfire)
+					removeCardFromHand(Soulfire)
+				}
+				waitingPlayer {
+					heroHealth(26)
+				}
+			}
+		}
+	}
+
+	def "playing a complete turn with 3 Soulfire"() {
+		
+		startingBoard = new BoardModelBuilder().make {
+			currentPlayer {
+				hand([Soulfire, Soulfire, Soulfire])
+				mana(7)
+			}
+			waitingPlayer {
+				mana(7)
+			}
+		}
+		def copiedBoard = startingBoard.deepCopy()
+		
+		BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1()
+		ai0.enemyHeroHealthWeight = 20.0
+		ai0.myHeroHealthWeight = 20.0
+		def allMoves = ai0.playTurn(7, startingBoard, 10000000)
+
+		expect:
+		assertTrue(allMoves.size() > 0)
+		if (allMoves.size() > 0) {
+			def resBoard = allMoves.get(allMoves.size() - 1).board;
+			assertBoardDelta(copiedBoard, resBoard) {
+				currentPlayer {
+					removeCardFromHand(Soulfire)
+					removeCardFromHand(Soulfire)
+					removeCardFromHand(Soulfire)
+				}
+				waitingPlayer {
+					heroHealth(22)
+				}
+			}
+		}
+	}
+
+	
 }

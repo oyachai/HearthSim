@@ -58,17 +58,21 @@ public class Soulfire extends SpellDamage {
 			}
 		} else {
 			int targetCharacterIndex = targetMinion instanceof Hero ? 0 : side.getPlayer(boardState).getMinions().indexOf(targetMinion) + 1;
-			int thisCardIndex = side.getPlayer(boardState).getHand().indexOf(this);
-			toRet = new RandomEffectNode(boardState, new HearthAction(HearthAction.Verb.USE_CARD, PlayerSide.CURRENT_PLAYER, 0, side, targetCharacterIndex));
-			for (int indx = 0; indx < toRet.data_.getCurrentPlayerHand().size(); ++indx) {
-				if (indx != thisCardIndex) {
-					HearthTreeNode cNode = new HearthTreeNode((BoardModel)toRet.data_.deepCopy());
-					Minion cTargetMinion = cNode.data_.getCurrentPlayerCharacter(targetCharacterIndex);
-					Soulfire cCard = (Soulfire)cNode.data_.getCurrentPlayerHand().get(thisCardIndex);
-					cNode = cCard.callSuperUseOn(side, cTargetMinion, cNode, deckPlayer0, deckPlayer1, false);
-					if (cNode != null) {
-						cNode.data_.removeCard_hand(cNode.data_.getCurrentPlayerHand().get(indx < thisCardIndex ? indx : indx - 1));
-						toRet.addChild(cNode);
+			int thisCardIndex = PlayerSide.CURRENT_PLAYER.getPlayer(boardState).getHand().indexOf(this);
+			if (boardState.data_.getCurrentPlayerHand().size() == 1) {
+				toRet = this.callSuperUseOn(side, targetMinion, boardState, deckPlayer0, deckPlayer1, false);
+			} else {
+				toRet = new RandomEffectNode(boardState, new HearthAction(HearthAction.Verb.USE_CARD, PlayerSide.CURRENT_PLAYER, thisCardIndex, side, targetCharacterIndex));
+				for (int indx = 0; indx < toRet.data_.getCurrentPlayerHand().size(); ++indx) {
+					if (indx != thisCardIndex) {
+						HearthTreeNode cNode = new HearthTreeNode((BoardModel)toRet.data_.deepCopy());
+						Minion cTargetMinion = cNode.data_.getCharacter(side, targetCharacterIndex);
+						Soulfire cCard = (Soulfire)cNode.data_.getCurrentPlayerHand().get(thisCardIndex);
+						cNode = cCard.callSuperUseOn(side, cTargetMinion, cNode, deckPlayer0, deckPlayer1, false);
+						if (cNode != null) {
+							cNode.data_.removeCard_hand(cNode.data_.getCurrentPlayerHand().get(indx < thisCardIndex ? indx : indx - 1));
+							toRet.addChild(cNode);
+						}
 					}
 				}
 			}

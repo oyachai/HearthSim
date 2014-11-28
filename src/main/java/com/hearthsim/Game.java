@@ -24,7 +24,7 @@ public class Game {
 
 	final static int maxTurns_ = 100;
 
-    BoardModel boardModel_;
+    BoardModel boardModel;
     
     PlayerModel playerGoingFirst;
     PlayerModel playerGoingSecond;
@@ -55,30 +55,30 @@ public class Game {
         log.debug("shuffle play order: {}", shufflePlayOrder);
         log.debug("first player id: {}", playerGoingFirst.getPlayerId());
 
-		boardModel_ = new BoardModel(playerGoingFirst, playerGoingSecond);
+		boardModel = new BoardModel(playerGoingFirst, playerGoingSecond);
 	}
 	
 	public GameResult runGame() throws HSException {
 		curTurn_ = 0;
 
 		//the first player draws 3 cards
-		boardModel_.placeCardHandCurrentPlayer(0);
-		boardModel_.placeCardHandCurrentPlayer(1);
-		boardModel_.placeCardHandCurrentPlayer(2);
-		boardModel_.setDeckPos_p0(3);
+		boardModel.placeCardHandCurrentPlayer(0);
+		boardModel.placeCardHandCurrentPlayer(1);
+		boardModel.placeCardHandCurrentPlayer(2);
+		boardModel.setDeckPos_p0(3);
 
 		//the second player draws 4 cards
-		boardModel_.placeCardHandWaitingPlayer(0);
-		boardModel_.placeCardHandWaitingPlayer(1);
-		boardModel_.placeCardHandWaitingPlayer(2);
-		boardModel_.placeCardHandWaitingPlayer(3);
-		boardModel_.placeCardHandWaitingPlayer(new TheCoin());
-		boardModel_.setDeckPos_p1(4);
+		boardModel.placeCardHandWaitingPlayer(0);
+		boardModel.placeCardHandWaitingPlayer(1);
+		boardModel.placeCardHandWaitingPlayer(2);
+		boardModel.placeCardHandWaitingPlayer(3);
+		boardModel.placeCardHandWaitingPlayer(new TheCoin());
+		boardModel.setDeckPos_p1(4);
 		
 		GameRecord record = new GameSimpleRecord();
 
-		record.put(0, PlayerSide.CURRENT_PLAYER, (BoardModel) boardModel_.deepCopy(), null);
-		record.put(0, PlayerSide.CURRENT_PLAYER, (BoardModel) boardModel_.flipPlayers().deepCopy(), null);
+		record.put(0, PlayerSide.CURRENT_PLAYER, (BoardModel) boardModel.deepCopy(), null);
+		record.put(0, PlayerSide.CURRENT_PLAYER, (BoardModel) boardModel.flipPlayers().deepCopy(), null);
 
         GameResult gameResult;
         for (int turnCount = 0; turnCount < maxTurns_; ++turnCount) {
@@ -106,37 +106,37 @@ public class Game {
 	}
 
     private GameResult playTurn(int turnCount, GameRecord record, ArtificialPlayer ai) throws HSException {
-        beginTurn(boardModel_);
+        beginTurn(boardModel);
 
         GameResult gameResult;
 
         gameResult = checkGameOver(turnCount, record);
         if (gameResult != null) return gameResult;
 
-        List<HearthActionBoardPair> allMoves = playAITurn(turnCount, boardModel_, ai);
+        List<HearthActionBoardPair> allMoves = playAITurn(turnCount, boardModel, ai);
         if (allMoves.size() > 0) {
         	//If allMoves is empty, it means that there was absolutely nothing the AI could do
-            boardModel_ = allMoves.get(allMoves.size() - 1).board;        	
+            boardModel = allMoves.get(allMoves.size() - 1).board;        	
         }
         
-        boardModel_ = endTurn(boardModel_);
+        boardModel = endTurn(boardModel);
 
-        record.put(turnCount + 1, PlayerSide.CURRENT_PLAYER, (BoardModel) boardModel_.deepCopy(), allMoves);
+        record.put(turnCount + 1, PlayerSide.CURRENT_PLAYER, (BoardModel) boardModel.deepCopy(), allMoves);
 
         gameResult = checkGameOver(turnCount, record);
         if (gameResult != null) return gameResult;
 
-        boardModel_ = boardModel_.flipPlayers();
+        boardModel = boardModel.flipPlayers();
 
         return null;
     }
 
     public GameResult checkGameOver(int turnCount, GameRecord record){
-        if (!boardModel_.isAlive(PlayerSide.CURRENT_PLAYER)) {
-        	PlayerModel winner = boardModel_.modelForSide(PlayerSide.WAITING_PLAYER);
+        if (!boardModel.isAlive(PlayerSide.CURRENT_PLAYER)) {
+        	PlayerModel winner = boardModel.modelForSide(PlayerSide.WAITING_PLAYER);
             return new GameResult(playerGoingFirst.getPlayerId(), winner.getPlayerId(), turnCount + 1, record);
-        } else if (!boardModel_.isAlive(PlayerSide.WAITING_PLAYER)) {
-        	PlayerModel winner = boardModel_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        } else if (!boardModel.isAlive(PlayerSide.WAITING_PLAYER)) {
+        	PlayerModel winner = boardModel.modelForSide(PlayerSide.CURRENT_PLAYER);
             return new GameResult(playerGoingFirst.getPlayerId(), winner.getPlayerId(), turnCount + 1, record);
         } 
         return null;
