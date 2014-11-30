@@ -541,31 +541,9 @@ public class BoardModel implements DeepCopyable {
     public JSONObject toJSON() {
         JSONObject json = new JSONObject();
 
-        JSONArray p0_minions = new JSONArray();
-        for (Minion minion : currentPlayer.getMinions())
-            p0_minions.put(minion.toJSON());
-        json.put("p0_minions", p0_minions);
-
-        JSONArray p1_minions = new JSONArray();
-        for (Minion minion : waitingPlayer.getMinions())
-            p1_minions.put(minion.toJSON());
-        json.put("p1_minions", p1_minions);
-
-        JSONArray p0_hand = new JSONArray();
-        for (Card card : currentPlayer.getHand())
-            p0_hand.put(card.toJSON());
-        json.put("p0_hand", p0_hand);
-
-        JSONArray p1_hand = new JSONArray();
-        for (Card card : waitingPlayer.getHand())
-            p1_hand.put(card.toJSON());
-        json.put("p1_hand", p1_hand);
-
-        json.put("p0_hero", currentPlayer.getHero().toJSON());
-        json.put("p1_hero", waitingPlayer.getHero().toJSON());
-
-        json.put("p0_spellDamage", currentPlayer.getSpellDamage());
-        json.put("p1_spellDamage", waitingPlayer.getSpellDamage());
+        json.put("currentPlayer", currentPlayer.toJSON());
+        json.put("waitingPlayer", waitingPlayer.toJSON());
+        
         return json;
     }
 

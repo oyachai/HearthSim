@@ -171,6 +171,8 @@ public class PlayerModel implements DeepCopyable {
         copiedPlayerModel.setMana(mana);
         copiedPlayerModel.setMaxMana(maxMana);
         copiedPlayerModel.setOverload(overload);
+        copiedPlayerModel.deckPos = deckPos;
+        copiedPlayerModel.fatigueDamage = fatigueDamage;
 
         for (Minion minion : minions) {
             copiedPlayerModel.getMinions().add((Minion) (minion).deepCopy());
@@ -232,6 +234,8 @@ public class PlayerModel implements DeepCopyable {
     	hash = hash * 31 + (null == deck ? 0 : deck.hashCode());
     	hash = hash * 31 + mana;
     	hash = hash * 31 + maxMana;
+    	hash = hash * 31 + deckPos;
+    	hash = hash * 31 + fatigueDamage;
     	hash = hash * 31 + (null == minions ? 0 : minions.hashCode());
     	hash = hash * 31 + (null == hand ? 0 : hand.hashCode());
     	hash = hash * 31 + overload;
@@ -254,6 +258,8 @@ public class PlayerModel implements DeepCopyable {
         if (mana != otherPlayer.mana) return false;
         if (maxMana != otherPlayer.maxMana) return false;
         if (overload != otherPlayer.overload) return false;
+        if (deckPos != otherPlayer.deckPos) return false;
+        if (fatigueDamage != otherPlayer.fatigueDamage) return false;
 
         if (!name.equals(otherPlayer.name)) return false;
         if (!hero.equals(otherPlayer.hero)) return false;
@@ -264,5 +270,21 @@ public class PlayerModel implements DeepCopyable {
         return true;
     }
 
+    public JSONObject toJSON() {
+        JSONObject json = new JSONObject();
+        
+        json.put("name", name);
+        json.put("playerId", playerId);
+        json.put("hero", hero.toJSON());
+        json.put("mana", mana);
+        json.put("maxMana", maxMana);
+        json.put("deckPos", deckPos);
+        json.put("overload", overload);
+        json.put("fatigueDamage", fatigueDamage);
+        json.put("minions", minions);
+        json.put("hand", hand);
+    
+        return json;
+    }
 
 }
