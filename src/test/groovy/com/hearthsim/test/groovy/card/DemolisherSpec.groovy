@@ -45,7 +45,7 @@ class DemolisherSpec extends CardSpec {
 		root = new HearthTreeNode(startingBoard)
 	}
 	
-	def "playing Blood Imp"() {
+	def "playing Demolisher"() {
 		def cards = [ new TheCoin(), new TheCoin() ]
 		def deck = new Deck(cards)
 		def copiedBoard = startingBoard.deepCopy()

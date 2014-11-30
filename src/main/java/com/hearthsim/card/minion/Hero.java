@@ -228,6 +228,24 @@ public abstract class Hero extends Minion {
 		return toRet;
 	}
 	
+	/**
+	 * Simpler version of take damage
+	 * 
+	 * For now, the Hero taking damage has no consequence to the board state.  So, this version can be used as a way to simplify the code.
+	 * @param damage The amount of damage takef by the hero
+	 */
+	public void takeDamage(byte damage) {
+		byte damageRemaining = (byte)(damage - armor_);
+		if (damageRemaining > 0) {
+			armor_ = 0;
+			health_ -= (byte)(damage - armor_);
+		} else {
+			armor_ = (byte)(armor_ - damage);
+		}
+	
+	}
+	
+	
 	
 	/**
 	 * End the turn and resets the card state

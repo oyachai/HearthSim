@@ -76,7 +76,7 @@ class BoardModelBuilder {
     }
 
     private fatigueDamage(Number fatigueDamage) {
-        boardModel.setFatigueDamage(playerSide, (byte) fatigueDamage)
+		playerSide.getPlayer(boardModel).setFatigueDamage(fatigueDamage)
     }
 
     private overload(Number overload) {
@@ -174,9 +174,9 @@ class BoardModelBuilder {
 
 	private addDeckPos(Number num) {
 		if (playerSide == PlayerSide.CURRENT_PLAYER) 
-			boardModel.p0_deckPos_ += (int) num
+			boardModel.currentPlayer.deckPos += (int) num
 		else 
-			boardModel.p1_deckPos_ += (int) num
+			boardModel.waitingPlayer.deckPos += (int) num
 	}
 
     private currentPlayer(Closure player) {

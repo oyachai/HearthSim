@@ -1,6 +1,5 @@
 package com.hearthsim.util.tree;
 
-import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.player.playercontroller.BruteForceSearchAI;
@@ -50,27 +49,21 @@ public class CardDrawNode extends StopNode {
 	 * This function shouldn't be called by anyone except BoardStateFactory.
 	 * 
 	 */
-	public void drawCard(Deck deck) {
-		Card card = deck.drawCard(data_.getDeckPos_p0());
-		if (card == null) {
-			byte fatigueDamage = data_.getFatigueDamage_p0();
-			data_.setFatigueDamage_p0((byte)(fatigueDamage + 1));
-			data_.getCurrentPlayerHero().setHealth((byte)(data_.getCurrentPlayerHero().getHealth() - fatigueDamage));
-		} else {
-			data_.placeCardHandCurrentPlayer(card);
-			data_.setDeckPos_p0(data_.getDeckPos_p0() + 1);
+	public void drawQueuedCard() {
+		for (int indx = 0; indx < numCardsToDraw_; ++indx) {
+			data_.getCurrentPlayer().drawNextCardFromDeck();
 		}
 	}
 	
 
 	public double cardDrawScore(Deck deck, BruteForceSearchAI ai) {
 		int numCardsInDeck = deck.getNumCards();
-		int numCardsRemaining = numCardsInDeck - data_.getDeckPos_p0();
+		int numCardsRemaining = numCardsInDeck - data_.getCurrentPlayer().getDeckPos();
 		int numCardsToActuallyDraw = numCardsToDraw_;
 		int totalFatigueDamage = 0;
 		if (numCardsRemaining < numCardsToDraw_) {
 			//expected fatigue damage
-			int fatigueDamage = data_.getFatigueDamage_p0();
+			int fatigueDamage = data_.getCurrentPlayer().getFatigueDamage();
 			for (int i = 0; i < numCardsToDraw_ - numCardsRemaining; ++i) {
 				totalFatigueDamage += fatigueDamage;
 				fatigueDamage += 1;
@@ -79,7 +72,7 @@ public class CardDrawNode extends StopNode {
 		}
 		//find the average card score of the remaining cards
 		double averageCardScore = 0.0;
-		for (int indx = data_.getDeckPos_p0(); indx < numCardsInDeck; ++indx) {
+		for (int indx = data_.getCurrentPlayer().getDeckPos(); indx < numCardsInDeck; ++indx) {
 			averageCardScore += ai.cardInHandScore(deck.drawCard(indx));
 		}
 		averageCardScore = numCardsRemaining <= 0 ? 0.0 : averageCardScore / numCardsRemaining;
@@ -100,8 +93,7 @@ public class CardDrawNode extends StopNode {
 
 	@Override
 	public HearthTreeNode finishAllEffects(Deck deckPlayer0, Deck deckPlayer1) throws HSException  {
-		for (int i = 0; i < numCardsToDraw_; ++i)
-			this.drawCard(deckPlayer0);
+		this.drawQueuedCard();
 		return new HearthTreeNode(this.data_, this.action, this.score_, this.depth_, this.children_, this.numNodesTried_);
 	}
 }

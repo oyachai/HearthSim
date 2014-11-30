@@ -24,8 +24,6 @@ class CardSpec extends Specification {
     void assertBoardEquals(BoardModel oldBoard, BoardModel newBoard) {
         assertPlayerEquals(oldBoard.currentPlayer, newBoard.currentPlayer)
         assertPlayerEquals(oldBoard.waitingPlayer, newBoard.waitingPlayer)
-		assert oldBoard.p0_deckPos_ == newBoard.p0_deckPos_
-		assert oldBoard.p1_deckPos_ == newBoard.p1_deckPos_
         assert oldBoard == newBoard //for now, a catch all at the end
     }
 
@@ -34,6 +32,8 @@ class CardSpec extends Specification {
         assert oldPlayerModel.maxMana == newPlayerModel.maxMana
         assert oldPlayerModel.overload == newPlayerModel.overload
         assert oldPlayerModel.spellDamage == newPlayerModel.spellDamage
+		assert oldPlayerModel.deckPos == newPlayerModel.deckPos
+		assert oldPlayerModel.fatigueDamage == newPlayerModel.fatigueDamage
 		assertHandEquals(oldPlayerModel.hand, newPlayerModel.hand)
         assertHeroEquals(oldPlayerModel.hero, newPlayerModel.hero)
         assertMinionsEqual(oldPlayerModel.minions, newPlayerModel.minions)

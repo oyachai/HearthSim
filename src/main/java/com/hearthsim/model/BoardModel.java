@@ -27,11 +27,6 @@ public class BoardModel implements DeepCopyable {
     private final PlayerModel currentPlayer;
     private final PlayerModel waitingPlayer;
 
-    int p0_deckPos_;
-    int p1_deckPos_;
-    byte p0_fatigueDamage_;
-    byte p1_fatigueDamage_;
-
     IdentityLinkedList<MinionPlayerPair> allMinionsFIFOList_;
 
     public class MinionPlayerPair {
@@ -100,11 +95,6 @@ public class BoardModel implements DeepCopyable {
 
 
     public void buildModel() {
-        p0_deckPos_ = 0;
-        p1_deckPos_ = 0;
-        p0_fatigueDamage_ = 1;
-        p1_fatigueDamage_ = 1;
-
         allMinionsFIFOList_ = new IdentityLinkedList<MinionPlayerPair>();
     }
 
@@ -290,73 +280,6 @@ public class BoardModel implements DeepCopyable {
         return waitingPlayer.getHero();
     }
 
-    public void setFatigueDamage(PlayerSide playerSide, byte fatigueDamage) {
-        if (playerSide == PlayerSide.CURRENT_PLAYER){
-            p0_fatigueDamage_= fatigueDamage;
-        }else{
-            p1_fatigueDamage_= fatigueDamage;
-        }
-    }
-
-    public int getFatigueDamage(PlayerSide playerSide){
-        if (playerSide==PlayerSide.CURRENT_PLAYER){
-            return p0_fatigueDamage_;
-        }else{
-            return p1_fatigueDamage_;
-        }
-    }
-
-    /**
-     * Index of the next card in deck
-     *
-     * Returns the index of the next card to draw from the deck.
-     * @return
-     */
-    public int getDeckPos(int playerIndex) throws HSInvalidPlayerIndexException {
-        if (playerIndex == 0)
-            return p0_deckPos_;
-        else if (playerIndex == 1)
-            return p1_deckPos_;
-        else
-            throw new HSInvalidPlayerIndexException();
-    }
-
-    public void setDeckPos(int playerIndex, int position) throws HSInvalidPlayerIndexException {
-        if (playerIndex == 0)
-            p0_deckPos_ = position;
-        else if (playerIndex == 1)
-            p1_deckPos_ = position;
-        else
-            throw new HSInvalidPlayerIndexException();
-    }
-
-    /**
-     * Index of the next card in deck
-     *
-     * Returns the index of the next card to draw from the deck.
-     * @return
-     */
-    public int getDeckPos_p0() {
-        return p0_deckPos_;
-    }
-
-    public void setDeckPos_p0(int position) {
-        p0_deckPos_ = position;
-    }
-
-    /**
-     * Index of the next card in deck
-     *
-     * Returns the index of the next card to draw from the deck.
-     * @return
-     */
-    public int getDeckPos_p1() {
-        return p1_deckPos_;
-    }
-
-    public void setDeckPos_p1(int position) {
-        p1_deckPos_ = position;
-    }
 
     /**
      * Draw a card from a deck and place it in the hand
@@ -368,18 +291,7 @@ public class BoardModel implements DeepCopyable {
     public void drawCardFromWaitingPlayerDeck(int numCards) throws HSInvalidPlayerIndexException {
         //This minion is an enemy minion.  Let's draw a card for the enemy.  No need to use a StopNode for enemy card draws.
         for (int indx = 0; indx < numCards; ++indx) {
-            Card card = this.getWaitingPlayer().getDeck().drawCard(this.getDeckPos(1));
-            if (card == null) {
-                byte fatigueDamage = this.getFatigueDamage(1);
-                this.setFatigueDamage(1, (byte)(fatigueDamage + 1));
-                Hero waitingPlayerHero = this.getWaitingPlayer().getHero();
-                waitingPlayerHero.setHealth((byte) (waitingPlayerHero.getHealth() - fatigueDamage));
-            } else {
-                if (this.getNumCardsHandWaitingPlayer() < 10) {
-                    this.placeCard_hand(PlayerSide.WAITING_PLAYER, card);
-                }
-                this.setDeckPos(1, this.getDeckPos(1) + 1);
-            }
+        	this.getWaitingPlayer().drawNextCardFromDeck();
         }
     }
 
@@ -395,57 +307,8 @@ public class BoardModel implements DeepCopyable {
     public void drawCardFromCurrentPlayerDeck(int numCards) throws HSInvalidPlayerIndexException {
         //This minion is an enemy minion.  Let's draw a card for the enemy.  No need to use a StopNode for enemy card draws.
         for (int indx = 0; indx < numCards; ++indx) {
-            Card card = this.getCurrentPlayer().getDeck().drawCard(this.getDeckPos(1));
-            if (card == null) {
-                byte fatigueDamage = this.getFatigueDamage(1);
-                this.setFatigueDamage(1, (byte)(fatigueDamage + 1));
-                Hero currentPlayerHero = this.getCurrentPlayer().getHero();
-                currentPlayerHero.setHealth((byte) (currentPlayerHero.getHealth() - fatigueDamage));
-            } else {
-                if (this.getNumCardsHandCurrentPlayer() < 10) {
-                    this.placeCard_hand(PlayerSide.CURRENT_PLAYER, card);
-                }
-                this.setDeckPos(0, this.getDeckPos(1) + 1);
-            }
+        	this.getCurrentPlayer().drawNextCardFromDeck();
         }
-    }
-
-    /**
-     * Get the fatigue damage
-     *
-     * Returns the fatigue damage taken when a card draw fails next.
-     * @return
-     */
-    public byte getFatigueDamage(int playerIndex) throws HSInvalidPlayerIndexException {
-        if (playerIndex == 0)
-            return p0_fatigueDamage_;
-        else if (playerIndex == 1)
-            return p1_fatigueDamage_;
-        else
-            throw new HSInvalidPlayerIndexException();
-    }
-
-    public void setFatigueDamage(int playerIndex, byte damage) throws HSInvalidPlayerIndexException {
-        if (playerIndex == 0)
-            p0_fatigueDamage_ = damage;
-        else if (playerIndex == 1)
-            p1_fatigueDamage_ = damage;
-        else
-            throw new HSInvalidPlayerIndexException();
-    }
-
-    /**
-     * Get the fatigue damage for player 0
-     *
-     * Returns the fatigue damage taken when a card draw fails next.
-     * @return
-     */
-    public byte getFatigueDamage_p0() {
-        return p0_fatigueDamage_;
-    }
-
-    public void setFatigueDamage_p0(byte damage) {
-        p0_fatigueDamage_ = damage;
     }
 
 
@@ -575,11 +438,6 @@ public class BoardModel implements DeepCopyable {
 
         BoardModel bOther = (BoardModel)other;
 
-        if (p0_deckPos_ != bOther.p0_deckPos_) return false;
-        if (p1_deckPos_ != bOther.p1_deckPos_) return false;
-        if (p0_fatigueDamage_ != bOther.p0_fatigueDamage_) return false;
-        if (p1_fatigueDamage_ != bOther.p1_fatigueDamage_) return false;
-
         if (!currentPlayer.equals(bOther.currentPlayer)) return false;
         if (!waitingPlayer.equals(bOther.waitingPlayer)) return false;
      
@@ -591,10 +449,6 @@ public class BoardModel implements DeepCopyable {
     	int hash = 1;
     	hash = hash * 31 + currentPlayer.hashCode();
     	hash = hash * 31 + waitingPlayer.hashCode();
-    	hash = hash * 31 + p0_deckPos_;
-    	hash = hash * 31 + p1_deckPos_;
-    	hash = hash * 31 + p0_fatigueDamage_;
-    	hash = hash * 31 + p1_fatigueDamage_;
     	
         return hash;
     }
@@ -633,11 +487,6 @@ public class BoardModel implements DeepCopyable {
 
         BoardModel newBoard = new BoardModel((PlayerModel) waitingPlayer.deepCopy(), (PlayerModel) currentPlayer.deepCopy());
 
-        newBoard.p0_deckPos_ = this.p1_deckPos_;
-        newBoard.p1_deckPos_ = this.p0_deckPos_;
-        newBoard.p0_fatigueDamage_ = this.p1_fatigueDamage_;
-        newBoard.p1_fatigueDamage_ = this.p0_fatigueDamage_;
-
         for (MinionPlayerPair minionPlayerPair : allMinionsFIFOList_) {
 
             PlayerModel oldPlayerModel = minionPlayerPair.getPlayerModel();
@@ -665,11 +514,6 @@ public class BoardModel implements DeepCopyable {
     public Object deepCopy() {
         BoardModel newBoard = new BoardModel((PlayerModel) currentPlayer.deepCopy(), (PlayerModel) waitingPlayer.deepCopy());
 
-        newBoard.p0_deckPos_ = this.p0_deckPos_;
-        newBoard.p1_deckPos_ = this.p1_deckPos_;
-        newBoard.p0_fatigueDamage_ = this.p0_fatigueDamage_;
-        newBoard.p1_fatigueDamage_ = this.p1_fatigueDamage_;
-
         for (MinionPlayerPair minionPlayerPair : allMinionsFIFOList_) {
 
             PlayerModel oldPlayerModel = minionPlayerPair.getPlayerModel();
@@ -696,8 +540,6 @@ public class BoardModel implements DeepCopyable {
 
     public JSONObject toJSON() {
         JSONObject json = new JSONObject();
-        json.put("p0_deckPos", p0_deckPos_);
-        json.put("p1_deckPos", p1_deckPos_);
 
         JSONArray p0_minions = new JSONArray();
         for (Minion minion : currentPlayer.getMinions())
@@ -722,8 +564,6 @@ public class BoardModel implements DeepCopyable {
         json.put("p0_hero", currentPlayer.getHero().toJSON());
         json.put("p1_hero", waitingPlayer.getHero().toJSON());
 
-        json.put("p0_fatigue", p0_fatigueDamage_);
-        json.put("p1_fatigue", p1_fatigueDamage_);
         json.put("p0_spellDamage", currentPlayer.getSpellDamage());
         json.put("p1_spellDamage", waitingPlayer.getSpellDamage());
         return json;

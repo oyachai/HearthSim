@@ -159,8 +159,7 @@ public class TestWarlock {
 		
 
 		
-		
-		board.data_.setDeckPos_p0(30);
+		board.data_.getCurrentPlayer().setDeckPos(30);
 		
 		target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
 		Hero hero = board.data_.getCurrentPlayerHero();

@@ -2,7 +2,6 @@ package com.hearthsim;
 
 import java.util.List;
 
-import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
@@ -65,7 +64,7 @@ public class Game {
 		boardModel.placeCardHandCurrentPlayer(0);
 		boardModel.placeCardHandCurrentPlayer(1);
 		boardModel.placeCardHandCurrentPlayer(2);
-		boardModel.setDeckPos_p0(3);
+		boardModel.getCurrentPlayer().setDeckPos(3);
 
 		//the second player draws 4 cards
 		boardModel.placeCardHandWaitingPlayer(0);
@@ -73,7 +72,7 @@ public class Game {
 		boardModel.placeCardHandWaitingPlayer(2);
 		boardModel.placeCardHandWaitingPlayer(3);
 		boardModel.placeCardHandWaitingPlayer(new TheCoin());
-		boardModel.setDeckPos_p1(4);
+		boardModel.getWaitingPlayer().setDeckPos(4);
 		
 		GameRecord record = new GameSimpleRecord();
 
@@ -167,16 +166,7 @@ public class Game {
         toRet = BoardStateFactoryBase.handleDeadMinions(toRet, toRet.data_.getCurrentPlayer().getDeck(), toRet.data_.getWaitingPlayer().getDeck());        
         
         
-        Card newCard = toRet.data_.getCurrentPlayer().drawFromDeck(toRet.data_.getDeckPos_p0());
-        if (newCard == null) {
-            //fatigue
-            byte fatigueDamage = toRet.data_.getFatigueDamage_p0();
-            toRet.data_.setFatigueDamage_p0((byte)(fatigueDamage + 1));
-            toRet.data_.getCurrentPlayerHero().setHealth((byte)(toRet.data_.getCurrentPlayerHero().getHealth() - fatigueDamage));
-        } else {
-        	toRet.data_.setDeckPos_p0(toRet.data_.getDeckPos_p0() + 1);
-        	toRet.data_.placeCardHandCurrentPlayer(newCard);
-        }
+        toRet.data_.getCurrentPlayer().drawNextCardFromDeck();
         if (toRet.data_.getCurrentPlayer().getMaxMana() < 10)
         	toRet.data_.getCurrentPlayer().addMaxMana(1);
         toRet.data_.resetMana();

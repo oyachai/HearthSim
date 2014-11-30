@@ -19,6 +19,9 @@ public class PlayerModel implements DeepCopyable {
     private int mana;
     private int maxMana;
     
+    private int deckPos;
+    private int fatigueDamage;
+    
     private MinionList minions;
     private IdentityLinkedList<Card> hand;
     byte overload;
@@ -30,6 +33,9 @@ public class PlayerModel implements DeepCopyable {
         this.deck = deck;
         this.minions = new MinionList();
         this.hand = new IdentityLinkedList<>();
+        
+        deckPos = 0;
+        fatigueDamage = 1;
     }
 
     public Card drawFromDeck(int index) {
@@ -123,7 +129,31 @@ public class PlayerModel implements DeepCopyable {
     public void setOverload(byte overload) {
         this.overload = overload;
     }
+    
+    public int getDeckPos() {
+    	return deckPos;
+    }
+    
+    public void setDeckPos(int value) {
+    	deckPos = value;
+    }
+    
+    public void addDeckPos(int value) {
+    	deckPos += value;
+    }
+    
+    public int getFatigueDamage() {
+    	return fatigueDamage;
+    }
 
+    public void setFatigueDamage(int value) {
+    	fatigueDamage = value;
+    }
+    
+    public void addFatigueDamage(int value) {
+    	fatigueDamage += value;
+    }
+    
     public String toString() {
         return new JSONObject(this).toString();
     }
@@ -169,6 +199,19 @@ public class PlayerModel implements DeepCopyable {
         deck.addCard(card);
     }
 
+    public void drawNextCardFromDeck() {
+        Card card = drawFromDeck(deckPos);
+        if (card == null) {
+        	//no more card left in deck, take fatigue damage
+        	hero.takeDamage((byte)fatigueDamage);
+        	++fatigueDamage;
+        } else {
+        	card.isInHand(true);
+        	hand.add(card);
+        	++deckPos;
+        }
+    }
+    
     
     public int getPlayerId() {
         return playerId;
