@@ -672,6 +672,10 @@
         "class": "com.hearthsim.card.spellcard.concrete.Pyroblast"
     },
     {
+        "name": "Questing Adventurer",
+        "class": "com.hearthsim.card.minion.concrete.QuestingAdventurer"
+    },
+    {
         "name": "Raging Worgen",
         "class": "com.hearthsim.card.minion.concrete.RagingWorgen"
     },
