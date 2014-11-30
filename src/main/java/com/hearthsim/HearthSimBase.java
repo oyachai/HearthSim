@@ -74,10 +74,10 @@ public abstract class HearthSimBase {
 	 * @throws HSException
 	 * @throws IOException 
 	 */
-	public abstract GameResult runSingleGame() throws HSException, IOException;
+	public abstract GameResult runSingleGame(int gameId) throws HSException, IOException;
 
 	protected GameResult runSingleGame(ArtificialPlayer ai0, Hero hero0, Deck deck0, ArtificialPlayer ai1, Hero hero1, Deck deck1) throws HSException {
-		return this.runSingleGame(ai0, hero0, deck0, ai1, hero1, deck1, false);
+		return this.runSingleGame(ai0, hero0, deck0, ai1, hero1, deck1, 0);
 	}
 	
 	/**
@@ -103,6 +103,18 @@ public abstract class HearthSimBase {
 		PlayerModel playerModel1 = new PlayerModel(1, "player1", hero1, deck1);
 
 		Game game = new Game(playerModel0, playerModel1, ai0, ai1, shufflePlayOrder);
+		return game.runGame();
+	}
+	
+	protected GameResult runSingleGame(ArtificialPlayer ai0, Hero hero0, Deck deck0, ArtificialPlayer ai1, Hero hero1, Deck deck1, int firstPlayerId) throws HSException {
+		//Shuffle the decks!
+		deck0.shuffle();
+		deck1.shuffle();
+		
+		PlayerModel playerModel0 = new PlayerModel(0, "player0", hero0, deck0);
+		PlayerModel playerModel1 = new PlayerModel(1, "player1", hero1, deck1);
+
+		Game game = new Game(playerModel0, playerModel1, ai0, ai1, firstPlayerId);
 		return game.runGame();
 	}
 	
@@ -147,7 +159,7 @@ public abstract class HearthSimBase {
 		@Override
 		public void run() {
 			try {
-				GameResult res = runSingleGame();
+				GameResult res = runSingleGame(gameId_);
 
 				if (writer_ != null) {
 					synchronized(writer_) {

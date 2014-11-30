@@ -37,6 +37,26 @@ public class Game {
 		this(playerModel0, playerModel1, ai0, ai1, false);
 	}
 	
+	public Game(PlayerModel playerModel0, PlayerModel playerModel1, ArtificialPlayer ai0, ArtificialPlayer ai1, int firstPlayerId) {
+		playerGoingFirst = playerModel0;
+        playerGoingSecond = playerModel1;
+        
+        aiForPlayerGoingFirst = ai0;
+        aiForPlayerGoingSecond = ai1;
+
+        if (firstPlayerId == 1) {
+            playerGoingFirst = playerModel1;
+            playerGoingSecond = playerModel0;
+            aiForPlayerGoingFirst = ai1;
+            aiForPlayerGoingSecond = ai0;
+        }
+        log.debug("alternate play order: {}", firstPlayerId);
+        log.debug("first player id: {}", playerGoingFirst.getPlayerId());
+
+		boardModel = new BoardModel(playerGoingFirst, playerGoingSecond);
+		
+	}
+	
 	public Game(PlayerModel playerModel0, PlayerModel playerModel1, ArtificialPlayer ai0, ArtificialPlayer ai1, boolean shufflePlayOrder) {
         
 		playerGoingFirst = playerModel0;

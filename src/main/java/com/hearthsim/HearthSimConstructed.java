@@ -34,7 +34,7 @@ public class HearthSimConstructed extends HearthSimBase {
 	}
 	
 	@Override
-	public GameResult runSingleGame() throws IOException, HSException {
+	public GameResult runSingleGame(int gameId) throws IOException, HSException {
 	
 		DeckListFile deckList0 = new DeckListFile(deckListFilePath0_);
 		DeckListFile deckList1 = new DeckListFile(deckListFilePath1_);
@@ -57,6 +57,6 @@ public class HearthSimConstructed extends HearthSimBase {
 		ArtificialPlayer ai0 = new BruteForceSearchAI(this.aiParamFilePath0_);
 		ArtificialPlayer ai1 = new BruteForceSearchAI(this.aiParamFilePath1_);
 		
-		return super.runSingleGame(ai0, hero0, deck0, ai1, hero1, deck1, true);
+		return super.runSingleGame(ai0, hero0, deck0, ai1, hero1, deck1, gameId % 2);
 	}
 }
