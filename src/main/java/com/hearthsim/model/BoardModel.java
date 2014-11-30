@@ -10,7 +10,6 @@ import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.IdentityLinkedList;
 import com.hearthsim.util.MinionList;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.MDC;
 
