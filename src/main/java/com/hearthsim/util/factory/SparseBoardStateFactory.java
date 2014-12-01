@@ -106,7 +106,7 @@ public class SparseBoardStateFactory extends BoardStateFactoryBase {
 						HearthTreeNode newState = new HearthTreeNode((BoardModel)boardStateNode.data_.deepCopy());
 						Minion copiedTargetMinion = newState.data_.getCurrentPlayerCharacter(cardPlacementIndex);
 						Card card = newState.data_.getCurrentPlayerCardHand(ic);
-						newState = card.useOn(PlayerSide.CURRENT_PLAYER, copiedTargetMinion, newState, deckPlayer0_, deckPlayer1_, false);
+						newState = card.getCardAction().useOn(PlayerSide.CURRENT_PLAYER, copiedTargetMinion, newState, deckPlayer0_, deckPlayer1_, false);
 						if (newState != null) {
 							newState = this.doMoves(newState, ai);
 							if (newState != null) boardStateNode.addChild(newState);
@@ -120,7 +120,7 @@ public class SparseBoardStateFactory extends BoardStateFactoryBase {
 							HearthTreeNode newState = new HearthTreeNode((BoardModel)boardStateNode.data_.deepCopy());
 							Minion copiedTargetMinion = newState.data_.getCurrentPlayerCharacter(i);
 							Card card = newState.data_.getCurrentPlayerCardHand(ic);
-							newState = card.useOn(PlayerSide.CURRENT_PLAYER, copiedTargetMinion, newState, deckPlayer0_, deckPlayer1_, false);
+							newState = card.getCardAction().useOn(PlayerSide.CURRENT_PLAYER, copiedTargetMinion, newState, deckPlayer0_, deckPlayer1_, false);
 							if (newState != null) {
 								newState = this.doMoves(newState, ai);
 								if (newState != null) boardStateNode.addChild(newState);
@@ -133,7 +133,7 @@ public class SparseBoardStateFactory extends BoardStateFactoryBase {
 							HearthTreeNode newState = new HearthTreeNode((BoardModel)boardStateNode.data_.deepCopy());
 							Minion copiedTargetMinion = newState.data_.getWaitingPlayerCharacter(i);
 							Card card = newState.data_.getCurrentPlayerCardHand(ic);
-							newState = card.useOn(PlayerSide.WAITING_PLAYER, copiedTargetMinion, newState, deckPlayer0_, deckPlayer1_, false);
+							newState = card.getCardAction().useOn(PlayerSide.WAITING_PLAYER, copiedTargetMinion, newState, deckPlayer0_, deckPlayer1_, false);
 							if (newState != null) {
 								newState = this.doMoves(newState, ai);
 								if (newState != null) boardStateNode.addChild(newState);
