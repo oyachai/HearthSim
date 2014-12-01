@@ -56,14 +56,12 @@ public class BreadthBoardStateFactory extends BoardStateFactoryBase {
 
 				for(HearthTreeNode child : children) {
 					childCount++;
-					if(dupeSkipOn) {
-						if(states.size() > 0) {
-							stateCompareCount += Math.log(states.size()); // .contains uses quick search
-							// Using .hashCode lets us use TreeSet and .contains to look for dupes
-							if(states.contains(child.data_.hashCode())) {
-								dupeSkip++;
-								continue;
-							}
+					if(dupeSkipOn && states.size() > 0) {
+						stateCompareCount += Math.log(states.size()); // .contains uses quick search
+						// Using .hashCode lets us use TreeSet and .contains to look for dupes
+						if(states.contains(child.data_.hashCode())) {
+							dupeSkip++;
+							continue;
 						}
 					}
 					current.addChild(child);
@@ -85,8 +83,6 @@ public class BreadthBoardStateFactory extends BoardStateFactoryBase {
 
 		log.debug("createChildLayers summary depthReached=" + depthReached + " processedCount=" + processedCount
 				+ " childCount=" + childCount + " compareCount=" + stateCompareCount + " dupeSkip=" + dupeSkip);
-
-		return;
 	}
 
 	public void processScoresForTree(HearthTreeNode root, BoardScorer ai) {
