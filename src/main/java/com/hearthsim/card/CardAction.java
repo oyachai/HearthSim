@@ -84,6 +84,18 @@ public class CardAction {
 		return toRet;
 	}
 	
+	public final HearthTreeNode useOn(
+			PlayerSide side,
+			Minion targetMinion,
+			HearthTreeNode boardState,
+			Deck deckPlayer0,
+			Deck deckPlayer1)
+		throws HSException
+	{
+		return this.useOn(side, targetMinion, boardState, deckPlayer0, deckPlayer1, false);
+	}    
+    
+	
 	/**
 	 * 
 	 * Use the card on the given target
