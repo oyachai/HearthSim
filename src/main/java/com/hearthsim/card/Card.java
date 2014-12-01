@@ -17,16 +17,8 @@ import java.util.ArrayList;
 public class Card implements DeepCopyable {
     protected final Logger log = LoggerFactory.getLogger(getClass());
 
-	/**
-	 * Name of the card
-	 */
 	protected String name_;
-	
-	/**
-	 * Mana cost of the card
-	 */
 	protected byte mana_;
-	
 	protected boolean hasBeenUsed;
 	protected boolean isInHand_;
 

@@ -3,6 +3,7 @@ package com.hearthsim.card.minion;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.ImplementedCardList;
+import com.hearthsim.entity.BaseEntity;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
@@ -16,7 +17,7 @@ import org.json.JSONObject;
 import java.util.EnumSet;
 import java.util.Iterator;
 
-public class Minion extends Card {
+public class Minion extends BaseEntity {
 
 	public enum BattlecryTargetType {
 		NO_BATTLECRY,
@@ -40,12 +41,12 @@ public class Minion extends Card {
 	protected boolean stealthed_;
 	protected boolean heroTargetable_;
 	
-	protected byte health_;
+	//protected byte health_;
 	protected byte maxHealth_;
 	protected byte baseHealth_;
 	protected byte auraHealth_;
 	
-	protected byte attack_;
+	//protected byte attack_;
 	protected byte baseAttack_;
 	protected byte extraAttackUntilTurnEnd_;
 	protected byte auraAttack_;
@@ -72,9 +73,9 @@ public class Minion extends Card {
             // only 'Minion' class is not implemented
             mana_ = (byte) implementedCard.mana_;
             name_ = implementedCard.name_;
-            attack_ = (byte) implementedCard.attack_;
+            //attack_ = (byte) implementedCard.attack_;
             baseAttack_ = attack_;
-            health_ = (byte) implementedCard.health_;
+            //health_ = (byte) implementedCard.health_;
             maxHealth_ = health_;
             baseHealth_ = health_;
             taunt_ = implementedCard.taunt_;
