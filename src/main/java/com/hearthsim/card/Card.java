@@ -29,6 +29,8 @@ public class Card implements DeepCopyable {
 	
 	protected boolean hasBeenUsed;
 	protected boolean isInHand_;
+	
+	protected CardAction action;
 
 	/**
 	 * Constructor
@@ -43,6 +45,7 @@ public class Card implements DeepCopyable {
 		this.hasBeenUsed = hasBeenUsed;
 		isInHand_ = isInHand;
         name_ = name;
+        action = new CardAction(this);
 	}
     public Card(byte mana, boolean hasBeenUsed, boolean isInHand) {
         ImplementedCardList cardList = ImplementedCardList.getInstance();
@@ -50,9 +53,11 @@ public class Card implements DeepCopyable {
         name_ = implementedCard.name_;mana_ = mana;
         this.hasBeenUsed = hasBeenUsed;
         isInHand_ = isInHand;
+        action = new CardAction(this);
     }
 
     public Card() {
+    	action = new CardAction(this);
     }
 
     /**
@@ -63,6 +68,7 @@ public class Card implements DeepCopyable {
 	 */
 	public Card(String name, byte mana) {
 		this(name, mana, true, true);
+		action = new CardAction(this);
 	}
 	
 	/**
