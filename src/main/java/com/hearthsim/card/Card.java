@@ -79,6 +79,10 @@ public class Card implements DeepCopyable {
 	public String getName() {
 		return name_;
 	}
+	
+	public CardAction getCardAction() {
+		return action;
+	}
 
 	/**
 	 * Get the mana cost of the card
