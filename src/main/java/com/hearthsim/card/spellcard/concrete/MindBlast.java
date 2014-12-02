@@ -17,7 +17,7 @@ public class MindBlast extends SpellDamage {
 		super((byte)2, (byte)5, hasBeenUsed);
 	}
 
-	@Override
+	
 	public Object deepCopy() {
 		return new MindBlast(this.hasBeenUsed);
 	}
@@ -35,7 +35,7 @@ public class MindBlast extends SpellDamage {
      *
      * @return The boardState is manipulated and returned
 	 */
-	@Override
+	
 	protected HearthTreeNode use_core(
 			PlayerSide side,
 			Minion targetMinion,

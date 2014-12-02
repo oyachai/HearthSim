@@ -2,6 +2,7 @@ package com.hearthsim.card;
 
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.entity.BaseEntity;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
@@ -202,7 +203,7 @@ public class Card implements DeepCopyable {
         
 	public final HearthTreeNode useOn(
 			PlayerSide side,
-			Minion targetMinion,
+			BaseEntity targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
@@ -229,7 +230,7 @@ public class Card implements DeepCopyable {
 	 */
 	public HearthTreeNode useOn(
 			PlayerSide side,
-			Minion targetMinion,
+			BaseEntity targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1,
@@ -293,7 +294,7 @@ public class Card implements DeepCopyable {
 	 */
 	protected HearthTreeNode use_core(
 			PlayerSide side,
-			Minion targetMinion,
+			BaseEntity targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1,
@@ -354,7 +355,7 @@ public class Card implements DeepCopyable {
         return PlayerSide.WAITING_PLAYER == side;
     }
 
-    protected boolean isNotHero(Minion targetMinion) {
+    protected boolean isNotHero(BaseEntity targetMinion) {
         return !isHero(targetMinion);
     }
 
@@ -362,7 +363,7 @@ public class Card implements DeepCopyable {
         return PlayerSide.CURRENT_PLAYER == side;
     }
 
-    protected boolean isHero(Minion targetMinion) {
+    protected boolean isHero(BaseEntity targetMinion) {
         return targetMinion instanceof Hero;
     }
 }

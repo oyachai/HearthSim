@@ -26,7 +26,7 @@ public class AncientBrewmaster extends Minion {
         transformed_ = TRANSFORMED;
 	}
 
-	@Override
+	
 	public EnumSet<BattlecryTargetType> getBattlecryTargets() {
 		return EnumSet.of(BattlecryTargetType.FRIENDLY_MINIONS);
 	}
@@ -34,7 +34,7 @@ public class AncientBrewmaster extends Minion {
 	/**
 	 * Battlecry: Change an enemy minion's attack to 1
 	 */
-	@Override
+	
 	public HearthTreeNode useTargetableBattlecry_core(
 			PlayerSide side,
 			Minion targetMinion,

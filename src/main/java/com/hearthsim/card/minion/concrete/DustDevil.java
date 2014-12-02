@@ -33,7 +33,7 @@ public class DustDevil extends Minion {
      *
      * @return The boardState is manipulated and returned
 	 */
-	@Override
+	
 	public HearthTreeNode use_core(
 			PlayerSide side,
 			Minion targetMinion,

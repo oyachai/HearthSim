@@ -35,7 +35,7 @@ public class Warlock extends Hero {
 		super(name, attack, extraAttackUntilTurnEnd, health, armor, weaponCharge, windFury, hasAttacked, hasWindFuryAttacked, frozen, hasBeenUsed);
 	}
 	
-	@Override
+	
 	public DeepCopyable deepCopy() {
 		return new Warlock(
 				this.name_, 
@@ -67,7 +67,7 @@ public class Warlock extends Hero {
      *
      * @return
 	 */
-	@Override
+	
 	public HearthTreeNode useHeroAbility_core(
 			PlayerSide targetPlayerSide,
 			Minion targetMinion,

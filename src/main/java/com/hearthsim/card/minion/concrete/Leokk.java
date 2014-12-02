@@ -39,7 +39,7 @@ public class Leokk extends Beast {
      *
      * @return The boardState is manipulated and returned
 	 */
-	@Override
+	
 	protected HearthTreeNode summonMinion_core(
             PlayerSide targetSide,
 			Minion targetMinion,
@@ -72,7 +72,7 @@ public class Leokk extends Beast {
      * @param deckPlayer1
      * @throws HSInvalidPlayerIndexException
 	 */
-	@Override
+	
 	public void silenced(PlayerSide thisPlayerSide, BoardModel boardState) throws HSInvalidPlayerIndexException {
 		for (Minion minion : boardState.getMinions(thisPlayerSide)) {
 			if (minion != this) {

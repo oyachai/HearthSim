@@ -27,7 +27,7 @@ public class HandOfProtection extends SpellCard {
 		this(false);
 	}
 	
-	@Override
+	
 	public Object deepCopy() {
 		return new HandOfProtection(this.hasBeenUsed);
 	}
@@ -45,7 +45,7 @@ public class HandOfProtection extends SpellCard {
      *
      * @return The boardState is manipulated and returned
 	 */
-	@Override
+	
 	protected HearthTreeNode use_core(
 			PlayerSide side,
 			Minion targetMinion,

@@ -24,7 +24,7 @@ public class FrostwolfWarlord extends Minion {
         transformed_ = TRANSFORMED;
 	}
 	
-	@Override
+	
 	public EnumSet<BattlecryTargetType> getBattlecryTargets() {
 		return EnumSet.of(BattlecryTargetType.NO_TARGET);
 	}
@@ -32,7 +32,7 @@ public class FrostwolfWarlord extends Minion {
 	/**
 	 * Battlecry: gain +1/+1 for each friendly minion on the battlefield
 	 */
-	@Override
+	
 	public HearthTreeNode useUntargetableBattlecry_core(
 			Minion minionPlacementTarget,
 			HearthTreeNode boardState,

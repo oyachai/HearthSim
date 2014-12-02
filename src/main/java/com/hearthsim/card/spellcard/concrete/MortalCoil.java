@@ -18,7 +18,7 @@ public class MortalCoil extends SpellDamage {
 		super((byte)1, (byte)1, hasBeenUsed);
 	}
 
-	@Override
+	
 	public Object deepCopy() {
 		return new MortalCoil(this.hasBeenUsed);
 	}
@@ -36,7 +36,7 @@ public class MortalCoil extends SpellDamage {
      *
      * @return The boardState is manipulated and returned
 	 */
-	@Override
+	
 	protected HearthTreeNode use_core(
 			PlayerSide side,
 			Minion targetMinion,

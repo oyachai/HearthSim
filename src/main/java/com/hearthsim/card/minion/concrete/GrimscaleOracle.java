@@ -80,7 +80,7 @@ public class GrimscaleOracle extends Murloc {
      * @param boardState
      * @throws HSInvalidPlayerIndexException
 	 */
-	@Override
+	
 	public void silenced(PlayerSide thisPlayerSide, BoardModel boardState) throws HSInvalidPlayerIndexException {
 		if (!silenced_) {
 			for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(boardState).getMinions()) {
@@ -120,7 +120,7 @@ public class GrimscaleOracle extends Murloc {
      * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
      * @return The boardState is manipulated and returned
 	 */
-	@Override
+	
 	public HearthTreeNode minionSummonedEvent(
 			PlayerSide thisMinionPlayerSide,
 			PlayerSide summonedMinionPlayerSide,
@@ -142,7 +142,7 @@ public class GrimscaleOracle extends Murloc {
      * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
      * @return The boardState is manipulated and returned
 	 */
-	@Override
+	
 	public HearthTreeNode minionTransformedEvent(
 			PlayerSide thisMinionPlayerSide,
 			PlayerSide transformedMinionPlayerSide,

@@ -7,6 +7,7 @@ import com.hearthsim.card.minion.concrete.HealingTotem;
 import com.hearthsim.card.minion.concrete.SearingTotem;
 import com.hearthsim.card.minion.concrete.StoneclawTotem;
 import com.hearthsim.card.minion.concrete.WrathOfAirTotem;
+import com.hearthsim.entity.BaseEntity;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
@@ -41,7 +42,7 @@ public class Shaman extends Hero {
 		super(name, attack, extraAttackUntilTurnEnd, health, armor, weaponCharge, windFury, hasAttacked, hasWindFuryAttacked, frozen, hasBeenUsed);
 	}
 	
-	@Override
+	
 	public DeepCopyable deepCopy() {
 		return new Shaman(
 				this.name_, 
@@ -73,7 +74,7 @@ public class Shaman extends Hero {
      *
      * @return
 	 */
-	@Override
+	
 	public HearthTreeNode useHeroAbility_core(
 			PlayerSide targetPlayerSide,
 			Minion targetMinion,
@@ -117,7 +118,7 @@ public class Shaman extends Hero {
 				return null;
 			this.hasBeenUsed = true;
 			toRet.data_.getCurrentPlayer().subtractMana(HERO_ABILITY_COST);
-			Minion summonTarget = toRet.data_.getCharacter(targetPlayerSide, numMinions);
+			BaseEntity summonTarget = toRet.data_.getCharacter(targetPlayerSide, numMinions);
 			toRet = minionToSummon.summonMinion(targetPlayerSide, summonTarget, toRet, deckPlayer0, deckPlayer1, false);
 			return toRet;
 		}
@@ -139,7 +140,7 @@ public class Shaman extends Hero {
 
 					HearthTreeNode newState = toRet.addChild(new HearthTreeNode((BoardModel) toRet.data_.deepCopy()));
 
-					Minion summonTarget = newState.data_.getCharacter(targetPlayerSide, numMinions);
+					BaseEntity summonTarget = newState.data_.getCharacter(targetPlayerSide, numMinions);
 					newState.data_.getCurrentPlayer().subtractMana(HERO_ABILITY_COST);
 					newState.data_.getCurrentPlayerHero().hasBeenUsed(true);
 

@@ -6,6 +6,7 @@ import com.hearthsim.card.minion.concrete.Huffer;
 import com.hearthsim.card.minion.concrete.Leokk;
 import com.hearthsim.card.minion.concrete.Misha;
 import com.hearthsim.card.spellcard.SpellCard;
+import com.hearthsim.entity.BaseEntity;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
@@ -34,7 +35,7 @@ public class AnimalCompanion extends SpellCard {
 		this(false);
 	}
 
-	@Override
+	
 	public Object deepCopy() {
 		return new AnimalCompanion(this.hasBeenUsed);
 	}
@@ -53,7 +54,7 @@ public class AnimalCompanion extends SpellCard {
      *
      * @return The boardState is manipulated and returned
 	 */
-	@Override
+	
 	protected HearthTreeNode use_core(
 			PlayerSide side,
 			Minion targetMinion,
@@ -85,7 +86,7 @@ public class AnimalCompanion extends SpellCard {
 				} else {
 					minion = new Misha();
 				}
-            	Minion placementTarget = toRet.data_.getCharacter(side, toRet.data_.getMinions(side).size()); //this minion can't be a hero
+            	BaseEntity placementTarget = toRet.data_.getCharacter(side, toRet.data_.getMinions(side).size()); //this minion can't be a hero
             	toRet = minion.summonMinion(side, placementTarget, toRet, deckPlayer0, deckPlayer1, false);					
 			}
 		} else {
@@ -95,7 +96,7 @@ public class AnimalCompanion extends SpellCard {
 				for (Minion minion : new Minion[]{ new Huffer(), new Leokk(), new Misha()}) {
 					HearthTreeNode newState = toRet.addChild(new HearthTreeNode((BoardModel) toRet.data_.deepCopy()));
 					newState = super.use_core(side, side.getPlayer(newState).getHero(), newState, deckPlayer0, deckPlayer1, singleRealizationOnly);
-	            	Minion placementTarget = newState.data_.getCharacter(side, newState.data_.getMinions(side).size()); //this minion can't be a hero
+					BaseEntity placementTarget = newState.data_.getCharacter(side, newState.data_.getMinions(side).size()); //this minion can't be a hero
 	            	newState = minion.summonMinion(side, placementTarget, newState, deckPlayer0, deckPlayer1, false);					
 					newState.data_.getCurrentPlayer().subtractMana(this.mana_);
 					side.getPlayer(newState).getHand().remove(thisCardIndex);

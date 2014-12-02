@@ -25,7 +25,7 @@ public class VoodooDoctor extends Minion {
         transformed_ = TRANSFORMED;
 	}
 	
-	@Override
+	
 	public EnumSet<BattlecryTargetType> getBattlecryTargets() {
 		return EnumSet.of(BattlecryTargetType.FRIENDLY_HERO, BattlecryTargetType.ENEMY_HERO, BattlecryTargetType.FRIENDLY_MINIONS, BattlecryTargetType.ENEMY_MINIONS);
 	}
@@ -33,7 +33,7 @@ public class VoodooDoctor extends Minion {
 	/**
 	 * Battlecry: Restore 2 health
 	 */
-	@Override
+	
 	public HearthTreeNode useTargetableBattlecry_core(
 			PlayerSide side,
 			Minion targetMinion,

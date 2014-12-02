@@ -19,7 +19,7 @@ public class Shiv extends SpellDamage {
 		super((byte)2, (byte)1, hasBeenUsed);
 	}
 
-	@Override
+	
 	public Object deepCopy() {
 		return new Shiv(this.hasBeenUsed);
 	}
@@ -37,7 +37,7 @@ public class Shiv extends SpellDamage {
      *
      * @return The boardState is manipulated and returned
 	 */
-	@Override
+	
 	protected HearthTreeNode use_core(
 			PlayerSide side,
 			Minion targetMinion,

@@ -24,7 +24,7 @@ public class AbusiveSergeant extends Minion {
 	}
 
 	
-	@Override
+	
 	public EnumSet<BattlecryTargetType> getBattlecryTargets() {
 		return EnumSet.of(BattlecryTargetType.FRIENDLY_MINIONS, BattlecryTargetType.ENEMY_MINIONS);
 	}
@@ -32,7 +32,7 @@ public class AbusiveSergeant extends Minion {
 	/**
 	 * Battlecry: Give a minion +2 attack this turn
 	 */
-	@Override
+	
 	public HearthTreeNode useTargetableBattlecry_core(
 			PlayerSide side,
 			Minion targetMinion,

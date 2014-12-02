@@ -19,12 +19,12 @@ public class TheCoin extends SpellCard {
 		this(false);
 	}
 
-	@Override
+	
 	public Object deepCopy() {
 		return new TheCoin(this.hasBeenUsed());
 	}
 
-	@Override
+	
     public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
         return !(isWaitingPlayer(playerSide) || isNotHero(minion));
     }
@@ -40,7 +40,7 @@ public class TheCoin extends SpellCard {
      *
      * @return The boardState is manipulated and returned
 	 */
-	@Override
+	
 	protected HearthTreeNode use_core(
 			PlayerSide side,
 			Minion targetMinion,

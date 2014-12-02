@@ -34,7 +34,7 @@ public class Druid extends Hero {
 		super(name, attack, extraAttackUntilTurnEnd, health, armor, weaponCharge, windFury, hasAttacked, hasWindFuryAttacked, frozen, hasBeenUsed);
 	}
 	
-	@Override
+	
 	public DeepCopyable deepCopy() {
 		return new Druid(
 				this.name_, 
@@ -66,7 +66,7 @@ public class Druid extends Hero {
      *
      * @return
 	 */
-	@Override
+	
 	public HearthTreeNode useHeroAbility_core(
 			PlayerSide targetPlayerSide,
 			Minion targetMinion,

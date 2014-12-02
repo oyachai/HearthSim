@@ -25,7 +25,7 @@ public class YoungPriestess extends Minion {
 	/**
 	 * At the end of your turn, give another random friendly minion +1 Health
 	 */
-	@Override
+	
 	public HearthTreeNode endTurn(PlayerSide thisMinionPlayerIndex, HearthTreeNode boardModel, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
 		HearthTreeNode toRet = super.endTurn(thisMinionPlayerIndex, boardModel, deckPlayer0, deckPlayer1);
 		if (toRet != null && thisMinionPlayerIndex == PlayerSide.CURRENT_PLAYER) {

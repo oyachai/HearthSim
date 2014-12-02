@@ -18,7 +18,7 @@ public class Silence extends SpellCard {
 		super((byte)0, hasBeenUsed);
 	}
 
-	@Override
+	
 	public Object deepCopy() {
 		return new Silence(this.hasBeenUsed);
 	}
@@ -36,7 +36,7 @@ public class Silence extends SpellCard {
      *
      * @return The boardState is manipulated and returned
 	 */
-	@Override
+	
 	protected HearthTreeNode use_core(
 			PlayerSide side,
 			Minion targetMinion,

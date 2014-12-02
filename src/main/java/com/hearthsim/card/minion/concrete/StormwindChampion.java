@@ -72,7 +72,7 @@ public class StormwindChampion extends Minion {
      * @param deckPlayer1
      * @throws HSInvalidPlayerIndexException
 	 */
-	@Override
+	
 	public void silenced(PlayerSide thisPlayerSide, BoardModel boardState) throws HSInvalidPlayerIndexException {
 		if (!silenced_) {
 			for (Minion minion : boardState.getMinions(thisPlayerSide)) {

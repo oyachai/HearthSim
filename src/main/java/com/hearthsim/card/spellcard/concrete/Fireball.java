@@ -12,7 +12,7 @@ public class Fireball extends SpellDamage {
 		super((byte)4, (byte)6, hasBeenUsed);
 	}
 
-	@Override
+	
 	public Object deepCopy() {
 		return new Fireball(this.hasBeenUsed);
 	}

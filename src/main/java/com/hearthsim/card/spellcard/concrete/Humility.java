@@ -29,7 +29,7 @@ public class Humility extends SpellCard {
 		this(false);
 	}
 
-	@Override
+	
 	public Object deepCopy() {
 		return new Humility(this.hasBeenUsed);
 	}
@@ -47,7 +47,7 @@ public class Humility extends SpellCard {
      *
      * @return The boardState is manipulated and returned
 	 */
-	@Override
+	
 	protected HearthTreeNode use_core(
 			PlayerSide side,
 			Minion targetMinion,

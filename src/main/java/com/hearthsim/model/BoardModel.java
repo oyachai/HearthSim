@@ -1,5 +1,6 @@
 package com.hearthsim.model;
 
+import com.hearthsim.entity.BaseEntity;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
@@ -155,9 +156,9 @@ public class BoardModel implements DeepCopyable {
         return waitingPlayer.getHand().get(index);
     }
 
-    public Minion getCharacter(PlayerSide playerSide, int index) throws HSInvalidPlayerIndexException {
+    public BaseEntity getCharacter(PlayerSide playerSide, int index) throws HSInvalidPlayerIndexException {
         PlayerModel playerModel = modelForSide(playerSide);
-        return index == 0 ? playerModel.getHero() : playerModel.getMinions().get(index - 1);
+        return (BaseEntity) (index == 0 ? playerModel.getHero() : playerModel.getMinions().get(index - 1));
     }
 
     public Minion getCurrentPlayerCharacter(int index) {
@@ -170,7 +171,7 @@ public class BoardModel implements DeepCopyable {
 
     public Minion getMinionForCharacter(PlayerSide playerSide, int index) {
         PlayerModel playerModel = modelForSide(playerSide);
-        return index == 0 ? playerModel.getHero() : playerModel.getMinions().get(index - 1);
+        return (Minion) (index == 0 ? playerModel.getHero() : playerModel.getMinions().get(index - 1));
     }
 
     //-----------------------------------------------------------------------------------
@@ -189,12 +190,18 @@ public class BoardModel implements DeepCopyable {
      * @param position The position to place the minion.  The new minion goes to the "left" (lower index) of the postinion index.
      * @throws HSInvalidPlayerIndexException
      */
+/*    public void placeMinion(PlayerSide playerSide, Minion minion, int position) throws HSInvalidPlayerIndexException {
+        PlayerModel playerModel = modelForSide(playerSide);
+        playerModel.getMinions().add(position, minion);
+
+        this.allMinionsFIFOList_.add(new MinionPlayerPair(minion, playerModel));
+        minion.isInHand(false);*/
     public void placeMinion(PlayerSide playerSide, Minion minion, int position) throws HSInvalidPlayerIndexException {
         PlayerModel playerModel = modelForSide(playerSide);
         playerModel.getMinions().add(position, minion);
 
         this.allMinionsFIFOList_.add(new MinionPlayerPair(minion, playerModel));
-        minion.isInHand(false);
+        minion.isInHand(false);       
     }
 
 

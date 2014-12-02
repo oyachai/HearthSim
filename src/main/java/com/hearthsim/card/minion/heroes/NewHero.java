@@ -1,4 +1,4 @@
-package com.hearthsim.card.minion;
+package com.hearthsim.card.minion.heroes;
 
 import org.json.JSONObject;
 
@@ -13,22 +13,22 @@ import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.factory.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class Hero extends BaseEntity
+public class NewHero extends BaseEntity
 {
 	protected static final byte HERO_ABILITY_COST = 2;  //Assumed to be 2 for all heroes
 	
 	protected byte weaponCharge_;
 	protected byte armor_;
 	
-	public Hero() {
+	public NewHero() {
 		this("NoHero", (byte)30);
 	}
 
-	public Hero(String name, byte health) {
+	public NewHero(String name, byte health) {
 		this(name, (byte)0, (byte)0, health, (byte)0, (byte)0, false, false, false, false, false);
 	}
 	
-	public Hero(
+	public NewHero(
 			String name,
 			byte attack,
 			byte extraAttackUntilTurnEnd,
@@ -63,7 +63,7 @@ public class Hero extends BaseEntity
 		armor_ = armor;
 	}
 	
-	@Override
+	
 	public DeepCopyable deepCopy() {
 		return new Hero(
 				this.name_, 
@@ -95,7 +95,7 @@ public class Hero extends BaseEntity
      * @param deckPlayer0 The deck of player0
      * @return The boardState is manipulated and returned
 	 */
-	@Override
+	
 	public HearthTreeNode attack(
 			PlayerSide targetMinionPlayerSide,
 			Minion targetMinion,
@@ -132,7 +132,7 @@ public class Hero extends BaseEntity
         return toRet;
 	}
 	
-	@Override
+	
     public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
 		if (hasBeenUsed)
 			return false;
@@ -143,7 +143,7 @@ public class Hero extends BaseEntity
 
 	public final HearthTreeNode useHeroAbility(
 			PlayerSide targetPlayerSide,
-			BaseEntity targetMinion,
+			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
@@ -164,7 +164,7 @@ public class Hero extends BaseEntity
 	 */
 	public final HearthTreeNode useHeroAbility(
 			PlayerSide targetPlayerSide,
-			BaseEntity targetMinion,
+			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1,
@@ -183,7 +183,7 @@ public class Hero extends BaseEntity
 	
 	public HearthTreeNode useHeroAbility_core(
 			PlayerSide targetPlayerSide,
-			BaseEntity targetMinion,
+			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1,
@@ -205,7 +205,7 @@ public class Hero extends BaseEntity
      * @param isSpellDamage
      * @throws HSInvalidPlayerIndexException
 	 */
-	@Override
+	
 	public HearthTreeNode takeDamage(
 			byte damage,
 			PlayerSide attackPlayerSide,
@@ -235,7 +235,7 @@ public class Hero extends BaseEntity
 	 * This function is called at the end of the turn.  Any derived class must override it and remove any 
 	 * temporary buffs that it has.
 	 */
-	@Override
+	
 	public HearthTreeNode endTurn(PlayerSide thisMinionPlayerIndex, HearthTreeNode boardModel, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
 		this.extraAttackUntilTurnEnd_ = 0;
 		return boardModel;
@@ -248,7 +248,7 @@ public class Hero extends BaseEntity
 		return json;
 	}
 	
-	@Override
+	
 	public boolean equals(Object other) {
 		if (!super.equals(other)) {
 			return false;
@@ -260,7 +260,7 @@ public class Hero extends BaseEntity
 		return true;
 	}
 	
-    @Override
+    
     public int hashCode() {
     	int hash = super.hashCode();
     	hash = 31 * hash + (int) weaponCharge_;

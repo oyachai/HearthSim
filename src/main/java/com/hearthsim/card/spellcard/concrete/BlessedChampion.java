@@ -27,7 +27,7 @@ public class BlessedChampion extends SpellCard {
 		this(false);
 	}
 
-	@Override
+	
 	public Object deepCopy() {
 		return new BlessedChampion(this.hasBeenUsed);
 	}
@@ -45,7 +45,7 @@ public class BlessedChampion extends SpellCard {
      *
      * @return The boardState is manipulated and returned
 	 */
-	@Override
+	
 	protected HearthTreeNode use_core(
 			PlayerSide side,
 			Minion targetMinion,

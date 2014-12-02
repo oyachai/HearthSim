@@ -12,7 +12,7 @@ public class Moonfire extends SpellDamage {
 		super((byte)0, (byte)1, hasBeenUsed);
 	}
 
-	@Override
+	
 	public Object deepCopy() {
 		return new Moonfire(this.hasBeenUsed);
 	}

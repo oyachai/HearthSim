@@ -23,7 +23,7 @@ public class ArgentProtector extends Minion {
         transformed_ = TRANSFORMED;
 	}
 
-	@Override
+	
 	public EnumSet<BattlecryTargetType> getBattlecryTargets() {
 		return EnumSet.of(BattlecryTargetType.FRIENDLY_MINIONS);
 	}
@@ -31,7 +31,7 @@ public class ArgentProtector extends Minion {
 	/**
 	 * Battlecry: Give a friendly minion Divine Shield
 	 */
-	@Override
+	
 	public HearthTreeNode useTargetableBattlecry_core(
 			PlayerSide side,
 			Minion targetMinion,

@@ -69,7 +69,7 @@ public class TimberWolf extends Beast {
      * @param boardState
      * @throws HSInvalidPlayerIndexException
 	 */
-	@Override
+	
 	public void silenced(PlayerSide thisPlayerSide, BoardModel boardState) throws HSInvalidPlayerIndexException {
 		if (!silenced_) {
 			for (Minion minion : boardState.getMinions(thisPlayerSide)) {

@@ -36,7 +36,7 @@ public class ArchmageAntonidas extends Minion {
      * @param deckPlayer1 The deck of player1
      * @return The boardState is manipulated and returned
 	 */
-	@Override
+	
 	public HearthTreeNode otherCardUsedEvent(
 			PlayerSide thisCardPlayerSide,
 			PlayerSide cardUserPlayerSide,

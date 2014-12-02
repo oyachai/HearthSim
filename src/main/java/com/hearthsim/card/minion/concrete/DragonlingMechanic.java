@@ -23,7 +23,7 @@ public class DragonlingMechanic extends Minion {
         transformed_ = TRANSFORMED;
 	}
 	
-	@Override
+	
 	public EnumSet<BattlecryTargetType> getBattlecryTargets() {
 		return EnumSet.of(BattlecryTargetType.NO_TARGET);
 	}
@@ -31,7 +31,7 @@ public class DragonlingMechanic extends Minion {
 	/**
 	 * Battlecry: Summons a Mechanical Dragonling
 	 */
-	@Override
+	
 	public HearthTreeNode useUntargetableBattlecry_core(
 			Minion minionPlacementTarget,
 			HearthTreeNode boardState,

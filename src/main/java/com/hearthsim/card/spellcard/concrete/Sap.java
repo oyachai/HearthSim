@@ -32,7 +32,7 @@ public class Sap extends SpellCard {
 		this(false);
 	}
 
-	@Override
+	
 	public Object deepCopy() {
 		return new Sap(this.hasBeenUsed);
 	}
@@ -50,7 +50,7 @@ public class Sap extends SpellCard {
      *
      * @return The boardState is manipulated and returned
 	 */
-	@Override
+	
 	protected HearthTreeNode use_core(
 			PlayerSide side,
 			Minion targetMinion,

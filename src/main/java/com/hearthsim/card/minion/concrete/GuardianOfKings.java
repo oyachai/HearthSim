@@ -24,7 +24,7 @@ public class GuardianOfKings extends Minion {
         transformed_ = TRANSFORMED;
 	}
 	
-	@Override
+	
 	public EnumSet<BattlecryTargetType> getBattlecryTargets() {
 		return EnumSet.of(BattlecryTargetType.NO_TARGET);
 	}
@@ -32,7 +32,7 @@ public class GuardianOfKings extends Minion {
 	/**
 	 * Battlecry: Restore 6 Health to your Hero
 	 */
-	@Override
+	
 	public HearthTreeNode useUntargetableBattlecry_core(
 			Minion minionPlacementTarget,
 			HearthTreeNode boardState,

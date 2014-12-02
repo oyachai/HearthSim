@@ -4,6 +4,7 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.SilverHandRecruit;
+import com.hearthsim.entity.BaseEntity;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.DeepCopyable;
@@ -35,7 +36,7 @@ public class Paladin extends Hero {
 		super(name, attack, extraAttackUntilTurnEnd, health, armor, weaponCharge, windFury, hasAttacked, hasWindFuryAttacked, frozen, hasBeenUsed);
 	}
 	
-	@Override
+	
 	public DeepCopyable deepCopy() {
 		return new Paladin(
 				this.name_, 
@@ -63,7 +64,7 @@ public class Paladin extends Hero {
      * @param boardState
      * @return
 	 */
-	@Override
+	
 	public HearthTreeNode useHeroAbility_core(
 			PlayerSide targetPlayerSide,
 			Minion targetMinion,
@@ -82,7 +83,7 @@ public class Paladin extends Hero {
 			this.hasBeenUsed = true;
 			toRet.data_.getCurrentPlayer().subtractMana(HERO_ABILITY_COST);
 			Minion theRecruit = new SilverHandRecruit();
-			Minion targetLocation = toRet.data_.getCharacter(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getNumMinions());
+			BaseEntity targetLocation = toRet.data_.getCharacter(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getNumMinions());
 			toRet = theRecruit.summonMinion(targetPlayerSide, targetLocation, toRet, deckPlayer0, deckPlayer1, false);
 		} else {
 			return null;

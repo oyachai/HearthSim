@@ -22,7 +22,7 @@ public class ArathiWeaponsmith extends Minion {
         summoned_ = SUMMONED;
         transformed_ = TRANSFORMED;
 	}
-	@Override
+	
 	public EnumSet<BattlecryTargetType> getBattlecryTargets() {
 		return EnumSet.of(BattlecryTargetType.NO_TARGET);
 	}
@@ -30,7 +30,7 @@ public class ArathiWeaponsmith extends Minion {
 	/**
 	 * Battlecry: Destroy your opponent's weapon
 	 */
-	@Override
+	
 	public HearthTreeNode useUntargetableBattlecry_core(
 			Minion minionPlacementTarget,
 			HearthTreeNode boardState,

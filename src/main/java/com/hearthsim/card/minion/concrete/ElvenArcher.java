@@ -25,7 +25,7 @@ public class ElvenArcher extends Minion {
 	}
 	
 	
-	@Override
+	
 	public EnumSet<BattlecryTargetType> getBattlecryTargets() {
 		return EnumSet.of(BattlecryTargetType.FRIENDLY_HERO, BattlecryTargetType.ENEMY_HERO, BattlecryTargetType.FRIENDLY_MINIONS, BattlecryTargetType.ENEMY_MINIONS);
 	}
@@ -33,7 +33,7 @@ public class ElvenArcher extends Minion {
 	/**
 	 * Battlecry: Deal 1 damage to a chosen target
 	 */
-	@Override
+	
 	public HearthTreeNode useTargetableBattlecry_core(
 			PlayerSide side,
 			Minion targetMinion,
@@ -60,7 +60,7 @@ public class ElvenArcher extends Minion {
      *
      * @return The boardState is manipulated and returned
 	 */
-//	@Override
+//	
 //	public HearthTreeNode use_core(
 //			PlayerSide side,
 //			Minion targetMinion,

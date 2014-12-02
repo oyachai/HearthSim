@@ -28,40 +28,6 @@ public class Minion extends BaseEntity {
     	FRIENDLY_MURLOCS, ENEMY_MURLOCS
     }
 	
-	protected boolean taunt_;
-	protected boolean divineShield_;
-	protected boolean windFury_;
-	protected boolean charge_;
-	
-	protected boolean hasAttacked_;
-	protected boolean hasWindFuryAttacked_;
-	
-	protected boolean frozen_;
-	protected boolean silenced_;
-	protected boolean stealthed_;
-	protected boolean heroTargetable_;
-	
-	//protected byte health_;
-	protected byte maxHealth_;
-	protected byte baseHealth_;
-	protected byte auraHealth_;
-	
-	//protected byte attack_;
-	protected byte baseAttack_;
-	protected byte extraAttackUntilTurnEnd_;
-	protected byte auraAttack_;
-	
-	protected boolean summoned_;
-	protected boolean transformed_;
-	
-	protected boolean destroyOnTurnStart_;
-	protected boolean destroyOnTurnEnd_;
-
-	protected byte spellDamage_;
-
-	protected DeathrattleAction deathrattleAction_;
-	protected AttackAction attackAction_;
-	
 	//This is a flag to tell the BoardState that it can't cheat on the placement of this minion
 	protected boolean placementImportant_ = false;
 
@@ -131,6 +97,7 @@ public class Minion extends BaseEntity {
 				null,
 				true,
 				false);
+		
 	}
 
 	public Minion(	String name,
@@ -469,6 +436,7 @@ public class Minion extends BaseEntity {
 			boolean handleMinionDeath)
 		throws HSException
 	{
+		Minion m = new Minion();
 		if (!divineShield_) {
 			byte totalDamage = isSpellDamage ? (byte)(damage + boardState.data_.getSpellDamage(attackPlayerSide)) : damage;
 			health_ = (byte)(health_ - totalDamage);
@@ -625,7 +593,7 @@ public class Minion extends BaseEntity {
 	 */
 	public HearthTreeNode useTargetableBattlecry(
 			PlayerSide side,
-			Minion targetMinion,
+			BaseEntity targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1
@@ -662,7 +630,7 @@ public class Minion extends BaseEntity {
 	 */
 	public HearthTreeNode useTargetableBattlecry_core(
 			PlayerSide side,
-			Minion targetMinion,
+			BaseEntity targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1
@@ -726,10 +694,10 @@ public class Minion extends BaseEntity {
      * @return The boardState is manipulated and returned
 	 * @throws HSException 
 	 */
-	@Override
+	
 	protected HearthTreeNode use_core(
 			PlayerSide side,
-			Minion targetMinion,
+			BaseEntity targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1,
@@ -744,7 +712,7 @@ public class Minion extends BaseEntity {
 		if (side == PlayerSide.WAITING_PLAYER)
 			return null;
 		
-		HearthTreeNode toRet = this.summonMinion(side, targetMinion, boardState, deckPlayer0, deckPlayer1, false);
+		HearthTreeNode toRet = this.summonMinion(side, (Minion) targetMinion, boardState, deckPlayer0, deckPlayer1, false);
 		if (toRet != null) { //summon succeeded, now let's use up our mana
 			toRet.data_.getCurrentPlayer().subtractMana(this.mana_);
 			toRet.data_.removeCard_hand(this);
@@ -753,7 +721,7 @@ public class Minion extends BaseEntity {
 			for (BattlecryTargetType btt : this.getBattlecryTargets()) {
 				switch  (btt) {
 				case NO_TARGET:
-					toRet = this.useUntargetableBattlecry(targetMinion, toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
+					toRet = this.useUntargetableBattlecry((Minion) targetMinion, toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
 					break;
 				case ENEMY_HERO:
 					toRet = this.useTargetableBattlecry(PlayerSide.WAITING_PLAYER, PlayerSide.WAITING_PLAYER.getPlayer(toRet).getHero(), toRet, deckPlayer0, deckPlayer1);
@@ -841,7 +809,7 @@ public class Minion extends BaseEntity {
 	 */
 	public HearthTreeNode summonMinion(
             PlayerSide targetSide,
-            Minion targetMinion,
+            BaseEntity targetMinion,
             HearthTreeNode boardState,
             Deck deckPlayer0,
             Deck deckPlayer1,
@@ -900,13 +868,14 @@ public class Minion extends BaseEntity {
 	 */
 	protected HearthTreeNode summonMinion_core(
             PlayerSide targetSide,
-			Minion targetMinion,
+			BaseEntity targetMinion,
 			HearthTreeNode boardState,
             Deck deckPlayer0,
             Deck deckPlayer1
 			)
 		throws HSException
 	{		
+		
 		if (boardState.data_.modelForSide(targetSide).getNumMinions() < 7) {
 
 			if (!charge_) {
@@ -1042,303 +1011,6 @@ public class Minion extends BaseEntity {
 	// Hooks for various events
 	//======================================================================================	
 
-	/**
-	 * 
-	 * Called whenever another minion comes on board
-	 *  @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-     *
-     * */
-	public HearthTreeNode minionPlacedEvent(
-            HearthTreeNode boardState)
-		throws HSInvalidPlayerIndexException
-	{
-		return boardState;
-	}
 
-
-	/**
-	 * 
-	 * Called whenever another minion is summoned using a spell
-	 * 
-	 *
-     * @param thisMinionPlayerSide
-     * @param summonedMinionPlayerSide
-     * @param summonedMinion The summoned minion
-     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-     * @param deckPlayer0 The deck of player0    @return The boardState is manipulated and returned
-     * */
-	public HearthTreeNode minionSummonedEvent(
-			PlayerSide thisMinionPlayerSide,
-			PlayerSide summonedMinionPlayerSide,
-			Minion summonedMinion,
-			HearthTreeNode boardState,
-			Deck deckPlayer0,
-			Deck deckPlayer1)
-		throws HSInvalidPlayerIndexException
-	{
-		return boardState;
-	}
-	
-	/**
-	 * 
-	 * Called whenever another minion is summoned using a spell
-	 *  @param thisMinionPlayerSide The player index of this minion
-	 * @param transformedMinionPlayerSide
-     * @param transformedMinion The transformed minion (the minion that resulted from a transformation)
-     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-     * @param deckPlayer0 The deck of player0    @return The boardState is manipulated and returned
-     * */
-	public HearthTreeNode minionTransformedEvent(
-			PlayerSide thisMinionPlayerSide,
-			PlayerSide transformedMinionPlayerSide,
-			Minion transformedMinion,
-			HearthTreeNode boardState,
-			Deck deckPlayer0,
-			Deck deckPlayer1)
-		throws HSInvalidPlayerIndexException
-	{
-		return boardState;
-	}
-
-	/**
-	 * 
-	 * Called whenever another minion is attacking another character
-	 * 
-	 *  @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-     *
-     * */
-	public HearthTreeNode minionAttackingEvent(
-            HearthTreeNode boardState)
-		throws HSInvalidPlayerIndexException
-	{
-		return boardState;
-	}
-	
-	/**
-	 * 
-	 * Called whenever another minion is damaged
-	 * 
-	 *
-     * @param thisMinionPlayerSide
-     * @param damagedPlayerSide
-     * @param damagedMinion The damaged minion
-     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-     * @param deckPlayer0 The deck of player0    @return The boardState is manipulated and returned
-     * */
-	public HearthTreeNode minionDamagedEvent(
-			PlayerSide thisMinionPlayerSide,
-			PlayerSide damagedPlayerSide,
-			Minion damagedMinion,
-			HearthTreeNode boardState,
-			Deck deckPlayer0,
-			Deck deckPlayer1)
-		throws HSInvalidPlayerIndexException
-	{
-		return boardState;
-	}
-	
-	/**
-	 * 
-	 * Called whenever another minion dies
-	 * 
-	 *
-     * @param thisMinionPlayerSide
-     * @param deadMinionPlayerSide
-     * @param deadMinion The dead minion
-     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-     * @param deckPlayer0 The deck of player0    @return The boardState is manipulated and returned
-     * */
-	public HearthTreeNode minionDeadEvent(
-			PlayerSide thisMinionPlayerSide,
-			PlayerSide deadMinionPlayerSide,
-			Minion deadMinion,
-			HearthTreeNode boardState,
-			Deck deckPlayer0,
-			Deck deckPlayer1)
-		throws HSInvalidPlayerIndexException
-	{
-		return boardState;
-	}
-	
-	/**
-	 * 
-	 * Called whenever another character (including the hero) is healed
-	 * 
-	 *
-     * @param thisMinionPlayerSide
-     * @param healedMinionPlayerSide
-     * @param healedMinion The healed minion
-     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-     * @param deckPlayer0 The deck of player0    @return The boardState is manipulated and returned
-     * */
-	public HearthTreeNode minionHealedEvent(
-			PlayerSide thisMinionPlayerSide,
-			PlayerSide healedMinionPlayerSide,
-			Minion healedMinion,
-			HearthTreeNode boardState,
-			Deck deckPlayer0,
-			Deck deckPlayer1)
-		throws HSInvalidPlayerIndexException
-	{
-		return boardState;
-	}
-
-	
-	@Override
-	public JSONObject toJSON() {
-		JSONObject json = super.toJSON();
-		json.put("attack", attack_);
-		json.put("baseAttack", baseAttack_);
-		json.put("health", health_);
-		json.put("baseHealth", baseHealth_);
-		json.put("maxHealth", maxHealth_);
-		json.put("taunt", taunt_);
-		json.put("divineShield", divineShield_);
-		json.put("windFury", windFury_);
-		json.put("charge", charge_);
-		json.put("frozen", frozen_);
-		json.put("silenced", silenced_);
-		json.put("hasAttacked", hasAttacked_);
-		return json;
-	}
-	
-	/**
-	 * Deep copy of the object
-	 * 
-	 * Note: the event actions are not actually deep copied.
-	 */
-	@Override
-	public Object deepCopy() {
-
-        Minion minion = null;
-        try {
-            minion = getClass().newInstance();
-        } catch (InstantiationException e) {
-            log.error("instantiation error", e);
-        } catch (IllegalAccessException e) {
-            log.error("illegal access error", e);
-        }
-        if (minion == null) {
-            throw new RuntimeException("unable to instantiate minion.");
-        }
-
-
-        minion.name_ = name_;
-        minion.mana_ = mana_;
-        minion.attack_ = attack_;
-        minion.health_ = health_;
-        minion.baseAttack_ = baseAttack_;
-        minion.extraAttackUntilTurnEnd_ = extraAttackUntilTurnEnd_;
-        minion.auraAttack_ = auraAttack_;
-        minion.baseHealth_ = baseHealth_;
-        minion.maxHealth_ = maxHealth_;
-        minion.auraHealth_ = auraHealth_;
-        minion.spellDamage_ = spellDamage_;
-        minion.taunt_ = taunt_;
-        minion.divineShield_ = divineShield_;
-        minion.windFury_ = windFury_;
-        minion.charge_ = charge_;
-        minion.hasAttacked_ = hasAttacked_;
-        minion.hasWindFuryAttacked_ = hasWindFuryAttacked_;
-        minion.frozen_ = frozen_;
-        minion.silenced_ = silenced_;
-        minion.stealthed_ = stealthed_;
-        minion.heroTargetable_ = heroTargetable_;
-        minion.summoned_ = summoned_;
-        minion.transformed_ = transformed_;
-        minion.destroyOnTurnStart_ = destroyOnTurnStart_;
-        minion.destroyOnTurnEnd_ = destroyOnTurnEnd_;
-        minion.deathrattleAction_ = deathrattleAction_;
-        minion.attackAction_ = attackAction_;
-        minion.isInHand_ = isInHand_;
-        minion.hasBeenUsed = hasBeenUsed;
-        //todo: continue here.
-
-
-        return minion;
-    }
-
-    @Override
-	public boolean equals(Object other) {
-		if (!super.equals(other)) {
-			return false;
-		}
-		
-		Minion otherMinion = (Minion)other;
-		if (health_ != otherMinion.health_) return false;
-		if (maxHealth_ != otherMinion.maxHealth_) return false;
-		if (baseHealth_ != otherMinion.baseHealth_) return false;
-		if (auraHealth_ != otherMinion.auraHealth_) return false;
-
-		if (attack_ != otherMinion.attack_) return false;
-		if (baseAttack_ != otherMinion.baseAttack_) return false;
-		if (extraAttackUntilTurnEnd_ != otherMinion.extraAttackUntilTurnEnd_) return false;
-		if (auraAttack_ != otherMinion.auraAttack_) return false;
-
-		if (taunt_ != otherMinion.taunt_) return false;
-		if (divineShield_ != otherMinion.divineShield_) return false;
-		if (windFury_ != otherMinion.windFury_) return false;
-		if (charge_ != otherMinion.charge_) return false;
-		if (stealthed_ != otherMinion.stealthed_) return false;
-		if (hasAttacked_ != otherMinion.hasAttacked_) return false;
-		if (heroTargetable_ != otherMinion.heroTargetable_) return false;
-		if (hasWindFuryAttacked_ != otherMinion.hasWindFuryAttacked_) return false;
-		if (frozen_ != otherMinion.frozen_) return false;
-		if (silenced_ != otherMinion.silenced_) return false;
-		if (summoned_ != otherMinion.summoned_) return false;
-		if (transformed_ != otherMinion.transformed_) return false;
-		if (destroyOnTurnStart_ != otherMinion.destroyOnTurnStart_) return false;
-		if (destroyOnTurnEnd_ != otherMinion.destroyOnTurnEnd_) return false;
-		
-		if (spellDamage_ != otherMinion.spellDamage_) return false;
-
-		//This is checked for reference equality
-		if (deathrattleAction_ != ((Minion)other).deathrattleAction_)
-			return false;
-		
-		//This is checked for reference equality
-		if (attackAction_ != ((Minion)other).attackAction_)
-			return false;
-		
-		return true;
-	}
-
-    @Override
-    public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + (taunt_ ? 1 : 0);
-        result = 31 * result + (divineShield_ ? 1 : 0);
-        result = 31 * result + (windFury_ ? 1 : 0);
-        result = 31 * result + (charge_ ? 1 : 0);
-        result = 31 * result + (hasAttacked_ ? 1 : 0);
-        result = 31 * result + (hasWindFuryAttacked_ ? 1 : 0);
-        result = 31 * result + (frozen_ ? 1 : 0);
-        result = 31 * result + (silenced_ ? 1 : 0);
-        result = 31 * result + (stealthed_ ? 1 : 0);
-        result = 31 * result + (heroTargetable_ ? 1 : 0);
-        result = 31 * result + (int) health_;
-        result = 31 * result + (int) maxHealth_;
-        result = 31 * result + (int) baseHealth_;
-        result = 31 * result + (int) auraHealth_;
-        result = 31 * result + (int) attack_;
-        result = 31 * result + (int) baseAttack_;
-        result = 31 * result + (int) extraAttackUntilTurnEnd_;
-        result = 31 * result + (int) auraAttack_;
-        result = 31 * result + (summoned_ ? 1 : 0);
-        result = 31 * result + (transformed_ ? 1 : 0);
-        result = 31 * result + (destroyOnTurnStart_ ? 1 : 0);
-        result = 31 * result + (destroyOnTurnEnd_ ? 1 : 0);
-        result = 31 * result + (int) spellDamage_;
-        result = 31 * result + (deathrattleAction_ != null ? deathrattleAction_.hashCode() : 0);
-        result = 31 * result + (attackAction_ != null ? attackAction_.hashCode() : 0);
-        result = 31 * result + (placementImportant_ ? 1 : 0);
-        return result;
-    }
-
-    public boolean currentPlayerBoardFull(HearthTreeNode boardState) {
-        return PlayerSide.CURRENT_PLAYER.getPlayer(boardState).getNumMinions() >= 7;
-    }
-    
-    
     
 }

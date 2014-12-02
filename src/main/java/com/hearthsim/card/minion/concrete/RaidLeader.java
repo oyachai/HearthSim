@@ -70,7 +70,7 @@ public class RaidLeader extends Minion {
      * @param deckPlayer1
      * @throws HSInvalidPlayerIndexException
 	 */
-	@Override
+	
 	public void silenced(PlayerSide thisPlayerSide, BoardModel boardState) throws HSInvalidPlayerIndexException {
 		for (Minion minion : boardState.getMinions(thisPlayerSide)) {
 			if (minion != this) {

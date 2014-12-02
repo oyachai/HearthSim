@@ -23,7 +23,7 @@ public class DefenderOfArgus extends Minion {
         transformed_ = TRANSFORMED;
 	}
 	
-	@Override
+	
 	public EnumSet<BattlecryTargetType> getBattlecryTargets() {
 		return EnumSet.of(BattlecryTargetType.NO_TARGET);
 	}
@@ -31,7 +31,7 @@ public class DefenderOfArgus extends Minion {
 	/**
 	 * Battlecry: Give adjacent minions +1/+1 and Taunt
 	 */
-	@Override
+	
 	public HearthTreeNode useUntargetableBattlecry_core(
 			Minion minionPlacementTarget,
 			HearthTreeNode boardState,

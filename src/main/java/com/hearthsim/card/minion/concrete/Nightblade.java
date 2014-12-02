@@ -37,7 +37,7 @@ public class Nightblade extends Minion {
      * @param deckPlayer0 The deck of player0
      * @return The boardState is manipulated and returned
 	 */
-	@Override
+	
 	public HearthTreeNode useOn(
 			PlayerSide side,
 			Minion targetMinion,

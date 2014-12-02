@@ -24,7 +24,7 @@ public class ColdlightSeer extends Murloc {
         transformed_ = TRANSFORMED;
 	}
 	
-	@Override
+	
 	public EnumSet<BattlecryTargetType> getBattlecryTargets() {
 		return EnumSet.of(BattlecryTargetType.NO_TARGET);
 	}
@@ -32,7 +32,7 @@ public class ColdlightSeer extends Murloc {
 	/**
 	 * Battlecry: Swap the Attack and Health of a minion
 	 */
-	@Override
+	
 	public HearthTreeNode useUntargetableBattlecry_core(
 			Minion minionPlacementTarget,
 			HearthTreeNode boardState,

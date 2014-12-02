@@ -32,7 +32,7 @@ public class AcolyteOfPain extends Minion {
      * @param boardState
      * @param isSpellDamage True if this is a spell damage   @throws HSException
      * */
-	@Override
+	
 	public HearthTreeNode takeDamage(
 			byte damage,
 			PlayerSide attackPlayerSide,

@@ -24,7 +24,7 @@ public class ShatteredSunCleric extends Minion {
         transformed_ = TRANSFORMED;
 	}
 	
-	@Override
+	
 	public EnumSet<BattlecryTargetType> getBattlecryTargets() {
 		return EnumSet.of(BattlecryTargetType.FRIENDLY_MINIONS);
 	}
@@ -32,7 +32,7 @@ public class ShatteredSunCleric extends Minion {
 	/**
 	 * Battlecry: Give a friendly minion +1/+1
 	 */
-	@Override
+	
 	public HearthTreeNode useTargetableBattlecry_core(
 			PlayerSide side,
 			Minion targetMinion,

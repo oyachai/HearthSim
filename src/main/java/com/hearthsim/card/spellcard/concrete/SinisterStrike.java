@@ -17,7 +17,7 @@ public class SinisterStrike extends SpellDamage {
 		super((byte)1, (byte)3, hasBeenUsed);
 	}
 
-	@Override
+	
 	public Object deepCopy() {
 		return new 	SinisterStrike(this.hasBeenUsed);
 	}
@@ -35,7 +35,7 @@ public class SinisterStrike extends SpellDamage {
      *
      * @return The boardState is manipulated and returned
 	 */
-	@Override
+	
 	protected HearthTreeNode use_core(
 			PlayerSide side,
 			Minion targetMinion,

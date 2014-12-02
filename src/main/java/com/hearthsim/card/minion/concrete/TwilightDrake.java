@@ -24,7 +24,7 @@ public class TwilightDrake extends Dragon {
         transformed_ = TRANSFORMED;
 	}
 	
-	@Override
+	
 	public EnumSet<BattlecryTargetType> getBattlecryTargets() {
 		return EnumSet.of(BattlecryTargetType.NO_TARGET);
 	}
@@ -32,7 +32,7 @@ public class TwilightDrake extends Dragon {
 	/**
 	 * Battlecry: Gain +1 Health for each card in your hand.
 	 */
-	@Override
+	
 	public HearthTreeNode useUntargetableBattlecry_core(
 			Minion minionPlacementTarget,
 			HearthTreeNode boardState,

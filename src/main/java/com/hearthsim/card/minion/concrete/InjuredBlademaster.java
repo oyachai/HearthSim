@@ -23,7 +23,7 @@ public class InjuredBlademaster extends Minion {
         transformed_ = TRANSFORMED;
 	}
 	
-	@Override
+	
 	public EnumSet<BattlecryTargetType> getBattlecryTargets() {
 		return EnumSet.of(BattlecryTargetType.NO_TARGET);
 	}
@@ -31,7 +31,7 @@ public class InjuredBlademaster extends Minion {
 	/**
 	 * Battlecry: Deal 4 damage to himself
 	 */
-	@Override
+	
 	public HearthTreeNode useUntargetableBattlecry_core(
 			Minion minionPlacementTarget,
 			HearthTreeNode boardState,

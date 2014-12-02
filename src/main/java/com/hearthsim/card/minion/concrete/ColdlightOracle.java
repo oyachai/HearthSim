@@ -25,7 +25,7 @@ public class ColdlightOracle extends Murloc {
         transformed_ = TRANSFORMED;
 	}
 	
-	@Override
+	
 	public EnumSet<BattlecryTargetType> getBattlecryTargets() {
 		return EnumSet.of(BattlecryTargetType.NO_TARGET);
 	}
@@ -33,7 +33,7 @@ public class ColdlightOracle extends Murloc {
 	/**
 	 * Battlecry: All minions lose Divine Shield.  Gain +3/+3 for each Shield lost
 	 */
-	@Override
+	
 	public HearthTreeNode useUntargetableBattlecry_core(
 			Minion minionPlacementTarget,
 			HearthTreeNode boardState,

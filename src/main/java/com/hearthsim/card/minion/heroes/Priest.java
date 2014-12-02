@@ -35,7 +35,7 @@ public class Priest extends Hero {
 		super(name, attack, extraAttackUntilTurnEnd, health, armor, weaponCharge, windFury, hasAttacked, hasWindFuryAttacked, frozen, hasBeenUsed);
 	}
 	
-	@Override
+	
 	public DeepCopyable deepCopy() {
 		return new Priest(
 				this.name_, 
@@ -52,7 +52,7 @@ public class Priest extends Hero {
 				);
 	}
 
-	@Override
+	
     public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
 		return super.canBeUsedOn(playerSide, minion, boardModel) && minion.getTotalHealth() < minion.getTotalMaxHealth();
     }
@@ -68,7 +68,7 @@ public class Priest extends Hero {
      * @param boardState
      * @return
 	 */
-	@Override
+	
 	public HearthTreeNode useHeroAbility_core(
 			PlayerSide targetPlayerSide,
 			Minion targetMinion,

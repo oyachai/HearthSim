@@ -18,7 +18,7 @@ public class HammerOfWrath extends SpellDamage {
 		super((byte)4, (byte)3, hasBeenUsed);
 	}
 
-	@Override
+	
 	public Object deepCopy() {
 		return new HammerOfWrath(this.hasBeenUsed);
 	}
@@ -36,7 +36,7 @@ public class HammerOfWrath extends SpellDamage {
      *
      * @return The boardState is manipulated and returned
 	 */
-	@Override
+	
 	protected HearthTreeNode use_core(
 			PlayerSide side,
 			Minion targetMinion,

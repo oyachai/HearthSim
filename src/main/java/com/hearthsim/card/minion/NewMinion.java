@@ -1,69 +1,72 @@
-package com.hearthsim.entity;
-
-import java.util.EnumSet;
-import java.util.Iterator;
-
-import org.json.JSONObject;
+package com.hearthsim.card.minion;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.ImplementedCardList;
-import com.hearthsim.card.minion.Beast;
-import com.hearthsim.card.minion.Hero;
-import com.hearthsim.card.minion.Minion;
-import com.hearthsim.card.minion.Murloc;
-import com.hearthsim.card.minion.Minion.BattlecryTargetType;
+import com.hearthsim.entity.BaseEntity;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.factory.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
+import org.json.JSONObject;
 
-public abstract class BaseEntity extends Card implements DeepCopyable
-{
-	protected byte health_;
-	protected byte attack_;
-	
-	//Both hero and minion have this
-	protected boolean windFury_;
-	protected boolean hasAttacked_;
-	protected boolean hasWindFuryAttacked_;
-	protected boolean frozen_;
-	
-	//Might sort out minion/hero exclusive attributes if I have time
-	protected boolean taunt_;
-	protected boolean divineShield_;
-	protected boolean charge_;
-	
-	protected boolean silenced_;
-	protected boolean stealthed_;
-	protected boolean heroTargetable_;
-	
-	protected byte maxHealth_;
-	protected byte baseHealth_;
-	protected byte auraHealth_;
+import java.util.EnumSet;
+import java.util.Iterator;
 
-	protected byte baseAttack_;
-	protected byte extraAttackUntilTurnEnd_;
-	protected byte auraAttack_;
-	
-	protected boolean summoned_;
-	protected boolean transformed_;
-	
-	protected boolean destroyOnTurnStart_;
-	protected boolean destroyOnTurnEnd_;
+public class NewMinion extends BaseEntity {
 
-	protected byte spellDamage_;
-
-	protected DeathrattleAction deathrattleAction_;
-	protected AttackAction attackAction_;
+	public enum BattlecryTargetType {
+		NO_BATTLECRY,
+		NO_TARGET,
+		FRIENDLY_HERO, ENEMY_HERO,
+    	FRIENDLY_MINIONS, ENEMY_MINIONS,
+    	FRIENDLY_BEASTS, ENEMY_BEASTS,
+    	FRIENDLY_MURLOCS, ENEMY_MURLOCS
+    }
+	
+	//This is a flag to tell the BoardState that it can't cheat on the placement of this minion
 	protected boolean placementImportant_ = false;
-	
-	public BaseEntity(String name, byte mana, byte attack, byte health, byte baseAttack, byte baseHealth, byte maxHealth) {
+
+    public NewMinion() {
+        super();
+        ImplementedCardList cardList = ImplementedCardList.getInstance();
+        ImplementedCardList.ImplementedCard implementedCard = cardList.getCardForClass(this.getClass());
+        if (implementedCard!=null){
+            // only 'Minion' class is not implemented
+            mana_ = (byte) implementedCard.mana_;
+            name_ = implementedCard.name_;
+            //attack_ = (byte) implementedCard.attack_;
+            baseAttack_ = attack_;
+            //health_ = (byte) implementedCard.health_;
+            maxHealth_ = health_;
+            baseHealth_ = health_;
+            taunt_ = implementedCard.taunt_;
+            divineShield_ = implementedCard.divineShield_;
+            windFury_ = implementedCard.windfury_;
+            charge_ = implementedCard.charge_;
+            stealthed_ = implementedCard.stealth_;
+            isInHand_ = true;
+            //todo: spellpower could be deduced from text quite easily
+        }
+
+    }
+
+    /**
+	 * Simplified constructor
+	 * 
+	 * @param name
+	 * @param mana
+	 * @param attack
+	 * @param health
+	 * @param baseAttack
+	 * @param baseHealth
+	 * @param maxHealth
+	 */
+	public NewMinion(String name, byte mana, byte attack, byte health, byte baseAttack, byte baseHealth, byte maxHealth) {
 		this(
 				name,
 				mana,
@@ -94,9 +97,10 @@ public abstract class BaseEntity extends Card implements DeepCopyable
 				null,
 				true,
 				false);
+		
 	}
 
-	public BaseEntity(	String name,
+	public NewMinion(	String name,
 					byte mana,
 					byte attack,
 					byte health,
@@ -154,7 +158,7 @@ public abstract class BaseEntity extends Card implements DeepCopyable
 
 		stealthed_ = stealthed;
 		heroTargetable_ = heroTargetable;
-	}	
+	}
 	
 	public boolean getTaunt() {
 		return taunt_;
@@ -371,75 +375,8 @@ public abstract class BaseEntity extends Card implements DeepCopyable
 	public void setHeroTargetable(boolean value) {
 		heroTargetable_ = value;
 	}
-	
-	
-	// Empty placeholder constructor
-	public BaseEntity()
-	{
-        ImplementedCardList cardList = ImplementedCardList.getInstance();
-        ImplementedCardList.ImplementedCard implementedCard = cardList.getCardForClass(this.getClass());
-        if (implementedCard!=null)
-        {
-        	attack_ = (byte) implementedCard.attack_;
-        	health_ = (byte) implementedCard.health_;
-        }
-	}
-	
-	public BaseEntity(String name, byte mana, boolean hasBeenUsed, boolean isInHand)
-	{
-		super(name,mana,hasBeenUsed,isInHand);
-	}
 
-	public HearthTreeNode attack(
-			PlayerSide targetMinionPlayerSide,
-			BaseEntity targetMinion,
-			HearthTreeNode boardState,
-			Deck deckPlayer0,
-			Deck deckPlayer1)
-		throws HSException
-	{
-		
-		//can't attack a stealthed target
-		if (targetMinion.getStealthed())
-			return null;
-		
-		if (frozen_) {
-			this.hasAttacked_ = true;
-			this.frozen_ = false;
-			return boardState;
-		}
-		
-		//Notify all that an attack is beginning
-		HearthTreeNode toRet = boardState;
-		if (toRet != null) {
-			//Notify all that a minion is created
-			toRet = toRet.data_.getCurrentPlayerHero().minionAttackingEvent(toRet);
-            for (Minion entity : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
-                if (!entity.isSilenced())
-                    toRet = entity.minionAttackingEvent(toRet);
-            }
-			toRet = toRet.data_.getWaitingPlayerHero().minionAttackingEvent(toRet);
-            for (Minion entity : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
-                if (!entity.isSilenced())
-                    toRet = entity.minionAttackingEvent(toRet);
-            }
-		}
-		
-		//Do the actual attack
-		toRet = this.attack_core(targetMinionPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1);
-		
-		//check for and remove dead minions
-		if (toRet != null) {
-			toRet = BoardStateFactoryBase.handleDeadMinions(toRet, deckPlayer0, deckPlayer1);
-		}
-		
-		//Attacking means you lose stealth
-		if (toRet != null)
-			this.stealthed_ = false;
-		
-		return toRet;
-	}
-	
+
     /**
 	 * Called at the start of the turn
 	 * 
@@ -499,21 +436,22 @@ public abstract class BaseEntity extends Card implements DeepCopyable
 			boolean handleMinionDeath)
 		throws HSException
 	{
+		Minion m = new Minion();
 		if (!divineShield_) {
 			byte totalDamage = isSpellDamage ? (byte)(damage + boardState.data_.getSpellDamage(attackPlayerSide)) : damage;
 			health_ = (byte)(health_ - totalDamage);
 			
 			//Notify all that the minion is damaged
 			HearthTreeNode toRet = boardState;
-			toRet = toRet.data_.getCurrentPlayerHero().minionDamagedEvent(PlayerSide.CURRENT_PLAYER, thisPlayerSide, (Minion) this, toRet, deckPlayer0, deckPlayer1);
+			toRet = toRet.data_.getCurrentPlayerHero().minionDamagedEvent(PlayerSide.CURRENT_PLAYER, thisPlayerSide, this, toRet, deckPlayer0, deckPlayer1);
 			for (int j = 0; j < PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getNumMinions(); ++j) {
-				if (!PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions().get(j).isSilenced())
-					toRet = PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions().get(j).minionDamagedEvent(PlayerSide.CURRENT_PLAYER, thisPlayerSide, (Minion) this, toRet, deckPlayer0, deckPlayer1);
+				if (!PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions().get(j).silenced_)
+					toRet = PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions().get(j).minionDamagedEvent(PlayerSide.CURRENT_PLAYER, thisPlayerSide, this, toRet, deckPlayer0, deckPlayer1);
 			}
-			toRet = toRet.data_.getWaitingPlayerHero().minionDamagedEvent(PlayerSide.WAITING_PLAYER, thisPlayerSide, (Minion) this, toRet, deckPlayer0, deckPlayer1);
+			toRet = toRet.data_.getWaitingPlayerHero().minionDamagedEvent(PlayerSide.WAITING_PLAYER, thisPlayerSide, this, toRet, deckPlayer0, deckPlayer1);
 			for (int j = 0; j < PlayerSide.WAITING_PLAYER.getPlayer(toRet).getNumMinions(); ++j) {
-				if (!PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions().get(j).isSilenced())
-					toRet = PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions().get(j).minionDamagedEvent(PlayerSide.WAITING_PLAYER, thisPlayerSide, (Minion) this, toRet, deckPlayer0, deckPlayer1);
+				if (!PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions().get(j).silenced_)
+					toRet = PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions().get(j).minionDamagedEvent(PlayerSide.WAITING_PLAYER, thisPlayerSide, this, toRet, deckPlayer0, deckPlayer1);
 			}
 			
 			return toRet;
@@ -545,19 +483,19 @@ public abstract class BaseEntity extends Card implements DeepCopyable
 
         //perform the deathrattle action if there is one
         if (deathrattleAction_ != null) {
-            toRet =  deathrattleAction_.performAction((Minion) this, thisPlayerSide, toRet, deckPlayer0, deckPlayer1);
+            toRet =  deathrattleAction_.performAction(this, thisPlayerSide, toRet, deckPlayer0, deckPlayer1);
         }
 
         //Notify all that it is dead
-        toRet = toRet.data_.getCurrentPlayerHero().minionDeadEvent(PlayerSide.CURRENT_PLAYER, thisPlayerSide, (Minion) this, toRet, deckPlayer0, deckPlayer1);
+        toRet = toRet.data_.getCurrentPlayerHero().minionDeadEvent(PlayerSide.CURRENT_PLAYER, thisPlayerSide, this, toRet, deckPlayer0, deckPlayer1);
         for (int j = 0; j < PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getNumMinions(); ++j) {
-            if (!PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions().get(j).isSilenced())
-                toRet = PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions().get(j).minionDeadEvent(PlayerSide.CURRENT_PLAYER, thisPlayerSide, (Minion) this, toRet, deckPlayer0, deckPlayer1);
+            if (!PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions().get(j).silenced_)
+                toRet = PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions().get(j).minionDeadEvent(PlayerSide.CURRENT_PLAYER, thisPlayerSide, this, toRet, deckPlayer0, deckPlayer1);
         }
-        toRet = toRet.data_.getWaitingPlayerHero().minionDeadEvent(PlayerSide.WAITING_PLAYER, thisPlayerSide, (Minion) this, toRet, deckPlayer0, deckPlayer1);
+        toRet = toRet.data_.getWaitingPlayerHero().minionDeadEvent(PlayerSide.WAITING_PLAYER, thisPlayerSide, this, toRet, deckPlayer0, deckPlayer1);
         for (int j = 0; j < PlayerSide.WAITING_PLAYER.getPlayer(toRet).getNumMinions(); ++j) {
-            if (!PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions().get(j).isSilenced())
-                toRet = PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions().get(j).minionDeadEvent(PlayerSide.WAITING_PLAYER, thisPlayerSide, (Minion) this, toRet, deckPlayer0, deckPlayer1);
+            if (!PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions().get(j).silenced_)
+                toRet = PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions().get(j).minionDeadEvent(PlayerSide.WAITING_PLAYER, thisPlayerSide, this, toRet, deckPlayer0, deckPlayer1);
         }
 
         return toRet;
@@ -621,15 +559,15 @@ public abstract class BaseEntity extends Card implements DeepCopyable
 			
 			//Notify all that it the minion is healed
 			HearthTreeNode toRet = boardState;
-			toRet = toRet.data_.getCurrentPlayerHero().minionHealedEvent(PlayerSide.CURRENT_PLAYER, thisPlayerSide, (Minion) this, toRet, deckPlayer0, deckPlayer1);
+			toRet = toRet.data_.getCurrentPlayerHero().minionHealedEvent(PlayerSide.CURRENT_PLAYER, thisPlayerSide, this, toRet, deckPlayer0, deckPlayer1);
             for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
-                if (!minion.isSilenced())
-                    toRet = minion.minionHealedEvent(PlayerSide.CURRENT_PLAYER, thisPlayerSide, (Minion) this, toRet, deckPlayer0, deckPlayer1);
+                if (!minion.silenced_)
+                    toRet = minion.minionHealedEvent(PlayerSide.CURRENT_PLAYER, thisPlayerSide, this, toRet, deckPlayer0, deckPlayer1);
             }
-			toRet = toRet.data_.getWaitingPlayerHero().minionHealedEvent(PlayerSide.WAITING_PLAYER, thisPlayerSide, (Minion) this, toRet, deckPlayer0, deckPlayer1);
+			toRet = toRet.data_.getWaitingPlayerHero().minionHealedEvent(PlayerSide.WAITING_PLAYER, thisPlayerSide, this, toRet, deckPlayer0, deckPlayer1);
             for (Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
-                if (!minion.isSilenced())
-                    toRet = minion.minionHealedEvent(PlayerSide.WAITING_PLAYER, thisPlayerSide, (Minion) this, toRet, deckPlayer0, deckPlayer1);
+                if (!minion.silenced_)
+                    toRet = minion.minionHealedEvent(PlayerSide.WAITING_PLAYER, thisPlayerSide, this, toRet, deckPlayer0, deckPlayer1);
             }
 			return toRet;
 		}
@@ -655,7 +593,7 @@ public abstract class BaseEntity extends Card implements DeepCopyable
 	 */
 	public HearthTreeNode useTargetableBattlecry(
 			PlayerSide side,
-			BaseEntity targetMinion,
+			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1
@@ -692,7 +630,7 @@ public abstract class BaseEntity extends Card implements DeepCopyable
 	 */
 	public HearthTreeNode useTargetableBattlecry_core(
 			PlayerSide side,
-			BaseEntity targetMinion,
+			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1
@@ -701,9 +639,9 @@ public abstract class BaseEntity extends Card implements DeepCopyable
 		return null;
 	}
 	
-/*	public EnumSet<BattlecryTargetType> getBattlecryTargets() {
+	public EnumSet<BattlecryTargetType> getBattlecryTargets() {
 		return EnumSet.of(BattlecryTargetType.NO_BATTLECRY);
-	}*/
+	}
 	
 	
 	/**
@@ -756,100 +694,100 @@ public abstract class BaseEntity extends Card implements DeepCopyable
      * @return The boardState is manipulated and returned
 	 * @throws HSException 
 	 */
-//	@Override
-//	protected HearthTreeNode use_core(
-//			PlayerSide side,
-//			Minion targetMinion,
-//			HearthTreeNode boardState,
-//			Deck deckPlayer0,
-//			Deck deckPlayer1,
-//			boolean singleRealizationOnly)
-//		throws HSException
-//	{
-//		if (hasBeenUsed) {
-//			//Card is already used, nothing to do
-//			return null;
-//		}
-//		
-//		if (side == PlayerSide.WAITING_PLAYER)
-//			return null;
-//		
-//		HearthTreeNode toRet = this.summonMinion(side, targetMinion, boardState, deckPlayer0, deckPlayer1, false);
-//		if (toRet != null) { //summon succeeded, now let's use up our mana
-//			toRet.data_.getCurrentPlayer().subtractMana(this.mana_);
-//			toRet.data_.removeCard_hand(this);
-//
-//			//Battlecry if available
-//			for (BattlecryTargetType btt : this.getBattlecryTargets()) {
-//				switch  (btt) {
-//				case NO_TARGET:
-//					toRet = this.useUntargetableBattlecry(targetMinion, toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
-//					break;
-//				case ENEMY_HERO:
-//					toRet = this.useTargetableBattlecry(PlayerSide.WAITING_PLAYER, PlayerSide.WAITING_PLAYER.getPlayer(toRet).getHero(), toRet, deckPlayer0, deckPlayer1);
-//					break;
-//				case FRIENDLY_HERO:
-//					toRet = this.useTargetableBattlecry(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getHero(), toRet, deckPlayer0, deckPlayer1);
-//					break;
-//				case ENEMY_MINIONS:
-//					for (Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
-//						toRet = this.useTargetableBattlecry(PlayerSide.WAITING_PLAYER, minion, toRet, deckPlayer0, deckPlayer1);
-//					}
-//					break;
-//				case FRIENDLY_MINIONS:
-//					for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
-//						if (minion != this)
-//							toRet = this.useTargetableBattlecry(PlayerSide.CURRENT_PLAYER, minion, toRet, deckPlayer0, deckPlayer1);
-//					}
-//					break;
-//				case ENEMY_BEASTS:
-//					for (Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
-//						if (minion instanceof Beast)
-//							toRet = this.useTargetableBattlecry(PlayerSide.WAITING_PLAYER, minion, toRet, deckPlayer0, deckPlayer1);
-//					}
-//					break;
-//				case FRIENDLY_BEASTS:
-//					for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
-//						if (minion != this && minion instanceof Beast)
-//							toRet = this.useTargetableBattlecry(PlayerSide.CURRENT_PLAYER, minion, toRet, deckPlayer0, deckPlayer1);
-//					}
-//					break;
-//				case ENEMY_MURLOCS:
-//					for (Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
-//						if (minion instanceof Murloc)
-//							toRet = this.useTargetableBattlecry(PlayerSide.WAITING_PLAYER, minion, toRet, deckPlayer0, deckPlayer1);
-//					}
-//					break;
-//				case FRIENDLY_MURLOCS:
-//					for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
-//						if (minion != this && minion instanceof Murloc)
-//							toRet = this.useTargetableBattlecry(PlayerSide.CURRENT_PLAYER, minion, toRet, deckPlayer0, deckPlayer1);
-//					}
-//					break;
-//				default:
-//					break;
-//				}
-//			}
-//			
-//			
-//			//Notify all that a minion is placed
-//			toRet = toRet.data_.getCurrentPlayerHero().minionPlacedEvent(toRet);
-//			for (Iterator<Minion> iter = toRet.data_.getCurrentPlayer().getMinions().iterator(); iter.hasNext();) {
-//				Minion minion = iter.next();
-//				if (!minion.silenced_)
-//					toRet = minion.minionPlacedEvent(toRet);
-//			}
-//			toRet = toRet.data_.getWaitingPlayerHero().minionPlacedEvent(toRet);
-//			for (Iterator<Minion> iter = toRet.data_.getWaitingPlayer().getMinions().iterator(); iter.hasNext();) {
-//				Minion minion = iter.next();
-//				if (!minion.silenced_)
-//					toRet = minion.minionPlacedEvent(toRet);
-//			}
-//		
-//		}
-//		
-//		return toRet;
-//	}
+	
+	protected HearthTreeNode use_core(
+			PlayerSide side,
+			BaseEntity targetMinion,
+			HearthTreeNode boardState,
+			Deck deckPlayer0,
+			Deck deckPlayer1,
+			boolean singleRealizationOnly)
+		throws HSException
+	{
+		if (hasBeenUsed) {
+			//Card is already used, nothing to do
+			return null;
+		}
+		
+		if (side == PlayerSide.WAITING_PLAYER)
+			return null;
+		
+		HearthTreeNode toRet = this.summonMinion(side, targetMinion, boardState, deckPlayer0, deckPlayer1, false);
+		if (toRet != null) { //summon succeeded, now let's use up our mana
+			toRet.data_.getCurrentPlayer().subtractMana(this.mana_);
+			toRet.data_.removeCard_hand(this);
+
+			//Battlecry if available
+			for (BattlecryTargetType btt : this.getBattlecryTargets()) {
+				switch  (btt) {
+				case NO_TARGET:
+					toRet = this.useUntargetableBattlecry(targetMinion, toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
+					break;
+				case ENEMY_HERO:
+					toRet = this.useTargetableBattlecry(PlayerSide.WAITING_PLAYER, PlayerSide.WAITING_PLAYER.getPlayer(toRet).getHero(), toRet, deckPlayer0, deckPlayer1);
+					break;
+				case FRIENDLY_HERO:
+					toRet = this.useTargetableBattlecry(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getHero(), toRet, deckPlayer0, deckPlayer1);
+					break;
+				case ENEMY_MINIONS:
+					for (Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
+						toRet = this.useTargetableBattlecry(PlayerSide.WAITING_PLAYER, minion, toRet, deckPlayer0, deckPlayer1);
+					}
+					break;
+				case FRIENDLY_MINIONS:
+					for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
+						if (minion != this)
+							toRet = this.useTargetableBattlecry(PlayerSide.CURRENT_PLAYER, minion, toRet, deckPlayer0, deckPlayer1);
+					}
+					break;
+				case ENEMY_BEASTS:
+					for (Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
+						if (minion instanceof Beast)
+							toRet = this.useTargetableBattlecry(PlayerSide.WAITING_PLAYER, minion, toRet, deckPlayer0, deckPlayer1);
+					}
+					break;
+				case FRIENDLY_BEASTS:
+					for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
+						if (minion != this && minion instanceof Beast)
+							toRet = this.useTargetableBattlecry(PlayerSide.CURRENT_PLAYER, minion, toRet, deckPlayer0, deckPlayer1);
+					}
+					break;
+				case ENEMY_MURLOCS:
+					for (Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
+						if (minion instanceof Murloc)
+							toRet = this.useTargetableBattlecry(PlayerSide.WAITING_PLAYER, minion, toRet, deckPlayer0, deckPlayer1);
+					}
+					break;
+				case FRIENDLY_MURLOCS:
+					for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
+						if (minion != this && minion instanceof Murloc)
+							toRet = this.useTargetableBattlecry(PlayerSide.CURRENT_PLAYER, minion, toRet, deckPlayer0, deckPlayer1);
+					}
+					break;
+				default:
+					break;
+				}
+			}
+			
+			
+			//Notify all that a minion is placed
+			toRet = toRet.data_.getCurrentPlayerHero().minionPlacedEvent(toRet);
+			for (Iterator<Minion> iter = toRet.data_.getCurrentPlayer().getMinions().iterator(); iter.hasNext();) {
+				Minion minion = iter.next();
+				if (!minion.silenced_)
+					toRet = minion.minionPlacedEvent(toRet);
+			}
+			toRet = toRet.data_.getWaitingPlayerHero().minionPlacedEvent(toRet);
+			for (Iterator<Minion> iter = toRet.data_.getWaitingPlayer().getMinions().iterator(); iter.hasNext();) {
+				Minion minion = iter.next();
+				if (!minion.silenced_)
+					toRet = minion.minionPlacedEvent(toRet);
+			}
+		
+		}
+		
+		return toRet;
+	}
 	
 	
 	
@@ -869,7 +807,7 @@ public abstract class BaseEntity extends Card implements DeepCopyable
      *
      * @return The boardState is manipulated and returned
 	 */
-/*	public HearthTreeNode summonMinion(
+	public HearthTreeNode summonMinion(
             PlayerSide targetSide,
             Minion targetMinion,
             HearthTreeNode boardState,
@@ -911,7 +849,7 @@ public abstract class BaseEntity extends Card implements DeepCopyable
 		}
 		
 		return toRet;
-	}*/
+	}
 	
 	/**
 	 * 
@@ -928,7 +866,7 @@ public abstract class BaseEntity extends Card implements DeepCopyable
      * @param deckPlayer1 The deck of player1
 	 * @throws HSException 
 	 */
-/*	protected HearthTreeNode summonMinion_core(
+	protected HearthTreeNode summonMinion_core(
             PlayerSide targetSide,
 			Minion targetMinion,
 			HearthTreeNode boardState,
@@ -937,6 +875,7 @@ public abstract class BaseEntity extends Card implements DeepCopyable
 			)
 		throws HSException
 	{		
+		
 		if (boardState.data_.modelForSide(targetSide).getNumMinions() < 7) {
 
 			if (!charge_) {
@@ -953,7 +892,7 @@ public abstract class BaseEntity extends Card implements DeepCopyable
 			return null;
 		}
 
-	}*/
+	}
 	/**
 	 * 
 	 * Attack with the minion
@@ -991,12 +930,12 @@ public abstract class BaseEntity extends Card implements DeepCopyable
 			//Notify all that a minion is created
 			toRet = toRet.data_.getCurrentPlayerHero().minionAttackingEvent(toRet);
             for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
-                if (!minion.isSilenced())
+                if (!minion.silenced_)
                     toRet = minion.minionAttackingEvent(toRet);
             }
 			toRet = toRet.data_.getWaitingPlayerHero().minionAttackingEvent(toRet);
             for (Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
-                if (!minion.isSilenced())
+                if (!minion.silenced_)
                     toRet = minion.minionAttackingEvent(toRet);
             }
 		}
@@ -1030,7 +969,7 @@ public abstract class BaseEntity extends Card implements DeepCopyable
 	 */
 	protected HearthTreeNode attack_core(
 			PlayerSide targetMinionPlayerSide,
-			BaseEntity targetMinion,
+			Minion targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
@@ -1072,300 +1011,6 @@ public abstract class BaseEntity extends Card implements DeepCopyable
 	// Hooks for various events
 	//======================================================================================	
 
-	/**
-	 * 
-	 * Called whenever another minion comes on board
-	 *  @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-     *
-     * */
-	public HearthTreeNode minionPlacedEvent(
-            HearthTreeNode boardState)
-		throws HSInvalidPlayerIndexException
-	{
-		return boardState;
-	}
 
-
-	/**
-	 * 
-	 * Called whenever another minion is summoned using a spell
-	 * 
-	 *
-     * @param thisMinionPlayerSide
-     * @param summonedMinionPlayerSide
-     * @param summonedMinion The summoned minion
-     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-     * @param deckPlayer0 The deck of player0    @return The boardState is manipulated and returned
-     * */
-	public HearthTreeNode minionSummonedEvent(
-			PlayerSide thisMinionPlayerSide,
-			PlayerSide summonedMinionPlayerSide,
-			Minion summonedMinion,
-			HearthTreeNode boardState,
-			Deck deckPlayer0,
-			Deck deckPlayer1)
-		throws HSInvalidPlayerIndexException
-	{
-		return boardState;
-	}
-	
-	/**
-	 * 
-	 * Called whenever another minion is summoned using a spell
-	 *  @param thisMinionPlayerSide The player index of this minion
-	 * @param transformedMinionPlayerSide
-     * @param transformedMinion The transformed minion (the minion that resulted from a transformation)
-     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-     * @param deckPlayer0 The deck of player0    @return The boardState is manipulated and returned
-     * */
-	public HearthTreeNode minionTransformedEvent(
-			PlayerSide thisMinionPlayerSide,
-			PlayerSide transformedMinionPlayerSide,
-			Minion transformedMinion,
-			HearthTreeNode boardState,
-			Deck deckPlayer0,
-			Deck deckPlayer1)
-		throws HSInvalidPlayerIndexException
-	{
-		return boardState;
-	}
-
-	/**
-	 * 
-	 * Called whenever another minion is attacking another character
-	 * 
-	 *  @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-     *
-     * */
-	public HearthTreeNode minionAttackingEvent(
-            HearthTreeNode boardState)
-		throws HSInvalidPlayerIndexException
-	{
-		return boardState;
-	}
-	
-	/**
-	 * 
-	 * Called whenever another minion is damaged
-	 * 
-	 *
-     * @param thisMinionPlayerSide
-     * @param damagedPlayerSide
-     * @param damagedMinion The damaged minion
-     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-     * @param deckPlayer0 The deck of player0    @return The boardState is manipulated and returned
-     * */
-	public HearthTreeNode minionDamagedEvent(
-			PlayerSide thisMinionPlayerSide,
-			PlayerSide damagedPlayerSide,
-			Minion damagedMinion,
-			HearthTreeNode boardState,
-			Deck deckPlayer0,
-			Deck deckPlayer1)
-		throws HSInvalidPlayerIndexException
-	{
-		return boardState;
-	}
-	
-	/**
-	 * 
-	 * Called whenever another minion dies
-	 * 
-	 *
-     * @param thisMinionPlayerSide
-     * @param deadMinionPlayerSide
-     * @param deadMinion The dead minion
-     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-     * @param deckPlayer0 The deck of player0    @return The boardState is manipulated and returned
-     * */
-	public HearthTreeNode minionDeadEvent(
-			PlayerSide thisMinionPlayerSide,
-			PlayerSide deadMinionPlayerSide,
-			Minion deadMinion,
-			HearthTreeNode boardState,
-			Deck deckPlayer0,
-			Deck deckPlayer1)
-		throws HSInvalidPlayerIndexException
-	{
-		return boardState;
-	}
-	
-	/**
-	 * 
-	 * Called whenever another character (including the hero) is healed
-	 * 
-	 *
-     * @param thisMinionPlayerSide
-     * @param healedMinionPlayerSide
-     * @param healedMinion The healed minion
-     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-     * @param deckPlayer0 The deck of player0    @return The boardState is manipulated and returned
-     * */
-	public HearthTreeNode minionHealedEvent(
-			PlayerSide thisMinionPlayerSide,
-			PlayerSide healedMinionPlayerSide,
-			Minion healedMinion,
-			HearthTreeNode boardState,
-			Deck deckPlayer0,
-			Deck deckPlayer1)
-		throws HSInvalidPlayerIndexException
-	{
-		return boardState;
-	}
-
-	
-	@Override
-	public JSONObject toJSON() {
-		JSONObject json = super.toJSON();
-		json.put("attack", attack_);
-		json.put("baseAttack", baseAttack_);
-		json.put("health", health_);
-		json.put("baseHealth", baseHealth_);
-		json.put("maxHealth", maxHealth_);
-		json.put("taunt", taunt_);
-		json.put("divineShield", divineShield_);
-		json.put("windFury", windFury_);
-		json.put("charge", charge_);
-		json.put("frozen", frozen_);
-		json.put("silenced", silenced_);
-		json.put("hasAttacked", hasAttacked_);
-		return json;
-	}
-	
-	/**
-	 * Deep copy of the object
-	 * 
-	 * Note: the event actions are not actually deep copied.
-	 */
-	@Override
-	public Object deepCopy() {
-
-        BaseEntity baseEntity = null;
-        try {
-        	baseEntity = getClass().newInstance();
-        } catch (InstantiationException e) {
-            log.error("instantiation error", e);
-        } catch (IllegalAccessException e) {
-            log.error("illegal access error", e);
-        }
-        if (baseEntity == null) {
-            throw new RuntimeException("unable to instantiate minion.");
-        }
-
-
-        baseEntity.name_ = name_;
-        baseEntity.mana_ = mana_;
-        baseEntity.attack_ = attack_;
-        baseEntity.health_ = health_;
-        baseEntity.baseAttack_ = baseAttack_;
-        baseEntity.extraAttackUntilTurnEnd_ = extraAttackUntilTurnEnd_;
-        baseEntity.auraAttack_ = auraAttack_;
-        baseEntity.baseHealth_ = baseHealth_;
-        baseEntity.maxHealth_ = maxHealth_;
-        baseEntity.auraHealth_ = auraHealth_;
-        baseEntity.spellDamage_ = spellDamage_;
-        baseEntity.taunt_ = taunt_;
-        baseEntity.divineShield_ = divineShield_;
-        baseEntity.windFury_ = windFury_;
-        baseEntity.charge_ = charge_;
-        baseEntity.hasAttacked_ = hasAttacked_;
-        baseEntity.hasWindFuryAttacked_ = hasWindFuryAttacked_;
-        baseEntity.frozen_ = frozen_;
-        baseEntity.silenced_ = silenced_;
-        baseEntity.stealthed_ = stealthed_;
-        baseEntity.heroTargetable_ = heroTargetable_;
-        baseEntity.summoned_ = summoned_;
-        baseEntity.transformed_ = transformed_;
-        baseEntity.destroyOnTurnStart_ = destroyOnTurnStart_;
-        baseEntity.destroyOnTurnEnd_ = destroyOnTurnEnd_;
-        baseEntity.deathrattleAction_ = deathrattleAction_;
-        baseEntity.attackAction_ = attackAction_;
-        baseEntity.isInHand_ = isInHand_;
-        baseEntity.hasBeenUsed = hasBeenUsed;
-        //to do: continue here.
-
-
-        return baseEntity;
-    }
-
-    @Override
-	public boolean equals(Object other) {
-		if (!super.equals(other)) {
-			return false;
-		}
-		
-		BaseEntity otherEntity = (BaseEntity)other;
-		if (health_ != otherEntity.health_) return false;
-		if (maxHealth_ != otherEntity.maxHealth_) return false;
-		if (baseHealth_ != otherEntity.baseHealth_) return false;
-		if (auraHealth_ != otherEntity.auraHealth_) return false;
-
-		if (attack_ != otherEntity.attack_) return false;
-		if (baseAttack_ != otherEntity.baseAttack_) return false;
-		if (extraAttackUntilTurnEnd_ != otherEntity.extraAttackUntilTurnEnd_) return false;
-		if (auraAttack_ != otherEntity.auraAttack_) return false;
-
-		if (taunt_ != otherEntity.taunt_) return false;
-		if (divineShield_ != otherEntity.divineShield_) return false;
-		if (windFury_ != otherEntity.windFury_) return false;
-		if (charge_ != otherEntity.charge_) return false;
-		if (stealthed_ != otherEntity.stealthed_) return false;
-		if (hasAttacked_ != otherEntity.hasAttacked_) return false;
-		if (heroTargetable_ != otherEntity.heroTargetable_) return false;
-		if (hasWindFuryAttacked_ != otherEntity.hasWindFuryAttacked_) return false;
-		if (frozen_ != otherEntity.frozen_) return false;
-		if (silenced_ != otherEntity.silenced_) return false;
-		if (summoned_ != otherEntity.summoned_) return false;
-		if (transformed_ != otherEntity.transformed_) return false;
-		if (destroyOnTurnStart_ != otherEntity.destroyOnTurnStart_) return false;
-		if (destroyOnTurnEnd_ != otherEntity.destroyOnTurnEnd_) return false;
-		
-		if (spellDamage_ != otherEntity.spellDamage_) return false;
-
-		//This is checked for reference equality
-		if (deathrattleAction_ != ((BaseEntity)other).deathrattleAction_)
-			return false;
-		
-		//This is checked for reference equality
-		if (attackAction_ != ((BaseEntity)other).attackAction_)
-			return false;
-		
-		return true;
-	}
-
-    @Override
-    public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + (taunt_ ? 1 : 0);
-        result = 31 * result + (divineShield_ ? 1 : 0);
-        result = 31 * result + (windFury_ ? 1 : 0);
-        result = 31 * result + (charge_ ? 1 : 0);
-        result = 31 * result + (hasAttacked_ ? 1 : 0);
-        result = 31 * result + (hasWindFuryAttacked_ ? 1 : 0);
-        result = 31 * result + (frozen_ ? 1 : 0);
-        result = 31 * result + (silenced_ ? 1 : 0);
-        result = 31 * result + (stealthed_ ? 1 : 0);
-        result = 31 * result + (heroTargetable_ ? 1 : 0);
-        result = 31 * result + (int) health_;
-        result = 31 * result + (int) maxHealth_;
-        result = 31 * result + (int) baseHealth_;
-        result = 31 * result + (int) auraHealth_;
-        result = 31 * result + (int) attack_;
-        result = 31 * result + (int) baseAttack_;
-        result = 31 * result + (int) extraAttackUntilTurnEnd_;
-        result = 31 * result + (int) auraAttack_;
-        result = 31 * result + (summoned_ ? 1 : 0);
-        result = 31 * result + (transformed_ ? 1 : 0);
-        result = 31 * result + (destroyOnTurnStart_ ? 1 : 0);
-        result = 31 * result + (destroyOnTurnEnd_ ? 1 : 0);
-        result = 31 * result + (int) spellDamage_;
-        result = 31 * result + (deathrattleAction_ != null ? deathrattleAction_.hashCode() : 0);
-        result = 31 * result + (attackAction_ != null ? attackAction_.hashCode() : 0);
-        result = 31 * result + (placementImportant_ ? 1 : 0);
-        return result;
-    }
-
-    public boolean currentPlayerBoardFull(HearthTreeNode boardState) {
-        return PlayerSide.CURRENT_PLAYER.getPlayer(boardState).getNumMinions() >= 7;
-    }
+    
 }

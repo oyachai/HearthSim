@@ -17,7 +17,7 @@ public class FrostShock extends SpellDamage {
 		super((byte)1, (byte)1, hasBeenUsed);
 	}
 
-	@Override
+	
 	public Object deepCopy() {
 		return new FrostShock(this.hasBeenUsed);
 	}
@@ -35,7 +35,7 @@ public class FrostShock extends SpellDamage {
      *
      * @return The boardState is manipulated and returned
 	 */
-	@Override
+	
 	protected HearthTreeNode use_core(
 			PlayerSide side,
 			Minion targetMinion,

@@ -28,7 +28,7 @@ public class WildGrowth extends SpellCard {
 		this(false);
 	}
 
-	@Override
+	
 	public Object deepCopy() {
 		return new WildGrowth(this.hasBeenUsed);
 	}
@@ -47,7 +47,7 @@ public class WildGrowth extends SpellCard {
      *
      * @return The boardState is manipulated and returned
 	 */
-	@Override
+	
 	protected HearthTreeNode use_core(
 			PlayerSide side,
 			Minion targetMinion,

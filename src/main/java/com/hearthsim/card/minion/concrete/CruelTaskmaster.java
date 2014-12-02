@@ -34,7 +34,7 @@ public class CruelTaskmaster extends Minion {
         transformed_ = TRANSFORMED;
 	}
 	
-	@Override
+	
 	public EnumSet<BattlecryTargetType> getBattlecryTargets() {
 		return EnumSet.of(BattlecryTargetType.FRIENDLY_MINIONS, BattlecryTargetType.ENEMY_MINIONS);
 	}
@@ -42,7 +42,7 @@ public class CruelTaskmaster extends Minion {
 	/**
 	 * Battlecry: Deal 1 damage to a minion and give it +2 Attack
 	 */
-	@Override
+	
 	public HearthTreeNode useTargetableBattlecry_core(
 			PlayerSide side,
 			Minion targetMinion,

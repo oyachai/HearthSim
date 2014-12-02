@@ -12,7 +12,7 @@ public class Pyroblast extends SpellDamage {
 		super((byte)10, (byte)10, hasBeenUsed);
 	}
 	
-	@Override
+	
 	public Object deepCopy() {
 		return new Pyroblast(this.hasBeenUsed);
 	}

@@ -24,7 +24,7 @@ public class Houndmaster extends Minion {
         transformed_ = TRANSFORMED;
 	}
 	
-	@Override
+	
 	public EnumSet<BattlecryTargetType> getBattlecryTargets() {
 		return EnumSet.of(BattlecryTargetType.FRIENDLY_BEASTS);
 	}
@@ -32,7 +32,7 @@ public class Houndmaster extends Minion {
 	/**
 	 * Battlecry: Give a friendly beast +2/+2 and Taunt
 	 */
-	@Override
+	
 	public HearthTreeNode useTargetableBattlecry_core(
 			PlayerSide side,
 			Minion targetMinion,

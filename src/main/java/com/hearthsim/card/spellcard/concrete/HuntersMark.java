@@ -26,7 +26,7 @@ public class HuntersMark extends SpellCard {
 		this(false);
 	}
 
-	@Override
+	
 	public Object deepCopy() {
 		return new HuntersMark(this.hasBeenUsed);
 	}
@@ -44,7 +44,7 @@ public class HuntersMark extends SpellCard {
      *
      * @return The boardState is manipulated and returned
 	 */
-	@Override
+	
 	protected HearthTreeNode use_core(
 			PlayerSide side,
 			Minion targetMinion,

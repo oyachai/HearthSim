@@ -17,7 +17,7 @@ public class ShadowBolt extends SpellDamage {
 		super((byte)3, (byte)4, hasBeenUsed);
 	}
 	
-	@Override
+	
 	public Object deepCopy() {
 		return new ShadowBolt(this.hasBeenUsed);
 	}
@@ -36,7 +36,7 @@ public class ShadowBolt extends SpellDamage {
      *
      * @return The boardState is manipulated and returned
 	 */
-	@Override
+	
 	protected HearthTreeNode use_core(
 			PlayerSide side,
 			Minion targetMinion,

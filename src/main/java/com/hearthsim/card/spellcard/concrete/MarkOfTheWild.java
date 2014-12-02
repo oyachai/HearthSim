@@ -28,7 +28,7 @@ public class MarkOfTheWild extends SpellCard {
 		this(false);
 	}
 
-	@Override
+	
 	public Object deepCopy() {
 		return new MarkOfTheWild(this.hasBeenUsed);
 	}
@@ -46,7 +46,7 @@ public class MarkOfTheWild extends SpellCard {
      *
      * @return The boardState is manipulated and returned
 	 */
-	@Override
+	
 	protected HearthTreeNode use_core(
 			PlayerSide side,
 			Minion targetMinion,

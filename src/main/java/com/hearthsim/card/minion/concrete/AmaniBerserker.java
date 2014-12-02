@@ -18,12 +18,12 @@ public class AmaniBerserker extends MinionWithEnrage {
 	}
 	
 
-	@Override
+	
 	public void enrage() {
 		attack_ = (byte)(attack_ + 3);
 	}
 
-	@Override
+	
 	public void pacify() {
 		attack_ = (byte)(attack_ - 3);
 	}

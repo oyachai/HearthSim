@@ -17,12 +17,12 @@ public class GrommashHellscream extends MinionWithEnrage {
         transformed_ = TRANSFORMED;
 	}
 
-	@Override
+	
 	public void enrage() {
 		attack_ = (byte)(attack_ + 6);
 	}
 
-	@Override
+	
 	public void pacify() {
 		attack_ = (byte)(attack_ - 6);
 	}

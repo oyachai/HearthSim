@@ -17,7 +17,7 @@ public class Backstab extends SpellDamage {
 		super((byte)0, (byte)2, hasBeenUsed);
 	}
 	
-	@Override
+	
 	public Object deepCopy() {
 		return new Backstab(this.hasBeenUsed);
 	}
@@ -35,7 +35,7 @@ public class Backstab extends SpellDamage {
      *
      * @return The boardState is manipulated and returned
 	 */
-	@Override
+	
 	protected HearthTreeNode use_core(
 			PlayerSide side,
 			Minion targetMinion,

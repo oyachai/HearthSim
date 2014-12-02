@@ -24,7 +24,7 @@ public class RazorfenHunter extends Minion {
         transformed_ = TRANSFORMED;
 	}
 	
-	@Override
+	
 	public EnumSet<BattlecryTargetType> getBattlecryTargets() {
 		return EnumSet.of(BattlecryTargetType.NO_TARGET);
 	}
@@ -32,7 +32,7 @@ public class RazorfenHunter extends Minion {
 	/**
 	 * Battlecry: Summon a 1/1 Boar
 	 */
-	@Override
+	
 	public HearthTreeNode useUntargetableBattlecry_core(
 			Minion minionPlacementTarget,
 			HearthTreeNode boardState,

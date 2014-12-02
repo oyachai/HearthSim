@@ -19,7 +19,7 @@ public class Starfire extends SpellDamage {
 		super((byte)6, (byte)5, hasBeenUsed);
 	}
 
-	@Override
+	
 	public Object deepCopy() {
 		return new Starfire(this.hasBeenUsed);
 	}
@@ -37,7 +37,7 @@ public class Starfire extends SpellDamage {
      *
      * @return The boardState is manipulated and returned
 	 */
-	@Override
+	
 	protected HearthTreeNode use_core(
 			PlayerSide side,
 			Minion targetMinion,

@@ -23,7 +23,7 @@ public class Alexstrasza extends Dragon {
         summoned_ = SUMMONED;
         transformed_ = TRANSFORMED;
 	}
-	@Override
+	
 	public EnumSet<BattlecryTargetType> getBattlecryTargets() {
 		return EnumSet.of(BattlecryTargetType.FRIENDLY_HERO, BattlecryTargetType.ENEMY_HERO);
 	}
@@ -31,7 +31,7 @@ public class Alexstrasza extends Dragon {
 	/**
 	 * Battlecry: Set a hero's remaining health to 15
 	 */
-	@Override
+	
 	public HearthTreeNode useTargetableBattlecry_core(
 			PlayerSide side,
 			Minion targetMinion,

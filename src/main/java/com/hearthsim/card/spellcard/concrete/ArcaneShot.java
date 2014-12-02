@@ -12,7 +12,7 @@ public class ArcaneShot extends SpellDamage {
 		super((byte)1, (byte)2, hasBeenUsed);
 	}
 	
-	@Override
+	
 	public Object deepCopy() {
 		return new ArcaneShot(this.hasBeenUsed);
 	}

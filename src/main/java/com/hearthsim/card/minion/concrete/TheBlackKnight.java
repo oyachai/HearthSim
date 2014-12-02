@@ -23,7 +23,7 @@ public class TheBlackKnight extends Minion {
         transformed_ = TRANSFORMED;
 	}
 	
-	@Override
+	
 	public EnumSet<BattlecryTargetType> getBattlecryTargets() {
 		return EnumSet.of(BattlecryTargetType.ENEMY_MINIONS);
 	}
@@ -31,7 +31,7 @@ public class TheBlackKnight extends Minion {
 	/**
 	 * Battlecry: Destroy a minion with an Attack of 7 or more
 	 */
-	@Override
+	
 	public HearthTreeNode useTargetableBattlecry_core(
 			PlayerSide side,
 			Minion targetMinion,
