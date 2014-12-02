@@ -51,15 +51,15 @@ public class TestBackstab {
 		Minion target = null;
 
 		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
-		res = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
+		res = theCard.getCardAction().useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
 		assertTrue(res == null);
 		
 		target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
-		res = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
+		res = theCard.getCardAction().useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
 		assertTrue(res == null);
 
 		target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
-		res = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
+		res = theCard.getCardAction().useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
 		assertFalse(res == null);
 		assertTrue(res.data_.getNumCards_hand() == 0);
 		assertTrue(res.data_.getCurrentPlayer().getNumMinions() == 1);
@@ -89,7 +89,7 @@ public class TestBackstab {
 		Minion target = null;
 		
 		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
-		res = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
+		res = theCard.getCardAction().useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
 		assertFalse(res == null);
 		assertTrue(res.data_.getNumCards_hand() == 0);
 		assertTrue(res.data_.getCurrentPlayer().getNumMinions() == 1);
@@ -119,7 +119,7 @@ public class TestBackstab {
 		Minion target = null;
 		
 		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
-		res = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
+		res = theCard.getCardAction().useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
 		assertFalse(res == null);
 		assertTrue(res.data_.getNumCards_hand() == 0);
 		assertTrue(res.data_.getCurrentPlayer().getNumMinions() == 1);
@@ -147,7 +147,7 @@ public class TestBackstab {
 		Minion target = null;
 
 		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 3);
-		res = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
+		res = theCard.getCardAction().useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
 		assertTrue(res == null);
 
 	}

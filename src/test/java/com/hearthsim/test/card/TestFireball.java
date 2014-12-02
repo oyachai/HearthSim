@@ -44,7 +44,7 @@ public class TestFireball {
 		
 		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
+		theCard.getCardAction().useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
 		
 		assertTrue("test0_1", board.data_.getNumCards_hand() == 0);
 		assertTrue("test0_2", PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions() == 2);
@@ -64,7 +64,7 @@ public class TestFireball {
 		
 		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, null, null);
+		theCard.getCardAction().useOn(PlayerSide.WAITING_PLAYER, target, board, null, null);
 		
 		assertTrue("test1_1", board.data_.getNumCards_hand() == 0);
 		assertTrue("test1_2", board.data_.getCurrentPlayerHero().getHealth() == 30);
@@ -84,7 +84,7 @@ public class TestFireball {
 		
 		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
+		theCard.getCardAction().useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
 		
 		assertTrue("test2_1", board.data_.getNumCards_hand() == 0);
 		assertTrue("test2_2", PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions() == 1);
@@ -103,7 +103,7 @@ public class TestFireball {
 		
 		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 2);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
+		theCard.getCardAction().useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
 		
 		assertTrue("test3_1", board.data_.getNumCards_hand() == 0);
 		assertTrue("test3_2", PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions() == 2);
@@ -123,7 +123,7 @@ public class TestFireball {
 		
 		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, null, null);
+		theCard.getCardAction().useOn(PlayerSide.WAITING_PLAYER, target, board, null, null);
 		
 		assertTrue("test4_1", board.data_.getNumCards_hand() == 0);
 		assertTrue("test4_2", PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions() == 2);
@@ -142,7 +142,7 @@ public class TestFireball {
 		
 		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, null, null);
+		theCard.getCardAction().useOn(PlayerSide.WAITING_PLAYER, target, board, null, null);
 		
 		assertTrue("test5_1", board.data_.getNumCards_hand() == 0);
 		assertTrue("test5_2", PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions() == 2);

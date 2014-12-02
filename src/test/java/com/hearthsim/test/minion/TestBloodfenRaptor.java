@@ -87,7 +87,7 @@ public class TestBloodfenRaptor {
 		
 		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, null, null);
+		HearthTreeNode ret = theCard.getCardAction().useOn(PlayerSide.WAITING_PLAYER, target, board, null, null);
 		
 		assertTrue("test1_0", ret == null);
 		assertTrue("test1_1", board.data_.getNumCards_hand() == 1);
@@ -108,7 +108,7 @@ public class TestBloodfenRaptor {
 		
 		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
+		HearthTreeNode ret = theCard.getCardAction().useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
 		
 		assertFalse("test2_0", ret == null);
 		assertTrue("test2_1", board.data_.getNumCards_hand() == 0);
@@ -124,12 +124,12 @@ public class TestBloodfenRaptor {
 		
 		Minion theAttacker = PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0);
 		target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
-		ret = theAttacker.useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
+		ret = theAttacker.getCardAction().useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
 		assertTrue("test2", ret == null);
 
 		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
 		theAttacker = PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0);
-		ret = theAttacker.useOn(PlayerSide.WAITING_PLAYER, target, board, null, null);
+		ret = theAttacker.getCardAction().useOn(PlayerSide.WAITING_PLAYER, target, board, null, null);
 		assertTrue("test2", ret == null);
 
 		theAttacker = PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0);
@@ -174,7 +174,7 @@ public class TestBloodfenRaptor {
 		
 		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
+		HearthTreeNode ret = theCard.getCardAction().useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
 		
 		assertFalse("test3_0", ret == null);
 		assertTrue("test3_1", board.data_.getNumCards_hand() == 0);
@@ -196,7 +196,7 @@ public class TestBloodfenRaptor {
 		
 		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 2);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
+		HearthTreeNode ret = theCard.getCardAction().useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
 		
 		assertFalse("test4_0", ret == null);
 		assertTrue("test4_1", board.data_.getNumCards_hand() == 0);
@@ -218,7 +218,7 @@ public class TestBloodfenRaptor {
 		
 		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, null, null);
+		HearthTreeNode ret = theCard.getCardAction().useOn(PlayerSide.WAITING_PLAYER, target, board, null, null);
 		
 		assertTrue("test5_0", ret == null);
 		assertTrue("test5_1", board.data_.getNumCards_hand() == 1);
@@ -239,7 +239,7 @@ public class TestBloodfenRaptor {
 		
 		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, null, null);
+		HearthTreeNode ret = theCard.getCardAction().useOn(PlayerSide.WAITING_PLAYER, target, board, null, null);
 		
 		assertTrue("test6_0", ret == null);
 		assertTrue("test6_1", board.data_.getNumCards_hand() == 1);
@@ -260,7 +260,7 @@ public class TestBloodfenRaptor {
 		
 		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, null, null);
+		HearthTreeNode ret = theCard.getCardAction().useOn(PlayerSide.WAITING_PLAYER, target, board, null, null);
 		
 		assertTrue("test7_0", ret == null);
 		assertTrue("test7_1", board.data_.getNumCards_hand() == 1);

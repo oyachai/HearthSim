@@ -47,27 +47,27 @@ public class TestArcaneExplosion {
 		Minion target = null;
 		
 		target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
-		res = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
+		res = theCard.getCardAction().useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
 		assertTrue(res == null);
 		
 		target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
-		res = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
+		res = theCard.getCardAction().useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
 		assertTrue(res == null);
 		
 		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
-		res = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, null, null);
+		res = theCard.getCardAction().useOn(PlayerSide.WAITING_PLAYER, target, board, null, null);
 		assertTrue(res == null);
 		
 		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
-		res = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, null, null);
+		res = theCard.getCardAction().useOn(PlayerSide.WAITING_PLAYER, target, board, null, null);
 		assertTrue(res == null);
 		
 		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 3);
-		res = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, null, null);
+		res = theCard.getCardAction().useOn(PlayerSide.WAITING_PLAYER, target, board, null, null);
 		assertTrue(res == null);
 		
 		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
-		res = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, null, null);
+		res = theCard.getCardAction().useOn(PlayerSide.WAITING_PLAYER, target, board, null, null);
 		assertFalse(res == null);
 		assertEquals(res.data_.getCurrentPlayer().getMana(), 1);
 		assertEquals(res.data_.getNumCards_hand(), 0);

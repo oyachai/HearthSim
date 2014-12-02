@@ -54,16 +54,16 @@ public class TestArmorsmith {
 		
 		HearthTreeNode tmpBoard = new HearthTreeNode(board.data_.flipPlayers());
 		try {
-			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
-			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
+			tmpBoard.data_.getCurrentPlayerCardHand(0).getCardAction().useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
+			tmpBoard.data_.getCurrentPlayerCardHand(0).getCardAction().useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
 		} catch (HSException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		board = new HearthTreeNode(tmpBoard.data_.flipPlayers());
 		try {
-			board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayerHero(), board, deck, null);
-			board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayerHero(), board, deck, null);
+			board.data_.getCurrentPlayerCardHand(0).getCardAction().useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayerHero(), board, deck, null);
+			board.data_.getCurrentPlayerCardHand(0).getCardAction().useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayerHero(), board, deck, null);
 		} catch (HSException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -82,7 +82,7 @@ public class TestArmorsmith {
 
 		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
+		HearthTreeNode ret = theCard.getCardAction().useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 0);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 3);
@@ -115,7 +115,7 @@ public class TestArmorsmith {
 		theCard = board.data_.getCurrentPlayerCardHand(0);
 		
 		target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 3);
-		ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, ret, deck, null);
+		ret = theCard.getCardAction().useOn(PlayerSide.CURRENT_PLAYER, target, ret, deck, null);
 		assertFalse(ret == null);
 
 		assertEquals(ret.data_.getNumCards_hand(), 0);
@@ -150,7 +150,7 @@ public class TestArmorsmith {
 		board.data_.placeCardHandCurrentPlayer(new HolySmite());
 		theCard = board.data_.getCurrentPlayerCardHand(0);
 		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
-		ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, ret, deck, null);
+		ret = theCard.getCardAction().useOn(PlayerSide.WAITING_PLAYER, target, ret, deck, null);
 		assertFalse(ret == null);
 		assertEquals(ret.data_.getNumCards_hand(), 0);
 		assertEquals(ret.data_.getCurrentPlayer().getNumMinions(), 3);
@@ -180,7 +180,7 @@ public class TestArmorsmith {
 		ret.data_.placeCardHandCurrentPlayer(new HolySmite());
 		theCard = ret.data_.getCurrentPlayerCardHand(0);
 		target = ret.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
-		ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, ret, deck, null);
+		ret = theCard.getCardAction().useOn(PlayerSide.WAITING_PLAYER, target, ret, deck, null);
 		assertFalse(ret == null);
 		assertEquals(ret.data_.getNumCards_hand(), 0);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getNumMinions(), 3);

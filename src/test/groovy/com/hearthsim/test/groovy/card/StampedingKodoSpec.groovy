@@ -38,7 +38,7 @@ class StampedingKodoSpec extends CardSpec {
 		def copiedBoard = startingBoard.deepCopy()
 		def target = root.data_.getCharacter(WAITING_PLAYER, 0)
 		def theCard = root.data_.getCurrentPlayerCardHand(0)
-		def ret = theCard.useOn(WAITING_PLAYER, target, root, null, null)
+		def ret = theCard.getCardAction().useOn(WAITING_PLAYER, target, root, null, null)
 
 		expect:
 
@@ -50,7 +50,7 @@ class StampedingKodoSpec extends CardSpec {
 		def copiedBoard = startingBoard.deepCopy()
 		def target = root.data_.getCharacter(CURRENT_PLAYER, 0)
 		def theCard = root.data_.getCurrentPlayerCardHand(0)
-		def ret = theCard.useOn(CURRENT_PLAYER, target, root, null, null)
+		def ret = theCard.getCardAction().useOn(CURRENT_PLAYER, target, root, null, null)
 
 		expect:
 		assertFalse(ret == null)
@@ -71,7 +71,7 @@ class StampedingKodoSpec extends CardSpec {
 		def copiedBoard = startingBoard.deepCopy()
 		def target = root.data_.getCharacter(CURRENT_PLAYER, 0)
 		def theCard = root.data_.getCurrentPlayerCardHand(0)
-		def ret = theCard.useOn(CURRENT_PLAYER, target, root, null, null)
+		def ret = theCard.getCardAction().useOn(CURRENT_PLAYER, target, root, null, null)
 
 		expect:
 		assertFalse(ret == null)

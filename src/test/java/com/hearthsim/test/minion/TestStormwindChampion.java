@@ -54,16 +54,16 @@ public class TestStormwindChampion {
 		
 		HearthTreeNode tmpBoard = new HearthTreeNode(board.data_.flipPlayers());
 		try {
-			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
-			tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
+			tmpBoard.data_.getCurrentPlayerCardHand(0).getCardAction().useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
+			tmpBoard.data_.getCurrentPlayerCardHand(0).getCardAction().useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
 		} catch (HSException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		board = new HearthTreeNode(tmpBoard.data_.flipPlayers());
 		try {
-			board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayerHero(), board, deck, null);
-			board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayerHero(), board, deck, null);
+			board.data_.getCurrentPlayerCardHand(0).getCardAction().useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayerHero(), board, deck, null);
+			board.data_.getCurrentPlayerCardHand(0).getCardAction().useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayerHero(), board, deck, null);
 		} catch (HSException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -81,7 +81,7 @@ public class TestStormwindChampion {
 
 		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
+		HearthTreeNode ret = theCard.getCardAction().useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
 		assertFalse(ret == null);
 		assertTrue(board.data_.getNumCards_hand() == 0);
 		assertTrue(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions() == 3);
@@ -121,7 +121,7 @@ public class TestStormwindChampion {
 
 		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
+		HearthTreeNode ret = theCard.getCardAction().useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
 		assertFalse(ret == null);
 		assertTrue(board.data_.getNumCards_hand() == 0);
 		assertTrue(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions() == 3);
@@ -158,7 +158,7 @@ public class TestStormwindChampion {
 		board.data_.placeCardHandCurrentPlayer(new Fireball());
 		theCard = board.data_.getCurrentPlayerCardHand(0);
 		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
-		ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
+		ret = theCard.getCardAction().useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
 		
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 0);
@@ -195,7 +195,7 @@ public class TestStormwindChampion {
 
 		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
+		HearthTreeNode ret = theCard.getCardAction().useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
 		assertFalse(ret == null);
 		assertTrue(board.data_.getNumCards_hand() == 0);
 		assertTrue(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions() == 3);
@@ -232,7 +232,7 @@ public class TestStormwindChampion {
 		board.data_.placeCardHandCurrentPlayer(new Silence());
 		theCard = board.data_.getCurrentPlayerCardHand(0);
 		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
-		ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
+		ret = theCard.getCardAction().useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
 		
 		assertFalse(ret == null);
 		assertTrue(board.data_.getNumCards_hand() == 0);
@@ -269,7 +269,7 @@ public class TestStormwindChampion {
 		board.data_.placeCardHandCurrentPlayer(new Silence());
 		theCard = board.data_.getCurrentPlayerCardHand(0);
 		target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
-		ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
+		ret = theCard.getCardAction().useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
 		
 		assertFalse(ret == null);
 		assertTrue(board.data_.getNumCards_hand() == 0);
@@ -307,7 +307,7 @@ public class TestStormwindChampion {
 		board.data_.placeCardHandCurrentPlayer(new BloodfenRaptor());
 		theCard = board.data_.getCurrentPlayerCardHand(0);
 		target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 3);
-		ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
+		ret = theCard.getCardAction().useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
 		
 		assertFalse(ret == null);
 		assertTrue(board.data_.getNumCards_hand() == 0);
@@ -352,7 +352,7 @@ public class TestStormwindChampion {
 
 		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
+		HearthTreeNode ret = theCard.getCardAction().useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
 		assertFalse(ret == null);
 		assertTrue(board.data_.getNumCards_hand() == 0);
 		assertTrue(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions() == 3);
@@ -387,7 +387,7 @@ public class TestStormwindChampion {
 		board.data_.placeCardHandCurrentPlayer(new HolySmite());
 		theCard = board.data_.getCurrentPlayerCardHand(0);
 		target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 2);
-		ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
+		ret = theCard.getCardAction().useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
 		
 		assertFalse(ret == null);
 		assertTrue(board.data_.getNumCards_hand() == 0);
@@ -424,7 +424,7 @@ public class TestStormwindChampion {
 		board.data_.placeCardHandCurrentPlayer(new Silence());
 		theCard = board.data_.getCurrentPlayerCardHand(0);
 		target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
-		ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
+		ret = theCard.getCardAction().useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
 		
 		assertFalse(ret == null);
 		assertTrue(board.data_.getNumCards_hand() == 0);
