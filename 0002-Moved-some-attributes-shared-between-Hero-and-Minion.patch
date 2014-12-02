@@ -1,0 +1,144 @@
+From 941411a2a42e9149294fa8e19ccd4cbb4569f905 Mon Sep 17 00:00:00 2001
+From: geoffrey-liu <geoffrey.p.liu@gmail.com>
+Date: Mon, 1 Dec 2014 14:10:44 -0500
+Subject: [PATCH 2/6] Moved some attributes shared between Hero and Minion to
+ BaseEntity. Extended Minion from BaseEntity. Made takeDamage an abstract
+ method of BaseEntity.
+
+Extended Minion from BaseEntity. Began moving over methods common to both subclasses (Minion and Hero).
+Behaviour common to both subclasses must be contained in the superclass to avoid duplicate code.
+
+---
+ src/main/java/com/hearthsim/card/Card.java         |  8 ----
+ .../java/com/hearthsim/card/minion/Minion.java     | 11 +++---
+ src/main/java/com/hearthsim/entity/BaseEntity.java | 44 ++++++++++++++++++----
+ 3 files changed, 43 insertions(+), 20 deletions(-)
+
+diff --git a/src/main/java/com/hearthsim/card/Card.java b/src/main/java/com/hearthsim/card/Card.java
+index 09e001e..50f7b1c 100644
+--- a/src/main/java/com/hearthsim/card/Card.java
++++ b/src/main/java/com/hearthsim/card/Card.java
+@@ -17,16 +17,8 @@ import java.util.ArrayList;
+ public class Card implements DeepCopyable {
+     protected final Logger log = LoggerFactory.getLogger(getClass());
+ 
+-	/**
+-	 * Name of the card
+-	 */
+ 	protected String name_;
+-	
+-	/**
+-	 * Mana cost of the card
+-	 */
+ 	protected byte mana_;
+-	
+ 	protected boolean hasBeenUsed;
+ 	protected boolean isInHand_;
+ 
+diff --git a/src/main/java/com/hearthsim/card/minion/Minion.java b/src/main/java/com/hearthsim/card/minion/Minion.java
+index 849afc9..bccf2eb 100644
+--- a/src/main/java/com/hearthsim/card/minion/Minion.java
++++ b/src/main/java/com/hearthsim/card/minion/Minion.java
+@@ -3,6 +3,7 @@ package com.hearthsim.card.minion;
+ import com.hearthsim.card.Card;
+ import com.hearthsim.card.Deck;
+ import com.hearthsim.card.ImplementedCardList;
++import com.hearthsim.entity.BaseEntity;
+ import com.hearthsim.event.attack.AttackAction;
+ import com.hearthsim.event.deathrattle.DeathrattleAction;
+ import com.hearthsim.exception.HSException;
+@@ -16,7 +17,7 @@ import org.json.JSONObject;
+ import java.util.EnumSet;
+ import java.util.Iterator;
+ 
+-public class Minion extends Card {
++public class Minion extends BaseEntity {
+ 
+ 	public enum BattlecryTargetType {
+ 		NO_BATTLECRY,
+@@ -40,12 +41,12 @@ public class Minion extends Card {
+ 	protected boolean stealthed_;
+ 	protected boolean heroTargetable_;
+ 	
+-	protected byte health_;
++	//protected byte health_;
+ 	protected byte maxHealth_;
+ 	protected byte baseHealth_;
+ 	protected byte auraHealth_;
+ 	
+-	protected byte attack_;
++	//protected byte attack_;
+ 	protected byte baseAttack_;
+ 	protected byte extraAttackUntilTurnEnd_;
+ 	protected byte auraAttack_;
+@@ -72,9 +73,9 @@ public class Minion extends Card {
+             // only 'Minion' class is not implemented
+             mana_ = (byte) implementedCard.mana_;
+             name_ = implementedCard.name_;
+-            attack_ = (byte) implementedCard.attack_;
++            //attack_ = (byte) implementedCard.attack_;
+             baseAttack_ = attack_;
+-            health_ = (byte) implementedCard.health_;
++            //health_ = (byte) implementedCard.health_;
+             maxHealth_ = health_;
+             baseHealth_ = health_;
+             taunt_ = implementedCard.taunt_;
+diff --git a/src/main/java/com/hearthsim/entity/BaseEntity.java b/src/main/java/com/hearthsim/entity/BaseEntity.java
+index 3ec7a9f..f6eb13f 100644
+--- a/src/main/java/com/hearthsim/entity/BaseEntity.java
++++ b/src/main/java/com/hearthsim/entity/BaseEntity.java
+@@ -1,13 +1,43 @@
+ package com.hearthsim.entity;
+ 
+-public class BaseEntity
++import com.hearthsim.card.Card;
++import com.hearthsim.card.Deck;
++import com.hearthsim.card.ImplementedCardList;
++import com.hearthsim.exception.HSException;
++import com.hearthsim.model.PlayerSide;
++import com.hearthsim.util.DeepCopyable;
++import com.hearthsim.util.tree.HearthTreeNode;
++
++public abstract class BaseEntity extends Card implements DeepCopyable
+ {
+-	private int health;
+-	private int attack;
++	protected byte health_;
++	protected byte attack_;
+ 	
+-	public BaseEntity(int health, int attack)
++	// Empty placeholder constructor
++	public BaseEntity()
+ 	{
+-		this.health = health;
+-		this.attack = attack;
++        ImplementedCardList cardList = ImplementedCardList.getInstance();
++        ImplementedCardList.ImplementedCard implementedCard = cardList.getCardForClass(this.getClass());
++        if (implementedCard!=null)
++        {
++        	attack_ = (byte) implementedCard.attack_;
++        	health_ = (byte) implementedCard.health_;
++        }
+ 	}
+-}
++	
++	public BaseEntity(String name, byte mana, boolean hasBeenUsed, boolean isInHand)
++	{
++		super(name,mana,hasBeenUsed,isInHand);
++	}
++	
++	public abstract HearthTreeNode takeDamage(
++			byte damage,
++			PlayerSide attackPlayerSide,
++			PlayerSide thisPlayerSide,
++			HearthTreeNode boardState,
++			Deck deckPlayer0, 
++			Deck deckPlayer1,
++			boolean isSpellDamage,
++			boolean handleMinionDeath)
++		throws HSException;
++}
+\ No newline at end of file
+-- 
+1.8.4.msysgit.0
+

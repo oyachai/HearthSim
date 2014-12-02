@@ -1,0 +1,34 @@
+From 0b461ddd86df2f39d8906f9f28d3c6da48d94bb8 Mon Sep 17 00:00:00 2001
+From: geoffrey-liu <geoffrey.p.liu@gmail.com>
+Date: Sun, 23 Nov 2014 15:42:14 -0500
+Subject: [PATCH 1/6] BaseEntity class setup
+
+This class was created to act as a superclass for Minion and Hero. This initial commit really just served as a way to establish a branch that was separate from the development branch.
+Very basic properties that existed in both classes were moved to this class. Note that the properties were not deleted from the original Minion and Hero classes in order to keep existing test cases intact.
+---
+ src/main/java/com/hearthsim/entity/BaseEntity.java | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
+ create mode 100644 src/main/java/com/hearthsim/entity/BaseEntity.java
+
+diff --git a/src/main/java/com/hearthsim/entity/BaseEntity.java b/src/main/java/com/hearthsim/entity/BaseEntity.java
+new file mode 100644
+index 0000000..3ec7a9f
+--- /dev/null
++++ b/src/main/java/com/hearthsim/entity/BaseEntity.java
+@@ -0,0 +1,13 @@
++package com.hearthsim.entity;
++
++public class BaseEntity
++{
++	private int health;
++	private int attack;
++	
++	public BaseEntity(int health, int attack)
++	{
++		this.health = health;
++		this.attack = attack;
++	}
++}
+-- 
+1.8.4.msysgit.0
+
