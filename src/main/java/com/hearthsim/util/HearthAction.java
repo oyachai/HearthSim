@@ -53,7 +53,7 @@ public class HearthAction {
 			case USE_CARD: {
 				Card card = boardState.data_.getCard_hand(actionPerformerPlayerSide, cardOrCharacterIndex_);
 				Minion target = boardState.data_.getCharacter(targetPlayerSide, targetCharacterIndex_);
-				toRet = card.useOn(targetPlayerSide, target, toRet, deckPlayer0, deckPlayer1, true);
+				toRet = card.getCardAction().useOn(targetPlayerSide, target, toRet, deckPlayer0, deckPlayer1, true);
 			}
 			break;
 			case HERO_ABILITY: {
