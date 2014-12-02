@@ -3,6 +3,7 @@ package com.hearthsim.test.card;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.minion.MinionStateFactory;
 import com.hearthsim.card.spellcard.concrete.HammerOfWrath;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
@@ -23,7 +24,7 @@ public class TestHammerOfWrath {
 	private static final byte attack0 = 2;
 	private static final byte health0 = 3;
 	private static final byte health1 = 7;
-
+	MinionStateFactory mf = new MinionStateFactory();
 	@Before
 	public void setup() throws HSException {
 		board = new HearthTreeNode(new BoardModel());
@@ -71,10 +72,10 @@ public class TestHammerOfWrath {
 		assertTrue(ret.data_.getCurrentPlayer().getMinions().get(1).getTotalAttack() == attack0);
 		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(0).getTotalAttack() == attack0);
 		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(1).getTotalAttack() == attack0);
-		assertFalse(ret.data_.getCurrentPlayer().getMinions().get(0).getCharge());
-		assertFalse(ret.data_.getCurrentPlayer().getMinions().get(1).getCharge());
-		assertFalse(ret.data_.getCurrentPlayer().getMinions().get(0).getFrozen());
-		assertFalse(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(0).getFrozen());
+		assertFalse(ret.data_.getCurrentPlayer().getMinions().get(0).getState(mf.makeCharge()) != null);
+		assertFalse(ret.data_.getCurrentPlayer().getMinions().get(1).getState(mf.makeCharge()) != null);
+		assertFalse(ret.data_.getCurrentPlayer().getMinions().get(0).getState(mf.makeFrozen()) != null);
+		assertFalse(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(0).getState(mf.makeFrozen()) != null);
 	}
 	
 	@Test

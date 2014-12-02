@@ -2,6 +2,7 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.minion.MinionStateFactory;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
@@ -13,6 +14,7 @@ public class FrostNova extends SpellCard {
 	 * 
 	 * @param hasBeenUsed Whether the card has already been used or not
 	 */
+	MinionStateFactory mf = new MinionStateFactory();
 	public FrostNova(boolean hasBeenUsed) {
 		super((byte)3, hasBeenUsed);
 	}
@@ -65,7 +67,8 @@ public class FrostNova extends SpellCard {
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
 			for (Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
-				minion.setFrozen(true);
+				//minion.setFrozen(true);
+				minion.addState(mf.makeFrozen());
 			}
 		}		
 		return toRet;

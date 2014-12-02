@@ -2,7 +2,10 @@ package com.hearthsim.test.minion;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
+import com.hearthsim.card.minion.FrozenState;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.minion.MinionState;
+import com.hearthsim.card.minion.MinionStateFactory;
 import com.hearthsim.card.minion.concrete.BoulderfistOgre;
 import com.hearthsim.card.minion.concrete.RaidLeader;
 import com.hearthsim.card.minion.concrete.WaterElemental;
@@ -158,8 +161,8 @@ public class TestWaterElemental {
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack(), 7);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack(), 2);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack(), 7);
-		
-		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getFrozen());
+		MinionStateFactory mf = new MinionStateFactory();
+		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getState(mf.makeFrozen()) != null);
 		
 	}
 	

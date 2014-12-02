@@ -3,6 +3,7 @@ package com.hearthsim.test.card;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.minion.MinionStateFactory;
 import com.hearthsim.card.spellcard.concrete.FrostShock;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
@@ -23,7 +24,7 @@ public class TestFrostShock {
 	private static final byte attack0 = 2;
 	private static final byte health0 = 3;
 	private static final byte health1 = 7;
-
+	private MinionStateFactory mf = new MinionStateFactory();
 	@Before
 	public void setup() throws HSException {
 		board = new HearthTreeNode(new BoardModel());
@@ -69,8 +70,8 @@ public class TestFrostShock {
 		assertTrue(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack() == attack0);
 		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack() == attack0);
 		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack() == attack0);
-		assertFalse(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getCharge());
-		assertFalse(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getCharge());
+		assertFalse(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getState(mf.makeCharge()) != null);
+		assertFalse(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getState(mf.makeCharge()) != null);
 		assertFalse(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getFrozen());
 		assertFalse(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getFrozen());
 	}
@@ -97,10 +98,10 @@ public class TestFrostShock {
 		assertTrue(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack() == attack0);
 		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack() == attack0);
 		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack() == attack0);
-		assertFalse(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getCharge());
-		assertFalse(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getCharge());
-		assertFalse(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getFrozen());
-		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getFrozen());
+		assertFalse(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getState(mf.makeCharge()) != null);
+		assertFalse(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getState(mf.makeCharge()) != null);
+		assertFalse(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getState(mf.makeFrozen())!= null);
+		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getState(mf.makeFrozen()) == null);
 	}
 
 }

@@ -1,7 +1,10 @@
 package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.Deck;
+import com.hearthsim.card.minion.FrozenState;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.minion.MinionState;
+import com.hearthsim.card.minion.MinionStateFactory;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -46,7 +49,9 @@ public class WaterElemental extends Minion {
 	{
 		HearthTreeNode toRet = super.attack_core(targetMinionPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1);
 		if (!silenced_ && toRet != null) {
-			targetMinion.setFrozen(true);
+		//	targetMinion.setFrozen(true);
+			MinionStateFactory mf = new MinionStateFactory();
+			targetMinion.addState(mf.makeFrozen());
 		}
 		return toRet;
 	}
