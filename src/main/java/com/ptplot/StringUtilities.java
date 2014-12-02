@@ -514,7 +514,7 @@ public class StringUtilities {
 
         // If the property is not set then we return the empty string.
         if (property == null) {
-            return "";
+        	property = "";
         }
 
         return property;
@@ -630,9 +630,9 @@ public class StringUtilities {
      * @return A LinkedList of the lines that aren't comments.
      * @exception IOException If thrown when reading from the input String.
      */
-    public static LinkedList readLines(String lines) throws IOException {
+    public static LinkedList<String> readLines(String lines) throws IOException {
         BufferedReader bufferedReader = null;
-        LinkedList returnList = new LinkedList();
+        LinkedList<String> returnList = new LinkedList<String>();
         String line;
         bufferedReader = new BufferedReader(new StringReader(lines));
         try {
@@ -793,7 +793,8 @@ public class StringUtilities {
      *  @exception MalformedURLException If the URL is malformed.
      *  @deprecated Use FileUtilities.nameToURL instead.
      */
-    public static URL stringToURL(String name, URI baseDirectory,
+    @Deprecated
+	public static URL stringToURL(String name, URI baseDirectory,
             ClassLoader classLoader) throws IOException {
         return FileUtilities.nameToURL(name, baseDirectory, classLoader);
     }
@@ -903,7 +904,7 @@ public class StringUtilities {
         // single tokens.  We then call java.lang.Runtime.exec(String []
         // commands);
         // Parse the command into tokens
-        List commandList = new LinkedList();
+        List<String> commandList = new LinkedList<String>();
 
         StreamTokenizer streamTokenizer = new StreamTokenizer(new StringReader(
                 inputString));
@@ -981,7 +982,7 @@ public class StringUtilities {
             }
         }
 
-        return (String[]) commandList.toArray(new String[commandList.size()]);
+        return commandList.toArray(new String[commandList.size()]);
     }
 
     /** Return a string with a maximum line length of <i>lineLength</i>

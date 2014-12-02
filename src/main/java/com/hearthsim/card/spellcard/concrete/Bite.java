@@ -17,6 +17,10 @@ public class Bite extends SpellCard {
 	 */
 	public Bite(boolean hasBeenUsed) {
 		super((byte)4, hasBeenUsed);
+		
+		this.canTargetEnemyHero = false;
+		this.canTargetEnemyMinions = false;
+		this.canTargetOwnMinions = false;
 	}
 
 	/**
@@ -29,7 +33,7 @@ public class Bite extends SpellCard {
 	}
 
 	@Override
-	public Object deepCopy() {
+	public SpellCard deepCopy() {
 		return new Bite(this.hasBeenUsed);
 	}
 	
@@ -56,10 +60,6 @@ public class Bite extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (isNotHero(targetMinion) || isWaitingPlayer(side)) {
-			return null;
-		}
-		
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
 			Hero hero = (Hero)targetMinion;

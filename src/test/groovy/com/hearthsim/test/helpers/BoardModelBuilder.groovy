@@ -60,7 +60,9 @@ class BoardModelBuilder {
     private updateMinion(int position, Map options){
         def minion = boardModel.getMinion(playerSide, position)
         minion.attack += options.deltaAttack ? options.deltaAttack : 0;
-        minion.health += options.deltaHealth ? options.deltaHealth : 0;
+		minion.extraAttackUntilTurnEnd += options.deltaExtraAttack ? options.deltaExtraAttack : 0;
+
+		minion.health += options.deltaHealth ? options.deltaHealth : 0;
 		minion.maxHealth += options.deltaMaxHealth ? options.deltaMaxHealth : 0;
 		
 		minion.auraAttack += options.deltaAuraAttack ? options.deltaAuraAttack : 0;
@@ -105,7 +107,7 @@ class BoardModelBuilder {
     private mana(Number mana) {
         def model = boardModel.modelForSide(playerSide)
         model.setMana((int) mana)
-        //todo: only do this if maxMana hasn't been set explicitly already
+        //TODO: only do this if maxMana hasn't been set explicitly already
         if (model.getMaxMana() == 0)
             model.setMaxMana((int) mana)
     }
@@ -131,7 +133,7 @@ class BoardModelBuilder {
 	
 	private addCardToHand(Class cardClass) {
 		Card card = cardClass.newInstance()
-		boardModel.placeCardHandCurrentPlayer(card)
+		boardModel.placeCardHand(playerSide, card)
 	}
 	
     private removeCardFromHand(Class card) {
@@ -150,7 +152,7 @@ class BoardModelBuilder {
         minion.hasBeenUsed(hasBeenUsed)
         def numMinions = boardModel.modelForSide(playerSide).numMinions
         // place the minion at the end by default
-        // todo: eventually this will need to be configurable
+        // TODO: eventually this will need to be configurable
         boardModel.placeMinion(playerSide, minion, numMinions)
     }
 

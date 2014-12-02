@@ -94,7 +94,8 @@ public class UndoListener implements UndoableEditListener {
     /** Remember the edit and update the action state.
      *  @param event The event that occurred.
      */
-    public void undoableEditHappened(UndoableEditEvent event) {
+    @Override
+	public void undoableEditHappened(UndoableEditEvent event) {
         _undo.addEdit(event.getEdit());
         _undoAction._updateUndoState();
         _redoAction._updateRedoState();
@@ -116,12 +117,15 @@ public class UndoListener implements UndoableEditListener {
      * Perform the undo action.
      */
     protected class UndoAction extends AbstractAction {
-        public UndoAction() {
+		private static final long serialVersionUID = 1L;
+
+		public UndoAction() {
             super("Undo");
             setEnabled(false);
         }
 
-        public void actionPerformed(ActionEvent e) {
+        @Override
+		public void actionPerformed(ActionEvent e) {
             try {
                 _undo.undo();
             } catch (CannotUndoException ex) {
@@ -147,12 +151,15 @@ public class UndoListener implements UndoableEditListener {
      * Peform the redo action.
      */
     protected class RedoAction extends AbstractAction {
-        public RedoAction() {
+		private static final long serialVersionUID = 1L;
+
+		public RedoAction() {
             super("Redo");
             setEnabled(false);
         }
 
-        public void actionPerformed(ActionEvent e) {
+        @Override
+		public void actionPerformed(ActionEvent e) {
             try {
                 _undo.redo();
             } catch (CannotRedoException ex) {

@@ -6,12 +6,14 @@ import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
 public class HSHeroChoiceComboBox extends JComboBox<String> {
-	
+	private static final long serialVersionUID = 1L;
+
 	Dimension arc_ = new Dimension(2, 2);
 	
 	public class HSHeroChoiceRenderer extends JLabel implements ListCellRenderer<String> {
+		private static final long serialVersionUID = 1L;
 
-	    public HSHeroChoiceRenderer() {
+		public HSHeroChoiceRenderer() {
 	        setOpaque(true);
 	        setHorizontalAlignment(CENTER);
 	        setVerticalAlignment(CENTER);

@@ -16,6 +16,9 @@ public class RockbiterWeapon extends SpellCard {
 	 */
 	public RockbiterWeapon(boolean hasBeenUsed) {
 		super((byte)1, hasBeenUsed);
+
+		this.canTargetEnemyHero = false;
+		this.canTargetEnemyMinions = false;
 	}
 
 	/**
@@ -28,7 +31,7 @@ public class RockbiterWeapon extends SpellCard {
 	}
 
 	@Override
-	public Object deepCopy() {
+	public SpellCard deepCopy() {
 		return new RockbiterWeapon(this.hasBeenUsed);
 	}
 	

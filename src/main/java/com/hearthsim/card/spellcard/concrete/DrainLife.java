@@ -15,10 +15,12 @@ public class DrainLife extends SpellDamage {
 
 	public DrainLife(boolean hasBeenUsed) {
 		super((byte)3, (byte)2, hasBeenUsed);
+		
+		this.canTargetOwnHero = false; // TODO card as printed looks like it allows this
 	}
 
 	@Override
-	public Object deepCopy() {
+	public SpellDamage deepCopy() {
 		return new DrainLife(this.hasBeenUsed);
 	}
 	
@@ -45,9 +47,6 @@ public class DrainLife extends SpellDamage {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (isCurrentPlayer(side) && isHero(targetMinion))
-			return null;
-		
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
 			toRet.data_.getCurrentPlayerHero().takeHeal((byte)2, PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1);

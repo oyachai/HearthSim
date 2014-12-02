@@ -25,7 +25,7 @@ public abstract class WeaponCard extends Card {
     }
 
 	@Override
-	public Object deepCopy() {
+	public Card deepCopy() {
         WeaponCard weapon = null;
         try {
             weapon = getClass().newInstance();
@@ -77,8 +77,8 @@ public abstract class WeaponCard extends Card {
     @Override
     public int hashCode() {
         int result = super.hashCode();
-        result = 31 * result + (int) weaponCharge_;
-        result = 31 * result + (int) weaponDamage_;
+        result = 31 * result + weaponCharge_;
+        result = 31 * result + weaponDamage_;
         return result;
     }
 
@@ -95,6 +95,7 @@ public abstract class WeaponCard extends Card {
      *
      * @return The boardState is manipulated and returned
 	 */
+	@Override
 	protected HearthTreeNode use_core(
 			PlayerSide side,
 			Minion targetMinion,

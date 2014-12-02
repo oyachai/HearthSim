@@ -3,15 +3,13 @@ package com.hearthsim.util;
 import java.util.LinkedList;
 
 public class ThreadQueue {
-    private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
-
     private final int nThreads;
     private final PoolWorker[] threads;
-    private final LinkedList queue;
+    private final LinkedList<Runnable> queue;
 
     public ThreadQueue(int nThreads) {
         this.nThreads = nThreads;
-        queue = new LinkedList();
+        queue = new LinkedList<Runnable>();
         threads = new PoolWorker[nThreads];
     }
 
@@ -31,14 +29,15 @@ public class ThreadQueue {
     
 	private class PoolWorker extends Thread {
 
-	    public void run() {
+	    @Override
+		public void run() {
 	        Runnable r;
 	        while (true) {
 	            synchronized(queue) {
 	            	if (queue.isEmpty()) {
 	            		break;
 	            	}
-	                r = (Runnable) queue.removeFirst();
+	                r = queue.removeFirst();
 	            }
 	
 	            // If we don't catch RuntimeException, 

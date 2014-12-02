@@ -16,6 +16,10 @@ public class Assassinate extends SpellCard {
 	 */
 	public Assassinate(boolean hasBeenUsed) {
 		super((byte)5, hasBeenUsed);
+		
+		this.canTargetEnemyHero = false;
+		this.canTargetOwnHero = false;
+		this.canTargetOwnMinions = false;
 	}
 
 	/**
@@ -28,10 +32,10 @@ public class Assassinate extends SpellCard {
 	}
 	
 	@Override
-	public Object deepCopy() {
+	public SpellCard deepCopy() {
 		return new Assassinate(this.hasBeenUsed);
 	}
-	
+
 	/**
 	 * 
 	 * Use the card on the given target
@@ -54,11 +58,7 @@ public class Assassinate extends SpellCard {
 			Deck deckPlayer1,
 			boolean singleRealizationOnly)
 		throws HSException
-	{
-		if (isCurrentPlayer(side) || isHero(targetMinion)) {
-			return null;
-		}
-		
+	{		
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
 			targetMinion.setHealth((byte)-99);

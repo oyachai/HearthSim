@@ -3,23 +3,11 @@ package com.hearthsim.card.minion.concrete;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class AncientOfWar extends Minion {
 
-	private static final String NAME = "Ancient of War";
-	private static final byte MANA_COST = 7;
-	private static final byte ATTACK = 5;
-	private static final byte HEALTH = 5;
-	
-	private static final boolean TAUNT = false;
-	private static final boolean DIVINE_SHIELD = false;
-	private static final boolean WINDFURY = false;
-	private static final boolean CHARGE = false;
-	
-	private static final boolean STEALTHED = false;
 	private static final boolean HERO_TARGETABLE = true;
 	private static final boolean SUMMONED = false;
 	private static final boolean TRANSFORMED = false;
@@ -59,13 +47,13 @@ public class AncientOfWar extends Minion {
 		if (toRet != null) {
 			int thisMinionIndex = PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions().indexOf(this);
 			{
-				HearthTreeNode newState = toRet.addChild(new HearthTreeNode((BoardModel)toRet.data_.deepCopy()));
+				HearthTreeNode newState = toRet.addChild(new HearthTreeNode(toRet.data_.deepCopy()));
 				PlayerSide.CURRENT_PLAYER.getPlayer(newState).getMinions().get(thisMinionIndex).setTaunt(true);
 				PlayerSide.CURRENT_PLAYER.getPlayer(newState).getMinions().get(thisMinionIndex).setMaxHealth((byte)10);
 				PlayerSide.CURRENT_PLAYER.getPlayer(newState).getMinions().get(thisMinionIndex).setHealth((byte)10);
 			}
 			{
-				HearthTreeNode newState = toRet.addChild(new HearthTreeNode((BoardModel)toRet.data_.deepCopy()));
+				HearthTreeNode newState = toRet.addChild(new HearthTreeNode(toRet.data_.deepCopy()));
 				PlayerSide.CURRENT_PLAYER.getPlayer(newState).getMinions().get(thisMinionIndex).setAttack((byte)10);
 			}
 		}

@@ -16,6 +16,10 @@ public class Equality extends SpellCard {
 	 */
 	public Equality(boolean hasBeenUsed) {
 		super((byte)2, hasBeenUsed);
+		
+		this.canTargetEnemyHero = false;
+		this.canTargetEnemyMinions = false;
+		this.canTargetOwnMinions = false;
 	}
 
 	/**
@@ -28,7 +32,7 @@ public class Equality extends SpellCard {
 	}
 	
 	@Override
-	public Object deepCopy() {
+	public SpellCard deepCopy() {
 		return new Equality(this.hasBeenUsed);
 	}
 
@@ -51,10 +55,6 @@ public class Equality extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (isNotHero(targetMinion) || isWaitingPlayer(side)) {
-			return null;
-		}
-		
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
 			for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {

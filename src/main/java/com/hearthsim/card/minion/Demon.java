@@ -12,7 +12,8 @@ public class Demon extends Minion {
     public Demon() {
     }
 
-    public JSONObject toJSON() {
+    @Override
+	public JSONObject toJSON() {
 		JSONObject json = super.toJSON();
 		json.put("type", "Demon");
 		return json;

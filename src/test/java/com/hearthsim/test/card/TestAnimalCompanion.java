@@ -75,7 +75,7 @@ public class TestAnimalCompanion {
 		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
 		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
 		
-		assertTrue(ret == null);
+		assertNull(ret);
 		assertEquals(board.data_.getNumCards_hand(), 2);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
@@ -141,25 +141,6 @@ public class TestAnimalCompanion {
 
 	}
 	
-	@Test
-	public void test0() throws HSException {
-		
-		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
-		
-		assertTrue(ret == null);
-		assertEquals(board.data_.getNumCards_hand(), 1);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
-		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
-		assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), health1 - 1);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), health1 - 1);
-	}
-
 	@Test
 	public void test1() throws HSException {
 		
@@ -276,7 +257,7 @@ public class TestAnimalCompanion {
 		board.data_.getWaitingPlayer().setMaxMana((byte)4);
 
         BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
-        List<HearthActionBoardPair> ab = ai0.playTurn(0, board.data_, 200000000);
+        List<HearthActionBoardPair> ab = ai0.playTurn(0, board.data_);
 		BoardModel resBoard = ab.get(ab.size() - 1).board;
 
 		assertEquals(resBoard.getCurrentPlayer().getMana(), 1);

@@ -17,6 +17,10 @@ public class ExcessMana extends SpellCard {
 	 */
 	public ExcessMana(boolean hasBeenUsed) {
 		super((byte)0, hasBeenUsed);
+		
+		this.canTargetEnemyHero = false;
+		this.canTargetEnemyMinions = false;
+		this.canTargetOwnMinions = false;
 	}
 
 	/**
@@ -29,10 +33,10 @@ public class ExcessMana extends SpellCard {
 	}
 
 	@Override
-	public Object deepCopy() {
+	public SpellCard deepCopy() {
 		return new ExcessMana(this.hasBeenUsed);
 	}
-	
+
 	/**
 	 * 
 	 * Use the card on the given target
@@ -55,11 +59,7 @@ public class ExcessMana extends SpellCard {
 			Deck deckPlayer1,
 			boolean singleRealizationOnly)
 		throws HSException
-	{
-		if (isNotHero(targetMinion) || isWaitingPlayer(side)) {
-			return null;
-		}
-		
+	{	
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
 			if (toRet instanceof CardDrawNode)

@@ -13,6 +13,10 @@ public class UnleashTheHounds extends SpellCard {
 
 	public UnleashTheHounds(boolean hasBeenUsed) {
 		super((byte)3, hasBeenUsed);
+
+		this.canTargetEnemyHero = false;
+		this.canTargetEnemyMinions = false;
+		this.canTargetOwnMinions = false;
 	}
 
 	public UnleashTheHounds() {
@@ -20,7 +24,7 @@ public class UnleashTheHounds extends SpellCard {
 	}
 
 	@Override
-	public Object deepCopy() {
+	public SpellCard deepCopy() {
 		return new UnleashTheHounds(this.hasBeenUsed());
 	}
 

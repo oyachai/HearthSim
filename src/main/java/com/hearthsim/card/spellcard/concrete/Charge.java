@@ -16,6 +16,10 @@ public class Charge extends SpellCard {
 	 */
 	public Charge(boolean hasBeenUsed) {
 		super((byte)3, hasBeenUsed);
+		
+		this.canTargetEnemyHero = false;
+		this.canTargetEnemyMinions = false;
+		this.canTargetOwnHero = false;
 	}
 
 	/**
@@ -28,7 +32,7 @@ public class Charge extends SpellCard {
 	}
 	
 	@Override
-	public Object deepCopy() {
+	public SpellCard deepCopy() {
 		return new Charge(this.hasBeenUsed);
 	}
 
@@ -55,11 +59,6 @@ public class Charge extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (isHero(targetMinion) || isWaitingPlayer(side)) {
-			//cant't use it on the heroes or enemy minions
-			return null;
-		}
-		
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
 			targetMinion.setAttack((byte)(targetMinion.getAttack() + 2));

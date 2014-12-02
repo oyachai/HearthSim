@@ -46,7 +46,9 @@ package com.ptplot;
  @Pt.AcceptedRating Green (janneck)
  */
 public class CancelException extends Exception {
-    /** Construct an exception with a default message.
+	private static final long serialVersionUID = 1L;
+
+	/** Construct an exception with a default message.
      */
     public CancelException() {
         super("Operation cancelled by the user");

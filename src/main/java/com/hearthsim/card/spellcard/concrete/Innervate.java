@@ -16,6 +16,10 @@ public class Innervate extends SpellCard {
 	 */
 	public Innervate(boolean hasBeenUsed) {
 		super((byte)0, hasBeenUsed);
+		
+		this.canTargetEnemyHero = false;
+		this.canTargetEnemyMinions = false;
+		this.canTargetOwnMinions = false;
 	}
 
 	/**
@@ -28,7 +32,7 @@ public class Innervate extends SpellCard {
 	}
 
 	@Override
-	public Object deepCopy() {
+	public SpellCard deepCopy() {
 		return new Innervate(this.hasBeenUsed);
 	}
 	
@@ -55,9 +59,6 @@ public class Innervate extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (isWaitingPlayer(side) || isNotHero(targetMinion))
-			return null;
-
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
 			if (toRet.data_.getCurrentPlayer().getMana() < 8)

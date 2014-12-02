@@ -15,13 +15,17 @@ public class Bloodlust extends SpellCard {
 
 	public Bloodlust(boolean hasBeenUsed) {
 		super((byte)5, hasBeenUsed);
+		
+		this.canTargetEnemyHero = false;
+		this.canTargetEnemyMinions = false;
+		this.canTargetOwnMinions = false;
 	}
 	
 	@Override
-	public Object deepCopy() {
+	public SpellCard deepCopy() {
 		return new Bloodlust(this.hasBeenUsed);
 	}
-	
+
 	/**
 	 * 
 	 * Use the card on the given target
@@ -45,10 +49,6 @@ public class Bloodlust extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (isWaitingPlayer(side) || isNotHero(targetMinion)) {
-			return null;
-		}
-		
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		
 		for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {

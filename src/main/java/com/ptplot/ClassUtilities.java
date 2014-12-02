@@ -72,8 +72,8 @@ public class ClassUtilities {
      *  @exception IOException If opening the connection fails or if
      *  getting the jar file from the connection fails
      */
-    public static List jarURLDirectories(URL jarURL) throws IOException {
-        List directories = new LinkedList();
+    public static List<String> jarURLDirectories(URL jarURL) throws IOException {
+        List<String> directories = new LinkedList<String>();
         JarURLConnection connection = (JarURLConnection) (jarURL
                 .openConnection());
         String jarEntryName = connection.getEntryName();
@@ -81,9 +81,9 @@ public class ClassUtilities {
             jarEntryName = jarEntryName.substring(0, jarEntryName.length() - 1);
         }
         JarFile jarFile = connection.getJarFile();
-        Enumeration entries = jarFile.entries();
+        Enumeration<JarEntry> entries = jarFile.entries();
         while (entries.hasMoreElements()) {
-            JarEntry entry = (JarEntry) entries.nextElement();
+            JarEntry entry = entries.nextElement();
             String name = entry.getName();
             int jarEntryIndex = name.indexOf(jarEntryName + "/");
             int jarEntrySlashIndex = jarEntryIndex + jarEntryName.length() + 1;
@@ -98,6 +98,7 @@ public class ClassUtilities {
                 directories.add(name);
             }
         }
+        jarFile.close();
         return directories;
     }
 
@@ -160,7 +161,7 @@ public class ClassUtilities {
             // We might be in the Swing Event thread, so
             // Thread.currentThread().getContextClassLoader()
             // .getResource(entry) probably will not work.
-            Class refClass = Class.forName("ptolemy.util.ClassUtilities");
+            Class<?> refClass = Class.forName("ptolemy.util.ClassUtilities");
             URL entryURL = refClass.getClassLoader().getResource(entry);
             if (entryURL == null && entry.indexOf("#") != -1) { 
                 // If entry contains a #, then strip it off and try again.

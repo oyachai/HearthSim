@@ -18,6 +18,10 @@ public class ShieldBlock extends SpellCard {
 	 */
 	public ShieldBlock(boolean hasBeenUsed) {
 		super((byte)3, hasBeenUsed);
+
+		this.canTargetEnemyHero = false;
+		this.canTargetEnemyMinions = false;
+		this.canTargetOwnMinions = false;
 	}
 
 	/**
@@ -30,7 +34,7 @@ public class ShieldBlock extends SpellCard {
 	}
 
 	@Override
-	public Object deepCopy() {
+	public SpellCard deepCopy() {
 		return new ShieldBlock(this.hasBeenUsed);
 	}
 	
@@ -57,10 +61,6 @@ public class ShieldBlock extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (isNotHero(targetMinion) || isWaitingPlayer(side)) {
-			return null;
-		}
-		
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
 			toRet.data_.getCurrentPlayerHero().setArmor((byte)(toRet.data_.getCurrentPlayerHero().getArmor() + 5));

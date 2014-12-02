@@ -31,6 +31,7 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.plaf.basic.BasicComboBoxEditor;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
@@ -63,7 +64,10 @@ import java.util.*;
  */
 @SuppressWarnings("PMD")
 public class Query extends JPanel {
-    /** Construct a panel with no entries in it.
+
+	private static final long serialVersionUID = 1L;
+
+	/** Construct a panel with no entries in it.
      */
     public Query() {
         _grid = new GridBagLayout();
@@ -192,13 +196,13 @@ public class Query extends JPanel {
      *  @param foreground The foreground color for the editable part.
      *  @return The combo box for the choice.
      */
-    public JComboBox addChoice(String name, String label, Object[] values,
+    public JComboBox<Object> addChoice(String name, String label, Object[] values,
             Object defaultChoice, boolean editable, final Color background,
             final Color foreground) {
         JLabel lbl = new JLabel(label + ": ");
         lbl.setBackground(_background);
 
-        JComboBox combobox = new JComboBox(values);
+        JComboBox<Object> combobox = new JComboBox<Object>(values);
         combobox.setEditable(editable);
 
         // NOTE: Typical of Swing, the following does not set
@@ -206,7 +210,8 @@ public class Query extends JPanel {
         // custom editor.  #$(#&$#(@#!!
         // combobox.setBackground(background);
         combobox.setEditor(new BasicComboBoxEditor() {
-            public Component getEditorComponent() {
+            @Override
+			public Component getEditorComponent() {
                 Component result = super.getEditorComponent();
                 result.setBackground(background);
                 result.setForeground(foreground);
@@ -512,7 +517,7 @@ public class Query extends JPanel {
      */
     public void addQueryListener(QueryListener listener) {
         if (_listeners == null) {
-            _listeners = new Vector();
+            _listeners = new Vector<QueryListener>();
         }
 
         if (_listeners.contains(listener)) {
@@ -581,7 +586,7 @@ public class Query extends JPanel {
      *   to indicate that none are selected.
      */
     public void addSelectButtons(String name, String label, String[] values,
-            Set initiallySelected) {
+            Set<String> initiallySelected) {
         JLabel lbl = new JLabel(label + ": ");
         lbl.setBackground(_background);
 
@@ -594,7 +599,7 @@ public class Query extends JPanel {
         QueryActionListener listener = new QueryActionListener(this, name);
 
         if (initiallySelected == null) {
-            initiallySelected = new HashSet();
+            initiallySelected = new HashSet<String>();
         }
 
         JRadioButton[] buttons = new JRadioButton[values.length];
@@ -773,7 +778,8 @@ public class Query extends JPanel {
      *   checkbox.  This is a runtime exception, so it
      *   need not be declared explicitly.
      */
-    public boolean booleanValue(String name) throws NoSuchElementException,
+    @Deprecated
+	public boolean booleanValue(String name) throws NoSuchElementException,
             IllegalArgumentException {
         return getBooleanValue(name);
     }
@@ -795,7 +801,8 @@ public class Query extends JPanel {
      *   line.  This is a runtime exception, so it
      *   need not be declared explicitly.
      */
-    public double doubleValue(String name) throws IllegalArgumentException,
+    @Deprecated
+	public double doubleValue(String name) throws IllegalArgumentException,
             NoSuchElementException, NumberFormatException {
         return getDoubleValue(name);
     }
@@ -941,7 +948,7 @@ public class Query extends JPanel {
         } else if (result instanceof JSlider) {
             return ((JSlider) result).getValue();
         } else if (result instanceof JComboBox) {
-            return ((JComboBox) result).getSelectedIndex();
+            return ((JComboBox<?>) result).getSelectedIndex();
         } else if (result instanceof JToggleButton[]) {
             // Regrettably, ButtonGroup gives no way to determine
             // which button is selected, so we have to search...
@@ -969,7 +976,8 @@ public class Query extends JPanel {
      *
      *  @return The maximum desired size.
      */
-    public Dimension getMaximumSize() {
+    @Override
+	public Dimension getMaximumSize() {
         // Unfortunately, if we don't have a message, then we end up with
         // an empty space that is difficult to control the size of, which
         // requires us to set the maximum size to be the same as
@@ -1027,7 +1035,7 @@ public class Query extends JPanel {
         } else if (result instanceof JSlider) {
             return "" + ((JSlider) result).getValue();
         } else if (result instanceof JComboBox) {
-            return (((JComboBox) result).getSelectedItem());
+            return (((JComboBox<?>) result).getSelectedItem());
         } else if (result instanceof JToggleButton[]) {
             // JRadioButton and JCheckButton are subclasses of JToggleButton
             // Regrettably, ButtonGroup gives no way to determine
@@ -1128,7 +1136,8 @@ public class Query extends JPanel {
      *   choice, line, or slider.  This is a runtime exception, so it
      *   need not be declared explicitly.
      */
-    public int intValue(String name) throws IllegalArgumentException,
+    @Deprecated
+	public int intValue(String name) throws IllegalArgumentException,
             NoSuchElementException, NumberFormatException {
         return getIntValue(name);
     }
@@ -1137,10 +1146,10 @@ public class Query extends JPanel {
      *  those entries have not changed since the last notification.
      */
     public void notifyListeners() {
-        Iterator names = _entries.keySet().iterator();
+        Iterator<String> names = _entries.keySet().iterator();
 
         while (names.hasNext()) {
-            String name = (String) names.next();
+            String name = names.next();
             _notifyListeners(name);
         }
     }
@@ -1198,10 +1207,10 @@ public class Query extends JPanel {
             Integer parsed = Integer.valueOf(value);
             ((JSlider) result).setValue(parsed.intValue());
         } else if (result instanceof JComboBox) {
-            ((JComboBox) result).setSelectedItem(value);
+            ((JComboBox<?>) result).setSelectedItem(value);
         } else if (result instanceof JToggleButton[]) {
             // First, parse the value, which may be a comma-separated list.
-            Set selectedValues = new HashSet();
+            Set<String> selectedValues = new HashSet<String>();
             StringTokenizer tokenizer = new StringTokenizer(value, ",");
 
             while (tokenizer.hasMoreTokens()) {
@@ -1255,7 +1264,8 @@ public class Query extends JPanel {
     /** Set the background color for all the widgets.
      *  @param color The background color.
      */
-    public void setBackground(Color color) {
+    @Override
+	public void setBackground(Color color) {
         super.setBackground(color);
         _background = color;
 
@@ -1506,7 +1516,7 @@ public class Query extends JPanel {
      *  @param tip The text of the tool tip.
      */
     public void setToolTip(String name, String tip) {
-        JLabel label = (JLabel) _labels.get(name);
+        JLabel label = _labels.get(name);
 
         if (label != null) {
             label.setToolTipText(tip);
@@ -1593,7 +1603,8 @@ public class Query extends JPanel {
      *  @exception IllegalArgumentException If the entry type does not
      *   have a string representation (this should not be thrown).
      */
-    public String stringValue(String name) throws NoSuchElementException,
+    @Deprecated
+	public String stringValue(String name) throws NoSuchElementException,
             IllegalArgumentException {
         return getStringValue(name);
     }
@@ -1687,13 +1698,13 @@ public class Query extends JPanel {
     protected GridBagConstraints _constraints;
 
     /** The hashtable of items in the query. */
-    protected Map _entries = new HashMap();
+    protected Map<String, Object> _entries = new HashMap<String, Object>();
 
     /** Layout control. */
     protected GridBagLayout _grid;
 
     /** List of registered listeners. */
-    protected Vector _listeners;
+    protected Vector<QueryListener> _listeners;
 
     ///////////////////////////////////////////////////////////////////
     ////                         friendly methods                  ////
@@ -1721,10 +1732,10 @@ public class Query extends JPanel {
             // if the value has not changed.
             _previous.put(name, newValue);
 
-            Enumeration listeners = _listeners.elements();
+            Enumeration<QueryListener> listeners = _listeners.elements();
 
             while (listeners.hasMoreElements()) {
-                QueryListener queryListener = (QueryListener) (listeners
+                QueryListener queryListener = (listeners
                         .nextElement());
                 queryListener.changed(name);
             }
@@ -1746,7 +1757,7 @@ public class Query extends JPanel {
     private int _height = DEFAULT_ENTRY_HEIGHT;
 
     // The hashtable of labels in the query.
-    private Map _labels = new HashMap();
+    private Map<String, JLabel> _labels = new HashMap<String, JLabel>();
 
     // Left padding insets.
     private Insets _leftPadding = new Insets(0, 10, 0, 0);
@@ -1764,7 +1775,7 @@ public class Query extends JPanel {
     private Insets _insets = new Insets(0, 0, 0, 0);
 
     // The hashtable of previous values, indexed by entry name.
-    private Map _previous = new HashMap();
+    private Map<String, Object> _previous = new HashMap<String, Object>();
 
     // The sum of the height of the widgets added using _addPair
     // If you adjust this, try the GR/Pendulum demo, which has
@@ -1792,7 +1803,8 @@ public class Query extends JPanel {
         /** Call all registered QueryListeners.
         *  @param event The event, ignored in this method.
         */
-        public void actionPerformed(ActionEvent event) {
+        @Override
+		public void actionPerformed(ActionEvent event) {
             _owner._notifyListeners(_name);
         }
 
@@ -1804,7 +1816,9 @@ public class Query extends JPanel {
     /** Panel containing an entry box and color chooser.
      */
     public static class QueryColorChooser extends Box implements ActionListener {
-        /** Create a panel containing an entry box and a color chooser.
+		private static final long serialVersionUID = 1L;
+
+		/** Create a panel containing an entry box and a color chooser.
          *  @param owner The owner query
          *  @param name The name of the query
          *  @param defaultColor  The initial default color of the color chooser.
@@ -1840,7 +1854,8 @@ public class Query extends JPanel {
             _name = name;
         }
 
-        public void actionPerformed(ActionEvent e) {
+        @Override
+		public void actionPerformed(ActionEvent e) {
             // Read the current color from the text field.
             String spec = getSelectedColor().trim();
             Color newColor = JColorChooser.showDialog(_owner, "Choose Color",
@@ -1894,7 +1909,9 @@ public class Query extends JPanel {
      */
     public static class QueryFileChooser extends Box implements ActionListener {
 
-        private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
+		private static final long serialVersionUID = 1L;
+
+		private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
         /** Construct a query file chooser.  The background will be white and
          *  the foreground will be black.
          * @param owner The query object that owns the file chooser
@@ -1970,7 +1987,8 @@ public class Query extends JPanel {
             _name = name;
         }
 
-        public void actionPerformed(ActionEvent e) {
+        @Override
+		public void actionPerformed(ActionEvent e) {
 
             // Swap backgrounds and avoid white boxes in "common places" dialog
             JFileChooserBugFix jFileChooserBugFix = new JFileChooserBugFix();
@@ -1980,7 +1998,9 @@ public class Query extends JPanel {
                 // NOTE: If the last argument is null, then choose a
                 // default dir.
                 JFileChooser fileChooser = new JFileChooser(_startingDirectory) {
-                    public void approveSelection() {
+					private static final long serialVersionUID = 1L;
+					@Override
+					public void approveSelection() {
                         File file = getSelectedFile();
                         if (file.exists() && getDialogType() == SAVE_DIALOG) {
                             String queryString = file.getName()
@@ -2075,7 +2095,7 @@ public class Query extends JPanel {
                             } catch (IOException ex) {
                                 _entryBox.setText(file.toString());
                             }
-                        } else {
+                        } else if(relativeURI != null) { // TODO need else clause
                             _entryBox.setText(relativeURI.toString());
                         }
                     }
@@ -2130,11 +2150,13 @@ public class Query extends JPanel {
             _owner = owner;
         }
 
-        public void focusGained(FocusEvent e) {
+        @Override
+		public void focusGained(FocusEvent e) {
             // Nothing to do.
         }
 
-        public void focusLost(FocusEvent e) {
+        @Override
+		public void focusLost(FocusEvent e) {
             // NOTE: Java's lame AWT has no reliable way
             // to take action on window closing, so this focus lost
             // notification is the only reliable way we have of reacting
@@ -2163,7 +2185,8 @@ public class Query extends JPanel {
         }
 
         /** Call all registered QueryListeners. */
-        public void itemStateChanged(ItemEvent e) {
+        @Override
+		public void itemStateChanged(ItemEvent e) {
             _owner._notifyListeners(_name);
         }
 
@@ -2177,7 +2200,9 @@ public class Query extends JPanel {
         // FindBugs suggests making this class static so as to decrease
         // the size of instances and avoid dangling references.
 
-        public JTextArea textArea;
+		private static final long serialVersionUID = 1L;
+
+		public JTextArea textArea;
 
         QueryScrollPane(JTextArea c) {
             super(c);
@@ -2212,7 +2237,8 @@ public class Query extends JPanel {
         }
 
         /** Call all registered QueryListeners. */
-        public void stateChanged(ChangeEvent event) {
+        @Override
+		public void stateChanged(ChangeEvent event) {
             _owner._notifyListeners(_name);
         }
 

@@ -51,7 +51,7 @@ public class StarvingBuzzard extends Beast {
 			return boardState;
 		
 		HearthTreeNode toRet = super.minionSummonEvent(thisMinionPlayerSide, summonedMinionPlayerSide, summonedMinion, boardState, deckPlayer0, deckPlayer1);
-		if (summonedMinion instanceof Beast) { //todo: this might be wrong..
+		if (summonedMinion instanceof Beast) { //TODO: this might be wrong..
 			if (toRet instanceof CardDrawNode) {
 				((CardDrawNode) toRet).addNumCardsToDraw(1);
 			} else {

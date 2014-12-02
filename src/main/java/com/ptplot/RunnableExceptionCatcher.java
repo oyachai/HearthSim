@@ -58,7 +58,8 @@ public class RunnableExceptionCatcher implements Runnable {
 
     /** Execute the runnable.
      */
-    public void run() {
+    @Override
+	public void run() {
         try {
             _runnable.run();
         } catch (Throwable e) {

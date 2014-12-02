@@ -5,7 +5,6 @@ import com.hearthsim.card.minion.Beast;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.HearthAction;
@@ -74,7 +73,7 @@ public class StampedingKodo extends Beast {
 				toRet = new RandomEffectNode(boardState, new HearthAction(HearthAction.Verb.UNTARGETABLE_BATTLECRY, PlayerSide.CURRENT_PLAYER, thisMinionIndex, PlayerSide.CURRENT_PLAYER, placementTargetIndex));
 				PlayerModel targetPlayer = PlayerSide.WAITING_PLAYER.getPlayer(toRet);
 				for (Minion possibleTarget : possibleTargets) {
-					HearthTreeNode newState = new HearthTreeNode((BoardModel) toRet.data_.deepCopy());
+					HearthTreeNode newState = new HearthTreeNode(toRet.data_.deepCopy());
 					Minion targetMinion = PlayerSide.WAITING_PLAYER.getPlayer(newState).getMinions().get(targetPlayer.getMinions().indexOf(possibleTarget));
 					targetMinion.setHealth((byte)-99); //destroyed!
 					newState = BoardStateFactoryBase.handleDeadMinions(newState, deckPlayer0, deckPlayer1);

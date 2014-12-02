@@ -18,6 +18,10 @@ public class CircleOfHealing extends SpellCard {
 	 */
 	public CircleOfHealing(boolean hasBeenUsed) {
 		super((byte)0, hasBeenUsed);
+		
+		this.canTargetEnemyHero = false;
+		this.canTargetEnemyMinions = false;
+		this.canTargetOwnMinions = false;
 	}
 
 	/**
@@ -30,11 +34,10 @@ public class CircleOfHealing extends SpellCard {
 	}
 	
 	@Override
-	public Object deepCopy() {
+	public SpellCard deepCopy() {
 		return new CircleOfHealing(this.hasBeenUsed);
 	}
 
-	
 	/**
 	 * 
 	 * Circle of Healing
@@ -57,10 +60,7 @@ public class CircleOfHealing extends SpellCard {
 			Deck deckPlayer1,
 			boolean singleRealizationOnly)
 		throws HSException
-	{
-		if (isWaitingPlayer(side) || isNotHero(targetMinion))
-			return null;
-		
+	{		
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
 			toRet = minion.takeHeal(HEAL_AMOUNT, PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1);

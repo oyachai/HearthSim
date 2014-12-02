@@ -2,6 +2,7 @@ package com.hearthsim.gui;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.ImplementedCardList;
+import com.hearthsim.card.ImplementedCardList.ImplementedCard;
 import com.hearthsim.event.HSSimulationEventListener;
 import com.hearthsim.exception.HSInvalidCardException;
 import com.hearthsim.exception.HSInvalidHeroException;
@@ -12,6 +13,7 @@ import javax.swing.*;
 import javax.swing.border.MatteBorder;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
+
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -26,9 +28,6 @@ public class HearthSim implements HSSimulationEventListener {
 	private boolean isRunning_;
 	
 	private final HSMainFrameModel hsModel_;
-	
-	private DefaultListModel deckListModel0_;
-	private DefaultListModel deckListModel1_;
 	
 	private JPanel middlePanel;
 	private HSDeckCreatePanel deckCreatePanel_0;
@@ -74,6 +73,7 @@ public class HearthSim implements HSSimulationEventListener {
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				try {
 					HearthSim window = new HearthSim();
@@ -107,7 +107,7 @@ public class HearthSim implements HSSimulationEventListener {
 		frame.getContentPane().setLayout(springLayout);
 		
 		JPanel Player0Panel = new JPanel();
-		Player0Panel.setBorder(new MatteBorder(0, 0, 0, 1, (Color) Color.GRAY));
+		Player0Panel.setBorder(new MatteBorder(0, 0, 0, 1, Color.GRAY));
 		Player0Panel.setOpaque(false);
 		Player0Panel.setBackground(Color.DARK_GRAY);
 		springLayout.putConstraint(SpringLayout.NORTH, Player0Panel, 0, SpringLayout.NORTH, frame.getContentPane());
@@ -187,16 +187,21 @@ public class HearthSim implements HSSimulationEventListener {
 				if (retVal == JFileChooser.APPROVE_OPTION) {
 					try {
 						DeckListFile deckList = new DeckListFile(fileChooser_.getSelectedFile().toPath());
-						((SortedListModel) deckList_0.getModel()).clear();
+						((SortedListModel<ImplementedCard>) deckList_0.getModel()).clear();
 						for (int indx = 0; indx < deckList.getDeck().getNumCards(); ++indx) {
 							Card card = deckList.getDeck().drawCard(indx);
-							((SortedListModel) deckList_0.getModel()).addElement(IMPLEMENTED_CARD_LIST.getCardForClass(card.getClass()));
+							((SortedListModel<ImplementedCard>) deckList_0.getModel()).addElement(IMPLEMENTED_CARD_LIST.getCardForClass(card.getClass()));
 						}
 						hsModel_.getSimulation().setDeck_p0(deckList.getDeck());
 						hsModel_.getSimulation().setHero_p0(deckList.getHero());
 						lblHero_0.setText(deckList.getHero().getName());
-					} catch (HSInvalidCardException | HSInvalidHeroException
-							| IOException e1) {
+					} catch (HSInvalidCardException e1) {
+						// TODO Auto-generated catch block
+						JOptionPane.showMessageDialog(frame,
+							    e1.getMessage(),
+							    "Error",
+							    JOptionPane.ERROR_MESSAGE);
+					} catch (HSInvalidHeroException | IOException e1) {
 						// TODO Auto-generated catch block
 						JOptionPane.showMessageDialog(frame,
 							    "Error opening the deck file",
@@ -573,6 +578,7 @@ public class HearthSim implements HSSimulationEventListener {
 					}
 					
 					Runnable runner = new Runnable() {
+						@Override
 						public void run() {
 							hsModel_.runSimulation();
 						}
@@ -584,7 +590,7 @@ public class HearthSim implements HSSimulationEventListener {
 		btnRun.setBackground(HSColors.SUCCESS_BUTTON_COLOR);
 		btnRun.setForeground(Color.WHITE);
 		ControlPane.add(btnRun);
-		Player1Panel.setBorder(new MatteBorder(0, 1, 0, 0, (Color) Color.GRAY));
+		Player1Panel.setBorder(new MatteBorder(0, 1, 0, 0, Color.GRAY));
 		Player1Panel.setOpaque(false);
 		springLayout.putConstraint(SpringLayout.NORTH, Player1Panel, 0, SpringLayout.NORTH, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.WEST, Player1Panel, -200, SpringLayout.EAST, frame.getContentPane());
@@ -660,16 +666,21 @@ public class HearthSim implements HSSimulationEventListener {
 				if (retVal == JFileChooser.APPROVE_OPTION) {
 					try {
 						DeckListFile deckList = new DeckListFile(fileChooser_.getSelectedFile().toPath());
-						((SortedListModel) deckList_1.getModel()).clear();
+						((SortedListModel<ImplementedCard>) deckList_1.getModel()).clear();
 						for (int indx = 0; indx < deckList.getDeck().getNumCards(); ++indx) {
 							Card card = deckList.getDeck().drawCard(indx);
-							((SortedListModel) deckList_1.getModel()).addElement(IMPLEMENTED_CARD_LIST.getCardForClass(card.getClass()));
+							((SortedListModel<ImplementedCard>) deckList_1.getModel()).addElement(IMPLEMENTED_CARD_LIST.getCardForClass(card.getClass()));
 						}
 						hsModel_.getSimulation().setDeck_p1(deckList.getDeck());
 						hsModel_.getSimulation().setHero_p1(deckList.getHero());
 						lblHero_1.setText(deckList.getHero().getName());
-					} catch (HSInvalidCardException | HSInvalidHeroException
-							| IOException e1) {
+					} catch (HSInvalidCardException e1) {
+						// TODO Auto-generated catch block
+						JOptionPane.showMessageDialog(frame,
+							    e1.getMessage(),
+							    "Error",
+							    JOptionPane.ERROR_MESSAGE);
+					} catch (HSInvalidHeroException | IOException e1) {
 						// TODO Auto-generated catch block
 						JOptionPane.showMessageDialog(frame,
 							    "Error opening the deck file",
@@ -898,8 +909,8 @@ public class HearthSim implements HSSimulationEventListener {
 			return;
 		}
 		for(int indx = 0; indx < 50; ++indx) {
-			currentShownPlot_.addPoint(0, (double)indx, data0[indx], true);
-			currentShownPlot_.addPoint(1, (double)indx, data1[indx], true);
+			currentShownPlot_.addPoint(0, indx, data0[indx], true);
+			currentShownPlot_.addPoint(1, indx, data1[indx], true);
 		}
 		currentShownPlot_.repaint();
 	}

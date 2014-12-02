@@ -1,12 +1,15 @@
 package com.hearthsim.gui;
 
 import javax.swing.*;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 
 public class SortedListModel<E extends Comparable> extends AbstractListModel<E> {
 
+	private static final long serialVersionUID = 1L;
+	
 	ArrayList<E> model; //can't use SortedSet... we need to support duplicates
 
 	public SortedListModel() {
@@ -18,6 +21,7 @@ public class SortedListModel<E extends Comparable> extends AbstractListModel<E> 
 		return model.size();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public E getElementAt(int index) {
 		return (E) model.toArray()[index];

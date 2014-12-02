@@ -9,7 +9,7 @@ import com.hearthsim.util.IdentityLinkedList;
 import com.hearthsim.util.MinionList;
 import org.json.JSONObject;
 
-public class PlayerModel implements DeepCopyable {
+public class PlayerModel implements DeepCopyable<PlayerModel> {
 
     private final String name;
     private final int playerId; // used for identifying player 0 vs player 1
@@ -47,6 +47,10 @@ public class PlayerModel implements DeepCopyable {
         return card;
     }
 
+    public int getNumCharacters() {
+    	return this.getNumMinions() + 1;
+    }
+    
     public int getNumMinions() {
         return minions.size();
     }
@@ -154,17 +158,18 @@ public class PlayerModel implements DeepCopyable {
     	fatigueDamage += value;
     }
     
-    public String toString() {
+    @Override
+	public String toString() {
         return new JSONObject(this).toString();
     }
 
     @Override
-    public Object deepCopy() {
+    public PlayerModel deepCopy() {
         PlayerModel copiedPlayerModel = new PlayerModel(
         		this.playerId,
                 this.name,
-                (Hero) this.hero.deepCopy(),
-                this.deck //todo should be a deep copy, we're just using the index in boardmodel right now to compensate..
+                this.hero.deepCopy(),
+                this.deck //TODO should be a deep copy, we're just using the index in boardmodel right now to compensate..
                 //oyachai: the use of the deck position index is actually an attempt to reduce memory usage.
         );
 
@@ -179,7 +184,7 @@ public class PlayerModel implements DeepCopyable {
         }
 
         for (final Card card: hand) {
-            Card tc = (Card)card.deepCopy();
+            Card tc = card.deepCopy();
             copiedPlayerModel.placeCardHand(tc);
         }
 

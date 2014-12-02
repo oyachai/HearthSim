@@ -15,6 +15,10 @@ public class FrostNova extends SpellCard {
 	 */
 	public FrostNova(boolean hasBeenUsed) {
 		super((byte)3, hasBeenUsed);
+	
+		this.canTargetEnemyHero = false;
+		this.canTargetEnemyMinions = false;
+		this.canTargetOwnMinions = false;
 	}
 
 	/**
@@ -27,7 +31,7 @@ public class FrostNova extends SpellCard {
 	}
 
 	@Override
-	public Object deepCopy() {
+	public SpellCard deepCopy() {
 		return new Flamestrike(this.hasBeenUsed);
 	}
 
@@ -54,14 +58,6 @@ public class FrostNova extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (isCurrentPlayer(side)) {
-			return null;
-		}
-		
-		if (isNotHero(targetMinion)) {
-			return null;
-		}
-		
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
 			for (Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {

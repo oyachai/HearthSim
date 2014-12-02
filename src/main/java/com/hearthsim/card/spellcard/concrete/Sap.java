@@ -1,15 +1,11 @@
 package com.hearthsim.card.spellcard.concrete;
 
-import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
-
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 
 public class Sap extends SpellCard {
 
@@ -21,6 +17,10 @@ public class Sap extends SpellCard {
 	 */
 	public Sap(boolean hasBeenUsed) {
 		super((byte)2, hasBeenUsed);
+
+		this.canTargetEnemyHero = false;
+		this.canTargetOwnHero = false;
+		this.canTargetOwnMinions = false;
 	}
 
 	/**
@@ -33,7 +33,7 @@ public class Sap extends SpellCard {
 	}
 
 	@Override
-	public Object deepCopy() {
+	public SpellCard deepCopy() {
 		return new Sap(this.hasBeenUsed);
 	}
 	
@@ -60,31 +60,11 @@ public class Sap extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (isHero(targetMinion) || isCurrentPlayer(side)) {
-			return null;
-		}
-		
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
 			if (boardState.data_.getNumCardsHandWaitingPlayer() < 10) {
-				try {
-					Class<?> clazz = Class.forName(targetMinion.getClass().getName());
-					Constructor<?> ctor = clazz.getConstructor();
-					Object object = ctor.newInstance();
-					toRet.data_.placeCardHandWaitingPlayer((Card) object);
-				} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InvocationTargetException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (InstantiationException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IllegalAccessException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IllegalArgumentException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				Minion copy = targetMinion.createResetCopy();
+				toRet.data_.placeCardHandWaitingPlayer(copy);
 			}
 			toRet.data_.removeMinion(targetMinion);
 		}

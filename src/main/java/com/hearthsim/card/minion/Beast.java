@@ -4,7 +4,7 @@ import org.json.JSONObject;
 
 
 public class Beast extends Minion {
-    //todo: replace all the race intermediary classes with race attribute on minion
+    //TODO: replace all the race intermediary classes with race attribute on minion
 
     public Beast() {
         super();
@@ -14,7 +14,8 @@ public class Beast extends Minion {
         super(name, mana, attack, health, baseAttack, baseHealth, maxHealth);
     }
 
-    public JSONObject toJSON() {
+    @Override
+	public JSONObject toJSON() {
 		JSONObject json = super.toJSON();
 		json.put("type", "Beast");
 		return json;

@@ -21,6 +21,10 @@ public class BattleRage extends SpellCard {
 	 */
 	public BattleRage(boolean hasBeenUsed) {
 		super((byte)2, hasBeenUsed);
+		
+		this.canTargetEnemyHero = false;
+		this.canTargetEnemyMinions = false;
+		this.canTargetOwnMinions = false;
 	}
 
 	/**
@@ -33,7 +37,7 @@ public class BattleRage extends SpellCard {
 	}
 
 	@Override
-	public Object deepCopy() {
+	public SpellCard deepCopy() {
 		return new BattleRage(this.hasBeenUsed);
 	}
 	
@@ -60,10 +64,6 @@ public class BattleRage extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (isWaitingPlayer(targetPlayerSide) || isNotHero(targetMinion)) {
-			return null;
-		}
-
 		HearthTreeNode toRet = super.use_core(targetPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
             PlayerModel playerModel = targetPlayerSide.getPlayer(toRet);

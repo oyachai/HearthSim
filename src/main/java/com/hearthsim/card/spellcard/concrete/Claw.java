@@ -20,6 +20,10 @@ public class Claw extends SpellCard {
 	 */
 	public Claw(boolean hasBeenUsed) {
 		super((byte)1, hasBeenUsed);
+		
+		this.canTargetEnemyHero = false;
+		this.canTargetEnemyMinions = false;
+		this.canTargetOwnMinions = false;
 	}
 
 	/**
@@ -32,7 +36,7 @@ public class Claw extends SpellCard {
 	}
 	
 	@Override
-	public Object deepCopy() {
+	public SpellCard deepCopy() {
 		return new Claw(this.hasBeenUsed);
 	}
 
@@ -58,10 +62,6 @@ public class Claw extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (isWaitingPlayer(side) || isNotHero(targetMinion)) {
-			return null;
-		}
-		
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
 			targetMinion.setExtraAttackUntilTurnEnd((byte)(DAMAGE_AMOUNT + targetMinion.getExtraAttackUntilTurnEnd()));

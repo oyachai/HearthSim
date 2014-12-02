@@ -2,7 +2,7 @@ package com.hearthsim.util.tree;
 
 import com.hearthsim.card.Deck;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.player.playercontroller.BruteForceSearchAI;
+import com.hearthsim.player.playercontroller.BoardScorer;
 
 /**
  * A card draw triggers a stop
@@ -56,7 +56,7 @@ public class CardDrawNode extends StopNode {
 	}
 	
 
-	public double cardDrawScore(Deck deck, BruteForceSearchAI ai) {
+	public double cardDrawScore(Deck deck, BoardScorer ai) {
 		int numCardsInDeck = deck.getNumCards();
 		int numCardsRemaining = numCardsInDeck - data_.getCurrentPlayer().getDeckPos();
 		int numCardsToActuallyDraw = numCardsToDraw_;
@@ -72,10 +72,12 @@ public class CardDrawNode extends StopNode {
 		}
 		//find the average card score of the remaining cards
 		double averageCardScore = 0.0;
-		for (int indx = data_.getCurrentPlayer().getDeckPos(); indx < numCardsInDeck; ++indx) {
-			averageCardScore += ai.cardInHandScore(deck.drawCard(indx));
+		if(numCardsRemaining > 0) {
+			for (int indx = data_.getCurrentPlayer().getDeckPos(); indx < numCardsInDeck; ++indx) {
+				averageCardScore += ai.cardInHandScore(deck.drawCard(indx));
+			}
+			averageCardScore = averageCardScore / numCardsRemaining;
 		}
-		averageCardScore = numCardsRemaining <= 0 ? 0.0 : averageCardScore / numCardsRemaining;
 		
 		double toRet = averageCardScore * numCardsToActuallyDraw;
 		int heroHealth = data_.getCurrentPlayerHero().getHealth();

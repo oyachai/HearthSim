@@ -17,6 +17,9 @@ public class Demonfire extends SpellCard {
 	 */
 	public Demonfire(boolean hasBeenUsed) {
 		super((byte)2, hasBeenUsed);
+		
+		this.canTargetEnemyHero = false;
+		this.canTargetOwnHero = false;
 	}
 
 	/**
@@ -29,10 +32,9 @@ public class Demonfire extends SpellCard {
 	}
 
 	@Override
-	public Object deepCopy() {
+	public SpellCard deepCopy() {
 		return new Demonfire(this.hasBeenUsed);
 	}
-
 
 	/**
 	 * 
@@ -57,10 +59,7 @@ public class Demonfire extends SpellCard {
 			Deck deckPlayer1,
 			boolean singleRealizationOnly)
 		throws HSException
-	{
-		if (isHero(targetMinion))
-			return null;
-		
+	{		
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
 			if (isCurrentPlayer(side) && targetMinion instanceof Demon) {

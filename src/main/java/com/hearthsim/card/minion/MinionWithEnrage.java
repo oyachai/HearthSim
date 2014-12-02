@@ -16,7 +16,7 @@ public abstract class MinionWithEnrage extends Minion {
     }
 
 	@Override
-	public Object deepCopy() {
+	public Minion deepCopy() {
         MinionWithEnrage minionWithEnrage = (MinionWithEnrage) super.deepCopy();
         minionWithEnrage.enraged_ = enraged_;
         return  minionWithEnrage;

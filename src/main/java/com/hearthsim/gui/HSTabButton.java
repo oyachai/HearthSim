@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
 public class HSTabButton extends JButton {
-    
+	private static final long serialVersionUID = 1L;
 	private static final Dimension ARC = new Dimension(1, 1);
 
 	public HSTabButton(String buttonText) {

@@ -644,6 +644,10 @@
         "class": "com.hearthsim.card.minion.concrete.NoviceEngineer"
     },
     {
+        "name": "Nerubian Egg",
+        "class": "com.hearthsim.card.minion.concrete.NerubianEgg"
+    },
+    {
         "name": "Oasis Snapjaw",
         "class": "com.hearthsim.card.minion.concrete.OasisSnapjaw"
     },

@@ -30,7 +30,7 @@ public class HolyLight extends SpellCard {
 	}
 	
 	@Override
-	public Object deepCopy() {
+	public SpellCard deepCopy() {
 		return new HolyLight(this.hasBeenUsed);
 	}
 	

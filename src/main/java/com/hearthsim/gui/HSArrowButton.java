@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class HSArrowButton extends JButton  {
-
+	private static final long serialVersionUID = 1L;
 	public static final int LEFT = 10;
 	public static final int RIGHT = 20;
 	public static final int UP = 30;

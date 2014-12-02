@@ -10,7 +10,7 @@ import static com.hearthsim.model.PlayerSide.WAITING_PLAYER
 import static org.junit.Assert.*
 
 class FlameImpSpec extends CardSpec {
-	
+
 	HearthTreeNode root
 	BoardModel startingBoard
 
@@ -22,8 +22,9 @@ class FlameImpSpec extends CardSpec {
 		def health1 = 7;
 
 		def commonField = [
-				[mana: minionMana, attack: attack, maxHealth: health0], //todo: attack may be irrelevant here
-				[mana: minionMana, attack: attack, health: health1 - 1, maxHealth: health1]
+			[mana: minionMana, attack: attack, maxHealth: health0],
+			//TODO: attack may be irrelevant here
+			[mana: minionMana, attack: attack, health: health1 - 1, maxHealth: health1]
 		]
 
 		startingBoard = new BoardModelBuilder().make {
@@ -41,20 +42,8 @@ class FlameImpSpec extends CardSpec {
 		root = new HearthTreeNode(startingBoard)
 	}
 
-	def "cannot play for waiting player's side"() {
-		def copiedBoard = startingBoard.deepCopy()
-		def target = root.data_.getCharacter(WAITING_PLAYER, 0)
-		def theCard = root.data_.getCurrentPlayerCardHand(0)
-		def ret = theCard.useOn(WAITING_PLAYER, target, root, null, null)
-
-		expect:
-
-		assertTrue(ret == null)
-		assertEquals(copiedBoard, startingBoard)
-	}
-
 	def "playing FlameImp damages the hero"() {
-        def copiedBoard = startingBoard.deepCopy()
+		def copiedBoard = startingBoard.deepCopy()
 		def target = root.data_.getCharacter(CURRENT_PLAYER, 2)
 		def theCard = root.data_.getCurrentPlayerCardHand(0)
 		def ret = theCard.useOn(CURRENT_PLAYER, target, root, null, null)
@@ -70,5 +59,27 @@ class FlameImpSpec extends CardSpec {
 			}
 		}
 
+	}
+
+	def "playing FlameImp can kill own hero"() {
+		def copiedBoard = startingBoard.deepCopy()
+		root.data_.getCharacter(CURRENT_PLAYER, 0).setHealth((byte)2)
+
+		def target = root.data_.getCharacter(CURRENT_PLAYER, 2)
+		def theCard = root.data_.getCurrentPlayerCardHand(0)
+		def ret = theCard.useOn(CURRENT_PLAYER, target, root, null, null)
+
+		expect:
+		assertFalse(ret == null);
+
+		assertBoardDelta(copiedBoard, ret.data_) {
+			currentPlayer {
+				playMinion(FlameImp)
+				mana(6)
+				heroHealth(-1)
+			}
+		}
+		
+		assertTrue(ret.data_.isLethalState())
 	}
 }

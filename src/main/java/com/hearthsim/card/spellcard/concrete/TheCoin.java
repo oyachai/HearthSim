@@ -1,18 +1,22 @@
 package com.hearthsim.card.spellcard.concrete;
 
+import org.json.JSONObject;
+
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
-import org.json.JSONObject;
 
 public class TheCoin extends SpellCard {
 
 	public TheCoin(boolean hasBeenUsed) {
 		super((byte)0, hasBeenUsed);
+
+		this.canTargetEnemyHero = false;
+		this.canTargetEnemyMinions = false;
+		this.canTargetOwnMinions = false;
 	}
 
 	public TheCoin() {
@@ -20,15 +24,10 @@ public class TheCoin extends SpellCard {
 	}
 
 	@Override
-	public Object deepCopy() {
+	public SpellCard deepCopy() {
 		return new TheCoin(this.hasBeenUsed());
 	}
 
-	@Override
-    public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
-        return !(isWaitingPlayer(playerSide) || isNotHero(minion));
-    }
-	
 	/**
 	 * 
 	 * Use the card on the given target
@@ -50,8 +49,6 @@ public class TheCoin extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (!this.canBeUsedOn(side, targetMinion, boardState.data_))
-			return null;
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
 			int newMana = toRet.data_.getCurrentPlayer().getMana();
@@ -61,6 +58,7 @@ public class TheCoin extends SpellCard {
 		return boardState;
 	}
 
+	@Override
 	public JSONObject toJSON() {
 		JSONObject json = super.toJSON();
 		json.put("type", "SpellTheCoin");

@@ -36,6 +36,7 @@ public class WaterElemental extends Minion {
      * @param deckPlayer0 The deck of player0
      * @return The boardState is manipulated and returned
 	 */
+	@Override
 	protected HearthTreeNode attack_core(
 			PlayerSide targetMinionPlayerSide,
 			Minion targetMinion,

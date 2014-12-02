@@ -17,6 +17,10 @@ public class WildGrowth extends SpellCard {
 	 */
 	public WildGrowth(boolean hasBeenUsed) {
 		super((byte)2, hasBeenUsed);
+
+		this.canTargetEnemyHero = false;
+		this.canTargetEnemyMinions = false;
+		this.canTargetOwnMinions = false;
 	}
 
 	/**
@@ -29,7 +33,7 @@ public class WildGrowth extends SpellCard {
 	}
 
 	@Override
-	public Object deepCopy() {
+	public SpellCard deepCopy() {
 		return new WildGrowth(this.hasBeenUsed);
 	}
 	
@@ -57,10 +61,6 @@ public class WildGrowth extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (isWaitingPlayer(side) || isNotHero(targetMinion)) {
-			return null;
-		}
-
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
 			if (toRet.data_.getCurrentPlayer().getMaxMana() >= 10) {

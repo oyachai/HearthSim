@@ -27,6 +27,7 @@
 package com.ptplot;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -49,7 +50,10 @@ import java.util.Vector;
  @Pt.AcceptedRating Red (cxh)
  */
 public class PlotFormatter extends JPanel {
-    /** Construct a plot formatter for the specified plot object.
+
+	private static final long serialVersionUID = 1L;
+
+	/** Construct a plot formatter for the specified plot object.
      */
     public PlotFormatter(PlotBox plot) {
         super();
@@ -68,12 +72,12 @@ public class PlotFormatter extends JPanel {
 
         _originalCaptions = plot.getCaptions();
         StringBuffer captionsString = new StringBuffer();
-        for (Enumeration captions = _originalCaptions.elements(); captions
+        for (Enumeration<String> captions = _originalCaptions.elements(); captions
                 .hasMoreElements();) {
             if (captionsString.length() > 0) {
                 captionsString.append('\n');
             }
-            captionsString.append((String) captions.nextElement());
+            captionsString.append(captions.nextElement());
         }
         _wideQuery.addTextArea("caption", "Caption", captionsString.toString());
 
@@ -102,8 +106,8 @@ public class PlotFormatter extends JPanel {
 
         if (_originalXTicks != null) {
             StringBuffer buffer = new StringBuffer();
-            Vector positions = _originalXTicks[0];
-            Vector labels = _originalXTicks[1];
+            Vector<Double> positions = _originalXTicks[0];
+            Vector<String> labels = _originalXTicks[1];
 
             for (int i = 0; i < labels.size(); i++) {
                 if (buffer.length() > 0) {
@@ -125,8 +129,8 @@ public class PlotFormatter extends JPanel {
 
         if (_originalYTicks != null) {
             StringBuffer buffer = new StringBuffer();
-            Vector positions = _originalYTicks[0];
-            Vector labels = _originalYTicks[1];
+            Vector<Double> positions = _originalYTicks[0];
+            Vector<String> labels = _originalYTicks[1];
 
             for (int i = 0; i < labels.size(); i++) {
                 if (buffer.length() > 0) {
@@ -187,7 +191,8 @@ public class PlotFormatter extends JPanel {
         //}
         // Attach listeners.
         _wideQuery.addQueryListener(new QueryListener() {
-            public void changed(String name) {
+            @Override
+			public void changed(String name) {
                 if (name.equals("title")) {
                     _plot.setTitle(_wideQuery.getStringValue("title"));
                 } else if (name.equals("caption")) {
@@ -243,7 +248,8 @@ public class PlotFormatter extends JPanel {
         });
 
         _narrowQuery.addQueryListener(new QueryListener() {
-            public void changed(String name) {
+            @Override
+			public void changed(String name) {
                 if (name.equals("grid")) {
                     _plot.setGrid(_narrowQuery.getBooleanValue("grid"));
                 } else if (name.equals("stems")) {
@@ -477,7 +483,7 @@ public class PlotFormatter extends JPanel {
     private String _originalTitle;
 
     // Original configuration of the plot.
-    private Vector _originalCaptions;
+    private Vector<String> _originalCaptions;
 
     // Original configuration of the plot.
     private String _originalXLabel;
@@ -498,9 +504,11 @@ public class PlotFormatter extends JPanel {
 
     private double[] _originalYRange;
 
-    private Vector[] _originalXTicks;
+    @SuppressWarnings("rawtypes")
+	private Vector[] _originalXTicks;
 
-    private Vector[] _originalYTicks;
+    @SuppressWarnings("rawtypes")
+	private Vector[] _originalYTicks;
 
     private boolean _originalGrid;
 

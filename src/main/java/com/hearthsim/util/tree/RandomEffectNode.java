@@ -1,11 +1,10 @@
 package com.hearthsim.util.tree;
 
+import java.util.ArrayList;
+
 import com.hearthsim.card.Deck;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.player.playercontroller.BruteForceSearchAI;
 import com.hearthsim.util.HearthAction;
-
-import java.util.ArrayList;
 
 /**
  * Random effect node
@@ -29,7 +28,6 @@ public class RandomEffectNode extends StopNode {
 	
 	@Override
 	public HearthTreeNode finishAllEffects(Deck deckPlayer0, Deck deckPlayer1) throws HSException {
-		// TODO Auto-generated method stub
 		return action_.perform(new HearthTreeNode(this.data_, this.action, this.score_, this.depth_, this.children_, this.numNodesTried_), deckPlayer0, deckPlayer1);
 	}
 
@@ -46,19 +44,28 @@ public class RandomEffectNode extends StopNode {
 		childWeighting_.clear();
 	}
 
+	//If you are going to play a random effect card, it's usually better to play it when you have more mana
+	private double getManaBenefit() {
+		return 1.e-2 * data_.getCurrentPlayer().getMana();
+	}
 	
-	public double weightedAverageScore(Deck deck, BruteForceSearchAI ai) {
+	public double weightedAverageScore() {
 		double toRet = 0.0;
 		for (int index = 0; index < children_.size(); ++index) {
 			toRet += childWeighting_.get(index).doubleValue() * children_.get(index).getScore();
 		}
 		toRet = toRet / children_.size();
-		
-		//If you are going to play a random effect card, it's usually better to play it when you have more mana
-		double manaBenefit = 1.e-2 * data_.getCurrentPlayer().getMana();
-		toRet += manaBenefit;
-
+		toRet += this.getManaBenefit();
 		return toRet;
 	}
 
+	public double weightedAverageBestChildScore() {
+		double toRet = 0.0;
+		for (int index = 0; index < children_.size(); ++index) {
+			toRet += childWeighting_.get(index).doubleValue() * children_.get(index).getBestChildScore();
+		}
+		toRet = toRet / children_.size();
+		toRet += this.getManaBenefit();
+		return toRet;
+	}
 }

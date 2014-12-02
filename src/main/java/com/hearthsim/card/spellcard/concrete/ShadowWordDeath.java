@@ -4,6 +4,7 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -16,6 +17,9 @@ public class ShadowWordDeath extends SpellCard {
 	 */
 	public ShadowWordDeath(boolean hasBeenUsed) {
 		super((byte)3, hasBeenUsed);
+
+		this.canTargetEnemyHero = false;
+		this.canTargetOwnHero = false;
 	}
 
 	/**
@@ -28,10 +32,23 @@ public class ShadowWordDeath extends SpellCard {
 	}
 
 	@Override
-	public Object deepCopy() {
+	public SpellCard deepCopy() {
 		return new ShadowWordDeath(this.hasBeenUsed);
 	}
 	
+	@Override
+	public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
+		if(!super.canBeUsedOn(playerSide, minion, boardModel)) {
+			return false;
+		}
+		
+		if (minion.getTotalAttack() < 5) {
+			return false;
+		}
+		
+		return true;
+	}	
+
 	/**
 	 * 
 	 * Use the card on the given target
@@ -55,13 +72,6 @@ public class ShadowWordDeath extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (isHero(targetMinion)) {
-			return null;
-		}
-
-		if (targetMinion.getTotalAttack() < 5)
-			return null;
-		
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
 			targetMinion.setHealth((byte)(-99));

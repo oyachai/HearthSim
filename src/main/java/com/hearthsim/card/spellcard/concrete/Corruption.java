@@ -16,6 +16,10 @@ public class Corruption extends SpellCard {
 	 */
 	public Corruption(boolean hasBeenUsed) {
 		super((byte)1, hasBeenUsed);
+
+		this.canTargetEnemyHero = false;
+		this.canTargetOwnHero = false;
+		this.canTargetOwnMinions = false;
 	}
 
 	/**
@@ -28,7 +32,7 @@ public class Corruption extends SpellCard {
 	}
 	
 	@Override
-	public Object deepCopy() {
+	public SpellCard deepCopy() {
 		return new Corruption(this.hasBeenUsed);
 	}
 
@@ -55,12 +59,8 @@ public class Corruption extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (side == PlayerSide.CURRENT_PLAYER || isHero(targetMinion)) {
-			return null;
-		}
-		
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
-		if (toRet != null)
+		if(toRet != null)
 			targetMinion.setDestroyOnTurnStart(true);
 		return toRet;
 	}

@@ -19,7 +19,7 @@ import java.util.ArrayList;
  * A class that represents the current state of the board (game)
  *
  */
-public class BoardModel implements DeepCopyable {
+public class BoardModel implements DeepCopyable<BoardModel> {
 
 //    private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
 
@@ -366,8 +366,13 @@ public class BoardModel implements DeepCopyable {
     public boolean isAlive(PlayerSide playerSide) {
         return modelForSide(playerSide).getHero().getHealth() > 0;
     }
+    
+    public boolean isLethalState() {
+        return !this.isAlive(PlayerSide.CURRENT_PLAYER) || !this.isAlive(PlayerSide.WAITING_PLAYER);
+    }
 
-    public ArrayList<Integer> getAttackableMinions() {
+    @SuppressWarnings("unused")
+	public ArrayList<Integer> getAttackableMinions() {
         ArrayList<Integer> toRet = new ArrayList<Integer>();
         boolean hasTaunt = false;
         for (final Minion minion : waitingPlayer.getMinions()) {
@@ -484,7 +489,7 @@ public class BoardModel implements DeepCopyable {
 
     public BoardModel flipPlayers() {
 
-        BoardModel newBoard = new BoardModel((PlayerModel) waitingPlayer.deepCopy(), (PlayerModel) currentPlayer.deepCopy());
+        BoardModel newBoard = new BoardModel(waitingPlayer.deepCopy(), currentPlayer.deepCopy());
 
         for (MinionPlayerPair minionPlayerPair : allMinionsFIFOList_) {
 
@@ -510,8 +515,9 @@ public class BoardModel implements DeepCopyable {
         return newBoard;
     }
 
-    public Object deepCopy() {
-        BoardModel newBoard = new BoardModel((PlayerModel) currentPlayer.deepCopy(), (PlayerModel) waitingPlayer.deepCopy());
+    @Override
+	public BoardModel deepCopy() {
+        BoardModel newBoard = new BoardModel(currentPlayer.deepCopy(), waitingPlayer.deepCopy());
 
         for (MinionPlayerPair minionPlayerPair : allMinionsFIFOList_) {
 
@@ -546,7 +552,8 @@ public class BoardModel implements DeepCopyable {
         return json;
     }
 
-    public String toString() {
+    @Override
+	public String toString() {
         String boardFormat = MDC.get("board_format");
         if (boardFormat != null && boardFormat.equals("simple")) {
             return simpleString();
@@ -578,7 +585,7 @@ public class BoardModel implements DeepCopyable {
         return waitingPlayer;
     }
 
-    // todo: remove asap, simply to aid in refactoring
+    // TODO: remove asap, simply to aid in refactoring
     public int getIndexOfPlayer(PlayerSide playerSide) {
         if (playerSide == PlayerSide.CURRENT_PLAYER){
             return 0;
@@ -587,7 +594,7 @@ public class BoardModel implements DeepCopyable {
         }
     }
 
-    // todo: remove asap, simply to aid in refactoring
+    // TODO: remove asap, simply to aid in refactoring
     public PlayerSide getPlayerByIndex(int index) {
         if (index == 0){
             return PlayerSide.CURRENT_PLAYER;

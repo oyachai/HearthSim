@@ -16,6 +16,9 @@ public class InnerFire extends SpellCard {
 	 */
 	public InnerFire(boolean hasBeenUsed) {
 		super((byte)1, hasBeenUsed);
+		
+		this.canTargetEnemyHero = false;
+		this.canTargetOwnHero = false;
 	}
 
 	/**
@@ -28,7 +31,7 @@ public class InnerFire extends SpellCard {
 	}
 
 	@Override
-	public Object deepCopy() {
+	public SpellCard deepCopy() {
 		return new InnerFire(this.hasBeenUsed);
 	}
 	
@@ -55,9 +58,6 @@ public class InnerFire extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (isHero(targetMinion))
-			return null;
-
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
 			targetMinion.setAttack(targetMinion.getTotalHealth());

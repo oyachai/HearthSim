@@ -18,6 +18,10 @@ public class MirrorImage extends SpellCard {
 	 */
 	public MirrorImage(boolean hasBeenUsed) {
 		super((byte)1, hasBeenUsed);
+
+		this.canTargetEnemyHero = false;
+		this.canTargetEnemyMinions = false;
+		this.canTargetOwnMinions = false;
 	}
 
 	/**
@@ -30,7 +34,7 @@ public class MirrorImage extends SpellCard {
 	}
 
 	@Override
-	public Object deepCopy() {
+	public SpellCard deepCopy() {
 		return new MirrorImage(this.hasBeenUsed);
 	}
 	
@@ -57,10 +61,6 @@ public class MirrorImage extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (isNotHero(targetMinion) || isWaitingPlayer(side)) {
-			return null;
-		}
-		
 		int numMinions = PlayerSide.CURRENT_PLAYER.getPlayer(boardState).getNumMinions();
 		if (numMinions >= 7)
 			return null;

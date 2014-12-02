@@ -16,10 +16,13 @@ public class Silence extends SpellCard {
 
 	public Silence(boolean hasBeenUsed) {
 		super((byte)0, hasBeenUsed);
+
+		this.canTargetEnemyHero = false;
+		this.canTargetOwnHero = false;
 	}
 
 	@Override
-	public Object deepCopy() {
+	public SpellCard deepCopy() {
 		return new Silence(this.hasBeenUsed);
 	}
 	
@@ -46,10 +49,6 @@ public class Silence extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (isHero(targetMinion)) {
-			return null;
-		}
-		
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null)
 			targetMinion.silenced(side, boardState);

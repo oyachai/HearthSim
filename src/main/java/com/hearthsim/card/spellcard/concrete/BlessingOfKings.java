@@ -16,6 +16,9 @@ public class BlessingOfKings extends SpellCard {
 	 */
 	public BlessingOfKings(boolean hasBeenUsed) {
 		super((byte)4, hasBeenUsed);
+		
+		this.canTargetEnemyHero = false;
+		this.canTargetOwnHero = false;
 	}
 
 	/**
@@ -28,7 +31,7 @@ public class BlessingOfKings extends SpellCard {
 	}
 
 	@Override
-	public Object deepCopy() {
+	public SpellCard deepCopy() {
 		return new BlessingOfKings(this.hasBeenUsed);
 	}
 	
@@ -55,10 +58,6 @@ public class BlessingOfKings extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (isHero(targetMinion)) {
-			return null;
-		}
-		
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
 			targetMinion.setAttack((byte)(targetMinion.getAttack() + 4));

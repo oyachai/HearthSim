@@ -52,7 +52,6 @@ import java.util.jar.JarFile;
 @SuppressWarnings("PMD")
 public class FileUtilities {
 
-    private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
     /** Instances of this class cannot be created.
      */
     private FileUtilities() {
@@ -127,19 +126,23 @@ public class FileUtilities {
     public static void extractJarFile(String jarFileName, String directoryName)
             throws IOException {
         JarFile jarFile = new JarFile(jarFileName);
-        Enumeration entries = jarFile.entries();
-        while (entries.hasMoreElements()) {
-            JarEntry jarEntry = (JarEntry) entries.nextElement();
-            File destinationFile = new File(directoryName, jarEntry.getName());
-            if (jarEntry.isDirectory()) {
-                if (!destinationFile.isDirectory() && !destinationFile.mkdirs()) {
-                    throw new IOException("Warning, failed to create "
-                            + "directory for \"" + destinationFile + "\".");
-                }
-            } else {
-                _binaryCopyStream(jarFile.getInputStream(jarEntry),
-                        destinationFile);
-            }
+        try {
+	        Enumeration<JarEntry> entries = jarFile.entries();
+	        while (entries.hasMoreElements()) {
+	            JarEntry jarEntry = entries.nextElement();
+	            File destinationFile = new File(directoryName, jarEntry.getName());
+	            if (jarEntry.isDirectory()) {
+	                if (!destinationFile.isDirectory() && !destinationFile.mkdirs()) {
+	                    throw new IOException("Warning, failed to create "
+	                            + "directory for \"" + destinationFile + "\".");
+	                }
+	            } else {
+	                _binaryCopyStream(jarFile.getInputStream(jarEntry),
+	                        destinationFile);
+	            }
+	        }
+        } finally {
+        	jarFile.close();
         }
     }
 

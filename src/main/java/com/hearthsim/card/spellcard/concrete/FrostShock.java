@@ -15,10 +15,13 @@ public class FrostShock extends SpellDamage {
 
 	public FrostShock(boolean hasBeenUsed) {
 		super((byte)1, (byte)1, hasBeenUsed);
+		
+		this.canTargetOwnHero = false;
+		this.canTargetOwnMinions = false;
 	}
 
 	@Override
-	public Object deepCopy() {
+	public SpellDamage deepCopy() {
 		return new FrostShock(this.hasBeenUsed);
 	}
 	
@@ -45,9 +48,6 @@ public class FrostShock extends SpellDamage {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (isCurrentPlayer(side))
-			return null;
-		
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
 			targetMinion.setFrozen(true);

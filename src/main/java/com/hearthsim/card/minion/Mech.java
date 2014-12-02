@@ -10,6 +10,7 @@ public class Mech extends Minion {
     public Mech() {
     }
 
+    @Override
     public JSONObject toJSON() {
 		JSONObject json = super.toJSON();
 		json.put("type", "Mech");
