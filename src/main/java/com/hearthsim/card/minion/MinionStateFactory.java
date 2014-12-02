@@ -14,6 +14,8 @@ public class MinionStateFactory {
 		return new ChargeState();
 	}
 	
-	
+	public MinionState makeWindfury(){
+		return new WindfuryState();
+	}
 
 }
