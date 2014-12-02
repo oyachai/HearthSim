@@ -2,6 +2,7 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.minion.MinionStateFactory;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
@@ -9,6 +10,7 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class Charge extends SpellCard {
 	
+	MinionStateFactory mf = new MinionStateFactory();
 	/**
 	 * Constructor
 	 * 
@@ -63,7 +65,8 @@ public class Charge extends SpellCard {
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
 			targetMinion.setAttack((byte)(targetMinion.getAttack() + 2));
-			targetMinion.setCharge(true);
+			//targetMinion.setCharge(true);
+			targetMinion.addState(mf.makeCharge());
 		}
 		return toRet;
 	}

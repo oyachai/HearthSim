@@ -3,6 +3,7 @@ package com.hearthsim.test.card;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.minion.MinionStateFactory;
 import com.hearthsim.card.spellcard.concrete.Charge;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
@@ -16,7 +17,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class TestCharge {
-	
+	MinionStateFactory mf = new MinionStateFactory();
 	private HearthTreeNode board;
 	private Deck deck;
 	private static final byte mana = 2;
@@ -69,8 +70,8 @@ public class TestCharge {
 		assertTrue(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack() == attack0);
 		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack() == attack0);
 		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack() == attack0);
-		assertFalse(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getCharge());
-		assertFalse(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getCharge());
+		assertFalse(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getState(mf.makeCharge()) != null);
+		assertFalse(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getState(mf.makeCharge()) != null);
 	}
 	
 	@Test
@@ -95,7 +96,7 @@ public class TestCharge {
 		assertTrue(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack() == attack0);
 		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack() == attack0);
 		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack() == attack0);
-		assertTrue(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getCharge());
-		assertFalse(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getCharge());
+		assertTrue(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getState(mf.makeCharge()) == null);
+		assertFalse(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getState(mf.makeCharge()) != null);
 	}
 }
