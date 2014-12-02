@@ -98,7 +98,7 @@ public class NewHero extends BaseEntity
 	
 	public HearthTreeNode attack(
 			PlayerSide targetMinionPlayerSide,
-			Minion targetMinion,
+			BaseEntity targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
@@ -133,7 +133,7 @@ public class NewHero extends BaseEntity
 	}
 	
 	
-    public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
+    public boolean canBeUsedOn(PlayerSide playerSide, BaseEntity minion, BoardModel boardModel) {
 		if (hasBeenUsed)
 			return false;
 		if (!minion.isHeroTargetable())
@@ -143,7 +143,7 @@ public class NewHero extends BaseEntity
 
 	public final HearthTreeNode useHeroAbility(
 			PlayerSide targetPlayerSide,
-			Minion targetMinion,
+			BaseEntity targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
@@ -164,7 +164,7 @@ public class NewHero extends BaseEntity
 	 */
 	public final HearthTreeNode useHeroAbility(
 			PlayerSide targetPlayerSide,
-			Minion targetMinion,
+			BaseEntity targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1,
@@ -183,7 +183,7 @@ public class NewHero extends BaseEntity
 	
 	public HearthTreeNode useHeroAbility_core(
 			PlayerSide targetPlayerSide,
-			Minion targetMinion,
+			BaseEntity targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1,

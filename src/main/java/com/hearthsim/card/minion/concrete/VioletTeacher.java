@@ -1,7 +1,7 @@
 package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.Card;
-import com.hearthsim.card.Deck;
+import com.hearthsim.card.Deck;import com.hearthsim.entity.BaseEntity;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSException;
@@ -45,7 +45,7 @@ public class VioletTeacher extends Minion {
 		if (isInHand_)
 			return toRet;
         if (usedCard instanceof SpellCard && PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getNumMinions() < 7) {
-            Minion newMinion = new VioletApprentice();
+        	BaseEntity newMinion = new VioletApprentice();
             toRet = newMinion.summonMinion(thisCardPlayerSide, this, toRet, deckPlayer0, deckPlayer1, false);
         }
         return toRet;

@@ -196,7 +196,7 @@ public class Card implements DeepCopyable {
      * @param boardModel
 * @return
      */
-    public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
+    public boolean canBeUsedOn(PlayerSide playerSide, BaseEntity minion, BoardModel boardModel) {
         return true;
     }
 
@@ -242,16 +242,16 @@ public class Card implements DeepCopyable {
 
 		//Notify all other cards/characters of the card's use
 		if (toRet != null) {
-			ArrayList<Minion> tmpList = new ArrayList<Minion>(7);
+			ArrayList<BaseEntity> tmpList = new ArrayList<BaseEntity>(7);
             for (Card card : toRet.data_.getCurrentPlayerHand()) {
                 toRet = card.otherCardUsedEvent(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1);
             }
 			toRet = toRet.data_.getCurrentPlayerHero().otherCardUsedEvent(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1);
 			{
-                for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
+                for (BaseEntity minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
                     tmpList.add(minion);
                 }
-				for (Minion minion : tmpList) {
+				for (BaseEntity minion : tmpList) {
 					if (!minion.isSilenced())
 						toRet = minion.otherCardUsedEvent(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1);
 				}
@@ -262,10 +262,10 @@ public class Card implements DeepCopyable {
 			toRet = toRet.data_.getWaitingPlayerHero().otherCardUsedEvent(PlayerSide.WAITING_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1);
 			{
 				tmpList.clear();
-                for (Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
+                for (BaseEntity minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
                     tmpList.add(minion);
                 }
-				for (Minion minion : tmpList) {
+				for (BaseEntity minion : tmpList) {
 					if (!minion.isSilenced())
 						toRet = minion.otherCardUsedEvent(PlayerSide.WAITING_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1);
 				}

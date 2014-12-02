@@ -98,7 +98,7 @@ public class Hero extends BaseEntity
 	@Override
 	public HearthTreeNode attack(
 			PlayerSide targetMinionPlayerSide,
-			Minion targetMinion,
+			BaseEntity targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
@@ -133,7 +133,7 @@ public class Hero extends BaseEntity
 	}
 	
 	@Override
-    public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
+    public boolean canBeUsedOn(PlayerSide playerSide, BaseEntity minion, BoardModel boardModel) {
 		if (hasBeenUsed)
 			return false;
 		if (!minion.isHeroTargetable())

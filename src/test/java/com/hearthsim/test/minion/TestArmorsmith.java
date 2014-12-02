@@ -1,6 +1,6 @@
 package com.hearthsim.test.minion;
 
-import com.hearthsim.card.Card;
+import com.hearthsim.card.Card;import com.hearthsim.entity.BaseEntity;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.Armorsmith;
@@ -80,7 +80,7 @@ public class TestArmorsmith {
 	@Test
 	public void test0() throws HSException {
 
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
+		BaseEntity target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
 		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
 		assertFalse(ret == null);

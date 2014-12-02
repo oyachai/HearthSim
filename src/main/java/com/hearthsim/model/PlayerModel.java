@@ -6,6 +6,7 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.entity.BaseEntity;
 import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.IdentityLinkedList;
 import com.hearthsim.util.MinionList;
@@ -153,8 +154,8 @@ public class PlayerModel implements DeepCopyable {
         copiedPlayerModel.setMaxMana(maxMana);
         copiedPlayerModel.setOverload(overload);
 
-        for (Minion minion : minions) {
-            copiedPlayerModel.getMinions().add((Minion) (minion).deepCopy());
+        for (BaseEntity minion : minions) {
+            copiedPlayerModel.getMinions().add((BaseEntity) (minion).deepCopy());
         }
 
         copiedPlayerModel.setSpellDamage(spellDamage);

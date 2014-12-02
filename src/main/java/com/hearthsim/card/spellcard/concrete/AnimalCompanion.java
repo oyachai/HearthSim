@@ -1,6 +1,6 @@
 package com.hearthsim.card.spellcard.concrete;
 
-import com.hearthsim.card.Deck;
+import com.hearthsim.card.Deck;import com.hearthsim.entity.BaseEntity;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.Huffer;
 import com.hearthsim.card.minion.concrete.Leokk;
@@ -57,7 +57,7 @@ public class AnimalCompanion extends SpellCard {
 	
 	protected HearthTreeNode use_core(
 			PlayerSide side,
-			Minion targetMinion,
+			BaseEntity targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1,
@@ -78,7 +78,7 @@ public class AnimalCompanion extends SpellCard {
 			toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 			if (toRet != null) {
 				double rnd = Math.random();
-				Minion minion = null;
+				BaseEntity minion = null;
 				if (rnd < 0.333333333333333333333333333) {
 					minion = new Huffer();
 				} else if (rnd > 0.66666666666666666666666666666) {
@@ -87,17 +87,17 @@ public class AnimalCompanion extends SpellCard {
 					minion = new Misha();
 				}
             	BaseEntity placementTarget = toRet.data_.getCharacter(side, toRet.data_.getMinions(side).size()); //this minion can't be a hero
-            	toRet = minion.summonMinion(side, placementTarget, toRet, deckPlayer0, deckPlayer1, false);					
+            	toRet = (minion).summonMinion(side, placementTarget, toRet, deckPlayer0, deckPlayer1, false);					
 			}
 		} else {
 			toRet = new RandomEffectNode(boardState, new HearthAction(HearthAction.Verb.USE_CARD, PlayerSide.CURRENT_PLAYER, 0, side, 0));
 			if (toRet != null) {
 				int thisCardIndex = side.getPlayer(boardState).getHand().indexOf(this);
-				for (Minion minion : new Minion[]{ new Huffer(), new Leokk(), new Misha()}) {
+				for (BaseEntity minion : new Minion[]{ new Huffer(), new Leokk(), new Misha()}) {
 					HearthTreeNode newState = toRet.addChild(new HearthTreeNode((BoardModel) toRet.data_.deepCopy()));
 					newState = super.use_core(side, side.getPlayer(newState).getHero(), newState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 					BaseEntity placementTarget = newState.data_.getCharacter(side, newState.data_.getMinions(side).size()); //this minion can't be a hero
-	            	newState = minion.summonMinion(side, placementTarget, newState, deckPlayer0, deckPlayer1, false);					
+	            	newState = (minion).summonMinion(side, placementTarget, newState, deckPlayer0, deckPlayer1, false);					
 					newState.data_.getCurrentPlayer().subtractMana(this.mana_);
 					side.getPlayer(newState).getHand().remove(thisCardIndex);
 				}

@@ -1,6 +1,6 @@
 package com.hearthsim.test.card;
 
-import com.hearthsim.card.Card;
+import com.hearthsim.card.Card;import com.hearthsim.entity.BaseEntity;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.concrete.HolySmite;
 import com.hearthsim.exception.HSException;
@@ -42,7 +42,7 @@ public class TestHolySmite {
 		HolySmite hs = new HolySmite();
 		board.data_.placeCardHandCurrentPlayer(hs);
 		
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
+		BaseEntity target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
 		theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
 		
@@ -62,7 +62,7 @@ public class TestHolySmite {
 		HolySmite hs = new HolySmite();
 		board.data_.placeCardHandCurrentPlayer(hs);
 		
-		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
+		BaseEntity target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
 		theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, null, null);
 		
@@ -82,7 +82,7 @@ public class TestHolySmite {
 		HolySmite hs = new HolySmite();
 		board.data_.placeCardHandCurrentPlayer(hs);
 		
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
+		BaseEntity target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
 		theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
 		
@@ -101,7 +101,7 @@ public class TestHolySmite {
 		HolySmite hs = new HolySmite();
 		board.data_.placeCardHandCurrentPlayer(hs);
 		
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 2);
+		BaseEntity target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 2);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
 		theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
 		
@@ -121,7 +121,7 @@ public class TestHolySmite {
 		HolySmite hs = new HolySmite();
 		board.data_.placeCardHandCurrentPlayer(hs);
 		
-		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
+		BaseEntity target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
 		theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, null, null);
 		
@@ -140,7 +140,7 @@ public class TestHolySmite {
 		HolySmite hs = new HolySmite();
 		board.data_.placeCardHandCurrentPlayer(hs);
 		
-		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
+		BaseEntity target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
 		theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, null, null);
 		

@@ -1,6 +1,6 @@
 package com.hearthsim.test.card;
 
-import com.hearthsim.card.Card;
+import com.hearthsim.card.Card;import com.hearthsim.entity.BaseEntity;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.concrete.ArcaneExplosion;
 import com.hearthsim.exception.HSException;
@@ -44,7 +44,7 @@ public class TestArcaneExplosion {
 
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
 		HearthTreeNode res;
-		Minion target = null;
+		BaseEntity target = null;
 		
 		target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
 		res = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);

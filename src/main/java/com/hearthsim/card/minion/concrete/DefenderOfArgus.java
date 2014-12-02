@@ -1,6 +1,6 @@
 package com.hearthsim.card.minion.concrete;
 
-import com.hearthsim.card.Deck;
+import com.hearthsim.card.Deck;import com.hearthsim.entity.BaseEntity;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
@@ -33,7 +33,7 @@ public class DefenderOfArgus extends Minion {
 	 */
 	
 	public HearthTreeNode useUntargetableBattlecry_core(
-			Minion minionPlacementTarget,
+			BaseEntity minionPlacementTarget,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1,
@@ -47,13 +47,13 @@ public class DefenderOfArgus extends Minion {
 			int minionToTheLeft = thisMinionIndex > 0 ? thisMinionIndex - 1 : -1;
 			int minionToTheRight = thisMinionIndex < numMinions - 1 ? thisMinionIndex + 1 : -1;
 			if (minionToTheLeft >= 0) {
-				Minion minionToBuff = toRet.data_.getMinion(PlayerSide.CURRENT_PLAYER, minionToTheLeft);
+				BaseEntity minionToBuff = toRet.data_.getMinion(PlayerSide.CURRENT_PLAYER, minionToTheLeft);
 				minionToBuff.setAttack((byte)(minionToBuff.getAttack() + 1));
 				minionToBuff.setHealth((byte)(minionToBuff.getHealth() + 1));
 				minionToBuff.setTaunt(true);					
 			}
 			if (minionToTheRight >= 0) {
-				Minion minionToBuff = toRet.data_.getMinion(PlayerSide.CURRENT_PLAYER, minionToTheRight);
+				BaseEntity minionToBuff = toRet.data_.getMinion(PlayerSide.CURRENT_PLAYER, minionToTheRight);
 				minionToBuff.setAttack((byte)(minionToBuff.getAttack() + 1));
 				minionToBuff.setHealth((byte)(minionToBuff.getHealth() + 1));
 				minionToBuff.setTaunt(true);					

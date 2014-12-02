@@ -77,7 +77,7 @@ public class Shaman extends Hero {
 	
 	public HearthTreeNode useHeroAbility_core(
 			PlayerSide targetPlayerSide,
-			Minion targetMinion,
+			BaseEntity targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1,
@@ -94,7 +94,7 @@ public class Shaman extends Hero {
 		
 		if (singleRealizationOnly) {
 			HearthTreeNode toRet = boardState;
-			Minion minionToSummon = null;
+			BaseEntity minionToSummon = null;
 			Minion[] allTotems = {new SearingTotem(), new StoneclawTotem(), new HealingTotem(), new WrathOfAirTotem()};
 			for(int i = allTotems.length - 1; i > 0; --i) {
 				int j = (int)(Math.random() * (i + 1));
@@ -104,7 +104,7 @@ public class Shaman extends Hero {
 			}
 			for (int index = 0; index < 4; ++index) {
 				boolean totemAlreadySummoned = false;
-				for (Minion minion : toRet.data_.getMinions(targetPlayerSide)) {
+				for (BaseEntity minion : toRet.data_.getMinions(targetPlayerSide)) {
 					if (minion.getClass().equals(allTotems[index].getClass())) {
 						totemAlreadySummoned = true;
 					}
@@ -119,7 +119,7 @@ public class Shaman extends Hero {
 			this.hasBeenUsed = true;
 			toRet.data_.getCurrentPlayer().subtractMana(HERO_ABILITY_COST);
 			BaseEntity summonTarget = toRet.data_.getCharacter(targetPlayerSide, numMinions);
-			toRet = minionToSummon.summonMinion(targetPlayerSide, summonTarget, toRet, deckPlayer0, deckPlayer1, false);
+			toRet = ((Minion) minionToSummon).summonMinion(targetPlayerSide, summonTarget, toRet, deckPlayer0, deckPlayer1, false);
 			return toRet;
 		}
 		
@@ -129,7 +129,7 @@ public class Shaman extends Hero {
 			boolean allTotemsNotSummonable = true;
 			for (Minion totemToSummon : totems) {
 				boolean totemAlreadySummoned = false;
-				for (Minion minion : toRet.data_.getMinions(targetPlayerSide)) {
+				for (BaseEntity minion : toRet.data_.getMinions(targetPlayerSide)) {
 					if (minion.getClass().equals(totemToSummon.getClass())) {
 						totemAlreadySummoned = true;
 						break;

@@ -4,6 +4,7 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.entity.BaseEntity;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -52,19 +53,19 @@ public class HearthAction {
 		switch(verb_) {
 			case USE_CARD: {
 				Card card = boardState.data_.getCard_hand(actionPerformerPlayerSide, cardOrCharacterIndex_);
-				Minion target = boardState.data_.getCharacter(targetPlayerSide, targetCharacterIndex_);
+				BaseEntity target = boardState.data_.getCharacter(targetPlayerSide, targetCharacterIndex_);
 				toRet = card.useOn(targetPlayerSide, target, toRet, deckPlayer0, deckPlayer1, true);
 			}
 			break;
 			case HERO_ABILITY: {
 				Hero hero = boardState.data_.getHero(actionPerformerPlayerSide);
-				Minion target = boardState.data_.getCharacter(targetPlayerSide, targetCharacterIndex_);
+				BaseEntity target = boardState.data_.getCharacter(targetPlayerSide, targetCharacterIndex_);
 				toRet = hero.useHeroAbility(targetPlayerSide, target, toRet, deckPlayer0, deckPlayer1, true);
 			}
 			break;
 			case ATTACK: {
-				Minion attacker = boardState.data_.getCharacter(actionPerformerPlayerSide, cardOrCharacterIndex_);
-				Minion target = boardState.data_.getCharacter(targetPlayerSide, targetCharacterIndex_);
+				BaseEntity attacker = boardState.data_.getCharacter(actionPerformerPlayerSide, cardOrCharacterIndex_);
+				BaseEntity target = boardState.data_.getCharacter(targetPlayerSide, targetCharacterIndex_);
 				toRet = attacker.attack(targetPlayerSide, target, toRet, deckPlayer0, deckPlayer1);
 			}
 			break;

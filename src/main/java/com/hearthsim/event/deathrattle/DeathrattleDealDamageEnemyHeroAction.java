@@ -2,6 +2,7 @@ package com.hearthsim.event.deathrattle;
 
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.entity.BaseEntity;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -15,7 +16,7 @@ public class DeathrattleDealDamageEnemyHeroAction extends DeathrattleAction {
 	
 	@Override
 	public HearthTreeNode performAction(
-			Minion minion,
+			BaseEntity minion,
 			PlayerSide playerSide,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,

@@ -3,6 +3,7 @@ package com.hearthsim.card.minion.concrete;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.entity.BaseEntity;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -36,7 +37,7 @@ public class Armorsmith extends Minion {
 	public HearthTreeNode minionDamagedEvent(
 			PlayerSide thisMinionPlayerSide,
 			PlayerSide damagedPlayerSide,
-			Minion damagedMinion,
+			BaseEntity damagedMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)

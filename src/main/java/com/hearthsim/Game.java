@@ -4,6 +4,7 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
+import com.hearthsim.entity.BaseEntity;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.model.BoardModel;
@@ -142,14 +143,14 @@ public class Game {
     	toRet.data_.resetHand();
     	toRet.data_.resetMinions();
         
-        for (Minion targetMinion : toRet.data_.getCurrentPlayer().getMinions()) {
+        for (BaseEntity targetMinion : toRet.data_.getCurrentPlayer().getMinions()) {
             try {
                 toRet = targetMinion.startTurn(PlayerSide.CURRENT_PLAYER, toRet, toRet.data_.getCurrentPlayer().getDeck(), toRet.data_.getWaitingPlayer().getDeck());
             } catch (HSInvalidPlayerIndexException e) {
                 e.printStackTrace();
             }
         }
-        for (Minion targetMinion : toRet.data_.getWaitingPlayer().getMinions()) {
+        for (BaseEntity targetMinion : toRet.data_.getWaitingPlayer().getMinions()) {
             try {
             	toRet = targetMinion.startTurn(PlayerSide.WAITING_PLAYER, toRet, toRet.data_.getCurrentPlayer().getDeck(), toRet.data_.getWaitingPlayer().getDeck());
             } catch (HSInvalidPlayerIndexException e) {
@@ -191,7 +192,7 @@ public class Game {
 
     	//To Do: The minions should trigger end-of-turn effects in the order that they were played
         for (int index = 0; index < toRet.data_.getCurrentPlayer().getMinions().size(); ++index) {
-            Minion targetMinion = toRet.data_.getCurrentPlayer().getMinions().get(index);
+            BaseEntity targetMinion = toRet.data_.getCurrentPlayer().getMinions().get(index);
             try {
                 toRet = targetMinion.endTurn(PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1);
             } catch (HSException e) {
@@ -199,7 +200,7 @@ public class Game {
             }
         }
         for (int index = 0; index < toRet.data_.getWaitingPlayer().getMinions().size(); ++index) {
-            Minion targetMinion = toRet.data_.getWaitingPlayer().getMinions().get(index);
+            BaseEntity targetMinion = toRet.data_.getWaitingPlayer().getMinions().get(index);
             try {
                 toRet = targetMinion.endTurn(PlayerSide.WAITING_PLAYER, toRet, deckPlayer0, deckPlayer1);
             } catch (HSException e) {

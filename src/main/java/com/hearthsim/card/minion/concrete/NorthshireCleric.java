@@ -1,6 +1,6 @@
 package com.hearthsim.card.minion.concrete;
 
-import com.hearthsim.card.Deck;
+import com.hearthsim.card.Deck;import com.hearthsim.entity.BaseEntity;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.model.PlayerSide;
@@ -48,7 +48,7 @@ public class NorthshireCleric extends Minion {
 	public HearthTreeNode minionHealedEvent(
 			PlayerSide thisMinionPlayerSide,
 			PlayerSide healedMinionPlayerSide,
-			Minion healedMinion,
+			BaseEntity healedMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)

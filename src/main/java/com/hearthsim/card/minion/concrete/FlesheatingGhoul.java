@@ -1,6 +1,6 @@
 package com.hearthsim.card.minion.concrete;
 
-import com.hearthsim.card.Deck;
+import com.hearthsim.card.Deck;import com.hearthsim.entity.BaseEntity;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.model.PlayerSide;
@@ -36,7 +36,7 @@ public class FlesheatingGhoul extends Minion {
 	public HearthTreeNode minionDeadEvent(
 			PlayerSide thisMinionPlayerSide,
 			PlayerSide deadMinionPlayerSide,
-			Minion deadMinion,
+			BaseEntity deadMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)

@@ -3,6 +3,7 @@ package com.hearthsim.player.playercontroller;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellDamage;
+import com.hearthsim.entity.BaseEntity;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidParamFileException;
 import com.hearthsim.exception.HSParamNotFoundException;
@@ -153,7 +154,7 @@ public class ArtificialPlayer {
 			//Charge modeling.  Charge's value primarily comes from the fact that it can be used immediately upon placing it.
 			//After the card is placed, it's really just like any other minion, except maybe for small value in bouncing it.
 			//So, the additional score for charge minions should really only apply when it is still in the hand.
-			Minion minion = (Minion)card;
+			BaseEntity minion = (BaseEntity) card;
 			theScore += card.getMana() * manaWeight + (minion.getCharge() ? myChargeWeight : 0.0);
 		} else
 			theScore += card.getMana() * manaWeight;
@@ -189,8 +190,8 @@ public class ArtificialPlayer {
 	 */
 	public double boardScore(BoardModel board) {
 
-		IdentityLinkedList<Minion> myBoardCards;
-		IdentityLinkedList<Minion> opBoardCards;
+		IdentityLinkedList<BaseEntity> myBoardCards;
+		IdentityLinkedList<BaseEntity> opBoardCards;
 		IdentityLinkedList<Card> myHandCards;
 		myBoardCards = board.getCurrentPlayer().getMinions();
 		opBoardCards = board.getWaitingPlayer().getMinions();
@@ -198,7 +199,7 @@ public class ArtificialPlayer {
 		
 		//my board score
 		double myScore = 0.0;
-		for (final Minion minion: myBoardCards) {
+		for (final BaseEntity minion: myBoardCards) {
 			myScore += minion.getAttack() * myAttackWeight;
 			myScore += minion.getTotalHealth() * myHealthWeight;
 			myScore += (minion.getTaunt() ? 1.0 : 0.0) * tauntWeight;
@@ -208,7 +209,7 @@ public class ArtificialPlayer {
 				
 		//opponent board score
 		double opScore = 0.0;
-		for (final Minion minion: opBoardCards) {
+		for (final BaseEntity minion: opBoardCards) {
 			opScore += minion.getAttack() * enemyAttackWeight;
 			opScore += minion.getTotalHealth() * enemyHealthWeight;
 			opScore += (minion.getTaunt() ? 1.0 : 0.0) * tauntWeight;

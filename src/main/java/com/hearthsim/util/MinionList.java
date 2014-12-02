@@ -1,6 +1,7 @@
 package com.hearthsim.util;
 
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.entity.BaseEntity;
 
 /**
  * A list of minion
@@ -13,7 +14,7 @@ import com.hearthsim.card.minion.Minion;
  * minions, we must iterate over the temporal ordered list.
  *
  */
-public class MinionList extends IdentityLinkedList<Minion> {
+public class MinionList extends IdentityLinkedList<BaseEntity> {
 
 //	IdentityLinkedList<Minion> fifoList_;
 //	
@@ -23,25 +24,25 @@ public class MinionList extends IdentityLinkedList<Minion> {
 //	}
 //	
 //	@Override
-//	public void add(int index, Minion minion) {
+//	public void add(int index, BaseEntity minion) {
 //		super.add(index, minion);
 //		fifoList_.addLast(minion);
 //	}
 //
 //	@Override
-//	public boolean add(Minion minion) {
+//	public boolean add(BaseEntity minion) {
 //		fifoList_.addLast(minion);
 //		return super.add(minion);
 //	}
 //
 //	@Override
-//	public void addLast(Minion minion) {
+//	public void addLast(BaseEntity minion) {
 //		fifoList_.addLast(minion);
 //		super.addLast(minion);
 //	}
 //
 //	@Override
-//	public void addFirst(Minion minion) {
+//	public void addFirst(BaseEntity minion) {
 //		fifoList_.addLast(minion);
 //		super.addFirst(minion);
 //	}

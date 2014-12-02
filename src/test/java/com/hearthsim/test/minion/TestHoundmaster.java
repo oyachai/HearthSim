@@ -1,6 +1,6 @@
 package com.hearthsim.test.minion;
 
-import com.hearthsim.card.Card;
+import com.hearthsim.card.Card;import com.hearthsim.entity.BaseEntity;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Beast;
 import com.hearthsim.card.minion.Minion;
@@ -94,7 +94,7 @@ public class TestHoundmaster {
 		
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
 		HearthTreeNode res;
-		Minion target = null;
+		BaseEntity target = null;
 		
 		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
 		res = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);

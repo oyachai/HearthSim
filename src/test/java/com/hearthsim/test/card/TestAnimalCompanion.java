@@ -8,6 +8,7 @@ import com.hearthsim.card.minion.concrete.Leokk;
 import com.hearthsim.card.minion.concrete.Misha;
 import com.hearthsim.card.spellcard.concrete.AnimalCompanion;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
+import com.hearthsim.entity.BaseEntity;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
@@ -70,7 +71,7 @@ public class TestAnimalCompanion {
 		board.data_.placeCardHandCurrentPlayer(leokk);
 		
 		Card theCard = board.data_.getCurrentPlayerCardHand(1);
-		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
+		BaseEntity target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
 		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
 		
 		assertTrue(ret == null);
@@ -92,7 +93,7 @@ public class TestAnimalCompanion {
 		board.data_.placeCardHandCurrentPlayer(leokk);
 		
 		Card theCard = board.data_.getCurrentPlayerCardHand(1);
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 2);
+		BaseEntity target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 2);
 		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
 		
 		//Use Leokk.  The other minions should now be buffed with +1 attack
@@ -116,9 +117,9 @@ public class TestAnimalCompanion {
 
 		
 		//Now, attack and kill Leokk.  All minions should go back to their original attack
-		Minion minion = PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(2);
+		Minion minion = (Minion) PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(2);
 		minion.hasAttacked(false);
-		Minion target2 = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
+		BaseEntity target2 = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
 		ret = minion.attack(PlayerSide.WAITING_PLAYER, target2, board, deck, null);
 		
 		assertFalse(ret == null);
@@ -143,7 +144,7 @@ public class TestAnimalCompanion {
 	public void test0() throws HSException {
 		
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
+		BaseEntity target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
 		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
 		
 		assertTrue(ret == null);
@@ -162,7 +163,7 @@ public class TestAnimalCompanion {
 	public void test1() throws HSException {
 		
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
+		BaseEntity target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
 		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
 		
 		assertFalse(ret == null);

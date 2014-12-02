@@ -2,6 +2,7 @@ package com.hearthsim.card.spellcard;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.entity.BaseEntity;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import org.json.JSONObject;
@@ -19,7 +20,7 @@ public class SpellCard extends Card {
 	}
 
     @Override
-    public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
+    public boolean canBeUsedOn(PlayerSide playerSide, BaseEntity minion, BoardModel boardModel) {
         return !hasBeenUsed && !minion.getStealthed() && minion.isHeroTargetable();
     }
 

@@ -1,6 +1,6 @@
 package com.hearthsim.test.minion;
 
-import com.hearthsim.card.Card;
+import com.hearthsim.card.Card;import com.hearthsim.entity.BaseEntity;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.BoulderfistOgre;
@@ -81,7 +81,7 @@ public class TestUnstableGhoul {
 	public void test0() throws HSException {
 		
 		//null case
-		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
+		BaseEntity target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
 		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
 		
@@ -112,7 +112,7 @@ public class TestUnstableGhoul {
 	public void test1() throws HSException {
 		
 		//null case
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
+		BaseEntity target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
 		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
 		
@@ -145,7 +145,7 @@ public class TestUnstableGhoul {
 	public void test2() throws HSException {
 		
 		//null case
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
+		BaseEntity target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
 		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
 		
@@ -175,7 +175,7 @@ public class TestUnstableGhoul {
 		
 		//attack the Ogre... deal 1 damage to all
 		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 3);
-		Minion attacker = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
+		BaseEntity attacker = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
 		attacker.hasAttacked(false);
 		ret = attacker.attack(PlayerSide.WAITING_PLAYER, target, ret, null, null);
 
@@ -208,7 +208,7 @@ public class TestUnstableGhoul {
 	public void test3() throws HSException {
 		
 		//null case
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
+		BaseEntity target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
 		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
 		
@@ -238,7 +238,7 @@ public class TestUnstableGhoul {
 		
 		//Silence the Unstable Ghoul first, then attack with it
 		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 3);
-		Minion attacker = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
+		BaseEntity attacker = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
 		attacker.silenced(PlayerSide.CURRENT_PLAYER, board);
 		attacker.hasAttacked(false);
 		ret = attacker.attack(PlayerSide.WAITING_PLAYER, target, ret, null, null);

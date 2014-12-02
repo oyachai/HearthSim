@@ -1,6 +1,6 @@
 package com.hearthsim.test.minion;
 
-import com.hearthsim.card.Card;
+import com.hearthsim.card.Card;import com.hearthsim.entity.BaseEntity;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.BoulderfistOgre;
@@ -82,7 +82,7 @@ public class TestScarletCrusader {
 	public void test0() throws HSException {
 		
 		//null case
-		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
+		BaseEntity target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
 		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
 		
@@ -114,7 +114,7 @@ public class TestScarletCrusader {
 	public void test2() throws HSException {
 		
 		//null case
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 2);
+		BaseEntity target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 2);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
 		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
 		
@@ -148,7 +148,7 @@ public class TestScarletCrusader {
 		// stay on
 		//------------------------------------------------------------
 		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
-		Minion m0 = PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(2);
+		Minion m0 = (Minion) PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(2);
 		m0.hasAttacked(false);
 		ret = m0.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null);
 		
@@ -180,7 +180,7 @@ public class TestScarletCrusader {
 		//Attacking with divine shield
 		//------------------------------------------------------------
 		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 3);
-		Minion m1 = PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(2);
+		Minion m1 = (Minion) PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(2);
 		m1.hasAttacked(false);
 		ret = m1.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null);
 		
@@ -212,7 +212,7 @@ public class TestScarletCrusader {
 		//Being attacked with a divine shield
 		//------------------------------------------------------------
 		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
-		Minion m2 = PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1);
+		Minion m2 = (Minion) PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1);
 		m2.hasAttacked(false);
 		ret = m2.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null);
 		
@@ -244,7 +244,7 @@ public class TestScarletCrusader {
 		//Being attacked with a divine shield that wore off
 		//------------------------------------------------------------
 		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 3);
-		Minion m3 = PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(2);
+		Minion m3 = (Minion) PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(2);
 		m3.hasAttacked(false);
 		ret = m3.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null);
 		

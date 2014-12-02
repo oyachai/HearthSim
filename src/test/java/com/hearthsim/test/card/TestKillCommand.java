@@ -108,7 +108,7 @@ public class TestKillCommand {
 	public void test2() throws HSException {
 		
 		board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new IronfurGrizzly());
-		Hero target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
+		BaseEntity target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
 		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
 		

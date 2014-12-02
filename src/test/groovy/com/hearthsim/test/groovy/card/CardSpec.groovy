@@ -2,6 +2,7 @@ package com.hearthsim.test.groovy.card
 
 import com.hearthsim.card.minion.Hero
 import com.hearthsim.card.minion.Minion
+import com.hearthsim.entity.BaseEntity
 import com.hearthsim.model.BoardModel
 import com.hearthsim.model.PlayerModel
 import com.hearthsim.test.helpers.BoardModelBuilder
@@ -46,8 +47,8 @@ class CardSpec extends Specification{
 	void assertMinionsEqual(MinionList oldMinions, MinionList newMinions) {
 		Assert.assertEquals(oldMinions.size(), newMinions.size())
 		for (int indx = 0; indx < oldMinions.size(); ++indx) {
-			Minion oldMinion = oldMinions.get(indx)
-			Minion newMinion = newMinions.get(indx)
+			BaseEntity oldMinion = oldMinions.get(indx)
+			BaseEntity newMinion = newMinions.get(indx)
 			Assert.assertEquals(oldMinion.attack, newMinion.attack)
 			Assert.assertEquals(oldMinion.baseAttack_, newMinion.baseAttack_)
 			Assert.assertEquals(oldMinion.auraAttack, newMinion.auraAttack)

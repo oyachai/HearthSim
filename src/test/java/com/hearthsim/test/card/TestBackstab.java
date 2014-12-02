@@ -4,6 +4,7 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.concrete.Backstab;
+import com.hearthsim.entity.BaseEntity;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
@@ -48,7 +49,7 @@ public class TestBackstab {
 		
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
 		HearthTreeNode res;
-		Minion target = null;
+		BaseEntity target = null;
 
 		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
 		res = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
@@ -86,7 +87,7 @@ public class TestBackstab {
 		
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
 		HearthTreeNode res;
-		Minion target = null;
+		BaseEntity target = null;
 		
 		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
 		res = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
@@ -116,7 +117,7 @@ public class TestBackstab {
 		
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
 		HearthTreeNode res;
-		Minion target = null;
+		BaseEntity target = null;
 		
 		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
 		res = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
@@ -144,7 +145,7 @@ public class TestBackstab {
 		
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
 		HearthTreeNode res;
-		Minion target = null;
+		BaseEntity target = null;
 
 		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 3);
 		res = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);

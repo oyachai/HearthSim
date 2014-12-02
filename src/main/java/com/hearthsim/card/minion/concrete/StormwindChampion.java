@@ -1,6 +1,6 @@
 package com.hearthsim.card.minion.concrete;
 
-import com.hearthsim.card.Deck;
+import com.hearthsim.card.Deck;import com.hearthsim.entity.BaseEntity;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
@@ -41,7 +41,7 @@ public class StormwindChampion extends Minion {
 	 */
 	protected HearthTreeNode summonMinion_core(
             PlayerSide targetSide,
-			Minion targetMinion,
+			BaseEntity targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
@@ -49,7 +49,7 @@ public class StormwindChampion extends Minion {
 	{		
 		HearthTreeNode toRet = super.summonMinion_core(targetSide, targetMinion, boardState, deckPlayer0, deckPlayer1);
 		if (toRet != null) {
-			for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
+			for (BaseEntity minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
 				if (minion != this) {
 					minion.setAuraAttack((byte)(minion.getAuraAttack() + 1));
 					minion.addAuraHealth((byte)1);
@@ -75,7 +75,7 @@ public class StormwindChampion extends Minion {
 	
 	public void silenced(PlayerSide thisPlayerSide, BoardModel boardState) throws HSInvalidPlayerIndexException {
 		if (!silenced_) {
-			for (Minion minion : boardState.getMinions(thisPlayerSide)) {
+			for (BaseEntity minion : boardState.getMinions(thisPlayerSide)) {
 				if (minion != this) {
 					minion.setAuraAttack((byte)(minion.getAuraAttack() - 1));
 					minion.removeAuraHealth((byte)1);
@@ -88,7 +88,7 @@ public class StormwindChampion extends Minion {
 	private HearthTreeNode doBuffs(
             PlayerSide thisMinionPlayerSide,
             PlayerSide placedMinionPlayerSide,
-            Minion placedMinion,
+            BaseEntity placedMinion,
             HearthTreeNode boardState) throws HSInvalidPlayerIndexException {
 		if (thisMinionPlayerSide != placedMinionPlayerSide)
 			return boardState;
@@ -115,7 +115,7 @@ public class StormwindChampion extends Minion {
 	public HearthTreeNode minionSummonedEvent(
 			PlayerSide thisMinionPlayerSide,
 			PlayerSide summonedMinionPlayerSide,
-			Minion summonedMinion,
+			BaseEntity summonedMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
@@ -136,7 +136,7 @@ public class StormwindChampion extends Minion {
 	public HearthTreeNode minionTransformedEvent(
 			PlayerSide thisMinionPlayerSide,
 			PlayerSide transformedMinionPlayerSide,
-			Minion transformedMinion,
+			BaseEntity transformedMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)

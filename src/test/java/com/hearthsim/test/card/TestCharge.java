@@ -1,6 +1,6 @@
 package com.hearthsim.test.card;
 
-import com.hearthsim.card.Card;
+import com.hearthsim.card.Card;import com.hearthsim.entity.BaseEntity;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.concrete.Charge;
@@ -52,7 +52,7 @@ public class TestCharge {
 		Charge fb = new Charge();
 		board.data_.placeCardHandCurrentPlayer(fb);
 		
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
+		BaseEntity target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
 		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
 		assertTrue(ret == null);
@@ -78,7 +78,7 @@ public class TestCharge {
 		Charge fb = new Charge();
 		board.data_.placeCardHandCurrentPlayer(fb);
 		
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
+		BaseEntity target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
 		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
 		assertFalse(ret == null);

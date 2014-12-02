@@ -2,6 +2,8 @@ package com.hearthsim.test;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.entity.BaseEntity;
+
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
@@ -78,14 +80,14 @@ public class testCard {
 		assertFalse("test7", minion0.equals(minion7));
 		
 		
-		Minion minion0_clone = (Minion)minion0.deepCopy();
-		Minion minion1_clone = (Minion)minion1.deepCopy();
-		Minion minion2_clone = (Minion)minion2.deepCopy();
-		Minion minion3_clone = (Minion)minion3.deepCopy();
-		Minion minion4_clone = (Minion)minion4.deepCopy();
-		Minion minion5_clone = (Minion)minion5.deepCopy();
-		Minion minion6_clone = (Minion)minion6.deepCopy();
-		Minion minion7_clone = (Minion)minion7.deepCopy();
+		BaseEntity minion0_clone = (BaseEntity) minion0.deepCopy();
+		BaseEntity minion1_clone = (BaseEntity) minion1.deepCopy();
+		BaseEntity minion2_clone = (BaseEntity) minion2.deepCopy();
+		BaseEntity minion3_clone = (BaseEntity) minion3.deepCopy();
+		BaseEntity minion4_clone = (BaseEntity) minion4.deepCopy();
+		BaseEntity minion5_clone = (BaseEntity) minion5.deepCopy();
+		BaseEntity minion6_clone = (BaseEntity) minion6.deepCopy();
+		BaseEntity minion7_clone = (BaseEntity) minion7.deepCopy();
 		
 		assertTrue("test_clone_0", minion0.equals(minion0_clone) && minion0_clone.equals(minion0));
 		assertTrue("test_clone_1", minion1.equals(minion1_clone) && minion1_clone.equals(minion1));

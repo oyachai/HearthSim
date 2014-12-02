@@ -1,5 +1,6 @@
 package com.hearthsim.test;
 
+import com.hearthsim.entity.BaseEntity;
 import com.hearthsim.Game;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
@@ -43,8 +44,8 @@ public class testGame {
 		int nt = 0;
 		while (nt < numTaunts_) {
 			int irand = (int)(Math.random() * numCardsInDeck_);
-			if (!((Minion)cards1_[irand]).getTaunt()) {
-				((Minion)cards1_[irand]).setTaunt(true);
+			if (!((BaseEntity)cards1_[irand]).getTaunt()) {
+				((BaseEntity)cards1_[irand]).setTaunt(true);
 				++nt;
 			}
 		}

@@ -1,6 +1,6 @@
 package com.hearthsim.test.minion;
 
-import com.hearthsim.card.Card;
+import com.hearthsim.card.Card;import com.hearthsim.entity.BaseEntity;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.*;
@@ -80,7 +80,7 @@ public class TestCairneBloodhoof {
 	public void test0() throws HSException {
 		
 		//null case
-		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
+		BaseEntity target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
 		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
 		
@@ -107,7 +107,7 @@ public class TestCairneBloodhoof {
 	public void test2() throws HSException {
 		
 		//null case
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 2);
+		BaseEntity target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 2);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
 		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
 		
@@ -135,7 +135,7 @@ public class TestCairneBloodhoof {
 		
 		//----------------------------------------------------------
 		
-		Minion minion = PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(2);
+		Minion minion = (Minion) PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(2);
 		assertTrue(minion instanceof CairneBloodhoof);
 		
 		minion.hasAttacked(false);
@@ -170,7 +170,7 @@ public class TestCairneBloodhoof {
 	public void test3() throws HSException {
 		
 		//null case
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
+		BaseEntity target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
 		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
 		
@@ -198,7 +198,7 @@ public class TestCairneBloodhoof {
 		
 		//----------------------------------------------------------
 		
-		Minion minion = PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1);
+		Minion minion = (Minion) PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1);
 		assertTrue(minion instanceof CairneBloodhoof);
 		
 		minion.hasAttacked(false);
@@ -232,7 +232,7 @@ public class TestCairneBloodhoof {
 	public void test4() throws HSException {
 		
 		//null case
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
+		BaseEntity target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
 		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
 		
@@ -261,7 +261,7 @@ public class TestCairneBloodhoof {
 		HearthTreeNode fb = new HearthTreeNode(board.data_.flipPlayers());
 
         MinionList currentPlayerMinions = PlayerSide.CURRENT_PLAYER.getPlayer(fb).getMinions();
-        Minion minion = currentPlayerMinions.get(1);
+        Minion minion = (Minion) currentPlayerMinions.get(1);
 		
 		minion.hasAttacked(false);
 		target = fb.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
@@ -295,7 +295,7 @@ public class TestCairneBloodhoof {
 	public void test5() throws HSException {
 		
 		//null case
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
+		BaseEntity target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
 		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
 
@@ -336,7 +336,7 @@ public class TestCairneBloodhoof {
 		//----------------------------------------------------------
 		HearthTreeNode fb = new HearthTreeNode(board.data_.flipPlayers());
 		
-		Minion minion = PlayerSide.CURRENT_PLAYER.getPlayer(fb).getMinions().get(1);
+		Minion minion = (Minion) PlayerSide.CURRENT_PLAYER.getPlayer(fb).getMinions().get(1);
 		
 		minion.hasAttacked(false);
 		target = fb.data_.getCharacter(PlayerSide.WAITING_PLAYER, 6);
@@ -380,7 +380,7 @@ public class TestCairneBloodhoof {
 		//In this test Cairne will be killed by a spell: Fireball
 		
 		//null case
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
+		BaseEntity target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
 		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
 		
@@ -408,7 +408,7 @@ public class TestCairneBloodhoof {
 		//----------------------------------------------------------
 		HearthTreeNode fb = new HearthTreeNode(board.data_.flipPlayers());
 		
-		Minion minion = PlayerSide.CURRENT_PLAYER.getPlayer(fb).getMinions().get(1);
+		Minion minion = (Minion) PlayerSide.CURRENT_PLAYER.getPlayer(fb).getMinions().get(1);
 		
 		fb.data_.placeCardHandCurrentPlayer(new Fireball());
 		Card fireball = fb.data_.getCurrentPlayerCardHand(0);

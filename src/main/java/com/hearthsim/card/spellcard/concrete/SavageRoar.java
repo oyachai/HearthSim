@@ -1,7 +1,7 @@
 package com.hearthsim.card.spellcard.concrete;
 
 
-import com.hearthsim.card.Deck;
+import com.hearthsim.card.Deck;import com.hearthsim.entity.BaseEntity;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSException;
@@ -50,7 +50,7 @@ public class SavageRoar extends SpellCard {
 	
 	protected HearthTreeNode use_core(
 			PlayerSide side,
-			Minion targetMinion,
+			BaseEntity targetMinion,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1,
@@ -62,7 +62,7 @@ public class SavageRoar extends SpellCard {
 		}
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		toRet.data_.getCurrentPlayerHero().setExtraAttackUntilTurnEnd((byte)2);
-		for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions())
+		for (BaseEntity minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions())
 			minion.setExtraAttackUntilTurnEnd((byte)2);
 		
 		return toRet;

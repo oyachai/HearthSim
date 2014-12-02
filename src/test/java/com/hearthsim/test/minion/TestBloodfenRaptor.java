@@ -1,6 +1,6 @@
 package com.hearthsim.test.minion;
 
-import com.hearthsim.card.Card;
+import com.hearthsim.card.Card;import com.hearthsim.entity.BaseEntity;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.BloodfenRaptor;
 import com.hearthsim.exception.HSException;
@@ -85,7 +85,7 @@ public class TestBloodfenRaptor {
 		BloodfenRaptor fb = new BloodfenRaptor();
 		board.data_.placeCardHandCurrentPlayer(fb);
 		
-		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
+		BaseEntity target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
 		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, null, null);
 		
@@ -106,7 +106,7 @@ public class TestBloodfenRaptor {
 		BloodfenRaptor fb = new BloodfenRaptor();
 		board.data_.placeCardHandCurrentPlayer(fb);
 		
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
+		BaseEntity target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
 		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
 		
@@ -122,17 +122,17 @@ public class TestBloodfenRaptor {
 		assertTrue("test2_9", PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getHealth() == health0);
 		assertTrue("test2_10", PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getHealth() == health1);
 		
-		Minion theAttacker = PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0);
+		Minion theAttacker = (Minion) PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0);
 		target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
 		ret = theAttacker.useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
 		assertTrue("test2", ret == null);
 
 		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
-		theAttacker = PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0);
+		theAttacker = (Minion) PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0);
 		ret = theAttacker.useOn(PlayerSide.WAITING_PLAYER, target, board, null, null);
 		assertTrue("test2", ret == null);
 
-		theAttacker = PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0);
+		theAttacker = (Minion) PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0);
 		theAttacker.hasAttacked(false);
 		theAttacker.hasBeenUsed(false);
 		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
@@ -150,7 +150,7 @@ public class TestBloodfenRaptor {
 		assertTrue("test2_10", PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getHealth() == health1);
 		assertTrue("test2", PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).hasAttacked());
 		
-		theAttacker = PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0);
+		theAttacker = (Minion) PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0);
 		theAttacker.hasAttacked(false);
 		theAttacker.hasBeenUsed(false);
 		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
@@ -172,7 +172,7 @@ public class TestBloodfenRaptor {
 		BloodfenRaptor fb = new BloodfenRaptor();
 		board.data_.placeCardHandCurrentPlayer(fb);
 		
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
+		BaseEntity target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
 		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
 		
@@ -194,7 +194,7 @@ public class TestBloodfenRaptor {
 		BloodfenRaptor fb = new BloodfenRaptor();
 		board.data_.placeCardHandCurrentPlayer(fb);
 		
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 2);
+		BaseEntity target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 2);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
 		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
 		
@@ -216,7 +216,7 @@ public class TestBloodfenRaptor {
 		BloodfenRaptor fb = new BloodfenRaptor();
 		board.data_.placeCardHandCurrentPlayer(fb);
 		
-		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
+		BaseEntity target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
 		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, null, null);
 		
@@ -237,7 +237,7 @@ public class TestBloodfenRaptor {
 		BloodfenRaptor fb = new BloodfenRaptor();
 		board.data_.placeCardHandCurrentPlayer(fb);
 		
-		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
+		BaseEntity target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
 		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, null, null);
 		
@@ -258,7 +258,7 @@ public class TestBloodfenRaptor {
 		BloodfenRaptor fb = new BloodfenRaptor();
 		board.data_.placeCardHandCurrentPlayer(fb);
 		
-		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
+		BaseEntity target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
 		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, null, null);
 		

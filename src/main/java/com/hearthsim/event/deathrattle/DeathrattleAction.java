@@ -2,6 +2,7 @@ package com.hearthsim.event.deathrattle;
 
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.entity.BaseEntity;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -21,7 +22,7 @@ public abstract class DeathrattleAction {
      * @param deckPlayer1    @return
      * @throws HSInvalidPlayerIndexException
 	 */
-	public HearthTreeNode performAction(Minion minion, PlayerSide playerSide, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+	public HearthTreeNode performAction(BaseEntity minion, PlayerSide playerSide, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
 		return boardState;
 	}
 	

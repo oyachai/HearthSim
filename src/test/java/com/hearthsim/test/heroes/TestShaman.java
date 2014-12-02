@@ -1,6 +1,6 @@
 package com.hearthsim.test.heroes;
 
-import com.hearthsim.card.Card;
+import com.hearthsim.card.Card;import com.hearthsim.entity.BaseEntity;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
@@ -31,10 +31,10 @@ public class TestShaman {
 	public void setup() {
 		board = new HearthTreeNode(new BoardModel(new Shaman(), new Hero()));
 
-		Minion minion0_0 = new BoulderfistOgre();
-		Minion minion0_1 = new RaidLeader();
-		Minion minion1_0 = new BoulderfistOgre();
-		Minion minion1_1 = new RaidLeader();
+		BaseEntity minion0_0 = new BoulderfistOgre();
+		BaseEntity minion0_1 = new RaidLeader();
+		BaseEntity minion1_0 = new BoulderfistOgre();
+		BaseEntity minion1_1 = new RaidLeader();
 		
 		board.data_.placeCardHandCurrentPlayer(minion0_0);
 		board.data_.placeCardHandCurrentPlayer(minion0_1);
@@ -83,8 +83,8 @@ public class TestShaman {
 	@Test
 	public void test0() throws HSException {
 		
-		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
-		Minion minion = PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0);
+		BaseEntity target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
+		BaseEntity minion = (Minion) PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0);
 		HearthTreeNode ret = minion.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null);
 		
 		assertFalse(ret == null);

@@ -1,6 +1,6 @@
 package com.hearthsim.test.minion;
 
-import com.hearthsim.card.Card;
+import com.hearthsim.card.Card;import com.hearthsim.entity.BaseEntity;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.AbusiveSergeant;
@@ -83,7 +83,7 @@ public class TestAbusiveSergeant {
 	public void test0() throws HSException {
 		
 		//null case
-		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
+		BaseEntity target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
 		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
 		
@@ -113,7 +113,7 @@ public class TestAbusiveSergeant {
 	@Test
 	public void test2() throws HSException {
 		
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 2);
+		BaseEntity target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 2);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
 		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
 		
@@ -151,7 +151,7 @@ public class TestAbusiveSergeant {
 		//make sure that the extra attack is working!
 		HearthTreeNode child1 = board.getChildren().get(0);
 		target = child1.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
-		Minion minion = child1.data_.getCurrentPlayer().getMinions().get(0);
+		Minion minion = (Minion) child1.data_.getCurrentPlayer().getMinions().get(0);
 		minion.attack(PlayerSide.WAITING_PLAYER, target, child1, deck, null);
 		assertEquals(child1.data_.getNumCards_hand(), 0);
 		assertEquals(child1.data_.getCurrentPlayer().getNumMinions(), 3);

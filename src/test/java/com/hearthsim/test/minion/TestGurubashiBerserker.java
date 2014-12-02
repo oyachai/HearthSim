@@ -1,6 +1,6 @@
 package com.hearthsim.test.minion;
 
-import com.hearthsim.card.Card;
+import com.hearthsim.card.Card;import com.hearthsim.entity.BaseEntity;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.GurubashiBerserker;
@@ -59,7 +59,7 @@ public class TestGurubashiBerserker {
 	@Test
 	public void test0() throws HSException {
 		
-		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
+		BaseEntity target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
 		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
 		
@@ -78,7 +78,7 @@ public class TestGurubashiBerserker {
 	@Test
 	public void test2() throws HSException {
 		
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
+		BaseEntity target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
 		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
 		
@@ -106,7 +106,7 @@ public class TestGurubashiBerserker {
 	@Test
 	public void test3() throws HSException {
 			
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
+		BaseEntity target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
 		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
 		
@@ -131,7 +131,7 @@ public class TestGurubashiBerserker {
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack(), attack0);
 		
 		HearthTreeNode flipped = new HearthTreeNode(board.data_.flipPlayers());
-		Minion minion = flipped.data_.getCurrentPlayer().getMinions().get(0);
+		Minion minion = (Minion) flipped.data_.getCurrentPlayer().getMinions().get(0);
 		target = flipped.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
 		ret = minion.attack(PlayerSide.WAITING_PLAYER, target, flipped, deck, null);
 		assertFalse(ret == null);

@@ -1,6 +1,6 @@
 package com.hearthsim.card.spellcard.concrete;
 
-import com.hearthsim.card.Deck;
+import com.hearthsim.card.Deck;import com.hearthsim.entity.BaseEntity;
 import com.hearthsim.card.minion.Beast;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellDamage;
@@ -48,7 +48,7 @@ public class KillCommand extends SpellDamage {
 		throws HSException
 	{
 		boolean haveBeast = false;
-		for (final Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(boardState).getMinions()) {
+		for (final BaseEntity minion : PlayerSide.CURRENT_PLAYER.getPlayer(boardState).getMinions()) {
 			haveBeast = haveBeast || minion instanceof Beast;
 		}
 		if (haveBeast)

@@ -1,6 +1,6 @@
 package com.hearthsim.test.card;
 
-import com.hearthsim.card.Card;
+import com.hearthsim.card.Card;import com.hearthsim.entity.BaseEntity;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.concrete.MortalCoil;
@@ -61,7 +61,7 @@ public class TestMortalCoil {
 	@Test
 	public void test0() throws HSException {
 		
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
+		BaseEntity target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
 		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
 		
@@ -82,7 +82,7 @@ public class TestMortalCoil {
 	@Test
 	public void test1() throws HSException {
 		
-		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
+		BaseEntity target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
 		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
 		
@@ -104,7 +104,7 @@ public class TestMortalCoil {
 	@Test
 	public void test2() throws HSException {
 		
-		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
+		BaseEntity target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
 		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
 		
@@ -126,7 +126,7 @@ public class TestMortalCoil {
 	@Test
 	public void test3() throws HSException {
 		
-		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
+		BaseEntity target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
 		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
 		

@@ -35,15 +35,15 @@ public class BoardModel implements DeepCopyable {
     IdentityLinkedList<MinionPlayerPair> allMinionsFIFOList_;
 
     public class MinionPlayerPair {
-        private Minion minion;
+        private BaseEntity minion;
         private PlayerModel playerModel ;
 
-        public MinionPlayerPair(Minion minion, PlayerModel playerModel) {
+        public MinionPlayerPair(BaseEntity minion, PlayerModel playerModel) {
             this.minion = minion;
             this.playerModel = playerModel;
         }
 
-        public Minion getMinion() {
+        public BaseEntity getMinion() {
             return minion;
         }
 
@@ -140,7 +140,7 @@ public class BoardModel implements DeepCopyable {
         }
     }
 
-    public Minion getMinion(PlayerSide side, int index) throws HSInvalidPlayerIndexException {
+    public BaseEntity getMinion(PlayerSide side, int index) throws HSInvalidPlayerIndexException {
         return modelForSide(side).getMinions().get(index);
     }
 
@@ -161,17 +161,17 @@ public class BoardModel implements DeepCopyable {
         return (BaseEntity) (index == 0 ? playerModel.getHero() : playerModel.getMinions().get(index - 1));
     }
 
-    public Minion getCurrentPlayerCharacter(int index) {
+    public BaseEntity getCurrentPlayerCharacter(int index) {
         return getMinionForCharacter(PlayerSide.CURRENT_PLAYER, index);
     }
 
-    public Minion getWaitingPlayerCharacter(int index) {
+    public BaseEntity getWaitingPlayerCharacter(int index) {
         return getMinionForCharacter(PlayerSide.WAITING_PLAYER, index);
     }
 
-    public Minion getMinionForCharacter(PlayerSide playerSide, int index) {
+    public BaseEntity getMinionForCharacter(PlayerSide playerSide, int index) {
         PlayerModel playerModel = modelForSide(playerSide);
-        return (Minion) (index == 0 ? playerModel.getHero() : playerModel.getMinions().get(index - 1));
+        return (index == 0 ? playerModel.getHero() : playerModel.getMinions().get(index - 1));
     }
 
     //-----------------------------------------------------------------------------------
@@ -190,13 +190,13 @@ public class BoardModel implements DeepCopyable {
      * @param position The position to place the minion.  The new minion goes to the "left" (lower index) of the postinion index.
      * @throws HSInvalidPlayerIndexException
      */
-/*    public void placeMinion(PlayerSide playerSide, Minion minion, int position) throws HSInvalidPlayerIndexException {
+/*    public void placeMinion(PlayerSide playerSide, BaseEntity minion, int position) throws HSInvalidPlayerIndexException {
         PlayerModel playerModel = modelForSide(playerSide);
         playerModel.getMinions().add(position, minion);
 
         this.allMinionsFIFOList_.add(new MinionPlayerPair(minion, playerModel));
         minion.isInHand(false);*/
-    public void placeMinion(PlayerSide playerSide, Minion minion, int position) throws HSInvalidPlayerIndexException {
+    public void placeMinion(PlayerSide playerSide, BaseEntity minion, int position) throws HSInvalidPlayerIndexException {
         PlayerModel playerModel = modelForSide(playerSide);
         playerModel.getMinions().add(position, minion);
 
@@ -216,7 +216,7 @@ public class BoardModel implements DeepCopyable {
      * @param minion The minion to be placed on the board.  The minion is placed on the right-most space.
      * @throws HSInvalidPlayerIndexException
      */
-    public void placeMinion(PlayerSide playerSide, Minion minion) throws HSInvalidPlayerIndexException {
+    public void placeMinion(PlayerSide playerSide, BaseEntity minion) throws HSInvalidPlayerIndexException {
         minion.isInHand(false);
         PlayerModel playerModel = modelForSide(playerSide);
         playerModel.getMinions().add(minion);
@@ -469,7 +469,7 @@ public class BoardModel implements DeepCopyable {
         return minionIdPair.getPlayerModel().getMinions().remove(minionIdPair.minion);
     }
 
-    public boolean removeMinion(Minion minion) throws HSException {
+    public boolean removeMinion(BaseEntity minion) throws HSException {
         MinionPlayerPair mP = null;
         for (MinionPlayerPair minionIdPair : this.allMinionsFIFOList_) {
             if (minionIdPair.minion == minion) {
@@ -508,20 +508,20 @@ public class BoardModel implements DeepCopyable {
     public ArrayList<Integer> getAttackableMinions() {
         ArrayList<Integer> toRet = new ArrayList<Integer>();
         boolean hasTaunt = false;
-        for (final Minion minion : waitingPlayer.getMinions()) {
+        for (final BaseEntity minion : waitingPlayer.getMinions()) {
             hasTaunt = hasTaunt || minion.getTaunt();
         }
         if (!hasTaunt) {
             toRet.add(0);
             int counter = 1;
-            for (Minion ignored : waitingPlayer.getMinions()) {
+            for (BaseEntity ignored : waitingPlayer.getMinions()) {
                 toRet.add(counter);
                 counter++;
             }
             return toRet;
         } else {
             int counter = 1;
-            for (Minion aP1_minions_ : waitingPlayer.getMinions()) {
+            for (BaseEntity aP1_minions_ : waitingPlayer.getMinions()) {
                 if (aP1_minions_.getTaunt())
                     toRet.add(counter);
                 counter++;
@@ -538,11 +538,11 @@ public class BoardModel implements DeepCopyable {
      * @return
      */
     public boolean hasDeadMinions() {
-        for (Minion minion : currentPlayer.getMinions()) {
+        for (BaseEntity minion : currentPlayer.getMinions()) {
             if (minion.getTotalHealth() <= 0)
                 return true;
         }
-        for (Minion minion : getWaitingPlayer().getMinions()) {
+        for (BaseEntity minion : getWaitingPlayer().getMinions()) {
             if (minion.getTotalHealth() <= 0) {
                 return true;
             }
@@ -610,11 +610,11 @@ public class BoardModel implements DeepCopyable {
         currentPlayer.getHero().hasBeenUsed(false);
         waitingPlayer.getHero().hasAttacked(false);
         waitingPlayer.getHero().hasBeenUsed(false);
-        for (Minion minion : currentPlayer.getMinions()) {
+        for (BaseEntity minion : currentPlayer.getMinions()) {
             minion.hasAttacked(false);
             minion.hasBeenUsed(false);
         }
-        for (Minion minion : waitingPlayer.getMinions()) {
+        for (BaseEntity minion : waitingPlayer.getMinions()) {
             minion.hasAttacked(false);
             minion.hasBeenUsed(false);
         }
@@ -641,7 +641,7 @@ public class BoardModel implements DeepCopyable {
         for (MinionPlayerPair minionPlayerPair : allMinionsFIFOList_) {
 
             PlayerModel oldPlayerModel = minionPlayerPair.getPlayerModel();
-            Minion oldMinion = minionPlayerPair.getMinion();
+            BaseEntity oldMinion = minionPlayerPair.getMinion();
             int indexOfOldMinion = oldPlayerModel.getMinions().indexOf(oldMinion);
 
             PlayerModel newPlayerModel;
@@ -673,7 +673,7 @@ public class BoardModel implements DeepCopyable {
         for (MinionPlayerPair minionPlayerPair : allMinionsFIFOList_) {
 
             PlayerModel oldPlayerModel = minionPlayerPair.getPlayerModel();
-            Minion oldMinion = minionPlayerPair.getMinion();
+            BaseEntity oldMinion = minionPlayerPair.getMinion();
             int indexOfOldMinion = oldPlayerModel.getMinions().indexOf(oldMinion);
 
             PlayerModel newPlayerModel;
@@ -700,12 +700,12 @@ public class BoardModel implements DeepCopyable {
         json.put("p1_deckPos", p1_deckPos_);
 
         JSONArray p0_minions = new JSONArray();
-        for (Minion minion : currentPlayer.getMinions())
+        for (BaseEntity minion : currentPlayer.getMinions())
             p0_minions.put(minion.toJSON());
         json.put("p0_minions", p0_minions);
 
         JSONArray p1_minions = new JSONArray();
-        for (Minion minion : waitingPlayer.getMinions())
+        for (BaseEntity minion : waitingPlayer.getMinions())
             p1_minions.put(minion.toJSON());
         json.put("p1_minions", p1_minions);
 

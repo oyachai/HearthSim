@@ -1,6 +1,6 @@
 package com.hearthsim.card.minion.concrete;
 
-import com.hearthsim.card.Deck;
+import com.hearthsim.card.Deck;import com.hearthsim.entity.BaseEntity;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.Murloc;
 import com.hearthsim.exception.HSException;
@@ -34,7 +34,7 @@ public class ColdlightSeer extends Murloc {
 	 */
 	
 	public HearthTreeNode useUntargetableBattlecry_core(
-			Minion minionPlacementTarget,
+			BaseEntity minionPlacementTarget,
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1,
@@ -42,7 +42,7 @@ public class ColdlightSeer extends Murloc {
 		) throws HSException
 	{
 		HearthTreeNode toRet = boardState;
-		for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
+		for (BaseEntity minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
 			if (minion != this && minion instanceof Murloc) {
 				minion.addHealth((byte)2);
 				minion.addMaxHealth((byte)2);

@@ -2,6 +2,8 @@ package com.hearthsim.test;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.AcidicSwampOoze;
+import com.hearthsim.entity.BaseEntity;
+
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
@@ -14,8 +16,8 @@ public class TestDeepClone {
 	public void test_AcidicSwampOoze() {
 		
 
-		Minion card1 = new AcidicSwampOoze();
-		Minion card1_cloned = (Minion)card1.deepCopy();
+		BaseEntity card1 = new AcidicSwampOoze();
+		BaseEntity card1_cloned = (BaseEntity) card1.deepCopy();
 		
 		assertTrue(card1.equals(card1_cloned));
 		assertTrue(card1_cloned.equals(card1));
@@ -24,7 +26,7 @@ public class TestDeepClone {
 		assertFalse(card1.equals(card1_cloned));
 		assertFalse(card1_cloned.equals(card1));
 
-		card1_cloned = (Minion)card1.deepCopy();
+		card1_cloned = (BaseEntity) card1.deepCopy();
 		assertTrue(card1.equals(card1_cloned));
 		assertTrue(card1_cloned.equals(card1));
 
@@ -32,21 +34,21 @@ public class TestDeepClone {
 		assertFalse(card1.equals(card1_cloned));
 		assertFalse(card1_cloned.equals(card1));
 
-		card1_cloned = (Minion)card1.deepCopy();
+		card1_cloned = (BaseEntity)card1.deepCopy();
 		assertTrue(card1.equals(card1_cloned));
 		assertTrue(card1_cloned.equals(card1));
 		
 		card1.setDestroyOnTurnEnd(true);
 		assertFalse(card1.equals(card1_cloned));
 		assertFalse(card1_cloned.equals(card1));
-		card1_cloned = (Minion)card1.deepCopy();
+		card1_cloned = (BaseEntity)card1.deepCopy();
 		assertTrue(card1.equals(card1_cloned));
 		assertTrue(card1_cloned.equals(card1));
 
 		card1.setDestroyOnTurnStart(true);
 		assertFalse(card1.equals(card1_cloned));
 		assertFalse(card1_cloned.equals(card1));
-		card1_cloned = (Minion)card1.deepCopy();
+		card1_cloned = (BaseEntity)card1.deepCopy();
 		assertTrue(card1.equals(card1_cloned));
 		assertTrue(card1_cloned.equals(card1));
 
