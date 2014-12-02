@@ -1,0 +1,146 @@
+From 7874be17dcdaad82095c0c31dcd8aeee13caab69 Mon Sep 17 00:00:00 2001
+From: unknown <stephanie.zhongsui.li@gmail.com>
+Date: Mon, 1 Dec 2014 18:54:42 -0500
+Subject: [PATCH 08/14] Finalized delegate class' methods
+
+To pass the existing unit tests, the use_core() function was left in Card and CardAction utilizes Card's use_core() in its implementation of useOn(). This is not the most desirable refactoring solution, since use_core() was left implemented in Card. The move of the use_core() function to CardAction did not break the TestCardAction unit test but did break all of the existing unit tests for each card that were written by the original developers. A much more systemic refactoring would have been needed to be able to pass all of the original unit tests, thus, use_core() was left in Card and all other functionalities related to useOn() was delegated to CardAction.
+
+---
+ src/main/java/com/hearthsim/card/CardAction.java | 73 ++++++++++++------------
+ 1 file changed, 36 insertions(+), 37 deletions(-)
+
+diff --git a/src/main/java/com/hearthsim/card/CardAction.java b/src/main/java/com/hearthsim/card/CardAction.java
+index d754de4..a7abf12 100644
+--- a/src/main/java/com/hearthsim/card/CardAction.java
++++ b/src/main/java/com/hearthsim/card/CardAction.java
+@@ -15,7 +15,22 @@ public class CardAction {
+ 	public CardAction(Card card) {
+ 		this.card = card;
+ 	}
+-			
++		
++	
++	public Card getCard() {
++		return card;
++	}
++	
++	public final HearthTreeNode useOn(
++			PlayerSide side,
++			Minion targetMinion,
++			HearthTreeNode boardState,
++			Deck deckPlayer0,
++			Deck deckPlayer1)
++		throws HSException
++	{
++		return this.useOn(side, targetMinion, boardState, deckPlayer0, deckPlayer1, false);
++	}  
+ 	
+ 	/**
+ 	 * 
+@@ -43,28 +58,28 @@ public class CardAction {
+ 		throws HSException
+ 	{
+ 		//A generic card does nothing except for consuming mana
+-		HearthTreeNode toRet = this.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
++		HearthTreeNode toRet = this.card.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+ 
+ 		//Notify all other cards/characters of the card's use
+ 		if (toRet != null) {
+ 			ArrayList<Minion> tmpList = new ArrayList<Minion>(7);
+             for (Card card : toRet.data_.getCurrentPlayerHand()) {
+-                toRet = card.otherCardUsedEvent(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this.card, toRet, deckPlayer0, deckPlayer1);
++                toRet = card.getCardAction().otherCardUsedEvent(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this.card, toRet, deckPlayer0, deckPlayer1);
+             }
+-			toRet = toRet.data_.getCurrentPlayerHero().otherCardUsedEvent(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this.card, toRet, deckPlayer0, deckPlayer1);
++			toRet = toRet.data_.getCurrentPlayerHero().getCardAction().otherCardUsedEvent(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this.card, toRet, deckPlayer0, deckPlayer1);
+ 			{
+                 for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
+                     tmpList.add(minion);
+                 }
+ 				for (Minion minion : tmpList) {
+ 					if (!minion.isSilenced())
+-						toRet = minion.otherCardUsedEvent(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this.card, toRet, deckPlayer0, deckPlayer1);
++						toRet = minion.getCardAction().otherCardUsedEvent(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this.card, toRet, deckPlayer0, deckPlayer1);
+ 				}
+ 			}
+             for (Card card : toRet.data_.getWaitingPlayerHand()) {
+-                toRet = card.otherCardUsedEvent(PlayerSide.WAITING_PLAYER, PlayerSide.CURRENT_PLAYER, this.card, toRet, deckPlayer0, deckPlayer1);
++                toRet = card.getCardAction().otherCardUsedEvent(PlayerSide.WAITING_PLAYER, PlayerSide.CURRENT_PLAYER, this.card, toRet, deckPlayer0, deckPlayer1);
+             }
+-			toRet = toRet.data_.getWaitingPlayerHero().otherCardUsedEvent(PlayerSide.WAITING_PLAYER, PlayerSide.CURRENT_PLAYER, this.card, toRet, deckPlayer0, deckPlayer1);
++			toRet = toRet.data_.getWaitingPlayerHero().getCardAction().otherCardUsedEvent(PlayerSide.WAITING_PLAYER, PlayerSide.CURRENT_PLAYER, this.card, toRet, deckPlayer0, deckPlayer1);
+ 			{
+ 				tmpList.clear();
+                 for (Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
+@@ -72,7 +87,7 @@ public class CardAction {
+                 }
+ 				for (Minion minion : tmpList) {
+ 					if (!minion.isSilenced())
+-						toRet = minion.otherCardUsedEvent(PlayerSide.WAITING_PLAYER, PlayerSide.CURRENT_PLAYER, this.card, toRet, deckPlayer0, deckPlayer1);
++						toRet = minion.getCardAction().otherCardUsedEvent(PlayerSide.WAITING_PLAYER, PlayerSide.CURRENT_PLAYER, this.card, toRet, deckPlayer0, deckPlayer1);
+ 				}
+ 			}
+ 
+@@ -82,46 +97,30 @@ public class CardAction {
+ 		
+ 		
+ 		return toRet;
+-	}
+-	
+-	public final HearthTreeNode useOn(
+-			PlayerSide side,
+-			Minion targetMinion,
+-			HearthTreeNode boardState,
+-			Deck deckPlayer0,
+-			Deck deckPlayer1)
+-		throws HSException
+-	{
+-		return this.useOn(side, targetMinion, boardState, deckPlayer0, deckPlayer1, false);
+-	}    
++	}  
+     
+-	
+ 	/**
+ 	 * 
+-	 * Use the card on the given target
+-	 * 
+-	 * This is the core implementation of card's ability
+-	 * 
+-	 *
+-     *
+-     * @param side
++	 * Called whenever another card is used
++	 *  @param thisCardPlayerSide The player index of the card receiving the event
++	 * @param cardUserPlayerSide
++     * @param usedCard The card that was used
+      * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
+-     *
++     * @param deckPlayer0 The deck of player0
++     * @param deckPlayer1 The deck of player1
+      * @return The boardState is manipulated and returned
+ 	 */
+-	protected HearthTreeNode use_core(
+-			PlayerSide side,
+-			Minion targetMinion,
++	public HearthTreeNode otherCardUsedEvent(
++			PlayerSide thisCardPlayerSide,
++			PlayerSide cardUserPlayerSide,
++			Card usedCard,
+ 			HearthTreeNode boardState,
+ 			Deck deckPlayer0,
+-			Deck deckPlayer1,
+-			boolean singleRealizationOnly)
++			Deck deckPlayer1)
+ 		throws HSException
+ 	{
+-		//A generic card does nothing except for consuming mana
+-		boardState.data_.getCurrentPlayer().subtractMana(this.card.mana_);
+-		boardState.data_.removeCard_hand(this.card);
+ 		return boardState;
+ 	}
++
+ 	
+ }
+-- 
+1.9.4.msysgit.1
+

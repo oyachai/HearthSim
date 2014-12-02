@@ -1,0 +1,176 @@
+From e4bfb07aa26450072aaa9490bf883428dba19655 Mon Sep 17 00:00:00 2001
+From: unknown <stephanie.zhongsui.li@gmail.com>
+Date: Mon, 1 Dec 2014 18:57:01 -0500
+Subject: [PATCH 09/14] Added child classes of CardAction that override card
+ action functionalities from the main CardAction class in order to implement
+ special behavior
+
+Three different cards (Nightblade, ArchmageAntonidas, and VioletTeacher) required specialized CardActions because when these cards are used, additional special effects are enacted on the board state. 
+Thus, three child classes of CardAction were made, one for each of these specialized cards and each of these child CardAction classes overrided the necessary useOn() or useOn() related function in their respective implementations. These overrided function implemented the special functionalities of the cards.
+
+---
+ .../card/CardActionArchmageAntonidas.java          | 48 ++++++++++++++++++++++
+ .../com/hearthsim/card/CardActionNightblade.java   | 45 ++++++++++++++++++++
+ .../hearthsim/card/CardActionVioletTeacher.java    | 43 +++++++++++++++++++
+ 3 files changed, 136 insertions(+)
+ create mode 100644 src/main/java/com/hearthsim/card/CardActionArchmageAntonidas.java
+ create mode 100644 src/main/java/com/hearthsim/card/CardActionNightblade.java
+ create mode 100644 src/main/java/com/hearthsim/card/CardActionVioletTeacher.java
+
+diff --git a/src/main/java/com/hearthsim/card/CardActionArchmageAntonidas.java b/src/main/java/com/hearthsim/card/CardActionArchmageAntonidas.java
+new file mode 100644
+index 0000000..01f8b50
+--- /dev/null
++++ b/src/main/java/com/hearthsim/card/CardActionArchmageAntonidas.java
+@@ -0,0 +1,48 @@
++package com.hearthsim.card;
++
++import com.hearthsim.card.spellcard.SpellCard;
++import com.hearthsim.card.spellcard.concrete.Fireball;
++import com.hearthsim.exception.HSException;
++import com.hearthsim.model.PlayerSide;
++import com.hearthsim.util.tree.HearthTreeNode;
++
++public class CardActionArchmageAntonidas extends CardAction {
++	public CardActionArchmageAntonidas(Card card) {
++		super(card);
++	}
++	
++	/**
++	 * 
++	 * Called whenever another card is used
++	 * 
++	 * When you cast a spell, put a Fireball spell into your hand
++	 *  @param thisCardPlayerSide The player index of the card receiving the event
++	 * @param cardUserPlayerSide
++     * @param usedCard The card that was used
++     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
++     * @param deckPlayer0 The deck of player0
++     * @param deckPlayer1 The deck of player1
++     * @return The boardState is manipulated and returned
++	 */
++	@Override
++	public HearthTreeNode otherCardUsedEvent(
++			PlayerSide thisCardPlayerSide,
++			PlayerSide cardUserPlayerSide,
++			Card usedCard,
++			HearthTreeNode boardState,
++			Deck deckPlayer0,
++			Deck deckPlayer1)
++		throws HSException
++	{
++		HearthTreeNode toRet = super.otherCardUsedEvent(thisCardPlayerSide, cardUserPlayerSide, usedCard, boardState, deckPlayer0, deckPlayer1);
++		if (thisCardPlayerSide != PlayerSide.CURRENT_PLAYER)
++			return toRet;
++		if (getCard().isInHand_)
++			return toRet;
++        if (usedCard instanceof SpellCard && toRet.data_.getNumCardsHandCurrentPlayer() < 10) {
++            toRet.data_.placeCardHandCurrentPlayer(new Fireball());
++        }
++        return toRet;
++	}
++
++}
+diff --git a/src/main/java/com/hearthsim/card/CardActionNightblade.java b/src/main/java/com/hearthsim/card/CardActionNightblade.java
+new file mode 100644
+index 0000000..0325817
+--- /dev/null
++++ b/src/main/java/com/hearthsim/card/CardActionNightblade.java
+@@ -0,0 +1,45 @@
++package com.hearthsim.card;
++
++import com.hearthsim.card.minion.Minion;
++import com.hearthsim.exception.HSException;
++import com.hearthsim.model.PlayerSide;
++import com.hearthsim.util.tree.HearthTreeNode;
++
++public class CardActionNightblade extends CardAction{
++	public CardActionNightblade(Card card) {
++		super(card);
++	}
++	
++	/**
++	 * 
++	 * Override for battlecry
++	 * 
++	 * Battlecry: Heals friendly characters for 2
++	 * 
++	 *
++     *
++     *
++     * @param side
++     * @param targetMinion The target minion (can be a Hero).  If it is a Hero, then the minion is placed on the last (right most) spot on the board.
++     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
++     * @param deckPlayer0 The deck of player0
++     * @return The boardState is manipulated and returned
++	 */
++	@Override
++	public HearthTreeNode useOn(
++			PlayerSide side,
++			Minion targetMinion,
++			HearthTreeNode boardState,
++			Deck deckPlayer0,
++			Deck deckPlayer1,
++			boolean singleRealizationOnly)
++		throws HSException
++	{
++		HearthTreeNode toRet = super.getCard().use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
++
++		if (toRet != null) 
++			toRet = toRet.data_.getWaitingPlayerHero().takeDamage((byte)3, PlayerSide.CURRENT_PLAYER, PlayerSide.WAITING_PLAYER, boardState, deckPlayer0, deckPlayer1, false, false);
++		
++		return toRet;
++	}
++}
+diff --git a/src/main/java/com/hearthsim/card/CardActionVioletTeacher.java b/src/main/java/com/hearthsim/card/CardActionVioletTeacher.java
+new file mode 100644
+index 0000000..3fb92ce
+--- /dev/null
++++ b/src/main/java/com/hearthsim/card/CardActionVioletTeacher.java
+@@ -0,0 +1,43 @@
++package com.hearthsim.card;
++
++import com.hearthsim.card.minion.Minion;
++import com.hearthsim.card.minion.concrete.VioletApprentice;
++import com.hearthsim.card.spellcard.SpellCard;
++import com.hearthsim.exception.HSException;
++import com.hearthsim.model.PlayerSide;
++import com.hearthsim.util.tree.HearthTreeNode;
++
++public class CardActionVioletTeacher extends CardAction{
++
++	public CardActionVioletTeacher(Card card) {
++		super(card);
++	}
++	
++	/**
++	 * 
++	 * Called whenever another card is used
++	 * 
++	 * When you cast a spell, summon a 1/1 Violet Apprentice
++	 *  @param thisCardPlayerSide The player index of the card receiving the event
++	 * @param cardUserPlayerSide
++     * @param usedCard The card that was used
++     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
++     * @param deckPlayer0 The deck of player0
++     * @param deckPlayer1 The deck of player1
++     * @return The boardState is manipulated and returned
++	 * @throws HSException 
++	 */
++	@Override
++	public HearthTreeNode otherCardUsedEvent(PlayerSide thisCardPlayerSide, PlayerSide cardUserPlayerSide, Card usedCard, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
++		HearthTreeNode toRet = super.otherCardUsedEvent(thisCardPlayerSide, cardUserPlayerSide, usedCard, boardState, deckPlayer0, deckPlayer1);
++		if (thisCardPlayerSide != PlayerSide.CURRENT_PLAYER)
++			return toRet;
++		if (getCard().isInHand_)
++			return toRet;
++        if (usedCard instanceof SpellCard && PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getNumMinions() < 7) {
++            Minion newMinion = new VioletApprentice();
++            toRet = newMinion.summonMinion(thisCardPlayerSide, (Minion)this.getCard(), toRet, deckPlayer0, deckPlayer1, false);
++        }
++        return toRet;
++	}
++}
+-- 
+1.9.4.msysgit.1
+

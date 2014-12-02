@@ -1,0 +1,56 @@
+From 1a1cb8a11242473a2ea903c5aaf9f76b9ab94300 Mon Sep 17 00:00:00 2001
+From: unknown <stephanie.zhongsui.li@gmail.com>
+Date: Mon, 1 Dec 2014 00:28:31 -0500
+Subject: [PATCH 02/14] Added CardAction attribute to Card class
+
+Cards will now own a CardAction and pass itself into the CardAction constructor in order to give CardAction access to its properties. 
+This association also matches a Card to its CardAction.
+
+---
+ src/main/java/com/hearthsim/card/Card.java | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/src/main/java/com/hearthsim/card/Card.java b/src/main/java/com/hearthsim/card/Card.java
+index 09e001e..15c6580 100644
+--- a/src/main/java/com/hearthsim/card/Card.java
++++ b/src/main/java/com/hearthsim/card/Card.java
+@@ -29,6 +29,8 @@ public class Card implements DeepCopyable {
+ 	
+ 	protected boolean hasBeenUsed;
+ 	protected boolean isInHand_;
++	
++	protected CardAction action;
+ 
+ 	/**
+ 	 * Constructor
+@@ -43,6 +45,7 @@ public class Card implements DeepCopyable {
+ 		this.hasBeenUsed = hasBeenUsed;
+ 		isInHand_ = isInHand;
+         name_ = name;
++        action = new CardAction(this);
+ 	}
+     public Card(byte mana, boolean hasBeenUsed, boolean isInHand) {
+         ImplementedCardList cardList = ImplementedCardList.getInstance();
+@@ -50,9 +53,11 @@ public class Card implements DeepCopyable {
+         name_ = implementedCard.name_;mana_ = mana;
+         this.hasBeenUsed = hasBeenUsed;
+         isInHand_ = isInHand;
++        action = new CardAction(this);
+     }
+ 
+     public Card() {
++    	action = new CardAction(this);
+     }
+ 
+     /**
+@@ -63,6 +68,7 @@ public class Card implements DeepCopyable {
+ 	 */
+ 	public Card(String name, byte mana) {
+ 		this(name, mana, true, true);
++		action = new CardAction(this);
+ 	}
+ 	
+ 	/**
+-- 
+1.9.4.msysgit.1
+

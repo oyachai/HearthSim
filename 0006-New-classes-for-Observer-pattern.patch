@@ -1,0 +1,54 @@
+From 32c885558c0d4c4b391b21104c630316879f949b Mon Sep 17 00:00:00 2001
+From: unknown <stephanie.zhongsui.li@gmail.com>
+Date: Mon, 1 Dec 2014 15:55:33 -0500
+Subject: [PATCH 06/14] New classes for Observer pattern
+
+An attempt to add an Observer to the implementation of CardAction was made. This commit includes the Subject and Observer classes. 
+As explained later on in this patch set, a design decision was made to not use the Observer pattern as it not benefit the implementation of CardAction. These classes will later be removed.
+
+---
+ src/main/java/com/hearthsim/card/Observer.java |  7 +++++++
+ src/main/java/com/hearthsim/card/Subject.java  | 17 +++++++++++++++++
+ 2 files changed, 24 insertions(+)
+ create mode 100644 src/main/java/com/hearthsim/card/Observer.java
+ create mode 100644 src/main/java/com/hearthsim/card/Subject.java
+
+diff --git a/src/main/java/com/hearthsim/card/Observer.java b/src/main/java/com/hearthsim/card/Observer.java
+new file mode 100644
+index 0000000..0bb3e4f
+--- /dev/null
++++ b/src/main/java/com/hearthsim/card/Observer.java
+@@ -0,0 +1,7 @@
++package com.hearthsim.card;
++
++public abstract class Observer {
++	protected Subject subject;
++	
++	public abstract void update();
++}
+diff --git a/src/main/java/com/hearthsim/card/Subject.java b/src/main/java/com/hearthsim/card/Subject.java
+new file mode 100644
+index 0000000..f8f2545
+--- /dev/null
++++ b/src/main/java/com/hearthsim/card/Subject.java
+@@ -0,0 +1,17 @@
++package com.hearthsim.card;
++
++import java.util.ArrayList;
++
++public class Subject {
++	private ArrayList<Observer> observers = new ArrayList<Observer>();
++	
++	public void attach( Observer o ) {
++		observers.add(o);
++	}
++	
++	public void notifyObservers() {
++		for (int i=0; i < observers.size(); i++){
++			observers.get(i).update();
++		}
++	}
++}
+-- 
+1.9.4.msysgit.1
+

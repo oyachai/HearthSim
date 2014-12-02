@@ -1,0 +1,199 @@
+From 3afd18c695d94cb230bc9cda3b9b89a09c328736 Mon Sep 17 00:00:00 2001
+From: unknown <stephanie.zhongsui.li@gmail.com>
+Date: Mon, 1 Dec 2014 02:55:00 -0500
+Subject: [PATCH 05/14] Added new CardAction test
+
+A separate JUnit test based on the test for the board model was made specifically to test the new CardAction functionalities. The reasoning behind this test is to ensure that the delegation of useOn() to CardAction did not adversely affect the code. This is done prior to changing the entire code base's implementation of useOn().
+
+---
+ src/main/java/com/hearthsim/card/Card.java         | 16 ++--
+ .../com/hearthsim/test/card/TestCardAction.java    | 92 ++++++++++++++++++++++
+ 2 files changed, 98 insertions(+), 10 deletions(-)
+ create mode 100644 src/test/java/com/hearthsim/test/card/TestCardAction.java
+
+diff --git a/src/main/java/com/hearthsim/card/Card.java b/src/main/java/com/hearthsim/card/Card.java
+index 565262f..06d81d6 100644
+--- a/src/main/java/com/hearthsim/card/Card.java
++++ b/src/main/java/com/hearthsim/card/Card.java
+@@ -30,7 +30,7 @@ public class Card implements DeepCopyable {
+ 	protected boolean hasBeenUsed;
+ 	protected boolean isInHand_;
+ 	
+-	protected CardAction action;
++	protected CardAction action = new CardAction(this);
+ 
+ 	/**
+ 	 * Constructor
+@@ -45,7 +45,6 @@ public class Card implements DeepCopyable {
+ 		this.hasBeenUsed = hasBeenUsed;
+ 		isInHand_ = isInHand;
+         name_ = name;
+-        action = new CardAction(this);
+ 	}
+     public Card(byte mana, boolean hasBeenUsed, boolean isInHand) {
+         ImplementedCardList cardList = ImplementedCardList.getInstance();
+@@ -53,12 +52,9 @@ public class Card implements DeepCopyable {
+         name_ = implementedCard.name_;mana_ = mana;
+         this.hasBeenUsed = hasBeenUsed;
+         isInHand_ = isInHand;
+-        action = new CardAction(this);
+     }
+ 
+-    public Card() {
+-    	action = new CardAction(this);
+-    }
++    public Card() {}
+ 
+     /**
+ 	 * Constructor
+@@ -68,7 +64,6 @@ public class Card implements DeepCopyable {
+ 	 */
+ 	public Card(String name, byte mana) {
+ 		this(name, mana, true, true);
+-		action = new CardAction(this);
+ 	}
+ 	
+ 	/**
+@@ -217,7 +212,7 @@ public class Card implements DeepCopyable {
+         return true;
+     }
+ 
+-        
++       
+ 	public final HearthTreeNode useOn(
+ 			PlayerSide side,
+ 			Minion targetMinion,
+@@ -245,6 +240,7 @@ public class Card implements DeepCopyable {
+      *
+      * @return The boardState is manipulated and returned
+ 	 */
++    
+ 	public HearthTreeNode useOn(
+ 			PlayerSide side,
+ 			Minion targetMinion,
+@@ -295,7 +291,7 @@ public class Card implements DeepCopyable {
+ 		
+ 		return toRet;
+ 	}
+-	
++
+ 	/**
+ 	 * 
+ 	 * Use the card on the given target
+@@ -309,6 +305,7 @@ public class Card implements DeepCopyable {
+      *
+      * @return The boardState is manipulated and returned
+ 	 */
++    
+ 	protected HearthTreeNode use_core(
+ 			PlayerSide side,
+ 			Minion targetMinion,
+@@ -323,7 +320,6 @@ public class Card implements DeepCopyable {
+ 		boardState.data_.removeCard_hand(this);
+ 		return boardState;
+ 	}
+-	
+ 
+ 	//======================================================================================
+ 	// Hooks for various events
+diff --git a/src/test/java/com/hearthsim/test/card/TestCardAction.java b/src/test/java/com/hearthsim/test/card/TestCardAction.java
+new file mode 100644
+index 0000000..4d45a4a
+--- /dev/null
++++ b/src/test/java/com/hearthsim/test/card/TestCardAction.java
+@@ -0,0 +1,92 @@
++package com.hearthsim.test.card;
++
++import static org.junit.Assert.*;
++
++import org.junit.Before;
++import org.junit.Test;
++
++import com.hearthsim.card.Card;
++import com.hearthsim.card.Deck;
++import com.hearthsim.card.minion.Minion;
++import com.hearthsim.card.minion.concrete.AbusiveSergeant;
++import com.hearthsim.card.minion.concrete.BoulderfistOgre;
++import com.hearthsim.card.minion.concrete.RaidLeader;
++import com.hearthsim.card.minion.concrete.ScarletCrusader;
++import com.hearthsim.card.spellcard.concrete.TheCoin;
++import com.hearthsim.exception.HSException;
++import com.hearthsim.model.BoardModel;
++import com.hearthsim.model.PlayerSide;
++import com.hearthsim.util.tree.HearthTreeNode;
++
++public class TestCardAction {
++
++	private Deck deck0;
++	private Deck deck1;
++	
++	@Before
++	public void setup() {
++
++		Card cards[] = new Card[10];
++		for (int index = 0; index < 10; ++index) {
++			cards[index] = new TheCoin();
++		}
++	
++		deck0 = new Deck(cards);
++		deck1 = new Deck(cards);
++	}
++
++	@Test
++	public void testCardAction() {
++
++		HearthTreeNode board = new HearthTreeNode(new BoardModel());
++
++		Minion minion0_0 = new BoulderfistOgre();
++		Minion minion0_1 = new RaidLeader();
++		Minion minion1_0 = new BoulderfistOgre();
++		Minion minion1_1 = new RaidLeader();
++		Minion minion1_2 = new ScarletCrusader();
++		
++		board.data_.placeCardHandCurrentPlayer(minion0_0);
++		board.data_.placeCardHandCurrentPlayer(minion0_1);
++				
++		board.data_.placeCardHandWaitingPlayer(minion1_0);
++		board.data_.placeCardHandWaitingPlayer(minion1_1);
++		board.data_.placeCardHandWaitingPlayer(minion1_2);
++
++		Card fb = new AbusiveSergeant();
++		board.data_.placeCardHandCurrentPlayer(fb);
++
++		board.data_.getCurrentPlayer().setMana((byte)8);
++		board.data_.getWaitingPlayer().setMana((byte)8);
++		
++		board.data_.getCurrentPlayer().setMaxMana((byte)8);
++		board.data_.getWaitingPlayer().setMaxMana((byte)8);
++		
++		HearthTreeNode tmpBoard = new HearthTreeNode(board.data_.flipPlayers());
++		try {
++			tmpBoard.data_.getCurrentPlayerCardHand(0).getCardAction().useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck1, deck0);
++			tmpBoard.data_.getCurrentPlayerCardHand(0).getCardAction().useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck1, deck0);
++			tmpBoard.data_.getCurrentPlayerCardHand(0).getCardAction().useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck1, deck0);
++		} catch (HSException e) {
++			// TODO Auto-generated catch block
++			e.printStackTrace();
++		}
++		board = new HearthTreeNode(tmpBoard.data_.flipPlayers());
++		try {
++			board.data_.getCurrentPlayerCardHand(0).getCardAction().useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayerHero(), board, deck0, deck1);
++			board.data_.getCurrentPlayerCardHand(0).getCardAction().useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayerHero(), board, deck0, deck1);
++		} catch (HSException e) {
++			// TODO Auto-generated catch block
++			e.printStackTrace();
++		}
++		board.data_.resetMana();
++		board.data_.resetMinions();
++		
++		
++		assertTrue(board.data_.equals(board.data_));
++		assertTrue(board.data_.equals((BoardModel)board.data_.deepCopy()));
++		assertEquals(board.data_.hashCode(), ((BoardModel)board.data_.deepCopy()).hashCode());
++		assertFalse(board.data_.equals((BoardModel)board.data_.flipPlayers().deepCopy()));
++		
++	}
++}
+-- 
+1.9.4.msysgit.1
+

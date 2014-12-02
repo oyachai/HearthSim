@@ -1,0 +1,37 @@
+From 3d8558fda8d84992069103f280d13752d71cc6a4 Mon Sep 17 00:00:00 2001
+From: unknown <stephanie.zhongsui.li@gmail.com>
+Date: Mon, 1 Dec 2014 00:48:46 -0500
+Subject: [PATCH 04/14] Added overloading usedOn()
+
+Overloaded useOn() functions from Card were added to the CardAction class. The attempt here is to delegate all forms of useOn() to CardAction.
+
+---
+ src/main/java/com/hearthsim/card/CardAction.java | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git a/src/main/java/com/hearthsim/card/CardAction.java b/src/main/java/com/hearthsim/card/CardAction.java
+index 633c248..d754de4 100644
+--- a/src/main/java/com/hearthsim/card/CardAction.java
++++ b/src/main/java/com/hearthsim/card/CardAction.java
+@@ -84,6 +84,18 @@ public class CardAction {
+ 		return toRet;
+ 	}
+ 	
++	public final HearthTreeNode useOn(
++			PlayerSide side,
++			Minion targetMinion,
++			HearthTreeNode boardState,
++			Deck deckPlayer0,
++			Deck deckPlayer1)
++		throws HSException
++	{
++		return this.useOn(side, targetMinion, boardState, deckPlayer0, deckPlayer1, false);
++	}    
++    
++	
+ 	/**
+ 	 * 
+ 	 * Use the card on the given target
+-- 
+1.9.4.msysgit.1
+

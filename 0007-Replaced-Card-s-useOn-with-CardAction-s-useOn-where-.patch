@@ -1,0 +1,69 @@
+From fb9a2a51b22d7bc78975d8c732dbc3560eed24f8 Mon Sep 17 00:00:00 2001
+From: unknown <stephanie.zhongsui.li@gmail.com>
+Date: Mon, 1 Dec 2014 18:53:26 -0500
+Subject: [PATCH 07/14] Replaced Card's useOn with CardAction's useOn where it was used
+
+Now that the CardAction class has been tested, the old useOn() and related functions from card are replaced with calls to the CardAction's useOn() functions. This completes the delegation of responsibility pf useOn() from Card to CardAction. 
+
+
+---
+ src/main/java/com/hearthsim/util/factory/BoardStateFactoryBase.java | 4 ++--
+ .../java/com/hearthsim/util/factory/SparseBoardStateFactory.java    | 6 +++---
+ 2 files changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/src/main/java/com/hearthsim/util/factory/BoardStateFactoryBase.java b/src/main/java/com/hearthsim/util/factory/BoardStateFactoryBase.java
+index e0eb997..a6e4f2f 100644
+--- a/src/main/java/com/hearthsim/util/factory/BoardStateFactoryBase.java
++++ b/src/main/java/com/hearthsim/util/factory/BoardStateFactoryBase.java
+@@ -195,7 +195,7 @@ public class BoardStateFactoryBase {
+ 						HearthTreeNode newState = new HearthTreeNode((BoardModel)boardStateNode.data_.deepCopy());
+ 						Minion copiedTargetMinion = newState.data_.getCurrentPlayerCharacter(i);
+ 						Card card = newState.data_.getCurrentPlayerCardHand(ic);
+-						newState = card.useOn(PlayerSide.CURRENT_PLAYER, copiedTargetMinion, newState, deckPlayer0_, deckPlayer1_, false);
++						newState = card.getCardAction().useOn(PlayerSide.CURRENT_PLAYER, copiedTargetMinion, newState, deckPlayer0_, deckPlayer1_, false);
+ 						if (newState != null) {
+ 							newState = this.doMoves(newState, ai);
+ 							if (newState != null) boardStateNode.addChild(newState);
+@@ -208,7 +208,7 @@ public class BoardStateFactoryBase {
+ 						HearthTreeNode newState = new HearthTreeNode((BoardModel)boardStateNode.data_.deepCopy());
+ 						Minion copiedTargetMinion = newState.data_.getWaitingPlayerCharacter(i);
+ 						Card card = newState.data_.getCurrentPlayerCardHand(ic);
+-						newState = card.useOn(PlayerSide.WAITING_PLAYER, copiedTargetMinion, newState, deckPlayer0_, deckPlayer1_, false);
++						newState = card.getCardAction().useOn(PlayerSide.WAITING_PLAYER, copiedTargetMinion, newState, deckPlayer0_, deckPlayer1_, false);
+ 						if (newState != null) {
+ 							newState = this.doMoves(newState, ai);
+ 							if (newState != null) boardStateNode.addChild(newState);
+diff --git a/src/main/java/com/hearthsim/util/factory/SparseBoardStateFactory.java b/src/main/java/com/hearthsim/util/factory/SparseBoardStateFactory.java
+index ba3e625..feadba3 100644
+--- a/src/main/java/com/hearthsim/util/factory/SparseBoardStateFactory.java
++++ b/src/main/java/com/hearthsim/util/factory/SparseBoardStateFactory.java
+@@ -106,7 +106,7 @@ public class SparseBoardStateFactory extends BoardStateFactoryBase {
+ 						HearthTreeNode newState = new HearthTreeNode((BoardModel)boardStateNode.data_.deepCopy());
+ 						Minion copiedTargetMinion = newState.data_.getCurrentPlayerCharacter(cardPlacementIndex);
+ 						Card card = newState.data_.getCurrentPlayerCardHand(ic);
+-						newState = card.useOn(PlayerSide.CURRENT_PLAYER, copiedTargetMinion, newState, deckPlayer0_, deckPlayer1_, false);
++						newState = card.getCardAction().useOn(PlayerSide.CURRENT_PLAYER, copiedTargetMinion, newState, deckPlayer0_, deckPlayer1_, false);
+ 						if (newState != null) {
+ 							newState = this.doMoves(newState, ai);
+ 							if (newState != null) boardStateNode.addChild(newState);
+@@ -120,7 +120,7 @@ public class SparseBoardStateFactory extends BoardStateFactoryBase {
+ 							HearthTreeNode newState = new HearthTreeNode((BoardModel)boardStateNode.data_.deepCopy());
+ 							Minion copiedTargetMinion = newState.data_.getCurrentPlayerCharacter(i);
+ 							Card card = newState.data_.getCurrentPlayerCardHand(ic);
+-							newState = card.useOn(PlayerSide.CURRENT_PLAYER, copiedTargetMinion, newState, deckPlayer0_, deckPlayer1_, false);
++							newState = card.getCardAction().useOn(PlayerSide.CURRENT_PLAYER, copiedTargetMinion, newState, deckPlayer0_, deckPlayer1_, false);
+ 							if (newState != null) {
+ 								newState = this.doMoves(newState, ai);
+ 								if (newState != null) boardStateNode.addChild(newState);
+@@ -133,7 +133,7 @@ public class SparseBoardStateFactory extends BoardStateFactoryBase {
+ 							HearthTreeNode newState = new HearthTreeNode((BoardModel)boardStateNode.data_.deepCopy());
+ 							Minion copiedTargetMinion = newState.data_.getWaitingPlayerCharacter(i);
+ 							Card card = newState.data_.getCurrentPlayerCardHand(ic);
+-							newState = card.useOn(PlayerSide.WAITING_PLAYER, copiedTargetMinion, newState, deckPlayer0_, deckPlayer1_, false);
++							newState = card.getCardAction().useOn(PlayerSide.WAITING_PLAYER, copiedTargetMinion, newState, deckPlayer0_, deckPlayer1_, false);
+ 							if (newState != null) {
+ 								newState = this.doMoves(newState, ai);
+ 								if (newState != null) boardStateNode.addChild(newState);
+-- 
+1.9.4.msysgit.1
+

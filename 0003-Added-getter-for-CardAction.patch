@@ -1,0 +1,29 @@
+From b1a0567899d48e75e39f96acb0cd60c9597aacc1 Mon Sep 17 00:00:00 2001
+From: unknown <stephanie.zhongsui.li@gmail.com>
+Date: Mon, 1 Dec 2014 00:37:55 -0500
+Subject: [PATCH 03/14] Added getter for CardAction
+
+The addition of a getter for a Card's CardAction instance is necessary to be able to call the CardAction's useOn() in the code base.
+
+---
+ src/main/java/com/hearthsim/card/Card.java | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/src/main/java/com/hearthsim/card/Card.java b/src/main/java/com/hearthsim/card/Card.java
+index 15c6580..565262f 100644
+--- a/src/main/java/com/hearthsim/card/Card.java
++++ b/src/main/java/com/hearthsim/card/Card.java
+@@ -79,6 +79,10 @@ public class Card implements DeepCopyable {
+ 	public String getName() {
+ 		return name_;
+ 	}
++	
++	public CardAction getCardAction() {
++		return action;
++	}
+ 
+ 	/**
+ 	 * Get the mana cost of the card
+-- 
+1.9.4.msysgit.1
+

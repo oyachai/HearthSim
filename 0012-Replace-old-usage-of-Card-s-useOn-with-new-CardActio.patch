@@ -1,0 +1,29 @@
+From 141f1e23dd92833137df5199b92d6ff56ac1b38c Mon Sep 17 00:00:00 2001
+From: unknown <stephanie.zhongsui.li@gmail.com>
+Date: Mon, 1 Dec 2014 19:02:20 -0500
+Subject: [PATCH 12/14] Replace old usage of Card's useOn with new CardAction
+ method
+
+Additional replacement of Card's useOn() and associated methods with the new delegated methods from CardAction
+After the removal of useOn() and related functions from Card, more places with Card methods had to be replaced with CardAction functions.
+
+---
+ src/main/java/com/hearthsim/util/HearthAction.java | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/main/java/com/hearthsim/util/HearthAction.java b/src/main/java/com/hearthsim/util/HearthAction.java
+index 72e51ae..644728f 100644
+--- a/src/main/java/com/hearthsim/util/HearthAction.java
++++ b/src/main/java/com/hearthsim/util/HearthAction.java
+@@ -53,7 +53,7 @@ public class HearthAction {
+ 			case USE_CARD: {
+ 				Card card = boardState.data_.getCard_hand(actionPerformerPlayerSide, cardOrCharacterIndex_);
+ 				Minion target = boardState.data_.getCharacter(targetPlayerSide, targetCharacterIndex_);
+-				toRet = card.useOn(targetPlayerSide, target, toRet, deckPlayer0, deckPlayer1, true);
++				toRet = card.getCardAction().useOn(targetPlayerSide, target, toRet, deckPlayer0, deckPlayer1, true);
+ 			}
+ 			break;
+ 			case HERO_ABILITY: {
+-- 
+1.9.4.msysgit.1
+

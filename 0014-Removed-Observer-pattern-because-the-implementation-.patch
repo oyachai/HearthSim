@@ -1,0 +1,54 @@
+From 93dfc987d109d84ddd26a794d96f6d51c0800c01 Mon Sep 17 00:00:00 2001
+From: unknown <stephanie.zhongsui.li@gmail.com>
+Date: Mon, 1 Dec 2014 19:03:44 -0500
+Subject: [PATCH 14/14] Removed Observer pattern because the implementation of
+ CardAction rendered the Observer unecessary
+
+In the course of this refactoring, a design decision was made to not have an Observer pattern. There was no need to implement an Observer pattern to decouple Card from the board state and other entities.  Since the useOn() function family was delegated to a CardAction object, the Card model was separated from the other game entities -- CardAction remained the association between Card and the board state. Furthermore, CardAction's useOn() method was called where it was needed to return an updated board state (after the usage of a card). Thus, the client class would get the card to be used, call useOn() of that card's CardAction instance and pass in the current board state. CardAction's useOn() would manipulate the data within the board state and return an updated board state. 
+
+---
+ src/main/java/com/hearthsim/card/Observer.java |  7 -------
+ src/main/java/com/hearthsim/card/Subject.java  | 17 -----------------
+ 2 files changed, 24 deletions(-)
+ delete mode 100644 src/main/java/com/hearthsim/card/Observer.java
+ delete mode 100644 src/main/java/com/hearthsim/card/Subject.java
+
+diff --git a/src/main/java/com/hearthsim/card/Observer.java b/src/main/java/com/hearthsim/card/Observer.java
+deleted file mode 100644
+index 0bb3e4f..0000000
+--- a/src/main/java/com/hearthsim/card/Observer.java
++++ /dev/null
+@@ -1,7 +0,0 @@
+-package com.hearthsim.card;
+-
+-public abstract class Observer {
+-	protected Subject subject;
+-	
+-	public abstract void update();
+-}
+diff --git a/src/main/java/com/hearthsim/card/Subject.java b/src/main/java/com/hearthsim/card/Subject.java
+deleted file mode 100644
+index f8f2545..0000000
+--- a/src/main/java/com/hearthsim/card/Subject.java
++++ /dev/null
+@@ -1,17 +0,0 @@
+-package com.hearthsim.card;
+-
+-import java.util.ArrayList;
+-
+-public class Subject {
+-	private ArrayList<Observer> observers = new ArrayList<Observer>();
+-	
+-	public void attach( Observer o ) {
+-		observers.add(o);
+-	}
+-	
+-	public void notifyObservers() {
+-		for (int i=0; i < observers.size(); i++){
+-			observers.get(i).update();
+-		}
+-	}
+-}
+-- 
+1.9.4.msysgit.1
+
