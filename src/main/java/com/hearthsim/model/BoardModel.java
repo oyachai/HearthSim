@@ -444,7 +444,7 @@ public class BoardModel implements DeepCopyable<BoardModel> {
 
         if (!currentPlayer.equals(bOther.currentPlayer)) return false;
         if (!waitingPlayer.equals(bOther.waitingPlayer)) return false;
-     
+        if (!allMinionsFIFOList_.equals(bOther.allMinionsFIFOList_)) return false;
         return true;
     }
 
@@ -453,7 +453,7 @@ public class BoardModel implements DeepCopyable<BoardModel> {
     	int hash = 1;
     	hash = hash * 31 + currentPlayer.hashCode();
     	hash = hash * 31 + waitingPlayer.hashCode();
-    	
+    	hash = hash * 31 + allMinionsFIFOList_.hashCode();
         return hash;
     }
 
