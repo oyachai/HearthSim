@@ -8,6 +8,7 @@ import org.junit.Test;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.minion.MinionStateFactory;
 import com.hearthsim.card.minion.concrete.BoulderfistOgre;
 import com.hearthsim.card.minion.concrete.RaidLeader;
 import com.hearthsim.card.minion.concrete.ScarletCrusader;
@@ -22,6 +23,7 @@ public class TestWindspeaker {
 
 	private HearthTreeNode board;
 	private Deck deck;
+	MinionStateFactory mf = new MinionStateFactory();
 
 	@Before
 	public void setup() {
@@ -145,12 +147,12 @@ public class TestWindspeaker {
 		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getDivineShield());
 
 		assertEquals(board.numChildren(), 2);
-		assertEquals(board.getChildren().get(0).data_.getCurrentPlayer().getMinions().get(0).getWindfury(), true);
-		assertEquals(board.getChildren().get(0).data_.getCurrentPlayer().getMinions().get(1).getWindfury(), false);
-		assertEquals(board.getChildren().get(0).data_.getCurrentPlayer().getMinions().get(2).getWindfury(), false);
-		assertEquals(board.getChildren().get(1).data_.getCurrentPlayer().getMinions().get(0).getWindfury(), false);
-		assertEquals(board.getChildren().get(1).data_.getCurrentPlayer().getMinions().get(1).getWindfury(), true);
-		assertEquals(board.getChildren().get(1).data_.getCurrentPlayer().getMinions().get(2).getWindfury(), false);
+		assertEquals(board.getChildren().get(0).data_.getCurrentPlayer().getMinions().get(0).getState(mf.makeWindfury()) != null, true);
+		assertEquals(board.getChildren().get(0).data_.getCurrentPlayer().getMinions().get(1).getState(mf.makeWindfury()) != null, false);
+		assertEquals(board.getChildren().get(0).data_.getCurrentPlayer().getMinions().get(2).getState(mf.makeWindfury()) != null, false);
+		assertEquals(board.getChildren().get(1).data_.getCurrentPlayer().getMinions().get(0).getState(mf.makeWindfury()) != null, false);
+		assertEquals(board.getChildren().get(1).data_.getCurrentPlayer().getMinions().get(1).getState(mf.makeWindfury()) != null, true);
+		assertEquals(board.getChildren().get(1).data_.getCurrentPlayer().getMinions().get(2).getState(mf.makeWindfury()) != null, false);
 	}
 
 

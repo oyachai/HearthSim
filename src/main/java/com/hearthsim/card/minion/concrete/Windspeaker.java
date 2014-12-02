@@ -2,6 +2,7 @@ package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.minion.MinionStateFactory;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -10,7 +11,7 @@ import java.util.EnumSet;
 
 
 public class Windspeaker extends Minion {
-
+	MinionStateFactory mf = new MinionStateFactory();
 	private static final boolean HERO_TARGETABLE = true;
 	private static final boolean SUMMONED = false;
 	private static final boolean TRANSFORMED = false;
@@ -42,7 +43,8 @@ public class Windspeaker extends Minion {
 		) throws HSException
 	{
 		HearthTreeNode toRet = boardState;
-		targetMinion.setWindfury(true);
+		//targetMinion.setWindfury(true);
+		targetMinion.addState(mf.makeWindfury());
 		return toRet;
 	}
 
