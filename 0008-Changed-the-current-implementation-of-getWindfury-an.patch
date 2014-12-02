@@ -1,0 +1,85 @@
+From 7ee26cf6cf01642b98f109f7d18a152e2ede6f79 Mon Sep 17 00:00:00 2001
+From: Robert Wen <robertwen20@gmail.com>
+Date: Mon, 1 Dec 2014 20:07:32 -0500
+Subject: [PATCH 08/16] Changed the current implementation of getWindfury and
+ setWindfury to the getState and addState
+In order to make sure that the behavior of the code doesn’t change with the addition of a new MinionState. Every occurrences of getWindfury and setWindfury 
+was changed to a getState(Windfury) and addState(Windfury). After changing the occurrences of getWindfury and setWindfury, if the tests pass then the behavior of the code hasn’t changed. 
+---
+ .../com/hearthsim/card/minion/concrete/Windspeaker.java    |  6 ++++--
+ .../java/com/hearthsim/test/minion/TestWindspeaker.java    | 14 ++++++++------
+ 2 files changed, 12 insertions(+), 8 deletions(-)
+
+diff --git a/src/main/java/com/hearthsim/card/minion/concrete/Windspeaker.java b/src/main/java/com/hearthsim/card/minion/concrete/Windspeaker.java
+index 69fea65..962b6e5 100644
+--- a/src/main/java/com/hearthsim/card/minion/concrete/Windspeaker.java
++++ b/src/main/java/com/hearthsim/card/minion/concrete/Windspeaker.java
+@@ -2,6 +2,7 @@ package com.hearthsim.card.minion.concrete;
+ 
+ import com.hearthsim.card.Deck;
+ import com.hearthsim.card.minion.Minion;
++import com.hearthsim.card.minion.MinionStateFactory;
+ import com.hearthsim.exception.HSException;
+ import com.hearthsim.model.PlayerSide;
+ import com.hearthsim.util.tree.HearthTreeNode;
+@@ -10,7 +11,7 @@ import java.util.EnumSet;
+ 
+ 
+ public class Windspeaker extends Minion {
+-
++	MinionStateFactory mf = new MinionStateFactory();
+ 	private static final boolean HERO_TARGETABLE = true;
+ 	private static final boolean SUMMONED = false;
+ 	private static final boolean TRANSFORMED = false;
+@@ -42,7 +43,8 @@ public class Windspeaker extends Minion {
+ 		) throws HSException
+ 	{
+ 		HearthTreeNode toRet = boardState;
+-		targetMinion.setWindfury(true);
++		//targetMinion.setWindfury(true);
++		targetMinion.addState(mf.makeWindfury());
+ 		return toRet;
+ 	}
+ 
+diff --git a/src/test/java/com/hearthsim/test/minion/TestWindspeaker.java b/src/test/java/com/hearthsim/test/minion/TestWindspeaker.java
+index 4bb5992..7fc9afe 100644
+--- a/src/test/java/com/hearthsim/test/minion/TestWindspeaker.java
++++ b/src/test/java/com/hearthsim/test/minion/TestWindspeaker.java
+@@ -8,6 +8,7 @@ import org.junit.Test;
+ import com.hearthsim.card.Card;
+ import com.hearthsim.card.Deck;
+ import com.hearthsim.card.minion.Minion;
++import com.hearthsim.card.minion.MinionStateFactory;
+ import com.hearthsim.card.minion.concrete.BoulderfistOgre;
+ import com.hearthsim.card.minion.concrete.RaidLeader;
+ import com.hearthsim.card.minion.concrete.ScarletCrusader;
+@@ -22,6 +23,7 @@ public class TestWindspeaker {
+ 
+ 	private HearthTreeNode board;
+ 	private Deck deck;
++	MinionStateFactory mf = new MinionStateFactory();
+ 
+ 	@Before
+ 	public void setup() {
+@@ -145,12 +147,12 @@ public class TestWindspeaker {
+ 		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getDivineShield());
+ 
+ 		assertEquals(board.numChildren(), 2);
+-		assertEquals(board.getChildren().get(0).data_.getCurrentPlayer().getMinions().get(0).getWindfury(), true);
+-		assertEquals(board.getChildren().get(0).data_.getCurrentPlayer().getMinions().get(1).getWindfury(), false);
+-		assertEquals(board.getChildren().get(0).data_.getCurrentPlayer().getMinions().get(2).getWindfury(), false);
+-		assertEquals(board.getChildren().get(1).data_.getCurrentPlayer().getMinions().get(0).getWindfury(), false);
+-		assertEquals(board.getChildren().get(1).data_.getCurrentPlayer().getMinions().get(1).getWindfury(), true);
+-		assertEquals(board.getChildren().get(1).data_.getCurrentPlayer().getMinions().get(2).getWindfury(), false);
++		assertEquals(board.getChildren().get(0).data_.getCurrentPlayer().getMinions().get(0).getState(mf.makeWindfury()) != null, true);
++		assertEquals(board.getChildren().get(0).data_.getCurrentPlayer().getMinions().get(1).getState(mf.makeWindfury()) != null, false);
++		assertEquals(board.getChildren().get(0).data_.getCurrentPlayer().getMinions().get(2).getState(mf.makeWindfury()) != null, false);
++		assertEquals(board.getChildren().get(1).data_.getCurrentPlayer().getMinions().get(0).getState(mf.makeWindfury()) != null, false);
++		assertEquals(board.getChildren().get(1).data_.getCurrentPlayer().getMinions().get(1).getState(mf.makeWindfury()) != null, true);
++		assertEquals(board.getChildren().get(1).data_.getCurrentPlayer().getMinions().get(2).getState(mf.makeWindfury()) != null, false);
+ 	}
+ 
+ 
+-- 
+1.8.3.msysgit.0
+

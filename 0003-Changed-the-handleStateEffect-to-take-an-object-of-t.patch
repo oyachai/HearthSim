@@ -1,0 +1,29 @@
+From 1e7941ecd2f228c9cccda618428121f4870c039e Mon Sep 17 00:00:00 2001
+From: Robert Wen <robertwen20@gmail.com>
+Date: Mon, 1 Dec 2014 15:42:07 -0500
+Subject: [PATCH 03/16] Changed the handleStateEffect to take an object of type
+ Minion
+Changed the function of the MinionState interface 
+so that it can take an object of type Minion as a parameter 
+and it can return a Minion. By doing that, it will modify the 
+current Minion based on the state in which the minion currently is. 
+---
+ src/main/java/com/hearthsim/card/minion/MinionState.java | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/main/java/com/hearthsim/card/minion/MinionState.java b/src/main/java/com/hearthsim/card/minion/MinionState.java
+index bea3d2b..40b3541 100644
+--- a/src/main/java/com/hearthsim/card/minion/MinionState.java
++++ b/src/main/java/com/hearthsim/card/minion/MinionState.java
+@@ -1,6 +1,6 @@
+ package com.hearthsim.card.minion;
+ 
+ public interface MinionState {
+-
+-	public void handleStateEffect();
++	
++	public Minion handleStateEffect(Minion m);
+ }
+-- 
+1.8.3.msysgit.0
+

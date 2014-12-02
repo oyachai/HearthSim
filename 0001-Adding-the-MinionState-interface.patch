@@ -1,0 +1,29 @@
+From b33f3ed8682837318da4acf4a599effffe2c1a4a Mon Sep 17 00:00:00 2001
+From: Robert Wen <robertwen20@gmail.com>
+Date: Sun, 23 Nov 2014 16:08:47 -0500
+Subject: [PATCH 01/16] Adding the MinionState interface
+
+MinionState interface was created with a function called handleStateEffect. 
+The MinionState will be containing different type of state that a minion can take. 
+By doing so it will get rid of most of the boolean values that is being used and it will remove the use of the getters and setters 
+for each state possible.
+---
+ src/main/java/com/hearthsim/card/minion/MinionState.java | 6 ++++++
+ 1 file changed, 6 insertions(+)
+ create mode 100644 src/main/java/com/hearthsim/card/minion/MinionState.java
+
+diff --git a/src/main/java/com/hearthsim/card/minion/MinionState.java b/src/main/java/com/hearthsim/card/minion/MinionState.java
+new file mode 100644
+index 0000000..bea3d2b
+--- /dev/null
++++ b/src/main/java/com/hearthsim/card/minion/MinionState.java
+@@ -0,0 +1,6 @@
++package com.hearthsim.card.minion;
++
++public interface MinionState {
++
++	public void handleStateEffect();
++}
+-- 
+1.8.3.msysgit.0
+

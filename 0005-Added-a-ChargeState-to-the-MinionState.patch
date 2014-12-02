@@ -1,0 +1,29 @@
+From e297fd4b6c2b0d374902c97de97e25637e9eb5cc Mon Sep 17 00:00:00 2001
+From: Robert Wen <robertwen20@gmail.com>
+Date: Mon, 1 Dec 2014 16:07:09 -0500
+Subject: [PATCH 05/16] Added a ChargeState to the MinionState
+The creation of the ChargeState class will implement the MinionState interface, by doing that a Minion can have charge as a state. 
+---
+ src/main/java/com/hearthsim/card/minion/ChargeState.java | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+ create mode 100644 src/main/java/com/hearthsim/card/minion/ChargeState.java
+
+diff --git a/src/main/java/com/hearthsim/card/minion/ChargeState.java b/src/main/java/com/hearthsim/card/minion/ChargeState.java
+new file mode 100644
+index 0000000..d8205e2
+--- /dev/null
++++ b/src/main/java/com/hearthsim/card/minion/ChargeState.java
+@@ -0,0 +1,10 @@
++package com.hearthsim.card.minion;
++
++public class ChargeState implements MinionState{
++
++	public Minion handleStateEffect(Minion m) {
++		m.hasAttacked_ = false;
++		return m;
++	}
++
++}
+-- 
+1.8.3.msysgit.0
+

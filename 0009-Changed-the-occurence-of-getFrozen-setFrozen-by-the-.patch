@@ -1,0 +1,300 @@
+From 0919833fc89400b0ecca0e14b4831e9115d56d80 Mon Sep 17 00:00:00 2001
+From: Robert Wen <robertwen20@gmail.com>
+Date: Mon, 1 Dec 2014 20:09:50 -0500
+Subject: [PATCH 09/16] Changed the occurence of getFrozen(), setFrozen() by
+ the setState() and addState()
+In order to make sure that the behavior of the code doesn’t change with the addition of a new MinionState. Every occurrences of getFrozen and setFrozen was changed 
+to a getState(Frozen) and addState(Frozen). After changing the occurrences of getFrozen and setFrozen, if the tests pass then the behavior of the code hasn’t changed. 
+---
+ .../hearthsim/card/minion/concrete/WaterElemental.java    |  7 ++++++-
+ .../com/hearthsim/card/spellcard/concrete/FrostNova.java  |  5 ++++-
+ .../com/hearthsim/card/spellcard/concrete/FrostShock.java |  6 +++++-
+ .../com/hearthsim/card/spellcard/concrete/Frostbolt.java  |  5 ++++-
+ src/test/java/com/hearthsim/test/card/TestDrainLife.java  | 15 ++++++++-------
+ src/test/java/com/hearthsim/test/card/TestFrostShock.java | 15 ++++++++-------
+ .../java/com/hearthsim/test/card/TestHammerOfWrath.java   | 11 ++++++-----
+ .../com/hearthsim/test/minion/TestWaterElemental.java     |  7 +++++--
+ 8 files changed, 46 insertions(+), 25 deletions(-)
+
+diff --git a/src/main/java/com/hearthsim/card/minion/concrete/WaterElemental.java b/src/main/java/com/hearthsim/card/minion/concrete/WaterElemental.java
+index ed9d144..de38e2f 100644
+--- a/src/main/java/com/hearthsim/card/minion/concrete/WaterElemental.java
++++ b/src/main/java/com/hearthsim/card/minion/concrete/WaterElemental.java
+@@ -1,7 +1,10 @@
+ package com.hearthsim.card.minion.concrete;
+ 
+ import com.hearthsim.card.Deck;
++import com.hearthsim.card.minion.FrozenState;
+ import com.hearthsim.card.minion.Minion;
++import com.hearthsim.card.minion.MinionState;
++import com.hearthsim.card.minion.MinionStateFactory;
+ import com.hearthsim.exception.HSException;
+ import com.hearthsim.model.PlayerSide;
+ import com.hearthsim.util.tree.HearthTreeNode;
+@@ -46,7 +49,9 @@ public class WaterElemental extends Minion {
+ 	{
+ 		HearthTreeNode toRet = super.attack_core(targetMinionPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1);
+ 		if (!silenced_ && toRet != null) {
+-			targetMinion.setFrozen(true);
++		//	targetMinion.setFrozen(true);
++			MinionStateFactory mf = new MinionStateFactory();
++			targetMinion.addState(mf.makeFrozen());
+ 		}
+ 		return toRet;
+ 	}
+diff --git a/src/main/java/com/hearthsim/card/spellcard/concrete/FrostNova.java b/src/main/java/com/hearthsim/card/spellcard/concrete/FrostNova.java
+index dec6297..fc99cda 100644
+--- a/src/main/java/com/hearthsim/card/spellcard/concrete/FrostNova.java
++++ b/src/main/java/com/hearthsim/card/spellcard/concrete/FrostNova.java
+@@ -2,6 +2,7 @@ package com.hearthsim.card.spellcard.concrete;
+ 
+ import com.hearthsim.card.Deck;
+ import com.hearthsim.card.minion.Minion;
++import com.hearthsim.card.minion.MinionStateFactory;
+ import com.hearthsim.card.spellcard.SpellCard;
+ import com.hearthsim.exception.HSException;
+ import com.hearthsim.model.PlayerSide;
+@@ -13,6 +14,7 @@ public class FrostNova extends SpellCard {
+ 	 * 
+ 	 * @param hasBeenUsed Whether the card has already been used or not
+ 	 */
++	MinionStateFactory mf = new MinionStateFactory();
+ 	public FrostNova(boolean hasBeenUsed) {
+ 		super((byte)3, hasBeenUsed);
+ 	}
+@@ -65,7 +67,8 @@ public class FrostNova extends SpellCard {
+ 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+ 		if (toRet != null) {
+ 			for (Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
+-				minion.setFrozen(true);
++				//minion.setFrozen(true);
++				minion.addState(mf.makeFrozen());
+ 			}
+ 		}		
+ 		return toRet;
+diff --git a/src/main/java/com/hearthsim/card/spellcard/concrete/FrostShock.java b/src/main/java/com/hearthsim/card/spellcard/concrete/FrostShock.java
+index 9389aa4..0ba4d23 100644
+--- a/src/main/java/com/hearthsim/card/spellcard/concrete/FrostShock.java
++++ b/src/main/java/com/hearthsim/card/spellcard/concrete/FrostShock.java
+@@ -2,6 +2,7 @@ package com.hearthsim.card.spellcard.concrete;
+ 
+ import com.hearthsim.card.Deck;
+ import com.hearthsim.card.minion.Minion;
++import com.hearthsim.card.minion.MinionStateFactory;
+ import com.hearthsim.card.spellcard.SpellDamage;
+ import com.hearthsim.exception.HSException;
+ import com.hearthsim.model.PlayerSide;
+@@ -9,6 +10,8 @@ import com.hearthsim.util.tree.HearthTreeNode;
+ 
+ public class FrostShock extends SpellDamage {
+ 	
++	MinionStateFactory mf = new MinionStateFactory();
++	
+ 	public FrostShock() {
+ 		this(false);
+ 	}
+@@ -50,7 +53,8 @@ public class FrostShock extends SpellDamage {
+ 		
+ 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+ 		if (toRet != null) {
+-			targetMinion.setFrozen(true);
++			//targetMinion.setFrozen(true);
++			targetMinion.addState(mf.makeFrozen());
+ 		}
+ 
+ 		return toRet;
+diff --git a/src/main/java/com/hearthsim/card/spellcard/concrete/Frostbolt.java b/src/main/java/com/hearthsim/card/spellcard/concrete/Frostbolt.java
+index 6e484a8..d75d120 100644
+--- a/src/main/java/com/hearthsim/card/spellcard/concrete/Frostbolt.java
++++ b/src/main/java/com/hearthsim/card/spellcard/concrete/Frostbolt.java
+@@ -2,6 +2,7 @@ package com.hearthsim.card.spellcard.concrete;
+ 
+ import com.hearthsim.card.Deck;
+ import com.hearthsim.card.minion.Minion;
++import com.hearthsim.card.minion.MinionStateFactory;
+ import com.hearthsim.card.spellcard.SpellDamage;
+ import com.hearthsim.exception.HSException;
+ import com.hearthsim.model.PlayerSide;
+@@ -9,6 +10,7 @@ import com.hearthsim.util.tree.HearthTreeNode;
+ 
+ public class Frostbolt extends SpellDamage {
+ 
++	MinionStateFactory mf = new MinionStateFactory();
+ 	public Frostbolt() {
+ 		this(false);
+ 	}
+@@ -50,7 +52,8 @@ public class Frostbolt extends SpellDamage {
+ 		
+ 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+ 		if (toRet != null) {
+-			targetMinion.setFrozen(true);
++			//targetMinion.setFrozen(true);
++			targetMinion.addState(mf.makeFrozen());
+ 		}
+ 
+ 		return toRet;
+diff --git a/src/test/java/com/hearthsim/test/card/TestDrainLife.java b/src/test/java/com/hearthsim/test/card/TestDrainLife.java
+index 6f56aaf..8387d7d 100644
+--- a/src/test/java/com/hearthsim/test/card/TestDrainLife.java
++++ b/src/test/java/com/hearthsim/test/card/TestDrainLife.java
+@@ -3,6 +3,7 @@ package com.hearthsim.test.card;
+ import com.hearthsim.card.Card;
+ import com.hearthsim.card.Deck;
+ import com.hearthsim.card.minion.Minion;
++import com.hearthsim.card.minion.MinionStateFactory;
+ import com.hearthsim.card.spellcard.concrete.DrainLife;
+ import com.hearthsim.card.spellcard.concrete.TheCoin;
+ import com.hearthsim.exception.HSException;
+@@ -17,7 +18,7 @@ import static org.junit.Assert.assertTrue;
+ 
+ public class TestDrainLife {
+ 
+-
++	MinionStateFactory mf = new MinionStateFactory();
+ 	private HearthTreeNode board;
+ 	private Deck deck;
+ 	private static final byte mana = 2;
+@@ -70,8 +71,8 @@ public class TestDrainLife {
+ 		assertTrue(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack() == attack0);
+ 		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack() == attack0);
+ 		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack() == attack0);
+-		assertFalse(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getCharge());
+-		assertFalse(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getCharge());
++		assertFalse(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getState(mf.makeCharge()) != null);
++		assertFalse(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getState(mf.makeCharge()) != null);
+ 	}
+ 	
+ 	@Test
+@@ -96,8 +97,8 @@ public class TestDrainLife {
+ 		assertTrue(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack() == attack0);
+ 		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack() == attack0);
+ 		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack() == attack0);
+-		assertFalse(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getCharge());
+-		assertFalse(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getCharge());
++		assertFalse(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getState(mf.makeCharge()) != null);
++		assertFalse(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getState(mf.makeCharge()) != null);
+ 	}
+ 	
+ 	@Test
+@@ -124,7 +125,7 @@ public class TestDrainLife {
+ 		assertTrue(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack() == attack0);
+ 		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack() == attack0);
+ 		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack() == attack0);
+-		assertFalse(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getCharge());
+-		assertFalse(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getCharge());
++		assertFalse(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getState(mf.makeCharge()) != null);
++		assertFalse(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getState(mf.makeCharge()) != null);
+ 	}
+ }
+diff --git a/src/test/java/com/hearthsim/test/card/TestFrostShock.java b/src/test/java/com/hearthsim/test/card/TestFrostShock.java
+index f204806..dffe1f1 100644
+--- a/src/test/java/com/hearthsim/test/card/TestFrostShock.java
++++ b/src/test/java/com/hearthsim/test/card/TestFrostShock.java
+@@ -3,6 +3,7 @@ package com.hearthsim.test.card;
+ import com.hearthsim.card.Card;
+ import com.hearthsim.card.Deck;
+ import com.hearthsim.card.minion.Minion;
++import com.hearthsim.card.minion.MinionStateFactory;
+ import com.hearthsim.card.spellcard.concrete.FrostShock;
+ import com.hearthsim.card.spellcard.concrete.TheCoin;
+ import com.hearthsim.exception.HSException;
+@@ -23,7 +24,7 @@ public class TestFrostShock {
+ 	private static final byte attack0 = 2;
+ 	private static final byte health0 = 3;
+ 	private static final byte health1 = 7;
+-
++	private MinionStateFactory mf = new MinionStateFactory();
+ 	@Before
+ 	public void setup() throws HSException {
+ 		board = new HearthTreeNode(new BoardModel());
+@@ -69,8 +70,8 @@ public class TestFrostShock {
+ 		assertTrue(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack() == attack0);
+ 		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack() == attack0);
+ 		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack() == attack0);
+-		assertFalse(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getCharge());
+-		assertFalse(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getCharge());
++		assertFalse(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getState(mf.makeCharge()) != null);
++		assertFalse(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getState(mf.makeCharge()) != null);
+ 		assertFalse(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getFrozen());
+ 		assertFalse(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getFrozen());
+ 	}
+@@ -97,10 +98,10 @@ public class TestFrostShock {
+ 		assertTrue(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack() == attack0);
+ 		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack() == attack0);
+ 		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack() == attack0);
+-		assertFalse(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getCharge());
+-		assertFalse(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getCharge());
+-		assertFalse(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getFrozen());
+-		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getFrozen());
++		assertFalse(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getState(mf.makeCharge()) != null);
++		assertFalse(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getState(mf.makeCharge()) != null);
++		assertFalse(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getState(mf.makeFrozen())!= null);
++		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getState(mf.makeFrozen()) == null);
+ 	}
+ 
+ }
+diff --git a/src/test/java/com/hearthsim/test/card/TestHammerOfWrath.java b/src/test/java/com/hearthsim/test/card/TestHammerOfWrath.java
+index d99bb86..3f89c7a 100644
+--- a/src/test/java/com/hearthsim/test/card/TestHammerOfWrath.java
++++ b/src/test/java/com/hearthsim/test/card/TestHammerOfWrath.java
+@@ -3,6 +3,7 @@ package com.hearthsim.test.card;
+ import com.hearthsim.card.Card;
+ import com.hearthsim.card.Deck;
+ import com.hearthsim.card.minion.Minion;
++import com.hearthsim.card.minion.MinionStateFactory;
+ import com.hearthsim.card.spellcard.concrete.HammerOfWrath;
+ import com.hearthsim.card.spellcard.concrete.TheCoin;
+ import com.hearthsim.exception.HSException;
+@@ -23,7 +24,7 @@ public class TestHammerOfWrath {
+ 	private static final byte attack0 = 2;
+ 	private static final byte health0 = 3;
+ 	private static final byte health1 = 7;
+-
++	MinionStateFactory mf = new MinionStateFactory();
+ 	@Before
+ 	public void setup() throws HSException {
+ 		board = new HearthTreeNode(new BoardModel());
+@@ -71,10 +72,10 @@ public class TestHammerOfWrath {
+ 		assertTrue(ret.data_.getCurrentPlayer().getMinions().get(1).getTotalAttack() == attack0);
+ 		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(0).getTotalAttack() == attack0);
+ 		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(1).getTotalAttack() == attack0);
+-		assertFalse(ret.data_.getCurrentPlayer().getMinions().get(0).getCharge());
+-		assertFalse(ret.data_.getCurrentPlayer().getMinions().get(1).getCharge());
+-		assertFalse(ret.data_.getCurrentPlayer().getMinions().get(0).getFrozen());
+-		assertFalse(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(0).getFrozen());
++		assertFalse(ret.data_.getCurrentPlayer().getMinions().get(0).getState(mf.makeCharge()) != null);
++		assertFalse(ret.data_.getCurrentPlayer().getMinions().get(1).getState(mf.makeCharge()) != null);
++		assertFalse(ret.data_.getCurrentPlayer().getMinions().get(0).getState(mf.makeFrozen()) != null);
++		assertFalse(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(0).getState(mf.makeFrozen()) != null);
+ 	}
+ 	
+ 	@Test
+diff --git a/src/test/java/com/hearthsim/test/minion/TestWaterElemental.java b/src/test/java/com/hearthsim/test/minion/TestWaterElemental.java
+index 0e38df6..88409fa 100644
+--- a/src/test/java/com/hearthsim/test/minion/TestWaterElemental.java
++++ b/src/test/java/com/hearthsim/test/minion/TestWaterElemental.java
+@@ -2,7 +2,10 @@ package com.hearthsim.test.minion;
+ 
+ import com.hearthsim.card.Card;
+ import com.hearthsim.card.Deck;
++import com.hearthsim.card.minion.FrozenState;
+ import com.hearthsim.card.minion.Minion;
++import com.hearthsim.card.minion.MinionState;
++import com.hearthsim.card.minion.MinionStateFactory;
+ import com.hearthsim.card.minion.concrete.BoulderfistOgre;
+ import com.hearthsim.card.minion.concrete.RaidLeader;
+ import com.hearthsim.card.minion.concrete.WaterElemental;
+@@ -158,8 +161,8 @@ public class TestWaterElemental {
+ 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack(), 7);
+ 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack(), 2);
+ 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack(), 7);
+-		
+-		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getFrozen());
++		MinionStateFactory mf = new MinionStateFactory();
++		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getState(mf.makeFrozen()) != null);
+ 		
+ 	}
+ 	
+-- 
+1.8.3.msysgit.0
+

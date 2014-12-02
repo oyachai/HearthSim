@@ -1,0 +1,42 @@
+From 8ec1ccd99afcdf9f71a7df77971182458a65f0d6 Mon Sep 17 00:00:00 2001
+From: Robert Wen <robertwen20@gmail.com>
+Date: Mon, 1 Dec 2014 17:53:24 -0500
+Subject: [PATCH 07/16] Created a MinionState factory so we can use that
+ factory instead of always making a new MinionState object
+The creation of the MinionStateFactory class was that it will be able to create different type of MinionState by just calling 
+the factory. Instead of creating an object for each state when it was needed, by using a MinionStateFactory 
+it will simplify the object creation by calling the factory and it’s method such as the makeFrozen(), 
+which will then return an object of type frozenState.
+---
+ .../com/hearthsim/card/minion/MinionStateFactory.java | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
+ create mode 100644 src/main/java/com/hearthsim/card/minion/MinionStateFactory.java
+
+diff --git a/src/main/java/com/hearthsim/card/minion/MinionStateFactory.java b/src/main/java/com/hearthsim/card/minion/MinionStateFactory.java
+new file mode 100644
+index 0000000..9556914
+--- /dev/null
++++ b/src/main/java/com/hearthsim/card/minion/MinionStateFactory.java
+@@ -0,0 +1,19 @@
++package com.hearthsim.card.minion;
++
++public class MinionStateFactory {
++	
++	public MinionState makeFrozen(){
++		return new FrozenState();
++	}
++	
++	public MinionState makeStealthed(){
++		return new StealthedState();
++	}
++	
++	public MinionState makeCharge(){
++		return new ChargeState();
++	}
++	
++	
++
++}
+-- 
+1.8.3.msysgit.0
+

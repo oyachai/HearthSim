@@ -1,0 +1,28 @@
+From c17fac998dc804716de1bf7b9681c9fc2ea96c23 Mon Sep 17 00:00:00 2001
+From: Robert Wen <robertwen20@gmail.com>
+Date: Mon, 1 Dec 2014 16:46:08 -0500
+Subject: [PATCH 06/16] Add StealthedState to the MinionState
+The creation of the StealthedState class will implement the MinionState interface, by doing that a Minion can have stealth as a state. 
+---
+ src/main/java/com/hearthsim/card/minion/StealthedState.java | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+ create mode 100644 src/main/java/com/hearthsim/card/minion/StealthedState.java
+
+diff --git a/src/main/java/com/hearthsim/card/minion/StealthedState.java b/src/main/java/com/hearthsim/card/minion/StealthedState.java
+new file mode 100644
+index 0000000..036c926
+--- /dev/null
++++ b/src/main/java/com/hearthsim/card/minion/StealthedState.java
+@@ -0,0 +1,9 @@
++package com.hearthsim.card.minion;
++
++public class StealthedState implements MinionState{
++
++	public Minion handleStateEffect(Minion m) {
++		return m;
++	}
++
++}
+-- 
+1.8.3.msysgit.0
+

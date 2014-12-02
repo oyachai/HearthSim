@@ -1,0 +1,88 @@
+From 912009dea94be3cdf93b9992393ac975f3e9c263 Mon Sep 17 00:00:00 2001
+From: Robert Wen <robertwen20@gmail.com>
+Date: Mon, 1 Dec 2014 20:12:56 -0500
+Subject: [PATCH 12/16] Changed the occurence of getCharge() and setCharge() to
+ setState and addState
+In order to make sure that the behavior of the code doesn’t change with the addition of a new MinionState. 
+Every occurrences of getCharge and setCharge was changed to a getState(Charge) and addState(Charge). After changing the occurrences of getCharge and setCharge, 
+if the tests pass then the behavior of the code hasn’t changed. 
+---
+ .../java/com/hearthsim/card/spellcard/concrete/Charge.java    |  5 ++++-
+ src/test/java/com/hearthsim/test/card/TestCharge.java         | 11 ++++++-----
+ 2 files changed, 10 insertions(+), 6 deletions(-)
+
+diff --git a/src/main/java/com/hearthsim/card/spellcard/concrete/Charge.java b/src/main/java/com/hearthsim/card/spellcard/concrete/Charge.java
+index 6903699..88bfbcf 100644
+--- a/src/main/java/com/hearthsim/card/spellcard/concrete/Charge.java
++++ b/src/main/java/com/hearthsim/card/spellcard/concrete/Charge.java
+@@ -2,6 +2,7 @@ package com.hearthsim.card.spellcard.concrete;
+ 
+ import com.hearthsim.card.Deck;
+ import com.hearthsim.card.minion.Minion;
++import com.hearthsim.card.minion.MinionStateFactory;
+ import com.hearthsim.card.spellcard.SpellCard;
+ import com.hearthsim.exception.HSException;
+ import com.hearthsim.model.PlayerSide;
+@@ -9,6 +10,7 @@ import com.hearthsim.util.tree.HearthTreeNode;
+ 
+ public class Charge extends SpellCard {
+ 	
++	MinionStateFactory mf = new MinionStateFactory();
+ 	/**
+ 	 * Constructor
+ 	 * 
+@@ -63,7 +65,8 @@ public class Charge extends SpellCard {
+ 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+ 		if (toRet != null) {
+ 			targetMinion.setAttack((byte)(targetMinion.getAttack() + 2));
+-			targetMinion.setCharge(true);
++			//targetMinion.setCharge(true);
++			targetMinion.addState(mf.makeCharge());
+ 		}
+ 		return toRet;
+ 	}
+diff --git a/src/test/java/com/hearthsim/test/card/TestCharge.java b/src/test/java/com/hearthsim/test/card/TestCharge.java
+index d0c11b6..5099e59 100644
+--- a/src/test/java/com/hearthsim/test/card/TestCharge.java
++++ b/src/test/java/com/hearthsim/test/card/TestCharge.java
+@@ -3,6 +3,7 @@ package com.hearthsim.test.card;
+ import com.hearthsim.card.Card;
+ import com.hearthsim.card.Deck;
+ import com.hearthsim.card.minion.Minion;
++import com.hearthsim.card.minion.MinionStateFactory;
+ import com.hearthsim.card.spellcard.concrete.Charge;
+ import com.hearthsim.card.spellcard.concrete.TheCoin;
+ import com.hearthsim.exception.HSException;
+@@ -16,7 +17,7 @@ import static org.junit.Assert.assertFalse;
+ import static org.junit.Assert.assertTrue;
+ 
+ public class TestCharge {
+-	
++	MinionStateFactory mf = new MinionStateFactory();
+ 	private HearthTreeNode board;
+ 	private Deck deck;
+ 	private static final byte mana = 2;
+@@ -69,8 +70,8 @@ public class TestCharge {
+ 		assertTrue(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack() == attack0);
+ 		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack() == attack0);
+ 		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack() == attack0);
+-		assertFalse(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getCharge());
+-		assertFalse(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getCharge());
++		assertFalse(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getState(mf.makeCharge()) != null);
++		assertFalse(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getState(mf.makeCharge()) != null);
+ 	}
+ 	
+ 	@Test
+@@ -95,7 +96,7 @@ public class TestCharge {
+ 		assertTrue(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack() == attack0);
+ 		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack() == attack0);
+ 		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack() == attack0);
+-		assertTrue(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getCharge());
+-		assertFalse(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getCharge());
++		assertTrue(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getState(mf.makeCharge()) == null);
++		assertFalse(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getState(mf.makeCharge()) != null);
+ 	}
+ }
+-- 
+1.8.3.msysgit.0
+

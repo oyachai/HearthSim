@@ -1,0 +1,74 @@
+From 5509682f6e0507da37af0e8547635de1a02c57f5 Mon Sep 17 00:00:00 2001
+From: Robert Wen <robertwen20@gmail.com>
+Date: Mon, 1 Dec 2014 11:57:15 -0500
+Subject: [PATCH 02/16] Create new test unit for Minion State
+ Creating a new unit test for the implementation of MinionState so we can see
+ if the new code will break or it retains the same behavior as it used to.
+ Currently the test is only testing the functions implemented from MinionState
+
+ A unit test was created to make sure that the implementation of the MinionState won’t change the behavior of the coding. 
+ It can be used in conjunction of the developers’ unit tests.
+ Diff showing lines changed
+
+---
+ .../java/com/hearthsim/test/testMinionState.java   | 48 ++++++++++++++++++++++
+ 1 file changed, 48 insertions(+)
+ create mode 100644 src/test/java/com/hearthsim/test/testMinionState.java
+
+diff --git a/src/test/java/com/hearthsim/test/testMinionState.java b/src/test/java/com/hearthsim/test/testMinionState.java
+new file mode 100644
+index 0000000..38a5936
+--- /dev/null
++++ b/src/test/java/com/hearthsim/test/testMinionState.java
+@@ -0,0 +1,48 @@
++package com.hearthsim.test;
++
++import com.hearthsim.card.minion.FrozenState;
++import com.hearthsim.card.minion.Minion;
++import com.hearthsim.card.minion.MinionState;
++import com.hearthsim.exception.HSException;
++import com.hearthsim.model.BoardModel;
++import com.hearthsim.model.PlayerSide;
++import com.hearthsim.player.playercontroller.ArtificialPlayer;
++import com.hearthsim.util.factory.BoardStateFactoryBase;
++import com.hearthsim.util.tree.HearthTreeNode;
++import org.junit.Before;
++import org.junit.Test;
++
++import static org.junit.Assert.assertEquals;
++import static org.junit.Assert.assertTrue;
++
++public class testMinionState {
++	
++	Minion m1;
++	Minion m2;
++	MinionState fs;
++	
++	@Before
++	public void setup() throws HSException {
++		 m1 = new Minion(); 
++		 m2 = new Minion();
++		 fs = new FrozenState();
++	}
++	
++	@Test
++	public void test0() throws HSException{
++		
++		m1.addState(fs);
++		assertTrue(m1.getState(fs) != null);
++		m1.removeState(fs);
++		assertTrue(m1.getState(fs) == null);
++	}
++	
++	@Test
++	public void test1() throws HSException{
++		m1.removeState(fs);
++		assertTrue(m1.getState(fs) == null);
++	}
++	
++	
++
++}
+-- 
+1.8.3.msysgit.0
+

@@ -1,0 +1,260 @@
+From 80ef42798fbb223465abe143727af6bb4f90077e Mon Sep 17 00:00:00 2001
+From: Robert Wen <robertwen20@gmail.com>
+Date: Mon, 1 Dec 2014 20:16:00 -0500
+Subject: [PATCH 16/16] Minion class with the refactoring changes
+In order to refactor the Minion, three new functions were added to this class: getState(MinionState), addState(MinionState), and removeState(MinionState). In order to remove the implementation of the boolean values, 
+we will have to change all occurrence of where they use the boolean value of the different state created. For example: frozen_ , charge_, stealthed_ are all boolean values that keep track of the minion state. 
+We replaced the followings to a getState(Frozen) , getState(Charge), getState(stealthed). With this added functionality, the Minion will be able to check if it possesses one of these states within their list of state. 
+Also, a new constructor was created which will pass a List of minion state so it can be used as a new Minion. All occurrence of any state that the minion is undertaking will be replaced by a handleStateEffect 
+created by the specific state. For example if it used to be frozen it will set the hasAttacked variable to true, in our case we will just need to call the handleStateEffect and it will modify the value from the function.
+---
+ .../java/com/hearthsim/card/minion/Minion.java     | 141 +++++++++++++++++++--
+ 1 file changed, 129 insertions(+), 12 deletions(-)
+
+diff --git a/src/main/java/com/hearthsim/card/minion/Minion.java b/src/main/java/com/hearthsim/card/minion/Minion.java
+index 849afc9..8e6b597 100644
+--- a/src/main/java/com/hearthsim/card/minion/Minion.java
++++ b/src/main/java/com/hearthsim/card/minion/Minion.java
+@@ -13,6 +13,7 @@ import com.hearthsim.util.factory.BoardStateFactoryBase;
+ import com.hearthsim.util.tree.HearthTreeNode;
+ import org.json.JSONObject;
+ 
++import java.util.ArrayList;
+ import java.util.EnumSet;
+ import java.util.Iterator;
+ 
+@@ -27,6 +28,8 @@ public class Minion extends Card {
+     	FRIENDLY_MURLOCS, ENEMY_MURLOCS
+     }
+ 	
++	MinionStateFactory mf = new MinionStateFactory();
++	public ArrayList<MinionState> minion_stateList; 
+ 	protected boolean taunt_;
+ 	protected boolean divineShield_;
+ 	protected boolean windFury_;
+@@ -66,6 +69,7 @@ public class Minion extends Card {
+ 
+     public Minion() {
+         super();
++        minion_stateList = new ArrayList<MinionState>();
+         ImplementedCardList cardList = ImplementedCardList.getInstance();
+         ImplementedCardList.ImplementedCard implementedCard = cardList.getCardForClass(this.getClass());
+         if (implementedCard!=null){
+@@ -99,6 +103,7 @@ public class Minion extends Card {
+ 	 * @param baseHealth
+ 	 * @param maxHealth
+ 	 */
++    // pass the minionstate_list to slowly replace the implementation
+ 	public Minion(String name, byte mana, byte attack, byte health, byte baseAttack, byte baseHealth, byte maxHealth) {
+ 		this(
+ 				name,
+@@ -131,7 +136,7 @@ public class Minion extends Card {
+ 				true,
+ 				false);
+ 	}
+-
++	// pass the minionstate_list to slowly replace the implementation
+ 	public Minion(	String name,
+ 					byte mana,
+ 					byte attack,
+@@ -192,6 +197,63 @@ public class Minion extends Card {
+ 		heroTargetable_ = heroTargetable;
+ 	}
+ 	
++	public Minion(	String name,
++			byte mana,
++			byte attack,
++			byte health,
++			byte baseAttack,
++			byte extraAttackUntilTurnEnd,
++			byte auraAttack,
++			byte baseHealth,
++			byte maxHealth,
++			byte auraHealth,
++			byte spellDamage,
++			boolean taunt,
++			boolean divineShield,
++			boolean silenced,
++			boolean hasAttacked,
++			boolean hasWindFuryAttacked,
++			ArrayList<MinionState> ms,
++			boolean heroTargetable,
++			boolean summoned,
++			boolean transformed,
++			boolean destroyOnTurnStart,
++			boolean destroyOnTurnEnd,
++			DeathrattleAction deathrattleAction,
++			AttackAction attackAction,
++			boolean isInHand,
++			boolean hasBeenUsed) {
++		super(name, mana, hasBeenUsed, isInHand);
++		attack_ = attack;
++		health_ = health;
++		taunt_ = taunt;
++		divineShield_ = divineShield;
++		//windFury_ = windFury;
++		//charge_ = charge;
++		hasAttacked_ = hasAttacked;
++		baseAttack_ = baseAttack;
++		extraAttackUntilTurnEnd_ = extraAttackUntilTurnEnd;
++		hasWindFuryAttacked_ = hasWindFuryAttacked;
++		//frozen_ = frozen;
++		silenced_ = silenced;
++		baseHealth_ = baseHealth;
++		maxHealth_ = maxHealth;
++		summoned_ = summoned;
++		transformed_ = transformed;
++		destroyOnTurnStart_ = destroyOnTurnStart;
++		destroyOnTurnEnd_ = destroyOnTurnEnd;
++		deathrattleAction_ = deathrattleAction;
++		attackAction_ = attackAction;
++		
++		auraAttack_ = auraAttack;
++		auraHealth_ = auraHealth;
++		
++		spellDamage_ = spellDamage;
++		
++		//stealthed_ = stealthed;
++		heroTargetable_ = heroTargetable;
++}
++	
+ 	public boolean getTaunt() {
+ 		return taunt_;
+ 	}
+@@ -284,6 +346,58 @@ public class Minion extends Card {
+ 		frozen_ = value;
+ 	}
+ 	
++	public MinionState getState(MinionState state){
++		int index = 0;
++		int count = 0;
++		boolean exists = false;
++		if(minion_stateList != null){
++			for(MinionState ms: minion_stateList){
++				if(ms.getClass().equals(state.getClass())){
++					exists = true;
++					index = count;
++				}
++				count++;
++			}
++		
++		if(exists == true)
++			return minion_stateList.get(index);
++		else
++			return null;
++		}
++		else
++			return null;
++	}
++	
++	public void addState(MinionState state){
++		boolean stateExists = false;
++		if(minion_stateList != null){
++			for(MinionState ms: minion_stateList){
++				if(ms.getClass().equals(state.getClass())){
++					stateExists = true;
++				}
++			}
++			if (stateExists == false)
++				minion_stateList.add(state);
++		}
++	}
++	
++	public void removeState(MinionState state){
++		int count = 0;
++		int removeIndex = 0;
++		boolean exists = false;
++		if(minion_stateList != null){
++			for(MinionState ms: minion_stateList){
++				if(ms.getClass().equals(state.getClass())){
++					exists = true;
++					removeIndex = count;
++				}
++				count++;
++			}
++			if (exists==true)
++				minion_stateList.remove(removeIndex);
++		}
++	}
++		
+ 	public boolean getWindfury() {
+ 		return windFury_;
+ 	}
+@@ -408,7 +522,6 @@ public class Minion extends Card {
+ 		heroTargetable_ = value;
+ 	}
+ 
+-
+     /**
+ 	 * Called at the start of the turn
+ 	 * 
+@@ -468,7 +581,9 @@ public class Minion extends Card {
+ 			boolean handleMinionDeath)
+ 		throws HSException
+ 	{
++		
+ 		if (!divineShield_) {
++		//if (getState(mf.makeDivineShield()) == null){
+ 			byte totalDamage = isSpellDamage ? (byte)(damage + boardState.data_.getSpellDamage(attackPlayerSide)) : damage;
+ 			health_ = (byte)(health_ - totalDamage);
+ 			
+@@ -907,7 +1022,6 @@ public class Minion extends Card {
+ 		throws HSException
+ 	{		
+ 		if (boardState.data_.modelForSide(targetSide).getNumMinions() < 7) {
+-
+ 			if (!charge_) {
+ 				hasAttacked_ = true;
+ 			}
+@@ -945,12 +1059,16 @@ public class Minion extends Card {
+ 	{
+ 		
+ 		//can't attack a stealthed target
+-		if (targetMinion.getStealthed())
++		if (targetMinion.getState(mf.makeStealthed()) != null)
++		//if (targetMinion.getStealthed())
+ 			return null;
+ 		
+-		if (frozen_) {
+-			this.hasAttacked_ = true;
+-			this.frozen_ = false;
++		MinionState frozenState = new FrozenState();
++		//used to be frozen_
++		if (getState(frozenState) != null) {
++			getState(frozenState).handleStateEffect(this);
++			this.removeState(frozenState);
++			//this.frozen_ = false;
+ 			return boardState;
+ 		}
+ 		
+@@ -980,7 +1098,8 @@ public class Minion extends Card {
+ 		
+ 		//Attacking means you lose stealth
+ 		if (toRet != null)
+-			this.stealthed_ = false;
++			//this.stealthed_ = false;
++			this.removeState(mf.makeStealthed());
+ 		
+ 		return toRet;
+ 	}
+@@ -1027,8 +1146,8 @@ public class Minion extends Card {
+ 		byte origAttack = targetMinion.getTotalAttack();
+ 		toRet = targetMinion.takeDamage(this.getTotalAttack(), PlayerSide.CURRENT_PLAYER, targetMinionPlayerSide, toRet, deckPlayer0, deckPlayer1, false, false);
+ 		toRet = this.takeDamage(origAttack, targetMinionPlayerSide, PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1, false, false);
+-		if (windFury_ && !hasWindFuryAttacked_)
+-			hasWindFuryAttacked_ = true;
++		if (getState(mf.makeWindfury())!= null && !hasWindFuryAttacked_)
++			mf.makeWindfury().handleStateEffect(this);
+ 		else
+ 			hasAttacked_ = true;
+ 		return toRet;
+@@ -1338,6 +1457,4 @@ public class Minion extends Card {
+         return PlayerSide.CURRENT_PLAYER.getPlayer(boardState).getNumMinions() >= 7;
+     }
+     
+-    
+-    
+ }
+-- 
+1.8.3.msysgit.0
+

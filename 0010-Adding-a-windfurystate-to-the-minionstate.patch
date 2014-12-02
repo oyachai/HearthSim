@@ -1,0 +1,30 @@
+From a23afee7313ab2b5f817b6ec8ba849011b50deda Mon Sep 17 00:00:00 2001
+From: Robert Wen <robertwen20@gmail.com>
+Date: Mon, 1 Dec 2014 20:10:55 -0500
+Subject: [PATCH 10/16] Adding a windfurystate to the minionstate
+The creation of the WindfuryState class will implement the MinionState interface, by doing that a Minion can have windfury as a state. 
+---
+ src/main/java/com/hearthsim/card/minion/WindfuryState.java | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+ create mode 100644 src/main/java/com/hearthsim/card/minion/WindfuryState.java
+
+diff --git a/src/main/java/com/hearthsim/card/minion/WindfuryState.java b/src/main/java/com/hearthsim/card/minion/WindfuryState.java
+new file mode 100644
+index 0000000..5bb2a14
+--- /dev/null
++++ b/src/main/java/com/hearthsim/card/minion/WindfuryState.java
+@@ -0,0 +1,11 @@
++package com.hearthsim.card.minion;
++
++public class WindfuryState implements MinionState{
++
++	@Override
++	public Minion handleStateEffect(Minion m) {
++		m.hasWindFuryAttacked_ = true;
++		return m;
++	}
++
++}
+-- 
+1.8.3.msysgit.0
+

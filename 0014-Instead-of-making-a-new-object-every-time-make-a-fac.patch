@@ -1,0 +1,27 @@
+From 74d25e13fed00139c6618bc6bd7a10e397ffaff4 Mon Sep 17 00:00:00 2001
+From: Robert Wen <robertwen20@gmail.com>
+Date: Mon, 1 Dec 2014 20:14:16 -0500
+Subject: [PATCH 14/16] Instead of making a new object every time make a
+ factory that will return the object
+Added the windfury object creation to the MinionStateFactory so we can use it for windfury also.
+---
+ src/main/java/com/hearthsim/card/minion/MinionStateFactory.java | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/src/main/java/com/hearthsim/card/minion/MinionStateFactory.java b/src/main/java/com/hearthsim/card/minion/MinionStateFactory.java
+index 9556914..f7dc8a2 100644
+--- a/src/main/java/com/hearthsim/card/minion/MinionStateFactory.java
++++ b/src/main/java/com/hearthsim/card/minion/MinionStateFactory.java
+@@ -14,6 +14,8 @@ public class MinionStateFactory {
+ 		return new ChargeState();
+ 	}
+ 	
+-	
++	public MinionState makeWindfury(){
++		return new WindfuryState();
++	}
+ 
+ }
+-- 
+1.8.3.msysgit.0
+
