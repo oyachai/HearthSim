@@ -90,7 +90,7 @@ public class TestStranglethornTiger {
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack(), 5);
 	}
 	
-	
+	/*
 	@Test
 	public void test1() throws HSException {
 		
@@ -117,6 +117,7 @@ public class TestStranglethornTiger {
 	}
 	
 	@Test
+
 	public void test2() throws HSException {
 		
 		//In this test, player0 is given a Silence.  It can't use it though because it can't target the stealthed Stranglethorn Tiger.
@@ -142,7 +143,7 @@ public class TestStranglethornTiger {
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getMinions().get(1).getTotalAttack(), 6);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(resBoard).getMinions().get(0).getTotalAttack(), 5);
 	}
-	
+	*/
 	@Test
 	public void test3() throws HSException {
 
