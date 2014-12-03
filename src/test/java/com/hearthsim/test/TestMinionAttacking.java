@@ -184,7 +184,6 @@ public class TestMinionAttacking {
 	}
 
 	@Test
-	@Ignore("Existing bug")
 	public void testWindfuryPostAttack() throws HSException {
 		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
 		HearthTreeNode ret = raptor.attack(PlayerSide.WAITING_PLAYER, target, board, null, null);

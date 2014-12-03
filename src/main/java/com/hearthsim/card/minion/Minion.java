@@ -251,6 +251,10 @@ public class Minion extends Card {
 
 	public void setWindfury(boolean value) {
 		windFury_ = value;
+		if (hasAttacked_) {
+			hasAttacked_ = false;
+			hasWindFuryAttacked_ = true;
+		}
 	}
 
 	public boolean getSummoned() {
