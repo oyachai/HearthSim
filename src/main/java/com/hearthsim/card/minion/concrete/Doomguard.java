@@ -59,8 +59,11 @@ public class Doomguard extends Minion {
 		} else {
 			int placementTargetIndex = minionPlacementTarget instanceof Hero ? 0 : PlayerSide.CURRENT_PLAYER.getPlayer(boardState).getMinions().indexOf(minionPlacementTarget) + 1;
 			int thisMinionIndex = PlayerSide.CURRENT_PLAYER.getPlayer(boardState).getMinions().indexOf(this) + 1;
-			toRet = new RandomEffectNode(boardState, new HearthAction(HearthAction.Verb.UNTARGETABLE_BATTLECRY, PlayerSide.CURRENT_PLAYER, thisMinionIndex, PlayerSide.CURRENT_PLAYER, placementTargetIndex));
 			IdentityLinkedList<Card> hand = toRet.data_.getCurrentPlayerHand();
+			if (hand.size() == 0) {
+				return toRet;
+			}
+			toRet = new RandomEffectNode(boardState, new HearthAction(HearthAction.Verb.UNTARGETABLE_BATTLECRY, PlayerSide.CURRENT_PLAYER, thisMinionIndex, PlayerSide.CURRENT_PLAYER, placementTargetIndex));
 			for (int indx0 = 0; indx0 < hand.size(); ++indx0) {
 				if (hand.size() > 1) {
 					for (int indx1 = indx0+1; indx1 < hand.size(); ++indx1) {

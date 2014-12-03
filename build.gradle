@@ -34,3 +34,13 @@ dependencies {
     testCompile 'junit:junit:4.11'
     testCompile "org.spockframework:spock-core:1.0-groovy-2.3-SNAPSHOT"
 }
+
+task runSimJar(type: Jar) {
+	manifest {
+        attributes 'Implementation-Title': 'HearthSim',
+                   'Implementation-Version': '0.0',
+                   'Main-Class': 'com.hearthsim.HearthSimMain'
+	}
+	from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+	with jar
+}
