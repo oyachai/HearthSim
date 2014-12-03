@@ -3,7 +3,6 @@ package com.hearthsim.test;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.hearthsim.card.minion.Minion;
@@ -111,11 +110,10 @@ public class TestMinionBattlecry {
 	}
 
 	@Test
-	@Ignore("Existing bug")
 	public void testCannotBattlecryEnemyStealthed() throws HSException {
 		DarkIronDwarf darkIronDwarf = new DarkIronDwarf();
 		board.data_.placeCardHand(PlayerSide.CURRENT_PLAYER, darkIronDwarf);
-		board.data_.placeMinion(PlayerSide.WAITING_PLAYER, new FaerieDragon());
+		board.data_.placeMinion(PlayerSide.WAITING_PLAYER, new StranglethornTiger());
 
 		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
 		HearthTreeNode ret = darkIronDwarf.useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
@@ -139,7 +137,7 @@ public class TestMinionBattlecry {
 	public void testCanBattlecryEnemyFaerie() throws HSException {
 		DarkIronDwarf darkIronDwarf = new DarkIronDwarf();
 		board.data_.placeCardHand(PlayerSide.CURRENT_PLAYER, darkIronDwarf);
-		board.data_.placeMinion(PlayerSide.WAITING_PLAYER, new StranglethornTiger());
+		board.data_.placeMinion(PlayerSide.WAITING_PLAYER, new FaerieDragon());
 
 		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
 		HearthTreeNode ret = darkIronDwarf.useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);

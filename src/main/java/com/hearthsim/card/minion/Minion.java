@@ -782,8 +782,9 @@ public class Minion extends Card {
 				break;
 			case ENEMY_MINIONS:
 				for(Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
-					toRet = this.useTargetableBattlecry(PlayerSide.WAITING_PLAYER, minion, toRet, deckPlayer0,
-							deckPlayer1);
+					if (!minion.getStealthed())
+						toRet = this.useTargetableBattlecry(PlayerSide.WAITING_PLAYER, minion, toRet, deckPlayer0,
+								deckPlayer1);
 				}
 				break;
 			case FRIENDLY_MINIONS:
