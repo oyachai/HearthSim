@@ -143,8 +143,10 @@ public class DepthBoardStateFactory extends BoardStateFactoryBase {
 			}
 
 			// TODO this should be automatically handled elsewhere...
-			if(bestBranch instanceof StopNode) {
-				bestBranch.clearChildren(); // cannot continue past a StopNode
+			// Cannot continue past a StopNode except RNG nodes. The children of RNG nodes will be used
+			// during resolution so if we clear them out it can get awkward
+			if(bestBranch instanceof StopNode && !(bestBranch instanceof RandomEffectNode)) {
+				bestBranch.clearChildren();
 			}
 
 			if(boardStateNode instanceof RandomEffectNode) {

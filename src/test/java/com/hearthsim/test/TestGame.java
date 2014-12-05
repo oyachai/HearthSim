@@ -3,6 +3,7 @@ package com.hearthsim.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
@@ -15,10 +16,13 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.heroes.Mage;
 import com.hearthsim.card.minion.heroes.Paladin;
 import com.hearthsim.card.minion.heroes.TestHero;
+import com.hearthsim.card.spellcard.concrete.AnimalCompanion;
+import com.hearthsim.card.spellcard.concrete.Soulfire;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.player.playercontroller.BruteForceSearchAI;
 import com.hearthsim.results.GameResult;
+import com.hearthsim.util.HearthAction;
 import com.hearthsim.util.HearthActionBoardPair;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -126,6 +130,49 @@ public class TestGame {
 	}
 
 	@Test
+	public void testGameHistoryIsRepeatableWithRng() throws HSException {
+
+		int numCardsInDeck_ = 30;
+		byte minionAttack = 5;
+		byte minionHealth = 4;
+		byte minionMana = 4;
+
+		ArrayList<Card> cards1_ = new ArrayList<Card>();
+		ArrayList<Card> cards2_ = new ArrayList<Card>();
+
+		cards1_.add(new AnimalCompanion());
+		cards2_.add(new AnimalCompanion());
+
+		cards1_.add(new Soulfire());
+		cards2_.add(new Soulfire());
+
+		for(int i = cards1_.size(); i < numCardsInDeck_; ++i) {
+			byte attack = minionAttack;
+			byte health = minionHealth;
+			byte mana = minionMana;
+			cards1_.add(new Minion("" + i, mana, attack, health, attack, health, health));
+			cards2_.add(new Minion("" + i, mana, attack, health, attack, health, health));
+		}
+
+		Deck deck1 = new Deck(cards1_);
+		Deck deck2 = new Deck(cards2_);
+
+		//deck1.shuffle();
+		//deck2.shuffle();
+
+		PlayerModel playerModel1 = new PlayerModel(0, "player0", new Paladin(), deck1);
+		PlayerModel playerModel2 = new PlayerModel(1, "player1", new Mage(), deck2);
+
+		BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
+		BruteForceSearchAI ai1 = BruteForceSearchAI.buildStandardAI1();
+
+		Game game = new Game(playerModel1, playerModel2, ai0, ai1, false);
+		game.runGame();
+		List<HearthActionBoardPair> history = game.gameHistory;
+		this.assertActionTreeIsRepeatable(history, deck1, deck2);
+	}
+
+	@Test
 	public void testGameRecord0() {
 
 		// Whichever player that is using the 4 mana 5/4 minions should always win
@@ -196,10 +243,12 @@ public class TestGame {
 			if(current == null) {
 				current = new HearthTreeNode(actionBoardPair.board.deepCopy());
 			} else {
+				assertNotNull(current);
+
 				assertNotNull(actionBoardPair.action);
-				if(actionBoardPair.action != null) {
-					current = actionBoardPair.action.perform(current, deck1, deck2);
-				}
+				current = actionBoardPair.action.perform(current, deck1, deck2, false);
+
+				assertNotNull(current);
 				assertEquals(actionBoardPair.board, current.data_);
 			}
 		}
