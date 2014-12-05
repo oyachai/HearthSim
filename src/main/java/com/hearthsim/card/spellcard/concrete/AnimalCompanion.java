@@ -89,6 +89,7 @@ public class AnimalCompanion extends SpellCard {
 					PlayerSide.CURRENT_PLAYER, 0, side, 0));
 			if(toRet != null) {
 				int thisCardIndex = side.getPlayer(boardState).getHand().indexOf(this);
+				int rng_index = 0;
 				for(Minion minion : new Minion[] { new Huffer(), new Leokk(), new Misha() }) {
 					HearthTreeNode newState = toRet.addChild(new HearthTreeNode(toRet.data_.deepCopy()));
 					newState = super.use_core(side, side.getPlayer(newState).getHero(), newState, deckPlayer0,
@@ -97,6 +98,8 @@ public class AnimalCompanion extends SpellCard {
 					newState = minion.summonMinion(side, placementTarget, newState, deckPlayer0, deckPlayer1, false,
 							singleRealizationOnly);
 					side.getPlayer(newState).getHand().remove(thisCardIndex);
+					newState.setAction(new HearthAction(HearthAction.Verb.RNG, PlayerSide.CURRENT_PLAYER, 0, side, rng_index));
+					rng_index++;
 				}
 			}
 		}

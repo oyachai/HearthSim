@@ -112,8 +112,8 @@ public class BreadthBoardStateFactory extends BoardStateFactoryBase {
 				}
 			}
 
+			// We need to process this after the children have populated their scores
 			if(root instanceof RandomEffectNode) {
-				// We need to process this after the children have populated their scores
 				double boardScore = ((RandomEffectNode)root).weightedAverageBestChildScore();
 				root.setScore(boardScore);
 				root.setBestChildScore(boardScore);

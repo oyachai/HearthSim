@@ -19,7 +19,7 @@ public class HearthAction {
 	
 	// TODO the DO_NOT_ verbs are used for history tracking but we can probably optimize them away in the future.
 	public enum Verb {
-		USE_CARD, HERO_ABILITY, ATTACK, UNTARGETABLE_BATTLECRY, TARGETABLE_BATTLECRY, START_TURN, END_TURN, DO_NOT_USE_CARD, DO_NOT_ATTACK, DO_NOT_USE_HEROPOWER
+		USE_CARD, HERO_ABILITY, ATTACK, UNTARGETABLE_BATTLECRY, TARGETABLE_BATTLECRY, START_TURN, END_TURN, DO_NOT_USE_CARD, DO_NOT_ATTACK, DO_NOT_USE_HEROPOWER, RNG
 	}
 		
 	public final Verb verb_;
@@ -109,6 +109,15 @@ public class HearthAction {
 			}
 			case DO_NOT_USE_HEROPOWER: {
 				boardState.data_.getCurrentPlayerHero().hasBeenUsed(true);
+				break;
+			}
+			case RNG: {
+				// We need to perform the current state again if the children don't exist yet. This can happen in certain replay scenarios. 
+				if(toRet.isLeaf()) {
+					toRet = boardState.getAction().perform(boardState, deckPlayer0, deckPlayer1, singleRealization);
+				}
+				// RNG has declared this child happened
+				toRet = toRet.getChildren().get(targetCharacterIndex_);
 				break;
 			}
 		}

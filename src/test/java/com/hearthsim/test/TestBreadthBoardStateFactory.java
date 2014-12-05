@@ -107,6 +107,23 @@ public class TestBreadthBoardStateFactory {
 	}
 
 	@Test
+	public void testRepeatableStatesCardRngTargets() throws HSException {
+		BoardModel startingBoard = new BoardModel();
+		PlayerModel firstPlayer = startingBoard.getCurrentPlayer();
+		firstPlayer.addMana(5);
+		firstPlayer.addMaxMana(5);
+		firstPlayer.placeCardHand(new AnimalCompanion());
+		firstPlayer.placeCardHand(new Frostbolt());
+		startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new BloodfenRaptor());
+		startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new RiverCrocolisk());
+
+		BreadthBoardStateFactory factory = new BreadthBoardStateFactory(this.deck0, this.deck1);
+		HearthTreeNode root = new HearthTreeNode(startingBoard);
+		factory.addChildLayers(root, 3);
+		assertActionTreeIsRepeatable(root);
+	}
+
+	@Test
 	public void testDuplicateStatesMinionAttacks() throws HSException {
 		BoardModel startingBoard = new BoardModel();
 		startingBoard.placeMinion(PlayerSide.CURRENT_PLAYER, new BloodfenRaptor());
@@ -221,6 +238,20 @@ public class TestBreadthBoardStateFactory {
 	}
 
 	@Test
+	public void testBreadthDepthCardRng() throws HSException {
+		BoardModel startingBoard = new BoardModel();
+		PlayerModel firstPlayer = startingBoard.getCurrentPlayer();
+		firstPlayer.addMana(5);
+		firstPlayer.addMaxMana(5);
+		firstPlayer.placeCardHand(new AnimalCompanion());
+		firstPlayer.placeCardHand(new Frostbolt());
+		startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new BloodfenRaptor());
+		startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new RiverCrocolisk());
+
+		this.testBreadthDepth(startingBoard);
+	}
+
+	@Test
 	@Ignore("Long test")
 	public void testBreadthDepthComplicatedDupes() throws HSException {
 		BoardModel startingBoard = new BoardModel();
@@ -303,9 +334,9 @@ public class TestBreadthBoardStateFactory {
 			current = unprocessed.remove(0);
 			if(!current.isLeaf()) {
 				for(HearthTreeNode child : current.getChildren()) {
-					HearthTreeNode origin = new HearthTreeNode(current.data_.deepCopy());
+					HearthTreeNode origin = new HearthTreeNode(current.data_.deepCopy(), current.getAction());
 					assertNotNull(child.getAction());
-					HearthTreeNode reproduced = child.getAction().perform(origin, null, null);
+					HearthTreeNode reproduced = child.getAction().perform(origin, null, null, false);
 					assertNotNull(reproduced);
 					assertEquals(child.data_, reproduced.data_);
 				}
