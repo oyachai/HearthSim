@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.hearthsim.card.Deck;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.HearthAction;
 
 /**
@@ -33,6 +34,7 @@ public class RandomEffectNode extends StopNode {
 
 	@Override
 	public HearthTreeNode addChild(HearthTreeNode node) {
+		node.setAction(new HearthAction(HearthAction.Verb.RNG, PlayerSide.CURRENT_PLAYER, 0, PlayerSide.CURRENT_PLAYER, this.numChildren()));
 		HearthTreeNode toRet = super.addChild(node);
 		childWeighting_.add(new Double(1.0));
 		return toRet;
