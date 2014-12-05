@@ -281,14 +281,20 @@ public class PlayerModel implements DeepCopyable<PlayerModel> {
         json.put("name", name);
         json.put("playerId", playerId);
         json.put("hero", hero.toJSON());
-        json.put("mana", mana);
-        json.put("maxMana", maxMana);
-        json.put("deckPos", deckPos);
-        json.put("overload", overload);
-        json.put("fatigueDamage", fatigueDamage);
-        json.put("minions", minions);
-        json.put("hand", hand);
-    
+        if(mana > 0) json.put("mana", mana);
+        if(maxMana > 0) json.put("maxMana", maxMana);
+		json.put("deckPos", deckPos);
+		if(overload > 0) json.put("overload", overload);
+		if(fatigueDamage > 0) json.put("fatigueDamage", fatigueDamage);
+
+		if(minions.size() > 0) {
+			json.put("minions", minions);
+		}
+
+		if(hand.size() > 0) {
+			json.put("hand", hand);
+		}
+
         return json;
     }
 }
