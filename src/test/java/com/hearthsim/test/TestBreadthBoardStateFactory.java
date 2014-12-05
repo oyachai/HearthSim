@@ -25,6 +25,7 @@ import com.hearthsim.card.minion.concrete.ShatteredSunCleric;
 import com.hearthsim.card.minion.concrete.StonetuskBoar;
 import com.hearthsim.card.minion.concrete.Sunwalker;
 import com.hearthsim.card.spellcard.concrete.AnimalCompanion;
+import com.hearthsim.card.spellcard.concrete.ArcaneIntellect;
 import com.hearthsim.card.spellcard.concrete.EarthShock;
 import com.hearthsim.card.spellcard.concrete.Frostbolt;
 import com.hearthsim.card.spellcard.concrete.HolySmite;
@@ -115,6 +116,22 @@ public class TestBreadthBoardStateFactory {
 		firstPlayer.placeCardHand(new AnimalCompanion());
 		firstPlayer.placeCardHand(new Frostbolt());
 		startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new BloodfenRaptor());
+		startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new RiverCrocolisk());
+
+		BreadthBoardStateFactory factory = new BreadthBoardStateFactory(this.deck0, this.deck1);
+		HearthTreeNode root = new HearthTreeNode(startingBoard);
+		factory.addChildLayers(root, 3);
+		assertActionTreeIsRepeatable(root);
+	}
+
+	@Test
+	public void testRepeatableStatesCardDraw() throws HSException {
+		BoardModel startingBoard = new BoardModel();
+		PlayerModel firstPlayer = startingBoard.getCurrentPlayer();
+		firstPlayer.addMana(8);
+		firstPlayer.placeCardHand(new ArcaneIntellect());
+		firstPlayer.placeCardHand(new Frostbolt());
+		startingBoard.placeMinion(PlayerSide.CURRENT_PLAYER, new BloodfenRaptor());
 		startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new RiverCrocolisk());
 
 		BreadthBoardStateFactory factory = new BreadthBoardStateFactory(this.deck0, this.deck1);
@@ -244,6 +261,20 @@ public class TestBreadthBoardStateFactory {
 		firstPlayer.addMana(5);
 		firstPlayer.addMaxMana(5);
 		firstPlayer.placeCardHand(new AnimalCompanion());
+		firstPlayer.placeCardHand(new Frostbolt());
+		startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new BloodfenRaptor());
+		startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new RiverCrocolisk());
+
+		this.testBreadthDepth(startingBoard);
+	}
+
+	@Test
+	public void testBreadthDepthCardDraw() throws HSException {
+		BoardModel startingBoard = new BoardModel();
+		PlayerModel firstPlayer = startingBoard.getCurrentPlayer();
+		firstPlayer.addMana(5);
+		firstPlayer.addMaxMana(5);
+		firstPlayer.placeCardHand(new ArcaneIntellect());
 		firstPlayer.placeCardHand(new Frostbolt());
 		startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new BloodfenRaptor());
 		startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new RiverCrocolisk());
