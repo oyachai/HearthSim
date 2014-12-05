@@ -30,23 +30,21 @@ public class HearthAction {
 	public final PlayerSide targetPlayerSide;
 	public final int targetCharacterIndex_;
 	
-	public final PlayerSide battlecryTargetPlayerSide;
-	public final int battlecryTargetCharacterIndex;
-	
-	public HearthAction(Verb verb, PlayerSide actionPerformerPlayerSide, int cardOrCharacterIndex, PlayerSide targetPlayerSide, int targetCharacterIndex) {
-		this(verb, actionPerformerPlayerSide, cardOrCharacterIndex, targetPlayerSide, targetCharacterIndex, null, -1);
+	public HearthAction(Verb verb) {
+		this(verb, PlayerSide.CURRENT_PLAYER, -1, null, -1);
 	}
 
-	public HearthAction(Verb verb, PlayerSide actionPerformerPlayerSide, int cardOrCharacterIndex, PlayerSide targetPlayerSide, int targetCharacterIndex, PlayerSide battlecryTargetPlayerSide, int battlecryTargetCharacterIndex) {
+	public HearthAction(Verb verb, PlayerSide actionPerformerPlayerSide, int cardOrCharacterIndex) {
+		this(verb, actionPerformerPlayerSide, cardOrCharacterIndex, null, -1);
+	}
+
+	public HearthAction(Verb verb, PlayerSide actionPerformerPlayerSide, int cardOrCharacterIndex, PlayerSide targetPlayerSide, int targetCharacterIndex) {
 		verb_ = verb;
 		this.actionPerformerPlayerSide = actionPerformerPlayerSide;
 		cardOrCharacterIndex_ = cardOrCharacterIndex;
 
 		this.targetPlayerSide = targetPlayerSide;
 		targetCharacterIndex_ = targetCharacterIndex;
-		
-		this.battlecryTargetPlayerSide = battlecryTargetPlayerSide;
-		this.battlecryTargetCharacterIndex = battlecryTargetCharacterIndex;
 	}
 
 	public HearthTreeNode perform(HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
@@ -117,7 +115,7 @@ public class HearthAction {
 					toRet = boardState.getAction().perform(boardState, deckPlayer0, deckPlayer1, singleRealization);
 				}
 				// RNG has declared this child happened
-				toRet = toRet.getChildren().get(targetCharacterIndex_);
+				toRet = toRet.getChildren().get(cardOrCharacterIndex_);
 				break;
 			}
 		}

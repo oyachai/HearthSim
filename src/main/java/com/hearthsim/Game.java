@@ -133,8 +133,7 @@ public class Game {
 
 	private GameResult playTurn(int turnCount, GameRecord record, ArtificialPlayer ai) throws HSException {
 		boardModel = Game.beginTurn(boardModel.deepCopy()); // Deep copy here to make sure history is preserved properly
-		gameHistory.add(new HearthActionBoardPair(new HearthAction(Verb.START_TURN, PlayerSide.CURRENT_PLAYER, 0,
-				PlayerSide.CURRENT_PLAYER, 0), boardModel.deepCopy()));
+		gameHistory.add(new HearthActionBoardPair(new HearthAction(Verb.START_TURN), boardModel.deepCopy()));
 
 		GameResult gameResult;
 
@@ -158,8 +157,7 @@ public class Game {
 			return gameResult;
 
 		boardModel = boardModel.flipPlayers();
-		gameHistory.add(new HearthActionBoardPair(new HearthAction(Verb.END_TURN, PlayerSide.CURRENT_PLAYER, 0,
-				PlayerSide.CURRENT_PLAYER, 0), boardModel.deepCopy()));
+		gameHistory.add(new HearthActionBoardPair(new HearthAction(Verb.END_TURN), boardModel.deepCopy()));
 
 		return null;
 	}

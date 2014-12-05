@@ -62,7 +62,7 @@ public class ChildNodeCreatorBase implements ChildNodeCreator {
 		// If no nodes were created then nothing could attack. If something could attack, we want to explicitly do nothing in its own node.
 		if(!nodes.isEmpty()) {
 			newState = new HearthTreeNode(boardStateNode.data_.deepCopy());
-			newState.setAction(new HearthAction(Verb.DO_NOT_ATTACK, PlayerSide.CURRENT_PLAYER, 0, PlayerSide.CURRENT_PLAYER, 0));
+			newState.setAction(new HearthAction(Verb.DO_NOT_ATTACK));
 			for(Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(newState).getMinions()) {
 				minion.hasAttacked(true);
 			}
@@ -126,7 +126,7 @@ public class ChildNodeCreatorBase implements ChildNodeCreator {
 		// If no nodes were created then nothing could be played. If something could be played, we want to explicitly do nothing in its own node.
 		if(!nodes.isEmpty()) {
 			newState = new HearthTreeNode(boardStateNode.data_.deepCopy());
-			newState.setAction(new HearthAction(Verb.DO_NOT_USE_CARD, PlayerSide.CURRENT_PLAYER, 0, PlayerSide.CURRENT_PLAYER, 0));
+			newState.setAction(new HearthAction(Verb.DO_NOT_USE_CARD));
 			for(Card c : newState.data_.getCurrentPlayerHand()) {
 				c.hasBeenUsed(true);
 			}
@@ -186,7 +186,7 @@ public class ChildNodeCreatorBase implements ChildNodeCreator {
 		if(!nodes.isEmpty()) {
 			// Case1: Decided not to use the hero ability
 			newState = new HearthTreeNode(boardStateNode.data_.deepCopy());
-			newState.setAction(new HearthAction(Verb.DO_NOT_USE_HEROPOWER, PlayerSide.CURRENT_PLAYER, 0, PlayerSide.CURRENT_PLAYER, 0));
+			newState.setAction(new HearthAction(Verb.DO_NOT_USE_HEROPOWER));
 			newState.data_.getCurrentPlayerHero().hasBeenUsed(true);
 			nodes.add(newState);
 		}
