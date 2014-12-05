@@ -49,7 +49,7 @@ public class CardDrawNode extends StopNode {
 	 * This function shouldn't be called by anyone except BoardStateFactory.
 	 * 
 	 */
-	public void drawQueuedCard() {
+	private void drawQueuedCard() {
 		for (int indx = 0; indx < numCardsToDraw_; ++indx) {
 			data_.getCurrentPlayer().drawNextCardFromDeck();
 		}
