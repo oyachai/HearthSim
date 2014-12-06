@@ -2252,7 +2252,7 @@
         "type": "Spell",
         "faction": "Neutral",
         "rarity": "Common",
-        "cost": 0,
+        "cost": 1,
         "text": "Deal $4 damage. Discard a random card.",
         "flavor": "Are you lighting a soul on fire? Or burning someone with your OWN soul? This seems like an important distinction.",
         "artist": "Raymond Swanland",
@@ -6611,7 +6611,7 @@
         "type": "Spell",
         "faction": "Neutral",
         "rarity": "Rare",
-        "cost": 1,
+        "cost": 2,
         "text": "All minions lose <b>Stealth</b>. Destroy all enemy <b>Secrets</b>. Draw a card.",
         "flavor": "Not only does it reveal your enemies, but it's also great for parties!",
         "artist": "Tyler Walpole",
@@ -6722,7 +6722,7 @@
         "type": "Minion",
         "faction": "Neutral",
         "rarity": "Rare",
-        "cost": 5,
+        "cost": 6,
         "attack": 4,
         "health": 4,
         "text": "Whenever you cast a spell, draw a card.",
@@ -9602,6 +9602,2331 @@
         "cost": 2,
         "text": "Deal $5 damage to all characters except Ysera.",
         "playerClass": "Dream"
+    }
+], "Goblins vs Gnomes":[
+    {
+        "id":"GVG_029",
+        "name":"Ancestor's Call",
+        "type":"Spell",
+        "rarity":"Epic",
+        "cost":4,
+        "text":"Put a random minion from each player's hand into the battlefield.",
+        "flavor":"\"Hey! Ancestors!\" - Ancestor's call",
+        "artist":"Dan Scott",
+        "collectible":true,
+        "playerClass":"Shaman"
+    },
+    {
+        "id":"GVG_077",
+        "name":"Anima Golem",
+        "type":"Minion",
+        "rarity":"Epic",
+        "cost":6,
+        "attack":9,
+        "health":9,
+        "text":"At the end of each turn, destroy this minion if it's your only one.",
+        "flavor":"The Dark Animus is evil and mysterious and huge and unable to write sentences that utilize proper grammar.",
+        "artist":"Josh Harris",
+        "collectible":true,
+        "race":"Mech",
+        "playerClass":"Warlock"
+    },
+    {
+        "id":"GVG_085",
+        "name":"Annoy-o-Tron",
+        "type":"Minion",
+        "rarity":"Common",
+        "cost":2,
+        "attack":1,
+        "health":2,
+        "text":"<b>Taunt</b>\n<b>Divine Shield</b>",
+        "flavor":"The inventor of the Annoy-o-Tron was immediately expelled from Tinkerschool, Tinkertown, and was eventually exiled from the Eastern Kingdoms altogether.",
+        "artist":"Matt Dixon",
+        "collectible":true,
+        "race":"Mech",
+        "mechanics":[
+            "Divine Shield",
+            "Taunt"
+        ]
+    },
+    {
+        "id":"GVG_030",
+        "name":"Anodized Robo Cub",
+        "type":"Minion",
+        "rarity":"Common",
+        "cost":2,
+        "attack":2,
+        "health":2,
+        "text":"<b>Taunt</b>. <b>Choose One -</b>\n+1 Attack; or +1 Health.",
+        "flavor":"It's adorable! AND OH MY GOODNESS WHY IS IT EATING MY FACE",
+        "artist":"Eva Widermann",
+        "collectible":true,
+        "elite":false,
+        "race":"Mech",
+        "playerClass":"Druid",
+        "mechanics":[
+            "Taunt"
+        ]
+    },
+    {
+        "id":"GVG_069",
+        "name":"Antique Healbot",
+        "type":"Minion",
+        "rarity":"Common",
+        "cost":5,
+        "attack":3,
+        "health":3,
+        "text":"<b>Battlecry:</b> Restore 8 Health to your hero.",
+        "flavor":"They don't make 'em like they used to! (Because of explosions, mostly.)",
+        "artist":"Jesper Esjing",
+        "collectible":true,
+        "race":"Mech",
+        "mechanics":[
+            "Battlecry"
+        ]
+    },
+    {
+        "id":"GVG_091",
+        "name":"Arcane Nullifier X-21",
+        "type":"Minion",
+        "rarity":"Rare",
+        "cost":4,
+        "attack":2,
+        "health":5,
+        "text":"<b>Taunt</b>\nCan't be targeted by spells or Hero Powers.",
+        "flavor":"There was some hard talk between gnome magi and engineers about inventing this mech.",
+        "artist":"Zero Yue",
+        "collectible":true,
+        "race":"Mech",
+        "mechanics":[
+            "Taunt"
+        ]
+    },
+    {
+        "id":"GVG_086e",
+        "name":"Armor Plated",
+        "type":"Enchantment",
+        "text":"Increased Attack.",
+        "playerClass":"Warrior"
+    },
+    {
+        "id":"PART_001e",
+        "name":"Armor Plating",
+        "type":"Enchantment",
+        "text":"+1 Health."
+    },
+    {
+        "id":"PART_001",
+        "name":"Armor Plating",
+        "type":"Spell",
+        "cost":1,
+        "text":"Give a minion +1 Health.",
+        "artist":"Nutchapol Thitinunthakorn"
+    },
+    {
+        "id":"GVG_030a",
+        "name":"Attack Mode",
+        "type":"Spell",
+        "text":"+1 Attack.",
+        "playerClass":"Druid"
+    },
+    {
+        "id":"GVG_030ae",
+        "name":"Attack Mode",
+        "type":"Enchantment",
+        "text":"+1 Attack.",
+        "playerClass":"Druid"
+    },
+    {
+        "id":"GVG_119",
+        "name":"Blingtron 3000",
+        "type":"Minion",
+        "rarity":"Legendary",
+        "cost":5,
+        "attack":3,
+        "health":4,
+        "text":"<b>Battlecry:</b> Equip a random weapon for each player.",
+        "flavor":"PREPARE PARTY SERVOS FOR IMMEDIATE DEPLOYMENT.",
+        "artist":"Jomaro Kindred",
+        "collectible":true,
+        "elite":true,
+        "race":"Mech",
+        "mechanics":[
+            "Battlecry"
+        ]
+    },
+    {
+        "id":"GVG_063",
+        "name":"Bolvar Fordragon",
+        "type":"Minion",
+        "rarity":"Legendary",
+        "cost":5,
+        "attack":1,
+        "health":7,
+        "text":"Whenever a friendly minion dies while this is in your hand, gain +1 Attack.",
+        "flavor":"Spoiler alert: Bolvar gets melted and then sits on an ice throne and everyone forgets about him.",
+        "artist":"Tooth",
+        "collectible":true,
+        "elite":true,
+        "playerClass":"Paladin"
+    },
+    {
+        "id":"GVG_099",
+        "name":"Bomb Lobber",
+        "type":"Minion",
+        "rarity":"Rare",
+        "cost":5,
+        "attack":3,
+        "health":3,
+        "text":"<b>Battlecry:</b> Deal 4 damage to a random enemy minion.",
+        "flavor":"He lobbies Orgrimmar daily on behalf of bombs.",
+        "artist":"Luca Zontini",
+        "collectible":true,
+        "mechanics":[
+            "Battlecry"
+        ]
+    },
+    {
+        "id":"GVG_110t",
+        "name":"Boom Bot",
+        "type":"Minion",
+        "cost":1,
+        "attack":1,
+        "health":1,
+        "text":"<b>Deathrattle</b>: Deal 1-4 damage to a random enemy.",
+        "race":"Mech",
+        "mechanics":[
+            "Deathrattle"
+        ]
+    },
+    {
+        "id":"GVG_050",
+        "name":"Bouncing Blade",
+        "type":"Spell",
+        "rarity":"Epic",
+        "cost":3,
+        "text":"Deal $1 damage to a random minion. Repeat until a minion dies.",
+        "flavor":"Only goblins would think this was a good idea. Even they are starting to have their doubts.",
+        "artist":"Andrew Hou",
+        "collectible":true,
+        "playerClass":"Warrior"
+    },
+    {
+        "id":"GVG_100e",
+        "name":"Brow Furrow",
+        "type":"Enchantment",
+        "text":"Increased stats.",
+        "playerClass":"Warlock"
+    },
+    {
+        "id":"GVG_068",
+        "name":"Burly Rockjaw Trogg",
+        "type":"Minion",
+        "rarity":"Common",
+        "cost":4,
+        "attack":3,
+        "health":5,
+        "text":"Whenever your opponent casts a spell, gain +2 Attack.",
+        "flavor":"He's burly because he does CrossFit.",
+        "artist":"Chris Rahn",
+        "collectible":true
+    },
+    {
+        "id":"GVG_056t",
+        "name":"Burrowing Mine",
+        "type":"Spell",
+        "cost":0,
+        "text":"When you draw this, it explodes. You take 10 damage and draw a card.",
+        "artist":"Chris Seaman",
+        "playerClass":"Warrior",
+        "mechanics":[
+            "ImmuneToSpellpower"
+        ]
+    },
+    {
+        "id":"GVG_017",
+        "name":"Call Pet",
+        "type":"Spell",
+        "rarity":"Rare",
+        "cost":2,
+        "text":"Draw a card.\nIf it's a Beast, it costs (4) less.",
+        "flavor":"Real hunters tame hungry crabs.",
+        "artist":"E.M. Gist",
+        "collectible":true,
+        "playerClass":"Hunter"
+    },
+    {
+        "id":"GVG_092t",
+        "name":"Chicken",
+        "type":"Minion",
+        "cost":1,
+        "attack":1,
+        "health":1,
+        "race":"Beast"
+    },
+    {
+        "id":"PART_004e",
+        "name":"Cloaked",
+        "type":"Enchantment",
+        "text":"Stealthed until your next turn."
+    },
+    {
+        "id":"GVG_121",
+        "name":"Clockwork Giant",
+        "type":"Minion",
+        "rarity":"Epic",
+        "cost":12,
+        "attack":8,
+        "health":8,
+        "text":"Costs (1) less for each card in your opponent's hand.",
+        "flavor":"He and Mountain Giant don't get along.",
+        "artist":"Dan Scott",
+        "collectible":true,
+        "race":"Mech"
+    },
+    {
+        "id":"GVG_082",
+        "name":"Clockwork Gnome",
+        "type":"Minion",
+        "rarity":"Common",
+        "cost":1,
+        "attack":2,
+        "health":1,
+        "text":"<b>Deathrattle:</b> Add a <b>Spare Part</b> card to your hand.",
+        "flavor":"Clockwork gnomes are always asking what time it is.",
+        "artist":"Matt Dixon",
+        "collectible":true,
+        "race":"Mech",
+        "mechanics":[
+            "Deathrattle"
+        ]
+    },
+    {
+        "id":"GVG_062",
+        "name":"Cobalt Guardian",
+        "type":"Minion",
+        "rarity":"Rare",
+        "cost":5,
+        "attack":6,
+        "health":3,
+        "text":"Whenever you summon a Mech, gain <b>Divine Shield</b>.",
+        "flavor":"Guardians used to be built out of Adamantium, but production got moved to Gadgetzan and Cobalt was cheap.",
+        "artist":"Jim Nelson",
+        "collectible":true,
+        "race":"Mech",
+        "playerClass":"Paladin"
+    },
+    {
+        "id":"GVG_073",
+        "name":"Cobra Shot",
+        "type":"Spell",
+        "rarity":"Common",
+        "cost":5,
+        "text":"Deal $3 damage to a minion and the enemy hero.",
+        "flavor":"\"Cobra Shot\" hurts way, way, way more than \"Cobra Cuddle.\"",
+        "artist":"Howard Lyon",
+        "collectible":true,
+        "playerClass":"Hunter"
+    },
+    {
+        "id":"GVG_059",
+        "name":"Coghammer",
+        "type":"Weapon",
+        "rarity":"Epic",
+        "cost":3,
+        "attack":2,
+        "durability":3,
+        "text":"<b>Battlecry:</b> Give a random friendly minion <b>Divine Shield</b> and <b>Taunt</b>.",
+        "flavor":"So you ripped this out of a machine, carved some runes on it, stuck it on a handle, and now it's a weapon of great divine power? Seems legit.",
+        "artist":"Danny Orizio",
+        "collectible":true,
+        "playerClass":"Paladin",
+        "mechanics":[
+            "Battlecry"
+        ]
+    },
+    {
+        "id":"GVG_013",
+        "name":"Cogmaster",
+        "type":"Minion",
+        "rarity":"Common",
+        "cost":1,
+        "attack":1,
+        "health":2,
+        "text":"Has +2 Attack while you have a Mech.",
+        "flavor":"After a while, you don't see the cogs and sprockets. All you see is a robot, a spider tank, a deathray...",
+        "artist":"Trent Kaniuga",
+        "collectible":true,
+        "mechanics":[
+            "Aura"
+        ]
+    },
+    {
+        "id":"GVG_024",
+        "name":"Cogmaster's Wrench",
+        "type":"Weapon",
+        "rarity":"Epic",
+        "cost":3,
+        "attack":1,
+        "durability":3,
+        "text":"Has +2 Attack while you have a Mech.",
+        "flavor":"For tightening cogs and smashin' troggs!",
+        "artist":"Richard Wright",
+        "collectible":true,
+        "playerClass":"Rogue",
+        "mechanics":[
+            "Aura"
+        ]
+    },
+    {
+        "id":"GVG_038",
+        "name":"Crackle",
+        "type":"Spell",
+        "rarity":"Common",
+        "cost":2,
+        "text":"Deal $3-$6 damage. <b>Overload: (1)</b>",
+        "flavor":"Snap! This card! Pop!",
+        "artist":"Warren Mahy",
+        "collectible":true,
+        "playerClass":"Shaman"
+    },
+    {
+        "id":"GVG_052",
+        "name":"Crush",
+        "type":"Spell",
+        "rarity":"Epic",
+        "cost":7,
+        "text":"Destroy a minion. If you have a damaged minion, this costs (4) less.",
+        "flavor":"Using this card on your enemies is one of the best things in life, according to some barbarians.",
+        "artist":"Michael Sutfin",
+        "collectible":true,
+        "playerClass":"Warrior"
+    },
+    {
+        "id":"GVG_041",
+        "name":"Dark Wispers",
+        "type":"Spell",
+        "rarity":"Epic",
+        "cost":6,
+        "text":"<b>Choose One -</b> Summon 5 Wisps; or Give a minion +5/+5 and <b>Taunt</b>.",
+        "flavor":"Don't worry; we fired the person who named this card.",
+        "artist":"Trent Kaniuga",
+        "collectible":true,
+        "playerClass":"Druid"
+    },
+    {
+        "id":"GVG_041b",
+        "name":"Dark Wispers",
+        "type":"Spell",
+        "text":"Summon 5 Wisps.",
+        "playerClass":"Druid"
+    },
+    {
+        "id":"GVG_041a",
+        "name":"Dark Wispers",
+        "type":"Spell",
+        "text":"+5/+5 and <b>Taunt</b>.",
+        "playerClass":"Druid"
+    },
+    {
+        "id":"GVG_041c",
+        "name":"Dark Wispers",
+        "type":"Enchantment",
+        "text":"+5/+5 and <b>Taunt</b>.",
+        "playerClass":"Druid"
+    },
+    {
+        "id":"GVG_015",
+        "name":"Darkbomb",
+        "type":"Spell",
+        "rarity":"Common",
+        "cost":2,
+        "text":"Deal $3 damage.",
+        "flavor":"If you're looking to make an \"Emo\" deck, this card is perfect!",
+        "artist":"Jeff Haynie",
+        "collectible":true,
+        "playerClass":"Warlock"
+    },
+    {
+        "id":"GVG_019",
+        "name":"Demonheart",
+        "type":"Spell",
+        "rarity":"Epic",
+        "cost":5,
+        "text":"Deal $5 damage to a minion.  If it's a friendly Demon, give it +5/+5 instead.",
+        "flavor":"Virtually every member of the pro demon lobby is a warlock. Weird.",
+        "artist":"Kerem Beyit",
+        "collectible":true,
+        "playerClass":"Warlock"
+    },
+    {
+        "id":"GVG_019e",
+        "name":"Demonheart",
+        "type":"Enchantment",
+        "text":"+5/+5.",
+        "playerClass":"Warlock"
+    },
+    {
+        "id":"GVG_110",
+        "name":"Dr. Boom",
+        "type":"Minion",
+        "rarity":"Legendary",
+        "cost":7,
+        "attack":7,
+        "health":7,
+        "text":"<b>Battlecry</b>: Summon two 1/1 Boom Bots. <i>WARNING: Bots may explode.</i>",
+        "flavor":"MARVEL AT HIS MIGHT!",
+        "artist":"Alex Garner",
+        "collectible":true,
+        "elite":true,
+        "mechanics":[
+            "Battlecry"
+        ]
+    },
+    {
+        "id":"GVG_080t",
+        "name":"Druid of the Fang",
+        "type":"Minion",
+        "cost":5,
+        "attack":7,
+        "health":7,
+        "artist":"Massive Black",
+        "race":"Beast",
+        "playerClass":"Druid"
+    },
+    {
+        "id":"GVG_080",
+        "name":"Druid of the Fang",
+        "type":"Minion",
+        "rarity":"Common",
+        "cost":5,
+        "attack":4,
+        "health":4,
+        "text":"<b>Battlecry:</b> If you have a Beast, transform this minion into a 7/7.",
+        "flavor":"The Druids of the Fang live in the Wailing Caverns. They wear cool snake shirts and tell snake jokes and say \"bro\" a lot.",
+        "artist":"Brandon Kitkouski",
+        "collectible":true,
+        "playerClass":"Druid",
+        "mechanics":[
+            "Battlecry"
+        ]
+    },
+    {
+        "id":"GVG_066",
+        "name":"Dunemaul Shaman",
+        "type":"Minion",
+        "rarity":"Rare",
+        "cost":4,
+        "attack":5,
+        "health":4,
+        "text":"<b>Windfury, Overload: (1)</b>\n50% chance to attack the wrong enemy.",
+        "flavor":"He just closes his eyes and goes for it. Raarararrrarar!",
+        "artist":"José Ladrönn",
+        "collectible":true,
+        "playerClass":"Shaman",
+        "mechanics":[
+            "Windfury"
+        ]
+    },
+    {
+        "id":"GVG_005",
+        "name":"Echo of Medivh",
+        "type":"Spell",
+        "rarity":"Epic",
+        "cost":4,
+        "text":"Put a copy of each friendly minion into your hand.",
+        "flavor":"Medivh's echo haunts Karazhan, eternally cheating at chess and <i>Hearthstone</i>.",
+        "artist":"Alex Garner",
+        "collectible":true,
+        "playerClass":"Mage"
+    },
+    {
+        "id":"PART_005",
+        "name":"Emergency Coolant",
+        "type":"Spell",
+        "cost":1,
+        "text":"<b>Freeze</b> a minion.",
+        "artist":"Peerasak Senalai",
+        "mechanics":[
+            "Freeze"
+        ]
+    },
+    {
+        "id":"GVG_107",
+        "name":"Enhance-o Mechano",
+        "type":"Minion",
+        "rarity":"Epic",
+        "cost":4,
+        "attack":3,
+        "health":2,
+        "text":"<b>Battlecry:</b> Give your other minions <b>Windfury</b>, <b>Taunt</b>, or <b>Divine Shield</b>.\n<i>(at random)</i>",
+        "flavor":"His enhancements are gluten free!",
+        "artist":"Zoltan Boros",
+        "collectible":true,
+        "race":"Mech",
+        "mechanics":[
+            "Battlecry"
+        ]
+    },
+    {
+        "id":"GVG_076",
+        "name":"Explosive Sheep",
+        "type":"Minion",
+        "rarity":"Common",
+        "cost":2,
+        "attack":1,
+        "health":1,
+        "text":"<b>Deathrattle:</b> Deal 2 damage to all minions.",
+        "flavor":"How is this supposed to work?  Your enemies think, \"<i>Hey!</i> Cute sheep!\" and run over to cuddle it?",
+        "artist":"Ralph Horsley",
+        "collectible":true,
+        "race":"Mech",
+        "mechanics":[
+            "Deathrattle"
+        ]
+    },
+    {
+        "id":"GVG_023a",
+        "name":"Extra Sharp",
+        "type":"Enchantment",
+        "text":"+1 Attack."
+    },
+    {
+        "id":"GVG_026",
+        "name":"Feign Death",
+        "type":"Spell",
+        "rarity":"Epic",
+        "cost":2,
+        "text":"Trigger all <b>Deathrattles</b> on your minions.",
+        "flavor":"The hardest part about doing a \"Feign Death\" convincingly is learning how to make the right smell. It takes a lot of commitment.",
+        "artist":"Luca Zontini",
+        "collectible":true,
+        "playerClass":"Hunter"
+    },
+    {
+        "id":"GVG_020",
+        "name":"Fel Cannon",
+        "type":"Minion",
+        "rarity":"Rare",
+        "cost":4,
+        "attack":3,
+        "health":5,
+        "text":"At the end of your turn, deal 2 damage to a non-Mech minion.",
+        "flavor":"The box says, \"New and improved, with 200% more fel!\"",
+        "artist":"Matt Gaser",
+        "collectible":true,
+        "race":"Mech",
+        "playerClass":"Warlock"
+    },
+    {
+        "id":"GVG_016",
+        "name":"Fel Reaver",
+        "type":"Minion",
+        "rarity":"Epic",
+        "cost":5,
+        "attack":8,
+        "health":8,
+        "text":"Whenever your opponent plays a card, discard the top 3 cards of your deck.",
+        "flavor":"So reaver. Much fel. Wow.",
+        "artist":"Zoltan & Gabor",
+        "collectible":true,
+        "race":"Mech"
+    },
+    {
+        "id":"PART_004",
+        "name":"Finicky Cloakfield",
+        "type":"Spell",
+        "cost":1,
+        "text":"Give a friendly minion <b>Stealth</b> until your next turn.",
+        "artist":"Nutchapol Thitinunthakorn"
+    },
+    {
+        "id":"GVG_007",
+        "name":"Flame Leviathan",
+        "type":"Minion",
+        "rarity":"Legendary",
+        "cost":7,
+        "attack":7,
+        "health":7,
+        "text":"When you draw this, deal 2 damage to all characters.",
+        "flavor":"Mimiron likes to take the Flame Leviathan out on some sweet joyrides.",
+        "artist":"Aleksi Briclot",
+        "collectible":true,
+        "elite":true,
+        "race":"Mech",
+        "playerClass":"Mage"
+    },
+    {
+        "id":"GVG_001",
+        "name":"Flamecannon",
+        "type":"Spell",
+        "rarity":"Common",
+        "cost":2,
+        "text":"Deal $4 damage to a random enemy minion.",
+        "flavor":"Calling something a flamecannon really doesn't do much to distinguish it from other goblin devices.",
+        "artist":"Mauricio Herrera",
+        "collectible":true,
+        "playerClass":"Mage"
+    },
+    {
+        "id":"GVG_100",
+        "name":"Floating Watcher",
+        "type":"Minion",
+        "rarity":"Common",
+        "cost":5,
+        "attack":4,
+        "health":4,
+        "text":"Whenever your hero takes damage on your turn, gain +2/+2.",
+        "flavor":"\"Evil Eye Watcher of Doom\" was the original name, but marketing felt it was a bit too aggressive.",
+        "artist":"Todd Lockwood",
+        "collectible":true,
+        "race":"Demon",
+        "playerClass":"Warlock"
+    },
+    {
+        "id":"GVG_084",
+        "name":"Flying Machine",
+        "type":"Minion",
+        "rarity":"Common",
+        "cost":3,
+        "attack":1,
+        "health":4,
+        "text":"<b>Windfury</b>",
+        "flavor":"To operate, this contraption needs a hula doll on the dashboard. Otherwise it's just a “falling machine.”",
+        "artist":"Matt Dixon",
+        "collectible":true,
+        "race":"Mech",
+        "mechanics":[
+            "Windfury"
+        ]
+    },
+    {
+        "id":"GVG_113",
+        "name":"Foe Reaper 4000",
+        "type":"Minion",
+        "rarity":"Legendary",
+        "cost":8,
+        "attack":6,
+        "health":9,
+        "text":"Also damages the minions next to whomever he attacks.",
+        "flavor":"Foe reaping is really not so different from harvest reaping, at the end of the day.",
+        "artist":"James Ryman",
+        "collectible":true,
+        "elite":true,
+        "race":"Mech"
+    },
+    {
+        "id":"GVG_079",
+        "name":"Force-Tank MAX",
+        "type":"Minion",
+        "rarity":"Common",
+        "cost":8,
+        "attack":7,
+        "health":7,
+        "text":"<b>Divine Shield</b>",
+        "flavor":"There is a factory in Tanaris for crafting force-tanks, but it only ever made two, because of cost overruns.",
+        "artist":"Nutchapol Thitinunthakorn",
+        "collectible":true,
+        "race":"Mech",
+        "mechanics":[
+            "Divine Shield"
+        ]
+    },
+    {
+        "id":"GVG_049",
+        "name":"Gahz'rilla",
+        "type":"Minion",
+        "rarity":"Legendary",
+        "cost":7,
+        "attack":6,
+        "health":9,
+        "text":"Whenever this minion takes damage, double its Attack.",
+        "flavor":"The Sen'jin High football team is The Gahz'rillas.",
+        "artist":"Raymond Swanland",
+        "collectible":true,
+        "elite":true,
+        "race":"Beast",
+        "playerClass":"Hunter"
+    },
+    {
+        "id":"GVG_028t",
+        "name":"Gallywix's Coin",
+        "type":"Spell",
+        "cost":0,
+        "text":"Gain 1 Mana Crystal this turn only.\n<i>(Won't trigger Gallywix.)</i>"
+    },
+    {
+        "id":"GVG_117",
+        "name":"Gazlowe",
+        "type":"Minion",
+        "rarity":"Legendary",
+        "cost":6,
+        "attack":3,
+        "health":6,
+        "text":"Whenever you cast a 1-mana spell, add a random Mech to your hand.",
+        "flavor":"Gazlowe was voted \"Most Likely to Explode\" in high school.",
+        "artist":"Luke Mancini",
+        "collectible":true,
+        "elite":true
+    },
+    {
+        "id":"GVG_032b",
+        "name":"Gift of Cards",
+        "type":"Spell",
+        "text":"Each player draws a card.",
+        "playerClass":"Druid"
+    },
+    {
+        "id":"GVG_032a",
+        "name":"Gift of Mana",
+        "type":"Spell",
+        "text":"Give each player a Mana Crystal.",
+        "playerClass":"Druid"
+    },
+    {
+        "id":"GVG_081",
+        "name":"Gilblin Stalker",
+        "type":"Minion",
+        "rarity":"Common",
+        "cost":2,
+        "attack":2,
+        "health":3,
+        "text":"<b>Stealth</b>",
+        "flavor":"\"Shhh, I think I hear something.\"\n\n\"Ah, it's probably nothing.\" - Every Henchman",
+        "artist":"Seamus Gallagher",
+        "collectible":true,
+        "mechanics":[
+            "Stealth"
+        ]
+    },
+    {
+        "id":"GVG_043e",
+        "name":"Glaivezooka",
+        "type":"Enchantment",
+        "text":"+1 Attack.",
+        "playerClass":"Hunter"
+    },
+    {
+        "id":"GVG_043",
+        "name":"Glaivezooka",
+        "type":"Weapon",
+        "rarity":"Common",
+        "cost":2,
+        "attack":2,
+        "durability":2,
+        "text":"<b>Battlecry:</b> Give a random friendly minion +1 Attack.",
+        "flavor":"For the times when a regular bazooka just isn't enough.",
+        "artist":"Gino Whitehall",
+        "collectible":true,
+        "playerClass":"Hunter",
+        "mechanics":[
+            "Battlecry"
+        ]
+    },
+    {
+        "id":"GVG_098",
+        "name":"Gnomeregan Infantry",
+        "type":"Minion",
+        "rarity":"Common",
+        "cost":3,
+        "attack":1,
+        "health":4,
+        "text":"<b>Charge</b>\n<b>Taunt</b>",
+        "flavor":"The gnomes are valiant and ready to return to their irradiated, poorly ventilated homeland!",
+        "artist":"Zoltan & Gabor",
+        "collectible":true,
+        "mechanics":[
+            "Charge",
+            "Taunt"
+        ]
+    },
+    {
+        "id":"GVG_092",
+        "name":"Gnomish Experimenter",
+        "type":"Minion",
+        "rarity":"Rare",
+        "cost":3,
+        "attack":3,
+        "health":2,
+        "text":"<b>Battlecry:</b> Draw a card. If it's a minion, transform it into a Chicken.",
+        "flavor":"He's legitimately surprised every time he turns himself into a chicken.",
+        "artist":"Jesper Esjing",
+        "collectible":true,
+        "mechanics":[
+            "Battlecry"
+        ]
+    },
+    {
+        "id":"GVG_023",
+        "name":"Goblin Auto-Barber",
+        "type":"Minion",
+        "rarity":"Common",
+        "cost":2,
+        "attack":3,
+        "health":2,
+        "text":"<b>Battlecry</b>: Give your weapon +1 Attack.",
+        "flavor":"This guy is excellent at adjusting your haircut and/or height.",
+        "artist":"Zolton Boros",
+        "collectible":true,
+        "race":"Mech",
+        "playerClass":"Rogue",
+        "mechanics":[
+            "Battlecry"
+        ]
+    },
+    {
+        "id":"GVG_004",
+        "name":"Goblin Blastmage",
+        "type":"Minion",
+        "rarity":"Rare",
+        "cost":4,
+        "attack":5,
+        "health":4,
+        "text":"<b>Battlecry:</b> If you have a Mech, deal 4 damage randomly split among all enemies.",
+        "flavor":"If you can't find a bomb to throw, just pick up any goblin invention and throw that.",
+        "artist":"Glenn Rane",
+        "collectible":true,
+        "playerClass":"Mage",
+        "mechanics":[
+            "Battlecry"
+        ]
+    },
+    {
+        "id":"GVG_095",
+        "name":"Goblin Sapper",
+        "type":"Minion",
+        "rarity":"Rare",
+        "cost":3,
+        "attack":2,
+        "health":4,
+        "text":"Has +4 Attack while your opponent has 6 or more cards in hand.",
+        "flavor":"He’s not such a binge exploder anymore. These days, he only explodes socially.",
+        "artist":"Jesper Esjing",
+        "collectible":true,
+        "mechanics":[
+            "Aura"
+        ]
+    },
+    {
+        "id":"GVG_021e",
+        "name":"Grasp of Mal'Ganis",
+        "type":"Enchantment",
+        "text":"Mal'Ganis is granting +2/+2.",
+        "playerClass":"Warlock"
+    },
+    {
+        "id":"GVG_032",
+        "name":"Grove Tender",
+        "type":"Minion",
+        "rarity":"Rare",
+        "cost":3,
+        "attack":2,
+        "health":4,
+        "text":"<b>Choose One -</b> Give each player a Mana Crystal; or Each player draws a card.",
+        "flavor":"Likes: Hiking and the great outdoors. Dislikes: Goblin shredders and sandals. (Can’t find any that fit!).",
+        "artist":"Chris Rahn",
+        "collectible":true,
+        "playerClass":"Druid"
+    },
+    {
+        "id":"GVG_104a",
+        "name":"HERE, TAKE BUFF.",
+        "type":"Enchantment",
+        "text":"+2/+2."
+    },
+    {
+        "id":"GVG_120",
+        "name":"Hemet Nesingwary",
+        "type":"Minion",
+        "rarity":"Legendary",
+        "cost":5,
+        "attack":6,
+        "health":3,
+        "text":"<b>Battlecry:</b> Destroy a Beast.",
+        "flavor":"It's hard to make a living as a hunter in a world where beasts instantly reappear minutes after you kill them.",
+        "artist":"Ralph Horsley",
+        "collectible":true,
+        "elite":true,
+        "mechanics":[
+            "Battlecry"
+        ]
+    },
+    {
+        "id":"GVG_104",
+        "name":"Hobgoblin",
+        "type":"Minion",
+        "rarity":"Epic",
+        "cost":3,
+        "attack":2,
+        "health":3,
+        "text":"Whenever you play a 1-Attack minion, give it +2/+2.",
+        "flavor":"Hobgoblins are meeting next week to discuss union benefits.  First on the list: dental plan.",
+        "artist":"Laurel D. Austin",
+        "collectible":true
+    },
+    {
+        "id":"GVG_089",
+        "name":"Illuminator",
+        "type":"Minion",
+        "rarity":"Rare",
+        "cost":3,
+        "attack":2,
+        "health":4,
+        "text":"If you control a <b>Secret</b> at the end of your turn, restore 4 health to your hero.",
+        "flavor":"\"LUMOS!\" is not what they yell. What do you think this is, Hogwarts?",
+        "artist":"Jim Nelson",
+        "collectible":true
+    },
+    {
+        "id":"GVG_045t",
+        "name":"Imp",
+        "type":"Minion",
+        "cost":1,
+        "attack":1,
+        "health":1,
+        "race":"Demon",
+        "playerClass":"Warlock"
+    },
+    {
+        "id":"GVG_045",
+        "name":"Imp-losion",
+        "type":"Spell",
+        "rarity":"Rare",
+        "cost":4,
+        "text":"Deal $2-$4 damage to a minion. Summon a 1/1 Imp for each damage dealt.",
+        "flavor":"The shrapnel is waaaaay worse than the explosion.",
+        "artist":"Jaemin Kim",
+        "collectible":true,
+        "playerClass":"Warlock"
+    },
+    {
+        "id":"GVG_056",
+        "name":"Iron Juggernaut",
+        "type":"Minion",
+        "rarity":"Legendary",
+        "cost":6,
+        "attack":6,
+        "health":5,
+        "text":"<b>Battlecry:</b> Shuffle a Mine into your opponent's deck. When drawn, it explodes for 10 damage.",
+        "flavor":"The Iron Juggernaut guards Orgrimmar and has just earned the \"Employee of the Month\" award!",
+        "artist":"Raymond Swanland",
+        "collectible":true,
+        "elite":true,
+        "race":"Mech",
+        "playerClass":"Warrior",
+        "mechanics":[
+            "Battlecry"
+        ]
+    },
+    {
+        "id":"GVG_027",
+        "name":"Iron Sensei",
+        "type":"Minion",
+        "rarity":"Rare",
+        "cost":3,
+        "attack":2,
+        "health":2,
+        "text":"At the end of your turn, give another friendly Mech +2/+2.",
+        "flavor":"Mechs like learning from him because he really speaks their language.\n\n0110100001101001",
+        "artist":"Brian Despain",
+        "collectible":true,
+        "race":"Mech",
+        "playerClass":"Rogue"
+    },
+    {
+        "id":"GVG_027e",
+        "name":"Ironed Out",
+        "type":"Enchantment",
+        "text":"Increased stats.",
+        "playerClass":"Rogue"
+    },
+    {
+        "id":"GVG_094",
+        "name":"Jeeves",
+        "type":"Minion",
+        "rarity":"Rare",
+        "cost":4,
+        "attack":1,
+        "health":4,
+        "text":"At the end of each player's turn, that player draws until they have 3 cards.",
+        "flavor":"This robot is a lean, mean, butlerin' machine.",
+        "artist":"Matt Dixon",
+        "collectible":true,
+        "race":"Mech"
+    },
+    {
+        "id":"GVG_106",
+        "name":"Junkbot",
+        "type":"Minion",
+        "rarity":"Epic",
+        "cost":5,
+        "attack":1,
+        "health":5,
+        "text":"Whenever a friendly Mech dies, gain +2/+2.",
+        "flavor":"One bot's junk is another bot's AWESOME UPGRADE!",
+        "artist":"Zoltan Boros",
+        "collectible":true,
+        "race":"Mech"
+    },
+    {
+        "id":"GVG_106e",
+        "name":"Junked Up",
+        "type":"Enchantment",
+        "text":"Increased stats."
+    },
+    {
+        "id":"GVG_074",
+        "name":"Kezan Mystic",
+        "type":"Minion",
+        "rarity":"Rare",
+        "cost":4,
+        "attack":4,
+        "health":3,
+        "text":"<b>Battlecry:</b> Take control of a random enemy <b>Secret</b>.",
+        "flavor":"They pretend to be wise and enlightened, but they mostly just hate to be left out of a secret.",
+        "artist":"Jakub Kasper",
+        "collectible":true,
+        "mechanics":[
+            "Battlecry"
+        ]
+    },
+    {
+        "id":"GVG_046",
+        "name":"King of Beasts",
+        "type":"Minion",
+        "rarity":"Rare",
+        "cost":5,
+        "attack":2,
+        "health":6,
+        "text":"<b>Taunt</b>. <b>Battlecry:</b> Gain +1 Attack for each other Beast you have.",
+        "flavor":"He never sleeps.  Not even in the mighty jungle.",
+        "artist":"Seamus Gallagher",
+        "collectible":true,
+        "race":"Beast",
+        "playerClass":"Hunter",
+        "mechanics":[
+            "Battlecry",
+            "Taunt"
+        ]
+    },
+    {
+        "id":"GVG_012",
+        "name":"Light of the Naaru",
+        "type":"Spell",
+        "rarity":"Rare",
+        "cost":1,
+        "text":"Restore #3 Health. If the target is still damaged, summon a Lightwarden.",
+        "flavor":"\"Light it up!\" - Command given to both Lightwardens and Goblins holding Flamecannons.",
+        "artist":"Jesper Ejsing",
+        "collectible":true,
+        "playerClass":"Priest"
+    },
+    {
+        "id":"GVG_008",
+        "name":"Lightbomb",
+        "type":"Spell",
+        "rarity":"Epic",
+        "cost":6,
+        "text":"Deal damage to each minion equal to its Attack.",
+        "flavor":"This is what happens when you allow goblins to be priests.",
+        "artist":"Luca Zontini",
+        "collectible":true,
+        "playerClass":"Priest",
+        "mechanics":[
+            "AffectedBySpellPower"
+        ]
+    },
+    {
+        "id":"GVG_097",
+        "name":"Lil' Exorcist",
+        "type":"Minion",
+        "rarity":"Rare",
+        "cost":3,
+        "attack":2,
+        "health":3,
+        "text":"<b>Taunt</b>\n<b>Battlecry:</b> Gain +1/+1 for each enemy <b>Deathrattle</b> minion.",
+        "flavor":"Warlocks have the town exorcist on speed dial in case they unleash the wrong demon.",
+        "artist":"Jim Nelson",
+        "collectible":true,
+        "mechanics":[
+            "Battlecry",
+            "Taunt"
+        ]
+    },
+    {
+        "id":"GVG_071",
+        "name":"Lost Tallstrider",
+        "type":"Minion",
+        "rarity":"Common",
+        "cost":4,
+        "attack":5,
+        "health":4,
+        "flavor":"The message, \"If found, please return to Mulgore,\" is tattooed on his rear.",
+        "artist":"Benjamin Zhang",
+        "collectible":true,
+        "race":"Beast"
+    },
+    {
+        "id":"GVG_090",
+        "name":"Madder Bomber",
+        "type":"Minion",
+        "rarity":"Rare",
+        "cost":5,
+        "attack":5,
+        "health":4,
+        "text":"<b>Battlecry:</b> Deal 6 damage randomly split between all other characters.",
+        "flavor":"Dang, Bomber, calm down.",
+        "artist":"Alex Horley Orlandelli",
+        "collectible":true,
+        "mechanics":[
+            "Battlecry"
+        ]
+    },
+    {
+        "id":"GVG_021",
+        "name":"Mal'Ganis",
+        "type":"Minion",
+        "rarity":"Legendary",
+        "cost":9,
+        "attack":9,
+        "health":7,
+        "text":"Your other Demons have +2/+2.\nYour hero is <b>Immune</b>.",
+        "flavor":"Mal'Ganis doesn't like being betrayed, so if you discard him, watch out.",
+        "artist":"Wayne Reynolds",
+        "collectible":true,
+        "elite":true,
+        "race":"Demon",
+        "playerClass":"Warlock",
+        "mechanics":[
+            "Aura"
+        ]
+    },
+    {
+        "id":"GVG_035",
+        "name":"Malorne",
+        "type":"Minion",
+        "rarity":"Legendary",
+        "cost":7,
+        "attack":9,
+        "health":7,
+        "text":"<b>Deathrattle:</b> Shuffle this minion into your deck.",
+        "flavor":"When Malorne isn't mauling hordes of demons, he enjoys attending parties, though he prefers to go stag.",
+        "artist":"Oliver Chipping",
+        "collectible":true,
+        "elite":true,
+        "race":"Beast",
+        "playerClass":"Druid",
+        "mechanics":[
+            "Deathrattle"
+        ]
+    },
+    {
+        "id":"GVG_034",
+        "name":"Mech-Bear-Cat",
+        "type":"Minion",
+        "rarity":"Rare",
+        "cost":6,
+        "attack":7,
+        "health":6,
+        "text":"Whenever this minion takes damage, add a <b>Spare Part</b> card to your hand.",
+        "flavor":"Crushes buildings with his BEAR hands.",
+        "artist":"Trent Kaniuga",
+        "collectible":true,
+        "race":"Mech",
+        "playerClass":"Druid"
+    },
+    {
+        "id":"GVG_078",
+        "name":"Mechanical Yeti",
+        "type":"Minion",
+        "rarity":"Common",
+        "cost":4,
+        "attack":4,
+        "health":5,
+        "text":"<b>Deathrattle:</b> Give each player a <b>Spare Part.</b>",
+        "flavor":"The yetis of Chillwind Point are a source of both inspiration and savage beatings.",
+        "artist":"Chris Seaman",
+        "collectible":true,
+        "race":"Mech",
+        "mechanics":[
+            "Deathrattle"
+        ]
+    },
+    {
+        "id":"GVG_006",
+        "name":"Mechwarper",
+        "type":"Minion",
+        "rarity":"Common",
+        "cost":2,
+        "attack":2,
+        "health":3,
+        "text":"Your Mechs cost (1) less.",
+        "flavor":"Mechs that summon mechs? What's next? Donuts that summon donuts? Mmmmm.",
+        "artist":"Phil Saunders",
+        "collectible":true,
+        "race":"Mech",
+        "mechanics":[
+            "Aura"
+        ]
+    },
+    {
+        "id":"GVG_116",
+        "name":"Mekgineer Thermaplugg",
+        "type":"Minion",
+        "rarity":"Legendary",
+        "cost":9,
+        "attack":9,
+        "health":7,
+        "text":"Whenever an enemy minion dies, summon a Leper Gnome.",
+        "flavor":"He was obsessed with explosives until he discovered knitting. Now he yells, “SWEATERS! MORE SWEATERS!”",
+        "artist":"Trent Kaniuga",
+        "collectible":true,
+        "elite":true,
+        "race":"Mech"
+    },
+    {
+        "id":"GVG_067a",
+        "name":"Metabolized Magic",
+        "type":"Enchantment",
+        "text":"Increased Attack.",
+        "mechanics":[
+            "Aura"
+        ]
+    },
+    {
+        "id":"GVG_068a",
+        "name":"Metabolized Magic",
+        "type":"Enchantment",
+        "text":"Increased Attack.",
+        "mechanics":[
+            "Aura"
+        ]
+    },
+    {
+        "id":"GVG_048e",
+        "name":"Metal Teeth",
+        "type":"Enchantment",
+        "text":"+2 Attack.",
+        "playerClass":"Hunter"
+    },
+    {
+        "id":"GVG_048",
+        "name":"Metaltooth Leaper",
+        "type":"Minion",
+        "rarity":"Rare",
+        "cost":3,
+        "attack":3,
+        "health":3,
+        "text":"<b>Battlecry</b>: Give your other Mechs +2 Attack.",
+        "flavor":"Don't leave them out in the rain. In Un'Goro Crater there is a whole colony of rust-tooth leapers.",
+        "artist":"Hideaki Takamura",
+        "collectible":true,
+        "race":"Mech",
+        "playerClass":"Hunter",
+        "mechanics":[
+            "Battlecry"
+        ]
+    },
+    {
+        "id":"GVG_103",
+        "name":"Micro Machine",
+        "type":"Minion",
+        "rarity":"Common",
+        "cost":2,
+        "attack":1,
+        "health":2,
+        "text":"At the start of each turn, gain +1 Attack.",
+        "flavor":"This card is the real thing.",
+        "artist":"Skan Srisuwan",
+        "collectible":true,
+        "race":"Mech"
+    },
+    {
+        "id":"GVG_102e",
+        "name":"Might of Tinkertown",
+        "type":"Enchantment",
+        "text":"+1/+1."
+    },
+    {
+        "id":"GVG_049e",
+        "name":"Might of Zul'Farrak",
+        "type":"Enchantment",
+        "text":"Multiplying Attack.",
+        "playerClass":"Hunter"
+    },
+    {
+        "id":"GVG_111",
+        "name":"Mimiron's Head",
+        "type":"Minion",
+        "rarity":"Legendary",
+        "cost":5,
+        "attack":4,
+        "health":5,
+        "text":"At the start of your turn, if you have at least 3 Mechs, destroy them all and form V-07-TR-0N.",
+        "flavor":"Do not push the big red button!",
+        "artist":"Trent Kaniuga",
+        "collectible":true,
+        "elite":true,
+        "race":"Mech"
+    },
+    {
+        "id":"GVG_109",
+        "name":"Mini-Mage",
+        "type":"Minion",
+        "rarity":"Epic",
+        "cost":4,
+        "attack":4,
+        "health":1,
+        "text":"<b>Stealth</b>\n<b>Spell Damage +1</b>",
+        "flavor":"He is sometimes found hiding in the treasure chest in the Gurubashi Arena.",
+        "artist":"Ben Olson",
+        "collectible":true,
+        "mechanics":[
+            "Spellpower",
+            "Stealth"
+        ]
+    },
+    {
+        "id":"GVG_018",
+        "name":"Mistress of Pain",
+        "type":"Minion",
+        "rarity":"Rare",
+        "cost":2,
+        "attack":1,
+        "health":4,
+        "text":"Whenever this minion deals damage, restore that much Health to your hero.",
+        "flavor":"Her sister is the Mistress of Pane who sells windows and shower doors.",
+        "artist":"Carl Critchlow",
+        "collectible":true,
+        "race":"Demon",
+        "playerClass":"Warlock"
+    },
+    {
+        "id":"GVG_112",
+        "name":"Mogor the Ogre",
+        "type":"Minion",
+        "rarity":"Legendary",
+        "cost":6,
+        "attack":7,
+        "health":6,
+        "text":"All minions have a 50% chance to attack the wrong enemy.",
+        "flavor":"Mogor helped reopen the Dark Portal once. You know you're in trouble when you have to rely on an ogre.",
+        "artist":"Michal Ivan",
+        "collectible":true,
+        "elite":true
+    },
+    {
+        "id":"GVG_061",
+        "name":"Muster for Battle",
+        "type":"Spell",
+        "rarity":"Rare",
+        "cost":3,
+        "text":"Summon three 1/1 Silver Hand Recruits. Equip a 1/4 Weapon.",
+        "flavor":"\"I'm bringing the guacamole!\" – One of the most successful (yet rare) Silver Hand rallying cries",
+        "artist":"Mike Hayes",
+        "collectible":true,
+        "playerClass":"Paladin"
+    },
+    {
+        "id":"GVG_042",
+        "name":"Neptulon",
+        "type":"Minion",
+        "rarity":"Legendary",
+        "cost":7,
+        "attack":7,
+        "health":7,
+        "text":"<b>Battlecry:</b> Add 4 random Murlocs to your hand. <b>Overload: (3)</b>",
+        "flavor":"Neptulon is \"The Tidehunter\". He’s one of the four elemental lords. And he and Ragnaros get together and make really amazing saunas.",
+        "artist":"Ruan Jia",
+        "collectible":true,
+        "elite":true,
+        "playerClass":"Shaman",
+        "mechanics":[
+            "Battlecry"
+        ]
+    },
+    {
+        "id":"GVG_065",
+        "name":"Ogre Brute",
+        "type":"Minion",
+        "rarity":"Common",
+        "cost":3,
+        "attack":4,
+        "health":4,
+        "text":"50% chance to attack the wrong enemy.",
+        "flavor":"Ogres have really terrible short-term chocolate.",
+        "artist":"Vinod Rams",
+        "collectible":true
+    },
+    {
+        "id":"GVG_088",
+        "name":"Ogre Ninja",
+        "type":"Minion",
+        "rarity":"Rare",
+        "cost":5,
+        "attack":6,
+        "health":6,
+        "text":"<b>Stealth</b>\n50% chance to attack the wrong enemy.",
+        "flavor":"He didn't have the grades to get into ninja school, but his dad pulled some strings.",
+        "artist":"Samwise",
+        "collectible":true,
+        "playerClass":"Rogue",
+        "mechanics":[
+            "Stealth"
+        ]
+    },
+    {
+        "id":"GVG_054",
+        "name":"Ogre Warmaul",
+        "type":"Weapon",
+        "rarity":"Common",
+        "cost":3,
+        "attack":4,
+        "durability":2,
+        "text":"50% chance to attack the wrong enemy.",
+        "flavor":"Simple, misguided, and incredibly dangerous. You know, like most things ogre.",
+        "artist":"Richard Wright",
+        "collectible":true,
+        "playerClass":"Warrior"
+    },
+    {
+        "id":"GVG_025",
+        "name":"One-eyed Cheat",
+        "type":"Minion",
+        "rarity":"Rare",
+        "cost":2,
+        "attack":4,
+        "health":1,
+        "text":"Whenever you summon a Pirate, gain <b>Stealth</b>.",
+        "flavor":"When pirates say there is no \"Eye\" in \"team,\" they are very literal about it.",
+        "artist":"Danny Beck",
+        "collectible":true,
+        "race":"Pirate",
+        "playerClass":"Rogue"
+    },
+    {
+        "id":"GVG_123e",
+        "name":"Overclocked",
+        "type":"Enchantment",
+        "text":"Spell Damage +2.",
+        "playerClass":"Mage",
+        "mechanics":[
+            "Spellpower"
+        ]
+    },
+    {
+        "id":"GVG_096",
+        "name":"Piloted Shredder",
+        "type":"Minion",
+        "rarity":"Common",
+        "cost":4,
+        "attack":4,
+        "health":3,
+        "text":"<b>Deathrattle:</b> Summon a random 2-Cost minion.",
+        "flavor":"Once upon a time, only goblins piloted shredders. These days, everyone from Doomsayer to Lorewalker Cho seems to ride one.",
+        "artist":"Dan Scott",
+        "collectible":true,
+        "race":"Mech",
+        "mechanics":[
+            "Deathrattle"
+        ]
+    },
+    {
+        "id":"GVG_105",
+        "name":"Piloted Sky Golem",
+        "type":"Minion",
+        "rarity":"Epic",
+        "cost":6,
+        "attack":6,
+        "health":4,
+        "text":"<b>Deathrattle:</b> Summon a random 4-Cost minion.",
+        "flavor":"The pinnacle of goblin engineering. Includes an espresso machine and foot massager.",
+        "artist":"Michael Phillippi",
+        "collectible":true,
+        "race":"Mech",
+        "mechanics":[
+            "Deathrattle"
+        ]
+    },
+    {
+        "id":"GVG_076a",
+        "name":"Pistons",
+        "type":"Enchantment",
+        "text":"Increased Attack."
+    },
+    {
+        "id":"GVG_036e",
+        "name":"Powered",
+        "type":"Enchantment",
+        "text":"+2/+2.",
+        "playerClass":"Shaman"
+    },
+    {
+        "id":"GVG_036",
+        "name":"Powermace",
+        "type":"Weapon",
+        "rarity":"Rare",
+        "cost":3,
+        "attack":3,
+        "durability":2,
+        "text":"<b>Deathrattle</b>: Give a random friendly Mech +2/+2.",
+        "flavor":"People assume that shamans control the elements, but really, they have to ask them stuff and the elements are like, \"Yeah ok, sure.\"",
+        "artist":"Zoltan and Gabor",
+        "collectible":true,
+        "playerClass":"Shaman",
+        "mechanics":[
+            "Deathrattle"
+        ]
+    },
+    {
+        "id":"GVG_064",
+        "name":"Puddlestomper",
+        "type":"Minion",
+        "rarity":"Common",
+        "cost":2,
+        "attack":3,
+        "health":2,
+        "flavor":"He pays homage to Morgl, the great murloc oracle! (Who doesn't??)",
+        "artist":"Jaemin Kim",
+        "collectible":true,
+        "race":"Murloc"
+    },
+    {
+        "id":"GVG_101e",
+        "name":"Pure",
+        "type":"Enchantment",
+        "text":"Increased Stats.",
+        "playerClass":"Paladin"
+    },
+    {
+        "id":"GVG_060",
+        "name":"Quartermaster",
+        "type":"Minion",
+        "rarity":"Epic",
+        "cost":5,
+        "attack":2,
+        "health":5,
+        "text":"<b>Battlecry:</b> Give your Silver Hand Recruits +2/+2.",
+        "flavor":"His specialty? Dividing things into four pieces.",
+        "artist":"Phroilan Gardner",
+        "collectible":true,
+        "playerClass":"Paladin",
+        "mechanics":[
+            "Battlecry"
+        ]
+    },
+    {
+        "id":"GVG_108",
+        "name":"Recombobulator",
+        "type":"Minion",
+        "rarity":"Epic",
+        "cost":2,
+        "attack":3,
+        "health":2,
+        "text":"<b>Battlecry:</b> Transform a friendly minion into a random minion with the same Cost.",
+        "flavor":"For when you didn’t combobulate quite right the first time around.",
+        "artist":"Ben Olson",
+        "collectible":true,
+        "mechanics":[
+            "Battlecry"
+        ]
+    },
+    {
+        "id":"GVG_031",
+        "name":"Recycle",
+        "type":"Spell",
+        "rarity":"Rare",
+        "cost":6,
+        "text":"Shuffle an enemy minion into your opponent's deck.",
+        "flavor":"Druidic recycling involves putting plastics in one bin and enemy minions in another bin.",
+        "artist":"Brandon Kitkouski",
+        "collectible":true,
+        "playerClass":"Druid"
+    },
+    {
+        "id":"GVG_069a",
+        "name":"Repairs!",
+        "type":"Enchantment",
+        "text":"+4 Health.",
+        "playerClass":"Priest"
+    },
+    {
+        "id":"GVG_063a",
+        "name":"Retribution",
+        "type":"Enchantment",
+        "text":"Increased Attack"
+    },
+    {
+        "id":"PART_006",
+        "name":"Reversing Switch",
+        "type":"Spell",
+        "cost":1,
+        "text":"Swap a minion's Attack and Health.",
+        "artist":"Nutthapon Petthai"
+    },
+    {
+        "id":"PART_003",
+        "name":"Rusty Horn",
+        "type":"Spell",
+        "cost":1,
+        "text":"Give a minion <b>Taunt</b>.",
+        "artist":"Peerasak Senalai"
+    },
+    {
+        "id":"GVG_047",
+        "name":"Sabotage",
+        "type":"Spell",
+        "rarity":"Epic",
+        "cost":4,
+        "text":"Destroy a random enemy minion. <b>Combo</b>: And your opponent's weapon.",
+        "flavor":"Rogues can't stand it. They know you planned it! They are going to set you straight!",
+        "artist":"Dave Allsop",
+        "collectible":true,
+        "playerClass":"Rogue",
+        "mechanics":[
+            "Combo"
+        ]
+    },
+    {
+        "id":"GVG_070",
+        "name":"Salty Dog",
+        "type":"Minion",
+        "rarity":"Common",
+        "cost":5,
+        "attack":7,
+        "health":4,
+        "flavor":"He's recently recovered from being a \"scurvy dog.\"",
+        "artist":"Alex Horley Orlandelli",
+        "collectible":true,
+        "race":"Pirate"
+    },
+    {
+        "id":"GVG_101",
+        "name":"Scarlet Purifier",
+        "type":"Minion",
+        "rarity":"Rare",
+        "cost":3,
+        "attack":4,
+        "health":3,
+        "text":"<b>Battlecry</b>: Deal 2 damage to all minions with <b>Deathrattle</b>.",
+        "flavor":"The Scarlet Crusade is doing market research to find out if the \"Mauve Crusade\" would be better received.",
+        "artist":"Anton Zemskov",
+        "collectible":true,
+        "playerClass":"Paladin",
+        "mechanics":[
+            "Battlecry"
+        ]
+    },
+    {
+        "id":"GVG_055",
+        "name":"Screwjank Clunker",
+        "type":"Minion",
+        "rarity":"Rare",
+        "cost":4,
+        "attack":2,
+        "health":5,
+        "text":"<b>Battlecry</b>: Give a friendly Mech +2/+2.",
+        "flavor":"If it breaks, just kick it a couple of times while yelling \"Durn thing!\"",
+        "artist":"Jesper Esjing",
+        "collectible":true,
+        "race":"Mech",
+        "playerClass":"Warrior",
+        "mechanics":[
+            "Battlecry"
+        ]
+    },
+    {
+        "id":"GVG_055e",
+        "name":"Screwy Jank",
+        "type":"Enchantment",
+        "text":"+2/+2.",
+        "playerClass":"Warrior"
+    },
+    {
+        "id":"GVG_057",
+        "name":"Seal of Light",
+        "type":"Spell",
+        "rarity":"Common",
+        "cost":2,
+        "text":"Restore #4 Health to your hero and gain +2 Attack this turn.",
+        "flavor":"The walrus of Light restores EIGHT Health.",
+        "artist":"Jason Chan",
+        "collectible":true,
+        "playerClass":"Paladin",
+        "mechanics":[
+            "ImmuneToSpellpower"
+        ]
+    },
+    {
+        "id":"GVG_057a",
+        "name":"Seal of Light",
+        "type":"Enchantment",
+        "text":"+2 Attack this turn.",
+        "mechanics":[
+            "OneTurnEffect"
+        ]
+    },
+    {
+        "id":"GVG_009",
+        "name":"Shadowbomber",
+        "type":"Minion",
+        "rarity":"Epic",
+        "cost":1,
+        "attack":2,
+        "health":1,
+        "text":"<b>Battlecry:</b> Deal 3 damage to each hero.",
+        "flavor":"Shadowbomber does her job, but she's kind of phoning it in at this point.",
+        "artist":"Matt Dixon",
+        "collectible":true,
+        "playerClass":"Priest",
+        "mechanics":[
+            "Battlecry"
+        ]
+    },
+    {
+        "id":"GVG_072",
+        "name":"Shadowboxer",
+        "type":"Minion",
+        "rarity":"Rare",
+        "cost":2,
+        "attack":2,
+        "health":3,
+        "text":"Whenever a character is healed, deal 1 damage to a random enemy.",
+        "flavor":"Punching is its primary function. Also, its secondary function.",
+        "artist":"Dan Scott",
+        "collectible":true,
+        "race":"Mech",
+        "playerClass":"Priest"
+    },
+    {
+        "id":"GVG_014a",
+        "name":"Shadowed",
+        "type":"Enchantment",
+        "text":"Health was swapped.",
+        "playerClass":"Priest"
+    },
+    {
+        "id":"GVG_058",
+        "name":"Shielded Minibot",
+        "type":"Minion",
+        "rarity":"Common",
+        "cost":2,
+        "attack":2,
+        "health":2,
+        "text":"<b>Divine Shield</b>",
+        "flavor":"He chooses to believe what he is programmed to believe!",
+        "artist":"Raymond Swanland",
+        "collectible":true,
+        "race":"Mech",
+        "playerClass":"Paladin",
+        "mechanics":[
+            "Divine Shield"
+        ]
+    },
+    {
+        "id":"GVG_053",
+        "name":"Shieldmaiden",
+        "type":"Minion",
+        "rarity":"Rare",
+        "cost":6,
+        "attack":5,
+        "health":5,
+        "text":"<b>Battlecry:</b> Gain 5 Armor.",
+        "flavor":"She has three shieldbearers in her party to supply her with back ups when she gets low on durability.",
+        "artist":"Alex Horley Orlandelli",
+        "collectible":true,
+        "playerClass":"Warrior",
+        "mechanics":[
+            "Battlecry"
+        ]
+    },
+    {
+        "id":"GVG_075",
+        "name":"Ship's Cannon",
+        "type":"Minion",
+        "rarity":"Common",
+        "cost":2,
+        "attack":2,
+        "health":3,
+        "text":"Whenever you summon a Pirate, deal 2 damage to a random enemy.",
+        "flavor":"If you hear someone yell, \"Cannonball!\" you're about to get wet. Or crushed.",
+        "artist":"Warren Mahy",
+        "collectible":true
+    },
+    {
+        "id":"GVG_011a",
+        "name":"Shrink Ray",
+        "type":"Enchantment",
+        "text":"-2 Attack this turn.",
+        "mechanics":[
+            "OneTurnEffect"
+        ]
+    },
+    {
+        "id":"GVG_011",
+        "name":"Shrinkmeister",
+        "type":"Minion",
+        "rarity":"Common",
+        "cost":2,
+        "attack":3,
+        "health":2,
+        "text":"<b>Battlecry:</b> Give a minion -2 Attack this turn.",
+        "flavor":"After the debacle of the Gnomish World Enlarger, gnomes are wary of size-changing inventions.",
+        "artist":"Jim Nelson",
+        "collectible":true,
+        "playerClass":"Priest",
+        "mechanics":[
+            "Battlecry"
+        ]
+    },
+    {
+        "id":"GVG_086",
+        "name":"Siege Engine",
+        "type":"Minion",
+        "rarity":"Rare",
+        "cost":5,
+        "attack":5,
+        "health":5,
+        "text":"Whenever you gain Armor, give this minion +1 Attack.",
+        "flavor":"Wintergrasp Keep's only weakness!",
+        "artist":"Zero Yue",
+        "collectible":true,
+        "race":"Mech",
+        "playerClass":"Warrior"
+    },
+    {
+        "id":"GVG_040",
+        "name":"Siltfin Spiritwalker",
+        "type":"Minion",
+        "rarity":"Epic",
+        "cost":4,
+        "attack":2,
+        "health":5,
+        "text":"Whenever another friendly Murloc dies, draw a card. <b>Overload</b>: (1)",
+        "flavor":"The elements respond to anyone who calls them for a worthy cause, even if you call them by yelling, \"MRGHRGLGLGL!\"",
+        "artist":"Clint Langley",
+        "collectible":true,
+        "race":"Murloc",
+        "playerClass":"Shaman"
+    },
+    {
+        "id":"GVG_114",
+        "name":"Sneed's Old Shredder",
+        "type":"Minion",
+        "rarity":"Legendary",
+        "cost":8,
+        "attack":5,
+        "health":7,
+        "text":"<b>Deathrattle:</b> Summon a random legendary minion.",
+        "flavor":"When Sneed was defeated in the Deadmines, his shredder was sold at auction to an anonymous buyer. (Probably Hogger.)",
+        "artist":"Christopher Moeller",
+        "collectible":true,
+        "elite":true,
+        "race":"Mech",
+        "mechanics":[
+            "Deathrattle"
+        ]
+    },
+    {
+        "id":"GVG_002",
+        "name":"Snowchugger",
+        "type":"Minion",
+        "rarity":"Common",
+        "cost":2,
+        "attack":2,
+        "health":3,
+        "text":"<b>Freeze</b> any character damaged by this minion.",
+        "flavor":"Do the slow chant when he waddles by: \"Chug! Chug! Chug!\"",
+        "artist":"Gabor Szikszai",
+        "collectible":true,
+        "race":"Mech",
+        "playerClass":"Mage",
+        "mechanics":[
+            "Freeze"
+        ]
+    },
+    {
+        "id":"GVG_123",
+        "name":"Soot Spewer",
+        "type":"Minion",
+        "rarity":"Rare",
+        "cost":3,
+        "attack":3,
+        "health":3,
+        "text":"<b>Spell Damage +1</b>",
+        "flavor":"The inventor of the goblin shredder is involved in several patent disputes with the inventor of the soot spewer.",
+        "artist":"Phil Saunders",
+        "collectible":true,
+        "race":"Mech",
+        "playerClass":"Mage",
+        "mechanics":[
+            "Spellpower"
+        ]
+    },
+    {
+        "id":"GVG_044",
+        "name":"Spider Tank",
+        "type":"Minion",
+        "rarity":"Common",
+        "cost":3,
+        "attack":3,
+        "health":4,
+        "flavor":"\"What if we put guns on it?\" -Fizzblitz, staring at the spider-transportation-machine",
+        "artist":"Dany Orizio",
+        "collectible":true,
+        "race":"Mech"
+    },
+    {
+        "id":"GVG_087",
+        "name":"Steamwheedle Sniper",
+        "type":"Minion",
+        "rarity":"Epic",
+        "cost":2,
+        "attack":2,
+        "health":3,
+        "text":"Your Hero Power can target minions.",
+        "flavor":"Goblins seldom have the patience for sniping. Most prefer lobbing explosives.",
+        "artist":"Jun Kang",
+        "collectible":true,
+        "playerClass":"Hunter"
+    },
+    {
+        "id":"GVG_067",
+        "name":"Stonesplinter Trogg",
+        "type":"Minion",
+        "rarity":"Common",
+        "cost":2,
+        "attack":2,
+        "health":3,
+        "text":"Whenever your opponent casts a spell, gain +1 Attack.",
+        "flavor":"The only thing worse than smelling troggs is listening to their poetry.",
+        "artist":"Peet Cooper",
+        "collectible":true
+    },
+    {
+        "id":"PART_006a",
+        "name":"Switched",
+        "type":"Enchantment",
+        "text":"Attack and Health have been swapped by Reversing Switch."
+    },
+    {
+        "id":"GVG_030be",
+        "name":"Tank Mode",
+        "type":"Enchantment",
+        "text":"+1 Health.",
+        "playerClass":"Druid"
+    },
+    {
+        "id":"GVG_030b",
+        "name":"Tank Mode",
+        "type":"Spell",
+        "text":"+1 Health.",
+        "playerClass":"Druid"
+    },
+    {
+        "id":"GVG_093",
+        "name":"Target Dummy",
+        "type":"Minion",
+        "rarity":"Rare",
+        "cost":0,
+        "attack":0,
+        "health":2,
+        "text":"<b>Taunt</b>",
+        "flavor":"The engineering equivalent of a \"Kick Me\" sticker.",
+        "artist":"Matt Dixon",
+        "collectible":true,
+        "race":"Mech",
+        "mechanics":[
+            "Taunt"
+        ]
+    },
+    {
+        "id":"GVG_046e",
+        "name":"The King",
+        "type":"Enchantment",
+        "text":"Increased Attack.",
+        "playerClass":"Hunter"
+    },
+    {
+        "id":"PART_002",
+        "name":"Time Rewinder",
+        "type":"Spell",
+        "cost":1,
+        "text":"Return a friendly minion to your hand.",
+        "artist":"Nutthapon Petthai"
+    },
+    {
+        "id":"GVG_022",
+        "name":"Tinker's Sharpsword Oil",
+        "type":"Spell",
+        "rarity":"Common",
+        "cost":4,
+        "text":"Give your weapon +3 Attack. <b>Combo:</b> Give a random friendly minion +3 Attack.",
+        "flavor":"\"Get ready to strike oil!\" - Super-cheesy battle cry",
+        "artist":"Den",
+        "collectible":true,
+        "playerClass":"Rogue",
+        "mechanics":[
+            "Combo"
+        ]
+    },
+    {
+        "id":"GVG_022a",
+        "name":"Tinker's Sharpsword Oil",
+        "type":"Enchantment",
+        "text":"+3 Attack."
+    },
+    {
+        "id":"GVG_022b",
+        "name":"Tinker's Sharpsword Oil",
+        "type":"Enchantment",
+        "text":"+3 Attack."
+    },
+    {
+        "id":"GVG_102",
+        "name":"Tinkertown Technician",
+        "type":"Minion",
+        "rarity":"Common",
+        "cost":3,
+        "attack":3,
+        "health":3,
+        "text":"<b>Battlecry:</b> If you have a Mech, gain +1/+1 and add a <b>Spare Part</b> to your hand.",
+        "flavor":"Won't you take me to... Tinkertown?",
+        "artist":"Gabor Szikszai",
+        "collectible":true,
+        "mechanics":[
+            "Battlecry"
+        ]
+    },
+    {
+        "id":"GVG_115",
+        "name":"Toshley",
+        "type":"Minion",
+        "rarity":"Legendary",
+        "cost":6,
+        "attack":5,
+        "health":7,
+        "text":"<b>Battlecry and Deathrattle:</b> Add a <b>Spare Part</b> card to your hand.",
+        "flavor":"Something about power converters.",
+        "artist":"Zoltan & Gabor",
+        "collectible":true,
+        "elite":true,
+        "mechanics":[
+            "Battlecry",
+            "Deathrattle"
+        ]
+    },
+    {
+        "id":"GVG_028",
+        "name":"Trade Prince Gallywix",
+        "type":"Minion",
+        "rarity":"Legendary",
+        "cost":6,
+        "attack":5,
+        "health":8,
+        "text":"Whenever your opponent casts a spell, gain a copy of it and give them a Coin.",
+        "flavor":"Gallywix believes in supply and demand. He supplies the beatings and demands you pay up!",
+        "artist":"Wei Wang",
+        "collectible":true,
+        "elite":true,
+        "playerClass":"Rogue"
+    },
+    {
+        "id":"GVG_033",
+        "name":"Tree of Life",
+        "type":"Spell",
+        "rarity":"Epic",
+        "cost":9,
+        "text":"Restore all characters to full Health.",
+        "flavor":"Healing: It grows on trees!",
+        "artist":"Steve Prescott",
+        "collectible":true,
+        "playerClass":"Druid"
+    },
+    {
+        "id":"GVG_118",
+        "name":"Troggzor the Earthinator",
+        "type":"Minion",
+        "rarity":"Legendary",
+        "cost":7,
+        "attack":6,
+        "health":6,
+        "text":"Whenever your opponent casts a spell, summon a Burly Rockjaw Trogg.",
+        "flavor":"He keeps earthinating the countryside despite attempts to stop him.",
+        "artist":"Mike Sass",
+        "collectible":true,
+        "elite":true
+    },
+    {
+        "id":"GVG_003",
+        "name":"Unstable Portal",
+        "type":"Spell",
+        "rarity":"Rare",
+        "cost":2,
+        "text":"Add a random minion to your hand. It costs (3) less.",
+        "flavor":"The denizens of Azeroth have no idea how much work goes into stabilizing portals.  We spend like 30% of GDP on portal upkeep.",
+        "artist":"Sean O'Daniels",
+        "collectible":true,
+        "playerClass":"Mage"
+    },
+    {
+        "id":"GVG_083",
+        "name":"Upgraded Repair Bot",
+        "type":"Minion",
+        "rarity":"Rare",
+        "cost":5,
+        "attack":5,
+        "health":5,
+        "text":"<b>Battlecry:</b> Give a friendly Mech +4 Health.",
+        "flavor":"It's the same as the previous generation but they slapped the word \"upgraded\" on it to sell it for double.",
+        "artist":"Nutchapol Thitinunthakorn",
+        "collectible":true,
+        "race":"Mech",
+        "playerClass":"Priest",
+        "mechanics":[
+            "Battlecry"
+        ]
+    },
+    {
+        "id":"GVG_111t",
+        "name":"V-07-TR-0N",
+        "type":"Minion",
+        "rarity":"Legendary",
+        "cost":8,
+        "attack":4,
+        "health":8,
+        "text":"<b>Charge</b>\n<b>Mega-Windfury</b> <i>(Can attack four times a turn.)</i>",
+        "artist":"Chris Seaman",
+        "elite":true,
+        "race":"Mech",
+        "mechanics":[
+            "Charge"
+        ]
+    },
+    {
+        "id":"GVG_010b",
+        "name":"Velen's Chosen",
+        "type":"Enchantment",
+        "text":"+2/+4 and <b>Spell Damage +1</b>."
+    },
+    {
+        "id":"GVG_010",
+        "name":"Velen's Chosen",
+        "type":"Spell",
+        "rarity":"Common",
+        "cost":3,
+        "text":"Give a minion +2/+4 and <b>Spell Damage +1</b>.",
+        "flavor":"Velen wrote a \"Lovely Card\" for Tyrande with a picture of the Deeprun Tram that said \"I Choo-Choo-Choose you!\"",
+        "artist":"Alex Horley Orlandelli",
+        "collectible":true,
+        "playerClass":"Priest"
+    },
+    {
+        "id":"GVG_039",
+        "name":"Vitality Totem",
+        "type":"Minion",
+        "rarity":"Rare",
+        "cost":2,
+        "attack":0,
+        "health":3,
+        "text":"At the end of your turn, restore 4 Health to your hero.",
+        "flavor":"You can usually find these at the totemist's market on Saturdays.",
+        "artist":"Guangjian Huang",
+        "collectible":true,
+        "race":"Totem",
+        "playerClass":"Shaman"
+    },
+    {
+        "id":"GVG_014",
+        "name":"Vol'jin",
+        "type":"Minion",
+        "rarity":"Legendary",
+        "cost":5,
+        "attack":6,
+        "health":2,
+        "text":"<b>Battlecry:</b> Swap Health with another minion.",
+        "flavor":"Vol'jin is a shadow hunter, which is like a shadow priest except more voodoo.",
+        "artist":"Raymond Swanland",
+        "collectible":true,
+        "elite":true,
+        "playerClass":"Priest",
+        "mechanics":[
+            "Battlecry"
+        ]
+    },
+    {
+        "id":"GVG_051",
+        "name":"Warbot",
+        "type":"Minion",
+        "rarity":"Common",
+        "cost":1,
+        "attack":1,
+        "health":3,
+        "text":"<b>Enrage:</b> +1 Attack.",
+        "flavor":"Mass production of warbots was halted when it was discovered that they were accidentally being produced at \"sample size.\"",
+        "artist":"Tyler Walpole",
+        "collectible":true,
+        "race":"Mech",
+        "playerClass":"Warrior",
+        "mechanics":[
+            "Enrage"
+        ]
+    },
+    {
+        "id":"GVG_122",
+        "name":"Wee Spellstopper",
+        "type":"Minion",
+        "rarity":"Epic",
+        "cost":4,
+        "attack":2,
+        "health":5,
+        "text":"Adjacent minions can't be targeted by spells or Hero Powers.",
+        "flavor":"Bane of spellcasters and spelling bees everywhere.",
+        "artist":"Jonboy Meyers",
+        "collectible":true,
+        "playerClass":"Mage",
+        "mechanics":[
+            "Aura"
+        ]
+    },
+    {
+        "id":"GVG_060e",
+        "name":"Well Equipped",
+        "type":"Enchantment",
+        "text":"+2/+2.",
+        "playerClass":"Paladin"
+    },
+    {
+        "id":"PART_007e",
+        "name":"Whirling Blades",
+        "type":"Enchantment",
+        "text":"+1 Attack."
+    },
+    {
+        "id":"PART_007",
+        "name":"Whirling Blades",
+        "type":"Spell",
+        "cost":1,
+        "text":"Give a minion +1 Attack.",
+        "artist":"Nutchapol Thitinunthakorn"
+    },
+    {
+        "id":"GVG_037",
+        "name":"Whirling Zap-o-matic",
+        "type":"Minion",
+        "rarity":"Common",
+        "cost":2,
+        "attack":3,
+        "health":2,
+        "text":"<b>Windfury</b>",
+        "flavor":"If you pay a little extra, you can get it in \"candy-apple red.\"",
+        "artist":"Jim Nelson",
+        "collectible":true,
+        "race":"Mech",
+        "playerClass":"Shaman",
+        "mechanics":[
+            "Windfury"
+        ]
     }
 ], "Missions": [
     {
