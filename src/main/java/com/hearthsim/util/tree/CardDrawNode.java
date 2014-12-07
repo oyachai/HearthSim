@@ -2,7 +2,9 @@ package com.hearthsim.util.tree;
 
 import com.hearthsim.card.Deck;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.PlayerSide;
 import com.hearthsim.player.playercontroller.BoardScorer;
+import com.hearthsim.util.HearthAction;
 
 /**
  * A card draw triggers a stop
@@ -96,6 +98,7 @@ public class CardDrawNode extends StopNode {
 	@Override
 	public HearthTreeNode finishAllEffects(Deck deckPlayer0, Deck deckPlayer1) throws HSException  {
 		this.drawQueuedCard();
-		return new HearthTreeNode(this.data_, this.action, this.score_, this.depth_, this.children_, this.numNodesTried_);
+		HearthAction drawAction = new HearthAction(HearthAction.Verb.DRAW_CARDS, PlayerSide.CURRENT_PLAYER, this.numCardsToDraw_);
+		return new HearthTreeNode(this.data_, drawAction, this.score_, this.depth_, this.children_, this.numNodesTried_);
 	}
 }

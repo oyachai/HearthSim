@@ -19,7 +19,7 @@ public class HearthAction {
 	
 	// TODO the DO_NOT_ verbs are used for history tracking but we can probably optimize them away in the future.
 	public enum Verb {
-		USE_CARD, HERO_ABILITY, ATTACK, UNTARGETABLE_BATTLECRY, TARGETABLE_BATTLECRY, START_TURN, END_TURN, DO_NOT_USE_CARD, DO_NOT_ATTACK, DO_NOT_USE_HEROPOWER, RNG
+		USE_CARD, HERO_ABILITY, ATTACK, UNTARGETABLE_BATTLECRY, TARGETABLE_BATTLECRY, START_TURN, END_TURN, DO_NOT_USE_CARD, DO_NOT_ATTACK, DO_NOT_USE_HEROPOWER, RNG, DRAW_CARDS
 	}
 		
 	public final Verb verb_;
@@ -117,6 +117,13 @@ public class HearthAction {
 				}
 				// RNG has declared this child happened
 				toRet = toRet.getChildren().get(cardOrCharacterIndex_);
+				break;
+			}
+			case DRAW_CARDS: {
+				// Note, this action only supports drawing cards from the deck. Cards like Ysera or Webspinner need to be implemented using RNG children.
+				for (int indx = 0; indx < cardOrCharacterIndex_; ++indx) {
+					toRet.data_.modelForSide(actionPerformerPlayerSide).drawNextCardFromDeck();
+				}
 				break;
 			}
 		}
