@@ -7,6 +7,8 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.IdentityLinkedList;
 import com.hearthsim.util.MinionList;
+
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class PlayerModel implements DeepCopyable<PlayerModel> {
@@ -281,18 +283,26 @@ public class PlayerModel implements DeepCopyable<PlayerModel> {
         json.put("name", name);
         json.put("playerId", playerId);
         json.put("hero", hero.toJSON());
-        if(mana > 0) json.put("mana", mana);
+        if(mana != maxMana) json.put("mana", mana);
         if(maxMana > 0) json.put("maxMana", maxMana);
 		json.put("deckPos", deckPos);
 		if(overload > 0) json.put("overload", overload);
 		if(fatigueDamage > 0) json.put("fatigueDamage", fatigueDamage);
 
 		if(minions.size() > 0) {
-			json.put("minions", minions);
+			JSONArray array = new JSONArray();
+			for(Minion minion: minions) {
+				array.put(minion.toJSON());
+			}
+			json.put("minions", array);
 		}
 
 		if(hand.size() > 0) {
-			json.put("hand", hand);
+			JSONArray array = new JSONArray();
+			for(Card card: hand) {
+				array.put(card.toJSON());
+			}
+			json.put("hand", array);
 		}
 
         return json;

@@ -432,7 +432,7 @@ public class Card implements DeepCopyable<Card> {
 		JSONObject json = new JSONObject();
 		json.put("name", name_);
 		json.put("mana", baseManaCost);
-		json.put("hasBeenUsed", hasBeenUsed);
+		if(hasBeenUsed) json.put("hasBeenUsed", hasBeenUsed);
 		return json;
 	}
 
