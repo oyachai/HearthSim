@@ -203,4 +203,12 @@ public class TestSpellDamage {
 
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 1);
 	}
+
+	@Test
+	public void testDeepCopyDamage() throws HSException {
+		HolySmite smite = new HolySmite();
+		HolySmite copy = (HolySmite)smite.deepCopy();
+
+		assertEquals(smite.getAttack(), copy.getAttack());
+	}
 }

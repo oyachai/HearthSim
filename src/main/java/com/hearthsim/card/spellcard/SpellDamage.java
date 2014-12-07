@@ -46,11 +46,6 @@ public class SpellDamage extends SpellCard {
 		return result;
 	}
 
-	@Override
-	public SpellCard deepCopy() {
-		return new SpellDamage(this.baseManaCost, damage_, this.hasBeenUsed());
-	}
-
 	/**
 	 * Attack using this spell
 	 * 

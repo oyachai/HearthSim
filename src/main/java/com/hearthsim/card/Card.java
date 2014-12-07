@@ -147,9 +147,27 @@ public class Card implements DeepCopyable<Card> {
 		return isInHand_;
 	}
 
+	// This deepCopy pattern is required because we use the class of each card to recreate it under certain circumstances
 	@Override
 	public Card deepCopy() {
-		return new Card(this.name_, this.baseManaCost, this.hasBeenUsed, this.isInHand_);
+		Card copy = null;
+		try {
+			copy = getClass().newInstance();
+		} catch(InstantiationException e) {
+			log.error("instantiation error", e);
+		} catch(IllegalAccessException e) {
+			log.error("illegal access error", e);
+		}
+		if(copy == null) {
+			throw new RuntimeException("unable to instantiate card.");
+		}
+
+		copy.name_ = this.name_;
+		copy.baseManaCost = this.baseManaCost;
+		copy.hasBeenUsed = this.hasBeenUsed;
+		copy.isInHand_ = this.isInHand_;
+
+		return copy;
 	}
 
 	@Override
