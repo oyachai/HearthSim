@@ -6,11 +6,14 @@ import static org.junit.Assert.assertNotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.hearthsim.Game;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
+import com.hearthsim.card.ImplementedCardList;
+import com.hearthsim.card.ImplementedCardList.ImplementedCard;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.NoviceEngineer;
@@ -217,6 +220,52 @@ public class TestGame {
 	}
 
 	@Test
+	@Ignore("Long and uses randomized data")
+	// This test is purely for hunting new bugs. It can take a while to run and should not be included in the Travis test run
+	public void testGameHistoryWithRandomDecks() throws HSException {
+		int numCardsInDeck_ = 30;
+
+		ImplementedCardList supportedCards = ImplementedCardList.getInstance();
+		ArrayList<ImplementedCard> allCards = supportedCards.getCardList();
+
+		ArrayList<Card> cards1_ = new ArrayList<Card>();
+		ArrayList<Card> cards2_ = new ArrayList<Card>();
+
+		while(cards1_.size() < numCardsInDeck_) {
+			int thisCardIndex = (int)Math.floor(Math.random() * (allCards.size() - 1));
+			ImplementedCard card = allCards.get(thisCardIndex);
+
+			if(card.isHero) continue;
+
+			cards1_.add(card.createCardInstance());
+		}
+
+		while(cards2_.size() < numCardsInDeck_) {
+			int thisCardIndex = (int)Math.floor(Math.random() * (allCards.size() - 1));
+			ImplementedCard card = allCards.get(thisCardIndex);
+
+			if(card.isHero) continue;
+
+			cards2_.add(card.createCardInstance());
+		}
+
+		Deck deck1 = new Deck(cards1_);
+		Deck deck2 = new Deck(cards2_);
+
+		PlayerModel playerModel1 = new PlayerModel(0, "player0", new TestHero(), deck1);
+		PlayerModel playerModel2 = new PlayerModel(1, "player1", new TestHero(), deck2);
+
+		BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
+		BruteForceSearchAI ai1 = BruteForceSearchAI.buildStandardAI1();
+
+		Game game = new Game(playerModel1, playerModel2, ai0, ai1, false);
+		game.runGame();
+		List<HearthActionBoardPair> history = game.gameHistory;
+		// TODO the output this generates is terrible and since the test is not repeatable it isn't too helpful right now
+		this.assertActionTreeIsRepeatable(history, deck1, deck2);
+	}
+
+	@Test
 	public void testGameRecord0() {
 
 		// Whichever player that is using the 4 mana 5/4 minions should always win
@@ -289,11 +338,19 @@ public class TestGame {
 			} else {
 				assertNotNull(current);
 
-				assertNotNull(actionBoardPair.action);
+				if(actionBoardPair.action == null) {
+					log.error("Node without action detected. Previous board state: {0}", current.data_.toJSON());
+					log.error("Node without action detected. Expected board state: {0}", actionBoardPair.board.toJSON());
+
+					assertNotNull(actionBoardPair.action);
+				}
 				current = actionBoardPair.action.perform(current, deck1, deck2, false);
 
 				assertNotNull("Should have new node after " + actionBoardPair.action.verb_ + " action", current);
-				assertEquals(actionBoardPair.board, current.data_);
+				if(!actionBoardPair.board.equals(current.data_)) {
+					log.error("Detected history mismatch after action: {0}", actionBoardPair.action);
+					assertEquals(actionBoardPair.board, current.data_);
+				}
 			}
 		}
 	}
