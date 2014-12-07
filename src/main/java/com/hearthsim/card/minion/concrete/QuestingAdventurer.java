@@ -22,6 +22,7 @@ public class QuestingAdventurer extends Minion {
         transformed_ = TRANSFORMED;
 	}
 	
+	@Override
 	public HearthTreeNode onCardPlayBegin(
 			PlayerSide thisCardPlayerSide,
 			PlayerSide cardUserPlayerSide,

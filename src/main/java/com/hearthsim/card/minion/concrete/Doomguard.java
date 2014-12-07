@@ -7,7 +7,6 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.HearthAction;
 import com.hearthsim.util.IdentityLinkedList;
@@ -67,13 +66,13 @@ public class Doomguard extends Minion {
 			for (int indx0 = 0; indx0 < hand.size(); ++indx0) {
 				if (hand.size() > 1) {
 					for (int indx1 = indx0+1; indx1 < hand.size(); ++indx1) {
-						HearthTreeNode cNode = new HearthTreeNode((BoardModel)toRet.data_.deepCopy());
+						HearthTreeNode cNode = new HearthTreeNode(toRet.data_.deepCopy());
 						cNode.data_.removeCard_hand(cNode.data_.getCurrentPlayerCardHand(indx1));
 						cNode.data_.removeCard_hand(cNode.data_.getCurrentPlayerCardHand(indx0)); //indx1 > indx0
 						toRet.addChild(cNode);
 					}
 				} else {
-					HearthTreeNode cNode = new HearthTreeNode((BoardModel)toRet.data_.deepCopy());
+					HearthTreeNode cNode = new HearthTreeNode(toRet.data_.deepCopy());
 					cNode.data_.removeCard_hand(cNode.data_.getCurrentPlayerCardHand(indx0));					
 					toRet.addChild(cNode);
 				}
