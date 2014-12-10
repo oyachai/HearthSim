@@ -8,6 +8,7 @@ import com.hearthsim.exception.HSException;
 import com.hearthsim.player.playercontroller.BoardScorer;
 import com.hearthsim.util.tree.HearthTreeNode;
 import com.hearthsim.util.tree.RandomEffectNode;
+import com.hearthsim.util.tree.StopNode;
 
 public class BreadthBoardStateFactory extends BoardStateFactoryBase {
 
@@ -56,17 +57,23 @@ public class BreadthBoardStateFactory extends BoardStateFactoryBase {
 
 				for(HearthTreeNode child : children) {
 					childCount++;
-					if(dupeSkipOn && states.size() > 0) {
-						stateCompareCount += Math.log(states.size()); // .contains uses quick search
-						// Using .hashCode lets us use TreeSet and .contains to look for dupes
-						if(states.contains(child.data_.hashCode())) {
-							dupeSkip++;
-							continue;
+					if(!(child instanceof StopNode)) {
+						if(dupeSkipOn) {
+							if(states.size() > 0) {
+								stateCompareCount += Math.log(states.size()); // .contains uses quick search
+								// Using .hashCode lets us use TreeSet and .contains to look for dupes
+								if(states.contains(child.data_.hashCode())) {
+									dupeSkip++;
+									continue;
+								}
+							}
+							states.add(child.data_.hashCode());
 						}
+						nextDepth.add(child); // Add to next depth so the inner loop will eventually process it
+					} else {
+						this.addChildLayers(child, maxDepth - 1);
 					}
 					current.addChild(child);
-					nextDepth.add(child); // Add to next depth so the inner loop will eventually process it
-					states.add(child.data_.hashCode());
 				}
 			}
 
@@ -105,8 +112,8 @@ public class BreadthBoardStateFactory extends BoardStateFactoryBase {
 				}
 			}
 
+			// We need to process this after the children have populated their scores
 			if(root instanceof RandomEffectNode) {
-				// We need to process this after the children have populated their scores
 				double boardScore = ((RandomEffectNode)root).weightedAverageBestChildScore();
 				root.setScore(boardScore);
 				root.setBestChildScore(boardScore);

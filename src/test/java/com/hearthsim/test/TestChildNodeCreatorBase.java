@@ -2,6 +2,7 @@ package com.hearthsim.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -15,10 +16,14 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.ArgentSquire;
 import com.hearthsim.card.minion.concrete.BloodfenRaptor;
+import com.hearthsim.card.minion.concrete.Huffer;
+import com.hearthsim.card.minion.concrete.Leokk;
+import com.hearthsim.card.minion.concrete.Misha;
 import com.hearthsim.card.minion.concrete.RiverCrocolisk;
 import com.hearthsim.card.minion.concrete.StonetuskBoar;
 import com.hearthsim.card.minion.heroes.Mage;
 import com.hearthsim.card.minion.heroes.TestHero;
+import com.hearthsim.card.spellcard.concrete.AnimalCompanion;
 import com.hearthsim.card.spellcard.concrete.HolySmite;
 import com.hearthsim.card.spellcard.concrete.ShadowBolt;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
@@ -69,6 +74,7 @@ public class TestChildNodeCreatorBase {
 		assertEquals(2, actuals.size());
 		assertNodeListContainsBoardModel(actuals, expectedBoard);
 		assertNodeDoesNotContainDuplicates(actuals);
+		assertNodeListActionsAreRepeatable(startingBoard, actuals);
 	}
 
 	@Test
@@ -84,6 +90,7 @@ public class TestChildNodeCreatorBase {
 		ArrayList<HearthTreeNode> actuals = factory.createPlayCardChildren(root);
 		assertEquals(3, actuals.size());
 		assertNodeDoesNotContainDuplicates(actuals);
+		assertNodeListActionsAreRepeatable(startingBoard, actuals);
 
 		BoardModel expectedBoard = new BoardModel();
 		Minion expectedMinion = new BloodfenRaptor();
@@ -138,6 +145,7 @@ public class TestChildNodeCreatorBase {
 		ArrayList<HearthTreeNode> actuals = factory.createPlayCardChildren(root);
 		assertEquals(3, actuals.size());
 		assertNodeDoesNotContainDuplicates(actuals);
+		assertNodeListActionsAreRepeatable(startingBoard, actuals);
 
 		BoardModel expectedBoardA = new BoardModel();
 		expectedBoardA.placeMinion(PlayerSide.CURRENT_PLAYER, (Minion)bloodfenRaptor.deepCopy());
@@ -171,6 +179,7 @@ public class TestChildNodeCreatorBase {
 		ArrayList<HearthTreeNode> actuals = factory.createPlayCardChildren(root);
 		assertEquals(3, actuals.size());
 		assertNodeDoesNotContainDuplicates(actuals);
+		assertNodeListActionsAreRepeatable(startingBoard, actuals);
 
 		BoardModel expectedBoardA = new BoardModel();
 		expectedBoardA.getCurrentPlayer().setMana(1);
@@ -200,6 +209,7 @@ public class TestChildNodeCreatorBase {
 		ArrayList<HearthTreeNode> actuals = factory.createPlayCardChildren(root);
 		assertEquals(3, actuals.size());
 		assertNodeDoesNotContainDuplicates(actuals);
+		assertNodeListActionsAreRepeatable(startingBoard, actuals);
 
 		BoardModel expectedBoardA = new BoardModel();
 		expectedBoardA.getCurrentPlayer().setMana(1);
@@ -225,6 +235,7 @@ public class TestChildNodeCreatorBase {
 		ArrayList<HearthTreeNode> actuals = factory.createHeroAbilityChildren(root);
 		assertEquals(3, actuals.size());
 		assertNodeDoesNotContainDuplicates(actuals);
+		assertNodeListActionsAreRepeatable(startingBoard, actuals);
 
 		BoardModel expectedBoardA = new BoardModel(new Mage(), new TestHero());
 		expectedBoardA.getCurrentPlayer().setMana(0);
@@ -253,6 +264,7 @@ public class TestChildNodeCreatorBase {
 		ArrayList<HearthTreeNode> actuals = factory.createHeroAbilityChildren(root);
 		assertEquals(5, actuals.size());
 		assertNodeDoesNotContainDuplicates(actuals);
+		assertNodeListActionsAreRepeatable(startingBoard, actuals);
 
 		BoardModel expectedBoardA = new BoardModel(new Mage(), new TestHero());
 		expectedBoardA.getCurrentPlayer().setMana(0);
@@ -281,6 +293,7 @@ public class TestChildNodeCreatorBase {
 		ArrayList<HearthTreeNode> actuals = factory.createAttackChildren(root);
 		assertEquals(4, actuals.size());
 		assertNodeDoesNotContainDuplicates(actuals);
+		assertNodeListActionsAreRepeatable(startingBoard, actuals);
 
 		// Killed Boar
 		BoardModel expectedBoardA = new BoardModel();
@@ -320,6 +333,7 @@ public class TestChildNodeCreatorBase {
 		ArrayList<HearthTreeNode> actuals = factory.createAttackChildren(root);
 		assertEquals(4, actuals.size());
 		assertNodeDoesNotContainDuplicates(actuals);
+		assertNodeListActionsAreRepeatable(startingBoard, actuals);
 
 		// Killed Boar
 		BoardModel expectedBoardA = new BoardModel();
@@ -352,6 +366,79 @@ public class TestChildNodeCreatorBase {
 		assertNodeListContainsBoardModel(actuals, expectedBoardC);
 	}
 
+	@Test
+	public void testRngCard() throws HSException {
+		BoardModel startingBoard = new BoardModel();
+		startingBoard.getCurrentPlayer().addMana(3);
+		startingBoard.getCurrentPlayer().addMaxMana(3);
+		startingBoard.getCurrentPlayer().placeCardHand(new AnimalCompanion());
+		startingBoard.getCurrentPlayer().placeCardHand(new ArgentSquire());
+
+		ChildNodeCreatorBase factory = new ChildNodeCreatorBase(this.deck0, this.deck1);
+		HearthTreeNode root = new HearthTreeNode(startingBoard);
+		ArrayList<HearthTreeNode> actuals = factory.createPlayCardChildren(root);
+		assertEquals(3, actuals.size());
+		assertNodeDoesNotContainDuplicates(actuals);
+		assertNodeListActionsAreRepeatable(startingBoard, actuals);
+
+		BoardModel expectedBoard = new BoardModel();
+		Minion expectedMinion = new ArgentSquire();
+		expectedMinion.hasBeenUsed(true); // we are checking state immediately after being played
+		expectedMinion.hasAttacked(true);
+		expectedBoard.placeMinion(PlayerSide.CURRENT_PLAYER, expectedMinion);
+
+		expectedBoard.getCurrentPlayer().placeCardHand(new AnimalCompanion());
+		expectedBoard.getCurrentPlayer().setMana(2);
+		expectedBoard.getCurrentPlayer().setMaxMana(3);
+		assertNodeListContainsBoardModel(actuals, expectedBoard, 0);
+
+		// TODO using get(0) here is fragile...
+		assertEquals(3, actuals.get(0).numChildren());
+		List<HearthTreeNode> rngActuals = actuals.get(0).getChildren();
+
+		expectedBoard = new BoardModel();
+		expectedMinion = new Huffer();
+		expectedMinion.hasBeenUsed(true); // we are checking state immediately after being played
+		expectedBoard.placeMinion(PlayerSide.CURRENT_PLAYER, expectedMinion);
+
+		expectedBoard.getCurrentPlayer().placeCardHand(new ArgentSquire());
+		expectedBoard.getCurrentPlayer().setMana(0);
+		expectedBoard.getCurrentPlayer().setMaxMana(3);
+		assertNodeListContainsBoardModel(rngActuals, expectedBoard, 0);
+
+		expectedBoard = new BoardModel();
+		expectedMinion = new Misha();
+		expectedMinion.hasBeenUsed(true); // we are checking state immediately after being played
+		expectedMinion.hasAttacked(true);
+		expectedBoard.placeMinion(PlayerSide.CURRENT_PLAYER, expectedMinion);
+
+		expectedBoard.getCurrentPlayer().placeCardHand(new ArgentSquire());
+		expectedBoard.getCurrentPlayer().setMana(0);
+		expectedBoard.getCurrentPlayer().setMaxMana(3);
+		assertNodeListContainsBoardModel(rngActuals, expectedBoard, 1);
+
+		expectedBoard = new BoardModel();
+		expectedMinion = new Leokk();
+		expectedMinion.hasBeenUsed(true); // we are checking state immediately after being played
+		expectedMinion.hasAttacked(true);
+		expectedBoard.placeMinion(PlayerSide.CURRENT_PLAYER, expectedMinion);
+
+		expectedBoard.getCurrentPlayer().placeCardHand(new ArgentSquire());
+		expectedBoard.getCurrentPlayer().setMana(0);
+		expectedBoard.getCurrentPlayer().setMaxMana(3);
+		assertNodeListContainsBoardModel(rngActuals, expectedBoard, 1);
+	}
+
+	private void assertNodeListActionsAreRepeatable(BoardModel model, List<HearthTreeNode> children) throws HSException {
+		for(HearthTreeNode child : children) {
+			HearthTreeNode origin = new HearthTreeNode(model.deepCopy());
+			assertNotNull(child.getAction());
+			HearthTreeNode reproduced = child.getAction().perform(origin, null, null, false);
+			assertNotNull(reproduced);
+			assertEquals(child.data_, reproduced.data_);
+		}
+	}
+
 	private void assertNodeListContainsBoardModel(List<HearthTreeNode> nodes, BoardModel expectedBoard) {
 		this.assertNodeListContainsBoardModel(nodes, expectedBoard, 0);
 	}
@@ -375,6 +462,8 @@ public class TestChildNodeCreatorBase {
 					.getHero());
 			assertEquals(expectedBoard.getWaitingPlayer().getHero(), nodes.get(indexHint).data_.getWaitingPlayer()
 					.getHero());
+			assertEquals(expectedBoard.getCurrentPlayer(), nodes.get(indexHint).data_.getCurrentPlayer());
+			assertEquals(expectedBoard.getWaitingPlayer(), nodes.get(indexHint).data_.getWaitingPlayer());
 			assertEquals(expectedBoard, nodes.get(indexHint).data_);
 		} else {
 			assertTrue(success);

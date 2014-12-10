@@ -1168,7 +1168,7 @@ public class Minion extends Card {
 		JSONObject json = super.toJSON();
 		json.put("attack", attack_);
 		json.put("baseAttack", baseAttack_);
-		json.put("health", health_);
+		if(health_ != maxHealth_) json.put("health", health_);
 		json.put("baseHealth", baseHealth_);
 		json.put("maxHealth", maxHealth_);
 		if(taunt_) json.put("taunt", taunt_);

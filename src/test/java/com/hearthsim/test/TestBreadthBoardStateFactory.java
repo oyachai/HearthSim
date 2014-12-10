@@ -2,6 +2,7 @@ package com.hearthsim.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -23,6 +24,8 @@ import com.hearthsim.card.minion.concrete.RiverCrocolisk;
 import com.hearthsim.card.minion.concrete.ShatteredSunCleric;
 import com.hearthsim.card.minion.concrete.StonetuskBoar;
 import com.hearthsim.card.minion.concrete.Sunwalker;
+import com.hearthsim.card.spellcard.concrete.AnimalCompanion;
+import com.hearthsim.card.spellcard.concrete.ArcaneIntellect;
 import com.hearthsim.card.spellcard.concrete.EarthShock;
 import com.hearthsim.card.spellcard.concrete.Frostbolt;
 import com.hearthsim.card.spellcard.concrete.HolySmite;
@@ -38,6 +41,7 @@ import com.hearthsim.util.factory.BoardStateFactoryBase;
 import com.hearthsim.util.factory.BreadthBoardStateFactory;
 import com.hearthsim.util.factory.DepthBoardStateFactory;
 import com.hearthsim.util.tree.HearthTreeNode;
+import com.hearthsim.util.tree.StopNode;
 
 public class TestBreadthBoardStateFactory {
 	@Rule
@@ -57,6 +61,83 @@ public class TestBreadthBoardStateFactory {
 
 		deck0 = new Deck(cards);
 		deck1 = deck0.deepCopy();
+	}
+
+	@Test
+	public void testRepeatableStatesMinionAttacks() throws HSException {
+		BoardModel startingBoard = new BoardModel();
+		startingBoard.placeMinion(PlayerSide.CURRENT_PLAYER, new BloodfenRaptor());
+		startingBoard.placeMinion(PlayerSide.CURRENT_PLAYER, new RiverCrocolisk());
+		startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new StonetuskBoar());
+
+		BreadthBoardStateFactory factory = new BreadthBoardStateFactory(this.deck0, this.deck1);
+		HearthTreeNode root = new HearthTreeNode(startingBoard);
+		factory.addChildLayers(root, 2);
+		assertActionTreeIsRepeatable(root);
+	}
+
+	@Test
+	public void testRepeatableStatesMinionPlacement() throws HSException {
+		BoardModel startingBoard = new BoardModel();
+		startingBoard.getCurrentPlayer().addMana(3);
+		startingBoard.getCurrentPlayer().addMaxMana(3);
+		startingBoard.getCurrentPlayer().placeCardHand(new BloodfenRaptor());
+		startingBoard.getCurrentPlayer().placeCardHand(new ArgentSquire());
+
+		BreadthBoardStateFactory factory = new BreadthBoardStateFactory(this.deck0, this.deck1);
+		HearthTreeNode root = new HearthTreeNode(startingBoard);
+		factory.addChildLayers(root, 2);
+		assertActionTreeIsRepeatable(root);
+	}
+
+	@Test
+	public void testRepeatableStatesCardTargets() throws HSException {
+		BoardModel startingBoard = new BoardModel();
+		PlayerModel firstPlayer = startingBoard.getCurrentPlayer();
+		firstPlayer.addMana(4);
+		firstPlayer.addMaxMana(4);
+		firstPlayer.placeCardHand(new HolySmite());
+		firstPlayer.placeCardHand(new Frostbolt());
+		startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new BloodfenRaptor());
+		startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new RiverCrocolisk());
+
+		BreadthBoardStateFactory factory = new BreadthBoardStateFactory(this.deck0, this.deck1);
+		HearthTreeNode root = new HearthTreeNode(startingBoard);
+		factory.addChildLayers(root, 2);
+		assertActionTreeIsRepeatable(root);
+	}
+
+	@Test
+	public void testRepeatableStatesCardRngTargets() throws HSException {
+		BoardModel startingBoard = new BoardModel();
+		PlayerModel firstPlayer = startingBoard.getCurrentPlayer();
+		firstPlayer.addMana(5);
+		firstPlayer.addMaxMana(5);
+		firstPlayer.placeCardHand(new AnimalCompanion());
+		firstPlayer.placeCardHand(new Frostbolt());
+		startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new BloodfenRaptor());
+		startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new RiverCrocolisk());
+
+		BreadthBoardStateFactory factory = new BreadthBoardStateFactory(this.deck0, this.deck1);
+		HearthTreeNode root = new HearthTreeNode(startingBoard);
+		factory.addChildLayers(root, 3);
+		assertActionTreeIsRepeatable(root);
+	}
+
+	@Test
+	public void testRepeatableStatesCardDraw() throws HSException {
+		BoardModel startingBoard = new BoardModel();
+		PlayerModel firstPlayer = startingBoard.getCurrentPlayer();
+		firstPlayer.addMana(8);
+		firstPlayer.placeCardHand(new ArcaneIntellect());
+		firstPlayer.placeCardHand(new Frostbolt());
+		startingBoard.placeMinion(PlayerSide.CURRENT_PLAYER, new BloodfenRaptor());
+		startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new RiverCrocolisk());
+
+		BreadthBoardStateFactory factory = new BreadthBoardStateFactory(this.deck0, this.deck1);
+		HearthTreeNode root = new HearthTreeNode(startingBoard);
+		factory.addChildLayers(root, 3);
+		assertActionTreeIsRepeatable(root);
 	}
 
 	@Test
@@ -100,6 +181,23 @@ public class TestBreadthBoardStateFactory {
 		BreadthBoardStateFactory factory = new BreadthBoardStateFactory(this.deck0, this.deck1);
 		HearthTreeNode root = new HearthTreeNode(startingBoard);
 		factory.addChildLayers(root, 2);
+		assertDescendentsDoNotContainDuplicates(root);
+	}
+
+	@Test
+	public void testDuplicateStatesCardRngTargets() throws HSException {
+		BoardModel startingBoard = new BoardModel();
+		PlayerModel firstPlayer = startingBoard.getCurrentPlayer();
+		firstPlayer.addMana(5);
+		firstPlayer.addMaxMana(5);
+		firstPlayer.placeCardHand(new AnimalCompanion());
+		firstPlayer.placeCardHand(new Frostbolt());
+		startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new BloodfenRaptor());
+		startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new RiverCrocolisk());
+
+		BreadthBoardStateFactory factory = new BreadthBoardStateFactory(this.deck0, this.deck1);
+		HearthTreeNode root = new HearthTreeNode(startingBoard);
+		factory.addChildLayers(root, 4);
 		assertDescendentsDoNotContainDuplicates(root);
 	}
 
@@ -157,6 +255,34 @@ public class TestBreadthBoardStateFactory {
 	}
 
 	@Test
+	public void testBreadthDepthCardRng() throws HSException {
+		BoardModel startingBoard = new BoardModel();
+		PlayerModel firstPlayer = startingBoard.getCurrentPlayer();
+		firstPlayer.addMana(5);
+		firstPlayer.addMaxMana(5);
+		firstPlayer.placeCardHand(new AnimalCompanion());
+		firstPlayer.placeCardHand(new Frostbolt());
+		startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new BloodfenRaptor());
+		startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new RiverCrocolisk());
+
+		this.testBreadthDepth(startingBoard);
+	}
+
+	@Test
+	public void testBreadthDepthCardDraw() throws HSException {
+		BoardModel startingBoard = new BoardModel();
+		PlayerModel firstPlayer = startingBoard.getCurrentPlayer();
+		firstPlayer.addMana(5);
+		firstPlayer.addMaxMana(5);
+		firstPlayer.placeCardHand(new ArcaneIntellect());
+		firstPlayer.placeCardHand(new Frostbolt());
+		startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new BloodfenRaptor());
+		startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new RiverCrocolisk());
+
+		this.testBreadthDepth(startingBoard);
+	}
+
+	@Test
 	@Ignore("Long test")
 	public void testBreadthDepthComplicatedDupes() throws HSException {
 		BoardModel startingBoard = new BoardModel();
@@ -209,7 +335,8 @@ public class TestBreadthBoardStateFactory {
 		this.testFactories(startingBoard, ai, breadthFactory, depthFactory);
 	}
 
-	private void testFactories(BoardModel startingBoard, BoardScorer ai, BoardStateFactoryBase us, BoardStateFactoryBase them) throws HSException {
+	private void testFactories(BoardModel startingBoard, BoardScorer ai, BoardStateFactoryBase us,
+			BoardStateFactoryBase them) throws HSException {
 		HearthTreeNode usRoot = new HearthTreeNode(startingBoard);
 		double usTimer = System.currentTimeMillis();
 		us.doMoves(usRoot, ai);
@@ -220,14 +347,33 @@ public class TestBreadthBoardStateFactory {
 		them.doMoves(themRoot, ai);
 		themTimer = System.currentTimeMillis() - themTimer;
 
-		log.debug("testFactories " + name.getMethodName() + " usTimer=" + usTimer + " themTimer="
-				+ themTimer);
+		log.debug("testFactories " + name.getMethodName() + " usTimer=" + usTimer + " themTimer=" + themTimer);
 
 		assertEquals(themRoot.data_, usRoot.data_);
 		assertEquals(themRoot.getBestChildScore(), usRoot.getBestChildScore(), 0);
 		assertEquals(themRoot.isLeaf(), usRoot.isLeaf());
 
 		assertDescendentsCoversNode(usRoot, themRoot);
+	}
+
+	private void assertActionTreeIsRepeatable(HearthTreeNode root) throws HSException {
+		ArrayList<HearthTreeNode> unprocessed = new ArrayList<HearthTreeNode>();
+		unprocessed.add(root);
+
+		HearthTreeNode current = null;
+		while(!unprocessed.isEmpty()) {
+			current = unprocessed.remove(0);
+			if(!current.isLeaf()) {
+				for(HearthTreeNode child : current.getChildren()) {
+					HearthTreeNode origin = new HearthTreeNode(current.data_.deepCopy(), current.getAction());
+					assertNotNull(child.getAction());
+					HearthTreeNode reproduced = child.getAction().perform(origin, null, null, false);
+					assertNotNull(reproduced);
+					assertEquals(child.data_, reproduced.data_);
+				}
+				unprocessed.addAll(current.getChildren());
+			}
+		}
 	}
 
 	private void assertDescendentsCoversNode(HearthTreeNode us, HearthTreeNode them) {
@@ -272,9 +418,15 @@ public class TestBreadthBoardStateFactory {
 		HearthTreeNode current = null;
 		while(!unprocessed.isEmpty()) {
 			current = unprocessed.remove(0);
-			states.add(current.data_);
-			if(!current.isLeaf()) {
-				unprocessed.addAll(current.getChildren());
+			if(!(current instanceof StopNode)) {
+				states.add(current.data_);
+				if(!current.isLeaf()) {
+					unprocessed.addAll(current.getChildren());
+				}
+			} else {
+				for(HearthTreeNode child : current.getChildren()) {
+					assertDescendentsDoNotContainDuplicates(child);
+				}
 			}
 		}
 

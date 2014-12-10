@@ -128,4 +128,36 @@ public class TestSpellCard {
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
 		assertFalse(theCard.canBeUsedOn(PlayerSide.WAITING_PLAYER, target, board.data_));
 	}
+
+	@Test
+	public void testDeepCopyOnlyTargetsEnemyMinion() throws HSException {
+		Sap sap = new Sap();
+		Card copy = sap.deepCopy();
+
+		Minion ownMinion = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
+		Minion ownHero = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
+		Minion enemyMinion = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
+		Minion enemyHero = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
+
+		assertFalse(copy.canBeUsedOn(PlayerSide.CURRENT_PLAYER, ownMinion, board.data_));
+		assertFalse(copy.canBeUsedOn(PlayerSide.CURRENT_PLAYER, ownHero, board.data_));
+		assertTrue(copy.canBeUsedOn(PlayerSide.WAITING_PLAYER, enemyMinion, board.data_));
+		assertFalse(copy.canBeUsedOn(PlayerSide.WAITING_PLAYER, enemyHero, board.data_));
+	}
+
+	@Test
+	public void testDeepCopyCannotTargetEnemyMinion() throws HSException {
+		RockbiterWeapon rockbiter = new RockbiterWeapon();
+		Card copy = rockbiter.deepCopy();
+
+		Minion ownMinion = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
+		Minion ownHero = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
+		Minion enemyMinion = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
+		Minion enemyHero = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
+
+		assertTrue(copy.canBeUsedOn(PlayerSide.CURRENT_PLAYER, ownMinion, board.data_));
+		assertTrue(copy.canBeUsedOn(PlayerSide.CURRENT_PLAYER, ownHero, board.data_));
+		assertFalse(copy.canBeUsedOn(PlayerSide.WAITING_PLAYER, enemyMinion, board.data_));
+		assertFalse(copy.canBeUsedOn(PlayerSide.WAITING_PLAYER, enemyHero, board.data_));
+	}
 }

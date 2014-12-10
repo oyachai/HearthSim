@@ -100,14 +100,7 @@ public class DepthBoardStateFactory extends BoardStateFactoryBase {
 			lethalFound = true;
 		}
 
-		if(boardStateNode instanceof RandomEffectNode) {
-			// Set best child score according to the random effect score. This works here since this effect "bubbles up" the tree.
-			double boardScore = ((RandomEffectNode)boardStateNode).weightedAverageBestChildScore();
-			boardStateNode.setScore(boardScore);
-			boardStateNode.setBestChildScore(boardScore);
-		} else {
-			boardStateNode.setScore(ai.boardScore(boardStateNode.data_));
-		}
+		boardStateNode.setScore(ai.boardScore(boardStateNode.data_));
 
 		// We can end up with children at this state, for example, after a battle cry. If we don't have children yet, create them.
 		if(!lethalFound && boardStateNode.numChildren() <= 0) {
@@ -150,13 +143,23 @@ public class DepthBoardStateFactory extends BoardStateFactoryBase {
 			}
 
 			// TODO this should be automatically handled elsewhere...
-			if(bestBranch instanceof StopNode) {
-				bestBranch.clearChildren(); // cannot continue past a StopNode
+			// Cannot continue past a StopNode except RNG nodes. The children of RNG nodes will be used
+			// during resolution so if we clear them out it can get awkward
+			if(bestBranch instanceof StopNode && !(bestBranch instanceof RandomEffectNode)) {
+				bestBranch.clearChildren();
 			}
-			boardStateNode.clearChildren();
-			boardStateNode.addChild(bestBranch);
-			if(bestBranch != null) {
-				boardStateNode.setBestChildScore(bestBranch.getBestChildScore());
+
+			if(boardStateNode instanceof RandomEffectNode) {
+				// Set best child score according to the random effect score. We need to set this after all descendants have been calculated
+				double boardScore = ((RandomEffectNode)boardStateNode).weightedAverageBestChildScore();
+				boardStateNode.setBestChildScore(boardScore);
+				// TODO do we want to override boardStateNode.score here?
+			} else {
+				boardStateNode.clearChildren();
+				boardStateNode.addChild(bestBranch);
+				if(bestBranch != null) {
+					boardStateNode.setBestChildScore(bestBranch.getBestChildScore());
+				}
 			}
 			boardStateNode.setNumNodesTries(tmpNumNodesTried);
 		}

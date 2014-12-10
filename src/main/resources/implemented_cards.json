@@ -248,6 +248,10 @@
         "class": "com.hearthsim.card.minion.concrete.DalaranMage"
     },
     {
+        "name": "Damaged Golem",
+        "class": "com.hearthsim.card.minion.concrete.DamagedGolem"
+    },
+    {
         "name": "Dark Iron Dwarf",
         "class": "com.hearthsim.card.minion.concrete.DarkIronDwarf"
     },
@@ -484,6 +488,10 @@
         "class": "com.hearthsim.card.spellcard.concrete.HuntersMark"
     },
     {
+        "name": "Hyena",
+        "class": "com.hearthsim.card.minion.concrete.Hyena"
+    },
+    {
         "name": "Injured Blademaster",
         "class": "com.hearthsim.card.minion.concrete.InjuredBlademaster"
     },
@@ -624,6 +632,10 @@
         "class": "com.hearthsim.card.minion.concrete.MurlocRaider"
     },
     {
+        "name": "Murloc Scout",
+        "class": "com.hearthsim.card.minion.concrete.MurlocScout"
+    },
+    {
         "name": "Murloc Tidehunter",
         "class": "com.hearthsim.card.minion.concrete.MurlocTidehunter"
     },
@@ -642,6 +654,10 @@
     {
         "name": "Novice Engineer",
         "class": "com.hearthsim.card.minion.concrete.NoviceEngineer"
+    },
+    {
+        "name": "Nerubian",
+        "class": "com.hearthsim.card.minion.concrete.Nerubian"
     },
     {
         "name": "Nerubian Egg",
@@ -789,6 +805,10 @@
     },
     {
         "name": "Slam",
+        "class": "com.hearthsim.card.spellcard.concrete.Slam"
+    },
+    {
+        "name": "Slime",
         "class": "com.hearthsim.card.spellcard.concrete.Slam"
     },
     {

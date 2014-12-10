@@ -91,12 +91,12 @@ public class AnimalCompanion extends SpellCard {
 				int thisCardIndex = side.getPlayer(boardState).getHand().indexOf(this);
 				for(Minion minion : new Minion[] { new Huffer(), new Leokk(), new Misha() }) {
 					HearthTreeNode newState = toRet.addChild(new HearthTreeNode(toRet.data_.deepCopy()));
+
 					newState = super.use_core(side, side.getPlayer(newState).getHero(), newState, deckPlayer0,
 							deckPlayer1, singleRealizationOnly);
 					Minion placementTarget = newState.data_.getCharacter(side, newState.data_.getMinions(side).size()); // this minion can't be a hero
 					newState = minion.summonMinion(side, placementTarget, newState, deckPlayer0, deckPlayer1, false,
 							singleRealizationOnly);
-					newState.data_.getCurrentPlayer().subtractMana(this.getManaCost(PlayerSide.CURRENT_PLAYER, newState));
 					side.getPlayer(newState).getHand().remove(thisCardIndex);
 				}
 			}

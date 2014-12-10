@@ -1,10 +1,14 @@
 package com.hearthsim.card
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+
 import com.hearthsim.card.minion.Beast
 import com.hearthsim.card.minion.Hero
 import com.hearthsim.card.minion.Minion
 import com.hearthsim.card.minion.heroes.TestHero
 import com.hearthsim.json.registry.ReferenceCardRegistry
+
 import groovy.json.JsonSlurper
 import groovy.util.logging.Slf4j
 
@@ -61,6 +65,12 @@ class ImplementedCardList {
             return result;
         }
 
+		public Card createCardInstance() {
+			Constructor<?> ctor;
+			ctor = this.cardClass_.getConstructor();
+			Card card = (Card)ctor.newInstance();
+			return card;
+		}
     }
 
     ImplementedCardList() {

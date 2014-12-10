@@ -147,9 +147,27 @@ public class Card implements DeepCopyable<Card> {
 		return isInHand_;
 	}
 
+	// This deepCopy pattern is required because we use the class of each card to recreate it under certain circumstances
 	@Override
 	public Card deepCopy() {
-		return new Card(this.name_, this.baseManaCost, this.hasBeenUsed, this.isInHand_);
+		Card copy = null;
+		try {
+			copy = getClass().newInstance();
+		} catch(InstantiationException e) {
+			log.error("instantiation error", e);
+		} catch(IllegalAccessException e) {
+			log.error("illegal access error", e);
+		}
+		if(copy == null) {
+			throw new RuntimeException("unable to instantiate card.");
+		}
+
+		copy.name_ = this.name_;
+		copy.baseManaCost = this.baseManaCost;
+		copy.hasBeenUsed = this.hasBeenUsed;
+		copy.isInHand_ = this.isInHand_;
+
+		return copy;
 	}
 
 	@Override
@@ -230,7 +248,7 @@ public class Card implements DeepCopyable<Card> {
 			Deck deckPlayer0, Deck deckPlayer1) throws HSException {
 		int cardIndex = PlayerSide.CURRENT_PLAYER.getPlayer(boardState).getHand().indexOf(this);
 		int targetIndex = targetMinion instanceof Hero ? 0 : side.getPlayer(boardState).getMinions()
-				.indexOf(targetMinion);
+				.indexOf(targetMinion) + 1;
 		HearthTreeNode toRet = this.useOn(side, targetMinion, boardState, deckPlayer0, deckPlayer1, false);
 		if(toRet != null) {
 			toRet.setAction(new HearthAction(Verb.USE_CARD, PlayerSide.CURRENT_PLAYER, cardIndex, side, targetIndex));
@@ -432,7 +450,7 @@ public class Card implements DeepCopyable<Card> {
 		JSONObject json = new JSONObject();
 		json.put("name", name_);
 		json.put("mana", baseManaCost);
-		json.put("hasBeenUsed", hasBeenUsed);
+		if(hasBeenUsed) json.put("hasBeenUsed", hasBeenUsed);
 		return json;
 	}
 

@@ -426,7 +426,6 @@ public class BoardModel implements DeepCopyable<BoardModel> {
     	waitingPlayer.resetMana();
     }
 
-
     @Override
     public boolean equals(Object other)
     {

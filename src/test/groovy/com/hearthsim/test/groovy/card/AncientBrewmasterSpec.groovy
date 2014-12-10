@@ -15,8 +15,7 @@ class AncientBrewmasterSpec extends CardSpec {
 	HearthTreeNode root
 	BoardModel startingBoard
 
-	def setup() {
-
+	def setup() {	
 		startingBoard = new BoardModelBuilder().make {
 			currentPlayer {
 				hand([AncientBrewmaster])

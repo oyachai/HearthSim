@@ -2,7 +2,6 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.card.spellcard.SpellDamage;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
@@ -30,11 +29,6 @@ public class Swipe extends SpellDamage {
 	 */
 	public Swipe() {
 		this(false);
-	}
-
-	@Override
-	public SpellCard deepCopy() {
-		return new Swipe(this.hasBeenUsed);
 	}
 
 	/**

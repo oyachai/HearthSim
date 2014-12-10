@@ -32,11 +32,6 @@ public class Sap extends SpellCard {
 		this(false);
 	}
 
-	@Override
-	public SpellCard deepCopy() {
-		return new Sap(this.hasBeenUsed);
-	}
-	
 	/**
 	 * 
 	 * Use the card on the given target
