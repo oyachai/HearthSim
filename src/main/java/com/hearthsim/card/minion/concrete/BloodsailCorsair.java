@@ -42,8 +42,7 @@ public class BloodsailCorsair extends Pirate {
 	{
 		boolean hasWeapon = boardState.data_.getWaitingPlayerHero().getWeapon() != null;
 		if (hasWeapon) {
-			byte currentCharge = boardState.data_.getWaitingPlayerHero().getWeaponCharge();
-			boardState.data_.getWaitingPlayerHero().setWeaponCharge((byte)(currentCharge - 1));
+			boardState.data_.getWaitingPlayerHero().useWeaponCharge();
 		}
 		return boardState;
 	}

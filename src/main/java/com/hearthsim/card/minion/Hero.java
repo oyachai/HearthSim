@@ -44,10 +44,14 @@ public abstract class Hero extends Minion {
 
 	public void setWeaponCharge(byte weaponCharge) {
 		if(weaponCharge == 0) {
-			weapon = null;
+			this.destroyWeapon();
 		} else {
 			weapon.setWeaponCharge_(weaponCharge);
 		}
+	}
+
+	public void useWeaponCharge() {
+		this.setWeaponCharge((byte)(this.getWeaponCharge() - 1));
 	}
 
 	public void addArmor(byte armor) {
@@ -113,12 +117,8 @@ public abstract class Hero extends Minion {
 			this.weapon.onAttack(targetMinionPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1);
 
 			if(getWeaponCharge() > 0) {
-				this.getWeapon().setWeaponCharge_((byte)(getWeaponCharge() - 1));
-				if(getWeaponCharge() == 0) {
-					destroyWeapon();
-				}
+				this.useWeaponCharge();
 			}
-
 		}
 
 		return toRet;
