@@ -210,7 +210,7 @@ public class Minion extends Card {
 	}
 
 	public boolean canAttack() {
-		return !this.hasAttacked_ && this.attack_ + this.extraAttackUntilTurnEnd_ > 0;
+		return !this.hasAttacked_ && (this.attack_ + this.extraAttackUntilTurnEnd_) > 0 && !this.frozen_;
 	}
 	
 	public boolean hasAttacked() {

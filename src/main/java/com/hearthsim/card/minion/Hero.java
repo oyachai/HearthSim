@@ -102,12 +102,6 @@ public abstract class Hero extends Minion {
 			return null;
 		}
 
-		// this is somewhat redundant, but it must be done here...
-		if(frozen_) {
-			this.hasAttacked_ = true;
-			this.frozen_ = false;
-			return boardState;
-		}
 		HearthTreeNode toRet = super.attack(targetMinionPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1);
 		if(toRet != null && this.getWeapon() != null) {
 			this.weapon.onAttack(targetMinionPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1);
