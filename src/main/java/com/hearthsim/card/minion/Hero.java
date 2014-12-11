@@ -163,12 +163,9 @@ public abstract class Hero extends Minion {
 		return toRet;
 	}
 
-	public HearthTreeNode useHeroAbility_core(PlayerSide targetPlayerSide, Minion targetMinion,
+	public abstract HearthTreeNode useHeroAbility_core(PlayerSide targetPlayerSide, Minion targetMinion,
 			HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly)
-			throws HSException {
-		return null;
-	}
-
+			throws HSException;
 	/**
 	 * Called when this minion takes damage
 	 * 
