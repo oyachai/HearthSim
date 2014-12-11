@@ -166,6 +166,7 @@ public abstract class Hero extends Minion {
 	public abstract HearthTreeNode useHeroAbility_core(PlayerSide targetPlayerSide, Minion targetMinion,
 			HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly)
 			throws HSException;
+
 	/**
 	 * Called when this minion takes damage
 	 * 
@@ -202,7 +203,7 @@ public abstract class Hero extends Minion {
 	 * Simpler version of take damage
 	 * 
 	 * For now, the Hero taking damage has no consequence to the board state.  So, this version can be used as a way to simplify the code.
-	 * @param damage The amount of damage takef by the hero
+	 * @param damage The amount of damage taken by the hero
 	 */
 	public void takeDamage(byte damage) {
 		byte damageRemaining = (byte)(damage - armor_);

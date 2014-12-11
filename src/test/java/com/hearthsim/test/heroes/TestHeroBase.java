@@ -189,4 +189,17 @@ public class TestHeroBase {
 
 		assertEquals(axe, copy.getWeapon());
 	}
+
+	@Test
+	public void testMinionAttackingHeroRemovesArmorFirst() throws HSException {
+		Hero opponent = board.data_.getWaitingPlayerHero();
+		opponent.setArmor((byte)3);
+
+		Minion minion = PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0);
+		HearthTreeNode ret = minion.attack(PlayerSide.WAITING_PLAYER, opponent, board, deck, null);
+		assertEquals(board, ret);
+
+		assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
+		assertEquals(board.data_.getWaitingPlayerHero().getArmor(), 1);
+	}
 }
