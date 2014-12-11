@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.hearthsim.card.Card;
@@ -13,8 +14,10 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.BoulderfistOgre;
+import com.hearthsim.card.minion.concrete.KoboldGeomancer;
 import com.hearthsim.card.minion.concrete.RaidLeader;
 import com.hearthsim.card.minion.heroes.TestHero;
+import com.hearthsim.card.spellcard.concrete.HolySmite;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.card.spellcard.concrete.WildGrowth;
 import com.hearthsim.card.weapon.concrete.FieryWarAxe;
@@ -201,5 +204,42 @@ public class TestHeroBase {
 
 		assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
 		assertEquals(board.data_.getWaitingPlayerHero().getArmor(), 1);
+	}
+
+	@Test
+	@Ignore("Existing bug")
+	public void testSpellpowerEffectsArmor() throws HSException {
+		Hero opponent = board.data_.getWaitingPlayerHero();
+		opponent.setArmor((byte)10);
+
+		board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new KoboldGeomancer());
+
+		HolySmite smite = new HolySmite();
+		board.data_.placeCardHand(PlayerSide.CURRENT_PLAYER, smite);
+
+		HearthTreeNode ret = smite.useOn(PlayerSide.WAITING_PLAYER, opponent, board, deck, null);
+		assertEquals(board, ret);
+
+		assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
+		assertEquals(board.data_.getWaitingPlayerHero().getArmor(), 7);
+	}
+
+	@Test
+	public void testFatigueDamage() throws HSException {
+		board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).drawNextCardFromDeck(); // 1 damage
+		board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).drawNextCardFromDeck(); // 2 damage = 3 total
+
+		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 27);
+	}
+
+	@Test
+	public void testFatigueDamageEffectsArmorFirst() throws HSException {
+		board.data_.getCurrentPlayerHero().setArmor((byte)10);
+
+		board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).drawNextCardFromDeck(); // 1 damage
+		board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).drawNextCardFromDeck(); // 2 damage = 3 total
+
+		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
+		assertEquals(board.data_.getCurrentPlayerHero().getArmor(), 7);
 	}
 }
