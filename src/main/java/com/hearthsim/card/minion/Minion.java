@@ -213,6 +213,7 @@ public class Minion extends Card {
 		return !this.hasAttacked_ && (this.attack_ + this.extraAttackUntilTurnEnd_) > 0 && !this.frozen_;
 	}
 	
+	@Deprecated
 	public boolean hasAttacked() {
 		return hasAttacked_;
 	}
