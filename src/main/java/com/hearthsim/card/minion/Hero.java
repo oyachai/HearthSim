@@ -43,7 +43,7 @@ public abstract class Hero extends Minion {
 	}
 
 	public void setWeaponCharge(byte weaponCharge) {
-		if(weaponCharge == 0) {
+		if(weaponCharge <= 0) {
 			this.destroyWeapon();
 		} else {
 			weapon.setWeaponCharge_(weaponCharge);
@@ -98,11 +98,7 @@ public abstract class Hero extends Minion {
 	public HearthTreeNode attack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode boardState,
 			Deck deckPlayer0, Deck deckPlayer1) throws HSException {
 
-		if(attack_ + extraAttackUntilTurnEnd_ == 0) {
-			return null;
-		}
-
-		if(this.getWeapon() != null && this.getWeapon().getWeaponCharge_() == 0 && this.extraAttackUntilTurnEnd_ == 0) {
+		if(!this.canAttack()) {
 			return null;
 		}
 
@@ -115,10 +111,7 @@ public abstract class Hero extends Minion {
 		HearthTreeNode toRet = super.attack(targetMinionPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1);
 		if(toRet != null && this.getWeapon() != null) {
 			this.weapon.onAttack(targetMinionPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1);
-
-			if(getWeaponCharge() > 0) {
-				this.useWeaponCharge();
-			}
+			this.useWeaponCharge();
 		}
 
 		return toRet;
@@ -293,7 +286,7 @@ public abstract class Hero extends Minion {
 
 	public void destroyWeapon() {
 		if(weapon != null) {
-			attack_ = 0;
+			attack_ = 0; // TODO if anything ever explicitly adds attack to a hero this will probably break 
 			weapon = null;
 		}
 	}

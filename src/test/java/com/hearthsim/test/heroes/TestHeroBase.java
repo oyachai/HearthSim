@@ -78,6 +78,17 @@ public class TestHeroBase {
 	}
 
 	@Test
+	public void testHeroCannotAttack() throws HSException {
+		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
+		Hero hero = board.data_.getCurrentPlayerHero();
+
+		assertFalse(hero.canAttack());
+
+		HearthTreeNode ret = hero.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null);
+		assertNull(ret);
+	}
+
+	@Test
 	public void testMinionAttackingHero() throws HSException {
 		// null case
 		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
