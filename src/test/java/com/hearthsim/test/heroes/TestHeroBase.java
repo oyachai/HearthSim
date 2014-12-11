@@ -17,6 +17,7 @@ import com.hearthsim.card.minion.concrete.RaidLeader;
 import com.hearthsim.card.minion.heroes.TestHero;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.card.spellcard.concrete.WildGrowth;
+import com.hearthsim.card.weapon.concrete.FieryWarAxe;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
@@ -189,5 +190,18 @@ public class TestHeroBase {
 
 		assertFalse(hero.hasBeenUsed());
 		assertEquals(board.data_.getCurrentPlayer().getMana(), 1);
+	}
+
+	@Test
+	public void testDeepCopyWeapon() throws HSException {
+		Hero hero = board.data_.getCurrentPlayerHero();
+		board.data_.getCurrentPlayer().setMana((byte) 2);
+
+		FieryWarAxe axe = new FieryWarAxe();
+		hero.setWeapon(axe);
+
+		Hero copy = hero.deepCopy();
+
+		assertEquals(axe, copy.getWeapon());
 	}
 }
