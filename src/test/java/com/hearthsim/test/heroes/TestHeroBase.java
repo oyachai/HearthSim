@@ -106,32 +106,6 @@ public class TestHeroBase {
 	}
 
 	@Test
-	public void testMinionAttackingMinion() throws HSException {
-		Minion raidLeader = PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0);
-		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2); // Boulderfist
-																				// Ogre
-		HearthTreeNode ret = raidLeader.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null);
-		assertEquals(board, ret);
-
-		assertEquals(board.data_.getNumCards_hand(), 1);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 1);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
-
-		assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
-		assertEquals(board.data_.getWaitingPlayer().getMana(), 8);
-		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
-		assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
-
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), 7);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), 2);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), 5);
-
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack(), 6);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack(), 2);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack(), 7);
-	}
-
-	@Test
 	public void testHeropowerIsMarkedUsed() throws HSException {
 		Hero hero = board.data_.getCurrentPlayerHero();
 		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0); // Hero
