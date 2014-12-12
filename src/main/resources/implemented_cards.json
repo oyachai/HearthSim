@@ -576,6 +576,10 @@
         "class": "com.hearthsim.card.spellcard.concrete.LightningBolt"
     },
     {
+        "name": "Lightwarden",
+        "class": "com.hearthsim.card.minion.concrete.Lightwarden"
+    },
+    {
         "name": "Lightwell",
         "class": "com.hearthsim.card.minion.concrete.Lightwell"
     },
