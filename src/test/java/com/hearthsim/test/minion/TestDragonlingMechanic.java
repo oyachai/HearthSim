@@ -93,8 +93,6 @@ public class TestDragonlingMechanic {
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack(), 7);
 	}
 	
-	
-
 	@Test
 	public void test2() throws HSException {
 		
@@ -123,5 +121,28 @@ public class TestDragonlingMechanic {
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(3).getTotalAttack(), 7);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack(), 2);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack(), 7);
+	}
+
+	@Test
+	public void testBattlecryFizzlesOnFullBoard() throws HSException {
+		board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new BoulderfistOgre());
+		board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new BoulderfistOgre());
+		board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new BoulderfistOgre());
+		board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new BoulderfistOgre());
+		
+		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 3);
+		Card theCard = board.data_.getCurrentPlayerCardHand(0);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
+		
+		assertEquals(board, ret);
+		assertEquals(board.data_.getNumCards_hand(), 0);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 7);
+
+		assertEquals(board.data_.getCurrentPlayer().getMana(), 4);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(3).getTotalAttack(), 3);
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(3).getTotalHealth(), 4);
+
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(4).getTotalAttack(), 6); // TODO this should be 7 but the placeMinion above didn't set things properly
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(4).getTotalHealth(), 7);
 	}
 }
