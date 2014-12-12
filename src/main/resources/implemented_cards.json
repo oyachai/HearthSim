@@ -416,6 +416,10 @@
         "class": "com.hearthsim.card.minion.concrete.GrommashHellscream"
     },
     {
+        "name": "Gruul",
+        "class": "com.hearthsim.card.minion.concrete.Gruul"
+    },
+    {
         "name": "Guardian of Kings",
         "class": "com.hearthsim.card.minion.concrete.GuardianOfKings"
     },
