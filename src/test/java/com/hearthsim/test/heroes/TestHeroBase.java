@@ -2,6 +2,7 @@ package com.hearthsim.test.heroes;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
@@ -190,7 +191,25 @@ public class TestHeroBase {
 
 		Hero copy = hero.deepCopy();
 
+		assertEquals(hero, copy);
 		assertEquals(axe, copy.getWeapon());
+	}
+
+	@Test
+	public void testNotEqualWeapon() throws HSException {
+		Hero hero = board.data_.getCurrentPlayerHero();
+		board.data_.getCurrentPlayer().setMana((byte) 2);
+
+		Hero copy = hero.deepCopy();
+
+		FieryWarAxe axe = new FieryWarAxe();
+		hero.setWeapon(axe);
+
+		FieryWarAxe otherAxe = new FieryWarAxe();
+		otherAxe.setWeaponCharge_((byte)1);
+		copy.setWeapon(otherAxe);
+
+		assertNotEquals(hero, copy);
 	}
 
 	@Test
