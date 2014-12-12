@@ -881,10 +881,8 @@ public class Minion extends Card {
 		if(targetMinion.getStealthed())
 			return null;
 
-		if(frozen_) {
-			this.hasAttacked_ = true;
-			this.frozen_ = false;
-			return boardState;
+		if(!this.canAttack()) {
+			return null;
 		}
 
 		// Notify all that an attack is beginning
@@ -940,16 +938,11 @@ public class Minion extends Card {
 	protected HearthTreeNode attack_core(PlayerSide targetMinionPlayerSide, Minion targetMinion,
 			HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
 
-		if(hasAttacked_) {
-			// minion has already attacked
+		if(!this.canAttack()) {
 			return null;
 		}
 
 		if(targetMinionPlayerSide == PlayerSide.CURRENT_PLAYER) {
-			return null;
-		}
-
-		if(this.getTotalAttack() <= 0) {
 			return null;
 		}
 
