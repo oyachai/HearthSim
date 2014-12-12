@@ -25,24 +25,10 @@ public abstract class WeaponCard extends Card {
     }
 
 	@Override
-	public Card deepCopy() {
-        WeaponCard weapon = null;
-        try {
-            weapon = getClass().newInstance();
-        } catch (InstantiationException e) {
-            log.error("instantiation error", e);
-        } catch (IllegalAccessException e) {
-            log.error("illegal access error", e);
-        }
-        if (weapon == null) {
-            throw new RuntimeException("unable to instantiate weapon.");
-        }
-        weapon.name_ = name_;
-        weapon.baseManaCost = baseManaCost;
+	public WeaponCard deepCopy() {
+        WeaponCard weapon = (WeaponCard)super.deepCopy();
         weapon.weaponCharge_ = weaponCharge_;
         weapon.weaponDamage_ = weaponDamage_;
-        weapon.hasBeenUsed = hasBeenUsed;
-
         return weapon;
 	}
 	
