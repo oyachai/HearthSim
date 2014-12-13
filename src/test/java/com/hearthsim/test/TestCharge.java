@@ -81,7 +81,7 @@ public class TestCharge {
 				(byte)0, (byte)0, false, false, false, true, false, false, false, false, false, false, false, false,
 				false, false, null, null, true, false);
 		board.placeCardHandCurrentPlayer(minion);
-		board.getCurrentPlayer().setMana(1);
+		board.getCurrentPlayer().setMana((byte)1);
 
 		BoardStateFactoryBase factory = new DepthBoardStateFactory(null, null);
 		HearthTreeNode tree = new HearthTreeNode(board);

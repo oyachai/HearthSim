@@ -78,7 +78,7 @@ class BoardModelBuilder {
     }
 
     private fatigueDamage(Number fatigueDamage) {
-		playerSide.getPlayer(boardModel).setFatigueDamage(fatigueDamage)
+		playerSide.getPlayer(boardModel).setFatigueDamage((byte) fatigueDamage)
     }
 
     private overload(Number overload) {
@@ -106,15 +106,15 @@ class BoardModelBuilder {
 
     private mana(Number mana) {
         def model = boardModel.modelForSide(playerSide)
-        model.setMana((int) mana)
+        model.setMana((byte) mana)
         //TODO: only do this if maxMana hasn't been set explicitly already
         if (model.getMaxMana() == 0)
-            model.setMaxMana((int) mana)
+            model.setMaxMana((byte) mana)
     }
 	
 	private maxMana(Number mana) {
         def model = boardModel.modelForSide(playerSide)
-		model.setMaxMana((int) mana)
+		model.setMaxMana((byte) mana)
 	}
 		
     private playMinion(Class<Minion> minionClass) {

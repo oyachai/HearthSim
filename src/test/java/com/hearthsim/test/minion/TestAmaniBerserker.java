@@ -62,7 +62,7 @@ public class TestAmaniBerserker {
 		HearthTreeNode ret = amaniBerserker.attack(PlayerSide.WAITING_PLAYER, croc, board, null, null);
 
 		board.data_.placeCardHandCurrentPlayer(new HolyLight());
-		board.data_.getCurrentPlayer().setMana(2);
+		board.data_.getCurrentPlayer().setMana((byte)2);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
 		ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, amaniBerserker, board, null, null);
 

@@ -79,8 +79,8 @@ public class TestBreadthBoardStateFactory {
 	@Test
 	public void testRepeatableStatesMinionPlacement() throws HSException {
 		BoardModel startingBoard = new BoardModel();
-		startingBoard.getCurrentPlayer().addMana(3);
-		startingBoard.getCurrentPlayer().addMaxMana(3);
+		startingBoard.getCurrentPlayer().addMana((byte)3);
+		startingBoard.getCurrentPlayer().addMaxMana((byte)3);
 		startingBoard.getCurrentPlayer().placeCardHand(new BloodfenRaptor());
 		startingBoard.getCurrentPlayer().placeCardHand(new ArgentSquire());
 
@@ -94,8 +94,8 @@ public class TestBreadthBoardStateFactory {
 	public void testRepeatableStatesCardTargets() throws HSException {
 		BoardModel startingBoard = new BoardModel();
 		PlayerModel firstPlayer = startingBoard.getCurrentPlayer();
-		firstPlayer.addMana(4);
-		firstPlayer.addMaxMana(4);
+		firstPlayer.addMana((byte)4);
+		firstPlayer.addMaxMana((byte)4);
 		firstPlayer.placeCardHand(new HolySmite());
 		firstPlayer.placeCardHand(new Frostbolt());
 		startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new BloodfenRaptor());
@@ -111,8 +111,8 @@ public class TestBreadthBoardStateFactory {
 	public void testRepeatableStatesCardRngTargets() throws HSException {
 		BoardModel startingBoard = new BoardModel();
 		PlayerModel firstPlayer = startingBoard.getCurrentPlayer();
-		firstPlayer.addMana(5);
-		firstPlayer.addMaxMana(5);
+		firstPlayer.addMana((byte)5);
+		firstPlayer.addMaxMana((byte)5);
 		firstPlayer.placeCardHand(new AnimalCompanion());
 		firstPlayer.placeCardHand(new Frostbolt());
 		startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new BloodfenRaptor());
@@ -128,7 +128,7 @@ public class TestBreadthBoardStateFactory {
 	public void testRepeatableStatesCardDraw() throws HSException {
 		BoardModel startingBoard = new BoardModel();
 		PlayerModel firstPlayer = startingBoard.getCurrentPlayer();
-		firstPlayer.addMana(8);
+		firstPlayer.addMana((byte)8);
 		firstPlayer.placeCardHand(new ArcaneIntellect());
 		firstPlayer.placeCardHand(new Frostbolt());
 		startingBoard.placeMinion(PlayerSide.CURRENT_PLAYER, new BloodfenRaptor());
@@ -156,8 +156,8 @@ public class TestBreadthBoardStateFactory {
 	@Test
 	public void testDuplicateStatesMinionPlacement() throws HSException {
 		BoardModel startingBoard = new BoardModel();
-		startingBoard.getCurrentPlayer().addMana(3);
-		startingBoard.getCurrentPlayer().addMaxMana(3);
+		startingBoard.getCurrentPlayer().addMana((byte)3);
+		startingBoard.getCurrentPlayer().addMaxMana((byte)3);
 		startingBoard.getCurrentPlayer().placeCardHand(new BloodfenRaptor());
 		startingBoard.getCurrentPlayer().placeCardHand(new ArgentSquire());
 
@@ -171,8 +171,8 @@ public class TestBreadthBoardStateFactory {
 	public void testDuplicateStatesCardTargets() throws HSException {
 		BoardModel startingBoard = new BoardModel();
 		PlayerModel firstPlayer = startingBoard.getCurrentPlayer();
-		firstPlayer.addMana(4);
-		firstPlayer.addMaxMana(4);
+		firstPlayer.addMana((byte)4);
+		firstPlayer.addMaxMana((byte)4);
 		firstPlayer.placeCardHand(new HolySmite());
 		firstPlayer.placeCardHand(new Frostbolt());
 		startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new BloodfenRaptor());
@@ -188,8 +188,8 @@ public class TestBreadthBoardStateFactory {
 	public void testDuplicateStatesCardRngTargets() throws HSException {
 		BoardModel startingBoard = new BoardModel();
 		PlayerModel firstPlayer = startingBoard.getCurrentPlayer();
-		firstPlayer.addMana(5);
-		firstPlayer.addMaxMana(5);
+		firstPlayer.addMana((byte)5);
+		firstPlayer.addMaxMana((byte)5);
 		firstPlayer.placeCardHand(new AnimalCompanion());
 		firstPlayer.placeCardHand(new Frostbolt());
 		startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new BloodfenRaptor());
@@ -215,8 +215,8 @@ public class TestBreadthBoardStateFactory {
 	public void testBreadthDepthCardTargeting() throws HSException {
 		BoardModel startingBoard = new BoardModel();
 		PlayerModel firstPlayer = startingBoard.getCurrentPlayer();
-		firstPlayer.addMana(2);
-		firstPlayer.addMaxMana(2);
+		firstPlayer.addMana((byte)2);
+		firstPlayer.addMaxMana((byte)2);
 		firstPlayer.placeCardHand(new HolySmite());
 		firstPlayer.placeCardHand(new HolySmite());
 		startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new BloodfenRaptor());
@@ -228,8 +228,8 @@ public class TestBreadthBoardStateFactory {
 	@Test
 	public void testBreadthDepthMinionPlacementPositioning() throws HSException {
 		BoardModel startingBoard = new BoardModel();
-		startingBoard.getCurrentPlayer().addMana(3);
-		startingBoard.getCurrentPlayer().addMaxMana(3);
+		startingBoard.getCurrentPlayer().addMana((byte)3);
+		startingBoard.getCurrentPlayer().addMaxMana((byte)3);
 		startingBoard.getCurrentPlayer().placeCardHand(new BloodfenRaptor());
 		startingBoard.getCurrentPlayer().placeCardHand(new ArgentSquire());
 
@@ -243,8 +243,8 @@ public class TestBreadthBoardStateFactory {
 	@Test
 	public void testBreadthDepthMinionBattlecry() throws HSException {
 		BoardModel startingBoard = new BoardModel();
-		startingBoard.getCurrentPlayer().addMana(4);
-		startingBoard.getCurrentPlayer().addMaxMana(4);
+		startingBoard.getCurrentPlayer().addMana((byte)4);
+		startingBoard.getCurrentPlayer().addMaxMana((byte)4);
 		startingBoard.getCurrentPlayer().placeCardHand(new DarkIronDwarf());
 		startingBoard.getCurrentPlayer().placeCardHand(new ShatteredSunCleric());
 
@@ -258,8 +258,8 @@ public class TestBreadthBoardStateFactory {
 	public void testBreadthDepthCardRng() throws HSException {
 		BoardModel startingBoard = new BoardModel();
 		PlayerModel firstPlayer = startingBoard.getCurrentPlayer();
-		firstPlayer.addMana(5);
-		firstPlayer.addMaxMana(5);
+		firstPlayer.addMana((byte)5);
+		firstPlayer.addMaxMana((byte)5);
 		firstPlayer.placeCardHand(new AnimalCompanion());
 		firstPlayer.placeCardHand(new Frostbolt());
 		startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new BloodfenRaptor());
@@ -272,8 +272,8 @@ public class TestBreadthBoardStateFactory {
 	public void testBreadthDepthCardDraw() throws HSException {
 		BoardModel startingBoard = new BoardModel();
 		PlayerModel firstPlayer = startingBoard.getCurrentPlayer();
-		firstPlayer.addMana(5);
-		firstPlayer.addMaxMana(5);
+		firstPlayer.addMana((byte)5);
+		firstPlayer.addMaxMana((byte)5);
 		firstPlayer.placeCardHand(new ArcaneIntellect());
 		firstPlayer.placeCardHand(new Frostbolt());
 		startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new BloodfenRaptor());
@@ -286,8 +286,8 @@ public class TestBreadthBoardStateFactory {
 	@Ignore("Long test")
 	public void testBreadthDepthComplicatedDupes() throws HSException {
 		BoardModel startingBoard = new BoardModel();
-		startingBoard.getCurrentPlayer().addMana(10);
-		startingBoard.getCurrentPlayer().addMaxMana(10);
+		startingBoard.getCurrentPlayer().addMana((byte)10);
+		startingBoard.getCurrentPlayer().addMaxMana((byte)10);
 		startingBoard.getCurrentPlayer().placeCardHand(new StonetuskBoar());
 		startingBoard.getCurrentPlayer().placeCardHand(new Silence());
 		startingBoard.getCurrentPlayer().placeCardHand(new Silence());
@@ -307,8 +307,8 @@ public class TestBreadthBoardStateFactory {
 	@Ignore("Long test")
 	public void testBreadthDepthComplicatedWithoutDupes() throws HSException {
 		BoardModel startingBoard = new BoardModel();
-		startingBoard.getCurrentPlayer().addMana(10);
-		startingBoard.getCurrentPlayer().addMaxMana(10);
+		startingBoard.getCurrentPlayer().addMana((byte)10);
+		startingBoard.getCurrentPlayer().addMaxMana((byte)10);
 		startingBoard.getCurrentPlayer().placeCardHand(new StonetuskBoar());
 		startingBoard.getCurrentPlayer().placeCardHand(new EarthShock());
 		startingBoard.getCurrentPlayer().placeCardHand(new Silence());

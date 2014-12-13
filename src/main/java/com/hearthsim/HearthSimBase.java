@@ -99,8 +99,8 @@ public abstract class HearthSimBase {
 		deck0.shuffle();
 		deck1.shuffle();
 		
-		PlayerModel playerModel0 = new PlayerModel(0, "player0", hero0, deck0);
-		PlayerModel playerModel1 = new PlayerModel(1, "player1", hero1, deck1);
+		PlayerModel playerModel0 = new PlayerModel((byte)0, "player0", hero0, deck0);
+		PlayerModel playerModel1 = new PlayerModel((byte)1, "player1", hero1, deck1);
 
 		Game game = new Game(playerModel0, playerModel1, ai0, ai1, shufflePlayOrder);
 		return game.runGame();
@@ -111,8 +111,8 @@ public abstract class HearthSimBase {
 		deck0.shuffle();
 		deck1.shuffle();
 		
-		PlayerModel playerModel0 = new PlayerModel(0, "player0", hero0, deck0);
-		PlayerModel playerModel1 = new PlayerModel(1, "player1", hero1, deck1);
+		PlayerModel playerModel0 = new PlayerModel((byte)0, "player0", hero0, deck0);
+		PlayerModel playerModel1 = new PlayerModel((byte)1, "player1", hero1, deck1);
 
 		Game game = new Game(playerModel0, playerModel1, ai0, ai1, firstPlayerId);
 		return game.runGame();

@@ -34,7 +34,7 @@ public class TestAncestralHealing {
 		board.data_.placeCardHandCurrentPlayer(fb);
 		board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, minion0);
 		board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion1);
-		board.data_.getCurrentPlayer().setMana(2);
+		board.data_.getCurrentPlayer().setMana((byte)2);
 
 	}
 	

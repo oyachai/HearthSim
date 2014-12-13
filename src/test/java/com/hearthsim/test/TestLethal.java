@@ -59,8 +59,8 @@ public class TestLethal {
 
 		factory = new BreadthBoardStateFactory(this.deck0, this.deck1);
 		startingBoard = new BoardModel();
-		startingBoard.getCurrentPlayer().addMana(10);
-		startingBoard.getCurrentPlayer().addMaxMana(10);
+		startingBoard.getCurrentPlayer().addMana((byte)10);
+		startingBoard.getCurrentPlayer().addMaxMana((byte)10);
 
 		root = new HearthTreeNode(startingBoard);
 		this.ownHero = startingBoard.getCurrentPlayerHero();
@@ -117,7 +117,7 @@ public class TestLethal {
 
 	@Test
 	public void testInnervateSmiteSmite() throws HSException {
-		this.startingBoard.getCurrentPlayer().setMana(0);
+		this.startingBoard.getCurrentPlayer().setMana((byte)0);
 		this.enemyHero.setHealth((byte)3);
 		this.startingBoard.placeCardHand(PlayerSide.CURRENT_PLAYER, new HolySmite());
 		this.startingBoard.placeCardHand(PlayerSide.CURRENT_PLAYER, new Innervate());

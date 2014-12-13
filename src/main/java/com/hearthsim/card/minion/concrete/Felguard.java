@@ -41,7 +41,7 @@ public class Felguard extends Demon {
 		) throws HSException
 	{
 		HearthTreeNode toRet = boardState;
-		toRet.data_.getCurrentPlayer().subtractMaxMana(1);
+		toRet.data_.getCurrentPlayer().subtractMaxMana((byte)1);
 		return toRet;
 	}
 	

@@ -88,7 +88,7 @@ public class Game {
 		boardModel.placeCardHandCurrentPlayer(0);
 		boardModel.placeCardHandCurrentPlayer(1);
 		boardModel.placeCardHandCurrentPlayer(2);
-		boardModel.getCurrentPlayer().setDeckPos(3);
+		boardModel.getCurrentPlayer().setDeckPos((byte)3);
 
 		//the second player draws 4 cards
 		boardModel.placeCardHandWaitingPlayer(0);
@@ -96,7 +96,7 @@ public class Game {
 		boardModel.placeCardHandWaitingPlayer(2);
 		boardModel.placeCardHandWaitingPlayer(3);
 		boardModel.placeCardHandWaitingPlayer(new TheCoin());
-		boardModel.getWaitingPlayer().setDeckPos(4);
+		boardModel.getWaitingPlayer().setDeckPos((byte)4);
 		
 		GameRecord record = new GameSimpleRecord();
 
@@ -202,7 +202,7 @@ public class Game {
 
         toRet.data_.getCurrentPlayer().drawNextCardFromDeck();
 		if(toRet.data_.getCurrentPlayer().getMaxMana() < 10)
-			toRet.data_.getCurrentPlayer().addMaxMana(1);
+			toRet.data_.getCurrentPlayer().addMaxMana((byte)1);
 		toRet.data_.resetMana();
 
 		return toRet.data_;

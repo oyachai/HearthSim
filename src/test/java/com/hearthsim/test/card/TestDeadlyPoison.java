@@ -51,8 +51,8 @@ public class TestDeadlyPoison {
 		DeadlyPoison fb = new DeadlyPoison();
 		board.data_.placeCardHandCurrentPlayer(fb);
 
-		board.data_.getCurrentPlayer().setMana(10);
-		board.data_.getCurrentPlayer().setMaxMana(10);
+		board.data_.getCurrentPlayer().setMana((byte)10);
+		board.data_.getCurrentPlayer().setMaxMana((byte)10);
 
 	}
 		

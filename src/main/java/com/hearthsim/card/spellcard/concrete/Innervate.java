@@ -62,9 +62,9 @@ public class Innervate extends SpellCard {
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
 			if (toRet.data_.getCurrentPlayer().getMana() < 8)
-				toRet.data_.getCurrentPlayer().addMana(2);
+				toRet.data_.getCurrentPlayer().addMana((byte)2);
 			else
-				toRet.data_.getCurrentPlayer().setMana(10);
+				toRet.data_.getCurrentPlayer().setMana((byte)10);
 		}
 		return toRet;
 	}

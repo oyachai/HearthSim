@@ -44,8 +44,8 @@ public class TestPlayerModel {
 
 	@Test
 	public void testEquals() {
-		PlayerModel player0 = new PlayerModel(0, "player0", new Priest(), deck0);
-		PlayerModel player1 = new PlayerModel(0, "player0", new Priest(), deck1);
+		PlayerModel player0 = new PlayerModel((byte)0, "player0", new Priest(), deck0);
+		PlayerModel player1 = new PlayerModel((byte)0, "player0", new Priest(), deck1);
 
 		assertEquals(player0, player1);
 		assertEquals(player1, player0);
@@ -69,8 +69,8 @@ public class TestPlayerModel {
 			deckRandom0 = new Deck(cards0);
 			deckRandom1 = new Deck(cards1);
 
-			PlayerModel player0 = new PlayerModel(0, "player0", new Priest(), deckRandom0);
-			PlayerModel player1 = new PlayerModel(0, "player0", new Priest(), deckRandom1);
+			PlayerModel player0 = new PlayerModel((byte)0, "player0", new Priest(), deckRandom0);
+			PlayerModel player1 = new PlayerModel((byte)0, "player0", new Priest(), deckRandom1);
 
 			boolean deckIsSame = true;
 			for(int i = 0; i < numCards; ++i) {
@@ -90,8 +90,8 @@ public class TestPlayerModel {
 
 	@Test
 	public void testEqualRandomHealth() {
-		PlayerModel player0 = new PlayerModel(0, "player0", new Priest(), deck0);
-		PlayerModel player1 = new PlayerModel(0, "player0", new Priest(), deck1);
+		PlayerModel player0 = new PlayerModel((byte)0, "player0", new Priest(), deck0);
+		PlayerModel player1 = new PlayerModel((byte)0, "player0", new Priest(), deck1);
 
 		for(int iter = 0; iter < nT; ++iter) {
 			byte health0 = (byte)(Math.random() * 10 + 20.0);
@@ -114,8 +114,8 @@ public class TestPlayerModel {
 
 	@Test
 	public void testEqualRandomArmor() {
-		PlayerModel player0 = new PlayerModel(0, "player0", new Priest(), deck0);
-		PlayerModel player1 = new PlayerModel(0, "player0", new Priest(), deck1);
+		PlayerModel player0 = new PlayerModel((byte)0, "player0", new Priest(), deck0);
+		PlayerModel player1 = new PlayerModel((byte)0, "player0", new Priest(), deck1);
 	
 		for(int iter = 0; iter < nT; ++iter) {
 			byte armor0 = (byte)(Math.random() * 10);
@@ -139,8 +139,8 @@ public class TestPlayerModel {
 
 	@Test
 	public void testNotEqualHero() {
-		PlayerModel player0 = new PlayerModel(0, "player0", new Priest(), deck0);
-		PlayerModel player1 = new PlayerModel(0, "player0", new Warlock(), deck1);
+		PlayerModel player0 = new PlayerModel((byte)0, "player0", new Priest(), deck0);
+		PlayerModel player1 = new PlayerModel((byte)0, "player0", new Warlock(), deck1);
 
 		assertNotEquals(player0, player1);
 		assertNotEquals(player1, player0);
@@ -148,8 +148,8 @@ public class TestPlayerModel {
 
 	@Test
 	public void testNotEqualName() {
-		PlayerModel player0 = new PlayerModel(0, "player0", new Priest(), deck0);
-		PlayerModel player1 = new PlayerModel(0, "player1", new Priest(), deck1);
+		PlayerModel player0 = new PlayerModel((byte)0, "player0", new Priest(), deck0);
+		PlayerModel player1 = new PlayerModel((byte)0, "player1", new Priest(), deck1);
 
 		assertNotEquals(player0, player1);
 		assertNotEquals(player1, player0);
@@ -157,8 +157,8 @@ public class TestPlayerModel {
 
 	@Test
 	public void testNotEqualPlayerId() {
-		PlayerModel player0 = new PlayerModel(0, "player0", new Priest(), deck0);
-		PlayerModel player1 = new PlayerModel(1, "player0", new Priest(), deck1);
+		PlayerModel player0 = new PlayerModel((byte)0, "player0", new Priest(), deck0);
+		PlayerModel player1 = new PlayerModel((byte)1, "player0", new Priest(), deck1);
 
 		assertNotEquals(player0, player1);
 		assertNotEquals(player1, player0);

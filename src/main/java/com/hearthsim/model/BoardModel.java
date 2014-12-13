@@ -71,17 +71,17 @@ public class BoardModel implements DeepCopyable<BoardModel> {
     }
 
     public BoardModel() {
-    	this(new PlayerModel(0, "player0", new TestHero("hero0", (byte)30), new Deck()),
-    		 new PlayerModel(1, "player1", new TestHero("hero1", (byte)30), new Deck()));
+    	this(new PlayerModel((byte)0, "player0", new TestHero("hero0", (byte)30), new Deck()),
+    		 new PlayerModel((byte)1, "player1", new TestHero("hero1", (byte)30), new Deck()));
     }
 
     public BoardModel(Deck deckPlayer0, Deck deckPlayer1) {
-    	this(new PlayerModel(0, "player0", new TestHero("hero0", (byte)30), deckPlayer0),
-    		 new PlayerModel(1, "player1", new TestHero("hero1", (byte)30), deckPlayer1));
+    	this(new PlayerModel((byte)0, "player0", new TestHero("hero0", (byte)30), deckPlayer0),
+    		 new PlayerModel((byte)1, "player1", new TestHero("hero1", (byte)30), deckPlayer1));
     }
     
     public BoardModel(Hero p0_hero, Hero p1_hero) {
-    	this(new PlayerModel(0, "p0",p0_hero,new Deck()), new PlayerModel(1, "p1",p1_hero,new Deck()));
+    	this(new PlayerModel((byte)0, "p0",p0_hero,new Deck()), new PlayerModel((byte)1, "p1",p1_hero,new Deck()));
     }
     
     public BoardModel(PlayerModel currentPlayerModel, PlayerModel waitingPlayerModel) {

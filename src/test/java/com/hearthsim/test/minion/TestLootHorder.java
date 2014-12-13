@@ -35,8 +35,8 @@ public class TestLootHorder {
 		}
 	
 		deck = new Deck(cards);
-		PlayerModel playerModel0 = new PlayerModel(0, "player0", new TestHero(), deck);
-		PlayerModel playerModel1 = new PlayerModel(1, "player1", new TestHero(), deck);
+		PlayerModel playerModel0 = new PlayerModel((byte)0, "player0", new TestHero(), deck);
+		PlayerModel playerModel1 = new PlayerModel((byte)1, "player1", new TestHero(), deck);
 
 		board = new HearthTreeNode(new BoardModel(playerModel0, playerModel1));
 

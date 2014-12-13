@@ -72,8 +72,8 @@ public class TestGame {
 		deck1.shuffle();
 		deck2.shuffle();
 
-		PlayerModel playerModel1 = new PlayerModel(0, "player0", hero1, deck1);
-		PlayerModel playerModel2 = new PlayerModel(1, "player1", hero2, deck2);
+		PlayerModel playerModel1 = new PlayerModel((byte)0, "player0", hero1, deck1);
+		PlayerModel playerModel2 = new PlayerModel((byte)1, "player1", hero2, deck2);
 
 		BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
 
@@ -121,8 +121,8 @@ public class TestGame {
 		deck1.shuffle();
 		deck2.shuffle();
 
-		PlayerModel playerModel1 = new PlayerModel(0, "player0", new Paladin(), deck1);
-		PlayerModel playerModel2 = new PlayerModel(1, "player1", new Mage(), deck2);
+		PlayerModel playerModel1 = new PlayerModel((byte)0, "player0", new Paladin(), deck1);
+		PlayerModel playerModel2 = new PlayerModel((byte)1, "player1", new Mage(), deck2);
 
 		BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
 		BruteForceSearchAI ai1 = BruteForceSearchAI.buildStandardAI1();
@@ -164,8 +164,8 @@ public class TestGame {
 		//deck1.shuffle();
 		//deck2.shuffle();
 
-		PlayerModel playerModel1 = new PlayerModel(0, "player0", new Paladin(), deck1);
-		PlayerModel playerModel2 = new PlayerModel(1, "player1", new Mage(), deck2);
+		PlayerModel playerModel1 = new PlayerModel((byte)0, "player0", new Paladin(), deck1);
+		PlayerModel playerModel2 = new PlayerModel((byte)1, "player1", new Mage(), deck2);
 
 		BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
 		BruteForceSearchAI ai1 = BruteForceSearchAI.buildStandardAI1();
@@ -207,8 +207,8 @@ public class TestGame {
 		//deck1.shuffle();
 		//deck2.shuffle();
 
-		PlayerModel playerModel1 = new PlayerModel(0, "player0", new Paladin(), deck1);
-		PlayerModel playerModel2 = new PlayerModel(1, "player1", new Mage(), deck2);
+		PlayerModel playerModel1 = new PlayerModel((byte)0, "player0", new Paladin(), deck1);
+		PlayerModel playerModel2 = new PlayerModel((byte)1, "player1", new Mage(), deck2);
 
 		BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
 		BruteForceSearchAI ai1 = BruteForceSearchAI.buildStandardAI1();
@@ -252,8 +252,8 @@ public class TestGame {
 		Deck deck1 = new Deck(cards1_);
 		Deck deck2 = new Deck(cards2_);
 
-		PlayerModel playerModel1 = new PlayerModel(0, "player0", new TestHero(), deck1);
-		PlayerModel playerModel2 = new PlayerModel(1, "player1", new TestHero(), deck2);
+		PlayerModel playerModel1 = new PlayerModel((byte)0, "player0", new TestHero(), deck1);
+		PlayerModel playerModel2 = new PlayerModel((byte)1, "player1", new TestHero(), deck2);
 
 		BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
 		BruteForceSearchAI ai1 = BruteForceSearchAI.buildStandardAI1();
@@ -297,8 +297,8 @@ public class TestGame {
 			deck1.shuffle();
 			deck2.shuffle();
 
-			PlayerModel playerModel1 = new PlayerModel(0, "player0", hero1, deck1);
-			PlayerModel playerModel2 = new PlayerModel(1, "player1", hero2, deck2);
+			PlayerModel playerModel1 = new PlayerModel((byte)0, "player0", hero1, deck1);
+			PlayerModel playerModel2 = new PlayerModel((byte)1, "player1", hero2, deck2);
 
 			BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
 			BruteForceSearchAI ai1 = BruteForceSearchAI.buildStandardAI1();

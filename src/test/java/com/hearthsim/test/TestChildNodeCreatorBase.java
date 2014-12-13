@@ -55,8 +55,8 @@ public class TestChildNodeCreatorBase {
 	public void testMinionPlacementSingle() throws HSException {
 		BoardModel startingBoard = new BoardModel();
 		PlayerModel firstPlayer = startingBoard.getCurrentPlayer();
-		firstPlayer.addMana(2);
-		firstPlayer.addMaxMana(2);
+		firstPlayer.addMana((byte)2);
+		firstPlayer.addMaxMana((byte)2);
 		firstPlayer.placeCardHand(new BloodfenRaptor());
 
 		BoardModel expectedBoard = new BoardModel();
@@ -64,8 +64,8 @@ public class TestChildNodeCreatorBase {
 		expectedMinion.hasBeenUsed(true); // we are checking state immediately after being played
 		expectedMinion.hasAttacked(true);
 		expectedBoard.placeMinion(PlayerSide.CURRENT_PLAYER, expectedMinion);
-		expectedBoard.getCurrentPlayer().setMana(0);
-		expectedBoard.getCurrentPlayer().setMaxMana(2);
+		expectedBoard.getCurrentPlayer().setMana((byte)0);
+		expectedBoard.getCurrentPlayer().setMaxMana((byte)2);
 
 		ChildNodeCreatorBase factory = new ChildNodeCreatorBase(this.deck0, this.deck1);
 		HearthTreeNode root = new HearthTreeNode(startingBoard);
@@ -80,8 +80,8 @@ public class TestChildNodeCreatorBase {
 	@Test
 	public void testMinionPlacementMultiple() throws HSException {
 		BoardModel startingBoard = new BoardModel();
-		startingBoard.getCurrentPlayer().addMana(2);
-		startingBoard.getCurrentPlayer().addMaxMana(2);
+		startingBoard.getCurrentPlayer().addMana((byte)2);
+		startingBoard.getCurrentPlayer().addMaxMana((byte)2);
 		startingBoard.getCurrentPlayer().placeCardHand(new BloodfenRaptor());
 		startingBoard.getCurrentPlayer().placeCardHand(new ArgentSquire());
 
@@ -99,8 +99,8 @@ public class TestChildNodeCreatorBase {
 		expectedBoard.placeMinion(PlayerSide.CURRENT_PLAYER, expectedMinion);
 
 		expectedBoard.getCurrentPlayer().placeCardHand(new ArgentSquire());
-		expectedBoard.getCurrentPlayer().setMana(0);
-		expectedBoard.getCurrentPlayer().setMaxMana(2);
+		expectedBoard.getCurrentPlayer().setMana((byte)0);
+		expectedBoard.getCurrentPlayer().setMaxMana((byte)2);
 		assertNodeListContainsBoardModel(actuals, expectedBoard, 1);
 
 		expectedBoard = new BoardModel();
@@ -110,8 +110,8 @@ public class TestChildNodeCreatorBase {
 		expectedBoard.placeMinion(PlayerSide.CURRENT_PLAYER, expectedMinion);
 
 		expectedBoard.getCurrentPlayer().placeCardHand(new BloodfenRaptor());
-		expectedBoard.getCurrentPlayer().setMana(1);
-		expectedBoard.getCurrentPlayer().setMaxMana(2);
+		expectedBoard.getCurrentPlayer().setMana((byte)1);
+		expectedBoard.getCurrentPlayer().setMaxMana((byte)2);
 		assertNodeListContainsBoardModel(actuals, expectedBoard, 0);
 	}
 
@@ -119,8 +119,8 @@ public class TestChildNodeCreatorBase {
 	public void testMinionPlacementNotEnoughMana() throws HSException {
 		BoardModel startingBoard = new BoardModel();
 		PlayerModel firstPlayer = startingBoard.getCurrentPlayer();
-		firstPlayer.addMana(1);
-		firstPlayer.addMaxMana(1);
+		firstPlayer.addMana((byte)1);
+		firstPlayer.addMaxMana((byte)1);
 		firstPlayer.placeCardHand(new BloodfenRaptor());
 
 		ChildNodeCreatorBase factory = new ChildNodeCreatorBase(this.deck0, this.deck1);
@@ -133,8 +133,8 @@ public class TestChildNodeCreatorBase {
 	@Test
 	public void testMinionPlacementPositioning() throws HSException {
 		BoardModel startingBoard = new BoardModel();
-		startingBoard.getCurrentPlayer().addMana(2);
-		startingBoard.getCurrentPlayer().addMaxMana(2);
+		startingBoard.getCurrentPlayer().addMana((byte)2);
+		startingBoard.getCurrentPlayer().addMaxMana((byte)2);
 		startingBoard.getCurrentPlayer().placeCardHand(new ArgentSquire());
 		Minion bloodfenRaptor = new BloodfenRaptor();
 		bloodfenRaptor.hasAttacked(true);
@@ -149,8 +149,8 @@ public class TestChildNodeCreatorBase {
 
 		BoardModel expectedBoardA = new BoardModel();
 		expectedBoardA.placeMinion(PlayerSide.CURRENT_PLAYER, (Minion)bloodfenRaptor.deepCopy());
-		expectedBoardA.getCurrentPlayer().setMana(1);
-		expectedBoardA.getCurrentPlayer().setMaxMana(2);
+		expectedBoardA.getCurrentPlayer().setMana((byte)1);
+		expectedBoardA.getCurrentPlayer().setMaxMana((byte)2);
 		BoardModel expectedBoardB = expectedBoardA.deepCopy();
 
 		Minion expectedMinion = new ArgentSquire();
@@ -168,8 +168,8 @@ public class TestChildNodeCreatorBase {
 	public void testCardTargetingMinionsMultiple() throws HSException {
 		BoardModel startingBoard = new BoardModel();
 		PlayerModel firstPlayer = startingBoard.getCurrentPlayer();
-		firstPlayer.addMana(4);
-		firstPlayer.addMaxMana(4);
+		firstPlayer.addMana((byte)4);
+		firstPlayer.addMaxMana((byte)4);
 		firstPlayer.placeCardHand(new ShadowBolt());
 		startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new BloodfenRaptor());
 		startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new RiverCrocolisk());
@@ -182,15 +182,15 @@ public class TestChildNodeCreatorBase {
 		assertNodeListActionsAreRepeatable(startingBoard, actuals);
 
 		BoardModel expectedBoardA = new BoardModel();
-		expectedBoardA.getCurrentPlayer().setMana(1);
-		expectedBoardA.getCurrentPlayer().setMaxMana(4);
+		expectedBoardA.getCurrentPlayer().setMana((byte)1);
+		expectedBoardA.getCurrentPlayer().setMaxMana((byte)4);
 		expectedBoardA.placeMinion(PlayerSide.WAITING_PLAYER, new RiverCrocolisk());
 
 		assertNodeListContainsBoardModel(actuals, expectedBoardA);
 
 		BoardModel expectedBoardB = new BoardModel();
-		expectedBoardB.getCurrentPlayer().setMana(1);
-		expectedBoardB.getCurrentPlayer().setMaxMana(4);
+		expectedBoardB.getCurrentPlayer().setMana((byte)1);
+		expectedBoardB.getCurrentPlayer().setMaxMana((byte)4);
 		expectedBoardB.placeMinion(PlayerSide.WAITING_PLAYER, new BloodfenRaptor());
 
 		assertNodeListContainsBoardModel(actuals, expectedBoardB);
@@ -200,8 +200,8 @@ public class TestChildNodeCreatorBase {
 	public void testCardTargetingHeros() throws HSException {
 		BoardModel startingBoard = new BoardModel();
 		PlayerModel firstPlayer = startingBoard.getCurrentPlayer();
-		firstPlayer.addMana(2);
-		firstPlayer.addMaxMana(2);
+		firstPlayer.addMana((byte)2);
+		firstPlayer.addMaxMana((byte)2);
 		firstPlayer.placeCardHand(new HolySmite());
 
 		ChildNodeCreatorBase factory = new ChildNodeCreatorBase(this.deck0, this.deck1);
@@ -212,8 +212,8 @@ public class TestChildNodeCreatorBase {
 		assertNodeListActionsAreRepeatable(startingBoard, actuals);
 
 		BoardModel expectedBoardA = new BoardModel();
-		expectedBoardA.getCurrentPlayer().setMana(1);
-		expectedBoardA.getCurrentPlayer().setMaxMana(2);
+		expectedBoardA.getCurrentPlayer().setMana((byte)1);
+		expectedBoardA.getCurrentPlayer().setMaxMana((byte)2);
 		BoardModel expectedBoardB = expectedBoardA.deepCopy();
 
 		expectedBoardA.getCharacter(PlayerSide.CURRENT_PLAYER, 0).setHealth((byte)28);
@@ -227,8 +227,8 @@ public class TestChildNodeCreatorBase {
 	public void testHeropowerTargetingHeros() throws HSException {
 		BoardModel startingBoard = new BoardModel(new Mage(), new TestHero());
 		PlayerModel firstPlayer = startingBoard.getCurrentPlayer();
-		firstPlayer.addMana(2);
-		firstPlayer.addMaxMana(2);
+		firstPlayer.addMana((byte)2);
+		firstPlayer.addMaxMana((byte)2);
 
 		ChildNodeCreatorBase factory = new ChildNodeCreatorBase(this.deck0, this.deck1);
 		HearthTreeNode root = new HearthTreeNode(startingBoard);
@@ -238,8 +238,8 @@ public class TestChildNodeCreatorBase {
 		assertNodeListActionsAreRepeatable(startingBoard, actuals);
 
 		BoardModel expectedBoardA = new BoardModel(new Mage(), new TestHero());
-		expectedBoardA.getCurrentPlayer().setMana(0);
-		expectedBoardA.getCurrentPlayer().setMaxMana(2);
+		expectedBoardA.getCurrentPlayer().setMana((byte)0);
+		expectedBoardA.getCurrentPlayer().setMaxMana((byte)2);
 		expectedBoardA.getCharacter(PlayerSide.CURRENT_PLAYER, 0).hasBeenUsed(true);
 		BoardModel expectedBoardB = expectedBoardA.deepCopy();
 
@@ -254,8 +254,8 @@ public class TestChildNodeCreatorBase {
 	public void testHeropowerTargetingMinionsMultiple() throws HSException {
 		BoardModel startingBoard = new BoardModel(new Mage(), new TestHero());
 		PlayerModel firstPlayer = startingBoard.getCurrentPlayer();
-		firstPlayer.addMana(2);
-		firstPlayer.addMaxMana(2);
+		firstPlayer.addMana((byte)2);
+		firstPlayer.addMaxMana((byte)2);
 		startingBoard.placeMinion(PlayerSide.CURRENT_PLAYER, new BloodfenRaptor());
 		startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new RiverCrocolisk());
 
@@ -267,8 +267,8 @@ public class TestChildNodeCreatorBase {
 		assertNodeListActionsAreRepeatable(startingBoard, actuals);
 
 		BoardModel expectedBoardA = new BoardModel(new Mage(), new TestHero());
-		expectedBoardA.getCurrentPlayer().setMana(0);
-		expectedBoardA.getCurrentPlayer().setMaxMana(2);
+		expectedBoardA.getCurrentPlayer().setMana((byte)0);
+		expectedBoardA.getCurrentPlayer().setMaxMana((byte)2);
 		expectedBoardA.getCharacter(PlayerSide.CURRENT_PLAYER, 0).hasBeenUsed(true);
 		expectedBoardA.placeMinion(PlayerSide.CURRENT_PLAYER, new BloodfenRaptor());
 		expectedBoardA.placeMinion(PlayerSide.WAITING_PLAYER, new RiverCrocolisk());
@@ -369,8 +369,8 @@ public class TestChildNodeCreatorBase {
 	@Test
 	public void testRngCard() throws HSException {
 		BoardModel startingBoard = new BoardModel();
-		startingBoard.getCurrentPlayer().addMana(3);
-		startingBoard.getCurrentPlayer().addMaxMana(3);
+		startingBoard.getCurrentPlayer().addMana((byte)3);
+		startingBoard.getCurrentPlayer().addMaxMana((byte)3);
 		startingBoard.getCurrentPlayer().placeCardHand(new AnimalCompanion());
 		startingBoard.getCurrentPlayer().placeCardHand(new ArgentSquire());
 
@@ -388,8 +388,8 @@ public class TestChildNodeCreatorBase {
 		expectedBoard.placeMinion(PlayerSide.CURRENT_PLAYER, expectedMinion);
 
 		expectedBoard.getCurrentPlayer().placeCardHand(new AnimalCompanion());
-		expectedBoard.getCurrentPlayer().setMana(2);
-		expectedBoard.getCurrentPlayer().setMaxMana(3);
+		expectedBoard.getCurrentPlayer().setMana((byte)2);
+		expectedBoard.getCurrentPlayer().setMaxMana((byte)3);
 		assertNodeListContainsBoardModel(actuals, expectedBoard, 0);
 
 		// TODO using get(0) here is fragile...
@@ -402,8 +402,8 @@ public class TestChildNodeCreatorBase {
 		expectedBoard.placeMinion(PlayerSide.CURRENT_PLAYER, expectedMinion);
 
 		expectedBoard.getCurrentPlayer().placeCardHand(new ArgentSquire());
-		expectedBoard.getCurrentPlayer().setMana(0);
-		expectedBoard.getCurrentPlayer().setMaxMana(3);
+		expectedBoard.getCurrentPlayer().setMana((byte)0);
+		expectedBoard.getCurrentPlayer().setMaxMana((byte)3);
 		assertNodeListContainsBoardModel(rngActuals, expectedBoard, 0);
 
 		expectedBoard = new BoardModel();
@@ -413,8 +413,8 @@ public class TestChildNodeCreatorBase {
 		expectedBoard.placeMinion(PlayerSide.CURRENT_PLAYER, expectedMinion);
 
 		expectedBoard.getCurrentPlayer().placeCardHand(new ArgentSquire());
-		expectedBoard.getCurrentPlayer().setMana(0);
-		expectedBoard.getCurrentPlayer().setMaxMana(3);
+		expectedBoard.getCurrentPlayer().setMana((byte)0);
+		expectedBoard.getCurrentPlayer().setMaxMana((byte)3);
 		assertNodeListContainsBoardModel(rngActuals, expectedBoard, 1);
 
 		expectedBoard = new BoardModel();
@@ -424,8 +424,8 @@ public class TestChildNodeCreatorBase {
 		expectedBoard.placeMinion(PlayerSide.CURRENT_PLAYER, expectedMinion);
 
 		expectedBoard.getCurrentPlayer().placeCardHand(new ArgentSquire());
-		expectedBoard.getCurrentPlayer().setMana(0);
-		expectedBoard.getCurrentPlayer().setMaxMana(3);
+		expectedBoard.getCurrentPlayer().setMana((byte)0);
+		expectedBoard.getCurrentPlayer().setMaxMana((byte)3);
 		assertNodeListContainsBoardModel(rngActuals, expectedBoard, 1);
 	}
 

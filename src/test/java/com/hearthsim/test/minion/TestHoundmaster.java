@@ -40,7 +40,7 @@ public class TestHoundmaster {
 		board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion3);
 		board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion4);
 		
-		board.data_.getCurrentPlayer().setMana(10);
+		board.data_.getCurrentPlayer().setMana((byte)10);
 	}
 	
 

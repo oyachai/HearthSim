@@ -147,7 +147,7 @@ public class TestTaunt {
 
 		board.removeMinion(PlayerSide.CURRENT_PLAYER, 0);
 		board.placeCardHandCurrentPlayer(holySmite);
-		board.getCurrentPlayer().setMana(1);
+		board.getCurrentPlayer().setMana((byte)1);
 
 		BoardStateFactoryBase factory = new DepthBoardStateFactory(null, null);
 		HearthTreeNode tree = new HearthTreeNode(board);

@@ -40,8 +40,8 @@ public class ArcaneGolem extends Minion {
 		) throws HSException
 	{
 		HearthTreeNode toRet = boardState;
-		toRet.data_.getWaitingPlayer().addMana(1);
-		toRet.data_.getWaitingPlayer().addMaxMana(1);
+		toRet.data_.getWaitingPlayer().addMana((byte)1);
+		toRet.data_.getWaitingPlayer().addMaxMana((byte)1);
 		return toRet;
 	}
 	
