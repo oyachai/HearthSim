@@ -18,7 +18,6 @@ public class HearthTreeNode {
 	HearthAction action;
 	protected double score_;
 	protected double bestChildScore_;
-	int numNodesTried_;
 
 	List<HearthTreeNode> children_;
 
@@ -51,25 +50,16 @@ public class HearthTreeNode {
 	}
 
 	public HearthTreeNode(BoardModel data, HearthAction action, double score, byte depth) {
-		this(data, action, score, depth, null, 0);
-	}
-
-	public HearthTreeNode(BoardModel data, HearthAction action, double score, byte depth, List<HearthTreeNode> children) {
-		this(data, action, score, depth, children, 0);
+		this(data, action, score, depth, null);
 	}
 
 	public HearthTreeNode(BoardModel data, HearthAction action, double score, byte depth,
-			List<HearthTreeNode> children, int numNodesTried) {
+			List<HearthTreeNode> children) {
 		data_ = data;
 		this.action = action;
 		score_ = score;
 		children_ = children;
 		depth_ = depth;
-		numNodesTried_ = numNodesTried;
-	}
-
-	public int getNumNodesTried() {
-		return numNodesTried_;
 	}
 
 	public HearthAction getAction() {
@@ -78,10 +68,6 @@ public class HearthTreeNode {
 
 	public void setAction(HearthAction action) {
 		this.action = action;
-	}
-
-	public void setNumNodesTries(int value) {
-		numNodesTried_ = value;
 	}
 
 	public byte getDepth() {
@@ -177,15 +163,6 @@ public class HearthTreeNode {
 			}
 		}
 		return maxNode;
-	}
-
-	/**
-	 * Get the number of leaf nodes below this node
-	 * 
-	 * @return
-	 */
-	public int numLeaves() {
-		return numNodesTried_;
 	}
 
 	@Override

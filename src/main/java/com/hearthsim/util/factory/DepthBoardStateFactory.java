@@ -111,7 +111,6 @@ public class DepthBoardStateFactory extends BoardStateFactoryBase {
 		if(boardStateNode.isLeaf()) {
 			// If at this point the node has no children, it is a leaf node. Set its best child score to its own score.
 			boardStateNode.setBestChildScore(boardStateNode.getScore());
-			boardStateNode.setNumNodesTries(1);
 		} else {
 			// If it is not a leaf, set the score as the maximum score of its children.
 			// We can also throw out any children that don't have the highest score (boy, this sounds so wrong...)
@@ -123,7 +122,6 @@ public class DepthBoardStateFactory extends BoardStateFactoryBase {
 			for(HearthTreeNode child : boardStateNode.getChildren()) {
 				this.doMoves(child, ai); // Don't need to check lethal because lethal states shouldn't get children. Even if they do, doMoves resolves the issue.
 
-				tmpNumNodesTried += child.getNumNodesTried();
 				tmpScore = child.getBestChildScore();
 
 				// We need to add the card score after child scoring because CardDrawNode children
@@ -161,7 +159,6 @@ public class DepthBoardStateFactory extends BoardStateFactoryBase {
 					boardStateNode.setBestChildScore(bestBranch.getBestChildScore());
 				}
 			}
-			boardStateNode.setNumNodesTries(tmpNumNodesTried);
 		}
 
 		return boardStateNode;

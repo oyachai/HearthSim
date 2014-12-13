@@ -99,6 +99,6 @@ public class CardDrawNode extends StopNode {
 	public HearthTreeNode finishAllEffects(Deck deckPlayer0, Deck deckPlayer1) throws HSException  {
 		this.drawQueuedCard();
 		HearthAction drawAction = new HearthAction(HearthAction.Verb.DRAW_CARDS, PlayerSide.CURRENT_PLAYER, this.numCardsToDraw_);
-		return new HearthTreeNode(this.data_, drawAction, this.score_, this.depth_, this.children_, this.numNodesTried_);
+		return new HearthTreeNode(this.data_, drawAction, this.score_, this.depth_, this.children_);
 	}
 }

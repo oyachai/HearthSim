@@ -1,6 +1,5 @@
 package com.hearthsim.test;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
@@ -74,8 +73,6 @@ public class TestCharge {
 			assertTrue(false);
 		}
 
-		// 3 possibilites: attack enemy minion, attack enemy hero, do nothing
-		assertEquals(tree.getNumNodesTried(), 3);
 	}
 
 	@Test
@@ -100,6 +97,6 @@ public class TestCharge {
 		// 2. Play charge minion card, then don't attack
 		// 3. Play card, charge attack enemy hero
 		// 4. Play card, charge attack enemy minion
-		assertEquals(tree.getNumNodesTried(), 4);
+
 	}
 }
