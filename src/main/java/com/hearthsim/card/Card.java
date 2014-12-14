@@ -86,6 +86,7 @@ public class Card implements DeepCopyable<Card> {
 	 * @param board The HearthTreeNode representing the current board state
 	 * @return Mana cost of the card
 	 */
+	@Deprecated
 	public final byte getManaCost(PlayerSide side, HearthTreeNode boardState) {
 		return getManaCost(side, boardState.data_);
 	}
@@ -206,26 +207,6 @@ public class Card implements DeepCopyable<Card> {
 	}
 
 	/**
-	 * End the turn and resets the card state
-	 * 
-	 * This function is called at the end of the turn. Any derived class must override it and remove any temporary buffs that it has.
-	 */
-	public HearthTreeNode endTurn(PlayerSide thisMinionPlayerIndex, HearthTreeNode boardModel, Deck deckPlayer0,
-			Deck deckPlayer1) throws HSException {
-		return boardModel;
-	}
-
-	/**
-	 * Called at the start of the turn
-	 * 
-	 * This function is called at the start of the turn. Any derived class must override it to implement whatever "start of the turn" effect the card has.
-	 */
-	public HearthTreeNode startTurn(PlayerSide thisMinionPlayerIndex, HearthTreeNode boardModel, Deck deckPlayer0,
-			Deck deckPlayer1) throws HSException {
-		return boardModel;
-	}
-
-	/**
 	 * Returns whether this card can be used on the given target or not
 	 * 
 	 * This function is an optional optimization feature. Some cards in Hearthstone have limited targets; Shadow Bolt cannot be used on heroes, Mind Blast can only target enemy heroes, etc. Even in this situation though, BoardStateFactory
@@ -233,35 +214,35 @@ public class Card implements DeepCopyable<Card> {
 	 * go and try to play the invalid move, and it turns out that 98% of execution time in HearthSim is BoardStateFactory calling BoardState.deepCopy(). By overriding this function and returning false on appropriate occasions, we can save
 	 * some calls to deepCopy and get better performance out of the code.
 	 * 
-	 * By default, this function returns true, in which case BoardStateFactory will still go and try to use the card.
-	 * 
+	 * By default, this function only checks mana cost.
 	 *
 	 * @param playerSide
 	 * @param boardModel
 	 * @return
 	 */
 	public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
-		return true;
+		// A generic card does nothing except for consuming mana
+		return (this.getManaCost(PlayerSide.CURRENT_PLAYER, boardModel) <= boardModel.getCurrentPlayer().getMana());
 	}
 
 	public final HearthTreeNode useOn(PlayerSide side, Minion targetMinion, HearthTreeNode boardState,
 			Deck deckPlayer0, Deck deckPlayer1) throws HSException {
-		int cardIndex = PlayerSide.CURRENT_PLAYER.getPlayer(boardState).getHand().indexOf(this);
-		int targetIndex = targetMinion instanceof Hero ? 0 : side.getPlayer(boardState).getMinions()
-				.indexOf(targetMinion) + 1;
-		HearthTreeNode toRet = this.useOn(side, targetMinion, boardState, deckPlayer0, deckPlayer1, false);
-		if(toRet != null) {
-			toRet.setAction(new HearthAction(Verb.USE_CARD, PlayerSide.CURRENT_PLAYER, cardIndex, side, targetIndex));
-		}
-		return toRet;
+		return this.useOn(side, targetMinion, boardState, deckPlayer0, deckPlayer1, false);
+	}
+
+	public HearthTreeNode useOn(PlayerSide side, int targetIndex, HearthTreeNode boardState, Deck deckPlayer0,
+			Deck deckPlayer1) throws HSException {
+		return this.useOn(side, targetIndex, boardState, deckPlayer0, deckPlayer1, false);
+	}
+
+	public HearthTreeNode useOn(PlayerSide side, int targetIndex, HearthTreeNode boardState, Deck deckPlayer0,
+			Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
+		Minion target = boardState.data_.getCharacter(side, targetIndex);
+		return this.useOn(side, target, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 	}
 
 	/**
-	 * 
 	 * Use the card on the given target
-	 * 
-	 *
-	 *
 	 *
 	 * @param side
 	 * @param targetMinion The target minion (can be a Hero)
@@ -274,19 +255,26 @@ public class Card implements DeepCopyable<Card> {
 	 */
 	public HearthTreeNode useOn(PlayerSide side, Minion targetMinion, HearthTreeNode boardState, Deck deckPlayer0,
 			Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
-		// A generic card does nothing except for consuming mana
 		if(!this.canBeUsedOn(side, targetMinion, boardState.data_))
 			return null;
 		
-		if (this.getManaCost(PlayerSide.CURRENT_PLAYER, boardState) > boardState.data_.getCurrentPlayer().getMana())
-			return null;
-		
+		// Need to record card and target index *before* the board state changes
+		int cardIndex = PlayerSide.CURRENT_PLAYER.getPlayer(boardState).getHand().indexOf(this);
+		int targetIndex = targetMinion instanceof Hero ? 0 : side.getPlayer(boardState).getMinions()
+				.indexOf(targetMinion) + 1;
+
 		HearthTreeNode toRet = this.notifyCardPlayBegin(boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
-		toRet = this.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+		if(toRet != null) {
+			toRet = this.use_core(side, targetMinion, toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
+		}
 
-		if(toRet != null)
+		if(toRet != null) {
 			toRet = this.notifyCardPlayResolve(toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
+		}
 
+		if(toRet != null) {
+			toRet.setAction(new HearthAction(Verb.USE_CARD, PlayerSide.CURRENT_PLAYER, cardIndex, side, targetIndex));
+		}
 		return toRet;
 	}
 
@@ -313,7 +301,7 @@ public class Card implements DeepCopyable<Card> {
 		throws HSException
 	{
 		//A generic card does nothing except for consuming mana
-		boardState.data_.getCurrentPlayer().subtractMana(this.getManaCost(PlayerSide.CURRENT_PLAYER, boardState));
+		boardState.data_.getCurrentPlayer().subtractMana(this.getManaCost(PlayerSide.CURRENT_PLAYER, boardState.data_));
 		boardState.data_.removeCard_hand(this);
 		return boardState;
 	}

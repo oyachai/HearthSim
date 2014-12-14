@@ -1,6 +1,8 @@
 package com.hearthsim.card.minion;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.CardEndTurnInterface;
+import com.hearthsim.card.CardStartTurnInterface;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.ImplementedCardList;
 import com.hearthsim.event.attack.AttackAction;
@@ -20,7 +22,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.EnumSet;
 
-public class Minion extends Card {
+public class Minion extends Card implements CardEndTurnInterface, CardStartTurnInterface {
 
 	public enum BattlecryTargetType {
 		NO_BATTLECRY,
@@ -405,12 +407,11 @@ public class Minion extends Card {
 	@Override
 	public HearthTreeNode startTurn(PlayerSide thisMinionPlayerIndex, HearthTreeNode boardModel, Deck deckPlayer0,
 			Deck deckPlayer1) throws HSException {
-		HearthTreeNode toRet = boardModel;
 		if(destroyOnTurnStart_) {
 			// toRet = this.destroyed(thisMinionPlayerIndex, toRet, deckPlayer0, deckPlayer1);
 			this.setHealth((byte)-99);
 		}
-		return toRet;
+		return boardModel;
 	}
 
 	/**
@@ -424,12 +425,11 @@ public class Minion extends Card {
 	public HearthTreeNode endTurn(PlayerSide thisMinionPlayerIndex, HearthTreeNode boardModel, Deck deckPlayer0,
 			Deck deckPlayer1) throws HSException {
 		extraAttackUntilTurnEnd_ = 0;
-		HearthTreeNode toRet = boardModel;
 		if(destroyOnTurnEnd_) {
 			// toRet = this.destroyed(thisMinionPlayerIndex, toRet, deckPlayer0, deckPlayer1);
 			this.setHealth((byte)-99);
 		}
-		return toRet;
+		return boardModel;
 	}
 
 	/**
@@ -635,6 +635,9 @@ public class Minion extends Card {
 
 	@Override
 	public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
+		if(!super.canBeUsedOn(playerSide, minion, boardModel)) {
+			return false;
+		}
 		return playerSide != PlayerSide.WAITING_PLAYER && !hasBeenUsed;
 	}
 
