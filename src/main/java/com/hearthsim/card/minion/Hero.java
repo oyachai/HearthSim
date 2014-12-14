@@ -70,7 +70,7 @@ public abstract class Hero extends Minion {
 	public Hero deepCopy() {
 		Hero copy = (Hero)super.deepCopy();
 		if(weapon != null) {
-			copy.weapon = (WeaponCard)weapon.deepCopy();
+			copy.weapon = weapon.deepCopy();
 		}
 		copy.armor_ = armor_;
 
@@ -216,18 +216,6 @@ public abstract class Hero extends Minion {
 	
 	}
 	
-	/**
-	 * End the turn and resets the card state
-	 * 
-	 * This function is called at the end of the turn. Any derived class must override it and remove any temporary buffs that it has.
-	 */
-	@Override
-	public HearthTreeNode endTurn(PlayerSide thisMinionPlayerIndex, HearthTreeNode boardModel, Deck deckPlayer0,
-			Deck deckPlayer1) throws HSException {
-		this.extraAttackUntilTurnEnd_ = 0;
-		return boardModel;
-	}
-
 	@Override
 	public JSONObject toJSON() {
 		JSONObject json = super.toJSON();
