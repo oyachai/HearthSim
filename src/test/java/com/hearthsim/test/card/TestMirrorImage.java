@@ -3,6 +3,7 @@ package com.hearthsim.test.card;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.minion.concrete.BloodfenRaptor;
 import com.hearthsim.card.minion.concrete.MirrorImageMinion;
 import com.hearthsim.card.spellcard.concrete.MirrorImage;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
@@ -10,6 +11,7 @@ import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -87,5 +89,21 @@ public class TestMirrorImage {
 
 		assertTrue(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(2) instanceof MirrorImageMinion);
 		assertTrue(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(3) instanceof MirrorImageMinion);
+	}
+
+	@Test
+	public void testCannotPlayWithFullBoard() throws HSException {
+		board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new BloodfenRaptor());
+		board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new BloodfenRaptor());
+		board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new BloodfenRaptor());
+		board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new BloodfenRaptor());
+		board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new BloodfenRaptor());
+
+		Card theCard = board.data_.getCurrentPlayerCardHand(0);
+		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
+		assertTrue(theCard.canBeUsedOn(PlayerSide.CURRENT_PLAYER, target, board.data_)); // TODO should implement canBeUsedOn
+		
+		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);		
+		assertNull(ret);
 	}
 }
