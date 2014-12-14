@@ -4,12 +4,15 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Demon;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.minion.concrete.BloodImp;
+import com.hearthsim.card.spellcard.concrete.Execute;
 import com.hearthsim.card.spellcard.concrete.SacrificialPact;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -57,6 +60,16 @@ public class TestSacrificialPact {
 		
 	}
 	
+	@Test
+	public void testFollowsNormalTargetingRules() throws HSException {
+		board.data_.placeMinion(PlayerSide.WAITING_PLAYER, new BloodImp());
+
+		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 3);
+		Card theCard = board.data_.getCurrentPlayerCardHand(0);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);		
+		assertNull(ret);
+	}
+
 	@Test
 	public void test0() throws HSException {
 		
