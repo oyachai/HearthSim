@@ -38,6 +38,17 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 		ENEMY_MURLOCS
 	}
 
+	public enum MinionTribe {
+		NONE,
+		BEAST,
+		MECH,
+		MURLOC,
+		PIRATE,
+		DRAGON,
+		DEMON,
+		TOTEM
+	}
+
 	protected boolean taunt_;
 	protected boolean divineShield_;
 	protected boolean windFury_;
@@ -68,6 +79,8 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 
 	protected DeathrattleAction deathrattleAction_;
 	protected AttackAction attackAction_;
+
+	protected MinionTribe tribe = MinionTribe.NONE;
 
 	// This is a flag to tell the BoardState that it can't cheat on the placement of this minion
 	protected boolean placementImportant_ = false;
@@ -347,6 +360,14 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 
 	public byte getTotalMaxHealth() {
 		return (byte)(maxHealth_ + auraHealth_);
+	}
+
+	public MinionTribe getTribe() {
+		return tribe;
+	}
+	
+	public void setTribe(MinionTribe value) {
+		this.tribe = value;
 	}
 
 	public void addAuraHealth(byte value) {
@@ -743,14 +764,14 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 				break;
 			case ENEMY_BEASTS:
 				for(Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
-					if(minion instanceof Beast)
+					if(minion.getTribe() == MinionTribe.BEAST)
 						toRet = this.useTargetableBattlecry(PlayerSide.WAITING_PLAYER, minion, toRet, deckPlayer0,
 								deckPlayer1);
 				}
 				break;
 			case FRIENDLY_BEASTS:
 				for(Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
-					if(minion != this && minion instanceof Beast)
+					if(minion != this && minion.getTribe() == MinionTribe.BEAST)
 						toRet = this.useTargetableBattlecry(PlayerSide.CURRENT_PLAYER, minion, toRet, deckPlayer0,
 								deckPlayer1);
 				}

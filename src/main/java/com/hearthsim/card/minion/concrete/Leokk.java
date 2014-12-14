@@ -1,7 +1,6 @@
 package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.Deck;
-import com.hearthsim.card.minion.Beast;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionPlacedInterface;
 import com.hearthsim.exception.HSException;
@@ -11,7 +10,7 @@ import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 
-public class Leokk extends Beast implements MinionPlacedInterface {
+public class Leokk extends Minion implements MinionPlacedInterface {
 
 	private static final boolean HERO_TARGETABLE = true;
 	private static final byte SPELL_DAMAGE = 0;
@@ -21,6 +20,7 @@ public class Leokk extends Beast implements MinionPlacedInterface {
         spellDamage_ = SPELL_DAMAGE;
         heroTargetable_ = HERO_TARGETABLE;
 
+        this.tribe = MinionTribe.BEAST;
 	}
 
 	/**

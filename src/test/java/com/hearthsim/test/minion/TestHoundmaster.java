@@ -1,18 +1,23 @@
 package com.hearthsim.test.minion;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Before;
+import org.junit.Test;
+
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
-import com.hearthsim.card.minion.Beast;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.minion.Minion.MinionTribe;
 import com.hearthsim.card.minion.concrete.Houndmaster;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
-import org.junit.Before;
-import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 public class TestHoundmaster {
 
@@ -27,9 +32,11 @@ public class TestHoundmaster {
 	public void setup() throws HSException {
 		board = new HearthTreeNode(new BoardModel());
 		Minion minion0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
-		Minion minion1 = new Beast("" + 0, mana, attack0, health0, attack0, health0, health0);
+		Minion minion1 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
+		minion1.setTribe(MinionTribe.BEAST);
 		Minion minion2 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
-		Minion minion3 = new Beast("" + 0, mana, attack0, health1, attack0, health1, health1);
+		Minion minion3 = new Minion("" + 0, mana, attack0, health1, attack0, health1, health1);
+		minion3.setTribe(MinionTribe.BEAST);
 		Minion minion4 = new Minion("" + 0, mana, attack0, (byte)(health0-2), attack0, health0, health0);
 
 		Houndmaster fb = new Houndmaster();

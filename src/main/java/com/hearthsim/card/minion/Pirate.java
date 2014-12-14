@@ -4,15 +4,20 @@ import org.json.JSONObject;
 
 public class Pirate extends Minion {
 
-    public Pirate(String name, byte mana, byte attack, byte health, byte baseAttack, byte baseHealth, byte maxHealth) {
-        super(name, mana, attack, health, baseAttack, baseHealth, maxHealth);
-    }
+	public Pirate(String name, byte mana, byte attack, byte health, byte baseAttack, byte baseHealth, byte maxHealth) {
+		super(name, mana, attack, health, baseAttack, baseHealth, maxHealth);
 
-    public Pirate() {
-    }
+		this.tribe = MinionTribe.PIRATE;
+	}
 
-    @Override
-    public JSONObject toJSON() {
+	public Pirate() {
+		super();
+
+		this.tribe = MinionTribe.PIRATE;
+	}
+
+	@Override
+	public JSONObject toJSON() {
 		JSONObject json = super.toJSON();
 		json.put("type", "Pirate");
 		return json;

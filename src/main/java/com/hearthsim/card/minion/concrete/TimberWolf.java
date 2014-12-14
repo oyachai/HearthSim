@@ -1,7 +1,6 @@
 package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.Deck;
-import com.hearthsim.card.minion.Beast;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionPlacedInterface;
 import com.hearthsim.exception.HSException;
@@ -11,7 +10,7 @@ import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 
-public class TimberWolf extends Beast implements MinionPlacedInterface {
+public class TimberWolf extends Minion implements MinionPlacedInterface {
 
 	private static final boolean HERO_TARGETABLE = true;
 	private static final byte SPELL_DAMAGE = 0;
@@ -21,6 +20,7 @@ public class TimberWolf extends Beast implements MinionPlacedInterface {
         spellDamage_ = SPELL_DAMAGE;
         heroTargetable_ = HERO_TARGETABLE;
 
+        this.tribe = MinionTribe.BEAST;
 	}
 
 	/**
@@ -50,7 +50,7 @@ public class TimberWolf extends Beast implements MinionPlacedInterface {
 		HearthTreeNode toRet = super.placeMinion(targetSide, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
 			for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
-				if (minion != this && minion instanceof Beast) {
+				if (minion != this && minion.getTribe() == MinionTribe.BEAST) {
 					minion.setAuraAttack((byte)(minion.getAuraAttack() + 1));
 				}
 			}			
@@ -73,7 +73,7 @@ public class TimberWolf extends Beast implements MinionPlacedInterface {
 	public void silenced(PlayerSide thisPlayerSide, BoardModel boardState) throws HSInvalidPlayerIndexException {
 		if (!silenced_) {
 			for (Minion minion : boardState.getMinions(thisPlayerSide)) {
-				if (minion != this && minion instanceof Beast) {
+				if (minion != this && minion.getTribe() == MinionTribe.BEAST) {
 					minion.setAuraAttack((byte)(minion.getAuraAttack() - 1));
 				}
 			}
@@ -89,7 +89,7 @@ public class TimberWolf extends Beast implements MinionPlacedInterface {
 	{
 		if (placedMinionPlayerSide != thisMinionPlayerSide)
 			return boardState;
-        if (!silenced_ && placedMinion != this && placedMinion instanceof Beast) {
+        if (!silenced_ && placedMinion != this && placedMinion.getTribe() == MinionTribe.BEAST) {
             placedMinion.setAuraAttack((byte) (placedMinion.getAuraAttack() + 1));
         }
         return boardState;

@@ -3,7 +3,6 @@ package com.hearthsim.card
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
-import com.hearthsim.card.minion.Beast
 import com.hearthsim.card.minion.Hero
 import com.hearthsim.card.minion.Minion
 import com.hearthsim.card.minion.heroes.TestHero
@@ -120,7 +119,7 @@ class ImplementedCardList {
     public ImplementedCard getCardForClass(Class<?> clazz) {
         def card =map_.get(clazz)
         if (!card) {
-            if ([Minion, Beast, TestHero].contains(clazz)) {
+            if ([Minion, TestHero].contains(clazz)) {
                 return null
             } else {
                 throw new RuntimeException("unable to find card for class [$clazz]")

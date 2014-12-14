@@ -1,7 +1,10 @@
 package com.hearthsim.card.minion.concrete;
 
+import java.util.ArrayList;
+import java.util.EnumSet;
+import java.util.List;
+
 import com.hearthsim.card.Deck;
-import com.hearthsim.card.minion.Beast;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
@@ -12,11 +15,7 @@ import com.hearthsim.util.factory.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
 import com.hearthsim.util.tree.RandomEffectNode;
 
-import java.util.ArrayList;
-import java.util.EnumSet;
-import java.util.List;
-
-public class StampedingKodo extends Beast {
+public class StampedingKodo extends Minion {
 
 	private static final boolean HERO_TARGETABLE = true;
 	private static final byte SPELL_DAMAGE = 0;
@@ -26,6 +25,7 @@ public class StampedingKodo extends Beast {
         spellDamage_ = SPELL_DAMAGE;
         heroTargetable_ = HERO_TARGETABLE;
 
+        this.tribe = MinionTribe.BEAST;
 	}
 
 	@Override

@@ -1,7 +1,6 @@
 package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.Deck;
-import com.hearthsim.card.minion.Beast;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionSummonedInterface;
 import com.hearthsim.model.PlayerSide;
@@ -9,7 +8,7 @@ import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 
-public class StarvingBuzzard extends Beast implements MinionSummonedInterface {
+public class StarvingBuzzard extends Minion implements MinionSummonedInterface {
 
 	private static final boolean HERO_TARGETABLE = true;
 	private static final byte SPELL_DAMAGE = 0;
@@ -19,6 +18,7 @@ public class StarvingBuzzard extends Beast implements MinionSummonedInterface {
         spellDamage_ = SPELL_DAMAGE;
         heroTargetable_ = HERO_TARGETABLE;
 
+        this.tribe = MinionTribe.BEAST;
 	}
 	
 	/**
@@ -47,7 +47,7 @@ public class StarvingBuzzard extends Beast implements MinionSummonedInterface {
 			return boardState;
 		
 		HearthTreeNode toRet = boardState;
-		if (summonedMinion instanceof Beast) { //TODO: this might be wrong..
+		if (summonedMinion.getTribe() == MinionTribe.BEAST) { //TODO: this might be wrong..
 			if (toRet instanceof CardDrawNode) {
 				((CardDrawNode) toRet).addNumCardsToDraw(1);
 			} else {
