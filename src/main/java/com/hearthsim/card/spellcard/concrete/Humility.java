@@ -32,11 +32,6 @@ public class Humility extends SpellCard {
 		this(false);
 	}
 
-	@Override
-	public SpellCard deepCopy() {
-		return new Humility(this.hasBeenUsed);
-	}
-
 	/**
 	 * 
 	 * Use the card on the given target

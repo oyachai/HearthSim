@@ -36,11 +36,6 @@ public class BattleRage extends SpellCard {
 		this(false);
 	}
 
-	@Override
-	public SpellCard deepCopy() {
-		return new BattleRage(this.hasBeenUsed);
-	}
-	
 	/**
 	 * 
 	 * Use the card on the given target

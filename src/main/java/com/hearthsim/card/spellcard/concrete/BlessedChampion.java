@@ -29,11 +29,6 @@ public class BlessedChampion extends SpellCard {
 	public BlessedChampion() {
 		this(false);
 	}
-
-	@Override
-	public SpellCard deepCopy() {
-		return new BlessedChampion(this.hasBeenUsed);
-	}
 	
 	/**
 	 * 

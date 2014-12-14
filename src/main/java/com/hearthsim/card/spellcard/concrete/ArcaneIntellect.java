@@ -31,11 +31,6 @@ public class ArcaneIntellect extends SpellCard {
 	public ArcaneIntellect() {
 		this(false);
 	}
-
-	@Override
-	public SpellCard deepCopy() {
-		return new ArcaneIntellect(this.hasBeenUsed);
-	}
 	
 	/**
 	 * 

@@ -35,11 +35,6 @@ public class Claw extends SpellCard {
 		this(false);
 	}
 	
-	@Override
-	public SpellCard deepCopy() {
-		return new Claw(this.hasBeenUsed);
-	}
-
 	/**
 	 * Claw
 	 * 

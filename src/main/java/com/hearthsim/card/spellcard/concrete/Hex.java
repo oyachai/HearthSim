@@ -31,11 +31,6 @@ public class Hex extends SpellCard {
 		this(false);
 	}
 	
-	@Override
-	public SpellCard deepCopy() {
-		return new Hex(this.hasBeenUsed);
-	}
-	
 	/**
 	 * 
 	 * Use the card on the given target

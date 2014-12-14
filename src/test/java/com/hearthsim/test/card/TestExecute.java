@@ -54,6 +54,16 @@ public class TestExecute {
 	}
 	
 	@Test
+	public void testFollowsNormalTargetingRules() throws HSException {
+		Execute fb = new Execute();
+		board.data_.placeCardHandCurrentPlayer(fb);
+
+		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
+		HearthTreeNode ret = fb.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);		
+		assertNull(ret);
+	}
+
+	@Test
 	public void testCannotTargetUndamagedMinion() throws HSException {
 		Execute fb = new Execute();
 		board.data_.placeCardHandCurrentPlayer(fb);

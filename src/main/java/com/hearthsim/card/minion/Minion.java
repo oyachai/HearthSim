@@ -58,9 +58,6 @@ public class Minion extends Card {
 	protected byte extraAttackUntilTurnEnd_;
 	protected byte auraAttack_;
 
-	protected boolean summoned_;
-	protected boolean transformed_;
-
 	protected boolean destroyOnTurnStart_;
 	protected boolean destroyOnTurnEnd_;
 
@@ -107,11 +104,36 @@ public class Minion extends Card {
 	 * @param maxHealth
 	 */
 	public Minion(String name, byte mana, byte attack, byte health, byte baseAttack, byte baseHealth, byte maxHealth) {
-		this(name, mana, attack, health, baseAttack, (byte)0, (byte)0, baseHealth, maxHealth, (byte)0, (byte)0, false,
-				false, false, false, false, false, false, false, false, true, false, false, false, false, null, null,
-				true, false);
+		super(name, mana, false, true);
+		attack_ = attack;
+		health_ = health;
+		taunt_ = false;
+		divineShield_ = false;
+		windFury_ = false;
+		charge_ = false;
+		hasAttacked_ = false;
+		baseAttack_ = baseAttack;
+		extraAttackUntilTurnEnd_ = 0;
+		hasWindFuryAttacked_ = false;
+		frozen_ = false;
+		silenced_ = false;
+		baseHealth_ = baseHealth;
+		maxHealth_ = maxHealth;
+		destroyOnTurnStart_ = false;
+		destroyOnTurnEnd_ = false;
+		deathrattleAction_ = null;
+		attackAction_ = null;
+
+		auraAttack_ = 0;
+		auraHealth_ = 0;
+
+		spellDamage_ = 0;
+
+		stealthed_ = false;
+		heroTargetable_ = true;
 	}
 
+	@Deprecated
 	public Minion(String name, byte mana, byte attack, byte health, byte baseAttack, byte extraAttackUntilTurnEnd,
 			byte auraAttack, byte baseHealth, byte maxHealth, byte auraHealth, byte spellDamage, boolean taunt,
 			boolean divineShield, boolean windFury, boolean charge, boolean hasAttacked, boolean hasWindFuryAttacked,
@@ -133,8 +155,6 @@ public class Minion extends Card {
 		silenced_ = silenced;
 		baseHealth_ = baseHealth;
 		maxHealth_ = maxHealth;
-		summoned_ = summoned;
-		transformed_ = transformed;
 		destroyOnTurnStart_ = destroyOnTurnStart;
 		destroyOnTurnEnd_ = destroyOnTurnEnd;
 		deathrattleAction_ = deathrattleAction;
@@ -210,9 +230,10 @@ public class Minion extends Card {
 	}
 
 	public boolean canAttack() {
-		return !this.hasAttacked_ && this.attack_ + this.extraAttackUntilTurnEnd_ > 0;
+		return !this.hasAttacked_ && (this.attack_ + this.extraAttackUntilTurnEnd_) > 0 && !this.frozen_;
 	}
 	
+	@Deprecated
 	public boolean hasAttacked() {
 		return hasAttacked_;
 	}
@@ -255,22 +276,6 @@ public class Minion extends Card {
 			hasAttacked_ = false;
 			hasWindFuryAttacked_ = true;
 		}
-	}
-
-	public boolean getSummoned() {
-		return summoned_;
-	}
-
-	public void setSummoned(boolean value) {
-		summoned_ = value;
-	}
-
-	public boolean getTransformed() {
-		return transformed_;
-	}
-
-	public void setTransformed(boolean value) {
-		transformed_ = value;
 	}
 
 	public void addExtraAttackUntilTurnEnd(byte value) {
@@ -890,10 +895,8 @@ public class Minion extends Card {
 		if(targetMinion.getStealthed())
 			return null;
 
-		if(frozen_) {
-			this.hasAttacked_ = true;
-			this.frozen_ = false;
-			return boardState;
+		if(!this.canAttack()) {
+			return null;
 		}
 
 		// Notify all that an attack is beginning
@@ -949,16 +952,11 @@ public class Minion extends Card {
 	protected HearthTreeNode attack_core(PlayerSide targetMinionPlayerSide, Minion targetMinion,
 			HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
 
-		if(hasAttacked_) {
-			// minion has already attacked
+		if(!this.canAttack()) {
 			return null;
 		}
 
 		if(targetMinionPlayerSide == PlayerSide.CURRENT_PLAYER) {
-			return null;
-		}
-
-		if(this.getTotalAttack() <= 0) {
 			return null;
 		}
 
@@ -1223,8 +1221,6 @@ public class Minion extends Card {
 		minion.silenced_ = silenced_;
 		minion.stealthed_ = stealthed_;
 		minion.heroTargetable_ = heroTargetable_;
-		minion.summoned_ = summoned_;
-		minion.transformed_ = transformed_;
 		minion.destroyOnTurnStart_ = destroyOnTurnStart_;
 		minion.destroyOnTurnEnd_ = destroyOnTurnEnd_;
 		minion.deathrattleAction_ = deathrattleAction_;
@@ -1281,10 +1277,6 @@ public class Minion extends Card {
 			return false;
 		if(silenced_ != otherMinion.silenced_)
 			return false;
-		if(summoned_ != otherMinion.summoned_)
-			return false;
-		if(transformed_ != otherMinion.transformed_)
-			return false;
 		if(destroyOnTurnStart_ != otherMinion.destroyOnTurnStart_)
 			return false;
 		if(destroyOnTurnEnd_ != otherMinion.destroyOnTurnEnd_)
@@ -1325,8 +1317,6 @@ public class Minion extends Card {
 		result = 31 * result + baseAttack_;
 		result = 31 * result + extraAttackUntilTurnEnd_;
 		result = 31 * result + auraAttack_;
-		result = 31 * result + (summoned_ ? 1 : 0);
-		result = 31 * result + (transformed_ ? 1 : 0);
 		result = 31 * result + (destroyOnTurnStart_ ? 1 : 0);
 		result = 31 * result + (destroyOnTurnEnd_ ? 1 : 0);
 		result = 31 * result + spellDamage_;

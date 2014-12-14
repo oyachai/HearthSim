@@ -5,7 +5,6 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.Hound;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -23,16 +22,6 @@ public class UnleashTheHounds extends SpellCard {
 		this(false);
 	}
 
-	@Override
-	public SpellCard deepCopy() {
-		return new UnleashTheHounds(this.hasBeenUsed());
-	}
-
-	@Override
-    public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
-        return !(isWaitingPlayer(playerSide) || isNotHero(minion));
-    }
-	
 	/**
 	 * 
 	 * Use the card on the given target
@@ -66,7 +55,7 @@ public class UnleashTheHounds extends SpellCard {
 				toRet = new Hound().summonMinion(PlayerSide.CURRENT_PLAYER, placementTarget, toRet, deckPlayer0, deckPlayer1, false, singleRealizationOnly);
 			}
 		}
-		return boardState;
+		return toRet;
 	}
 
 }

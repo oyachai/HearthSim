@@ -222,4 +222,17 @@ public class TestSpellDamageAoe {
 		assertEquals(board.data_.getWaitingPlayer().getMinions().get(2).getHealth(), health0);
 		assertEquals(board.data_.getWaitingPlayer().getMinions().get(2).getTotalAttack(), attack0);
 	}
+
+
+	@Test
+	public void testCannotReuse() throws HSException {
+		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
+		Card theCard = board.data_.getCurrentPlayerCardHand(0);
+		theCard.hasBeenUsed(true);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
+		assertNull(ret);
+
+		assertEquals(board.data_.getNumCards_hand(), 1);
+		assertEquals(board.data_.getCurrentPlayer().getMana(), 3);
+	}
 }

@@ -1,5 +1,6 @@
 package com.hearthsim.test.card;
 
+import com.hearthsim.Game;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
@@ -9,6 +10,7 @@ import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -59,50 +61,32 @@ public class TestCorruption {
 	}
 		
 	@Test
-	public void test1() throws HSException {
+	public void testSetsDestroyOnTurnStart() throws HSException {
 		
 		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
 		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
 		
-		assertFalse(ret == null);
+		assertEquals(board, ret);
 		assertEquals(board.data_.getNumCards_hand(), 0);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
-		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
-		assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
 		assertEquals(board.data_.getCurrentPlayer().getMana(), 3);
-		assertEquals(board.data_.getWaitingPlayer().getMana(), 4);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), health1 - 1);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), health1 - 1);
+		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getDestroyOnTurnStart());
+	}
 		
-//		ret.data_.endTurn(deck, null);
-//		assertEquals(board.data_.getNumCards_hand(), 0);
-//		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);
-//		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
-//		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
-//		assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
-//		assertEquals(board.data_.getCurrentPlayer().getMana(), 3);
-//		assertEquals(board.data_.getWaitingPlayer().getMana(), 4);
-//		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0);
-//		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), health1 - 1);
-//		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0);
-//		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), health1 - 1);
-//		
-//		ret.data_.startTurn();
-//		assertEquals(board.data_.getNumCards_hand(), 0);
-//		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);
-//		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 1);
-//		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
-//		assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
-//		assertEquals(board.data_.getCurrentPlayer().getMana(), 3);
-//		assertEquals(board.data_.getWaitingPlayer().getMana(), 4);
-//		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0);
-//		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), health1 - 1);
-//		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health1 - 1);
+	@Test
+	public void testMinionIsDestroyedNextTurnStart() throws HSException {
+		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
+		Card theCard = board.data_.getCurrentPlayerCardHand(0);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
+		assertEquals(board, ret);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0);
+		assertEquals(board, ret);
 
+		BoardModel nextTurn = Game.beginTurn(board.data_);
+		assertNotNull(nextTurn);
+		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 1);
 	}
 	
 }

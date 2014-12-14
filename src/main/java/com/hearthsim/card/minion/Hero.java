@@ -43,11 +43,15 @@ public abstract class Hero extends Minion {
 	}
 
 	public void setWeaponCharge(byte weaponCharge) {
-		if(weaponCharge == 0) {
-			weapon = null;
+		if(weaponCharge <= 0) {
+			this.destroyWeapon();
 		} else {
 			weapon.setWeaponCharge_(weaponCharge);
 		}
+	}
+
+	public void useWeaponCharge() {
+		this.setWeaponCharge((byte)(this.getWeaponCharge() - 1));
 	}
 
 	public void addArmor(byte armor) {
@@ -94,31 +98,14 @@ public abstract class Hero extends Minion {
 	public HearthTreeNode attack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode boardState,
 			Deck deckPlayer0, Deck deckPlayer1) throws HSException {
 
-		if(attack_ + extraAttackUntilTurnEnd_ == 0) {
+		if(!this.canAttack()) {
 			return null;
 		}
 
-		if(this.getWeapon() != null && this.getWeapon().getWeaponCharge_() == 0 && this.extraAttackUntilTurnEnd_ == 0) {
-			return null;
-		}
-
-		// this is somewhat redundant, but it must be done here...
-		if(frozen_) {
-			this.hasAttacked_ = true;
-			this.frozen_ = false;
-			return boardState;
-		}
 		HearthTreeNode toRet = super.attack(targetMinionPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1);
 		if(toRet != null && this.getWeapon() != null) {
 			this.weapon.onAttack(targetMinionPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1);
-
-			if(getWeaponCharge() > 0) {
-				this.getWeapon().setWeaponCharge_((byte)(getWeaponCharge() - 1));
-				if(getWeaponCharge() == 0) {
-					destroyWeapon();
-				}
-			}
-
+			this.useWeaponCharge();
 		}
 
 		return toRet;
@@ -176,11 +163,9 @@ public abstract class Hero extends Minion {
 		return toRet;
 	}
 
-	public HearthTreeNode useHeroAbility_core(PlayerSide targetPlayerSide, Minion targetMinion,
+	public abstract HearthTreeNode useHeroAbility_core(PlayerSide targetPlayerSide, Minion targetMinion,
 			HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly)
-			throws HSException {
-		return null;
-	}
+			throws HSException;
 
 	/**
 	 * Called when this minion takes damage
@@ -218,7 +203,7 @@ public abstract class Hero extends Minion {
 	 * Simpler version of take damage
 	 * 
 	 * For now, the Hero taking damage has no consequence to the board state.  So, this version can be used as a way to simplify the code.
-	 * @param damage The amount of damage takef by the hero
+	 * @param damage The amount of damage taken by the hero
 	 */
 	public void takeDamage(byte damage) {
 		byte damageRemaining = (byte)(damage - armor_);
@@ -293,7 +278,7 @@ public abstract class Hero extends Minion {
 
 	public void destroyWeapon() {
 		if(weapon != null) {
-			attack_ = 0;
+			attack_ = 0; // TODO if anything ever explicitly adds attack to a hero this will probably break 
 			weapon = null;
 		}
 	}

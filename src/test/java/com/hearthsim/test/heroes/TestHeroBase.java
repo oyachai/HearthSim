@@ -2,10 +2,12 @@ package com.hearthsim.test.heroes;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.hearthsim.card.Card;
@@ -13,10 +15,13 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.BoulderfistOgre;
+import com.hearthsim.card.minion.concrete.KoboldGeomancer;
 import com.hearthsim.card.minion.concrete.RaidLeader;
 import com.hearthsim.card.minion.heroes.TestHero;
+import com.hearthsim.card.spellcard.concrete.HolySmite;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.card.spellcard.concrete.WildGrowth;
+import com.hearthsim.card.weapon.concrete.FieryWarAxe;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
@@ -77,6 +82,17 @@ public class TestHeroBase {
 	}
 
 	@Test
+	public void testHeroCannotAttack() throws HSException {
+		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
+		Hero hero = board.data_.getCurrentPlayerHero();
+
+		assertFalse(hero.canAttack());
+
+		HearthTreeNode ret = hero.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null);
+		assertNull(ret);
+	}
+
+	@Test
 	public void testMinionAttackingHero() throws HSException {
 		// null case
 		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
@@ -100,32 +116,6 @@ public class TestHeroBase {
 
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack(), 2);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack(), 7);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack(), 2);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack(), 7);
-	}
-
-	@Test
-	public void testMinionAttackingMinion() throws HSException {
-		Minion raidLeader = PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0);
-		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2); // Boulderfist
-																				// Ogre
-		HearthTreeNode ret = raidLeader.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null);
-		assertEquals(board, ret);
-
-		assertEquals(board.data_.getNumCards_hand(), 1);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 1);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
-
-		assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
-		assertEquals(board.data_.getWaitingPlayer().getMana(), 8);
-		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
-		assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
-
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), 7);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), 2);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), 5);
-
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack(), 6);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack(), 2);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack(), 7);
 	}
@@ -189,5 +179,86 @@ public class TestHeroBase {
 
 		assertFalse(hero.hasBeenUsed());
 		assertEquals(board.data_.getCurrentPlayer().getMana(), 1);
+	}
+
+	@Test
+	public void testDeepCopyWeapon() throws HSException {
+		Hero hero = board.data_.getCurrentPlayerHero();
+		board.data_.getCurrentPlayer().setMana((byte) 2);
+
+		FieryWarAxe axe = new FieryWarAxe();
+		hero.setWeapon(axe);
+
+		Hero copy = hero.deepCopy();
+
+		assertEquals(hero, copy);
+		assertEquals(axe, copy.getWeapon());
+	}
+
+	@Test
+	public void testNotEqualWeapon() throws HSException {
+		Hero hero = board.data_.getCurrentPlayerHero();
+		board.data_.getCurrentPlayer().setMana((byte) 2);
+
+		Hero copy = hero.deepCopy();
+
+		FieryWarAxe axe = new FieryWarAxe();
+		hero.setWeapon(axe);
+
+		FieryWarAxe otherAxe = new FieryWarAxe();
+		otherAxe.setWeaponCharge_((byte)1);
+		copy.setWeapon(otherAxe);
+
+		assertNotEquals(hero, copy);
+	}
+
+	@Test
+	public void testMinionAttackingHeroRemovesArmorFirst() throws HSException {
+		Hero opponent = board.data_.getWaitingPlayerHero();
+		opponent.setArmor((byte)3);
+
+		Minion minion = PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0);
+		HearthTreeNode ret = minion.attack(PlayerSide.WAITING_PLAYER, opponent, board, deck, null);
+		assertEquals(board, ret);
+
+		assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
+		assertEquals(board.data_.getWaitingPlayerHero().getArmor(), 1);
+	}
+
+	@Test
+	@Ignore("Existing bug")
+	public void testSpellpowerEffectsArmor() throws HSException {
+		Hero opponent = board.data_.getWaitingPlayerHero();
+		opponent.setArmor((byte)10);
+
+		board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new KoboldGeomancer());
+
+		HolySmite smite = new HolySmite();
+		board.data_.placeCardHand(PlayerSide.CURRENT_PLAYER, smite);
+
+		HearthTreeNode ret = smite.useOn(PlayerSide.WAITING_PLAYER, opponent, board, deck, null);
+		assertEquals(board, ret);
+
+		assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
+		assertEquals(board.data_.getWaitingPlayerHero().getArmor(), 7);
+	}
+
+	@Test
+	public void testFatigueDamage() throws HSException {
+		board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).drawNextCardFromDeck(); // 1 damage
+		board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).drawNextCardFromDeck(); // 2 damage = 3 total
+
+		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 27);
+	}
+
+	@Test
+	public void testFatigueDamageEffectsArmorFirst() throws HSException {
+		board.data_.getCurrentPlayerHero().setArmor((byte)10);
+
+		board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).drawNextCardFromDeck(); // 1 damage
+		board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).drawNextCardFromDeck(); // 2 damage = 3 total
+
+		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
+		assertEquals(board.data_.getCurrentPlayerHero().getArmor(), 7);
 	}
 }

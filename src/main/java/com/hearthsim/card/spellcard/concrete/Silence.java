@@ -21,11 +21,6 @@ public class Silence extends SpellCard {
 		this.canTargetOwnHero = false;
 	}
 
-	@Override
-	public SpellCard deepCopy() {
-		return new Silence(this.hasBeenUsed);
-	}
-	
 	/**
 	 * 
 	 * Use the card on the given target

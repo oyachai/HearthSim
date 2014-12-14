@@ -295,7 +295,7 @@ public class BoardModel implements DeepCopyable<BoardModel> {
     }
 
     /**
-     * Draw a card from a deck and place it in the hand
+     * Draw a card from a deck and place it in the hand without using a CardDrawNode
      *
      * Note: It is almost always correct to use CardDrawNode instead of this function!!!!
      *
@@ -304,7 +304,6 @@ public class BoardModel implements DeepCopyable<BoardModel> {
      * @throws HSInvalidPlayerIndexException
      */
     public void drawCardFromCurrentPlayerDeck(int numCards) throws HSInvalidPlayerIndexException {
-        //This minion is an enemy minion.  Let's draw a card for the enemy.  No need to use a StopNode for enemy card draws.
         for (int indx = 0; indx < numCards; ++indx) {
         	this.getCurrentPlayer().drawNextCardFromDeck();
         }
