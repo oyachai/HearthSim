@@ -48,7 +48,6 @@ public class GrimscaleOracle extends Murloc {
 	{
 		HearthTreeNode toRet = super.placeMinion(targetSide, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
-			
 			for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
 				if (minion instanceof Murloc && minion != this) {
 					minion.setAuraAttack((byte)(minion.getAuraAttack() + 1));
@@ -60,12 +59,8 @@ public class GrimscaleOracle extends Murloc {
 					minion.setAuraAttack((byte)(minion.getAuraAttack() + 1));
 				}
 			}
-
-			return boardState;
-
-		} else {
-			return null;
 		}
+		return toRet;
 	}
 	
 	/**
