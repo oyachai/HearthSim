@@ -11,16 +11,13 @@ import com.hearthsim.util.tree.HearthTreeNode;
 public class BloodsailCorsair extends Pirate {
 
 	private static final boolean HERO_TARGETABLE = true;
-	private static final boolean SUMMONED = false;
-	private static final boolean TRANSFORMED = false;
 	private static final byte SPELL_DAMAGE = 1;
 	
 	public BloodsailCorsair() {
         super();
         spellDamage_ = SPELL_DAMAGE;
         heroTargetable_ = HERO_TARGETABLE;
-        summoned_ = SUMMONED;
-        transformed_ = TRANSFORMED;
+
 	}
 	
 	@Override
@@ -42,8 +39,7 @@ public class BloodsailCorsair extends Pirate {
 	{
 		boolean hasWeapon = boardState.data_.getWaitingPlayerHero().getWeapon() != null;
 		if (hasWeapon) {
-			byte currentCharge = boardState.data_.getWaitingPlayerHero().getWeaponCharge();
-			boardState.data_.getWaitingPlayerHero().setWeaponCharge((byte)(currentCharge - 1));
+			boardState.data_.getWaitingPlayerHero().useWeaponCharge();
 		}
 		return boardState;
 	}

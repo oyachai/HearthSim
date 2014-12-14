@@ -31,11 +31,6 @@ public class Charge extends SpellCard {
 		this(false);
 	}
 	
-	@Override
-	public SpellCard deepCopy() {
-		return new Charge(this.hasBeenUsed);
-	}
-
 	/**
 	 * 
 	 * Use the card on the given target

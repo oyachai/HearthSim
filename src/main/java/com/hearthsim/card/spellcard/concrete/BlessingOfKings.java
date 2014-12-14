@@ -30,11 +30,6 @@ public class BlessingOfKings extends SpellCard {
 		this(false);
 	}
 
-	@Override
-	public SpellCard deepCopy() {
-		return new BlessingOfKings(this.hasBeenUsed);
-	}
-	
 	/**
 	 * 
 	 * Use the card on the given target

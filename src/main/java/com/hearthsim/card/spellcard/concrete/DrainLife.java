@@ -19,11 +19,6 @@ public class DrainLife extends SpellDamage {
 		this.canTargetOwnHero = false; // TODO card as printed looks like it allows this
 	}
 
-	@Override
-	public SpellDamage deepCopy() {
-		return new DrainLife(this.hasBeenUsed);
-	}
-	
 	/**
 	 * 
 	 * Use the card on the given target

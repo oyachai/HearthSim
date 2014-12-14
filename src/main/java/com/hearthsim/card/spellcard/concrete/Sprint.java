@@ -33,11 +33,6 @@ public class Sprint extends SpellCard {
 		this(false);
 	}
 
-	@Override
-	public SpellCard deepCopy() {
-		return new Sprint(this.hasBeenUsed);
-	}
-	
 	/**
 	 * 
 	 * Use the card on the given target

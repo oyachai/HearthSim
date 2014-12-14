@@ -33,11 +33,6 @@ public class MirrorImage extends SpellCard {
 		this(false);
 	}
 
-	@Override
-	public SpellCard deepCopy() {
-		return new MirrorImage(this.hasBeenUsed);
-	}
-	
 	/**
 	 * 
 	 * Use the card on the given target

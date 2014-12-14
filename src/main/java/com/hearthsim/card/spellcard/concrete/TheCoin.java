@@ -23,11 +23,6 @@ public class TheCoin extends SpellCard {
 		this(false);
 	}
 
-	@Override
-	public SpellCard deepCopy() {
-		return new TheCoin(this.hasBeenUsed());
-	}
-
 	/**
 	 * 
 	 * Use the card on the given target

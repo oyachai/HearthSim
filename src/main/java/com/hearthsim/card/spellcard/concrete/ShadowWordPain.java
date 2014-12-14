@@ -32,11 +32,6 @@ public class ShadowWordPain extends SpellCard {
 	}
 
 	@Override
-	public SpellCard deepCopy() {
-		return new ShadowWordPain(this.hasBeenUsed);
-	}
-	
-	@Override
 	public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
 		if(!super.canBeUsedOn(playerSide, minion, boardModel)) {
 			return false;

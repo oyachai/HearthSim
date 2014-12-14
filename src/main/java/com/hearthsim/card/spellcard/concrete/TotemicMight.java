@@ -31,11 +31,6 @@ public class TotemicMight extends SpellCard {
 	public TotemicMight() {
 		this(false);
 	}
-
-	@Override
-	public SpellCard deepCopy() {
-		return new TotemicMight(this.hasBeenUsed);
-	}
 	
 	/**
 	 * 

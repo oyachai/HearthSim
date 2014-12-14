@@ -18,12 +18,11 @@ import com.hearthsim.util.HearthAction;
 public class RandomEffectNode extends StopNode {
 
 	private ArrayList<Double> childWeighting_;
-	private HearthAction action_;
 	
 	public RandomEffectNode(HearthTreeNode origNode,
 							HearthAction action) {
 		super(origNode);
-		action_ = action;
+		this.setAction(action);
 		childWeighting_ = new ArrayList<Double>();
 	}
 	

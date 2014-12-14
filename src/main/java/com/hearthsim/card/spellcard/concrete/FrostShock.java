@@ -20,11 +20,6 @@ public class FrostShock extends SpellDamage {
 		this.canTargetOwnMinions = false;
 	}
 
-	@Override
-	public SpellDamage deepCopy() {
-		return new FrostShock(this.hasBeenUsed);
-	}
-	
 	/**
 	 * 
 	 * Use the card on the given target

@@ -29,11 +29,6 @@ public class BlessingOfMight extends SpellCard {
 		this(false);
 	}
 	
-	@Override
-	public SpellCard deepCopy() {
-		return new BlessingOfMight(this.hasBeenUsed);
-	}
-
 	/**
 	 * 
 	 * Use the card on the given target

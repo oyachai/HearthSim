@@ -5,6 +5,7 @@ import static com.hearthsim.model.PlayerSide.WAITING_PLAYER
 import static org.junit.Assert.*
 
 import com.hearthsim.card.minion.concrete.ChillwindYeti
+import com.hearthsim.card.minion.concrete.StranglethornTiger
 import com.hearthsim.card.minion.concrete.WarGolem
 import com.hearthsim.card.spellcard.concrete.ShadowWordDeath
 import com.hearthsim.model.BoardModel
@@ -22,7 +23,7 @@ class ShadowWordDeathSpec extends CardSpec {
 				mana(5)
 			}
 			waitingPlayer {
-				field([[minion: WarGolem], [minion: ChillwindYeti]])
+				field([[minion: WarGolem], [minion: ChillwindYeti], [minion: StranglethornTiger]])
 			}
 		}
 
@@ -77,5 +78,17 @@ class ShadowWordDeathSpec extends CardSpec {
 			}
 			waitingPlayer { removeMinion(0) }
 		}
+	}
+
+	def "follows normal targeting rules"() {
+		def copiedBoard = startingBoard.deepCopy()
+		def target = root.data_.getCharacter(WAITING_PLAYER, 3)
+		def theCard = root.data_.getCurrentPlayerCardHand(0)
+		def ret = theCard.useOn(WAITING_PLAYER, target, root, null, null)
+
+		expect:
+		assertNull(ret);
+
+		assertBoardEquals(copiedBoard, root.data_)
 	}
 }

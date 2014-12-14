@@ -31,11 +31,6 @@ public class DivineFavor extends SpellCard {
 	public DivineFavor() {
 		this(false);
 	}
-
-	@Override
-	public SpellCard deepCopy() {
-		return new DivineFavor(this.hasBeenUsed);
-	}
 	
 	@Override
 	public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {

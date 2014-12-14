@@ -31,11 +31,6 @@ public class PowerWordShield extends SpellCard {
 		this(false);
 	}
 
-	@Override
-	public SpellCard deepCopy() {
-		return new PowerWordShield(this.hasBeenUsed);
-	}
-	
 	/**
 	 * 
 	 * Use the card on the given target

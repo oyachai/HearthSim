@@ -37,11 +37,6 @@ public class AnimalCompanion extends SpellCard {
 	}
 
 	@Override
-	public SpellCard deepCopy() {
-		return new AnimalCompanion(this.hasBeenUsed);
-	}
-
-	@Override
 	public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
 		if(!super.canBeUsedOn(playerSide, minion, boardModel)) {
 			return false;

@@ -21,11 +21,6 @@ public class Slam extends SpellDamage {
 		this.canTargetOwnHero = false;
 	}
 
-	@Override
-	public SpellDamage deepCopy() {
-		return new Slam(this.hasBeenUsed);
-	}
-
 	/**
 	 * 
 	 * Use the card on the given target

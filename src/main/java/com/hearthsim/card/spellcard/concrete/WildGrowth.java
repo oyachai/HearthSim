@@ -31,11 +31,6 @@ public class WildGrowth extends SpellCard {
 	public WildGrowth() {
 		this(false);
 	}
-
-	@Override
-	public SpellCard deepCopy() {
-		return new WildGrowth(this.hasBeenUsed);
-	}
 	
 	/**
 	 * 

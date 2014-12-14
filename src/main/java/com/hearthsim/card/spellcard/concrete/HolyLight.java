@@ -29,11 +29,6 @@ public class HolyLight extends SpellCard {
 		this(false);
 	}
 	
-	@Override
-	public SpellCard deepCopy() {
-		return new HolyLight(this.hasBeenUsed);
-	}
-	
 	/**
 	 * 
 	 * Use the card on the given target

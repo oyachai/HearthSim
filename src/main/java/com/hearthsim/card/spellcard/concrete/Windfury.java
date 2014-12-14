@@ -30,11 +30,6 @@ public class Windfury extends SpellCard {
 		this(false);
 	}
 
-	@Override
-	public SpellCard deepCopy() {
-		return new Windfury(this.hasBeenUsed);
-	}
-	
 	/**
 	 * 
 	 * Use the card on the given target

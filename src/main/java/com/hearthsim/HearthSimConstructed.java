@@ -39,21 +39,12 @@ public class HearthSimConstructed extends HearthSimBase {
 		DeckListFile deckList0 = new DeckListFile(deckListFilePath0_);
 		DeckListFile deckList1 = new DeckListFile(deckListFilePath1_);
 
-		//------------------------------------------------------------------------		
-		//Set up generic hero classes
-		//------------------------------------------------------------------------
 		Hero hero0 = deckList0.getHero();
 		Hero hero1 = deckList1.getHero();
 
-		//------------------------------------------------------------------------		
-		//Set up generic hero classes
-		//------------------------------------------------------------------------
 		Deck deck0 = deckList0.getDeck();
 		Deck deck1 = deckList1.getDeck();
 		
-		//------------------------------------------------------------------------
-		//Set up the AIs
-		//------------------------------------------------------------------------
 		ArtificialPlayer ai0 = new BruteForceSearchAI(this.aiParamFilePath0_);
 		ArtificialPlayer ai1 = new BruteForceSearchAI(this.aiParamFilePath1_);
 		

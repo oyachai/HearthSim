@@ -33,11 +33,6 @@ public class SavageRoar extends SpellCard {
 		this(false);
 	}
 
-	@Override
-	public SpellCard deepCopy() {
-		return new SavageRoar(this.hasBeenUsed);
-	}
-	
 	/**
 	 * 
 	 * Use the card on the given target
@@ -61,9 +56,6 @@ public class SavageRoar extends SpellCard {
 			boolean singleRealizationOnly)
 		throws HSException
 	{
-		if (isNotHero(targetMinion) || isWaitingPlayer(side)) {
-			return null;
-		}
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		toRet.data_.getCurrentPlayerHero().setExtraAttackUntilTurnEnd((byte)2);
 		for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions())

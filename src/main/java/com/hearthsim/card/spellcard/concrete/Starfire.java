@@ -19,11 +19,6 @@ public class Starfire extends SpellDamage {
 		super((byte)6, (byte)5, hasBeenUsed);
 	}
 
-	@Override
-	public SpellDamage deepCopy() {
-		return new Starfire(this.hasBeenUsed);
-	}
-	
 	/**
 	 * 
 	 * Use the card on the given target
