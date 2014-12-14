@@ -2,6 +2,7 @@ package com.hearthsim.card.minion;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.CardEndTurnInterface;
+import com.hearthsim.card.CardPlayBeginInterface;
 import com.hearthsim.card.CardStartTurnInterface;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.ImplementedCardList;
@@ -20,6 +21,7 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.EnumSet;
 
 public class Minion extends Card implements CardEndTurnInterface, CardStartTurnInterface {
@@ -999,20 +1001,46 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 	protected HearthTreeNode notifyMinionPlacement(HearthTreeNode boardState, PlayerSide targetSide, Deck deckPlayer0,
 			Deck deckPlayer1) throws HSException {
 		HearthTreeNode toRet = boardState;
-		toRet = toRet.data_.getCurrentPlayerHero().minionPlacedEvent(PlayerSide.CURRENT_PLAYER, targetSide, this,
-				toRet, deckPlayer0, deckPlayer1);
+
+		ArrayList<MinionPlacedInterface> matches = new ArrayList<MinionPlacedInterface>();
+
+		Card hero = toRet.data_.getCurrentPlayerHero();
+		if(hero instanceof MinionPlacedInterface) {
+			matches.add((MinionPlacedInterface)hero);
+		}
+
 		for(Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
-			if(!minion.silenced_)
-				toRet = minion.minionPlacedEvent(PlayerSide.CURRENT_PLAYER, targetSide, this, toRet, deckPlayer0,
-						deckPlayer1);
+			if(!minion.isSilenced()) {
+				if(minion instanceof MinionPlacedInterface) {
+					matches.add((MinionPlacedInterface)minion);
+				}
+			}
 		}
-		toRet = toRet.data_.getWaitingPlayerHero().minionPlacedEvent(PlayerSide.WAITING_PLAYER, targetSide, this,
-				toRet, deckPlayer0, deckPlayer1);
+
+		for(MinionPlacedInterface match : matches) {
+			toRet = match.minionPlacedEvent(PlayerSide.CURRENT_PLAYER, targetSide, this,
+					toRet, deckPlayer0, deckPlayer1);
+		}
+		matches.clear();
+
+		hero = toRet.data_.getWaitingPlayerHero();
+		if(hero instanceof MinionPlacedInterface) {
+			matches.add((MinionPlacedInterface)hero);
+		}
+
 		for(Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
-			if(!minion.silenced_)
-				toRet = minion.minionPlacedEvent(PlayerSide.WAITING_PLAYER, targetSide, this, toRet, deckPlayer0,
-						deckPlayer1);
+			if(!minion.isSilenced()) {
+				if(minion instanceof MinionPlacedInterface) {
+					matches.add((MinionPlacedInterface)minion);
+				}
+			}
 		}
+
+		for(MinionPlacedInterface match : matches) {
+			toRet = match.minionPlacedEvent(PlayerSide.WAITING_PLAYER, targetSide, this, toRet, deckPlayer0,
+					deckPlayer1);
+		}
+
 		return toRet;
 	}
 
@@ -1039,18 +1067,6 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 	// ======================================================================================
 	// Hooks for various events
 	// ======================================================================================
-
-	/**
-	 * Called whenever another minion comes on board
-	 * 
-	 * @param boardState The BoardState before this card has performed its action. It will be manipulated and returned.
-	 *
-	 * */
-	public HearthTreeNode minionPlacedEvent(PlayerSide thisMinionPlayerSide, PlayerSide summonedMinionPlayerSide,
-			Minion summonedMinion, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1)
-			throws HSInvalidPlayerIndexException {
-		return boardState;
-	}
 
 	/**
 	 * Called whenever a minion is played (i.e., if a minion card was used to directly place a minion on the board)

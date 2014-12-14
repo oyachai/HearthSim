@@ -3,6 +3,7 @@ package com.hearthsim.card.minion.concrete;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Beast;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.minion.MinionPlacedInterface;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.model.BoardModel;
@@ -10,7 +11,7 @@ import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 
-public class Leokk extends Beast {
+public class Leokk extends Beast implements MinionPlacedInterface {
 
 	private static final boolean HERO_TARGETABLE = true;
 	private static final byte SPELL_DAMAGE = 0;
@@ -84,7 +85,7 @@ public class Leokk extends Beast {
             PlayerSide thisMinionPlayerSide,
             PlayerSide placedMinionPlayerSide,
             Minion placedMinion,
-            HearthTreeNode boardState) throws HSInvalidPlayerIndexException {
+            HearthTreeNode boardState) {
 		if (thisMinionPlayerSide != placedMinionPlayerSide)
 			return boardState;
 		if (placedMinion != this)
@@ -113,10 +114,8 @@ public class Leokk extends Beast {
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
-		throws HSInvalidPlayerIndexException
 	{
-		HearthTreeNode toRet = super.minionPlacedEvent(thisMinionPlayerSide, summonedMinionPlayerSide, summonedMinion, boardState, deckPlayer0, deckPlayer1);
-		return this.doBuffs(thisMinionPlayerSide, summonedMinionPlayerSide, summonedMinion, toRet);
+		return this.doBuffs(thisMinionPlayerSide, summonedMinionPlayerSide, summonedMinion, boardState);
 	}
 	
 }

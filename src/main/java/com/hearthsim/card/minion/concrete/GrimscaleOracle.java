@@ -2,6 +2,7 @@ package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.minion.MinionPlacedInterface;
 import com.hearthsim.card.minion.Murloc;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
@@ -10,7 +11,7 @@ import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 
-public class GrimscaleOracle extends Murloc {
+public class GrimscaleOracle extends Murloc implements MinionPlacedInterface {
 
 	private static final boolean HERO_TARGETABLE = true;
 	private static final byte SPELL_DAMAGE = 0;
@@ -94,7 +95,6 @@ public class GrimscaleOracle extends Murloc {
 	private HearthTreeNode doBuffs(
             Minion targetMinion,
             HearthTreeNode boardState)
-		throws HSInvalidPlayerIndexException
 	{
         if (!silenced_ && targetMinion instanceof Murloc && targetMinion != this) {
             targetMinion.setAuraAttack((byte) (targetMinion.getAuraAttack() + 1));
@@ -110,9 +110,8 @@ public class GrimscaleOracle extends Murloc {
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
-		throws HSInvalidPlayerIndexException
 	{
-		HearthTreeNode toRet = super.minionPlacedEvent(thisMinionPlayerSide, summonedMinionPlayerSide, summonedMinion, boardState, deckPlayer0, deckPlayer1);
+		HearthTreeNode toRet = boardState;
 		return this.doBuffs(summonedMinion, toRet);
 	}	
 }
