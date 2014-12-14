@@ -1,9 +1,11 @@
 package com.hearthsim.util.factory;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import com.hearthsim.card.Deck;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.BoardModel;
 import com.hearthsim.player.playercontroller.BoardScorer;
 import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -18,13 +20,18 @@ public class DepthBoardStateFactory extends BoardStateFactoryBase {
 
 	protected long startTime_;
 	protected long curTime_;
+	
+	protected final boolean useDuplicateNodePruning;
+	int numNodes;
+	int numDuplicates;
+	HashSet<BoardModel> boardsAlreadySeen;
 
 	/**
 	 * Constructor
 	 * maxThinkTime defaults to 10000 milliseconds (10 seconds)
 	 */
-	public DepthBoardStateFactory(Deck deckPlayer0, Deck deckPlayer1) {
-		this(deckPlayer0, deckPlayer1, 10000);
+	public DepthBoardStateFactory(Deck deckPlayer0, Deck deckPlayer1, boolean useDuplicateNodePruning) {
+		this(deckPlayer0, deckPlayer1, 10000, useDuplicateNodePruning);
 	}
 
 	/**
@@ -34,23 +41,28 @@ public class DepthBoardStateFactory extends BoardStateFactoryBase {
 	 * @param deckPlayer1
 	 * @param maxThinkTime The maximum amount of time in milliseconds the factory is allowed to spend on generating the simulation tree.
 	 */
-	public DepthBoardStateFactory(Deck deckPlayer0, Deck deckPlayer1, long maxThinkTime) {
+	public DepthBoardStateFactory(Deck deckPlayer0, Deck deckPlayer1, long maxThinkTime, boolean useDuplicateNodePruning) {
 		super(deckPlayer0, deckPlayer1);
 
 		lethal_ = false;
 		startTime_ = System.currentTimeMillis();
 		maxTime_ = maxThinkTime;
 		timedOut_ = false;
+		this.useDuplicateNodePruning = useDuplicateNodePruning;
+		if (useDuplicateNodePruning)
+			boardsAlreadySeen = new HashSet<BoardModel>(500000);
 	}
 
-	public DepthBoardStateFactory(Deck deckPlayer0, Deck deckPlayer1, long maxThinkTime,
-			SparseChildNodeCreator sparseChildNodeCreator) {
+	public DepthBoardStateFactory(Deck deckPlayer0, Deck deckPlayer1, long maxThinkTime, boolean useDuplicateNodePruning, SparseChildNodeCreator sparseChildNodeCreator) {
 		super(deckPlayer0, deckPlayer1, sparseChildNodeCreator);
 
 		lethal_ = false;
 		startTime_ = System.currentTimeMillis();
 		maxTime_ = maxThinkTime;
 		timedOut_ = false;
+		this.useDuplicateNodePruning = useDuplicateNodePruning;
+		if (useDuplicateNodePruning)
+			boardsAlreadySeen = new HashSet<BoardModel>(500000);
 	}
 
 	public boolean didTimeOut() {
@@ -61,7 +73,15 @@ public class DepthBoardStateFactory extends BoardStateFactoryBase {
 		startTime_ = System.currentTimeMillis();
 		timedOut_ = false;
 	}
+	
+	public int getNumNodes() {
+		return numNodes;
+	}
 
+	public int getNumDuplicates() {
+		return numDuplicates;
+	}
+	
 	/**
 	 * Recursively generate all possible moves
 	 * This function recursively generates all possible moves that can be done starting from a given BoardState.
@@ -103,7 +123,17 @@ public class DepthBoardStateFactory extends BoardStateFactoryBase {
 		boardStateNode.setScore(ai.boardScore(boardStateNode.data_));
 
 		// We can end up with children at this state, for example, after a battle cry. If we don't have children yet, create them.
+		++numNodes;
 		if(!lethalFound && boardStateNode.numChildren() <= 0) {
+			if (useDuplicateNodePruning) {
+				if (boardsAlreadySeen.contains(boardStateNode.data_)) {
+					boardStateNode.setBestChildScore(boardStateNode.getScore());
+					++numDuplicates;
+					return null;
+				} else {
+					boardsAlreadySeen.add(boardStateNode.data_);
+				}
+			}
 			ArrayList<HearthTreeNode> nodes = this.createChildren(boardStateNode);
 			boardStateNode.addChildren(nodes);
 		}
@@ -116,7 +146,6 @@ public class DepthBoardStateFactory extends BoardStateFactoryBase {
 			// We can also throw out any children that don't have the highest score (boy, this sounds so wrong...)
 			double tmpScore;
 			double bestScore = 0;
-			int tmpNumNodesTried = 0;
 			HearthTreeNode bestBranch = null;
 
 			for(HearthTreeNode child : boardStateNode.getChildren()) {

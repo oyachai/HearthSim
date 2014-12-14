@@ -26,6 +26,9 @@ public class HSSimulationSettingsFrame extends JDialog {
 	private JCheckBox flag_useFastPlacement_p0;
 	private JCheckBox flag_useFastPlacement_p1;
 
+	private JCheckBox flag_useDuplicateNodePruning_p0;
+	private JCheckBox flag_useDuplicateNodePruning_p1;
+
 	/**
 	 * Create the frame.
 	 */
@@ -130,6 +133,25 @@ public class HSSimulationSettingsFrame extends JDialog {
 		gbc_flag_useFastPlacement_p0.gridy = 0;
 		flag_useFastPlacement_p0.setSelected(((BruteForceSearchAI)simulation_.getAI_p0()).getUseSparseBoardStateFactory());
 		settings_P0_main.add(flag_useFastPlacement_p0, gbc_flag_useFastPlacement_p0);
+
+		//----------------------------------------------------------------------------
+		JLabel lblUseDuplicateNodePruning_p0_0 = new JLabel("Duplicate Node Pruning");
+		lblUseDuplicateNodePruning_p0_0.setForeground(HSColors.TEXT_COLOR);
+		GridBagConstraints gbc_lblUseDuplicateNodePruning_p0_0 = new GridBagConstraints();
+		gbc_lblUseDuplicateNodePruning_p0_0.insets = new Insets(0, 0, 0, 5);
+		gbc_lblUseDuplicateNodePruning_p0_0.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblUseDuplicateNodePruning_p0_0.gridx = 0;
+		gbc_lblUseDuplicateNodePruning_p0_0.gridy = 1;
+		settings_P0_main.add(lblUseDuplicateNodePruning_p0_0, gbc_lblUseDuplicateNodePruning_p0_0);
+		
+		flag_useDuplicateNodePruning_p0 = new JCheckBox("");
+		GridBagConstraints gbc_flag_useDuplicateNodePruning_p0 = new GridBagConstraints();
+		gbc_flag_useDuplicateNodePruning_p0.gridx = 1;
+		gbc_flag_useDuplicateNodePruning_p0.gridy = 1;
+		flag_useDuplicateNodePruning_p0.setSelected(((BruteForceSearchAI)simulation_.getAI_p1()).getUseDuplicateNodePruning());
+		settings_P0_main.add(flag_useDuplicateNodePruning_p0, gbc_flag_useDuplicateNodePruning_p0);
+		//----------------------------------------------------------------------------
+		
 		
 		JPanel settings_P1 = new JPanel();
 		settings_P1.setBorder(new MatteBorder(0, 1, 0, 0, Color.GRAY));
@@ -187,6 +209,24 @@ public class HSSimulationSettingsFrame extends JDialog {
 		gbc_flag_useFastPlacement_p1.gridy = 0;
 		flag_useFastPlacement_p1.setSelected(((BruteForceSearchAI)simulation_.getAI_p1()).getUseSparseBoardStateFactory());
 		settings_P1_main.add(flag_useFastPlacement_p1, gbc_flag_useFastPlacement_p1);
+		
+		//----------------------------------------------------------------------------
+		JLabel lblUseDuplicateNodePruning_p1_0 = new JLabel("Duplicate Node Pruning");
+		lblUseDuplicateNodePruning_p1_0.setForeground(HSColors.TEXT_COLOR);
+		GridBagConstraints gbc_lblUseDuplicateNodePruning_p1_0 = new GridBagConstraints();
+		gbc_lblUseDuplicateNodePruning_p1_0.insets = new Insets(0, 0, 0, 5);
+		gbc_lblUseDuplicateNodePruning_p1_0.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblUseDuplicateNodePruning_p1_0.gridx = 0;
+		gbc_lblUseDuplicateNodePruning_p1_0.gridy = 1;
+		settings_P1_main.add(lblUseDuplicateNodePruning_p1_0, gbc_lblUseDuplicateNodePruning_p1_0);
+		
+		flag_useDuplicateNodePruning_p1 = new JCheckBox("");
+		GridBagConstraints gbc_flag_useDuplicateNodePruning_p1 = new GridBagConstraints();
+		gbc_flag_useDuplicateNodePruning_p1.gridx = 1;
+		gbc_flag_useDuplicateNodePruning_p1.gridy = 1;
+		flag_useDuplicateNodePruning_p1.setSelected(((BruteForceSearchAI)simulation_.getAI_p1()).getUseDuplicateNodePruning());
+		settings_P1_main.add(flag_useDuplicateNodePruning_p1, gbc_flag_useDuplicateNodePruning_p1);
+		//----------------------------------------------------------------------------
 		
 		
 		JPanel settings_sim = new JPanel();
@@ -299,6 +339,16 @@ public class HSSimulationSettingsFrame extends JDialog {
 		sl_contentPane.putConstraint(SpringLayout.EAST, settings_sim, -6, SpringLayout.WEST, settings_P1);
 		sl_contentPane.putConstraint(SpringLayout.EAST, settings_general, -6, SpringLayout.WEST, settings_P1);
 		
+		GridBagConstraints dummyConstraints = new GridBagConstraints();
+		dummyConstraints.gridy = 2;
+		dummyConstraints.weighty = 1.0;
+		JPanel dummyPanel0 = new JPanel();
+		JPanel dummyPanel1 = new JPanel();
+		dummyPanel0.setOpaque(false);
+		dummyPanel1.setOpaque(false);
+		settings_P0_main.add(dummyPanel0, dummyConstraints);
+		settings_P1_main.add(dummyPanel1, dummyConstraints);
+
 		this.addWindowListeners();
 	}
 	
@@ -315,6 +365,9 @@ public class HSSimulationSettingsFrame extends JDialog {
 				
 				((BruteForceSearchAI)simulation_.getAI_p0()).setUseSparseBoardStateFactory(flag_useFastPlacement_p0.isSelected());
 				((BruteForceSearchAI)simulation_.getAI_p1()).setUseSparseBoardStateFactory(flag_useFastPlacement_p1.isSelected());
+
+				((BruteForceSearchAI)simulation_.getAI_p0()).setUseDuplicateNodePruning(flag_useDuplicateNodePruning_p0.isSelected());
+				((BruteForceSearchAI)simulation_.getAI_p1()).setUseDuplicateNodePruning(flag_useDuplicateNodePruning_p1.isSelected());
 			}
 		});
 

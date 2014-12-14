@@ -64,7 +64,7 @@ public class TestTaunt {
 
 	@Test
 	public void testBlocksAttacksAgainstHeros() throws HSException {
-		BoardStateFactoryBase factory = new DepthBoardStateFactory(null, null);
+		BoardStateFactoryBase factory = new DepthBoardStateFactory(null, null, true);
 		HearthTreeNode tree = new HearthTreeNode(board);
 		try {
 			tree = factory.doMoves(tree, scoreFunc);
@@ -83,7 +83,7 @@ public class TestTaunt {
 		Minion minion2 = new Minion("" + 0, mana, attack0, health1, attack0, health1, health1);
 		board.placeMinion(PlayerSide.WAITING_PLAYER, minion2);
 
-		BoardStateFactoryBase factory = new DepthBoardStateFactory(null, null);
+		BoardStateFactoryBase factory = new DepthBoardStateFactory(null, null, true);
 		HearthTreeNode tree = new HearthTreeNode(board);
 		try {
 			tree = factory.doMoves(tree, scoreFunc);
@@ -106,7 +106,7 @@ public class TestTaunt {
 		board.placeMinion(PlayerSide.WAITING_PLAYER, minion2);
 		board.placeMinion(PlayerSide.WAITING_PLAYER, minion3);
 
-		BoardStateFactoryBase factory = new DepthBoardStateFactory(null, null);
+		BoardStateFactoryBase factory = new DepthBoardStateFactory(null, null, true);
 		HearthTreeNode tree = new HearthTreeNode(board);
 		try {
 			tree = factory.doMoves(tree, scoreFunc);
@@ -128,7 +128,7 @@ public class TestTaunt {
 		board.removeMinion(PlayerSide.CURRENT_PLAYER, 0);
 		board.placeCardHandCurrentPlayer(holySmite);
 
-		BoardStateFactoryBase factory = new DepthBoardStateFactory(null, null, 2000000000);
+		BoardStateFactoryBase factory = new DepthBoardStateFactory(null, null, 2000000000, true);
 		HearthTreeNode tree = new HearthTreeNode(board);
 		try {
 			tree = factory.doMoves(tree, scoreFunc);
@@ -149,7 +149,7 @@ public class TestTaunt {
 		board.placeCardHandCurrentPlayer(holySmite);
 		board.getCurrentPlayer().setMana((byte)1);
 
-		BoardStateFactoryBase factory = new DepthBoardStateFactory(null, null);
+		BoardStateFactoryBase factory = new DepthBoardStateFactory(null, null, true);
 		HearthTreeNode tree = new HearthTreeNode(board);
 		try {
 			tree = factory.doMoves(tree, scoreFunc);

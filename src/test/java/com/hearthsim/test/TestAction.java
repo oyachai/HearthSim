@@ -41,7 +41,7 @@ public class TestAction {
 		Minion minion = new Minion("beta", mana, attack0, health1, attack0, health1, health1);
 		board.placeMinion(PlayerSide.WAITING_PLAYER, minion);
 
-		BoardStateFactoryBase factory = new DepthBoardStateFactory(null, null, 2000000000);
+		BoardStateFactoryBase factory = new DepthBoardStateFactory(null, null, 2000000000, true);
 		HearthTreeNode tree = new HearthTreeNode(board);
 		try {
 			tree = factory.doMoves(tree, BruteForceSearchAI.buildStandardAI2().scorer);
@@ -59,7 +59,7 @@ public class TestAction {
 		Minion minion = new Minion("beta", mana, attack1, health2, attack1, health2, health2);
 		board.placeMinion(PlayerSide.WAITING_PLAYER, minion);
 
-		BoardStateFactoryBase factory = new DepthBoardStateFactory(null, null, 2000000000);
+		BoardStateFactoryBase factory = new DepthBoardStateFactory(null, null, 2000000000, true);
 		HearthTreeNode tree = new HearthTreeNode(board);
 		try {
 			tree = factory.doMoves(tree, BruteForceSearchAI.buildStandardAI2().scorer);

@@ -330,7 +330,7 @@ public class TestBreadthBoardStateFactory {
 
 	private void testBreadthDepth(BoardModel startingBoard, BoardScorer ai) throws HSException {
 		BreadthBoardStateFactory breadthFactory = new BreadthBoardStateFactory(this.deck0, this.deck1);
-		DepthBoardStateFactory depthFactory = new DepthBoardStateFactory(this.deck0, this.deck1);
+		DepthBoardStateFactory depthFactory = new DepthBoardStateFactory(this.deck0, this.deck1, false);
 
 		this.testFactories(startingBoard, ai, breadthFactory, depthFactory);
 	}

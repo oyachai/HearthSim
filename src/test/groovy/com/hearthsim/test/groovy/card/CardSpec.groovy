@@ -24,6 +24,11 @@ class CardSpec extends Specification {
     void assertBoardEquals(BoardModel oldBoard, BoardModel newBoard) {
         assertPlayerEquals(oldBoard.currentPlayer, newBoard.currentPlayer)
         assertPlayerEquals(oldBoard.waitingPlayer, newBoard.waitingPlayer)
+		assert oldBoard.allMinionsFIFOList_.size() == newBoard.allMinionsFIFOList_.size()
+		for (int indx = 0; indx < oldBoard.allMinionsFIFOList_.size(); ++indx) {
+			assertPlayerEquals(oldBoard.allMinionsFIFOList_.get(indx).getPlayerModel(), newBoard.allMinionsFIFOList_.get(indx).getPlayerModel())
+			assertMinionEquals(oldBoard.allMinionsFIFOList_.get(indx).getMinion(), newBoard.allMinionsFIFOList_.get(indx).getMinion())
+		}
         assert oldBoard == newBoard //for now, a catch all at the end
     }
 
@@ -72,22 +77,26 @@ class CardSpec extends Specification {
         for (int indx = 0; indx < oldMinions.size(); ++indx) {
             Minion oldMinion = oldMinions.get(indx)
             Minion newMinion = newMinions.get(indx)
-            assert oldMinion.attack == newMinion.attack
-            assert oldMinion.baseAttack_ == newMinion.baseAttack_
-            assert oldMinion.auraAttack == newMinion.auraAttack
-            assert oldMinion.health == newMinion.health
-            assert oldMinion.baseHealth == newMinion.baseHealth
-            assert oldMinion.auraHealth == newMinion.auraHealth
-            assert oldMinion.charge == newMinion.charge
-            assert oldMinion.taunt == newMinion.taunt
-            assert oldMinion.divineShield == newMinion.divineShield
-            assert oldMinion.frozen == newMinion.frozen
-            assert oldMinion.hasAttacked() == newMinion.hasAttacked()
-            assert oldMinion.heroTargetable == newMinion.heroTargetable
-            assert oldMinion.silenced == newMinion.silenced
-            assert oldMinion.stealthed == newMinion.stealthed
-            assert oldMinion == newMinion //catch all
+			assertMinionEquals(oldMinion, newMinion)
         }
-
     }
+	
+	void assertMinionEquals(Minion oldMinion, Minion newMinion) {
+		assert oldMinion.attack == newMinion.attack
+		assert oldMinion.baseAttack_ == newMinion.baseAttack_
+		assert oldMinion.auraAttack == newMinion.auraAttack
+		assert oldMinion.health == newMinion.health
+		assert oldMinion.baseHealth == newMinion.baseHealth
+		assert oldMinion.auraHealth == newMinion.auraHealth
+		assert oldMinion.charge == newMinion.charge
+		assert oldMinion.taunt == newMinion.taunt
+		assert oldMinion.divineShield == newMinion.divineShield
+		assert oldMinion.frozen == newMinion.frozen
+		assert oldMinion.hasAttacked() == newMinion.hasAttacked()
+		assert oldMinion.heroTargetable == newMinion.heroTargetable
+		assert oldMinion.silenced == newMinion.silenced
+		assert oldMinion.stealthed == newMinion.stealthed
+		assert oldMinion == newMinion //catch all
+	}
+
 }

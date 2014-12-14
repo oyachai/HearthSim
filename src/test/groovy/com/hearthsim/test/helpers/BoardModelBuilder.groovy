@@ -122,6 +122,11 @@ class BoardModelBuilder {
         addMinionToField(minionClass)
     }
 
+	private playMinion(Class<Minion> minionClass, int placementIndex) {
+		removeCardFromHand(minionClass)
+		addMinionToField(minionClass, placementIndex)
+	}
+	
 	private playMinionWithCharge(Class<Minion> minionClass) {
 		removeCardFromHand(minionClass)
 		addMinionToField(minionClass, false, true)
@@ -145,15 +150,21 @@ class BoardModelBuilder {
 	private addMinionToField(Class<Minion> minionClass) {
 		addMinionToField(minionClass, true, true)	
 	}
+
+	private addMinionToField(Class<Minion> minionClass, int placementIndex) {
+		addMinionToField(minionClass, true, true, placementIndex)
+	}
 	
-    private addMinionToField(Class<Minion> minionClass, boolean hasAttacked, boolean hasBeenUsed) {
+	private addMinionToField(Class<Minion> minionClass, boolean hasAttacked, boolean hasBeenUsed) {
+		def numMinions = boardModel.modelForSide(playerSide).numMinions
+		addMinionToField(minionClass, hasAttacked, hasBeenUsed, numMinions)
+	}
+		
+    private addMinionToField(Class<Minion> minionClass, boolean hasAttacked, boolean hasBeenUsed, int placementIndex) {
         Minion minion = minionClass.newInstance()
         minion.hasAttacked(hasAttacked)
         minion.hasBeenUsed(hasBeenUsed)
-        def numMinions = boardModel.modelForSide(playerSide).numMinions
-        // place the minion at the end by default
-        // TODO: eventually this will need to be configurable
-        boardModel.placeMinion(playerSide, minion, numMinions)
+        boardModel.placeMinion(playerSide, minion, placementIndex)
     }
 
     private heroHasAttacked(Boolean hasAttacked){

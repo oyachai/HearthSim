@@ -64,7 +64,7 @@ public class TestCharge {
 				false, false, null, null, false, false);
 		board.placeMinion(PlayerSide.CURRENT_PLAYER, minion);
 
-		BoardStateFactoryBase factory = new DepthBoardStateFactory(null, null, 2000000000);
+		BoardStateFactoryBase factory = new DepthBoardStateFactory(null, null, 2000000000, true);
 		HearthTreeNode tree = new HearthTreeNode(board);
 		try {
 			tree = factory.doMoves(tree, scoreFunc);
@@ -83,7 +83,7 @@ public class TestCharge {
 		board.placeCardHandCurrentPlayer(minion);
 		board.getCurrentPlayer().setMana((byte)1);
 
-		BoardStateFactoryBase factory = new DepthBoardStateFactory(null, null);
+		BoardStateFactoryBase factory = new DepthBoardStateFactory(null, null, true);
 		HearthTreeNode tree = new HearthTreeNode(board);
 		try {
 			tree = factory.doMoves(tree, scoreFunc);

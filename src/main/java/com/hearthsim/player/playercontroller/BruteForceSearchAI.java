@@ -24,6 +24,7 @@ public class BruteForceSearchAI implements ArtificialPlayer {
 	public final static int MAX_THINK_TIME = 20000;
 
 	boolean useSparseBoardStateFactory_ = true;
+	boolean useDuplicateNodePruning = true;
 
 	public WeightedScorer scorer = new WeightedScorer();
 
@@ -108,7 +109,8 @@ public class BruteForceSearchAI implements ArtificialPlayer {
 			this.scorer.setManaWeight(pFile.getDouble("w_mana", 0.1));
 
 			useSparseBoardStateFactory_ = pFile.getBoolean("use_sparse_board_state_factory", true);
-
+			useDuplicateNodePruning = pFile.getBoolean("use_duplicate_node_pruning", true);
+			
 		} catch(HSParamNotFoundException e) {
 			log.error(e.getMessage());
 			System.exit(1);
@@ -123,6 +125,14 @@ public class BruteForceSearchAI implements ArtificialPlayer {
 		useSparseBoardStateFactory_ = value;
 	}
 
+	public boolean getUseDuplicateNodePruning() {
+		return useDuplicateNodePruning;
+	}
+	
+	public void setUseDuplicateNodePruning(boolean value) {
+		useDuplicateNodePruning = value;
+	}
+
 	@Override
 	public List<HearthActionBoardPair> playTurn(int turn, BoardModel board) throws HSException {
 		PlayerModel playerModel0 = board.getCurrentPlayer();
@@ -130,9 +140,9 @@ public class BruteForceSearchAI implements ArtificialPlayer {
 
 		BoardStateFactoryBase factory = null;
 		if(useSparseBoardStateFactory_) {
-			factory = new SparseBoardStateFactory(playerModel0.getDeck(), playerModel1.getDeck(), MAX_THINK_TIME);
+			factory = new SparseBoardStateFactory(playerModel0.getDeck(), playerModel1.getDeck(), MAX_THINK_TIME, useDuplicateNodePruning);
 		} else {
-			factory = new DepthBoardStateFactory(playerModel0.getDeck(), playerModel1.getDeck(), MAX_THINK_TIME);
+			factory = new DepthBoardStateFactory(playerModel0.getDeck(), playerModel1.getDeck(), MAX_THINK_TIME, useDuplicateNodePruning);
 		}
 		return this.playTurn(turn, board, factory);
 	}
@@ -183,6 +193,7 @@ public class BruteForceSearchAI implements ArtificialPlayer {
 		BruteForceSearchAI copied = new BruteForceSearchAI();
 		copied.scorer = this.scorer.deepCopy();
 		copied.useSparseBoardStateFactory_ = useSparseBoardStateFactory_;
+		copied.useDuplicateNodePruning = useDuplicateNodePruning;
 		return copied;
 	}
 

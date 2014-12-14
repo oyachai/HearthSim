@@ -11,8 +11,8 @@ public class SparseBoardStateFactory extends DepthBoardStateFactory {
 	 * Constructor
 	 * maxThinkTime defaults to 10000 milliseconds (10 seconds)
 	 */
-	public SparseBoardStateFactory(Deck deckPlayer0, Deck deckPlayer1) {
-		this(deckPlayer0, deckPlayer1, 10000);
+	public SparseBoardStateFactory(Deck deckPlayer0, Deck deckPlayer1, boolean useDuplicateNodePruning) {
+		this(deckPlayer0, deckPlayer1, 10000, useDuplicateNodePruning);
 	}
 
 	/**
@@ -22,7 +22,7 @@ public class SparseBoardStateFactory extends DepthBoardStateFactory {
 	 * @param deckPlayer1
 	 * @param maxThinkTime The maximum amount of time in milliseconds the factory is allowed to spend on generating the simulation tree.
 	 */
-	public SparseBoardStateFactory(Deck deckPlayer0, Deck deckPlayer1, long maxThinkTime) {
-		super(deckPlayer0, deckPlayer1, maxThinkTime, new SparseChildNodeCreator(deckPlayer0, deckPlayer1));
+	public SparseBoardStateFactory(Deck deckPlayer0, Deck deckPlayer1, long maxThinkTime, boolean useDuplicateNodePruning) {
+		super(deckPlayer0, deckPlayer1, maxThinkTime, useDuplicateNodePruning, new SparseChildNodeCreator(deckPlayer0, deckPlayer1));
 	}
 }

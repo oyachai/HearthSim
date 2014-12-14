@@ -74,7 +74,7 @@ public class TestPriest {
 
 	@Test
 	public void testAiHealAfterTrading() throws HSException {
-		BoardStateFactoryBase factory = new DepthBoardStateFactory(null, null, 2000000000);
+		BoardStateFactoryBase factory = new DepthBoardStateFactory(null, null, 2000000000, true);
 		HearthTreeNode tree = new HearthTreeNode(board.data_);
 		BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
 		try {
@@ -112,7 +112,7 @@ public class TestPriest {
 		// one of your yeti is damaged
 		PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).setHealth((byte)3);
 
-		BoardStateFactoryBase factory = new DepthBoardStateFactory(null, null, 2000000000);
+		BoardStateFactoryBase factory = new DepthBoardStateFactory(null, null, 2000000000, true);
 		HearthTreeNode tree = new HearthTreeNode(board.data_);
 		BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
 		try {
