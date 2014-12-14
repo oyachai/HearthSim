@@ -3,8 +3,6 @@ package com.hearthsim.card.minion.concrete;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.exception.HSInvalidPlayerIndexException;
-import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -52,20 +50,5 @@ public class GurubashiBerserker extends Minion {
 			divineShield_ = false;
 			return boardState;
 		}
-	}
-	
-	/**
-	 * Called when this minion is silenced
-	 * 
-	 * Always use this function to "silence" minions
-	 * 
-	 * @param thisPlayerSide
-	 * @param boardState
-	 * @throws HSInvalidPlayerIndexException
-	 */
-	@Override
-	public void silenced(PlayerSide thisPlayerSide, BoardModel boardState) throws HSInvalidPlayerIndexException {
-		super.silenced(thisPlayerSide, boardState);
-		this.attack_ = this.baseAttack_;
 	}
 }
