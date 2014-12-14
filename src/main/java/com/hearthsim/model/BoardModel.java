@@ -267,7 +267,7 @@ public class BoardModel implements DeepCopyable<BoardModel> {
         modelForSide(side).placeCardDeck(card);
     }
 
-    public Hero getHero(PlayerSide playerSide) throws HSInvalidPlayerIndexException {
+    public Hero getHero(PlayerSide playerSide) {
         return modelForSide(playerSide).getHero();
     }
 

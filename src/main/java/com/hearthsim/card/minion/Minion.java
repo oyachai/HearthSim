@@ -1,8 +1,14 @@
 package com.hearthsim.card.minion;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.EnumSet;
+
+import org.json.JSONObject;
+
 import com.hearthsim.card.Card;
 import com.hearthsim.card.CardEndTurnInterface;
-import com.hearthsim.card.CardPlayBeginInterface;
 import com.hearthsim.card.CardStartTurnInterface;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.ImplementedCardList;
@@ -16,13 +22,6 @@ import com.hearthsim.util.HearthAction;
 import com.hearthsim.util.HearthAction.Verb;
 import com.hearthsim.util.factory.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
-
-import org.json.JSONObject;
-
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.EnumSet;
 
 public class Minion extends Card implements CardEndTurnInterface, CardStartTurnInterface {
 
@@ -456,32 +455,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 					: damage;
 			health_ = (byte)(health_ - totalDamage);
 
-			// Notify all that the minion is damaged
-			HearthTreeNode toRet = boardState;
-			toRet = toRet.data_.getCurrentPlayerHero().minionDamagedEvent(PlayerSide.CURRENT_PLAYER, thisPlayerSide,
-					this, toRet, deckPlayer0, deckPlayer1);
-			for(int j = 0; j < PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getNumMinions(); ++j) {
-				if(!PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions().get(j).silenced_)
-					toRet = PlayerSide.CURRENT_PLAYER
-							.getPlayer(toRet)
-							.getMinions()
-							.get(j)
-							.minionDamagedEvent(PlayerSide.CURRENT_PLAYER, thisPlayerSide, this, toRet, deckPlayer0,
-									deckPlayer1);
-			}
-			toRet = toRet.data_.getWaitingPlayerHero().minionDamagedEvent(PlayerSide.WAITING_PLAYER, thisPlayerSide,
-					this, toRet, deckPlayer0, deckPlayer1);
-			for(int j = 0; j < PlayerSide.WAITING_PLAYER.getPlayer(toRet).getNumMinions(); ++j) {
-				if(!PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions().get(j).silenced_)
-					toRet = PlayerSide.WAITING_PLAYER
-							.getPlayer(toRet)
-							.getMinions()
-							.get(j)
-							.minionDamagedEvent(PlayerSide.WAITING_PLAYER, thisPlayerSide, this, toRet, deckPlayer0,
-									deckPlayer1);
-			}
-
-			return toRet;
+			return this.notifyMinionDamaged(boardState, thisPlayerSide, deckPlayer0, deckPlayer1);
 		} else {
 			if(damage > 0)
 				divineShield_ = false;
@@ -1099,26 +1073,54 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 		return toRet;
 	}
 
+	protected HearthTreeNode notifyMinionDamaged(HearthTreeNode boardState, PlayerSide targetSide, Deck deckPlayer0,
+			Deck deckPlayer1) throws HSException {
+		HearthTreeNode toRet = boardState;
+		ArrayList<MinionDamagedInterface> matches = new ArrayList<MinionDamagedInterface>();
+
+		Card hero = toRet.data_.getCurrentPlayerHero();
+		if(hero instanceof MinionDamagedInterface) {
+			matches.add((MinionDamagedInterface)hero);
+		}
+
+		for(Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
+			if(!minion.isSilenced()) {
+				if(minion instanceof MinionDamagedInterface) {
+					matches.add((MinionDamagedInterface)minion);
+				}
+			}
+		}
+
+		for(MinionDamagedInterface match : matches) {
+			toRet = match.minionDamagedEvent(PlayerSide.CURRENT_PLAYER, targetSide, this,
+					toRet, deckPlayer0, deckPlayer1);
+		}
+		matches.clear();
+
+		hero = toRet.data_.getWaitingPlayerHero();
+		if(hero instanceof MinionDamagedInterface) {
+			matches.add((MinionDamagedInterface)hero);
+		}
+
+		for(Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
+			if(!minion.isSilenced()) {
+				if(minion instanceof MinionDamagedInterface) {
+					matches.add((MinionDamagedInterface)minion);
+				}
+			}
+		}
+
+		for(MinionDamagedInterface match : matches) {
+			toRet = match.minionDamagedEvent(PlayerSide.WAITING_PLAYER, targetSide, this, toRet, deckPlayer0,
+					deckPlayer1);
+		}
+
+		return toRet;
+	}
+
 	// ======================================================================================
 	// Hooks for various events
 	// ======================================================================================
-
-	/**
-	 * 
-	 * Called whenever another minion is damaged
-	 * 
-	 *
-	 * @param thisMinionPlayerSide
-	 * @param damagedPlayerSide
-	 * @param damagedMinion The damaged minion
-	 * @param boardState The BoardState before this card has performed its action. It will be manipulated and returned.
-	 * @param deckPlayer0 The deck of player0 @return The boardState is manipulated and returned
-	 * */
-	public HearthTreeNode minionDamagedEvent(PlayerSide thisMinionPlayerSide, PlayerSide damagedPlayerSide,
-			Minion damagedMinion, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1)
-			throws HSInvalidPlayerIndexException {
-		return boardState;
-	}
 
 	/**
 	 * 
