@@ -58,7 +58,6 @@ public class Minion extends Card {
 	protected byte extraAttackUntilTurnEnd_;
 	protected byte auraAttack_;
 
-	protected boolean summoned_;
 	protected boolean transformed_;
 
 	protected boolean destroyOnTurnStart_;
@@ -133,7 +132,6 @@ public class Minion extends Card {
 		silenced_ = silenced;
 		baseHealth_ = baseHealth;
 		maxHealth_ = maxHealth;
-		summoned_ = summoned;
 		transformed_ = transformed;
 		destroyOnTurnStart_ = destroyOnTurnStart;
 		destroyOnTurnEnd_ = destroyOnTurnEnd;
@@ -256,14 +254,6 @@ public class Minion extends Card {
 			hasAttacked_ = false;
 			hasWindFuryAttacked_ = true;
 		}
-	}
-
-	public boolean getSummoned() {
-		return summoned_;
-	}
-
-	public void setSummoned(boolean value) {
-		summoned_ = value;
 	}
 
 	public boolean getTransformed() {
@@ -1224,7 +1214,6 @@ public class Minion extends Card {
 		minion.silenced_ = silenced_;
 		minion.stealthed_ = stealthed_;
 		minion.heroTargetable_ = heroTargetable_;
-		minion.summoned_ = summoned_;
 		minion.transformed_ = transformed_;
 		minion.destroyOnTurnStart_ = destroyOnTurnStart_;
 		minion.destroyOnTurnEnd_ = destroyOnTurnEnd_;
@@ -1282,8 +1271,6 @@ public class Minion extends Card {
 			return false;
 		if(silenced_ != otherMinion.silenced_)
 			return false;
-		if(summoned_ != otherMinion.summoned_)
-			return false;
 		if(transformed_ != otherMinion.transformed_)
 			return false;
 		if(destroyOnTurnStart_ != otherMinion.destroyOnTurnStart_)
@@ -1326,7 +1313,6 @@ public class Minion extends Card {
 		result = 31 * result + baseAttack_;
 		result = 31 * result + extraAttackUntilTurnEnd_;
 		result = 31 * result + auraAttack_;
-		result = 31 * result + (summoned_ ? 1 : 0);
 		result = 31 * result + (transformed_ ? 1 : 0);
 		result = 31 * result + (destroyOnTurnStart_ ? 1 : 0);
 		result = 31 * result + (destroyOnTurnEnd_ ? 1 : 0);

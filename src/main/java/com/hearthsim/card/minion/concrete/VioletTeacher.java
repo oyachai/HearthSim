@@ -11,7 +11,6 @@ import com.hearthsim.util.tree.HearthTreeNode;
 public class VioletTeacher extends Minion {
 
 	private static final boolean HERO_TARGETABLE = true;
-	private static final boolean SUMMONED = false;
 	private static final boolean TRANSFORMED = false;
 	private static final byte SPELL_DAMAGE = 0;
 	
@@ -19,7 +18,6 @@ public class VioletTeacher extends Minion {
         super();
         spellDamage_ = SPELL_DAMAGE;
         heroTargetable_ = HERO_TARGETABLE;
-        summoned_ = SUMMONED;
         transformed_ = TRANSFORMED;
 	}
 	
