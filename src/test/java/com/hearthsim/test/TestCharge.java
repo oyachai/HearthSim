@@ -60,9 +60,8 @@ public class TestCharge {
 
 	@Test
 	public void testAiMinionAttack() throws HSException {
-		Minion minion = new Minion("" + 0, mana, attack0, health1, attack0, (byte)0, (byte)0, health1, health1,
-				(byte)0, (byte)0, false, false, false, true, false, false, false, false, false, false, false, false,
-				false, false, null, null, false, false);
+		Minion minion = new Minion("" + 0, mana, attack0, health1, attack0, (byte)0, (byte)0);
+		minion.setCharge(true);
 		board.placeMinion(PlayerSide.CURRENT_PLAYER, minion);
 
 		BoardStateFactoryBase factory = new DepthBoardStateFactory(null, null, 2000000000);
@@ -80,9 +79,8 @@ public class TestCharge {
 
 	@Test
 	public void testAiPlayChargeAndAttack() {
-		Minion minion = new Minion("" + 0, mana, attack0, health1, attack0, (byte)0, (byte)0, health1, health1,
-				(byte)0, (byte)0, false, false, false, true, false, false, false, false, false, false, false, false,
-				false, false, null, null, true, false);
+		Minion minion = new Minion("" + 0, mana, attack0, health1, attack0, (byte)0, (byte)0);
+		minion.setCharge(true);
 		board.placeCardHandCurrentPlayer(minion);
 		board.getCurrentPlayer().setMana(1);
 

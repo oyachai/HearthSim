@@ -104,11 +104,36 @@ public class Minion extends Card {
 	 * @param maxHealth
 	 */
 	public Minion(String name, byte mana, byte attack, byte health, byte baseAttack, byte baseHealth, byte maxHealth) {
-		this(name, mana, attack, health, baseAttack, (byte)0, (byte)0, baseHealth, maxHealth, (byte)0, (byte)0, false,
-				false, false, false, false, false, false, false, false, true, false, false, false, false, null, null,
-				true, false);
+		super(name, mana, false, true);
+		attack_ = attack;
+		health_ = health;
+		taunt_ = false;
+		divineShield_ = false;
+		windFury_ = false;
+		charge_ = false;
+		hasAttacked_ = false;
+		baseAttack_ = baseAttack;
+		extraAttackUntilTurnEnd_ = 0;
+		hasWindFuryAttacked_ = false;
+		frozen_ = false;
+		silenced_ = false;
+		baseHealth_ = baseHealth;
+		maxHealth_ = maxHealth;
+		destroyOnTurnStart_ = false;
+		destroyOnTurnEnd_ = false;
+		deathrattleAction_ = null;
+		attackAction_ = null;
+
+		auraAttack_ = 0;
+		auraHealth_ = 0;
+
+		spellDamage_ = 0;
+
+		stealthed_ = false;
+		heroTargetable_ = true;
 	}
 
+	@Deprecated
 	public Minion(String name, byte mana, byte attack, byte health, byte baseAttack, byte extraAttackUntilTurnEnd,
 			byte auraAttack, byte baseHealth, byte maxHealth, byte auraHealth, byte spellDamage, boolean taunt,
 			boolean divineShield, boolean windFury, boolean charge, boolean hasAttacked, boolean hasWindFuryAttacked,
