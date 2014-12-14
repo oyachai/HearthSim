@@ -680,7 +680,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 			return null;
 
 		HearthTreeNode toRet = boardState;
-		toRet.data_.getCurrentPlayer().subtractMana(this.getManaCost(PlayerSide.CURRENT_PLAYER, boardState));
+		toRet.data_.getCurrentPlayer().subtractMana(this.getManaCost(PlayerSide.CURRENT_PLAYER, boardState.data_));
 		toRet.data_.removeCard_hand(this);
 		toRet = this
 				.summonMinion(side, targetMinion, boardState, deckPlayer0, deckPlayer1, true, singleRealizationOnly);
