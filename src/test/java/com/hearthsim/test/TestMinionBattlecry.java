@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.Alexstrasza;
 import com.hearthsim.card.minion.concrete.ArgentProtector;
 import com.hearthsim.card.minion.concrete.BloodfenRaptor;
