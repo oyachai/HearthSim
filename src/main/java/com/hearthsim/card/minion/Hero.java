@@ -14,7 +14,7 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 import org.json.JSONObject;
 
-public abstract class Hero extends Minion {
+public abstract class Hero extends Minion implements MinionSummonedInterface {
 
 	protected static final byte HERO_ABILITY_COST = 2; // Assumed to be 2 for all heroes
 
@@ -273,10 +273,8 @@ public abstract class Hero extends Minion {
 
 	@Override
 	public HearthTreeNode minionSummonEvent(PlayerSide thisMinionPlayerSide, PlayerSide summonedMinionPlayerSide,
-			Minion summonedMinion, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1)
-			throws HSInvalidPlayerIndexException {
-		HearthTreeNode hearthTreeNode = super.minionSummonEvent(thisMinionPlayerSide, summonedMinionPlayerSide,
-				summonedMinion, boardState, deckPlayer0, deckPlayer1);
+			Minion summonedMinion, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) {
+		HearthTreeNode hearthTreeNode = boardState;
 		if(weapon != null) {
 			weapon.minionSummonedEvent(thisMinionPlayerSide, summonedMinionPlayerSide, summonedMinion, boardState,
 					deckPlayer0, deckPlayer1);

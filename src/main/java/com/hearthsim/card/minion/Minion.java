@@ -981,19 +981,43 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 	protected HearthTreeNode notifyMinionSummon(HearthTreeNode boardState, PlayerSide targetSide, Deck deckPlayer0,
 			Deck deckPlayer1) throws HSException {
 		HearthTreeNode toRet = boardState;
-		toRet = toRet.data_.getCurrentPlayerHero().minionSummonEvent(PlayerSide.CURRENT_PLAYER, targetSide, this,
-				toRet, deckPlayer0, deckPlayer1);
-		for(Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
-			if(!minion.silenced_)
-				toRet = minion.minionSummonEvent(PlayerSide.CURRENT_PLAYER, targetSide, this, toRet, deckPlayer0,
-						deckPlayer1);
+		ArrayList<MinionSummonedInterface> matches = new ArrayList<MinionSummonedInterface>();
+
+		Card hero = toRet.data_.getCurrentPlayerHero();
+		if(hero instanceof MinionSummonedInterface) {
+			matches.add((MinionSummonedInterface)hero);
 		}
-		toRet = toRet.data_.getWaitingPlayerHero().minionSummonEvent(PlayerSide.WAITING_PLAYER, targetSide, this,
-				toRet, deckPlayer0, deckPlayer1);
+
+		for(Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
+			if(!minion.isSilenced()) {
+				if(minion instanceof MinionSummonedInterface) {
+					matches.add((MinionSummonedInterface)minion);
+				}
+			}
+		}
+
+		for(MinionSummonedInterface match : matches) {
+			toRet = match.minionSummonEvent(PlayerSide.CURRENT_PLAYER, targetSide, this,
+					toRet, deckPlayer0, deckPlayer1);
+		}
+		matches.clear();
+
+		hero = toRet.data_.getWaitingPlayerHero();
+		if(hero instanceof MinionSummonedInterface) {
+			matches.add((MinionSummonedInterface)hero);
+		}
+
 		for(Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
-			if(!minion.silenced_)
-				toRet = minion.minionSummonEvent(PlayerSide.WAITING_PLAYER, targetSide, this, toRet, deckPlayer0,
-						deckPlayer1);
+			if(!minion.isSilenced()) {
+				if(minion instanceof MinionSummonedInterface) {
+					matches.add((MinionSummonedInterface)minion);
+				}
+			}
+		}
+
+		for(MinionSummonedInterface match : matches) {
+			toRet = match.minionSummonEvent(PlayerSide.WAITING_PLAYER, targetSide, this, toRet, deckPlayer0,
+					deckPlayer1);
 		}
 		return toRet;
 	}
@@ -1092,23 +1116,6 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 	// ======================================================================================
 	// Hooks for various events
 	// ======================================================================================
-
-	/**
-	 * Called whenever another minion is summoned
-	 *
-	 * @param thisMinionPlayerSide
-	 * @param summonedMinionPlayerSide
-	 * @param summonedMinion The summoned minion
-	 * @param boardState The BoardState before this card has performed its action. It will be manipulated and returned.
-	 * @param deckPlayer0 The deck of player0
-	 * @param deckPlayer1 The deck of player1
-	 * @return The boardState is manipulated and returned
-	 * */
-	public HearthTreeNode minionSummonEvent(PlayerSide thisMinionPlayerSide, PlayerSide summonedMinionPlayerSide,
-			Minion summonedMinion, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1)
-			throws HSInvalidPlayerIndexException {
-		return boardState;
-	}
 
 	/**
 	 * Called whenever another minion is summoned, before the summoning
