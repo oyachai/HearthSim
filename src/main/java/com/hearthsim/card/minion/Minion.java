@@ -558,7 +558,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 	 * @param deckPlayer0 The deck of player0 @throws HSInvalidPlayerIndexException
 	 * */
 	public HearthTreeNode takeHeal(byte healAmount, PlayerSide thisPlayerSide, HearthTreeNode boardState,
-			Deck deckPlayer0, Deck deckPlayer1) throws HSInvalidPlayerIndexException {
+			Deck deckPlayer0, Deck deckPlayer1) throws HSException {
 
 		if(health_ < maxHealth_) {
 			if(health_ + healAmount > maxHealth_)
@@ -567,22 +567,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 				health_ = (byte)(health_ + healAmount);
 
 			// Notify all that it the minion is healed
-			HearthTreeNode toRet = boardState;
-			toRet = toRet.data_.getCurrentPlayerHero().minionHealedEvent(PlayerSide.CURRENT_PLAYER, thisPlayerSide,
-					this, toRet, deckPlayer0, deckPlayer1);
-			for(Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
-				if(!minion.silenced_)
-					toRet = minion.minionHealedEvent(PlayerSide.CURRENT_PLAYER, thisPlayerSide, this, toRet,
-							deckPlayer0, deckPlayer1);
-			}
-			toRet = toRet.data_.getWaitingPlayerHero().minionHealedEvent(PlayerSide.WAITING_PLAYER, thisPlayerSide,
-					this, toRet, deckPlayer0, deckPlayer1);
-			for(Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
-				if(!minion.silenced_)
-					toRet = minion.minionHealedEvent(PlayerSide.WAITING_PLAYER, thisPlayerSide, this, toRet,
-							deckPlayer0, deckPlayer1);
-			}
-			return toRet;
+			return this.notifyMinionHealed(boardState, thisPlayerSide, deckPlayer0, deckPlayer1);
 		}
 		return boardState;
 	}
@@ -1141,25 +1126,49 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 		return toRet;
 	}
 
-	// ======================================================================================
-	// Hooks for various events
-	// ======================================================================================
+	protected HearthTreeNode notifyMinionHealed(HearthTreeNode boardState, PlayerSide targetSide, Deck deckPlayer0,
+			Deck deckPlayer1) throws HSException {
+		HearthTreeNode toRet = boardState;
+		ArrayList<MinionHealedInterface> matches = new ArrayList<MinionHealedInterface>();
 
-	/**
-	 * 
-	 * Called whenever another character (including the hero) is healed
-	 * 
-	 *
-	 * @param thisMinionPlayerSide
-	 * @param healedMinionPlayerSide
-	 * @param healedMinion The healed minion
-	 * @param boardState The BoardState before this card has performed its action. It will be manipulated and returned.
-	 * @param deckPlayer0 The deck of player0 @return The boardState is manipulated and returned
-	 * */
-	public HearthTreeNode minionHealedEvent(PlayerSide thisMinionPlayerSide, PlayerSide healedMinionPlayerSide,
-			Minion healedMinion, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1)
-			throws HSInvalidPlayerIndexException {
-		return boardState;
+		Card hero = toRet.data_.getCurrentPlayerHero();
+		if(hero instanceof MinionHealedInterface) {
+			matches.add((MinionHealedInterface)hero);
+		}
+
+		for(Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
+			if(!minion.isSilenced()) {
+				if(minion instanceof MinionHealedInterface) {
+					matches.add((MinionHealedInterface)minion);
+				}
+			}
+		}
+
+		for(MinionHealedInterface match : matches) {
+			toRet = match.minionHealedEvent(PlayerSide.CURRENT_PLAYER, targetSide, this,
+					toRet, deckPlayer0, deckPlayer1);
+		}
+		matches.clear();
+
+		hero = toRet.data_.getWaitingPlayerHero();
+		if(hero instanceof MinionHealedInterface) {
+			matches.add((MinionHealedInterface)hero);
+		}
+
+		for(Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
+			if(!minion.isSilenced()) {
+				if(minion instanceof MinionHealedInterface) {
+					matches.add((MinionHealedInterface)minion);
+				}
+			}
+		}
+
+		for(MinionHealedInterface match : matches) {
+			toRet = match.minionHealedEvent(PlayerSide.WAITING_PLAYER, targetSide, this, toRet, deckPlayer0,
+					deckPlayer1);
+		}
+
+		return toRet;
 	}
 
 	@Override
