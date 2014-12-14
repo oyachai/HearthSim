@@ -81,9 +81,8 @@ public class TestBloodKnight {
 	public void testNoDivineShields() throws HSException {
 		board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1).setDivineShield(false);
 		board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1).setDivineShield(false);
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, null, null);
 		
 		assertEquals(board, ret);
 		assertEquals(board.data_.getNumCards_hand(), 0);
@@ -100,12 +99,11 @@ public class TestBloodKnight {
 	@Test
 	@Ignore("Existing bug")
 	public void testSilenced() throws HSException {
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, null, null);
 		assertEquals(board, ret);
 
-		target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 2);
+		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 2);
 		target.silenced(PlayerSide.CURRENT_PLAYER, board);
 
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getTotalHealth(), 3);

@@ -44,9 +44,8 @@ public class TestAcidicSwampOoze {
 		assertEquals(board.data_.getWaitingPlayerHero().getTotalAttack(), 3);
 		assertEquals(board.data_.getWaitingPlayerHero().getWeaponCharge(), 2);
 
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
 
 		assertEquals(board, ret);
 		assertEquals(board.data_.getNumCards_hand(), 0);

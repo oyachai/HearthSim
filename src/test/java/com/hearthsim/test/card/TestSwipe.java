@@ -70,9 +70,8 @@ public class TestSwipe {
 
 	@Test
 	public void testTargetEnemyHero() throws HSException {		
-		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 0, board, deck, null);
 		
 		assertEquals(ret, board);
 
@@ -97,9 +96,8 @@ public class TestSwipe {
 	
 	@Test
 	public void testTargetEnemyMinion() throws HSException {
-		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 1, board, deck, null);
 		
 		assertEquals(ret, board);
 
@@ -125,9 +123,8 @@ public class TestSwipe {
 		Minion kobold = new KoboldGeomancer();
 		board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, kobold);
 
-		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 2, board, deck, null);
 		
 		assertEquals(ret, board);
 

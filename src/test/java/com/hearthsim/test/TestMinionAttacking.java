@@ -53,15 +53,14 @@ public class TestMinionAttacking {
 		BluegillWarrior murloc = new BluegillWarrior();
 		board.data_.placeCardHandCurrentPlayer(murloc);
 
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
 		assertEquals(board, ret);
 
 		Minion theAttacker = PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0);
 		assertTrue(theAttacker.canAttack());
 
-		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
+		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
 		ret = theAttacker.attack(PlayerSide.WAITING_PLAYER, target, board, null, null);
 		assertEquals(board, ret);
 
@@ -74,15 +73,14 @@ public class TestMinionAttacking {
 		MurlocRaider murloc = new MurlocRaider();
 		board.data_.placeCardHandCurrentPlayer(murloc);
 
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
 		assertEquals(board, ret);
 
 		Minion theAttacker = PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0);
 		assertFalse(theAttacker.canAttack());
 
-		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
+		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
 		ret = theAttacker.attack(PlayerSide.WAITING_PLAYER, target, board, null, null);
 		assertNull(ret);
 

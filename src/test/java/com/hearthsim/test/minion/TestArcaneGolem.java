@@ -73,9 +73,8 @@ public class TestArcaneGolem {
 	
 	@Test
 	public void testIncreasesEnemyMana() throws HSException {
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
 		assertEquals(board, ret);
 		assertEquals(board.data_.getNumCards_hand(), 0);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 3);
@@ -90,9 +89,8 @@ public class TestArcaneGolem {
 	@Ignore("Existing bug")
 	public void testDoesNotIncreaseOverTen() throws HSException {
 		board.data_.getWaitingPlayer().setMaxMana((byte)10);
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
 		assertEquals(board, ret);
 		assertEquals(board.data_.getWaitingPlayer().getMana(), 9);
 		assertEquals(board.data_.getWaitingPlayer().getMaxMana(), 10);

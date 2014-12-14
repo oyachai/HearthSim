@@ -36,14 +36,13 @@ public class TestGurubashiBerserker {
 	
 	@Test
 	public void testBuffsAfterAttackingEnemyMinion() throws HSException {
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
 		assertEquals(board, ret);
 
 		Minion berserker = board.data_.getCurrentPlayer().getMinions().get(0);
 		berserker.hasAttacked(false);
-		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
+		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
 		ret = berserker.attack(PlayerSide.WAITING_PLAYER, target, board, null, null);
 		assertEquals(board, ret);
 
@@ -53,15 +52,14 @@ public class TestGurubashiBerserker {
 
 	@Test
 	public void testDivineShieldPreventsBuff() throws HSException {
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
 		assertEquals(board, ret);
 
 		Minion berserker = board.data_.getCurrentPlayer().getMinions().get(0);
 		berserker.hasAttacked(false);
 		berserker.setDivineShield(true);
-		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
+		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
 		ret = berserker.attack(PlayerSide.WAITING_PLAYER, target, board, null, null);
 		assertEquals(board, ret);
 

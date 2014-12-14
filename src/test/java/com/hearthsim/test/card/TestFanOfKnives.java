@@ -58,10 +58,8 @@ public class TestFanOfKnives {
 
 	@Test
 	public void testDrawsCardOnSuccess() throws HSException {
-
-		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 0, board, deck, null);
 		assertNotNull(ret);
 		
 		assertTrue(ret instanceof CardDrawNode);

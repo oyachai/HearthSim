@@ -71,10 +71,8 @@ public class TestArmorsmith {
 
 	@Test
 	public void test0() throws HSException {
-
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 0);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 3);
@@ -105,9 +103,7 @@ public class TestArmorsmith {
 		
 		board.data_.placeCardHandCurrentPlayer(new HolySmite());
 		theCard = board.data_.getCurrentPlayerCardHand(0);
-		
-		target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 3);
-		ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, ret, deck, null);
+		ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 3, ret, deck, null);
 		assertFalse(ret == null);
 
 		assertEquals(ret.data_.getNumCards_hand(), 0);
@@ -141,8 +137,7 @@ public class TestArmorsmith {
 		
 		board.data_.placeCardHandCurrentPlayer(new HolySmite());
 		theCard = board.data_.getCurrentPlayerCardHand(0);
-		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
-		ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, ret, deck, null);
+		ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 2, ret, deck, null);
 		assertFalse(ret == null);
 		assertEquals(ret.data_.getNumCards_hand(), 0);
 		assertEquals(ret.data_.getCurrentPlayer().getNumMinions(), 3);
@@ -171,8 +166,7 @@ public class TestArmorsmith {
 		ret = new HearthTreeNode(ret.data_.flipPlayers());
 		ret.data_.placeCardHandCurrentPlayer(new HolySmite());
 		theCard = ret.data_.getCurrentPlayerCardHand(0);
-		target = ret.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
-		ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, ret, deck, null);
+		ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 2, ret, deck, null);
 		assertFalse(ret == null);
 		assertEquals(ret.data_.getNumCards_hand(), 0);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getNumMinions(), 3);

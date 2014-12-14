@@ -58,9 +58,8 @@ public class TestWeapon {
 
 	@Test
 	public void testEquip() throws HSException {
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0); // Hero
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
 
 		assertEquals(board, ret);
 		assertEquals(board.data_.getNumCards_hand(), 0);
@@ -73,12 +72,11 @@ public class TestWeapon {
 
 	@Test
 	public void testHeroCanAttack() throws HSException {
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0); // Hero
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
 
 		Minion hero = ret.data_.getCurrentPlayerHero();
-		target = ret.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
+		Minion target = ret.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
 		ret = hero.attack(PlayerSide.WAITING_PLAYER, target, ret, deck, null);
 		assertEquals(board, ret);
 
@@ -91,12 +89,11 @@ public class TestWeapon {
 
 	@Test
 	public void testHeroCannotAttackTwice() throws HSException {
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0); // Hero
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
 
 		Minion hero = ret.data_.getCurrentPlayerHero();
-		target = ret.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
+		Minion target = ret.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
 		ret = hero.attack(PlayerSide.WAITING_PLAYER, target, ret, deck, null);
 
 		hero = ret.data_.getCurrentPlayerHero();
@@ -114,13 +111,12 @@ public class TestWeapon {
 
 	@Test
 	public void testWeaponBreaks() throws HSException {
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0); // Hero
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
 		ret.data_.getCurrentPlayerHero().setWeaponCharge((byte)1);
 		
 		Minion hero = ret.data_.getCurrentPlayerHero();
-		target = ret.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
+		Minion target = ret.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
 		ret = hero.attack(PlayerSide.WAITING_PLAYER, target, ret, deck, null);
 		assertEquals(board, ret);
 
@@ -133,15 +129,13 @@ public class TestWeapon {
 
 	@Test
 	public void testDestroysEquippedWeapon() throws HSException {
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0); // Hero
-
 		AssassinsBlade otherWeapon = new AssassinsBlade();
 		board.data_.placeCardHandCurrentPlayer(otherWeapon);
 		board.data_.getCurrentPlayer().setMana((byte)7);
-		board.data_.getCurrentPlayerCardHand(1).useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
+		board.data_.getCurrentPlayerCardHand(1).useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
 
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
 		assertEquals(board, ret);
 
 		assertEquals(board.data_.getNumCards_hand(), 0);
@@ -154,9 +148,8 @@ public class TestWeapon {
 
 	@Test
 	public void testCannotTargetMinion() throws HSException {
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, deck, null);
 		assertNull(ret);
 
 		assertFalse(theCard.hasBeenUsed());
@@ -171,9 +164,8 @@ public class TestWeapon {
 
 	@Test
 	public void testCannotTargetOpponent() throws HSException {
-		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 0, board, deck, null);
 		assertNull(ret);
 
 		assertFalse(theCard.hasBeenUsed());

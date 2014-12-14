@@ -73,11 +73,8 @@ public class TestInnerRage {
 		
 	@Test
 	public void test1() throws HSException {
-		
-		//null case
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, deck, null);
 		
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 0);
@@ -102,11 +99,8 @@ public class TestInnerRage {
 	
 	@Test
 	public void test2() throws HSException {
-		
-		//null case
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 2);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 2, board, deck, null);
 		
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 0);
@@ -130,8 +124,7 @@ public class TestInnerRage {
 		
 		board.data_.placeCardHandCurrentPlayer(new Silence());
 		theCard = board.data_.getCurrentPlayerCardHand(0);
-		target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
-		ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
+		ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, deck, null);
 		
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 0);
@@ -156,11 +149,8 @@ public class TestInnerRage {
 	
 	@Test
 	public void test3() throws HSException {
-		
-		//null case
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 3);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 3, board, deck, null);
 		
 		assertFalse(ret == null);
 		

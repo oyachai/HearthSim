@@ -78,11 +78,8 @@ public class TestFlesheatingGhoul {
 	
 	@Test
 	public void test0() throws HSException {
-		
-		//null case
-		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, deck);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 0, board, deck, deck);
 		
 		assertNull(ret);
 		assertEquals(board.data_.getNumCards_hand(), 1);
@@ -112,11 +109,8 @@ public class TestFlesheatingGhoul {
 
 	@Test
 	public void test1() throws HSException {
-		
-		//null case
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 3);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, deck);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 3, board, deck, deck);
 		
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 0);
@@ -154,7 +148,7 @@ public class TestFlesheatingGhoul {
 		
 		//---------------------------------------------------------------
 		Minion attacker = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 3);
-		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
+		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
 		ret = attacker.attack(PlayerSide.WAITING_PLAYER, target, board, deck, deck);
 		
 		assertFalse(ret == null);

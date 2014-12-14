@@ -187,8 +187,7 @@ public class TestBoardModel {
 		board.data_.getWaitingPlayer().setMaxMana((byte)8);
 
 		HearthTreeNode tmpBoard = new HearthTreeNode(board.data_.flipPlayers());
-		tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER,
-				tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck1, deck0);
+		tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, 0, tmpBoard, deck1, deck0);
 		tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER,
 				tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck1, deck0);
 		tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER,

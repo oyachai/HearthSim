@@ -44,9 +44,8 @@ class MasterSwordsmithSpec extends CardSpec {
 	
 	def "playing Master Swordsmith"() {
 		def copiedBoard = startingBoard.deepCopy()
-		def target = root.data_.getCharacter(CURRENT_PLAYER, 1)
 		def theCard = root.data_.getCurrentPlayerCardHand(0)
-		def ret = theCard.useOn(CURRENT_PLAYER, target, root, null, null)
+		def ret = theCard.useOn(CURRENT_PLAYER, 1, root, null, null)
 
 		expect:
 		assertFalse(ret == null);
