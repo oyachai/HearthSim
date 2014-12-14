@@ -99,7 +99,7 @@ public class TestGame {
 	@Test
 	public void testGameHistoryIsRepeatable() throws HSException {
 
-		int numCardsInDeck_ = 30;
+		int numCardsInDeck_ = 12;
 		byte minionAttack = 5;
 		byte minionHealth = 4;
 		byte minionMana = 4;
@@ -136,7 +136,7 @@ public class TestGame {
 	@Test
 	public void testGameHistoryIsRepeatableWithRng() throws HSException {
 
-		int numCardsInDeck_ = 30;
+		int numCardsInDeck_ = 12;
 		byte minionAttack = 5;
 		byte minionHealth = 4;
 		byte minionMana = 4;
@@ -179,7 +179,7 @@ public class TestGame {
 	@Test
 	public void testGameHistoryIsRepeatableWithCardDraw() throws HSException {
 
-		int numCardsInDeck_ = 30;
+		int numCardsInDeck_ = 12;
 		byte minionAttack = 5;
 		byte minionHealth = 4;
 		byte minionMana = 4;
