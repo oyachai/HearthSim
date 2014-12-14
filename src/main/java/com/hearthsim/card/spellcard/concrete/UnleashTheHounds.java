@@ -28,11 +28,6 @@ public class UnleashTheHounds extends SpellCard {
 		return new UnleashTheHounds(this.hasBeenUsed());
 	}
 
-	@Override
-    public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
-        return !(isWaitingPlayer(playerSide) || isNotHero(minion));
-    }
-	
 	/**
 	 * 
 	 * Use the card on the given target
@@ -66,7 +61,7 @@ public class UnleashTheHounds extends SpellCard {
 				toRet = new Hound().summonMinion(PlayerSide.CURRENT_PLAYER, placementTarget, toRet, deckPlayer0, deckPlayer1, false, singleRealizationOnly);
 			}
 		}
-		return boardState;
+		return toRet;
 	}
 
 }
