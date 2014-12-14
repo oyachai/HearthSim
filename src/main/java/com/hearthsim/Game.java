@@ -7,7 +7,6 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
@@ -166,20 +165,12 @@ public class Game {
 		toRet.data_.resetMinions();
 
 		for(Minion targetMinion : toRet.data_.getCurrentPlayer().getMinions()) {
-			try {
-				toRet = targetMinion.startTurn(PlayerSide.CURRENT_PLAYER, toRet, toRet.data_.getCurrentPlayer()
-						.getDeck(), toRet.data_.getWaitingPlayer().getDeck());
-			} catch(HSInvalidPlayerIndexException e) {
-				e.printStackTrace();
-			}
+			toRet = targetMinion.startTurn(PlayerSide.CURRENT_PLAYER, toRet, toRet.data_.getCurrentPlayer()
+					.getDeck(), toRet.data_.getWaitingPlayer().getDeck());
 		}
 		for(Minion targetMinion : toRet.data_.getWaitingPlayer().getMinions()) {
-			try {
-				toRet = targetMinion.startTurn(PlayerSide.WAITING_PLAYER, toRet, toRet.data_.getCurrentPlayer()
-						.getDeck(), toRet.data_.getWaitingPlayer().getDeck());
-			} catch(HSInvalidPlayerIndexException e) {
-				e.printStackTrace();
-			}
+			toRet = targetMinion.startTurn(PlayerSide.WAITING_PLAYER, toRet, toRet.data_.getCurrentPlayer()
+					.getDeck(), toRet.data_.getWaitingPlayer().getDeck());
 		}
 
 		toRet = BoardStateFactoryBase.handleDeadMinions(toRet, toRet.data_.getCurrentPlayer().getDeck(), toRet.data_
