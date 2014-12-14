@@ -1047,38 +1047,51 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 	protected HearthTreeNode notifyMinionPlayed(HearthTreeNode boardState, PlayerSide targetSide, Deck deckPlayer0,
 			Deck deckPlayer1) throws HSException {
 		HearthTreeNode toRet = boardState;
-		toRet = toRet.data_.getCurrentPlayerHero().minionPlayedEvent(PlayerSide.CURRENT_PLAYER, targetSide, this,
-				toRet, deckPlayer0, deckPlayer1);
+		ArrayList<MinionPlayedInterface> matches = new ArrayList<MinionPlayedInterface>();
+
+		Card hero = toRet.data_.getCurrentPlayerHero();
+		if(hero instanceof MinionPlayedInterface) {
+			matches.add((MinionPlayedInterface)hero);
+		}
+
 		for(Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
-			if(!minion.silenced_)
-				toRet = minion.minionPlayedEvent(PlayerSide.CURRENT_PLAYER, targetSide, this, toRet, deckPlayer0,
-						deckPlayer1);
+			if(!minion.isSilenced()) {
+				if(minion instanceof MinionPlayedInterface) {
+					matches.add((MinionPlayedInterface)minion);
+				}
+			}
 		}
-		toRet = toRet.data_.getWaitingPlayerHero().minionPlayedEvent(PlayerSide.WAITING_PLAYER, targetSide, this,
-				toRet, deckPlayer0, deckPlayer1);
+
+		for(MinionPlayedInterface match : matches) {
+			toRet = match.minionPlayedEvent(PlayerSide.CURRENT_PLAYER, targetSide, this,
+					toRet, deckPlayer0, deckPlayer1);
+		}
+		matches.clear();
+
+		hero = toRet.data_.getWaitingPlayerHero();
+		if(hero instanceof MinionPlayedInterface) {
+			matches.add((MinionPlayedInterface)hero);
+		}
+
 		for(Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
-			if(!minion.silenced_)
-				toRet = minion.minionPlayedEvent(PlayerSide.WAITING_PLAYER, targetSide, this, toRet, deckPlayer0,
-						deckPlayer1);
+			if(!minion.isSilenced()) {
+				if(minion instanceof MinionPlayedInterface) {
+					matches.add((MinionPlayedInterface)minion);
+				}
+			}
 		}
+
+		for(MinionPlayedInterface match : matches) {
+			toRet = match.minionPlayedEvent(PlayerSide.WAITING_PLAYER, targetSide, this, toRet, deckPlayer0,
+					deckPlayer1);
+		}
+		
 		return toRet;
 	}
 
 	// ======================================================================================
 	// Hooks for various events
 	// ======================================================================================
-
-	/**
-	 * Called whenever a minion is played (i.e., if a minion card was used to directly place a minion on the board)
-	 * 
-	 * @param boardState The BoardState before this card has performed its action. It will be manipulated and returned.
-	 *
-	 * */
-	public HearthTreeNode minionPlayedEvent(PlayerSide thisMinionPlayerSide, PlayerSide summonedMinionPlayerSide,
-			Minion summonedMinion, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1)
-			throws HSInvalidPlayerIndexException {
-		return boardState;
-	}
 
 	/**
 	 * Called whenever another minion is summoned
