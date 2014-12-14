@@ -29,11 +29,6 @@ public class HealingTouch extends SpellCard {
 		this(false);
 	}
 	
-	@Override
-	public SpellCard deepCopy() {
-		return new HealingTouch(this.hasBeenUsed);
-	}
-	
 	/**
 	 * 
 	 * Use the card on the given target

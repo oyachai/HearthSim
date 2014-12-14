@@ -21,11 +21,6 @@ public class MortalCoil extends SpellDamage {
 		this.canTargetOwnHero = false;
 	}
 
-	@Override
-	public SpellDamage deepCopy() {
-		return new MortalCoil(this.hasBeenUsed);
-	}
-	
 	/**
 	 * 
 	 * Use the card on the given target

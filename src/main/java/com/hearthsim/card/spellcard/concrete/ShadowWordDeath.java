@@ -30,11 +30,6 @@ public class ShadowWordDeath extends SpellCard {
 	public ShadowWordDeath() {
 		this(false);
 	}
-
-	@Override
-	public SpellCard deepCopy() {
-		return new ShadowWordDeath(this.hasBeenUsed);
-	}
 	
 	@Override
 	public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {

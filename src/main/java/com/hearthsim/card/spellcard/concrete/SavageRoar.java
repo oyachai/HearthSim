@@ -33,11 +33,6 @@ public class SavageRoar extends SpellCard {
 		this(false);
 	}
 
-	@Override
-	public SpellCard deepCopy() {
-		return new SavageRoar(this.hasBeenUsed);
-	}
-	
 	/**
 	 * 
 	 * Use the card on the given target

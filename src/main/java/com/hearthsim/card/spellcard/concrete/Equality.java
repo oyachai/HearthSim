@@ -31,11 +31,6 @@ public class Equality extends SpellCard {
 		this(false);
 	}
 	
-	@Override
-	public SpellCard deepCopy() {
-		return new Equality(this.hasBeenUsed);
-	}
-
 	/**
 	 * 
 	 * Change the Health of ALL minions to 1

@@ -30,11 +30,6 @@ public class AncestralSpirit extends SpellCard {
 		this(false);
 	}
 
-	@Override
-	public SpellCard deepCopy() {
-		return new AncestralSpirit(this.hasBeenUsed);
-	}
-	
 	/**
 	 * 
 	 * Use the card on the given target

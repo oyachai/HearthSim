@@ -31,11 +31,6 @@ public class MindControl extends SpellCard {
 		this(false);
 	}
 
-	@Override
-	public SpellCard deepCopy() {
-		return new MindControl(this.hasBeenUsed);
-	}
-
 	/**
 	 * 
 	 * Use the card on the given target

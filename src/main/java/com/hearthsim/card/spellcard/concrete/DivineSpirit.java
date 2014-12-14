@@ -31,11 +31,6 @@ public class DivineSpirit extends SpellCard {
 		this(false);
 	}
 	
-	@Override
-	public SpellCard deepCopy() {
-		return new DivineSpirit(this.hasBeenUsed);
-	}
-
 	/**
 	 * 
 	 * Use the card on the given target

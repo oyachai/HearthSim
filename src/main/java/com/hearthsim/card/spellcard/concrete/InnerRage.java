@@ -30,11 +30,6 @@ public class InnerRage extends SpellCard {
 		this(false);
 	}
 
-	@Override
-	public SpellCard deepCopy() {
-		return new InnerRage(this.hasBeenUsed);
-	}
-	
 	/**
 	 * 
 	 * Use the card on the given target

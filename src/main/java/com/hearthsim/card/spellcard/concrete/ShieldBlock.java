@@ -33,11 +33,6 @@ public class ShieldBlock extends SpellCard {
 		this(false);
 	}
 
-	@Override
-	public SpellCard deepCopy() {
-		return new ShieldBlock(this.hasBeenUsed);
-	}
-	
 	/**
 	 * 
 	 * Use the card on the given target

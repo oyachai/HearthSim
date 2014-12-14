@@ -21,11 +21,6 @@ public class Bloodlust extends SpellCard {
 		this.canTargetOwnMinions = false;
 	}
 	
-	@Override
-	public SpellCard deepCopy() {
-		return new Bloodlust(this.hasBeenUsed);
-	}
-
 	/**
 	 * 
 	 * Use the card on the given target
