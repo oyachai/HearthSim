@@ -58,8 +58,6 @@ public class Minion extends Card {
 	protected byte extraAttackUntilTurnEnd_;
 	protected byte auraAttack_;
 
-	protected boolean transformed_;
-
 	protected boolean destroyOnTurnStart_;
 	protected boolean destroyOnTurnEnd_;
 
@@ -132,7 +130,6 @@ public class Minion extends Card {
 		silenced_ = silenced;
 		baseHealth_ = baseHealth;
 		maxHealth_ = maxHealth;
-		transformed_ = transformed;
 		destroyOnTurnStart_ = destroyOnTurnStart;
 		destroyOnTurnEnd_ = destroyOnTurnEnd;
 		deathrattleAction_ = deathrattleAction;
@@ -254,14 +251,6 @@ public class Minion extends Card {
 			hasAttacked_ = false;
 			hasWindFuryAttacked_ = true;
 		}
-	}
-
-	public boolean getTransformed() {
-		return transformed_;
-	}
-
-	public void setTransformed(boolean value) {
-		transformed_ = value;
 	}
 
 	public void addExtraAttackUntilTurnEnd(byte value) {
@@ -1207,7 +1196,6 @@ public class Minion extends Card {
 		minion.silenced_ = silenced_;
 		minion.stealthed_ = stealthed_;
 		minion.heroTargetable_ = heroTargetable_;
-		minion.transformed_ = transformed_;
 		minion.destroyOnTurnStart_ = destroyOnTurnStart_;
 		minion.destroyOnTurnEnd_ = destroyOnTurnEnd_;
 		minion.deathrattleAction_ = deathrattleAction_;
@@ -1264,8 +1252,6 @@ public class Minion extends Card {
 			return false;
 		if(silenced_ != otherMinion.silenced_)
 			return false;
-		if(transformed_ != otherMinion.transformed_)
-			return false;
 		if(destroyOnTurnStart_ != otherMinion.destroyOnTurnStart_)
 			return false;
 		if(destroyOnTurnEnd_ != otherMinion.destroyOnTurnEnd_)
@@ -1306,7 +1292,6 @@ public class Minion extends Card {
 		result = 31 * result + baseAttack_;
 		result = 31 * result + extraAttackUntilTurnEnd_;
 		result = 31 * result + auraAttack_;
-		result = 31 * result + (transformed_ ? 1 : 0);
 		result = 31 * result + (destroyOnTurnStart_ ? 1 : 0);
 		result = 31 * result + (destroyOnTurnEnd_ ? 1 : 0);
 		result = 31 * result + spellDamage_;

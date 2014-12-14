@@ -5,14 +5,13 @@ import com.hearthsim.card.minion.Totem;
 public class SearingTotem extends Totem {
 
 	private static final boolean HERO_TARGETABLE = true;
-	private static final boolean TRANSFORMED = false;
 	private static final byte SPELL_DAMAGE = 0;
 	
 	public SearingTotem() {
         super();
         spellDamage_ = SPELL_DAMAGE;
         heroTargetable_ = HERO_TARGETABLE;
-        transformed_ = TRANSFORMED;
+
 	}
 	
 }

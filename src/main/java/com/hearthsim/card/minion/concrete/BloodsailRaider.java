@@ -11,14 +11,13 @@ import com.hearthsim.util.tree.HearthTreeNode;
 public class BloodsailRaider extends Pirate {
 	
 	private static final boolean HERO_TARGETABLE = true;
-	private static final boolean TRANSFORMED = false;
 	private static final byte SPELL_DAMAGE = 1;
 	
 	public BloodsailRaider() {
         super();
         spellDamage_ = SPELL_DAMAGE;
         heroTargetable_ = HERO_TARGETABLE;
-        transformed_ = TRANSFORMED;
+
 	}
 	
 	@Override
