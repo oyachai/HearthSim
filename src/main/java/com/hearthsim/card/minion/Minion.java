@@ -489,29 +489,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 		}
 
 		// Notify all that it is dead
-		toRet = toRet.data_.getCurrentPlayerHero().minionDeadEvent(PlayerSide.CURRENT_PLAYER, thisPlayerSide, this,
-				toRet, deckPlayer0, deckPlayer1);
-		for(int j = 0; j < PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getNumMinions(); ++j) {
-			if(!PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions().get(j).silenced_)
-				toRet = PlayerSide.CURRENT_PLAYER
-						.getPlayer(toRet)
-						.getMinions()
-						.get(j)
-						.minionDeadEvent(PlayerSide.CURRENT_PLAYER, thisPlayerSide, this, toRet, deckPlayer0,
-								deckPlayer1);
-		}
-		toRet = toRet.data_.getWaitingPlayerHero().minionDeadEvent(PlayerSide.WAITING_PLAYER, thisPlayerSide, this,
-				toRet, deckPlayer0, deckPlayer1);
-		for(int j = 0; j < PlayerSide.WAITING_PLAYER.getPlayer(toRet).getNumMinions(); ++j) {
-			if(!PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions().get(j).silenced_)
-				toRet = PlayerSide.WAITING_PLAYER
-						.getPlayer(toRet)
-						.getMinions()
-						.get(j)
-						.minionDeadEvent(PlayerSide.WAITING_PLAYER, thisPlayerSide, this, toRet, deckPlayer0,
-								deckPlayer1);
-		}
-
+		toRet = this.notifyMinionDead(thisPlayerSide, this, toRet, deckPlayer0, deckPlayer1);
 		return toRet;
 
 	}
@@ -1118,26 +1096,54 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 		return toRet;
 	}
 
+	protected HearthTreeNode notifyMinionDead(PlayerSide deadMinionPlayerSide,
+			Minion deadMinion, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+		HearthTreeNode toRet = boardState;
+		ArrayList<MinionDeadInterface> matches = new ArrayList<MinionDeadInterface>();
+
+		Card hero = toRet.data_.getCurrentPlayerHero();
+		if(hero instanceof MinionDeadInterface) {
+			matches.add((MinionDeadInterface)hero);
+		}
+
+		for(Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
+			if(!minion.isSilenced()) {
+				if(minion instanceof MinionDeadInterface) {
+					matches.add((MinionDeadInterface)minion);
+				}
+			}
+		}
+
+		for(MinionDeadInterface match : matches) {
+			toRet = match.minionDeadEvent(PlayerSide.CURRENT_PLAYER, deadMinionPlayerSide, deadMinion,
+					toRet, deckPlayer0, deckPlayer1);
+		}
+		matches.clear();
+
+		hero = toRet.data_.getWaitingPlayerHero();
+		if(hero instanceof MinionDeadInterface) {
+			matches.add((MinionDeadInterface)hero);
+		}
+
+		for(Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
+			if(!minion.isSilenced()) {
+				if(minion instanceof MinionDeadInterface) {
+					matches.add((MinionDeadInterface)minion);
+				}
+			}
+		}
+
+		for(MinionDeadInterface match : matches) {
+			toRet = match.minionDeadEvent(PlayerSide.WAITING_PLAYER, deadMinionPlayerSide, deadMinion, toRet, deckPlayer0,
+					deckPlayer1);
+		}
+
+		return toRet;
+	}
+
 	// ======================================================================================
 	// Hooks for various events
 	// ======================================================================================
-
-	/**
-	 * 
-	 * Called whenever another minion dies
-	 * 
-	 *
-	 * @param thisMinionPlayerSide
-	 * @param deadMinionPlayerSide
-	 * @param deadMinion The dead minion
-	 * @param boardState The BoardState before this card has performed its action. It will be manipulated and returned.
-	 * @param deckPlayer0 The deck of player0 @return The boardState is manipulated and returned
-	 * */
-	public HearthTreeNode minionDeadEvent(PlayerSide thisMinionPlayerSide, PlayerSide deadMinionPlayerSide,
-			Minion deadMinion, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1)
-			throws HSInvalidPlayerIndexException {
-		return boardState;
-	}
 
 	/**
 	 * 

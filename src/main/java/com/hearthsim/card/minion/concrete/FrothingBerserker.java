@@ -2,11 +2,12 @@ package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.minion.MinionDamagedInterface;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class FrothingBerserker extends Minion {
+public class FrothingBerserker extends Minion implements MinionDamagedInterface {
 	
 	private static final boolean HERO_TARGETABLE = true;
 	private static final byte SPELL_DAMAGE = 0;
@@ -20,7 +21,6 @@ public class FrothingBerserker extends Minion {
 	/**
 	 * Whenever a minion takes damage, gain 1 attack
      * */
-	@Override
 	public HearthTreeNode minionDamagedEvent(
 			PlayerSide thisMinionPlayerSide,
 			PlayerSide damagedPlayerSide,
@@ -28,10 +28,8 @@ public class FrothingBerserker extends Minion {
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
-		throws HSInvalidPlayerIndexException
 	{
-		HearthTreeNode toRet = super.minionDamagedEvent(thisMinionPlayerSide, damagedPlayerSide, damagedMinion, boardState, deckPlayer0, deckPlayer1);
 		this.addAttack((byte)1);
-		return toRet;
+		return boardState;
 	}
 }
