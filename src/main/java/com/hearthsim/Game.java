@@ -63,22 +63,7 @@ public class Game {
 	}
 	
 	public Game(PlayerModel playerModel0, PlayerModel playerModel1, ArtificialPlayer ai0, ArtificialPlayer ai1, boolean shufflePlayOrder) {
-    	playerGoingFirst = playerModel0;
-		playerGoingSecond = playerModel1;
-
-		aiForPlayerGoingFirst = ai0;
-		aiForPlayerGoingSecond = ai1;
-
-		if(shufflePlayOrder && Math.random() > 0.5) {
-			playerGoingFirst = playerModel1;
-			playerGoingSecond = playerModel0;
-			aiForPlayerGoingFirst = ai1;
-			aiForPlayerGoingSecond = ai0;
-		}
-		log.debug("shuffle play order: {}", shufflePlayOrder);
-		log.debug("first player id: {}", playerGoingFirst.getPlayerId());
-
-		boardModel = new BoardModel(playerGoingFirst, playerGoingSecond);
+		this(playerModel0, playerModel1, ai0, ai1, (shufflePlayOrder && Math.random() >= 0.5) ? 0 : 1);
 	}
 
 	public GameResult runGame() throws HSException {
