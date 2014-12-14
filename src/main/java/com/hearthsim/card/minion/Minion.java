@@ -910,20 +910,6 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 		
 		// Notify all that an attack is beginning
 		HearthTreeNode toRet = boardState;
-		if(toRet != null) {
-			// Notify all that a minion is created
-			toRet = toRet.data_.getCurrentPlayerHero().minionAttackEvent(toRet);
-			for(Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
-				if(!minion.silenced_)
-					toRet = minion.minionAttackEvent(toRet);
-			}
-			toRet = toRet.data_.getWaitingPlayerHero().minionAttackEvent(toRet);
-			for(Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
-				if(!minion.silenced_)
-					toRet = minion.minionAttackEvent(toRet);
-			}
-		}
-
 		int attackerIndex = this instanceof Hero ? 0 : PlayerSide.CURRENT_PLAYER.getPlayer(boardState).getMinions()
 				.indexOf(this) + 1;
 		int targetIndex = targetMinion instanceof Hero ? 0 : targetMinionPlayerSide.getPlayer(boardState).getMinions()
@@ -1116,17 +1102,6 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 	// ======================================================================================
 	// Hooks for various events
 	// ======================================================================================
-
-	/**
-	 * 
-	 * Called whenever another minion is attacking another character
-	 * 
-	 * @param boardState The BoardState before this card has performed its action. It will be manipulated and returned.
-	 *
-	 * */
-	public HearthTreeNode minionAttackEvent(HearthTreeNode boardState) throws HSInvalidPlayerIndexException {
-		return boardState;
-	}
 
 	/**
 	 * 
