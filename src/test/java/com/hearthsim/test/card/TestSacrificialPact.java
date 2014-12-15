@@ -9,8 +9,8 @@ import org.junit.Test;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
-import com.hearthsim.card.minion.Demon;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.minion.Minion.MinionTribe;
 import com.hearthsim.card.minion.concrete.BloodImp;
 import com.hearthsim.card.spellcard.concrete.SacrificialPact;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
@@ -35,7 +35,8 @@ public class TestSacrificialPact {
 		Minion minion0_0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
 		Minion minion0_1 = new Minion("" + 0, mana, attack0, (byte)(health1 - 1), attack0, health1, health1);
 		Minion minion1_0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
-		Minion minion1_1 = new Demon("" + 0, mana, attack0, (byte)(health1 - 1), attack0, health1, health1);
+		Minion minion1_1 = new Minion("" + 0, mana, attack0, (byte)(health1 - 1), attack0, health1, health1);
+		minion1_1.setTribe(MinionTribe.DEMON);
 		
 		board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, minion0_0);
 		board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, minion0_1);

@@ -1,15 +1,14 @@
 package com.hearthsim.card.minion.concrete;
 
+import java.util.EnumSet;
+
 import com.hearthsim.card.Deck;
-import com.hearthsim.card.minion.Demon;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-import java.util.EnumSet;
-
-public class DreadInfernal extends Demon {
+public class DreadInfernal extends Minion {
 
 	private static final boolean HERO_TARGETABLE = true;
 	private static final byte SPELL_DAMAGE = 0;
@@ -19,6 +18,7 @@ public class DreadInfernal extends Demon {
         spellDamage_ = SPELL_DAMAGE;
         heroTargetable_ = HERO_TARGETABLE;
 
+        this.tribe = MinionTribe.DEMON;
 	}
 	
 	@Override
