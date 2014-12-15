@@ -2,6 +2,7 @@ package com.hearthsim.card.minion;
 
 import org.json.JSONObject;
 
+@Deprecated
 public class Dragon extends Minion {
 
 	public Dragon() {
