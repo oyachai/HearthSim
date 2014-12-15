@@ -4,11 +4,10 @@ import java.util.EnumSet;
 
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.card.minion.Pirate;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class BloodsailRaider extends Pirate {
+public class BloodsailRaider extends Minion {
 	
 	private static final boolean HERO_TARGETABLE = true;
 	private static final byte SPELL_DAMAGE = 1;
@@ -18,6 +17,7 @@ public class BloodsailRaider extends Pirate {
         spellDamage_ = SPELL_DAMAGE;
         heroTargetable_ = HERO_TARGETABLE;
 
+        this.tribe = MinionTribe.PIRATE;
 	}
 	
 	@Override

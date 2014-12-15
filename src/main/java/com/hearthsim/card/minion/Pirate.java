@@ -2,6 +2,7 @@ package com.hearthsim.card.minion;
 
 import org.json.JSONObject;
 
+@Deprecated
 public class Pirate extends Minion {
 
 	public Pirate(String name, byte mana, byte attack, byte health, byte baseAttack, byte baseHealth, byte maxHealth) {
