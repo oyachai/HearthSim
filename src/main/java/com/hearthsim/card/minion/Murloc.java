@@ -2,6 +2,7 @@ package com.hearthsim.card.minion;
 
 import org.json.JSONObject;
 
+@Deprecated
 public class Murloc extends Minion {
 
 	public Murloc() {

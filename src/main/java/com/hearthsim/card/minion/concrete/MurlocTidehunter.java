@@ -1,16 +1,15 @@
 package com.hearthsim.card.minion.concrete;
 
+import java.util.EnumSet;
+
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.card.minion.Murloc;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-import java.util.EnumSet;
 
-
-public class MurlocTidehunter extends Murloc {
+public class MurlocTidehunter extends Minion {
 
 	private static final boolean HERO_TARGETABLE = true;
 	private static final byte SPELL_DAMAGE = 0;
@@ -20,6 +19,7 @@ public class MurlocTidehunter extends Murloc {
         spellDamage_ = SPELL_DAMAGE;
         heroTargetable_ = HERO_TARGETABLE;
 
+        this.tribe = MinionTribe.MURLOC;
 	}
 	
 	@Override

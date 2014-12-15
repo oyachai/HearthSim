@@ -778,14 +778,14 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 				break;
 			case ENEMY_MURLOCS:
 				for(Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
-					if(minion instanceof Murloc)
+					if(minion.getTribe() == MinionTribe.MURLOC)
 						toRet = this.useTargetableBattlecry(PlayerSide.WAITING_PLAYER, minion, toRet, deckPlayer0,
 								deckPlayer1);
 				}
 				break;
 			case FRIENDLY_MURLOCS:
 				for(Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
-					if(minion != this && minion instanceof Murloc)
+					if(minion != this && minion.getTribe() == MinionTribe.MURLOC)
 						toRet = this.useTargetableBattlecry(PlayerSide.CURRENT_PLAYER, minion, toRet, deckPlayer0,
 								deckPlayer1);
 				}
