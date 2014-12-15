@@ -7,6 +7,7 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.Minion.BattlecryTargetType;
+import com.hearthsim.card.minion.MinionUntargetableBattlecry;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.HearthAction;
@@ -15,7 +16,7 @@ import com.hearthsim.util.tree.HearthTreeNode;
 import com.hearthsim.util.tree.RandomEffectNode;
 
 
-public class Succubus extends Minion {
+public class Succubus extends Minion  implements MinionUntargetableBattlecry {
 
 	private static final boolean HERO_TARGETABLE = true;
 	private static final byte SPELL_DAMAGE = 0;
@@ -26,11 +27,6 @@ public class Succubus extends Minion {
         heroTargetable_ = HERO_TARGETABLE;
 
         this.tribe = MinionTribe.DEMON;
-	}
-	
-	@Override
-	public EnumSet<BattlecryTargetType> getBattlecryTargets() {
-		return EnumSet.of(BattlecryTargetType.NO_TARGET);
 	}
 	
 	/**

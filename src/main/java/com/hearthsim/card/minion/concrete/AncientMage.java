@@ -1,14 +1,13 @@
 package com.hearthsim.card.minion.concrete;
 
-import java.util.EnumSet;
-
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.minion.MinionUntargetableBattlecry;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class AncientMage extends Minion {
+public class AncientMage extends Minion implements MinionUntargetableBattlecry {
 	
 	private static final boolean HERO_TARGETABLE = true;
 	private static final byte SPELL_DAMAGE = 0;
@@ -18,11 +17,6 @@ public class AncientMage extends Minion {
         spellDamage_ = SPELL_DAMAGE;
         heroTargetable_ = HERO_TARGETABLE;
 
-	}
-	
-	@Override
-	public EnumSet<BattlecryTargetType> getBattlecryTargets() {
-		return EnumSet.of(BattlecryTargetType.NO_TARGET);
 	}
 	
 	/**
