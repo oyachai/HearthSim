@@ -300,6 +300,10 @@
         "class": "com.hearthsim.card.spellcard.concrete.DrainLife"
     },
     {
+        "name": "Dread Corsair",
+        "class": "com.hearthsim.card.minion.concrete.DreadCorsair"
+    },
+    {
         "name": "Dread Infernal",
         "class": "com.hearthsim.card.minion.concrete.DreadInfernal"
     },

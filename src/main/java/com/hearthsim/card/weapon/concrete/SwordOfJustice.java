@@ -13,7 +13,7 @@ public class SwordOfJustice extends WeaponCard {
     public void minionSummonedEvent(PlayerSide thisMinionPlayerSide, PlayerSide summonedMinionPlayerSide, Minion summonedMinion, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) {
         if (thisMinionPlayerSide == summonedMinionPlayerSide){
             PlayerModel playerModel = boardState.data_.modelForSide(thisMinionPlayerSide);
-            playerModel.getHero().setWeaponCharge((byte) (getWeaponCharge_() - 1));
+            playerModel.getHero().setWeaponCharge((byte) (getWeaponCharge() - 1));
             summonedMinion.addAttack((byte) 1);
             summonedMinion.addHealth((byte) 1);
         }

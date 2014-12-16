@@ -66,8 +66,8 @@ class CardSpec extends Specification {
 	}
 
     void assertWeaponEquals(WeaponCard oldWeapon, WeaponCard newWeapon) {
-        assert oldWeapon?.weaponCharge_ == newWeapon?.weaponCharge_
-        assert oldWeapon?.weaponDamage_ == newWeapon?.weaponDamage_
+        assert oldWeapon?.weaponCharge == newWeapon?.weaponCharge
+        assert oldWeapon?.weaponDamage == newWeapon?.weaponDamage
         assert oldWeapon?.hasBeenUsed() == newWeapon?.hasBeenUsed()
         assert oldWeapon == newWeapon //catch all
     }

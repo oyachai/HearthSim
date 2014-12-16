@@ -38,7 +38,7 @@ public abstract class Hero extends Minion {
 		if(weapon == null) {
 			return 0;
 		} else {
-			return weapon.getWeaponCharge_();
+			return weapon.getWeaponCharge();
 		}
 	}
 
@@ -268,7 +268,7 @@ public abstract class Hero extends Minion {
 			throw new RuntimeException("use 'destroy weapon' method if trying to remove weapon.");
 		} else {
 			this.weapon = weapon;
-			this.attack_ = weapon.getWeaponDamage_();
+			this.attack_ = weapon.getWeaponDamage();
 		}
 	}
 
