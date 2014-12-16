@@ -880,6 +880,10 @@
         "class": "com.hearthsim.card.minion.concrete.StranglethornTiger"
     },
     {
+        "name": "Succubus",
+        "class": "com.hearthsim.card.minion.concrete.Succubus"
+    },
+    {
         "name": "Sunfury Protector",
         "class": "com.hearthsim.card.minion.concrete.SunfuryProtector"
     },
