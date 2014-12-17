@@ -400,6 +400,10 @@
         "class": "com.hearthsim.card.minion.concrete.FrostwolfWarlord"
     },
     {
+        "name": "Frothing Berserker",
+        "class": "com.hearthsim.card.minion.concrete.FrothingBerserker"
+    },
+    {
         "name": "Gnomish Inventor",
         "class": "com.hearthsim.card.minion.concrete.GnomishInventor"
     },
