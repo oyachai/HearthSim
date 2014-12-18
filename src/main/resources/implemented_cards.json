@@ -608,6 +608,10 @@
         "class": "com.hearthsim.card.minion.concrete.Malygos"
     },
     {
+        "name": "Mana Wyrm",
+        "class": "com.hearthsim.card.minion.concrete.ManaWyrm"
+    },
+    {
         "name": "Mark of the Wild",
         "class": "com.hearthsim.card.spellcard.concrete.MarkOfTheWild"
     },
