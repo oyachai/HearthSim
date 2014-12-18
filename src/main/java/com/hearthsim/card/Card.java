@@ -222,7 +222,7 @@ public class Card implements DeepCopyable<Card> {
 	 */
 	public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
 		// A generic card does nothing except for consuming mana
-		return (this.getManaCost(PlayerSide.CURRENT_PLAYER, boardModel) <= boardModel.getCurrentPlayer().getMana());
+		return this.getManaCost(PlayerSide.CURRENT_PLAYER, boardModel) <= boardModel.getCurrentPlayer().getMana();
 	}
 
 	public final HearthTreeNode useOn(PlayerSide side, Minion targetMinion, HearthTreeNode boardState,
@@ -326,10 +326,8 @@ public class Card implements DeepCopyable<Card> {
 		}
 
 		for(Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
-			if(!minion.isSilenced()) {
-				if(minion instanceof CardPlayBeginInterface) {
-					matches.add((CardPlayBeginInterface)minion);
-				}
+			if(!minion.isSilenced() && minion instanceof CardPlayBeginInterface) {
+				matches.add((CardPlayBeginInterface)minion);
 			}
 		}
 
@@ -351,10 +349,8 @@ public class Card implements DeepCopyable<Card> {
 		}
 
 		for(Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
-			if(!minion.isSilenced()) {
-				if(minion instanceof CardPlayBeginInterface) {
-					matches.add((CardPlayBeginInterface)minion);
-				}
+			if(!minion.isSilenced() && minion instanceof CardPlayBeginInterface) {
+				matches.add((CardPlayBeginInterface)minion);
 			}
 		}
 
@@ -385,10 +381,8 @@ public class Card implements DeepCopyable<Card> {
 		}
 
 		for(Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
-			if(!minion.isSilenced()) {
-				if(minion instanceof CardPlayAfterInterface) {
-					matches.add((CardPlayAfterInterface)minion);
-				}
+			if(!minion.isSilenced() && minion instanceof CardPlayAfterInterface) {
+				matches.add((CardPlayAfterInterface)minion);
 			}
 		}
 
@@ -410,10 +404,8 @@ public class Card implements DeepCopyable<Card> {
 		}
 
 		for(Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
-			if(!minion.isSilenced()) {
-				if(minion instanceof CardPlayAfterInterface) {
-					matches.add((CardPlayAfterInterface)minion);
-				}
+			if(!minion.isSilenced() && minion instanceof CardPlayAfterInterface) {
+				matches.add((CardPlayAfterInterface)minion);
 			}
 		}
 

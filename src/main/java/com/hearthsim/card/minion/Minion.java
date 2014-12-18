@@ -924,10 +924,8 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 		}
 
 		for(Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
-			if(!minion.isSilenced()) {
-				if(minion instanceof MinionSummonedInterface) {
-					matches.add((MinionSummonedInterface)minion);
-				}
+			if(!minion.isSilenced() && minion instanceof MinionSummonedInterface) {
+				matches.add((MinionSummonedInterface)minion);
 			}
 		}
 
@@ -943,10 +941,8 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 		}
 
 		for(Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
-			if(!minion.isSilenced()) {
-				if(minion instanceof MinionSummonedInterface) {
-					matches.add((MinionSummonedInterface)minion);
-				}
+			if(!minion.isSilenced() && minion instanceof MinionSummonedInterface) {
+				matches.add((MinionSummonedInterface)minion);
 			}
 		}
 
@@ -969,10 +965,8 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 		}
 
 		for(Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
-			if(!minion.isSilenced()) {
-				if(minion instanceof MinionPlacedInterface) {
-					matches.add((MinionPlacedInterface)minion);
-				}
+			if(!minion.isSilenced() && minion instanceof MinionPlacedInterface) {
+				matches.add((MinionPlacedInterface)minion);
 			}
 		}
 
@@ -988,10 +982,8 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 		}
 
 		for(Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
-			if(!minion.isSilenced()) {
-				if(minion instanceof MinionPlacedInterface) {
-					matches.add((MinionPlacedInterface)minion);
-				}
+			if(!minion.isSilenced() && minion instanceof MinionPlacedInterface) {
+				matches.add((MinionPlacedInterface)minion);
 			}
 		}
 
@@ -1014,10 +1006,8 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 		}
 
 		for(Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
-			if(!minion.isSilenced()) {
-				if(minion instanceof MinionPlayedInterface) {
-					matches.add((MinionPlayedInterface)minion);
-				}
+			if(!minion.isSilenced() && minion instanceof MinionPlayedInterface) {
+				matches.add((MinionPlayedInterface)minion);
 			}
 		}
 
@@ -1033,10 +1023,8 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 		}
 
 		for(Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
-			if(!minion.isSilenced()) {
-				if(minion instanceof MinionPlayedInterface) {
-					matches.add((MinionPlayedInterface)minion);
-				}
+			if(!minion.isSilenced() && minion instanceof MinionPlayedInterface) {
+				matches.add((MinionPlayedInterface)minion);
 			}
 		}
 
@@ -1059,10 +1047,8 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 		}
 
 		for(Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
-			if(!minion.isSilenced()) {
-				if(minion instanceof MinionDamagedInterface) {
-					matches.add((MinionDamagedInterface)minion);
-				}
+			if(!minion.isSilenced() && minion instanceof MinionDamagedInterface) {
+				matches.add((MinionDamagedInterface)minion);
 			}
 		}
 
@@ -1078,10 +1064,8 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 		}
 
 		for(Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
-			if(!minion.isSilenced()) {
-				if(minion instanceof MinionDamagedInterface) {
-					matches.add((MinionDamagedInterface)minion);
-				}
+			if(!minion.isSilenced() && minion instanceof MinionDamagedInterface) {
+				matches.add((MinionDamagedInterface)minion);
 			}
 		}
 
@@ -1104,10 +1088,8 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 		}
 
 		for(Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
-			if(!minion.isSilenced()) {
-				if(minion instanceof MinionDeadInterface) {
-					matches.add((MinionDeadInterface)minion);
-				}
+			if(!minion.isSilenced() && minion instanceof MinionDeadInterface) {
+				matches.add((MinionDeadInterface)minion);
 			}
 		}
 
@@ -1123,10 +1105,8 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 		}
 
 		for(Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
-			if(!minion.isSilenced()) {
-				if(minion instanceof MinionDeadInterface) {
-					matches.add((MinionDeadInterface)minion);
-				}
+			if(!minion.isSilenced() && minion instanceof MinionDeadInterface) {
+				matches.add((MinionDeadInterface)minion);
 			}
 		}
 
@@ -1149,10 +1129,8 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 		}
 
 		for(Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
-			if(!minion.isSilenced()) {
-				if(minion instanceof MinionHealedInterface) {
-					matches.add((MinionHealedInterface)minion);
-				}
+			if(!minion.isSilenced() && minion instanceof MinionHealedInterface) {
+				matches.add((MinionHealedInterface)minion);
 			}
 		}
 
@@ -1168,10 +1146,8 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 		}
 
 		for(Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
-			if(!minion.isSilenced()) {
-				if(minion instanceof MinionHealedInterface) {
-					matches.add((MinionHealedInterface)minion);
-				}
+			if(!minion.isSilenced() && minion instanceof MinionHealedInterface) {
+				matches.add((MinionHealedInterface)minion);
 			}
 		}
 
