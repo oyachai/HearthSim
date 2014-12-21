@@ -328,6 +328,10 @@
         "class": "com.hearthsim.card.minion.concrete.ElvenArcher"
     },
     {
+        "name": "Emperor Cobra",
+        "class": "com.hearthsim.card.minion.concrete.EmperorCobra"
+    },
+    {
         "name": "Equality",
         "class": "com.hearthsim.card.spellcard.concrete.Equality"
     },
@@ -598,6 +602,10 @@
     {
         "name": "Lord of the Arena",
         "class": "com.hearthsim.card.minion.concrete.LordOfTheArena"
+    },
+    {
+        "name": "Maexxna",
+        "class": "com.hearthsim.card.minion.concrete.Maexxna"
     },
     {
         "name": "Magma Rager",

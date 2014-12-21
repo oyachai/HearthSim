@@ -15,7 +15,7 @@ import static org.junit.Assert.*
 
 class ManaAddictSpec extends CardSpec {
 
-	def "playing a spell card with a Mana Wyrm on the field"() {
+	def "playing a spell card with a Mana Addict on the field"() {
 		
 		def startingBoard = new BoardModelBuilder().make {
 			currentPlayer {

@@ -898,7 +898,11 @@ public class Minion extends Card {
 		if(!this.canAttack()) {
 			return null;
 		}
-
+		
+		if(targetMinionPlayerSide == PlayerSide.CURRENT_PLAYER) {
+			return null;
+		}
+		
 		// Notify all that an attack is beginning
 		HearthTreeNode toRet = boardState;
 		if(toRet != null) {
@@ -951,14 +955,6 @@ public class Minion extends Card {
 	 */
 	protected HearthTreeNode attack_core(PlayerSide targetMinionPlayerSide, Minion targetMinion,
 			HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
-
-		if(!this.canAttack()) {
-			return null;
-		}
-
-		if(targetMinionPlayerSide == PlayerSide.CURRENT_PLAYER) {
-			return null;
-		}
 
 		HearthTreeNode toRet = boardState;
 		byte origAttack = targetMinion.getTotalAttack();
