@@ -608,6 +608,10 @@
         "class": "com.hearthsim.card.minion.concrete.Malygos"
     },
     {
+        "name": "Mana Addict",
+        "class": "com.hearthsim.card.minion.concrete.ManaAddict"
+    },
+    {
         "name": "Mana Wyrm",
         "class": "com.hearthsim.card.minion.concrete.ManaWyrm"
     },
