@@ -792,6 +792,10 @@
         "class": "com.hearthsim.card.spellcard.concrete.ShadowBolt"
     },
     {
+        "name": "Shade of Naxxramas",
+        "class": "com.hearthsim.card.minion.concrete.ShadeOfNaxxramas"
+    },
+    {
         "name": "Shadow Word: Death",
         "class": "com.hearthsim.card.spellcard.concrete.ShadowWordDeath"
     },
