@@ -33,9 +33,8 @@ class DoomsayerSpec extends CardSpec {
 		def root = new HearthTreeNode(startingBoard)
 
 		def copiedBoard = startingBoard.deepCopy()
-		def target = root.data_.getCharacter(CURRENT_PLAYER, 0)
 		def theCard = root.data_.getCurrentPlayerCardHand(0)
-		def ret = theCard.useOn(CURRENT_PLAYER, target, root, null, null)
+		def ret = theCard.useOn(CURRENT_PLAYER, 0, root, null, null)
 
 		expect:
 		assertFalse(ret == null);
@@ -74,9 +73,8 @@ class DoomsayerSpec extends CardSpec {
 		def root = new HearthTreeNode(startingBoard)
 
 		def copiedBoard = startingBoard.deepCopy()
-		def target = root.data_.getCharacter(CURRENT_PLAYER, 1)
 		def theCard = root.data_.getCurrentPlayerCardHand(0)
-		def ret = theCard.useOn(CURRENT_PLAYER, target, root, null, null)
+		def ret = theCard.useOn(CURRENT_PLAYER, 1, root, null, null)
 
 		expect:
 		assertFalse(ret == null);

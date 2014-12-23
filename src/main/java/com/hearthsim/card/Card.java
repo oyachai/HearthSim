@@ -86,6 +86,7 @@ public class Card implements DeepCopyable<Card> {
 	 * @param board The HearthTreeNode representing the current board state
 	 * @return Mana cost of the card
 	 */
+	@Deprecated
 	public final byte getManaCost(PlayerSide side, HearthTreeNode boardState) {
 		return getManaCost(side, boardState.data_);
 	}
@@ -206,26 +207,6 @@ public class Card implements DeepCopyable<Card> {
 	}
 
 	/**
-	 * End the turn and resets the card state
-	 * 
-	 * This function is called at the end of the turn. Any derived class must override it and remove any temporary buffs that it has.
-	 */
-	public HearthTreeNode endTurn(PlayerSide thisMinionPlayerIndex, HearthTreeNode boardModel, Deck deckPlayer0,
-			Deck deckPlayer1) throws HSException {
-		return boardModel;
-	}
-
-	/**
-	 * Called at the start of the turn
-	 * 
-	 * This function is called at the start of the turn. Any derived class must override it to implement whatever "start of the turn" effect the card has.
-	 */
-	public HearthTreeNode startTurn(PlayerSide thisMinionPlayerIndex, HearthTreeNode boardModel, Deck deckPlayer0,
-			Deck deckPlayer1) throws HSException {
-		return boardModel;
-	}
-
-	/**
 	 * Returns whether this card can be used on the given target or not
 	 * 
 	 * This function is an optional optimization feature. Some cards in Hearthstone have limited targets; Shadow Bolt cannot be used on heroes, Mind Blast can only target enemy heroes, etc. Even in this situation though, BoardStateFactory
@@ -233,35 +214,35 @@ public class Card implements DeepCopyable<Card> {
 	 * go and try to play the invalid move, and it turns out that 98% of execution time in HearthSim is BoardStateFactory calling BoardState.deepCopy(). By overriding this function and returning false on appropriate occasions, we can save
 	 * some calls to deepCopy and get better performance out of the code.
 	 * 
-	 * By default, this function returns true, in which case BoardStateFactory will still go and try to use the card.
-	 * 
+	 * By default, this function only checks mana cost.
 	 *
 	 * @param playerSide
 	 * @param boardModel
 	 * @return
 	 */
 	public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
-		return true;
+		// A generic card does nothing except for consuming mana
+		return this.getManaCost(PlayerSide.CURRENT_PLAYER, boardModel) <= boardModel.getCurrentPlayer().getMana();
 	}
 
 	public final HearthTreeNode useOn(PlayerSide side, Minion targetMinion, HearthTreeNode boardState,
 			Deck deckPlayer0, Deck deckPlayer1) throws HSException {
-		int cardIndex = PlayerSide.CURRENT_PLAYER.getPlayer(boardState).getHand().indexOf(this);
-		int targetIndex = targetMinion instanceof Hero ? 0 : side.getPlayer(boardState).getMinions()
-				.indexOf(targetMinion) + 1;
-		HearthTreeNode toRet = this.useOn(side, targetMinion, boardState, deckPlayer0, deckPlayer1, false);
-		if(toRet != null) {
-			toRet.setAction(new HearthAction(Verb.USE_CARD, PlayerSide.CURRENT_PLAYER, cardIndex, side, targetIndex));
-		}
-		return toRet;
+		return this.useOn(side, targetMinion, boardState, deckPlayer0, deckPlayer1, false);
+	}
+
+	public HearthTreeNode useOn(PlayerSide side, int targetIndex, HearthTreeNode boardState, Deck deckPlayer0,
+			Deck deckPlayer1) throws HSException {
+		return this.useOn(side, targetIndex, boardState, deckPlayer0, deckPlayer1, false);
+	}
+
+	public HearthTreeNode useOn(PlayerSide side, int targetIndex, HearthTreeNode boardState, Deck deckPlayer0,
+			Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
+		Minion target = boardState.data_.getCharacter(side, targetIndex);
+		return this.useOn(side, target, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 	}
 
 	/**
-	 * 
 	 * Use the card on the given target
-	 * 
-	 *
-	 *
 	 *
 	 * @param side
 	 * @param targetMinion The target minion (can be a Hero)
@@ -274,19 +255,26 @@ public class Card implements DeepCopyable<Card> {
 	 */
 	public HearthTreeNode useOn(PlayerSide side, Minion targetMinion, HearthTreeNode boardState, Deck deckPlayer0,
 			Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
-		// A generic card does nothing except for consuming mana
 		if(!this.canBeUsedOn(side, targetMinion, boardState.data_))
 			return null;
 		
-		if (this.getManaCost(PlayerSide.CURRENT_PLAYER, boardState) > boardState.data_.getCurrentPlayer().getMana())
-			return null;
-		
+		// Need to record card and target index *before* the board state changes
+		int cardIndex = PlayerSide.CURRENT_PLAYER.getPlayer(boardState).getHand().indexOf(this);
+		int targetIndex = targetMinion instanceof Hero ? 0 : side.getPlayer(boardState).getMinions()
+				.indexOf(targetMinion) + 1;
+
 		HearthTreeNode toRet = this.notifyCardPlayBegin(boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
-		toRet = this.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+		if(toRet != null) {
+			toRet = this.use_core(side, targetMinion, toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
+		}
 
-		if(toRet != null)
+		if(toRet != null) {
 			toRet = this.notifyCardPlayResolve(toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
+		}
 
+		if(toRet != null) {
+			toRet.setAction(new HearthAction(Verb.USE_CARD, PlayerSide.CURRENT_PLAYER, cardIndex, side, targetIndex));
+		}
 		return toRet;
 	}
 
@@ -313,7 +301,7 @@ public class Card implements DeepCopyable<Card> {
 		throws HSException
 	{
 		//A generic card does nothing except for consuming mana
-		boardState.data_.getCurrentPlayer().subtractMana(this.getManaCost(PlayerSide.CURRENT_PLAYER, boardState));
+		boardState.data_.getCurrentPlayer().subtractMana(this.getManaCost(PlayerSide.CURRENT_PLAYER, boardState.data_));
 		boardState.data_.removeCard_hand(this);
 		return boardState;
 	}
@@ -324,39 +312,51 @@ public class Card implements DeepCopyable<Card> {
 	protected HearthTreeNode notifyCardPlayBegin(HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1,
 			boolean singleRealizationOnly) throws HSException {
 		HearthTreeNode toRet = boardState;
-		ArrayList<Minion> tmpList = new ArrayList<Minion>(7);
+		ArrayList<CardPlayBeginInterface> matches = new ArrayList<CardPlayBeginInterface>();
+
 		for(Card card : toRet.data_.getCurrentPlayerHand()) {
-			toRet = card.onCardPlayBegin(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet,
+			if(card instanceof CardPlayBeginInterface) {
+				matches.add((CardPlayBeginInterface)card);
+			}
+		}
+
+		Card hero = toRet.data_.getCurrentPlayerHero();
+		if(hero instanceof CardPlayBeginInterface) {
+			matches.add((CardPlayBeginInterface)hero);
+		}
+
+		for(Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
+			if(!minion.isSilenced() && minion instanceof CardPlayBeginInterface) {
+				matches.add((CardPlayBeginInterface)minion);
+			}
+		}
+
+		for(CardPlayBeginInterface match : matches) {
+			toRet = match.onCardPlayBegin(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet,
 					deckPlayer0, deckPlayer1, singleRealizationOnly);
 		}
-		toRet = toRet.data_.getCurrentPlayerHero().onCardPlayBegin(PlayerSide.CURRENT_PLAYER,
-				PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
-		{
-			for(Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
-				tmpList.add(minion);
-			}
-			for(Minion minion : tmpList) {
-				if(!minion.isSilenced())
-					toRet = minion.onCardPlayBegin(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet,
-							deckPlayer0, deckPlayer1, singleRealizationOnly);
-			}
-		}
+		matches.clear();
+
 		for(Card card : toRet.data_.getWaitingPlayerHand()) {
-			toRet = card.onCardPlayBegin(PlayerSide.WAITING_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet,
-					deckPlayer0, deckPlayer1, singleRealizationOnly);
+			if(card instanceof CardPlayBeginInterface) {
+				matches.add((CardPlayBeginInterface)card);
+			}
 		}
-		toRet = toRet.data_.getWaitingPlayerHero().onCardPlayBegin(PlayerSide.WAITING_PLAYER,
-				PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
-		{
-			tmpList.clear();
-			for(Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
-				tmpList.add(minion);
+
+		hero = toRet.data_.getWaitingPlayerHero();
+		if(hero instanceof CardPlayBeginInterface) {
+			matches.add((CardPlayBeginInterface)hero);
+		}
+
+		for(Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
+			if(!minion.isSilenced() && minion instanceof CardPlayBeginInterface) {
+				matches.add((CardPlayBeginInterface)minion);
 			}
-			for(Minion minion : tmpList) {
-				if(!minion.isSilenced())
-					toRet = minion.onCardPlayBegin(PlayerSide.WAITING_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet,
-							deckPlayer0, deckPlayer1, singleRealizationOnly);
-			}
+		}
+
+		for(CardPlayBeginInterface match : matches) {
+			toRet = match.onCardPlayBegin(PlayerSide.WAITING_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet,
+					deckPlayer0, deckPlayer1, singleRealizationOnly);
 		}
 
 		// check for and remove dead minions
@@ -367,83 +367,56 @@ public class Card implements DeepCopyable<Card> {
 	protected HearthTreeNode notifyCardPlayResolve(HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1,
 			boolean singleRealizationOnly) throws HSException {
 		HearthTreeNode toRet = boardState;
-		ArrayList<Minion> tmpList = new ArrayList<Minion>(7);
+		ArrayList<CardPlayAfterInterface> matches = new ArrayList<CardPlayAfterInterface>();
+
 		for(Card card : toRet.data_.getCurrentPlayerHand()) {
-			toRet = card.onCardPlayResolve(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet,
+			if(card instanceof CardPlayAfterInterface) {
+				matches.add((CardPlayAfterInterface)card);
+			}
+		}
+
+		Card hero = toRet.data_.getCurrentPlayerHero();
+		if(hero instanceof CardPlayAfterInterface) {
+			matches.add((CardPlayAfterInterface)hero);
+		}
+
+		for(Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
+			if(!minion.isSilenced() && minion instanceof CardPlayAfterInterface) {
+				matches.add((CardPlayAfterInterface)minion);
+			}
+		}
+
+		for(CardPlayAfterInterface match : matches) {
+			toRet = match.onCardPlayResolve(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet,
 					deckPlayer0, deckPlayer1, singleRealizationOnly);
 		}
-		toRet = toRet.data_.getCurrentPlayerHero().onCardPlayResolve(PlayerSide.CURRENT_PLAYER,
-				PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
-		{
-			for(Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
-				tmpList.add(minion);
-			}
-			for(Minion minion : tmpList) {
-				if(!minion.isSilenced())
-					toRet = minion.onCardPlayResolve(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet,
-							deckPlayer0, deckPlayer1, singleRealizationOnly);
-			}
-		}
+		matches.clear();
+
 		for(Card card : toRet.data_.getWaitingPlayerHand()) {
-			toRet = card.onCardPlayResolve(PlayerSide.WAITING_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet,
-					deckPlayer0, deckPlayer1, singleRealizationOnly);
+			if(card instanceof CardPlayAfterInterface) {
+				matches.add((CardPlayAfterInterface)card);
+			}
 		}
-		toRet = toRet.data_.getWaitingPlayerHero().onCardPlayResolve(PlayerSide.WAITING_PLAYER,
-				PlayerSide.CURRENT_PLAYER, this, toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
-		{
-			tmpList.clear();
-			for(Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
-				tmpList.add(minion);
+
+		hero = toRet.data_.getWaitingPlayerHero();
+		if(hero instanceof CardPlayAfterInterface) {
+			matches.add((CardPlayAfterInterface)hero);
+		}
+
+		for(Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
+			if(!minion.isSilenced() && minion instanceof CardPlayAfterInterface) {
+				matches.add((CardPlayAfterInterface)minion);
 			}
-			for(Minion minion : tmpList) {
-				if(!minion.isSilenced())
-					toRet = minion.onCardPlayResolve(PlayerSide.WAITING_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet,
-							deckPlayer0, deckPlayer1, singleRealizationOnly);
-			}
+		}
+
+		for(CardPlayAfterInterface match : matches) {
+			toRet = match.onCardPlayResolve(PlayerSide.WAITING_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet,
+					deckPlayer0, deckPlayer1, singleRealizationOnly);
 		}
 
 		// check for and remove dead minions
 		toRet = BoardStateFactoryBase.handleDeadMinions(toRet, deckPlayer0, deckPlayer1);
 		return toRet;
-	}
-
-	// ======================================================================================
-	// Hooks for various events
-	// ======================================================================================
-	/**
-	 * 
-	 * Called whenever another card is played, before the card is actually played
-	 * 
-	 * @param thisCardPlayerSide The player index of the card receiving the event
-	 * @param cardUserPlayerSide
-	 * @param usedCard The card that was used
-	 * @param boardState The BoardState before this card has performed its action. It will be manipulated and returned.
-	 * @param deckPlayer0 The deck of player0
-	 * @param deckPlayer1 The deck of player1
-	 * @return The boardState is manipulated and returned
-	 */
-	public HearthTreeNode onCardPlayBegin(PlayerSide thisCardPlayerSide, PlayerSide cardUserPlayerSide, Card usedCard,
-			HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly)
-			throws HSException {
-		return boardState;
-	}
-
-	/**
-	 * 
-	 * Called whenever another card is played, after it is actually played
-	 * 
-	 * @param thisCardPlayerSide The player index of the card receiving the event
-	 * @param cardUserPlayerSide
-	 * @param usedCard The card that was used
-	 * @param boardState The BoardState before this card has performed its action. It will be manipulated and returned.
-	 * @param deckPlayer0 The deck of player0
-	 * @param deckPlayer1 The deck of player1
-	 * @return The boardState is manipulated and returned
-	 */
-	public HearthTreeNode onCardPlayResolve(PlayerSide thisCardPlayerSide, PlayerSide cardUserPlayerSide,
-			Card usedCard, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly)
-			throws HSException {
-		return boardState;
 	}
 
 	public JSONObject toJSON() {

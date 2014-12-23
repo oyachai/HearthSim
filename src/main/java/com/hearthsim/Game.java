@@ -3,6 +3,7 @@ package com.hearthsim;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.hearthsim.card.CardEndTurnInterface;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
@@ -195,9 +196,9 @@ public class Game {
 		toRet = toRet.data_.getWaitingPlayer().getHero()
 				.endTurn(PlayerSide.WAITING_PLAYER, toRet, deckPlayer0, deckPlayer1);
 
-		// To Do: The minions should trigger end-of-turn effects in the order that they were played
+		// TODO: The minions should trigger end-of-turn effects in the order that they were played
 		for(int index = 0; index < toRet.data_.getCurrentPlayer().getMinions().size(); ++index) {
-			Minion targetMinion = toRet.data_.getCurrentPlayer().getMinions().get(index);
+			CardEndTurnInterface targetMinion = toRet.data_.getCurrentPlayer().getMinions().get(index);
 			try {
 				toRet = targetMinion.endTurn(PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1);
 			} catch(HSException e) {
@@ -205,7 +206,7 @@ public class Game {
 			}
 		}
 		for(int index = 0; index < toRet.data_.getWaitingPlayer().getMinions().size(); ++index) {
-			Minion targetMinion = toRet.data_.getWaitingPlayer().getMinions().get(index);
+			CardEndTurnInterface targetMinion = toRet.data_.getWaitingPlayer().getMinions().get(index);
 			try {
 				toRet = targetMinion.endTurn(PlayerSide.WAITING_PLAYER, toRet, deckPlayer0, deckPlayer1);
 			} catch(HSException e) {

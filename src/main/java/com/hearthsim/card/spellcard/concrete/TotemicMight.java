@@ -2,7 +2,7 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.card.minion.Totem;
+import com.hearthsim.card.minion.Minion.MinionTribe;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
@@ -58,7 +58,7 @@ public class TotemicMight extends SpellCard {
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
 			for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
-				if (minion instanceof Totem) {
+				if (minion.getTribe() == MinionTribe.TOTEM) {
 					minion.setHealth((byte)(2 + minion.getHealth()));
 					minion.setMaxHealth((byte)(2 + minion.getMaxHealth()));
 				}

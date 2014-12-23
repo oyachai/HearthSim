@@ -1,8 +1,8 @@
 package com.hearthsim.card.minion.concrete;
 
-import com.hearthsim.card.minion.Totem;
+import com.hearthsim.card.minion.Minion;
 
-public class WrathOfAirTotem extends Totem {
+public class WrathOfAirTotem extends Minion {
 
 	private static final boolean HERO_TARGETABLE = true;
 	private static final byte SPELL_DAMAGE = 1;
@@ -12,6 +12,7 @@ public class WrathOfAirTotem extends Totem {
         spellDamage_ = SPELL_DAMAGE;
         heroTargetable_ = HERO_TARGETABLE;
 
+        this.tribe = MinionTribe.TOTEM;
     }
 
 }

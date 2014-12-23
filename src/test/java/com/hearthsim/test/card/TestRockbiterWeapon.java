@@ -59,10 +59,8 @@ public class TestRockbiterWeapon {
 	
 	@Test
 	public void test0() throws HSException {
-		
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
 		
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 0);
@@ -78,7 +76,7 @@ public class TestRockbiterWeapon {
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0);
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), health1 - 1);
 		
-		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
+		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
 		ret = board.data_.getCurrentPlayerHero().attack(PlayerSide.WAITING_PLAYER, target, board, deck, null);
 
 		assertFalse(ret == null);
@@ -99,10 +97,8 @@ public class TestRockbiterWeapon {
 
 	@Test
 	public void test1() throws HSException {
-		
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, deck, null);
 		
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 0);
@@ -121,7 +117,7 @@ public class TestRockbiterWeapon {
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getExtraAttackUntilTurnEnd(), 3);
 
 		
-		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
+		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
 		ret = PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).attack(PlayerSide.WAITING_PLAYER, target, board, deck, null);
 
 		assertFalse(ret == null);

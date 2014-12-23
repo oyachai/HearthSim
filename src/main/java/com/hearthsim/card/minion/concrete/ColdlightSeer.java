@@ -2,14 +2,12 @@ package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.card.minion.Murloc;
+import com.hearthsim.card.minion.MinionUntargetableBattlecry;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-import java.util.EnumSet;
-
-public class ColdlightSeer extends Murloc {
+public class ColdlightSeer extends Minion implements MinionUntargetableBattlecry {
 
 	private static final boolean HERO_TARGETABLE = true;
 	private static final byte SPELL_DAMAGE = 0;
@@ -19,11 +17,7 @@ public class ColdlightSeer extends Murloc {
         spellDamage_ = SPELL_DAMAGE;
         heroTargetable_ = HERO_TARGETABLE;
 
-	}
-	
-	@Override
-	public EnumSet<BattlecryTargetType> getBattlecryTargets() {
-		return EnumSet.of(BattlecryTargetType.NO_TARGET);
+        this.tribe = MinionTribe.MURLOC;
 	}
 	
 	/**
@@ -40,7 +34,7 @@ public class ColdlightSeer extends Murloc {
 	{
 		HearthTreeNode toRet = boardState;
 		for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
-			if (minion != this && minion instanceof Murloc) {
+			if (minion != this && minion.getTribe() == MinionTribe.MURLOC) {
 				minion.addHealth((byte)2);
 				minion.addMaxHealth((byte)2);
 			}

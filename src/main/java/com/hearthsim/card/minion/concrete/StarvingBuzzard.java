@@ -1,15 +1,14 @@
 package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.Deck;
-import com.hearthsim.card.minion.Beast;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.exception.HSInvalidPlayerIndexException;
+import com.hearthsim.card.minion.MinionSummonedInterface;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 
-public class StarvingBuzzard extends Beast {
+public class StarvingBuzzard extends Minion implements MinionSummonedInterface {
 
 	private static final boolean HERO_TARGETABLE = true;
 	private static final byte SPELL_DAMAGE = 0;
@@ -19,6 +18,7 @@ public class StarvingBuzzard extends Beast {
         spellDamage_ = SPELL_DAMAGE;
         heroTargetable_ = HERO_TARGETABLE;
 
+        this.tribe = MinionTribe.BEAST;
 	}
 	
 	/**
@@ -42,13 +42,12 @@ public class StarvingBuzzard extends Beast {
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
-		throws HSInvalidPlayerIndexException
 	{
         if (summonedMinionPlayerSide == PlayerSide.WAITING_PLAYER || thisMinionPlayerSide == PlayerSide.WAITING_PLAYER)
 			return boardState;
 		
-		HearthTreeNode toRet = super.minionSummonEvent(thisMinionPlayerSide, summonedMinionPlayerSide, summonedMinion, boardState, deckPlayer0, deckPlayer1);
-		if (summonedMinion instanceof Beast) { //TODO: this might be wrong..
+		HearthTreeNode toRet = boardState;
+		if (summonedMinion.getTribe() == MinionTribe.BEAST) { //TODO: this might be wrong..
 			if (toRet instanceof CardDrawNode) {
 				((CardDrawNode) toRet).addNumCardsToDraw(1);
 			} else {

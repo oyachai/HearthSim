@@ -7,7 +7,6 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.ArgentProtector;
 import com.hearthsim.card.minion.concrete.ArgentSquire;
 import com.hearthsim.card.minion.concrete.BoulderfistOgre;
@@ -42,8 +41,7 @@ public class TestArgentProtector {
 		board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new BoulderfistOgre());
 		board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new ArgentSquire());
 
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
-		HearthTreeNode ret = protector.useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
+		HearthTreeNode ret = protector.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
 		assertEquals(board, ret);
 
 		assertEquals(board.numChildren(), 1);

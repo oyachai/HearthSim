@@ -45,9 +45,8 @@ public class TestSpellDamage {
 		HolySmite hs = new HolySmite();
 		board.data_.placeCardHandCurrentPlayer(hs);
 
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
 		assertEquals(ret, board);
 
 		assertEquals(board.data_.getNumCards_hand(), 0);
@@ -70,9 +69,8 @@ public class TestSpellDamage {
 		HolySmite hs = new HolySmite();
 		board.data_.placeCardHandCurrentPlayer(hs);
 
-		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, null, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 0, board, null, null);
 		assertEquals(ret, board);
 
 		assertEquals(board.data_.getNumCards_hand(), 0);
@@ -95,9 +93,8 @@ public class TestSpellDamage {
 		HolySmite hs = new HolySmite();
 		board.data_.placeCardHandCurrentPlayer(hs);
 
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, null, null);
 		assertEquals(ret, board);
 
 		assertEquals(board.data_.getNumCards_hand(), 0);
@@ -119,9 +116,8 @@ public class TestSpellDamage {
 		HolySmite hs = new HolySmite();
 		board.data_.placeCardHandCurrentPlayer(hs);
 
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 2);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 2, board, null, null);
 		assertEquals(ret, board);
 
 		assertEquals(board.data_.getNumCards_hand(), 0);
@@ -144,9 +140,8 @@ public class TestSpellDamage {
 		HolySmite hs = new HolySmite();
 		board.data_.placeCardHandCurrentPlayer(hs);
 
-		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, null, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 1, board, null, null);
 		assertEquals(ret, board);
 
 		assertEquals(board.data_.getNumCards_hand(), 0);
@@ -168,9 +163,8 @@ public class TestSpellDamage {
 		HolySmite hs = new HolySmite();
 		board.data_.placeCardHandCurrentPlayer(hs);
 
-		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, null, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 2, board, null, null);
 		assertEquals(ret, board);
 
 		assertEquals(board.data_.getNumCards_hand(), 0);
@@ -196,9 +190,8 @@ public class TestSpellDamage {
 		HolySmite hs = new HolySmite();
 		board.data_.placeCardHandCurrentPlayer(hs);
 
-		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, null, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 2, board, null, null);
 		assertEquals(ret, board);
 
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 1);

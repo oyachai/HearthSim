@@ -58,8 +58,7 @@ public class TestExecute {
 		Execute fb = new Execute();
 		board.data_.placeCardHandCurrentPlayer(fb);
 
-		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
-		HearthTreeNode ret = fb.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);		
+		HearthTreeNode ret = fb.useOn(PlayerSide.WAITING_PLAYER, 0, board, deck, null);		
 		assertNull(ret);
 	}
 
@@ -68,9 +67,8 @@ public class TestExecute {
 		Execute fb = new Execute();
 		board.data_.placeCardHandCurrentPlayer(fb);
 		
-		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 1, board, deck, null);
 		assertNull(ret);
 		assertEquals(board.data_.getNumCards_hand(), 1);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);
@@ -94,9 +92,8 @@ public class TestExecute {
 		Execute fb = new Execute();
 		board.data_.placeCardHandCurrentPlayer(fb);
 		
-		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 2, board, deck, null);
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 0);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);

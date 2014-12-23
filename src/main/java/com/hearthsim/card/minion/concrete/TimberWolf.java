@@ -1,8 +1,8 @@
 package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.Deck;
-import com.hearthsim.card.minion.Beast;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.minion.MinionPlacedInterface;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.model.BoardModel;
@@ -10,7 +10,7 @@ import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 
-public class TimberWolf extends Beast {
+public class TimberWolf extends Minion implements MinionPlacedInterface {
 
 	private static final boolean HERO_TARGETABLE = true;
 	private static final byte SPELL_DAMAGE = 0;
@@ -20,6 +20,7 @@ public class TimberWolf extends Beast {
         spellDamage_ = SPELL_DAMAGE;
         heroTargetable_ = HERO_TARGETABLE;
 
+        this.tribe = MinionTribe.BEAST;
 	}
 
 	/**
@@ -49,7 +50,7 @@ public class TimberWolf extends Beast {
 		HearthTreeNode toRet = super.placeMinion(targetSide, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
 			for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
-				if (minion != this && minion instanceof Beast) {
+				if (minion != this && minion.getTribe() == MinionTribe.BEAST) {
 					minion.setAuraAttack((byte)(minion.getAuraAttack() + 1));
 				}
 			}			
@@ -72,7 +73,7 @@ public class TimberWolf extends Beast {
 	public void silenced(PlayerSide thisPlayerSide, BoardModel boardState) throws HSInvalidPlayerIndexException {
 		if (!silenced_) {
 			for (Minion minion : boardState.getMinions(thisPlayerSide)) {
-				if (minion != this && minion instanceof Beast) {
+				if (minion != this && minion.getTribe() == MinionTribe.BEAST) {
 					minion.setAuraAttack((byte)(minion.getAuraAttack() - 1));
 				}
 			}
@@ -84,11 +85,11 @@ public class TimberWolf extends Beast {
             PlayerSide thisMinionPlayerSide,
             PlayerSide placedMinionPlayerSide,
             Minion placedMinion,
-            HearthTreeNode boardState) throws HSInvalidPlayerIndexException
+            HearthTreeNode boardState)
 	{
 		if (placedMinionPlayerSide != thisMinionPlayerSide)
 			return boardState;
-        if (!silenced_ && placedMinion != this && placedMinion instanceof Beast) {
+        if (!silenced_ && placedMinion != this && placedMinion.getTribe() == MinionTribe.BEAST) {
             placedMinion.setAuraAttack((byte) (placedMinion.getAuraAttack() + 1));
         }
         return boardState;
@@ -116,10 +117,8 @@ public class TimberWolf extends Beast {
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
-		throws HSInvalidPlayerIndexException
 	{
-		HearthTreeNode toRet = super.minionPlacedEvent(thisMinionPlayerSide, summonedMinionPlayerSide, summonedMinion, boardState, deckPlayer0, deckPlayer1);
-		return this.doBuffs(thisMinionPlayerSide, summonedMinionPlayerSide, summonedMinion, toRet);
+		return this.doBuffs(thisMinionPlayerSide, summonedMinionPlayerSide, summonedMinion, boardState);
 	}
 	
 }

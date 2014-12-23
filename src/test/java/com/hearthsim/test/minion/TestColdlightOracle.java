@@ -80,11 +80,8 @@ public class TestColdlightOracle {
 
 	@Test
 	public void test0() throws HSException {
-		
-		//null case
-		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 0, board, deck, null);
 		
 		assertNull(ret);
 		assertEquals(board.data_.getNumCards_hand(), 1);
@@ -107,11 +104,8 @@ public class TestColdlightOracle {
 	
 	@Test
 	public void test1() throws HSException {
-		
-		//null case
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 2);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, deck);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 2, board, deck, deck);
 		
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCardsHandCurrentPlayer(), 0);

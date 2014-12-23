@@ -2,6 +2,7 @@ package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.minion.MinionTargetableBattlecry;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -9,7 +10,7 @@ import com.hearthsim.util.tree.HearthTreeNode;
 import java.util.EnumSet;
 
 
-public class StormpikeCommando extends Minion {
+public class StormpikeCommando extends Minion implements MinionTargetableBattlecry {
 
 	private static final byte BATTLECRY_DAMAGE = 2;
 

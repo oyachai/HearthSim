@@ -1,8 +1,8 @@
 package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.Deck;
-import com.hearthsim.card.minion.Demon;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.minion.Minion.MinionTribe;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
@@ -57,7 +57,7 @@ public class Demonfire extends SpellCard {
 	{		
 		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 		if (toRet != null) {
-			if (isCurrentPlayer(side) && targetMinion instanceof Demon) {
+			if (isCurrentPlayer(side) && targetMinion.getTribe() == MinionTribe.DEMON) {
 				targetMinion.setAttack((byte)(targetMinion.getAttack() + 2));
 				targetMinion.setHealth((byte)(targetMinion.getHealth() + 2));
 			} else {

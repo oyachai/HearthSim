@@ -71,11 +71,8 @@ public class TestAbomination {
 
 	@Test
 	public void test0() throws HSException {
-		
-		//null case
-		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 0, board, deck, null);
 		
 		assertNull(ret);
 		assertEquals(board.data_.getNumCards_hand(), 1);
@@ -102,11 +99,8 @@ public class TestAbomination {
 
 	@Test
 	public void test1() throws HSException {
-		
-		//null case
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
 		
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 0);
@@ -135,11 +129,8 @@ public class TestAbomination {
 
 	@Test
 	public void test2() throws HSException {
-		
-		//null case
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
 		
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 0);
@@ -166,7 +157,7 @@ public class TestAbomination {
 		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getDivineShield());
 		
 		//attack the Ogre... should kill everything except the Scarlet Crusader
-		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 3);
+		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 3);
 		Minion attacker = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
 		attacker.hasAttacked(false);
 		ret = attacker.attack(PlayerSide.WAITING_PLAYER, target, ret, null, null);
@@ -191,11 +182,8 @@ public class TestAbomination {
 	
 	@Test
 	public void test3() throws HSException {
-		
-		//null case
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
 		
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 0);
@@ -222,7 +210,7 @@ public class TestAbomination {
 		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getDivineShield());
 		
 		//Silence the Abomination first, then attack with it
-		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 3);
+		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 3);
 		Minion attacker = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
 		attacker.silenced(PlayerSide.CURRENT_PLAYER, board);
 		attacker.hasAttacked(false);

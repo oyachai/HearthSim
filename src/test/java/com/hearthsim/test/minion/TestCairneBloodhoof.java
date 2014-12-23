@@ -70,11 +70,8 @@ public class TestCairneBloodhoof {
 
 	@Test
 	public void test0() throws HSException {
-		
-		//null case
-		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 0, board, deck, null);
 		
 		assertNull(ret);
 		assertEquals(board.data_.getNumCards_hand(), 1);
@@ -97,11 +94,8 @@ public class TestCairneBloodhoof {
 	
 	@Test
 	public void test2() throws HSException {
-		
-		//null case
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 2);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 2, board, deck, null);
 		
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 0);
@@ -131,7 +125,7 @@ public class TestCairneBloodhoof {
 		assertTrue(minion instanceof CairneBloodhoof);
 		
 		minion.hasAttacked(false);
-		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
+		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
 		minion.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null);
 
 		assertEquals(board.data_.getNumCards_hand(), 0);
@@ -160,11 +154,8 @@ public class TestCairneBloodhoof {
 	
 	@Test
 	public void test3() throws HSException {
-		
-		//null case
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, deck, null);
 		
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 0);
@@ -194,7 +185,7 @@ public class TestCairneBloodhoof {
 		assertTrue(minion instanceof CairneBloodhoof);
 		
 		minion.hasAttacked(false);
-		target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
+		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
 		minion.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null);
 
 		assertEquals(board.data_.getNumCards_hand(), 0);
@@ -222,11 +213,8 @@ public class TestCairneBloodhoof {
 
 	@Test
 	public void test4() throws HSException {
-		
-		//null case
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, deck, null);
 		
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 0);
@@ -256,7 +244,7 @@ public class TestCairneBloodhoof {
         Minion minion = currentPlayerMinions.get(1);
 		
 		minion.hasAttacked(false);
-		target = fb.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
+		Minion target = fb.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
 		minion.attack(PlayerSide.WAITING_PLAYER, target, fb, deck, null);
 
 		assertEquals(fb.data_.getNumCards_hand(), 0);
@@ -285,11 +273,8 @@ public class TestCairneBloodhoof {
 	
 	@Test
 	public void test5() throws HSException {
-		
-		//null case
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, deck, null);
 
 		ret = new BloodfenRaptor().summonMinion(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayerHero(), ret, null, null, false, true);
 		ret = new BloodfenRaptor().summonMinion(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayerHero(), ret, null, null, false, true);
@@ -331,7 +316,7 @@ public class TestCairneBloodhoof {
 		Minion minion = PlayerSide.CURRENT_PLAYER.getPlayer(fb).getMinions().get(1);
 		
 		minion.hasAttacked(false);
-		target = fb.data_.getCharacter(PlayerSide.WAITING_PLAYER, 6);
+		Minion target = fb.data_.getCharacter(PlayerSide.WAITING_PLAYER, 6);
 		minion.attack(PlayerSide.WAITING_PLAYER, target, fb, deck, null);
 
 		assertEquals(fb.data_.getNumCards_hand(), 0);
@@ -367,14 +352,9 @@ public class TestCairneBloodhoof {
 	
 	
 	@Test
-	public void test6() throws HSException {
-		
-		//In this test Cairne will be killed by a spell: Fireball
-		
-		//null case
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
+	public void testKillCairneWithFireball() throws HSException {
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, deck, null);
 		
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 0);
@@ -406,8 +386,7 @@ public class TestCairneBloodhoof {
 		Card fireball = fb.data_.getCurrentPlayerCardHand(0);
 		
 		minion.hasAttacked(false);
-		target = fb.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
-		fireball.useOn(PlayerSide.WAITING_PLAYER, target, fb, deck, null);
+		fireball.useOn(PlayerSide.WAITING_PLAYER, 2, fb, deck, null);
 
 		assertEquals(fb.data_.getNumCards_hand(), 0);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(fb).getNumMinions(), 2);
@@ -429,6 +408,5 @@ public class TestCairneBloodhoof {
 		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(fb).getMinions().get(2).getTotalAttack(), 7);
 		
 		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(fb).getMinions().get(1) instanceof BaineBloodhoof);
-		
 	}
 }

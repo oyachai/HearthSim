@@ -9,8 +9,8 @@ import org.junit.Test;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
-import com.hearthsim.card.minion.Demon;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.minion.Minion.MinionTribe;
 import com.hearthsim.card.minion.concrete.BloodImp;
 import com.hearthsim.card.spellcard.concrete.SacrificialPact;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
@@ -35,7 +35,8 @@ public class TestSacrificialPact {
 		Minion minion0_0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
 		Minion minion0_1 = new Minion("" + 0, mana, attack0, (byte)(health1 - 1), attack0, health1, health1);
 		Minion minion1_0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
-		Minion minion1_1 = new Demon("" + 0, mana, attack0, (byte)(health1 - 1), attack0, health1, health1);
+		Minion minion1_1 = new Minion("" + 0, mana, attack0, (byte)(health1 - 1), attack0, health1, health1);
+		minion1_1.setTribe(MinionTribe.DEMON);
 		
 		board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, minion0_0);
 		board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, minion0_1);
@@ -65,18 +66,15 @@ public class TestSacrificialPact {
 	public void testFollowsNormalTargetingRules() throws HSException {
 		board.data_.placeMinion(PlayerSide.WAITING_PLAYER, new BloodImp());
 
-		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 3);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);		
+		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 3, board, deck, null);		
 		assertNull(ret);
 	}
 
 	@Test
 	public void test0() throws HSException {
-		
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
 		
 		assertNull(ret);
 		assertEquals(board.data_.getNumCards_hand(), 1);
@@ -94,10 +92,8 @@ public class TestSacrificialPact {
 	
 	@Test
 	public void test1() throws HSException {
-		
-		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 1, board, deck, null);
 		
 		assertNull(ret);
 		assertEquals(board.data_.getNumCards_hand(), 1);
@@ -115,10 +111,8 @@ public class TestSacrificialPact {
 	
 	@Test
 	public void test2() throws HSException {
-		
-		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 2, board, deck, null);
 		
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 0);

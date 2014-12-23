@@ -267,7 +267,7 @@ public class BoardModel implements DeepCopyable<BoardModel> {
         modelForSide(side).placeCardDeck(card);
     }
 
-    public Hero getHero(PlayerSide playerSide) throws HSInvalidPlayerIndexException {
+    public Hero getHero(PlayerSide playerSide) {
         return modelForSide(playerSide).getHero();
     }
 
@@ -287,7 +287,7 @@ public class BoardModel implements DeepCopyable<BoardModel> {
      * @param numCards Number of cards to draw.
      * @throws HSInvalidPlayerIndexException
      */
-    public void drawCardFromWaitingPlayerDeck(int numCards) throws HSInvalidPlayerIndexException {
+    public void drawCardFromWaitingPlayerDeck(int numCards) {
         //This minion is an enemy minion.  Let's draw a card for the enemy.  No need to use a StopNode for enemy card draws.
         for (int indx = 0; indx < numCards; ++indx) {
         	this.getWaitingPlayer().drawNextCardFromDeck();

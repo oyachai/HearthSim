@@ -59,9 +59,8 @@ public class TestDrainLife {
 		DrainLife fb = new DrainLife();
 		board.data_.placeCardHandCurrentPlayer(fb);
 		
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
 		assertNull(ret); // TODO I think this is technically possible. Leave this test here in case we enable this behavior.
 		assertEquals(board.data_.getNumCards_hand(), 1);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);
@@ -85,9 +84,8 @@ public class TestDrainLife {
 		DrainLife fb = new DrainLife();
 		board.data_.placeCardHandCurrentPlayer(fb);
 		
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, deck, null);
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 0);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);
@@ -113,9 +111,8 @@ public class TestDrainLife {
 		
 		board.data_.getCurrentPlayerHero().setHealth((byte)15);
 		
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, deck, null);
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 0);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);

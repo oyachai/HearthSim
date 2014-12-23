@@ -48,7 +48,7 @@ public class TestMinionPlacement {
 		Archmage archmage = new Archmage();
 		board.data_.placeCardHandCurrentPlayer(archmage);
 
-		HearthTreeNode ret = archmage.useOn(PlayerSide.WAITING_PLAYER, this.board.data_.getWaitingPlayerCharacter(0), this.board, null, null);
+		HearthTreeNode ret = archmage.useOn(PlayerSide.WAITING_PLAYER, 0, this.board, null, null);
 		assertNull(ret);
 		
 		assertEquals(board.data_.getNumCards_hand(), 1);
@@ -63,7 +63,7 @@ public class TestMinionPlacement {
 		Archmage archmage = new Archmage();
 		board.data_.placeCardHandCurrentPlayer(archmage);
 
-		HearthTreeNode ret = archmage.useOn(PlayerSide.WAITING_PLAYER, this.board.data_.getWaitingPlayerCharacter(1), this.board, null, null);
+		HearthTreeNode ret = archmage.useOn(PlayerSide.WAITING_PLAYER, 1, this.board, null, null);
 		assertNull(ret);
 		
 		assertEquals(board.data_.getNumCards_hand(), 1);
@@ -78,7 +78,7 @@ public class TestMinionPlacement {
 		Archmage archmage = new Archmage();
 		board.data_.placeCardHandCurrentPlayer(archmage);
 
-		HearthTreeNode ret = archmage.useOn(PlayerSide.CURRENT_PLAYER, this.board.data_.getCurrentPlayerCharacter(0), this.board, null, null);
+		HearthTreeNode ret = archmage.useOn(PlayerSide.CURRENT_PLAYER, 0, this.board, null, null);
 		assertEquals(board, ret);
 		
 		assertEquals(board.data_.getNumCards_hand(), 0);
@@ -98,7 +98,7 @@ public class TestMinionPlacement {
 		Archmage archmage = new Archmage();
 		board.data_.placeCardHandCurrentPlayer(archmage);
 
-		HearthTreeNode ret = archmage.useOn(PlayerSide.CURRENT_PLAYER, this.board.data_.getCurrentPlayerCharacter(1), this.board, null, null);
+		HearthTreeNode ret = archmage.useOn(PlayerSide.CURRENT_PLAYER, 1, this.board, null, null);
 		assertEquals(board, ret);
 		
 		assertEquals(board.data_.getNumCards_hand(), 0);
@@ -118,7 +118,7 @@ public class TestMinionPlacement {
 		Archmage archmage = new Archmage();
 		board.data_.placeCardHandCurrentPlayer(archmage);
 
-		HearthTreeNode ret = archmage.useOn(PlayerSide.CURRENT_PLAYER, this.board.data_.getCurrentPlayerCharacter(2), this.board, null, null);
+		HearthTreeNode ret = archmage.useOn(PlayerSide.CURRENT_PLAYER, 2, this.board, null, null);
 		assertEquals(board, ret);
 		
 		assertEquals(board.data_.getNumCards_hand(), 0);
@@ -144,7 +144,7 @@ public class TestMinionPlacement {
 		Archmage archmage = new Archmage();
 		board.data_.placeCardHandCurrentPlayer(archmage);
 
-		HearthTreeNode ret = archmage.useOn(PlayerSide.CURRENT_PLAYER, this.board.data_.getCurrentPlayerCharacter(1), this.board, null, null);
+		HearthTreeNode ret = archmage.useOn(PlayerSide.CURRENT_PLAYER, 1, this.board, null, null);
 		assertNull(ret);
 		
 		assertEquals(board.data_.getNumCards_hand(), 1);
@@ -159,7 +159,7 @@ public class TestMinionPlacement {
 		Archmage archmage = new Archmage();
 		board.data_.placeCardHandCurrentPlayer(archmage);
 
-		HearthTreeNode ret = archmage.useOn(PlayerSide.CURRENT_PLAYER, this.board.data_.getCurrentPlayerCharacter(1), this.board, null, null);
+		HearthTreeNode ret = archmage.useOn(PlayerSide.CURRENT_PLAYER, 1, this.board, null, null);
 		assertEquals(board, ret);
 		
 		assertEquals(1, board.data_.getSpellDamage(PlayerSide.CURRENT_PLAYER));
@@ -170,13 +170,13 @@ public class TestMinionPlacement {
 		KoboldGeomancer kobold = new KoboldGeomancer();
 		board.data_.placeCardHandCurrentPlayer(kobold);
 
-		HearthTreeNode ret = kobold.useOn(PlayerSide.CURRENT_PLAYER, this.board.data_.getCurrentPlayerCharacter(1), this.board, null, null);
+		HearthTreeNode ret = kobold.useOn(PlayerSide.CURRENT_PLAYER, 1, this.board, null, null);
 		assertEquals(board, ret);
 
 		kobold = new KoboldGeomancer();
 		board.data_.placeCardHandCurrentPlayer(kobold);
 
-		ret = kobold.useOn(PlayerSide.CURRENT_PLAYER, this.board.data_.getCurrentPlayerCharacter(1), this.board, null, null);
+		ret = kobold.useOn(PlayerSide.CURRENT_PLAYER, 1, this.board, null, null);
 		assertEquals(board, ret);
 
 		assertEquals(2, board.data_.getSpellDamage(PlayerSide.CURRENT_PLAYER));

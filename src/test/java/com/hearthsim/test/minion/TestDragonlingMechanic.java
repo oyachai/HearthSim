@@ -68,11 +68,8 @@ public class TestDragonlingMechanic {
 	
 	@Test
 	public void test0() throws HSException {
-		
-		//null case
-		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 0, board, deck, null);
 		
 		assertNull(ret);
 		assertEquals(board.data_.getNumCards_hand(), 1);
@@ -95,10 +92,8 @@ public class TestDragonlingMechanic {
 	
 	@Test
 	public void test2() throws HSException {
-		
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, deck, null);
 		
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 0);
@@ -130,9 +125,8 @@ public class TestDragonlingMechanic {
 		board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new BoulderfistOgre());
 		board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new BoulderfistOgre());
 		
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 3);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 3, board, deck, null);
 		
 		assertEquals(board, ret);
 		assertEquals(board.data_.getNumCards_hand(), 0);

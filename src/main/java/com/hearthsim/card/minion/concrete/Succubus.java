@@ -1,13 +1,10 @@
 package com.hearthsim.card.minion.concrete;
 
-import java.util.EnumSet;
-
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
-import com.hearthsim.card.minion.Demon;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.card.minion.Minion.BattlecryTargetType;
+import com.hearthsim.card.minion.MinionUntargetableBattlecry;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.HearthAction;
@@ -16,7 +13,7 @@ import com.hearthsim.util.tree.HearthTreeNode;
 import com.hearthsim.util.tree.RandomEffectNode;
 
 
-public class Succubus extends Demon {
+public class Succubus extends Minion  implements MinionUntargetableBattlecry {
 
 	private static final boolean HERO_TARGETABLE = true;
 	private static final byte SPELL_DAMAGE = 0;
@@ -26,11 +23,7 @@ public class Succubus extends Demon {
         spellDamage_ = SPELL_DAMAGE;
         heroTargetable_ = HERO_TARGETABLE;
 
-	}
-	
-	@Override
-	public EnumSet<BattlecryTargetType> getBattlecryTargets() {
-		return EnumSet.of(BattlecryTargetType.NO_TARGET);
+        this.tribe = MinionTribe.DEMON;
 	}
 	
 	/**

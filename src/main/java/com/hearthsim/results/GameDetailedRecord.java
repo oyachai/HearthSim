@@ -55,26 +55,18 @@ public class GameDetailedRecord implements GameRecord {
 
 	@Override
 	public int getHeroHealth(int playerId, int turn, int currentPlayerId) {
-		try {
-            BoardModel boardModel = boards_.get(currentPlayerId).get(turn);
-            PlayerSide playerByIndex = boardModel.getPlayerByIndex(playerId);
-            PlayerSide otherPlayer = playerByIndex.getOtherPlayer();
-            return boardModel.getHero(otherPlayer).getHealth();
-		} catch (HSInvalidPlayerIndexException e) {
-			return 0;
-		}
+        BoardModel boardModel = boards_.get(currentPlayerId).get(turn);
+        PlayerSide playerByIndex = boardModel.getPlayerByIndex(playerId);
+        PlayerSide otherPlayer = playerByIndex.getOtherPlayer();
+        return boardModel.getHero(otherPlayer).getHealth();
 	}
 
 	@Override
 	public int getHeroArmor(int playerId, int turn, int currentPlayerId) {
-		try {
-            BoardModel boardModel = boards_.get(currentPlayerId).get(turn);
-            PlayerSide playerByIndex = boardModel.getPlayerByIndex(playerId);
-            PlayerSide otherPlayer = playerByIndex.getOtherPlayer();
-            return boardModel.getHero(otherPlayer).getArmor();
-		} catch (HSInvalidPlayerIndexException e) {
-			return 0;
-		}
+        BoardModel boardModel = boards_.get(currentPlayerId).get(turn);
+        PlayerSide playerByIndex = boardModel.getPlayerByIndex(playerId);
+        PlayerSide otherPlayer = playerByIndex.getOtherPlayer();
+        return boardModel.getHero(otherPlayer).getArmor();
 	}
 
 	@Override

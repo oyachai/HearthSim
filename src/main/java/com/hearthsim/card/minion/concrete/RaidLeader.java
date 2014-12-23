@@ -2,6 +2,7 @@ package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.minion.MinionPlacedInterface;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.model.BoardModel;
@@ -9,7 +10,7 @@ import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 
-public class RaidLeader extends Minion {
+public class RaidLeader extends Minion implements MinionPlacedInterface {
 
 	private static final boolean HERO_TARGETABLE = true;
 	private static final byte SPELL_DAMAGE = 0;
@@ -78,7 +79,7 @@ public class RaidLeader extends Minion {
             PlayerSide thisMinionPlayerSide,
             PlayerSide placedMinionPlayerSide,
             Minion placedMinion,
-            HearthTreeNode boardState) throws HSInvalidPlayerIndexException {
+            HearthTreeNode boardState) {
 		if (thisMinionPlayerSide != placedMinionPlayerSide)
 			return boardState;
         if (!silenced_ && placedMinion != this) {
@@ -108,10 +109,8 @@ public class RaidLeader extends Minion {
 			HearthTreeNode boardState,
 			Deck deckPlayer0,
 			Deck deckPlayer1)
-		throws HSInvalidPlayerIndexException
 	{
-		HearthTreeNode toRet = super.minionPlacedEvent(thisMinionPlayerSide, summonedMinionPlayerSide, summonedMinion, boardState, deckPlayer0, deckPlayer1);
-		return this.doBuffs(thisMinionPlayerSide, summonedMinionPlayerSide, summonedMinion, toRet);
+		return this.doBuffs(thisMinionPlayerSide, summonedMinionPlayerSide, summonedMinion, boardState);
 	}
 	
 }

@@ -7,7 +7,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.hearthsim.card.Card;
-import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.Nightblade;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
@@ -32,9 +31,8 @@ public class TestNightblade {
 
 	@Test
 	public void testDamagesEnemyHero() throws HSException {
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
 		assertEquals(board, ret);
 
 		assertEquals(board.data_.getNumCards_hand(), 0);
@@ -47,9 +45,8 @@ public class TestNightblade {
 	public void testKillsEnemyHero() throws HSException {
 		board.data_.getWaitingPlayerHero().setHealth((byte)2);
 
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
 		assertEquals(board, ret);
 
 		assertEquals(board.data_.getNumCards_hand(), 0);

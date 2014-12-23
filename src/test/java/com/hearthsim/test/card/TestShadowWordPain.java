@@ -72,18 +72,15 @@ public class TestShadowWordPain {
 	public void testFollowsNormalTargetingRules() throws HSException {
 		board.data_.placeMinion(PlayerSide.WAITING_PLAYER, new BloodImp());
 
-		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 3);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);		
+		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 3, board, deck, null);		
 		assertNull(ret);
 	}
 
 	@Test
 	public void test1() throws HSException {
-		
-		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 2, board, deck, null);
 		
 		assertNull(ret);
 		assertEquals(board.data_.getNumCards_hand(), 1);
@@ -106,10 +103,8 @@ public class TestShadowWordPain {
 
 	@Test
 	public void test2() throws HSException {
-		
-		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 1, board, deck, null);
 		
 		assertFalse(ret == null);
 		assertEquals(board.data_.getNumCards_hand(), 0);

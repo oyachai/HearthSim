@@ -6,7 +6,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.hearthsim.card.Card;
-import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.FrostwolfWarlord;
 import com.hearthsim.card.minion.concrete.SilverHandRecruit;
 import com.hearthsim.exception.HSException;
@@ -35,9 +34,8 @@ public class TestFrostwolfWarlord {
 		board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new SilverHandRecruit());
 		board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new SilverHandRecruit());
 
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, null, null);
 		assertEquals(board, ret);
 		assertEquals(board.data_.getNumCards_hand(), 0);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 3);
@@ -49,9 +47,8 @@ public class TestFrostwolfWarlord {
 
 	@Test
 	public void testBattlecryWithNoMinions() throws HSException {
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
 		assertEquals(board, ret);
 		assertEquals(board.data_.getNumCards_hand(), 0);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 1);
@@ -66,9 +63,8 @@ public class TestFrostwolfWarlord {
 		board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new SilverHandRecruit());
 		board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new SilverHandRecruit());
 
-		Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
 		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
+		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
 		assertEquals(board, ret);
 
 		warlord.silenced(PlayerSide.CURRENT_PLAYER, board);

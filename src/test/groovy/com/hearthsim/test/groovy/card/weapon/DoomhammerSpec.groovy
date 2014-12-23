@@ -28,9 +28,8 @@ class DoomhammerSpec extends CardSpec{
     def 'gives windfury and overload'(){
         def copiedBoard = startingBoard.deepCopy()
         def copiedRoot = new HearthTreeNode(copiedBoard)
-        def target = copiedBoard.getCharacter(CURRENT_PLAYER, 0);
         def theCard = copiedBoard.getCurrentPlayerCardHand(0);
-        def ret = theCard.useOn(CURRENT_PLAYER, target, copiedRoot, null, null);
+        def ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot, null, null);
 
         expect:
         ret != null
