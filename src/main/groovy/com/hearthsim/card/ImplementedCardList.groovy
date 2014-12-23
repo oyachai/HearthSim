@@ -16,6 +16,25 @@ class ImplementedCardList {
 
     private static ImplementedCardList instance
 	
+	static class TypeParser {
+		private static String TYPE_CLASSNAME_PATTERN_SPELL = "spellcard.concrete"
+		private static String TYPE_CLASSNAME_PATTERN_MINION = "minion.concrete"
+		private static String TYPE_CLASSNAME_PATTERN_WEAPON = "weapon.concrete"
+		private static String TYPE_CLASSNAME_PATTERN_HERO = "minion.heroes"
+    
+		public static String parse(String classPath) {
+			if (classPath.contains(TYPE_CLASSNAME_PATTERN_HERO))
+				return "Hero"
+			else if (classPath.contains(TYPE_CLASSNAME_PATTERN_MINION))
+				return "Minion"
+			else if (classPath.contains(TYPE_CLASSNAME_PATTERN_WEAPON))
+				return "Weapon"
+			else if (classPath.contains(TYPE_CLASSNAME_PATTERN_SPELL))
+				return "Spell"
+			return "Unknown"
+		}	
+	}
+	
 	private static String MECHANICS_TAUNT = "Taunt";
 	private static String MECHANICS_SHIELD = "Divine Shield";
 	private static String MECHANICS_WINDFURY = "Windfury";
@@ -81,7 +100,7 @@ class ImplementedCardList {
 
         def registry = ReferenceCardRegistry.instance
         implementedCardsFromJson.each { implementedCardFromJson ->
-            def cardDefinition = registry.cardByName(implementedCardFromJson.name)
+            def cardDefinition = registry.cardByNameAndType(implementedCardFromJson.name, TypeParser.parse(implementedCardFromJson.class))
 
             def className = implementedCardFromJson['class']
             def clazz = Class.forName(className)
@@ -108,7 +127,6 @@ class ImplementedCardList {
 
             map_[clazz] = implementedCard
         }
-
     }
 
     public ArrayList<ImplementedCard> getCardList() {

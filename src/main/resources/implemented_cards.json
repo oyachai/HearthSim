@@ -845,7 +845,7 @@
     },
     {
         "name": "Slime",
-        "class": "com.hearthsim.card.spellcard.concrete.Slam"
+        "class": "com.hearthsim.card.minion.concrete.Slime"
     },
     {
         "name": "Sludge Belcher",
@@ -1072,7 +1072,7 @@
         "class": "com.hearthsim.card.minion.concrete.BaineBloodhoof"
     },
     {
-        "name": "Mirror Image Minion",
+        "name": "Mirror Image",
         "class": "com.hearthsim.card.minion.concrete.MirrorImageMinion"
     },
     {

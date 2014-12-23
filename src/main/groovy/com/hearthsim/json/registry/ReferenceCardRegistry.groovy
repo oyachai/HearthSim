@@ -23,13 +23,14 @@ class ReferenceCardRegistry {
 
         def setNames = [
                 'Basic',
-                'Expert',
+                'Classic',
                 'Missions',
                 'Promotion',
                 'System',
                 'Credits',
                 'Reward',
                 'Curse of Naxxramas',
+                'Goblins vs Gnomes',
                 'Debug'
         ]
 
@@ -48,7 +49,6 @@ class ReferenceCardRegistry {
 
 
         cards.each { card ->
-
             if (!disabledCards.contains(card.name) && !(card.type == 'Enchantment')) {
 
                 def playerClass = card.playerClass != null ? card.playerClass.toString() : 'Neutral'
@@ -88,6 +88,10 @@ class ReferenceCardRegistry {
     public ReferenceCard cardByName(String name) {
         cardDefinitions.find { it.name == name && (it.type != 'Hero' || it.collectible) }
     }
+
+	public ReferenceCard cardByNameAndType(String name, String type) {
+		cardDefinitions.find { it.name == name && it.type == type && (it.type != 'Hero' || it.collectible) }
+	}
 
     public List<ReferenceCard> getCollectibles(){
         cardDefinitions.findAll { it.collectible }
