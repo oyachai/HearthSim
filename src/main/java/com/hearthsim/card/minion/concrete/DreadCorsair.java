@@ -1,10 +1,10 @@
 package com.hearthsim.card.minion.concrete;
 
-import com.hearthsim.card.minion.Pirate;
+import com.hearthsim.card.minion.Minion;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 
-public class DreadCorsair extends Pirate {
+public class DreadCorsair extends Minion {
 	
 	private static final boolean HERO_TARGETABLE = true;
 	private static final byte SPELL_DAMAGE = 0;
@@ -13,6 +13,7 @@ public class DreadCorsair extends Pirate {
         super();
         spellDamage_ = SPELL_DAMAGE;
         heroTargetable_ = HERO_TARGETABLE;
+        this.tribe = MinionTribe.PIRATE;
 	}
 	
 	@Override

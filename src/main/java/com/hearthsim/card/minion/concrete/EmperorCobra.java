@@ -1,14 +1,13 @@
 package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.Deck;
-import com.hearthsim.card.minion.Beast;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class EmperorCobra extends Beast {
+public class EmperorCobra extends Minion {
 
 	private static final boolean HERO_TARGETABLE = false;
 	private static final byte SPELL_DAMAGE = 0;
@@ -17,6 +16,7 @@ public class EmperorCobra extends Beast {
         super();
         spellDamage_ = SPELL_DAMAGE;
         heroTargetable_ = HERO_TARGETABLE;
+        this.tribe = MinionTribe.BEAST;
 	}
 	
 	protected HearthTreeNode attack_core(PlayerSide targetMinionPlayerSide, Minion targetMinion,
