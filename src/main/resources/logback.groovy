@@ -31,7 +31,7 @@ def setupAppenders() {
         file = "log/debug.${logfileDate}.log"
         append = false
         filter(ThresholdFilter) {
-            level = DEBUG
+            level = INFO
         }
         encoder(PatternLayoutEncoder) {
             pattern = plainFormat
@@ -51,7 +51,7 @@ def setupAppenders() {
 
     appender('systemOut', ConsoleAppender) {
         filter(ThresholdFilter) {
-            level = DEBUG
+            level = INFO
         }
         encoder(PatternLayoutEncoder) {
             pattern = format

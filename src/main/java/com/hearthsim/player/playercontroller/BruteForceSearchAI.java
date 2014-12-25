@@ -4,13 +4,17 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
+import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.exception.HSInvalidCardException;
 import com.hearthsim.exception.HSInvalidParamFileException;
 import com.hearthsim.exception.HSParamNotFoundException;
 import com.hearthsim.io.ParamFile;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
+import com.hearthsim.util.CardFactory;
 import com.hearthsim.util.HearthActionBoardPair;
 import com.hearthsim.util.factory.BoardStateFactoryBase;
 import com.hearthsim.util.factory.DepthBoardStateFactory;
@@ -110,6 +114,29 @@ public class BruteForceSearchAI implements ArtificialPlayer {
 
 			useSparseBoardStateFactory_ = pFile.getBoolean("use_sparse_board_state_factory", true);
 			useDuplicateNodePruning = pFile.getBoolean("use_duplicate_node_pruning", true);
+			
+			// Look for a pattern: card_in_hand_value_*
+			Set<String> keys = pFile.getKeysContaining("card_in_hand_score_");
+			for (String key : keys) {
+				String cardName = key.substring(19);
+				try {
+					this.scorer.putCardInHandExtraScore(CardFactory.getCard(cardName).getClass(), pFile.getDouble(key));
+				} catch (HSInvalidCardException e) {
+					throw new HSInvalidParamFileException("Invalid key: " + key);
+				}
+			}
+			
+			// Look for a pattern: minion_on_board_value_*
+			keys = pFile.getKeysContaining("minion_on_board_value_");
+			for (String key : keys) {
+				String minionName = key.substring(22);
+				try {
+					Minion minion = (Minion) CardFactory.getCard(minionName);
+					this.scorer.putMinionOnBoardExtraScore(minion.getClass(), pFile.getDouble(key));
+				} catch (HSInvalidCardException e) {
+					throw new HSInvalidParamFileException("Invalid key: " + key);
+				}
+			}
 			
 		} catch(HSParamNotFoundException e) {
 			log.error(e.getMessage());

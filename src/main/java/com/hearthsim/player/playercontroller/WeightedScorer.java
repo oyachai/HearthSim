@@ -1,5 +1,7 @@
 package com.hearthsim.player.playercontroller;
 
+import java.util.HashMap;
+
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellDamage;
@@ -27,6 +29,9 @@ public class WeightedScorer implements BoardScorer, DeepCopyable<WeightedScorer>
 	private double myWeaponWeight;
 	private double enemyWeaponWeight;
 	private double myChargeWeight;
+	
+	private HashMap<Class<? extends Minion>, Double> minionOnBoardExtraScore;
+	private HashMap<Class<? extends Card>, Double> cardInHandExtraScore;
 
 	public WeightedScorer() {
 		// TODO Auto-generated constructor stub
@@ -101,6 +106,13 @@ public class WeightedScorer implements BoardScorer, DeepCopyable<WeightedScorer>
 			theScore += card.getBaseManaCost() * manaWeight + (minion.getCharge() ? myChargeWeight : 0.0);
 		} else
 			theScore += card.getBaseManaCost() * manaWeight;
+		
+		if (cardInHandExtraScore != null) {
+			Double val = cardInHandExtraScore.get(card.getClass());
+			if (val != null)
+				theScore += val.doubleValue();
+		}
+
 		return theScore;
 	}
 	
@@ -113,6 +125,12 @@ public class WeightedScorer implements BoardScorer, DeepCopyable<WeightedScorer>
 		if(minion.getDivineShield())
 			score += (minion.getAttack() + minion.getTotalHealth()) * (side == PlayerSide.CURRENT_PLAYER ? myDivineShieldWeight : enemyDivineShieldWeight);
 
+		if (minionOnBoardExtraScore != null) {
+			Double val = minionOnBoardExtraScore.get(minion.getClass());
+			if (val != null)
+				score += val.doubleValue();
+		}
+			
 		return score;
 	}
 
@@ -271,6 +289,18 @@ public class WeightedScorer implements BoardScorer, DeepCopyable<WeightedScorer>
 
 	public void setEnemyWeaponWeight(double enemyWeaponWeight) {
 		this.enemyWeaponWeight = enemyWeaponWeight;
+	}
+
+	public void putMinionOnBoardExtraScore(Class<? extends Minion> clazz, double value) {
+		if (minionOnBoardExtraScore == null)
+			minionOnBoardExtraScore = new HashMap<Class<? extends Minion>, Double>();
+		minionOnBoardExtraScore.put(clazz, value);
+	}
+
+	public void putCardInHandExtraScore(Class<? extends Card> class1, double value) {
+		if (cardInHandExtraScore == null)
+			cardInHandExtraScore = new HashMap<Class<? extends Card>, Double>();
+		cardInHandExtraScore.put(class1, value);
 	}
 
 	@Override

@@ -10,6 +10,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Class to read in a HearthSim parameter file
@@ -190,6 +192,16 @@ public class ParamFile {
 		}
 	}
 	
+	
+	public Set<String> getKeysContaining(String partialKey) {
+		TreeSet<String> toRet = new TreeSet<String>();
+		for (String key : params_.keySet()) {
+			if (key.contains(partialKey)) {
+				toRet.add(key);
+			}
+		}
+		return toRet;
+	}
 	
 	Map<String, String> params_;
 	Path paramFilePath_;
