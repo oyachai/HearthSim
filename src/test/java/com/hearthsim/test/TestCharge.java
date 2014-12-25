@@ -32,7 +32,7 @@ public class TestCharge {
 		}
 
 		@Override
-		public double cardInHandScore(Card card) {
+		public double cardInHandScore(Card card, BoardModel board) {
 			return 0;
 		}
 
@@ -43,6 +43,12 @@ public class TestCharge {
 
 		@Override
 		public double heroHealthScore_p1(double heroHealth, double heroArmor) {
+			return 0;
+		}
+
+		@Override
+		public double minionOnBoardScore(Minion minion, PlayerSide side,
+				BoardModel board) {
 			return 0;
 		}
 	}

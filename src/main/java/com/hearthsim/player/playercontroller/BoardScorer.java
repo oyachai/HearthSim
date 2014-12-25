@@ -1,7 +1,9 @@
 package com.hearthsim.player.playercontroller;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.minion.Minion;
 import com.hearthsim.model.BoardModel;
+import com.hearthsim.model.PlayerSide;
 
 public interface BoardScorer {
 	/**
@@ -20,7 +22,16 @@ public interface BoardScorer {
 	 * @param card
 	 * @return
 	 */
-	public double cardInHandScore(Card card);
+	public double cardInHandScore(Card card, BoardModel board);
+	
+
+	/**
+	 * Returns the score of a minion assuming that it is on the board (in the field)
+	 * @param minion The minion to be scored
+	 * @param board The current board
+	 * @return
+	 */
+	public double minionOnBoardScore(Minion minion, PlayerSide side, BoardModel board);
 
 	public double heroHealthScore_p0(double heroHealth, double heroArmor);
 	

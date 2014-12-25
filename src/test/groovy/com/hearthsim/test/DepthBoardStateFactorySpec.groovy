@@ -28,7 +28,7 @@ class DepthBoardStateFactorySpec extends CardSpec {
 		root = new HearthTreeNode(startingBoard)
 	}
 	
-	def "adds extra attack"() {
+	def "Plays All Minions"() {
 		def copiedBoard = startingBoard.deepCopy()
 		BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
 		def res = ai0.playTurn(9, startingBoard)
@@ -38,9 +38,9 @@ class DepthBoardStateFactorySpec extends CardSpec {
 
 		assertBoardDelta(copiedBoard, newBoardModel) {
 			currentPlayer {
-				playMinion(MurlocRaider)
-				playMinion(Wisp, 0)
+				playMinion(Wisp)
 				playMinion(GoldshireFootman, 0)
+				playMinion(MurlocRaider, 0)
 				mana(8)
 			}
 		}

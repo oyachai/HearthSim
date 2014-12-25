@@ -4,6 +4,7 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellDamage;
 import com.hearthsim.model.BoardModel;
+import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.IdentityLinkedList;
 
@@ -33,31 +34,22 @@ public class WeightedScorer implements BoardScorer, DeepCopyable<WeightedScorer>
 
 	@Override
 	public double boardScore(BoardModel board) {
-		IdentityLinkedList<Minion> myBoardCards;
-		IdentityLinkedList<Minion> opBoardCards;
+		IdentityLinkedList<Minion> myBoardMinions;
+		IdentityLinkedList<Minion> opBoardMinions;
 		IdentityLinkedList<Card> myHandCards;
-		myBoardCards = board.getCurrentPlayer().getMinions();
-		opBoardCards = board.getWaitingPlayer().getMinions();
+		myBoardMinions = board.getCurrentPlayer().getMinions();
+		opBoardMinions = board.getWaitingPlayer().getMinions();
 		myHandCards = board.getCurrentPlayerHand();
 
 		// my board score
-		double myScore = 0.0;
-		for(final Minion minion : myBoardCards) {
-			myScore += minion.getAttack() * myAttackWeight;
-			myScore += minion.getTotalHealth() * myHealthWeight;
-			myScore += (minion.getTaunt() ? 1.0 : 0.0) * tauntWeight;
-			if(minion.getDivineShield())
-				myScore += (minion.getAttack() + minion.getTotalHealth()) * myDivineShieldWeight;
+		double boardScore = 0.0;
+		for(final Minion minion : myBoardMinions) {
+			boardScore += this.minionOnBoardScore(minion, PlayerSide.CURRENT_PLAYER, board);
 		}
 
 		// opponent board score
-		double opScore = 0.0;
-		for(final Minion minion : opBoardCards) {
-			opScore += minion.getAttack() * enemyAttackWeight;
-			opScore += minion.getTotalHealth() * enemyHealthWeight;
-			opScore += (minion.getTaunt() ? 1.0 : 0.0) * tauntWeight;
-			if(minion.getDivineShield())
-				opScore += (minion.getAttack() + minion.getTotalHealth()) * enemyDivineShieldWeight;
+		for(final Minion minion : opBoardMinions) {
+			boardScore -= this.minionOnBoardScore(minion, PlayerSide.WAITING_PLAYER, board);
 		}
 
 		// weapons
@@ -70,7 +62,7 @@ public class WeightedScorer implements BoardScorer, DeepCopyable<WeightedScorer>
 		// my cards. The more cards that I have, the better
 		double handScore = 0.0;
 		for(final Card card : myHandCards) {
-			handScore += this.cardInHandScore(card);
+			handScore += this.cardInHandScore(card, board);
 		}
 
 		// the more we beat on the opponent hero, the better
@@ -85,7 +77,7 @@ public class WeightedScorer implements BoardScorer, DeepCopyable<WeightedScorer>
 		minionScore += myNumMinionsWeight * (board.getCurrentPlayer().getNumMinions());
 		minionScore -= enemyNumMinionsWeight * (board.getWaitingPlayer().getNumMinions());
 
-		double score = myScore - opScore + handScore + heroScore + minionScore + weaponScore;
+		double score = boardScore + handScore + heroScore + minionScore + weaponScore;
 
 		return score;
 	}
@@ -97,7 +89,7 @@ public class WeightedScorer implements BoardScorer, DeepCopyable<WeightedScorer>
 	 * @return
 	 */
 	@Override
-	public double cardInHandScore(Card card) {
+	public double cardInHandScore(Card card, BoardModel board) {
 		double theScore = 0.001; // need non-zero so the AI values TheCoin and Innervate
 		if(card instanceof SpellDamage) {
 			theScore += ((SpellDamage)card).getAttack() * spellDamageMultiplierWeight + spellDamageAddWeight;
@@ -111,6 +103,19 @@ public class WeightedScorer implements BoardScorer, DeepCopyable<WeightedScorer>
 			theScore += card.getBaseManaCost() * manaWeight;
 		return theScore;
 	}
+	
+	@Override
+	public double minionOnBoardScore(Minion minion, PlayerSide side, BoardModel board) {
+		double score = 0.0001;
+		score += minion.getAttack() * (side == PlayerSide.CURRENT_PLAYER ? myAttackWeight : enemyAttackWeight);
+		score += minion.getTotalHealth() * (side == PlayerSide.CURRENT_PLAYER ? myHealthWeight : enemyHealthWeight);
+		score += (minion.getTaunt() ? 1.0 : 0.0) * tauntWeight;
+		if(minion.getDivineShield())
+			score += (minion.getAttack() + minion.getTotalHealth()) * (side == PlayerSide.CURRENT_PLAYER ? myDivineShieldWeight : enemyDivineShieldWeight);
+
+		return score;
+	}
+
 
 	@Override
 	public double heroHealthScore_p0(double heroHealth, double heroArmor) {
