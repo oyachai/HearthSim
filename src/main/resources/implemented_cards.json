@@ -724,6 +724,10 @@
         "class": "com.hearthsim.card.minion.concrete.PitLord"
     },
     {
+        "name": "Patient Assassin",
+        "class": "com.hearthsim.card.minion.concrete.PatientAssassin"
+    },
+    {
         "name": "Polymorph",
         "class": "com.hearthsim.card.spellcard.concrete.Polymorph"
     },

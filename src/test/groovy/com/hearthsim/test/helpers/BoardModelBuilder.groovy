@@ -72,6 +72,7 @@ class BoardModelBuilder {
 		
 		minion.hasAttacked_ = options.containsKey('hasAttacked') ? options.hasAttacked : minion.hasAttacked_
 		minion.hasBeenUsed = options.containsKey('hasBeenUsed') ? options.hasBeenUsed : minion.hasBeenUsed
+		minion.stealthed = options.containsKey('stealthed') ? options.stealthed : minion.stealthed
 		
 		minion.frozen = options.containsKey('frozen') ? options.frozen : minion.frozen
 		
