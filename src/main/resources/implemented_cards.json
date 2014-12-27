@@ -596,6 +596,10 @@
         "class": "com.hearthsim.card.spellcard.concrete.LightningBolt"
     },
     {
+        "name": "Lightspawn",
+        "class": "com.hearthsim.card.minion.concrete.Lightspawn"
+    },
+    {
         "name": "Lightwarden",
         "class": "com.hearthsim.card.minion.concrete.Lightwarden"
     },
