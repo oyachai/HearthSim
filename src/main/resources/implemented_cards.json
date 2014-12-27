@@ -512,6 +512,14 @@
         "class": "com.hearthsim.card.minion.concrete.Hyena"
     },
     {
+        "name": "Imp",
+        "class": "com.hearthsim.card.minion.concrete.Imp"
+    },
+    {
+        "name": "Imp Master",
+        "class": "com.hearthsim.card.minion.concrete.ImpMaster"
+    },
+    {
         "name": "Injured Blademaster",
         "class": "com.hearthsim.card.minion.concrete.InjuredBlademaster"
     },
