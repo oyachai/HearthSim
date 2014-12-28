@@ -4,11 +4,18 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class Mage extends Hero {
 
+	//Assume that it is never a good idea to fireblast yourself
+	@Override
+    public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
+		return super.canBeUsedOn(playerSide, minion, boardModel) && !(playerSide == PlayerSide.CURRENT_PLAYER && minion instanceof Hero);
+    }
+	
 	/**
 	 * Use the hero ability on a given target
 	 * 

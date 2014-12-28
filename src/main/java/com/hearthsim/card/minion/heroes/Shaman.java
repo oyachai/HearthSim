@@ -8,6 +8,7 @@ import com.hearthsim.card.minion.concrete.SearingTotem;
 import com.hearthsim.card.minion.concrete.StoneclawTotem;
 import com.hearthsim.card.minion.concrete.WrathOfAirTotem;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.HearthAction;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -15,6 +16,11 @@ import com.hearthsim.util.tree.RandomEffectNode;
 
 public class Shaman extends Hero {
 
+	@Override
+    public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
+		return playerSide == PlayerSide.CURRENT_PLAYER && minion instanceof Hero;
+    }
+	
 	/**
 	 * Use the hero ability on a given target
 	 * 

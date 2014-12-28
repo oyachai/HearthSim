@@ -4,6 +4,7 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -22,6 +23,11 @@ public class TestHero extends Hero {
 		this.heroTargetable_ = true;
 	}
 
+	@Override
+    public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
+		return false;
+    }
+	
 	/**
 	 * Use the hero ability on a given target
 	 * 

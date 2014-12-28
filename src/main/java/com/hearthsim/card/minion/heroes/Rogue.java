@@ -5,11 +5,17 @@ import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.weapon.concrete.WickedKnife;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class Rogue extends Hero {
 
+	@Override
+    public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
+		return playerSide == PlayerSide.CURRENT_PLAYER && minion instanceof Hero;
+    }
+	
 	/**
 	 * Use the hero ability on a given target
 	 * 
