@@ -14,7 +14,6 @@ public class Doomhammer extends WeaponCard {
     protected HearthTreeNode use_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
         HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
         if (toRet != null) {
-            toRet.data_.addOverload(side, (byte) 2);
             toRet.data_.getHero(side).setWindfury(true);
         }
         return toRet;

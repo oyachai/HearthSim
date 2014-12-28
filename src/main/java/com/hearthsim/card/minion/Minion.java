@@ -118,7 +118,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 	 * @param maxHealth
 	 */
 	public Minion(String name, byte mana, byte attack, byte health, byte baseAttack, byte baseHealth, byte maxHealth) {
-		super(name, mana, false, true);
+		super(name, mana, false, true, (byte)0);
 		attack_ = attack;
 		health_ = health;
 		taunt_ = false;
@@ -154,7 +154,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 			boolean frozen, boolean silenced, boolean stealthed, boolean heroTargetable, boolean summoned,
 			boolean transformed, boolean destroyOnTurnStart, boolean destroyOnTurnEnd,
 			DeathrattleAction deathrattleAction, AttackAction attackAction, boolean isInHand, boolean hasBeenUsed) {
-		super(name, mana, hasBeenUsed, isInHand);
+		super(name, mana, hasBeenUsed, isInHand, (byte)0);
 		attack_ = attack;
 		health_ = health;
 		taunt_ = taunt;

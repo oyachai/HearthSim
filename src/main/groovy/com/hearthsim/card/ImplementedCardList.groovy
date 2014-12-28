@@ -1,8 +1,12 @@
 package com.hearthsim.card
 
+import java.util.regex.Matcher
+import java.util.regex.Pattern
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
+import com.hearthsim.card.Card
 import com.hearthsim.card.minion.Hero
 import com.hearthsim.card.minion.Minion
 import com.hearthsim.card.minion.heroes.TestHero
@@ -56,6 +60,9 @@ class ImplementedCardList {
 
     public class ImplementedCard implements Comparable<ImplementedCard> {
 
+		private static final htmlTagPattern = ~/<[a-zA-Z_0-9\/]+?>/
+		private static final overloadPattern = ~/Overload:\s+?\((\d+)\)/
+		
         public Class<?> cardClass_;
         public String name_;
         public String type_;
@@ -73,6 +80,7 @@ class ImplementedCardList {
         public int attack_;
         public int health_;
         public int durability;
+		public int overload;
 
         @Override
         public int compareTo(ImplementedCard o) {
@@ -104,6 +112,14 @@ class ImplementedCardList {
 
             def className = implementedCardFromJson['class']
             def clazz = Class.forName(className)
+			
+			//overload parsing
+			def cleanedText = cardDefinition.text == null ? '' : ImplementedCard.htmlTagPattern.matcher(cardDefinition.text).replaceAll("")
+			def overload = 0
+			if (!cleanedText.equals('')) {
+				def matcher = ImplementedCard.overloadPattern.matcher(cleanedText)
+				overload = matcher.size() == 1 ? matcher[0][1].toInteger() : 0 
+			}
             def implementedCard = new ImplementedCard(
                     cardClass_: className,
                     name_: cardDefinition.name,
@@ -122,6 +138,8 @@ class ImplementedCardList {
 					text_: cardDefinition.text?: '',
 					isHero: Hero.class.isAssignableFrom(clazz),
 					collectible: cardDefinition.collectible?: false,
+					overload: overload,
+					
             )
             list_ << implementedCard
 
@@ -137,7 +155,7 @@ class ImplementedCardList {
     public ImplementedCard getCardForClass(Class<?> clazz) {
         def card =map_.get(clazz)
         if (!card) {
-            if ([Minion, TestHero].contains(clazz)) {
+            if ([Card, Minion, TestHero].contains(clazz)) {
                 return null
             } else {
                 throw new RuntimeException("unable to find card for class [$clazz]")

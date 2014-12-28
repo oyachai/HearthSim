@@ -45,7 +45,6 @@ class DoomhammerSpec extends CardSpec{
                 removeCardFromHand(Doomhammer)
             }
         }
-
     }
 
 }
