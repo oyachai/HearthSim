@@ -720,6 +720,10 @@
         "class": "com.hearthsim.card.minion.concrete.OgreMagi"
     },
     {
+        "name": "Onyxia",
+        "class": "com.hearthsim.card.minion.concrete.Onyxia"
+    },
+    {
         "name": "Pit Lord",
         "class": "com.hearthsim.card.minion.concrete.PitLord"
     },
