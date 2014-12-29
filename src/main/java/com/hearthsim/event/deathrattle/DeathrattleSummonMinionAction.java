@@ -26,11 +26,16 @@ public class DeathrattleSummonMinionAction extends DeathrattleAction {
 		throws HSException
 	{
 		HearthTreeNode toRet = super.performAction(minion, playerSide, boardState, deckPlayer0, deckPlayer1);
-		for (int index = 0; index < numMinions_; ++index) {
+    	Minion placementTarget = toRet.data_.getCharacter(playerSide, toRet.data_.getMinions(playerSide).indexOf(minion));
+    	toRet.data_.removeMinion(minion);
+    	
+    	int numMinionsToActuallySummon = numMinions_;
+    	if (playerSide.getPlayer(toRet).getMinions().size() + numMinions_ > 7)
+    		
+    		numMinionsToActuallySummon = 7 - playerSide.getPlayer(toRet).getMinions().size();
+		for (int index = 0; index < numMinionsToActuallySummon; ++index) {
             try {
             	Minion newMinion = (Minion)minionClass_.newInstance();
-            	Minion placementTarget = toRet.data_.getCharacter(playerSide, toRet.data_.getMinions(playerSide).indexOf(minion)); //this minion can't be a hero
-            	toRet.data_.removeMinion(minion);
 				toRet = newMinion.summonMinion(playerSide, placementTarget, toRet, deckPlayer0, deckPlayer1, false, true);
 			} catch (InstantiationException | IllegalAccessException e) {
 				// TODO Auto-generated catch block
