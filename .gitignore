@@ -198,3 +198,5 @@ docs/.~lock.*
 ####
 # Logging
 /log
+
+.idea
