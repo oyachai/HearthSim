@@ -372,6 +372,10 @@
         "class": "com.hearthsim.card.minion.concrete.FlameImp"
     },
     {
+        "name": "Flame of Azzinoth",
+        "class": "com.hearthsim.card.minion.concrete.FlameOfAzzinoth"
+    },
+    {
         "name": "Flamestrike",
         "class": "com.hearthsim.card.spellcard.concrete.Flamestrike"
     },
@@ -510,6 +514,10 @@
     {
         "name": "Hyena",
         "class": "com.hearthsim.card.minion.concrete.Hyena"
+    },
+    {
+        "name": "Illidan Stormrage",
+        "class": "com.hearthsim.card.minion.concrete.IllidanStormrage"
     },
     {
         "name": "Imp",
