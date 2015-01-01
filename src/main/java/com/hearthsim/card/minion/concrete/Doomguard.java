@@ -39,7 +39,7 @@ public class Doomguard extends Minion implements MinionUntargetableBattlecry {
 
         if (singleRealizationOnly) {
             IdentityLinkedList<Card> hand = PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getHand();
-            for(int indx = 0; indx < 2; ++indx) {
+            for (int indx = 0; indx < 2; ++indx) {
                 if (hand.size() > 0) {
                     Card targetCard = hand.get((int)(Math.random() * hand.size()));
                     toRet.data_.removeCard_hand(targetCard);

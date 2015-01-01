@@ -48,12 +48,12 @@ public class WeightedScorer implements BoardScorer, DeepCopyable<WeightedScorer>
 
         // my board score
         double boardScore = 0.0;
-        for(final Minion minion : myBoardMinions) {
+        for (final Minion minion : myBoardMinions) {
             boardScore += this.minionOnBoardScore(minion, PlayerSide.CURRENT_PLAYER, board);
         }
 
         // opponent board score
-        for(final Minion minion : opBoardMinions) {
+        for (final Minion minion : opBoardMinions) {
             boardScore -= this.minionOnBoardScore(minion, PlayerSide.WAITING_PLAYER, board);
         }
 
@@ -66,7 +66,7 @@ public class WeightedScorer implements BoardScorer, DeepCopyable<WeightedScorer>
 
         // my cards. The more cards that I have, the better
         double handScore = 0.0;
-        for(final Card card : myHandCards) {
+        for (final Card card : myHandCards) {
             handScore += this.cardInHandScore(card, board);
         }
 

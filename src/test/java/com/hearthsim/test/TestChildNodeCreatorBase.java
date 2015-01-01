@@ -43,7 +43,7 @@ public class TestChildNodeCreatorBase {
     @Before
     public void setup() {
         Card cards[] = new Card[10];
-        for(int index = 0; index < 10; ++index) {
+        for (int index = 0; index < 10; ++index) {
             cards[index] = new TheCoin();
         }
 
@@ -430,7 +430,7 @@ public class TestChildNodeCreatorBase {
     }
 
     private void assertNodeListActionsAreRepeatable(BoardModel model, List<HearthTreeNode> children) throws HSException {
-        for(HearthTreeNode child : children) {
+        for (HearthTreeNode child : children) {
             HearthTreeNode origin = new HearthTreeNode(model.deepCopy());
             assertNotNull(child.getAction());
             HearthTreeNode reproduced = child.getAction().perform(origin, null, null, false);
@@ -445,7 +445,7 @@ public class TestChildNodeCreatorBase {
 
     private void assertNodeListContainsBoardModel(List<HearthTreeNode> nodes, BoardModel expectedBoard, int indexHint) {
         boolean success = false;
-        for(HearthTreeNode node : nodes) {
+        for (HearthTreeNode node : nodes) {
             if (node.data_.equals(expectedBoard)) {
                 success = true;
                 break;
@@ -471,8 +471,8 @@ public class TestChildNodeCreatorBase {
     }
 
     private void assertNodeDoesNotContainDuplicates(ArrayList<HearthTreeNode> nodes) {
-        for(int i = 0; i < nodes.size(); i++) {
-            for(int j = 0; j < nodes.size(); j++) {
+        for (int i = 0; i < nodes.size(); i++) {
+            for (int j = 0; j < nodes.size(); j++) {
                 if (i != j) {
                     assertNotEquals(nodes.get(i).data_, nodes.get(j).data_);
                 }

@@ -50,7 +50,7 @@ public class TestLethal {
     @Before
     public void setup() {
         Card cards[] = new Card[10];
-        for(int index = 0; index < 10; ++index) {
+        for (int index = 0; index < 10; ++index) {
             cards[index] = new TheCoin();
         }
 
@@ -278,7 +278,7 @@ public class TestLethal {
         if (node.isLeaf()) {
             return false;
         }
-        for(HearthTreeNode child : node.getChildren()) {
+        for (HearthTreeNode child : node.getChildren()) {
             if (this.hasLethalAtDepth(child, depth - 1)) {
                 return true;
             }

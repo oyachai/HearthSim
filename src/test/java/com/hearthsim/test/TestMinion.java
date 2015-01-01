@@ -179,7 +179,7 @@ public class TestMinion {
     @Test
     public void testEqualsRandom() {
 
-        for(int iter = 0; iter < nT; ++iter) {
+        for (int iter = 0; iter < nT; ++iter) {
             byte mana = (byte)(Math.random() * 10);
             byte attack = (byte)(Math.random() * 10);
             byte health = (byte)(Math.random() * 10);

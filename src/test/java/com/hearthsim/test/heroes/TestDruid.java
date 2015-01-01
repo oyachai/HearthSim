@@ -41,7 +41,7 @@ public class TestDruid {
         board.data_.placeCardHandWaitingPlayer(minion1_1);
 
         Card cards[] = new Card[10];
-        for(int index = 0; index < 10; ++index) {
+        for (int index = 0; index < 10; ++index) {
             cards[index] = new TheCoin();
         }
 

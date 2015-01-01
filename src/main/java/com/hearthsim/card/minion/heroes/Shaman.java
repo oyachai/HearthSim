@@ -57,7 +57,7 @@ public class Shaman extends Hero {
             HearthTreeNode toRet = boardState;
             Minion minionToSummon = null;
             Minion[] allTotems = {new SearingTotem(), new StoneclawTotem(), new HealingTotem(), new WrathOfAirTotem()};
-            for(int i = allTotems.length - 1; i > 0; --i) {
+            for (int i = allTotems.length - 1; i > 0; --i) {
                 int j = (int)(Math.random() * (i + 1));
                 Minion ci = allTotems[i];
                 allTotems[i] = allTotems[j];

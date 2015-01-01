@@ -74,12 +74,12 @@ public abstract class BoardStateFactoryBase {
             throws HSException {
         HearthTreeNode toRet = boardState;
         IdentityLinkedList<BoardModel.MinionPlayerPair> deadMinions = new IdentityLinkedList<BoardModel.MinionPlayerPair>();
-        for(BoardModel.MinionPlayerPair minionIdPair : toRet.data_.getAllMinionsFIFOList()) {
+        for (BoardModel.MinionPlayerPair minionIdPair : toRet.data_.getAllMinionsFIFOList()) {
             if (minionIdPair.getMinion().getTotalHealth() <= 0) {
                 deadMinions.add(minionIdPair);
             }
         }
-        for(BoardModel.MinionPlayerPair minionIdPair : deadMinions) {
+        for (BoardModel.MinionPlayerPair minionIdPair : deadMinions) {
             PlayerSide playerSide = boardState.data_.sideForModel(minionIdPair.getPlayerModel());
             toRet = minionIdPair.getMinion().destroyed(playerSide, toRet, deckPlayer0, deckPlayer1);
             toRet.data_.removeMinion(minionIdPair);

@@ -477,7 +477,7 @@ public class BoardModel implements DeepCopyable<BoardModel> {
      * Reset the has_been_used state of the cards in hand
      */
     public void resetHand() {
-        for(Card card : currentPlayer.getHand()) {
+        for (Card card : currentPlayer.getHand()) {
             card.hasBeenUsed(false);
         }
     }

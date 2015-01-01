@@ -40,7 +40,7 @@ public class TestFanOfKnives {
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion1_1);
 
         Card cards[] = new Card[10];
-        for(int index = 0; index < 10; ++index) {
+        for (int index = 0; index < 10; ++index) {
             cards[index] = new TheCoin();
         }
 

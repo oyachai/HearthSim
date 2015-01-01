@@ -34,7 +34,7 @@ public class TestPlayerModel {
     public void setup() {
 
         Card cards[] = new Card[10];
-        for(int index = 0; index < 10; ++index) {
+        for (int index = 0; index < 10; ++index) {
             cards[index] = new TheCoin();
         }
 
@@ -57,9 +57,9 @@ public class TestPlayerModel {
         Card[] cards0 = new Card[numCards];
         Card[] cards1 = new Card[numCards];
 
-        for(int iter = 0; iter < nT; ++iter) {
+        for (int iter = 0; iter < nT; ++iter) {
 
-            for(int i = 0; i < numCards; ++i) {
+            for (int i = 0; i < numCards; ++i) {
                 int indx0 = (int)(Math.random() * CARD_LIST.size());
                 int indx1 = (int)(Math.random() * CARD_LIST.size());
                 cards0[i] = CARD_LIST.get(indx0);
@@ -73,7 +73,7 @@ public class TestPlayerModel {
             PlayerModel player1 = new PlayerModel((byte)0, "player0", new Priest(), deckRandom1);
 
             boolean deckIsSame = true;
-            for(int i = 0; i < numCards; ++i) {
+            for (int i = 0; i < numCards; ++i) {
                 deckIsSame = deckIsSame && cards0[i].equals(cards1[i]);
             }
             if (deckIsSame) {
@@ -93,7 +93,7 @@ public class TestPlayerModel {
         PlayerModel player0 = new PlayerModel((byte)0, "player0", new Priest(), deck0);
         PlayerModel player1 = new PlayerModel((byte)0, "player0", new Priest(), deck1);
 
-        for(int iter = 0; iter < nT; ++iter) {
+        for (int iter = 0; iter < nT; ++iter) {
             byte health0 = (byte)(Math.random() * 10 + 20.0);
             byte health1 = (byte)(Math.random() * 10 + 20.0);
 
@@ -117,7 +117,7 @@ public class TestPlayerModel {
         PlayerModel player0 = new PlayerModel((byte)0, "player0", new Priest(), deck0);
         PlayerModel player1 = new PlayerModel((byte)0, "player0", new Priest(), deck1);
 
-        for(int iter = 0; iter < nT; ++iter) {
+        for (int iter = 0; iter < nT; ++iter) {
             byte armor0 = (byte)(Math.random() * 10);
             byte armor1 = (byte)(Math.random() * 10);
 

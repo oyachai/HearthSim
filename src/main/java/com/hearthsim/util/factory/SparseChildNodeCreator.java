@@ -30,7 +30,7 @@ public class SparseChildNodeCreator extends ChildNodeCreatorBase {
 
         boolean allUsed = true;
         int mana = boardStateNode.data_.getCurrentPlayer().getMana();
-        for(int cardIndex = 0; cardIndex < boardStateNode.data_.getNumCards_hand(); ++cardIndex) {
+        for (int cardIndex = 0; cardIndex < boardStateNode.data_.getNumCards_hand(); ++cardIndex) {
             card = boardStateNode.data_.getCurrentPlayerCardHand(cardIndex);
             if (card == null)
                 continue; // Should be impossible
@@ -57,7 +57,7 @@ public class SparseChildNodeCreator extends ChildNodeCreatorBase {
                 }
             } else {
                 // we can use this card! Let's try using it on everything
-                for(int targetIndex = 0; targetIndex <= PlayerSide.CURRENT_PLAYER.getPlayer(boardStateNode)
+                for (int targetIndex = 0; targetIndex <= PlayerSide.CURRENT_PLAYER.getPlayer(boardStateNode)
                         .getNumMinions(); ++targetIndex) {
                     targetMinion = boardStateNode.data_.getCurrentPlayerCharacter(targetIndex);
 
@@ -72,7 +72,7 @@ public class SparseChildNodeCreator extends ChildNodeCreatorBase {
                     }
                 }
 
-                for(int targetIndex = 0; targetIndex <= PlayerSide.WAITING_PLAYER.getPlayer(boardStateNode)
+                for (int targetIndex = 0; targetIndex <= PlayerSide.WAITING_PLAYER.getPlayer(boardStateNode)
                         .getNumMinions(); ++targetIndex) {
                     targetMinion = boardStateNode.data_.getWaitingPlayerCharacter(targetIndex);
 
@@ -93,7 +93,7 @@ public class SparseChildNodeCreator extends ChildNodeCreatorBase {
         if (!nodes.isEmpty()) {
             newState = new HearthTreeNode(boardStateNode.data_.deepCopy());
             newState.setAction(new HearthAction(Verb.DO_NOT_USE_CARD));
-            for(Card c : newState.data_.getCurrentPlayerHand()) {
+            for (Card c : newState.data_.getCurrentPlayerHand()) {
                 c.hasBeenUsed(true);
             }
             nodes.add(newState);
@@ -115,7 +115,7 @@ public class SparseChildNodeCreator extends ChildNodeCreatorBase {
             int maxAttackIndex = 0;
             byte secondMaxAttack = -100;
             int secondMaxAttackIndex = 0;
-            for(int midx = 0; midx < numMinions; ++midx) {
+            for (int midx = 0; midx < numMinions; ++midx) {
                 Minion tempMinion = PlayerSide.CURRENT_PLAYER.getPlayer(boardStateNode).getMinions().get(midx);
                 if (tempMinion.getTotalAttack() >= maxAttack) {
                     secondMaxAttackIndex = maxAttackIndex;

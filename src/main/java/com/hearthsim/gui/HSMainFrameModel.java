@@ -147,7 +147,7 @@ public class HSMainFrameModel implements HSGameEndEventListener {
         double[] getAveNumMinions_p0() {
             int nGames = gameResults_.size();
             double[] toRet = new double[50];
-            for(int indx = 0; indx < 50; ++indx) {
+            for (int indx = 0; indx < 50; ++indx) {
                 toRet[indx] = (double)p0_numMinionsOnTurn_[indx] / (double)nGames;
             }
             return toRet;
@@ -156,7 +156,7 @@ public class HSMainFrameModel implements HSGameEndEventListener {
         double[] getAveNumMinions_p1() {
             int nGames = gameResults_.size();
             double[] toRet = new double[50];
-            for(int indx = 0; indx < 50; ++indx) {
+            for (int indx = 0; indx < 50; ++indx) {
                 toRet[indx] = (double)p1_numMinionsOnTurn_[indx] / (double)nGames;
             }
             return toRet;
@@ -165,7 +165,7 @@ public class HSMainFrameModel implements HSGameEndEventListener {
         double[] getAveNumCards_p0() {
             int nGames = gameResults_.size();
             double[] toRet = new double[50];
-            for(int indx = 0; indx < 50; ++indx) {
+            for (int indx = 0; indx < 50; ++indx) {
                 toRet[indx] = (double)p0_numCardsOnTurn_[indx] / (double)nGames;
             }
             return toRet;
@@ -174,7 +174,7 @@ public class HSMainFrameModel implements HSGameEndEventListener {
         double[] getAveNumCards_p1() {
             int nGames = gameResults_.size();
             double[] toRet = new double[50];
-            for(int indx = 0; indx < 50; ++indx) {
+            for (int indx = 0; indx < 50; ++indx) {
                 toRet[indx] = (double)p1_numCardsOnTurn_[indx] / (double)nGames;
             }
             return toRet;
@@ -183,7 +183,7 @@ public class HSMainFrameModel implements HSGameEndEventListener {
         double[] getAveHeroHealth_p0() {
             int nGames = gameResults_.size();
             double[] toRet = new double[50];
-            for(int indx = 0; indx < 50; ++indx) {
+            for (int indx = 0; indx < 50; ++indx) {
                 toRet[indx] = (double)p0_heroHealthOnTurn_[indx] / (double)nGames;
             }
             return toRet;
@@ -192,7 +192,7 @@ public class HSMainFrameModel implements HSGameEndEventListener {
         double[] getAveHeroHealth_p1() {
             int nGames = gameResults_.size();
             double[] toRet = new double[50];
-            for(int indx = 0; indx < 50; ++indx) {
+            for (int indx = 0; indx < 50; ++indx) {
                 toRet[indx] = (double)p1_heroHealthOnTurn_[indx] / (double)nGames;
             }
             return toRet;

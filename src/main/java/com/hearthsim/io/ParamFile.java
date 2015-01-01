@@ -66,7 +66,7 @@ public class ParamFile {
      */
     public void read(Path paramFilePath) throws HSInvalidParamFileException, IOException {
         try(BufferedReader br = Files.newBufferedReader(paramFilePath, StandardCharsets.UTF_8)) {
-            for(String line; (line = br.readLine()) != null; ) {
+            for (String line; (line = br.readLine()) != null; ) {
                 String cleanedLine = line.replaceAll("\\s+","");
                 if (cleanedLine.equals("") || cleanedLine.startsWith("#"))
                     continue;

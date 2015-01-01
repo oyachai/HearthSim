@@ -46,7 +46,7 @@ public class TestGame {
         Card[] cards1_ = new Card[numCardsInDeck_];
         Card[] cards2_ = new Card[numCardsInDeck_];
 
-        for(int i = 0; i < numCardsInDeck_; ++i) {
+        for (int i = 0; i < numCardsInDeck_; ++i) {
             byte attack = minionAttack;
             byte health = minionHealth;
             byte mana = minionMana;
@@ -107,7 +107,7 @@ public class TestGame {
         Card[] cards1_ = new Card[numCardsInDeck_];
         Card[] cards2_ = new Card[numCardsInDeck_];
 
-        for(int i = 0; i < numCardsInDeck_; ++i) {
+        for (int i = 0; i < numCardsInDeck_; ++i) {
             byte attack = minionAttack;
             byte health = minionHealth;
             byte mana = minionMana;
@@ -150,7 +150,7 @@ public class TestGame {
         cards1_.add(new Soulfire());
         cards2_.add(new Soulfire());
 
-        for(int i = cards1_.size(); i < numCardsInDeck_; ++i) {
+        for (int i = cards1_.size(); i < numCardsInDeck_; ++i) {
             byte attack = minionAttack;
             byte health = minionHealth;
             byte mana = minionMana;
@@ -193,7 +193,7 @@ public class TestGame {
         cards1_.add(new NoviceEngineer());
         cards2_.add(new NoviceEngineer());
 
-        for(int i = cards1_.size(); i < numCardsInDeck_; ++i) {
+        for (int i = cards1_.size(); i < numCardsInDeck_; ++i) {
             byte attack = minionAttack;
             byte health = minionHealth;
             byte mana = minionMana;
@@ -278,7 +278,7 @@ public class TestGame {
         Card[] cards1_ = new Card[numCardsInDeck_];
         Card[] cards2_ = new Card[numCardsInDeck_];
 
-        for(int i = 0; i < numCardsInDeck_; ++i) {
+        for (int i = 0; i < numCardsInDeck_; ++i) {
             byte attack = minionAttack;
             byte health = minionHealth;
             byte mana = minionMana;
@@ -286,7 +286,7 @@ public class TestGame {
             cards2_[i] = new Minion("" + i, (byte)9, (byte)1, (byte)1, (byte)1, (byte)1, (byte)1);
         }
 
-        for(int iter = 0; iter < 10; ++iter) {
+        for (int iter = 0; iter < 10; ++iter) {
             long t1 = System.nanoTime();
             Hero hero1 = new TestHero();
             Hero hero2 = new TestHero();
@@ -332,7 +332,7 @@ public class TestGame {
     private void assertActionTreeIsRepeatable(List<HearthActionBoardPair> history, Deck deck1, Deck deck2)
             throws HSException {
         HearthTreeNode current = null;
-        for(HearthActionBoardPair actionBoardPair : history) {
+        for (HearthActionBoardPair actionBoardPair : history) {
             if (current == null) {
                 current = new HearthTreeNode(actionBoardPair.board.deepCopy());
             } else {

@@ -55,7 +55,7 @@ public class TestBreadthBoardStateFactory {
     @Before
     public void setup() {
         Card cards[] = new Card[10];
-        for(int index = 0; index < 10; ++index) {
+        for (int index = 0; index < 10; ++index) {
             cards[index] = new TheCoin();
         }
 
@@ -364,7 +364,7 @@ public class TestBreadthBoardStateFactory {
         while(!unprocessed.isEmpty()) {
             current = unprocessed.remove(0);
             if (!current.isLeaf()) {
-                for(HearthTreeNode child : current.getChildren()) {
+                for (HearthTreeNode child : current.getChildren()) {
                     HearthTreeNode origin = new HearthTreeNode(current.data_.deepCopy(), current.getAction());
                     assertNotNull(child.getAction());
                     HearthTreeNode reproduced = child.getAction().perform(origin, null, null, false);
@@ -424,14 +424,14 @@ public class TestBreadthBoardStateFactory {
                     unprocessed.addAll(current.getChildren());
                 }
             } else {
-                for(HearthTreeNode child : current.getChildren()) {
+                for (HearthTreeNode child : current.getChildren()) {
                     assertDescendentsDoNotContainDuplicates(child);
                 }
             }
         }
 
-        for(int i = 0; i < states.size(); i++) {
-            for(int j = 0; j < states.size(); j++) {
+        for (int i = 0; i < states.size(); i++) {
+            for (int j = 0; j < states.size(); j++) {
                 if (i != j) {
                     assertNotEquals(states.get(i), states.get(j));
                 }

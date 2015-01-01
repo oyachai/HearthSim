@@ -115,7 +115,7 @@ public class PlayerModel implements DeepCopyable<PlayerModel> {
 
     public byte getSpellDamage() {
         byte spellDamage = 0;
-        for(Minion minion : minions)
+        for (Minion minion : minions)
             spellDamage += minion.getSpellDamage();
         return spellDamage;
     }
@@ -291,7 +291,7 @@ public class PlayerModel implements DeepCopyable<PlayerModel> {
 
         if (minions.size() > 0) {
             JSONArray array = new JSONArray();
-            for(Minion minion: minions) {
+            for (Minion minion: minions) {
                 array.put(minion.toJSON());
             }
             json.put("minions", array);
@@ -299,7 +299,7 @@ public class PlayerModel implements DeepCopyable<PlayerModel> {
 
         if (hand.size() > 0) {
             JSONArray array = new JSONArray();
-            for(Card card: hand) {
+            for (Card card: hand) {
                 array.put(card.toJSON());
             }
             json.put("hand", array);

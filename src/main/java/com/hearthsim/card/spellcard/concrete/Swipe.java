@@ -51,7 +51,7 @@ public class Swipe extends SpellDamage {
                     deckPlayer0, deckPlayer1, true, false);
         }
 
-        for(Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
+        for (Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
             if (minion != targetMinion) {
                 toRet = minion.takeDamage((byte)1, PlayerSide.CURRENT_PLAYER, side, toRet, deckPlayer0, deckPlayer1,
                         true, false);

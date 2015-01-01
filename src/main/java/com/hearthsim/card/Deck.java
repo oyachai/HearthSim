@@ -39,7 +39,7 @@ public class Deck implements DeepCopyable<Deck> {
      * Shuffles the deck
      */
     public void shuffle() {
-        for(int i = cards.size() - 1; i > 0; --i) {
+        for (int i = cards.size() - 1; i > 0; --i) {
             int j = (int)(Math.random() * (i + 1));
             Card ci = cards.get(i);
             cards.set(i, cards.get(j));

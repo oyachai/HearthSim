@@ -105,7 +105,7 @@ public class HearthTreeNode {
     }
 
     public void addChildren(ArrayList<HearthTreeNode> nodes) {
-        for(HearthTreeNode node : nodes) {
+        for (HearthTreeNode node : nodes) {
             this.addChild(node);
         }
     }
@@ -121,7 +121,7 @@ public class HearthTreeNode {
 
     public void setChildren(List<HearthTreeNode> children) {
         children_ = children;
-        for(HearthTreeNode node : children) {
+        for (HearthTreeNode node : children) {
             node.parent = this;
         }
     }
@@ -155,7 +155,7 @@ public class HearthTreeNode {
 
         NodeValPair maxNode = null;
         double maxSoFar = -1.e300;
-        for(final HearthTreeNode child : children_) {
+        for (final HearthTreeNode child : children_) {
             NodeValPair maxOfChild = child.findMaxOfFuncImpl(ai);
             if (maxOfChild.value_ > maxSoFar) {
                 maxSoFar = maxOfChild.value_;
@@ -172,7 +172,7 @@ public class HearthTreeNode {
         toRet = toRet + "\"children\": [";
         if (children_ != null) {
             boolean hasContent = false;
-            for(final HearthTreeNode child : children_) {
+            for (final HearthTreeNode child : children_) {
                 toRet = toRet + child + ", ";
                 hasContent = true;
             }

@@ -37,13 +37,13 @@ public class ChildNodeCreatorBase implements ChildNodeCreator {
         Minion tempMinion = null;
 
         // attack with characters
-        for(int attackerIndex = 0; attackerIndex < PlayerSide.CURRENT_PLAYER.getPlayer(boardStateNode)
+        for (int attackerIndex = 0; attackerIndex < PlayerSide.CURRENT_PLAYER.getPlayer(boardStateNode)
                 .getNumCharacters(); ++attackerIndex) {
             if (!boardStateNode.data_.getCurrentPlayerCharacter(attackerIndex).canAttack()) {
                 continue;
             }
 
-            for(final Integer integer : attackable) {
+            for (final Integer integer : attackable) {
                 int targetIndex = integer.intValue();
                 newState = new HearthTreeNode(boardStateNode.data_.deepCopy());
 
@@ -63,7 +63,7 @@ public class ChildNodeCreatorBase implements ChildNodeCreator {
         if (!nodes.isEmpty()) {
             newState = new HearthTreeNode(boardStateNode.data_.deepCopy());
             newState.setAction(new HearthAction(Verb.DO_NOT_ATTACK));
-            for(Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(newState).getMinions()) {
+            for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(newState).getMinions()) {
                 minion.hasAttacked(true);
             }
             newState.data_.getCurrentPlayerHero().hasAttacked(true);
@@ -83,12 +83,12 @@ public class ChildNodeCreatorBase implements ChildNodeCreator {
         HearthTreeNode newState = null;
 
         int mana = boardStateNode.data_.getCurrentPlayer().getMana();
-        for(int cardIndex = 0; cardIndex < boardStateNode.data_.getNumCards_hand(); ++cardIndex) {
+        for (int cardIndex = 0; cardIndex < boardStateNode.data_.getNumCards_hand(); ++cardIndex) {
             card = boardStateNode.data_.getCurrentPlayerCardHand(cardIndex);
             if (card.getManaCost(PlayerSide.CURRENT_PLAYER, boardStateNode) <= mana && !card.hasBeenUsed()) {
 
                 // we can use this card! Let's try using it on everything
-                for(int targetIndex = 0; targetIndex <= PlayerSide.CURRENT_PLAYER.getPlayer(boardStateNode)
+                for (int targetIndex = 0; targetIndex <= PlayerSide.CURRENT_PLAYER.getPlayer(boardStateNode)
                         .getNumMinions(); ++targetIndex) {
                     targetMinion = boardStateNode.data_.getCurrentPlayerCharacter(targetIndex);
 
@@ -103,7 +103,7 @@ public class ChildNodeCreatorBase implements ChildNodeCreator {
                     }
                 }
 
-                for(int targetIndex = 0; targetIndex <= PlayerSide.WAITING_PLAYER.getPlayer(boardStateNode)
+                for (int targetIndex = 0; targetIndex <= PlayerSide.WAITING_PLAYER.getPlayer(boardStateNode)
                         .getNumMinions(); ++targetIndex) {
                     targetMinion = boardStateNode.data_.getWaitingPlayerCharacter(targetIndex);
 
@@ -124,7 +124,7 @@ public class ChildNodeCreatorBase implements ChildNodeCreator {
         if (!nodes.isEmpty()) {
             newState = new HearthTreeNode(boardStateNode.data_.deepCopy());
             newState.setAction(new HearthAction(Verb.DO_NOT_USE_CARD));
-            for(Card c : newState.data_.getCurrentPlayerHand()) {
+            for (Card c : newState.data_.getCurrentPlayerHand()) {
                 c.hasBeenUsed(true);
             }
             nodes.add(newState);
@@ -146,7 +146,7 @@ public class ChildNodeCreatorBase implements ChildNodeCreator {
         Minion copiedTargetMinion = null;
 
         // Case0: Decided to use the hero ability -- Use it on everything!
-        for(int i = 0; i <= PlayerSide.CURRENT_PLAYER.getPlayer(boardStateNode).getNumMinions(); ++i) {
+        for (int i = 0; i <= PlayerSide.CURRENT_PLAYER.getPlayer(boardStateNode).getNumMinions(); ++i) {
             Minion target = boardStateNode.data_.getCurrentPlayerCharacter(i);
 
             if (player.canBeUsedOn(PlayerSide.CURRENT_PLAYER, target, boardStateNode.data_)) {
@@ -163,7 +163,7 @@ public class ChildNodeCreatorBase implements ChildNodeCreator {
             }
         }
 
-        for(int i = 0; i <= PlayerSide.WAITING_PLAYER.getPlayer(boardStateNode).getNumMinions(); ++i) {
+        for (int i = 0; i <= PlayerSide.WAITING_PLAYER.getPlayer(boardStateNode).getNumMinions(); ++i) {
             Minion target = boardStateNode.data_.getWaitingPlayerCharacter(i);
             if (player.canBeUsedOn(PlayerSide.WAITING_PLAYER, target, boardStateNode.data_)) {
 

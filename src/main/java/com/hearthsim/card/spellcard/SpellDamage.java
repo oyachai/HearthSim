@@ -64,7 +64,7 @@ public class SpellDamage extends SpellCard {
     public HearthTreeNode attackAllMinionsOnSide(PlayerSide targetMinionPlayerSide, HearthTreeNode boardState,
             Deck deckPlayer0, Deck deckPlayer1) throws HSException {
         if (boardState != null) {
-            for(Minion minion : targetMinionPlayerSide.getPlayer(boardState).getMinions()) {
+            for (Minion minion : targetMinionPlayerSide.getPlayer(boardState).getMinions()) {
                 boardState = this.attack(targetMinionPlayerSide, minion, boardState, deckPlayer0, deckPlayer1);
             }
         }

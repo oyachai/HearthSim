@@ -91,7 +91,7 @@ public class Game {
         gameHistory.add(new HearthActionBoardPair(null, boardModel));
 
         GameResult gameResult;
-        for(int turnCount = 0; turnCount < maxTurns_; ++turnCount) {
+        for (int turnCount = 0; turnCount < maxTurns_; ++turnCount) {
             log.debug("starting turn " + turnCount);
             long turnStart = System.currentTimeMillis();
 
@@ -165,11 +165,11 @@ public class Game {
         toRet.data_.resetHand();
         toRet.data_.resetMinions();
 
-        for(Minion targetMinion : toRet.data_.getCurrentPlayer().getMinions()) {
+        for (Minion targetMinion : toRet.data_.getCurrentPlayer().getMinions()) {
             toRet = targetMinion.startTurn(PlayerSide.CURRENT_PLAYER, toRet, toRet.data_.getCurrentPlayer()
                     .getDeck(), toRet.data_.getWaitingPlayer().getDeck());
         }
-        for(Minion targetMinion : toRet.data_.getWaitingPlayer().getMinions()) {
+        for (Minion targetMinion : toRet.data_.getWaitingPlayer().getMinions()) {
             toRet = targetMinion.startTurn(PlayerSide.WAITING_PLAYER, toRet, toRet.data_.getCurrentPlayer()
                     .getDeck(), toRet.data_.getWaitingPlayer().getDeck());
         }
@@ -197,7 +197,7 @@ public class Game {
                 .endTurn(PlayerSide.WAITING_PLAYER, toRet, deckPlayer0, deckPlayer1);
 
         // TODO: The minions should trigger end-of-turn effects in the order that they were played
-        for(int index = 0; index < toRet.data_.getCurrentPlayer().getMinions().size(); ++index) {
+        for (int index = 0; index < toRet.data_.getCurrentPlayer().getMinions().size(); ++index) {
             CardEndTurnInterface targetMinion = toRet.data_.getCurrentPlayer().getMinions().get(index);
             try {
                 toRet = targetMinion.endTurn(PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1);
@@ -205,7 +205,7 @@ public class Game {
                 e.printStackTrace();
             }
         }
-        for(int index = 0; index < toRet.data_.getWaitingPlayer().getMinions().size(); ++index) {
+        for (int index = 0; index < toRet.data_.getWaitingPlayer().getMinions().size(); ++index) {
             CardEndTurnInterface targetMinion = toRet.data_.getWaitingPlayer().getMinions().get(index);
             try {
                 toRet = targetMinion.endTurn(PlayerSide.WAITING_PLAYER, toRet, deckPlayer0, deckPlayer1);

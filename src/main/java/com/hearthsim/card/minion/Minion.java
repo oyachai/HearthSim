@@ -728,7 +728,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
             EnumSet<BattlecryTargetType> targets = ((MinionTargetableBattlecry)this).getBattlecryTargets();
 
             // Battlecry if available
-            for(BattlecryTargetType btt : targets) {
+            for (BattlecryTargetType btt : targets) {
                 switch (btt) {
                     case ENEMY_HERO:
                         toRet = this.useTargetableBattlecry(PlayerSide.WAITING_PLAYER,
@@ -739,42 +739,42 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
                                 PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getHero(), toRet, deckPlayer0, deckPlayer1);
                         break;
                     case ENEMY_MINIONS:
-                        for(Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
+                        for (Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
                             if (!minion.getStealthed())
                                 toRet = this.useTargetableBattlecry(PlayerSide.WAITING_PLAYER, minion, toRet, deckPlayer0,
                                         deckPlayer1);
                         }
                         break;
                     case FRIENDLY_MINIONS:
-                        for(Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
+                        for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
                             if (minion != this)
                                 toRet = this.useTargetableBattlecry(PlayerSide.CURRENT_PLAYER, minion, toRet, deckPlayer0,
                                         deckPlayer1);
                         }
                         break;
                     case ENEMY_BEASTS:
-                        for(Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
+                        for (Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
                             if (minion.getTribe() == MinionTribe.BEAST)
                                 toRet = this.useTargetableBattlecry(PlayerSide.WAITING_PLAYER, minion, toRet, deckPlayer0,
                                         deckPlayer1);
                         }
                         break;
                     case FRIENDLY_BEASTS:
-                        for(Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
+                        for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
                             if (minion != this && minion.getTribe() == MinionTribe.BEAST)
                                 toRet = this.useTargetableBattlecry(PlayerSide.CURRENT_PLAYER, minion, toRet, deckPlayer0,
                                         deckPlayer1);
                         }
                         break;
                     case ENEMY_MURLOCS:
-                        for(Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
+                        for (Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
                             if (minion.getTribe() == MinionTribe.MURLOC)
                                 toRet = this.useTargetableBattlecry(PlayerSide.WAITING_PLAYER, minion, toRet, deckPlayer0,
                                         deckPlayer1);
                         }
                         break;
                     case FRIENDLY_MURLOCS:
-                        for(Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
+                        for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
                             if (minion != this && minion.getTribe() == MinionTribe.MURLOC)
                                 toRet = this.useTargetableBattlecry(PlayerSide.CURRENT_PLAYER, minion, toRet, deckPlayer0,
                                         deckPlayer1);
@@ -923,13 +923,13 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
             matches.add((MinionSummonedInterface)hero);
         }
 
-        for(Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
+        for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
             if (!minion.isSilenced() && minion instanceof MinionSummonedInterface) {
                 matches.add((MinionSummonedInterface)minion);
             }
         }
 
-        for(MinionSummonedInterface match : matches) {
+        for (MinionSummonedInterface match : matches) {
             toRet = match.minionSummonEvent(PlayerSide.CURRENT_PLAYER, targetSide, this,
                     toRet, deckPlayer0, deckPlayer1);
         }
@@ -940,13 +940,13 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
             matches.add((MinionSummonedInterface)hero);
         }
 
-        for(Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
+        for (Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
             if (!minion.isSilenced() && minion instanceof MinionSummonedInterface) {
                 matches.add((MinionSummonedInterface)minion);
             }
         }
 
-        for(MinionSummonedInterface match : matches) {
+        for (MinionSummonedInterface match : matches) {
             toRet = match.minionSummonEvent(PlayerSide.WAITING_PLAYER, targetSide, this, toRet, deckPlayer0,
                     deckPlayer1);
         }
@@ -964,13 +964,13 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
             matches.add((MinionPlacedInterface)hero);
         }
 
-        for(Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
+        for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
             if (!minion.isSilenced() && minion instanceof MinionPlacedInterface) {
                 matches.add((MinionPlacedInterface)minion);
             }
         }
 
-        for(MinionPlacedInterface match : matches) {
+        for (MinionPlacedInterface match : matches) {
             toRet = match.minionPlacedEvent(PlayerSide.CURRENT_PLAYER, targetSide, this,
                     toRet, deckPlayer0, deckPlayer1);
         }
@@ -981,13 +981,13 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
             matches.add((MinionPlacedInterface)hero);
         }
 
-        for(Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
+        for (Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
             if (!minion.isSilenced() && minion instanceof MinionPlacedInterface) {
                 matches.add((MinionPlacedInterface)minion);
             }
         }
 
-        for(MinionPlacedInterface match : matches) {
+        for (MinionPlacedInterface match : matches) {
             toRet = match.minionPlacedEvent(PlayerSide.WAITING_PLAYER, targetSide, this, toRet, deckPlayer0,
                     deckPlayer1);
         }
@@ -1005,13 +1005,13 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
             matches.add((MinionPlayedInterface)hero);
         }
 
-        for(Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
+        for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
             if (!minion.isSilenced() && minion instanceof MinionPlayedInterface) {
                 matches.add((MinionPlayedInterface)minion);
             }
         }
 
-        for(MinionPlayedInterface match : matches) {
+        for (MinionPlayedInterface match : matches) {
             toRet = match.minionPlayedEvent(PlayerSide.CURRENT_PLAYER, targetSide, this,
                     toRet, deckPlayer0, deckPlayer1);
         }
@@ -1022,13 +1022,13 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
             matches.add((MinionPlayedInterface)hero);
         }
 
-        for(Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
+        for (Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
             if (!minion.isSilenced() && minion instanceof MinionPlayedInterface) {
                 matches.add((MinionPlayedInterface)minion);
             }
         }
 
-        for(MinionPlayedInterface match : matches) {
+        for (MinionPlayedInterface match : matches) {
             toRet = match.minionPlayedEvent(PlayerSide.WAITING_PLAYER, targetSide, this, toRet, deckPlayer0,
                     deckPlayer1);
         }
@@ -1046,13 +1046,13 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
             matches.add((MinionDamagedInterface)hero);
         }
 
-        for(Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
+        for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
             if (!minion.isSilenced() && minion instanceof MinionDamagedInterface) {
                 matches.add((MinionDamagedInterface)minion);
             }
         }
 
-        for(MinionDamagedInterface match : matches) {
+        for (MinionDamagedInterface match : matches) {
             toRet = match.minionDamagedEvent(PlayerSide.CURRENT_PLAYER, targetSide, this,
                     toRet, deckPlayer0, deckPlayer1);
         }
@@ -1063,13 +1063,13 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
             matches.add((MinionDamagedInterface)hero);
         }
 
-        for(Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
+        for (Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
             if (!minion.isSilenced() && minion instanceof MinionDamagedInterface) {
                 matches.add((MinionDamagedInterface)minion);
             }
         }
 
-        for(MinionDamagedInterface match : matches) {
+        for (MinionDamagedInterface match : matches) {
             toRet = match.minionDamagedEvent(PlayerSide.WAITING_PLAYER, targetSide, this, toRet, deckPlayer0,
                     deckPlayer1);
         }
@@ -1087,13 +1087,13 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
             matches.add((MinionDeadInterface)hero);
         }
 
-        for(Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
+        for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
             if (!minion.isSilenced() && minion instanceof MinionDeadInterface) {
                 matches.add((MinionDeadInterface)minion);
             }
         }
 
-        for(MinionDeadInterface match : matches) {
+        for (MinionDeadInterface match : matches) {
             toRet = match.minionDeadEvent(PlayerSide.CURRENT_PLAYER, deadMinionPlayerSide, deadMinion,
                     toRet, deckPlayer0, deckPlayer1);
         }
@@ -1104,13 +1104,13 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
             matches.add((MinionDeadInterface)hero);
         }
 
-        for(Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
+        for (Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
             if (!minion.isSilenced() && minion instanceof MinionDeadInterface) {
                 matches.add((MinionDeadInterface)minion);
             }
         }
 
-        for(MinionDeadInterface match : matches) {
+        for (MinionDeadInterface match : matches) {
             toRet = match.minionDeadEvent(PlayerSide.WAITING_PLAYER, deadMinionPlayerSide, deadMinion, toRet, deckPlayer0,
                     deckPlayer1);
         }
@@ -1128,13 +1128,13 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
             matches.add((MinionHealedInterface)hero);
         }
 
-        for(Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
+        for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
             if (!minion.isSilenced() && minion instanceof MinionHealedInterface) {
                 matches.add((MinionHealedInterface)minion);
             }
         }
 
-        for(MinionHealedInterface match : matches) {
+        for (MinionHealedInterface match : matches) {
             toRet = match.minionHealedEvent(PlayerSide.CURRENT_PLAYER, targetSide, this,
                     toRet, deckPlayer0, deckPlayer1);
         }
@@ -1145,13 +1145,13 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
             matches.add((MinionHealedInterface)hero);
         }
 
-        for(Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
+        for (Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
             if (!minion.isSilenced() && minion instanceof MinionHealedInterface) {
                 matches.add((MinionHealedInterface)minion);
             }
         }
 
-        for(MinionHealedInterface match : matches) {
+        for (MinionHealedInterface match : matches) {
             toRet = match.minionHealedEvent(PlayerSide.WAITING_PLAYER, targetSide, this, toRet, deckPlayer0,
                     deckPlayer1);
         }

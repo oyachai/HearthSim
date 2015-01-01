@@ -44,7 +44,7 @@ public class TestPriest {
         board.data_.placeCardHandWaitingPlayer(minion1_0);
 
         Card cards[] = new Card[10];
-        for(int index = 0; index < 10; ++index) {
+        for (int index = 0; index < 10; ++index) {
             cards[index] = new TheCoin();
         }
 

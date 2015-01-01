@@ -92,13 +92,13 @@ public class HearthAction {
                 break;
             }
             case DO_NOT_USE_CARD: {
-                for(Card c : boardState.data_.getCurrentPlayerHand()) {
+                for (Card c : boardState.data_.getCurrentPlayerHand()) {
                     c.hasBeenUsed(true);
                 }
                 break;
             }
             case DO_NOT_ATTACK: {
-                for(Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(boardState).getMinions()) {
+                for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(boardState).getMinions()) {
                     minion.hasAttacked(true);
                 }
                 boardState.data_.getCurrentPlayerHero().hasAttacked(true);

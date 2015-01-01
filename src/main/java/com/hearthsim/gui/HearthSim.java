@@ -908,7 +908,7 @@ public class HearthSim implements HSSimulationEventListener {
         } else {
             return;
         }
-        for(int indx = 0; indx < 50; ++indx) {
+        for (int indx = 0; indx < 50; ++indx) {
             currentShownPlot_.addPoint(0, indx, data0[indx], true);
             currentShownPlot_.addPoint(1, indx, data1[indx], true);
         }

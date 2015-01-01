@@ -203,7 +203,7 @@ public class BruteForceSearchAI implements ArtificialPlayer {
                 // Continue the turn
                 List<HearthActionBoardPair> nextMoves = this.playTurn(turn, allEffectsDone.data_);
                 if (nextMoves.size() > 0) {
-                    for( HearthActionBoardPair actionBoard : nextMoves) {
+                    for ( HearthActionBoardPair actionBoard : nextMoves) {
                         retList.add(actionBoard);
                     }
                 }

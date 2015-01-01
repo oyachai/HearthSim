@@ -35,7 +35,7 @@ public class TestArcaneIntellect {
 
         int numCards = 10;
         Card cards[] = new Card[numCards];
-        for(int index = 0; index < numCards; ++index) {
+        for (int index = 0; index < numCards; ++index) {
             cards[index] = new BloodfenRaptor();
         }
 
@@ -64,7 +64,7 @@ public class TestArcaneIntellect {
     public void testWithFullDeck() throws HSException {
 
         Card cards[] = new Card[10];
-        for(int index = 0; index < 10; ++index) {
+        for (int index = 0; index < 10; ++index) {
             cards[index] = new TheCoin();
         }
 
@@ -99,7 +99,7 @@ public class TestArcaneIntellect {
     public void testWithNearlyEmptyDeck() throws HSException {
 
         Card cards[] = new Card[1];
-        for(int index = 0; index < 1; ++index) {
+        for (int index = 0; index < 1; ++index) {
             cards[index] = new TheCoin();
         }
 
@@ -133,7 +133,7 @@ public class TestArcaneIntellect {
 
         int numCards = 10;
         Card cards[] = new Card[numCards];
-        for(int index = 0; index < numCards; ++index) {
+        for (int index = 0; index < numCards; ++index) {
             cards[index] = new BloodfenRaptor();
         }
 
@@ -161,7 +161,7 @@ public class TestArcaneIntellect {
 
         int numCards = 10;
         Card cards[] = new Card[numCards];
-        for(int index = 0; index < numCards; ++index) {
+        for (int index = 0; index < numCards; ++index) {
             cards[index] = new BloodfenRaptor();
         }
 
@@ -189,7 +189,7 @@ public class TestArcaneIntellect {
 
         int numCards = 10;
         Card cards[] = new Card[numCards];
-        for(int index = 0; index < numCards; ++index) {
+        for (int index = 0; index < numCards; ++index) {
             cards[index] = new BloodfenRaptor();
         }
 

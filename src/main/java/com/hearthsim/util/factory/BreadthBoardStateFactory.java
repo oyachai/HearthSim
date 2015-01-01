@@ -55,7 +55,7 @@ public class BreadthBoardStateFactory extends BoardStateFactoryBase {
                 }
                 current.clearChildren(); // TODO suboptimal but we need to remove existing children so we can check for duplicates
 
-                for(HearthTreeNode child : children) {
+                for (HearthTreeNode child : children) {
                     childCount++;
                     if (!(child instanceof StopNode)) {
                         if (dupeSkipOn) {
@@ -104,7 +104,7 @@ public class BreadthBoardStateFactory extends BoardStateFactoryBase {
             root.setBestChildScore(score);
         } else {
             HearthTreeNode best = null;
-            for(HearthTreeNode child : root.getChildren()) {
+            for (HearthTreeNode child : root.getChildren()) {
                 this.processScoresForTree(child, ai, scoringPruning);
 
                 if (best == null || best.getBestChildScore() < child.getBestChildScore()) {

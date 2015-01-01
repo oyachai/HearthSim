@@ -35,7 +35,7 @@ public class TestAcolyteOfPain {
     @Before
     public void setup() throws HSException {
         Card cards[] = new Card[10];
-        for(int index = 0; index < 10; ++index) {
+        for (int index = 0; index < 10; ++index) {
             cards[index] = new BloodfenRaptor();
         }
 
