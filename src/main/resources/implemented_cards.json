@@ -264,6 +264,10 @@
         "class": "com.hearthsim.card.spellcard.concrete.DeadlyPoison"
     },
     {
+        "name": "Death's Bite",
+        "class": "com.hearthsim.card.weapon.concrete.DeathsBite"
+    },
+    {
         "name": "Defender of Argus",
         "class": "com.hearthsim.card.minion.concrete.DefenderOfArgus"
     },

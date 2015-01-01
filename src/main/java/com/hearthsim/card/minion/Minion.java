@@ -76,7 +76,6 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 
     protected byte spellDamage_;
 
-    protected DeathrattleAction deathrattleAction_;
     protected AttackAction attackAction_;
 
     protected MinionTribe tribe = MinionTribe.NONE;
@@ -136,7 +135,6 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         maxHealth_ = maxHealth;
         destroyOnTurnStart_ = false;
         destroyOnTurnEnd_ = false;
-        deathrattleAction_ = null;
         attackAction_ = null;
 
         auraAttack_ = 0;
@@ -153,8 +151,8 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
             byte auraAttack, byte baseHealth, byte maxHealth, byte auraHealth, byte spellDamage, boolean taunt,
             boolean divineShield, boolean windFury, boolean charge, boolean hasAttacked, boolean hasWindFuryAttacked,
             boolean frozen, boolean silenced, boolean stealthed, boolean heroTargetable, boolean summoned,
-            boolean transformed, boolean destroyOnTurnStart, boolean destroyOnTurnEnd,
-            DeathrattleAction deathrattleAction, AttackAction attackAction, boolean isInHand, boolean hasBeenUsed) {
+            boolean transformed, boolean destroyOnTurnStart, boolean destroyOnTurnEnd, AttackAction attackAction,
+            boolean isInHand, boolean hasBeenUsed) {
         super(name, mana, hasBeenUsed, isInHand, (byte)0);
         attack_ = attack;
         health_ = health;
@@ -172,7 +170,6 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         maxHealth_ = maxHealth;
         destroyOnTurnStart_ = destroyOnTurnStart;
         destroyOnTurnEnd_ = destroyOnTurnEnd;
-        deathrattleAction_ = deathrattleAction;
         attackAction_ = attackAction;
 
         auraAttack_ = auraAttack;
@@ -323,14 +320,6 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 
     public boolean isSilenced() {
         return silenced_;
-    }
-
-    public boolean hasDeathrattle() {
-        return deathrattleAction_ != null;
-    }
-
-    public void setDeathrattle(DeathrattleAction action) {
-        deathrattleAction_ = action;
     }
 
     public byte getAuraAttack() {

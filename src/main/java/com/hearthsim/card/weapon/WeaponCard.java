@@ -4,6 +4,7 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.ImplementedCardList;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -107,7 +108,11 @@ public abstract class WeaponCard extends Card {
 
         HearthTreeNode toRet = boardState;
         if (toRet != null) {
-            toRet.data_.getCurrentPlayerHero().setWeapon(this);
+            DeathrattleAction weaponDeathrattle = toRet.data_.getCurrentPlayerHero().setWeapon(this);
+            if(weaponDeathrattle != null) {
+                // TODO this is not the right minion. We actually want to send the weapon through.
+                toRet = weaponDeathrattle.performAction(targetMinion, side, toRet, deckPlayer0, deckPlayer1);
+            }
             this.hasBeenUsed(true);
         }
 

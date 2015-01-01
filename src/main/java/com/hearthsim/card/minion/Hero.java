@@ -3,6 +3,7 @@ package com.hearthsim.card.minion;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.ImplementedCardList;
 import com.hearthsim.card.weapon.WeaponCard;
+import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
@@ -110,7 +111,11 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
         HearthTreeNode toRet = super.attack(targetMinionPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1);
         if (toRet != null && this.getWeapon() != null) {
             this.weapon.afterAttack(targetMinionPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1);
-            this.checkForWeaponDeath();
+            DeathrattleAction weaponDeathrattle = this.checkForWeaponDeath();
+            if(weaponDeathrattle != null) {
+                // TODO this should send the weapon card through and not the hero
+                toRet = weaponDeathrattle.performAction(this, PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1);
+            }
         }
 
         return toRet;
@@ -265,28 +270,35 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
         return attack;
     }
 
-    public void setWeapon(WeaponCard weapon) {
+    public DeathrattleAction setWeapon(WeaponCard weapon) {
         if (weapon == null) {
             throw new RuntimeException("use 'destroy weapon' method if trying to remove weapon.");
-        } else {
-            this.weapon = weapon;
         }
+
+        DeathrattleAction action = (this.weapon != null && this.weapon.hasDeathrattle()) ? this.weapon.getDeathrattle() : null;
+        this.weapon = weapon;
+        return action;
     }
 
     public WeaponCard getWeapon() {
         return weapon;
     }
 
-    public void destroyWeapon() {
+    public DeathrattleAction destroyWeapon() {
         if (weapon != null) {
+            DeathrattleAction action = weapon.hasDeathrattle() ? weapon.getDeathrattle() : null;
             weapon = null;
+            return action;
         }
+        return null;
     }
 
-    public void checkForWeaponDeath() {
+    public DeathrattleAction checkForWeaponDeath() {
         if (weapon != null && weapon.getWeaponCharge() == 0) {
-            this.destroyWeapon();
+            return this.destroyWeapon();
         }
+
+        return null;
     }
 
     @Override

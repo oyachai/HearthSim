@@ -2,6 +2,7 @@ package com.hearthsim.card;
 
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
@@ -37,6 +38,8 @@ public class Card implements DeepCopyable<Card> {
      * Overload handling
      */
     protected byte overload;
+
+    protected DeathrattleAction deathrattleAction_;
 
     /**
      * Constructor
@@ -471,5 +474,17 @@ public class Card implements DeepCopyable<Card> {
 
     public boolean triggersOverload() {
         return overload > 0;
+    }
+
+    public boolean hasDeathrattle() {
+        return deathrattleAction_ != null;
+    }
+
+    public DeathrattleAction getDeathrattle() {
+        return deathrattleAction_;
+    }
+
+    public void setDeathrattle(DeathrattleAction action) {
+        deathrattleAction_ = action;
     }
 }
