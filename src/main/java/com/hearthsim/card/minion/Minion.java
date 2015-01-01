@@ -51,6 +51,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
     protected boolean divineShield_;
     protected boolean windFury_;
     protected boolean charge_;
+    protected boolean immune_ = false; // Ignores damage
 
     protected boolean hasAttacked_;
     protected boolean hasWindFuryAttacked_;
@@ -387,6 +388,14 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         stealthed_ = value;
     }
 
+    public boolean getImmune() {
+        return immune_;
+    }
+
+    public void setImmune(boolean immune) {
+        immune_ = immune;
+    }
+
     public boolean getPlacementImportant() {
         return placementImportant_;
     }
@@ -469,17 +478,21 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
     public HearthTreeNode takeDamage(byte damage, PlayerSide attackPlayerSide, PlayerSide thisPlayerSide,
             HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean isSpellDamage,
             boolean handleMinionDeath) throws HSException {
-        if (!divineShield_) {
-            byte totalDamage = isSpellDamage ? (byte)(damage + boardState.data_.getSpellDamage(attackPlayerSide))
-                    : damage;
-            health_ = (byte)(health_ - totalDamage);
-
-            return this.notifyMinionDamaged(boardState, thisPlayerSide, deckPlayer0, deckPlayer1);
-        } else {
+        if (divineShield_) {
             if (damage > 0)
                 divineShield_ = false;
             return boardState;
         }
+
+        if (immune_) {
+            return boardState;
+        }
+
+        byte totalDamage = isSpellDamage ? (byte) (damage + boardState.data_.getSpellDamage(attackPlayerSide))
+            : damage;
+        health_ = (byte) (health_ - totalDamage);
+
+        return this.notifyMinionDamaged(boardState, thisPlayerSide, deckPlayer0, deckPlayer1);
     }
 
     /**
