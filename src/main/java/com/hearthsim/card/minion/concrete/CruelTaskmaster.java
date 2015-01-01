@@ -1,6 +1,7 @@
 package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.Deck;
+import com.hearthsim.card.minion.BattlecryTargetType;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionTargetableBattlecry;
 import com.hearthsim.exception.HSException;
