@@ -428,6 +428,10 @@
         "class": "com.hearthsim.card.minion.concrete.GoldshireFootman"
     },
     {
+        "name": "Gorehowl",
+        "class": "com.hearthsim.card.weapon.concrete.Gorehowl"
+    },
+    {
         "name": "Grimscale Oracle",
         "class": "com.hearthsim.card.minion.concrete.GrimscaleOracle"
     },
