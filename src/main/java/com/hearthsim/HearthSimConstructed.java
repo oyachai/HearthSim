@@ -18,7 +18,7 @@ import java.nio.file.Path;
 
 /**
  * A Game setup to play a constructed deck vs constructed deck games.
- * 
+ *
  * The constructed decks must be specified in a DeckListFile.
  */
 public class HearthSimConstructed extends HearthSimBase {

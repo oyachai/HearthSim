@@ -10,7 +10,7 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 /**
  * Northshire Cleric
- * 
+ *
  * @author oyachai
  *
  * This minion is a 1 mana, 1 attack, 3 health minion.

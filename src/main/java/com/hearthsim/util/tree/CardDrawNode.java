@@ -8,7 +8,7 @@ import com.hearthsim.util.HearthAction;
 
 /**
  * A card draw triggers a stop
- * 
+ *
  * Note: a card draw triggers a stop only when it is a card that you draw on your turn.
  * Any effects that draws a card for the opponent should just draw the card right away.
  *

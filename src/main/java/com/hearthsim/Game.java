@@ -27,10 +27,10 @@ public class Game {
         final static int maxTurns_ = 100;
 
     BoardModel boardModel;
-    
+
     PlayerModel playerGoingFirst;
     PlayerModel playerGoingSecond;
-    
+
     ArtificialPlayer aiForPlayerGoingFirst;
     ArtificialPlayer aiForPlayerGoingSecond;
 
@@ -45,7 +45,7 @@ public class Game {
         public Game(PlayerModel playerModel0, PlayerModel playerModel1, ArtificialPlayer ai0, ArtificialPlayer ai1, int firstPlayerId) {
             playerGoingFirst = playerModel0;
         playerGoingSecond = playerModel1;
-        
+
         aiForPlayerGoingFirst = ai0;
         aiForPlayerGoingSecond = ai1;
 

@@ -9,7 +9,7 @@ import com.hearthsim.util.tree.HearthTreeNode;
 public class DeathrattleDamageAll extends DeathrattleAction {
 
     private final byte damage_;
-    
+
     public DeathrattleDamageAll(byte damage) {
         damage_ = damage;
     }

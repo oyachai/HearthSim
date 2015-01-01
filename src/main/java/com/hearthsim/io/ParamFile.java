@@ -15,17 +15,17 @@ import java.util.TreeSet;
 
 /**
  * Class to read in a HearthSim parameter file
- * 
+ *
  * Format of the file:
- * 
+ *
  * ------------------------------------------------
  * Param1Name = Value1
  * Pardm2Name = Value2
  * ...
- * 
+ *
  * #ParamXName = ValueX : This line is ignored because of the # at the beginning of the line
  * ------------------------------------------------
- * 
+ *
  *
  */
 public class ParamFile {

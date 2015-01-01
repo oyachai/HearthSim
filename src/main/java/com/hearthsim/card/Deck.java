@@ -92,12 +92,12 @@ public class Deck implements DeepCopyable<Deck> {
 
         if (this.getClass() != other.getClass())
             return false;
-        
+
         Deck oD = (Deck)other;
         for (int indx = 0; indx < cards.size(); ++indx) {
                 if (!cards.get(indx).equals(oD.cards.get(indx))) return false;
         }
-        
+
         return true;
     }
 

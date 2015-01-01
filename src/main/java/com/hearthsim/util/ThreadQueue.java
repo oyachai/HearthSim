@@ -16,7 +16,7 @@ public class ThreadQueue {
     public void queue(Runnable r) {
         queue.addLast(r);
     }
-    
+
     public void runQueue() throws InterruptedException {
         for (int i=0; i<nThreads; i++) {
             threads[i] = new PoolWorker();
@@ -26,7 +26,7 @@ public class ThreadQueue {
             threads[i].join();
         }
     }
-    
+
     private class PoolWorker extends Thread {
 
         @Override

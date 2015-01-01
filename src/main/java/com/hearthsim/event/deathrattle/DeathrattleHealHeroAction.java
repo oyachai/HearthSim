@@ -10,7 +10,7 @@ public class DeathrattleHealHeroAction extends DeathrattleAction {
 
     private final byte amount_;
     private final boolean targetEnemyHero_;
-    
+
     public DeathrattleHealHeroAction(byte amount, boolean targetEnemyHero) {
         amount_ = amount;
         targetEnemyHero_ = targetEnemyHero;

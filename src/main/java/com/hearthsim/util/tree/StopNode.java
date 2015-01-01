@@ -4,7 +4,7 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.exception.HSException;
 
 /**
- * A tree node that stops AI from picking the "best" outcome from its branches. 
+ * A tree node that stops AI from picking the "best" outcome from its branches.
  *
  */
 public abstract class StopNode extends HearthTreeNode {

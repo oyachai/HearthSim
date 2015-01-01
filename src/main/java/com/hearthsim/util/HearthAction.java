@@ -12,7 +12,7 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 /**
  * A class representing an action that a player can take
- * 
+ *
  *
  */
 public class HearthAction {

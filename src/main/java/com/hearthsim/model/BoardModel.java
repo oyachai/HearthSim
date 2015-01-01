@@ -79,11 +79,11 @@ public class BoardModel implements DeepCopyable<BoardModel> {
         this(new PlayerModel((byte)0, "player0", new TestHero("hero0", (byte)30), deckPlayer0),
              new PlayerModel((byte)1, "player1", new TestHero("hero1", (byte)30), deckPlayer1));
     }
-    
+
     public BoardModel(Hero p0_hero, Hero p1_hero) {
         this(new PlayerModel((byte)0, "p0",p0_hero,new Deck()), new PlayerModel((byte)1, "p1",p1_hero,new Deck()));
     }
-    
+
     public BoardModel(PlayerModel currentPlayerModel, PlayerModel waitingPlayerModel) {
 
         this.currentPlayer = currentPlayerModel;
@@ -365,7 +365,7 @@ public class BoardModel implements DeepCopyable<BoardModel> {
     public boolean isAlive(PlayerSide playerSide) {
         return modelForSide(playerSide).getHero().getHealth() > 0;
     }
-    
+
     public boolean isLethalState() {
         return !this.isAlive(PlayerSide.CURRENT_PLAYER) || !this.isAlive(PlayerSide.WAITING_PLAYER);
     }
@@ -509,7 +509,7 @@ public class BoardModel implements DeepCopyable<BoardModel> {
             newBoard.allMinionsFIFOList_.add(new MinionPlayerPair(newPlayerModel.getMinions().get(indexOfOldMinion), newPlayerModel));
 
         }
-        
+
         return newBoard;
     }
 
@@ -546,7 +546,7 @@ public class BoardModel implements DeepCopyable<BoardModel> {
 
         json.put("currentPlayer", currentPlayer.toJSON());
         json.put("waitingPlayer", waitingPlayer.toJSON());
-        
+
         return json;
     }
 

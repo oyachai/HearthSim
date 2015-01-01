@@ -46,7 +46,7 @@ public class SortedListModel<E extends Comparable> extends AbstractListModel<E> 
     public Iterator<E> iterator() {
         return model.iterator();
     }
-  
+
     public boolean removeElement(E element) {
         boolean removed = model.remove(element);
         if (removed) {

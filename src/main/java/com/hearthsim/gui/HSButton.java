@@ -15,7 +15,7 @@ public class HSButton extends JButton {
         enableInputMethods(true);
         setFocusable(true);
     }
-        
+
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);

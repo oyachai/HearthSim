@@ -16,7 +16,7 @@ public class HSArrowButton extends JButton  {
         super("");
         direction_ = direction;
     }
-    
+
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -62,7 +62,7 @@ public class HSArrowButton extends JButton  {
         g.setColor(this.getForeground());
         g.fillPolygon(new Polygon(tr_x, tr_y, 3));
 
-        
+
     }
 
 }

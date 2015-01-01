@@ -9,8 +9,8 @@ import com.hearthsim.util.HearthAction;
 
 /**
  * Random effect node
- * 
- * This node signifies that the immediate children of the node are all outcomes of a random event.  
+ *
+ * This node signifies that the immediate children of the node are all outcomes of a random event.
  * Each random outcome can have a weighting associated to it.  The total expected score of this node
  * is computed as a weighted average of the scores of all outcomes.
  *

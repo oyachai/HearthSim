@@ -10,7 +10,7 @@ public class DeathrattleSummonMinionAction extends DeathrattleAction {
 
     private final int numMinions_;
     private final Class<?> minionClass_;
-    
+
     public DeathrattleSummonMinionAction(Class<?> minionClass, int numMnions) {
         numMinions_ = numMnions;
         minionClass_ = minionClass;
