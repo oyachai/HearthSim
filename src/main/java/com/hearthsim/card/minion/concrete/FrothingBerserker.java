@@ -26,8 +26,7 @@ public class FrothingBerserker extends Minion implements MinionDamagedInterface 
             Minion damagedMinion,
             HearthTreeNode boardState,
             Deck deckPlayer0,
-            Deck deckPlayer1)
-    {
+            Deck deckPlayer1) {
         this.addAttack((byte)1);
         return boardState;
     }

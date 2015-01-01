@@ -54,8 +54,7 @@ public class ShieldBlock extends SpellCard {
             Deck deckPlayer0,
             Deck deckPlayer1,
             boolean singleRealizationOnly)
-        throws HSException
-    {
+        throws HSException {
         HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
         if (toRet != null) {
             toRet.data_.getCurrentPlayerHero().setArmor((byte)(toRet.data_.getCurrentPlayerHero().getArmor() + 5));

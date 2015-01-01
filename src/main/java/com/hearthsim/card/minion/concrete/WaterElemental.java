@@ -40,8 +40,7 @@ public class WaterElemental extends Minion {
             HearthTreeNode boardState,
             Deck deckPlayer0,
             Deck deckPlayer1)
-        throws HSException
-    {
+        throws HSException {
         HearthTreeNode toRet = super.attack_core(targetMinionPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1);
         if (!silenced_ && toRet != null) {
             targetMinion.setFrozen(true);

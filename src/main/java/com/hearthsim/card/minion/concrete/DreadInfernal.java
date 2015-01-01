@@ -30,8 +30,7 @@ public class DreadInfernal extends Minion implements MinionUntargetableBattlecry
             Deck deckPlayer0,
             Deck deckPlayer1,
             boolean singleRealizationOnly
-        ) throws HSException
-    {
+        ) throws HSException {
         HearthTreeNode toRet = boardState;
         toRet = toRet.data_.getCurrentPlayerHero().takeDamage((byte)1, PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1, false, false);
         for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {

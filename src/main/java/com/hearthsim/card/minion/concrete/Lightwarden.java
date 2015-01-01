@@ -24,8 +24,7 @@ public class Lightwarden extends Minion implements MinionHealedInterface {
             Minion healedMinion,
             HearthTreeNode boardState,
             Deck deckPlayer0,
-            Deck deckPlayer1)
-    {
+            Deck deckPlayer1) {
         this.addAttack((byte)2);
         return boardState;
     }

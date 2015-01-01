@@ -67,8 +67,7 @@ public class DivineFavor extends SpellCard {
             Deck deckPlayer0,
             Deck deckPlayer1,
             boolean singleRealizationOnly)
-        throws HSException
-    {
+        throws HSException {
         int numCardsToDraw = PlayerSide.WAITING_PLAYER.getPlayer(boardState).getHand().size() - PlayerSide.CURRENT_PLAYER.getPlayer(boardState).getHand().size() + 1;
         if (numCardsToDraw < 1) {
             return null;

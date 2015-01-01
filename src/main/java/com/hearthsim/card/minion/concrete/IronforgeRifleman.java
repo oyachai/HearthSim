@@ -39,8 +39,7 @@ public class IronforgeRifleman extends Minion implements MinionTargetableBattlec
             HearthTreeNode boardState,
             Deck deckPlayer0,
             Deck deckPlayer1
-        ) throws HSException
-    {
+        ) throws HSException {
         HearthTreeNode toRet = boardState;
         toRet = targetMinion.takeDamage(BATTLECRY_DAMAGE, PlayerSide.CURRENT_PLAYER, side, toRet, deckPlayer0, deckPlayer1, false, false);
         return toRet;

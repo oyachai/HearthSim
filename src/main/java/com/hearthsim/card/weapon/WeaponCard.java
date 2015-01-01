@@ -32,19 +32,16 @@ public abstract class WeaponCard extends Card {
     }
 
     @Override
-    public boolean equals(Object other)
-    {
+    public boolean equals(Object other) {
         if (!super.equals(other)) {
             return false;
         }
 
-        if (other == null)
-        {
+        if (other == null) {
            return false;
         }
 
-        if (this.getClass() != other.getClass())
-        {
+        if (this.getClass() != other.getClass()) {
            return false;
         }
 
@@ -88,8 +85,7 @@ public abstract class WeaponCard extends Card {
             Deck deckPlayer0,
             Deck deckPlayer1,
             boolean singleRealizationOnly)
-        throws HSException
-    {
+        throws HSException {
         if (this.hasBeenUsed()) {
             //Card is already used, nothing to do
             return null;

@@ -27,8 +27,7 @@ public class Onyxia extends Minion implements MinionUntargetableBattlecry  {
             Deck deckPlayer0,
             Deck deckPlayer1,
             boolean singleRealizationOnly
-        ) throws HSException
-    {
+        ) throws HSException {
         HearthTreeNode toRet = boardState;
         PlayerModel currentPlayer = toRet.data_.getCurrentPlayer();
         while (currentPlayer.getMinions().size() < 7) {

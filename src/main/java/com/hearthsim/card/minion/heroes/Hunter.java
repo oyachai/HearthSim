@@ -38,8 +38,7 @@ public class Hunter extends Hero {
             Deck deckPlayer0,
             Deck deckPlayer1,
             boolean singleRealizationOnly)
-        throws HSException
-    {
+        throws HSException {
         HearthTreeNode toRet = boardState;
         if (isHero(targetMinion) && targetPlayerSide == PlayerSide.WAITING_PLAYER) {
             this.hasBeenUsed = true;

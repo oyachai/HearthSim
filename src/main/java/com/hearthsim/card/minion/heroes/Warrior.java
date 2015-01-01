@@ -34,8 +34,7 @@ public class Warrior extends Hero {
             Deck deckPlayer0,
             Deck deckPlayer1,
             boolean singleRealizationOnly)
-        throws HSException
-    {
+        throws HSException {
         HearthTreeNode toRet = boardState;
         if (isHero(targetMinion) && targetPlayerSide == PlayerSide.CURRENT_PLAYER) {
             this.hasBeenUsed = true;

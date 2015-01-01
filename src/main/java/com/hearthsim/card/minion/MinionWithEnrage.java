@@ -56,8 +56,7 @@ public abstract class MinionWithEnrage extends Minion {
             Deck deckPlayer1,
             boolean isSpellDamage,
             boolean handleMinionDeath)
-        throws HSException
-    {
+        throws HSException {
         HearthTreeNode toRet = super.takeDamage(damage, attackPlayerSide, thisPlayerSide, boardState, deckPlayer0, deckPlayer1, isSpellDamage, handleMinionDeath);
         this.enrageCheck();
         return toRet;

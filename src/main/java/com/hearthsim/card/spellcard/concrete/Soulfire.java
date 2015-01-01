@@ -44,8 +44,7 @@ public class Soulfire extends SpellDamage {
             Deck deckPlayer0,
             Deck deckPlayer1,
             boolean singleRealizationOnly)
-        throws HSException
-    {
+        throws HSException {
         HearthTreeNode toRet = null;
 
         if (singleRealizationOnly) {
@@ -87,8 +86,7 @@ public class Soulfire extends SpellDamage {
             Deck deckPlayer0,
             Deck deckPlayer1,
             boolean singleRealizationOnly)
-        throws HSException
-    {
+        throws HSException {
         return super.useOn(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
     }
 }

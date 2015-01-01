@@ -426,15 +426,12 @@ public class BoardModel implements DeepCopyable<BoardModel> {
     }
 
     @Override
-    public boolean equals(Object other)
-    {
-        if (other == null)
-        {
+    public boolean equals(Object other) {
+        if (other == null) {
             return false;
         }
 
-        if (this.getClass() != other.getClass())
-        {
+        if (this.getClass() != other.getClass()) {
             return false;
         }
 

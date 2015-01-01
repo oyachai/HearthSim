@@ -22,8 +22,7 @@ public class DeathrattleCardDrawAction extends DeathrattleAction {
             HearthTreeNode boardState,
             Deck deckPlayer0,
             Deck deckPlayer1)
-        throws HSException
-    {
+        throws HSException {
         HearthTreeNode toRet = super.performAction(minion, playerSide, boardState, deckPlayer0, deckPlayer1);
         if (!minion.isSilenced()) {
             if (playerSide == PlayerSide.CURRENT_PLAYER) {

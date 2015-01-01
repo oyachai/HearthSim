@@ -29,8 +29,7 @@ public class InjuredBlademaster extends Minion implements MinionUntargetableBatt
             Deck deckPlayer0,
             Deck deckPlayer1,
             boolean singleRealizationOnly
-        ) throws HSException
-    {
+        ) throws HSException {
         HearthTreeNode toRet = boardState;
         toRet = this.takeDamage((byte)4, PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, boardState, deckPlayer0, deckPlayer1, false, true);
         return toRet;

@@ -28,8 +28,7 @@ public class ArcaneGolem extends Minion implements MinionUntargetableBattlecry {
             Deck deckPlayer0,
             Deck deckPlayer1,
             boolean singleRealizationOnly
-        ) throws HSException
-    {
+        ) throws HSException {
         HearthTreeNode toRet = boardState;
         toRet.data_.getWaitingPlayer().addMana((byte)1);
         toRet.data_.getWaitingPlayer().addMaxMana((byte)1);

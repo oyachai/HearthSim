@@ -55,8 +55,7 @@ public class Claw extends SpellCard {
             Deck deckPlayer0,
             Deck deckPlayer1,
             boolean singleRealizationOnly)
-        throws HSException
-    {
+        throws HSException {
         HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
         if (toRet != null) {
             targetMinion.setExtraAttackUntilTurnEnd((byte)(DAMAGE_AMOUNT + targetMinion.getExtraAttackUntilTurnEnd()));

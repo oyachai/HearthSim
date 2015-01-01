@@ -49,8 +49,7 @@ public class NorthshireCleric extends Minion implements MinionHealedInterface {
             Minion healedMinion,
             HearthTreeNode boardState,
             Deck deckPlayer0,
-            Deck deckPlayer1)
-    {
+            Deck deckPlayer1) {
         HearthTreeNode toRet = boardState;
         if (!silenced_) {
             if (thisMinionPlayerSide == PlayerSide.CURRENT_PLAYER) {

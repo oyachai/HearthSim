@@ -36,8 +36,7 @@ public class AncientBrewmaster extends Minion implements MinionTargetableBattlec
             HearthTreeNode boardState,
             Deck deckPlayer0,
             Deck deckPlayer1
-        ) throws HSException
-    {
+        ) throws HSException {
         HearthTreeNode toRet = boardState;
         if (toRet != null) {
             if (boardState.data_.getNumCardsHandCurrentPlayer() < 10) {

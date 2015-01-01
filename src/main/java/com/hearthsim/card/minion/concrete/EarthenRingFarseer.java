@@ -36,8 +36,7 @@ public class EarthenRingFarseer extends Minion implements MinionTargetableBattle
             HearthTreeNode boardState,
             Deck deckPlayer0,
             Deck deckPlayer1
-        ) throws HSException
-    {
+        ) throws HSException {
         HearthTreeNode toRet = boardState;
         toRet = targetMinion.takeHeal((byte)3, side, toRet, deckPlayer0, deckPlayer1);
         return toRet;

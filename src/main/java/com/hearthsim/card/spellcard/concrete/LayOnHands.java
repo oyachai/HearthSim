@@ -53,8 +53,7 @@ public class LayOnHands extends SpellCard {
             Deck deckPlayer0,
             Deck deckPlayer1,
             boolean singleRealizationOnly)
-        throws HSException
-    {
+        throws HSException {
         HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
         toRet = targetMinion.takeHeal((byte)8, side, boardState, deckPlayer0, deckPlayer1);
         if (toRet instanceof CardDrawNode)

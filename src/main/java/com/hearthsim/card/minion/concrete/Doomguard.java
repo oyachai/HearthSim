@@ -34,8 +34,7 @@ public class Doomguard extends Minion implements MinionUntargetableBattlecry {
             Deck deckPlayer0,
             Deck deckPlayer1,
             boolean singleRealizationOnly
-        ) throws HSException
-    {
+        ) throws HSException {
         HearthTreeNode toRet = boardState;
 
         if (singleRealizationOnly) {

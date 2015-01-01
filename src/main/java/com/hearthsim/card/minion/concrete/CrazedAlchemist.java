@@ -36,8 +36,7 @@ public class CrazedAlchemist extends Minion implements MinionTargetableBattlecry
             HearthTreeNode boardState,
             Deck deckPlayer0,
             Deck deckPlayer1
-        ) throws HSException
-    {
+        ) throws HSException {
         HearthTreeNode toRet = boardState;
         byte newHealth = targetMinion.getTotalAttack();
         byte newAttack = targetMinion.getTotalHealth();

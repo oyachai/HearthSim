@@ -29,8 +29,7 @@ public class AzureDrake extends Minion implements MinionUntargetableBattlecry {
             Deck deckPlayer0,
             Deck deckPlayer1,
             boolean singleRealizationOnly
-        ) throws HSException
-    {
+        ) throws HSException {
         HearthTreeNode toRet = boardState;
         if (toRet instanceof CardDrawNode)
             ((CardDrawNode) toRet).addNumCardsToDraw(1);

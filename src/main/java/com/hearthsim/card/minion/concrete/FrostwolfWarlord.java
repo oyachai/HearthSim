@@ -30,8 +30,7 @@ public class FrostwolfWarlord extends Minion implements MinionUntargetableBattle
             Deck deckPlayer0,
             Deck deckPlayer1,
             boolean singleRealizationOnly
-        ) throws HSException
-    {
+        ) throws HSException {
         HearthTreeNode toRet = boardState;
         int numBuffs = PlayerSide.CURRENT_PLAYER.getPlayer(boardState).getNumMinions() - 1; //Don't count the Warlord itself
         this.setAttack((byte)(this.getAttack() + numBuffs));

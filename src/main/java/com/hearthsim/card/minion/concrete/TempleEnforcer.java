@@ -36,8 +36,7 @@ public class TempleEnforcer extends Minion implements MinionTargetableBattlecry 
             HearthTreeNode boardState,
             Deck deckPlayer0,
             Deck deckPlayer1
-        ) throws HSException
-    {
+        ) throws HSException {
         HearthTreeNode toRet = boardState;
         targetMinion.setHealth((byte)(targetMinion.getHealth() + 3));
         return toRet;

@@ -36,8 +36,7 @@ public class AldorPeacekeeper extends Minion implements MinionTargetableBattlecr
             HearthTreeNode boardState,
             Deck deckPlayer0,
             Deck deckPlayer1
-        ) throws HSException
-    {
+        ) throws HSException {
         targetMinion.setAttack((byte)1);
         return boardState;
     }

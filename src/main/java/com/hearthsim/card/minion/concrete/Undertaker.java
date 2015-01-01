@@ -28,8 +28,7 @@ public class Undertaker extends Minion implements MinionSummonedInterface {
             Minion summonedMinion,
             HearthTreeNode boardState,
             Deck deckPlayer0,
-            Deck deckPlayer1)
-    {
+            Deck deckPlayer1) {
         HearthTreeNode toRet = boardState;
         if (toRet != null && summonedMinion.hasDeathrattle() && thisMinionPlayerSide == summonedMinionPlayerSide) {
             this.addHealth((byte)1);

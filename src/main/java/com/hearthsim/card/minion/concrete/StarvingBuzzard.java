@@ -41,8 +41,7 @@ public class StarvingBuzzard extends Minion implements MinionSummonedInterface {
             Minion summonedMinion,
             HearthTreeNode boardState,
             Deck deckPlayer0,
-            Deck deckPlayer1)
-    {
+            Deck deckPlayer1) {
         if (summonedMinionPlayerSide == PlayerSide.WAITING_PLAYER || thisMinionPlayerSide == PlayerSide.WAITING_PLAYER)
             return boardState;
 

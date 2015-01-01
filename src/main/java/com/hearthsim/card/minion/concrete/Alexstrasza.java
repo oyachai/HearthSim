@@ -36,8 +36,7 @@ public class Alexstrasza extends Minion implements MinionTargetableBattlecry {
             HearthTreeNode boardState,
             Deck deckPlayer0,
             Deck deckPlayer1
-        ) throws HSException
-    {
+        ) throws HSException {
         side.getPlayer(boardState).getHero().setHealth((byte)15);
         return boardState;
     }

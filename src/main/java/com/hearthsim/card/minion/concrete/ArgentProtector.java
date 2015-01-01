@@ -36,8 +36,7 @@ public class ArgentProtector extends Minion implements MinionTargetableBattlecry
             HearthTreeNode boardState,
             Deck deckPlayer0,
             Deck deckPlayer1
-        ) throws HSException
-    {
+        ) throws HSException {
         targetMinion.setDivineShield(true);
         return boardState;
     }

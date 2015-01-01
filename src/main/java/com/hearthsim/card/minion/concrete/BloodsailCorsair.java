@@ -29,8 +29,7 @@ public class BloodsailCorsair extends Minion implements MinionUntargetableBattle
             Deck deckPlayer0,
             Deck deckPlayer1,
             boolean singleRealizationOnly
-        ) throws HSException
-    {
+        ) throws HSException {
         boolean hasWeapon = boardState.data_.getWaitingPlayerHero().getWeapon() != null;
         if (hasWeapon) {
             boardState.data_.getWaitingPlayerHero().useWeaponCharge();

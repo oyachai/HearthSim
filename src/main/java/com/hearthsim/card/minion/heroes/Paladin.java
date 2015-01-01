@@ -35,8 +35,7 @@ public class Paladin extends Hero {
             Deck deckPlayer0,
             Deck deckPlayer1,
             boolean singleRealizationOnly)
-        throws HSException
-    {
+        throws HSException {
         if (currentPlayerBoardFull(boardState))
             return null;
 

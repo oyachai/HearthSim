@@ -36,8 +36,7 @@ public class TheBlackKnight extends Minion implements MinionTargetableBattlecry 
             HearthTreeNode boardState,
             Deck deckPlayer0,
             Deck deckPlayer1
-        ) throws HSException
-    {
+        ) throws HSException {
         if (targetMinion.getTaunt()) {
             targetMinion.setHealth((byte)-99);
             return boardState;

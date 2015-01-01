@@ -36,8 +36,7 @@ public class Spellbreaker extends Minion implements MinionTargetableBattlecry {
             HearthTreeNode boardState,
             Deck deckPlayer0,
             Deck deckPlayer1
-        ) throws HSException
-    {
+        ) throws HSException {
         HearthTreeNode toRet = boardState;
         targetMinion.silenced(PlayerSide.CURRENT_PLAYER, toRet.data_);
         return toRet;

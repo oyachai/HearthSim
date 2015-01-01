@@ -36,8 +36,7 @@ public class BigGameHunter extends Minion implements MinionTargetableBattlecry {
             HearthTreeNode boardState,
             Deck deckPlayer0,
             Deck deckPlayer1
-        ) throws HSException
-    {
+        ) throws HSException {
         if (targetMinion.getTotalAttack() >= 7) {
             targetMinion.setHealth((byte)-99);
             return boardState;

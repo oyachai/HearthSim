@@ -81,8 +81,8 @@ import java.util.*;
 
 public class IdentityLinkedList<E>
     extends AbstractSequentialList<E>
-    implements Deque<E>
-{
+    implements Deque<E> {
+
     private transient Entry<E> header = new Entry<E>(null, null, null);
     private transient int size = 0;
 

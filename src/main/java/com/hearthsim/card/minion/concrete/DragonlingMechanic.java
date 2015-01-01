@@ -29,8 +29,7 @@ public class DragonlingMechanic extends Minion implements MinionUntargetableBatt
             Deck deckPlayer0,
             Deck deckPlayer1,
             boolean singleRealizationOnly
-        ) throws HSException
-    {
+        ) throws HSException {
         HearthTreeNode toRet = boardState;
         if (toRet != null && PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getNumMinions() < 7) {
             Minion mdragon = new MechanicalDragonling();

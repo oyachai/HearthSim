@@ -29,8 +29,7 @@ public class SunfuryProtector extends Minion implements MinionUntargetableBattle
             Deck deckPlayer0,
             Deck deckPlayer1,
             boolean singleRealizationOnly
-        ) throws HSException
-    {
+        ) throws HSException {
         HearthTreeNode toRet = boardState;
         int thisMinionIndex = PlayerSide.CURRENT_PLAYER.getPlayer(boardState).getMinions().indexOf(this);
         int numMinions = PlayerSide.CURRENT_PLAYER.getPlayer(boardState).getNumMinions();

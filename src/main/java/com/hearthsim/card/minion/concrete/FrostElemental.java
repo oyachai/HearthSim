@@ -38,8 +38,7 @@ public class FrostElemental extends Minion implements MinionTargetableBattlecry 
             HearthTreeNode boardState,
             Deck deckPlayer0,
             Deck deckPlayer1
-        ) throws HSException
-    {
+        ) throws HSException {
         targetMinion.setFrozen(true);
         return boardState;
     }

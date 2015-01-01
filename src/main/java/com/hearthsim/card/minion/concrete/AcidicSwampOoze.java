@@ -27,8 +27,7 @@ public class AcidicSwampOoze extends Minion implements MinionUntargetableBattlec
             Deck deckPlayer0,
             Deck deckPlayer1,
             boolean singleRealizationOnly
-        ) throws HSException
-    {
+        ) throws HSException {
         boardState.data_.getWaitingPlayerHero().destroyWeapon();
         return boardState;
     }

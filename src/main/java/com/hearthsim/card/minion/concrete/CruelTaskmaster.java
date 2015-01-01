@@ -36,8 +36,7 @@ public class CruelTaskmaster extends Minion implements MinionTargetableBattlecry
             HearthTreeNode boardState,
             Deck deckPlayer0,
             Deck deckPlayer1
-        ) throws HSException
-    {
+        ) throws HSException {
         HearthTreeNode toRet = boardState;
         targetMinion.setAttack((byte)(targetMinion.getAttack() + 2));
         toRet = targetMinion.takeDamage((byte)1, PlayerSide.CURRENT_PLAYER, side, toRet, deckPlayer0, deckPlayer1, false, true);

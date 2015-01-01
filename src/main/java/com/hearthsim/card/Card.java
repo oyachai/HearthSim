@@ -312,8 +312,7 @@ public class Card implements DeepCopyable<Card> {
             Deck deckPlayer0,
             Deck deckPlayer1,
             boolean singleRealizationOnly)
-        throws HSException
-    {
+        throws HSException {
         //A generic card does nothing except for consuming mana
         boardState.data_.getCurrentPlayer().subtractMana(this.getManaCost(PlayerSide.CURRENT_PLAYER, boardState.data_));
         boardState.data_.removeCard_hand(this);

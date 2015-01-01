@@ -37,8 +37,7 @@ public class ShatteredSunCleric extends Minion implements MinionTargetableBattle
             HearthTreeNode boardState,
             Deck deckPlayer0,
             Deck deckPlayer1
-        ) throws HSException
-    {
+        ) throws HSException {
         HearthTreeNode toRet = boardState;
         targetMinion.setAttack((byte)(targetMinion.getAttack() + 1));
         targetMinion.setHealth((byte)(targetMinion.getHealth() + 1));

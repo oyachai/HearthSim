@@ -24,15 +24,13 @@ public class HSScrollbarUI extends BasicScrollBarUI {
     }
 
     @Override
-    protected void paintTrack(Graphics g, JComponent c, Rectangle trackBounds)
-    {
+    protected void paintTrack(Graphics g, JComponent c, Rectangle trackBounds) {
         g.setColor(LIGHTER_BACKGROUND_COLOR);
         g.fillRect(trackBounds.x, trackBounds.y, trackBounds.width, trackBounds.height);
     }
 
     @Override
-    protected void paintThumb(Graphics g, JComponent c, Rectangle thumbBounds)
-    {
+    protected void paintThumb(Graphics g, JComponent c, Rectangle thumbBounds) {
         if(thumbBounds.isEmpty() || !scrollbar.isEnabled()) {
             return;
         }

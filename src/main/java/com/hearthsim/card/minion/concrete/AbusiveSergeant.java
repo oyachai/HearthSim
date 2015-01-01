@@ -37,8 +37,7 @@ public class AbusiveSergeant extends Minion implements MinionTargetableBattlecry
             HearthTreeNode boardState,
             Deck deckPlayer0,
             Deck deckPlayer1
-        ) throws HSException
-    {
+        ) throws HSException {
         targetMinion.setExtraAttackUntilTurnEnd(((byte)(targetMinion.getExtraAttackUntilTurnEnd() + 2)));
         return boardState;
     }

@@ -37,8 +37,7 @@ public class Windspeaker extends Minion implements MinionTargetableBattlecry {
             HearthTreeNode boardState,
             Deck deckPlayer0,
             Deck deckPlayer1
-        ) throws HSException
-    {
+        ) throws HSException {
         HearthTreeNode toRet = boardState;
         targetMinion.setWindfury(true);
         return toRet;

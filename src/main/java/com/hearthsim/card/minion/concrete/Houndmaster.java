@@ -37,8 +37,7 @@ public class Houndmaster extends Minion implements MinionTargetableBattlecry {
             HearthTreeNode boardState,
             Deck deckPlayer0,
             Deck deckPlayer1
-        ) throws HSException
-    {
+        ) throws HSException {
         HearthTreeNode toRet = boardState;
         targetMinion.setAttack((byte) (targetMinion.getAttack() + 2));
         targetMinion.setHealth((byte) (targetMinion.getHealth() + 2));

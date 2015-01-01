@@ -34,8 +34,7 @@ public class Priest extends Hero {
             Deck deckPlayer0,
             Deck deckPlayer1,
             boolean singleRealizationOnly)
-        throws HSException
-    {
+        throws HSException {
         HearthTreeNode toRet = boardState;
         this.hasBeenUsed = true;
         toRet.data_.getCurrentPlayer().subtractMana(HERO_ABILITY_COST);

@@ -29,8 +29,7 @@ public class LeeroyJenkins extends Minion implements MinionUntargetableBattlecry
             Deck deckPlayer0,
             Deck deckPlayer1,
             boolean singleRealizationOnly
-        ) throws HSException
-    {
+        ) throws HSException {
         HearthTreeNode toRet = boardState;
         for (int index = 0; index < 2; ++index) {
             int numMinions = PlayerSide.WAITING_PLAYER.getPlayer(toRet).getNumMinions();

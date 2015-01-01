@@ -37,8 +37,7 @@ public class FlesheatingGhoul extends Minion implements MinionDeadInterface {
             Minion deadMinion,
             HearthTreeNode boardState,
             Deck deckPlayer0,
-            Deck deckPlayer1)
-    {
+            Deck deckPlayer1) {
         this.attack_ += 1;
         return boardState;
     }

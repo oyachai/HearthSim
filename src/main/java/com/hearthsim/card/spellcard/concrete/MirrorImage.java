@@ -54,8 +54,7 @@ public class MirrorImage extends SpellCard {
             Deck deckPlayer0,
             Deck deckPlayer1,
             boolean singleRealizationOnly)
-        throws HSException
-    {
+        throws HSException {
         int numMinions = PlayerSide.CURRENT_PLAYER.getPlayer(boardState).getNumMinions();
         if (numMinions >= 7)
             return null;
