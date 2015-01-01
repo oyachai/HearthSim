@@ -13,8 +13,6 @@
     <module name="RegexpMultiline">
         <property name="format" value="System\.err\.print."/>
     </module>
-    <module name="FileTabCharacter">
-        <property name="eachLine" value="true"/>
-    </module>
+    <module name="FileTabCharacter"/>
     <module name="NewlineAtEndOfFile"/>
 </module>
