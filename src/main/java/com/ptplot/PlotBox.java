@@ -206,9 +206,9 @@ import java.util.Timer;
  */
 @SuppressWarnings("PMD")
 public class PlotBox extends JPanel implements Printable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
+    private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
     ///////////////////////////////////////////////////////////////////
     ////                         constructor                       ////
 
@@ -415,7 +415,7 @@ public class PlotBox extends JPanel implements Printable {
             if (!_actionsDeferred) {
                 Runnable doActions = new Runnable() {
                     @Override
-					public void run() {
+                    public void run() {
                         _executeDeferredActions();
                     }
                 };
@@ -675,7 +675,7 @@ public class PlotBox extends JPanel implements Printable {
      *  @deprecated
      */
     @Deprecated
-	public String getDataurl() {
+    public String getDataurl() {
         return _filespec;
     }
 
@@ -684,7 +684,7 @@ public class PlotBox extends JPanel implements Printable {
      *  @deprecated
      */
     @Deprecated
-	public URL getDocumentBase() {
+    public URL getDocumentBase() {
         return _documentBase;
     }
 
@@ -776,7 +776,7 @@ public class PlotBox extends JPanel implements Printable {
      *  @return The preferred size.
      */
     @Override
-	public synchronized Dimension getPreferredSize() {
+    public synchronized Dimension getPreferredSize() {
         return new Dimension(_preferredWidth, _preferredHeight);
     }
 
@@ -854,7 +854,7 @@ public class PlotBox extends JPanel implements Printable {
      *  @return The X ticks.
      */
     @SuppressWarnings("rawtypes")
-	public synchronized Vector[] getXTicks() {
+    public synchronized Vector[] getXTicks() {
         if (_xticks == null) {
             return null;
         }
@@ -927,7 +927,7 @@ public class PlotBox extends JPanel implements Printable {
      *  @return The Y ticks.
      */
     @SuppressWarnings("rawtypes")
-	public synchronized Vector[] getYTicks() {
+    public synchronized Vector[] getYTicks() {
         if (_yticks == null) {
             return null;
         }
@@ -944,7 +944,7 @@ public class PlotBox extends JPanel implements Printable {
      *  @deprecated
      */
     @Deprecated
-	public void init() {
+    public void init() {
         setButtons(true);
 
         if (_filespec != null) {
@@ -957,10 +957,10 @@ public class PlotBox extends JPanel implements Printable {
      *  @param graphics The graphics context.
      */
     @Override
-	public synchronized void paintComponent(Graphics graphics) {    	
-    	//Modified by Hiroaki Oyaizu, August 9, 2014
-    	// - No longer uses a buffered image, all rendering done directly to Graphics
-    	
+    public synchronized void paintComponent(Graphics graphics) {
+        //Modified by Hiroaki Oyaizu, August 9, 2014
+        // - No longer uses a buffered image, all rendering done directly to Graphics
+
 //        BufferedImage newPlotImage = _plotImage;
 //
 //        if (newPlotImage == null) {
@@ -977,8 +977,8 @@ public class PlotBox extends JPanel implements Printable {
         // Blit the offscreen image onto the screen.
         //graphics.drawImage(newPlotImage, 0, 0, null);
 
-		super.paintComponent(graphics);
-		_drawPlot(graphics, true);
+        super.paintComponent(graphics);
+        _drawPlot(graphics, true);
 
         // Acquire the focus so that key bindings work.
         // NOTE: no longer needed?
@@ -992,7 +992,7 @@ public class PlotBox extends JPanel implements Printable {
      *  @deprecated
      */
     @Deprecated
-	public void parseFile(String filespec) {
+    public void parseFile(String filespec) {
         parseFile(filespec, (URL) null);
     }
 
@@ -1000,7 +1000,7 @@ public class PlotBox extends JPanel implements Printable {
      *  @deprecated This method is deprecated.  Use read() instead.
      */
     @Deprecated
-	public synchronized void parseFile(String filespec, URL documentBase) {
+    public synchronized void parseFile(String filespec, URL documentBase) {
         DataInputStream in = null;
 
         if ((filespec == null) || (filespec.length() == 0)) {
@@ -1090,7 +1090,7 @@ public class PlotBox extends JPanel implements Printable {
      *  @exception PrinterException If the print job is terminated.
      */
     @Override
-	public synchronized int print(Graphics graphics, PageFormat format,
+    public synchronized int print(Graphics graphics, PageFormat format,
             int index) throws PrinterException {
 
         if (graphics == null) {
@@ -1266,7 +1266,7 @@ public class PlotBox extends JPanel implements Printable {
      *  @param background The background color.
      */
     @Override
-	public synchronized void setBackground(Color background) {
+    public synchronized void setBackground(Color background) {
         // Changing legend means we need to repaint the offscreen buffer.
         _plotImage = null;
 
@@ -1284,7 +1284,7 @@ public class PlotBox extends JPanel implements Printable {
      *  @param height The new height of this component.
      */
     @Override
-	public synchronized void setBounds(int x, int y, int width, int height) {
+    public synchronized void setBounds(int x, int y, int width, int height) {
         _width = width;
         _height = height;
 
@@ -1487,7 +1487,7 @@ public class PlotBox extends JPanel implements Printable {
      *  @deprecated
      */
     @Deprecated
-	public void setDataurl(String filespec) {
+    public void setDataurl(String filespec) {
         _filespec = filespec;
     }
 
@@ -1496,7 +1496,7 @@ public class PlotBox extends JPanel implements Printable {
      *  @deprecated
      */
     @Deprecated
-	public void setDocumentBase(URL documentBase) {
+    public void setDocumentBase(URL documentBase) {
         _documentBase = documentBase;
     }
 
@@ -1504,7 +1504,7 @@ public class PlotBox extends JPanel implements Printable {
      *  @param foreground The foreground color.
      */
     @Override
-	public synchronized void setForeground(Color foreground) {
+    public synchronized void setForeground(Color foreground) {
         // Changing legend means we need to repaint the offscreen buffer.
         _plotImage = null;
 
@@ -1559,7 +1559,7 @@ public class PlotBox extends JPanel implements Printable {
      *  @param height The height, in pixels.
      */
     @Override
-	public synchronized void setSize(int width, int height) {
+    public synchronized void setSize(int width, int height) {
         // Changing legend means we need to repaint the offscreen buffer.
         _plotImage = null;
 
@@ -1910,7 +1910,7 @@ public class PlotBox extends JPanel implements Printable {
      *  @deprecated
      */
     @Deprecated
-	public synchronized void writeOldSyntax(OutputStream out) {
+    public synchronized void writeOldSyntax(OutputStream out) {
         // Auto-flush is disabled.
         PrintWriter output = new PrintWriter(new BufferedOutputStream(out),
                 false);
@@ -2923,7 +2923,7 @@ public class PlotBox extends JPanel implements Printable {
      *  @deprecated
      */
     @Deprecated
-	protected void _writeOldSyntax(PrintWriter output) {
+    protected void _writeOldSyntax(PrintWriter output) {
         output.println("# Ptolemy plot, version 2.0");
 
         if (_title != null) {
@@ -3212,7 +3212,7 @@ public class PlotBox extends JPanel implements Printable {
      * of the region where the legend should be placed.
      */
     @SuppressWarnings("unused")
-	private int _drawLegend(Graphics graphics, int urx, int ury) {
+    private int _drawLegend(Graphics graphics, int urx, int ury) {
         // Ignore if there is no graphics object to draw on.
         if (graphics == null) {
             return 0;
@@ -4354,7 +4354,7 @@ public class PlotBox extends JPanel implements Printable {
     ////                         inner classes                     ////
     class ButtonListener implements ActionListener {
         @Override
-		public void actionPerformed(ActionEvent event) {
+        public void actionPerformed(ActionEvent event) {
             if (event.getSource() == _fillButton) {
                 fillPlot();
             } else if (event.getSource() == _printButton) {
@@ -4429,20 +4429,20 @@ public class PlotBox extends JPanel implements Printable {
 
     public class ZoomListener implements MouseListener {
         @Override
-		public void mouseClicked(MouseEvent event) {
+        public void mouseClicked(MouseEvent event) {
             requestFocus();
         }
 
         @Override
-		public void mouseEntered(MouseEvent event) {
+        public void mouseEntered(MouseEvent event) {
         }
 
         @Override
-		public void mouseExited(MouseEvent event) {
+        public void mouseExited(MouseEvent event) {
         }
 
         @Override
-		public void mousePressed(MouseEvent event) {
+        public void mousePressed(MouseEvent event) {
             // http://developer.java.sun.com/developer/bugParade/bugs/4072703.html
             // BUTTON1_MASK still not set for MOUSE_PRESSED events
             // suggests:
@@ -4474,7 +4474,7 @@ public class PlotBox extends JPanel implements Printable {
         }
 
         @Override
-		public void mouseReleased(MouseEvent event) {
+        public void mouseReleased(MouseEvent event) {
             if (((event.getModifiers() & InputEvent.BUTTON1_MASK) != 0)
                     && ((event.getModifiers() & InputEvent.BUTTON3_MASK) == 0)
                     || (event.getModifiers() == 0)) {
@@ -4485,7 +4485,7 @@ public class PlotBox extends JPanel implements Printable {
 
     public class DragListener implements MouseMotionListener {
         @Override
-		public void mouseDragged(MouseEvent event) {
+        public void mouseDragged(MouseEvent event) {
             // NOTE: Due to a bug in JDK 1.1.7B, the BUTTON1_MASK does
             // not work on mouse drags.  It does work on MouseListener
             // methods, so those methods set a variable _zooming that
@@ -4497,13 +4497,13 @@ public class PlotBox extends JPanel implements Printable {
         }
 
         @Override
-		public void mouseMoved(MouseEvent event) {
+        public void mouseMoved(MouseEvent event) {
         }
     }
 
     class CommandListener implements KeyListener {
         @Override
-		public void keyPressed(KeyEvent e) {
+        public void keyPressed(KeyEvent e) {
             int keycode = e.getKeyCode();
 
             switch (keycode) {
@@ -4602,7 +4602,7 @@ public class PlotBox extends JPanel implements Printable {
         }
 
         @Override
-		public void keyReleased(KeyEvent e) {
+        public void keyReleased(KeyEvent e) {
             int keycode = e.getKeyCode();
 
             switch (keycode) {
@@ -4622,7 +4622,7 @@ public class PlotBox extends JPanel implements Printable {
         // The keyTyped method is broken in jdk 1.1.4.
         // It always gets "unknown key code".
         @Override
-		public void keyTyped(KeyEvent e) {
+        public void keyTyped(KeyEvent e) {
         }
 
         private boolean _control = false;
@@ -4642,7 +4642,7 @@ public class PlotBox extends JPanel implements Printable {
             if (_listeners.size() == 1) {
                 scheduleAtFixedRate(new TimerTask() {
                     @Override
-					public void run() {
+                    public void run() {
                         synchronized (this) {
                             // synchronized (this) to avoid changes to
                             // _listeners while repainting.

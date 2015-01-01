@@ -14,7 +14,7 @@ public class ThreadQueue {
     }
 
     public void queue(Runnable r) {
-    	queue.addLast(r);
+        queue.addLast(r);
     }
     
     public void runQueue() throws InterruptedException {
@@ -23,32 +23,32 @@ public class ThreadQueue {
             threads[i].start();
         }
         for (int i = 0; i < nThreads; ++i) {
-        	threads[i].join();
+            threads[i].join();
         }
     }
     
-	private class PoolWorker extends Thread {
+    private class PoolWorker extends Thread {
 
-	    @Override
-		public void run() {
-	        Runnable r;
-	        while (true) {
-	            synchronized(queue) {
-	            	if (queue.isEmpty()) {
-	            		break;
-	            	}
-	                r = queue.removeFirst();
-	            }
-	
-	            // If we don't catch RuntimeException, 
-				// the pool could leak threads
-				try {
-				    r.run();
-				}
-				catch (RuntimeException e) {
-					e.printStackTrace();
-	            }
-	        }
-	    }
-	}
+        @Override
+        public void run() {
+            Runnable r;
+            while (true) {
+                synchronized(queue) {
+                    if (queue.isEmpty()) {
+                        break;
+                    }
+                    r = queue.removeFirst();
+                }
+
+                // If we don't catch RuntimeException,
+                // the pool could leak threads
+                try {
+                    r.run();
+                }
+                catch (RuntimeException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 }

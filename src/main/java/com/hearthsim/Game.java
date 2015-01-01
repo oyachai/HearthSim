@@ -22,9 +22,9 @@ import com.hearthsim.util.factory.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class Game {
-	private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
+        private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
 
-	final static int maxTurns_ = 100;
+        final static int maxTurns_ = 100;
 
     BoardModel boardModel;
     
@@ -34,16 +34,16 @@ public class Game {
     ArtificialPlayer aiForPlayerGoingFirst;
     ArtificialPlayer aiForPlayerGoingSecond;
 
-	public ArrayList<HearthActionBoardPair> gameHistory = new ArrayList<HearthActionBoardPair>();
+        public ArrayList<HearthActionBoardPair> gameHistory = new ArrayList<HearthActionBoardPair>();
 
-	int curTurn_;
+        int curTurn_;
 
-	public Game(PlayerModel playerModel0, PlayerModel playerModel1, ArtificialPlayer ai0, ArtificialPlayer ai1) {
-		this(playerModel0, playerModel1, ai0, ai1, false);
-	}
-	
-	public Game(PlayerModel playerModel0, PlayerModel playerModel1, ArtificialPlayer ai0, ArtificialPlayer ai1, int firstPlayerId) {
-		playerGoingFirst = playerModel0;
+        public Game(PlayerModel playerModel0, PlayerModel playerModel1, ArtificialPlayer ai0, ArtificialPlayer ai1) {
+            this(playerModel0, playerModel1, ai0, ai1, false);
+        }
+
+        public Game(PlayerModel playerModel0, PlayerModel playerModel1, ArtificialPlayer ai0, ArtificialPlayer ai1, int firstPlayerId) {
+            playerGoingFirst = playerModel0;
         playerGoingSecond = playerModel1;
         
         aiForPlayerGoingFirst = ai0;
@@ -58,165 +58,165 @@ public class Game {
         log.debug("alternate play order: {}", firstPlayerId);
         log.debug("first player id: {}", playerGoingFirst.getPlayerId());
 
-		boardModel = new BoardModel(playerGoingFirst, playerGoingSecond);
-		
-	}
-	
-	public Game(PlayerModel playerModel0, PlayerModel playerModel1, ArtificialPlayer ai0, ArtificialPlayer ai1, boolean shufflePlayOrder) {
-		this(playerModel0, playerModel1, ai0, ai1, shufflePlayOrder && Math.random() >= 0.5 ? 0 : 1);
-	}
+            boardModel = new BoardModel(playerGoingFirst, playerGoingSecond);
 
-	public GameResult runGame() throws HSException {
-		curTurn_ = 0;
+        }
 
-		//the first player draws 3 cards
-		boardModel.placeCardHandCurrentPlayer(0);
-		boardModel.placeCardHandCurrentPlayer(1);
-		boardModel.placeCardHandCurrentPlayer(2);
-		boardModel.getCurrentPlayer().setDeckPos((byte)3);
+        public Game(PlayerModel playerModel0, PlayerModel playerModel1, ArtificialPlayer ai0, ArtificialPlayer ai1, boolean shufflePlayOrder) {
+            this(playerModel0, playerModel1, ai0, ai1, shufflePlayOrder && Math.random() >= 0.5 ? 0 : 1);
+    }
 
-		//the second player draws 4 cards
-		boardModel.placeCardHandWaitingPlayer(0);
-		boardModel.placeCardHandWaitingPlayer(1);
-		boardModel.placeCardHandWaitingPlayer(2);
-		boardModel.placeCardHandWaitingPlayer(3);
-		boardModel.placeCardHandWaitingPlayer(new TheCoin());
-		boardModel.getWaitingPlayer().setDeckPos((byte)4);
-		
-		GameRecord record = new GameSimpleRecord();
+    public GameResult runGame() throws HSException {
+        curTurn_ = 0;
 
-		record.put(0, PlayerSide.CURRENT_PLAYER, boardModel.deepCopy(), null);
-		record.put(0, PlayerSide.CURRENT_PLAYER, boardModel.flipPlayers().deepCopy(), null);
+        //the first player draws 3 cards
+        boardModel.placeCardHandCurrentPlayer(0);
+        boardModel.placeCardHandCurrentPlayer(1);
+        boardModel.placeCardHandCurrentPlayer(2);
+        boardModel.getCurrentPlayer().setDeckPos((byte)3);
 
-		gameHistory.add(new HearthActionBoardPair(null, boardModel));
+        //the second player draws 4 cards
+        boardModel.placeCardHandWaitingPlayer(0);
+        boardModel.placeCardHandWaitingPlayer(1);
+        boardModel.placeCardHandWaitingPlayer(2);
+        boardModel.placeCardHandWaitingPlayer(3);
+        boardModel.placeCardHandWaitingPlayer(new TheCoin());
+        boardModel.getWaitingPlayer().setDeckPos((byte)4);
 
-		GameResult gameResult;
-		for(int turnCount = 0; turnCount < maxTurns_; ++turnCount) {
-			log.debug("starting turn " + turnCount);
-			long turnStart = System.currentTimeMillis();
+        GameRecord record = new GameSimpleRecord();
 
-			gameResult = playTurn(turnCount, record, aiForPlayerGoingFirst);
-			if(gameResult != null)
-				return gameResult;
+        record.put(0, PlayerSide.CURRENT_PLAYER, boardModel.deepCopy(), null);
+        record.put(0, PlayerSide.CURRENT_PLAYER, boardModel.flipPlayers().deepCopy(), null);
 
-			gameResult = playTurn(turnCount, record, aiForPlayerGoingSecond);
-			if(gameResult != null)
-				return gameResult;
+        gameHistory.add(new HearthActionBoardPair(null, boardModel));
 
-			long turnEnd = System.currentTimeMillis();
-			long turnDelta = turnEnd - turnStart;
-			if(turnDelta > aiForPlayerGoingFirst.getMaxThinkTime() / 2) {
-				log.warn("turn took {} ms, more than half of alloted think time ({})", turnDelta,
-						aiForPlayerGoingFirst.getMaxThinkTime());
-			} else {
-				log.debug("turn took {} ms", turnDelta);
-			}
+        GameResult gameResult;
+        for(int turnCount = 0; turnCount < maxTurns_; ++turnCount) {
+            log.debug("starting turn " + turnCount);
+            long turnStart = System.currentTimeMillis();
 
-		}
-		return new GameResult(playerGoingFirst.getPlayerId(), -1, 0, record);
-	}
+            gameResult = playTurn(turnCount, record, aiForPlayerGoingFirst);
+            if(gameResult != null)
+                return gameResult;
 
-	private GameResult playTurn(int turnCount, GameRecord record, ArtificialPlayer ai) throws HSException {
-		boardModel = Game.beginTurn(boardModel.deepCopy()); // Deep copy here to make sure history is preserved properly
-		gameHistory.add(new HearthActionBoardPair(new HearthAction(Verb.START_TURN), boardModel.deepCopy()));
+            gameResult = playTurn(turnCount, record, aiForPlayerGoingSecond);
+            if(gameResult != null)
+                return gameResult;
 
-		GameResult gameResult;
+            long turnEnd = System.currentTimeMillis();
+            long turnDelta = turnEnd - turnStart;
+            if(turnDelta > aiForPlayerGoingFirst.getMaxThinkTime() / 2) {
+                log.warn("turn took {} ms, more than half of alloted think time ({})", turnDelta,
+                        aiForPlayerGoingFirst.getMaxThinkTime());
+            } else {
+                log.debug("turn took {} ms", turnDelta);
+            }
 
-		gameResult = checkGameOver(turnCount, record);
-		if(gameResult != null)
-			return gameResult;
+        }
+        return new GameResult(playerGoingFirst.getPlayerId(), -1, 0, record);
+    }
 
-		List<HearthActionBoardPair> allMoves = ai.playTurn(turnCount, boardModel);
-		if(allMoves.size() > 0) {
-			// If allMoves is empty, it means that there was absolutely nothing the AI could do
-			boardModel = allMoves.get(allMoves.size() - 1).board;
-			gameHistory.addAll(allMoves);
-		}
+    private GameResult playTurn(int turnCount, GameRecord record, ArtificialPlayer ai) throws HSException {
+        boardModel = Game.beginTurn(boardModel.deepCopy()); // Deep copy here to make sure history is preserved properly
+        gameHistory.add(new HearthActionBoardPair(new HearthAction(Verb.START_TURN), boardModel.deepCopy()));
 
-		boardModel = Game.endTurn(boardModel);
+        GameResult gameResult;
 
-		record.put(turnCount + 1, PlayerSide.CURRENT_PLAYER, boardModel.deepCopy(), allMoves);
+        gameResult = checkGameOver(turnCount, record);
+        if(gameResult != null)
+            return gameResult;
 
-		gameResult = checkGameOver(turnCount, record);
-		if(gameResult != null)
-			return gameResult;
+        List<HearthActionBoardPair> allMoves = ai.playTurn(turnCount, boardModel);
+        if(allMoves.size() > 0) {
+            // If allMoves is empty, it means that there was absolutely nothing the AI could do
+            boardModel = allMoves.get(allMoves.size() - 1).board;
+            gameHistory.addAll(allMoves);
+        }
 
-		boardModel = boardModel.flipPlayers();
-		gameHistory.add(new HearthActionBoardPair(new HearthAction(Verb.END_TURN), boardModel.deepCopy()));
+        boardModel = Game.endTurn(boardModel);
 
-		return null;
-	}
+        record.put(turnCount + 1, PlayerSide.CURRENT_PLAYER, boardModel.deepCopy(), allMoves);
 
-	public GameResult checkGameOver(int turnCount, GameRecord record) {
-		if(!boardModel.isAlive(PlayerSide.CURRENT_PLAYER)) {
-			PlayerModel winner = boardModel.modelForSide(PlayerSide.WAITING_PLAYER);
-			return new GameResult(playerGoingFirst.getPlayerId(), winner.getPlayerId(), turnCount + 1, record);
-		} else if(!boardModel.isAlive(PlayerSide.WAITING_PLAYER)) {
-			PlayerModel winner = boardModel.modelForSide(PlayerSide.CURRENT_PLAYER);
-			return new GameResult(playerGoingFirst.getPlayerId(), winner.getPlayerId(), turnCount + 1, record);
-		}
-		return null;
-	}
+        gameResult = checkGameOver(turnCount, record);
+        if(gameResult != null)
+            return gameResult;
 
-	public static BoardModel beginTurn(BoardModel board) throws HSException {
+        boardModel = boardModel.flipPlayers();
+        gameHistory.add(new HearthActionBoardPair(new HearthAction(Verb.END_TURN), boardModel.deepCopy()));
 
-		HearthTreeNode toRet = new HearthTreeNode(board);
+        return null;
+    }
 
-		toRet.data_.resetHand();
-		toRet.data_.resetMinions();
+    public GameResult checkGameOver(int turnCount, GameRecord record) {
+        if(!boardModel.isAlive(PlayerSide.CURRENT_PLAYER)) {
+            PlayerModel winner = boardModel.modelForSide(PlayerSide.WAITING_PLAYER);
+            return new GameResult(playerGoingFirst.getPlayerId(), winner.getPlayerId(), turnCount + 1, record);
+        } else if(!boardModel.isAlive(PlayerSide.WAITING_PLAYER)) {
+            PlayerModel winner = boardModel.modelForSide(PlayerSide.CURRENT_PLAYER);
+            return new GameResult(playerGoingFirst.getPlayerId(), winner.getPlayerId(), turnCount + 1, record);
+        }
+        return null;
+    }
 
-		for(Minion targetMinion : toRet.data_.getCurrentPlayer().getMinions()) {
-			toRet = targetMinion.startTurn(PlayerSide.CURRENT_PLAYER, toRet, toRet.data_.getCurrentPlayer()
-					.getDeck(), toRet.data_.getWaitingPlayer().getDeck());
-		}
-		for(Minion targetMinion : toRet.data_.getWaitingPlayer().getMinions()) {
-			toRet = targetMinion.startTurn(PlayerSide.WAITING_PLAYER, toRet, toRet.data_.getCurrentPlayer()
-					.getDeck(), toRet.data_.getWaitingPlayer().getDeck());
-		}
+    public static BoardModel beginTurn(BoardModel board) throws HSException {
 
-		toRet = BoardStateFactoryBase.handleDeadMinions(toRet, toRet.data_.getCurrentPlayer().getDeck(), toRet.data_
-				.getWaitingPlayer().getDeck());
+        HearthTreeNode toRet = new HearthTreeNode(board);
+
+        toRet.data_.resetHand();
+        toRet.data_.resetMinions();
+
+        for(Minion targetMinion : toRet.data_.getCurrentPlayer().getMinions()) {
+            toRet = targetMinion.startTurn(PlayerSide.CURRENT_PLAYER, toRet, toRet.data_.getCurrentPlayer()
+                    .getDeck(), toRet.data_.getWaitingPlayer().getDeck());
+        }
+        for(Minion targetMinion : toRet.data_.getWaitingPlayer().getMinions()) {
+            toRet = targetMinion.startTurn(PlayerSide.WAITING_PLAYER, toRet, toRet.data_.getCurrentPlayer()
+                    .getDeck(), toRet.data_.getWaitingPlayer().getDeck());
+        }
+
+        toRet = BoardStateFactoryBase.handleDeadMinions(toRet, toRet.data_.getCurrentPlayer().getDeck(), toRet.data_
+                .getWaitingPlayer().getDeck());
 
         toRet.data_.getCurrentPlayer().drawNextCardFromDeck();
-		if(toRet.data_.getCurrentPlayer().getMaxMana() < 10)
-			toRet.data_.getCurrentPlayer().addMaxMana((byte)1);
-		toRet.data_.resetMana();
+        if(toRet.data_.getCurrentPlayer().getMaxMana() < 10)
+            toRet.data_.getCurrentPlayer().addMaxMana((byte)1);
+        toRet.data_.resetMana();
 
-		return toRet.data_;
-	}
+        return toRet.data_;
+    }
 
-	public static BoardModel endTurn(BoardModel board) throws HSException {
-		Deck deckPlayer0 = board.getCurrentPlayer().getDeck();
-		Deck deckPlayer1 = board.getWaitingPlayer().getDeck();
+    public static BoardModel endTurn(BoardModel board) throws HSException {
+        Deck deckPlayer0 = board.getCurrentPlayer().getDeck();
+        Deck deckPlayer1 = board.getWaitingPlayer().getDeck();
 
-		HearthTreeNode toRet = new HearthTreeNode(board);
+        HearthTreeNode toRet = new HearthTreeNode(board);
 
-		toRet = toRet.data_.getCurrentPlayer().getHero()
-				.endTurn(PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1);
-		toRet = toRet.data_.getWaitingPlayer().getHero()
-				.endTurn(PlayerSide.WAITING_PLAYER, toRet, deckPlayer0, deckPlayer1);
+        toRet = toRet.data_.getCurrentPlayer().getHero()
+                .endTurn(PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1);
+        toRet = toRet.data_.getWaitingPlayer().getHero()
+                .endTurn(PlayerSide.WAITING_PLAYER, toRet, deckPlayer0, deckPlayer1);
 
-		// TODO: The minions should trigger end-of-turn effects in the order that they were played
-		for(int index = 0; index < toRet.data_.getCurrentPlayer().getMinions().size(); ++index) {
-			CardEndTurnInterface targetMinion = toRet.data_.getCurrentPlayer().getMinions().get(index);
-			try {
-				toRet = targetMinion.endTurn(PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1);
-			} catch(HSException e) {
-				e.printStackTrace();
-			}
-		}
-		for(int index = 0; index < toRet.data_.getWaitingPlayer().getMinions().size(); ++index) {
-			CardEndTurnInterface targetMinion = toRet.data_.getWaitingPlayer().getMinions().get(index);
-			try {
-				toRet = targetMinion.endTurn(PlayerSide.WAITING_PLAYER, toRet, deckPlayer0, deckPlayer1);
-			} catch(HSException e) {
-				e.printStackTrace();
-			}
-		}
+        // TODO: The minions should trigger end-of-turn effects in the order that they were played
+        for(int index = 0; index < toRet.data_.getCurrentPlayer().getMinions().size(); ++index) {
+            CardEndTurnInterface targetMinion = toRet.data_.getCurrentPlayer().getMinions().get(index);
+            try {
+                toRet = targetMinion.endTurn(PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1);
+            } catch(HSException e) {
+                e.printStackTrace();
+            }
+        }
+        for(int index = 0; index < toRet.data_.getWaitingPlayer().getMinions().size(); ++index) {
+            CardEndTurnInterface targetMinion = toRet.data_.getWaitingPlayer().getMinions().get(index);
+            try {
+                toRet = targetMinion.endTurn(PlayerSide.WAITING_PLAYER, toRet, deckPlayer0, deckPlayer1);
+            } catch(HSException e) {
+                e.printStackTrace();
+            }
+        }
 
-		toRet = BoardStateFactoryBase.handleDeadMinions(toRet, toRet.data_.getCurrentPlayer().getDeck(), toRet.data_
-				.getWaitingPlayer().getDeck());
+        toRet = BoardStateFactoryBase.handleDeadMinions(toRet, toRet.data_.getCurrentPlayer().getDeck(), toRet.data_
+                .getWaitingPlayer().getDeck());
 
-		return toRet.data_;
-	}
+        return toRet.data_;
+    }
 }

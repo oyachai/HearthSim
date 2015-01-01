@@ -11,42 +11,42 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class Rogue extends Hero {
 
-	@Override
+    @Override
     public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
-		return playerSide == PlayerSide.CURRENT_PLAYER && minion instanceof Hero;
+        return playerSide == PlayerSide.CURRENT_PLAYER && minion instanceof Hero;
     }
-	
-	/**
-	 * Use the hero ability on a given target
-	 * 
-	 * Rogue: equip a 1 attack, 2 charge weapon
-	 * 
-	 *
+
+    /**
+     * Use the hero ability on a given target
+     *
+     * Rogue: equip a 1 attack, 2 charge weapon
+     *
+     *
      *
      * @param targetPlayerSide
      * @param boardState
      * @return
-	 */
-	@Override
-	public HearthTreeNode useHeroAbility_core(
-			PlayerSide targetPlayerSide,
-			Minion targetMinion,
-			HearthTreeNode boardState,
-			Deck deckPlayer0,
-			Deck deckPlayer1,
-			boolean singleRealizationOnly)
-		throws HSException
-	{
-		HearthTreeNode toRet = boardState;
-		if (isHero(targetMinion) && targetPlayerSide == PlayerSide.CURRENT_PLAYER) {
-			this.hasBeenUsed = true;
-			toRet.data_.getCurrentPlayer().subtractMana(HERO_ABILITY_COST);
-			Hero target = (Hero)targetMinion;
+     */
+    @Override
+    public HearthTreeNode useHeroAbility_core(
+            PlayerSide targetPlayerSide,
+            Minion targetMinion,
+            HearthTreeNode boardState,
+            Deck deckPlayer0,
+            Deck deckPlayer1,
+            boolean singleRealizationOnly)
+        throws HSException
+    {
+        HearthTreeNode toRet = boardState;
+        if (isHero(targetMinion) && targetPlayerSide == PlayerSide.CURRENT_PLAYER) {
+            this.hasBeenUsed = true;
+            toRet.data_.getCurrentPlayer().subtractMana(HERO_ABILITY_COST);
+            Hero target = (Hero)targetMinion;
             target.setWeapon(new WickedKnife());
-			return toRet;
-		} else {
-			return null;
-		}
-	}
+            return toRet;
+        } else {
+            return null;
+        }
+    }
 
 }

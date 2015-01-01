@@ -21,103 +21,103 @@ import static org.junit.Assert.*;
 
 public class TestAlexstrasza {
 
-	private HearthTreeNode board;
-	private Deck deck;
+    private HearthTreeNode board;
+    private Deck deck;
 
-	@Before
-	public void setup() throws HSException {
-		board = new HearthTreeNode(new BoardModel());
+    @Before
+    public void setup() throws HSException {
+        board = new HearthTreeNode(new BoardModel());
 
-		Minion minion0_0 = new BoulderfistOgre();
-		Minion minion0_1 = new RaidLeader();
-		Minion minion1_0 = new BoulderfistOgre();
-		Minion minion1_1 = new RaidLeader();
-		Minion minion1_2 = new ArgentSquire();
+        Minion minion0_0 = new BoulderfistOgre();
+        Minion minion0_1 = new RaidLeader();
+        Minion minion1_0 = new BoulderfistOgre();
+        Minion minion1_1 = new RaidLeader();
+        Minion minion1_2 = new ArgentSquire();
 
-		board.data_.placeCardHandCurrentPlayer(minion0_0);
-		board.data_.placeCardHandCurrentPlayer(minion0_1);
+        board.data_.placeCardHandCurrentPlayer(minion0_0);
+        board.data_.placeCardHandCurrentPlayer(minion0_1);
 
-		board.data_.placeCardHandWaitingPlayer(minion1_0);
-		board.data_.placeCardHandWaitingPlayer(minion1_1);
-		board.data_.placeCardHandWaitingPlayer(minion1_2);
+        board.data_.placeCardHandWaitingPlayer(minion1_0);
+        board.data_.placeCardHandWaitingPlayer(minion1_1);
+        board.data_.placeCardHandWaitingPlayer(minion1_2);
 
-		Card cards[] = new Card[10];
-		for(int index = 0; index < 10; ++index) {
-			cards[index] = new TheCoin();
-		}
+        Card cards[] = new Card[10];
+        for(int index = 0; index < 10; ++index) {
+            cards[index] = new TheCoin();
+        }
 
-		deck = new Deck(cards);
+        deck = new Deck(cards);
 
-		Card fb = new Alexstrasza();
-		board.data_.placeCardHandCurrentPlayer(fb);
+        Card fb = new Alexstrasza();
+        board.data_.placeCardHandCurrentPlayer(fb);
 
-		board.data_.getCurrentPlayer().setMana((byte)10);
-		board.data_.getWaitingPlayer().setMana((byte)10);
-		
-		board.data_.getCurrentPlayer().setMaxMana((byte)9);
-		board.data_.getWaitingPlayer().setMaxMana((byte)9);
+        board.data_.getCurrentPlayer().setMana((byte)10);
+        board.data_.getWaitingPlayer().setMana((byte)10);
 
-		HearthTreeNode tmpBoard = new HearthTreeNode(board.data_.flipPlayers());
-		tmpBoard.data_.getCard_hand(PlayerSide.CURRENT_PLAYER, 0).useOn(PlayerSide.CURRENT_PLAYER,
-				tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
-		tmpBoard.data_.getCard_hand(PlayerSide.CURRENT_PLAYER, 0).useOn(PlayerSide.CURRENT_PLAYER,
-				tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
-		tmpBoard.data_.getCard_hand(PlayerSide.CURRENT_PLAYER, 0).useOn(PlayerSide.CURRENT_PLAYER,
-				tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
+        board.data_.getCurrentPlayer().setMaxMana((byte)9);
+        board.data_.getWaitingPlayer().setMaxMana((byte)9);
 
-		board = new HearthTreeNode(tmpBoard.data_.flipPlayers());
-		board.data_.getCard_hand(PlayerSide.CURRENT_PLAYER, 0).useOn(PlayerSide.CURRENT_PLAYER,
-				board.data_.getCurrentPlayerHero(), board, deck, null);
-		board.data_.getCard_hand(PlayerSide.CURRENT_PLAYER, 0).useOn(PlayerSide.CURRENT_PLAYER,
-				board.data_.getCurrentPlayerHero(), board, deck, null);
+        HearthTreeNode tmpBoard = new HearthTreeNode(board.data_.flipPlayers());
+        tmpBoard.data_.getCard_hand(PlayerSide.CURRENT_PLAYER, 0).useOn(PlayerSide.CURRENT_PLAYER,
+                tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
+        tmpBoard.data_.getCard_hand(PlayerSide.CURRENT_PLAYER, 0).useOn(PlayerSide.CURRENT_PLAYER,
+                tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
+        tmpBoard.data_.getCard_hand(PlayerSide.CURRENT_PLAYER, 0).useOn(PlayerSide.CURRENT_PLAYER,
+                tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
 
-		board.data_.resetMana();
-		board.data_.resetMinions();
+        board = new HearthTreeNode(tmpBoard.data_.flipPlayers());
+        board.data_.getCard_hand(PlayerSide.CURRENT_PLAYER, 0).useOn(PlayerSide.CURRENT_PLAYER,
+                board.data_.getCurrentPlayerHero(), board, deck, null);
+        board.data_.getCard_hand(PlayerSide.CURRENT_PLAYER, 0).useOn(PlayerSide.CURRENT_PLAYER,
+                board.data_.getCurrentPlayerHero(), board, deck, null);
 
-	}
+        board.data_.resetMana();
+        board.data_.resetMinions();
 
-	@Test
-	public void testSetsOwnHealth() throws HSException {
-		Minion hero = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
-		Alexstrasza alexstrasza = new Alexstrasza();
-		alexstrasza.useTargetableBattlecry_core(PlayerSide.CURRENT_PLAYER, hero, board, null, null);
-		assertEquals(15, hero.getHealth());
-	}
+    }
 
-	@Test
-	public void testSetsEnemyHealth() throws HSException {
-		Minion hero = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
-		Alexstrasza alexstrasza = new Alexstrasza();
-		alexstrasza.useTargetableBattlecry_core(PlayerSide.WAITING_PLAYER, hero, board, null, null);
-		assertEquals(15, hero.getHealth());
-	}
+    @Test
+    public void testSetsOwnHealth() throws HSException {
+        Minion hero = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
+        Alexstrasza alexstrasza = new Alexstrasza();
+        alexstrasza.useTargetableBattlecry_core(PlayerSide.CURRENT_PLAYER, hero, board, null, null);
+        assertEquals(15, hero.getHealth());
+    }
 
-	@Test
-	public void testSetsDamagedHealth() throws HSException {
-		Minion hero = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
-		hero.setHealth((byte)20);
-		Alexstrasza alexstrasza = new Alexstrasza();
-		alexstrasza.useTargetableBattlecry_core(PlayerSide.CURRENT_PLAYER, hero, board, null, null);
-		assertEquals(15, hero.getHealth());
-	}
+    @Test
+    public void testSetsEnemyHealth() throws HSException {
+        Minion hero = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
+        Alexstrasza alexstrasza = new Alexstrasza();
+        alexstrasza.useTargetableBattlecry_core(PlayerSide.WAITING_PLAYER, hero, board, null, null);
+        assertEquals(15, hero.getHealth());
+    }
 
-	@Test
-	public void testDoesNotEffectArmor() throws HSException {
-		Hero hero = board.data_.getHero(PlayerSide.CURRENT_PLAYER);
-		hero.setArmor((byte)20);
-		Alexstrasza alexstrasza = new Alexstrasza();
-		alexstrasza.useTargetableBattlecry_core(PlayerSide.CURRENT_PLAYER, hero, board, null, null);
-		assertEquals(15, hero.getHealth());
-		assertEquals(20, hero.getArmor());
-	}
+    @Test
+    public void testSetsDamagedHealth() throws HSException {
+        Minion hero = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
+        hero.setHealth((byte)20);
+        Alexstrasza alexstrasza = new Alexstrasza();
+        alexstrasza.useTargetableBattlecry_core(PlayerSide.CURRENT_PLAYER, hero, board, null, null);
+        assertEquals(15, hero.getHealth());
+    }
 
-	@Test
-	// TODO check to see if this counts as an actual heal effect (e.g., Soulpriest or Lightwarden)
-	public void testHealsLowHealthTarget() throws HSException {
-		Minion hero = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
-		hero.setHealth((byte)2);
-		Alexstrasza alexstrasza = new Alexstrasza();
-		alexstrasza.useTargetableBattlecry_core(PlayerSide.CURRENT_PLAYER, hero, board, null, null);
-		assertEquals(15, hero.getHealth());
-	}
+    @Test
+    public void testDoesNotEffectArmor() throws HSException {
+        Hero hero = board.data_.getHero(PlayerSide.CURRENT_PLAYER);
+        hero.setArmor((byte)20);
+        Alexstrasza alexstrasza = new Alexstrasza();
+        alexstrasza.useTargetableBattlecry_core(PlayerSide.CURRENT_PLAYER, hero, board, null, null);
+        assertEquals(15, hero.getHealth());
+        assertEquals(20, hero.getArmor());
+    }
+
+    @Test
+    // TODO check to see if this counts as an actual heal effect (e.g., Soulpriest or Lightwarden)
+    public void testHealsLowHealthTarget() throws HSException {
+        Minion hero = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
+        hero.setHealth((byte)2);
+        Alexstrasza alexstrasza = new Alexstrasza();
+        alexstrasza.useTargetableBattlecry_core(PlayerSide.CURRENT_PLAYER, hero, board, null, null);
+        assertEquals(15, hero.getHealth());
+    }
 }

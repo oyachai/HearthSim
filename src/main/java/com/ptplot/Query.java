@@ -65,9 +65,9 @@ import java.util.*;
 @SuppressWarnings("PMD")
 public class Query extends JPanel {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	/** Construct a panel with no entries in it.
+    /** Construct a panel with no entries in it.
      */
     public Query() {
         _grid = new GridBagLayout();
@@ -211,7 +211,7 @@ public class Query extends JPanel {
         // combobox.setBackground(background);
         combobox.setEditor(new BasicComboBoxEditor() {
             @Override
-			public Component getEditorComponent() {
+            public Component getEditorComponent() {
                 Component result = super.getEditorComponent();
                 result.setBackground(background);
                 result.setForeground(foreground);
@@ -779,7 +779,7 @@ public class Query extends JPanel {
      *   need not be declared explicitly.
      */
     @Deprecated
-	public boolean booleanValue(String name) throws NoSuchElementException,
+    public boolean booleanValue(String name) throws NoSuchElementException,
             IllegalArgumentException {
         return getBooleanValue(name);
     }
@@ -802,7 +802,7 @@ public class Query extends JPanel {
      *   need not be declared explicitly.
      */
     @Deprecated
-	public double doubleValue(String name) throws IllegalArgumentException,
+    public double doubleValue(String name) throws IllegalArgumentException,
             NoSuchElementException, NumberFormatException {
         return getDoubleValue(name);
     }
@@ -977,7 +977,7 @@ public class Query extends JPanel {
      *  @return The maximum desired size.
      */
     @Override
-	public Dimension getMaximumSize() {
+    public Dimension getMaximumSize() {
         // Unfortunately, if we don't have a message, then we end up with
         // an empty space that is difficult to control the size of, which
         // requires us to set the maximum size to be the same as
@@ -1137,7 +1137,7 @@ public class Query extends JPanel {
      *   need not be declared explicitly.
      */
     @Deprecated
-	public int intValue(String name) throws IllegalArgumentException,
+    public int intValue(String name) throws IllegalArgumentException,
             NoSuchElementException, NumberFormatException {
         return getIntValue(name);
     }
@@ -1265,7 +1265,7 @@ public class Query extends JPanel {
      *  @param color The background color.
      */
     @Override
-	public void setBackground(Color color) {
+    public void setBackground(Color color) {
         super.setBackground(color);
         _background = color;
 
@@ -1604,7 +1604,7 @@ public class Query extends JPanel {
      *   have a string representation (this should not be thrown).
      */
     @Deprecated
-	public String stringValue(String name) throws NoSuchElementException,
+    public String stringValue(String name) throws NoSuchElementException,
             IllegalArgumentException {
         return getStringValue(name);
     }
@@ -1804,7 +1804,7 @@ public class Query extends JPanel {
         *  @param event The event, ignored in this method.
         */
         @Override
-		public void actionPerformed(ActionEvent event) {
+        public void actionPerformed(ActionEvent event) {
             _owner._notifyListeners(_name);
         }
 
@@ -1816,9 +1816,9 @@ public class Query extends JPanel {
     /** Panel containing an entry box and color chooser.
      */
     public static class QueryColorChooser extends Box implements ActionListener {
-		private static final long serialVersionUID = 1L;
+        private static final long serialVersionUID = 1L;
 
-		/** Create a panel containing an entry box and a color chooser.
+        /** Create a panel containing an entry box and a color chooser.
          *  @param owner The owner query
          *  @param name The name of the query
          *  @param defaultColor  The initial default color of the color chooser.
@@ -1855,7 +1855,7 @@ public class Query extends JPanel {
         }
 
         @Override
-		public void actionPerformed(ActionEvent e) {
+        public void actionPerformed(ActionEvent e) {
             // Read the current color from the text field.
             String spec = getSelectedColor().trim();
             Color newColor = JColorChooser.showDialog(_owner, "Choose Color",
@@ -1909,9 +1909,9 @@ public class Query extends JPanel {
      */
     public static class QueryFileChooser extends Box implements ActionListener {
 
-		private static final long serialVersionUID = 1L;
+        private static final long serialVersionUID = 1L;
 
-		private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
+        private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
         /** Construct a query file chooser.  The background will be white and
          *  the foreground will be black.
          * @param owner The query object that owns the file chooser
@@ -1988,7 +1988,7 @@ public class Query extends JPanel {
         }
 
         @Override
-		public void actionPerformed(ActionEvent e) {
+        public void actionPerformed(ActionEvent e) {
 
             // Swap backgrounds and avoid white boxes in "common places" dialog
             JFileChooserBugFix jFileChooserBugFix = new JFileChooserBugFix();
@@ -1998,9 +1998,9 @@ public class Query extends JPanel {
                 // NOTE: If the last argument is null, then choose a
                 // default dir.
                 JFileChooser fileChooser = new JFileChooser(_startingDirectory) {
-					private static final long serialVersionUID = 1L;
-					@Override
-					public void approveSelection() {
+                    private static final long serialVersionUID = 1L;
+                    @Override
+                    public void approveSelection() {
                         File file = getSelectedFile();
                         if (file.exists() && getDialogType() == SAVE_DIALOG) {
                             String queryString = file.getName()
@@ -2151,12 +2151,12 @@ public class Query extends JPanel {
         }
 
         @Override
-		public void focusGained(FocusEvent e) {
+        public void focusGained(FocusEvent e) {
             // Nothing to do.
         }
 
         @Override
-		public void focusLost(FocusEvent e) {
+        public void focusLost(FocusEvent e) {
             // NOTE: Java's lame AWT has no reliable way
             // to take action on window closing, so this focus lost
             // notification is the only reliable way we have of reacting
@@ -2186,7 +2186,7 @@ public class Query extends JPanel {
 
         /** Call all registered QueryListeners. */
         @Override
-		public void itemStateChanged(ItemEvent e) {
+        public void itemStateChanged(ItemEvent e) {
             _owner._notifyListeners(_name);
         }
 
@@ -2200,9 +2200,9 @@ public class Query extends JPanel {
         // FindBugs suggests making this class static so as to decrease
         // the size of instances and avoid dangling references.
 
-		private static final long serialVersionUID = 1L;
+        private static final long serialVersionUID = 1L;
 
-		public JTextArea textArea;
+        public JTextArea textArea;
 
         QueryScrollPane(JTextArea c) {
             super(c);
@@ -2238,7 +2238,7 @@ public class Query extends JPanel {
 
         /** Call all registered QueryListeners. */
         @Override
-		public void stateChanged(ChangeEvent event) {
+        public void stateChanged(ChangeEvent event) {
             _owner._notifyListeners(_name);
         }
 

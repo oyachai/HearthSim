@@ -5,16 +5,16 @@ import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
 public class HSTabButton extends JButton {
-	private static final long serialVersionUID = 1L;
-	private static final Dimension ARC = new Dimension(1, 1);
+    private static final long serialVersionUID = 1L;
+    private static final Dimension ARC = new Dimension(1, 1);
 
-	public HSTabButton(String buttonText) {
+    public HSTabButton(String buttonText) {
         super(buttonText);
         this.setPreferredSize(new Dimension(80, 20));
         enableInputMethods(true);
         setFocusable(true);
     }
-	
+
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -25,11 +25,11 @@ public class HSTabButton extends JButton {
 
         if (this.getModel().isPressed()) {
 
-        	float hsbVals[] = Color.RGBtoHSB( this.getBackground().getRed(), this.getBackground().getGreen(), this.getBackground().getBlue(), null );
-        	Color shadow = Color.getHSBColor( hsbVals[0], hsbVals[1], 0.75f * hsbVals[2] );
-        	g.setColor(shadow);
+            float hsbVals[] = Color.RGBtoHSB( this.getBackground().getRed(), this.getBackground().getGreen(), this.getBackground().getBlue(), null );
+            Color shadow = Color.getHSBColor( hsbVals[0], hsbVals[1], 0.75f * hsbVals[2] );
+            g.setColor(shadow);
         } else {
-        	g.setColor(this.getBackground());
+            g.setColor(this.getBackground());
         }
         g.fillRoundRect(0, 0, getWidth() - 1, getHeight() - 1, ARC.width, ARC.height);
 

@@ -12,21 +12,21 @@ import java.lang.reflect.InvocationTargetException;
  *
  */
 public class HeroFactory {
-	public static Hero getHero(String heroName) throws HSInvalidHeroException {
-		String cleanedString = heroName.trim();
-		if (cleanedString.equals("None"))
-			return new TestHero();
-		try {
-			Class<?> clazz = Class.forName("com.hearthsim.card.minion.heroes." + cleanedString);
-			Constructor<?> ctor = clazz.getConstructor();
-			Object object = ctor.newInstance();
-			return (Hero)object;
-		} catch (ClassNotFoundException e) {
-			throw new HSInvalidHeroException("Unknown hero: " + cleanedString);
-		} catch (NoSuchMethodException | SecurityException | InvocationTargetException e) {
-			throw new HSInvalidHeroException("Unknown hero: " + cleanedString);
-		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException e) {
-			throw new HSInvalidHeroException("Unknown hero: " + cleanedString);
-		}
-	}
+    public static Hero getHero(String heroName) throws HSInvalidHeroException {
+        String cleanedString = heroName.trim();
+        if (cleanedString.equals("None"))
+            return new TestHero();
+        try {
+            Class<?> clazz = Class.forName("com.hearthsim.card.minion.heroes." + cleanedString);
+            Constructor<?> ctor = clazz.getConstructor();
+            Object object = ctor.newInstance();
+            return (Hero)object;
+        } catch (ClassNotFoundException e) {
+            throw new HSInvalidHeroException("Unknown hero: " + cleanedString);
+        } catch (NoSuchMethodException | SecurityException | InvocationTargetException e) {
+            throw new HSInvalidHeroException("Unknown hero: " + cleanedString);
+        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException e) {
+            throw new HSInvalidHeroException("Unknown hero: " + cleanedString);
+        }
+    }
 }

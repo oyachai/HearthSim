@@ -6,87 +6,87 @@ import com.hearthsim.util.DeepCopyable;
 
 public class Deck implements DeepCopyable<Deck> {
 
-	ArrayList<Card> cards;
-	
-	
-	/**
-	 * Constructor
-	 */
-	public Deck() {
-		this.cards = new ArrayList<Card>();
-	}
-	
-	/**
-	 * Constructor
-	 * @param cards An array of cards from which to make the deck
-	 */
-	public Deck(Card[] cards) {
-		this.cards = new ArrayList<Card>();
-		for (Card c : cards) {
-			this.cards.add(c);
-		}
-	}
+    ArrayList<Card> cards;
 
-	/**
-	 * Constructor
-	 * @param cards An list of cards from which to make the deck
-	 */
-	public Deck(ArrayList<Card> cards) {
-		this.cards = cards;
-	}
 
-	/**
-	 * Shuffles the deck
-	 */
-	public void shuffle() {
-		for(int i = cards.size() - 1; i > 0; --i) {
-			int j = (int)(Math.random() * (i + 1));
-			Card ci = cards.get(i);
-			cards.set(i, cards.get(j));
-			cards.set(j, ci);
-		}
-	}
-	
-	/**
-	 * Draw a specific card from the deck
-	 * 
-	 * @param index The index of the card to draw
-	 * @return
-	 */
-	public Card drawCard(int index) {
-		if (index >= cards.size())
-			return null;
-		return cards.get(index);
-	}
-	
-	/**
-	 * Returns the total number of cards in the deck
-	 * 
-	 * @return
-	 */
-	public int getNumCards() {
-		return cards.size();
-	}
-	
-	/**
-	 * Add a card to the end of the deck
-	 * @param card
-	 */
-	public void addCard(Card card) {
-		cards.add(card);
-	}
+    /**
+     * Constructor
+     */
+    public Deck() {
+        this.cards = new ArrayList<Card>();
+    }
 
-	@Override
-	public int hashCode() {
-		int hash = 1;
-		for (Card card : cards) {
-			hash = hash * 31 + (card != null ? card.hashCode() : 0);
-		}
-		return hash;
-	}
-	
-	@Override
-	public boolean equals(Object other) {
+    /**
+     * Constructor
+     * @param cards An array of cards from which to make the deck
+     */
+    public Deck(Card[] cards) {
+        this.cards = new ArrayList<Card>();
+        for (Card c : cards) {
+            this.cards.add(c);
+        }
+    }
+
+    /**
+     * Constructor
+     * @param cards An list of cards from which to make the deck
+     */
+    public Deck(ArrayList<Card> cards) {
+        this.cards = cards;
+    }
+
+    /**
+     * Shuffles the deck
+     */
+    public void shuffle() {
+        for(int i = cards.size() - 1; i > 0; --i) {
+            int j = (int)(Math.random() * (i + 1));
+            Card ci = cards.get(i);
+            cards.set(i, cards.get(j));
+            cards.set(j, ci);
+        }
+    }
+
+    /**
+     * Draw a specific card from the deck
+     *
+     * @param index The index of the card to draw
+     * @return
+     */
+    public Card drawCard(int index) {
+        if (index >= cards.size())
+            return null;
+        return cards.get(index);
+    }
+
+    /**
+     * Returns the total number of cards in the deck
+     *
+     * @return
+     */
+    public int getNumCards() {
+        return cards.size();
+    }
+
+    /**
+     * Add a card to the end of the deck
+     * @param card
+     */
+    public void addCard(Card card) {
+        cards.add(card);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 1;
+        for (Card card : cards) {
+            hash = hash * 31 + (card != null ? card.hashCode() : 0);
+        }
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object other) {
         if (other == null)
             return false;
 
@@ -95,18 +95,18 @@ public class Deck implements DeepCopyable<Deck> {
         
         Deck oD = (Deck)other;
         for (int indx = 0; indx < cards.size(); ++indx) {
-    		if (!cards.get(indx).equals(oD.cards.get(indx))) return false;
+                if (!cards.get(indx).equals(oD.cards.get(indx))) return false;
         }
         
         return true;
-	}
+    }
 
-	@Override
-	public Deck deepCopy() {
-		ArrayList<Card> copiedCards = new ArrayList<Card>();
-		for (Card card : cards) {
-			copiedCards.add(card.deepCopy());
-		}
-		return new Deck(copiedCards);
-	}
+    @Override
+    public Deck deepCopy() {
+        ArrayList<Card> copiedCards = new ArrayList<Card>();
+        for (Card card : cards) {
+            copiedCards.add(card.deepCopy());
+        }
+        return new Deck(copiedCards);
+    }
 }

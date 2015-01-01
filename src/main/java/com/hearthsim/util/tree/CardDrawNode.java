@@ -14,91 +14,91 @@ import com.hearthsim.util.HearthAction;
  *
  */
 public class CardDrawNode extends StopNode {
-	
-	int numCardsToDraw_;
-	
-	public CardDrawNode(HearthTreeNode origNode, int numCardsToDraw) {
-		super(origNode);
-		numCardsToDraw_ = numCardsToDraw;
-	}
 
-	/**
-	 * Add a number of cards to the draw queue
-	 * 
-	 * @param valueToAdd
-	 */
-	public void addNumCardsToDraw(int valueToAdd) {
-		numCardsToDraw_ += valueToAdd;
-	}
-	
-	public int getNumCardsToDraw() {
-		return numCardsToDraw_;
-	}
-	
-	/**
-	 * Queue up a specified number of cards for drawing from the deck
-	 * 
-	 * @param value Number of cards to queue up for drawing
-	 */
-	public void setNumCardsToDraw(int value) {
-		numCardsToDraw_ = value;
-	}
-	
-	/**
-	 * Draw the cards that are queued 
-	 * 
-	 * This function actually draws the cards that are queued up by the various card draw mechanics.
-	 * This function shouldn't be called by anyone except BoardStateFactory.
-	 * 
-	 */
-	private void drawQueuedCard() {
-		for (int indx = 0; indx < numCardsToDraw_; ++indx) {
-			data_.getCurrentPlayer().drawNextCardFromDeck();
-		}
-	}
-	
+    int numCardsToDraw_;
 
-	public double cardDrawScore(Deck deck, BoardScorer ai) {
-		int numCardsInDeck = deck.getNumCards();
-		int numCardsRemaining = numCardsInDeck - data_.getCurrentPlayer().getDeckPos();
-		int numCardsToActuallyDraw = numCardsToDraw_;
-		int totalFatigueDamage = 0;
-		if (numCardsRemaining < numCardsToDraw_) {
-			//expected fatigue damage
-			int fatigueDamage = data_.getCurrentPlayer().getFatigueDamage();
-			for (int i = 0; i < numCardsToDraw_ - numCardsRemaining; ++i) {
-				totalFatigueDamage += fatigueDamage;
-				fatigueDamage += 1;
-			}
-			numCardsToActuallyDraw = numCardsRemaining;
-		}
-		//find the average card score of the remaining cards
-		double averageCardScore = 0.0;
-		if(numCardsRemaining > 0) {
-			for (int indx = data_.getCurrentPlayer().getDeckPos(); indx < numCardsInDeck; ++indx) {
-				averageCardScore += ai.cardInHandScore(deck.drawCard(indx), this.data_);
-			}
-			averageCardScore = averageCardScore / numCardsRemaining;
-		}
-		
-		double toRet = averageCardScore * numCardsToActuallyDraw;
-		int heroHealth = data_.getCurrentPlayerHero().getHealth();
-		int heroArmor = data_.getCurrentPlayerHero().getArmor();
-		int armorLeft = heroArmor > totalFatigueDamage ? heroArmor - totalFatigueDamage : 0;
-		int healthLeft = armorLeft > 0 ? heroHealth : heroHealth - (totalFatigueDamage - heroArmor);
-		toRet += ai.heroHealthScore_p0(healthLeft, armorLeft) - ai.heroHealthScore_p0(heroHealth, heroArmor);
-		
-		//If you are going to draw a card 2 different ways, it is usually better to draw the cards when you have more mana
-		double manaBenefit = 1.e-2 * data_.getCurrentPlayer().getMana();
-		toRet += manaBenefit;
-		
-		return toRet;
-	}
+    public CardDrawNode(HearthTreeNode origNode, int numCardsToDraw) {
+        super(origNode);
+        numCardsToDraw_ = numCardsToDraw;
+    }
 
-	@Override
-	public HearthTreeNode finishAllEffects(Deck deckPlayer0, Deck deckPlayer1) throws HSException  {
-		this.drawQueuedCard();
-		HearthAction drawAction = new HearthAction(HearthAction.Verb.DRAW_CARDS, PlayerSide.CURRENT_PLAYER, this.numCardsToDraw_);
-		return new HearthTreeNode(this.data_, drawAction, this.score_, this.depth_, this.children_);
-	}
+    /**
+     * Add a number of cards to the draw queue
+     *
+     * @param valueToAdd
+     */
+    public void addNumCardsToDraw(int valueToAdd) {
+        numCardsToDraw_ += valueToAdd;
+    }
+
+    public int getNumCardsToDraw() {
+        return numCardsToDraw_;
+    }
+
+    /**
+     * Queue up a specified number of cards for drawing from the deck
+     *
+     * @param value Number of cards to queue up for drawing
+     */
+    public void setNumCardsToDraw(int value) {
+        numCardsToDraw_ = value;
+    }
+
+    /**
+     * Draw the cards that are queued
+     *
+     * This function actually draws the cards that are queued up by the various card draw mechanics.
+     * This function shouldn't be called by anyone except BoardStateFactory.
+     *
+     */
+    private void drawQueuedCard() {
+        for (int indx = 0; indx < numCardsToDraw_; ++indx) {
+            data_.getCurrentPlayer().drawNextCardFromDeck();
+        }
+    }
+
+
+    public double cardDrawScore(Deck deck, BoardScorer ai) {
+        int numCardsInDeck = deck.getNumCards();
+        int numCardsRemaining = numCardsInDeck - data_.getCurrentPlayer().getDeckPos();
+        int numCardsToActuallyDraw = numCardsToDraw_;
+        int totalFatigueDamage = 0;
+        if (numCardsRemaining < numCardsToDraw_) {
+            //expected fatigue damage
+            int fatigueDamage = data_.getCurrentPlayer().getFatigueDamage();
+            for (int i = 0; i < numCardsToDraw_ - numCardsRemaining; ++i) {
+                totalFatigueDamage += fatigueDamage;
+                fatigueDamage += 1;
+            }
+            numCardsToActuallyDraw = numCardsRemaining;
+        }
+        //find the average card score of the remaining cards
+        double averageCardScore = 0.0;
+        if(numCardsRemaining > 0) {
+            for (int indx = data_.getCurrentPlayer().getDeckPos(); indx < numCardsInDeck; ++indx) {
+                averageCardScore += ai.cardInHandScore(deck.drawCard(indx), this.data_);
+            }
+            averageCardScore = averageCardScore / numCardsRemaining;
+        }
+
+        double toRet = averageCardScore * numCardsToActuallyDraw;
+        int heroHealth = data_.getCurrentPlayerHero().getHealth();
+        int heroArmor = data_.getCurrentPlayerHero().getArmor();
+        int armorLeft = heroArmor > totalFatigueDamage ? heroArmor - totalFatigueDamage : 0;
+        int healthLeft = armorLeft > 0 ? heroHealth : heroHealth - (totalFatigueDamage - heroArmor);
+        toRet += ai.heroHealthScore_p0(healthLeft, armorLeft) - ai.heroHealthScore_p0(heroHealth, heroArmor);
+
+        //If you are going to draw a card 2 different ways, it is usually better to draw the cards when you have more mana
+        double manaBenefit = 1.e-2 * data_.getCurrentPlayer().getMana();
+        toRet += manaBenefit;
+
+        return toRet;
+    }
+
+    @Override
+    public HearthTreeNode finishAllEffects(Deck deckPlayer0, Deck deckPlayer1) throws HSException  {
+        this.drawQueuedCard();
+        HearthAction drawAction = new HearthAction(HearthAction.Verb.DRAW_CARDS, PlayerSide.CURRENT_PLAYER, this.numCardsToDraw_);
+        return new HearthTreeNode(this.data_, drawAction, this.score_, this.depth_, this.children_);
+    }
 }

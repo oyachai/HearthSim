@@ -8,11 +8,11 @@ import com.hearthsim.exception.HSException;
  *
  */
 public abstract class StopNode extends HearthTreeNode {
-		
-	public StopNode(HearthTreeNode origNode) {
-		super(origNode.data_, origNode.action, origNode.score_, origNode.depth_);
-		children_ = origNode.children_;
-	}
 
-	public abstract HearthTreeNode finishAllEffects(Deck deckPlayer0, Deck deckPlayer1) throws HSException;
+    public StopNode(HearthTreeNode origNode) {
+        super(origNode.data_, origNode.action, origNode.score_, origNode.depth_);
+        children_ = origNode.children_;
+    }
+
+    public abstract HearthTreeNode finishAllEffects(Deck deckPlayer0, Deck deckPlayer1) throws HSException;
 }

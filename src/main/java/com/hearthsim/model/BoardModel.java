@@ -71,17 +71,17 @@ public class BoardModel implements DeepCopyable<BoardModel> {
     }
 
     public BoardModel() {
-    	this(new PlayerModel((byte)0, "player0", new TestHero("hero0", (byte)30), new Deck()),
-    		 new PlayerModel((byte)1, "player1", new TestHero("hero1", (byte)30), new Deck()));
+        this(new PlayerModel((byte)0, "player0", new TestHero("hero0", (byte)30), new Deck()),
+             new PlayerModel((byte)1, "player1", new TestHero("hero1", (byte)30), new Deck()));
     }
 
     public BoardModel(Deck deckPlayer0, Deck deckPlayer1) {
-    	this(new PlayerModel((byte)0, "player0", new TestHero("hero0", (byte)30), deckPlayer0),
-    		 new PlayerModel((byte)1, "player1", new TestHero("hero1", (byte)30), deckPlayer1));
+        this(new PlayerModel((byte)0, "player0", new TestHero("hero0", (byte)30), deckPlayer0),
+             new PlayerModel((byte)1, "player1", new TestHero("hero1", (byte)30), deckPlayer1));
     }
     
     public BoardModel(Hero p0_hero, Hero p1_hero) {
-    	this(new PlayerModel((byte)0, "p0",p0_hero,new Deck()), new PlayerModel((byte)1, "p1",p1_hero,new Deck()));
+        this(new PlayerModel((byte)0, "p0",p0_hero,new Deck()), new PlayerModel((byte)1, "p1",p1_hero,new Deck()));
     }
     
     public BoardModel(PlayerModel currentPlayerModel, PlayerModel waitingPlayerModel) {
@@ -290,7 +290,7 @@ public class BoardModel implements DeepCopyable<BoardModel> {
     public void drawCardFromWaitingPlayerDeck(int numCards) {
         //This minion is an enemy minion.  Let's draw a card for the enemy.  No need to use a StopNode for enemy card draws.
         for (int indx = 0; indx < numCards; ++indx) {
-        	this.getWaitingPlayer().drawNextCardFromDeck();
+            this.getWaitingPlayer().drawNextCardFromDeck();
         }
     }
 
@@ -305,7 +305,7 @@ public class BoardModel implements DeepCopyable<BoardModel> {
      */
     public void drawCardFromCurrentPlayerDeck(int numCards) throws HSInvalidPlayerIndexException {
         for (int indx = 0; indx < numCards; ++indx) {
-        	this.getCurrentPlayer().drawNextCardFromDeck();
+            this.getCurrentPlayer().drawNextCardFromDeck();
         }
     }
 
@@ -324,9 +324,9 @@ public class BoardModel implements DeepCopyable<BoardModel> {
     public boolean removeMinion(MinionPlayerPair minionIdPair) throws HSInvalidPlayerIndexException {
         this.allMinionsFIFOList_.remove(minionIdPair);
         if (minionIdPair.getPlayerModel() == currentPlayer)
-        	minionIdPair.minion.silenced(PlayerSide.CURRENT_PLAYER, this);
+            minionIdPair.minion.silenced(PlayerSide.CURRENT_PLAYER, this);
         else
-        	minionIdPair.minion.silenced(PlayerSide.WAITING_PLAYER, this);
+            minionIdPair.minion.silenced(PlayerSide.WAITING_PLAYER, this);
         return minionIdPair.getPlayerModel().getMinions().remove(minionIdPair.minion);
     }
 
@@ -371,7 +371,7 @@ public class BoardModel implements DeepCopyable<BoardModel> {
     }
 
     @SuppressWarnings("unused")
-	public ArrayList<Integer> getAttackableMinions() {
+    public ArrayList<Integer> getAttackableMinions() {
         ArrayList<Integer> toRet = new ArrayList<Integer>();
         boolean hasTaunt = false;
         for (final Minion minion : waitingPlayer.getMinions()) {
@@ -421,8 +421,8 @@ public class BoardModel implements DeepCopyable<BoardModel> {
     }
 
     public void resetMana() {
-    	currentPlayer.resetMana();
-    	waitingPlayer.resetMana();
+        currentPlayer.resetMana();
+        waitingPlayer.resetMana();
     }
 
     @Override
@@ -448,10 +448,10 @@ public class BoardModel implements DeepCopyable<BoardModel> {
 
     @Override
     public int hashCode() {
-    	int hash = 1;
-    	hash = hash * 31 + currentPlayer.hashCode();
-    	hash = hash * 31 + waitingPlayer.hashCode();
-    	hash = hash * 31 + allMinionsFIFOList_.hashCode();
+        int hash = 1;
+        hash = hash * 31 + currentPlayer.hashCode();
+        hash = hash * 31 + waitingPlayer.hashCode();
+        hash = hash * 31 + allMinionsFIFOList_.hashCode();
         return hash;
     }
 
@@ -514,7 +514,7 @@ public class BoardModel implements DeepCopyable<BoardModel> {
     }
 
     @Override
-	public BoardModel deepCopy() {
+    public BoardModel deepCopy() {
         BoardModel newBoard = new BoardModel(currentPlayer.deepCopy(), waitingPlayer.deepCopy());
 
         for (MinionPlayerPair minionPlayerPair : allMinionsFIFOList_) {
@@ -551,7 +551,7 @@ public class BoardModel implements DeepCopyable<BoardModel> {
     }
 
     @Override
-	public String toString() {
+    public String toString() {
         String boardFormat = MDC.get("board_format");
         if (boardFormat != null && boardFormat.equals("simple")) {
             return simpleString();

@@ -20,66 +20,66 @@ import static org.junit.Assert.*;
 
 public class TestEquality {
 
-	private HearthTreeNode board;
-	private Deck deck;
+    private HearthTreeNode board;
+    private Deck deck;
 
-	@Before
-	public void setup() throws HSInvalidPlayerIndexException, HSException {
-		board = new HearthTreeNode(new BoardModel());
+    @Before
+    public void setup() throws HSInvalidPlayerIndexException, HSException {
+        board = new HearthTreeNode(new BoardModel());
 
-		Minion minion0_0 = new StormwindChampion();
-		Minion minion0_1 = new BoulderfistOgre();
-		Minion minion0_2 = new RaidLeader();
-		Minion minion1_0 = new BoulderfistOgre();
-		Minion minion1_1 = new RaidLeader();
-		
-		Card cards[] = new Card[10];
-		for (int index = 0; index < 10; ++index) {
-			cards[index] = new TheCoin();
-		}
-	
-		deck = new Deck(cards);
+        Minion minion0_0 = new StormwindChampion();
+        Minion minion0_1 = new BoulderfistOgre();
+        Minion minion0_2 = new RaidLeader();
+        Minion minion1_0 = new BoulderfistOgre();
+        Minion minion1_1 = new RaidLeader();
 
-		Card fb = new Equality();
-		board.data_.placeCardHandCurrentPlayer(fb);
+        Card cards[] = new Card[10];
+        for (int index = 0; index < 10; ++index) {
+            cards[index] = new TheCoin();
+        }
 
-		board.data_.getCurrentPlayer().setMana((byte)8);
-		board.data_.getWaitingPlayer().setMana((byte)8);
-		
-		board.data_.getCurrentPlayer().setMaxMana((byte)8);
-		board.data_.getWaitingPlayer().setMaxMana((byte)8);
-		
-		minion0_0.placeMinion(PlayerSide.CURRENT_PLAYER, board.data_.getHero(PlayerSide.CURRENT_PLAYER), board, null, null, true);
-		minion0_1.placeMinion(PlayerSide.CURRENT_PLAYER, board.data_.getHero(PlayerSide.CURRENT_PLAYER), board, null, null, true);
-		minion0_2.placeMinion(PlayerSide.CURRENT_PLAYER, board.data_.getHero(PlayerSide.CURRENT_PLAYER), board, null, null, true);
-		minion1_0.placeMinion(PlayerSide.WAITING_PLAYER, board.data_.getHero(PlayerSide.WAITING_PLAYER), board, null, null, true);
-		minion1_1.placeMinion(PlayerSide.WAITING_PLAYER, board.data_.getHero(PlayerSide.WAITING_PLAYER), board, null, null, true);
+        deck = new Deck(cards);
 
-	}
-		
-	@Test
-	public void test1() throws HSException {
-		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
-		
-		assertFalse(ret == null);
-		assertEquals(board.data_.getNumCards_hand(), 0);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 3);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
-		assertEquals(board.data_.getCurrentPlayer().getMana(), 6);
-		assertEquals(board.data_.getWaitingPlayer().getMana(), 8);
-		assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
-		assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getTotalHealth(), 2);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getTotalHealth(), 2);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(2).getTotalHealth(), 1);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getTotalHealth(), 1);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getTotalHealth(), 1);
+        Card fb = new Equality();
+        board.data_.placeCardHandCurrentPlayer(fb);
 
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack(), 3);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack(), 8);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(2).getTotalAttack(), 7);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack(), 2);
-		assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack(), 7);
-	}
+        board.data_.getCurrentPlayer().setMana((byte)8);
+        board.data_.getWaitingPlayer().setMana((byte)8);
+
+        board.data_.getCurrentPlayer().setMaxMana((byte)8);
+        board.data_.getWaitingPlayer().setMaxMana((byte)8);
+
+        minion0_0.placeMinion(PlayerSide.CURRENT_PLAYER, board.data_.getHero(PlayerSide.CURRENT_PLAYER), board, null, null, true);
+        minion0_1.placeMinion(PlayerSide.CURRENT_PLAYER, board.data_.getHero(PlayerSide.CURRENT_PLAYER), board, null, null, true);
+        minion0_2.placeMinion(PlayerSide.CURRENT_PLAYER, board.data_.getHero(PlayerSide.CURRENT_PLAYER), board, null, null, true);
+        minion1_0.placeMinion(PlayerSide.WAITING_PLAYER, board.data_.getHero(PlayerSide.WAITING_PLAYER), board, null, null, true);
+        minion1_1.placeMinion(PlayerSide.WAITING_PLAYER, board.data_.getHero(PlayerSide.WAITING_PLAYER), board, null, null, true);
+
+    }
+
+    @Test
+    public void test1() throws HSException {
+        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
+
+        assertFalse(ret == null);
+        assertEquals(board.data_.getNumCards_hand(), 0);
+        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 3);
+        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
+        assertEquals(board.data_.getCurrentPlayer().getMana(), 6);
+        assertEquals(board.data_.getWaitingPlayer().getMana(), 8);
+        assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
+        assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
+        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getTotalHealth(), 2);
+        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getTotalHealth(), 2);
+        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(2).getTotalHealth(), 1);
+        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getTotalHealth(), 1);
+        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getTotalHealth(), 1);
+
+        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack(), 3);
+        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack(), 8);
+        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(2).getTotalAttack(), 7);
+        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack(), 2);
+        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack(), 7);
+    }
 }

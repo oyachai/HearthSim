@@ -10,77 +10,77 @@ import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class DivineFavor extends SpellCard {
-	/**
-	 * Constructor
-	 * 
-	 * @param hasBeenUsed Whether the card has already been used or not
-	 */
-	public DivineFavor(boolean hasBeenUsed) {
-		super((byte)3, hasBeenUsed);
-		
-		this.canTargetEnemyHero = false;
-		this.canTargetEnemyMinions = false;
-		this.canTargetOwnMinions = false;
-	}
+    /**
+     * Constructor
+     *
+     * @param hasBeenUsed Whether the card has already been used or not
+     */
+    public DivineFavor(boolean hasBeenUsed) {
+        super((byte)3, hasBeenUsed);
 
-	/**
-	 * Constructor
-	 * 
-	 * Defaults to hasBeenUsed = false
-	 */
-	public DivineFavor() {
-		this(false);
-	}
-	
-	@Override
-	public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
-		if(!super.canBeUsedOn(playerSide, minion, boardModel)) {
-			return false;
-		}
+        this.canTargetEnemyHero = false;
+        this.canTargetEnemyMinions = false;
+        this.canTargetOwnMinions = false;
+    }
 
-		int numCardsToDraw = PlayerSide.WAITING_PLAYER.getPlayer(boardModel).getHand().size() - PlayerSide.CURRENT_PLAYER.getPlayer(boardModel).getHand().size() + 1;
-		if (numCardsToDraw < 1) {
-			return false;
-		}
+    /**
+     * Constructor
+     *
+     * Defaults to hasBeenUsed = false
+     */
+    public DivineFavor() {
+        this(false);
+    }
 
-		return true;
-	}
+    @Override
+    public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
+        if(!super.canBeUsedOn(playerSide, minion, boardModel)) {
+            return false;
+        }
 
-	/**
-	 * 
-	 * Use the card on the given target
-	 * 
-	 * Draw cards until you have as many in hand as your opponent
-	 * 
-	 *
+        int numCardsToDraw = PlayerSide.WAITING_PLAYER.getPlayer(boardModel).getHand().size() - PlayerSide.CURRENT_PLAYER.getPlayer(boardModel).getHand().size() + 1;
+        if (numCardsToDraw < 1) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     *
+     * Use the card on the given target
+     *
+     * Draw cards until you have as many in hand as your opponent
+     *
+     *
      *
      * @param side
      * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
      *
      * @return The boardState is manipulated and returned
-	 */
-	@Override
-	protected HearthTreeNode use_core(
-			PlayerSide side,
-			Minion targetMinion,
-			HearthTreeNode boardState,
-			Deck deckPlayer0,
-			Deck deckPlayer1,
-			boolean singleRealizationOnly)
-		throws HSException
-	{
-		int numCardsToDraw = PlayerSide.WAITING_PLAYER.getPlayer(boardState).getHand().size() - PlayerSide.CURRENT_PLAYER.getPlayer(boardState).getHand().size() + 1;
-		if (numCardsToDraw < 1) {
-			return null;
-		}
+     */
+    @Override
+    protected HearthTreeNode use_core(
+            PlayerSide side,
+            Minion targetMinion,
+            HearthTreeNode boardState,
+            Deck deckPlayer0,
+            Deck deckPlayer1,
+            boolean singleRealizationOnly)
+        throws HSException
+    {
+        int numCardsToDraw = PlayerSide.WAITING_PLAYER.getPlayer(boardState).getHand().size() - PlayerSide.CURRENT_PLAYER.getPlayer(boardState).getHand().size() + 1;
+        if (numCardsToDraw < 1) {
+            return null;
+        }
 
-		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
-		if (toRet != null) {
-			if (toRet instanceof CardDrawNode)
-				((CardDrawNode) toRet).addNumCardsToDraw(numCardsToDraw);
-			else
-				toRet = new CardDrawNode(toRet, numCardsToDraw); //draw two cards
-		}
-		return toRet;
-	}
+        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+        if (toRet != null) {
+            if (toRet instanceof CardDrawNode)
+                ((CardDrawNode) toRet).addNumCardsToDraw(numCardsToDraw);
+            else
+                toRet = new CardDrawNode(toRet, numCardsToDraw); //draw two cards
+        }
+        return toRet;
+    }
 }

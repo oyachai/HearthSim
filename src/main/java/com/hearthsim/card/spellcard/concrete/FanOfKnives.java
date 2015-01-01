@@ -10,47 +10,47 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class FanOfKnives extends SpellDamageAoe {
 
-	private static final byte DAMAGE_AMOUNT = 1;
+    private static final byte DAMAGE_AMOUNT = 1;
 
-	/**
-	 * Constructor
-	 * 
-	 * @param hasBeenUsed Whether the card has already been used or not
-	 */
-	public FanOfKnives(boolean hasBeenUsed) {
-		super((byte)3, DAMAGE_AMOUNT, hasBeenUsed);
-	}
+    /**
+     * Constructor
+     *
+     * @param hasBeenUsed Whether the card has already been used or not
+     */
+    public FanOfKnives(boolean hasBeenUsed) {
+        super((byte)3, DAMAGE_AMOUNT, hasBeenUsed);
+    }
 
-	/**
-	 * Constructor
-	 * Defaults to hasBeenUsed = false
-	 */
-	public FanOfKnives() {
-		this(false);
-	}
+    /**
+     * Constructor
+     * Defaults to hasBeenUsed = false
+     */
+    public FanOfKnives() {
+        this(false);
+    }
 
-	/**
-	 * Use the card on the given target
-	 * This card damages all enemy minions by 1 and draws a card
-	 * 
-	 * @param side
-	 * @param boardState The BoardState before this card has performed its action. It will be manipulated and returned.
-	 * @return The boardState is manipulated and returned
-	 */
-	@Override
-	protected HearthTreeNode use_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState,
-			Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
+    /**
+     * Use the card on the given target
+     * This card damages all enemy minions by 1 and draws a card
+     *
+     * @param side
+     * @param boardState The BoardState before this card has performed its action. It will be manipulated and returned.
+     * @return The boardState is manipulated and returned
+     */
+    @Override
+    protected HearthTreeNode use_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState,
+            Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
 
-		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1,
-				singleRealizationOnly);
+        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1,
+                singleRealizationOnly);
 
-		if(toRet != null) {
-			if(toRet instanceof CardDrawNode) {
-				((CardDrawNode)toRet).addNumCardsToDraw(1);
-			} else {
-				toRet = new CardDrawNode(toRet, 1); // draw a card
-			}
-		}
-		return toRet;
-	}
+        if(toRet != null) {
+            if(toRet instanceof CardDrawNode) {
+                ((CardDrawNode)toRet).addNumCardsToDraw(1);
+            } else {
+                toRet = new CardDrawNode(toRet, 1); // draw a card
+            }
+        }
+        return toRet;
+    }
 }

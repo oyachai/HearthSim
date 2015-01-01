@@ -41,12 +41,12 @@ import java.io.Serializable;
  @Pt.AcceptedRating Yellow (cxh)
  */
 public class PlotPoint implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	///////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////
     ////                         public variables                  ////
 
-	/** True if this point is connected to the previous point by a line. */
+    /** True if this point is connected to the previous point by a line. */
     public boolean connected = false;
 
     /** True if the yLowEB and yHighEB fields are valid. */

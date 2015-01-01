@@ -12,38 +12,38 @@ import java.util.EnumSet;
 
 public class Houndmaster extends Minion implements MinionTargetableBattlecry {
 
-	private static final boolean HERO_TARGETABLE = true;
-	private static final byte SPELL_DAMAGE = 0;
-	
-	public Houndmaster() {
+    private static final boolean HERO_TARGETABLE = true;
+    private static final byte SPELL_DAMAGE = 0;
+
+    public Houndmaster() {
         super();
         spellDamage_ = SPELL_DAMAGE;
         heroTargetable_ = HERO_TARGETABLE;
 
-	}
-	
-	@Override
-	public EnumSet<BattlecryTargetType> getBattlecryTargets() {
-		return EnumSet.of(BattlecryTargetType.FRIENDLY_BEASTS);
-	}
-	
-	/**
-	 * Battlecry: Give a friendly beast +2/+2 and Taunt
-	 */
-	@Override
-	public HearthTreeNode useTargetableBattlecry_core(
-			PlayerSide side,
-			Minion targetMinion,
-			HearthTreeNode boardState,
-			Deck deckPlayer0,
-			Deck deckPlayer1
-		) throws HSException
-	{
-		HearthTreeNode toRet = boardState;
+    }
+
+    @Override
+    public EnumSet<BattlecryTargetType> getBattlecryTargets() {
+        return EnumSet.of(BattlecryTargetType.FRIENDLY_BEASTS);
+    }
+
+    /**
+     * Battlecry: Give a friendly beast +2/+2 and Taunt
+     */
+    @Override
+    public HearthTreeNode useTargetableBattlecry_core(
+            PlayerSide side,
+            Minion targetMinion,
+            HearthTreeNode boardState,
+            Deck deckPlayer0,
+            Deck deckPlayer1
+        ) throws HSException
+    {
+        HearthTreeNode toRet = boardState;
         targetMinion.setAttack((byte) (targetMinion.getAttack() + 2));
         targetMinion.setHealth((byte) (targetMinion.getHealth() + 2));
         targetMinion.setTaunt(true);
-		return toRet;
-	}
+        return toRet;
+    }
 
 }
