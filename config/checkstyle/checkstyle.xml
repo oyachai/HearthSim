@@ -6,6 +6,7 @@
     <module name="TreeWalker">
         <module name="UnusedImports"/>
         <module name="EmptyBlock"/>
+        <module name="LeftCurly"/>
     </module>
     <module name="RegexpMultiline">
         <property name="format" value="System\.out\.print."/>
