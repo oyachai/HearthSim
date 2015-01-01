@@ -412,6 +412,10 @@
         "class": "com.hearthsim.card.minion.concrete.FrothingBerserker"
     },
     {
+      "name": "Gladiator's Longbow",
+      "class": "com.hearthsim.card.weapon.concrete.GladiatorsLongbow"
+    },
+    {
         "name": "Gnomish Inventor",
         "class": "com.hearthsim.card.minion.concrete.GnomishInventor"
     },

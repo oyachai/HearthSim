@@ -101,9 +101,12 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
             return null;
         }
 
+        if (this.getWeapon() != null) {
+            this.weapon.beforeAttack(targetMinionPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1);
+        }
         HearthTreeNode toRet = super.attack(targetMinionPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1);
         if (toRet != null && this.getWeapon() != null) {
-            this.weapon.onAttack(targetMinionPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1);
+            this.weapon.afterAttack(targetMinionPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1);
             this.useWeaponCharge();
         }
 
