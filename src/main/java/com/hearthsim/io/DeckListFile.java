@@ -1,4 +1,4 @@
-	package com.hearthsim.io;
+    package com.hearthsim.io;
 
     import com.hearthsim.card.Card;
     import com.hearthsim.card.Deck;
@@ -20,61 +20,61 @@
  */
 public class DeckListFile {
 
-	Deck deck_;
-	Hero hero_;
-	
-	/**
-	 * Constructor
-	 * 
-	 * @param setupFilePath The file path to the deck list to be read
-	 * @throws IOException 
-	 * @throws HSInvalidHeroException 
-	 */
-	public DeckListFile(Path setupFilePath) throws HSInvalidCardException, IOException, HSInvalidHeroException {
-		this.read(setupFilePath);
-	}
-	
-	/**
-	 * Read the given file
-	 * 
-	 * @param setupFilePath The file path to the deck list to be read
-	 * @throws IOException 
-	 * @throws HSInvalidHeroException 
-	 */
-	public void read(Path setupFilePath) throws HSInvalidCardException, IOException, HSInvalidHeroException {
-		String inStr = new String(Files.readAllBytes(setupFilePath)).replace("\\s+", "").replace("'", "").replace("\n", "");
-		this.parseDeckList(inStr);
-	}
-	
-	/**
-	 * Parse a given deck list string and construct a Deck object out of it
-	 * 
-	 * @param deckListStr
-	 */
-	public void parseDeckList(String deckListStr) throws HSInvalidCardException, HSInvalidHeroException {
-		String[] deckList = deckListStr.split(",");
-		ArrayList<Card> cards = new ArrayList<Card>();
-		//Ignore the first entry for now... hero classes aren't implemented yet!
-		for (int indx = 1; indx < deckList.length; ++indx) {
-			cards.add(CardFactory.getCard(deckList[indx]));
-		}
-		deck_ = new Deck(cards);
-		hero_ = HeroFactory.getHero(deckList[0]);
-	}
+    Deck deck_;
+    Hero hero_;
 
-	/**
-	 * Get the deck
-	 * @return
-	 */
-	public Deck getDeck() {
-		return deck_;
-	}
+    /**
+     * Constructor
+     *
+     * @param setupFilePath The file path to the deck list to be read
+     * @throws IOException
+     * @throws HSInvalidHeroException
+     */
+    public DeckListFile(Path setupFilePath) throws HSInvalidCardException, IOException, HSInvalidHeroException {
+        this.read(setupFilePath);
+    }
 
-	/**
-	 * Get the Hero
-	 * @return
-	 */
-	public Hero getHero() {
-		return hero_;
-	}
+    /**
+     * Read the given file
+     *
+     * @param setupFilePath The file path to the deck list to be read
+     * @throws IOException
+     * @throws HSInvalidHeroException
+     */
+    public void read(Path setupFilePath) throws HSInvalidCardException, IOException, HSInvalidHeroException {
+        String inStr = new String(Files.readAllBytes(setupFilePath)).replace("\\s+", "").replace("'", "").replace("\n", "");
+        this.parseDeckList(inStr);
+    }
+
+    /**
+     * Parse a given deck list string and construct a Deck object out of it
+     *
+     * @param deckListStr
+     */
+    public void parseDeckList(String deckListStr) throws HSInvalidCardException, HSInvalidHeroException {
+        String[] deckList = deckListStr.split(",");
+        ArrayList<Card> cards = new ArrayList<Card>();
+        //Ignore the first entry for now... hero classes aren't implemented yet!
+        for (int indx = 1; indx < deckList.length; ++indx) {
+            cards.add(CardFactory.getCard(deckList[indx]));
+        }
+        deck_ = new Deck(cards);
+        hero_ = HeroFactory.getHero(deckList[0]);
+    }
+
+    /**
+     * Get the deck
+     * @return
+     */
+    public Deck getDeck() {
+        return deck_;
+    }
+
+    /**
+     * Get the Hero
+     * @return
+     */
+    public Hero getHero() {
+        return hero_;
+    }
 }

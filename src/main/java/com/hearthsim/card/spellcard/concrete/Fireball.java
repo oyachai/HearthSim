@@ -3,17 +3,17 @@ package com.hearthsim.card.spellcard.concrete;
 import com.hearthsim.card.spellcard.SpellDamage;
 
 public class Fireball extends SpellDamage {
-	
-	public Fireball() {
-		this(false);
-	}
 
-	public Fireball(boolean hasBeenUsed) {
-		super((byte)4, (byte)6, hasBeenUsed);
-	}
+    public Fireball() {
+        this(false);
+    }
 
-	@Override
-	public SpellDamage deepCopy() {
-		return new Fireball(this.hasBeenUsed);
-	}
+    public Fireball(boolean hasBeenUsed) {
+        super((byte)4, (byte)6, hasBeenUsed);
+    }
+
+    @Override
+    public SpellDamage deepCopy() {
+        return new Fireball(this.hasBeenUsed);
+    }
 }

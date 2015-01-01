@@ -17,25 +17,25 @@ public class PlayerModel implements DeepCopyable<PlayerModel> {
     private final byte playerId; // used for identifying player 0 vs player 1
     private final Hero hero;
     private final Deck deck;
-    
+
     private byte mana;
     private byte maxMana;
-    
+
     private byte deckPos;
     private byte fatigueDamage;
-    
+
     private MinionList minions;
     private IdentityLinkedList<Card> hand;
     byte overload;
 
     public PlayerModel(byte playerId, String name, Hero hero, Deck deck) {
-    	this.playerId = playerId;
+        this.playerId = playerId;
         this.name = name;
         this.hero = hero;
         this.deck = deck;
         this.minions = new MinionList();
         this.hand = new IdentityLinkedList<>();
-        
+
         deckPos = 0;
         fatigueDamage = 1;
     }
@@ -50,9 +50,9 @@ public class PlayerModel implements DeepCopyable<PlayerModel> {
     }
 
     public int getNumCharacters() {
-    	return this.getNumMinions() + 1;
+        return this.getNumMinions() + 1;
     }
-    
+
     public int getNumMinions() {
         return minions.size();
     }
@@ -89,22 +89,22 @@ public class PlayerModel implements DeepCopyable<PlayerModel> {
         this.mana -= value;
     }
 
-	public byte getMaxMana() {
-		return maxMana;
-	}
+    public byte getMaxMana() {
+        return maxMana;
+    }
 
-	public void setMaxMana(byte maxMana) {
-		this.maxMana = maxMana;
-	}
-	
-	public void addMaxMana(byte value) {
-		this.maxMana += value;
-	}
-	
-	public void subtractMaxMana(byte value) {
-		this.maxMana -= value;
-	}
-	
+    public void setMaxMana(byte maxMana) {
+        this.maxMana = maxMana;
+    }
+
+    public void addMaxMana(byte value) {
+        this.maxMana += value;
+    }
+
+    public void subtractMaxMana(byte value) {
+        this.maxMana -= value;
+    }
+
     public MinionList getMinions() {
         return minions;
     }
@@ -114,9 +114,9 @@ public class PlayerModel implements DeepCopyable<PlayerModel> {
     }
 
     public byte getSpellDamage() {
-    	byte spellDamage = 0;
-    	for(Minion minion : minions) 
-    		spellDamage += minion.getSpellDamage();
+        byte spellDamage = 0;
+        for (Minion minion : minions)
+            spellDamage += minion.getSpellDamage();
         return spellDamage;
     }
 
@@ -135,40 +135,40 @@ public class PlayerModel implements DeepCopyable<PlayerModel> {
     public void setOverload(byte overload) {
         this.overload = overload;
     }
-    
+
     public byte getDeckPos() {
-    	return deckPos;
+        return deckPos;
     }
-    
+
     public void setDeckPos(byte value) {
-    	deckPos = value;
+        deckPos = value;
     }
-    
+
     public void addDeckPos(byte value) {
-    	deckPos += value;
+        deckPos += value;
     }
-    
+
     public byte getFatigueDamage() {
-    	return fatigueDamage;
+        return fatigueDamage;
     }
 
     public void setFatigueDamage(byte value) {
-    	fatigueDamage = value;
+        fatigueDamage = value;
     }
-    
+
     public void addFatigueDamage(byte value) {
-    	fatigueDamage += value;
+        fatigueDamage += value;
     }
-    
+
     @Override
-	public String toString() {
+    public String toString() {
         return new JSONObject(this).toString();
     }
 
     @Override
     public PlayerModel deepCopy() {
         PlayerModel copiedPlayerModel = new PlayerModel(
-        		this.playerId,
+                this.playerId,
                 this.name,
                 this.hero.deepCopy(),
                 this.deck //TODO should be a deep copy, we're just using the index in boardmodel right now to compensate..
@@ -211,48 +211,48 @@ public class PlayerModel implements DeepCopyable<PlayerModel> {
     public void drawNextCardFromDeck() {
         Card card = drawFromDeck(deckPos);
         if (card == null) {
-        	//no more card left in deck, take fatigue damage
-        	hero.takeDamage((byte)fatigueDamage);
-        	++fatigueDamage;
+            //no more card left in deck, take fatigue damage
+            hero.takeDamage((byte)fatigueDamage);
+            ++fatigueDamage;
         } else {
-        	card.isInHand(true);
-        	hand.add(card);
-        	++deckPos;
+            card.isInHand(true);
+            hand.add(card);
+            ++deckPos;
         }
     }
-    
-    
+
+
     public byte getPlayerId() {
         return playerId;
     }
 
     public void resetMana() {
-    	mana = maxMana;
-    	mana -= overload;
-    	overload = 0;
+        mana = maxMana;
+        mana -= overload;
+        overload = 0;
     }
-    
+
     @Override
     public int hashCode() {
-    	int hash = 1;
-    	hash = hash * 31 + (null == name ? 0 : name.hashCode());
-    	hash = hash * 31 + playerId;
-    	hash = hash * 31 + (null == hero ? 0 : hero.hashCode());
-    	hash = hash * 31 + (null == deck ? 0 : deck.hashCode());
-    	hash = hash * 31 + mana;
-    	hash = hash * 31 + maxMana;
-    	hash = hash * 31 + deckPos;
-    	hash = hash * 31 + fatigueDamage;
-    	hash = hash * 31 + (null == minions ? 0 : minions.hashCode());
-    	hash = hash * 31 + (null == hand ? 0 : hand.hashCode());
-    	hash = hash * 31 + overload;
-    	        
+        int hash = 1;
+        hash = hash * 31 + (null == name ? 0 : name.hashCode());
+        hash = hash * 31 + playerId;
+        hash = hash * 31 + (null == hero ? 0 : hero.hashCode());
+        hash = hash * 31 + (null == deck ? 0 : deck.hashCode());
+        hash = hash * 31 + mana;
+        hash = hash * 31 + maxMana;
+        hash = hash * 31 + deckPos;
+        hash = hash * 31 + fatigueDamage;
+        hash = hash * 31 + (null == minions ? 0 : minions.hashCode());
+        hash = hash * 31 + (null == hand ? 0 : hand.hashCode());
+        hash = hash * 31 + overload;
+
         return hash;
     }
 
     @Override
     public boolean equals(Object other) {
-            	
+
         if (other == null)
             return false;
 
@@ -273,37 +273,37 @@ public class PlayerModel implements DeepCopyable<PlayerModel> {
         if (deck != null && !deck.equals(otherPlayer.deck)) return false;
         if (!minions.equals(otherPlayer.minions)) return false;
         if (!hand.equals(otherPlayer.hand)) return false;
-        
+
         return true;
     }
 
     public JSONObject toJSON() {
         JSONObject json = new JSONObject();
-        
+
         json.put("name", name);
         json.put("playerId", playerId);
         json.put("hero", hero.toJSON());
-        if(mana != maxMana) json.put("mana", mana);
-        if(maxMana > 0) json.put("maxMana", maxMana);
-		json.put("deckPos", deckPos);
-		if(overload > 0) json.put("overload", overload);
-		if(fatigueDamage > 0) json.put("fatigueDamage", fatigueDamage);
+        if (mana != maxMana) json.put("mana", mana);
+        if (maxMana > 0) json.put("maxMana", maxMana);
+        json.put("deckPos", deckPos);
+        if (overload > 0) json.put("overload", overload);
+        if (fatigueDamage > 0) json.put("fatigueDamage", fatigueDamage);
 
-		if(minions.size() > 0) {
-			JSONArray array = new JSONArray();
-			for(Minion minion: minions) {
-				array.put(minion.toJSON());
-			}
-			json.put("minions", array);
-		}
+        if (minions.size() > 0) {
+            JSONArray array = new JSONArray();
+            for (Minion minion: minions) {
+                array.put(minion.toJSON());
+            }
+            json.put("minions", array);
+        }
 
-		if(hand.size() > 0) {
-			JSONArray array = new JSONArray();
-			for(Card card: hand) {
-				array.put(card.toJSON());
-			}
-			json.put("hand", array);
-		}
+        if (hand.size() > 0) {
+            JSONArray array = new JSONArray();
+            for (Card card: hand) {
+                array.put(card.toJSON());
+            }
+            json.put("hand", array);
+        }
 
         return json;
     }

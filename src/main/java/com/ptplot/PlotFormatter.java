@@ -51,9 +51,9 @@ import java.util.Vector;
  */
 public class PlotFormatter extends JPanel {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	/** Construct a plot formatter for the specified plot object.
+    /** Construct a plot formatter for the specified plot object.
      */
     public PlotFormatter(PlotBox plot) {
         super();
@@ -192,7 +192,7 @@ public class PlotFormatter extends JPanel {
         // Attach listeners.
         _wideQuery.addQueryListener(new QueryListener() {
             @Override
-			public void changed(String name) {
+            public void changed(String name) {
                 if (name.equals("title")) {
                     _plot.setTitle(_wideQuery.getStringValue("title"));
                 } else if (name.equals("caption")) {
@@ -249,7 +249,7 @@ public class PlotFormatter extends JPanel {
 
         _narrowQuery.addQueryListener(new QueryListener() {
             @Override
-			public void changed(String name) {
+            public void changed(String name) {
                 if (name.equals("grid")) {
                     _plot.setGrid(_narrowQuery.getBooleanValue("grid"));
                 } else if (name.equals("stems")) {
@@ -505,10 +505,10 @@ public class PlotFormatter extends JPanel {
     private double[] _originalYRange;
 
     @SuppressWarnings("rawtypes")
-	private Vector[] _originalXTicks;
+    private Vector[] _originalXTicks;
 
     @SuppressWarnings("rawtypes")
-	private Vector[] _originalYTicks;
+    private Vector[] _originalYTicks;
 
     private boolean _originalGrid;
 

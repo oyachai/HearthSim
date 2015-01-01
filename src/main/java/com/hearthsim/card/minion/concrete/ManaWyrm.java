@@ -11,22 +11,22 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class ManaWyrm extends Minion implements CardPlayBeginInterface {
 
-	private static final boolean HERO_TARGETABLE = true;
-	private static final byte SPELL_DAMAGE = 0;
-	
-	public ManaWyrm() {
+    private static final boolean HERO_TARGETABLE = true;
+    private static final byte SPELL_DAMAGE = 0;
+
+    public ManaWyrm() {
         super();
         spellDamage_ = SPELL_DAMAGE;
         heroTargetable_ = HERO_TARGETABLE;
-	}
+    }
 
-	public HearthTreeNode onCardPlayBegin(PlayerSide thisCardPlayerSide, PlayerSide cardUserPlayerSide, Card usedCard,
-			HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly)
-			throws HSException {
-		if (cardUserPlayerSide == thisCardPlayerSide && usedCard instanceof SpellCard) {
-			this.addAttack((byte)1);
-		}
-		return boardState;
-	}
-	
+    public HearthTreeNode onCardPlayBegin(PlayerSide thisCardPlayerSide, PlayerSide cardUserPlayerSide, Card usedCard,
+            HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly)
+            throws HSException {
+        if (cardUserPlayerSide == thisCardPlayerSide && usedCard instanceof SpellCard) {
+            this.addAttack((byte)1);
+        }
+        return boardState;
+    }
+
 }

@@ -62,9 +62,9 @@ import java.beans.PropertyChangeListener;
  */
 @SuppressWarnings("PMD")
 public class ComponentDialog extends JDialog {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	/** Construct a dialog with the specified owner, title, and component.
+    /** Construct a dialog with the specified owner, title, and component.
      *  An "OK" and a "Cancel" button are added to the dialog.
      *  The dialog is placed relative to the owner.
      *  @param owner The object that, per the user, appears to be
@@ -171,7 +171,7 @@ public class ComponentDialog extends JDialog {
         // The following code is based on Sun's CustomDialog example...
         _optionPane.addPropertyChangeListener(new PropertyChangeListener() {
             @Override
-			public void propertyChange(PropertyChangeEvent e) {
+            public void propertyChange(PropertyChangeEvent e) {
                 String prop = e.getPropertyName();
 
                 // PropertyChange is an extremely non-selective listener,
@@ -241,7 +241,7 @@ public class ComponentDialog extends JDialog {
         // the window manager is used to close the window.
         addWindowListener(new WindowAdapter() {
             @Override
-			public void windowClosing(WindowEvent e) {
+            public void windowClosing(WindowEvent e) {
                 _handleClosing();
             }
         });

@@ -4,8 +4,8 @@ import com.hearthsim.card.minion.Minion;
 
 public class WrathOfAirTotem extends Minion {
 
-	private static final boolean HERO_TARGETABLE = true;
-	private static final byte SPELL_DAMAGE = 1;
+    private static final boolean HERO_TARGETABLE = true;
+    private static final byte SPELL_DAMAGE = 1;
 
     public WrathOfAirTotem() {
         super();

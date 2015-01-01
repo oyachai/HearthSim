@@ -14,182 +14,182 @@ import com.hearthsim.util.tree.StopNode;
 
 public class DepthBoardStateFactory extends BoardStateFactoryBase {
 
-	protected boolean lethal_;
-	protected boolean timedOut_;
-	public final long maxTime_;
+    protected boolean lethal_;
+    protected boolean timedOut_;
+    public final long maxTime_;
 
-	protected long startTime_;
-	protected long curTime_;
-	
-	protected final boolean useDuplicateNodePruning;
-	int numNodes;
-	int numDuplicates;
-	HashSet<BoardModel> boardsAlreadySeen;
+    protected long startTime_;
+    protected long curTime_;
 
-	/**
-	 * Constructor
-	 * maxThinkTime defaults to 10000 milliseconds (10 seconds)
-	 */
-	public DepthBoardStateFactory(Deck deckPlayer0, Deck deckPlayer1, boolean useDuplicateNodePruning) {
-		this(deckPlayer0, deckPlayer1, 10000, useDuplicateNodePruning);
-	}
+    protected final boolean useDuplicateNodePruning;
+    int numNodes;
+    int numDuplicates;
+    HashSet<BoardModel> boardsAlreadySeen;
 
-	/**
-	 * Constructor
-	 * 
-	 * @param deckPlayer0
-	 * @param deckPlayer1
-	 * @param maxThinkTime The maximum amount of time in milliseconds the factory is allowed to spend on generating the simulation tree.
-	 */
-	public DepthBoardStateFactory(Deck deckPlayer0, Deck deckPlayer1, long maxThinkTime, boolean useDuplicateNodePruning) {
-		super(deckPlayer0, deckPlayer1);
+    /**
+     * Constructor
+     * maxThinkTime defaults to 10000 milliseconds (10 seconds)
+     */
+    public DepthBoardStateFactory(Deck deckPlayer0, Deck deckPlayer1, boolean useDuplicateNodePruning) {
+        this(deckPlayer0, deckPlayer1, 10000, useDuplicateNodePruning);
+    }
 
-		lethal_ = false;
-		startTime_ = System.currentTimeMillis();
-		maxTime_ = maxThinkTime;
-		timedOut_ = false;
-		this.useDuplicateNodePruning = useDuplicateNodePruning;
-		if (useDuplicateNodePruning)
-			boardsAlreadySeen = new HashSet<BoardModel>(500000);
-	}
+    /**
+     * Constructor
+     *
+     * @param deckPlayer0
+     * @param deckPlayer1
+     * @param maxThinkTime The maximum amount of time in milliseconds the factory is allowed to spend on generating the simulation tree.
+     */
+    public DepthBoardStateFactory(Deck deckPlayer0, Deck deckPlayer1, long maxThinkTime, boolean useDuplicateNodePruning) {
+        super(deckPlayer0, deckPlayer1);
 
-	public DepthBoardStateFactory(Deck deckPlayer0, Deck deckPlayer1, long maxThinkTime, boolean useDuplicateNodePruning, SparseChildNodeCreator sparseChildNodeCreator) {
-		super(deckPlayer0, deckPlayer1, sparseChildNodeCreator);
+        lethal_ = false;
+        startTime_ = System.currentTimeMillis();
+        maxTime_ = maxThinkTime;
+        timedOut_ = false;
+        this.useDuplicateNodePruning = useDuplicateNodePruning;
+        if (useDuplicateNodePruning)
+            boardsAlreadySeen = new HashSet<BoardModel>(500000);
+    }
 
-		lethal_ = false;
-		startTime_ = System.currentTimeMillis();
-		maxTime_ = maxThinkTime;
-		timedOut_ = false;
-		this.useDuplicateNodePruning = useDuplicateNodePruning;
-		if (useDuplicateNodePruning)
-			boardsAlreadySeen = new HashSet<BoardModel>(500000);
-	}
+    public DepthBoardStateFactory(Deck deckPlayer0, Deck deckPlayer1, long maxThinkTime, boolean useDuplicateNodePruning, SparseChildNodeCreator sparseChildNodeCreator) {
+        super(deckPlayer0, deckPlayer1, sparseChildNodeCreator);
 
-	public boolean didTimeOut() {
-		return timedOut_;
-	}
+        lethal_ = false;
+        startTime_ = System.currentTimeMillis();
+        maxTime_ = maxThinkTime;
+        timedOut_ = false;
+        this.useDuplicateNodePruning = useDuplicateNodePruning;
+        if (useDuplicateNodePruning)
+            boardsAlreadySeen = new HashSet<BoardModel>(500000);
+    }
 
-	public void resetTimeOut() {
-		startTime_ = System.currentTimeMillis();
-		timedOut_ = false;
-	}
-	
-	public int getNumNodes() {
-		return numNodes;
-	}
+    public boolean didTimeOut() {
+        return timedOut_;
+    }
 
-	public int getNumDuplicates() {
-		return numDuplicates;
-	}
-	
-	/**
-	 * Recursively generate all possible moves
-	 * This function recursively generates all possible moves that can be done starting from a given BoardState.
-	 * While generating the moves, it applies the scoring function to each BoardState generated, and it will only keep the
-	 * highest scoring branch.
-	 * The results are stored in a tree structure and returned as a tree of BoardState class.
-	 * 
-	 * @param boardStateNode The initial BoardState wrapped in a HearthTreeNode.
-	 * @param scoreFunc The scoring function for AI.
-	 * @return boardStateNode manipulated such that all subsequent actions are children of the original boardStateNode input.
-	 */
-	@Override
-	public HearthTreeNode doMoves(HearthTreeNode boardStateNode, BoardScorer ai) throws HSException {
-		log.trace("recursively performing moves");
+    public void resetTimeOut() {
+        startTime_ = System.currentTimeMillis();
+        timedOut_ = false;
+    }
 
-		if(lethal_) {
-			log.debug("found lethal");
-			// if it's lethal, we don't have to do anything ever. Just play the lethal.
-			return null;
-		}
+    public int getNumNodes() {
+        return numNodes;
+    }
 
-		if(System.currentTimeMillis() - startTime_ > maxTime_) {
-			log.debug("setting think time over");
-			timedOut_ = true;
-		}
+    public int getNumDuplicates() {
+        return numDuplicates;
+    }
 
-		if(timedOut_) {
-			log.debug("think time is already over");
-			// Time's up! no more thinking...
-			return null;
-		}
+    /**
+     * Recursively generate all possible moves
+     * This function recursively generates all possible moves that can be done starting from a given BoardState.
+     * While generating the moves, it applies the scoring function to each BoardState generated, and it will only keep the
+     * highest scoring branch.
+     * The results are stored in a tree structure and returned as a tree of BoardState class.
+     *
+     * @param boardStateNode The initial BoardState wrapped in a HearthTreeNode.
+     * @param scoreFunc The scoring function for AI.
+     * @return boardStateNode manipulated such that all subsequent actions are children of the original boardStateNode input.
+     */
+    @Override
+    public HearthTreeNode doMoves(HearthTreeNode boardStateNode, BoardScorer ai) throws HSException {
+        log.trace("recursively performing moves");
 
-		boolean lethalFound = false;
-		if(boardStateNode.data_.isLethalState()) { // one of the players is dead, no reason to keep playing
-			lethal_ = true;
-			lethalFound = true;
-		}
+        if (lethal_) {
+            log.debug("found lethal");
+            // if it's lethal, we don't have to do anything ever. Just play the lethal.
+            return null;
+        }
 
-		boardStateNode.setScore(ai.boardScore(boardStateNode.data_));
+        if (System.currentTimeMillis() - startTime_ > maxTime_) {
+            log.debug("setting think time over");
+            timedOut_ = true;
+        }
 
-		// We can end up with children at this state, for example, after a battle cry. If we don't have children yet, create them.
-		++numNodes;
-		if(!lethalFound && boardStateNode.numChildren() <= 0) {
-			if (useDuplicateNodePruning) {
-				if (boardsAlreadySeen.contains(boardStateNode.data_)) {
-					boardStateNode.setBestChildScore(boardStateNode.getScore());
-					++numDuplicates;
-					return null;
-				} else {
-					boardsAlreadySeen.add(boardStateNode.data_);
-				}
-			}
-			ArrayList<HearthTreeNode> nodes = this.createChildren(boardStateNode);
-			boardStateNode.addChildren(nodes);
-		}
+        if (timedOut_) {
+            log.debug("think time is already over");
+            // Time's up! no more thinking...
+            return null;
+        }
 
-		if(boardStateNode.isLeaf()) {
-			// If at this point the node has no children, it is a leaf node. Set its best child score to its own score.
-			boardStateNode.setBestChildScore(boardStateNode.getScore());
-		} else {
-			// If it is not a leaf, set the score as the maximum score of its children.
-			// We can also throw out any children that don't have the highest score (boy, this sounds so wrong...)
-			double tmpScore;
-			double bestScore = 0;
-			HearthTreeNode bestBranch = null;
+        boolean lethalFound = false;
+        if (boardStateNode.data_.isLethalState()) { // one of the players is dead, no reason to keep playing
+            lethal_ = true;
+            lethalFound = true;
+        }
 
-			for(HearthTreeNode child : boardStateNode.getChildren()) {
-				this.doMoves(child, ai); // Don't need to check lethal because lethal states shouldn't get children. Even if they do, doMoves resolves the issue.
+        boardStateNode.setScore(ai.boardScore(boardStateNode.data_));
 
-				tmpScore = child.getBestChildScore();
+        // We can end up with children at this state, for example, after a battle cry. If we don't have children yet, create them.
+        ++numNodes;
+        if (!lethalFound && boardStateNode.numChildren() <= 0) {
+            if (useDuplicateNodePruning) {
+                if (boardsAlreadySeen.contains(boardStateNode.data_)) {
+                    boardStateNode.setBestChildScore(boardStateNode.getScore());
+                    ++numDuplicates;
+                    return null;
+                } else {
+                    boardsAlreadySeen.add(boardStateNode.data_);
+                }
+            }
+            ArrayList<HearthTreeNode> nodes = this.createChildren(boardStateNode);
+            boardStateNode.addChildren(nodes);
+        }
 
-				// We need to add the card score after child scoring because CardDrawNode children
-				// do not inherit the value of drawn cards
-				// TODO Children of CardDrawNodes should be able to track this on their own. Doing
-				// it this way "breaks" the best score chain and makes it harder to isolate and test
-				// scoring. It effectively "bubbles down" the tree but it isn't sent through when
-				// creating children.
-				if(child instanceof CardDrawNode) {
-					tmpScore += ((CardDrawNode)child).cardDrawScore(deckPlayer0_, ai);
-				}
+        if (boardStateNode.isLeaf()) {
+            // If at this point the node has no children, it is a leaf node. Set its best child score to its own score.
+            boardStateNode.setBestChildScore(boardStateNode.getScore());
+        } else {
+            // If it is not a leaf, set the score as the maximum score of its children.
+            // We can also throw out any children that don't have the highest score (boy, this sounds so wrong...)
+            double tmpScore;
+            double bestScore = 0;
+            HearthTreeNode bestBranch = null;
 
-				if(bestBranch == null || tmpScore > bestScore) {
-					bestBranch = child;
-					bestScore = tmpScore;
-				}
-			}
+            for (HearthTreeNode child : boardStateNode.getChildren()) {
+                this.doMoves(child, ai); // Don't need to check lethal because lethal states shouldn't get children. Even if they do, doMoves resolves the issue.
 
-			// TODO this should be automatically handled elsewhere...
-			// Cannot continue past a StopNode except RNG nodes. The children of RNG nodes will be used
-			// during resolution so if we clear them out it can get awkward
-			if(bestBranch instanceof StopNode && !(bestBranch instanceof RandomEffectNode)) {
-				bestBranch.clearChildren();
-			}
+                tmpScore = child.getBestChildScore();
 
-			if(boardStateNode instanceof RandomEffectNode) {
-				// Set best child score according to the random effect score. We need to set this after all descendants have been calculated
-				double boardScore = ((RandomEffectNode)boardStateNode).weightedAverageBestChildScore();
-				boardStateNode.setBestChildScore(boardScore);
-				// TODO do we want to override boardStateNode.score here?
-			} else {
-				boardStateNode.clearChildren();
-				boardStateNode.addChild(bestBranch);
-				if(bestBranch != null) {
-					boardStateNode.setBestChildScore(bestBranch.getBestChildScore());
-				}
-			}
-		}
+                // We need to add the card score after child scoring because CardDrawNode children
+                // do not inherit the value of drawn cards
+                // TODO Children of CardDrawNodes should be able to track this on their own. Doing
+                // it this way "breaks" the best score chain and makes it harder to isolate and test
+                // scoring. It effectively "bubbles down" the tree but it isn't sent through when
+                // creating children.
+                if (child instanceof CardDrawNode) {
+                    tmpScore += ((CardDrawNode)child).cardDrawScore(deckPlayer0_, ai);
+                }
 
-		return boardStateNode;
-	}
+                if (bestBranch == null || tmpScore > bestScore) {
+                    bestBranch = child;
+                    bestScore = tmpScore;
+                }
+            }
+
+            // TODO this should be automatically handled else where...
+            // Cannot continue past a StopNode except RNG nodes. The children of RNG nodes will be used
+            // during resolution so if we clear them out it can get awkward
+            if (bestBranch instanceof StopNode && !(bestBranch instanceof RandomEffectNode)) {
+                bestBranch.clearChildren();
+            }
+
+            if (boardStateNode instanceof RandomEffectNode) {
+                // Set best child score according to the random effect score. We need to set this after all descendants have been calculated
+                double boardScore = ((RandomEffectNode)boardStateNode).weightedAverageBestChildScore();
+                boardStateNode.setBestChildScore(boardScore);
+                // TODO do we want to override boardStateNode.score here?
+            } else {
+                boardStateNode.clearChildren();
+                boardStateNode.addChild(bestBranch);
+                if (bestBranch != null) {
+                    boardStateNode.setBestChildScore(bestBranch.getBestChildScore());
+                }
+            }
+        }
+
+        return boardStateNode;
+    }
 }

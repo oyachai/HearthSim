@@ -4,8 +4,8 @@ import com.hearthsim.card.minion.Minion;
 
 public class WorgenInfiltrator extends Minion {
 
-	private static final boolean HERO_TARGETABLE = true;
-	private static final byte SPELL_DAMAGE = 0;
+    private static final boolean HERO_TARGETABLE = true;
+    private static final byte SPELL_DAMAGE = 0;
 
 
     public WorgenInfiltrator() {

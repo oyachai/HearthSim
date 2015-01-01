@@ -215,9 +215,9 @@ import java.util.HashMap;
  */
 @SuppressWarnings("PMD")
 public class Plot extends PlotBox {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
+    private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
     ///////////////////////////////////////////////////////////////////
     ////                         public methods                    ////
 
@@ -228,7 +228,7 @@ public class Plot extends PlotBox {
      *  @param legend The label for the dataset.
      */
     @Override
-	public synchronized void addLegend(int dataset, String legend) {
+    public synchronized void addLegend(int dataset, String legend) {
         _checkDatasetIndex(dataset);
 
         if (!_reuseDatasets) {
@@ -272,7 +272,7 @@ public class Plot extends PlotBox {
             final double y, final boolean connected) {
         Runnable doAddPoint = new RunnableExceptionCatcher(new Runnable() {
             @Override
-			public void run() {
+            public void run() {
                 _addPoint(dataset, x, y, 0, 0, connected, false);
             }
         });
@@ -313,7 +313,7 @@ public class Plot extends PlotBox {
             final double yHighEB, final boolean connected) {
         Runnable doAddPoint = new RunnableExceptionCatcher(new Runnable() {
             @Override
-			public void run() {
+            public void run() {
                 _addPoint(dataset, x, y, yLowEB, yHighEB, connected, true);
             }
         });
@@ -336,10 +336,10 @@ public class Plot extends PlotBox {
      *  called them.
      */
     @Override
-	public synchronized void clear(final boolean format) {
+    public synchronized void clear(final boolean format) {
         Runnable doClear = new RunnableExceptionCatcher(new Runnable() {
             @Override
-			public void run() {
+            public void run() {
                 _clear(format);
             }
         });
@@ -363,7 +363,7 @@ public class Plot extends PlotBox {
     public synchronized void clear(final int dataset) {
         Runnable doClear = new RunnableExceptionCatcher(new Runnable() {
             @Override
-			public void run() {
+            public void run() {
                 _clear(dataset);
             }
         });
@@ -391,7 +391,7 @@ public class Plot extends PlotBox {
     public synchronized void erasePoint(final int dataset, final int index) {
         Runnable doErasePoint = new RunnableExceptionCatcher(new Runnable() {
             @Override
-			public void run() {
+            public void run() {
                 _erasePoint(dataset, index);
             }
         });
@@ -414,10 +414,10 @@ public class Plot extends PlotBox {
      *  called them.
      */
     @Override
-	public synchronized void fillPlot() {
+    public synchronized void fillPlot() {
         Runnable doFill = new RunnableExceptionCatcher(new Runnable() {
             @Override
-			public void run() {
+            public void run() {
                 _fillPlot();
             }
         });
@@ -516,7 +516,7 @@ public class Plot extends PlotBox {
      *  @deprecated
      */
     @Override
-	@Deprecated
+    @Deprecated
     public void parseFile(String filespec, URL documentBase) {
         _firstInSet = true;
         _sawFirstDataSet = false;
@@ -538,7 +538,7 @@ public class Plot extends PlotBox {
      *  @exception IOException If the stream cannot be read.
      */
     @Override
-	public synchronized void read(InputStream inputStream) throws IOException {
+    public synchronized void read(InputStream inputStream) throws IOException {
         super.read(inputStream);
         _firstInSet = true;
         _sawFirstDataSet = false;
@@ -552,11 +552,11 @@ public class Plot extends PlotBox {
      *  calling thread is the event dispatch thread).
      */
     @Override
-	public synchronized void samplePlot() {
+    public synchronized void samplePlot() {
         // This needs to be done in the event thread.
         Runnable sample = new RunnableExceptionCatcher(new Runnable() {
             @Override
-			public void run() {
+            public void run() {
                 synchronized (Plot.this) {
                     // Create a sample plot.
                     clear(true);
@@ -960,7 +960,7 @@ public class Plot extends PlotBox {
      *  @param output A buffered print writer.
      */
     @Override
-	public synchronized void writeData(PrintWriter output) {
+    public synchronized void writeData(PrintWriter output) {
         super.writeData(output);
 
         for (int dataset = 0; dataset < _points.size(); dataset++) {
@@ -1027,7 +1027,7 @@ public class Plot extends PlotBox {
      *  @param output A buffered print writer.
      */
     @Override
-	public synchronized void writeFormat(PrintWriter output) {
+    public synchronized void writeFormat(PrintWriter output) {
         super.writeFormat(output);
 
         if (_reuseDatasets) {
@@ -1370,7 +1370,7 @@ public class Plot extends PlotBox {
      *  @param drawRectangle The Rectangle to draw in.
      */
     @Override
-	protected synchronized void _drawPlot(Graphics graphics,
+    protected synchronized void _drawPlot(Graphics graphics,
             boolean clearfirst, Rectangle drawRectangle) {
         // BRDebug log.error.println("_drawPlot(begin)");
         if (_graphics == null) {
@@ -1464,7 +1464,7 @@ public class Plot extends PlotBox {
      *  @param clip If true, then do not draw outside the range.
      */
     @Override
-	protected void _drawPoint(Graphics graphics, int dataset, long xpos,
+    protected void _drawPoint(Graphics graphics, int dataset, long xpos,
             long ypos, boolean clip) {
         // Check to see whether the dataset has a marks directive
         Format fmt = _formats.get(dataset);
@@ -1483,7 +1483,7 @@ public class Plot extends PlotBox {
      *  @return True if the line is recognized.
      */
     @Override
-	protected boolean _parseLine(String line) {
+    protected boolean _parseLine(String line) {
         boolean connected = false;
 
         if (_isConnected(_currentdataset)) {
@@ -1754,10 +1754,10 @@ public class Plot extends PlotBox {
     /** Reset a scheduled redraw tasks.
      */
     @Override
-	protected void _resetScheduledTasks() {
+    protected void _resetScheduledTasks() {
         Runnable redraw = new RunnableExceptionCatcher(new Runnable() {
             @Override
-			public void run() {
+            public void run() {
                 _scheduledBinsToAdd.clear();
                 _scheduledBinsToErase.clear();
             }
@@ -1770,11 +1770,11 @@ public class Plot extends PlotBox {
     /** Perform a scheduled redraw.
      */
     @Override
-	protected void _scheduledRedraw() {
+    protected void _scheduledRedraw() {
         if (_needPlotRefill || _needBinRedraw) {
             Runnable redraw = new RunnableExceptionCatcher(new Runnable() {
                 @Override
-				public void run() {
+                public void run() {
                     ArrayList<Integer> scheduledBinsToAdd = new ArrayList<Integer>();
                     for (int i = 0; i < _scheduledBinsToAdd.size(); ++i) {
                         scheduledBinsToAdd.add(_scheduledBinsToAdd.get(i));
@@ -1859,7 +1859,7 @@ public class Plot extends PlotBox {
      *  @deprecated
      */
     @Override
-	@Deprecated
+    @Deprecated
     protected void _writeOldSyntax(PrintWriter output) {
         super._writeOldSyntax(output);
 
@@ -3592,9 +3592,9 @@ public class Plot extends PlotBox {
         // FindBugs suggests making this class static so as to decrease
         // the size of instances and avoid dangling references.
 
-		private static final long serialVersionUID = 1L;
+        private static final long serialVersionUID = 1L;
 
-		// Indicate whether the current dataset is connected.
+        // Indicate whether the current dataset is connected.
         public boolean connected;
 
         // Indicate whether the above variable should be ignored.

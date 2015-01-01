@@ -11,38 +11,37 @@ import java.util.EnumSet;
 
 public class TheBlackKnight extends Minion implements MinionTargetableBattlecry {
 
-	private static final boolean HERO_TARGETABLE = true;
-	private static final byte SPELL_DAMAGE = 0;
-	
-	public TheBlackKnight() {
+    private static final boolean HERO_TARGETABLE = true;
+    private static final byte SPELL_DAMAGE = 0;
+
+    public TheBlackKnight() {
         super();
         spellDamage_ = SPELL_DAMAGE;
         heroTargetable_ = HERO_TARGETABLE;
 
-	}
-	
-	@Override
-	public EnumSet<BattlecryTargetType> getBattlecryTargets() {
-		return EnumSet.of(BattlecryTargetType.ENEMY_MINIONS);
-	}
-	
-	/**
-	 * Battlecry: Destroy a minion with an Attack of 7 or more
-	 */
-	@Override
-	public HearthTreeNode useTargetableBattlecry_core(
-			PlayerSide side,
-			Minion targetMinion,
-			HearthTreeNode boardState,
-			Deck deckPlayer0,
-			Deck deckPlayer1
-		) throws HSException
-	{
-		if (targetMinion.getTaunt()) {
-			targetMinion.setHealth((byte)-99);
-			return boardState;
-		} else {
-			return null;
-		}
-	}
+    }
+
+    @Override
+    public EnumSet<BattlecryTargetType> getBattlecryTargets() {
+        return EnumSet.of(BattlecryTargetType.ENEMY_MINIONS);
+    }
+
+    /**
+     * Battlecry: Destroy a minion with an Attack of 7 or more
+     */
+    @Override
+    public HearthTreeNode useTargetableBattlecry_core(
+            PlayerSide side,
+            Minion targetMinion,
+            HearthTreeNode boardState,
+            Deck deckPlayer0,
+            Deck deckPlayer1
+        ) throws HSException {
+        if (targetMinion.getTaunt()) {
+            targetMinion.setHealth((byte)-99);
+            return boardState;
+        } else {
+            return null;
+        }
+    }
 }

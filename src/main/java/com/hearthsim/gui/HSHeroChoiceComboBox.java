@@ -6,57 +6,57 @@ import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
 public class HSHeroChoiceComboBox extends JComboBox<String> {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	Dimension arc_ = new Dimension(2, 2);
-	
-	public class HSHeroChoiceRenderer extends JLabel implements ListCellRenderer<String> {
-		private static final long serialVersionUID = 1L;
+    Dimension arc_ = new Dimension(2, 2);
 
-		public HSHeroChoiceRenderer() {
-	        setOpaque(true);
-	        setHorizontalAlignment(CENTER);
-	        setVerticalAlignment(CENTER);
-	    }
-	    
-		@Override
-		public Component getListCellRendererComponent(
-				JList<? extends String> list, String value, int index,
-				boolean isSelected, boolean cellHasFocus) {
+    public class HSHeroChoiceRenderer extends JLabel implements ListCellRenderer<String> {
+        private static final long serialVersionUID = 1L;
 
-			this.setText(value);
-			this.setForeground(HSColors.TEXT_COLOR);
-			if (isSelected) {
-				this.setBackground(HSColors.BACKGROUND_COLOR);
-			} else {
-				this.setBackground(HSColors.LIGHTER_BACKGROUND_COLOR);
-			}
-			return this;
-		}
-		
-	}
-	
-	class HSHeroChoice extends BasicComboBoxUI {
+        public HSHeroChoiceRenderer() {
+            setOpaque(true);
+            setHorizontalAlignment(CENTER);
+            setVerticalAlignment(CENTER);
+        }
 
-	    @Override 
-	    protected JButton createArrowButton() {
-	        JButton toRet = new HSArrowButton(HSArrowButton.DOWN);
-	        toRet.setBackground(HSColors.LIGHTER_BACKGROUND_COLOR);
-	        toRet.setForeground(HSColors.TEXT_COLOR);
-	        return toRet;
-	    }
-	    
-	}
-	
-	public HSHeroChoiceComboBox(String[] items) {
-		super(items);
-		this.setRenderer(new HSHeroChoiceRenderer());
-		this.setMaximumRowCount(10);
-		this.setBackground(HSColors.LIGHTER_BACKGROUND_COLOR);
-		this.setForeground(HSColors.TEXT_COLOR);
-		this.setUI(new HSHeroChoice());
-	}
-	
+        @Override
+        public Component getListCellRendererComponent(
+                JList<? extends String> list, String value, int index,
+                boolean isSelected, boolean cellHasFocus) {
+
+            this.setText(value);
+            this.setForeground(HSColors.TEXT_COLOR);
+            if (isSelected) {
+                this.setBackground(HSColors.BACKGROUND_COLOR);
+            } else {
+                this.setBackground(HSColors.LIGHTER_BACKGROUND_COLOR);
+            }
+            return this;
+        }
+
+    }
+
+    class HSHeroChoice extends BasicComboBoxUI {
+
+        @Override
+        protected JButton createArrowButton() {
+            JButton toRet = new HSArrowButton(HSArrowButton.DOWN);
+            toRet.setBackground(HSColors.LIGHTER_BACKGROUND_COLOR);
+            toRet.setForeground(HSColors.TEXT_COLOR);
+            return toRet;
+        }
+
+    }
+
+    public HSHeroChoiceComboBox(String[] items) {
+        super(items);
+        this.setRenderer(new HSHeroChoiceRenderer());
+        this.setMaximumRowCount(10);
+        this.setBackground(HSColors.LIGHTER_BACKGROUND_COLOR);
+        this.setForeground(HSColors.TEXT_COLOR);
+        this.setUI(new HSHeroChoice());
+    }
+
     @Override
     public void paintComponent(Graphics g) {
         Graphics2D antiAlias = (Graphics2D)g;

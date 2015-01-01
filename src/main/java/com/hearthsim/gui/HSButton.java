@@ -5,9 +5,9 @@ import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
 public class HSButton extends JButton {
-	private static final long serialVersionUID = 1L;
-	private Dimension arc_;
-	
+    private static final long serialVersionUID = 1L;
+    private Dimension arc_;
+
     public HSButton(String buttonText) {
         super(buttonText);
         arc_ = new Dimension(5, 5);
@@ -15,7 +15,7 @@ public class HSButton extends JButton {
         enableInputMethods(true);
         setFocusable(true);
     }
-        
+
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -26,11 +26,11 @@ public class HSButton extends JButton {
 
         if (this.getModel().isPressed()) {
 
-        	float hsbVals[] = Color.RGBtoHSB( this.getBackground().getRed(), this.getBackground().getGreen(), this.getBackground().getBlue(), null );
-        	Color shadow = Color.getHSBColor( hsbVals[0], hsbVals[1], 0.75f * hsbVals[2] );
-        	g.setColor(shadow);
+            float hsbVals[] = Color.RGBtoHSB( this.getBackground().getRed(), this.getBackground().getGreen(), this.getBackground().getBlue(), null );
+            Color shadow = Color.getHSBColor( hsbVals[0], hsbVals[1], 0.75f * hsbVals[2] );
+            g.setColor(shadow);
         } else {
-        	g.setColor(this.getBackground());
+            g.setColor(this.getBackground());
         }
         g.fillRoundRect(0, 0, getWidth() - 1, getHeight() - 1, arc_.width, arc_.height);
 

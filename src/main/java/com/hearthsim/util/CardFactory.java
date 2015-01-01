@@ -12,30 +12,30 @@ import java.lang.reflect.InvocationTargetException;
  */
 public class CardFactory {
 
-	public static Card getCard(String cardName) throws HSInvalidCardException {
-		String cleanedString = cardName.trim();
-		try {
-			Class<?> clazz = Class.forName("com.hearthsim.card.minion.concrete." + cleanedString);
-			Constructor<?> ctor = clazz.getConstructor();
-			Object object = ctor.newInstance();
-			return (Card)object;
-		} catch (ClassNotFoundException e) {
-			try {
-				Class<?> clazz = Class.forName("com.hearthsim.card.spellcard.concrete." + cleanedString);
-				Constructor<?> ctor = clazz.getConstructor();
-				Object object = ctor.newInstance();
-				return (Card)object;
-			} catch (ClassNotFoundException e2) {
-				throw new HSInvalidCardException("Unknown card: " + cleanedString);
-			} catch (NoSuchMethodException | SecurityException | InvocationTargetException e2) {
-				throw new HSInvalidCardException("Unknown card: " + cleanedString);
-			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException e2) {
-				throw new HSInvalidCardException("Unknown card: " + cleanedString);
-			}
-		} catch (NoSuchMethodException | SecurityException | InvocationTargetException e) {
-			throw new HSInvalidCardException("Unknown card: " + cleanedString);
-		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException e) {
-			throw new HSInvalidCardException("Unknown card: " + cleanedString);
-		}
-	}
+    public static Card getCard(String cardName) throws HSInvalidCardException {
+        String cleanedString = cardName.trim();
+        try {
+            Class<?> clazz = Class.forName("com.hearthsim.card.minion.concrete." + cleanedString);
+            Constructor<?> ctor = clazz.getConstructor();
+            Object object = ctor.newInstance();
+            return (Card)object;
+        } catch (ClassNotFoundException e) {
+            try {
+                Class<?> clazz = Class.forName("com.hearthsim.card.spellcard.concrete." + cleanedString);
+                Constructor<?> ctor = clazz.getConstructor();
+                Object object = ctor.newInstance();
+                return (Card)object;
+            } catch (ClassNotFoundException e2) {
+                throw new HSInvalidCardException("Unknown card: " + cleanedString);
+            } catch (NoSuchMethodException | SecurityException | InvocationTargetException e2) {
+                throw new HSInvalidCardException("Unknown card: " + cleanedString);
+            } catch (InstantiationException | IllegalAccessException | IllegalArgumentException e2) {
+                throw new HSInvalidCardException("Unknown card: " + cleanedString);
+            }
+        } catch (NoSuchMethodException | SecurityException | InvocationTargetException e) {
+            throw new HSInvalidCardException("Unknown card: " + cleanedString);
+        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException e) {
+            throw new HSInvalidCardException("Unknown card: " + cleanedString);
+        }
+    }
 }

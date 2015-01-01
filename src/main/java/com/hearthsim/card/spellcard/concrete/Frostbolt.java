@@ -9,47 +9,46 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class Frostbolt extends SpellDamage {
 
-	public Frostbolt() {
-		this(false);
-	}
+    public Frostbolt() {
+        this(false);
+    }
 
-	public Frostbolt(boolean hasBeenUsed) {
-		super((byte)2, (byte)3, hasBeenUsed);
-	}
-	
-	@Override
-	public SpellDamage deepCopy() {
-		return new Frostbolt(this.hasBeenUsed);
-	}
+    public Frostbolt(boolean hasBeenUsed) {
+        super((byte)2, (byte)3, hasBeenUsed);
+    }
 
-	/**
-	 * 
-	 * Use the card on the given target
-	 * 
-	 * Deals 3 damage and freezes an enemy
-	 * 
-	 *
+    @Override
+    public SpellDamage deepCopy() {
+        return new Frostbolt(this.hasBeenUsed);
+    }
+
+    /**
+     *
+     * Use the card on the given target
+     *
+     * Deals 3 damage and freezes an enemy
+     *
+     *
      *
      * @param side
      * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
      *
      * @return The boardState is manipulated and returned
-	 */
-	@Override
-	protected HearthTreeNode use_core(
-			PlayerSide side,
-			Minion targetMinion,
-			HearthTreeNode boardState,
-			Deck deckPlayer0,
-			Deck deckPlayer1,
-			boolean singleRealizationOnly)
-		throws HSException
-	{
-		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
-		if (toRet != null) {
-			targetMinion.setFrozen(true);
-		}
+     */
+    @Override
+    protected HearthTreeNode use_core(
+            PlayerSide side,
+            Minion targetMinion,
+            HearthTreeNode boardState,
+            Deck deckPlayer0,
+            Deck deckPlayer1,
+            boolean singleRealizationOnly)
+        throws HSException {
+        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+        if (toRet != null) {
+            targetMinion.setFrozen(true);
+        }
 
-		return toRet;
-	}
+        return toRet;
+    }
 }
