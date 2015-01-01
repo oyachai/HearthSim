@@ -105,16 +105,17 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
             return null;
         }
 
-        if (this.getWeapon() != null) {
-            this.weapon.beforeAttack(targetMinionPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1);
+        WeaponCard attackingWeapon = this.getWeapon();
+
+        if (attackingWeapon != null) {
+            attackingWeapon.beforeAttack(targetMinionPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1);
         }
         HearthTreeNode toRet = super.attack(targetMinionPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1);
-        if (toRet != null && this.getWeapon() != null) {
-            this.weapon.afterAttack(targetMinionPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1);
+        if (toRet != null && attackingWeapon != null) {
+            attackingWeapon.afterAttack(targetMinionPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1);
             DeathrattleAction weaponDeathrattle = this.checkForWeaponDeath();
             if(weaponDeathrattle != null) {
-                // TODO this should send the weapon card through and not the hero
-                toRet = weaponDeathrattle.performAction(this, PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1);
+                toRet = weaponDeathrattle.performAction(attackingWeapon, PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1);
             }
         }
 

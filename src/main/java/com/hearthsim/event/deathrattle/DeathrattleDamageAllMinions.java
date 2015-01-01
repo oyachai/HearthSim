@@ -1,5 +1,6 @@
 package com.hearthsim.event.deathrattle;
 
+import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
@@ -16,13 +17,13 @@ public class DeathrattleDamageAllMinions extends DeathrattleAction {
 
     @Override
     public HearthTreeNode performAction(
-            Minion minion,
+            Card origin,
             PlayerSide playerSide,
             HearthTreeNode boardState,
             Deck deckPlayer0,
             Deck deckPlayer1)
         throws HSException {
-        HearthTreeNode toRet = super.performAction(minion, playerSide, boardState, deckPlayer0, deckPlayer1);
+        HearthTreeNode toRet = super.performAction(origin, playerSide, boardState, deckPlayer0, deckPlayer1);
         if (toRet != null) {
             for (Minion aMinion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
                 toRet = aMinion.takeDamage(damage_, playerSide, PlayerSide.WAITING_PLAYER, toRet, deckPlayer0, deckPlayer1, false, false);

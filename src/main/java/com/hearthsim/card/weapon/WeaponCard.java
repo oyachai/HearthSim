@@ -108,10 +108,10 @@ public abstract class WeaponCard extends Card {
 
         HearthTreeNode toRet = boardState;
         if (toRet != null) {
+            WeaponCard oldWeapon = toRet.data_.getCurrentPlayerHero().getWeapon();
             DeathrattleAction weaponDeathrattle = toRet.data_.getCurrentPlayerHero().setWeapon(this);
             if(weaponDeathrattle != null) {
-                // TODO this is not the right minion. We actually want to send the weapon through.
-                toRet = weaponDeathrattle.performAction(targetMinion, side, toRet, deckPlayer0, deckPlayer1);
+                toRet = weaponDeathrattle.performAction(oldWeapon, side, toRet, deckPlayer0, deckPlayer1);
             }
             this.hasBeenUsed(true);
         }
