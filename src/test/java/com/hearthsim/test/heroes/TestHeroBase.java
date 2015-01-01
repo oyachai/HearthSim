@@ -206,7 +206,7 @@ public class TestHeroBase {
         hero.setWeapon(axe);
 
         FieryWarAxe otherAxe = new FieryWarAxe();
-        otherAxe.setWeaponCharge_((byte)1);
+        otherAxe.setWeaponCharge((byte) 1);
         copy.setWeapon(otherAxe);
 
         assertNotEquals(hero, copy);

@@ -48,9 +48,9 @@ class GladiatorsLongbowSpec extends CardSpec {
         ret != null
         assertBoardDelta(startingBoard, copiedBoard) {
             currentPlayer {
-                heroAttack(5)
                 heroHasAttacked(true)
                 weapon(GladiatorsLongbow) {
+                    weaponDamage(5)
                     weaponCharge(1)
                 }
                 mana(3)
@@ -80,10 +80,10 @@ class GladiatorsLongbowSpec extends CardSpec {
         ret != null
         assertBoardDelta(startingBoard, copiedBoard) {
             currentPlayer {
-                heroAttack(5)
                 heroHealth(28)
                 heroHasAttacked(true)
                 weapon(GladiatorsLongbow) {
+                    weaponDamage(5)
                     weaponCharge(1)
                 }
                 mana(2)

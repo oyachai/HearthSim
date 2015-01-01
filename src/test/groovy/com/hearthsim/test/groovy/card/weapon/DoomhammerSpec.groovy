@@ -37,9 +37,9 @@ class DoomhammerSpec extends CardSpec{
             currentPlayer {
                 mana(0)
                 overload(2)
-                heroAttack(2)
                 windFury(true)
                 weapon(Doomhammer) {
+                    weaponDamage(2)
                     weaponCharge(8)
                 }
                 removeCardFromHand(Doomhammer)

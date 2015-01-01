@@ -245,7 +245,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
     }
 
     public boolean canAttack() {
-        return !this.hasAttacked_ && (this.attack_ + this.extraAttackUntilTurnEnd_) > 0 && !this.frozen_;
+        return !this.hasAttacked_ && (this.getTotalAttack()) > 0 && !this.frozen_;
     }
 
     @Deprecated

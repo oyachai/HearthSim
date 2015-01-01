@@ -183,7 +183,12 @@ class BoardModelBuilder {
 
     private weaponCharge(Number charge){
         def side = boardModel.modelForSide(playerSide)
-        side.hero.weapon.weaponCharge_ = charge
+        side.hero.weapon.weaponCharge = charge
+    }
+
+    private weaponDamage(Number damage){
+        def side = boardModel.modelForSide(playerSide)
+        side.hero.weapon.weaponDamage = damage
     }
 
 	private addDeckPos(Number num) {

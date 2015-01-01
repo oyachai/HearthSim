@@ -48,9 +48,9 @@ class TruesilverChampionSpec extends CardSpec {
         assertBoardDelta(startingBoard, copiedBoard) {
             currentPlayer {
                 heroHealth(30)
-                heroAttack(4)
                 heroHasAttacked(true)
                 weapon(TruesilverChampion) {
+                    weaponDamage(4)
                     weaponCharge(1)
                 }
                 mana(0)
@@ -81,9 +81,9 @@ class TruesilverChampionSpec extends CardSpec {
         assertBoardDelta(startingBoard, copiedBoard) {
             currentPlayer {
                 heroHealth(24)
-                heroAttack(4)
                 heroHasAttacked(true)
                 weapon(TruesilverChampion) {
+                    weaponDamage(4)
                     weaponCharge(1)
                 }
                 mana(0)

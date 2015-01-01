@@ -10,6 +10,16 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public abstract class WeaponCard extends Card {
 
+    public boolean isImmune() {
+        return immune;
+    }
+
+    public void setImmune(boolean immune) {
+        this.immune = immune;
+    }
+
+    private boolean immune = false; // Does not take damage from attacking
+
     byte weaponCharge;
     byte weaponDamage;
 
@@ -108,7 +118,7 @@ public abstract class WeaponCard extends Card {
         return weaponCharge;
     }
 
-    public void setWeaponCharge_(byte weaponCharge) {
+    public void setWeaponCharge(byte weaponCharge) {
         this.weaponCharge = weaponCharge;
     }
 
@@ -120,12 +130,18 @@ public abstract class WeaponCard extends Card {
         this.weaponDamage = weaponDamage;
     }
 
+    public void useWeaponCharge() {
+        if(!this.immune) {
+            this.setWeaponCharge((byte) (this.getWeaponCharge() - 1));
+        }
+    }
+
     public void beforeAttack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode toRet, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
 
     }
 
     public void afterAttack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode toRet, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
-
+        this.useWeaponCharge();
     }
 
     public void minionSummonedEvent(PlayerSide thisMinionPlayerSide, PlayerSide summonedMinionPlayerSide, Minion summonedMinion, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) {

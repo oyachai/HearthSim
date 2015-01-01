@@ -33,6 +33,7 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
         }
     }
 
+    @Deprecated
     public byte getWeaponCharge() {
         if (weapon == null) {
             return 0;
@@ -41,14 +42,16 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
         }
     }
 
+    @Deprecated
     public void setWeaponCharge(byte weaponCharge) {
         if (weaponCharge <= 0) {
             this.destroyWeapon();
         } else {
-            weapon.setWeaponCharge_(weaponCharge);
+            weapon.setWeaponCharge(weaponCharge);
         }
     }
 
+    @Deprecated
     public void useWeaponCharge() {
         this.setWeaponCharge((byte)(this.getWeaponCharge() - 1));
     }
@@ -107,7 +110,7 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
         HearthTreeNode toRet = super.attack(targetMinionPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1);
         if (toRet != null && this.getWeapon() != null) {
             this.weapon.afterAttack(targetMinionPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1);
-            this.useWeaponCharge();
+            this.checkForWeaponDeath();
         }
 
         return toRet;
@@ -253,12 +256,20 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
         return result;
     }
 
+    @Override
+    public byte getTotalAttack() {
+        byte attack = super.getTotalAttack();
+        if(this.getWeapon() != null) {
+            attack += this.getWeapon().getWeaponDamage();
+        }
+        return attack;
+    }
+
     public void setWeapon(WeaponCard weapon) {
         if (weapon == null) {
             throw new RuntimeException("use 'destroy weapon' method if trying to remove weapon.");
         } else {
             this.weapon = weapon;
-            this.attack_ = weapon.getWeaponDamage();
         }
     }
 
@@ -268,8 +279,13 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
 
     public void destroyWeapon() {
         if (weapon != null) {
-            attack_ = 0; // TODO if anything ever explicitly adds attack to a hero this will probably break
             weapon = null;
+        }
+    }
+
+    public void checkForWeaponDeath() {
+        if (weapon != null && weapon.getWeaponCharge() == 0) {
+            this.destroyWeapon();
         }
     }
 

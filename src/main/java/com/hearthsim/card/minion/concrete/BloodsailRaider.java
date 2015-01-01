@@ -30,8 +30,9 @@ public class BloodsailRaider extends Minion implements MinionUntargetableBattlec
             Deck deckPlayer1,
             boolean singleRealizationOnly
         ) throws HSException {
-        byte weaponAttack = boardState.data_.getCurrentPlayerHero().getAttack();
-        this.addAttack(weaponAttack);
+        if(boardState.data_.getCurrentPlayerHero().getWeapon() != null) {
+            this.addAttack(boardState.data_.getCurrentPlayerHero().getWeapon().getWeaponDamage());
+        }
         return boardState;
     }
 }

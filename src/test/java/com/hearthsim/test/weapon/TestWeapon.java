@@ -83,7 +83,7 @@ public class TestWeapon {
         assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
         assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 27);
 
-        assertEquals(board.data_.getCurrentPlayerHero().getAttack(), 3);
+        assertEquals(board.data_.getCurrentPlayerHero().getTotalAttack(), 3);
         assertEquals(board.data_.getCurrentPlayerHero().getWeaponCharge(), 1);
     }
 
@@ -104,7 +104,7 @@ public class TestWeapon {
         assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
         assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 27);
 
-        assertEquals(board.data_.getCurrentPlayerHero().getAttack(), 3);
+        assertEquals(board.data_.getCurrentPlayerHero().getTotalAttack(), 3);
         assertEquals(board.data_.getCurrentPlayerHero().getWeaponCharge(), 1);
     }
 
@@ -123,7 +123,7 @@ public class TestWeapon {
         assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
         assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 27);
 
-        assertEquals(board.data_.getCurrentPlayerHero().getAttack(), 0);
+        assertEquals(board.data_.getCurrentPlayerHero().getTotalAttack(), 0);
         assertEquals(board.data_.getCurrentPlayerHero().getWeaponCharge(), 0);
     }
 
