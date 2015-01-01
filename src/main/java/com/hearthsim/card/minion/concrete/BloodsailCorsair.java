@@ -3,7 +3,9 @@ package com.hearthsim.card.minion.concrete;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionUntargetableBattlecry;
+import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class BloodsailCorsair extends Minion implements MinionUntargetableBattlecry {
@@ -32,7 +34,11 @@ public class BloodsailCorsair extends Minion implements MinionUntargetableBattle
         ) throws HSException {
         boolean hasWeapon = boardState.data_.getWaitingPlayerHero().getWeapon() != null;
         if (hasWeapon) {
-            boardState.data_.getWaitingPlayerHero().useWeaponCharge();
+            boardState.data_.getWaitingPlayerHero().getWeapon().useWeaponCharge();
+            DeathrattleAction action = boardState.data_.getWaitingPlayerHero().checkForWeaponDeath();
+            if(action != null) {
+                boardState = action.performAction(null, PlayerSide.WAITING_PLAYER, boardState, deckPlayer0, deckPlayer1);
+            }
         }
         return boardState;
     }

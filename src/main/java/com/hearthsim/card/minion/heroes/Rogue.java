@@ -4,6 +4,7 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.weapon.concrete.WickedKnife;
+import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
@@ -41,7 +42,12 @@ public class Rogue extends Hero {
             this.hasBeenUsed = true;
             toRet.data_.getCurrentPlayer().subtractMana(HERO_ABILITY_COST);
             Hero target = (Hero)targetMinion;
-            target.setWeapon(new WickedKnife());
+
+            DeathrattleAction action = target.setWeapon(new WickedKnife());
+            if(action != null) {
+                toRet = action.performAction(null, targetPlayerSide, toRet, deckPlayer0, deckPlayer1);
+            }
+
             return toRet;
         } else {
             return null;

@@ -1,7 +1,9 @@
 package com.hearthsim.test.groovy.card.weapon
 
 import com.hearthsim.card.minion.Minion
+import com.hearthsim.card.minion.concrete.ArathiWeaponsmith
 import com.hearthsim.card.minion.concrete.BoulderfistOgre
+import com.hearthsim.card.weapon.concrete.BattleAxe
 import com.hearthsim.card.weapon.concrete.DeathsBite
 import com.hearthsim.card.weapon.concrete.FieryWarAxe
 import com.hearthsim.model.BoardModel
@@ -22,7 +24,7 @@ class DeathsBiteSpec extends CardSpec {
 
         startingBoard = new BoardModelBuilder().make {
             currentPlayer {
-                hand([DeathsBite, FieryWarAxe])
+                hand([DeathsBite, FieryWarAxe, ArathiWeaponsmith])
                 mana(10)
             }
 
@@ -53,6 +55,33 @@ class DeathsBiteSpec extends CardSpec {
                 mana(4)
                 removeCardFromHand(DeathsBite)
                 removeCardFromHand(FieryWarAxe)
+            }
+            waitingPlayer {
+                updateMinion(0, [deltaHealth: -1])
+            }
+        }
+    }
+
+    def 'deathrattle triggers after replacing weapon via minion'() {
+        def copiedBoard = startingBoard.deepCopy()
+        def copiedRoot = new HearthTreeNode(copiedBoard)
+
+        def theCard = copiedBoard.getCurrentPlayerCardHand(0);
+        def ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot, null, null);
+
+        theCard = copiedBoard.getCurrentPlayerCardHand(1); // play ArathiWeaponsmith
+        ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot, null, null);
+
+        expect:
+        ret != null
+        assertBoardDelta(startingBoard, copiedBoard) {
+            currentPlayer {
+                weapon(BattleAxe) {
+                }
+                mana(2)
+                removeCardFromHand(DeathsBite)
+                playMinion(ArathiWeaponsmith)
+                updateMinion(0, [deltaHealth: -1])
             }
             waitingPlayer {
                 updateMinion(0, [deltaHealth: -1])

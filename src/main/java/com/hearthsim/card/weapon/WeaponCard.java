@@ -108,10 +108,9 @@ public abstract class WeaponCard extends Card {
 
         HearthTreeNode toRet = boardState;
         if (toRet != null) {
-            WeaponCard oldWeapon = toRet.data_.getCurrentPlayerHero().getWeapon();
             DeathrattleAction weaponDeathrattle = toRet.data_.getCurrentPlayerHero().setWeapon(this);
             if(weaponDeathrattle != null) {
-                toRet = weaponDeathrattle.performAction(oldWeapon, side, toRet, deckPlayer0, deckPlayer1);
+                toRet = weaponDeathrattle.performAction(null, side, toRet, deckPlayer0, deckPlayer1);
             }
             this.hasBeenUsed(true);
         }
