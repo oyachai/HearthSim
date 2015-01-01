@@ -76,7 +76,7 @@ public class TestPlayerModel {
             for(int i = 0; i < numCards; ++i) {
                 deckIsSame = deckIsSame && cards0[i].equals(cards1[i]);
             }
-            if(deckIsSame) {
+            if (deckIsSame) {
                 assertEquals(player0, player1);
                 assertEquals(player1, player0);
                 assertEquals(player0.hashCode(), player1.hashCode());
@@ -100,7 +100,7 @@ public class TestPlayerModel {
             player0.getHero().setHealth(health0);
             player1.getHero().setHealth(health1);
 
-            if(health0 == health1) {
+            if (health0 == health1) {
                 assertEquals(player0, player1);
                 assertEquals(player1, player0);
                 assertEquals(player0.hashCode(), player1.hashCode());
@@ -124,7 +124,7 @@ public class TestPlayerModel {
             player0.getHero().setArmor(armor0);
             player1.getHero().setArmor(armor1);
 
-            if(armor0 == armor1) {
+            if (armor0 == armor1) {
                 assertEquals(player0, player1);
                 assertEquals(player1, player0);
                 assertEquals(player0.hashCode(), player1.hashCode());

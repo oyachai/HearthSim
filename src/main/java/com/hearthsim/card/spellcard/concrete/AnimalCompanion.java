@@ -38,12 +38,12 @@ public class AnimalCompanion extends SpellCard {
 
     @Override
     public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
-        if(!super.canBeUsedOn(playerSide, minion, boardModel)) {
+        if (!super.canBeUsedOn(playerSide, minion, boardModel)) {
             return false;
         }
 
         int numMinions = playerSide.getPlayer(boardModel).getNumMinions();
-        if(numMinions >= 7) {
+        if (numMinions >= 7) {
             return false;
         }
 
@@ -63,14 +63,14 @@ public class AnimalCompanion extends SpellCard {
             Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
         HearthTreeNode toRet = null;
 
-        if(singleRealizationOnly) {
+        if (singleRealizationOnly) {
             toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
-            if(toRet != null) {
+            if (toRet != null) {
                 double rnd = Math.random();
                 Minion minion = null;
-                if(rnd < 0.333333333333333333333333333) {
+                if (rnd < 0.333333333333333333333333333) {
                     minion = new Huffer();
-                } else if(rnd > 0.66666666666666666666666666666) {
+                } else if (rnd > 0.66666666666666666666666666666) {
                     minion = new Leokk();
                 } else {
                     minion = new Misha();
@@ -82,7 +82,7 @@ public class AnimalCompanion extends SpellCard {
         } else {
             toRet = new RandomEffectNode(boardState, new HearthAction(HearthAction.Verb.USE_CARD,
                     PlayerSide.CURRENT_PLAYER, 0, side, 0));
-            if(toRet != null) {
+            if (toRet != null) {
                 int thisCardIndex = side.getPlayer(boardState).getHand().indexOf(this);
                 for(Minion minion : new Minion[] { new Huffer(), new Leokk(), new Misha() }) {
                     HearthTreeNode newState = toRet.addChild(new HearthTreeNode(toRet.data_.deepCopy()));

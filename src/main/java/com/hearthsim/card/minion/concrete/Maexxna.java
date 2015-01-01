@@ -32,7 +32,7 @@ public class Maexxna extends Minion {
                 toRet, deckPlayer0, deckPlayer1, false, false);
         toRet = this.takeDamage(origAttack, targetMinionPlayerSide, PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0,
                 deckPlayer1, false, false);
-        if(windFury_ && !hasWindFuryAttacked_)
+        if (windFury_ && !hasWindFuryAttacked_)
             hasWindFuryAttacked_ = true;
         else
             hasAttacked_ = true;

@@ -508,7 +508,7 @@ public class PlotBox extends JPanel implements Printable {
     // I wanted the ability to use the Plot object in a servlet and to
     // write out the resultant images. The following routines,
     // particularly exportImage(), permit this. I also had to make some
-    // minor changes elsewhere. Rob Kroeger, May 2001.
+    // minor changes else where. Rob Kroeger, May 2001.
     // NOTE: This code has been modified by EAL to conform with Ptolemy II
     // coding style.
 

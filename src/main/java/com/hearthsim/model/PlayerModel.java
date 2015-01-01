@@ -283,13 +283,13 @@ public class PlayerModel implements DeepCopyable<PlayerModel> {
         json.put("name", name);
         json.put("playerId", playerId);
         json.put("hero", hero.toJSON());
-        if(mana != maxMana) json.put("mana", mana);
-        if(maxMana > 0) json.put("maxMana", maxMana);
+        if (mana != maxMana) json.put("mana", mana);
+        if (maxMana > 0) json.put("maxMana", maxMana);
         json.put("deckPos", deckPos);
-        if(overload > 0) json.put("overload", overload);
-        if(fatigueDamage > 0) json.put("fatigueDamage", fatigueDamage);
+        if (overload > 0) json.put("overload", overload);
+        if (fatigueDamage > 0) json.put("fatigueDamage", fatigueDamage);
 
-        if(minions.size() > 0) {
+        if (minions.size() > 0) {
             JSONArray array = new JSONArray();
             for(Minion minion: minions) {
                 array.put(minion.toJSON());
@@ -297,7 +297,7 @@ public class PlayerModel implements DeepCopyable<PlayerModel> {
             json.put("minions", array);
         }
 
-        if(hand.size() > 0) {
+        if (hand.size() > 0) {
             JSONArray array = new JSONArray();
             for(Card card: hand) {
                 array.put(card.toJSON());

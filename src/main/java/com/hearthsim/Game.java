@@ -96,16 +96,16 @@ public class Game {
             long turnStart = System.currentTimeMillis();
 
             gameResult = playTurn(turnCount, record, aiForPlayerGoingFirst);
-            if(gameResult != null)
+            if (gameResult != null)
                 return gameResult;
 
             gameResult = playTurn(turnCount, record, aiForPlayerGoingSecond);
-            if(gameResult != null)
+            if (gameResult != null)
                 return gameResult;
 
             long turnEnd = System.currentTimeMillis();
             long turnDelta = turnEnd - turnStart;
-            if(turnDelta > aiForPlayerGoingFirst.getMaxThinkTime() / 2) {
+            if (turnDelta > aiForPlayerGoingFirst.getMaxThinkTime() / 2) {
                 log.warn("turn took {} ms, more than half of alloted think time ({})", turnDelta,
                         aiForPlayerGoingFirst.getMaxThinkTime());
             } else {
@@ -123,11 +123,11 @@ public class Game {
         GameResult gameResult;
 
         gameResult = checkGameOver(turnCount, record);
-        if(gameResult != null)
+        if (gameResult != null)
             return gameResult;
 
         List<HearthActionBoardPair> allMoves = ai.playTurn(turnCount, boardModel);
-        if(allMoves.size() > 0) {
+        if (allMoves.size() > 0) {
             // If allMoves is empty, it means that there was absolutely nothing the AI could do
             boardModel = allMoves.get(allMoves.size() - 1).board;
             gameHistory.addAll(allMoves);
@@ -138,7 +138,7 @@ public class Game {
         record.put(turnCount + 1, PlayerSide.CURRENT_PLAYER, boardModel.deepCopy(), allMoves);
 
         gameResult = checkGameOver(turnCount, record);
-        if(gameResult != null)
+        if (gameResult != null)
             return gameResult;
 
         boardModel = boardModel.flipPlayers();
@@ -148,10 +148,10 @@ public class Game {
     }
 
     public GameResult checkGameOver(int turnCount, GameRecord record) {
-        if(!boardModel.isAlive(PlayerSide.CURRENT_PLAYER)) {
+        if (!boardModel.isAlive(PlayerSide.CURRENT_PLAYER)) {
             PlayerModel winner = boardModel.modelForSide(PlayerSide.WAITING_PLAYER);
             return new GameResult(playerGoingFirst.getPlayerId(), winner.getPlayerId(), turnCount + 1, record);
-        } else if(!boardModel.isAlive(PlayerSide.WAITING_PLAYER)) {
+        } else if (!boardModel.isAlive(PlayerSide.WAITING_PLAYER)) {
             PlayerModel winner = boardModel.modelForSide(PlayerSide.CURRENT_PLAYER);
             return new GameResult(playerGoingFirst.getPlayerId(), winner.getPlayerId(), turnCount + 1, record);
         }
@@ -178,7 +178,7 @@ public class Game {
                 .getWaitingPlayer().getDeck());
 
         toRet.data_.getCurrentPlayer().drawNextCardFromDeck();
-        if(toRet.data_.getCurrentPlayer().getMaxMana() < 10)
+        if (toRet.data_.getCurrentPlayer().getMaxMana() < 10)
             toRet.data_.getCurrentPlayer().addMaxMana((byte)1);
         toRet.data_.resetMana();
 

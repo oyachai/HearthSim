@@ -44,7 +44,7 @@ public class AncientOfLore extends Minion {
         HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1,
                 singleRealizationOnly);
 
-        if(toRet != null) {
+        if (toRet != null) {
             int thisMinionIndex = PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions().indexOf(this);
             toRet.addChild(new CardDrawNode(new HearthTreeNode(toRet.data_.deepCopy()), 2));
 
@@ -54,7 +54,7 @@ public class AncientOfLore extends Minion {
             toRet.addChild(newState);
 
             for(int index = 0; index < PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getNumMinions(); ++index) {
-                if(index != thisMinionIndex) {
+                if (index != thisMinionIndex) {
                     newState = new HearthTreeNode(toRet.data_.deepCopy());
                     newState = PlayerSide.CURRENT_PLAYER.getPlayer(newState).getMinions().get(index)
                             .takeHeal(HEAL_AMOUNT, PlayerSide.CURRENT_PLAYER, newState, deckPlayer0, deckPlayer1);

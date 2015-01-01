@@ -42,13 +42,13 @@ public class BreadthBoardStateFactory extends BoardStateFactoryBase {
                 current = currentDepth.remove(0);
 
                 // The game ended; nothing left to do.
-                if(current.data_.isLethalState()) {
+                if (current.data_.isLethalState()) {
                     continue;
                 }
 
                 // Try to use existing children if possible. This can happen after an auto-populating node (e.g., Battlecries)
                 ArrayList<HearthTreeNode> children = null;
-                if(current.isLeaf()) {
+                if (current.isLeaf()) {
                     children = this.createChildren(current);
                 } else {
                     children = new ArrayList<HearthTreeNode>(current.getChildren());
@@ -57,12 +57,12 @@ public class BreadthBoardStateFactory extends BoardStateFactoryBase {
 
                 for(HearthTreeNode child : children) {
                     childCount++;
-                    if(!(child instanceof StopNode)) {
-                        if(dupeSkipOn) {
-                            if(states.size() > 0) {
+                    if (!(child instanceof StopNode)) {
+                        if (dupeSkipOn) {
+                            if (states.size() > 0) {
                                 stateCompareCount += Math.log(states.size()); // .contains uses quick search
                                 // Using .hashCode lets us use TreeSet and .contains to look for dupes
-                                if(states.contains(child.data_.hashCode())) {
+                                if (states.contains(child.data_.hashCode())) {
                                     dupeSkip++;
                                     continue;
                                 }
@@ -77,7 +77,7 @@ public class BreadthBoardStateFactory extends BoardStateFactoryBase {
                 }
             }
 
-            if(nextDepth.isEmpty()) {
+            if (nextDepth.isEmpty()) {
                 break;
             }
 
@@ -100,27 +100,27 @@ public class BreadthBoardStateFactory extends BoardStateFactoryBase {
         double score = ai.boardScore(root.data_);
         root.setScore(score);
 
-        if(root.isLeaf()) {
+        if (root.isLeaf()) {
             root.setBestChildScore(score);
         } else {
             HearthTreeNode best = null;
             for(HearthTreeNode child : root.getChildren()) {
                 this.processScoresForTree(child, ai, scoringPruning);
 
-                if(best == null || best.getBestChildScore() < child.getBestChildScore()) {
+                if (best == null || best.getBestChildScore() < child.getBestChildScore()) {
                     best = child;
                 }
             }
 
             // We need to process this after the children have populated their scores
-            if(root instanceof RandomEffectNode) {
+            if (root instanceof RandomEffectNode) {
                 double boardScore = ((RandomEffectNode)root).weightedAverageBestChildScore();
                 root.setScore(boardScore);
                 root.setBestChildScore(boardScore);
             } else {
-                if(best != null) {
+                if (best != null) {
                     root.setBestChildScore(best.getBestChildScore());
-                    if(scoringPruning) {
+                    if (scoringPruning) {
                         root.clearChildren();
                         root.addChild(best);
                     }

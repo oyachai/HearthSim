@@ -74,7 +74,7 @@ public class CardDrawNode extends StopNode {
         }
         //find the average card score of the remaining cards
         double averageCardScore = 0.0;
-        if(numCardsRemaining > 0) {
+        if (numCardsRemaining > 0) {
             for (int indx = data_.getCurrentPlayer().getDeckPos(); indx < numCardsInDeck; ++indx) {
                 averageCardScore += ai.cardInHandScore(deck.drawCard(indx), this.data_);
             }

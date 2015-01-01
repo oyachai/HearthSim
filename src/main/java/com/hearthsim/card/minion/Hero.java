@@ -23,7 +23,7 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
     public Hero() {
         ImplementedCardList cardList = ImplementedCardList.getInstance();
         ImplementedCardList.ImplementedCard implementedCard = cardList.getCardForClass(this.getClass());
-        if(implementedCard != null) {
+        if (implementedCard != null) {
             this.name_ = implementedCard.name_;
             this.health_ = (byte)implementedCard.health_;
             this.attack_ = 0;
@@ -34,7 +34,7 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
     }
 
     public byte getWeaponCharge() {
-        if(weapon == null) {
+        if (weapon == null) {
             return 0;
         } else {
             return weapon.getWeaponCharge();
@@ -42,7 +42,7 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
     }
 
     public void setWeaponCharge(byte weaponCharge) {
-        if(weaponCharge <= 0) {
+        if (weaponCharge <= 0) {
             this.destroyWeapon();
         } else {
             weapon.setWeaponCharge_(weaponCharge);
@@ -68,7 +68,7 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
     @Override
     public Hero deepCopy() {
         Hero copy = (Hero)super.deepCopy();
-        if(weapon != null) {
+        if (weapon != null) {
             copy.weapon = weapon.deepCopy();
         }
         copy.armor_ = armor_;
@@ -97,12 +97,12 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
     public HearthTreeNode attack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode boardState,
             Deck deckPlayer0, Deck deckPlayer1) throws HSException {
 
-        if(!this.canAttack()) {
+        if (!this.canAttack()) {
             return null;
         }
 
         HearthTreeNode toRet = super.attack(targetMinionPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1);
-        if(toRet != null && this.getWeapon() != null) {
+        if (toRet != null && this.getWeapon() != null) {
             this.weapon.onAttack(targetMinionPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1);
             this.useWeaponCharge();
         }
@@ -112,9 +112,9 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
 
     @Override
     public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
-        if(hasBeenUsed)
+        if (hasBeenUsed)
             return false;
-        if(!minion.isHeroTargetable())
+        if (!minion.isHeroTargetable())
             return false;
         return true;
     }
@@ -141,18 +141,18 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
             HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly)
             throws HSException {
 
-        if(boardState.data_.getCurrentPlayer().getMana() < HERO_ABILITY_COST)
+        if (boardState.data_.getCurrentPlayer().getMana() < HERO_ABILITY_COST)
             return null;
 
-        if(this.hasBeenUsed())
+        if (this.hasBeenUsed())
             return null;
 
-        if(!targetMinion.isHeroTargetable())
+        if (!targetMinion.isHeroTargetable())
             return null;
 
         HearthTreeNode toRet = this.useHeroAbility_core(targetPlayerSide, targetMinion, boardState, deckPlayer0,
                 deckPlayer1, singleRealizationOnly);
-        if(toRet != null) {
+        if (toRet != null) {
             int targetIndex = targetMinion instanceof Hero ? 0 : targetPlayerSide.getPlayer(boardState).getMinions()
                     .indexOf(targetMinion) + 1;
             toRet.setAction(new HearthAction(Verb.HERO_ABILITY, PlayerSide.CURRENT_PLAYER, 0, targetPlayerSide,
@@ -188,7 +188,7 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
             boolean handleMinionDeath) throws HSException {
         HearthTreeNode toRet = boardState;
         byte damageRemaining = (byte)(damage - armor_);
-        if(damageRemaining > 0) {
+        if (damageRemaining > 0) {
             armor_ = 0;
             toRet = super.takeDamage(damageRemaining, attackPlayerSide, thisPlayerSide, toRet, deckPlayer0,
                     deckPlayer1, isSpellDamage, handleMinionDeath);
@@ -218,25 +218,25 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
     @Override
     public JSONObject toJSON() {
         JSONObject json = super.toJSON();
-        if(this.armor_ > 0) json.put("armor", this.armor_);
+        if (this.armor_ > 0) json.put("armor", this.armor_);
         json.put("weapon", this.weapon);
         return json;
     }
 
     @Override
     public boolean equals(Object o) {
-        if(this == o)
+        if (this == o)
             return true;
-        if(o == null || getClass() != o.getClass())
+        if (o == null || getClass() != o.getClass())
             return false;
-        if(!super.equals(o))
+        if (!super.equals(o))
             return false;
 
         Hero hero = (Hero)o;
 
-        if(armor_ != hero.armor_)
+        if (armor_ != hero.armor_)
             return false;
-        if(weapon != null ? !weapon.equals(hero.weapon) : hero.weapon != null)
+        if (weapon != null ? !weapon.equals(hero.weapon) : hero.weapon != null)
             return false;
 
         return true;
@@ -251,7 +251,7 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
     }
 
     public void setWeapon(WeaponCard weapon) {
-        if(weapon == null) {
+        if (weapon == null) {
             throw new RuntimeException("use 'destroy weapon' method if trying to remove weapon.");
         } else {
             this.weapon = weapon;
@@ -264,7 +264,7 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
     }
 
     public void destroyWeapon() {
-        if(weapon != null) {
+        if (weapon != null) {
             attack_ = 0; // TODO if anything ever explicitly adds attack to a hero this will probably break
             weapon = null;
         }
@@ -274,7 +274,7 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
     public HearthTreeNode minionSummonEvent(PlayerSide thisMinionPlayerSide, PlayerSide summonedMinionPlayerSide,
             Minion summonedMinion, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) {
         HearthTreeNode hearthTreeNode = boardState;
-        if(weapon != null) {
+        if (weapon != null) {
             weapon.minionSummonedEvent(thisMinionPlayerSide, summonedMinionPlayerSide, summonedMinion, boardState,
                     deckPlayer0, deckPlayer1);
         }

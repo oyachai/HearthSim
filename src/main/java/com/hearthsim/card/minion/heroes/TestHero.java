@@ -46,7 +46,7 @@ public class TestHero extends Hero {
     public HearthTreeNode useHeroAbility_core(PlayerSide targetPlayerSide, Minion targetMinion,
             HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly)
             throws HSException {
-        if(this.enableHeroAbility) {
+        if (this.enableHeroAbility) {
             HearthTreeNode toRet = boardState;
             this.hasBeenUsed = true;
             toRet.data_.getCurrentPlayer().subtractMana(HERO_ABILITY_COST);

@@ -152,7 +152,7 @@ public class TestBoardModel {
         for(int i = 0; i < numBoards; ++i) {
             for(int j = i + 1; j < numBoards; ++j) {
                 boolean res = boards[i].equals(boards[j]);
-                if(res)
+                if (res)
                     nT = nT + 1;
                 nA = nA + 1;
             }

@@ -269,17 +269,17 @@ public class TestLethal {
     }
 
     private boolean hasLethalAtDepth(HearthTreeNode node, int depth) {
-        if(depth < 0) {
+        if (depth < 0) {
             return false;
         }
-        if(depth == 0) {
+        if (depth == 0) {
             return node.data_.isLethalState();
         }
-        if(node.isLeaf()) {
+        if (node.isLeaf()) {
             return false;
         }
         for(HearthTreeNode child : node.getChildren()) {
-            if(this.hasLethalAtDepth(child, depth - 1)) {
+            if (this.hasLethalAtDepth(child, depth - 1)) {
                 return true;
             }
         }

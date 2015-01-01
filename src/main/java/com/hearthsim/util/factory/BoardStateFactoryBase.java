@@ -75,7 +75,7 @@ public abstract class BoardStateFactoryBase {
         HearthTreeNode toRet = boardState;
         IdentityLinkedList<BoardModel.MinionPlayerPair> deadMinions = new IdentityLinkedList<BoardModel.MinionPlayerPair>();
         for(BoardModel.MinionPlayerPair minionIdPair : toRet.data_.getAllMinionsFIFOList()) {
-            if(minionIdPair.getMinion().getTotalHealth() <= 0) {
+            if (minionIdPair.getMinion().getTotalHealth() <= 0) {
                 deadMinions.add(minionIdPair);
             }
         }
@@ -84,7 +84,7 @@ public abstract class BoardStateFactoryBase {
             toRet = minionIdPair.getMinion().destroyed(playerSide, toRet, deckPlayer0, deckPlayer1);
             toRet.data_.removeMinion(minionIdPair);
         }
-        if(toRet.data_.hasDeadMinions())
+        if (toRet.data_.hasDeadMinions())
             return BoardStateFactoryBase.handleDeadMinions(toRet, deckPlayer0, deckPlayer1);
         else
             return toRet;

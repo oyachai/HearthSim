@@ -28,11 +28,11 @@ public class SpellDamage extends SpellCard {
     @Override
     public boolean equals(Object other) {
 
-        if(!super.equals(other)) {
+        if (!super.equals(other)) {
             return false;
         }
 
-        if(this.damage_ != ((SpellDamage)other).damage_) {
+        if (this.damage_ != ((SpellDamage)other).damage_) {
             return false;
         }
 
@@ -63,7 +63,7 @@ public class SpellDamage extends SpellCard {
 
     public HearthTreeNode attackAllMinionsOnSide(PlayerSide targetMinionPlayerSide, HearthTreeNode boardState,
             Deck deckPlayer0, Deck deckPlayer1) throws HSException {
-        if(boardState != null) {
+        if (boardState != null) {
             for(Minion minion : targetMinionPlayerSide.getPlayer(boardState).getMinions()) {
                 boardState = this.attack(targetMinionPlayerSide, minion, boardState, deckPlayer0, deckPlayer1);
             }
@@ -82,7 +82,7 @@ public class SpellDamage extends SpellCard {
     @Override
     protected HearthTreeNode use_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState,
             Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
-        if(this.hasBeenUsed()) {
+        if (this.hasBeenUsed()) {
             // Card is already used, nothing to do
             return null;
         }

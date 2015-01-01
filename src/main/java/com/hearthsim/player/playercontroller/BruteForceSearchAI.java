@@ -166,7 +166,7 @@ public class BruteForceSearchAI implements ArtificialPlayer {
         PlayerModel playerModel1 = board.getWaitingPlayer();
 
         BoardStateFactoryBase factory = null;
-        if(useSparseBoardStateFactory_) {
+        if (useSparseBoardStateFactory_) {
             factory = new SparseBoardStateFactory(playerModel0.getDeck(), playerModel1.getDeck(), MAX_THINK_TIME, useDuplicateNodePruning);
         } else {
             factory = new DepthBoardStateFactory(playerModel0.getDeck(), playerModel1.getDeck(), MAX_THINK_TIME, useDuplicateNodePruning);
@@ -191,7 +191,7 @@ public class BruteForceSearchAI implements ArtificialPlayer {
 
         while(curMove.getChildren() != null) {
             curMove = curMove.getChildren().get(0);
-            if(curMove instanceof StopNode) {
+            if (curMove instanceof StopNode) {
                 // Add the initial step that created the StopNode
                 retList.add(new HearthActionBoardPair(curMove.getAction(), curMove.data_.deepCopy()));
                 // Force the step to resolve

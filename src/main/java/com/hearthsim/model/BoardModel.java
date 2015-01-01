@@ -127,9 +127,9 @@ public class BoardModel implements DeepCopyable<BoardModel> {
     public PlayerSide sideForModel(PlayerModel model){
         if (model.equals(currentPlayer)){
             return PlayerSide.CURRENT_PLAYER;
-        }else if (model.equals(waitingPlayer)){
+        } else if (model.equals(waitingPlayer)){
             return PlayerSide.WAITING_PLAYER;
-        }else {
+        } else {
             throw new RuntimeException("unexpected player model");
         }
     }
@@ -584,7 +584,7 @@ public class BoardModel implements DeepCopyable<BoardModel> {
     public int getIndexOfPlayer(PlayerSide playerSide) {
         if (playerSide == PlayerSide.CURRENT_PLAYER){
             return 0;
-        }else{
+        } else {
             return 1;
         }
     }
@@ -593,7 +593,7 @@ public class BoardModel implements DeepCopyable<BoardModel> {
     public PlayerSide getPlayerByIndex(int index) {
         if (index == 0){
             return PlayerSide.CURRENT_PLAYER;
-        }else{
+        } else {
             return PlayerSide.WAITING_PLAYER;
         }
     }

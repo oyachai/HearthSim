@@ -2095,7 +2095,7 @@ public class Query extends JPanel {
                             } catch (IOException ex) {
                                 _entryBox.setText(file.toString());
                             }
-                        } else if(relativeURI != null) { // TODO need else clause
+                        } else if (relativeURI != null) { // TODO need else clause
                             _entryBox.setText(relativeURI.toString());
                         }
                     }

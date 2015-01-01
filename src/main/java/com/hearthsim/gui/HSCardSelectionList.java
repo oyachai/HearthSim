@@ -148,7 +148,7 @@ public class HSCardSelectionList extends JList<ImplementedCard> {
                         this.setForeground(HSColors.CARD_FREE_COLOR);
                         break;
                 }
-            }else{
+            } else {
                 this.setForeground(HSColors.CARD_FREE_COLOR);
             }
 

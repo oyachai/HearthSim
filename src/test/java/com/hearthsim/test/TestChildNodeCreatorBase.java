@@ -446,14 +446,14 @@ public class TestChildNodeCreatorBase {
     private void assertNodeListContainsBoardModel(List<HearthTreeNode> nodes, BoardModel expectedBoard, int indexHint) {
         boolean success = false;
         for(HearthTreeNode node : nodes) {
-            if(node.data_.equals(expectedBoard)) {
+            if (node.data_.equals(expectedBoard)) {
                 success = true;
                 break;
             }
         }
 
         // TODO kind of an ugly hack to get output from the test. should create better assertEquals variants for board state
-        if(!success) {
+        if (!success) {
             assertEquals(expectedBoard.getCurrentPlayer().getMinions(), nodes.get(indexHint).data_.getCurrentPlayer()
                     .getMinions());
             assertEquals(expectedBoard.getWaitingPlayer().getMinions(), nodes.get(indexHint).data_.getWaitingPlayer()
@@ -473,7 +473,7 @@ public class TestChildNodeCreatorBase {
     private void assertNodeDoesNotContainDuplicates(ArrayList<HearthTreeNode> nodes) {
         for(int i = 0; i < nodes.size(); i++) {
             for(int j = 0; j < nodes.size(); j++) {
-                if(i != j) {
+                if (i != j) {
                     assertNotEquals(nodes.get(i).data_, nodes.get(j).data_);
                 }
             }

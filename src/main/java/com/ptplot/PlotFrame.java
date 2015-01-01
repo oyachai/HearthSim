@@ -330,7 +330,7 @@ public class PlotFrame extends JFrame {
                     fout = new FileOutputStream(file);
                     plot.export(fout);
                 } finally {
-                    if(fout != null) {
+                    if (fout != null) {
                         try {
                             fout.close();
                         } catch (Throwable throwable) {

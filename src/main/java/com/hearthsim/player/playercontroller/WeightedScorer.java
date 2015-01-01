@@ -96,9 +96,9 @@ public class WeightedScorer implements BoardScorer, DeepCopyable<WeightedScorer>
     @Override
     public double cardInHandScore(Card card, BoardModel board) {
         double theScore = 0.001; // need non-zero so the AI values TheCoin and Innervate
-        if(card instanceof SpellDamage) {
+        if (card instanceof SpellDamage) {
             theScore += ((SpellDamage)card).getAttack() * spellDamageMultiplierWeight + spellDamageAddWeight;
-        } else if(card instanceof Minion) {
+        } else if (card instanceof Minion) {
             // Charge modeling. Charge's value primarily comes from the fact that it can be used immediately upon placing it.
             // After the card is placed, it's really just like any other minion, except maybe for small value in bouncing it.
             // So, the additional score for charge minions should really only apply when it is still in the hand.
@@ -122,7 +122,7 @@ public class WeightedScorer implements BoardScorer, DeepCopyable<WeightedScorer>
         score += minion.getAttack() * (side == PlayerSide.CURRENT_PLAYER ? myAttackWeight : enemyAttackWeight);
         score += minion.getTotalHealth() * (side == PlayerSide.CURRENT_PLAYER ? myHealthWeight : enemyHealthWeight);
         score += (minion.getTaunt() ? 1.0 : 0.0) * tauntWeight;
-        if(minion.getDivineShield())
+        if (minion.getDivineShield())
             score += (minion.getAttack() + minion.getTotalHealth()) * (side == PlayerSide.CURRENT_PLAYER ? myDivineShieldWeight : enemyDivineShieldWeight);
 
         if (minionOnBoardExtraScore != null) {
@@ -138,7 +138,7 @@ public class WeightedScorer implements BoardScorer, DeepCopyable<WeightedScorer>
     @Override
     public double heroHealthScore_p0(double heroHealth, double heroArmor) {
         double toRet = myHeroHealthWeight * (heroHealth + heroArmor);
-        if(heroHealth <= 0) {
+        if (heroHealth <= 0) {
             // dead enemy hero is a very good thing
             toRet -= 100000000.0;
         }
@@ -148,7 +148,7 @@ public class WeightedScorer implements BoardScorer, DeepCopyable<WeightedScorer>
     @Override
     public double heroHealthScore_p1(double heroHealth, double heroArmor) {
         double toRet = -enemyHeroHealthWeight * (heroHealth + heroArmor);
-        if(heroHealth <= 0) {
+        if (heroHealth <= 0) {
             // dead enemy hero is a very good thing
             toRet += 100000.0;
         }

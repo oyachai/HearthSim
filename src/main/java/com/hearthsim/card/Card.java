@@ -166,7 +166,7 @@ public class Card implements DeepCopyable<Card> {
         } catch(IllegalAccessException e) {
             log.error("illegal access error", e);
         }
-        if(copy == null) {
+        if (copy == null) {
             throw new RuntimeException("unable to instantiate card.");
         }
 
@@ -181,28 +181,28 @@ public class Card implements DeepCopyable<Card> {
 
     @Override
     public boolean equals(Object other) {
-        if(other == null) {
+        if (other == null) {
             return false;
         }
 
-        if(this.getClass() != other.getClass()) {
+        if (this.getClass() != other.getClass()) {
             return false;
         }
 
         // More logic here to be discuss below...
-        if(baseManaCost != ((Card)other).baseManaCost)
+        if (baseManaCost != ((Card)other).baseManaCost)
             return false;
 
-        if(hasBeenUsed != ((Card)other).hasBeenUsed)
+        if (hasBeenUsed != ((Card)other).hasBeenUsed)
             return false;
 
-        if(isInHand_ != ((Card)other).isInHand_)
+        if (isInHand_ != ((Card)other).isInHand_)
             return false;
 
-        if(!name_.equals(((Card)other).name_))
+        if (!name_.equals(((Card)other).name_))
             return false;
 
-        if(overload != ((Card)other).overload)
+        if (overload != ((Card)other).overload)
             return false;
 
         return true;
@@ -267,7 +267,7 @@ public class Card implements DeepCopyable<Card> {
      */
     public HearthTreeNode useOn(PlayerSide side, Minion targetMinion, HearthTreeNode boardState, Deck deckPlayer0,
             Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
-        if(!this.canBeUsedOn(side, targetMinion, boardState.data_))
+        if (!this.canBeUsedOn(side, targetMinion, boardState.data_))
             return null;
 
         // Need to record card and target index *before* the board state changes
@@ -276,17 +276,17 @@ public class Card implements DeepCopyable<Card> {
                 .indexOf(targetMinion) + 1;
 
         HearthTreeNode toRet = this.notifyCardPlayBegin(boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
-        if(toRet != null) {
+        if (toRet != null) {
             toRet = this.use_core(side, targetMinion, toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
             if (this.triggersOverload())
                 toRet.data_.addOverload(PlayerSide.CURRENT_PLAYER, this.getOverload());
         }
 
-        if(toRet != null) {
+        if (toRet != null) {
             toRet = this.notifyCardPlayResolve(toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
         }
 
-        if(toRet != null) {
+        if (toRet != null) {
             toRet.setAction(new HearthAction(Verb.USE_CARD, PlayerSide.CURRENT_PLAYER, cardIndex, side, targetIndex));
         }
         return toRet;
@@ -328,18 +328,18 @@ public class Card implements DeepCopyable<Card> {
         ArrayList<CardPlayBeginInterface> matches = new ArrayList<CardPlayBeginInterface>();
 
         for(Card card : toRet.data_.getCurrentPlayerHand()) {
-            if(card instanceof CardPlayBeginInterface) {
+            if (card instanceof CardPlayBeginInterface) {
                 matches.add((CardPlayBeginInterface)card);
             }
         }
 
         Card hero = toRet.data_.getCurrentPlayerHero();
-        if(hero instanceof CardPlayBeginInterface) {
+        if (hero instanceof CardPlayBeginInterface) {
             matches.add((CardPlayBeginInterface)hero);
         }
 
         for(Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
-            if(!minion.isSilenced() && minion instanceof CardPlayBeginInterface) {
+            if (!minion.isSilenced() && minion instanceof CardPlayBeginInterface) {
                 matches.add((CardPlayBeginInterface)minion);
             }
         }
@@ -351,18 +351,18 @@ public class Card implements DeepCopyable<Card> {
         matches.clear();
 
         for(Card card : toRet.data_.getWaitingPlayerHand()) {
-            if(card instanceof CardPlayBeginInterface) {
+            if (card instanceof CardPlayBeginInterface) {
                 matches.add((CardPlayBeginInterface)card);
             }
         }
 
         hero = toRet.data_.getWaitingPlayerHero();
-        if(hero instanceof CardPlayBeginInterface) {
+        if (hero instanceof CardPlayBeginInterface) {
             matches.add((CardPlayBeginInterface)hero);
         }
 
         for(Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
-            if(!minion.isSilenced() && minion instanceof CardPlayBeginInterface) {
+            if (!minion.isSilenced() && minion instanceof CardPlayBeginInterface) {
                 matches.add((CardPlayBeginInterface)minion);
             }
         }
@@ -383,18 +383,18 @@ public class Card implements DeepCopyable<Card> {
         ArrayList<CardPlayAfterInterface> matches = new ArrayList<CardPlayAfterInterface>();
 
         for(Card card : toRet.data_.getCurrentPlayerHand()) {
-            if(card instanceof CardPlayAfterInterface) {
+            if (card instanceof CardPlayAfterInterface) {
                 matches.add((CardPlayAfterInterface)card);
             }
         }
 
         Card hero = toRet.data_.getCurrentPlayerHero();
-        if(hero instanceof CardPlayAfterInterface) {
+        if (hero instanceof CardPlayAfterInterface) {
             matches.add((CardPlayAfterInterface)hero);
         }
 
         for(Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
-            if(!minion.isSilenced() && minion instanceof CardPlayAfterInterface) {
+            if (!minion.isSilenced() && minion instanceof CardPlayAfterInterface) {
                 matches.add((CardPlayAfterInterface)minion);
             }
         }
@@ -406,18 +406,18 @@ public class Card implements DeepCopyable<Card> {
         matches.clear();
 
         for(Card card : toRet.data_.getWaitingPlayerHand()) {
-            if(card instanceof CardPlayAfterInterface) {
+            if (card instanceof CardPlayAfterInterface) {
                 matches.add((CardPlayAfterInterface)card);
             }
         }
 
         hero = toRet.data_.getWaitingPlayerHero();
-        if(hero instanceof CardPlayAfterInterface) {
+        if (hero instanceof CardPlayAfterInterface) {
             matches.add((CardPlayAfterInterface)hero);
         }
 
         for(Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
-            if(!minion.isSilenced() && minion instanceof CardPlayAfterInterface) {
+            if (!minion.isSilenced() && minion instanceof CardPlayAfterInterface) {
                 matches.add((CardPlayAfterInterface)minion);
             }
         }
@@ -436,7 +436,7 @@ public class Card implements DeepCopyable<Card> {
         JSONObject json = new JSONObject();
         json.put("name", name_);
         json.put("mana", baseManaCost);
-        if(hasBeenUsed) json.put("hasBeenUsed", hasBeenUsed);
+        if (hasBeenUsed) json.put("hasBeenUsed", hasBeenUsed);
         return json;
     }
 

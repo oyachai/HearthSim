@@ -97,25 +97,25 @@ public class DepthBoardStateFactory extends BoardStateFactoryBase {
     public HearthTreeNode doMoves(HearthTreeNode boardStateNode, BoardScorer ai) throws HSException {
         log.trace("recursively performing moves");
 
-        if(lethal_) {
+        if (lethal_) {
             log.debug("found lethal");
             // if it's lethal, we don't have to do anything ever. Just play the lethal.
             return null;
         }
 
-        if(System.currentTimeMillis() - startTime_ > maxTime_) {
+        if (System.currentTimeMillis() - startTime_ > maxTime_) {
             log.debug("setting think time over");
             timedOut_ = true;
         }
 
-        if(timedOut_) {
+        if (timedOut_) {
             log.debug("think time is already over");
             // Time's up! no more thinking...
             return null;
         }
 
         boolean lethalFound = false;
-        if(boardStateNode.data_.isLethalState()) { // one of the players is dead, no reason to keep playing
+        if (boardStateNode.data_.isLethalState()) { // one of the players is dead, no reason to keep playing
             lethal_ = true;
             lethalFound = true;
         }
@@ -124,7 +124,7 @@ public class DepthBoardStateFactory extends BoardStateFactoryBase {
 
         // We can end up with children at this state, for example, after a battle cry. If we don't have children yet, create them.
         ++numNodes;
-        if(!lethalFound && boardStateNode.numChildren() <= 0) {
+        if (!lethalFound && boardStateNode.numChildren() <= 0) {
             if (useDuplicateNodePruning) {
                 if (boardsAlreadySeen.contains(boardStateNode.data_)) {
                     boardStateNode.setBestChildScore(boardStateNode.getScore());
@@ -138,7 +138,7 @@ public class DepthBoardStateFactory extends BoardStateFactoryBase {
             boardStateNode.addChildren(nodes);
         }
 
-        if(boardStateNode.isLeaf()) {
+        if (boardStateNode.isLeaf()) {
             // If at this point the node has no children, it is a leaf node. Set its best child score to its own score.
             boardStateNode.setBestChildScore(boardStateNode.getScore());
         } else {
@@ -159,24 +159,24 @@ public class DepthBoardStateFactory extends BoardStateFactoryBase {
                 // it this way "breaks" the best score chain and makes it harder to isolate and test
                 // scoring. It effectively "bubbles down" the tree but it isn't sent through when
                 // creating children.
-                if(child instanceof CardDrawNode) {
+                if (child instanceof CardDrawNode) {
                     tmpScore += ((CardDrawNode)child).cardDrawScore(deckPlayer0_, ai);
                 }
 
-                if(bestBranch == null || tmpScore > bestScore) {
+                if (bestBranch == null || tmpScore > bestScore) {
                     bestBranch = child;
                     bestScore = tmpScore;
                 }
             }
 
-            // TODO this should be automatically handled elsewhere...
+            // TODO this should be automatically handled else where...
             // Cannot continue past a StopNode except RNG nodes. The children of RNG nodes will be used
             // during resolution so if we clear them out it can get awkward
-            if(bestBranch instanceof StopNode && !(bestBranch instanceof RandomEffectNode)) {
+            if (bestBranch instanceof StopNode && !(bestBranch instanceof RandomEffectNode)) {
                 bestBranch.clearChildren();
             }
 
-            if(boardStateNode instanceof RandomEffectNode) {
+            if (boardStateNode instanceof RandomEffectNode) {
                 // Set best child score according to the random effect score. We need to set this after all descendants have been calculated
                 double boardScore = ((RandomEffectNode)boardStateNode).weightedAverageBestChildScore();
                 boardStateNode.setBestChildScore(boardScore);
@@ -184,7 +184,7 @@ public class DepthBoardStateFactory extends BoardStateFactoryBase {
             } else {
                 boardStateNode.clearChildren();
                 boardStateNode.addChild(bestBranch);
-                if(bestBranch != null) {
+                if (bestBranch != null) {
                     boardStateNode.setBestChildScore(bestBranch.getBestChildScore());
                 }
             }

@@ -25,15 +25,15 @@ public class SpellDamageAoe extends SpellDamage {
 
     @Override
     public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
-        if(!super.canBeUsedOn(playerSide, minion, boardModel)) {
+        if (!super.canBeUsedOn(playerSide, minion, boardModel)) {
             return false;
         }
 
-        if(isCurrentPlayer(playerSide)) {
+        if (isCurrentPlayer(playerSide)) {
             return false;
         }
 
-        if(isNotHero(minion)) {
+        if (isNotHero(minion)) {
             return false;
         }
 
@@ -51,24 +51,24 @@ public class SpellDamageAoe extends SpellDamage {
     @Override
     protected HearthTreeNode use_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState,
             Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
-        if(boardState != null && this.hitsOwnHero) {
+        if (boardState != null && this.hitsOwnHero) {
             Minion self = boardState.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
             boardState = this.attack(PlayerSide.CURRENT_PLAYER, self, boardState, deckPlayer0, deckPlayer1);
         }
 
-        if(boardState != null && this.hitsOwnMinions) {
+        if (boardState != null && this.hitsOwnMinions) {
             boardState = this.attackAllMinionsOnSide(PlayerSide.CURRENT_PLAYER, boardState, deckPlayer0, deckPlayer1);
         }
 
-        if(boardState != null && this.hitsEnemyHero) {
+        if (boardState != null && this.hitsEnemyHero) {
             boardState = this.attack(PlayerSide.WAITING_PLAYER, targetMinion, boardState, deckPlayer0, deckPlayer1);
         }
 
-        if(boardState != null && this.hitsEnemyMinions) {
+        if (boardState != null && this.hitsEnemyMinions) {
             boardState = this.attackAllMinionsOnSide(PlayerSide.WAITING_PLAYER, boardState, deckPlayer0, deckPlayer1);
         }
 
-        if(boardState != null) {
+        if (boardState != null) {
             boardState.data_.getCurrentPlayer().subtractMana(this.getManaCost(side, boardState));
             boardState.data_.removeCard_hand(this);
         }

@@ -87,7 +87,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         super();
         ImplementedCardList cardList = ImplementedCardList.getInstance();
         ImplementedCardList.ImplementedCard implementedCard = cardList.getCardForClass(this.getClass());
-        if(implementedCard != null) {
+        if (implementedCard != null) {
             // only 'Minion' class is not implemented
             baseManaCost = (byte) implementedCard.mana_;
             name_ = implementedCard.name_;
@@ -374,7 +374,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 
     public void removeAuraHealth(byte value) {
         health_ += value;
-        if(health_ > maxHealth_)
+        if (health_ > maxHealth_)
             health_ = maxHealth_;
         auraHealth_ -= value;
     }
@@ -427,7 +427,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
     @Override
     public HearthTreeNode startTurn(PlayerSide thisMinionPlayerIndex, HearthTreeNode boardModel, Deck deckPlayer0,
             Deck deckPlayer1) throws HSException {
-        if(destroyOnTurnStart_) {
+        if (destroyOnTurnStart_) {
             // toRet = this.destroyed(thisMinionPlayerIndex, toRet, deckPlayer0, deckPlayer1);
             this.setHealth((byte)-99);
         }
@@ -445,7 +445,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
     public HearthTreeNode endTurn(PlayerSide thisMinionPlayerIndex, HearthTreeNode boardModel, Deck deckPlayer0,
             Deck deckPlayer1) throws HSException {
         extraAttackUntilTurnEnd_ = 0;
-        if(destroyOnTurnEnd_) {
+        if (destroyOnTurnEnd_) {
             // toRet = this.destroyed(thisMinionPlayerIndex, toRet, deckPlayer0, deckPlayer1);
             this.setHealth((byte)-99);
         }
@@ -469,14 +469,14 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
     public HearthTreeNode takeDamage(byte damage, PlayerSide attackPlayerSide, PlayerSide thisPlayerSide,
             HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean isSpellDamage,
             boolean handleMinionDeath) throws HSException {
-        if(!divineShield_) {
+        if (!divineShield_) {
             byte totalDamage = isSpellDamage ? (byte)(damage + boardState.data_.getSpellDamage(attackPlayerSide))
                     : damage;
             health_ = (byte)(health_ - totalDamage);
 
             return this.notifyMinionDamaged(boardState, thisPlayerSide, deckPlayer0, deckPlayer1);
         } else {
-            if(damage > 0)
+            if (damage > 0)
                 divineShield_ = false;
             return boardState;
         }
@@ -503,7 +503,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         HearthTreeNode toRet = boardState;
 
         // perform the deathrattle action if there is one
-        if(deathrattleAction_ != null) {
+        if (deathrattleAction_ != null) {
             toRet = deathrattleAction_.performAction(this, thisPlayerSide, toRet, deckPlayer0, deckPlayer1);
         }
 
@@ -559,9 +559,9 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 
         // Reset the attack and health to base
         this.attack_ = this.baseAttack_;
-        if(this.maxHealth_ > this.baseHealth_) {
+        if (this.maxHealth_ > this.baseHealth_) {
             this.maxHealth_ = this.baseHealth_;
-            if(this.health_ > this.maxHealth_)
+            if (this.health_ > this.maxHealth_)
                 this.health_ = this.maxHealth_;
         }
     }
@@ -579,8 +579,8 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
     public HearthTreeNode takeHeal(byte healAmount, PlayerSide thisPlayerSide, HearthTreeNode boardState,
             Deck deckPlayer0, Deck deckPlayer1) throws HSException {
 
-        if(health_ < maxHealth_) {
-            if(health_ + healAmount > maxHealth_)
+        if (health_ < maxHealth_) {
+            if (health_ + healAmount > maxHealth_)
                 health_ = maxHealth_;
             else
                 health_ = (byte)(health_ + healAmount);
@@ -593,7 +593,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 
     @Override
     public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
-        if(!super.canBeUsedOn(playerSide, minion, boardModel)) {
+        if (!super.canBeUsedOn(playerSide, minion, boardModel)) {
             return false;
         }
         return playerSide != PlayerSide.WAITING_PLAYER && !hasBeenUsed;
@@ -612,24 +612,24 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
      */
     public HearthTreeNode useTargetableBattlecry(PlayerSide side, Minion targetMinion, HearthTreeNode boardState,
             Deck deckPlayer0, Deck deckPlayer1) throws HSException {
-        if(this instanceof MinionTargetableBattlecry) {
+        if (this instanceof MinionTargetableBattlecry) {
             MinionTargetableBattlecry battlecryMinion = (MinionTargetableBattlecry)this;
 
             HearthTreeNode node = new HearthTreeNode(boardState.data_.deepCopy());
 
             // Need to get the new node's version of the target minion
             int targetMinionIndex = side.getPlayer(boardState).getMinions().indexOf(targetMinion);
-            if(targetMinionIndex >= 0) {
+            if (targetMinionIndex >= 0) {
                 node = battlecryMinion.useTargetableBattlecry_core(side, side.getPlayer(node).getMinions().get(targetMinionIndex),
                         node, deckPlayer0, deckPlayer1);
-            } else if(targetMinion instanceof Hero) {
+            } else if (targetMinion instanceof Hero) {
                 node = battlecryMinion.useTargetableBattlecry_core(side, side.getPlayer(node).getHero(), node, deckPlayer0,
                         deckPlayer1);
             } else {
                 node = null;
             }
 
-            if(node != null) {
+            if (node != null) {
                 // Check for dead minions
                 node = BoardStateFactoryBase.handleDeadMinions(node, deckPlayer0, deckPlayer1);
                 // add the new node to the tree
@@ -654,11 +654,11 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
     public HearthTreeNode useUntargetableBattlecry(Minion minionPlacementTarget, HearthTreeNode boardState,
             Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
         HearthTreeNode toRet = boardState;
-        if(this instanceof MinionUntargetableBattlecry) {
+        if (this instanceof MinionUntargetableBattlecry) {
             MinionUntargetableBattlecry battlecryMinion = (MinionUntargetableBattlecry)this;
             toRet = battlecryMinion.useUntargetableBattlecry_core(minionPlacementTarget, boardState, deckPlayer0,
                     deckPlayer1, singleRealizationOnly);
-            if(toRet != null) {
+            if (toRet != null) {
                 // Check for dead minions
                 toRet = BoardStateFactoryBase.handleDeadMinions(toRet, deckPlayer0, deckPlayer1);
             }
@@ -682,7 +682,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
     @Override
     protected HearthTreeNode use_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState,
             Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
-        if(hasBeenUsed || side == PlayerSide.WAITING_PLAYER || boardState.data_.modelForSide(side).getNumMinions() >= 7)
+        if (hasBeenUsed || side == PlayerSide.WAITING_PLAYER || boardState.data_.modelForSide(side).getNumMinions() >= 7)
             return null;
 
         HearthTreeNode toRet = boardState;
@@ -711,7 +711,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
      */
     public HearthTreeNode summonMinion(PlayerSide targetSide, Minion targetMinion, HearthTreeNode boardState,
             Deck deckPlayer0, Deck deckPlayer1, boolean wasPlayed, boolean singleRealizationOnly) throws HSException {
-        if(boardState.data_.modelForSide(targetSide).getNumMinions() >= 7)
+        if (boardState.data_.modelForSide(targetSide).getNumMinions() >= 7)
             return null;
 
         HearthTreeNode toRet = boardState;
@@ -719,12 +719,12 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
                 .summonMinion_core(targetSide, targetMinion, toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
 
 
-        if(this instanceof MinionUntargetableBattlecry) {
+        if (this instanceof MinionUntargetableBattlecry) {
             toRet = this.useUntargetableBattlecry(targetMinion, toRet, deckPlayer0, deckPlayer1,
                     singleRealizationOnly);
         }
 
-        if(this instanceof MinionTargetableBattlecry) {
+        if (this instanceof MinionTargetableBattlecry) {
             EnumSet<BattlecryTargetType> targets = ((MinionTargetableBattlecry)this).getBattlecryTargets();
 
             // Battlecry if available
@@ -747,35 +747,35 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
                         break;
                     case FRIENDLY_MINIONS:
                         for(Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
-                            if(minion != this)
+                            if (minion != this)
                                 toRet = this.useTargetableBattlecry(PlayerSide.CURRENT_PLAYER, minion, toRet, deckPlayer0,
                                         deckPlayer1);
                         }
                         break;
                     case ENEMY_BEASTS:
                         for(Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
-                            if(minion.getTribe() == MinionTribe.BEAST)
+                            if (minion.getTribe() == MinionTribe.BEAST)
                                 toRet = this.useTargetableBattlecry(PlayerSide.WAITING_PLAYER, minion, toRet, deckPlayer0,
                                         deckPlayer1);
                         }
                         break;
                     case FRIENDLY_BEASTS:
                         for(Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
-                            if(minion != this && minion.getTribe() == MinionTribe.BEAST)
+                            if (minion != this && minion.getTribe() == MinionTribe.BEAST)
                                 toRet = this.useTargetableBattlecry(PlayerSide.CURRENT_PLAYER, minion, toRet, deckPlayer0,
                                         deckPlayer1);
                         }
                         break;
                     case ENEMY_MURLOCS:
                         for(Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
-                            if(minion.getTribe() == MinionTribe.MURLOC)
+                            if (minion.getTribe() == MinionTribe.MURLOC)
                                 toRet = this.useTargetableBattlecry(PlayerSide.WAITING_PLAYER, minion, toRet, deckPlayer0,
                                         deckPlayer1);
                         }
                         break;
                     case FRIENDLY_MURLOCS:
                         for(Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
-                            if(minion != this && minion.getTribe() == MinionTribe.MURLOC)
+                            if (minion != this && minion.getTribe() == MinionTribe.MURLOC)
                                 toRet = this.useTargetableBattlecry(PlayerSide.CURRENT_PLAYER, minion, toRet, deckPlayer0,
                                         deckPlayer1);
                         }
@@ -786,7 +786,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
             }
         }
 
-        if(wasPlayed)
+        if (wasPlayed)
             toRet = this.notifyMinionPlayed(toRet, targetSide, deckPlayer0, deckPlayer1);
 
         toRet = this.notifyMinionSummon(toRet, targetSide, deckPlayer0, deckPlayer1);
@@ -813,7 +813,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
             Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
         HearthTreeNode toRet = this.placeMinion(targetSide, targetMinion, boardState, deckPlayer0, deckPlayer1,
                 singleRealizationOnly);
-        if(!charge_) {
+        if (!charge_) {
             hasAttacked_ = true;
         }
         hasBeenUsed = true;
@@ -822,7 +822,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 
     public HearthTreeNode placeMinion(PlayerSide targetSide, Minion targetMinion, HearthTreeNode boardState,
             Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
-        if(isHero(targetMinion))
+        if (isHero(targetMinion))
             boardState.data_.placeMinion(targetSide, this, 0);
         else
             boardState.data_.placeMinion(targetSide, this,
@@ -846,14 +846,14 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
             Deck deckPlayer0, Deck deckPlayer1) throws HSException {
 
         // can't attack a stealthed target
-        if(targetMinion.getStealthed())
+        if (targetMinion.getStealthed())
             return null;
 
-        if(!this.canAttack()) {
+        if (!this.canAttack()) {
             return null;
         }
 
-        if(targetMinionPlayerSide == PlayerSide.CURRENT_PLAYER) {
+        if (targetMinionPlayerSide == PlayerSide.CURRENT_PLAYER) {
             return null;
         }
 
@@ -868,14 +868,14 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         toRet = this.attack_core(targetMinionPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1);
 
         // check for and remove dead minions
-        if(toRet != null) {
+        if (toRet != null) {
             toRet.setAction(new HearthAction(Verb.ATTACK, PlayerSide.CURRENT_PLAYER, attackerIndex,
                     targetMinionPlayerSide, targetIndex));
             toRet = BoardStateFactoryBase.handleDeadMinions(toRet, deckPlayer0, deckPlayer1);
         }
 
         // Attacking means you lose stealth
-        if(toRet != null)
+        if (toRet != null)
             this.stealthed_ = false;
 
         return toRet;
@@ -902,7 +902,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
                 toRet, deckPlayer0, deckPlayer1, false, false);
         toRet = this.takeDamage(origAttack, targetMinionPlayerSide, PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0,
                 deckPlayer1, false, false);
-        if(windFury_ && !hasWindFuryAttacked_)
+        if (windFury_ && !hasWindFuryAttacked_)
             hasWindFuryAttacked_ = true;
         else
             hasAttacked_ = true;
@@ -919,12 +919,12 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         ArrayList<MinionSummonedInterface> matches = new ArrayList<MinionSummonedInterface>();
 
         Card hero = toRet.data_.getCurrentPlayerHero();
-        if(hero instanceof MinionSummonedInterface) {
+        if (hero instanceof MinionSummonedInterface) {
             matches.add((MinionSummonedInterface)hero);
         }
 
         for(Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
-            if(!minion.isSilenced() && minion instanceof MinionSummonedInterface) {
+            if (!minion.isSilenced() && minion instanceof MinionSummonedInterface) {
                 matches.add((MinionSummonedInterface)minion);
             }
         }
@@ -936,12 +936,12 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         matches.clear();
 
         hero = toRet.data_.getWaitingPlayerHero();
-        if(hero instanceof MinionSummonedInterface) {
+        if (hero instanceof MinionSummonedInterface) {
             matches.add((MinionSummonedInterface)hero);
         }
 
         for(Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
-            if(!minion.isSilenced() && minion instanceof MinionSummonedInterface) {
+            if (!minion.isSilenced() && minion instanceof MinionSummonedInterface) {
                 matches.add((MinionSummonedInterface)minion);
             }
         }
@@ -960,12 +960,12 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         ArrayList<MinionPlacedInterface> matches = new ArrayList<MinionPlacedInterface>();
 
         Card hero = toRet.data_.getCurrentPlayerHero();
-        if(hero instanceof MinionPlacedInterface) {
+        if (hero instanceof MinionPlacedInterface) {
             matches.add((MinionPlacedInterface)hero);
         }
 
         for(Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
-            if(!minion.isSilenced() && minion instanceof MinionPlacedInterface) {
+            if (!minion.isSilenced() && minion instanceof MinionPlacedInterface) {
                 matches.add((MinionPlacedInterface)minion);
             }
         }
@@ -977,12 +977,12 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         matches.clear();
 
         hero = toRet.data_.getWaitingPlayerHero();
-        if(hero instanceof MinionPlacedInterface) {
+        if (hero instanceof MinionPlacedInterface) {
             matches.add((MinionPlacedInterface)hero);
         }
 
         for(Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
-            if(!minion.isSilenced() && minion instanceof MinionPlacedInterface) {
+            if (!minion.isSilenced() && minion instanceof MinionPlacedInterface) {
                 matches.add((MinionPlacedInterface)minion);
             }
         }
@@ -1001,12 +1001,12 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         ArrayList<MinionPlayedInterface> matches = new ArrayList<MinionPlayedInterface>();
 
         Card hero = toRet.data_.getCurrentPlayerHero();
-        if(hero instanceof MinionPlayedInterface) {
+        if (hero instanceof MinionPlayedInterface) {
             matches.add((MinionPlayedInterface)hero);
         }
 
         for(Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
-            if(!minion.isSilenced() && minion instanceof MinionPlayedInterface) {
+            if (!minion.isSilenced() && minion instanceof MinionPlayedInterface) {
                 matches.add((MinionPlayedInterface)minion);
             }
         }
@@ -1018,12 +1018,12 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         matches.clear();
 
         hero = toRet.data_.getWaitingPlayerHero();
-        if(hero instanceof MinionPlayedInterface) {
+        if (hero instanceof MinionPlayedInterface) {
             matches.add((MinionPlayedInterface)hero);
         }
 
         for(Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
-            if(!minion.isSilenced() && minion instanceof MinionPlayedInterface) {
+            if (!minion.isSilenced() && minion instanceof MinionPlayedInterface) {
                 matches.add((MinionPlayedInterface)minion);
             }
         }
@@ -1042,12 +1042,12 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         ArrayList<MinionDamagedInterface> matches = new ArrayList<MinionDamagedInterface>();
 
         Card hero = toRet.data_.getCurrentPlayerHero();
-        if(hero instanceof MinionDamagedInterface) {
+        if (hero instanceof MinionDamagedInterface) {
             matches.add((MinionDamagedInterface)hero);
         }
 
         for(Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
-            if(!minion.isSilenced() && minion instanceof MinionDamagedInterface) {
+            if (!minion.isSilenced() && minion instanceof MinionDamagedInterface) {
                 matches.add((MinionDamagedInterface)minion);
             }
         }
@@ -1059,12 +1059,12 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         matches.clear();
 
         hero = toRet.data_.getWaitingPlayerHero();
-        if(hero instanceof MinionDamagedInterface) {
+        if (hero instanceof MinionDamagedInterface) {
             matches.add((MinionDamagedInterface)hero);
         }
 
         for(Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
-            if(!minion.isSilenced() && minion instanceof MinionDamagedInterface) {
+            if (!minion.isSilenced() && minion instanceof MinionDamagedInterface) {
                 matches.add((MinionDamagedInterface)minion);
             }
         }
@@ -1083,12 +1083,12 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         ArrayList<MinionDeadInterface> matches = new ArrayList<MinionDeadInterface>();
 
         Card hero = toRet.data_.getCurrentPlayerHero();
-        if(hero instanceof MinionDeadInterface) {
+        if (hero instanceof MinionDeadInterface) {
             matches.add((MinionDeadInterface)hero);
         }
 
         for(Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
-            if(!minion.isSilenced() && minion instanceof MinionDeadInterface) {
+            if (!minion.isSilenced() && minion instanceof MinionDeadInterface) {
                 matches.add((MinionDeadInterface)minion);
             }
         }
@@ -1100,12 +1100,12 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         matches.clear();
 
         hero = toRet.data_.getWaitingPlayerHero();
-        if(hero instanceof MinionDeadInterface) {
+        if (hero instanceof MinionDeadInterface) {
             matches.add((MinionDeadInterface)hero);
         }
 
         for(Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
-            if(!minion.isSilenced() && minion instanceof MinionDeadInterface) {
+            if (!minion.isSilenced() && minion instanceof MinionDeadInterface) {
                 matches.add((MinionDeadInterface)minion);
             }
         }
@@ -1124,12 +1124,12 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         ArrayList<MinionHealedInterface> matches = new ArrayList<MinionHealedInterface>();
 
         Card hero = toRet.data_.getCurrentPlayerHero();
-        if(hero instanceof MinionHealedInterface) {
+        if (hero instanceof MinionHealedInterface) {
             matches.add((MinionHealedInterface)hero);
         }
 
         for(Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
-            if(!minion.isSilenced() && minion instanceof MinionHealedInterface) {
+            if (!minion.isSilenced() && minion instanceof MinionHealedInterface) {
                 matches.add((MinionHealedInterface)minion);
             }
         }
@@ -1141,12 +1141,12 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         matches.clear();
 
         hero = toRet.data_.getWaitingPlayerHero();
-        if(hero instanceof MinionHealedInterface) {
+        if (hero instanceof MinionHealedInterface) {
             matches.add((MinionHealedInterface)hero);
         }
 
         for(Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
-            if(!minion.isSilenced() && minion instanceof MinionHealedInterface) {
+            if (!minion.isSilenced() && minion instanceof MinionHealedInterface) {
                 matches.add((MinionHealedInterface)minion);
             }
         }
@@ -1164,17 +1164,17 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         JSONObject json = super.toJSON();
         json.put("attack", attack_);
         json.put("baseAttack", baseAttack_);
-        if(health_ != maxHealth_) json.put("health", health_);
+        if (health_ != maxHealth_) json.put("health", health_);
         json.put("baseHealth", baseHealth_);
         json.put("maxHealth", maxHealth_);
-        if(taunt_) json.put("taunt", taunt_);
-        if(divineShield_) json.put("divineShield", divineShield_);
-        if(windFury_) json.put("windFury", windFury_);
-        if(charge_) json.put("charge", charge_);
-        if(frozen_) json.put("frozen", frozen_);
-        if(silenced_) json.put("silenced", silenced_);
-        if(hasAttacked_) json.put("hasAttacked", hasAttacked_);
-        if(spellDamage_ != 0) json.put("spellDamage", spellDamage_);
+        if (taunt_) json.put("taunt", taunt_);
+        if (divineShield_) json.put("divineShield", divineShield_);
+        if (windFury_) json.put("windFury", windFury_);
+        if (charge_) json.put("charge", charge_);
+        if (frozen_) json.put("frozen", frozen_);
+        if (silenced_) json.put("silenced", silenced_);
+        if (hasAttacked_) json.put("hasAttacked", hasAttacked_);
+        if (spellDamage_ != 0) json.put("spellDamage", spellDamage_);
         return json;
     }
 
@@ -1194,7 +1194,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         } catch(IllegalAccessException e) {
             log.error("illegal access error", e);
         }
-        if(minion == null) {
+        if (minion == null) {
             throw new RuntimeException("unable to instantiate minion.");
         }
 
@@ -1232,63 +1232,63 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 
     @Override
     public boolean equals(Object other) {
-        if(!super.equals(other)) {
+        if (!super.equals(other)) {
             return false;
         }
 
         Minion otherMinion = (Minion)other;
-        if(health_ != otherMinion.health_)
+        if (health_ != otherMinion.health_)
             return false;
-        if(maxHealth_ != otherMinion.maxHealth_)
+        if (maxHealth_ != otherMinion.maxHealth_)
             return false;
-        if(baseHealth_ != otherMinion.baseHealth_)
+        if (baseHealth_ != otherMinion.baseHealth_)
             return false;
-        if(auraHealth_ != otherMinion.auraHealth_)
-            return false;
-
-        if(attack_ != otherMinion.attack_)
-            return false;
-        if(baseAttack_ != otherMinion.baseAttack_)
-            return false;
-        if(extraAttackUntilTurnEnd_ != otherMinion.extraAttackUntilTurnEnd_)
-            return false;
-        if(auraAttack_ != otherMinion.auraAttack_)
+        if (auraHealth_ != otherMinion.auraHealth_)
             return false;
 
-        if(taunt_ != otherMinion.taunt_)
+        if (attack_ != otherMinion.attack_)
             return false;
-        if(divineShield_ != otherMinion.divineShield_)
+        if (baseAttack_ != otherMinion.baseAttack_)
             return false;
-        if(windFury_ != otherMinion.windFury_)
+        if (extraAttackUntilTurnEnd_ != otherMinion.extraAttackUntilTurnEnd_)
             return false;
-        if(charge_ != otherMinion.charge_)
-            return false;
-        if(stealthed_ != otherMinion.stealthed_)
-            return false;
-        if(hasAttacked_ != otherMinion.hasAttacked_)
-            return false;
-        if(heroTargetable_ != otherMinion.heroTargetable_)
-            return false;
-        if(hasWindFuryAttacked_ != otherMinion.hasWindFuryAttacked_)
-            return false;
-        if(frozen_ != otherMinion.frozen_)
-            return false;
-        if(silenced_ != otherMinion.silenced_)
-            return false;
-        if(destroyOnTurnStart_ != otherMinion.destroyOnTurnStart_)
-            return false;
-        if(destroyOnTurnEnd_ != otherMinion.destroyOnTurnEnd_)
+        if (auraAttack_ != otherMinion.auraAttack_)
             return false;
 
-        if(spellDamage_ != otherMinion.spellDamage_)
+        if (taunt_ != otherMinion.taunt_)
+            return false;
+        if (divineShield_ != otherMinion.divineShield_)
+            return false;
+        if (windFury_ != otherMinion.windFury_)
+            return false;
+        if (charge_ != otherMinion.charge_)
+            return false;
+        if (stealthed_ != otherMinion.stealthed_)
+            return false;
+        if (hasAttacked_ != otherMinion.hasAttacked_)
+            return false;
+        if (heroTargetable_ != otherMinion.heroTargetable_)
+            return false;
+        if (hasWindFuryAttacked_ != otherMinion.hasWindFuryAttacked_)
+            return false;
+        if (frozen_ != otherMinion.frozen_)
+            return false;
+        if (silenced_ != otherMinion.silenced_)
+            return false;
+        if (destroyOnTurnStart_ != otherMinion.destroyOnTurnStart_)
+            return false;
+        if (destroyOnTurnEnd_ != otherMinion.destroyOnTurnEnd_)
             return false;
 
-        // This is checked for reference equality
-        if(deathrattleAction_ != ((Minion)other).deathrattleAction_)
+        if (spellDamage_ != otherMinion.spellDamage_)
             return false;
 
         // This is checked for reference equality
-        if(attackAction_ != ((Minion)other).attackAction_)
+        if (deathrattleAction_ != ((Minion)other).deathrattleAction_)
+            return false;
+
+        // This is checked for reference equality
+        if (attackAction_ != ((Minion)other).attackAction_)
             return false;
 
         return true;

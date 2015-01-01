@@ -24,7 +24,7 @@ public class SpellCard extends Card {
 
     @Override
     public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
-        if(hasBeenUsed || minion.getStealthed() || !minion.isHeroTargetable()) {
+        if (hasBeenUsed || minion.getStealthed() || !minion.isHeroTargetable()) {
             return false;
         }
 

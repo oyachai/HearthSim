@@ -31,7 +31,7 @@ public class HSScrollbarUI extends BasicScrollBarUI {
 
     @Override
     protected void paintThumb(Graphics g, JComponent c, Rectangle thumbBounds) {
-        if(thumbBounds.isEmpty() || !scrollbar.isEnabled()) {
+        if (thumbBounds.isEmpty() || !scrollbar.isEnabled()) {
             return;
         }
 

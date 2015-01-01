@@ -96,7 +96,7 @@ public class HearthTreeNode {
 
     public HearthTreeNode addChild(HearthTreeNode node) {
         node.setDepth((byte)(depth_ + 1));
-        if(children_ == null) {
+        if (children_ == null) {
             children_ = new ArrayList<HearthTreeNode>();
         }
         children_.add(node);
@@ -111,7 +111,7 @@ public class HearthTreeNode {
     }
 
     public void clearChildren() {
-        if(children_ != null)
+        if (children_ != null)
             children_.clear();
     }
 
@@ -127,7 +127,7 @@ public class HearthTreeNode {
     }
 
     public int numChildren() {
-        if(children_ == null)
+        if (children_ == null)
             return 0;
         else {
             return children_.size();
@@ -150,14 +150,14 @@ public class HearthTreeNode {
     }
 
     private NodeValPair findMaxOfFuncImpl(BoardScorer ai) {
-        if(this.isLeaf())
+        if (this.isLeaf())
             return new NodeValPair(this, ai.boardScore(this.data_));
 
         NodeValPair maxNode = null;
         double maxSoFar = -1.e300;
         for(final HearthTreeNode child : children_) {
             NodeValPair maxOfChild = child.findMaxOfFuncImpl(ai);
-            if(maxOfChild.value_ > maxSoFar) {
+            if (maxOfChild.value_ > maxSoFar) {
                 maxSoFar = maxOfChild.value_;
                 maxNode = maxOfChild;
             }
@@ -170,13 +170,13 @@ public class HearthTreeNode {
         String toRet = "{";
         toRet = toRet + "\"data\": " + data_ + ", ";
         toRet = toRet + "\"children\": [";
-        if(children_ != null) {
+        if (children_ != null) {
             boolean hasContent = false;
             for(final HearthTreeNode child : children_) {
                 toRet = toRet + child + ", ";
                 hasContent = true;
             }
-            if(hasContent) {
+            if (hasContent) {
                 toRet = toRet.substring(0, toRet.length() - 2);
             }
         }

@@ -45,7 +45,7 @@ public class HolyNova extends SpellDamageAoe {
         HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1,
                 singleRealizationOnly);
 
-        if(toRet != null) {
+        if (toRet != null) {
             toRet = toRet.data_.getCurrentPlayerHero().takeHeal((byte)2, PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0,
                     deckPlayer1);
             for(Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {

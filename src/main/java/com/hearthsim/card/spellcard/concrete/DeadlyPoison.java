@@ -36,7 +36,7 @@ public class DeadlyPoison extends SpellCard {
 
     @Override
     public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
-        if(!super.canBeUsedOn(playerSide, minion, boardModel)) {
+        if (!super.canBeUsedOn(playerSide, minion, boardModel)) {
             return false;
         }
 

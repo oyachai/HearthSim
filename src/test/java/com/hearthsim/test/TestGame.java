@@ -57,7 +57,7 @@ public class TestGame {
         int nt = 0;
         while(nt < numTaunts_) {
             int irand = (int)(Math.random() * numCardsInDeck_);
-            if(!((Minion)cards1_[irand]).getTaunt()) {
+            if (!((Minion)cards1_[irand]).getTaunt()) {
                 ((Minion)cards1_[irand]).setTaunt(true);
                 ++nt;
             }
@@ -235,7 +235,7 @@ public class TestGame {
             int thisCardIndex = (int)Math.floor(Math.random() * (allCards.size() - 1));
             ImplementedCard card = allCards.get(thisCardIndex);
 
-            if(card.isHero) continue;
+            if (card.isHero) continue;
 
             cards1_.add(card.createCardInstance());
         }
@@ -244,7 +244,7 @@ public class TestGame {
             int thisCardIndex = (int)Math.floor(Math.random() * (allCards.size() - 1));
             ImplementedCard card = allCards.get(thisCardIndex);
 
-            if(card.isHero) continue;
+            if (card.isHero) continue;
 
             cards2_.add(card.createCardInstance());
         }
@@ -314,7 +314,7 @@ public class TestGame {
 
             log.info("f = " + result.firstPlayerIndex_ + ", w = " + result.winnerPlayerIndex_ + ", time taken = "
                     + (t2 - t1) / 1000000.0 + " ms");
-            if(result.firstPlayerIndex_ == 0) {
+            if (result.firstPlayerIndex_ == 0) {
                 // Player0 went first, so he should have 3 cards on turn 0
                 assertEquals(3, result.record_.getNumCardsInHand(0, 0, 0));
                 assertEquals(5, result.record_.getNumCardsInHand(1, 0, 1));
@@ -333,12 +333,12 @@ public class TestGame {
             throws HSException {
         HearthTreeNode current = null;
         for(HearthActionBoardPair actionBoardPair : history) {
-            if(current == null) {
+            if (current == null) {
                 current = new HearthTreeNode(actionBoardPair.board.deepCopy());
             } else {
                 assertNotNull(current);
 
-                if(actionBoardPair.action == null) {
+                if (actionBoardPair.action == null) {
                     log.error("Node without action detected. Previous board state: {0}", current.data_.toJSON());
                     log.error("Node without action detected. Expected board state: {0}", actionBoardPair.board.toJSON());
 
@@ -347,7 +347,7 @@ public class TestGame {
                 current = actionBoardPair.action.perform(current, deck1, deck2, false);
 
                 assertNotNull("Should have new node after " + actionBoardPair.action.verb_ + " action", current);
-                if(!actionBoardPair.board.equals(current.data_)) {
+                if (!actionBoardPair.board.equals(current.data_)) {
                     log.error("Detected history mismatch after action: {0}", actionBoardPair.action);
                     assertEquals(actionBoardPair.board, current.data_);
                 }

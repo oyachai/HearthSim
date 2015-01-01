@@ -44,8 +44,8 @@ public class FanOfKnives extends SpellDamageAoe {
         HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1,
                 singleRealizationOnly);
 
-        if(toRet != null) {
-            if(toRet instanceof CardDrawNode) {
+        if (toRet != null) {
+            if (toRet instanceof CardDrawNode) {
                 ((CardDrawNode)toRet).addNumCardsToDraw(1);
             } else {
                 toRet = new CardDrawNode(toRet, 1); // draw a card

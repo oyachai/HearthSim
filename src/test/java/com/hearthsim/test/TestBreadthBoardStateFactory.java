@@ -363,7 +363,7 @@ public class TestBreadthBoardStateFactory {
         HearthTreeNode current = null;
         while(!unprocessed.isEmpty()) {
             current = unprocessed.remove(0);
-            if(!current.isLeaf()) {
+            if (!current.isLeaf()) {
                 for(HearthTreeNode child : current.getChildren()) {
                     HearthTreeNode origin = new HearthTreeNode(current.data_.deepCopy(), current.getAction());
                     assertNotNull(child.getAction());
@@ -384,7 +384,7 @@ public class TestBreadthBoardStateFactory {
         while(!unprocessed.isEmpty()) {
             current = unprocessed.remove(0);
             this.assertDescendentsContainBoardModel(us, current.data_);
-            if(!current.isLeaf()) {
+            if (!current.isLeaf()) {
                 unprocessed.addAll(current.getChildren());
             }
         }
@@ -398,11 +398,11 @@ public class TestBreadthBoardStateFactory {
         HearthTreeNode current = null;
         while(!unprocessed.isEmpty()) {
             current = unprocessed.remove(0);
-            if(current.data_.equals(expectedBoard)) {
+            if (current.data_.equals(expectedBoard)) {
                 success = true;
                 break;
             }
-            if(!current.isLeaf()) {
+            if (!current.isLeaf()) {
                 unprocessed.addAll(current.getChildren());
             }
         }
@@ -418,9 +418,9 @@ public class TestBreadthBoardStateFactory {
         HearthTreeNode current = null;
         while(!unprocessed.isEmpty()) {
             current = unprocessed.remove(0);
-            if(!(current instanceof StopNode)) {
+            if (!(current instanceof StopNode)) {
                 states.add(current.data_);
-                if(!current.isLeaf()) {
+                if (!current.isLeaf()) {
                     unprocessed.addAll(current.getChildren());
                 }
             } else {
@@ -432,7 +432,7 @@ public class TestBreadthBoardStateFactory {
 
         for(int i = 0; i < states.size(); i++) {
             for(int j = 0; j < states.size(); j++) {
-                if(i != j) {
+                if (i != j) {
                     assertNotEquals(states.get(i), states.get(j));
                 }
             }

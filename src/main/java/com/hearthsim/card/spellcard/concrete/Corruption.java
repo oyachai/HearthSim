@@ -54,7 +54,7 @@ public class Corruption extends SpellCard {
             boolean singleRealizationOnly)
         throws HSException {
         HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
-        if(toRet != null)
+        if (toRet != null)
             targetMinion.setDestroyOnTurnStart(true);
         return toRet;
     }
