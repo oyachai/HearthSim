@@ -26,17 +26,17 @@ public class BloodsailCorsair extends Minion implements MinionUntargetableBattle
      */
     @Override
     public HearthTreeNode useUntargetableBattlecry_core(
-            Minion minionPlacementTarget,
-            HearthTreeNode boardState,
-            Deck deckPlayer0,
-            Deck deckPlayer1,
-            boolean singleRealizationOnly
-        ) throws HSException {
+        Minion minionPlacementTarget,
+        HearthTreeNode boardState,
+        Deck deckPlayer0,
+        Deck deckPlayer1,
+        boolean singleRealizationOnly
+    ) throws HSException {
         boolean hasWeapon = boardState.data_.getWaitingPlayerHero().getWeapon() != null;
         if (hasWeapon) {
             boardState.data_.getWaitingPlayerHero().getWeapon().useWeaponCharge();
             DeathrattleAction action = boardState.data_.getWaitingPlayerHero().checkForWeaponDeath();
-            if(action != null) {
+            if (action != null) {
                 boardState = action.performAction(null, PlayerSide.WAITING_PLAYER, boardState, deckPlayer0, deckPlayer1);
             }
         }

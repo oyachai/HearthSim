@@ -19,10 +19,8 @@ public class Rogue extends Hero {
 
     /**
      * Use the hero ability on a given target
-     *
+     * <p>
      * Rogue: equip a 1 attack, 2 charge weapon
-     *
-     *
      *
      * @param targetPlayerSide
      * @param boardState
@@ -30,21 +28,21 @@ public class Rogue extends Hero {
      */
     @Override
     public HearthTreeNode useHeroAbility_core(
-            PlayerSide targetPlayerSide,
-            Minion targetMinion,
-            HearthTreeNode boardState,
-            Deck deckPlayer0,
-            Deck deckPlayer1,
-            boolean singleRealizationOnly)
+        PlayerSide targetPlayerSide,
+        Minion targetMinion,
+        HearthTreeNode boardState,
+        Deck deckPlayer0,
+        Deck deckPlayer1,
+        boolean singleRealizationOnly)
         throws HSException {
         HearthTreeNode toRet = boardState;
         if (isHero(targetMinion) && targetPlayerSide == PlayerSide.CURRENT_PLAYER) {
             this.hasBeenUsed = true;
             toRet.data_.getCurrentPlayer().subtractMana(HERO_ABILITY_COST);
-            Hero target = (Hero)targetMinion;
+            Hero target = (Hero) targetMinion;
 
             DeathrattleAction action = target.setWeapon(new WickedKnife());
-            if(action != null) {
+            if (action != null) {
                 toRet = action.performAction(null, targetPlayerSide, toRet, deckPlayer0, deckPlayer1);
             }
 

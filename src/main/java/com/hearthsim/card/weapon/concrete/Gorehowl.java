@@ -15,7 +15,7 @@ public class Gorehowl extends WeaponCard {
     public void beforeAttack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode toRet, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
         super.beforeAttack(targetMinionPlayerSide, targetMinion, toRet, deckPlayer0, deckPlayer1);
 
-        if(!(targetMinion instanceof Hero)) {
+        if (!(targetMinion instanceof Hero)) {
             this.previousImmuneState = this.isImmune();
             this.setImmune(true);
         }
@@ -25,10 +25,10 @@ public class Gorehowl extends WeaponCard {
     public void afterAttack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode toRet, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
         super.afterAttack(targetMinionPlayerSide, targetMinion, toRet, deckPlayer0, deckPlayer1);
 
-        if(!(targetMinion instanceof Hero)) {
+        if (!(targetMinion instanceof Hero)) {
             this.setImmune(previousImmuneState);
             this.setWeaponDamage((byte) (this.getWeaponDamage() - 1));
-            if(this.getWeaponDamage() <= 0) {
+            if (this.getWeaponDamage() <= 0) {
                 this.setWeaponCharge((byte) 0);
             }
         }

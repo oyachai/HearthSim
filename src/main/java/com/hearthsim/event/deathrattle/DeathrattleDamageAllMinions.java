@@ -17,11 +17,11 @@ public class DeathrattleDamageAllMinions extends DeathrattleAction {
 
     @Override
     public HearthTreeNode performAction(
-            Card origin,
-            PlayerSide playerSide,
-            HearthTreeNode boardState,
-            Deck deckPlayer0,
-            Deck deckPlayer1)
+        Card origin,
+        PlayerSide playerSide,
+        HearthTreeNode boardState,
+        Deck deckPlayer0,
+        Deck deckPlayer1)
         throws HSException {
         HearthTreeNode toRet = super.performAction(origin, playerSide, boardState, deckPlayer0, deckPlayer1);
         if (toRet != null) {

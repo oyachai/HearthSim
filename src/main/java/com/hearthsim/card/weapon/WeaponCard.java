@@ -24,7 +24,7 @@ public abstract class WeaponCard extends Card {
     byte weaponCharge;
     byte weaponDamage;
 
-    public WeaponCard(){
+    public WeaponCard() {
         ImplementedCardList cardList = ImplementedCardList.getInstance();
         ImplementedCardList.ImplementedCard implementedCard = cardList.getCardForClass(this.getClass());
         weaponCharge = (byte) implementedCard.durability;
@@ -36,7 +36,7 @@ public abstract class WeaponCard extends Card {
 
     @Override
     public WeaponCard deepCopy() {
-        WeaponCard weapon = (WeaponCard)super.deepCopy();
+        WeaponCard weapon = (WeaponCard) super.deepCopy();
         weapon.weaponCharge = weaponCharge;
         weapon.weaponDamage = weaponDamage;
         return weapon;
@@ -49,18 +49,18 @@ public abstract class WeaponCard extends Card {
         }
 
         if (other == null) {
-           return false;
-        }
-
-        if (this.getClass() != other.getClass()) {
-           return false;
-        }
-
-        if (this.weaponDamage != ((WeaponCard)other).weaponDamage) {
             return false;
         }
 
-        if (this.weaponCharge != ((WeaponCard)other).weaponCharge) {
+        if (this.getClass() != other.getClass()) {
+            return false;
+        }
+
+        if (this.weaponDamage != ((WeaponCard) other).weaponDamage) {
+            return false;
+        }
+
+        if (this.weaponCharge != ((WeaponCard) other).weaponCharge) {
             return false;
         }
 
@@ -76,26 +76,22 @@ public abstract class WeaponCard extends Card {
     }
 
     /**
-     *
      * Use the card on the given target
-     *
+     * <p>
      * This is the core implementation of card's ability
-     *
-     *
      *
      * @param side
      * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-     *
      * @return The boardState is manipulated and returned
      */
     @Override
     protected HearthTreeNode use_core(
-            PlayerSide side,
-            Minion targetMinion,
-            HearthTreeNode boardState,
-            Deck deckPlayer0,
-            Deck deckPlayer1,
-            boolean singleRealizationOnly)
+        PlayerSide side,
+        Minion targetMinion,
+        HearthTreeNode boardState,
+        Deck deckPlayer0,
+        Deck deckPlayer1,
+        boolean singleRealizationOnly)
         throws HSException {
         if (this.hasBeenUsed()) {
             //Card is already used, nothing to do
@@ -109,7 +105,7 @@ public abstract class WeaponCard extends Card {
         HearthTreeNode toRet = boardState;
         if (toRet != null) {
             DeathrattleAction weaponDeathrattle = toRet.data_.getCurrentPlayerHero().setWeapon(this);
-            if(weaponDeathrattle != null) {
+            if (weaponDeathrattle != null) {
                 toRet = weaponDeathrattle.performAction(null, side, toRet, deckPlayer0, deckPlayer1);
             }
             this.hasBeenUsed(true);
@@ -135,7 +131,7 @@ public abstract class WeaponCard extends Card {
     }
 
     public void useWeaponCharge() {
-        if(!this.immune) {
+        if (!this.immune) {
             this.setWeaponCharge((byte) (this.getWeaponCharge() - 1));
         }
     }

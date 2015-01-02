@@ -2,7 +2,6 @@ package com.hearthsim.event.deathrattle;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
-import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.CardDrawNode;
@@ -18,11 +17,11 @@ public class DeathrattleCardDrawAction extends DeathrattleAction {
 
     @Override
     public HearthTreeNode performAction(
-            Card origin,
-            PlayerSide playerSide,
-            HearthTreeNode boardState,
-            Deck deckPlayer0,
-            Deck deckPlayer1)
+        Card origin,
+        PlayerSide playerSide,
+        HearthTreeNode boardState,
+        Deck deckPlayer0,
+        Deck deckPlayer1)
         throws HSException {
         HearthTreeNode toRet = super.performAction(origin, playerSide, boardState, deckPlayer0, deckPlayer1);
         if (playerSide == PlayerSide.CURRENT_PLAYER) {
