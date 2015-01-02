@@ -21,9 +21,6 @@ public class ColdlightOracle extends Minion implements MinionUntargetableBattlec
         this.tribe = MinionTribe.MURLOC;
 	}
 	
-	/**
-	 * Battlecry: All minions lose Divine Shield.  Gain +3/+3 for each Shield lost
-	 */
 	@Override
 	public HearthTreeNode useUntargetableBattlecry_core(
 			Minion minionPlacementTarget,

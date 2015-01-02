@@ -20,9 +20,6 @@ public class ColdlightSeer extends Minion implements MinionUntargetableBattlecry
         this.tribe = MinionTribe.MURLOC;
 	}
 	
-	/**
-	 * Battlecry: Swap the Attack and Health of a minion
-	 */
 	@Override
 	public HearthTreeNode useUntargetableBattlecry_core(
 			Minion minionPlacementTarget,

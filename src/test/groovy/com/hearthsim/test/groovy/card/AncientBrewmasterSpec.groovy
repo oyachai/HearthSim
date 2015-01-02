@@ -58,8 +58,6 @@ class AncientBrewmasterSpec extends CardSpec {
 			currentPlayer {
 				playMinion(AncientBrewmaster)
 				mana(3)
-				updateMinion(1, [deltaAuraHealth: 1])
-				updateMinion(1, [deltaAuraAttack: 1])
 			}
 		}
 
@@ -92,8 +90,6 @@ class AncientBrewmasterSpec extends CardSpec {
 			currentPlayer {
 				playMinion(AncientBrewmaster)
 				mana(3)
-				updateMinion(1, [deltaAuraHealth: 1])
-				updateMinion(1, [deltaAuraAttack: 1])
 			}
 		}
 

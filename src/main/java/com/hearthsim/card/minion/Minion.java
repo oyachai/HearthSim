@@ -541,7 +541,6 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 		charge_ = false;
 		frozen_ = false;
 		windFury_ = false;
-		silenced_ = true;
 		deathrattleAction_ = null;
 		stealthed_ = false;
 		heroTargetable_ = true;
@@ -553,6 +552,12 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 			if(this.health_ > this.maxHealth_)
 				this.health_ = this.maxHealth_;
 		}
+		
+		//Ask the board to clear this minion's aura
+		boardState.removeAuraOfMinion(thisPlayerSide, this);
+
+		//Set the silenced flag at the end
+		silenced_ = true;
 	}
 
 	/**
@@ -809,6 +814,22 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 		return toRet;
 	}
 
+	
+	
+	/**
+	 * Place a minion on the board
+	 * 
+	 * Use this function if you need to place a minion on the board without triggering any of the "On Summon" effects
+	 * 
+	 * @param targetSide
+	 * @param targetMinion
+	 * @param boardState
+	 * @param deckPlayer0
+	 * @param deckPlayer1
+	 * @param singleRealizationOnly
+	 * @return
+	 * @throws HSException
+	 */
 	public HearthTreeNode placeMinion(PlayerSide targetSide, Minion targetMinion, HearthTreeNode boardState,
 			Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
 		if(isHero(targetMinion))

@@ -2,18 +2,22 @@ package com.hearthsim.model;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
+import com.hearthsim.card.minion.AuraTargetType;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.minion.MinionWithAura;
 import com.hearthsim.card.minion.heroes.TestHero;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.IdentityLinkedList;
 import com.hearthsim.util.MinionList;
+
 import org.json.JSONObject;
 import org.slf4j.MDC;
 
 import java.util.ArrayList;
+import java.util.EnumSet;
 
 /**
  * A class that represents the current state of the board (game)
@@ -172,11 +176,10 @@ public class BoardModel implements DeepCopyable<BoardModel> {
     // Various ways to put a minion onto board
     //-----------------------------------------------------------------------------------
     /**
-     * Place a minion onto the board.  Does not trigger any events.
+     * Place a minion onto the board.  Does not trigger any events, but applies all auras.
      *
      * This is a function to place a minion on the board.  Use this function only if you
      * want no events to be trigger upon placing the minion.
-     *
      *
      *
      * @param playerSide
@@ -187,14 +190,17 @@ public class BoardModel implements DeepCopyable<BoardModel> {
     public void placeMinion(PlayerSide playerSide, Minion minion, int position) throws HSInvalidPlayerIndexException {
         PlayerModel playerModel = modelForSide(playerSide);
         playerModel.getMinions().add(position, minion);
-
         this.allMinionsFIFOList_.add(new MinionPlayerPair(minion, playerModel));
         minion.isInHand(false);
+        
+        //Apply the aura if any
+        applyAuraOfMinion(playerSide, minion);
+        applyOtherMinionsAura(playerSide, minion);
     }
 
 
     /**
-     * Place a minion onto the board.  Does not trigger any events.
+     * Place a minion onto the board.  Does not trigger any events, but applies all auras.
      *
      * This is a function to place a minion on the board.  Use this function only if you
      * want no events to be trigger upon placing the minion.
@@ -205,10 +211,7 @@ public class BoardModel implements DeepCopyable<BoardModel> {
      * @throws HSInvalidPlayerIndexException
      */
     public void placeMinion(PlayerSide playerSide, Minion minion) throws HSInvalidPlayerIndexException {
-        minion.isInHand(false);
-        PlayerModel playerModel = modelForSide(playerSide);
-        playerModel.getMinions().add(minion);
-        this.allMinionsFIFOList_.add(new MinionPlayerPair(minion, playerModel));
+    	this.placeMinion(playerSide, minion, playerSide.getPlayer(this).getMinions().size());
     }
 
     //-----------------------------------------------------------------------------------
@@ -323,11 +326,11 @@ public class BoardModel implements DeepCopyable<BoardModel> {
 
     public boolean removeMinion(MinionPlayerPair minionIdPair) throws HSInvalidPlayerIndexException {
         this.allMinionsFIFOList_.remove(minionIdPair);
-        if (minionIdPair.getPlayerModel() == currentPlayer)
-        	minionIdPair.minion.silenced(PlayerSide.CURRENT_PLAYER, this);
-        else
-        	minionIdPair.minion.silenced(PlayerSide.WAITING_PLAYER, this);
-        return minionIdPair.getPlayerModel().getMinions().remove(minionIdPair.minion);
+        boolean toRet = minionIdPair.getPlayerModel().getMinions().remove(minionIdPair.minion);
+        
+        //Remove the aura if any
+        removeAuraOfMinion(minionIdPair.getPlayerModel() == currentPlayer ? PlayerSide.CURRENT_PLAYER : PlayerSide.WAITING_PLAYER, minionIdPair.minion);
+        return toRet;
     }
 
     public boolean removeMinion(Minion minion) throws HSException {
@@ -361,6 +364,99 @@ public class BoardModel implements DeepCopyable<BoardModel> {
     //----------------------------------------------------------------------------
     //----------------------------------------------------------------------------
 
+    
+    //----------------------------------------------------------------------------
+    // Aura Handling
+    //
+    // Aura handling is delegated to BoardModel rather than Minion class
+    //----------------------------------------------------------------------------
+
+    /**
+     * Applies any aura that the given minion has
+     * 
+     * @param side The PlayerSide of the minion
+     * @param minion
+     */
+    public void applyAuraOfMinion(PlayerSide side, Minion minion) {
+        if (minion instanceof MinionWithAura && !minion.isSilenced()) {
+    		EnumSet<AuraTargetType> targetTypes = ((MinionWithAura)minion).getAuraTargets();
+    		for (AuraTargetType targetType : targetTypes) {
+				switch (targetType) {
+				case AURA_FRIENDLY_MINIONS:
+					for (Minion targetMinion : side.getPlayer(this).getMinions()) {
+						if (targetMinion != minion)
+							((MinionWithAura) minion).applyAura(side, targetMinion, this);    						
+					}
+					break;
+				case AURA_ENEMY_MINIONS:
+					for (Minion targetMinion : side.getOtherPlayer().getPlayer(this).getMinions()) {
+                		((MinionWithAura) minion).applyAura(side, targetMinion, this);    						
+					}
+					break;
+				default:
+					break;
+				}
+    		}
+        }
+    }
+    
+    /**
+     * Applies any aura effects that other minions on the board might have
+     * 
+     * @param side The PlayerSide of the minion to apply the auras to
+     * @param minion
+     */
+    public void applyOtherMinionsAura(PlayerSide side, Minion minion) {
+    	for (Minion otherMinion : side.getPlayer(this).getMinions()) {
+    		if (otherMinion instanceof MinionWithAura &&
+    				minion != otherMinion &&
+    				!otherMinion.isSilenced() &&
+    				((MinionWithAura)otherMinion).getAuraTargets().contains(AuraTargetType.AURA_FRIENDLY_MINIONS)) {
+    			((MinionWithAura)otherMinion).applyAura(side, minion, this);
+    		}
+    	}
+    	for (Minion otherMinion : side.getOtherPlayer().getPlayer(this).getMinions()) {
+    		if (otherMinion instanceof MinionWithAura &&
+    				minion != otherMinion &&
+    				!otherMinion.isSilenced() &&
+    				((MinionWithAura)otherMinion).getAuraTargets().contains(AuraTargetType.AURA_ENEMY_MINIONS)) {
+    			((MinionWithAura)otherMinion).applyAura(side, minion, this);
+    		}
+    	}
+    }
+    
+    /**
+     * Revomes any aura that the given minion might have
+     * 
+     * @param side The PlayerSide of the minion
+     * @param minion
+     */
+    public void removeAuraOfMinion(PlayerSide side, Minion minion) {
+        if (minion instanceof MinionWithAura && !minion.isSilenced()) {
+    		EnumSet<AuraTargetType> targetTypes = ((MinionWithAura)minion).getAuraTargets();
+    		for (AuraTargetType targetType : targetTypes) {
+				switch (targetType) {
+				case AURA_FRIENDLY_MINIONS:
+					for (Minion targetMinion : side.getPlayer(this).getMinions()) {
+						if (targetMinion != minion)
+							((MinionWithAura) minion).removeAura(side, targetMinion, this);    						
+					}
+					break;
+				case AURA_ENEMY_MINIONS:
+					for (Minion targetMinion : side.getOtherPlayer().getPlayer(this).getMinions()) {
+                		((MinionWithAura) minion).removeAura(side, targetMinion, this);    						
+					}
+					break;
+				default:
+					break;
+				}
+    		}
+        }
+    }
+
+   
+    //----------------------------------------------------------------------------
+    //----------------------------------------------------------------------------
 
     public boolean isAlive(PlayerSide playerSide) {
         return modelForSide(playerSide).getHero().getHealth() > 0;

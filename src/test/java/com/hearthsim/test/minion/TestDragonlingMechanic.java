@@ -136,7 +136,7 @@ public class TestDragonlingMechanic {
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(3).getTotalAttack(), 3);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(3).getTotalHealth(), 4);
 
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(4).getTotalAttack(), 6); // TODO this should be 7 but the placeMinion above didn't set things properly
+		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(4).getTotalAttack(), 7);
 		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(4).getTotalHealth(), 7);
 	}
 }

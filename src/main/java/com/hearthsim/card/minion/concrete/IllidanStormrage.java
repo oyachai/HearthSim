@@ -28,10 +28,8 @@ public class IllidanStormrage extends Minion implements CardPlayBeginInterface {
 			HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1,
 			boolean singleRealizationOnly) throws HSException {
 		HearthTreeNode toRet = boardState;
-		if (thisCardPlayerSide == cardUserPlayerSide && usedCard != this) {
-			if (thisCardPlayerSide.getPlayer(toRet).getMinions().size() < 7) {
-				toRet = new FlameOfAzzinoth().summonMinion(thisCardPlayerSide, this, toRet, deckPlayer0, deckPlayer1, false, singleRealizationOnly);
-			}
+		if (thisCardPlayerSide == cardUserPlayerSide && usedCard != this && thisCardPlayerSide.getPlayer(toRet).getMinions().size() < 7) {
+			toRet = new FlameOfAzzinoth().summonMinion(thisCardPlayerSide, this, toRet, deckPlayer0, deckPlayer1, false, singleRealizationOnly);
 		}
 		return toRet;
 	}
