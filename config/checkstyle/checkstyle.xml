@@ -6,11 +6,21 @@
     <module name="TreeWalker">
         <module name="UnusedImports"/>
         <module name="EmptyBlock"/>
+        <module name="LeftCurly"/>
+        <module name="WhitespaceAround">
+            <property name="tokens" value="LITERAL_IF, LITERAL_ELSE, LITERAL_FOR"/>
+        </module>
     </module>
     <module name="RegexpMultiline">
         <property name="format" value="System\.out\.print."/>
     </module>
     <module name="RegexpMultiline">
         <property name="format" value="System\.err\.print."/>
+    </module>
+    <module name="FileTabCharacter"/>
+    <module name="NewlineAtEndOfFile"/>
+    <module name="RegexpSingleline">
+        <property name="message" value="Line has trailing whitespace."/>
+        <property name="format" value="\s+$"/>
     </module>
 </module>

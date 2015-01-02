@@ -11,33 +11,32 @@ import com.hearthsim.model.PlayerSide;
 
 public class Leokk extends Minion implements MinionWithAura {
 
-	private static final boolean HERO_TARGETABLE = true;
-	private static final byte SPELL_DAMAGE = 0;
-	
-	public Leokk() {
+    private static final boolean HERO_TARGETABLE = true;
+    private static final byte SPELL_DAMAGE = 0;
+
+    public Leokk() {
         super();
         spellDamage_ = SPELL_DAMAGE;
         heroTargetable_ = HERO_TARGETABLE;
 
         this.tribe = MinionTribe.BEAST;
-	}
-	
-	@Override
-	public EnumSet<AuraTargetType> getAuraTargets() {
-		return EnumSet.of(AuraTargetType.AURA_FRIENDLY_MINIONS);
-	}
+    }
 
-	@Override
-	public void applyAura(PlayerSide targetSide, Minion targetMinion,
-			BoardModel boardModel) {
-		
-		targetMinion.setAuraAttack((byte)(targetMinion.getAuraAttack() + 1));
-	}
+    @Override
+    public EnumSet<AuraTargetType> getAuraTargets() {
+        return EnumSet.of(AuraTargetType.AURA_FRIENDLY_MINIONS);
+    }
 
-	@Override
-	public void removeAura(PlayerSide targetSide, Minion targetMinion,
-			BoardModel boardModel) {
-		targetMinion.setAuraAttack((byte)(targetMinion.getAuraAttack() - 1));
-	}
-	
+    @Override
+    public void applyAura(PlayerSide targetSide, Minion targetMinion,
+            BoardModel boardModel) {
+        targetMinion.setAuraAttack((byte)(targetMinion.getAuraAttack() + 1));
+    }
+
+    @Override
+    public void removeAura(PlayerSide targetSide, Minion targetMinion,
+            BoardModel boardModel) {
+        targetMinion.setAuraAttack((byte)(targetMinion.getAuraAttack() - 1));
+    }
+
 }

@@ -75,19 +75,19 @@ public class BoardModel implements DeepCopyable<BoardModel> {
     }
 
     public BoardModel() {
-    	this(new PlayerModel((byte)0, "player0", new TestHero("hero0", (byte)30), new Deck()),
-    		 new PlayerModel((byte)1, "player1", new TestHero("hero1", (byte)30), new Deck()));
+        this(new PlayerModel((byte)0, "player0", new TestHero("hero0", (byte)30), new Deck()),
+             new PlayerModel((byte)1, "player1", new TestHero("hero1", (byte)30), new Deck()));
     }
 
     public BoardModel(Deck deckPlayer0, Deck deckPlayer1) {
-    	this(new PlayerModel((byte)0, "player0", new TestHero("hero0", (byte)30), deckPlayer0),
-    		 new PlayerModel((byte)1, "player1", new TestHero("hero1", (byte)30), deckPlayer1));
+        this(new PlayerModel((byte)0, "player0", new TestHero("hero0", (byte)30), deckPlayer0),
+             new PlayerModel((byte)1, "player1", new TestHero("hero1", (byte)30), deckPlayer1));
     }
-    
+
     public BoardModel(Hero p0_hero, Hero p1_hero) {
-    	this(new PlayerModel((byte)0, "p0",p0_hero,new Deck()), new PlayerModel((byte)1, "p1",p1_hero,new Deck()));
+        this(new PlayerModel((byte)0, "p0",p0_hero,new Deck()), new PlayerModel((byte)1, "p1",p1_hero,new Deck()));
     }
-    
+
     public BoardModel(PlayerModel currentPlayerModel, PlayerModel waitingPlayerModel) {
 
         this.currentPlayer = currentPlayerModel;
@@ -131,9 +131,9 @@ public class BoardModel implements DeepCopyable<BoardModel> {
     public PlayerSide sideForModel(PlayerModel model){
         if (model.equals(currentPlayer)){
             return PlayerSide.CURRENT_PLAYER;
-        }else if (model.equals(waitingPlayer)){
+        } else if (model.equals(waitingPlayer)){
             return PlayerSide.WAITING_PLAYER;
-        }else {
+        } else {
             throw new RuntimeException("unexpected player model");
         }
     }
@@ -192,7 +192,7 @@ public class BoardModel implements DeepCopyable<BoardModel> {
         playerModel.getMinions().add(position, minion);
         this.allMinionsFIFOList_.add(new MinionPlayerPair(minion, playerModel));
         minion.isInHand(false);
-        
+
         //Apply the aura if any
         applyAuraOfMinion(playerSide, minion);
         applyOtherMinionsAura(playerSide, minion);
@@ -211,7 +211,7 @@ public class BoardModel implements DeepCopyable<BoardModel> {
      * @throws HSInvalidPlayerIndexException
      */
     public void placeMinion(PlayerSide playerSide, Minion minion) throws HSInvalidPlayerIndexException {
-    	this.placeMinion(playerSide, minion, playerSide.getPlayer(this).getMinions().size());
+        this.placeMinion(playerSide, minion, playerSide.getPlayer(this).getMinions().size());
     }
 
     //-----------------------------------------------------------------------------------
@@ -293,7 +293,7 @@ public class BoardModel implements DeepCopyable<BoardModel> {
     public void drawCardFromWaitingPlayerDeck(int numCards) {
         //This minion is an enemy minion.  Let's draw a card for the enemy.  No need to use a StopNode for enemy card draws.
         for (int indx = 0; indx < numCards; ++indx) {
-        	this.getWaitingPlayer().drawNextCardFromDeck();
+            this.getWaitingPlayer().drawNextCardFromDeck();
         }
     }
 
@@ -308,7 +308,7 @@ public class BoardModel implements DeepCopyable<BoardModel> {
      */
     public void drawCardFromCurrentPlayerDeck(int numCards) throws HSInvalidPlayerIndexException {
         for (int indx = 0; indx < numCards; ++indx) {
-        	this.getCurrentPlayer().drawNextCardFromDeck();
+            this.getCurrentPlayer().drawNextCardFromDeck();
         }
     }
 
@@ -327,10 +327,11 @@ public class BoardModel implements DeepCopyable<BoardModel> {
     public boolean removeMinion(MinionPlayerPair minionIdPair) throws HSInvalidPlayerIndexException {
         this.allMinionsFIFOList_.remove(minionIdPair);
         boolean toRet = minionIdPair.getPlayerModel().getMinions().remove(minionIdPair.minion);
-        
+
         //Remove the aura if any
         removeAuraOfMinion(minionIdPair.getPlayerModel() == currentPlayer ? PlayerSide.CURRENT_PLAYER : PlayerSide.WAITING_PLAYER, minionIdPair.minion);
         return toRet;
+
     }
 
     public boolean removeMinion(Minion minion) throws HSException {
@@ -364,7 +365,7 @@ public class BoardModel implements DeepCopyable<BoardModel> {
     //----------------------------------------------------------------------------
     //----------------------------------------------------------------------------
 
-    
+
     //----------------------------------------------------------------------------
     // Aura Handling
     //
@@ -373,101 +374,101 @@ public class BoardModel implements DeepCopyable<BoardModel> {
 
     /**
      * Applies any aura that the given minion has
-     * 
+     *
      * @param side The PlayerSide of the minion
      * @param minion
      */
     public void applyAuraOfMinion(PlayerSide side, Minion minion) {
         if (minion instanceof MinionWithAura && !minion.isSilenced()) {
-    		EnumSet<AuraTargetType> targetTypes = ((MinionWithAura)minion).getAuraTargets();
-    		for (AuraTargetType targetType : targetTypes) {
-				switch (targetType) {
-				case AURA_FRIENDLY_MINIONS:
-					for (Minion targetMinion : side.getPlayer(this).getMinions()) {
-						if (targetMinion != minion)
-							((MinionWithAura) minion).applyAura(side, targetMinion, this);    						
-					}
-					break;
-				case AURA_ENEMY_MINIONS:
-					for (Minion targetMinion : side.getOtherPlayer().getPlayer(this).getMinions()) {
-                		((MinionWithAura) minion).applyAura(side, targetMinion, this);    						
-					}
-					break;
-				default:
-					break;
-				}
-    		}
+            EnumSet<AuraTargetType> targetTypes = ((MinionWithAura)minion).getAuraTargets();
+            for (AuraTargetType targetType : targetTypes) {
+                switch (targetType) {
+                case AURA_FRIENDLY_MINIONS:
+                    for (Minion targetMinion : side.getPlayer(this).getMinions()) {
+                        if (targetMinion != minion)
+                            ((MinionWithAura) minion).applyAura(side, targetMinion, this);
+                    }
+                    break;
+                case AURA_ENEMY_MINIONS:
+                    for (Minion targetMinion : side.getOtherPlayer().getPlayer(this).getMinions()) {
+                        ((MinionWithAura) minion).applyAura(side, targetMinion, this);
+                    }
+                    break;
+                default:
+                    break;
+                }
+            }
         }
     }
-    
+
     /**
      * Applies any aura effects that other minions on the board might have
-     * 
+     *
      * @param side The PlayerSide of the minion to apply the auras to
      * @param minion
      */
     public void applyOtherMinionsAura(PlayerSide side, Minion minion) {
-    	for (Minion otherMinion : side.getPlayer(this).getMinions()) {
-    		if (otherMinion instanceof MinionWithAura &&
-    				minion != otherMinion &&
-    				!otherMinion.isSilenced() &&
-    				((MinionWithAura)otherMinion).getAuraTargets().contains(AuraTargetType.AURA_FRIENDLY_MINIONS)) {
-    			((MinionWithAura)otherMinion).applyAura(side, minion, this);
-    		}
-    	}
-    	for (Minion otherMinion : side.getOtherPlayer().getPlayer(this).getMinions()) {
-    		if (otherMinion instanceof MinionWithAura &&
-    				minion != otherMinion &&
-    				!otherMinion.isSilenced() &&
-    				((MinionWithAura)otherMinion).getAuraTargets().contains(AuraTargetType.AURA_ENEMY_MINIONS)) {
-    			((MinionWithAura)otherMinion).applyAura(side, minion, this);
-    		}
-    	}
+        for (Minion otherMinion : side.getPlayer(this).getMinions()) {
+            if (otherMinion instanceof MinionWithAura &&
+                    minion != otherMinion &&
+                    !otherMinion.isSilenced() &&
+                    ((MinionWithAura)otherMinion).getAuraTargets().contains(AuraTargetType.AURA_FRIENDLY_MINIONS)) {
+                ((MinionWithAura)otherMinion).applyAura(side, minion, this);
+            }
+        }
+        for (Minion otherMinion : side.getOtherPlayer().getPlayer(this).getMinions()) {
+            if (otherMinion instanceof MinionWithAura &&
+                    minion != otherMinion &&
+                    !otherMinion.isSilenced() &&
+                    ((MinionWithAura)otherMinion).getAuraTargets().contains(AuraTargetType.AURA_ENEMY_MINIONS)) {
+                ((MinionWithAura)otherMinion).applyAura(side, minion, this);
+            }
+        }
     }
-    
+
     /**
      * Revomes any aura that the given minion might have
-     * 
+     *
      * @param side The PlayerSide of the minion
      * @param minion
      */
     public void removeAuraOfMinion(PlayerSide side, Minion minion) {
         if (minion instanceof MinionWithAura && !minion.isSilenced()) {
-    		EnumSet<AuraTargetType> targetTypes = ((MinionWithAura)minion).getAuraTargets();
-    		for (AuraTargetType targetType : targetTypes) {
-				switch (targetType) {
-				case AURA_FRIENDLY_MINIONS:
-					for (Minion targetMinion : side.getPlayer(this).getMinions()) {
-						if (targetMinion != minion)
-							((MinionWithAura) minion).removeAura(side, targetMinion, this);    						
-					}
-					break;
-				case AURA_ENEMY_MINIONS:
-					for (Minion targetMinion : side.getOtherPlayer().getPlayer(this).getMinions()) {
-                		((MinionWithAura) minion).removeAura(side, targetMinion, this);    						
-					}
-					break;
-				default:
-					break;
-				}
-    		}
+            EnumSet<AuraTargetType> targetTypes = ((MinionWithAura)minion).getAuraTargets();
+            for (AuraTargetType targetType : targetTypes) {
+                switch (targetType) {
+                case AURA_FRIENDLY_MINIONS:
+                    for (Minion targetMinion : side.getPlayer(this).getMinions()) {
+                        if (targetMinion != minion)
+                            ((MinionWithAura) minion).removeAura(side, targetMinion, this);
+                    }
+                    break;
+                case AURA_ENEMY_MINIONS:
+                    for (Minion targetMinion : side.getOtherPlayer().getPlayer(this).getMinions()) {
+                        ((MinionWithAura) minion).removeAura(side, targetMinion, this);
+                    }
+                    break;
+                default:
+                    break;
+                }
+            }
         }
     }
 
-   
+
     //----------------------------------------------------------------------------
     //----------------------------------------------------------------------------
 
     public boolean isAlive(PlayerSide playerSide) {
         return modelForSide(playerSide).getHero().getHealth() > 0;
     }
-    
+
     public boolean isLethalState() {
         return !this.isAlive(PlayerSide.CURRENT_PLAYER) || !this.isAlive(PlayerSide.WAITING_PLAYER);
     }
 
     @SuppressWarnings("unused")
-	public ArrayList<Integer> getAttackableMinions() {
+    public ArrayList<Integer> getAttackableMinions() {
         ArrayList<Integer> toRet = new ArrayList<Integer>();
         boolean hasTaunt = false;
         for (final Minion minion : waitingPlayer.getMinions()) {
@@ -517,20 +518,17 @@ public class BoardModel implements DeepCopyable<BoardModel> {
     }
 
     public void resetMana() {
-    	currentPlayer.resetMana();
-    	waitingPlayer.resetMana();
+        currentPlayer.resetMana();
+        waitingPlayer.resetMana();
     }
 
     @Override
-    public boolean equals(Object other)
-    {
-        if (other == null)
-        {
+    public boolean equals(Object other) {
+        if (other == null) {
             return false;
         }
 
-        if (this.getClass() != other.getClass())
-        {
+        if (this.getClass() != other.getClass()) {
             return false;
         }
 
@@ -544,10 +542,10 @@ public class BoardModel implements DeepCopyable<BoardModel> {
 
     @Override
     public int hashCode() {
-    	int hash = 1;
-    	hash = hash * 31 + currentPlayer.hashCode();
-    	hash = hash * 31 + waitingPlayer.hashCode();
-    	hash = hash * 31 + allMinionsFIFOList_.hashCode();
+        int hash = 1;
+        hash = hash * 31 + currentPlayer.hashCode();
+        hash = hash * 31 + waitingPlayer.hashCode();
+        hash = hash * 31 + allMinionsFIFOList_.hashCode();
         return hash;
     }
 
@@ -576,7 +574,7 @@ public class BoardModel implements DeepCopyable<BoardModel> {
      * Reset the has_been_used state of the cards in hand
      */
     public void resetHand() {
-        for(Card card : currentPlayer.getHand()) {
+        for (Card card : currentPlayer.getHand()) {
             card.hasBeenUsed(false);
         }
     }
@@ -605,12 +603,12 @@ public class BoardModel implements DeepCopyable<BoardModel> {
             newBoard.allMinionsFIFOList_.add(new MinionPlayerPair(newPlayerModel.getMinions().get(indexOfOldMinion), newPlayerModel));
 
         }
-        
+
         return newBoard;
     }
 
     @Override
-	public BoardModel deepCopy() {
+    public BoardModel deepCopy() {
         BoardModel newBoard = new BoardModel(currentPlayer.deepCopy(), waitingPlayer.deepCopy());
 
         for (MinionPlayerPair minionPlayerPair : allMinionsFIFOList_) {
@@ -642,12 +640,12 @@ public class BoardModel implements DeepCopyable<BoardModel> {
 
         json.put("currentPlayer", currentPlayer.toJSON());
         json.put("waitingPlayer", waitingPlayer.toJSON());
-        
+
         return json;
     }
 
     @Override
-	public String toString() {
+    public String toString() {
         String boardFormat = MDC.get("board_format");
         if (boardFormat != null && boardFormat.equals("simple")) {
             return simpleString();
@@ -683,7 +681,7 @@ public class BoardModel implements DeepCopyable<BoardModel> {
     public int getIndexOfPlayer(PlayerSide playerSide) {
         if (playerSide == PlayerSide.CURRENT_PLAYER){
             return 0;
-        }else{
+        } else {
             return 1;
         }
     }
@@ -692,7 +690,7 @@ public class BoardModel implements DeepCopyable<BoardModel> {
     public PlayerSide getPlayerByIndex(int index) {
         if (index == 0){
             return PlayerSide.CURRENT_PLAYER;
-        }else{
+        } else {
             return PlayerSide.WAITING_PLAYER;
         }
     }

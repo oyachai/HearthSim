@@ -16,55 +16,55 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class TestGurubashiBerserker {
 
-	private HearthTreeNode board;
-	private static final byte mana = 2;
-	private static final byte attack0 = 5;
-	private static final byte health0 = 3;
+    private HearthTreeNode board;
+    private static final byte mana = 2;
+    private static final byte attack0 = 5;
+    private static final byte health0 = 3;
 
-	@Before
-	public void setup() throws HSException {
-		board = new HearthTreeNode(new BoardModel());
+    @Before
+    public void setup() throws HSException {
+        board = new HearthTreeNode(new BoardModel());
 
-		Minion minion1_0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);		
-		board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion1_0);
+        Minion minion1_0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
+        board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion1_0);
 
-		Minion fb = new GurubashiBerserker();
-		board.data_.placeCardHandCurrentPlayer(fb);
+        Minion fb = new GurubashiBerserker();
+        board.data_.placeCardHandCurrentPlayer(fb);
 
-		board.data_.getCurrentPlayer().setMana((byte)7);
-	}
-	
-	@Test
-	public void testBuffsAfterAttackingEnemyMinion() throws HSException {
-		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
-		assertEquals(board, ret);
+        board.data_.getCurrentPlayer().setMana((byte)7);
+    }
 
-		Minion berserker = board.data_.getCurrentPlayer().getMinions().get(0);
-		berserker.hasAttacked(false);
-		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
-		ret = berserker.attack(PlayerSide.WAITING_PLAYER, target, board, null, null);
-		assertEquals(board, ret);
+    @Test
+    public void testBuffsAfterAttackingEnemyMinion() throws HSException {
+        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
+        assertEquals(board, ret);
 
-		assertEquals(berserker.getHealth(), 7 - attack0);
-		assertEquals(berserker.getTotalAttack(), 5);
-	}
+        Minion berserker = board.data_.getCurrentPlayer().getMinions().get(0);
+        berserker.hasAttacked(false);
+        Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
+        ret = berserker.attack(PlayerSide.WAITING_PLAYER, target, board, null, null);
+        assertEquals(board, ret);
 
-	@Test
-	public void testDivineShieldPreventsBuff() throws HSException {
-		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
-		assertEquals(board, ret);
+        assertEquals(berserker.getHealth(), 7 - attack0);
+        assertEquals(berserker.getTotalAttack(), 5);
+    }
 
-		Minion berserker = board.data_.getCurrentPlayer().getMinions().get(0);
-		berserker.hasAttacked(false);
-		berserker.setDivineShield(true);
-		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
-		ret = berserker.attack(PlayerSide.WAITING_PLAYER, target, board, null, null);
-		assertEquals(board, ret);
+    @Test
+    public void testDivineShieldPreventsBuff() throws HSException {
+        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
+        assertEquals(board, ret);
 
-		assertEquals(berserker.getHealth(), 7);
-		assertEquals(berserker.getTotalAttack(), 2);
-		assertFalse(berserker.getDivineShield());
-	}
+        Minion berserker = board.data_.getCurrentPlayer().getMinions().get(0);
+        berserker.hasAttacked(false);
+        berserker.setDivineShield(true);
+        Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
+        ret = berserker.attack(PlayerSide.WAITING_PLAYER, target, board, null, null);
+        assertEquals(board, ret);
+
+        assertEquals(berserker.getHealth(), 7);
+        assertEquals(berserker.getTotalAttack(), 2);
+        assertFalse(berserker.getDivineShield());
+    }
 }

@@ -1,0 +1,6 @@
+# These files are text and should be normalized (convert crlf =&gt; lf)
+*.groovy  text
+*.java    text
+*.json    text
+*.md      text
+*.xml     text

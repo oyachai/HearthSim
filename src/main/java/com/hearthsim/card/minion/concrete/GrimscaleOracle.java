@@ -11,35 +11,36 @@ import com.hearthsim.model.PlayerSide;
 
 public class GrimscaleOracle extends Minion implements MinionWithAura {
 
-	private static final boolean HERO_TARGETABLE = true;
-	private static final byte SPELL_DAMAGE = 0;
-	
-	public GrimscaleOracle() {
+    private static final boolean HERO_TARGETABLE = true;
+    private static final byte SPELL_DAMAGE = 0;
+
+    public GrimscaleOracle() {
         super();
         spellDamage_ = SPELL_DAMAGE;
         heroTargetable_ = HERO_TARGETABLE;
 
         this.tribe = MinionTribe.MURLOC;
-	}
-	
-	@Override
-	public EnumSet<AuraTargetType> getAuraTargets() {
-		return EnumSet.of(AuraTargetType.AURA_FRIENDLY_MINIONS, AuraTargetType.AURA_ENEMY_MINIONS);
-	}
+    }
+
+    @Override
+    public EnumSet<AuraTargetType> getAuraTargets() {
+        return EnumSet.of(AuraTargetType.AURA_FRIENDLY_MINIONS, AuraTargetType.AURA_ENEMY_MINIONS);
+    }
 
 
-	@Override
-	public void applyAura(PlayerSide targetSide, Minion targetMinion,
-			BoardModel boardModel) {
-		if (targetMinion.getTribe() == Minion.MinionTribe.MURLOC)
-			targetMinion.setAuraAttack((byte)(targetMinion.getAuraAttack() + 1));
-	}
+    @Override
+    public void applyAura(PlayerSide targetSide, Minion targetMinion,
+            BoardModel boardModel) {
+        if (targetMinion.getTribe() == Minion.MinionTribe.MURLOC)
+            targetMinion.setAuraAttack((byte)(targetMinion.getAuraAttack() + 1));
+    }
 
 
-	@Override
-	public void removeAura(PlayerSide targetSide, Minion targetMinion,
-			BoardModel boardModel) {
-		if (targetMinion.getTribe() == Minion.MinionTribe.MURLOC)
-			targetMinion.setAuraAttack((byte)(targetMinion.getAuraAttack() - 1));
-	}
+    @Override
+    public void removeAura(PlayerSide targetSide, Minion targetMinion,
+            BoardModel boardModel) {
+        if (targetMinion.getTribe() == Minion.MinionTribe.MURLOC)
+            targetMinion.setAuraAttack((byte)(targetMinion.getAuraAttack() - 1));
+    }
+
 }

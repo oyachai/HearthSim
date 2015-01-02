@@ -19,51 +19,51 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class TestWaterElemental {
 
-	private HearthTreeNode board;
-	private Deck deck;
+    private HearthTreeNode board;
+    private Deck deck;
 
-	@Before
-	public void setup() throws HSException {
-		board = new HearthTreeNode(new BoardModel());
+    @Before
+    public void setup() throws HSException {
+        board = new HearthTreeNode(new BoardModel());
 
-		Card fb = new WaterElemental();
-		board.data_.placeCardHandCurrentPlayer(fb);
+        Card fb = new WaterElemental();
+        board.data_.placeCardHandCurrentPlayer(fb);
 
-		board.data_.getCurrentPlayer().setMana((byte)8);
-		board.data_.getCurrentPlayer().setMaxMana((byte)8);
+        board.data_.getCurrentPlayer().setMana((byte)8);
+        board.data_.getCurrentPlayer().setMaxMana((byte)8);
 
-		board.data_.placeMinion(PlayerSide.WAITING_PLAYER, new RaidLeader());
-		board.data_.placeMinion(PlayerSide.WAITING_PLAYER, new BoulderfistOgre());
-	}
+        board.data_.placeMinion(PlayerSide.WAITING_PLAYER, new RaidLeader());
+        board.data_.placeMinion(PlayerSide.WAITING_PLAYER, new BoulderfistOgre());
+    }
 
-	@Test
-	public void testFreezesMinionOnAttack() throws HSException {
-		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
-		assertEquals(board, ret);
+    @Test
+    public void testFreezesMinionOnAttack() throws HSException {
+        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
+        assertEquals(board, ret);
 
-		Minion waterElemental = PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0);
-		assertTrue(waterElemental instanceof WaterElemental);
+        Minion waterElemental = PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0);
+        assertTrue(waterElemental instanceof WaterElemental);
 
-		waterElemental.hasAttacked(false); // unset summoning sickness
-		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
-		waterElemental.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null);
-		assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getFrozen());
-	}
+        waterElemental.hasAttacked(false); // unset summoning sickness
+        Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
+        waterElemental.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null);
+        assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getFrozen());
+    }
 
 
-	@Test
-	public void testFreezesHeroOnAttack() throws HSException {
-		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
-		assertEquals(board, ret);
+    @Test
+    public void testFreezesHeroOnAttack() throws HSException {
+        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
+        assertEquals(board, ret);
 
-		Minion waterElemental = PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0);
-		assertTrue(waterElemental instanceof WaterElemental);
+        Minion waterElemental = PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0);
+        assertTrue(waterElemental instanceof WaterElemental);
 
-		waterElemental.hasAttacked(false); // unset summoning sickness
-		Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
-		waterElemental.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null);
-		assertTrue(board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0).getFrozen());
-	}
+        waterElemental.hasAttacked(false); // unset summoning sickness
+        Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
+        waterElemental.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null);
+        assertTrue(board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0).getFrozen());
+    }
 }

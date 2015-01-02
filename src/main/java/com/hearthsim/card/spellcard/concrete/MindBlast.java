@@ -9,47 +9,46 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class MindBlast extends SpellDamage {
 
-	public MindBlast() {
-		this(false);
-	}
+    public MindBlast() {
+        this(false);
+    }
 
-	public MindBlast(boolean hasBeenUsed) {
-		super((byte)2, (byte)5, hasBeenUsed);
+    public MindBlast(boolean hasBeenUsed) {
+        super((byte)2, (byte)5, hasBeenUsed);
 
-		this.canTargetEnemyMinions = false;
-		this.canTargetOwnHero = false;
-		this.canTargetOwnMinions = false;
-	}
+        this.canTargetEnemyMinions = false;
+        this.canTargetOwnHero = false;
+        this.canTargetOwnMinions = false;
+    }
 
-	@Override
-	public SpellDamage deepCopy() {
-		return new MindBlast(this.hasBeenUsed);
-	}
-	
-	/**
-	 * 
-	 * Use the card on the given target
-	 * 
-	 * Deals 5 damage to enemy hero
-	 * 
-	 *
+    @Override
+    public SpellDamage deepCopy() {
+        return new MindBlast(this.hasBeenUsed);
+    }
+
+    /**
+     *
+     * Use the card on the given target
+     *
+     * Deals 5 damage to enemy hero
+     *
+     *
      *
      * @param side
      * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
      *
      * @return The boardState is manipulated and returned
-	 */
-	@Override
-	protected HearthTreeNode use_core(
-			PlayerSide side,
-			Minion targetMinion,
-			HearthTreeNode boardState,
-			Deck deckPlayer0,
-			Deck deckPlayer1,
-			boolean singleRealizationOnly)
-		throws HSException
-	{
-		HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
-		return toRet;
-	}	
+     */
+    @Override
+    protected HearthTreeNode use_core(
+            PlayerSide side,
+            Minion targetMinion,
+            HearthTreeNode boardState,
+            Deck deckPlayer0,
+            Deck deckPlayer1,
+            boolean singleRealizationOnly)
+        throws HSException {
+        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+        return toRet;
+    }
 }

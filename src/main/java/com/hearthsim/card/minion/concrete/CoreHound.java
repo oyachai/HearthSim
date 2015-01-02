@@ -4,14 +4,14 @@ import com.hearthsim.card.minion.Minion;
 
 public class CoreHound extends Minion {
 
-	private static final boolean HERO_TARGETABLE = true;
-	private static final byte SPELL_DAMAGE = 0;
-	
-	public CoreHound() {
+    private static final boolean HERO_TARGETABLE = true;
+    private static final byte SPELL_DAMAGE = 0;
+
+    public CoreHound() {
         super();
         spellDamage_ = SPELL_DAMAGE;
         heroTargetable_ = HERO_TARGETABLE;
 
         this.tribe = MinionTribe.BEAST;
-	}
+    }
 }

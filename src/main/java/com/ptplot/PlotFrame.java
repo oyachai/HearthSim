@@ -83,9 +83,9 @@ import java.net.URL;
  */
 public class PlotFrame extends JFrame {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
+    private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
     /** Construct a plot frame with a default title and by default contains
      *  an instance of Plot. After constructing this, it is necessary
      *  to call setVisible(true) to make the plot appear.
@@ -226,7 +226,7 @@ public class PlotFrame extends JFrame {
      *  if it is not visible.
      */
     @Override
-	public void setVisible(boolean visible) {
+    public void setVisible(boolean visible) {
         super.setVisible(visible);
         _editMenu.setBackground(_menubar.getBackground());
         _fileMenu.setBackground(_menubar.getBackground());
@@ -330,14 +330,14 @@ public class PlotFrame extends JFrame {
                     fout = new FileOutputStream(file);
                     plot.export(fout);
                 } finally {
-                	if(fout != null) {
-	                    try {
-	                        fout.close();
-	                    } catch (Throwable throwable) {
-	                        log.error("Ignoring failure to close stream on {}", file);
-	                        log.error(throwable.toString());
-	                    }
-                	}
+                    if (fout != null) {
+                        try {
+                            fout.close();
+                        } catch (Throwable throwable) {
+                            log.error("Ignoring failure to close stream on {}", file);
+                            log.error(throwable.toString());
+                        }
+                    }
                 }
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(this, "Error exporting plot: "
@@ -605,7 +605,7 @@ public class PlotFrame extends JFrame {
     ////                         inner classes                     ////
     class FileMenuListener implements ActionListener {
         @Override
-		public void actionPerformed(ActionEvent e) {
+        public void actionPerformed(ActionEvent e) {
             JMenuItem target = (JMenuItem) e.getSource();
             String actionCommand = target.getActionCommand();
 
@@ -641,7 +641,7 @@ public class PlotFrame extends JFrame {
 
     class FormatListener implements ActionListener {
         @Override
-		public void actionPerformed(ActionEvent e) {
+        public void actionPerformed(ActionEvent e) {
             try {
                 _editFormat();
             } catch (Exception exception) {
@@ -665,7 +665,7 @@ public class PlotFrame extends JFrame {
 
     class SpecialMenuListener implements ActionListener {
         @Override
-		public void actionPerformed(ActionEvent e) {
+        public void actionPerformed(ActionEvent e) {
             JMenuItem target = (JMenuItem) e.getSource();
             String actionCommand = target.getActionCommand();
 
@@ -711,7 +711,7 @@ public class PlotFrame extends JFrame {
          *  @return true if the file is a directory, a .eps file
          */
         @Override
-		public boolean accept(File fileOrDirectory) {
+        public boolean accept(File fileOrDirectory) {
             if (fileOrDirectory.isDirectory()) {
                 return true;
             }
@@ -738,7 +738,7 @@ public class PlotFrame extends JFrame {
 
         /**  The description of this filter */
         @Override
-		public String getDescription() {
+        public String getDescription() {
             return "Encapsulated PostScript (.eps) files";
         }
     }
@@ -750,7 +750,7 @@ public class PlotFrame extends JFrame {
          *  @return true if the file is a directory, a .plot or a .xml file.
          */
         @Override
-		public boolean accept(File fileOrDirectory) {
+        public boolean accept(File fileOrDirectory) {
             if (fileOrDirectory.isDirectory()) {
                 return true;
             }
@@ -778,7 +778,7 @@ public class PlotFrame extends JFrame {
 
         /**  The description of this filter */
         @Override
-		public String getDescription() {
+        public String getDescription() {
             return ".plt and .xml files";
         }
     }

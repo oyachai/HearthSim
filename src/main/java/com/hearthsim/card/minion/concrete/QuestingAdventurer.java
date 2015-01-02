@@ -10,34 +10,33 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class QuestingAdventurer extends Minion implements CardPlayBeginInterface {
 
-	private static final boolean HERO_TARGETABLE = true;
-	private static final byte SPELL_DAMAGE = 0;
-	
-	public QuestingAdventurer() {
+    private static final boolean HERO_TARGETABLE = true;
+    private static final byte SPELL_DAMAGE = 0;
+
+    public QuestingAdventurer() {
         super();
         spellDamage_ = SPELL_DAMAGE;
         heroTargetable_ = HERO_TARGETABLE;
 
-	}
-	
-	@Override
-	public HearthTreeNode onCardPlayBegin(
-			PlayerSide thisCardPlayerSide,
-			PlayerSide cardUserPlayerSide,
-			Card usedCard,
-			HearthTreeNode boardState,
-			Deck deckPlayer0,
-			Deck deckPlayer1,
-			boolean singleRealizationOnly)
-	throws HSException
-	{
-		HearthTreeNode toRet = boardState;
-		if (usedCard != this && thisCardPlayerSide == cardUserPlayerSide) {
-			this.addAttack((byte)1);
-			this.addHealth((byte)1);
-			this.addMaxHealth((byte)1);
-		}
-		return toRet;
-	}
+    }
+
+    @Override
+    public HearthTreeNode onCardPlayBegin(
+            PlayerSide thisCardPlayerSide,
+            PlayerSide cardUserPlayerSide,
+            Card usedCard,
+            HearthTreeNode boardState,
+            Deck deckPlayer0,
+            Deck deckPlayer1,
+            boolean singleRealizationOnly)
+    throws HSException {
+        HearthTreeNode toRet = boardState;
+        if (usedCard != this && thisCardPlayerSide == cardUserPlayerSide) {
+            this.addAttack((byte)1);
+            this.addHealth((byte)1);
+            this.addMaxHealth((byte)1);
+        }
+        return toRet;
+    }
 
 }

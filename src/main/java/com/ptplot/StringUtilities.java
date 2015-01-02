@@ -514,7 +514,7 @@ public class StringUtilities {
 
         // If the property is not set then we return the empty string.
         if (property == null) {
-        	property = "";
+            property = "";
         }
 
         return property;
@@ -794,7 +794,7 @@ public class StringUtilities {
      *  @deprecated Use FileUtilities.nameToURL instead.
      */
     @Deprecated
-	public static URL stringToURL(String name, URI baseDirectory,
+    public static URL stringToURL(String name, URI baseDirectory,
             ClassLoader classLoader) throws IOException {
         return FileUtilities.nameToURL(name, baseDirectory, classLoader);
     }

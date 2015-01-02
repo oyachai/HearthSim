@@ -10,38 +10,37 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class Priest extends Hero {
 
-	@Override
+    @Override
     public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
-		return super.canBeUsedOn(playerSide, minion, boardModel) && minion.getTotalHealth() < minion.getTotalMaxHealth();
+        return super.canBeUsedOn(playerSide, minion, boardModel) && minion.getTotalHealth() < minion.getTotalMaxHealth();
     }
-	
-	/**
-	 * Use the hero ability on a given target
-	 * 
-	 * Priest: Heals a target for 2
-	 * 
-	 *
+
+    /**
+     * Use the hero ability on a given target
+     *
+     * Priest: Heals a target for 2
+     *
+     *
      *
      * @param targetPlayerSide
      * @param boardState
      * @return
-	 */
-	@Override
-	public HearthTreeNode useHeroAbility_core(
-			PlayerSide targetPlayerSide,
-			Minion targetMinion,
-			HearthTreeNode boardState,
-			Deck deckPlayer0,
-			Deck deckPlayer1,
-			boolean singleRealizationOnly)
-		throws HSException
-	{
-		HearthTreeNode toRet = boardState;
-		this.hasBeenUsed = true;
-		toRet.data_.getCurrentPlayer().subtractMana(HERO_ABILITY_COST);
-		toRet = targetMinion.takeHeal((byte)2, targetPlayerSide, toRet, deckPlayer0, deckPlayer1);
+     */
+    @Override
+    public HearthTreeNode useHeroAbility_core(
+            PlayerSide targetPlayerSide,
+            Minion targetMinion,
+            HearthTreeNode boardState,
+            Deck deckPlayer0,
+            Deck deckPlayer1,
+            boolean singleRealizationOnly)
+        throws HSException {
+        HearthTreeNode toRet = boardState;
+        this.hasBeenUsed = true;
+        toRet.data_.getCurrentPlayer().subtractMana(HERO_ABILITY_COST);
+        toRet = targetMinion.takeHeal((byte)2, targetPlayerSide, toRet, deckPlayer0, deckPlayer1);
 
-		return toRet;
-	}
-	
+        return toRet;
+    }
+
 }

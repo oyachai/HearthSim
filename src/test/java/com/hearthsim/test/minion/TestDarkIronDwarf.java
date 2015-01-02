@@ -13,27 +13,27 @@ import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class TestDarkIronDwarf {
-	private HearthTreeNode board;
+    private HearthTreeNode board;
 
-	@Before
-	public void setup() throws HSException {
-		board = new HearthTreeNode(new BoardModel());
-	}
+    @Before
+    public void setup() throws HSException {
+        board = new HearthTreeNode(new BoardModel());
+    }
 
-	@Test
-	public void testAddsExtraAttack() throws HSException {
-		BoulderfistOgre ogre = new BoulderfistOgre();
-		DarkIronDwarf darkIronDwarf = new DarkIronDwarf();
-		darkIronDwarf.useTargetableBattlecry_core(PlayerSide.WAITING_PLAYER, ogre, board, null, null);
-		assertEquals(2, ogre.getExtraAttackUntilTurnEnd());
-	}
+    @Test
+    public void testAddsExtraAttack() throws HSException {
+        BoulderfistOgre ogre = new BoulderfistOgre();
+        DarkIronDwarf darkIronDwarf = new DarkIronDwarf();
+        darkIronDwarf.useTargetableBattlecry_core(PlayerSide.WAITING_PLAYER, ogre, board, null, null);
+        assertEquals(2, ogre.getExtraAttackUntilTurnEnd());
+    }
 
-	@Test
-	public void testBuffIsAdditive() throws HSException {
-		BoulderfistOgre ogre = new BoulderfistOgre();
-		ogre.setExtraAttackUntilTurnEnd((byte)2);
-		DarkIronDwarf darkIronDwarf = new DarkIronDwarf();
-		darkIronDwarf.useTargetableBattlecry_core(PlayerSide.WAITING_PLAYER, ogre, board, null, null);
-		assertEquals(4, ogre.getExtraAttackUntilTurnEnd());
-	}
+    @Test
+    public void testBuffIsAdditive() throws HSException {
+        BoulderfistOgre ogre = new BoulderfistOgre();
+        ogre.setExtraAttackUntilTurnEnd((byte)2);
+        DarkIronDwarf darkIronDwarf = new DarkIronDwarf();
+        darkIronDwarf.useTargetableBattlecry_core(PlayerSide.WAITING_PLAYER, ogre, board, null, null);
+        assertEquals(4, ogre.getExtraAttackUntilTurnEnd());
+    }
 }

@@ -4,13 +4,13 @@ import com.hearthsim.card.minion.Minion;
 
 public class Wolfrider extends Minion {
 
-	private static final boolean HERO_TARGETABLE = true;
-	private static final byte SPELL_DAMAGE = 0;
-	
-	public Wolfrider() {
+    private static final boolean HERO_TARGETABLE = true;
+    private static final byte SPELL_DAMAGE = 0;
+
+    public Wolfrider() {
         super();
         spellDamage_ = SPELL_DAMAGE;
         heroTargetable_ = HERO_TARGETABLE;
 
-	}
+    }
 }

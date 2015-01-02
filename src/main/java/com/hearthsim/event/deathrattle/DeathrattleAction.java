@@ -11,18 +11,18 @@ import com.hearthsim.util.tree.HearthTreeNode;
  *
  */
 public abstract class DeathrattleAction {
-	
-	/**
-	 * Perform the action
-	 *  @param minion The minion that is performing the action (aka, the dying minion)
-	 * @param playerSide
+
+    /**
+     * Perform the action
+     *  @param minion The minion that is performing the action (aka, the dying minion)
+     * @param playerSide
      * @param boardState
      * @param deckPlayer0
      * @param deckPlayer1    @return
      * @throws HSInvalidPlayerIndexException
-	 */
-	public HearthTreeNode performAction(Minion minion, PlayerSide playerSide, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
-		return boardState;
-	}
-	
+     */
+    public HearthTreeNode performAction(Minion minion, PlayerSide playerSide, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+        return boardState;
+    }
+
 }

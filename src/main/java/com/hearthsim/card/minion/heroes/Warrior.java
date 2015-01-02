@@ -10,41 +10,40 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class Warrior extends Hero {
 
-	@Override
+    @Override
     public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
-		return playerSide == PlayerSide.CURRENT_PLAYER && minion instanceof Hero;
+        return playerSide == PlayerSide.CURRENT_PLAYER && minion instanceof Hero;
     }
-	
-	/**
-	 * Use the hero ability on a given target
-	 * 
-	 * Warrior: +2 armor
-	 * 
-	 *
+
+    /**
+     * Use the hero ability on a given target
+     *
+     * Warrior: +2 armor
+     *
+     *
      *
      * @param targetPlayerSide
      * @param boardState
      * @return
-	 */
-	@Override
-	public HearthTreeNode useHeroAbility_core(
-			PlayerSide targetPlayerSide,
-			Minion targetMinion,
-			HearthTreeNode boardState,
-			Deck deckPlayer0,
-			Deck deckPlayer1,
-			boolean singleRealizationOnly)
-		throws HSException
-	{
-		HearthTreeNode toRet = boardState;
-		if (isHero(targetMinion) && targetPlayerSide == PlayerSide.CURRENT_PLAYER) {
-			this.hasBeenUsed = true;
-			toRet.data_.getCurrentPlayer().subtractMana(HERO_ABILITY_COST);
-			((Hero)targetMinion).setArmor((byte)(((Hero)targetMinion).getArmor() + 2));
-			return toRet;
-		} else {
-			return null;
-		}
-	}
+     */
+    @Override
+    public HearthTreeNode useHeroAbility_core(
+            PlayerSide targetPlayerSide,
+            Minion targetMinion,
+            HearthTreeNode boardState,
+            Deck deckPlayer0,
+            Deck deckPlayer1,
+            boolean singleRealizationOnly)
+        throws HSException {
+        HearthTreeNode toRet = boardState;
+        if (isHero(targetMinion) && targetPlayerSide == PlayerSide.CURRENT_PLAYER) {
+            this.hasBeenUsed = true;
+            toRet.data_.getCurrentPlayer().subtractMana(HERO_ABILITY_COST);
+            ((Hero)targetMinion).setArmor((byte)(((Hero)targetMinion).getArmor() + 2));
+            return toRet;
+        } else {
+            return null;
+        }
+    }
 
 }

@@ -7,12 +7,12 @@ import com.hearthsim.model.PlayerSide;
 
 public interface MinionWithAura {
 
-	public EnumSet<AuraTargetType> getAuraTargets();
+    public EnumSet<AuraTargetType> getAuraTargets();
 
-	public void applyAura(
+    public void applyAura(
             PlayerSide targetSide, Minion targetMinion, BoardModel boardModel);
-	
-	public void removeAura(
+
+    public void removeAura(
             PlayerSide targetSide, Minion targetMinion, BoardModel boardModel);
-	
+
 }

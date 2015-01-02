@@ -14,50 +14,50 @@ import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class TestArathiWeaponsmith {
-	private HearthTreeNode board;
+    private HearthTreeNode board;
 
-	@Before
-	public void setup() {
-		board = new HearthTreeNode(new BoardModel());
+    @Before
+    public void setup() {
+        board = new HearthTreeNode(new BoardModel());
 
-		board.data_.getCurrentPlayer().setMana((byte)10);
-		board.data_.getWaitingPlayer().setMana((byte)10);
-		
-		board.data_.getCurrentPlayer().setMaxMana((byte)10);
-		board.data_.getWaitingPlayer().setMaxMana((byte)10);
-				
-		board.data_.placeCardHandCurrentPlayer(new ArathiWeaponsmith());
-	}
-	
-	@Test
-	public void testEquipsWeapon() throws HSException {
-		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
-		assertEquals(board, ret);
-		assertEquals(board.data_.getNumCards_hand(), 0);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 1);
+        board.data_.getCurrentPlayer().setMana((byte)10);
+        board.data_.getWaitingPlayer().setMana((byte)10);
 
-		//should be equipped with a weapon now
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getHero().getWeaponCharge(), 2);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getHero().getTotalAttack(), 2);		
-	}
+        board.data_.getCurrentPlayer().setMaxMana((byte)10);
+        board.data_.getWaitingPlayer().setMaxMana((byte)10);
 
-	@Test
-	public void testDestroysExistingWeapon() throws HSException {
-		board.data_.placeCardHandCurrentPlayer(new FieryWarAxe());
-		board.data_.getCurrentPlayerCardHand(1).useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
-		assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
-		assertEquals(board.data_.getCurrentPlayerHero().getWeaponCharge(), 2);
-		assertEquals(board.data_.getCurrentPlayerHero().getTotalAttack(), 3);
+        board.data_.placeCardHandCurrentPlayer(new ArathiWeaponsmith());
+    }
 
-		Card theCard = board.data_.getCurrentPlayerCardHand(0);
-		HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
-		assertEquals(board, ret);
-		assertEquals(board.data_.getNumCards_hand(), 0);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 1);
+    @Test
+    public void testEquipsWeapon() throws HSException {
+        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
+        assertEquals(board, ret);
+        assertEquals(board.data_.getNumCards_hand(), 0);
+        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 1);
 
-		//should be equipped with a weapon now
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getHero().getWeaponCharge(), 2);
-		assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getHero().getTotalAttack(), 2);		
-	}
+        //should be equipped with a weapon now
+        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getHero().getWeaponCharge(), 2);
+        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getHero().getTotalAttack(), 2);
+    }
+
+    @Test
+    public void testDestroysExistingWeapon() throws HSException {
+        board.data_.placeCardHandCurrentPlayer(new FieryWarAxe());
+        board.data_.getCurrentPlayerCardHand(1).useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
+        assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
+        assertEquals(board.data_.getCurrentPlayerHero().getWeaponCharge(), 2);
+        assertEquals(board.data_.getCurrentPlayerHero().getTotalAttack(), 3);
+
+        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
+        assertEquals(board, ret);
+        assertEquals(board.data_.getNumCards_hand(), 0);
+        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 1);
+
+        //should be equipped with a weapon now
+        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getHero().getWeaponCharge(), 2);
+        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getHero().getTotalAttack(), 2);
+    }
 }

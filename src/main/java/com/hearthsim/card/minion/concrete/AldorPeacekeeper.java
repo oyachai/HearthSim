@@ -12,35 +12,34 @@ import java.util.EnumSet;
 
 public class AldorPeacekeeper extends Minion implements MinionTargetableBattlecry {
 
-	private static final boolean HERO_TARGETABLE = true;
-	private static final byte SPELL_DAMAGE = 0;
-	
-	public AldorPeacekeeper() {
+    private static final boolean HERO_TARGETABLE = true;
+    private static final byte SPELL_DAMAGE = 0;
+
+    public AldorPeacekeeper() {
         super();
         spellDamage_ = SPELL_DAMAGE;
         heroTargetable_ = HERO_TARGETABLE;
 
-	}
+    }
 
-	@Override
-	public EnumSet<BattlecryTargetType> getBattlecryTargets() {
-		return EnumSet.of(BattlecryTargetType.ENEMY_MINIONS);
-	}
-	
-	/**
-	 * Battlecry: Change an enemy minion's attack to 1
-	 */
-	@Override
-	public HearthTreeNode useTargetableBattlecry_core(
-			PlayerSide side,
-			Minion targetMinion,
-			HearthTreeNode boardState,
-			Deck deckPlayer0,
-			Deck deckPlayer1
-		) throws HSException
-	{
-		targetMinion.setAttack((byte)1);
-		return boardState;
-	}
-	
+    @Override
+    public EnumSet<BattlecryTargetType> getBattlecryTargets() {
+        return EnumSet.of(BattlecryTargetType.ENEMY_MINIONS);
+    }
+
+    /**
+     * Battlecry: Change an enemy minion's attack to 1
+     */
+    @Override
+    public HearthTreeNode useTargetableBattlecry_core(
+            PlayerSide side,
+            Minion targetMinion,
+            HearthTreeNode boardState,
+            Deck deckPlayer0,
+            Deck deckPlayer1
+        ) throws HSException {
+        targetMinion.setAttack((byte)1);
+        return boardState;
+    }
+
 }
