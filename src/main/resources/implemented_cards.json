@@ -200,6 +200,10 @@
         "class": "com.hearthsim.card.minion.concrete.CairneBloodhoof"
     },
     {
+        "name": "Cabal Shadow Priest",
+        "class": "com.hearthsim.card.minion.concrete.CabalShadowPriest"
+    },
+    {
         "name": "Charge",
         "class": "com.hearthsim.card.spellcard.concrete.Charge"
     },
