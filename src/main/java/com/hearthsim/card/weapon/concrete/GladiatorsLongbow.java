@@ -9,7 +9,18 @@ import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class TruesilverChampion extends WeaponCard {
+public class GladiatorsLongbow extends WeaponCard {
+    boolean previousImmuneState = false;
+
+    @Override
+    public void beforeAttack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode toRet, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+        super.beforeAttack(targetMinionPlayerSide, targetMinion, toRet, deckPlayer0, deckPlayer1);
+
+        BoardModel boardModel = toRet.data_;
+        PlayerModel currentPlayer = boardModel.getCurrentPlayer();
+        this.previousImmuneState = currentPlayer.getHero().getImmune();
+        currentPlayer.getHero().setImmune(true);
+    }
 
     @Override
     public void afterAttack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode toRet, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
@@ -17,6 +28,6 @@ public class TruesilverChampion extends WeaponCard {
 
         BoardModel boardModel = toRet.data_;
         PlayerModel currentPlayer = boardModel.getCurrentPlayer();
-        currentPlayer.getHero().takeHeal((byte) 2, targetMinionPlayerSide, toRet, deckPlayer0, deckPlayer1);
+        currentPlayer.getHero().setImmune(this.previousImmuneState);
     }
 }

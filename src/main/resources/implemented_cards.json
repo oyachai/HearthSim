@@ -268,6 +268,10 @@
         "class": "com.hearthsim.card.spellcard.concrete.DeadlyPoison"
     },
     {
+        "name": "Death's Bite",
+        "class": "com.hearthsim.card.weapon.concrete.DeathsBite"
+    },
+    {
         "name": "Defender of Argus",
         "class": "com.hearthsim.card.minion.concrete.DefenderOfArgus"
     },
@@ -416,6 +420,10 @@
         "class": "com.hearthsim.card.minion.concrete.FrothingBerserker"
     },
     {
+      "name": "Gladiator's Longbow",
+      "class": "com.hearthsim.card.weapon.concrete.GladiatorsLongbow"
+    },
+    {
         "name": "Gnomish Inventor",
         "class": "com.hearthsim.card.minion.concrete.GnomishInventor"
     },
@@ -426,6 +434,10 @@
     {
         "name": "Goldshire Footman",
         "class": "com.hearthsim.card.minion.concrete.GoldshireFootman"
+    },
+    {
+        "name": "Gorehowl",
+        "class": "com.hearthsim.card.weapon.concrete.Gorehowl"
     },
     {
         "name": "Grimscale Oracle",

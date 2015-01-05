@@ -24,14 +24,15 @@ public class BloodsailRaider extends Minion implements MinionUntargetableBattlec
      */
     @Override
     public HearthTreeNode useUntargetableBattlecry_core(
-            Minion minionPlacementTarget,
-            HearthTreeNode boardState,
-            Deck deckPlayer0,
-            Deck deckPlayer1,
-            boolean singleRealizationOnly
-        ) throws HSException {
-        byte weaponAttack = boardState.data_.getCurrentPlayerHero().getAttack();
-        this.addAttack(weaponAttack);
+        Minion minionPlacementTarget,
+        HearthTreeNode boardState,
+        Deck deckPlayer0,
+        Deck deckPlayer1,
+        boolean singleRealizationOnly
+    ) throws HSException {
+        if (boardState.data_.getCurrentPlayerHero().getWeapon() != null) {
+            this.addAttack(boardState.data_.getCurrentPlayerHero().getWeapon().getWeaponDamage());
+        }
         return boardState;
     }
 }

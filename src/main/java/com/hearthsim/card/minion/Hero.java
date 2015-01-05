@@ -3,6 +3,7 @@ package com.hearthsim.card.minion;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.ImplementedCardList;
 import com.hearthsim.card.weapon.WeaponCard;
+import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
@@ -25,7 +26,7 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
         ImplementedCardList.ImplementedCard implementedCard = cardList.getCardForClass(this.getClass());
         if (implementedCard != null) {
             this.name_ = implementedCard.name_;
-            this.health_ = (byte)implementedCard.health_;
+            this.health_ = (byte) implementedCard.health_;
             this.attack_ = 0;
             this.baseHealth_ = health_;
             this.maxHealth_ = health_;
@@ -33,6 +34,7 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
         }
     }
 
+    @Deprecated
     public byte getWeaponCharge() {
         if (weapon == null) {
             return 0;
@@ -41,16 +43,18 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
         }
     }
 
+    @Deprecated
     public void setWeaponCharge(byte weaponCharge) {
         if (weaponCharge <= 0) {
             this.destroyWeapon();
         } else {
-            weapon.setWeaponCharge_(weaponCharge);
+            weapon.setWeaponCharge(weaponCharge);
         }
     }
 
+    @Deprecated
     public void useWeaponCharge() {
-        this.setWeaponCharge((byte)(this.getWeaponCharge() - 1));
+        this.setWeaponCharge((byte) (this.getWeaponCharge() - 1));
     }
 
     public void addArmor(byte armor) {
@@ -67,7 +71,7 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
 
     @Override
     public Hero deepCopy() {
-        Hero copy = (Hero)super.deepCopy();
+        Hero copy = (Hero) super.deepCopy();
         if (weapon != null) {
             copy.weapon = weapon.deepCopy();
         }
@@ -77,34 +81,36 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
     }
 
     /**
-     *
      * Attack with the hero
-     *
+     * <p>
      * A hero can only attack if it has a temporary buff, such as weapons
      *
-     *
-     *
      * @param targetMinionPlayerSide
-     * @param targetMinion
-     *            The target minion
-     * @param boardState
-     *            The BoardState before this card has performed its action. It will be manipulated and returned.
-     * @param deckPlayer0
-     *            The deck of player0
+     * @param targetMinion           The target minion
+     * @param boardState             The BoardState before this card has performed its action. It will be manipulated and returned.
+     * @param deckPlayer0            The deck of player0
      * @return The boardState is manipulated and returned
      */
     @Override
     public HearthTreeNode attack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode boardState,
-            Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+                                 Deck deckPlayer0, Deck deckPlayer1) throws HSException {
 
         if (!this.canAttack()) {
             return null;
         }
 
+        WeaponCard attackingWeapon = this.getWeapon();
+
+        if (attackingWeapon != null) {
+            attackingWeapon.beforeAttack(targetMinionPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1);
+        }
         HearthTreeNode toRet = super.attack(targetMinionPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1);
-        if (toRet != null && this.getWeapon() != null) {
-            this.weapon.onAttack(targetMinionPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1);
-            this.useWeaponCharge();
+        if (toRet != null && attackingWeapon != null) {
+            attackingWeapon.afterAttack(targetMinionPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1);
+            DeathrattleAction weaponDeathrattle = this.checkForWeaponDeath();
+            if (weaponDeathrattle != null) {
+                toRet = weaponDeathrattle.performAction(attackingWeapon, PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1);
+            }
         }
 
         return toRet;
@@ -120,26 +126,22 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
     }
 
     public final HearthTreeNode useHeroAbility(PlayerSide targetPlayerSide, Minion targetMinion,
-            HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+                                               HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
         return this.useHeroAbility(targetPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1, false);
     }
 
     /**
      * Use the hero ability on a given target
      *
-     *
-     *
      * @param targetPlayerSide
-     * @param targetMinion
-     *            The target minion
+     * @param targetMinion     The target minion
      * @param boardState
-     * @param deckPlayer0
-     *            The deck of player0
+     * @param deckPlayer0      The deck of player0
      * @return
      */
     public final HearthTreeNode useHeroAbility(PlayerSide targetPlayerSide, Minion targetMinion,
-            HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly)
-            throws HSException {
+                                               HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly)
+        throws HSException {
 
         if (boardState.data_.getCurrentPlayer().getMana() < HERO_ABILITY_COST)
             return null;
@@ -151,66 +153,64 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
             return null;
 
         HearthTreeNode toRet = this.useHeroAbility_core(targetPlayerSide, targetMinion, boardState, deckPlayer0,
-                deckPlayer1, singleRealizationOnly);
+            deckPlayer1, singleRealizationOnly);
         if (toRet != null) {
             int targetIndex = targetMinion instanceof Hero ? 0 : targetPlayerSide.getPlayer(boardState).getMinions()
-                    .indexOf(targetMinion) + 1;
+                .indexOf(targetMinion) + 1;
             toRet.setAction(new HearthAction(Verb.HERO_ABILITY, PlayerSide.CURRENT_PLAYER, 0, targetPlayerSide,
-                    targetIndex));
+                targetIndex));
             toRet = BoardStateFactoryBase.handleDeadMinions(toRet, deckPlayer0, deckPlayer1);
         }
         return toRet;
     }
 
     public abstract HearthTreeNode useHeroAbility_core(PlayerSide targetPlayerSide, Minion targetMinion,
-            HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly)
-            throws HSException;
+                                                       HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly)
+        throws HSException;
 
     /**
      * Called when this minion takes damage
-     *
+     * <p>
      * Overridden from Minion. Need to handle armor.
      *
-     * @param damage
-     *            The amount of damage to take
-     * @param attackPlayerSide
-     *            The player index of the attacker. This is needed to do things like +spell damage.
+     * @param damage           The amount of damage to take
+     * @param attackPlayerSide The player index of the attacker. This is needed to do things like +spell damage.
      * @param thisPlayerSide
      * @param boardState
-     * @param deckPlayer0
-     *            The deck of player0
+     * @param deckPlayer0      The deck of player0
      * @param isSpellDamage
      * @throws HSInvalidPlayerIndexException
      */
     @Override
     public HearthTreeNode takeDamage(byte damage, PlayerSide attackPlayerSide, PlayerSide thisPlayerSide,
-            HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean isSpellDamage,
-            boolean handleMinionDeath) throws HSException {
+                                     HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean isSpellDamage,
+                                     boolean handleMinionDeath) throws HSException {
         HearthTreeNode toRet = boardState;
-        byte damageRemaining = (byte)(damage - armor_);
+        byte damageRemaining = (byte) (damage - armor_);
         if (damageRemaining > 0) {
             armor_ = 0;
             toRet = super.takeDamage(damageRemaining, attackPlayerSide, thisPlayerSide, toRet, deckPlayer0,
-                    deckPlayer1, isSpellDamage, handleMinionDeath);
+                deckPlayer1, isSpellDamage, handleMinionDeath);
         } else {
-            armor_ = (byte)(armor_ - damage);
+            armor_ = (byte) (armor_ - damage);
         }
         return toRet;
     }
 
     /**
      * Simpler version of take damage
-     *
+     * <p>
      * For now, the Hero taking damage has no consequence to the board state.  So, this version can be used as a way to simplify the code.
+     *
      * @param damage The amount of damage taken by the hero
      */
     public void takeDamage(byte damage) {
-        byte damageRemaining = (byte)(damage - armor_);
+        byte damageRemaining = (byte) (damage - armor_);
         if (damageRemaining > 0) {
             armor_ = 0;
-            health_ -= (byte)(damage - armor_);
+            health_ -= (byte) (damage - armor_);
         } else {
-            armor_ = (byte)(armor_ - damage);
+            armor_ = (byte) (armor_ - damage);
         }
 
     }
@@ -232,7 +232,7 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
         if (!super.equals(o))
             return false;
 
-        Hero hero = (Hero)o;
+        Hero hero = (Hero) o;
 
         if (armor_ != hero.armor_)
             return false;
@@ -250,33 +250,53 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
         return result;
     }
 
-    public void setWeapon(WeaponCard weapon) {
+    @Override
+    public byte getTotalAttack() {
+        byte attack = super.getTotalAttack();
+        if (this.getWeapon() != null) {
+            attack += this.getWeapon().getWeaponDamage();
+        }
+        return attack;
+    }
+
+    public DeathrattleAction setWeapon(WeaponCard weapon) {
         if (weapon == null) {
             throw new RuntimeException("use 'destroy weapon' method if trying to remove weapon.");
-        } else {
-            this.weapon = weapon;
-            this.attack_ = weapon.getWeaponDamage();
         }
+
+        DeathrattleAction action = this.weapon != null && this.weapon.hasDeathrattle() ? this.weapon.getDeathrattle() : null;
+        this.weapon = weapon;
+        return action;
     }
 
     public WeaponCard getWeapon() {
         return weapon;
     }
 
-    public void destroyWeapon() {
+    public DeathrattleAction destroyWeapon() {
         if (weapon != null) {
-            attack_ = 0; // TODO if anything ever explicitly adds attack to a hero this will probably break
+            DeathrattleAction action = weapon.hasDeathrattle() ? weapon.getDeathrattle() : null;
             weapon = null;
+            return action;
         }
+        return null;
+    }
+
+    public DeathrattleAction checkForWeaponDeath() {
+        if (weapon != null && weapon.getWeaponCharge() == 0) {
+            return this.destroyWeapon();
+        }
+
+        return null;
     }
 
     @Override
     public HearthTreeNode minionSummonEvent(PlayerSide thisMinionPlayerSide, PlayerSide summonedMinionPlayerSide,
-            Minion summonedMinion, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) {
+                                            Minion summonedMinion, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) {
         HearthTreeNode hearthTreeNode = boardState;
         if (weapon != null) {
             weapon.minionSummonedEvent(thisMinionPlayerSide, summonedMinionPlayerSide, summonedMinion, boardState,
-                    deckPlayer0, deckPlayer1);
+                deckPlayer0, deckPlayer1);
         }
         return hearthTreeNode;
     }

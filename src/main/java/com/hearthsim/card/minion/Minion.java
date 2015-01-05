@@ -13,7 +13,6 @@ import com.hearthsim.card.CardStartTurnInterface;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.ImplementedCardList;
 import com.hearthsim.event.attack.AttackAction;
-import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.model.BoardModel;
@@ -40,6 +39,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
     protected boolean divineShield_;
     protected boolean windFury_;
     protected boolean charge_;
+    protected boolean immune_ = false; // Ignores damage
 
     protected boolean hasAttacked_;
     protected boolean hasWindFuryAttacked_;
@@ -64,7 +64,6 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 
     protected byte spellDamage_;
 
-    protected DeathrattleAction deathrattleAction_;
     protected AttackAction attackAction_;
 
     protected MinionTribe tribe = MinionTribe.NONE;
@@ -124,7 +123,6 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         maxHealth_ = maxHealth;
         destroyOnTurnStart_ = false;
         destroyOnTurnEnd_ = false;
-        deathrattleAction_ = null;
         attackAction_ = null;
 
         auraAttack_ = 0;
@@ -141,8 +139,8 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
             byte auraAttack, byte baseHealth, byte maxHealth, byte auraHealth, byte spellDamage, boolean taunt,
             boolean divineShield, boolean windFury, boolean charge, boolean hasAttacked, boolean hasWindFuryAttacked,
             boolean frozen, boolean silenced, boolean stealthed, boolean heroTargetable, boolean summoned,
-            boolean transformed, boolean destroyOnTurnStart, boolean destroyOnTurnEnd,
-            DeathrattleAction deathrattleAction, AttackAction attackAction, boolean isInHand, boolean hasBeenUsed) {
+            boolean transformed, boolean destroyOnTurnStart, boolean destroyOnTurnEnd, AttackAction attackAction,
+            boolean isInHand, boolean hasBeenUsed) {
         super(name, mana, hasBeenUsed, isInHand, (byte)0);
         attack_ = attack;
         health_ = health;
@@ -160,7 +158,6 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         maxHealth_ = maxHealth;
         destroyOnTurnStart_ = destroyOnTurnStart;
         destroyOnTurnEnd_ = destroyOnTurnEnd;
-        deathrattleAction_ = deathrattleAction;
         attackAction_ = attackAction;
 
         auraAttack_ = auraAttack;
@@ -233,7 +230,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
     }
 
     public boolean canAttack() {
-        return !this.hasAttacked_ && (this.attack_ + this.extraAttackUntilTurnEnd_) > 0 && !this.frozen_;
+        return !this.hasAttacked_ && (this.getTotalAttack()) > 0 && !this.frozen_;
     }
 
     @Deprecated
@@ -313,14 +310,6 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         return silenced_;
     }
 
-    public boolean hasDeathrattle() {
-        return deathrattleAction_ != null;
-    }
-
-    public void setDeathrattle(DeathrattleAction action) {
-        deathrattleAction_ = action;
-    }
-
     public byte getAuraAttack() {
         return auraAttack_;
     }
@@ -374,6 +363,14 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 
     public void setStealthed(boolean value) {
         stealthed_ = value;
+    }
+
+    public boolean getImmune() {
+        return immune_;
+    }
+
+    public void setImmune(boolean immune) {
+        immune_ = immune;
     }
 
     public boolean getPlacementImportant() {
@@ -458,17 +455,21 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
     public HearthTreeNode takeDamage(byte damage, PlayerSide attackPlayerSide, PlayerSide thisPlayerSide,
             HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean isSpellDamage,
             boolean handleMinionDeath) throws HSException {
-        if (!divineShield_) {
-            byte totalDamage = isSpellDamage ? (byte)(damage + boardState.data_.getSpellDamage(attackPlayerSide))
-                    : damage;
-            health_ = (byte)(health_ - totalDamage);
-
-            return this.notifyMinionDamaged(boardState, thisPlayerSide, deckPlayer0, deckPlayer1);
-        } else {
+        if (divineShield_) {
             if (damage > 0)
                 divineShield_ = false;
             return boardState;
         }
+
+        if (immune_) {
+            return boardState;
+        }
+
+        byte totalDamage = isSpellDamage ? (byte) (damage + boardState.data_.getSpellDamage(attackPlayerSide))
+            : damage;
+        health_ = (byte) (health_ - totalDamage);
+
+        return this.notifyMinionDamaged(boardState, thisPlayerSide, deckPlayer0, deckPlayer1);
     }
 
     /**
