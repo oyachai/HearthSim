@@ -128,6 +128,10 @@
         "class": "com.hearthsim.card.spellcard.concrete.Backstab"
     },
     {
+        "name": "Bananas",
+        "class": "com.hearthsim.card.spellcard.concrete.Bananas"
+    },
+    {
         "name": "Battle Rage",
         "class": "com.hearthsim.card.spellcard.concrete.BattleRage"
     },
@@ -586,6 +590,10 @@
     {
         "name": "King Krush",
         "class": "com.hearthsim.card.minion.concrete.KingKrush"
+    },
+    {
+        "name": "King Mukla",
+        "class": "com.hearthsim.card.minion.concrete.KingMukla"
     },
     {
         "name": "Kobold Geomancer",
