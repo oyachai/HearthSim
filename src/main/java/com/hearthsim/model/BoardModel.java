@@ -62,7 +62,6 @@ public class BoardModel implements DeepCopyable<BoardModel> {
             MinionPlayerPair that = (MinionPlayerPair) o;
 
             if (minion != null ? !minion.equals(that.minion) : that.minion != null) return false;
-//            if (playerModel != null ? !playerModel.equals(that.playerModel) : that.playerModel != null) return false;
             if (playerSide != null ? !playerSide.equals(that.playerSide) : that.playerSide != null) return false;
 
             return true;
@@ -71,7 +70,6 @@ public class BoardModel implements DeepCopyable<BoardModel> {
         @Override
         public int hashCode() {
             int result = minion != null ? minion.hashCode() : 0;
-//            result = 31 * result + (playerModel != null ? playerModel.hashCode() : 0);
             result = 31 * result + (playerSide != null ? playerSide.hashCode() : 0);
             return result;
         }
@@ -329,13 +327,7 @@ public class BoardModel implements DeepCopyable<BoardModel> {
 
     public boolean removeMinion(MinionPlayerPair minionIdPair) throws HSInvalidPlayerIndexException {
         this.allMinionsFIFOList_.remove(minionIdPair);
-//        if (minionIdPair.getPlayerModel() == currentPlayer)
-            minionIdPair.minion.silenced(minionIdPair.playerSide, this);
-//        else
-//            minionIdPair.minion.silenced(PlayerSide.WAITING_PLAYER, this);
-//        return minionIdPair.getPlayerModel().getMinions().remove(minionIdPair.minion);
-
-        //Remove the aura if any
+        minionIdPair.minion.silenced(minionIdPair.getPlayerSide(), this);
         removeAuraOfMinion(minionIdPair.getPlayerSide(), minionIdPair.minion);
         return minionIdPair.getPlayerSide().getPlayer(this).getMinions().remove(minionIdPair.minion);
     }
@@ -595,17 +587,8 @@ public class BoardModel implements DeepCopyable<BoardModel> {
             Minion oldMinion = minionPlayerPair.getMinion();
             int indexOfOldMinion = oldPlayerModel.getMinions().indexOf(oldMinion);
 
-            PlayerModel newPlayerModel;
-            if (oldPlayerModel.equals(currentPlayer)) {
-                newPlayerModel = newBoard.getWaitingPlayer();
-            } else if (oldPlayerModel.equals(waitingPlayer)) {
-                newPlayerModel = newBoard.getCurrentPlayer();
-            } else {
-                throw new RuntimeException("unexpected player");
-            }
-
-            newBoard.allMinionsFIFOList_.add(new MinionPlayerPair(newPlayerModel.getMinions().get(indexOfOldMinion), minionPlayerPair.playerSide.getOtherPlayer()));
-
+            PlayerModel newPlayerModel = minionPlayerPair.getPlayerSide().getOtherPlayer().getPlayer(newBoard);
+            newBoard.allMinionsFIFOList_.add(new MinionPlayerPair(newPlayerModel.getMinions().get(indexOfOldMinion), minionPlayerPair.getPlayerSide().getOtherPlayer()));
         }
 
         return newBoard;
@@ -621,19 +604,8 @@ public class BoardModel implements DeepCopyable<BoardModel> {
             Minion oldMinion = minionPlayerPair.getMinion();
             int indexOfOldMinion = oldPlayerModel.getMinions().indexOf(oldMinion);
 
-            PlayerModel newPlayerModel;
-            PlayerModel newWaitingPlayer = newBoard.getWaitingPlayer();
-            PlayerModel newCurrentPlayer = newBoard.getCurrentPlayer();
-            if (oldPlayerModel.equals(currentPlayer)) {
-                newPlayerModel = newCurrentPlayer;
-            } else if (oldPlayerModel.equals(waitingPlayer)) {
-                newPlayerModel = newWaitingPlayer;
-            } else {
-                throw new RuntimeException("unexpected player");
-            }
-
-            newBoard.allMinionsFIFOList_.add(new MinionPlayerPair(newPlayerModel.getMinions().get(indexOfOldMinion), minionPlayerPair.playerSide));
-
+            PlayerModel newPlayerModel = minionPlayerPair.getPlayerSide().getPlayer(newBoard);
+            newBoard.allMinionsFIFOList_.add(new MinionPlayerPair(newPlayerModel.getMinions().get(indexOfOldMinion), minionPlayerPair.getPlayerSide()));
         }
 
         return newBoard;
