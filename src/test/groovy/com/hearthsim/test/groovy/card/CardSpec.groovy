@@ -24,11 +24,11 @@ class CardSpec extends Specification {
     void assertBoardEquals(BoardModel oldBoard, BoardModel newBoard) {
         assertPlayerEquals(oldBoard.currentPlayer, newBoard.currentPlayer)
         assertPlayerEquals(oldBoard.waitingPlayer, newBoard.waitingPlayer)
-        assert oldBoard.allMinionsFIFOList_.size() == newBoard.allMinionsFIFOList_.size()
-        for (int indx = 0; indx < oldBoard.allMinionsFIFOList_.size(); ++indx) {
-            assertPlayerEquals(oldBoard.allMinionsFIFOList_.get(indx).getPlayerModel(), newBoard.allMinionsFIFOList_.get(indx).getPlayerModel())
-            assertMinionEquals(oldBoard.allMinionsFIFOList_.get(indx).getMinion(), newBoard.allMinionsFIFOList_.get(indx).getMinion())
-        }
+		assert oldBoard.allMinionsFIFOList_.size() == newBoard.allMinionsFIFOList_.size()
+		for (int indx = 0; indx < oldBoard.allMinionsFIFOList_.size(); ++indx) {
+			assertPlayerEquals(oldBoard.allMinionsFIFOList_.get(indx).getPlayerSide().getPlayer(oldBoard), newBoard.allMinionsFIFOList_.get(indx).getPlayerSide().getPlayer(newBoard))
+			assertMinionEquals(oldBoard.allMinionsFIFOList_.get(indx).getMinion(), newBoard.allMinionsFIFOList_.get(indx).getMinion())
+		}
         assert oldBoard == newBoard //for now, a catch all at the end
     }
 

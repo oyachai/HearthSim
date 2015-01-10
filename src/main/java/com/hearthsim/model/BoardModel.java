@@ -34,23 +34,24 @@ public class BoardModel implements DeepCopyable<BoardModel> {
 
     public class MinionPlayerPair {
         private Minion minion;
-        private PlayerModel playerModel ;
 
-        public MinionPlayerPair(Minion minion, PlayerModel playerModel) {
+        private PlayerSide playerSide;
+
+        public MinionPlayerPair(Minion minion, PlayerSide playerSide) {
             this.minion = minion;
-            this.playerModel = playerModel;
+            this.playerSide = playerSide;
         }
 
         public Minion getMinion() {
             return minion;
         }
 
-        public PlayerModel getPlayerModel() {
-            return playerModel;
+        public PlayerSide getPlayerSide() {
+            return playerSide;
         }
 
-        public void setPlayerModel(PlayerModel playerModel) {
-            this.playerModel = playerModel;
+        public void setPlayerSide(PlayerSide playerSide) {
+            this.playerSide = playerSide;
         }
 
         @Override
@@ -61,7 +62,8 @@ public class BoardModel implements DeepCopyable<BoardModel> {
             MinionPlayerPair that = (MinionPlayerPair) o;
 
             if (minion != null ? !minion.equals(that.minion) : that.minion != null) return false;
-            if (playerModel != null ? !playerModel.equals(that.playerModel) : that.playerModel != null) return false;
+//            if (playerModel != null ? !playerModel.equals(that.playerModel) : that.playerModel != null) return false;
+            if (playerSide != null ? !playerSide.equals(that.playerSide) : that.playerSide != null) return false;
 
             return true;
         }
@@ -69,7 +71,8 @@ public class BoardModel implements DeepCopyable<BoardModel> {
         @Override
         public int hashCode() {
             int result = minion != null ? minion.hashCode() : 0;
-            result = 31 * result + (playerModel != null ? playerModel.hashCode() : 0);
+//            result = 31 * result + (playerModel != null ? playerModel.hashCode() : 0);
+            result = 31 * result + (playerSide != null ? playerSide.hashCode() : 0);
             return result;
         }
     }
@@ -190,7 +193,7 @@ public class BoardModel implements DeepCopyable<BoardModel> {
     public void placeMinion(PlayerSide playerSide, Minion minion, int position) throws HSInvalidPlayerIndexException {
         PlayerModel playerModel = modelForSide(playerSide);
         playerModel.getMinions().add(position, minion);
-        this.allMinionsFIFOList_.add(new MinionPlayerPair(minion, playerModel));
+        this.allMinionsFIFOList_.add(new MinionPlayerPair(minion, playerSide));
         minion.isInHand(false);
 
         //Apply the aura if any
@@ -326,12 +329,15 @@ public class BoardModel implements DeepCopyable<BoardModel> {
 
     public boolean removeMinion(MinionPlayerPair minionIdPair) throws HSInvalidPlayerIndexException {
         this.allMinionsFIFOList_.remove(minionIdPair);
-        boolean toRet = minionIdPair.getPlayerModel().getMinions().remove(minionIdPair.minion);
+//        if (minionIdPair.getPlayerModel() == currentPlayer)
+            minionIdPair.minion.silenced(minionIdPair.playerSide, this);
+//        else
+//            minionIdPair.minion.silenced(PlayerSide.WAITING_PLAYER, this);
+//        return minionIdPair.getPlayerModel().getMinions().remove(minionIdPair.minion);
 
         //Remove the aura if any
-        removeAuraOfMinion(minionIdPair.getPlayerModel() == currentPlayer ? PlayerSide.CURRENT_PLAYER : PlayerSide.WAITING_PLAYER, minionIdPair.minion);
-        return toRet;
-
+        removeAuraOfMinion(minionIdPair.getPlayerSide(), minionIdPair.minion);
+        return minionIdPair.getPlayerSide().getPlayer(this).getMinions().remove(minionIdPair.minion);
     }
 
     public boolean removeMinion(Minion minion) throws HSException {
@@ -585,22 +591,20 @@ public class BoardModel implements DeepCopyable<BoardModel> {
 
         for (MinionPlayerPair minionPlayerPair : allMinionsFIFOList_) {
 
-            PlayerModel oldPlayerModel = minionPlayerPair.getPlayerModel();
+            PlayerModel oldPlayerModel = minionPlayerPair.getPlayerSide().getPlayer(this);
             Minion oldMinion = minionPlayerPair.getMinion();
             int indexOfOldMinion = oldPlayerModel.getMinions().indexOf(oldMinion);
 
             PlayerModel newPlayerModel;
-            PlayerModel newWaitingPlayer = newBoard.getWaitingPlayer();
-            PlayerModel newCurrentPlayer = newBoard.getCurrentPlayer();
             if (oldPlayerModel.equals(currentPlayer)) {
-                newPlayerModel = newWaitingPlayer;
+                newPlayerModel = newBoard.getWaitingPlayer();
             } else if (oldPlayerModel.equals(waitingPlayer)) {
-                newPlayerModel = newCurrentPlayer;
+                newPlayerModel = newBoard.getCurrentPlayer();
             } else {
                 throw new RuntimeException("unexpected player");
             }
 
-            newBoard.allMinionsFIFOList_.add(new MinionPlayerPair(newPlayerModel.getMinions().get(indexOfOldMinion), newPlayerModel));
+            newBoard.allMinionsFIFOList_.add(new MinionPlayerPair(newPlayerModel.getMinions().get(indexOfOldMinion), minionPlayerPair.playerSide.getOtherPlayer()));
 
         }
 
@@ -613,7 +617,7 @@ public class BoardModel implements DeepCopyable<BoardModel> {
 
         for (MinionPlayerPair minionPlayerPair : allMinionsFIFOList_) {
 
-            PlayerModel oldPlayerModel = minionPlayerPair.getPlayerModel();
+            PlayerModel oldPlayerModel = minionPlayerPair.getPlayerSide().getPlayer(this);
             Minion oldMinion = minionPlayerPair.getMinion();
             int indexOfOldMinion = oldPlayerModel.getMinions().indexOf(oldMinion);
 
@@ -628,7 +632,7 @@ public class BoardModel implements DeepCopyable<BoardModel> {
                 throw new RuntimeException("unexpected player");
             }
 
-            newBoard.allMinionsFIFOList_.add(new MinionPlayerPair(newPlayerModel.getMinions().get(indexOfOldMinion), newPlayerModel));
+            newBoard.allMinionsFIFOList_.add(new MinionPlayerPair(newPlayerModel.getMinions().get(indexOfOldMinion), minionPlayerPair.playerSide));
 
         }
 
