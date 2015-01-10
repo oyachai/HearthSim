@@ -8,7 +8,6 @@ import com.hearthsim.model.BoardModel
 import com.hearthsim.model.PlayerModel
 import com.hearthsim.test.helpers.BoardModelBuilder
 import com.hearthsim.util.IdentityLinkedList
-import com.hearthsim.util.MinionList
 import org.junit.Assert
 import spock.lang.Specification
 
@@ -72,7 +71,7 @@ class CardSpec extends Specification {
         assert oldWeapon == newWeapon //catch all
     }
 
-    void assertMinionsEqual(MinionList oldMinions, MinionList newMinions) {
+    void assertMinionsEqual(IdentityLinkedList<Minion> oldMinions, IdentityLinkedList<Minion> newMinions) {
         assert oldMinions.size() == newMinions.size()
         for (int indx = 0; indx < oldMinions.size(); ++indx) {
             Minion oldMinion = oldMinions.get(indx)

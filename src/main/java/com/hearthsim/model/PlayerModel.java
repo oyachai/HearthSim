@@ -6,7 +6,6 @@ import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.IdentityLinkedList;
-import com.hearthsim.util.MinionList;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -24,7 +23,7 @@ public class PlayerModel implements DeepCopyable<PlayerModel> {
     private byte deckPos;
     private byte fatigueDamage;
 
-    private MinionList minions;
+    private IdentityLinkedList<Minion> minions;
     private IdentityLinkedList<Card> hand;
     byte overload;
 
@@ -33,7 +32,7 @@ public class PlayerModel implements DeepCopyable<PlayerModel> {
         this.name = name;
         this.hero = hero;
         this.deck = deck;
-        this.minions = new MinionList();
+        this.minions = new IdentityLinkedList<>();
         this.hand = new IdentityLinkedList<>();
 
         deckPos = 0;
@@ -69,6 +68,7 @@ public class PlayerModel implements DeepCopyable<PlayerModel> {
         return hero;
     }
 
+    @Deprecated
     public Deck getDeck_() {
         return deck;
     }
@@ -105,11 +105,11 @@ public class PlayerModel implements DeepCopyable<PlayerModel> {
         this.maxMana -= value;
     }
 
-    public MinionList getMinions() {
+    public IdentityLinkedList<Minion> getMinions() {
         return minions;
     }
 
-    public void setMinions(MinionList minions) {
+    public void setMinions(IdentityLinkedList<Minion> minions) {
         this.minions = minions;
     }
 

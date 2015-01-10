@@ -11,7 +11,6 @@ import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.IdentityLinkedList;
-import com.hearthsim.util.MinionList;
 
 import org.json.JSONObject;
 import org.slf4j.MDC;
@@ -102,7 +101,7 @@ public class BoardModel implements DeepCopyable<BoardModel> {
         allMinionsFIFOList_ = new IdentityLinkedList<MinionPlayerPair>();
     }
 
-    public MinionList getMinions(PlayerSide side) throws HSInvalidPlayerIndexException {
+    public IdentityLinkedList<Minion> getMinions(PlayerSide side) throws HSInvalidPlayerIndexException {
         return modelForSide(side).getMinions();
     }
 
