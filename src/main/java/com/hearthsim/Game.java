@@ -175,7 +175,7 @@ public class Game {
         }
 
         toRet = BoardStateFactoryBase.handleDeadMinions(toRet, toRet.data_.getCurrentPlayer().getDeck(), toRet.data_
-                .getWaitingPlayer().getDeck());
+                .getWaitingPlayer().getDeck(), true);
 
         toRet.data_.getCurrentPlayer().drawNextCardFromDeck();
         if (toRet.data_.getCurrentPlayer().getMaxMana() < 10)
@@ -215,7 +215,7 @@ public class Game {
         }
 
         toRet = BoardStateFactoryBase.handleDeadMinions(toRet, toRet.data_.getCurrentPlayer().getDeck(), toRet.data_
-                .getWaitingPlayer().getDeck());
+                .getWaitingPlayer().getDeck(), true);
 
         return toRet.data_;
     }

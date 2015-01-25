@@ -86,7 +86,7 @@ public class TestAnimalCompanion {
         Minion minion = PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(2);
         minion.hasAttacked(false);
         Minion target2 = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
-        ret = minion.attack(PlayerSide.WAITING_PLAYER, target2, board, null, null);
+        ret = minion.attack(PlayerSide.WAITING_PLAYER, target2, board, null, null, false);
 
         assertEquals(board, ret);
         assertEquals(board.data_.getNumCards_hand(), 1);

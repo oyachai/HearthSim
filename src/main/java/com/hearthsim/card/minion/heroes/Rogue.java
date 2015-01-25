@@ -43,7 +43,7 @@ public class Rogue extends Hero {
 
             DeathrattleAction action = target.setWeapon(new WickedKnife());
             if (action != null) {
-                toRet = action.performAction(null, targetPlayerSide, toRet, deckPlayer0, deckPlayer1);
+                toRet = action.performAction(null, targetPlayerSide, toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
             }
 
             return toRet;

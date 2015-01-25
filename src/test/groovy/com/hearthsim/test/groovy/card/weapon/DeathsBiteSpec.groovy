@@ -100,7 +100,7 @@ class DeathsBiteSpec extends CardSpec {
         hero.getWeapon().setWeaponCharge((byte)1);
 
         def target = copiedBoard.getCharacter(PlayerSide.WAITING_PLAYER, 0);
-        ret = hero.attack(PlayerSide.WAITING_PLAYER, target, ret, null, null);
+        ret = hero.attack(PlayerSide.WAITING_PLAYER, target, ret, null, null, false);
 
         expect:
         ret != null

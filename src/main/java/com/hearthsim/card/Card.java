@@ -45,7 +45,7 @@ public class Card implements DeepCopyable<Card> {
      * Constructor
      *
      * @param name Name of the card
-     * @param mana Mana cost of the card
+     * @param baseManaCost Base mana cost of the card
      * @param hasBeenUsed Has the card been used?
      * @param isInHand Is the card in your hand?
      */
@@ -93,7 +93,7 @@ public class Card implements DeepCopyable<Card> {
      * Get the mana cost of the card
      *
      * @param side The PlayerSide of the card for which you want the mana cost
-     * @param board The HearthTreeNode representing the current board state
+     * @param boardState The HearthTreeNode representing the current board state
      * @return Mana cost of the card
      */
     @Deprecated
@@ -376,7 +376,7 @@ public class Card implements DeepCopyable<Card> {
         }
 
         // check for and remove dead minions
-        toRet = BoardStateFactoryBase.handleDeadMinions(toRet, deckPlayer0, deckPlayer1);
+        toRet = BoardStateFactoryBase.handleDeadMinions(toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
         return toRet;
     }
 
@@ -431,7 +431,7 @@ public class Card implements DeepCopyable<Card> {
         }
 
         // check for and remove dead minions
-        toRet = BoardStateFactoryBase.handleDeadMinions(toRet, deckPlayer0, deckPlayer1);
+        toRet = BoardStateFactoryBase.handleDeadMinions(toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
         return toRet;
     }
 

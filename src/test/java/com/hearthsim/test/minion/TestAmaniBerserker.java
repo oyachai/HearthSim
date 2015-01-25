@@ -38,14 +38,14 @@ public class TestAmaniBerserker {
     @Test
     public void testAttackNormal() throws HSException {
         Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
-        HearthTreeNode ret = amaniBerserker.attack(PlayerSide.WAITING_PLAYER, target, board, null, null);
+        HearthTreeNode ret = amaniBerserker.attack(PlayerSide.WAITING_PLAYER, target, board, null, null, false);
         assertEquals(board, ret);
         assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 28);
     }
 
     @Test
     public void testEnrage() throws HSException {
-        HearthTreeNode ret = amaniBerserker.attack(PlayerSide.WAITING_PLAYER, croc, board, null, null);
+        HearthTreeNode ret = amaniBerserker.attack(PlayerSide.WAITING_PLAYER, croc, board, null, null, false);
         assertEquals(board, ret);
 
         assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 1);
@@ -59,7 +59,7 @@ public class TestAmaniBerserker {
 
     @Test
     public void testHealRemovesEngrage() throws HSException {
-        HearthTreeNode ret = amaniBerserker.attack(PlayerSide.WAITING_PLAYER, croc, board, null, null);
+        HearthTreeNode ret = amaniBerserker.attack(PlayerSide.WAITING_PLAYER, croc, board, null, null, false);
 
         board.data_.placeCardHandCurrentPlayer(new HolyLight());
         board.data_.getCurrentPlayer().setMana((byte)2);

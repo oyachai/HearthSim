@@ -42,7 +42,7 @@ public class ArathiWeaponsmith extends Minion implements MinionUntargetableBattl
 
         DeathrattleAction action = theHero.setWeapon(newWeapon);
         if (action != null) {
-            toRet = action.performAction(null, PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1);
+            toRet = action.performAction(null, PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
         }
 
         return toRet;

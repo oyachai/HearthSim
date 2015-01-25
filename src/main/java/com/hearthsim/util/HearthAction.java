@@ -68,7 +68,7 @@ public class HearthAction {
             case ATTACK: {
                 Minion attacker = boardState.data_.getCharacter(actionPerformerPlayerSide, cardOrCharacterIndex_);
                 Minion target = boardState.data_.getCharacter(targetPlayerSide, targetCharacterIndex_);
-                toRet = attacker.attack(targetPlayerSide, target, toRet, deckPlayer0, deckPlayer1);
+                toRet = attacker.attack(targetPlayerSide, target, toRet, deckPlayer0, deckPlayer1, singleRealization);
             }
             break;
             case UNTARGETABLE_BATTLECRY: {
@@ -80,7 +80,7 @@ public class HearthAction {
             case TARGETABLE_BATTLECRY: {
                 Minion minion = boardState.data_.getCharacter(actionPerformerPlayerSide, cardOrCharacterIndex_);
                 Minion battlecryTarget = boardState.data_.getCharacter(targetPlayerSide, targetCharacterIndex_);
-                toRet = minion.useTargetableBattlecry(targetPlayerSide, battlecryTarget, toRet, deckPlayer0, deckPlayer1);
+                toRet = minion.useTargetableBattlecry(targetPlayerSide, battlecryTarget, toRet, deckPlayer0, deckPlayer1, singleRealization);
                 break;
             }
             case START_TURN: {

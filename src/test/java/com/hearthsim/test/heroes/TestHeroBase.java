@@ -88,7 +88,7 @@ public class TestHeroBase {
 
         assertFalse(hero.canAttack());
 
-        HearthTreeNode ret = hero.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null);
+        HearthTreeNode ret = hero.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null, false);
         assertNull(ret);
     }
 
@@ -97,7 +97,7 @@ public class TestHeroBase {
         // null case
         Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
         Minion minion = PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0);
-        HearthTreeNode ret = minion.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null);
+        HearthTreeNode ret = minion.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null, false);
         assertEquals(board, ret);
 
         assertEquals(board.data_.getNumCards_hand(), 1);
@@ -218,7 +218,7 @@ public class TestHeroBase {
         opponent.setArmor((byte)3);
 
         Minion minion = PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0);
-        HearthTreeNode ret = minion.attack(PlayerSide.WAITING_PLAYER, opponent, board, deck, null);
+        HearthTreeNode ret = minion.attack(PlayerSide.WAITING_PLAYER, opponent, board, deck, null, false);
         assertEquals(board, ret);
 
         assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);

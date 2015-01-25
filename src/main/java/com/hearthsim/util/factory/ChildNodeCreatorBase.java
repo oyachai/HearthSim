@@ -51,7 +51,7 @@ public class ChildNodeCreatorBase implements ChildNodeCreator {
                 tempMinion = newState.data_.getCurrentPlayerCharacter(attackerIndex);
 
                 newState = tempMinion.attack(PlayerSide.WAITING_PLAYER, targetMinion, newState, deckPlayer0_,
-                        deckPlayer1_);
+                        deckPlayer1_, false);
 
                 if (newState != null) {
                     nodes.add(newState);

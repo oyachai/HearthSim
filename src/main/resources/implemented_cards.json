@@ -976,6 +976,10 @@
         "class": "com.hearthsim.card.spellcard.concrete.Swipe"
     },
     {
+        "name": "Sylvanas Windrunner",
+        "class": "com.hearthsim.card.minion.concrete.SylvanasWindrunner"
+    },
+    {
         "name": "Tauren Warrior",
         "class": "com.hearthsim.card.minion.concrete.TaurenWarrior"
     },

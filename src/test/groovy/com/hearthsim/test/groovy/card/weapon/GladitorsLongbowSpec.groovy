@@ -42,7 +42,7 @@ class GladiatorsLongbowSpec extends CardSpec {
 
         Minion hero = ret.data_.getCurrentPlayerHero();
         def target = copiedBoard.getCharacter(PlayerSide.WAITING_PLAYER, 1);
-        ret = hero.attack(PlayerSide.WAITING_PLAYER, target, ret, null, null);
+        ret = hero.attack(PlayerSide.WAITING_PLAYER, target, ret, null, null, false);
 
         expect:
         ret != null
@@ -71,7 +71,7 @@ class GladiatorsLongbowSpec extends CardSpec {
 
         Minion hero = ret.data_.getCurrentPlayerHero();
         def target = copiedBoard.getCharacter(PlayerSide.WAITING_PLAYER, 1);
-        ret = hero.attack(PlayerSide.WAITING_PLAYER, target, ret, null, null);
+        ret = hero.attack(PlayerSide.WAITING_PLAYER, target, ret, null, null, false);
 
         def arcaneShot = new ArcaneShot();
         ret = arcaneShot.useOn(CURRENT_PLAYER, 0, copiedRoot, null, null);

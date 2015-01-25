@@ -19,10 +19,31 @@ public abstract class DeathrattleAction {
      * @param boardState
      * @param deckPlayer0
      * @param deckPlayer1 @return
-     * @throws HSInvalidPlayerIndexException
+     * @throws HSException
      */
-    public HearthTreeNode performAction(Card origin, PlayerSide playerSide, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+    public HearthTreeNode performAction(Card origin,
+                                        PlayerSide playerSide,
+                                        HearthTreeNode boardState,
+                                        Deck deckPlayer0,
+                                        Deck deckPlayer1,
+                                        boolean singleRealizationOnly) throws HSException {
         return boardState;
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (other == null) {
+            return false;
+        }
+
+        if (!(other instanceof DeathrattleAction))
+            return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return 1;
+    }
 }

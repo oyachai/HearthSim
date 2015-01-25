@@ -53,7 +53,7 @@ class FrothingBerserkerSpec extends CardSpec {
 
 		def attacker = minionPlayedBoard.getCharacter(CURRENT_PLAYER, 1)
 		def attacked = minionPlayedBoard.getCharacter(WAITING_PLAYER, 1)
-		ret =  attacker.attack(WAITING_PLAYER, attacked, copiedRoot, null, null)
+		ret =  attacker.attack(WAITING_PLAYER, attacked, copiedRoot, null, null, false)
 		
 		expect:
 		assertFalse(ret == null);

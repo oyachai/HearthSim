@@ -405,6 +405,10 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         spellDamage_ -= value;
     }
 
+    public boolean isAlive() {
+        return getTotalHealth() > 0;
+    }
+
     /**
      * Called at the start of the turn
      *
@@ -487,14 +491,14 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
      * @throws HSInvalidPlayerIndexException
      */
     public HearthTreeNode destroyed(PlayerSide thisPlayerSide, HearthTreeNode boardState, Deck deckPlayer0,
-            Deck deckPlayer1) throws HSException {
+            Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
 
         health_ = 0;
         HearthTreeNode toRet = boardState;
 
         // perform the deathrattle action if there is one
         if (deathrattleAction_ != null) {
-            toRet = deathrattleAction_.performAction(this, thisPlayerSide, toRet, deckPlayer0, deckPlayer1);
+            toRet = deathrattleAction_.performAction(this, thisPlayerSide, toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
         }
 
         // Notify all that it is dead
@@ -607,7 +611,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
      * @throws HSException
      */
     public HearthTreeNode useTargetableBattlecry(PlayerSide side, Minion targetMinion, HearthTreeNode boardState,
-            Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+            Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
         if (this instanceof MinionTargetableBattlecry) {
             MinionTargetableBattlecry battlecryMinion = (MinionTargetableBattlecry)this;
 
@@ -627,7 +631,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 
             if (node != null) {
                 // Check for dead minions
-                node = BoardStateFactoryBase.handleDeadMinions(node, deckPlayer0, deckPlayer1);
+                node = BoardStateFactoryBase.handleDeadMinions(node, deckPlayer0, deckPlayer1, singleRealizationOnly);
                 // add the new node to the tree
                 boardState.addChild(node);
             }
@@ -656,7 +660,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
                     deckPlayer1, singleRealizationOnly);
             if (toRet != null) {
                 // Check for dead minions
-                toRet = BoardStateFactoryBase.handleDeadMinions(toRet, deckPlayer0, deckPlayer1);
+                toRet = BoardStateFactoryBase.handleDeadMinions(toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
             }
         }
         return toRet;
@@ -728,52 +732,52 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
                 switch (btt) {
                     case ENEMY_HERO:
                         toRet = this.useTargetableBattlecry(PlayerSide.WAITING_PLAYER,
-                                PlayerSide.WAITING_PLAYER.getPlayer(toRet).getHero(), toRet, deckPlayer0, deckPlayer1);
+                                PlayerSide.WAITING_PLAYER.getPlayer(toRet).getHero(), toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
                         break;
                     case FRIENDLY_HERO:
                         toRet = this.useTargetableBattlecry(PlayerSide.CURRENT_PLAYER,
-                                PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getHero(), toRet, deckPlayer0, deckPlayer1);
+                                PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getHero(), toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
                         break;
                     case ENEMY_MINIONS:
                         for (Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
                             if (!minion.getStealthed())
                                 toRet = this.useTargetableBattlecry(PlayerSide.WAITING_PLAYER, minion, toRet, deckPlayer0,
-                                        deckPlayer1);
+                                        deckPlayer1, singleRealizationOnly);
                         }
                         break;
                     case FRIENDLY_MINIONS:
                         for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
                             if (minion != this)
                                 toRet = this.useTargetableBattlecry(PlayerSide.CURRENT_PLAYER, minion, toRet, deckPlayer0,
-                                        deckPlayer1);
+                                        deckPlayer1, singleRealizationOnly);
                         }
                         break;
                     case ENEMY_BEASTS:
                         for (Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
                             if (minion.getTribe() == MinionTribe.BEAST)
                                 toRet = this.useTargetableBattlecry(PlayerSide.WAITING_PLAYER, minion, toRet, deckPlayer0,
-                                        deckPlayer1);
+                                        deckPlayer1, singleRealizationOnly);
                         }
                         break;
                     case FRIENDLY_BEASTS:
                         for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
                             if (minion != this && minion.getTribe() == MinionTribe.BEAST)
                                 toRet = this.useTargetableBattlecry(PlayerSide.CURRENT_PLAYER, minion, toRet, deckPlayer0,
-                                        deckPlayer1);
+                                        deckPlayer1, singleRealizationOnly);
                         }
                         break;
                     case ENEMY_MURLOCS:
                         for (Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
                             if (minion.getTribe() == MinionTribe.MURLOC)
                                 toRet = this.useTargetableBattlecry(PlayerSide.WAITING_PLAYER, minion, toRet, deckPlayer0,
-                                        deckPlayer1);
+                                        deckPlayer1, singleRealizationOnly);
                         }
                         break;
                     case FRIENDLY_MURLOCS:
                         for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
                             if (minion != this && minion.getTribe() == MinionTribe.MURLOC)
                                 toRet = this.useTargetableBattlecry(PlayerSide.CURRENT_PLAYER, minion, toRet, deckPlayer0,
-                                        deckPlayer1);
+                                        deckPlayer1, singleRealizationOnly);
                         }
                         break;
                     default:
@@ -855,7 +859,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
      * @return The boardState is manipulated and returned
      */
     public HearthTreeNode attack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode boardState,
-            Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+            Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
 
         // can't attack a stealthed target
         if (targetMinion.getStealthed())
@@ -877,13 +881,13 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
                 .indexOf(targetMinion) + 1;
 
         // Do the actual attack
-        toRet = this.attack_core(targetMinionPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1);
+        toRet = this.attack_core(targetMinionPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 
         // check for and remove dead minions
         if (toRet != null) {
             toRet.setAction(new HearthAction(Verb.ATTACK, PlayerSide.CURRENT_PLAYER, attackerIndex,
                     targetMinionPlayerSide, targetIndex));
-            toRet = BoardStateFactoryBase.handleDeadMinions(toRet, deckPlayer0, deckPlayer1);
+            toRet = BoardStateFactoryBase.handleDeadMinions(toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
         }
 
         // Attacking means you lose stealth
@@ -906,7 +910,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
      * @return The boardState is manipulated and returned
      */
     protected HearthTreeNode attack_core(PlayerSide targetMinionPlayerSide, Minion targetMinion,
-            HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+            HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
 
         HearthTreeNode toRet = boardState;
         byte origAttack = targetMinion.getTotalAttack();
@@ -1296,7 +1300,10 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
             return false;
 
         // This is checked for reference equality
-        if (deathrattleAction_ != ((Minion)other).deathrattleAction_)
+        if (deathrattleAction_ == null && ((Minion)other).deathrattleAction_ != null)
+            return false;
+
+        if (deathrattleAction_ != null && !deathrattleAction_.equals(((Minion)other).deathrattleAction_))
             return false;
 
         // This is checked for reference equality

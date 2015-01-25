@@ -41,7 +41,7 @@ class TruesilverChampionSpec extends CardSpec {
         def ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot, null, null);
         Minion hero = ret.data_.getCurrentPlayerHero();
         def target = copiedBoard.getCharacter(PlayerSide.WAITING_PLAYER, 0);
-        ret = hero.attack(PlayerSide.WAITING_PLAYER, target, ret, null, null);
+        ret = hero.attack(PlayerSide.WAITING_PLAYER, target, ret, null, null, false);
 
         expect:
         ret != null
@@ -74,7 +74,7 @@ class TruesilverChampionSpec extends CardSpec {
 
         Minion hero = ret.data_.getCurrentPlayerHero();
         def target = copiedBoard.getCharacter(PlayerSide.WAITING_PLAYER, 1);
-        ret = hero.attack(PlayerSide.WAITING_PLAYER, target, ret, null, null);
+        ret = hero.attack(PlayerSide.WAITING_PLAYER, target, ret, null, null, false);
 
         expect:
         ret != null

@@ -16,14 +16,13 @@ public class DeathrattleDamageAll extends DeathrattleAction {
     }
 
     @Override
-    public HearthTreeNode performAction(
-        Card origin,
-        PlayerSide playerSide,
-        HearthTreeNode boardState,
-        Deck deckPlayer0,
-        Deck deckPlayer1)
-        throws HSException {
-        HearthTreeNode toRet = super.performAction(origin, playerSide, boardState, deckPlayer0, deckPlayer1);
+    public HearthTreeNode performAction(Card origin,
+                                        PlayerSide playerSide,
+                                        HearthTreeNode boardState,
+                                        Deck deckPlayer0,
+                                        Deck deckPlayer1,
+                                        boolean singleRealizationOnly) throws HSException {
+        HearthTreeNode toRet = super.performAction(origin, playerSide, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
         if (toRet != null) {
             toRet = toRet.data_.getCurrentPlayerHero().takeDamage(damage_, playerSide, PlayerSide.CURRENT_PLAYER, boardState, deckPlayer0, deckPlayer1, false, false);
             for (Minion aMinion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {

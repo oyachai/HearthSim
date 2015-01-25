@@ -42,7 +42,7 @@ class GorehowlSpec extends CardSpec {
 
         Minion hero = ret.data_.getCurrentPlayerHero();
         def target = copiedBoard.getCharacter(PlayerSide.WAITING_PLAYER, 1);
-        ret = hero.attack(PlayerSide.WAITING_PLAYER, target, ret, null, null);
+        ret = hero.attack(PlayerSide.WAITING_PLAYER, target, ret, null, null, false);
 
         expect:
         ret != null
@@ -73,7 +73,7 @@ class GorehowlSpec extends CardSpec {
         hero.getWeapon().setWeaponDamage((byte)1);
 
         def target = copiedBoard.getCharacter(PlayerSide.WAITING_PLAYER, 1);
-        ret = hero.attack(PlayerSide.WAITING_PLAYER, target, ret, null, null);
+        ret = hero.attack(PlayerSide.WAITING_PLAYER, target, ret, null, null, false);
 
         expect:
         ret != null
@@ -99,7 +99,7 @@ class GorehowlSpec extends CardSpec {
 
         Minion hero = ret.data_.getCurrentPlayerHero();
         def target = copiedBoard.getCharacter(PlayerSide.WAITING_PLAYER, 0);
-        ret = hero.attack(PlayerSide.WAITING_PLAYER, target, ret, null, null);
+        ret = hero.attack(PlayerSide.WAITING_PLAYER, target, ret, null, null, false);
 
         expect:
         ret != null

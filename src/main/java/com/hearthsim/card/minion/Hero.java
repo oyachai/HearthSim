@@ -93,7 +93,7 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
      */
     @Override
     public HearthTreeNode attack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode boardState,
-                                 Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+                                 Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
 
         if (!this.canAttack()) {
             return null;
@@ -104,12 +104,12 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
         if (attackingWeapon != null) {
             attackingWeapon.beforeAttack(targetMinionPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1);
         }
-        HearthTreeNode toRet = super.attack(targetMinionPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1);
+        HearthTreeNode toRet = super.attack(targetMinionPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
         if (toRet != null && attackingWeapon != null) {
             attackingWeapon.afterAttack(targetMinionPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1);
             DeathrattleAction weaponDeathrattle = this.checkForWeaponDeath();
             if (weaponDeathrattle != null) {
-                toRet = weaponDeathrattle.performAction(attackingWeapon, PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1);
+                toRet = weaponDeathrattle.performAction(attackingWeapon, PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
             }
         }
 
@@ -159,7 +159,7 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
                 .indexOf(targetMinion) + 1;
             toRet.setAction(new HearthAction(Verb.HERO_ABILITY, PlayerSide.CURRENT_PLAYER, 0, targetPlayerSide,
                 targetIndex));
-            toRet = BoardStateFactoryBase.handleDeadMinions(toRet, deckPlayer0, deckPlayer1);
+            toRet = BoardStateFactoryBase.handleDeadMinions(toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
         }
         return toRet;
     }

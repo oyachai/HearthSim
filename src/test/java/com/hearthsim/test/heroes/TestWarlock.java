@@ -128,7 +128,7 @@ public class TestWarlock {
     public void testAiCardDrawScore() throws HSException {
         Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
         Minion minion = PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0);
-        HearthTreeNode ret = minion.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null);
+        HearthTreeNode ret = minion.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null, false);
         assertEquals(board, ret);
 
         board.data_.getCurrentPlayer().setDeckPos((byte)30);

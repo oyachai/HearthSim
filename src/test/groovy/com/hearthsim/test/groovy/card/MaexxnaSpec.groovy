@@ -49,7 +49,7 @@ class MaexxnaSpec extends CardSpec {
 		def ret = theCard.useOn(CURRENT_PLAYER, target, root, null, null)
 
 		def maexxna = ret.data_.getCharacter(CURRENT_PLAYER, 2)
-		def ret2 = maexxna.attack(WAITING_PLAYER, ret.data_.getCharacter(WAITING_PLAYER, 0), ret, null, null)
+		def ret2 = maexxna.attack(WAITING_PLAYER, ret.data_.getCharacter(WAITING_PLAYER, 0), ret, null, null, false)
 
 		expect:
 		assertFalse(ret == null);
@@ -73,7 +73,7 @@ class MaexxnaSpec extends CardSpec {
 		def ret = theCard.useOn(CURRENT_PLAYER, target, root, null, null)
 
 		def maexxna = ret.data_.getCharacter(CURRENT_PLAYER, 2)
-		def ret2 = maexxna.attack(WAITING_PLAYER, ret.data_.getCharacter(WAITING_PLAYER, 1), ret, null, null)
+		def ret2 = maexxna.attack(WAITING_PLAYER, ret.data_.getCharacter(WAITING_PLAYER, 1), ret, null, null, false)
 
 		expect:
 		assertFalse(ret == null);

@@ -18,12 +18,12 @@ public class PatientAssassin extends Minion {
         heroTargetable_ = HERO_TARGETABLE;
     }
 
-
+    @Override
     protected HearthTreeNode attack_core(PlayerSide targetMinionPlayerSide, Minion targetMinion,
-            HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+            HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
 
         if (targetMinion instanceof Hero)
-            return super.attack_core(targetMinionPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1);
+            return super.attack_core(targetMinionPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 
         HearthTreeNode toRet = boardState;
         byte origAttack = targetMinion.getTotalAttack();

@@ -34,7 +34,7 @@ public class AcidicSwampOoze extends Minion implements MinionUntargetableBattlec
 
         DeathrattleAction action = boardState.data_.getWaitingPlayerHero().destroyWeapon();
         if (action != null) {
-            boardState = action.performAction(null, PlayerSide.WAITING_PLAYER, boardState, deckPlayer0, deckPlayer1);
+            boardState = action.performAction(null, PlayerSide.WAITING_PLAYER, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
         }
         return boardState;
     }

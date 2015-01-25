@@ -77,7 +77,7 @@ public class TestWeapon {
 
         Minion hero = ret.data_.getCurrentPlayerHero();
         Minion target = ret.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
-        ret = hero.attack(PlayerSide.WAITING_PLAYER, target, ret, deck, null);
+        ret = hero.attack(PlayerSide.WAITING_PLAYER, target, ret, deck, null, false);
         assertEquals(board, ret);
 
         assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
@@ -94,11 +94,11 @@ public class TestWeapon {
 
         Minion hero = ret.data_.getCurrentPlayerHero();
         Minion target = ret.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
-        ret = hero.attack(PlayerSide.WAITING_PLAYER, target, ret, deck, null);
+        ret = hero.attack(PlayerSide.WAITING_PLAYER, target, ret, deck, null, false);
 
         hero = ret.data_.getCurrentPlayerHero();
         target = ret.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
-        ret = hero.attack(PlayerSide.WAITING_PLAYER, target, ret, deck, null);
+        ret = hero.attack(PlayerSide.WAITING_PLAYER, target, ret, deck, null, false);
         assertNull(ret);
 
         assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
@@ -117,7 +117,7 @@ public class TestWeapon {
 
         Minion hero = ret.data_.getCurrentPlayerHero();
         Minion target = ret.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
-        ret = hero.attack(PlayerSide.WAITING_PLAYER, target, ret, deck, null);
+        ret = hero.attack(PlayerSide.WAITING_PLAYER, target, ret, deck, null, false);
         assertEquals(board, ret);
 
         assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);

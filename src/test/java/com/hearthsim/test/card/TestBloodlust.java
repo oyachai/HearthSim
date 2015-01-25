@@ -80,7 +80,7 @@ public class TestBloodlust {
 
         Minion theMinion = PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0);
         Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
-        ret = theMinion.attack(PlayerSide.WAITING_PLAYER, target, ret, deck, null);
+        ret = theMinion.attack(PlayerSide.WAITING_PLAYER, target, ret, deck, null, false);
         assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
         assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30 - attackPlus3);
     }
@@ -109,7 +109,7 @@ public class TestBloodlust {
 
         Minion theMinion = PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0);
         Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
-        ret = theMinion.attack(PlayerSide.WAITING_PLAYER, target, ret, deck, null);
+        ret = theMinion.attack(PlayerSide.WAITING_PLAYER, target, ret, deck, null, false);
         assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
         assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
         assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0 - attack0);

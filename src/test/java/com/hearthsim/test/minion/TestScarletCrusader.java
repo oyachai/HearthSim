@@ -136,7 +136,7 @@ public class TestScarletCrusader {
         Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
         Minion m0 = PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(2);
         m0.hasAttacked(false);
-        ret = m0.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null);
+        ret = m0.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null, false);
 
         assertEquals(board.data_.getNumCards_hand(), 0);
         assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 3);
@@ -168,7 +168,7 @@ public class TestScarletCrusader {
         target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 3);
         Minion m1 = PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(2);
         m1.hasAttacked(false);
-        ret = m1.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null);
+        ret = m1.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null, false);
 
         assertEquals(board.data_.getNumCards_hand(), 0);
         assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 3);
@@ -200,7 +200,7 @@ public class TestScarletCrusader {
         target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
         Minion m2 = PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1);
         m2.hasAttacked(false);
-        ret = m2.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null);
+        ret = m2.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null, false);
 
         assertEquals(board.data_.getNumCards_hand(), 0);
         assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 3);
@@ -232,7 +232,7 @@ public class TestScarletCrusader {
         target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 3);
         Minion m3 = PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(2);
         m3.hasAttacked(false);
-        ret = m3.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null);
+        ret = m3.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null, false);
 
         assertEquals(board.data_.getNumCards_hand(), 0);
         assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);

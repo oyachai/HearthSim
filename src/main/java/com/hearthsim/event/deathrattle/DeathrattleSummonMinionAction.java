@@ -18,15 +18,14 @@ public class DeathrattleSummonMinionAction extends DeathrattleAction {
     }
 
     @Override
-    public HearthTreeNode performAction(
-        Card origin,
-        PlayerSide playerSide,
-        HearthTreeNode boardState,
-        Deck deckPlayer0,
-        Deck deckPlayer1)
-        throws HSException {
+    public HearthTreeNode performAction(Card origin,
+                                        PlayerSide playerSide,
+                                        HearthTreeNode boardState,
+                                        Deck deckPlayer0,
+                                        Deck deckPlayer1,
+                                        boolean singleRealizationOnly) throws HSException {
 
-        HearthTreeNode toRet = super.performAction(origin, playerSide, boardState, deckPlayer0, deckPlayer1);
+        HearthTreeNode toRet = super.performAction(origin, playerSide, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 
         int targetIndex = playerSide.getPlayer(boardState).getNumMinions();
         if (origin instanceof Minion) {

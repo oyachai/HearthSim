@@ -160,7 +160,7 @@ public class TestUnstableGhoul {
         Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 3);
         Minion attacker = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
         attacker.hasAttacked(false);
-        ret = attacker.attack(PlayerSide.WAITING_PLAYER, target, ret, null, null);
+        ret = attacker.attack(PlayerSide.WAITING_PLAYER, target, ret, null, null, false);
 
         assertFalse(ret == null);
         assertEquals(board.data_.getNumCards_hand(), 0);
@@ -221,7 +221,7 @@ public class TestUnstableGhoul {
         Minion attacker = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
         attacker.silenced(PlayerSide.CURRENT_PLAYER, board);
         attacker.hasAttacked(false);
-        ret = attacker.attack(PlayerSide.WAITING_PLAYER, target, ret, null, null);
+        ret = attacker.attack(PlayerSide.WAITING_PLAYER, target, ret, null, null, false);
 
         assertEquals(board.data_.getNumCards_hand(), 0);
         assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);
