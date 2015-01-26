@@ -1024,6 +1024,10 @@
         "class": "com.hearthsim.card.minion.concrete.VioletTeacher"
     },
     {
+        "name": "Void Terror",
+        "class": "com.hearthsim.card.minion.concrete.VoidTerror"
+    },
+    {
         "name": "Voidwalker",
         "class": "com.hearthsim.card.minion.concrete.Voidwalker"
     },
