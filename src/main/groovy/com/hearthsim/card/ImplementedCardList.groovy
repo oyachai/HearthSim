@@ -19,31 +19,31 @@ import groovy.util.logging.Slf4j
 class ImplementedCardList {
 
     private static ImplementedCardList instance
-	
-	static class TypeParser {
-		private static String TYPE_CLASSNAME_PATTERN_SPELL = "spellcard.concrete"
-		private static String TYPE_CLASSNAME_PATTERN_MINION = "minion.concrete"
-		private static String TYPE_CLASSNAME_PATTERN_WEAPON = "weapon.concrete"
-		private static String TYPE_CLASSNAME_PATTERN_HERO = "minion.heroes"
     
-		public static String parse(String classPath) {
-			if (classPath.contains(TYPE_CLASSNAME_PATTERN_HERO))
-				return "Hero"
-			else if (classPath.contains(TYPE_CLASSNAME_PATTERN_MINION))
-				return "Minion"
-			else if (classPath.contains(TYPE_CLASSNAME_PATTERN_WEAPON))
-				return "Weapon"
-			else if (classPath.contains(TYPE_CLASSNAME_PATTERN_SPELL))
-				return "Spell"
-			return "Unknown"
-		}	
-	}
-	
-	private static String MECHANICS_TAUNT = "Taunt";
-	private static String MECHANICS_SHIELD = "Divine Shield";
-	private static String MECHANICS_WINDFURY = "Windfury";
-	private static String MECHANICS_CHARGE = "Charge";
-	private static String MECHANICS_STEALTH = "Stealth";
+    static class TypeParser {
+        private static String TYPE_CLASSNAME_PATTERN_SPELL = "spellcard.concrete"
+        private static String TYPE_CLASSNAME_PATTERN_MINION = "minion.concrete"
+        private static String TYPE_CLASSNAME_PATTERN_WEAPON = "weapon.concrete"
+        private static String TYPE_CLASSNAME_PATTERN_HERO = "minion.heroes"
+    
+        public static String parse(String classPath) {
+            if (classPath.contains(TYPE_CLASSNAME_PATTERN_HERO))
+                return "Hero"
+            else if (classPath.contains(TYPE_CLASSNAME_PATTERN_MINION))
+                return "Minion"
+            else if (classPath.contains(TYPE_CLASSNAME_PATTERN_WEAPON))
+                return "Weapon"
+            else if (classPath.contains(TYPE_CLASSNAME_PATTERN_SPELL))
+                return "Spell"
+            return "Unknown"
+        }    
+    }
+    
+    private static String MECHANICS_TAUNT = "Taunt";
+    private static String MECHANICS_SHIELD = "Divine Shield";
+    private static String MECHANICS_WINDFURY = "Windfury";
+    private static String MECHANICS_CHARGE = "Charge";
+    private static String MECHANICS_STEALTH = "Stealth";
 
     public ArrayList<ImplementedCard> list_;
     public Map<Class<?>, ImplementedCard> map_;
@@ -60,17 +60,17 @@ class ImplementedCardList {
 
     public class ImplementedCard implements Comparable<ImplementedCard> {
 
-		private static final htmlTagPattern = ~/<[a-zA-Z_0-9\/]+?>/
-		private static final overloadPattern = ~/Overload:\s+?\((\d+)\)/
-		
+        private static final htmlTagPattern = ~/<[a-zA-Z_0-9\/]+?>/
+        private static final overloadPattern = ~/Overload:\s+?\((\d+)\)/
+        
         public Class<?> cardClass_;
         public String name_;
         public String type_;
         public String charClass_;
         public String rarity_;
         public String text_;
-		public boolean isHero;
-		public boolean collectible;
+        public boolean isHero;
+        public boolean collectible;
         public boolean taunt_;
         public boolean divineShield_;
         public boolean windfury_;
@@ -80,7 +80,7 @@ class ImplementedCardList {
         public int attack_;
         public int health_;
         public int durability;
-		public int overload;
+        public int overload;
 
         @Override
         public int compareTo(ImplementedCard o) {
@@ -91,12 +91,12 @@ class ImplementedCardList {
             return result;
         }
 
-		public Card createCardInstance() {
-			Constructor<?> ctor;
-			ctor = this.cardClass_.getConstructor();
-			Card card = (Card)ctor.newInstance();
-			return card;
-		}
+        public Card createCardInstance() {
+            Constructor<?> ctor;
+            ctor = this.cardClass_.getConstructor();
+            Card card = (Card)ctor.newInstance();
+            return card;
+        }
     }
 
     ImplementedCardList() {
@@ -112,14 +112,14 @@ class ImplementedCardList {
 
             def className = implementedCardFromJson['class']
             def clazz = Class.forName(className)
-			
-			//overload parsing
-			def cleanedText = cardDefinition.text == null ? '' : ImplementedCard.htmlTagPattern.matcher(cardDefinition.text).replaceAll("")
-			def overload = 0
-			if (!cleanedText.equals('')) {
-				def matcher = ImplementedCard.overloadPattern.matcher(cleanedText)
-				overload = matcher.size() == 1 ? matcher[0][1].toInteger() : 0 
-			}
+            
+            //overload parsing
+            def cleanedText = cardDefinition.text == null ? '' : ImplementedCard.htmlTagPattern.matcher(cardDefinition.text).replaceAll("")
+            def overload = 0
+            if (!cleanedText.equals('')) {
+                def matcher = ImplementedCard.overloadPattern.matcher(cleanedText)
+                overload = matcher.size() == 1 ? matcher[0][1].toInteger() : 0 
+            }
             def implementedCard = new ImplementedCard(
                     cardClass_: className,
                     name_: cardDefinition.name,
@@ -135,11 +135,11 @@ class ImplementedCardList {
                     windfury_: cardDefinition.mechanics?.contains(ImplementedCardList.MECHANICS_WINDFURY) ?: false,
                     charge_: cardDefinition.mechanics?.contains(ImplementedCardList.MECHANICS_CHARGE) ?: false,
                     stealth_: cardDefinition.mechanics?.contains(ImplementedCardList.MECHANICS_STEALTH) ?: false,
-					text_: cardDefinition.text?: '',
-					isHero: Hero.class.isAssignableFrom(clazz),
-					collectible: cardDefinition.collectible?: false,
-					overload: overload,
-					
+                    text_: cardDefinition.text?: '',
+                    isHero: Hero.class.isAssignableFrom(clazz),
+                    collectible: cardDefinition.collectible?: false,
+                    overload: overload,
+                    
             )
             list_ << implementedCard
 

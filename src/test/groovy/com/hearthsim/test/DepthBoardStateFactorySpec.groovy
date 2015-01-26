@@ -15,35 +15,35 @@ import static org.junit.Assert.*
 
 class DepthBoardStateFactorySpec extends CardSpec {
 
-	HearthTreeNode root
-	BoardModel startingBoard
+    HearthTreeNode root
+    BoardModel startingBoard
 
-	def setup() {
-		startingBoard = new BoardModelBuilder().make {
-			currentPlayer {
-				hand([GoldshireFootman, MurlocRaider, Wisp])
-				mana(10)
-			}
-		}
-		root = new HearthTreeNode(startingBoard)
-	}
-	
-	def "Plays All Minions"() {
-		def copiedBoard = startingBoard.deepCopy()
-		BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
-		def res = ai0.playTurn(9, startingBoard)
-		def newBoardModel = res.get(res.size() - 1).board;
-		
-		expect:
+    def setup() {
+        startingBoard = new BoardModelBuilder().make {
+            currentPlayer {
+                hand([GoldshireFootman, MurlocRaider, Wisp])
+                mana(10)
+            }
+        }
+        root = new HearthTreeNode(startingBoard)
+    }
+    
+    def "Plays All Minions"() {
+        def copiedBoard = startingBoard.deepCopy()
+        BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
+        def res = ai0.playTurn(9, startingBoard)
+        def newBoardModel = res.get(res.size() - 1).board;
+        
+        expect:
 
-		assertBoardDelta(copiedBoard, newBoardModel) {
-			currentPlayer {
-				playMinion(Wisp)
-				playMinion(GoldshireFootman, 0)
-				playMinion(MurlocRaider, 0)
-				mana(8)
-			}
-		}
-	}
+        assertBoardDelta(copiedBoard, newBoardModel) {
+            currentPlayer {
+                playMinion(Wisp)
+                playMinion(GoldshireFootman, 0)
+                playMinion(MurlocRaider, 0)
+                mana(8)
+            }
+        }
+    }
 
 }

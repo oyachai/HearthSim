@@ -15,62 +15,62 @@ import com.hearthsim.test.helpers.BoardModelBuilder
 import com.hearthsim.util.tree.HearthTreeNode
 
 class SapSpec extends CardSpec {
-	HearthTreeNode root
-	BoardModel startingBoard
+    HearthTreeNode root
+    BoardModel startingBoard
 
-	def setup() {
+    def setup() {
 
-		startingBoard = new BoardModelBuilder().make {
-			currentPlayer {
-				hand([Sap])
-				mana(7)
-			}
-			waitingPlayer {
-				field([[minion: WarGolem]])
-			}
-		}
+        startingBoard = new BoardModelBuilder().make {
+            currentPlayer {
+                hand([Sap])
+                mana(7)
+            }
+            waitingPlayer {
+                field([[minion: WarGolem]])
+            }
+        }
 
-		root = new HearthTreeNode(startingBoard)
-	}
+        root = new HearthTreeNode(startingBoard)
+    }
 
-	def "sap enemy minion"() {
-		def copiedBoard = startingBoard.deepCopy()
-		def theCard = root.data_.getCurrentPlayerCardHand(0)
-		def ret = theCard.useOn(WAITING_PLAYER, 1, root, null, null)
+    def "sap enemy minion"() {
+        def copiedBoard = startingBoard.deepCopy()
+        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def ret = theCard.useOn(WAITING_PLAYER, 1, root, null, null)
 
-		expect:
-		assertEquals(root, ret)
+        expect:
+        assertEquals(root, ret)
 
-		assertBoardDelta(copiedBoard, root.data_) {
-			currentPlayer {
-				removeCardFromHand(Sap)
-				mana(5)
-			}
-			waitingPlayer {
-				addCardToHand(WarGolem)
-				removeMinion(0)
-			}
-		}
-	}
+        assertBoardDelta(copiedBoard, root.data_) {
+            currentPlayer {
+                removeCardFromHand(Sap)
+                mana(5)
+            }
+            waitingPlayer {
+                addCardToHand(WarGolem)
+                removeMinion(0)
+            }
+        }
+    }
 
-	def "minion destroyed if hand full"() {
-		for (int indx = 0; indx < 10; ++indx) {
-			startingBoard.placeCardHandWaitingPlayer(new TheCoin());
-		}
+    def "minion destroyed if hand full"() {
+        for (int indx = 0; indx < 10; ++indx) {
+            startingBoard.placeCardHandWaitingPlayer(new TheCoin());
+        }
 
-		def copiedBoard = startingBoard.deepCopy()
-		def theCard = root.data_.getCurrentPlayerCardHand(0)
-		def ret = theCard.useOn(WAITING_PLAYER, 1, root, null, null)
+        def copiedBoard = startingBoard.deepCopy()
+        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def ret = theCard.useOn(WAITING_PLAYER, 1, root, null, null)
 
-		expect:
-		assertEquals(root, ret)
+        expect:
+        assertEquals(root, ret)
 
-		assertBoardDelta(copiedBoard, root.data_) {
-			currentPlayer {
-				removeCardFromHand(Sap)
-				mana(5)
-			}
-			waitingPlayer { removeMinion(0) }
-		}
-	}
+        assertBoardDelta(copiedBoard, root.data_) {
+            currentPlayer {
+                removeCardFromHand(Sap)
+                mana(5)
+            }
+            waitingPlayer { removeMinion(0) }
+        }
+    }
 }

@@ -12,38 +12,38 @@ import static org.junit.Assert.*
 
 class LightningBoltSpec extends CardSpec {
 
-	HearthTreeNode root
-	BoardModel startingBoard
+    HearthTreeNode root
+    BoardModel startingBoard
 
-	def setup() {
+    def setup() {
 
-		startingBoard = new BoardModelBuilder().make {
-			currentPlayer {
-				hand([LightningBolt])
-				mana(5)
-			}
-		}
+        startingBoard = new BoardModelBuilder().make {
+            currentPlayer {
+                hand([LightningBolt])
+                mana(5)
+            }
+        }
 
-		root = new HearthTreeNode(startingBoard)
-	}
+        root = new HearthTreeNode(startingBoard)
+    }
 
-	def 'gives windfury and overload'(){
-		def copiedBoard = startingBoard.deepCopy()
-		def copiedRoot = new HearthTreeNode(copiedBoard)
-		def theCard = copiedBoard.getCurrentPlayerCardHand(0);
-		def ret = theCard.useOn(WAITING_PLAYER, 0, copiedRoot, null, null);
+    def 'gives windfury and overload'(){
+        def copiedBoard = startingBoard.deepCopy()
+        def copiedRoot = new HearthTreeNode(copiedBoard)
+        def theCard = copiedBoard.getCurrentPlayerCardHand(0);
+        def ret = theCard.useOn(WAITING_PLAYER, 0, copiedRoot, null, null);
 
-		expect:
-		ret != null
-		assertBoardDelta(startingBoard, copiedBoard) {
-			currentPlayer {
-				mana(4)
-				overload(1)
-				removeCardFromHand(LightningBolt)
-			}
-			waitingPlayer {
-				heroHealth(27)
-			}
-		}
-	}
+        expect:
+        ret != null
+        assertBoardDelta(startingBoard, copiedBoard) {
+            currentPlayer {
+                mana(4)
+                overload(1)
+                removeCardFromHand(LightningBolt)
+            }
+            waitingPlayer {
+                heroHealth(27)
+            }
+        }
+    }
 }

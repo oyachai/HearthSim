@@ -12,50 +12,50 @@ import com.hearthsim.util.tree.HearthTreeNode
 
 class LightspawnSpec extends CardSpec {
 
-	HearthTreeNode root
-	BoardModel startingBoard
+    HearthTreeNode root
+    BoardModel startingBoard
 
-	def setup() {
-		startingBoard = new BoardModelBuilder().make {
-			currentPlayer {
-				hand([ShadowWordDeath])
-				mana(5)
-			}
-			waitingPlayer {
-				field([[minion: Lightspawn]])
-			}
-		}
+    def setup() {
+        startingBoard = new BoardModelBuilder().make {
+            currentPlayer {
+                hand([ShadowWordDeath])
+                mana(5)
+            }
+            waitingPlayer {
+                field([[minion: Lightspawn]])
+            }
+        }
 
-		root = new HearthTreeNode(startingBoard)
-	}
-	
-	def "Lightspawn is killed by a Shadow Word: Death"() {
-		def copiedBoard = startingBoard.deepCopy()
-		def theCard = root.data_.getCurrentPlayerCardHand(0)
-		def ret = theCard.useOn(WAITING_PLAYER, 1, root, null, null)
+        root = new HearthTreeNode(startingBoard)
+    }
+    
+    def "Lightspawn is killed by a Shadow Word: Death"() {
+        def copiedBoard = startingBoard.deepCopy()
+        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def ret = theCard.useOn(WAITING_PLAYER, 1, root, null, null)
 
-		expect:
-		assertEquals(root, ret);
+        expect:
+        assertEquals(root, ret);
 
-		assertBoardDelta(copiedBoard, root.data_) {
-			currentPlayer {
-				removeCardFromHand(ShadowWordDeath)
-				mana(2)
-			}
-			waitingPlayer {
-				removeMinion(0)
-			}
-		}
-	}
-	
-	def "Damaged Lightspawn is not killed by a Shadow Word: Death"() {
-		def copiedBoard = startingBoard.deepCopy()
-		root.data_.getWaitingPlayerCharacter(1).health_ = 4
+        assertBoardDelta(copiedBoard, root.data_) {
+            currentPlayer {
+                removeCardFromHand(ShadowWordDeath)
+                mana(2)
+            }
+            waitingPlayer {
+                removeMinion(0)
+            }
+        }
+    }
+    
+    def "Damaged Lightspawn is not killed by a Shadow Word: Death"() {
+        def copiedBoard = startingBoard.deepCopy()
+        root.data_.getWaitingPlayerCharacter(1).health_ = 4
 
-		def theCard = root.data_.getCurrentPlayerCardHand(0)
-		def ret = theCard.useOn(WAITING_PLAYER, 1, root, null, null)
+        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def ret = theCard.useOn(WAITING_PLAYER, 1, root, null, null)
 
-		expect:
-		assertTrue(ret == null);
-	}
+        expect:
+        assertTrue(ret == null);
+    }
 }

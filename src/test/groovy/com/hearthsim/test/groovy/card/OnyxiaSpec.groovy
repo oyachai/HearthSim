@@ -12,137 +12,137 @@ import static org.junit.Assert.*
 
 class OnyxiaSpec extends CardSpec {
 
-	HearthTreeNode root
-	BoardModel startingBoard
+    HearthTreeNode root
+    BoardModel startingBoard
 
-	def "playing Onyxia on an empty board summons 6 Whelps"() {
-		
-		def minionMana = 2;
-		def attack = 5;
-		def health0 = 3;
-		def health1 = 7;
+    def "playing Onyxia on an empty board summons 6 Whelps"() {
+        
+        def minionMana = 2;
+        def attack = 5;
+        def health0 = 3;
+        def health1 = 7;
 
-		def commonField = [
-				[mana: minionMana, attack: attack, maxHealth: health0], //TODO: attack may be irrelevant here
-				[mana: minionMana, attack: attack, health: health1 - 1, maxHealth: health1]
-		]
+        def commonField = [
+                [mana: minionMana, attack: attack, maxHealth: health0], //TODO: attack may be irrelevant here
+                [mana: minionMana, attack: attack, health: health1 - 1, maxHealth: health1]
+        ]
 
-		startingBoard = new BoardModelBuilder().make {
-			currentPlayer {
-				hand([Onyxia])
-				mana(10)
-			}
-			waitingPlayer {
-				mana(4)
-			}
-		}
+        startingBoard = new BoardModelBuilder().make {
+            currentPlayer {
+                hand([Onyxia])
+                mana(10)
+            }
+            waitingPlayer {
+                mana(4)
+            }
+        }
 
-		root = new HearthTreeNode(startingBoard)
-		
-		def copiedBoard = startingBoard.deepCopy()
-		def theCard = root.data_.getCurrentPlayerCardHand(0)
-		def ret = theCard.useOn(CURRENT_PLAYER, 0, root, null, null)
+        root = new HearthTreeNode(startingBoard)
+        
+        def copiedBoard = startingBoard.deepCopy()
+        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def ret = theCard.useOn(CURRENT_PLAYER, 0, root, null, null)
 
-		expect:
-		assertFalse(ret == null);
+        expect:
+        assertFalse(ret == null);
 
-		assertBoardDelta(copiedBoard, ret.data_) {
-			currentPlayer {
-				playMinion(Onyxia)
-				mana(1)
-				addMinionToField(Whelp, 0)
-				addMinionToField(Whelp, 0)
-				addMinionToField(Whelp, 0)
-				addMinionToField(Whelp, 4)
-				addMinionToField(Whelp, 4)
-				addMinionToField(Whelp, 4)
-			}
-		}
-	}
-	
-	def "playing Onyxia with 1 other minion on board summons 5 Whelps"() {
-		
-		def minionMana = 2;
-		def attack = 5;
-		def health0 = 3;
+        assertBoardDelta(copiedBoard, ret.data_) {
+            currentPlayer {
+                playMinion(Onyxia)
+                mana(1)
+                addMinionToField(Whelp, 0)
+                addMinionToField(Whelp, 0)
+                addMinionToField(Whelp, 0)
+                addMinionToField(Whelp, 4)
+                addMinionToField(Whelp, 4)
+                addMinionToField(Whelp, 4)
+            }
+        }
+    }
+    
+    def "playing Onyxia with 1 other minion on board summons 5 Whelps"() {
+        
+        def minionMana = 2;
+        def attack = 5;
+        def health0 = 3;
 
-		def commonField = [
-				[mana: minionMana, attack: attack, maxHealth: health0],
-		]
+        def commonField = [
+                [mana: minionMana, attack: attack, maxHealth: health0],
+        ]
 
-		startingBoard = new BoardModelBuilder().make {
-			currentPlayer {
-				hand([Onyxia])
-				field(commonField)
-				mana(10)
-			}
-			waitingPlayer {
-				mana(4)
-			}
-		}
+        startingBoard = new BoardModelBuilder().make {
+            currentPlayer {
+                hand([Onyxia])
+                field(commonField)
+                mana(10)
+            }
+            waitingPlayer {
+                mana(4)
+            }
+        }
 
-		root = new HearthTreeNode(startingBoard)
-		
-		def copiedBoard = startingBoard.deepCopy()
-		def theCard = root.data_.getCurrentPlayerCardHand(0)
-		def ret = theCard.useOn(CURRENT_PLAYER, 1, root, null, null)
+        root = new HearthTreeNode(startingBoard)
+        
+        def copiedBoard = startingBoard.deepCopy()
+        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def ret = theCard.useOn(CURRENT_PLAYER, 1, root, null, null)
 
-		expect:
-		assertFalse(ret == null);
+        expect:
+        assertFalse(ret == null);
 
-		assertBoardDelta(copiedBoard, ret.data_) {
-			currentPlayer {
-				playMinion(Onyxia)
-				mana(1)
-				addMinionToField(Whelp, 1)
-				addMinionToField(Whelp, 1)
-				addMinionToField(Whelp, 1)
-				addMinionToField(Whelp, 5)
-				addMinionToField(Whelp, 5)
-			}
-		}
-	}
-	
-	def "playing Onyxia on a full board summons no Whelps"() {
-		
-		def minionMana = 2;
-		def attack = 5;
-		def health0 = 3;
+        assertBoardDelta(copiedBoard, ret.data_) {
+            currentPlayer {
+                playMinion(Onyxia)
+                mana(1)
+                addMinionToField(Whelp, 1)
+                addMinionToField(Whelp, 1)
+                addMinionToField(Whelp, 1)
+                addMinionToField(Whelp, 5)
+                addMinionToField(Whelp, 5)
+            }
+        }
+    }
+    
+    def "playing Onyxia on a full board summons no Whelps"() {
+        
+        def minionMana = 2;
+        def attack = 5;
+        def health0 = 3;
 
-		def commonField = [
-				[mana: minionMana, attack: attack, maxHealth: health0],
-				[mana: minionMana, attack: attack, maxHealth: health0],
-				[mana: minionMana, attack: attack, maxHealth: health0],
-				[mana: minionMana, attack: attack, maxHealth: health0],
-				[mana: minionMana, attack: attack, maxHealth: health0],
-				[mana: minionMana, attack: attack, maxHealth: health0],
-		]
+        def commonField = [
+                [mana: minionMana, attack: attack, maxHealth: health0],
+                [mana: minionMana, attack: attack, maxHealth: health0],
+                [mana: minionMana, attack: attack, maxHealth: health0],
+                [mana: minionMana, attack: attack, maxHealth: health0],
+                [mana: minionMana, attack: attack, maxHealth: health0],
+                [mana: minionMana, attack: attack, maxHealth: health0],
+        ]
 
-		startingBoard = new BoardModelBuilder().make {
-			currentPlayer {
-				hand([Onyxia])
-				field(commonField)
-				mana(10)
-			}
-			waitingPlayer {
-				mana(4)
-			}
-		}
+        startingBoard = new BoardModelBuilder().make {
+            currentPlayer {
+                hand([Onyxia])
+                field(commonField)
+                mana(10)
+            }
+            waitingPlayer {
+                mana(4)
+            }
+        }
 
-		root = new HearthTreeNode(startingBoard)
-		
-		def copiedBoard = startingBoard.deepCopy()
-		def theCard = root.data_.getCurrentPlayerCardHand(0)
-		def ret = theCard.useOn(CURRENT_PLAYER, 6, root, null, null)
+        root = new HearthTreeNode(startingBoard)
+        
+        def copiedBoard = startingBoard.deepCopy()
+        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def ret = theCard.useOn(CURRENT_PLAYER, 6, root, null, null)
 
-		expect:
-		assertFalse(ret == null);
+        expect:
+        assertFalse(ret == null);
 
-		assertBoardDelta(copiedBoard, ret.data_) {
-			currentPlayer {
-				playMinion(Onyxia)
-				mana(1)
-			}
-		}
-	}
+        assertBoardDelta(copiedBoard, ret.data_) {
+            currentPlayer {
+                playMinion(Onyxia)
+                mana(1)
+            }
+        }
+    }
 }

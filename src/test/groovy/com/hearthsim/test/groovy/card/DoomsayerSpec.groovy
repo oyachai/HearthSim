@@ -17,87 +17,87 @@ import static org.junit.Assert.*
 
 class DoomsayerSpec extends CardSpec {
 
-	def "playing Doomsayer with no other minion"() {
-		
-		def startingBoard = new BoardModelBuilder().make {
-			currentPlayer {
-				deck([TheCoin])
-				hand([Doomsayer])
-				mana(10)
-			}
-			waitingPlayer {
-				mana(10)
-			}
-		}
+    def "playing Doomsayer with no other minion"() {
+        
+        def startingBoard = new BoardModelBuilder().make {
+            currentPlayer {
+                deck([TheCoin])
+                hand([Doomsayer])
+                mana(10)
+            }
+            waitingPlayer {
+                mana(10)
+            }
+        }
 
-		def root = new HearthTreeNode(startingBoard)
+        def root = new HearthTreeNode(startingBoard)
 
-		def copiedBoard = startingBoard.deepCopy()
-		def theCard = root.data_.getCurrentPlayerCardHand(0)
-		def ret = theCard.useOn(CURRENT_PLAYER, 0, root, null, null)
+        def copiedBoard = startingBoard.deepCopy()
+        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def ret = theCard.useOn(CURRENT_PLAYER, 0, root, null, null)
 
-		expect:
-		assertFalse(ret == null);
-		assertBoardDelta(copiedBoard, ret.data_) {
-			currentPlayer {
-				playMinion(Doomsayer)
-				mana(8)
-			}
-		}
-		
-		def retAfterStartTurn = new HearthTreeNode(Game.beginTurn(ret.data_))
-		assertBoardDelta(copiedBoard, retAfterStartTurn.data_) {
-			currentPlayer {
-				removeCardFromHand(Doomsayer)
-				addCardToHand([TheCoin])
-				addDeckPos(1)
-			}
-		}
-	}
+        expect:
+        assertFalse(ret == null);
+        assertBoardDelta(copiedBoard, ret.data_) {
+            currentPlayer {
+                playMinion(Doomsayer)
+                mana(8)
+            }
+        }
+        
+        def retAfterStartTurn = new HearthTreeNode(Game.beginTurn(ret.data_))
+        assertBoardDelta(copiedBoard, retAfterStartTurn.data_) {
+            currentPlayer {
+                removeCardFromHand(Doomsayer)
+                addCardToHand([TheCoin])
+                addDeckPos(1)
+            }
+        }
+    }
 
-	def "playing Doomsayer with other minions"() {
-		
-		def startingBoard = new BoardModelBuilder().make {
-			currentPlayer {
-				deck([TheCoin])
-				hand([Doomsayer])
-				field([[minion: GoldshireFootman]])
-				mana(10)
-			}
-			waitingPlayer {
-				field([[minion: GoldshireFootman]])
-				mana(10)
-			}
-		}
+    def "playing Doomsayer with other minions"() {
+        
+        def startingBoard = new BoardModelBuilder().make {
+            currentPlayer {
+                deck([TheCoin])
+                hand([Doomsayer])
+                field([[minion: GoldshireFootman]])
+                mana(10)
+            }
+            waitingPlayer {
+                field([[minion: GoldshireFootman]])
+                mana(10)
+            }
+        }
 
-		def root = new HearthTreeNode(startingBoard)
+        def root = new HearthTreeNode(startingBoard)
 
-		def copiedBoard = startingBoard.deepCopy()
-		def theCard = root.data_.getCurrentPlayerCardHand(0)
-		def ret = theCard.useOn(CURRENT_PLAYER, 1, root, null, null)
+        def copiedBoard = startingBoard.deepCopy()
+        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def ret = theCard.useOn(CURRENT_PLAYER, 1, root, null, null)
 
-		expect:
-		assertFalse(ret == null);
-		assertBoardDelta(copiedBoard, ret.data_) {
-			currentPlayer {
-				playMinion(Doomsayer)
-				mana(8)
-			}
-		}
-		
-		def retAfterStartTurn = new HearthTreeNode(Game.beginTurn(ret.data_))
-		assertBoardDelta(copiedBoard, retAfterStartTurn.data_) {
-			currentPlayer {
-				removeCardFromHand(Doomsayer)
-				removeMinion(0)
-				addCardToHand([TheCoin])
-				addDeckPos(1)
-			}
-			waitingPlayer {
-				removeMinion(0)
-			}
-		}
+        expect:
+        assertFalse(ret == null);
+        assertBoardDelta(copiedBoard, ret.data_) {
+            currentPlayer {
+                playMinion(Doomsayer)
+                mana(8)
+            }
+        }
+        
+        def retAfterStartTurn = new HearthTreeNode(Game.beginTurn(ret.data_))
+        assertBoardDelta(copiedBoard, retAfterStartTurn.data_) {
+            currentPlayer {
+                removeCardFromHand(Doomsayer)
+                removeMinion(0)
+                addCardToHand([TheCoin])
+                addDeckPos(1)
+            }
+            waitingPlayer {
+                removeMinion(0)
+            }
+        }
 
-	}
+    }
 
 }

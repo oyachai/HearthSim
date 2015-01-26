@@ -11,51 +11,51 @@ import static com.hearthsim.model.PlayerSide.WAITING_PLAYER
 import static org.junit.Assert.*
 
 class TwilightDrakeSpec extends CardSpec {
-	
-	HearthTreeNode root
-	BoardModel startingBoard
+    
+    HearthTreeNode root
+    BoardModel startingBoard
 
-	def setup() {
+    def setup() {
 
-		startingBoard = new BoardModelBuilder().make {
-			currentPlayer {
-				hand([TwilightDrake, FlameImp, FlameImp, FlameImp])
-				mana(7)
-			}
-			waitingPlayer {
-				mana(4)
-			}
-		}
+        startingBoard = new BoardModelBuilder().make {
+            currentPlayer {
+                hand([TwilightDrake, FlameImp, FlameImp, FlameImp])
+                mana(7)
+            }
+            waitingPlayer {
+                mana(4)
+            }
+        }
 
-		root = new HearthTreeNode(startingBoard)
-	}
+        root = new HearthTreeNode(startingBoard)
+    }
 
-	def "cannot play for waiting player's side"() {
-		def copiedBoard = startingBoard.deepCopy()
-		def theCard = root.data_.getCurrentPlayerCardHand(0)
-		def ret = theCard.useOn(WAITING_PLAYER, 0, root, null, null)
+    def "cannot play for waiting player's side"() {
+        def copiedBoard = startingBoard.deepCopy()
+        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def ret = theCard.useOn(WAITING_PLAYER, 0, root, null, null)
 
-		expect:
+        expect:
 
-		assertTrue(ret == null)
-		assertEquals(copiedBoard, startingBoard)
-	}
+        assertTrue(ret == null)
+        assertEquals(copiedBoard, startingBoard)
+    }
 
-	def "playing TwighlightDrake with 3 other cards in hand"() {
-		def copiedBoard = startingBoard.deepCopy()
-		def theCard = root.data_.getCurrentPlayerCardHand(0)
-		def ret = theCard.useOn(CURRENT_PLAYER, 0, root, null, null)
+    def "playing TwighlightDrake with 3 other cards in hand"() {
+        def copiedBoard = startingBoard.deepCopy()
+        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def ret = theCard.useOn(CURRENT_PLAYER, 0, root, null, null)
 
-		expect:
-		assertFalse(ret == null);
+        expect:
+        assertFalse(ret == null);
 
-		assertBoardDelta(copiedBoard, ret.data_) {
-			currentPlayer {
-				playMinion(TwilightDrake)
-				mana(3)
+        assertBoardDelta(copiedBoard, ret.data_) {
+            currentPlayer {
+                playMinion(TwilightDrake)
+                mana(3)
                 updateMinion(0, [deltaHealth: 3])
-			}
-		}
+            }
+        }
 
-	}
+    }
 }

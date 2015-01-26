@@ -16,55 +16,55 @@ import static org.junit.Assert.*
 
 class MountainGiantSpec extends CardSpec {
 
-	def "playing Mountain Giant with no other cards in hand -- can't play"() {
-		
-		def startingBoard = new BoardModelBuilder().make {
-			currentPlayer {
-				hand([MountainGiant])
-				mana(10)
-			}
-			waitingPlayer {
-				mana(10)
-			}
-		}
+    def "playing Mountain Giant with no other cards in hand -- can't play"() {
+        
+        def startingBoard = new BoardModelBuilder().make {
+            currentPlayer {
+                hand([MountainGiant])
+                mana(10)
+            }
+            waitingPlayer {
+                mana(10)
+            }
+        }
 
-		def root = new HearthTreeNode(startingBoard)
+        def root = new HearthTreeNode(startingBoard)
 
-		def copiedBoard = startingBoard.deepCopy()
-		def theCard = root.data_.getCurrentPlayerCardHand(0)
-		def ret = theCard.useOn(CURRENT_PLAYER, 0, root, null, null)
+        def copiedBoard = startingBoard.deepCopy()
+        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def ret = theCard.useOn(CURRENT_PLAYER, 0, root, null, null)
 
-		expect:
-		assertTrue(ret == null);
+        expect:
+        assertTrue(ret == null);
 
-	}
+    }
 
-	def "playing Mountain Giant with 2 other cards in hand"() {
-		
-		def startingBoard = new BoardModelBuilder().make {
-			currentPlayer {
-				hand([MountainGiant, TheCoin, TheCoin])
-				mana(10)
-			}
-			waitingPlayer {
-				mana(10)
-			}
-		}
+    def "playing Mountain Giant with 2 other cards in hand"() {
+        
+        def startingBoard = new BoardModelBuilder().make {
+            currentPlayer {
+                hand([MountainGiant, TheCoin, TheCoin])
+                mana(10)
+            }
+            waitingPlayer {
+                mana(10)
+            }
+        }
 
-		def root = new HearthTreeNode(startingBoard)
+        def root = new HearthTreeNode(startingBoard)
 
-		def copiedBoard = startingBoard.deepCopy()
-		def theCard = root.data_.getCurrentPlayerCardHand(0)
-		def ret = theCard.useOn(CURRENT_PLAYER, 0, root, null, null)
+        def copiedBoard = startingBoard.deepCopy()
+        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def ret = theCard.useOn(CURRENT_PLAYER, 0, root, null, null)
 
-		expect:
-		assertFalse(ret == null);
-		assertBoardDelta(copiedBoard, ret.data_) {
-			currentPlayer {
-				playMinion(MountainGiant)
-				mana(0)
-			}
-		}
-	}
+        expect:
+        assertFalse(ret == null);
+        assertBoardDelta(copiedBoard, ret.data_) {
+            currentPlayer {
+                playMinion(MountainGiant)
+                mana(0)
+            }
+        }
+    }
 
 }

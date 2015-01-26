@@ -13,61 +13,61 @@ import com.hearthsim.util.tree.HearthTreeNode
 
 class BackstabSpec extends CardSpec {
 
-	HearthTreeNode root
-	BoardModel startingBoard
+    HearthTreeNode root
+    BoardModel startingBoard
 
-	def setup() {
+    def setup() {
 
-		startingBoard = new BoardModelBuilder().make {
-			currentPlayer {
-				hand([Backstab])
-				mana(0)
-			}
-			waitingPlayer {
-				field([[minion: WarGolem], [minion: WarGolem, health: 3], [minion: StranglethornTiger]])
-			}
-		}
+        startingBoard = new BoardModelBuilder().make {
+            currentPlayer {
+                hand([Backstab])
+                mana(0)
+            }
+            waitingPlayer {
+                field([[minion: WarGolem], [minion: WarGolem, health: 3], [minion: StranglethornTiger]])
+            }
+        }
 
-		root = new HearthTreeNode(startingBoard)
-	}
+        root = new HearthTreeNode(startingBoard)
+    }
 
-	def "can target undamaged minion"() {
-		def copiedBoard = startingBoard.deepCopy()
-		def theCard = root.data_.getCurrentPlayerCardHand(0)
-		def ret = theCard.useOn(WAITING_PLAYER, 1, root, null, null)
+    def "can target undamaged minion"() {
+        def copiedBoard = startingBoard.deepCopy()
+        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def ret = theCard.useOn(WAITING_PLAYER, 1, root, null, null)
 
-		expect:
-		assertEquals(root, ret);
+        expect:
+        assertEquals(root, ret);
 
-		assertBoardDelta(copiedBoard, ret.data_) {
-			currentPlayer {
-				removeCardFromHand(Backstab)
-			}
-			waitingPlayer {
-				updateMinion(0, [deltaHealth: -2])
-			}
-		}
-	}
+        assertBoardDelta(copiedBoard, ret.data_) {
+            currentPlayer {
+                removeCardFromHand(Backstab)
+            }
+            waitingPlayer {
+                updateMinion(0, [deltaHealth: -2])
+            }
+        }
+    }
 
-	def "cannot target damaged minion"() {
-		def copiedBoard = startingBoard.deepCopy()
-		def theCard = root.data_.getCurrentPlayerCardHand(0)
-		def ret = theCard.useOn(WAITING_PLAYER, 2, root, null, null)
+    def "cannot target damaged minion"() {
+        def copiedBoard = startingBoard.deepCopy()
+        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def ret = theCard.useOn(WAITING_PLAYER, 2, root, null, null)
 
-		expect:
-		assertNull(ret);
+        expect:
+        assertNull(ret);
 
-		assertBoardEquals(copiedBoard, root.data_)
-	}
-	
-	def "follows normal targeting rules"() {
-		def copiedBoard = startingBoard.deepCopy()
-		def theCard = root.data_.getCurrentPlayerCardHand(0)
-		def ret = theCard.useOn(WAITING_PLAYER, 3, root, null, null)
+        assertBoardEquals(copiedBoard, root.data_)
+    }
+    
+    def "follows normal targeting rules"() {
+        def copiedBoard = startingBoard.deepCopy()
+        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def ret = theCard.useOn(WAITING_PLAYER, 3, root, null, null)
 
-		expect:
-		assertNull(ret);
+        expect:
+        assertNull(ret);
 
-		assertBoardEquals(copiedBoard, root.data_)
-	}
+        assertBoardEquals(copiedBoard, root.data_)
+    }
 }

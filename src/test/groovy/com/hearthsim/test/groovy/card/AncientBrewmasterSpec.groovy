@@ -12,93 +12,93 @@ import static org.junit.Assert.assertFalse
 
 class AncientBrewmasterSpec extends CardSpec {
 
-	HearthTreeNode root
-	BoardModel startingBoard
+    HearthTreeNode root
+    BoardModel startingBoard
 
-	def setup() {	
-		startingBoard = new BoardModelBuilder().make {
-			currentPlayer {
-				hand([AncientBrewmaster])
-				mana(7)
-			}
-			waitingPlayer { mana(7) }
-		}
+    def setup() {    
+        startingBoard = new BoardModelBuilder().make {
+            currentPlayer {
+                hand([AncientBrewmaster])
+                mana(7)
+            }
+            waitingPlayer { mana(7) }
+        }
 
-		root = new HearthTreeNode(startingBoard)
-	}
+        root = new HearthTreeNode(startingBoard)
+    }
 
-	def "playing Ancient Brewmaster while there are no other minions no board"() {
-		def copiedBoard = startingBoard.deepCopy()
-		def theCard = root.data_.getCurrentPlayerCardHand(0)
-		def ret = theCard.useOn(CURRENT_PLAYER, 0, root, null, null)
+    def "playing Ancient Brewmaster while there are no other minions no board"() {
+        def copiedBoard = startingBoard.deepCopy()
+        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def ret = theCard.useOn(CURRENT_PLAYER, 0, root, null, null)
 
-		expect:
-		assertFalse(ret == null)
+        expect:
+        assertFalse(ret == null)
 
-		assertBoardDelta(copiedBoard, ret.data_) {
-			currentPlayer {
-				playMinion(AncientBrewmaster)
-				mana(3)
-			}
-		}
-		assertEquals(ret.numChildren(), 0)
-	}
+        assertBoardDelta(copiedBoard, ret.data_) {
+            currentPlayer {
+                playMinion(AncientBrewmaster)
+                mana(3)
+            }
+        }
+        assertEquals(ret.numChildren(), 0)
+    }
 
-	def "playing Ancient Brewmaster with one friendly minion on board"() {
-		startingBoard.placeMinion(CURRENT_PLAYER, new StormwindChampion())
-		def copiedBoard = startingBoard.deepCopy()
-		def theCard = root.data_.getCurrentPlayerCardHand(0)
-		def ret = theCard.useOn(CURRENT_PLAYER, 1, root, null, null)
+    def "playing Ancient Brewmaster with one friendly minion on board"() {
+        startingBoard.placeMinion(CURRENT_PLAYER, new StormwindChampion())
+        def copiedBoard = startingBoard.deepCopy()
+        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def ret = theCard.useOn(CURRENT_PLAYER, 1, root, null, null)
 
-		expect:
-		assertFalse(ret == null)
-		assertEquals(ret.numChildren(), 1)
+        expect:
+        assertFalse(ret == null)
+        assertEquals(ret.numChildren(), 1)
 
-		assertBoardDelta(copiedBoard, ret.data_) {
-			currentPlayer {
-				playMinion(AncientBrewmaster)
-				mana(3)
-			}
-		}
+        assertBoardDelta(copiedBoard, ret.data_) {
+            currentPlayer {
+                playMinion(AncientBrewmaster)
+                mana(3)
+            }
+        }
 
-		HearthTreeNode child0 = ret.getChildren().get(0);
-		assertBoardDelta(ret.data_, child0.data_) {
-			currentPlayer {
-				addCardToHand(StormwindChampion)
-				removeMinion(0)
-			}
-		}
-	}
+        HearthTreeNode child0 = ret.getChildren().get(0);
+        assertBoardDelta(ret.data_, child0.data_) {
+            currentPlayer {
+                addCardToHand(StormwindChampion)
+                removeMinion(0)
+            }
+        }
+    }
 
-	def "bounced minion does not remember state"() {
-		startingBoard.placeMinion(CURRENT_PLAYER, new StormwindChampion())
-		startingBoard.getCharacter(CURRENT_PLAYER, 1).health = 2
-		startingBoard.getCharacter(CURRENT_PLAYER, 1).attack = 2
-		startingBoard.getCharacter(CURRENT_PLAYER, 1).divineShield = true
-		startingBoard.getCharacter(CURRENT_PLAYER, 1).windfury = true
-		startingBoard.getCharacter(CURRENT_PLAYER, 1).spellDamage = 4
+    def "bounced minion does not remember state"() {
+        startingBoard.placeMinion(CURRENT_PLAYER, new StormwindChampion())
+        startingBoard.getCharacter(CURRENT_PLAYER, 1).health = 2
+        startingBoard.getCharacter(CURRENT_PLAYER, 1).attack = 2
+        startingBoard.getCharacter(CURRENT_PLAYER, 1).divineShield = true
+        startingBoard.getCharacter(CURRENT_PLAYER, 1).windfury = true
+        startingBoard.getCharacter(CURRENT_PLAYER, 1).spellDamage = 4
 
-		def copiedBoard = startingBoard.deepCopy()
-		def theCard = root.data_.getCurrentPlayerCardHand(0)
-		def ret = theCard.useOn(CURRENT_PLAYER, 1, root, null, null)
+        def copiedBoard = startingBoard.deepCopy()
+        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def ret = theCard.useOn(CURRENT_PLAYER, 1, root, null, null)
 
-		expect:
-		assertFalse(ret == null)
-		assertEquals(ret.numChildren(), 1)
+        expect:
+        assertFalse(ret == null)
+        assertEquals(ret.numChildren(), 1)
 
-		assertBoardDelta(copiedBoard, ret.data_) {
-			currentPlayer {
-				playMinion(AncientBrewmaster)
-				mana(3)
-			}
-		}
+        assertBoardDelta(copiedBoard, ret.data_) {
+            currentPlayer {
+                playMinion(AncientBrewmaster)
+                mana(3)
+            }
+        }
 
-		HearthTreeNode child0 = ret.getChildren().get(0);
-		assertBoardDelta(ret.data_, child0.data_) {
-			currentPlayer {
-				addCardToHand(StormwindChampion)
-				removeMinion(0)
-			}
-		}
-	}
+        HearthTreeNode child0 = ret.getChildren().get(0);
+        assertBoardDelta(ret.data_, child0.data_) {
+            currentPlayer {
+                addCardToHand(StormwindChampion)
+                removeMinion(0)
+            }
+        }
+    }
 }

@@ -12,78 +12,78 @@ import static com.hearthsim.model.PlayerSide.WAITING_PLAYER
 import static org.junit.Assert.*
 
 class UnleashTheHoundsSpec extends CardSpec {
-	
-	HearthTreeNode root
-	BoardModel startingBoard
+    
+    HearthTreeNode root
+    BoardModel startingBoard
 
-	def setup() {
+    def setup() {
 
-		def minionMana = 2;
-		def attack = 5;
-		def health0 = 3;
-		def health1 = 7;
+        def minionMana = 2;
+        def attack = 5;
+        def health0 = 3;
+        def health1 = 7;
 
-		def commonField = [
-			[mana: minionMana, attack: attack, maxHealth: health0], //TODO: attack may be irrelevant here
-		]
+        def commonField = [
+            [mana: minionMana, attack: attack, maxHealth: health0], //TODO: attack may be irrelevant here
+        ]
 
-		startingBoard = new BoardModelBuilder().make {
-			currentPlayer {
-				hand([UnleashTheHounds])
-				mana(7)
-			}
-			waitingPlayer {
-				field(commonField)
-				mana(4)
-			}
-		}
+        startingBoard = new BoardModelBuilder().make {
+            currentPlayer {
+                hand([UnleashTheHounds])
+                mana(7)
+            }
+            waitingPlayer {
+                field(commonField)
+                mana(4)
+            }
+        }
 
-		
-		root = new HearthTreeNode(startingBoard)
-	}
+        
+        root = new HearthTreeNode(startingBoard)
+    }
 
-	def "playing UnleashTheHounds with 1 enemy minion"() {
-		def copiedBoard = startingBoard.deepCopy()
-		def theCard = root.data_.getCurrentPlayerCardHand(0)
-		def ret = theCard.useOn(CURRENT_PLAYER, 0, root, null, null)
+    def "playing UnleashTheHounds with 1 enemy minion"() {
+        def copiedBoard = startingBoard.deepCopy()
+        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def ret = theCard.useOn(CURRENT_PLAYER, 0, root, null, null)
 
-		expect:
-		assertFalse(ret == null);
+        expect:
+        assertFalse(ret == null);
 
-		assertBoardDelta(copiedBoard, ret.data_) {
-			currentPlayer {
-				removeCardFromHand(UnleashTheHounds)
-				addMinionToField(Hound, false, true)
-				mana(4)
-			}
-		}
+        assertBoardDelta(copiedBoard, ret.data_) {
+            currentPlayer {
+                removeCardFromHand(UnleashTheHounds)
+                addMinionToField(Hound, false, true)
+                mana(4)
+            }
+        }
 
-	}
+    }
 
-	def "playing UnleashTheHounds with not enough room"() {
-		startingBoard.placeMinion(CURRENT_PLAYER, new BloodfenRaptor());
-		startingBoard.placeMinion(CURRENT_PLAYER, new BloodfenRaptor());
-		startingBoard.placeMinion(CURRENT_PLAYER, new BloodfenRaptor());
-		startingBoard.placeMinion(CURRENT_PLAYER, new BloodfenRaptor());
-		startingBoard.placeMinion(CURRENT_PLAYER, new BloodfenRaptor());
-		startingBoard.placeMinion(CURRENT_PLAYER, new BloodfenRaptor());
-		startingBoard.placeMinion(WAITING_PLAYER, new BloodfenRaptor());
+    def "playing UnleashTheHounds with not enough room"() {
+        startingBoard.placeMinion(CURRENT_PLAYER, new BloodfenRaptor());
+        startingBoard.placeMinion(CURRENT_PLAYER, new BloodfenRaptor());
+        startingBoard.placeMinion(CURRENT_PLAYER, new BloodfenRaptor());
+        startingBoard.placeMinion(CURRENT_PLAYER, new BloodfenRaptor());
+        startingBoard.placeMinion(CURRENT_PLAYER, new BloodfenRaptor());
+        startingBoard.placeMinion(CURRENT_PLAYER, new BloodfenRaptor());
+        startingBoard.placeMinion(WAITING_PLAYER, new BloodfenRaptor());
 
-		def copiedBoard = startingBoard.deepCopy()
+        def copiedBoard = startingBoard.deepCopy()
 
-		def theCard = root.data_.getCurrentPlayerCardHand(0)
-		def ret = theCard.useOn(CURRENT_PLAYER, 0, root, null, null)
+        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def ret = theCard.useOn(CURRENT_PLAYER, 0, root, null, null)
 
-		expect:
-		assertNotNull(ret);
+        expect:
+        assertNotNull(ret);
 
-		assertBoardDelta(copiedBoard, ret.data_) {
-			currentPlayer {
-				removeCardFromHand(UnleashTheHounds)
-				addMinionToField(Hound, false, true)
-				mana(4)
-			}
-		}
+        assertBoardDelta(copiedBoard, ret.data_) {
+            currentPlayer {
+                removeCardFromHand(UnleashTheHounds)
+                addMinionToField(Hound, false, true)
+                mana(4)
+            }
+        }
 
-	}
+    }
 }

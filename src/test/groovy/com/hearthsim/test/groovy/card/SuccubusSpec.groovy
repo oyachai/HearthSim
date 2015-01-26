@@ -16,133 +16,133 @@ import static org.junit.Assert.*
 
 class SuccubusSpec extends CardSpec {
 
-	HearthTreeNode root
-	BoardModel startingBoard
+    HearthTreeNode root
+    BoardModel startingBoard
 
-	def "playing Succubus with no other cards in hand"() {
+    def "playing Succubus with no other cards in hand"() {
 
-		startingBoard = new BoardModelBuilder().make {
-			currentPlayer {
-				hand([Succubus])
-				mana(7)
-			}
-			waitingPlayer {
-				mana(4)
-			}
-		}
+        startingBoard = new BoardModelBuilder().make {
+            currentPlayer {
+                hand([Succubus])
+                mana(7)
+            }
+            waitingPlayer {
+                mana(4)
+            }
+        }
 
-		root = new HearthTreeNode(startingBoard)
+        root = new HearthTreeNode(startingBoard)
 
-		def copiedBoard = startingBoard.deepCopy()
-		def target = root.data_.getCharacter(CURRENT_PLAYER, 0)
-		def theCard = root.data_.getCurrentPlayerCardHand(0)
-		def ret = theCard.useOn(CURRENT_PLAYER, target, root, null, null)
+        def copiedBoard = startingBoard.deepCopy()
+        def target = root.data_.getCharacter(CURRENT_PLAYER, 0)
+        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def ret = theCard.useOn(CURRENT_PLAYER, target, root, null, null)
 
-		expect:
-		assertFalse(ret == null);
+        expect:
+        assertFalse(ret == null);
 
-		assertBoardDelta(copiedBoard, ret.data_) {
-			currentPlayer {
-				playMinion(Succubus)
-				mana(5)
-			}
-		}
-	}
+        assertBoardDelta(copiedBoard, ret.data_) {
+            currentPlayer {
+                playMinion(Succubus)
+                mana(5)
+            }
+        }
+    }
 
-	
-	def "playing Succubus with no one other card in hand"() {
-		
-		startingBoard = new BoardModelBuilder().make {
-			currentPlayer {
-				hand([Succubus, TheCoin])
-				mana(7)
-			}
-			waitingPlayer {
-				mana(4)
-			}
-		}
+    
+    def "playing Succubus with no one other card in hand"() {
+        
+        startingBoard = new BoardModelBuilder().make {
+            currentPlayer {
+                hand([Succubus, TheCoin])
+                mana(7)
+            }
+            waitingPlayer {
+                mana(4)
+            }
+        }
 
-		root = new HearthTreeNode(startingBoard)
+        root = new HearthTreeNode(startingBoard)
 
-		def copiedBoard = startingBoard.deepCopy()
-		def target = root.data_.getCharacter(CURRENT_PLAYER, 0)
-		def theCard = root.data_.getCurrentPlayerCardHand(0)
-		def ret = theCard.useOn(CURRENT_PLAYER, target, root, null, null)
+        def copiedBoard = startingBoard.deepCopy()
+        def target = root.data_.getCharacter(CURRENT_PLAYER, 0)
+        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def ret = theCard.useOn(CURRENT_PLAYER, target, root, null, null)
 
-		expect:
-		assertFalse(ret == null);
+        expect:
+        assertFalse(ret == null);
 
-		assertBoardDelta(copiedBoard, ret.data_) {
-			currentPlayer {
-				playMinion(Succubus)
-				mana(5)
-			}
-		}
-		
-		assertEquals(ret.numChildren(), 1);
-		
-		HearthTreeNode child0 = ret.getChildren().get(0);
-		assertBoardDelta(copiedBoard, child0.data_) {
-			currentPlayer {
-				playMinion(Succubus)
-				mana(5)
-				removeCardFromHand(TheCoin)
-			}
-		}
+        assertBoardDelta(copiedBoard, ret.data_) {
+            currentPlayer {
+                playMinion(Succubus)
+                mana(5)
+            }
+        }
+        
+        assertEquals(ret.numChildren(), 1);
+        
+        HearthTreeNode child0 = ret.getChildren().get(0);
+        assertBoardDelta(copiedBoard, child0.data_) {
+            currentPlayer {
+                playMinion(Succubus)
+                mana(5)
+                removeCardFromHand(TheCoin)
+            }
+        }
 
-	}
-		
-	
-	
-	
-	def "playing Succubus with two other cards in hand"() {
-		
-		startingBoard = new BoardModelBuilder().make {
-			currentPlayer {
-				hand([Succubus, TheCoin, HolySmite])
-				mana(7)
-			}
-			waitingPlayer {
-				mana(4)
-			}
-		}
+    }
+        
+    
+    
+    
+    def "playing Succubus with two other cards in hand"() {
+        
+        startingBoard = new BoardModelBuilder().make {
+            currentPlayer {
+                hand([Succubus, TheCoin, HolySmite])
+                mana(7)
+            }
+            waitingPlayer {
+                mana(4)
+            }
+        }
 
-		root = new HearthTreeNode(startingBoard)
+        root = new HearthTreeNode(startingBoard)
 
-		def copiedBoard = startingBoard.deepCopy()
-		def target = root.data_.getCharacter(CURRENT_PLAYER, 0)
-		def theCard = root.data_.getCurrentPlayerCardHand(0)
-		def ret = theCard.useOn(CURRENT_PLAYER, target, root, null, null)
+        def copiedBoard = startingBoard.deepCopy()
+        def target = root.data_.getCharacter(CURRENT_PLAYER, 0)
+        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def ret = theCard.useOn(CURRENT_PLAYER, target, root, null, null)
 
-		expect:
-		assertFalse(ret == null);
+        expect:
+        assertFalse(ret == null);
 
-		assertBoardDelta(copiedBoard, ret.data_) {
-			currentPlayer {
-				playMinion(Succubus)
-				mana(5)
-			}
-		}
-		
-		assertEquals(ret.numChildren(), 2);
-		
-		HearthTreeNode child0 = ret.getChildren().get(0);
-		assertBoardDelta(copiedBoard, child0.data_) {
-			currentPlayer {
-				playMinion(Succubus)
-				mana(5)
-				removeCardFromHand(TheCoin)
-			}
-		}
+        assertBoardDelta(copiedBoard, ret.data_) {
+            currentPlayer {
+                playMinion(Succubus)
+                mana(5)
+            }
+        }
+        
+        assertEquals(ret.numChildren(), 2);
+        
+        HearthTreeNode child0 = ret.getChildren().get(0);
+        assertBoardDelta(copiedBoard, child0.data_) {
+            currentPlayer {
+                playMinion(Succubus)
+                mana(5)
+                removeCardFromHand(TheCoin)
+            }
+        }
 
-		HearthTreeNode child1 = ret.getChildren().get(1);
-		assertBoardDelta(copiedBoard, child1.data_) {
-			currentPlayer {
-				playMinion(Succubus)
-				mana(5)
-				removeCardFromHand(HolySmite)
-			}
-		}
+        HearthTreeNode child1 = ret.getChildren().get(1);
+        assertBoardDelta(copiedBoard, child1.data_) {
+            currentPlayer {
+                playMinion(Succubus)
+                mana(5)
+                removeCardFromHand(HolySmite)
+            }
+        }
 
-	}
+    }
 }

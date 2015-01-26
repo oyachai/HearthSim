@@ -37,7 +37,7 @@ class BoardModelBuidlerSpec extends HearthBaseSpec {
             assert playerModel.spellDamage == 0
             assert playerModel.mana == 0
             assert playerModel.mana == 0
-			assert playerModel.fatigueDamage == 1
+            assert playerModel.fatigueDamage == 1
         }
     }
 
@@ -91,7 +91,7 @@ class BoardModelBuidlerSpec extends HearthBaseSpec {
         def currentPlayer = boardModel.modelForSide(CURRENT_PLAYER)
         expect currentPlayer.mana, equalTo((byte)1)
         expect currentPlayer.maxMana, equalTo((byte)1)
-		expect currentPlayer.fatigueDamage, equalTo((byte)1)
+        expect currentPlayer.fatigueDamage, equalTo((byte)1)
 
         def playerModel = currentPlayer
         expect playerModel.overload, isByteEqual(1)
@@ -109,8 +109,8 @@ class BoardModelBuidlerSpec extends HearthBaseSpec {
         }
 
         then:
-		expect boardModel.modelForSide(PlayerSide.CURRENT_PLAYER).fatigueDamage, equalTo((byte)1)
-		expect boardModel.modelForSide(PlayerSide.WAITING_PLAYER).fatigueDamage, equalTo((byte)2)
+        expect boardModel.modelForSide(PlayerSide.CURRENT_PLAYER).fatigueDamage, equalTo((byte)1)
+        expect boardModel.modelForSide(PlayerSide.WAITING_PLAYER).fatigueDamage, equalTo((byte)2)
     }
 
 

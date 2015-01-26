@@ -89,9 +89,9 @@ class ReferenceCardRegistry {
         cardDefinitions.find { it.name == name && (it.type != 'Hero' || it.collectible) }
     }
 
-	public ReferenceCard cardByNameAndType(String name, String type) {
-		cardDefinitions.find { it.name == name && it.type == type && (it.type != 'Hero' || it.collectible) }
-	}
+    public ReferenceCard cardByNameAndType(String name, String type) {
+        cardDefinitions.find { it.name == name && it.type == type && (it.type != 'Hero' || it.collectible) }
+    }
 
     public List<ReferenceCard> getCollectibles(){
         cardDefinitions.findAll { it.collectible }

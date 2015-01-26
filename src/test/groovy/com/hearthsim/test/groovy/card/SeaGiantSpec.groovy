@@ -17,63 +17,63 @@ import static org.junit.Assert.*
 
 class SeaGiantSpec extends CardSpec {
 
-	def "playing Sea Giant with no other minions on board"() {
-		
-		def startingBoard = new BoardModelBuilder().make {
-			currentPlayer {
-				hand([SeaGiant])
-				mana(10)
-			}
-			waitingPlayer {
-				mana(10)
-			}
-		}
+    def "playing Sea Giant with no other minions on board"() {
+        
+        def startingBoard = new BoardModelBuilder().make {
+            currentPlayer {
+                hand([SeaGiant])
+                mana(10)
+            }
+            waitingPlayer {
+                mana(10)
+            }
+        }
 
-		def root = new HearthTreeNode(startingBoard)
+        def root = new HearthTreeNode(startingBoard)
 
-		def copiedBoard = startingBoard.deepCopy()
-		def theCard = root.data_.getCurrentPlayerCardHand(0)
-		def ret = theCard.useOn(CURRENT_PLAYER, 0, root, null, null)
+        def copiedBoard = startingBoard.deepCopy()
+        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def ret = theCard.useOn(CURRENT_PLAYER, 0, root, null, null)
 
-		expect:
-		assertFalse(ret == null);
-		assertBoardDelta(copiedBoard, ret.data_) {
-			currentPlayer {
-				playMinion(SeaGiant)
-				mana(0)
-			}
-		}
+        expect:
+        assertFalse(ret == null);
+        assertBoardDelta(copiedBoard, ret.data_) {
+            currentPlayer {
+                playMinion(SeaGiant)
+                mana(0)
+            }
+        }
 
-	}
+    }
 
-	def "playing Sea Giant with 2 other minions on board"() {
-		
-		def startingBoard = new BoardModelBuilder().make {
-			currentPlayer {
-				hand([SeaGiant,])
-				field([[minion: GoldshireFootman]])
-				mana(10)
-			}
-			waitingPlayer {
-				field([[minion : GoldshireFootman,]])
-				mana(10)
-			}
-		}
+    def "playing Sea Giant with 2 other minions on board"() {
+        
+        def startingBoard = new BoardModelBuilder().make {
+            currentPlayer {
+                hand([SeaGiant,])
+                field([[minion: GoldshireFootman]])
+                mana(10)
+            }
+            waitingPlayer {
+                field([[minion : GoldshireFootman,]])
+                mana(10)
+            }
+        }
 
-		def root = new HearthTreeNode(startingBoard)
+        def root = new HearthTreeNode(startingBoard)
 
-		def copiedBoard = startingBoard.deepCopy()
-		def theCard = root.data_.getCurrentPlayerCardHand(0)
-		def ret = theCard.useOn(CURRENT_PLAYER, 1, root, null, null)
+        def copiedBoard = startingBoard.deepCopy()
+        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def ret = theCard.useOn(CURRENT_PLAYER, 1, root, null, null)
 
-		expect:
-		assertFalse(ret == null);
-		assertBoardDelta(copiedBoard, ret.data_) {
-			currentPlayer {
-				playMinion(SeaGiant)
-				mana(2)
-			}
-		}
-	}
+        expect:
+        assertFalse(ret == null);
+        assertBoardDelta(copiedBoard, ret.data_) {
+            currentPlayer {
+                playMinion(SeaGiant)
+                mana(2)
+            }
+        }
+    }
 
 }

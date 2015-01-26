@@ -11,52 +11,52 @@ import static org.junit.Assert.*
 
 class AncientMageSpec extends CardSpec {
 
-	HearthTreeNode root
-	BoardModel startingBoard
+    HearthTreeNode root
+    BoardModel startingBoard
 
-	def setup() {
+    def setup() {
 
-		def minionMana = 2;
-		def attack = 5;
-		def health0 = 3;
-		def health1 = 7;
+        def minionMana = 2;
+        def attack = 5;
+        def health0 = 3;
+        def health1 = 7;
 
-		def commonField = [
-				[mana: minionMana, attack: attack, maxHealth: health0], //TODO: attack may be irrelevant here
-				[mana: minionMana, attack: attack, health: health1 - 1, maxHealth: health1]
-		]
+        def commonField = [
+                [mana: minionMana, attack: attack, maxHealth: health0], //TODO: attack may be irrelevant here
+                [mana: minionMana, attack: attack, health: health1 - 1, maxHealth: health1]
+        ]
 
-		startingBoard = new BoardModelBuilder().make {
-			currentPlayer {
-				hand([AncientMage])
-				field(commonField)
-				mana(7)
-			}
-			waitingPlayer {
-				field(commonField)
-				mana(4)
-			}
-		}
+        startingBoard = new BoardModelBuilder().make {
+            currentPlayer {
+                hand([AncientMage])
+                field(commonField)
+                mana(7)
+            }
+            waitingPlayer {
+                field(commonField)
+                mana(4)
+            }
+        }
 
-		root = new HearthTreeNode(startingBoard)
-	}
-	
-	def "playing Ancient Mage on the right edge"() {
-		def copiedBoard = startingBoard.deepCopy()
-		def theCard = root.data_.getCurrentPlayerCardHand(0)
-		def ret = theCard.useOn(CURRENT_PLAYER, 2, root, null, null)
+        root = new HearthTreeNode(startingBoard)
+    }
+    
+    def "playing Ancient Mage on the right edge"() {
+        def copiedBoard = startingBoard.deepCopy()
+        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def ret = theCard.useOn(CURRENT_PLAYER, 2, root, null, null)
 
-		expect:
-		assertFalse(ret == null);
+        expect:
+        assertFalse(ret == null);
 
-		assertBoardDelta(copiedBoard, ret.data_) {
-			currentPlayer {
-				playMinion(AncientMage)
-				mana(3)
+        assertBoardDelta(copiedBoard, ret.data_) {
+            currentPlayer {
+                playMinion(AncientMage)
+                mana(3)
                 updateMinion(1, [deltaSpellDamage: 1])
-			}
-		}
+            }
+        }
 
-	}
-	
+    }
+    
 }

@@ -12,42 +12,42 @@ import static com.hearthsim.model.PlayerSide.WAITING_PLAYER
 import static org.junit.Assert.*
 
 class LeeroyJenkinsSpec extends CardSpec {
-	
-	HearthTreeNode root
-	BoardModel startingBoard
+    
+    HearthTreeNode root
+    BoardModel startingBoard
 
-	def setup() {
+    def setup() {
 
-		startingBoard = new BoardModelBuilder().make {
-			currentPlayer {
-				hand([LeeroyJenkins])
-				mana(7)
-			}
-			waitingPlayer {
-				mana(4)
-			}
-		}
+        startingBoard = new BoardModelBuilder().make {
+            currentPlayer {
+                hand([LeeroyJenkins])
+                mana(7)
+            }
+            waitingPlayer {
+                mana(4)
+            }
+        }
 
-		root = new HearthTreeNode(startingBoard)
-	}
+        root = new HearthTreeNode(startingBoard)
+    }
 
-	def "playing Leeroy Jenkins"() {
-		def copiedBoard = startingBoard.deepCopy()
-		def theCard = root.data_.getCurrentPlayerCardHand(0)
-		def ret = theCard.useOn(CURRENT_PLAYER, 0, root, null, null)
+    def "playing Leeroy Jenkins"() {
+        def copiedBoard = startingBoard.deepCopy()
+        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def ret = theCard.useOn(CURRENT_PLAYER, 0, root, null, null)
 
-		expect:
+        expect:
 
-		assertFalse(ret == null)
-		assertBoardDelta(copiedBoard, ret.data_) {
-			currentPlayer {
-				playMinionWithCharge(LeeroyJenkins)
-				mana(2)
-			}
-			waitingPlayer {
-				playMinion(Whelp)
-				playMinion(Whelp)
-			}
-		}
-	}
+        assertFalse(ret == null)
+        assertBoardDelta(copiedBoard, ret.data_) {
+            currentPlayer {
+                playMinionWithCharge(LeeroyJenkins)
+                mana(2)
+            }
+            waitingPlayer {
+                playMinion(Whelp)
+                playMinion(Whelp)
+            }
+        }
+    }
 }

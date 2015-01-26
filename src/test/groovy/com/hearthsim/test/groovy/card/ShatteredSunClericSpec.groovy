@@ -13,51 +13,51 @@ import com.hearthsim.util.tree.HearthTreeNode
 
 class ShatteredSunClericSpec extends CardSpec {
 
-	HearthTreeNode root
-	BoardModel startingBoard
+    HearthTreeNode root
+    BoardModel startingBoard
 
-	def setup() {
-		startingBoard = new BoardModelBuilder().make {
-			currentPlayer {
-				field([[minion: BoulderfistOgre]])
-				mana(10)
-			}
-		}
-		root = new HearthTreeNode(startingBoard)
-	}
+    def setup() {
+        startingBoard = new BoardModelBuilder().make {
+            currentPlayer {
+                field([[minion: BoulderfistOgre]])
+                mana(10)
+            }
+        }
+        root = new HearthTreeNode(startingBoard)
+    }
 
-	def "adds extra stats"() {
-		def copiedBoard = startingBoard.deepCopy()
-		def target = root.data_.getCharacter(CURRENT_PLAYER, 1)
-		def theCard = new ShatteredSunCleric()
-		def ret = theCard.useTargetableBattlecry_core(CURRENT_PLAYER, target, root, null, null)
+    def "adds extra stats"() {
+        def copiedBoard = startingBoard.deepCopy()
+        def target = root.data_.getCharacter(CURRENT_PLAYER, 1)
+        def theCard = new ShatteredSunCleric()
+        def ret = theCard.useTargetableBattlecry_core(CURRENT_PLAYER, target, root, null, null)
 
-		expect:
-		assertEquals(root, ret);
+        expect:
+        assertEquals(root, ret);
 
-		assertBoardDelta(copiedBoard, ret.data_) {
-			currentPlayer {
-				updateMinion(0, [deltaAttack: +1])
-				updateMinion(0, [deltaHealth: +1])
-			}
-		}
-	}
+        assertBoardDelta(copiedBoard, ret.data_) {
+            currentPlayer {
+                updateMinion(0, [deltaAttack: +1])
+                updateMinion(0, [deltaHealth: +1])
+            }
+        }
+    }
 
-	def "buff is additive"() {
-		def copiedBoard = startingBoard.deepCopy()
-		def target = root.data_.getCharacter(CURRENT_PLAYER, 1)
-		def theCard = new ShatteredSunCleric()
-		def ret = theCard.useTargetableBattlecry_core(CURRENT_PLAYER, target, root, null, null)
-		ret = theCard.useTargetableBattlecry_core(CURRENT_PLAYER, target, root, null, null)
+    def "buff is additive"() {
+        def copiedBoard = startingBoard.deepCopy()
+        def target = root.data_.getCharacter(CURRENT_PLAYER, 1)
+        def theCard = new ShatteredSunCleric()
+        def ret = theCard.useTargetableBattlecry_core(CURRENT_PLAYER, target, root, null, null)
+        ret = theCard.useTargetableBattlecry_core(CURRENT_PLAYER, target, root, null, null)
 
-		expect:
-		assertEquals(root, ret);
+        expect:
+        assertEquals(root, ret);
 
-		assertBoardDelta(copiedBoard, ret.data_) {
-			currentPlayer {
-				updateMinion(0, [deltaAttack: +2])
-				updateMinion(0, [deltaHealth: +2])
-			}
-		}
-	}
+        assertBoardDelta(copiedBoard, ret.data_) {
+            currentPlayer {
+                updateMinion(0, [deltaAttack: +2])
+                updateMinion(0, [deltaHealth: +2])
+            }
+        }
+    }
 }

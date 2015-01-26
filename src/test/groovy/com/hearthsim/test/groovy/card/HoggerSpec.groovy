@@ -13,59 +13,59 @@ import static org.junit.Assert.*
 
 class HoggerSpec extends CardSpec {
 
-	HearthTreeNode root
-	BoardModel startingBoard
+    HearthTreeNode root
+    BoardModel startingBoard
 
-	def setup() {
+    def setup() {
 
-		def minionMana = 2;
-		def attack = 5;
-		def health0 = 3;
-		def health1 = 7;
+        def minionMana = 2;
+        def attack = 5;
+        def health0 = 3;
+        def health1 = 7;
 
-		def commonField = [
-				[mana: minionMana, attack: attack, maxHealth: health0], //todo: attack may be irrelevant here
-		]
+        def commonField = [
+                [mana: minionMana, attack: attack, maxHealth: health0], //todo: attack may be irrelevant here
+        ]
 
-		startingBoard = new BoardModelBuilder().make {
-			currentPlayer {
-				hand([Hogger])
-				field(commonField)
-				mana(7)
-			}
-			waitingPlayer {
-				field(commonField)
-				mana(4)
-			}
-		}
+        startingBoard = new BoardModelBuilder().make {
+            currentPlayer {
+                hand([Hogger])
+                field(commonField)
+                mana(7)
+            }
+            waitingPlayer {
+                field(commonField)
+                mana(4)
+            }
+        }
 
-		root = new HearthTreeNode(startingBoard)
-	}
-	
-	def "playing Hogger"() {
-		def copiedBoard = startingBoard.deepCopy()
-		def theCard = root.data_.getCurrentPlayerCardHand(0)
-		def ret = theCard.useOn(CURRENT_PLAYER, 1, root, null, null)
+        root = new HearthTreeNode(startingBoard)
+    }
+    
+    def "playing Hogger"() {
+        def copiedBoard = startingBoard.deepCopy()
+        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def ret = theCard.useOn(CURRENT_PLAYER, 1, root, null, null)
 
-		expect:
-		assertFalse(ret == null);
+        expect:
+        assertFalse(ret == null);
 
-		assertBoardDelta(copiedBoard, ret.data_) {
-			currentPlayer {
-				playMinion(Hogger)
-				mana(1)
-			}
-		}
+        assertBoardDelta(copiedBoard, ret.data_) {
+            currentPlayer {
+                playMinion(Hogger)
+                mana(1)
+            }
+        }
 
-		def retAfterEndTurn = new HearthTreeNode(Game.endTurn(ret.data_))
-		assertBoardDelta(copiedBoard, retAfterEndTurn.data_) {
-			currentPlayer {
-				playMinion(Hogger)
-				playMinion(Gnoll)
-				mana(1)
-			}
-		}
+        def retAfterEndTurn = new HearthTreeNode(Game.endTurn(ret.data_))
+        assertBoardDelta(copiedBoard, retAfterEndTurn.data_) {
+            currentPlayer {
+                playMinion(Hogger)
+                playMinion(Gnoll)
+                mana(1)
+            }
+        }
 
-	}
-	
+    }
+    
 }

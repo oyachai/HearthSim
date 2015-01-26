@@ -40,46 +40,46 @@ class BoardModelBuilder {
             def minion
             if (it.minion) {
                 minion = it.minion.newInstance()
-				if (health)
-					minion.health = health
-				if (it.maxHealth)
-					minion.maxHealth = maxHealth
+                if (health)
+                    minion.health = health
+                if (it.maxHealth)
+                    minion.maxHealth = maxHealth
             } else {
                 minion = new Minion("" + 0, (byte) mana, (byte) attack, (byte) health, (byte) attack, (byte) health, (byte) maxHealth)
             }
             boardModel.placeMinion(playerSide, minion);
         }
     }
-	
-	private deck(List cardsInDeck) {
-		cardsInDeck.each {
-			boardModel.placeCardDeck(playerSide, it.newInstance())
-		}
-	}
+    
+    private deck(List cardsInDeck) {
+        cardsInDeck.each {
+            boardModel.placeCardDeck(playerSide, it.newInstance())
+        }
+    }
 
     private updateMinion(int position, Map options){
         def minion = boardModel.getMinion(playerSide, position)
         minion.attack += options.deltaAttack ? options.deltaAttack : 0;
-		minion.extraAttackUntilTurnEnd += options.deltaExtraAttack ? options.deltaExtraAttack : 0;
+        minion.extraAttackUntilTurnEnd += options.deltaExtraAttack ? options.deltaExtraAttack : 0;
 
-		minion.health += options.deltaHealth ? options.deltaHealth : 0;
-		minion.maxHealth += options.deltaMaxHealth ? options.deltaMaxHealth : 0;
-		
-		minion.auraAttack += options.deltaAuraAttack ? options.deltaAuraAttack : 0;
+        minion.health += options.deltaHealth ? options.deltaHealth : 0;
+        minion.maxHealth += options.deltaMaxHealth ? options.deltaMaxHealth : 0;
+        
+        minion.auraAttack += options.deltaAuraAttack ? options.deltaAuraAttack : 0;
         minion.auraHealth += options.deltaAuraHealth ? options.deltaAuraHealth : 0;
-		
-		minion.spellDamage += options.deltaSpellDamage ? options.deltaSpellDamage : 0;
-		
-		minion.hasAttacked_ = options.containsKey('hasAttacked') ? options.hasAttacked : minion.hasAttacked_
-		minion.hasBeenUsed = options.containsKey('hasBeenUsed') ? options.hasBeenUsed : minion.hasBeenUsed
-		minion.stealthed = options.containsKey('stealthed') ? options.stealthed : minion.stealthed
-		
-		minion.frozen = options.containsKey('frozen') ? options.frozen : minion.frozen
-		
+        
+        minion.spellDamage += options.deltaSpellDamage ? options.deltaSpellDamage : 0;
+        
+        minion.hasAttacked_ = options.containsKey('hasAttacked') ? options.hasAttacked : minion.hasAttacked_
+        minion.hasBeenUsed = options.containsKey('hasBeenUsed') ? options.hasBeenUsed : minion.hasBeenUsed
+        minion.stealthed = options.containsKey('stealthed') ? options.stealthed : minion.stealthed
+        
+        minion.frozen = options.containsKey('frozen') ? options.frozen : minion.frozen
+        
     }
 
     private fatigueDamage(Number fatigueDamage) {
-		playerSide.getPlayer(boardModel).setFatigueDamage((byte) fatigueDamage)
+        playerSide.getPlayer(boardModel).setFatigueDamage((byte) fatigueDamage)
     }
 
     private overload(Number overload) {
@@ -100,10 +100,10 @@ class BoardModelBuilder {
         side.hero.attack = attack
     }
 
-	private heroFrozen(Boolean isFrozen){
-		def side = boardModel.modelForSide(playerSide)
-		side.hero.frozen = isFrozen
-	}
+    private heroFrozen(Boolean isFrozen){
+        def side = boardModel.modelForSide(playerSide)
+        side.hero.frozen = isFrozen
+    }
 
     private mana(Number mana) {
         def model = boardModel.modelForSide(playerSide)
@@ -112,55 +112,55 @@ class BoardModelBuilder {
         if (model.getMaxMana() == 0)
             model.setMaxMana((byte) mana)
     }
-	
-	private maxMana(Number mana) {
+    
+    private maxMana(Number mana) {
         def model = boardModel.modelForSide(playerSide)
-		model.setMaxMana((byte) mana)
-	}
-		
+        model.setMaxMana((byte) mana)
+    }
+        
     private playMinion(Class<Minion> minionClass) {
         removeCardFromHand(minionClass)
         addMinionToField(minionClass)
     }
 
-	private playMinion(Class<Minion> minionClass, int placementIndex) {
-		removeCardFromHand(minionClass)
-		addMinionToField(minionClass, placementIndex)
-	}
-	
-	private playMinionWithCharge(Class<Minion> minionClass) {
-		removeCardFromHand(minionClass)
-		addMinionToField(minionClass, false, true)
-	}
+    private playMinion(Class<Minion> minionClass, int placementIndex) {
+        removeCardFromHand(minionClass)
+        addMinionToField(minionClass, placementIndex)
+    }
+    
+    private playMinionWithCharge(Class<Minion> minionClass) {
+        removeCardFromHand(minionClass)
+        addMinionToField(minionClass, false, true)
+    }
 
     private removeMinion(int index){
         boardModel.removeMinion(playerSide, index)
     }
-	
-	private addCardToHand(Class cardClass) {
-		Card card = cardClass.newInstance()
-		boardModel.placeCardHand(playerSide, card)
-	}
-	
+    
+    private addCardToHand(Class cardClass) {
+        Card card = cardClass.newInstance()
+        boardModel.placeCardHand(playerSide, card)
+    }
+    
     private removeCardFromHand(Class card) {
         def hand = boardModel.modelForSide(playerSide).hand
         def cardInHand = hand.find { it.class == card }
         boardModel.removeCardFromHand(cardInHand, playerSide)
     }
 
-	private addMinionToField(Class<Minion> minionClass) {
-		addMinionToField(minionClass, true, true)	
-	}
+    private addMinionToField(Class<Minion> minionClass) {
+        addMinionToField(minionClass, true, true)    
+    }
 
-	private addMinionToField(Class<Minion> minionClass, int placementIndex) {
-		addMinionToField(minionClass, true, true, placementIndex)
-	}
-	
-	private addMinionToField(Class<Minion> minionClass, boolean hasAttacked, boolean hasBeenUsed) {
-		def numMinions = boardModel.modelForSide(playerSide).numMinions
-		addMinionToField(minionClass, hasAttacked, hasBeenUsed, numMinions)
-	}
-		
+    private addMinionToField(Class<Minion> minionClass, int placementIndex) {
+        addMinionToField(minionClass, true, true, placementIndex)
+    }
+    
+    private addMinionToField(Class<Minion> minionClass, boolean hasAttacked, boolean hasBeenUsed) {
+        def numMinions = boardModel.modelForSide(playerSide).numMinions
+        addMinionToField(minionClass, hasAttacked, hasBeenUsed, numMinions)
+    }
+        
     private addMinionToField(Class<Minion> minionClass, boolean hasAttacked, boolean hasBeenUsed, int placementIndex) {
         Minion minion = minionClass.newInstance()
         minion.hasAttacked(hasAttacked)
@@ -191,12 +191,12 @@ class BoardModelBuilder {
         side.hero.weapon.weaponDamage = damage
     }
 
-	private addDeckPos(Number num) {
-		if (playerSide == PlayerSide.CURRENT_PLAYER) 
-			boardModel.currentPlayer.deckPos += (int) num
-		else 
-			boardModel.waitingPlayer.deckPos += (int) num
-	}
+    private addDeckPos(Number num) {
+        if (playerSide == PlayerSide.CURRENT_PLAYER) 
+            boardModel.currentPlayer.deckPos += (int) num
+        else 
+            boardModel.waitingPlayer.deckPos += (int) num
+    }
 
     private currentPlayer(Closure player) {
         playerSide = PlayerSide.CURRENT_PLAYER

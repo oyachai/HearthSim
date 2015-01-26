@@ -11,43 +11,43 @@ import static com.hearthsim.model.PlayerSide.WAITING_PLAYER
 import static org.junit.Assert.*
 
 class EarthShockSpec extends CardSpec {
-	
-	HearthTreeNode root
-	BoardModel startingBoard
+    
+    HearthTreeNode root
+    BoardModel startingBoard
 
-	def setup() {
+    def setup() {
 
-		startingBoard = new BoardModelBuilder().make {
-			currentPlayer {
-				hand([EarthShock])
-				mana(7)
-			}
-			waitingPlayer {
-				mana(4)
-				field([[minion: Boar, health: 2, maxHealth: 2]])
-			}
-		}
+        startingBoard = new BoardModelBuilder().make {
+            currentPlayer {
+                hand([EarthShock])
+                mana(7)
+            }
+            waitingPlayer {
+                mana(4)
+                field([[minion: Boar, health: 2, maxHealth: 2]])
+            }
+        }
 
-		root = new HearthTreeNode(startingBoard)
-	}
+        root = new HearthTreeNode(startingBoard)
+    }
 
-	def "playing Earth Shock on a buffed health 1 target"() {
-		def copiedBoard = startingBoard.deepCopy()
-		def theCard = root.data_.getCurrentPlayerCardHand(0)
-		def ret = theCard.useOn(WAITING_PLAYER, 1, root, null, null)
+    def "playing Earth Shock on a buffed health 1 target"() {
+        def copiedBoard = startingBoard.deepCopy()
+        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def ret = theCard.useOn(WAITING_PLAYER, 1, root, null, null)
 
-		expect:
-		assertFalse(ret == null);
+        expect:
+        assertFalse(ret == null);
 
-		assertBoardDelta(copiedBoard, ret.data_) {
-			currentPlayer {
-				mana(6)
-				removeCardFromHand(EarthShock)
-			}
-			waitingPlayer {
-				removeMinion(0);
-			}
-		}
+        assertBoardDelta(copiedBoard, ret.data_) {
+            currentPlayer {
+                mana(6)
+                removeCardFromHand(EarthShock)
+            }
+            waitingPlayer {
+                removeMinion(0);
+            }
+        }
 
-	}
+    }
 }

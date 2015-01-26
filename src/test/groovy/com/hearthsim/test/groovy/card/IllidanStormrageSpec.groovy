@@ -14,52 +14,52 @@ import static org.junit.Assert.*
 
 class IllidanStormrageSpec extends CardSpec {
 
-	HearthTreeNode root
-	BoardModel startingBoard
+    HearthTreeNode root
+    BoardModel startingBoard
 
-	def setup() {
+    def setup() {
 
-		def minionMana = 2;
-		def attack = 5;
-		def health0 = 3;
-		def health1 = 7;
+        def minionMana = 2;
+        def attack = 5;
+        def health0 = 3;
+        def health1 = 7;
 
-		def commonField = [
-				[mana: minionMana, attack: attack, maxHealth: health0], //todo: attack may be irrelevant here
-		]
+        def commonField = [
+                [mana: minionMana, attack: attack, maxHealth: health0], //todo: attack may be irrelevant here
+        ]
 
-		startingBoard = new BoardModelBuilder().make {
-			currentPlayer {
-				hand([IllidanStormrage, TheCoin])
-				field(commonField)
-				mana(7)
-			}
-			waitingPlayer {
-				field(commonField)
-				mana(4)
-			}
-		}
+        startingBoard = new BoardModelBuilder().make {
+            currentPlayer {
+                hand([IllidanStormrage, TheCoin])
+                field(commonField)
+                mana(7)
+            }
+            waitingPlayer {
+                field(commonField)
+                mana(4)
+            }
+        }
 
-		root = new HearthTreeNode(startingBoard)
-	}
-	
-	def "playing Illidan Stormrage"() {
-		def copiedBoard = startingBoard.deepCopy()
-		def theCard = root.data_.getCurrentPlayerCardHand(0)
-		def ret = theCard.useOn(CURRENT_PLAYER, 1, root, null, null)
-		def ret2 = ret.data_.getCurrentPlayerCardHand(0).useOn(CURRENT_PLAYER, 0, ret, null, null)
-		
-		expect:
-		assertFalse(ret == null);
+        root = new HearthTreeNode(startingBoard)
+    }
+    
+    def "playing Illidan Stormrage"() {
+        def copiedBoard = startingBoard.deepCopy()
+        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def ret = theCard.useOn(CURRENT_PLAYER, 1, root, null, null)
+        def ret2 = ret.data_.getCurrentPlayerCardHand(0).useOn(CURRENT_PLAYER, 0, ret, null, null)
+        
+        expect:
+        assertFalse(ret == null);
 
-		assertBoardDelta(copiedBoard, ret.data_) {
-			currentPlayer {
-				playMinion(IllidanStormrage)
-				addMinionToField(FlameOfAzzinoth)
-				removeCardFromHand(TheCoin)
-				mana(2)
-			}
-		}
-	}
-	
+        assertBoardDelta(copiedBoard, ret.data_) {
+            currentPlayer {
+                playMinion(IllidanStormrage)
+                addMinionToField(FlameOfAzzinoth)
+                removeCardFromHand(TheCoin)
+                mana(2)
+            }
+        }
+    }
+    
 }
