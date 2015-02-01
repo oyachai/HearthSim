@@ -19,7 +19,7 @@ public class Undertaker extends Minion implements MinionSummonedInterface {
     }
 
     /**
-     * Whenever a minion with Deathrattle is summoned, gain +1/+1
+     * Whenever a minion with Deathrattle is summoned, gain +1 Attack
      * */
     @Override
     public HearthTreeNode minionSummonEvent(
@@ -31,7 +31,6 @@ public class Undertaker extends Minion implements MinionSummonedInterface {
             Deck deckPlayer1) {
         HearthTreeNode toRet = boardState;
         if (toRet != null && summonedMinion.hasDeathrattle() && thisMinionPlayerSide == summonedMinionPlayerSide) {
-            this.addHealth((byte)1);
             this.addAttack((byte)1);
         }
         return toRet;
