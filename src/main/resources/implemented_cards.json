@@ -664,6 +664,10 @@
         "class": "com.hearthsim.card.minion.concrete.ManaAddict"
     },
     {
+        "name": "Mana Tide Totem",
+        "class": "com.hearthsim.card.minion.concrete.ManaTideTotem"
+    },
+    {
         "name": "Mana Wyrm",
         "class": "com.hearthsim.card.minion.concrete.ManaWyrm"
     },
