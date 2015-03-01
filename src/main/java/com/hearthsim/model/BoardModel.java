@@ -327,7 +327,6 @@ public class BoardModel implements DeepCopyable<BoardModel> {
 
     public boolean removeMinion(MinionPlayerPair minionIdPair) throws HSInvalidPlayerIndexException {
         this.allMinionsFIFOList_.remove(minionIdPair);
-        minionIdPair.minion.silenced(minionIdPair.getPlayerSide(), this);
         removeAuraOfMinion(minionIdPair.getPlayerSide(), minionIdPair.minion);
         return minionIdPair.getPlayerSide().getPlayer(this).getMinions().remove(minionIdPair.minion);
     }
