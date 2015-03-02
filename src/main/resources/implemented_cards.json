@@ -84,6 +84,10 @@
         "class": "com.hearthsim.card.spellcard.concrete.ArcaneIntellect"
     },
     {
+        "name": "Arcane Nullifier X-21",
+        "class": "com.hearthsim.card.minion.concrete.ArcaneNullifierX21"
+    },
+    {
         "name": "Arcane Shot",
         "class": "com.hearthsim.card.spellcard.concrete.ArcaneShot"
     },
@@ -1026,6 +1030,10 @@
     {
         "name": "Sylvanas Windrunner",
         "class": "com.hearthsim.card.minion.concrete.SylvanasWindrunner"
+    },
+    {
+        "name": "Target Dummy",
+        "class": "com.hearthsim.card.minion.concrete.TargetDummy"
     },
     {
         "name": "Tauren Warrior",

@@ -2,10 +2,10 @@ package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.minion.Minion;
 
-public class SootSpewer extends Minion {
-    public SootSpewer() {
+public class ArcaneNullifierX21 extends Minion {
+    public ArcaneNullifierX21() {
         super();
-        this.spellDamage_ = 1;
+        this.heroTargetable_ = false;
         this.tribe = MinionTribe.MECH;
     }
 }
