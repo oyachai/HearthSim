@@ -30,9 +30,31 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         MECH,
         MURLOC,
         PIRATE,
-        DRAGON,
         DEMON,
+        DRAGON,
         TOTEM
+    }
+
+    public static MinionTribe StringToMinionTribe(String race) {
+        race = race == null ? "" : race.toLowerCase();
+        switch(race) {
+            case "beast":
+                return MinionTribe.BEAST;
+            case "mech":
+                return MinionTribe.MECH;
+            case "murloc":
+                return MinionTribe.MURLOC;
+            case "pirate":
+                return MinionTribe.PIRATE;
+            case "demon":
+                return MinionTribe.DEMON;
+            case "dragon":
+                return MinionTribe.DRAGON;
+            case "totem":
+                return MinionTribe.TOTEM;
+            default:
+                return MinionTribe.NONE;
+        }
     }
 
     protected boolean taunt_;
@@ -89,6 +111,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
             windFury_ = implementedCard.windfury_;
             charge_ = implementedCard.charge_;
             stealthed_ = implementedCard.stealth_;
+            tribe = Minion.StringToMinionTribe(implementedCard.race);
             isInHand_ = true;
             // TODO: spellpower could be deduced from text quite easily
         }

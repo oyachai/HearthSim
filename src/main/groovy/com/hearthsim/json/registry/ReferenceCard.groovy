@@ -18,4 +18,5 @@ class ReferenceCard {
     Integer health
     Integer durability
     Boolean collectible
+    String race
 }
