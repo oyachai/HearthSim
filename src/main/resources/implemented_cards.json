@@ -404,6 +404,10 @@
         "class": "com.hearthsim.card.minion.concrete.FlesheatingGhoul"
     },
     {
+        "name": "Flying Machine",
+        "class": "com.hearthsim.card.minion.concrete.FlyingMachine"
+    },
+    {
         "name": "Force-Tank MAX",
         "class": "com.hearthsim.card.minion.concrete.ForceTankMax"
     },
@@ -1102,6 +1106,10 @@
     {
         "name": "Whelp",
         "class": "com.hearthsim.card.minion.concrete.Whelp"
+    },
+    {
+        "name": "Whirling Zap-o-matic",
+        "class": "com.hearthsim.card.minion.concrete.WhirlingZapOMatic"
     },
     {
         "name": "Whirlwind",
