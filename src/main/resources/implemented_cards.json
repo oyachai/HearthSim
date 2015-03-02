@@ -648,6 +648,10 @@
         "class": "com.hearthsim.card.minion.concrete.LordOfTheArena"
     },
     {
+        "name": "Lost Tallstrider",
+        "class": "com.hearthsim.card.minion.concrete.LostTallstrider"
+    },
+    {
         "name": "Maexxna",
         "class": "com.hearthsim.card.minion.concrete.Maexxna"
     },
@@ -780,6 +784,10 @@
         "class": "com.hearthsim.card.minion.concrete.PriestessOfElune"
     },
     {
+        "name": "Puddlestomper",
+        "class": "com.hearthsim.card.minion.concrete.Puddlestomper"
+    },
+    {
         "name": "Pyroblast",
         "class": "com.hearthsim.card.spellcard.concrete.Pyroblast"
     },
@@ -818,6 +826,10 @@
     {
         "name": "Sacrificial Pact",
         "class": "com.hearthsim.card.spellcard.concrete.SacrificialPact"
+    },
+    {
+        "name": "Salty Dog",
+        "class": "com.hearthsim.card.minion.concrete.SaltyDog"
     },
     {
         "name": "Sap",
@@ -922,6 +934,10 @@
     {
         "name": "Spellbreaker",
         "class": "com.hearthsim.card.minion.concrete.Spellbreaker"
+    },
+    {
+        "name": "Spider Tank",
+        "class": "com.hearthsim.card.minion.concrete.SpiderTank"
     },
     {
         "name": "Sprint",
