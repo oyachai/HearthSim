@@ -72,6 +72,10 @@ public class Card implements DeepCopyable<Card> {
     public Card() {
         ImplementedCardList cardList = ImplementedCardList.getInstance();
         ImplementedCardList.ImplementedCard implementedCard = cardList.getCardForClass(this.getClass());
+        this.initFromImplementedCard(implementedCard);
+    }
+
+    public void initFromImplementedCard(ImplementedCardList.ImplementedCard implementedCard) {
         if (implementedCard != null) {
             this.name_ = implementedCard.name_;
             this.baseManaCost = (byte) implementedCard.mana_;
@@ -80,7 +84,6 @@ public class Card implements DeepCopyable<Card> {
             this.overload = (byte) implementedCard.overload;
         }
     }
-
 
     /**
      * Get the name of the card

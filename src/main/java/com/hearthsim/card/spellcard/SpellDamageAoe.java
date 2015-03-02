@@ -14,11 +14,16 @@ public class SpellDamageAoe extends SpellDamage {
     protected boolean hitsEnemyHero = false;
     protected boolean hitsEnemyMinions = true;
 
+    public SpellDamageAoe() {
+        super();
+    }
+
     /**
      * Constructor
      *
      * @param hasBeenUsed Whether the card has already been used or not
      */
+    @Deprecated
     public SpellDamageAoe(byte mana, byte damage, boolean hasBeenUsed) {
         super(mana, damage, hasBeenUsed);
     }
