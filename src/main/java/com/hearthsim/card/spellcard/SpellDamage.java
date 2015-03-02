@@ -11,14 +11,15 @@ public class SpellDamage extends SpellCard {
 
     protected byte damage_;
 
+    public SpellDamage() {
+        super();
+        this.damage_ = 0;
+    }
+
+    @Deprecated
     public SpellDamage(byte baseManaCost, byte damage, boolean hasBeenUsed) {
         super(baseManaCost, hasBeenUsed);
         damage_ = damage;
-    }
-
-    public SpellDamage() {
-        super((byte)0, false);
-        damage_ = 0;
     }
 
     public byte getAttack() {

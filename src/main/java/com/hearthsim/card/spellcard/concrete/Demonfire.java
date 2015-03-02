@@ -15,6 +15,7 @@ public class Demonfire extends SpellCard {
      *
      * @param hasBeenUsed Whether the card has already been used or not
      */
+    @Deprecated
     public Demonfire(boolean hasBeenUsed) {
         super((byte)2, hasBeenUsed);
 
@@ -28,7 +29,11 @@ public class Demonfire extends SpellCard {
      * Defaults to hasBeenUsed = false
      */
     public Demonfire() {
-        this(false);
+        super();
+
+        this.canTargetEnemyHero = false;
+        this.canTargetOwnHero = false;
+
     }
 
     /**

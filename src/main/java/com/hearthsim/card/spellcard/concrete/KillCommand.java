@@ -11,9 +11,11 @@ import com.hearthsim.util.tree.HearthTreeNode;
 public class KillCommand extends SpellDamage {
 
     public KillCommand() {
-        this(false);
+        super();
+        this.damage_ = 3;
     }
 
+    @Deprecated
     public KillCommand(boolean hasBeenUsed) {
         super((byte)3, (byte)3, hasBeenUsed);
     }
