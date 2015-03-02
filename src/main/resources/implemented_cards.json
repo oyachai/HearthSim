@@ -432,8 +432,12 @@
         "class": "com.hearthsim.card.minion.concrete.FrothingBerserker"
     },
     {
-      "name": "Gladiator's Longbow",
-      "class": "com.hearthsim.card.weapon.concrete.GladiatorsLongbow"
+        "name": "Gilblin Stalker",
+        "class": "com.hearthsim.card.minion.concrete.GilblinStalker"
+    },
+    {
+        "name": "Gladiator's Longbow",
+        "class": "com.hearthsim.card.weapon.concrete.GladiatorsLongbow"
     },
     {
         "name": "Gnomish Inventor",
@@ -704,6 +708,10 @@
         "class": "com.hearthsim.card.spellcard.concrete.MindControl"
     },
     {
+        "name": "Mini-Mage",
+        "class": "com.hearthsim.card.minion.concrete.MiniMage"
+    },
+    {
         "name": "Mirror Image",
         "class": "com.hearthsim.card.spellcard.concrete.MirrorImage"
     },
@@ -938,6 +946,10 @@
     {
         "name": "Sludge Belcher",
         "class": "com.hearthsim.card.minion.concrete.SludgeBelcher"
+    },
+    {
+        "name": "Soot Spewer",
+        "class": "com.hearthsim.card.minion.concrete.SootSpewer"
     },
     {
         "name": "Soulfire",
