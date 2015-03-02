@@ -113,7 +113,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
             stealthed_ = implementedCard.stealth_;
             tribe = Minion.StringToMinionTribe(implementedCard.race);
             isInHand_ = true;
-            // TODO: spellpower could be deduced from text quite easily
+            spellDamage_ = (byte) implementedCard.spellDamage;
         }
     }
 
