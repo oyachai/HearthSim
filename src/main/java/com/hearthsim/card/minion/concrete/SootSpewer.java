@@ -6,6 +6,5 @@ public class SootSpewer extends Minion {
     public SootSpewer() {
         super();
         this.spellDamage_ = 1;
-        this.tribe = MinionTribe.MECH;
     }
 }

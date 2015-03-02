@@ -6,6 +6,5 @@ public class SaltyDog extends Minion {
 
     public SaltyDog() {
         super();
-        this.tribe = MinionTribe.PIRATE;
     }
 }

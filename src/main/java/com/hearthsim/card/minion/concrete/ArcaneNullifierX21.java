@@ -6,6 +6,5 @@ public class ArcaneNullifierX21 extends Minion {
     public ArcaneNullifierX21() {
         super();
         this.heroTargetable_ = false;
-        this.tribe = MinionTribe.MECH;
     }
 }

@@ -6,6 +6,5 @@ public class ForceTankMax extends Minion {
 
     public ForceTankMax() {
         super();
-        this.tribe = MinionTribe.MECH;
     }
 }

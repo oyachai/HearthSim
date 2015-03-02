@@ -11,8 +11,6 @@ public class IronfurGrizzly extends Minion {
         super();
         spellDamage_ = SPELL_DAMAGE;
         heroTargetable_ = HERO_TARGETABLE;
-
-        this.tribe = MinionTribe.BEAST;
     }
 
 }

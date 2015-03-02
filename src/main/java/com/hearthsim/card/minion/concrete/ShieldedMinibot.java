@@ -6,6 +6,5 @@ public class ShieldedMinibot extends Minion {
 
     public ShieldedMinibot() {
         super();
-        this.tribe = MinionTribe.MECH;
     }
 }
