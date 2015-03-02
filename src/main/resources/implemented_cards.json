@@ -64,6 +64,10 @@
         "class": "com.hearthsim.card.spellcard.concrete.AnimalCompanion"
     },
     {
+        "name": "Annoy-o-Tron",
+        "class": "com.hearthsim.card.minion.concrete.AnnoyOTron"
+    },
+    {
         "name": "Arathi Weaponsmith",
         "class": "com.hearthsim.card.minion.concrete.ArathiWeaponsmith"
     },
@@ -396,6 +400,10 @@
         "class": "com.hearthsim.card.minion.concrete.FlesheatingGhoul"
     },
     {
+        "name": "Force-Tank MAX",
+        "class": "com.hearthsim.card.minion.concrete.ForceTankMax"
+    },
+    {
         "name": "Frost Elemental",
         "class": "com.hearthsim.card.minion.concrete.FrostElemental"
     },
@@ -434,6 +442,10 @@
     {
         "name": "Gnoll",
         "class": "com.hearthsim.card.minion.concrete.Gnoll"
+    },
+    {
+        "name": "Gnomeregan Infantry",
+        "class": "com.hearthsim.card.minion.concrete.GnomereganInfantry"
     },
     {
         "name": "Goldshire Footman",
@@ -886,6 +898,10 @@
     {
         "name": "Shieldbearer",
         "class": "com.hearthsim.card.minion.concrete.Shieldbearer"
+    },
+    {
+        "name": "Shielded Minibot",
+        "class": "com.hearthsim.card.minion.concrete.ShieldedMinibot"
     },
     {
         "name": "Shiv",
