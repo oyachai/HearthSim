@@ -9,7 +9,6 @@ public class MurlocRaider extends Minion {
 
     public MurlocRaider() {
         super();
-        spellDamage_ = SPELL_DAMAGE;
         heroTargetable_ = HERO_TARGETABLE;
     }
 }

@@ -11,11 +11,9 @@ public class PriestessOfElune extends Minion implements MinionUntargetableBattle
 
     private static final boolean HERO_TARGETABLE = true;
 
-    private static final byte SPELL_DAMAGE = 1;
 
     public PriestessOfElune() {
         super();
-        spellDamage_ = SPELL_DAMAGE;
         heroTargetable_ = HERO_TARGETABLE;
 
     }

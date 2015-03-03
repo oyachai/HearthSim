@@ -10,11 +10,9 @@ import com.hearthsim.util.tree.HearthTreeNode;
 public class FlameImp extends Minion implements MinionUntargetableBattlecry {
 
     private static final boolean HERO_TARGETABLE = true;
-    private static final byte SPELL_DAMAGE = 0;
 
     public FlameImp() {
         super();
-        spellDamage_ = SPELL_DAMAGE;
         heroTargetable_ = HERO_TARGETABLE;
     }
 
