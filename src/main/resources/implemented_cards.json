@@ -232,6 +232,10 @@
         "class": "com.hearthsim.card.spellcard.concrete.Claw"
     },
     {
+        "name": "Clockwork Giant",
+        "class": "com.hearthsim.card.minion.concrete.ClockworkGiant"
+    },
+    {
         "name": "Coldlight Oracle",
         "class": "com.hearthsim.card.minion.concrete.ColdlightOracle"
     },
