@@ -14,8 +14,6 @@ public class HauntedCreeper extends Minion {
         heroTargetable_ = HERO_TARGETABLE;
 
         deathrattleAction_ = new DeathrattleSummonMinionAction(SpectralSpider.class, 2);
-
-        this.tribe = MinionTribe.BEAST;
     }
 
 }

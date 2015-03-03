@@ -17,8 +17,6 @@ public class IllidanStormrage extends Minion implements CardPlayBeginInterface {
         super();
         spellDamage_ = SPELL_DAMAGE;
         heroTargetable_ = HERO_TARGETABLE;
-
-        this.tribe = MinionTribe.DEMON;
     }
 
     @Override

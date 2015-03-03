@@ -6,6 +6,5 @@ public class LostTallstrider extends Minion {
 
     public LostTallstrider() {
         super();
-        this.tribe = MinionTribe.BEAST;
     }
 }

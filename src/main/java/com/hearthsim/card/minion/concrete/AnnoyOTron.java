@@ -6,6 +6,5 @@ public class AnnoyOTron extends Minion {
 
     public AnnoyOTron() {
         super();
-        this.tribe = MinionTribe.MECH;
     }
 }

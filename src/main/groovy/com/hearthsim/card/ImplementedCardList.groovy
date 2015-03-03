@@ -69,6 +69,7 @@ class ImplementedCardList {
         public String charClass_;
         public String rarity_;
         public String text_;
+        public String race;
         public boolean isHero;
         public boolean collectible;
         public boolean taunt_;
@@ -139,6 +140,7 @@ class ImplementedCardList {
                     isHero: Hero.class.isAssignableFrom(clazz),
                     collectible: cardDefinition.collectible?: false,
                     overload: overload,
+                    race: cardDefinition.race
                     
             )
             list_ << implementedCard

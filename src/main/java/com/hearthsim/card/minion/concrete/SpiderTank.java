@@ -6,6 +6,5 @@ public class SpiderTank extends Minion {
 
     public SpiderTank() {
         super();
-        this.tribe = MinionTribe.MECH;
     }
 }

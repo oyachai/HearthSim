@@ -17,7 +17,6 @@ public class Onyxia extends Minion implements MinionUntargetableBattlecry  {
         super();
         spellDamage_ = SPELL_DAMAGE;
         heroTargetable_ = HERO_TARGETABLE;
-        this.tribe = MinionTribe.DRAGON;
     }
 
     @Override

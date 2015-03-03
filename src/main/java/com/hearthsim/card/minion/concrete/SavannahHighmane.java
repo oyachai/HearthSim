@@ -13,7 +13,6 @@ public class SavannahHighmane extends Minion {
         spellDamage_ = SPELL_DAMAGE;
         heroTargetable_ = HERO_TARGETABLE;
 
-        this.tribe = MinionTribe.BEAST;
         deathrattleAction_ = new DeathrattleSummonMinionAction(Hyena.class, 2);
     }
 

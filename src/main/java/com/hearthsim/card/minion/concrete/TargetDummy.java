@@ -5,6 +5,5 @@ import com.hearthsim.card.minion.Minion;
 public class TargetDummy extends Minion {
     public TargetDummy() {
         super();
-        this.tribe = MinionTribe.MECH;
     }
 }

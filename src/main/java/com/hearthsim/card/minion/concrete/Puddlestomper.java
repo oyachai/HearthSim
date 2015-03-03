@@ -6,6 +6,5 @@ public class Puddlestomper extends Minion {
 
     public Puddlestomper() {
         super();
-        this.tribe = MinionTribe.MURLOC;
     }
 }

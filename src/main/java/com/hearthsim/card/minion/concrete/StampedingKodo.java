@@ -24,8 +24,6 @@ public class StampedingKodo extends Minion implements MinionUntargetableBattlecr
         super();
         spellDamage_ = SPELL_DAMAGE;
         heroTargetable_ = HERO_TARGETABLE;
-
-        this.tribe = MinionTribe.BEAST;
     }
 
     /**
