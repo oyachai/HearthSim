@@ -80,7 +80,7 @@ public abstract class BoardStateFactoryBase {
             }
         }
         for (BoardModel.MinionPlayerPair minionIdPair : deadMinions) {
-            PlayerSide playerSide = boardState.data_.sideForModel(minionIdPair.getPlayerModel());
+            PlayerSide playerSide = minionIdPair.getPlayerSide();
             toRet = minionIdPair.getMinion().destroyed(playerSide, toRet, deckPlayer0, deckPlayer1, singleRealization);
             toRet.data_.removeMinion(minionIdPair);
         }

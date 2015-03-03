@@ -9,7 +9,7 @@ import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.MinionList;
+import com.hearthsim.util.IdentityLinkedList;
 import com.hearthsim.util.tree.HearthTreeNode;
 import org.junit.Before;
 import org.junit.Test;
@@ -240,7 +240,7 @@ public class TestCairneBloodhoof {
         //----------------------------------------------------------
         HearthTreeNode fb = new HearthTreeNode(board.data_.flipPlayers());
 
-        MinionList currentPlayerMinions = PlayerSide.CURRENT_PLAYER.getPlayer(fb).getMinions();
+        IdentityLinkedList<Minion> currentPlayerMinions = PlayerSide.CURRENT_PLAYER.getPlayer(fb).getMinions();
         Minion minion = currentPlayerMinions.get(1);
 
         minion.hasAttacked(false);
@@ -256,7 +256,7 @@ public class TestCairneBloodhoof {
         assertEquals(fb.data_.getWaitingPlayerHero().getHealth(), 30);
         assertEquals(currentPlayerMinions.get(0).getHealth(), 2);
         assertEquals(currentPlayerMinions.get(1).getHealth(), 7 - 5);
-        MinionList waitingPlayerMinions = PlayerSide.WAITING_PLAYER.getPlayer(fb).getMinions();
+        IdentityLinkedList<Minion> waitingPlayerMinions = PlayerSide.WAITING_PLAYER.getPlayer(fb).getMinions();
         assertEquals(waitingPlayerMinions.get(0).getHealth(), 2);
         assertEquals(waitingPlayerMinions.get(1).getHealth(), 5);
         assertEquals(waitingPlayerMinions.get(2).getHealth(), 7);

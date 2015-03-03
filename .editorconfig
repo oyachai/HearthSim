@@ -10,12 +10,8 @@ insert_final_newline = true
 [*.java]
 charset = utf-8
 
-[*.java]
+[*.{java,json}]
 indent_style = space
 indent_size = 4
 trim_trailing_whitespace = true
 curly_bracket_next_line = false
-
-[*.json]
-indent_style = space
-indent_size = 2

@@ -8,7 +8,6 @@ import com.hearthsim.model.BoardModel
 import com.hearthsim.model.PlayerModel
 import com.hearthsim.test.helpers.BoardModelBuilder
 import com.hearthsim.util.IdentityLinkedList
-import com.hearthsim.util.MinionList
 import org.junit.Assert
 import spock.lang.Specification
 
@@ -24,11 +23,11 @@ class CardSpec extends Specification {
     void assertBoardEquals(BoardModel oldBoard, BoardModel newBoard) {
         assertPlayerEquals(oldBoard.currentPlayer, newBoard.currentPlayer)
         assertPlayerEquals(oldBoard.waitingPlayer, newBoard.waitingPlayer)
-        assert oldBoard.allMinionsFIFOList_.size() == newBoard.allMinionsFIFOList_.size()
-        for (int indx = 0; indx < oldBoard.allMinionsFIFOList_.size(); ++indx) {
-            assertPlayerEquals(oldBoard.allMinionsFIFOList_.get(indx).getPlayerModel(), newBoard.allMinionsFIFOList_.get(indx).getPlayerModel())
-            assertMinionEquals(oldBoard.allMinionsFIFOList_.get(indx).getMinion(), newBoard.allMinionsFIFOList_.get(indx).getMinion())
-        }
+		assert oldBoard.allMinionsFIFOList_.size() == newBoard.allMinionsFIFOList_.size()
+		for (int indx = 0; indx < oldBoard.allMinionsFIFOList_.size(); ++indx) {
+			assertPlayerEquals(oldBoard.allMinionsFIFOList_.get(indx).getPlayerSide().getPlayer(oldBoard), newBoard.allMinionsFIFOList_.get(indx).getPlayerSide().getPlayer(newBoard))
+			assertMinionEquals(oldBoard.allMinionsFIFOList_.get(indx).getMinion(), newBoard.allMinionsFIFOList_.get(indx).getMinion())
+		}
         assert oldBoard == newBoard //for now, a catch all at the end
     }
 
@@ -72,7 +71,7 @@ class CardSpec extends Specification {
         assert oldWeapon == newWeapon //catch all
     }
 
-    void assertMinionsEqual(MinionList oldMinions, MinionList newMinions) {
+    void assertMinionsEqual(IdentityLinkedList<Minion> oldMinions, IdentityLinkedList<Minion> newMinions) {
         assert oldMinions.size() == newMinions.size()
         for (int indx = 0; indx < oldMinions.size(); ++indx) {
             Minion oldMinion = oldMinions.get(indx)

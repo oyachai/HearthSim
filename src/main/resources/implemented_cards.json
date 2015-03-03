@@ -928,6 +928,10 @@
         "class": "com.hearthsim.card.spellcard.concrete.Sprint"
     },
     {
+        "name": "Squire",
+        "class": "com.hearthsim.card.minion.concrete.Squire"
+    },
+    {
         "name": "Stampeding Kodo",
         "class": "com.hearthsim.card.minion.concrete.StampedingKodo"
     },
