@@ -64,6 +64,10 @@
         "class": "com.hearthsim.card.spellcard.concrete.AnimalCompanion"
     },
     {
+        "name": "Annoy-o-Tron",
+        "class": "com.hearthsim.card.minion.concrete.AnnoyOTron"
+    },
+    {
         "name": "Arathi Weaponsmith",
         "class": "com.hearthsim.card.minion.concrete.ArathiWeaponsmith"
     },
@@ -78,6 +82,10 @@
     {
         "name": "Arcane Intellect",
         "class": "com.hearthsim.card.spellcard.concrete.ArcaneIntellect"
+    },
+    {
+        "name": "Arcane Nullifier X-21",
+        "class": "com.hearthsim.card.minion.concrete.ArcaneNullifierX21"
     },
     {
         "name": "Arcane Shot",
@@ -396,6 +404,14 @@
         "class": "com.hearthsim.card.minion.concrete.FlesheatingGhoul"
     },
     {
+        "name": "Flying Machine",
+        "class": "com.hearthsim.card.minion.concrete.FlyingMachine"
+    },
+    {
+        "name": "Force-Tank MAX",
+        "class": "com.hearthsim.card.minion.concrete.ForceTankMax"
+    },
+    {
         "name": "Frost Elemental",
         "class": "com.hearthsim.card.minion.concrete.FrostElemental"
     },
@@ -424,8 +440,12 @@
         "class": "com.hearthsim.card.minion.concrete.FrothingBerserker"
     },
     {
-      "name": "Gladiator's Longbow",
-      "class": "com.hearthsim.card.weapon.concrete.GladiatorsLongbow"
+        "name": "Gilblin Stalker",
+        "class": "com.hearthsim.card.minion.concrete.GilblinStalker"
+    },
+    {
+        "name": "Gladiator's Longbow",
+        "class": "com.hearthsim.card.weapon.concrete.GladiatorsLongbow"
     },
     {
         "name": "Gnomish Inventor",
@@ -434,6 +454,10 @@
     {
         "name": "Gnoll",
         "class": "com.hearthsim.card.minion.concrete.Gnoll"
+    },
+    {
+        "name": "Gnomeregan Infantry",
+        "class": "com.hearthsim.card.minion.concrete.GnomereganInfantry"
     },
     {
         "name": "Goldshire Footman",
@@ -648,6 +672,10 @@
         "class": "com.hearthsim.card.minion.concrete.LordOfTheArena"
     },
     {
+        "name": "Lost Tallstrider",
+        "class": "com.hearthsim.card.minion.concrete.LostTallstrider"
+    },
+    {
         "name": "Maexxna",
         "class": "com.hearthsim.card.minion.concrete.Maexxna"
     },
@@ -686,6 +714,10 @@
     {
         "name": "Mind Control",
         "class": "com.hearthsim.card.spellcard.concrete.MindControl"
+    },
+    {
+        "name": "Mini-Mage",
+        "class": "com.hearthsim.card.minion.concrete.MiniMage"
     },
     {
         "name": "Mirror Image",
@@ -780,6 +812,10 @@
         "class": "com.hearthsim.card.minion.concrete.PriestessOfElune"
     },
     {
+        "name": "Puddlestomper",
+        "class": "com.hearthsim.card.minion.concrete.Puddlestomper"
+    },
+    {
         "name": "Pyroblast",
         "class": "com.hearthsim.card.spellcard.concrete.Pyroblast"
     },
@@ -818,6 +854,10 @@
     {
         "name": "Sacrificial Pact",
         "class": "com.hearthsim.card.spellcard.concrete.SacrificialPact"
+    },
+    {
+        "name": "Salty Dog",
+        "class": "com.hearthsim.card.minion.concrete.SaltyDog"
     },
     {
         "name": "Sap",
@@ -876,6 +916,10 @@
         "class": "com.hearthsim.card.minion.concrete.Shieldbearer"
     },
     {
+        "name": "Shielded Minibot",
+        "class": "com.hearthsim.card.minion.concrete.ShieldedMinibot"
+    },
+    {
         "name": "Shiv",
         "class": "com.hearthsim.card.spellcard.concrete.Shiv"
     },
@@ -912,6 +956,10 @@
         "class": "com.hearthsim.card.minion.concrete.SludgeBelcher"
     },
     {
+        "name": "Soot Spewer",
+        "class": "com.hearthsim.card.minion.concrete.SootSpewer"
+    },
+    {
         "name": "Soulfire",
         "class": "com.hearthsim.card.spellcard.concrete.Soulfire"
     },
@@ -922,6 +970,10 @@
     {
         "name": "Spellbreaker",
         "class": "com.hearthsim.card.minion.concrete.Spellbreaker"
+    },
+    {
+        "name": "Spider Tank",
+        "class": "com.hearthsim.card.minion.concrete.SpiderTank"
     },
     {
         "name": "Sprint",
@@ -986,6 +1038,10 @@
     {
         "name": "Sylvanas Windrunner",
         "class": "com.hearthsim.card.minion.concrete.SylvanasWindrunner"
+    },
+    {
+        "name": "Target Dummy",
+        "class": "com.hearthsim.card.minion.concrete.TargetDummy"
     },
     {
         "name": "Tauren Warrior",
@@ -1054,6 +1110,10 @@
     {
         "name": "Whelp",
         "class": "com.hearthsim.card.minion.concrete.Whelp"
+    },
+    {
+        "name": "Whirling Zap-o-matic",
+        "class": "com.hearthsim.card.minion.concrete.WhirlingZapOMatic"
     },
     {
         "name": "Whirlwind",
