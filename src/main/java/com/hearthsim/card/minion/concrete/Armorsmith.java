@@ -9,11 +9,8 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class Armorsmith extends Minion implements MinionDamagedInterface {
 
-    private static final boolean HERO_TARGETABLE = true;
-
     public Armorsmith() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
     }
 
     /**

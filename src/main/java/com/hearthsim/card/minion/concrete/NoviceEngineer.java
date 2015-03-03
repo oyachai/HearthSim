@@ -7,15 +7,10 @@ import com.hearthsim.exception.HSException;
 import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-
 public class NoviceEngineer extends Minion implements MinionUntargetableBattlecry {
-
-    private static final boolean HERO_TARGETABLE = true;
 
     public NoviceEngineer() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
-
     }
 
     /**

@@ -8,12 +8,8 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class NatPagle extends Minion {
 
-    private static final boolean HERO_TARGETABLE = true;
-
     public NatPagle() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
-
     }
 
     @Override

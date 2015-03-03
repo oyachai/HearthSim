@@ -69,7 +69,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
     protected boolean frozen_;
     protected boolean silenced_;
     protected boolean stealthed_;
-    protected boolean heroTargetable_;
+    protected boolean heroTargetable_ = true;
 
     protected byte health_;
     protected byte maxHealth_;
@@ -527,7 +527,6 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         // Notify all that it is dead
         toRet = this.notifyMinionDead(thisPlayerSide, this, toRet, deckPlayer0, deckPlayer1);
         return toRet;
-
     }
 
     // Use for bounce (e.g., Brewmaster) or recreate (e.g., Reincarnate)
@@ -946,7 +945,6 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         else
             hasAttacked_ = true;
         return toRet;
-
     }
 
     // ======================================================================================

@@ -8,11 +8,8 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class ShadeOfNaxxramas extends Minion {
 
-    private static final boolean HERO_TARGETABLE = true;
-
     public ShadeOfNaxxramas() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
     }
 
     @Override

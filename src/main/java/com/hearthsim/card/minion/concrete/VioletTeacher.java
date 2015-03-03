@@ -11,12 +11,8 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class VioletTeacher extends Minion implements CardPlayBeginInterface {
 
-    private static final boolean HERO_TARGETABLE = true;
-
     public VioletTeacher() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
-
     }
 
     /**

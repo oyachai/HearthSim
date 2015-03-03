@@ -8,11 +8,8 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class FrothingBerserker extends Minion implements MinionDamagedInterface {
 
-    private static final boolean HERO_TARGETABLE = true;
-
     public FrothingBerserker() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
     }
 
     /**

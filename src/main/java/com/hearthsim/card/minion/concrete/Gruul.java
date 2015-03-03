@@ -8,11 +8,8 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class Gruul extends Minion {
 
-    private static final boolean HERO_TARGETABLE = true;
-
     public Gruul() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
     }
 
     /**

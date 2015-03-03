@@ -8,14 +8,9 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class YoungPriestess extends Minion {
 
-    private static final boolean HERO_TARGETABLE = true;
-
     public YoungPriestess() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
-
     }
-
 
     /**
      * At the end of your turn, give another random friendly minion +1 Health

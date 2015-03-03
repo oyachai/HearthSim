@@ -10,11 +10,8 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class BloodsailCorsair extends Minion implements MinionUntargetableBattlecry {
 
-    private static final boolean HERO_TARGETABLE = true;
-
     public BloodsailCorsair() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
     }
 
     /**

@@ -8,12 +8,8 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class Doomsayer extends Minion {
 
-    private static final boolean HERO_TARGETABLE = true;
-
     public Doomsayer() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
-
     }
 
     @Override

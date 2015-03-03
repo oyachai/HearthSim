@@ -33,7 +33,6 @@ public class HSHeroChoiceComboBox extends JComboBox<String> {
             }
             return this;
         }
-
     }
 
     class HSHeroChoice extends BasicComboBoxUI {
@@ -45,7 +44,6 @@ public class HSHeroChoiceComboBox extends JComboBox<String> {
             toRet.setForeground(HSColors.TEXT_COLOR);
             return toRet;
         }
-
     }
 
     public HSHeroChoiceComboBox(String[] items) {

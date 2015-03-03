@@ -7,7 +7,6 @@ import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-
 /**
  * Northshire Cleric
  *
@@ -19,12 +18,8 @@ import com.hearthsim.util.tree.HearthTreeNode;
  */
 public class NorthshireCleric extends Minion implements MinionHealedInterface {
 
-    private static final boolean HERO_TARGETABLE = true;
-
     public NorthshireCleric() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
-
     }
 
     /**

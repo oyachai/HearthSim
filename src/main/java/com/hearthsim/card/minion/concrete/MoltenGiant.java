@@ -6,12 +6,8 @@ import com.hearthsim.model.PlayerSide;
 
 public class MoltenGiant extends Minion {
 
-    private static final boolean HERO_TARGETABLE = true;
-
     public MoltenGiant() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
-
     }
 
     @Override

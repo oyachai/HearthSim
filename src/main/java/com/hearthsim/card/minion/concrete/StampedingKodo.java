@@ -17,11 +17,8 @@ import com.hearthsim.util.tree.RandomEffectNode;
 
 public class StampedingKodo extends Minion implements MinionUntargetableBattlecry {
 
-    private static final boolean HERO_TARGETABLE = true;
-
     public StampedingKodo() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
     }
 
     /**

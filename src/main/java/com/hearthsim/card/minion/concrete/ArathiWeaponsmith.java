@@ -13,11 +13,8 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class ArathiWeaponsmith extends Minion implements MinionUntargetableBattlecry {
 
-    private static final boolean HERO_TARGETABLE = true;
-
     public ArathiWeaponsmith() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
     }
 
     /**

@@ -10,11 +10,8 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class AcidicSwampOoze extends Minion implements MinionUntargetableBattlecry {
 
-    private static final boolean HERO_TARGETABLE = true;
-
     public AcidicSwampOoze() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
     }
 
     /**

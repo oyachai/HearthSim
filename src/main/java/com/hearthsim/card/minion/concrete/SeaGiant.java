@@ -6,12 +6,8 @@ import com.hearthsim.model.PlayerSide;
 
 public class SeaGiant extends Minion {
 
-    private static final boolean HERO_TARGETABLE = true;
-
     public SeaGiant() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
-
     }
 
     @Override

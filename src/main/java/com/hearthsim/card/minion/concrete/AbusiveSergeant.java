@@ -12,13 +12,9 @@ import java.util.EnumSet;
 
 public class AbusiveSergeant extends Minion implements MinionTargetableBattlecry {
 
-    private static final boolean HERO_TARGETABLE = true;
-
     public AbusiveSergeant() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
     }
-
 
     @Override
     public EnumSet<BattlecryTargetType> getBattlecryTargets() {

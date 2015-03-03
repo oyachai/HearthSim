@@ -41,7 +41,6 @@ public class HSButton extends JButton {
         int x = (this.getWidth() - (int) r.getWidth()) / 2;
         int y = (this.getHeight() - (int) r.getHeight()) / 2 + fm.getAscent();
         g.drawString(this.getText(), x, y);
-
     }
 
 }

@@ -370,6 +370,5 @@ public class HSSimulationSettingsFrame extends JDialog {
                 ((BruteForceSearchAI)simulation_.getAI_p1()).setUseDuplicateNodePruning(flag_useDuplicateNodePruning_p1.isSelected());
             }
         });
-
     }
 }

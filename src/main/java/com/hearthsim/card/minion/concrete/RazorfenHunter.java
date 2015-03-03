@@ -7,15 +7,10 @@ import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-
 public class RazorfenHunter extends Minion implements MinionUntargetableBattlecry {
-
-    private static final boolean HERO_TARGETABLE = true;
 
     public RazorfenHunter() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
-
     }
 
     /**

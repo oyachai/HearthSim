@@ -8,14 +8,9 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class FlesheatingGhoul extends Minion implements MinionDeadInterface {
 
-    private static final boolean HERO_TARGETABLE = true;
-
     public FlesheatingGhoul() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
-
     }
-
 
     /**
      *

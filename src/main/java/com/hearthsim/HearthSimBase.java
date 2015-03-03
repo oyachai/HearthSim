@@ -178,7 +178,6 @@ public abstract class HearthSimBase {
                 log.error("Error! " + e);
             }
         }
-
     }
 
     public void addGameEndListener(HSGameEndEventListener toAdd) {

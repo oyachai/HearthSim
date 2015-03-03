@@ -4,11 +4,8 @@ import com.hearthsim.card.minion.MinionWithEnrage;
 
 public class AngryChicken extends MinionWithEnrage {
 
-    private static final boolean HERO_TARGETABLE = true;
-
     public AngryChicken() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
     }
 
     @Override

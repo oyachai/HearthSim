@@ -12,11 +12,8 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class FrostElemental extends Minion implements MinionTargetableBattlecry {
 
-    private static final boolean HERO_TARGETABLE = true;
-
     public FrostElemental() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
     }
 
     /**

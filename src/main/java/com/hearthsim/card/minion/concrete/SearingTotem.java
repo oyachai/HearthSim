@@ -4,11 +4,8 @@ import com.hearthsim.card.minion.Minion;
 
 public class SearingTotem extends Minion {
 
-    private static final boolean HERO_TARGETABLE = true;
-
     public SearingTotem() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
     }
 
 }

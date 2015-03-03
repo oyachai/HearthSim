@@ -10,11 +10,8 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class KingMukla extends Minion implements MinionUntargetableBattlecry {
 
-    private static final boolean HERO_TARGETABLE = true;
-
     public KingMukla() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
     }
 
     /**

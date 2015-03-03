@@ -8,12 +8,8 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class MasterSwordsmith extends Minion {
 
-    private static final boolean HERO_TARGETABLE = true;
-
     public MasterSwordsmith() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
-
     }
 
     @Override

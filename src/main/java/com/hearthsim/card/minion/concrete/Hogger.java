@@ -8,12 +8,8 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class Hogger extends Minion {
 
-    private static final boolean HERO_TARGETABLE = true;
-
     public Hogger() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
-
     }
 
     @Override

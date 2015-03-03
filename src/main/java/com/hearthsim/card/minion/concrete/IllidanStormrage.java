@@ -10,11 +10,8 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class IllidanStormrage extends Minion implements CardPlayBeginInterface {
 
-    private static final boolean HERO_TARGETABLE = true;
-
     public IllidanStormrage() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
     }
 
     @Override

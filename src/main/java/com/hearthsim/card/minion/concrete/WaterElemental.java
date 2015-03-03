@@ -6,15 +6,10 @@ import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-
 public class WaterElemental extends Minion {
-
-    private static final boolean HERO_TARGETABLE = true;
 
     public WaterElemental() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
-
     }
 
     /**

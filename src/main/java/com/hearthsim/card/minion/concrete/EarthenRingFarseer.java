@@ -12,12 +12,8 @@ import java.util.EnumSet;
 
 public class EarthenRingFarseer extends Minion implements MinionTargetableBattlecry {
 
-    private static final boolean HERO_TARGETABLE = true;
-
     public EarthenRingFarseer() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
-
     }
 
     @Override

@@ -4,11 +4,8 @@ import com.hearthsim.card.minion.Minion;
 
 public class Huffer extends Minion {
 
-    private static final boolean HERO_TARGETABLE = true;
-
     public Huffer() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
     }
 
 }

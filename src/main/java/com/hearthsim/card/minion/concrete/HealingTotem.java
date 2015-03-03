@@ -9,11 +9,8 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class HealingTotem extends Minion {
 
-    private static final boolean HERO_TARGETABLE = true;
-
     public HealingTotem() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
     }
 
     /**
@@ -27,7 +24,6 @@ public class HealingTotem extends Minion {
         HearthTreeNode tmpState = super.endTurn(thisMinionPlayerIndex, boardModel, deckPlayer0, deckPlayer1);
         if (isWaitingPlayer(thisMinionPlayerIndex))
             return tmpState;
-
 
         for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(tmpState).getMinions()) {
             tmpState = minion.takeHeal((byte)1, PlayerSide.CURRENT_PLAYER, tmpState, deckPlayer0, deckPlayer1);

@@ -12,11 +12,8 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class CabalShadowPriest extends Minion implements MinionTargetableBattlecry {
 
-    private static final boolean HERO_TARGETABLE = true;
-
     public CabalShadowPriest() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
     }
 
     @Override

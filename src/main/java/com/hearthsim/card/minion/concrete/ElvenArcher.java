@@ -10,17 +10,11 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 import java.util.EnumSet;
 
-
 public class ElvenArcher extends Minion implements MinionTargetableBattlecry {
-
-    private static final boolean HERO_TARGETABLE = true;
 
     public ElvenArcher() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
-
     }
-
 
     @Override
     public EnumSet<BattlecryTargetType> getBattlecryTargets() {
