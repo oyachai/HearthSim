@@ -16,12 +16,10 @@ public class HeroicStrike extends SpellCard {
      *
      * @param hasBeenUsed Whether the card has already been used or not
      */
+    @Deprecated
     public HeroicStrike(boolean hasBeenUsed) {
-        super((byte)1, hasBeenUsed);
-
-        this.canTargetEnemyHero = false;
-        this.canTargetEnemyMinions = false;
-        this.canTargetOwnMinions = false;
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     /**
@@ -30,7 +28,11 @@ public class HeroicStrike extends SpellCard {
      * Defaults to hasBeenUsed = false
      */
     public HeroicStrike() {
-        this(false);
+        super();
+
+        this.canTargetEnemyHero = false;
+        this.canTargetEnemyMinions = false;
+        this.canTargetOwnMinions = false;
     }
 
     /**

@@ -11,11 +11,10 @@ public class Whirlwind extends SpellDamageAoe {
      *
      * @param hasBeenUsed Whether the card has already been used or not
      */
+    @Deprecated
     public Whirlwind(boolean hasBeenUsed) {
-        super((byte)1, DAMAGE_AMOUNT, hasBeenUsed);
-
-        this.hitsEnemyMinions = true;
-        this.hitsOwnMinions = true;
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     /**
@@ -24,6 +23,9 @@ public class Whirlwind extends SpellDamageAoe {
      * Defaults to hasBeenUsed = false
      */
     public Whirlwind() {
-        this(false);
+        super();
+
+        this.hitsEnemyMinions = true;
+        this.hitsOwnMinions = true;
     }
 }

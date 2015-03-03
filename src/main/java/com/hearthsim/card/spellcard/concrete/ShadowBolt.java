@@ -5,14 +5,16 @@ import com.hearthsim.card.spellcard.SpellDamage;
 public class ShadowBolt extends SpellDamage {
 
     public ShadowBolt() {
-        this(false);
-    }
-
-    public ShadowBolt(boolean hasBeenUsed) {
-        super((byte)3, (byte)4, hasBeenUsed);
+        super();
 
         this.canTargetEnemyHero = false;
         this.canTargetOwnHero = false;
+    }
+
+    @Deprecated
+    public ShadowBolt(boolean hasBeenUsed) {
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     @Override

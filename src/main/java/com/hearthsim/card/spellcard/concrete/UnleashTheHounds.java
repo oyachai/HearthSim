@@ -10,16 +10,18 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class UnleashTheHounds extends SpellCard {
 
+    @Deprecated
     public UnleashTheHounds(boolean hasBeenUsed) {
-        super((byte)3, hasBeenUsed);
+        this();
+        this.hasBeenUsed = hasBeenUsed;
+    }
+
+    public UnleashTheHounds() {
+        super();
 
         this.canTargetEnemyHero = false;
         this.canTargetEnemyMinions = false;
         this.canTargetOwnMinions = false;
-    }
-
-    public UnleashTheHounds() {
-        this(false);
     }
 
     /**

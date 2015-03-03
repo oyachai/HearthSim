@@ -14,12 +14,10 @@ public class Charge extends SpellCard {
      *
      * @param hasBeenUsed Whether the card has already been used or not
      */
+    @Deprecated
     public Charge(boolean hasBeenUsed) {
-        super((byte)3, hasBeenUsed);
-
-        this.canTargetEnemyHero = false;
-        this.canTargetEnemyMinions = false;
-        this.canTargetOwnHero = false;
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     /**
@@ -28,7 +26,11 @@ public class Charge extends SpellCard {
      * Defaults to hasBeenUsed = false
      */
     public Charge() {
-        this(false);
+        super();
+
+        this.canTargetEnemyHero = false;
+        this.canTargetEnemyMinions = false;
+        this.canTargetOwnHero = false;
     }
 
     /**

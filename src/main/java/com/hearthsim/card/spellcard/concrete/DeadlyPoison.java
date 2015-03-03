@@ -17,12 +17,10 @@ public class DeadlyPoison extends SpellCard {
      *
      * @param hasBeenUsed Whether the card has already been used or not
      */
+    @Deprecated
     public DeadlyPoison(boolean hasBeenUsed) {
-        super((byte)1, hasBeenUsed);
-
-        this.canTargetEnemyHero = false;
-        this.canTargetEnemyMinions = false;
-        this.canTargetOwnMinions = false;
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     /**
@@ -31,7 +29,11 @@ public class DeadlyPoison extends SpellCard {
      * Defaults to hasBeenUsed = false
      */
     public DeadlyPoison() {
-        this(false);
+        super();
+
+        this.canTargetEnemyHero = false;
+        this.canTargetEnemyMinions = false;
+        this.canTargetOwnMinions = false;
     }
 
     @Override

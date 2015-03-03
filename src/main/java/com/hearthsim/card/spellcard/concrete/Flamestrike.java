@@ -9,8 +9,10 @@ public class Flamestrike extends SpellDamageAoe {
      *
      * @param hasBeenUsed Whether the card has already been used or not
      */
+    @Deprecated
     public Flamestrike(boolean hasBeenUsed) {
-        super((byte)7, (byte)4, hasBeenUsed);
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     /**
@@ -19,6 +21,6 @@ public class Flamestrike extends SpellDamageAoe {
      * Defaults to hasBeenUsed = false
      */
     public Flamestrike() {
-        this(false);
+        super();
     }
 }

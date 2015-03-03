@@ -16,11 +16,10 @@ public class Swipe extends SpellDamage {
      *
      * @param hasBeenUsed Whether the card has already been used or not
      */
+    @Deprecated
     public Swipe(boolean hasBeenUsed) {
-        super((byte)4, DAMAGE_AMOUNT, hasBeenUsed);
-
-        this.canTargetOwnHero = false;
-        this.canTargetOwnMinions = false;
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     /**
@@ -28,7 +27,11 @@ public class Swipe extends SpellDamage {
      * Defaults to hasBeenUsed = false
      */
     public Swipe() {
-        this(false);
+        super();
+
+        this.damage_ = Swipe.DAMAGE_AMOUNT;
+        this.canTargetOwnHero = false;
+        this.canTargetOwnMinions = false;
     }
 
     /**

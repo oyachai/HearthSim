@@ -10,15 +10,15 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class FanOfKnives extends SpellDamageAoe {
 
-    private static final byte DAMAGE_AMOUNT = 1;
-
     /**
      * Constructor
      *
      * @param hasBeenUsed Whether the card has already been used or not
      */
+    @Deprecated
     public FanOfKnives(boolean hasBeenUsed) {
-        super((byte)3, DAMAGE_AMOUNT, hasBeenUsed);
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     /**
@@ -26,7 +26,7 @@ public class FanOfKnives extends SpellDamageAoe {
      * Defaults to hasBeenUsed = false
      */
     public FanOfKnives() {
-        this(false);
+        super();
     }
 
     /**

@@ -11,9 +11,10 @@ public class Consecration extends SpellDamageAoe {
      *
      * @param hasBeenUsed Whether the card has already been used or not
      */
+    @Deprecated
     public Consecration(boolean hasBeenUsed) {
-        super((byte)4, DAMAGE_AMOUNT, hasBeenUsed);
-        this.hitsEnemyHero = true;
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     /**
@@ -22,6 +23,7 @@ public class Consecration extends SpellDamageAoe {
      * Defaults to hasBeenUsed = false
      */
     public Consecration() {
-        this(false);
+        super();
+        this.hitsEnemyHero = true;
     }
 }

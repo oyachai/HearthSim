@@ -18,7 +18,8 @@ public class SacrificialPact extends SpellCard {
      */
     @Deprecated
     public SacrificialPact(boolean hasBeenUsed) {
-        super((byte)0, hasBeenUsed);
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     /**

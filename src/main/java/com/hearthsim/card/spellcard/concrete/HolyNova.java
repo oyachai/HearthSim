@@ -16,10 +16,10 @@ public class HolyNova extends SpellDamageAoe {
      *
      * @param hasBeenUsed Whether the card has already been used or not
      */
+    @Deprecated
     public HolyNova(boolean hasBeenUsed) {
-        super((byte)5, DAMAGE_AMOUNT, hasBeenUsed);
-        this.hitsEnemyHero = true;
-        this.hitsEnemyMinions = true;
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     /**
@@ -27,7 +27,10 @@ public class HolyNova extends SpellDamageAoe {
      * Defaults to hasBeenUsed = false
      */
     public HolyNova() {
-        this(false);
+        super();
+
+        this.hitsEnemyHero = true;
+        this.hitsEnemyMinions = true;
     }
 
     /**

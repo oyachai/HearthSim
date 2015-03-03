@@ -5,11 +5,13 @@ import com.hearthsim.card.spellcard.SpellDamage;
 public class LavaBurst extends SpellDamage {
 
     public LavaBurst() {
-        this(false);
+        super();
     }
 
+    @Deprecated
     public LavaBurst(boolean hasBeenUsed) {
-        super((byte)3, (byte)5, hasBeenUsed);
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     @Override

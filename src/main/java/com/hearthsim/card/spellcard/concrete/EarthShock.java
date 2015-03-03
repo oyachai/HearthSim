@@ -10,14 +10,16 @@ import com.hearthsim.util.tree.HearthTreeNode;
 public class EarthShock extends SpellDamage {
 
     public EarthShock() {
-        this(false);
-    }
-
-    public EarthShock(boolean hasBeenUsed) {
-        super((byte)1, (byte)1, hasBeenUsed);
+        super();
 
         this.canTargetEnemyHero = false;
         this.canTargetOwnHero = false;
+    }
+
+    @Deprecated
+    public EarthShock(boolean hasBeenUsed) {
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     @Override

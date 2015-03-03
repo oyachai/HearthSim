@@ -13,12 +13,10 @@ public class FrostNova extends SpellCard {
      *
      * @param hasBeenUsed Whether the card has already been used or not
      */
+    @Deprecated
     public FrostNova(boolean hasBeenUsed) {
-        super((byte)3, hasBeenUsed);
-
-        this.canTargetEnemyHero = false;
-        this.canTargetEnemyMinions = false;
-        this.canTargetOwnMinions = false;
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     /**
@@ -27,7 +25,11 @@ public class FrostNova extends SpellCard {
      * Defaults to hasBeenUsed = false
      */
     public FrostNova() {
-        this(false);
+        super();
+
+        this.canTargetEnemyHero = false;
+        this.canTargetEnemyMinions = false;
+        this.canTargetOwnMinions = false;
     }
 
     /**

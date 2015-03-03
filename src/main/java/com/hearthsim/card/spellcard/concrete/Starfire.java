@@ -12,11 +12,13 @@ public class Starfire extends SpellDamage {
 
 
     public Starfire() {
-        this(false);
+        super();
     }
 
+    @Deprecated
     public Starfire(boolean hasBeenUsed) {
-        super((byte)6, (byte)5, hasBeenUsed);
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     /**

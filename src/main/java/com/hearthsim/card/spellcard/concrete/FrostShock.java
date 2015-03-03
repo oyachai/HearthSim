@@ -12,17 +12,14 @@ public class FrostShock extends SpellDamage {
     public FrostShock() {
         super();
 
-        this.damage_ = 1;
         this.canTargetOwnHero = false;
         this.canTargetOwnMinions = false;
     }
 
     @Deprecated
     public FrostShock(boolean hasBeenUsed) {
-        super((byte)1, (byte)1, hasBeenUsed);
-
-        this.canTargetOwnHero = false;
-        this.canTargetOwnMinions = false;
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     /**

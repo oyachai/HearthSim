@@ -17,10 +17,8 @@ public class Demonfire extends SpellCard {
      */
     @Deprecated
     public Demonfire(boolean hasBeenUsed) {
-        super((byte)2, hasBeenUsed);
-
-        this.canTargetEnemyHero = false;
-        this.canTargetOwnHero = false;
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     /**

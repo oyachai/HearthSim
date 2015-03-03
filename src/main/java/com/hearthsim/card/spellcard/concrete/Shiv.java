@@ -12,13 +12,15 @@ public class Shiv extends SpellDamage {
 
 
     public Shiv() {
-        this(false);
-    }
-
-    public Shiv(boolean hasBeenUsed) {
-        super((byte)2, (byte)1, hasBeenUsed);
+        super();
 
         this.canTargetOwnHero = false; // TODO card as printed allows this
+    }
+
+    @Deprecated
+    public Shiv(boolean hasBeenUsed) {
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     @Override

@@ -10,16 +10,18 @@ import com.hearthsim.util.tree.HearthTreeNode;
 public class Bananas extends SpellCard {
 
 
+    @Deprecated
     public Bananas(boolean hasBeenUsed) {
-        super((byte)1, hasBeenUsed);
-
-        this.canTargetEnemyHero = false;
-        this.canTargetOwnHero = false;
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
 
     public Bananas() {
-        this(false);
+        super();
+
+        this.canTargetEnemyHero = false;
+        this.canTargetOwnHero = false;
     }
 
     @Override

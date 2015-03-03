@@ -11,13 +11,14 @@ public class HolyFire extends SpellDamage {
 
 
     public HolyFire() {
-        this(false);
+        super();
+        this.canTargetOwnHero = false; // TODO card as printed allows this
     }
 
+    @Deprecated
     public HolyFire(boolean hasBeenUsed) {
-        super((byte)6, (byte)5, hasBeenUsed);
-
-        this.canTargetOwnHero = false; // TODO card as printed allows this
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     @Override

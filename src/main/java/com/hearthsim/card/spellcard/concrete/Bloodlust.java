@@ -10,15 +10,17 @@ import com.hearthsim.util.tree.HearthTreeNode;
 public class Bloodlust extends SpellCard {
 
     public Bloodlust() {
-        this(false);
-    }
-
-    public Bloodlust(boolean hasBeenUsed) {
-        super((byte)5, hasBeenUsed);
+        super();
 
         this.canTargetEnemyHero = false;
         this.canTargetEnemyMinions = false;
         this.canTargetOwnMinions = false;
+    }
+
+    @Deprecated
+    public Bloodlust(boolean hasBeenUsed) {
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     /**

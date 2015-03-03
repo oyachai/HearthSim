@@ -17,7 +17,8 @@ public class KillCommand extends SpellDamage {
 
     @Deprecated
     public KillCommand(boolean hasBeenUsed) {
-        super((byte)3, (byte)3, hasBeenUsed);
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     /**

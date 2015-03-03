@@ -11,14 +11,16 @@ public class Silence extends SpellCard {
 
 
     public Silence() {
-        this(false);
-    }
-
-    public Silence(boolean hasBeenUsed) {
-        super((byte)0, hasBeenUsed);
+        super();
 
         this.canTargetEnemyHero = false;
         this.canTargetOwnHero = false;
+    }
+
+    @Deprecated
+    public Silence(boolean hasBeenUsed) {
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     /**
