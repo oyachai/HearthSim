@@ -556,6 +556,10 @@
         "class": "com.hearthsim.card.spellcard.concrete.Humility"
     },
     {
+        "name": "Hungry Crab",
+        "class": "com.hearthsim.card.minion.concrete.HungryCrab"
+    },
+    {
         "name": "Hunter's Mark",
         "class": "com.hearthsim.card.spellcard.concrete.HuntersMark"
     },

@@ -635,9 +635,11 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
     public HearthTreeNode useTargetableBattlecry(PlayerSide side, Minion targetMinion, HearthTreeNode boardState,
             Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
         if (this instanceof MinionTargetableBattlecry) {
-            MinionTargetableBattlecry battlecryMinion = (MinionTargetableBattlecry)this;
-
             HearthTreeNode node = new HearthTreeNode(boardState.data_.deepCopy());
+
+            // Need to start the battlecry from the child node
+            int originMinionIndex = PlayerSide.CURRENT_PLAYER.getPlayer(boardState).getMinions().indexOf(this);
+            MinionTargetableBattlecry battlecryMinion = (MinionTargetableBattlecry)PlayerSide.CURRENT_PLAYER.getPlayer(node).getMinions().get(originMinionIndex);
 
             // Need to get the new node's version of the target minion
             int targetMinionIndex = side.getPlayer(boardState).getMinions().indexOf(targetMinion);
