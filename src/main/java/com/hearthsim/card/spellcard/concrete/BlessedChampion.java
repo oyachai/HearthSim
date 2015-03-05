@@ -14,11 +14,10 @@ public class BlessedChampion extends SpellCard {
      *
      * @param hasBeenUsed Whether the card has already been used or not
      */
+    @Deprecated
     public BlessedChampion(boolean hasBeenUsed) {
-        super((byte)5, hasBeenUsed);
-
-        this.canTargetEnemyHero = false;
-        this.canTargetOwnHero = false;
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     /**
@@ -27,7 +26,9 @@ public class BlessedChampion extends SpellCard {
      * Defaults to hasBeenUsed = false
      */
     public BlessedChampion() {
-        this(false);
+        super();
+        this.canTargetEnemyHero = false;
+        this.canTargetOwnHero = false;
     }
 
     /**

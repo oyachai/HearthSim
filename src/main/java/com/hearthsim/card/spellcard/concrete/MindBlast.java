@@ -10,15 +10,17 @@ import com.hearthsim.util.tree.HearthTreeNode;
 public class MindBlast extends SpellDamage {
 
     public MindBlast() {
-        this(false);
-    }
-
-    public MindBlast(boolean hasBeenUsed) {
-        super((byte)2, (byte)5, hasBeenUsed);
+        super();
 
         this.canTargetEnemyMinions = false;
         this.canTargetOwnHero = false;
         this.canTargetOwnMinions = false;
+    }
+
+    @Deprecated
+    public MindBlast(boolean hasBeenUsed) {
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     @Override

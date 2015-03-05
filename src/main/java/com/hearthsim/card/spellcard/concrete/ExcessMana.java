@@ -15,12 +15,10 @@ public class ExcessMana extends SpellCard {
      *
      * @param hasBeenUsed Whether the card has already been used or not
      */
+    @Deprecated
     public ExcessMana(boolean hasBeenUsed) {
-        super((byte)0, hasBeenUsed);
-
-        this.canTargetEnemyHero = false;
-        this.canTargetEnemyMinions = false;
-        this.canTargetOwnMinions = false;
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     /**
@@ -29,7 +27,11 @@ public class ExcessMana extends SpellCard {
      * Defaults to hasBeenUsed = false
      */
     public ExcessMana() {
-        this(false);
+        super();
+
+        this.canTargetEnemyHero = false;
+        this.canTargetEnemyMinions = false;
+        this.canTargetOwnMinions = false;
     }
 
     /**

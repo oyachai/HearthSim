@@ -9,8 +9,10 @@ public class ArcaneExplosion extends SpellDamageAoe {
      *
      * @param hasBeenUsed Whether the card has already been used or not
      */
+    @Deprecated
     public ArcaneExplosion(boolean hasBeenUsed) {
-        super((byte)2, (byte)1, hasBeenUsed);
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     /**
@@ -18,6 +20,6 @@ public class ArcaneExplosion extends SpellDamageAoe {
      * Defaults to hasBeenUsed = false
      */
     public ArcaneExplosion() {
-        this(false);
+        super();
     }
 }

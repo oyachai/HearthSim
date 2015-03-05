@@ -14,11 +14,10 @@ public class RockbiterWeapon extends SpellCard {
      *
      * @param hasBeenUsed Whether the card has already been used or not
      */
+    @Deprecated
     public RockbiterWeapon(boolean hasBeenUsed) {
-        super((byte)1, hasBeenUsed);
-
-        this.canTargetEnemyHero = false;
-        this.canTargetEnemyMinions = false;
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     /**
@@ -27,7 +26,10 @@ public class RockbiterWeapon extends SpellCard {
      * Defaults to hasBeenUsed = false
      */
     public RockbiterWeapon() {
-        this(false);
+        super();
+
+        this.canTargetEnemyHero = false;
+        this.canTargetEnemyMinions = false;
     }
 
     /**

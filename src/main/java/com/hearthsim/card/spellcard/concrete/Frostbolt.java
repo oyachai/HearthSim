@@ -10,11 +10,13 @@ import com.hearthsim.util.tree.HearthTreeNode;
 public class Frostbolt extends SpellDamage {
 
     public Frostbolt() {
-        this(false);
+        super();
     }
 
+    @Deprecated
     public Frostbolt(boolean hasBeenUsed) {
-        super((byte)2, (byte)3, hasBeenUsed);
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     @Override

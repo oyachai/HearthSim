@@ -62,6 +62,7 @@ class ImplementedCardList {
 
         private static final htmlTagPattern = ~/<[a-zA-Z_0-9\/]+?>/
         private static final overloadPattern = ~/Overload:\s+?\((\d+)\)/
+        private static final spellEffectPattern = ~/\$(\d+) damage/
         // TODO This regex assumes spell damage is at the beginning of a line because of Ancient Mage
         private static final spellDamagePattern = ~/^Spell Damage\s+\+(\d+)/
 
@@ -85,6 +86,7 @@ class ImplementedCardList {
         public int durability;
         public int overload;
         public int spellDamage;
+        public int spellEffect;
 
         @Override
         public int compareTo(ImplementedCard o) {
@@ -120,12 +122,16 @@ class ImplementedCardList {
             def cleanedText = cardDefinition.text == null ? '' : ImplementedCard.htmlTagPattern.matcher(cardDefinition.text).replaceAll("")
             def overload = 0
             def spellDamage = 0
+            def spellEffect = 0
             if (!cleanedText.equals('')) {
                 def matcher = ImplementedCard.overloadPattern.matcher(cleanedText)
                 overload = matcher.size() == 1 ? matcher[0][1].toInteger() : 0
 
                 matcher = ImplementedCard.spellDamagePattern.matcher(cleanedText)
                 spellDamage = matcher.size() == 1 ? matcher[0][1].toInteger() : 0
+
+                matcher = ImplementedCard.spellEffectPattern.matcher(cleanedText)
+                spellEffect = matcher.size() == 1 ? matcher[0][1].toInteger() : 0
             }
 
             def implementedCard = new ImplementedCard(
@@ -148,7 +154,8 @@ class ImplementedCardList {
                     collectible: cardDefinition.collectible?: false,
                     overload: overload,
                     race: cardDefinition.race,
-                    spellDamage: spellDamage
+                    spellDamage: spellDamage,
+                    spellEffect: spellEffect
                     
             )
             list_ << implementedCard

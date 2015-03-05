@@ -5,11 +5,13 @@ import com.hearthsim.card.spellcard.SpellDamage;
 public class HolySmite extends SpellDamage {
 
     public HolySmite() {
-        this(false);
+        super();
     }
 
+    @Deprecated
     public HolySmite(boolean hasBeenUsed) {
-        super((byte)1, (byte)2, hasBeenUsed);
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     @Override

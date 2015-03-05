@@ -16,8 +16,10 @@ public class HealingTouch extends SpellCard {
      *
      * @param hasBeenUsed Whether the card has already been used or not
      */
+    @Deprecated
     public HealingTouch(boolean hasBeenUsed) {
-        super((byte)3, hasBeenUsed);
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     /**
@@ -26,7 +28,7 @@ public class HealingTouch extends SpellCard {
      * Defaults to hasBeenUsed = false
      */
     public HealingTouch() {
-        this(false);
+        super();
     }
 
     /**

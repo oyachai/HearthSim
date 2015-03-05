@@ -15,11 +15,13 @@ import com.hearthsim.util.tree.RandomEffectNode;
 public class Soulfire extends SpellDamage {
 
     public Soulfire() {
-        this(false);
+        super();
     }
 
+    @Deprecated
     public Soulfire(boolean hasBeenUsed) {
-        super((byte)0, (byte)4, hasBeenUsed);
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     @Override

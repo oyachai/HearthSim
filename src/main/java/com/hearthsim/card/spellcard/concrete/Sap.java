@@ -15,12 +15,10 @@ public class Sap extends SpellCard {
      *
      * @param hasBeenUsed Whether the card has already been used or not
      */
+    @Deprecated
     public Sap(boolean hasBeenUsed) {
-        super((byte)2, hasBeenUsed);
-
-        this.canTargetEnemyHero = false;
-        this.canTargetOwnHero = false;
-        this.canTargetOwnMinions = false;
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     /**
@@ -29,7 +27,11 @@ public class Sap extends SpellCard {
      * Defaults to hasBeenUsed = false
      */
     public Sap() {
-        this(false);
+        super();
+
+        this.canTargetEnemyHero = false;
+        this.canTargetOwnHero = false;
+        this.canTargetOwnMinions = false;
     }
 
     /**

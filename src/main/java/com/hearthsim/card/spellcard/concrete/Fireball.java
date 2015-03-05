@@ -5,11 +5,13 @@ import com.hearthsim.card.spellcard.SpellDamage;
 public class Fireball extends SpellDamage {
 
     public Fireball() {
-        this(false);
+        super();
     }
 
+    @Deprecated
     public Fireball(boolean hasBeenUsed) {
-        super((byte)4, (byte)6, hasBeenUsed);
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     @Override

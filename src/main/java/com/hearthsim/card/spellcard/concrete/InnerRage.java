@@ -14,11 +14,10 @@ public class InnerRage extends SpellCard {
      *
      * @param hasBeenUsed Whether the card has already been used or not
      */
+    @Deprecated
     public InnerRage(boolean hasBeenUsed) {
-        super((byte)0, hasBeenUsed);
-
-        this.canTargetEnemyHero = false;
-        this.canTargetOwnHero = false;
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     /**
@@ -27,7 +26,10 @@ public class InnerRage extends SpellCard {
      * Defaults to hasBeenUsed = false
      */
     public InnerRage() {
-        this(false);
+        super();
+
+        this.canTargetEnemyHero = false;
+        this.canTargetOwnHero = false;
     }
 
     /**

@@ -16,8 +16,10 @@ public class HolyLight extends SpellCard {
      *
      * @param hasBeenUsed Whether the card has already been used or not
      */
+    @Deprecated
     public HolyLight(boolean hasBeenUsed) {
-        super((byte)2, hasBeenUsed);
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     /**
@@ -26,7 +28,7 @@ public class HolyLight extends SpellCard {
      * Defaults to hasBeenUsed = false
      */
     public HolyLight() {
-        this(false);
+        super();
     }
 
     /**

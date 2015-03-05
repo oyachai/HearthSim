@@ -8,14 +8,16 @@ import com.hearthsim.model.PlayerSide;
 public class Backstab extends SpellDamage {
 
     public Backstab() {
-        this(false);
-    }
-
-    public Backstab(boolean hasBeenUsed) {
-        super((byte)0, (byte)2, hasBeenUsed);
+        super();
 
         this.canTargetEnemyHero = false;
         this.canTargetOwnHero = false;
+    }
+
+    @Deprecated
+    public Backstab(boolean hasBeenUsed) {
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     @Override

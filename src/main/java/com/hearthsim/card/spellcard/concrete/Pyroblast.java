@@ -5,11 +5,13 @@ import com.hearthsim.card.spellcard.SpellDamage;
 public class Pyroblast extends SpellDamage {
 
     public Pyroblast() {
-        this(false);
+        super();
     }
 
+    @Deprecated
     public Pyroblast(boolean hasBeenUsed) {
-        super((byte)10, (byte)10, hasBeenUsed);
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     @Override

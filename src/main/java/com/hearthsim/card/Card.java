@@ -49,6 +49,7 @@ public class Card implements DeepCopyable<Card> {
      * @param hasBeenUsed Has the card been used?
      * @param isInHand Is the card in your hand?
      */
+    @Deprecated
     public Card(String name, byte baseManaCost, boolean hasBeenUsed, boolean isInHand, byte overload) {
         this.baseManaCost = baseManaCost;
         this.hasBeenUsed = hasBeenUsed;
@@ -57,6 +58,7 @@ public class Card implements DeepCopyable<Card> {
         this.overload = overload;
     }
 
+    @Deprecated
     public Card(byte baseManaCost, boolean hasBeenUsed, boolean isInHand) {
         ImplementedCardList cardList = ImplementedCardList.getInstance();
         ImplementedCardList.ImplementedCard implementedCard = cardList.getCardForClass(this.getClass());
@@ -70,6 +72,10 @@ public class Card implements DeepCopyable<Card> {
     public Card() {
         ImplementedCardList cardList = ImplementedCardList.getInstance();
         ImplementedCardList.ImplementedCard implementedCard = cardList.getCardForClass(this.getClass());
+        this.initFromImplementedCard(implementedCard);
+    }
+
+    public void initFromImplementedCard(ImplementedCardList.ImplementedCard implementedCard) {
         if (implementedCard != null) {
             this.name_ = implementedCard.name_;
             this.baseManaCost = (byte) implementedCard.mana_;
@@ -78,7 +84,6 @@ public class Card implements DeepCopyable<Card> {
             this.overload = (byte) implementedCard.overload;
         }
     }
-
 
     /**
      * Get the name of the card

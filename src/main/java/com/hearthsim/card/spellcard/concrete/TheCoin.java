@@ -11,16 +11,18 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class TheCoin extends SpellCard {
 
+    @Deprecated
     public TheCoin(boolean hasBeenUsed) {
-        super((byte)0, hasBeenUsed);
+        this();
+        this.hasBeenUsed = hasBeenUsed;
+    }
+
+    public TheCoin() {
+        super();
 
         this.canTargetEnemyHero = false;
         this.canTargetEnemyMinions = false;
         this.canTargetOwnMinions = false;
-    }
-
-    public TheCoin() {
-        this(false);
     }
 
     /**

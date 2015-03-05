@@ -19,12 +19,10 @@ public class BattleRage extends SpellCard {
      *
      * @param hasBeenUsed Whether the card has already been used or not
      */
+    @Deprecated
     public BattleRage(boolean hasBeenUsed) {
-        super((byte)2, hasBeenUsed);
-
-        this.canTargetEnemyHero = false;
-        this.canTargetEnemyMinions = false;
-        this.canTargetOwnMinions = false;
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     /**
@@ -33,7 +31,11 @@ public class BattleRage extends SpellCard {
      * Defaults to hasBeenUsed = false
      */
     public BattleRage() {
-        this(false);
+        super();
+
+        this.canTargetEnemyHero = false;
+        this.canTargetEnemyMinions = false;
+        this.canTargetOwnMinions = false;
     }
 
     /**

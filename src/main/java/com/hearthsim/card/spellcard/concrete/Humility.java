@@ -16,11 +16,10 @@ public class Humility extends SpellCard {
      *
      * @param hasBeenUsed Whether the card has already been used or not
      */
+    @Deprecated
     public Humility(boolean hasBeenUsed) {
-        super((byte)1, hasBeenUsed);
-
-        this.canTargetEnemyHero = false;
-        this.canTargetOwnHero = false;
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     /**
@@ -29,7 +28,10 @@ public class Humility extends SpellCard {
      * Defaults to hasBeenUsed = false
      */
     public Humility() {
-        this(false);
+        super();
+
+        this.canTargetEnemyHero = false;
+        this.canTargetOwnHero = false;
     }
 
     /**
