@@ -208,6 +208,10 @@
         "class": "com.hearthsim.card.minion.concrete.BoulderfistOgre"
     },
     {
+        "name": "Captain Greenskin",
+        "class": "com.hearthsim.card.minion.concrete.CaptainGreenskin"
+    },
+    {
         "name": "Cairne Bloodhoof",
         "class": "com.hearthsim.card.minion.concrete.CairneBloodhoof"
     },
