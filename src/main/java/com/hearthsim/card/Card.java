@@ -79,10 +79,10 @@ public class Card implements DeepCopyable<Card> {
         if (implementedCard != null) {
             this.name_ = implementedCard.name_;
             this.baseManaCost = (byte) implementedCard.mana_;
-            this.hasBeenUsed = false;
-            this.isInHand_ = true;
             this.overload = (byte) implementedCard.overload;
         }
+        this.hasBeenUsed = false;
+        this.isInHand_ = true;
     }
 
     /**
