@@ -44,6 +44,7 @@ class DemonheartSpec extends CardSpec {
             currentPlayer {
                 removeCardFromHand(Demonheart)
                 mana(5)
+                numCardsUsed(1)
             }
             waitingPlayer {
                 updateMinion(1, [deltaHealth: -5])
@@ -63,6 +64,7 @@ class DemonheartSpec extends CardSpec {
             currentPlayer {
                 removeCardFromHand(Demonheart)
                 mana(5)
+                numCardsUsed(1)
             }
             waitingPlayer {
                 removeMinion(0)
@@ -83,6 +85,7 @@ class DemonheartSpec extends CardSpec {
                 removeCardFromHand(Demonheart)
                 mana(5)
                 updateMinion(1, [deltaHealth: -5])
+                numCardsUsed(1)
             }
         }
     }
@@ -100,6 +103,7 @@ class DemonheartSpec extends CardSpec {
                 removeCardFromHand(Demonheart)
                 mana(5)
                 updateMinion(0, [deltaAttack: +5, deltaMaxHealth: +5, deltaHealth: +5])
+                numCardsUsed(1)
             }
         }
     }

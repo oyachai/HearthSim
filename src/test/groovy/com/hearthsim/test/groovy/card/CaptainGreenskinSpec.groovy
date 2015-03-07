@@ -39,6 +39,7 @@ class CaptainGreenskinSpec extends CardSpec {
             currentPlayer {
                 playMinion(CaptainGreenskin)
                 mana(2)
+                numCardsUsed(1)
             }
         }
     }
@@ -58,6 +59,7 @@ class CaptainGreenskinSpec extends CardSpec {
                 mana(2)
                 weaponDamage(4)
                 weaponCharge(3)
+                numCardsUsed(1)
             }
         }
     }

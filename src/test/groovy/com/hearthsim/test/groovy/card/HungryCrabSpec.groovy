@@ -45,6 +45,7 @@ class HungryCrabSpec extends CardSpec {
             currentPlayer {
                 playMinion(HungryCrab)
                 mana(1)
+                numCardsUsed(1)
             }
         }
     }
@@ -65,6 +66,7 @@ class HungryCrabSpec extends CardSpec {
             currentPlayer {
                 playMinion(HungryCrab)
                 mana(1)
+                numCardsUsed(1)
             }
         }
 
@@ -96,6 +98,7 @@ class HungryCrabSpec extends CardSpec {
             currentPlayer {
                 playMinion(HungryCrab, 0)
                 mana(1)
+                numCardsUsed(1)
             }
         }
 
@@ -124,6 +127,7 @@ class HungryCrabSpec extends CardSpec {
             currentPlayer {
                 playMinion(HungryCrab)
                 mana(1)
+                numCardsUsed(1)
             }
         }
     }

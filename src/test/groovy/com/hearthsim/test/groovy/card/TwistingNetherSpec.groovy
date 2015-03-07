@@ -45,6 +45,7 @@ class TwistingNetherSpec extends CardSpec {
                 removeMinion(1)
                 removeMinion(0)
                 mana(2)
+                numCardsUsed(1)
             }
 
             waitingPlayer {

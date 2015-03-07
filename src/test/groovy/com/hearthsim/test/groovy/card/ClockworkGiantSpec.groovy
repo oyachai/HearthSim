@@ -59,6 +59,7 @@ class ClockworkGiantSpec extends CardSpec {
             currentPlayer {
                 playMinion(ClockworkGiant)
                 mana(0)
+                numCardsUsed(1)
             }
         }
     }

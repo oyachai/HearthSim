@@ -100,8 +100,9 @@ public class TestChildNodeCreatorBase {
         expectedBoard.placeMinion(PlayerSide.CURRENT_PLAYER, expectedMinion);
 
         expectedBoard.getCurrentPlayer().placeCardHand(new ArgentSquire());
-        expectedBoard.getCurrentPlayer().setMana((byte)0);
-        expectedBoard.getCurrentPlayer().setMaxMana((byte)2);
+        expectedBoard.getCurrentPlayer().setMana((byte) 0);
+        expectedBoard.getCurrentPlayer().setMaxMana((byte) 2);
+        expectedBoard.getCurrentPlayer().addNumCardsUsed((byte)1);
         assertNodeListContainsBoardModel(actuals, expectedBoard, 1);
 
         expectedBoard = new BoardModel();
@@ -111,8 +112,9 @@ public class TestChildNodeCreatorBase {
         expectedBoard.placeMinion(PlayerSide.CURRENT_PLAYER, expectedMinion);
 
         expectedBoard.getCurrentPlayer().placeCardHand(new BloodfenRaptor());
-        expectedBoard.getCurrentPlayer().setMana((byte)1);
-        expectedBoard.getCurrentPlayer().setMaxMana((byte)2);
+        expectedBoard.getCurrentPlayer().setMana((byte) 1);
+        expectedBoard.getCurrentPlayer().setMaxMana((byte) 2);
+        expectedBoard.getCurrentPlayer().addNumCardsUsed((byte) 1);
         assertNodeListContainsBoardModel(actuals, expectedBoard, 0);
     }
 
@@ -193,7 +195,8 @@ public class TestChildNodeCreatorBase {
 
         BoardModel expectedBoardB = new BoardModel();
         expectedBoardB.getCurrentPlayer().setMana((byte)1);
-        expectedBoardB.getCurrentPlayer().setMaxMana((byte)4);
+        expectedBoardB.getCurrentPlayer().setMaxMana((byte) 4);
+        expectedBoardB.getCurrentPlayer().addNumCardsUsed((byte)1);
         expectedBoardB.placeMinion(PlayerSide.WAITING_PLAYER, new BloodfenRaptor());
 
         assertNodeListContainsBoardModel(actuals, expectedBoardB);
@@ -394,7 +397,7 @@ public class TestChildNodeCreatorBase {
         expectedBoard.getCurrentPlayer().placeCardHand(new AnimalCompanion());
         expectedBoard.getCurrentPlayer().setMana((byte)2);
         expectedBoard.getCurrentPlayer().setMaxMana((byte)3);
-        expectedBoard.getCurrentPlayer().setNumCardsUsed((byte)2);
+        expectedBoard.getCurrentPlayer().setNumCardsUsed((byte)1);
         assertNodeListContainsBoardModel(actuals, expectedBoard, 0);
 
         // TODO using get(0) here is fragile...
@@ -409,6 +412,7 @@ public class TestChildNodeCreatorBase {
         expectedBoard.getCurrentPlayer().placeCardHand(new ArgentSquire());
         expectedBoard.getCurrentPlayer().setMana((byte)0);
         expectedBoard.getCurrentPlayer().setMaxMana((byte)3);
+        expectedBoard.getCurrentPlayer().setNumCardsUsed((byte)1);
         assertNodeListContainsBoardModel(rngActuals, expectedBoard, 0);
 
         expectedBoard = new BoardModel();
@@ -418,8 +422,9 @@ public class TestChildNodeCreatorBase {
         expectedBoard.placeMinion(PlayerSide.CURRENT_PLAYER, expectedMinion);
 
         expectedBoard.getCurrentPlayer().placeCardHand(new ArgentSquire());
-        expectedBoard.getCurrentPlayer().setMana((byte)0);
-        expectedBoard.getCurrentPlayer().setMaxMana((byte)3);
+        expectedBoard.getCurrentPlayer().setMana((byte) 0);
+        expectedBoard.getCurrentPlayer().setMaxMana((byte) 3);
+        expectedBoard.getCurrentPlayer().setNumCardsUsed((byte) 1);
         assertNodeListContainsBoardModel(rngActuals, expectedBoard, 1);
 
         expectedBoard = new BoardModel();
@@ -431,6 +436,7 @@ public class TestChildNodeCreatorBase {
         expectedBoard.getCurrentPlayer().placeCardHand(new ArgentSquire());
         expectedBoard.getCurrentPlayer().setMana((byte)0);
         expectedBoard.getCurrentPlayer().setMaxMana((byte)3);
+        expectedBoard.getCurrentPlayer().setNumCardsUsed((byte)1);
         assertNodeListContainsBoardModel(rngActuals, expectedBoard, 1);
     }
 
