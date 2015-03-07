@@ -164,6 +164,10 @@
         "class": "com.hearthsim.card.spellcard.concrete.BlessingOfMight"
     },
     {
+        "name": "Blizzard",
+        "class": "com.hearthsim.card.spellcard.concrete.Blizzard"
+    },
+    {
         "name": "Blood Imp",
         "class": "com.hearthsim.card.minion.concrete.BloodImp"
     },
