@@ -272,6 +272,10 @@
         "class": "com.hearthsim.card.minion.concrete.DarkIronDwarf"
     },
     {
+        "name": "Darkbomb",
+        "class": "com.hearthsim.card.spellcard.concrete.Darkbomb"
+    },
+    {
         "name": "Darkscale Healer",
         "class": "com.hearthsim.card.minion.concrete.DarkscaleHealer"
     },
