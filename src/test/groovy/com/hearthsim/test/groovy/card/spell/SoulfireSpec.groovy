@@ -1,9 +1,10 @@
-package com.hearthsim.test.groovy.card
+package com.hearthsim.test.groovy.card.spell
 
 import com.hearthsim.Game;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
-import com.hearthsim.player.playercontroller.BruteForceSearchAI;
+import com.hearthsim.player.playercontroller.BruteForceSearchAI
+import com.hearthsim.test.groovy.card.CardSpec;
 import com.hearthsim.test.helpers.BoardModelBuilder
 import com.hearthsim.util.tree.HearthTreeNode;
 import com.hearthsim.util.tree.RandomEffectNode

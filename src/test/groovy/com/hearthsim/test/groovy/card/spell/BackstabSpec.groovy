@@ -1,4 +1,6 @@
-package com.hearthsim.test.groovy.card
+package com.hearthsim.test.groovy.card.spell
+
+import com.hearthsim.test.groovy.card.CardSpec
 
 import static com.hearthsim.model.PlayerSide.CURRENT_PLAYER
 import static com.hearthsim.model.PlayerSide.WAITING_PLAYER

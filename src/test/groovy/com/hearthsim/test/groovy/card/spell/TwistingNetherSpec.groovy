@@ -1,6 +1,7 @@
-package com.hearthsim.test.groovy.card
+package com.hearthsim.test.groovy.card.spell
 
-import com.hearthsim.model.BoardModel;
+import com.hearthsim.model.BoardModel
+import com.hearthsim.test.groovy.card.CardSpec;
 import com.hearthsim.test.helpers.BoardModelBuilder
 import com.hearthsim.util.tree.HearthTreeNode;
 import com.hearthsim.card.minion.concrete.GoldshireFootman
