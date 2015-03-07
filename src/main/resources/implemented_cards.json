@@ -280,6 +280,10 @@
         "class": "com.hearthsim.card.minion.concrete.DarkIronDwarf"
     },
     {
+        "name": "Darkbomb",
+        "class": "com.hearthsim.card.spellcard.concrete.Darkbomb"
+    },
+    {
         "name": "Darkscale Healer",
         "class": "com.hearthsim.card.minion.concrete.DarkscaleHealer"
     },
@@ -302,6 +306,10 @@
     {
         "name": "Demonfire",
         "class": "com.hearthsim.card.spellcard.concrete.Demonfire"
+    },
+    {
+        "name": "Demonheart",
+        "class": "com.hearthsim.card.spellcard.concrete.Demonheart"
     },
     {
         "name": "Divine Favor",
@@ -1234,6 +1242,10 @@
     {
         "name": "Truesilver Champion",
         "class": "com.hearthsim.card.weapon.concrete.TruesilverChampion"
+    },
+    {
+        "name": "Twisting Nether",
+        "class": "com.hearthsim.card.spellcard.concrete.TwistingNether"
     },
     {
         "name": "Wicked Knife",

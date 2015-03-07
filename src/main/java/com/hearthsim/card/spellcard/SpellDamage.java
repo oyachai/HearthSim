@@ -90,18 +90,8 @@ public class SpellDamage extends SpellCard {
     @Override
     protected HearthTreeNode use_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState,
             Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
-        if (this.hasBeenUsed()) {
-            // Card is already used, nothing to do
-            return null;
-        }
-
-        this.hasBeenUsed(true);
-        HearthTreeNode toRet = boardState;
-
+        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
         toRet = this.attack(side, targetMinion, toRet, deckPlayer0, deckPlayer1);
-        toRet.data_.getCurrentPlayer().subtractMana(this.getManaCost(PlayerSide.CURRENT_PLAYER, toRet));
-        toRet.data_.removeCard_hand(this);
-
         return toRet;
     }
 
