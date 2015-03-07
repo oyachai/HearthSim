@@ -36,7 +36,7 @@ public class SparseChildNodeCreator extends ChildNodeCreatorBase {
                 continue; // Should be impossible
 
             allUsed = allUsed && card.hasBeenUsed();
-            if (card.getManaCost(PlayerSide.CURRENT_PLAYER, boardStateNode) > mana || card.hasBeenUsed()) {
+            if (card.getManaCost(PlayerSide.CURRENT_PLAYER, boardStateNode.data_) > mana || card.hasBeenUsed()) {
                 continue;
             }
 

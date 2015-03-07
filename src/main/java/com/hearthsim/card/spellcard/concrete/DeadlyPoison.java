@@ -42,7 +42,7 @@ public class DeadlyPoison extends SpellCard {
             return false;
         }
 
-        if (((Hero)minion).getWeaponCharge() <= 0) {
+        if (((Hero)minion).getWeapon() == null) {
             return false;
         }
 

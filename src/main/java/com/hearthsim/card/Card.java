@@ -24,7 +24,7 @@ public class Card implements DeepCopyable<Card> {
     /**
      * Name of the card
      */
-    protected String name_;
+    protected String name_ = "";
 
     /**
      * Mana cost of the card
@@ -79,10 +79,10 @@ public class Card implements DeepCopyable<Card> {
         if (implementedCard != null) {
             this.name_ = implementedCard.name_;
             this.baseManaCost = (byte) implementedCard.mana_;
-            this.hasBeenUsed = false;
-            this.isInHand_ = true;
             this.overload = (byte) implementedCard.overload;
         }
+        this.hasBeenUsed = false;
+        this.isInHand_ = true;
     }
 
     /**
@@ -92,6 +92,13 @@ public class Card implements DeepCopyable<Card> {
      */
     public String getName() {
         return name_;
+    }
+
+    /**
+     * Set the name of the card
+     */
+    public void setName(String value) {
+        name_ = value;
     }
 
     /**

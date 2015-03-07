@@ -129,7 +129,9 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
      * @param maxHealth
      */
     public Minion(String name, byte mana, byte attack, byte health, byte baseAttack, byte baseHealth, byte maxHealth) {
-        super(name, mana, false, true, (byte)0);
+        super();
+        name_ = name;
+        baseManaCost = mana;
         attack_ = attack;
         health_ = health;
         taunt_ = false;

@@ -81,7 +81,7 @@ public class TestRogue {
 
         assertTrue(hero.hasBeenUsed());
         assertEquals(board.data_.getCurrentPlayer().getMana(), 6);
-        assertEquals(board.data_.getCurrentPlayerHero().getWeaponCharge(), 2);
+        assertEquals(board.data_.getCurrentPlayerHero().getWeapon().getWeaponCharge(), 2);
         assertEquals(board.data_.getCurrentPlayerHero().getTotalAttack(), 1);
     }
 
@@ -89,7 +89,7 @@ public class TestRogue {
     public void testHeropowerDestroysEquippedWeapon() throws HSException {
         board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayerHero(), board, deck, null);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 3);
-        assertEquals(board.data_.getCurrentPlayerHero().getWeaponCharge(), 4);
+        assertEquals(board.data_.getCurrentPlayerHero().getWeapon().getWeaponCharge(), 4);
         assertEquals(board.data_.getCurrentPlayerHero().getTotalAttack(), 3);
 
         Hero hero = board.data_.getCurrentPlayerHero();
@@ -99,7 +99,7 @@ public class TestRogue {
 
         assertTrue(hero.hasBeenUsed());
         assertEquals(board.data_.getCurrentPlayer().getMana(), 1);
-        assertEquals(board.data_.getCurrentPlayerHero().getWeaponCharge(), 2);
+        assertEquals(board.data_.getCurrentPlayerHero().getWeapon().getWeaponCharge(), 2);
         assertEquals(board.data_.getCurrentPlayerHero().getTotalAttack(), 1);
     }
 
@@ -112,7 +112,7 @@ public class TestRogue {
 
         assertFalse(hero.hasBeenUsed());
         assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
-        assertEquals(board.data_.getCurrentPlayerHero().getWeaponCharge(), 0);
+        assertNull(board.data_.getCurrentPlayerHero().getWeapon());
         assertEquals(board.data_.getCurrentPlayerHero().getTotalAttack(), 0);
 
         assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getAttack(), 2);
@@ -128,10 +128,10 @@ public class TestRogue {
 
         assertFalse(hero.hasBeenUsed());
         assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
-        assertEquals(board.data_.getCurrentPlayerHero().getWeaponCharge(), 0);
+        assertNull(board.data_.getCurrentPlayerHero().getWeapon());
         assertEquals(board.data_.getCurrentPlayerHero().getTotalAttack(), 0);
 
-        assertEquals(board.data_.getWaitingPlayerHero().getWeaponCharge(), 0);
+        assertNull(board.data_.getWaitingPlayerHero().getWeapon());
         assertEquals(board.data_.getWaitingPlayerHero().getTotalAttack(), 0);
     }
 }

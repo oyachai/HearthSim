@@ -74,7 +74,7 @@ public class SpellDamageAoe extends SpellDamage {
         }
 
         if (boardState != null) {
-            boardState.data_.getCurrentPlayer().subtractMana(this.getManaCost(side, boardState));
+            boardState.data_.getCurrentPlayer().subtractMana(this.getManaCost(side, boardState.data_));
             boardState.data_.removeCard_hand(this);
         }
         return boardState;
