@@ -860,6 +860,10 @@
         "class": "com.hearthsim.card.minion.concrete.RaidLeader"
     },
     {
+        "name": "Rampage",
+        "class": "com.hearthsim.card.spellcard.concrete.Rampage"
+    },
+    {
         "name": "Ravenholdt Assassin",
         "class": "com.hearthsim.card.minion.concrete.RavenholdtAssassin"
     },
