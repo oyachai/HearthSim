@@ -85,7 +85,7 @@ public class ChildNodeCreatorBase implements ChildNodeCreator {
         int mana = boardStateNode.data_.getCurrentPlayer().getMana();
         for (int cardIndex = 0; cardIndex < boardStateNode.data_.getNumCards_hand(); ++cardIndex) {
             card = boardStateNode.data_.getCurrentPlayerCardHand(cardIndex);
-            if (card.getManaCost(PlayerSide.CURRENT_PLAYER, boardStateNode) <= mana && !card.hasBeenUsed()) {
+            if (card.getManaCost(PlayerSide.CURRENT_PLAYER, boardStateNode.data_) <= mana && !card.hasBeenUsed()) {
 
                 // we can use this card! Let's try using it on everything
                 for (int targetIndex = 0; targetIndex <= PlayerSide.CURRENT_PLAYER.getPlayer(boardStateNode)
