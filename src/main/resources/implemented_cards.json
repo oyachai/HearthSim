@@ -580,6 +580,10 @@
         "class": "com.hearthsim.card.minion.concrete.Hyena"
     },
     {
+        "name": "Ice Lance",
+        "class": "com.hearthsim.card.spellcard.concrete.IceLance"
+    },
+    {
         "name": "Illidan Stormrage",
         "class": "com.hearthsim.card.minion.concrete.IllidanStormrage"
     },
