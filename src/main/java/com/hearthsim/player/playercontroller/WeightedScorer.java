@@ -3,8 +3,10 @@ package com.hearthsim.player.playercontroller;
 import java.util.HashMap;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellDamage;
+import com.hearthsim.card.weapon.WeaponCard;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.DeepCopyable;
@@ -59,10 +61,8 @@ public class WeightedScorer implements BoardScorer, DeepCopyable<WeightedScorer>
 
         // weapons
         double weaponScore = 0.0;
-        weaponScore += board.getCurrentPlayerHero().getAttack() * board.getCurrentPlayerHero().getWeaponCharge()
-                * myWeaponWeight;
-        weaponScore -= board.getWaitingPlayerHero().getAttack() * board.getWaitingPlayerHero().getWeaponCharge()
-                * enemyWeaponWeight;
+        weaponScore += this.weaponScore(board.getCurrentPlayerHero());
+        weaponScore -= this.weaponScore(board.getWaitingPlayerHero());
 
         // my cards. The more cards that I have, the better
         double handScore = 0.0;
@@ -153,6 +153,14 @@ public class WeightedScorer implements BoardScorer, DeepCopyable<WeightedScorer>
             toRet += 100000.0;
         }
         return toRet;
+    }
+
+    public double weaponScore(Hero hero) {
+        WeaponCard weapon = hero.getWeapon();
+        if(weapon == null) {
+            return 0;
+        }
+        return hero.getAttack() * hero.getWeapon().getWeaponCharge() * myWeaponWeight;
     }
 
     public double getMyChargeWeight() {
