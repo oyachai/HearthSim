@@ -300,6 +300,10 @@
         "class": "com.hearthsim.card.spellcard.concrete.Demonfire"
     },
     {
+        "name": "Demonheart",
+        "class": "com.hearthsim.card.spellcard.concrete.Demonheart"
+    },
+    {
         "name": "Divine Favor",
         "class": "com.hearthsim.card.spellcard.concrete.DivineFavor"
     },
