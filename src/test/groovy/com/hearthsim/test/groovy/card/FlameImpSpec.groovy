@@ -55,6 +55,7 @@ class FlameImpSpec extends CardSpec {
                 playMinion(FlameImp)
                 mana(6)
                 heroHealth(27)
+                numCardsUsed(1)
             }
         }
 
@@ -75,6 +76,7 @@ class FlameImpSpec extends CardSpec {
                 playMinion(FlameImp)
                 mana(6)
                 heroHealth(-1)
+                numCardsUsed(1)
             }
         }
         

@@ -45,6 +45,7 @@ class SapSpec extends CardSpec {
             currentPlayer {
                 removeCardFromHand(Sap)
                 mana(5)
+                numCardsUsed(1)
             }
             waitingPlayer {
                 addCardToHand(WarGolem)
@@ -69,6 +70,7 @@ class SapSpec extends CardSpec {
             currentPlayer {
                 removeCardFromHand(Sap)
                 mana(5)
+                numCardsUsed(1)
             }
             waitingPlayer { removeMinion(0) }
         }

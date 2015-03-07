@@ -40,6 +40,7 @@ class LightningBoltSpec extends CardSpec {
                 mana(4)
                 overload(1)
                 removeCardFromHand(LightningBolt)
+                numCardsUsed(1)
             }
             waitingPlayer {
                 heroHealth(27)

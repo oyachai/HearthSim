@@ -58,6 +58,7 @@ class BloodsailCorsairSpec extends CardSpec {
             currentPlayer {
                 playMinion(BloodsailCorsair)
                 mana(6)
+                numCardsUsed(1)
             }
             waitingPlayer {
                 weaponCharge(1)

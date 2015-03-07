@@ -55,6 +55,7 @@ class GorehowlSpec extends CardSpec {
                 }
                 mana(3)
                 removeCardFromHand(Gorehowl)
+                numCardsUsed(1)
             }
             waitingPlayer {
                 removeMinion(0)
@@ -83,6 +84,7 @@ class GorehowlSpec extends CardSpec {
                 heroHasAttacked(true)
                 mana(3)
                 removeCardFromHand(Gorehowl)
+                numCardsUsed(1)
             }
             waitingPlayer {
                 updateMinion(0, [deltaHealth: -1])
@@ -108,6 +110,7 @@ class GorehowlSpec extends CardSpec {
                 heroHasAttacked(true)
                 mana(3)
                 removeCardFromHand(Gorehowl)
+                numCardsUsed(1)
             }
             waitingPlayer {
                 heroHealth(23)

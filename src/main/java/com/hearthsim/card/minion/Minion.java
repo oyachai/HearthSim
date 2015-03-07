@@ -409,6 +409,10 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         return getTotalHealth() > 0;
     }
 
+    public boolean hasBattlecry() {
+        return this instanceof MinionTargetableBattlecry || this instanceof MinionUntargetableBattlecry;
+    }
+
     /**
      * Called at the start of the turn
      *

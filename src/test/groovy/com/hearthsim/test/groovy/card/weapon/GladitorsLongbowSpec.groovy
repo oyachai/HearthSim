@@ -55,6 +55,7 @@ class GladiatorsLongbowSpec extends CardSpec {
                 }
                 mana(3)
                 removeCardFromHand(GladiatorsLongbow)
+                numCardsUsed(1)
             }
             waitingPlayer {
                 updateMinion(0, [deltaHealth: -5])
@@ -88,6 +89,7 @@ class GladiatorsLongbowSpec extends CardSpec {
                 }
                 mana(2)
                 removeCardFromHand(GladiatorsLongbow)
+                numCardsUsed(2)
             }
             waitingPlayer {
                 updateMinion(0, [deltaHealth: -5])

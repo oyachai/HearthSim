@@ -48,6 +48,7 @@ class SylvanasWindrunnerSpec extends CardSpec {
             currentPlayer {
                 playMinion(SylvanasWindrunner)
                 mana(1)
+                numCardsUsed(1)
             }
         }
     }
@@ -85,6 +86,7 @@ class SylvanasWindrunnerSpec extends CardSpec {
                 removeMinion(0)
                 removeCardFromHand(ShadowWordDeath)
                 mana(0)
+                numCardsUsed(2)
             }
         }
         
@@ -205,6 +207,7 @@ class SylvanasWindrunnerSpec extends CardSpec {
                     removeCardFromHand(ShadowWordDeath)
                     mana(0)
                     playMinion(WarGolem)
+                    numCardsUsed(2)
                 }
                 waitingPlayer {
                     removeMinion(0)
@@ -218,6 +221,7 @@ class SylvanasWindrunnerSpec extends CardSpec {
                     removeCardFromHand(ShadowWordDeath)
                     mana(0)
                     playMinion(GoldshireFootman)
+                    numCardsUsed(2)
                 }
                 waitingPlayer {
                     removeMinion(1)

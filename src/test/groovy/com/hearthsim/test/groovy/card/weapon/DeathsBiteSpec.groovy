@@ -55,6 +55,7 @@ class DeathsBiteSpec extends CardSpec {
                 mana(4)
                 removeCardFromHand(DeathsBite)
                 removeCardFromHand(FieryWarAxe)
+                numCardsUsed(2)
             }
             waitingPlayer {
                 updateMinion(0, [deltaHealth: -1])
@@ -82,6 +83,7 @@ class DeathsBiteSpec extends CardSpec {
                 removeCardFromHand(DeathsBite)
                 playMinion(ArathiWeaponsmith)
                 updateMinion(0, [deltaHealth: -1])
+                numCardsUsed(2)
             }
             waitingPlayer {
                 updateMinion(0, [deltaHealth: -1])
@@ -109,6 +111,7 @@ class DeathsBiteSpec extends CardSpec {
                 mana(6)
                 heroHasAttacked(true)
                 removeCardFromHand(DeathsBite)
+                numCardsUsed(1)
             }
             waitingPlayer {
                 heroHealth(26)

@@ -44,6 +44,7 @@ class ManaTideTotemSpec extends CardSpec {
 			currentPlayer {
 				playMinion(ManaTideTotem)
 				mana(4)
+                numCardsUsed(1)
 			}
 		}
 
@@ -54,6 +55,7 @@ class ManaTideTotemSpec extends CardSpec {
 				mana(4)
 				addCardToHand(TheCoin)
 				addDeckPos(1)
+                numCardsUsed(1)
 			}
 		}
 

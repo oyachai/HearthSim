@@ -47,6 +47,7 @@ class ManaWyrmSpec extends CardSpec {
             currentPlayer {
                 playMinion(ManaWyrm)
                 mana(8)
+                numCardsUsed(1)
             }
         }
         assertBoardDelta(copiedBoard, ret2.data_) {
@@ -55,6 +56,7 @@ class ManaWyrmSpec extends CardSpec {
                 removeCardFromHand(TheCoin)
                 mana(9)
                 updateMinion(0, [deltaAttack: 1])
+                numCardsUsed(2)
             }
         }
 

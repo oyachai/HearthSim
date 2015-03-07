@@ -59,6 +59,7 @@ class MaexxnaSpec extends CardSpec {
                 playMinion(Maexxna)
                 mana(1)
                 updateMinion(1, [hasAttacked: true])
+                numCardsUsed(1)
             }
             waitingPlayer {
                 heroHealth(28)
@@ -83,6 +84,7 @@ class MaexxnaSpec extends CardSpec {
                 playMinion(Maexxna)
                 mana(1)
                 updateMinion(1, [deltaHealth: -5, hasAttacked: true])
+                numCardsUsed(1)
             }
             waitingPlayer {
                 removeMinion(0)

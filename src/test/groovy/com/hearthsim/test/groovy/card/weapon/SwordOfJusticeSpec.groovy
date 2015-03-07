@@ -46,6 +46,7 @@ class SwordOfJusticeSpec extends CardSpec{
                 updateMinion(0, [deltaAttack: +1])
                 mana(0)
                 removeCardFromHand(SwordOfJustice)
+                numCardsUsed(2)
             }
         }
 

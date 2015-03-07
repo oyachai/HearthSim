@@ -47,6 +47,7 @@ class ManaAddictSpec extends CardSpec {
             currentPlayer {
                 playMinion(ManaAddict)
                 mana(7)
+                numCardsUsed(1)
             }
         }
         assertBoardDelta(copiedBoard, ret2.data_) {
@@ -55,6 +56,7 @@ class ManaAddictSpec extends CardSpec {
                 removeCardFromHand(TheCoin)
                 mana(8)
                 updateMinion(0, [deltaExtraAttack: 2])
+                numCardsUsed(2)
             }
         }
 

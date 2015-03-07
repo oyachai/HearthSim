@@ -278,6 +278,8 @@ public class Card implements DeepCopyable<Card> {
         int targetIndex = targetMinion instanceof Hero ? 0 : side.getPlayer(boardState).getMinions()
                 .indexOf(targetMinion) + 1;
 
+        PlayerSide.CURRENT_PLAYER.getPlayer(boardState).addNumCardsUsed((byte)1);
+
         HearthTreeNode toRet = this.notifyCardPlayBegin(boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
         if (toRet != null) {
             toRet = this.use_core(side, targetMinion, toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
@@ -292,6 +294,7 @@ public class Card implements DeepCopyable<Card> {
         if (toRet != null) {
             toRet.setAction(new HearthAction(Verb.USE_CARD, PlayerSide.CURRENT_PLAYER, cardIndex, side, targetIndex));
         }
+
         return toRet;
     }
 

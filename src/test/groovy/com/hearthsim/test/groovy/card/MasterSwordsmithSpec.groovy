@@ -54,6 +54,7 @@ class MasterSwordsmithSpec extends CardSpec {
             currentPlayer {
                 playMinion(MasterSwordsmith)
                 mana(5)
+                numCardsUsed(1)
             }
         }
 
@@ -63,6 +64,7 @@ class MasterSwordsmithSpec extends CardSpec {
                 playMinion(MasterSwordsmith)
                 mana(5)
                 updateMinion(0, [deltaAttack: 1])
+                numCardsUsed(1)
             }
         }
 

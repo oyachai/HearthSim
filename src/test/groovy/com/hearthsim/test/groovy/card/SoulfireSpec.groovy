@@ -46,6 +46,7 @@ class SoulfireSpec extends CardSpec {
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
                 mana(7)
+                numCardsUsed(1)
             }
         }
 
@@ -58,6 +59,7 @@ class SoulfireSpec extends CardSpec {
                 heroHealth(26)
                 removeCardFromHand(Soulfire)
                 removeCardFromHand(Polymorph)
+                numCardsUsed(1)
             }
         }
 
@@ -67,6 +69,7 @@ class SoulfireSpec extends CardSpec {
                 heroHealth(26)
                 removeCardFromHand(Soulfire)
                 removeCardFromHand(WarGolem)
+                numCardsUsed(1)
             }
         }
     }
@@ -96,6 +99,7 @@ class SoulfireSpec extends CardSpec {
             assertBoardDelta(copiedBoard, resBoard) {
                 currentPlayer {
                     removeCardFromHand(Soulfire)
+                    numCardsUsed(1)
                 }
                 waitingPlayer {
                     heroHealth(26)
@@ -130,6 +134,7 @@ class SoulfireSpec extends CardSpec {
                 currentPlayer {
                     removeCardFromHand(Soulfire)
                     removeCardFromHand(Soulfire)
+                    numCardsUsed(1)
                 }
                 waitingPlayer {
                     heroHealth(26)
@@ -165,6 +170,7 @@ class SoulfireSpec extends CardSpec {
                     removeCardFromHand(Soulfire)
                     removeCardFromHand(Soulfire)
                     removeCardFromHand(Soulfire)
+                    numCardsUsed(2)
                 }
                 waitingPlayer {
                     heroHealth(22)

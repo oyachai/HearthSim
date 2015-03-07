@@ -43,6 +43,7 @@ class EarthShockSpec extends CardSpec {
             currentPlayer {
                 mana(6)
                 removeCardFromHand(EarthShock)
+                numCardsUsed(1)
             }
             waitingPlayer {
                 removeMinion(0);

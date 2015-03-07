@@ -57,6 +57,7 @@ class FrostElementalSpec extends CardSpec {
             currentPlayer {
                 playMinion(FrostElemental)
                 mana(1)
+                numCardsUsed(1)
             }
         }
 

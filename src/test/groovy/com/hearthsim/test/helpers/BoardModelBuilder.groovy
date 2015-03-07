@@ -198,6 +198,13 @@ class BoardModelBuilder {
             boardModel.waitingPlayer.deckPos += (int) num
     }
 
+    private numCardsUsed(Number num) {
+        if (playerSide == PlayerSide.CURRENT_PLAYER)
+            boardModel.currentPlayer.numCardsUsed = (byte) num;
+        else
+            boardModel.waitingPlayer.numCardsUsed = (byte) num;
+    }
+
     private currentPlayer(Closure player) {
         playerSide = PlayerSide.CURRENT_PLAYER
 

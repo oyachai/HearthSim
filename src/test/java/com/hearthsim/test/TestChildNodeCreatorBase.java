@@ -66,6 +66,7 @@ public class TestChildNodeCreatorBase {
         expectedBoard.placeMinion(PlayerSide.CURRENT_PLAYER, expectedMinion);
         expectedBoard.getCurrentPlayer().setMana((byte)0);
         expectedBoard.getCurrentPlayer().setMaxMana((byte)2);
+        expectedBoard.getCurrentPlayer().setNumCardsUsed((byte) 1);
 
         ChildNodeCreatorBase factory = new ChildNodeCreatorBase(this.deck0, this.deck1);
         HearthTreeNode root = new HearthTreeNode(startingBoard);
@@ -151,6 +152,7 @@ public class TestChildNodeCreatorBase {
         expectedBoardA.placeMinion(PlayerSide.CURRENT_PLAYER, (Minion)bloodfenRaptor.deepCopy());
         expectedBoardA.getCurrentPlayer().setMana((byte)1);
         expectedBoardA.getCurrentPlayer().setMaxMana((byte)2);
+        expectedBoardA.getCurrentPlayer().setNumCardsUsed((byte)1);
         BoardModel expectedBoardB = expectedBoardA.deepCopy();
 
         Minion expectedMinion = new ArgentSquire();
@@ -185,6 +187,7 @@ public class TestChildNodeCreatorBase {
         expectedBoardA.getCurrentPlayer().setMana((byte)1);
         expectedBoardA.getCurrentPlayer().setMaxMana((byte)4);
         expectedBoardA.placeMinion(PlayerSide.WAITING_PLAYER, new RiverCrocolisk());
+        expectedBoardA.getCurrentPlayer().setNumCardsUsed((byte)1);
 
         assertNodeListContainsBoardModel(actuals, expectedBoardA);
 
@@ -214,6 +217,7 @@ public class TestChildNodeCreatorBase {
         BoardModel expectedBoardA = new BoardModel();
         expectedBoardA.getCurrentPlayer().setMana((byte)1);
         expectedBoardA.getCurrentPlayer().setMaxMana((byte)2);
+        expectedBoardA.getCurrentPlayer().setNumCardsUsed((byte)1);
         BoardModel expectedBoardB = expectedBoardA.deepCopy();
 
         expectedBoardA.getCharacter(PlayerSide.CURRENT_PLAYER, 0).setHealth((byte)28);
@@ -390,6 +394,7 @@ public class TestChildNodeCreatorBase {
         expectedBoard.getCurrentPlayer().placeCardHand(new AnimalCompanion());
         expectedBoard.getCurrentPlayer().setMana((byte)2);
         expectedBoard.getCurrentPlayer().setMaxMana((byte)3);
+        expectedBoard.getCurrentPlayer().setNumCardsUsed((byte)2);
         assertNodeListContainsBoardModel(actuals, expectedBoard, 0);
 
         // TODO using get(0) here is fragile...

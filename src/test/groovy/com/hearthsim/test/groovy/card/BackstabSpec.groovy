@@ -42,6 +42,7 @@ class BackstabSpec extends CardSpec {
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
                 removeCardFromHand(Backstab)
+                numCardsUsed(1)
             }
             waitingPlayer {
                 updateMinion(0, [deltaHealth: -2])

@@ -56,6 +56,7 @@ class OnyxiaSpec extends CardSpec {
                 addMinionToField(Whelp, 4)
                 addMinionToField(Whelp, 4)
                 addMinionToField(Whelp, 4)
+                numCardsUsed(1)
             }
         }
     }
@@ -99,6 +100,7 @@ class OnyxiaSpec extends CardSpec {
                 addMinionToField(Whelp, 1)
                 addMinionToField(Whelp, 5)
                 addMinionToField(Whelp, 5)
+                numCardsUsed(1)
             }
         }
     }
@@ -142,6 +144,7 @@ class OnyxiaSpec extends CardSpec {
             currentPlayer {
                 playMinion(Onyxia)
                 mana(1)
+                numCardsUsed(1)
             }
         }
     }

@@ -57,6 +57,7 @@ class CabalShadowPriestSpec extends CardSpec {
             currentPlayer {
                 playMinion(CabalShadowPriest)
                 mana(1)
+                numCardsUsed(1)
             }
         }
 

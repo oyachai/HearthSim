@@ -56,6 +56,7 @@ class BloodsailRaiderSpec extends CardSpec {
             currentPlayer {
                 playMinion(BloodsailRaider)
                 mana(5)
+                numCardsUsed(1)
             }
         }
     }
@@ -80,6 +81,7 @@ class BloodsailRaiderSpec extends CardSpec {
                 removeCardFromHand(FieryWarAxe)
                 mana(3)
                 updateMinion(1, [ deltaAttack: 3])
+                numCardsUsed(2)
             }
         }
     }

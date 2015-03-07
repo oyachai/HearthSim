@@ -55,6 +55,7 @@ class UnleashTheHoundsSpec extends CardSpec {
                 removeCardFromHand(UnleashTheHounds)
                 addMinionToField(Hound, false, true)
                 mana(4)
+                numCardsUsed(1)
             }
         }
 
@@ -82,6 +83,7 @@ class UnleashTheHoundsSpec extends CardSpec {
                 removeCardFromHand(UnleashTheHounds)
                 addMinionToField(Hound, false, true)
                 mana(4)
+                numCardsUsed(1)
             }
         }
 

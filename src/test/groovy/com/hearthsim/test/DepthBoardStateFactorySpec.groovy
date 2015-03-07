@@ -42,6 +42,7 @@ class DepthBoardStateFactorySpec extends CardSpec {
                 playMinion(GoldshireFootman, 0)
                 playMinion(MurlocRaider, 0)
                 mana(8)
+                numCardsUsed(3)
             }
         }
     }

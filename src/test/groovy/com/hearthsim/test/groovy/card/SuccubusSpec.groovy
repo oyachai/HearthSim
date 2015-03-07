@@ -45,6 +45,7 @@ class SuccubusSpec extends CardSpec {
             currentPlayer {
                 playMinion(Succubus)
                 mana(5)
+                numCardsUsed(1)
             }
         }
     }
@@ -76,6 +77,7 @@ class SuccubusSpec extends CardSpec {
             currentPlayer {
                 playMinion(Succubus)
                 mana(5)
+                numCardsUsed(1)
             }
         }
         
@@ -87,6 +89,7 @@ class SuccubusSpec extends CardSpec {
                 playMinion(Succubus)
                 mana(5)
                 removeCardFromHand(TheCoin)
+                numCardsUsed(1)
             }
         }
 
@@ -121,6 +124,7 @@ class SuccubusSpec extends CardSpec {
             currentPlayer {
                 playMinion(Succubus)
                 mana(5)
+                numCardsUsed(1)
             }
         }
         
@@ -132,6 +136,7 @@ class SuccubusSpec extends CardSpec {
                 playMinion(Succubus)
                 mana(5)
                 removeCardFromHand(TheCoin)
+                numCardsUsed(1)
             }
         }
 
@@ -141,6 +146,7 @@ class SuccubusSpec extends CardSpec {
                 playMinion(Succubus)
                 mana(5)
                 removeCardFromHand(HolySmite)
+                numCardsUsed(1)
             }
         }
 

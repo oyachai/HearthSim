@@ -59,6 +59,7 @@ class DemolisherSpec extends CardSpec {
             currentPlayer {
                 playMinion(Demolisher)
                 mana(4)
+                numCardsUsed(1)
             }
         }
 

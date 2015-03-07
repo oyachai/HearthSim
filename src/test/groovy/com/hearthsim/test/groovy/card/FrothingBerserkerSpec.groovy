@@ -64,6 +64,7 @@ class FrothingBerserkerSpec extends CardSpec {
                 removeMinion(0)
                 updateMinion(1, [deltaAttack: 2])
                 mana(4)
+                numCardsUsed(1)
             }
             waitingPlayer {
                 removeMinion(0)

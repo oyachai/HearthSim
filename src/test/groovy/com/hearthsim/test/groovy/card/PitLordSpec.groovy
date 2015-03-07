@@ -54,6 +54,7 @@ class PitLordSpec extends CardSpec {
                 playMinion(PitLord)
                 mana(3)
                 heroHealth(25)
+                numCardsUsed(1)
             }
         }
 

@@ -880,6 +880,10 @@
         "class": "com.hearthsim.card.spellcard.concrete.Shiv"
     },
     {
+        "name": "SI:7 Agent",
+        "class": "com.hearthsim.card.minion.concrete.Si7Agent"
+    },
+    {
         "name": "Silence",
         "class": "com.hearthsim.card.spellcard.concrete.Silence"
     },

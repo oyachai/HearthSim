@@ -41,6 +41,7 @@ class SeaGiantSpec extends CardSpec {
             currentPlayer {
                 playMinion(SeaGiant)
                 mana(0)
+                numCardsUsed(1)
             }
         }
 
@@ -72,6 +73,7 @@ class SeaGiantSpec extends CardSpec {
             currentPlayer {
                 playMinion(SeaGiant)
                 mana(2)
+                numCardsUsed(1)
             }
         }
     }

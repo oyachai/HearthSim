@@ -42,6 +42,7 @@ class DoomsayerSpec extends CardSpec {
             currentPlayer {
                 playMinion(Doomsayer)
                 mana(8)
+                numCardsUsed(1)
             }
         }
         
@@ -82,6 +83,7 @@ class DoomsayerSpec extends CardSpec {
             currentPlayer {
                 playMinion(Doomsayer)
                 mana(8)
+                numCardsUsed(1)
             }
         }
         

@@ -28,6 +28,8 @@ public class PlayerModel implements DeepCopyable<PlayerModel> {
     private IdentityLinkedList<Card> hand;
     byte overload;
 
+    private byte numCardsUsed;
+
     public PlayerModel(byte playerId, String name, Hero hero, Deck deck) {
         this.playerId = playerId;
         this.name = name;
@@ -35,9 +37,9 @@ public class PlayerModel implements DeepCopyable<PlayerModel> {
         this.deck = deck;
         this.minions = new MinionList();
         this.hand = new IdentityLinkedList<>();
-
-        deckPos = 0;
-        fatigueDamage = 1;
+        this.numCardsUsed = 0;
+        this.deckPos = 0;
+        this.fatigueDamage = 1;
     }
 
     public Card drawFromDeck(int index) {
@@ -160,6 +162,23 @@ public class PlayerModel implements DeepCopyable<PlayerModel> {
         fatigueDamage += value;
     }
 
+    public byte getNumCardsUsed() {
+        return numCardsUsed;
+    }
+
+    public void setNumCardsUsed(byte numCardsUsed) {
+        this.numCardsUsed = numCardsUsed;
+    }
+
+    public void addNumCardsUsed(byte value) {
+        this.numCardsUsed += value;
+    }
+
+    public boolean isComboEnabled() {
+        //don't count the card that was just used
+        return numCardsUsed > 1;
+    }
+
     @Override
     public String toString() {
         return new JSONObject(this).toString();
@@ -180,6 +199,7 @@ public class PlayerModel implements DeepCopyable<PlayerModel> {
         copiedPlayerModel.setOverload(overload);
         copiedPlayerModel.deckPos = deckPos;
         copiedPlayerModel.fatigueDamage = fatigueDamage;
+        copiedPlayerModel.numCardsUsed = numCardsUsed;
 
         for (Minion minion : minions) {
             copiedPlayerModel.getMinions().add((Minion) (minion).deepCopy());
@@ -230,6 +250,11 @@ public class PlayerModel implements DeepCopyable<PlayerModel> {
         mana = maxMana;
         mana -= overload;
         overload = 0;
+        resetNumCardsUsed();
+    }
+
+    public void resetNumCardsUsed() {
+        numCardsUsed = 0;
     }
 
     @Override
@@ -246,7 +271,7 @@ public class PlayerModel implements DeepCopyable<PlayerModel> {
         hash = hash * 31 + (null == minions ? 0 : minions.hashCode());
         hash = hash * 31 + (null == hand ? 0 : hand.hashCode());
         hash = hash * 31 + overload;
-
+        hash = hash * 31 + numCardsUsed;
         return hash;
     }
 
@@ -273,7 +298,7 @@ public class PlayerModel implements DeepCopyable<PlayerModel> {
         if (deck != null && !deck.equals(otherPlayer.deck)) return false;
         if (!minions.equals(otherPlayer.minions)) return false;
         if (!hand.equals(otherPlayer.hand)) return false;
-
+        if (numCardsUsed != otherPlayer.numCardsUsed) return false;
         return true;
     }
 
@@ -303,6 +328,10 @@ public class PlayerModel implements DeepCopyable<PlayerModel> {
                 array.put(card.toJSON());
             }
             json.put("hand", array);
+        }
+
+        if (numCardsUsed > 0) {
+            json.put("numCardsUsed", numCardsUsed);
         }
 
         return json;

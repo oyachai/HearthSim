@@ -46,6 +46,7 @@ class GruulSpec extends CardSpec {
             currentPlayer {
                 playMinion(Gruul)
                 mana(0)
+                numCardsUsed(1)
             }
         }
 
@@ -55,6 +56,7 @@ class GruulSpec extends CardSpec {
                 playMinion(Gruul)
                 mana(0)
                 updateMinion(0, [deltaHealth: 1, deltaAttack: 1, deltaMaxHealth: 1])
+                numCardsUsed(1)
             }
         }
 

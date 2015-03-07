@@ -65,6 +65,7 @@ class MoltenGiantSpec extends CardSpec {
             currentPlayer {
                 playMinion(MoltenGiant)
                 mana(5)
+                numCardsUsed(1)
             }
         }
     }
@@ -94,6 +95,7 @@ class MoltenGiantSpec extends CardSpec {
             currentPlayer {
                 playMinion(MoltenGiant)
                 mana(10)
+                numCardsUsed(1)
             }
         }
     }

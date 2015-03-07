@@ -58,6 +58,7 @@ class IllidanStormrageSpec extends CardSpec {
                 addMinionToField(FlameOfAzzinoth)
                 removeCardFromHand(TheCoin)
                 mana(2)
+                numCardsUsed(2)
             }
         }
     }

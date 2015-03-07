@@ -59,6 +59,7 @@ class ShadeOfNaxxramasSpec extends CardSpec {
             currentPlayer {
                 playMinion(ShadeOfNaxxramas)
                 mana(4)
+                numCardsUsed(1)
             }
         }
 

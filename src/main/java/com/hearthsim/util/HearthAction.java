@@ -112,6 +112,7 @@ public class HearthAction {
                 // We need to perform the current state again if the children don't exist yet. This can happen in certain replay scenarios.
                 // Do not do this if the previous action was *also* RNG or we will end up in an infinite loop.
                 if (toRet.isLeaf() && boardState.getAction().verb_ != Verb.RNG) {
+                	boardState.data_.getCurrentPlayer().addNumCardsUsed((byte)-1); //do not double count
                     toRet = boardState.getAction().perform(boardState, deckPlayer0, deckPlayer1, singleRealization);
                 }
                 // RNG has declared this child happened

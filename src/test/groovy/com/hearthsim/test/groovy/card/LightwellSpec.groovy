@@ -59,6 +59,7 @@ class LightwellSpec extends CardSpec {
             currentPlayer {
                 playMinion(Lightwell)
                 mana(5)
+                numCardsUsed(1)
             }
         }
 

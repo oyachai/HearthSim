@@ -54,6 +54,7 @@ class HoggerSpec extends CardSpec {
             currentPlayer {
                 playMinion(Hogger)
                 mana(1)
+                numCardsUsed(1)
             }
         }
 
@@ -63,6 +64,7 @@ class HoggerSpec extends CardSpec {
                 playMinion(Hogger)
                 playMinion(Gnoll)
                 mana(1)
+                numCardsUsed(1)
             }
         }
 

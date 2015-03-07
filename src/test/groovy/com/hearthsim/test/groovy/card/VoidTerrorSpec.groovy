@@ -48,6 +48,7 @@ class VoidTerrorSpec extends CardSpec {
                 removeMinion(1)
                 mana(4)
                 updateMinion(0, [deltaHealth: 2, deltaMaxHealth: 2, deltaAttack: 1])
+                numCardsUsed(1)
             }
         }
     }
@@ -66,6 +67,7 @@ class VoidTerrorSpec extends CardSpec {
                 removeMinion(1)
                 mana(4)
                 updateMinion(1, [deltaHealth: 7, deltaMaxHealth: 7, deltaAttack: 7])
+                numCardsUsed(1)
             }
         }
     }
@@ -85,6 +87,7 @@ class VoidTerrorSpec extends CardSpec {
                 removeMinion(1)
                 mana(4)
                 updateMinion(0, [deltaHealth: 9, deltaMaxHealth: 9, deltaAttack: 8])
+                numCardsUsed(1)
             }
         }
     }

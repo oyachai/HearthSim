@@ -44,6 +44,7 @@ class DoomguardSpec extends CardSpec {
             currentPlayer {
                 playMinionWithCharge(Doomguard)
                 mana(2)
+                numCardsUsed(1)
             }
         }
     }
@@ -74,6 +75,7 @@ class DoomguardSpec extends CardSpec {
             currentPlayer {
                 playMinionWithCharge(Doomguard)
                 mana(2)
+                numCardsUsed(1)
             }
         }
         
@@ -85,6 +87,7 @@ class DoomguardSpec extends CardSpec {
                 playMinionWithCharge(Doomguard)
                 mana(2)
                 removeCardFromHand(TheCoin)
+                numCardsUsed(1)
             }
         }
 
@@ -118,6 +121,7 @@ class DoomguardSpec extends CardSpec {
             currentPlayer {
                 playMinionWithCharge(Doomguard)
                 mana(2)
+                numCardsUsed(1)
             }
         }
         
@@ -130,6 +134,7 @@ class DoomguardSpec extends CardSpec {
                 mana(2)
                 removeCardFromHand(TheCoin)
                 removeCardFromHand(HolySmite)
+                numCardsUsed(1)
             }
         }
 

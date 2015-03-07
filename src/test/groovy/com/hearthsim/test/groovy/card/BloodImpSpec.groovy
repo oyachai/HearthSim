@@ -53,6 +53,7 @@ class BloodImpSpec extends CardSpec {
             currentPlayer {
                 playMinion(BloodImp)
                 mana(6)
+                numCardsUsed(1)
             }
         }
 
@@ -62,6 +63,7 @@ class BloodImpSpec extends CardSpec {
                 playMinion(BloodImp)
                 mana(6)
                 updateMinion(0, [deltaHealth: 1, deltaMaxHealth: 1])
+                numCardsUsed(1)
             }
         }
 

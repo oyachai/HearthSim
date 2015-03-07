@@ -62,6 +62,7 @@ class LightwardenSpec extends CardSpec {
             currentPlayer {
                 playMinion(Lightwarden)
                 mana(6)
+                numCardsUsed(1)
             }
         }
 

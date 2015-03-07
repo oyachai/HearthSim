@@ -55,7 +55,7 @@ class TruesilverChampionSpec extends CardSpec {
                 }
                 mana(0)
                 removeCardFromHand(TruesilverChampion)
-
+                numCardsUsed(1)
             }
             waitingPlayer {
                 heroHealth(26)
@@ -88,6 +88,7 @@ class TruesilverChampionSpec extends CardSpec {
                 }
                 mana(0)
                 removeCardFromHand(TruesilverChampion)
+                numCardsUsed(1)
             }
             waitingPlayer {
                 updateMinion(0, [deltaHealth: -4])

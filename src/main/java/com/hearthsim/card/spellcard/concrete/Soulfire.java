@@ -22,11 +22,6 @@ public class Soulfire extends SpellDamage {
         super((byte)0, (byte)4, hasBeenUsed);
     }
 
-    @Override
-    public SpellDamage deepCopy() {
-        return new Soulfire(this.hasBeenUsed);
-    }
-
     /**
      *
      * Discards a random card
@@ -47,6 +42,7 @@ public class Soulfire extends SpellDamage {
         throws HSException {
         HearthTreeNode toRet = null;
 
+        PlayerSide.CURRENT_PLAYER.getPlayer(boardState).addNumCardsUsed((byte)1);
         if (singleRealizationOnly) {
             toRet = super.useOn(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
             IdentityLinkedList<Card> hand = PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getHand();
@@ -59,6 +55,7 @@ public class Soulfire extends SpellDamage {
             int thisCardIndex = PlayerSide.CURRENT_PLAYER.getPlayer(boardState).getHand().indexOf(this);
             if (boardState.data_.getCurrentPlayerHand().size() == 1) {
                 toRet = this.callSuperUseOn(side, targetMinion, boardState, deckPlayer0, deckPlayer1, false);
+                toRet.data_.getCurrentPlayer().addNumCardsUsed((byte)-1);
             } else {
                 toRet = new RandomEffectNode(boardState, new HearthAction(HearthAction.Verb.USE_CARD, PlayerSide.CURRENT_PLAYER, thisCardIndex, side, targetCharacterIndex));
                 for (int indx = 0; indx < toRet.data_.getCurrentPlayerHand().size(); ++indx) {
@@ -67,6 +64,7 @@ public class Soulfire extends SpellDamage {
                         Minion cTargetMinion = cNode.data_.getCharacter(side, targetCharacterIndex);
                         Soulfire cCard = (Soulfire)cNode.data_.getCurrentPlayerHand().get(thisCardIndex);
                         cNode = cCard.callSuperUseOn(side, cTargetMinion, cNode, deckPlayer0, deckPlayer1, false);
+                        cNode.data_.getCurrentPlayer().addNumCardsUsed((byte)-1);
                         if (cNode != null) {
                             cNode.data_.removeCard_hand(cNode.data_.getCurrentPlayerHand().get(indx < thisCardIndex ? indx : indx - 1));
                             toRet.addChild(cNode);

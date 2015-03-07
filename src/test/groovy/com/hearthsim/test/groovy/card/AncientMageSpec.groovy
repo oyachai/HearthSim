@@ -54,6 +54,7 @@ class AncientMageSpec extends CardSpec {
                 playMinion(AncientMage)
                 mana(3)
                 updateMinion(1, [deltaSpellDamage: 1])
+                numCardsUsed(1)
             }
         }
 

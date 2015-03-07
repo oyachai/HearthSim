@@ -39,6 +39,7 @@ class AncientBrewmasterSpec extends CardSpec {
             currentPlayer {
                 playMinion(AncientBrewmaster)
                 mana(3)
+                numCardsUsed(1)
             }
         }
         assertEquals(ret.numChildren(), 0)
@@ -58,6 +59,7 @@ class AncientBrewmasterSpec extends CardSpec {
             currentPlayer {
                 playMinion(AncientBrewmaster)
                 mana(3)
+                numCardsUsed(1)
             }
         }
 
@@ -90,6 +92,7 @@ class AncientBrewmasterSpec extends CardSpec {
             currentPlayer {
                 playMinion(AncientBrewmaster)
                 mana(3)
+                numCardsUsed(1)
             }
         }
 

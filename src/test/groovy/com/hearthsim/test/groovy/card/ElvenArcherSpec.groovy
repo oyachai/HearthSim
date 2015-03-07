@@ -68,6 +68,7 @@ class ElvenArcherSpec extends CardSpec {
             currentPlayer {
                 playMinion(ElvenArcher)
                 mana(6)
+                numCardsUsed(1)
             }
         }
 
@@ -121,6 +122,7 @@ class ElvenArcherSpec extends CardSpec {
                 heroHealth(28)
                 updateMinion(0, [deltaHealth: -2])
                 updateMinion(1, [deltaHealth: -2])
+                numCardsUsed(1)
             }
             waitingPlayer {
                 heroHealth(28)

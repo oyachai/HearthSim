@@ -59,6 +59,7 @@ class EmperorCobraSpec extends CardSpec {
                 playMinion(EmperorCobra)
                 mana(4)
                 updateMinion(1, [hasAttacked: true])
+                numCardsUsed(1)
             }
             waitingPlayer {
                 heroHealth(28)
@@ -83,6 +84,7 @@ class EmperorCobraSpec extends CardSpec {
                 playMinion(EmperorCobra)
                 mana(4)
                 removeMinion(1)
+                numCardsUsed(1)
             }
             waitingPlayer {
                 removeMinion(0)

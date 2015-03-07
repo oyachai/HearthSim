@@ -43,6 +43,7 @@ public class ImpMasterSpec extends CardSpec {
             currentPlayer {
                 playMinion(ImpMaster)
                 mana(5)
+                numCardsUsed(1)
             }
         }
 
@@ -53,6 +54,7 @@ public class ImpMasterSpec extends CardSpec {
                 addMinionToField(Imp)
                 mana(5)
                 updateMinion(0, [deltaHealth: -1])
+                numCardsUsed(1)
             }
         }
     }
@@ -71,6 +73,7 @@ public class ImpMasterSpec extends CardSpec {
                 playMinion(ImpMaster)
                 updateMinion(0, [deltaHealth: -4])
                 mana(5)
+                numCardsUsed(1)
             }
         }
 
@@ -81,6 +84,7 @@ public class ImpMasterSpec extends CardSpec {
                 removeMinion(0)
                 addMinionToField(Imp)
                 mana(5)
+                numCardsUsed(1)
             }
         }
     }

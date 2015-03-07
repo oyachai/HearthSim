@@ -57,6 +57,7 @@ class StampedingKodoSpec extends CardSpec {
             currentPlayer {
                 playMinion(StampedingKodo)
                 mana(2)
+                numCardsUsed(1)
             }
         }
         assertEquals(ret.numChildren(), 0)        
@@ -77,6 +78,7 @@ class StampedingKodoSpec extends CardSpec {
             currentPlayer {
                 playMinion(StampedingKodo)
                 mana(2)
+                numCardsUsed(1)
             }
         }
         

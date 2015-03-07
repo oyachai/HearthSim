@@ -59,6 +59,7 @@ class PatientAssassinSpec extends CardSpec {
                 playMinion(PatientAssassin)
                 mana(5)
                 updateMinion(0, [hasAttacked: true, stealthed: false])
+                numCardsUsed(1)
             }
             waitingPlayer {
                 heroHealth(29)
@@ -83,6 +84,7 @@ class PatientAssassinSpec extends CardSpec {
                 playMinion(PatientAssassin)
                 mana(5)
                 removeMinion(0)
+                numCardsUsed(1)
             }
             waitingPlayer {
                 removeMinion(0)

@@ -63,6 +63,7 @@ class MountainGiantSpec extends CardSpec {
             currentPlayer {
                 playMinion(MountainGiant)
                 mana(0)
+                numCardsUsed(1)
             }
         }
     }

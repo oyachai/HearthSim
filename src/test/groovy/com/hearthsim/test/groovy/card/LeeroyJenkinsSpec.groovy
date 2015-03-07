@@ -43,6 +43,7 @@ class LeeroyJenkinsSpec extends CardSpec {
             currentPlayer {
                 playMinionWithCharge(LeeroyJenkins)
                 mana(2)
+                numCardsUsed(1)
             }
             waitingPlayer {
                 playMinion(Whelp)

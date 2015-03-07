@@ -41,6 +41,7 @@ class LightspawnSpec extends CardSpec {
             currentPlayer {
                 removeCardFromHand(ShadowWordDeath)
                 mana(2)
+                numCardsUsed(1)
             }
             waitingPlayer {
                 removeMinion(0)

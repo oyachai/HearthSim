@@ -48,6 +48,7 @@ class DreadCorsairSpec extends CardSpec {
             currentPlayer {
                 playMinion(DreadCorsair)
                 mana(4)
+                numCardsUsed(1)
             }
         }
     }
@@ -72,6 +73,7 @@ class DreadCorsairSpec extends CardSpec {
                 }
                 removeCardFromHand(FieryWarAxe)
                 mana(5)
+                numCardsUsed(2)
             }
         }
     }

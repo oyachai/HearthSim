@@ -40,6 +40,7 @@ class QuestingAdventurerSpec extends CardSpec {
             currentPlayer {
                 playMinion(QuestingAdventurer)
                 mana(6)
+                numCardsUsed(1)
             }
         }
 
@@ -72,6 +73,7 @@ class QuestingAdventurerSpec extends CardSpec {
                 removeCardFromHand(TheCoin)
                 mana(10)
                 updateMinion(0, [deltaHealth: 1, deltaAttack: 1, deltaMaxHealth: 1])
+                numCardsUsed(1)
             }
         }
 

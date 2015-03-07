@@ -43,6 +43,7 @@ class DoomhammerSpec extends CardSpec{
                     weaponCharge(8)
                 }
                 removeCardFromHand(Doomhammer)
+                numCardsUsed(1)
             }
         }
     }

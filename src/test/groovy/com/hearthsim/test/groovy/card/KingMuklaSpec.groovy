@@ -43,6 +43,7 @@ class KingMuklaSpec extends CardSpec {
             currentPlayer {
                 playMinion(KingMukla)
                 mana(4)
+                numCardsUsed(1)
             }
             waitingPlayer {
                 addCardToHand(Bananas)
