@@ -1224,6 +1224,10 @@
         "class": "com.hearthsim.card.weapon.concrete.TruesilverChampion"
     },
     {
+        "name": "Twisting Nether",
+        "class": "com.hearthsim.card.spellcard.concrete.TwistingNether"
+    },
+    {
         "name": "Wicked Knife",
         "class": "com.hearthsim.card.weapon.concrete.WickedKnife"
     },
