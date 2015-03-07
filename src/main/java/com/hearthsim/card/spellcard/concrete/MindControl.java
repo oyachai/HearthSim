@@ -14,12 +14,10 @@ public class MindControl extends SpellCard {
      *
      * @param hasBeenUsed Whether the card has already been used or not
      */
+    @Deprecated
     public MindControl(boolean hasBeenUsed) {
-        super((byte)10, hasBeenUsed);
-
-        this.canTargetEnemyHero = false;
-        this.canTargetOwnHero = false;
-        this.canTargetOwnMinions = false;
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     /**
@@ -28,7 +26,11 @@ public class MindControl extends SpellCard {
      * Defaults to hasBeenUsed = false
      */
     public MindControl() {
-        this(false);
+        super();
+
+        this.canTargetEnemyHero = false;
+        this.canTargetOwnHero = false;
+        this.canTargetOwnMinions = false;
     }
 
     /**

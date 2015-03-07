@@ -38,7 +38,7 @@ public class TestArathiWeaponsmith {
         assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 1);
 
         //should be equipped with a weapon now
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getHero().getWeaponCharge(), 2);
+        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getHero().getWeapon().getWeaponCharge(), 2);
         assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getHero().getTotalAttack(), 2);
     }
 
@@ -47,7 +47,7 @@ public class TestArathiWeaponsmith {
         board.data_.placeCardHandCurrentPlayer(new FieryWarAxe());
         board.data_.getCurrentPlayerCardHand(1).useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
-        assertEquals(board.data_.getCurrentPlayerHero().getWeaponCharge(), 2);
+        assertEquals(board.data_.getCurrentPlayerHero().getWeapon().getWeaponCharge(), 2);
         assertEquals(board.data_.getCurrentPlayerHero().getTotalAttack(), 3);
 
         Card theCard = board.data_.getCurrentPlayerCardHand(0);
@@ -57,7 +57,7 @@ public class TestArathiWeaponsmith {
         assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 1);
 
         //should be equipped with a weapon now
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getHero().getWeaponCharge(), 2);
+        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getHero().getWeapon().getWeaponCharge(), 2);
         assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getHero().getTotalAttack(), 2);
     }
 }

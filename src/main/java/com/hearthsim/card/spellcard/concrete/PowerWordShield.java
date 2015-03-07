@@ -15,11 +15,10 @@ public class PowerWordShield extends SpellCard {
      *
      * @param hasBeenUsed Whether the card has already been used or not
      */
+    @Deprecated
     public PowerWordShield(boolean hasBeenUsed) {
-        super((byte)1, hasBeenUsed);
-
-        this.canTargetEnemyHero = false;
-        this.canTargetOwnHero = false;
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     /**
@@ -28,7 +27,10 @@ public class PowerWordShield extends SpellCard {
      * Defaults to hasBeenUsed = false
      */
     public PowerWordShield() {
-        this(false);
+        super();
+
+        this.canTargetEnemyHero = false;
+        this.canTargetOwnHero = false;
     }
 
     /**

@@ -84,7 +84,7 @@ public class TestDivineSpirit {
         assertEquals(board.data_.getNumCards_hand(), 0);
         assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);
         assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
-        assertEquals(board.data_.getCurrentPlayer().getMana(), 3);
+        assertEquals(board.data_.getCurrentPlayer().getMana(), 2);
         assertEquals(board.data_.getWaitingPlayer().getMana(), 4);
         assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
         assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
@@ -110,7 +110,7 @@ public class TestDivineSpirit {
         assertEquals(board.data_.getNumCards_hand(), 0);
         assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);
         assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
-        assertEquals(board.data_.getCurrentPlayer().getMana(), 3);
+        assertEquals(board.data_.getCurrentPlayer().getMana(), 2);
         assertEquals(board.data_.getWaitingPlayer().getMana(), 4);
         assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
         assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);

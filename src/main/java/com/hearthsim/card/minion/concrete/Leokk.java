@@ -8,18 +8,10 @@ import com.hearthsim.card.minion.MinionWithAura;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 
-
 public class Leokk extends Minion implements MinionWithAura {
-
-    private static final boolean HERO_TARGETABLE = true;
-    private static final byte SPELL_DAMAGE = 0;
 
     public Leokk() {
         super();
-        spellDamage_ = SPELL_DAMAGE;
-        heroTargetable_ = HERO_TARGETABLE;
-
-        this.tribe = MinionTribe.BEAST;
     }
 
     @Override

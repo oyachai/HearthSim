@@ -7,18 +7,10 @@ import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-
 public class MurlocTidehunter extends Minion implements MinionUntargetableBattlecry {
-
-    private static final boolean HERO_TARGETABLE = true;
-    private static final byte SPELL_DAMAGE = 0;
 
     public MurlocTidehunter() {
         super();
-        spellDamage_ = SPELL_DAMAGE;
-        heroTargetable_ = HERO_TARGETABLE;
-
-        this.tribe = MinionTribe.MURLOC;
     }
 
     /**

@@ -13,11 +13,10 @@ public class HuntersMark extends SpellCard {
      *
      * @param hasBeenUsed Whether the card has already been used or not
      */
+    @Deprecated
     public HuntersMark(boolean hasBeenUsed) {
-        super((byte)0, hasBeenUsed);
-
-        this.canTargetEnemyHero = false;
-        this.canTargetOwnHero = false;
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     /**
@@ -26,7 +25,10 @@ public class HuntersMark extends SpellCard {
      * Defaults to hasBeenUsed = false
      */
     public HuntersMark() {
-        this(false);
+        super();
+
+        this.canTargetEnemyHero = false;
+        this.canTargetOwnHero = false;
     }
 
     /**

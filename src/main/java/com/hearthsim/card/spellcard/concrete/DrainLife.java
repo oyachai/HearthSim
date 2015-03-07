@@ -10,13 +10,14 @@ import com.hearthsim.util.tree.HearthTreeNode;
 public class DrainLife extends SpellDamage {
 
     public DrainLife() {
-        this(false);
+        super();
+        this.canTargetOwnHero = false; // TODO card as printed looks like it allows this
     }
 
+    @Deprecated
     public DrainLife(boolean hasBeenUsed) {
-        super((byte)3, (byte)2, hasBeenUsed);
-
-        this.canTargetOwnHero = false; // TODO card as printed looks like it allows this
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     /**

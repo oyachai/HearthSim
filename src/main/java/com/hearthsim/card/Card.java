@@ -24,7 +24,7 @@ public class Card implements DeepCopyable<Card> {
     /**
      * Name of the card
      */
-    protected String name_;
+    protected String name_ = "";
 
     /**
      * Mana cost of the card
@@ -49,6 +49,7 @@ public class Card implements DeepCopyable<Card> {
      * @param hasBeenUsed Has the card been used?
      * @param isInHand Is the card in your hand?
      */
+    @Deprecated
     public Card(String name, byte baseManaCost, boolean hasBeenUsed, boolean isInHand, byte overload) {
         this.baseManaCost = baseManaCost;
         this.hasBeenUsed = hasBeenUsed;
@@ -57,6 +58,7 @@ public class Card implements DeepCopyable<Card> {
         this.overload = overload;
     }
 
+    @Deprecated
     public Card(byte baseManaCost, boolean hasBeenUsed, boolean isInHand) {
         ImplementedCardList cardList = ImplementedCardList.getInstance();
         ImplementedCardList.ImplementedCard implementedCard = cardList.getCardForClass(this.getClass());
@@ -70,15 +72,18 @@ public class Card implements DeepCopyable<Card> {
     public Card() {
         ImplementedCardList cardList = ImplementedCardList.getInstance();
         ImplementedCardList.ImplementedCard implementedCard = cardList.getCardForClass(this.getClass());
+        this.initFromImplementedCard(implementedCard);
+    }
+
+    public void initFromImplementedCard(ImplementedCardList.ImplementedCard implementedCard) {
         if (implementedCard != null) {
             this.name_ = implementedCard.name_;
             this.baseManaCost = (byte) implementedCard.mana_;
-            this.hasBeenUsed = false;
-            this.isInHand_ = true;
             this.overload = (byte) implementedCard.overload;
         }
+        this.hasBeenUsed = false;
+        this.isInHand_ = true;
     }
-
 
     /**
      * Get the name of the card
@@ -87,6 +92,13 @@ public class Card implements DeepCopyable<Card> {
      */
     public String getName() {
         return name_;
+    }
+
+    /**
+     * Set the name of the card
+     */
+    public void setName(String value) {
+        name_ = value;
     }
 
     /**

@@ -7,7 +7,7 @@ import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.MinionList;
+import com.hearthsim.util.IdentityLinkedList;
 import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -19,12 +19,10 @@ public class BattleRage extends SpellCard {
      *
      * @param hasBeenUsed Whether the card has already been used or not
      */
+    @Deprecated
     public BattleRage(boolean hasBeenUsed) {
-        super((byte)2, hasBeenUsed);
-
-        this.canTargetEnemyHero = false;
-        this.canTargetEnemyMinions = false;
-        this.canTargetOwnMinions = false;
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     /**
@@ -33,7 +31,11 @@ public class BattleRage extends SpellCard {
      * Defaults to hasBeenUsed = false
      */
     public BattleRage() {
-        this(false);
+        super();
+
+        this.canTargetEnemyHero = false;
+        this.canTargetEnemyMinions = false;
+        this.canTargetOwnMinions = false;
     }
 
     /**
@@ -62,7 +64,7 @@ public class BattleRage extends SpellCard {
         if (toRet != null) {
             PlayerModel playerModel = targetPlayerSide.getPlayer(toRet);
             Hero hero = playerModel.getHero();
-            MinionList minions = playerModel.getMinions();
+            IdentityLinkedList<Minion> minions = playerModel.getMinions();
             int numCardsToDraw = hero.getTotalHealth() < hero.getTotalMaxHealth() ? 1 : 0;
             for (Minion minion : minions) {
                 numCardsToDraw += minion.getTotalHealth() < minion.getTotalMaxHealth() ? 1 : 0;

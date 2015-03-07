@@ -59,7 +59,11 @@ class SoulfireSpec extends CardSpec {
                 heroHealth(26)
                 removeCardFromHand(Soulfire)
                 removeCardFromHand(Polymorph)
+<<<<<<< HEAD
                 numCardsUsed(1)
+=======
+                mana(6)
+>>>>>>> 0d585517efe68279da23af1f5d28220846d9a0ee
             }
         }
 
@@ -69,7 +73,11 @@ class SoulfireSpec extends CardSpec {
                 heroHealth(26)
                 removeCardFromHand(Soulfire)
                 removeCardFromHand(WarGolem)
+<<<<<<< HEAD
                 numCardsUsed(1)
+=======
+                mana(6)
+>>>>>>> 0d585517efe68279da23af1f5d28220846d9a0ee
             }
         }
     }
@@ -100,6 +108,7 @@ class SoulfireSpec extends CardSpec {
                 currentPlayer {
                     removeCardFromHand(Soulfire)
                     numCardsUsed(1)
+                    mana(6)
                 }
                 waitingPlayer {
                     heroHealth(26)
@@ -135,6 +144,7 @@ class SoulfireSpec extends CardSpec {
                     removeCardFromHand(Soulfire)
                     removeCardFromHand(Soulfire)
                     numCardsUsed(1)
+                    mana(6)
                 }
                 waitingPlayer {
                     heroHealth(26)
@@ -171,6 +181,7 @@ class SoulfireSpec extends CardSpec {
                     removeCardFromHand(Soulfire)
                     removeCardFromHand(Soulfire)
                     numCardsUsed(2)
+                    mana(5)
                 }
                 waitingPlayer {
                     heroHealth(22)

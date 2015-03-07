@@ -212,7 +212,6 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
         } else {
             armor_ = (byte) (armor_ - damage);
         }
-
     }
 
     @Override

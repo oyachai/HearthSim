@@ -12,14 +12,9 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class CabalShadowPriest extends Minion implements MinionTargetableBattlecry {
 
-    private static final boolean HERO_TARGETABLE = true;
-    private static final byte SPELL_DAMAGE = 0;
-
     public CabalShadowPriest() {
         super();
-        spellDamage_ = SPELL_DAMAGE;
-        heroTargetable_ = HERO_TARGETABLE;
-}
+    }
 
     @Override
     public EnumSet<BattlecryTargetType> getBattlecryTargets() {

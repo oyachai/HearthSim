@@ -14,12 +14,10 @@ public class Innervate extends SpellCard {
      *
      * @param hasBeenUsed Whether the card has already been used or not
      */
+    @Deprecated
     public Innervate(boolean hasBeenUsed) {
-        super((byte)0, hasBeenUsed);
-
-        this.canTargetEnemyHero = false;
-        this.canTargetEnemyMinions = false;
-        this.canTargetOwnMinions = false;
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     /**
@@ -28,7 +26,11 @@ public class Innervate extends SpellCard {
      * Defaults to hasBeenUsed = false
      */
     public Innervate() {
-        this(false);
+        super();
+
+        this.canTargetEnemyHero = false;
+        this.canTargetEnemyMinions = false;
+        this.canTargetOwnMinions = false;
     }
 
     /**

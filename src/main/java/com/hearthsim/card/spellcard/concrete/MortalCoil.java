@@ -11,14 +11,16 @@ import com.hearthsim.util.tree.HearthTreeNode;
 public class MortalCoil extends SpellDamage {
 
     public MortalCoil() {
-        this(false);
-    }
-
-    public MortalCoil(boolean hasBeenUsed) {
-        super((byte)1, (byte)1, hasBeenUsed);
+        super();
 
         this.canTargetEnemyHero = false;
         this.canTargetOwnHero = false;
+    }
+
+    @Deprecated
+    public MortalCoil(boolean hasBeenUsed) {
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     /**

@@ -11,12 +11,10 @@ public class Hellfire extends SpellDamageAoe {
      *
      * @param hasBeenUsed Whether the card has already been used or not
      */
+    @Deprecated
     public Hellfire(boolean hasBeenUsed) {
-        super((byte)4, DAMAGE_AMOUNT, hasBeenUsed);
-        this.hitsEnemyHero = true;
-        this.hitsEnemyMinions = true;
-        this.hitsOwnMinions = true;
-        this.hitsOwnHero = true;
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     /**
@@ -25,6 +23,11 @@ public class Hellfire extends SpellDamageAoe {
      * Defaults to hasBeenUsed = false
      */
     public Hellfire() {
-        this(false);
+        super();
+
+        this.hitsEnemyHero = true;
+        this.hitsEnemyMinions = true;
+        this.hitsOwnMinions = true;
+        this.hitsOwnHero = true;
     }
 }

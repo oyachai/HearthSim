@@ -12,14 +12,8 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class ArchmageAntonidas extends Minion implements CardPlayBeginInterface {
 
-    private static final boolean HERO_TARGETABLE = true;
-    private static final byte SPELL_DAMAGE = 0;
-
     public ArchmageAntonidas() {
         super();
-        spellDamage_ = SPELL_DAMAGE;
-        heroTargetable_ = HERO_TARGETABLE;
-
     }
     /**
      *

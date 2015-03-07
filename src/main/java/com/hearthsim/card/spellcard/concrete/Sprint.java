@@ -16,12 +16,10 @@ public class Sprint extends SpellCard {
      *
      * @param hasBeenUsed Whether the card has already been used or not
      */
+    @Deprecated
     public Sprint(boolean hasBeenUsed) {
-        super((byte)7, hasBeenUsed);
-
-        this.canTargetEnemyHero = false;
-        this.canTargetEnemyMinions = false;
-        this.canTargetOwnMinions = false;
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     /**
@@ -30,7 +28,11 @@ public class Sprint extends SpellCard {
      * Defaults to hasBeenUsed = false
      */
     public Sprint() {
-        this(false);
+        super();
+
+        this.canTargetEnemyHero = false;
+        this.canTargetEnemyMinions = false;
+        this.canTargetOwnMinions = false;
     }
 
     /**

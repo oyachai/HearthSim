@@ -15,12 +15,10 @@ public class LayOnHands extends SpellCard {
      *
      * @param hasBeenUsed Whether the card has already been used or not
      */
+    @Deprecated
     public LayOnHands(boolean hasBeenUsed) {
-        super((byte)8, hasBeenUsed);
-
-        //Let's assume that it is never beneficial to heal an opponent... though this may not strictly be true under some very corner cases (e.g., with a Northshire Cleric)
-        this.canTargetEnemyHero = false; // TODO card as printed allows this
-        this.canTargetEnemyMinions = false;
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     /**
@@ -29,7 +27,11 @@ public class LayOnHands extends SpellCard {
      * Defaults to hasBeenUsed = false
      */
     public LayOnHands() {
-        this(false);
+        super();
+
+        //Let's assume that it is never beneficial to heal an opponent... though this may not strictly be true under some very corner cases (e.g., with a Northshire Cleric)
+        this.canTargetEnemyHero = false; // TODO card as printed allows this
+        this.canTargetEnemyMinions = false;
     }
 
     /**

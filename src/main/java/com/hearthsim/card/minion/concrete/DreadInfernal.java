@@ -9,15 +9,8 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class DreadInfernal extends Minion implements MinionUntargetableBattlecry {
 
-    private static final boolean HERO_TARGETABLE = true;
-    private static final byte SPELL_DAMAGE = 0;
-
     public DreadInfernal() {
         super();
-        spellDamage_ = SPELL_DAMAGE;
-        heroTargetable_ = HERO_TARGETABLE;
-
-        this.tribe = MinionTribe.DEMON;
     }
 
     /**

@@ -118,8 +118,6 @@ DigitalOcean 4 CPU, 8GB Ram
 
 To contribute, follow the usual procedure: fork, make changes, and submit a pull request.
 
-For discussions, questions, or comments, join the dev board [here](https://hearthstone.versify-app.com/board/HearthSim_dev/).
-
 ##Acknowledgements
 YourKit supports the HearthSim project with its full-featured Java Profiler.
 

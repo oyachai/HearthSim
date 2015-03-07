@@ -5,19 +5,13 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionUntargetableBattlecry;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.MinionList;
+import com.hearthsim.util.IdentityLinkedList;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class VoidTerror extends Minion implements MinionUntargetableBattlecry {
-    private static final boolean HERO_TARGETABLE = true;
-    private static final byte SPELL_DAMAGE = 0;
 
     public VoidTerror() {
         super();
-        spellDamage_ = SPELL_DAMAGE;
-        heroTargetable_ = HERO_TARGETABLE;
-
-        this.tribe = MinionTribe.DEMON;
     }
 
     /**
@@ -32,7 +26,7 @@ public class VoidTerror extends Minion implements MinionUntargetableBattlecry {
             boolean singleRealizationOnly
         ) throws HSException {
         HearthTreeNode toRet = boardState;
-        MinionList minions = boardState.data_.getMinions(PlayerSide.CURRENT_PLAYER);
+        IdentityLinkedList<Minion> minions = boardState.data_.getMinions(PlayerSide.CURRENT_PLAYER);
         int thisMinionIndex = minions.indexOf(this);
         if (thisMinionIndex > 0) {
             Minion minionToDestroy = minions.get(thisMinionIndex - 1);

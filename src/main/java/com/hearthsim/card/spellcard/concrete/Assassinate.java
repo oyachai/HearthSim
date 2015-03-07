@@ -14,12 +14,10 @@ public class Assassinate extends SpellCard {
      *
      * @param hasBeenUsed Whether the card has already been used or not
      */
+    @Deprecated
     public Assassinate(boolean hasBeenUsed) {
-        super((byte)5, hasBeenUsed);
-
-        this.canTargetEnemyHero = false;
-        this.canTargetOwnHero = false;
-        this.canTargetOwnMinions = false;
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     /**
@@ -28,7 +26,11 @@ public class Assassinate extends SpellCard {
      * Defaults to hasBeenUsed = false
      */
     public Assassinate() {
-        this(false);
+        super();
+
+        this.canTargetEnemyHero = false;
+        this.canTargetOwnHero = false;
+        this.canTargetOwnMinions = false;
     }
 
     /**

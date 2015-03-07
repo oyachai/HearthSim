@@ -11,11 +11,13 @@ import com.hearthsim.util.tree.HearthTreeNode;
 public class HammerOfWrath extends SpellDamage {
 
     public HammerOfWrath() {
-        this(false);
+        super();
     }
 
+    @Deprecated
     public HammerOfWrath(boolean hasBeenUsed) {
-        super((byte)4, (byte)3, hasBeenUsed);
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     /**

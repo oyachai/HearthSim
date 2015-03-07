@@ -10,19 +10,12 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 import java.util.EnumSet;
 
-
 public class IronforgeRifleman extends Minion implements MinionTargetableBattlecry {
 
     private static final byte BATTLECRY_DAMAGE = 1;
 
-    private static final boolean HERO_TARGETABLE = true;
-    private static final byte SPELL_DAMAGE = 0;
-
     public IronforgeRifleman() {
         super();
-        spellDamage_ = SPELL_DAMAGE;
-        heroTargetable_ = HERO_TARGETABLE;
-
     }
 
     @Override

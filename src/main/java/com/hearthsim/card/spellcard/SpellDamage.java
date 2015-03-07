@@ -1,6 +1,7 @@
 package com.hearthsim.card.spellcard;
 
 import com.hearthsim.card.Deck;
+import com.hearthsim.card.ImplementedCardList;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
@@ -11,14 +12,21 @@ public class SpellDamage extends SpellCard {
 
     protected byte damage_;
 
+    public SpellDamage() {
+        super();
+    }
+
+    @Deprecated
     public SpellDamage(byte baseManaCost, byte damage, boolean hasBeenUsed) {
         super(baseManaCost, hasBeenUsed);
         damage_ = damage;
     }
 
-    public SpellDamage() {
-        super((byte)0, false);
-        damage_ = 0;
+    @Override
+    public void initFromImplementedCard(ImplementedCardList.ImplementedCard implementedCard) {
+        super.initFromImplementedCard(implementedCard);
+
+        this.damage_ = (byte) implementedCard.spellEffect;
     }
 
     public byte getAttack() {
@@ -82,18 +90,8 @@ public class SpellDamage extends SpellCard {
     @Override
     protected HearthTreeNode use_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState,
             Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
-        if (this.hasBeenUsed()) {
-            // Card is already used, nothing to do
-            return null;
-        }
-
-        this.hasBeenUsed(true);
-        HearthTreeNode toRet = boardState;
-
+        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
         toRet = this.attack(side, targetMinion, toRet, deckPlayer0, deckPlayer1);
-        toRet.data_.getCurrentPlayer().subtractMana(this.getManaCost(PlayerSide.CURRENT_PLAYER, toRet));
-        toRet.data_.removeCard_hand(this);
-
         return toRet;
     }
 

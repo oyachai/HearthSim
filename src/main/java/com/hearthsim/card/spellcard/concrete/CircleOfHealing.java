@@ -16,12 +16,10 @@ public class CircleOfHealing extends SpellCard {
      *
      * @param hasBeenUsed Whether the card has already been used or not
      */
+    @Deprecated
     public CircleOfHealing(boolean hasBeenUsed) {
-        super((byte)0, hasBeenUsed);
-
-        this.canTargetEnemyHero = false;
-        this.canTargetEnemyMinions = false;
-        this.canTargetOwnMinions = false;
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     /**
@@ -30,7 +28,11 @@ public class CircleOfHealing extends SpellCard {
      * Defaults to hasBeenUsed = false
      */
     public CircleOfHealing() {
-        this(false);
+        super();
+
+        this.canTargetEnemyHero = false;
+        this.canTargetEnemyMinions = false;
+        this.canTargetOwnMinions = false;
     }
 
     /**

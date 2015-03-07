@@ -38,10 +38,10 @@ public class TestAcidicSwampOoze {
         board.data_.getWaitingPlayerHero().setWeapon(axe);
 
         assertEquals(board.data_.getCurrentPlayerHero().getTotalAttack(), 0);
-        assertEquals(board.data_.getCurrentPlayerHero().getWeaponCharge(), 0);
+        assertNull(board.data_.getCurrentPlayerHero().getWeapon());
         assertEquals(board.data_.getWaitingPlayerHero().getWeapon(), axe);
         assertEquals(board.data_.getWaitingPlayerHero().getTotalAttack(), 3);
-        assertEquals(board.data_.getWaitingPlayerHero().getWeaponCharge(), 2);
+        assertEquals(board.data_.getWaitingPlayerHero().getWeapon().getWeaponCharge(), 2);
 
         Card theCard = board.data_.getCurrentPlayerCardHand(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
@@ -50,10 +50,9 @@ public class TestAcidicSwampOoze {
         assertEquals(board.data_.getNumCards_hand(), 0);
         assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 1);
 
+        assertNull(board.data_.getCurrentPlayerHero().getWeapon());
         assertEquals(board.data_.getCurrentPlayerHero().getTotalAttack(), 0);
-        assertEquals(board.data_.getCurrentPlayerHero().getWeaponCharge(), 0);
         assertNull(board.data_.getWaitingPlayerHero().getWeapon());
         assertEquals(board.data_.getWaitingPlayerHero().getTotalAttack(), 0);
-        assertEquals(board.data_.getWaitingPlayerHero().getWeaponCharge(), 0);
     }
 }

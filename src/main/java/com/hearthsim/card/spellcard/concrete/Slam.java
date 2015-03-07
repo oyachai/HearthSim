@@ -11,14 +11,16 @@ import com.hearthsim.util.tree.HearthTreeNode;
 public class Slam extends SpellDamage {
 
     public Slam() {
-        this(false);
-    }
-
-    public Slam(boolean hasBeenUsed) {
-        super((byte)2, (byte)2, hasBeenUsed);
+        super();
 
         this.canTargetEnemyHero = false;
         this.canTargetOwnHero = false;
+    }
+
+    @Deprecated
+    public Slam(boolean hasBeenUsed) {
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     /**

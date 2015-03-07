@@ -14,10 +14,16 @@ public class SpellCard extends Card {
     protected boolean canTargetEnemyHero = true;
     protected boolean canTargetEnemyMinions = true;
 
+    public SpellCard() {
+        super();
+    }
+
+    @Deprecated
     public SpellCard(byte mana, boolean hasBeenUsed) {
         super(mana, hasBeenUsed, true);
     }
 
+    @Deprecated
     public SpellCard(byte mana) {
         this(mana, false);
     }

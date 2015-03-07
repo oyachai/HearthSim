@@ -11,13 +11,8 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class ManaAddict extends Minion implements CardPlayBeginInterface {
 
-    private static final boolean HERO_TARGETABLE = true;
-    private static final byte SPELL_DAMAGE = 0;
-
     public ManaAddict() {
         super();
-        spellDamage_ = SPELL_DAMAGE;
-        heroTargetable_ = HERO_TARGETABLE;
     }
 
     public HearthTreeNode onCardPlayBegin(PlayerSide thisCardPlayerSide, PlayerSide cardUserPlayerSide, Card usedCard,
@@ -28,6 +23,5 @@ public class ManaAddict extends Minion implements CardPlayBeginInterface {
         }
         return boardState;
     }
-
 
 }

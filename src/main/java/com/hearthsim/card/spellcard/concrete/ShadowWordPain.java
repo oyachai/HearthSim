@@ -15,11 +15,10 @@ public class ShadowWordPain extends SpellCard {
      *
      * @param hasBeenUsed Whether the card has already been used or not
      */
+    @Deprecated
     public ShadowWordPain(boolean hasBeenUsed) {
-        super((byte)2, hasBeenUsed);
-
-        this.canTargetEnemyHero = false;
-        this.canTargetOwnHero = false;
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     /**
@@ -28,7 +27,10 @@ public class ShadowWordPain extends SpellCard {
      * Defaults to hasBeenUsed = false
      */
     public ShadowWordPain() {
-        this(false);
+        super();
+
+        this.canTargetEnemyHero = false;
+        this.canTargetOwnHero = false;
     }
 
     @Override

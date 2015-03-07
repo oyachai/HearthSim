@@ -16,8 +16,10 @@ public class SacrificialPact extends SpellCard {
      *
      * @param hasBeenUsed Whether the card has already been used or not
      */
+    @Deprecated
     public SacrificialPact(boolean hasBeenUsed) {
-        super((byte)0, hasBeenUsed);
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     /**
@@ -26,7 +28,7 @@ public class SacrificialPact extends SpellCard {
      * Defaults to hasBeenUsed = false
      */
     public SacrificialPact() {
-        this(false);
+        super();
     }
 
     @Override

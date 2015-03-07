@@ -40,7 +40,6 @@ public class HSScrollbarUI extends BasicScrollBarUI {
 
         g.setColor(BACKGROUND_COLOR);
         g.fillRoundRect(thumbBounds.x, thumbBounds.y, thumbBounds.width, thumbBounds.height, 20, 20);
-
     }
 
 

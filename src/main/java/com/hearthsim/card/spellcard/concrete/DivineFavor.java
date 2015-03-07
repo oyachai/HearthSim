@@ -15,12 +15,10 @@ public class DivineFavor extends SpellCard {
      *
      * @param hasBeenUsed Whether the card has already been used or not
      */
+    @Deprecated
     public DivineFavor(boolean hasBeenUsed) {
-        super((byte)3, hasBeenUsed);
-
-        this.canTargetEnemyHero = false;
-        this.canTargetEnemyMinions = false;
-        this.canTargetOwnMinions = false;
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     /**
@@ -29,7 +27,11 @@ public class DivineFavor extends SpellCard {
      * Defaults to hasBeenUsed = false
      */
     public DivineFavor() {
-        this(false);
+        super();
+
+        this.canTargetEnemyHero = false;
+        this.canTargetEnemyMinions = false;
+        this.canTargetOwnMinions = false;
     }
 
     @Override

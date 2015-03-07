@@ -95,7 +95,7 @@ public class TestDeadlyPoison {
         assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
         assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
         assertEquals(board.data_.getCurrentPlayerHero().getTotalAttack(), 3);
-        assertEquals(board.data_.getCurrentPlayerHero().getWeaponCharge(), 2);
+        assertEquals(board.data_.getCurrentPlayerHero().getWeapon().getWeaponCharge(), 2);
         assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0);
         assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), health1 - 1);
         assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0);
@@ -111,7 +111,7 @@ public class TestDeadlyPoison {
         assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
         assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
         assertEquals(board.data_.getCurrentPlayerHero().getTotalAttack(), 5);
-        assertEquals(board.data_.getCurrentPlayerHero().getWeaponCharge(), 2);
+        assertEquals(board.data_.getCurrentPlayerHero().getWeapon().getWeaponCharge(), 2);
         assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0);
         assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), health1 - 1);
         assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0);

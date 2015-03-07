@@ -5,11 +5,13 @@ import com.hearthsim.card.spellcard.SpellDamage;
 public class Moonfire extends SpellDamage {
 
     public Moonfire() {
-        this(false);
+        super();
     }
 
+    @Deprecated
     public Moonfire(boolean hasBeenUsed) {
-        super((byte)0, (byte)1, hasBeenUsed);
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     @Override

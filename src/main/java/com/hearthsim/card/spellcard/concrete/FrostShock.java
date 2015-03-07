@@ -10,14 +10,16 @@ import com.hearthsim.util.tree.HearthTreeNode;
 public class FrostShock extends SpellDamage {
 
     public FrostShock() {
-        this(false);
-    }
-
-    public FrostShock(boolean hasBeenUsed) {
-        super((byte)1, (byte)1, hasBeenUsed);
+        super();
 
         this.canTargetOwnHero = false;
         this.canTargetOwnMinions = false;
+    }
+
+    @Deprecated
+    public FrostShock(boolean hasBeenUsed) {
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     /**

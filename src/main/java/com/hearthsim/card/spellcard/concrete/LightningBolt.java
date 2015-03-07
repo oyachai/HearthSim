@@ -5,11 +5,13 @@ import com.hearthsim.card.spellcard.SpellDamage;
 public class LightningBolt extends SpellDamage {
 
     public LightningBolt() {
-        this(false);
+        super();
     }
 
+    @Deprecated
     public LightningBolt(boolean hasBeenUsed) {
-        super((byte)1, (byte)3, hasBeenUsed);
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     @Override

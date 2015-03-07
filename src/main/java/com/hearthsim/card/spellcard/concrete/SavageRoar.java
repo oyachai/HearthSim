@@ -16,12 +16,10 @@ public class SavageRoar extends SpellCard {
      *
      * @param hasBeenUsed Whether the card has already been used or not
      */
+    @Deprecated
     public SavageRoar(boolean hasBeenUsed) {
-        super((byte)3, hasBeenUsed);
-
-        this.canTargetEnemyHero = false;
-        this.canTargetEnemyMinions = false;
-        this.canTargetOwnMinions = false;
+        this();
+        this.hasBeenUsed = hasBeenUsed;
     }
 
     /**
@@ -30,7 +28,11 @@ public class SavageRoar extends SpellCard {
      * Defaults to hasBeenUsed = false
      */
     public SavageRoar() {
-        this(false);
+        super();
+
+        this.canTargetEnemyHero = false;
+        this.canTargetEnemyMinions = false;
+        this.canTargetOwnMinions = false;
     }
 
     /**
