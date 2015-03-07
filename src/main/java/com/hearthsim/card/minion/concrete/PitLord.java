@@ -9,12 +9,9 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class PitLord extends Minion implements MinionUntargetableBattlecry {
 
-    private static final boolean HERO_TARGETABLE = true;
-
 
     public PitLord() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
     }
 
     /**

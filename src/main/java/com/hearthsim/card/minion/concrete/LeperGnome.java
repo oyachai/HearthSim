@@ -5,11 +5,8 @@ import com.hearthsim.event.deathrattle.DeathrattleDealDamageEnemyHeroAction;
 
 public class LeperGnome extends Minion {
 
-    private static final boolean HERO_TARGETABLE = true;
-
     public LeperGnome() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
 
         deathrattleAction_ = new DeathrattleDealDamageEnemyHeroAction((byte)2);
     }

@@ -30,6 +30,5 @@ public class HSDeckCreateButton extends JButton {
         g.fillRoundRect(0, 0, width, height / 5 - 1, 2, 2);
         g.fillRoundRect(0, 2 * height / 5, width, height / 5 - 1, 2, 2);
         g.fillRoundRect(0, 4 * height / 5, width, height / 5 - 1, 2, 2);
-
     }
 }

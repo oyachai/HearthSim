@@ -4,11 +4,8 @@ import com.hearthsim.card.minion.Minion;
 
 public class StranglethornTiger extends Minion {
 
-    private static final boolean HERO_TARGETABLE = true;
-
     public StranglethornTiger() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
     }
 
 }

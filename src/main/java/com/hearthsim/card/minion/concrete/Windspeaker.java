@@ -10,15 +10,10 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 import java.util.EnumSet;
 
-
 public class Windspeaker extends Minion implements MinionTargetableBattlecry {
-
-    private static final boolean HERO_TARGETABLE = true;
 
     public Windspeaker() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
-
     }
 
     @Override

@@ -67,6 +67,5 @@ public class ShieldBlock extends SpellCard {
             }
         }
         return toRet;
-
     }
 }

@@ -10,17 +10,12 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 import java.util.EnumSet;
 
-
 public class StormpikeCommando extends Minion implements MinionTargetableBattlecry {
 
     private static final byte BATTLECRY_DAMAGE = 2;
 
-    private static final boolean HERO_TARGETABLE = true;
-
     public StormpikeCommando() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
-
     }
 
     @Override

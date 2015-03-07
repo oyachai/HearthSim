@@ -8,11 +8,8 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class ArcaneGolem extends Minion implements MinionUntargetableBattlecry {
 
-    private static final boolean HERO_TARGETABLE = true;
-
     public ArcaneGolem() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
     }
 
     /**

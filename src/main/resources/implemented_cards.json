@@ -208,6 +208,10 @@
         "class": "com.hearthsim.card.minion.concrete.BoulderfistOgre"
     },
     {
+        "name": "Captain Greenskin",
+        "class": "com.hearthsim.card.minion.concrete.CaptainGreenskin"
+    },
+    {
         "name": "Cairne Bloodhoof",
         "class": "com.hearthsim.card.minion.concrete.CairneBloodhoof"
     },
@@ -230,6 +234,10 @@
     {
         "name": "Claw",
         "class": "com.hearthsim.card.spellcard.concrete.Claw"
+    },
+    {
+        "name": "Clockwork Giant",
+        "class": "com.hearthsim.card.minion.concrete.ClockworkGiant"
     },
     {
         "name": "Coldlight Oracle",
@@ -550,6 +558,10 @@
     {
         "name": "Humility",
         "class": "com.hearthsim.card.spellcard.concrete.Humility"
+    },
+    {
+        "name": "Hungry Crab",
+        "class": "com.hearthsim.card.minion.concrete.HungryCrab"
     },
     {
         "name": "Hunter's Mark",

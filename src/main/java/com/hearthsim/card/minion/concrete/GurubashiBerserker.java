@@ -6,15 +6,10 @@ import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-
 public class GurubashiBerserker extends Minion {
-
-    private static final boolean HERO_TARGETABLE = true;
 
     public GurubashiBerserker() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
-
     }
 
     /**

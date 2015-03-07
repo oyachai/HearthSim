@@ -209,7 +209,6 @@ public class HSMainFrameModel implements HSGameEndEventListener {
 
         simulation_.setAI_p0(BruteForceSearchAI.buildStandardAI2());
         simulation_.setAI_p1(BruteForceSearchAI.buildStandardAI2());
-
     }
 
     public HSSimulation getSimulation() {

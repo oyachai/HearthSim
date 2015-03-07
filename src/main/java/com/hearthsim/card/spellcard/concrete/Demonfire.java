@@ -31,7 +31,6 @@ public class Demonfire extends SpellCard {
 
         this.canTargetEnemyHero = false;
         this.canTargetOwnHero = false;
-
     }
 
     /**

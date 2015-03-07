@@ -62,7 +62,6 @@ public class HSArrowButton extends JButton  {
         g.setColor(this.getForeground());
         g.fillPolygon(new Polygon(tr_x, tr_y, 3));
 
-
     }
 
 }

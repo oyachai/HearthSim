@@ -7,14 +7,10 @@ import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-
 public class StarvingBuzzard extends Minion implements MinionSummonedInterface {
-
-    private static final boolean HERO_TARGETABLE = true;
 
     public StarvingBuzzard() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
     }
 
     /**

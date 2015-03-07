@@ -11,11 +11,8 @@ public class AncientOfLore extends Minion {
 
     private static final byte HEAL_AMOUNT = 5;
 
-    private static final boolean HERO_TARGETABLE = true;
-
     public AncientOfLore() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
     }
 
     /**

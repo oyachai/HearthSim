@@ -4,14 +4,9 @@ import com.hearthsim.card.minion.MinionWithEnrage;
 
 public class TaurenWarrior extends MinionWithEnrage {
 
-    private static final boolean HERO_TARGETABLE = true;
-
     public TaurenWarrior() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
-
     }
-
 
     @Override
     public void enrage() {

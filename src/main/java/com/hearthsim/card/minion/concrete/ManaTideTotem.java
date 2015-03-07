@@ -8,11 +8,8 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class ManaTideTotem extends Minion {
 
-    private static final boolean HERO_TARGETABLE = true;
-
     public ManaTideTotem() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
     }
 
     @Override

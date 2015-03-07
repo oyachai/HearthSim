@@ -12,11 +12,8 @@ import java.util.EnumSet;
 
 public class CrazedAlchemist extends Minion implements MinionTargetableBattlecry {
 
-    private static final boolean HERO_TARGETABLE = true;
-
     public CrazedAlchemist() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
     }
 
     @Override

@@ -9,12 +9,8 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class LeeroyJenkins extends Minion implements MinionUntargetableBattlecry {
 
-    private static final boolean HERO_TARGETABLE = true;
-
     public LeeroyJenkins() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
-
     }
 
     /**
@@ -39,6 +35,5 @@ public class LeeroyJenkins extends Minion implements MinionUntargetableBattlecry
         }
         return toRet;
     }
-
 
 }

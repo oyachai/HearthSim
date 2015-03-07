@@ -69,7 +69,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
     protected boolean frozen_;
     protected boolean silenced_;
     protected boolean stealthed_;
-    protected boolean heroTargetable_;
+    protected boolean heroTargetable_ = true;
 
     protected byte health_;
     protected byte maxHealth_;
@@ -527,7 +527,6 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         // Notify all that it is dead
         toRet = this.notifyMinionDead(thisPlayerSide, this, toRet, deckPlayer0, deckPlayer1);
         return toRet;
-
     }
 
     // Use for bounce (e.g., Brewmaster) or recreate (e.g., Reincarnate)
@@ -636,9 +635,11 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
     public HearthTreeNode useTargetableBattlecry(PlayerSide side, Minion targetMinion, HearthTreeNode boardState,
             Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
         if (this instanceof MinionTargetableBattlecry) {
-            MinionTargetableBattlecry battlecryMinion = (MinionTargetableBattlecry)this;
-
             HearthTreeNode node = new HearthTreeNode(boardState.data_.deepCopy());
+
+            // Need to start the battlecry from the child node
+            int originMinionIndex = PlayerSide.CURRENT_PLAYER.getPlayer(boardState).getMinions().indexOf(this);
+            MinionTargetableBattlecry battlecryMinion = (MinionTargetableBattlecry)PlayerSide.CURRENT_PLAYER.getPlayer(node).getMinions().get(originMinionIndex);
 
             // Need to get the new node's version of the target minion
             int targetMinionIndex = side.getPlayer(boardState).getMinions().indexOf(targetMinion);
@@ -946,7 +947,6 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         else
             hasAttacked_ = true;
         return toRet;
-
     }
 
     // ======================================================================================

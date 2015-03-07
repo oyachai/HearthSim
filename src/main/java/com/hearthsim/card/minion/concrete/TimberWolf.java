@@ -10,11 +10,8 @@ import com.hearthsim.model.PlayerSide;
 
 public class TimberWolf extends Minion implements MinionWithAura {
 
-    private static final boolean HERO_TARGETABLE = true;
-
     public TimberWolf() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
     }
 
     @Override
@@ -28,7 +25,6 @@ public class TimberWolf extends Minion implements MinionWithAura {
         if (targetMinion.getTribe() == Minion.MinionTribe.BEAST)
             targetMinion.setAuraAttack((byte)(targetMinion.getAuraAttack() + 1));
     }
-
 
     @Override
     public void removeAura(PlayerSide targetSide, Minion targetMinion,

@@ -6,11 +6,8 @@ import com.hearthsim.model.PlayerSide;
 
 public class DreadCorsair extends Minion {
 
-    private static final boolean HERO_TARGETABLE = true;
-
     public DreadCorsair() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
     }
 
     @Override

@@ -4,10 +4,7 @@ import com.hearthsim.card.minion.Minion;
 
 public class DamagedGolem extends Minion {
 
-    private static final boolean HERO_TARGETABLE = true;
-
     public DamagedGolem() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
     }
 }

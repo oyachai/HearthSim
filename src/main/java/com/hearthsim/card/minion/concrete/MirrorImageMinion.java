@@ -4,11 +4,7 @@ import com.hearthsim.card.minion.Minion;
 
 public class MirrorImageMinion extends Minion {
 
-    private static final boolean HERO_TARGETABLE = true;
-
     public MirrorImageMinion() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
-
     }
 }

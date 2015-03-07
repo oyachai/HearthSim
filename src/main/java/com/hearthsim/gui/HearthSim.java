@@ -848,7 +848,6 @@ public class HearthSim implements HSSimulationEventListener {
         frame.getContentPane().add(deckCreatePanel_1);
         //--------------------------------------------------------------------
         //--------------------------------------------------------------------
-
     }
 
     public void updateInfoPanel() {

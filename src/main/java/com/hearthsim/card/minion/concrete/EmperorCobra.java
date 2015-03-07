@@ -9,11 +9,8 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class EmperorCobra extends Minion {
 
-    private static final boolean HERO_TARGETABLE = false;
-
     public EmperorCobra() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
     }
 
     @Override

@@ -9,11 +9,8 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class Demolisher extends Minion {
 
-    private static final boolean HERO_TARGETABLE = true;
-
     public Demolisher() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
     }
 
     @Override

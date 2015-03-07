@@ -12,11 +12,8 @@ import java.util.EnumSet;
 
 public class AldorPeacekeeper extends Minion implements MinionTargetableBattlecry {
 
-    private static final boolean HERO_TARGETABLE = true;
-
     public AldorPeacekeeper() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
     }
 
     @Override

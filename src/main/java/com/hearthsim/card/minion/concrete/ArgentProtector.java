@@ -12,11 +12,8 @@ import java.util.EnumSet;
 
 public class ArgentProtector extends Minion implements MinionTargetableBattlecry {
 
-    private static final boolean HERO_TARGETABLE = true;
-
     public ArgentProtector() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
     }
 
     @Override

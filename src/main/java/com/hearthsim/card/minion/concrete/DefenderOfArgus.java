@@ -9,12 +9,8 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class DefenderOfArgus extends Minion implements MinionUntargetableBattlecry {
 
-    private static final boolean HERO_TARGETABLE = true;
-
     public DefenderOfArgus() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
-
     }
 
     /**

@@ -8,12 +8,8 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class Undertaker extends Minion implements MinionSummonedInterface {
 
-    private static final boolean HERO_TARGETABLE = true;
-
     public Undertaker() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
-
     }
 
     /**

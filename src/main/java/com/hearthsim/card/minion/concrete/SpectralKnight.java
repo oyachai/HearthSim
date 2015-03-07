@@ -4,11 +4,8 @@ import com.hearthsim.card.minion.Minion;
 
 public class SpectralKnight extends Minion {
 
-    private static final boolean HERO_TARGETABLE = false;
-
     public SpectralKnight() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
-
+        this.heroTargetable_ = false;
     }
 }

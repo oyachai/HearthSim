@@ -8,11 +8,8 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class Felguard extends Minion implements MinionUntargetableBattlecry {
 
-    private static final boolean HERO_TARGETABLE = true;
-
     public Felguard() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
     }
 
     /**

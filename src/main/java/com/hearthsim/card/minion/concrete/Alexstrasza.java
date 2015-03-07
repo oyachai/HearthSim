@@ -12,11 +12,8 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class Alexstrasza extends Minion implements MinionTargetableBattlecry {
 
-    private static final boolean HERO_TARGETABLE = true;
-
     public Alexstrasza() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
     }
     @Override
     public EnumSet<BattlecryTargetType> getBattlecryTargets() {

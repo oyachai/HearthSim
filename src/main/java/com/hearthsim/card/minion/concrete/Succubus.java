@@ -12,14 +12,10 @@ import com.hearthsim.util.IdentityLinkedList;
 import com.hearthsim.util.tree.HearthTreeNode;
 import com.hearthsim.util.tree.RandomEffectNode;
 
-
 public class Succubus extends Minion  implements MinionUntargetableBattlecry {
-
-    private static final boolean HERO_TARGETABLE = true;
 
     public Succubus() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
     }
 
     /**

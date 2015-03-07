@@ -7,15 +7,10 @@ import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-
 public class FrostwolfWarlord extends Minion implements MinionUntargetableBattlecry {
-
-    private static final boolean HERO_TARGETABLE = true;
 
     public FrostwolfWarlord() {
         super();
-        heroTargetable_ = HERO_TARGETABLE;
-
     }
 
     /**
