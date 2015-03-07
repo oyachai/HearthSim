@@ -20,7 +20,7 @@ public class IceLance extends SpellDamage {
     public HearthTreeNode attack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode boardState,
                                  Deck deckPlayer0, Deck deckPlayer1) throws HSException {
         HearthTreeNode toRet = boardState;
-        if(targetMinion.getFrozen()) {
+        if (targetMinion.getFrozen()) {
             toRet = super.attack(targetMinionPlayerSide, targetMinion, toRet, deckPlayer0, deckPlayer1);
         } else {
             targetMinion.setFrozen(true);
