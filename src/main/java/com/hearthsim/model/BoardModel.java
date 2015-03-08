@@ -103,16 +103,6 @@ public class BoardModel implements DeepCopyable<BoardModel> {
         return modelForSide(side).getMinions();
     }
 
-    @Deprecated
-    public IdentityLinkedList<Card> getCurrentPlayerHand() {
-        return currentPlayer.getHand();
-    }
-
-    @Deprecated
-    public IdentityLinkedList<Card> getWaitingPlayerHand() {
-        return waitingPlayer.getHand();
-    }
-
     public PlayerModel modelForSide(PlayerSide side){
         PlayerModel model;
         switch (side) {
@@ -127,17 +117,6 @@ public class BoardModel implements DeepCopyable<BoardModel> {
         return model;
     }
 
-    @Deprecated
-    public PlayerSide sideForModel(PlayerModel model){
-        if (model.equals(currentPlayer)){
-            return PlayerSide.CURRENT_PLAYER;
-        } else if (model.equals(waitingPlayer)){
-            return PlayerSide.WAITING_PLAYER;
-        } else {
-            throw new RuntimeException("unexpected player model");
-        }
-    }
-
     public Minion getMinion(PlayerSide side, int index) throws HSInvalidPlayerIndexException {
         return modelForSide(side).getMinions().get(index);
     }
@@ -146,29 +125,9 @@ public class BoardModel implements DeepCopyable<BoardModel> {
         return modelForSide(playerSide).getHand().get(index);
     }
 
-    @Deprecated
-    public Card getCurrentPlayerCardHand(int index) {
-        return currentPlayer.getHand().get(index);
-    }
-
-    @Deprecated
-    public Card getWaitingPlayerCardHand(int index) {
-        return waitingPlayer.getHand().get(index);
-    }
-
     public Minion getCharacter(PlayerSide playerSide, int index) throws HSInvalidPlayerIndexException {
         PlayerModel playerModel = modelForSide(playerSide);
         return playerModel.getCharacter(index);
-    }
-
-    @Deprecated
-    public Minion getCurrentPlayerCharacter(int index) {
-        return getMinionForCharacter(PlayerSide.CURRENT_PLAYER, index);
-    }
-
-    @Deprecated
-    public Minion getWaitingPlayerCharacter(int index) {
-        return getMinionForCharacter(PlayerSide.WAITING_PLAYER, index);
     }
 
     public Minion getMinionForCharacter(PlayerSide playerSide, int index) {
@@ -221,37 +180,6 @@ public class BoardModel implements DeepCopyable<BoardModel> {
     //-----------------------------------------------------------------------------------
     //-----------------------------------------------------------------------------------
 
-    @Deprecated
-    public void placeCard_hand(PlayerSide playerSide, Card card) throws HSInvalidPlayerIndexException {
-        card.isInHand(true);
-        modelForSide(playerSide).getHand().add(card);
-    }
-
-    @Deprecated
-    public void placeCardHandCurrentPlayer(int cardIndex) {
-        currentPlayer.placeCardHand(cardIndex);
-    }
-
-    @Deprecated
-    public void placeCardHandCurrentPlayer(Card card) {
-        currentPlayer.placeCardHand(card);
-    }
-
-    @Deprecated
-    public void placeCardHandWaitingPlayer(int cardIndex) {
-        waitingPlayer.placeCardHand(cardIndex);
-    }
-
-    @Deprecated
-    public void placeCardHandWaitingPlayer(Card card) {
-        waitingPlayer.placeCardHand(card);
-    }
-
-    @Deprecated
-    public void removeCard_hand(Card card) {
-        currentPlayer.getHand().remove(card);
-    }
-
     public void placeCardHand(PlayerSide side, Card card){
         modelForSide(side).placeCardHand(card);
     }
@@ -260,23 +188,8 @@ public class BoardModel implements DeepCopyable<BoardModel> {
         modelForSide(playerSide).getHand().remove(card);
     }
 
-    @Deprecated
-    public int getNumCards_hand() {
-        return currentPlayer.getHand().size();
-    }
-
     public int getNumCards_hand(PlayerSide playerSide) throws HSInvalidPlayerIndexException {
         return modelForSide(playerSide).getHand().size();
-    }
-
-    @Deprecated
-    public int getNumCardsHandCurrentPlayer() {
-        return currentPlayer.getHand().size();
-    }
-
-    @Deprecated
-    public int getNumCardsHandWaitingPlayer() {
-        return waitingPlayer.getHand().size();
     }
 
     public void placeCardDeck(PlayerSide side, Card card){
@@ -285,16 +198,6 @@ public class BoardModel implements DeepCopyable<BoardModel> {
 
     public Hero getHero(PlayerSide playerSide) {
         return modelForSide(playerSide).getHero();
-    }
-
-    @Deprecated
-    public Hero getCurrentPlayerHero() {
-        return currentPlayer.getHero();
-    }
-
-    @Deprecated
-    public Hero getWaitingPlayerHero() {
-        return waitingPlayer.getHero();
     }
 
 
@@ -684,4 +587,100 @@ public class BoardModel implements DeepCopyable<BoardModel> {
         }
     }
 
+    @Deprecated
+    public IdentityLinkedList<Card> getCurrentPlayerHand() {
+        return currentPlayer.getHand();
+    }
+
+    @Deprecated
+    public IdentityLinkedList<Card> getWaitingPlayerHand() {
+        return waitingPlayer.getHand();
+    }
+
+    @Deprecated
+    public PlayerSide sideForModel(PlayerModel model) {
+        if (model.equals(currentPlayer)) {
+            return PlayerSide.CURRENT_PLAYER;
+        } else if (model.equals(waitingPlayer)) {
+            return PlayerSide.WAITING_PLAYER;
+        } else {
+            throw new RuntimeException("unexpected player model");
+        }
+    }
+
+    @Deprecated
+    public Card getCurrentPlayerCardHand(int index) {
+        return currentPlayer.getHand().get(index);
+    }
+
+    @Deprecated
+    public Card getWaitingPlayerCardHand(int index) {
+        return waitingPlayer.getHand().get(index);
+    }
+
+    @Deprecated
+    public Minion getCurrentPlayerCharacter(int index) {
+        return getMinionForCharacter(PlayerSide.CURRENT_PLAYER, index);
+    }
+
+    @Deprecated
+    public Minion getWaitingPlayerCharacter(int index) {
+        return getMinionForCharacter(PlayerSide.WAITING_PLAYER, index);
+    }
+
+    @Deprecated
+    public void placeCard_hand(PlayerSide playerSide, Card card) throws HSInvalidPlayerIndexException {
+        card.isInHand(true);
+        modelForSide(playerSide).getHand().add(card);
+    }
+
+    @Deprecated
+    public void placeCardHandCurrentPlayer(int cardIndex) {
+        currentPlayer.placeCardHand(cardIndex);
+    }
+
+    @Deprecated
+    public void placeCardHandCurrentPlayer(Card card) {
+        currentPlayer.placeCardHand(card);
+    }
+
+    @Deprecated
+    public void placeCardHandWaitingPlayer(int cardIndex) {
+        waitingPlayer.placeCardHand(cardIndex);
+    }
+
+    @Deprecated
+    public void placeCardHandWaitingPlayer(Card card) {
+        waitingPlayer.placeCardHand(card);
+    }
+
+    @Deprecated
+    public void removeCard_hand(Card card) {
+        currentPlayer.getHand().remove(card);
+    }
+
+    @Deprecated
+    public int getNumCards_hand() {
+        return currentPlayer.getHand().size();
+    }
+
+    @Deprecated
+    public int getNumCardsHandCurrentPlayer() {
+        return currentPlayer.getHand().size();
+    }
+
+    @Deprecated
+    public int getNumCardsHandWaitingPlayer() {
+        return waitingPlayer.getHand().size();
+    }
+
+    @Deprecated
+    public Hero getCurrentPlayerHero() {
+        return currentPlayer.getHero();
+    }
+
+    @Deprecated
+    public Hero getWaitingPlayerHero() {
+        return waitingPlayer.getHero();
+    }
 }
