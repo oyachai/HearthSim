@@ -59,7 +59,7 @@ public class TestDarkscaleHealer {
 
     @Test
     public void test0() throws HSException {
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 0, board, deck, null);
 
         assertNull(ret);
@@ -79,7 +79,7 @@ public class TestDarkscaleHealer {
 
     @Test
     public void test1() throws HSException {
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 1, board, deck, null);
 
         assertNull(ret);
@@ -100,7 +100,7 @@ public class TestDarkscaleHealer {
     @Test
     public void test2() throws HSException {
         board.data_.getCurrentPlayer().getHero().setHealth((byte)27);
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 2, board, deck, null);
 
         assertFalse(ret == null);

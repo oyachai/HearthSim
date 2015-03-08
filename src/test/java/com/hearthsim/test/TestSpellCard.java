@@ -42,7 +42,7 @@ public class TestSpellCard {
         board.data_.placeCardHandCurrentPlayer(new HolySmite());
 
         Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         assertTrue(theCard.canBeUsedOn(PlayerSide.CURRENT_PLAYER, target, board.data_));
     }
 
@@ -51,7 +51,7 @@ public class TestSpellCard {
         board.data_.placeCardHandCurrentPlayer(new ShadowBolt());
 
         Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         assertFalse(theCard.canBeUsedOn(PlayerSide.CURRENT_PLAYER, target, board.data_));
     }
 
@@ -60,7 +60,7 @@ public class TestSpellCard {
         board.data_.placeCardHandCurrentPlayer(new RockbiterWeapon());
 
         Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         assertTrue(theCard.canBeUsedOn(PlayerSide.CURRENT_PLAYER, target, board.data_));
     }
 
@@ -69,7 +69,7 @@ public class TestSpellCard {
         board.data_.placeCardHandCurrentPlayer(new Sap());
 
         Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         assertFalse(theCard.canBeUsedOn(PlayerSide.CURRENT_PLAYER, target, board.data_));
     }
 
@@ -78,7 +78,7 @@ public class TestSpellCard {
         board.data_.placeCardHandCurrentPlayer(new HolySmite());
 
         Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         assertTrue(theCard.canBeUsedOn(PlayerSide.WAITING_PLAYER, target, board.data_));
     }
 
@@ -87,7 +87,7 @@ public class TestSpellCard {
         board.data_.placeCardHandCurrentPlayer(new ShadowBolt());
 
         Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         assertFalse(theCard.canBeUsedOn(PlayerSide.WAITING_PLAYER, target, board.data_));
     }
 
@@ -96,7 +96,7 @@ public class TestSpellCard {
         board.data_.placeCardHandCurrentPlayer(new Sap());
 
         Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         assertTrue(theCard.canBeUsedOn(PlayerSide.WAITING_PLAYER, target, board.data_));
     }
 
@@ -105,7 +105,7 @@ public class TestSpellCard {
         board.data_.placeCardHandCurrentPlayer(new RockbiterWeapon());
 
         Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         assertFalse(theCard.canBeUsedOn(PlayerSide.WAITING_PLAYER, target, board.data_));
     }
 
@@ -115,7 +115,7 @@ public class TestSpellCard {
 
         Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
         target.setStealthed(true);
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         assertFalse(theCard.canBeUsedOn(PlayerSide.WAITING_PLAYER, target, board.data_));
     }
 
@@ -125,7 +125,7 @@ public class TestSpellCard {
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, new FaerieDragon());
 
         Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         assertFalse(theCard.canBeUsedOn(PlayerSide.WAITING_PLAYER, target, board.data_));
     }
 

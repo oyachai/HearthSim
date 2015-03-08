@@ -37,7 +37,7 @@ class GladiatorsLongbowSpec extends CardSpec {
         def copiedBoard = startingBoard.deepCopy()
         def copiedRoot = new HearthTreeNode(copiedBoard)
 
-        def theCard = copiedBoard.getCurrentPlayerCardHand(0);
+        def theCard = copiedBoard.getCurrentPlayer().getHand().get(0);
         def ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot, null, null);
 
         Minion hero = ret.data_.getCurrentPlayer().getHero();
@@ -67,7 +67,7 @@ class GladiatorsLongbowSpec extends CardSpec {
         def copiedBoard = startingBoard.deepCopy()
         def copiedRoot = new HearthTreeNode(copiedBoard)
 
-        def theCard = copiedBoard.getCurrentPlayerCardHand(0);
+        def theCard = copiedBoard.getCurrentPlayer().getHand().get(0);
         def ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot, null, null);
 
         Minion hero = ret.data_.getCurrentPlayer().getHero();

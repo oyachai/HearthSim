@@ -32,7 +32,7 @@ public class TestArathiWeaponsmith {
 
     @Test
     public void testEquipsWeapon() throws HSException {
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
         assertEquals(board, ret);
         PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
@@ -49,7 +49,7 @@ public class TestArathiWeaponsmith {
     @Test
     public void testDestroysExistingWeapon() throws HSException {
         board.data_.placeCardHandCurrentPlayer(new FieryWarAxe());
-        board.data_.getCurrentPlayerCardHand(1).useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
+        board.data_.getCurrentPlayer().getHand().get(1).useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
         PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
@@ -57,7 +57,7 @@ public class TestArathiWeaponsmith {
         assertEquals(board.data_.getCurrentPlayer().getHero().getWeapon().getWeaponCharge(), 2);
         assertEquals(board.data_.getCurrentPlayer().getHero().getTotalAttack(), 3);
 
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
         assertEquals(board, ret);
         assertEquals(board.data_.getNumCards_hand(), 0);

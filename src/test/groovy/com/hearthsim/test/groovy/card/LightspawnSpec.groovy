@@ -31,7 +31,7 @@ class LightspawnSpec extends CardSpec {
     
     def "Lightspawn is killed by a Shadow Word: Death"() {
         def copiedBoard = startingBoard.deepCopy()
-        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def theCard = root.data_.getCurrentPlayer().getHand().get(0)
         def ret = theCard.useOn(WAITING_PLAYER, 1, root, null, null)
 
         expect:
@@ -53,7 +53,7 @@ class LightspawnSpec extends CardSpec {
         def copiedBoard = startingBoard.deepCopy()
         root.data_.getWaitingPlayer().getCharacter(1).health_ = 4
 
-        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def theCard = root.data_.getCurrentPlayer().getHand().get(0)
         def ret = theCard.useOn(WAITING_PLAYER, 1, root, null, null)
 
         expect:

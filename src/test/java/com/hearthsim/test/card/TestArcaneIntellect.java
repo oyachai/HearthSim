@@ -70,7 +70,7 @@ public class TestArcaneIntellect {
 
         Deck deck = new Deck(cards);
 
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode res;
 
         res = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
@@ -105,7 +105,7 @@ public class TestArcaneIntellect {
 
         Deck deck = new Deck(cards);
 
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode res;
 
         res = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);

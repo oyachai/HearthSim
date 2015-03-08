@@ -68,7 +68,7 @@ public class TestExecute {
         Execute fb = new Execute();
         board.data_.placeCardHandCurrentPlayer(fb);
 
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 1, board, deck, null);
         assertNull(ret);
         PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
@@ -96,7 +96,7 @@ public class TestExecute {
         Execute fb = new Execute();
         board.data_.placeCardHandCurrentPlayer(fb);
 
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 2, board, deck, null);
         assertFalse(ret == null);
         PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);

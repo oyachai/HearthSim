@@ -67,7 +67,7 @@ public class TestAmaniBerserker {
 
         board.data_.placeCardHandCurrentPlayer(new HolyLight());
         board.data_.getCurrentPlayer().setMana((byte)2);
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, amaniBerserker, board, null, null);
 
         assertEquals(board, ret);

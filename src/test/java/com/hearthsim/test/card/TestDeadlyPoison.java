@@ -59,14 +59,14 @@ public class TestDeadlyPoison {
 
     @Test
     public void testCannotTargetEnemyHero() throws HSException {
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 0, board, deck, null);
         assertNull(ret);
     }
 
     @Test
     public void testCannotPlayWithoutWeapon() throws HSException {
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
 
         assertNull(ret);
@@ -89,7 +89,7 @@ public class TestDeadlyPoison {
         FieryWarAxe fb = new FieryWarAxe();
         board.data_.placeCardHandCurrentPlayer(fb);
 
-        Card theCard = board.data_.getCurrentPlayerCardHand(1);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(1);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
 
         assertFalse(ret == null);
@@ -108,7 +108,7 @@ public class TestDeadlyPoison {
         assertEquals(waitingPlayer.getMinions().get(0).getHealth(), health0);
         assertEquals(waitingPlayer.getMinions().get(1).getHealth(), health1 - 1);
 
-        theCard = board.data_.getCurrentPlayerCardHand(0);
+        theCard = board.data_.getCurrentPlayer().getHand().get(0);
         ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
 
         assertFalse(ret == null);

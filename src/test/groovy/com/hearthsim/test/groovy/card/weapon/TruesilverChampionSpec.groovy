@@ -37,7 +37,7 @@ class TruesilverChampionSpec extends CardSpec {
     def 'heals on attack'() {
         def copiedBoard = startingBoard.deepCopy()
         def copiedRoot = new HearthTreeNode(copiedBoard)
-        def theCard = copiedBoard.getCurrentPlayerCardHand(0);
+        def theCard = copiedBoard.getCurrentPlayer().getHand().get(0);
         def ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot, null, null);
         Minion hero = ret.data_.getCurrentPlayer().getHero();
         def target = copiedBoard.getCharacter(PlayerSide.WAITING_PLAYER, 0);
@@ -69,7 +69,7 @@ class TruesilverChampionSpec extends CardSpec {
         def copiedBoard = startingBoard.deepCopy()
         def copiedRoot = new HearthTreeNode(copiedBoard)
 
-        def theCard = copiedBoard.getCurrentPlayerCardHand(0);
+        def theCard = copiedBoard.getCurrentPlayer().getHand().get(0);
         def ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot, null, null);
 
         Minion hero = ret.data_.getCurrentPlayer().getHero();

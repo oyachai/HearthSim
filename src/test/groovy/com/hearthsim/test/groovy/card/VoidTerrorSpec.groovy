@@ -36,7 +36,7 @@ class VoidTerrorSpec extends CardSpec {
 
     def "playing Void Terror to the left of all minions"() {
         def copiedBoard = startingBoard.deepCopy()
-        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def theCard = root.data_.getCurrentPlayer().getHand().get(0)
         def ret = theCard.useOn(CURRENT_PLAYER, 0, root, null, null)
 
         expect:
@@ -55,7 +55,7 @@ class VoidTerrorSpec extends CardSpec {
 
     def "playing Void Terror to the right of all minions"() {
         def copiedBoard = startingBoard.deepCopy()
-        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def theCard = root.data_.getCurrentPlayer().getHand().get(0)
         def ret = theCard.useOn(CURRENT_PLAYER, 2, root, null, null)
 
         expect:
@@ -74,7 +74,7 @@ class VoidTerrorSpec extends CardSpec {
 
     def "playing Void Terror in the middle"() {
         def copiedBoard = startingBoard.deepCopy()
-        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def theCard = root.data_.getCurrentPlayer().getHand().get(0)
         def ret = theCard.useOn(CURRENT_PLAYER, 1, root, null, null)
 
         expect:

@@ -59,7 +59,7 @@ public class TestMarkOfTheWild {
 
     @Test
     public void test2() throws HSException {
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, deck, null);
 
         assertFalse(ret == null);

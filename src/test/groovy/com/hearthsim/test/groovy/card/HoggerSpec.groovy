@@ -44,7 +44,7 @@ class HoggerSpec extends CardSpec {
     
     def "playing Hogger"() {
         def copiedBoard = startingBoard.deepCopy()
-        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def theCard = root.data_.getCurrentPlayer().getHand().get(0)
         def ret = theCard.useOn(CURRENT_PLAYER, 1, root, null, null)
 
         expect:

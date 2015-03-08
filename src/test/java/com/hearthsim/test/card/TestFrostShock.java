@@ -59,7 +59,7 @@ public class TestFrostShock {
         FrostShock fb = new FrostShock();
         board.data_.placeCardHandCurrentPlayer(fb);
 
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 1, board, deck, null);
         assertFalse(ret == null);
         PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);

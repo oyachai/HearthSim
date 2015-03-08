@@ -32,7 +32,7 @@ class TwilightDrakeSpec extends CardSpec {
 
     def "cannot play for waiting player's side"() {
         def copiedBoard = startingBoard.deepCopy()
-        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def theCard = root.data_.getCurrentPlayer().getHand().get(0)
         def ret = theCard.useOn(WAITING_PLAYER, 0, root, null, null)
 
         expect:
@@ -43,7 +43,7 @@ class TwilightDrakeSpec extends CardSpec {
 
     def "playing TwighlightDrake with 3 other cards in hand"() {
         def copiedBoard = startingBoard.deepCopy()
-        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def theCard = root.data_.getCurrentPlayer().getHand().get(0)
         def ret = theCard.useOn(CURRENT_PLAYER, 0, root, null, null)
 
         expect:

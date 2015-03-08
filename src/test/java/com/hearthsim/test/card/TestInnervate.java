@@ -64,7 +64,7 @@ public class TestInnervate {
 
     @Test
     public void test2() throws HSException {
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
 
         assertFalse(ret == null);
@@ -92,7 +92,7 @@ public class TestInnervate {
         board.data_.getCurrentPlayer().setMana((byte)10);
         board.data_.getCurrentPlayer().setMaxMana((byte)10);
 
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
 
         assertFalse(ret == null);

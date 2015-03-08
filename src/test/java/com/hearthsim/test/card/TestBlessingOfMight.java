@@ -47,7 +47,7 @@ public class TestBlessingOfMight {
 
         Deck deck = null;
 
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode res;
 
         res = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, deck, null);
@@ -74,7 +74,7 @@ public class TestBlessingOfMight {
 
         Deck deck = null;
 
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode res;
 
         res = theCard.useOn(PlayerSide.WAITING_PLAYER, 1, board, deck, null);
@@ -100,7 +100,7 @@ public class TestBlessingOfMight {
 
         Deck deck = null;
 
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode res;
 
         res = theCard.useOn(PlayerSide.WAITING_PLAYER, 2, board, deck, null);

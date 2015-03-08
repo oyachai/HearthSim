@@ -36,7 +36,7 @@ public class TestGurubashiBerserker {
 
     @Test
     public void testBuffsAfterAttackingEnemyMinion() throws HSException {
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
         assertEquals(board, ret);
 
@@ -52,7 +52,7 @@ public class TestGurubashiBerserker {
 
     @Test
     public void testDivineShieldPreventsBuff() throws HSException {
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
         assertEquals(board, ret);
 

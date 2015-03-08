@@ -48,7 +48,7 @@ class FrothingBerserkerSpec extends CardSpec {
         def minionPlayedBoard = startingBoard.deepCopy()
         def copiedRoot = new HearthTreeNode(minionPlayedBoard)
         def target = minionPlayedBoard.getCharacter(CURRENT_PLAYER, 2);
-        def theCard = minionPlayedBoard.getCurrentPlayerCardHand(0);
+        def theCard = minionPlayedBoard.getCurrentPlayer().getHand().get(0);
         def ret = theCard.useOn(CURRENT_PLAYER, target, copiedRoot, null, null);
 
         def attacker = minionPlayedBoard.getCharacter(CURRENT_PLAYER, 1)

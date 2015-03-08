@@ -38,7 +38,7 @@ class DreadCorsairSpec extends CardSpec {
     def "playing Dread Corsair with no weapon should use up 4 mana"() {
         def copiedBoard = startingBoard.deepCopy()
         def target = root.data_.getCharacter(CURRENT_PLAYER, 0)
-        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def theCard = root.data_.getCurrentPlayer().getHand().get(0)
         def ret = theCard.useOn(CURRENT_PLAYER, target, root, null, null)
 
         expect:
@@ -56,10 +56,10 @@ class DreadCorsairSpec extends CardSpec {
     def "playing Dread Corsair with Fiery War Axe should use up 1 mana"() {
         def copiedBoard = startingBoard.deepCopy()
         def target = root.data_.getCharacter(CURRENT_PLAYER, 0)
-        def theCard = root.data_.getCurrentPlayerCardHand(1)
+        def theCard = root.data_.getCurrentPlayer().getHand().get(1)
         def ret = theCard.useOn(CURRENT_PLAYER, target, root, null, null)
         
-        def dreadCorsair = root.data_.getCurrentPlayerCardHand(0)
+        def dreadCorsair = root.data_.getCurrentPlayer().getHand().get(0)
         def ret2 = dreadCorsair.useOn(CURRENT_PLAYER, target, root, null, null)
         
         expect:

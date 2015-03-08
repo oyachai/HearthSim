@@ -90,7 +90,7 @@ public class ChildNodeCreatorBase implements ChildNodeCreator {
 
         int mana = boardStateNode.data_.getCurrentPlayer().getMana();
         for (int cardIndex = 0; cardIndex < boardStateNode.data_.getNumCards_hand(); ++cardIndex) {
-            card = boardStateNode.data_.getCurrentPlayerCardHand(cardIndex);
+            card = boardStateNode.data_.getCurrentPlayer().getHand().get(cardIndex);
             if (card.getManaCost(PlayerSide.CURRENT_PLAYER, boardStateNode.data_) <= mana && !card.hasBeenUsed()) {
 
                 // we can use this card! Let's try using it on everything
@@ -99,7 +99,7 @@ public class ChildNodeCreatorBase implements ChildNodeCreator {
 
                     if (card.canBeUsedOn(PlayerSide.CURRENT_PLAYER, targetMinion, boardStateNode.data_)) {
                         newState = new HearthTreeNode(boardStateNode.data_.deepCopy());
-                        copiedCard = newState.data_.getCurrentPlayerCardHand(cardIndex);
+                        copiedCard = newState.data_.getCurrentPlayer().getHand().get(cardIndex);
                         newState = copiedCard.useOn(PlayerSide.CURRENT_PLAYER, targetIndex, newState,
                                 deckPlayer0_, deckPlayer1_);
                         if (newState != null) {
@@ -113,7 +113,7 @@ public class ChildNodeCreatorBase implements ChildNodeCreator {
 
                     if (card.canBeUsedOn(PlayerSide.WAITING_PLAYER, targetMinion, boardStateNode.data_)) {
                         newState = new HearthTreeNode(boardStateNode.data_.deepCopy());
-                        copiedCard = newState.data_.getCurrentPlayerCardHand(cardIndex);
+                        copiedCard = newState.data_.getCurrentPlayer().getHand().get(cardIndex);
                         newState = copiedCard.useOn(PlayerSide.WAITING_PLAYER, targetIndex, newState,
                                 deckPlayer0_, deckPlayer1_);
                         if (newState != null) {

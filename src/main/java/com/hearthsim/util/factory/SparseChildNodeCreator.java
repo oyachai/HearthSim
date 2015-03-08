@@ -35,7 +35,7 @@ public class SparseChildNodeCreator extends ChildNodeCreatorBase {
         boolean allUsed = true;
         int mana = boardStateNode.data_.getCurrentPlayer().getMana();
         for (int cardIndex = 0; cardIndex < boardStateNode.data_.getNumCards_hand(); ++cardIndex) {
-            card = boardStateNode.data_.getCurrentPlayerCardHand(cardIndex);
+            card = boardStateNode.data_.getCurrentPlayer().getHand().get(cardIndex);
             if (card == null)
                 continue; // Should be impossible
 
@@ -52,7 +52,7 @@ public class SparseChildNodeCreator extends ChildNodeCreatorBase {
                 targetMinion = boardStateNode.data_.getCurrentPlayer().getCharacter(cardPlacementIndex);
                 if (card.canBeUsedOn(PlayerSide.CURRENT_PLAYER, targetMinion, boardStateNode.data_)) {
                     newState = new HearthTreeNode(boardStateNode.data_.deepCopy());
-                    copiedCard = newState.data_.getCurrentPlayerCardHand(cardIndex);
+                    copiedCard = newState.data_.getCurrentPlayer().getHand().get(cardIndex);
                     newState = copiedCard.useOn(PlayerSide.CURRENT_PLAYER, cardPlacementIndex, newState, deckPlayer0_,
                             deckPlayer1_);
                     if (newState != null) {
@@ -66,7 +66,7 @@ public class SparseChildNodeCreator extends ChildNodeCreatorBase {
 
                     if (card.canBeUsedOn(PlayerSide.CURRENT_PLAYER, targetMinion, boardStateNode.data_)) {
                         newState = new HearthTreeNode(boardStateNode.data_.deepCopy());
-                        copiedCard = newState.data_.getCurrentPlayerCardHand(cardIndex);
+                        copiedCard = newState.data_.getCurrentPlayer().getHand().get(cardIndex);
                         newState = copiedCard.useOn(PlayerSide.CURRENT_PLAYER, targetIndex, newState,
                                 deckPlayer0_, deckPlayer1_);
                         if (newState != null) {
@@ -80,7 +80,7 @@ public class SparseChildNodeCreator extends ChildNodeCreatorBase {
 
                     if (card.canBeUsedOn(PlayerSide.WAITING_PLAYER, targetMinion, boardStateNode.data_)) {
                         newState = new HearthTreeNode(boardStateNode.data_.deepCopy());
-                        copiedCard = newState.data_.getCurrentPlayerCardHand(cardIndex);
+                        copiedCard = newState.data_.getCurrentPlayer().getHand().get(cardIndex);
                         newState = copiedCard.useOn(PlayerSide.WAITING_PLAYER, targetIndex, newState,
                                 deckPlayer0_, deckPlayer1_);
                         if (newState != null) {

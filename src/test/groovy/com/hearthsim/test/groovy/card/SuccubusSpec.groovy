@@ -35,7 +35,7 @@ class SuccubusSpec extends CardSpec {
 
         def copiedBoard = startingBoard.deepCopy()
         def target = root.data_.getCharacter(CURRENT_PLAYER, 0)
-        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def theCard = root.data_.getCurrentPlayer().getHand().get(0)
         def ret = theCard.useOn(CURRENT_PLAYER, target, root, null, null)
 
         expect:
@@ -67,7 +67,7 @@ class SuccubusSpec extends CardSpec {
 
         def copiedBoard = startingBoard.deepCopy()
         def target = root.data_.getCharacter(CURRENT_PLAYER, 0)
-        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def theCard = root.data_.getCurrentPlayer().getHand().get(0)
         def ret = theCard.useOn(CURRENT_PLAYER, target, root, null, null)
 
         expect:
@@ -114,7 +114,7 @@ class SuccubusSpec extends CardSpec {
 
         def copiedBoard = startingBoard.deepCopy()
         def target = root.data_.getCharacter(CURRENT_PLAYER, 0)
-        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def theCard = root.data_.getCurrentPlayer().getHand().get(0)
         def ret = theCard.useOn(CURRENT_PLAYER, target, root, null, null)
 
         expect:

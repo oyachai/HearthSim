@@ -67,14 +67,14 @@ public class TestSacrificialPact {
     public void testFollowsNormalTargetingRules() throws HSException {
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, new BloodImp());
 
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 3, board, deck, null);
         assertNull(ret);
     }
 
     @Test
     public void test0() throws HSException {
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
 
         assertNull(ret);
@@ -96,7 +96,7 @@ public class TestSacrificialPact {
 
     @Test
     public void test1() throws HSException {
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 1, board, deck, null);
 
         assertNull(ret);
@@ -118,7 +118,7 @@ public class TestSacrificialPact {
 
     @Test
     public void test2() throws HSException {
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 2, board, deck, null);
 
         assertFalse(ret == null);

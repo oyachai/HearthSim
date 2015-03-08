@@ -55,12 +55,12 @@ public class TestCairneBloodhoof {
         board.data_.getWaitingPlayer().setMaxMana((byte)8);
 
         HearthTreeNode tmpBoard = new HearthTreeNode(board.data_.flipPlayers());
-        tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayer().getHero(), tmpBoard, deck, null);
-        tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayer().getHero(), tmpBoard, deck, null);
+        tmpBoard.data_.getCurrentPlayer().getHand().get(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayer().getHero(), tmpBoard, deck, null);
+        tmpBoard.data_.getCurrentPlayer().getHand().get(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayer().getHero(), tmpBoard, deck, null);
 
         board = new HearthTreeNode(tmpBoard.data_.flipPlayers());
-        board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayer().getHero(), board, deck, null);
-        board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayer().getHero(), board, deck, null);
+        board.data_.getCurrentPlayer().getHand().get(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayer().getHero(), board, deck, null);
+        board.data_.getCurrentPlayer().getHand().get(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayer().getHero(), board, deck, null);
 
         board.data_.resetMana();
         board.data_.resetMinions();
@@ -71,7 +71,7 @@ public class TestCairneBloodhoof {
 
     @Test
     public void test0() throws HSException {
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 0, board, deck, null);
 
         assertNull(ret);
@@ -98,7 +98,7 @@ public class TestCairneBloodhoof {
 
     @Test
     public void test2() throws HSException {
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 2, board, deck, null);
 
         assertFalse(ret == null);
@@ -161,7 +161,7 @@ public class TestCairneBloodhoof {
 
     @Test
     public void test3() throws HSException {
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, deck, null);
 
         assertFalse(ret == null);
@@ -223,7 +223,7 @@ public class TestCairneBloodhoof {
 
     @Test
     public void test4() throws HSException {
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, deck, null);
 
         assertFalse(ret == null);
@@ -287,7 +287,7 @@ public class TestCairneBloodhoof {
 
     @Test
     public void test5() throws HSException {
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, deck, null);
 
         ret = new BloodfenRaptor().summonMinion(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayer().getHero(), ret, null, null, false, true);
@@ -372,7 +372,7 @@ public class TestCairneBloodhoof {
 
     @Test
     public void testKillCairneWithFireball() throws HSException {
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, deck, null);
 
         assertFalse(ret == null);
@@ -407,7 +407,7 @@ public class TestCairneBloodhoof {
         Minion minion = currentPlayer.getMinions().get(1);
 
         fb.data_.placeCardHandCurrentPlayer(new Fireball());
-        Card fireball = fb.data_.getCurrentPlayerCardHand(0);
+        Card fireball = fb.data_.getCurrentPlayer().getHand().get(0);
 
         minion.hasAttacked(false);
         fireball.useOn(PlayerSide.WAITING_PLAYER, 2, fb, deck, null);

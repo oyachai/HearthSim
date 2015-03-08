@@ -53,7 +53,7 @@ public class TestAssassinate {
 
         Deck deck = new Deck(cards);
 
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode res;
 
         res = theCard.useOn(PlayerSide.WAITING_PLAYER, 1, board, deck, null);
@@ -83,7 +83,7 @@ public class TestAssassinate {
 
         Deck deck = new Deck(cards);
 
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode res;
 
         res = theCard.useOn(PlayerSide.WAITING_PLAYER, 2, board, deck, null);
@@ -114,7 +114,7 @@ public class TestAssassinate {
 
         Deck deck = new Deck(cards);
 
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode res;
 
         res = theCard.useOn(PlayerSide.WAITING_PLAYER, 3, board, deck, null);

@@ -30,7 +30,7 @@ class LightningBoltSpec extends CardSpec {
     def 'gives windfury and overload'(){
         def copiedBoard = startingBoard.deepCopy()
         def copiedRoot = new HearthTreeNode(copiedBoard)
-        def theCard = copiedBoard.getCurrentPlayerCardHand(0);
+        def theCard = copiedBoard.getCurrentPlayer().getHand().get(0);
         def ret = theCard.useOn(WAITING_PLAYER, 0, copiedRoot, null, null);
 
         expect:

@@ -44,7 +44,7 @@ class FlameImpSpec extends CardSpec {
 
     def "playing FlameImp damages the hero"() {
         def copiedBoard = startingBoard.deepCopy()
-        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def theCard = root.data_.getCurrentPlayer().getHand().get(0)
         def ret = theCard.useOn(CURRENT_PLAYER, 2, root, null, null)
 
         expect:
@@ -65,7 +65,7 @@ class FlameImpSpec extends CardSpec {
         def copiedBoard = startingBoard.deepCopy()
         root.data_.getCharacter(CURRENT_PLAYER, 0).setHealth((byte)2)
 
-        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def theCard = root.data_.getCurrentPlayer().getHand().get(0)
         def ret = theCard.useOn(CURRENT_PLAYER, 2, root, null, null)
 
         expect:

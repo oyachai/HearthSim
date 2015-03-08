@@ -103,7 +103,7 @@ public class TestNorthshireCleric {
         NorthshireCleric fb = new NorthshireCleric();
         board.data_.placeCardHandCurrentPlayer(fb);
 
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
         assertFalse(ret == null);
 
@@ -125,7 +125,7 @@ public class TestNorthshireCleric {
 
         AncestralHealing ah = new AncestralHealing();
         board.data_.placeCardHandCurrentPlayer(ah);
-        theCard = board.data_.getCurrentPlayerCardHand(0);
+        theCard = board.data_.getCurrentPlayer().getHand().get(0);
         ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, deck, null);
 
         assertFalse(ret == null);
@@ -145,7 +145,7 @@ public class TestNorthshireCleric {
 
         ah = new AncestralHealing();
         board.data_.placeCardHandCurrentPlayer(ah);
-        theCard = board.data_.getCurrentPlayerCardHand(0);
+        theCard = board.data_.getCurrentPlayer().getHand().get(0);
         ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 3, board, deck, null);
 
         assertFalse(ret == null);
@@ -172,10 +172,10 @@ public class TestNorthshireCleric {
         board.data_.placeCardHandCurrentPlayer(fb1);
         board.data_.placeCardHandCurrentPlayer(fb2);
 
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 2, board, deck, null);
 
-        theCard = board.data_.getCurrentPlayerCardHand(0);
+        theCard = board.data_.getCurrentPlayer().getHand().get(0);
         ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 3, board, deck, null);
         assertFalse(ret == null);
 
@@ -197,7 +197,7 @@ public class TestNorthshireCleric {
 
         AncestralHealing ah = new AncestralHealing();
         board.data_.placeCardHandCurrentPlayer(ah);
-        theCard = board.data_.getCurrentPlayerCardHand(0);
+        theCard = board.data_.getCurrentPlayer().getHand().get(0);
         ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 2, board, deck, null);
 
         assertFalse(ret == null);

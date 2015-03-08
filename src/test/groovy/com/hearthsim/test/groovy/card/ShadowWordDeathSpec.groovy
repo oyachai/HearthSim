@@ -32,7 +32,7 @@ class ShadowWordDeathSpec extends CardSpec {
 
     def "cannot target low attack minion"() {
         def copiedBoard = startingBoard.deepCopy()
-        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def theCard = root.data_.getCurrentPlayer().getHand().get(0)
         def ret = theCard.useOn(WAITING_PLAYER, 2, root, null, null)
 
         expect:
@@ -42,7 +42,7 @@ class ShadowWordDeathSpec extends CardSpec {
 
     def "kills high attack minion"() {
         def copiedBoard = startingBoard.deepCopy()
-        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def theCard = root.data_.getCurrentPlayer().getHand().get(0)
         def ret = theCard.useOn(WAITING_PLAYER, 1, root, null, null)
 
         expect:
@@ -64,7 +64,7 @@ class ShadowWordDeathSpec extends CardSpec {
         def target = root.data_.getCharacter(WAITING_PLAYER, 1)
         target.extraAttackUntilTurnEnd += 2
 
-        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def theCard = root.data_.getCurrentPlayer().getHand().get(0)
         def ret = theCard.useOn(WAITING_PLAYER, target, root, null, null)
 
         expect:
@@ -82,7 +82,7 @@ class ShadowWordDeathSpec extends CardSpec {
 
     def "follows normal targeting rules"() {
         def copiedBoard = startingBoard.deepCopy()
-        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def theCard = root.data_.getCurrentPlayer().getHand().get(0)
         def ret = theCard.useOn(WAITING_PLAYER, 3, root, null, null)
 
         expect:

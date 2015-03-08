@@ -40,10 +40,10 @@ class DeathsBiteSpec extends CardSpec {
         def copiedBoard = startingBoard.deepCopy()
         def copiedRoot = new HearthTreeNode(copiedBoard)
 
-        def theCard = copiedBoard.getCurrentPlayerCardHand(0);
+        def theCard = copiedBoard.getCurrentPlayer().getHand().get(0);
         def ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot, null, null);
 
-        theCard = copiedBoard.getCurrentPlayerCardHand(0);
+        theCard = copiedBoard.getCurrentPlayer().getHand().get(0);
         ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot, null, null);
 
         expect:
@@ -67,10 +67,10 @@ class DeathsBiteSpec extends CardSpec {
         def copiedBoard = startingBoard.deepCopy()
         def copiedRoot = new HearthTreeNode(copiedBoard)
 
-        def theCard = copiedBoard.getCurrentPlayerCardHand(0);
+        def theCard = copiedBoard.getCurrentPlayer().getHand().get(0);
         def ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot, null, null);
 
-        theCard = copiedBoard.getCurrentPlayerCardHand(1); // play ArathiWeaponsmith
+        theCard = copiedBoard.getCurrentPlayer().getHand().get(1); // play ArathiWeaponsmith
         ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot, null, null);
 
         expect:
@@ -95,7 +95,7 @@ class DeathsBiteSpec extends CardSpec {
         def copiedBoard = startingBoard.deepCopy()
         def copiedRoot = new HearthTreeNode(copiedBoard)
 
-        def theCard = copiedBoard.getCurrentPlayerCardHand(0);
+        def theCard = copiedBoard.getCurrentPlayer().getHand().get(0);
         def ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot, null, null);
 
         Minion hero = ret.data_.getCurrentPlayer().getHero();

@@ -45,7 +45,7 @@ class ElvenArcherSpec extends CardSpec {
 
     def "cannot play for waiting player's side"() {
         def copiedBoard = startingBoard.deepCopy()
-        def theCard = copiedBoard.getCurrentPlayerCardHand(0)
+        def theCard = copiedBoard.getCurrentPlayer().getHand().get(0)
         def ret = theCard.useOn(WAITING_PLAYER, 0, root, null, null)
 
         expect:
@@ -57,7 +57,7 @@ class ElvenArcherSpec extends CardSpec {
     def "playing for current player returns expected child states"() {
         def minionPlayedBoard = startingBoard.deepCopy()
         def copiedRoot = new HearthTreeNode(minionPlayedBoard)
-        def theCard = minionPlayedBoard.getCurrentPlayerCardHand(0);
+        def theCard = minionPlayedBoard.getCurrentPlayer().getHand().get(0);
         def ret = theCard.useOn(CURRENT_PLAYER, 2, copiedRoot, null, null);
 
         expect:

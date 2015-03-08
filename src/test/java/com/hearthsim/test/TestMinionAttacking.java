@@ -54,7 +54,7 @@ public class TestMinionAttacking {
         BluegillWarrior murloc = new BluegillWarrior();
         board.data_.placeCardHandCurrentPlayer(murloc);
 
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
         assertEquals(board, ret);
 
@@ -77,7 +77,7 @@ public class TestMinionAttacking {
         MurlocRaider murloc = new MurlocRaider();
         board.data_.placeCardHandCurrentPlayer(murloc);
 
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
         assertEquals(board, ret);
 

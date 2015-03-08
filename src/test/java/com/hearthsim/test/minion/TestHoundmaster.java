@@ -96,7 +96,7 @@ public class TestHoundmaster {
 
         Deck deck = null;
 
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode res;
 
         res = theCard.useOn(PlayerSide.WAITING_PLAYER, 0, board, deck, null);

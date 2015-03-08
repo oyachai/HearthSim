@@ -54,13 +54,13 @@ public class Doomguard extends Minion implements MinionUntargetableBattlecry {
                 if (hand.size() > 1) {
                     for (int indx1 = indx0+1; indx1 < hand.size(); ++indx1) {
                         HearthTreeNode cNode = new HearthTreeNode(toRet.data_.deepCopy());
-                        cNode.data_.removeCard_hand(cNode.data_.getCurrentPlayerCardHand(indx1));
-                        cNode.data_.removeCard_hand(cNode.data_.getCurrentPlayerCardHand(indx0)); //indx1 > indx0
+                        cNode.data_.removeCard_hand(cNode.data_.getCurrentPlayer().getHand().get(indx1));
+                        cNode.data_.removeCard_hand(cNode.data_.getCurrentPlayer().getHand().get(indx0)); //indx1 > indx0
                         toRet.addChild(cNode);
                     }
                 } else {
                     HearthTreeNode cNode = new HearthTreeNode(toRet.data_.deepCopy());
-                    cNode.data_.removeCard_hand(cNode.data_.getCurrentPlayerCardHand(indx0));
+                    cNode.data_.removeCard_hand(cNode.data_.getCurrentPlayer().getHand().get(indx0));
                     toRet.addChild(cNode);
                 }
             }

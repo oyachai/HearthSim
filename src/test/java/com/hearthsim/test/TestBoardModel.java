@@ -187,16 +187,16 @@ public class TestBoardModel {
         board.data_.getWaitingPlayer().setMaxMana((byte)8);
 
         HearthTreeNode tmpBoard = new HearthTreeNode(board.data_.flipPlayers());
-        tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, 0, tmpBoard, deck1, deck0);
-        tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER,
+        tmpBoard.data_.getCurrentPlayer().getHand().get(0).useOn(PlayerSide.CURRENT_PLAYER, 0, tmpBoard, deck1, deck0);
+        tmpBoard.data_.getCurrentPlayer().getHand().get(0).useOn(PlayerSide.CURRENT_PLAYER,
                 tmpBoard.data_.getCurrentPlayer().getHero(), tmpBoard, deck1, deck0);
-        tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER,
+        tmpBoard.data_.getCurrentPlayer().getHand().get(0).useOn(PlayerSide.CURRENT_PLAYER,
                 tmpBoard.data_.getCurrentPlayer().getHero(), tmpBoard, deck1, deck0);
 
         board = new HearthTreeNode(tmpBoard.data_.flipPlayers());
-        board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayer().getHero(),
+        board.data_.getCurrentPlayer().getHand().get(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayer().getHero(),
                 board, deck0, deck1);
-        board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayer().getHero(),
+        board.data_.getCurrentPlayer().getHand().get(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayer().getHero(),
                 board, deck0, deck1);
 
         board.data_.resetMana();

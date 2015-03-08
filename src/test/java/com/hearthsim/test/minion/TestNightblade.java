@@ -31,7 +31,7 @@ public class TestNightblade {
 
     @Test
     public void testDamagesEnemyHero() throws HSException {
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
         assertEquals(board, ret);
 
@@ -45,7 +45,7 @@ public class TestNightblade {
     public void testKillsEnemyHero() throws HSException {
         board.data_.getWaitingPlayer().getHero().setHealth((byte)2);
 
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
         assertEquals(board, ret);
 

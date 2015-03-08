@@ -95,8 +95,6 @@ public class BoardModel implements DeepCopyable<BoardModel> {
         buildModel();
     }
 
-
-
     public void buildModel() {
         allMinionsFIFOList_ = new IdentityLinkedList<MinionPlayerPair>();
     }
@@ -148,6 +146,7 @@ public class BoardModel implements DeepCopyable<BoardModel> {
         return modelForSide(playerSide).getHand().get(index);
     }
 
+    @Deprecated
     public Card getCurrentPlayerCardHand(int index) {
         return currentPlayer.getHand().get(index);
     }

@@ -49,7 +49,7 @@ public class Succubus extends Minion  implements MinionUntargetableBattlecry {
             toRet = new RandomEffectNode(boardState, new HearthAction(HearthAction.Verb.UNTARGETABLE_BATTLECRY, PlayerSide.CURRENT_PLAYER, thisMinionIndex, PlayerSide.CURRENT_PLAYER, placementTargetIndex));
             for (int indx0 = 0; indx0 < hand.size(); ++indx0) {
                 HearthTreeNode cNode = new HearthTreeNode(toRet.data_.deepCopy());
-                cNode.data_.removeCard_hand(cNode.data_.getCurrentPlayerCardHand(indx0));
+                cNode.data_.removeCard_hand(cNode.data_.getCurrentPlayer().getHand().get(indx0));
                 toRet.addChild(cNode);
             }
         }

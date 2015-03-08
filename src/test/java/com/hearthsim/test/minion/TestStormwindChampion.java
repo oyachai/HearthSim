@@ -54,12 +54,12 @@ public class TestStormwindChampion {
         board.data_.getWaitingPlayer().setMaxMana((byte)10);
 
         HearthTreeNode tmpBoard = new HearthTreeNode(board.data_.flipPlayers());
-        tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayer().getHero(), tmpBoard, deck, null);
-        tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayer().getHero(), tmpBoard, deck, null);
+        tmpBoard.data_.getCurrentPlayer().getHand().get(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayer().getHero(), tmpBoard, deck, null);
+        tmpBoard.data_.getCurrentPlayer().getHand().get(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayer().getHero(), tmpBoard, deck, null);
 
         board = new HearthTreeNode(tmpBoard.data_.flipPlayers());
-        board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayer().getHero(), board, deck, null);
-        board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayer().getHero(), board, deck, null);
+        board.data_.getCurrentPlayer().getHand().get(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayer().getHero(), board, deck, null);
+        board.data_.getCurrentPlayer().getHand().get(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayer().getHero(), board, deck, null);
 
         board.data_.resetMana();
         board.data_.resetMinions();
@@ -73,7 +73,7 @@ public class TestStormwindChampion {
     public void test1() throws HSException {
 
         Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
         assertFalse(ret == null);
         PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
@@ -116,7 +116,7 @@ public class TestStormwindChampion {
     public void test2() throws HSException {
 
         Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
         assertFalse(ret == null);
         PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
@@ -156,7 +156,7 @@ public class TestStormwindChampion {
 
         board.data_.placeCardHandCurrentPlayer(new Fireball());
         board.data_.resetMana();
-        theCard = board.data_.getCurrentPlayerCardHand(0);
+        theCard = board.data_.getCurrentPlayer().getHand().get(0);
         target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
         ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
 
@@ -194,7 +194,7 @@ public class TestStormwindChampion {
     public void test3() throws HSException {
 
         Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
         assertFalse(ret == null);
         PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
@@ -233,7 +233,7 @@ public class TestStormwindChampion {
 
 
         board.data_.placeCardHandCurrentPlayer(new Silence());
-        theCard = board.data_.getCurrentPlayerCardHand(0);
+        theCard = board.data_.getCurrentPlayer().getHand().get(0);
         target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
         ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
 
@@ -270,7 +270,7 @@ public class TestStormwindChampion {
 
 
         board.data_.placeCardHandCurrentPlayer(new Silence());
-        theCard = board.data_.getCurrentPlayerCardHand(0);
+        theCard = board.data_.getCurrentPlayer().getHand().get(0);
         target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
         ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
 
@@ -308,7 +308,7 @@ public class TestStormwindChampion {
 
 
         board.data_.placeCardHandCurrentPlayer(new BloodfenRaptor());
-        theCard = board.data_.getCurrentPlayerCardHand(0);
+        theCard = board.data_.getCurrentPlayer().getHand().get(0);
         target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 3);
         ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
 
@@ -354,7 +354,7 @@ public class TestStormwindChampion {
     public void test4() throws HSException {
 
         Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
         assertFalse(ret == null);
         PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
@@ -391,7 +391,7 @@ public class TestStormwindChampion {
         assertEquals(waitingPlayer.getMinions().get(1).getAuraHealth(), 0);
 
         board.data_.placeCardHandCurrentPlayer(new HolySmite());
-        theCard = board.data_.getCurrentPlayerCardHand(0);
+        theCard = board.data_.getCurrentPlayer().getHand().get(0);
         target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 2);
         ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
 
@@ -428,7 +428,7 @@ public class TestStormwindChampion {
 
 
         board.data_.placeCardHandCurrentPlayer(new Silence());
-        theCard = board.data_.getCurrentPlayerCardHand(0);
+        theCard = board.data_.getCurrentPlayer().getHand().get(0);
         target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
         ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
 

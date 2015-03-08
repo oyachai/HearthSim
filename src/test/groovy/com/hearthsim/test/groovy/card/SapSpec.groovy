@@ -35,7 +35,7 @@ class SapSpec extends CardSpec {
 
     def "sap enemy minion"() {
         def copiedBoard = startingBoard.deepCopy()
-        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def theCard = root.data_.getCurrentPlayer().getHand().get(0)
         def ret = theCard.useOn(WAITING_PLAYER, 1, root, null, null)
 
         expect:
@@ -60,7 +60,7 @@ class SapSpec extends CardSpec {
         }
 
         def copiedBoard = startingBoard.deepCopy()
-        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def theCard = root.data_.getCurrentPlayer().getHand().get(0)
         def ret = theCard.useOn(WAITING_PLAYER, 1, root, null, null)
 
         expect:

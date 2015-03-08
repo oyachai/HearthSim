@@ -45,7 +45,7 @@ class PatientAssassinSpec extends CardSpec {
     def "playing Patient Assassin and attacking the Hero with it"() {
         def copiedBoard = startingBoard.deepCopy()
         def target = root.data_.getCharacter(CURRENT_PLAYER, 1)
-        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def theCard = root.data_.getCurrentPlayer().getHand().get(0)
         def ret = theCard.useOn(CURRENT_PLAYER, target, root, null, null)
 
         def patientAssassin = ret.data_.getCharacter(CURRENT_PLAYER, 1)
@@ -70,7 +70,7 @@ class PatientAssassinSpec extends CardSpec {
     def "playing Patient Assassin and attacking a minion with it"() {
         def copiedBoard = startingBoard.deepCopy()
         def target = root.data_.getCharacter(CURRENT_PLAYER, 1)
-        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def theCard = root.data_.getCurrentPlayer().getHand().get(0)
         def ret = theCard.useOn(CURRENT_PLAYER, target, root, null, null)
 
         def patientAssassin = ret.data_.getCharacter(CURRENT_PLAYER, 1)

@@ -60,7 +60,7 @@ public class TestAnimalCompanion {
         Card leokk = new Leokk();
         board.data_.placeCardHandCurrentPlayer(leokk);
 
-        Card theCard = board.data_.getCurrentPlayerCardHand(1);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(1);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 2, board, null, null);
 
         //Use Leokk.  The other minions should now be buffed with +1 attack
@@ -112,7 +112,7 @@ public class TestAnimalCompanion {
 
     @Test
     public void testSummonsHufferLeokkOrMisha() throws HSException {
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
         assertNotNull(ret); // ret != null because of how AnimalCompanion creates its RNG node
         assertTrue(ret instanceof RandomEffectNode);
@@ -156,7 +156,7 @@ public class TestAnimalCompanion {
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new BloodfenRaptor());
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new BloodfenRaptor());
 
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
         assertFalse(theCard.canBeUsedOn(PlayerSide.CURRENT_PLAYER, target, board.data_));
 

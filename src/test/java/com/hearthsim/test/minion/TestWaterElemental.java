@@ -39,7 +39,7 @@ public class TestWaterElemental {
 
     @Test
     public void testFreezesMinionOnAttack() throws HSException {
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
         assertEquals(board, ret);
 
@@ -58,7 +58,7 @@ public class TestWaterElemental {
 
     @Test
     public void testFreezesHeroOnAttack() throws HSException {
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
         assertEquals(board, ret);
 
