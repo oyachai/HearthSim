@@ -3,6 +3,7 @@ package com.hearthsim.test.heroes;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
+import com.hearthsim.model.PlayerModel;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -83,20 +84,26 @@ public class TestPaladin {
         HearthTreeNode ret = paladin.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
         assertEquals(board, ret);
 
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(ret).getNumMinions(), 3);
+        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
+
+        assertEquals(currentPlayer.getNumMinions(), 3);
         assertEquals(ret.data_.getCurrentPlayer().getMana(), 6);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(ret).getMinions().get(0).getHealth(), 2);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(ret).getMinions().get(1).getHealth(), 7);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(ret).getMinions().get(2).getHealth(), 1);
+        assertEquals(currentPlayer.getMinions().get(0).getHealth(), 2);
+        assertEquals(currentPlayer.getMinions().get(1).getHealth(), 7);
+        assertEquals(currentPlayer.getMinions().get(2).getHealth(), 1);
 
         // buffed by Raid Leader
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(ret).getMinions().get(0).getTotalAttack(), 2);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(ret).getMinions().get(1).getTotalAttack(), 7);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(ret).getMinions().get(2).getTotalAttack(), 2);
+        assertEquals(currentPlayer.getMinions().get(0).getTotalAttack(), 2);
+        assertEquals(currentPlayer.getMinions().get(1).getTotalAttack(), 7);
+        assertEquals(currentPlayer.getMinions().get(2).getTotalAttack(), 2);
     }
 
     @Test
     public void testHeropowerWithFullBoard() throws HSException {
+        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
+
         Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
         Hero paladin = board.data_.getCurrentPlayerHero();
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new SilverHandRecruit());
@@ -104,17 +111,20 @@ public class TestPaladin {
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new SilverHandRecruit());
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new SilverHandRecruit());
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new SilverHandRecruit());
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 7);
+        assertEquals(currentPlayer.getNumMinions(), 7);
 
         HearthTreeNode ret = paladin.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
         assertNull(ret);
 
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 7);
+        assertEquals(currentPlayer.getNumMinions(), 7);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
     }
 
     @Test
     public void testHeropowerCannotTargetMinion() throws HSException {
+        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
+
         Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
         Hero paladin = board.data_.getCurrentPlayerHero();
 
@@ -122,11 +132,13 @@ public class TestPaladin {
         assertNull(ret);
 
         assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);
+        assertEquals(currentPlayer.getNumMinions(), 2);
     }
 
     @Test
     public void testHeropowerCannotTargetOpponent() throws HSException {
+        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+
         Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
         Hero paladin = board.data_.getCurrentPlayerHero();
 
@@ -134,6 +146,6 @@ public class TestPaladin {
         assertNull(ret);
 
         assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);
+        assertEquals(currentPlayer.getNumMinions(), 2);
     }
 }

@@ -8,6 +8,7 @@ import com.hearthsim.card.spellcard.concrete.AncestralHealing;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -106,16 +107,19 @@ public class TestNorthshireCleric {
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
         assertFalse(ret == null);
 
+        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
+
         assertEquals(ret.data_.getNumCards_hand(), 0);
         assertEquals(ret.data_.getCurrentPlayer().getNumMinions(), 3);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getNumMinions(), 2);
+        assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(ret.data_.getCurrentPlayerHero().getHealth(), 30);
         assertEquals(ret.data_.getWaitingPlayerHero().getHealth(), 30);
         assertEquals(ret.data_.getCurrentPlayer().getMinions().get(0).getHealth(), 3);
         assertEquals(ret.data_.getCurrentPlayer().getMinions().get(1).getHealth(), health0);
         assertEquals(ret.data_.getCurrentPlayer().getMinions().get(2).getHealth(), health1 - 1);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(0).getHealth(), health0);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(1).getHealth(), health1 - 1);
+        assertEquals(waitingPlayer.getMinions().get(0).getHealth(), health0);
+        assertEquals(waitingPlayer.getMinions().get(1).getHealth(), health1 - 1);
 
 
 
@@ -127,14 +131,14 @@ public class TestNorthshireCleric {
         assertFalse(ret == null);
         assertEquals(ret.data_.getNumCards_hand(), 0);
         assertEquals(ret.data_.getCurrentPlayer().getNumMinions(), 3);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getNumMinions(), 2);
+        assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(ret.data_.getCurrentPlayerHero().getHealth(), 30);
         assertEquals(ret.data_.getWaitingPlayerHero().getHealth(), 30);
         assertEquals(ret.data_.getCurrentPlayer().getMinions().get(0).getHealth(), 3);
         assertEquals(ret.data_.getCurrentPlayer().getMinions().get(1).getHealth(), health0);
         assertEquals(ret.data_.getCurrentPlayer().getMinions().get(2).getHealth(), health1 - 1);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(0).getHealth(), health0);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(1).getHealth(), health1 - 1);
+        assertEquals(waitingPlayer.getMinions().get(0).getHealth(), health0);
+        assertEquals(waitingPlayer.getMinions().get(1).getHealth(), health1 - 1);
 
 
 
@@ -149,14 +153,14 @@ public class TestNorthshireCleric {
         assertTrue(ret instanceof CardDrawNode);
         assertEquals( ((CardDrawNode)ret).getNumCardsToDraw(), 1); //Northshire Cleric should have drawn a card, so 1 card now
         assertEquals(ret.data_.getCurrentPlayer().getNumMinions(), 3);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getNumMinions(), 2);
+        assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(ret.data_.getCurrentPlayerHero().getHealth(), 30);
         assertEquals(ret.data_.getWaitingPlayerHero().getHealth(), 30);
         assertEquals(ret.data_.getCurrentPlayer().getMinions().get(0).getHealth(), 3);
         assertEquals(ret.data_.getCurrentPlayer().getMinions().get(1).getHealth(), health0);
         assertEquals(ret.data_.getCurrentPlayer().getMinions().get(2).getHealth(), health1);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(0).getHealth(), health0);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(1).getHealth(), health1 - 1);
+        assertEquals(waitingPlayer.getMinions().get(0).getHealth(), health0);
+        assertEquals(waitingPlayer.getMinions().get(1).getHealth(), health1 - 1);
 
     }
 
@@ -175,17 +179,20 @@ public class TestNorthshireCleric {
         ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 3, board, deck, null);
         assertFalse(ret == null);
 
+        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
+
         assertEquals(ret.data_.getNumCards_hand(), 0);
         assertEquals(ret.data_.getCurrentPlayer().getNumMinions(), 4);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getNumMinions(), 2);
+        assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(ret.data_.getCurrentPlayerHero().getHealth(), 30);
         assertEquals(ret.data_.getWaitingPlayerHero().getHealth(), 30);
         assertEquals(ret.data_.getCurrentPlayer().getMinions().get(0).getHealth(), health0);
         assertEquals(ret.data_.getCurrentPlayer().getMinions().get(1).getHealth(), health1 - 1);
         assertEquals(ret.data_.getCurrentPlayer().getMinions().get(2).getHealth(), 3);
         assertEquals(ret.data_.getCurrentPlayer().getMinions().get(3).getHealth(), 3);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(0).getHealth(), health0);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(1).getHealth(), health1 - 1);
+        assertEquals(waitingPlayer.getMinions().get(0).getHealth(), health0);
+        assertEquals(waitingPlayer.getMinions().get(1).getHealth(), health1 - 1);
 
 
         AncestralHealing ah = new AncestralHealing();
@@ -199,15 +206,15 @@ public class TestNorthshireCleric {
         assertEquals( ((CardDrawNode)ret).getNumCardsToDraw(), 2); //Two clerics, one heal means 2 new cards
 
         assertEquals(ret.data_.getCurrentPlayer().getNumMinions(), 4);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getNumMinions(), 2);
+        assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(ret.data_.getCurrentPlayerHero().getHealth(), 30);
         assertEquals(ret.data_.getWaitingPlayerHero().getHealth(), 30);
         assertEquals(ret.data_.getCurrentPlayer().getMinions().get(0).getHealth(), health0);
         assertEquals(ret.data_.getCurrentPlayer().getMinions().get(1).getHealth(), health1);
         assertEquals(ret.data_.getCurrentPlayer().getMinions().get(2).getHealth(), 3);
         assertEquals(ret.data_.getCurrentPlayer().getMinions().get(3).getHealth(), 3);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(0).getHealth(), health0);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(ret).getMinions().get(1).getHealth(), health1 - 1);
+        assertEquals(waitingPlayer.getMinions().get(0).getHealth(), health0);
+        assertEquals(waitingPlayer.getMinions().get(1).getHealth(), health1 - 1);
 
     }
 }

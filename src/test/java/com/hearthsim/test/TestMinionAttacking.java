@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import com.hearthsim.model.PlayerModel;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -57,7 +58,10 @@ public class TestMinionAttacking {
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
         assertEquals(board, ret);
 
-        Minion theAttacker = PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0);
+        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
+
+        Minion theAttacker = currentPlayer.getMinions().get(0);
         assertTrue(theAttacker.canAttack());
 
         Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
@@ -77,7 +81,10 @@ public class TestMinionAttacking {
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
         assertEquals(board, ret);
 
-        Minion theAttacker = PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0);
+        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
+
+        Minion theAttacker = currentPlayer.getMinions().get(0);
         assertFalse(theAttacker.canAttack());
 
         Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
@@ -103,8 +110,11 @@ public class TestMinionAttacking {
         HearthTreeNode ret = raptor.attack(PlayerSide.WAITING_PLAYER, croc, board, null, null, false);
         assertEquals(board, ret);
 
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 1);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 0);
+        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
+
+        assertEquals(currentPlayer.getNumMinions(), 1);
+        assertEquals(waitingPlayer.getNumMinions(), 0);
     }
 
     @Test
@@ -115,8 +125,11 @@ public class TestMinionAttacking {
         HearthTreeNode ret = raptor.attack(PlayerSide.WAITING_PLAYER, faerie, board, null, null, false);
         assertEquals(board, ret);
 
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 1);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 1);
+        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
+
+        assertEquals(currentPlayer.getNumMinions(), 1);
+        assertEquals(waitingPlayer.getNumMinions(), 1);
     }
 
     @Test
@@ -127,8 +140,11 @@ public class TestMinionAttacking {
         HearthTreeNode ret = raptor.attack(PlayerSide.WAITING_PLAYER, tiger, board, null, null, false);
         assertNull(ret);
 
-        assertEquals(2, PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions());
-        assertEquals(2, PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions());
+        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
+
+        assertEquals(2, currentPlayer.getNumMinions());
+        assertEquals(2, waitingPlayer.getNumMinions());
     }
 
     @Test
@@ -157,7 +173,10 @@ public class TestMinionAttacking {
     public void testAttackOwnMinion() throws HSException {
         HearthTreeNode ret = raptor.attack(PlayerSide.CURRENT_PLAYER, yeti, board, null, null, false);
         assertNull(ret);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);
+        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
+
+        assertEquals(currentPlayer.getNumMinions(), 2);
     }
 
     @Test

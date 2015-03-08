@@ -3,6 +3,7 @@ package com.hearthsim.test.heroes;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
+import com.hearthsim.model.PlayerModel;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -107,14 +108,16 @@ public class TestDruid {
         Hero hero = board.data_.getCurrentPlayerHero();
         HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, raidLeader, board, deck, null);
         assertNull(ret);
+        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
         assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
         assertEquals(board.data_.getCurrentPlayerHero().getArmor(), 0);
         assertEquals(board.data_.getCurrentPlayerHero().getTotalAttack(), 0);
         assertEquals(board.data_.getCurrentPlayerHero().getExtraAttackUntilTurnEnd(), 0);
 
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getAttack(), 2);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack(), 2);
+        assertEquals(currentPlayer.getMinions().get(0).getAttack(), 2);
+        assertEquals(currentPlayer.getMinions().get(0).getTotalAttack(), 2);
     }
 
     @Test

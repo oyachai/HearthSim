@@ -8,6 +8,7 @@ import com.hearthsim.card.minion.concrete.Misha;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.HearthAction;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -44,7 +45,7 @@ public class AnimalCompanion extends SpellCard {
             return false;
         }
 
-        int numMinions = playerSide.getPlayer(boardModel).getNumMinions();
+        int numMinions = boardModel.modelForSide(playerSide).getNumMinions();
         if (numMinions >= 7) {
             return false;
         }
@@ -85,20 +86,21 @@ public class AnimalCompanion extends SpellCard {
             toRet = new RandomEffectNode(boardState, new HearthAction(HearthAction.Verb.USE_CARD,
                     PlayerSide.CURRENT_PLAYER, 0, side, 0));
             if (toRet != null) {
-                int thisCardIndex = side.getPlayer(boardState).getHand().indexOf(this);
+                PlayerModel targetPlayer = toRet.data_.modelForSide(side);
+
+                int thisCardIndex = targetPlayer.getHand().indexOf(this);
                 for (Minion minion : new Minion[] { new Huffer(), new Leokk(), new Misha() }) {
                     HearthTreeNode newState = toRet.addChild(new HearthTreeNode(toRet.data_.deepCopy()));
 
-                    newState = super.use_core(side, side.getPlayer(newState).getHero(), newState, deckPlayer0,
+                    newState = super.use_core(side, targetPlayer.getHero(), newState, deckPlayer0,
                             deckPlayer1, singleRealizationOnly);
                     Minion placementTarget = newState.data_.getCharacter(side, newState.data_.getMinions(side).size()); // this minion can't be a hero
                     newState = minion.summonMinion(side, placementTarget, newState, deckPlayer0, deckPlayer1, false,
                             singleRealizationOnly);
-                    side.getPlayer(newState).getHand().remove(thisCardIndex);
+                    newState.data_.modelForSide(side).getHand().remove(thisCardIndex);
                 }
             }
         }
         return toRet;
     }
-
 }

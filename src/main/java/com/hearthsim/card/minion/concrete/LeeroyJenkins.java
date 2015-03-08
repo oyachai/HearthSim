@@ -4,6 +4,7 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionUntargetableBattlecry;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -26,7 +27,8 @@ public class LeeroyJenkins extends Minion implements MinionUntargetableBattlecry
         ) throws HSException {
         HearthTreeNode toRet = boardState;
         for (int index = 0; index < 2; ++index) {
-            int numMinions = PlayerSide.WAITING_PLAYER.getPlayer(toRet).getNumMinions();
+            PlayerModel waitingPlayer = toRet.data_.modelForSide(PlayerSide.WAITING_PLAYER);
+            int numMinions = waitingPlayer.getNumMinions();
             if (numMinions < 7) {
                 Minion newMinion = new Whelp();
                 Minion placementTarget = toRet.data_.getCharacter(PlayerSide.WAITING_PLAYER, numMinions);

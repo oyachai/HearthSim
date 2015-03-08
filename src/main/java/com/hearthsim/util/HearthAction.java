@@ -98,7 +98,7 @@ public class HearthAction {
                 break;
             }
             case DO_NOT_ATTACK: {
-                for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(boardState).getMinions()) {
+                for (Minion minion : boardState.data_.getCurrentPlayer().getMinions()) {
                     minion.hasAttacked(true);
                 }
                 boardState.data_.getCurrentPlayerHero().hasAttacked(true);

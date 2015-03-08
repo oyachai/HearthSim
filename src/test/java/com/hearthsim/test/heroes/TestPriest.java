@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import com.hearthsim.model.PlayerModel;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -108,9 +109,11 @@ public class TestPriest {
 
     @Test
     public void testAiHealBeforeTrading() throws HSException {
+        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
         // one of your yeti is damaged
-        PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).setHealth((byte)3);
+        currentPlayer.getMinions().get(0).setHealth((byte)3);
 
         BoardStateFactoryBase factory = new DepthBoardStateFactory(null, null, 2000000000, true);
         HearthTreeNode tree = new HearthTreeNode(board.data_);
@@ -168,8 +171,11 @@ public class TestPriest {
         HearthTreeNode ret = priest.useHeroAbility(PlayerSide.WAITING_PLAYER, target, board, deck, null);
         assertEquals(board, ret);
 
+        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
+
         assertEquals(board.data_.getCurrentPlayer().getMana(), 6);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), 3);
+        assertEquals(waitingPlayer.getMinions().get(0).getHealth(), 3);
     }
 
     @Test
@@ -197,6 +203,6 @@ public class TestPriest {
         assertEquals(board, ret);
 
         assertEquals(board.data_.getCurrentPlayer().getMana(), 6);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), 3);
+        assertEquals(board.data_.getCurrentPlayer().getMinions().get(0).getHealth(), 3);
     }
 }

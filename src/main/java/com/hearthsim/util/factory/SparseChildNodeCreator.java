@@ -6,6 +6,7 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.HearthAction;
 import com.hearthsim.util.HearthAction.Verb;
@@ -27,6 +28,9 @@ public class SparseChildNodeCreator extends ChildNodeCreatorBase {
         Card card = null;
         Card copiedCard = null;
         HearthTreeNode newState = null;
+
+        PlayerModel currentPlayer = boardStateNode.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        PlayerModel waitingPlayer = boardStateNode.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
         boolean allUsed = true;
         int mana = boardStateNode.data_.getCurrentPlayer().getMana();
@@ -57,8 +61,7 @@ public class SparseChildNodeCreator extends ChildNodeCreatorBase {
                 }
             } else {
                 // we can use this card! Let's try using it on everything
-                for (int targetIndex = 0; targetIndex <= PlayerSide.CURRENT_PLAYER.getPlayer(boardStateNode)
-                        .getNumMinions(); ++targetIndex) {
+                for (int targetIndex = 0; targetIndex <= currentPlayer.getNumMinions(); ++targetIndex) {
                     targetMinion = boardStateNode.data_.getCurrentPlayerCharacter(targetIndex);
 
                     if (card.canBeUsedOn(PlayerSide.CURRENT_PLAYER, targetMinion, boardStateNode.data_)) {
@@ -72,8 +75,7 @@ public class SparseChildNodeCreator extends ChildNodeCreatorBase {
                     }
                 }
 
-                for (int targetIndex = 0; targetIndex <= PlayerSide.WAITING_PLAYER.getPlayer(boardStateNode)
-                        .getNumMinions(); ++targetIndex) {
+                for (int targetIndex = 0; targetIndex <= waitingPlayer.getNumMinions(); ++targetIndex) {
                     targetMinion = boardStateNode.data_.getWaitingPlayerCharacter(targetIndex);
 
                     if (card.canBeUsedOn(PlayerSide.WAITING_PLAYER, targetMinion, boardStateNode.data_)) {
@@ -104,19 +106,21 @@ public class SparseChildNodeCreator extends ChildNodeCreatorBase {
 
     protected int getMinionPlacementIndex(HearthTreeNode boardStateNode, Minion minion) {
 
+        PlayerModel currentPlayer = boardStateNode.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+
         // If this card is a minion, then reduce the set of possible minion placement position
         int cardPlacementIndex = 0; // by default, place it to the left of everything
 
         // if there are minions on the board already, place the minion farthest away from the highest attack minion on the board
-        if (PlayerSide.CURRENT_PLAYER.getPlayer(boardStateNode).getNumMinions() > 1) {
+        if (currentPlayer.getNumMinions() > 1) {
             byte thisMinionAttack = minion.getTotalAttack();
-            int numMinions = PlayerSide.CURRENT_PLAYER.getPlayer(boardStateNode).getNumMinions();
+            int numMinions = currentPlayer.getNumMinions();
             byte maxAttack = -100;
             int maxAttackIndex = 0;
             byte secondMaxAttack = -100;
             int secondMaxAttackIndex = 0;
             for (int midx = 0; midx < numMinions; ++midx) {
-                Minion tempMinion = PlayerSide.CURRENT_PLAYER.getPlayer(boardStateNode).getMinions().get(midx);
+                Minion tempMinion = currentPlayer.getMinions().get(midx);
                 if (tempMinion.getTotalAttack() >= maxAttack) {
                     secondMaxAttackIndex = maxAttackIndex;
                     secondMaxAttack = maxAttack;

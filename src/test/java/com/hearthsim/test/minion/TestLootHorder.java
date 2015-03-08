@@ -67,8 +67,8 @@ public class TestLootHorder {
         BoardModel resBoard = ab.get(ab.size() - 1).board;
 
         assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 1); //1 card drawn from Loot Horder attacking and dying, no mana left to play the card
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getNumMinions(), 0);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(resBoard).getNumMinions(), 0); //1 minion should have been killed
+        assertEquals(resBoard.modelForSide(PlayerSide.CURRENT_PLAYER).getNumMinions(), 0);
+        assertEquals(resBoard.modelForSide(PlayerSide.WAITING_PLAYER).getNumMinions(), 0); //1 minion should have been killed
         assertEquals(resBoard.getCurrentPlayer().getMana(), 1); //no mana used
         assertEquals(resBoard.getWaitingPlayer().getMana(), 1);
         assertEquals(resBoard.getCurrentPlayerHero().getHealth(), 30);
@@ -92,8 +92,8 @@ public class TestLootHorder {
         BoardModel resBoard = ab.get(ab.size() - 1).board;
 
         assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 0); //1 card drawn from Loot Horder attacking and dying, then played the drawn card
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getNumMinions(), 1);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(resBoard).getNumMinions(), 0); //1 minion should have been killed
+        assertEquals(resBoard.modelForSide(PlayerSide.CURRENT_PLAYER).getNumMinions(), 1);
+        assertEquals(resBoard.modelForSide(PlayerSide.WAITING_PLAYER).getNumMinions(), 0); //1 minion should have been killed
         assertEquals(resBoard.getCurrentPlayer().getMana(), 1); //2 mana used
         assertEquals(resBoard.getWaitingPlayer().getMana(), 3);
         assertEquals(resBoard.getCurrentPlayerHero().getHealth(), 30);
@@ -125,8 +125,8 @@ public class TestLootHorder {
 
         assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 0); //no cards in hand
         assertEquals(resBoard.getNumCardsHandWaitingPlayer(), 1); //drew cards from the loot horder that was killed
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getNumMinions(), 0);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(resBoard).getNumMinions(), 0); //1 minion should have been killed
+        assertEquals(resBoard.modelForSide(PlayerSide.CURRENT_PLAYER).getNumMinions(), 0);
+        assertEquals(resBoard.modelForSide(PlayerSide.WAITING_PLAYER).getNumMinions(), 0); //1 minion should have been killed
         assertEquals(resBoard.getCurrentPlayer().getMana(), 3); //no mana used
         assertEquals(resBoard.getWaitingPlayer().getMana(), 3);
         assertEquals(resBoard.getCurrentPlayerHero().getHealth(), 30);

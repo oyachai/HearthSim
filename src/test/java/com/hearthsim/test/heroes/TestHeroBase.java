@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import com.hearthsim.model.PlayerModel;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -94,30 +95,33 @@ public class TestHeroBase {
 
     @Test
     public void testMinionAttackingHero() throws HSException {
+        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
+
         // null case
         Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
-        Minion minion = PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0);
+        Minion minion = currentPlayer.getMinions().get(0);
         HearthTreeNode ret = minion.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null, false);
         assertEquals(board, ret);
 
         assertEquals(board.data_.getNumCards_hand(), 1);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
+        assertEquals(currentPlayer.getNumMinions(), 2);
+        assertEquals(waitingPlayer.getNumMinions(), 2);
 
         assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
         assertEquals(board.data_.getWaitingPlayer().getMana(), 8);
         assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
         assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 28);
 
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), 2);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), 7);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), 2);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), 7);
+        assertEquals(currentPlayer.getMinions().get(0).getHealth(), 2);
+        assertEquals(currentPlayer.getMinions().get(1).getHealth(), 7);
+        assertEquals(waitingPlayer.getMinions().get(0).getHealth(), 2);
+        assertEquals(waitingPlayer.getMinions().get(1).getHealth(), 7);
 
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack(), 2);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack(), 7);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack(), 2);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack(), 7);
+        assertEquals(currentPlayer.getMinions().get(0).getTotalAttack(), 2);
+        assertEquals(currentPlayer.getMinions().get(1).getTotalAttack(), 7);
+        assertEquals(waitingPlayer.getMinions().get(0).getTotalAttack(), 2);
+        assertEquals(waitingPlayer.getMinions().get(1).getTotalAttack(), 7);
     }
 
     @Test
@@ -214,10 +218,13 @@ public class TestHeroBase {
 
     @Test
     public void testMinionAttackingHeroRemovesArmorFirst() throws HSException {
+        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
+
         Hero opponent = board.data_.getWaitingPlayerHero();
         opponent.setArmor((byte)3);
 
-        Minion minion = PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0);
+        Minion minion = currentPlayer.getMinions().get(0);
         HearthTreeNode ret = minion.attack(PlayerSide.WAITING_PLAYER, opponent, board, deck, null, false);
         assertEquals(board, ret);
 

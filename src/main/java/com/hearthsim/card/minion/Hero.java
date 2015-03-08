@@ -6,6 +6,7 @@ import com.hearthsim.card.weapon.WeaponCard;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.HearthAction;
 import com.hearthsim.util.HearthAction.Verb;
@@ -152,10 +153,12 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
         if (!targetMinion.isHeroTargetable())
             return null;
 
+        PlayerModel targetPlayer = boardState.data_.modelForSide(targetPlayerSide);
+
         HearthTreeNode toRet = this.useHeroAbility_core(targetPlayerSide, targetMinion, boardState, deckPlayer0,
             deckPlayer1, singleRealizationOnly);
         if (toRet != null) {
-            int targetIndex = targetMinion instanceof Hero ? 0 : targetPlayerSide.getPlayer(boardState).getMinions()
+            int targetIndex = targetMinion instanceof Hero ? 0 : targetPlayer.getMinions()
                 .indexOf(targetMinion) + 1;
             toRet.setAction(new HearthAction(Verb.HERO_ABILITY, PlayerSide.CURRENT_PLAYER, 0, targetPlayerSide,
                 targetIndex));

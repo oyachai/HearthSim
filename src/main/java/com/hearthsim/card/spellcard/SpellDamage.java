@@ -4,6 +4,7 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.ImplementedCardList;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 import org.json.JSONObject;
@@ -72,7 +73,8 @@ public class SpellDamage extends SpellCard {
     public HearthTreeNode attackAllMinionsOnSide(PlayerSide targetMinionPlayerSide, HearthTreeNode boardState,
             Deck deckPlayer0, Deck deckPlayer1) throws HSException {
         if (boardState != null) {
-            for (Minion minion : targetMinionPlayerSide.getPlayer(boardState).getMinions()) {
+            PlayerModel targetPlayer = boardState.data_.modelForSide(targetMinionPlayerSide);
+            for (Minion minion : targetPlayer.getMinions()) {
                 boardState = this.attack(targetMinionPlayerSide, minion, boardState, deckPlayer0, deckPlayer1);
             }
         }

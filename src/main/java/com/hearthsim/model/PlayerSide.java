@@ -9,10 +9,12 @@ public enum PlayerSide {
     CURRENT_PLAYER,
     WAITING_PLAYER;
 
+    @Deprecated
     public PlayerModel getPlayer(HearthTreeNode boardState) {
-        return boardState.data_.modelForSide(this);
+        return this.getPlayer(boardState.data_);
     }
 
+    @Deprecated
     public PlayerModel getPlayer(BoardModel boardModel) {
         return boardModel.modelForSide(this);
     }

@@ -5,6 +5,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.MirrorImageMinion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -57,7 +58,8 @@ public class MirrorImage extends SpellCard {
             Deck deckPlayer1,
             boolean singleRealizationOnly)
         throws HSException {
-        int numMinions = PlayerSide.CURRENT_PLAYER.getPlayer(boardState).getNumMinions();
+        PlayerModel currentPlayer = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        int numMinions = currentPlayer.getNumMinions();
         if (numMinions >= 7)
             return null;
 

@@ -6,6 +6,7 @@ import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellDamage;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.HearthAction;
 import com.hearthsim.util.IdentityLinkedList;
@@ -47,14 +48,17 @@ public class Soulfire extends SpellDamage {
         PlayerSide.CURRENT_PLAYER.getPlayer(boardState).addNumCardsUsed((byte)1);
         if (singleRealizationOnly) {
             toRet = super.useOn(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
-            IdentityLinkedList<Card> hand = PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getHand();
+            PlayerModel currentPlayer = toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+            IdentityLinkedList<Card> hand = currentPlayer.getHand();
             if (hand.size() > 0) {
                 Card targetCard = hand.get((int)(Math.random() * hand.size()));
                 toRet.data_.removeCard_hand(targetCard);
             }
         } else {
-            int targetCharacterIndex = targetMinion instanceof Hero ? 0 : side.getPlayer(boardState).getMinions().indexOf(targetMinion) + 1;
-            int thisCardIndex = PlayerSide.CURRENT_PLAYER.getPlayer(boardState).getHand().indexOf(this);
+            PlayerModel currentPlayer = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+            PlayerModel targetPlayer = boardState.data_.modelForSide(side);
+            int targetCharacterIndex = targetMinion instanceof Hero ? 0 : targetPlayer.getMinions().indexOf(targetMinion) + 1;
+            int thisCardIndex = currentPlayer.getHand().indexOf(this);
             if (boardState.data_.getCurrentPlayerHand().size() == 1) {
                 toRet = this.callSuperUseOn(side, targetMinion, boardState, deckPlayer0, deckPlayer1, false);
                 toRet.data_.getCurrentPlayer().addNumCardsUsed((byte)-1);

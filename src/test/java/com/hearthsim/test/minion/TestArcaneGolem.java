@@ -11,6 +11,7 @@ import com.hearthsim.card.minion.concrete.RaidLeader;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.player.playercontroller.BruteForceSearchAI;
 import com.hearthsim.util.HearthActionBoardPair;
@@ -76,9 +77,12 @@ public class TestArcaneGolem {
         Card theCard = board.data_.getCurrentPlayerCardHand(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
         assertEquals(board, ret);
+        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
+
         assertEquals(board.data_.getNumCards_hand(), 0);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 3);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
+        assertEquals(currentPlayer.getNumMinions(), 3);
+        assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 5);
         assertEquals(board.data_.getCurrentPlayer().getMaxMana(), 8);
         assertEquals(board.data_.getWaitingPlayer().getMana(), 9);
@@ -112,8 +116,8 @@ public class TestArcaneGolem {
         BoardModel resBoard = ab.get(ab.size() - 1).board;
 
         assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 0);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getNumMinions(), 3);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(resBoard).getNumMinions(), 2); //1 minion should have been killed
+        assertEquals(resBoard.modelForSide(PlayerSide.CURRENT_PLAYER).getNumMinions(), 3);
+        assertEquals(resBoard.modelForSide(PlayerSide.WAITING_PLAYER).getNumMinions(), 2); //1 minion should have been killed
         assertEquals(resBoard.getCurrentPlayer().getMana(), 0); //3 mana used
         assertEquals(resBoard.getWaitingPlayer().getMana(), 4); //1 mana given by the Arcane Golem
         assertEquals(resBoard.getCurrentPlayerHero().getHealth(), 30);

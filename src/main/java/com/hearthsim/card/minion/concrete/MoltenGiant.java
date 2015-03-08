@@ -12,10 +12,9 @@ public class MoltenGiant extends Minion {
 
     @Override
     public byte getManaCost(PlayerSide side, BoardModel board) {
-        byte manaCost = (byte)(baseManaCost - side.getPlayer(board).getHero().getMaxHealth() + side.getPlayer(board).getHero().getHealth());
+        byte manaCost = (byte)(baseManaCost - board.modelForSide(side).getHero().getMaxHealth() + board.modelForSide(side).getHero().getHealth());
         if (manaCost < 0)
             manaCost = 0;
         return manaCost;
     }
-
 }

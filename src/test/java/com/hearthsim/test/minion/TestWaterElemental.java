@@ -3,6 +3,7 @@ package com.hearthsim.test.minion;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import com.hearthsim.model.PlayerModel;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -42,13 +43,16 @@ public class TestWaterElemental {
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
         assertEquals(board, ret);
 
-        Minion waterElemental = PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0);
+        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
+
+        Minion waterElemental = currentPlayer.getMinions().get(0);
         assertTrue(waterElemental instanceof WaterElemental);
 
         waterElemental.hasAttacked(false); // unset summoning sickness
         Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
         waterElemental.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null, false);
-        assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getFrozen());
+        assertTrue(waitingPlayer.getMinions().get(1).getFrozen());
     }
 
 
@@ -58,7 +62,10 @@ public class TestWaterElemental {
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
         assertEquals(board, ret);
 
-        Minion waterElemental = PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0);
+        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
+
+        Minion waterElemental = currentPlayer.getMinions().get(0);
         assertTrue(waterElemental instanceof WaterElemental);
 
         waterElemental.hasAttacked(false); // unset summoning sickness

@@ -9,6 +9,7 @@ import com.hearthsim.card.minion.concrete.DustDevil;
 import com.hearthsim.card.minion.concrete.GoldshireFootman;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 import org.junit.Before;
@@ -60,26 +61,29 @@ public class TestDustDevil {
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 2, board, deck, null);
 
         assertFalse(ret == null);
+        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
+
         assertEquals(board.data_.getNumCards_hand(), 0);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 3);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
+        assertEquals(currentPlayer.getNumMinions(), 3);
+        assertEquals(waitingPlayer.getNumMinions(), 2);
 
         assertEquals(board.data_.getCurrentPlayer().getMana(), 6);
         assertEquals(board.data_.getWaitingPlayer().getMana(), 7);
 
         assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
         assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getTotalHealth(), 2);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getTotalHealth(), 2);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(2).getTotalHealth(), 1);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getTotalHealth(), 1);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getTotalHealth(), 1);
+        assertEquals(currentPlayer.getMinions().get(0).getTotalHealth(), 2);
+        assertEquals(currentPlayer.getMinions().get(1).getTotalHealth(), 2);
+        assertEquals(currentPlayer.getMinions().get(2).getTotalHealth(), 1);
+        assertEquals(waitingPlayer.getMinions().get(0).getTotalHealth(), 1);
+        assertEquals(waitingPlayer.getMinions().get(1).getTotalHealth(), 1);
 
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack(), 1);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack(), 1);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(2).getTotalAttack(), 3);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack(), 1);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack(), 1);
+        assertEquals(currentPlayer.getMinions().get(0).getTotalAttack(), 1);
+        assertEquals(currentPlayer.getMinions().get(1).getTotalAttack(), 1);
+        assertEquals(currentPlayer.getMinions().get(2).getTotalAttack(), 3);
+        assertEquals(waitingPlayer.getMinions().get(0).getTotalAttack(), 1);
+        assertEquals(waitingPlayer.getMinions().get(1).getTotalAttack(), 1);
 
         //overloaded for 2, so when resetMana is called, it should set the mana to 5
         board.data_.resetMana();

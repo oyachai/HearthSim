@@ -5,6 +5,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.Minion.MinionTribe;
 import com.hearthsim.card.spellcard.SpellDamage;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -44,7 +45,8 @@ public class KillCommand extends SpellDamage {
             boolean singleRealizationOnly)
         throws HSException {
         boolean haveBeast = false;
-        for (final Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(boardState).getMinions()) {
+        PlayerModel currentPlayer = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        for (final Minion minion : currentPlayer.getMinions()) {
             haveBeast = haveBeast || minion.getTribe() == MinionTribe.BEAST;
         }
         if (haveBeast)

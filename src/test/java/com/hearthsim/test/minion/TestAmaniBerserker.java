@@ -2,6 +2,7 @@ package com.hearthsim.test.minion;
 
 import static org.junit.Assert.assertEquals;
 
+import com.hearthsim.model.PlayerModel;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -48,8 +49,11 @@ public class TestAmaniBerserker {
         HearthTreeNode ret = amaniBerserker.attack(PlayerSide.WAITING_PLAYER, croc, board, null, null, false);
         assertEquals(board, ret);
 
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 1);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 1);
+        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
+
+        assertEquals(currentPlayer.getNumMinions(), 1);
+        assertEquals(waitingPlayer.getNumMinions(), 1);
 
         assertEquals(1, amaniBerserker.getHealth());
         assertEquals(1, croc.getHealth());

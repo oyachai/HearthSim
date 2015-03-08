@@ -62,7 +62,7 @@ public class BattleRage extends SpellCard {
         throws HSException {
         HearthTreeNode toRet = super.use_core(targetPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
         if (toRet != null) {
-            PlayerModel playerModel = targetPlayerSide.getPlayer(toRet);
+            PlayerModel playerModel = toRet.data_.modelForSide(targetPlayerSide);
             Hero hero = playerModel.getHero();
             IdentityLinkedList<Minion> minions = playerModel.getMinions();
             int numCardsToDraw = hero.getTotalHealth() < hero.getTotalMaxHealth() ? 1 : 0;

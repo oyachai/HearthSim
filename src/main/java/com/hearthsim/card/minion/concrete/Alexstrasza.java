@@ -31,8 +31,7 @@ public class Alexstrasza extends Minion implements MinionTargetableBattlecry {
             Deck deckPlayer0,
             Deck deckPlayer1
         ) throws HSException {
-        side.getPlayer(boardState).getHero().setHealth((byte)15);
+        boardState.data_.modelForSide(side).getHero().setHealth((byte)15);
         return boardState;
     }
-
 }

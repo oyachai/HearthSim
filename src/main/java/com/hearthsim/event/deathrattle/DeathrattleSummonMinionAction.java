@@ -4,6 +4,7 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -26,8 +27,9 @@ public class DeathrattleSummonMinionAction extends DeathrattleAction {
                                         boolean singleRealizationOnly) throws HSException {
 
         HearthTreeNode toRet = super.performAction(origin, playerSide, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+        PlayerModel targetPlayer = toRet.data_.modelForSide(playerSide);
 
-        int targetIndex = playerSide.getPlayer(boardState).getNumMinions();
+        int targetIndex = targetPlayer.getNumMinions();
         if (origin instanceof Minion) {
             targetIndex = toRet.data_.getMinions(playerSide).indexOf(origin);
             toRet.data_.removeMinion((Minion) origin);
@@ -35,8 +37,8 @@ public class DeathrattleSummonMinionAction extends DeathrattleAction {
         Minion placementTarget = toRet.data_.getCharacter(playerSide, targetIndex);
 
         int numMinionsToActuallySummon = numMinions_;
-        if (playerSide.getPlayer(toRet).getMinions().size() + numMinions_ > 7)
-            numMinionsToActuallySummon = 7 - playerSide.getPlayer(toRet).getMinions().size();
+        if (targetPlayer.getMinions().size() + numMinions_ > 7)
+            numMinionsToActuallySummon = 7 - targetPlayer.getMinions().size();
 
         for (int index = 0; index < numMinionsToActuallySummon; ++index) {
             try {

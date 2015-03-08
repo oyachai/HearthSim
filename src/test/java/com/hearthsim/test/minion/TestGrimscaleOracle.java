@@ -8,6 +8,7 @@ import com.hearthsim.card.minion.concrete.MurlocRaider;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 import org.junit.Before;
@@ -60,22 +61,25 @@ public class TestGrimscaleOracle {
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
 
         assertEquals(board, ret);
+        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), 1);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(2).getHealth(), health1 - 1);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(3).getHealth(), 1);
 
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), health1 - 1);
+        assertEquals(currentPlayer.getMinions().get(0).getHealth(), health0);
+        assertEquals(currentPlayer.getMinions().get(1).getHealth(), 1);
+        assertEquals(currentPlayer.getMinions().get(2).getHealth(), health1 - 1);
+        assertEquals(currentPlayer.getMinions().get(3).getHealth(), 1);
 
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack(), attack0);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack(), 1);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(2).getTotalAttack(), attack0);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(3).getTotalAttack(), 3);
+        assertEquals(waitingPlayer.getMinions().get(0).getHealth(), health0);
+        assertEquals(waitingPlayer.getMinions().get(1).getHealth(), health1 - 1);
 
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack(), attack0);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack(), attack0);
+        assertEquals(currentPlayer.getMinions().get(0).getTotalAttack(), attack0);
+        assertEquals(currentPlayer.getMinions().get(1).getTotalAttack(), 1);
+        assertEquals(currentPlayer.getMinions().get(2).getTotalAttack(), attack0);
+        assertEquals(currentPlayer.getMinions().get(3).getTotalAttack(), 3);
+
+        assertEquals(waitingPlayer.getMinions().get(0).getTotalAttack(), attack0);
+        assertEquals(waitingPlayer.getMinions().get(1).getTotalAttack(), attack0);
     }
 
     @Test
@@ -86,22 +90,24 @@ public class TestGrimscaleOracle {
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, deck, null);
 
         assertEquals(board, ret);
+        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), 1);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(2).getHealth(), health1 - 1);
+        assertEquals(currentPlayer.getMinions().get(0).getHealth(), health0);
+        assertEquals(currentPlayer.getMinions().get(1).getHealth(), 1);
+        assertEquals(currentPlayer.getMinions().get(2).getHealth(), health1 - 1);
 
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), health1 - 1);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(2).getHealth(), 1);
+        assertEquals(waitingPlayer.getMinions().get(0).getHealth(), health0);
+        assertEquals(waitingPlayer.getMinions().get(1).getHealth(), health1 - 1);
+        assertEquals(waitingPlayer.getMinions().get(2).getHealth(), 1);
 
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack(), attack0);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack(), 1);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(2).getTotalAttack(), attack0);
+        assertEquals(currentPlayer.getMinions().get(0).getTotalAttack(), attack0);
+        assertEquals(currentPlayer.getMinions().get(1).getTotalAttack(), 1);
+        assertEquals(currentPlayer.getMinions().get(2).getTotalAttack(), attack0);
 
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack(), attack0);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack(), attack0);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(2).getTotalAttack(), 3);
+        assertEquals(waitingPlayer.getMinions().get(0).getTotalAttack(), attack0);
+        assertEquals(waitingPlayer.getMinions().get(1).getTotalAttack(), attack0);
+        assertEquals(waitingPlayer.getMinions().get(2).getTotalAttack(), 3);
     }
 
     @Test
@@ -114,8 +120,10 @@ public class TestGrimscaleOracle {
         board.data_.placeCardHandCurrentPlayer(murloc);
         ret = murloc.useOn(PlayerSide.CURRENT_PLAYER, 1, board, deck, null);
         assertEquals(board, ret);
+        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), 1);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack(), 3);
+        assertEquals(currentPlayer.getMinions().get(1).getHealth(), 1);
+        assertEquals(currentPlayer.getMinions().get(1).getTotalAttack(), 3);
     }
 }

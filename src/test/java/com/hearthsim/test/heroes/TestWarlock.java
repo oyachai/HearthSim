@@ -12,6 +12,7 @@ import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.card.spellcard.concrete.WildGrowth;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.player.playercontroller.BruteForceSearchAI;
 import com.hearthsim.util.tree.CardDrawNode;
@@ -102,11 +103,14 @@ public class TestWarlock {
         HearthTreeNode ret = warrior.useHeroAbility(PlayerSide.WAITING_PLAYER, target, board, deck, null);
         assertNull(ret);
 
+        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
+
         assertEquals(board.data_.getNumCards_hand(), 1);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
         assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
 
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), 7);
+        assertEquals(currentPlayer.getMinions().get(1).getHealth(), 7);
     }
 
     @Test
@@ -126,8 +130,11 @@ public class TestWarlock {
 
     @Test
     public void testAiCardDrawScore() throws HSException {
+        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
+
         Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
-        Minion minion = PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0);
+        Minion minion = currentPlayer.getMinions().get(0);
         HearthTreeNode ret = minion.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null, false);
         assertEquals(board, ret);
 

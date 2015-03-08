@@ -3,6 +3,7 @@ package com.hearthsim.card.minion.concrete;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -25,7 +26,8 @@ public class HealingTotem extends Minion {
         if (isWaitingPlayer(thisMinionPlayerIndex))
             return tmpState;
 
-        for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(tmpState).getMinions()) {
+        PlayerModel currentPlayer = tmpState.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        for (Minion minion : currentPlayer.getMinions()) {
             tmpState = minion.takeHeal((byte)1, PlayerSide.CURRENT_PLAYER, tmpState, deckPlayer0, deckPlayer1);
         }
 

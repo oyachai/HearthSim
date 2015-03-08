@@ -2,6 +2,7 @@ package com.hearthsim.test;
 
 import static org.junit.Assert.*;
 
+import com.hearthsim.model.PlayerModel;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -51,11 +52,14 @@ public class TestMinionPlacement {
         HearthTreeNode ret = archmage.useOn(PlayerSide.WAITING_PLAYER, 0, this.board, null, null);
         assertNull(ret);
 
+        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
+
         assertEquals(board.data_.getNumCards_hand(), 1);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
         assertEquals(board.data_.getWaitingPlayer().getMana(), 8);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 1);
+        assertEquals(currentPlayer.getNumMinions(), 2);
+        assertEquals(waitingPlayer.getNumMinions(), 1);
     }
 
     @Test
@@ -66,11 +70,14 @@ public class TestMinionPlacement {
         HearthTreeNode ret = archmage.useOn(PlayerSide.WAITING_PLAYER, 1, this.board, null, null);
         assertNull(ret);
 
+        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
+
         assertEquals(board.data_.getNumCards_hand(), 1);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
         assertEquals(board.data_.getWaitingPlayer().getMana(), 8);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 1);
+        assertEquals(currentPlayer.getNumMinions(), 2);
+        assertEquals(waitingPlayer.getNumMinions(), 1);
     }
 
     @Test
@@ -81,16 +88,19 @@ public class TestMinionPlacement {
         HearthTreeNode ret = archmage.useOn(PlayerSide.CURRENT_PLAYER, 0, this.board, null, null);
         assertEquals(board, ret);
 
+        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
+
         assertEquals(board.data_.getNumCards_hand(), 0);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 2);
         assertEquals(board.data_.getWaitingPlayer().getMana(), 8);
 
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 3);
+        assertEquals(currentPlayer.getNumMinions(), 3);
         assertEquals(archmage, this.board.data_.getCurrentPlayerCharacter(1));
         assertEquals(raptor, this.board.data_.getCurrentPlayerCharacter(2));
         assertEquals(yeti, this.board.data_.getCurrentPlayerCharacter(3));
 
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 1);
+        assertEquals(waitingPlayer.getNumMinions(), 1);
     }
 
     @Test
@@ -101,16 +111,19 @@ public class TestMinionPlacement {
         HearthTreeNode ret = archmage.useOn(PlayerSide.CURRENT_PLAYER, 1, this.board, null, null);
         assertEquals(board, ret);
 
+        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
+
         assertEquals(board.data_.getNumCards_hand(), 0);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 2);
         assertEquals(board.data_.getWaitingPlayer().getMana(), 8);
 
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 3);
+        assertEquals(currentPlayer.getNumMinions(), 3);
         assertEquals(raptor, this.board.data_.getCurrentPlayerCharacter(1));
         assertEquals(archmage, this.board.data_.getCurrentPlayerCharacter(2));
         assertEquals(yeti, this.board.data_.getCurrentPlayerCharacter(3));
 
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 1);
+        assertEquals(waitingPlayer.getNumMinions(), 1);
     }
 
     @Test
@@ -121,16 +134,19 @@ public class TestMinionPlacement {
         HearthTreeNode ret = archmage.useOn(PlayerSide.CURRENT_PLAYER, 2, this.board, null, null);
         assertEquals(board, ret);
 
+        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
+
         assertEquals(board.data_.getNumCards_hand(), 0);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 2);
         assertEquals(board.data_.getWaitingPlayer().getMana(), 8);
 
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 3);
+        assertEquals(currentPlayer.getNumMinions(), 3);
         assertEquals(raptor, this.board.data_.getCurrentPlayerCharacter(1));
         assertEquals(yeti, this.board.data_.getCurrentPlayerCharacter(2));
         assertEquals(archmage, this.board.data_.getCurrentPlayerCharacter(3));
 
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 1);
+        assertEquals(waitingPlayer.getNumMinions(), 1);
     }
 
     @Test
@@ -147,11 +163,14 @@ public class TestMinionPlacement {
         HearthTreeNode ret = archmage.useOn(PlayerSide.CURRENT_PLAYER, 1, this.board, null, null);
         assertNull(ret);
 
+        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
+
         assertEquals(board.data_.getNumCards_hand(), 1);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
         assertEquals(board.data_.getWaitingPlayer().getMana(), 8);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 7);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 1);
+        assertEquals(currentPlayer.getNumMinions(), 7);
+        assertEquals(waitingPlayer.getNumMinions(), 1);
     }
 
     @Test

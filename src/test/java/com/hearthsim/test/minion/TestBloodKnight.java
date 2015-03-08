@@ -3,6 +3,7 @@ package com.hearthsim.test.minion;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
+import com.hearthsim.model.PlayerModel;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -47,15 +48,18 @@ public class TestBloodKnight {
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
 
         assertEquals(board, ret);
+        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
+
         assertEquals(board.data_.getNumCards_hand(), 0);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);
+        assertEquals(currentPlayer.getNumMinions(), 2);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 15);
 
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getTotalHealth(), 9);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack(), 9);
+        assertEquals(currentPlayer.getMinions().get(1).getTotalHealth(), 9);
+        assertEquals(currentPlayer.getMinions().get(1).getTotalAttack(), 9);
 
-        assertFalse(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getDivineShield());
-        assertFalse(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getDivineShield());
+        assertFalse(currentPlayer.getMinions().get(0).getDivineShield());
+        assertFalse(waitingPlayer.getMinions().get(0).getDivineShield());
     }
 
     @Test
@@ -66,15 +70,18 @@ public class TestBloodKnight {
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
 
         assertEquals(board, ret);
+        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
+
         assertEquals(board.data_.getNumCards_hand(), 0);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);
+        assertEquals(currentPlayer.getNumMinions(), 2);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 15);
 
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getTotalHealth(), 6);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack(), 6);
+        assertEquals(currentPlayer.getMinions().get(1).getTotalHealth(), 6);
+        assertEquals(currentPlayer.getMinions().get(1).getTotalAttack(), 6);
 
-        assertFalse(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getDivineShield());
-        assertFalse(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getDivineShield());
+        assertFalse(currentPlayer.getMinions().get(0).getDivineShield());
+        assertFalse(waitingPlayer.getMinions().get(0).getDivineShield());
     }
 
     @Test
@@ -85,15 +92,18 @@ public class TestBloodKnight {
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, null, null);
 
         assertEquals(board, ret);
+        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
+
         assertEquals(board.data_.getNumCards_hand(), 0);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);
+        assertEquals(currentPlayer.getNumMinions(), 2);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 15);
 
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getTotalHealth(), 3);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack(), 3);
+        assertEquals(currentPlayer.getMinions().get(1).getTotalHealth(), 3);
+        assertEquals(currentPlayer.getMinions().get(1).getTotalAttack(), 3);
 
-        assertFalse(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getDivineShield());
-        assertFalse(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getDivineShield());
+        assertFalse(currentPlayer.getMinions().get(0).getDivineShield());
+        assertFalse(waitingPlayer.getMinions().get(0).getDivineShield());
     }
 
     @Test
@@ -103,13 +113,16 @@ public class TestBloodKnight {
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, null, null);
         assertEquals(board, ret);
 
+        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
+
         Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 2);
         target.silenced(PlayerSide.CURRENT_PLAYER, board);
 
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getTotalHealth(), 3);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack(), 3);
+        assertEquals(currentPlayer.getMinions().get(1).getTotalHealth(), 3);
+        assertEquals(currentPlayer.getMinions().get(1).getTotalAttack(), 3);
 
-        assertFalse(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getDivineShield());
-        assertFalse(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getDivineShield());
+        assertFalse(currentPlayer.getMinions().get(0).getDivineShield());
+        assertFalse(waitingPlayer.getMinions().get(0).getDivineShield());
     }
 }

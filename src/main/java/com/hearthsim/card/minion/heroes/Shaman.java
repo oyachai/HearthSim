@@ -9,6 +9,7 @@ import com.hearthsim.card.minion.concrete.StoneclawTotem;
 import com.hearthsim.card.minion.concrete.WrathOfAirTotem;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.HearthAction;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -48,7 +49,8 @@ public class Shaman extends Hero {
         if (targetPlayerSide != PlayerSide.CURRENT_PLAYER || isNotHero(targetMinion))
             return null;
 
-        int numMinions = targetPlayerSide.getPlayer(boardState).getNumMinions();
+        PlayerModel currentPlayer = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        int numMinions = currentPlayer.getNumMinions();
         if (numMinions >= 7) {
             return null;
         }

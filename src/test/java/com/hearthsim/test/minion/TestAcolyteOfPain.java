@@ -67,8 +67,8 @@ public class TestAcolyteOfPain {
         BoardModel resBoard = ab.get(ab.size() - 1).board;
 
         assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 2); // 1 card drawn from AcolyteOfPain, not enough mana to play it
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getNumMinions(), 1);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(resBoard).getNumMinions(), 0); // 1 minion should have been killed
+        assertEquals(resBoard.modelForSide(PlayerSide.CURRENT_PLAYER).getNumMinions(), 1);
+        assertEquals(resBoard.modelForSide(PlayerSide.WAITING_PLAYER).getNumMinions(), 0); // 1 minion should have been killed
         assertEquals(resBoard.getCurrentPlayer().getMana(), 1); // 0 mana used
     }
 
@@ -81,8 +81,8 @@ public class TestAcolyteOfPain {
         BoardModel resBoard = ab.get(ab.size() - 1).board;
 
         assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 1); // 1 card drawn from AcolyteOfPain, then played the Bloodfen Raptor
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getNumMinions(), 2);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(resBoard).getNumMinions(), 0); // 1 minion should have been killed
+        assertEquals(resBoard.modelForSide(PlayerSide.CURRENT_PLAYER).getNumMinions(), 2);
+        assertEquals(resBoard.modelForSide(PlayerSide.WAITING_PLAYER).getNumMinions(), 0); // 1 minion should have been killed
         assertEquals(resBoard.getCurrentPlayer().getMana(), 1); // 2 mana used... it's better to put down a Bloodfen Raptor than an Acolyte of Pain
     }
 
@@ -101,8 +101,8 @@ public class TestAcolyteOfPain {
 
         assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 2); // 1 card drawn from AcolyteOfPain
         assertEquals(resBoard.getNumCardsHandWaitingPlayer(), 1); // 1 card drawn from AcolyteOfPain. The Acolytes smack into each other.
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getNumMinions(), 1);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(resBoard).getNumMinions(), 1);
+        assertEquals(resBoard.modelForSide(PlayerSide.CURRENT_PLAYER).getNumMinions(), 1);
+        assertEquals(resBoard.modelForSide(PlayerSide.WAITING_PLAYER).getNumMinions(), 1);
     }
 
     @Test
@@ -129,11 +129,13 @@ public class TestAcolyteOfPain {
         board.data_.placeCardHandCurrentPlayer(assassinate);
         HearthTreeNode ret = assassinate.useOn(PlayerSide.WAITING_PLAYER, enemyAcolyte, board, deck, deck);
         assertEquals(board, ret);
-
         assertFalse(board instanceof CardDrawNode);
+        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
+
         assertEquals(board.data_.getNumCardsHandCurrentPlayer(), 1);
         assertEquals(board.data_.getNumCardsHandWaitingPlayer(), 0);
 
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 0);
+        assertEquals(waitingPlayer.getNumMinions(), 0);
     }
 }

@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import com.hearthsim.model.PlayerModel;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -64,45 +65,48 @@ public class TestAnimalCompanion {
 
         //Use Leokk.  The other minions should now be buffed with +1 attack
         assertEquals(board, ret);
+        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
+
         assertEquals(board.data_.getNumCards_hand(), 1);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 3);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
+        assertEquals(currentPlayer.getNumMinions(), 3);
+        assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
         assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), health1 - 1);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(2).getHealth(), 4);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), health1 - 1);
+        assertEquals(currentPlayer.getMinions().get(0).getHealth(), health0);
+        assertEquals(currentPlayer.getMinions().get(1).getHealth(), health1 - 1);
+        assertEquals(currentPlayer.getMinions().get(2).getHealth(), 4);
+        assertEquals(waitingPlayer.getMinions().get(0).getHealth(), health0);
+        assertEquals(waitingPlayer.getMinions().get(1).getHealth(), health1 - 1);
 
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack(), attack0 + 1);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack(), attack0 + 1);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(2).getTotalAttack(), 2);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack(), attack0);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack(), attack0);
+        assertEquals(currentPlayer.getMinions().get(0).getTotalAttack(), attack0 + 1);
+        assertEquals(currentPlayer.getMinions().get(1).getTotalAttack(), attack0 + 1);
+        assertEquals(currentPlayer.getMinions().get(2).getTotalAttack(), 2);
+        assertEquals(waitingPlayer.getMinions().get(0).getTotalAttack(), attack0);
+        assertEquals(waitingPlayer.getMinions().get(1).getTotalAttack(), attack0);
 
 
         //Now, attack and kill Leokk.  All minions should go back to their original attack
-        Minion minion = PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(2);
+        Minion minion = currentPlayer.getMinions().get(2);
         minion.hasAttacked(false);
         Minion target2 = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
         ret = minion.attack(PlayerSide.WAITING_PLAYER, target2, board, null, null, false);
 
         assertEquals(board, ret);
         assertEquals(board.data_.getNumCards_hand(), 1);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
+        assertEquals(currentPlayer.getNumMinions(), 2);
+        assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
         assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), health1 - 1);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0 - 2);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), health1 - 1);
+        assertEquals(currentPlayer.getMinions().get(0).getHealth(), health0);
+        assertEquals(currentPlayer.getMinions().get(1).getHealth(), health1 - 1);
+        assertEquals(waitingPlayer.getMinions().get(0).getHealth(), health0 - 2);
+        assertEquals(waitingPlayer.getMinions().get(1).getHealth(), health1 - 1);
 
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack(), attack0);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack(), attack0);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack(), attack0);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack(), attack0);
+        assertEquals(currentPlayer.getMinions().get(0).getTotalAttack(), attack0);
+        assertEquals(currentPlayer.getMinions().get(1).getTotalAttack(), attack0);
+        assertEquals(waitingPlayer.getMinions().get(0).getTotalAttack(), attack0);
+        assertEquals(waitingPlayer.getMinions().get(1).getTotalAttack(), attack0);
 
     }
 
@@ -112,28 +116,36 @@ public class TestAnimalCompanion {
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
         assertNotNull(ret); // ret != null because of how AnimalCompanion creates its RNG node
         assertTrue(ret instanceof RandomEffectNode);
+        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
         // Check that the original node is not touched
         assertEquals(1, board.data_.getNumCards_hand());
         assertEquals(4, board.data_.getCurrentPlayer().getMana());
 
-        assertEquals(2, PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions());
-        assertEquals(2, PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions());
+        assertEquals(2, currentPlayer.getNumMinions());
+        assertEquals(2, waitingPlayer.getNumMinions());
 
         //child node 0 = Huffer
         HearthTreeNode c0 = ret.getChildren().get(0);
-        assertEquals(3, PlayerSide.CURRENT_PLAYER.getPlayer(c0).getNumMinions());
-        assertTrue(PlayerSide.CURRENT_PLAYER.getPlayer(c0).getMinions().get(2) instanceof Huffer);
+        currentPlayer = c0.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        waitingPlayer = c0.data_.modelForSide(PlayerSide.WAITING_PLAYER);
+        assertEquals(3, currentPlayer.getNumMinions());
+        assertTrue(currentPlayer.getMinions().get(2) instanceof Huffer);
 
         //child node 1 = Leokk
         HearthTreeNode c1 = ret.getChildren().get(1);
-        assertEquals(3, PlayerSide.CURRENT_PLAYER.getPlayer(c1).getNumMinions());
-        assertTrue(PlayerSide.CURRENT_PLAYER.getPlayer(c1).getMinions().get(2) instanceof Leokk);
+        currentPlayer = c1.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        waitingPlayer = c1.data_.modelForSide(PlayerSide.WAITING_PLAYER);
+        assertEquals(3, currentPlayer.getNumMinions());
+        assertTrue(currentPlayer.getMinions().get(2) instanceof Leokk);
 
         //child node 2 = Misha
         HearthTreeNode c2 = ret.getChildren().get(2);
-        assertEquals(3, PlayerSide.CURRENT_PLAYER.getPlayer(c2).getNumMinions());
-        assertTrue(PlayerSide.CURRENT_PLAYER.getPlayer(c2).getMinions().get(2) instanceof Misha);
+        currentPlayer = c2.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        waitingPlayer = c2.data_.modelForSide(PlayerSide.WAITING_PLAYER);
+        assertEquals(3, currentPlayer.getNumMinions());
+        assertTrue(currentPlayer.getMinions().get(2) instanceof Misha);
     }
 
     @Test

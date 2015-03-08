@@ -211,7 +211,7 @@ public class BoardModel implements DeepCopyable<BoardModel> {
      * @throws HSInvalidPlayerIndexException
      */
     public void placeMinion(PlayerSide playerSide, Minion minion) throws HSInvalidPlayerIndexException {
-        this.placeMinion(playerSide, minion, playerSide.getPlayer(this).getMinions().size());
+        this.placeMinion(playerSide, minion, this.modelForSide(playerSide).getMinions().size());
     }
 
     //-----------------------------------------------------------------------------------
@@ -327,7 +327,7 @@ public class BoardModel implements DeepCopyable<BoardModel> {
     public boolean removeMinion(MinionPlayerPair minionIdPair) throws HSInvalidPlayerIndexException {
         this.allMinionsFIFOList_.remove(minionIdPair);
         removeAuraOfMinion(minionIdPair.getPlayerSide(), minionIdPair.minion);
-        return minionIdPair.getPlayerSide().getPlayer(this).getMinions().remove(minionIdPair.minion);
+        return this.modelForSide(minionIdPair.getPlayerSide()).getMinions().remove(minionIdPair.minion);
     }
 
     public boolean removeMinion(Minion minion) throws HSException {
@@ -380,13 +380,13 @@ public class BoardModel implements DeepCopyable<BoardModel> {
             for (AuraTargetType targetType : targetTypes) {
                 switch (targetType) {
                 case AURA_FRIENDLY_MINIONS:
-                    for (Minion targetMinion : side.getPlayer(this).getMinions()) {
+                    for (Minion targetMinion : this.modelForSide(side).getMinions()) {
                         if (targetMinion != minion)
                             ((MinionWithAura) minion).applyAura(side, targetMinion, this);
                     }
                     break;
                 case AURA_ENEMY_MINIONS:
-                    for (Minion targetMinion : side.getOtherPlayer().getPlayer(this).getMinions()) {
+                    for (Minion targetMinion : this.modelForSide(side.getOtherPlayer()).getMinions()) {
                         ((MinionWithAura) minion).applyAura(side, targetMinion, this);
                     }
                     break;
@@ -404,7 +404,7 @@ public class BoardModel implements DeepCopyable<BoardModel> {
      * @param minion
      */
     public void applyOtherMinionsAura(PlayerSide side, Minion minion) {
-        for (Minion otherMinion : side.getPlayer(this).getMinions()) {
+        for (Minion otherMinion : this.modelForSide(side).getMinions()) {
             if (otherMinion instanceof MinionWithAura &&
                     minion != otherMinion &&
                     !otherMinion.isSilenced() &&
@@ -412,7 +412,7 @@ public class BoardModel implements DeepCopyable<BoardModel> {
                 ((MinionWithAura)otherMinion).applyAura(side, minion, this);
             }
         }
-        for (Minion otherMinion : side.getOtherPlayer().getPlayer(this).getMinions()) {
+        for (Minion otherMinion : this.modelForSide(side.getOtherPlayer()).getMinions()) {
             if (otherMinion instanceof MinionWithAura &&
                     minion != otherMinion &&
                     !otherMinion.isSilenced() &&
@@ -434,13 +434,13 @@ public class BoardModel implements DeepCopyable<BoardModel> {
             for (AuraTargetType targetType : targetTypes) {
                 switch (targetType) {
                 case AURA_FRIENDLY_MINIONS:
-                    for (Minion targetMinion : side.getPlayer(this).getMinions()) {
+                    for (Minion targetMinion : this.modelForSide(side).getMinions()) {
                         if (targetMinion != minion)
                             ((MinionWithAura) minion).removeAura(side, targetMinion, this);
                     }
                     break;
                 case AURA_ENEMY_MINIONS:
-                    for (Minion targetMinion : side.getOtherPlayer().getPlayer(this).getMinions()) {
+                    for (Minion targetMinion : this.modelForSide(side.getOtherPlayer()).getMinions()) {
                         ((MinionWithAura) minion).removeAura(side, targetMinion, this);
                     }
                     break;
@@ -581,11 +581,11 @@ public class BoardModel implements DeepCopyable<BoardModel> {
 
         for (MinionPlayerPair minionPlayerPair : allMinionsFIFOList_) {
 
-            PlayerModel oldPlayerModel = minionPlayerPair.getPlayerSide().getPlayer(this);
+            PlayerModel oldPlayerModel = this.modelForSide(minionPlayerPair.getPlayerSide());
             Minion oldMinion = minionPlayerPair.getMinion();
             int indexOfOldMinion = oldPlayerModel.getMinions().indexOf(oldMinion);
 
-            PlayerModel newPlayerModel = minionPlayerPair.getPlayerSide().getOtherPlayer().getPlayer(newBoard);
+            PlayerModel newPlayerModel = newBoard.modelForSide(minionPlayerPair.getPlayerSide().getOtherPlayer());
             newBoard.allMinionsFIFOList_.add(new MinionPlayerPair(newPlayerModel.getMinions().get(indexOfOldMinion), minionPlayerPair.getPlayerSide().getOtherPlayer()));
         }
 
@@ -598,11 +598,11 @@ public class BoardModel implements DeepCopyable<BoardModel> {
 
         for (MinionPlayerPair minionPlayerPair : allMinionsFIFOList_) {
 
-            PlayerModel oldPlayerModel = minionPlayerPair.getPlayerSide().getPlayer(this);
+            PlayerModel oldPlayerModel = this.modelForSide(minionPlayerPair.getPlayerSide());
             Minion oldMinion = minionPlayerPair.getMinion();
             int indexOfOldMinion = oldPlayerModel.getMinions().indexOf(oldMinion);
 
-            PlayerModel newPlayerModel = minionPlayerPair.getPlayerSide().getPlayer(newBoard);
+            PlayerModel newPlayerModel = newBoard.modelForSide(minionPlayerPair.getPlayerSide());
             newBoard.allMinionsFIFOList_.add(new MinionPlayerPair(newPlayerModel.getMinions().get(indexOfOldMinion), minionPlayerPair.getPlayerSide()));
         }
 

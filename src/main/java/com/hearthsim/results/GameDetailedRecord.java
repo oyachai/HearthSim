@@ -32,12 +32,13 @@ public class GameDetailedRecord implements GameRecord {
         return boards_.get(playerId).size();
     }
 
+    @Deprecated
     @Override
     public int getNumMinions(int playerId, int turn, int currentPlayerId) {
         BoardModel boardModel = boards_.get(currentPlayerId).get(turn);
         PlayerSide playerByIndex = boardModel.getPlayerByIndex(playerId);
         PlayerSide otherPlayer = playerByIndex.getOtherPlayer();
-        return otherPlayer.getPlayer(boardModel).getNumMinions();
+        return boardModel.modelForSide(otherPlayer).getNumMinions();
     }
 
     @Override

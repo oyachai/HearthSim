@@ -4,6 +4,7 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionUntargetableBattlecry;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -25,14 +26,16 @@ public class BloodKnight extends Minion implements MinionUntargetableBattlecry {
             boolean singleRealizationOnly
         ) throws HSException {
         HearthTreeNode toRet = boardState;
-        for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
+        PlayerModel currentPlayer = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        PlayerModel waitingPlayer = boardState.data_.modelForSide(PlayerSide.WAITING_PLAYER);
+        for (Minion minion : currentPlayer.getMinions()) {
             if (minion != this && minion.getDivineShield()) {
                 minion.setDivineShield(false);
                 this.setHealth((byte)(this.getHealth() + 3));
                 this.setAttack((byte)(this.getAttack() + 3));
             }
         }
-        for (Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
+        for (Minion minion : waitingPlayer.getMinions()) {
             if (minion.getDivineShield()) {
                 minion.setDivineShield(false);
                 this.setHealth((byte)(this.getHealth() + 3));
@@ -41,5 +44,4 @@ public class BloodKnight extends Minion implements MinionUntargetableBattlecry {
         }
         return toRet;
     }
-
 }

@@ -8,6 +8,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
+import com.hearthsim.model.PlayerModel;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -98,7 +99,10 @@ public class TestShaman {
         assertTrue(ret instanceof RandomEffectNode);
         assertEquals(ret.getChildren().size(), 4);
 
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);
+        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
+
+        assertEquals(currentPlayer.getNumMinions(), 2);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
     }
 
@@ -194,8 +198,8 @@ public class TestShaman {
 
         assertEquals(resBoard.getCurrentPlayer().getMana(), 6);
         assertEquals(resBoard.getWaitingPlayer().getMana(), 8);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getNumMinions(), 3);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(resBoard).getNumMinions(), 1);
+        assertEquals(resBoard.modelForSide(PlayerSide.CURRENT_PLAYER).getNumMinions(), 3);
+        assertEquals(resBoard.modelForSide(PlayerSide.WAITING_PLAYER).getNumMinions(), 1);
 
         boolean isRightTotem = false;
         isRightTotem = isRightTotem || resBoard.getCurrentPlayer().getMinions().getLast() instanceof HealingTotem;
@@ -204,7 +208,7 @@ public class TestShaman {
         isRightTotem = isRightTotem || resBoard.getCurrentPlayer().getMinions().getLast() instanceof WrathOfAirTotem;
         assertTrue(isRightTotem);
 
-        log.info("{}", PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getMinions().get(2).getClass());
+        log.info("{}", resBoard.modelForSide(PlayerSide.CURRENT_PLAYER).getMinions().get(2).getClass());
     }
 
     @Test
@@ -216,12 +220,15 @@ public class TestShaman {
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new SilverHandRecruit());
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new SilverHandRecruit());
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new SilverHandRecruit());
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 7);
+        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
+
+        assertEquals(currentPlayer.getNumMinions(), 7);
 
         HearthTreeNode ret = shaman.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
         assertNull(ret);
 
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 7);
+        assertEquals(currentPlayer.getNumMinions(), 7);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
     }
 
@@ -230,7 +237,10 @@ public class TestShaman {
         Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
         Hero shaman = board.data_.getCurrentPlayerHero();
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new SearingTotem());
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 3);
+        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
+
+        assertEquals(currentPlayer.getNumMinions(), 3);
 
         HearthTreeNode ret = shaman.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
         assertNotEquals(board, ret);
@@ -246,7 +256,7 @@ public class TestShaman {
         childNode = ret.getChildren().get(2);
         assertFalse(childNode.data_.getCurrentPlayer().getMinions().get(3) instanceof SearingTotem);
 
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 3);
+        assertEquals(currentPlayer.getNumMinions(), 3);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
     }
 
@@ -258,12 +268,15 @@ public class TestShaman {
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new StoneclawTotem());
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new HealingTotem());
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new WrathOfAirTotem());
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 6);
+        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
+
+        assertEquals(currentPlayer.getNumMinions(), 6);
 
         HearthTreeNode ret = shaman.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
         assertNull(ret);
 
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 6);
+        assertEquals(currentPlayer.getNumMinions(), 6);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
     }
 }

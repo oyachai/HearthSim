@@ -5,6 +5,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.HearthAction;
@@ -285,9 +286,12 @@ public class Card implements DeepCopyable<Card> {
         if (!this.canBeUsedOn(side, targetMinion, boardState.data_))
             return null;
 
+        PlayerModel currentPlayer = boardState.data_.getCurrentPlayer();
+        PlayerModel targetPlayer = boardState.data_.modelForSide(side);
+
         // Need to record card and target index *before* the board state changes
-        int cardIndex = PlayerSide.CURRENT_PLAYER.getPlayer(boardState).getHand().indexOf(this);
-        int targetIndex = targetMinion instanceof Hero ? 0 : side.getPlayer(boardState).getMinions()
+        int cardIndex = currentPlayer.getHand().indexOf(this);
+        int targetIndex = targetMinion instanceof Hero ? 0 : targetPlayer.getMinions()
                 .indexOf(targetMinion) + 1;
 
         PlayerSide.CURRENT_PLAYER.getPlayer(boardState).addNumCardsUsed((byte)1);
@@ -342,6 +346,9 @@ public class Card implements DeepCopyable<Card> {
     // ======================================================================================
     protected HearthTreeNode notifyCardPlayBegin(HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1,
             boolean singleRealizationOnly) throws HSException {
+        PlayerModel currentPlayer = boardState.data_.getCurrentPlayer();
+        PlayerModel waitingPlayer = boardState.data_.getWaitingPlayer();
+
         HearthTreeNode toRet = boardState;
         ArrayList<CardPlayBeginInterface> matches = new ArrayList<CardPlayBeginInterface>();
 
@@ -356,7 +363,7 @@ public class Card implements DeepCopyable<Card> {
             matches.add((CardPlayBeginInterface)hero);
         }
 
-        for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
+        for (Minion minion : currentPlayer.getMinions()) {
             if (!minion.isSilenced() && minion instanceof CardPlayBeginInterface) {
                 matches.add((CardPlayBeginInterface)minion);
             }
@@ -379,7 +386,7 @@ public class Card implements DeepCopyable<Card> {
             matches.add((CardPlayBeginInterface)hero);
         }
 
-        for (Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
+        for (Minion minion : waitingPlayer.getMinions()) {
             if (!minion.isSilenced() && minion instanceof CardPlayBeginInterface) {
                 matches.add((CardPlayBeginInterface)minion);
             }
@@ -397,6 +404,9 @@ public class Card implements DeepCopyable<Card> {
 
     protected HearthTreeNode notifyCardPlayResolve(HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1,
             boolean singleRealizationOnly) throws HSException {
+        PlayerModel currentPlayer = boardState.data_.getCurrentPlayer();
+        PlayerModel waitingPlayer = boardState.data_.getWaitingPlayer();
+
         HearthTreeNode toRet = boardState;
         ArrayList<CardPlayAfterInterface> matches = new ArrayList<CardPlayAfterInterface>();
 
@@ -411,7 +421,7 @@ public class Card implements DeepCopyable<Card> {
             matches.add((CardPlayAfterInterface)hero);
         }
 
-        for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions()) {
+        for (Minion minion : currentPlayer.getMinions()) {
             if (!minion.isSilenced() && minion instanceof CardPlayAfterInterface) {
                 matches.add((CardPlayAfterInterface)minion);
             }
@@ -434,7 +444,7 @@ public class Card implements DeepCopyable<Card> {
             matches.add((CardPlayAfterInterface)hero);
         }
 
-        for (Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
+        for (Minion minion : waitingPlayer.getMinions()) {
             if (!minion.isSilenced() && minion instanceof CardPlayAfterInterface) {
                 matches.add((CardPlayAfterInterface)minion);
             }
