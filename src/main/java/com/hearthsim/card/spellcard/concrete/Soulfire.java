@@ -52,7 +52,7 @@ public class Soulfire extends SpellDamage {
             IdentityLinkedList<Card> hand = currentPlayer.getHand();
             if (hand.size() > 0) {
                 Card targetCard = hand.get((int)(Math.random() * hand.size()));
-                toRet.data_.removeCard_hand(targetCard);
+                toRet.data_.getCurrentPlayer().getHand().remove(targetCard);
             }
         } else {
             PlayerModel currentPlayer = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
@@ -73,7 +73,7 @@ public class Soulfire extends SpellDamage {
                         cNode = cCard.callSuperUseOn(side, cTargetMinion, cNode, deckPlayer0, deckPlayer1, false);
                         cNode.data_.getCurrentPlayer().addNumCardsUsed((byte)-1);
                         if (cNode != null) {
-                            cNode.data_.removeCard_hand(cNodePlayer.getHand().get(indx < thisCardIndex ? indx : indx - 1));
+                            cNode.data_.getCurrentPlayer().getHand().remove(cNodePlayer.getHand().get(indx < thisCardIndex ? indx : indx - 1));
                             toRet.addChild(cNode);
                         }
                     }

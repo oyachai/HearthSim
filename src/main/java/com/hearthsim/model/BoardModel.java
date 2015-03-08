@@ -247,6 +247,7 @@ public class BoardModel implements DeepCopyable<BoardModel> {
         waitingPlayer.placeCardHand(card);
     }
 
+    @Deprecated
     public void removeCard_hand(Card card) {
         currentPlayer.getHand().remove(card);
     }

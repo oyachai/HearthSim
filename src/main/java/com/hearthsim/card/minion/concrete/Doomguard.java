@@ -39,7 +39,7 @@ public class Doomguard extends Minion implements MinionUntargetableBattlecry {
             for (int indx = 0; indx < 2; ++indx) {
                 if (hand.size() > 0) {
                     Card targetCard = hand.get((int)(Math.random() * hand.size()));
-                    toRet.data_.removeCard_hand(targetCard);
+                    toRet.data_.getCurrentPlayer().getHand().remove(targetCard);
                 }
             }
         } else {
@@ -54,13 +54,13 @@ public class Doomguard extends Minion implements MinionUntargetableBattlecry {
                 if (hand.size() > 1) {
                     for (int indx1 = indx0+1; indx1 < hand.size(); ++indx1) {
                         HearthTreeNode cNode = new HearthTreeNode(toRet.data_.deepCopy());
-                        cNode.data_.removeCard_hand(cNode.data_.getCurrentPlayer().getHand().get(indx1));
-                        cNode.data_.removeCard_hand(cNode.data_.getCurrentPlayer().getHand().get(indx0)); //indx1 > indx0
+                        cNode.data_.getCurrentPlayer().getHand().remove(cNode.data_.getCurrentPlayer().getHand().get(indx1));
+                        cNode.data_.getCurrentPlayer().getHand().remove(cNode.data_.getCurrentPlayer().getHand().get(indx0)); //indx1 > indx0
                         toRet.addChild(cNode);
                     }
                 } else {
                     HearthTreeNode cNode = new HearthTreeNode(toRet.data_.deepCopy());
-                    cNode.data_.removeCard_hand(cNode.data_.getCurrentPlayer().getHand().get(indx0));
+                    cNode.data_.getCurrentPlayer().getHand().remove(cNode.data_.getCurrentPlayer().getHand().get(indx0));
                     toRet.addChild(cNode);
                 }
             }
