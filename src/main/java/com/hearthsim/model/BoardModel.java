@@ -161,6 +161,7 @@ public class BoardModel implements DeepCopyable<BoardModel> {
         return playerModel.getCharacter(index);
     }
 
+    @Deprecated
     public Minion getCurrentPlayerCharacter(int index) {
         return getMinionForCharacter(PlayerSide.CURRENT_PLAYER, index);
     }

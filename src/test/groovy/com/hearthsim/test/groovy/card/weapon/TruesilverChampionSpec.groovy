@@ -65,7 +65,7 @@ class TruesilverChampionSpec extends CardSpec {
 
     @Ignore("Existing bug")
     def 'cannot overheal before attack'() {
-        startingBoard.getCurrentPlayerCharacter(0).setHealth((byte)30);
+        startingBoard.getCurrentPlayer().getCharacter(0).setHealth((byte)30);
         def copiedBoard = startingBoard.deepCopy()
         def copiedRoot = new HearthTreeNode(copiedBoard)
 
