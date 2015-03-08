@@ -110,6 +110,7 @@ public class BoardModel implements DeepCopyable<BoardModel> {
         return currentPlayer.getHand();
     }
 
+    @Deprecated
     public IdentityLinkedList<Card> getWaitingPlayerHand() {
         return waitingPlayer.getHand();
     }
@@ -128,6 +129,7 @@ public class BoardModel implements DeepCopyable<BoardModel> {
         return model;
     }
 
+    @Deprecated
     public PlayerSide sideForModel(PlayerModel model){
         if (model.equals(currentPlayer)){
             return PlayerSide.CURRENT_PLAYER;
@@ -150,6 +152,7 @@ public class BoardModel implements DeepCopyable<BoardModel> {
         return currentPlayer.getHand().get(index);
     }
 
+    @Deprecated
     public Card getWaitingPlayerCardHand(int index) {
         return waitingPlayer.getHand().get(index);
     }
@@ -163,6 +166,7 @@ public class BoardModel implements DeepCopyable<BoardModel> {
         return getMinionForCharacter(PlayerSide.CURRENT_PLAYER, index);
     }
 
+    @Deprecated
     public Minion getWaitingPlayerCharacter(int index) {
         return getMinionForCharacter(PlayerSide.WAITING_PLAYER, index);
     }
@@ -217,6 +221,7 @@ public class BoardModel implements DeepCopyable<BoardModel> {
     //-----------------------------------------------------------------------------------
     //-----------------------------------------------------------------------------------
 
+    @Deprecated
     public void placeCard_hand(PlayerSide playerSide, Card card) throws HSInvalidPlayerIndexException {
         card.isInHand(true);
         modelForSide(playerSide).getHand().add(card);
