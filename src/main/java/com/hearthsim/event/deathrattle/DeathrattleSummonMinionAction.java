@@ -31,7 +31,7 @@ public class DeathrattleSummonMinionAction extends DeathrattleAction {
 
         int targetIndex = targetPlayer.getNumMinions();
         if (origin instanceof Minion) {
-            targetIndex = toRet.data_.getMinions(playerSide).indexOf(origin);
+            targetIndex = toRet.data_.modelForSide(playerSide).getMinions().indexOf(origin);
             toRet.data_.removeMinion((Minion) origin);
         }
         Minion placementTarget = toRet.data_.getCharacter(playerSide, targetIndex);

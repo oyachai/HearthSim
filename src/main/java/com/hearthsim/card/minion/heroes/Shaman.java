@@ -67,7 +67,7 @@ public class Shaman extends Hero {
             }
             for (int index = 0; index < 4; ++index) {
                 boolean totemAlreadySummoned = false;
-                for (Minion minion : toRet.data_.getMinions(targetPlayerSide)) {
+                for (Minion minion : toRet.data_.modelForSide(targetPlayerSide).getMinions()) {
                     if (minion.getClass().equals(allTotems[index].getClass())) {
                         totemAlreadySummoned = true;
                     }
@@ -92,7 +92,7 @@ public class Shaman extends Hero {
             boolean allTotemsNotSummonable = true;
             for (Minion totemToSummon : totems) {
                 boolean totemAlreadySummoned = false;
-                for (Minion minion : toRet.data_.getMinions(targetPlayerSide)) {
+                for (Minion minion : toRet.data_.modelForSide(targetPlayerSide).getMinions()) {
                     if (minion.getClass().equals(totemToSummon.getClass())) {
                         totemAlreadySummoned = true;
                         break;

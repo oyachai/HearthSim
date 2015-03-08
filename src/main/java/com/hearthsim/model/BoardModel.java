@@ -99,10 +99,6 @@ public class BoardModel implements DeepCopyable<BoardModel> {
         allMinionsFIFOList_ = new IdentityLinkedList<MinionPlayerPair>();
     }
 
-    public IdentityLinkedList<Minion> getMinions(PlayerSide side) throws HSInvalidPlayerIndexException {
-        return modelForSide(side).getMinions();
-    }
-
     public PlayerModel modelForSide(PlayerSide side){
         PlayerModel model;
         switch (side) {
@@ -682,5 +678,10 @@ public class BoardModel implements DeepCopyable<BoardModel> {
     @Deprecated
     public Hero getHero(PlayerSide playerSide) {
         return modelForSide(playerSide).getHero();
+    }
+
+    @Deprecated
+    public IdentityLinkedList<Minion> getMinions(PlayerSide side) throws HSInvalidPlayerIndexException {
+        return modelForSide(side).getMinions();
     }
 }

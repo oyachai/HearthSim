@@ -26,7 +26,7 @@ public class VoidTerror extends Minion implements MinionUntargetableBattlecry {
             boolean singleRealizationOnly
         ) throws HSException {
         HearthTreeNode toRet = boardState;
-        IdentityLinkedList<Minion> minions = boardState.data_.getMinions(PlayerSide.CURRENT_PLAYER);
+        IdentityLinkedList<Minion> minions = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getMinions();
         int thisMinionIndex = minions.indexOf(this);
         if (thisMinionIndex > 0) {
             Minion minionToDestroy = minions.get(thisMinionIndex - 1);
