@@ -72,8 +72,8 @@ public class TestBlessedChampion {
         assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 3);
         assertEquals(board.data_.getWaitingPlayer().getMana(), 8);
-        assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
-        assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
+        assertEquals(board.data_.getCurrentPlayer().getHero().getHealth(), 30);
+        assertEquals(board.data_.getWaitingPlayer().getHero().getHealth(), 30);
         assertEquals(currentPlayer.getMinions().get(0).getTotalHealth(), 2);
         assertEquals(currentPlayer.getMinions().get(1).getTotalHealth(), 7);
         assertEquals(currentPlayer.getMinions().get(2).getTotalHealth(), 6);
@@ -101,8 +101,8 @@ public class TestBlessedChampion {
         assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 3);
         assertEquals(board.data_.getWaitingPlayer().getMana(), 8);
-        assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
-        assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
+        assertEquals(board.data_.getCurrentPlayer().getHero().getHealth(), 30);
+        assertEquals(board.data_.getWaitingPlayer().getHero().getHealth(), 30);
         assertEquals(currentPlayer.getMinions().get(0).getTotalHealth(), 2);
         assertEquals(currentPlayer.getMinions().get(1).getTotalHealth(), 7);
         assertEquals(currentPlayer.getMinions().get(2).getTotalHealth(), 6);

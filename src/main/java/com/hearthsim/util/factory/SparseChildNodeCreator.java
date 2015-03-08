@@ -49,7 +49,7 @@ public class SparseChildNodeCreator extends ChildNodeCreatorBase {
                 int cardPlacementIndex = this.getMinionPlacementIndex(boardStateNode, (Minion)card);
 
                 // actually place the card now
-                targetMinion = boardStateNode.data_.getCurrentPlayerCharacter(cardPlacementIndex);
+                targetMinion = boardStateNode.data_.getCurrentPlayer().getCharacter(cardPlacementIndex);
                 if (card.canBeUsedOn(PlayerSide.CURRENT_PLAYER, targetMinion, boardStateNode.data_)) {
                     newState = new HearthTreeNode(boardStateNode.data_.deepCopy());
                     copiedCard = newState.data_.getCurrentPlayerCardHand(cardIndex);
@@ -62,7 +62,7 @@ public class SparseChildNodeCreator extends ChildNodeCreatorBase {
             } else {
                 // we can use this card! Let's try using it on everything
                 for (int targetIndex = 0; targetIndex <= currentPlayer.getNumMinions(); ++targetIndex) {
-                    targetMinion = boardStateNode.data_.getCurrentPlayerCharacter(targetIndex);
+                    targetMinion = boardStateNode.data_.getCurrentPlayer().getCharacter(targetIndex);
 
                     if (card.canBeUsedOn(PlayerSide.CURRENT_PLAYER, targetMinion, boardStateNode.data_)) {
                         newState = new HearthTreeNode(boardStateNode.data_.deepCopy());
@@ -76,7 +76,7 @@ public class SparseChildNodeCreator extends ChildNodeCreatorBase {
                 }
 
                 for (int targetIndex = 0; targetIndex <= waitingPlayer.getNumMinions(); ++targetIndex) {
-                    targetMinion = boardStateNode.data_.getWaitingPlayerCharacter(targetIndex);
+                    targetMinion = boardStateNode.data_.getWaitingPlayer().getCharacter(targetIndex);
 
                     if (card.canBeUsedOn(PlayerSide.WAITING_PLAYER, targetMinion, boardStateNode.data_)) {
                         newState = new HearthTreeNode(boardStateNode.data_.deepCopy());
@@ -95,7 +95,7 @@ public class SparseChildNodeCreator extends ChildNodeCreatorBase {
         if (!nodes.isEmpty()) {
             newState = new HearthTreeNode(boardStateNode.data_.deepCopy());
             newState.setAction(new HearthAction(Verb.DO_NOT_USE_CARD));
-            for (Card c : newState.data_.getCurrentPlayerHand()) {
+            for (Card c : newState.data_.getCurrentPlayer().getHand()) {
                 c.hasBeenUsed(true);
             }
             nodes.add(newState);

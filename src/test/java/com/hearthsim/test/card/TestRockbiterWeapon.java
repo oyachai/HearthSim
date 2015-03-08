@@ -72,16 +72,16 @@ public class TestRockbiterWeapon {
         assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 9);
         assertEquals(board.data_.getWaitingPlayer().getMana(), 4);
-        assertEquals(board.data_.getCurrentPlayerHero().getExtraAttackUntilTurnEnd(), 3);
-        assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
-        assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
+        assertEquals(board.data_.getCurrentPlayer().getHero().getExtraAttackUntilTurnEnd(), 3);
+        assertEquals(board.data_.getCurrentPlayer().getHero().getHealth(), 30);
+        assertEquals(board.data_.getWaitingPlayer().getHero().getHealth(), 30);
         assertEquals(currentPlayer.getMinions().get(0).getHealth(), health0);
         assertEquals(currentPlayer.getMinions().get(1).getHealth(), health1 - 1);
         assertEquals(waitingPlayer.getMinions().get(0).getHealth(), health0);
         assertEquals(waitingPlayer.getMinions().get(1).getHealth(), health1 - 1);
 
         Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
-        ret = board.data_.getCurrentPlayerHero().attack(PlayerSide.WAITING_PLAYER, target, board, deck, null, false);
+        ret = board.data_.getCurrentPlayer().getHero().attack(PlayerSide.WAITING_PLAYER, target, board, deck, null, false);
 
         assertFalse(ret == null);
         assertEquals(board.data_.getNumCards_hand(), 0);
@@ -89,9 +89,9 @@ public class TestRockbiterWeapon {
         assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 9);
         assertEquals(board.data_.getWaitingPlayer().getMana(), 4);
-        assertEquals(board.data_.getCurrentPlayerHero().getExtraAttackUntilTurnEnd(), 3);
-        assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30 - attack0);
-        assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
+        assertEquals(board.data_.getCurrentPlayer().getHero().getExtraAttackUntilTurnEnd(), 3);
+        assertEquals(board.data_.getCurrentPlayer().getHero().getHealth(), 30 - attack0);
+        assertEquals(board.data_.getWaitingPlayer().getHero().getHealth(), 30);
         assertEquals(currentPlayer.getMinions().get(0).getHealth(), health0);
         assertEquals(currentPlayer.getMinions().get(1).getHealth(), health1 - 1);
         assertEquals(waitingPlayer.getMinions().get(0).getHealth(), health0);
@@ -113,9 +113,9 @@ public class TestRockbiterWeapon {
         assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 9);
         assertEquals(board.data_.getWaitingPlayer().getMana(), 4);
-        assertEquals(board.data_.getCurrentPlayerHero().getExtraAttackUntilTurnEnd(), 0);
-        assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
-        assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
+        assertEquals(board.data_.getCurrentPlayer().getHero().getExtraAttackUntilTurnEnd(), 0);
+        assertEquals(board.data_.getCurrentPlayer().getHero().getHealth(), 30);
+        assertEquals(board.data_.getWaitingPlayer().getHero().getHealth(), 30);
         assertEquals(currentPlayer.getMinions().get(0).getHealth(), health0);
         assertEquals(currentPlayer.getMinions().get(1).getHealth(), health1 - 1);
         assertEquals(waitingPlayer.getMinions().get(0).getHealth(), health0);
@@ -133,8 +133,8 @@ public class TestRockbiterWeapon {
         assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 9);
         assertEquals(board.data_.getWaitingPlayer().getMana(), 4);
-        assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
-        assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
+        assertEquals(board.data_.getCurrentPlayer().getHero().getHealth(), 30);
+        assertEquals(board.data_.getWaitingPlayer().getHero().getHealth(), 30);
         assertEquals(currentPlayer.getMinions().get(0).getHealth(), health1 - 1);
         assertEquals(waitingPlayer.getMinions().get(0).getHealth(), health0);
         assertEquals(waitingPlayer.getMinions().get(1).getHealth(), health1 - 1 - attack0 - 3);

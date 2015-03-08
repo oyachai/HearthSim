@@ -719,10 +719,10 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
             return null;
 
         HearthTreeNode toRet = boardState;
-        toRet.data_.getCurrentPlayer().subtractMana(this.getManaCost(PlayerSide.CURRENT_PLAYER, boardState.data_));
-        toRet.data_.removeCard_hand(this);
-        toRet = this
-                .summonMinion(side, targetMinion, boardState, deckPlayer0, deckPlayer1, true, singleRealizationOnly);
+        PlayerModel currentPlayer = toRet.data_.getCurrentPlayer();
+        currentPlayer.subtractMana(this.getManaCost(PlayerSide.CURRENT_PLAYER, boardState.data_));
+        currentPlayer.getHand().remove(this);
+        toRet = this.summonMinion(side, targetMinion, boardState, deckPlayer0, deckPlayer1, true, singleRealizationOnly);
         return toRet;
     }
 
@@ -977,7 +977,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         PlayerModel currentPlayer = boardState.data_.getCurrentPlayer();
         PlayerModel waitingPlayer = boardState.data_.getWaitingPlayer();
 
-        Card hero = toRet.data_.getCurrentPlayerHero();
+        Card hero = currentPlayer.getHero();
         if (hero instanceof MinionSummonedInterface) {
             matches.add((MinionSummonedInterface)hero);
         }
@@ -994,7 +994,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         }
         matches.clear();
 
-        hero = toRet.data_.getWaitingPlayerHero();
+        hero = waitingPlayer.getHero();
         if (hero instanceof MinionSummonedInterface) {
             matches.add((MinionSummonedInterface)hero);
         }
@@ -1021,7 +1021,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         PlayerModel currentPlayer = boardState.data_.getCurrentPlayer();
         PlayerModel waitingPlayer = boardState.data_.getWaitingPlayer();
 
-        Card hero = toRet.data_.getCurrentPlayerHero();
+        Card hero = currentPlayer.getHero();
         if (hero instanceof MinionPlacedInterface) {
             matches.add((MinionPlacedInterface)hero);
         }
@@ -1038,7 +1038,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         }
         matches.clear();
 
-        hero = toRet.data_.getWaitingPlayerHero();
+        hero = waitingPlayer.getHero();
         if (hero instanceof MinionPlacedInterface) {
             matches.add((MinionPlacedInterface)hero);
         }
@@ -1065,7 +1065,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         PlayerModel currentPlayer = boardState.data_.getCurrentPlayer();
         PlayerModel waitingPlayer = boardState.data_.getWaitingPlayer();
 
-        Card hero = toRet.data_.getCurrentPlayerHero();
+        Card hero = currentPlayer.getHero();
         if (hero instanceof MinionPlayedInterface) {
             matches.add((MinionPlayedInterface)hero);
         }
@@ -1082,7 +1082,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         }
         matches.clear();
 
-        hero = toRet.data_.getWaitingPlayerHero();
+        hero = waitingPlayer.getHero();
         if (hero instanceof MinionPlayedInterface) {
             matches.add((MinionPlayedInterface)hero);
         }
@@ -1109,7 +1109,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         PlayerModel currentPlayer = boardState.data_.getCurrentPlayer();
         PlayerModel waitingPlayer = boardState.data_.getWaitingPlayer();
 
-        Card hero = toRet.data_.getCurrentPlayerHero();
+        Card hero = currentPlayer.getHero();
         if (hero instanceof MinionDamagedInterface) {
             matches.add((MinionDamagedInterface)hero);
         }
@@ -1126,7 +1126,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         }
         matches.clear();
 
-        hero = toRet.data_.getWaitingPlayerHero();
+        hero = waitingPlayer.getHero();
         if (hero instanceof MinionDamagedInterface) {
             matches.add((MinionDamagedInterface)hero);
         }
@@ -1153,7 +1153,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         PlayerModel currentPlayer = boardState.data_.getCurrentPlayer();
         PlayerModel waitingPlayer = boardState.data_.getWaitingPlayer();
 
-        Card hero = toRet.data_.getCurrentPlayerHero();
+        Card hero = currentPlayer.getHero();
         if (hero instanceof MinionDeadInterface) {
             matches.add((MinionDeadInterface)hero);
         }
@@ -1170,7 +1170,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         }
         matches.clear();
 
-        hero = toRet.data_.getWaitingPlayerHero();
+        hero = waitingPlayer.getHero();
         if (hero instanceof MinionDeadInterface) {
             matches.add((MinionDeadInterface)hero);
         }
@@ -1197,7 +1197,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         PlayerModel currentPlayer = boardState.data_.getCurrentPlayer();
         PlayerModel waitingPlayer = boardState.data_.getWaitingPlayer();
 
-        Card hero = toRet.data_.getCurrentPlayerHero();
+        Card hero = currentPlayer.getHero();
         if (hero instanceof MinionHealedInterface) {
             matches.add((MinionHealedInterface)hero);
         }
@@ -1214,7 +1214,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         }
         matches.clear();
 
-        hero = toRet.data_.getWaitingPlayerHero();
+        hero = waitingPlayer.getHero();
         if (hero instanceof MinionHealedInterface) {
             matches.add((MinionHealedInterface)hero);
         }

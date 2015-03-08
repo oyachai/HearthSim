@@ -54,12 +54,12 @@ public class TestWarrior {
         board.data_.getWaitingPlayer().setMaxMana((byte)8);
 
         HearthTreeNode tmpBoard = new HearthTreeNode(board.data_.flipPlayers());
-        tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
-        tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
+        tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayer().getHero(), tmpBoard, deck, null);
+        tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayer().getHero(), tmpBoard, deck, null);
 
         board = new HearthTreeNode(tmpBoard.data_.flipPlayers());
-        board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayerHero(), board, deck, null);
-        board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayerHero(), board, deck, null);
+        board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayer().getHero(), board, deck, null);
+        board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayer().getHero(), board, deck, null);
 
         board.data_.resetMana();
         board.data_.resetMinions();
@@ -69,48 +69,48 @@ public class TestWarrior {
     @Test
     public void testHeropower() throws HSException {
         Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
-        Hero warrior = board.data_.getCurrentPlayerHero();
+        Hero warrior = board.data_.getCurrentPlayer().getHero();
 
         HearthTreeNode ret = warrior.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
         assertEquals(board, ret);
 
-        assertEquals(board.data_.getCurrentPlayerHero().getArmor(), 2);
+        assertEquals(board.data_.getCurrentPlayer().getHero().getArmor(), 2);
     }
 
     @Test
     public void testArmorIsAdditive() throws HSException {
-        Hero hero = board.data_.getCurrentPlayerHero();
+        Hero hero = board.data_.getCurrentPlayer().getHero();
         hero.setArmor((byte)1);
 
         Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0); // Warrior hero
         HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
         assertEquals(board, ret);
-        assertEquals(board.data_.getCurrentPlayerHero().getArmor(), 3);
+        assertEquals(board.data_.getCurrentPlayer().getHero().getArmor(), 3);
     }
 
     @Test
     public void testHeropowerCannotTargetMinion() throws HSException {
         Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
-        Hero warrior = board.data_.getCurrentPlayerHero();
+        Hero warrior = board.data_.getCurrentPlayer().getHero();
 
         HearthTreeNode ret = warrior.useHeroAbility(PlayerSide.WAITING_PLAYER, target, board, deck, null);
         assertNull(ret);
 
         assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
-        assertEquals(board.data_.getCurrentPlayerHero().getArmor(), 0);
-        assertEquals(board.data_.getWaitingPlayerHero().getArmor(), 0);
+        assertEquals(board.data_.getCurrentPlayer().getHero().getArmor(), 0);
+        assertEquals(board.data_.getWaitingPlayer().getHero().getArmor(), 0);
     }
 
     @Test
     public void testHeropowerCannotTargetOpponent() throws HSException {
         Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
-        Hero warrior = board.data_.getCurrentPlayerHero();
+        Hero warrior = board.data_.getCurrentPlayer().getHero();
 
         HearthTreeNode ret = warrior.useHeroAbility(PlayerSide.WAITING_PLAYER, target, board, deck, null);
         assertNull(ret);
 
         assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
-        assertEquals(board.data_.getCurrentPlayerHero().getArmor(), 0);
-        assertEquals(board.data_.getWaitingPlayerHero().getArmor(), 0);
+        assertEquals(board.data_.getCurrentPlayer().getHero().getArmor(), 0);
+        assertEquals(board.data_.getWaitingPlayer().getHero().getArmor(), 0);
     }
 }

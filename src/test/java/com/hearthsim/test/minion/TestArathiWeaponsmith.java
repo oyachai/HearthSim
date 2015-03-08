@@ -54,8 +54,8 @@ public class TestArathiWeaponsmith {
         PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
         assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
-        assertEquals(board.data_.getCurrentPlayerHero().getWeapon().getWeaponCharge(), 2);
-        assertEquals(board.data_.getCurrentPlayerHero().getTotalAttack(), 3);
+        assertEquals(board.data_.getCurrentPlayer().getHero().getWeapon().getWeaponCharge(), 2);
+        assertEquals(board.data_.getCurrentPlayer().getHero().getTotalAttack(), 3);
 
         Card theCard = board.data_.getCurrentPlayerCardHand(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);

@@ -67,35 +67,35 @@ public class TestClaw {
         assertEquals(board.data_.getNumCards_hand(), 0);
         assertEquals(currentPlayer.getNumMinions(), 2);
         assertEquals(waitingPlayer.getNumMinions(), 2);
-        assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
-        assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
-        assertEquals(board.data_.getCurrentPlayerHero().getTotalAttack(), 2);
-        assertEquals(board.data_.getCurrentPlayerHero().getExtraAttackUntilTurnEnd(), 2);
-        assertEquals(board.data_.getCurrentPlayerHero().getArmor(), 2);
+        assertEquals(board.data_.getCurrentPlayer().getHero().getHealth(), 30);
+        assertEquals(board.data_.getWaitingPlayer().getHero().getHealth(), 30);
+        assertEquals(board.data_.getCurrentPlayer().getHero().getTotalAttack(), 2);
+        assertEquals(board.data_.getCurrentPlayer().getHero().getExtraAttackUntilTurnEnd(), 2);
+        assertEquals(board.data_.getCurrentPlayer().getHero().getArmor(), 2);
         assertEquals(currentPlayer.getMinions().get(0).getHealth(), health0);
         assertEquals(currentPlayer.getMinions().get(1).getHealth(), health1 - 1);
         assertEquals(waitingPlayer.getMinions().get(0).getHealth(), health0);
         assertEquals(waitingPlayer.getMinions().get(1).getHealth(), health1 - 1);
 
         Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
-        ret = board.data_.getCurrentPlayerHero().attack(PlayerSide.WAITING_PLAYER, target, board, deck, null, false);
+        ret = board.data_.getCurrentPlayer().getHero().attack(PlayerSide.WAITING_PLAYER, target, board, deck, null, false);
         assertFalse(ret == null);
         assertEquals(currentPlayer.getNumMinions(), 2);
         assertEquals(waitingPlayer.getNumMinions(), 2);
-        assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 27);
-        assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
-        assertEquals(board.data_.getCurrentPlayerHero().getTotalAttack(), 2);
-        assertEquals(board.data_.getCurrentPlayerHero().getExtraAttackUntilTurnEnd(), 2);
-        assertEquals(board.data_.getCurrentPlayerHero().getArmor(), 0);
+        assertEquals(board.data_.getCurrentPlayer().getHero().getHealth(), 27);
+        assertEquals(board.data_.getWaitingPlayer().getHero().getHealth(), 30);
+        assertEquals(board.data_.getCurrentPlayer().getHero().getTotalAttack(), 2);
+        assertEquals(board.data_.getCurrentPlayer().getHero().getExtraAttackUntilTurnEnd(), 2);
+        assertEquals(board.data_.getCurrentPlayer().getHero().getArmor(), 0);
         assertEquals(currentPlayer.getMinions().get(0).getHealth(), health0);
         assertEquals(currentPlayer.getMinions().get(1).getHealth(), health1 - 1);
         assertEquals(waitingPlayer.getMinions().get(0).getHealth(), health0 - 2);
         assertEquals(waitingPlayer.getMinions().get(1).getHealth(), health1 - 1);
 
 
-        board.data_.getCurrentPlayerHero().endTurn(PlayerSide.CURRENT_PLAYER, board, deck, null);
-        assertEquals(board.data_.getCurrentPlayerHero().getTotalAttack(), 0);
-        assertEquals(board.data_.getCurrentPlayerHero().getArmor(), 0);
+        board.data_.getCurrentPlayer().getHero().endTurn(PlayerSide.CURRENT_PLAYER, board, deck, null);
+        assertEquals(board.data_.getCurrentPlayer().getHero().getTotalAttack(), 0);
+        assertEquals(board.data_.getCurrentPlayer().getHero().getArmor(), 0);
 
     }
 

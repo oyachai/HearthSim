@@ -52,8 +52,8 @@ public class TestSpellDamageAoe {
 
         assertEquals(board.data_.getCurrentPlayer().getMana(), 1);
         assertEquals(board.data_.getNumCards_hand(), 0);
-        assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
-        assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
+        assertEquals(board.data_.getCurrentPlayer().getHero().getHealth(), 30);
+        assertEquals(board.data_.getWaitingPlayer().getHero().getHealth(), 30);
 
         assertEquals(board.data_.getCurrentPlayer().getNumMinions(), 1);
         assertEquals(board.data_.getWaitingPlayer().getNumMinions(), 2);
@@ -79,8 +79,8 @@ public class TestSpellDamageAoe {
 
         assertEquals(board.data_.getCurrentPlayer().getMana(), 1);
         assertEquals(board.data_.getNumCards_hand(), 1);
-        assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
-        assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 28);
+        assertEquals(board.data_.getCurrentPlayer().getHero().getHealth(), 30);
+        assertEquals(board.data_.getWaitingPlayer().getHero().getHealth(), 28);
 
         assertEquals(board.data_.getCurrentPlayer().getNumMinions(), 1);
         assertEquals(board.data_.getWaitingPlayer().getNumMinions(), 2);
@@ -106,8 +106,8 @@ public class TestSpellDamageAoe {
 
         assertEquals(board.data_.getCurrentPlayer().getMana(), 1);
         assertEquals(board.data_.getNumCards_hand(), 1);
-        assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 27);
-        assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 27);
+        assertEquals(board.data_.getCurrentPlayer().getHero().getHealth(), 27);
+        assertEquals(board.data_.getWaitingPlayer().getHero().getHealth(), 27);
 
         assertEquals(board.data_.getCurrentPlayer().getNumMinions(), 1);
         assertEquals(board.data_.getWaitingPlayer().getNumMinions(), 2);
@@ -132,8 +132,8 @@ public class TestSpellDamageAoe {
 
         assertEquals(board.data_.getCurrentPlayer().getMana(), 1);
         assertEquals(board.data_.getNumCards_hand(), 0);
-        assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
-        assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
+        assertEquals(board.data_.getCurrentPlayer().getHero().getHealth(), 30);
+        assertEquals(board.data_.getWaitingPlayer().getHero().getHealth(), 30);
 
         assertEquals(board.data_.getCurrentPlayer().getNumMinions(), 2);
         assertEquals(board.data_.getWaitingPlayer().getNumMinions(), 2);

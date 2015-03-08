@@ -27,7 +27,7 @@ public class Onyxia extends Minion implements MinionUntargetableBattlecry  {
         while (currentPlayer.getMinions().size() < 7) {
             Minion placementTarget = null;
             if (currentPlayer.getMinions().size() % 2 == 0) {
-                placementTarget = toRet.data_.getCurrentPlayerCharacter(currentPlayer.getMinions().indexOf(this));
+                placementTarget = toRet.data_.getCurrentPlayer().getCharacter(currentPlayer.getMinions().indexOf(this));
             } else {
                 placementTarget = this;
             }

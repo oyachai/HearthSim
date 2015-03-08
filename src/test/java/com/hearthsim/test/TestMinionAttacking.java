@@ -68,8 +68,8 @@ public class TestMinionAttacking {
         ret = theAttacker.attack(PlayerSide.WAITING_PLAYER, target, board, null, null, false);
         assertEquals(board, ret);
 
-        assertEquals(30, board.data_.getCurrentPlayerHero().getHealth());
-        assertEquals(28, board.data_.getWaitingPlayerHero().getHealth());
+        assertEquals(30, board.data_.getCurrentPlayer().getHero().getHealth());
+        assertEquals(28, board.data_.getWaitingPlayer().getHero().getHealth());
     }
 
     @Test
@@ -91,7 +91,7 @@ public class TestMinionAttacking {
         ret = theAttacker.attack(PlayerSide.WAITING_PLAYER, target, board, null, null, false);
         assertNull(ret);
 
-        assertEquals(30, board.data_.getWaitingPlayerHero().getHealth());
+        assertEquals(30, board.data_.getWaitingPlayer().getHero().getHealth());
     }
 
     @Test
@@ -101,8 +101,8 @@ public class TestMinionAttacking {
         assertEquals(board, ret);
 
         assertFalse(raptor.canAttack());
-        assertEquals(30, board.data_.getCurrentPlayerHero().getHealth());
-        assertEquals(27, board.data_.getWaitingPlayerHero().getHealth());
+        assertEquals(30, board.data_.getCurrentPlayer().getHero().getHealth());
+        assertEquals(27, board.data_.getWaitingPlayer().getHero().getHealth());
     }
 
     @Test
@@ -155,8 +155,8 @@ public class TestMinionAttacking {
         assertEquals(board, ret);
 
         assertFalse(raptor.getStealthed());
-        assertEquals(30, board.data_.getCurrentPlayerHero().getHealth());
-        assertEquals(27, board.data_.getWaitingPlayerHero().getHealth());
+        assertEquals(30, board.data_.getCurrentPlayer().getHero().getHealth());
+        assertEquals(27, board.data_.getWaitingPlayer().getHero().getHealth());
     }
 
     @Test
@@ -165,8 +165,8 @@ public class TestMinionAttacking {
         HearthTreeNode ret = raptor.attack(PlayerSide.CURRENT_PLAYER, target, board, null, null, false);
         assertNull(ret);
 
-        assertEquals(30, board.data_.getCurrentPlayerHero().getHealth());
-        assertEquals(30, board.data_.getWaitingPlayerHero().getHealth());
+        assertEquals(30, board.data_.getCurrentPlayer().getHero().getHealth());
+        assertEquals(30, board.data_.getWaitingPlayer().getHero().getHealth());
     }
 
     @Test
@@ -189,16 +189,16 @@ public class TestMinionAttacking {
 
         assertTrue(raptor.hasWindFuryAttacked());
         assertTrue(raptor.canAttack());
-        assertEquals(30, board.data_.getCurrentPlayerHero().getHealth());
-        assertEquals(27, board.data_.getWaitingPlayerHero().getHealth());
+        assertEquals(30, board.data_.getCurrentPlayer().getHero().getHealth());
+        assertEquals(27, board.data_.getWaitingPlayer().getHero().getHealth());
 
         ret = raptor.attack(PlayerSide.WAITING_PLAYER, target, board, null, null, false);
         assertEquals(board, ret);
 
         assertTrue(raptor.hasWindFuryAttacked());
         assertFalse(raptor.canAttack());
-        assertEquals(30, board.data_.getCurrentPlayerHero().getHealth());
-        assertEquals(24, board.data_.getWaitingPlayerHero().getHealth());
+        assertEquals(30, board.data_.getCurrentPlayer().getHero().getHealth());
+        assertEquals(24, board.data_.getWaitingPlayer().getHero().getHealth());
     }
 
     @Test
@@ -209,8 +209,8 @@ public class TestMinionAttacking {
 
         assertFalse(raptor.hasWindFuryAttacked());
         assertFalse(raptor.canAttack());
-        assertEquals(30, board.data_.getCurrentPlayerHero().getHealth());
-        assertEquals(27, board.data_.getWaitingPlayerHero().getHealth());
+        assertEquals(30, board.data_.getCurrentPlayer().getHero().getHealth());
+        assertEquals(27, board.data_.getWaitingPlayer().getHero().getHealth());
 
         raptor.setWindfury(true);
         assertTrue(raptor.hasWindFuryAttacked());
@@ -221,8 +221,8 @@ public class TestMinionAttacking {
 
         assertTrue(raptor.hasWindFuryAttacked());
         assertFalse(raptor.canAttack());
-        assertEquals(30, board.data_.getCurrentPlayerHero().getHealth());
-        assertEquals(24, board.data_.getWaitingPlayerHero().getHealth());
+        assertEquals(30, board.data_.getCurrentPlayer().getHero().getHealth());
+        assertEquals(24, board.data_.getWaitingPlayer().getHero().getHealth());
     }
 
     @Test
@@ -234,8 +234,8 @@ public class TestMinionAttacking {
         assertEquals(board, ret);
 
         assertFalse(raptor.canAttack());
-        assertEquals(30, board.data_.getCurrentPlayerHero().getHealth());
-        assertEquals(25, board.data_.getWaitingPlayerHero().getHealth());
+        assertEquals(30, board.data_.getCurrentPlayer().getHero().getHealth());
+        assertEquals(25, board.data_.getWaitingPlayer().getHero().getHealth());
 
         assertEquals(2, raptor.getExtraAttackUntilTurnEnd());
     }

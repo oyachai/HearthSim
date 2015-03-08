@@ -58,7 +58,7 @@ public class HeroicStrike extends SpellCard {
         throws HSException {
         HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
         if (toRet != null) {
-            toRet.data_.getCurrentPlayerHero().setExtraAttackUntilTurnEnd((byte)(DAMAGE_AMOUNT + toRet.data_.getCurrentPlayerHero().getExtraAttackUntilTurnEnd()));
+            toRet.data_.getCurrentPlayer().getHero().setExtraAttackUntilTurnEnd((byte)(DAMAGE_AMOUNT + toRet.data_.getCurrentPlayer().getHero().getExtraAttackUntilTurnEnd()));
         }
 
         return toRet;

@@ -46,7 +46,7 @@ public class WeightedScorer implements BoardScorer, DeepCopyable<WeightedScorer>
         IdentityLinkedList<Card> myHandCards;
         myBoardMinions = board.getCurrentPlayer().getMinions();
         opBoardMinions = board.getWaitingPlayer().getMinions();
-        myHandCards = board.getCurrentPlayerHand();
+        myHandCards = board.getCurrentPlayer().getHand();
 
         // my board score
         double boardScore = 0.0;

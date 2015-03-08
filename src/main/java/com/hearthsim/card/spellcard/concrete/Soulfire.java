@@ -59,20 +59,21 @@ public class Soulfire extends SpellDamage {
             PlayerModel targetPlayer = boardState.data_.modelForSide(side);
             int targetCharacterIndex = targetMinion instanceof Hero ? 0 : targetPlayer.getMinions().indexOf(targetMinion) + 1;
             int thisCardIndex = currentPlayer.getHand().indexOf(this);
-            if (boardState.data_.getCurrentPlayerHand().size() == 1) {
+            if (currentPlayer.getHand().size() == 1) {
                 toRet = this.callSuperUseOn(side, targetMinion, boardState, deckPlayer0, deckPlayer1, false);
                 toRet.data_.getCurrentPlayer().addNumCardsUsed((byte)-1);
             } else {
                 toRet = new RandomEffectNode(boardState, new HearthAction(HearthAction.Verb.USE_CARD, PlayerSide.CURRENT_PLAYER, thisCardIndex, side, targetCharacterIndex));
-                for (int indx = 0; indx < toRet.data_.getCurrentPlayerHand().size(); ++indx) {
+                for (int indx = 0; indx < currentPlayer.getHand().size(); ++indx) {
                     if (indx != thisCardIndex) {
                         HearthTreeNode cNode = new HearthTreeNode(toRet.data_.deepCopy());
+                        PlayerModel cNodePlayer = cNode.data_.getCurrentPlayer();
                         Minion cTargetMinion = cNode.data_.getCharacter(side, targetCharacterIndex);
-                        Soulfire cCard = (Soulfire)cNode.data_.getCurrentPlayerHand().get(thisCardIndex);
+                        Soulfire cCard = (Soulfire)cNodePlayer.getHand().get(thisCardIndex);
                         cNode = cCard.callSuperUseOn(side, cTargetMinion, cNode, deckPlayer0, deckPlayer1, false);
                         cNode.data_.getCurrentPlayer().addNumCardsUsed((byte)-1);
                         if (cNode != null) {
-                            cNode.data_.removeCard_hand(cNode.data_.getCurrentPlayerHand().get(indx < thisCardIndex ? indx : indx - 1));
+                            cNode.data_.removeCard_hand(cNodePlayer.getHand().get(indx < thisCardIndex ? indx : indx - 1));
                             toRet.addChild(cNode);
                         }
                     }

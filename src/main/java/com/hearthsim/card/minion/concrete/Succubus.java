@@ -42,7 +42,7 @@ public class Succubus extends Minion  implements MinionUntargetableBattlecry {
         } else {
             int placementTargetIndex = minionPlacementTarget instanceof Hero ? 0 : currentPlayer.getMinions().indexOf(minionPlacementTarget) + 1;
             int thisMinionIndex = currentPlayer.getMinions().indexOf(this) + 1;
-            IdentityLinkedList<Card> hand = toRet.data_.getCurrentPlayerHand();
+            IdentityLinkedList<Card> hand = currentPlayer.getHand();
             if (hand.size() == 0) {
                 return toRet;
             }

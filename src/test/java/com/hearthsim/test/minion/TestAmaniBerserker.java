@@ -41,7 +41,7 @@ public class TestAmaniBerserker {
         Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
         HearthTreeNode ret = amaniBerserker.attack(PlayerSide.WAITING_PLAYER, target, board, null, null, false);
         assertEquals(board, ret);
-        assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 28);
+        assertEquals(board.data_.getWaitingPlayer().getHero().getHealth(), 28);
     }
 
     @Test

@@ -26,7 +26,7 @@ public class PriestessOfElune extends Minion implements MinionUntargetableBattle
             boolean singleRealizationOnly
         ) throws HSException {
         HearthTreeNode toRet = boardState;
-        toRet = toRet.data_.getCurrentPlayerHero().takeHeal((byte)4, PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1);
+        toRet = toRet.data_.getCurrentPlayer().getHero().takeHeal((byte)4, PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1);
         return toRet;
     }
 

@@ -37,13 +37,13 @@ public class TestNightblade {
 
         assertEquals(board.data_.getNumCards_hand(), 0);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 5);
-        assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
-        assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 27);
+        assertEquals(board.data_.getCurrentPlayer().getHero().getHealth(), 30);
+        assertEquals(board.data_.getWaitingPlayer().getHero().getHealth(), 27);
     }
 
     @Test
     public void testKillsEnemyHero() throws HSException {
-        board.data_.getWaitingPlayerHero().setHealth((byte)2);
+        board.data_.getWaitingPlayer().getHero().setHealth((byte)2);
 
         Card theCard = board.data_.getCurrentPlayerCardHand(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
@@ -51,8 +51,8 @@ public class TestNightblade {
 
         assertEquals(board.data_.getNumCards_hand(), 0);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 5);
-        assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
-        assertEquals(board.data_.getWaitingPlayerHero().getHealth(), -1);
+        assertEquals(board.data_.getCurrentPlayer().getHero().getHealth(), 30);
+        assertEquals(board.data_.getWaitingPlayer().getHero().getHealth(), -1);
 
         assertTrue(board.data_.isLethalState());
     }

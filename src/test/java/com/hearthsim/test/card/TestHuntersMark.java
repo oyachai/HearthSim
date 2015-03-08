@@ -60,7 +60,7 @@ public class TestHuntersMark {
 
     @Test
     public void test2() throws HSException {
-        board.data_.getCurrentPlayerHero().setHealth((byte)23);
+        board.data_.getCurrentPlayer().getHero().setHealth((byte)23);
         Card theCard = board.data_.getCurrentPlayerCardHand(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 1, board, deck, null);
 
@@ -73,8 +73,8 @@ public class TestHuntersMark {
         assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 7);
         assertEquals(board.data_.getWaitingPlayer().getMana(), 4);
-        assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 23);
-        assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
+        assertEquals(board.data_.getCurrentPlayer().getHero().getHealth(), 23);
+        assertEquals(board.data_.getWaitingPlayer().getHero().getHealth(), 30);
         assertEquals(currentPlayer.getMinions().get(0).getHealth(), health0);
         assertEquals(currentPlayer.getMinions().get(1).getHealth(), health1 - 1);
         assertEquals(waitingPlayer.getMinions().get(0).getHealth(), 1);
@@ -88,7 +88,7 @@ public class TestHuntersMark {
 
     @Test
     public void test3() throws HSException {
-        board.data_.getCurrentPlayerHero().setHealth((byte)23);
+        board.data_.getCurrentPlayer().getHero().setHealth((byte)23);
         Card theCard = board.data_.getCurrentPlayerCardHand(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, deck, null);
 
@@ -101,8 +101,8 @@ public class TestHuntersMark {
         assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 7);
         assertEquals(board.data_.getWaitingPlayer().getMana(), 4);
-        assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 23);
-        assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
+        assertEquals(board.data_.getCurrentPlayer().getHero().getHealth(), 23);
+        assertEquals(board.data_.getWaitingPlayer().getHero().getHealth(), 30);
         assertEquals(currentPlayer.getMinions().get(0).getHealth(), 1);
         assertEquals(currentPlayer.getMinions().get(1).getHealth(), health1 - 1);
         assertEquals(waitingPlayer.getMinions().get(0).getHealth(), health0);

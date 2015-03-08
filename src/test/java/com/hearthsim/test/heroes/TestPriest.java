@@ -59,14 +59,14 @@ public class TestPriest {
 
         HearthTreeNode tmpBoard = new HearthTreeNode(board.data_.flipPlayers());
         tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER,
-                tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
+                tmpBoard.data_.getCurrentPlayer().getHero(), tmpBoard, deck, null);
         tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER,
-                tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
+                tmpBoard.data_.getCurrentPlayer().getHero(), tmpBoard, deck, null);
 
         board = new HearthTreeNode(tmpBoard.data_.flipPlayers());
-        board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayerHero(),
+        board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayer().getHero(),
                 board, deck, null);
-        board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayerHero(),
+        board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayer().getHero(),
                 board, deck, null);
 
         board.data_.resetMana();
@@ -95,8 +95,8 @@ public class TestPriest {
         assertEquals(bestPlay.data_.getWaitingPlayer().getNumMinions(), 1);
         assertEquals(bestPlay.data_.getCurrentPlayer().getMana(), 6);
         assertEquals(bestPlay.data_.getWaitingPlayer().getMana(), 8);
-        assertEquals(bestPlay.data_.getCurrentPlayerHero().getHealth(), 30);
-        assertEquals(bestPlay.data_.getWaitingPlayerHero().getHealth(), 30);
+        assertEquals(bestPlay.data_.getCurrentPlayer().getHero().getHealth(), 30);
+        assertEquals(bestPlay.data_.getWaitingPlayer().getHero().getHealth(), 30);
         assertEquals(bestPlay.data_.getCurrentPlayer().getMinions().get(0).getHealth(), 3);
         assertEquals(bestPlay.data_.getCurrentPlayer().getMinions().get(1).getHealth(), 1);
         assertEquals(bestPlay.data_.getWaitingPlayer().getMinions().get(0).getHealth(), 5);
@@ -135,8 +135,8 @@ public class TestPriest {
         assertEquals(bestPlay.data_.getWaitingPlayer().getNumMinions(), 1);
         assertEquals(bestPlay.data_.getCurrentPlayer().getMana(), 6);
         assertEquals(bestPlay.data_.getWaitingPlayer().getMana(), 8);
-        assertEquals(bestPlay.data_.getCurrentPlayerHero().getHealth(), 30);
-        assertEquals(bestPlay.data_.getWaitingPlayerHero().getHealth(), 30);
+        assertEquals(bestPlay.data_.getCurrentPlayer().getHero().getHealth(), 30);
+        assertEquals(bestPlay.data_.getWaitingPlayer().getHero().getHealth(), 30);
         assertEquals(bestPlay.data_.getCurrentPlayer().getMinions().get(0).getHealth(), 1);
         assertEquals(bestPlay.data_.getCurrentPlayer().getMinions().get(1).getHealth(), 1);
         assertEquals(bestPlay.data_.getWaitingPlayer().getMinions().get(0).getHealth(), 5);
@@ -152,13 +152,13 @@ public class TestPriest {
         Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0); // Opponent hero
         target.setHealth((byte)20);
 
-        Hero priest = board.data_.getCurrentPlayerHero();
+        Hero priest = board.data_.getCurrentPlayer().getHero();
 
         HearthTreeNode ret = priest.useHeroAbility(PlayerSide.WAITING_PLAYER, target, board, deck, null);
         assertEquals(board, ret);
 
         assertEquals(board.data_.getCurrentPlayer().getMana(), 6);
-        assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 22);
+        assertEquals(board.data_.getWaitingPlayer().getHero().getHealth(), 22);
     }
 
     @Test
@@ -166,7 +166,7 @@ public class TestPriest {
         Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
         target.setHealth((byte)1);
 
-        Hero priest = board.data_.getCurrentPlayerHero();
+        Hero priest = board.data_.getCurrentPlayer().getHero();
 
         HearthTreeNode ret = priest.useHeroAbility(PlayerSide.WAITING_PLAYER, target, board, deck, null);
         assertEquals(board, ret);
@@ -183,13 +183,13 @@ public class TestPriest {
         Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0); // Self
         target.setHealth((byte)20);
 
-        Hero priest = board.data_.getCurrentPlayerHero();
+        Hero priest = board.data_.getCurrentPlayer().getHero();
 
         HearthTreeNode ret = priest.useHeroAbility(PlayerSide.WAITING_PLAYER, target, board, deck, null);
         assertEquals(board, ret);
 
         assertEquals(board.data_.getCurrentPlayer().getMana(), 6);
-        assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 22);
+        assertEquals(board.data_.getCurrentPlayer().getHero().getHealth(), 22);
     }
 
     @Test
@@ -197,7 +197,7 @@ public class TestPriest {
         Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
         target.setHealth((byte)1);
 
-        Hero priest = board.data_.getCurrentPlayerHero();
+        Hero priest = board.data_.getCurrentPlayer().getHero();
 
         HearthTreeNode ret = priest.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
         assertEquals(board, ret);

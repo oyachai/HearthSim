@@ -4,6 +4,7 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -74,8 +75,9 @@ public class SpellDamageAoe extends SpellDamage {
         }
 
         if (boardState != null) {
-            boardState.data_.getCurrentPlayer().subtractMana(this.getManaCost(side, boardState.data_));
-            boardState.data_.removeCard_hand(this);
+            PlayerModel currentPlayer = boardState.data_.getCurrentPlayer();
+            currentPlayer.subtractMana(this.getManaCost(side, boardState.data_));
+            currentPlayer.getHand().remove(this);
         }
         return boardState;
     }

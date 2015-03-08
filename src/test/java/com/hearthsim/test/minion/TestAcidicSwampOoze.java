@@ -36,13 +36,13 @@ public class TestAcidicSwampOoze {
     @Test
     public void testDestroysWeapon() throws HSException {
         FieryWarAxe axe = new FieryWarAxe();
-        board.data_.getWaitingPlayerHero().setWeapon(axe);
+        board.data_.getWaitingPlayer().getHero().setWeapon(axe);
 
-        assertEquals(board.data_.getCurrentPlayerHero().getTotalAttack(), 0);
-        assertNull(board.data_.getCurrentPlayerHero().getWeapon());
-        assertEquals(board.data_.getWaitingPlayerHero().getWeapon(), axe);
-        assertEquals(board.data_.getWaitingPlayerHero().getTotalAttack(), 3);
-        assertEquals(board.data_.getWaitingPlayerHero().getWeapon().getWeaponCharge(), 2);
+        assertEquals(board.data_.getCurrentPlayer().getHero().getTotalAttack(), 0);
+        assertNull(board.data_.getCurrentPlayer().getHero().getWeapon());
+        assertEquals(board.data_.getWaitingPlayer().getHero().getWeapon(), axe);
+        assertEquals(board.data_.getWaitingPlayer().getHero().getTotalAttack(), 3);
+        assertEquals(board.data_.getWaitingPlayer().getHero().getWeapon().getWeaponCharge(), 2);
 
         Card theCard = board.data_.getCurrentPlayerCardHand(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
@@ -54,9 +54,9 @@ public class TestAcidicSwampOoze {
         assertEquals(board.data_.getNumCards_hand(), 0);
         assertEquals(currentPlayer.getNumMinions(), 1);
 
-        assertNull(board.data_.getCurrentPlayerHero().getWeapon());
-        assertEquals(board.data_.getCurrentPlayerHero().getTotalAttack(), 0);
-        assertNull(board.data_.getWaitingPlayerHero().getWeapon());
-        assertEquals(board.data_.getWaitingPlayerHero().getTotalAttack(), 0);
+        assertNull(board.data_.getCurrentPlayer().getHero().getWeapon());
+        assertEquals(board.data_.getCurrentPlayer().getHero().getTotalAttack(), 0);
+        assertNull(board.data_.getWaitingPlayer().getHero().getWeapon());
+        assertEquals(board.data_.getWaitingPlayer().getHero().getTotalAttack(), 0);
     }
 }

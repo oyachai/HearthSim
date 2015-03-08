@@ -59,8 +59,8 @@ public class SavageRoar extends SpellCard {
             boolean singleRealizationOnly)
         throws HSException {
         HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
-        toRet.data_.getCurrentPlayerHero().setExtraAttackUntilTurnEnd((byte)2);
         PlayerModel currentPlayer = toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        currentPlayer.getHero().setExtraAttackUntilTurnEnd((byte)2);
         for (Minion minion : currentPlayer.getMinions())
             minion.setExtraAttackUntilTurnEnd((byte)2);
 

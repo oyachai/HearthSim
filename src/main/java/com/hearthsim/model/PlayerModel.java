@@ -50,6 +50,10 @@ public class PlayerModel implements DeepCopyable<PlayerModel> {
         return card;
     }
 
+    public Minion getCharacter(int index) {
+        return index == 0 ? this.getHero() : this.getMinions().get(index - 1);
+    }
+
     public int getNumCharacters() {
         return this.getNumMinions() + 1;
     }

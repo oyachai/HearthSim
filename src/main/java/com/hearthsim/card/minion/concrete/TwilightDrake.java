@@ -25,7 +25,7 @@ public class TwilightDrake extends Minion implements MinionUntargetableBattlecry
             boolean singleRealizationOnly
         ) throws HSException {
         HearthTreeNode toRet = boardState;
-        this.addHealth((byte)toRet.data_.getCurrentPlayerHand().size());
+        this.addHealth((byte)toRet.data_.getCurrentPlayer().getHand().size());
         return toRet;
     }
 

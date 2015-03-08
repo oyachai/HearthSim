@@ -82,8 +82,8 @@ public class CardDrawNode extends StopNode {
         }
 
         double toRet = averageCardScore * numCardsToActuallyDraw;
-        int heroHealth = data_.getCurrentPlayerHero().getHealth();
-        int heroArmor = data_.getCurrentPlayerHero().getArmor();
+        int heroHealth = data_.getCurrentPlayer().getHero().getHealth();
+        int heroArmor = data_.getCurrentPlayer().getHero().getArmor();
         int armorLeft = heroArmor > totalFatigueDamage ? heroArmor - totalFatigueDamage : 0;
         int healthLeft = armorLeft > 0 ? heroHealth : heroHealth - (totalFatigueDamage - heroArmor);
         toRet += ai.heroHealthScore_p0(healthLeft, armorLeft) - ai.heroHealthScore_p0(heroHealth, heroArmor);

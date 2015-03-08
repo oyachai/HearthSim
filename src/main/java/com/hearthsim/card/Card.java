@@ -336,8 +336,9 @@ public class Card implements DeepCopyable<Card> {
             boolean singleRealizationOnly)
         throws HSException {
         //A generic card does nothing except for consuming mana
-        boardState.data_.getCurrentPlayer().subtractMana(this.getManaCost(PlayerSide.CURRENT_PLAYER, boardState.data_));
-        boardState.data_.removeCard_hand(this);
+        PlayerModel currentPlayer = boardState.data_.getCurrentPlayer();
+        currentPlayer.subtractMana(this.getManaCost(PlayerSide.CURRENT_PLAYER, boardState.data_));
+        currentPlayer.getHand().remove(this);
         return boardState;
     }
 
@@ -352,13 +353,13 @@ public class Card implements DeepCopyable<Card> {
         HearthTreeNode toRet = boardState;
         ArrayList<CardPlayBeginInterface> matches = new ArrayList<CardPlayBeginInterface>();
 
-        for (Card card : toRet.data_.getCurrentPlayerHand()) {
+        for (Card card : currentPlayer.getHand()) {
             if (card instanceof CardPlayBeginInterface) {
                 matches.add((CardPlayBeginInterface)card);
             }
         }
 
-        Card hero = toRet.data_.getCurrentPlayerHero();
+        Card hero = currentPlayer.getHero();
         if (hero instanceof CardPlayBeginInterface) {
             matches.add((CardPlayBeginInterface)hero);
         }
@@ -375,13 +376,13 @@ public class Card implements DeepCopyable<Card> {
         }
         matches.clear();
 
-        for (Card card : toRet.data_.getWaitingPlayerHand()) {
+        for (Card card : waitingPlayer.getHand()) {
             if (card instanceof CardPlayBeginInterface) {
                 matches.add((CardPlayBeginInterface)card);
             }
         }
 
-        hero = toRet.data_.getWaitingPlayerHero();
+        hero = waitingPlayer.getHero();
         if (hero instanceof CardPlayBeginInterface) {
             matches.add((CardPlayBeginInterface)hero);
         }
@@ -410,13 +411,13 @@ public class Card implements DeepCopyable<Card> {
         HearthTreeNode toRet = boardState;
         ArrayList<CardPlayAfterInterface> matches = new ArrayList<CardPlayAfterInterface>();
 
-        for (Card card : toRet.data_.getCurrentPlayerHand()) {
+        for (Card card : currentPlayer.getHand()) {
             if (card instanceof CardPlayAfterInterface) {
                 matches.add((CardPlayAfterInterface)card);
             }
         }
 
-        Card hero = toRet.data_.getCurrentPlayerHero();
+        Card hero = currentPlayer.getHero();
         if (hero instanceof CardPlayAfterInterface) {
             matches.add((CardPlayAfterInterface)hero);
         }
@@ -433,13 +434,13 @@ public class Card implements DeepCopyable<Card> {
         }
         matches.clear();
 
-        for (Card card : toRet.data_.getWaitingPlayerHand()) {
+        for (Card card : waitingPlayer.getHand()) {
             if (card instanceof CardPlayAfterInterface) {
                 matches.add((CardPlayAfterInterface)card);
             }
         }
 
-        hero = toRet.data_.getWaitingPlayerHero();
+        hero = waitingPlayer.getHero();
         if (hero instanceof CardPlayAfterInterface) {
             matches.add((CardPlayAfterInterface)hero);
         }

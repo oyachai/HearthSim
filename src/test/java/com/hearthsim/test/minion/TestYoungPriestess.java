@@ -60,11 +60,11 @@ public class TestYoungPriestess {
         board.data_.getWaitingPlayer().setMaxMana((byte)8);
 
         HearthTreeNode tmpBoard = new HearthTreeNode(board.data_.flipPlayers());
-        tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
+        tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayer().getHero(), tmpBoard, deck, null);
 
         board = new HearthTreeNode(tmpBoard.data_.flipPlayers());
-        board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayerHero(), board, deck, null);
-        board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayerHero(), board, deck, null);
+        board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayer().getHero(), board, deck, null);
+        board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayer().getHero(), board, deck, null);
 
         board.data_.resetMana();
         board.data_.resetMinions();
@@ -87,8 +87,8 @@ public class TestYoungPriestess {
         assertEquals(waitingPlayer.getNumMinions(), 1);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
         assertEquals(board.data_.getWaitingPlayer().getMana(), 8);
-        assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
-        assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
+        assertEquals(board.data_.getCurrentPlayer().getHero().getHealth(), 30);
+        assertEquals(board.data_.getWaitingPlayer().getHero().getHealth(), 30);
         assertEquals(currentPlayer.getMinions().get(0).getTotalHealth(), 2);
         assertEquals(currentPlayer.getMinions().get(1).getTotalHealth(), 7);
         assertEquals(waitingPlayer.getMinions().get(0).getTotalHealth(), 2);
@@ -112,8 +112,8 @@ public class TestYoungPriestess {
         assertEquals(waitingPlayer.getNumMinions(), 1);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 7);
         assertEquals(board.data_.getWaitingPlayer().getMana(), 8);
-        assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
-        assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
+        assertEquals(board.data_.getCurrentPlayer().getHero().getHealth(), 30);
+        assertEquals(board.data_.getWaitingPlayer().getHero().getHealth(), 30);
         assertEquals(currentPlayer.getMinions().get(0).getTotalHealth(), 2);
         assertEquals(currentPlayer.getMinions().get(1).getTotalHealth(), 7);
         assertEquals(currentPlayer.getMinions().get(2).getTotalHealth(), 1);

@@ -105,7 +105,7 @@ public class BoardModel implements DeepCopyable<BoardModel> {
         return modelForSide(side).getMinions();
     }
 
-
+    @Deprecated
     public IdentityLinkedList<Card> getCurrentPlayerHand() {
         return currentPlayer.getHand();
     }
@@ -156,7 +156,7 @@ public class BoardModel implements DeepCopyable<BoardModel> {
 
     public Minion getCharacter(PlayerSide playerSide, int index) throws HSInvalidPlayerIndexException {
         PlayerModel playerModel = modelForSide(playerSide);
-        return index == 0 ? playerModel.getHero() : playerModel.getMinions().get(index - 1);
+        return playerModel.getCharacter(index);
     }
 
     public Minion getCurrentPlayerCharacter(int index) {

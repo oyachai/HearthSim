@@ -56,15 +56,15 @@ public class TestCruelTaskmaster {
         board.data_.getWaitingPlayer().setMaxMana((byte)10);
 
         HearthTreeNode tmpBoard = new HearthTreeNode(board.data_.flipPlayers());
-        tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
-        tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
-        tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
-        tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
+        tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayer().getHero(), tmpBoard, deck, null);
+        tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayer().getHero(), tmpBoard, deck, null);
+        tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayer().getHero(), tmpBoard, deck, null);
+        tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayer().getHero(), tmpBoard, deck, null);
 
         board = new HearthTreeNode(tmpBoard.data_.flipPlayers());
-        board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayerHero(), board, deck, null);
-        board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayerHero(), board, deck, null);
-        board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayerHero(), board, deck, null);
+        board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayer().getHero(), board, deck, null);
+        board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayer().getHero(), board, deck, null);
+        board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayer().getHero(), board, deck, null);
 
         board.data_.resetMana();
         board.data_.resetMinions();
@@ -90,8 +90,8 @@ public class TestCruelTaskmaster {
         assertEquals(waitingPlayer.getNumMinions(), 4);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 10);
         assertEquals(board.data_.getWaitingPlayer().getMana(), 10);
-        assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
-        assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
+        assertEquals(board.data_.getCurrentPlayer().getHero().getHealth(), 30);
+        assertEquals(board.data_.getWaitingPlayer().getHero().getHealth(), 30);
 
         assertEquals(currentPlayer.getMinions().get(0).getTotalHealth(), 4);
         assertEquals(currentPlayer.getMinions().get(1).getTotalHealth(), 3);
@@ -128,8 +128,8 @@ public class TestCruelTaskmaster {
         assertEquals(waitingPlayer.getNumMinions(), 4);
         assertEquals(ret.data_.getCurrentPlayer().getMana(), 8);
         assertEquals(ret.data_.getWaitingPlayer().getMana(), 10);
-        assertEquals(ret.data_.getCurrentPlayerHero().getHealth(), 30);
-        assertEquals(ret.data_.getWaitingPlayerHero().getHealth(), 30);
+        assertEquals(ret.data_.getCurrentPlayer().getHero().getHealth(), 30);
+        assertEquals(ret.data_.getWaitingPlayer().getHero().getHealth(), 30);
 
         assertEquals(ret.data_.getCurrentPlayer().getMinions().get(0).getTotalHealth(), 3);
         assertEquals(ret.data_.getCurrentPlayer().getMinions().get(1).getTotalHealth(), 4);
@@ -159,8 +159,8 @@ public class TestCruelTaskmaster {
         assertEquals(cn3.data_.getWaitingPlayer().getNumMinions(), 3);
         assertEquals(cn3.data_.getCurrentPlayer().getMana(), 8);
         assertEquals(cn3.data_.getWaitingPlayer().getMana(), 10);
-        assertEquals(cn3.data_.getCurrentPlayerHero().getHealth(), 30);
-        assertEquals(cn3.data_.getWaitingPlayerHero().getHealth(), 30);
+        assertEquals(cn3.data_.getCurrentPlayer().getHero().getHealth(), 30);
+        assertEquals(cn3.data_.getWaitingPlayer().getHero().getHealth(), 30);
 
         assertEquals(cn3.data_.getCurrentPlayer().getMinions().get(0).getTotalHealth(), 3);
         assertEquals(cn3.data_.getCurrentPlayer().getMinions().get(1).getTotalHealth(), 4);
@@ -188,8 +188,8 @@ public class TestCruelTaskmaster {
         assertEquals(cn4.data_.getWaitingPlayer().getNumMinions(), 1);
         assertEquals(cn4.data_.getCurrentPlayer().getMana(), 8);
         assertEquals(cn4.data_.getWaitingPlayer().getMana(), 10);
-        assertEquals(cn4.data_.getCurrentPlayerHero().getHealth(), 28);
-        assertEquals(cn4.data_.getWaitingPlayerHero().getHealth(), 28);
+        assertEquals(cn4.data_.getCurrentPlayer().getHero().getHealth(), 28);
+        assertEquals(cn4.data_.getWaitingPlayer().getHero().getHealth(), 28);
 
         assertEquals(cn4.data_.getCurrentPlayer().getMinions().get(0).getTotalHealth(), 1);
         assertEquals(cn4.data_.getCurrentPlayer().getMinions().get(1).getTotalHealth(), 2);

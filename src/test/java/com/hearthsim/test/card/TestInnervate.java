@@ -74,8 +74,8 @@ public class TestInnervate {
         assertEquals(board.data_.getNumCards_hand(), 0);
         assertEquals(currentPlayer.getNumMinions(), 2);
         assertEquals(waitingPlayer.getNumMinions(), 2);
-        assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
-        assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
+        assertEquals(board.data_.getCurrentPlayer().getHero().getHealth(), 30);
+        assertEquals(board.data_.getWaitingPlayer().getHero().getHealth(), 30);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 6);
         assertEquals(board.data_.getWaitingPlayer().getMana(), 4);
         assertEquals(board.data_.getCurrentPlayer().getMaxMana(), 4);
@@ -102,8 +102,8 @@ public class TestInnervate {
         assertEquals(board.data_.getNumCards_hand(), 0);
         assertEquals(currentPlayer.getNumMinions(), 2);
         assertEquals(waitingPlayer.getNumMinions(), 2);
-        assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
-        assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
+        assertEquals(board.data_.getCurrentPlayer().getHero().getHealth(), 30);
+        assertEquals(board.data_.getWaitingPlayer().getHero().getHealth(), 30);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 10);
         assertEquals(board.data_.getWaitingPlayer().getMana(), 4);
         assertEquals(board.data_.getCurrentPlayer().getMaxMana(), 10);

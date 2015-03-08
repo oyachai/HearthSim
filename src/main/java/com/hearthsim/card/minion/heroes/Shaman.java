@@ -102,10 +102,11 @@ public class Shaman extends Hero {
                     allTotemsNotSummonable = false;
 
                     HearthTreeNode newState = toRet.addChild(new HearthTreeNode(toRet.data_.deepCopy()));
+                    PlayerModel newCurrentPlayer = newState.data_.getCurrentPlayer();
 
                     Minion summonTarget = newState.data_.getCharacter(targetPlayerSide, numMinions);
-                    newState.data_.getCurrentPlayer().subtractMana(HERO_ABILITY_COST);
-                    newState.data_.getCurrentPlayerHero().hasBeenUsed(true);
+                    newCurrentPlayer.subtractMana(HERO_ABILITY_COST);
+                    newCurrentPlayer.getHero().hasBeenUsed(true);
 
                     newState = totemToSummon.summonMinion(targetPlayerSide, summonTarget, newState, deckPlayer0, deckPlayer1, false, singleRealizationOnly);
                 }

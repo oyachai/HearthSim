@@ -96,9 +96,9 @@ public class TestMinionPlacement {
         assertEquals(board.data_.getWaitingPlayer().getMana(), 8);
 
         assertEquals(currentPlayer.getNumMinions(), 3);
-        assertEquals(archmage, this.board.data_.getCurrentPlayerCharacter(1));
-        assertEquals(raptor, this.board.data_.getCurrentPlayerCharacter(2));
-        assertEquals(yeti, this.board.data_.getCurrentPlayerCharacter(3));
+        assertEquals(archmage, this.board.data_.getCurrentPlayer().getCharacter(1));
+        assertEquals(raptor, this.board.data_.getCurrentPlayer().getCharacter(2));
+        assertEquals(yeti, this.board.data_.getCurrentPlayer().getCharacter(3));
 
         assertEquals(waitingPlayer.getNumMinions(), 1);
     }
@@ -119,9 +119,9 @@ public class TestMinionPlacement {
         assertEquals(board.data_.getWaitingPlayer().getMana(), 8);
 
         assertEquals(currentPlayer.getNumMinions(), 3);
-        assertEquals(raptor, this.board.data_.getCurrentPlayerCharacter(1));
-        assertEquals(archmage, this.board.data_.getCurrentPlayerCharacter(2));
-        assertEquals(yeti, this.board.data_.getCurrentPlayerCharacter(3));
+        assertEquals(raptor, this.board.data_.getCurrentPlayer().getCharacter(1));
+        assertEquals(archmage, this.board.data_.getCurrentPlayer().getCharacter(2));
+        assertEquals(yeti, this.board.data_.getCurrentPlayer().getCharacter(3));
 
         assertEquals(waitingPlayer.getNumMinions(), 1);
     }
@@ -142,9 +142,9 @@ public class TestMinionPlacement {
         assertEquals(board.data_.getWaitingPlayer().getMana(), 8);
 
         assertEquals(currentPlayer.getNumMinions(), 3);
-        assertEquals(raptor, this.board.data_.getCurrentPlayerCharacter(1));
-        assertEquals(yeti, this.board.data_.getCurrentPlayerCharacter(2));
-        assertEquals(archmage, this.board.data_.getCurrentPlayerCharacter(3));
+        assertEquals(raptor, this.board.data_.getCurrentPlayer().getCharacter(1));
+        assertEquals(yeti, this.board.data_.getCurrentPlayer().getCharacter(2));
+        assertEquals(archmage, this.board.data_.getCurrentPlayer().getCharacter(3));
 
         assertEquals(waitingPlayer.getNumMinions(), 1);
     }

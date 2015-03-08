@@ -98,7 +98,7 @@ class DeathsBiteSpec extends CardSpec {
         def theCard = copiedBoard.getCurrentPlayerCardHand(0);
         def ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot, null, null);
 
-        Minion hero = ret.data_.getCurrentPlayerHero();
+        Minion hero = ret.data_.getCurrentPlayer().getHero();
         hero.getWeapon().setWeaponCharge((byte)1);
 
         def target = copiedBoard.getCharacter(PlayerSide.WAITING_PLAYER, 0);

@@ -129,8 +129,8 @@ public class TestHoundmaster {
         assertEquals(res.data_.getWaitingPlayer().getMinions().get(2).getTotalAttack(), attack0);
         assertFalse(res.data_.getWaitingPlayer().getMinions().get(2).getTaunt());
 
-        assertEquals(res.data_.getCurrentPlayerHero().getHealth(), 30);
-        assertEquals(res.data_.getWaitingPlayerHero().getHealth(), 30);
+        assertEquals(res.data_.getCurrentPlayer().getHero().getHealth(), 30);
+        assertEquals(res.data_.getWaitingPlayer().getHero().getHealth(), 30);
 
         assertEquals(res.numChildren(), 1);
         assertEquals(res.getChildren().get(0).data_.getCurrentPlayer().getMinions().get(0).getHealth(), 3);

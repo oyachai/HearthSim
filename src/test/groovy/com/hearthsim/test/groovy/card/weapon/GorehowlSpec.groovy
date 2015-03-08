@@ -40,7 +40,7 @@ class GorehowlSpec extends CardSpec {
         def theCard = copiedBoard.getCurrentPlayerCardHand(0);
         def ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot, null, null);
 
-        Minion hero = ret.data_.getCurrentPlayerHero();
+        Minion hero = ret.data_.getCurrentPlayer().getHero();
         def target = copiedBoard.getCharacter(PlayerSide.WAITING_PLAYER, 1);
         ret = hero.attack(PlayerSide.WAITING_PLAYER, target, ret, null, null, false);
 
@@ -70,7 +70,7 @@ class GorehowlSpec extends CardSpec {
         def theCard = copiedBoard.getCurrentPlayerCardHand(0);
         def ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot, null, null);
 
-        Minion hero = ret.data_.getCurrentPlayerHero();
+        Minion hero = ret.data_.getCurrentPlayer().getHero();
         hero.getWeapon().setWeaponDamage((byte)1);
 
         def target = copiedBoard.getCharacter(PlayerSide.WAITING_PLAYER, 1);
@@ -99,7 +99,7 @@ class GorehowlSpec extends CardSpec {
         def theCard = copiedBoard.getCurrentPlayerCardHand(0);
         def ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot, null, null);
 
-        Minion hero = ret.data_.getCurrentPlayerHero();
+        Minion hero = ret.data_.getCurrentPlayer().getHero();
         def target = copiedBoard.getCharacter(PlayerSide.WAITING_PLAYER, 0);
         ret = hero.attack(PlayerSide.WAITING_PLAYER, target, ret, null, null, false);
 

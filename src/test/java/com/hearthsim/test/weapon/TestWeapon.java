@@ -67,8 +67,8 @@ public class TestWeapon {
         assertTrue(theCard.hasBeenUsed());
         //assertFalse(theCard.isInHand()); TODO existing bug
 
-        assertEquals(board.data_.getCurrentPlayerHero().getWeapon().getWeaponCharge(), 2);
-        assertEquals(board.data_.getCurrentPlayerHero().getTotalAttack(), 3);
+        assertEquals(board.data_.getCurrentPlayer().getHero().getWeapon().getWeaponCharge(), 2);
+        assertEquals(board.data_.getCurrentPlayer().getHero().getTotalAttack(), 3);
     }
 
     @Test
@@ -76,16 +76,16 @@ public class TestWeapon {
         Card theCard = board.data_.getCurrentPlayerCardHand(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
 
-        Minion hero = ret.data_.getCurrentPlayerHero();
+        Minion hero = ret.data_.getCurrentPlayer().getHero();
         Minion target = ret.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
         ret = hero.attack(PlayerSide.WAITING_PLAYER, target, ret, deck, null, false);
         assertEquals(board, ret);
 
-        assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
-        assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 27);
+        assertEquals(board.data_.getCurrentPlayer().getHero().getHealth(), 30);
+        assertEquals(board.data_.getWaitingPlayer().getHero().getHealth(), 27);
 
-        assertEquals(board.data_.getCurrentPlayerHero().getTotalAttack(), 3);
-        assertEquals(board.data_.getCurrentPlayerHero().getWeapon().getWeaponCharge(), 1);
+        assertEquals(board.data_.getCurrentPlayer().getHero().getTotalAttack(), 3);
+        assertEquals(board.data_.getCurrentPlayer().getHero().getWeapon().getWeaponCharge(), 1);
     }
 
     @Test
@@ -93,20 +93,20 @@ public class TestWeapon {
         Card theCard = board.data_.getCurrentPlayerCardHand(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
 
-        Minion hero = ret.data_.getCurrentPlayerHero();
+        Minion hero = ret.data_.getCurrentPlayer().getHero();
         Minion target = ret.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
         ret = hero.attack(PlayerSide.WAITING_PLAYER, target, ret, deck, null, false);
 
-        hero = ret.data_.getCurrentPlayerHero();
+        hero = ret.data_.getCurrentPlayer().getHero();
         target = ret.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
         ret = hero.attack(PlayerSide.WAITING_PLAYER, target, ret, deck, null, false);
         assertNull(ret);
 
-        assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
-        assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 27);
+        assertEquals(board.data_.getCurrentPlayer().getHero().getHealth(), 30);
+        assertEquals(board.data_.getWaitingPlayer().getHero().getHealth(), 27);
 
-        assertEquals(board.data_.getCurrentPlayerHero().getTotalAttack(), 3);
-        assertEquals(board.data_.getCurrentPlayerHero().getWeapon().getWeaponCharge(), 1);
+        assertEquals(board.data_.getCurrentPlayer().getHero().getTotalAttack(), 3);
+        assertEquals(board.data_.getCurrentPlayer().getHero().getWeapon().getWeaponCharge(), 1);
     }
 
 
@@ -114,18 +114,18 @@ public class TestWeapon {
     public void testWeaponBreaks() throws HSException {
         Card theCard = board.data_.getCurrentPlayerCardHand(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
-        ret.data_.getCurrentPlayerHero().getWeapon().setWeaponCharge((byte) 1);
+        ret.data_.getCurrentPlayer().getHero().getWeapon().setWeaponCharge((byte) 1);
 
-        Minion hero = ret.data_.getCurrentPlayerHero();
+        Minion hero = ret.data_.getCurrentPlayer().getHero();
         Minion target = ret.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
         ret = hero.attack(PlayerSide.WAITING_PLAYER, target, ret, deck, null, false);
         assertEquals(board, ret);
 
-        assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
-        assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 27);
+        assertEquals(board.data_.getCurrentPlayer().getHero().getHealth(), 30);
+        assertEquals(board.data_.getWaitingPlayer().getHero().getHealth(), 27);
 
-        assertEquals(board.data_.getCurrentPlayerHero().getTotalAttack(), 0);
-        assertNull(board.data_.getCurrentPlayerHero().getWeapon());
+        assertEquals(board.data_.getCurrentPlayer().getHero().getTotalAttack(), 0);
+        assertNull(board.data_.getCurrentPlayer().getHero().getWeapon());
     }
 
     @Test
@@ -143,8 +143,8 @@ public class TestWeapon {
         assertTrue(theCard.hasBeenUsed());
         //assertFalse(theCard.isInHand()); TODO existing bug
 
-        assertEquals(board.data_.getCurrentPlayerHero().getWeapon().getWeaponCharge(), 2);
-        assertEquals(board.data_.getCurrentPlayerHero().getTotalAttack(), 3);
+        assertEquals(board.data_.getCurrentPlayer().getHero().getWeapon().getWeaponCharge(), 2);
+        assertEquals(board.data_.getCurrentPlayer().getHero().getTotalAttack(), 3);
     }
 
     @Test
@@ -159,8 +159,8 @@ public class TestWeapon {
         assertFalse(theCard.hasBeenUsed());
         assertEquals(board.data_.getNumCards_hand(), 1);
 
-        assertNull(board.data_.getCurrentPlayerHero().getWeapon());
-        assertEquals(board.data_.getCurrentPlayerHero().getTotalAttack(), 0);
+        assertNull(board.data_.getCurrentPlayer().getHero().getWeapon());
+        assertEquals(board.data_.getCurrentPlayer().getHero().getTotalAttack(), 0);
 
         assertEquals(currentPlayer.getMinions().get(0).getAttack(), 2);
         assertEquals(currentPlayer.getMinions().get(0).getTotalAttack(), 2);
@@ -175,10 +175,10 @@ public class TestWeapon {
         assertFalse(theCard.hasBeenUsed());
         assertEquals(board.data_.getNumCards_hand(), 1);
 
-        assertNull(board.data_.getCurrentPlayerHero().getWeapon());
-        assertEquals(board.data_.getCurrentPlayerHero().getTotalAttack(), 0);
+        assertNull(board.data_.getCurrentPlayer().getHero().getWeapon());
+        assertEquals(board.data_.getCurrentPlayer().getHero().getTotalAttack(), 0);
 
-        assertNull(board.data_.getWaitingPlayerHero().getWeapon());
-        assertEquals(board.data_.getWaitingPlayerHero().getTotalAttack(), 0);
+        assertNull(board.data_.getWaitingPlayer().getHero().getWeapon());
+        assertEquals(board.data_.getWaitingPlayer().getHero().getTotalAttack(), 0);
     }
 }

@@ -113,8 +113,8 @@ public class TestNorthshireCleric {
         assertEquals(ret.data_.getNumCards_hand(), 0);
         assertEquals(ret.data_.getCurrentPlayer().getNumMinions(), 3);
         assertEquals(waitingPlayer.getNumMinions(), 2);
-        assertEquals(ret.data_.getCurrentPlayerHero().getHealth(), 30);
-        assertEquals(ret.data_.getWaitingPlayerHero().getHealth(), 30);
+        assertEquals(ret.data_.getCurrentPlayer().getHero().getHealth(), 30);
+        assertEquals(ret.data_.getWaitingPlayer().getHero().getHealth(), 30);
         assertEquals(ret.data_.getCurrentPlayer().getMinions().get(0).getHealth(), 3);
         assertEquals(ret.data_.getCurrentPlayer().getMinions().get(1).getHealth(), health0);
         assertEquals(ret.data_.getCurrentPlayer().getMinions().get(2).getHealth(), health1 - 1);
@@ -132,8 +132,8 @@ public class TestNorthshireCleric {
         assertEquals(ret.data_.getNumCards_hand(), 0);
         assertEquals(ret.data_.getCurrentPlayer().getNumMinions(), 3);
         assertEquals(waitingPlayer.getNumMinions(), 2);
-        assertEquals(ret.data_.getCurrentPlayerHero().getHealth(), 30);
-        assertEquals(ret.data_.getWaitingPlayerHero().getHealth(), 30);
+        assertEquals(ret.data_.getCurrentPlayer().getHero().getHealth(), 30);
+        assertEquals(ret.data_.getWaitingPlayer().getHero().getHealth(), 30);
         assertEquals(ret.data_.getCurrentPlayer().getMinions().get(0).getHealth(), 3);
         assertEquals(ret.data_.getCurrentPlayer().getMinions().get(1).getHealth(), health0);
         assertEquals(ret.data_.getCurrentPlayer().getMinions().get(2).getHealth(), health1 - 1);
@@ -154,8 +154,8 @@ public class TestNorthshireCleric {
         assertEquals( ((CardDrawNode)ret).getNumCardsToDraw(), 1); //Northshire Cleric should have drawn a card, so 1 card now
         assertEquals(ret.data_.getCurrentPlayer().getNumMinions(), 3);
         assertEquals(waitingPlayer.getNumMinions(), 2);
-        assertEquals(ret.data_.getCurrentPlayerHero().getHealth(), 30);
-        assertEquals(ret.data_.getWaitingPlayerHero().getHealth(), 30);
+        assertEquals(ret.data_.getCurrentPlayer().getHero().getHealth(), 30);
+        assertEquals(ret.data_.getWaitingPlayer().getHero().getHealth(), 30);
         assertEquals(ret.data_.getCurrentPlayer().getMinions().get(0).getHealth(), 3);
         assertEquals(ret.data_.getCurrentPlayer().getMinions().get(1).getHealth(), health0);
         assertEquals(ret.data_.getCurrentPlayer().getMinions().get(2).getHealth(), health1);
@@ -185,8 +185,8 @@ public class TestNorthshireCleric {
         assertEquals(ret.data_.getNumCards_hand(), 0);
         assertEquals(ret.data_.getCurrentPlayer().getNumMinions(), 4);
         assertEquals(waitingPlayer.getNumMinions(), 2);
-        assertEquals(ret.data_.getCurrentPlayerHero().getHealth(), 30);
-        assertEquals(ret.data_.getWaitingPlayerHero().getHealth(), 30);
+        assertEquals(ret.data_.getCurrentPlayer().getHero().getHealth(), 30);
+        assertEquals(ret.data_.getWaitingPlayer().getHero().getHealth(), 30);
         assertEquals(ret.data_.getCurrentPlayer().getMinions().get(0).getHealth(), health0);
         assertEquals(ret.data_.getCurrentPlayer().getMinions().get(1).getHealth(), health1 - 1);
         assertEquals(ret.data_.getCurrentPlayer().getMinions().get(2).getHealth(), 3);
@@ -207,8 +207,8 @@ public class TestNorthshireCleric {
 
         assertEquals(ret.data_.getCurrentPlayer().getNumMinions(), 4);
         assertEquals(waitingPlayer.getNumMinions(), 2);
-        assertEquals(ret.data_.getCurrentPlayerHero().getHealth(), 30);
-        assertEquals(ret.data_.getWaitingPlayerHero().getHealth(), 30);
+        assertEquals(ret.data_.getCurrentPlayer().getHero().getHealth(), 30);
+        assertEquals(ret.data_.getWaitingPlayer().getHero().getHealth(), 30);
         assertEquals(ret.data_.getCurrentPlayer().getMinions().get(0).getHealth(), health0);
         assertEquals(ret.data_.getCurrentPlayer().getMinions().get(1).getHealth(), health1);
         assertEquals(ret.data_.getCurrentPlayer().getMinions().get(2).getHealth(), 3);

@@ -52,7 +52,7 @@ public class HolyNova extends SpellDamageAoe {
         if (toRet != null) {
             PlayerModel currentPlayer = toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
 
-            toRet = toRet.data_.getCurrentPlayerHero().takeHeal((byte)2, PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0,
+            toRet = currentPlayer.getHero().takeHeal((byte)2, PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0,
                     deckPlayer1);
             for (Minion minion : currentPlayer.getMinions()) {
                 toRet = minion.takeHeal((byte)2, PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1);

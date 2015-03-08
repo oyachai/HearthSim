@@ -165,48 +165,50 @@ public class Game {
         toRet.data_.resetHand();
         toRet.data_.resetMinions();
 
-        for (Minion targetMinion : toRet.data_.getCurrentPlayer().getMinions()) {
-            toRet = targetMinion.startTurn(PlayerSide.CURRENT_PLAYER, toRet, toRet.data_.getCurrentPlayer()
-                    .getDeck(), toRet.data_.getWaitingPlayer().getDeck());
+        PlayerModel currentPlayer = toRet.data_.getCurrentPlayer();
+        PlayerModel waitingPlayer = toRet.data_.getWaitingPlayer();
+
+        for (Minion targetMinion : currentPlayer.getMinions()) {
+            toRet = targetMinion.startTurn(PlayerSide.CURRENT_PLAYER, toRet, currentPlayer.getDeck(), waitingPlayer.getDeck());
         }
-        for (Minion targetMinion : toRet.data_.getWaitingPlayer().getMinions()) {
-            toRet = targetMinion.startTurn(PlayerSide.WAITING_PLAYER, toRet, toRet.data_.getCurrentPlayer()
-                    .getDeck(), toRet.data_.getWaitingPlayer().getDeck());
+        for (Minion targetMinion : waitingPlayer.getMinions()) {
+            toRet = targetMinion.startTurn(PlayerSide.WAITING_PLAYER, toRet, currentPlayer.getDeck(), waitingPlayer.getDeck());
         }
 
-        toRet = BoardStateFactoryBase.handleDeadMinions(toRet, toRet.data_.getCurrentPlayer().getDeck(), toRet.data_
-                .getWaitingPlayer().getDeck(), true);
+        toRet = BoardStateFactoryBase.handleDeadMinions(toRet, currentPlayer.getDeck(), waitingPlayer.getDeck(), true);
 
-        toRet.data_.getCurrentPlayer().drawNextCardFromDeck();
-        if (toRet.data_.getCurrentPlayer().getMaxMana() < 10)
-            toRet.data_.getCurrentPlayer().addMaxMana((byte)1);
+        currentPlayer.drawNextCardFromDeck();
+        if (currentPlayer.getMaxMana() < 10) {
+            currentPlayer.addMaxMana((byte) 1);
+        }
         toRet.data_.resetMana();
 
         return toRet.data_;
     }
 
     public static BoardModel endTurn(BoardModel board) throws HSException {
-        Deck deckPlayer0 = board.getCurrentPlayer().getDeck();
-        Deck deckPlayer1 = board.getWaitingPlayer().getDeck();
-
         HearthTreeNode toRet = new HearthTreeNode(board);
 
-        toRet = toRet.data_.getCurrentPlayer().getHero()
-                .endTurn(PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1);
-        toRet = toRet.data_.getWaitingPlayer().getHero()
-                .endTurn(PlayerSide.WAITING_PLAYER, toRet, deckPlayer0, deckPlayer1);
+        PlayerModel currentPlayer = toRet.data_.getCurrentPlayer();
+        PlayerModel waitingPlayer = toRet.data_.getWaitingPlayer();
+
+        Deck deckPlayer0 = currentPlayer.getDeck();
+        Deck deckPlayer1 = waitingPlayer.getDeck();
+
+        toRet = currentPlayer.getHero().endTurn(PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1);
+        toRet = waitingPlayer.getHero().endTurn(PlayerSide.WAITING_PLAYER, toRet, deckPlayer0, deckPlayer1);
 
         // TODO: The minions should trigger end-of-turn effects in the order that they were played
-        for (int index = 0; index < toRet.data_.getCurrentPlayer().getMinions().size(); ++index) {
-            CardEndTurnInterface targetMinion = toRet.data_.getCurrentPlayer().getMinions().get(index);
+        for (int index = 0; index < currentPlayer.getMinions().size(); ++index) {
+            CardEndTurnInterface targetMinion = currentPlayer.getMinions().get(index);
             try {
                 toRet = targetMinion.endTurn(PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1);
             } catch(HSException e) {
                 e.printStackTrace();
             }
         }
-        for (int index = 0; index < toRet.data_.getWaitingPlayer().getMinions().size(); ++index) {
-            CardEndTurnInterface targetMinion = toRet.data_.getWaitingPlayer().getMinions().get(index);
+        for (int index = 0; index < waitingPlayer.getMinions().size(); ++index) {
+            CardEndTurnInterface targetMinion = waitingPlayer.getMinions().get(index);
             try {
                 toRet = targetMinion.endTurn(PlayerSide.WAITING_PLAYER, toRet, deckPlayer0, deckPlayer1);
             } catch(HSException e) {
@@ -214,8 +216,7 @@ public class Game {
             }
         }
 
-        toRet = BoardStateFactoryBase.handleDeadMinions(toRet, toRet.data_.getCurrentPlayer().getDeck(), toRet.data_
-                .getWaitingPlayer().getDeck(), true);
+        toRet = BoardStateFactoryBase.handleDeadMinions(toRet, currentPlayer.getDeck(), waitingPlayer.getDeck(), true);
 
         return toRet.data_;
     }

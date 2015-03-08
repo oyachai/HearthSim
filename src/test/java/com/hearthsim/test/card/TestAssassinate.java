@@ -68,8 +68,8 @@ public class TestAssassinate {
         assertEquals(res.data_.getWaitingPlayer().getMinions().get(0).getTotalAttack(), attack0);
         assertEquals(res.data_.getWaitingPlayer().getMinions().get(1).getHealth(), health0);
         assertEquals(res.data_.getWaitingPlayer().getMinions().get(1).getTotalAttack(), attack0);
-        assertEquals(res.data_.getCurrentPlayerHero().getHealth(), 30);
-        assertEquals(res.data_.getWaitingPlayerHero().getHealth(), 30);
+        assertEquals(res.data_.getCurrentPlayer().getHero().getHealth(), 30);
+        assertEquals(res.data_.getWaitingPlayer().getHero().getHealth(), 30);
 
     }
 
@@ -98,8 +98,8 @@ public class TestAssassinate {
         assertEquals(res.data_.getWaitingPlayer().getMinions().get(0).getTotalAttack(), attack0);
         assertEquals(res.data_.getWaitingPlayer().getMinions().get(1).getHealth(), health0);
         assertEquals(res.data_.getWaitingPlayer().getMinions().get(1).getTotalAttack(), attack0);
-        assertEquals(res.data_.getCurrentPlayerHero().getHealth(), 30);
-        assertEquals(res.data_.getWaitingPlayerHero().getHealth(), 30);
+        assertEquals(res.data_.getCurrentPlayer().getHero().getHealth(), 30);
+        assertEquals(res.data_.getWaitingPlayer().getHero().getHealth(), 30);
 
     }
 
@@ -129,8 +129,8 @@ public class TestAssassinate {
         assertEquals(res.data_.getWaitingPlayer().getMinions().get(0).getTotalAttack(), attack0);
         assertEquals(res.data_.getWaitingPlayer().getMinions().get(1).getHealth(), health1);
         assertEquals(res.data_.getWaitingPlayer().getMinions().get(1).getTotalAttack(), attack0);
-        assertEquals(res.data_.getCurrentPlayerHero().getHealth(), 30);
-        assertEquals(res.data_.getWaitingPlayerHero().getHealth(), 30);
+        assertEquals(res.data_.getCurrentPlayer().getHero().getHealth(), 30);
+        assertEquals(res.data_.getWaitingPlayer().getHero().getHealth(), 30);
 
     }
 }

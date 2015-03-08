@@ -4,6 +4,7 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionUntargetableBattlecry;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class BloodsailRaider extends Minion implements MinionUntargetableBattlecry {
@@ -23,8 +24,9 @@ public class BloodsailRaider extends Minion implements MinionUntargetableBattlec
         Deck deckPlayer1,
         boolean singleRealizationOnly
     ) throws HSException {
-        if (boardState.data_.getCurrentPlayerHero().getWeapon() != null) {
-            this.addAttack(boardState.data_.getCurrentPlayerHero().getWeapon().getWeaponDamage());
+        PlayerModel currentPlayer = boardState.data_.getCurrentPlayer();
+        if (currentPlayer.getHero().getWeapon() != null) {
+            this.addAttack(currentPlayer.getHero().getWeapon().getWeaponDamage());
         }
         return boardState;
     }

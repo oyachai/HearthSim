@@ -49,13 +49,13 @@ public class Swipe extends SpellDamage {
 
         HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1,
                 singleRealizationOnly);
+        PlayerModel waitingPlayer = toRet.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
         if (isNotHero(targetMinion)) {
-            toRet = toRet.data_.getWaitingPlayerHero().takeDamage((byte)1, PlayerSide.CURRENT_PLAYER, side, boardState,
+            toRet = waitingPlayer.getHero().takeDamage((byte)1, PlayerSide.CURRENT_PLAYER, side, boardState,
                     deckPlayer0, deckPlayer1, true, false);
         }
 
-        PlayerModel waitingPlayer = toRet.data_.modelForSide(PlayerSide.WAITING_PLAYER);
         for (Minion minion : waitingPlayer.getMinions()) {
             if (minion != targetMinion) {
                 toRet = minion.takeDamage((byte)1, PlayerSide.CURRENT_PLAYER, side, toRet, deckPlayer0, deckPlayer1,

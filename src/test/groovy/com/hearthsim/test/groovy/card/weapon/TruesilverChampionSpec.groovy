@@ -39,7 +39,7 @@ class TruesilverChampionSpec extends CardSpec {
         def copiedRoot = new HearthTreeNode(copiedBoard)
         def theCard = copiedBoard.getCurrentPlayerCardHand(0);
         def ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot, null, null);
-        Minion hero = ret.data_.getCurrentPlayerHero();
+        Minion hero = ret.data_.getCurrentPlayer().getHero();
         def target = copiedBoard.getCharacter(PlayerSide.WAITING_PLAYER, 0);
         ret = hero.attack(PlayerSide.WAITING_PLAYER, target, ret, null, null, false);
 
@@ -72,7 +72,7 @@ class TruesilverChampionSpec extends CardSpec {
         def theCard = copiedBoard.getCurrentPlayerCardHand(0);
         def ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot, null, null);
 
-        Minion hero = ret.data_.getCurrentPlayerHero();
+        Minion hero = ret.data_.getCurrentPlayer().getHero();
         def target = copiedBoard.getCharacter(PlayerSide.WAITING_PLAYER, 1);
         ret = hero.attack(PlayerSide.WAITING_PLAYER, target, ret, null, null, false);
 
