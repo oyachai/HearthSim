@@ -234,17 +234,6 @@ public class BoardModel implements DeepCopyable<BoardModel> {
 
     //----------------------------------------------------------------------------
     //----------------------------------------------------------------------------
-    // Overload support
-    //----------------------------------------------------------------------------
-    //----------------------------------------------------------------------------
-
-    public void addOverload(PlayerSide playerSide, byte overloadToAdd) throws HSException {
-        PlayerModel playerModel = modelForSide(playerSide);
-        playerModel.setOverload((byte) (playerModel.getOverload() + overloadToAdd));
-    }
-
-    //----------------------------------------------------------------------------
-    //----------------------------------------------------------------------------
     //----------------------------------------------------------------------------
     //----------------------------------------------------------------------------
 
@@ -685,5 +674,11 @@ public class BoardModel implements DeepCopyable<BoardModel> {
     @Deprecated
     public byte getSpellDamage(PlayerSide playerSide) throws HSInvalidPlayerIndexException {
         return modelForSide(playerSide).getSpellDamage();
+    }
+
+    @Deprecated
+    public void addOverload(PlayerSide playerSide, byte overloadToAdd) throws HSException {
+        PlayerModel playerModel = modelForSide(playerSide);
+        playerModel.setOverload((byte) (playerModel.getOverload() + overloadToAdd));
     }
 }

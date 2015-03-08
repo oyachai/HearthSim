@@ -300,7 +300,7 @@ public class Card implements DeepCopyable<Card> {
         if (toRet != null) {
             toRet = this.use_core(side, targetMinion, toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
             if (this.triggersOverload())
-                toRet.data_.addOverload(PlayerSide.CURRENT_PLAYER, this.getOverload());
+                toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER).addOverload(this.getOverload());
         }
 
         if (toRet != null) {

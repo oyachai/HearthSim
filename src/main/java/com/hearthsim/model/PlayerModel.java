@@ -142,6 +142,10 @@ public class PlayerModel implements DeepCopyable<PlayerModel> {
         this.overload = overload;
     }
 
+    public void addOverload(byte overload) {
+        this.overload += overload;
+    }
+
     public byte getDeckPos() {
         return deckPos;
     }
