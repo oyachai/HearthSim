@@ -50,7 +50,7 @@ public class TestWaterElemental {
         assertTrue(waterElemental instanceof WaterElemental);
 
         waterElemental.hasAttacked(false); // unset summoning sickness
-        Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
+        Minion target = board.data_.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(2);
         waterElemental.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null, false);
         assertTrue(waitingPlayer.getMinions().get(1).getFrozen());
     }
@@ -69,8 +69,8 @@ public class TestWaterElemental {
         assertTrue(waterElemental instanceof WaterElemental);
 
         waterElemental.hasAttacked(false); // unset summoning sickness
-        Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
+        Minion target = board.data_.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(0);
         waterElemental.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null, false);
-        assertTrue(board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0).getFrozen());
+        assertTrue(board.data_.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(0).getFrozen());
     }
 }

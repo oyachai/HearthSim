@@ -140,7 +140,7 @@ public class TestScarletCrusader {
         //Attacking with divine shield vs Hero, divine shield should
         // stay on
         //------------------------------------------------------------
-        Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
+        Minion target = board.data_.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(0);
         Minion m0 = currentPlayer.getMinions().get(2);
         m0.hasAttacked(false);
         ret = m0.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null, false);
@@ -172,7 +172,7 @@ public class TestScarletCrusader {
         //------------------------------------------------------------
         //Attacking with divine shield
         //------------------------------------------------------------
-        target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 3);
+        target = board.data_.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(3);
         Minion m1 = currentPlayer.getMinions().get(2);
         m1.hasAttacked(false);
         ret = m1.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null, false);
@@ -204,7 +204,7 @@ public class TestScarletCrusader {
         //------------------------------------------------------------
         //Being attacked with a divine shield
         //------------------------------------------------------------
-        target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
+        target = board.data_.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(1);
         Minion m2 = currentPlayer.getMinions().get(1);
         m2.hasAttacked(false);
         ret = m2.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null, false);
@@ -236,7 +236,7 @@ public class TestScarletCrusader {
         //------------------------------------------------------------
         //Being attacked with a divine shield that wore off
         //------------------------------------------------------------
-        target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 3);
+        target = board.data_.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(3);
         Minion m3 = currentPlayer.getMinions().get(2);
         m3.hasAttacked(false);
         ret = m3.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null, false);

@@ -80,7 +80,7 @@ public class TestRockbiterWeapon {
         assertEquals(waitingPlayer.getMinions().get(0).getHealth(), health0);
         assertEquals(waitingPlayer.getMinions().get(1).getHealth(), health1 - 1);
 
-        Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
+        Minion target = board.data_.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(2);
         ret = board.data_.getCurrentPlayer().getHero().attack(PlayerSide.WAITING_PLAYER, target, board, deck, null, false);
 
         assertFalse(ret == null);
@@ -124,7 +124,7 @@ public class TestRockbiterWeapon {
         assertEquals(currentPlayer.getMinions().get(0).getExtraAttackUntilTurnEnd(), 3);
 
 
-        Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
+        Minion target = board.data_.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(2);
         ret = currentPlayer.getMinions().get(0).attack(PlayerSide.WAITING_PLAYER, target, board, deck, null, false);
 
         assertFalse(ret == null);

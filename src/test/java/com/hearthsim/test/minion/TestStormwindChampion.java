@@ -72,7 +72,7 @@ public class TestStormwindChampion {
     @Test
     public void test1() throws HSException {
 
-        Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
+        Minion target = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(0);
         Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
         assertFalse(ret == null);
@@ -115,7 +115,7 @@ public class TestStormwindChampion {
     @Test
     public void test2() throws HSException {
 
-        Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
+        Minion target = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(0);
         Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
         assertFalse(ret == null);
@@ -157,7 +157,7 @@ public class TestStormwindChampion {
         board.data_.getCurrentPlayer().placeCardHand(new Fireball());
         board.data_.resetMana();
         theCard = board.data_.getCurrentPlayer().getHand().get(0);
-        target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
+        target = board.data_.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(1);
         ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
 
         assertFalse(ret == null);
@@ -193,7 +193,7 @@ public class TestStormwindChampion {
     @Test
     public void test3() throws HSException {
 
-        Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
+        Minion target = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(0);
         Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
         assertFalse(ret == null);
@@ -234,7 +234,7 @@ public class TestStormwindChampion {
 
         board.data_.getCurrentPlayer().placeCardHand(new Silence());
         theCard = board.data_.getCurrentPlayer().getHand().get(0);
-        target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
+        target = board.data_.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(1);
         ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
 
         assertFalse(ret == null);
@@ -271,7 +271,7 @@ public class TestStormwindChampion {
 
         board.data_.getCurrentPlayer().placeCardHand(new Silence());
         theCard = board.data_.getCurrentPlayer().getHand().get(0);
-        target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
+        target = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(1);
         ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
 
         assertFalse(ret == null);
@@ -309,7 +309,7 @@ public class TestStormwindChampion {
 
         board.data_.getCurrentPlayer().placeCardHand(new BloodfenRaptor());
         theCard = board.data_.getCurrentPlayer().getHand().get(0);
-        target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 3);
+        target = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(3);
         ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
 
         assertFalse(ret == null);
@@ -353,7 +353,7 @@ public class TestStormwindChampion {
     @Test
     public void test4() throws HSException {
 
-        Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
+        Minion target = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(0);
         Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
         assertFalse(ret == null);
@@ -392,7 +392,7 @@ public class TestStormwindChampion {
 
         board.data_.getCurrentPlayer().placeCardHand(new HolySmite());
         theCard = board.data_.getCurrentPlayer().getHand().get(0);
-        target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 2);
+        target = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(2);
         ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
 
         assertFalse(ret == null);
@@ -429,7 +429,7 @@ public class TestStormwindChampion {
 
         board.data_.getCurrentPlayer().placeCardHand(new Silence());
         theCard = board.data_.getCurrentPlayer().getHand().get(0);
-        target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
+        target = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(1);
         ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
 
         assertFalse(ret == null);

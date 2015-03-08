@@ -31,7 +31,7 @@ public class LeeroyJenkins extends Minion implements MinionUntargetableBattlecry
             int numMinions = waitingPlayer.getNumMinions();
             if (numMinions < 7) {
                 Minion newMinion = new Whelp();
-                Minion placementTarget = toRet.data_.getCharacter(PlayerSide.WAITING_PLAYER, numMinions);
+                Minion placementTarget = toRet.data_.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(numMinions);
                 toRet = newMinion.summonMinion(PlayerSide.WAITING_PLAYER, placementTarget, toRet, deckPlayer0, deckPlayer1, false, true);
             }
         }

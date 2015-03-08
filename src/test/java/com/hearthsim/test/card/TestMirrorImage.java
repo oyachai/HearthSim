@@ -102,7 +102,7 @@ public class TestMirrorImage {
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new BloodfenRaptor());
 
         Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
-        Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
+        Minion target = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(0);
         assertTrue(theCard.canBeUsedOn(PlayerSide.CURRENT_PLAYER, target, board.data_)); // TODO should implement canBeUsedOn
 
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);

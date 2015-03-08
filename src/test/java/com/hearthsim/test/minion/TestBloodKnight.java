@@ -43,7 +43,7 @@ public class TestBloodKnight {
 
     @Test
     public void testStealsDivineShieldMultiple() throws HSException {
-        Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
+        Minion target = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(1);
         Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
 
@@ -64,8 +64,8 @@ public class TestBloodKnight {
 
     @Test
     public void testStealsDivineShieldSingle() throws HSException {
-        board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1).setDivineShield(false);
-        Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
+        board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(1).setDivineShield(false);
+        Minion target = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(1);
         Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
 
@@ -86,8 +86,8 @@ public class TestBloodKnight {
 
     @Test
     public void testNoDivineShields() throws HSException {
-        board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1).setDivineShield(false);
-        board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1).setDivineShield(false);
+        board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(1).setDivineShield(false);
+        board.data_.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(1).setDivineShield(false);
         Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, null, null);
 
@@ -116,7 +116,7 @@ public class TestBloodKnight {
         PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
-        Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 2);
+        Minion target = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(2);
         target.silenced(PlayerSide.CURRENT_PLAYER, board);
 
         assertEquals(currentPlayer.getMinions().get(1).getTotalHealth(), 3);

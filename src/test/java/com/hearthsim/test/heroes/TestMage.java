@@ -72,7 +72,7 @@ public class TestMage {
 
     @Test
     public void testHeropowerAgainstOpponent() throws HSException {
-        Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0); // Opponent hero
+        Minion target = board.data_.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(0); // Opponent hero
         Hero mage = board.data_.getCurrentPlayer().getHero();
 
         HearthTreeNode ret = mage.useHeroAbility(PlayerSide.WAITING_PLAYER, target, board, deck, null);
@@ -84,7 +84,7 @@ public class TestMage {
 
     @Test
     public void testHeropowerAgainstMinion() throws HSException {
-        Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1); // Yeti
+        Minion target = board.data_.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(1); // Yeti
         Hero mage = board.data_.getCurrentPlayer().getHero();
 
         HearthTreeNode ret = mage.useHeroAbility(PlayerSide.WAITING_PLAYER, target, board, deck, null);
@@ -103,7 +103,7 @@ public class TestMage {
 
     @Test
     public void testHeropowerAgainstSelf() throws HSException {
-        Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0); // Self
+        Minion target = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(0); // Self
         Hero mage = board.data_.getCurrentPlayer().getHero();
 
         HearthTreeNode ret = mage.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
@@ -115,7 +115,7 @@ public class TestMage {
 
     @Test
     public void testHeropowerAgainstOwnMinion() throws HSException {
-        Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1); // Yeti
+        Minion target = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(1); // Yeti
         Hero mage = board.data_.getCurrentPlayer().getHero();
 
         HearthTreeNode ret = mage.useHeroAbility(PlayerSide.WAITING_PLAYER, target, board, deck, null);
@@ -136,7 +136,7 @@ public class TestMage {
     public void testHeropowerAgainstFaerieMinion() throws HSException {
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, new FaerieDragon());
 
-        Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 3); // Faerie
+        Minion target = board.data_.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(3); // Faerie
         Hero mage = board.data_.getCurrentPlayer().getHero();
 
         assertFalse(mage.canBeUsedOn(PlayerSide.WAITING_PLAYER, target, board.data_));
@@ -152,7 +152,7 @@ public class TestMage {
 
     @Test
     public void testHeropowerKillsMinion() throws HSException {
-        Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1); // Yeti
+        Minion target = board.data_.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(1); // Yeti
         target.setHealth((byte)1);
 
         Hero mage = board.data_.getCurrentPlayer().getHero();

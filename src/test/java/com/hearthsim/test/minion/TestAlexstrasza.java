@@ -78,7 +78,7 @@ public class TestAlexstrasza {
 
     @Test
     public void testSetsOwnHealth() throws HSException {
-        Minion hero = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
+        Minion hero = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(0);
         Alexstrasza alexstrasza = new Alexstrasza();
         alexstrasza.useTargetableBattlecry_core(PlayerSide.CURRENT_PLAYER, hero, board, null, null);
         assertEquals(15, hero.getHealth());
@@ -86,7 +86,7 @@ public class TestAlexstrasza {
 
     @Test
     public void testSetsEnemyHealth() throws HSException {
-        Minion hero = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
+        Minion hero = board.data_.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(0);
         Alexstrasza alexstrasza = new Alexstrasza();
         alexstrasza.useTargetableBattlecry_core(PlayerSide.WAITING_PLAYER, hero, board, null, null);
         assertEquals(15, hero.getHealth());
@@ -94,7 +94,7 @@ public class TestAlexstrasza {
 
     @Test
     public void testSetsDamagedHealth() throws HSException {
-        Minion hero = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
+        Minion hero = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(0);
         hero.setHealth((byte)20);
         Alexstrasza alexstrasza = new Alexstrasza();
         alexstrasza.useTargetableBattlecry_core(PlayerSide.CURRENT_PLAYER, hero, board, null, null);
@@ -114,7 +114,7 @@ public class TestAlexstrasza {
     @Test
     // TODO check to see if this counts as an actual heal effect (e.g., Soulpriest or Lightwarden)
     public void testHealsLowHealthTarget() throws HSException {
-        Minion hero = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
+        Minion hero = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(0);
         hero.setHealth((byte)2);
         Alexstrasza alexstrasza = new Alexstrasza();
         alexstrasza.useTargetableBattlecry_core(PlayerSide.CURRENT_PLAYER, hero, board, null, null);

@@ -132,7 +132,7 @@ public class TestCairneBloodhoof {
         assertTrue(minion instanceof CairneBloodhoof);
 
         minion.hasAttacked(false);
-        Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
+        Minion target = board.data_.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(2);
         minion.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null, false);
 
         assertEquals(board.data_.getCurrentPlayer().getHand().size(), 0);
@@ -195,7 +195,7 @@ public class TestCairneBloodhoof {
         assertTrue(minion instanceof CairneBloodhoof);
 
         minion.hasAttacked(false);
-        Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
+        Minion target = board.data_.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(2);
         minion.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null, false);
 
         assertEquals(board.data_.getCurrentPlayer().getHand().size(), 0);
@@ -259,7 +259,7 @@ public class TestCairneBloodhoof {
         Minion minion = currentPlayerMinions.get(1);
 
         minion.hasAttacked(false);
-        Minion target = fb.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
+        Minion target = fb.data_.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(2);
         minion.attack(PlayerSide.WAITING_PLAYER, target, fb, deck, null, false);
 
         assertEquals(fb.data_.getCurrentPlayer().getHand().size(), 0);
@@ -335,7 +335,7 @@ public class TestCairneBloodhoof {
         Minion minion = currentPlayer.getMinions().get(1);
 
         minion.hasAttacked(false);
-        Minion target = fb.data_.getCharacter(PlayerSide.WAITING_PLAYER, 6);
+        Minion target = fb.data_.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(6);
         minion.attack(PlayerSide.WAITING_PLAYER, target, fb, deck, null, false);
 
         assertEquals(fb.data_.getCurrentPlayer().getHand().size(), 0);

@@ -28,7 +28,7 @@ class ShatteredSunClericSpec extends CardSpec {
 
     def "adds extra stats"() {
         def copiedBoard = startingBoard.deepCopy()
-        def target = root.data_.getCharacter(CURRENT_PLAYER, 1)
+        def target = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(1)
         def theCard = new ShatteredSunCleric()
         def ret = theCard.useTargetableBattlecry_core(CURRENT_PLAYER, target, root, null, null)
 
@@ -45,7 +45,7 @@ class ShatteredSunClericSpec extends CardSpec {
 
     def "buff is additive"() {
         def copiedBoard = startingBoard.deepCopy()
-        def target = root.data_.getCharacter(CURRENT_PLAYER, 1)
+        def target = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(1)
         def theCard = new ShatteredSunCleric()
         def ret = theCard.useTargetableBattlecry_core(CURRENT_PLAYER, target, root, null, null)
         ret = theCard.useTargetableBattlecry_core(CURRENT_PLAYER, target, root, null, null)

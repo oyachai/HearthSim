@@ -78,7 +78,7 @@ public class TestWarlock {
 
     @Test
     public void testHeropower() throws HSException {
-        Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
+        Minion target = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(0);
         Hero warrior = board.data_.getCurrentPlayer().getHero();
 
         HearthTreeNode ret = warrior.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
@@ -97,7 +97,7 @@ public class TestWarlock {
 
     @Test
     public void testHeropowerCannotTargetMinion() throws HSException {
-        Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
+        Minion target = board.data_.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(2);
         Hero warrior = board.data_.getCurrentPlayer().getHero();
 
         HearthTreeNode ret = warrior.useHeroAbility(PlayerSide.WAITING_PLAYER, target, board, deck, null);
@@ -115,7 +115,7 @@ public class TestWarlock {
 
     @Test
     public void testHeropowerCannotTargetOpponent() throws HSException {
-        Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
+        Minion target = board.data_.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(0);
         Hero warrior = board.data_.getCurrentPlayer().getHero();
 
         HearthTreeNode ret = warrior.useHeroAbility(PlayerSide.WAITING_PLAYER, target, board, deck, null);
@@ -133,14 +133,14 @@ public class TestWarlock {
         PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
-        Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
+        Minion target = board.data_.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(0);
         Minion minion = currentPlayer.getMinions().get(0);
         HearthTreeNode ret = minion.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null, false);
         assertEquals(board, ret);
 
         board.data_.getCurrentPlayer().setDeckPos((byte)30);
 
-        target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
+        target = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(0);
         Hero hero = board.data_.getCurrentPlayer().getHero();
         ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
         assertEquals(board.data_.getCurrentPlayer().getHand().size(), 1);

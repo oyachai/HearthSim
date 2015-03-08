@@ -84,7 +84,7 @@ public class TestHeroBase {
 
     @Test
     public void testHeroCannotAttack() throws HSException {
-        Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
+        Minion target = board.data_.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(0);
         Hero hero = board.data_.getCurrentPlayer().getHero();
 
         assertFalse(hero.canAttack());
@@ -99,7 +99,7 @@ public class TestHeroBase {
         PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
         // null case
-        Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
+        Minion target = board.data_.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(0);
         Minion minion = currentPlayer.getMinions().get(0);
         HearthTreeNode ret = minion.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null, false);
         assertEquals(board, ret);
@@ -127,7 +127,7 @@ public class TestHeroBase {
     @Test
     public void testHeropowerIsMarkedUsed() throws HSException {
         Hero hero = board.data_.getCurrentPlayer().getHero();
-        Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0); // Hero
+        Minion target = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(0); // Hero
         HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
         assertEquals(board, ret);
         assertTrue(hero.hasBeenUsed());
@@ -136,7 +136,7 @@ public class TestHeroBase {
     @Test
     public void testHeropowerSubtractsMana() throws HSException {
         Hero hero = board.data_.getCurrentPlayer().getHero();
-        Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0); // Hero
+        Minion target = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(0); // Hero
         HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
         assertEquals(board, ret);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 6);
@@ -145,11 +145,11 @@ public class TestHeroBase {
     @Test
     public void testHeropowerCannotBeUsedTwice() throws HSException {
         Hero hero = board.data_.getCurrentPlayer().getHero();
-        Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0); // Hero
+        Minion target = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(0); // Hero
         HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
         assertEquals(board, ret);
 
-        target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0); // Hero
+        target = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(0); // Hero
         assertFalse(hero.canBeUsedOn(PlayerSide.CURRENT_PLAYER, target, board.data_));
 
         ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
@@ -162,7 +162,7 @@ public class TestHeroBase {
     @Test
     public void testHeropowerResets() throws HSException {
         Hero hero = board.data_.getCurrentPlayer().getHero();
-        Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0); // Hero
+        Minion target = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(0); // Hero
         HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
         assertEquals(board, ret);
 
@@ -175,7 +175,7 @@ public class TestHeroBase {
         Hero hero = board.data_.getCurrentPlayer().getHero();
         board.data_.getCurrentPlayer().setMana((byte) 1);
 
-        Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0); // Hero
+        Minion target = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(0); // Hero
         //assertFalse(hero.canBeUsedOn(PlayerSide.CURRENT_PLAYER, target, board.data_)); // TODO doesn't work yet
 
         HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);

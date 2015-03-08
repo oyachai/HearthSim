@@ -37,7 +37,7 @@ class SylvanasWindrunnerSpec extends CardSpec {
         root = new HearthTreeNode(startingBoard)
 
         def copiedBoard = startingBoard.deepCopy()
-        def target = root.data_.getCharacter(CURRENT_PLAYER, 0)
+        def target = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(0)
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
         def ret = theCard.useOn(CURRENT_PLAYER, target, root, null, null)
 
@@ -69,12 +69,12 @@ class SylvanasWindrunnerSpec extends CardSpec {
         root = new HearthTreeNode(startingBoard)
 
         def copiedBoard = startingBoard.deepCopy()
-        def target = root.data_.getCharacter(CURRENT_PLAYER, 0)
+        def target = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(0)
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
         def ret = theCard.useOn(CURRENT_PLAYER, target, root, null, null)
 
         def swd = ret.data_.getCurrentPlayer().getHand().get(0)
-        def sylvanas = ret.data_.getCharacter(CURRENT_PLAYER, 1)
+        def sylvanas = ret.data_.modelForSide(CURRENT_PLAYER).getCharacter(1)
         def ret2 = swd.useOn(CURRENT_PLAYER, sylvanas, ret, null, null)
         
         expect:
@@ -132,8 +132,8 @@ class SylvanasWindrunnerSpec extends CardSpec {
         root = new HearthTreeNode(startingBoard)
 
         def copiedBoard = startingBoard.deepCopy()
-        def attacker = root.data_.getCharacter(CURRENT_PLAYER, 1)
-        def attacked = root.data_.getCharacter(WAITING_PLAYER, 1)
+        def attacker = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(1)
+        def attacked = root.data_.modelForSide(WAITING_PLAYER).getCharacter(1)
         def ret = attacker.attack(WAITING_PLAYER, attacked, root, null, null, false)
         
         expect:
@@ -187,12 +187,12 @@ class SylvanasWindrunnerSpec extends CardSpec {
         root = new HearthTreeNode(startingBoard)
 
         def copiedBoard = startingBoard.deepCopy()
-        def target = root.data_.getCharacter(CURRENT_PLAYER, 0)
+        def target = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(0)
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
         def ret = theCard.useOn(CURRENT_PLAYER, target, root, null, null)
 
         def swd = ret.data_.getCurrentPlayer().getHand().get(0)
-        def sylvanas = ret.data_.getCharacter(CURRENT_PLAYER, 1)
+        def sylvanas = ret.data_.modelForSide(CURRENT_PLAYER).getCharacter(1)
         def ret2 = swd.useOn(CURRENT_PLAYER, sylvanas, ret, null, null)
         
         expect:

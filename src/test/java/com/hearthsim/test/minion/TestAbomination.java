@@ -167,8 +167,8 @@ public class TestAbomination {
         assertTrue(waitingPlayer.getMinions().get(0).getDivineShield());
 
         //attack the Ogre... should kill everything except the Scarlet Crusader
-        Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 3);
-        Minion attacker = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
+        Minion target = board.data_.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(3);
+        Minion attacker = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(1);
         attacker.hasAttacked(false);
         ret = attacker.attack(PlayerSide.WAITING_PLAYER, target, ret, null, null, false);
 
@@ -223,8 +223,8 @@ public class TestAbomination {
         assertTrue(waitingPlayer.getMinions().get(0).getDivineShield());
 
         //Silence the Abomination first, then attack with it
-        Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 3);
-        Minion attacker = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
+        Minion target = board.data_.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(3);
+        Minion attacker = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(1);
         attacker.silenced(PlayerSide.CURRENT_PLAYER, board);
         attacker.hasAttacked(false);
         ret = attacker.attack(PlayerSide.WAITING_PLAYER, target, ret, null, null, false);

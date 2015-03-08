@@ -44,12 +44,12 @@ class PatientAssassinSpec extends CardSpec {
 
     def "playing Patient Assassin and attacking the Hero with it"() {
         def copiedBoard = startingBoard.deepCopy()
-        def target = root.data_.getCharacter(CURRENT_PLAYER, 1)
+        def target = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(1)
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
         def ret = theCard.useOn(CURRENT_PLAYER, target, root, null, null)
 
-        def patientAssassin = ret.data_.getCharacter(CURRENT_PLAYER, 1)
-        def ret2 = patientAssassin.attack(WAITING_PLAYER, ret.data_.getCharacter(WAITING_PLAYER, 0), ret, null, null, false)
+        def patientAssassin = ret.data_.modelForSide(CURRENT_PLAYER).getCharacter(1)
+        def ret2 = patientAssassin.attack(WAITING_PLAYER, ret.data_.modelForSide(WAITING_PLAYER).getCharacter(0), ret, null, null, false)
 
         expect:
         assertFalse(ret == null);
@@ -69,12 +69,12 @@ class PatientAssassinSpec extends CardSpec {
     
     def "playing Patient Assassin and attacking a minion with it"() {
         def copiedBoard = startingBoard.deepCopy()
-        def target = root.data_.getCharacter(CURRENT_PLAYER, 1)
+        def target = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(1)
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
         def ret = theCard.useOn(CURRENT_PLAYER, target, root, null, null)
 
-        def patientAssassin = ret.data_.getCharacter(CURRENT_PLAYER, 1)
-        def ret2 = patientAssassin.attack(WAITING_PLAYER, ret.data_.getCharacter(WAITING_PLAYER, 1), ret, null, null, false)
+        def patientAssassin = ret.data_.modelForSide(CURRENT_PLAYER).getCharacter(1)
+        def ret2 = patientAssassin.attack(WAITING_PLAYER, ret.data_.modelForSide(WAITING_PLAYER).getCharacter(1), ret, null, null, false)
 
         expect:
         assertFalse(ret == null);

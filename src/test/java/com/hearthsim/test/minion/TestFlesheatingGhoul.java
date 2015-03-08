@@ -154,8 +154,8 @@ public class TestFlesheatingGhoul {
 
 
         //---------------------------------------------------------------
-        Minion attacker = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 3);
-        Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
+        Minion attacker = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(3);
+        Minion target = board.data_.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(2);
         ret = attacker.attack(PlayerSide.WAITING_PLAYER, target, board, deck, deck, false);
 
         assertFalse(ret == null);

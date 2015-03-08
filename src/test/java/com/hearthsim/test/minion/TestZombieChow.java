@@ -143,7 +143,7 @@ public class TestZombieChow {
         assertTrue(minion instanceof ZombieChow);
 
         minion.hasAttacked(false);
-        Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
+        Minion target = board.data_.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(2);
         minion.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null, false);
 
         assertEquals(board.data_.getCurrentPlayer().getHand().size(), 0);
@@ -170,7 +170,7 @@ public class TestZombieChow {
         minion = currentPlayer.getMinions().get(1);
 
         minion.hasAttacked(false);
-        target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 3);
+        target = board.data_.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(3);
         minion.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null, false);
 
         assertEquals(board.data_.getCurrentPlayer().getHand().size(), 0);
@@ -235,7 +235,7 @@ public class TestZombieChow {
         assertTrue(minion instanceof ZombieChow);
 
         minion.hasAttacked(false);
-        Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 3);
+        Minion target = board.data_.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(3);
         minion.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null, false);
 
         assertEquals(board.data_.getCurrentPlayer().getHand().size(), 0);

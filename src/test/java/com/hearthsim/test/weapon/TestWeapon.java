@@ -77,7 +77,7 @@ public class TestWeapon {
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
 
         Minion hero = ret.data_.getCurrentPlayer().getHero();
-        Minion target = ret.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
+        Minion target = ret.data_.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(0);
         ret = hero.attack(PlayerSide.WAITING_PLAYER, target, ret, deck, null, false);
         assertEquals(board, ret);
 
@@ -94,11 +94,11 @@ public class TestWeapon {
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
 
         Minion hero = ret.data_.getCurrentPlayer().getHero();
-        Minion target = ret.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
+        Minion target = ret.data_.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(0);
         ret = hero.attack(PlayerSide.WAITING_PLAYER, target, ret, deck, null, false);
 
         hero = ret.data_.getCurrentPlayer().getHero();
-        target = ret.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
+        target = ret.data_.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(0);
         ret = hero.attack(PlayerSide.WAITING_PLAYER, target, ret, deck, null, false);
         assertNull(ret);
 
@@ -117,7 +117,7 @@ public class TestWeapon {
         ret.data_.getCurrentPlayer().getHero().getWeapon().setWeaponCharge((byte) 1);
 
         Minion hero = ret.data_.getCurrentPlayer().getHero();
-        Minion target = ret.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
+        Minion target = ret.data_.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(0);
         ret = hero.attack(PlayerSide.WAITING_PLAYER, target, ret, deck, null, false);
         assertEquals(board, ret);
 

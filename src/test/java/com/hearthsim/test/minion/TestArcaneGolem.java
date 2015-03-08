@@ -108,8 +108,8 @@ public class TestArcaneGolem {
         board.data_.getCurrentPlayer().setMaxMana((byte)3);
         board.data_.getWaitingPlayer().setMaxMana((byte)3);
 
-        board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1).hasAttacked(true);
-        board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 2).hasAttacked(true);
+        board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(1).hasAttacked(true);
+        board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(2).hasAttacked(true);
 
         BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
         List<HearthActionBoardPair> ab = ai0.playTurn(0, board.data_);

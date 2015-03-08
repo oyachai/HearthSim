@@ -58,7 +58,7 @@ public class SpellDamageAoe extends SpellDamage {
     protected HearthTreeNode use_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState,
             Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
         if (boardState != null && this.hitsOwnHero) {
-            Minion self = boardState.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
+            Minion self = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(0);
             boardState = this.attack(PlayerSide.CURRENT_PLAYER, self, boardState, deckPlayer0, deckPlayer1);
         }
 

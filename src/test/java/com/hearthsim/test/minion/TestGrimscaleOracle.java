@@ -56,7 +56,7 @@ public class TestGrimscaleOracle {
     public void testBuffsOwnMurloc() throws HSException {
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new MurlocRaider());
 
-        Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
+        Minion target = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(1);
         Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
 

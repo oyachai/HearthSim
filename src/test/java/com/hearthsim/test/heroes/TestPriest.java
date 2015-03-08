@@ -149,7 +149,7 @@ public class TestPriest {
 
     @Test
     public void testHeropowerAgainstOpponent() throws HSException {
-        Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0); // Opponent hero
+        Minion target = board.data_.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(0); // Opponent hero
         target.setHealth((byte)20);
 
         Hero priest = board.data_.getCurrentPlayer().getHero();
@@ -163,7 +163,7 @@ public class TestPriest {
 
     @Test
     public void testHeropowerAgainstMinion() throws HSException {
-        Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
+        Minion target = board.data_.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(1);
         target.setHealth((byte)1);
 
         Hero priest = board.data_.getCurrentPlayer().getHero();
@@ -180,7 +180,7 @@ public class TestPriest {
 
     @Test
     public void testHeropowerAgainstSelf() throws HSException {
-        Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0); // Self
+        Minion target = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(0); // Self
         target.setHealth((byte)20);
 
         Hero priest = board.data_.getCurrentPlayer().getHero();
@@ -194,7 +194,7 @@ public class TestPriest {
 
     @Test
     public void testHeropowerAgainstOwnMinion() throws HSException {
-        Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
+        Minion target = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(1);
         target.setHealth((byte)1);
 
         Hero priest = board.data_.getCurrentPlayer().getHero();

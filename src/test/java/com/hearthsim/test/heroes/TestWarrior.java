@@ -68,7 +68,7 @@ public class TestWarrior {
 
     @Test
     public void testHeropower() throws HSException {
-        Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
+        Minion target = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(0);
         Hero warrior = board.data_.getCurrentPlayer().getHero();
 
         HearthTreeNode ret = warrior.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
@@ -82,7 +82,7 @@ public class TestWarrior {
         Hero hero = board.data_.getCurrentPlayer().getHero();
         hero.setArmor((byte)1);
 
-        Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0); // Warrior hero
+        Minion target = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(0); // Warrior hero
         HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
         assertEquals(board, ret);
         assertEquals(board.data_.getCurrentPlayer().getHero().getArmor(), 3);
@@ -90,7 +90,7 @@ public class TestWarrior {
 
     @Test
     public void testHeropowerCannotTargetMinion() throws HSException {
-        Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
+        Minion target = board.data_.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(2);
         Hero warrior = board.data_.getCurrentPlayer().getHero();
 
         HearthTreeNode ret = warrior.useHeroAbility(PlayerSide.WAITING_PLAYER, target, board, deck, null);
@@ -103,7 +103,7 @@ public class TestWarrior {
 
     @Test
     public void testHeropowerCannotTargetOpponent() throws HSException {
-        Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
+        Minion target = board.data_.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(0);
         Hero warrior = board.data_.getCurrentPlayer().getHero();
 
         HearthTreeNode ret = warrior.useHeroAbility(PlayerSide.WAITING_PLAYER, target, board, deck, null);

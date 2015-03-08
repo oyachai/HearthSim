@@ -68,7 +68,7 @@ public class Soulfire extends SpellDamage {
                     if (indx != thisCardIndex) {
                         HearthTreeNode cNode = new HearthTreeNode(toRet.data_.deepCopy());
                         PlayerModel cNodePlayer = cNode.data_.getCurrentPlayer();
-                        Minion cTargetMinion = cNode.data_.getCharacter(side, targetCharacterIndex);
+                        Minion cTargetMinion = cNode.data_.modelForSide(side).getCharacter(targetCharacterIndex);
                         Soulfire cCard = (Soulfire)cNodePlayer.getHand().get(thisCardIndex);
                         cNode = cCard.callSuperUseOn(side, cTargetMinion, cNode, deckPlayer0, deckPlayer1, false);
                         cNode.data_.getCurrentPlayer().addNumCardsUsed((byte)-1);

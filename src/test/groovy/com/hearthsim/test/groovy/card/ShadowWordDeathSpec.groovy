@@ -61,7 +61,7 @@ class ShadowWordDeathSpec extends CardSpec {
     def "can target minion with extra attack"() {
         def copiedBoard = startingBoard.deepCopy()
 
-        def target = root.data_.getCharacter(WAITING_PLAYER, 1)
+        def target = root.data_.modelForSide(WAITING_PLAYER).getCharacter(1)
         target.extraAttackUntilTurnEnd += 2
 
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)

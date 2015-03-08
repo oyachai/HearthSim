@@ -27,7 +27,7 @@ class AbusiveSergeantSpec extends CardSpec {
 
     def "adds extra attack"() {
         def copiedBoard = startingBoard.deepCopy()
-        def target = root.data_.getCharacter(CURRENT_PLAYER, 1)
+        def target = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(1)
         def theCard = new AbusiveSergeant()
         def ret = theCard.useTargetableBattlecry_core(CURRENT_PLAYER, target, root, null, null)
 
@@ -43,7 +43,7 @@ class AbusiveSergeantSpec extends CardSpec {
 
     def "buff is additive"() {
         def copiedBoard = startingBoard.deepCopy()
-        def target = root.data_.getCharacter(CURRENT_PLAYER, 1)
+        def target = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(1)
         target.extraAttackUntilTurnEnd = 2
         def theCard = new AbusiveSergeant()
         def ret = theCard.useTargetableBattlecry_core(CURRENT_PLAYER, target, root, null, null)

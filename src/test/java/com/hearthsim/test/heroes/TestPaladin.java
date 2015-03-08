@@ -78,7 +78,7 @@ public class TestPaladin {
 
     @Test
     public void testHeropower() throws HSException {
-        Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
+        Minion target = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(0);
         Hero paladin = board.data_.getCurrentPlayer().getHero();
 
         HearthTreeNode ret = paladin.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
@@ -104,7 +104,7 @@ public class TestPaladin {
         PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
-        Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
+        Minion target = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(0);
         Hero paladin = board.data_.getCurrentPlayer().getHero();
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new SilverHandRecruit());
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new SilverHandRecruit());
@@ -125,7 +125,7 @@ public class TestPaladin {
         PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
-        Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
+        Minion target = board.data_.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(2);
         Hero paladin = board.data_.getCurrentPlayer().getHero();
 
         HearthTreeNode ret = paladin.useHeroAbility(PlayerSide.WAITING_PLAYER, target, board, deck, null);
@@ -139,7 +139,7 @@ public class TestPaladin {
     public void testHeropowerCannotTargetOpponent() throws HSException {
         PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
 
-        Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
+        Minion target = board.data_.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(0);
         Hero paladin = board.data_.getCurrentPlayer().getHero();
 
         HearthTreeNode ret = paladin.useHeroAbility(PlayerSide.WAITING_PLAYER, target, board, deck, null);

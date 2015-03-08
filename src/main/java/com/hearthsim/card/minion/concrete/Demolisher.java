@@ -18,7 +18,7 @@ public class Demolisher extends Minion {
         HearthTreeNode toRet = boardModel;
         if (thisMinionPlayerIndex == PlayerSide.CURRENT_PLAYER) {
             PlayerModel waitingPlayer = toRet.data_.modelForSide(PlayerSide.WAITING_PLAYER);
-            Minion targetMinion = toRet.data_.getCharacter(PlayerSide.WAITING_PLAYER, (int)(Math.random()*(waitingPlayer.getNumMinions() + 1)));
+            Minion targetMinion = toRet.data_.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter((int)(Math.random()*(waitingPlayer.getNumMinions() + 1)));
             toRet = targetMinion.takeDamage((byte)2, PlayerSide.CURRENT_PLAYER, PlayerSide.WAITING_PLAYER, toRet, deckPlayer0, deckPlayer1, false, false);
         }
         return super.startTurn(thisMinionPlayerIndex, toRet, deckPlayer0, deckPlayer1);

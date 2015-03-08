@@ -89,7 +89,7 @@ public class TestAnimalCompanion {
         //Now, attack and kill Leokk.  All minions should go back to their original attack
         Minion minion = currentPlayer.getMinions().get(2);
         minion.hasAttacked(false);
-        Minion target2 = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
+        Minion target2 = board.data_.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(1);
         ret = minion.attack(PlayerSide.WAITING_PLAYER, target2, board, null, null, false);
 
         assertEquals(board, ret);
@@ -157,7 +157,7 @@ public class TestAnimalCompanion {
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new BloodfenRaptor());
 
         Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
-        Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
+        Minion target = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(0);
         assertFalse(theCard.canBeUsedOn(PlayerSide.CURRENT_PLAYER, target, board.data_));
 
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);

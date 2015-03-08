@@ -73,7 +73,7 @@ public class TestHunter {
 
     @Test
     public void testHeropower() throws HSException {
-        Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
+        Minion target = board.data_.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(0);
         Hero hunter = board.data_.getCurrentPlayer().getHero();
 
         HearthTreeNode ret = hunter.useHeroAbility(PlayerSide.WAITING_PLAYER, target, board, deck, null);
@@ -85,7 +85,7 @@ public class TestHunter {
 
     @Test
     public void testHeropowerCannotTargetMinion() throws HSException {
-        Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2); // Ogre
+        Minion target = board.data_.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(2); // Ogre
         Hero hunter = board.data_.getCurrentPlayer().getHero();
 
         HearthTreeNode ret = hunter.useHeroAbility(PlayerSide.WAITING_PLAYER, target, board, deck, null);
@@ -101,7 +101,7 @@ public class TestHunter {
 
     @Test
     public void testHeropowerCannotTargetSelf() throws HSException {
-        Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
+        Minion target = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(0);
         Hero hunter = board.data_.getCurrentPlayer().getHero();
 
         HearthTreeNode ret = hunter.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);

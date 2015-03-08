@@ -223,8 +223,8 @@ public class TestChildNodeCreatorBase {
         expectedBoardA.getCurrentPlayer().setNumCardsUsed((byte)1);
         BoardModel expectedBoardB = expectedBoardA.deepCopy();
 
-        expectedBoardA.getCharacter(PlayerSide.CURRENT_PLAYER, 0).setHealth((byte)28);
-        expectedBoardB.getCharacter(PlayerSide.WAITING_PLAYER, 0).setHealth((byte)28);
+        expectedBoardA.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(0).setHealth((byte)28);
+        expectedBoardB.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(0).setHealth((byte)28);
 
         assertNodeListContainsBoardModel(actuals, expectedBoardA);
         assertNodeListContainsBoardModel(actuals, expectedBoardB);
@@ -247,11 +247,11 @@ public class TestChildNodeCreatorBase {
         BoardModel expectedBoardA = new BoardModel(new Mage(), new TestHero());
         expectedBoardA.getCurrentPlayer().setMana((byte)0);
         expectedBoardA.getCurrentPlayer().setMaxMana((byte)2);
-        expectedBoardA.getCharacter(PlayerSide.CURRENT_PLAYER, 0).hasBeenUsed(true);
+        expectedBoardA.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(0).hasBeenUsed(true);
         BoardModel expectedBoardB = expectedBoardA.deepCopy();
 
-        expectedBoardA.getCharacter(PlayerSide.CURRENT_PLAYER, 0).setHealth((byte)29);
-        expectedBoardB.getCharacter(PlayerSide.WAITING_PLAYER, 0).setHealth((byte)29);
+        expectedBoardA.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(0).setHealth((byte)29);
+        expectedBoardB.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(0).setHealth((byte)29);
 
 //        assertNodeListContainsBoardModel(actuals, expectedBoardA);
         assertNodeListContainsBoardModel(actuals, expectedBoardB);
@@ -276,15 +276,15 @@ public class TestChildNodeCreatorBase {
         BoardModel expectedBoardA = new BoardModel(new Mage(), new TestHero());
         expectedBoardA.getCurrentPlayer().setMana((byte)0);
         expectedBoardA.getCurrentPlayer().setMaxMana((byte)2);
-        expectedBoardA.getCharacter(PlayerSide.CURRENT_PLAYER, 0).hasBeenUsed(true);
+        expectedBoardA.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(0).hasBeenUsed(true);
         expectedBoardA.placeMinion(PlayerSide.CURRENT_PLAYER, new BloodfenRaptor());
         expectedBoardA.placeMinion(PlayerSide.WAITING_PLAYER, new RiverCrocolisk());
         BoardModel expectedBoardB = expectedBoardA.deepCopy();
 
-        expectedBoardA.getCharacter(PlayerSide.CURRENT_PLAYER, 1).setHealth((byte)1);
+        expectedBoardA.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(1).setHealth((byte)1);
         assertNodeListContainsBoardModel(actuals, expectedBoardA);
 
-        expectedBoardB.getCharacter(PlayerSide.WAITING_PLAYER, 1).setHealth((byte)2);
+        expectedBoardB.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(1).setHealth((byte)2);
         assertNodeListContainsBoardModel(actuals, expectedBoardB);
     }
 
@@ -306,8 +306,8 @@ public class TestChildNodeCreatorBase {
         BoardModel expectedBoardA = new BoardModel();
         expectedBoardA.placeMinion(PlayerSide.CURRENT_PLAYER, new BloodfenRaptor());
         expectedBoardA.placeMinion(PlayerSide.WAITING_PLAYER, new RiverCrocolisk());
-        expectedBoardA.getCharacter(PlayerSide.CURRENT_PLAYER, 1).hasAttacked(true);
-        expectedBoardA.getCharacter(PlayerSide.CURRENT_PLAYER, 1).setHealth((byte)1);
+        expectedBoardA.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(1).hasAttacked(true);
+        expectedBoardA.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(1).setHealth((byte)1);
 
         assertNodeListContainsBoardModel(actuals, expectedBoardA);
 
@@ -322,8 +322,8 @@ public class TestChildNodeCreatorBase {
         expectedBoardC.placeMinion(PlayerSide.CURRENT_PLAYER, new BloodfenRaptor());
         expectedBoardC.placeMinion(PlayerSide.WAITING_PLAYER, new RiverCrocolisk());
         expectedBoardC.placeMinion(PlayerSide.WAITING_PLAYER, new StonetuskBoar());
-        expectedBoardC.getCharacter(PlayerSide.CURRENT_PLAYER, 1).hasAttacked(true);
-        expectedBoardC.getCharacter(PlayerSide.WAITING_PLAYER, 0).setHealth((byte)27);
+        expectedBoardC.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(1).hasAttacked(true);
+        expectedBoardC.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(0).setHealth((byte)27);
 
         assertNodeListContainsBoardModel(actuals, expectedBoardC);
     }
@@ -333,7 +333,7 @@ public class TestChildNodeCreatorBase {
         BoardModel startingBoard = new BoardModel();
         startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new RiverCrocolisk());
         startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new StonetuskBoar());
-        startingBoard.getCharacter(PlayerSide.CURRENT_PLAYER, 0).addAttack((byte)1);
+        startingBoard.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(0).addAttack((byte)1);
 
         ChildNodeCreatorBase factory = new ChildNodeCreatorBase(this.deck0, this.deck1);
         HearthTreeNode root = new HearthTreeNode(startingBoard);
@@ -345,9 +345,9 @@ public class TestChildNodeCreatorBase {
         // Killed Boar
         BoardModel expectedBoardA = new BoardModel();
         expectedBoardA.placeMinion(PlayerSide.WAITING_PLAYER, new RiverCrocolisk());
-        expectedBoardA.getCharacter(PlayerSide.CURRENT_PLAYER, 0).addAttack((byte)1);
-        expectedBoardA.getCharacter(PlayerSide.CURRENT_PLAYER, 0).hasAttacked(true);
-        expectedBoardA.getCharacter(PlayerSide.CURRENT_PLAYER, 0).setHealth((byte)29);
+        expectedBoardA.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(0).addAttack((byte)1);
+        expectedBoardA.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(0).hasAttacked(true);
+        expectedBoardA.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(0).setHealth((byte)29);
 
         assertNodeListContainsBoardModel(actuals, expectedBoardA, 2);
 
@@ -355,10 +355,10 @@ public class TestChildNodeCreatorBase {
         BoardModel expectedBoardB = new BoardModel();
         expectedBoardB.placeMinion(PlayerSide.WAITING_PLAYER, new RiverCrocolisk());
         expectedBoardB.placeMinion(PlayerSide.WAITING_PLAYER, new StonetuskBoar());
-        expectedBoardB.getCharacter(PlayerSide.CURRENT_PLAYER, 0).addAttack((byte)1);
-        expectedBoardB.getCharacter(PlayerSide.CURRENT_PLAYER, 0).hasAttacked(true);
-        expectedBoardB.getCharacter(PlayerSide.CURRENT_PLAYER, 0).setHealth((byte)28);
-        expectedBoardB.getCharacter(PlayerSide.WAITING_PLAYER, 1).setHealth((byte)2);
+        expectedBoardB.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(0).addAttack((byte)1);
+        expectedBoardB.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(0).hasAttacked(true);
+        expectedBoardB.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(0).setHealth((byte)28);
+        expectedBoardB.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(1).setHealth((byte)2);
 
         assertNodeListContainsBoardModel(actuals, expectedBoardB);
 
@@ -366,9 +366,9 @@ public class TestChildNodeCreatorBase {
         BoardModel expectedBoardC = new BoardModel();
         expectedBoardC.placeMinion(PlayerSide.WAITING_PLAYER, new RiverCrocolisk());
         expectedBoardC.placeMinion(PlayerSide.WAITING_PLAYER, new StonetuskBoar());
-        expectedBoardC.getCharacter(PlayerSide.CURRENT_PLAYER, 0).addAttack((byte)1);
-        expectedBoardC.getCharacter(PlayerSide.CURRENT_PLAYER, 0).hasAttacked(true);
-        expectedBoardC.getCharacter(PlayerSide.WAITING_PLAYER, 0).setHealth((byte)29);
+        expectedBoardC.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(0).addAttack((byte)1);
+        expectedBoardC.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(0).hasAttacked(true);
+        expectedBoardC.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(0).setHealth((byte)29);
 
         assertNodeListContainsBoardModel(actuals, expectedBoardC);
     }

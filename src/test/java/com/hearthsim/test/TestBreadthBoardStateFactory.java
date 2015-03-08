@@ -206,7 +206,7 @@ public class TestBreadthBoardStateFactory {
         BoardModel startingBoard = new BoardModel();
         startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new RiverCrocolisk());
         startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new StonetuskBoar());
-        startingBoard.getCharacter(PlayerSide.CURRENT_PLAYER, 0).addAttack((byte)1);
+        startingBoard.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(0).addAttack((byte)1);
 
         this.testBreadthDepth(startingBoard);
     }

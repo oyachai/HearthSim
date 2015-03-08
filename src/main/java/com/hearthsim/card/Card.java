@@ -265,7 +265,7 @@ public class Card implements DeepCopyable<Card> {
 
     public HearthTreeNode useOn(PlayerSide side, int targetIndex, HearthTreeNode boardState, Deck deckPlayer0,
             Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
-        Minion target = boardState.data_.getCharacter(side, targetIndex);
+        Minion target = boardState.data_.modelForSide(side).getCharacter(targetIndex);
         return this.useOn(side, target, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
     }
 

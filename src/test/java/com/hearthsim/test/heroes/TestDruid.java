@@ -73,7 +73,7 @@ public class TestDruid {
     @Test
     public void testHeropower() throws HSException {
         Hero hero = board.data_.getCurrentPlayer().getHero();
-        Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0); // Druid hero
+        Minion target = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(0); // Druid hero
         HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
         assertEquals(board, ret);
 
@@ -85,7 +85,7 @@ public class TestDruid {
         Hero hero = board.data_.getCurrentPlayer().getHero();
         hero.setArmor((byte)1);
 
-        Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0); // Druid hero
+        Minion target = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(0); // Druid hero
         HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
         assertEquals(board, ret);
         assertEquals(board.data_.getCurrentPlayer().getHero().getArmor(), 2);
@@ -96,7 +96,7 @@ public class TestDruid {
         Hero hero = board.data_.getCurrentPlayer().getHero();
         hero.setExtraAttackUntilTurnEnd((byte)1);
 
-        Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0); // Druid hero
+        Minion target = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(0); // Druid hero
         HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
         assertEquals(board, ret);
         assertEquals(board.data_.getCurrentPlayer().getHero().getExtraAttackUntilTurnEnd(), 2);
@@ -104,7 +104,7 @@ public class TestDruid {
 
     @Test
     public void testCannotTargetMinion() throws HSException {
-        Minion raidLeader = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1); // Raid leader
+        Minion raidLeader = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(1); // Raid leader
         Hero hero = board.data_.getCurrentPlayer().getHero();
         HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, raidLeader, board, deck, null);
         assertNull(ret);
@@ -122,7 +122,7 @@ public class TestDruid {
 
     @Test
     public void testCannotTargetOpponent() throws HSException {
-        Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
+        Minion target = board.data_.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(0);
         Hero hero = board.data_.getCurrentPlayer().getHero();
         HearthTreeNode ret = hero.useHeroAbility(PlayerSide.WAITING_PLAYER, target, board, deck, null);
         assertNull(ret);
