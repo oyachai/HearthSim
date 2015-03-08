@@ -181,7 +181,7 @@ public class TestMinionPlacement {
         HearthTreeNode ret = archmage.useOn(PlayerSide.CURRENT_PLAYER, 1, this.board, null, null);
         assertEquals(board, ret);
 
-        assertEquals(1, board.data_.getSpellDamage(PlayerSide.CURRENT_PLAYER));
+        assertEquals(1, board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getSpellDamage());
     }
 
     @Test
@@ -198,6 +198,6 @@ public class TestMinionPlacement {
         ret = kobold.useOn(PlayerSide.CURRENT_PLAYER, 1, this.board, null, null);
         assertEquals(board, ret);
 
-        assertEquals(2, board.data_.getSpellDamage(PlayerSide.CURRENT_PLAYER));
+        assertEquals(2, board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getSpellDamage());
     }
 }

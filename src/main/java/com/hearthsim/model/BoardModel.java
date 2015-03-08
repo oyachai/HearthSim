@@ -211,18 +211,6 @@ public class BoardModel implements DeepCopyable<BoardModel> {
         }
     }
 
-
-    /**
-     * Get the spell damage
-     *
-     * Returns the additional spell damage provided by buffs
-     * @return
-     * @param playerSide
-     */
-    public byte getSpellDamage(PlayerSide playerSide) throws HSInvalidPlayerIndexException {
-        return modelForSide(playerSide).getSpellDamage();
-    }
-
     public boolean removeMinion(MinionPlayerPair minionIdPair) throws HSInvalidPlayerIndexException {
         this.allMinionsFIFOList_.remove(minionIdPair);
         removeAuraOfMinion(minionIdPair.getPlayerSide(), minionIdPair.minion);
@@ -685,5 +673,17 @@ public class BoardModel implements DeepCopyable<BoardModel> {
     public Minion getMinionForCharacter(PlayerSide playerSide, int index) {
         PlayerModel playerModel = modelForSide(playerSide);
         return index == 0 ? playerModel.getHero() : playerModel.getMinions().get(index - 1);
+    }
+
+    /**
+     * Get the spell damage
+     *
+     * Returns the additional spell damage provided by buffs
+     * @return
+     * @param playerSide
+     */
+    @Deprecated
+    public byte getSpellDamage(PlayerSide playerSide) throws HSInvalidPlayerIndexException {
+        return modelForSide(playerSide).getSpellDamage();
     }
 }

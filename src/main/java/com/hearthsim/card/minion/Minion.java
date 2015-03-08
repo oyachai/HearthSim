@@ -499,7 +499,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
             return boardState;
         }
 
-        byte totalDamage = isSpellDamage ? (byte) (damage + boardState.data_.getSpellDamage(attackPlayerSide))
+        byte totalDamage = isSpellDamage ? (byte) (damage + boardState.data_.modelForSide(attackPlayerSide).getSpellDamage())
             : damage;
         health_ = (byte) (health_ - totalDamage);
 
