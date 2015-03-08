@@ -71,8 +71,8 @@ public class TestLootHorder {
         assertEquals(resBoard.modelForSide(PlayerSide.WAITING_PLAYER).getNumMinions(), 0); //1 minion should have been killed
         assertEquals(resBoard.getCurrentPlayer().getMana(), 1); //no mana used
         assertEquals(resBoard.getWaitingPlayer().getMana(), 1);
-        assertEquals(resBoard.getCurrentPlayerHero().getHealth(), 30);
-        assertEquals(resBoard.getWaitingPlayerHero().getHealth(), 30);
+        assertEquals(resBoard.getCurrentPlayer().getHero().getHealth(), 30);
+        assertEquals(resBoard.getWaitingPlayer().getHero().getHealth(), 30);
     }
 
 
@@ -96,8 +96,8 @@ public class TestLootHorder {
         assertEquals(resBoard.modelForSide(PlayerSide.WAITING_PLAYER).getNumMinions(), 0); //1 minion should have been killed
         assertEquals(resBoard.getCurrentPlayer().getMana(), 1); //2 mana used
         assertEquals(resBoard.getWaitingPlayer().getMana(), 3);
-        assertEquals(resBoard.getCurrentPlayerHero().getHealth(), 30);
-        assertEquals(resBoard.getWaitingPlayerHero().getHealth(), 30);
+        assertEquals(resBoard.getCurrentPlayer().getHero().getHealth(), 30);
+        assertEquals(resBoard.getWaitingPlayer().getHero().getHealth(), 30);
     }
 
     @Test
@@ -129,7 +129,7 @@ public class TestLootHorder {
         assertEquals(resBoard.modelForSide(PlayerSide.WAITING_PLAYER).getNumMinions(), 0); //1 minion should have been killed
         assertEquals(resBoard.getCurrentPlayer().getMana(), 3); //no mana used
         assertEquals(resBoard.getWaitingPlayer().getMana(), 3);
-        assertEquals(resBoard.getCurrentPlayerHero().getHealth(), 30);
-        assertEquals(resBoard.getWaitingPlayerHero().getHealth(), 30);
+        assertEquals(resBoard.getCurrentPlayer().getHero().getHealth(), 30);
+        assertEquals(resBoard.getWaitingPlayer().getHero().getHealth(), 30);
     }
 }

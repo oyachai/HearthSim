@@ -120,7 +120,7 @@ public class TestArcaneGolem {
         assertEquals(resBoard.modelForSide(PlayerSide.WAITING_PLAYER).getNumMinions(), 2); //1 minion should have been killed
         assertEquals(resBoard.getCurrentPlayer().getMana(), 0); //3 mana used
         assertEquals(resBoard.getWaitingPlayer().getMana(), 4); //1 mana given by the Arcane Golem
-        assertEquals(resBoard.getCurrentPlayerHero().getHealth(), 30);
-        assertEquals(resBoard.getWaitingPlayerHero().getHealth(), 25); //5 damage to the face... 4 from Arcane Golem (he has charge!), 1 more from Raid Leader's buff
+        assertEquals(resBoard.getCurrentPlayer().getHero().getHealth(), 30);
+        assertEquals(resBoard.getWaitingPlayer().getHero().getHealth(), 25); //5 damage to the face... 4 from Arcane Golem (he has charge!), 1 more from Raid Leader's buff
     }
 }

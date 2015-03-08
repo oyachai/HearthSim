@@ -134,8 +134,8 @@ public class TestInnervate {
         assertEquals(resBoard.modelForSide(PlayerSide.WAITING_PLAYER).getNumMinions(), 2);
         assertEquals(resBoard.getCurrentPlayer().getMana(), 3);
         assertEquals(resBoard.getWaitingPlayer().getMana(), 3);
-        assertEquals(resBoard.getCurrentPlayerHero().getHealth(), 30);
-        assertEquals(resBoard.getWaitingPlayerHero().getHealth(), 30);
+        assertEquals(resBoard.getCurrentPlayer().getHero().getHealth(), 30);
+        assertEquals(resBoard.getWaitingPlayer().getHero().getHealth(), 30);
         assertEquals(resBoard.getCurrentPlayer().getHand().size(), 1);
         assertEquals(resBoard.getWaitingPlayer().getHand().size(), 0);
     }

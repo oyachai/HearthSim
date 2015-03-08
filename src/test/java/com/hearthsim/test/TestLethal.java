@@ -63,8 +63,8 @@ public class TestLethal {
         startingBoard.getCurrentPlayer().addMaxMana((byte)10);
 
         root = new HearthTreeNode(startingBoard);
-        this.ownHero = startingBoard.getCurrentPlayerHero();
-        this.enemyHero = startingBoard.getWaitingPlayerHero();
+        this.ownHero = startingBoard.getCurrentPlayer().getHero();
+        this.enemyHero = startingBoard.getWaitingPlayer().getHero();
     }
 
     @Test

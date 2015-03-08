@@ -142,8 +142,8 @@ public class TestYoungPriestess {
         assertEquals(waitingPlayer.getNumMinions(), 0);
         assertEquals(resBoard0.getCurrentPlayer().getMana(), 7);
         assertEquals(resBoard0.getWaitingPlayer().getMana(), 8);
-        assertEquals(resBoard0.getCurrentPlayerHero().getHealth(), 30);
-        assertEquals(resBoard0.getWaitingPlayerHero().getHealth(), 28);
+        assertEquals(resBoard0.getCurrentPlayer().getHero().getHealth(), 30);
+        assertEquals(resBoard0.getWaitingPlayer().getHero().getHealth(), 28);
         assertEquals(currentPlayer.getMinions().get(0).getTotalHealth(), 1);
         assertEquals(currentPlayer.getMinions().get(1).getTotalHealth(), 2);
         assertEquals(currentPlayer.getMinions().get(2).getTotalHealth(), 5);

@@ -287,10 +287,12 @@ public class BoardModel implements DeepCopyable<BoardModel> {
         return modelForSide(playerSide).getHero();
     }
 
+    @Deprecated
     public Hero getCurrentPlayerHero() {
         return currentPlayer.getHero();
     }
 
+    @Deprecated
     public Hero getWaitingPlayerHero() {
         return waitingPlayer.getHero();
     }

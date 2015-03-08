@@ -140,8 +140,8 @@ public class TestGnomishInventor {
         assertEquals(resBoard.modelForSide(PlayerSide.WAITING_PLAYER).getNumMinions(), 1); //1 minion should have been killed
         assertEquals(resBoard.getCurrentPlayer().getMana(), 1); //4 mana used for Gnomish Inventor
         assertEquals(resBoard.getWaitingPlayer().getMana(), 5);
-        assertEquals(resBoard.getCurrentPlayerHero().getHealth(), 30);
-        assertEquals(resBoard.getWaitingPlayerHero().getHealth(), 25); //smacked in the face once
+        assertEquals(resBoard.getCurrentPlayer().getHero().getHealth(), 30);
+        assertEquals(resBoard.getWaitingPlayer().getHero().getHealth(), 25); //smacked in the face once
     }
 
     @Test
@@ -156,7 +156,7 @@ public class TestGnomishInventor {
         assertEquals(resBoard.modelForSide(PlayerSide.WAITING_PLAYER).getNumMinions(), 1); //1 minion should have been killed
         assertEquals(resBoard.getCurrentPlayer().getMana(), 1); //4 mana used for Gnomish Inventor, 2 for Bloodfen Raptor
         assertEquals(resBoard.getWaitingPlayer().getMana(), 7);
-        assertEquals(resBoard.getCurrentPlayerHero().getHealth(), 30);
-        assertEquals(resBoard.getWaitingPlayerHero().getHealth(), 25); //smacked in the face once
+        assertEquals(resBoard.getCurrentPlayer().getHero().getHealth(), 30);
+        assertEquals(resBoard.getWaitingPlayer().getHero().getHealth(), 25); //smacked in the face once
     }
 }
