@@ -59,7 +59,7 @@ public class GameDetailedRecord implements GameRecord {
         BoardModel boardModel = boards_.get(currentPlayerId).get(turn);
         PlayerSide playerByIndex = GameDetailedRecord.getPlayerByIndex(playerId);
         PlayerSide otherPlayer = playerByIndex.getOtherPlayer();
-        return boardModel.getHero(otherPlayer).getHealth();
+        return boardModel.modelForSide(otherPlayer).getHero().getHealth();
     }
 
     @Override
@@ -67,7 +67,7 @@ public class GameDetailedRecord implements GameRecord {
         BoardModel boardModel = boards_.get(currentPlayerId).get(turn);
         PlayerSide playerByIndex = GameDetailedRecord.getPlayerByIndex(playerId);
         PlayerSide otherPlayer = playerByIndex.getOtherPlayer();
-        return boardModel.getHero(otherPlayer).getArmor();
+        return boardModel.modelForSide(otherPlayer).getHero().getArmor();
     }
 
     @Override

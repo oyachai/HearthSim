@@ -34,7 +34,7 @@ public class Armorsmith extends Minion implements MinionDamagedInterface {
             Deck deckPlayer1) {
         HearthTreeNode toRet = boardState;
         if (thisMinionPlayerSide == damagedPlayerSide) {
-            Hero hero = toRet.data_.getHero(thisMinionPlayerSide);
+            Hero hero = toRet.data_.modelForSide(thisMinionPlayerSide).getHero();
             hero.setArmor((byte)(hero.getArmor() + 1));
         }
         return toRet;

@@ -50,11 +50,11 @@ public class TestEquality {
         board.data_.getCurrentPlayer().setMaxMana((byte)8);
         board.data_.getWaitingPlayer().setMaxMana((byte)8);
 
-        minion0_0.placeMinion(PlayerSide.CURRENT_PLAYER, board.data_.getHero(PlayerSide.CURRENT_PLAYER), board, null, null, true);
-        minion0_1.placeMinion(PlayerSide.CURRENT_PLAYER, board.data_.getHero(PlayerSide.CURRENT_PLAYER), board, null, null, true);
-        minion0_2.placeMinion(PlayerSide.CURRENT_PLAYER, board.data_.getHero(PlayerSide.CURRENT_PLAYER), board, null, null, true);
-        minion1_0.placeMinion(PlayerSide.WAITING_PLAYER, board.data_.getHero(PlayerSide.WAITING_PLAYER), board, null, null, true);
-        minion1_1.placeMinion(PlayerSide.WAITING_PLAYER, board.data_.getHero(PlayerSide.WAITING_PLAYER), board, null, null, true);
+        minion0_0.placeMinion(PlayerSide.CURRENT_PLAYER, board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getHero(), board, null, null, true);
+        minion0_1.placeMinion(PlayerSide.CURRENT_PLAYER, board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getHero(), board, null, null, true);
+        minion0_2.placeMinion(PlayerSide.CURRENT_PLAYER, board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getHero(), board, null, null, true);
+        minion1_0.placeMinion(PlayerSide.WAITING_PLAYER, board.data_.modelForSide(PlayerSide.WAITING_PLAYER).getHero(), board, null, null, true);
+        minion1_1.placeMinion(PlayerSide.WAITING_PLAYER, board.data_.modelForSide(PlayerSide.WAITING_PLAYER).getHero(), board, null, null, true);
 
     }
 

@@ -196,11 +196,6 @@ public class BoardModel implements DeepCopyable<BoardModel> {
         modelForSide(side).placeCardDeck(card);
     }
 
-    public Hero getHero(PlayerSide playerSide) {
-        return modelForSide(playerSide).getHero();
-    }
-
-
     /**
      * Draw a card from a deck and place it in the hand
      *
@@ -682,5 +677,10 @@ public class BoardModel implements DeepCopyable<BoardModel> {
     @Deprecated
     public Hero getWaitingPlayerHero() {
         return waitingPlayer.getHero();
+    }
+
+    @Deprecated
+    public Hero getHero(PlayerSide playerSide) {
+        return modelForSide(playerSide).getHero();
     }
 }

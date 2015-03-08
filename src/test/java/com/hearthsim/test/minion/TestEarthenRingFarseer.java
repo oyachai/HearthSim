@@ -50,19 +50,19 @@ public class TestEarthenRingFarseer {
         board.data_.getCurrentPlayer().setMaxMana((byte)8);
         board.data_.getWaitingPlayer().setMaxMana((byte)8);
 
-        minion0_0.summonMinion(PlayerSide.CURRENT_PLAYER, board.data_.getHero(PlayerSide.CURRENT_PLAYER), board, null, null, false, true);
-        minion0_1.summonMinion(PlayerSide.CURRENT_PLAYER, board.data_.getHero(PlayerSide.CURRENT_PLAYER), board, null, null, false, true);
-        minion0_2.summonMinion(PlayerSide.CURRENT_PLAYER, board.data_.getHero(PlayerSide.CURRENT_PLAYER), board, null, null, false, true);
-        minion1_0.summonMinion(PlayerSide.WAITING_PLAYER, board.data_.getHero(PlayerSide.WAITING_PLAYER), board, null, null, false, true);
-        minion1_1.summonMinion(PlayerSide.WAITING_PLAYER, board.data_.getHero(PlayerSide.WAITING_PLAYER), board, null, null, false, true);
+        minion0_0.summonMinion(PlayerSide.CURRENT_PLAYER, board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getHero(), board, null, null, false, true);
+        minion0_1.summonMinion(PlayerSide.CURRENT_PLAYER, board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getHero(), board, null, null, false, true);
+        minion0_2.summonMinion(PlayerSide.CURRENT_PLAYER, board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getHero(), board, null, null, false, true);
+        minion1_0.summonMinion(PlayerSide.WAITING_PLAYER, board.data_.modelForSide(PlayerSide.WAITING_PLAYER).getHero(), board, null, null, false, true);
+        minion1_1.summonMinion(PlayerSide.WAITING_PLAYER, board.data_.modelForSide(PlayerSide.WAITING_PLAYER).getHero(), board, null, null, false, true);
 
         minion0_0.setHealth((byte)1);
         minion0_1.setHealth((byte)1);
 
         minion1_0.setHealth((byte)1);
 
-        board.data_.getHero(PlayerSide.CURRENT_PLAYER).setHealth((byte)20);
-        board.data_.getHero(PlayerSide.WAITING_PLAYER).setHealth((byte)20);
+        board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getHero().setHealth((byte)20);
+        board.data_.modelForSide(PlayerSide.WAITING_PLAYER).getHero().setHealth((byte)20);
 
         board.data_.resetMana();
 

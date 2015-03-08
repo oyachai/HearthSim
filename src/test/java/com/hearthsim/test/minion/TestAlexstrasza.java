@@ -103,7 +103,7 @@ public class TestAlexstrasza {
 
     @Test
     public void testDoesNotEffectArmor() throws HSException {
-        Hero hero = board.data_.getHero(PlayerSide.CURRENT_PLAYER);
+        Hero hero = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getHero();
         hero.setArmor((byte)20);
         Alexstrasza alexstrasza = new Alexstrasza();
         alexstrasza.useTargetableBattlecry_core(PlayerSide.CURRENT_PLAYER, hero, board, null, null);
