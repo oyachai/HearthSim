@@ -44,7 +44,7 @@ public class TestSpellDamage {
     @Test
     public void testCanTargetOwnHero() throws HSException {
         HolySmite hs = new HolySmite();
-        board.data_.placeCardHandCurrentPlayer(hs);
+        board.data_.getCurrentPlayer().placeCardHand(hs);
 
         Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
@@ -71,7 +71,7 @@ public class TestSpellDamage {
     @Test
     public void testCanTargetEnemyHero() throws HSException {
         HolySmite hs = new HolySmite();
-        board.data_.placeCardHandCurrentPlayer(hs);
+        board.data_.getCurrentPlayer().placeCardHand(hs);
 
         Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 0, board, null, null);
@@ -98,7 +98,7 @@ public class TestSpellDamage {
     @Test
     public void testKillOwnMinion() throws HSException {
         HolySmite hs = new HolySmite();
-        board.data_.placeCardHandCurrentPlayer(hs);
+        board.data_.getCurrentPlayer().placeCardHand(hs);
 
         Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, null, null);
@@ -124,7 +124,7 @@ public class TestSpellDamage {
     @Test
     public void testCanTargetOwnMinion() throws HSException {
         HolySmite hs = new HolySmite();
-        board.data_.placeCardHandCurrentPlayer(hs);
+        board.data_.getCurrentPlayer().placeCardHand(hs);
 
         Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 2, board, null, null);
@@ -151,7 +151,7 @@ public class TestSpellDamage {
     @Test
     public void testKillEnemyMinion() throws HSException {
         HolySmite hs = new HolySmite();
-        board.data_.placeCardHandCurrentPlayer(hs);
+        board.data_.getCurrentPlayer().placeCardHand(hs);
 
         Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 1, board, null, null);
@@ -177,7 +177,7 @@ public class TestSpellDamage {
     @Test
     public void testTargetEnemyMinion() throws HSException {
         HolySmite hs = new HolySmite();
-        board.data_.placeCardHandCurrentPlayer(hs);
+        board.data_.getCurrentPlayer().placeCardHand(hs);
 
         Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 2, board, null, null);
@@ -207,7 +207,7 @@ public class TestSpellDamage {
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, kobold);
 
         HolySmite hs = new HolySmite();
-        board.data_.placeCardHandCurrentPlayer(hs);
+        board.data_.getCurrentPlayer().placeCardHand(hs);
 
         Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 2, board, null, null);

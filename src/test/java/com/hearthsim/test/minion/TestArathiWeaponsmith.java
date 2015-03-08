@@ -27,7 +27,7 @@ public class TestArathiWeaponsmith {
         board.data_.getCurrentPlayer().setMaxMana((byte)10);
         board.data_.getWaitingPlayer().setMaxMana((byte)10);
 
-        board.data_.placeCardHandCurrentPlayer(new ArathiWeaponsmith());
+        board.data_.getCurrentPlayer().placeCardHand(new ArathiWeaponsmith());
     }
 
     @Test
@@ -48,7 +48,7 @@ public class TestArathiWeaponsmith {
 
     @Test
     public void testDestroysExistingWeapon() throws HSException {
-        board.data_.placeCardHandCurrentPlayer(new FieryWarAxe());
+        board.data_.getCurrentPlayer().placeCardHand(new FieryWarAxe());
         board.data_.getCurrentPlayer().getHand().get(1).useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
         PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);

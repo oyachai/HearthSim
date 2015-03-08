@@ -227,18 +227,22 @@ public class BoardModel implements DeepCopyable<BoardModel> {
         modelForSide(playerSide).getHand().add(card);
     }
 
+    @Deprecated
     public void placeCardHandCurrentPlayer(int cardIndex) {
         currentPlayer.placeCardHand(cardIndex);
     }
 
+    @Deprecated
     public void placeCardHandCurrentPlayer(Card card) {
         currentPlayer.placeCardHand(card);
     }
 
+    @Deprecated
     public void placeCardHandWaitingPlayer(int cardIndex) {
         waitingPlayer.placeCardHand(cardIndex);
     }
 
+    @Deprecated
     public void placeCardHandWaitingPlayer(Card card) {
         waitingPlayer.placeCardHand(card);
     }

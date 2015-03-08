@@ -57,7 +57,7 @@ public class TestExecute {
     @Test
     public void testFollowsNormalTargetingRules() throws HSException {
         Execute fb = new Execute();
-        board.data_.placeCardHandCurrentPlayer(fb);
+        board.data_.getCurrentPlayer().placeCardHand(fb);
 
         HearthTreeNode ret = fb.useOn(PlayerSide.WAITING_PLAYER, 0, board, deck, null);
         assertNull(ret);
@@ -66,7 +66,7 @@ public class TestExecute {
     @Test
     public void testCannotTargetUndamagedMinion() throws HSException {
         Execute fb = new Execute();
-        board.data_.placeCardHandCurrentPlayer(fb);
+        board.data_.getCurrentPlayer().placeCardHand(fb);
 
         Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 1, board, deck, null);
@@ -94,7 +94,7 @@ public class TestExecute {
     @Test
     public void test2() throws HSException {
         Execute fb = new Execute();
-        board.data_.placeCardHandCurrentPlayer(fb);
+        board.data_.getCurrentPlayer().placeCardHand(fb);
 
         Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 2, board, deck, null);

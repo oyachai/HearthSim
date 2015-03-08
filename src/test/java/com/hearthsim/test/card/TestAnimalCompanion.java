@@ -49,7 +49,7 @@ public class TestAnimalCompanion {
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion1_1);
 
         AnimalCompanion fb = new AnimalCompanion();
-        board.data_.placeCardHandCurrentPlayer(fb);
+        board.data_.getCurrentPlayer().placeCardHand(fb);
 
         board.data_.getCurrentPlayer().setMana((byte)4);
     }
@@ -58,7 +58,7 @@ public class TestAnimalCompanion {
     public void testLeokkBuffs() throws HSException {
 
         Card leokk = new Leokk();
-        board.data_.placeCardHandCurrentPlayer(leokk);
+        board.data_.getCurrentPlayer().placeCardHand(leokk);
 
         Card theCard = board.data_.getCurrentPlayer().getHand().get(1);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 2, board, null, null);

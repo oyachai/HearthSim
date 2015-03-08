@@ -31,7 +31,7 @@ public class TestAncestralHealing {
         Minion minion1 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
 
         AncestralHealing fb = new AncestralHealing();
-        board.data_.placeCardHandCurrentPlayer(fb);
+        board.data_.getCurrentPlayer().placeCardHand(fb);
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, minion0);
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion1);
         board.data_.getCurrentPlayer().setMana((byte)2);

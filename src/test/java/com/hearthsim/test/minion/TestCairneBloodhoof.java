@@ -32,11 +32,11 @@ public class TestCairneBloodhoof {
         Minion minion1_0 = new BoulderfistOgre();
         Minion minion1_1 = new RaidLeader();
 
-        board.data_.placeCardHandCurrentPlayer(minion0_0);
-        board.data_.placeCardHandCurrentPlayer(minion0_1);
+        board.data_.getCurrentPlayer().placeCardHand(minion0_0);
+        board.data_.getCurrentPlayer().placeCardHand(minion0_1);
 
-        board.data_.placeCardHandWaitingPlayer(minion1_0);
-        board.data_.placeCardHandWaitingPlayer(minion1_1);
+        board.data_.getWaitingPlayer().placeCardHand(minion1_0);
+        board.data_.getWaitingPlayer().placeCardHand(minion1_1);
 
         Card cards[] = new Card[10];
         for (int index = 0; index < 10; ++index) {
@@ -46,7 +46,7 @@ public class TestCairneBloodhoof {
         deck = new Deck(cards);
 
         Card fb = new CairneBloodhoof();
-        board.data_.placeCardHandCurrentPlayer(fb);
+        board.data_.getCurrentPlayer().placeCardHand(fb);
 
         board.data_.getCurrentPlayer().setMana((byte)18);
         board.data_.getWaitingPlayer().setMana((byte)18);
@@ -406,7 +406,7 @@ public class TestCairneBloodhoof {
 
         Minion minion = currentPlayer.getMinions().get(1);
 
-        fb.data_.placeCardHandCurrentPlayer(new Fireball());
+        fb.data_.getCurrentPlayer().placeCardHand(new Fireball());
         Card fireball = fb.data_.getCurrentPlayer().getHand().get(0);
 
         minion.hasAttacked(false);

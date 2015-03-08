@@ -52,7 +52,7 @@ public class TestWeapon {
         deck = new Deck(cards);
 
         FieryWarAxe fb = new FieryWarAxe();
-        board.data_.placeCardHandCurrentPlayer(fb);
+        board.data_.getCurrentPlayer().placeCardHand(fb);
 
         board.data_.getCurrentPlayer().setMana((byte)2);
     }
@@ -131,7 +131,7 @@ public class TestWeapon {
     @Test
     public void testDestroysEquippedWeapon() throws HSException {
         AssassinsBlade otherWeapon = new AssassinsBlade();
-        board.data_.placeCardHandCurrentPlayer(otherWeapon);
+        board.data_.getCurrentPlayer().placeCardHand(otherWeapon);
         board.data_.getCurrentPlayer().setMana((byte)7);
         board.data_.getCurrentPlayer().getHand().get(1).useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
 

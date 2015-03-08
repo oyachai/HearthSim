@@ -50,7 +50,7 @@ public class TestDeadlyPoison {
         deck = new Deck(cards);
 
         DeadlyPoison fb = new DeadlyPoison();
-        board.data_.placeCardHandCurrentPlayer(fb);
+        board.data_.getCurrentPlayer().placeCardHand(fb);
 
         board.data_.getCurrentPlayer().setMana((byte)10);
         board.data_.getCurrentPlayer().setMaxMana((byte)10);
@@ -87,7 +87,7 @@ public class TestDeadlyPoison {
     @Test
     public void testBuffsWeapon() throws HSException {
         FieryWarAxe fb = new FieryWarAxe();
-        board.data_.placeCardHandCurrentPlayer(fb);
+        board.data_.getCurrentPlayer().placeCardHand(fb);
 
         Card theCard = board.data_.getCurrentPlayer().getHand().get(1);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);

@@ -42,7 +42,7 @@ public class TestEarthenRingFarseer {
         deck = new Deck(cards);
 
         Card fb = new EarthenRingFarseer();
-        board.data_.placeCardHandCurrentPlayer(fb);
+        board.data_.getCurrentPlayer().placeCardHand(fb);
 
         board.data_.getCurrentPlayer().setMana((byte)18);
         board.data_.getWaitingPlayer().setMana((byte)18);

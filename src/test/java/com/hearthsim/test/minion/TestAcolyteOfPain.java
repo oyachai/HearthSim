@@ -52,7 +52,7 @@ public class TestAcolyteOfPain {
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion1_0);
 
         AcolyteOfPain acolyteInHand = new AcolyteOfPain();
-        board.data_.placeCardHandCurrentPlayer(acolyteInHand);
+        board.data_.getCurrentPlayer().placeCardHand(acolyteInHand);
 
         board.data_.getCurrentPlayer().setMana((byte)7);
         board.data_.getWaitingPlayer().setMana((byte)7);
@@ -126,7 +126,7 @@ public class TestAcolyteOfPain {
 
         assertEquals(board.data_.getNumCardsHandWaitingPlayer(), 0);
         Assassinate assassinate = new Assassinate();
-        board.data_.placeCardHandCurrentPlayer(assassinate);
+        board.data_.getCurrentPlayer().placeCardHand(assassinate);
         HearthTreeNode ret = assassinate.useOn(PlayerSide.WAITING_PLAYER, enemyAcolyte, board, deck, deck);
         assertEquals(board, ret);
         assertFalse(board instanceof CardDrawNode);

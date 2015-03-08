@@ -33,7 +33,7 @@ public class TestAssassinate {
         Minion minion3 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
 
         Assassinate fb = new Assassinate();
-        board.data_.placeCardHandCurrentPlayer(fb);
+        board.data_.getCurrentPlayer().placeCardHand(fb);
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, minion0);
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion1);
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion2);

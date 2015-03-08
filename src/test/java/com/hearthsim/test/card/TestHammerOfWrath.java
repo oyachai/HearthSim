@@ -54,7 +54,7 @@ public class TestHammerOfWrath {
     @Test
     public void test0() throws HSException {
         HammerOfWrath fb = new HammerOfWrath();
-        board.data_.placeCardHandCurrentPlayer(fb);
+        board.data_.getCurrentPlayer().placeCardHand(fb);
 
         Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
@@ -86,7 +86,7 @@ public class TestHammerOfWrath {
     @Test
     public void test1() throws HSException {
         HammerOfWrath fb = new HammerOfWrath();
-        board.data_.placeCardHandCurrentPlayer(fb);
+        board.data_.getCurrentPlayer().placeCardHand(fb);
 
         Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 1, board, deck, null);

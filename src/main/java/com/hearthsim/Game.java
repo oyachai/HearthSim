@@ -70,17 +70,17 @@ public class Game {
         curTurn_ = 0;
 
         //the first player draws 3 cards
-        boardModel.placeCardHandCurrentPlayer(0);
-        boardModel.placeCardHandCurrentPlayer(1);
-        boardModel.placeCardHandCurrentPlayer(2);
+        boardModel.getCurrentPlayer().placeCardHand(0);
+        boardModel.getCurrentPlayer().placeCardHand(1);
+        boardModel.getCurrentPlayer().placeCardHand(2);
         boardModel.getCurrentPlayer().setDeckPos((byte)3);
 
         //the second player draws 4 cards
-        boardModel.placeCardHandWaitingPlayer(0);
-        boardModel.placeCardHandWaitingPlayer(1);
-        boardModel.placeCardHandWaitingPlayer(2);
-        boardModel.placeCardHandWaitingPlayer(3);
-        boardModel.placeCardHandWaitingPlayer(new TheCoin());
+        boardModel.getWaitingPlayer().placeCardHand(0);
+        boardModel.getWaitingPlayer().placeCardHand(1);
+        boardModel.getWaitingPlayer().placeCardHand(2);
+        boardModel.getWaitingPlayer().placeCardHand(3);
+        boardModel.getWaitingPlayer().placeCardHand(new TheCoin());
         boardModel.getWaitingPlayer().setDeckPos((byte)4);
 
         GameRecord record = new GameSimpleRecord();

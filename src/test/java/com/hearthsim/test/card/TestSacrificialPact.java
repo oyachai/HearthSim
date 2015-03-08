@@ -53,7 +53,7 @@ public class TestSacrificialPact {
         deck = new Deck(cards);
 
         Card fb = new SacrificialPact();
-        board.data_.placeCardHandCurrentPlayer(fb);
+        board.data_.getCurrentPlayer().placeCardHand(fb);
 
         board.data_.getCurrentPlayer().setMana((byte)10);
         board.data_.getWaitingPlayer().setMana((byte)4);

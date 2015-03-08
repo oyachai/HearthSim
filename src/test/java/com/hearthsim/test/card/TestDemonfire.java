@@ -42,7 +42,7 @@ public class TestDemonfire {
         deck = new Deck(cards);
 
         Card fb = new Demonfire();
-        board.data_.placeCardHandCurrentPlayer(fb);
+        board.data_.getCurrentPlayer().placeCardHand(fb);
 
         board.data_.getCurrentPlayer().setMana((byte)8);
         board.data_.getWaitingPlayer().setMana((byte)8);

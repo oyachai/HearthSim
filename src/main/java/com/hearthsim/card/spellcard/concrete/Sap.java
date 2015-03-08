@@ -60,7 +60,7 @@ public class Sap extends SpellCard {
         if (toRet != null) {
             if (boardState.data_.getNumCardsHandWaitingPlayer() < 10) {
                 Minion copy = targetMinion.createResetCopy();
-                toRet.data_.placeCardHandWaitingPlayer(copy);
+                toRet.data_.getWaitingPlayer().placeCardHand(copy);
             }
             toRet.data_.removeMinion(targetMinion);
         }

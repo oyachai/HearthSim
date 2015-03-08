@@ -48,7 +48,7 @@ public class TestClaw {
         deck = new Deck(cards);
 
         Claw fb = new Claw();
-        board.data_.placeCardHandCurrentPlayer(fb);
+        board.data_.getCurrentPlayer().placeCardHand(fb);
 
         board.data_.getCurrentPlayer().setMana((byte)10);
         board.data_.getCurrentPlayer().setMaxMana((byte)10);

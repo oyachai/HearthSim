@@ -47,7 +47,7 @@ public class TestDreadInfernal {
         deck = new Deck(cards);
 
         Minion fb = new DreadInfernal();
-        board.data_.placeCardHandCurrentPlayer(fb);
+        board.data_.getCurrentPlayer().placeCardHand(fb);
 
         board.data_.getCurrentPlayer().setMana((byte)7);
         board.data_.getWaitingPlayer().setMana((byte)4);

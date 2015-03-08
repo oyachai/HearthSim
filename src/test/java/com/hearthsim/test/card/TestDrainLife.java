@@ -58,7 +58,7 @@ public class TestDrainLife {
     @Test
     public void test0() throws HSException {
         DrainLife fb = new DrainLife();
-        board.data_.placeCardHandCurrentPlayer(fb);
+        board.data_.getCurrentPlayer().placeCardHand(fb);
 
         Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
@@ -86,7 +86,7 @@ public class TestDrainLife {
     @Test
     public void test1() throws HSException {
         DrainLife fb = new DrainLife();
-        board.data_.placeCardHandCurrentPlayer(fb);
+        board.data_.getCurrentPlayer().placeCardHand(fb);
 
         Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, deck, null);
@@ -114,7 +114,7 @@ public class TestDrainLife {
     @Test
     public void test2() throws HSException {
         DrainLife fb = new DrainLife();
-        board.data_.placeCardHandCurrentPlayer(fb);
+        board.data_.getCurrentPlayer().placeCardHand(fb);
 
         board.data_.getCurrentPlayer().getHero().setHealth((byte)15);
 

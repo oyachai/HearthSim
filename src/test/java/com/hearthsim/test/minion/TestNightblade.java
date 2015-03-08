@@ -22,7 +22,7 @@ public class TestNightblade {
         board = new HearthTreeNode(new BoardModel());
 
         Card fb = new Nightblade();
-        board.data_.placeCardHandCurrentPlayer(fb);
+        board.data_.getCurrentPlayer().placeCardHand(fb);
 
         board.data_.getCurrentPlayer().setMana((byte)10);
         board.data_.getCurrentPlayer().setMaxMana((byte)7);

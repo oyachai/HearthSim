@@ -47,7 +47,7 @@ public class TestBloodlust {
         deck = new Deck(cards);
 
         Bloodlust fb = new Bloodlust();
-        board.data_.placeCardHandCurrentPlayer(fb);
+        board.data_.getCurrentPlayer().placeCardHand(fb);
 
         board.data_.getCurrentPlayer().setMana((byte)8);
         board.data_.getWaitingPlayer().setMana((byte)8);

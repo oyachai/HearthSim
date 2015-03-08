@@ -48,7 +48,7 @@ public class TestFanOfKnives {
         deck = new Deck(cards);
 
         Card fb = new FanOfKnives();
-        board.data_.placeCardHandCurrentPlayer(fb);
+        board.data_.getCurrentPlayer().placeCardHand(fb);
 
         board.data_.getCurrentPlayer().setMana((byte)4);
         board.data_.getWaitingPlayer().setMana((byte)4);

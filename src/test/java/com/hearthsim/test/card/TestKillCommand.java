@@ -50,7 +50,7 @@ public class TestKillCommand {
         deck = new Deck(cards);
 
         Card fb = new KillCommand();
-        board.data_.placeCardHandCurrentPlayer(fb);
+        board.data_.getCurrentPlayer().placeCardHand(fb);
 
         board.data_.getCurrentPlayer().setMana((byte)7);
         board.data_.getWaitingPlayer().setMana((byte)4);

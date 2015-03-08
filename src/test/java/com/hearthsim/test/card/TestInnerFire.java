@@ -31,11 +31,11 @@ public class TestInnerFire {
         Minion minion1_0 = new BoulderfistOgre();
         Minion minion1_1 = new RaidLeader();
 
-        board.data_.placeCardHandCurrentPlayer(minion0_0);
-        board.data_.placeCardHandCurrentPlayer(minion0_1);
+        board.data_.getCurrentPlayer().placeCardHand(minion0_0);
+        board.data_.getCurrentPlayer().placeCardHand(minion0_1);
 
-        board.data_.placeCardHandWaitingPlayer(minion1_0);
-        board.data_.placeCardHandWaitingPlayer(minion1_1);
+        board.data_.getWaitingPlayer().placeCardHand(minion1_0);
+        board.data_.getWaitingPlayer().placeCardHand(minion1_1);
 
         Card cards[] = new Card[10];
         for (int index = 0; index < 10; ++index) {
@@ -45,7 +45,7 @@ public class TestInnerFire {
         deck = new Deck(cards);
 
         Card fb = new InnerFire();
-        board.data_.placeCardHandCurrentPlayer(fb);
+        board.data_.getCurrentPlayer().placeCardHand(fb);
 
         board.data_.getCurrentPlayer().setMana((byte)9);
         board.data_.getWaitingPlayer().setMana((byte)9);

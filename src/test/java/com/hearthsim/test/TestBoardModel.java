@@ -51,8 +51,8 @@ public class TestBoardModel {
         BoardModel board2 = new BoardModel();
         BoardModel board3 = new BoardModel();
 
-        board1.placeCardHandCurrentPlayer(TestBoardModel.CreateMinionAlpha());
-        board3.placeCardHandCurrentPlayer(TestBoardModel.CreateMinionAlpha());
+        board1.getCurrentPlayer().placeCardHand(TestBoardModel.CreateMinionAlpha());
+        board3.getCurrentPlayer().placeCardHand(TestBoardModel.CreateMinionAlpha());
 
         assertNotEquals(board1, board2);
         assertEquals(board1, board3);
@@ -135,7 +135,7 @@ public class TestBoardModel {
             int nm2 = (int)(Math.random() * 2) + 1;
 
             for (int j = 0; j < nh; ++j) {
-                boards[i].placeCardHandCurrentPlayer(cards1[(int)(Math.random() * numCards1)]);
+                boards[i].getCurrentPlayer().placeCardHand(cards1[(int)(Math.random() * numCards1)]);
             }
 
             for (int j = 0; j < nm1; ++j) {
@@ -172,13 +172,13 @@ public class TestBoardModel {
         Minion minion1_1 = new RaidLeader();
         Minion minion1_2 = new ScarletCrusader();
 
-        board.data_.placeCardHandCurrentPlayer(minion0_0);
-        board.data_.placeCardHandCurrentPlayer(minion0_1);
-        board.data_.placeCardHandCurrentPlayer(minion0_2);
+        board.data_.getCurrentPlayer().placeCardHand(minion0_0);
+        board.data_.getCurrentPlayer().placeCardHand(minion0_1);
+        board.data_.getCurrentPlayer().placeCardHand(minion0_2);
 
-        board.data_.placeCardHandWaitingPlayer(minion1_0);
-        board.data_.placeCardHandWaitingPlayer(minion1_1);
-        board.data_.placeCardHandWaitingPlayer(minion1_2);
+        board.data_.getWaitingPlayer().placeCardHand(minion1_0);
+        board.data_.getWaitingPlayer().placeCardHand(minion1_1);
+        board.data_.getWaitingPlayer().placeCardHand(minion1_2);
 
         board.data_.getCurrentPlayer().setMana((byte)8);
         board.data_.getWaitingPlayer().setMana((byte)8);

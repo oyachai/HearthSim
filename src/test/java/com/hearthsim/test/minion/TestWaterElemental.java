@@ -28,7 +28,7 @@ public class TestWaterElemental {
         board = new HearthTreeNode(new BoardModel());
 
         Card fb = new WaterElemental();
-        board.data_.placeCardHandCurrentPlayer(fb);
+        board.data_.getCurrentPlayer().placeCardHand(fb);
 
         board.data_.getCurrentPlayer().setMana((byte)8);
         board.data_.getCurrentPlayer().setMaxMana((byte)8);

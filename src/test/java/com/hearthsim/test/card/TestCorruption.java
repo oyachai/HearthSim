@@ -51,7 +51,7 @@ public class TestCorruption {
         deck = new Deck(cards);
 
         Corruption fb = new Corruption();
-        board.data_.placeCardHandCurrentPlayer(fb);
+        board.data_.getCurrentPlayer().placeCardHand(fb);
 
         board.data_.getCurrentPlayer().setMana((byte)4);
         board.data_.getWaitingPlayer().setMana((byte)4);

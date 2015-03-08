@@ -47,7 +47,7 @@ public class TestDivineSpirit {
         deck = new Deck(cards);
 
         DivineSpirit fb = new DivineSpirit();
-        board.data_.placeCardHandCurrentPlayer(fb);
+        board.data_.getCurrentPlayer().placeCardHand(fb);
 
         board.data_.getCurrentPlayer().setMana((byte)4);
         board.data_.getWaitingPlayer().setMana((byte)4);

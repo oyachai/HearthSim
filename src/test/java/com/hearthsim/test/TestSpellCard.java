@@ -39,7 +39,7 @@ public class TestSpellCard {
 
     @Test
     public void testTargetOwnHero() throws HSException {
-        board.data_.placeCardHandCurrentPlayer(new HolySmite());
+        board.data_.getCurrentPlayer().placeCardHand(new HolySmite());
 
         Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
         Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
@@ -48,7 +48,7 @@ public class TestSpellCard {
 
     @Test
     public void testTargetOwnHeroFailure() throws HSException {
-        board.data_.placeCardHandCurrentPlayer(new ShadowBolt());
+        board.data_.getCurrentPlayer().placeCardHand(new ShadowBolt());
 
         Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
         Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
@@ -57,7 +57,7 @@ public class TestSpellCard {
 
     @Test
     public void testTargetOwnMinion() throws HSException {
-        board.data_.placeCardHandCurrentPlayer(new RockbiterWeapon());
+        board.data_.getCurrentPlayer().placeCardHand(new RockbiterWeapon());
 
         Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
         Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
@@ -66,7 +66,7 @@ public class TestSpellCard {
 
     @Test
     public void testTargetOwnMinionFailure() throws HSException {
-        board.data_.placeCardHandCurrentPlayer(new Sap());
+        board.data_.getCurrentPlayer().placeCardHand(new Sap());
 
         Minion target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
         Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
@@ -75,7 +75,7 @@ public class TestSpellCard {
 
     @Test
     public void testTargetEnemyHero() throws HSException {
-        board.data_.placeCardHandCurrentPlayer(new HolySmite());
+        board.data_.getCurrentPlayer().placeCardHand(new HolySmite());
 
         Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
         Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
@@ -84,7 +84,7 @@ public class TestSpellCard {
 
     @Test
     public void testTargetEnemyHeroFailure() throws HSException {
-        board.data_.placeCardHandCurrentPlayer(new ShadowBolt());
+        board.data_.getCurrentPlayer().placeCardHand(new ShadowBolt());
 
         Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
         Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
@@ -93,7 +93,7 @@ public class TestSpellCard {
 
     @Test
     public void testTargetEnemyMinion() throws HSException {
-        board.data_.placeCardHandCurrentPlayer(new Sap());
+        board.data_.getCurrentPlayer().placeCardHand(new Sap());
 
         Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
         Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
@@ -102,7 +102,7 @@ public class TestSpellCard {
 
     @Test
     public void testTargetEnemyMinionFailure() throws HSException {
-        board.data_.placeCardHandCurrentPlayer(new RockbiterWeapon());
+        board.data_.getCurrentPlayer().placeCardHand(new RockbiterWeapon());
 
         Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
         Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
@@ -111,7 +111,7 @@ public class TestSpellCard {
 
     @Test
     public void testTargetStealthedMinion() throws HSException {
-        board.data_.placeCardHandCurrentPlayer(new HolySmite());
+        board.data_.getCurrentPlayer().placeCardHand(new HolySmite());
 
         Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
         target.setStealthed(true);
@@ -121,7 +121,7 @@ public class TestSpellCard {
 
     @Test
     public void testTargetFaerieMinion() throws HSException {
-        board.data_.placeCardHandCurrentPlayer(new HolySmite());
+        board.data_.getCurrentPlayer().placeCardHand(new HolySmite());
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, new FaerieDragon());
 
         Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);

@@ -84,7 +84,7 @@ public class TestCharge {
     public void testAiPlayChargeAndAttack() {
         Minion minion = new Minion("" + 0, mana, attack0, health1, attack0, (byte)0, (byte)0);
         minion.setCharge(true);
-        board.placeCardHandCurrentPlayer(minion);
+        board.getCurrentPlayer().placeCardHand(minion);
         board.getCurrentPlayer().setMana((byte)1);
 
         BoardStateFactoryBase factory = new DepthBoardStateFactory(null, null, true);

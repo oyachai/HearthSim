@@ -47,7 +47,7 @@ public class TestDarkscaleHealer {
         deck = new Deck(cards);
 
         DarkscaleHealer fb = new DarkscaleHealer();
-        board.data_.placeCardHandCurrentPlayer(fb);
+        board.data_.getCurrentPlayer().placeCardHand(fb);
 
         board.data_.getCurrentPlayer().setMana((byte)5);
         board.data_.getWaitingPlayer().setMana((byte)4);

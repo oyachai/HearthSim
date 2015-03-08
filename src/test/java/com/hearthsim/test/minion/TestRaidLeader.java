@@ -33,11 +33,11 @@ public class TestRaidLeader {
         Minion minion1_0 = new BloodfenRaptor();
         Minion minion1_1 = new RaidLeader();
 
-        board.data_.placeCardHandCurrentPlayer(minion0_0);
-        board.data_.placeCardHandCurrentPlayer(minion0_1);
+        board.data_.getCurrentPlayer().placeCardHand(minion0_0);
+        board.data_.getCurrentPlayer().placeCardHand(minion0_1);
 
-        board.data_.placeCardHandWaitingPlayer(minion1_0);
-        board.data_.placeCardHandWaitingPlayer(minion1_1);
+        board.data_.getWaitingPlayer().placeCardHand(minion1_0);
+        board.data_.getWaitingPlayer().placeCardHand(minion1_1);
 
         Card cards[] = new Card[10];
         for (int index = 0; index < 10; ++index) {
@@ -64,7 +64,7 @@ public class TestRaidLeader {
         board.data_.resetMinions();
 
         Minion fb = new RaidLeader();
-        board.data_.placeCardHandCurrentPlayer(fb);
+        board.data_.getCurrentPlayer().placeCardHand(fb);
 
     }
 
@@ -136,7 +136,7 @@ public class TestRaidLeader {
 
 
 
-        board.data_.placeCardHandCurrentPlayer(new HolySmite());
+        board.data_.getCurrentPlayer().placeCardHand(new HolySmite());
         theCard = board.data_.getCurrentPlayer().getHand().get(0);
         ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 1, board, deck, null);
 
@@ -196,7 +196,7 @@ public class TestRaidLeader {
 
 
 
-        board.data_.placeCardHandCurrentPlayer(new Silence());
+        board.data_.getCurrentPlayer().placeCardHand(new Silence());
         theCard = board.data_.getCurrentPlayer().getHand().get(0);
         ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 1, board, deck, null);
 
@@ -224,7 +224,7 @@ public class TestRaidLeader {
         assertEquals(waitingPlayer.getMinions().get(0).getAuraAttack(), 0);
         assertEquals(waitingPlayer.getMinions().get(1).getAuraAttack(), 0);
 
-        board.data_.placeCardHandCurrentPlayer(new Silence());
+        board.data_.getCurrentPlayer().placeCardHand(new Silence());
         theCard = board.data_.getCurrentPlayer().getHand().get(0);
         ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, deck, null);
 
@@ -252,7 +252,7 @@ public class TestRaidLeader {
         assertEquals(waitingPlayer.getMinions().get(0).getAuraAttack(), 0);
         assertEquals(waitingPlayer.getMinions().get(1).getAuraAttack(), 0);
 
-        board.data_.placeCardHandCurrentPlayer(new BloodfenRaptor());
+        board.data_.getCurrentPlayer().placeCardHand(new BloodfenRaptor());
         theCard = board.data_.getCurrentPlayer().getHand().get(0);
         ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 3, board, deck, null);
 

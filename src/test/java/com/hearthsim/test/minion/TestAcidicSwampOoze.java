@@ -24,7 +24,7 @@ public class TestAcidicSwampOoze {
         board = new HearthTreeNode(new BoardModel());
 
         AcidicSwampOoze ooze = new AcidicSwampOoze();
-        board.data_.placeCardHandCurrentPlayer(ooze);
+        board.data_.getCurrentPlayer().placeCardHand(ooze);
 
         board.data_.getCurrentPlayer().setMana((byte)4);
         board.data_.getWaitingPlayer().setMana((byte)4);

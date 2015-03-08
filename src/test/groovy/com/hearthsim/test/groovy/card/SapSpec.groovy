@@ -56,7 +56,7 @@ class SapSpec extends CardSpec {
 
     def "minion destroyed if hand full"() {
         for (int indx = 0; indx < 10; ++indx) {
-            startingBoard.placeCardHandWaitingPlayer(new TheCoin());
+            startingBoard.getWaitingPlayer().placeCardHand(new TheCoin());
         }
 
         def copiedBoard = startingBoard.deepCopy()

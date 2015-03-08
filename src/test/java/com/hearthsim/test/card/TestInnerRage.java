@@ -35,12 +35,12 @@ public class TestInnerRage {
         Minion minion1_0 = new BoulderfistOgre();
         Minion minion1_1 = new RaidLeader();
 
-        board.data_.placeCardHandCurrentPlayer(minion0_2);
-        board.data_.placeCardHandCurrentPlayer(minion0_0);
-        board.data_.placeCardHandCurrentPlayer(minion0_1);
+        board.data_.getCurrentPlayer().placeCardHand(minion0_2);
+        board.data_.getCurrentPlayer().placeCardHand(minion0_0);
+        board.data_.getCurrentPlayer().placeCardHand(minion0_1);
 
-        board.data_.placeCardHandWaitingPlayer(minion1_0);
-        board.data_.placeCardHandWaitingPlayer(minion1_1);
+        board.data_.getWaitingPlayer().placeCardHand(minion1_0);
+        board.data_.getWaitingPlayer().placeCardHand(minion1_1);
 
         Card cards[] = new Card[10];
         for (int index = 0; index < 10; ++index) {
@@ -50,7 +50,7 @@ public class TestInnerRage {
         deck = new Deck(cards);
 
         Card fb = new InnerRage();
-        board.data_.placeCardHandCurrentPlayer(fb);
+        board.data_.getCurrentPlayer().placeCardHand(fb);
 
         board.data_.getCurrentPlayer().setMana((byte)18);
         board.data_.getWaitingPlayer().setMana((byte)18);
@@ -129,7 +129,7 @@ public class TestInnerRage {
         assertEquals(waitingPlayer.getMinions().get(0).getTotalAttack(), 2);
         assertEquals(waitingPlayer.getMinions().get(1).getTotalAttack(), 7);
 
-        board.data_.placeCardHandCurrentPlayer(new Silence());
+        board.data_.getCurrentPlayer().placeCardHand(new Silence());
         theCard = board.data_.getCurrentPlayer().getHand().get(0);
         ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, deck, null);
 

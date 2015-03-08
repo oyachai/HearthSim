@@ -24,7 +24,7 @@ public class TestFrostwolfWarlord {
         board = new HearthTreeNode(new BoardModel());
 
         warlord = new FrostwolfWarlord();
-        board.data_.placeCardHandCurrentPlayer(warlord);
+        board.data_.getCurrentPlayer().placeCardHand(warlord);
 
         board.data_.getCurrentPlayer().setMana((byte)7);
         board.data_.getCurrentPlayer().setMaxMana((byte)7);

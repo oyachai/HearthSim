@@ -32,11 +32,11 @@ public class TestVioletTeacher {
         Minion minion1_0 = new BoulderfistOgre();
         Minion minion1_1 = new RaidLeader();
 
-        board.data_.placeCardHandCurrentPlayer(minion0_0);
-        board.data_.placeCardHandCurrentPlayer(minion0_1);
+        board.data_.getCurrentPlayer().placeCardHand(minion0_0);
+        board.data_.getCurrentPlayer().placeCardHand(minion0_1);
 
-        board.data_.placeCardHandWaitingPlayer(minion1_0);
-        board.data_.placeCardHandWaitingPlayer(minion1_1);
+        board.data_.getWaitingPlayer().placeCardHand(minion1_0);
+        board.data_.getWaitingPlayer().placeCardHand(minion1_1);
 
         Card cards[] = new Card[10];
         for (int index = 0; index < 10; ++index) {
@@ -46,7 +46,7 @@ public class TestVioletTeacher {
         deck = new Deck(cards);
 
         Card fb = new VioletTeacher();
-        board.data_.placeCardHandCurrentPlayer(fb);
+        board.data_.getCurrentPlayer().placeCardHand(fb);
 
         board.data_.getCurrentPlayer().setMana((byte)18);
         board.data_.getWaitingPlayer().setMana((byte)18);
@@ -129,7 +129,7 @@ public class TestVioletTeacher {
         //----------------------------------------------------------
         // Use a spell now... p0 should get a Violet Apprentice
         Card cardToUse = new HolySmite();
-        board.data_.placeCardHandCurrentPlayer(cardToUse);
+        board.data_.getCurrentPlayer().placeCardHand(cardToUse);
         ret = cardToUse.useOn(PlayerSide.WAITING_PLAYER, 1, ret, deck, null);
         currentPlayer = ret.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         waitingPlayer = ret.data_.modelForSide(PlayerSide.WAITING_PLAYER);
@@ -157,7 +157,7 @@ public class TestVioletTeacher {
         // flipped, p1 should not get a Violet Apprentice
         HearthTreeNode flp = new HearthTreeNode(board.data_.flipPlayers());
         Card cardToUse2 = new HolySmite();
-        flp.data_.placeCardHandCurrentPlayer(cardToUse2);
+        flp.data_.getCurrentPlayer().placeCardHand(cardToUse2);
 
         assertEquals(flp.data_.getNumCards_hand(), 1);
 

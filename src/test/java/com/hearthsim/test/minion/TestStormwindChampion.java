@@ -34,11 +34,11 @@ public class TestStormwindChampion {
         Minion minion1_0 = new BloodfenRaptor();
         Minion minion1_1 = new RaidLeader();
 
-        board.data_.placeCardHandCurrentPlayer(minion0_0);
-        board.data_.placeCardHandCurrentPlayer(minion0_1);
+        board.data_.getCurrentPlayer().placeCardHand(minion0_0);
+        board.data_.getCurrentPlayer().placeCardHand(minion0_1);
 
-        board.data_.placeCardHandWaitingPlayer(minion1_0);
-        board.data_.placeCardHandWaitingPlayer(minion1_1);
+        board.data_.getWaitingPlayer().placeCardHand(minion1_0);
+        board.data_.getWaitingPlayer().placeCardHand(minion1_1);
 
         Card cards[] = new Card[10];
         for (int index = 0; index < 10; ++index) {
@@ -65,7 +65,7 @@ public class TestStormwindChampion {
         board.data_.resetMinions();
 
         Minion fb = new StormwindChampion();
-        board.data_.placeCardHandCurrentPlayer(fb);
+        board.data_.getCurrentPlayer().placeCardHand(fb);
 
     }
 
@@ -154,7 +154,7 @@ public class TestStormwindChampion {
 
 
 
-        board.data_.placeCardHandCurrentPlayer(new Fireball());
+        board.data_.getCurrentPlayer().placeCardHand(new Fireball());
         board.data_.resetMana();
         theCard = board.data_.getCurrentPlayer().getHand().get(0);
         target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
@@ -232,7 +232,7 @@ public class TestStormwindChampion {
 
 
 
-        board.data_.placeCardHandCurrentPlayer(new Silence());
+        board.data_.getCurrentPlayer().placeCardHand(new Silence());
         theCard = board.data_.getCurrentPlayer().getHand().get(0);
         target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
         ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
@@ -269,7 +269,7 @@ public class TestStormwindChampion {
         assertEquals(waitingPlayer.getMinions().get(1).getAuraHealth(), 0);
 
 
-        board.data_.placeCardHandCurrentPlayer(new Silence());
+        board.data_.getCurrentPlayer().placeCardHand(new Silence());
         theCard = board.data_.getCurrentPlayer().getHand().get(0);
         target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
         ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
@@ -307,7 +307,7 @@ public class TestStormwindChampion {
 
 
 
-        board.data_.placeCardHandCurrentPlayer(new BloodfenRaptor());
+        board.data_.getCurrentPlayer().placeCardHand(new BloodfenRaptor());
         theCard = board.data_.getCurrentPlayer().getHand().get(0);
         target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 3);
         ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
@@ -390,7 +390,7 @@ public class TestStormwindChampion {
         assertEquals(waitingPlayer.getMinions().get(0).getAuraHealth(), 0);
         assertEquals(waitingPlayer.getMinions().get(1).getAuraHealth(), 0);
 
-        board.data_.placeCardHandCurrentPlayer(new HolySmite());
+        board.data_.getCurrentPlayer().placeCardHand(new HolySmite());
         theCard = board.data_.getCurrentPlayer().getHand().get(0);
         target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 2);
         ret = theCard.useOn(PlayerSide.WAITING_PLAYER, target, board, deck, null);
@@ -427,7 +427,7 @@ public class TestStormwindChampion {
         assertEquals(waitingPlayer.getMinions().get(1).getAuraHealth(), 0);
 
 
-        board.data_.placeCardHandCurrentPlayer(new Silence());
+        board.data_.getCurrentPlayer().placeCardHand(new Silence());
         theCard = board.data_.getCurrentPlayer().getHand().get(0);
         target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1);
         ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);

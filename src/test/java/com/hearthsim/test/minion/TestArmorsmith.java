@@ -34,11 +34,11 @@ public class TestArmorsmith {
         Minion minion1_0 = new BloodfenRaptor();
         Minion minion1_1 = new RaidLeader();
 
-        board.data_.placeCardHandCurrentPlayer(minion0_0);
-        board.data_.placeCardHandCurrentPlayer(minion0_1);
+        board.data_.getCurrentPlayer().placeCardHand(minion0_0);
+        board.data_.getCurrentPlayer().placeCardHand(minion0_1);
 
-        board.data_.placeCardHandWaitingPlayer(minion1_0);
-        board.data_.placeCardHandWaitingPlayer(minion1_1);
+        board.data_.getWaitingPlayer().placeCardHand(minion1_0);
+        board.data_.getWaitingPlayer().placeCardHand(minion1_1);
 
         Card cards[] = new Card[10];
         for (int index = 0; index < 10; ++index) {
@@ -65,7 +65,7 @@ public class TestArmorsmith {
         board.data_.resetMinions();
 
         Minion fb = new Armorsmith();
-        board.data_.placeCardHandCurrentPlayer(fb);
+        board.data_.getCurrentPlayer().placeCardHand(fb);
 
     }
 
@@ -105,7 +105,7 @@ public class TestArmorsmith {
 
 
 
-        board.data_.placeCardHandCurrentPlayer(new HolySmite());
+        board.data_.getCurrentPlayer().placeCardHand(new HolySmite());
         theCard = board.data_.getCurrentPlayer().getHand().get(0);
         ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 3, ret, deck, null);
         assertFalse(ret == null);
@@ -141,7 +141,7 @@ public class TestArmorsmith {
 
 
 
-        board.data_.placeCardHandCurrentPlayer(new HolySmite());
+        board.data_.getCurrentPlayer().placeCardHand(new HolySmite());
         theCard = board.data_.getCurrentPlayer().getHand().get(0);
         ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 2, ret, deck, null);
         assertFalse(ret == null);
@@ -173,7 +173,7 @@ public class TestArmorsmith {
 
 
         ret = new HearthTreeNode(ret.data_.flipPlayers());
-        ret.data_.placeCardHandCurrentPlayer(new HolySmite());
+        ret.data_.getCurrentPlayer().placeCardHand(new HolySmite());
         theCard = ret.data_.getCurrentPlayer().getHand().get(0);
         ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 2, ret, deck, null);
         assertFalse(ret == null);

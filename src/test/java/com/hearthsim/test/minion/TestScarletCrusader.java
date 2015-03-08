@@ -32,12 +32,12 @@ public class TestScarletCrusader {
         Minion minion1_1 = new RaidLeader();
         Minion minion1_2 = new ScarletCrusader();
 
-        board.data_.placeCardHandCurrentPlayer(minion0_0);
-        board.data_.placeCardHandCurrentPlayer(minion0_1);
+        board.data_.getCurrentPlayer().placeCardHand(minion0_0);
+        board.data_.getCurrentPlayer().placeCardHand(minion0_1);
 
-        board.data_.placeCardHandWaitingPlayer(minion1_0);
-        board.data_.placeCardHandWaitingPlayer(minion1_1);
-        board.data_.placeCardHandWaitingPlayer(minion1_2);
+        board.data_.getWaitingPlayer().placeCardHand(minion1_0);
+        board.data_.getWaitingPlayer().placeCardHand(minion1_1);
+        board.data_.getWaitingPlayer().placeCardHand(minion1_2);
 
         Card cards[] = new Card[10];
         for (int index = 0; index < 10; ++index) {
@@ -47,7 +47,7 @@ public class TestScarletCrusader {
         deck = new Deck(cards);
 
         Card fb = new ScarletCrusader();
-        board.data_.placeCardHandCurrentPlayer(fb);
+        board.data_.getCurrentPlayer().placeCardHand(fb);
 
         board.data_.getCurrentPlayer().setMana((byte)28);
         board.data_.getWaitingPlayer().setMana((byte)28);

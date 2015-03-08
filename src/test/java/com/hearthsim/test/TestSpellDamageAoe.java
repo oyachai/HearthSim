@@ -35,7 +35,7 @@ public class TestSpellDamageAoe {
         Minion minion3 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
 
         ArcaneExplosion fb = new ArcaneExplosion();
-        board.data_.placeCardHandCurrentPlayer(fb);
+        board.data_.getCurrentPlayer().placeCardHand(fb);
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, minion0);
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion1);
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion2);
@@ -70,7 +70,7 @@ public class TestSpellDamageAoe {
     @Test
     public void testHitsEnemyCharacters() throws HSException {
         Consecration consecration = new Consecration();
-        board.data_.placeCardHandCurrentPlayer(consecration);
+        board.data_.getCurrentPlayer().placeCardHand(consecration);
         board.data_.getCurrentPlayer().setMana((byte)5);
 
         Card theCard = board.data_.getCurrentPlayer().getHand().get(1);
@@ -97,7 +97,7 @@ public class TestSpellDamageAoe {
     @Test
     public void testHitsAllCharacters() throws HSException {
         Hellfire hellfire = new Hellfire();
-        board.data_.placeCardHandCurrentPlayer(hellfire);
+        board.data_.getCurrentPlayer().placeCardHand(hellfire);
         board.data_.getCurrentPlayer().setMana((byte)5);
 
         Card theCard = board.data_.getCurrentPlayer().getHand().get(1);

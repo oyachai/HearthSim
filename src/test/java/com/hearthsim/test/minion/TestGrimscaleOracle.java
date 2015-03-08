@@ -47,7 +47,7 @@ public class TestGrimscaleOracle {
         deck = new Deck(cards);
 
         Minion fb = new GrimscaleOracle();
-        board.data_.placeCardHandCurrentPlayer(fb);
+        board.data_.getCurrentPlayer().placeCardHand(fb);
 
         board.data_.getCurrentPlayer().setMana((byte)7);
     }
@@ -117,7 +117,7 @@ public class TestGrimscaleOracle {
         assertEquals(board, ret);
 
         MurlocRaider murloc = new MurlocRaider();
-        board.data_.placeCardHandCurrentPlayer(murloc);
+        board.data_.getCurrentPlayer().placeCardHand(murloc);
         ret = murloc.useOn(PlayerSide.CURRENT_PLAYER, 1, board, deck, null);
         assertEquals(board, ret);
         PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);

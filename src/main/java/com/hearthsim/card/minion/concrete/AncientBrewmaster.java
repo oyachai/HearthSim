@@ -37,7 +37,7 @@ public class AncientBrewmaster extends Minion implements MinionTargetableBattlec
             if (boardState.data_.getNumCardsHandCurrentPlayer() < 10) {
                 Minion copy = targetMinion.createResetCopy();
                 if (copy != null) {
-                    toRet.data_.placeCardHandCurrentPlayer(copy);
+                    toRet.data_.getCurrentPlayer().placeCardHand(copy);
                 }
             }
             toRet.data_.removeMinion(targetMinion);

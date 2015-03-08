@@ -101,7 +101,7 @@ public class TestNorthshireCleric {
     @Test
     public void test1() throws HSException {
         NorthshireCleric fb = new NorthshireCleric();
-        board.data_.placeCardHandCurrentPlayer(fb);
+        board.data_.getCurrentPlayer().placeCardHand(fb);
 
         Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
@@ -124,7 +124,7 @@ public class TestNorthshireCleric {
 
 
         AncestralHealing ah = new AncestralHealing();
-        board.data_.placeCardHandCurrentPlayer(ah);
+        board.data_.getCurrentPlayer().placeCardHand(ah);
         theCard = board.data_.getCurrentPlayer().getHand().get(0);
         ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, deck, null);
 
@@ -144,7 +144,7 @@ public class TestNorthshireCleric {
 
 
         ah = new AncestralHealing();
-        board.data_.placeCardHandCurrentPlayer(ah);
+        board.data_.getCurrentPlayer().placeCardHand(ah);
         theCard = board.data_.getCurrentPlayer().getHand().get(0);
         ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 3, board, deck, null);
 
@@ -169,8 +169,8 @@ public class TestNorthshireCleric {
         NorthshireCleric fb1 = new NorthshireCleric();
         NorthshireCleric fb2 = new NorthshireCleric();
 
-        board.data_.placeCardHandCurrentPlayer(fb1);
-        board.data_.placeCardHandCurrentPlayer(fb2);
+        board.data_.getCurrentPlayer().placeCardHand(fb1);
+        board.data_.getCurrentPlayer().placeCardHand(fb2);
 
         Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 2, board, deck, null);
@@ -196,7 +196,7 @@ public class TestNorthshireCleric {
 
 
         AncestralHealing ah = new AncestralHealing();
-        board.data_.placeCardHandCurrentPlayer(ah);
+        board.data_.getCurrentPlayer().placeCardHand(ah);
         theCard = board.data_.getCurrentPlayer().getHand().get(0);
         ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 2, board, deck, null);
 

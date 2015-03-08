@@ -52,7 +52,7 @@ public class TestMinionAttacking {
     @Test
     public void testCharge() throws HSException {
         BluegillWarrior murloc = new BluegillWarrior();
-        board.data_.placeCardHandCurrentPlayer(murloc);
+        board.data_.getCurrentPlayer().placeCardHand(murloc);
 
         Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
@@ -75,7 +75,7 @@ public class TestMinionAttacking {
     @Test
     public void testSummoningSickness() throws HSException {
         MurlocRaider murloc = new MurlocRaider();
-        board.data_.placeCardHandCurrentPlayer(murloc);
+        board.data_.getCurrentPlayer().placeCardHand(murloc);
 
         Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);

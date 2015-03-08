@@ -29,7 +29,7 @@ public class TestBloodKnight {
         Minion minion0_0 = new ScarletCrusader();
         Minion minion1_0 = new ScarletCrusader();
 
-        board.data_.placeCardHandCurrentPlayer(new BloodKnight());
+        board.data_.getCurrentPlayer().placeCardHand(new BloodKnight());
 
         board.data_.getCurrentPlayer().setMana((byte)18);
         board.data_.getWaitingPlayer().setMana((byte)18);

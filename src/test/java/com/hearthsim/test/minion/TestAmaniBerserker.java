@@ -65,7 +65,7 @@ public class TestAmaniBerserker {
     public void testHealRemovesEngrage() throws HSException {
         HearthTreeNode ret = amaniBerserker.attack(PlayerSide.WAITING_PLAYER, croc, board, null, null, false);
 
-        board.data_.placeCardHandCurrentPlayer(new HolyLight());
+        board.data_.getCurrentPlayer().placeCardHand(new HolyLight());
         board.data_.getCurrentPlayer().setMana((byte)2);
         Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, amaniBerserker, board, null, null);

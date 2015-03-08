@@ -52,7 +52,7 @@ public class TestInnervate {
         deck = new Deck(cards);
 
         Innervate fb = new Innervate();
-        board.data_.placeCardHandCurrentPlayer(fb);
+        board.data_.getCurrentPlayer().placeCardHand(fb);
 
         board.data_.getCurrentPlayer().setMana((byte)4);
         board.data_.getWaitingPlayer().setMana((byte)4);

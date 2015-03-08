@@ -29,7 +29,7 @@ public class TestGurubashiBerserker {
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion1_0);
 
         Minion fb = new GurubashiBerserker();
-        board.data_.placeCardHandCurrentPlayer(fb);
+        board.data_.getCurrentPlayer().placeCardHand(fb);
 
         board.data_.getCurrentPlayer().setMana((byte)7);
     }
