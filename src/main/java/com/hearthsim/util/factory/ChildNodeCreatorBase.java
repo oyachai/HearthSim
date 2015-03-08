@@ -89,7 +89,7 @@ public class ChildNodeCreatorBase implements ChildNodeCreator {
         PlayerModel waitingPlayer = boardStateNode.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
         int mana = boardStateNode.data_.getCurrentPlayer().getMana();
-        for (int cardIndex = 0; cardIndex < boardStateNode.data_.getNumCards_hand(); ++cardIndex) {
+        for (int cardIndex = 0; cardIndex < boardStateNode.data_.getCurrentPlayer().getHand().size(); ++cardIndex) {
             card = boardStateNode.data_.getCurrentPlayer().getHand().get(cardIndex);
             if (card.getManaCost(PlayerSide.CURRENT_PLAYER, boardStateNode.data_) <= mana && !card.hasBeenUsed()) {
 

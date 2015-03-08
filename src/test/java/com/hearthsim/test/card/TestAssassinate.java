@@ -58,7 +58,7 @@ public class TestAssassinate {
 
         res = theCard.useOn(PlayerSide.WAITING_PLAYER, 1, board, deck, null);
         assertNotNull(res);
-        assertEquals(res.data_.getNumCards_hand(), 0);
+        assertEquals(res.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(res.data_.getCurrentPlayer().getNumMinions(), 1);
         assertEquals(res.data_.getWaitingPlayer().getNumMinions(), 2);
         assertEquals(res.data_.getCurrentPlayer().getMana(), 5);
@@ -88,7 +88,7 @@ public class TestAssassinate {
 
         res = theCard.useOn(PlayerSide.WAITING_PLAYER, 2, board, deck, null);
         assertNotNull(res);
-        assertEquals(res.data_.getNumCards_hand(), 0);
+        assertEquals(res.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(res.data_.getCurrentPlayer().getNumMinions(), 1);
         assertEquals(res.data_.getWaitingPlayer().getNumMinions(), 2);
         assertEquals(res.data_.getCurrentPlayer().getMana(), 5);
@@ -119,7 +119,7 @@ public class TestAssassinate {
 
         res = theCard.useOn(PlayerSide.WAITING_PLAYER, 3, board, deck, null);
         assertNotNull(res);
-        assertEquals(res.data_.getNumCards_hand(), 0);
+        assertEquals(res.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(res.data_.getCurrentPlayer().getNumMinions(), 1);
         assertEquals(res.data_.getWaitingPlayer().getNumMinions(), 2);
         assertEquals(res.data_.getCurrentPlayer().getMana(), 5);

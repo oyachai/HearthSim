@@ -87,7 +87,7 @@ public class TestColdlightOracle {
         PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
-        assertEquals(board.data_.getNumCards_hand(), 1);
+        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 1);
         assertEquals(currentPlayer.getNumMinions(), 2);
         assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
@@ -114,11 +114,11 @@ public class TestColdlightOracle {
         PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
-        assertEquals(board.data_.getNumCardsHandCurrentPlayer(), 0);
+        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 0);
         assertTrue(ret instanceof CardDrawNode);
         assertEquals(((CardDrawNode)ret).getNumCardsToDraw(), 2);
 
-        assertEquals(board.data_.getNumCardsHandWaitingPlayer(), 2);
+        assertEquals(board.data_.getWaitingPlayer().getHand().size(), 2);
         assertEquals(currentPlayer.getNumMinions(), 3);
         assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 5);
@@ -163,7 +163,7 @@ public class TestColdlightOracle {
         assertEquals(resBoard.getWaitingPlayer().getMana(), 3);
         assertEquals(resBoard.getCurrentPlayerHero().getHealth(), 30);
         assertEquals(resBoard.getWaitingPlayerHero().getHealth(), 30);
-        assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 2);
-        assertEquals(resBoard.getNumCardsHandWaitingPlayer(), 2);
+        assertEquals(resBoard.getCurrentPlayer().getHand().size(), 2);
+        assertEquals(resBoard.getWaitingPlayer().getHand().size(), 2);
     }
 }

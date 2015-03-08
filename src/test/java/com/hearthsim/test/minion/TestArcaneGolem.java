@@ -80,7 +80,7 @@ public class TestArcaneGolem {
         PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
-        assertEquals(board.data_.getNumCards_hand(), 0);
+        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 3);
         assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 5);
@@ -115,7 +115,7 @@ public class TestArcaneGolem {
         List<HearthActionBoardPair> ab = ai0.playTurn(0, board.data_);
         BoardModel resBoard = ab.get(ab.size() - 1).board;
 
-        assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 0);
+        assertEquals(resBoard.getCurrentPlayer().getHand().size(), 0);
         assertEquals(resBoard.modelForSide(PlayerSide.CURRENT_PLAYER).getNumMinions(), 3);
         assertEquals(resBoard.modelForSide(PlayerSide.WAITING_PLAYER).getNumMinions(), 2); //1 minion should have been killed
         assertEquals(resBoard.getCurrentPlayer().getMana(), 0); //3 mana used

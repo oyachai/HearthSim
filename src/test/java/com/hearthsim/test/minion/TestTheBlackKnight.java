@@ -87,7 +87,7 @@ public class TestTheBlackKnight {
         PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
-        assertEquals(board.data_.getNumCards_hand(), 1);
+        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 1);
         assertEquals(currentPlayer.getNumMinions(), 3);
         assertEquals(waitingPlayer.getNumMinions(), 4);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 10);
@@ -124,7 +124,7 @@ public class TestTheBlackKnight {
         PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
-        assertEquals(board.data_.getNumCards_hand(), 0);
+        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 4);
         assertEquals(waitingPlayer.getNumMinions(), 4);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 4);
@@ -157,7 +157,7 @@ public class TestTheBlackKnight {
         HearthTreeNode c0 = board.getChildren().get(0);
         currentPlayer = c0.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         waitingPlayer = c0.data_.modelForSide(PlayerSide.WAITING_PLAYER);
-        assertEquals(c0.data_.getNumCards_hand(), 0);
+        assertEquals(c0.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 4);
         assertEquals(waitingPlayer.getNumMinions(), 1);
         assertEquals(c0.data_.getCurrentPlayer().getMana(), 4);

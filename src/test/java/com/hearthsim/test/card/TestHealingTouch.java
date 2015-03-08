@@ -64,7 +64,7 @@ public class TestHealingTouch {
         PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
-        assertEquals(board.data_.getNumCards_hand(), 0);
+        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 2);
         assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(board.data_.getCurrentPlayer().getHero().getHealth(), 30);
@@ -88,7 +88,7 @@ public class TestHealingTouch {
 
         assertTrue( ret instanceof CardDrawNode );
         assertEquals( ((CardDrawNode)ret).getNumCardsToDraw(), 1);
-        assertEquals(board.data_.getNumCards_hand(), 0);
+        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 2);
         assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(board.data_.getCurrentPlayer().getHero().getHealth(), 30);
@@ -112,7 +112,7 @@ public class TestHealingTouch {
         PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
         assertEquals( ((CardDrawNode)ret).getNumCardsToDraw(), 1);
-        assertTrue(board.data_.getNumCards_hand() == 0);
+        assertTrue(board.data_.getCurrentPlayer().getHand().size() == 0);
         assertEquals(currentPlayer.getNumMinions(), 2);
         assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(board.data_.getCurrentPlayer().getHero().getHealth(), 30);

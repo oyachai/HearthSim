@@ -75,7 +75,7 @@ public class TestArcaneIntellect {
 
         res = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
         assertNotNull(res);
-        assertEquals(res.data_.getNumCards_hand(), 0);
+        assertEquals(res.data_.getCurrentPlayer().getHand().size(), 0);
         assertTrue(res instanceof CardDrawNode);
         assertEquals(((CardDrawNode)res).getNumCardsToDraw(), 2);
 
@@ -110,7 +110,7 @@ public class TestArcaneIntellect {
 
         res = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
         assertNotNull(res);
-        assertEquals(res.data_.getNumCards_hand(), 0);
+        assertEquals(res.data_.getCurrentPlayer().getHand().size(), 0);
         assertTrue(res instanceof CardDrawNode);
         assertEquals(((CardDrawNode)res).getNumCardsToDraw(), 2);
 
@@ -151,7 +151,7 @@ public class TestArcaneIntellect {
 
         assertEquals(resBoard.getCurrentPlayer().getMana(), 0);
         assertEquals(resBoard.getWaitingPlayer().getMana(), 3);
-        assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 2);
+        assertEquals(resBoard.getCurrentPlayer().getHand().size(), 2);
         assertEquals(resBoard.modelForSide(PlayerSide.CURRENT_PLAYER).getNumMinions(), 1);
         assertEquals(resBoard.modelForSide(PlayerSide.WAITING_PLAYER).getNumMinions(), 2);
     }
@@ -179,7 +179,7 @@ public class TestArcaneIntellect {
 
         assertEquals(resBoard.getCurrentPlayer().getMana(), 1);
         assertEquals(resBoard.getWaitingPlayer().getMana(), 6);
-        assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 1);
+        assertEquals(resBoard.getCurrentPlayer().getHand().size(), 1);
         assertEquals(resBoard.modelForSide(PlayerSide.CURRENT_PLAYER).getNumMinions(), 2);
         assertEquals(resBoard.modelForSide(PlayerSide.WAITING_PLAYER).getNumMinions(), 2);
     }
@@ -207,7 +207,7 @@ public class TestArcaneIntellect {
 
         assertEquals(resBoard.getCurrentPlayer().getMana(), 2);
         assertEquals(resBoard.getWaitingPlayer().getMana(), 9);
-        assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 0);
+        assertEquals(resBoard.getCurrentPlayer().getHand().size(), 0);
         assertEquals(resBoard.modelForSide(PlayerSide.CURRENT_PLAYER).getNumMinions(), 3);
         assertEquals(resBoard.modelForSide(PlayerSide.WAITING_PLAYER).getNumMinions(), 2);
     }

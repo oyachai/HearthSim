@@ -80,7 +80,7 @@ public class TestScarletCrusader {
         PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
-        assertEquals(board.data_.getNumCards_hand(), 1);
+        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 1);
         assertEquals(currentPlayer.getNumMinions(), 2);
         assertEquals(waitingPlayer.getNumMinions(), 3);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
@@ -112,7 +112,7 @@ public class TestScarletCrusader {
         PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
-        assertEquals(board.data_.getNumCards_hand(), 0);
+        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 3);
         assertEquals(waitingPlayer.getNumMinions(), 3);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 5);
@@ -145,7 +145,7 @@ public class TestScarletCrusader {
         m0.hasAttacked(false);
         ret = m0.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null, false);
 
-        assertEquals(board.data_.getNumCards_hand(), 0);
+        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 3);
         assertEquals(waitingPlayer.getNumMinions(), 3);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 5);
@@ -177,7 +177,7 @@ public class TestScarletCrusader {
         m1.hasAttacked(false);
         ret = m1.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null, false);
 
-        assertEquals(board.data_.getNumCards_hand(), 0);
+        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 3);
         assertEquals(waitingPlayer.getNumMinions(), 3);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 5);
@@ -209,7 +209,7 @@ public class TestScarletCrusader {
         m2.hasAttacked(false);
         ret = m2.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null, false);
 
-        assertEquals(board.data_.getNumCards_hand(), 0);
+        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 3);
         assertEquals(waitingPlayer.getNumMinions(), 3);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 5);
@@ -241,7 +241,7 @@ public class TestScarletCrusader {
         m3.hasAttacked(false);
         ret = m3.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null, false);
 
-        assertEquals(board.data_.getNumCards_hand(), 0);
+        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 2);
         assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 5);

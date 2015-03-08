@@ -82,7 +82,7 @@ public class TestYoungPriestess {
         PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
-        assertEquals(board.data_.getNumCards_hand(), 1);
+        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 1);
         assertEquals(currentPlayer.getNumMinions(), 2);
         assertEquals(waitingPlayer.getNumMinions(), 1);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
@@ -107,7 +107,7 @@ public class TestYoungPriestess {
         PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
-        assertEquals(board.data_.getNumCards_hand(), 0);
+        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 3);
         assertEquals(waitingPlayer.getNumMinions(), 1);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 7);
@@ -137,7 +137,7 @@ public class TestYoungPriestess {
         PlayerModel currentPlayer = resBoard0.modelForSide(PlayerSide.CURRENT_PLAYER);
         PlayerModel waitingPlayer = resBoard0.modelForSide(PlayerSide.WAITING_PLAYER);
 
-        assertEquals(resBoard0.getNumCards_hand(), 0);
+        assertEquals(resBoard0.getCurrentPlayer().getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 3);
         assertEquals(waitingPlayer.getNumMinions(), 0);
         assertEquals(resBoard0.getCurrentPlayer().getMana(), 7);

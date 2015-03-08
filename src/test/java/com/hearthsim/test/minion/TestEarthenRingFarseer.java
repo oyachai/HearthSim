@@ -77,7 +77,7 @@ public class TestEarthenRingFarseer {
         PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
-        assertEquals(board.data_.getNumCards_hand(), 1);
+        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 1);
         assertEquals(currentPlayer.getNumMinions(), 3);
         assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
@@ -106,7 +106,7 @@ public class TestEarthenRingFarseer {
         PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
-        assertEquals(board.data_.getNumCards_hand(), 0);
+        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 4);
         assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 5);
@@ -132,7 +132,7 @@ public class TestEarthenRingFarseer {
         HearthTreeNode c0 = ret.getChildren().get(0);
         currentPlayer = c0.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         waitingPlayer = c0.data_.modelForSide(PlayerSide.WAITING_PLAYER);
-        assertEquals(c0.data_.getNumCards_hand(), 0);
+        assertEquals(c0.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 4);
         assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(c0.data_.getCurrentPlayer().getMana(), 5);
@@ -157,7 +157,7 @@ public class TestEarthenRingFarseer {
         HearthTreeNode c1 = ret.getChildren().get(1);
         currentPlayer = c1.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         waitingPlayer = c1.data_.modelForSide(PlayerSide.WAITING_PLAYER);
-        assertEquals(c1.data_.getNumCards_hand(), 0);
+        assertEquals(c1.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 4);
         assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(c1.data_.getCurrentPlayer().getMana(), 5);
@@ -183,7 +183,7 @@ public class TestEarthenRingFarseer {
         HearthTreeNode c3 = ret.getChildren().get(3);
         currentPlayer = c3.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         waitingPlayer = c3.data_.modelForSide(PlayerSide.WAITING_PLAYER);
-        assertEquals(c3.data_.getNumCards_hand(), 0);
+        assertEquals(c3.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 4);
         assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(c3.data_.getCurrentPlayer().getMana(), 5);
@@ -209,7 +209,7 @@ public class TestEarthenRingFarseer {
         HearthTreeNode c5 = ret.getChildren().get(5);
         currentPlayer = c5.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         waitingPlayer = c5.data_.modelForSide(PlayerSide.WAITING_PLAYER);
-        assertEquals(c5.data_.getNumCards_hand(), 0);
+        assertEquals(c5.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 4);
         assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(c5.data_.getCurrentPlayer().getMana(), 5);
@@ -234,7 +234,7 @@ public class TestEarthenRingFarseer {
         HearthTreeNode c6 = ret.getChildren().get(6);
         currentPlayer = c6.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         waitingPlayer = c6.data_.modelForSide(PlayerSide.WAITING_PLAYER);
-        assertEquals(c6.data_.getNumCards_hand(), 0);
+        assertEquals(c6.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 4);
         assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(c6.data_.getCurrentPlayer().getMana(), 5);

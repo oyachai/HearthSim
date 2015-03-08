@@ -73,7 +73,7 @@ public class TestAncestralHealing {
             res = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, null, null);
             assertNotNull(res);
             assertEquals(res.data_.getCurrentPlayer().getMana(), 2);
-            assertEquals(res.data_.getNumCards_hand(), 0);
+            assertEquals(res.data_.getCurrentPlayer().getHand().size(), 0);
             assertEquals(res.data_.getCurrentPlayer().getMinions().get(0).getHealth(), health0);
             assertEquals(res.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack(), attack0);
             assertEquals(res.data_.getCurrentPlayer().getMinions().get(0).getMaxHealth(), health0);
@@ -94,7 +94,7 @@ public class TestAncestralHealing {
             res = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, null, null);
             assertNotNull(res);
             assertEquals(res.data_.getCurrentPlayer().getMana(), 2);
-            assertEquals(res.data_.getNumCards_hand(), 0);
+            assertEquals(res.data_.getCurrentPlayer().getHand().size(), 0);
             assertEquals(res.data_.getCurrentPlayer().getMinions().get(0).getHealth(), health0);
             assertEquals(res.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack(), attack0);
             assertEquals(res.data_.getCurrentPlayer().getMinions().get(0).getMaxHealth(), health0);
@@ -115,7 +115,7 @@ public class TestAncestralHealing {
             res = theCard.useOn(PlayerSide.WAITING_PLAYER, 1, board, null, null);
             assertNotNull(res);
             assertEquals(res.data_.getCurrentPlayer().getMana(), 2);
-            assertEquals(res.data_.getNumCards_hand(), 0);
+            assertEquals(res.data_.getCurrentPlayer().getHand().size(), 0);
             assertEquals(res.data_.getWaitingPlayer().getMinions().get(0).getHealth(), health0);
             assertEquals(res.data_.getWaitingPlayer().getMinions().get(0).getTotalAttack(), attack0);
             assertEquals(res.data_.getWaitingPlayer().getMinions().get(0).getMaxHealth(), health0);
@@ -136,7 +136,7 @@ public class TestAncestralHealing {
             res = theCard.useOn(PlayerSide.WAITING_PLAYER, 1, board, null, null);
             assertNotNull(res);
             assertEquals(res.data_.getCurrentPlayer().getMana(), 2);
-            assertEquals(res.data_.getNumCards_hand(), 0);
+            assertEquals(res.data_.getCurrentPlayer().getHand().size(), 0);
             assertEquals(res.data_.getWaitingPlayer().getMinions().get(0).getHealth(), health0);
             assertEquals(res.data_.getWaitingPlayer().getMinions().get(0).getTotalAttack(), attack0);
             assertEquals(res.data_.getWaitingPlayer().getMinions().get(0).getMaxHealth(), health0);

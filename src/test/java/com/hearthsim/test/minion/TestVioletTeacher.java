@@ -78,7 +78,7 @@ public class TestVioletTeacher {
         PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
-        assertEquals(board.data_.getNumCards_hand(), 1);
+        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 1);
         assertEquals(currentPlayer.getNumMinions(), 2);
         assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
@@ -105,7 +105,7 @@ public class TestVioletTeacher {
         PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
-        assertEquals(board.data_.getNumCards_hand(), 0);
+        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 3);
         assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 4);
@@ -134,7 +134,7 @@ public class TestVioletTeacher {
         currentPlayer = ret.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         waitingPlayer = ret.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
-        assertEquals(board.data_.getNumCards_hand(), 0);
+        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 4);
         assertEquals(waitingPlayer.getNumMinions(), 1);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 3);
@@ -159,13 +159,13 @@ public class TestVioletTeacher {
         Card cardToUse2 = new HolySmite();
         flp.data_.getCurrentPlayer().placeCardHand(cardToUse2);
 
-        assertEquals(flp.data_.getNumCards_hand(), 1);
+        assertEquals(flp.data_.getCurrentPlayer().getHand().size(), 1);
 
         ret = cardToUse2.useOn(PlayerSide.WAITING_PLAYER, 1, flp, deck, null);
         currentPlayer = ret.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         waitingPlayer = ret.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
-        assertEquals(ret.data_.getNumCards_hand(), 0);
+        assertEquals(ret.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(ret.data_.getCurrentPlayer().getNumMinions(), 1);
         assertEquals(waitingPlayer.getNumMinions(), 3);
         assertEquals(ret.data_.getCurrentPlayer().getMana(), 7);

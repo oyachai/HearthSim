@@ -259,6 +259,7 @@ public class BoardModel implements DeepCopyable<BoardModel> {
         modelForSide(playerSide).getHand().remove(card);
     }
 
+    @Deprecated
     public int getNumCards_hand() {
         return currentPlayer.getHand().size();
     }
@@ -267,10 +268,12 @@ public class BoardModel implements DeepCopyable<BoardModel> {
         return modelForSide(playerSide).getHand().size();
     }
 
+    @Deprecated
     public int getNumCardsHandCurrentPlayer() {
         return currentPlayer.getHand().size();
     }
 
+    @Deprecated
     public int getNumCardsHandWaitingPlayer() {
         return waitingPlayer.getHand().size();
     }

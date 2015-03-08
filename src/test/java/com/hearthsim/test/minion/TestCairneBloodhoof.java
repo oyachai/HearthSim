@@ -78,7 +78,7 @@ public class TestCairneBloodhoof {
         PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
-        assertEquals(board.data_.getNumCards_hand(), 1);
+        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 1);
         assertEquals(currentPlayer.getNumMinions(), 2);
         assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
@@ -105,7 +105,7 @@ public class TestCairneBloodhoof {
         PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
-        assertEquals(board.data_.getNumCards_hand(), 0);
+        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 3);
         assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 2);
@@ -135,7 +135,7 @@ public class TestCairneBloodhoof {
         Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
         minion.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null, false);
 
-        assertEquals(board.data_.getNumCards_hand(), 0);
+        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 3);
         assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 2);
@@ -168,7 +168,7 @@ public class TestCairneBloodhoof {
         PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
-        assertEquals(board.data_.getNumCards_hand(), 0);
+        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 3);
         assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 2);
@@ -198,7 +198,7 @@ public class TestCairneBloodhoof {
         Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
         minion.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null, false);
 
-        assertEquals(board.data_.getNumCards_hand(), 0);
+        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 3);
         assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 2);
@@ -230,7 +230,7 @@ public class TestCairneBloodhoof {
         PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
-        assertEquals(board.data_.getNumCards_hand(), 0);
+        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 3);
         assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 2);
@@ -262,7 +262,7 @@ public class TestCairneBloodhoof {
         Minion target = fb.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
         minion.attack(PlayerSide.WAITING_PLAYER, target, fb, deck, null, false);
 
-        assertEquals(fb.data_.getNumCards_hand(), 0);
+        assertEquals(fb.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 2);
         assertEquals(waitingPlayer.getNumMinions(), 3);
         assertEquals(fb.data_.getCurrentPlayer().getMana(), 8);
@@ -299,7 +299,7 @@ public class TestCairneBloodhoof {
         PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
-        assertEquals(board.data_.getNumCards_hand(), 0);
+        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 7);
         assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 2);
@@ -338,7 +338,7 @@ public class TestCairneBloodhoof {
         Minion target = fb.data_.getCharacter(PlayerSide.WAITING_PLAYER, 6);
         minion.attack(PlayerSide.WAITING_PLAYER, target, fb, deck, null, false);
 
-        assertEquals(fb.data_.getNumCards_hand(), 0);
+        assertEquals(fb.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 2);
         assertEquals(waitingPlayer.getNumMinions(), 7);
         assertEquals(fb.data_.getCurrentPlayer().getMana(), 8);
@@ -379,7 +379,7 @@ public class TestCairneBloodhoof {
         PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
-        assertEquals(board.data_.getNumCards_hand(), 0);
+        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 3);
         assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 2);
@@ -412,7 +412,7 @@ public class TestCairneBloodhoof {
         minion.hasAttacked(false);
         fireball.useOn(PlayerSide.WAITING_PLAYER, 2, fb, deck, null);
 
-        assertEquals(fb.data_.getNumCards_hand(), 0);
+        assertEquals(fb.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 2);
         assertEquals(waitingPlayer.getNumMinions(), 3);
         assertEquals(fb.data_.getCurrentPlayer().getMana(), 4);

@@ -59,7 +59,7 @@ public class TestHammerOfWrath {
         Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
         assertFalse(ret == null);
-        assertEquals(ret.data_.getNumCards_hand(), 0);
+        assertEquals(ret.data_.getCurrentPlayer().getHand().size(), 0);
         assertTrue(ret instanceof CardDrawNode);
         PlayerModel currentPlayer = ret.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         PlayerModel waitingPlayer = ret.data_.modelForSide(PlayerSide.WAITING_PLAYER);
@@ -94,7 +94,7 @@ public class TestHammerOfWrath {
         PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
-        assertEquals(ret.data_.getNumCards_hand(), 0);
+        assertEquals(ret.data_.getCurrentPlayer().getHand().size(), 0);
         assertTrue(ret instanceof CardDrawNode);
         assertEquals(((CardDrawNode)ret).getNumCardsToDraw(), 1);
 

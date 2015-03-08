@@ -86,7 +86,7 @@ public class TestFlesheatingGhoul {
         PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
-        assertEquals(board.data_.getNumCards_hand(), 1);
+        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 1);
         assertEquals(currentPlayer.getNumMinions(), 3);
         assertEquals(waitingPlayer.getNumMinions(), 4);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 10);
@@ -120,7 +120,7 @@ public class TestFlesheatingGhoul {
         PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
-        assertEquals(board.data_.getNumCards_hand(), 0);
+        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 4);
         assertEquals(waitingPlayer.getNumMinions(), 4);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 7);
@@ -159,7 +159,7 @@ public class TestFlesheatingGhoul {
         ret = attacker.attack(PlayerSide.WAITING_PLAYER, target, board, deck, deck, false);
 
         assertFalse(ret == null);
-        assertEquals(ret.data_.getNumCards_hand(), 0);
+        assertEquals(ret.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(ret.data_.getCurrentPlayer().getNumMinions(), 3);
         assertEquals(waitingPlayer.getNumMinions(), 1);
         assertEquals(ret.data_.getCurrentPlayer().getMana(), 7);

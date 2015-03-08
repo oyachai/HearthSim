@@ -85,7 +85,7 @@ public class TestIronbeakOwl {
         PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
-        assertEquals(board.data_.getNumCards_hand(), 1);
+        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 1);
         assertEquals(currentPlayer.getNumMinions(), 3);
         assertEquals(waitingPlayer.getNumMinions(), 4);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 10);
@@ -121,7 +121,7 @@ public class TestIronbeakOwl {
         PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
-        assertEquals(board.data_.getNumCards_hand(), 0);
+        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 4);
         assertEquals(waitingPlayer.getNumMinions(), 4);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
@@ -156,7 +156,7 @@ public class TestIronbeakOwl {
         //------------------------------------------------------------------
 
         HearthTreeNode ret0 = ret.getChildren().get(0);
-        assertEquals(ret0.data_.getNumCards_hand(), 0);
+        assertEquals(ret0.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(ret0.data_.getCurrentPlayer().getNumMinions(), 4);
         assertEquals(ret0.data_.getWaitingPlayer().getNumMinions(), 4);
         assertEquals(ret0.data_.getCurrentPlayer().getMana(), 8);
@@ -188,7 +188,7 @@ public class TestIronbeakOwl {
         //------------------------------------------------------------------
 
         HearthTreeNode ret1 = ret.getChildren().get(1);
-        assertEquals(ret1.data_.getNumCards_hand(), 0);
+        assertEquals(ret1.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(ret1.data_.getCurrentPlayer().getNumMinions(), 4);
         assertEquals(ret1.data_.getWaitingPlayer().getNumMinions(), 4);
         assertEquals(ret1.data_.getCurrentPlayer().getMana(), 8);
@@ -220,7 +220,7 @@ public class TestIronbeakOwl {
         //------------------------------------------------------------------
 
         HearthTreeNode ret2 = ret.getChildren().get(2);
-        assertEquals(ret2.data_.getNumCards_hand(), 0);
+        assertEquals(ret2.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(ret2.data_.getCurrentPlayer().getNumMinions(), 4);
         assertEquals(ret2.data_.getWaitingPlayer().getNumMinions(), 4);
         assertEquals(ret2.data_.getCurrentPlayer().getMana(), 8);

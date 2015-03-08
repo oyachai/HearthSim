@@ -90,7 +90,7 @@ public class TestPriest {
         HearthTreeNode bestPlay = tree.findMaxOfFunc(ai0.scorer);
 
         assertFalse(tree == null);
-        assertEquals(bestPlay.data_.getNumCards_hand(), 0);
+        assertEquals(bestPlay.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(bestPlay.data_.getCurrentPlayer().getNumMinions(), 2);
         assertEquals(bestPlay.data_.getWaitingPlayer().getNumMinions(), 1);
         assertEquals(bestPlay.data_.getCurrentPlayer().getMana(), 6);
@@ -130,7 +130,7 @@ public class TestPriest {
         HearthTreeNode bestPlay = tree.findMaxOfFunc(ai0.scorer);
 
         assertFalse(tree == null);
-        assertEquals(bestPlay.data_.getNumCards_hand(), 0);
+        assertEquals(bestPlay.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(bestPlay.data_.getCurrentPlayer().getNumMinions(), 2);
         assertEquals(bestPlay.data_.getWaitingPlayer().getNumMinions(), 1);
         assertEquals(bestPlay.data_.getCurrentPlayer().getMana(), 6);

@@ -110,7 +110,7 @@ public class TestNorthshireCleric {
         PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
-        assertEquals(ret.data_.getNumCards_hand(), 0);
+        assertEquals(ret.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(ret.data_.getCurrentPlayer().getNumMinions(), 3);
         assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(ret.data_.getCurrentPlayer().getHero().getHealth(), 30);
@@ -129,7 +129,7 @@ public class TestNorthshireCleric {
         ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, deck, null);
 
         assertFalse(ret == null);
-        assertEquals(ret.data_.getNumCards_hand(), 0);
+        assertEquals(ret.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(ret.data_.getCurrentPlayer().getNumMinions(), 3);
         assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(ret.data_.getCurrentPlayer().getHero().getHealth(), 30);
@@ -149,7 +149,7 @@ public class TestNorthshireCleric {
         ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 3, board, deck, null);
 
         assertFalse(ret == null);
-        assertEquals(ret.data_.getNumCards_hand(), 0);
+        assertEquals(ret.data_.getCurrentPlayer().getHand().size(), 0);
         assertTrue(ret instanceof CardDrawNode);
         assertEquals( ((CardDrawNode)ret).getNumCardsToDraw(), 1); //Northshire Cleric should have drawn a card, so 1 card now
         assertEquals(ret.data_.getCurrentPlayer().getNumMinions(), 3);
@@ -182,7 +182,7 @@ public class TestNorthshireCleric {
         PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
-        assertEquals(ret.data_.getNumCards_hand(), 0);
+        assertEquals(ret.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(ret.data_.getCurrentPlayer().getNumMinions(), 4);
         assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(ret.data_.getCurrentPlayer().getHero().getHealth(), 30);
@@ -201,7 +201,7 @@ public class TestNorthshireCleric {
         ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 2, board, deck, null);
 
         assertFalse(ret == null);
-        assertEquals(ret.data_.getNumCards_hand(), 0);
+        assertEquals(ret.data_.getCurrentPlayer().getHand().size(), 0);
         assertTrue(ret instanceof CardDrawNode);
         assertEquals( ((CardDrawNode)ret).getNumCardsToDraw(), 2); //Two clerics, one heal means 2 new cards
 

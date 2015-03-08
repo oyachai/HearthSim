@@ -86,7 +86,7 @@ public class TestCrazedAlchemist {
         PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
-        assertEquals(board.data_.getNumCards_hand(), 1);
+        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 1);
         assertEquals(currentPlayer.getNumMinions(), 3);
         assertEquals(waitingPlayer.getNumMinions(), 4);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 10);
@@ -126,7 +126,7 @@ public class TestCrazedAlchemist {
 
         assertFalse(ret == null);
 
-        assertEquals(ret.data_.getNumCards_hand(), 0);
+        assertEquals(ret.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(ret.data_.getCurrentPlayer().getNumMinions(), 4);
         assertEquals(waitingPlayer.getNumMinions(), 4);
         assertEquals(ret.data_.getCurrentPlayer().getMana(), 8);
@@ -156,8 +156,8 @@ public class TestCrazedAlchemist {
 
         //Forth child node is the one that hits the Loot Hoarder
         HearthTreeNode cn3 = ret.getChildren().get(3);
-        assertEquals(cn3.data_.getNumCardsHandCurrentPlayer(), 0);
-        assertEquals(cn3.data_.getNumCardsHandWaitingPlayer(), 0);
+        assertEquals(cn3.data_.getCurrentPlayer().getHand().size(), 0);
+        assertEquals(cn3.data_.getWaitingPlayer().getHand().size(), 0);
         assertEquals(cn3.data_.getCurrentPlayer().getNumMinions(), 4);
         assertEquals(cn3.data_.getWaitingPlayer().getNumMinions(), 4);
         assertEquals(cn3.data_.getCurrentPlayer().getMana(), 8);
@@ -185,8 +185,8 @@ public class TestCrazedAlchemist {
 
         //First child node is the one that hits the Harvest Golem
         HearthTreeNode cn2 = ret.getChildren().get(0);
-        assertEquals(cn2.data_.getNumCardsHandCurrentPlayer(), 0);
-        assertEquals(cn2.data_.getNumCardsHandWaitingPlayer(), 0);
+        assertEquals(cn2.data_.getCurrentPlayer().getHand().size(), 0);
+        assertEquals(cn2.data_.getWaitingPlayer().getHand().size(), 0);
         assertEquals(cn2.data_.getCurrentPlayer().getNumMinions(), 4);
         assertEquals(cn2.data_.getWaitingPlayer().getNumMinions(), 4);
         assertEquals(cn2.data_.getCurrentPlayer().getMana(), 8);

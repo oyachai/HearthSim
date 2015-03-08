@@ -52,7 +52,7 @@ public class TestBlessingOfMight {
 
         res = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, deck, null);
         assertNotNull(res);
-        assertEquals(res.data_.getNumCards_hand(), 0);
+        assertEquals(res.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(res.data_.getCurrentPlayer().getNumMinions(), 1);
         assertEquals(res.data_.getWaitingPlayer().getNumMinions(), 3);
         assertEquals(res.data_.getCurrentPlayer().getMana(), 9);
@@ -79,7 +79,7 @@ public class TestBlessingOfMight {
 
         res = theCard.useOn(PlayerSide.WAITING_PLAYER, 1, board, deck, null);
         assertNotNull(res);
-        assertEquals(res.data_.getNumCards_hand(), 0);
+        assertEquals(res.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(res.data_.getCurrentPlayer().getNumMinions(), 1);
         assertEquals(res.data_.getWaitingPlayer().getNumMinions(), 3);
         assertEquals(res.data_.getCurrentPlayer().getMana(), 9);
@@ -105,7 +105,7 @@ public class TestBlessingOfMight {
 
         res = theCard.useOn(PlayerSide.WAITING_PLAYER, 2, board, deck, null);
         assertNotNull(res);
-        assertEquals(res.data_.getNumCards_hand(), 0);
+        assertEquals(res.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(res.data_.getCurrentPlayer().getNumMinions(), 1);
         assertEquals(res.data_.getWaitingPlayer().getNumMinions(), 3);
         assertEquals(res.data_.getCurrentPlayer().getMana(), 9);

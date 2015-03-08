@@ -63,7 +63,7 @@ public class TestWeapon {
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
 
         assertEquals(board, ret);
-        assertEquals(board.data_.getNumCards_hand(), 0);
+        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 0);
         assertTrue(theCard.hasBeenUsed());
         //assertFalse(theCard.isInHand()); TODO existing bug
 
@@ -139,7 +139,7 @@ public class TestWeapon {
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
         assertEquals(board, ret);
 
-        assertEquals(board.data_.getNumCards_hand(), 0);
+        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 0);
         assertTrue(theCard.hasBeenUsed());
         //assertFalse(theCard.isInHand()); TODO existing bug
 
@@ -157,7 +157,7 @@ public class TestWeapon {
         PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
         assertFalse(theCard.hasBeenUsed());
-        assertEquals(board.data_.getNumCards_hand(), 1);
+        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 1);
 
         assertNull(board.data_.getCurrentPlayer().getHero().getWeapon());
         assertEquals(board.data_.getCurrentPlayer().getHero().getTotalAttack(), 0);
@@ -173,7 +173,7 @@ public class TestWeapon {
         assertNull(ret);
 
         assertFalse(theCard.hasBeenUsed());
-        assertEquals(board.data_.getNumCards_hand(), 1);
+        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 1);
 
         assertNull(board.data_.getCurrentPlayer().getHero().getWeapon());
         assertEquals(board.data_.getCurrentPlayer().getHero().getTotalAttack(), 0);

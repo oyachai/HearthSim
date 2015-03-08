@@ -85,11 +85,11 @@ public class TestWarlock {
         assertNotEquals(board, ret);
         assertTrue(ret instanceof CardDrawNode);
 
-        assertEquals(board.data_.getNumCards_hand(), 1);
+        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 1);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 6);
         assertEquals(board.data_.getCurrentPlayer().getHero().getHealth(), 28);
 
-        assertEquals(ret.data_.getNumCards_hand(), 1);
+        assertEquals(ret.data_.getCurrentPlayer().getHand().size(), 1);
         assertEquals(((CardDrawNode)ret).getNumCardsToDraw(), 1);
         assertEquals(ret.data_.getCurrentPlayer().getMana(), 6);
         assertEquals(ret.data_.getCurrentPlayer().getHero().getHealth(), 28);
@@ -106,7 +106,7 @@ public class TestWarlock {
         PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
-        assertEquals(board.data_.getNumCards_hand(), 1);
+        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 1);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
         assertEquals(board.data_.getCurrentPlayer().getHero().getHealth(), 30);
 
@@ -121,7 +121,7 @@ public class TestWarlock {
         HearthTreeNode ret = warrior.useHeroAbility(PlayerSide.WAITING_PLAYER, target, board, deck, null);
         assertNull(ret);
 
-        assertEquals(board.data_.getNumCards_hand(), 1);
+        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 1);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
         assertEquals(board.data_.getCurrentPlayer().getHero().getHealth(), 30);
         assertEquals(board.data_.getWaitingPlayer().getMana(), 8);
@@ -143,7 +143,7 @@ public class TestWarlock {
         target = board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
         Hero hero = board.data_.getCurrentPlayer().getHero();
         ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
-        assertEquals(board.data_.getNumCards_hand(), 1);
+        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 1);
 
         assertTrue(ret instanceof CardDrawNode);
         assertEquals(((CardDrawNode)ret).getNumCardsToDraw(), 1);

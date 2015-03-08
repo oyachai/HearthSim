@@ -71,7 +71,7 @@ public class TestInnervate {
         PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
-        assertEquals(board.data_.getNumCards_hand(), 0);
+        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 2);
         assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(board.data_.getCurrentPlayer().getHero().getHealth(), 30);
@@ -99,7 +99,7 @@ public class TestInnervate {
         PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
-        assertEquals(board.data_.getNumCards_hand(), 0);
+        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 2);
         assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(board.data_.getCurrentPlayer().getHero().getHealth(), 30);
@@ -136,7 +136,7 @@ public class TestInnervate {
         assertEquals(resBoard.getWaitingPlayer().getMana(), 3);
         assertEquals(resBoard.getCurrentPlayerHero().getHealth(), 30);
         assertEquals(resBoard.getWaitingPlayerHero().getHealth(), 30);
-        assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 1);
-        assertEquals(resBoard.getNumCardsHandWaitingPlayer(), 0);
+        assertEquals(resBoard.getCurrentPlayer().getHand().size(), 1);
+        assertEquals(resBoard.getWaitingPlayer().getHand().size(), 0);
     }
 }

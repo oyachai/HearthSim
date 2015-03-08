@@ -68,7 +68,7 @@ public class TestAnimalCompanion {
         PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
-        assertEquals(board.data_.getNumCards_hand(), 1);
+        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 1);
         assertEquals(currentPlayer.getNumMinions(), 3);
         assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(board.data_.getCurrentPlayer().getHero().getHealth(), 30);
@@ -93,7 +93,7 @@ public class TestAnimalCompanion {
         ret = minion.attack(PlayerSide.WAITING_PLAYER, target2, board, null, null, false);
 
         assertEquals(board, ret);
-        assertEquals(board.data_.getNumCards_hand(), 1);
+        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 1);
         assertEquals(currentPlayer.getNumMinions(), 2);
         assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(board.data_.getCurrentPlayer().getHero().getHealth(), 30);
@@ -120,7 +120,7 @@ public class TestAnimalCompanion {
         PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
         // Check that the original node is not touched
-        assertEquals(1, board.data_.getNumCards_hand());
+        assertEquals(1, board.data_.getCurrentPlayer().getHand().size());
         assertEquals(4, board.data_.getCurrentPlayer().getMana());
 
         assertEquals(2, currentPlayer.getNumMinions());

@@ -35,7 +35,7 @@ public class TestNightblade {
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
         assertEquals(board, ret);
 
-        assertEquals(board.data_.getNumCards_hand(), 0);
+        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 5);
         assertEquals(board.data_.getCurrentPlayer().getHero().getHealth(), 30);
         assertEquals(board.data_.getWaitingPlayer().getHero().getHealth(), 27);
@@ -49,7 +49,7 @@ public class TestNightblade {
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
         assertEquals(board, ret);
 
-        assertEquals(board.data_.getNumCards_hand(), 0);
+        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 5);
         assertEquals(board.data_.getCurrentPlayer().getHero().getHealth(), 30);
         assertEquals(board.data_.getWaitingPlayer().getHero().getHealth(), -1);

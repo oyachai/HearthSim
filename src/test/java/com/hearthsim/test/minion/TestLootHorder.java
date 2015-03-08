@@ -66,7 +66,7 @@ public class TestLootHorder {
         List<HearthActionBoardPair> ab = ai0.playTurn(0, board.data_);
         BoardModel resBoard = ab.get(ab.size() - 1).board;
 
-        assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 1); //1 card drawn from Loot Horder attacking and dying, no mana left to play the card
+        assertEquals(resBoard.getCurrentPlayer().getHand().size(), 1); //1 card drawn from Loot Horder attacking and dying, no mana left to play the card
         assertEquals(resBoard.modelForSide(PlayerSide.CURRENT_PLAYER).getNumMinions(), 0);
         assertEquals(resBoard.modelForSide(PlayerSide.WAITING_PLAYER).getNumMinions(), 0); //1 minion should have been killed
         assertEquals(resBoard.getCurrentPlayer().getMana(), 1); //no mana used
@@ -91,7 +91,7 @@ public class TestLootHorder {
         List<HearthActionBoardPair> ab = ai0.playTurn(0, board.data_);
         BoardModel resBoard = ab.get(ab.size() - 1).board;
 
-        assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 0); //1 card drawn from Loot Horder attacking and dying, then played the drawn card
+        assertEquals(resBoard.getCurrentPlayer().getHand().size(), 0); //1 card drawn from Loot Horder attacking and dying, then played the drawn card
         assertEquals(resBoard.modelForSide(PlayerSide.CURRENT_PLAYER).getNumMinions(), 1);
         assertEquals(resBoard.modelForSide(PlayerSide.WAITING_PLAYER).getNumMinions(), 0); //1 minion should have been killed
         assertEquals(resBoard.getCurrentPlayer().getMana(), 1); //2 mana used
@@ -123,8 +123,8 @@ public class TestLootHorder {
         List<HearthActionBoardPair> ab = ai0.playTurn(0, board.data_);
         BoardModel resBoard = ab.get(ab.size() - 1).board;
 
-        assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 0); //no cards in hand
-        assertEquals(resBoard.getNumCardsHandWaitingPlayer(), 1); //drew cards from the loot horder that was killed
+        assertEquals(resBoard.getCurrentPlayer().getHand().size(), 0); //no cards in hand
+        assertEquals(resBoard.getWaitingPlayer().getHand().size(), 1); //drew cards from the loot horder that was killed
         assertEquals(resBoard.modelForSide(PlayerSide.CURRENT_PLAYER).getNumMinions(), 0);
         assertEquals(resBoard.modelForSide(PlayerSide.WAITING_PLAYER).getNumMinions(), 0); //1 minion should have been killed
         assertEquals(resBoard.getCurrentPlayer().getMana(), 3); //no mana used

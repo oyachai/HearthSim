@@ -86,7 +86,7 @@ public class TestBigGameHunter {
         PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
-        assertEquals(board.data_.getNumCards_hand(), 1);
+        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 1);
         assertEquals(currentPlayer.getNumMinions(), 3);
         assertEquals(waitingPlayer.getNumMinions(), 4);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 10);
@@ -129,7 +129,7 @@ public class TestBigGameHunter {
 
         assertFalse(ret == null);
 
-        assertEquals(ret.data_.getNumCards_hand(), 0);
+        assertEquals(ret.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(ret.data_.getCurrentPlayer().getNumMinions(), 4);
         assertEquals(waitingPlayer.getNumMinions(), 4);
         assertEquals(ret.data_.getCurrentPlayer().getMana(), 7);
@@ -162,8 +162,8 @@ public class TestBigGameHunter {
 
         //First child node is the one that kills the Stormwind Champion
         HearthTreeNode cn3 = ret.getChildren().get(0);
-        assertEquals(cn3.data_.getNumCardsHandCurrentPlayer(), 0);
-        assertEquals(cn3.data_.getNumCardsHandWaitingPlayer(), 0);
+        assertEquals(cn3.data_.getCurrentPlayer().getHand().size(), 0);
+        assertEquals(cn3.data_.getWaitingPlayer().getHand().size(), 0);
         assertEquals(cn3.data_.getCurrentPlayer().getNumMinions(), 3);
         assertEquals(cn3.data_.getWaitingPlayer().getNumMinions(), 4);
         assertEquals(cn3.data_.getCurrentPlayer().getMana(), 7);
@@ -191,8 +191,8 @@ public class TestBigGameHunter {
 
         //Second child node is the one that kills the Abomination
         HearthTreeNode cn4 = ret.getChildren().get(1);
-        assertEquals(cn4.data_.getNumCardsHandCurrentPlayer(), 0);
-        assertEquals(cn4.data_.getNumCardsHandWaitingPlayer(), 1);
+        assertEquals(cn4.data_.getCurrentPlayer().getHand().size(), 0);
+        assertEquals(cn4.data_.getWaitingPlayer().getHand().size(), 1);
         assertEquals(cn4.data_.getCurrentPlayer().getNumMinions(), 4);
         assertEquals(cn4.data_.getWaitingPlayer().getNumMinions(), 1);
         assertEquals(cn4.data_.getCurrentPlayer().getMana(), 7);

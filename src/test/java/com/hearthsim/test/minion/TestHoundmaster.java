@@ -104,7 +104,7 @@ public class TestHoundmaster {
 
         res = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
         assertNotNull(res);
-        assertEquals(res.data_.getNumCards_hand(), 0);
+        assertEquals(res.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(res.data_.getCurrentPlayer().getNumMinions(), 3);
         assertEquals(res.data_.getWaitingPlayer().getNumMinions(), 3);
         assertEquals(res.data_.getCurrentPlayer().getMana(), 6);

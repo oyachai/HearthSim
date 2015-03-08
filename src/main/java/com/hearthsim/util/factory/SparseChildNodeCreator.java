@@ -34,7 +34,7 @@ public class SparseChildNodeCreator extends ChildNodeCreatorBase {
 
         boolean allUsed = true;
         int mana = boardStateNode.data_.getCurrentPlayer().getMana();
-        for (int cardIndex = 0; cardIndex < boardStateNode.data_.getNumCards_hand(); ++cardIndex) {
+        for (int cardIndex = 0; cardIndex < boardStateNode.data_.getCurrentPlayer().getHand().size(); ++cardIndex) {
             card = boardStateNode.data_.getCurrentPlayer().getHand().get(cardIndex);
             if (card == null)
                 continue; // Should be impossible

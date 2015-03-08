@@ -51,7 +51,7 @@ public class TestSpellDamageAoe {
         assertEquals(board, ret);
 
         assertEquals(board.data_.getCurrentPlayer().getMana(), 1);
-        assertEquals(board.data_.getNumCards_hand(), 0);
+        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(board.data_.getCurrentPlayer().getHero().getHealth(), 30);
         assertEquals(board.data_.getWaitingPlayer().getHero().getHealth(), 30);
 
@@ -78,7 +78,7 @@ public class TestSpellDamageAoe {
         assertEquals(board, ret);
 
         assertEquals(board.data_.getCurrentPlayer().getMana(), 1);
-        assertEquals(board.data_.getNumCards_hand(), 1);
+        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 1);
         assertEquals(board.data_.getCurrentPlayer().getHero().getHealth(), 30);
         assertEquals(board.data_.getWaitingPlayer().getHero().getHealth(), 28);
 
@@ -105,7 +105,7 @@ public class TestSpellDamageAoe {
         assertEquals(board, ret);
 
         assertEquals(board.data_.getCurrentPlayer().getMana(), 1);
-        assertEquals(board.data_.getNumCards_hand(), 1);
+        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 1);
         assertEquals(board.data_.getCurrentPlayer().getHero().getHealth(), 27);
         assertEquals(board.data_.getWaitingPlayer().getHero().getHealth(), 27);
 
@@ -131,7 +131,7 @@ public class TestSpellDamageAoe {
         assertEquals(board, ret);
 
         assertEquals(board.data_.getCurrentPlayer().getMana(), 1);
-        assertEquals(board.data_.getNumCards_hand(), 0);
+        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(board.data_.getCurrentPlayer().getHero().getHealth(), 30);
         assertEquals(board.data_.getWaitingPlayer().getHero().getHealth(), 30);
 
@@ -153,7 +153,7 @@ public class TestSpellDamageAoe {
         HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 1, board, null, null);
         assertNull(ret);
 
-        assertEquals(board.data_.getNumCards_hand(), 1);
+        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 1);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 3);
 
         assertEquals(board.data_.getCurrentPlayer().getNumMinions(), 1);
@@ -176,7 +176,7 @@ public class TestSpellDamageAoe {
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
         assertNull(ret);
 
-        assertEquals(board.data_.getNumCards_hand(), 1);
+        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 1);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 3);
 
         assertEquals(board.data_.getCurrentPlayer().getNumMinions(), 1);
@@ -199,7 +199,7 @@ public class TestSpellDamageAoe {
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, null, null);
         assertNull(ret);
 
-        assertEquals(board.data_.getNumCards_hand(), 1);
+        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 1);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 3);
 
         assertEquals(board.data_.getCurrentPlayer().getNumMinions(), 1);
@@ -224,7 +224,7 @@ public class TestSpellDamageAoe {
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, null, null);
         assertNull(ret);
 
-        assertEquals(board.data_.getNumCards_hand(), 1);
+        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 1);
         assertEquals(board.data_.getCurrentPlayer().getMana(), 3);
     }
 }
