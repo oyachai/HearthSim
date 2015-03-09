@@ -17,5 +17,4 @@ public class MountainGiant extends Minion {
             manaCost = 0;
         return manaCost;
     }
-
 }

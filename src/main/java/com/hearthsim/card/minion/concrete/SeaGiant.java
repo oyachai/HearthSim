@@ -18,5 +18,4 @@ public class SeaGiant extends Minion {
             manaCost = 0;
         return manaCost;
     }
-
 }

@@ -60,7 +60,6 @@ public class TestCharge {
 
         Minion minion1_0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
         board.placeMinion(PlayerSide.WAITING_PLAYER, minion1_0);
-
     }
 
     @Test
@@ -77,7 +76,6 @@ public class TestCharge {
             e.printStackTrace();
             assertTrue(false);
         }
-
     }
 
     @Test
@@ -101,6 +99,5 @@ public class TestCharge {
         // 2. Play charge minion card, then don't attack
         // 3. Play card, charge attack enemy hero
         // 4. Play card, charge attack enemy minion
-
     }
 }

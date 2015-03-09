@@ -33,7 +33,6 @@ public class TestAction {
         Minion minion0_0 = new Minion("alpha", mana, attack0, health0, attack0, health0, health0);
 
         board.placeMinion(PlayerSide.CURRENT_PLAYER, minion0_0);
-
     }
 
     @Test
