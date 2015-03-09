@@ -23,6 +23,9 @@ import static org.junit.Assert.*;
 public class TestInnervate {
 
     private HearthTreeNode board;
+    private PlayerModel currentPlayer;
+    private PlayerModel waitingPlayer;
+
     private Deck deck;
     private static final byte mana = 2;
     private static final byte attack0 = 5;
@@ -32,6 +35,8 @@ public class TestInnervate {
     @Before
     public void setup() throws HSException {
         board = new HearthTreeNode(new BoardModel());
+        currentPlayer = board.data_.getCurrentPlayer();
+        waitingPlayer = board.data_.getWaitingPlayer();
 
         Minion minion0_0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
         Minion minion0_1 = new Minion("" + 0, mana, attack0, (byte)(health1 - 1), attack0, health1, health1);
@@ -52,34 +57,31 @@ public class TestInnervate {
         deck = new Deck(cards);
 
         Innervate fb = new Innervate();
-        board.data_.getCurrentPlayer().placeCardHand(fb);
+        currentPlayer.placeCardHand(fb);
 
-        board.data_.getCurrentPlayer().setMana((byte)4);
-        board.data_.getWaitingPlayer().setMana((byte)4);
+        currentPlayer.setMana((byte) 4);
+        waitingPlayer.setMana((byte) 4);
 
-        board.data_.getCurrentPlayer().setMaxMana((byte)4);
-        board.data_.getWaitingPlayer().setMaxMana((byte)4);
-
+        currentPlayer.setMaxMana((byte) 4);
+        waitingPlayer.setMaxMana((byte) 4);
     }
 
     @Test
     public void test2() throws HSException {
-        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
+        Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
 
         assertFalse(ret == null);
-        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
-        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
-        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 0);
+        assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 2);
         assertEquals(waitingPlayer.getNumMinions(), 2);
-        assertEquals(board.data_.getCurrentPlayer().getHero().getHealth(), 30);
-        assertEquals(board.data_.getWaitingPlayer().getHero().getHealth(), 30);
-        assertEquals(board.data_.getCurrentPlayer().getMana(), 6);
-        assertEquals(board.data_.getWaitingPlayer().getMana(), 4);
-        assertEquals(board.data_.getCurrentPlayer().getMaxMana(), 4);
-        assertEquals(board.data_.getWaitingPlayer().getMaxMana(), 4);
+        assertEquals(currentPlayer.getHero().getHealth(), 30);
+        assertEquals(waitingPlayer.getHero().getHealth(), 30);
+        assertEquals(currentPlayer.getMana(), 6);
+        assertEquals(waitingPlayer.getMana(), 4);
+        assertEquals(currentPlayer.getMaxMana(), 4);
+        assertEquals(waitingPlayer.getMaxMana(), 4);
         assertEquals(currentPlayer.getMinions().get(0).getHealth(), health0);
         assertEquals(currentPlayer.getMinions().get(1).getHealth(), health1 - 1);
         assertEquals(waitingPlayer.getMinions().get(0).getHealth(), health0);
@@ -89,25 +91,23 @@ public class TestInnervate {
     @Test
     public void test3() throws HSException {
 
-        board.data_.getCurrentPlayer().setMana((byte)10);
-        board.data_.getCurrentPlayer().setMaxMana((byte)10);
+        currentPlayer.setMana((byte) 10);
+        currentPlayer.setMaxMana((byte) 10);
 
-        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
+        Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
 
         assertFalse(ret == null);
-        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
-        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
-        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 0);
+        assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 2);
         assertEquals(waitingPlayer.getNumMinions(), 2);
-        assertEquals(board.data_.getCurrentPlayer().getHero().getHealth(), 30);
-        assertEquals(board.data_.getWaitingPlayer().getHero().getHealth(), 30);
-        assertEquals(board.data_.getCurrentPlayer().getMana(), 10);
-        assertEquals(board.data_.getWaitingPlayer().getMana(), 4);
-        assertEquals(board.data_.getCurrentPlayer().getMaxMana(), 10);
-        assertEquals(board.data_.getWaitingPlayer().getMaxMana(), 4);
+        assertEquals(currentPlayer.getHero().getHealth(), 30);
+        assertEquals(waitingPlayer.getHero().getHealth(), 30);
+        assertEquals(currentPlayer.getMana(), 10);
+        assertEquals(waitingPlayer.getMana(), 4);
+        assertEquals(currentPlayer.getMaxMana(), 10);
+        assertEquals(waitingPlayer.getMaxMana(), 4);
         assertEquals(currentPlayer.getMinions().get(0).getHealth(), health0);
         assertEquals(currentPlayer.getMinions().get(1).getHealth(), health1 - 1);
         assertEquals(waitingPlayer.getMinions().get(0).getHealth(), health0);
@@ -117,14 +117,14 @@ public class TestInnervate {
     @Test
     public void testAiDoesNotPlayWithoutReason() throws HSException {
 
-        board.data_.getCurrentPlayer().setMana((byte)3);
-        board.data_.getWaitingPlayer().setMana((byte)3);
+        currentPlayer.setMana((byte) 3);
+        waitingPlayer.setMana((byte) 3);
 
-        board.data_.getCurrentPlayer().setMaxMana((byte)3);
-        board.data_.getWaitingPlayer().setMaxMana((byte)3);
+        currentPlayer.setMaxMana((byte) 3);
+        waitingPlayer.setMaxMana((byte) 3);
 
-        board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(1).hasAttacked(true);
-        board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(2).hasAttacked(true);
+        currentPlayer.getCharacter(1).hasAttacked(true);
+        currentPlayer.getCharacter(2).hasAttacked(true);
 
         BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
         List<HearthActionBoardPair> ab = ai0.playTurn(0, board.data_);

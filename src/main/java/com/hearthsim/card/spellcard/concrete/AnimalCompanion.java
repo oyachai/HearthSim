@@ -45,8 +45,7 @@ public class AnimalCompanion extends SpellCard {
             return false;
         }
 
-        int numMinions = boardModel.modelForSide(playerSide).getNumMinions();
-        if (numMinions >= 7) {
+        if (boardModel.modelForSide(playerSide).isBoardFull()) {
             return false;
         }
 
@@ -64,10 +63,11 @@ public class AnimalCompanion extends SpellCard {
     @Override
     protected HearthTreeNode use_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState,
             Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
-        HearthTreeNode toRet = null;
+        HearthTreeNode toRet = boardState;
+        PlayerModel targetPlayer = toRet.data_.modelForSide(side);
 
         if (singleRealizationOnly) {
-            toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+            toRet = super.use_core(side, targetMinion, toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
             if (toRet != null) {
                 double rnd = Math.random();
                 Minion minion = null;
@@ -78,27 +78,18 @@ public class AnimalCompanion extends SpellCard {
                 } else {
                     minion = new Misha();
                 }
-                Minion placementTarget = toRet.data_.modelForSide(side).getCharacter(toRet.data_.modelForSide(side).getMinions().size()); // this minion can't be a hero
-                toRet = minion.summonMinion(side, placementTarget, toRet, deckPlayer0, deckPlayer1, false,
-                        singleRealizationOnly);
+                toRet = minion.summonMinionAtEnd(side, toRet, deckPlayer0, deckPlayer1, false, singleRealizationOnly);
             }
         } else {
-            toRet = new RandomEffectNode(boardState, new HearthAction(HearthAction.Verb.USE_CARD,
-                    PlayerSide.CURRENT_PLAYER, 0, side, 0));
-            if (toRet != null) {
-                PlayerModel targetPlayer = toRet.data_.modelForSide(side);
+            toRet = new RandomEffectNode(toRet, new HearthAction(HearthAction.Verb.USE_CARD, side, 0, side, 0));
 
-                int thisCardIndex = targetPlayer.getHand().indexOf(this);
-                for (Minion minion : new Minion[] { new Huffer(), new Leokk(), new Misha() }) {
-                    HearthTreeNode newState = toRet.addChild(new HearthTreeNode(toRet.data_.deepCopy()));
+            int thisCardIndex = targetPlayer.getHand().indexOf(this);
+            for (Minion minion : new Minion[]{new Huffer(), new Leokk(), new Misha()}) {
+                HearthTreeNode newState = toRet.addChild(new HearthTreeNode(toRet.data_.deepCopy()));
 
-                    newState = super.use_core(side, targetPlayer.getHero(), newState, deckPlayer0,
-                            deckPlayer1, singleRealizationOnly);
-                    Minion placementTarget = newState.data_.modelForSide(side).getCharacter(newState.data_.modelForSide(side).getMinions().size()); // this minion can't be a hero
-                    newState = minion.summonMinion(side, placementTarget, newState, deckPlayer0, deckPlayer1, false,
-                            singleRealizationOnly);
-                    newState.data_.modelForSide(side).getHand().remove(thisCardIndex);
-                }
+                newState = super.use_core(side, targetPlayer.getHero(), newState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+                newState = minion.summonMinionAtEnd(side, newState, deckPlayer0, deckPlayer1, false, singleRealizationOnly);
+                newState.data_.modelForSide(side).getHand().remove(thisCardIndex);
             }
         }
         return toRet;

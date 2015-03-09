@@ -18,6 +18,9 @@ import static org.junit.Assert.*;
 public class TestHumility {
 
     private HearthTreeNode board;
+    private PlayerModel currentPlayer;
+    private PlayerModel waitingPlayer;
+
     private Deck deck;
     private static final byte mana = 2;
     private static final byte attack0 = 5;
@@ -27,6 +30,8 @@ public class TestHumility {
     @Before
     public void setup() throws HSException {
         board = new HearthTreeNode(new BoardModel());
+        currentPlayer = board.data_.getCurrentPlayer();
+        waitingPlayer = board.data_.getWaitingPlayer();
 
         Minion minion0_0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
         Minion minion0_1 = new Minion("" + 0, mana, attack0, (byte)(health1 - 1), attack0, health1, health1);
@@ -47,33 +52,30 @@ public class TestHumility {
         deck = new Deck(cards);
 
         Card fb = new Humility();
-        board.data_.getCurrentPlayer().placeCardHand(fb);
+        currentPlayer.placeCardHand(fb);
 
-        board.data_.getCurrentPlayer().setMana((byte)7);
-        board.data_.getWaitingPlayer().setMana((byte)4);
+        currentPlayer.setMana((byte) 7);
+        waitingPlayer.setMana((byte) 4);
 
-        board.data_.getCurrentPlayer().setMaxMana((byte)7);
-        board.data_.getWaitingPlayer().setMaxMana((byte)4);
-
+        currentPlayer.setMaxMana((byte) 7);
+        waitingPlayer.setMaxMana((byte) 4);
     }
 
     @Test
     public void test2() throws HSException {
-        board.data_.getCurrentPlayer().getHero().setHealth((byte)23);
-        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
+        currentPlayer.getHero().setHealth((byte)23);
+        Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 1, board, deck, null);
 
         assertFalse(ret == null);
-        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
-        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
-        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 0);
+        assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 2);
         assertEquals(waitingPlayer.getNumMinions(), 2);
-        assertEquals(board.data_.getCurrentPlayer().getMana(), 6);
-        assertEquals(board.data_.getWaitingPlayer().getMana(), 4);
-        assertEquals(board.data_.getCurrentPlayer().getHero().getHealth(), 23);
-        assertEquals(board.data_.getWaitingPlayer().getHero().getHealth(), 30);
+        assertEquals(currentPlayer.getMana(), 6);
+        assertEquals(waitingPlayer.getMana(), 4);
+        assertEquals(currentPlayer.getHero().getHealth(), 23);
+        assertEquals(waitingPlayer.getHero().getHealth(), 30);
         assertEquals(currentPlayer.getMinions().get(0).getHealth(), health0);
         assertEquals(currentPlayer.getMinions().get(1).getHealth(), health1 - 1);
         assertEquals(waitingPlayer.getMinions().get(0).getHealth(), health0);
@@ -84,5 +86,4 @@ public class TestHumility {
         assertEquals(waitingPlayer.getMinions().get(0).getTotalAttack(), 1);
         assertEquals(waitingPlayer.getMinions().get(1).getTotalAttack(), attack0);
     }
-
 }

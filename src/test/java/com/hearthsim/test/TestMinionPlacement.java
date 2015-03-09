@@ -20,14 +20,18 @@ import com.hearthsim.util.tree.HearthTreeNode;
 public class TestMinionPlacement {
 
     private HearthTreeNode board;
+    private PlayerModel currentPlayer;
+    private PlayerModel waitingPlayer;
+
     private BloodfenRaptor raptor;
     private ChillwindYeti yeti;
     private RiverCrocolisk croc;
 
-
     @Before
     public void setUp() throws Exception {
         board = new HearthTreeNode(new BoardModel());
+        currentPlayer = board.data_.getCurrentPlayer();
+        waitingPlayer = board.data_.getWaitingPlayer();
 
         raptor = new BloodfenRaptor();
         yeti = new ChillwindYeti();
@@ -37,27 +41,24 @@ public class TestMinionPlacement {
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, yeti);
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, croc);
 
-        board.data_.getCurrentPlayer().setMana((byte)8);
-        board.data_.getWaitingPlayer().setMana((byte)8);
+        currentPlayer.setMana((byte) 8);
+        waitingPlayer.setMana((byte) 8);
 
-        board.data_.getCurrentPlayer().setMaxMana((byte)8);
-        board.data_.getWaitingPlayer().setMaxMana((byte)8);
+        currentPlayer.setMaxMana((byte) 8);
+        waitingPlayer.setMaxMana((byte) 8);
     }
 
     @Test
     public void testCanBeUsedOnOpponentHero() throws HSException {
         Archmage archmage = new Archmage();
-        board.data_.getCurrentPlayer().placeCardHand(archmage);
+        currentPlayer.placeCardHand(archmage);
 
         HearthTreeNode ret = archmage.useOn(PlayerSide.WAITING_PLAYER, 0, this.board, null, null);
         assertNull(ret);
 
-        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
-        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
-
-        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 1);
-        assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
-        assertEquals(board.data_.getWaitingPlayer().getMana(), 8);
+        assertEquals(currentPlayer.getHand().size(), 1);
+        assertEquals(currentPlayer.getMana(), 8);
+        assertEquals(waitingPlayer.getMana(), 8);
         assertEquals(currentPlayer.getNumMinions(), 2);
         assertEquals(waitingPlayer.getNumMinions(), 1);
     }
@@ -65,17 +66,14 @@ public class TestMinionPlacement {
     @Test
     public void testCanBeUsedOnOpponentMinion() throws HSException {
         Archmage archmage = new Archmage();
-        board.data_.getCurrentPlayer().placeCardHand(archmage);
+        currentPlayer.placeCardHand(archmage);
 
         HearthTreeNode ret = archmage.useOn(PlayerSide.WAITING_PLAYER, 1, this.board, null, null);
         assertNull(ret);
 
-        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
-        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
-
-        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 1);
-        assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
-        assertEquals(board.data_.getWaitingPlayer().getMana(), 8);
+        assertEquals(currentPlayer.getHand().size(), 1);
+        assertEquals(currentPlayer.getMana(), 8);
+        assertEquals(waitingPlayer.getMana(), 8);
         assertEquals(currentPlayer.getNumMinions(), 2);
         assertEquals(waitingPlayer.getNumMinions(), 1);
     }
@@ -83,22 +81,19 @@ public class TestMinionPlacement {
     @Test
     public void testCanBeUsedOnOwnHero() throws HSException {
         Archmage archmage = new Archmage();
-        board.data_.getCurrentPlayer().placeCardHand(archmage);
+        currentPlayer.placeCardHand(archmage);
 
         HearthTreeNode ret = archmage.useOn(PlayerSide.CURRENT_PLAYER, 0, this.board, null, null);
         assertEquals(board, ret);
 
-        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
-        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
-
-        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 0);
-        assertEquals(board.data_.getCurrentPlayer().getMana(), 2);
-        assertEquals(board.data_.getWaitingPlayer().getMana(), 8);
+        assertEquals(currentPlayer.getHand().size(), 0);
+        assertEquals(currentPlayer.getMana(), 2);
+        assertEquals(waitingPlayer.getMana(), 8);
 
         assertEquals(currentPlayer.getNumMinions(), 3);
-        assertEquals(archmage, this.board.data_.getCurrentPlayer().getCharacter(1));
-        assertEquals(raptor, this.board.data_.getCurrentPlayer().getCharacter(2));
-        assertEquals(yeti, this.board.data_.getCurrentPlayer().getCharacter(3));
+        assertEquals(archmage, this.currentPlayer.getCharacter(1));
+        assertEquals(raptor, this.currentPlayer.getCharacter(2));
+        assertEquals(yeti, this.currentPlayer.getCharacter(3));
 
         assertEquals(waitingPlayer.getNumMinions(), 1);
     }
@@ -106,22 +101,19 @@ public class TestMinionPlacement {
     @Test
     public void testCanBeUsedOnOwnMinionMiddle() throws HSException {
         Archmage archmage = new Archmage();
-        board.data_.getCurrentPlayer().placeCardHand(archmage);
+        currentPlayer.placeCardHand(archmage);
 
         HearthTreeNode ret = archmage.useOn(PlayerSide.CURRENT_PLAYER, 1, this.board, null, null);
         assertEquals(board, ret);
 
-        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
-        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
-
-        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 0);
-        assertEquals(board.data_.getCurrentPlayer().getMana(), 2);
-        assertEquals(board.data_.getWaitingPlayer().getMana(), 8);
+        assertEquals(currentPlayer.getHand().size(), 0);
+        assertEquals(currentPlayer.getMana(), 2);
+        assertEquals(waitingPlayer.getMana(), 8);
 
         assertEquals(currentPlayer.getNumMinions(), 3);
-        assertEquals(raptor, this.board.data_.getCurrentPlayer().getCharacter(1));
-        assertEquals(archmage, this.board.data_.getCurrentPlayer().getCharacter(2));
-        assertEquals(yeti, this.board.data_.getCurrentPlayer().getCharacter(3));
+        assertEquals(raptor, this.currentPlayer.getCharacter(1));
+        assertEquals(archmage, this.currentPlayer.getCharacter(2));
+        assertEquals(yeti, this.currentPlayer.getCharacter(3));
 
         assertEquals(waitingPlayer.getNumMinions(), 1);
     }
@@ -129,22 +121,19 @@ public class TestMinionPlacement {
     @Test
     public void testCanBeUsedOnOwnMinionRight() throws HSException {
         Archmage archmage = new Archmage();
-        board.data_.getCurrentPlayer().placeCardHand(archmage);
+        currentPlayer.placeCardHand(archmage);
 
         HearthTreeNode ret = archmage.useOn(PlayerSide.CURRENT_PLAYER, 2, this.board, null, null);
         assertEquals(board, ret);
 
-        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
-        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
-
-        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 0);
-        assertEquals(board.data_.getCurrentPlayer().getMana(), 2);
-        assertEquals(board.data_.getWaitingPlayer().getMana(), 8);
+        assertEquals(currentPlayer.getHand().size(), 0);
+        assertEquals(currentPlayer.getMana(), 2);
+        assertEquals(waitingPlayer.getMana(), 8);
 
         assertEquals(currentPlayer.getNumMinions(), 3);
-        assertEquals(raptor, this.board.data_.getCurrentPlayer().getCharacter(1));
-        assertEquals(yeti, this.board.data_.getCurrentPlayer().getCharacter(2));
-        assertEquals(archmage, this.board.data_.getCurrentPlayer().getCharacter(3));
+        assertEquals(raptor, this.currentPlayer.getCharacter(1));
+        assertEquals(yeti, this.currentPlayer.getCharacter(2));
+        assertEquals(archmage, this.currentPlayer.getCharacter(3));
 
         assertEquals(waitingPlayer.getNumMinions(), 1);
     }
@@ -158,17 +147,14 @@ public class TestMinionPlacement {
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new SilverHandRecruit());
 
         Archmage archmage = new Archmage();
-        board.data_.getCurrentPlayer().placeCardHand(archmage);
+        currentPlayer.placeCardHand(archmage);
 
         HearthTreeNode ret = archmage.useOn(PlayerSide.CURRENT_PLAYER, 1, this.board, null, null);
         assertNull(ret);
 
-        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
-        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
-
-        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 1);
-        assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
-        assertEquals(board.data_.getWaitingPlayer().getMana(), 8);
+        assertEquals(currentPlayer.getHand().size(), 1);
+        assertEquals(currentPlayer.getMana(), 8);
+        assertEquals(waitingPlayer.getMana(), 8);
         assertEquals(currentPlayer.getNumMinions(), 7);
         assertEquals(waitingPlayer.getNumMinions(), 1);
     }
@@ -176,28 +162,28 @@ public class TestMinionPlacement {
     @Test
     public void testAddsSpellDamage() throws HSException {
         Archmage archmage = new Archmage();
-        board.data_.getCurrentPlayer().placeCardHand(archmage);
+        currentPlayer.placeCardHand(archmage);
 
         HearthTreeNode ret = archmage.useOn(PlayerSide.CURRENT_PLAYER, 1, this.board, null, null);
         assertEquals(board, ret);
 
-        assertEquals(1, board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getSpellDamage());
+        assertEquals(1, currentPlayer.getSpellDamage());
     }
 
     @Test
     public void testSpellDamageStacks() throws HSException {
         KoboldGeomancer kobold = new KoboldGeomancer();
-        board.data_.getCurrentPlayer().placeCardHand(kobold);
+        currentPlayer.placeCardHand(kobold);
 
         HearthTreeNode ret = kobold.useOn(PlayerSide.CURRENT_PLAYER, 1, this.board, null, null);
         assertEquals(board, ret);
 
         kobold = new KoboldGeomancer();
-        board.data_.getCurrentPlayer().placeCardHand(kobold);
+        currentPlayer.placeCardHand(kobold);
 
         ret = kobold.useOn(PlayerSide.CURRENT_PLAYER, 1, this.board, null, null);
         assertEquals(board, ret);
 
-        assertEquals(2, board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getSpellDamage());
+        assertEquals(2, currentPlayer.getSpellDamage());
     }
 }

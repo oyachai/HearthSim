@@ -3,6 +3,7 @@ package com.hearthsim.test.card;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import com.hearthsim.model.PlayerModel;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,8 +18,10 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class TestBlessingOfMight {
 
-
     private HearthTreeNode board;
+    private PlayerModel currentPlayer;
+    private PlayerModel waitingPlayer;
+
     private static final byte mana = 2;
     private static final byte attack0 = 2;
     private static final byte health0 = 5;
@@ -27,19 +30,22 @@ public class TestBlessingOfMight {
     @Before
     public void setup() throws HSException {
         board = new HearthTreeNode(new BoardModel());
+        currentPlayer = board.data_.getCurrentPlayer();
+        waitingPlayer = board.data_.getWaitingPlayer();
+
         Minion minion0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
         Minion minion1 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
         Minion minion2 = new Minion("" + 0, mana, attack0, health1, attack0, health1, health1);
         Minion minion3 = new Minion("" + 0, mana, attack0, (byte)(health0-2), attack0, health0, health0);
 
         BlessingOfMight fb = new BlessingOfMight();
-        board.data_.getCurrentPlayer().placeCardHand(fb);
+        currentPlayer.placeCardHand(fb);
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, minion0);
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion1);
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion2);
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion3);
 
-        board.data_.getCurrentPlayer().setMana((byte)10);
+        currentPlayer.setMana((byte)10);
     }
 
     @Test
@@ -47,7 +53,7 @@ public class TestBlessingOfMight {
 
         Deck deck = null;
 
-        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
+        Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode res;
 
         res = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, deck, null);
@@ -66,7 +72,6 @@ public class TestBlessingOfMight {
         assertEquals(res.data_.getWaitingPlayer().getMinions().get(2).getTotalAttack(), attack0);
         assertEquals(res.data_.getCurrentPlayer().getHero().getHealth(), 30);
         assertEquals(res.data_.getWaitingPlayer().getHero().getHealth(), 30);
-
     }
 
     @Test
@@ -74,7 +79,7 @@ public class TestBlessingOfMight {
 
         Deck deck = null;
 
-        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
+        Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode res;
 
         res = theCard.useOn(PlayerSide.WAITING_PLAYER, 1, board, deck, null);
@@ -100,7 +105,7 @@ public class TestBlessingOfMight {
 
         Deck deck = null;
 
-        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
+        Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode res;
 
         res = theCard.useOn(PlayerSide.WAITING_PLAYER, 2, board, deck, null);

@@ -18,6 +18,9 @@ import com.hearthsim.util.tree.HearthTreeNode;
 public class TestSpellDamage {
 
     private HearthTreeNode board;
+    private PlayerModel currentPlayer;
+    private PlayerModel waitingPlayer;
+
     private static final byte mana = 2;
     private static final byte attack0 = 2;
     private static final byte health0 = 2;
@@ -26,6 +29,8 @@ public class TestSpellDamage {
     @Before
     public void setup() throws HSException {
         board = new HearthTreeNode(new BoardModel());
+        currentPlayer = board.data_.getCurrentPlayer();
+        waitingPlayer = board.data_.getWaitingPlayer();
 
         Minion minion0_0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
         Minion minion0_1 = new Minion("" + 0, mana, attack0, health1, attack0, health1, health1);
@@ -38,29 +43,26 @@ public class TestSpellDamage {
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion1_0);
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion1_1);
 
-        board.data_.getCurrentPlayer().setMana((byte)2);
+        currentPlayer.setMana((byte) 2);
     }
 
     @Test
     public void testCanTargetOwnHero() throws HSException {
         HolySmite hs = new HolySmite();
-        board.data_.getCurrentPlayer().placeCardHand(hs);
+        currentPlayer.placeCardHand(hs);
 
-        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
+        Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
         assertEquals(ret, board);
 
-        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
-        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
-
-        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 0);
-        assertEquals(board.data_.getCurrentPlayer().getMana(), 1);
+        assertEquals(currentPlayer.getHand().size(), 0);
+        assertEquals(currentPlayer.getMana(), 1);
 
         assertEquals(currentPlayer.getNumMinions(), 2);
         assertEquals(waitingPlayer.getNumMinions(), 2);
 
-        assertEquals(board.data_.getCurrentPlayer().getHero().getHealth(), 28);
-        assertEquals(board.data_.getWaitingPlayer().getHero().getHealth(), 30);
+        assertEquals(currentPlayer.getHero().getHealth(), 28);
+        assertEquals(waitingPlayer.getHero().getHealth(), 30);
 
         assertEquals(currentPlayer.getMinions().get(0).getHealth(), health0);
         assertEquals(currentPlayer.getMinions().get(1).getHealth(), health1);
@@ -71,23 +73,20 @@ public class TestSpellDamage {
     @Test
     public void testCanTargetEnemyHero() throws HSException {
         HolySmite hs = new HolySmite();
-        board.data_.getCurrentPlayer().placeCardHand(hs);
+        currentPlayer.placeCardHand(hs);
 
-        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
+        Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 0, board, null, null);
         assertEquals(ret, board);
 
-        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
-        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
-
-        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 0);
-        assertEquals(board.data_.getCurrentPlayer().getMana(), 1);
+        assertEquals(currentPlayer.getHand().size(), 0);
+        assertEquals(currentPlayer.getMana(), 1);
 
         assertEquals(currentPlayer.getNumMinions(), 2);
         assertEquals(waitingPlayer.getNumMinions(), 2);
 
-        assertEquals(board.data_.getCurrentPlayer().getHero().getHealth(), 30);
-        assertEquals(board.data_.getWaitingPlayer().getHero().getHealth(), 28);
+        assertEquals(currentPlayer.getHero().getHealth(), 30);
+        assertEquals(waitingPlayer.getHero().getHealth(), 28);
 
         assertEquals(currentPlayer.getMinions().get(0).getHealth(), health0);
         assertEquals(currentPlayer.getMinions().get(1).getHealth(), health1);
@@ -98,23 +97,20 @@ public class TestSpellDamage {
     @Test
     public void testKillOwnMinion() throws HSException {
         HolySmite hs = new HolySmite();
-        board.data_.getCurrentPlayer().placeCardHand(hs);
+        currentPlayer.placeCardHand(hs);
 
-        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
+        Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, null, null);
         assertEquals(ret, board);
 
-        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
-        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
-
-        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 0);
-        assertEquals(board.data_.getCurrentPlayer().getMana(), 1);
+        assertEquals(currentPlayer.getHand().size(), 0);
+        assertEquals(currentPlayer.getMana(), 1);
 
         assertEquals(currentPlayer.getNumMinions(), 1);
         assertEquals(waitingPlayer.getNumMinions(), 2);
 
-        assertEquals(board.data_.getCurrentPlayer().getHero().getHealth(), 30);
-        assertEquals(board.data_.getWaitingPlayer().getHero().getHealth(), 30);
+        assertEquals(currentPlayer.getHero().getHealth(), 30);
+        assertEquals(waitingPlayer.getHero().getHealth(), 30);
 
         assertEquals(currentPlayer.getMinions().get(0).getHealth(), health1);
         assertEquals(waitingPlayer.getMinions().get(0).getHealth(), health0);
@@ -124,23 +120,20 @@ public class TestSpellDamage {
     @Test
     public void testCanTargetOwnMinion() throws HSException {
         HolySmite hs = new HolySmite();
-        board.data_.getCurrentPlayer().placeCardHand(hs);
+        currentPlayer.placeCardHand(hs);
 
-        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
+        Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 2, board, null, null);
         assertEquals(ret, board);
 
-        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
-        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
-
-        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 0);
-        assertEquals(board.data_.getCurrentPlayer().getMana(), 1);
+        assertEquals(currentPlayer.getHand().size(), 0);
+        assertEquals(currentPlayer.getMana(), 1);
 
         assertEquals(currentPlayer.getNumMinions(), 2);
         assertEquals(waitingPlayer.getNumMinions(), 2);
 
-        assertEquals(board.data_.getCurrentPlayer().getHero().getHealth(), 30);
-        assertEquals(board.data_.getWaitingPlayer().getHero().getHealth(), 30);
+        assertEquals(currentPlayer.getHero().getHealth(), 30);
+        assertEquals(waitingPlayer.getHero().getHealth(), 30);
 
         assertEquals(currentPlayer.getMinions().get(0).getHealth(), health0);
         assertEquals(currentPlayer.getMinions().get(1).getHealth(), health1 - 2);
@@ -151,23 +144,20 @@ public class TestSpellDamage {
     @Test
     public void testKillEnemyMinion() throws HSException {
         HolySmite hs = new HolySmite();
-        board.data_.getCurrentPlayer().placeCardHand(hs);
+        currentPlayer.placeCardHand(hs);
 
-        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
+        Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 1, board, null, null);
         assertEquals(ret, board);
 
-        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
-        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
-
-        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 0);
-        assertEquals(board.data_.getCurrentPlayer().getMana(), 1);
+        assertEquals(currentPlayer.getHand().size(), 0);
+        assertEquals(currentPlayer.getMana(), 1);
 
         assertEquals(currentPlayer.getNumMinions(), 2);
         assertEquals(waitingPlayer.getNumMinions(), 1);
 
-        assertEquals(board.data_.getCurrentPlayer().getHero().getHealth(), 30);
-        assertEquals(board.data_.getWaitingPlayer().getHero().getHealth(), 30);
+        assertEquals(currentPlayer.getHero().getHealth(), 30);
+        assertEquals(waitingPlayer.getHero().getHealth(), 30);
 
         assertEquals(currentPlayer.getMinions().get(0).getHealth(), health0);
         assertEquals(currentPlayer.getMinions().get(1).getHealth(), health1);
@@ -177,23 +167,20 @@ public class TestSpellDamage {
     @Test
     public void testTargetEnemyMinion() throws HSException {
         HolySmite hs = new HolySmite();
-        board.data_.getCurrentPlayer().placeCardHand(hs);
+        currentPlayer.placeCardHand(hs);
 
-        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
+        Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 2, board, null, null);
         assertEquals(ret, board);
 
-        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
-        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
-
-        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 0);
-        assertEquals(board.data_.getCurrentPlayer().getMana(), 1);
+        assertEquals(currentPlayer.getHand().size(), 0);
+        assertEquals(currentPlayer.getMana(), 1);
 
         assertEquals(currentPlayer.getNumMinions(), 2);
         assertEquals(waitingPlayer.getNumMinions(), 2);
 
-        assertEquals(board.data_.getCurrentPlayer().getHero().getHealth(), 30);
-        assertEquals(board.data_.getWaitingPlayer().getHero().getHealth(), 30);
+        assertEquals(currentPlayer.getHero().getHealth(), 30);
+        assertEquals(waitingPlayer.getHero().getHealth(), 30);
 
         assertEquals(currentPlayer.getMinions().get(0).getHealth(), health0);
         assertEquals(currentPlayer.getMinions().get(1).getHealth(), health1);
@@ -207,14 +194,11 @@ public class TestSpellDamage {
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, kobold);
 
         HolySmite hs = new HolySmite();
-        board.data_.getCurrentPlayer().placeCardHand(hs);
+        currentPlayer.placeCardHand(hs);
 
-        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
+        Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 2, board, null, null);
         assertEquals(ret, board);
-
-        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
-        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
         assertEquals(waitingPlayer.getNumMinions(), 1);
     }

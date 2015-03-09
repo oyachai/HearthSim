@@ -18,45 +18,47 @@ import com.hearthsim.util.tree.HearthTreeNode;
 public class TestAcidicSwampOoze {
 
     private HearthTreeNode board;
+    private PlayerModel currentPlayer;
+    private PlayerModel waitingPlayer;
 
     @Before
     public void setup() throws HSException {
         board = new HearthTreeNode(new BoardModel());
+        currentPlayer = board.data_.getCurrentPlayer();
+        waitingPlayer = board.data_.getWaitingPlayer();
 
         AcidicSwampOoze ooze = new AcidicSwampOoze();
-        board.data_.getCurrentPlayer().placeCardHand(ooze);
+        currentPlayer.placeCardHand(ooze);
 
-        board.data_.getCurrentPlayer().setMana((byte)4);
-        board.data_.getWaitingPlayer().setMana((byte)4);
+        currentPlayer.setMana((byte) 4);
+        waitingPlayer.setMana((byte) 4);
 
-        board.data_.getCurrentPlayer().setMaxMana((byte)4);
-        board.data_.getWaitingPlayer().setMaxMana((byte)4);
+        currentPlayer.setMaxMana((byte) 4);
+        waitingPlayer.setMaxMana((byte) 4);
     }
 
     @Test
     public void testDestroysWeapon() throws HSException {
         FieryWarAxe axe = new FieryWarAxe();
-        board.data_.getWaitingPlayer().getHero().setWeapon(axe);
+        waitingPlayer.getHero().setWeapon(axe);
 
-        assertEquals(board.data_.getCurrentPlayer().getHero().getTotalAttack(), 0);
-        assertNull(board.data_.getCurrentPlayer().getHero().getWeapon());
-        assertEquals(board.data_.getWaitingPlayer().getHero().getWeapon(), axe);
-        assertEquals(board.data_.getWaitingPlayer().getHero().getTotalAttack(), 3);
-        assertEquals(board.data_.getWaitingPlayer().getHero().getWeapon().getWeaponCharge(), 2);
+        assertEquals(currentPlayer.getHero().getTotalAttack(), 0);
+        assertNull(currentPlayer.getHero().getWeapon());
+        assertEquals(waitingPlayer.getHero().getWeapon(), axe);
+        assertEquals(waitingPlayer.getHero().getTotalAttack(), 3);
+        assertEquals(waitingPlayer.getHero().getWeapon().getWeaponCharge(), 2);
 
-        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
+        Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
 
         assertEquals(board, ret);
-        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
-        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
-        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 0);
+        assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 1);
 
-        assertNull(board.data_.getCurrentPlayer().getHero().getWeapon());
-        assertEquals(board.data_.getCurrentPlayer().getHero().getTotalAttack(), 0);
-        assertNull(board.data_.getWaitingPlayer().getHero().getWeapon());
-        assertEquals(board.data_.getWaitingPlayer().getHero().getTotalAttack(), 0);
+        assertNull(currentPlayer.getHero().getWeapon());
+        assertEquals(currentPlayer.getHero().getTotalAttack(), 0);
+        assertNull(waitingPlayer.getHero().getWeapon());
+        assertEquals(waitingPlayer.getHero().getTotalAttack(), 0);
     }
 }

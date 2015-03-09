@@ -16,29 +16,31 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class TestArathiWeaponsmith {
     private HearthTreeNode board;
+    private PlayerModel currentPlayer;
+    private PlayerModel waitingPlayer;
 
     @Before
     public void setup() {
         board = new HearthTreeNode(new BoardModel());
+        currentPlayer = board.data_.getCurrentPlayer();
+        waitingPlayer = board.data_.getWaitingPlayer();
 
-        board.data_.getCurrentPlayer().setMana((byte)10);
-        board.data_.getWaitingPlayer().setMana((byte)10);
+        currentPlayer.setMana((byte) 10);
+        waitingPlayer.setMana((byte) 10);
 
-        board.data_.getCurrentPlayer().setMaxMana((byte)10);
-        board.data_.getWaitingPlayer().setMaxMana((byte)10);
+        currentPlayer.setMaxMana((byte) 10);
+        waitingPlayer.setMaxMana((byte) 10);
 
-        board.data_.getCurrentPlayer().placeCardHand(new ArathiWeaponsmith());
+        currentPlayer.placeCardHand(new ArathiWeaponsmith());
     }
 
     @Test
     public void testEquipsWeapon() throws HSException {
-        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
+        Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
         assertEquals(board, ret);
-        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
-        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
-        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 0);
+        assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 1);
 
         //should be equipped with a weapon now
@@ -48,19 +50,17 @@ public class TestArathiWeaponsmith {
 
     @Test
     public void testDestroysExistingWeapon() throws HSException {
-        board.data_.getCurrentPlayer().placeCardHand(new FieryWarAxe());
-        board.data_.getCurrentPlayer().getHand().get(1).useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
-        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
-        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
+        currentPlayer.placeCardHand(new FieryWarAxe());
+        currentPlayer.getHand().get(1).useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
 
-        assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
-        assertEquals(board.data_.getCurrentPlayer().getHero().getWeapon().getWeaponCharge(), 2);
-        assertEquals(board.data_.getCurrentPlayer().getHero().getTotalAttack(), 3);
+        assertEquals(currentPlayer.getMana(), 8);
+        assertEquals(currentPlayer.getHero().getWeapon().getWeaponCharge(), 2);
+        assertEquals(currentPlayer.getHero().getTotalAttack(), 3);
 
-        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
+        Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
         assertEquals(board, ret);
-        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 0);
+        assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 1);
 
         //should be equipped with a weapon now

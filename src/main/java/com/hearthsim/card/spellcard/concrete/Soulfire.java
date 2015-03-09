@@ -43,19 +43,18 @@ public class Soulfire extends SpellDamage {
             Deck deckPlayer1,
             boolean singleRealizationOnly)
         throws HSException {
-        HearthTreeNode toRet = null;
+        HearthTreeNode toRet = boardState;
+        PlayerModel currentPlayer = toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
 
         PlayerSide.CURRENT_PLAYER.getPlayer(boardState).addNumCardsUsed((byte)1);
         if (singleRealizationOnly) {
-            toRet = super.useOn(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
-            PlayerModel currentPlayer = toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+            toRet = super.useOn(side, targetMinion, toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
             IdentityLinkedList<Card> hand = currentPlayer.getHand();
             if (hand.size() > 0) {
                 Card targetCard = hand.get((int)(Math.random() * hand.size()));
                 toRet.data_.getCurrentPlayer().getHand().remove(targetCard);
             }
         } else {
-            PlayerModel currentPlayer = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
             PlayerModel targetPlayer = boardState.data_.modelForSide(side);
             int targetCharacterIndex = targetMinion instanceof Hero ? 0 : targetPlayer.getMinions().indexOf(targetMinion) + 1;
             int thisCardIndex = currentPlayer.getHand().indexOf(this);

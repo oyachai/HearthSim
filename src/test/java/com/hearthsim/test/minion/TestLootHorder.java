@@ -25,6 +25,9 @@ import static org.junit.Assert.assertEquals;
 public class TestLootHorder {
 
     private HearthTreeNode board;
+    private PlayerModel currentPlayer;
+    private PlayerModel waitingPlayer;
+
     private Deck deck;
 
     @Before
@@ -39,6 +42,8 @@ public class TestLootHorder {
         PlayerModel playerModel1 = new PlayerModel((byte)1, "player1", new TestHero(), deck);
 
         board = new HearthTreeNode(new BoardModel(playerModel0, playerModel1));
+        currentPlayer = board.data_.getCurrentPlayer();
+        waitingPlayer = board.data_.getWaitingPlayer();
 
         Minion minion0_0 = new LootHoarder();
         Minion minion1_0 = new BloodfenRaptor();
@@ -46,22 +51,18 @@ public class TestLootHorder {
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, minion0_0);
 
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion1_0);
-
     }
-
 
     @Test
     public void test0() throws HSException {
 
-
         BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
 
-        board.data_.getCurrentPlayer().setMana((byte)1);
-        board.data_.getWaitingPlayer().setMana((byte)1);
+        currentPlayer.setMana((byte) 1);
+        waitingPlayer.setMana((byte) 1);
 
-        board.data_.getCurrentPlayer().setMaxMana((byte)1);
-        board.data_.getWaitingPlayer().setMaxMana((byte)1);
-
+        currentPlayer.setMaxMana((byte) 1);
+        waitingPlayer.setMaxMana((byte) 1);
 
         List<HearthActionBoardPair> ab = ai0.playTurn(0, board.data_);
         BoardModel resBoard = ab.get(ab.size() - 1).board;
@@ -75,18 +76,16 @@ public class TestLootHorder {
         assertEquals(resBoard.getWaitingPlayer().getHero().getHealth(), 30);
     }
 
-
     @Test
     public void test1() throws HSException {
 
         BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
 
-        board.data_.getCurrentPlayer().setMana((byte)3);
-        board.data_.getWaitingPlayer().setMana((byte)3);
+        currentPlayer.setMana((byte) 3);
+        waitingPlayer.setMana((byte) 3);
 
-        board.data_.getCurrentPlayer().setMaxMana((byte)3);
-        board.data_.getWaitingPlayer().setMaxMana((byte)3);
-
+        currentPlayer.setMaxMana((byte) 3);
+        waitingPlayer.setMaxMana((byte) 3);
 
         List<HearthActionBoardPair> ab = ai0.playTurn(0, board.data_);
         BoardModel resBoard = ab.get(ab.size() - 1).board;
@@ -113,12 +112,11 @@ public class TestLootHorder {
         board.data_.removeMinion(PlayerSide.WAITING_PLAYER, 0);
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, new LootHoarder());
 
-        board.data_.getCurrentPlayer().setMana((byte)3);
-        board.data_.getWaitingPlayer().setMana((byte)3);
+        currentPlayer.setMana((byte) 3);
+        waitingPlayer.setMana((byte) 3);
 
-        board.data_.getCurrentPlayer().setMaxMana((byte)3);
-        board.data_.getWaitingPlayer().setMaxMana((byte)3);
-
+        currentPlayer.setMaxMana((byte) 3);
+        waitingPlayer.setMaxMana((byte) 3);
 
         List<HearthActionBoardPair> ab = ai0.playTurn(0, board.data_);
         BoardModel resBoard = ab.get(ab.size() - 1).board;

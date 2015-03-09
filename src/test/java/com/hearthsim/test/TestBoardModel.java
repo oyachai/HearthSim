@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
+import com.hearthsim.model.PlayerModel;
 import org.junit.Test;
 
 import com.hearthsim.card.Card;
@@ -164,6 +165,8 @@ public class TestBoardModel {
     public void testBoardModelEquals() throws HSException {
 
         HearthTreeNode board = new HearthTreeNode(new BoardModel());
+        PlayerModel currentPlayer = board.data_.getCurrentPlayer();
+        PlayerModel waitingPlayer = board.data_.getWaitingPlayer();
 
         Minion minion0_0 = new BoulderfistOgre();
         Minion minion0_1 = new RaidLeader();
@@ -172,19 +175,19 @@ public class TestBoardModel {
         Minion minion1_1 = new RaidLeader();
         Minion minion1_2 = new ScarletCrusader();
 
-        board.data_.getCurrentPlayer().placeCardHand(minion0_0);
-        board.data_.getCurrentPlayer().placeCardHand(minion0_1);
-        board.data_.getCurrentPlayer().placeCardHand(minion0_2);
+        currentPlayer.placeCardHand(minion0_0);
+        currentPlayer.placeCardHand(minion0_1);
+        currentPlayer.placeCardHand(minion0_2);
 
-        board.data_.getWaitingPlayer().placeCardHand(minion1_0);
-        board.data_.getWaitingPlayer().placeCardHand(minion1_1);
-        board.data_.getWaitingPlayer().placeCardHand(minion1_2);
+        waitingPlayer.placeCardHand(minion1_0);
+        waitingPlayer.placeCardHand(minion1_1);
+        waitingPlayer.placeCardHand(minion1_2);
 
-        board.data_.getCurrentPlayer().setMana((byte)8);
-        board.data_.getWaitingPlayer().setMana((byte)8);
+        currentPlayer.setMana((byte)8);
+        waitingPlayer.setMana((byte)8);
 
-        board.data_.getCurrentPlayer().setMaxMana((byte)8);
-        board.data_.getWaitingPlayer().setMaxMana((byte)8);
+        currentPlayer.setMaxMana((byte)8);
+        waitingPlayer.setMaxMana((byte)8);
 
         HearthTreeNode tmpBoard = new HearthTreeNode(board.data_.flipPlayers());
         tmpBoard.data_.getCurrentPlayer().getHand().get(0).useOn(PlayerSide.CURRENT_PLAYER, 0, tmpBoard, deck1, deck0);
@@ -194,9 +197,9 @@ public class TestBoardModel {
                 tmpBoard.data_.getCurrentPlayer().getHero(), tmpBoard, deck1, deck0);
 
         board = new HearthTreeNode(tmpBoard.data_.flipPlayers());
-        board.data_.getCurrentPlayer().getHand().get(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayer().getHero(),
+        currentPlayer.getHand().get(0).useOn(PlayerSide.CURRENT_PLAYER, currentPlayer.getHero(),
                 board, deck0, deck1);
-        board.data_.getCurrentPlayer().getHand().get(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayer().getHero(),
+        currentPlayer.getHand().get(0).useOn(PlayerSide.CURRENT_PLAYER, currentPlayer.getHero(),
                 board, deck0, deck1);
 
         board.data_.resetMana();

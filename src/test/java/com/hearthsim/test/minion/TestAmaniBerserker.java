@@ -22,12 +22,17 @@ import com.hearthsim.util.tree.HearthTreeNode;
 public class TestAmaniBerserker {
 
     private HearthTreeNode board;
+    private PlayerModel currentPlayer;
+    private PlayerModel waitingPlayer;
+
     private AmaniBerserker amaniBerserker;
     private RiverCrocolisk croc;
 
     @Before
     public void setup() throws HSException {
         board = new HearthTreeNode(new BoardModel());
+        currentPlayer = board.data_.getCurrentPlayer();
+        waitingPlayer = board.data_.getWaitingPlayer();
 
         amaniBerserker = new AmaniBerserker();
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, amaniBerserker);
@@ -38,19 +43,16 @@ public class TestAmaniBerserker {
 
     @Test
     public void testAttackNormal() throws HSException {
-        Minion target = board.data_.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(0);
+        Minion target = waitingPlayer.getCharacter(0);
         HearthTreeNode ret = amaniBerserker.attack(PlayerSide.WAITING_PLAYER, target, board, null, null, false);
         assertEquals(board, ret);
-        assertEquals(board.data_.getWaitingPlayer().getHero().getHealth(), 28);
+        assertEquals(waitingPlayer.getHero().getHealth(), 28);
     }
 
     @Test
     public void testEnrage() throws HSException {
         HearthTreeNode ret = amaniBerserker.attack(PlayerSide.WAITING_PLAYER, croc, board, null, null, false);
         assertEquals(board, ret);
-
-        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
-        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
         assertEquals(currentPlayer.getNumMinions(), 1);
         assertEquals(waitingPlayer.getNumMinions(), 1);
@@ -65,9 +67,9 @@ public class TestAmaniBerserker {
     public void testHealRemovesEngrage() throws HSException {
         HearthTreeNode ret = amaniBerserker.attack(PlayerSide.WAITING_PLAYER, croc, board, null, null, false);
 
-        board.data_.getCurrentPlayer().placeCardHand(new HolyLight());
-        board.data_.getCurrentPlayer().setMana((byte)2);
-        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
+        currentPlayer.placeCardHand(new HolyLight());
+        currentPlayer.setMana((byte) 2);
+        Card theCard = currentPlayer.getHand().get(0);
         ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, amaniBerserker, board, null, null);
 
         assertEquals(board, ret);

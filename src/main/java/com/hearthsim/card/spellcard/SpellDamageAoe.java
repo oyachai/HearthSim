@@ -48,7 +48,6 @@ public class SpellDamageAoe extends SpellDamage {
 
     /**
      * Use the card on the given target
-     * This card damages all enemy minions but not enemy hero
      *
      * @param side
      * @param boardState The BoardState before this card has performed its action. It will be manipulated and returned.

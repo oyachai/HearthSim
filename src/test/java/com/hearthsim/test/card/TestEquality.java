@@ -22,11 +22,16 @@ import static org.junit.Assert.*;
 public class TestEquality {
 
     private HearthTreeNode board;
+    private PlayerModel currentPlayer;
+    private PlayerModel waitingPlayer;
+
     private Deck deck;
 
     @Before
     public void setup() throws HSInvalidPlayerIndexException, HSException {
         board = new HearthTreeNode(new BoardModel());
+        currentPlayer = board.data_.getCurrentPlayer();
+        waitingPlayer = board.data_.getWaitingPlayer();
 
         Minion minion0_0 = new StormwindChampion();
         Minion minion0_1 = new BoulderfistOgre();
@@ -42,38 +47,35 @@ public class TestEquality {
         deck = new Deck(cards);
 
         Card fb = new Equality();
-        board.data_.getCurrentPlayer().placeCardHand(fb);
+        currentPlayer.placeCardHand(fb);
 
-        board.data_.getCurrentPlayer().setMana((byte)8);
-        board.data_.getWaitingPlayer().setMana((byte)8);
+        currentPlayer.setMana((byte) 8);
+        waitingPlayer.setMana((byte) 8);
 
-        board.data_.getCurrentPlayer().setMaxMana((byte)8);
-        board.data_.getWaitingPlayer().setMaxMana((byte)8);
+        currentPlayer.setMaxMana((byte) 8);
+        waitingPlayer.setMaxMana((byte) 8);
 
-        minion0_0.placeMinion(PlayerSide.CURRENT_PLAYER, board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getHero(), board, null, null, true);
-        minion0_1.placeMinion(PlayerSide.CURRENT_PLAYER, board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getHero(), board, null, null, true);
-        minion0_2.placeMinion(PlayerSide.CURRENT_PLAYER, board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getHero(), board, null, null, true);
-        minion1_0.placeMinion(PlayerSide.WAITING_PLAYER, board.data_.modelForSide(PlayerSide.WAITING_PLAYER).getHero(), board, null, null, true);
-        minion1_1.placeMinion(PlayerSide.WAITING_PLAYER, board.data_.modelForSide(PlayerSide.WAITING_PLAYER).getHero(), board, null, null, true);
-
+        minion0_0.placeMinion(PlayerSide.CURRENT_PLAYER, currentPlayer.getHero(), board, null, null, true);
+        minion0_1.placeMinion(PlayerSide.CURRENT_PLAYER, currentPlayer.getHero(), board, null, null, true);
+        minion0_2.placeMinion(PlayerSide.CURRENT_PLAYER, currentPlayer.getHero(), board, null, null, true);
+        minion1_0.placeMinion(PlayerSide.WAITING_PLAYER, waitingPlayer.getHero(), board, null, null, true);
+        minion1_1.placeMinion(PlayerSide.WAITING_PLAYER, waitingPlayer.getHero(), board, null, null, true);
     }
 
     @Test
     public void test1() throws HSException {
-        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
+        Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
 
         assertFalse(ret == null);
-        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
-        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
-        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 0);
+        assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 3);
         assertEquals(waitingPlayer.getNumMinions(), 2);
-        assertEquals(board.data_.getCurrentPlayer().getMana(), 6);
-        assertEquals(board.data_.getWaitingPlayer().getMana(), 8);
-        assertEquals(board.data_.getCurrentPlayer().getHero().getHealth(), 30);
-        assertEquals(board.data_.getWaitingPlayer().getHero().getHealth(), 30);
+        assertEquals(currentPlayer.getMana(), 6);
+        assertEquals(waitingPlayer.getMana(), 8);
+        assertEquals(currentPlayer.getHero().getHealth(), 30);
+        assertEquals(waitingPlayer.getHero().getHealth(), 30);
         assertEquals(currentPlayer.getMinions().get(0).getTotalHealth(), 2);
         assertEquals(currentPlayer.getMinions().get(1).getTotalHealth(), 2);
         assertEquals(currentPlayer.getMinions().get(2).getTotalHealth(), 1);

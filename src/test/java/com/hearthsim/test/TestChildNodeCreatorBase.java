@@ -218,12 +218,14 @@ public class TestChildNodeCreatorBase {
         assertNodeListActionsAreRepeatable(startingBoard, actuals);
 
         BoardModel expectedBoardA = new BoardModel();
-        expectedBoardA.getCurrentPlayer().setMana((byte)1);
-        expectedBoardA.getCurrentPlayer().setMaxMana((byte)2);
-        expectedBoardA.getCurrentPlayer().setNumCardsUsed((byte)1);
+        firstPlayer = expectedBoardA.getCurrentPlayer();
+        firstPlayer.setMana((byte) 1);
+        firstPlayer.setMaxMana((byte) 2);
+        firstPlayer.setNumCardsUsed((byte)1);
+
         BoardModel expectedBoardB = expectedBoardA.deepCopy();
 
-        expectedBoardA.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(0).setHealth((byte)28);
+        firstPlayer.getCharacter(0).setHealth((byte)28);
         expectedBoardB.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(0).setHealth((byte)28);
 
         assertNodeListContainsBoardModel(actuals, expectedBoardA);

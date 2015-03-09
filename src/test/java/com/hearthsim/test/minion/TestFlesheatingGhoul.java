@@ -18,6 +18,9 @@ import static org.junit.Assert.*;
 public class TestFlesheatingGhoul {
 
     private HearthTreeNode board;
+    private PlayerModel currentPlayer;
+    private PlayerModel waitingPlayer;
+
     private Deck deck;
 
     @Before
@@ -30,6 +33,8 @@ public class TestFlesheatingGhoul {
         deck = new Deck(cards);
 
         board = new HearthTreeNode(new BoardModel(deck, deck));
+        currentPlayer = board.data_.getCurrentPlayer();
+        waitingPlayer = board.data_.getWaitingPlayer();
 
         Minion minion0_0 = new StormwindChampion();
         Minion minion0_1 = new RaidLeader();
@@ -40,21 +45,20 @@ public class TestFlesheatingGhoul {
         Minion minion1_2 = new Abomination();
         Minion minion1_3 = new LootHoarder();
 
-        board.data_.getCurrentPlayer().placeCardHand(minion0_0);
-        board.data_.getCurrentPlayer().placeCardHand(minion0_1);
-        board.data_.getCurrentPlayer().placeCardHand(minion0_2);
+        currentPlayer.placeCardHand(minion0_0);
+        currentPlayer.placeCardHand(minion0_1);
+        currentPlayer.placeCardHand(minion0_2);
 
-        board.data_.getWaitingPlayer().placeCardHand(minion1_0);
-        board.data_.getWaitingPlayer().placeCardHand(minion1_1);
-        board.data_.getWaitingPlayer().placeCardHand(minion1_2);
-        board.data_.getWaitingPlayer().placeCardHand(minion1_3);
+        waitingPlayer.placeCardHand(minion1_0);
+        waitingPlayer.placeCardHand(minion1_1);
+        waitingPlayer.placeCardHand(minion1_2);
+        waitingPlayer.placeCardHand(minion1_3);
 
+        currentPlayer.setMana((byte) 20);
+        waitingPlayer.setMana((byte) 20);
 
-        board.data_.getCurrentPlayer().setMana((byte)20);
-        board.data_.getWaitingPlayer().setMana((byte)20);
-
-        board.data_.getCurrentPlayer().setMaxMana((byte)10);
-        board.data_.getWaitingPlayer().setMaxMana((byte)10);
+        currentPlayer.setMaxMana((byte) 10);
+        waitingPlayer.setMaxMana((byte) 10);
 
         HearthTreeNode tmpBoard = new HearthTreeNode(board.data_.flipPlayers());
         tmpBoard.data_.getCurrentPlayer().getHand().get(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayer().getHero(), tmpBoard, deck, null);
@@ -63,36 +67,34 @@ public class TestFlesheatingGhoul {
         tmpBoard.data_.getCurrentPlayer().getHand().get(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayer().getHero(), tmpBoard, deck, null);
 
         board = new HearthTreeNode(tmpBoard.data_.flipPlayers());
-        board.data_.getCurrentPlayer().getHand().get(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayer().getHero(), board, deck, null);
-        board.data_.getCurrentPlayer().getHand().get(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayer().getHero(), board, deck, null);
-        board.data_.getCurrentPlayer().getHand().get(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayer().getHero(), board, deck, null);
+        currentPlayer = board.data_.getCurrentPlayer();
+        waitingPlayer = board.data_.getWaitingPlayer();
+
+        currentPlayer.getHand().get(0).useOn(PlayerSide.CURRENT_PLAYER, currentPlayer.getHero(), board, deck, null);
+        currentPlayer.getHand().get(0).useOn(PlayerSide.CURRENT_PLAYER, currentPlayer.getHero(), board, deck, null);
+        currentPlayer.getHand().get(0).useOn(PlayerSide.CURRENT_PLAYER, currentPlayer.getHero(), board, deck, null);
 
         board.data_.resetMana();
         board.data_.resetMinions();
 
         Minion fb = new FlesheatingGhoul();
-        board.data_.getCurrentPlayer().placeCardHand(fb);
-
+        currentPlayer.placeCardHand(fb);
     }
-
-
 
     @Test
     public void test0() throws HSException {
-        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
+        Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 0, board, deck, deck);
 
         assertNull(ret);
-        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
-        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
-        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 1);
+        assertEquals(currentPlayer.getHand().size(), 1);
         assertEquals(currentPlayer.getNumMinions(), 3);
         assertEquals(waitingPlayer.getNumMinions(), 4);
-        assertEquals(board.data_.getCurrentPlayer().getMana(), 10);
-        assertEquals(board.data_.getWaitingPlayer().getMana(), 10);
-        assertEquals(board.data_.getCurrentPlayer().getHero().getHealth(), 30);
-        assertEquals(board.data_.getWaitingPlayer().getHero().getHealth(), 30);
+        assertEquals(currentPlayer.getMana(), 10);
+        assertEquals(waitingPlayer.getMana(), 10);
+        assertEquals(currentPlayer.getHero().getHealth(), 30);
+        assertEquals(waitingPlayer.getHero().getHealth(), 30);
 
         assertEquals(currentPlayer.getMinions().get(0).getTotalHealth(), 4);
         assertEquals(currentPlayer.getMinions().get(1).getTotalHealth(), 3);
@@ -113,20 +115,18 @@ public class TestFlesheatingGhoul {
 
     @Test
     public void test1() throws HSException {
-        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
+        Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 3, board, deck, deck);
 
         assertFalse(ret == null);
-        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
-        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
-        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 0);
+        assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 4);
         assertEquals(waitingPlayer.getNumMinions(), 4);
-        assertEquals(board.data_.getCurrentPlayer().getMana(), 7);
-        assertEquals(board.data_.getWaitingPlayer().getMana(), 10);
-        assertEquals(board.data_.getCurrentPlayer().getHero().getHealth(), 30);
-        assertEquals(board.data_.getWaitingPlayer().getHero().getHealth(), 30);
+        assertEquals(currentPlayer.getMana(), 7);
+        assertEquals(waitingPlayer.getMana(), 10);
+        assertEquals(currentPlayer.getHero().getHealth(), 30);
+        assertEquals(waitingPlayer.getHero().getHealth(), 30);
 
         assertEquals(currentPlayer.getMinions().get(0).getTotalHealth(), 4);
         assertEquals(currentPlayer.getMinions().get(1).getTotalHealth(), 3);
@@ -142,7 +142,6 @@ public class TestFlesheatingGhoul {
         assertEquals(currentPlayer.getMinions().get(2).getAuraHealth(), 0);
         assertEquals(currentPlayer.getMinions().get(3).getAuraHealth(), 1);
 
-
         assertEquals(currentPlayer.getMinions().get(0).getTotalAttack(), 4);
         assertEquals(currentPlayer.getMinions().get(1).getTotalAttack(), 3);
         assertEquals(currentPlayer.getMinions().get(2).getTotalAttack(), 7);
@@ -152,35 +151,32 @@ public class TestFlesheatingGhoul {
         assertEquals(waitingPlayer.getMinions().get(2).getTotalAttack(), 2);
         assertEquals(waitingPlayer.getMinions().get(3).getTotalAttack(), 7);
 
-
         //---------------------------------------------------------------
-        Minion attacker = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(3);
-        Minion target = board.data_.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(2);
+        Minion attacker = currentPlayer.getCharacter(3);
+        Minion target = waitingPlayer.getCharacter(2);
         ret = attacker.attack(PlayerSide.WAITING_PLAYER, target, board, deck, deck, false);
 
         assertFalse(ret == null);
-        assertEquals(ret.data_.getCurrentPlayer().getHand().size(), 0);
-        assertEquals(ret.data_.getCurrentPlayer().getNumMinions(), 3);
+        assertEquals(currentPlayer.getHand().size(), 0);
+        assertEquals(currentPlayer.getNumMinions(), 3);
         assertEquals(waitingPlayer.getNumMinions(), 1);
-        assertEquals(ret.data_.getCurrentPlayer().getMana(), 7);
-        assertEquals(ret.data_.getWaitingPlayer().getMana(), 10);
-        assertEquals(ret.data_.getCurrentPlayer().getHero().getHealth(), 28); //2 damage from Abomination's deathrattle
-        assertEquals(ret.data_.getWaitingPlayer().getHero().getHealth(), 28); //2 damage from Abomination's deathrattle
+        assertEquals(currentPlayer.getMana(), 7);
+        assertEquals(waitingPlayer.getMana(), 10);
+        assertEquals(currentPlayer.getHero().getHealth(), 28); //2 damage from Abomination's deathrattle
+        assertEquals(waitingPlayer.getHero().getHealth(), 28); //2 damage from Abomination's deathrattle
 
-        assertEquals(ret.data_.getCurrentPlayer().getMinions().get(0).getTotalHealth(), 2);
-        assertEquals(ret.data_.getCurrentPlayer().getMinions().get(1).getTotalHealth(), 1);
-        assertEquals(ret.data_.getCurrentPlayer().getMinions().get(2).getTotalHealth(), 2);
+        assertEquals(currentPlayer.getMinions().get(0).getTotalHealth(), 2);
+        assertEquals(currentPlayer.getMinions().get(1).getTotalHealth(), 1);
+        assertEquals(currentPlayer.getMinions().get(2).getTotalHealth(), 2);
         assertEquals(waitingPlayer.getMinions().get(0).getTotalHealth(), 5);
 
         assertEquals(currentPlayer.getMinions().get(0).getAuraHealth(), 0);
         assertEquals(currentPlayer.getMinions().get(1).getAuraHealth(), 0);
         assertEquals(currentPlayer.getMinions().get(2).getAuraHealth(), 0);
 
-        assertEquals(ret.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack(), 3);
-        assertEquals(ret.data_.getCurrentPlayer().getMinions().get(1).getTotalAttack(), 2);
-        assertEquals(ret.data_.getCurrentPlayer().getMinions().get(2).getTotalAttack(), 3 + 4); //4 minions died, including the Stormwind Champion
+        assertEquals(currentPlayer.getMinions().get(0).getTotalAttack(), 3);
+        assertEquals(currentPlayer.getMinions().get(1).getTotalAttack(), 2);
+        assertEquals(currentPlayer.getMinions().get(2).getTotalAttack(), 3 + 4); //4 minions died, including the Stormwind Champion
         assertEquals(waitingPlayer.getMinions().get(0).getTotalAttack(), 6);
-
     }
-
 }

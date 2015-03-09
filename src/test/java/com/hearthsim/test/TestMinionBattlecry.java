@@ -22,10 +22,14 @@ import com.hearthsim.util.tree.HearthTreeNode;
 public class TestMinionBattlecry {
 
     private HearthTreeNode board;
+    private PlayerModel currentPlayer;
+    private PlayerModel waitingPlayer;
 
     @Before
     public void setUp() throws Exception {
         board = new HearthTreeNode(new BoardModel());
+        currentPlayer = board.data_.getCurrentPlayer();
+        waitingPlayer = board.data_.getWaitingPlayer();
 
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new BloodfenRaptor());
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new ChillwindYeti());
@@ -34,8 +38,8 @@ public class TestMinionBattlecry {
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, new RiverCrocolisk());
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, new RiverCrocolisk());
 
-        board.data_.getCurrentPlayer().setMana((byte)10);
-        board.data_.getCurrentPlayer().setMaxMana((byte)10);
+        currentPlayer.setMana((byte) 10);
+        currentPlayer.setMaxMana((byte) 10);
     }
 
     @Test
@@ -46,13 +50,10 @@ public class TestMinionBattlecry {
         HearthTreeNode ret = darkIronDwarf.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
         assertEquals(board, ret);
 
-        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
-        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
-
-        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 0);
+        assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 3);
         assertEquals(waitingPlayer.getNumMinions(), 3);
-        assertEquals(board.data_.getCurrentPlayer().getMana(), 6);
+        assertEquals(currentPlayer.getMana(), 6);
         assertEquals(currentPlayer.getMinions().get(0).getHealth(), 4);
         assertEquals(currentPlayer.getMinions().get(0).getTotalAttack(), 4);
     }

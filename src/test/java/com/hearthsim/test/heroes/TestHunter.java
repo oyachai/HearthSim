@@ -24,22 +24,27 @@ import com.hearthsim.util.tree.HearthTreeNode;
 public class TestHunter {
 
     private HearthTreeNode board;
+    private PlayerModel currentPlayer;
+    private PlayerModel waitingPlayer;
+
     private Deck deck;
 
     @Before
     public void setup() throws HSException {
         board = new HearthTreeNode(new BoardModel(new Hunter(), new TestHero()));
+        currentPlayer = board.data_.getCurrentPlayer();
+        waitingPlayer = board.data_.getWaitingPlayer();
 
         Minion minion0_0 = new BoulderfistOgre();
         Minion minion0_1 = new RaidLeader();
         Minion minion1_0 = new BoulderfistOgre();
         Minion minion1_1 = new RaidLeader();
 
-        board.data_.getCurrentPlayer().placeCardHand(minion0_0);
-        board.data_.getCurrentPlayer().placeCardHand(minion0_1);
+        currentPlayer.placeCardHand(minion0_0);
+        currentPlayer.placeCardHand(minion0_1);
 
-        board.data_.getWaitingPlayer().placeCardHand(minion1_0);
-        board.data_.getWaitingPlayer().placeCardHand(minion1_1);
+        waitingPlayer.placeCardHand(minion1_0);
+        waitingPlayer.placeCardHand(minion1_1);
 
         Card cards[] = new Card[10];
         for (int index = 0; index < 10; ++index) {
@@ -48,11 +53,11 @@ public class TestHunter {
 
         deck = new Deck(cards);
 
-        board.data_.getCurrentPlayer().setMana((byte)9);
-        board.data_.getWaitingPlayer().setMana((byte)9);
+        currentPlayer.setMana((byte) 9);
+        waitingPlayer.setMana((byte) 9);
 
-        board.data_.getCurrentPlayer().setMaxMana((byte)8);
-        board.data_.getWaitingPlayer().setMaxMana((byte)8);
+        currentPlayer.setMaxMana((byte) 8);
+        waitingPlayer.setMaxMana((byte) 8);
 
         HearthTreeNode tmpBoard = new HearthTreeNode(board.data_.flipPlayers());
         tmpBoard.data_.getCurrentPlayer().getHand().get(0).useOn(PlayerSide.CURRENT_PLAYER,
@@ -61,54 +66,53 @@ public class TestHunter {
                 tmpBoard.data_.getCurrentPlayer().getHero(), tmpBoard, deck, null);
 
         board = new HearthTreeNode(tmpBoard.data_.flipPlayers());
-        board.data_.getCurrentPlayer().getHand().get(0).useOn(PlayerSide.CURRENT_PLAYER,
-                board.data_.getCurrentPlayer().getHero(), board, deck, null);
-        board.data_.getCurrentPlayer().getHand().get(0).useOn(PlayerSide.CURRENT_PLAYER,
-                board.data_.getCurrentPlayer().getHero(), board, deck, null);
+        currentPlayer = board.data_.getCurrentPlayer();
+        waitingPlayer = board.data_.getWaitingPlayer();
+
+        currentPlayer.getHand().get(0).useOn(PlayerSide.CURRENT_PLAYER,
+                currentPlayer.getHero(), board, deck, null);
+        currentPlayer.getHand().get(0).useOn(PlayerSide.CURRENT_PLAYER,
+                currentPlayer.getHero(), board, deck, null);
 
         board.data_.resetMana();
         board.data_.resetMinions();
-
     }
 
     @Test
     public void testHeropower() throws HSException {
-        Minion target = board.data_.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(0);
-        Hero hunter = board.data_.getCurrentPlayer().getHero();
+        Minion target = waitingPlayer.getCharacter(0);
+        Hero hunter = currentPlayer.getHero();
 
         HearthTreeNode ret = hunter.useHeroAbility(PlayerSide.WAITING_PLAYER, target, board, deck, null);
         assertEquals(board, ret);
 
-        assertEquals(board.data_.getCurrentPlayer().getMana(), 6);
-        assertEquals(board.data_.getWaitingPlayer().getHero().getHealth(), 28);
+        assertEquals(currentPlayer.getMana(), 6);
+        assertEquals(waitingPlayer.getHero().getHealth(), 28);
     }
 
     @Test
     public void testHeropowerCannotTargetMinion() throws HSException {
-        Minion target = board.data_.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(2); // Ogre
-        Hero hunter = board.data_.getCurrentPlayer().getHero();
+        Minion target = waitingPlayer.getCharacter(2); // Ogre
+        Hero hunter = currentPlayer.getHero();
 
         HearthTreeNode ret = hunter.useHeroAbility(PlayerSide.WAITING_PLAYER, target, board, deck, null);
         assertNull(ret);
 
-        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
-        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
-
-        assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
-        assertEquals(board.data_.getWaitingPlayer().getHero().getHealth(), 30);
+        assertEquals(currentPlayer.getMana(), 8);
+        assertEquals(waitingPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getMinions().get(1).getHealth(), 7);
     }
 
     @Test
     public void testHeropowerCannotTargetSelf() throws HSException {
-        Minion target = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(0);
-        Hero hunter = board.data_.getCurrentPlayer().getHero();
+        Minion target = currentPlayer.getCharacter(0);
+        Hero hunter = currentPlayer.getHero();
 
         HearthTreeNode ret = hunter.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
         assertNull(ret);
 
-        assertEquals(board.data_.getCurrentPlayer().getMana(), 8);
-        assertEquals(board.data_.getCurrentPlayer().getHero().getHealth(), 30);
-        assertEquals(board.data_.getWaitingPlayer().getHero().getHealth(), 30);
+        assertEquals(currentPlayer.getMana(), 8);
+        assertEquals(currentPlayer.getHero().getHealth(), 30);
+        assertEquals(waitingPlayer.getHero().getHealth(), 30);
     }
 }

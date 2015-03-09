@@ -20,11 +20,16 @@ import static org.junit.Assert.*;
 public class TestDustDevil {
 
     private HearthTreeNode board;
+    private PlayerModel currentPlayer;
+    private PlayerModel waitingPlayer;
+
     private Deck deck;
 
     @Before
     public void setup() throws HSException {
         board = new HearthTreeNode(new BoardModel());
+        currentPlayer = board.data_.getCurrentPlayer();
+        waitingPlayer = board.data_.getWaitingPlayer();
 
         Minion minion0_0 = new GoldshireFootman();
         Minion minion0_1 = new GoldshireFootman();
@@ -45,34 +50,31 @@ public class TestDustDevil {
         deck = new Deck(cards);
 
         Minion fb = new DustDevil();
-        board.data_.getCurrentPlayer().placeCardHand(fb);
+        currentPlayer.placeCardHand(fb);
 
-        board.data_.getCurrentPlayer().setMana((byte)7);
-        board.data_.getWaitingPlayer().setMana((byte)7);
+        currentPlayer.setMana((byte) 7);
+        waitingPlayer.setMana((byte) 7);
 
-        board.data_.getCurrentPlayer().setMaxMana((byte)7);
-        board.data_.getWaitingPlayer().setMaxMana((byte)7);
-
+        currentPlayer.setMaxMana((byte) 7);
+        waitingPlayer.setMaxMana((byte) 7);
     }
 
     @Test
     public void testOverload() throws HSException {
-        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
+        Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 2, board, deck, null);
 
         assertFalse(ret == null);
-        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
-        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
-        assertEquals(board.data_.getCurrentPlayer().getHand().size(), 0);
+        assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 3);
         assertEquals(waitingPlayer.getNumMinions(), 2);
 
-        assertEquals(board.data_.getCurrentPlayer().getMana(), 6);
-        assertEquals(board.data_.getWaitingPlayer().getMana(), 7);
+        assertEquals(currentPlayer.getMana(), 6);
+        assertEquals(waitingPlayer.getMana(), 7);
 
-        assertEquals(board.data_.getCurrentPlayer().getHero().getHealth(), 30);
-        assertEquals(board.data_.getWaitingPlayer().getHero().getHealth(), 30);
+        assertEquals(currentPlayer.getHero().getHealth(), 30);
+        assertEquals(waitingPlayer.getHero().getHealth(), 30);
         assertEquals(currentPlayer.getMinions().get(0).getTotalHealth(), 2);
         assertEquals(currentPlayer.getMinions().get(1).getTotalHealth(), 2);
         assertEquals(currentPlayer.getMinions().get(2).getTotalHealth(), 1);
@@ -87,8 +89,7 @@ public class TestDustDevil {
 
         //overloaded for 2, so when resetMana is called, it should set the mana to 5
         board.data_.resetMana();
-        assertEquals(board.data_.getCurrentPlayer().getMana(), 5);
-        assertEquals(board.data_.getWaitingPlayer().getMana(), 7);
-
+        assertEquals(currentPlayer.getMana(), 5);
+        assertEquals(waitingPlayer.getMana(), 7);
     }
 }

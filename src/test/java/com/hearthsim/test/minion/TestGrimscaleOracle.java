@@ -18,6 +18,9 @@ import static org.junit.Assert.*;
 
 public class TestGrimscaleOracle {
     private HearthTreeNode board;
+    private PlayerModel currentPlayer;
+    private PlayerModel waitingPlayer;
+
     private Deck deck;
     private static final byte mana = 2;
     private static final byte attack0 = 5;
@@ -27,6 +30,8 @@ public class TestGrimscaleOracle {
     @Before
     public void setup() throws HSException {
         board = new HearthTreeNode(new BoardModel());
+        currentPlayer = board.data_.getCurrentPlayer();
+        waitingPlayer = board.data_.getWaitingPlayer();
 
         Minion minion0_0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
         Minion minion0_1 = new Minion("" + 0, mana, attack0, (byte)(health1 - 1), attack0, health1, health1);
@@ -47,23 +52,20 @@ public class TestGrimscaleOracle {
         deck = new Deck(cards);
 
         Minion fb = new GrimscaleOracle();
-        board.data_.getCurrentPlayer().placeCardHand(fb);
+        currentPlayer.placeCardHand(fb);
 
-        board.data_.getCurrentPlayer().setMana((byte)7);
+        currentPlayer.setMana((byte) 7);
     }
 
     @Test
     public void testBuffsOwnMurloc() throws HSException {
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new MurlocRaider());
 
-        Minion target = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(1);
-        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
+        Minion target = currentPlayer.getCharacter(1);
+        Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
 
         assertEquals(board, ret);
-        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
-        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
-
 
         assertEquals(currentPlayer.getMinions().get(0).getHealth(), health0);
         assertEquals(currentPlayer.getMinions().get(1).getHealth(), 1);
@@ -86,12 +88,10 @@ public class TestGrimscaleOracle {
     public void testBuffsEnemyMurloc() throws HSException {
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, new MurlocRaider());
 
-        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
+        Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, deck, null);
 
         assertEquals(board, ret);
-        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
-        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
         assertEquals(currentPlayer.getMinions().get(0).getHealth(), health0);
         assertEquals(currentPlayer.getMinions().get(1).getHealth(), 1);
@@ -112,16 +112,14 @@ public class TestGrimscaleOracle {
 
     @Test
     public void testBuffsMurlocPlacedAfter() throws HSException {
-        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
+        Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, deck, null);
         assertEquals(board, ret);
 
         MurlocRaider murloc = new MurlocRaider();
-        board.data_.getCurrentPlayer().placeCardHand(murloc);
+        currentPlayer.placeCardHand(murloc);
         ret = murloc.useOn(PlayerSide.CURRENT_PLAYER, 1, board, deck, null);
         assertEquals(board, ret);
-        PlayerModel currentPlayer = board.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
-        PlayerModel waitingPlayer = board.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
         assertEquals(currentPlayer.getMinions().get(1).getHealth(), 1);
         assertEquals(currentPlayer.getMinions().get(1).getTotalAttack(), 3);

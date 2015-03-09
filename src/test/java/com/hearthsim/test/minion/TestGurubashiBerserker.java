@@ -3,6 +3,7 @@ package com.hearthsim.test.minion;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
+import com.hearthsim.model.PlayerModel;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,6 +18,9 @@ import com.hearthsim.util.tree.HearthTreeNode;
 public class TestGurubashiBerserker {
 
     private HearthTreeNode board;
+    private PlayerModel currentPlayer;
+    private PlayerModel waitingPlayer;
+
     private static final byte mana = 2;
     private static final byte attack0 = 5;
     private static final byte health0 = 3;
@@ -24,25 +28,27 @@ public class TestGurubashiBerserker {
     @Before
     public void setup() throws HSException {
         board = new HearthTreeNode(new BoardModel());
+        currentPlayer = board.data_.getCurrentPlayer();
+        waitingPlayer = board.data_.getWaitingPlayer();
 
         Minion minion1_0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion1_0);
 
         Minion fb = new GurubashiBerserker();
-        board.data_.getCurrentPlayer().placeCardHand(fb);
+        currentPlayer.placeCardHand(fb);
 
-        board.data_.getCurrentPlayer().setMana((byte)7);
+        currentPlayer.setMana((byte) 7);
     }
 
     @Test
     public void testBuffsAfterAttackingEnemyMinion() throws HSException {
-        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
+        Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
         assertEquals(board, ret);
 
-        Minion berserker = board.data_.getCurrentPlayer().getMinions().get(0);
+        Minion berserker = currentPlayer.getMinions().get(0);
         berserker.hasAttacked(false);
-        Minion target = board.data_.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(1);
+        Minion target = waitingPlayer.getCharacter(1);
         ret = berserker.attack(PlayerSide.WAITING_PLAYER, target, board, null, null, false);
         assertEquals(board, ret);
 
@@ -52,14 +58,14 @@ public class TestGurubashiBerserker {
 
     @Test
     public void testDivineShieldPreventsBuff() throws HSException {
-        Card theCard = board.data_.getCurrentPlayer().getHand().get(0);
+        Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
         assertEquals(board, ret);
 
-        Minion berserker = board.data_.getCurrentPlayer().getMinions().get(0);
+        Minion berserker = currentPlayer.getMinions().get(0);
         berserker.hasAttacked(false);
         berserker.setDivineShield(true);
-        Minion target = board.data_.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(1);
+        Minion target = waitingPlayer.getCharacter(1);
         ret = berserker.attack(PlayerSide.WAITING_PLAYER, target, board, null, null, false);
         assertEquals(board, ret);
 
