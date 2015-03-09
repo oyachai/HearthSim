@@ -2,7 +2,6 @@ package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.model.BoardModel;
-import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 
 public class SeaGiant extends Minion {

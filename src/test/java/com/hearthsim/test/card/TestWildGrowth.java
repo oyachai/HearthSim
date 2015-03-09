@@ -1,12 +1,9 @@
 package com.hearthsim.test.card;
 
 import com.hearthsim.card.Card;
-import com.hearthsim.card.Deck;
-import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.BoulderfistOgre;
 import com.hearthsim.card.minion.concrete.RaidLeader;
 import com.hearthsim.card.spellcard.concrete.ExcessMana;
-import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.card.spellcard.concrete.WildGrowth;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;

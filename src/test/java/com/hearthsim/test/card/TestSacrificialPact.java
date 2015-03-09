@@ -9,12 +9,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.hearthsim.card.Card;
-import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.Minion.MinionTribe;
 import com.hearthsim.card.minion.concrete.BloodImp;
 import com.hearthsim.card.spellcard.concrete.SacrificialPact;
-import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;

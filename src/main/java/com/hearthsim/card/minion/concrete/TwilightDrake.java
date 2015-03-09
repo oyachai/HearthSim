@@ -4,7 +4,6 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionUntargetableBattlecry;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class TwilightDrake extends Minion implements MinionUntargetableBattlecry {

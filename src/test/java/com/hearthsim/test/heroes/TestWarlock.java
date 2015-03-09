@@ -9,7 +9,6 @@ import com.hearthsim.card.minion.concrete.RaidLeader;
 import com.hearthsim.card.minion.heroes.TestHero;
 import com.hearthsim.card.minion.heroes.Warlock;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
-import com.hearthsim.card.spellcard.concrete.WildGrowth;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;

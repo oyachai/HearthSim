@@ -1,7 +1,6 @@
 package com.hearthsim.test.minion;
 
 import com.hearthsim.card.Card;
-import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.BloodfenRaptor;
 import com.hearthsim.card.minion.concrete.RaidLeader;
@@ -9,7 +8,6 @@ import com.hearthsim.card.minion.concrete.StormwindChampion;
 import com.hearthsim.card.spellcard.concrete.Fireball;
 import com.hearthsim.card.spellcard.concrete.HolySmite;
 import com.hearthsim.card.spellcard.concrete.Silence;
-import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;

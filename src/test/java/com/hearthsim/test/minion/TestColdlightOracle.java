@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
-import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.BoulderfistOgre;
 import com.hearthsim.card.minion.concrete.ColdlightOracle;
 import com.hearthsim.card.minion.concrete.RaidLeader;

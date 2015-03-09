@@ -14,7 +14,6 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.AbusiveSergeant;
 import com.hearthsim.card.minion.concrete.BoulderfistOgre;
 import com.hearthsim.card.minion.concrete.RaidLeader;
-import com.hearthsim.card.minion.concrete.ScarletCrusader;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;

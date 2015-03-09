@@ -89,7 +89,6 @@ public class BoardModel implements DeepCopyable<BoardModel> {
     }
 
     public BoardModel(PlayerModel currentPlayerModel, PlayerModel waitingPlayerModel) {
-
         this.currentPlayer = currentPlayerModel;
         this.waitingPlayer = waitingPlayerModel;
         buildModel();

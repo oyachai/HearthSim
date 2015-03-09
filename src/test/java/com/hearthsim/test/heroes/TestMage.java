@@ -9,8 +9,6 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import com.hearthsim.card.Card;
-import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.BoulderfistOgre;
@@ -18,7 +16,6 @@ import com.hearthsim.card.minion.concrete.ChillwindYeti;
 import com.hearthsim.card.minion.concrete.FaerieDragon;
 import com.hearthsim.card.minion.heroes.Mage;
 import com.hearthsim.card.minion.heroes.TestHero;
-import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;

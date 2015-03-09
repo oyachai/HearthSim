@@ -1,10 +1,8 @@
 package com.hearthsim.test.minion;
 
 import com.hearthsim.card.Card;
-import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.AngryChicken;
-import com.hearthsim.card.minion.concrete.BloodfenRaptor;
 import com.hearthsim.card.minion.concrete.DustDevil;
 import com.hearthsim.card.minion.concrete.GoldshireFootman;
 import com.hearthsim.exception.HSException;
