@@ -54,9 +54,6 @@ public class TestNorthshireCleric {
 
         currentPlayer.setMana((byte) 10);
         waitingPlayer.setMana((byte) 10);
-
-        currentPlayer.setMaxMana((byte) 10);
-        waitingPlayer.setMaxMana((byte) 10);
     }
 
     @Test
@@ -105,7 +102,7 @@ public class TestNorthshireCleric {
         currentPlayer.placeCardHand(fb);
 
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
         assertFalse(ret == null);
 
         assertEquals(currentPlayer.getHand().size(), 0);
@@ -122,7 +119,7 @@ public class TestNorthshireCleric {
         AncestralHealing ah = new AncestralHealing();
         currentPlayer.placeCardHand(ah);
         theCard = currentPlayer.getHand().get(0);
-        ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, deck, null);
+        ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, null, null);
 
         assertFalse(ret == null);
         assertEquals(currentPlayer.getHand().size(), 0);
@@ -139,7 +136,7 @@ public class TestNorthshireCleric {
         ah = new AncestralHealing();
         currentPlayer.placeCardHand(ah);
         theCard = currentPlayer.getHand().get(0);
-        ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 3, board, deck, null);
+        ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 3, board, null, null);
 
         assertFalse(ret == null);
         assertEquals(currentPlayer.getHand().size(), 0);
@@ -165,10 +162,10 @@ public class TestNorthshireCleric {
         currentPlayer.placeCardHand(fb2);
 
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 2, board, deck, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 2, board, null, null);
 
         theCard = currentPlayer.getHand().get(0);
-        ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 3, board, deck, null);
+        ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 3, board, null, null);
         assertFalse(ret == null);
 
         assertEquals(currentPlayer.getHand().size(), 0);
@@ -186,7 +183,7 @@ public class TestNorthshireCleric {
         AncestralHealing ah = new AncestralHealing();
         currentPlayer.placeCardHand(ah);
         theCard = currentPlayer.getHand().get(0);
-        ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 2, board, deck, null);
+        ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 2, board, null, null);
 
         assertFalse(ret == null);
         assertEquals(currentPlayer.getHand().size(), 0);

@@ -24,8 +24,6 @@ public class TestWaterElemental {
     private PlayerModel currentPlayer;
     private PlayerModel waitingPlayer;
 
-    private Deck deck;
-
     @Before
     public void setup() throws HSException {
         board = new HearthTreeNode(new BoardModel());
@@ -45,7 +43,7 @@ public class TestWaterElemental {
     @Test
     public void testFreezesMinionOnAttack() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
         assertEquals(board, ret);
 
         Minion waterElemental = currentPlayer.getMinions().get(0);
@@ -53,14 +51,14 @@ public class TestWaterElemental {
 
         waterElemental.hasAttacked(false); // unset summoning sickness
         Minion target = waitingPlayer.getCharacter(2);
-        waterElemental.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null, false);
+        waterElemental.attack(PlayerSide.WAITING_PLAYER, target, board, null, null, false);
         assertTrue(waitingPlayer.getMinions().get(1).getFrozen());
     }
 
     @Test
     public void testFreezesHeroOnAttack() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
         assertEquals(board, ret);
 
         Minion waterElemental = currentPlayer.getMinions().get(0);
@@ -68,7 +66,7 @@ public class TestWaterElemental {
 
         waterElemental.hasAttacked(false); // unset summoning sickness
         Minion target = waitingPlayer.getCharacter(0);
-        waterElemental.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null, false);
+        waterElemental.attack(PlayerSide.WAITING_PLAYER, target, board, null, null, false);
         assertTrue(waitingPlayer.getCharacter(0).getFrozen());
     }
 }

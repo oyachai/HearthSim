@@ -1,10 +1,8 @@
 package com.hearthsim.test.card;
 
 import com.hearthsim.card.Card;
-import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.concrete.DeadlyPoison;
-import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.card.weapon.concrete.FieryWarAxe;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
@@ -22,7 +20,6 @@ public class TestDeadlyPoison {
     private PlayerModel currentPlayer;
     private PlayerModel waitingPlayer;
 
-    private Deck deck;
     private static final byte mana = 2;
     private static final byte attack0 = 5;
     private static final byte health0 = 3;
@@ -45,13 +42,6 @@ public class TestDeadlyPoison {
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion1_0);
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion1_1);
 
-        Card cards[] = new Card[10];
-        for (int index = 0; index < 10; ++index) {
-            cards[index] = new TheCoin();
-        }
-
-        deck = new Deck(cards);
-
         DeadlyPoison fb = new DeadlyPoison();
         currentPlayer.placeCardHand(fb);
 
@@ -62,14 +52,14 @@ public class TestDeadlyPoison {
     @Test
     public void testCannotTargetEnemyHero() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 0, board, deck, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 0, board, null, null);
         assertNull(ret);
     }
 
     @Test
     public void testCannotPlayWithoutWeapon() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
 
         assertNull(ret);
 
@@ -90,7 +80,7 @@ public class TestDeadlyPoison {
         currentPlayer.placeCardHand(fb);
 
         Card theCard = currentPlayer.getHand().get(1);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
 
         assertFalse(ret == null);
 
@@ -107,7 +97,7 @@ public class TestDeadlyPoison {
         assertEquals(waitingPlayer.getMinions().get(1).getHealth(), health1 - 1);
 
         theCard = currentPlayer.getHand().get(0);
-        ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
+        ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
 
         assertFalse(ret == null);
         assertEquals(currentPlayer.getHand().size(), 0);

@@ -1,10 +1,8 @@
 package com.hearthsim.test.card;
 
 import com.hearthsim.card.Card;
-import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.concrete.FanOfKnives;
-import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
@@ -22,7 +20,6 @@ public class TestFanOfKnives {
     private PlayerModel currentPlayer;
     private PlayerModel waitingPlayer;
 
-    private Deck deck;
     private static final byte mana = 2;
     private static final byte attack0 = 5;
     private static final byte health0 = 3;
@@ -45,13 +42,6 @@ public class TestFanOfKnives {
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion1_0);
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion1_1);
 
-        Card cards[] = new Card[10];
-        for (int index = 0; index < 10; ++index) {
-            cards[index] = new TheCoin();
-        }
-
-        deck = new Deck(cards);
-
         Card fb = new FanOfKnives();
         currentPlayer.placeCardHand(fb);
 
@@ -65,7 +55,7 @@ public class TestFanOfKnives {
     @Test
     public void testDrawsCardOnSuccess() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 0, board, deck, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 0, board, null, null);
         assertNotNull(ret);
 
         assertTrue(ret instanceof CardDrawNode);

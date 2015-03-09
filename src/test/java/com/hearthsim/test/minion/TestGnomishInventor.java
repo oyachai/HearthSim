@@ -66,15 +66,12 @@ public class TestGnomishInventor {
 
         currentPlayer.setMana((byte) 7);
         waitingPlayer.setMana((byte) 7);
-
-        currentPlayer.setMaxMana((byte) 7);
-        waitingPlayer.setMaxMana((byte) 7);
     }
 
     @Test
     public void test0() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 0, board, deck, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 0, board, null, null);
 
         assertNull(ret);
 
@@ -92,7 +89,7 @@ public class TestGnomishInventor {
     @Test
     public void test2() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, deck, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, null, null);
 
         assertFalse(ret == null);
         assertTrue( ret instanceof CardDrawNode );
@@ -125,9 +122,6 @@ public class TestGnomishInventor {
 
         currentPlayer.setMana((byte) 5);
         waitingPlayer.setMana((byte) 5);
-
-        currentPlayer.setMaxMana((byte) 5);
-        waitingPlayer.setMaxMana((byte) 5);
 
         BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
         List<HearthActionBoardPair> ab = ai0.playTurn(0, board.data_);

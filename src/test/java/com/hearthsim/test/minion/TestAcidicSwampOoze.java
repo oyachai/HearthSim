@@ -32,9 +32,6 @@ public class TestAcidicSwampOoze {
 
         currentPlayer.setMana((byte) 4);
         waitingPlayer.setMana((byte) 4);
-
-        currentPlayer.setMaxMana((byte) 4);
-        waitingPlayer.setMaxMana((byte) 4);
     }
 
     @Test

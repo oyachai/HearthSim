@@ -163,44 +163,20 @@ public class TestBoardModel {
 
     @Test
     public void testBoardModelEquals() throws HSException {
-
         HearthTreeNode board = new HearthTreeNode(new BoardModel());
         PlayerModel currentPlayer = board.data_.getCurrentPlayer();
         PlayerModel waitingPlayer = board.data_.getWaitingPlayer();
 
-        Minion minion0_0 = new BoulderfistOgre();
-        Minion minion0_1 = new RaidLeader();
-        Minion minion0_2 = new AbusiveSergeant();
-        Minion minion1_0 = new BoulderfistOgre();
-        Minion minion1_1 = new RaidLeader();
-        Minion minion1_2 = new ScarletCrusader();
+        board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new BoulderfistOgre());
+        board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new RaidLeader());
+        board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new AbusiveSergeant());
 
-        currentPlayer.placeCardHand(minion0_0);
-        currentPlayer.placeCardHand(minion0_1);
-        currentPlayer.placeCardHand(minion0_2);
+        board.data_.placeMinion(PlayerSide.WAITING_PLAYER, new BoulderfistOgre());
+        board.data_.placeMinion(PlayerSide.WAITING_PLAYER, new RaidLeader());
+        board.data_.placeMinion(PlayerSide.WAITING_PLAYER, new AbusiveSergeant());
 
-        waitingPlayer.placeCardHand(minion1_0);
-        waitingPlayer.placeCardHand(minion1_1);
-        waitingPlayer.placeCardHand(minion1_2);
-
-        currentPlayer.setMana((byte)8);
-        waitingPlayer.setMana((byte)8);
-
-        currentPlayer.setMaxMana((byte)8);
-        waitingPlayer.setMaxMana((byte)8);
-
-        HearthTreeNode tmpBoard = new HearthTreeNode(board.data_.flipPlayers());
-        tmpBoard.data_.getCurrentPlayer().getHand().get(0).useOn(PlayerSide.CURRENT_PLAYER, 0, tmpBoard, deck1, deck0);
-        tmpBoard.data_.getCurrentPlayer().getHand().get(0).useOn(PlayerSide.CURRENT_PLAYER,
-                tmpBoard.data_.getCurrentPlayer().getHero(), tmpBoard, deck1, deck0);
-        tmpBoard.data_.getCurrentPlayer().getHand().get(0).useOn(PlayerSide.CURRENT_PLAYER,
-                tmpBoard.data_.getCurrentPlayer().getHero(), tmpBoard, deck1, deck0);
-
-        board = new HearthTreeNode(tmpBoard.data_.flipPlayers());
-        currentPlayer.getHand().get(0).useOn(PlayerSide.CURRENT_PLAYER, currentPlayer.getHero(),
-                board, deck0, deck1);
-        currentPlayer.getHand().get(0).useOn(PlayerSide.CURRENT_PLAYER, currentPlayer.getHero(),
-                board, deck0, deck1);
+        currentPlayer.setMana((byte) 8);
+        waitingPlayer.setMana((byte) 8);
 
         board.data_.resetMana();
         board.data_.resetMinions();

@@ -7,7 +7,6 @@ import com.hearthsim.card.minion.concrete.BoulderfistOgre;
 import com.hearthsim.card.minion.concrete.DreadInfernal;
 import com.hearthsim.card.minion.concrete.RaidLeader;
 import com.hearthsim.card.spellcard.concrete.BlessedChampion;
-import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.model.BoardModel;
@@ -38,13 +37,6 @@ public class TestBlessedChampion {
         Minion minion1_0 = new BoulderfistOgre();
         Minion minion1_1 = new RaidLeader();
 
-        Card cards[] = new Card[10];
-        for (int index = 0; index < 10; ++index) {
-            cards[index] = new TheCoin();
-        }
-
-        deck = new Deck(cards);
-
         Card fb = new BlessedChampion();
         currentPlayer.placeCardHand(fb);
 
@@ -64,7 +56,7 @@ public class TestBlessedChampion {
     @Test
     public void test1() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, deck, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, null, null);
 
         assertFalse(ret == null);
 
@@ -91,7 +83,7 @@ public class TestBlessedChampion {
     @Test
     public void test2() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 2, board, deck, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 2, board, null, null);
 
         assertFalse(ret == null);
 

@@ -24,51 +24,20 @@ public class TestDefenderOfArgus {
     private PlayerModel currentPlayer;
     private PlayerModel waitingPlayer;
 
-    private Deck deck;
-
     @Before
     public void setup() throws HSException {
         board = new HearthTreeNode(new BoardModel());
         currentPlayer = board.data_.getCurrentPlayer();
         waitingPlayer = board.data_.getWaitingPlayer();
 
-        Minion minion0_0 = new StormwindChampion();
-        Minion minion0_1 = new RaidLeader();
-        Minion minion1_0 = new BloodfenRaptor();
-        Minion minion1_1 = new RaidLeader();
+        board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new RaidLeader());
+        board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new StormwindChampion());
 
-        currentPlayer.placeCardHand(minion0_0);
-        currentPlayer.placeCardHand(minion0_1);
-
-        waitingPlayer.placeCardHand(minion1_0);
-        waitingPlayer.placeCardHand(minion1_1);
-
-        Card cards[] = new Card[10];
-        for (int index = 0; index < 10; ++index) {
-            cards[index] = new TheCoin();
-        }
-
-        deck = new Deck(cards);
+        board.data_.placeMinion(PlayerSide.WAITING_PLAYER, new RaidLeader());
+        board.data_.placeMinion(PlayerSide.WAITING_PLAYER, new BloodfenRaptor());
 
         currentPlayer.setMana((byte) 10);
         waitingPlayer.setMana((byte) 10);
-
-        currentPlayer.setMaxMana((byte) 10);
-        waitingPlayer.setMaxMana((byte) 10);
-
-        HearthTreeNode tmpBoard = new HearthTreeNode(board.data_.flipPlayers());
-        tmpBoard.data_.getCurrentPlayer().getHand().get(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayer().getHero(), tmpBoard, deck, null);
-        tmpBoard.data_.getCurrentPlayer().getHand().get(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayer().getHero(), tmpBoard, deck, null);
-
-        board = new HearthTreeNode(tmpBoard.data_.flipPlayers());
-        currentPlayer = board.data_.getCurrentPlayer();
-        waitingPlayer = board.data_.getWaitingPlayer();
-
-        currentPlayer.getHand().get(0).useOn(PlayerSide.CURRENT_PLAYER, currentPlayer.getHero(), board, deck, null);
-        currentPlayer.getHand().get(0).useOn(PlayerSide.CURRENT_PLAYER, currentPlayer.getHero(), board, deck, null);
-
-        board.data_.resetMana();
-        board.data_.resetMinions();
 
         Minion fb = new DefenderOfArgus();
         currentPlayer.placeCardHand(fb);
@@ -77,7 +46,7 @@ public class TestDefenderOfArgus {
     @Test
     public void test0() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
         assertFalse(ret == null);
 
         assertEquals(currentPlayer.getHand().size(), 0);
@@ -113,7 +82,7 @@ public class TestDefenderOfArgus {
     @Test
     public void test1() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, deck, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, null, null);
         assertFalse(ret == null);
 
         assertEquals(currentPlayer.getHand().size(), 0);

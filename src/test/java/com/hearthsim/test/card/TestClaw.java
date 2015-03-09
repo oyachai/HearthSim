@@ -1,10 +1,8 @@
 package com.hearthsim.test.card;
 
 import com.hearthsim.card.Card;
-import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.concrete.Claw;
-import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
@@ -21,7 +19,6 @@ public class TestClaw {
     private PlayerModel currentPlayer;
     private PlayerModel waitingPlayer;
 
-    private Deck deck;
     private static final byte mana = 2;
     private static final byte attack0 = 5;
     private static final byte health0 = 3;
@@ -44,13 +41,6 @@ public class TestClaw {
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion1_0);
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion1_1);
 
-        Card cards[] = new Card[10];
-        for (int index = 0; index < 10; ++index) {
-            cards[index] = new TheCoin();
-        }
-
-        deck = new Deck(cards);
-
         Claw fb = new Claw();
         currentPlayer.placeCardHand(fb);
 
@@ -61,7 +51,7 @@ public class TestClaw {
     @Test
     public void test2() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
 
         assertFalse(ret == null);
 
@@ -79,7 +69,7 @@ public class TestClaw {
         assertEquals(waitingPlayer.getMinions().get(1).getHealth(), health1 - 1);
 
         Minion target = waitingPlayer.getCharacter(1);
-        ret = currentPlayer.getHero().attack(PlayerSide.WAITING_PLAYER, target, board, deck, null, false);
+        ret = currentPlayer.getHero().attack(PlayerSide.WAITING_PLAYER, target, board, null, null, false);
         assertFalse(ret == null);
         assertEquals(currentPlayer.getNumMinions(), 2);
         assertEquals(waitingPlayer.getNumMinions(), 2);
@@ -93,7 +83,7 @@ public class TestClaw {
         assertEquals(waitingPlayer.getMinions().get(0).getHealth(), health0 - 2);
         assertEquals(waitingPlayer.getMinions().get(1).getHealth(), health1 - 1);
 
-        currentPlayer.getHero().endTurn(PlayerSide.CURRENT_PLAYER, board, deck, null);
+        currentPlayer.getHero().endTurn(PlayerSide.CURRENT_PLAYER, board, null, null);
         assertEquals(currentPlayer.getHero().getTotalAttack(), 0);
         assertEquals(currentPlayer.getHero().getArmor(), 0);
     }

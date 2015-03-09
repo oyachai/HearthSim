@@ -30,51 +30,20 @@ public class TestMage {
     private PlayerModel currentPlayer;
     private PlayerModel waitingPlayer;
 
-    private Deck deck;
-
     @Before
     public void setup() throws HSException {
         board = new HearthTreeNode(new BoardModel(new Mage(), new TestHero()));
         currentPlayer = board.data_.getCurrentPlayer();
         waitingPlayer = board.data_.getWaitingPlayer();
 
-        Minion minion0_0 = new ChillwindYeti();
-        Minion minion0_1 = new BoulderfistOgre();
-        Minion minion1_0 = new ChillwindYeti();
-        Minion minion1_1 = new BoulderfistOgre();
+        board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new ChillwindYeti());
+        board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new BoulderfistOgre());
 
-        currentPlayer.placeCardHand(minion0_1);
-        currentPlayer.placeCardHand(minion0_0);
+        board.data_.placeMinion(PlayerSide.WAITING_PLAYER, new ChillwindYeti());
+        board.data_.placeMinion(PlayerSide.WAITING_PLAYER, new BoulderfistOgre());
 
-        waitingPlayer.placeCardHand(minion1_1);
-        waitingPlayer.placeCardHand(minion1_0);
-
-        Card cards[] = new Card[10];
-        for (int index = 0; index < 10; ++index) {
-            cards[index] = new TheCoin();
-        }
-
-        deck = new Deck(cards);
-
-        currentPlayer.setMana((byte) 11);
-        waitingPlayer.setMana((byte) 11);
-
-        currentPlayer.setMaxMana((byte) 8);
-        waitingPlayer.setMaxMana((byte) 8);
-
-        HearthTreeNode tmpBoard = new HearthTreeNode(board.data_.flipPlayers());
-        tmpBoard.data_.getCurrentPlayer().getHand().get(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayer().getHero(), tmpBoard, deck, null);
-        tmpBoard.data_.getCurrentPlayer().getHand().get(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayer().getHero(), tmpBoard, deck, null);
-
-        board = new HearthTreeNode(tmpBoard.data_.flipPlayers());
-        currentPlayer = board.data_.getCurrentPlayer();
-        waitingPlayer = board.data_.getWaitingPlayer();
-
-        currentPlayer.getHand().get(0).useOn(PlayerSide.CURRENT_PLAYER, currentPlayer.getHero(), board, deck, null);
-        currentPlayer.getHand().get(0).useOn(PlayerSide.CURRENT_PLAYER, currentPlayer.getHero(), board, deck, null);
-
-        board.data_.resetMana();
-        board.data_.resetMinions();
+        currentPlayer.setMana((byte) 8);
+        waitingPlayer.setMana((byte) 8);
     }
 
     @Test
@@ -82,7 +51,7 @@ public class TestMage {
         Minion target = waitingPlayer.getCharacter(0); // Opponent hero
         Hero mage = currentPlayer.getHero();
 
-        HearthTreeNode ret = mage.useHeroAbility(PlayerSide.WAITING_PLAYER, target, board, deck, null);
+        HearthTreeNode ret = mage.useHeroAbility(PlayerSide.WAITING_PLAYER, target, board, null, null);
         assertEquals(board, ret);
 
         assertEquals(currentPlayer.getMana(), 6);
@@ -94,7 +63,7 @@ public class TestMage {
         Minion target = waitingPlayer.getCharacter(1); // Yeti
         Hero mage = currentPlayer.getHero();
 
-        HearthTreeNode ret = mage.useHeroAbility(PlayerSide.WAITING_PLAYER, target, board, deck, null);
+        HearthTreeNode ret = mage.useHeroAbility(PlayerSide.WAITING_PLAYER, target, board, null, null);
         assertEquals(board, ret);
 
         assertEquals(currentPlayer.getMana(), 6);
@@ -111,7 +80,7 @@ public class TestMage {
         Minion target = currentPlayer.getCharacter(0); // Self
         Hero mage = currentPlayer.getHero();
 
-        HearthTreeNode ret = mage.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
+        HearthTreeNode ret = mage.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, null, null);
         assertEquals(board, ret);
 
         assertEquals(currentPlayer.getMana(), 6);
@@ -123,7 +92,7 @@ public class TestMage {
         Minion target = currentPlayer.getCharacter(1); // Yeti
         Hero mage = currentPlayer.getHero();
 
-        HearthTreeNode ret = mage.useHeroAbility(PlayerSide.WAITING_PLAYER, target, board, deck, null);
+        HearthTreeNode ret = mage.useHeroAbility(PlayerSide.WAITING_PLAYER, target, board, null, null);
         assertEquals(board, ret);
 
         assertEquals(currentPlayer.getMana(), 6);
@@ -142,7 +111,7 @@ public class TestMage {
         Hero mage = currentPlayer.getHero();
 
         assertFalse(mage.canBeUsedOn(PlayerSide.WAITING_PLAYER, target, board.data_));
-        HearthTreeNode ret = mage.useHeroAbility(PlayerSide.WAITING_PLAYER, target, board, deck, null);
+        HearthTreeNode ret = mage.useHeroAbility(PlayerSide.WAITING_PLAYER, target, board, null, null);
         assertNull(ret);
 
         assertEquals(currentPlayer.getMana(), 8);
@@ -156,7 +125,7 @@ public class TestMage {
 
         Hero mage = currentPlayer.getHero();
 
-        HearthTreeNode ret = mage.useHeroAbility(PlayerSide.WAITING_PLAYER, target, board, deck, null);
+        HearthTreeNode ret = mage.useHeroAbility(PlayerSide.WAITING_PLAYER, target, board, null, null);
         assertEquals(board, ret);
 
         assertEquals(currentPlayer.getNumMinions(), 2);

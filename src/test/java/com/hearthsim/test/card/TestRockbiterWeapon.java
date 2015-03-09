@@ -22,7 +22,6 @@ public class TestRockbiterWeapon {
     private PlayerModel currentPlayer;
     private PlayerModel waitingPlayer;
 
-    private Deck deck;
     private static final byte mana = 2;
     private static final byte attack0 = 2;
     private static final byte health0 = 1;
@@ -45,13 +44,6 @@ public class TestRockbiterWeapon {
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion1_0);
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion1_1);
 
-        Card cards[] = new Card[10];
-        for (int index = 0; index < 10; ++index) {
-            cards[index] = new TheCoin();
-        }
-
-        deck = new Deck(cards);
-
         Card fb = new RockbiterWeapon();
         currentPlayer.placeCardHand(fb);
 
@@ -65,7 +57,7 @@ public class TestRockbiterWeapon {
     @Test
     public void test0() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
 
         assertFalse(ret == null);
 
@@ -83,7 +75,7 @@ public class TestRockbiterWeapon {
         assertEquals(waitingPlayer.getMinions().get(1).getHealth(), health1 - 1);
 
         Minion target = waitingPlayer.getCharacter(2);
-        ret = currentPlayer.getHero().attack(PlayerSide.WAITING_PLAYER, target, board, deck, null, false);
+        ret = currentPlayer.getHero().attack(PlayerSide.WAITING_PLAYER, target, board, null, null, false);
 
         assertFalse(ret == null);
         assertEquals(currentPlayer.getHand().size(), 0);
@@ -103,7 +95,7 @@ public class TestRockbiterWeapon {
     @Test
     public void test1() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, deck, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, null, null);
 
         assertFalse(ret == null);
 
@@ -123,7 +115,7 @@ public class TestRockbiterWeapon {
         assertEquals(currentPlayer.getMinions().get(0).getExtraAttackUntilTurnEnd(), 3);
 
         Minion target = waitingPlayer.getCharacter(2);
-        ret = currentPlayer.getMinions().get(0).attack(PlayerSide.WAITING_PLAYER, target, board, deck, null, false);
+        ret = currentPlayer.getMinions().get(0).attack(PlayerSide.WAITING_PLAYER, target, board, null, null, false);
 
         assertFalse(ret == null);
         assertEquals(currentPlayer.getHand().size(), 0);

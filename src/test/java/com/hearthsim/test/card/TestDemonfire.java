@@ -1,13 +1,11 @@
 package com.hearthsim.test.card;
 
 import com.hearthsim.card.Card;
-import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.BoulderfistOgre;
 import com.hearthsim.card.minion.concrete.DreadInfernal;
 import com.hearthsim.card.minion.concrete.RaidLeader;
 import com.hearthsim.card.spellcard.concrete.Demonfire;
-import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.model.BoardModel;
@@ -25,8 +23,6 @@ public class TestDemonfire {
     private PlayerModel currentPlayer;
     private PlayerModel waitingPlayer;
 
-    private Deck deck;
-
     @Before
     public void setup() throws HSInvalidPlayerIndexException, HSException {
         board = new HearthTreeNode(new BoardModel());
@@ -38,13 +34,6 @@ public class TestDemonfire {
         Minion minion0_2 = new RaidLeader();
         Minion minion1_0 = new BoulderfistOgre();
         Minion minion1_1 = new RaidLeader();
-
-        Card cards[] = new Card[10];
-        for (int index = 0; index < 10; ++index) {
-            cards[index] = new TheCoin();
-        }
-
-        deck = new Deck(cards);
 
         Card fb = new Demonfire();
         currentPlayer.placeCardHand(fb);
@@ -65,7 +54,7 @@ public class TestDemonfire {
     @Test
     public void test1() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, deck, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, null, null);
 
         assertFalse(ret == null);
 
@@ -90,7 +79,7 @@ public class TestDemonfire {
     @Test
     public void test2() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 3, board, deck, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 3, board, null, null);
 
         assertFalse(ret == null);
 
@@ -117,7 +106,7 @@ public class TestDemonfire {
     @Test
     public void test3() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 1, board, deck, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 1, board, null, null);
 
         assertFalse(ret == null);
 

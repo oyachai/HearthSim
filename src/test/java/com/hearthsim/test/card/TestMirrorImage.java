@@ -24,7 +24,6 @@ public class TestMirrorImage {
     private PlayerModel currentPlayer;
     private PlayerModel waitingPlayer;
 
-    private Deck deck;
     private static final byte mana = 2;
     private static final byte attack0 = 5;
     private static final byte health0 = 3;
@@ -47,13 +46,6 @@ public class TestMirrorImage {
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion1_0);
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion1_1);
 
-        Card cards[] = new Card[10];
-        for (int index = 0; index < 10; ++index) {
-            cards[index] = new TheCoin();
-        }
-
-        deck = new Deck(cards);
-
         Card fb = new MirrorImage();
         currentPlayer.placeCardHand(fb);
 
@@ -67,7 +59,7 @@ public class TestMirrorImage {
     @Test
     public void test2() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
 
         assertFalse(ret == null);
 

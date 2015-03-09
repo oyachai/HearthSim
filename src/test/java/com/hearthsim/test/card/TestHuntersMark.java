@@ -21,7 +21,6 @@ public class TestHuntersMark {
     private PlayerModel currentPlayer;
     private PlayerModel waitingPlayer;
 
-    private Deck deck;
     private static final byte mana = 2;
     private static final byte attack0 = 5;
     private static final byte health0 = 3;
@@ -44,13 +43,6 @@ public class TestHuntersMark {
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion1_0);
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion1_1);
 
-        Card cards[] = new Card[10];
-        for (int index = 0; index < 10; ++index) {
-            cards[index] = new TheCoin();
-        }
-
-        deck = new Deck(cards);
-
         Card fb = new HuntersMark();
         currentPlayer.placeCardHand(fb);
 
@@ -65,7 +57,7 @@ public class TestHuntersMark {
     public void test2() throws HSException {
         currentPlayer.getHero().setHealth((byte)23);
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 1, board, deck, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 1, board, null, null);
 
         assertFalse(ret == null);
 
@@ -91,7 +83,7 @@ public class TestHuntersMark {
     public void test3() throws HSException {
         currentPlayer.getHero().setHealth((byte)23);
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, deck, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, null, null);
 
         assertFalse(ret == null);
 

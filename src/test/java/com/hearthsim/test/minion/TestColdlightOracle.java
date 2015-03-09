@@ -46,47 +46,25 @@ public class TestColdlightOracle {
         currentPlayer = board.data_.getCurrentPlayer();
         waitingPlayer = board.data_.getWaitingPlayer();
 
-        Minion minion0_0 = new BoulderfistOgre();
-        Minion minion0_1 = new RaidLeader();
-        Minion minion1_0 = new BoulderfistOgre();
-        Minion minion1_1 = new RaidLeader();
+        board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new RaidLeader());
+        board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new BoulderfistOgre());
 
-        currentPlayer.placeCardHand(minion0_0);
-        currentPlayer.placeCardHand(minion0_1);
-
-        waitingPlayer.placeCardHand(minion1_0);
-        waitingPlayer.placeCardHand(minion1_1);
+        board.data_.placeMinion(PlayerSide.WAITING_PLAYER, new RaidLeader());
+        board.data_.placeMinion(PlayerSide.WAITING_PLAYER, new BoulderfistOgre());
 
         deck = new Deck(cards);
 
         Card fb = new ColdlightOracle();
         currentPlayer.placeCardHand(fb);
 
-        currentPlayer.setMana((byte) 18);
-        waitingPlayer.setMana((byte) 18);
-
-        currentPlayer.setMaxMana((byte) 8);
-        waitingPlayer.setMaxMana((byte) 8);
-
-        HearthTreeNode tmpBoard = new HearthTreeNode(board.data_.flipPlayers());
-        tmpBoard.data_.getCurrentPlayer().getHand().get(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayer().getHero(), tmpBoard, deck, null);
-        tmpBoard.data_.getCurrentPlayer().getHand().get(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayer().getHero(), tmpBoard, deck, null);
-
-        board = new HearthTreeNode(tmpBoard.data_.flipPlayers());
-        currentPlayer = board.data_.getCurrentPlayer();
-        waitingPlayer = board.data_.getWaitingPlayer();
-
-        currentPlayer.getHand().get(0).useOn(PlayerSide.CURRENT_PLAYER, currentPlayer.getHero(), board, deck, null);
-        currentPlayer.getHand().get(0).useOn(PlayerSide.CURRENT_PLAYER, currentPlayer.getHero(), board, deck, null);
-
-        board.data_.resetMana();
-        board.data_.resetMinions();
+        currentPlayer.setMana((byte) 8);
+        waitingPlayer.setMana((byte) 8);
     }
 
     @Test
     public void test0() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 0, board, deck, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 0, board, null, null);
 
         assertNull(ret);
 
@@ -111,7 +89,7 @@ public class TestColdlightOracle {
     @Test
     public void test1() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 2, board, deck, deck);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 2, board, null, null);
 
         assertFalse(ret == null);
 
@@ -144,9 +122,6 @@ public class TestColdlightOracle {
 
         currentPlayer.setMana((byte) 3);
         waitingPlayer.setMana((byte) 3);
-
-        currentPlayer.setMaxMana((byte) 3);
-        waitingPlayer.setMaxMana((byte) 3);
 
         currentPlayer.getCharacter(1).hasAttacked(true);
         currentPlayer.getCharacter(2).hasAttacked(true);

@@ -38,9 +38,6 @@ public class TestBloodKnight {
         currentPlayer.setMana((byte) 18);
         waitingPlayer.setMana((byte) 18);
 
-        currentPlayer.setMaxMana((byte) 8);
-        waitingPlayer.setMaxMana((byte) 8);
-
         minion0_0.summonMinion(PlayerSide.CURRENT_PLAYER, currentPlayer.getHero(), board, null, null, false, true);
         minion1_0.summonMinion(PlayerSide.WAITING_PLAYER, waitingPlayer.getHero(), board, null, null, false, true);
     }

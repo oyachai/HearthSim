@@ -3,10 +3,7 @@ package com.hearthsim.test.minion;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.card.minion.concrete.Armorsmith;
-import com.hearthsim.card.minion.concrete.BloodfenRaptor;
-import com.hearthsim.card.minion.concrete.RaidLeader;
-import com.hearthsim.card.minion.concrete.StormwindChampion;
+import com.hearthsim.card.minion.concrete.*;
 import com.hearthsim.card.spellcard.concrete.HolySmite;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
@@ -26,51 +23,20 @@ public class TestArmorsmith {
     private PlayerModel currentPlayer;
     private PlayerModel waitingPlayer;
 
-    private Deck deck;
-
     @Before
     public void setup() throws HSException {
         board = new HearthTreeNode(new BoardModel());
         currentPlayer = board.data_.getCurrentPlayer();
         waitingPlayer = board.data_.getWaitingPlayer();
 
-        Minion minion0_0 = new StormwindChampion();
-        Minion minion0_1 = new RaidLeader();
-        Minion minion1_0 = new BloodfenRaptor();
-        Minion minion1_1 = new RaidLeader();
+        board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new RaidLeader());
+        board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new StormwindChampion());
 
-        currentPlayer.placeCardHand(minion0_0);
-        currentPlayer.placeCardHand(minion0_1);
-
-        waitingPlayer.placeCardHand(minion1_0);
-        waitingPlayer.placeCardHand(minion1_1);
-
-        Card cards[] = new Card[10];
-        for (int index = 0; index < 10; ++index) {
-            cards[index] = new TheCoin();
-        }
-
-        deck = new Deck(cards);
+        board.data_.placeMinion(PlayerSide.WAITING_PLAYER, new RaidLeader());
+        board.data_.placeMinion(PlayerSide.WAITING_PLAYER, new BloodfenRaptor());
 
         currentPlayer.setMana((byte) 20);
         waitingPlayer.setMana((byte) 20);
-
-        currentPlayer.setMaxMana((byte) 10);
-        waitingPlayer.setMaxMana((byte) 10);
-
-        HearthTreeNode tmpBoard = new HearthTreeNode(board.data_.flipPlayers());
-        tmpBoard.data_.getCurrentPlayer().getHand().get(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayer().getHero(), tmpBoard, deck, null);
-        tmpBoard.data_.getCurrentPlayer().getHand().get(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayer().getHero(), tmpBoard, deck, null);
-
-        board = new HearthTreeNode(tmpBoard.data_.flipPlayers());
-        currentPlayer = board.data_.getCurrentPlayer();
-        waitingPlayer = board.data_.getWaitingPlayer();
-
-        currentPlayer.getHand().get(0).useOn(PlayerSide.CURRENT_PLAYER, currentPlayer.getHero(), board, deck, null);
-        currentPlayer.getHand().get(0).useOn(PlayerSide.CURRENT_PLAYER, currentPlayer.getHero(), board, deck, null);
-
-        board.data_.resetMana();
-        board.data_.resetMinions();
 
         Minion fb = new Armorsmith();
         currentPlayer.placeCardHand(fb);
@@ -79,7 +45,7 @@ public class TestArmorsmith {
     @Test
     public void test0() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
         assertFalse(ret == null);
 
         assertEquals(currentPlayer.getHand().size(), 0);
@@ -107,10 +73,8 @@ public class TestArmorsmith {
 
         currentPlayer.placeCardHand(new HolySmite());
         theCard = currentPlayer.getHand().get(0);
-        ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 3, ret, deck, null);
+        ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 3, ret, null, null);
         assertFalse(ret == null);
-        currentPlayer = currentPlayer;
-        waitingPlayer = waitingPlayer;
 
         assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 3);
@@ -140,7 +104,7 @@ public class TestArmorsmith {
 
         currentPlayer.placeCardHand(new HolySmite());
         theCard = currentPlayer.getHand().get(0);
-        ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 2, ret, deck, null);
+        ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 2, ret, null, null);
         assertFalse(ret == null);
 
         assertEquals(currentPlayer.getHand().size(), 0);
@@ -169,7 +133,7 @@ public class TestArmorsmith {
         ret = new HearthTreeNode(ret.data_.flipPlayers());
         currentPlayer.placeCardHand(new HolySmite());
         theCard = currentPlayer.getHand().get(0);
-        ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 2, ret, deck, null);
+        ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 2, ret, null, null);
         assertFalse(ret == null);
         currentPlayer = ret.data_.getCurrentPlayer();
         waitingPlayer = ret.data_.getWaitingPlayer();

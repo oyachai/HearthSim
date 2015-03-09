@@ -21,7 +21,6 @@ public class TestGrimscaleOracle {
     private PlayerModel currentPlayer;
     private PlayerModel waitingPlayer;
 
-    private Deck deck;
     private static final byte mana = 2;
     private static final byte attack0 = 5;
     private static final byte health0 = 3;
@@ -44,13 +43,6 @@ public class TestGrimscaleOracle {
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion1_0);
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion1_1);
 
-        Card cards[] = new Card[10];
-        for (int index = 0; index < 10; ++index) {
-            cards[index] = new TheCoin();
-        }
-
-        deck = new Deck(cards);
-
         Minion fb = new GrimscaleOracle();
         currentPlayer.placeCardHand(fb);
 
@@ -63,7 +55,7 @@ public class TestGrimscaleOracle {
 
         Minion target = currentPlayer.getCharacter(1);
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
 
         assertEquals(board, ret);
 
@@ -89,7 +81,7 @@ public class TestGrimscaleOracle {
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, new MurlocRaider());
 
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, deck, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, null, null);
 
         assertEquals(board, ret);
 
@@ -113,12 +105,12 @@ public class TestGrimscaleOracle {
     @Test
     public void testBuffsMurlocPlacedAfter() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, deck, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, null, null);
         assertEquals(board, ret);
 
         MurlocRaider murloc = new MurlocRaider();
         currentPlayer.placeCardHand(murloc);
-        ret = murloc.useOn(PlayerSide.CURRENT_PLAYER, 1, board, deck, null);
+        ret = murloc.useOn(PlayerSide.CURRENT_PLAYER, 1, board, null, null);
         assertEquals(board, ret);
 
         assertEquals(currentPlayer.getMinions().get(1).getHealth(), 1);

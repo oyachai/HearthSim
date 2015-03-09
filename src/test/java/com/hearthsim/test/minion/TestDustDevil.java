@@ -23,8 +23,6 @@ public class TestDustDevil {
     private PlayerModel currentPlayer;
     private PlayerModel waitingPlayer;
 
-    private Deck deck;
-
     @Before
     public void setup() throws HSException {
         board = new HearthTreeNode(new BoardModel());
@@ -42,13 +40,6 @@ public class TestDustDevil {
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion1_0);
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion1_1);
 
-        Card cards[] = new Card[10];
-        for (int index = 0; index < 10; ++index) {
-            cards[index] = new BloodfenRaptor();
-        }
-
-        deck = new Deck(cards);
-
         Minion fb = new DustDevil();
         currentPlayer.placeCardHand(fb);
 
@@ -62,7 +53,7 @@ public class TestDustDevil {
     @Test
     public void testOverload() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 2, board, deck, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 2, board, null, null);
 
         assertFalse(ret == null);
 

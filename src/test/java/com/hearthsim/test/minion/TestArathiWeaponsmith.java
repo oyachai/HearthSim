@@ -28,9 +28,6 @@ public class TestArathiWeaponsmith {
         currentPlayer.setMana((byte) 10);
         waitingPlayer.setMana((byte) 10);
 
-        currentPlayer.setMaxMana((byte) 10);
-        waitingPlayer.setMaxMana((byte) 10);
-
         currentPlayer.placeCardHand(new ArathiWeaponsmith());
     }
 

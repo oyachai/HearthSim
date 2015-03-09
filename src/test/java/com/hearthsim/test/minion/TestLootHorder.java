@@ -61,9 +61,6 @@ public class TestLootHorder {
         currentPlayer.setMana((byte) 1);
         waitingPlayer.setMana((byte) 1);
 
-        currentPlayer.setMaxMana((byte) 1);
-        waitingPlayer.setMaxMana((byte) 1);
-
         List<HearthActionBoardPair> ab = ai0.playTurn(0, board.data_);
         BoardModel resBoard = ab.get(ab.size() - 1).board;
 
@@ -83,9 +80,6 @@ public class TestLootHorder {
 
         currentPlayer.setMana((byte) 3);
         waitingPlayer.setMana((byte) 3);
-
-        currentPlayer.setMaxMana((byte) 3);
-        waitingPlayer.setMaxMana((byte) 3);
 
         List<HearthActionBoardPair> ab = ai0.playTurn(0, board.data_);
         BoardModel resBoard = ab.get(ab.size() - 1).board;
@@ -114,9 +108,6 @@ public class TestLootHorder {
 
         currentPlayer.setMana((byte) 3);
         waitingPlayer.setMana((byte) 3);
-
-        currentPlayer.setMaxMana((byte) 3);
-        waitingPlayer.setMaxMana((byte) 3);
 
         List<HearthActionBoardPair> ab = ai0.playTurn(0, board.data_);
         BoardModel resBoard = ab.get(ab.size() - 1).board;

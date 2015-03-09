@@ -49,9 +49,6 @@ public class TestMinionAttacking {
 
         currentPlayer.setMana((byte) 8);
         waitingPlayer.setMana((byte) 8);
-
-        currentPlayer.setMaxMana((byte) 8);
-        waitingPlayer.setMaxMana((byte) 8);
     }
 
     @Test

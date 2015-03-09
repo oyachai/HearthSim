@@ -25,8 +25,6 @@ public class TestEarthenRingFarseer {
     private PlayerModel currentPlayer;
     private PlayerModel waitingPlayer;
 
-    private Deck deck;
-
     @Before
     public void setup() throws HSInvalidPlayerIndexException, HSException {
         board = new HearthTreeNode(new BoardModel());
@@ -39,21 +37,11 @@ public class TestEarthenRingFarseer {
         Minion minion1_0 = new BoulderfistOgre();
         Minion minion1_1 = new RaidLeader();
 
-        Card cards[] = new Card[10];
-        for (int index = 0; index < 10; ++index) {
-            cards[index] = new TheCoin();
-        }
-
-        deck = new Deck(cards);
-
         Card fb = new EarthenRingFarseer();
         currentPlayer.placeCardHand(fb);
 
-        currentPlayer.setMana((byte) 18);
-        waitingPlayer.setMana((byte) 18);
-
-        currentPlayer.setMaxMana((byte) 8);
-        waitingPlayer.setMaxMana((byte) 8);
+        currentPlayer.setMana((byte) 8);
+        waitingPlayer.setMana((byte) 8);
 
         minion0_0.summonMinion(PlayerSide.CURRENT_PLAYER, currentPlayer.getHero(), board, null, null, false, true);
         minion0_1.summonMinion(PlayerSide.CURRENT_PLAYER, currentPlayer.getHero(), board, null, null, false, true);
@@ -68,14 +56,12 @@ public class TestEarthenRingFarseer {
 
         currentPlayer.getHero().setHealth((byte)20);
         waitingPlayer.getHero().setHealth((byte)20);
-
-        board.data_.resetMana();
     }
 
     @Test
     public void test0() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 0, board, deck, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 0, board, null, null);
 
         assertNull(ret);
 
@@ -102,7 +88,7 @@ public class TestEarthenRingFarseer {
     @Test
     public void test1() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 3, board, deck, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 3, board, null, null);
 
         assertFalse(ret == null);
 

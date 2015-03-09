@@ -1,10 +1,8 @@
 package com.hearthsim.test.card;
 
 import com.hearthsim.card.Card;
-import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.concrete.HammerOfWrath;
-import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
@@ -22,7 +20,6 @@ public class TestHammerOfWrath {
     private PlayerModel currentPlayer;
     private PlayerModel waitingPlayer;
 
-    private Deck deck;
     private static final byte mana = 2;
     private static final byte attack0 = 2;
     private static final byte health0 = 3;
@@ -45,13 +42,6 @@ public class TestHammerOfWrath {
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion1_0);
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion1_1);
 
-        Card cards[] = new Card[10];
-        for (int index = 0; index < 10; ++index) {
-            cards[index] = new TheCoin();
-        }
-
-        deck = new Deck(cards);
-
         currentPlayer.setMana((byte) 10);
         currentPlayer.setMaxMana((byte) 10);
     }
@@ -62,7 +52,7 @@ public class TestHammerOfWrath {
         currentPlayer.placeCardHand(fb);
 
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
         assertFalse(ret == null);
         assertEquals(currentPlayer.getHand().size(), 0);
         assertTrue(ret instanceof CardDrawNode);
@@ -93,7 +83,7 @@ public class TestHammerOfWrath {
         currentPlayer.placeCardHand(fb);
 
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 1, board, deck, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 1, board, null, null);
         assertFalse(ret == null);
 
         assertEquals(currentPlayer.getHand().size(), 0);

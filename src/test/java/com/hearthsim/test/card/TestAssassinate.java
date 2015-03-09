@@ -62,7 +62,7 @@ public class TestAssassinate {
         Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode res;
 
-        res = theCard.useOn(PlayerSide.WAITING_PLAYER, 1, board, deck, null);
+        res = theCard.useOn(PlayerSide.WAITING_PLAYER, 1, board, null, null);
         assertNotNull(res);
         assertEquals(res.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(res.data_.getCurrentPlayer().getNumMinions(), 1);
@@ -91,7 +91,7 @@ public class TestAssassinate {
         Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode res;
 
-        res = theCard.useOn(PlayerSide.WAITING_PLAYER, 2, board, deck, null);
+        res = theCard.useOn(PlayerSide.WAITING_PLAYER, 2, board, null, null);
         assertNotNull(res);
         assertEquals(res.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(res.data_.getCurrentPlayer().getNumMinions(), 1);
@@ -120,7 +120,7 @@ public class TestAssassinate {
         Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode res;
 
-        res = theCard.useOn(PlayerSide.WAITING_PLAYER, 3, board, deck, null);
+        res = theCard.useOn(PlayerSide.WAITING_PLAYER, 3, board, null, null);
         assertNotNull(res);
         assertEquals(res.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(res.data_.getCurrentPlayer().getNumMinions(), 1);
