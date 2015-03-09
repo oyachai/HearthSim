@@ -1408,8 +1408,9 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         return result;
     }
 
+    @Deprecated
     public boolean currentPlayerBoardFull(HearthTreeNode boardState) {
-        return boardState.data_.getCurrentPlayer().getNumMinions() >= 7;
+        return boardState.data_.getCurrentPlayer().isBoardFull();
     }
 
 }

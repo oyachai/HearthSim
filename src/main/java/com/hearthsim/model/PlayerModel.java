@@ -187,6 +187,10 @@ public class PlayerModel implements DeepCopyable<PlayerModel> {
         return numCardsUsed > 1;
     }
 
+    public boolean isBoardFull() {
+        return this.getNumMinions() >= 7;
+    }
+
     @Override
     public String toString() {
         return new JSONObject(this).toString();
