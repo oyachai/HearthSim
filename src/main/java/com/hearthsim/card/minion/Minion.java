@@ -830,6 +830,13 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         return toRet;
     }
 
+    public HearthTreeNode summonMinionAtEnd(PlayerSide targetSide, HearthTreeNode boardState,
+                                       Deck deckPlayer0, Deck deckPlayer1, boolean wasPlayed, boolean singleRealizationOnly) throws HSException {
+        PlayerModel player = boardState.data_.modelForSide(targetSide);
+        Minion targetLocation = player.getCharacter(player.getNumMinions());
+        return this.summonMinion(targetSide, targetLocation, boardState, deckPlayer0, deckPlayer1, wasPlayed, singleRealizationOnly);
+    }
+
     /**
      *
      * Places a minion on the board via a summon effect
