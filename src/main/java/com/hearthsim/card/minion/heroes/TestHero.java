@@ -25,7 +25,10 @@ public class TestHero extends Hero {
 
     @Override
     public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
-        return false;
+        if(!super.canBeUsedOn(playerSide, minion, boardModel)) {
+            return false;
+        }
+        return enableHeroAbility;
     }
 
     /**

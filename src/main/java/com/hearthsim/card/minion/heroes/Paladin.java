@@ -6,6 +6,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.SilverHandRecruit;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -13,7 +14,17 @@ public class Paladin extends Hero {
 
     @Override
     public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
-        return playerSide == PlayerSide.CURRENT_PLAYER && minion instanceof Hero;
+        if(!super.canBeUsedOn(playerSide, minion, boardModel)) {
+            return false;
+        }
+        if (playerSide != PlayerSide.CURRENT_PLAYER) {
+            return false;
+        }
+        if (boardModel.modelForSide(playerSide).isBoardFull()) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -36,21 +47,15 @@ public class Paladin extends Hero {
             Deck deckPlayer1,
             boolean singleRealizationOnly)
         throws HSException {
-        if (currentPlayerBoardFull(boardState))
-            return null;
 
         HearthTreeNode toRet = boardState;
 
-        if (isHero(targetMinion) && targetPlayerSide == PlayerSide.CURRENT_PLAYER) {
-            this.hasBeenUsed = true;
-            toRet.data_.getCurrentPlayer().subtractMana(HERO_ABILITY_COST);
-            Minion theRecruit = new SilverHandRecruit();
-            Minion targetLocation = toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getNumMinions());
-            toRet = theRecruit.summonMinion(targetPlayerSide, targetLocation, toRet, deckPlayer0, deckPlayer1, false, singleRealizationOnly);
-        } else {
-            return null;
-        }
+        this.hasBeenUsed = true;
+        PlayerModel currentPlayer = toRet.data_.getCurrentPlayer();
+        currentPlayer.subtractMana(HERO_ABILITY_COST);
 
+        Minion theRecruit = new SilverHandRecruit();
+        toRet = theRecruit.summonMinionAtEnd(targetPlayerSide, toRet, deckPlayer0, deckPlayer1, false, singleRealizationOnly);
         return toRet;
     }
 }

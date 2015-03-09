@@ -119,10 +119,15 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
 
     @Override
     public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
-        if (hasBeenUsed)
+        if (this.hasBeenUsed()) {
             return false;
-        if (!minion.isHeroTargetable())
+        }
+        if (boardModel.getCurrentPlayer().getMana() < HERO_ABILITY_COST) {
             return false;
+        }
+        if (!minion.isHeroTargetable()) {
+            return false;
+        }
         return true;
     }
 
@@ -144,14 +149,9 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
                                                HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly)
         throws HSException {
 
-        if (boardState.data_.getCurrentPlayer().getMana() < HERO_ABILITY_COST)
+        if (!this.canBeUsedOn(targetPlayerSide, targetMinion, boardState.data_)) {
             return null;
-
-        if (this.hasBeenUsed())
-            return null;
-
-        if (!targetMinion.isHeroTargetable())
-            return null;
+        }
 
         PlayerModel targetPlayer = boardState.data_.modelForSide(targetPlayerSide);
 
