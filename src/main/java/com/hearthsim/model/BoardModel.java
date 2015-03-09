@@ -117,6 +117,14 @@ public class BoardModel implements DeepCopyable<BoardModel> {
         return modelForSide(side).getMinions().get(index);
     }
 
+    /**
+     * Count all minions in play regardless of player side
+     * @return The number of all minions in play
+     */
+    public int getTotalMinionCount() {
+        return this.allMinionsFIFOList_.size();
+    }
+
     public Card getCard_hand(PlayerSide playerSide, int index) throws HSInvalidPlayerIndexException {
         return modelForSide(playerSide).getHand().get(index);
     }
