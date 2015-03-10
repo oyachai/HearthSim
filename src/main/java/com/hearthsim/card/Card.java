@@ -249,8 +249,12 @@ public class Card implements DeepCopyable<Card> {
      * @return
      */
     public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
-        // A generic card does nothing except for consuming mana
         return this.getManaCost(PlayerSide.CURRENT_PLAYER, boardModel) <= boardModel.getCurrentPlayer().getMana();
+    }
+
+    public boolean canBeUsedOn(PlayerSide playerSide, int targetIndex, BoardModel boardModel) {
+        Minion targetMinion = boardModel.modelForSide(playerSide).getCharacter(targetIndex);
+        return this.canBeUsedOn(playerSide, targetMinion, boardModel);
     }
 
     public final HearthTreeNode useOn(PlayerSide side, Minion targetMinion, HearthTreeNode boardState,

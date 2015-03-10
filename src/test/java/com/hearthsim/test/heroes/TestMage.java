@@ -45,10 +45,9 @@ public class TestMage {
 
     @Test
     public void testHeropowerAgainstOpponent() throws HSException {
-        Minion target = waitingPlayer.getCharacter(0); // Opponent hero
         Hero mage = currentPlayer.getHero();
 
-        HearthTreeNode ret = mage.useHeroAbility(PlayerSide.WAITING_PLAYER, target, board, null, null);
+        HearthTreeNode ret = mage.useHeroAbility(PlayerSide.WAITING_PLAYER, 0, board, null, null);
         assertEquals(board, ret);
 
         assertEquals(currentPlayer.getMana(), 6);
@@ -57,10 +56,9 @@ public class TestMage {
 
     @Test
     public void testHeropowerAgainstMinion() throws HSException {
-        Minion target = waitingPlayer.getCharacter(1); // Yeti
         Hero mage = currentPlayer.getHero();
 
-        HearthTreeNode ret = mage.useHeroAbility(PlayerSide.WAITING_PLAYER, target, board, null, null);
+        HearthTreeNode ret = mage.useHeroAbility(PlayerSide.WAITING_PLAYER, 1, board, null, null);
         assertEquals(board, ret);
 
         assertEquals(currentPlayer.getMana(), 6);
@@ -74,10 +72,9 @@ public class TestMage {
     @Test
     @Ignore("Functionality explicitly disabled")
     public void testHeropowerAgainstSelf() throws HSException {
-        Minion target = currentPlayer.getCharacter(0); // Self
         Hero mage = currentPlayer.getHero();
 
-        HearthTreeNode ret = mage.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, null, null);
+        HearthTreeNode ret = mage.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
         assertEquals(board, ret);
 
         assertEquals(currentPlayer.getMana(), 6);
@@ -86,10 +83,9 @@ public class TestMage {
 
     @Test
     public void testHeropowerAgainstOwnMinion() throws HSException {
-        Minion target = currentPlayer.getCharacter(1); // Yeti
         Hero mage = currentPlayer.getHero();
 
-        HearthTreeNode ret = mage.useHeroAbility(PlayerSide.WAITING_PLAYER, target, board, null, null);
+        HearthTreeNode ret = mage.useHeroAbility(PlayerSide.CURRENT_PLAYER, 1, board, null, null);
         assertEquals(board, ret);
 
         assertEquals(currentPlayer.getMana(), 6);
@@ -104,11 +100,10 @@ public class TestMage {
     public void testHeropowerAgainstFaerieMinion() throws HSException {
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, new FaerieDragon());
 
-        Minion target = waitingPlayer.getCharacter(3); // Faerie
         Hero mage = currentPlayer.getHero();
 
-        assertFalse(mage.canBeUsedOn(PlayerSide.WAITING_PLAYER, target, board.data_));
-        HearthTreeNode ret = mage.useHeroAbility(PlayerSide.WAITING_PLAYER, target, board, null, null);
+        assertFalse(mage.canBeUsedOn(PlayerSide.WAITING_PLAYER, 3, board.data_));
+        HearthTreeNode ret = mage.useHeroAbility(PlayerSide.WAITING_PLAYER, 3, board, null, null);
         assertNull(ret);
 
         assertEquals(currentPlayer.getMana(), 8);

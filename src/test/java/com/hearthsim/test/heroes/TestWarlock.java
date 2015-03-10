@@ -46,10 +46,9 @@ public class TestWarlock {
 
     @Test
     public void testHeropower() throws HSException {
-        Minion target = currentPlayer.getCharacter(0);
         Hero warrior = currentPlayer.getHero();
 
-        HearthTreeNode ret = warrior.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, null, null);
+        HearthTreeNode ret = warrior.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
         assertNotEquals(board, ret);
         assertTrue(ret instanceof CardDrawNode);
 
@@ -65,10 +64,9 @@ public class TestWarlock {
 
     @Test
     public void testHeropowerCannotTargetMinion() throws HSException {
-        Minion target = waitingPlayer.getCharacter(2);
         Hero warrior = currentPlayer.getHero();
 
-        HearthTreeNode ret = warrior.useHeroAbility(PlayerSide.WAITING_PLAYER, target, board, null, null);
+        HearthTreeNode ret = warrior.useHeroAbility(PlayerSide.WAITING_PLAYER, 2, board, null, null);
         assertNull(ret);
 
         assertEquals(currentPlayer.getHand().size(), 0);
@@ -80,10 +78,9 @@ public class TestWarlock {
 
     @Test
     public void testHeropowerCannotTargetOpponent() throws HSException {
-        Minion target = waitingPlayer.getCharacter(0);
         Hero warrior = currentPlayer.getHero();
 
-        HearthTreeNode ret = warrior.useHeroAbility(PlayerSide.WAITING_PLAYER, target, board, null, null);
+        HearthTreeNode ret = warrior.useHeroAbility(PlayerSide.WAITING_PLAYER, 0, board, null, null);
         assertNull(ret);
 
         assertEquals(currentPlayer.getHand().size(), 0);
@@ -108,9 +105,8 @@ public class TestWarlock {
 
         currentPlayer.setDeckPos((byte) 30);
 
-        Minion target = currentPlayer.getCharacter(0);
         Hero hero = currentPlayer.getHero();
-        ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
+        ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
         assertEquals(currentPlayer.getHand().size(), 0);
 
         assertTrue(ret instanceof CardDrawNode);

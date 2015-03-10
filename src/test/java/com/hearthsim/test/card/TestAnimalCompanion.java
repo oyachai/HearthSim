@@ -150,8 +150,7 @@ public class TestAnimalCompanion {
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new BloodfenRaptor());
 
         Card theCard = currentPlayer.getHand().get(0);
-        Minion target = currentPlayer.getCharacter(0);
-        assertFalse(theCard.canBeUsedOn(PlayerSide.CURRENT_PLAYER, target, board.data_));
+        assertFalse(theCard.canBeUsedOn(PlayerSide.CURRENT_PLAYER, 0, board.data_));
 
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
         assertNull(ret);

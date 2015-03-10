@@ -152,15 +152,9 @@ public class ChildNodeCreatorBase implements ChildNodeCreator {
 
         // Case0: Decided to use the hero ability -- Use it on everything!
         for (int i = 0; i <= currentPlayer.getNumMinions(); ++i) {
-            Minion target = boardStateNode.data_.getCurrentPlayer().getCharacter(i);
-
-            if (player.canBeUsedOn(PlayerSide.CURRENT_PLAYER, target, boardStateNode.data_)) {
-
+            if (player.canBeUsedOn(PlayerSide.CURRENT_PLAYER, i, boardStateNode.data_)) {
                 newState = new HearthTreeNode(boardStateNode.data_.deepCopy());
-                copiedTargetMinion = newState.data_.getCurrentPlayer().getCharacter(i);
-
-                newState = newState.data_.getCurrentPlayer().getHero().useHeroAbility(PlayerSide.CURRENT_PLAYER,
-                        copiedTargetMinion, newState, deckPlayer0_, deckPlayer1_, false);
+                newState = newState.data_.getCurrentPlayer().getHero().useHeroAbility(PlayerSide.CURRENT_PLAYER, i, newState, deckPlayer0_, deckPlayer1_);
 
                 if (newState != null) {
                     nodes.add(newState);
@@ -169,14 +163,9 @@ public class ChildNodeCreatorBase implements ChildNodeCreator {
         }
 
         for (int i = 0; i <= waitingPlayer.getNumMinions(); ++i) {
-            Minion target = boardStateNode.data_.getWaitingPlayer().getCharacter(i);
-            if (player.canBeUsedOn(PlayerSide.WAITING_PLAYER, target, boardStateNode.data_)) {
-
+            if (player.canBeUsedOn(PlayerSide.WAITING_PLAYER, i, boardStateNode.data_)) {
                 newState = new HearthTreeNode(boardStateNode.data_.deepCopy());
-                copiedTargetMinion = newState.data_.getWaitingPlayer().getCharacter(i);
-
-                newState = newState.data_.getCurrentPlayer().getHero().useHeroAbility(PlayerSide.WAITING_PLAYER,
-                        copiedTargetMinion, newState, deckPlayer0_, deckPlayer1_, false);
+                newState = newState.data_.getCurrentPlayer().getHero().useHeroAbility(PlayerSide.WAITING_PLAYER, i, newState, deckPlayer0_, deckPlayer1_);
 
                 if (newState != null) {
                     nodes.add(newState);

@@ -44,9 +44,8 @@ public class TestBloodKnight {
 
     @Test
     public void testStealsDivineShieldMultiple() throws HSException {
-        Minion target = currentPlayer.getCharacter(1);
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, null, null);
 
         assertEquals(board, ret);
 
@@ -63,8 +62,8 @@ public class TestBloodKnight {
 
     @Test
     public void testStealsDivineShieldSingle() throws HSException {
-        currentPlayer.getCharacter(1).setDivineShield(false);
         Minion target = currentPlayer.getCharacter(1);
+        target.setDivineShield(false);
         Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
 

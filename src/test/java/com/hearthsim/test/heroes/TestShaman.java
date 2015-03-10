@@ -57,9 +57,8 @@ public class TestShaman {
 
     @Test
     public void testHeropowerNode() throws HSException {
-        Minion target = currentPlayer.getCharacter(0);
         Hero hero = currentPlayer.getHero();
-        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, null, null);
+        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
         assertNotEquals(board, ret);
         assertTrue(ret instanceof RandomEffectNode);
         assertEquals(ret.getChildren().size(), 4);
@@ -70,9 +69,8 @@ public class TestShaman {
 
     @Test
     public void testTotemSearing() throws HSException {
-        Minion target = currentPlayer.getCharacter(0);
         Hero hero = currentPlayer.getHero();
-        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, null, null);
+        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
 
         HearthTreeNode searingNode = ret.getChildren().get(0);
         assertEquals(searingNode.data_.getCurrentPlayer().getNumMinions(), 3);
@@ -91,9 +89,8 @@ public class TestShaman {
 
     @Test
     public void testTotemStoneclaw() throws HSException {
-        Minion target = currentPlayer.getCharacter(0);
         Hero hero = currentPlayer.getHero();
-        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, null, null);
+        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
 
         HearthTreeNode searingNode = ret.getChildren().get(1);
         assertEquals(searingNode.data_.getCurrentPlayer().getNumMinions(), 3);
@@ -112,9 +109,8 @@ public class TestShaman {
 
     @Test
     public void testTotemHealing() throws HSException {
-        Minion target = currentPlayer.getCharacter(0);
         Hero hero = currentPlayer.getHero();
-        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, null, null);
+        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
 
         HearthTreeNode healingNode = ret.getChildren().get(2);
         assertEquals(healingNode.data_.getCurrentPlayer().getNumMinions(), 3);
@@ -133,9 +129,8 @@ public class TestShaman {
 
     @Test
     public void testTotemWrathOfAir() throws HSException {
-        Minion target = currentPlayer.getCharacter(0);
         Hero hero = currentPlayer.getHero();
-        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, null, null);
+        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
 
         HearthTreeNode wrathOfAirNode = ret.getChildren().get(3);
         assertEquals(wrathOfAirNode.data_.getCurrentPlayer().getNumMinions(), 3);
@@ -175,7 +170,6 @@ public class TestShaman {
 
     @Test
     public void testHeropowerWithFullBoard() throws HSException {
-        Minion target = currentPlayer.getCharacter(0);
         Hero shaman = currentPlayer.getHero();
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new SilverHandRecruit());
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new SilverHandRecruit());
@@ -185,7 +179,7 @@ public class TestShaman {
 
         assertEquals(currentPlayer.getNumMinions(), 7);
 
-        HearthTreeNode ret = shaman.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, null, null);
+        HearthTreeNode ret = shaman.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
         assertNull(ret);
 
         assertEquals(currentPlayer.getNumMinions(), 7);
@@ -194,13 +188,12 @@ public class TestShaman {
 
     @Test
     public void testHeropowerWithExistingTotem() throws HSException {
-        Minion target = currentPlayer.getCharacter(0);
         Hero shaman = currentPlayer.getHero();
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new SearingTotem());
 
         assertEquals(currentPlayer.getNumMinions(), 3);
 
-        HearthTreeNode ret = shaman.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, null, null);
+        HearthTreeNode ret = shaman.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
         assertNotEquals(board, ret);
         assertTrue(ret instanceof RandomEffectNode);
         assertEquals(ret.getChildren().size(), 3);
@@ -220,7 +213,6 @@ public class TestShaman {
 
     @Test
     public void testHeropowerWithAllTotems() throws HSException {
-        Minion target = currentPlayer.getCharacter(0);
         Hero shaman = currentPlayer.getHero();
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new SearingTotem());
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new StoneclawTotem());
@@ -229,7 +221,7 @@ public class TestShaman {
 
         assertEquals(currentPlayer.getNumMinions(), 6);
 
-        HearthTreeNode ret = shaman.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, null, null);
+        HearthTreeNode ret = shaman.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
         assertNull(ret);
 
         assertEquals(currentPlayer.getNumMinions(), 6);

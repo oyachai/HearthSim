@@ -34,7 +34,6 @@ public class DeathrattleSummonMinionAction extends DeathrattleAction {
             targetIndex = targetPlayer.getMinions().indexOf(origin);
             toRet.data_.removeMinion((Minion) origin);
         }
-        Minion placementTarget = targetPlayer.getCharacter(targetIndex);
 
         int numMinionsToActuallySummon = numMinions_;
         if (targetPlayer.getMinions().size() + numMinions_ > 7)
@@ -43,7 +42,7 @@ public class DeathrattleSummonMinionAction extends DeathrattleAction {
         for (int index = 0; index < numMinionsToActuallySummon; ++index) {
             try {
                 Minion newMinion = (Minion) minionClass_.newInstance();
-                toRet = newMinion.summonMinion(playerSide, placementTarget, toRet, deckPlayer0, deckPlayer1, false, true);
+                toRet = newMinion.summonMinion(playerSide, targetIndex, toRet, deckPlayer0, deckPlayer1, false, true);
             } catch (InstantiationException | IllegalAccessException e) {
                 // TODO Auto-generated catch block
                 throw new HSException();
