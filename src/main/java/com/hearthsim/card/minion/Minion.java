@@ -643,8 +643,8 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
             HearthTreeNode node = new HearthTreeNode(boardState.data_.deepCopy());
 
             // Need to start the battlecry from the child node
-            int originMinionIndex = PlayerSide.CURRENT_PLAYER.getPlayer(boardState).getMinions().indexOf(this);
-            MinionTargetableBattlecry battlecryMinion = (MinionTargetableBattlecry) PlayerSide.CURRENT_PLAYER.getPlayer(node).getMinions().get(originMinionIndex);
+            int originMinionIndex = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getMinions().indexOf(this);
+            MinionTargetableBattlecry battlecryMinion = (MinionTargetableBattlecry) node.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getMinions().get(originMinionIndex);
             PlayerModel player = node.data_.modelForSide(side);
 
             // Need to get the new node's version of the target minion

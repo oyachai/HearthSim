@@ -24,7 +24,7 @@ public class CaptainGreenskin extends Minion implements MinionUntargetableBattle
         Deck deckPlayer1,
         boolean singleRealizationOnly
     ) throws HSException {
-        WeaponCard weapon = boardState.data_.getCurrentPlayerHero().getWeapon();
+        WeaponCard weapon = boardState.data_.getCurrentPlayer().getHero().getWeapon();
         if (weapon != null) {
             weapon.setWeaponDamage((byte)(weapon.getWeaponDamage() + 1));
             weapon.setWeaponCharge((byte)(weapon.getWeaponCharge() + 1));

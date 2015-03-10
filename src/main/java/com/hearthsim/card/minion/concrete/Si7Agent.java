@@ -46,7 +46,7 @@ public class Si7Agent extends Minion implements MinionTargetableBattlecry {
         Deck deckPlayer1
     ) throws HSException {
         HearthTreeNode toRet = boardState;
-        if (PlayerSide.CURRENT_PLAYER.getPlayer(toRet).isComboEnabled()) {
+        if (toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER).isComboEnabled()) {
             toRet = targetMinion.takeDamage((byte) 2, PlayerSide.CURRENT_PLAYER, side, toRet, deckPlayer0, deckPlayer1, false, true);
             return toRet;
         } else {

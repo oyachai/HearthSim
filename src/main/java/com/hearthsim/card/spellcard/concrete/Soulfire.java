@@ -46,7 +46,7 @@ public class Soulfire extends SpellDamage {
         HearthTreeNode toRet = boardState;
         PlayerModel currentPlayer = toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
 
-        PlayerSide.CURRENT_PLAYER.getPlayer(boardState).addNumCardsUsed((byte)1);
+        currentPlayer.addNumCardsUsed((byte)1);
         if (singleRealizationOnly) {
             toRet = super.useOn(side, targetMinion, toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
             IdentityLinkedList<Card> hand = currentPlayer.getHand();
