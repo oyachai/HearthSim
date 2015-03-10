@@ -106,7 +106,7 @@ public abstract class WeaponCard extends Card {
         if (toRet != null) {
             DeathrattleAction weaponDeathrattle = toRet.data_.getCurrentPlayer().getHero().setWeapon(this);
             if (weaponDeathrattle != null) {
-                toRet = weaponDeathrattle.performAction(null, side, toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
+                toRet = weaponDeathrattle.performAction(null, side, toRet, singleRealizationOnly);
             }
             this.hasBeenUsed(true);
         }

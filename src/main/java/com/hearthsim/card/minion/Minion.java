@@ -525,7 +525,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 
         // perform the deathrattle action if there is one
         if (deathrattleAction_ != null) {
-            toRet = deathrattleAction_.performAction(this, thisPlayerSide, toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
+            toRet = deathrattleAction_.performAction(this, thisPlayerSide, toRet, singleRealizationOnly);
         }
 
         // Notify all that it is dead

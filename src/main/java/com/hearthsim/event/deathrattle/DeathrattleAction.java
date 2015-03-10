@@ -17,17 +17,23 @@ public abstract class DeathrattleAction {
      * @param origin      The minion that is performing the action (aka, the dying minion)
      * @param playerSide
      * @param boardState
-     * @param deckPlayer0
-     * @param deckPlayer1 @return
      * @throws HSException
      */
+    public HearthTreeNode performAction(Card origin,
+                                        PlayerSide playerSide,
+                                        HearthTreeNode boardState,
+                                        boolean singleRealizationOnly) throws HSException {
+        return boardState;
+    }
+
+    @Deprecated
     public HearthTreeNode performAction(Card origin,
                                         PlayerSide playerSide,
                                         HearthTreeNode boardState,
                                         Deck deckPlayer0,
                                         Deck deckPlayer1,
                                         boolean singleRealizationOnly) throws HSException {
-        return boardState;
+        return this.performAction(origin, playerSide, boardState, singleRealizationOnly);
     }
 
     @Override

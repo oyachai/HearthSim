@@ -33,7 +33,7 @@ public class BloodsailCorsair extends Minion implements MinionUntargetableBattle
             waitingPlayer.getHero().getWeapon().useWeaponCharge();
             DeathrattleAction action = waitingPlayer.getHero().checkForWeaponDeath();
             if (action != null) {
-                boardState = action.performAction(null, PlayerSide.WAITING_PLAYER, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+                boardState = action.performAction(null, PlayerSide.WAITING_PLAYER, boardState, singleRealizationOnly);
             }
         }
         return boardState;
