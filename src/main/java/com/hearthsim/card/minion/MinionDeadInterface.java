@@ -14,8 +14,12 @@ public interface MinionDeadInterface {
      * @param deadMinionPlayerSide
      * @param deadMinion The dead minion
      * @param boardState The BoardState before this card has performed its action. It will be manipulated and returned.
-     * @param deckPlayer0 The deck of player0 @return The boardState is manipulated and returned
+     * @return The boardState is manipulated and returned
      * */
     public HearthTreeNode minionDeadEvent(PlayerSide thisMinionPlayerSide, PlayerSide deadMinionPlayerSide,
-            Minion deadMinion, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1);
+            Minion deadMinion, HearthTreeNode boardState);
+
+    @Deprecated
+    public HearthTreeNode minionDeadEvent(PlayerSide thisMinionPlayerSide, PlayerSide deadMinionPlayerSide,
+                                          Minion deadMinion, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1);
 }
