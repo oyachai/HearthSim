@@ -46,11 +46,10 @@ public class VioletTeacher extends Minion implements CardPlayBeginInterface {
         if (isInHand_)
             return toRet;
         PlayerModel currentPlayer = toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
-        if (usedCard instanceof SpellCard && currentPlayer.getNumMinions() < 7) {
+        if (usedCard instanceof SpellCard && !currentPlayer.isBoardFull()) {
             Minion newMinion = new VioletApprentice();
             toRet = newMinion.summonMinion(thisCardPlayerSide, this, toRet, deckPlayer0, deckPlayer1, false, singleRealizationOnly);
         }
         return toRet;
     }
-
 }

@@ -27,7 +27,7 @@ public class RazorfenHunter extends Minion implements MinionUntargetableBattlecr
         ) throws HSException {
         HearthTreeNode toRet = boardState;
         PlayerModel currentPlayer = toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
-        if (toRet != null && currentPlayer.getNumMinions() < 7) {
+        if (toRet != null && !currentPlayer.isBoardFull()) {
             Minion mdragon = new Boar();
             toRet = mdragon.summonMinion(PlayerSide.CURRENT_PLAYER, this, boardState, deckPlayer0, deckPlayer1, false, singleRealizationOnly);
         }

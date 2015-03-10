@@ -28,7 +28,7 @@ public class SilverHandKnight extends Minion implements MinionUntargetableBattle
         HearthTreeNode toRet = boardState;
         if (toRet != null) {
             PlayerModel currentPlayer = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
-            if (currentPlayer.getNumMinions() < 7) {
+            if (!currentPlayer.isBoardFull()) {
                 Minion mdragon = new Squire();
                 toRet = mdragon.summonMinion(PlayerSide.CURRENT_PLAYER, this, boardState, deckPlayer0, deckPlayer1, false, singleRealizationOnly);
             }

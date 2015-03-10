@@ -715,7 +715,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
     @Override
     protected HearthTreeNode use_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState,
             Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
-        if (hasBeenUsed || side == PlayerSide.WAITING_PLAYER || boardState.data_.modelForSide(side).getNumMinions() >= 7)
+        if (hasBeenUsed || side == PlayerSide.WAITING_PLAYER || boardState.data_.modelForSide(side).isBoardFull())
             return null;
 
         HearthTreeNode toRet = boardState;
@@ -744,7 +744,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
      */
     public HearthTreeNode summonMinion(PlayerSide targetSide, Minion targetMinion, HearthTreeNode boardState,
             Deck deckPlayer0, Deck deckPlayer1, boolean wasPlayed, boolean singleRealizationOnly) throws HSException {
-        if (boardState.data_.modelForSide(targetSide).getNumMinions() >= 7)
+        if (boardState.data_.modelForSide(targetSide).isBoardFull())
             return null;
 
         HearthTreeNode toRet = boardState;
