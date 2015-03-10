@@ -34,8 +34,6 @@ public class ArchmageAntonidas extends Minion implements CardPlayBeginInterface 
             PlayerSide cardUserPlayerSide,
             Card usedCard,
             HearthTreeNode boardState,
-            Deck deckPlayer0,
-            Deck deckPlayer1,
             boolean singleRealizationOnly)
         throws HSException {
         HearthTreeNode toRet = boardState;
@@ -47,5 +45,11 @@ public class ArchmageAntonidas extends Minion implements CardPlayBeginInterface 
             toRet.data_.getCurrentPlayer().placeCardHand(new Fireball());
         }
         return toRet;
+    }
+
+    @Override
+    @Deprecated
+    public HearthTreeNode onCardPlayBegin(PlayerSide thisCardPlayerSide, PlayerSide cardUserPlayerSide, Card usedCard, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
+        return this.onCardPlayBegin(thisCardPlayerSide, cardUserPlayerSide, usedCard, boardState, singleRealizationOnly);
     }
 }

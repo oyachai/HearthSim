@@ -16,7 +16,7 @@ public class ManaAddict extends Minion implements CardPlayBeginInterface {
     }
 
     public HearthTreeNode onCardPlayBegin(PlayerSide thisCardPlayerSide, PlayerSide cardUserPlayerSide, Card usedCard,
-            HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly)
+            HearthTreeNode boardState, boolean singleRealizationOnly)
             throws HSException {
         if (cardUserPlayerSide == thisCardPlayerSide && usedCard instanceof SpellCard) {
             this.addExtraAttackUntilTurnEnd((byte)2);
@@ -24,4 +24,9 @@ public class ManaAddict extends Minion implements CardPlayBeginInterface {
         return boardState;
     }
 
+    @Override
+    @Deprecated
+    public HearthTreeNode onCardPlayBegin(PlayerSide thisCardPlayerSide, PlayerSide cardUserPlayerSide, Card usedCard, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
+        return this.onCardPlayBegin(thisCardPlayerSide, cardUserPlayerSide, usedCard, boardState, singleRealizationOnly);
+    }
 }

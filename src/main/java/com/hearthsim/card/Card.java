@@ -375,8 +375,7 @@ public class Card implements DeepCopyable<Card> {
         }
 
         for (CardPlayBeginInterface match : matches) {
-            toRet = match.onCardPlayBegin(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet,
-                    deckPlayer0, deckPlayer1, singleRealizationOnly);
+            toRet = match.onCardPlayBegin(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, singleRealizationOnly);
         }
         matches.clear();
 
@@ -398,8 +397,7 @@ public class Card implements DeepCopyable<Card> {
         }
 
         for (CardPlayBeginInterface match : matches) {
-            toRet = match.onCardPlayBegin(PlayerSide.WAITING_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet,
-                    deckPlayer0, deckPlayer1, singleRealizationOnly);
+            toRet = match.onCardPlayBegin(PlayerSide.WAITING_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, singleRealizationOnly);
         }
 
         // check for and remove dead minions
