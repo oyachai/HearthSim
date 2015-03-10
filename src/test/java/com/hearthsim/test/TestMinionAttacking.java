@@ -63,8 +63,7 @@ public class TestMinionAttacking {
         Minion theAttacker = currentPlayer.getMinions().get(0);
         assertTrue(theAttacker.canAttack());
 
-        Minion target = waitingPlayer.getCharacter(0);
-        ret = theAttacker.attack(PlayerSide.WAITING_PLAYER, target, board, null, null, false);
+        ret = theAttacker.attack(PlayerSide.WAITING_PLAYER, 0, board, null, null, false);
         assertEquals(board, ret);
 
         assertEquals(30, currentPlayer.getHero().getHealth());
@@ -83,8 +82,7 @@ public class TestMinionAttacking {
         Minion theAttacker = currentPlayer.getMinions().get(0);
         assertFalse(theAttacker.canAttack());
 
-        Minion target = waitingPlayer.getCharacter(0);
-        ret = theAttacker.attack(PlayerSide.WAITING_PLAYER, target, board, null, null, false);
+        ret = theAttacker.attack(PlayerSide.WAITING_PLAYER, 0, board, null, null, false);
         assertNull(ret);
 
         assertEquals(30, waitingPlayer.getHero().getHealth());
@@ -92,8 +90,7 @@ public class TestMinionAttacking {
 
     @Test
     public void testAttackEnemyHero() throws HSException {
-        Minion target = waitingPlayer.getCharacter(0);
-        HearthTreeNode ret = raptor.attack(PlayerSide.WAITING_PLAYER, target, board, null, null, false);
+        HearthTreeNode ret = raptor.attack(PlayerSide.WAITING_PLAYER, 0, board, null, null, false);
         assertEquals(board, ret);
 
         assertFalse(raptor.canAttack());
@@ -137,8 +134,7 @@ public class TestMinionAttacking {
     @Test
     public void testAttackBreaksStealth() throws HSException {
         raptor.setStealthed(true);
-        Minion target = waitingPlayer.getCharacter(0);
-        HearthTreeNode ret = raptor.attack(PlayerSide.WAITING_PLAYER, target, board, null, null, false);
+        HearthTreeNode ret = raptor.attack(PlayerSide.WAITING_PLAYER, 0, board, null, null, false);
         assertEquals(board, ret);
 
         assertFalse(raptor.getStealthed());
@@ -148,8 +144,7 @@ public class TestMinionAttacking {
 
     @Test
     public void testAttackOwnHero() throws HSException {
-        Minion target = currentPlayer.getCharacter(0);
-        HearthTreeNode ret = raptor.attack(PlayerSide.CURRENT_PLAYER, target, board, null, null, false);
+        HearthTreeNode ret = raptor.attack(PlayerSide.CURRENT_PLAYER, 0, board, null, null, false);
         assertNull(ret);
 
         assertEquals(30, currentPlayer.getHero().getHealth());
@@ -167,8 +162,7 @@ public class TestMinionAttacking {
     public void testWindfury() throws HSException {
         raptor.setWindfury(true);
 
-        Minion target = waitingPlayer.getCharacter(0);
-        HearthTreeNode ret = raptor.attack(PlayerSide.WAITING_PLAYER, target, board, null, null, false);
+        HearthTreeNode ret = raptor.attack(PlayerSide.WAITING_PLAYER, 0, board, null, null, false);
         assertEquals(board, ret);
 
         assertTrue(raptor.hasWindFuryAttacked());
@@ -176,7 +170,7 @@ public class TestMinionAttacking {
         assertEquals(30, currentPlayer.getHero().getHealth());
         assertEquals(27, waitingPlayer.getHero().getHealth());
 
-        ret = raptor.attack(PlayerSide.WAITING_PLAYER, target, board, null, null, false);
+        ret = raptor.attack(PlayerSide.WAITING_PLAYER, 0, board, null, null, false);
         assertEquals(board, ret);
 
         assertTrue(raptor.hasWindFuryAttacked());
@@ -187,8 +181,7 @@ public class TestMinionAttacking {
 
     @Test
     public void testWindfuryPostAttack() throws HSException {
-        Minion target = waitingPlayer.getCharacter(0);
-        HearthTreeNode ret = raptor.attack(PlayerSide.WAITING_PLAYER, target, board, null, null, false);
+        HearthTreeNode ret = raptor.attack(PlayerSide.WAITING_PLAYER, 0, board, null, null, false);
         assertEquals(board, ret);
 
         assertFalse(raptor.hasWindFuryAttacked());
@@ -200,7 +193,7 @@ public class TestMinionAttacking {
         assertTrue(raptor.hasWindFuryAttacked());
         assertTrue(raptor.canAttack());
 
-        ret = raptor.attack(PlayerSide.WAITING_PLAYER, target, board, null, null, false);
+        ret = raptor.attack(PlayerSide.WAITING_PLAYER, 0, board, null, null, false);
         assertEquals(board, ret);
 
         assertTrue(raptor.hasWindFuryAttacked());
@@ -213,8 +206,7 @@ public class TestMinionAttacking {
     public void testExtraAttackDamage() throws HSException {
         raptor.setExtraAttackUntilTurnEnd((byte)2);
 
-        Minion target = waitingPlayer.getCharacter(0);
-        HearthTreeNode ret = raptor.attack(PlayerSide.WAITING_PLAYER, target, board, null, null, false);
+        HearthTreeNode ret = raptor.attack(PlayerSide.WAITING_PLAYER, 0, board, null, null, false);
         assertEquals(board, ret);
 
         assertFalse(raptor.canAttack());

@@ -133,10 +133,9 @@ public class TestUnstableGhoul {
         assertTrue(waitingPlayer.getMinions().get(0).getDivineShield());
 
         //attack the Ogre... deal 1 damage to all
-        Minion target = waitingPlayer.getCharacter(3);
         Minion attacker = currentPlayer.getCharacter(1);
         attacker.hasAttacked(false);
-        ret = attacker.attack(PlayerSide.WAITING_PLAYER, target, ret, null, null, false);
+        ret = attacker.attack(PlayerSide.WAITING_PLAYER, 3, ret, null, null, false);
 
         assertFalse(ret == null);
         assertEquals(currentPlayer.getHand().size(), 0);
@@ -193,11 +192,10 @@ public class TestUnstableGhoul {
         assertTrue(waitingPlayer.getMinions().get(0).getDivineShield());
 
         //Silence the Unstable Ghoul first, then attack with it
-        Minion target = waitingPlayer.getCharacter(3);
         Minion attacker = currentPlayer.getCharacter(1);
         attacker.silenced(PlayerSide.CURRENT_PLAYER, board);
         attacker.hasAttacked(false);
-        ret = attacker.attack(PlayerSide.WAITING_PLAYER, target, ret, null, null, false);
+        ret = attacker.attack(PlayerSide.WAITING_PLAYER, 3, ret, null, null, false);
 
         assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 2);

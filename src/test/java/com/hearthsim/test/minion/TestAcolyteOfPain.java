@@ -113,8 +113,7 @@ public class TestAcolyteOfPain {
     @Test
     public void testDivineShieldPreventsDraw() throws HSException {
         acolyteOnBoard.setDivineShield(true);
-        Minion target = waitingPlayer.getCharacter(1);
-        HearthTreeNode ret = acolyteOnBoard.attack(PlayerSide.WAITING_PLAYER, target, board, deck, deck, false);
+        HearthTreeNode ret = acolyteOnBoard.attack(PlayerSide.WAITING_PLAYER, 1, board, deck, deck, false);
         assertEquals(board, ret);
 
         assertFalse(board instanceof CardDrawNode);

@@ -71,8 +71,7 @@ public class HearthAction {
             break;
             case ATTACK: {
                 Minion attacker = actingPlayer.getCharacter(cardOrCharacterIndex_);
-                Minion target = targetPlayer.getCharacter(targetCharacterIndex_);
-                toRet = attacker.attack(targetPlayerSide, target, toRet, deckPlayer0, deckPlayer1, singleRealization);
+                toRet = attacker.attack(targetPlayerSide, targetCharacterIndex_, toRet, deckPlayer0, deckPlayer1, singleRealization);
             }
             break;
             case UNTARGETABLE_BATTLECRY: {

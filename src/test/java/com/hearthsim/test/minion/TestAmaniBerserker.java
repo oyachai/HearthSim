@@ -43,8 +43,7 @@ public class TestAmaniBerserker {
 
     @Test
     public void testAttackNormal() throws HSException {
-        Minion target = waitingPlayer.getCharacter(0);
-        HearthTreeNode ret = amaniBerserker.attack(PlayerSide.WAITING_PLAYER, target, board, null, null, false);
+        HearthTreeNode ret = amaniBerserker.attack(PlayerSide.WAITING_PLAYER, 0, board, null, null, false);
         assertEquals(board, ret);
         assertEquals(waitingPlayer.getHero().getHealth(), 28);
     }

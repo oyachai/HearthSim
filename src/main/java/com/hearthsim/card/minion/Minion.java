@@ -945,6 +945,12 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         return toRet;
     }
 
+    public HearthTreeNode attack(PlayerSide targetMinionPlayerSide, int targetCharacterIndex, HearthTreeNode boardState,
+                                 Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
+        Minion targetCharacter = boardState.data_.modelForSide(targetMinionPlayerSide).getCharacter(targetCharacterIndex);
+        return this.attack(targetMinionPlayerSide, targetCharacter, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+    }
+
     /**
      *
      * Attack with the minion

@@ -50,12 +50,11 @@ public class TestHeroBase {
 
     @Test
     public void testHeroCannotAttack() throws HSException {
-        Minion target = waitingPlayer.getCharacter(0);
         Hero hero = currentPlayer.getHero();
 
         assertFalse(hero.canAttack());
 
-        HearthTreeNode ret = hero.attack(PlayerSide.WAITING_PLAYER, target, board, null, null, false);
+        HearthTreeNode ret = hero.attack(PlayerSide.WAITING_PLAYER, 0, board, null, null, false);
         assertNull(ret);
     }
 
@@ -63,9 +62,8 @@ public class TestHeroBase {
     public void testMinionAttackingHero() throws HSException {
 
         // null case
-        Minion target = waitingPlayer.getCharacter(0);
         Minion minion = currentPlayer.getMinions().get(0);
-        HearthTreeNode ret = minion.attack(PlayerSide.WAITING_PLAYER, target, board, null, null, false);
+        HearthTreeNode ret = minion.attack(PlayerSide.WAITING_PLAYER, 0, board, null, null, false);
         assertEquals(board, ret);
 
         assertEquals(currentPlayer.getHand().size(), 0);

@@ -36,7 +36,6 @@ public class ChildNodeCreatorBase implements ChildNodeCreator {
         PlayerModel currentPlayer = boardStateNode.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
 
         HearthTreeNode newState = null;
-        Minion targetMinion = null;
         Minion tempMinion = null;
 
         // attack with characters
@@ -50,10 +49,9 @@ public class ChildNodeCreatorBase implements ChildNodeCreator {
                 int targetIndex = integer.intValue();
                 newState = new HearthTreeNode(boardStateNode.data_.deepCopy());
 
-                targetMinion = newState.data_.getWaitingPlayer().getCharacter(targetIndex);
                 tempMinion = newState.data_.getCurrentPlayer().getCharacter(attackerIndex);
 
-                newState = tempMinion.attack(PlayerSide.WAITING_PLAYER, targetMinion, newState, deckPlayer0_,
+                newState = tempMinion.attack(PlayerSide.WAITING_PLAYER, targetIndex, newState, deckPlayer0_,
                         deckPlayer1_, false);
 
                 if (newState != null) {

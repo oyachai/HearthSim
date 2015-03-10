@@ -133,8 +133,7 @@ class SylvanasWindrunnerSpec extends CardSpec {
 
         def copiedBoard = startingBoard.deepCopy()
         def attacker = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(1)
-        def attacked = root.data_.modelForSide(WAITING_PLAYER).getCharacter(1)
-        def ret = attacker.attack(WAITING_PLAYER, attacked, root, null, null, false)
+        def ret = attacker.attack(WAITING_PLAYER, 1, root, null, null, false)
         
         expect:
         assertFalse(ret == null);

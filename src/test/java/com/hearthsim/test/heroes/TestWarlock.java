@@ -102,14 +102,13 @@ public class TestWarlock {
 
         Deck deck = new Deck(cards);
 
-        Minion target = waitingPlayer.getCharacter(0);
         Minion minion = currentPlayer.getMinions().get(0);
-        HearthTreeNode ret = minion.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null, false);
+        HearthTreeNode ret = minion.attack(PlayerSide.WAITING_PLAYER, 0, board, deck, null, false);
         assertEquals(board, ret);
 
         currentPlayer.setDeckPos((byte) 30);
 
-        target = currentPlayer.getCharacter(0);
+        Minion target = currentPlayer.getCharacter(0);
         Hero hero = currentPlayer.getHero();
         ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
         assertEquals(currentPlayer.getHand().size(), 0);
