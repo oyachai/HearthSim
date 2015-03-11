@@ -46,11 +46,11 @@ public class TestBlessedChampion {
         currentPlayer.setMaxMana((byte) 8);
         waitingPlayer.setMaxMana((byte) 8);
 
-        minion0_0.placeMinion(PlayerSide.CURRENT_PLAYER, currentPlayer.getHero(), board, null, null, true);
-        minion0_1.placeMinion(PlayerSide.CURRENT_PLAYER, currentPlayer.getHero(), board, null, null, true);
-        minion0_2.placeMinion(PlayerSide.CURRENT_PLAYER, currentPlayer.getHero(), board, null, null, true);
-        minion1_0.placeMinion(PlayerSide.WAITING_PLAYER, waitingPlayer.getHero(), board, null, null, true);
-        minion1_1.placeMinion(PlayerSide.WAITING_PLAYER, waitingPlayer.getHero(), board, null, null, true);
+        minion0_0.placeMinion(PlayerSide.CURRENT_PLAYER, currentPlayer.getHero(), board, true);
+        minion0_1.placeMinion(PlayerSide.CURRENT_PLAYER, currentPlayer.getHero(), board, true);
+        minion0_2.placeMinion(PlayerSide.CURRENT_PLAYER, currentPlayer.getHero(), board, true);
+        minion1_0.placeMinion(PlayerSide.WAITING_PLAYER, waitingPlayer.getHero(), board, true);
+        minion1_1.placeMinion(PlayerSide.WAITING_PLAYER, waitingPlayer.getHero(), board, true);
     }
 
     @Test

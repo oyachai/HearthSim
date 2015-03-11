@@ -876,14 +876,11 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
      * @param targetSide
      * @param targetMinion
      * @param boardState
-     * @param deckPlayer0
-     * @param deckPlayer1
      * @param singleRealizationOnly
      * @return
      * @throws HSException
      */
-    public HearthTreeNode placeMinion(PlayerSide targetSide, Minion targetMinion, HearthTreeNode boardState,
-            Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
+    public HearthTreeNode placeMinion(PlayerSide targetSide, Minion targetMinion, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
         if (isHero(targetMinion)) {
             boardState.data_.placeMinion(targetSide, this, 0);
         } else {
@@ -891,7 +888,12 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
             boardState.data_.placeMinion(targetSide, this,
                 targetPlayer.getMinions().indexOf(targetMinion) + 1);
         }
-        return this.notifyMinionPlacement(boardState, targetSide, deckPlayer0, deckPlayer1);
+        return this.notifyMinionPlacement(boardState, targetSide);
+    }
+
+    @Deprecated
+    public HearthTreeNode placeMinion(PlayerSide targetSide, Minion targetMinion, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
+        return this.placeMinion(targetSide, targetMinion, boardState, singleRealizationOnly);
     }
 
     /**
