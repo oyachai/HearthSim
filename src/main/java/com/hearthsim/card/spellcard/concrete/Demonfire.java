@@ -62,7 +62,7 @@ public class Demonfire extends SpellCard {
                 targetMinion.setAttack((byte)(targetMinion.getAttack() + 2));
                 targetMinion.setHealth((byte)(targetMinion.getHealth() + 2));
             } else {
-                toRet = targetMinion.takeDamage((byte)2, PlayerSide.CURRENT_PLAYER, side, boardState, deckPlayer0, deckPlayer1, true, false);
+                toRet = targetMinion.takeDamage((byte)2, PlayerSide.CURRENT_PLAYER, side, boardState, true, false);
             }
         }
         return toRet;

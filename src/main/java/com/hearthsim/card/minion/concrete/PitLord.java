@@ -28,8 +28,7 @@ public class PitLord extends Minion implements MinionUntargetableBattlecry {
         ) throws HSException {
         HearthTreeNode toRet = boardState;
         PlayerModel currentPlayer = toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
-        toRet = currentPlayer.getHero().takeDamage((byte)5, PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, boardState, deckPlayer0, deckPlayer1, false, true);
+        toRet = currentPlayer.getHero().takeDamage((byte)5, PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, boardState, false, true);
         return toRet;
     }
-
 }

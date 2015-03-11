@@ -35,7 +35,7 @@ public class FireElemental extends Minion implements MinionTargetableBattlecry {
             Deck deckPlayer1
         ) throws HSException {
         HearthTreeNode toRet = boardState;
-        toRet = targetMinion.takeDamage(BATTLECRY_DAMAGE, PlayerSide.CURRENT_PLAYER, side, toRet, deckPlayer0, deckPlayer1, false, false);
+        toRet = targetMinion.takeDamage(BATTLECRY_DAMAGE, PlayerSide.CURRENT_PLAYER, side, toRet, false, false);
         return toRet;
     }
 

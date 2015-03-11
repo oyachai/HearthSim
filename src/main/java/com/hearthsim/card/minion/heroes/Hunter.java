@@ -43,7 +43,7 @@ public class Hunter extends Hero {
         if (isHero(targetMinion) && targetPlayerSide == PlayerSide.WAITING_PLAYER) {
             this.hasBeenUsed = true;
             toRet.data_.getCurrentPlayer().subtractMana(HERO_ABILITY_COST);
-            toRet = targetMinion.takeDamage((byte)2, PlayerSide.CURRENT_PLAYER, targetPlayerSide, toRet, deckPlayer0, deckPlayer1, false, false);
+            toRet = targetMinion.takeDamage((byte)2, PlayerSide.CURRENT_PLAYER, targetPlayerSide, toRet, false, false);
             return toRet;
         } else {
             return null;

@@ -29,13 +29,11 @@ public class AcolyteOfPain extends Minion {
             PlayerSide attackPlayerSide,
             PlayerSide thisPlayerSide,
             HearthTreeNode boardState,
-            Deck deckPlayer0,
-            Deck deckPlayer1,
             boolean isSpellDamage,
             boolean handleMinionDeath)
         throws HSException {
         if (!divineShield_) {
-            HearthTreeNode toRet = super.takeDamage(damage, attackPlayerSide, thisPlayerSide, boardState, deckPlayer0, deckPlayer1, isSpellDamage, handleMinionDeath);
+            HearthTreeNode toRet = super.takeDamage(damage, attackPlayerSide, thisPlayerSide, boardState, isSpellDamage, handleMinionDeath);
             if (damage > 0 && thisPlayerSide == PlayerSide.CURRENT_PLAYER) {
                 if (toRet instanceof CardDrawNode) {
                     ((CardDrawNode) toRet).addNumCardsToDraw(1);

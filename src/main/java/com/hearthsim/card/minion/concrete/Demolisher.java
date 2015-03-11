@@ -19,7 +19,7 @@ public class Demolisher extends Minion {
         if (thisMinionPlayerIndex == PlayerSide.CURRENT_PLAYER) {
             PlayerModel waitingPlayer = toRet.data_.modelForSide(PlayerSide.WAITING_PLAYER);
             Minion targetMinion = toRet.data_.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter((int)(Math.random()*(waitingPlayer.getNumMinions() + 1)));
-            toRet = targetMinion.takeDamage((byte)2, PlayerSide.CURRENT_PLAYER, PlayerSide.WAITING_PLAYER, toRet, deckPlayer0, deckPlayer1, false, false);
+            toRet = targetMinion.takeDamage((byte)2, PlayerSide.CURRENT_PLAYER, PlayerSide.WAITING_PLAYER, toRet, false, false);
         }
         return super.startTurn(thisMinionPlayerIndex, toRet, deckPlayer0, deckPlayer1);
     }

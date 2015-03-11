@@ -472,6 +472,13 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         return boardModel;
     }
 
+    @Deprecated
+    public HearthTreeNode takeDamage(byte damage, PlayerSide attackPlayerSide, PlayerSide thisPlayerSide,
+                                     HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean isSpellDamage,
+                                     boolean handleMinionDeath) throws HSException {
+        return this.takeDamage(damage, attackPlayerSide, thisPlayerSide, boardState, isSpellDamage, handleMinionDeath);
+    }
+
     /**
      * Called when this minion takes damage
      * <p>
@@ -481,14 +488,11 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
      * @param attackPlayerSide  The player index of the attacker. This is needed to do things like +spell damage.
      * @param thisPlayerSide
      * @param boardState
-     * @param deckPlayer0       The deck of player0
      * @param isSpellDamage     True if this is a spell damage
      * @param handleMinionDeath Set this to True if you want the death event to trigger when (if) the minion dies from this damage. Setting this flag to True will also trigger deathrattle immediately.
      * @throws HSInvalidPlayerIndexException
      */
-    public HearthTreeNode takeDamage(byte damage, PlayerSide attackPlayerSide, PlayerSide thisPlayerSide,
-                                     HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean isSpellDamage,
-                                     boolean handleMinionDeath) throws HSException {
+    public HearthTreeNode takeDamage(byte damage, PlayerSide attackPlayerSide, PlayerSide thisPlayerSide, HearthTreeNode boardState, boolean isSpellDamage, boolean handleMinionDeath) throws HSException {
         if (divineShield_) {
             if (damage > 0)
                 divineShield_ = false;
@@ -503,7 +507,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
             : damage;
         health_ = (byte) (health_ - totalDamage);
 
-        return this.notifyMinionDamaged(boardState, thisPlayerSide, deckPlayer0, deckPlayer1);
+        return this.notifyMinionDamaged(boardState, thisPlayerSide);
     }
 
     @Deprecated
@@ -1113,8 +1117,13 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         return toRet;
     }
 
+    @Deprecated
     protected HearthTreeNode notifyMinionDamaged(HearthTreeNode boardState, PlayerSide targetSide, Deck deckPlayer0,
-            Deck deckPlayer1) throws HSException {
+                                                 Deck deckPlayer1) throws HSException {
+        return this.notifyMinionDamaged(boardState, targetSide);
+    }
+
+    protected HearthTreeNode notifyMinionDamaged(HearthTreeNode boardState, PlayerSide targetSide) throws HSException {
         HearthTreeNode toRet = boardState;
         ArrayList<MinionDamagedInterface> matches = new ArrayList<MinionDamagedInterface>();
 

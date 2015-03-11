@@ -45,7 +45,7 @@ public class TestMinionDamage {
     @Test
     public void testImmunity() throws HSException {
         croc.setImmune(true);
-        HearthTreeNode ret = croc.takeDamage((byte)2, PlayerSide.CURRENT_PLAYER, PlayerSide.WAITING_PLAYER, board, null, null, false, false);
+        HearthTreeNode ret = croc.takeDamage((byte)2, PlayerSide.CURRENT_PLAYER, PlayerSide.WAITING_PLAYER, board, false, false);
         assertEquals(board, ret);
 
         assertTrue(croc.getImmune());

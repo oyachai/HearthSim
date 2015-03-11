@@ -22,10 +22,8 @@ public class PatientAssassin extends Minion {
 
         HearthTreeNode toRet = boardState;
         byte origAttack = targetMinion.getTotalAttack();
-        toRet = targetMinion.takeDamage((byte)99, PlayerSide.CURRENT_PLAYER, targetMinionPlayerSide,
-                toRet, deckPlayer0, deckPlayer1, false, false);
-        toRet = this.takeDamage(origAttack, targetMinionPlayerSide, PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0,
-                deckPlayer1, false, false);
+        toRet = targetMinion.takeDamage((byte)99, PlayerSide.CURRENT_PLAYER, targetMinionPlayerSide, toRet, false, false);
+        toRet = this.takeDamage(origAttack, targetMinionPlayerSide, PlayerSide.CURRENT_PLAYER, toRet, false, false);
         if (windFury_ && !hasWindFuryAttacked_)
             hasWindFuryAttacked_ = true;
         else

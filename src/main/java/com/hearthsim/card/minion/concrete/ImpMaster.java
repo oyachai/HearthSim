@@ -18,7 +18,7 @@ public class ImpMaster extends Minion {
         if (isWaitingPlayer(thisMinionPlayerIndex))
             return tmpState;
 
-        tmpState = this.takeDamage((byte)1, thisMinionPlayerIndex, thisMinionPlayerIndex, tmpState, deckPlayer0, deckPlayer1, false, false);
+        tmpState = this.takeDamage((byte)1, thisMinionPlayerIndex, thisMinionPlayerIndex, tmpState, false, false);
         if (!tmpState.data_.getCurrentPlayer().isBoardFull()) {
             tmpState = new Imp().summonMinion(thisMinionPlayerIndex, this, tmpState, deckPlayer0, deckPlayer1, false, true);
         }
