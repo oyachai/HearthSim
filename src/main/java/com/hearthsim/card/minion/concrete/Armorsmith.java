@@ -22,21 +22,20 @@ public class Armorsmith extends Minion implements MinionDamagedInterface {
      * @param damagedPlayerSide
      * @param damagedMinion The damaged minion
      * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-     * @param deckPlayer0 The deck of player0    @return The boardState is manipulated and returned
      * */
     @Override
-    public HearthTreeNode minionDamagedEvent(
-            PlayerSide thisMinionPlayerSide,
-            PlayerSide damagedPlayerSide,
-            Minion damagedMinion,
-            HearthTreeNode boardState,
-            Deck deckPlayer0,
-            Deck deckPlayer1) {
+    public HearthTreeNode minionDamagedEvent(PlayerSide thisMinionPlayerSide, PlayerSide damagedPlayerSide, Minion damagedMinion, HearthTreeNode boardState) {
         HearthTreeNode toRet = boardState;
         if (thisMinionPlayerSide == damagedPlayerSide) {
             Hero hero = toRet.data_.modelForSide(thisMinionPlayerSide).getHero();
             hero.setArmor((byte)(hero.getArmor() + 1));
         }
         return toRet;
+    }
+
+    @Override
+    @Deprecated
+    public HearthTreeNode minionDamagedEvent(PlayerSide thisMinionPlayerSide, PlayerSide damagedPlayerSide, Minion damagedMinion, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) {
+        return this.minionDamagedEvent(thisMinionPlayerSide, damagedPlayerSide, damagedMinion, boardState);
     }
 }

@@ -1133,8 +1133,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         }
 
         for (MinionDamagedInterface match : matches) {
-            toRet = match.minionDamagedEvent(PlayerSide.CURRENT_PLAYER, targetSide, this,
-                    toRet, deckPlayer0, deckPlayer1);
+            toRet = match.minionDamagedEvent(PlayerSide.CURRENT_PLAYER, targetSide, this, toRet);
         }
         matches.clear();
 
@@ -1150,8 +1149,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         }
 
         for (MinionDamagedInterface match : matches) {
-            toRet = match.minionDamagedEvent(PlayerSide.WAITING_PLAYER, targetSide, this, toRet, deckPlayer0,
-                    deckPlayer1);
+            toRet = match.minionDamagedEvent(PlayerSide.WAITING_PLAYER, targetSide, this, toRet);
         }
 
         return toRet;
