@@ -300,7 +300,7 @@ public class Card implements DeepCopyable<Card> {
 
         currentPlayer.addNumCardsUsed((byte)1);
 
-        HearthTreeNode toRet = this.notifyCardPlayBegin(boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+        HearthTreeNode toRet = this.notifyCardPlayBegin(boardState, singleRealizationOnly);
         if (toRet != null) {
             toRet = this.use_core(side, targetMinion, toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
             if (this.triggersOverload())
@@ -349,8 +349,13 @@ public class Card implements DeepCopyable<Card> {
     // ======================================================================================
     // Various notifications
     // ======================================================================================
+    @Deprecated
     protected HearthTreeNode notifyCardPlayBegin(HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1,
-            boolean singleRealizationOnly) throws HSException {
+                                                 boolean singleRealizationOnly) throws HSException {
+        return this.notifyCardPlayBegin(boardState, singleRealizationOnly);
+    }
+
+    protected HearthTreeNode notifyCardPlayBegin(HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
         PlayerModel currentPlayer = boardState.data_.getCurrentPlayer();
         PlayerModel waitingPlayer = boardState.data_.getWaitingPlayer();
 
