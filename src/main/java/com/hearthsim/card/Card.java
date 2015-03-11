@@ -410,8 +410,12 @@ public class Card implements DeepCopyable<Card> {
         return toRet;
     }
 
-    protected HearthTreeNode notifyCardPlayResolve(HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1,
-            boolean singleRealizationOnly) throws HSException {
+    @Deprecated
+    protected HearthTreeNode notifyCardPlayResolve(HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
+        return this.notifyCardPlayResolve(boardState, singleRealizationOnly);
+    }
+
+    protected HearthTreeNode notifyCardPlayResolve(HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
         PlayerModel currentPlayer = boardState.data_.getCurrentPlayer();
         PlayerModel waitingPlayer = boardState.data_.getWaitingPlayer();
 
@@ -436,8 +440,7 @@ public class Card implements DeepCopyable<Card> {
         }
 
         for (CardPlayAfterInterface match : matches) {
-            toRet = match.onCardPlayResolve(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet,
-                    deckPlayer0, deckPlayer1, singleRealizationOnly);
+            toRet = match.onCardPlayResolve(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, singleRealizationOnly);
         }
         matches.clear();
 
@@ -459,8 +462,7 @@ public class Card implements DeepCopyable<Card> {
         }
 
         for (CardPlayAfterInterface match : matches) {
-            toRet = match.onCardPlayResolve(PlayerSide.WAITING_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet,
-                    deckPlayer0, deckPlayer1, singleRealizationOnly);
+            toRet = match.onCardPlayResolve(PlayerSide.WAITING_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, singleRealizationOnly);
         }
 
         // check for and remove dead minions
