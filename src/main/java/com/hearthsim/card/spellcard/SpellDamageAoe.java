@@ -58,7 +58,7 @@ public class SpellDamageAoe extends SpellDamage {
             Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
         if (boardState != null && this.hitsOwnHero) {
             Minion self = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(0);
-            boardState = this.attack(PlayerSide.CURRENT_PLAYER, self, boardState, deckPlayer0, deckPlayer1);
+            boardState = this.attack(PlayerSide.CURRENT_PLAYER, self, boardState);
         }
 
         if (boardState != null && this.hitsOwnMinions) {
@@ -66,7 +66,7 @@ public class SpellDamageAoe extends SpellDamage {
         }
 
         if (boardState != null && this.hitsEnemyHero) {
-            boardState = this.attack(PlayerSide.WAITING_PLAYER, targetMinion, boardState, deckPlayer0, deckPlayer1);
+            boardState = this.attack(PlayerSide.WAITING_PLAYER, targetMinion, boardState);
         }
 
         if (boardState != null && this.hitsEnemyMinions) {

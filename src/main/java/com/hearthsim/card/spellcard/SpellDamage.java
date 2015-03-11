@@ -61,12 +61,16 @@ public class SpellDamage extends SpellCard {
      * @param targetMinionPlayerSide
      * @param targetMinion The target minion
      * @param boardState The BoardState before this card has performed its action. It will be manipulated and returned.
-     * @param deckPlayer0 The deck of player0
      * @return The boardState is manipulated and returned
      */
-    public HearthTreeNode attack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode boardState,
-            Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+    public HearthTreeNode attack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode boardState) throws HSException {
         return targetMinion.takeDamage(damage_, PlayerSide.CURRENT_PLAYER, targetMinionPlayerSide, boardState, true, false);
+    }
+
+    @Deprecated
+    public HearthTreeNode attack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode boardState,
+                                 Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+        return this.attack(targetMinionPlayerSide, targetMinion, boardState);
     }
 
     public HearthTreeNode attackAllMinionsOnSide(PlayerSide targetMinionPlayerSide, HearthTreeNode boardState,
@@ -92,7 +96,7 @@ public class SpellDamage extends SpellCard {
     protected HearthTreeNode use_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState,
             Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
         HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
-        toRet = this.attack(side, targetMinion, toRet, deckPlayer0, deckPlayer1);
+        toRet = this.attack(side, targetMinion, toRet);
         return toRet;
     }
 
