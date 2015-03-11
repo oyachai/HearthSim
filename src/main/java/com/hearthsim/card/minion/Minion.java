@@ -1028,8 +1028,13 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         return toRet;
     }
 
+    @Deprecated
     protected HearthTreeNode notifyMinionPlacement(HearthTreeNode boardState, PlayerSide targetSide, Deck deckPlayer0,
-            Deck deckPlayer1) throws HSException {
+                                                   Deck deckPlayer1) throws HSException {
+        return this.notifyMinionPlacement(boardState, targetSide);
+    }
+
+    protected HearthTreeNode notifyMinionPlacement(HearthTreeNode boardState, PlayerSide targetSide) throws HSException {
         HearthTreeNode toRet = boardState;
 
         ArrayList<MinionPlacedInterface> matches = new ArrayList<MinionPlacedInterface>();
@@ -1049,8 +1054,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         }
 
         for (MinionPlacedInterface match : matches) {
-            toRet = match.minionPlacedEvent(PlayerSide.CURRENT_PLAYER, targetSide, this,
-                    toRet, deckPlayer0, deckPlayer1);
+            toRet = match.minionPlacedEvent(PlayerSide.CURRENT_PLAYER, targetSide, this, toRet);
         }
         matches.clear();
 
@@ -1066,8 +1070,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         }
 
         for (MinionPlacedInterface match : matches) {
-            toRet = match.minionPlacedEvent(PlayerSide.WAITING_PLAYER, targetSide, this, toRet, deckPlayer0,
-                    deckPlayer1);
+            toRet = match.minionPlacedEvent(PlayerSide.WAITING_PLAYER, targetSide, this, toRet);
         }
 
         return toRet;
