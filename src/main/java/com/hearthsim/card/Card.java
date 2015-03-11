@@ -401,7 +401,7 @@ public class Card implements DeepCopyable<Card> {
         }
 
         // check for and remove dead minions
-        toRet = BoardStateFactoryBase.handleDeadMinions(toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
+        toRet = BoardStateFactoryBase.handleDeadMinions(toRet, singleRealizationOnly);
         return toRet;
     }
 
@@ -459,7 +459,7 @@ public class Card implements DeepCopyable<Card> {
         }
 
         // check for and remove dead minions
-        toRet = BoardStateFactoryBase.handleDeadMinions(toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
+        toRet = BoardStateFactoryBase.handleDeadMinions(toRet, singleRealizationOnly);
         return toRet;
     }
 

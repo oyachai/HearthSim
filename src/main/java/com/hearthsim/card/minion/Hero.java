@@ -168,7 +168,7 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
                 .indexOf(targetMinion) + 1;
             toRet.setAction(new HearthAction(Verb.HERO_ABILITY, PlayerSide.CURRENT_PLAYER, 0, targetPlayerSide,
                 targetIndex));
-            toRet = BoardStateFactoryBase.handleDeadMinions(toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
+            toRet = BoardStateFactoryBase.handleDeadMinions(toRet, singleRealizationOnly);
         }
         return toRet;
     }

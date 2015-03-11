@@ -506,6 +506,12 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         return this.notifyMinionDamaged(boardState, thisPlayerSide, deckPlayer0, deckPlayer1);
     }
 
+    @Deprecated
+    public HearthTreeNode destroyed(PlayerSide thisPlayerSide, HearthTreeNode boardState, Deck deckPlayer0,
+                                    Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
+        return this.destroyed(thisPlayerSide, boardState, singleRealizationOnly);
+    }
+
     /**
      * Called when this minion dies (destroyed)
      * <p>
@@ -513,12 +519,9 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
      *
      * @param thisPlayerSide
      * @param boardState
-     * @param deckPlayer0
-     * @param deckPlayer1
      * @throws HSInvalidPlayerIndexException
      */
-    public HearthTreeNode destroyed(PlayerSide thisPlayerSide, HearthTreeNode boardState, Deck deckPlayer0,
-                                    Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
+    public HearthTreeNode destroyed(PlayerSide thisPlayerSide, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
 
         health_ = 0;
         HearthTreeNode toRet = boardState;
@@ -529,7 +532,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         }
 
         // Notify all that it is dead
-        toRet = this.notifyMinionDead(thisPlayerSide, this, toRet, deckPlayer0, deckPlayer1);
+        toRet = this.notifyMinionDead(thisPlayerSide, this, toRet);
         return toRet;
     }
 
@@ -661,7 +664,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 
             if (node != null) {
                 // Check for dead minions
-                node = BoardStateFactoryBase.handleDeadMinions(node, deckPlayer0, deckPlayer1, singleRealizationOnly);
+                node = BoardStateFactoryBase.handleDeadMinions(node, singleRealizationOnly);
                 // add the new node to the tree
                 boardState.addChild(node);
             }
@@ -690,7 +693,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
                 deckPlayer1, singleRealizationOnly);
             if (toRet != null) {
                 // Check for dead minions
-                toRet = BoardStateFactoryBase.handleDeadMinions(toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
+                toRet = BoardStateFactoryBase.handleDeadMinions(toRet, singleRealizationOnly);
             }
         }
         return toRet;
@@ -931,7 +934,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         if (toRet != null) {
             toRet.setAction(new HearthAction(Verb.ATTACK, PlayerSide.CURRENT_PLAYER, attackerIndex,
                     targetMinionPlayerSide, targetIndex));
-            toRet = BoardStateFactoryBase.handleDeadMinions(toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
+            toRet = BoardStateFactoryBase.handleDeadMinions(toRet, singleRealizationOnly);
         }
 
         // Attacking means you lose stealth
@@ -1154,8 +1157,13 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         return toRet;
     }
 
+    @Deprecated
     protected HearthTreeNode notifyMinionDead(PlayerSide deadMinionPlayerSide,
-            Minion deadMinion, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+                                              Minion deadMinion, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+        return this.notifyMinionDead(deadMinionPlayerSide, deadMinion, boardState);
+    }
+
+    protected HearthTreeNode notifyMinionDead(PlayerSide deadMinionPlayerSide, Minion deadMinion, HearthTreeNode boardState) throws HSException {
         HearthTreeNode toRet = boardState;
         ArrayList<MinionDeadInterface> matches = new ArrayList<MinionDeadInterface>();
 

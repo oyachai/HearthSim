@@ -64,7 +64,7 @@ public class StampedingKodo extends Minion implements MinionUntargetableBattlecr
                     HearthTreeNode newState = new HearthTreeNode(toRet.data_.deepCopy());
                     Minion targetMinion = newState.data_.modelForSide(PlayerSide.WAITING_PLAYER).getMinions().get(targetPlayer.getMinions().indexOf(possibleTarget));
                     targetMinion.setHealth((byte)-99); //destroyed!
-                    newState = BoardStateFactoryBase.handleDeadMinions(newState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+                    newState = BoardStateFactoryBase.handleDeadMinions(newState, singleRealizationOnly);
                     toRet.addChild(newState);
                 }
             }
