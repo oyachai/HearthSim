@@ -3,6 +3,7 @@ package com.hearthsim.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import com.hearthsim.model.PlayerModel;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,6 +18,9 @@ import com.hearthsim.util.tree.HearthTreeNode;
 public class TestMinionDamage {
 
     private HearthTreeNode board;
+    private PlayerModel currentPlayer;
+    private PlayerModel waitingPlayer;
+
     private BloodfenRaptor raptor;
     private ChillwindYeti yeti;
     private RiverCrocolisk croc;
@@ -24,6 +28,8 @@ public class TestMinionDamage {
     @Before
     public void setUp() throws Exception {
         board = new HearthTreeNode(new BoardModel());
+        currentPlayer = board.data_.getCurrentPlayer();
+        waitingPlayer = board.data_.getWaitingPlayer();
 
         raptor = new BloodfenRaptor();
         yeti = new ChillwindYeti();
@@ -33,7 +39,7 @@ public class TestMinionDamage {
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, yeti);
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, croc);
 
-        board.data_.getCurrentPlayer().setMana((byte)8);
+        currentPlayer.setMana((byte) 8);
     }
 
     @Test

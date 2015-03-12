@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
+import com.hearthsim.model.PlayerModel;
 import org.junit.Test;
 
 import com.hearthsim.card.Card;
@@ -13,7 +14,6 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.AbusiveSergeant;
 import com.hearthsim.card.minion.concrete.BoulderfistOgre;
 import com.hearthsim.card.minion.concrete.RaidLeader;
-import com.hearthsim.card.minion.concrete.ScarletCrusader;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
@@ -51,8 +51,8 @@ public class TestBoardModel {
         BoardModel board2 = new BoardModel();
         BoardModel board3 = new BoardModel();
 
-        board1.placeCardHandCurrentPlayer(TestBoardModel.CreateMinionAlpha());
-        board3.placeCardHandCurrentPlayer(TestBoardModel.CreateMinionAlpha());
+        board1.getCurrentPlayer().placeCardHand(TestBoardModel.CreateMinionAlpha());
+        board3.getCurrentPlayer().placeCardHand(TestBoardModel.CreateMinionAlpha());
 
         assertNotEquals(board1, board2);
         assertEquals(board1, board3);
@@ -135,7 +135,7 @@ public class TestBoardModel {
             int nm2 = (int)(Math.random() * 2) + 1;
 
             for (int j = 0; j < nh; ++j) {
-                boards[i].placeCardHandCurrentPlayer(cards1[(int)(Math.random() * numCards1)]);
+                boards[i].getCurrentPlayer().placeCardHand(cards1[(int)(Math.random() * numCards1)]);
             }
 
             for (int j = 0; j < nm1; ++j) {
@@ -162,42 +162,20 @@ public class TestBoardModel {
 
     @Test
     public void testBoardModelEquals() throws HSException {
-
         HearthTreeNode board = new HearthTreeNode(new BoardModel());
+        PlayerModel currentPlayer = board.data_.getCurrentPlayer();
+        PlayerModel waitingPlayer = board.data_.getWaitingPlayer();
 
-        Minion minion0_0 = new BoulderfistOgre();
-        Minion minion0_1 = new RaidLeader();
-        Minion minion0_2 = new AbusiveSergeant();
-        Minion minion1_0 = new BoulderfistOgre();
-        Minion minion1_1 = new RaidLeader();
-        Minion minion1_2 = new ScarletCrusader();
+        board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new BoulderfistOgre());
+        board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new RaidLeader());
+        board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new AbusiveSergeant());
 
-        board.data_.placeCardHandCurrentPlayer(minion0_0);
-        board.data_.placeCardHandCurrentPlayer(minion0_1);
-        board.data_.placeCardHandCurrentPlayer(minion0_2);
+        board.data_.placeMinion(PlayerSide.WAITING_PLAYER, new BoulderfistOgre());
+        board.data_.placeMinion(PlayerSide.WAITING_PLAYER, new RaidLeader());
+        board.data_.placeMinion(PlayerSide.WAITING_PLAYER, new AbusiveSergeant());
 
-        board.data_.placeCardHandWaitingPlayer(minion1_0);
-        board.data_.placeCardHandWaitingPlayer(minion1_1);
-        board.data_.placeCardHandWaitingPlayer(minion1_2);
-
-        board.data_.getCurrentPlayer().setMana((byte)8);
-        board.data_.getWaitingPlayer().setMana((byte)8);
-
-        board.data_.getCurrentPlayer().setMaxMana((byte)8);
-        board.data_.getWaitingPlayer().setMaxMana((byte)8);
-
-        HearthTreeNode tmpBoard = new HearthTreeNode(board.data_.flipPlayers());
-        tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, 0, tmpBoard, deck1, deck0);
-        tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER,
-                tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck1, deck0);
-        tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER,
-                tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck1, deck0);
-
-        board = new HearthTreeNode(tmpBoard.data_.flipPlayers());
-        board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayerHero(),
-                board, deck0, deck1);
-        board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayerHero(),
-                board, deck0, deck1);
+        currentPlayer.setMana((byte) 8);
+        waitingPlayer.setMana((byte) 8);
 
         board.data_.resetMana();
         board.data_.resetMinions();

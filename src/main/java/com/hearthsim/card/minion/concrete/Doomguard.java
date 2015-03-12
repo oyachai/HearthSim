@@ -6,6 +6,7 @@ import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionUntargetableBattlecry;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.HearthAction;
 import com.hearthsim.util.IdentityLinkedList;
@@ -31,18 +32,20 @@ public class Doomguard extends Minion implements MinionUntargetableBattlecry {
         ) throws HSException {
         HearthTreeNode toRet = boardState;
 
+        PlayerModel currentPlayer = toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+
         if (singleRealizationOnly) {
-            IdentityLinkedList<Card> hand = PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getHand();
+            IdentityLinkedList<Card> hand = currentPlayer.getHand();
             for (int indx = 0; indx < 2; ++indx) {
                 if (hand.size() > 0) {
                     Card targetCard = hand.get((int)(Math.random() * hand.size()));
-                    toRet.data_.removeCard_hand(targetCard);
+                    toRet.data_.getCurrentPlayer().getHand().remove(targetCard);
                 }
             }
         } else {
-            int placementTargetIndex = minionPlacementTarget instanceof Hero ? 0 : PlayerSide.CURRENT_PLAYER.getPlayer(boardState).getMinions().indexOf(minionPlacementTarget) + 1;
-            int thisMinionIndex = PlayerSide.CURRENT_PLAYER.getPlayer(boardState).getMinions().indexOf(this) + 1;
-            IdentityLinkedList<Card> hand = toRet.data_.getCurrentPlayerHand();
+            int placementTargetIndex = minionPlacementTarget instanceof Hero ? 0 : currentPlayer.getMinions().indexOf(minionPlacementTarget) + 1;
+            int thisMinionIndex = currentPlayer.getMinions().indexOf(this) + 1;
+            IdentityLinkedList<Card> hand = currentPlayer.getHand();
             if (hand.size() == 0) {
                 return toRet;
             }
@@ -51,13 +54,13 @@ public class Doomguard extends Minion implements MinionUntargetableBattlecry {
                 if (hand.size() > 1) {
                     for (int indx1 = indx0+1; indx1 < hand.size(); ++indx1) {
                         HearthTreeNode cNode = new HearthTreeNode(toRet.data_.deepCopy());
-                        cNode.data_.removeCard_hand(cNode.data_.getCurrentPlayerCardHand(indx1));
-                        cNode.data_.removeCard_hand(cNode.data_.getCurrentPlayerCardHand(indx0)); //indx1 > indx0
+                        cNode.data_.getCurrentPlayer().getHand().remove(cNode.data_.getCurrentPlayer().getHand().get(indx1));
+                        cNode.data_.getCurrentPlayer().getHand().remove(cNode.data_.getCurrentPlayer().getHand().get(indx0)); //indx1 > indx0
                         toRet.addChild(cNode);
                     }
                 } else {
                     HearthTreeNode cNode = new HearthTreeNode(toRet.data_.deepCopy());
-                    cNode.data_.removeCard_hand(cNode.data_.getCurrentPlayerCardHand(indx0));
+                    cNode.data_.getCurrentPlayer().getHand().remove(cNode.data_.getCurrentPlayer().getHand().get(indx0));
                     toRet.addChild(cNode);
                 }
             }

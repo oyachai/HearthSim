@@ -4,7 +4,6 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionUntargetableBattlecry;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class TwilightDrake extends Minion implements MinionUntargetableBattlecry {
@@ -25,7 +24,7 @@ public class TwilightDrake extends Minion implements MinionUntargetableBattlecry
             boolean singleRealizationOnly
         ) throws HSException {
         HearthTreeNode toRet = boardState;
-        this.addHealth((byte)PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getHand().size());
+        this.addHealth((byte)toRet.data_.getCurrentPlayer().getHand().size());
         return toRet;
     }
 

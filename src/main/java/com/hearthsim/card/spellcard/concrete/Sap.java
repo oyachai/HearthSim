@@ -58,9 +58,9 @@ public class Sap extends SpellCard {
         throws HSException {
         HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
         if (toRet != null) {
-            if (boardState.data_.getNumCardsHandWaitingPlayer() < 10) {
+            if (boardState.data_.getWaitingPlayer().getHand().size() < 10) {
                 Minion copy = targetMinion.createResetCopy();
-                toRet.data_.placeCardHandWaitingPlayer(copy);
+                toRet.data_.getWaitingPlayer().placeCardHand(copy);
             }
             toRet.data_.removeMinion(targetMinion);
         }

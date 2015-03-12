@@ -59,7 +59,7 @@ public class ShieldBlock extends SpellCard {
         throws HSException {
         HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
         if (toRet != null) {
-            toRet.data_.getCurrentPlayerHero().setArmor((byte)(toRet.data_.getCurrentPlayerHero().getArmor() + 5));
+            toRet.data_.getCurrentPlayer().getHero().setArmor((byte)(toRet.data_.getCurrentPlayer().getHero().getArmor() + 5));
             if (toRet instanceof CardDrawNode) {
                 ((CardDrawNode) toRet).addNumCardsToDraw(1);
             } else {

@@ -33,7 +33,7 @@ public class ImpMasterSpec extends CardSpec {
     
     def "playing Imp Master"() {
         def copiedBoard = startingBoard.deepCopy()
-        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def theCard = root.data_.getCurrentPlayer().getHand().get(0)
         def ret = theCard.useOn(CURRENT_PLAYER, 0, root, null, null)
 
         expect:
@@ -61,7 +61,7 @@ public class ImpMasterSpec extends CardSpec {
     
     def "playing Imp Master with 1 health left"() {
         def copiedBoard = startingBoard.deepCopy()
-        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def theCard = root.data_.getCurrentPlayer().getHand().get(0)
         def ret = theCard.useOn(CURRENT_PLAYER, 0, root, null, null)
         theCard.health_ = 1
         

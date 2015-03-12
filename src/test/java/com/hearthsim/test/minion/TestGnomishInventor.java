@@ -24,6 +24,9 @@ import static org.junit.Assert.*;
 public class TestGnomishInventor {
 
     private HearthTreeNode board;
+    private PlayerModel currentPlayer;
+    private PlayerModel waitingPlayer;
+
     private Deck deck;
     private static final byte mana = 2;
     private static final byte attack0 = 5;
@@ -42,6 +45,8 @@ public class TestGnomishInventor {
         PlayerModel playerModel1 = new PlayerModel((byte)1, "player1", new TestHero(), deck);
 
         board = new HearthTreeNode(new BoardModel(playerModel0, playerModel1));
+        currentPlayer = board.data_.getCurrentPlayer();
+        waitingPlayer = board.data_.getWaitingPlayer();
 
         Minion minion0_0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
         Minion minion0_1 = new Minion("" + 0, mana, attack0, (byte)(health1 - 1), attack0, health1, health1);
@@ -57,37 +62,34 @@ public class TestGnomishInventor {
         deck = new Deck(cards);
 
         Minion fb = new GnomishInventor();
-        board.data_.placeCardHandCurrentPlayer(fb);
+        currentPlayer.placeCardHand(fb);
 
-        board.data_.getCurrentPlayer().setMana((byte)7);
-        board.data_.getWaitingPlayer().setMana((byte)7);
-
-        board.data_.getCurrentPlayer().setMaxMana((byte)7);
-        board.data_.getWaitingPlayer().setMaxMana((byte)7);
-
+        currentPlayer.setMana((byte) 7);
+        waitingPlayer.setMana((byte) 7);
     }
 
     @Test
     public void test0() throws HSException {
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 0, board, deck, null);
+        Card theCard = currentPlayer.getHand().get(0);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 0, board, null, null);
 
         assertNull(ret);
-        assertEquals(board.data_.getNumCards_hand(), 1);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 2);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
-        assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
-        assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), health1 - 1);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), health1 - 1);
+
+        assertEquals(currentPlayer.getHand().size(), 1);
+        assertEquals(currentPlayer.getNumMinions(), 2);
+        assertEquals(waitingPlayer.getNumMinions(), 2);
+        assertEquals(currentPlayer.getHero().getHealth(), 30);
+        assertEquals(waitingPlayer.getHero().getHealth(), 30);
+        assertEquals(currentPlayer.getMinions().get(0).getHealth(), health0);
+        assertEquals(currentPlayer.getMinions().get(1).getHealth(), health1 - 1);
+        assertEquals(waitingPlayer.getMinions().get(0).getHealth(), health0);
+        assertEquals(waitingPlayer.getMinions().get(1).getHealth(), health1 - 1);
     }
 
     @Test
     public void test2() throws HSException {
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, deck, null);
+        Card theCard = currentPlayer.getHand().get(0);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, null, null);
 
         assertFalse(ret == null);
         assertTrue( ret instanceof CardDrawNode );
@@ -95,47 +97,43 @@ public class TestGnomishInventor {
         CardDrawNode cNode = (CardDrawNode)ret;
 
         assertEquals(cNode.getNumCardsToDraw(), 1);
-        assertEquals(board.data_.getNumCards_hand(), 0);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 3);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
-        assertEquals(board.data_.getCurrentPlayer().getMana(), 3);
-        assertEquals(board.data_.getWaitingPlayer().getMana(), 7);
-        assertEquals(board.data_.getCurrentPlayerHero().getHealth(), 30);
-        assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 30);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), 4);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(2).getHealth(), health1 - 1);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getHealth(), health0);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getHealth(), health1 - 1);
+        assertEquals(currentPlayer.getHand().size(), 0);
+        assertEquals(currentPlayer.getNumMinions(), 3);
+        assertEquals(waitingPlayer.getNumMinions(), 2);
+        assertEquals(currentPlayer.getMana(), 3);
+        assertEquals(waitingPlayer.getMana(), 7);
+        assertEquals(currentPlayer.getHero().getHealth(), 30);
+        assertEquals(waitingPlayer.getHero().getHealth(), 30);
+        assertEquals(currentPlayer.getMinions().get(0).getHealth(), health0);
+        assertEquals(currentPlayer.getMinions().get(1).getHealth(), 4);
+        assertEquals(currentPlayer.getMinions().get(2).getHealth(), health1 - 1);
+        assertEquals(waitingPlayer.getMinions().get(0).getHealth(), health0);
+        assertEquals(waitingPlayer.getMinions().get(1).getHealth(), health1 - 1);
 
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack(), attack0);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack(), 2);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(2).getTotalAttack(), attack0);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(0).getTotalAttack(), attack0);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getTotalAttack(), attack0);
+        assertEquals(currentPlayer.getMinions().get(0).getTotalAttack(), attack0);
+        assertEquals(currentPlayer.getMinions().get(1).getTotalAttack(), 2);
+        assertEquals(currentPlayer.getMinions().get(2).getTotalAttack(), attack0);
+        assertEquals(waitingPlayer.getMinions().get(0).getTotalAttack(), attack0);
+        assertEquals(waitingPlayer.getMinions().get(1).getTotalAttack(), attack0);
     }
 
     @Test
     public void test3() throws HSException {
 
-        board.data_.getCurrentPlayer().setMana((byte)5);
-        board.data_.getWaitingPlayer().setMana((byte)5);
-
-        board.data_.getCurrentPlayer().setMaxMana((byte)5);
-        board.data_.getWaitingPlayer().setMaxMana((byte)5);
-
+        currentPlayer.setMana((byte) 5);
+        waitingPlayer.setMana((byte) 5);
 
         BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
         List<HearthActionBoardPair> ab = ai0.playTurn(0, board.data_);
         BoardModel resBoard = ab.get(ab.size() - 1).board;
 
-        assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 1); //1 card drawn from GnomishInventor, not enough mana to play it
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getNumMinions(), 3);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(resBoard).getNumMinions(), 1); //1 minion should have been killed
+        assertEquals(resBoard.getCurrentPlayer().getHand().size(), 1); //1 card drawn from GnomishInventor, not enough mana to play it
+        assertEquals(resBoard.modelForSide(PlayerSide.CURRENT_PLAYER).getNumMinions(), 3);
+        assertEquals(resBoard.modelForSide(PlayerSide.WAITING_PLAYER).getNumMinions(), 1); //1 minion should have been killed
         assertEquals(resBoard.getCurrentPlayer().getMana(), 1); //4 mana used for Gnomish Inventor
         assertEquals(resBoard.getWaitingPlayer().getMana(), 5);
-        assertEquals(resBoard.getCurrentPlayerHero().getHealth(), 30);
-        assertEquals(resBoard.getWaitingPlayerHero().getHealth(), 25); //smacked in the face once
+        assertEquals(resBoard.getCurrentPlayer().getHero().getHealth(), 30);
+        assertEquals(resBoard.getWaitingPlayer().getHero().getHealth(), 25); //smacked in the face once
     }
 
     @Test
@@ -145,12 +143,12 @@ public class TestGnomishInventor {
         List<HearthActionBoardPair> ab = ai0.playTurn(0, board.data_);
         BoardModel resBoard = ab.get(ab.size() - 1).board;
 
-        assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 0); //1 card drawn from GnomishInventor, and had enough mana to play it
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getNumMinions(), 4);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(resBoard).getNumMinions(), 1); //1 minion should have been killed
+        assertEquals(resBoard.getCurrentPlayer().getHand().size(), 0); //1 card drawn from GnomishInventor, and had enough mana to play it
+        assertEquals(resBoard.modelForSide(PlayerSide.CURRENT_PLAYER).getNumMinions(), 4);
+        assertEquals(resBoard.modelForSide(PlayerSide.WAITING_PLAYER).getNumMinions(), 1); //1 minion should have been killed
         assertEquals(resBoard.getCurrentPlayer().getMana(), 1); //4 mana used for Gnomish Inventor, 2 for Bloodfen Raptor
         assertEquals(resBoard.getWaitingPlayer().getMana(), 7);
-        assertEquals(resBoard.getCurrentPlayerHero().getHealth(), 30);
-        assertEquals(resBoard.getWaitingPlayerHero().getHealth(), 25); //smacked in the face once
+        assertEquals(resBoard.getCurrentPlayer().getHero().getHealth(), 30);
+        assertEquals(resBoard.getWaitingPlayer().getHero().getHealth(), 25); //smacked in the face once
     }
 }

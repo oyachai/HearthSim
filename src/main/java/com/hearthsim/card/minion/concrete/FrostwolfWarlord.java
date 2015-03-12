@@ -25,7 +25,7 @@ public class FrostwolfWarlord extends Minion implements MinionUntargetableBattle
             boolean singleRealizationOnly
         ) throws HSException {
         HearthTreeNode toRet = boardState;
-        int numBuffs = PlayerSide.CURRENT_PLAYER.getPlayer(boardState).getNumMinions() - 1; //Don't count the Warlord itself
+        int numBuffs = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getNumMinions() - 1; //Don't count the Warlord itself
         this.setAttack((byte)(this.getAttack() + numBuffs));
         this.setHealth((byte)(this.getHealth() + numBuffs));
         this.setMaxHealth((byte)(this.getMaxHealth() + numBuffs));

@@ -5,6 +5,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.Hound;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -48,15 +49,16 @@ public class UnleashTheHounds extends SpellCard {
         throws HSException {
         HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
         if (toRet != null) {
-            int numHoundsToSummon = PlayerSide.WAITING_PLAYER.getPlayer(toRet).getNumMinions();
-            if (numHoundsToSummon + PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getNumMinions() > 7)
-                numHoundsToSummon = 7 - PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getNumMinions();
+            PlayerModel currentPlayer = toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+            PlayerModel waitingPlayer = toRet.data_.modelForSide(PlayerSide.WAITING_PLAYER);
+            int numHoundsToSummon = waitingPlayer.getNumMinions();
+            if (numHoundsToSummon + currentPlayer.getNumMinions() > 7)
+                numHoundsToSummon = 7 - currentPlayer.getNumMinions();
             for (int indx = 0; indx < numHoundsToSummon; ++indx) {
-                Minion placementTarget = PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getNumMinions() > 0 ? PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions().getLast() : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getHero();
+                Minion placementTarget = currentPlayer.getNumMinions() > 0 ? currentPlayer.getMinions().getLast() : currentPlayer.getHero();
                 toRet = new Hound().summonMinion(PlayerSide.CURRENT_PLAYER, placementTarget, toRet, deckPlayer0, deckPlayer1, false, singleRealizationOnly);
             }
         }
         return toRet;
     }
-
 }

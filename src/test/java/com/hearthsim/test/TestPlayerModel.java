@@ -134,7 +134,6 @@ public class TestPlayerModel {
                 assertNotEquals(player0.hashCode(), player1.hashCode());
             }
         }
-
     }
 
     @Test

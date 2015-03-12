@@ -34,9 +34,10 @@ public class StampedingKodo extends Minion implements MinionUntargetableBattlecr
         ) throws HSException {
         HearthTreeNode toRet = boardState;
         if (singleRealizationOnly) {
+            PlayerModel waitingPlayer = toRet.data_.modelForSide(PlayerSide.WAITING_PLAYER);
             if (toRet != null) {
                 List<Minion> possibleTargets = new ArrayList<Minion>();
-                for (Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
+                for (Minion minion : waitingPlayer.getMinions()) {
                     if (minion.getTotalAttack() <= 2)
                         possibleTargets.add(minion);
                 }
@@ -46,19 +47,22 @@ public class StampedingKodo extends Minion implements MinionUntargetableBattlecr
                 }
             }
         } else {
-            int placementTargetIndex = minionPlacementTarget instanceof Hero ? 0 : PlayerSide.CURRENT_PLAYER.getPlayer(boardState).getMinions().indexOf(minionPlacementTarget) + 1;
-            int thisMinionIndex = PlayerSide.CURRENT_PLAYER.getPlayer(boardState).getMinions().indexOf(this) + 1;
+            PlayerModel currentPlayer = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+            PlayerModel waitingPlayer = boardState.data_.modelForSide(PlayerSide.WAITING_PLAYER);
+
+            int placementTargetIndex = minionPlacementTarget instanceof Hero ? 0 : currentPlayer.getMinions().indexOf(minionPlacementTarget) + 1;
+            int thisMinionIndex = currentPlayer.getMinions().indexOf(this) + 1;
             List<Minion> possibleTargets = new ArrayList<Minion>();
-            for (Minion minion : PlayerSide.WAITING_PLAYER.getPlayer(toRet).getMinions()) {
+            for (Minion minion : waitingPlayer.getMinions()) {
                 if (minion.getTotalAttack() <= 2)
                     possibleTargets.add(minion);
             }
             if (possibleTargets.size() > 0) {
                 toRet = new RandomEffectNode(boardState, new HearthAction(HearthAction.Verb.UNTARGETABLE_BATTLECRY, PlayerSide.CURRENT_PLAYER, thisMinionIndex, PlayerSide.CURRENT_PLAYER, placementTargetIndex));
-                PlayerModel targetPlayer = PlayerSide.WAITING_PLAYER.getPlayer(toRet);
+                PlayerModel targetPlayer = toRet.data_.modelForSide(PlayerSide.WAITING_PLAYER);
                 for (Minion possibleTarget : possibleTargets) {
                     HearthTreeNode newState = new HearthTreeNode(toRet.data_.deepCopy());
-                    Minion targetMinion = PlayerSide.WAITING_PLAYER.getPlayer(newState).getMinions().get(targetPlayer.getMinions().indexOf(possibleTarget));
+                    Minion targetMinion = newState.data_.modelForSide(PlayerSide.WAITING_PLAYER).getMinions().get(targetPlayer.getMinions().indexOf(possibleTarget));
                     targetMinion.setHealth((byte)-99); //destroyed!
                     newState = BoardStateFactoryBase.handleDeadMinions(newState, deckPlayer0, deckPlayer1, singleRealizationOnly);
                     toRet.addChild(newState);

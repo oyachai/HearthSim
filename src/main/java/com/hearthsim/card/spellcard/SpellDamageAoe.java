@@ -4,6 +4,7 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -47,7 +48,6 @@ public class SpellDamageAoe extends SpellDamage {
 
     /**
      * Use the card on the given target
-     * This card damages all enemy minions but not enemy hero
      *
      * @param side
      * @param boardState The BoardState before this card has performed its action. It will be manipulated and returned.
@@ -57,7 +57,7 @@ public class SpellDamageAoe extends SpellDamage {
     protected HearthTreeNode use_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState,
             Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
         if (boardState != null && this.hitsOwnHero) {
-            Minion self = boardState.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 0);
+            Minion self = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(0);
             boardState = this.attack(PlayerSide.CURRENT_PLAYER, self, boardState, deckPlayer0, deckPlayer1);
         }
 
@@ -74,8 +74,9 @@ public class SpellDamageAoe extends SpellDamage {
         }
 
         if (boardState != null) {
-            boardState.data_.getCurrentPlayer().subtractMana(this.getManaCost(side, boardState.data_));
-            boardState.data_.removeCard_hand(this);
+            PlayerModel currentPlayer = boardState.data_.getCurrentPlayer();
+            currentPlayer.subtractMana(this.getManaCost(side, boardState.data_));
+            currentPlayer.getHand().remove(this);
         }
         return boardState;
     }

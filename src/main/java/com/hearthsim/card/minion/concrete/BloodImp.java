@@ -17,7 +17,7 @@ public class BloodImp extends Minion {
     public HearthTreeNode endTurn(PlayerSide thisMinionPlayerIndex, HearthTreeNode boardModel, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
         HearthTreeNode toRet = boardModel;
         if (thisMinionPlayerIndex == PlayerSide.CURRENT_PLAYER) {
-            PlayerModel player = PlayerSide.CURRENT_PLAYER.getPlayer(toRet);
+            PlayerModel player = toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
             if (player.getNumMinions() > 1) {
                 Minion buffTargetMinion = this;
                 while (buffTargetMinion == this) {

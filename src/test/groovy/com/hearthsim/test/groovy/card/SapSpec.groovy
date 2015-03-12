@@ -35,7 +35,7 @@ class SapSpec extends CardSpec {
 
     def "sap enemy minion"() {
         def copiedBoard = startingBoard.deepCopy()
-        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def theCard = root.data_.getCurrentPlayer().getHand().get(0)
         def ret = theCard.useOn(WAITING_PLAYER, 1, root, null, null)
 
         expect:
@@ -56,11 +56,11 @@ class SapSpec extends CardSpec {
 
     def "minion destroyed if hand full"() {
         for (int indx = 0; indx < 10; ++indx) {
-            startingBoard.placeCardHandWaitingPlayer(new TheCoin());
+            startingBoard.getWaitingPlayer().placeCardHand(new TheCoin());
         }
 
         def copiedBoard = startingBoard.deepCopy()
-        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def theCard = root.data_.getCurrentPlayer().getHand().get(0)
         def ret = theCard.useOn(WAITING_PLAYER, 1, root, null, null)
 
         expect:

@@ -132,7 +132,7 @@ public class TestTaunt {
         HolySmite holySmite = new HolySmite();
 
         board.removeMinion(PlayerSide.CURRENT_PLAYER, 0);
-        board.placeCardHandCurrentPlayer(holySmite);
+        board.getCurrentPlayer().placeCardHand(holySmite);
 
         BoardStateFactoryBase factory = new DepthBoardStateFactory(null, null, 2000000000, true);
         HearthTreeNode tree = new HearthTreeNode(board);
@@ -152,7 +152,7 @@ public class TestTaunt {
         HolySmite holySmite = new HolySmite();
 
         board.removeMinion(PlayerSide.CURRENT_PLAYER, 0);
-        board.placeCardHandCurrentPlayer(holySmite);
+        board.getCurrentPlayer().placeCardHand(holySmite);
         board.getCurrentPlayer().setMana((byte)1);
 
         BoardStateFactoryBase factory = new DepthBoardStateFactory(null, null, true);

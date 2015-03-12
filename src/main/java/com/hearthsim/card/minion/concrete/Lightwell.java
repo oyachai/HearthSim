@@ -14,10 +14,10 @@ public class Lightwell extends Minion {
     }
 
     @Override
-    public HearthTreeNode startTurn(PlayerSide thisMinionPlayerIndex, HearthTreeNode boardModel, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+    public HearthTreeNode startTurn(PlayerSide side, HearthTreeNode boardModel, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
         HearthTreeNode toRet = boardModel;
-        if (thisMinionPlayerIndex == PlayerSide.CURRENT_PLAYER) {
-            PlayerModel currentPlayer = PlayerSide.CURRENT_PLAYER.getPlayer(toRet);
+        if (side == PlayerSide.CURRENT_PLAYER) {
+            PlayerModel currentPlayer = toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
 
             //check to see if anyone is damaged
             boolean isDamaged = currentPlayer.getHero().getTotalMaxHealth() > currentPlayer.getHero().getTotalHealth();
@@ -25,15 +25,15 @@ public class Lightwell extends Minion {
                 isDamaged = isDamaged || minion.getTotalMaxHealth() > minion.getTotalHealth();
             }
             if (!isDamaged)
-                return super.startTurn(thisMinionPlayerIndex, toRet, deckPlayer0, deckPlayer1);
+                return super.startTurn(side, toRet, deckPlayer0, deckPlayer1);
 
-            Minion targetMinion = toRet.data_.getCurrentPlayerCharacter((int)(Math.random()*(currentPlayer.getNumMinions() + 1)));
+            Minion targetMinion = currentPlayer.getCharacter((int) (Math.random() * (currentPlayer.getNumMinions() + 1)));
             while (targetMinion.getTotalMaxHealth() == targetMinion.getTotalHealth()) {
-                targetMinion = toRet.data_.getCurrentPlayerCharacter((int)(Math.random()*(currentPlayer.getNumMinions() + 1)));
+                targetMinion = currentPlayer.getCharacter((int)(Math.random()*(currentPlayer.getNumMinions() + 1)));
             }
             toRet = targetMinion.takeHeal((byte)3, PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1);
         }
-        return super.startTurn(thisMinionPlayerIndex, toRet, deckPlayer0, deckPlayer1);
+        return super.startTurn(side, toRet, deckPlayer0, deckPlayer1);
     }
 
 }

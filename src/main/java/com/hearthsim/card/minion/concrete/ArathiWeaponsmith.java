@@ -29,7 +29,7 @@ public class ArathiWeaponsmith extends Minion implements MinionUntargetableBattl
         boolean singleRealizationOnly
     ) throws HSException {
         HearthTreeNode toRet = boardState;
-        Hero theHero = toRet.data_.getCurrentPlayerHero();
+        Hero theHero = toRet.data_.getCurrentPlayer().getHero();
 
         WeaponCard newWeapon = new BattleAxe();
         newWeapon.hasBeenUsed(true);

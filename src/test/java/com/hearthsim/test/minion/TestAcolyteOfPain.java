@@ -28,6 +28,9 @@ import com.hearthsim.util.tree.HearthTreeNode;
 public class TestAcolyteOfPain {
 
     private HearthTreeNode board;
+    private PlayerModel currentPlayer;
+    private PlayerModel waitingPlayer;
+
     private Deck deck;
 
     private AcolyteOfPain acolyteOnBoard;
@@ -44,6 +47,8 @@ public class TestAcolyteOfPain {
         PlayerModel playerModel1 = new PlayerModel((byte)1, "player1", new TestHero(), deck);
 
         board = new HearthTreeNode(new BoardModel(playerModel0, playerModel1));
+        currentPlayer = board.data_.getCurrentPlayer();
+        waitingPlayer = board.data_.getWaitingPlayer();
 
         acolyteOnBoard = new AcolyteOfPain();
         Minion minion1_0 = new SilverHandRecruit();
@@ -52,88 +57,88 @@ public class TestAcolyteOfPain {
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion1_0);
 
         AcolyteOfPain acolyteInHand = new AcolyteOfPain();
-        board.data_.placeCardHandCurrentPlayer(acolyteInHand);
+        currentPlayer.placeCardHand(acolyteInHand);
 
-        board.data_.getCurrentPlayer().setMana((byte)7);
-        board.data_.getWaitingPlayer().setMana((byte)7);
+        currentPlayer.setMana((byte) 7);
+        waitingPlayer.setMana((byte) 7);
     }
 
     @Test
     public void testAiDrawsCardFromAcolyte() throws HSException {
-        board.data_.getCurrentPlayer().setMana((byte)1);
+        currentPlayer.setMana((byte) 1);
 
         BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
         List<HearthActionBoardPair> ab = ai0.playTurn(0, board.data_);
         BoardModel resBoard = ab.get(ab.size() - 1).board;
 
-        assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 2); // 1 card drawn from AcolyteOfPain, not enough mana to play it
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getNumMinions(), 1);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(resBoard).getNumMinions(), 0); // 1 minion should have been killed
+        assertEquals(resBoard.getCurrentPlayer().getHand().size(), 2); // 1 card drawn from AcolyteOfPain, not enough mana to play it
+        assertEquals(resBoard.modelForSide(PlayerSide.CURRENT_PLAYER).getNumMinions(), 1);
+        assertEquals(resBoard.modelForSide(PlayerSide.WAITING_PLAYER).getNumMinions(), 0); // 1 minion should have been killed
         assertEquals(resBoard.getCurrentPlayer().getMana(), 1); // 0 mana used
     }
 
     @Test
     public void testAiDrawsAndPlaysCardFromAcolyte() throws HSException {
-        board.data_.getCurrentPlayer().setMana((byte)3);
+        currentPlayer.setMana((byte) 3);
 
         BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
         List<HearthActionBoardPair> ab = ai0.playTurn(0, board.data_);
         BoardModel resBoard = ab.get(ab.size() - 1).board;
 
-        assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 1); // 1 card drawn from AcolyteOfPain, then played the Bloodfen Raptor
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getNumMinions(), 2);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(resBoard).getNumMinions(), 0); // 1 minion should have been killed
+        assertEquals(resBoard.getCurrentPlayer().getHand().size(), 1); // 1 card drawn from AcolyteOfPain, then played the Bloodfen Raptor
+        assertEquals(resBoard.modelForSide(PlayerSide.CURRENT_PLAYER).getNumMinions(), 2);
+        assertEquals(resBoard.modelForSide(PlayerSide.WAITING_PLAYER).getNumMinions(), 0); // 1 minion should have been killed
         assertEquals(resBoard.getCurrentPlayer().getMana(), 1); // 2 mana used... it's better to put down a Bloodfen Raptor than an Acolyte of Pain
     }
 
     @Test
     public void testDamagingEnemyAcolyteDrawsCard() throws HSException {
-        board.data_.getCurrentPlayer().setMana((byte)1);
+        currentPlayer.setMana((byte) 1);
 
         board.data_.removeMinion(PlayerSide.WAITING_PLAYER, 0);
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, new AcolyteOfPain());
 
-        assertEquals(board.data_.getNumCardsHandWaitingPlayer(), 0);
+        assertEquals(waitingPlayer.getHand().size(), 0);
 
         BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
         List<HearthActionBoardPair> ab = ai0.playTurn(0, board.data_);
         BoardModel resBoard = ab.get(ab.size() - 1).board;
 
-        assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 2); // 1 card drawn from AcolyteOfPain
-        assertEquals(resBoard.getNumCardsHandWaitingPlayer(), 1); // 1 card drawn from AcolyteOfPain. The Acolytes smack into each other.
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getNumMinions(), 1);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(resBoard).getNumMinions(), 1);
+        assertEquals(resBoard.getCurrentPlayer().getHand().size(), 2); // 1 card drawn from AcolyteOfPain
+        assertEquals(resBoard.getWaitingPlayer().getHand().size(), 1); // 1 card drawn from AcolyteOfPain. The Acolytes smack into each other.
+        assertEquals(resBoard.modelForSide(PlayerSide.CURRENT_PLAYER).getNumMinions(), 1);
+        assertEquals(resBoard.modelForSide(PlayerSide.WAITING_PLAYER).getNumMinions(), 1);
     }
 
     @Test
     public void testDivineShieldPreventsDraw() throws HSException {
         acolyteOnBoard.setDivineShield(true);
-        Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 1);
+        Minion target = waitingPlayer.getCharacter(1);
         HearthTreeNode ret = acolyteOnBoard.attack(PlayerSide.WAITING_PLAYER, target, board, deck, deck, false);
         assertEquals(board, ret);
 
         assertFalse(board instanceof CardDrawNode);
-        assertEquals(board.data_.getNumCardsHandCurrentPlayer(), 1);
+        assertEquals(currentPlayer.getHand().size(), 1);
     }
 
     @Test
     public void testDestroyingPreventsDraw() throws HSException {
-        board.data_.getCurrentPlayer().setMana((byte)5);
+        currentPlayer.setMana((byte) 5);
 
         AcolyteOfPain enemyAcolyte = new AcolyteOfPain();
         board.data_.removeMinion(PlayerSide.WAITING_PLAYER, 0);
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, enemyAcolyte);
 
-        assertEquals(board.data_.getNumCardsHandWaitingPlayer(), 0);
+        assertEquals(waitingPlayer.getHand().size(), 0);
         Assassinate assassinate = new Assassinate();
-        board.data_.placeCardHandCurrentPlayer(assassinate);
+        currentPlayer.placeCardHand(assassinate);
         HearthTreeNode ret = assassinate.useOn(PlayerSide.WAITING_PLAYER, enemyAcolyte, board, deck, deck);
         assertEquals(board, ret);
-
         assertFalse(board instanceof CardDrawNode);
-        assertEquals(board.data_.getNumCardsHandCurrentPlayer(), 1);
-        assertEquals(board.data_.getNumCardsHandWaitingPlayer(), 0);
 
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 0);
+        assertEquals(currentPlayer.getHand().size(), 1);
+        assertEquals(waitingPlayer.getHand().size(), 0);
+
+        assertEquals(waitingPlayer.getNumMinions(), 0);
     }
 }

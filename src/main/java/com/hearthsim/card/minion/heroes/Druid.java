@@ -5,6 +5,7 @@ import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -35,8 +36,10 @@ public class Druid extends Hero {
             throws HSException {
         if (isHero(targetMinion) && targetPlayerSide == PlayerSide.CURRENT_PLAYER) {
             this.hasBeenUsed = true;
-            boardState.data_.getCurrentPlayer().subtractMana(HERO_ABILITY_COST);
-            Hero target = boardState.data_.getCurrentPlayerHero();
+            PlayerModel currentPlayer = boardState.data_.getCurrentPlayer();
+            currentPlayer.subtractMana(HERO_ABILITY_COST);
+
+            Hero target = currentPlayer.getHero();
             target.addExtraAttackUntilTurnEnd((byte)1);
             target.addArmor((byte)1);
             return boardState;

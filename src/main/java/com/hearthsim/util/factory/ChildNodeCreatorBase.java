@@ -7,6 +7,7 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.HearthAction;
 import com.hearthsim.util.HearthAction.Verb;
@@ -32,14 +33,16 @@ public class ChildNodeCreatorBase implements ChildNodeCreator {
 
         ArrayList<Integer> attackable = boardStateNode.data_.getAttackableMinions();
 
+        PlayerModel currentPlayer = boardStateNode.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+
         HearthTreeNode newState = null;
         Minion targetMinion = null;
         Minion tempMinion = null;
 
         // attack with characters
-        for (int attackerIndex = 0; attackerIndex < PlayerSide.CURRENT_PLAYER.getPlayer(boardStateNode)
+        for (int attackerIndex = 0; attackerIndex < currentPlayer
                 .getNumCharacters(); ++attackerIndex) {
-            if (!boardStateNode.data_.getCurrentPlayerCharacter(attackerIndex).canAttack()) {
+            if (!currentPlayer.getCharacter(attackerIndex).canAttack()) {
                 continue;
             }
 
@@ -47,8 +50,8 @@ public class ChildNodeCreatorBase implements ChildNodeCreator {
                 int targetIndex = integer.intValue();
                 newState = new HearthTreeNode(boardStateNode.data_.deepCopy());
 
-                targetMinion = newState.data_.getWaitingPlayerCharacter(targetIndex);
-                tempMinion = newState.data_.getCurrentPlayerCharacter(attackerIndex);
+                targetMinion = newState.data_.getWaitingPlayer().getCharacter(targetIndex);
+                tempMinion = newState.data_.getCurrentPlayer().getCharacter(attackerIndex);
 
                 newState = tempMinion.attack(PlayerSide.WAITING_PLAYER, targetMinion, newState, deckPlayer0_,
                         deckPlayer1_, false);
@@ -63,10 +66,10 @@ public class ChildNodeCreatorBase implements ChildNodeCreator {
         if (!nodes.isEmpty()) {
             newState = new HearthTreeNode(boardStateNode.data_.deepCopy());
             newState.setAction(new HearthAction(Verb.DO_NOT_ATTACK));
-            for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(newState).getMinions()) {
+            for (Minion minion : newState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getMinions()) {
                 minion.hasAttacked(true);
             }
-            newState.data_.getCurrentPlayerHero().hasAttacked(true);
+            newState.data_.getCurrentPlayer().getHero().hasAttacked(true);
             nodes.add(newState);
         }
 
@@ -82,19 +85,21 @@ public class ChildNodeCreatorBase implements ChildNodeCreator {
         Card copiedCard = null;
         HearthTreeNode newState = null;
 
+        PlayerModel currentPlayer = boardStateNode.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        PlayerModel waitingPlayer = boardStateNode.data_.modelForSide(PlayerSide.WAITING_PLAYER);
+
         int mana = boardStateNode.data_.getCurrentPlayer().getMana();
-        for (int cardIndex = 0; cardIndex < boardStateNode.data_.getNumCards_hand(); ++cardIndex) {
-            card = boardStateNode.data_.getCurrentPlayerCardHand(cardIndex);
+        for (int cardIndex = 0; cardIndex < boardStateNode.data_.getCurrentPlayer().getHand().size(); ++cardIndex) {
+            card = boardStateNode.data_.getCurrentPlayer().getHand().get(cardIndex);
             if (card.getManaCost(PlayerSide.CURRENT_PLAYER, boardStateNode.data_) <= mana && !card.hasBeenUsed()) {
 
                 // we can use this card! Let's try using it on everything
-                for (int targetIndex = 0; targetIndex <= PlayerSide.CURRENT_PLAYER.getPlayer(boardStateNode)
-                        .getNumMinions(); ++targetIndex) {
-                    targetMinion = boardStateNode.data_.getCurrentPlayerCharacter(targetIndex);
+                for (int targetIndex = 0; targetIndex <= currentPlayer.getNumMinions(); ++targetIndex) {
+                    targetMinion = boardStateNode.data_.getCurrentPlayer().getCharacter(targetIndex);
 
                     if (card.canBeUsedOn(PlayerSide.CURRENT_PLAYER, targetMinion, boardStateNode.data_)) {
                         newState = new HearthTreeNode(boardStateNode.data_.deepCopy());
-                        copiedCard = newState.data_.getCurrentPlayerCardHand(cardIndex);
+                        copiedCard = newState.data_.getCurrentPlayer().getHand().get(cardIndex);
                         newState = copiedCard.useOn(PlayerSide.CURRENT_PLAYER, targetIndex, newState,
                                 deckPlayer0_, deckPlayer1_);
                         if (newState != null) {
@@ -103,13 +108,12 @@ public class ChildNodeCreatorBase implements ChildNodeCreator {
                     }
                 }
 
-                for (int targetIndex = 0; targetIndex <= PlayerSide.WAITING_PLAYER.getPlayer(boardStateNode)
-                        .getNumMinions(); ++targetIndex) {
-                    targetMinion = boardStateNode.data_.getWaitingPlayerCharacter(targetIndex);
+                for (int targetIndex = 0; targetIndex <= waitingPlayer.getNumMinions(); ++targetIndex) {
+                    targetMinion = boardStateNode.data_.getWaitingPlayer().getCharacter(targetIndex);
 
                     if (card.canBeUsedOn(PlayerSide.WAITING_PLAYER, targetMinion, boardStateNode.data_)) {
                         newState = new HearthTreeNode(boardStateNode.data_.deepCopy());
-                        copiedCard = newState.data_.getCurrentPlayerCardHand(cardIndex);
+                        copiedCard = newState.data_.getCurrentPlayer().getHand().get(cardIndex);
                         newState = copiedCard.useOn(PlayerSide.WAITING_PLAYER, targetIndex, newState,
                                 deckPlayer0_, deckPlayer1_);
                         if (newState != null) {
@@ -124,7 +128,7 @@ public class ChildNodeCreatorBase implements ChildNodeCreator {
         if (!nodes.isEmpty()) {
             newState = new HearthTreeNode(boardStateNode.data_.deepCopy());
             newState.setAction(new HearthAction(Verb.DO_NOT_USE_CARD));
-            for (Card c : newState.data_.getCurrentPlayerHand()) {
+            for (Card c : newState.data_.getCurrentPlayer().getHand()) {
                 c.hasBeenUsed(true);
             }
             nodes.add(newState);
@@ -137,24 +141,27 @@ public class ChildNodeCreatorBase implements ChildNodeCreator {
     public ArrayList<HearthTreeNode> createHeroAbilityChildren(HearthTreeNode boardStateNode) throws HSException {
         ArrayList<HearthTreeNode> nodes = new ArrayList<HearthTreeNode>();
 
-        Hero player = boardStateNode.data_.getCurrentPlayerHero();
+        Hero player = boardStateNode.data_.getCurrentPlayer().getHero();
         if (player.hasBeenUsed()) {
             return nodes;
         }
+
+        PlayerModel currentPlayer = boardStateNode.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        PlayerModel waitingPlayer = boardStateNode.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
         HearthTreeNode newState = null;
         Minion copiedTargetMinion = null;
 
         // Case0: Decided to use the hero ability -- Use it on everything!
-        for (int i = 0; i <= PlayerSide.CURRENT_PLAYER.getPlayer(boardStateNode).getNumMinions(); ++i) {
-            Minion target = boardStateNode.data_.getCurrentPlayerCharacter(i);
+        for (int i = 0; i <= currentPlayer.getNumMinions(); ++i) {
+            Minion target = boardStateNode.data_.getCurrentPlayer().getCharacter(i);
 
             if (player.canBeUsedOn(PlayerSide.CURRENT_PLAYER, target, boardStateNode.data_)) {
 
                 newState = new HearthTreeNode(boardStateNode.data_.deepCopy());
-                copiedTargetMinion = newState.data_.getCurrentPlayerCharacter(i);
+                copiedTargetMinion = newState.data_.getCurrentPlayer().getCharacter(i);
 
-                newState = newState.data_.getCurrentPlayerHero().useHeroAbility(PlayerSide.CURRENT_PLAYER,
+                newState = newState.data_.getCurrentPlayer().getHero().useHeroAbility(PlayerSide.CURRENT_PLAYER,
                         copiedTargetMinion, newState, deckPlayer0_, deckPlayer1_, false);
 
                 if (newState != null) {
@@ -163,14 +170,14 @@ public class ChildNodeCreatorBase implements ChildNodeCreator {
             }
         }
 
-        for (int i = 0; i <= PlayerSide.WAITING_PLAYER.getPlayer(boardStateNode).getNumMinions(); ++i) {
-            Minion target = boardStateNode.data_.getWaitingPlayerCharacter(i);
+        for (int i = 0; i <= waitingPlayer.getNumMinions(); ++i) {
+            Minion target = boardStateNode.data_.getWaitingPlayer().getCharacter(i);
             if (player.canBeUsedOn(PlayerSide.WAITING_PLAYER, target, boardStateNode.data_)) {
 
                 newState = new HearthTreeNode(boardStateNode.data_.deepCopy());
-                copiedTargetMinion = newState.data_.getWaitingPlayerCharacter(i);
+                copiedTargetMinion = newState.data_.getWaitingPlayer().getCharacter(i);
 
-                newState = newState.data_.getCurrentPlayerHero().useHeroAbility(PlayerSide.WAITING_PLAYER,
+                newState = newState.data_.getCurrentPlayer().getHero().useHeroAbility(PlayerSide.WAITING_PLAYER,
                         copiedTargetMinion, newState, deckPlayer0_, deckPlayer1_, false);
 
                 if (newState != null) {
@@ -184,7 +191,7 @@ public class ChildNodeCreatorBase implements ChildNodeCreator {
             // Case1: Decided not to use the hero ability
             newState = new HearthTreeNode(boardStateNode.data_.deepCopy());
             newState.setAction(new HearthAction(Verb.DO_NOT_USE_HEROPOWER));
-            newState.data_.getCurrentPlayerHero().hasBeenUsed(true);
+            newState.data_.getCurrentPlayer().getHero().hasBeenUsed(true);
             nodes.add(newState);
         }
 

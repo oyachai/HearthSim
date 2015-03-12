@@ -4,6 +4,7 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 import com.hearthsim.util.tree.RandomEffectNode;
@@ -25,16 +26,19 @@ public class DeathrattleMindControl extends DeathrattleAction {
                                         boolean singleRealizationOnly) throws HSException {
         HearthTreeNode toRet = super.performAction(origin, playerSide, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
         if (toRet != null) {
+            PlayerModel player = toRet.data_.modelForSide(playerSide);
+            PlayerModel otherPlayer = toRet.data_.modelForSide(playerSide.getOtherPlayer());
+
             if (singleRealizationOnly) {
                 int numTargets = 0;
-                for (Minion targetMinion : playerSide.getOtherPlayer().getPlayer(toRet).getMinions()) {
+                for (Minion targetMinion : otherPlayer.getMinions()) {
                     if (targetMinion.isAlive())
                         ++numTargets;
                 }
                 if (numTargets > 0) {
-                    Minion targetMinion = playerSide.getOtherPlayer().getPlayer(toRet).getMinions().get((int)(Math.random() * numTargets));
+                    Minion targetMinion = otherPlayer.getMinions().get((int)(Math.random() * numTargets));
                     while (!targetMinion.isAlive())
-                        targetMinion = playerSide.getOtherPlayer().getPlayer(toRet).getMinions().get((int)(Math.random() * numTargets));
+                        targetMinion = otherPlayer.getMinions().get((int)(Math.random() * numTargets));
                     toRet.data_.removeMinion(targetMinion);
                     toRet.data_.placeMinion(playerSide, targetMinion);
                     if (targetMinion.getCharge()) {
@@ -47,17 +51,17 @@ public class DeathrattleMindControl extends DeathrattleAction {
                 }
             } else {
                 int numTargets = 0;
-                for (Minion targetMinion : playerSide.getOtherPlayer().getPlayer(toRet).getMinions()) {
+                for (Minion targetMinion : otherPlayer.getMinions()) {
                     if (targetMinion.isAlive())
                         ++numTargets;
                 }
                 if (numTargets > 0) {
                     toRet = new RandomEffectNode(boardState, null);
-                    int dyingMinionIndex = playerSide.getPlayer(toRet).getMinions().indexOf((Minion)origin);
-                    for (int indx = 0; indx < playerSide.getOtherPlayer().getPlayer(toRet).getMinions().size(); ++indx) {
-                        if (playerSide.getOtherPlayer().getPlayer(toRet).getMinions().get(indx).isAlive()) {
+                    int dyingMinionIndex = player.getMinions().indexOf((Minion)origin);
+                    for (int indx = 0; indx < otherPlayer.getMinions().size(); ++indx) {
+                        if (otherPlayer.getMinions().get(indx).isAlive()) {
                             HearthTreeNode cNode = new HearthTreeNode(toRet.data_.deepCopy());
-                            Minion targetMinion = playerSide.getOtherPlayer().getPlayer(cNode).getMinions().get(indx);
+                            Minion targetMinion = cNode.data_.modelForSide(playerSide.getOtherPlayer()).getMinions().get(indx);
                             Minion dyingMinion = cNode.data_.getMinion(playerSide, dyingMinionIndex);
                             cNode.data_.removeMinion(targetMinion);
                             cNode.data_.placeMinion(playerSide, targetMinion);

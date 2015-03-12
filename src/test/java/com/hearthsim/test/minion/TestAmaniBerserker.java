@@ -2,6 +2,7 @@ package com.hearthsim.test.minion;
 
 import static org.junit.Assert.assertEquals;
 
+import com.hearthsim.model.PlayerModel;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,12 +22,17 @@ import com.hearthsim.util.tree.HearthTreeNode;
 public class TestAmaniBerserker {
 
     private HearthTreeNode board;
+    private PlayerModel currentPlayer;
+    private PlayerModel waitingPlayer;
+
     private AmaniBerserker amaniBerserker;
     private RiverCrocolisk croc;
 
     @Before
     public void setup() throws HSException {
         board = new HearthTreeNode(new BoardModel());
+        currentPlayer = board.data_.getCurrentPlayer();
+        waitingPlayer = board.data_.getWaitingPlayer();
 
         amaniBerserker = new AmaniBerserker();
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, amaniBerserker);
@@ -37,10 +43,10 @@ public class TestAmaniBerserker {
 
     @Test
     public void testAttackNormal() throws HSException {
-        Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
+        Minion target = waitingPlayer.getCharacter(0);
         HearthTreeNode ret = amaniBerserker.attack(PlayerSide.WAITING_PLAYER, target, board, null, null, false);
         assertEquals(board, ret);
-        assertEquals(board.data_.getWaitingPlayerHero().getHealth(), 28);
+        assertEquals(waitingPlayer.getHero().getHealth(), 28);
     }
 
     @Test
@@ -48,8 +54,8 @@ public class TestAmaniBerserker {
         HearthTreeNode ret = amaniBerserker.attack(PlayerSide.WAITING_PLAYER, croc, board, null, null, false);
         assertEquals(board, ret);
 
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 1);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 1);
+        assertEquals(currentPlayer.getNumMinions(), 1);
+        assertEquals(waitingPlayer.getNumMinions(), 1);
 
         assertEquals(1, amaniBerserker.getHealth());
         assertEquals(1, croc.getHealth());
@@ -61,9 +67,9 @@ public class TestAmaniBerserker {
     public void testHealRemovesEngrage() throws HSException {
         HearthTreeNode ret = amaniBerserker.attack(PlayerSide.WAITING_PLAYER, croc, board, null, null, false);
 
-        board.data_.placeCardHandCurrentPlayer(new HolyLight());
-        board.data_.getCurrentPlayer().setMana((byte)2);
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
+        currentPlayer.placeCardHand(new HolyLight());
+        currentPlayer.setMana((byte) 2);
+        Card theCard = currentPlayer.getHand().get(0);
         ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, amaniBerserker, board, null, null);
 
         assertEquals(board, ret);

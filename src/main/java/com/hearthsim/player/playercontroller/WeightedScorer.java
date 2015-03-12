@@ -46,7 +46,7 @@ public class WeightedScorer implements BoardScorer, DeepCopyable<WeightedScorer>
         IdentityLinkedList<Card> myHandCards;
         myBoardMinions = board.getCurrentPlayer().getMinions();
         opBoardMinions = board.getWaitingPlayer().getMinions();
-        myHandCards = board.getCurrentPlayerHand();
+        myHandCards = board.getCurrentPlayer().getHand();
 
         // my board score
         double boardScore = 0.0;
@@ -61,8 +61,8 @@ public class WeightedScorer implements BoardScorer, DeepCopyable<WeightedScorer>
 
         // weapons
         double weaponScore = 0.0;
-        weaponScore += this.weaponScore(board.getCurrentPlayerHero());
-        weaponScore -= this.weaponScore(board.getWaitingPlayerHero());
+        weaponScore += this.weaponScore(board.getCurrentPlayer().getHero());
+        weaponScore -= this.weaponScore(board.getWaitingPlayer().getHero());
 
         // my cards. The more cards that I have, the better
         double handScore = 0.0;
@@ -72,9 +72,9 @@ public class WeightedScorer implements BoardScorer, DeepCopyable<WeightedScorer>
 
         // the more we beat on the opponent hero, the better
         double heroScore = 0;
-        heroScore += heroHealthScore_p0(board.getCurrentPlayerHero().getHealth(), board.getCurrentPlayerHero()
+        heroScore += heroHealthScore_p0(board.getCurrentPlayer().getHero().getHealth(), board.getCurrentPlayer().getHero()
                 .getArmor());
-        heroScore += heroHealthScore_p1(board.getWaitingPlayerHero().getHealth(), board.getWaitingPlayerHero()
+        heroScore += heroHealthScore_p1(board.getWaitingPlayer().getHero().getHealth(), board.getWaitingPlayer().getHero()
                 .getArmor());
 
         // the more minions you have, the better. The less minions the enemy has, the better

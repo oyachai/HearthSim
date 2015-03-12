@@ -60,7 +60,6 @@ public class TestCharge {
 
         Minion minion1_0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
         board.placeMinion(PlayerSide.WAITING_PLAYER, minion1_0);
-
     }
 
     @Test
@@ -77,14 +76,13 @@ public class TestCharge {
             e.printStackTrace();
             assertTrue(false);
         }
-
     }
 
     @Test
     public void testAiPlayChargeAndAttack() {
         Minion minion = new Minion("" + 0, mana, attack0, health1, attack0, (byte)0, (byte)0);
         minion.setCharge(true);
-        board.placeCardHandCurrentPlayer(minion);
+        board.getCurrentPlayer().placeCardHand(minion);
         board.getCurrentPlayer().setMana((byte)1);
 
         BoardStateFactoryBase factory = new DepthBoardStateFactory(null, null, true);
@@ -101,6 +99,5 @@ public class TestCharge {
         // 2. Play charge minion card, then don't attack
         // 3. Play card, charge attack enemy hero
         // 4. Play card, charge attack enemy minion
-
     }
 }

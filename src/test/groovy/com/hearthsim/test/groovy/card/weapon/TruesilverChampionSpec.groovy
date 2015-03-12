@@ -37,10 +37,10 @@ class TruesilverChampionSpec extends CardSpec {
     def 'heals on attack'() {
         def copiedBoard = startingBoard.deepCopy()
         def copiedRoot = new HearthTreeNode(copiedBoard)
-        def theCard = copiedBoard.getCurrentPlayerCardHand(0);
+        def theCard = copiedBoard.getCurrentPlayer().getHand().get(0);
         def ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot, null, null);
-        Minion hero = ret.data_.getCurrentPlayerHero();
-        def target = copiedBoard.getCharacter(PlayerSide.WAITING_PLAYER, 0);
+        Minion hero = ret.data_.getCurrentPlayer().getHero();
+        def target = copiedBoard.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(0);
         ret = hero.attack(PlayerSide.WAITING_PLAYER, target, ret, null, null, false);
 
         expect:
@@ -65,15 +65,15 @@ class TruesilverChampionSpec extends CardSpec {
 
     @Ignore("Existing bug")
     def 'cannot overheal before attack'() {
-        startingBoard.getCurrentPlayerCharacter(0).setHealth((byte)30);
+        startingBoard.getCurrentPlayer().getCharacter(0).setHealth((byte)30);
         def copiedBoard = startingBoard.deepCopy()
         def copiedRoot = new HearthTreeNode(copiedBoard)
 
-        def theCard = copiedBoard.getCurrentPlayerCardHand(0);
+        def theCard = copiedBoard.getCurrentPlayer().getHand().get(0);
         def ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot, null, null);
 
-        Minion hero = ret.data_.getCurrentPlayerHero();
-        def target = copiedBoard.getCharacter(PlayerSide.WAITING_PLAYER, 1);
+        Minion hero = ret.data_.getCurrentPlayer().getHero();
+        def target = copiedBoard.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter(1);
         ret = hero.attack(PlayerSide.WAITING_PLAYER, target, ret, null, null, false);
 
         expect:

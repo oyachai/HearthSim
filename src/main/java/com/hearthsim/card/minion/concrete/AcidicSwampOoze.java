@@ -26,7 +26,7 @@ public class AcidicSwampOoze extends Minion implements MinionUntargetableBattlec
         boolean singleRealizationOnly
     ) throws HSException {
 
-        DeathrattleAction action = boardState.data_.getWaitingPlayerHero().destroyWeapon();
+        DeathrattleAction action = boardState.data_.getWaitingPlayer().getHero().destroyWeapon();
         if (action != null) {
             boardState = action.performAction(null, PlayerSide.WAITING_PLAYER, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
         }

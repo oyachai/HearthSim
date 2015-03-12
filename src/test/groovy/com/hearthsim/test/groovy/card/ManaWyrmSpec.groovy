@@ -31,13 +31,13 @@ class ManaWyrmSpec extends CardSpec {
         def root = new HearthTreeNode(startingBoard)
 
         def copiedBoard = startingBoard.deepCopy()
-        def target = root.data_.getCharacter(CURRENT_PLAYER, 0)
-        def manaWyrm = root.data_.getCurrentPlayerCardHand(0)
+        def target = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(0)
+        def manaWyrm = root.data_.getCurrentPlayer().getHand().get(0)
         def ret = manaWyrm.useOn(CURRENT_PLAYER, target, root, null, null)
 
         def board2 = new HearthTreeNode(root.data_.deepCopy())
-        def theCoin = board2.data_.getCurrentPlayerCardHand(0)
-        def coinTarget = board2.data_.getCharacter(CURRENT_PLAYER, 0)
+        def theCoin = board2.data_.getCurrentPlayer().getHand().get(0)
+        def coinTarget = board2.data_.modelForSide(CURRENT_PLAYER).getCharacter(0)
         def ret2 = theCoin.useOn(CURRENT_PLAYER, coinTarget, board2, null, null)
         
         expect:

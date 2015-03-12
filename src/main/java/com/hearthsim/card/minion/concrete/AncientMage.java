@@ -4,6 +4,7 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionUntargetableBattlecry;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -25,8 +26,10 @@ public class AncientMage extends Minion implements MinionUntargetableBattlecry {
             boolean singleRealizationOnly
         ) throws HSException {
         HearthTreeNode toRet = boardState;
-        int thisMinionIndex = PlayerSide.CURRENT_PLAYER.getPlayer(boardState).getMinions().indexOf(this);
-        int numMinions = PlayerSide.CURRENT_PLAYER.getPlayer(boardState).getNumMinions();
+        PlayerModel currentPlayer = toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+
+        int thisMinionIndex = currentPlayer.getMinions().indexOf(this);
+        int numMinions = currentPlayer.getNumMinions();
         if (numMinions > 1) {
             int minionToTheLeft = thisMinionIndex > 0 ? thisMinionIndex - 1 : -1;
             int minionToTheRight = thisMinionIndex < numMinions - 1 ? thisMinionIndex + 1 : -1;

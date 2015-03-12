@@ -46,7 +46,7 @@ class FrostElementalSpec extends CardSpec {
     def "playing for current player returns expected child states"() {
         def minionPlayedBoard = startingBoard.deepCopy()
         def copiedRoot = new HearthTreeNode(minionPlayedBoard)
-        def theCard = minionPlayedBoard.getCurrentPlayerCardHand(0);
+        def theCard = minionPlayedBoard.getCurrentPlayer().getHand().get(0);
         def ret = theCard.useOn(CURRENT_PLAYER, 2, copiedRoot, null, null);
 
         expect:

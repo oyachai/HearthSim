@@ -5,6 +5,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.MirrorImageMinion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -57,23 +58,21 @@ public class MirrorImage extends SpellCard {
             Deck deckPlayer1,
             boolean singleRealizationOnly)
         throws HSException {
-        int numMinions = PlayerSide.CURRENT_PLAYER.getPlayer(boardState).getNumMinions();
-        if (numMinions >= 7)
+        PlayerModel currentPlayer = boardState.data_.modelForSide(side);
+        if (currentPlayer.isBoardFull()) {
             return null;
+        }
 
         HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
         if (toRet != null) {
             Minion mi0 = new MirrorImageMinion();
-            Minion placementTarget = toRet.data_.getCharacter(PlayerSide.CURRENT_PLAYER, numMinions);
-            toRet = mi0.summonMinion(side, placementTarget, toRet, deckPlayer0, deckPlayer1, false, singleRealizationOnly);
+            toRet = mi0.summonMinionAtEnd(side, toRet, deckPlayer0, deckPlayer1, false, singleRealizationOnly);
 
-            if (numMinions < 6) {
+            if (!currentPlayer.isBoardFull()) {
                 Minion mi1 = new MirrorImageMinion();
-                Minion placementTarget2 = toRet.data_.getCharacter(PlayerSide.CURRENT_PLAYER, numMinions + 1);
-                toRet = mi1.summonMinion(side, placementTarget2, toRet, deckPlayer0, deckPlayer1, false, singleRealizationOnly);
+                toRet = mi1.summonMinionAtEnd(side, toRet, deckPlayer0, deckPlayer1, false, singleRealizationOnly);
             }
         }
         return toRet;
     }
-
 }

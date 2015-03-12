@@ -3,11 +3,11 @@ package com.hearthsim.test.minion;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import com.hearthsim.model.PlayerModel;
 import org.junit.Before;
 import org.junit.Test;
 
 import com.hearthsim.card.Card;
-import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.BoulderfistOgre;
 import com.hearthsim.card.minion.concrete.RaidLeader;
@@ -20,17 +20,20 @@ import com.hearthsim.util.tree.HearthTreeNode;
 public class TestWaterElemental {
 
     private HearthTreeNode board;
-    private Deck deck;
+    private PlayerModel currentPlayer;
+    private PlayerModel waitingPlayer;
 
     @Before
     public void setup() throws HSException {
         board = new HearthTreeNode(new BoardModel());
+        currentPlayer = board.data_.getCurrentPlayer();
+        waitingPlayer = board.data_.getWaitingPlayer();
 
         Card fb = new WaterElemental();
-        board.data_.placeCardHandCurrentPlayer(fb);
+        currentPlayer.placeCardHand(fb);
 
-        board.data_.getCurrentPlayer().setMana((byte)8);
-        board.data_.getCurrentPlayer().setMaxMana((byte)8);
+        currentPlayer.setMana((byte) 8);
+        currentPlayer.setMaxMana((byte) 8);
 
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, new RaidLeader());
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, new BoulderfistOgre());
@@ -38,32 +41,31 @@ public class TestWaterElemental {
 
     @Test
     public void testFreezesMinionOnAttack() throws HSException {
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
+        Card theCard = currentPlayer.getHand().get(0);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
         assertEquals(board, ret);
 
-        Minion waterElemental = PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0);
+        Minion waterElemental = currentPlayer.getMinions().get(0);
         assertTrue(waterElemental instanceof WaterElemental);
 
         waterElemental.hasAttacked(false); // unset summoning sickness
-        Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 2);
-        waterElemental.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null, false);
-        assertTrue(PlayerSide.WAITING_PLAYER.getPlayer(board).getMinions().get(1).getFrozen());
+        Minion target = waitingPlayer.getCharacter(2);
+        waterElemental.attack(PlayerSide.WAITING_PLAYER, target, board, null, null, false);
+        assertTrue(waitingPlayer.getMinions().get(1).getFrozen());
     }
-
 
     @Test
     public void testFreezesHeroOnAttack() throws HSException {
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
+        Card theCard = currentPlayer.getHand().get(0);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
         assertEquals(board, ret);
 
-        Minion waterElemental = PlayerSide.CURRENT_PLAYER.getPlayer(board).getMinions().get(0);
+        Minion waterElemental = currentPlayer.getMinions().get(0);
         assertTrue(waterElemental instanceof WaterElemental);
 
         waterElemental.hasAttacked(false); // unset summoning sickness
-        Minion target = board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0);
-        waterElemental.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null, false);
-        assertTrue(board.data_.getCharacter(PlayerSide.WAITING_PLAYER, 0).getFrozen());
+        Minion target = waitingPlayer.getCharacter(0);
+        waterElemental.attack(PlayerSide.WAITING_PLAYER, target, board, null, null, false);
+        assertTrue(waitingPlayer.getCharacter(0).getFrozen());
     }
 }

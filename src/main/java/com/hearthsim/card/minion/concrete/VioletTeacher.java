@@ -6,6 +6,7 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -44,7 +45,8 @@ public class VioletTeacher extends Minion implements CardPlayBeginInterface {
             return toRet;
         if (isInHand_)
             return toRet;
-        if (usedCard instanceof SpellCard && PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getNumMinions() < 7) {
+        PlayerModel currentPlayer = toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        if (usedCard instanceof SpellCard && currentPlayer.getNumMinions() < 7) {
             Minion newMinion = new VioletApprentice();
             toRet = newMinion.summonMinion(thisCardPlayerSide, this, toRet, deckPlayer0, deckPlayer1, false, singleRealizationOnly);
         }

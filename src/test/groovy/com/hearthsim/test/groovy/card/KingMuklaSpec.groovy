@@ -33,7 +33,7 @@ class KingMuklaSpec extends CardSpec {
 
     def "playing King Mukla"() {
         def copiedBoard = startingBoard.deepCopy()
-        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def theCard = root.data_.getCurrentPlayer().getHand().get(0)
         def ret = theCard.useOn(CURRENT_PLAYER, 0, root, null, null)
 
         expect:

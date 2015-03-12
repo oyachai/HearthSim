@@ -3,6 +3,7 @@ package com.hearthsim.card.minion.concrete;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -35,16 +36,20 @@ public class AncientOfWar extends Minion {
         HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
 
         if (toRet != null) {
-            int thisMinionIndex = PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions().indexOf(this);
+            PlayerModel currentPlayer = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+
+            int thisMinionIndex = currentPlayer.getMinions().indexOf(this);
             {
                 HearthTreeNode newState = toRet.addChild(new HearthTreeNode(toRet.data_.deepCopy()));
-                PlayerSide.CURRENT_PLAYER.getPlayer(newState).getMinions().get(thisMinionIndex).setTaunt(true);
-                PlayerSide.CURRENT_PLAYER.getPlayer(newState).getMinions().get(thisMinionIndex).setMaxHealth((byte)10);
-                PlayerSide.CURRENT_PLAYER.getPlayer(newState).getMinions().get(thisMinionIndex).setHealth((byte)10);
+                Minion newMinion = newState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getMinions().get(thisMinionIndex);
+                newMinion.setTaunt(true);
+                newMinion.setMaxHealth((byte) 10);
+                newMinion.setHealth((byte) 10);
             }
             {
                 HearthTreeNode newState = toRet.addChild(new HearthTreeNode(toRet.data_.deepCopy()));
-                PlayerSide.CURRENT_PLAYER.getPlayer(newState).getMinions().get(thisMinionIndex).setAttack((byte)10);
+                Minion newMinion = newState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getMinions().get(thisMinionIndex);
+                newMinion.setAttack((byte) 10);
             }
         }
         return toRet;

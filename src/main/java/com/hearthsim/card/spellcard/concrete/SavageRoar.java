@@ -5,6 +5,7 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -58,8 +59,9 @@ public class SavageRoar extends SpellCard {
             boolean singleRealizationOnly)
         throws HSException {
         HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
-        toRet.data_.getCurrentPlayerHero().setExtraAttackUntilTurnEnd((byte)2);
-        for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(toRet).getMinions())
+        PlayerModel currentPlayer = toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        currentPlayer.getHero().setExtraAttackUntilTurnEnd((byte)2);
+        for (Minion minion : currentPlayer.getMinions())
             minion.setExtraAttackUntilTurnEnd((byte)2);
 
         return toRet;

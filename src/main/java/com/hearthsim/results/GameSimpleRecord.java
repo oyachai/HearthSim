@@ -40,12 +40,12 @@ public class GameSimpleRecord implements GameRecord {
         numMinions_[currentPlayerId][turn][currentPlayerId] = (byte)board.getCurrentPlayer().getNumMinions();
         numMinions_[currentPlayerId][turn][waitingPlayerId] = (byte)board.getWaitingPlayer().getNumMinions();
 
-        numCards_[currentPlayerId][turn][currentPlayerId] = (byte)board.getNumCardsHandCurrentPlayer();
-        numCards_[currentPlayerId][turn][waitingPlayerId] = (byte)board.getNumCardsHandWaitingPlayer();
+        numCards_[currentPlayerId][turn][currentPlayerId] = (byte)board.getCurrentPlayer().getHand().size();
+        numCards_[currentPlayerId][turn][waitingPlayerId] = (byte)board.getWaitingPlayer().getHand().size();
 
-        Hero currentPlayerHero = board.getCurrentPlayerHero();
+        Hero currentPlayerHero = board.getCurrentPlayer().getHero();
         heroHealth_[currentPlayerId][turn][currentPlayerId] = currentPlayerHero.getHealth();
-        Hero waitingPlayerHero = board.getWaitingPlayerHero();
+        Hero waitingPlayerHero = board.getWaitingPlayer().getHero();
         heroHealth_[currentPlayerId][turn][waitingPlayerId] = waitingPlayerHero.getHealth();
 
         heroArmor_[currentPlayerId][turn][currentPlayerId] = currentPlayerHero.getArmor();

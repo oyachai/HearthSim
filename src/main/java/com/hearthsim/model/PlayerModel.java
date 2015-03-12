@@ -50,6 +50,10 @@ public class PlayerModel implements DeepCopyable<PlayerModel> {
         return card;
     }
 
+    public Minion getCharacter(int index) {
+        return index == 0 ? this.getHero() : this.getMinions().get(index - 1);
+    }
+
     public int getNumCharacters() {
         return this.getNumMinions() + 1;
     }
@@ -138,6 +142,10 @@ public class PlayerModel implements DeepCopyable<PlayerModel> {
         this.overload = overload;
     }
 
+    public void addOverload(byte overload) {
+        this.overload += overload;
+    }
+
     public byte getDeckPos() {
         return deckPos;
     }
@@ -177,6 +185,10 @@ public class PlayerModel implements DeepCopyable<PlayerModel> {
     public boolean isComboEnabled() {
         //don't count the card that was just used
         return numCardsUsed > 1;
+    }
+
+    public boolean isBoardFull() {
+        return this.getNumMinions() >= 7;
     }
 
     @Override

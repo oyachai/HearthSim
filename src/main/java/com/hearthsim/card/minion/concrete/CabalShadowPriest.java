@@ -30,7 +30,7 @@ public class CabalShadowPriest extends Minion implements MinionTargetableBattlec
             Deck deckPlayer1
         ) throws HSException {
         HearthTreeNode toRet = boardState;
-        if (targetMinion.getTotalAttack() <= 2 && toRet.data_.getMinions(PlayerSide.CURRENT_PLAYER).size() < 6) {
+        if (targetMinion.getTotalAttack() <= 2 && toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getMinions().size() < 6) {
             toRet.data_.removeMinion(targetMinion);
             toRet.data_.placeMinion(PlayerSide.CURRENT_PLAYER, targetMinion);
             if (targetMinion.getCharge()) {

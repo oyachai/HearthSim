@@ -45,8 +45,8 @@ class BloodsailRaiderSpec extends CardSpec {
     
     def "playing Bloodsail Raider without weapon"() {
         def copiedBoard = startingBoard.deepCopy()
-        def target = root.data_.getCharacter(CURRENT_PLAYER, 1)
-        def theCard = root.data_.getCurrentPlayerCardHand(1)
+        def target = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(1)
+        def theCard = root.data_.getCurrentPlayer().getHand().get(1)
         def ret = theCard.useOn(CURRENT_PLAYER, target, root, null, null)
 
         expect:
@@ -63,10 +63,10 @@ class BloodsailRaiderSpec extends CardSpec {
     
     def "playing Bloodsail Raider with weapon"() {
         def copiedBoard = startingBoard.deepCopy()
-        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def theCard = root.data_.getCurrentPlayer().getHand().get(0)
         def ret = theCard.useOn(CURRENT_PLAYER, 0, root, null, null)
         
-        theCard = root.data_.getCurrentPlayerCardHand(0)
+        theCard = root.data_.getCurrentPlayer().getHand().get(0)
         ret = theCard.useOn(CURRENT_PLAYER, 1, ret, null, null)
 
         expect:

@@ -43,8 +43,8 @@ public class ArchmageAntonidas extends Minion implements CardPlayBeginInterface 
             return toRet;
         if (isInHand_)
             return toRet;
-        if (usedCard instanceof SpellCard && toRet.data_.getNumCardsHandCurrentPlayer() < 10) {
-            toRet.data_.placeCardHandCurrentPlayer(new Fireball());
+        if (usedCard instanceof SpellCard && toRet.data_.getCurrentPlayer().getHand().size() < 10) {
+            toRet.data_.getCurrentPlayer().placeCardHand(new Fireball());
         }
         return toRet;
     }

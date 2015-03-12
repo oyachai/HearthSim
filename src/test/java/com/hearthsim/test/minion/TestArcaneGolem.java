@@ -3,14 +3,12 @@ package com.hearthsim.test.minion;
 import java.util.List;
 
 import com.hearthsim.card.Card;
-import com.hearthsim.card.Deck;
-import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.ArcaneGolem;
 import com.hearthsim.card.minion.concrete.BoulderfistOgre;
 import com.hearthsim.card.minion.concrete.RaidLeader;
-import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.player.playercontroller.BruteForceSearchAI;
 import com.hearthsim.util.HearthActionBoardPair;
@@ -25,98 +23,81 @@ import static org.junit.Assert.*;
 public class TestArcaneGolem {
 
     private HearthTreeNode board;
-    private Deck deck;
+    private PlayerModel currentPlayer;
+    private PlayerModel waitingPlayer;
 
     @Before
     public void setup() throws HSException {
         board = new HearthTreeNode(new BoardModel());
+        currentPlayer = board.data_.getCurrentPlayer();
+        waitingPlayer = board.data_.getWaitingPlayer();
 
-        Minion minion0_0 = new BoulderfistOgre();
-        Minion minion0_1 = new RaidLeader();
-        Minion minion1_0 = new BoulderfistOgre();
-        Minion minion1_1 = new RaidLeader();
+        board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new RaidLeader());
+        board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new BoulderfistOgre());
 
-        board.data_.placeCardHandCurrentPlayer(minion0_0);
-        board.data_.placeCardHandCurrentPlayer(minion0_1);
-
-        board.data_.placeCardHandWaitingPlayer(minion1_0);
-        board.data_.placeCardHandWaitingPlayer(minion1_1);
-
-        Card cards[] = new Card[10];
-        for (int index = 0; index < 10; ++index) {
-            cards[index] = new TheCoin();
-        }
-
-        deck = new Deck(cards);
+        board.data_.placeMinion(PlayerSide.WAITING_PLAYER, new RaidLeader());
+        board.data_.placeMinion(PlayerSide.WAITING_PLAYER, new BoulderfistOgre());
 
         Card fb = new ArcaneGolem();
-        board.data_.placeCardHandCurrentPlayer(fb);
+        currentPlayer.placeCardHand(fb);
 
-        board.data_.getCurrentPlayer().setMana((byte)18);
-        board.data_.getWaitingPlayer().setMana((byte)18);
+        currentPlayer.setMana((byte) 18);
+        waitingPlayer.setMana((byte) 18);
 
-        board.data_.getCurrentPlayer().setMaxMana((byte)8);
-        board.data_.getWaitingPlayer().setMaxMana((byte)8);
-
-        HearthTreeNode tmpBoard = new HearthTreeNode(board.data_.flipPlayers());
-        tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
-        tmpBoard.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, tmpBoard.data_.getCurrentPlayerHero(), tmpBoard, deck, null);
-
-        board = new HearthTreeNode(tmpBoard.data_.flipPlayers());
-        board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayerHero(), board, deck, null);
-        board.data_.getCurrentPlayerCardHand(0).useOn(PlayerSide.CURRENT_PLAYER, board.data_.getCurrentPlayerHero(), board, deck, null);
+        currentPlayer.setMaxMana((byte) 8);
+        waitingPlayer.setMaxMana((byte) 8);
 
         board.data_.resetMana();
         board.data_.resetMinions();
-
     }
 
     @Test
     public void testIncreasesEnemyMana() throws HSException {
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
+        Card theCard = currentPlayer.getHand().get(0);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
         assertEquals(board, ret);
-        assertEquals(board.data_.getNumCards_hand(), 0);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(board).getNumMinions(), 3);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(board).getNumMinions(), 2);
-        assertEquals(board.data_.getCurrentPlayer().getMana(), 5);
-        assertEquals(board.data_.getCurrentPlayer().getMaxMana(), 8);
-        assertEquals(board.data_.getWaitingPlayer().getMana(), 9);
-        assertEquals(board.data_.getWaitingPlayer().getMaxMana(), 9);
+
+        assertEquals(currentPlayer.getHand().size(), 0);
+        assertEquals(currentPlayer.getNumMinions(), 3);
+        assertEquals(waitingPlayer.getNumMinions(), 2);
+        assertEquals(currentPlayer.getMana(), 5);
+        assertEquals(currentPlayer.getMaxMana(), 8);
+        assertEquals(waitingPlayer.getMana(), 9);
+        assertEquals(waitingPlayer.getMaxMana(), 9);
     }
 
     @Test
     @Ignore("Existing bug")
     public void testDoesNotIncreaseOverTen() throws HSException {
-        board.data_.getWaitingPlayer().setMaxMana((byte)10);
-        Card theCard = board.data_.getCurrentPlayerCardHand(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
+        waitingPlayer.setMaxMana((byte) 10);
+        Card theCard = currentPlayer.getHand().get(0);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
         assertEquals(board, ret);
-        assertEquals(board.data_.getWaitingPlayer().getMana(), 9);
-        assertEquals(board.data_.getWaitingPlayer().getMaxMana(), 10);
+        assertEquals(waitingPlayer.getMana(), 9);
+        assertEquals(waitingPlayer.getMaxMana(), 10);
     }
 
     @Test
     public void testAiAttacksAfterPlaying() throws HSException {
-        board.data_.getCurrentPlayer().setMana((byte)3);
-        board.data_.getWaitingPlayer().setMana((byte)3);
+        currentPlayer.setMana((byte) 3);
+        waitingPlayer.setMana((byte) 3);
 
-        board.data_.getCurrentPlayer().setMaxMana((byte)3);
-        board.data_.getWaitingPlayer().setMaxMana((byte)3);
+        currentPlayer.setMaxMana((byte) 3);
+        waitingPlayer.setMaxMana((byte) 3);
 
-        board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 1).hasAttacked(true);
-        board.data_.getCharacter(PlayerSide.CURRENT_PLAYER, 2).hasAttacked(true);
+        currentPlayer.getCharacter(1).hasAttacked(true);
+        currentPlayer.getCharacter(2).hasAttacked(true);
 
         BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
         List<HearthActionBoardPair> ab = ai0.playTurn(0, board.data_);
         BoardModel resBoard = ab.get(ab.size() - 1).board;
 
-        assertEquals(resBoard.getNumCardsHandCurrentPlayer(), 0);
-        assertEquals(PlayerSide.CURRENT_PLAYER.getPlayer(resBoard).getNumMinions(), 3);
-        assertEquals(PlayerSide.WAITING_PLAYER.getPlayer(resBoard).getNumMinions(), 2); //1 minion should have been killed
+        assertEquals(resBoard.getCurrentPlayer().getHand().size(), 0);
+        assertEquals(resBoard.modelForSide(PlayerSide.CURRENT_PLAYER).getNumMinions(), 3);
+        assertEquals(resBoard.modelForSide(PlayerSide.WAITING_PLAYER).getNumMinions(), 2); //1 minion should have been killed
         assertEquals(resBoard.getCurrentPlayer().getMana(), 0); //3 mana used
         assertEquals(resBoard.getWaitingPlayer().getMana(), 4); //1 mana given by the Arcane Golem
-        assertEquals(resBoard.getCurrentPlayerHero().getHealth(), 30);
-        assertEquals(resBoard.getWaitingPlayerHero().getHealth(), 25); //5 damage to the face... 4 from Arcane Golem (he has charge!), 1 more from Raid Leader's buff
+        assertEquals(resBoard.getCurrentPlayer().getHero().getHealth(), 30);
+        assertEquals(resBoard.getWaitingPlayer().getHero().getHealth(), 25); //5 damage to the face... 4 from Arcane Golem (he has charge!), 1 more from Raid Leader's buff
     }
 }

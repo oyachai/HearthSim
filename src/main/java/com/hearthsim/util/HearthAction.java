@@ -6,6 +6,7 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -53,33 +54,36 @@ public class HearthAction {
 
     public HearthTreeNode perform(HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealization) throws HSException {
         HearthTreeNode toRet = boardState;
+        PlayerModel actingPlayer = actionPerformerPlayerSide != null ? boardState.data_.modelForSide(actionPerformerPlayerSide) : null;
+        PlayerModel targetPlayer = targetPlayerSide != null ? boardState.data_.modelForSide(targetPlayerSide) : null;
+
         switch(verb_) {
             case USE_CARD: {
-                Card card = boardState.data_.getCard_hand(actionPerformerPlayerSide, cardOrCharacterIndex_);
+                Card card = actingPlayer.getHand().get(cardOrCharacterIndex_);
                 toRet = card.useOn(targetPlayerSide, targetCharacterIndex_, toRet, deckPlayer0, deckPlayer1, singleRealization);
             }
             break;
             case HERO_ABILITY: {
-                Hero hero = boardState.data_.getHero(actionPerformerPlayerSide);
-                Minion target = boardState.data_.getCharacter(targetPlayerSide, targetCharacterIndex_);
+                Hero hero = actingPlayer.getHero();
+                Minion target = targetPlayer.getCharacter(targetCharacterIndex_);
                 toRet = hero.useHeroAbility(targetPlayerSide, target, toRet, deckPlayer0, deckPlayer1, singleRealization);
             }
             break;
             case ATTACK: {
-                Minion attacker = boardState.data_.getCharacter(actionPerformerPlayerSide, cardOrCharacterIndex_);
-                Minion target = boardState.data_.getCharacter(targetPlayerSide, targetCharacterIndex_);
+                Minion attacker = actingPlayer.getCharacter(cardOrCharacterIndex_);
+                Minion target = targetPlayer.getCharacter(targetCharacterIndex_);
                 toRet = attacker.attack(targetPlayerSide, target, toRet, deckPlayer0, deckPlayer1, singleRealization);
             }
             break;
             case UNTARGETABLE_BATTLECRY: {
-                Minion minion = boardState.data_.getCharacter(actionPerformerPlayerSide, cardOrCharacterIndex_);
-                Minion placementTarget = boardState.data_.getCharacter(targetPlayerSide, targetCharacterIndex_);
+                Minion minion = actingPlayer.getCharacter(cardOrCharacterIndex_);
+                Minion placementTarget = targetPlayer.getCharacter(targetCharacterIndex_);
                 toRet = minion.useUntargetableBattlecry(placementTarget, toRet, deckPlayer0, deckPlayer1, singleRealization);
                 break;
             }
             case TARGETABLE_BATTLECRY: {
-                Minion minion = boardState.data_.getCharacter(actionPerformerPlayerSide, cardOrCharacterIndex_);
-                Minion battlecryTarget = boardState.data_.getCharacter(targetPlayerSide, targetCharacterIndex_);
+                Minion minion = actingPlayer.getCharacter(cardOrCharacterIndex_);
+                Minion battlecryTarget = targetPlayer.getCharacter(targetCharacterIndex_);
                 toRet = minion.useTargetableBattlecry(targetPlayerSide, battlecryTarget, toRet, deckPlayer0, deckPlayer1, singleRealization);
                 break;
             }
@@ -92,20 +96,20 @@ public class HearthAction {
                 break;
             }
             case DO_NOT_USE_CARD: {
-                for (Card c : boardState.data_.getCurrentPlayerHand()) {
+                for (Card c : actingPlayer.getHand()) {
                     c.hasBeenUsed(true);
                 }
                 break;
             }
             case DO_NOT_ATTACK: {
-                for (Minion minion : PlayerSide.CURRENT_PLAYER.getPlayer(boardState).getMinions()) {
+                for (Minion minion : actingPlayer.getMinions()) {
                     minion.hasAttacked(true);
                 }
-                boardState.data_.getCurrentPlayerHero().hasAttacked(true);
+                actingPlayer.getHero().hasAttacked(true);
                 break;
             }
             case DO_NOT_USE_HEROPOWER: {
-                boardState.data_.getCurrentPlayerHero().hasBeenUsed(true);
+                actingPlayer.getHero().hasBeenUsed(true);
                 break;
             }
             case RNG: {
@@ -122,7 +126,7 @@ public class HearthAction {
             case DRAW_CARDS: {
                 // Note, this action only supports drawing cards from the deck. Cards like Ysera or Webspinner need to be implemented using RNG children.
                 for (int indx = 0; indx < cardOrCharacterIndex_; ++indx) {
-                    toRet.data_.modelForSide(actionPerformerPlayerSide).drawNextCardFromDeck();
+                    actingPlayer.drawNextCardFromDeck();
                 }
                 break;
             }

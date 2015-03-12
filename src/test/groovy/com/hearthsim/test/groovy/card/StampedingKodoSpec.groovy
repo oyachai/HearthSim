@@ -36,7 +36,7 @@ class StampedingKodoSpec extends CardSpec {
     
     def "cannot play for waiting player's side"() {
         def copiedBoard = startingBoard.deepCopy()
-        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def theCard = root.data_.getCurrentPlayer().getHand().get(0)
         def ret = theCard.useOn(WAITING_PLAYER, 0, root, null, null)
 
         expect:
@@ -47,7 +47,7 @@ class StampedingKodoSpec extends CardSpec {
 
     def "playing Stampeding Kodo while there are no other minions no board"() {
         def copiedBoard = startingBoard.deepCopy()
-        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def theCard = root.data_.getCurrentPlayer().getHand().get(0)
         def ret = theCard.useOn(CURRENT_PLAYER, 0, root, null, null)
 
         expect:
@@ -68,7 +68,7 @@ class StampedingKodoSpec extends CardSpec {
         startingBoard.placeMinion(WAITING_PLAYER, new BloodfenRaptor())
         startingBoard.placeMinion(WAITING_PLAYER, new RiverCrocolisk())
         def copiedBoard = startingBoard.deepCopy()
-        def theCard = root.data_.getCurrentPlayerCardHand(0)
+        def theCard = root.data_.getCurrentPlayer().getHand().get(0)
         def ret = theCard.useOn(CURRENT_PLAYER, 0, root, null, null)
 
         expect:

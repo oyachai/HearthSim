@@ -5,6 +5,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -40,7 +41,7 @@ public class DivineFavor extends SpellCard {
             return false;
         }
 
-        int numCardsToDraw = PlayerSide.WAITING_PLAYER.getPlayer(boardModel).getHand().size() - PlayerSide.CURRENT_PLAYER.getPlayer(boardModel).getHand().size() + 1;
+        int numCardsToDraw = boardModel.modelForSide(PlayerSide.WAITING_PLAYER).getHand().size() - boardModel.modelForSide(PlayerSide.CURRENT_PLAYER).getHand().size() + 1;
         if (numCardsToDraw < 1) {
             return false;
         }
@@ -70,7 +71,10 @@ public class DivineFavor extends SpellCard {
             Deck deckPlayer1,
             boolean singleRealizationOnly)
         throws HSException {
-        int numCardsToDraw = PlayerSide.WAITING_PLAYER.getPlayer(boardState).getHand().size() - PlayerSide.CURRENT_PLAYER.getPlayer(boardState).getHand().size() + 1;
+        PlayerModel currentPlayer = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        PlayerModel waitingPlayer = boardState.data_.modelForSide(PlayerSide.WAITING_PLAYER);
+
+        int numCardsToDraw = waitingPlayer.getHand().size() - currentPlayer.getHand().size() + 1;
         if (numCardsToDraw < 1) {
             return null;
         }

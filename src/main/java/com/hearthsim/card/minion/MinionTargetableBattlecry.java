@@ -3,7 +3,6 @@ package com.hearthsim.card.minion;
 import java.util.EnumSet;
 
 import com.hearthsim.card.Deck;
-import com.hearthsim.card.minion.BattlecryTargetType;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
