@@ -22,8 +22,8 @@ public class Gorehowl extends WeaponCard {
     }
 
     @Override
-    public void afterAttack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode toRet, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
-        super.afterAttack(targetMinionPlayerSide, targetMinion, toRet, deckPlayer0, deckPlayer1);
+    public void afterAttack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode toRet) throws HSException {
+        super.afterAttack(targetMinionPlayerSide, targetMinion, toRet);
 
         if (!(targetMinion instanceof Hero)) {
             this.setImmune(previousImmuneState);
