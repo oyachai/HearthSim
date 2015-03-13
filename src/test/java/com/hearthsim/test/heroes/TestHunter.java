@@ -44,7 +44,7 @@ public class TestHunter {
     public void testHeropower() throws HSException {
         Hero hunter = currentPlayer.getHero();
 
-        HearthTreeNode ret = hunter.useHeroAbility(PlayerSide.WAITING_PLAYER, 0, board, null, null);
+        HearthTreeNode ret = hunter.useHeroAbility(PlayerSide.WAITING_PLAYER, 0, board);
         assertEquals(board, ret);
 
         assertEquals(currentPlayer.getMana(), 6);
@@ -55,7 +55,7 @@ public class TestHunter {
     public void testHeropowerCannotTargetMinion() throws HSException {
         Hero hunter = currentPlayer.getHero();
 
-        HearthTreeNode ret = hunter.useHeroAbility(PlayerSide.WAITING_PLAYER, 2, board, null, null);
+        HearthTreeNode ret = hunter.useHeroAbility(PlayerSide.WAITING_PLAYER, 2, board);
         assertNull(ret);
 
         assertEquals(currentPlayer.getMana(), 8);
@@ -67,7 +67,7 @@ public class TestHunter {
     public void testHeropowerCannotTargetSelf() throws HSException {
         Hero hunter = currentPlayer.getHero();
 
-        HearthTreeNode ret = hunter.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
+        HearthTreeNode ret = hunter.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board);
         assertNull(ret);
 
         assertEquals(currentPlayer.getMana(), 8);

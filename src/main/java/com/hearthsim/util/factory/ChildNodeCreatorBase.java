@@ -154,7 +154,7 @@ public class ChildNodeCreatorBase implements ChildNodeCreator {
         for (int i = 0; i <= currentPlayer.getNumMinions(); ++i) {
             if (player.canBeUsedOn(PlayerSide.CURRENT_PLAYER, i, boardStateNode.data_)) {
                 newState = new HearthTreeNode(boardStateNode.data_.deepCopy());
-                newState = newState.data_.getCurrentPlayer().getHero().useHeroAbility(PlayerSide.CURRENT_PLAYER, i, newState, deckPlayer0_, deckPlayer1_);
+                newState = newState.data_.getCurrentPlayer().getHero().useHeroAbility(PlayerSide.CURRENT_PLAYER, i, newState);
 
                 if (newState != null) {
                     nodes.add(newState);
@@ -165,7 +165,7 @@ public class ChildNodeCreatorBase implements ChildNodeCreator {
         for (int i = 0; i <= waitingPlayer.getNumMinions(); ++i) {
             if (player.canBeUsedOn(PlayerSide.WAITING_PLAYER, i, boardStateNode.data_)) {
                 newState = new HearthTreeNode(boardStateNode.data_.deepCopy());
-                newState = newState.data_.getCurrentPlayer().getHero().useHeroAbility(PlayerSide.WAITING_PLAYER, i, newState, deckPlayer0_, deckPlayer1_);
+                newState = newState.data_.getCurrentPlayer().getHero().useHeroAbility(PlayerSide.WAITING_PLAYER, i, newState);
 
                 if (newState != null) {
                     nodes.add(newState);

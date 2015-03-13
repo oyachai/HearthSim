@@ -89,7 +89,7 @@ public class TestHeroBase {
     @Test
     public void testHeropowerIsMarkedUsed() throws HSException {
         Hero hero = currentPlayer.getHero();
-        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
+        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board);
         assertEquals(board, ret);
         assertTrue(hero.hasBeenUsed());
     }
@@ -97,7 +97,7 @@ public class TestHeroBase {
     @Test
     public void testHeropowerSubtractsMana() throws HSException {
         Hero hero = currentPlayer.getHero();
-        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
+        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board);
         assertEquals(board, ret);
         assertEquals(currentPlayer.getMana(), 6);
     }
@@ -105,12 +105,12 @@ public class TestHeroBase {
     @Test
     public void testHeropowerCannotBeUsedTwice() throws HSException {
         Hero hero = currentPlayer.getHero();
-        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
+        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board);
         assertEquals(board, ret);
 
         assertFalse(hero.canBeUsedOn(PlayerSide.CURRENT_PLAYER, 0, board.data_));
 
-        ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
+        ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board);
         assertNull(ret);
 
         assertTrue(hero.hasBeenUsed());
@@ -120,7 +120,7 @@ public class TestHeroBase {
     @Test
     public void testHeropowerResets() throws HSException {
         Hero hero = currentPlayer.getHero();
-        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
+        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board);
         assertEquals(board, ret);
 
         board.data_.resetMinions();
@@ -134,7 +134,7 @@ public class TestHeroBase {
 
         //assertFalse(hero.canBeUsedOn(PlayerSide.CURRENT_PLAYER, 0, board.data_)); // TODO doesn't work yet
 
-        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
+        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board);
         assertNull(ret);
 
         assertFalse(hero.hasBeenUsed());

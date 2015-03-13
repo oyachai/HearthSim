@@ -66,7 +66,7 @@ public class HearthAction {
             case HERO_ABILITY: {
                 Hero hero = actingPlayer.getHero();
                 Minion target = targetPlayer.getCharacter(targetCharacterIndex_);
-                toRet = hero.useHeroAbility(targetPlayerSide, target, toRet, deckPlayer0, deckPlayer1, singleRealization);
+                toRet = hero.useHeroAbility(targetPlayerSide, target, toRet, singleRealization);
             }
             break;
             case ATTACK: {

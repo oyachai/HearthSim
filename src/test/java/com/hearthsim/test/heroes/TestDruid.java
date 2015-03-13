@@ -43,7 +43,7 @@ public class TestDruid {
     @Test
     public void testHeropower() throws HSException {
         Hero hero = currentPlayer.getHero();
-        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
+        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board);
         assertEquals(board, ret);
 
         assertEquals(currentPlayer.getHand().size(), 0);
@@ -54,7 +54,7 @@ public class TestDruid {
         Hero hero = currentPlayer.getHero();
         hero.setArmor((byte)1);
 
-        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
+        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board);
         assertEquals(board, ret);
         assertEquals(currentPlayer.getHero().getArmor(), 2);
     }
@@ -64,7 +64,7 @@ public class TestDruid {
         Hero hero = currentPlayer.getHero();
         hero.setExtraAttackUntilTurnEnd((byte)1);
 
-        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
+        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board);
         assertEquals(board, ret);
         assertEquals(currentPlayer.getHero().getExtraAttackUntilTurnEnd(), 2);
     }
@@ -72,7 +72,7 @@ public class TestDruid {
     @Test
     public void testCannotTargetMinion() throws HSException {
         Hero hero = currentPlayer.getHero();
-        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, 1, board, null, null);
+        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, 1, board);
         assertNull(ret);
 
         assertEquals(currentPlayer.getMana(), 8);
@@ -87,7 +87,7 @@ public class TestDruid {
     @Test
     public void testCannotTargetOpponent() throws HSException {
         Hero hero = currentPlayer.getHero();
-        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.WAITING_PLAYER, 0, board, null, null);
+        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.WAITING_PLAYER, 0, board);
         assertNull(ret);
 
         assertEquals(currentPlayer.getHand().size(), 0);

@@ -48,7 +48,7 @@ public class TestWarlock {
     public void testHeropower() throws HSException {
         Hero warrior = currentPlayer.getHero();
 
-        HearthTreeNode ret = warrior.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
+        HearthTreeNode ret = warrior.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board);
         assertNotEquals(board, ret);
         assertTrue(ret instanceof CardDrawNode);
 
@@ -66,7 +66,7 @@ public class TestWarlock {
     public void testHeropowerCannotTargetMinion() throws HSException {
         Hero warrior = currentPlayer.getHero();
 
-        HearthTreeNode ret = warrior.useHeroAbility(PlayerSide.WAITING_PLAYER, 2, board, null, null);
+        HearthTreeNode ret = warrior.useHeroAbility(PlayerSide.WAITING_PLAYER, 2, board);
         assertNull(ret);
 
         assertEquals(currentPlayer.getHand().size(), 0);
@@ -80,7 +80,7 @@ public class TestWarlock {
     public void testHeropowerCannotTargetOpponent() throws HSException {
         Hero warrior = currentPlayer.getHero();
 
-        HearthTreeNode ret = warrior.useHeroAbility(PlayerSide.WAITING_PLAYER, 0, board, null, null);
+        HearthTreeNode ret = warrior.useHeroAbility(PlayerSide.WAITING_PLAYER, 0, board);
         assertNull(ret);
 
         assertEquals(currentPlayer.getHand().size(), 0);
@@ -106,7 +106,7 @@ public class TestWarlock {
         currentPlayer.setDeckPos((byte) 30);
 
         Hero hero = currentPlayer.getHero();
-        ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board, deck, null);
+        ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board);
         assertEquals(currentPlayer.getHand().size(), 0);
 
         assertTrue(ret instanceof CardDrawNode);

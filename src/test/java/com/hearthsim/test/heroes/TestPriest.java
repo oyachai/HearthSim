@@ -120,7 +120,7 @@ public class TestPriest {
 
         Hero priest = currentPlayer.getHero();
 
-        HearthTreeNode ret = priest.useHeroAbility(PlayerSide.WAITING_PLAYER, target, board, null, null);
+        HearthTreeNode ret = priest.useHeroAbility(PlayerSide.WAITING_PLAYER, target, board);
         assertEquals(board, ret);
 
         assertEquals(currentPlayer.getMana(), 6);
@@ -134,7 +134,7 @@ public class TestPriest {
 
         Hero priest = currentPlayer.getHero();
 
-        HearthTreeNode ret = priest.useHeroAbility(PlayerSide.WAITING_PLAYER, target, board, null, null);
+        HearthTreeNode ret = priest.useHeroAbility(PlayerSide.WAITING_PLAYER, target, board);
         assertEquals(board, ret);
 
         assertEquals(currentPlayer.getMana(), 6);
@@ -148,7 +148,7 @@ public class TestPriest {
 
         Hero priest = currentPlayer.getHero();
 
-        HearthTreeNode ret = priest.useHeroAbility(PlayerSide.WAITING_PLAYER, target, board, null, null);
+        HearthTreeNode ret = priest.useHeroAbility(PlayerSide.WAITING_PLAYER, target, board);
         assertEquals(board, ret);
 
         assertEquals(currentPlayer.getMana(), 6);
@@ -162,7 +162,7 @@ public class TestPriest {
 
         Hero priest = currentPlayer.getHero();
 
-        HearthTreeNode ret = priest.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, null, null);
+        HearthTreeNode ret = priest.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board);
         assertEquals(board, ret);
 
         assertEquals(currentPlayer.getMana(), 6);

@@ -44,7 +44,7 @@ public class TestPaladin {
     public void testHeropower() throws HSException {
         Hero paladin = currentPlayer.getHero();
 
-        HearthTreeNode ret = paladin.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
+        HearthTreeNode ret = paladin.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board);
         assertEquals(board, ret);
 
         assertEquals(currentPlayer.getNumMinions(), 3);
@@ -69,7 +69,7 @@ public class TestPaladin {
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new SilverHandRecruit());
         assertEquals(currentPlayer.getNumMinions(), 7);
 
-        HearthTreeNode ret = paladin.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
+        HearthTreeNode ret = paladin.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board);
         assertNull(ret);
 
         assertEquals(currentPlayer.getNumMinions(), 7);
@@ -80,7 +80,7 @@ public class TestPaladin {
     public void testHeropowerCannotTargetMinion() throws HSException {
         Hero paladin = currentPlayer.getHero();
 
-        HearthTreeNode ret = paladin.useHeroAbility(PlayerSide.WAITING_PLAYER, 2, board, null, null);
+        HearthTreeNode ret = paladin.useHeroAbility(PlayerSide.WAITING_PLAYER, 2, board);
         assertNull(ret);
 
         assertEquals(currentPlayer.getMana(), 8);
@@ -91,7 +91,7 @@ public class TestPaladin {
     public void testHeropowerCannotTargetOpponent() throws HSException {
         Hero paladin = currentPlayer.getHero();
 
-        HearthTreeNode ret = paladin.useHeroAbility(PlayerSide.WAITING_PLAYER, 0, board, null, null);
+        HearthTreeNode ret = paladin.useHeroAbility(PlayerSide.WAITING_PLAYER, 0, board);
         assertNull(ret);
 
         assertEquals(currentPlayer.getMana(), 8);

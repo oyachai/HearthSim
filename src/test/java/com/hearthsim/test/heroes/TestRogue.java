@@ -50,7 +50,7 @@ public class TestRogue {
     @Test
     public void testHeropower() throws HSException {
         Hero hero = currentPlayer.getHero();
-        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
+        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board);
         assertEquals(board, ret);
 
         assertTrue(hero.hasBeenUsed());
@@ -67,7 +67,7 @@ public class TestRogue {
         assertEquals(currentPlayer.getHero().getTotalAttack(), 3);
 
         Hero hero = currentPlayer.getHero();
-        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
+        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board);
         assertEquals(board, ret);
 
         assertTrue(hero.hasBeenUsed());
@@ -79,7 +79,7 @@ public class TestRogue {
     @Test
     public void testCannotTargetMinion() throws HSException {
         Hero hero = currentPlayer.getHero();
-        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, 1, board, null, null);
+        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, 1, board);
         assertNull(ret);
 
         assertFalse(hero.hasBeenUsed());
@@ -94,7 +94,7 @@ public class TestRogue {
     @Test
     public void testCannotTargetOpponent() throws HSException {
         Hero hero = currentPlayer.getHero();
-        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.WAITING_PLAYER, 0, board, null, null);
+        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.WAITING_PLAYER, 0, board);
         assertNull(ret);
 
         assertFalse(hero.hasBeenUsed());
