@@ -14,13 +14,13 @@ public class Demolisher extends Minion {
     }
 
     @Override
-    public HearthTreeNode startTurn(PlayerSide thisMinionPlayerIndex, HearthTreeNode boardModel, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+    public HearthTreeNode startTurn(PlayerSide thisMinionPlayerIndex, HearthTreeNode boardModel) throws HSException {
         HearthTreeNode toRet = boardModel;
         if (thisMinionPlayerIndex == PlayerSide.CURRENT_PLAYER) {
             PlayerModel waitingPlayer = toRet.data_.modelForSide(PlayerSide.WAITING_PLAYER);
             Minion targetMinion = toRet.data_.modelForSide(PlayerSide.WAITING_PLAYER).getCharacter((int)(Math.random()*(waitingPlayer.getNumMinions() + 1)));
             toRet = targetMinion.takeDamage((byte)2, PlayerSide.CURRENT_PLAYER, PlayerSide.WAITING_PLAYER, toRet, false, false);
         }
-        return super.startTurn(thisMinionPlayerIndex, toRet, deckPlayer0, deckPlayer1);
+        return super.startTurn(thisMinionPlayerIndex, toRet);
     }
 }

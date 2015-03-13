@@ -13,13 +13,13 @@ public class ShadeOfNaxxramas extends Minion {
     }
 
     @Override
-    public HearthTreeNode startTurn(PlayerSide thisMinionPlayerIndex, HearthTreeNode boardModel, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+    public HearthTreeNode startTurn(PlayerSide thisMinionPlayerIndex, HearthTreeNode boardModel) throws HSException {
         HearthTreeNode toRet = boardModel;
         if (thisMinionPlayerIndex == PlayerSide.CURRENT_PLAYER) {
             this.addAttack((byte)1);
             this.addHealth((byte)1);
             this.addMaxHealth((byte)1);
         }
-        return super.startTurn(thisMinionPlayerIndex, toRet, deckPlayer0, deckPlayer1);
+        return super.startTurn(thisMinionPlayerIndex, toRet);
     }
 }

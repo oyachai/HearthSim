@@ -308,7 +308,7 @@ public class Card implements DeepCopyable<Card> {
         }
 
         if (toRet != null) {
-            toRet = this.notifyCardPlayResolve(toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
+            toRet = this.notifyCardPlayResolve(toRet, singleRealizationOnly);
         }
 
         if (toRet != null) {

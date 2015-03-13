@@ -169,10 +169,10 @@ public class Game {
         PlayerModel waitingPlayer = toRet.data_.getWaitingPlayer();
 
         for (Minion targetMinion : currentPlayer.getMinions()) {
-            toRet = targetMinion.startTurn(PlayerSide.CURRENT_PLAYER, toRet, currentPlayer.getDeck(), waitingPlayer.getDeck());
+            toRet = targetMinion.startTurn(PlayerSide.CURRENT_PLAYER, toRet);
         }
         for (Minion targetMinion : waitingPlayer.getMinions()) {
-            toRet = targetMinion.startTurn(PlayerSide.WAITING_PLAYER, toRet, currentPlayer.getDeck(), waitingPlayer.getDeck());
+            toRet = targetMinion.startTurn(PlayerSide.WAITING_PLAYER, toRet);
         }
 
         toRet = BoardStateFactoryBase.handleDeadMinions(toRet, true);

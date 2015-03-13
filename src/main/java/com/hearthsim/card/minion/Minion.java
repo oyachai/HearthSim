@@ -445,8 +445,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
      * This function is called at the start of the turn. Any derived class must override it to implement whatever "start of the turn" effect the card has.
      */
     @Override
-    public HearthTreeNode startTurn(PlayerSide thisMinionPlayerIndex, HearthTreeNode boardModel, Deck deckPlayer0,
-                                    Deck deckPlayer1) throws HSException {
+    public HearthTreeNode startTurn(PlayerSide thisMinionPlayerIndex, HearthTreeNode boardModel) throws HSException {
         if (destroyOnTurnStart_) {
             // toRet = this.destroyed(thisMinionPlayerIndex, toRet, deckPlayer0, deckPlayer1);
             this.setHealth((byte) -99);
