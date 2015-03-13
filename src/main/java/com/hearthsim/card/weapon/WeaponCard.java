@@ -136,7 +136,12 @@ public abstract class WeaponCard extends Card {
         }
     }
 
+    @Deprecated
     public void beforeAttack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode toRet, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+        this.beforeAttack(targetMinionPlayerSide, targetMinion, toRet);
+    }
+
+    public void beforeAttack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode toRet) throws HSException {
     }
 
     public void afterAttack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode toRet, Deck deckPlayer0, Deck deckPlayer1) throws HSException {

@@ -12,8 +12,8 @@ public class Gorehowl extends WeaponCard {
     boolean previousImmuneState = false;
 
     @Override
-    public void beforeAttack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode toRet, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
-        super.beforeAttack(targetMinionPlayerSide, targetMinion, toRet, deckPlayer0, deckPlayer1);
+    public void beforeAttack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode toRet) throws HSException {
+        super.beforeAttack(targetMinionPlayerSide, targetMinion, toRet);
 
         if (!(targetMinion instanceof Hero)) {
             this.previousImmuneState = this.isImmune();
