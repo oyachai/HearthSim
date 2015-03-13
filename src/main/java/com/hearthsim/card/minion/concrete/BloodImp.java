@@ -14,7 +14,7 @@ public class BloodImp extends Minion {
     }
 
     @Override
-    public HearthTreeNode endTurn(PlayerSide thisMinionPlayerIndex, HearthTreeNode boardModel, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+    public HearthTreeNode endTurn(PlayerSide thisMinionPlayerIndex, HearthTreeNode boardModel) throws HSException {
         HearthTreeNode toRet = boardModel;
         if (thisMinionPlayerIndex == PlayerSide.CURRENT_PLAYER) {
             PlayerModel player = toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
@@ -27,6 +27,6 @@ public class BloodImp extends Minion {
                 buffTargetMinion.addHealth((byte)1);
             }
         }
-        return super.endTurn(thisMinionPlayerIndex, toRet, deckPlayer0, deckPlayer1);
+        return super.endTurn(thisMinionPlayerIndex, toRet);
     }
 }

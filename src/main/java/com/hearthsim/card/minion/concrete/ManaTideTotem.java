@@ -13,8 +13,8 @@ public class ManaTideTotem extends Minion {
     }
 
     @Override
-    public HearthTreeNode endTurn(PlayerSide thisMinionPlayerIndex, HearthTreeNode boardModel, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
-        HearthTreeNode tmpState = super.endTurn(thisMinionPlayerIndex, boardModel, deckPlayer0, deckPlayer1);
+    public HearthTreeNode endTurn(PlayerSide thisMinionPlayerIndex, HearthTreeNode boardModel) throws HSException {
+        HearthTreeNode tmpState = super.endTurn(thisMinionPlayerIndex, boardModel);
         if (isWaitingPlayer(thisMinionPlayerIndex))
             return tmpState;
 

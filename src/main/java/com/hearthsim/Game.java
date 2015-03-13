@@ -192,17 +192,14 @@ public class Game {
         PlayerModel currentPlayer = toRet.data_.getCurrentPlayer();
         PlayerModel waitingPlayer = toRet.data_.getWaitingPlayer();
 
-        Deck deckPlayer0 = currentPlayer.getDeck();
-        Deck deckPlayer1 = waitingPlayer.getDeck();
-
-        toRet = currentPlayer.getHero().endTurn(PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1);
-        toRet = waitingPlayer.getHero().endTurn(PlayerSide.WAITING_PLAYER, toRet, deckPlayer0, deckPlayer1);
+        toRet = currentPlayer.getHero().endTurn(PlayerSide.CURRENT_PLAYER, toRet);
+        toRet = waitingPlayer.getHero().endTurn(PlayerSide.WAITING_PLAYER, toRet);
 
         // TODO: The minions should trigger end-of-turn effects in the order that they were played
         for (int index = 0; index < currentPlayer.getMinions().size(); ++index) {
             CardEndTurnInterface targetMinion = currentPlayer.getMinions().get(index);
             try {
-                toRet = targetMinion.endTurn(PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1);
+                toRet = targetMinion.endTurn(PlayerSide.CURRENT_PLAYER, toRet);
             } catch(HSException e) {
                 e.printStackTrace();
             }
@@ -210,7 +207,7 @@ public class Game {
         for (int index = 0; index < waitingPlayer.getMinions().size(); ++index) {
             CardEndTurnInterface targetMinion = waitingPlayer.getMinions().get(index);
             try {
-                toRet = targetMinion.endTurn(PlayerSide.WAITING_PLAYER, toRet, deckPlayer0, deckPlayer1);
+                toRet = targetMinion.endTurn(PlayerSide.WAITING_PLAYER, toRet);
             } catch(HSException e) {
                 e.printStackTrace();
             }

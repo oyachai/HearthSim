@@ -462,8 +462,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
      * This is not the most efficient implementation... luckily, endTurn only happens once per turn
      */
     @Override
-    public HearthTreeNode endTurn(PlayerSide thisMinionPlayerIndex, HearthTreeNode boardModel, Deck deckPlayer0,
-                                  Deck deckPlayer1) throws HSException {
+    public HearthTreeNode endTurn(PlayerSide thisMinionPlayerIndex, HearthTreeNode boardModel) throws HSException {
         extraAttackUntilTurnEnd_ = 0;
         if (destroyOnTurnEnd_) {
             // toRet = this.destroyed(thisMinionPlayerIndex, toRet, deckPlayer0, deckPlayer1);
