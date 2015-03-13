@@ -26,8 +26,6 @@ public class Warlock extends Hero {
      * @param targetPlayerSide
      * @param targetMinion The target minion
      * @param boardState
-     * @param deckPlayer0
-     * @param deckPlayer1
      *
      * @return
      */
@@ -36,8 +34,6 @@ public class Warlock extends Hero {
             PlayerSide targetPlayerSide,
             Minion targetMinion,
             HearthTreeNode boardState,
-            Deck deckPlayer0,
-            Deck deckPlayer1,
             boolean singleRealizationOnly)
         throws HSException {
         if (targetPlayerSide == PlayerSide.WAITING_PLAYER || isNotHero(targetMinion))

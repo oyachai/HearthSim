@@ -46,8 +46,7 @@ public class TestHero extends Hero {
      * @return
      */
     @Override
-    public HearthTreeNode useHeroAbility_core(PlayerSide targetPlayerSide, Minion targetMinion,
-            HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly)
+    public HearthTreeNode useHeroAbility_core(PlayerSide targetPlayerSide, Minion targetMinion, HearthTreeNode boardState, boolean singleRealizationOnly)
             throws HSException {
         if (this.enableHeroAbility) {
             HearthTreeNode toRet = boardState;

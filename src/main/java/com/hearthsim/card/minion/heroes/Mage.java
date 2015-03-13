@@ -36,8 +36,6 @@ public class Mage extends Hero {
             PlayerSide targetPlayerSide,
             Minion targetMinion,
             HearthTreeNode boardState,
-            Deck deckPlayer0,
-            Deck deckPlayer1,
             boolean singleRealizationOnly)
         throws HSException {
         HearthTreeNode toRet = boardState;

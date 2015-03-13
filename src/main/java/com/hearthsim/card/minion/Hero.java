@@ -161,8 +161,7 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
 
         PlayerModel targetPlayer = boardState.data_.modelForSide(targetPlayerSide);
 
-        HearthTreeNode toRet = this.useHeroAbility_core(targetPlayerSide, targetMinion, boardState, deckPlayer0,
-            deckPlayer1, singleRealizationOnly);
+        HearthTreeNode toRet = this.useHeroAbility_core(targetPlayerSide, targetMinion, boardState, singleRealizationOnly);
         if (toRet != null) {
             int targetIndex = targetMinion instanceof Hero ? 0 : targetPlayer.getMinions()
                 .indexOf(targetMinion) + 1;
@@ -173,9 +172,12 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
         return toRet;
     }
 
-    public abstract HearthTreeNode useHeroAbility_core(PlayerSide targetPlayerSide, Minion targetMinion,
-                                                       HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly)
-        throws HSException;
+    @Deprecated
+    public HearthTreeNode useHeroAbility_core(PlayerSide targetPlayerSide, Minion targetMinion, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
+        return this.useHeroAbility_core(targetPlayerSide, targetMinion, boardState, singleRealizationOnly);
+    }
+
+    public abstract HearthTreeNode useHeroAbility_core(PlayerSide targetPlayerSide, Minion targetMinion, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException;
 
     /**
      * Called when this minion takes damage
