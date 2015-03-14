@@ -680,14 +680,11 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
      *
      * @param minionPlacementTarget
      * @param boardState
-     * @param deckPlayer0
-     * @param deckPlayer1
      * @param singleRealizationOnly
      * @return
      * @throws HSException
      */
-    public HearthTreeNode useUntargetableBattlecry(Minion minionPlacementTarget, HearthTreeNode boardState,
-                                                   Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
+    public HearthTreeNode useUntargetableBattlecry(Minion minionPlacementTarget, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
         HearthTreeNode toRet = boardState;
         if (this instanceof MinionUntargetableBattlecry) {
             MinionUntargetableBattlecry battlecryMinion = (MinionUntargetableBattlecry) this;
@@ -698,6 +695,12 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
             }
         }
         return toRet;
+    }
+
+    @Deprecated
+    public HearthTreeNode useUntargetableBattlecry(Minion minionPlacementTarget, HearthTreeNode boardState,
+                                                   Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
+        return this.useUntargetableBattlecry(minionPlacementTarget, boardState, singleRealizationOnly);
     }
 
     /**
@@ -748,8 +751,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 
 
         if (this instanceof MinionUntargetableBattlecry) {
-            toRet = this.useUntargetableBattlecry(targetMinion, toRet, deckPlayer0, deckPlayer1,
-                singleRealizationOnly);
+            toRet = this.useUntargetableBattlecry(targetMinion, toRet, singleRealizationOnly);
         }
 
         if (this instanceof MinionTargetableBattlecry) {
