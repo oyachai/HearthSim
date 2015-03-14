@@ -36,13 +36,7 @@ public class NorthshireCleric extends Minion implements MinionHealedInterface {
      * @return The boardState is manipulated and returned
      */
     @Override
-    public HearthTreeNode minionHealedEvent(
-            PlayerSide thisMinionPlayerSide,
-            PlayerSide healedMinionPlayerSide,
-            Minion healedMinion,
-            HearthTreeNode boardState,
-            Deck deckPlayer0,
-            Deck deckPlayer1) {
+    public HearthTreeNode minionHealedEvent(PlayerSide thisMinionPlayerSide, PlayerSide healedMinionPlayerSide, Minion healedMinion, HearthTreeNode boardState) {
         HearthTreeNode toRet = boardState;
         if (!silenced_) {
             if (thisMinionPlayerSide == PlayerSide.CURRENT_PLAYER) {
