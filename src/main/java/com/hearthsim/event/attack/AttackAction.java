@@ -19,8 +19,6 @@ public abstract class AttackAction {
      * @param attackedPlayerIndex
      * @param attackedMinion
      * @param boardState
-     * @param deckPlayer0
-     * @param deckPlayer1
      * @return
      * @throws HSInvalidPlayerIndexException
      */
@@ -29,11 +27,21 @@ public abstract class AttackAction {
             Minion attackingMinion,
             int attackedPlayerIndex,
             Minion attackedMinion,
-            HearthTreeNode boardState,
-            Deck deckPlayer0,
-            Deck deckPlayer1)
+            HearthTreeNode boardState)
     throws HSInvalidPlayerIndexException {
         return boardState;
     }
 
+    @Deprecated
+    public HearthTreeNode performAction(
+        int attackingPlayerIndex,
+        Minion attackingMinion,
+        int attackedPlayerIndex,
+        Minion attackedMinion,
+        HearthTreeNode boardState,
+        Deck deckPlayer0,
+        Deck deckPlayer1)
+        throws HSInvalidPlayerIndexException {
+        return this.performAction(attackingPlayerIndex, attackingMinion, attackedPlayerIndex, attackedMinion, boardState);
+    }
 }

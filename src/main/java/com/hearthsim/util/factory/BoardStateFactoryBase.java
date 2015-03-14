@@ -36,7 +36,7 @@ public abstract class BoardStateFactoryBase {
      * @param deckPlayer1
      */
     public BoardStateFactoryBase(Deck deckPlayer0, Deck deckPlayer1, ChildNodeCreator creator) {
-        deckPlayer0_ = deckPlayer1;
+        deckPlayer0_ = deckPlayer0;
         deckPlayer1_ = deckPlayer1;
 
         childNodeCreator = creator;

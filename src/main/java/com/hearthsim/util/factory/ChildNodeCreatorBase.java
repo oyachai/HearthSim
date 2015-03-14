@@ -23,7 +23,7 @@ public class ChildNodeCreatorBase implements ChildNodeCreator {
      * maxThinkTime defaults to 10000 milliseconds (10 seconds)
      */
     public ChildNodeCreatorBase(Deck deckPlayer0, Deck deckPlayer1) {
-        deckPlayer0_ = deckPlayer1;
+        deckPlayer0_ = deckPlayer0;
         deckPlayer1_ = deckPlayer1;
     }
 

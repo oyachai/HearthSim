@@ -32,7 +32,7 @@ public class HealingTotem extends Minion {
         }
 
         if (tmpState instanceof CardDrawNode) {
-            tmpState = ((CardDrawNode) tmpState).finishAllEffects(null, null);
+            tmpState = ((CardDrawNode) tmpState).finishAllEffects();
         }
 
         return tmpState;

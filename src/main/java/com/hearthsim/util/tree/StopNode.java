@@ -14,5 +14,10 @@ public abstract class StopNode extends HearthTreeNode {
         children_ = origNode.children_;
     }
 
-    public abstract HearthTreeNode finishAllEffects(Deck deckPlayer0, Deck deckPlayer1) throws HSException;
+    @Deprecated
+    public HearthTreeNode finishAllEffects(Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+        return this.finishAllEffects();
+    }
+
+    public abstract HearthTreeNode finishAllEffects() throws HSException;
 }
