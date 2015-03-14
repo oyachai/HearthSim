@@ -15,10 +15,10 @@ public class EmperorCobra extends Minion {
 
     @Override
     protected HearthTreeNode attack_core(PlayerSide targetMinionPlayerSide, Minion targetMinion,
-            HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
+            HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
 
         if (targetMinion instanceof Hero)
-            return super.attack_core(targetMinionPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+            return super.attack_core(targetMinionPlayerSide, targetMinion, boardState, singleRealizationOnly);
 
         HearthTreeNode toRet = boardState;
         byte origAttack = targetMinion.getTotalAttack();

@@ -23,7 +23,6 @@ public class WaterElemental extends Minion {
      * @param targetMinionPlayerSide
      * @param targetMinion The target minion
      * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-     * @param deckPlayer0 The deck of player0
      * @return The boardState is manipulated and returned
      */
     @Override
@@ -31,11 +30,9 @@ public class WaterElemental extends Minion {
             PlayerSide targetMinionPlayerSide,
             Minion targetMinion,
             HearthTreeNode boardState,
-            Deck deckPlayer0,
-            Deck deckPlayer1,
             boolean singleRealization)
         throws HSException {
-        HearthTreeNode toRet = super.attack_core(targetMinionPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealization);
+        HearthTreeNode toRet = super.attack_core(targetMinionPlayerSide, targetMinion, boardState, singleRealization);
         if (!silenced_ && toRet != null) {
             targetMinion.setFrozen(true);
         }
