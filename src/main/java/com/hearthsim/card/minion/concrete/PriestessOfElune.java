@@ -21,12 +21,10 @@ public class PriestessOfElune extends Minion implements MinionUntargetableBattle
     public HearthTreeNode useUntargetableBattlecry_core(
             Minion minionPlacementTarget,
             HearthTreeNode boardState,
-            Deck deckPlayer0,
-            Deck deckPlayer1,
             boolean singleRealizationOnly
         ) throws HSException {
         HearthTreeNode toRet = boardState;
-        toRet = toRet.data_.getCurrentPlayer().getHero().takeHeal((byte)4, PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1);
+        toRet = toRet.data_.getCurrentPlayer().getHero().takeHeal((byte)4, PlayerSide.CURRENT_PLAYER, toRet, null, null);
         return toRet;
     }
 

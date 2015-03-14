@@ -18,8 +18,6 @@ public class Onyxia extends Minion implements MinionUntargetableBattlecry  {
     public HearthTreeNode useUntargetableBattlecry_core(
             Minion minionPlacementTarget,
             HearthTreeNode boardState,
-            Deck deckPlayer0,
-            Deck deckPlayer1,
             boolean singleRealizationOnly
         ) throws HSException {
         HearthTreeNode toRet = boardState;
@@ -31,7 +29,7 @@ public class Onyxia extends Minion implements MinionUntargetableBattlecry  {
             } else {
                 placementTarget = this;
             }
-            toRet = new Whelp().summonMinion(PlayerSide.CURRENT_PLAYER, placementTarget, toRet, deckPlayer0, deckPlayer1, false, singleRealizationOnly);
+            toRet = new Whelp().summonMinion(PlayerSide.CURRENT_PLAYER, placementTarget, toRet, null, null, false, singleRealizationOnly);
         }
         return toRet;
     }

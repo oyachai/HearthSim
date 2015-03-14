@@ -22,8 +22,6 @@ public class BloodsailCorsair extends Minion implements MinionUntargetableBattle
     public HearthTreeNode useUntargetableBattlecry_core(
         Minion minionPlacementTarget,
         HearthTreeNode boardState,
-        Deck deckPlayer0,
-        Deck deckPlayer1,
         boolean singleRealizationOnly
     ) throws HSException {
         PlayerModel waitingPlayer = boardState.data_.modelForSide(PlayerSide.WAITING_PLAYER);

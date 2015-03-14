@@ -691,8 +691,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         HearthTreeNode toRet = boardState;
         if (this instanceof MinionUntargetableBattlecry) {
             MinionUntargetableBattlecry battlecryMinion = (MinionUntargetableBattlecry) this;
-            toRet = battlecryMinion.useUntargetableBattlecry_core(minionPlacementTarget, boardState, deckPlayer0,
-                deckPlayer1, singleRealizationOnly);
+            toRet = battlecryMinion.useUntargetableBattlecry_core(minionPlacementTarget, boardState, singleRealizationOnly);
             if (toRet != null) {
                 // Check for dead minions
                 toRet = BoardStateFactoryBase.handleDeadMinions(toRet, singleRealizationOnly);

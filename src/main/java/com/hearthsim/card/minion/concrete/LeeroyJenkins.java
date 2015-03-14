@@ -21,8 +21,6 @@ public class LeeroyJenkins extends Minion implements MinionUntargetableBattlecry
     public HearthTreeNode useUntargetableBattlecry_core(
             Minion minionPlacementTarget,
             HearthTreeNode boardState,
-            Deck deckPlayer0,
-            Deck deckPlayer1,
             boolean singleRealizationOnly
         ) throws HSException {
         HearthTreeNode toRet = boardState;
@@ -30,7 +28,7 @@ public class LeeroyJenkins extends Minion implements MinionUntargetableBattlecry
         for (int index = 0; index < 2; ++index) {
             if (!waitingPlayer.isBoardFull()) {
                 Minion newMinion = new Whelp();
-                toRet = newMinion.summonMinionAtEnd(PlayerSide.WAITING_PLAYER, toRet, deckPlayer0, deckPlayer1, false, true);
+                toRet = newMinion.summonMinionAtEnd(PlayerSide.WAITING_PLAYER, toRet, null, null, false, true);
             }
         }
         return toRet;
