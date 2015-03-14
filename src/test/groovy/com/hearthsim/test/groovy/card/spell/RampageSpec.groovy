@@ -44,6 +44,7 @@ class RampageSpec extends CardSpec {
                 removeCardFromHand(Rampage)
                 mana(1)
                 updateMinion(1, [deltaHealth: +3, deltaAttack: +3, deltaMaxHealth: +3])
+                numCardsUsed(1)
             }
         }
     }

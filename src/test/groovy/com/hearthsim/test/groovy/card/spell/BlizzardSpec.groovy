@@ -45,6 +45,7 @@ class BlizzardSpec extends CardSpec {
             currentPlayer {
                 removeCardFromHand(Blizzard)
                 mana(0)
+                numCardsUsed(1)
             }
             waitingPlayer {
                 updateMinion(0, [frozen : true, deltaHealth:-2])

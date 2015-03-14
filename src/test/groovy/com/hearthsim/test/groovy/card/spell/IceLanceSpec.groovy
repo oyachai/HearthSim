@@ -46,6 +46,7 @@ class IceLanceSpec extends CardSpec {
             currentPlayer {
                 removeCardFromHand(IceLance)
                 mana(0)
+                numCardsUsed(1)
             }
             waitingPlayer {
                 updateMinion(0, [frozen : true])
@@ -67,6 +68,7 @@ class IceLanceSpec extends CardSpec {
             currentPlayer {
                 removeCardFromHand(IceLance)
                 mana(0)
+                numCardsUsed(1)
             }
             waitingPlayer {
                 updateMinion(0, [deltaHealth: -4])
@@ -89,6 +91,7 @@ class IceLanceSpec extends CardSpec {
             currentPlayer {
                 removeCardFromHand(IceLance)
                 mana(0)
+                numCardsUsed(1)
             }
             waitingPlayer {
                 updateMinion(0, [deltaHealth: -5])
