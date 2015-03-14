@@ -34,7 +34,7 @@ public class VoodooDoctor extends Minion implements MinionTargetableBattlecry {
             Deck deckPlayer1
         ) throws HSException {
         HearthTreeNode toRet = boardState;
-        toRet = targetMinion.takeHeal((byte)2, side, toRet, deckPlayer0, deckPlayer1);
+        toRet = targetMinion.takeHeal((byte)2, side, toRet);
         return toRet;
     }
 

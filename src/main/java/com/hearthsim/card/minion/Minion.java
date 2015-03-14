@@ -597,6 +597,12 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         silenced_ = true;
     }
 
+    @Deprecated
+    public HearthTreeNode takeHeal(byte healAmount, PlayerSide thisPlayerSide, HearthTreeNode boardState,
+                                   Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+        return this.takeHeal(healAmount, thisPlayerSide, boardState);
+    }
+
     /**
      * Called when this minion is healed
      * <p>
@@ -605,10 +611,8 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
      * @param healAmount     The amount of healing to take
      * @param thisPlayerSide
      * @param boardState
-     * @param deckPlayer0    The deck of player0 @throws HSInvalidPlayerIndexException
      */
-    public HearthTreeNode takeHeal(byte healAmount, PlayerSide thisPlayerSide, HearthTreeNode boardState,
-                                   Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+    public HearthTreeNode takeHeal(byte healAmount, PlayerSide thisPlayerSide, HearthTreeNode boardState) throws HSException {
 
         if (health_ < maxHealth_) {
             if (health_ + healAmount > maxHealth_)
@@ -617,7 +621,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
                 health_ = (byte) (health_ + healAmount);
 
             // Notify all that it the minion is healed
-            return this.notifyMinionHealed(boardState, thisPlayerSide, deckPlayer0, deckPlayer1);
+            return this.notifyMinionHealed(boardState, thisPlayerSide);
         }
         return boardState;
     }
@@ -820,9 +824,9 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         }
 
         if (wasPlayed)
-            toRet = this.notifyMinionPlayed(toRet, targetSide, deckPlayer0, deckPlayer1);
+            toRet = this.notifyMinionPlayed(toRet, targetSide);
 
-        toRet = this.notifyMinionSummon(toRet, targetSide, deckPlayer0, deckPlayer1);
+        toRet = this.notifyMinionSummon(toRet, targetSide);
 
         return toRet;
     }
@@ -1092,8 +1096,13 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         return toRet;
     }
 
+    @Deprecated
     protected HearthTreeNode notifyMinionPlayed(HearthTreeNode boardState, PlayerSide targetSide, Deck deckPlayer0,
-            Deck deckPlayer1) throws HSException {
+                                                Deck deckPlayer1) throws HSException {
+        return this.notifyMinionPlayed(boardState, targetSide);
+    }
+
+    protected HearthTreeNode notifyMinionPlayed(HearthTreeNode boardState, PlayerSide targetSide) throws HSException {
         HearthTreeNode toRet = boardState;
         ArrayList<MinionPlayedInterface> matches = new ArrayList<MinionPlayedInterface>();
 
@@ -1228,8 +1237,13 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         return toRet;
     }
 
+    @Deprecated
     protected HearthTreeNode notifyMinionHealed(HearthTreeNode boardState, PlayerSide targetSide, Deck deckPlayer0,
-            Deck deckPlayer1) throws HSException {
+                                                Deck deckPlayer1) throws HSException {
+        return this.notifyMinionHealed(boardState, targetSide);
+    }
+
+    protected HearthTreeNode notifyMinionHealed(HearthTreeNode boardState, PlayerSide targetSide) throws HSException {
         HearthTreeNode toRet = boardState;
         ArrayList<MinionHealedInterface> matches = new ArrayList<MinionHealedInterface>();
 

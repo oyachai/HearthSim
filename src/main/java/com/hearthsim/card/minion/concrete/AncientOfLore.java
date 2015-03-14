@@ -47,28 +47,24 @@ public class AncientOfLore extends Minion {
             toRet.addChild(new CardDrawNode(new HearthTreeNode(toRet.data_.deepCopy()), 2));
 
             HearthTreeNode newState = new HearthTreeNode(toRet.data_.deepCopy());
-            newState = currentPlayer.getHero().takeHeal(HEAL_AMOUNT, PlayerSide.CURRENT_PLAYER, newState,
-                    deckPlayer0, deckPlayer1);
+            newState = currentPlayer.getHero().takeHeal(HEAL_AMOUNT, PlayerSide.CURRENT_PLAYER, newState);
             toRet.addChild(newState);
 
             for (int index = 0; index < currentPlayer.getNumMinions(); ++index) {
                 if (index != thisMinionIndex) {
                     newState = new HearthTreeNode(toRet.data_.deepCopy());
-                    newState = currentPlayer.getMinions().get(index)
-                            .takeHeal(HEAL_AMOUNT, PlayerSide.CURRENT_PLAYER, newState, deckPlayer0, deckPlayer1);
+                    newState = currentPlayer.getMinions().get(index).takeHeal(HEAL_AMOUNT, PlayerSide.CURRENT_PLAYER, newState);
                     toRet.addChild(newState);
                 }
             }
 
             newState = new HearthTreeNode(toRet.data_.deepCopy());
-            newState = waitingPlayer.getHero().takeHeal(HEAL_AMOUNT, PlayerSide.WAITING_PLAYER, newState,
-                    deckPlayer0, deckPlayer1);
+            newState = waitingPlayer.getHero().takeHeal(HEAL_AMOUNT, PlayerSide.WAITING_PLAYER, newState);
             toRet.addChild(newState);
 
             for (int index = 0; index < waitingPlayer.getNumMinions(); ++index) {
                 newState = new HearthTreeNode(toRet.data_.deepCopy());
-                newState = waitingPlayer.getMinions().get(index)
-                        .takeHeal(HEAL_AMOUNT, PlayerSide.WAITING_PLAYER, newState, deckPlayer0, deckPlayer1);
+                newState = waitingPlayer.getMinions().get(index).takeHeal(HEAL_AMOUNT, PlayerSide.WAITING_PLAYER, newState);
                 toRet.addChild(newState);
             }
 

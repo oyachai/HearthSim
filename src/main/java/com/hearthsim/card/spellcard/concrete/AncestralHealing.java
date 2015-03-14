@@ -57,7 +57,7 @@ public class AncestralHealing extends SpellCard {
         HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
         if (toRet != null) {
             if (targetMinion.getHealth() < targetMinion.getMaxHealth())
-                toRet = targetMinion.takeHeal((byte)(targetMinion.getMaxHealth() - targetMinion.getHealth()), side, boardState, deckPlayer0, deckPlayer1);
+                toRet = targetMinion.takeHeal((byte)(targetMinion.getMaxHealth() - targetMinion.getHealth()), side, boardState);
             targetMinion.setTaunt(true);
         }
         return toRet;

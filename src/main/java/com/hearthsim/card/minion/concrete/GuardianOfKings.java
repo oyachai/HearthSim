@@ -23,7 +23,7 @@ public class GuardianOfKings extends Minion implements MinionUntargetableBattlec
             boolean singleRealizationOnly
         ) throws HSException {
         HearthTreeNode toRet = boardState;
-        toRet = toRet.data_.getCurrentPlayer().getHero().takeHeal((byte)6, PlayerSide.CURRENT_PLAYER, toRet, null, null);
+        toRet = toRet.data_.getCurrentPlayer().getHero().takeHeal((byte)6, PlayerSide.CURRENT_PLAYER, toRet);
         return toRet;
     }
 

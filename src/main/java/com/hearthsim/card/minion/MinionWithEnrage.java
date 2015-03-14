@@ -70,8 +70,8 @@ public abstract class MinionWithEnrage extends Minion {
      * @param deckPlayer0 The deck of player0   @throws HSInvalidPlayerIndexException
      * */
     @Override
-    public HearthTreeNode takeHeal(byte healAmount, PlayerSide thisPlayerSide, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
-        HearthTreeNode toRet = super.takeHeal(healAmount, thisPlayerSide, boardState, deckPlayer0, deckPlayer1);
+    public HearthTreeNode takeHeal(byte healAmount, PlayerSide thisPlayerSide, HearthTreeNode boardState) throws HSException {
+        HearthTreeNode toRet = super.takeHeal(healAmount, thisPlayerSide, boardState);
         this.enrageCheck();
         return toRet;
     }
@@ -85,7 +85,6 @@ public abstract class MinionWithEnrage extends Minion {
      *
      * @param thisPlayerSide
      * @param boardState
-     * @param deckPlayer0 The deck of player0
      * @throws HSInvalidPlayerIndexException
      */
     @Override
