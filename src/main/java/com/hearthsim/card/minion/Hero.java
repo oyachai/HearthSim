@@ -320,7 +320,7 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
     public HearthTreeNode minionSummonEvent(PlayerSide thisMinionPlayerSide, PlayerSide summonedMinionPlayerSide, Minion summonedMinion, HearthTreeNode boardState) {
         HearthTreeNode hearthTreeNode = boardState;
         if (weapon != null) {
-            weapon.minionSummonedEvent(thisMinionPlayerSide, summonedMinionPlayerSide, summonedMinion, boardState, null, null);
+            weapon.minionSummonedEvent(thisMinionPlayerSide, summonedMinionPlayerSide, summonedMinion, boardState);
         }
         return hearthTreeNode;
     }

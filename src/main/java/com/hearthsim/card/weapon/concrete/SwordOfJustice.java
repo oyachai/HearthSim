@@ -10,7 +10,7 @@ import com.hearthsim.util.tree.HearthTreeNode;
 public class SwordOfJustice extends WeaponCard {
 
     @Override
-    public void minionSummonedEvent(PlayerSide thisMinionPlayerSide, PlayerSide summonedMinionPlayerSide, Minion summonedMinion, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) {
+    public void minionSummonedEvent(PlayerSide thisMinionPlayerSide, PlayerSide summonedMinionPlayerSide, Minion summonedMinion, HearthTreeNode boardState) {
         if (thisMinionPlayerSide == summonedMinionPlayerSide){
             PlayerModel playerModel = boardState.data_.modelForSide(thisMinionPlayerSide);
             playerModel.getHero().getWeapon().setWeaponCharge((byte) (getWeaponCharge() - 1));
