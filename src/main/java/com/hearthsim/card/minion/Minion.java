@@ -997,8 +997,13 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         // ======================================================================================
     // Various notifications
     // ======================================================================================
+    @Deprecated
     protected HearthTreeNode notifyMinionSummon(HearthTreeNode boardState, PlayerSide targetSide, Deck deckPlayer0,
-            Deck deckPlayer1) throws HSException {
+                                                    Deck deckPlayer1) throws HSException {
+        return this.notifyMinionSummon(boardState, targetSide);
+    }
+
+    protected HearthTreeNode notifyMinionSummon(HearthTreeNode boardState, PlayerSide targetSide) throws HSException {
         HearthTreeNode toRet = boardState;
         ArrayList<MinionSummonedInterface> matches = new ArrayList<MinionSummonedInterface>();
 
