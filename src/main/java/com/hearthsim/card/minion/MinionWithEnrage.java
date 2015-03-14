@@ -67,7 +67,6 @@ public abstract class MinionWithEnrage extends Minion {
      *  @param healAmount The amount of healing to take
      * @param thisPlayerSide
      * @param boardState
-     * @param deckPlayer0 The deck of player0   @throws HSInvalidPlayerIndexException
      * */
     @Override
     public HearthTreeNode takeHeal(byte healAmount, PlayerSide thisPlayerSide, HearthTreeNode boardState) throws HSException {

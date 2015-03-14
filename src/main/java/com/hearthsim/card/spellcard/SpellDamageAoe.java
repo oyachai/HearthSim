@@ -62,7 +62,7 @@ public class SpellDamageAoe extends SpellDamage {
         }
 
         if (boardState != null && this.hitsOwnMinions) {
-            boardState = this.attackAllMinionsOnSide(PlayerSide.CURRENT_PLAYER, boardState, deckPlayer0, deckPlayer1);
+            boardState = this.attackAllMinionsOnSide(PlayerSide.CURRENT_PLAYER, boardState);
         }
 
         if (boardState != null && this.hitsEnemyHero) {
@@ -70,7 +70,7 @@ public class SpellDamageAoe extends SpellDamage {
         }
 
         if (boardState != null && this.hitsEnemyMinions) {
-            boardState = this.attackAllMinionsOnSide(PlayerSide.WAITING_PLAYER, boardState, deckPlayer0, deckPlayer1);
+            boardState = this.attackAllMinionsOnSide(PlayerSide.WAITING_PLAYER, boardState);
         }
 
         if (boardState != null) {

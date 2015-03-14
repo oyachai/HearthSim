@@ -73,12 +73,17 @@ public class SpellDamage extends SpellCard {
         return this.attack(targetMinionPlayerSide, targetMinion, boardState);
     }
 
+    @Deprecated
     public HearthTreeNode attackAllMinionsOnSide(PlayerSide targetMinionPlayerSide, HearthTreeNode boardState,
-            Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+                                                 Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+        return this.attackAllMinionsOnSide(targetMinionPlayerSide, boardState);
+    }
+
+    public HearthTreeNode attackAllMinionsOnSide(PlayerSide targetMinionPlayerSide, HearthTreeNode boardState) throws HSException {
         if (boardState != null) {
             PlayerModel targetPlayer = boardState.data_.modelForSide(targetMinionPlayerSide);
             for (Minion minion : targetPlayer.getMinions()) {
-                boardState = this.attack(targetMinionPlayerSide, minion, boardState, deckPlayer0, deckPlayer1);
+                boardState = this.attack(targetMinionPlayerSide, minion, boardState);
             }
         }
         return boardState;
