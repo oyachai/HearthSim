@@ -89,8 +89,6 @@ public abstract class WeaponCard extends Card {
         PlayerSide side,
         Minion targetMinion,
         HearthTreeNode boardState,
-        Deck deckPlayer0,
-        Deck deckPlayer1,
         boolean singleRealizationOnly)
         throws HSException {
         if (this.hasBeenUsed()) {
@@ -111,7 +109,7 @@ public abstract class WeaponCard extends Card {
             this.hasBeenUsed(true);
         }
 
-        return super.use_core(side, targetMinion, toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
+        return super.use_core(side, targetMinion, toRet, singleRealizationOnly);
     }
 
     public byte getWeaponCharge() {

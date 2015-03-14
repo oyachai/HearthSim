@@ -319,31 +319,37 @@ public class Card implements DeepCopyable<Card> {
     }
 
     /**
-     *
      * Use the card on the given target
-     *
+     * <p>
      * This is the core implementation of card's ability
-     *
-     *
      *
      * @param side
      * @param boardState The BoardState before this card has performed its action. It will be manipulated and returned.
-     *
      * @return The boardState is manipulated and returned
      */
     protected HearthTreeNode use_core(
-            PlayerSide side,
-            Minion targetMinion,
-            HearthTreeNode boardState,
-            Deck deckPlayer0,
-            Deck deckPlayer1,
-            boolean singleRealizationOnly)
+        PlayerSide side,
+        Minion targetMinion,
+        HearthTreeNode boardState,
+        boolean singleRealizationOnly)
         throws HSException {
         //A generic card does nothing except for consuming mana
         PlayerModel currentPlayer = boardState.data_.getCurrentPlayer();
         currentPlayer.subtractMana(this.getManaCost(PlayerSide.CURRENT_PLAYER, boardState.data_));
         currentPlayer.getHand().remove(this);
         return boardState;
+    }
+
+    @Deprecated
+    protected HearthTreeNode use_core(
+        PlayerSide side,
+        Minion targetMinion,
+        HearthTreeNode boardState,
+        Deck deckPlayer0,
+        Deck deckPlayer1,
+        boolean singleRealizationOnly)
+        throws HSException {
+        return this.use_core(side, targetMinion, boardState, singleRealizationOnly);
     }
 
     // ======================================================================================

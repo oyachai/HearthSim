@@ -32,8 +32,6 @@ public class UnleashTheHounds extends SpellCard {
      * @param side
      * @param targetMinion
      * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-     * @param deckPlayer0
-     * @param deckPlayer1
      * @param singleRealizationOnly
      *
      * @return The boardState is manipulated and returned
@@ -43,11 +41,9 @@ public class UnleashTheHounds extends SpellCard {
             PlayerSide side,
             Minion targetMinion,
             HearthTreeNode boardState,
-            Deck deckPlayer0,
-            Deck deckPlayer1,
             boolean singleRealizationOnly)
         throws HSException {
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
         if (toRet != null) {
             PlayerModel currentPlayer = toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
             PlayerModel waitingPlayer = toRet.data_.modelForSide(PlayerSide.WAITING_PLAYER);
@@ -56,7 +52,7 @@ public class UnleashTheHounds extends SpellCard {
                 numHoundsToSummon = 7 - currentPlayer.getNumMinions();
             for (int indx = 0; indx < numHoundsToSummon; ++indx) {
                 Minion placementTarget = currentPlayer.getNumMinions() > 0 ? currentPlayer.getMinions().getLast() : currentPlayer.getHero();
-                toRet = new Hound().summonMinion(PlayerSide.CURRENT_PLAYER, placementTarget, toRet, deckPlayer0, deckPlayer1, false, singleRealizationOnly);
+                toRet = new Hound().summonMinion(PlayerSide.CURRENT_PLAYER, placementTarget, toRet, null, null, false, singleRealizationOnly);
             }
         }
         return toRet;

@@ -39,10 +39,7 @@ public class KillCommand extends SpellDamage {
     protected HearthTreeNode use_core(
             PlayerSide side,
             Minion targetMinion,
-            HearthTreeNode boardState,
-            Deck deckPlayer0,
-            Deck deckPlayer1,
-            boolean singleRealizationOnly)
+            HearthTreeNode boardState, boolean singleRealizationOnly)
         throws HSException {
         boolean haveBeast = false;
         PlayerModel currentPlayer = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
@@ -53,7 +50,7 @@ public class KillCommand extends SpellDamage {
             this.damage_ = (byte)5;
         else
             this.damage_ = (byte)3;
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
 
         return toRet;
     }

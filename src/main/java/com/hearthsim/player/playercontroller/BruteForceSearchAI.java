@@ -195,8 +195,7 @@ public class BruteForceSearchAI implements ArtificialPlayer {
                 // Add the initial step that created the StopNode
                 retList.add(new HearthActionBoardPair(curMove.getAction(), curMove.data_.deepCopy()));
                 // Force the step to resolve
-                HearthTreeNode allEffectsDone = ((StopNode)curMove).finishAllEffects(playerModel0.getDeck(),
-                        playerModel1.getDeck());
+                HearthTreeNode allEffectsDone = ((StopNode)curMove).finishAllEffects();
                 // Add the resolution to action list
                 retList.add(new HearthActionBoardPair(allEffectsDone.getAction(), allEffectsDone.data_.deepCopy()));
 

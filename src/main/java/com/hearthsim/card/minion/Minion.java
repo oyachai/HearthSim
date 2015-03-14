@@ -713,13 +713,11 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
      * @param side
      * @param targetMinion The target minion (can be a Hero). The new minion is always placed to the right of (higher index) the target minion. If the target minion is a hero, then it is placed at the left-most position.
      * @param boardState   The BoardState before this card has performed its action. It will be manipulated and returned.
-     * @param deckPlayer0  The deck of player0
      * @return The boardState is manipulated and returned
      * @throws HSException
      */
     @Override
-    protected HearthTreeNode use_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState,
-                                      Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
+    protected HearthTreeNode use_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
         if (hasBeenUsed || side == PlayerSide.WAITING_PLAYER || boardState.data_.modelForSide(side).isBoardFull())
             return null;
 
@@ -727,7 +725,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         PlayerModel currentPlayer = toRet.data_.getCurrentPlayer();
         currentPlayer.subtractMana(this.getManaCost(PlayerSide.CURRENT_PLAYER, boardState.data_));
         currentPlayer.getHand().remove(this);
-        toRet = this.summonMinion(side, targetMinion, boardState, deckPlayer0, deckPlayer1, true, singleRealizationOnly);
+        toRet = this.summonMinion(side, targetMinion, boardState, null, null, true, singleRealizationOnly);
         return toRet;
     }
 

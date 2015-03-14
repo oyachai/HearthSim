@@ -56,11 +56,9 @@ public class BattleRage extends SpellCard {
             PlayerSide targetPlayerSide,
             Minion targetMinion,
             HearthTreeNode boardState,
-            Deck deckPlayer0,
-            Deck deckPlayer1,
             boolean singleRealizationOnly)
         throws HSException {
-        HearthTreeNode toRet = super.use_core(targetPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+        HearthTreeNode toRet = super.use_core(targetPlayerSide, targetMinion, boardState, singleRealizationOnly);
         if (toRet != null) {
             PlayerModel playerModel = toRet.data_.modelForSide(targetPlayerSide);
             Hero hero = playerModel.getHero();
