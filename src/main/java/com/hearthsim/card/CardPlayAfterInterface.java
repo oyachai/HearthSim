@@ -15,8 +15,4 @@ public interface CardPlayAfterInterface {
      * @return The boardState is manipulated and returned
      */
     public HearthTreeNode onCardPlayResolve(PlayerSide thisCardPlayerSide, PlayerSide cardUserPlayerSide, Card usedCard, HearthTreeNode boardState, boolean singleRealizationOnly);
-
-    @Deprecated
-    public HearthTreeNode onCardPlayResolve(PlayerSide thisCardPlayerSide, PlayerSide cardUserPlayerSide,
-                                            Card usedCard, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly);
 }

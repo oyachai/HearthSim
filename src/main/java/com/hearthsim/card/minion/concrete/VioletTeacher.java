@@ -48,10 +48,4 @@ public class VioletTeacher extends Minion implements CardPlayBeginInterface {
         }
         return toRet;
     }
-
-    @Override
-    @Deprecated
-    public HearthTreeNode onCardPlayBegin(PlayerSide thisCardPlayerSide, PlayerSide cardUserPlayerSide, Card usedCard, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
-        return this.onCardPlayBegin(thisCardPlayerSide, cardUserPlayerSide, usedCard, boardState, singleRealizationOnly);
-    }
 }

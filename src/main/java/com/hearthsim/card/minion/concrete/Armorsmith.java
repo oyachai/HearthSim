@@ -32,10 +32,4 @@ public class Armorsmith extends Minion implements MinionDamagedInterface {
         }
         return toRet;
     }
-
-    @Override
-    @Deprecated
-    public HearthTreeNode minionDamagedEvent(PlayerSide thisMinionPlayerSide, PlayerSide damagedPlayerSide, Minion damagedMinion, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) {
-        return this.minionDamagedEvent(thisMinionPlayerSide, damagedPlayerSide, damagedMinion, boardState);
-    }
 }

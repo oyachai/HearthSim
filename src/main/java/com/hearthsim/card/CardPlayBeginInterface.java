@@ -18,9 +18,4 @@ public interface CardPlayBeginInterface {
     public HearthTreeNode onCardPlayBegin(PlayerSide thisCardPlayerSide, PlayerSide cardUserPlayerSide, Card usedCard,
             HearthTreeNode boardState, boolean singleRealizationOnly)
             throws HSException;
-
-    @Deprecated
-    public HearthTreeNode onCardPlayBegin(PlayerSide thisCardPlayerSide, PlayerSide cardUserPlayerSide, Card usedCard,
-                                          HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly)
-        throws HSException;
 }

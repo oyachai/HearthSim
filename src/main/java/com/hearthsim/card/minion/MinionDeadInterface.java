@@ -18,8 +18,4 @@ public interface MinionDeadInterface {
      * */
     public HearthTreeNode minionDeadEvent(PlayerSide thisMinionPlayerSide, PlayerSide deadMinionPlayerSide,
             Minion deadMinion, HearthTreeNode boardState);
-
-    @Deprecated
-    public HearthTreeNode minionDeadEvent(PlayerSide thisMinionPlayerSide, PlayerSide deadMinionPlayerSide,
-                                          Minion deadMinion, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1);
 }

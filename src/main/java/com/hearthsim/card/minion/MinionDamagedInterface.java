@@ -15,8 +15,4 @@ public interface MinionDamagedInterface {
      */
     public HearthTreeNode minionDamagedEvent(PlayerSide thisMinionPlayerSide, PlayerSide damagedPlayerSide,
             Minion damagedMinion, HearthTreeNode boardState);
-
-    @Deprecated
-    public HearthTreeNode minionDamagedEvent(PlayerSide thisMinionPlayerSide, PlayerSide damagedPlayerSide,
-                                             Minion damagedMinion, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1);
 }
