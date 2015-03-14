@@ -11,6 +11,5 @@ public interface MinionPlayedInterface {
      * @param boardState The BoardState before this card has performed its action. It will be manipulated and returned.
      *
      * */
-    public HearthTreeNode minionPlayedEvent(PlayerSide thisMinionPlayerSide, PlayerSide summonedMinionPlayerSide,
-            Minion summonedMinion, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1);
+    public HearthTreeNode minionPlayedEvent(PlayerSide thisMinionPlayerSide, PlayerSide summonedMinionPlayerSide, Minion summonedMinion, HearthTreeNode boardState);
 }
