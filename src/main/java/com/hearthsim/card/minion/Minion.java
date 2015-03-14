@@ -894,6 +894,12 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         return this.placeMinion(targetSide, targetMinion, boardState, singleRealizationOnly);
     }
 
+    @Deprecated
+    public HearthTreeNode attack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode boardState,
+                                 Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
+        return this.attack(targetMinionPlayerSide, targetMinion, boardState, singleRealizationOnly);
+    }
+
     /**
      *
      * Attack with the minion
@@ -906,8 +912,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
      * @param deckPlayer0 The deck of player0
      * @return The boardState is manipulated and returned
      */
-    public HearthTreeNode attack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode boardState,
-            Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
+    public HearthTreeNode attack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
 
         // can't attack a stealthed target
         if (targetMinion.getStealthed())
@@ -932,7 +937,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
                 .indexOf(targetMinion) + 1;
 
         // Do the actual attack
-        toRet = this.attack_core(targetMinionPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+        toRet = this.attack_core(targetMinionPlayerSide, targetMinion, boardState, singleRealizationOnly);
 
         // check for and remove dead minions
         if (toRet != null) {
@@ -948,10 +953,15 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         return toRet;
     }
 
+    public HearthTreeNode attack(PlayerSide targetMinionPlayerSide, int targetCharacterIndex, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
+        Minion targetCharacter = boardState.data_.modelForSide(targetMinionPlayerSide).getCharacter(targetCharacterIndex);
+        return this.attack(targetMinionPlayerSide, targetCharacter, boardState, singleRealizationOnly);
+    }
+
+    @Deprecated
     public HearthTreeNode attack(PlayerSide targetMinionPlayerSide, int targetCharacterIndex, HearthTreeNode boardState,
                                  Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
-        Minion targetCharacter = boardState.data_.modelForSide(targetMinionPlayerSide).getCharacter(targetCharacterIndex);
-        return this.attack(targetMinionPlayerSide, targetCharacter, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+        return this.attack(targetMinionPlayerSide, targetCharacterIndex, boardState, singleRealizationOnly);
     }
 
     /**

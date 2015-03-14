@@ -43,14 +43,14 @@ public class TestAmaniBerserker {
 
     @Test
     public void testAttackNormal() throws HSException {
-        HearthTreeNode ret = amaniBerserker.attack(PlayerSide.WAITING_PLAYER, 0, board, null, null, false);
+        HearthTreeNode ret = amaniBerserker.attack(PlayerSide.WAITING_PLAYER, 0, board, false);
         assertEquals(board, ret);
         assertEquals(waitingPlayer.getHero().getHealth(), 28);
     }
 
     @Test
     public void testEnrage() throws HSException {
-        HearthTreeNode ret = amaniBerserker.attack(PlayerSide.WAITING_PLAYER, croc, board, null, null, false);
+        HearthTreeNode ret = amaniBerserker.attack(PlayerSide.WAITING_PLAYER, croc, board, false);
         assertEquals(board, ret);
 
         assertEquals(currentPlayer.getNumMinions(), 1);
@@ -64,7 +64,7 @@ public class TestAmaniBerserker {
 
     @Test
     public void testHealRemovesEngrage() throws HSException {
-        HearthTreeNode ret = amaniBerserker.attack(PlayerSide.WAITING_PLAYER, croc, board, null, null, false);
+        HearthTreeNode ret = amaniBerserker.attack(PlayerSide.WAITING_PLAYER, croc, board, false);
 
         currentPlayer.placeCardHand(new HolyLight());
         currentPlayer.setMana((byte) 2);

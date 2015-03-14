@@ -97,7 +97,7 @@ public class TestCairneBloodhoof {
         assertTrue(minion instanceof CairneBloodhoof);
 
         minion.hasAttacked(false);
-        minion.attack(PlayerSide.WAITING_PLAYER, 2, board, null, null, false);
+        minion.attack(PlayerSide.WAITING_PLAYER, 2, board, false);
 
         assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 3);
@@ -153,7 +153,7 @@ public class TestCairneBloodhoof {
         assertTrue(minion instanceof CairneBloodhoof);
 
         minion.hasAttacked(false);
-        minion.attack(PlayerSide.WAITING_PLAYER, 2, board, null, null, false);
+        minion.attack(PlayerSide.WAITING_PLAYER, 2, board, false);
 
         assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 3);
@@ -212,7 +212,7 @@ public class TestCairneBloodhoof {
         Minion minion = currentPlayerMinions.get(1);
 
         minion.hasAttacked(false);
-        minion.attack(PlayerSide.WAITING_PLAYER, 2, fb, null, null, false);
+        minion.attack(PlayerSide.WAITING_PLAYER, 2, fb, false);
 
         assertEquals(fb.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 2);
@@ -284,7 +284,7 @@ public class TestCairneBloodhoof {
         Minion minion = currentPlayer.getMinions().get(1);
 
         minion.hasAttacked(false);
-        minion.attack(PlayerSide.WAITING_PLAYER, 6, fb, null, null, false);
+        minion.attack(PlayerSide.WAITING_PLAYER, 6, fb, false);
 
         assertEquals(fb.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 2);

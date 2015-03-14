@@ -48,7 +48,7 @@ public class TestGurubashiBerserker {
 
         Minion berserker = currentPlayer.getMinions().get(0);
         berserker.hasAttacked(false);
-        ret = berserker.attack(PlayerSide.WAITING_PLAYER, 1, board, null, null, false);
+        ret = berserker.attack(PlayerSide.WAITING_PLAYER, 1, board, false);
         assertEquals(board, ret);
 
         assertEquals(berserker.getHealth(), 7 - attack0);
@@ -64,7 +64,7 @@ public class TestGurubashiBerserker {
         Minion berserker = currentPlayer.getMinions().get(0);
         berserker.hasAttacked(false);
         berserker.setDivineShield(true);
-        ret = berserker.attack(PlayerSide.WAITING_PLAYER, 1, board, null, null, false);
+        ret = berserker.attack(PlayerSide.WAITING_PLAYER, 1, board, false);
         assertEquals(board, ret);
 
         assertEquals(berserker.getHealth(), 7);

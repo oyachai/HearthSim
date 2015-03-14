@@ -77,7 +77,7 @@ public class TestSavageRoar {
         assertEquals(waitingPlayer.getMinions().get(0).getExtraAttackUntilTurnEnd(), 0);
         assertEquals(waitingPlayer.getMinions().get(1).getExtraAttackUntilTurnEnd(), 0);
 
-        ret = currentPlayer.getMinions().get(0).attack(PlayerSide.WAITING_PLAYER, 2, board, null, null, false);
+        ret = currentPlayer.getMinions().get(0).attack(PlayerSide.WAITING_PLAYER, 2, board, false);
 
         assertFalse(ret == null);
         assertEquals(currentPlayer.getHand().size(), 0);
@@ -101,7 +101,7 @@ public class TestSavageRoar {
         assertEquals(waitingPlayer.getMinions().get(0).getExtraAttackUntilTurnEnd(), 0);
         assertEquals(waitingPlayer.getMinions().get(1).getExtraAttackUntilTurnEnd(), 0);
 
-        ret = currentPlayer.getHero().attack(PlayerSide.WAITING_PLAYER, 2, board, null, null, false);
+        ret = currentPlayer.getHero().attack(PlayerSide.WAITING_PLAYER, 2, board, false);
 
         assertFalse(ret == null);
         assertEquals(currentPlayer.getHand().size(), 0);

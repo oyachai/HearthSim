@@ -93,8 +93,7 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
      * @return The boardState is manipulated and returned
      */
     @Override
-    public HearthTreeNode attack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode boardState,
-                                 Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
+    public HearthTreeNode attack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
 
         if (!this.canAttack()) {
             return null;
@@ -105,7 +104,7 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
         if (attackingWeapon != null) {
             attackingWeapon.beforeAttack(targetMinionPlayerSide, targetMinion, boardState);
         }
-        HearthTreeNode toRet = super.attack(targetMinionPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+        HearthTreeNode toRet = super.attack(targetMinionPlayerSide, targetMinion, boardState, singleRealizationOnly);
         if (toRet != null && attackingWeapon != null) {
             attackingWeapon.afterAttack(targetMinionPlayerSide, targetMinion, boardState);
             DeathrattleAction weaponDeathrattle = this.checkForWeaponDeath();

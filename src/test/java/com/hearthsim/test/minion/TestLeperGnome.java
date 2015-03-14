@@ -102,7 +102,7 @@ public class TestLeperGnome {
         assertTrue(minion instanceof LeperGnome);
 
         minion.hasAttacked(false);
-        minion.attack(PlayerSide.WAITING_PLAYER, 2, board, null, null, false);
+        minion.attack(PlayerSide.WAITING_PLAYER, 2, board, false);
 
         assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 2);
@@ -128,7 +128,7 @@ public class TestLeperGnome {
         minion = currentPlayer.getMinions().get(1);
 
         minion.hasAttacked(false);
-        minion.attack(PlayerSide.WAITING_PLAYER, 3, board, null, null, false);
+        minion.attack(PlayerSide.WAITING_PLAYER, 3, board, false);
 
         assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 2);

@@ -135,7 +135,7 @@ public class TestAbomination {
         //attack the Ogre... should kill everything except the Scarlet Crusader
         Minion attacker = currentPlayer.getCharacter(1);
         attacker.hasAttacked(false);
-        ret = attacker.attack(PlayerSide.WAITING_PLAYER, 3, ret, null, null, false);
+        ret = attacker.attack(PlayerSide.WAITING_PLAYER, 3, ret, false);
 
         assertFalse(ret == null);
         assertEquals(currentPlayer.getHand().size(), 0);
@@ -188,7 +188,7 @@ public class TestAbomination {
         Minion attacker = currentPlayer.getCharacter(1);
         attacker.silenced(PlayerSide.CURRENT_PLAYER, board);
         attacker.hasAttacked(false);
-        ret = attacker.attack(PlayerSide.WAITING_PLAYER, 3, ret, null, null, false);
+        ret = attacker.attack(PlayerSide.WAITING_PLAYER, 3, ret, false);
 
         assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 2);

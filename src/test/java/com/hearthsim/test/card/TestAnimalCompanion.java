@@ -89,7 +89,7 @@ public class TestAnimalCompanion {
         //Now, attack and kill Leokk.  All minions should go back to their original attack
         Minion minion = currentPlayer.getMinions().get(2);
         minion.hasAttacked(false);
-        ret = minion.attack(PlayerSide.WAITING_PLAYER, 1, board, null, null, false);
+        ret = minion.attack(PlayerSide.WAITING_PLAYER, 1, board, false);
 
         assertEquals(board, ret);
         assertEquals(currentPlayer.getHand().size(), 1);

@@ -72,7 +72,7 @@ public class TestWeapon {
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
 
         Minion hero = currentPlayer.getHero();
-        ret = hero.attack(PlayerSide.WAITING_PLAYER, 0, ret, null, null, false);
+        ret = hero.attack(PlayerSide.WAITING_PLAYER, 0, ret, false);
         assertEquals(board, ret);
 
         assertEquals(currentPlayer.getHero().getHealth(), 30);
@@ -88,10 +88,10 @@ public class TestWeapon {
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
 
         Minion hero = currentPlayer.getHero();
-        ret = hero.attack(PlayerSide.WAITING_PLAYER, 0, ret, null, null, false);
+        ret = hero.attack(PlayerSide.WAITING_PLAYER, 0, ret, false);
 
         hero = currentPlayer.getHero();
-        ret = hero.attack(PlayerSide.WAITING_PLAYER, 0, ret, null, null, false);
+        ret = hero.attack(PlayerSide.WAITING_PLAYER, 0, ret, false);
         assertNull(ret);
 
         assertEquals(currentPlayer.getHero().getHealth(), 30);
@@ -108,7 +108,7 @@ public class TestWeapon {
         currentPlayer.getHero().getWeapon().setWeaponCharge((byte) 1);
 
         Minion hero = currentPlayer.getHero();
-        ret = hero.attack(PlayerSide.WAITING_PLAYER, 0, ret, null, null, false);
+        ret = hero.attack(PlayerSide.WAITING_PLAYER, 0, ret, false);
         assertEquals(board, ret);
 
         assertEquals(currentPlayer.getHero().getHealth(), 30);
