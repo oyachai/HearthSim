@@ -14,13 +14,10 @@ public interface MinionTargetableBattlecry {
      * @param side
      * @param targetMinion
      * @param boardState
-     * @param deckPlayer0
-     * @param deckPlayer1
      * @return
      * @throws HSException
      */
-    public HearthTreeNode useTargetableBattlecry_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState,
-            Deck deckPlayer0, Deck deckPlayer1) throws HSException;
+    public HearthTreeNode useTargetableBattlecry_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState) throws HSException;
 
     public EnumSet<BattlecryTargetType> getBattlecryTargets();
 }

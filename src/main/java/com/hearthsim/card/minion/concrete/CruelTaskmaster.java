@@ -25,13 +25,7 @@ public class CruelTaskmaster extends Minion implements MinionTargetableBattlecry
      * Battlecry: Deal 1 damage to a minion and give it +2 Attack
      */
     @Override
-    public HearthTreeNode useTargetableBattlecry_core(
-            PlayerSide side,
-            Minion targetMinion,
-            HearthTreeNode boardState,
-            Deck deckPlayer0,
-            Deck deckPlayer1
-        ) throws HSException {
+    public HearthTreeNode useTargetableBattlecry_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState) throws HSException {
         HearthTreeNode toRet = boardState;
         targetMinion.setAttack((byte)(targetMinion.getAttack() + 2));
         toRet = targetMinion.takeDamage((byte)1, PlayerSide.CURRENT_PLAYER, side, toRet, false, true);

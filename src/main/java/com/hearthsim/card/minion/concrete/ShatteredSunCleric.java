@@ -25,13 +25,7 @@ public class ShatteredSunCleric extends Minion implements MinionTargetableBattle
      * Battlecry: Give a friendly minion +1/+1
      */
     @Override
-    public HearthTreeNode useTargetableBattlecry_core(
-            PlayerSide side,
-            Minion targetMinion,
-            HearthTreeNode boardState,
-            Deck deckPlayer0,
-            Deck deckPlayer1
-        ) throws HSException {
+    public HearthTreeNode useTargetableBattlecry_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState) throws HSException {
         HearthTreeNode toRet = boardState;
         targetMinion.setAttack((byte)(targetMinion.getAttack() + 1));
         targetMinion.setHealth((byte)(targetMinion.getHealth() + 1));

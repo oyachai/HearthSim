@@ -32,7 +32,7 @@ public class TestWindspeaker {
     public void testAddsWindfury() throws HSException {
         BoulderfistOgre ogre = new BoulderfistOgre();
         Windspeaker windspeaker = new Windspeaker();
-        windspeaker.useTargetableBattlecry_core(PlayerSide.WAITING_PLAYER, ogre, board, null, null);
+        windspeaker.useTargetableBattlecry_core(PlayerSide.WAITING_PLAYER, ogre, board);
         assertTrue(ogre.getWindfury());
     }
 

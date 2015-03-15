@@ -28,13 +28,7 @@ public class FrostElemental extends Minion implements MinionTargetableBattlecry 
      * Battlecry: Freeze a character
      */
     @Override
-    public HearthTreeNode useTargetableBattlecry_core(
-            PlayerSide side,
-            Minion targetMinion,
-            HearthTreeNode boardState,
-            Deck deckPlayer0,
-            Deck deckPlayer1
-        ) throws HSException {
+    public HearthTreeNode useTargetableBattlecry_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState) throws HSException {
         targetMinion.setFrozen(true);
         return boardState;
     }

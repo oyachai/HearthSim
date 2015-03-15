@@ -30,7 +30,7 @@ class ShatteredSunClericSpec extends CardSpec {
         def copiedBoard = startingBoard.deepCopy()
         def target = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(1)
         def theCard = new ShatteredSunCleric()
-        def ret = theCard.useTargetableBattlecry_core(CURRENT_PLAYER, target, root, null, null)
+        def ret = theCard.useTargetableBattlecry_core(CURRENT_PLAYER, target, root)
 
         expect:
         assertEquals(root, ret);
@@ -47,8 +47,8 @@ class ShatteredSunClericSpec extends CardSpec {
         def copiedBoard = startingBoard.deepCopy()
         def target = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(1)
         def theCard = new ShatteredSunCleric()
-        def ret = theCard.useTargetableBattlecry_core(CURRENT_PLAYER, target, root, null, null)
-        ret = theCard.useTargetableBattlecry_core(CURRENT_PLAYER, target, root, null, null)
+        def ret = theCard.useTargetableBattlecry_core(CURRENT_PLAYER, target, root)
+        ret = theCard.useTargetableBattlecry_core(CURRENT_PLAYER, target, root)
 
         expect:
         assertEquals(root, ret);

@@ -27,13 +27,7 @@ public class StormpikeCommando extends Minion implements MinionTargetableBattlec
      * Battlecry: Deal 2 damage to a chosen target
      */
     @Override
-    public HearthTreeNode useTargetableBattlecry_core(
-            PlayerSide side,
-            Minion targetMinion,
-            HearthTreeNode boardState,
-            Deck deckPlayer0,
-            Deck deckPlayer1
-        ) throws HSException {
+    public HearthTreeNode useTargetableBattlecry_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState) throws HSException {
         HearthTreeNode toRet = boardState;
         toRet = targetMinion.takeDamage(BATTLECRY_DAMAGE, PlayerSide.CURRENT_PLAYER, side, toRet, false, false);
         return toRet;

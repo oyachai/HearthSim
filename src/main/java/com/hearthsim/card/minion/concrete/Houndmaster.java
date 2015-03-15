@@ -25,13 +25,7 @@ public class Houndmaster extends Minion implements MinionTargetableBattlecry {
      * Battlecry: Give a friendly beast +2/+2 and Taunt
      */
     @Override
-    public HearthTreeNode useTargetableBattlecry_core(
-            PlayerSide side,
-            Minion targetMinion,
-            HearthTreeNode boardState,
-            Deck deckPlayer0,
-            Deck deckPlayer1
-        ) throws HSException {
+    public HearthTreeNode useTargetableBattlecry_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState) throws HSException {
         HearthTreeNode toRet = boardState;
         targetMinion.setAttack((byte) (targetMinion.getAttack() + 2));
         targetMinion.setHealth((byte) (targetMinion.getHealth() + 2));

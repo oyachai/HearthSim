@@ -659,11 +659,9 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
             // Need to get the new node's version of the target minion
             int targetMinionIndex = boardState.data_.modelForSide(side).getMinions().indexOf(targetMinion);
             if (targetMinionIndex >= 0) {
-                node = battlecryMinion.useTargetableBattlecry_core(side, player.getMinions().get(targetMinionIndex),
-                    node, deckPlayer0, deckPlayer1);
+                node = battlecryMinion.useTargetableBattlecry_core(side, player.getMinions().get(targetMinionIndex), node);
             } else if (targetMinion instanceof Hero) {
-                node = battlecryMinion.useTargetableBattlecry_core(side, player.getHero(), node, deckPlayer0,
-                    deckPlayer1);
+                node = battlecryMinion.useTargetableBattlecry_core(side, player.getHero(), node);
             } else {
                 node = null;
             }

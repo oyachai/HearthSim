@@ -25,13 +25,7 @@ public class BigGameHunter extends Minion implements MinionTargetableBattlecry {
      * Battlecry: Destroy a minion with an Attack of 7 or more
      */
     @Override
-    public HearthTreeNode useTargetableBattlecry_core(
-            PlayerSide side,
-            Minion targetMinion,
-            HearthTreeNode boardState,
-            Deck deckPlayer0,
-            Deck deckPlayer1
-        ) throws HSException {
+    public HearthTreeNode useTargetableBattlecry_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState) throws HSException {
         if (targetMinion.getTotalAttack() >= 7) {
             targetMinion.setHealth((byte)-99);
             return boardState;

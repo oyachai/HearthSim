@@ -25,13 +25,7 @@ public class ArgentProtector extends Minion implements MinionTargetableBattlecry
      * Battlecry: Give a friendly minion Divine Shield
      */
     @Override
-    public HearthTreeNode useTargetableBattlecry_core(
-            PlayerSide side,
-            Minion targetMinion,
-            HearthTreeNode boardState,
-            Deck deckPlayer0,
-            Deck deckPlayer1
-        ) throws HSException {
+    public HearthTreeNode useTargetableBattlecry_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState) throws HSException {
         targetMinion.setDivineShield(true);
         return boardState;
     }

@@ -25,13 +25,7 @@ public class IronbeakOwl extends Minion implements MinionTargetableBattlecry {
      * Battlecry: Silence a minion
      */
     @Override
-    public HearthTreeNode useTargetableBattlecry_core(
-            PlayerSide side,
-            Minion targetMinion,
-            HearthTreeNode boardState,
-            Deck deckPlayer0,
-            Deck deckPlayer1
-        ) throws HSException {
+    public HearthTreeNode useTargetableBattlecry_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState) throws HSException {
         HearthTreeNode toRet = boardState;
         targetMinion.silenced(PlayerSide.CURRENT_PLAYER, toRet.data_);
         return toRet;

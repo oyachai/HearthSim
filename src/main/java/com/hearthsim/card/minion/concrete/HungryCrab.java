@@ -25,13 +25,7 @@ public class HungryCrab extends Minion implements MinionTargetableBattlecry {
      * Battlecry: Destroy a murloc and gain +2/+2
      */
     @Override
-    public HearthTreeNode useTargetableBattlecry_core(
-        PlayerSide side,
-        Minion targetMinion,
-        HearthTreeNode boardState,
-        Deck deckPlayer0,
-        Deck deckPlayer1
-    ) throws HSException {
+    public HearthTreeNode useTargetableBattlecry_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState) throws HSException {
         if (targetMinion.getTribe() == MinionTribe.MURLOC) {
             targetMinion.setHealth((byte)-99);
             this.addAttack((byte) 2);
