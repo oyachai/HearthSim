@@ -367,7 +367,7 @@ public class TestBreadthBoardStateFactory {
                 for (HearthTreeNode child : current.getChildren()) {
                     HearthTreeNode origin = new HearthTreeNode(current.data_.deepCopy(), current.getAction());
                     assertNotNull(child.getAction());
-                    HearthTreeNode reproduced = child.getAction().perform(origin, null, null, false);
+                    HearthTreeNode reproduced = child.getAction().perform(origin, false);
                     assertNotNull(reproduced);
                     assertEquals(child.data_, reproduced.data_);
                 }
