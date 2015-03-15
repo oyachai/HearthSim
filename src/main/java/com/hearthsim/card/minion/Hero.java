@@ -140,7 +140,7 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
     public final HearthTreeNode useHeroAbility(PlayerSide targetPlayerSide, int targetIndex,
                                                HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
         Minion targetMinion = boardState.data_.modelForSide(targetPlayerSide).getCharacter(targetIndex);
-        return this.useHeroAbility(targetPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1);
+        return this.useHeroAbility(targetPlayerSide, targetMinion, boardState);
     }
 
     @Deprecated
@@ -205,7 +205,6 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
      * @param attackPlayerSide The player index of the attacker. This is needed to do things like +spell damage.
      * @param thisPlayerSide
      * @param boardState
-     * @param deckPlayer0      The deck of player0
      * @param isSpellDamage
      * @throws HSInvalidPlayerIndexException
      */

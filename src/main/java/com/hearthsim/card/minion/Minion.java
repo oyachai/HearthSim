@@ -749,7 +749,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 
         HearthTreeNode toRet = boardState;
         toRet = this
-            .summonMinion_core(targetSide, targetMinion, toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
+            .summonMinion_core(targetSide, targetMinion, toRet, singleRealizationOnly);
 
 
         if (this instanceof MinionUntargetableBattlecry) {
@@ -856,9 +856,8 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
      * @param deckPlayer1 The deck of player1
      * @throws HSException
      */
-    protected HearthTreeNode summonMinion_core(PlayerSide targetSide, Minion targetMinion, HearthTreeNode boardState,
-            Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
-        HearthTreeNode toRet = this.placeMinion(targetSide, targetMinion, boardState, deckPlayer0, deckPlayer1,
+    protected HearthTreeNode summonMinion_core(PlayerSide targetSide, Minion targetMinion, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
+        HearthTreeNode toRet = this.placeMinion(targetSide, targetMinion, boardState,
                 singleRealizationOnly);
         if (!charge_) {
             hasAttacked_ = true;
@@ -867,7 +866,11 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         return toRet;
     }
 
-
+    @Deprecated
+    protected HearthTreeNode summonMinion_core(PlayerSide targetSide, Minion targetMinion, HearthTreeNode boardState,
+                                               Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
+        return this.summonMinion_core(targetSide, targetMinion, boardState, singleRealizationOnly);
+    }
 
     /**
      * Place a minion on the board

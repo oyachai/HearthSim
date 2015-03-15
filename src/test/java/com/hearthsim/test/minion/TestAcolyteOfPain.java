@@ -131,7 +131,7 @@ public class TestAcolyteOfPain {
         assertEquals(waitingPlayer.getHand().size(), 0);
         Assassinate assassinate = new Assassinate();
         currentPlayer.placeCardHand(assassinate);
-        HearthTreeNode ret = assassinate.useOn(PlayerSide.WAITING_PLAYER, enemyAcolyte, board, deck, deck);
+        HearthTreeNode ret = assassinate.useOn(PlayerSide.WAITING_PLAYER, enemyAcolyte, board);
         assertEquals(board, ret);
         assertFalse(board instanceof CardDrawNode);
 

@@ -260,20 +260,20 @@ public class Card implements DeepCopyable<Card> {
     @Deprecated
     public final HearthTreeNode useOn(PlayerSide side, Minion targetMinion, HearthTreeNode boardState,
             Deck deckPlayer0, Deck deckPlayer1) throws HSException {
-        return this.useOn(side, targetMinion, boardState, deckPlayer0, deckPlayer1, false);
+        return this.useOn(side, targetMinion, boardState, false);
     }
 
     @Deprecated
     public HearthTreeNode useOn(PlayerSide side, int targetIndex, HearthTreeNode boardState, Deck deckPlayer0,
             Deck deckPlayer1) throws HSException {
-        return this.useOn(side, targetIndex, boardState, deckPlayer0, deckPlayer1, false);
+        return this.useOn(side, targetIndex, boardState, false);
     }
 
     @Deprecated
     public HearthTreeNode useOn(PlayerSide side, int targetIndex, HearthTreeNode boardState, Deck deckPlayer0,
             Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
         Minion target = boardState.data_.modelForSide(side).getCharacter(targetIndex);
-        return this.useOn(side, target, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+        return this.useOn(side, target, boardState, singleRealizationOnly);
     }
 
     @Deprecated
