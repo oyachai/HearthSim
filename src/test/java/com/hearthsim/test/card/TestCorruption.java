@@ -56,7 +56,7 @@ public class TestCorruption {
     @Test
     public void testSetsDestroyOnTurnStart() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 1, board, null, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 1, board);
 
         assertEquals(board, ret);
 
@@ -70,7 +70,7 @@ public class TestCorruption {
     @Test
     public void testMinionIsDestroyedNextTurnStart() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 1, board, null, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 1, board);
         assertEquals(board, ret);
 
         assertEquals(waitingPlayer.getMinions().get(0).getHealth(), health0);

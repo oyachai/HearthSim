@@ -45,7 +45,7 @@ public class TestBloodKnight {
     @Test
     public void testStealsDivineShieldMultiple() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, null, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board);
 
         assertEquals(board, ret);
 
@@ -65,7 +65,7 @@ public class TestBloodKnight {
         Minion target = currentPlayer.getCharacter(1);
         target.setDivineShield(false);
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board);
 
         assertEquals(board, ret);
 
@@ -85,7 +85,7 @@ public class TestBloodKnight {
         currentPlayer.getCharacter(1).setDivineShield(false);
         waitingPlayer.getCharacter(1).setDivineShield(false);
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, null, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board);
 
         assertEquals(board, ret);
 
@@ -104,7 +104,7 @@ public class TestBloodKnight {
     @Ignore("Existing bug")
     public void testSilenced() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, null, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board);
         assertEquals(board, ret);
 
         Minion target = currentPlayer.getCharacter(2);

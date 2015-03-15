@@ -57,7 +57,7 @@ public class TestMirrorImage {
     @Test
     public void test2() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
 
         assertFalse(ret == null);
 
@@ -94,7 +94,7 @@ public class TestMirrorImage {
 
         Card theCard = currentPlayer.getHand().get(0);
         assertTrue(theCard.canBeUsedOn(PlayerSide.CURRENT_PLAYER, 0, board.data_));
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
         assertNull(ret);
     }
 }

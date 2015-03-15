@@ -50,7 +50,7 @@ public class TestAncestralHealing {
         HearthTreeNode res;
 
         try {
-            res = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
+            res = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
             assertNull(res);
         } catch (HSInvalidPlayerIndexException e) {
             e.printStackTrace();
@@ -58,7 +58,7 @@ public class TestAncestralHealing {
         }
 
         try {
-            res = theCard.useOn(PlayerSide.WAITING_PLAYER, 0, board, null, null);
+            res = theCard.useOn(PlayerSide.WAITING_PLAYER, 0, board);
             assertNull(res);
         } catch (HSInvalidPlayerIndexException e) {
             e.printStackTrace();
@@ -73,7 +73,7 @@ public class TestAncestralHealing {
         HearthTreeNode res;
 
         try {
-            res = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, null, null);
+            res = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board);
             assertNotNull(res);
             assertEquals(res.data_.getCurrentPlayer().getMana(), 2);
             assertEquals(res.data_.getCurrentPlayer().getHand().size(), 0);
@@ -94,7 +94,7 @@ public class TestAncestralHealing {
         HearthTreeNode res;
 
         try {
-            res = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, null, null);
+            res = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board);
             assertNotNull(res);
             assertEquals(res.data_.getCurrentPlayer().getMana(), 2);
             assertEquals(res.data_.getCurrentPlayer().getHand().size(), 0);
@@ -115,7 +115,7 @@ public class TestAncestralHealing {
         HearthTreeNode res;
 
         try {
-            res = theCard.useOn(PlayerSide.WAITING_PLAYER, 1, board, null, null);
+            res = theCard.useOn(PlayerSide.WAITING_PLAYER, 1, board);
             assertNotNull(res);
             assertEquals(res.data_.getCurrentPlayer().getMana(), 2);
             assertEquals(res.data_.getCurrentPlayer().getHand().size(), 0);
@@ -136,7 +136,7 @@ public class TestAncestralHealing {
         HearthTreeNode res;
 
         try {
-            res = theCard.useOn(PlayerSide.WAITING_PLAYER, 1, board, null, null);
+            res = theCard.useOn(PlayerSide.WAITING_PLAYER, 1, board);
             assertNotNull(res);
             assertEquals(res.data_.getCurrentPlayer().getMana(), 2);
             assertEquals(res.data_.getCurrentPlayer().getHand().size(), 0);

@@ -54,7 +54,7 @@ public class TestArcaneGolem {
     @Test
     public void testIncreasesEnemyMana() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
         assertEquals(board, ret);
 
         assertEquals(currentPlayer.getHand().size(), 0);
@@ -71,7 +71,7 @@ public class TestArcaneGolem {
     public void testDoesNotIncreaseOverTen() throws HSException {
         waitingPlayer.setMaxMana((byte) 10);
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
         assertEquals(board, ret);
         assertEquals(waitingPlayer.getMana(), 9);
         assertEquals(waitingPlayer.getMaxMana(), 10);

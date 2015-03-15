@@ -257,20 +257,42 @@ public class Card implements DeepCopyable<Card> {
         return this.canBeUsedOn(playerSide, targetMinion, boardModel);
     }
 
+    @Deprecated
     public final HearthTreeNode useOn(PlayerSide side, Minion targetMinion, HearthTreeNode boardState,
             Deck deckPlayer0, Deck deckPlayer1) throws HSException {
         return this.useOn(side, targetMinion, boardState, deckPlayer0, deckPlayer1, false);
     }
 
+    @Deprecated
     public HearthTreeNode useOn(PlayerSide side, int targetIndex, HearthTreeNode boardState, Deck deckPlayer0,
             Deck deckPlayer1) throws HSException {
         return this.useOn(side, targetIndex, boardState, deckPlayer0, deckPlayer1, false);
     }
 
+    @Deprecated
     public HearthTreeNode useOn(PlayerSide side, int targetIndex, HearthTreeNode boardState, Deck deckPlayer0,
             Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
         Minion target = boardState.data_.modelForSide(side).getCharacter(targetIndex);
         return this.useOn(side, target, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+    }
+
+    @Deprecated
+    public HearthTreeNode useOn(PlayerSide side, Minion targetMinion, HearthTreeNode boardState, Deck deckPlayer0,
+                                Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
+        return this.useOn(side, targetMinion, boardState, singleRealizationOnly);
+    }
+
+    public final HearthTreeNode useOn(PlayerSide side, Minion targetMinion, HearthTreeNode boardState) throws HSException {
+        return this.useOn(side, targetMinion, boardState, false);
+    }
+
+    public HearthTreeNode useOn(PlayerSide side, int targetIndex, HearthTreeNode boardState) throws HSException {
+        return this.useOn(side, targetIndex, boardState, false);
+    }
+
+    public HearthTreeNode useOn(PlayerSide side, int targetIndex, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
+        Minion target = boardState.data_.modelForSide(side).getCharacter(targetIndex);
+        return this.useOn(side, target, boardState, singleRealizationOnly);
     }
 
     /**
@@ -279,14 +301,11 @@ public class Card implements DeepCopyable<Card> {
      * @param side
      * @param targetMinion The target minion (can be a Hero)
      * @param boardState The BoardState before this card has performed its action. It will be manipulated and returned.
-     * @param deckPlayer0 The deck for player0
-     * @param deckPlayer1 The deck for player1
      * @param singleRealizationOnly For cards with random effects, setting this to true will return only a single realization of the random event.
      *
      * @return The boardState is manipulated and returned
      */
-    public HearthTreeNode useOn(PlayerSide side, Minion targetMinion, HearthTreeNode boardState, Deck deckPlayer0,
-            Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
+    public HearthTreeNode useOn(PlayerSide side, Minion targetMinion, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
         if (!this.canBeUsedOn(side, targetMinion, boardState.data_))
             return null;
 
@@ -302,7 +321,7 @@ public class Card implements DeepCopyable<Card> {
 
         HearthTreeNode toRet = this.notifyCardPlayBegin(boardState, singleRealizationOnly);
         if (toRet != null) {
-            toRet = this.use_core(side, targetMinion, toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
+            toRet = this.use_core(side, targetMinion, toRet, singleRealizationOnly);
             if (this.triggersOverload())
                 toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER).addOverload(this.getOverload());
         }

@@ -52,7 +52,7 @@ public class TestGrimscaleOracle {
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new MurlocRaider());
 
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, null, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board);
 
         assertEquals(board, ret);
 
@@ -78,7 +78,7 @@ public class TestGrimscaleOracle {
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, new MurlocRaider());
 
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, null, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board);
 
         assertEquals(board, ret);
 
@@ -102,12 +102,12 @@ public class TestGrimscaleOracle {
     @Test
     public void testBuffsMurlocPlacedAfter() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, null, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board);
         assertEquals(board, ret);
 
         MurlocRaider murloc = new MurlocRaider();
         currentPlayer.placeCardHand(murloc);
-        ret = murloc.useOn(PlayerSide.CURRENT_PLAYER, 1, board, null, null);
+        ret = murloc.useOn(PlayerSide.CURRENT_PLAYER, 1, board);
         assertEquals(board, ret);
 
         assertEquals(currentPlayer.getMinions().get(1).getHealth(), 1);

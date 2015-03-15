@@ -57,7 +57,7 @@ public class TestMinionAttacking {
         currentPlayer.placeCardHand(murloc);
 
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
         assertEquals(board, ret);
 
         Minion theAttacker = currentPlayer.getMinions().get(0);
@@ -76,7 +76,7 @@ public class TestMinionAttacking {
         currentPlayer.placeCardHand(murloc);
 
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
         assertEquals(board, ret);
 
         Minion theAttacker = currentPlayer.getMinions().get(0);

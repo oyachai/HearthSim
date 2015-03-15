@@ -53,8 +53,7 @@ public class SparseChildNodeCreator extends ChildNodeCreatorBase {
                 if (card.canBeUsedOn(PlayerSide.CURRENT_PLAYER, targetMinion, boardStateNode.data_)) {
                     newState = new HearthTreeNode(boardStateNode.data_.deepCopy());
                     copiedCard = newState.data_.getCurrentPlayer().getHand().get(cardIndex);
-                    newState = copiedCard.useOn(PlayerSide.CURRENT_PLAYER, cardPlacementIndex, newState, deckPlayer0_,
-                            deckPlayer1_);
+                    newState = copiedCard.useOn(PlayerSide.CURRENT_PLAYER, cardPlacementIndex, newState);
                     if (newState != null) {
                         nodes.add(newState);
                     }
@@ -67,8 +66,7 @@ public class SparseChildNodeCreator extends ChildNodeCreatorBase {
                     if (card.canBeUsedOn(PlayerSide.CURRENT_PLAYER, targetMinion, boardStateNode.data_)) {
                         newState = new HearthTreeNode(boardStateNode.data_.deepCopy());
                         copiedCard = newState.data_.getCurrentPlayer().getHand().get(cardIndex);
-                        newState = copiedCard.useOn(PlayerSide.CURRENT_PLAYER, targetIndex, newState,
-                                deckPlayer0_, deckPlayer1_);
+                        newState = copiedCard.useOn(PlayerSide.CURRENT_PLAYER, targetIndex, newState);
                         if (newState != null) {
                             nodes.add(newState);
                         }
@@ -81,8 +79,7 @@ public class SparseChildNodeCreator extends ChildNodeCreatorBase {
                     if (card.canBeUsedOn(PlayerSide.WAITING_PLAYER, targetMinion, boardStateNode.data_)) {
                         newState = new HearthTreeNode(boardStateNode.data_.deepCopy());
                         copiedCard = newState.data_.getCurrentPlayer().getHand().get(cardIndex);
-                        newState = copiedCard.useOn(PlayerSide.WAITING_PLAYER, targetIndex, newState,
-                                deckPlayer0_, deckPlayer1_);
+                        newState = copiedCard.useOn(PlayerSide.WAITING_PLAYER, targetIndex, newState);
                         if (newState != null) {
                             nodes.add(newState);
                         }

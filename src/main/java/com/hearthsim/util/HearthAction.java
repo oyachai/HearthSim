@@ -60,7 +60,7 @@ public class HearthAction {
         switch(verb_) {
             case USE_CARD: {
                 Card card = actingPlayer.getHand().get(cardOrCharacterIndex_);
-                toRet = card.useOn(targetPlayerSide, targetCharacterIndex_, toRet, deckPlayer0, deckPlayer1, singleRealization);
+                toRet = card.useOn(targetPlayerSide, targetCharacterIndex_, toRet, singleRealization);
             }
             break;
             case HERO_ABILITY: {

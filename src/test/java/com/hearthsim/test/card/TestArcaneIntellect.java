@@ -78,7 +78,7 @@ public class TestArcaneIntellect {
         Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode res;
 
-        res = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
+        res = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
         assertNotNull(res);
         assertEquals(currentPlayer.getHand().size(), 0);
         assertTrue(res instanceof CardDrawNode);
@@ -112,7 +112,7 @@ public class TestArcaneIntellect {
         Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode res;
 
-        res = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
+        res = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
         assertNotNull(res);
         assertEquals(currentPlayer.getHand().size(), 0);
         assertTrue(res instanceof CardDrawNode);

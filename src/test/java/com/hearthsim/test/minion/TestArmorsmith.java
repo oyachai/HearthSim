@@ -43,7 +43,7 @@ public class TestArmorsmith {
     @Test
     public void test0() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
         assertFalse(ret == null);
 
         assertEquals(currentPlayer.getHand().size(), 0);
@@ -71,7 +71,7 @@ public class TestArmorsmith {
 
         currentPlayer.placeCardHand(new HolySmite());
         theCard = currentPlayer.getHand().get(0);
-        ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 3, ret, null, null);
+        ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 3, ret);
         assertFalse(ret == null);
 
         assertEquals(currentPlayer.getHand().size(), 0);
@@ -102,7 +102,7 @@ public class TestArmorsmith {
 
         currentPlayer.placeCardHand(new HolySmite());
         theCard = currentPlayer.getHand().get(0);
-        ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 2, ret, null, null);
+        ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 2, ret);
         assertFalse(ret == null);
 
         assertEquals(currentPlayer.getHand().size(), 0);
@@ -131,7 +131,7 @@ public class TestArmorsmith {
         ret = new HearthTreeNode(ret.data_.flipPlayers());
         currentPlayer.placeCardHand(new HolySmite());
         theCard = currentPlayer.getHand().get(0);
-        ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 2, ret, null, null);
+        ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 2, ret);
         assertFalse(ret == null);
         currentPlayer = ret.data_.getCurrentPlayer();
         waitingPlayer = ret.data_.getWaitingPlayer();

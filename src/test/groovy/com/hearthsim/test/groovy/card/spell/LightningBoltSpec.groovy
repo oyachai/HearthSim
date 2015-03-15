@@ -31,7 +31,7 @@ class LightningBoltSpec extends CardSpec {
         def copiedBoard = startingBoard.deepCopy()
         def copiedRoot = new HearthTreeNode(copiedBoard)
         def theCard = copiedBoard.getCurrentPlayer().getHand().get(0);
-        def ret = theCard.useOn(WAITING_PLAYER, 0, copiedRoot, null, null);
+        def ret = theCard.useOn(WAITING_PLAYER, 0, copiedRoot);
 
         expect:
         ret != null

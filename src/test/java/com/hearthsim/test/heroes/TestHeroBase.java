@@ -197,7 +197,7 @@ public class TestHeroBase {
         HolySmite smite = new HolySmite();
         board.data_.placeCardHand(PlayerSide.CURRENT_PLAYER, smite);
 
-        HearthTreeNode ret = smite.useOn(PlayerSide.WAITING_PLAYER, opponent, board, null, null);
+        HearthTreeNode ret = smite.useOn(PlayerSide.WAITING_PLAYER, opponent, board);
         assertEquals(board, ret);
 
         assertEquals(waitingPlayer.getHero().getHealth(), 30);
