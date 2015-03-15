@@ -64,11 +64,11 @@ public class MirrorImage extends SpellCard {
         HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
         if (toRet != null) {
             Minion mi0 = new MirrorImageMinion();
-            toRet = mi0.summonMinionAtEnd(side, toRet, null, null, false, singleRealizationOnly);
+            toRet = mi0.summonMinionAtEnd(side, toRet, false, singleRealizationOnly);
 
             if (!currentPlayer.isBoardFull()) {
                 Minion mi1 = new MirrorImageMinion();
-                toRet = mi1.summonMinionAtEnd(side, toRet, null, null, false, singleRealizationOnly);
+                toRet = mi1.summonMinionAtEnd(side, toRet, false, singleRealizationOnly);
             }
         }
         return toRet;

@@ -29,7 +29,7 @@ public class Onyxia extends Minion implements MinionUntargetableBattlecry  {
             } else {
                 placementTarget = this;
             }
-            toRet = new Whelp().summonMinion(PlayerSide.CURRENT_PLAYER, placementTarget, toRet, null, null, false, singleRealizationOnly);
+            toRet = new Whelp().summonMinion(PlayerSide.CURRENT_PLAYER, placementTarget, toRet, false, singleRealizationOnly);
         }
         return toRet;
     }

@@ -53,7 +53,7 @@ public class Paladin extends Hero {
         currentPlayer.subtractMana(HERO_ABILITY_COST);
 
         Minion theRecruit = new SilverHandRecruit();
-        toRet = theRecruit.summonMinionAtEnd(targetPlayerSide, toRet, null, null, false, singleRealizationOnly);
+        toRet = theRecruit.summonMinionAtEnd(targetPlayerSide, toRet, false, singleRealizationOnly);
         return toRet;
     }
 }

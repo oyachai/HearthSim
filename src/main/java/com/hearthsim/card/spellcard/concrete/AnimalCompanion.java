@@ -77,7 +77,7 @@ public class AnimalCompanion extends SpellCard {
                 } else {
                     minion = new Misha();
                 }
-                toRet = minion.summonMinionAtEnd(side, toRet, null, null, false, singleRealizationOnly);
+                toRet = minion.summonMinionAtEnd(side, toRet, false, singleRealizationOnly);
             }
         } else {
             toRet = new RandomEffectNode(toRet, new HearthAction(HearthAction.Verb.USE_CARD, side, 0, side, 0));
@@ -87,7 +87,7 @@ public class AnimalCompanion extends SpellCard {
                 HearthTreeNode newState = toRet.addChild(new HearthTreeNode(toRet.data_.deepCopy()));
 
                 newState = super.use_core(side, targetPlayer.getHero(), newState, singleRealizationOnly);
-                newState = minion.summonMinionAtEnd(side, newState, null, null, false, singleRealizationOnly);
+                newState = minion.summonMinionAtEnd(side, newState, false, singleRealizationOnly);
                 newState.data_.modelForSide(side).getHand().remove(thisCardIndex);
             }
         }

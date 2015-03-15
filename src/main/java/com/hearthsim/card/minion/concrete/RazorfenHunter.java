@@ -27,7 +27,7 @@ public class RazorfenHunter extends Minion implements MinionUntargetableBattlecr
         PlayerModel currentPlayer = toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         if (toRet != null && !currentPlayer.isBoardFull()) {
             Minion mdragon = new Boar();
-            toRet = mdragon.summonMinion(PlayerSide.CURRENT_PLAYER, this, boardState, null, null, false, singleRealizationOnly);
+            toRet = mdragon.summonMinion(PlayerSide.CURRENT_PLAYER, this, boardState, false, singleRealizationOnly);
         }
         return toRet;
     }

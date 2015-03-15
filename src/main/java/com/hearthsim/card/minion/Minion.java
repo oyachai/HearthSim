@@ -743,8 +743,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
      * @param wasTransformed If the minion was 'summoned' as a result of a transform effect (e.g. Hex, Polymorph), set this to true.
      * @return The boardState is manipulated and returned
      */
-    public HearthTreeNode summonMinion(PlayerSide targetSide, Minion targetMinion, HearthTreeNode boardState,
-                                       Deck deckPlayer0, Deck deckPlayer1, boolean wasPlayed, boolean singleRealizationOnly) throws HSException {
+    public HearthTreeNode summonMinion(PlayerSide targetSide, Minion targetMinion, HearthTreeNode boardState, boolean wasPlayed, boolean singleRealizationOnly) throws HSException {
         if (boardState.data_.modelForSide(targetSide).isBoardFull())
             return null;
 
@@ -767,53 +766,45 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
             for (BattlecryTargetType btt : targets) {
                 switch (btt) {
                     case ENEMY_HERO:
-                        toRet = this.useTargetableBattlecry(PlayerSide.WAITING_PLAYER,
-                            waitingPlayer.getHero(), toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
+                        toRet = this.useTargetableBattlecry(PlayerSide.WAITING_PLAYER, waitingPlayer.getHero(), toRet, singleRealizationOnly);
                         break;
                     case FRIENDLY_HERO:
-                        toRet = this.useTargetableBattlecry(PlayerSide.CURRENT_PLAYER,
-                            currentPlayer.getHero(), toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
+                        toRet = this.useTargetableBattlecry(PlayerSide.CURRENT_PLAYER, currentPlayer.getHero(), toRet, singleRealizationOnly);
                         break;
                     case ENEMY_MINIONS:
                         for (Minion minion : waitingPlayer.getMinions()) {
                             if (!minion.getStealthed())
-                                toRet = this.useTargetableBattlecry(PlayerSide.WAITING_PLAYER, minion, toRet, deckPlayer0,
-                                    deckPlayer1, singleRealizationOnly);
+                                toRet = this.useTargetableBattlecry(PlayerSide.WAITING_PLAYER, minion, toRet, singleRealizationOnly);
                         }
                         break;
                     case FRIENDLY_MINIONS:
                         for (Minion minion : currentPlayer.getMinions()) {
                             if (minion != this)
-                                toRet = this.useTargetableBattlecry(PlayerSide.CURRENT_PLAYER, minion, toRet, deckPlayer0,
-                                    deckPlayer1, singleRealizationOnly);
+                                toRet = this.useTargetableBattlecry(PlayerSide.CURRENT_PLAYER, minion, toRet, singleRealizationOnly);
                         }
                         break;
                     case ENEMY_BEASTS:
                         for (Minion minion : waitingPlayer.getMinions()) {
                             if (minion.getTribe() == MinionTribe.BEAST)
-                                toRet = this.useTargetableBattlecry(PlayerSide.WAITING_PLAYER, minion, toRet, deckPlayer0,
-                                    deckPlayer1, singleRealizationOnly);
+                                toRet = this.useTargetableBattlecry(PlayerSide.WAITING_PLAYER, minion, toRet, singleRealizationOnly);
                         }
                         break;
                     case FRIENDLY_BEASTS:
                         for (Minion minion : currentPlayer.getMinions()) {
                             if (minion != this && minion.getTribe() == MinionTribe.BEAST)
-                                toRet = this.useTargetableBattlecry(PlayerSide.CURRENT_PLAYER, minion, toRet, deckPlayer0,
-                                    deckPlayer1, singleRealizationOnly);
+                                toRet = this.useTargetableBattlecry(PlayerSide.CURRENT_PLAYER, minion, toRet, singleRealizationOnly);
                         }
                         break;
                     case ENEMY_MURLOCS:
                         for (Minion minion : waitingPlayer.getMinions()) {
                             if (minion.getTribe() == MinionTribe.MURLOC)
-                                toRet = this.useTargetableBattlecry(PlayerSide.WAITING_PLAYER, minion, toRet, deckPlayer0,
-                                    deckPlayer1, singleRealizationOnly);
+                                toRet = this.useTargetableBattlecry(PlayerSide.WAITING_PLAYER, minion, toRet, singleRealizationOnly);
                         }
                         break;
                     case FRIENDLY_MURLOCS:
                         for (Minion minion : currentPlayer.getMinions()) {
                             if (minion != this && minion.getTribe() == MinionTribe.MURLOC)
-                                toRet = this.useTargetableBattlecry(PlayerSide.CURRENT_PLAYER, minion, toRet, deckPlayer0,
-                                    deckPlayer1, singleRealizationOnly);
+                                toRet = this.useTargetableBattlecry(PlayerSide.CURRENT_PLAYER, minion, toRet, singleRealizationOnly);
                         }
                         break;
                     default:
@@ -829,17 +820,37 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 
         return toRet;
     }
+
+    public HearthTreeNode summonMinion(PlayerSide targetSide, int targetIndex, HearthTreeNode boardState, boolean wasPlayed, boolean singleRealizationOnly) throws HSException {
+        PlayerModel player = boardState.data_.modelForSide(targetSide);
+        Minion targetLocation = player.getCharacter(targetIndex);
+        return this.summonMinion(targetSide, targetLocation, boardState, wasPlayed, singleRealizationOnly);
+    }
+
+    public HearthTreeNode summonMinionAtEnd(PlayerSide targetSide, HearthTreeNode boardState, boolean wasPlayed, boolean singleRealizationOnly) throws HSException {
+        PlayerModel player = boardState.data_.modelForSide(targetSide);
+        return this.summonMinion(targetSide, player.getNumMinions(), boardState, wasPlayed, singleRealizationOnly);
+    }
+
+    @Deprecated
+    public HearthTreeNode summonMinion(PlayerSide targetSide, Minion targetMinion, HearthTreeNode boardState,
+                                       Deck deckPlayer0, Deck deckPlayer1, boolean wasPlayed, boolean singleRealizationOnly) throws HSException {
+        return this.summonMinion(targetSide, targetMinion, boardState, wasPlayed, singleRealizationOnly);
+    }
+
+    @Deprecated
     public HearthTreeNode summonMinion(PlayerSide targetSide, int targetIndex, HearthTreeNode boardState,
                                        Deck deckPlayer0, Deck deckPlayer1, boolean wasPlayed, boolean singleRealizationOnly) throws HSException {
         PlayerModel player = boardState.data_.modelForSide(targetSide);
         Minion targetLocation = player.getCharacter(targetIndex);
-        return this.summonMinion(targetSide, targetLocation, boardState, deckPlayer0, deckPlayer1, wasPlayed, singleRealizationOnly);
+        return this.summonMinion(targetSide, targetLocation, boardState, wasPlayed, singleRealizationOnly);
     }
 
+    @Deprecated
     public HearthTreeNode summonMinionAtEnd(PlayerSide targetSide, HearthTreeNode boardState,
-                                       Deck deckPlayer0, Deck deckPlayer1, boolean wasPlayed, boolean singleRealizationOnly) throws HSException {
+                                            Deck deckPlayer0, Deck deckPlayer1, boolean wasPlayed, boolean singleRealizationOnly) throws HSException {
         PlayerModel player = boardState.data_.modelForSide(targetSide);
-        return this.summonMinion(targetSide, player.getNumMinions(), boardState, deckPlayer0, deckPlayer1, wasPlayed, singleRealizationOnly);
+        return this.summonMinion(targetSide, player.getNumMinions(), boardState, wasPlayed, singleRealizationOnly);
     }
 
     /**

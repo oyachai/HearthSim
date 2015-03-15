@@ -23,7 +23,7 @@ public class IllidanStormrage extends Minion implements CardPlayBeginInterface {
         HearthTreeNode toRet = boardState;
         PlayerModel targetPlayer = boardState.data_.modelForSide(thisCardPlayerSide);
         if (thisCardPlayerSide == cardUserPlayerSide && usedCard != this && !targetPlayer.isBoardFull()) {
-            toRet = new FlameOfAzzinoth().summonMinion(thisCardPlayerSide, this, toRet, null, null, false, singleRealizationOnly);
+            toRet = new FlameOfAzzinoth().summonMinion(thisCardPlayerSide, this, toRet, false, singleRealizationOnly);
         }
         return toRet;
     }

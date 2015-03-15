@@ -80,7 +80,7 @@ public class Shaman extends Hero {
                 return null;
             this.hasBeenUsed = true;
             player.subtractMana(HERO_ABILITY_COST);
-            toRet = minionToSummon.summonMinionAtEnd(targetPlayerSide, toRet, null, null, false, singleRealizationOnly);
+            toRet = minionToSummon.summonMinionAtEnd(targetPlayerSide, toRet, false, singleRealizationOnly);
             return toRet;
         }
 
@@ -104,7 +104,7 @@ public class Shaman extends Hero {
                 newCurrentPlayer.subtractMana(HERO_ABILITY_COST);
                 newCurrentPlayer.getHero().hasBeenUsed(true);
 
-                newState = totemToSummon.summonMinionAtEnd(targetPlayerSide, newState, null, null, false, singleRealizationOnly);
+                newState = totemToSummon.summonMinionAtEnd(targetPlayerSide, newState, false, singleRealizationOnly);
             }
         }
         if (allTotemsNotSummonable)

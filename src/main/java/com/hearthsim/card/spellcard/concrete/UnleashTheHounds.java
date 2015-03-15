@@ -52,7 +52,7 @@ public class UnleashTheHounds extends SpellCard {
                 numHoundsToSummon = 7 - currentPlayer.getNumMinions();
             for (int indx = 0; indx < numHoundsToSummon; ++indx) {
                 Minion placementTarget = currentPlayer.getNumMinions() > 0 ? currentPlayer.getMinions().getLast() : currentPlayer.getHero();
-                toRet = new Hound().summonMinion(PlayerSide.CURRENT_PLAYER, placementTarget, toRet, null, null, false, singleRealizationOnly);
+                toRet = new Hound().summonMinion(PlayerSide.CURRENT_PLAYER, placementTarget, toRet, false, singleRealizationOnly);
             }
         }
         return toRet;

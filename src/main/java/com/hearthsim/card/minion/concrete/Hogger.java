@@ -20,7 +20,7 @@ public class Hogger extends Minion {
 
         if (thisMinionPlayerIndex == PlayerSide.CURRENT_PLAYER && !currentPlayer.isBoardFull()) {
             Minion minion = new Gnoll();
-            minion.summonMinionAtEnd(PlayerSide.CURRENT_PLAYER, toRet, null, null, false, false);
+            minion.summonMinionAtEnd(PlayerSide.CURRENT_PLAYER, toRet, false, false);
         }
         return super.endTurn(thisMinionPlayerIndex, toRet);
     }

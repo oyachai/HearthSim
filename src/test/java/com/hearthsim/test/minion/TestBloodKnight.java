@@ -38,8 +38,8 @@ public class TestBloodKnight {
         currentPlayer.setMana((byte) 18);
         waitingPlayer.setMana((byte) 18);
 
-        minion0_0.summonMinion(PlayerSide.CURRENT_PLAYER, currentPlayer.getHero(), board, null, null, false, true);
-        minion1_0.summonMinion(PlayerSide.WAITING_PLAYER, waitingPlayer.getHero(), board, null, null, false, true);
+        minion0_0.summonMinion(PlayerSide.CURRENT_PLAYER, currentPlayer.getHero(), board, false, true);
+        minion1_0.summonMinion(PlayerSide.WAITING_PLAYER, waitingPlayer.getHero(), board, false, true);
     }
 
     @Test

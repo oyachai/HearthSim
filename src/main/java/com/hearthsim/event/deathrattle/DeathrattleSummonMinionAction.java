@@ -40,7 +40,7 @@ public class DeathrattleSummonMinionAction extends DeathrattleAction {
         for (int index = 0; index < numMinionsToActuallySummon; ++index) {
             try {
                 Minion newMinion = (Minion) minionClass_.newInstance();
-                toRet = newMinion.summonMinion(playerSide, targetIndex, toRet, null, null, false, true);
+                toRet = newMinion.summonMinion(playerSide, targetIndex, toRet, false, true);
             } catch (InstantiationException | IllegalAccessException e) {
                 // TODO Auto-generated catch block
                 throw new HSException();
