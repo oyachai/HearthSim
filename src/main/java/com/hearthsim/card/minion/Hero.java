@@ -89,7 +89,6 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
      * @param targetMinionPlayerSide
      * @param targetMinion           The target minion
      * @param boardState             The BoardState before this card has performed its action. It will be manipulated and returned.
-     * @param deckPlayer0            The deck of player0
      * @return The boardState is manipulated and returned
      */
     @Override

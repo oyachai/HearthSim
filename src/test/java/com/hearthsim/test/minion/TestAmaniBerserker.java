@@ -7,7 +7,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.hearthsim.card.Card;
-import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.AmaniBerserker;
 import com.hearthsim.card.minion.concrete.RiverCrocolisk;
 import com.hearthsim.card.spellcard.concrete.HolyLight;

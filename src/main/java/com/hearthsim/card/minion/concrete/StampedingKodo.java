@@ -3,7 +3,6 @@ package com.hearthsim.card.minion.concrete;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionUntargetableBattlecry;

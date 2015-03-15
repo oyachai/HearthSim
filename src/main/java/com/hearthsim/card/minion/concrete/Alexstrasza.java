@@ -2,7 +2,6 @@ package com.hearthsim.card.minion.concrete;
 
 import java.util.EnumSet;
 
-import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.BattlecryTargetType;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionTargetableBattlecry;

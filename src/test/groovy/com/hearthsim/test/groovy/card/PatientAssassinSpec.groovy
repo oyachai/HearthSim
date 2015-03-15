@@ -1,10 +1,7 @@
 package com.hearthsim.test.groovy.card
 
-import com.hearthsim.card.Deck;
-import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.PatientAssassin
 import com.hearthsim.model.BoardModel
-import com.hearthsim.model.PlayerSide;
 import com.hearthsim.test.helpers.BoardModelBuilder
 import com.hearthsim.util.tree.HearthTreeNode
 
