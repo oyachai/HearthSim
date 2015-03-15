@@ -83,7 +83,7 @@ public class HearthAction {
             case TARGETABLE_BATTLECRY: {
                 Minion minion = actingPlayer.getCharacter(cardOrCharacterIndex_);
                 Minion battlecryTarget = targetPlayer.getCharacter(targetCharacterIndex_);
-                toRet = minion.useTargetableBattlecry(targetPlayerSide, battlecryTarget, toRet, deckPlayer0, deckPlayer1, singleRealization);
+                toRet = minion.useTargetableBattlecry(targetPlayerSide, battlecryTarget, toRet, singleRealization);
                 break;
             }
             case START_TURN: {

@@ -634,19 +634,22 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         return playerSide != PlayerSide.WAITING_PLAYER && !hasBeenUsed;
     }
 
+    @Deprecated
+    public HearthTreeNode useTargetableBattlecry(PlayerSide side, Minion targetMinion, HearthTreeNode boardState,
+                                                 Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
+        return this.useTargetableBattlecry(side, targetMinion, boardState, singleRealizationOnly);
+    }
+
     /**
      * Use a targetable battlecry. This will add battlecry nodes to boardState as children.
      *
      * @param side
      * @param targetMinion
      * @param boardState
-     * @param deckPlayer0
-     * @param deckPlayer1
      * @return
      * @throws HSException
      */
-    public HearthTreeNode useTargetableBattlecry(PlayerSide side, Minion targetMinion, HearthTreeNode boardState,
-                                                 Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
+    public HearthTreeNode useTargetableBattlecry(PlayerSide side, Minion targetMinion, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
 
         if (this instanceof MinionTargetableBattlecry) {
             HearthTreeNode node = new HearthTreeNode(boardState.data_.deepCopy());
