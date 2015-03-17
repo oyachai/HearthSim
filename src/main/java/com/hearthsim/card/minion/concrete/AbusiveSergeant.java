@@ -1,6 +1,5 @@
 package com.hearthsim.card.minion.concrete;
 
-import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.BattlecryTargetType;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionTargetableBattlecry;
@@ -25,13 +24,7 @@ public class AbusiveSergeant extends Minion implements MinionTargetableBattlecry
      * Battlecry: Give a minion +2 attack this turn
      */
     @Override
-    public HearthTreeNode useTargetableBattlecry_core(
-            PlayerSide side,
-            Minion targetMinion,
-            HearthTreeNode boardState,
-            Deck deckPlayer0,
-            Deck deckPlayer1
-        ) throws HSException {
+    public HearthTreeNode useTargetableBattlecry_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState) throws HSException {
         targetMinion.setExtraAttackUntilTurnEnd(((byte)(targetMinion.getExtraAttackUntilTurnEnd() + 2)));
         return boardState;
     }

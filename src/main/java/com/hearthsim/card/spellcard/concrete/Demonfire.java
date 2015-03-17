@@ -1,6 +1,5 @@
 package com.hearthsim.card.spellcard.concrete;
 
-import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.Minion.MinionTribe;
 import com.hearthsim.card.spellcard.SpellCard;
@@ -42,8 +41,6 @@ public class Demonfire extends SpellCard {
      * @param side
      * @param targetMinion The target minion
      * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-     * @param deckPlayer0 The deck for player 0
-     * @param deckPlayer1 The deck for player 1
      *
      * @return The boardState is manipulated and returned
      */
@@ -52,17 +49,15 @@ public class Demonfire extends SpellCard {
             PlayerSide side,
             Minion targetMinion,
             HearthTreeNode boardState,
-            Deck deckPlayer0,
-            Deck deckPlayer1,
             boolean singleRealizationOnly)
         throws HSException {
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
         if (toRet != null) {
             if (isCurrentPlayer(side) && targetMinion.getTribe() == MinionTribe.DEMON) {
                 targetMinion.setAttack((byte)(targetMinion.getAttack() + 2));
                 targetMinion.setHealth((byte)(targetMinion.getHealth() + 2));
             } else {
-                toRet = targetMinion.takeDamage((byte)2, PlayerSide.CURRENT_PLAYER, side, boardState, deckPlayer0, deckPlayer1, true, false);
+                toRet = targetMinion.takeDamage((byte)2, PlayerSide.CURRENT_PLAYER, side, boardState, true, false);
             }
         }
         return toRet;

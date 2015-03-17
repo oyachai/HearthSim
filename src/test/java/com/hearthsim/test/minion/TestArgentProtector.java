@@ -32,7 +32,7 @@ public class TestArgentProtector {
     public void testAddsDivineShield() throws HSException {
         BoulderfistOgre ogre = new BoulderfistOgre();
         ArgentProtector protector = new ArgentProtector();
-        protector.useTargetableBattlecry_core(PlayerSide.WAITING_PLAYER, ogre, board, null, null);
+        protector.useTargetableBattlecry_core(PlayerSide.WAITING_PLAYER, ogre, board);
         assertTrue(ogre.getDivineShield());
     }
 
@@ -46,7 +46,7 @@ public class TestArgentProtector {
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new BoulderfistOgre());
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new ArgentSquire());
 
-        HearthTreeNode ret = protector.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
+        HearthTreeNode ret = protector.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
         assertEquals(board, ret);
 
         assertEquals(board.numChildren(), 1);

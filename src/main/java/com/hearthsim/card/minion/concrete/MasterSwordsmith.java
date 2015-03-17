@@ -1,6 +1,5 @@
 package com.hearthsim.card.minion.concrete;
 
-import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerModel;
@@ -14,7 +13,7 @@ public class MasterSwordsmith extends Minion {
     }
 
     @Override
-    public HearthTreeNode endTurn(PlayerSide thisMinionPlayerIndex, HearthTreeNode boardModel, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+    public HearthTreeNode endTurn(PlayerSide thisMinionPlayerIndex, HearthTreeNode boardModel) throws HSException {
         HearthTreeNode toRet = boardModel;
         PlayerModel currentPlayer = toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         int numMinions = currentPlayer.getNumMinions();
@@ -25,7 +24,6 @@ public class MasterSwordsmith extends Minion {
             }
             buffTargetMinion.addAttack((byte)1);
         }
-        return super.endTurn(thisMinionPlayerIndex, toRet, deckPlayer0, deckPlayer1);
+        return super.endTurn(thisMinionPlayerIndex, toRet);
     }
-
 }

@@ -1,6 +1,5 @@
 package com.hearthsim.card.minion.concrete;
 
-import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionUntargetableBattlecry;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
@@ -21,14 +20,12 @@ public class AcidicSwampOoze extends Minion implements MinionUntargetableBattlec
     public HearthTreeNode useUntargetableBattlecry_core(
         Minion minionPlacementTarget,
         HearthTreeNode boardState,
-        Deck deckPlayer0,
-        Deck deckPlayer1,
         boolean singleRealizationOnly
     ) throws HSException {
 
         DeathrattleAction action = boardState.data_.getWaitingPlayer().getHero().destroyWeapon();
         if (action != null) {
-            boardState = action.performAction(null, PlayerSide.WAITING_PLAYER, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+            boardState = action.performAction(null, PlayerSide.WAITING_PLAYER, boardState, singleRealizationOnly);
         }
         return boardState;
     }

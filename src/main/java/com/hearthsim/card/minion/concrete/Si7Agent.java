@@ -1,6 +1,5 @@
 package com.hearthsim.card.minion.concrete;
 
-import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.BattlecryTargetType;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionTargetableBattlecry;
@@ -38,16 +37,10 @@ public class Si7Agent extends Minion implements MinionTargetableBattlecry {
      * Battlecry: Deal 1 damage to a chosen target
      */
     @Override
-    public HearthTreeNode useTargetableBattlecry_core(
-        PlayerSide side,
-        Minion targetMinion,
-        HearthTreeNode boardState,
-        Deck deckPlayer0,
-        Deck deckPlayer1
-    ) throws HSException {
+    public HearthTreeNode useTargetableBattlecry_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState) throws HSException {
         HearthTreeNode toRet = boardState;
-        if (PlayerSide.CURRENT_PLAYER.getPlayer(toRet).isComboEnabled()) {
-            toRet = targetMinion.takeDamage((byte) 2, PlayerSide.CURRENT_PLAYER, side, toRet, deckPlayer0, deckPlayer1, false, true);
+        if (toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER).isComboEnabled()) {
+            toRet = targetMinion.takeDamage((byte) 2, PlayerSide.CURRENT_PLAYER, side, toRet, false, true);
             return toRet;
         } else {
             return null;

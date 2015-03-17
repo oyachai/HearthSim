@@ -1,6 +1,5 @@
 package com.hearthsim.card.spellcard.concrete;
 
-import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellDamageAoe;
 import com.hearthsim.exception.HSException;
@@ -43,19 +42,16 @@ public class HolyNova extends SpellDamageAoe {
      * @return The boardState is manipulated and returned
      */
     @Override
-    protected HearthTreeNode use_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState,
-            Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
+    protected HearthTreeNode use_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
 
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1,
-                singleRealizationOnly);
+        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
 
         if (toRet != null) {
             PlayerModel currentPlayer = toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
 
-            toRet = currentPlayer.getHero().takeHeal((byte)2, PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0,
-                    deckPlayer1);
+            toRet = currentPlayer.getHero().takeHeal((byte)2, PlayerSide.CURRENT_PLAYER, toRet);
             for (Minion minion : currentPlayer.getMinions()) {
-                toRet = minion.takeHeal((byte)2, PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1);
+                toRet = minion.takeHeal((byte)2, PlayerSide.CURRENT_PLAYER, toRet);
             }
         }
         return toRet;

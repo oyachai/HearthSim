@@ -24,7 +24,7 @@ public class TestDarkIronDwarf {
     public void testAddsExtraAttack() throws HSException {
         BoulderfistOgre ogre = new BoulderfistOgre();
         DarkIronDwarf darkIronDwarf = new DarkIronDwarf();
-        darkIronDwarf.useTargetableBattlecry_core(PlayerSide.WAITING_PLAYER, ogre, board, null, null);
+        darkIronDwarf.useTargetableBattlecry_core(PlayerSide.WAITING_PLAYER, ogre, board);
         assertEquals(2, ogre.getExtraAttackUntilTurnEnd());
     }
 
@@ -33,7 +33,7 @@ public class TestDarkIronDwarf {
         BoulderfistOgre ogre = new BoulderfistOgre();
         ogre.setExtraAttackUntilTurnEnd((byte)2);
         DarkIronDwarf darkIronDwarf = new DarkIronDwarf();
-        darkIronDwarf.useTargetableBattlecry_core(PlayerSide.WAITING_PLAYER, ogre, board, null, null);
+        darkIronDwarf.useTargetableBattlecry_core(PlayerSide.WAITING_PLAYER, ogre, board);
         assertEquals(4, ogre.getExtraAttackUntilTurnEnd());
     }
 }

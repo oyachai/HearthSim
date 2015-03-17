@@ -51,7 +51,7 @@ public class TestDustDevil {
     @Test
     public void testOverload() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 2, board, null, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 2, board);
 
         assertFalse(ret == null);
 

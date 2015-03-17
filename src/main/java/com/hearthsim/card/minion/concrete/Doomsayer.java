@@ -1,6 +1,5 @@
 package com.hearthsim.card.minion.concrete;
 
-import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerModel;
@@ -14,7 +13,7 @@ public class Doomsayer extends Minion {
     }
 
     @Override
-    public HearthTreeNode startTurn(PlayerSide thisMinionPlayerIndex, HearthTreeNode boardModel, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+    public HearthTreeNode startTurn(PlayerSide thisMinionPlayerIndex, HearthTreeNode boardModel) throws HSException {
         HearthTreeNode toRet = boardModel;
         if (thisMinionPlayerIndex == PlayerSide.CURRENT_PLAYER) {
             PlayerModel currentPlayer = toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
@@ -27,7 +26,7 @@ public class Doomsayer extends Minion {
                 minion.setHealth((byte)-99);
             }
         }
-        return super.startTurn(thisMinionPlayerIndex, toRet, deckPlayer0, deckPlayer1);
+        return super.startTurn(thisMinionPlayerIndex, toRet);
     }
 
 }

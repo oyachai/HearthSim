@@ -46,10 +46,9 @@ public class CardDrawNode extends StopNode {
 
     /**
      * Draw the cards that are queued
-     *
+     * <p>
      * This function actually draws the cards that are queued up by the various card draw mechanics.
      * This function shouldn't be called by anyone except BoardStateFactory.
-     *
      */
     private void drawQueuedCard() {
         for (int indx = 0; indx < numCardsToDraw_; ++indx) {
@@ -96,7 +95,7 @@ public class CardDrawNode extends StopNode {
     }
 
     @Override
-    public HearthTreeNode finishAllEffects(Deck deckPlayer0, Deck deckPlayer1) throws HSException  {
+    public HearthTreeNode finishAllEffects() throws HSException  {
         this.drawQueuedCard();
         HearthAction drawAction = new HearthAction(HearthAction.Verb.DRAW_CARDS, PlayerSide.CURRENT_PLAYER, this.numCardsToDraw_);
         return new HearthTreeNode(this.data_, drawAction, this.score_, this.depth_, this.children_);

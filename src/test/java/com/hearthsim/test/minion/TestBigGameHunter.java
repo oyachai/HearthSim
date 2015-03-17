@@ -55,7 +55,7 @@ public class TestBigGameHunter {
     @Test
     public void test0() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 0, board, deck, deck);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 0, board);
 
         assertNull(ret);
 
@@ -96,7 +96,7 @@ public class TestBigGameHunter {
         waitingPlayer.getMinions().get(1).setAttack((byte)8);
 
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, deck, deck);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
 
         assertFalse(ret == null);
 

@@ -48,11 +48,21 @@ public class HearthAction {
         targetCharacterIndex_ = targetCharacterIndex;
     }
 
+    @Deprecated
     public HearthTreeNode perform(HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
-        return this.perform(boardState, deckPlayer0, deckPlayer1, true);
+        return this.perform(boardState, true);
     }
 
+    @Deprecated
     public HearthTreeNode perform(HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealization) throws HSException {
+        return this.perform(boardState, singleRealization);
+    }
+
+    public HearthTreeNode perform(HearthTreeNode boardState) throws HSException {
+        return this.perform(boardState, true);
+    }
+
+    public HearthTreeNode perform(HearthTreeNode boardState, boolean singleRealization) throws HSException {
         HearthTreeNode toRet = boardState;
         PlayerModel actingPlayer = actionPerformerPlayerSide != null ? boardState.data_.modelForSide(actionPerformerPlayerSide) : null;
         PlayerModel targetPlayer = targetPlayerSide != null ? boardState.data_.modelForSide(targetPlayerSide) : null;
@@ -60,31 +70,30 @@ public class HearthAction {
         switch(verb_) {
             case USE_CARD: {
                 Card card = actingPlayer.getHand().get(cardOrCharacterIndex_);
-                toRet = card.useOn(targetPlayerSide, targetCharacterIndex_, toRet, deckPlayer0, deckPlayer1, singleRealization);
+                toRet = card.useOn(targetPlayerSide, targetCharacterIndex_, toRet, singleRealization);
             }
             break;
             case HERO_ABILITY: {
                 Hero hero = actingPlayer.getHero();
                 Minion target = targetPlayer.getCharacter(targetCharacterIndex_);
-                toRet = hero.useHeroAbility(targetPlayerSide, target, toRet, deckPlayer0, deckPlayer1, singleRealization);
+                toRet = hero.useHeroAbility(targetPlayerSide, target, toRet, singleRealization);
             }
             break;
             case ATTACK: {
                 Minion attacker = actingPlayer.getCharacter(cardOrCharacterIndex_);
-                Minion target = targetPlayer.getCharacter(targetCharacterIndex_);
-                toRet = attacker.attack(targetPlayerSide, target, toRet, deckPlayer0, deckPlayer1, singleRealization);
+                toRet = attacker.attack(targetPlayerSide, targetCharacterIndex_, toRet, singleRealization);
             }
             break;
             case UNTARGETABLE_BATTLECRY: {
                 Minion minion = actingPlayer.getCharacter(cardOrCharacterIndex_);
                 Minion placementTarget = targetPlayer.getCharacter(targetCharacterIndex_);
-                toRet = minion.useUntargetableBattlecry(placementTarget, toRet, deckPlayer0, deckPlayer1, singleRealization);
+                toRet = minion.useUntargetableBattlecry(placementTarget, toRet, singleRealization);
                 break;
             }
             case TARGETABLE_BATTLECRY: {
                 Minion minion = actingPlayer.getCharacter(cardOrCharacterIndex_);
                 Minion battlecryTarget = targetPlayer.getCharacter(targetCharacterIndex_);
-                toRet = minion.useTargetableBattlecry(targetPlayerSide, battlecryTarget, toRet, deckPlayer0, deckPlayer1, singleRealization);
+                toRet = minion.useTargetableBattlecry(targetPlayerSide, battlecryTarget, toRet, singleRealization);
                 break;
             }
             case START_TURN: {
@@ -117,7 +126,7 @@ public class HearthAction {
                 // Do not do this if the previous action was *also* RNG or we will end up in an infinite loop.
                 if (toRet.isLeaf() && boardState.getAction().verb_ != Verb.RNG) {
                     boardState.data_.getCurrentPlayer().addNumCardsUsed((byte)-1); //do not double count
-                    toRet = boardState.getAction().perform(boardState, deckPlayer0, deckPlayer1, singleRealization);
+                    toRet = boardState.getAction().perform(boardState, singleRealization);
                 }
                 // RNG has declared this child happened
                 toRet = toRet.getChildren().get(cardOrCharacterIndex_);

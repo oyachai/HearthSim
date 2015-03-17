@@ -1,6 +1,5 @@
 package com.hearthsim.card.minion.concrete;
 
-import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionUntargetableBattlecry;
@@ -24,8 +23,6 @@ public class ArathiWeaponsmith extends Minion implements MinionUntargetableBattl
     public HearthTreeNode useUntargetableBattlecry_core(
         Minion minionPlacementTarget,
         HearthTreeNode boardState,
-        Deck deckPlayer0,
-        Deck deckPlayer1,
         boolean singleRealizationOnly
     ) throws HSException {
         HearthTreeNode toRet = boardState;
@@ -36,7 +33,7 @@ public class ArathiWeaponsmith extends Minion implements MinionUntargetableBattl
 
         DeathrattleAction action = theHero.setWeapon(newWeapon);
         if (action != null) {
-            toRet = action.performAction(null, PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
+            toRet = action.performAction(null, PlayerSide.CURRENT_PLAYER, toRet, singleRealizationOnly);
         }
 
         return toRet;

@@ -41,7 +41,7 @@ public class TestFrostwolfWarlord {
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new SilverHandRecruit());
 
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, null, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board);
         assertEquals(board, ret);
 
         assertEquals(currentPlayer.getHand().size(), 0);
@@ -55,7 +55,7 @@ public class TestFrostwolfWarlord {
     @Test
     public void testBattlecryWithNoMinions() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
         assertEquals(board, ret);
 
         assertEquals(currentPlayer.getHand().size(), 0);
@@ -72,7 +72,7 @@ public class TestFrostwolfWarlord {
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new SilverHandRecruit());
 
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
         assertEquals(board, ret);
 
         warlord.silenced(PlayerSide.CURRENT_PLAYER, board);

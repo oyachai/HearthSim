@@ -1,6 +1,5 @@
 package com.hearthsim.card.spellcard.concrete;
 
-import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellDamage;
 import com.hearthsim.exception.HSException;
@@ -39,12 +38,9 @@ public class FrostShock extends SpellDamage {
     protected HearthTreeNode use_core(
             PlayerSide side,
             Minion targetMinion,
-            HearthTreeNode boardState,
-            Deck deckPlayer0,
-            Deck deckPlayer1,
-            boolean singleRealizationOnly)
+            HearthTreeNode boardState, boolean singleRealizationOnly)
         throws HSException {
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
         if (toRet != null) {
             targetMinion.setFrozen(true);
         }

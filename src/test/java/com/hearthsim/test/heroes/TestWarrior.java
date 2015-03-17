@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.hearthsim.card.minion.Hero;
-import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.BoulderfistOgre;
 import com.hearthsim.card.minion.concrete.RaidLeader;
 import com.hearthsim.card.minion.heroes.TestHero;
@@ -42,10 +41,9 @@ public class TestWarrior {
 
     @Test
     public void testHeropower() throws HSException {
-        Minion target = currentPlayer.getCharacter(0);
         Hero warrior = currentPlayer.getHero();
 
-        HearthTreeNode ret = warrior.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, null, null);
+        HearthTreeNode ret = warrior.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board);
         assertEquals(board, ret);
 
         assertEquals(currentPlayer.getHero().getArmor(), 2);
@@ -56,18 +54,16 @@ public class TestWarrior {
         Hero hero = currentPlayer.getHero();
         hero.setArmor((byte)1);
 
-        Minion target = currentPlayer.getCharacter(0); // Warrior hero
-        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, null, null);
+        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board);
         assertEquals(board, ret);
         assertEquals(currentPlayer.getHero().getArmor(), 3);
     }
 
     @Test
     public void testHeropowerCannotTargetMinion() throws HSException {
-        Minion target = waitingPlayer.getCharacter(2);
         Hero warrior = currentPlayer.getHero();
 
-        HearthTreeNode ret = warrior.useHeroAbility(PlayerSide.WAITING_PLAYER, target, board, null, null);
+        HearthTreeNode ret = warrior.useHeroAbility(PlayerSide.WAITING_PLAYER, 2, board);
         assertNull(ret);
 
         assertEquals(currentPlayer.getMana(), 8);
@@ -77,10 +73,9 @@ public class TestWarrior {
 
     @Test
     public void testHeropowerCannotTargetOpponent() throws HSException {
-        Minion target = waitingPlayer.getCharacter(0);
         Hero warrior = currentPlayer.getHero();
 
-        HearthTreeNode ret = warrior.useHeroAbility(PlayerSide.WAITING_PLAYER, target, board, null, null);
+        HearthTreeNode ret = warrior.useHeroAbility(PlayerSide.WAITING_PLAYER, 0, board);
         assertNull(ret);
 
         assertEquals(currentPlayer.getMana(), 8);

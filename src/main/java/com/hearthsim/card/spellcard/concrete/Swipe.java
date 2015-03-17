@@ -1,6 +1,5 @@
 package com.hearthsim.card.spellcard.concrete;
 
-import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellDamage;
 import com.hearthsim.exception.HSException;
@@ -44,22 +43,18 @@ public class Swipe extends SpellDamage {
      * @return The boardState is manipulated and returned
      */
     @Override
-    protected HearthTreeNode use_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState,
-            Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
+    protected HearthTreeNode use_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
 
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1,
-                singleRealizationOnly);
+        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
         PlayerModel waitingPlayer = toRet.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
         if (isNotHero(targetMinion)) {
-            toRet = waitingPlayer.getHero().takeDamage((byte)1, PlayerSide.CURRENT_PLAYER, side, boardState,
-                    deckPlayer0, deckPlayer1, true, false);
+            toRet = waitingPlayer.getHero().takeDamage((byte)1, PlayerSide.CURRENT_PLAYER, side, boardState, true, false);
         }
 
         for (Minion minion : waitingPlayer.getMinions()) {
             if (minion != targetMinion) {
-                toRet = minion.takeDamage((byte)1, PlayerSide.CURRENT_PLAYER, side, toRet, deckPlayer0, deckPlayer1,
-                        true, false);
+                toRet = minion.takeDamage((byte)1, PlayerSide.CURRENT_PLAYER, side, toRet, true, false);
             }
         }
 

@@ -1,6 +1,5 @@
 package com.hearthsim.card.minion.concrete;
 
-import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.BattlecryTargetType;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionTargetableBattlecry;
@@ -27,15 +26,9 @@ public class IronforgeRifleman extends Minion implements MinionTargetableBattlec
      * Battlecry: Deal 1 damage to a chosen target
      */
     @Override
-    public HearthTreeNode useTargetableBattlecry_core(
-            PlayerSide side,
-            Minion targetMinion,
-            HearthTreeNode boardState,
-            Deck deckPlayer0,
-            Deck deckPlayer1
-        ) throws HSException {
+    public HearthTreeNode useTargetableBattlecry_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState) throws HSException {
         HearthTreeNode toRet = boardState;
-        toRet = targetMinion.takeDamage(BATTLECRY_DAMAGE, PlayerSide.CURRENT_PLAYER, side, toRet, deckPlayer0, deckPlayer1, false, false);
+        toRet = targetMinion.takeDamage(BATTLECRY_DAMAGE, PlayerSide.CURRENT_PLAYER, side, toRet, false, false);
         return toRet;
     }
 

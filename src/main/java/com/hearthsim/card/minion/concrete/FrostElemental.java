@@ -2,7 +2,6 @@ package com.hearthsim.card.minion.concrete;
 
 import java.util.EnumSet;
 
-import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.BattlecryTargetType;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionTargetableBattlecry;
@@ -28,13 +27,7 @@ public class FrostElemental extends Minion implements MinionTargetableBattlecry 
      * Battlecry: Freeze a character
      */
     @Override
-    public HearthTreeNode useTargetableBattlecry_core(
-            PlayerSide side,
-            Minion targetMinion,
-            HearthTreeNode boardState,
-            Deck deckPlayer0,
-            Deck deckPlayer1
-        ) throws HSException {
+    public HearthTreeNode useTargetableBattlecry_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState) throws HSException {
         targetMinion.setFrozen(true);
         return boardState;
     }

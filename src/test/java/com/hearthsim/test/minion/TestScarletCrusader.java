@@ -44,7 +44,7 @@ public class TestScarletCrusader {
     @Test
     public void test0() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 0, board, null, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 0, board);
 
         assertNull(ret);
 
@@ -73,7 +73,7 @@ public class TestScarletCrusader {
     @Test
     public void test2() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 2, board, null, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 2, board);
 
         assertFalse(ret == null);
 
@@ -105,10 +105,9 @@ public class TestScarletCrusader {
         //Attacking with divine shield vs Hero, divine shield should
         // stay on
         //------------------------------------------------------------
-        Minion target = waitingPlayer.getCharacter(0);
         Minion m0 = currentPlayer.getMinions().get(2);
         m0.hasAttacked(false);
-        ret = m0.attack(PlayerSide.WAITING_PLAYER, target, board, null, null, false);
+        ret = m0.attack(PlayerSide.WAITING_PLAYER, 0, board, false);
 
         assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 3);
@@ -137,10 +136,9 @@ public class TestScarletCrusader {
         //------------------------------------------------------------
         //Attacking with divine shield
         //------------------------------------------------------------
-        target = waitingPlayer.getCharacter(3);
         Minion m1 = currentPlayer.getMinions().get(2);
         m1.hasAttacked(false);
-        ret = m1.attack(PlayerSide.WAITING_PLAYER, target, board, null, null, false);
+        ret = m1.attack(PlayerSide.WAITING_PLAYER, 3, board, false);
 
         assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 3);
@@ -169,10 +167,9 @@ public class TestScarletCrusader {
         //------------------------------------------------------------
         //Being attacked with a divine shield
         //------------------------------------------------------------
-        target = waitingPlayer.getCharacter(1);
         Minion m2 = currentPlayer.getMinions().get(1);
         m2.hasAttacked(false);
-        ret = m2.attack(PlayerSide.WAITING_PLAYER, target, board, null, null, false);
+        ret = m2.attack(PlayerSide.WAITING_PLAYER, 1, board, false);
 
         assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 3);
@@ -201,10 +198,9 @@ public class TestScarletCrusader {
         //------------------------------------------------------------
         //Being attacked with a divine shield that wore off
         //------------------------------------------------------------
-        target = waitingPlayer.getCharacter(3);
         Minion m3 = currentPlayer.getMinions().get(2);
         m3.hasAttacked(false);
-        ret = m3.attack(PlayerSide.WAITING_PLAYER, target, board, null, null, false);
+        ret = m3.attack(PlayerSide.WAITING_PLAYER, 3, board, false);
 
         assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 2);

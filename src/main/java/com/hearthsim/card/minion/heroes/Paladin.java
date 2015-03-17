@@ -1,6 +1,5 @@
 package com.hearthsim.card.minion.heroes;
 
-import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.SilverHandRecruit;
@@ -43,8 +42,6 @@ public class Paladin extends Hero {
             PlayerSide targetPlayerSide,
             Minion targetMinion,
             HearthTreeNode boardState,
-            Deck deckPlayer0,
-            Deck deckPlayer1,
             boolean singleRealizationOnly)
         throws HSException {
 
@@ -55,7 +52,7 @@ public class Paladin extends Hero {
         currentPlayer.subtractMana(HERO_ABILITY_COST);
 
         Minion theRecruit = new SilverHandRecruit();
-        toRet = theRecruit.summonMinionAtEnd(targetPlayerSide, toRet, deckPlayer0, deckPlayer1, false, singleRealizationOnly);
+        toRet = theRecruit.summonMinionAtEnd(targetPlayerSide, toRet, false, singleRealizationOnly);
         return toRet;
     }
 }

@@ -1,6 +1,5 @@
 package com.hearthsim.card.minion.concrete;
 
-import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionUntargetableBattlecry;
 import com.hearthsim.exception.HSException;
@@ -21,8 +20,6 @@ public class DefenderOfArgus extends Minion implements MinionUntargetableBattlec
     public HearthTreeNode useUntargetableBattlecry_core(
             Minion minionPlacementTarget,
             HearthTreeNode boardState,
-            Deck deckPlayer0,
-            Deck deckPlayer1,
             boolean singleRealizationOnly
         ) throws HSException {
         HearthTreeNode toRet = boardState;

@@ -5,7 +5,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.hearthsim.card.minion.Hero;
-import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.BoulderfistOgre;
 import com.hearthsim.card.minion.concrete.RaidLeader;
 import com.hearthsim.card.minion.concrete.SilverHandRecruit;
@@ -42,10 +41,9 @@ public class TestPaladin {
 
     @Test
     public void testHeropower() throws HSException {
-        Minion target = currentPlayer.getCharacter(0);
         Hero paladin = currentPlayer.getHero();
 
-        HearthTreeNode ret = paladin.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, null, null);
+        HearthTreeNode ret = paladin.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board);
         assertEquals(board, ret);
 
         assertEquals(currentPlayer.getNumMinions(), 3);
@@ -62,8 +60,6 @@ public class TestPaladin {
 
     @Test
     public void testHeropowerWithFullBoard() throws HSException {
-
-        Minion target = currentPlayer.getCharacter(0);
         Hero paladin = currentPlayer.getHero();
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new SilverHandRecruit());
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new SilverHandRecruit());
@@ -72,7 +68,7 @@ public class TestPaladin {
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new SilverHandRecruit());
         assertEquals(currentPlayer.getNumMinions(), 7);
 
-        HearthTreeNode ret = paladin.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, null, null);
+        HearthTreeNode ret = paladin.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board);
         assertNull(ret);
 
         assertEquals(currentPlayer.getNumMinions(), 7);
@@ -81,11 +77,9 @@ public class TestPaladin {
 
     @Test
     public void testHeropowerCannotTargetMinion() throws HSException {
-
-        Minion target = waitingPlayer.getCharacter(2);
         Hero paladin = currentPlayer.getHero();
 
-        HearthTreeNode ret = paladin.useHeroAbility(PlayerSide.WAITING_PLAYER, target, board, null, null);
+        HearthTreeNode ret = paladin.useHeroAbility(PlayerSide.WAITING_PLAYER, 2, board);
         assertNull(ret);
 
         assertEquals(currentPlayer.getMana(), 8);
@@ -94,11 +88,9 @@ public class TestPaladin {
 
     @Test
     public void testHeropowerCannotTargetOpponent() throws HSException {
-
-        Minion target = waitingPlayer.getCharacter(0);
         Hero paladin = currentPlayer.getHero();
 
-        HearthTreeNode ret = paladin.useHeroAbility(PlayerSide.WAITING_PLAYER, target, board, null, null);
+        HearthTreeNode ret = paladin.useHeroAbility(PlayerSide.WAITING_PLAYER, 0, board);
         assertNull(ret);
 
         assertEquals(currentPlayer.getMana(), 8);

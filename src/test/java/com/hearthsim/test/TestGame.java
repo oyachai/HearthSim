@@ -344,7 +344,7 @@ public class TestGame {
 
                     assertNotNull(actionBoardPair.action);
                 }
-                current = actionBoardPair.action.perform(current, deck1, deck2, false);
+                current = actionBoardPair.action.perform(current, false);
 
                 assertNotNull("Should have new node after " + actionBoardPair.action.verb_ + " action", current);
                 if (!actionBoardPair.board.equals(current.data_)) {

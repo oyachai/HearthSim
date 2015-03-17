@@ -56,7 +56,7 @@ class HungryCrabSpec extends CardSpec {
         def minionPlayedBoard = startingBoard.deepCopy()
         def copiedRoot = new HearthTreeNode(minionPlayedBoard)
         def theCard = minionPlayedBoard.getCurrentPlayerCardHand(0);
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot, null, null);
+        def ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot);
 
         expect:
         assertNotNull(ret);
@@ -88,7 +88,7 @@ class HungryCrabSpec extends CardSpec {
         def minionPlayedBoard = startingBoard.deepCopy()
         def copiedRoot = new HearthTreeNode(minionPlayedBoard)
         def theCard = minionPlayedBoard.getCurrentPlayerCardHand(0);
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot, null, null);
+        def ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot);
 
         expect:
         assertNotNull(ret);
@@ -117,7 +117,7 @@ class HungryCrabSpec extends CardSpec {
         def minionPlayedBoard = startingBoard.deepCopy()
         def copiedRoot = new HearthTreeNode(minionPlayedBoard)
         def theCard = minionPlayedBoard.getCurrentPlayerCardHand(0);
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot, null, null);
+        def ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot);
 
         expect:
         assertNotNull(ret);

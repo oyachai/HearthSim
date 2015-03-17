@@ -11,7 +11,6 @@ import org.junit.Test;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Hero;
-import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.BoulderfistOgre;
 import com.hearthsim.card.minion.concrete.RaidLeader;
 import com.hearthsim.card.minion.heroes.Rogue;
@@ -50,8 +49,7 @@ public class TestRogue {
     @Test
     public void testHeropower() throws HSException {
         Hero hero = currentPlayer.getHero();
-        Minion target = currentPlayer.getCharacter(0); // Rogue hero
-        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, null, null);
+        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board);
         assertEquals(board, ret);
 
         assertTrue(hero.hasBeenUsed());
@@ -62,14 +60,13 @@ public class TestRogue {
 
     @Test
     public void testHeropowerDestroysEquippedWeapon() throws HSException {
-        currentPlayer.getHand().get(0).useOn(PlayerSide.CURRENT_PLAYER, currentPlayer.getHero(), board, null, null);
+        currentPlayer.getHand().get(0).useOn(PlayerSide.CURRENT_PLAYER, currentPlayer.getHero(), board);
         assertEquals(currentPlayer.getMana(), 3);
         assertEquals(currentPlayer.getHero().getWeapon().getWeaponCharge(), 4);
         assertEquals(currentPlayer.getHero().getTotalAttack(), 3);
 
         Hero hero = currentPlayer.getHero();
-        Minion target = currentPlayer.getCharacter(0); // Rogue hero
-        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, null, null);
+        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board);
         assertEquals(board, ret);
 
         assertTrue(hero.hasBeenUsed());
@@ -80,9 +77,8 @@ public class TestRogue {
 
     @Test
     public void testCannotTargetMinion() throws HSException {
-        Minion raidLeader = currentPlayer.getCharacter(1); // Raid leader
         Hero hero = currentPlayer.getHero();
-        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, raidLeader, board, null, null);
+        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, 1, board);
         assertNull(ret);
 
         assertFalse(hero.hasBeenUsed());
@@ -96,9 +92,8 @@ public class TestRogue {
 
     @Test
     public void testCannotTargetOpponent() throws HSException {
-        Minion target = waitingPlayer.getCharacter(0);
         Hero hero = currentPlayer.getHero();
-        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.WAITING_PLAYER, target, board, null, null);
+        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.WAITING_PLAYER, 0, board);
         assertNull(ret);
 
         assertFalse(hero.hasBeenUsed());

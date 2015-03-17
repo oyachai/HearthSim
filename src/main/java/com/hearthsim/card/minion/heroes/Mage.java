@@ -1,6 +1,5 @@
 package com.hearthsim.card.minion.heroes;
 
-import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
@@ -26,8 +25,6 @@ public class Mage extends Hero {
      * @param targetPlayerSide
      * @param targetMinion The target minion
      * @param boardState
-     * @param deckPlayer0
-     * @param deckPlayer1
      *
      * @return
      */
@@ -36,14 +33,12 @@ public class Mage extends Hero {
             PlayerSide targetPlayerSide,
             Minion targetMinion,
             HearthTreeNode boardState,
-            Deck deckPlayer0,
-            Deck deckPlayer1,
             boolean singleRealizationOnly)
         throws HSException {
         HearthTreeNode toRet = boardState;
         this.hasBeenUsed = true;
         toRet.data_.getCurrentPlayer().subtractMana(HERO_ABILITY_COST);
-        toRet = targetMinion.takeDamage((byte)1, PlayerSide.CURRENT_PLAYER, targetPlayerSide, toRet, deckPlayer0, deckPlayer1, false, true);
+        toRet = targetMinion.takeDamage((byte)1, PlayerSide.CURRENT_PLAYER, targetPlayerSide, toRet, false, true);
 
         return toRet;
     }

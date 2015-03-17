@@ -1,6 +1,5 @@
 package com.hearthsim.card.minion.heroes;
 
-import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.HealingTotem;
@@ -42,8 +41,6 @@ public class Shaman extends Hero {
      * @param targetPlayerSide
      * @param targetMinion The target minion
      * @param boardState
-     * @param deckPlayer0
-     * @param deckPlayer1
      *
      * @return
      */
@@ -52,8 +49,6 @@ public class Shaman extends Hero {
             PlayerSide targetPlayerSide,
             Minion targetMinion,
             HearthTreeNode boardState,
-            Deck deckPlayer0,
-            Deck deckPlayer1,
             boolean singleRealizationOnly)
         throws HSException {
         PlayerModel player = boardState.data_.modelForSide(targetPlayerSide);
@@ -84,7 +79,7 @@ public class Shaman extends Hero {
                 return null;
             this.hasBeenUsed = true;
             player.subtractMana(HERO_ABILITY_COST);
-            toRet = minionToSummon.summonMinionAtEnd(targetPlayerSide, toRet, deckPlayer0, deckPlayer1, false, singleRealizationOnly);
+            toRet = minionToSummon.summonMinionAtEnd(targetPlayerSide, toRet, false, singleRealizationOnly);
             return toRet;
         }
 
@@ -108,7 +103,7 @@ public class Shaman extends Hero {
                 newCurrentPlayer.subtractMana(HERO_ABILITY_COST);
                 newCurrentPlayer.getHero().hasBeenUsed(true);
 
-                newState = totemToSummon.summonMinionAtEnd(targetPlayerSide, newState, deckPlayer0, deckPlayer1, false, singleRealizationOnly);
+                newState = totemToSummon.summonMinionAtEnd(targetPlayerSide, newState, false, singleRealizationOnly);
             }
         }
         if (allTotemsNotSummonable)

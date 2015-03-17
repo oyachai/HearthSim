@@ -1,6 +1,5 @@
 package com.hearthsim.card.spellcard.concrete;
 
-import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.Frog;
 import com.hearthsim.card.spellcard.SpellCard;
@@ -51,14 +50,12 @@ public class Hex extends SpellCard {
             PlayerSide side,
             Minion targetMinion,
             HearthTreeNode boardState,
-            Deck deckPlayer0,
-            Deck deckPlayer1,
             boolean singleRealizationOnly)
         throws HSException {
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
         if (toRet != null) {
             Frog frog = new Frog();
-            toRet = frog.placeMinion(side, targetMinion, toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
+            toRet = frog.placeMinion(side, targetMinion, toRet, singleRealizationOnly);
             toRet.data_.removeMinion(targetMinion);
         }
         return toRet;

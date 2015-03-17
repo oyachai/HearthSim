@@ -32,7 +32,7 @@ public class TestWindspeaker {
     public void testAddsWindfury() throws HSException {
         BoulderfistOgre ogre = new BoulderfistOgre();
         Windspeaker windspeaker = new Windspeaker();
-        windspeaker.useTargetableBattlecry_core(PlayerSide.WAITING_PLAYER, ogre, board, null, null);
+        windspeaker.useTargetableBattlecry_core(PlayerSide.WAITING_PLAYER, ogre, board);
         assertTrue(ogre.getWindfury());
     }
 
@@ -46,7 +46,7 @@ public class TestWindspeaker {
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new BoulderfistOgre());
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new DustDevil());
 
-        HearthTreeNode ret = windspeaker.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
+        HearthTreeNode ret = windspeaker.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
         assertEquals(board, ret);
 
         assertEquals(board.numChildren(), 1);

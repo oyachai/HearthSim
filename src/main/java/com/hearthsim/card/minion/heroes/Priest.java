@@ -1,6 +1,5 @@
 package com.hearthsim.card.minion.heroes;
 
-import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
@@ -31,14 +30,12 @@ public class Priest extends Hero {
             PlayerSide targetPlayerSide,
             Minion targetMinion,
             HearthTreeNode boardState,
-            Deck deckPlayer0,
-            Deck deckPlayer1,
             boolean singleRealizationOnly)
         throws HSException {
         HearthTreeNode toRet = boardState;
         this.hasBeenUsed = true;
         toRet.data_.getCurrentPlayer().subtractMana(HERO_ABILITY_COST);
-        toRet = targetMinion.takeHeal((byte)2, targetPlayerSide, toRet, deckPlayer0, deckPlayer1);
+        toRet = targetMinion.takeHeal((byte)2, targetPlayerSide, toRet);
 
         return toRet;
     }

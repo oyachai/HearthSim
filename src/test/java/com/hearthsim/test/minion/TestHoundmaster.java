@@ -101,10 +101,10 @@ public class TestHoundmaster {
         Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode res;
 
-        res = theCard.useOn(PlayerSide.WAITING_PLAYER, 0, board, null, null);
+        res = theCard.useOn(PlayerSide.WAITING_PLAYER, 0, board);
         assertNull(res);
 
-        res = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
+        res = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
         assertNotNull(res);
         assertEquals(res.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(res.data_.getCurrentPlayer().getNumMinions(), 3);

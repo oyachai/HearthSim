@@ -46,72 +46,64 @@ public class TestSpellCard {
     public void testTargetOwnHero() throws HSException {
         currentPlayer.placeCardHand(new HolySmite());
 
-        Minion target = currentPlayer.getCharacter(0);
         Card theCard = currentPlayer.getHand().get(0);
-        assertTrue(theCard.canBeUsedOn(PlayerSide.CURRENT_PLAYER, target, board.data_));
+        assertTrue(theCard.canBeUsedOn(PlayerSide.CURRENT_PLAYER, 0, board.data_));
     }
 
     @Test
     public void testTargetOwnHeroFailure() throws HSException {
         currentPlayer.placeCardHand(new ShadowBolt());
 
-        Minion target = currentPlayer.getCharacter(0);
         Card theCard = currentPlayer.getHand().get(0);
-        assertFalse(theCard.canBeUsedOn(PlayerSide.CURRENT_PLAYER, target, board.data_));
+        assertFalse(theCard.canBeUsedOn(PlayerSide.CURRENT_PLAYER, 0, board.data_));
     }
 
     @Test
     public void testTargetOwnMinion() throws HSException {
         currentPlayer.placeCardHand(new RockbiterWeapon());
 
-        Minion target = currentPlayer.getCharacter(1);
         Card theCard = currentPlayer.getHand().get(0);
-        assertTrue(theCard.canBeUsedOn(PlayerSide.CURRENT_PLAYER, target, board.data_));
+        assertTrue(theCard.canBeUsedOn(PlayerSide.CURRENT_PLAYER, 1, board.data_));
     }
 
     @Test
     public void testTargetOwnMinionFailure() throws HSException {
         currentPlayer.placeCardHand(new Sap());
 
-        Minion target = currentPlayer.getCharacter(1);
         Card theCard = currentPlayer.getHand().get(0);
-        assertFalse(theCard.canBeUsedOn(PlayerSide.CURRENT_PLAYER, target, board.data_));
+        assertFalse(theCard.canBeUsedOn(PlayerSide.CURRENT_PLAYER, 1, board.data_));
     }
 
     @Test
     public void testTargetEnemyHero() throws HSException {
         currentPlayer.placeCardHand(new HolySmite());
 
-        Minion target = waitingPlayer.getCharacter(0);
         Card theCard = currentPlayer.getHand().get(0);
-        assertTrue(theCard.canBeUsedOn(PlayerSide.WAITING_PLAYER, target, board.data_));
+        assertTrue(theCard.canBeUsedOn(PlayerSide.WAITING_PLAYER, 0, board.data_));
     }
 
     @Test
     public void testTargetEnemyHeroFailure() throws HSException {
         currentPlayer.placeCardHand(new ShadowBolt());
 
-        Minion target = waitingPlayer.getCharacter(0);
         Card theCard = currentPlayer.getHand().get(0);
-        assertFalse(theCard.canBeUsedOn(PlayerSide.WAITING_PLAYER, target, board.data_));
+        assertFalse(theCard.canBeUsedOn(PlayerSide.WAITING_PLAYER, 0, board.data_));
     }
 
     @Test
     public void testTargetEnemyMinion() throws HSException {
         currentPlayer.placeCardHand(new Sap());
 
-        Minion target = waitingPlayer.getCharacter(1);
         Card theCard = currentPlayer.getHand().get(0);
-        assertTrue(theCard.canBeUsedOn(PlayerSide.WAITING_PLAYER, target, board.data_));
+        assertTrue(theCard.canBeUsedOn(PlayerSide.WAITING_PLAYER, 1, board.data_));
     }
 
     @Test
     public void testTargetEnemyMinionFailure() throws HSException {
         currentPlayer.placeCardHand(new RockbiterWeapon());
 
-        Minion target = waitingPlayer.getCharacter(1);
         Card theCard = currentPlayer.getHand().get(0);
-        assertFalse(theCard.canBeUsedOn(PlayerSide.WAITING_PLAYER, target, board.data_));
+        assertFalse(theCard.canBeUsedOn(PlayerSide.WAITING_PLAYER, 1, board.data_));
     }
 
     @Test
@@ -129,9 +121,8 @@ public class TestSpellCard {
         currentPlayer.placeCardHand(new HolySmite());
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, new FaerieDragon());
 
-        Minion target = waitingPlayer.getCharacter(2);
         Card theCard = currentPlayer.getHand().get(0);
-        assertFalse(theCard.canBeUsedOn(PlayerSide.WAITING_PLAYER, target, board.data_));
+        assertFalse(theCard.canBeUsedOn(PlayerSide.WAITING_PLAYER, 2, board.data_));
     }
 
     @Test
@@ -139,15 +130,10 @@ public class TestSpellCard {
         Sap sap = new Sap();
         Card copy = sap.deepCopy();
 
-        Minion ownMinion = currentPlayer.getCharacter(1);
-        Minion ownHero = currentPlayer.getCharacter(0);
-        Minion enemyMinion = waitingPlayer.getCharacter(1);
-        Minion enemyHero = waitingPlayer.getCharacter(0);
-
-        assertFalse(copy.canBeUsedOn(PlayerSide.CURRENT_PLAYER, ownMinion, board.data_));
-        assertFalse(copy.canBeUsedOn(PlayerSide.CURRENT_PLAYER, ownHero, board.data_));
-        assertTrue(copy.canBeUsedOn(PlayerSide.WAITING_PLAYER, enemyMinion, board.data_));
-        assertFalse(copy.canBeUsedOn(PlayerSide.WAITING_PLAYER, enemyHero, board.data_));
+        assertFalse(copy.canBeUsedOn(PlayerSide.CURRENT_PLAYER, 1, board.data_));
+        assertFalse(copy.canBeUsedOn(PlayerSide.CURRENT_PLAYER, 0, board.data_));
+        assertTrue(copy.canBeUsedOn(PlayerSide.WAITING_PLAYER, 1, board.data_));
+        assertFalse(copy.canBeUsedOn(PlayerSide.WAITING_PLAYER, 0, board.data_));
     }
 
     @Test
@@ -155,14 +141,9 @@ public class TestSpellCard {
         RockbiterWeapon rockbiter = new RockbiterWeapon();
         Card copy = rockbiter.deepCopy();
 
-        Minion ownMinion = currentPlayer.getCharacter(1);
-        Minion ownHero = currentPlayer.getCharacter(0);
-        Minion enemyMinion = waitingPlayer.getCharacter(1);
-        Minion enemyHero = waitingPlayer.getCharacter(0);
-
-        assertTrue(copy.canBeUsedOn(PlayerSide.CURRENT_PLAYER, ownMinion, board.data_));
-        assertTrue(copy.canBeUsedOn(PlayerSide.CURRENT_PLAYER, ownHero, board.data_));
-        assertFalse(copy.canBeUsedOn(PlayerSide.WAITING_PLAYER, enemyMinion, board.data_));
-        assertFalse(copy.canBeUsedOn(PlayerSide.WAITING_PLAYER, enemyHero, board.data_));
+        assertTrue(copy.canBeUsedOn(PlayerSide.CURRENT_PLAYER, 1, board.data_));
+        assertTrue(copy.canBeUsedOn(PlayerSide.CURRENT_PLAYER, 0, board.data_));
+        assertFalse(copy.canBeUsedOn(PlayerSide.WAITING_PLAYER, 1, board.data_));
+        assertFalse(copy.canBeUsedOn(PlayerSide.WAITING_PLAYER, 0, board.data_));
     }
 }

@@ -46,10 +46,9 @@ public class TestWarlock {
 
     @Test
     public void testHeropower() throws HSException {
-        Minion target = currentPlayer.getCharacter(0);
         Hero warrior = currentPlayer.getHero();
 
-        HearthTreeNode ret = warrior.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, null, null);
+        HearthTreeNode ret = warrior.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board);
         assertNotEquals(board, ret);
         assertTrue(ret instanceof CardDrawNode);
 
@@ -65,10 +64,9 @@ public class TestWarlock {
 
     @Test
     public void testHeropowerCannotTargetMinion() throws HSException {
-        Minion target = waitingPlayer.getCharacter(2);
         Hero warrior = currentPlayer.getHero();
 
-        HearthTreeNode ret = warrior.useHeroAbility(PlayerSide.WAITING_PLAYER, target, board, null, null);
+        HearthTreeNode ret = warrior.useHeroAbility(PlayerSide.WAITING_PLAYER, 2, board);
         assertNull(ret);
 
         assertEquals(currentPlayer.getHand().size(), 0);
@@ -80,10 +78,9 @@ public class TestWarlock {
 
     @Test
     public void testHeropowerCannotTargetOpponent() throws HSException {
-        Minion target = waitingPlayer.getCharacter(0);
         Hero warrior = currentPlayer.getHero();
 
-        HearthTreeNode ret = warrior.useHeroAbility(PlayerSide.WAITING_PLAYER, target, board, null, null);
+        HearthTreeNode ret = warrior.useHeroAbility(PlayerSide.WAITING_PLAYER, 0, board);
         assertNull(ret);
 
         assertEquals(currentPlayer.getHand().size(), 0);
@@ -102,16 +99,14 @@ public class TestWarlock {
 
         Deck deck = new Deck(cards);
 
-        Minion target = waitingPlayer.getCharacter(0);
         Minion minion = currentPlayer.getMinions().get(0);
-        HearthTreeNode ret = minion.attack(PlayerSide.WAITING_PLAYER, target, board, deck, null, false);
+        HearthTreeNode ret = minion.attack(PlayerSide.WAITING_PLAYER, 0, board, false);
         assertEquals(board, ret);
 
         currentPlayer.setDeckPos((byte) 30);
 
-        target = currentPlayer.getCharacter(0);
         Hero hero = currentPlayer.getHero();
-        ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, deck, null);
+        ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board);
         assertEquals(currentPlayer.getHand().size(), 0);
 
         assertTrue(ret instanceof CardDrawNode);

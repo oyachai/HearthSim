@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.hearthsim.card.minion.Hero;
-import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.BoulderfistOgre;
 import com.hearthsim.card.minion.concrete.RaidLeader;
 import com.hearthsim.card.minion.heroes.Hunter;
@@ -42,10 +41,9 @@ public class TestHunter {
 
     @Test
     public void testHeropower() throws HSException {
-        Minion target = waitingPlayer.getCharacter(0);
         Hero hunter = currentPlayer.getHero();
 
-        HearthTreeNode ret = hunter.useHeroAbility(PlayerSide.WAITING_PLAYER, target, board, null, null);
+        HearthTreeNode ret = hunter.useHeroAbility(PlayerSide.WAITING_PLAYER, 0, board);
         assertEquals(board, ret);
 
         assertEquals(currentPlayer.getMana(), 6);
@@ -54,10 +52,9 @@ public class TestHunter {
 
     @Test
     public void testHeropowerCannotTargetMinion() throws HSException {
-        Minion target = waitingPlayer.getCharacter(2); // Ogre
         Hero hunter = currentPlayer.getHero();
 
-        HearthTreeNode ret = hunter.useHeroAbility(PlayerSide.WAITING_PLAYER, target, board, null, null);
+        HearthTreeNode ret = hunter.useHeroAbility(PlayerSide.WAITING_PLAYER, 2, board);
         assertNull(ret);
 
         assertEquals(currentPlayer.getMana(), 8);
@@ -67,10 +64,9 @@ public class TestHunter {
 
     @Test
     public void testHeropowerCannotTargetSelf() throws HSException {
-        Minion target = currentPlayer.getCharacter(0);
         Hero hunter = currentPlayer.getHero();
 
-        HearthTreeNode ret = hunter.useHeroAbility(PlayerSide.CURRENT_PLAYER, target, board, null, null);
+        HearthTreeNode ret = hunter.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board);
         assertNull(ret);
 
         assertEquals(currentPlayer.getMana(), 8);

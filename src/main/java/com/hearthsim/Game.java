@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.hearthsim.card.CardEndTurnInterface;
-import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
@@ -169,13 +168,13 @@ public class Game {
         PlayerModel waitingPlayer = toRet.data_.getWaitingPlayer();
 
         for (Minion targetMinion : currentPlayer.getMinions()) {
-            toRet = targetMinion.startTurn(PlayerSide.CURRENT_PLAYER, toRet, currentPlayer.getDeck(), waitingPlayer.getDeck());
+            toRet = targetMinion.startTurn(PlayerSide.CURRENT_PLAYER, toRet);
         }
         for (Minion targetMinion : waitingPlayer.getMinions()) {
-            toRet = targetMinion.startTurn(PlayerSide.WAITING_PLAYER, toRet, currentPlayer.getDeck(), waitingPlayer.getDeck());
+            toRet = targetMinion.startTurn(PlayerSide.WAITING_PLAYER, toRet);
         }
 
-        toRet = BoardStateFactoryBase.handleDeadMinions(toRet, currentPlayer.getDeck(), waitingPlayer.getDeck(), true);
+        toRet = BoardStateFactoryBase.handleDeadMinions(toRet, true);
 
         currentPlayer.drawNextCardFromDeck();
         if (currentPlayer.getMaxMana() < 10) {
@@ -192,17 +191,14 @@ public class Game {
         PlayerModel currentPlayer = toRet.data_.getCurrentPlayer();
         PlayerModel waitingPlayer = toRet.data_.getWaitingPlayer();
 
-        Deck deckPlayer0 = currentPlayer.getDeck();
-        Deck deckPlayer1 = waitingPlayer.getDeck();
-
-        toRet = currentPlayer.getHero().endTurn(PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1);
-        toRet = waitingPlayer.getHero().endTurn(PlayerSide.WAITING_PLAYER, toRet, deckPlayer0, deckPlayer1);
+        toRet = currentPlayer.getHero().endTurn(PlayerSide.CURRENT_PLAYER, toRet);
+        toRet = waitingPlayer.getHero().endTurn(PlayerSide.WAITING_PLAYER, toRet);
 
         // TODO: The minions should trigger end-of-turn effects in the order that they were played
         for (int index = 0; index < currentPlayer.getMinions().size(); ++index) {
             CardEndTurnInterface targetMinion = currentPlayer.getMinions().get(index);
             try {
-                toRet = targetMinion.endTurn(PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1);
+                toRet = targetMinion.endTurn(PlayerSide.CURRENT_PLAYER, toRet);
             } catch(HSException e) {
                 e.printStackTrace();
             }
@@ -210,13 +206,13 @@ public class Game {
         for (int index = 0; index < waitingPlayer.getMinions().size(); ++index) {
             CardEndTurnInterface targetMinion = waitingPlayer.getMinions().get(index);
             try {
-                toRet = targetMinion.endTurn(PlayerSide.WAITING_PLAYER, toRet, deckPlayer0, deckPlayer1);
+                toRet = targetMinion.endTurn(PlayerSide.WAITING_PLAYER, toRet);
             } catch(HSException e) {
                 e.printStackTrace();
             }
         }
 
-        toRet = BoardStateFactoryBase.handleDeadMinions(toRet, currentPlayer.getDeck(), waitingPlayer.getDeck(), true);
+        toRet = BoardStateFactoryBase.handleDeadMinions(toRet, true);
 
         return toRet.data_;
     }

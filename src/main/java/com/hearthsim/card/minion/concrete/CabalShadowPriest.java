@@ -2,7 +2,6 @@ package com.hearthsim.card.minion.concrete;
 
 import java.util.EnumSet;
 
-import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.BattlecryTargetType;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionTargetableBattlecry;
@@ -25,10 +24,7 @@ public class CabalShadowPriest extends Minion implements MinionTargetableBattlec
     public HearthTreeNode useTargetableBattlecry_core(
             PlayerSide side,
             Minion targetMinion,
-            HearthTreeNode boardState,
-            Deck deckPlayer0,
-            Deck deckPlayer1
-        ) throws HSException {
+            HearthTreeNode boardState) throws HSException {
         HearthTreeNode toRet = boardState;
         if (targetMinion.getTotalAttack() <= 2 && toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getMinions().size() < 6) {
             toRet.data_.removeMinion(targetMinion);

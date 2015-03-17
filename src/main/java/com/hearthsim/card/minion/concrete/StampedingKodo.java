@@ -3,7 +3,6 @@ package com.hearthsim.card.minion.concrete;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionUntargetableBattlecry;
@@ -28,8 +27,6 @@ public class StampedingKodo extends Minion implements MinionUntargetableBattlecr
     public HearthTreeNode useUntargetableBattlecry_core(
             Minion minionPlacementTarget,
             HearthTreeNode boardState,
-            Deck deckPlayer0,
-            Deck deckPlayer1,
             boolean singleRealizationOnly
         ) throws HSException {
         HearthTreeNode toRet = boardState;
@@ -64,7 +61,7 @@ public class StampedingKodo extends Minion implements MinionUntargetableBattlecr
                     HearthTreeNode newState = new HearthTreeNode(toRet.data_.deepCopy());
                     Minion targetMinion = newState.data_.modelForSide(PlayerSide.WAITING_PLAYER).getMinions().get(targetPlayer.getMinions().indexOf(possibleTarget));
                     targetMinion.setHealth((byte)-99); //destroyed!
-                    newState = BoardStateFactoryBase.handleDeadMinions(newState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+                    newState = BoardStateFactoryBase.handleDeadMinions(newState, singleRealizationOnly);
                     toRet.addChild(newState);
                 }
             }

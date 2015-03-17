@@ -2,7 +2,6 @@ package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.CardPlayBeginInterface;
-import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerModel;
@@ -18,12 +17,12 @@ public class IllidanStormrage extends Minion implements CardPlayBeginInterface {
     @Override
     public HearthTreeNode onCardPlayBegin(PlayerSide thisCardPlayerSide,
                                           PlayerSide cardUserPlayerSide, Card usedCard,
-                                          HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1,
+                                          HearthTreeNode boardState,
                                           boolean singleRealizationOnly) throws HSException {
         HearthTreeNode toRet = boardState;
         PlayerModel targetPlayer = boardState.data_.modelForSide(thisCardPlayerSide);
-        if (thisCardPlayerSide == cardUserPlayerSide && usedCard != this && targetPlayer.getMinions().size() < 7) {
-            toRet = new FlameOfAzzinoth().summonMinion(thisCardPlayerSide, this, toRet, deckPlayer0, deckPlayer1, false, singleRealizationOnly);
+        if (thisCardPlayerSide == cardUserPlayerSide && usedCard != this && !targetPlayer.isBoardFull()) {
+            toRet = new FlameOfAzzinoth().summonMinion(thisCardPlayerSide, this, toRet, false, singleRealizationOnly);
         }
         return toRet;
     }

@@ -43,7 +43,7 @@ public class TestArchmageAntonidas {
     @Test
     public void test0() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 0, board, null, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 0, board);
 
         assertNull(ret);
 
@@ -68,7 +68,7 @@ public class TestArchmageAntonidas {
     @Test
     public void test1() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 2, board, null, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 2, board);
 
         assertFalse(ret == null);
 
@@ -95,7 +95,7 @@ public class TestArchmageAntonidas {
         // Use a spell now... p0 should get a Fireball
         Card cardToUse = new HolySmite();
         currentPlayer.placeCardHand(cardToUse);
-        ret = cardToUse.useOn(PlayerSide.WAITING_PLAYER, 1, ret, null, null);
+        ret = cardToUse.useOn(PlayerSide.WAITING_PLAYER, 1, ret);
 
         assertEquals(currentPlayer.getHand().size(), 1);
         assertEquals(currentPlayer.getNumMinions(), 3);
@@ -123,7 +123,7 @@ public class TestArchmageAntonidas {
         waitingPlayer = flp.data_.getWaitingPlayer();
         assertEquals(currentPlayer.getHand().size(), 1);
 
-        ret = cardToUse2.useOn(PlayerSide.WAITING_PLAYER, 1, flp, null, null);
+        ret = cardToUse2.useOn(PlayerSide.WAITING_PLAYER, 1, flp);
 
         assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 1);

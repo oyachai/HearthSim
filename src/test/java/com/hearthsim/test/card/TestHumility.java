@@ -55,7 +55,7 @@ public class TestHumility {
     public void test2() throws HSException {
         currentPlayer.getHero().setHealth((byte)23);
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 1, board, null, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 1, board);
 
         assertFalse(ret == null);
 

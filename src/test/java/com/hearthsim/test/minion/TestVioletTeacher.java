@@ -43,7 +43,7 @@ public class TestVioletTeacher {
     @Test
     public void test0() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 0, board, null, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 0, board);
 
         assertNull(ret);
 
@@ -68,7 +68,7 @@ public class TestVioletTeacher {
     @Test
     public void test1() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 2, board, null, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 2, board);
 
         assertFalse(ret == null);
 
@@ -95,7 +95,7 @@ public class TestVioletTeacher {
         // Use a spell now... p0 should get a Violet Apprentice
         Card cardToUse = new HolySmite();
         currentPlayer.placeCardHand(cardToUse);
-        ret = cardToUse.useOn(PlayerSide.WAITING_PLAYER, 1, ret, null, null);
+        ret = cardToUse.useOn(PlayerSide.WAITING_PLAYER, 1, ret);
 
         assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 4);
@@ -124,7 +124,7 @@ public class TestVioletTeacher {
 
         assertEquals(flp.data_.getCurrentPlayer().getHand().size(), 1);
 
-        ret = cardToUse2.useOn(PlayerSide.WAITING_PLAYER, 1, flp, null, null);
+        ret = cardToUse2.useOn(PlayerSide.WAITING_PLAYER, 1, flp);
         currentPlayer = ret.data_.getCurrentPlayer();
         waitingPlayer = ret.data_.getWaitingPlayer();
 

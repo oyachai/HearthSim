@@ -1,6 +1,5 @@
 package com.hearthsim.card.minion.concrete;
 
-import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionSummonedInterface;
 import com.hearthsim.model.PlayerSide;
@@ -20,9 +19,7 @@ public class Undertaker extends Minion implements MinionSummonedInterface {
             PlayerSide thisMinionPlayerSide,
             PlayerSide summonedMinionPlayerSide,
             Minion summonedMinion,
-            HearthTreeNode boardState,
-            Deck deckPlayer0,
-            Deck deckPlayer1) {
+            HearthTreeNode boardState) {
         HearthTreeNode toRet = boardState;
         if (toRet != null && summonedMinion.hasDeathrattle() && thisMinionPlayerSide == summonedMinionPlayerSide) {
             this.addAttack((byte)1);

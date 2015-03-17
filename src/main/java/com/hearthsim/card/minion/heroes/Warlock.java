@@ -1,6 +1,5 @@
 package com.hearthsim.card.minion.heroes;
 
-import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
@@ -26,8 +25,6 @@ public class Warlock extends Hero {
      * @param targetPlayerSide
      * @param targetMinion The target minion
      * @param boardState
-     * @param deckPlayer0
-     * @param deckPlayer1
      *
      * @return
      */
@@ -36,13 +33,11 @@ public class Warlock extends Hero {
             PlayerSide targetPlayerSide,
             Minion targetMinion,
             HearthTreeNode boardState,
-            Deck deckPlayer0,
-            Deck deckPlayer1,
             boolean singleRealizationOnly)
         throws HSException {
         if (targetPlayerSide == PlayerSide.WAITING_PLAYER || isNotHero(targetMinion))
             return null;
-        HearthTreeNode toRet = targetMinion.takeDamage((byte)2, PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, boardState, deckPlayer0, deckPlayer1, false, false);
+        HearthTreeNode toRet = targetMinion.takeDamage((byte)2, PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, boardState, false, false);
         if (toRet != null) {
             this.hasBeenUsed = true;
             toRet.data_.getCurrentPlayer().subtractMana(HERO_ABILITY_COST);

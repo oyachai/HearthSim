@@ -12,10 +12,7 @@ public interface CardPlayAfterInterface {
      * @param cardUserPlayerSide
      * @param usedCard The card that was used
      * @param boardState The BoardState before this card has performed its action. It will be manipulated and returned.
-     * @param deckPlayer0 The deck of player0
-     * @param deckPlayer1 The deck of player1
      * @return The boardState is manipulated and returned
      */
-    public HearthTreeNode onCardPlayResolve(PlayerSide thisCardPlayerSide, PlayerSide cardUserPlayerSide,
-            Card usedCard, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly);
+    public HearthTreeNode onCardPlayResolve(PlayerSide thisCardPlayerSide, PlayerSide cardUserPlayerSide, Card usedCard, HearthTreeNode boardState, boolean singleRealizationOnly);
 }

@@ -38,15 +38,14 @@ public class TestBloodKnight {
         currentPlayer.setMana((byte) 18);
         waitingPlayer.setMana((byte) 18);
 
-        minion0_0.summonMinion(PlayerSide.CURRENT_PLAYER, currentPlayer.getHero(), board, null, null, false, true);
-        minion1_0.summonMinion(PlayerSide.WAITING_PLAYER, waitingPlayer.getHero(), board, null, null, false, true);
+        minion0_0.summonMinion(PlayerSide.CURRENT_PLAYER, currentPlayer.getHero(), board, false, true);
+        minion1_0.summonMinion(PlayerSide.WAITING_PLAYER, waitingPlayer.getHero(), board, false, true);
     }
 
     @Test
     public void testStealsDivineShieldMultiple() throws HSException {
-        Minion target = currentPlayer.getCharacter(1);
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board);
 
         assertEquals(board, ret);
 
@@ -63,10 +62,10 @@ public class TestBloodKnight {
 
     @Test
     public void testStealsDivineShieldSingle() throws HSException {
-        currentPlayer.getCharacter(1).setDivineShield(false);
         Minion target = currentPlayer.getCharacter(1);
+        target.setDivineShield(false);
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board, null, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board);
 
         assertEquals(board, ret);
 
@@ -86,7 +85,7 @@ public class TestBloodKnight {
         currentPlayer.getCharacter(1).setDivineShield(false);
         waitingPlayer.getCharacter(1).setDivineShield(false);
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, null, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board);
 
         assertEquals(board, ret);
 
@@ -105,7 +104,7 @@ public class TestBloodKnight {
     @Ignore("Existing bug")
     public void testSilenced() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, null, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board);
         assertEquals(board, ret);
 
         Minion target = currentPlayer.getCharacter(2);

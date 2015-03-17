@@ -1,6 +1,5 @@
 package com.hearthsim.card.spellcard;
 
-import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
@@ -54,23 +53,22 @@ public class SpellDamageAoe extends SpellDamage {
      * @return The boardState is manipulated and returned
      */
     @Override
-    protected HearthTreeNode use_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState,
-            Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
+    protected HearthTreeNode use_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
         if (boardState != null && this.hitsOwnHero) {
             Minion self = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(0);
-            boardState = this.attack(PlayerSide.CURRENT_PLAYER, self, boardState, deckPlayer0, deckPlayer1);
+            boardState = this.attack(PlayerSide.CURRENT_PLAYER, self, boardState);
         }
 
         if (boardState != null && this.hitsOwnMinions) {
-            boardState = this.attackAllMinionsOnSide(PlayerSide.CURRENT_PLAYER, boardState, deckPlayer0, deckPlayer1);
+            boardState = this.attackAllMinionsOnSide(PlayerSide.CURRENT_PLAYER, boardState);
         }
 
         if (boardState != null && this.hitsEnemyHero) {
-            boardState = this.attack(PlayerSide.WAITING_PLAYER, targetMinion, boardState, deckPlayer0, deckPlayer1);
+            boardState = this.attack(PlayerSide.WAITING_PLAYER, targetMinion, boardState);
         }
 
         if (boardState != null && this.hitsEnemyMinions) {
-            boardState = this.attackAllMinionsOnSide(PlayerSide.WAITING_PLAYER, boardState, deckPlayer0, deckPlayer1);
+            boardState = this.attackAllMinionsOnSide(PlayerSide.WAITING_PLAYER, boardState);
         }
 
         if (boardState != null) {

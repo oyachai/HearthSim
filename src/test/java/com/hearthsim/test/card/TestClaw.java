@@ -51,7 +51,7 @@ public class TestClaw {
     @Test
     public void test2() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
 
         assertFalse(ret == null);
 
@@ -68,8 +68,7 @@ public class TestClaw {
         assertEquals(waitingPlayer.getMinions().get(0).getHealth(), health0);
         assertEquals(waitingPlayer.getMinions().get(1).getHealth(), health1 - 1);
 
-        Minion target = waitingPlayer.getCharacter(1);
-        ret = currentPlayer.getHero().attack(PlayerSide.WAITING_PLAYER, target, board, null, null, false);
+        ret = currentPlayer.getHero().attack(PlayerSide.WAITING_PLAYER, 1, board, false);
         assertFalse(ret == null);
         assertEquals(currentPlayer.getNumMinions(), 2);
         assertEquals(waitingPlayer.getNumMinions(), 2);
@@ -83,7 +82,7 @@ public class TestClaw {
         assertEquals(waitingPlayer.getMinions().get(0).getHealth(), health0 - 2);
         assertEquals(waitingPlayer.getMinions().get(1).getHealth(), health1 - 1);
 
-        currentPlayer.getHero().endTurn(PlayerSide.CURRENT_PLAYER, board, null, null);
+        currentPlayer.getHero().endTurn(PlayerSide.CURRENT_PLAYER, board);
         assertEquals(currentPlayer.getHero().getTotalAttack(), 0);
         assertEquals(currentPlayer.getHero().getArmor(), 0);
     }

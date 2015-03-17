@@ -1,9 +1,6 @@
 package com.hearthsim.test.groovy.card
-import com.hearthsim.card.Deck;
-import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.FrothingBerserker
 import com.hearthsim.model.BoardModel
-import com.hearthsim.model.PlayerSide;
 import com.hearthsim.test.helpers.BoardModelBuilder
 import com.hearthsim.util.tree.HearthTreeNode
 
@@ -47,13 +44,11 @@ class FrothingBerserkerSpec extends CardSpec {
     def "playing Frothing Berserker and attacking"() {
         def minionPlayedBoard = startingBoard.deepCopy()
         def copiedRoot = new HearthTreeNode(minionPlayedBoard)
-        def target = minionPlayedBoard.modelForSide(CURRENT_PLAYER).getCharacter(2);
         def theCard = minionPlayedBoard.getCurrentPlayer().getHand().get(0);
-        def ret = theCard.useOn(CURRENT_PLAYER, target, copiedRoot, null, null);
+        def ret = theCard.useOn(CURRENT_PLAYER, 2, copiedRoot);
 
         def attacker = minionPlayedBoard.modelForSide(CURRENT_PLAYER).getCharacter(1)
-        def attacked = minionPlayedBoard.modelForSide(WAITING_PLAYER).getCharacter(1)
-        ret =  attacker.attack(WAITING_PLAYER, attacked, copiedRoot, null, null, false)
+        ret =  attacker.attack(WAITING_PLAYER, 1, copiedRoot, null, null, false)
         
         expect:
         assertFalse(ret == null);

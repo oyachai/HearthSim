@@ -9,6 +9,5 @@ public interface CardEndTurnInterface {
      * End the turn and resets the card state
      * This function is called at the end of the turn. Any derived class must override it and remove any temporary buffs that it has.
      */
-    public HearthTreeNode endTurn(PlayerSide thisMinionPlayerIndex, HearthTreeNode boardModel, Deck deckPlayer0,
-            Deck deckPlayer1) throws HSException;
+    public HearthTreeNode endTurn(PlayerSide thisMinionPlayerIndex, HearthTreeNode boardModel) throws HSException;
 }

@@ -52,7 +52,7 @@ public class TestInnerRage {
     @Test
     public void test1() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, null, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board);
 
         assertFalse(ret == null);
 
@@ -79,7 +79,7 @@ public class TestInnerRage {
     @Test
     public void test2() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 2, board, null, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 2, board);
 
         assertFalse(ret == null);
 
@@ -104,7 +104,7 @@ public class TestInnerRage {
 
         currentPlayer.placeCardHand(new Silence());
         theCard = currentPlayer.getHand().get(0);
-        ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, null, null);
+        ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board);
 
         assertFalse(ret == null);
         assertEquals(currentPlayer.getHand().size(), 0);
@@ -130,7 +130,7 @@ public class TestInnerRage {
     @Test
     public void test3() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 3, board, null, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 3, board);
 
         assertFalse(ret == null);
 

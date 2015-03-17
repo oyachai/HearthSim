@@ -1,6 +1,5 @@
 package com.hearthsim.card.spellcard.concrete;
 
-import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.MirrorImageMinion;
 import com.hearthsim.card.spellcard.SpellCard;
@@ -54,8 +53,6 @@ public class MirrorImage extends SpellCard {
             PlayerSide side,
             Minion targetMinion,
             HearthTreeNode boardState,
-            Deck deckPlayer0,
-            Deck deckPlayer1,
             boolean singleRealizationOnly)
         throws HSException {
         PlayerModel currentPlayer = boardState.data_.modelForSide(side);
@@ -63,14 +60,14 @@ public class MirrorImage extends SpellCard {
             return null;
         }
 
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
         if (toRet != null) {
             Minion mi0 = new MirrorImageMinion();
-            toRet = mi0.summonMinionAtEnd(side, toRet, deckPlayer0, deckPlayer1, false, singleRealizationOnly);
+            toRet = mi0.summonMinionAtEnd(side, toRet, false, singleRealizationOnly);
 
             if (!currentPlayer.isBoardFull()) {
                 Minion mi1 = new MirrorImageMinion();
-                toRet = mi1.summonMinionAtEnd(side, toRet, deckPlayer0, deckPlayer1, false, singleRealizationOnly);
+                toRet = mi1.summonMinionAtEnd(side, toRet, false, singleRealizationOnly);
             }
         }
         return toRet;

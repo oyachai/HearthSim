@@ -2,7 +2,6 @@ package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.CardPlayBeginInterface;
-import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.card.spellcard.concrete.Fireball;
@@ -34,8 +33,6 @@ public class ArchmageAntonidas extends Minion implements CardPlayBeginInterface 
             PlayerSide cardUserPlayerSide,
             Card usedCard,
             HearthTreeNode boardState,
-            Deck deckPlayer0,
-            Deck deckPlayer1,
             boolean singleRealizationOnly)
         throws HSException {
         HearthTreeNode toRet = boardState;

@@ -1,6 +1,5 @@
 package com.hearthsim.card.minion.concrete;
 
-import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.BattlecryTargetType;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionTargetableBattlecry;
@@ -25,15 +24,9 @@ public class EarthenRingFarseer extends Minion implements MinionTargetableBattle
      * Battlecry: Restore 3 health
      */
     @Override
-    public HearthTreeNode useTargetableBattlecry_core(
-            PlayerSide side,
-            Minion targetMinion,
-            HearthTreeNode boardState,
-            Deck deckPlayer0,
-            Deck deckPlayer1
-        ) throws HSException {
+    public HearthTreeNode useTargetableBattlecry_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState) throws HSException {
         HearthTreeNode toRet = boardState;
-        toRet = targetMinion.takeHeal((byte)3, side, toRet, deckPlayer0, deckPlayer1);
+        toRet = targetMinion.takeHeal((byte)3, side, toRet);
         return toRet;
     }
 

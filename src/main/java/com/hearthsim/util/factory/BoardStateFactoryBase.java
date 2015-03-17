@@ -36,7 +36,7 @@ public abstract class BoardStateFactoryBase {
      * @param deckPlayer1
      */
     public BoardStateFactoryBase(Deck deckPlayer0, Deck deckPlayer1, ChildNodeCreator creator) {
-        deckPlayer0_ = deckPlayer1;
+        deckPlayer0_ = deckPlayer0;
         deckPlayer1_ = deckPlayer1;
 
         childNodeCreator = creator;
@@ -58,11 +58,16 @@ public abstract class BoardStateFactoryBase {
      * The results are stored in a tree structure and returned as a tree of BoardState class.
      *
      * @param boardStateNode The initial BoardState wrapped in a HearthTreeNode.
-     * @param scoreFunc The scoring function for AI.
+     * @param scoreFunc      The scoring function for AI.
      * @return boardStateNode manipulated such that all subsequent actions are children of the original boardStateNode input.
      */
     public abstract HearthTreeNode doMoves(HearthTreeNode boardStateNode, BoardScorer ai) throws HSException;
 
+    @Deprecated
+    public static HearthTreeNode handleDeadMinions(HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealization)
+        throws HSException {
+        return handleDeadMinions(boardState, singleRealization);
+    }
     /**
      * Handles dead minions
      * For each dead minion, the function calls its deathrattle in the correct order, and then removes the dead minions from the board.
@@ -70,7 +75,7 @@ public abstract class BoardStateFactoryBase {
      * @return true if there are dead minions left (minions might have died during deathrattle). false otherwise.
      * @throws HSException
      */
-    public static HearthTreeNode handleDeadMinions(HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealization)
+    public static HearthTreeNode handleDeadMinions(HearthTreeNode boardState, boolean singleRealization)
             throws HSException {
         HearthTreeNode toRet = boardState;
         IdentityLinkedList<BoardModel.MinionPlayerPair> deadMinions = new IdentityLinkedList<BoardModel.MinionPlayerPair>();
@@ -81,11 +86,11 @@ public abstract class BoardStateFactoryBase {
         }
         for (BoardModel.MinionPlayerPair minionIdPair : deadMinions) {
             PlayerSide playerSide = minionIdPair.getPlayerSide();
-            toRet = minionIdPair.getMinion().destroyed(playerSide, toRet, deckPlayer0, deckPlayer1, singleRealization);
+            toRet = minionIdPair.getMinion().destroyed(playerSide, toRet, singleRealization);
             toRet.data_.removeMinion(minionIdPair);
         }
         if (toRet.data_.hasDeadMinions())
-            return BoardStateFactoryBase.handleDeadMinions(toRet, deckPlayer0, deckPlayer1, singleRealization);
+            return BoardStateFactoryBase.handleDeadMinions(toRet, singleRealization);
         else
             return toRet;
     }

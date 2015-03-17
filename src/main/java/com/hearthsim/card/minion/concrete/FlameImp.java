@@ -1,6 +1,5 @@
 package com.hearthsim.card.minion.concrete;
 
-import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionUntargetableBattlecry;
 import com.hearthsim.exception.HSException;
@@ -21,13 +20,11 @@ public class FlameImp extends Minion implements MinionUntargetableBattlecry {
     public HearthTreeNode useUntargetableBattlecry_core(
             Minion minionPlacementTarget,
             HearthTreeNode boardState,
-            Deck deckPlayer0,
-            Deck deckPlayer1,
             boolean singleRealizationOnly
         ) throws HSException {
         HearthTreeNode toRet = boardState;
         PlayerModel currentPlayer = toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
-        toRet = currentPlayer.getHero().takeDamage((byte)3, PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1, false, false);
+        toRet = currentPlayer.getHero().takeDamage((byte)3, PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, toRet, false, false);
         return toRet;
     }
 

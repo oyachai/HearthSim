@@ -1,6 +1,5 @@
 package com.hearthsim.card.weapon.concrete;
 
-import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.weapon.WeaponCard;
 import com.hearthsim.exception.HSException;
@@ -13,8 +12,8 @@ public class GladiatorsLongbow extends WeaponCard {
     boolean previousImmuneState = false;
 
     @Override
-    public void beforeAttack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode toRet, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
-        super.beforeAttack(targetMinionPlayerSide, targetMinion, toRet, deckPlayer0, deckPlayer1);
+    public void beforeAttack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode toRet) throws HSException {
+        super.beforeAttack(targetMinionPlayerSide, targetMinion, toRet);
 
         BoardModel boardModel = toRet.data_;
         PlayerModel currentPlayer = boardModel.getCurrentPlayer();
@@ -23,8 +22,8 @@ public class GladiatorsLongbow extends WeaponCard {
     }
 
     @Override
-    public void afterAttack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode toRet, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
-        super.afterAttack(targetMinionPlayerSide, targetMinion, toRet, deckPlayer0, deckPlayer1);
+    public void afterAttack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode toRet) throws HSException {
+        super.afterAttack(targetMinionPlayerSide, targetMinion, toRet);
 
         BoardModel boardModel = toRet.data_;
         PlayerModel currentPlayer = boardModel.getCurrentPlayer();

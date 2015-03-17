@@ -29,7 +29,7 @@ class AbusiveSergeantSpec extends CardSpec {
         def copiedBoard = startingBoard.deepCopy()
         def target = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(1)
         def theCard = new AbusiveSergeant()
-        def ret = theCard.useTargetableBattlecry_core(CURRENT_PLAYER, target, root, null, null)
+        def ret = theCard.useTargetableBattlecry_core(CURRENT_PLAYER, target, root)
 
         expect:
         assertEquals(root, ret);
@@ -46,7 +46,7 @@ class AbusiveSergeantSpec extends CardSpec {
         def target = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(1)
         target.extraAttackUntilTurnEnd = 2
         def theCard = new AbusiveSergeant()
-        def ret = theCard.useTargetableBattlecry_core(CURRENT_PLAYER, target, root, null, null)
+        def ret = theCard.useTargetableBattlecry_core(CURRENT_PLAYER, target, root)
 
         expect:
         assertEquals(root, ret);

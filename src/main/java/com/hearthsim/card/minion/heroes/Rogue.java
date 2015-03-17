@@ -1,6 +1,5 @@
 package com.hearthsim.card.minion.heroes;
 
-import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.weapon.concrete.WickedKnife;
@@ -31,8 +30,6 @@ public class Rogue extends Hero {
         PlayerSide targetPlayerSide,
         Minion targetMinion,
         HearthTreeNode boardState,
-        Deck deckPlayer0,
-        Deck deckPlayer1,
         boolean singleRealizationOnly)
         throws HSException {
         HearthTreeNode toRet = boardState;
@@ -43,7 +40,7 @@ public class Rogue extends Hero {
 
             DeathrattleAction action = target.setWeapon(new WickedKnife());
             if (action != null) {
-                toRet = action.performAction(null, targetPlayerSide, toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
+                toRet = action.performAction(null, targetPlayerSide, toRet, singleRealizationOnly);
             }
 
             return toRet;

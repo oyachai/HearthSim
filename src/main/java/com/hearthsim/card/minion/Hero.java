@@ -89,12 +89,10 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
      * @param targetMinionPlayerSide
      * @param targetMinion           The target minion
      * @param boardState             The BoardState before this card has performed its action. It will be manipulated and returned.
-     * @param deckPlayer0            The deck of player0
      * @return The boardState is manipulated and returned
      */
     @Override
-    public HearthTreeNode attack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode boardState,
-                                 Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
+    public HearthTreeNode attack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
 
         if (!this.canAttack()) {
             return null;
@@ -103,14 +101,14 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
         WeaponCard attackingWeapon = this.getWeapon();
 
         if (attackingWeapon != null) {
-            attackingWeapon.beforeAttack(targetMinionPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1);
+            attackingWeapon.beforeAttack(targetMinionPlayerSide, targetMinion, boardState);
         }
-        HearthTreeNode toRet = super.attack(targetMinionPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+        HearthTreeNode toRet = super.attack(targetMinionPlayerSide, targetMinion, boardState, singleRealizationOnly);
         if (toRet != null && attackingWeapon != null) {
-            attackingWeapon.afterAttack(targetMinionPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1);
+            attackingWeapon.afterAttack(targetMinionPlayerSide, targetMinion, boardState);
             DeathrattleAction weaponDeathrattle = this.checkForWeaponDeath();
             if (weaponDeathrattle != null) {
-                toRet = weaponDeathrattle.performAction(attackingWeapon, PlayerSide.CURRENT_PLAYER, toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
+                toRet = weaponDeathrattle.performAction(attackingWeapon, PlayerSide.CURRENT_PLAYER, toRet, singleRealizationOnly);
             }
         }
 
@@ -131,9 +129,35 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
         return true;
     }
 
+    @Deprecated
     public final HearthTreeNode useHeroAbility(PlayerSide targetPlayerSide, Minion targetMinion,
                                                HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
-        return this.useHeroAbility(targetPlayerSide, targetMinion, boardState, deckPlayer0, deckPlayer1, false);
+        return this.useHeroAbility(targetPlayerSide, targetMinion, boardState, false);
+    }
+
+    @Deprecated
+    public final HearthTreeNode useHeroAbility(PlayerSide targetPlayerSide, int targetIndex,
+                                               HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+        Minion targetMinion = boardState.data_.modelForSide(targetPlayerSide).getCharacter(targetIndex);
+        return this.useHeroAbility(targetPlayerSide, targetMinion, boardState);
+    }
+
+    @Deprecated
+    public final HearthTreeNode useHeroAbility(PlayerSide targetPlayerSide, Minion targetMinion,
+                                               HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly)
+        throws HSException {
+        return this.useHeroAbility(targetPlayerSide, targetMinion, boardState, singleRealizationOnly);
+    }
+
+    public final HearthTreeNode useHeroAbility(PlayerSide targetPlayerSide, Minion targetMinion,
+                                               HearthTreeNode boardState) throws HSException {
+        return this.useHeroAbility(targetPlayerSide, targetMinion, boardState, false);
+    }
+
+    public final HearthTreeNode useHeroAbility(PlayerSide targetPlayerSide, int targetIndex,
+                                               HearthTreeNode boardState) throws HSException {
+        Minion targetMinion = boardState.data_.modelForSide(targetPlayerSide).getCharacter(targetIndex);
+        return this.useHeroAbility(targetPlayerSide, targetMinion, boardState);
     }
 
     /**
@@ -142,11 +166,9 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
      * @param targetPlayerSide
      * @param targetMinion     The target minion
      * @param boardState
-     * @param deckPlayer0      The deck of player0
      * @return
      */
-    public final HearthTreeNode useHeroAbility(PlayerSide targetPlayerSide, Minion targetMinion,
-                                               HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly)
+    public final HearthTreeNode useHeroAbility(PlayerSide targetPlayerSide, Minion targetMinion, HearthTreeNode boardState, boolean singleRealizationOnly)
         throws HSException {
 
         if (!this.canBeUsedOn(targetPlayerSide, targetMinion, boardState.data_)) {
@@ -155,21 +177,23 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
 
         PlayerModel targetPlayer = boardState.data_.modelForSide(targetPlayerSide);
 
-        HearthTreeNode toRet = this.useHeroAbility_core(targetPlayerSide, targetMinion, boardState, deckPlayer0,
-            deckPlayer1, singleRealizationOnly);
+        HearthTreeNode toRet = this.useHeroAbility_core(targetPlayerSide, targetMinion, boardState, singleRealizationOnly);
         if (toRet != null) {
             int targetIndex = targetMinion instanceof Hero ? 0 : targetPlayer.getMinions()
                 .indexOf(targetMinion) + 1;
             toRet.setAction(new HearthAction(Verb.HERO_ABILITY, PlayerSide.CURRENT_PLAYER, 0, targetPlayerSide,
                 targetIndex));
-            toRet = BoardStateFactoryBase.handleDeadMinions(toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
+            toRet = BoardStateFactoryBase.handleDeadMinions(toRet, singleRealizationOnly);
         }
         return toRet;
     }
 
-    public abstract HearthTreeNode useHeroAbility_core(PlayerSide targetPlayerSide, Minion targetMinion,
-                                                       HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly)
-        throws HSException;
+    @Deprecated
+    public HearthTreeNode useHeroAbility_core(PlayerSide targetPlayerSide, Minion targetMinion, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
+        return this.useHeroAbility_core(targetPlayerSide, targetMinion, boardState, singleRealizationOnly);
+    }
+
+    public abstract HearthTreeNode useHeroAbility_core(PlayerSide targetPlayerSide, Minion targetMinion, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException;
 
     /**
      * Called when this minion takes damage
@@ -180,20 +204,18 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
      * @param attackPlayerSide The player index of the attacker. This is needed to do things like +spell damage.
      * @param thisPlayerSide
      * @param boardState
-     * @param deckPlayer0      The deck of player0
      * @param isSpellDamage
      * @throws HSInvalidPlayerIndexException
      */
     @Override
     public HearthTreeNode takeDamage(byte damage, PlayerSide attackPlayerSide, PlayerSide thisPlayerSide,
-                                     HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean isSpellDamage,
+                                     HearthTreeNode boardState, boolean isSpellDamage,
                                      boolean handleMinionDeath) throws HSException {
         HearthTreeNode toRet = boardState;
         byte damageRemaining = (byte) (damage - armor_);
         if (damageRemaining > 0) {
             armor_ = 0;
-            toRet = super.takeDamage(damageRemaining, attackPlayerSide, thisPlayerSide, toRet, deckPlayer0,
-                deckPlayer1, isSpellDamage, handleMinionDeath);
+            toRet = super.takeDamage(damageRemaining, attackPlayerSide, thisPlayerSide, toRet, isSpellDamage, handleMinionDeath);
         } else {
             armor_ = (byte) (armor_ - damage);
         }
@@ -293,12 +315,10 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
     }
 
     @Override
-    public HearthTreeNode minionSummonEvent(PlayerSide thisMinionPlayerSide, PlayerSide summonedMinionPlayerSide,
-                                            Minion summonedMinion, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) {
+    public HearthTreeNode minionSummonEvent(PlayerSide thisMinionPlayerSide, PlayerSide summonedMinionPlayerSide, Minion summonedMinion, HearthTreeNode boardState) {
         HearthTreeNode hearthTreeNode = boardState;
         if (weapon != null) {
-            weapon.minionSummonedEvent(thisMinionPlayerSide, summonedMinionPlayerSide, summonedMinion, boardState,
-                deckPlayer0, deckPlayer1);
+            weapon.minionSummonedEvent(thisMinionPlayerSide, summonedMinionPlayerSide, summonedMinion, boardState);
         }
         return hearthTreeNode;
     }

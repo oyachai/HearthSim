@@ -7,7 +7,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.hearthsim.card.Card;
-import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.AmaniBerserker;
 import com.hearthsim.card.minion.concrete.RiverCrocolisk;
 import com.hearthsim.card.spellcard.concrete.HolyLight;
@@ -43,15 +42,14 @@ public class TestAmaniBerserker {
 
     @Test
     public void testAttackNormal() throws HSException {
-        Minion target = waitingPlayer.getCharacter(0);
-        HearthTreeNode ret = amaniBerserker.attack(PlayerSide.WAITING_PLAYER, target, board, null, null, false);
+        HearthTreeNode ret = amaniBerserker.attack(PlayerSide.WAITING_PLAYER, 0, board, false);
         assertEquals(board, ret);
         assertEquals(waitingPlayer.getHero().getHealth(), 28);
     }
 
     @Test
     public void testEnrage() throws HSException {
-        HearthTreeNode ret = amaniBerserker.attack(PlayerSide.WAITING_PLAYER, croc, board, null, null, false);
+        HearthTreeNode ret = amaniBerserker.attack(PlayerSide.WAITING_PLAYER, croc, board, false);
         assertEquals(board, ret);
 
         assertEquals(currentPlayer.getNumMinions(), 1);
@@ -65,12 +63,12 @@ public class TestAmaniBerserker {
 
     @Test
     public void testHealRemovesEngrage() throws HSException {
-        HearthTreeNode ret = amaniBerserker.attack(PlayerSide.WAITING_PLAYER, croc, board, null, null, false);
+        HearthTreeNode ret = amaniBerserker.attack(PlayerSide.WAITING_PLAYER, croc, board, false);
 
         currentPlayer.placeCardHand(new HolyLight());
         currentPlayer.setMana((byte) 2);
         Card theCard = currentPlayer.getHand().get(0);
-        ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, amaniBerserker, board, null, null);
+        ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, amaniBerserker, board);
 
         assertEquals(board, ret);
         assertEquals(3, amaniBerserker.getHealth());

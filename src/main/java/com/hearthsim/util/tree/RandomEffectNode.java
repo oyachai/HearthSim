@@ -2,7 +2,6 @@ package com.hearthsim.util.tree;
 
 import java.util.ArrayList;
 
-import com.hearthsim.card.Deck;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.HearthAction;
@@ -27,7 +26,7 @@ public class RandomEffectNode extends StopNode {
     }
 
     @Override
-    public HearthTreeNode finishAllEffects(Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+    public HearthTreeNode finishAllEffects() throws HSException {
         if (this.numChildren() > 0) {
             return this.getChildren().get((int)(Math.random() * this.numChildren()));
         }

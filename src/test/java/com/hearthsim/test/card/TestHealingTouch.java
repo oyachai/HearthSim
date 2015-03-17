@@ -53,7 +53,7 @@ public class TestHealingTouch {
         currentPlayer.placeCardHand(fb);
 
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
         assertFalse(ret == null);
 
         assertEquals(currentPlayer.getHand().size(), 0);
@@ -73,7 +73,7 @@ public class TestHealingTouch {
         currentPlayer.placeCardHand(fb);
 
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 2, board, null, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 2, board);
         assertFalse(ret == null);
 
         assertTrue( ret instanceof CardDrawNode );
@@ -95,7 +95,7 @@ public class TestHealingTouch {
         currentPlayer.placeCardHand(fb);
 
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 2, board, null, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 2, board);
         assertFalse(ret == null);
         assertTrue( ret instanceof CardDrawNode );
 

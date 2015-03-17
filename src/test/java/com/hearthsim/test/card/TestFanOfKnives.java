@@ -55,7 +55,7 @@ public class TestFanOfKnives {
     @Test
     public void testDrawsCardOnSuccess() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 0, board, null, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 0, board);
         assertNotNull(ret);
 
         assertTrue(ret instanceof CardDrawNode);

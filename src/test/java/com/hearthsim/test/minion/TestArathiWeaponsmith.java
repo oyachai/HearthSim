@@ -34,7 +34,7 @@ public class TestArathiWeaponsmith {
     @Test
     public void testEquipsWeapon() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
         assertEquals(board, ret);
 
         assertEquals(currentPlayer.getHand().size(), 0);
@@ -48,14 +48,14 @@ public class TestArathiWeaponsmith {
     @Test
     public void testDestroysExistingWeapon() throws HSException {
         currentPlayer.placeCardHand(new FieryWarAxe());
-        currentPlayer.getHand().get(1).useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
+        currentPlayer.getHand().get(1).useOn(PlayerSide.CURRENT_PLAYER, 0, board);
 
         assertEquals(currentPlayer.getMana(), 8);
         assertEquals(currentPlayer.getHero().getWeapon().getWeaponCharge(), 2);
         assertEquals(currentPlayer.getHero().getTotalAttack(), 3);
 
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
         assertEquals(board, ret);
         assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 1);

@@ -2,7 +2,6 @@ package com.hearthsim.card.minion.concrete;
 
 import java.util.EnumSet;
 
-import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.BattlecryTargetType;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionTargetableBattlecry;
@@ -25,13 +24,7 @@ public class AncientBrewmaster extends Minion implements MinionTargetableBattlec
      * Battlecry: Change an enemy minion's attack to 1
      */
     @Override
-    public HearthTreeNode useTargetableBattlecry_core(
-            PlayerSide side,
-            Minion targetMinion,
-            HearthTreeNode boardState,
-            Deck deckPlayer0,
-            Deck deckPlayer1
-        ) throws HSException {
+    public HearthTreeNode useTargetableBattlecry_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState) throws HSException {
         HearthTreeNode toRet = boardState;
         if (toRet != null) {
             if (boardState.data_.getCurrentPlayer().getHand().size() < 10) {

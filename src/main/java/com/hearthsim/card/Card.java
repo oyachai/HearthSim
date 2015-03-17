@@ -249,24 +249,50 @@ public class Card implements DeepCopyable<Card> {
      * @return
      */
     public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
-        // A generic card does nothing except for consuming mana
         return this.getManaCost(PlayerSide.CURRENT_PLAYER, boardModel) <= boardModel.getCurrentPlayer().getMana();
     }
 
+    public boolean canBeUsedOn(PlayerSide playerSide, int targetIndex, BoardModel boardModel) {
+        Minion targetMinion = boardModel.modelForSide(playerSide).getCharacter(targetIndex);
+        return this.canBeUsedOn(playerSide, targetMinion, boardModel);
+    }
+
+    @Deprecated
     public final HearthTreeNode useOn(PlayerSide side, Minion targetMinion, HearthTreeNode boardState,
             Deck deckPlayer0, Deck deckPlayer1) throws HSException {
-        return this.useOn(side, targetMinion, boardState, deckPlayer0, deckPlayer1, false);
+        return this.useOn(side, targetMinion, boardState, false);
     }
 
+    @Deprecated
     public HearthTreeNode useOn(PlayerSide side, int targetIndex, HearthTreeNode boardState, Deck deckPlayer0,
             Deck deckPlayer1) throws HSException {
-        return this.useOn(side, targetIndex, boardState, deckPlayer0, deckPlayer1, false);
+        return this.useOn(side, targetIndex, boardState, false);
     }
 
+    @Deprecated
     public HearthTreeNode useOn(PlayerSide side, int targetIndex, HearthTreeNode boardState, Deck deckPlayer0,
             Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
         Minion target = boardState.data_.modelForSide(side).getCharacter(targetIndex);
-        return this.useOn(side, target, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+        return this.useOn(side, target, boardState, singleRealizationOnly);
+    }
+
+    @Deprecated
+    public HearthTreeNode useOn(PlayerSide side, Minion targetMinion, HearthTreeNode boardState, Deck deckPlayer0,
+                                Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
+        return this.useOn(side, targetMinion, boardState, singleRealizationOnly);
+    }
+
+    public final HearthTreeNode useOn(PlayerSide side, Minion targetMinion, HearthTreeNode boardState) throws HSException {
+        return this.useOn(side, targetMinion, boardState, false);
+    }
+
+    public HearthTreeNode useOn(PlayerSide side, int targetIndex, HearthTreeNode boardState) throws HSException {
+        return this.useOn(side, targetIndex, boardState, false);
+    }
+
+    public HearthTreeNode useOn(PlayerSide side, int targetIndex, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
+        Minion target = boardState.data_.modelForSide(side).getCharacter(targetIndex);
+        return this.useOn(side, target, boardState, singleRealizationOnly);
     }
 
     /**
@@ -275,14 +301,11 @@ public class Card implements DeepCopyable<Card> {
      * @param side
      * @param targetMinion The target minion (can be a Hero)
      * @param boardState The BoardState before this card has performed its action. It will be manipulated and returned.
-     * @param deckPlayer0 The deck for player0
-     * @param deckPlayer1 The deck for player1
      * @param singleRealizationOnly For cards with random effects, setting this to true will return only a single realization of the random event.
      *
      * @return The boardState is manipulated and returned
      */
-    public HearthTreeNode useOn(PlayerSide side, Minion targetMinion, HearthTreeNode boardState, Deck deckPlayer0,
-            Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
+    public HearthTreeNode useOn(PlayerSide side, Minion targetMinion, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
         if (!this.canBeUsedOn(side, targetMinion, boardState.data_))
             return null;
 
@@ -294,17 +317,17 @@ public class Card implements DeepCopyable<Card> {
         int targetIndex = targetMinion instanceof Hero ? 0 : targetPlayer.getMinions()
                 .indexOf(targetMinion) + 1;
 
-        PlayerSide.CURRENT_PLAYER.getPlayer(boardState).addNumCardsUsed((byte)1);
+        currentPlayer.addNumCardsUsed((byte)1);
 
-        HearthTreeNode toRet = this.notifyCardPlayBegin(boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+        HearthTreeNode toRet = this.notifyCardPlayBegin(boardState, singleRealizationOnly);
         if (toRet != null) {
-            toRet = this.use_core(side, targetMinion, toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
+            toRet = this.use_core(side, targetMinion, toRet, singleRealizationOnly);
             if (this.triggersOverload())
                 toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER).addOverload(this.getOverload());
         }
 
         if (toRet != null) {
-            toRet = this.notifyCardPlayResolve(toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
+            toRet = this.notifyCardPlayResolve(toRet, singleRealizationOnly);
         }
 
         if (toRet != null) {
@@ -315,25 +338,19 @@ public class Card implements DeepCopyable<Card> {
     }
 
     /**
-     *
      * Use the card on the given target
-     *
+     * <p>
      * This is the core implementation of card's ability
-     *
-     *
      *
      * @param side
      * @param boardState The BoardState before this card has performed its action. It will be manipulated and returned.
-     *
      * @return The boardState is manipulated and returned
      */
     protected HearthTreeNode use_core(
-            PlayerSide side,
-            Minion targetMinion,
-            HearthTreeNode boardState,
-            Deck deckPlayer0,
-            Deck deckPlayer1,
-            boolean singleRealizationOnly)
+        PlayerSide side,
+        Minion targetMinion,
+        HearthTreeNode boardState,
+        boolean singleRealizationOnly)
         throws HSException {
         //A generic card does nothing except for consuming mana
         PlayerModel currentPlayer = boardState.data_.getCurrentPlayer();
@@ -342,11 +359,28 @@ public class Card implements DeepCopyable<Card> {
         return boardState;
     }
 
+    @Deprecated
+    protected HearthTreeNode use_core(
+        PlayerSide side,
+        Minion targetMinion,
+        HearthTreeNode boardState,
+        Deck deckPlayer0,
+        Deck deckPlayer1,
+        boolean singleRealizationOnly)
+        throws HSException {
+        return this.use_core(side, targetMinion, boardState, singleRealizationOnly);
+    }
+
     // ======================================================================================
     // Various notifications
     // ======================================================================================
+    @Deprecated
     protected HearthTreeNode notifyCardPlayBegin(HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1,
-            boolean singleRealizationOnly) throws HSException {
+                                                 boolean singleRealizationOnly) throws HSException {
+        return this.notifyCardPlayBegin(boardState, singleRealizationOnly);
+    }
+
+    protected HearthTreeNode notifyCardPlayBegin(HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
         PlayerModel currentPlayer = boardState.data_.getCurrentPlayer();
         PlayerModel waitingPlayer = boardState.data_.getWaitingPlayer();
 
@@ -371,8 +405,7 @@ public class Card implements DeepCopyable<Card> {
         }
 
         for (CardPlayBeginInterface match : matches) {
-            toRet = match.onCardPlayBegin(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet,
-                    deckPlayer0, deckPlayer1, singleRealizationOnly);
+            toRet = match.onCardPlayBegin(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, singleRealizationOnly);
         }
         matches.clear();
 
@@ -394,17 +427,20 @@ public class Card implements DeepCopyable<Card> {
         }
 
         for (CardPlayBeginInterface match : matches) {
-            toRet = match.onCardPlayBegin(PlayerSide.WAITING_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet,
-                    deckPlayer0, deckPlayer1, singleRealizationOnly);
+            toRet = match.onCardPlayBegin(PlayerSide.WAITING_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, singleRealizationOnly);
         }
 
         // check for and remove dead minions
-        toRet = BoardStateFactoryBase.handleDeadMinions(toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
+        toRet = BoardStateFactoryBase.handleDeadMinions(toRet, singleRealizationOnly);
         return toRet;
     }
 
-    protected HearthTreeNode notifyCardPlayResolve(HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1,
-            boolean singleRealizationOnly) throws HSException {
+    @Deprecated
+    protected HearthTreeNode notifyCardPlayResolve(HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
+        return this.notifyCardPlayResolve(boardState, singleRealizationOnly);
+    }
+
+    protected HearthTreeNode notifyCardPlayResolve(HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
         PlayerModel currentPlayer = boardState.data_.getCurrentPlayer();
         PlayerModel waitingPlayer = boardState.data_.getWaitingPlayer();
 
@@ -429,8 +465,7 @@ public class Card implements DeepCopyable<Card> {
         }
 
         for (CardPlayAfterInterface match : matches) {
-            toRet = match.onCardPlayResolve(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet,
-                    deckPlayer0, deckPlayer1, singleRealizationOnly);
+            toRet = match.onCardPlayResolve(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, singleRealizationOnly);
         }
         matches.clear();
 
@@ -452,12 +487,11 @@ public class Card implements DeepCopyable<Card> {
         }
 
         for (CardPlayAfterInterface match : matches) {
-            toRet = match.onCardPlayResolve(PlayerSide.WAITING_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet,
-                    deckPlayer0, deckPlayer1, singleRealizationOnly);
+            toRet = match.onCardPlayResolve(PlayerSide.WAITING_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, singleRealizationOnly);
         }
 
         // check for and remove dead minions
-        toRet = BoardStateFactoryBase.handleDeadMinions(toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
+        toRet = BoardStateFactoryBase.handleDeadMinions(toRet, singleRealizationOnly);
         return toRet;
     }
 

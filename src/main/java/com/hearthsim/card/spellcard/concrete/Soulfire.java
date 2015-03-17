@@ -1,7 +1,6 @@
 package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.Card;
-import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellDamage;
@@ -39,16 +38,14 @@ public class Soulfire extends SpellDamage {
             PlayerSide side,
             Minion targetMinion,
             HearthTreeNode boardState,
-            Deck deckPlayer0,
-            Deck deckPlayer1,
             boolean singleRealizationOnly)
         throws HSException {
         HearthTreeNode toRet = boardState;
         PlayerModel currentPlayer = toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
 
-        PlayerSide.CURRENT_PLAYER.getPlayer(boardState).addNumCardsUsed((byte)1);
+        currentPlayer.addNumCardsUsed((byte)1);
         if (singleRealizationOnly) {
-            toRet = super.useOn(side, targetMinion, toRet, deckPlayer0, deckPlayer1, singleRealizationOnly);
+            toRet = super.useOn(side, targetMinion, toRet, singleRealizationOnly);
             IdentityLinkedList<Card> hand = currentPlayer.getHand();
             if (hand.size() > 0) {
                 Card targetCard = hand.get((int)(Math.random() * hand.size()));
@@ -59,7 +56,7 @@ public class Soulfire extends SpellDamage {
             int targetCharacterIndex = targetMinion instanceof Hero ? 0 : targetPlayer.getMinions().indexOf(targetMinion) + 1;
             int thisCardIndex = currentPlayer.getHand().indexOf(this);
             if (currentPlayer.getHand().size() == 1) {
-                toRet = this.callSuperUseOn(side, targetMinion, boardState, deckPlayer0, deckPlayer1, false);
+                toRet = this.callSuperUseOn(side, targetMinion, boardState, false);
                 toRet.data_.getCurrentPlayer().addNumCardsUsed((byte)-1);
             } else {
                 toRet = new RandomEffectNode(boardState, new HearthAction(HearthAction.Verb.USE_CARD, PlayerSide.CURRENT_PLAYER, thisCardIndex, side, targetCharacterIndex));
@@ -69,7 +66,7 @@ public class Soulfire extends SpellDamage {
                         PlayerModel cNodePlayer = cNode.data_.getCurrentPlayer();
                         Minion cTargetMinion = cNode.data_.modelForSide(side).getCharacter(targetCharacterIndex);
                         Soulfire cCard = (Soulfire)cNodePlayer.getHand().get(thisCardIndex);
-                        cNode = cCard.callSuperUseOn(side, cTargetMinion, cNode, deckPlayer0, deckPlayer1, false);
+                        cNode = cCard.callSuperUseOn(side, cTargetMinion, cNode, false);
                         cNode.data_.getCurrentPlayer().addNumCardsUsed((byte)-1);
                         if (cNode != null) {
                             cNode.data_.getCurrentPlayer().getHand().remove(cNodePlayer.getHand().get(indx < thisCardIndex ? indx : indx - 1));
@@ -87,10 +84,8 @@ public class Soulfire extends SpellDamage {
             PlayerSide side,
             Minion targetMinion,
             HearthTreeNode boardState,
-            Deck deckPlayer0,
-            Deck deckPlayer1,
             boolean singleRealizationOnly)
         throws HSException {
-        return super.useOn(side, targetMinion, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+        return super.useOn(side, targetMinion, boardState, singleRealizationOnly);
     }
 }

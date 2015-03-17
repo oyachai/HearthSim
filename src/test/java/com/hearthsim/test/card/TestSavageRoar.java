@@ -1,7 +1,6 @@
 package com.hearthsim.test.card;
 
 import com.hearthsim.card.Card;
-import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.BoulderfistOgre;
 import com.hearthsim.card.minion.concrete.RaidLeader;
 import com.hearthsim.card.spellcard.concrete.SavageRoar;
@@ -49,7 +48,7 @@ public class TestSavageRoar {
     @Test
     public void test2() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
 
         assertFalse(ret == null);
 
@@ -77,8 +76,7 @@ public class TestSavageRoar {
         assertEquals(waitingPlayer.getMinions().get(0).getExtraAttackUntilTurnEnd(), 0);
         assertEquals(waitingPlayer.getMinions().get(1).getExtraAttackUntilTurnEnd(), 0);
 
-        Minion target = waitingPlayer.getCharacter(2);
-        ret = currentPlayer.getMinions().get(0).attack(PlayerSide.WAITING_PLAYER, target, board, null, null, false);
+        ret = currentPlayer.getMinions().get(0).attack(PlayerSide.WAITING_PLAYER, 2, board, false);
 
         assertFalse(ret == null);
         assertEquals(currentPlayer.getHand().size(), 0);
@@ -102,8 +100,7 @@ public class TestSavageRoar {
         assertEquals(waitingPlayer.getMinions().get(0).getExtraAttackUntilTurnEnd(), 0);
         assertEquals(waitingPlayer.getMinions().get(1).getExtraAttackUntilTurnEnd(), 0);
 
-        target = waitingPlayer.getCharacter(2);
-        ret = currentPlayer.getHero().attack(PlayerSide.WAITING_PLAYER, target, board, null, null, false);
+        ret = currentPlayer.getHero().attack(PlayerSide.WAITING_PLAYER, 2, board, false);
 
         assertFalse(ret == null);
         assertEquals(currentPlayer.getHand().size(), 0);

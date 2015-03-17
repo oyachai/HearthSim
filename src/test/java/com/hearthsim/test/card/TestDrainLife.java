@@ -54,7 +54,7 @@ public class TestDrainLife {
         currentPlayer.placeCardHand(fb);
 
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board, null, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
         assertNull(ret); // TODO I think this is technically possible. Leave this test here in case we enable this behavior.
 
         assertEquals(currentPlayer.getHand().size(), 1);
@@ -80,7 +80,7 @@ public class TestDrainLife {
         currentPlayer.placeCardHand(fb);
 
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, null, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board);
         assertFalse(ret == null);
 
         assertEquals(currentPlayer.getHand().size(), 0);
@@ -108,7 +108,7 @@ public class TestDrainLife {
         currentPlayer.getHero().setHealth((byte)15);
 
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, null, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board);
         assertFalse(ret == null);
 
         assertEquals(currentPlayer.getHand().size(), 0);

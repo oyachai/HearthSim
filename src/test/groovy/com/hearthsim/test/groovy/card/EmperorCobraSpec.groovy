@@ -1,10 +1,7 @@
 package com.hearthsim.test.groovy.card
 
-import com.hearthsim.card.Deck;
-import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.EmperorCobra
 import com.hearthsim.model.BoardModel
-import com.hearthsim.model.PlayerSide;
 import com.hearthsim.test.helpers.BoardModelBuilder
 import com.hearthsim.util.tree.HearthTreeNode
 
@@ -49,7 +46,7 @@ class EmperorCobraSpec extends CardSpec {
         def ret = theCard.useOn(CURRENT_PLAYER, target, root, null, null)
 
         def theCobra = ret.data_.modelForSide(CURRENT_PLAYER).getCharacter(2)
-        def ret2 = theCobra.attack(WAITING_PLAYER, ret.data_.modelForSide(WAITING_PLAYER).getCharacter(0), ret, null, null, false)
+        def ret2 = theCobra.attack(WAITING_PLAYER, 0, ret, null, null, false)
 
         expect:
         assertFalse(ret == null);
@@ -74,7 +71,7 @@ class EmperorCobraSpec extends CardSpec {
         def ret = theCard.useOn(CURRENT_PLAYER, target, root, null, null)
 
         def theCobra = ret.data_.modelForSide(CURRENT_PLAYER).getCharacter(2)
-        def ret2 = theCobra.attack(WAITING_PLAYER, ret.data_.modelForSide(WAITING_PLAYER).getCharacter(1), ret, null, null, false)
+        def ret2 = theCobra.attack(WAITING_PLAYER, 1, ret, null, null, false)
 
         expect:
         assertFalse(ret == null);

@@ -1,7 +1,6 @@
 package com.hearthsim.event.deathrattle;
 
 import com.hearthsim.card.Card;
-import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerModel;
@@ -22,11 +21,9 @@ public class DeathrattleSummonMinionAction extends DeathrattleAction {
     public HearthTreeNode performAction(Card origin,
                                         PlayerSide playerSide,
                                         HearthTreeNode boardState,
-                                        Deck deckPlayer0,
-                                        Deck deckPlayer1,
                                         boolean singleRealizationOnly) throws HSException {
 
-        HearthTreeNode toRet = super.performAction(origin, playerSide, boardState, deckPlayer0, deckPlayer1, singleRealizationOnly);
+        HearthTreeNode toRet = super.performAction(origin, playerSide, boardState, singleRealizationOnly);
         PlayerModel targetPlayer = toRet.data_.modelForSide(playerSide);
 
         int targetIndex = targetPlayer.getNumMinions();
@@ -34,7 +31,6 @@ public class DeathrattleSummonMinionAction extends DeathrattleAction {
             targetIndex = targetPlayer.getMinions().indexOf(origin);
             toRet.data_.removeMinion((Minion) origin);
         }
-        Minion placementTarget = targetPlayer.getCharacter(targetIndex);
 
         int numMinionsToActuallySummon = numMinions_;
         if (targetPlayer.getMinions().size() + numMinions_ > 7)
@@ -43,7 +39,7 @@ public class DeathrattleSummonMinionAction extends DeathrattleAction {
         for (int index = 0; index < numMinionsToActuallySummon; ++index) {
             try {
                 Minion newMinion = (Minion) minionClass_.newInstance();
-                toRet = newMinion.summonMinion(playerSide, placementTarget, toRet, deckPlayer0, deckPlayer1, false, true);
+                toRet = newMinion.summonMinion(playerSide, targetIndex, toRet, false, true);
             } catch (InstantiationException | IllegalAccessException e) {
                 // TODO Auto-generated catch block
                 throw new HSException();

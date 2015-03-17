@@ -1,6 +1,5 @@
 package com.hearthsim.card.minion;
 
-import com.hearthsim.card.Deck;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.model.BoardModel;
@@ -52,12 +51,10 @@ public abstract class MinionWithEnrage extends Minion {
             PlayerSide attackPlayerSide,
             PlayerSide thisPlayerSide,
             HearthTreeNode boardState,
-            Deck deckPlayer0,
-            Deck deckPlayer1,
             boolean isSpellDamage,
             boolean handleMinionDeath)
         throws HSException {
-        HearthTreeNode toRet = super.takeDamage(damage, attackPlayerSide, thisPlayerSide, boardState, deckPlayer0, deckPlayer1, isSpellDamage, handleMinionDeath);
+        HearthTreeNode toRet = super.takeDamage(damage, attackPlayerSide, thisPlayerSide, boardState, isSpellDamage, handleMinionDeath);
         this.enrageCheck();
         return toRet;
     }
@@ -69,11 +66,10 @@ public abstract class MinionWithEnrage extends Minion {
      *  @param healAmount The amount of healing to take
      * @param thisPlayerSide
      * @param boardState
-     * @param deckPlayer0 The deck of player0   @throws HSInvalidPlayerIndexException
      * */
     @Override
-    public HearthTreeNode takeHeal(byte healAmount, PlayerSide thisPlayerSide, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
-        HearthTreeNode toRet = super.takeHeal(healAmount, thisPlayerSide, boardState, deckPlayer0, deckPlayer1);
+    public HearthTreeNode takeHeal(byte healAmount, PlayerSide thisPlayerSide, HearthTreeNode boardState) throws HSException {
+        HearthTreeNode toRet = super.takeHeal(healAmount, thisPlayerSide, boardState);
         this.enrageCheck();
         return toRet;
     }
@@ -87,7 +83,6 @@ public abstract class MinionWithEnrage extends Minion {
      *
      * @param thisPlayerSide
      * @param boardState
-     * @param deckPlayer0 The deck of player0
      * @throws HSInvalidPlayerIndexException
      */
     @Override

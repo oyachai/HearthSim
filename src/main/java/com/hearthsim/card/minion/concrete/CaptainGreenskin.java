@@ -1,6 +1,5 @@
 package com.hearthsim.card.minion.concrete;
 
-import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionUntargetableBattlecry;
 import com.hearthsim.card.weapon.WeaponCard;
@@ -20,11 +19,9 @@ public class CaptainGreenskin extends Minion implements MinionUntargetableBattle
     public HearthTreeNode useUntargetableBattlecry_core(
         Minion minionPlacementTarget,
         HearthTreeNode boardState,
-        Deck deckPlayer0,
-        Deck deckPlayer1,
         boolean singleRealizationOnly
     ) throws HSException {
-        WeaponCard weapon = boardState.data_.getCurrentPlayerHero().getWeapon();
+        WeaponCard weapon = boardState.data_.getCurrentPlayer().getHero().getWeapon();
         if (weapon != null) {
             weapon.setWeaponDamage((byte)(weapon.getWeaponDamage() + 1));
             weapon.setWeaponCharge((byte)(weapon.getWeaponCharge() + 1));

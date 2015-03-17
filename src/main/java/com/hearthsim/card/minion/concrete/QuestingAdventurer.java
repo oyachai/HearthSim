@@ -2,7 +2,6 @@ package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.CardPlayBeginInterface;
-import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
@@ -20,8 +19,6 @@ public class QuestingAdventurer extends Minion implements CardPlayBeginInterface
             PlayerSide cardUserPlayerSide,
             Card usedCard,
             HearthTreeNode boardState,
-            Deck deckPlayer0,
-            Deck deckPlayer1,
             boolean singleRealizationOnly)
     throws HSException {
         HearthTreeNode toRet = boardState;
@@ -32,5 +29,4 @@ public class QuestingAdventurer extends Minion implements CardPlayBeginInterface
         }
         return toRet;
     }
-
 }

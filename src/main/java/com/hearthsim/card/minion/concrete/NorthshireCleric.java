@@ -1,6 +1,5 @@
 package com.hearthsim.card.minion.concrete;
 
-import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionHealedInterface;
 import com.hearthsim.model.PlayerSide;
@@ -31,18 +30,10 @@ public class NorthshireCleric extends Minion implements MinionHealedInterface {
      * @param healedMinionPlayerSide
      * @param healedMinion The healed minion
      * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-     * @param deckPlayer0 The deck of player0
-     * @param deckPlayer1 The deck of player1
      * @return The boardState is manipulated and returned
      */
     @Override
-    public HearthTreeNode minionHealedEvent(
-            PlayerSide thisMinionPlayerSide,
-            PlayerSide healedMinionPlayerSide,
-            Minion healedMinion,
-            HearthTreeNode boardState,
-            Deck deckPlayer0,
-            Deck deckPlayer1) {
+    public HearthTreeNode minionHealedEvent(PlayerSide thisMinionPlayerSide, PlayerSide healedMinionPlayerSide, Minion healedMinion, HearthTreeNode boardState) {
         HearthTreeNode toRet = boardState;
         if (!silenced_) {
             if (thisMinionPlayerSide == PlayerSide.CURRENT_PLAYER) {

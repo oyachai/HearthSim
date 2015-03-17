@@ -44,17 +44,17 @@ public class TestDemonfire {
         currentPlayer.setMaxMana((byte) 8);
         waitingPlayer.setMaxMana((byte) 8);
 
-        minion0_0.placeMinion(PlayerSide.CURRENT_PLAYER, currentPlayer.getHero(), board, null, null, true);
-        minion0_1.placeMinion(PlayerSide.CURRENT_PLAYER, currentPlayer.getHero(), board, null, null, true);
-        minion0_2.placeMinion(PlayerSide.CURRENT_PLAYER, currentPlayer.getHero(), board, null, null, true);
-        minion1_0.placeMinion(PlayerSide.WAITING_PLAYER, waitingPlayer.getHero(), board, null, null, true);
-        minion1_1.placeMinion(PlayerSide.WAITING_PLAYER, waitingPlayer.getHero(), board, null, null, true);
+        minion0_0.placeMinion(PlayerSide.CURRENT_PLAYER, currentPlayer.getHero(), board, true);
+        minion0_1.placeMinion(PlayerSide.CURRENT_PLAYER, currentPlayer.getHero(), board, true);
+        minion0_2.placeMinion(PlayerSide.CURRENT_PLAYER, currentPlayer.getHero(), board, true);
+        minion1_0.placeMinion(PlayerSide.WAITING_PLAYER, waitingPlayer.getHero(), board, true);
+        minion1_1.placeMinion(PlayerSide.WAITING_PLAYER, waitingPlayer.getHero(), board, true);
     }
 
     @Test
     public void test1() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board, null, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board);
 
         assertFalse(ret == null);
 
@@ -79,7 +79,7 @@ public class TestDemonfire {
     @Test
     public void test2() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 3, board, null, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 3, board);
 
         assertFalse(ret == null);
 
@@ -106,7 +106,7 @@ public class TestDemonfire {
     @Test
     public void test3() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 1, board, null, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 1, board);
 
         assertFalse(ret == null);
 

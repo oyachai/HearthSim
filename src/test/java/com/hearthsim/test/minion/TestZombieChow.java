@@ -44,7 +44,7 @@ public class TestZombieChow {
     @Test
     public void test0() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 0, board, null, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 0, board);
 
         assertNull(ret);
 
@@ -76,7 +76,7 @@ public class TestZombieChow {
         waitingPlayer.getHero().setHealth((byte)15);
 
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 2, board, null, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 2, board);
 
         assertFalse(ret == null);
 
@@ -107,8 +107,7 @@ public class TestZombieChow {
         assertTrue(minion instanceof ZombieChow);
 
         minion.hasAttacked(false);
-        Minion target = waitingPlayer.getCharacter(2);
-        minion.attack(PlayerSide.WAITING_PLAYER, target, board, null, null, false);
+        minion.attack(PlayerSide.WAITING_PLAYER, 2, board, false);
 
         assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 2);
@@ -134,8 +133,7 @@ public class TestZombieChow {
         minion = currentPlayer.getMinions().get(1);
 
         minion.hasAttacked(false);
-        target = waitingPlayer.getCharacter(3);
-        minion.attack(PlayerSide.WAITING_PLAYER, target, board, null, null, false);
+        minion.attack(PlayerSide.WAITING_PLAYER, 3, board, false);
 
         assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 2);
@@ -163,7 +161,7 @@ public class TestZombieChow {
         waitingPlayer.getHero().setHealth((byte)15);
 
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 2, board, null, null);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 2, board);
 
         assertFalse(ret == null);
 
@@ -194,8 +192,7 @@ public class TestZombieChow {
         assertTrue(minion instanceof ZombieChow);
 
         minion.hasAttacked(false);
-        Minion target = waitingPlayer.getCharacter(3);
-        minion.attack(PlayerSide.WAITING_PLAYER, target, board, null, null, false);
+        minion.attack(PlayerSide.WAITING_PLAYER, 3, board, false);
 
         assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 2);
