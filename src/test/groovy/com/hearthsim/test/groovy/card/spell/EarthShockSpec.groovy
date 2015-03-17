@@ -1,6 +1,7 @@
-package com.hearthsim.test.groovy.card
+package com.hearthsim.test.groovy.card.spell
 
-import com.hearthsim.card.spellcard.concrete.LightningBolt
+import com.hearthsim.card.spellcard.concrete.EarthShock
+import com.hearthsim.card.minion.concrete.Boar
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.groovy.card.CardSpec
 import com.hearthsim.test.helpers.BoardModelBuilder
@@ -10,8 +11,8 @@ import static com.hearthsim.model.PlayerSide.CURRENT_PLAYER
 import static com.hearthsim.model.PlayerSide.WAITING_PLAYER
 import static org.junit.Assert.*
 
-class LightningBoltSpec extends CardSpec {
-
+class EarthShockSpec extends CardSpec {
+    
     HearthTreeNode root
     BoardModel startingBoard
 
@@ -19,32 +20,36 @@ class LightningBoltSpec extends CardSpec {
 
         startingBoard = new BoardModelBuilder().make {
             currentPlayer {
-                hand([LightningBolt])
-                mana(5)
+                hand([EarthShock])
+                mana(7)
+            }
+            waitingPlayer {
+                mana(4)
+                field([[minion: Boar, health: 2, maxHealth: 2]])
             }
         }
 
         root = new HearthTreeNode(startingBoard)
     }
 
-    def 'gives windfury and overload'(){
+    def "playing Earth Shock on a buffed health 1 target"() {
         def copiedBoard = startingBoard.deepCopy()
-        def copiedRoot = new HearthTreeNode(copiedBoard)
-        def theCard = copiedBoard.getCurrentPlayer().getHand().get(0);
-        def ret = theCard.useOn(WAITING_PLAYER, 0, copiedRoot, null, null);
+        def theCard = root.data_.getCurrentPlayer().getHand().get(0)
+        def ret = theCard.useOn(WAITING_PLAYER, 1, root, null, null)
 
         expect:
-        ret != null
-        assertBoardDelta(startingBoard, copiedBoard) {
+        assertFalse(ret == null);
+
+        assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                mana(4)
-                overload(1)
-                removeCardFromHand(LightningBolt)
+                mana(6)
+                removeCardFromHand(EarthShock)
                 numCardsUsed(1)
             }
             waitingPlayer {
-                heroHealth(27)
+                removeMinion(0);
             }
         }
+
     }
 }

@@ -164,6 +164,10 @@
         "class": "com.hearthsim.card.spellcard.concrete.BlessingOfMight"
     },
     {
+        "name": "Blizzard",
+        "class": "com.hearthsim.card.spellcard.concrete.Blizzard"
+    },
+    {
         "name": "Blood Imp",
         "class": "com.hearthsim.card.minion.concrete.BloodImp"
     },
@@ -580,6 +584,10 @@
         "class": "com.hearthsim.card.minion.concrete.Hyena"
     },
     {
+        "name": "Ice Lance",
+        "class": "com.hearthsim.card.spellcard.concrete.IceLance"
+    },
+    {
         "name": "Illidan Stormrage",
         "class": "com.hearthsim.card.minion.concrete.IllidanStormrage"
     },
@@ -850,6 +858,10 @@
     {
         "name": "Raid Leader",
         "class": "com.hearthsim.card.minion.concrete.RaidLeader"
+    },
+    {
+        "name": "Rampage",
+        "class": "com.hearthsim.card.spellcard.concrete.Rampage"
     },
     {
         "name": "Ravenholdt Assassin",
