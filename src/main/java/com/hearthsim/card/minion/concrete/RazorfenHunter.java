@@ -18,7 +18,7 @@ public class RazorfenHunter extends Minion implements MinionUntargetableBattlecr
      */
     @Override
     public HearthTreeNode useUntargetableBattlecry_core(
-            Minion minionPlacementTarget,
+            int minionPlacementIndex,
             HearthTreeNode boardState,
             boolean singleRealizationOnly
         ) throws HSException {

@@ -18,7 +18,7 @@ public class FlameImp extends Minion implements MinionUntargetableBattlecry {
      */
     @Override
     public HearthTreeNode useUntargetableBattlecry_core(
-            Minion minionPlacementTarget,
+            int minionPlacementIndex,
             HearthTreeNode boardState,
             boolean singleRealizationOnly
         ) throws HSException {

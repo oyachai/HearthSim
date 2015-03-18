@@ -25,7 +25,7 @@ public class StampedingKodo extends Minion implements MinionUntargetableBattlecr
      */
     @Override
     public HearthTreeNode useUntargetableBattlecry_core(
-            Minion minionPlacementTarget,
+            int minionPlacementIndex,
             HearthTreeNode boardState,
             boolean singleRealizationOnly
         ) throws HSException {
@@ -47,7 +47,6 @@ public class StampedingKodo extends Minion implements MinionUntargetableBattlecr
             PlayerModel currentPlayer = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
             PlayerModel waitingPlayer = boardState.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
-            int placementTargetIndex = minionPlacementTarget instanceof Hero ? 0 : currentPlayer.getMinions().indexOf(minionPlacementTarget) + 1;
             int thisMinionIndex = currentPlayer.getMinions().indexOf(this) + 1;
             List<Minion> possibleTargets = new ArrayList<Minion>();
             for (Minion minion : waitingPlayer.getMinions()) {
@@ -55,7 +54,7 @@ public class StampedingKodo extends Minion implements MinionUntargetableBattlecr
                     possibleTargets.add(minion);
             }
             if (possibleTargets.size() > 0) {
-                toRet = new RandomEffectNode(boardState, new HearthAction(HearthAction.Verb.UNTARGETABLE_BATTLECRY, PlayerSide.CURRENT_PLAYER, thisMinionIndex, PlayerSide.CURRENT_PLAYER, placementTargetIndex));
+                toRet = new RandomEffectNode(boardState, new HearthAction(HearthAction.Verb.UNTARGETABLE_BATTLECRY, PlayerSide.CURRENT_PLAYER, thisMinionIndex, PlayerSide.CURRENT_PLAYER, minionPlacementIndex));
                 PlayerModel targetPlayer = toRet.data_.modelForSide(PlayerSide.WAITING_PLAYER);
                 for (Minion possibleTarget : possibleTargets) {
                     HearthTreeNode newState = new HearthTreeNode(toRet.data_.deepCopy());

@@ -14,7 +14,7 @@ public class ColdlightOracle extends Minion implements MinionUntargetableBattlec
 
     @Override
     public HearthTreeNode useUntargetableBattlecry_core(
-            Minion minionPlacementTarget,
+            int minionPlacementIndex,
             HearthTreeNode boardState,
             boolean singleRealizationOnly
         ) throws HSException {

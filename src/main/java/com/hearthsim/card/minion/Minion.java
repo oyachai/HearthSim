@@ -693,17 +693,22 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
      * @return
      * @throws HSException
      */
-    public HearthTreeNode useUntargetableBattlecry(Minion minionPlacementTarget, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
+    public HearthTreeNode useUntargetableBattlecry(int minionPlacementIndex, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
         HearthTreeNode toRet = boardState;
         if (this instanceof MinionUntargetableBattlecry) {
             MinionUntargetableBattlecry battlecryMinion = (MinionUntargetableBattlecry) this;
-            toRet = battlecryMinion.useUntargetableBattlecry_core(minionPlacementTarget, boardState, singleRealizationOnly);
+            toRet = battlecryMinion.useUntargetableBattlecry_core(minionPlacementIndex, boardState, singleRealizationOnly);
             if (toRet != null) {
                 // Check for dead minions
                 toRet = BoardStateFactoryBase.handleDeadMinions(toRet, singleRealizationOnly);
             }
         }
         return toRet;
+    }
+
+    @Deprecated
+    public HearthTreeNode useUntargetableBattlecry(Minion minionPlacementTarget, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
+        return this.useUntargetableBattlecry(boardState.data_.getCurrentPlayer().getIndexForCharacter(minionPlacementTarget), boardState, singleRealizationOnly);
     }
 
     @Deprecated
@@ -742,9 +747,6 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
      * @param targetSide
      * @param targetMinion   The target minion (can be a Hero). If it is a Hero, then the minion is placed on the last (right most) spot on the board.
      * @param boardState     The BoardState before this card has performed its action. It will be manipulated and returned.
-     * @param deckPlayer0    The deck of player0
-     * @param deckPlayer1    The deck of player1
-     * @param wasTransformed If the minion was 'summoned' as a result of a transform effect (e.g. Hex, Polymorph), set this to true.
      * @return The boardState is manipulated and returned
      */
     public HearthTreeNode summonMinion(PlayerSide targetSide, Minion targetMinion, HearthTreeNode boardState, boolean wasPlayed, boolean singleRealizationOnly) throws HSException {
@@ -752,8 +754,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
             return null;
 
         HearthTreeNode toRet = boardState;
-        toRet = this
-            .summonMinion_core(targetSide, targetMinion, toRet, singleRealizationOnly);
+        toRet = this.summonMinion_core(targetSide, targetMinion, toRet, singleRealizationOnly);
 
 
         if (this instanceof MinionUntargetableBattlecry) {
@@ -863,20 +864,30 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
      *
      * This function is meant to be used when summoning minions through means other than a direct card usage.
      *
-     *
      * @param targetSide
-     * @param targetMinion The target minion (can be a Hero). The new minion is always placed to the right of (higher index) the target minion. If the target minion is a hero, then it is placed at the left-most position.
+     * @param targetIndex The target character (can be a Hero). The new minion is always placed to the right of (higher index) the target minion. If the target minion is a hero, then it is placed at the left-most position.
      * @param boardState The BoardState before this card has performed its action. It will be manipulated and returned.
      * @return The boardState is manipulated and returned
      * @throws HSException
      */
-    protected HearthTreeNode summonMinion_core(PlayerSide targetSide, Minion targetMinion, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
-        boardState.data_.placeMinion(targetSide, this, targetMinion);
+    protected HearthTreeNode summonMinion_core(PlayerSide targetSide, int targetIndex, HearthTreeNode boardState) throws HSException {
+        boardState.data_.placeMinion(targetSide, this, targetIndex);
         if (!charge_) {
             hasAttacked_ = true;
         }
         hasBeenUsed = true;
         return boardState;
+    }
+
+    @Deprecated
+    protected HearthTreeNode summonMinion_core(PlayerSide targetSide, Minion targetMinion, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
+        int targetIndex = 0;
+        if (!targetMinion.isHero()) {
+            PlayerModel targetPlayer = boardState.data_.modelForSide(targetSide);
+            targetIndex = targetPlayer.getMinions().indexOf(targetMinion) + 1;
+        }
+
+        return this.summonMinion_core(targetSide, targetIndex, boardState);
     }
 
     @Deprecated

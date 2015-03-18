@@ -193,6 +193,14 @@ public class PlayerModel implements DeepCopyable<PlayerModel> {
         return this.getNumMinions() >= 7;
     }
 
+    public int getIndexForCharacter(Minion character) {
+        if (character.isHero()) {
+            return 0;
+        } else {
+            return this.getMinions().indexOf(character) + 1;
+        }
+    }
+
     @Override
     public String toString() {
         return new JSONObject(this).toString();

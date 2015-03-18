@@ -23,7 +23,7 @@ public class Doomguard extends Minion implements MinionUntargetableBattlecry {
      */
     @Override
     public HearthTreeNode useUntargetableBattlecry_core(
-            Minion minionPlacementTarget,
+            int minionPlacementIndex,
             HearthTreeNode boardState,
             boolean singleRealizationOnly
         ) throws HSException {
@@ -40,13 +40,12 @@ public class Doomguard extends Minion implements MinionUntargetableBattlecry {
                 }
             }
         } else {
-            int placementTargetIndex = minionPlacementTarget instanceof Hero ? 0 : currentPlayer.getMinions().indexOf(minionPlacementTarget) + 1;
             int thisMinionIndex = currentPlayer.getMinions().indexOf(this) + 1;
             IdentityLinkedList<Card> hand = currentPlayer.getHand();
             if (hand.size() == 0) {
                 return toRet;
             }
-            toRet = new RandomEffectNode(boardState, new HearthAction(HearthAction.Verb.UNTARGETABLE_BATTLECRY, PlayerSide.CURRENT_PLAYER, thisMinionIndex, PlayerSide.CURRENT_PLAYER, placementTargetIndex));
+            toRet = new RandomEffectNode(boardState, new HearthAction(HearthAction.Verb.UNTARGETABLE_BATTLECRY, PlayerSide.CURRENT_PLAYER, thisMinionIndex, PlayerSide.CURRENT_PLAYER, minionPlacementIndex));
             for (int indx0 = 0; indx0 < hand.size(); ++indx0) {
                 if (hand.size() > 1) {
                     for (int indx1 = indx0+1; indx1 < hand.size(); ++indx1) {

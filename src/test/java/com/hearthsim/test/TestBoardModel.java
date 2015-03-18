@@ -23,9 +23,6 @@ public class TestBoardModel {
 
     private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
 
-    private Deck deck0;
-    private Deck deck1;
-
     private static Minion CreateMinionAlpha() {
         return new Minion("alpha", (byte)2, (byte)1, (byte)4, (byte)1, (byte)4, (byte)4);
     }
