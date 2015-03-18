@@ -26,22 +26,10 @@ public class DefenderOfArgus extends Minion implements MinionUntargetableBattlec
         PlayerModel currentPlayer = toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
 
         int thisMinionIndex = currentPlayer.getMinions().indexOf(this);
-        int numMinions = currentPlayer.getNumMinions();
-        if (numMinions > 1) {
-            int minionToTheLeft = thisMinionIndex > 0 ? thisMinionIndex - 1 : -1;
-            int minionToTheRight = thisMinionIndex < numMinions - 1 ? thisMinionIndex + 1 : -1;
-            if (minionToTheLeft >= 0) {
-                Minion minionToBuff = toRet.data_.getMinion(PlayerSide.CURRENT_PLAYER, minionToTheLeft);
-                minionToBuff.setAttack((byte)(minionToBuff.getAttack() + 1));
-                minionToBuff.setHealth((byte)(minionToBuff.getHealth() + 1));
-                minionToBuff.setTaunt(true);
-            }
-            if (minionToTheRight >= 0) {
-                Minion minionToBuff = toRet.data_.getMinion(PlayerSide.CURRENT_PLAYER, minionToTheRight);
-                minionToBuff.setAttack((byte)(minionToBuff.getAttack() + 1));
-                minionToBuff.setHealth((byte)(minionToBuff.getHealth() + 1));
-                minionToBuff.setTaunt(true);
-            }
+        for (Minion minion : currentPlayer.getMinionsAdjacentToCharacter(thisMinionIndex + 1)) {
+            minion.setAttack((byte)(minion.getAttack() + 1));
+            minion.setHealth((byte)(minion.getHealth() + 1));
+            minion.setTaunt(true);
         }
         return toRet;
     }

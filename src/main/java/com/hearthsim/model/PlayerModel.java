@@ -10,6 +10,8 @@ import com.hearthsim.util.IdentityLinkedList;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 public class PlayerModel implements DeepCopyable<PlayerModel> {
 
     private final String name;
@@ -253,6 +255,21 @@ public class PlayerModel implements DeepCopyable<PlayerModel> {
         }
     }
 
+    public ArrayList<Minion> getMinionsAdjacentToCharacter(int characterIndex) {
+        ArrayList<Minion> adjMinions = new ArrayList<Minion>();
+
+        if(characterIndex >= this.getNumCharacters()) {
+            return adjMinions;
+        }
+
+        if (characterIndex > 1) {
+            adjMinions.add(this.getCharacter(characterIndex - 1));
+        }
+        if (characterIndex < (this.getNumCharacters() - 1)) {
+            adjMinions.add(this.getCharacter(characterIndex + 1));
+        }
+        return adjMinions;
+    }
 
     public byte getPlayerId() {
         return playerId;
