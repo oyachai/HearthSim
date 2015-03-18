@@ -439,6 +439,10 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         return this instanceof MinionTargetableBattlecry || this instanceof MinionUntargetableBattlecry;
     }
 
+    public boolean isHero() {
+        return false;
+    }
+
     /**
      * Called at the start of the turn
      * <p>
