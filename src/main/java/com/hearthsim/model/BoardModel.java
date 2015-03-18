@@ -151,16 +151,6 @@ public class BoardModel implements DeepCopyable<BoardModel> {
         applyOtherMinionsAura(playerSide, minion);
     }
 
-    public void placeMinion(PlayerSide targetSide, Minion minion, Minion targetMinion) throws HSException {
-        if (targetMinion.isHero()) {
-            this.placeMinion(targetSide, minion, 0);
-        } else {
-            PlayerModel targetPlayer = this.modelForSide(targetSide);
-            this.placeMinion(targetSide, minion, targetPlayer.getMinions().indexOf(targetMinion) + 1);
-        }
-    }
-
-
     /**
      * Place a minion onto the board.  Does not trigger any events, but applies all auras.
      *

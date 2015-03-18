@@ -745,20 +745,19 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
      * This function is meant to be used when summoning minions through means other than a direct card usage.
      *
      * @param targetSide
-     * @param targetMinion   The target minion (can be a Hero). If it is a Hero, then the minion is placed on the last (right most) spot on the board.
      * @param boardState     The BoardState before this card has performed its action. It will be manipulated and returned.
      * @return The boardState is manipulated and returned
      */
-    public HearthTreeNode summonMinion(PlayerSide targetSide, Minion targetMinion, HearthTreeNode boardState, boolean wasPlayed, boolean singleRealizationOnly) throws HSException {
+    public HearthTreeNode summonMinion(PlayerSide targetSide, int targetMinionIndex, HearthTreeNode boardState, boolean wasPlayed, boolean singleRealizationOnly) throws HSException {
         if (boardState.data_.modelForSide(targetSide).isBoardFull())
             return null;
 
         HearthTreeNode toRet = boardState;
-        toRet = this.summonMinion_core(targetSide, targetMinion, toRet, singleRealizationOnly);
+        toRet = this.summonMinion_core(targetSide, targetMinionIndex, toRet);
 
 
         if (this instanceof MinionUntargetableBattlecry) {
-            toRet = this.useUntargetableBattlecry(targetMinion, toRet, singleRealizationOnly);
+            toRet = this.useUntargetableBattlecry(targetMinionIndex, toRet, singleRealizationOnly);
         }
 
         if (this instanceof MinionTargetableBattlecry) {
@@ -826,10 +825,8 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         return toRet;
     }
 
-    public HearthTreeNode summonMinion(PlayerSide targetSide, int targetIndex, HearthTreeNode boardState, boolean wasPlayed, boolean singleRealizationOnly) throws HSException {
-        PlayerModel player = boardState.data_.modelForSide(targetSide);
-        Minion targetLocation = player.getCharacter(targetIndex);
-        return this.summonMinion(targetSide, targetLocation, boardState, wasPlayed, singleRealizationOnly);
+    public HearthTreeNode summonMinion(PlayerSide targetSide, Minion targetMinion, HearthTreeNode boardState, boolean wasPlayed, boolean singleRealizationOnly) throws HSException {
+        return this.summonMinion(targetSide, boardState.data_.getCurrentPlayer().getIndexForCharacter(targetMinion), boardState, wasPlayed, singleRealizationOnly);
     }
 
     public HearthTreeNode summonMinionAtEnd(PlayerSide targetSide, HearthTreeNode boardState, boolean wasPlayed, boolean singleRealizationOnly) throws HSException {
