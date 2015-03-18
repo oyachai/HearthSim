@@ -112,10 +112,6 @@ public class BoardModel implements DeepCopyable<BoardModel> {
         return model;
     }
 
-    public Minion getMinion(PlayerSide side, int index) throws HSInvalidPlayerIndexException {
-        return modelForSide(side).getMinions().get(index);
-    }
-
     /**
      * Count all minions in play regardless of player side
      * @return The number of all minions in play
@@ -687,5 +683,10 @@ public class BoardModel implements DeepCopyable<BoardModel> {
     public void addOverload(PlayerSide playerSide, byte overloadToAdd) throws HSException {
         PlayerModel playerModel = modelForSide(playerSide);
         playerModel.setOverload((byte) (playerModel.getOverload() + overloadToAdd));
+    }
+
+    @Deprecated // use PlayerModel.getCharacter instead
+    public Minion getMinion(PlayerSide side, int index) throws HSInvalidPlayerIndexException {
+        return modelForSide(side).getMinions().get(index);
     }
 }
