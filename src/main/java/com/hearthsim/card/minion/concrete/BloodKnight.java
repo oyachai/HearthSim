@@ -23,17 +23,8 @@ public class BloodKnight extends Minion implements MinionUntargetableBattlecry {
             boolean singleRealizationOnly
         ) throws HSException {
         HearthTreeNode toRet = boardState;
-        PlayerModel currentPlayer = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
-        PlayerModel waitingPlayer = boardState.data_.modelForSide(PlayerSide.WAITING_PLAYER);
-        for (Minion minion : currentPlayer.getMinions()) {
+        for (Minion minion : boardState.data_.getAllMinions()) {
             if (minion != this && minion.getDivineShield()) {
-                minion.setDivineShield(false);
-                this.setHealth((byte)(this.getHealth() + 3));
-                this.setAttack((byte)(this.getAttack() + 3));
-            }
-        }
-        for (Minion minion : waitingPlayer.getMinions()) {
-            if (minion.getDivineShield()) {
                 minion.setDivineShield(false);
                 this.setHealth((byte)(this.getHealth() + 3));
                 this.setAttack((byte)(this.getAttack() + 3));

@@ -51,12 +51,7 @@ public class Equality extends SpellCard {
         throws HSException {
         HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
         if (toRet != null) {
-            PlayerModel currentPlayer = toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
-            PlayerModel waitingPlayer = toRet.data_.modelForSide(PlayerSide.WAITING_PLAYER);
-            for (Minion minion : currentPlayer.getMinions()) {
-                minion.setHealth((byte)1);
-            }
-            for (Minion minion : waitingPlayer.getMinions()) {
+            for (Minion minion : toRet.data_.getAllMinions()) {
                 minion.setHealth((byte)1);
             }
         }

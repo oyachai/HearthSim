@@ -43,10 +43,8 @@ public class TwistingNether extends SpellCard {
         boolean singleRealizationOnly)
         throws HSException {
         HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
-        if (toRet != null) {
-            for (BoardModel.MinionPlayerPair minionIdPair : toRet.data_.getAllMinionsFIFOList()) {
-                minionIdPair.getMinion().setHealth((byte)-99);
-            }
+        for(Minion minion : toRet.data_.getAllMinions()) {
+            minion.setHealth((byte)-99);
         }
         return toRet;
     }
