@@ -868,18 +868,15 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
      * @param targetMinion The target minion (can be a Hero). The new minion is always placed to the right of (higher index) the target minion. If the target minion is a hero, then it is placed at the left-most position.
      * @param boardState The BoardState before this card has performed its action. It will be manipulated and returned.
      * @return The boardState is manipulated and returned
-     * @param deckPlayer0 The deck of player0
-     * @param deckPlayer1 The deck of player1
      * @throws HSException
      */
     protected HearthTreeNode summonMinion_core(PlayerSide targetSide, Minion targetMinion, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
-        HearthTreeNode toRet = this.placeMinion(targetSide, targetMinion, boardState,
-                singleRealizationOnly);
+        boardState.data_.placeMinion(targetSide, this, targetMinion);
         if (!charge_) {
             hasAttacked_ = true;
         }
         hasBeenUsed = true;
-        return toRet;
+        return boardState;
     }
 
     @Deprecated
@@ -900,6 +897,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
      * @return
      * @throws HSException
      */
+    @Deprecated
     public HearthTreeNode placeMinion(PlayerSide targetSide, Minion targetMinion, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
         if (isHero(targetMinion)) {
             boardState.data_.placeMinion(targetSide, this, 0);
