@@ -3,8 +3,6 @@ package com.hearthsim.card.minion.concrete;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionUntargetableBattlecry;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.model.PlayerModel;
-import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class BloodKnight extends Minion implements MinionUntargetableBattlecry {

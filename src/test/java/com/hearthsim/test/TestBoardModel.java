@@ -9,7 +9,6 @@ import com.hearthsim.model.PlayerModel;
 import org.junit.Test;
 
 import com.hearthsim.card.Card;
-import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.AbusiveSergeant;
 import com.hearthsim.card.minion.concrete.BoulderfistOgre;

@@ -266,7 +266,7 @@ public class PlayerModel implements DeepCopyable<PlayerModel> {
     public ArrayList<Minion> getMinionsAdjacentToCharacter(int characterIndex) {
         ArrayList<Minion> adjMinions = new ArrayList<Minion>();
 
-        if(characterIndex >= this.getNumCharacters()) {
+        if (characterIndex >= this.getNumCharacters()) {
             return adjMinions;
         }
 
