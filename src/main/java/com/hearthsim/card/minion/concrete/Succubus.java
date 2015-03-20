@@ -1,7 +1,6 @@
 package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.Card;
-import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionUntargetableBattlecry;
 import com.hearthsim.exception.HSException;
@@ -23,7 +22,7 @@ public class Succubus extends Minion  implements MinionUntargetableBattlecry {
      */
     @Override
     public HearthTreeNode useUntargetableBattlecry_core(
-            Minion minionPlacementTarget,
+            int minionPlacementIndex,
             HearthTreeNode boardState,
             boolean singleRealizationOnly
         ) throws HSException {
@@ -37,13 +36,12 @@ public class Succubus extends Minion  implements MinionUntargetableBattlecry {
                 toRet.data_.getCurrentPlayer().getHand().remove(targetCard);
             }
         } else {
-            int placementTargetIndex = minionPlacementTarget instanceof Hero ? 0 : currentPlayer.getMinions().indexOf(minionPlacementTarget) + 1;
             int thisMinionIndex = currentPlayer.getMinions().indexOf(this) + 1;
             IdentityLinkedList<Card> hand = currentPlayer.getHand();
             if (hand.size() == 0) {
                 return toRet;
             }
-            toRet = new RandomEffectNode(boardState, new HearthAction(HearthAction.Verb.UNTARGETABLE_BATTLECRY, PlayerSide.CURRENT_PLAYER, thisMinionIndex, PlayerSide.CURRENT_PLAYER, placementTargetIndex));
+            toRet = new RandomEffectNode(boardState, new HearthAction(HearthAction.Verb.UNTARGETABLE_BATTLECRY, PlayerSide.CURRENT_PLAYER, thisMinionIndex, PlayerSide.CURRENT_PLAYER, minionPlacementIndex));
             for (int indx0 = 0; indx0 < hand.size(); ++indx0) {
                 HearthTreeNode cNode = new HearthTreeNode(toRet.data_.deepCopy());
                 cNode.data_.getCurrentPlayer().getHand().remove(cNode.data_.getCurrentPlayer().getHand().get(indx0));

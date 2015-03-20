@@ -71,6 +71,11 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
     }
 
     @Override
+    public boolean isHero() {
+        return true;
+    }
+
+    @Override
     public Hero deepCopy() {
         Hero copy = (Hero) super.deepCopy();
         if (weapon != null) {

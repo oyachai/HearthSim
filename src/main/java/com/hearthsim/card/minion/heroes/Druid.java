@@ -31,7 +31,7 @@ public class Druid extends Hero {
     public HearthTreeNode useHeroAbility_core(PlayerSide targetPlayerSide, Minion targetMinion,
             HearthTreeNode boardState, boolean singleRealizationOnly)
             throws HSException {
-        if (isHero(targetMinion) && targetPlayerSide == PlayerSide.CURRENT_PLAYER) {
+        if (targetMinion.isHero() && targetPlayerSide == PlayerSide.CURRENT_PLAYER) {
             this.hasBeenUsed = true;
             PlayerModel currentPlayer = boardState.data_.getCurrentPlayer();
             currentPlayer.subtractMana(HERO_ABILITY_COST);
