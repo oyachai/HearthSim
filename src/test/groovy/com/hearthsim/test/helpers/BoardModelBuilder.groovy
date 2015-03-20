@@ -62,9 +62,12 @@ class BoardModelBuilder {
         minion.attack += options.deltaAttack ? options.deltaAttack : 0;
         minion.extraAttackUntilTurnEnd += options.deltaExtraAttack ? options.deltaExtraAttack : 0;
 
+        minion.health = options.containsKey('health') ? options.health : minion.health;
+        minion.maxHealth = options.containsKey('maxHealth') ? options.maxHealth : minion.maxHealth;
+
         minion.health += options.deltaHealth ? options.deltaHealth : 0;
         minion.maxHealth += options.deltaMaxHealth ? options.deltaMaxHealth : 0;
-        
+
         minion.auraAttack += options.deltaAuraAttack ? options.deltaAuraAttack : 0;
         minion.auraHealth += options.deltaAuraHealth ? options.deltaAuraHealth : 0;
         
@@ -74,8 +77,9 @@ class BoardModelBuilder {
         minion.hasBeenUsed = options.containsKey('hasBeenUsed') ? options.hasBeenUsed : minion.hasBeenUsed
         minion.stealthed = options.containsKey('stealthed') ? options.stealthed : minion.stealthed
         
+        minion.charge = options.containsKey('charge') ? options.charge : minion.charge
         minion.frozen = options.containsKey('frozen') ? options.frozen : minion.frozen
-        
+        minion.taunt = options.containsKey('taunt') ? options.taunt : minion.taunt
     }
 
     private fatigueDamage(Number fatigueDamage) {
