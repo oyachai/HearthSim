@@ -348,6 +348,11 @@
         "class": "com.hearthsim.card.minion.concrete.DreadInfernal"
     },
     {
+        "id": "EX1_165",
+        "name": "Druid of the Claw",
+        "class": "com.hearthsim.card.minion.concrete.DruidOfTheClaw"
+    },
+    {
         "name": "Dust Devil",
         "class": "com.hearthsim.card.minion.concrete.DustDevil"
     },
