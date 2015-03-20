@@ -336,6 +336,10 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         return silenced_;
     }
 
+    protected void setSilenced(boolean silenced) {
+        silenced_ = silenced;
+    }
+
     public byte getAuraAttack() {
         return auraAttack_;
     }
