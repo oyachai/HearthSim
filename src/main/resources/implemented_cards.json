@@ -376,6 +376,10 @@
         "class": "com.hearthsim.card.spellcard.concrete.Equality"
     },
     {
+        "name": "Eviscerate",
+        "class": "com.hearthsim.card.spellcard.concrete.Eviscerate"
+    },
+    {
         "name": "Execute",
         "class": "com.hearthsim.card.spellcard.concrete.Execute"
     },
