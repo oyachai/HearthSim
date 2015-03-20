@@ -2,6 +2,8 @@ package com.hearthsim.test.groovy.card
 
 import com.hearthsim.card.Card
 import com.hearthsim.card.Deck
+import com.hearthsim.card.minion.concrete.BaineBloodhoof
+import com.hearthsim.card.minion.concrete.CairneBloodhoof
 import com.hearthsim.card.minion.concrete.SylvanasWindrunner
 import com.hearthsim.card.minion.concrete.WarGolem
 import com.hearthsim.card.minion.concrete.GoldshireFootman
@@ -11,6 +13,7 @@ import com.hearthsim.Game
 import com.hearthsim.test.helpers.BoardModelBuilder
 import com.hearthsim.util.tree.HearthTreeNode
 import com.hearthsim.util.tree.RandomEffectNode
+import spock.lang.Ignore
 
 import static com.hearthsim.model.PlayerSide.CURRENT_PLAYER
 import static com.hearthsim.model.PlayerSide.WAITING_PLAYER
@@ -169,7 +172,78 @@ class SylvanasWindrunnerSpec extends CardSpec {
             }
         }
     }
-    
+
+    def "Sylvanas played before Cairne will not steal Baine"() {
+        startingBoard = new BoardModelBuilder().make {
+            currentPlayer {
+                mana(10)
+            }
+            waitingPlayer {
+                mana(10)
+            }
+        }
+
+        root = new HearthTreeNode(startingBoard)
+        SylvanasWindrunner syl = new SylvanasWindrunner();
+        syl.setHealth((byte) 1)
+        root.data_.placeMinion(CURRENT_PLAYER, syl);
+        root.data_.placeMinion(WAITING_PLAYER, new CairneBloodhoof());
+        def copiedBoard = startingBoard.deepCopy()
+
+        def attacker = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(1)
+        def ret = attacker.attack(WAITING_PLAYER, 1, root, false)
+
+        expect:
+        assertFalse(ret == null);
+        assert ret.numChildren() == 0
+
+        assertBoardDelta(copiedBoard, ret.data_) {
+            currentPlayer {
+                removeMinion(0)
+            }
+            waitingPlayer {
+                removeMinion(0)
+                addMinionToField(BaineBloodhoof)
+            }
+        }
+    }
+
+    @Ignore("Existing bug")
+    def "Sylvanas played after Cairne will steal Baine"() {
+        startingBoard = new BoardModelBuilder().make {
+            currentPlayer {
+                mana(10)
+            }
+            waitingPlayer {
+                mana(10)
+            }
+        }
+
+        root = new HearthTreeNode(startingBoard)
+        SylvanasWindrunner syl = new SylvanasWindrunner();
+        syl.setHealth((byte) 1)
+        root.data_.placeMinion(CURRENT_PLAYER, syl);
+        root.data_.placeMinion(WAITING_PLAYER, new CairneBloodhoof());
+        def copiedBoard = startingBoard.deepCopy()
+
+        def attacker = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(1)
+        def ret = attacker.attack(WAITING_PLAYER, 1, root, false)
+
+        expect:
+        assertFalse(ret == null);
+        assert ret.numChildren() == 0
+
+        assertBoardDelta(copiedBoard, ret.data_) {
+            currentPlayer {
+                removeMinion(0)
+                addMinionToField(BaineBloodhoof)
+            }
+            waitingPlayer {
+                removeMinion(0)
+            }
+        }
+    }
+
     def "with two enemy minion, playing Sylvanas and killing it, and then resolve the play"() {
         startingBoard = new BoardModelBuilder().make {
             currentPlayer {

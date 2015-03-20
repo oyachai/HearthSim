@@ -18,7 +18,7 @@ public class SilverHandKnight extends Minion implements MinionUntargetableBattle
      */
     @Override
     public HearthTreeNode useUntargetableBattlecry_core(
-            Minion minionPlacementTarget,
+            int minionPlacementIndex,
             HearthTreeNode boardState,
             boolean singleRealizationOnly
         ) throws HSException {

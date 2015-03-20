@@ -520,6 +520,7 @@ public class Card implements DeepCopyable<Card> {
         return PlayerSide.CURRENT_PLAYER == side;
     }
 
+    @Deprecated
     protected boolean isHero(Minion targetMinion) {
         return targetMinion instanceof Hero;
     }

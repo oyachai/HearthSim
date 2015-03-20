@@ -9,7 +9,6 @@ import com.hearthsim.model.PlayerModel;
 import org.junit.Test;
 
 import com.hearthsim.card.Card;
-import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.AbusiveSergeant;
 import com.hearthsim.card.minion.concrete.BoulderfistOgre;
@@ -22,9 +21,6 @@ import com.hearthsim.util.tree.HearthTreeNode;
 public class TestBoardModel {
 
     private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
-
-    private Deck deck0;
-    private Deck deck1;
 
     private static Minion CreateMinionAlpha() {
         return new Minion("alpha", (byte)2, (byte)1, (byte)4, (byte)1, (byte)4, (byte)4);

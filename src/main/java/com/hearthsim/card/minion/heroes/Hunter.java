@@ -35,7 +35,7 @@ public class Hunter extends Hero {
             boolean singleRealizationOnly)
         throws HSException {
         HearthTreeNode toRet = boardState;
-        if (isHero(targetMinion) && targetPlayerSide == PlayerSide.WAITING_PLAYER) {
+        if (targetMinion.isHero() && targetPlayerSide == PlayerSide.WAITING_PLAYER) {
             this.hasBeenUsed = true;
             toRet.data_.getCurrentPlayer().subtractMana(HERO_ABILITY_COST);
             toRet = targetMinion.takeDamage((byte)2, PlayerSide.CURRENT_PLAYER, targetPlayerSide, toRet, false, false);

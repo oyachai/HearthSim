@@ -16,6 +16,7 @@ import org.json.JSONObject;
 import org.slf4j.MDC;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.EnumSet;
 
 /**
@@ -112,10 +113,6 @@ public class BoardModel implements DeepCopyable<BoardModel> {
         return model;
     }
 
-    public Minion getMinion(PlayerSide side, int index) throws HSInvalidPlayerIndexException {
-        return modelForSide(side).getMinions().get(index);
-    }
-
     /**
      * Count all minions in play regardless of player side
      * @return The number of all minions in play
@@ -153,7 +150,6 @@ public class BoardModel implements DeepCopyable<BoardModel> {
         applyAuraOfMinion(playerSide, minion);
         applyOtherMinionsAura(playerSide, minion);
     }
-
 
     /**
      * Place a minion onto the board.  Does not trigger any events, but applies all auras.
@@ -380,16 +376,18 @@ public class BoardModel implements DeepCopyable<BoardModel> {
      * @return
      */
     public boolean hasDeadMinions() {
-        for (Minion minion : currentPlayer.getMinions()) {
+        for (Minion minion : this.getAllMinions()) {
             if (minion.getTotalHealth() <= 0)
                 return true;
         }
-        for (Minion minion : getWaitingPlayer().getMinions()) {
-            if (minion.getTotalHealth() <= 0) {
-                return true;
-            }
-        }
         return false;
+    }
+
+    public Collection<Minion> getAllMinions() {
+        ArrayList<Minion> minions = new ArrayList<>();
+        minions.addAll(this.modelForSide(PlayerSide.CURRENT_PLAYER).getMinions());
+        minions.addAll(this.modelForSide(PlayerSide.WAITING_PLAYER).getMinions());
+        return minions;
     }
 
     public IdentityLinkedList<MinionPlayerPair> getAllMinionsFIFOList() {
@@ -439,11 +437,7 @@ public class BoardModel implements DeepCopyable<BoardModel> {
         currentPlayer.getHero().hasBeenUsed(false);
         waitingPlayer.getHero().hasAttacked(false);
         waitingPlayer.getHero().hasBeenUsed(false);
-        for (Minion minion : currentPlayer.getMinions()) {
-            minion.hasAttacked(false);
-            minion.hasBeenUsed(false);
-        }
-        for (Minion minion : waitingPlayer.getMinions()) {
+        for (Minion minion : this.getAllMinions()) {
             minion.hasAttacked(false);
             minion.hasBeenUsed(false);
         }
@@ -687,5 +681,10 @@ public class BoardModel implements DeepCopyable<BoardModel> {
     public void addOverload(PlayerSide playerSide, byte overloadToAdd) throws HSException {
         PlayerModel playerModel = modelForSide(playerSide);
         playerModel.setOverload((byte) (playerModel.getOverload() + overloadToAdd));
+    }
+
+    @Deprecated // use PlayerModel.getCharacter instead
+    public Minion getMinion(PlayerSide side, int index) throws HSInvalidPlayerIndexException {
+        return modelForSide(side).getMinions().get(index);
     }
 }

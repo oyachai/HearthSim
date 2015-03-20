@@ -17,7 +17,7 @@ public class NoviceEngineer extends Minion implements MinionUntargetableBattlecr
      */
     @Override
     public HearthTreeNode useUntargetableBattlecry_core(
-            Minion minionPlacementTarget,
+            int minionPlacementIndex,
             HearthTreeNode boardState,
             boolean singleRealizationOnly
         ) throws HSException {

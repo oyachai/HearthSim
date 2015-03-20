@@ -352,6 +352,11 @@
         "class": "com.hearthsim.card.minion.concrete.DreadInfernal"
     },
     {
+        "id": "EX1_165",
+        "name": "Druid of the Claw",
+        "class": "com.hearthsim.card.minion.concrete.DruidOfTheClaw"
+    },
+    {
         "name": "Dust Devil",
         "class": "com.hearthsim.card.minion.concrete.DustDevil"
     },
@@ -740,6 +745,10 @@
         "class": "com.hearthsim.card.spellcard.concrete.MarkOfTheWild"
     },
     {
+        "name": "Master of Disguise",
+        "class": "com.hearthsim.card.minion.concrete.MasterOfDisguise"
+    },
+    {
         "name": "Master Swordsmith",
         "class": "com.hearthsim.card.minion.concrete.MasterSwordsmith"
     },
@@ -786,6 +795,10 @@
     {
         "name": "Murloc Scout",
         "class": "com.hearthsim.card.minion.concrete.MurlocScout"
+    },
+    {
+        "name": "Murloc Tidecaller",
+        "class": "com.hearthsim.card.minion.concrete.MurlocTidecaller"
     },
     {
         "name": "Murloc Tidehunter",
@@ -1114,6 +1127,10 @@
     {
         "name": "Twilight Drake",
         "class": "com.hearthsim.card.minion.concrete.TwilightDrake"
+    },
+    {
+        "name": "Unbound Elemental",
+        "class": "com.hearthsim.card.minion.concrete.UnboundElemental"
     },
     {
         "name": "Undertaker",

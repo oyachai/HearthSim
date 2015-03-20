@@ -1,0 +1,107 @@
+package com.hearthsim.test.groovy.card
+
+import com.hearthsim.card.minion.concrete.QuestingAdventurer
+import com.hearthsim.card.minion.concrete.UnboundElemental
+import com.hearthsim.card.spellcard.concrete.HolySmite
+import com.hearthsim.card.spellcard.concrete.LavaBurst
+import com.hearthsim.card.spellcard.concrete.LightningBolt
+import com.hearthsim.card.spellcard.concrete.TheCoin
+import com.hearthsim.model.BoardModel
+import com.hearthsim.test.helpers.BoardModelBuilder
+import com.hearthsim.util.tree.HearthTreeNode
+
+import static com.hearthsim.model.PlayerSide.CURRENT_PLAYER
+import static com.hearthsim.model.PlayerSide.WAITING_PLAYER
+import static org.junit.Assert.*
+
+
+class UnboundElementalSpec extends CardSpec {
+
+    HearthTreeNode root
+    BoardModel startingBoard
+
+    def setup() {
+        startingBoard = new BoardModelBuilder().make {
+            currentPlayer {
+                field([[minion: UnboundElemental]])
+                mana(10)
+            }
+            waitingPlayer {
+                mana(10)
+            }
+        }
+        root = new HearthTreeNode(startingBoard)
+    }
+
+    def "buffs after playing overload"() {
+        def copiedBoard = startingBoard.deepCopy()
+        def theCard = new LightningBolt()
+        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+
+        expect:
+        assertNotNull(ret);
+        assertBoardDelta(copiedBoard, ret.data_) {
+            currentPlayer {
+                mana(9)
+                overload(1)
+                numCardsUsed(1)
+                heroHealth(27)
+                updateMinion(0, [deltaAttack: 1, deltaHealth: 1, deltaMaxHealth: 1])
+            }
+        }
+    }
+
+    def "buffs after playing overload 2"() {
+        def copiedBoard = startingBoard.deepCopy()
+        def theCard = new LavaBurst()
+        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+
+        expect:
+        assertNotNull(ret);
+        assertBoardDelta(copiedBoard, ret.data_) {
+            currentPlayer {
+                mana(7)
+                overload(2)
+                numCardsUsed(1)
+                heroHealth(25)
+                updateMinion(0, [deltaAttack: 1, deltaHealth: 1, deltaMaxHealth: 1])
+            }
+        }
+    }
+
+    def "does not buff after playing non-overload"() {
+        def copiedBoard = startingBoard.deepCopy()
+        def theCard = new HolySmite()
+        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+
+        expect:
+        assertNotNull(ret);
+        assertBoardDelta(copiedBoard, ret.data_) {
+            currentPlayer {
+                mana(9)
+                numCardsUsed(1)
+                heroHealth(28)
+            }
+        }
+    }
+
+    def "does not buff on enemy overload"() {
+        root.data_.placeMinion(WAITING_PLAYER, new UnboundElemental())
+
+        def copiedBoard = startingBoard.deepCopy()
+        def theCard = new LightningBolt()
+        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+
+        expect:
+        assertNotNull(ret);
+        assertBoardDelta(copiedBoard, ret.data_) {
+            currentPlayer {
+                mana(9)
+                overload(1)
+                numCardsUsed(1)
+                heroHealth(27)
+                updateMinion(0, [deltaAttack: 1, deltaHealth: 1, deltaMaxHealth: 1])
+            }
+        }
+    }
+}
