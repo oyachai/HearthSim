@@ -1121,6 +1121,10 @@
         "class": "com.hearthsim.card.minion.concrete.TwilightDrake"
     },
     {
+        "name": "Unbound Elemental",
+        "class": "com.hearthsim.card.minion.concrete.UnboundElemental"
+    },
+    {
         "name": "Undertaker",
         "class": "com.hearthsim.card.minion.concrete.Undertaker"
     },
