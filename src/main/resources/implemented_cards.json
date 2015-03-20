@@ -789,6 +789,10 @@
         "class": "com.hearthsim.card.minion.concrete.MurlocScout"
     },
     {
+        "name": "Murloc Tidecaller",
+        "class": "com.hearthsim.card.minion.concrete.MurlocTidecaller"
+    },
+    {
         "name": "Murloc Tidehunter",
         "class": "com.hearthsim.card.minion.concrete.MurlocTidehunter"
     },
