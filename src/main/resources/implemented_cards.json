@@ -737,6 +737,10 @@
         "class": "com.hearthsim.card.spellcard.concrete.MarkOfTheWild"
     },
     {
+        "name": "Master of Disguise",
+        "class": "com.hearthsim.card.minion.concrete.MasterOfDisguise"
+    },
+    {
         "name": "Master Swordsmith",
         "class": "com.hearthsim.card.minion.concrete.MasterSwordsmith"
     },
