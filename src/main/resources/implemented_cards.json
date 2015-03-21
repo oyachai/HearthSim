@@ -308,6 +308,14 @@
         "class": "com.hearthsim.card.minion.concrete.DefenderOfArgus"
     },
     {
+        "name": "Defias Bandit",
+        "class": "com.hearthsim.card.minion.concrete.DefiasBandit"
+    },
+    {
+        "name": "Defias Ringleader",
+        "class": "com.hearthsim.card.minion.concrete.DefiasRingleader"
+    },
+    {
         "name": "Demolisher",
         "class": "com.hearthsim.card.minion.concrete.Demolisher"
     },
