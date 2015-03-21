@@ -381,6 +381,10 @@
         "class": "com.hearthsim.card.minion.concrete.EarthenRingFarseer"
     },
     {
+        "name": "Edwin VanCleef",
+        "class": "com.hearthsim.card.minion.concrete.EdwinVanCleef"
+    },
+    {
         "name": "Elven Archer",
         "class": "com.hearthsim.card.minion.concrete.ElvenArcher"
     },
