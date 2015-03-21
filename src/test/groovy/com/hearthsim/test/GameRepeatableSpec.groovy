@@ -48,7 +48,6 @@ class GameRepeatableSpec extends CardSpec {
         def history = this.testRepeatableWithDecks(deck1, deck2);
 
         expect:
-        // TODO the output this generates is terrible and since the test is not repeatable it isn't too helpful right now
         assertActionTreeIsRepeatable(history);
     }
 
@@ -81,7 +80,6 @@ class GameRepeatableSpec extends CardSpec {
         def history = this.testRepeatableWithDecks(deck1, deck2);
 
         expect:
-        // TODO the output this generates is terrible and since the test is not repeatable it isn't too helpful right now
         assertActionTreeIsRepeatable(history);
     }
 
@@ -114,7 +112,16 @@ class GameRepeatableSpec extends CardSpec {
         def history = this.testRepeatableWithDecks(deck1, deck2);
 
         expect:
-        // TODO the output this generates is terrible and since the test is not repeatable it isn't too helpful right now
+        assertActionTreeIsRepeatable(history);
+    }
+
+    def "game history is repeatable with targetable battlecries"() {
+        String[] names1 = ["Stormpike Commando","Stormpike Commando","Stormpike Commando","Stormpike Commando","Stormpike Commando","Stormpike Commando","Stormpike Commando"];
+        String[] names2 = ["Stormpike Commando","Stormpike Commando","Stormpike Commando","Stormpike Commando","Stormpike Commando","Stormpike Commando","Stormpike Commando"];
+
+        def history = this.testRepeatableWithCardNames(names1, names2);
+
+        expect:
         assertActionTreeIsRepeatable(history);
     }
 
@@ -130,27 +137,26 @@ class GameRepeatableSpec extends CardSpec {
         assertActionTreeIsRepeatable(history);
     }
 
-    def "with stormpike commando"() {
-        String[] names1 = ["Stormpike Commando","Stormpike Commando","Stormpike Commando","Stormpike Commando","Stormpike Commando","Stormpike Commando","Stormpike Commando"];
-        String[] names2 = ["Stormpike Commando","Stormpike Commando","Stormpike Commando","Stormpike Commando","Stormpike Commando","Stormpike Commando","Stormpike Commando"];
+    @Ignore("Existing bug")
+    def "extra attack until turn end"() {
+        String[] names1 = ["Dark Iron Dwarf","Dark Iron Dwarf","Dark Iron Dwarf","Dark Iron Dwarf","Dark Iron Dwarf","Dark Iron Dwarf","Dark Iron Dwarf"];
+        String[] names2 = ["Dark Iron Dwarf","Dark Iron Dwarf","Dark Iron Dwarf","Dark Iron Dwarf","Dark Iron Dwarf","Dark Iron Dwarf","Dark Iron Dwarf"];
 
         def history = this.testRepeatableWithCardNames(names1, names2);
 
         expect:
-        // TODO the output this generates is terrible and since the test is not repeatable it isn't too helpful right now
         assertActionTreeIsRepeatable(history);
     }
 
     @Ignore("Throwaway")
     // This test is purely for trying to reproduce bugs exposed by the random test below
     def "testGameHistoryWithSpecificDecks"() {
-        String[] names1 = ["Hungry Crab","Mana Addict","Scarlet Crusader","Boar","Harvest Golem","Amani Berserker","Arcane Golem","Mechanical Dragonling","Unleash the Hounds","Undertaker","Boar","Alexstrasza","Nerubian Egg","Master Swordsmith","Demonfire","Charge","Slam","Unleash the Hounds","Gnoll","Unbound Elemental","Arathi Weaponsmith","Heroic Strike","Arcane Shot","Faerie Dragon","Silence","Arcanite Reaper","Innervate","Big Game Hunter","Nat Pagle","Wicked Knife"]
-        String[] names2 = ["Acolyte of Pain","Angry Chicken","Totemic Might","Northshire Cleric","Frostwolf Warlord","Spellbreaker","Circle of Healing","Stormpike Commando","Big Game Hunter","Jungle Panther","Stampeding Kodo","Shiv","Shadow Word: Death","Hellfire","Timber Wolf","Claw","Dalaran Mage","Gilblin Stalker","Hand of Protection","Force-Tank MAX","King Mukla","The Black Knight","Arathi Weaponsmith","Ancestral Spirit","Soot Spewer","Gorehowl","Raid Leader","Healing Touch","Mana Addict","Northshire Cleric"]
+        String[] names1 = ["Bloodlust","Charge","Coldlight Oracle","Rampage","Bananas","Crazed Alchemist","Coldlight Oracle","Arathi Weaponsmith","Malygos","Kill Command","Mana Wyrm","Frost Nova","Twisting Nether","The Coin","Coldlight Seer","Bloodfen Raptor","Magma Rager","Master of Disguise","Wisp","Loot Hoarder","Leper Gnome","Soulfire","Divine Spirit","Sunfury Protector","Cairne Bloodhoof","Dark Iron Dwarf","Argent Squire","Scarlet Crusader","Silence","Stormpike Commando"]
+        String[] names2 = ["The Black Knight","Void Terror","Novice Engineer","Alexstrasza","Frost Shock","Nat Pagle","Ancient of Lore","Grimscale Oracle","Earth Elemental","Abusive Sergeant","Stampeding Kodo","Inner Fire","Sludge Belcher","Sunfury Protector","Flamestrike","Ironbeak Owl","Kobold Geomancer","Polymorph","Sprint","Onyxia","Squire","Onyxia","Bloodsail Raider","Silence","Lightning Bolt","Blizzard","Heroic Strike","Boar","Frog","Abomination"]
 
         def history = this.testRepeatableWithCardNames(names1, names2);
 
         expect:
-        // TODO the output this generates is terrible and since the test is not repeatable it isn't too helpful right now
         assertActionTreeIsRepeatable(history);
     }
 
