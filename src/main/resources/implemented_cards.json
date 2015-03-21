@@ -292,6 +292,10 @@
         "class": "com.hearthsim.card.spellcard.concrete.Darkbomb"
     },
     {
+        "name": "Dark Cultist",
+        "class": "com.hearthsim.card.minion.concrete.DarkCultist"
+    },
+    {
         "name": "Darkscale Healer",
         "class": "com.hearthsim.card.minion.concrete.DarkscaleHealer"
     },
