@@ -78,14 +78,14 @@ class Si7AgentSpec extends CardSpec {
             }
         }
 
-        HearthTreeNode child1 = ret.getChildren().get(1);
+        HearthTreeNode child1 = ret.getChildren().get(2);
         assertBoardDelta(ret.data_, child1.data_) {
             waitingPlayer {
                 heroHealth(28)
             }
         }
 
-        HearthTreeNode child2 = ret.getChildren().get(2);
+        HearthTreeNode child2 = ret.getChildren().get(1);
         assertBoardDelta(ret.data_, child2.data_) {
             currentPlayer {
                 updateMinion(1, [deltaHealth: -2])

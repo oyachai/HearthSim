@@ -99,14 +99,12 @@ public class HearthAction {
             break;
             case UNTARGETABLE_BATTLECRY: {
                 Minion minion = actingPlayer.getCharacter(cardOrCharacterIndex_);
-                Minion placementTarget = targetPlayer.getCharacter(targetCharacterIndex_);
-                toRet = minion.useUntargetableBattlecry(placementTarget, toRet, singleRealization);
+                toRet = minion.useUntargetableBattlecry(targetCharacterIndex_, toRet, singleRealization);
                 break;
             }
             case TARGETABLE_BATTLECRY: {
                 Minion minion = actingPlayer.getCharacter(cardOrCharacterIndex_);
-                Minion battlecryTarget = targetPlayer.getCharacter(targetCharacterIndex_);
-                toRet = minion.useTargetableBattlecry(targetPlayerSide, battlecryTarget, toRet, singleRealization);
+                toRet = minion.useTargetableBattlecry(targetPlayerSide, targetCharacterIndex_, toRet, singleRealization);
                 break;
             }
             case START_TURN: {

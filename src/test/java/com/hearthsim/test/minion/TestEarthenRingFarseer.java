@@ -137,7 +137,7 @@ public class TestEarthenRingFarseer {
         assertEquals(waitingPlayer.getMinions().get(1).getTotalAttack(), 7);
 
         //------------------------------------------------------------------------------------------------
-        HearthTreeNode c1 = ret.getChildren().get(1);
+        HearthTreeNode c1 = ret.getChildren().get(4);
         currentPlayer = c1.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         waitingPlayer = c1.data_.modelForSide(PlayerSide.WAITING_PLAYER);
         assertEquals(c1.data_.getCurrentPlayer().getHand().size(), 0);
@@ -162,7 +162,7 @@ public class TestEarthenRingFarseer {
         assertEquals(waitingPlayer.getMinions().get(1).getTotalAttack(), 7);
 
         //------------------------------------------------------------------------------------------------
-        HearthTreeNode c3 = ret.getChildren().get(3);
+        HearthTreeNode c3 = ret.getChildren().get(2);
         currentPlayer = c3.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         waitingPlayer = c3.data_.modelForSide(PlayerSide.WAITING_PLAYER);
         assertEquals(c3.data_.getCurrentPlayer().getHand().size(), 0);

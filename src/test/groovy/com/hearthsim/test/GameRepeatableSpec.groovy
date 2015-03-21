@@ -130,7 +130,6 @@ class GameRepeatableSpec extends CardSpec {
         assertActionTreeIsRepeatable(history);
     }
 
-    @Ignore("Existing bug")
     def "with stormpike commando"() {
         String[] names1 = ["Stormpike Commando","Stormpike Commando","Stormpike Commando","Stormpike Commando","Stormpike Commando","Stormpike Commando","Stormpike Commando"];
         String[] names2 = ["Stormpike Commando","Stormpike Commando","Stormpike Commando","Stormpike Commando","Stormpike Commando","Stormpike Commando","Stormpike Commando"];
