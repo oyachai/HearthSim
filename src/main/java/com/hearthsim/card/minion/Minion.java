@@ -812,20 +812,20 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
             Minion origin;
             int originCharacterIndex = toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getIndexForCharacter(this);
 
-            for(Integer characterIndex : friendlyMinions) {
+            for (Integer characterIndex : friendlyMinions) {
                 child = new HearthTreeNode(toRet.data_.deepCopy());
                 origin = child.data_.getCurrentPlayer().getCharacter(originCharacterIndex);
                 child = origin.useTargetableBattlecry(PlayerSide.CURRENT_PLAYER, characterIndex, child, singleRealizationOnly);
-                if(child != null) {
+                if (child != null) {
                     toRet.addChild(child);
                 }
             }
 
-            for(Integer characterIndex : enemyMinions) {
+            for (Integer characterIndex : enemyMinions) {
                 child = new HearthTreeNode(toRet.data_.deepCopy());
                 origin = child.data_.getCurrentPlayer().getCharacter(originCharacterIndex);
                 child = origin.useTargetableBattlecry(PlayerSide.WAITING_PLAYER, characterIndex, child, singleRealizationOnly);
-                if(child != null) {
+                if (child != null) {
                     toRet.addChild(child);
                 }
             }
