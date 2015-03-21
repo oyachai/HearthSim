@@ -1041,6 +1041,10 @@
         "class": "com.hearthsim.card.minion.concrete.SpectralKnight"
     },
     {
+        "name": "Spectral Spider",
+        "class": "com.hearthsim.card.minion.concrete.SpectralSpider"
+    },
+    {
         "name": "Spellbreaker",
         "class": "com.hearthsim.card.minion.concrete.Spellbreaker"
     },
