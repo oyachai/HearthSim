@@ -62,5 +62,21 @@ class IllidanStormrageSpec extends CardSpec {
             }
         }
     }
-    
+
+    def "does not create minions while sitting in hand"() {
+        def copiedBoard = startingBoard.deepCopy()
+        def theCard = root.data_.getCurrentPlayer().getHand().get(1)
+        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+
+        expect:
+        assertFalse(ret == null);
+
+        assertBoardDelta(copiedBoard, ret.data_) {
+            currentPlayer {
+                removeCardFromHand(TheCoin)
+                mana(8)
+                numCardsUsed(1)
+            }
+        }
+    }
 }
