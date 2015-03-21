@@ -322,7 +322,7 @@ public class Card implements DeepCopyable<Card> {
         HearthTreeNode toRet = this.notifyCardPlayBegin(boardState, singleRealizationOnly);
         if (toRet != null) {
             toRet = this.use_core(side, targetMinion, toRet, singleRealizationOnly);
-            if (this.triggersOverload())
+            if (toRet != null && this.triggersOverload())
                 toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER).addOverload(this.getOverload());
         }
 
