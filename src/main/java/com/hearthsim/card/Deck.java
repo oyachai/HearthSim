@@ -76,6 +76,14 @@ public class Deck implements DeepCopyable<Deck> {
         cards.add(card);
     }
 
+    public String toString() {
+        String[] names = new String[this.cards.size()];
+        for(int i = 0; i < this.cards.size(); i++) {
+            names[i] = this.cards.get(i).getName();
+        }
+        return "[\"" + String.join("\",\"", names) + "\"]";
+    }
+
     @Override
     public int hashCode() {
         int hash = 1;
