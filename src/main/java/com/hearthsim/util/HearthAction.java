@@ -9,6 +9,7 @@ import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
+import org.json.JSONObject;
 
 
 /**
@@ -46,6 +47,18 @@ public class HearthAction {
 
         this.targetPlayerSide = targetPlayerSide;
         targetCharacterIndex_ = targetCharacterIndex;
+    }
+
+    public JSONObject toJSON() {
+        JSONObject json = new JSONObject();
+
+        json.put("verb_", verb_);
+        json.put("actionPerformerPlayerSide", actionPerformerPlayerSide);
+        json.put("cardOrCharacterIndex_", cardOrCharacterIndex_);
+        json.put("targetPlayerSide", targetPlayerSide);
+        json.put("targetCharacterIndex_", targetCharacterIndex_);
+
+        return json;
     }
 
     @Deprecated
