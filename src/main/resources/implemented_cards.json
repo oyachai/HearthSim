@@ -661,6 +661,10 @@
         "class": "com.hearthsim.card.minion.concrete.JunglePanther"
     },
     {
+        "name": "Kidnapper",
+        "class": "com.hearthsim.card.minion.concrete.Kidnapper"
+    },
+    {
         "name": "Kill Command",
         "class": "com.hearthsim.card.spellcard.concrete.KillCommand"
     },

@@ -193,6 +193,10 @@ public class PlayerModel implements DeepCopyable<PlayerModel> {
         return this.getNumMinions() >= 7;
     }
 
+    public boolean isHandFull() {
+        return this.hand.size() >= 10;
+    }
+
     public int getIndexForCharacter(Minion character) {
         if (character.isHero()) {
             return 0;
