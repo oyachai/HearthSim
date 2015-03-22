@@ -4,6 +4,7 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.EffectMinionAction;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -20,12 +21,8 @@ public class DeathrattleEffectRandomMinion extends DeathrattleAction {
     }
 
     public HearthTreeNode performAction(Card origin, PlayerSide playerSide, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
-        if (!(origin instanceof Minion)) {
-            return null;
-        }
         PlayerModel owner = boardState.data_.modelForSide(playerSide);
         PlayerModel opposing = boardState.data_.modelForSide(playerSide.getOtherPlayer());
-        int originIndex = owner.getIndexForCharacter((Minion)origin);
 
         // TODO could probably be faster and belongs in a more common location
         List<Minion> friendlyTargets = new ArrayList<>();
@@ -59,8 +56,7 @@ public class DeathrattleEffectRandomMinion extends DeathrattleAction {
                     HearthTreeNode newState = new HearthTreeNode(rngNode.data_.deepCopy());
                     this.effect.applyEffect(playerSide, origin, playerSide, targetIndex, newState.data_);
 
-                    // TODO need to do this manually for now. we should handle this in the death handler
-                    newState.data_.removeMinion(playerSide, originIndex - 1);
+                    this.cleanupBoard(playerSide, origin, boardState.data_, newState.data_);
                     rngNode.addChild(newState);
                 }
 
@@ -70,8 +66,7 @@ public class DeathrattleEffectRandomMinion extends DeathrattleAction {
                     HearthTreeNode newState = new HearthTreeNode(rngNode.data_.deepCopy());
                     this.effect.applyEffect(playerSide, origin, playerSide.getOtherPlayer(), targetIndex, newState.data_);
 
-                    // TODO need to do this manually for now. we should handle this in the death handler
-                    newState.data_.removeMinion(playerSide, originIndex - 1);
+                    this.cleanupBoard(playerSide, origin, boardState.data_, newState.data_);
                     rngNode.addChild(newState);
                 }
 
@@ -79,5 +74,13 @@ public class DeathrattleEffectRandomMinion extends DeathrattleAction {
                 break;
         }
         return boardState;
+    }
+
+    // TODO need to do this manually for now. we should handle this in the death handler
+    private void cleanupBoard(PlayerSide originSide, Card origin, BoardModel parent, BoardModel child) {
+        if (origin instanceof Minion) {
+            int originIndex = parent.modelForSide(originSide).getIndexForCharacter((Minion)origin);
+            child.removeMinion(originSide, originIndex - 1);
+        }
     }
 }

@@ -100,16 +100,16 @@ public abstract class WeaponCard extends Card {
             return null;
         }
 
-        HearthTreeNode toRet = boardState;
+        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
         if (toRet != null) {
+            this.hasBeenUsed(true);
             DeathrattleAction weaponDeathrattle = toRet.data_.getCurrentPlayer().getHero().setWeapon(this);
             if (weaponDeathrattle != null) {
                 toRet = weaponDeathrattle.performAction(null, side, toRet, singleRealizationOnly);
             }
-            this.hasBeenUsed(true);
         }
 
-        return super.use_core(side, targetMinion, toRet, singleRealizationOnly);
+        return toRet;
     }
 
     public byte getWeaponCharge() {
