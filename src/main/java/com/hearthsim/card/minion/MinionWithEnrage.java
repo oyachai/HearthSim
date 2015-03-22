@@ -55,8 +55,8 @@ public abstract class MinionWithEnrage extends Minion {
      * @param boardState
      * */
     @Override
-    public HearthTreeNode takeHeal(byte healAmount, PlayerSide thisPlayerSide, HearthTreeNode boardState) throws HSException {
-        HearthTreeNode toRet = super.takeHeal(healAmount, thisPlayerSide, boardState);
+    public HearthTreeNode takeHealAndNotify(byte healAmount, PlayerSide thisPlayerSide, HearthTreeNode boardState) throws HSException {
+        HearthTreeNode toRet = super.takeHealAndNotify(healAmount, thisPlayerSide, boardState);
         this.enrageCheck();
         return toRet;
     }

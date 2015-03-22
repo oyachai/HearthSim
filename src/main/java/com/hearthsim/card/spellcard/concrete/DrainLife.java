@@ -41,7 +41,7 @@ public class DrainLife extends SpellDamage {
         throws HSException {
         HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
         if (toRet != null) {
-            toRet.data_.getCurrentPlayer().getHero().takeHeal((byte)2, PlayerSide.CURRENT_PLAYER, toRet);
+            toRet.data_.getCurrentPlayer().getHero().takeHealAndNotify((byte) 2, PlayerSide.CURRENT_PLAYER, toRet);
         }
         return toRet;
     }

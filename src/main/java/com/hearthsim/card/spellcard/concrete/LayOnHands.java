@@ -54,7 +54,7 @@ public class LayOnHands extends SpellCard {
             boolean singleRealizationOnly)
         throws HSException {
         HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
-        toRet = targetMinion.takeHeal((byte)8, side, boardState);
+        toRet = targetMinion.takeHealAndNotify((byte) 8, side, boardState);
         if (toRet instanceof CardDrawNode)
             ((CardDrawNode) toRet).addNumCardsToDraw(3);
         else

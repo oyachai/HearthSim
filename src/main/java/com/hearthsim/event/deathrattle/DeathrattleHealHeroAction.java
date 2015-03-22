@@ -23,7 +23,7 @@ public class DeathrattleHealHeroAction extends DeathrattleAction {
         HearthTreeNode toRet = super.performAction(origin, playerSide, boardState, singleRealizationOnly);
         if (toRet != null) {
             PlayerSide targetSide = targetEnemyHero_ ? playerSide.getOtherPlayer() : playerSide;
-            toRet = toRet.data_.modelForSide(targetSide).getHero().takeHeal(amount_, targetSide, toRet);
+            toRet = toRet.data_.modelForSide(targetSide).getHero().takeHealAndNotify(amount_, targetSide, toRet);
         }
         return toRet;
     }

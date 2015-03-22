@@ -65,7 +65,7 @@ public class SacrificialPact extends SpellCard {
         throws HSException {
         HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
         if (toRet != null) {
-            toRet = toRet.data_.getCurrentPlayer().getHero().takeHeal((byte)5, PlayerSide.CURRENT_PLAYER, toRet);
+            toRet = toRet.data_.getCurrentPlayer().getHero().takeHealAndNotify((byte) 5, PlayerSide.CURRENT_PLAYER, toRet);
             targetMinion.setHealth((byte)-99);
         }
         return toRet;

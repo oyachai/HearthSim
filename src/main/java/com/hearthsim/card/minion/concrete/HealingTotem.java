@@ -27,7 +27,7 @@ public class HealingTotem extends Minion {
 
         PlayerModel currentPlayer = tmpState.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         for (Minion minion : currentPlayer.getMinions()) {
-            tmpState = minion.takeHeal((byte)1, PlayerSide.CURRENT_PLAYER, tmpState);
+            tmpState = minion.takeHealAndNotify((byte) 1, PlayerSide.CURRENT_PLAYER, tmpState);
         }
 
         if (tmpState instanceof CardDrawNode) {

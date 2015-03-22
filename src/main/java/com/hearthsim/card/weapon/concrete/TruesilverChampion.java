@@ -16,6 +16,6 @@ public class TruesilverChampion extends WeaponCard {
 
         BoardModel boardModel = toRet.data_;
         PlayerModel currentPlayer = boardModel.getCurrentPlayer();
-        currentPlayer.getHero().takeHeal((byte) 2, targetMinionPlayerSide, toRet);
+        currentPlayer.getHero().takeHealAndNotify((byte) 2, targetMinionPlayerSide, toRet);
     }
 }

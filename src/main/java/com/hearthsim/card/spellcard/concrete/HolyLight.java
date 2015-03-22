@@ -51,7 +51,7 @@ public class HolyLight extends SpellCard {
         throws HSException {
         HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
         if (toRet != null)
-            targetMinion.takeHeal(HEAL_AMOUNT, side, toRet);
+            targetMinion.takeHealAndNotify(HEAL_AMOUNT, side, toRet);
         return toRet;
     }
 }

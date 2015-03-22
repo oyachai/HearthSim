@@ -52,7 +52,7 @@ public class HealingTouch extends SpellCard {
         throws HSException {
         HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
         if (toRet != null)
-            toRet = targetMinion.takeHeal(HEAL_AMOUNT, side, toRet);
+            toRet = targetMinion.takeHealAndNotify(HEAL_AMOUNT, side, toRet);
         return toRet;
     }
 }

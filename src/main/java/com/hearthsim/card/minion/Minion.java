@@ -497,7 +497,6 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
             toRet = deathrattleAction_.performAction(this, thisPlayerSide, toRet, singleRealizationOnly);
         }
 
-        // Notify all that it is dead
         toRet = toRet.notifyMinionDead(thisPlayerSide, this);
         return toRet;
     }
@@ -570,7 +569,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
      * @param thisPlayerSide
      * @param boardState
      */
-    public HearthTreeNode takeHeal(byte healAmount, PlayerSide thisPlayerSide, HearthTreeNode boardState) throws HSException {
+    public HearthTreeNode takeHealAndNotify(byte healAmount, PlayerSide thisPlayerSide, HearthTreeNode boardState) throws HSException {
 
         if (health_ < maxHealth_) {
             if (health_ + healAmount > maxHealth_)
@@ -578,7 +577,6 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
             else
                 health_ = (byte) (health_ + healAmount);
 
-            // Notify all that it the minion is healed
             return boardState.notifyMinionHealed(thisPlayerSide, this);
         }
         return boardState;
@@ -1113,7 +1111,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
     @Deprecated
     public HearthTreeNode takeHeal(byte healAmount, PlayerSide thisPlayerSide, HearthTreeNode boardState,
                                    Deck deckPlayer0, Deck deckPlayer1) throws HSException {
-        return this.takeHeal(healAmount, thisPlayerSide, boardState);
+        return this.takeHealAndNotify(healAmount, thisPlayerSide, boardState);
     }
 
     @Deprecated

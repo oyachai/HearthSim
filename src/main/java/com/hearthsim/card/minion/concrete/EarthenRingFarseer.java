@@ -26,7 +26,7 @@ public class EarthenRingFarseer extends Minion implements MinionTargetableBattle
     @Override
     public HearthTreeNode useTargetableBattlecry_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState) throws HSException {
         HearthTreeNode toRet = boardState;
-        toRet = targetMinion.takeHeal((byte)3, side, toRet);
+        toRet = targetMinion.takeHealAndNotify((byte) 3, side, toRet);
         return toRet;
     }
 

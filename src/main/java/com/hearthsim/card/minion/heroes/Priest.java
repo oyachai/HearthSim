@@ -35,7 +35,7 @@ public class Priest extends Hero {
         HearthTreeNode toRet = boardState;
         this.hasBeenUsed = true;
         toRet.data_.getCurrentPlayer().subtractMana(HERO_ABILITY_COST);
-        toRet = targetMinion.takeHeal((byte)2, targetPlayerSide, toRet);
+        toRet = targetMinion.takeHealAndNotify((byte) 2, targetPlayerSide, toRet);
 
         return toRet;
     }

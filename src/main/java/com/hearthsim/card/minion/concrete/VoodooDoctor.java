@@ -27,7 +27,7 @@ public class VoodooDoctor extends Minion implements MinionTargetableBattlecry {
     @Override
     public HearthTreeNode useTargetableBattlecry_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState) throws HSException {
         HearthTreeNode toRet = boardState;
-        toRet = targetMinion.takeHeal((byte)2, side, toRet);
+        toRet = targetMinion.takeHealAndNotify((byte) 2, side, toRet);
         return toRet;
     }
 

@@ -24,9 +24,9 @@ public class DarkscaleHealer extends Minion implements MinionUntargetableBattlec
         ) throws HSException {
         HearthTreeNode toRet = boardState;
         PlayerModel currentPlayer = toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
-        toRet = currentPlayer.getHero().takeHeal((byte)2, PlayerSide.CURRENT_PLAYER, toRet);
+        toRet = currentPlayer.getHero().takeHealAndNotify((byte) 2, PlayerSide.CURRENT_PLAYER, toRet);
         for (Minion minion : currentPlayer.getMinions()) {
-            toRet = minion.takeHeal((byte)2, PlayerSide.CURRENT_PLAYER, toRet);
+            toRet = minion.takeHealAndNotify((byte) 2, PlayerSide.CURRENT_PLAYER, toRet);
         }
         return toRet;
     }
