@@ -1205,40 +1205,11 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 
     protected HearthTreeNode notifyMinionDead(PlayerSide deadMinionPlayerSide, Minion deadMinion, HearthTreeNode boardState) throws HSException {
         HearthTreeNode toRet = boardState;
-        ArrayList<MinionDeadInterface> matches = new ArrayList<MinionDeadInterface>();
-
-        PlayerModel currentPlayer = boardState.data_.getCurrentPlayer();
-        PlayerModel waitingPlayer = boardState.data_.getWaitingPlayer();
-
-        Card hero = currentPlayer.getHero();
-        if (hero instanceof MinionDeadInterface) {
-            matches.add((MinionDeadInterface)hero);
-        }
-
-        for (Minion minion : currentPlayer.getMinions()) {
-            if (!minion.isSilenced() && minion instanceof MinionDeadInterface) {
-                matches.add((MinionDeadInterface)minion);
+        for (BoardModel.CharacterLocation characterLocation : boardState.data_) {
+            Minion character = boardState.data_.getCharacter(characterLocation);
+            if (!character.isSilenced() && character instanceof MinionDeadInterface) {
+                toRet = ((MinionDeadInterface)character).minionDeadEvent(characterLocation.getPlayerSide(), deadMinionPlayerSide, deadMinion, toRet);
             }
-        }
-
-        for (MinionDeadInterface match : matches) {
-            toRet = match.minionDeadEvent(PlayerSide.CURRENT_PLAYER, deadMinionPlayerSide, deadMinion, toRet);
-        }
-        matches.clear();
-
-        hero = waitingPlayer.getHero();
-        if (hero instanceof MinionDeadInterface) {
-            matches.add((MinionDeadInterface)hero);
-        }
-
-        for (Minion minion : waitingPlayer.getMinions()) {
-            if (!minion.isSilenced() && minion instanceof MinionDeadInterface) {
-                matches.add((MinionDeadInterface)minion);
-            }
-        }
-
-        for (MinionDeadInterface match : matches) {
-            toRet = match.minionDeadEvent(PlayerSide.WAITING_PLAYER, deadMinionPlayerSide, deadMinion, toRet);
         }
 
         return toRet;
@@ -1252,40 +1223,11 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 
     protected HearthTreeNode notifyMinionHealed(HearthTreeNode boardState, PlayerSide targetSide) throws HSException {
         HearthTreeNode toRet = boardState;
-        ArrayList<MinionHealedInterface> matches = new ArrayList<MinionHealedInterface>();
-
-        PlayerModel currentPlayer = boardState.data_.getCurrentPlayer();
-        PlayerModel waitingPlayer = boardState.data_.getWaitingPlayer();
-
-        Card hero = currentPlayer.getHero();
-        if (hero instanceof MinionHealedInterface) {
-            matches.add((MinionHealedInterface)hero);
-        }
-
-        for (Minion minion : currentPlayer.getMinions()) {
-            if (!minion.isSilenced() && minion instanceof MinionHealedInterface) {
-                matches.add((MinionHealedInterface)minion);
+        for (BoardModel.CharacterLocation characterLocation : boardState.data_) {
+            Minion character = boardState.data_.getCharacter(characterLocation);
+            if (!character.isSilenced() && character instanceof MinionHealedInterface) {
+                toRet = ((MinionHealedInterface)character).minionHealedEvent(characterLocation.getPlayerSide(), targetSide, this, toRet);
             }
-        }
-
-        for (MinionHealedInterface match : matches) {
-            toRet = match.minionHealedEvent(PlayerSide.CURRENT_PLAYER, targetSide, this, toRet);
-        }
-        matches.clear();
-
-        hero = waitingPlayer.getHero();
-        if (hero instanceof MinionHealedInterface) {
-            matches.add((MinionHealedInterface)hero);
-        }
-
-        for (Minion minion : waitingPlayer.getMinions()) {
-            if (!minion.isSilenced() && minion instanceof MinionHealedInterface) {
-                matches.add((MinionHealedInterface)minion);
-            }
-        }
-
-        for (MinionHealedInterface match : matches) {
-            toRet = match.minionHealedEvent(PlayerSide.WAITING_PLAYER, targetSide, this, toRet);
         }
 
         return toRet;
