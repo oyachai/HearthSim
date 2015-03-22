@@ -54,9 +54,10 @@ public class DeathrattleEffectRandomMinion extends DeathrattleAction {
                     int targetIndex = owner.getIndexForCharacter(possibleTarget);
 
                     HearthTreeNode newState = new HearthTreeNode(rngNode.data_.deepCopy());
+                    this.cleanupBoard(playerSide, origin, boardState.data_, newState.data_);
+
                     this.effect.applyEffect(playerSide, origin, playerSide, targetIndex, newState.data_);
 
-                    this.cleanupBoard(playerSide, origin, boardState.data_, newState.data_);
                     rngNode.addChild(newState);
                 }
 
@@ -64,9 +65,10 @@ public class DeathrattleEffectRandomMinion extends DeathrattleAction {
                     int targetIndex = opposing.getIndexForCharacter(possibleTarget);
 
                     HearthTreeNode newState = new HearthTreeNode(rngNode.data_.deepCopy());
+                    this.cleanupBoard(playerSide, origin, boardState.data_, newState.data_);
+
                     this.effect.applyEffect(playerSide, origin, playerSide.getOtherPlayer(), targetIndex, newState.data_);
 
-                    this.cleanupBoard(playerSide, origin, boardState.data_, newState.data_);
                     rngNode.addChild(newState);
                 }
 

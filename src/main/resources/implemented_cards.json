@@ -68,6 +68,10 @@
         "class": "com.hearthsim.card.minion.concrete.AnnoyOTron"
     },
     {
+        "name": "Anub'ar Ambusher",
+        "class": "com.hearthsim.card.minion.concrete.AnubarAmbusher"
+    },
+    {
         "name": "Arathi Weaponsmith",
         "class": "com.hearthsim.card.minion.concrete.ArathiWeaponsmith"
     },
