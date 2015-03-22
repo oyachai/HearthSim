@@ -6,6 +6,7 @@ import com.hearthsim.event.EffectMinionAction;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.event.deathrattle.DeathrattleEffectRandomMinion;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -28,7 +29,7 @@ public class DarkCultist extends Minion {
             this.effect = (byte)effect;
         }
 
-        public boolean canEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, Minion targetCharacter) {
+        public boolean canEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, Minion targetCharacter, BoardModel board) {
             if (targetSide != originSide) {
                 return false;
             }
@@ -44,7 +45,8 @@ public class DarkCultist extends Minion {
             return true;
         }
 
-        public void applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, Minion targetCharacter) {
+        public void applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, BoardModel board) {
+            Minion targetCharacter = board.modelForSide(targetSide).getCharacter(targetCharacterIndex);
             targetCharacter.addHealth(this.effect);
             targetCharacter.addMaxHealth(this.effect);
         }

@@ -6,12 +6,12 @@ import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 
 public abstract class EffectMinionAction {
-    public abstract boolean canEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, Minion targetCharacter);
+    public abstract boolean canEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, Minion targetCharacter, BoardModel board);
 
-    public abstract void applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, Minion targetCharacter);
+    public abstract void applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, BoardModel board);
 
-    public void applyEffectToBoard(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, BoardModel board) {
-        Minion targetCharacter = board.modelForSide(targetSide).getCharacter(targetCharacterIndex);
-        this.applyEffect(originSide, origin, targetSide, targetCharacter);
+    public final void applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, Minion targetCharacter, BoardModel board) {
+        int index = board.modelForSide(targetSide).getIndexForCharacter(targetCharacter);
+        this.applyEffect(originSide, origin, targetSide, index, board);
     }
 }
