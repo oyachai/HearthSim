@@ -2,7 +2,6 @@ package com.hearthsim.test.groovy.card
 
 import com.hearthsim.card.minion.concrete.AnubarAmbusher
 import com.hearthsim.card.minion.concrete.BloodfenRaptor
-import com.hearthsim.card.minion.concrete.DarkCultist
 import com.hearthsim.card.minion.concrete.RiverCrocolisk
 import com.hearthsim.card.spellcard.concrete.Fireball
 import com.hearthsim.card.spellcard.concrete.TheCoin
