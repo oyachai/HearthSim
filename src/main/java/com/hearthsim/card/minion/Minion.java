@@ -1187,40 +1187,11 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 
     protected HearthTreeNode notifyMinionDamaged(HearthTreeNode boardState, PlayerSide targetSide) throws HSException {
         HearthTreeNode toRet = boardState;
-        ArrayList<MinionDamagedInterface> matches = new ArrayList<MinionDamagedInterface>();
-
-        PlayerModel currentPlayer = boardState.data_.getCurrentPlayer();
-        PlayerModel waitingPlayer = boardState.data_.getWaitingPlayer();
-
-        Card hero = currentPlayer.getHero();
-        if (hero instanceof MinionDamagedInterface) {
-            matches.add((MinionDamagedInterface)hero);
-        }
-
-        for (Minion minion : currentPlayer.getMinions()) {
-            if (!minion.isSilenced() && minion instanceof MinionDamagedInterface) {
-                matches.add((MinionDamagedInterface)minion);
+        for (BoardModel.CharacterLocation characterLocation : boardState.data_) {
+            Minion character = boardState.data_.getCharacter(characterLocation);
+            if (!character.isSilenced() && character instanceof MinionDamagedInterface) {
+                toRet = ((MinionDamagedInterface)character).minionDamagedEvent(characterLocation.getPlayerSide(), targetSide, this, toRet);
             }
-        }
-
-        for (MinionDamagedInterface match : matches) {
-            toRet = match.minionDamagedEvent(PlayerSide.CURRENT_PLAYER, targetSide, this, toRet);
-        }
-        matches.clear();
-
-        hero = waitingPlayer.getHero();
-        if (hero instanceof MinionDamagedInterface) {
-            matches.add((MinionDamagedInterface)hero);
-        }
-
-        for (Minion minion : waitingPlayer.getMinions()) {
-            if (!minion.isSilenced() && minion instanceof MinionDamagedInterface) {
-                matches.add((MinionDamagedInterface)minion);
-            }
-        }
-
-        for (MinionDamagedInterface match : matches) {
-            toRet = match.minionDamagedEvent(PlayerSide.WAITING_PLAYER, targetSide, this, toRet);
         }
 
         return toRet;
