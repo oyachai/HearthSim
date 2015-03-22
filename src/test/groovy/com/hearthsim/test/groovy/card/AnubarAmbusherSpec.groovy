@@ -5,6 +5,7 @@ import com.hearthsim.card.minion.concrete.BloodfenRaptor
 import com.hearthsim.card.minion.concrete.DarkCultist
 import com.hearthsim.card.minion.concrete.RiverCrocolisk
 import com.hearthsim.card.spellcard.concrete.Fireball
+import com.hearthsim.card.spellcard.concrete.TheCoin
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.helpers.BoardModelBuilder
 import com.hearthsim.util.tree.HearthTreeNode
@@ -90,6 +91,38 @@ class AnubarAmbusherSpec extends CardSpec {
                 mana(6)
                 numCardsUsed(1)
                 addCardToHand(BloodfenRaptor)
+            }
+        }
+    }
+
+    def "bouncing with full hand"() {
+        startingBoard.placeMinion(CURRENT_PLAYER, new BloodfenRaptor(), 0)
+        startingBoard.placeCardHand(CURRENT_PLAYER, new TheCoin())
+        startingBoard.placeCardHand(CURRENT_PLAYER, new TheCoin())
+        startingBoard.placeCardHand(CURRENT_PLAYER, new TheCoin())
+        startingBoard.placeCardHand(CURRENT_PLAYER, new TheCoin())
+        startingBoard.placeCardHand(CURRENT_PLAYER, new TheCoin())
+        startingBoard.placeCardHand(CURRENT_PLAYER, new TheCoin())
+        startingBoard.placeCardHand(CURRENT_PLAYER, new TheCoin())
+        startingBoard.placeCardHand(CURRENT_PLAYER, new TheCoin())
+        startingBoard.placeCardHand(CURRENT_PLAYER, new TheCoin())
+        startingBoard.placeCardHand(CURRENT_PLAYER, new TheCoin())
+
+        def copiedBoard = startingBoard.deepCopy()
+        def theCard = new Fireball()
+        def ret = theCard.useOn(CURRENT_PLAYER, 2, root)
+
+        expect:
+        assertNotNull(ret)
+        assertEquals(0, ret.numChildren())
+        assertFalse(ret instanceof RandomEffectNode)
+
+        assertBoardDelta(copiedBoard, ret.data_) {
+            currentPlayer {
+                removeMinion(1)
+                removeMinion(0)
+                mana(6)
+                numCardsUsed(1)
             }
         }
     }
