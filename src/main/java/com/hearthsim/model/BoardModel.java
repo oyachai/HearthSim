@@ -92,6 +92,19 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
         public int getIndex() {
             return this.index;
         }
+
+        public JSONObject toJSON() {
+            JSONObject json = new JSONObject();
+
+            json.put("playerSide", playerSide);
+            json.put("index", index);
+
+            return json;
+        }
+
+        public String toString() {
+            return playerSide.toString() + ":" + index;
+        }
     }
 
     private class CharacterLocationIterator implements Iterator<CharacterLocation> {
@@ -119,16 +132,15 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
 
         @Override
         public CharacterLocation next() {
-            CharacterLocation location = new CharacterLocation(this.playerSide, this.characterIterator.getLocation());
-
             if (this.characterIterator.hasNext()) {
                 this.characterIterator.next();
             } else if (this.playerSide == PlayerSide.CURRENT_PLAYER) {
                 this.playerSide = this.playerSide.getOtherPlayer();
                 this.characterIterator = this.model.modelForSide(this.playerSide).iterator();
+                this.characterIterator.next();
             }
 
-            return location;
+            return new CharacterLocation(this.playerSide, this.characterIterator.getLocation());
         }
     }
 

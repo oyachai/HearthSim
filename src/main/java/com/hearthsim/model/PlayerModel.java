@@ -386,7 +386,7 @@ public class PlayerModel implements DeepCopyable<PlayerModel>, Iterable<Minion> 
     }
 
     public class CharacterIterator implements Iterator<Minion> {
-        private int location = 0;
+        private int location = -1;
         private PlayerModel target;
 
         public CharacterIterator(PlayerModel model) {
@@ -405,7 +405,7 @@ public class PlayerModel implements DeepCopyable<PlayerModel>, Iterable<Minion> 
 
         @Override
         public Minion next() {
-            return this.target.getCharacter(location++);
+            return this.target.getCharacter(++location);
         }
     }
 }
