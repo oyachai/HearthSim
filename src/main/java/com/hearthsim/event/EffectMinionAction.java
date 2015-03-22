@@ -12,6 +12,7 @@ public abstract class EffectMinionAction {
     protected boolean canEffectOwnHero() { return false; }
     protected boolean canEffectOwnMinions() { return false; }
     protected boolean canEffectSelf() { return false; }
+    protected Minion.MinionTribe tribeFilter() { return null; }
 
     public boolean canEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, Minion targetCharacter, BoardModel board) {
         if (!this.canEffectOwnHero() && targetCharacter.isHero() && originSide == targetSide) {
@@ -35,6 +36,10 @@ public abstract class EffectMinionAction {
         }
 
         if (!this.canEffectDead() && !targetCharacter.isAlive()) {
+            return false;
+        }
+
+        if (this.tribeFilter() != null && targetCharacter.getTribe() != this.tribeFilter()) {
             return false;
         }
 

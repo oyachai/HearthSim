@@ -17,17 +17,7 @@ public class Powermace extends WeaponCard {
     private class PowermaceEffect extends EffectMinionAction {
         protected boolean canEffectOwnMinions() { return true; }
 
-        public boolean canEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, Minion targetCharacter, BoardModel board) {
-            if (!super.canEffect(originSide, origin, targetSide, targetCharacter, board)) {
-                return false;
-            }
-
-            if (targetCharacter.getTribe() != Minion.MinionTribe.MECH) {
-                return false;
-            }
-
-            return true;
-        }
+        protected Minion.MinionTribe tribeFilter() { return Minion.MinionTribe.MECH; }
 
         public void applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, BoardModel board) {
             Minion targetCharacter = board.modelForSide(targetSide).getCharacter(targetCharacterIndex);
