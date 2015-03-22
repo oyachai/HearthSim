@@ -570,16 +570,18 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
      * @param boardState
      */
     public HearthTreeNode takeHealAndNotify(byte healAmount, PlayerSide thisPlayerSide, HearthTreeNode boardState) throws HSException {
-
-        if (health_ < maxHealth_) {
-            if (health_ + healAmount > maxHealth_)
-                health_ = maxHealth_;
-            else
-                health_ = (byte) (health_ + healAmount);
-
+        byte actual = this.takeHeal(healAmount, thisPlayerSide, boardState.data_);
+        if (actual > 0) {
             return boardState.notifyMinionHealed(thisPlayerSide, this);
         }
         return boardState;
+    }
+
+    public byte takeHeal(byte healAmount, PlayerSide thisPlayerSide, BoardModel board) {
+        int missing = this.maxHealth_ - this.health_;
+        int actual = healAmount > missing ? missing : healAmount;
+        this.health_ += actual;
+        return (byte) actual;
     }
 
     @Override
