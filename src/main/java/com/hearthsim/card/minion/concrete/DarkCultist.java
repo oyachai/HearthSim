@@ -3,17 +3,9 @@ package com.hearthsim.card.minion.concrete;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.EffectMinionAction;
-import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.event.deathrattle.DeathrattleEffectRandomMinion;
-import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
-import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.tree.HearthTreeNode;
-import com.hearthsim.util.tree.RandomEffectNode;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class DarkCultist extends Minion {
 

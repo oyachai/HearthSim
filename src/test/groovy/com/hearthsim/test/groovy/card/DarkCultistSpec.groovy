@@ -2,10 +2,7 @@ package com.hearthsim.test.groovy.card
 
 import com.hearthsim.card.minion.concrete.BloodfenRaptor
 import com.hearthsim.card.minion.concrete.DarkCultist
-import com.hearthsim.card.minion.concrete.GoldshireFootman
 import com.hearthsim.card.minion.concrete.RiverCrocolisk
-import com.hearthsim.card.minion.concrete.StampedingKodo
-import com.hearthsim.card.spellcard.concrete.Assassinate
 import com.hearthsim.card.spellcard.concrete.ShadowWordPain
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.helpers.BoardModelBuilder
