@@ -415,7 +415,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
     @Override
     public HearthTreeNode startTurn(PlayerSide thisMinionPlayerIndex, HearthTreeNode boardModel) throws HSException {
         if (destroyOnTurnStart_) {
-            // toRet = this.destroyed(thisMinionPlayerIndex, toRet, deckPlayer0, deckPlayer1);
+            // toRet = this.destroyAndNotify(thisMinionPlayerIndex, toRet, deckPlayer0, deckPlayer1);
             this.setHealth((byte) -99);
         }
         return boardModel;
@@ -432,7 +432,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
     public HearthTreeNode endTurn(PlayerSide thisMinionPlayerIndex, HearthTreeNode boardModel) throws HSException {
         extraAttackUntilTurnEnd_ = 0;
         if (destroyOnTurnEnd_) {
-            // toRet = this.destroyed(thisMinionPlayerIndex, toRet, deckPlayer0, deckPlayer1);
+            // toRet = this.destroyAndNotify(thisMinionPlayerIndex, toRet, deckPlayer0, deckPlayer1);
             this.setHealth((byte) -99);
         }
         return boardModel;
@@ -479,7 +479,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
     }
 
     /**
-     * Called when this minion dies (destroyed)
+     * Called when this minion dies (destroyAndNotify)
      * <p>
      * Always use this function to "kill" minions
      *
@@ -487,7 +487,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
      * @param boardState
      * @throws HSInvalidPlayerIndexException
      */
-    public HearthTreeNode destroyed(PlayerSide thisPlayerSide, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
+    public HearthTreeNode destroyAndNotify(PlayerSide thisPlayerSide, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
 
         health_ = 0;
         HearthTreeNode toRet = boardState;
@@ -1107,7 +1107,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
     @Deprecated
     public HearthTreeNode destroyed(PlayerSide thisPlayerSide, HearthTreeNode boardState, Deck deckPlayer0,
                                     Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
-        return this.destroyed(thisPlayerSide, boardState, singleRealizationOnly);
+        return this.destroyAndNotify(thisPlayerSide, boardState, singleRealizationOnly);
     }
 
     @Deprecated
