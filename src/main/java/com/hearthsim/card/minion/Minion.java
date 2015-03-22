@@ -513,7 +513,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
             : damage;
         health_ = (byte) (health_ - totalDamage);
 
-        return this.notifyMinionDamaged(boardState, thisPlayerSide);
+        return boardState.notifyMinionDamaged(thisPlayerSide, this);
     }
 
     @Deprecated
@@ -542,7 +542,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         }
 
         // Notify all that it is dead
-        toRet = this.notifyMinionDead(thisPlayerSide, this, toRet);
+        toRet = toRet.notifyMinionDead(thisPlayerSide, this);
         return toRet;
     }
 
@@ -629,7 +629,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
                 health_ = (byte) (health_ + healAmount);
 
             // Notify all that it the minion is healed
-            return this.notifyMinionHealed(boardState, thisPlayerSide);
+            return boardState.notifyMinionHealed(thisPlayerSide, this);
         }
         return boardState;
     }
@@ -832,9 +832,9 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         }
 
         if (wasPlayed)
-            toRet = this.notifyMinionPlayed(toRet, targetSide);
+            toRet = toRet.notifyMinionPlayed(targetSide, this);
 
-        toRet = this.notifyMinionSummon(toRet, targetSide);
+        toRet = toRet.notifyMinionSummon(targetSide, this);
 
         return toRet;
     }
@@ -1044,44 +1044,9 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         return this.notifyMinionSummon(boardState, targetSide);
     }
 
+    @Deprecated
     protected HearthTreeNode notifyMinionSummon(HearthTreeNode boardState, PlayerSide targetSide) throws HSException {
-        HearthTreeNode toRet = boardState;
-        ArrayList<MinionSummonedInterface> matches = new ArrayList<MinionSummonedInterface>();
-
-        PlayerModel currentPlayer = boardState.data_.getCurrentPlayer();
-        PlayerModel waitingPlayer = boardState.data_.getWaitingPlayer();
-
-        Card hero = currentPlayer.getHero();
-        if (hero instanceof MinionSummonedInterface) {
-            matches.add((MinionSummonedInterface)hero);
-        }
-
-        for (Minion minion : currentPlayer.getMinions()) {
-            if (!minion.isSilenced() && minion instanceof MinionSummonedInterface) {
-                matches.add((MinionSummonedInterface)minion);
-            }
-        }
-
-        for (MinionSummonedInterface match : matches) {
-            toRet = match.minionSummonEvent(PlayerSide.CURRENT_PLAYER, targetSide, this, toRet);
-        }
-        matches.clear();
-
-        hero = waitingPlayer.getHero();
-        if (hero instanceof MinionSummonedInterface) {
-            matches.add((MinionSummonedInterface)hero);
-        }
-
-        for (Minion minion : waitingPlayer.getMinions()) {
-            if (!minion.isSilenced() && minion instanceof MinionSummonedInterface) {
-                matches.add((MinionSummonedInterface)minion);
-            }
-        }
-
-        for (MinionSummonedInterface match : matches) {
-            toRet = match.minionSummonEvent(PlayerSide.WAITING_PLAYER, targetSide, this, toRet);
-        }
-        return toRet;
+        return boardState.notifyMinionSummon(targetSide, this);
     }
 
     @Deprecated
@@ -1090,46 +1055,9 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         return this.notifyMinionPlacement(boardState, targetSide);
     }
 
+    @Deprecated
     protected HearthTreeNode notifyMinionPlacement(HearthTreeNode boardState, PlayerSide targetSide) throws HSException {
-        HearthTreeNode toRet = boardState;
-
-        ArrayList<MinionPlacedInterface> matches = new ArrayList<MinionPlacedInterface>();
-
-        PlayerModel currentPlayer = boardState.data_.getCurrentPlayer();
-        PlayerModel waitingPlayer = boardState.data_.getWaitingPlayer();
-
-        Card hero = currentPlayer.getHero();
-        if (hero instanceof MinionPlacedInterface) {
-            matches.add((MinionPlacedInterface)hero);
-        }
-
-        for (Minion minion : currentPlayer.getMinions()) {
-            if (!minion.isSilenced() && minion instanceof MinionPlacedInterface) {
-                matches.add((MinionPlacedInterface)minion);
-            }
-        }
-
-        for (MinionPlacedInterface match : matches) {
-            toRet = match.minionPlacedEvent(PlayerSide.CURRENT_PLAYER, targetSide, this, toRet);
-        }
-        matches.clear();
-
-        hero = waitingPlayer.getHero();
-        if (hero instanceof MinionPlacedInterface) {
-            matches.add((MinionPlacedInterface)hero);
-        }
-
-        for (Minion minion : waitingPlayer.getMinions()) {
-            if (!minion.isSilenced() && minion instanceof MinionPlacedInterface) {
-                matches.add((MinionPlacedInterface)minion);
-            }
-        }
-
-        for (MinionPlacedInterface match : matches) {
-            toRet = match.minionPlacedEvent(PlayerSide.WAITING_PLAYER, targetSide, this, toRet);
-        }
-
-        return toRet;
+        return boardState.notifyMinionPlacement(targetSide, this);
     }
 
     @Deprecated
@@ -1138,45 +1066,9 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         return this.notifyMinionPlayed(boardState, targetSide);
     }
 
+    @Deprecated
     protected HearthTreeNode notifyMinionPlayed(HearthTreeNode boardState, PlayerSide targetSide) throws HSException {
-        HearthTreeNode toRet = boardState;
-        ArrayList<MinionPlayedInterface> matches = new ArrayList<MinionPlayedInterface>();
-
-        PlayerModel currentPlayer = boardState.data_.getCurrentPlayer();
-        PlayerModel waitingPlayer = boardState.data_.getWaitingPlayer();
-
-        Card hero = currentPlayer.getHero();
-        if (hero instanceof MinionPlayedInterface) {
-            matches.add((MinionPlayedInterface)hero);
-        }
-
-        for (Minion minion : currentPlayer.getMinions()) {
-            if (!minion.isSilenced() && minion instanceof MinionPlayedInterface) {
-                matches.add((MinionPlayedInterface)minion);
-            }
-        }
-
-        for (MinionPlayedInterface match : matches) {
-            toRet = match.minionPlayedEvent(PlayerSide.CURRENT_PLAYER, targetSide, this, toRet);
-        }
-        matches.clear();
-
-        hero = waitingPlayer.getHero();
-        if (hero instanceof MinionPlayedInterface) {
-            matches.add((MinionPlayedInterface)hero);
-        }
-
-        for (Minion minion : waitingPlayer.getMinions()) {
-            if (!minion.isSilenced() && minion instanceof MinionPlayedInterface) {
-                matches.add((MinionPlayedInterface)minion);
-            }
-        }
-
-        for (MinionPlayedInterface match : matches) {
-            toRet = match.minionPlayedEvent(PlayerSide.WAITING_PLAYER, targetSide, this, toRet);
-        }
-
-        return toRet;
+        return boardState.notifyMinionPlayed(targetSide, this);
     }
 
     @Deprecated
@@ -1185,16 +1077,9 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         return this.notifyMinionDamaged(boardState, targetSide);
     }
 
+    @Deprecated
     protected HearthTreeNode notifyMinionDamaged(HearthTreeNode boardState, PlayerSide targetSide) throws HSException {
-        HearthTreeNode toRet = boardState;
-        for (BoardModel.CharacterLocation characterLocation : boardState.data_) {
-            Minion character = boardState.data_.getCharacter(characterLocation);
-            if (!character.isSilenced() && character instanceof MinionDamagedInterface) {
-                toRet = ((MinionDamagedInterface)character).minionDamagedEvent(characterLocation.getPlayerSide(), targetSide, this, toRet);
-            }
-        }
-
-        return toRet;
+        return boardState.notifyMinionDamaged(targetSide, this);
     }
 
     @Deprecated
@@ -1203,16 +1088,9 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         return this.notifyMinionDead(deadMinionPlayerSide, deadMinion, boardState);
     }
 
+    @Deprecated
     protected HearthTreeNode notifyMinionDead(PlayerSide deadMinionPlayerSide, Minion deadMinion, HearthTreeNode boardState) throws HSException {
-        HearthTreeNode toRet = boardState;
-        for (BoardModel.CharacterLocation characterLocation : boardState.data_) {
-            Minion character = boardState.data_.getCharacter(characterLocation);
-            if (!character.isSilenced() && character instanceof MinionDeadInterface) {
-                toRet = ((MinionDeadInterface)character).minionDeadEvent(characterLocation.getPlayerSide(), deadMinionPlayerSide, deadMinion, toRet);
-            }
-        }
-
-        return toRet;
+        return boardState.notifyMinionDead(deadMinionPlayerSide, deadMinion);
     }
 
     @Deprecated
@@ -1221,16 +1099,9 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         return this.notifyMinionHealed(boardState, targetSide);
     }
 
+    @Deprecated
     protected HearthTreeNode notifyMinionHealed(HearthTreeNode boardState, PlayerSide targetSide) throws HSException {
-        HearthTreeNode toRet = boardState;
-        for (BoardModel.CharacterLocation characterLocation : boardState.data_) {
-            Minion character = boardState.data_.getCharacter(characterLocation);
-            if (!character.isSilenced() && character instanceof MinionHealedInterface) {
-                toRet = ((MinionHealedInterface)character).minionHealedEvent(characterLocation.getPlayerSide(), targetSide, this, toRet);
-            }
-        }
-
-        return toRet;
+        return boardState.notifyMinionHealed(targetSide, this);
     }
 
     @Override

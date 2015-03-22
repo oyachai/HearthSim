@@ -199,11 +199,11 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
         return modelForSide(playerSide).getHand().get(index);
     }
 
-    public Minion getCharacter(CharacterLocation location) throws HSInvalidPlayerIndexException {
+    public Minion getCharacter(CharacterLocation location) {
         return this.getCharacter(location.getPlayerSide(), location.getIndex());
     }
 
-    public Minion getCharacter(PlayerSide playerSide, int index) throws HSInvalidPlayerIndexException {
+    public Minion getCharacter(PlayerSide playerSide, int index) {
         PlayerModel playerModel = modelForSide(playerSide);
         return playerModel.getCharacter(index);
     }

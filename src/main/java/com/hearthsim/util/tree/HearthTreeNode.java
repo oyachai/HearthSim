@@ -3,7 +3,10 @@ package com.hearthsim.util.tree;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.hearthsim.card.minion.*;
+import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
+import com.hearthsim.model.PlayerSide;
 import com.hearthsim.player.playercontroller.BoardScorer;
 import com.hearthsim.util.HearthAction;
 
@@ -185,4 +188,75 @@ public class HearthTreeNode {
         return toRet;
     }
 
+    public HearthTreeNode notifyMinionDamaged(PlayerSide targetSide, Minion minion) {
+        HearthTreeNode toRet = this;
+        for (BoardModel.CharacterLocation characterLocation : toRet.data_) {
+            Minion character = toRet.data_.getCharacter(characterLocation);
+            if (!character.isSilenced() && character instanceof MinionDamagedInterface) {
+                toRet = ((MinionDamagedInterface)character).minionDamagedEvent(characterLocation.getPlayerSide(), targetSide, minion, toRet);
+            }
+        }
+
+        return toRet;
+    }
+
+    public HearthTreeNode notifyMinionDead(PlayerSide deadMinionPlayerSide, Minion deadMinion) throws HSException {
+        HearthTreeNode toRet = this;
+        for (BoardModel.CharacterLocation characterLocation : toRet.data_) {
+            Minion character = toRet.data_.getCharacter(characterLocation);
+            if (!character.isSilenced() && character instanceof MinionDeadInterface) {
+                toRet = ((MinionDeadInterface)character).minionDeadEvent(characterLocation.getPlayerSide(), deadMinionPlayerSide, deadMinion, toRet);
+            }
+        }
+
+        return toRet;
+    }
+
+    public HearthTreeNode notifyMinionHealed(PlayerSide targetSide, Minion minion) throws HSException {
+        HearthTreeNode toRet = this;
+        for (BoardModel.CharacterLocation characterLocation : toRet.data_) {
+            Minion character = toRet.data_.getCharacter(characterLocation);
+            if (!character.isSilenced() && character instanceof MinionHealedInterface) {
+                toRet = ((MinionHealedInterface)character).minionHealedEvent(characterLocation.getPlayerSide(), targetSide, minion, toRet);
+            }
+        }
+
+        return toRet;
+    }
+
+    public HearthTreeNode notifyMinionPlacement(PlayerSide targetSide, Minion minion) throws HSException {
+        HearthTreeNode toRet = this;
+        for (BoardModel.CharacterLocation characterLocation : toRet.data_) {
+            Minion character = toRet.data_.getCharacter(characterLocation);
+            if (!character.isSilenced() && character instanceof MinionPlacedInterface) {
+                toRet = ((MinionPlacedInterface)character).minionPlacedEvent(characterLocation.getPlayerSide(), targetSide, minion, toRet);
+            }
+        }
+
+        return toRet;
+    }
+
+    public HearthTreeNode notifyMinionPlayed(PlayerSide targetSide, Minion minion) throws HSException {
+        HearthTreeNode toRet = this;
+        for (BoardModel.CharacterLocation characterLocation : toRet.data_) {
+            Minion character = toRet.data_.getCharacter(characterLocation);
+            if (!character.isSilenced() && character instanceof MinionPlayedInterface) {
+                toRet = ((MinionPlayedInterface)character).minionPlayedEvent(characterLocation.getPlayerSide(), targetSide, minion, toRet);
+            }
+        }
+
+        return toRet;
+    }
+
+    public HearthTreeNode notifyMinionSummon(PlayerSide targetSide, Minion minion) throws HSException {
+        HearthTreeNode toRet = this;
+        for (BoardModel.CharacterLocation characterLocation : toRet.data_) {
+            Minion character = toRet.data_.getCharacter(characterLocation);
+            if (!character.isSilenced() && character instanceof MinionSummonedInterface) {
+                toRet = ((MinionSummonedInterface)character).minionSummonEvent(characterLocation.getPlayerSide(), targetSide, minion, toRet);
+            }
+        }
+
+        return toRet;
+    }
 }
