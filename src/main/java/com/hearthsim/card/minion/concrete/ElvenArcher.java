@@ -26,7 +26,7 @@ public class ElvenArcher extends Minion implements MinionTargetableBattlecry {
     @Override
     public HearthTreeNode useTargetableBattlecry_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState) throws HSException {
         HearthTreeNode toRet = boardState;
-        toRet = targetMinion.takeDamage((byte)1, PlayerSide.CURRENT_PLAYER, side, toRet, false, true);
+        toRet = targetMinion.takeDamageAndNotify((byte) 1, PlayerSide.CURRENT_PLAYER, side, toRet, false, true);
         return toRet;
     }
 }

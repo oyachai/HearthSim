@@ -40,7 +40,7 @@ public class Si7Agent extends Minion implements MinionTargetableBattlecry {
     public HearthTreeNode useTargetableBattlecry_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState) throws HSException {
         HearthTreeNode toRet = boardState;
         if (toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER).isComboEnabled()) {
-            toRet = targetMinion.takeDamage((byte) 2, PlayerSide.CURRENT_PLAYER, side, toRet, false, true);
+            toRet = targetMinion.takeDamageAndNotify((byte) 2, PlayerSide.CURRENT_PLAYER, side, toRet, false, true);
             return toRet;
         } else {
             return null;

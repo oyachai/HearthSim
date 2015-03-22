@@ -27,7 +27,7 @@ public class CruelTaskmaster extends Minion implements MinionTargetableBattlecry
     public HearthTreeNode useTargetableBattlecry_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState) throws HSException {
         HearthTreeNode toRet = boardState;
         targetMinion.setAttack((byte)(targetMinion.getAttack() + 2));
-        toRet = targetMinion.takeDamage((byte)1, PlayerSide.CURRENT_PLAYER, side, toRet, false, true);
+        toRet = targetMinion.takeDamageAndNotify((byte) 1, PlayerSide.CURRENT_PLAYER, side, toRet, false, true);
         return toRet;
     }
 }

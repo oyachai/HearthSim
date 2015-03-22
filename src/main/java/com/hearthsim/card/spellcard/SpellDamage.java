@@ -64,7 +64,7 @@ public class SpellDamage extends SpellCard {
      * @return The boardState is manipulated and returned
      */
     public HearthTreeNode attack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode boardState) throws HSException {
-        return targetMinion.takeDamage(damage_, PlayerSide.CURRENT_PLAYER, targetMinionPlayerSide, boardState, true, false);
+        return targetMinion.takeDamageAndNotify(damage_, PlayerSide.CURRENT_PLAYER, targetMinionPlayerSide, boardState, true, false);
     }
 
     @Deprecated

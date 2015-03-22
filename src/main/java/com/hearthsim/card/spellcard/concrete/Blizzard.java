@@ -18,6 +18,6 @@ public class Blizzard extends SpellDamageAoe {
     @Override
     public HearthTreeNode attack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode boardState) throws HSException {
         targetMinion.setFrozen(true);
-        return targetMinion.takeDamage(damage_, PlayerSide.CURRENT_PLAYER, targetMinionPlayerSide, boardState, true, false);
+        return targetMinion.takeDamageAndNotify(damage_, PlayerSide.CURRENT_PLAYER, targetMinionPlayerSide, boardState, true, false);
     }
 }

@@ -22,7 +22,7 @@ public class Nightblade extends Minion implements MinionUntargetableBattlecry {
             boolean singleRealizationOnly
         ) throws HSException {
         HearthTreeNode toRet = boardState;
-        toRet = toRet.data_.getWaitingPlayer().getHero().takeDamage((byte)3, PlayerSide.CURRENT_PLAYER, PlayerSide.WAITING_PLAYER, boardState, false, false);
+        toRet = toRet.data_.getWaitingPlayer().getHero().takeDamageAndNotify((byte)3, PlayerSide.CURRENT_PLAYER, PlayerSide.WAITING_PLAYER, boardState, false, false);
         return toRet;
     }
 

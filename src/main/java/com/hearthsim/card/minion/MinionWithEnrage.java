@@ -37,30 +37,13 @@ public abstract class MinionWithEnrage extends Minion {
     public abstract void pacify();
 
 
-    /**
-     * Called when this minion takes damage
-     *
-     * Override for enrage
-     *  @param damage The amount of damage to take
-     * @param attackPlayerSide The player index of the attacker.  This is needed to do things like +spell damage.
-     * @param thisPlayerSide
-     * @param boardState
-     * @param deckPlayer0 The deck of player0
-     * @param isSpellDamage True if this is a spell damage
-     * @throws HSInvalidPlayerIndexException
-     */
     @Override
-    public HearthTreeNode takeDamage(
-            byte damage,
-            PlayerSide attackPlayerSide,
-            PlayerSide thisPlayerSide,
-            HearthTreeNode boardState,
-            boolean isSpellDamage,
-            boolean handleMinionDeath)
-        throws HSException {
-        HearthTreeNode toRet = super.takeDamage(damage, attackPlayerSide, thisPlayerSide, boardState, isSpellDamage, handleMinionDeath);
-        this.enrageCheck();
-        return toRet;
+    public byte takeDamage(byte damage, PlayerSide originSide, PlayerSide thisPlayerSide, BoardModel board, boolean isSpellDamage) {
+        byte actualDamage = super.takeDamage(damage, originSide, thisPlayerSide, board, isSpellDamage);
+        if(actualDamage > 0) {
+            this.enrageCheck();
+        }
+        return actualDamage;
     }
 
     /**

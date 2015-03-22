@@ -213,14 +213,14 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
      * @throws HSInvalidPlayerIndexException
      */
     @Override
-    public HearthTreeNode takeDamage(byte damage, PlayerSide attackPlayerSide, PlayerSide thisPlayerSide,
+    public HearthTreeNode takeDamageAndNotify(byte damage, PlayerSide attackPlayerSide, PlayerSide thisPlayerSide,
                                      HearthTreeNode boardState, boolean isSpellDamage,
                                      boolean handleMinionDeath) throws HSException {
         HearthTreeNode toRet = boardState;
         byte damageRemaining = (byte) (damage - armor_);
         if (damageRemaining > 0) {
             armor_ = 0;
-            toRet = super.takeDamage(damageRemaining, attackPlayerSide, thisPlayerSide, toRet, isSpellDamage, handleMinionDeath);
+            toRet = super.takeDamageAndNotify(damageRemaining, attackPlayerSide, thisPlayerSide, toRet, isSpellDamage, handleMinionDeath);
         } else {
             armor_ = (byte) (armor_ - damage);
         }

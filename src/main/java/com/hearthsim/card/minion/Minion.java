@@ -451,22 +451,31 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
      * @param handleMinionDeath Set this to True if you want the death event to trigger when (if) the minion dies from this damage. Setting this flag to True will also trigger deathrattle immediately.
      * @throws HSInvalidPlayerIndexException
      */
-    public HearthTreeNode takeDamage(byte damage, PlayerSide attackPlayerSide, PlayerSide thisPlayerSide, HearthTreeNode boardState, boolean isSpellDamage, boolean handleMinionDeath) throws HSException {
-        if (divineShield_) {
+    public HearthTreeNode takeDamageAndNotify(byte damage, PlayerSide attackPlayerSide, PlayerSide thisPlayerSide, HearthTreeNode boardState, boolean isSpellDamage, boolean handleMinionDeath) throws HSException {
+        byte damageDealt = this.takeDamage(damage, attackPlayerSide, thisPlayerSide, boardState.data_, isSpellDamage);
+        if (damageDealt > 0) {
+            return boardState.notifyMinionDamaged(thisPlayerSide, this);
+        }
+        return boardState;
+    }
+
+    public byte takeDamage(byte damage, PlayerSide originSide, PlayerSide thisPlayerSide, BoardModel board, boolean isSpellDamage) {
+        if (this.divineShield_) {
             if (damage > 0)
-                divineShield_ = false;
-            return boardState;
+                this.divineShield_ = false;
+            return 0;
         }
 
-        if (immune_) {
-            return boardState;
+        if (this.immune_) {
+            return 0;
         }
 
-        byte totalDamage = isSpellDamage ? (byte) (damage + boardState.data_.modelForSide(attackPlayerSide).getSpellDamage())
-            : damage;
-        health_ = (byte) (health_ - totalDamage);
-
-        return boardState.notifyMinionDamaged(thisPlayerSide, this);
+        byte totalDamage = damage;
+        if (isSpellDamage) {
+            totalDamage += board.modelForSide(originSide).getSpellDamage();
+        }
+        this.health_ = (byte) (this.health_ - totalDamage);
+        return totalDamage;
     }
 
     /**
@@ -871,8 +880,8 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 
         HearthTreeNode toRet = boardState;
         byte origAttack = targetMinion.getTotalAttack();
-        toRet = targetMinion.takeDamage(this.getTotalAttack(), PlayerSide.CURRENT_PLAYER, targetMinionPlayerSide, toRet, false, false);
-        toRet = this.takeDamage(origAttack, targetMinionPlayerSide, PlayerSide.CURRENT_PLAYER, toRet, false, false);
+        toRet = targetMinion.takeDamageAndNotify(this.getTotalAttack(), PlayerSide.CURRENT_PLAYER, targetMinionPlayerSide, toRet, false, false);
+        toRet = this.takeDamageAndNotify(origAttack, targetMinionPlayerSide, PlayerSide.CURRENT_PLAYER, toRet, false, false);
         if (windFury_ && !hasWindFuryAttacked_)
             hasWindFuryAttacked_ = true;
         else
@@ -1092,7 +1101,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
     public HearthTreeNode takeDamage(byte damage, PlayerSide attackPlayerSide, PlayerSide thisPlayerSide,
                                      HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean isSpellDamage,
                                      boolean handleMinionDeath) throws HSException {
-        return this.takeDamage(damage, attackPlayerSide, thisPlayerSide, boardState, isSpellDamage, handleMinionDeath);
+        return this.takeDamageAndNotify(damage, attackPlayerSide, thisPlayerSide, boardState, isSpellDamage, handleMinionDeath);
     }
 
     @Deprecated

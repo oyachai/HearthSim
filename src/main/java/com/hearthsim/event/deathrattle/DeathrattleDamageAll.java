@@ -24,13 +24,13 @@ public class DeathrattleDamageAll extends DeathrattleAction {
         if (toRet != null) {
             PlayerModel currentPlayer = toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
             PlayerModel waitingPlayer = toRet.data_.modelForSide(PlayerSide.WAITING_PLAYER);
-            toRet = currentPlayer.getHero().takeDamage(damage_, playerSide, PlayerSide.CURRENT_PLAYER, boardState, false, false);
+            toRet = currentPlayer.getHero().takeDamageAndNotify(damage_, playerSide, PlayerSide.CURRENT_PLAYER, boardState, false, false);
             for (Minion aMinion : currentPlayer.getMinions()) {
-                toRet = aMinion.takeDamage(damage_, playerSide, PlayerSide.CURRENT_PLAYER, toRet, false, false);
+                toRet = aMinion.takeDamageAndNotify(damage_, playerSide, PlayerSide.CURRENT_PLAYER, toRet, false, false);
             }
-            toRet = waitingPlayer.getHero().takeDamage(damage_, playerSide, PlayerSide.WAITING_PLAYER, boardState, false, false);
+            toRet = waitingPlayer.getHero().takeDamageAndNotify(damage_, playerSide, PlayerSide.WAITING_PLAYER, boardState, false, false);
             for (Minion aMinion : waitingPlayer.getMinions()) {
-                toRet = aMinion.takeDamage(damage_, playerSide, PlayerSide.WAITING_PLAYER, toRet, false, false);
+                toRet = aMinion.takeDamageAndNotify(damage_, playerSide, PlayerSide.WAITING_PLAYER, toRet, false, false);
             }
         }
         return toRet;
