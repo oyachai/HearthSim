@@ -1,10 +1,8 @@
 package com.hearthsim.card.minion;
 
-import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.tree.HearthTreeNode;
 
 public abstract class MinionWithEnrage extends Minion {
 
@@ -40,7 +38,7 @@ public abstract class MinionWithEnrage extends Minion {
     @Override
     public byte takeDamage(byte damage, PlayerSide originSide, PlayerSide thisPlayerSide, BoardModel board, boolean isSpellDamage) {
         byte actualDamage = super.takeDamage(damage, originSide, thisPlayerSide, board, isSpellDamage);
-        if(actualDamage > 0) {
+        if (actualDamage > 0) {
             this.enrageCheck();
         }
         return actualDamage;
@@ -57,7 +55,7 @@ public abstract class MinionWithEnrage extends Minion {
     @Override
     public byte takeHeal(byte healAmount, PlayerSide thisPlayerSide, BoardModel board) {
         byte actual = super.takeHeal(healAmount, thisPlayerSide, board);
-        if(actual > 0) {
+        if (actual > 0) {
             this.enrageCheck();
         }
         return actual;

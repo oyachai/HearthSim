@@ -4,7 +4,6 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.EffectMinionAction;
 import com.hearthsim.event.MinionFilterUntargetedDeathrattle;
-import com.hearthsim.event.EffectMinionBounce;
 import com.hearthsim.event.deathrattle.DeathrattleEffectRandomMinion;
 
 public class AnubarAmbusher extends Minion {

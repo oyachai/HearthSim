@@ -17,7 +17,7 @@ public class CabalShadowPriest extends Minion implements MinionTargetableBattlec
 
         @Override
         public boolean targetMatches(PlayerSide originSide, Card origin, PlayerSide targetSide, Minion targetCharacter, BoardModel board) {
-            if(!super.targetMatches(originSide, origin, targetSide, targetCharacter, board)) {
+            if (!super.targetMatches(originSide, origin, targetSide, targetCharacter, board)) {
                 return false;
             }
 

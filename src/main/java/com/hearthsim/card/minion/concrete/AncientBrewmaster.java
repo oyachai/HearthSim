@@ -4,7 +4,6 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionTargetableBattlecry;
 import com.hearthsim.event.EffectMinionAction;
-import com.hearthsim.event.EffectMinionBounce;
 import com.hearthsim.event.MinionFilterTargetedBattlecry;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
