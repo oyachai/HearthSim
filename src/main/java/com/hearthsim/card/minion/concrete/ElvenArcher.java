@@ -3,7 +3,7 @@ package com.hearthsim.card.minion.concrete;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionTargetableBattlecry;
-import com.hearthsim.event.battlecry.BattlecryTargetableAction;
+import com.hearthsim.event.battlecry.BattlecryActionTargetable;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
@@ -14,7 +14,7 @@ public class ElvenArcher extends Minion implements MinionTargetableBattlecry {
     /**
      * Battlecry: Deal 1 damage to a chosen target
      */
-    private final static BattlecryTargetableAction battlecryAction = new BattlecryTargetableAction() {
+    private final static BattlecryActionTargetable battlecryAction = new BattlecryActionTargetable() {
         protected boolean canTargetEnemyHero() { return true; }
         protected boolean canTargetEnemyMinions() { return true; }
         protected boolean canTargetOwnHero() { return true; }

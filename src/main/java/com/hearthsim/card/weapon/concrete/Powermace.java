@@ -3,7 +3,7 @@ package com.hearthsim.card.weapon.concrete;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.weapon.WeaponCard;
-import com.hearthsim.event.EffectMinionAction;
+import com.hearthsim.event.EffectMinionActionUntargetable;
 import com.hearthsim.event.deathrattle.DeathrattleEffectRandomMinion;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
@@ -14,7 +14,7 @@ public class Powermace extends WeaponCard {
         this.deathrattleAction_ = new DeathrattleEffectRandomMinion(new PowermaceEffect());
     }
 
-    private class PowermaceEffect extends EffectMinionAction {
+    private class PowermaceEffect extends EffectMinionActionUntargetable {
         protected boolean canEffectOwnMinions() { return true; }
 
         protected Minion.MinionTribe tribeFilter() { return Minion.MinionTribe.MECH; }

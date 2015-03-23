@@ -6,7 +6,7 @@ import com.hearthsim.card.minion.MinionTargetableBattlecry;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 
-public abstract class BattlecryTargetableAction extends BattlecryAction implements MinionTargetableBattlecry {
+public abstract class BattlecryActionTargetable extends BattlecryAction implements MinionTargetableBattlecry {
     protected boolean canTargetEnemyHero() { return false; }
     protected boolean canTargetEnemyMinions() { return false; }
     protected boolean canTargetOwnHero() { return false; }

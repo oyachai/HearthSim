@@ -2,7 +2,7 @@ package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.event.EffectMinionAction;
+import com.hearthsim.event.EffectMinionActionUntargetable;
 import com.hearthsim.event.deathrattle.DeathrattleEffectRandomMinion;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
@@ -14,7 +14,7 @@ public class DarkCultist extends Minion {
         deathrattleAction_ = new DeathrattleEffectRandomMinion(new DarkCultistEffect(3));
     }
 
-    private class DarkCultistEffect extends EffectMinionAction {
+    private class DarkCultistEffect extends EffectMinionActionUntargetable {
         private byte effect;
 
         public DarkCultistEffect(int effect) {

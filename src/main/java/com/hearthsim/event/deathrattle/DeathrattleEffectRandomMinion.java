@@ -2,7 +2,7 @@ package com.hearthsim.event.deathrattle;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.event.EffectMinionAction;
+import com.hearthsim.event.EffectMinionActionUntargetable;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
@@ -14,9 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DeathrattleEffectRandomMinion extends DeathrattleAction {
-    private EffectMinionAction effect;
+    private EffectMinionActionUntargetable effect;
 
-    public DeathrattleEffectRandomMinion(EffectMinionAction effect) {
+    public DeathrattleEffectRandomMinion(EffectMinionActionUntargetable effect) {
         this.effect = effect;
     }
 

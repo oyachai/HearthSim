@@ -3,7 +3,7 @@ package com.hearthsim.card.minion.concrete;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionTargetableBattlecry;
-import com.hearthsim.event.battlecry.BattlecryTargetableAction;
+import com.hearthsim.event.battlecry.BattlecryActionTargetable;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
@@ -14,7 +14,7 @@ public class HungryCrab extends Minion implements MinionTargetableBattlecry {
     /**
      * Battlecry: Destroy a murloc and gain +2/+2
      */
-    private final static BattlecryTargetableAction battlecryAction = new BattlecryTargetableAction() {
+    private final static BattlecryActionTargetable battlecryAction = new BattlecryActionTargetable() {
         protected boolean canTargetEnemyMinions() { return true; }
         protected boolean canTargetOwnMinions() { return true; }
         protected MinionTribe tribeFilter() { return MinionTribe.MURLOC; }

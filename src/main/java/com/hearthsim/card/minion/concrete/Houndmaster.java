@@ -3,7 +3,7 @@ package com.hearthsim.card.minion.concrete;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionTargetableBattlecry;
-import com.hearthsim.event.battlecry.BattlecryTargetableAction;
+import com.hearthsim.event.battlecry.BattlecryActionTargetable;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
@@ -14,7 +14,7 @@ public class Houndmaster extends Minion implements MinionTargetableBattlecry {
     /**
      * Battlecry: Give a friendly beast +2/+2 and Taunt
      */
-    private final static BattlecryTargetableAction battlecryAction = new BattlecryTargetableAction() {
+    private final static BattlecryActionTargetable battlecryAction = new BattlecryActionTargetable() {
         protected boolean canTargetOwnMinions() { return true; }
         protected MinionTribe tribeFilter() { return MinionTribe.BEAST; }
 
