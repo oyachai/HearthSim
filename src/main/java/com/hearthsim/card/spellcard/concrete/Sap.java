@@ -3,6 +3,7 @@ package com.hearthsim.card.spellcard.concrete;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.event.EffectMinionBounce;
+import com.hearthsim.event.MinionFilterSpellTargetable;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -30,9 +31,7 @@ public class Sap extends SpellCard {
     public Sap() {
         super();
 
-        this.canTargetEnemyHero = false;
-        this.canTargetOwnHero = false;
-        this.canTargetOwnMinions = false;
+        this.minionFilter = MinionFilterSpellTargetable.ENEMY_MINIONS;
     }
 
     /**

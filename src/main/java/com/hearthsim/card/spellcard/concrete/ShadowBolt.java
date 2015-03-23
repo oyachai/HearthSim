@@ -1,14 +1,14 @@
 package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.spellcard.SpellDamage;
+import com.hearthsim.event.MinionFilterSpellTargetable;
 
 public class ShadowBolt extends SpellDamage {
 
     public ShadowBolt() {
         super();
 
-        this.canTargetEnemyHero = false;
-        this.canTargetOwnHero = false;
+        this.minionFilter = MinionFilterSpellTargetable.ALL_MINIONS;
     }
 
     @Deprecated

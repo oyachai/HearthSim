@@ -2,6 +2,7 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
+import com.hearthsim.event.MinionFilterSpellTargetable;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.CardDrawNode;
@@ -29,8 +30,7 @@ public class LayOnHands extends SpellCard {
         super();
 
         //Let's assume that it is never beneficial to heal an opponent... though this may not strictly be true under some very corner cases (e.g., with a Northshire Cleric)
-        this.canTargetEnemyHero = false; // TODO card as printed allows this
-        this.canTargetEnemyMinions = false;
+        this.minionFilter = MinionFilterSpellTargetable.FRIENDLY_MINIONS;
     }
 
     /**

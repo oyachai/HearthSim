@@ -2,6 +2,7 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellDamage;
+import com.hearthsim.event.MinionFilterSpellTargetable;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.CardDrawNode;
@@ -12,8 +13,7 @@ public class Slam extends SpellDamage {
     public Slam() {
         super();
 
-        this.canTargetEnemyHero = false;
-        this.canTargetOwnHero = false;
+        this.minionFilter = MinionFilterSpellTargetable.ALL_MINIONS;
     }
 
     @Deprecated

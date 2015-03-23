@@ -2,6 +2,7 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
+import com.hearthsim.event.MinionFilterSpellTargetable;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
@@ -29,9 +30,7 @@ public class SavageRoar extends SpellCard {
     public SavageRoar() {
         super();
 
-        this.canTargetEnemyHero = false;
-        this.canTargetEnemyMinions = false;
-        this.canTargetOwnMinions = false;
+        this.minionFilter = MinionFilterSpellTargetable.SELF;
     }
 
     /**

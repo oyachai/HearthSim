@@ -2,6 +2,7 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellDamage;
+import com.hearthsim.event.MinionFilterSpellTargetable;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -10,7 +11,16 @@ public class DrainLife extends SpellDamage {
 
     public DrainLife() {
         super();
-        this.canTargetOwnHero = false; // TODO card as printed looks like it allows this
+        this.minionFilter = new MinionFilterSpellTargetable() {
+            @Override
+            protected boolean includeEnemyHero() { return true; }
+
+            @Override
+            protected boolean includeEnemyMinions() { return true; }
+
+            @Override
+            protected boolean includeOwnMinions() { return true; }
+        };
     }
 
     @Deprecated

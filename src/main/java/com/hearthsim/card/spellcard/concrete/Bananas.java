@@ -2,6 +2,7 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
+import com.hearthsim.event.MinionFilterSpellTargetable;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -19,8 +20,7 @@ public class Bananas extends SpellCard {
     public Bananas() {
         super();
 
-        this.canTargetEnemyHero = false;
-        this.canTargetOwnHero = false;
+        this.minionFilter = MinionFilterSpellTargetable.ALL_MINIONS;
     }
 
     @Override

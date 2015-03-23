@@ -5,6 +5,7 @@ import com.hearthsim.card.minion.concrete.Huffer;
 import com.hearthsim.card.minion.concrete.Leokk;
 import com.hearthsim.card.minion.concrete.Misha;
 import com.hearthsim.card.spellcard.SpellCard;
+import com.hearthsim.event.MinionFilterSpellTargetable;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
@@ -33,9 +34,7 @@ public class AnimalCompanion extends SpellCard {
     public AnimalCompanion() {
         super();
 
-        this.canTargetEnemyHero = false;
-        this.canTargetEnemyMinions = false;
-        this.canTargetOwnMinions = false;
+        this.minionFilter = MinionFilterSpellTargetable.SELF;
     }
 
     @Override

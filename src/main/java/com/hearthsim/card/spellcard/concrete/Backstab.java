@@ -2,6 +2,7 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellDamage;
+import com.hearthsim.event.MinionFilterSpellTargetable;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 
@@ -10,8 +11,7 @@ public class Backstab extends SpellDamage {
     public Backstab() {
         super();
 
-        this.canTargetEnemyHero = false;
-        this.canTargetOwnHero = false;
+        this.minionFilter = MinionFilterSpellTargetable.ALL_MINIONS;
     }
 
     @Deprecated

@@ -1,5 +1,6 @@
 package com.hearthsim.card.spellcard.concrete;
 
+import com.hearthsim.event.MinionFilterSpellTargetable;
 import org.json.JSONObject;
 
 import com.hearthsim.card.minion.Minion;
@@ -19,9 +20,7 @@ public class TheCoin extends SpellCard {
     public TheCoin() {
         super();
 
-        this.canTargetEnemyHero = false;
-        this.canTargetEnemyMinions = false;
-        this.canTargetOwnMinions = false;
+        this.minionFilter = MinionFilterSpellTargetable.SELF;
     }
 
     /**
