@@ -140,7 +140,7 @@ public class BoardModel implements DeepCopyable<BoardModel> {
      * @param position The position to place the minion.  The new minion goes to the "left" (lower index) of the postinion index.
      * @throws HSInvalidPlayerIndexException
      */
-    public void placeMinion(PlayerSide playerSide, Minion minion, int position) throws HSInvalidPlayerIndexException {
+    public void placeMinion(PlayerSide playerSide, Minion minion, int position) {
         PlayerModel playerModel = modelForSide(playerSide);
         playerModel.getMinions().add(position, minion);
         this.allMinionsFIFOList_.add(new MinionPlayerPair(minion, playerSide));
@@ -162,7 +162,7 @@ public class BoardModel implements DeepCopyable<BoardModel> {
      * @param minion The minion to be placed on the board.  The minion is placed on the right-most space.
      * @throws HSInvalidPlayerIndexException
      */
-    public void placeMinion(PlayerSide playerSide, Minion minion) throws HSInvalidPlayerIndexException {
+    public void placeMinion(PlayerSide playerSide, Minion minion) {
         this.placeMinion(playerSide, minion, this.modelForSide(playerSide).getMinions().size());
     }
 
@@ -214,13 +214,13 @@ public class BoardModel implements DeepCopyable<BoardModel> {
         }
     }
 
-    public boolean removeMinion(MinionPlayerPair minionIdPair) throws HSInvalidPlayerIndexException {
+    public boolean removeMinion(MinionPlayerPair minionIdPair) {
         this.allMinionsFIFOList_.remove(minionIdPair);
         removeAuraOfMinion(minionIdPair.getPlayerSide(), minionIdPair.minion);
         return this.modelForSide(minionIdPair.getPlayerSide()).getMinions().remove(minionIdPair.minion);
     }
 
-    public boolean removeMinion(Minion minion) throws HSException {
+    public boolean removeMinion(Minion minion) {
         MinionPlayerPair mP = null;
         for (MinionPlayerPair minionIdPair : this.allMinionsFIFOList_) {
             if (minionIdPair.minion == minion) {
@@ -231,7 +231,7 @@ public class BoardModel implements DeepCopyable<BoardModel> {
         return this.removeMinion(mP);
     }
 
-    public boolean removeMinion(PlayerSide side, int minionIndex) throws HSException {
+    public boolean removeMinion(PlayerSide side, int minionIndex) {
         return removeMinion(getMinion(side, minionIndex));
     }
 
@@ -684,7 +684,7 @@ public class BoardModel implements DeepCopyable<BoardModel> {
     }
 
     @Deprecated // use PlayerModel.getCharacter instead
-    public Minion getMinion(PlayerSide side, int index) throws HSInvalidPlayerIndexException {
+    public Minion getMinion(PlayerSide side, int index) {
         return modelForSide(side).getMinions().get(index);
     }
 }

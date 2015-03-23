@@ -2,12 +2,14 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
+import com.hearthsim.event.EffectMinionBounce;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class Sap extends SpellCard {
 
+    protected final EffectMinionBounce effect = new EffectMinionBounce();
 
     /**
      * Constructor
@@ -54,11 +56,7 @@ public class Sap extends SpellCard {
         throws HSException {
         HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
         if (toRet != null) {
-            if (boardState.data_.getWaitingPlayer().getHand().size() < 10) {
-                Minion copy = targetMinion.createResetCopy();
-                toRet.data_.getWaitingPlayer().placeCardHand(copy);
-            }
-            toRet.data_.removeMinion(targetMinion);
+            this.effect.applyEffect(PlayerSide.CURRENT_PLAYER, this, side, targetMinion, boardState.data_);
         }
         return toRet;
     }

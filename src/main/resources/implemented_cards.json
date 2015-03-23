@@ -68,6 +68,10 @@
         "class": "com.hearthsim.card.minion.concrete.AnnoyOTron"
     },
     {
+        "name": "Anub'ar Ambusher",
+        "class": "com.hearthsim.card.minion.concrete.AnubarAmbusher"
+    },
+    {
         "name": "Arathi Weaponsmith",
         "class": "com.hearthsim.card.minion.concrete.ArathiWeaponsmith"
     },
@@ -290,6 +294,10 @@
     {
         "name": "Darkbomb",
         "class": "com.hearthsim.card.spellcard.concrete.Darkbomb"
+    },
+    {
+        "name": "Dark Cultist",
+        "class": "com.hearthsim.card.minion.concrete.DarkCultist"
     },
     {
         "name": "Darkscale Healer",
@@ -871,6 +879,10 @@
     {
         "name": "Power Word: Shield",
         "class": "com.hearthsim.card.spellcard.concrete.PowerWordShield"
+    },
+    {
+        "name": "Powermace",
+        "class": "com.hearthsim.card.weapon.concrete.Powermace"
     },
     {
         "name": "Priestess of Elune",
