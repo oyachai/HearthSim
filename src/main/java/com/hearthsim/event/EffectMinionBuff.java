@@ -9,11 +9,18 @@ import com.hearthsim.util.tree.HearthTreeNode;
 public class EffectMinionBuff<T extends Card> extends EffectMinionAction<T> {
     private byte attackDelta;
     private byte healthDelta;
+    private boolean addTaunt;
 
     public EffectMinionBuff(int attackDelta, int healthDelta) {
+        this(attackDelta, healthDelta, false);
+    }
+
+    public EffectMinionBuff(int attackDelta, int healthDelta, boolean addTaunt) {
         this.attackDelta = (byte) attackDelta;
         this.healthDelta = (byte) healthDelta;
+        this.addTaunt = addTaunt;
     }
+
 
     @Override
     public HearthTreeNode applyEffect(PlayerSide originSide, T origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
@@ -21,6 +28,10 @@ public class EffectMinionBuff<T extends Card> extends EffectMinionAction<T> {
         targetCharacter.addAttack(this.attackDelta);
         targetCharacter.addHealth(this.healthDelta);
         targetCharacter.addMaxHealth(this.healthDelta);
+
+        if (addTaunt) {
+            targetCharacter.setTaunt(true);
+        }
         return boardState;
     }
 }

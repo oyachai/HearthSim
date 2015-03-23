@@ -2,12 +2,16 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
+import com.hearthsim.event.EffectMinionAction;
+import com.hearthsim.event.EffectMinionBuff;
 import com.hearthsim.event.MinionFilterTargetedSpell;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class BlessingOfKings extends SpellCard {
+
+    private final static EffectMinionAction<SpellCard> effect = new EffectMinionBuff<>(4, 4);
 
     /**
      * Constructor
@@ -53,9 +57,7 @@ public class BlessingOfKings extends SpellCard {
         throws HSException {
         HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
         if (toRet != null) {
-            targetMinion.setAttack((byte)(targetMinion.getAttack() + 4));
-            targetMinion.setHealth((byte)(targetMinion.getHealth() + 4));
-            targetMinion.setMaxHealth((byte)(targetMinion.getMaxHealth() + 4));
+            BlessingOfKings.effect.applyEffect(PlayerSide.CURRENT_PLAYER, this, side, targetMinion, boardState);
         }
         return toRet;
     }
