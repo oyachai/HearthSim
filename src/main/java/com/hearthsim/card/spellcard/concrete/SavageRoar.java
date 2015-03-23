@@ -2,7 +2,7 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
-import com.hearthsim.event.MinionFilterSpellTargetable;
+import com.hearthsim.event.MinionFilterTargetedSpell;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
@@ -30,7 +30,7 @@ public class SavageRoar extends SpellCard {
     public SavageRoar() {
         super();
 
-        this.minionFilter = MinionFilterSpellTargetable.SELF;
+        this.minionFilter = MinionFilterTargetedSpell.SELF;
     }
 
     /**

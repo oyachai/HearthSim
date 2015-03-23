@@ -5,7 +5,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 
-public class MinionFilterSpellTargetable extends MinionFilter {
+public class MinionFilterTargetedSpell extends MinionFilter {
     @Override
     public boolean targetMatches(PlayerSide originSide, Card origin, PlayerSide targetSide, Minion targetCharacter, BoardModel board) {
         // do some early checking for very common conditions before calling super
@@ -28,7 +28,7 @@ public class MinionFilterSpellTargetable extends MinionFilter {
         return true;
     }
 
-    public final static MinionFilterSpellTargetable ALL = new MinionFilterSpellTargetable() {
+    public final static MinionFilterTargetedSpell ALL = new MinionFilterTargetedSpell() {
         @Override
         protected boolean includeEnemyHero() { return true; }
 
@@ -42,7 +42,7 @@ public class MinionFilterSpellTargetable extends MinionFilter {
         protected boolean includeOwnMinions() { return true; }
     };
 
-    public final static MinionFilterSpellTargetable ALL_ENEMIES = new MinionFilterSpellTargetable() {
+    public final static MinionFilterTargetedSpell ALL_ENEMIES = new MinionFilterTargetedSpell() {
         @Override
         protected boolean includeEnemyHero() { return true; }
 
@@ -50,7 +50,7 @@ public class MinionFilterSpellTargetable extends MinionFilter {
         protected boolean includeEnemyMinions() { return true; }
     };
 
-    public final static MinionFilterSpellTargetable ALL_FRIENDLIES = new MinionFilterSpellTargetable() {
+    public final static MinionFilterTargetedSpell ALL_FRIENDLIES = new MinionFilterTargetedSpell() {
         @Override
         protected boolean includeOwnHero() { return true; }
 
@@ -58,7 +58,7 @@ public class MinionFilterSpellTargetable extends MinionFilter {
         protected boolean includeOwnMinions() { return true; }
     };
 
-    public final static MinionFilterSpellTargetable ALL_MINIONS = new MinionFilterSpellTargetable() {
+    public final static MinionFilterTargetedSpell ALL_MINIONS = new MinionFilterTargetedSpell() {
         @Override
         protected boolean includeEnemyMinions() { return true; }
 
@@ -66,7 +66,7 @@ public class MinionFilterSpellTargetable extends MinionFilter {
         protected boolean includeOwnMinions() { return true; }
     };
 
-    public final static MinionFilterSpellTargetable ALL_HEROES = new MinionFilterSpellTargetable() {
+    public final static MinionFilterTargetedSpell ALL_HEROES = new MinionFilterTargetedSpell() {
         @Override
         protected boolean includeEnemyHero() { return true; }
 
@@ -74,22 +74,22 @@ public class MinionFilterSpellTargetable extends MinionFilter {
         protected boolean includeOwnHero() { return true; }
     };
 
-    public final static MinionFilterSpellTargetable ENEMY_MINIONS = new MinionFilterSpellTargetable() {
+    public final static MinionFilterTargetedSpell ENEMY_MINIONS = new MinionFilterTargetedSpell() {
         @Override
         protected boolean includeEnemyMinions() { return true; }
     };
 
-    public final static MinionFilterSpellTargetable FRIENDLY_MINIONS = new MinionFilterSpellTargetable() {
+    public final static MinionFilterTargetedSpell FRIENDLY_MINIONS = new MinionFilterTargetedSpell() {
         @Override
         protected boolean includeOwnMinions() { return true; }
     };
 
-    public final static MinionFilterSpellTargetable SELF = new MinionFilterSpellTargetable() {
+    public final static MinionFilterTargetedSpell SELF = new MinionFilterTargetedSpell() {
         @Override
         protected boolean includeOwnHero() { return true; }
     };
 
-    public final static MinionFilterSpellTargetable OPPONENT = new MinionFilterSpellTargetable() {
+    public final static MinionFilterTargetedSpell OPPONENT = new MinionFilterTargetedSpell() {
         @Override
         protected boolean includeEnemyHero() { return true; }
     };

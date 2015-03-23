@@ -2,7 +2,7 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
-import com.hearthsim.event.MinionFilterSpellTargetable;
+import com.hearthsim.event.MinionFilterTargetedSpell;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
@@ -13,7 +13,7 @@ public class Rampage extends SpellCard {
     public Rampage() {
         super();
 
-        this.minionFilter = MinionFilterSpellTargetable.ALL_MINIONS;
+        this.minionFilter = MinionFilterTargetedSpell.ALL_MINIONS;
     }
 
     @Override

@@ -3,7 +3,7 @@ package com.hearthsim.card.spellcard;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.MinionFilter;
-import com.hearthsim.event.MinionFilterSpellTargetable;
+import com.hearthsim.event.MinionFilterTargetedSpell;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 
@@ -11,7 +11,7 @@ import org.json.JSONObject;
 
 public abstract class SpellCard extends Card {
 
-    protected MinionFilter minionFilter = MinionFilterSpellTargetable.ALL;
+    protected MinionFilter minionFilter = MinionFilterTargetedSpell.ALL;
 
     public SpellCard() {
         super();

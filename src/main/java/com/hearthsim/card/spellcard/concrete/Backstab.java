@@ -2,7 +2,7 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellDamage;
-import com.hearthsim.event.MinionFilterSpellTargetable;
+import com.hearthsim.event.MinionFilterTargetedSpell;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 
@@ -11,7 +11,7 @@ public class Backstab extends SpellDamage {
     public Backstab() {
         super();
 
-        this.minionFilter = MinionFilterSpellTargetable.ALL_MINIONS;
+        this.minionFilter = MinionFilterTargetedSpell.ALL_MINIONS;
     }
 
     @Deprecated

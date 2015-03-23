@@ -3,7 +3,7 @@ package com.hearthsim.card.spellcard.concrete;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.Minion.MinionTribe;
 import com.hearthsim.card.spellcard.SpellDamage;
-import com.hearthsim.event.MinionFilterSpellTargetable;
+import com.hearthsim.event.MinionFilterTargetedSpell;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -18,7 +18,7 @@ public class Demonheart extends SpellDamage {
     public Demonheart() {
         super();
 
-        this.minionFilter = MinionFilterSpellTargetable.ALL_MINIONS;
+        this.minionFilter = MinionFilterTargetedSpell.ALL_MINIONS;
     }
 
     /**

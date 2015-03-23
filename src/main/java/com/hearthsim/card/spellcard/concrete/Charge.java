@@ -2,7 +2,7 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
-import com.hearthsim.event.MinionFilterSpellTargetable;
+import com.hearthsim.event.MinionFilterTargetedSpell;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -28,7 +28,7 @@ public class Charge extends SpellCard {
     public Charge() {
         super();
 
-        this.minionFilter = MinionFilterSpellTargetable.FRIENDLY_MINIONS;
+        this.minionFilter = MinionFilterTargetedSpell.FRIENDLY_MINIONS;
     }
 
     /**
