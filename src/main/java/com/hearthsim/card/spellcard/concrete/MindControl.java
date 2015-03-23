@@ -1,13 +1,17 @@
 package com.hearthsim.card.spellcard.concrete;
 
+import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
+import com.hearthsim.event.EffectMinionAction;
 import com.hearthsim.event.MinionFilterTargetedSpell;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class MindControl extends SpellCard {
+
+    private final static EffectMinionAction<Card> effect = EffectMinionAction.MIND_CONTROL;
 
     /**
      * Constructor
@@ -53,8 +57,7 @@ public class MindControl extends SpellCard {
         throws HSException {
         HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
         if (toRet != null) {
-            toRet.data_.removeMinion(targetMinion);
-            toRet.data_.placeMinion(PlayerSide.CURRENT_PLAYER, targetMinion);
+            MindControl.effect.applyEffect(PlayerSide.CURRENT_PLAYER, this, side, targetMinion, boardState);
         }
         return toRet;
     }
