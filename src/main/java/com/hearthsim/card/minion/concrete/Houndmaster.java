@@ -4,7 +4,7 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionTargetableBattlecry;
 import com.hearthsim.event.EffectMinionAction;
-import com.hearthsim.event.battlecry.BattlecryActionTargetable;
+import com.hearthsim.event.MinionFilterTargetedBattlecry;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
@@ -15,8 +15,8 @@ public class Houndmaster extends Minion implements MinionTargetableBattlecry {
     /**
      * Battlecry: Give a friendly beast +2/+2 and Taunt
      */
-    private final static BattlecryActionTargetable filter = new BattlecryActionTargetable() {
-        protected boolean canTargetOwnMinions() { return true; }
+    private final static MinionFilterTargetedBattlecry filter = new MinionFilterTargetedBattlecry() {
+        protected boolean includeOwnMinions() { return true; }
         protected MinionTribe tribeFilter() { return MinionTribe.BEAST; }
     };
 
@@ -38,7 +38,7 @@ public class Houndmaster extends Minion implements MinionTargetableBattlecry {
 
     @Override
     public boolean canTargetWithBattlecry(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, BoardModel board) {
-        return Houndmaster.filter.canTargetWithBattlecry(originSide, origin, targetSide, targetCharacterIndex, board);
+        return Houndmaster.filter.targetMatches(originSide, origin, targetSide, targetCharacterIndex, board);
     }
 
     @Override

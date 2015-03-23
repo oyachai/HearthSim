@@ -4,7 +4,7 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.weapon.WeaponCard;
 import com.hearthsim.event.EffectMinionAction;
-import com.hearthsim.event.FilterUntargetedDeathrattle;
+import com.hearthsim.event.MinionFilterUntargetedDeathrattle;
 import com.hearthsim.event.deathrattle.DeathrattleEffectRandomMinion;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
@@ -22,9 +22,9 @@ public class Powermace extends WeaponCard {
         }
     };
 
-    private final static FilterUntargetedDeathrattle filter = new FilterUntargetedDeathrattle() {
+    private final static MinionFilterUntargetedDeathrattle filter = new MinionFilterUntargetedDeathrattle() {
         @Override
-        protected boolean canEffectOwnMinions() { return true; }
+        protected boolean includeOwnMinions() { return true; }
 
         @Override
         protected Minion.MinionTribe tribeFilter() { return Minion.MinionTribe.MECH; }

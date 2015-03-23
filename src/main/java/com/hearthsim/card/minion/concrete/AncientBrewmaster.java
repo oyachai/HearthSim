@@ -5,7 +5,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionTargetableBattlecry;
 import com.hearthsim.event.EffectMinionAction;
 import com.hearthsim.event.EffectMinionBounce;
-import com.hearthsim.event.battlecry.BattlecryActionTargetable;
+import com.hearthsim.event.MinionFilterTargetedBattlecry;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
@@ -13,8 +13,8 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class AncientBrewmaster extends Minion implements MinionTargetableBattlecry {
 
-    private final static BattlecryActionTargetable filter = new BattlecryActionTargetable() {
-        protected boolean canTargetOwnMinions() { return true; }
+    private final static MinionFilterTargetedBattlecry filter = new MinionFilterTargetedBattlecry() {
+        protected boolean includeOwnMinions() { return true; }
     };
 
     private final static EffectMinionAction<Minion> battlecryAction = new EffectMinionAction<Minion>() {
@@ -34,7 +34,7 @@ public class AncientBrewmaster extends Minion implements MinionTargetableBattlec
 
     @Override
     public boolean canTargetWithBattlecry(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, BoardModel board) {
-        return AncientBrewmaster.filter.canTargetWithBattlecry(originSide, origin, targetSide, targetCharacterIndex, board);
+        return AncientBrewmaster.filter.targetMatches(originSide, origin, targetSide, targetCharacterIndex, board);
     }
 
     @Override

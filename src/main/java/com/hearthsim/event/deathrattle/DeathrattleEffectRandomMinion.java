@@ -3,7 +3,7 @@ package com.hearthsim.event.deathrattle;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.EffectMinionAction;
-import com.hearthsim.event.FilterUntargetedDeathrattle;
+import com.hearthsim.event.MinionFilterUntargetedDeathrattle;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
@@ -16,9 +16,9 @@ import java.util.List;
 
 public class DeathrattleEffectRandomMinion extends DeathrattleAction {
     private EffectMinionAction<Card> effect;
-    private FilterUntargetedDeathrattle filter;
+    private MinionFilterUntargetedDeathrattle filter;
 
-    public DeathrattleEffectRandomMinion(EffectMinionAction<Card> effect, FilterUntargetedDeathrattle filter) {
+    public DeathrattleEffectRandomMinion(EffectMinionAction<Card> effect, MinionFilterUntargetedDeathrattle filter) {
         this.effect = effect;
         this.filter = filter;
     }
@@ -30,14 +30,14 @@ public class DeathrattleEffectRandomMinion extends DeathrattleAction {
         // TODO could probably be faster and belongs in a more common location
         List<Minion> friendlyTargets = new ArrayList<>();
         for (Minion minion : owner.getMinions()) {
-            if (this.filter.canEffect(playerSide, origin, playerSide, minion, boardState.data_)) {
+            if (this.filter.targetMatches(playerSide, origin, playerSide, minion, boardState.data_)) {
                 friendlyTargets.add(minion);
             }
         }
 
         List<Minion> enemyTargets = new ArrayList<>();
         for (Minion minion : opposing.getMinions()) {
-            if (this.filter.canEffect(playerSide, origin, playerSide.getOtherPlayer(), minion, boardState.data_)) {
+            if (this.filter.targetMatches(playerSide, origin, playerSide.getOtherPlayer(), minion, boardState.data_)) {
                 enemyTargets.add(minion);
             }
         }
