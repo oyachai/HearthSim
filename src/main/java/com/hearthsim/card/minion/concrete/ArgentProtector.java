@@ -18,7 +18,7 @@ public class ArgentProtector extends Minion implements MinionTargetableBattlecry
         protected boolean canTargetOwnMinions() { return true; }
 
         @Override
-        public HearthTreeNode useTargetableBattlecry_core(PlayerSide originSide, Minion origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
+        public HearthTreeNode applyEffect(PlayerSide originSide, Minion origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
             Minion targetMinion = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
             targetMinion.setDivineShield(true);
             return boardState;
@@ -36,6 +36,6 @@ public class ArgentProtector extends Minion implements MinionTargetableBattlecry
 
     @Override
     public HearthTreeNode useTargetableBattlecry_core(PlayerSide originSide, Minion origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
-        return ArgentProtector.battlecryAction.useTargetableBattlecry_core(originSide, origin, targetSide, targetCharacterIndex, boardState);
+        return ArgentProtector.battlecryAction.applyEffect(originSide, origin, targetSide, targetCharacterIndex, boardState);
     }
 }

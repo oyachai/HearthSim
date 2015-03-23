@@ -2,11 +2,12 @@ package com.hearthsim.event.battlecry;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.card.minion.MinionTargetableBattlecry;
+import com.hearthsim.event.EffectMinionAction;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
+import com.hearthsim.util.tree.HearthTreeNode;
 
-public abstract class BattlecryActionTargetable extends BattlecryAction implements MinionTargetableBattlecry {
+public abstract class BattlecryActionTargetable extends EffectMinionAction<Minion, HearthTreeNode> {
     protected boolean canTargetEnemyHero() { return false; }
     protected boolean canTargetEnemyMinions() { return false; }
     protected boolean canTargetOwnHero() { return false; }

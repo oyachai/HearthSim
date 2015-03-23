@@ -19,7 +19,7 @@ public class Alexstrasza extends Minion implements MinionTargetableBattlecry {
         protected boolean canTargetOwnHero() { return true; }
 
         @Override
-        public HearthTreeNode useTargetableBattlecry_core(PlayerSide originSide, Minion origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
+        public HearthTreeNode applyEffect(PlayerSide originSide, Minion origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
             Minion targetMinion = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
             targetMinion.setHealth((byte) 15);
             return boardState;
@@ -37,6 +37,6 @@ public class Alexstrasza extends Minion implements MinionTargetableBattlecry {
 
     @Override
     public HearthTreeNode useTargetableBattlecry_core(PlayerSide originSide, Minion origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
-        return Alexstrasza.battlecryAction.useTargetableBattlecry_core(originSide, origin, targetSide, targetCharacterIndex, boardState);
+        return Alexstrasza.battlecryAction.applyEffect(originSide, origin, targetSide, targetCharacterIndex, boardState);
     }
 }

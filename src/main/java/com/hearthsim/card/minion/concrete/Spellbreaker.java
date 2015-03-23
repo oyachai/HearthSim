@@ -16,7 +16,7 @@ public class Spellbreaker extends Minion implements MinionTargetableBattlecry {
         protected boolean canTargetOwnMinions() { return true; }
 
         @Override
-        public HearthTreeNode useTargetableBattlecry_core(PlayerSide originSide, Minion origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
+        public HearthTreeNode applyEffect(PlayerSide originSide, Minion origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
             Minion targetMinion = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
             HearthTreeNode toRet = boardState;
             targetMinion.silenced(PlayerSide.CURRENT_PLAYER, toRet.data_);
@@ -35,6 +35,6 @@ public class Spellbreaker extends Minion implements MinionTargetableBattlecry {
 
     @Override
     public HearthTreeNode useTargetableBattlecry_core(PlayerSide originSide, Minion origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
-        return Spellbreaker.battlecryAction.useTargetableBattlecry_core(originSide, origin, targetSide, targetCharacterIndex, boardState);
+        return Spellbreaker.battlecryAction.applyEffect(originSide, origin, targetSide, targetCharacterIndex, boardState);
     }
 }

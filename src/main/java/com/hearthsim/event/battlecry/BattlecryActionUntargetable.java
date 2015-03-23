@@ -2,10 +2,13 @@ package com.hearthsim.event.battlecry;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.event.EffectMinionAction;
+import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
+import com.hearthsim.util.tree.HearthTreeNode;
 
-public abstract class BattlecryActionUntargetable extends BattlecryAction {
+public abstract class BattlecryActionUntargetable extends EffectMinionAction<Minion, HearthTreeNode> {
 
     protected boolean canEffectDead() { return false; }
     protected boolean canEffectEnemyHero() { return false; }

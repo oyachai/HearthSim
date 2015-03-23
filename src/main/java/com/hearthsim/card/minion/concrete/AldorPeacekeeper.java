@@ -18,7 +18,7 @@ public class AldorPeacekeeper extends Minion implements MinionTargetableBattlecr
         protected boolean canTargetEnemyMinions() { return true; }
 
         @Override
-        public HearthTreeNode useTargetableBattlecry_core(PlayerSide originSide, Minion origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
+        public HearthTreeNode applyEffect(PlayerSide originSide, Minion origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
             Minion targetMinion = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
             targetMinion.setAttack((byte) 1);
             return boardState;
@@ -36,6 +36,6 @@ public class AldorPeacekeeper extends Minion implements MinionTargetableBattlecr
 
     @Override
     public HearthTreeNode useTargetableBattlecry_core(PlayerSide originSide, Minion origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
-        return AldorPeacekeeper.battlecryAction.useTargetableBattlecry_core(originSide, origin, targetSide, targetCharacterIndex, boardState);
+        return AldorPeacekeeper.battlecryAction.applyEffect(originSide, origin, targetSide, targetCharacterIndex, boardState);
     }
 }

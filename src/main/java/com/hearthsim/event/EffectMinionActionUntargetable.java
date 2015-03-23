@@ -2,6 +2,7 @@ package com.hearthsim.event;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 
@@ -46,7 +47,7 @@ public abstract class EffectMinionActionUntargetable extends EffectMinionAction<
         return true;
     }
 
-    public final BoardModel applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, Minion targetCharacter, BoardModel board) {
+    public final BoardModel applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, Minion targetCharacter, BoardModel board) throws HSException {
         int index = board.modelForSide(targetSide).getIndexForCharacter(targetCharacter);
         this.applyEffect(originSide, origin, targetSide, index, board);
         return board;
