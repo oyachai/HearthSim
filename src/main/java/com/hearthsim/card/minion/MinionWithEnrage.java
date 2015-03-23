@@ -21,6 +21,10 @@ public abstract class MinionWithEnrage extends Minion {
         return  minionWithEnrage;
     }
 
+    public boolean isEnraged() {
+        return this.enraged_;
+    }
+
     /**
      * Turn on enrage
      *

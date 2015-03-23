@@ -201,7 +201,8 @@ public class PlayerModel implements DeepCopyable<PlayerModel> {
         if (character.isHero()) {
             return 0;
         } else {
-            return this.getMinions().indexOf(character) + 1;
+            int minionIndex = this.getMinions().indexOf(character);
+            return minionIndex >= 0 ? this.getMinions().indexOf(character) + 1 : minionIndex;
         }
     }
 

@@ -86,6 +86,7 @@ class CardSpec extends Specification {
         assert oldMinion.auraAttack == newMinion.auraAttack
         assert oldMinion.health == newMinion.health
         assert oldMinion.baseHealth == newMinion.baseHealth
+        assert oldMinion.maxHealth == newMinion.maxHealth
         assert oldMinion.auraHealth == newMinion.auraHealth
         assert oldMinion.charge == newMinion.charge
         assert oldMinion.taunt == newMinion.taunt

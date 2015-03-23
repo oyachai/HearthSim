@@ -19,6 +19,10 @@ public class IllidanStormrage extends Minion implements CardPlayBeginInterface {
                                           PlayerSide cardUserPlayerSide, Card usedCard,
                                           HearthTreeNode boardState,
                                           boolean singleRealizationOnly) throws HSException {
+        if (this.isInHand()) {
+            return boardState;
+        }
+
         HearthTreeNode toRet = boardState;
         PlayerModel targetPlayer = boardState.data_.modelForSide(thisCardPlayerSide);
         if (thisCardPlayerSide == cardUserPlayerSide && usedCard != this && !targetPlayer.isBoardFull()) {

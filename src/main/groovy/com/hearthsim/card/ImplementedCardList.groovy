@@ -181,4 +181,14 @@ class ImplementedCardList {
 
         return card;
     }
+
+    // TODO: could probably be faster
+    public ImplementedCard getCardForName(String name) {
+        for(card in list_) {
+            if(card.name_.compareTo(name) == 0) {
+                return card
+            };
+        }
+        return null;
+    }
 }

@@ -642,46 +642,25 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         return playerSide != PlayerSide.WAITING_PLAYER && !hasBeenUsed;
     }
 
-    @Deprecated
-    public HearthTreeNode useTargetableBattlecry(PlayerSide side, Minion targetMinion, HearthTreeNode boardState,
-                                                 Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
-        return this.useTargetableBattlecry(side, targetMinion, boardState, singleRealizationOnly);
-    }
-
     /**
      * Use a targetable battlecry. This will add battlecry nodes to boardState as children.
      *
      * @param side
-     * @param targetMinion
+     * @param targetCharacterIndex
      * @param boardState
      * @return
      * @throws HSException
      */
-    public HearthTreeNode useTargetableBattlecry(PlayerSide side, Minion targetMinion, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
-
+    public HearthTreeNode useTargetableBattlecry(PlayerSide side, int targetCharacterIndex, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
         if (this instanceof MinionTargetableBattlecry) {
-            HearthTreeNode node = new HearthTreeNode(boardState.data_.deepCopy());
+            PlayerModel player = boardState.data_.modelForSide(side);
 
-            // Need to start the battlecry from the child node
-            int originMinionIndex = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getMinions().indexOf(this);
-            MinionTargetableBattlecry battlecryMinion = (MinionTargetableBattlecry) node.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getMinions().get(originMinionIndex);
-            PlayerModel player = node.data_.modelForSide(side);
+            boardState = ((MinionTargetableBattlecry)this).useTargetableBattlecry_core(side, player.getCharacter(targetCharacterIndex), boardState);
 
-            // Need to get the new node's version of the target minion
-            int targetMinionIndex = boardState.data_.modelForSide(side).getMinions().indexOf(targetMinion);
-            if (targetMinionIndex >= 0) {
-                node = battlecryMinion.useTargetableBattlecry_core(side, player.getMinions().get(targetMinionIndex), node);
-            } else if (targetMinion instanceof Hero) {
-                node = battlecryMinion.useTargetableBattlecry_core(side, player.getHero(), node);
-            } else {
-                node = null;
-            }
-
-            if (node != null) {
-                // Check for dead minions
-                node = BoardStateFactoryBase.handleDeadMinions(node, singleRealizationOnly);
-                // add the new node to the tree
-                boardState.addChild(node);
+            if (boardState != null) {
+                int originCharacterIndex = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getIndexForCharacter(this);
+                boardState = BoardStateFactoryBase.handleDeadMinions(boardState, singleRealizationOnly);
+                boardState.setAction(new HearthAction(Verb.TARGETABLE_BATTLECRY, PlayerSide.CURRENT_PLAYER, originCharacterIndex, side, targetCharacterIndex));
             }
         }
 
@@ -691,7 +670,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
     /**
      * Use an untargetable battlecry.
      *
-     * @param minionPlacementTarget
+     * @param minionPlacementIndex
      * @param boardState
      * @param singleRealizationOnly
      * @return
@@ -739,7 +718,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         PlayerModel currentPlayer = toRet.data_.getCurrentPlayer();
         currentPlayer.subtractMana(this.getManaCost(PlayerSide.CURRENT_PLAYER, boardState.data_));
         currentPlayer.getHand().remove(this);
-        toRet = this.summonMinion(side, targetMinion, boardState, null, null, true, singleRealizationOnly);
+        toRet = this.summonMinion(side, targetMinion, boardState, true, singleRealizationOnly);
         return toRet;
     }
 
@@ -770,53 +749,84 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 
             EnumSet<BattlecryTargetType> targets = ((MinionTargetableBattlecry) this).getBattlecryTargets();
 
+            ArrayList<Integer> friendlyMinions = new ArrayList<>();
+            ArrayList<Integer> enemyMinions = new ArrayList<>();
+
             // Battlecry if available
             for (BattlecryTargetType btt : targets) {
                 switch (btt) {
                     case ENEMY_HERO:
-                        toRet = this.useTargetableBattlecry(PlayerSide.WAITING_PLAYER, waitingPlayer.getHero(), toRet, singleRealizationOnly);
+                        enemyMinions.add(0);
                         break;
                     case FRIENDLY_HERO:
-                        toRet = this.useTargetableBattlecry(PlayerSide.CURRENT_PLAYER, currentPlayer.getHero(), toRet, singleRealizationOnly);
+                        friendlyMinions.add(0);
                         break;
                     case ENEMY_MINIONS:
                         for (Minion minion : waitingPlayer.getMinions()) {
-                            if (!minion.getStealthed())
-                                toRet = this.useTargetableBattlecry(PlayerSide.WAITING_PLAYER, minion, toRet, singleRealizationOnly);
+                            if (!minion.getStealthed()) {
+                                enemyMinions.add(waitingPlayer.getIndexForCharacter(minion));
+                            }
                         }
                         break;
                     case FRIENDLY_MINIONS:
                         for (Minion minion : currentPlayer.getMinions()) {
-                            if (minion != this)
-                                toRet = this.useTargetableBattlecry(PlayerSide.CURRENT_PLAYER, minion, toRet, singleRealizationOnly);
+                            if (minion != this) {
+                                friendlyMinions.add(currentPlayer.getIndexForCharacter(minion));
+                            }
                         }
                         break;
                     case ENEMY_BEASTS:
                         for (Minion minion : waitingPlayer.getMinions()) {
-                            if (minion.getTribe() == MinionTribe.BEAST)
-                                toRet = this.useTargetableBattlecry(PlayerSide.WAITING_PLAYER, minion, toRet, singleRealizationOnly);
+                            if (minion.getTribe() == MinionTribe.BEAST) {
+                                enemyMinions.add(waitingPlayer.getIndexForCharacter(minion));
+                            }
                         }
                         break;
                     case FRIENDLY_BEASTS:
                         for (Minion minion : currentPlayer.getMinions()) {
-                            if (minion != this && minion.getTribe() == MinionTribe.BEAST)
-                                toRet = this.useTargetableBattlecry(PlayerSide.CURRENT_PLAYER, minion, toRet, singleRealizationOnly);
+                            if (minion != this && minion.getTribe() == MinionTribe.BEAST) {
+                                friendlyMinions.add(currentPlayer.getIndexForCharacter(minion));
+                            }
                         }
                         break;
                     case ENEMY_MURLOCS:
                         for (Minion minion : waitingPlayer.getMinions()) {
-                            if (minion.getTribe() == MinionTribe.MURLOC)
-                                toRet = this.useTargetableBattlecry(PlayerSide.WAITING_PLAYER, minion, toRet, singleRealizationOnly);
+                            if (minion.getTribe() == MinionTribe.MURLOC) {
+                                enemyMinions.add(waitingPlayer.getIndexForCharacter(minion));
+                            }
                         }
                         break;
                     case FRIENDLY_MURLOCS:
                         for (Minion minion : currentPlayer.getMinions()) {
-                            if (minion != this && minion.getTribe() == MinionTribe.MURLOC)
-                                toRet = this.useTargetableBattlecry(PlayerSide.CURRENT_PLAYER, minion, toRet, singleRealizationOnly);
+                            if (minion != this && minion.getTribe() == MinionTribe.MURLOC) {
+                                friendlyMinions.add(currentPlayer.getIndexForCharacter(minion));
+                            }
                         }
                         break;
                     default:
                         break;
+                }
+            }
+
+            HearthTreeNode child;
+            Minion origin;
+            int originCharacterIndex = toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getIndexForCharacter(this);
+
+            for (Integer characterIndex : friendlyMinions) {
+                child = new HearthTreeNode(toRet.data_.deepCopy());
+                origin = child.data_.getCurrentPlayer().getCharacter(originCharacterIndex);
+                child = origin.useTargetableBattlecry(PlayerSide.CURRENT_PLAYER, characterIndex, child, singleRealizationOnly);
+                if (child != null) {
+                    toRet.addChild(child);
+                }
+            }
+
+            for (Integer characterIndex : enemyMinions) {
+                child = new HearthTreeNode(toRet.data_.deepCopy());
+                origin = child.data_.getCurrentPlayer().getCharacter(originCharacterIndex);
+                child = origin.useTargetableBattlecry(PlayerSide.WAITING_PLAYER, characterIndex, child, singleRealizationOnly);
+                if (child != null) {
+                    toRet.addChild(child);
                 }
             }
         }
@@ -941,7 +951,6 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
      * @param targetMinionPlayerSide
      * @param targetMinion The target minion
      * @param boardState The BoardState before this card has performed its action. It will be manipulated and returned.
-     * @param deckPlayer0 The deck of player0
      * @return The boardState is manipulated and returned
      */
     public HearthTreeNode attack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {

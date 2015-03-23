@@ -9,6 +9,7 @@ import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
+import org.json.JSONObject;
 
 
 /**
@@ -46,6 +47,18 @@ public class HearthAction {
 
         this.targetPlayerSide = targetPlayerSide;
         targetCharacterIndex_ = targetCharacterIndex;
+    }
+
+    public JSONObject toJSON() {
+        JSONObject json = new JSONObject();
+
+        json.put("verb_", verb_);
+        json.put("actionPerformerPlayerSide", actionPerformerPlayerSide);
+        json.put("cardOrCharacterIndex_", cardOrCharacterIndex_);
+        json.put("targetPlayerSide", targetPlayerSide);
+        json.put("targetCharacterIndex_", targetCharacterIndex_);
+
+        return json;
     }
 
     @Deprecated
@@ -86,14 +99,12 @@ public class HearthAction {
             break;
             case UNTARGETABLE_BATTLECRY: {
                 Minion minion = actingPlayer.getCharacter(cardOrCharacterIndex_);
-                Minion placementTarget = targetPlayer.getCharacter(targetCharacterIndex_);
-                toRet = minion.useUntargetableBattlecry(placementTarget, toRet, singleRealization);
+                toRet = minion.useUntargetableBattlecry(targetCharacterIndex_, toRet, singleRealization);
                 break;
             }
             case TARGETABLE_BATTLECRY: {
                 Minion minion = actingPlayer.getCharacter(cardOrCharacterIndex_);
-                Minion battlecryTarget = targetPlayer.getCharacter(targetCharacterIndex_);
-                toRet = minion.useTargetableBattlecry(targetPlayerSide, battlecryTarget, toRet, singleRealization);
+                toRet = minion.useTargetableBattlecry(targetPlayerSide, targetCharacterIndex_, toRet, singleRealization);
                 break;
             }
             case START_TURN: {
