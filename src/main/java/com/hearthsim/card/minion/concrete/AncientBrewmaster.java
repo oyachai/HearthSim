@@ -26,7 +26,7 @@ public class AncientBrewmaster extends Minion implements MinionTargetableBattlec
         }
     };
 
-    private final static EffectMinionBounce effect = new EffectMinionBounce();
+    private final static EffectMinionAction<Card> effect = EffectMinionAction.BOUNCE;
 
     public AncientBrewmaster() {
         super();

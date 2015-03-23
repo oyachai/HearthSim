@@ -1,12 +1,12 @@
 package com.hearthsim.event.deathrattle;
 
+import com.hearthsim.event.EffectMinionAction;
 import com.hearthsim.event.MinionFilterUntargetedDeathrattle;
-import com.hearthsim.event.EffectMinionMindControl;
 
 public class DeathrattleMindControl extends DeathrattleEffectRandomMinion {
 
     public DeathrattleMindControl() {
-        super(new EffectMinionMindControl(), new MinionFilterUntargetedDeathrattle(){
+        super(EffectMinionAction.MIND_CONTROL, new MinionFilterUntargetedDeathrattle(){
             @Override
             protected boolean includeEnemyMinions() { return true; }
         });
