@@ -7,7 +7,7 @@ import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public abstract class EffectMinionActionUntargetable extends EffectMinionAction<Card> {
+public abstract class FilterUntargetedDeathrattle {
     protected boolean canEffectDead() { return false; }
     protected boolean canEffectEnemyHero() { return false; }
     protected boolean canEffectEnemyMinions() { return false; }

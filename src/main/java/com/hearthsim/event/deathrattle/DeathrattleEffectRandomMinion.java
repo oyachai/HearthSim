@@ -2,7 +2,8 @@ package com.hearthsim.event.deathrattle;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.event.EffectMinionActionUntargetable;
+import com.hearthsim.event.EffectMinionAction;
+import com.hearthsim.event.FilterUntargetedDeathrattle;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
@@ -14,10 +15,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DeathrattleEffectRandomMinion extends DeathrattleAction {
-    private EffectMinionActionUntargetable effect;
+    private EffectMinionAction<Card> effect;
+    private FilterUntargetedDeathrattle filter;
 
-    public DeathrattleEffectRandomMinion(EffectMinionActionUntargetable effect) {
+    public DeathrattleEffectRandomMinion(EffectMinionAction<Card> effect, FilterUntargetedDeathrattle filter) {
         this.effect = effect;
+        this.filter = filter;
     }
 
     public HearthTreeNode performAction(Card origin, PlayerSide playerSide, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
@@ -27,14 +30,14 @@ public class DeathrattleEffectRandomMinion extends DeathrattleAction {
         // TODO could probably be faster and belongs in a more common location
         List<Minion> friendlyTargets = new ArrayList<>();
         for (Minion minion : owner.getMinions()) {
-            if (this.effect.canEffect(playerSide, origin, playerSide, minion, boardState.data_)) {
+            if (this.filter.canEffect(playerSide, origin, playerSide, minion, boardState.data_)) {
                 friendlyTargets.add(minion);
             }
         }
 
         List<Minion> enemyTargets = new ArrayList<>();
         for (Minion minion : opposing.getMinions()) {
-            if (this.effect.canEffect(playerSide, origin, playerSide.getOtherPlayer(), minion, boardState.data_)) {
+            if (this.filter.canEffect(playerSide, origin, playerSide.getOtherPlayer(), minion, boardState.data_)) {
                 enemyTargets.add(minion);
             }
         }

@@ -6,7 +6,7 @@ import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class EffectMinionBounce extends EffectMinionActionUntargetable {
+public class EffectMinionBounce extends EffectMinionAction<Card> {
     public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
         Minion targetCharacter = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
         if (boardState.data_.modelForSide(targetSide).getHand().size() < 10) {
