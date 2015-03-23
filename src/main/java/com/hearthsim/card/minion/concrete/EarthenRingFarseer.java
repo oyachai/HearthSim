@@ -1,33 +1,44 @@
 package com.hearthsim.card.minion.concrete;
 
-import com.hearthsim.card.minion.BattlecryTargetType;
+import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionTargetableBattlecry;
+import com.hearthsim.event.battlecry.BattlecryTargetableAction;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-import java.util.EnumSet;
-
 public class EarthenRingFarseer extends Minion implements MinionTargetableBattlecry {
+
+    /**
+     * Battlecry: Give a minion +2 attack this turn
+     */
+    private final static BattlecryTargetableAction battlecryAction = new BattlecryTargetableAction() {
+        protected boolean canTargetEnemyHero() { return true; }
+        protected boolean canTargetEnemyMinions() { return true; }
+        protected boolean canTargetOwnHero() { return true; }
+        protected boolean canTargetOwnMinions() { return true; }
+
+        @Override
+        public HearthTreeNode useTargetableBattlecry_core(PlayerSide originSide, Minion origin, PlayerSide targetSide, Minion targetMinion, HearthTreeNode boardState) throws HSException {
+            HearthTreeNode toRet = boardState;
+            toRet = targetMinion.takeHealAndNotify((byte) 3, targetSide, toRet);
+            return toRet;
+        }
+    };
 
     public EarthenRingFarseer() {
         super();
     }
 
     @Override
-    public EnumSet<BattlecryTargetType> getBattlecryTargets() {
-        return EnumSet.of(BattlecryTargetType.FRIENDLY_HERO, BattlecryTargetType.ENEMY_HERO, BattlecryTargetType.FRIENDLY_MINIONS, BattlecryTargetType.ENEMY_MINIONS);
+    public boolean canTargetWithBattlecry(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, BoardModel board) {
+        return EarthenRingFarseer.battlecryAction.canTargetWithBattlecry(originSide, origin, targetSide, targetCharacterIndex, board);
     }
 
-    /**
-     * Battlecry: Restore 3 health
-     */
     @Override
-    public HearthTreeNode useTargetableBattlecry_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState) throws HSException {
-        HearthTreeNode toRet = boardState;
-        toRet = targetMinion.takeHealAndNotify((byte) 3, side, toRet);
-        return toRet;
+    public HearthTreeNode useTargetableBattlecry_core(PlayerSide originSide, Minion origin, PlayerSide targetSide, Minion targetMinion, HearthTreeNode boardState) throws HSException {
+        return EarthenRingFarseer.battlecryAction.useTargetableBattlecry_core(originSide, origin, targetSide, targetMinion, boardState);
     }
-
 }

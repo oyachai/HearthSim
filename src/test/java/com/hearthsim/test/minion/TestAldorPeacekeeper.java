@@ -31,7 +31,7 @@ public class TestAldorPeacekeeper {
     public void testSetsAttack() throws HSException {
         BoulderfistOgre ogre = new BoulderfistOgre();
         AldorPeacekeeper peacekeeper = new AldorPeacekeeper();
-        peacekeeper.useTargetableBattlecry_core(PlayerSide.WAITING_PLAYER, ogre, board);
+        peacekeeper.useTargetableBattlecry_core(PlayerSide.CURRENT_PLAYER, peacekeeper, PlayerSide.WAITING_PLAYER, ogre, board);
         assertEquals(1, ogre.getAttack());
     }
 
@@ -39,7 +39,7 @@ public class TestAldorPeacekeeper {
     public void testSetsAttackFromZero() throws HSException {
         StoneclawTotem totem = new StoneclawTotem();
         AldorPeacekeeper peacekeeper = new AldorPeacekeeper();
-        peacekeeper.useTargetableBattlecry_core(PlayerSide.WAITING_PLAYER, totem, board);
+        peacekeeper.useTargetableBattlecry_core(PlayerSide.CURRENT_PLAYER, peacekeeper, PlayerSide.WAITING_PLAYER, totem, board);
         assertEquals(1, totem.getAttack());
     }
 
@@ -50,7 +50,7 @@ public class TestAldorPeacekeeper {
         BoulderfistOgre ogre = new BoulderfistOgre();
         ogre.setExtraAttackUntilTurnEnd((byte)2);
         AldorPeacekeeper peacekeeper = new AldorPeacekeeper();
-        peacekeeper.useTargetableBattlecry_core(PlayerSide.WAITING_PLAYER, ogre, board);
+        peacekeeper.useTargetableBattlecry_core(PlayerSide.CURRENT_PLAYER, peacekeeper, PlayerSide.WAITING_PLAYER, ogre, board);
         assertEquals(1, ogre.getAttack());
         assertEquals(0, ogre.getExtraAttackUntilTurnEnd());
     }
@@ -60,7 +60,7 @@ public class TestAldorPeacekeeper {
         BoulderfistOgre ogre = new BoulderfistOgre();
         ogre.setAuraAttack((byte)1);
         AldorPeacekeeper peacekeeper = new AldorPeacekeeper();
-        peacekeeper.useTargetableBattlecry_core(PlayerSide.WAITING_PLAYER, ogre, board);
+        peacekeeper.useTargetableBattlecry_core(PlayerSide.CURRENT_PLAYER, peacekeeper, PlayerSide.WAITING_PLAYER, ogre, board);
         assertEquals(1, ogre.getAttack());
         assertEquals(1, ogre.getAuraAttack());
     }

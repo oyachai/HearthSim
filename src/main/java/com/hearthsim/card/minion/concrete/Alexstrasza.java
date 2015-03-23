@@ -1,30 +1,41 @@
 package com.hearthsim.card.minion.concrete;
 
-import java.util.EnumSet;
-
-import com.hearthsim.card.minion.BattlecryTargetType;
+import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionTargetableBattlecry;
+import com.hearthsim.event.battlecry.BattlecryTargetableAction;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class Alexstrasza extends Minion implements MinionTargetableBattlecry {
 
-    public Alexstrasza() {
-        super();
-    }
-    @Override
-    public EnumSet<BattlecryTargetType> getBattlecryTargets() {
-        return EnumSet.of(BattlecryTargetType.FRIENDLY_HERO, BattlecryTargetType.ENEMY_HERO);
-    }
-
     /**
      * Battlecry: Set a hero's remaining health to 15
      */
+    private final static BattlecryTargetableAction battlecryAction = new BattlecryTargetableAction() {
+        protected boolean canTargetEnemyHero() { return true; }
+        protected boolean canTargetOwnHero() { return true; }
+
+        @Override
+        public HearthTreeNode useTargetableBattlecry_core(PlayerSide originSide, Minion origin, PlayerSide targetSide, Minion targetMinion, HearthTreeNode boardState) throws HSException {
+            boardState.data_.modelForSide(targetSide).getHero().setHealth((byte) 15);
+            return boardState;
+        }
+    };
+
+    public Alexstrasza() {
+        super();
+    }
+
     @Override
-    public HearthTreeNode useTargetableBattlecry_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState) throws HSException {
-        boardState.data_.modelForSide(side).getHero().setHealth((byte)15);
-        return boardState;
+    public boolean canTargetWithBattlecry(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, BoardModel board) {
+        return Alexstrasza.battlecryAction.canTargetWithBattlecry(originSide, origin, targetSide, targetCharacterIndex, board);
+    }
+
+    @Override
+    public HearthTreeNode useTargetableBattlecry_core(PlayerSide originSide, Minion origin, PlayerSide targetSide, Minion targetMinion, HearthTreeNode boardState) throws HSException {
+        return Alexstrasza.battlecryAction.useTargetableBattlecry_core(originSide, origin, targetSide, targetMinion, boardState);
     }
 }

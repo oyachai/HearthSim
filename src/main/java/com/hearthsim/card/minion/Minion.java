@@ -2,8 +2,6 @@ package com.hearthsim.card.minion;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.EnumSet;
 
 import com.hearthsim.model.PlayerModel;
 import org.json.JSONObject;
@@ -605,7 +603,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         if (this instanceof MinionTargetableBattlecry) {
             PlayerModel player = boardState.data_.modelForSide(side);
 
-            boardState = ((MinionTargetableBattlecry)this).useTargetableBattlecry_core(side, player.getCharacter(targetCharacterIndex), boardState);
+            boardState = ((MinionTargetableBattlecry)this).useTargetableBattlecry_core(PlayerSide.CURRENT_PLAYER, this, side, player.getCharacter(targetCharacterIndex), boardState);
 
             if (boardState != null) {
                 int originCharacterIndex = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getIndexForCharacter(this);
@@ -683,95 +681,27 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         }
 
         if (this instanceof MinionTargetableBattlecry) {
-            PlayerModel currentPlayer = toRet.data_.getCurrentPlayer();
-            PlayerModel waitingPlayer = toRet.data_.getWaitingPlayer();
-
-            EnumSet<BattlecryTargetType> targets = ((MinionTargetableBattlecry) this).getBattlecryTargets();
-
-            ArrayList<Integer> friendlyMinions = new ArrayList<>();
-            ArrayList<Integer> enemyMinions = new ArrayList<>();
-
-            // Battlecry if available
-            for (BattlecryTargetType btt : targets) {
-                switch (btt) {
-                    case ENEMY_HERO:
-                        enemyMinions.add(0);
-                        break;
-                    case FRIENDLY_HERO:
-                        friendlyMinions.add(0);
-                        break;
-                    case ENEMY_MINIONS:
-                        for (Minion minion : waitingPlayer.getMinions()) {
-                            if (!minion.getStealthed()) {
-                                enemyMinions.add(waitingPlayer.getIndexForCharacter(minion));
-                            }
-                        }
-                        break;
-                    case FRIENDLY_MINIONS:
-                        for (Minion minion : currentPlayer.getMinions()) {
-                            if (minion != this) {
-                                friendlyMinions.add(currentPlayer.getIndexForCharacter(minion));
-                            }
-                        }
-                        break;
-                    case ENEMY_BEASTS:
-                        for (Minion minion : waitingPlayer.getMinions()) {
-                            if (minion.getTribe() == MinionTribe.BEAST) {
-                                enemyMinions.add(waitingPlayer.getIndexForCharacter(minion));
-                            }
-                        }
-                        break;
-                    case FRIENDLY_BEASTS:
-                        for (Minion minion : currentPlayer.getMinions()) {
-                            if (minion != this && minion.getTribe() == MinionTribe.BEAST) {
-                                friendlyMinions.add(currentPlayer.getIndexForCharacter(minion));
-                            }
-                        }
-                        break;
-                    case ENEMY_MURLOCS:
-                        for (Minion minion : waitingPlayer.getMinions()) {
-                            if (minion.getTribe() == MinionTribe.MURLOC) {
-                                enemyMinions.add(waitingPlayer.getIndexForCharacter(minion));
-                            }
-                        }
-                        break;
-                    case FRIENDLY_MURLOCS:
-                        for (Minion minion : currentPlayer.getMinions()) {
-                            if (minion != this && minion.getTribe() == MinionTribe.MURLOC) {
-                                friendlyMinions.add(currentPlayer.getIndexForCharacter(minion));
-                            }
-                        }
-                        break;
-                    default:
-                        break;
-                }
-            }
+            MinionTargetableBattlecry battlecryOrigin = ((MinionTargetableBattlecry) this);
 
             HearthTreeNode child;
             Minion origin;
             int originCharacterIndex = toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getIndexForCharacter(this);
 
-            for (Integer characterIndex : friendlyMinions) {
-                child = new HearthTreeNode(toRet.data_.deepCopy());
-                origin = child.data_.getCurrentPlayer().getCharacter(originCharacterIndex);
-                child = origin.useTargetableBattlecry(PlayerSide.CURRENT_PLAYER, characterIndex, child, singleRealizationOnly);
-                if (child != null) {
-                    toRet.addChild(child);
-                }
-            }
-
-            for (Integer characterIndex : enemyMinions) {
-                child = new HearthTreeNode(toRet.data_.deepCopy());
-                origin = child.data_.getCurrentPlayer().getCharacter(originCharacterIndex);
-                child = origin.useTargetableBattlecry(PlayerSide.WAITING_PLAYER, characterIndex, child, singleRealizationOnly);
-                if (child != null) {
-                    toRet.addChild(child);
+            for (BoardModel.CharacterLocation characterLocation : toRet.data_) {
+                if (battlecryOrigin.canTargetWithBattlecry(targetSide, this, characterLocation.getPlayerSide(), characterLocation.getIndex(), toRet.data_)) {
+                    child = new HearthTreeNode(toRet.data_.deepCopy());
+                    origin = child.data_.getCharacter(PlayerSide.CURRENT_PLAYER, originCharacterIndex);
+                    child = origin.useTargetableBattlecry(characterLocation.getPlayerSide(), characterLocation.getIndex(), child, singleRealizationOnly);
+                    if (child != null) {
+                        toRet.addChild(child);
+                    }
                 }
             }
         }
 
-        if (wasPlayed)
+        if (wasPlayed) {
             toRet = toRet.notifyMinionPlayed(targetSide, this);
+        }
 
         toRet = toRet.notifyMinionSummon(targetSide, this);
 

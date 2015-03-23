@@ -32,7 +32,7 @@ public class TestArgentProtector {
     public void testAddsDivineShield() throws HSException {
         BoulderfistOgre ogre = new BoulderfistOgre();
         ArgentProtector protector = new ArgentProtector();
-        protector.useTargetableBattlecry_core(PlayerSide.WAITING_PLAYER, ogre, board);
+        protector.useTargetableBattlecry_core(PlayerSide.CURRENT_PLAYER, protector, PlayerSide.WAITING_PLAYER, ogre, board);
         assertTrue(ogre.getDivineShield());
     }
 

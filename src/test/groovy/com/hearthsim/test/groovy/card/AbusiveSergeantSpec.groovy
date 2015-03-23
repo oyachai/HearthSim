@@ -1,7 +1,6 @@
 package com.hearthsim.test.groovy.card
 
 import static com.hearthsim.model.PlayerSide.CURRENT_PLAYER
-import static com.hearthsim.model.PlayerSide.WAITING_PLAYER
 import static org.junit.Assert.*
 
 import com.hearthsim.card.minion.concrete.AbusiveSergeant
@@ -29,7 +28,7 @@ class AbusiveSergeantSpec extends CardSpec {
         def copiedBoard = startingBoard.deepCopy()
         def target = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(1)
         def theCard = new AbusiveSergeant()
-        def ret = theCard.useTargetableBattlecry_core(CURRENT_PLAYER, target, root)
+        def ret = theCard.useTargetableBattlecry_core(CURRENT_PLAYER, theCard, CURRENT_PLAYER, target, root)
 
         expect:
         assertEquals(root, ret);
@@ -46,7 +45,7 @@ class AbusiveSergeantSpec extends CardSpec {
         def target = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(1)
         target.extraAttackUntilTurnEnd = 2
         def theCard = new AbusiveSergeant()
-        def ret = theCard.useTargetableBattlecry_core(CURRENT_PLAYER, target, root)
+        def ret = theCard.useTargetableBattlecry_core(CURRENT_PLAYER, theCard, CURRENT_PLAYER, target, root)
 
         expect:
         assertEquals(root, ret);
