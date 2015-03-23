@@ -1,15 +1,8 @@
 package com.hearthsim.event;
 
 import com.hearthsim.card.Card;
-import com.hearthsim.card.minion.Minion;
-import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 
-public abstract class EffectMinionAction {
-    public abstract void applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, BoardModel board);
-
-    public final void applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, Minion targetCharacter, BoardModel board) {
-        int index = board.modelForSide(targetSide).getIndexForCharacter(targetCharacter);
-        this.applyEffect(originSide, origin, targetSide, index, board);
-    }
+public abstract class EffectMinionAction<T extends Card, U> {
+    public abstract void applyEffect(PlayerSide originSide, T origin, PlayerSide targetSide, int targetCharacterIndex, U board);
 }

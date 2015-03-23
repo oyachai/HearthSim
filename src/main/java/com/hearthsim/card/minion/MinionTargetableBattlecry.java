@@ -12,12 +12,12 @@ public interface MinionTargetableBattlecry {
      *
      * @param originSide
      * @param origin
-     * @param targetMinion
+     * @param targetCharacterIndex
      * @param boardState
      * @return
      * @throws HSException
      */
-    public HearthTreeNode useTargetableBattlecry_core(PlayerSide originSide, Minion origin, PlayerSide targetSide, Minion targetMinion, HearthTreeNode boardState) throws HSException;
+    public HearthTreeNode useTargetableBattlecry_core(PlayerSide originSide, Minion origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException;
 
     public boolean canTargetWithBattlecry(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, BoardModel board);
 }

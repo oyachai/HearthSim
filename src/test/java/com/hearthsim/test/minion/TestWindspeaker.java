@@ -31,8 +31,9 @@ public class TestWindspeaker {
     @Test
     public void testAddsWindfury() throws HSException {
         BoulderfistOgre ogre = new BoulderfistOgre();
+        board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, ogre);
         Windspeaker windspeaker = new Windspeaker();
-        windspeaker.useTargetableBattlecry_core(PlayerSide.CURRENT_PLAYER, windspeaker, PlayerSide.WAITING_PLAYER, ogre, board);
+        windspeaker.useTargetableBattlecry_core(PlayerSide.CURRENT_PLAYER, windspeaker, PlayerSide.CURRENT_PLAYER, 1, board);
         assertTrue(ogre.getWindfury());
     }
 

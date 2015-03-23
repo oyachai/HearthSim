@@ -26,9 +26,8 @@ class ShatteredSunClericSpec extends CardSpec {
 
     def "adds extra stats"() {
         def copiedBoard = startingBoard.deepCopy()
-        def target = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(1)
         def theCard = new ShatteredSunCleric()
-        def ret = theCard.useTargetableBattlecry_core(CURRENT_PLAYER, theCard, CURRENT_PLAYER, target, root)
+        def ret = theCard.useTargetableBattlecry_core(CURRENT_PLAYER, theCard, CURRENT_PLAYER, 1, root)
 
         expect:
         assertEquals(root, ret);
@@ -43,10 +42,9 @@ class ShatteredSunClericSpec extends CardSpec {
 
     def "buff is additive"() {
         def copiedBoard = startingBoard.deepCopy()
-        def target = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(1)
         def theCard = new ShatteredSunCleric()
-        def ret = theCard.useTargetableBattlecry_core(CURRENT_PLAYER, theCard, CURRENT_PLAYER, target, root)
-        ret = theCard.useTargetableBattlecry_core(CURRENT_PLAYER, theCard, CURRENT_PLAYER, target, root)
+        def ret = theCard.useTargetableBattlecry_core(CURRENT_PLAYER, theCard, CURRENT_PLAYER, 1, root)
+        ret = theCard.useTargetableBattlecry_core(CURRENT_PLAYER, theCard, CURRENT_PLAYER, 1, root)
 
         expect:
         assertEquals(root, ret);

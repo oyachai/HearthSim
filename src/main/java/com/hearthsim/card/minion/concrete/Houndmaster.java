@@ -19,7 +19,8 @@ public class Houndmaster extends Minion implements MinionTargetableBattlecry {
         protected MinionTribe tribeFilter() { return MinionTribe.BEAST; }
 
         @Override
-        public HearthTreeNode useTargetableBattlecry_core(PlayerSide originSide, Minion origin, PlayerSide targetSide, Minion targetMinion, HearthTreeNode boardState) throws HSException {
+        public HearthTreeNode useTargetableBattlecry_core(PlayerSide originSide, Minion origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
+            Minion targetMinion = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
             HearthTreeNode toRet = boardState;
             targetMinion.setAttack((byte) (targetMinion.getAttack() + 2));
             targetMinion.setHealth((byte) (targetMinion.getHealth() + 2));
@@ -38,7 +39,7 @@ public class Houndmaster extends Minion implements MinionTargetableBattlecry {
     }
 
     @Override
-    public HearthTreeNode useTargetableBattlecry_core(PlayerSide originSide, Minion origin, PlayerSide targetSide, Minion targetMinion, HearthTreeNode boardState) throws HSException {
-        return Houndmaster.battlecryAction.useTargetableBattlecry_core(originSide, origin, targetSide, targetMinion, boardState);
+    public HearthTreeNode useTargetableBattlecry_core(PlayerSide originSide, Minion origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
+        return Houndmaster.battlecryAction.useTargetableBattlecry_core(originSide, origin, targetSide, targetCharacterIndex, boardState);
     }
 }

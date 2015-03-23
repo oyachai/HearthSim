@@ -603,7 +603,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         if (this instanceof MinionTargetableBattlecry) {
             PlayerModel player = boardState.data_.modelForSide(side);
 
-            boardState = ((MinionTargetableBattlecry)this).useTargetableBattlecry_core(PlayerSide.CURRENT_PLAYER, this, side, player.getCharacter(targetCharacterIndex), boardState);
+            boardState = ((MinionTargetableBattlecry)this).useTargetableBattlecry_core(PlayerSide.CURRENT_PLAYER, this, side, targetCharacterIndex, boardState);
 
             if (boardState != null) {
                 int originCharacterIndex = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getIndexForCharacter(this);
