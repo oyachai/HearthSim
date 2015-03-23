@@ -19,11 +19,12 @@ public class Powermace extends WeaponCard {
 
         protected Minion.MinionTribe tribeFilter() { return Minion.MinionTribe.MECH; }
 
-        public void applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, BoardModel board) {
+        public BoardModel applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, BoardModel board) {
             Minion targetCharacter = board.modelForSide(targetSide).getCharacter(targetCharacterIndex);
             targetCharacter.addAttack((byte) 2);
             targetCharacter.addHealth((byte) 2);
             targetCharacter.addMaxHealth((byte) 2);
+            return board;
         }
     }
 }

@@ -46,8 +46,9 @@ public abstract class EffectMinionActionUntargetable extends EffectMinionAction<
         return true;
     }
 
-    public final void applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, Minion targetCharacter, BoardModel board) {
+    public final BoardModel applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, Minion targetCharacter, BoardModel board) {
         int index = board.modelForSide(targetSide).getIndexForCharacter(targetCharacter);
         this.applyEffect(originSide, origin, targetSide, index, board);
+        return board;
     }
 }

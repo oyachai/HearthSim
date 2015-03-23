@@ -37,10 +37,11 @@ public class DarkCultist extends Minion {
             return true;
         }
 
-        public void applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, BoardModel board) {
+        public BoardModel applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, BoardModel board) {
             Minion targetCharacter = board.modelForSide(targetSide).getCharacter(targetCharacterIndex);
             targetCharacter.addHealth(this.effect);
             targetCharacter.addMaxHealth(this.effect);
+            return board;
         }
     }
 }
