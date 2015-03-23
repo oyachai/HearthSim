@@ -18,6 +18,6 @@ public class AnubarAmbusher extends Minion {
 
     public AnubarAmbusher() {
         super();
-        deathrattleAction_ = new DeathrattleEffectRandomMinion(AnubarAmbusher.effect, AnubarAmbusher.filter);
+        deathrattleAction_ = new DeathrattleEffectRandomMinion<>(AnubarAmbusher.effect, AnubarAmbusher.filter);
     }
 }

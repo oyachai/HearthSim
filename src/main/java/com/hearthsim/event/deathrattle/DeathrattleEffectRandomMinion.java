@@ -14,16 +14,17 @@ import com.hearthsim.util.tree.RandomEffectNode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DeathrattleEffectRandomMinion extends DeathrattleAction {
-    private EffectMinionAction<Card> effect;
+public class DeathrattleEffectRandomMinion<T extends Card> extends DeathrattleAction<T> {
+    private EffectMinionAction<T> effect;
     private MinionFilterUntargetedDeathrattle filter;
 
-    public DeathrattleEffectRandomMinion(EffectMinionAction<Card> effect, MinionFilterUntargetedDeathrattle filter) {
+    public DeathrattleEffectRandomMinion(EffectMinionAction<T> effect, MinionFilterUntargetedDeathrattle filter) {
         this.effect = effect;
         this.filter = filter;
     }
 
-    public HearthTreeNode performAction(Card origin, PlayerSide playerSide, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
+    @Override
+    public HearthTreeNode performAction(T origin, PlayerSide playerSide, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
         PlayerModel owner = boardState.data_.modelForSide(playerSide);
         PlayerModel opposing = boardState.data_.modelForSide(playerSide.getOtherPlayer());
 
@@ -82,7 +83,7 @@ public class DeathrattleEffectRandomMinion extends DeathrattleAction {
     }
 
     // TODO need to do this manually for now. we should handle this in the death handler
-    private void cleanupBoard(PlayerSide originSide, Card origin, BoardModel parent, BoardModel child) {
+    private void cleanupBoard(PlayerSide originSide, T origin, BoardModel parent, BoardModel child) {
         if (origin instanceof Minion) {
             int originIndex = parent.modelForSide(originSide).getIndexForCharacter((Minion)origin);
             child.removeMinion(originSide, originIndex - 1);

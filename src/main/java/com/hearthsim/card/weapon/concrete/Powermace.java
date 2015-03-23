@@ -32,6 +32,6 @@ public class Powermace extends WeaponCard {
 
     public Powermace() {
         super();
-        this.deathrattleAction_ = new DeathrattleEffectRandomMinion(Powermace.powermaceEffect, Powermace.filter);
+        this.deathrattleAction_ = new DeathrattleEffectRandomMinion<>(Powermace.powermaceEffect, Powermace.filter);
     }
 }
