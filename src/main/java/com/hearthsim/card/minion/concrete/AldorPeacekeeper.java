@@ -3,6 +3,7 @@ package com.hearthsim.card.minion.concrete;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionTargetableBattlecry;
+import com.hearthsim.event.EffectMinionAction;
 import com.hearthsim.event.battlecry.BattlecryActionTargetable;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
@@ -14,9 +15,11 @@ public class AldorPeacekeeper extends Minion implements MinionTargetableBattlecr
     /**
      * Battlecry: Change an enemy minion's attack to 1
      */
-    private final static BattlecryActionTargetable battlecryAction = new BattlecryActionTargetable() {
+    private final static BattlecryActionTargetable filter = new BattlecryActionTargetable() {
         protected boolean canTargetEnemyMinions() { return true; }
+    };
 
+    private final static EffectMinionAction<Minion> battlecryAction = new EffectMinionAction<Minion>() {
         @Override
         public HearthTreeNode applyEffect(PlayerSide originSide, Minion origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
             Minion targetMinion = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
@@ -31,7 +34,7 @@ public class AldorPeacekeeper extends Minion implements MinionTargetableBattlecr
 
     @Override
     public boolean canTargetWithBattlecry(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, BoardModel board) {
-        return AldorPeacekeeper.battlecryAction.canTargetWithBattlecry(originSide, origin, targetSide, targetCharacterIndex, board);
+        return AldorPeacekeeper.filter.canTargetWithBattlecry(originSide, origin, targetSide, targetCharacterIndex, board);
     }
 
     @Override

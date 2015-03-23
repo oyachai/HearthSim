@@ -3,6 +3,7 @@ package com.hearthsim.card.minion.concrete;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionTargetableBattlecry;
+import com.hearthsim.event.EffectMinionAction;
 import com.hearthsim.event.battlecry.BattlecryActionTargetable;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
@@ -14,10 +15,12 @@ public class Alexstrasza extends Minion implements MinionTargetableBattlecry {
     /**
      * Battlecry: Set a hero's remaining health to 15
      */
-    private final static BattlecryActionTargetable battlecryAction = new BattlecryActionTargetable() {
+    private final static BattlecryActionTargetable filter = new BattlecryActionTargetable() {
         protected boolean canTargetEnemyHero() { return true; }
         protected boolean canTargetOwnHero() { return true; }
+    };
 
+    private final static EffectMinionAction<Minion> battlecryAction = new EffectMinionAction<Minion>() {
         @Override
         public HearthTreeNode applyEffect(PlayerSide originSide, Minion origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
             Minion targetMinion = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
@@ -32,7 +35,7 @@ public class Alexstrasza extends Minion implements MinionTargetableBattlecry {
 
     @Override
     public boolean canTargetWithBattlecry(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, BoardModel board) {
-        return Alexstrasza.battlecryAction.canTargetWithBattlecry(originSide, origin, targetSide, targetCharacterIndex, board);
+        return Alexstrasza.filter.canTargetWithBattlecry(originSide, origin, targetSide, targetCharacterIndex, board);
     }
 
     @Override
