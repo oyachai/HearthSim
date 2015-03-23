@@ -56,7 +56,7 @@ public class Sap extends SpellCard {
         throws HSException {
         HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
         if (toRet != null) {
-            this.effect.applyEffect(PlayerSide.CURRENT_PLAYER, this, side, targetMinion, boardState.data_);
+            this.effect.applyEffect(PlayerSide.CURRENT_PLAYER, this, side, targetMinion, boardState);
         }
         return toRet;
     }

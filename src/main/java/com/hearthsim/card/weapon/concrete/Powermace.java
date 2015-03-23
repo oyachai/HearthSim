@@ -7,6 +7,7 @@ import com.hearthsim.event.EffectMinionActionUntargetable;
 import com.hearthsim.event.deathrattle.DeathrattleEffectRandomMinion;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
+import com.hearthsim.util.tree.HearthTreeNode;
 
 public class Powermace extends WeaponCard {
     public Powermace() {
@@ -19,12 +20,12 @@ public class Powermace extends WeaponCard {
 
         protected Minion.MinionTribe tribeFilter() { return Minion.MinionTribe.MECH; }
 
-        public BoardModel applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, BoardModel board) {
-            Minion targetCharacter = board.modelForSide(targetSide).getCharacter(targetCharacterIndex);
+        public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
+            Minion targetCharacter = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
             targetCharacter.addAttack((byte) 2);
             targetCharacter.addHealth((byte) 2);
             targetCharacter.addMaxHealth((byte) 2);
-            return board;
+            return boardState;
         }
     }
 }

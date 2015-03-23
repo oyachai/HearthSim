@@ -18,7 +18,7 @@ public class AncientBrewmaster extends Minion implements MinionTargetableBattlec
         @Override
         public HearthTreeNode applyEffect(PlayerSide originSide, Minion origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
             Minion targetMinion = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
-            AncientBrewmaster.effect.applyEffect(PlayerSide.CURRENT_PLAYER, null, targetSide, targetMinion, boardState.data_);
+            AncientBrewmaster.effect.applyEffect(PlayerSide.CURRENT_PLAYER, origin, targetSide, targetMinion, boardState);
             return boardState;
         }
     };

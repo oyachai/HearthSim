@@ -4,13 +4,14 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
+import com.hearthsim.util.tree.HearthTreeNode;
 
 public class EffectMinionMindControl extends EffectMinionActionUntargetable {
-    public BoardModel applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, BoardModel board) {
-        Minion targetMinion = board.modelForSide(targetSide).getCharacter(targetCharacterIndex);
+    public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
+        Minion targetMinion = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
 
-        board.removeMinion(targetSide, targetCharacterIndex - 1);
-        board.placeMinion(originSide, targetMinion);
+        boardState.data_.removeMinion(targetSide, targetCharacterIndex - 1);
+        boardState.data_.placeMinion(originSide, targetMinion);
 
         if (targetMinion.getCharge()) {
             if (!targetMinion.canAttack()) {
@@ -20,6 +21,6 @@ public class EffectMinionMindControl extends EffectMinionActionUntargetable {
             targetMinion.hasAttacked(true);
         }
         targetMinion.hasBeenUsed(true);
-        return board;
+        return boardState;
     }
 }

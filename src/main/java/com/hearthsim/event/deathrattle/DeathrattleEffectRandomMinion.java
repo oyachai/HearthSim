@@ -46,7 +46,7 @@ public class DeathrattleEffectRandomMinion extends DeathrattleAction {
                 break;
             case 1: // one target, no RNG needed
                 targetMinion = friendlyTargets.size() > 0 ? friendlyTargets.get(0) : enemyTargets.get(0);
-                this.effect.applyEffect(playerSide, origin, playerSide, targetMinion, boardState.data_);
+                this.effect.applyEffect(playerSide, origin, playerSide, targetMinion, boardState);
                 break;
             default: // more than 1 option, generate all possible futures
                 RandomEffectNode rngNode = new RandomEffectNode(boardState, boardState.getAction());
@@ -56,7 +56,7 @@ public class DeathrattleEffectRandomMinion extends DeathrattleAction {
                     HearthTreeNode newState = new HearthTreeNode(rngNode.data_.deepCopy());
                     this.cleanupBoard(playerSide, origin, boardState.data_, newState.data_);
 
-                    this.effect.applyEffect(playerSide, origin, playerSide, targetIndex, newState.data_);
+                    this.effect.applyEffect(playerSide, origin, playerSide, targetIndex, newState);
 
                     rngNode.addChild(newState);
                 }
@@ -67,7 +67,7 @@ public class DeathrattleEffectRandomMinion extends DeathrattleAction {
                     HearthTreeNode newState = new HearthTreeNode(rngNode.data_.deepCopy());
                     this.cleanupBoard(playerSide, origin, boardState.data_, newState.data_);
 
-                    this.effect.applyEffect(playerSide, origin, playerSide.getOtherPlayer(), targetIndex, newState.data_);
+                    this.effect.applyEffect(playerSide, origin, playerSide.getOtherPlayer(), targetIndex, newState);
 
                     rngNode.addChild(newState);
                 }

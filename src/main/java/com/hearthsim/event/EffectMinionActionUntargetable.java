@@ -5,8 +5,9 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
+import com.hearthsim.util.tree.HearthTreeNode;
 
-public abstract class EffectMinionActionUntargetable extends EffectMinionAction<Card, BoardModel> {
+public abstract class EffectMinionActionUntargetable extends EffectMinionAction<Card> {
     protected boolean canEffectDead() { return false; }
     protected boolean canEffectEnemyHero() { return false; }
     protected boolean canEffectEnemyMinions() { return false; }
@@ -45,11 +46,5 @@ public abstract class EffectMinionActionUntargetable extends EffectMinionAction<
         }
 
         return true;
-    }
-
-    public final BoardModel applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, Minion targetCharacter, BoardModel board) throws HSException {
-        int index = board.modelForSide(targetSide).getIndexForCharacter(targetCharacter);
-        this.applyEffect(originSide, origin, targetSide, index, board);
-        return board;
     }
 }

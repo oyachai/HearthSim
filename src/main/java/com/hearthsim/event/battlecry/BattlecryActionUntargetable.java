@@ -8,7 +8,7 @@ import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public abstract class BattlecryActionUntargetable extends EffectMinionAction<Minion, HearthTreeNode> {
+public abstract class BattlecryActionUntargetable extends EffectMinionAction<Minion> {
 
     protected boolean canEffectDead() { return false; }
     protected boolean canEffectEnemyHero() { return false; }
