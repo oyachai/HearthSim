@@ -34,8 +34,7 @@ class ShatteredSunClericSpec extends CardSpec {
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                updateMinion(0, [deltaAttack: +1])
-                updateMinion(0, [deltaHealth: +1])
+                updateMinion(0, [deltaAttack: +1, deltaHealth: +1, deltaMaxHealth: +1])
             }
         }
     }
@@ -51,8 +50,7 @@ class ShatteredSunClericSpec extends CardSpec {
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                updateMinion(0, [deltaAttack: +2])
-                updateMinion(0, [deltaHealth: +2])
+                updateMinion(0, [deltaAttack: +2, deltaHealth: +2, deltaMaxHealth: +2])
             }
         }
     }
