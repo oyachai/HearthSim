@@ -3,6 +3,8 @@ package com.hearthsim.card.spellcard.concrete;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.Minion.MinionTribe;
 import com.hearthsim.card.spellcard.SpellDamage;
+import com.hearthsim.event.EffectMinionAction;
+import com.hearthsim.event.EffectMinionSpellDamage;
 import com.hearthsim.event.MinionFilterTargetedSpell;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
@@ -21,24 +23,25 @@ public class Demonheart extends SpellDamage {
         this.minionFilter = MinionFilterTargetedSpell.ALL_MINIONS;
     }
 
-    /**
-     * Attack using this spell
-     *
-     * @param targetMinionPlayerSide
-     * @param targetMinion The target minion
-     * @param boardState The BoardState before this card has performed its action. It will be manipulated and returned.
-     * @return The boardState is manipulated and returned
-     */
     @Override
-    public HearthTreeNode attack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode boardState) throws HSException {
-        HearthTreeNode toRet = boardState;
-        if (isCurrentPlayer(targetMinionPlayerSide) && targetMinion.getTribe() == MinionTribe.DEMON) {
-            targetMinion.setAttack((byte) (targetMinion.getAttack() + 5));
-            targetMinion.setMaxHealth((byte) (targetMinion.getMaxHealth() + 5));
-            targetMinion.setHealth((byte)(targetMinion.getHealth() + 5));
-        } else {
-            toRet = super.attack(targetMinionPlayerSide, targetMinion, boardState);
+    protected EffectMinionSpellDamage<SpellDamage> getEffect() {
+        if (this.effect == null) {
+            this.effect = new EffectMinionSpellDamage<SpellDamage>(damage_) {
+                @Override
+                public HearthTreeNode applyEffect(PlayerSide originSide, SpellDamage origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
+                    HearthTreeNode toRet = boardState;
+                    Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
+                    if (isCurrentPlayer(targetSide) && targetCharacter.getTribe() == MinionTribe.DEMON) {
+                        targetCharacter.setAttack((byte) (targetCharacter.getAttack() + 5));
+                        targetCharacter.setMaxHealth((byte) (targetCharacter.getMaxHealth() + 5));
+                        targetCharacter.setHealth((byte)(targetCharacter.getHealth() + 5));
+                    } else {
+                        toRet = super.applyEffect(originSide, origin, targetSide, targetCharacterIndex, boardState);
+                    }
+                    return toRet;
+                }
+            };
         }
-        return toRet;
+        return this.effect;
     }
 }

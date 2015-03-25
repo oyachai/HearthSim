@@ -1,7 +1,9 @@
 package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.spellcard.SpellDamage;
 import com.hearthsim.card.spellcard.SpellDamageAoe;
+import com.hearthsim.event.EffectMinionSpellDamage;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -16,8 +18,17 @@ public class Blizzard extends SpellDamageAoe {
     }
 
     @Override
-    public HearthTreeNode attack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode boardState) throws HSException {
-        targetMinion.setFrozen(true);
-        return targetMinion.takeDamageAndNotify(damage_, PlayerSide.CURRENT_PLAYER, targetMinionPlayerSide, boardState, true, false);
+    protected EffectMinionSpellDamage<SpellDamage> getEffect() {
+        if (this.effect == null) {
+            this.effect = new EffectMinionSpellDamage<SpellDamage>(damage_) {
+                @Override
+                public HearthTreeNode applyEffect(PlayerSide originSide, SpellDamage origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
+                    Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
+                    targetCharacter.setFrozen(true);
+                    return super.applyEffect(originSide, origin, targetSide, targetCharacterIndex, boardState);
+                }
+            };
+        }
+        return this.effect;
     }
 }

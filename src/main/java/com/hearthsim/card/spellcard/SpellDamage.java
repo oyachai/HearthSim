@@ -3,6 +3,8 @@ package com.hearthsim.card.spellcard;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.ImplementedCardList;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.event.EffectMinionAction;
+import com.hearthsim.event.EffectMinionSpellDamage;
 import com.hearthsim.event.MinionFilter;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
@@ -15,8 +17,18 @@ public class SpellDamage extends SpellCard {
 
     protected byte damage_;
 
+    protected EffectMinionSpellDamage<SpellDamage> effect;
+
     public SpellDamage() {
         super();
+    }
+
+    // damage is set during card import so we need to lazy load this for each card
+    protected EffectMinionSpellDamage<SpellDamage> getEffect() {
+        if (this.effect == null) {
+            this.effect = new EffectMinionSpellDamage<>(damage_);
+        }
+        return this.effect;
     }
 
     @Deprecated
@@ -65,8 +77,9 @@ public class SpellDamage extends SpellCard {
      * @param boardState The BoardState before this card has performed its action. It will be manipulated and returned.
      * @return The boardState is manipulated and returned
      */
-    public HearthTreeNode attack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode boardState) throws HSException {
-        return targetMinion.takeDamageAndNotify(damage_, PlayerSide.CURRENT_PLAYER, targetMinionPlayerSide, boardState, true, false);
+    @Deprecated
+    public final HearthTreeNode attack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode boardState) throws HSException {
+        return this.getEffect().applyEffect(PlayerSide.CURRENT_PLAYER, this, targetMinionPlayerSide, targetMinion, boardState);
     }
 
     @Deprecated
@@ -75,7 +88,7 @@ public class SpellDamage extends SpellCard {
         return this.attack(targetMinionPlayerSide, targetMinion, boardState);
     }
 
-    public HearthTreeNode attackAllUsingFilter(MinionFilter filter, HearthTreeNode boardState) throws HSException {
+    public HearthTreeNode effectAllUsingFilter(MinionFilter filter, HearthTreeNode boardState) throws HSException {
         if (boardState != null && filter != null) {
             for (BoardModel.CharacterLocation location : boardState.data_) {
                 Minion character = boardState.data_.getCharacter(location);
@@ -98,8 +111,7 @@ public class SpellDamage extends SpellCard {
     @Override
     protected HearthTreeNode use_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
         HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
-        toRet = this.attack(side, targetMinion, toRet);
-        return toRet;
+        return this.getEffect().applyEffect(PlayerSide.CURRENT_PLAYER, this, side, targetMinion, toRet);
     }
 
     @Override

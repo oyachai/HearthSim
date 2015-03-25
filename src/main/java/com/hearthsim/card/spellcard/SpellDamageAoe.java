@@ -2,7 +2,6 @@ package com.hearthsim.card.spellcard;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.MinionFilter;
-import com.hearthsim.event.MinionFilterTargetedSpell;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
@@ -54,7 +53,7 @@ public class SpellDamageAoe extends SpellDamage {
      */
     @Override
     protected HearthTreeNode use_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
-        boardState = this.attackAllUsingFilter(this.hitsFilter, boardState);
+        boardState = this.effectAllUsingFilter(this.hitsFilter, boardState);
 
         if (boardState != null) {
             PlayerModel currentPlayer = boardState.data_.getCurrentPlayer();
