@@ -54,4 +54,70 @@ public class MinionFilter {
         Minion targetCharacter = board.modelForSide(targetSide).getCharacter(targetCharacterIndex);
         return this.targetMatches(originSide, origin, targetSide, targetCharacter, board);
     }
+
+    public final static MinionFilter ALL = new MinionFilterTargetedSpell() {
+        @Override
+        protected boolean includeEnemyHero() { return true; }
+
+        @Override
+        protected boolean includeEnemyMinions() { return true; }
+
+        @Override
+        protected boolean includeOwnHero() { return true; }
+
+        @Override
+        protected boolean includeOwnMinions() { return true; }
+    };
+
+    public final static MinionFilter ALL_ENEMIES = new MinionFilter() {
+        @Override
+        protected boolean includeEnemyHero() { return true; }
+
+        @Override
+        protected boolean includeEnemyMinions() { return true; }
+    };
+
+    public final static MinionFilter ALL_FRIENDLIES = new MinionFilter() {
+        @Override
+        protected boolean includeOwnHero() { return true; }
+
+        @Override
+        protected boolean includeOwnMinions() { return true; }
+    };
+
+    public final static MinionFilter ALL_MINIONS = new MinionFilter() {
+        @Override
+        protected boolean includeEnemyMinions() { return true; }
+
+        @Override
+        protected boolean includeOwnMinions() { return true; }
+    };
+
+    public final static MinionFilter ALL_HEROES = new MinionFilter() {
+        @Override
+        protected boolean includeEnemyHero() { return true; }
+
+        @Override
+        protected boolean includeOwnHero() { return true; }
+    };
+
+    public final static MinionFilter ENEMY_MINIONS = new MinionFilter() {
+        @Override
+        protected boolean includeEnemyMinions() { return true; }
+    };
+
+    public final static MinionFilter FRIENDLY_MINIONS = new MinionFilter() {
+        @Override
+        protected boolean includeOwnMinions() { return true; }
+    };
+
+    public final static MinionFilter SELF = new MinionFilter() {
+        @Override
+        protected boolean includeOwnHero() { return true; }
+    };
+
+    public final static MinionFilter OPPONENT = new MinionFilter() {
+        @Override
+        protected boolean includeEnemyHero() { return true; }
+    };
 }

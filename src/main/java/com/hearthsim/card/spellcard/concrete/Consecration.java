@@ -1,6 +1,7 @@
 package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.spellcard.SpellDamageAoe;
+import com.hearthsim.event.MinionFilter;
 
 public class Consecration extends SpellDamageAoe {
 
@@ -24,6 +25,6 @@ public class Consecration extends SpellDamageAoe {
      */
     public Consecration() {
         super();
-        this.hitsEnemyHero = true;
+        this.hitsFilter = MinionFilter.ALL_ENEMIES;
     }
 }

@@ -1,6 +1,8 @@
 package com.hearthsim.card.spellcard;
 
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.event.MinionFilter;
+import com.hearthsim.event.MinionFilterTargetedSpell;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
@@ -9,13 +11,11 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class SpellDamageAoe extends SpellDamage {
 
-    protected boolean hitsOwnHero = false;
-    protected boolean hitsOwnMinions = false;
-    protected boolean hitsEnemyHero = false;
-    protected boolean hitsEnemyMinions = true;
+    protected MinionFilter hitsFilter;
 
     public SpellDamageAoe() {
         super();
+        this.hitsFilter = MinionFilter.ENEMY_MINIONS;
     }
 
     /**
@@ -54,28 +54,14 @@ public class SpellDamageAoe extends SpellDamage {
      */
     @Override
     protected HearthTreeNode use_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
-        if (boardState != null && this.hitsOwnHero) {
-            Minion self = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(0);
-            boardState = this.attack(PlayerSide.CURRENT_PLAYER, self, boardState);
-        }
-
-        if (boardState != null && this.hitsOwnMinions) {
-            boardState = this.attackAllMinionsOnSide(PlayerSide.CURRENT_PLAYER, boardState);
-        }
-
-        if (boardState != null && this.hitsEnemyHero) {
-            boardState = this.attack(PlayerSide.WAITING_PLAYER, targetMinion, boardState);
-        }
-
-        if (boardState != null && this.hitsEnemyMinions) {
-            boardState = this.attackAllMinionsOnSide(PlayerSide.WAITING_PLAYER, boardState);
-        }
+        boardState = this.attackAllUsingFilter(this.hitsFilter, boardState);
 
         if (boardState != null) {
             PlayerModel currentPlayer = boardState.data_.getCurrentPlayer();
             currentPlayer.subtractMana(this.getManaCost(side, boardState.data_));
             currentPlayer.getHand().remove(this);
         }
+
         return boardState;
     }
 }

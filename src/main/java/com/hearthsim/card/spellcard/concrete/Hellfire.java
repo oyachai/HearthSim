@@ -1,6 +1,7 @@
 package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.spellcard.SpellDamageAoe;
+import com.hearthsim.event.MinionFilter;
 
 public class Hellfire extends SpellDamageAoe {
 
@@ -24,10 +25,6 @@ public class Hellfire extends SpellDamageAoe {
      */
     public Hellfire() {
         super();
-
-        this.hitsEnemyHero = true;
-        this.hitsEnemyMinions = true;
-        this.hitsOwnMinions = true;
-        this.hitsOwnHero = true;
+        this.hitsFilter = MinionFilter.ALL;
     }
 }

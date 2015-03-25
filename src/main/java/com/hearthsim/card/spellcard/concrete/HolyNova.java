@@ -2,6 +2,7 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellDamageAoe;
+import com.hearthsim.event.MinionFilter;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
@@ -29,8 +30,7 @@ public class HolyNova extends SpellDamageAoe {
     public HolyNova() {
         super();
 
-        this.hitsEnemyHero = true;
-        this.hitsEnemyMinions = true;
+        this.hitsFilter = MinionFilter.ALL_ENEMIES;
     }
 
     /**

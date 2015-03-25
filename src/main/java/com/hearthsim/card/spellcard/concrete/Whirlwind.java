@@ -1,10 +1,9 @@
 package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.spellcard.SpellDamageAoe;
+import com.hearthsim.event.MinionFilter;
 
 public class Whirlwind extends SpellDamageAoe {
-
-    private static final byte DAMAGE_AMOUNT = 1;
 
     /**
      * Constructor
@@ -24,8 +23,6 @@ public class Whirlwind extends SpellDamageAoe {
      */
     public Whirlwind() {
         super();
-
-        this.hitsEnemyMinions = true;
-        this.hitsOwnMinions = true;
+        this.hitsFilter = MinionFilter.ALL_MINIONS;
     }
 }
