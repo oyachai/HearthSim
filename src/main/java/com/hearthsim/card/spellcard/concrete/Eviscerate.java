@@ -6,14 +6,10 @@ import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-/**
- * Created by oyachai on 3/20/15.
- */
 public class Eviscerate extends SpellDamage {
 
     public Eviscerate() {
         super();
-        this.canTargetOwnHero = true;
         this.damage_ = 2; // TODO: read this in from json file
     }
 
@@ -38,6 +34,4 @@ public class Eviscerate extends SpellDamage {
         damage_ = origDamage;
         return toRet;
     }
-
-
 }

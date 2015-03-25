@@ -2,13 +2,11 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
+import com.hearthsim.event.MinionFilterTargetedSpell;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-/**
- * Created by oyachai on 3/20/15.
- */
 public class ColdBlood extends SpellCard {
 
     /**
@@ -30,8 +28,7 @@ public class ColdBlood extends SpellCard {
     public ColdBlood() {
         super();
 
-        this.canTargetEnemyHero = false;
-        this.canTargetOwnHero = false;
+        this.minionFilter = MinionFilterTargetedSpell.ALL_MINIONS;
     }
 
     /**

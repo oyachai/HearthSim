@@ -16,15 +16,6 @@ public class AncientBrewmaster extends Minion implements MinionTargetableBattlec
         protected boolean includeOwnMinions() { return true; }
     };
 
-    private final static EffectMinionAction<Minion> battlecryAction = new EffectMinionAction<Minion>() {
-        @Override
-        public HearthTreeNode applyEffect(PlayerSide originSide, Minion origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
-            Minion targetMinion = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
-            AncientBrewmaster.effect.applyEffect(PlayerSide.CURRENT_PLAYER, origin, targetSide, targetMinion, boardState);
-            return boardState;
-        }
-    };
-
     private final static EffectMinionAction<Card> effect = EffectMinionAction.BOUNCE;
 
     public AncientBrewmaster() {
@@ -38,6 +29,6 @@ public class AncientBrewmaster extends Minion implements MinionTargetableBattlec
 
     @Override
     public HearthTreeNode useTargetableBattlecry_core(PlayerSide originSide, Minion origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
-        return AncientBrewmaster.battlecryAction.applyEffect(originSide, origin, targetSide, targetCharacterIndex, boardState);
+        return AncientBrewmaster.effect.applyEffect(originSide, origin, targetSide, targetCharacterIndex, boardState);
     }
 }

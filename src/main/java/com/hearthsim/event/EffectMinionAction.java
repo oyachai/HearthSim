@@ -21,8 +21,10 @@ public abstract class EffectMinionAction<T extends Card> {
             if (boardState.data_.modelForSide(targetSide).getHand().size() < 10) {
                 Minion copy = targetCharacter.createResetCopy();
                 boardState.data_.modelForSide(targetSide).placeCardHand(copy);
+                boardState.data_.removeMinion(targetCharacter);
+            } else {
+                targetCharacter.setHealth((byte) -99);
             }
-            boardState.data_.removeMinion(targetCharacter);
             return boardState;
         }
     };
