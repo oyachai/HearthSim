@@ -25,9 +25,9 @@ public class CabalShadowPriest extends Minion implements MinionTargetableBattlec
         }
     };
 
-    private final static EffectMinionAction<Minion> battlecryAction = new EffectMinionAction<Minion>() {
+    private final static EffectMinionAction battlecryAction = new EffectMinionAction() {
         @Override
-        public HearthTreeNode applyEffect(PlayerSide originSide, Minion origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
+        public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
             Minion targetMinion = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
             HearthTreeNode toRet = boardState;
             if (targetMinion.getTotalAttack() <= 2 && toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getMinions().size() < 6) {

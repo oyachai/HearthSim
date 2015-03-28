@@ -21,15 +21,15 @@ public class HungryCrab extends Minion implements MinionTargetableBattlecry {
         protected MinionTribe tribeFilter() { return MinionTribe.MURLOC; }
     };
 
-    private final static EffectMinionAction<Minion> battlecryAction = new EffectMinionAction<Minion>() {
+    private final static EffectMinionAction battlecryAction = new EffectMinionAction() {
         @Override
-        public HearthTreeNode applyEffect(PlayerSide originSide, Minion origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
+        public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
             Minion targetMinion = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
             if (targetMinion.getTribe() == MinionTribe.MURLOC) {
                 targetMinion.setHealth((byte) -99);
-                origin.addAttack((byte) 2);
-                origin.addHealth((byte) 2);
-                origin.addMaxHealth((byte) 2);
+                ((Minion)origin).addAttack((byte) 2);
+                ((Minion)origin).addHealth((byte) 2);
+                ((Minion)origin).addMaxHealth((byte) 2);
                 return boardState;
             } else {
                 return null;

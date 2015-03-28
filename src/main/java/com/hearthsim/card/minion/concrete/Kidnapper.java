@@ -17,7 +17,7 @@ public class Kidnapper extends Minion implements MinionTargetableBattlecry {
         protected boolean includeOwnMinions() { return true; }
     };
 
-    private final static EffectMinionAction<Card> effect = EffectMinionAction.BOUNCE;
+    private final static EffectMinionAction effect = EffectMinionAction.BOUNCE;
 
     public Kidnapper() {
         super();

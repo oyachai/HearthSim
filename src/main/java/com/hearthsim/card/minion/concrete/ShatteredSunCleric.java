@@ -16,7 +16,7 @@ public class ShatteredSunCleric extends Minion implements MinionTargetableBattle
         protected boolean includeOwnMinions() { return true; }
     };
 
-    private final static EffectMinionAction<Minion> battlecryAction = new EffectMinionBuff<>(1, 1);
+    private final static EffectMinionAction battlecryAction = new EffectMinionBuff(1, 1);
 
     public ShatteredSunCleric() {
         super();

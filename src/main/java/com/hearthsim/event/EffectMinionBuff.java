@@ -6,7 +6,7 @@ import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class EffectMinionBuff<T extends Card> extends EffectMinionAction<T> {
+public class EffectMinionBuff extends EffectMinionAction {
     private byte attackDelta;
     private byte healthDelta;
     private boolean addTaunt;
@@ -23,7 +23,7 @@ public class EffectMinionBuff<T extends Card> extends EffectMinionAction<T> {
 
 
     @Override
-    public HearthTreeNode applyEffect(PlayerSide originSide, T origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
+    public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
         Minion targetCharacter = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
         targetCharacter.addAttack(this.attackDelta);
         targetCharacter.addHealth(this.healthDelta);

@@ -6,15 +6,15 @@ import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public abstract class EffectMinionAction<T extends Card> {
-    public abstract HearthTreeNode applyEffect(PlayerSide originSide, T origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException;
+public abstract class EffectMinionAction {
+    public abstract HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException;
 
-    public final HearthTreeNode applyEffect(PlayerSide originSide, T origin, PlayerSide targetSide, Minion targetCharacter, HearthTreeNode boardState) throws HSException {
+    public final HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, Minion targetCharacter, HearthTreeNode boardState) throws HSException {
         int index = boardState.data_.modelForSide(targetSide).getIndexForCharacter(targetCharacter);
         return this.applyEffect(originSide, origin, targetSide, index, boardState);
     }
 
-    public final static EffectMinionAction<Card> BOUNCE = new EffectMinionAction<Card>() {
+    public final static EffectMinionAction BOUNCE = new EffectMinionAction() {
         @Override
         public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
             Minion targetCharacter = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
@@ -29,7 +29,7 @@ public abstract class EffectMinionAction<T extends Card> {
         }
     };
 
-    public final static EffectMinionAction<Card> MIND_CONTROL = new EffectMinionAction<Card>() {
+    public final static EffectMinionAction MIND_CONTROL = new EffectMinionAction() {
         @Override
         public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
             Minion targetMinion = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);

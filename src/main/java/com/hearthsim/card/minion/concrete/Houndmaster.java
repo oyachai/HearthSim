@@ -21,7 +21,7 @@ public class Houndmaster extends Minion implements MinionTargetableBattlecry {
         protected MinionTribe tribeFilter() { return MinionTribe.BEAST; }
     };
 
-    private final static EffectMinionAction<Minion> battlecryAction = new EffectMinionBuff<>(2, 2, true);
+    private final static EffectMinionAction battlecryAction = new EffectMinionBuff(2, 2, true);
 
     public Houndmaster() {
         super();

@@ -19,9 +19,9 @@ public class AldorPeacekeeper extends Minion implements MinionTargetableBattlecr
         protected boolean includeEnemyMinions() { return true; }
     };
 
-    private final static EffectMinionAction<Minion> battlecryAction = new EffectMinionAction<Minion>() {
+    private final static EffectMinionAction battlecryAction = new EffectMinionAction() {
         @Override
-        public HearthTreeNode applyEffect(PlayerSide originSide, Minion origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
+        public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
             Minion targetMinion = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
             targetMinion.setAttack((byte) 1);
             return boardState;

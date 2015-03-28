@@ -17,16 +17,17 @@ public class SpellDamage extends SpellCard {
 
     protected byte damage_;
 
-    protected EffectMinionSpellDamage<SpellDamage> effect;
+    protected EffectMinionSpellDamage effect;
 
     public SpellDamage() {
         super();
     }
 
     // damage is set during card import so we need to lazy load this for each card
-    protected EffectMinionSpellDamage<SpellDamage> getEffect() {
+    @Override
+    protected EffectMinionSpellDamage getEffect() {
         if (this.effect == null) {
-            this.effect = new EffectMinionSpellDamage<>(damage_);
+            this.effect = new EffectMinionSpellDamage(damage_);
         }
         return this.effect;
     }

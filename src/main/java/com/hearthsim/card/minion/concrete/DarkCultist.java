@@ -8,7 +8,7 @@ import com.hearthsim.event.deathrattle.DeathrattleEffectRandomMinion;
 
 public class DarkCultist extends Minion {
 
-    private final static EffectMinionAction<Minion> darkCultistEffect = new EffectMinionBuff<>(0, 3);
+    private final static EffectMinionAction darkCultistEffect = new EffectMinionBuff(0, 3);
 
     private final static MinionFilterUntargetedDeathrattle filter = new MinionFilterUntargetedDeathrattle() {
         @Override
@@ -17,6 +17,6 @@ public class DarkCultist extends Minion {
 
     public DarkCultist() {
         super();
-        deathrattleAction_ = new DeathrattleEffectRandomMinion<>(DarkCultist.darkCultistEffect, DarkCultist.filter);
+        deathrattleAction_ = new DeathrattleEffectRandomMinion(DarkCultist.darkCultistEffect, DarkCultist.filter);
     }
 }

@@ -20,9 +20,9 @@ public class CruelTaskmaster extends Minion implements MinionTargetableBattlecry
         protected boolean includeOwnMinions() { return true; }
     };
 
-    private final static EffectMinionAction<Minion> battlecryAction = new EffectMinionAction<Minion>() {
+    private final static EffectMinionAction battlecryAction = new EffectMinionAction() {
         @Override
-        public HearthTreeNode applyEffect(PlayerSide originSide, Minion origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
+        public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
             Minion targetMinion = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
             HearthTreeNode toRet = boardState;
             targetMinion.setAttack((byte)(targetMinion.getAttack() + 2));

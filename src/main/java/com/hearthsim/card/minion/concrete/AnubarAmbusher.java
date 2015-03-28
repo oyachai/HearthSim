@@ -8,7 +8,7 @@ import com.hearthsim.event.deathrattle.DeathrattleEffectRandomMinion;
 
 public class AnubarAmbusher extends Minion {
 
-    private final static EffectMinionAction<Card> effect = EffectMinionAction.BOUNCE;
+    private final static EffectMinionAction effect = EffectMinionAction.BOUNCE;
 
     private final static MinionFilterUntargetedDeathrattle filter = new MinionFilterUntargetedDeathrattle() {
         @Override
@@ -17,6 +17,6 @@ public class AnubarAmbusher extends Minion {
 
     public AnubarAmbusher() {
         super();
-        deathrattleAction_ = new DeathrattleEffectRandomMinion<>(AnubarAmbusher.effect, AnubarAmbusher.filter);
+        deathrattleAction_ = new DeathrattleEffectRandomMinion(AnubarAmbusher.effect, AnubarAmbusher.filter);
     }
 }
