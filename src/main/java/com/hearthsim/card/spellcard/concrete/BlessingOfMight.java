@@ -2,12 +2,12 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectCharacterBuff;
+import com.hearthsim.event.effect.CardEffectCharacterBuffDelta;
 import com.hearthsim.event.MinionFilterTargetedSpell;
 
 public class BlessingOfMight extends SpellCard {
 
-    private final static CardEffectCharacter effect = new CardEffectCharacterBuff(3, 0);
+    private final static CardEffectCharacter effect = new CardEffectCharacterBuffDelta(3, 0);
 
     /**
      * Constructor

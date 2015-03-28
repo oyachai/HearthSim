@@ -2,12 +2,12 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectCharacterBuff;
+import com.hearthsim.event.effect.CardEffectCharacterBuffDelta;
 import com.hearthsim.event.MinionFilterTargetedSpell;
 
 public class BlessingOfKings extends SpellCard {
 
-    private final static CardEffectCharacter effect = new CardEffectCharacterBuff(4, 4);
+    private final static CardEffectCharacter effect = new CardEffectCharacterBuffDelta(4, 4);
 
     /**
      * Constructor

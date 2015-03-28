@@ -5,6 +5,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionTargetableBattlecry;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.MinionFilterTargetedBattlecry;
+import com.hearthsim.event.effect.CardEffectCharacterBuff;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
@@ -20,14 +21,7 @@ public class Alexstrasza extends Minion implements MinionTargetableBattlecry {
         protected boolean includeOwnHero() { return true; }
     };
 
-    private final static CardEffectCharacter battlecryAction = new CardEffectCharacter() {
-        @Override
-        public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
-            Minion targetMinion = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
-            targetMinion.setHealth((byte) 15);
-            return boardState;
-        }
-    };
+    private final static CardEffectCharacter battlecryAction = new CardEffectCharacterBuff(0, 15);
 
     public Alexstrasza() {
         super();

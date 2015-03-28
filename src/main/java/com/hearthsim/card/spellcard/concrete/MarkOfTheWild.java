@@ -2,12 +2,12 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectCharacterBuff;
+import com.hearthsim.event.effect.CardEffectCharacterBuffDelta;
 import com.hearthsim.event.MinionFilterTargetedSpell;
 
 public class MarkOfTheWild extends SpellCard {
 
-    private final static CardEffectCharacter effect = new CardEffectCharacterBuff(2, 2, true);
+    private final static CardEffectCharacter effect = new CardEffectCharacterBuffDelta(2, 2, true);
 
     /**
      * Constructor
