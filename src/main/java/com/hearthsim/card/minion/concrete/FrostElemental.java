@@ -22,14 +22,7 @@ public class FrostElemental extends Minion implements MinionTargetableBattlecry 
 //        protected boolean includeOwnMinions() { return true; }
     };
 
-    private final static CardEffectCharacter battlecryAction = new CardEffectCharacter() {
-        @Override
-        public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
-            Minion targetMinion = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
-            targetMinion.setFrozen(true);
-            return boardState;
-        }
-    };
+    private final static CardEffectCharacter battlecryAction = CardEffectCharacter.FREEZE;
 
     public FrostElemental() {
         super();

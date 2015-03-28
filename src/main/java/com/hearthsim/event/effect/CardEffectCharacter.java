@@ -38,6 +38,15 @@ public abstract class CardEffectCharacter {
         }
     };
 
+    public final static CardEffectCharacter FREEZE = new CardEffectCharacter() {
+        @Override
+        public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
+            Minion targetMinion = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
+            targetMinion.setFrozen(true);
+            return boardState;
+        }
+    };
+
     public final static CardEffectCharacter MIND_CONTROL = new CardEffectCharacter() {
         @Override
         public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
