@@ -39,16 +39,6 @@ public class Silence extends SpellCard {
      */
     @Override
     protected CardEffectCharacter getEffect() {
-        if (this.effect == null) {
-            this.effect = new CardEffectCharacter() {
-                @Override
-                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
-                    Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
-                    targetCharacter.silenced(targetSide, boardState);
-                    return boardState;
-                }
-            };
-        }
-        return this.effect;
+        return CardEffectCharacter.SILENCE;
     }
 }

@@ -47,6 +47,14 @@ public abstract class CardEffectCharacter {
         }
     };
 
+    public final static CardEffectCharacter SILENCE = new CardEffectCharacter() {
+        public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
+            Minion targetMinion = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
+            targetMinion.silenced(targetSide, boardState.data_);
+            return boardState;
+        }
+    };
+
     public final static CardEffectCharacter MIND_CONTROL = new CardEffectCharacter() {
         @Override
         public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
