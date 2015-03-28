@@ -5,14 +5,12 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionTargetableBattlecry;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.MinionFilterTargetedBattlecry;
+import com.hearthsim.event.effect.CardEffectCharacterDamage;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-/**
- * Created by oyachai on 2/1/15.
- */
 public class Si7Agent extends Minion implements MinionTargetableBattlecry {
 
     private final static MinionFilterTargetedBattlecry filter = new MinionFilterTargetedBattlecry() {
@@ -20,21 +18,18 @@ public class Si7Agent extends Minion implements MinionTargetableBattlecry {
         protected boolean includeEnemyMinions() { return true; }
         protected boolean includeOwnHero() { return true; }
         protected boolean includeOwnMinions() { return true; }
-    };
 
-    private final static CardEffectCharacter battlecryAction = new CardEffectCharacter() {
         @Override
-        public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
-            Minion targetMinion = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
-            HearthTreeNode toRet = boardState;
-            if (toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER).isComboEnabled()) {
-                toRet = targetMinion.takeDamageAndNotify((byte) 2, PlayerSide.CURRENT_PLAYER, targetSide, toRet, false, true);
-                return toRet;
-            } else {
-                return null;
+        public boolean targetMatches(PlayerSide originSide, Card origin, PlayerSide targetSide, Minion targetCharacter, BoardModel board) {
+            if (!super.targetMatches(originSide, origin, targetSide, targetCharacter, board)) {
+                return false;
             }
+
+            return board.modelForSide(originSide).isComboEnabled();
         }
     };
+
+    private final static CardEffectCharacter battlecryAction = new CardEffectCharacterDamage(2);
 
     public Si7Agent() {
         super();

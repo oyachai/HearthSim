@@ -5,14 +5,13 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionTargetableBattlecry;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.MinionFilterTargetedBattlecry;
+import com.hearthsim.event.effect.CardEffectCharacterDamage;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class FireElemental extends Minion implements MinionTargetableBattlecry {
-
-    private static final byte BATTLECRY_DAMAGE = 3;
 
     /**
      * Battlecry: Deal 3 damage to a chosen target
@@ -24,15 +23,7 @@ public class FireElemental extends Minion implements MinionTargetableBattlecry {
         protected boolean includeOwnMinions() { return true; }
     };
 
-    private final static CardEffectCharacter battlecryAction = new CardEffectCharacter() {
-        @Override
-        public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
-            Minion targetMinion = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
-            HearthTreeNode toRet = boardState;
-            toRet = targetMinion.takeDamageAndNotify(BATTLECRY_DAMAGE, PlayerSide.CURRENT_PLAYER, targetSide, toRet, false, false);
-            return toRet;
-        }
-    };
+    private final static CardEffectCharacter battlecryAction = new CardEffectCharacterDamage(3);
 
     public FireElemental() {
         super();

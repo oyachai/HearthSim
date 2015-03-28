@@ -5,6 +5,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionTargetableBattlecry;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.MinionFilterTargetedBattlecry;
+import com.hearthsim.event.effect.CardEffectCharacterDamage;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
@@ -22,15 +23,7 @@ public class ElvenArcher extends Minion implements MinionTargetableBattlecry {
         protected boolean includeOwnMinions() { return true; }
     };
 
-    private final static CardEffectCharacter battlecryAction = new CardEffectCharacter() {
-        @Override
-        public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
-            Minion targetMinion = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
-            HearthTreeNode toRet = boardState;
-            toRet = targetMinion.takeDamageAndNotify((byte) 1, PlayerSide.CURRENT_PLAYER, targetSide, toRet, false, true);
-            return toRet;
-        }
-    };
+    private final static CardEffectCharacter battlecryAction = new CardEffectCharacterDamage(1);
 
     public ElvenArcher() {
         super();
