@@ -1,14 +1,14 @@
 package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.event.EffectMinionAction;
-import com.hearthsim.event.EffectMinionBuff;
+import com.hearthsim.event.effect.CardEffectCharacter;
+import com.hearthsim.event.effect.CardEffectCharacterBuff;
 import com.hearthsim.event.MinionFilterUntargetedDeathrattle;
 import com.hearthsim.event.deathrattle.DeathrattleEffectRandomMinion;
 
 public class DarkCultist extends Minion {
 
-    private final static EffectMinionAction darkCultistEffect = new EffectMinionBuff(0, 3);
+    private final static CardEffectCharacter darkCultistEffect = new CardEffectCharacterBuff(0, 3);
 
     private final static MinionFilterUntargetedDeathrattle filter = new MinionFilterUntargetedDeathrattle() {
         @Override

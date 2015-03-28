@@ -3,8 +3,8 @@ package com.hearthsim.card.minion.concrete;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionTargetableBattlecry;
-import com.hearthsim.event.EffectMinionAction;
-import com.hearthsim.event.EffectMinionBuff;
+import com.hearthsim.event.effect.CardEffectCharacter;
+import com.hearthsim.event.effect.CardEffectCharacterBuff;
 import com.hearthsim.event.MinionFilterTargetedBattlecry;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
@@ -16,7 +16,7 @@ public class ShatteredSunCleric extends Minion implements MinionTargetableBattle
         protected boolean includeOwnMinions() { return true; }
     };
 
-    private final static EffectMinionAction battlecryAction = new EffectMinionBuff(1, 1);
+    private final static CardEffectCharacter battlecryAction = new CardEffectCharacterBuff(1, 1);
 
     public ShatteredSunCleric() {
         super();

@@ -1,19 +1,12 @@
 package com.hearthsim.card.spellcard.concrete;
 
-import com.hearthsim.card.Card;
-import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellDamage;
 import com.hearthsim.card.spellcard.SpellRandom;
-import com.hearthsim.event.EffectMinionAction;
-import com.hearthsim.event.EffectMinionSpellDamage;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.HearthAction;
-import com.hearthsim.util.IdentityLinkedList;
 import com.hearthsim.util.tree.HearthTreeNode;
-import com.hearthsim.util.tree.RandomEffectNode;
 
 import java.util.ArrayList;
 import java.util.Collection;

@@ -1,14 +1,13 @@
 package com.hearthsim.card.minion.concrete;
 
-import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.event.EffectMinionAction;
+import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.MinionFilterUntargetedDeathrattle;
 import com.hearthsim.event.deathrattle.DeathrattleEffectRandomMinion;
 
 public class AnubarAmbusher extends Minion {
 
-    private final static EffectMinionAction effect = EffectMinionAction.BOUNCE;
+    private final static CardEffectCharacter effect = CardEffectCharacter.BOUNCE;
 
     private final static MinionFilterUntargetedDeathrattle filter = new MinionFilterUntargetedDeathrattle() {
         @Override

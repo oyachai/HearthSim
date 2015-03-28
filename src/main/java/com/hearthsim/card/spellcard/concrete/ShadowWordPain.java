@@ -1,17 +1,13 @@
 package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.Card;
-import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
-import com.hearthsim.event.EffectMinionAction;
+import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.MinionFilterTargetedSpell;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
-import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.IdentityLinkedList;
-import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class ShadowWordPain extends SpellCard {
@@ -65,9 +61,9 @@ public class ShadowWordPain extends SpellCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    protected EffectMinionAction getEffect() {
+    protected CardEffectCharacter getEffect() {
         if (this.effect == null) {
-            this.effect = new EffectMinionAction() {
+            this.effect = new CardEffectCharacter() {
                 @Override
                 public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
                     Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);

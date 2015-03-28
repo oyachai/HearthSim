@@ -4,8 +4,7 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.Minion.MinionTribe;
 import com.hearthsim.card.spellcard.SpellDamage;
-import com.hearthsim.event.EffectMinionAction;
-import com.hearthsim.event.EffectMinionSpellDamage;
+import com.hearthsim.event.effect.SpellEffectCharacterDamage;
 import com.hearthsim.event.MinionFilterTargetedSpell;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
@@ -25,9 +24,9 @@ public class Demonheart extends SpellDamage {
     }
 
     @Override
-    protected EffectMinionSpellDamage getEffect() {
+    protected SpellEffectCharacterDamage getEffect() {
         if (this.effect == null) {
-            this.effect = new EffectMinionSpellDamage(damage_) {
+            this.effect = new SpellEffectCharacterDamage(damage_) {
                 @Override
                 public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
                     HearthTreeNode toRet = boardState;

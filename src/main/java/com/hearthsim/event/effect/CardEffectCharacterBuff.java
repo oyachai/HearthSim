@@ -1,4 +1,4 @@
-package com.hearthsim.event;
+package com.hearthsim.event.effect;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
@@ -6,16 +6,16 @@ import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class EffectMinionBuff extends EffectMinionAction {
+public class CardEffectCharacterBuff extends CardEffectCharacter {
     private byte attackDelta;
     private byte healthDelta;
     private boolean addTaunt;
 
-    public EffectMinionBuff(int attackDelta, int healthDelta) {
+    public CardEffectCharacterBuff(int attackDelta, int healthDelta) {
         this(attackDelta, healthDelta, false);
     }
 
-    public EffectMinionBuff(int attackDelta, int healthDelta, boolean addTaunt) {
+    public CardEffectCharacterBuff(int attackDelta, int healthDelta, boolean addTaunt) {
         this.attackDelta = (byte) attackDelta;
         this.healthDelta = (byte) healthDelta;
         this.addTaunt = addTaunt;

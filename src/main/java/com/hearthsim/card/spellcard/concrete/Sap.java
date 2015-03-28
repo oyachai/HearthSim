@@ -1,17 +1,12 @@
 package com.hearthsim.card.spellcard.concrete;
 
-import com.hearthsim.card.Card;
-import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
-import com.hearthsim.event.EffectMinionAction;
+import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.MinionFilterTargetedSpell;
-import com.hearthsim.exception.HSException;
-import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.tree.HearthTreeNode;
 
 public class Sap extends SpellCard {
 
-    private final static EffectMinionAction effect = EffectMinionAction.BOUNCE;
+    private final static CardEffectCharacter effect = CardEffectCharacter.BOUNCE;
 
     /**
      * Constructor
@@ -49,7 +44,7 @@ public class Sap extends SpellCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    protected EffectMinionAction getEffect() {
+    protected CardEffectCharacter getEffect() {
         return Sap.effect;
     }
 }

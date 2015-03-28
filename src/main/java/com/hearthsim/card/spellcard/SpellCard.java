@@ -2,8 +2,7 @@ package com.hearthsim.card.spellcard;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.event.EffectMinionAction;
-import com.hearthsim.event.EffectMinionSpellDamage;
+import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.MinionFilter;
 import com.hearthsim.event.MinionFilterTargetedSpell;
 import com.hearthsim.exception.HSException;
@@ -20,14 +19,14 @@ import java.util.Collection;
 public abstract class SpellCard extends Card {
 
     protected MinionFilter minionFilter = MinionFilterTargetedSpell.ALL;
-    protected EffectMinionAction effect;
+    protected CardEffectCharacter effect;
 
     public SpellCard() {
         super();
     }
 
     // some cards require data from import so we have to use lazy loading
-    protected abstract EffectMinionAction getEffect();
+    protected abstract CardEffectCharacter getEffect();
 
     @Deprecated
     public SpellCard(byte mana, boolean hasBeenUsed) {
@@ -56,7 +55,7 @@ public abstract class SpellCard extends Card {
     protected HearthTreeNode use_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
         HearthTreeNode toRet = boardState;
 
-        EffectMinionAction effect = this.getEffect();
+        CardEffectCharacter effect = this.getEffect();
 
         // Check to see if this card generates RNG children
         if (this instanceof SpellRandom) {

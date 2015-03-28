@@ -1,4 +1,4 @@
-package com.hearthsim.event;
+package com.hearthsim.event.effect;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
@@ -6,7 +6,7 @@ import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public abstract class EffectMinionAction {
+public abstract class CardEffectCharacter {
     public abstract HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException;
 
     public final HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, Minion targetCharacter, HearthTreeNode boardState) throws HSException {
@@ -14,7 +14,7 @@ public abstract class EffectMinionAction {
         return this.applyEffect(originSide, origin, targetSide, index, boardState);
     }
 
-    public final static EffectMinionAction BOUNCE = new EffectMinionAction() {
+    public final static CardEffectCharacter BOUNCE = new CardEffectCharacter() {
         @Override
         public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
             Minion targetCharacter = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
@@ -29,7 +29,7 @@ public abstract class EffectMinionAction {
         }
     };
 
-    public final static EffectMinionAction MIND_CONTROL = new EffectMinionAction() {
+    public final static CardEffectCharacter MIND_CONTROL = new CardEffectCharacter() {
         @Override
         public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
             Minion targetMinion = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);

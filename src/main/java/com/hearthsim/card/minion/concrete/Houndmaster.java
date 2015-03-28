@@ -3,8 +3,8 @@ package com.hearthsim.card.minion.concrete;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionTargetableBattlecry;
-import com.hearthsim.event.EffectMinionAction;
-import com.hearthsim.event.EffectMinionBuff;
+import com.hearthsim.event.effect.CardEffectCharacter;
+import com.hearthsim.event.effect.CardEffectCharacterBuff;
 import com.hearthsim.event.MinionFilterTargetedBattlecry;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
@@ -21,7 +21,7 @@ public class Houndmaster extends Minion implements MinionTargetableBattlecry {
         protected MinionTribe tribeFilter() { return MinionTribe.BEAST; }
     };
 
-    private final static EffectMinionAction battlecryAction = new EffectMinionBuff(2, 2, true);
+    private final static CardEffectCharacter battlecryAction = new CardEffectCharacterBuff(2, 2, true);
 
     public Houndmaster() {
         super();

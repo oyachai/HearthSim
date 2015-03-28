@@ -3,12 +3,10 @@ package com.hearthsim.card.spellcard;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.ImplementedCardList;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.event.EffectMinionAction;
-import com.hearthsim.event.EffectMinionSpellDamage;
+import com.hearthsim.event.effect.SpellEffectCharacterDamage;
 import com.hearthsim.event.MinionFilter;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
-import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 import org.json.JSONObject;
@@ -17,7 +15,7 @@ public class SpellDamage extends SpellCard {
 
     protected byte damage_;
 
-    protected EffectMinionSpellDamage effect;
+    protected SpellEffectCharacterDamage effect;
 
     public SpellDamage() {
         super();
@@ -25,9 +23,9 @@ public class SpellDamage extends SpellCard {
 
     // damage is set during card import so we need to lazy load this for each card
     @Override
-    protected EffectMinionSpellDamage getEffect() {
+    protected SpellEffectCharacterDamage getEffect() {
         if (this.effect == null) {
-            this.effect = new EffectMinionSpellDamage(damage_);
+            this.effect = new SpellEffectCharacterDamage(damage_);
         }
         return this.effect;
     }

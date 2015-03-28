@@ -1,18 +1,13 @@
 package com.hearthsim.card.spellcard.concrete;
 
-import com.hearthsim.card.Card;
-import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
-import com.hearthsim.event.EffectMinionAction;
-import com.hearthsim.event.EffectMinionBuff;
+import com.hearthsim.event.effect.CardEffectCharacter;
+import com.hearthsim.event.effect.CardEffectCharacterBuff;
 import com.hearthsim.event.MinionFilterTargetedSpell;
-import com.hearthsim.exception.HSException;
-import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.tree.HearthTreeNode;
 
 public class BlessingOfMight extends SpellCard {
 
-    private final static EffectMinionAction effect = new EffectMinionBuff(3, 0);
+    private final static CardEffectCharacter effect = new CardEffectCharacterBuff(3, 0);
 
     /**
      * Constructor
@@ -50,7 +45,7 @@ public class BlessingOfMight extends SpellCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    protected EffectMinionAction getEffect() {
+    protected CardEffectCharacter getEffect() {
         return BlessingOfMight.effect;
     }
 }
