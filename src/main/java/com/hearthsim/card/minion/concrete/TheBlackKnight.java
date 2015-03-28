@@ -14,20 +14,18 @@ public class TheBlackKnight extends Minion implements MinionTargetableBattlecry 
 
     private final static MinionFilterTargetedBattlecry filter = new MinionFilterTargetedBattlecry() {
         protected boolean includeEnemyMinions() { return true; }
-    };
 
-    private final static CardEffectCharacter battlecryAction = new CardEffectCharacter() {
         @Override
-        public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
-            Minion targetMinion = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
-            if (targetMinion.getTaunt()) {
-                targetMinion.setHealth((byte)-99);
-                return boardState;
-            } else {
-                return null;
+        public boolean targetMatches(PlayerSide originSide, Card origin, PlayerSide targetSide, Minion targetCharacter, BoardModel board) {
+            if (!super.targetMatches(originSide, origin, targetSide, targetCharacter, board)) {
+                return false;
             }
+
+            return targetCharacter.getTaunt();
         }
     };
+
+    private final static CardEffectCharacter battlecryAction = CardEffectCharacter.DESTROY;
 
     public TheBlackKnight() {
         super();

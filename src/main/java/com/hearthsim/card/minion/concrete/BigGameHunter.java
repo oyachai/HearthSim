@@ -18,20 +18,18 @@ public class BigGameHunter extends Minion implements MinionTargetableBattlecry {
     private final static MinionFilterTargetedBattlecry filter = new MinionFilterTargetedBattlecry() {
         protected boolean includeEnemyMinions() { return true; }
         protected boolean includeOwnMinions() { return true; }
-    };
 
-    private final static CardEffectCharacter battlecryAction = new CardEffectCharacter() {
         @Override
-        public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
-            Minion targetMinion = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
-            if (targetMinion.getTotalAttack() >= 7) {
-                targetMinion.setHealth((byte)-99);
-                return boardState;
-            } else {
-                return null;
+        public boolean targetMatches(PlayerSide originSide, Card origin, PlayerSide targetSide, Minion targetCharacter, BoardModel board) {
+            if (!super.targetMatches(originSide, origin, targetSide, targetCharacter, board)) {
+                return false;
             }
+
+            return targetCharacter.getTotalAttack() >= 7;
         }
     };
+
+    private final static CardEffectCharacter battlecryAction = CardEffectCharacter.DESTROY;
 
     public BigGameHunter() {
         super();

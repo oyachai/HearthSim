@@ -62,16 +62,6 @@ public class ShadowWordDeath extends SpellCard {
      */
     @Override
     protected CardEffectCharacter getEffect() {
-        if (this.effect == null) {
-            this.effect = new CardEffectCharacter() {
-                @Override
-                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
-                    Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
-                    targetCharacter.setHealth((byte) (-99));
-                    return boardState;
-                }
-            };
-        }
-        return this.effect;
+        return CardEffectCharacter.DESTROY;
     }
 }

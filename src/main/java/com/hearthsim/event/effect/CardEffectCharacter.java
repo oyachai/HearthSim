@@ -29,6 +29,15 @@ public abstract class CardEffectCharacter {
         }
     };
 
+    public final static CardEffectCharacter DESTROY = new CardEffectCharacter() {
+        @Override
+        public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
+            Minion targetCharacter = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
+            targetCharacter.setHealth((byte) -99);
+            return boardState;
+        }
+    };
+
     public final static CardEffectCharacter MIND_CONTROL = new CardEffectCharacter() {
         @Override
         public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
