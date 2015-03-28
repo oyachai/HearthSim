@@ -4,11 +4,15 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.MinionFilterTargetedSpell;
+import com.hearthsim.event.effect.CardEffectHero;
+import com.hearthsim.event.effect.CardEffectHeroMana;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class Innervate extends SpellCard {
+
+    private final static CardEffectHero effect = new CardEffectHeroMana(2);
 
     /**
      * Constructor
@@ -47,18 +51,6 @@ public class Innervate extends SpellCard {
      */
     @Override
     protected CardEffectCharacter getEffect() {
-        if (this.effect == null) {
-            this.effect = new CardEffectCharacter() {
-                @Override
-                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
-                    if (boardState.data_.getCurrentPlayer().getMana() < 8)
-                        boardState.data_.getCurrentPlayer().addMana((byte)2);
-                    else
-                        boardState.data_.getCurrentPlayer().setMana((byte)10);
-                    return boardState;
-                }
-            };
-        }
-        return this.effect;
+        return Innervate.effect;
     }
 }

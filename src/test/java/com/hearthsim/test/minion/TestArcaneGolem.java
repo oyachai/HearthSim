@@ -67,7 +67,6 @@ public class TestArcaneGolem {
     }
 
     @Test
-    @Ignore("Existing bug")
     public void testDoesNotIncreaseOverTen() throws HSException {
         waitingPlayer.setMaxMana((byte) 10);
         Card theCard = currentPlayer.getHand().get(0);
