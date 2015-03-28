@@ -64,7 +64,7 @@ class CabalShadowPriestSpec extends CardSpec {
         HearthTreeNode child0 = ret.getChildren().get(0);
         assertBoardDelta(minionPlayedBoard, child0.data_) {
             currentPlayer {
-                addMinionToField(GoldshireFootman, true, false, 3)
+                addMinionToField(GoldshireFootman, true, true, 3)
             }
             waitingPlayer {
                 removeMinion(0)
