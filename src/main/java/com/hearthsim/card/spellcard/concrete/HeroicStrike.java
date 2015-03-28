@@ -1,7 +1,9 @@
 package com.hearthsim.card.spellcard.concrete;
 
+import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
+import com.hearthsim.event.EffectMinionAction;
 import com.hearthsim.event.MinionFilterTargetedSpell;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
@@ -46,17 +48,17 @@ public class HeroicStrike extends SpellCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    protected HearthTreeNode use_core(
-            PlayerSide side,
-            Minion targetMinion,
-            HearthTreeNode boardState,
-            boolean singleRealizationOnly)
-        throws HSException {
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
-        if (toRet != null) {
-            toRet.data_.getCurrentPlayer().getHero().setExtraAttackUntilTurnEnd((byte)(DAMAGE_AMOUNT + toRet.data_.getCurrentPlayer().getHero().getExtraAttackUntilTurnEnd()));
+    protected EffectMinionAction getEffect() {
+        if (this.effect == null) {
+            this.effect = new EffectMinionAction() {
+                @Override
+                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
+                    Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
+                    targetCharacter.addExtraAttackUntilTurnEnd(DAMAGE_AMOUNT);
+                    return boardState;
+                }
+            };
         }
-
-        return toRet;
+        return this.effect;
     }
 }

@@ -1,7 +1,10 @@
 package com.hearthsim.card.spellcard.concrete;
 
+import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.minion.concrete.Frog;
 import com.hearthsim.card.spellcard.SpellCard;
+import com.hearthsim.event.EffectMinionAction;
 import com.hearthsim.event.MinionFilterTargetedSpell;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
@@ -46,20 +49,19 @@ public class ExcessMana extends SpellCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    protected HearthTreeNode use_core(
-            PlayerSide side,
-            Minion targetMinion,
-            HearthTreeNode boardState,
-            boolean singleRealizationOnly)
-        throws HSException {
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
-        if (toRet != null) {
-            if (toRet instanceof CardDrawNode)
-                ((CardDrawNode) toRet).addNumCardsToDraw(1);
-            else
-                toRet = new CardDrawNode(toRet, 1); //draw two cards
+    protected EffectMinionAction getEffect() {
+        if (this.effect == null) {
+            this.effect = new EffectMinionAction() {
+                @Override
+                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
+                    if (boardState instanceof CardDrawNode)
+                        ((CardDrawNode) boardState).addNumCardsToDraw(1);
+                    else
+                        boardState = new CardDrawNode(boardState, 1); //draw two cards
+                    return boardState;
+                }
+            };
         }
-        return toRet;
+        return this.effect;
     }
-
 }

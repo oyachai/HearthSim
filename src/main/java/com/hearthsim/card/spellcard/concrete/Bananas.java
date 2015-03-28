@@ -1,10 +1,13 @@
 package com.hearthsim.card.spellcard.concrete;
 
+import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
+import com.hearthsim.event.EffectMinionAction;
 import com.hearthsim.event.MinionFilterTargetedSpell;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
+import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class Bananas extends SpellCard {
@@ -24,17 +27,19 @@ public class Bananas extends SpellCard {
     }
 
     @Override
-    protected HearthTreeNode use_core(
-            PlayerSide side,
-            Minion targetMinion,
-            HearthTreeNode boardState, boolean singleRealizationOnly)
-        throws HSException {
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
-        if (toRet != null) {
-            targetMinion.addAttack((byte)1);
-            targetMinion.addHealth((byte)1);
-            targetMinion.addMaxHealth((byte)1);
+    protected EffectMinionAction getEffect() {
+        if (this.effect == null) {
+            this.effect = new EffectMinionAction() {
+                @Override
+                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
+                    Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
+                    targetCharacter.addAttack((byte)1);
+                    targetCharacter.addHealth((byte)1);
+                    targetCharacter.addMaxHealth((byte)1);
+                    return boardState;
+                }
+            };
         }
-        return toRet;
+        return this.effect;
     }
 }

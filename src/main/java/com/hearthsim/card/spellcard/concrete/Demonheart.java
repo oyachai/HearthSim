@@ -1,5 +1,6 @@
 package com.hearthsim.card.spellcard.concrete;
 
+import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.Minion.MinionTribe;
 import com.hearthsim.card.spellcard.SpellDamage;
@@ -24,11 +25,11 @@ public class Demonheart extends SpellDamage {
     }
 
     @Override
-    protected EffectMinionSpellDamage<SpellDamage> getEffect() {
+    protected EffectMinionSpellDamage getEffect() {
         if (this.effect == null) {
-            this.effect = new EffectMinionSpellDamage<SpellDamage>(damage_) {
+            this.effect = new EffectMinionSpellDamage(damage_) {
                 @Override
-                public HearthTreeNode applyEffect(PlayerSide originSide, SpellDamage origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
+                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
                     HearthTreeNode toRet = boardState;
                     Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
                     if (isCurrentPlayer(targetSide) && targetCharacter.getTribe() == MinionTribe.DEMON) {

@@ -1,7 +1,9 @@
 package com.hearthsim.card.spellcard.concrete;
 
+import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
+import com.hearthsim.event.EffectMinionAction;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -44,14 +46,17 @@ public class HolyLight extends SpellCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    protected HearthTreeNode use_core(
-            PlayerSide side,
-            Minion targetMinion,
-            HearthTreeNode boardState, boolean singleRealizationOnly)
-        throws HSException {
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
-        if (toRet != null)
-            targetMinion.takeHealAndNotify(HEAL_AMOUNT, side, toRet);
-        return toRet;
+    protected EffectMinionAction getEffect() {
+        if (this.effect == null) {
+            this.effect = new EffectMinionAction() {
+                @Override
+                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
+                    Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
+                    targetCharacter.takeHealAndNotify(HEAL_AMOUNT, targetSide, boardState);
+                    return boardState;
+                }
+            };
+        }
+        return this.effect;
     }
 }

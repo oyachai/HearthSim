@@ -11,7 +11,7 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class MindControl extends SpellCard {
 
-    private final static EffectMinionAction<Card> effect = EffectMinionAction.MIND_CONTROL;
+    private final static EffectMinionAction effect = EffectMinionAction.MIND_CONTROL;
 
     /**
      * Constructor
@@ -49,16 +49,7 @@ public class MindControl extends SpellCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    protected HearthTreeNode use_core(
-            PlayerSide side,
-            Minion targetMinion,
-            HearthTreeNode boardState,
-            boolean singleRealizationOnly)
-        throws HSException {
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
-        if (toRet != null) {
-            MindControl.effect.applyEffect(PlayerSide.CURRENT_PLAYER, this, side, targetMinion, boardState);
-        }
-        return toRet;
+    protected EffectMinionAction getEffect() {
+        return MindControl.effect;
     }
 }

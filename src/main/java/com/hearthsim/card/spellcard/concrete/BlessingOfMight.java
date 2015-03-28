@@ -1,5 +1,6 @@
 package com.hearthsim.card.spellcard.concrete;
 
+import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.event.EffectMinionAction;
@@ -11,7 +12,7 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class BlessingOfMight extends SpellCard {
 
-    private final static EffectMinionAction<SpellCard> effect = new EffectMinionBuff<>(3, 0);
+    private final static EffectMinionAction effect = new EffectMinionBuff(3, 0);
 
     /**
      * Constructor
@@ -49,15 +50,7 @@ public class BlessingOfMight extends SpellCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    protected HearthTreeNode use_core(
-            PlayerSide side,
-            Minion targetMinion,
-            HearthTreeNode boardState, boolean singleRealizationOnly)
-        throws HSException {
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
-        if (toRet != null) {
-            BlessingOfMight.effect.applyEffect(PlayerSide.CURRENT_PLAYER, this, side, targetMinion, boardState);
-        }
-        return toRet;
+    protected EffectMinionAction getEffect() {
+        return BlessingOfMight.effect;
     }
 }

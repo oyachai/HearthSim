@@ -1,7 +1,9 @@
 package com.hearthsim.card.spellcard.concrete;
 
+import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
+import com.hearthsim.event.EffectMinionAction;
 import com.hearthsim.event.MinionFilterTargetedSpell;
 import com.hearthsim.event.deathrattle.DeathrattleSummonMinionAction;
 import com.hearthsim.exception.HSException;
@@ -45,15 +47,17 @@ public class AncestralSpirit extends SpellCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    protected HearthTreeNode use_core(
-            PlayerSide side,
-            Minion targetMinion,
-            HearthTreeNode boardState, boolean singleRealizationOnly)
-        throws HSException {
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
-        if (toRet != null) {
-            targetMinion.setDeathrattle(new DeathrattleSummonMinionAction(targetMinion.getClass(), 1));
+    protected EffectMinionAction getEffect() {
+        if (this.effect == null) {
+            this.effect = new EffectMinionAction() {
+                @Override
+                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
+                    Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
+                    targetCharacter.setDeathrattle(new DeathrattleSummonMinionAction(targetCharacter.getClass(), 1));
+                    return boardState;
+                }
+            };
         }
-        return toRet;
+        return this.effect;
     }
 }

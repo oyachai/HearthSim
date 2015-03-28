@@ -1,7 +1,10 @@
 package com.hearthsim.card.spellcard.concrete;
 
+import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.minion.concrete.Sheep;
 import com.hearthsim.card.spellcard.SpellCard;
+import com.hearthsim.event.EffectMinionAction;
 import com.hearthsim.event.MinionFilterTargetedSpell;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
@@ -43,16 +46,18 @@ public class ColdBlood extends SpellCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    protected HearthTreeNode use_core(
-        PlayerSide side,
-        Minion targetMinion,
-        HearthTreeNode boardState, boolean singleRealizationOnly)
-        throws HSException {
-        byte buffAmount = boardState.data_.getCurrentPlayer().isComboEnabled() ? (byte)4 : (byte)2;
-
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
-        if (toRet != null)
-            targetMinion.addAttack(buffAmount);
-        return toRet;
+    protected EffectMinionAction getEffect() {
+        if (this.effect == null) {
+            this.effect = new EffectMinionAction() {
+                @Override
+                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
+                    Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
+                    byte buffAmount = boardState.data_.getCurrentPlayer().isComboEnabled() ? (byte)4 : (byte)2;
+                    targetCharacter.addAttack(buffAmount);
+                    return boardState;
+                }
+            };
+        }
+        return this.effect;
     }
 }

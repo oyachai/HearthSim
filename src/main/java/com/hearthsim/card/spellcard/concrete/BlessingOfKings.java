@@ -6,12 +6,13 @@ import com.hearthsim.event.EffectMinionAction;
 import com.hearthsim.event.EffectMinionBuff;
 import com.hearthsim.event.MinionFilterTargetedSpell;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class BlessingOfKings extends SpellCard {
 
-    private final static EffectMinionAction<SpellCard> effect = new EffectMinionBuff<>(4, 4);
+    private final static EffectMinionAction effect = new EffectMinionBuff(4, 4);
 
     /**
      * Constructor
@@ -49,16 +50,7 @@ public class BlessingOfKings extends SpellCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    protected HearthTreeNode use_core(
-            PlayerSide side,
-            Minion targetMinion,
-            HearthTreeNode boardState,
-            boolean singleRealizationOnly)
-        throws HSException {
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
-        if (toRet != null) {
-            BlessingOfKings.effect.applyEffect(PlayerSide.CURRENT_PLAYER, this, side, targetMinion, boardState);
-        }
-        return toRet;
+    protected EffectMinionAction getEffect() {
+        return BlessingOfKings.effect;
     }
 }

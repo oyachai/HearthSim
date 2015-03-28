@@ -1,8 +1,10 @@
 package com.hearthsim.card.spellcard.concrete;
 
+import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.Minion.MinionTribe;
 import com.hearthsim.card.spellcard.SpellCard;
+import com.hearthsim.event.EffectMinionAction;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
@@ -57,17 +59,18 @@ public class SacrificialPact extends SpellCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    protected HearthTreeNode use_core(
-            PlayerSide side,
-            Minion targetMinion,
-            HearthTreeNode boardState,
-            boolean singleRealizationOnly)
-        throws HSException {
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
-        if (toRet != null) {
-            toRet = toRet.data_.getCurrentPlayer().getHero().takeHealAndNotify((byte) 5, PlayerSide.CURRENT_PLAYER, toRet);
-            targetMinion.setHealth((byte)-99);
+    protected EffectMinionAction getEffect() {
+        if (this.effect == null) {
+            this.effect = new EffectMinionAction() {
+                @Override
+                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
+                    Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
+                    boardState = boardState.data_.modelForSide(originSide).getHero().takeHealAndNotify((byte) 5, originSide, boardState);
+                    targetCharacter.setHealth((byte) -99);
+                    return boardState;
+                }
+            };
         }
-        return toRet;
+        return this.effect;
     }
 }

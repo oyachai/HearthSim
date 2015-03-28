@@ -11,7 +11,7 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class Sap extends SpellCard {
 
-    private final static EffectMinionAction<Card> effect = EffectMinionAction.BOUNCE;
+    private final static EffectMinionAction effect = EffectMinionAction.BOUNCE;
 
     /**
      * Constructor
@@ -49,15 +49,7 @@ public class Sap extends SpellCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    protected HearthTreeNode use_core(
-            PlayerSide side,
-            Minion targetMinion,
-            HearthTreeNode boardState, boolean singleRealizationOnly)
-        throws HSException {
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
-        if (toRet != null) {
-            Sap.effect.applyEffect(PlayerSide.CURRENT_PLAYER, this, side, targetMinion, boardState);
-        }
-        return toRet;
+    protected EffectMinionAction getEffect() {
+        return Sap.effect;
     }
 }

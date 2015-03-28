@@ -1,5 +1,6 @@
 package com.hearthsim.card.spellcard.concrete;
 
+import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellDamage;
 import com.hearthsim.event.EffectMinionSpellDamage;
@@ -17,11 +18,11 @@ public class IceLance extends SpellDamage {
      * <b>Freeze</b> a character. If it was already <b>Frozen</b>, deal $4 damage instead.
      */
     @Override
-    protected EffectMinionSpellDamage<SpellDamage> getEffect() {
+    protected EffectMinionSpellDamage getEffect() {
         if (this.effect == null) {
-            this.effect = new EffectMinionSpellDamage<SpellDamage>(damage_) {
+            this.effect = new EffectMinionSpellDamage(damage_) {
                 @Override
-                public HearthTreeNode applyEffect(PlayerSide originSide, SpellDamage origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
+                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
                     HearthTreeNode toRet = boardState;
                     Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
                     if (targetCharacter.getFrozen()) {

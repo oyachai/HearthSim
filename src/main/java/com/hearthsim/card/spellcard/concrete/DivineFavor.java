@@ -1,7 +1,10 @@
 package com.hearthsim.card.spellcard.concrete;
 
+import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
+import com.hearthsim.event.EffectMinionAction;
+import com.hearthsim.event.EffectMinionSpellDamage;
 import com.hearthsim.event.MinionFilterTargetedSpell;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
@@ -61,27 +64,28 @@ public class DivineFavor extends SpellCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    protected HearthTreeNode use_core(
-            PlayerSide side,
-            Minion targetMinion,
-            HearthTreeNode boardState,
-            boolean singleRealizationOnly)
-        throws HSException {
-        PlayerModel currentPlayer = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
-        PlayerModel waitingPlayer = boardState.data_.modelForSide(PlayerSide.WAITING_PLAYER);
+    protected EffectMinionAction getEffect() {
+        if (this.effect == null) {
+            this.effect = new EffectMinionAction() {
+                @Override
+                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
+                    PlayerModel currentPlayer = boardState.data_.modelForSide(originSide);
+                    PlayerModel waitingPlayer = boardState.data_.modelForSide(targetSide);
 
-        int numCardsToDraw = waitingPlayer.getHand().size() - currentPlayer.getHand().size() + 1;
-        if (numCardsToDraw < 1) {
-            return null;
-        }
+                    int numCardsToDraw = waitingPlayer.getHand().size() - currentPlayer.getHand().size() + 1;
+                    if (numCardsToDraw < 1) {
+                        return null;
+                    }
 
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
-        if (toRet != null) {
-            if (toRet instanceof CardDrawNode)
-                ((CardDrawNode) toRet).addNumCardsToDraw(numCardsToDraw);
-            else
-                toRet = new CardDrawNode(toRet, numCardsToDraw); //draw two cards
+                    if (boardState instanceof CardDrawNode) {
+                        ((CardDrawNode) boardState).addNumCardsToDraw(numCardsToDraw);
+                    } else {
+                        boardState = new CardDrawNode(boardState, numCardsToDraw); //draw two cards
+                    }
+                    return boardState;
+                }
+            };
         }
-        return toRet;
+        return this.effect;
     }
 }

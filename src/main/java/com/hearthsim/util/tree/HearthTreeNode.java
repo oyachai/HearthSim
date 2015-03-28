@@ -1,6 +1,7 @@
 package com.hearthsim.util.tree;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import com.hearthsim.card.minion.*;
@@ -107,7 +108,7 @@ public class HearthTreeNode {
         return node;
     }
 
-    public void addChildren(ArrayList<HearthTreeNode> nodes) {
+    public void addChildren(Collection<HearthTreeNode> nodes) {
         for (HearthTreeNode node : nodes) {
             this.addChild(node);
         }

@@ -1,8 +1,10 @@
 package com.hearthsim.card.spellcard.concrete;
 
+import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.Minion.MinionTribe;
 import com.hearthsim.card.spellcard.SpellCard;
+import com.hearthsim.event.EffectMinionAction;
 import com.hearthsim.event.MinionFilterTargetedSpell;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
@@ -45,21 +47,22 @@ public class Demonfire extends SpellCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    protected HearthTreeNode use_core(
-            PlayerSide side,
-            Minion targetMinion,
-            HearthTreeNode boardState,
-            boolean singleRealizationOnly)
-        throws HSException {
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
-        if (toRet != null) {
-            if (isCurrentPlayer(side) && targetMinion.getTribe() == MinionTribe.DEMON) {
-                targetMinion.setAttack((byte)(targetMinion.getAttack() + 2));
-                targetMinion.setHealth((byte)(targetMinion.getHealth() + 2));
-            } else {
-                toRet = targetMinion.takeDamageAndNotify((byte) 2, PlayerSide.CURRENT_PLAYER, side, boardState, true, false);
-            }
+    protected EffectMinionAction getEffect() {
+        if (this.effect == null) {
+            this.effect = new EffectMinionAction() {
+                @Override
+                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
+                    Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
+                    if (isCurrentPlayer(targetSide) && targetCharacter.getTribe() == MinionTribe.DEMON) {
+                        targetCharacter.setAttack((byte)(targetCharacter.getAttack() + 2));
+                        targetCharacter.setHealth((byte)(targetCharacter.getHealth() + 2));
+                    } else {
+                        boardState = targetCharacter.takeDamageAndNotify((byte) 2, originSide, targetSide, boardState, true, false);
+                    }
+                    return boardState;
+                }
+            };
         }
-        return toRet;
+        return this.effect;
     }
 }

@@ -1,8 +1,10 @@
 package com.hearthsim.card.spellcard.concrete;
 
+import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.Minion.MinionTribe;
 import com.hearthsim.card.spellcard.SpellCard;
+import com.hearthsim.event.EffectMinionAction;
 import com.hearthsim.event.MinionFilterTargetedSpell;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerModel;
@@ -47,21 +49,22 @@ public class TotemicMight extends SpellCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    protected HearthTreeNode use_core(
-            PlayerSide side,
-            Minion targetMinion,
-            HearthTreeNode boardState, boolean singleRealizationOnly)
-        throws HSException {
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
-        if (toRet != null) {
-            PlayerModel currentPlayer = toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
-            for (Minion minion : currentPlayer.getMinions()) {
-                if (minion.getTribe() == MinionTribe.TOTEM) {
-                    minion.setHealth((byte)(2 + minion.getHealth()));
-                    minion.setMaxHealth((byte)(2 + minion.getMaxHealth()));
+    protected EffectMinionAction getEffect() {
+        if (this.effect == null) {
+            this.effect = new EffectMinionAction() {
+                @Override
+                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
+                    PlayerModel currentPlayer = boardState.data_.modelForSide(originSide);
+                    for (Minion minion : currentPlayer.getMinions()) {
+                        if (minion.getTribe() == MinionTribe.TOTEM) {
+                            minion.setHealth((byte)(2 + minion.getHealth()));
+                            minion.setMaxHealth((byte)(2 + minion.getMaxHealth()));
+                        }
+                    }
+                    return boardState;
                 }
-            }
+            };
         }
-        return toRet;
+        return this.effect;
     }
 }

@@ -1,11 +1,14 @@
 package com.hearthsim.card.spellcard.concrete;
 
+import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.Frog;
 import com.hearthsim.card.spellcard.SpellCard;
+import com.hearthsim.event.EffectMinionAction;
 import com.hearthsim.event.MinionFilterTargetedSpell;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
+import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class Hex extends SpellCard {
@@ -46,19 +49,18 @@ public class Hex extends SpellCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    protected HearthTreeNode use_core(
-            PlayerSide side,
-            Minion targetMinion,
-            HearthTreeNode boardState,
-            boolean singleRealizationOnly)
-        throws HSException {
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
-        if (toRet != null) {
-            Frog frog = new Frog();
-            toRet = frog.placeMinion(side, targetMinion, toRet, singleRealizationOnly);
-            toRet.data_.removeMinion(targetMinion);
+    protected EffectMinionAction getEffect() {
+        if (this.effect == null) {
+            this.effect = new EffectMinionAction() {
+                @Override
+                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
+                    Frog frog = new Frog();
+                    boardState.data_.removeMinion(targetSide, targetCharacterIndex - 1);
+                    boardState.data_.placeMinion(targetSide, frog, targetCharacterIndex - 1);
+                    return boardState;
+                }
+            };
         }
-        return toRet;
+        return this.effect;
     }
-
 }

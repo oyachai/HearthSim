@@ -1,9 +1,11 @@
 package com.hearthsim.card.spellcard.concrete;
 
+import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.event.EffectMinionAction;
 import com.hearthsim.event.EffectMinionBuff;
+import com.hearthsim.event.EffectMinionSpellDamage;
 import com.hearthsim.event.MinionFilterTargetedSpell;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
@@ -11,7 +13,7 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class MarkOfTheWild extends SpellCard {
 
-    private final static EffectMinionAction<SpellCard> effect = new EffectMinionBuff<>(2, 2, true);
+    private final static EffectMinionAction effect = new EffectMinionBuff(2, 2, true);
 
     /**
      * Constructor
@@ -49,16 +51,7 @@ public class MarkOfTheWild extends SpellCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    protected HearthTreeNode use_core(
-            PlayerSide side,
-            Minion targetMinion,
-            HearthTreeNode boardState,
-            boolean singleRealizationOnly)
-        throws HSException {
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
-        if (toRet != null) {
-            MarkOfTheWild.effect.applyEffect(PlayerSide.CURRENT_PLAYER, this, side, targetMinion, boardState);
-        }
-        return toRet;
+    protected EffectMinionAction getEffect() {
+        return MarkOfTheWild.effect;
     }
 }

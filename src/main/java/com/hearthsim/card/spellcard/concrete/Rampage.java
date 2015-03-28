@@ -1,11 +1,14 @@
 package com.hearthsim.card.spellcard.concrete;
 
+import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
+import com.hearthsim.event.EffectMinionAction;
 import com.hearthsim.event.MinionFilterTargetedSpell;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
+import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class Rampage extends SpellCard {
@@ -30,18 +33,19 @@ public class Rampage extends SpellCard {
     }
 
     @Override
-    protected HearthTreeNode use_core(
-        PlayerSide side,
-        Minion targetMinion,
-        HearthTreeNode boardState,
-        boolean singleRealizationOnly)
-        throws HSException {
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
-        if (toRet != null) {
-            targetMinion.setAttack((byte)(targetMinion.getAttack() + 3));
-            targetMinion.setHealth((byte)(targetMinion.getHealth() + 3));
-            targetMinion.setMaxHealth((byte)(targetMinion.getMaxHealth() + 3));
+    protected EffectMinionAction getEffect() {
+        if (this.effect == null) {
+            this.effect = new EffectMinionAction() {
+                @Override
+                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
+                    Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
+                    targetCharacter.setAttack((byte)(targetCharacter.getAttack() + 3));
+                    targetCharacter.setHealth((byte)(targetCharacter.getHealth() + 3));
+                    targetCharacter.setMaxHealth((byte)(targetCharacter.getMaxHealth() + 3));
+                    return boardState;
+                }
+            };
         }
-        return toRet;
+        return this.effect;
     }
 }

@@ -1,6 +1,8 @@
 package com.hearthsim.card.spellcard.concrete;
 
+import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.card.spellcard.SpellDamage;
 import com.hearthsim.card.spellcard.SpellDamageAoe;
 import com.hearthsim.event.EffectMinionSpellDamage;
@@ -18,11 +20,11 @@ public class Blizzard extends SpellDamageAoe {
     }
 
     @Override
-    protected EffectMinionSpellDamage<SpellDamage> getEffect() {
+    protected EffectMinionSpellDamage getEffect() {
         if (this.effect == null) {
-            this.effect = new EffectMinionSpellDamage<SpellDamage>(damage_) {
+            this.effect = new EffectMinionSpellDamage(damage_) {
                 @Override
-                public HearthTreeNode applyEffect(PlayerSide originSide, SpellDamage origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
+                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
                     Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
                     targetCharacter.setFrozen(true);
                     return super.applyEffect(originSide, origin, targetSide, targetCharacterIndex, boardState);

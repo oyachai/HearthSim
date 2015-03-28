@@ -101,20 +101,6 @@ public class SpellDamage extends SpellCard {
         return boardState;
     }
 
-    /**
-     * Use the card on the given target
-     * This is the core implementation of card's ability
-     *
-     * @param side
-     * @param boardState The BoardState before this card has performed its action. It will be manipulated and returned.
-     * @return The boardState is manipulated and returned
-     */
-    @Override
-    protected HearthTreeNode use_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
-        return this.getEffect().applyEffect(PlayerSide.CURRENT_PLAYER, this, side, targetMinion, toRet);
-    }
-
     @Override
     public JSONObject toJSON() {
         JSONObject json = super.toJSON();

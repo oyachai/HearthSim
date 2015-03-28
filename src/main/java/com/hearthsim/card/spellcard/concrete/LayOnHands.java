@@ -1,9 +1,12 @@
 package com.hearthsim.card.spellcard.concrete;
 
+import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
+import com.hearthsim.event.EffectMinionAction;
 import com.hearthsim.event.MinionFilterTargetedSpell;
 import com.hearthsim.exception.HSException;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -47,19 +50,22 @@ public class LayOnHands extends SpellCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    protected HearthTreeNode use_core(
-            PlayerSide side,
-            Minion targetMinion,
-            HearthTreeNode boardState,
-            boolean singleRealizationOnly)
-        throws HSException {
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
-        toRet = targetMinion.takeHealAndNotify((byte) 8, side, boardState);
-        if (toRet instanceof CardDrawNode)
-            ((CardDrawNode) toRet).addNumCardsToDraw(3);
-        else
-            toRet = new CardDrawNode(toRet, 3); //draw three cards
+    protected EffectMinionAction getEffect() {
+        if (this.effect == null) {
+            this.effect = new EffectMinionAction() {
+                @Override
+                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
+                    Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
+                    boardState = targetCharacter.takeHealAndNotify((byte) 8, targetSide, boardState);
+                    if (boardState instanceof CardDrawNode)
+                        ((CardDrawNode) boardState).addNumCardsToDraw(3);
+                    else
+                        boardState = new CardDrawNode(boardState, 3); //draw three cards
 
-        return toRet;
+                    return boardState;
+                }
+            };
+        }
+        return this.effect;
     }
 }
