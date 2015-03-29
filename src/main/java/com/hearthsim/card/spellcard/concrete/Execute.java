@@ -1,14 +1,11 @@
 package com.hearthsim.card.spellcard.concrete;
 
-import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.MinionFilterTargetedSpell;
-import com.hearthsim.exception.HSException;
+import com.hearthsim.event.CharacterFilterTargetedSpell;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.tree.HearthTreeNode;
 
 public class Execute extends SpellCard {
 
@@ -31,7 +28,7 @@ public class Execute extends SpellCard {
     public Execute() {
         super();
 
-        this.minionFilter = MinionFilterTargetedSpell.ENEMY_MINIONS;
+        this.characterFilter = CharacterFilterTargetedSpell.ENEMY_MINIONS;
     }
 
     @Override

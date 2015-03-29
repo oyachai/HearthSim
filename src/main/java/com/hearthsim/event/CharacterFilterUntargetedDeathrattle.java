@@ -5,7 +5,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 
-public abstract class MinionFilterUntargetedDeathrattle extends MinionFilter {
+public abstract class CharacterFilterUntargetedDeathrattle extends CharacterFilter {
     protected boolean includeDead() { return false; }
     protected boolean includeSelf() { return false; }
 

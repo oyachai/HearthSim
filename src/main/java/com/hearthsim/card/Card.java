@@ -2,7 +2,7 @@ package com.hearthsim.card;
 
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.event.MinionFilter;
+import com.hearthsim.event.CharacterFilter;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.exception.HSException;
@@ -497,7 +497,7 @@ public class Card implements DeepCopyable<Card> {
         return toRet;
     }
 
-    public HearthTreeNode effectAllUsingFilter(CardEffectCharacter effect, MinionFilter filter, HearthTreeNode boardState) throws HSException {
+    public HearthTreeNode effectAllUsingFilter(CardEffectCharacter effect, CharacterFilter filter, HearthTreeNode boardState) throws HSException {
         if (boardState != null && filter != null) {
             for (BoardModel.CharacterLocation location : boardState.data_) {
                 Minion character = boardState.data_.getCharacter(location);

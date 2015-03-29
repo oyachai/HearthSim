@@ -2,7 +2,7 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.MinionFilterTargetedSpell;
+import com.hearthsim.event.CharacterFilterTargetedSpell;
 
 public class MindControl extends SpellCard {
 
@@ -27,7 +27,7 @@ public class MindControl extends SpellCard {
     public MindControl() {
         super();
 
-        this.minionFilter = MinionFilterTargetedSpell.ENEMY_MINIONS;
+        this.characterFilter = CharacterFilterTargetedSpell.ENEMY_MINIONS;
     }
 
     /**

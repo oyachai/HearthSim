@@ -2,9 +2,9 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.event.effect.CardEffectAoeInterface;
 import com.hearthsim.card.spellcard.SpellCard;
-import com.hearthsim.event.MinionFilter;
+import com.hearthsim.event.CharacterFilter;
 import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.MinionFilterTargetedSpell;
+import com.hearthsim.event.CharacterFilterTargetedSpell;
 import com.hearthsim.event.effect.CardEffectCharacterBuffTemp;
 
 public class Bloodlust extends SpellCard implements CardEffectAoeInterface {
@@ -14,7 +14,7 @@ public class Bloodlust extends SpellCard implements CardEffectAoeInterface {
     public Bloodlust() {
         super();
 
-        this.minionFilter = MinionFilterTargetedSpell.SELF;
+        this.characterFilter = CharacterFilterTargetedSpell.SELF;
     }
 
     @Deprecated
@@ -45,7 +45,7 @@ public class Bloodlust extends SpellCard implements CardEffectAoeInterface {
     public CardEffectCharacter getAoeEffect() { return this.getEffect(); }
 
     @Override
-    public MinionFilter getAoeFilter() {
-        return MinionFilter.FRIENDLY_MINIONS;
+    public CharacterFilter getAoeFilter() {
+        return CharacterFilter.FRIENDLY_MINIONS;
     }
 }

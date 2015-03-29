@@ -2,13 +2,11 @@ package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionUntargetableBattlecry;
-import com.hearthsim.event.MinionFilter;
+import com.hearthsim.event.CharacterFilter;
 import com.hearthsim.event.effect.CardEffectAoeInterface;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.effect.CardEffectCharacterHeal;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.model.PlayerModel;
-import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class DarkscaleHealer extends Minion implements MinionUntargetableBattlecry, CardEffectAoeInterface {
@@ -37,7 +35,7 @@ public class DarkscaleHealer extends Minion implements MinionUntargetableBattlec
     }
 
     @Override
-    public MinionFilter getAoeFilter() {
-        return MinionFilter.ALL_FRIENDLIES;
+    public CharacterFilter getAoeFilter() {
+        return CharacterFilter.ALL_FRIENDLIES;
     }
 }

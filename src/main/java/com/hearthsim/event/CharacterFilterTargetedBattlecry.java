@@ -5,7 +5,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 
-public abstract class MinionFilterTargetedBattlecry extends MinionFilter {
+public abstract class CharacterFilterTargetedBattlecry extends CharacterFilter {
     @Override
     public boolean targetMatches(PlayerSide originSide, Card origin, PlayerSide targetSide, Minion targetCharacter, BoardModel board) {
         if (!super.targetMatches(originSide, origin, targetSide, targetCharacter, board)) {

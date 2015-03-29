@@ -4,7 +4,7 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.MinionFilterTargetedSpell;
+import com.hearthsim.event.CharacterFilterTargetedSpell;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -30,7 +30,7 @@ public class Corruption extends SpellCard {
     public Corruption() {
         super();
 
-        this.minionFilter = MinionFilterTargetedSpell.ENEMY_MINIONS;
+        this.characterFilter = CharacterFilterTargetedSpell.ENEMY_MINIONS;
     }
 
     /**

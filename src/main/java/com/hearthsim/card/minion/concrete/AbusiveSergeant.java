@@ -4,7 +4,7 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionTargetableBattlecry;
 import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.MinionFilterTargetedBattlecry;
+import com.hearthsim.event.CharacterFilterTargetedBattlecry;
 import com.hearthsim.event.effect.CardEffectCharacterBuffTemp;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
@@ -16,7 +16,7 @@ public class AbusiveSergeant extends Minion implements MinionTargetableBattlecry
     /**
      * Battlecry: Give a minion +2 attack this turn
      */
-    private final static MinionFilterTargetedBattlecry filter = new MinionFilterTargetedBattlecry() {
+    private final static CharacterFilterTargetedBattlecry filter = new CharacterFilterTargetedBattlecry() {
         protected boolean includeEnemyMinions() { return true; }
         protected boolean includeOwnMinions() { return true; }
     };

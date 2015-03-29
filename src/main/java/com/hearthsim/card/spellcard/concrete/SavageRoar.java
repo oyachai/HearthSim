@@ -2,9 +2,9 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.event.effect.CardEffectAoeInterface;
 import com.hearthsim.card.spellcard.SpellCard;
-import com.hearthsim.event.MinionFilter;
+import com.hearthsim.event.CharacterFilter;
 import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.MinionFilterTargetedSpell;
+import com.hearthsim.event.CharacterFilterTargetedSpell;
 import com.hearthsim.event.effect.CardEffectCharacterBuffTemp;
 
 public class SavageRoar extends SpellCard implements CardEffectAoeInterface {
@@ -29,7 +29,7 @@ public class SavageRoar extends SpellCard implements CardEffectAoeInterface {
      */
     public SavageRoar() {
         super();
-        this.minionFilter = MinionFilterTargetedSpell.SELF;
+        this.characterFilter = CharacterFilterTargetedSpell.SELF;
     }
 
     /**
@@ -54,7 +54,7 @@ public class SavageRoar extends SpellCard implements CardEffectAoeInterface {
     public CardEffectCharacter getAoeEffect() { return this.getEffect(); }
 
     @Override
-    public MinionFilter getAoeFilter() {
-        return MinionFilter.ALL_FRIENDLIES;
+    public CharacterFilter getAoeFilter() {
+        return CharacterFilter.ALL_FRIENDLIES;
     }
 }

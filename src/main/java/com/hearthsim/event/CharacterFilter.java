@@ -5,7 +5,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 
-public class MinionFilter {
+public class CharacterFilter {
     protected boolean includeEnemyHero() {
         return false;
     }
@@ -55,7 +55,7 @@ public class MinionFilter {
         return this.targetMatches(originSide, origin, targetSide, targetCharacter, board);
     }
 
-    public final static MinionFilter ALL = new MinionFilterTargetedSpell() {
+    public final static CharacterFilter ALL = new CharacterFilterTargetedSpell() {
         @Override
         protected boolean includeEnemyHero() { return true; }
 
@@ -69,7 +69,7 @@ public class MinionFilter {
         protected boolean includeOwnMinions() { return true; }
     };
 
-    public final static MinionFilter ALL_ENEMIES = new MinionFilter() {
+    public final static CharacterFilter ALL_ENEMIES = new CharacterFilter() {
         @Override
         protected boolean includeEnemyHero() { return true; }
 
@@ -77,7 +77,7 @@ public class MinionFilter {
         protected boolean includeEnemyMinions() { return true; }
     };
 
-    public final static MinionFilter ALL_FRIENDLIES = new MinionFilter() {
+    public final static CharacterFilter ALL_FRIENDLIES = new CharacterFilter() {
         @Override
         protected boolean includeOwnHero() { return true; }
 
@@ -85,7 +85,7 @@ public class MinionFilter {
         protected boolean includeOwnMinions() { return true; }
     };
 
-    public final static MinionFilter ALL_MINIONS = new MinionFilter() {
+    public final static CharacterFilter ALL_MINIONS = new CharacterFilter() {
         @Override
         protected boolean includeEnemyMinions() { return true; }
 
@@ -93,7 +93,7 @@ public class MinionFilter {
         protected boolean includeOwnMinions() { return true; }
     };
 
-    public final static MinionFilter ALL_HEROES = new MinionFilter() {
+    public final static CharacterFilter ALL_HEROES = new CharacterFilter() {
         @Override
         protected boolean includeEnemyHero() { return true; }
 
@@ -101,22 +101,22 @@ public class MinionFilter {
         protected boolean includeOwnHero() { return true; }
     };
 
-    public final static MinionFilter ENEMY_MINIONS = new MinionFilter() {
+    public final static CharacterFilter ENEMY_MINIONS = new CharacterFilter() {
         @Override
         protected boolean includeEnemyMinions() { return true; }
     };
 
-    public final static MinionFilter FRIENDLY_MINIONS = new MinionFilter() {
+    public final static CharacterFilter FRIENDLY_MINIONS = new CharacterFilter() {
         @Override
         protected boolean includeOwnMinions() { return true; }
     };
 
-    public final static MinionFilter SELF = new MinionFilter() {
+    public final static CharacterFilter SELF = new CharacterFilter() {
         @Override
         protected boolean includeOwnHero() { return true; }
     };
 
-    public final static MinionFilter OPPONENT = new MinionFilter() {
+    public final static CharacterFilter OPPONENT = new CharacterFilter() {
         @Override
         protected boolean includeEnemyHero() { return true; }
     };

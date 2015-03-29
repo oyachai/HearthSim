@@ -2,7 +2,7 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellDamage;
-import com.hearthsim.event.MinionFilterTargetedSpell;
+import com.hearthsim.event.CharacterFilterTargetedSpell;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -12,7 +12,7 @@ public class FrostShock extends SpellDamage {
     public FrostShock() {
         super();
 
-        this.minionFilter = MinionFilterTargetedSpell.ALL_ENEMIES;
+        this.characterFilter = CharacterFilterTargetedSpell.ALL_ENEMIES;
     }
 
     @Deprecated

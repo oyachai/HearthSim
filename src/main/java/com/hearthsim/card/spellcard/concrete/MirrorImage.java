@@ -5,7 +5,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.MirrorImageMinion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.MinionFilterTargetedSpell;
+import com.hearthsim.event.CharacterFilterTargetedSpell;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
@@ -33,7 +33,7 @@ public class MirrorImage extends SpellCard {
     public MirrorImage() {
         super();
 
-        this.minionFilter = MinionFilterTargetedSpell.SELF;
+        this.characterFilter = CharacterFilterTargetedSpell.SELF;
     }
 
     /**

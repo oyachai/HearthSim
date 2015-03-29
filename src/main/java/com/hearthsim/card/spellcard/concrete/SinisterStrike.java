@@ -1,12 +1,12 @@
 package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.spellcard.SpellDamage;
-import com.hearthsim.event.MinionFilterTargetedSpell;
+import com.hearthsim.event.CharacterFilterTargetedSpell;
 
 public class SinisterStrike extends SpellDamage {
 
     public SinisterStrike() {
-        this.minionFilter = MinionFilterTargetedSpell.OPPONENT;
+        this.characterFilter = CharacterFilterTargetedSpell.OPPONENT;
     }
 
     @Deprecated

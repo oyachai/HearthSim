@@ -2,7 +2,7 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellDamage;
-import com.hearthsim.event.MinionFilterTargetedSpell;
+import com.hearthsim.event.CharacterFilterTargetedSpell;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -11,7 +11,7 @@ public class DrainLife extends SpellDamage {
 
     public DrainLife() {
         super();
-        this.minionFilter = new MinionFilterTargetedSpell() {
+        this.characterFilter = new CharacterFilterTargetedSpell() {
             @Override
             protected boolean includeEnemyHero() { return true; }
 

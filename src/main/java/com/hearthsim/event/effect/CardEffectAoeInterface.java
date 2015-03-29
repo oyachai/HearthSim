@@ -1,8 +1,8 @@
 package com.hearthsim.event.effect;
 
-import com.hearthsim.event.MinionFilter;
+import com.hearthsim.event.CharacterFilter;
 
 public interface CardEffectAoeInterface {
     public CardEffectCharacter getAoeEffect();
-    public MinionFilter getAoeFilter();
+    public CharacterFilter getAoeFilter();
 }

@@ -2,8 +2,8 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.event.effect.CardEffectAoeInterface;
 import com.hearthsim.card.spellcard.SpellDamage;
-import com.hearthsim.event.MinionFilter;
-import com.hearthsim.event.MinionFilterTargetedSpell;
+import com.hearthsim.event.CharacterFilter;
+import com.hearthsim.event.CharacterFilterTargetedSpell;
 import com.hearthsim.event.effect.CardEffectCharacter;
 
 public class Hellfire extends SpellDamage implements CardEffectAoeInterface {
@@ -28,14 +28,14 @@ public class Hellfire extends SpellDamage implements CardEffectAoeInterface {
      */
     public Hellfire() {
         super();
-        this.minionFilter = MinionFilterTargetedSpell.OPPONENT;
+        this.characterFilter = CharacterFilterTargetedSpell.OPPONENT;
     }
 
     @Override
     public CardEffectCharacter getAoeEffect() { return this.getEffect(); }
 
     @Override
-    public MinionFilter getAoeFilter() {
-        return MinionFilter.ALL;
+    public CharacterFilter getAoeFilter() {
+        return CharacterFilter.ALL;
     }
 }

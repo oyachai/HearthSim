@@ -1,14 +1,9 @@
 package com.hearthsim.card.spellcard.concrete;
 
-import com.hearthsim.card.Card;
-import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.MinionFilterTargetedSpell;
+import com.hearthsim.event.CharacterFilterTargetedSpell;
 import com.hearthsim.event.effect.CardEffectCharacterBuffTemp;
-import com.hearthsim.exception.HSException;
-import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.tree.HearthTreeNode;
 
 public class RockbiterWeapon extends SpellCard {
 
@@ -33,7 +28,7 @@ public class RockbiterWeapon extends SpellCard {
     public RockbiterWeapon() {
         super();
 
-        this.minionFilter = MinionFilterTargetedSpell.ALL_FRIENDLIES;
+        this.characterFilter = CharacterFilterTargetedSpell.ALL_FRIENDLIES;
     }
 
     /**

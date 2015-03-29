@@ -3,8 +3,8 @@ package com.hearthsim.card.spellcard;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.MinionFilter;
-import com.hearthsim.event.MinionFilterTargetedSpell;
+import com.hearthsim.event.CharacterFilter;
+import com.hearthsim.event.CharacterFilterTargetedSpell;
 import com.hearthsim.event.effect.CardEffectAoeInterface;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
@@ -19,7 +19,7 @@ import java.util.Collection;
 
 public abstract class SpellCard extends Card {
 
-    protected MinionFilter minionFilter = MinionFilterTargetedSpell.ALL;
+    protected CharacterFilter characterFilter = CharacterFilterTargetedSpell.ALL;
     protected CardEffectCharacter effect;
 
     public SpellCard() {
@@ -41,7 +41,7 @@ public abstract class SpellCard extends Card {
 
     @Override
     public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
-        return this.minionFilter.targetMatches(PlayerSide.CURRENT_PLAYER, this, playerSide, minion, boardModel);
+        return this.characterFilter.targetMatches(PlayerSide.CURRENT_PLAYER, this, playerSide, minion, boardModel);
     }
 
     /**

@@ -2,7 +2,7 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.MinionFilterTargetedSpell;
+import com.hearthsim.event.CharacterFilterTargetedSpell;
 import org.json.JSONObject;
 
 import com.hearthsim.card.spellcard.SpellCard;
@@ -21,7 +21,7 @@ public class TheCoin extends SpellCard {
     public TheCoin() {
         super();
 
-        this.minionFilter = MinionFilterTargetedSpell.SELF;
+        this.characterFilter = CharacterFilterTargetedSpell.SELF;
     }
 
     /**

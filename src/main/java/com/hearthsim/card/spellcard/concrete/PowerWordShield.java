@@ -4,7 +4,7 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.MinionFilterTargetedSpell;
+import com.hearthsim.event.CharacterFilterTargetedSpell;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.CardDrawNode;
@@ -31,7 +31,7 @@ public class PowerWordShield extends SpellCard {
     public PowerWordShield() {
         super();
 
-        this.minionFilter = MinionFilterTargetedSpell.ALL_MINIONS;
+        this.characterFilter = CharacterFilterTargetedSpell.ALL_MINIONS;
     }
 
     /**

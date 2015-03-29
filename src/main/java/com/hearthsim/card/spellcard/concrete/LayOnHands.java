@@ -4,7 +4,7 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.MinionFilterTargetedSpell;
+import com.hearthsim.event.CharacterFilterTargetedSpell;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.CardDrawNode;
@@ -32,7 +32,7 @@ public class LayOnHands extends SpellCard {
         super();
 
         //Let's assume that it is never beneficial to heal an opponent... though this may not strictly be true under some very corner cases (e.g., with a Northshire Cleric)
-        this.minionFilter = MinionFilterTargetedSpell.FRIENDLY_MINIONS;
+        this.characterFilter = CharacterFilterTargetedSpell.FRIENDLY_MINIONS;
     }
 
     /**

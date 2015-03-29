@@ -1,13 +1,8 @@
 package com.hearthsim.card.spellcard.concrete;
 
-import com.hearthsim.card.Card;
-import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.MinionFilterTargetedSpell;
-import com.hearthsim.exception.HSException;
-import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.tree.HearthTreeNode;
+import com.hearthsim.event.CharacterFilterTargetedSpell;
 
 public class Assassinate extends SpellCard {
 
@@ -30,7 +25,7 @@ public class Assassinate extends SpellCard {
     public Assassinate() {
         super();
 
-        this.minionFilter = MinionFilterTargetedSpell.ENEMY_MINIONS;
+        this.characterFilter = CharacterFilterTargetedSpell.ENEMY_MINIONS;
     }
 
     /**

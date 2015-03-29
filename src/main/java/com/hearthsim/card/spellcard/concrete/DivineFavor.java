@@ -4,7 +4,7 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.MinionFilterTargetedSpell;
+import com.hearthsim.event.CharacterFilterTargetedSpell;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
@@ -32,7 +32,7 @@ public class DivineFavor extends SpellCard {
     public DivineFavor() {
         super();
 
-        this.minionFilter = MinionFilterTargetedSpell.SELF;
+        this.characterFilter = CharacterFilterTargetedSpell.SELF;
     }
 
     @Override

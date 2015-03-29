@@ -4,7 +4,7 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionTargetableBattlecry;
 import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.MinionFilterTargetedBattlecry;
+import com.hearthsim.event.CharacterFilterTargetedBattlecry;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
@@ -15,7 +15,7 @@ public class IronbeakOwl extends Minion implements MinionTargetableBattlecry {
     /**
      * Battlecry: Silence a minion
      */
-    private final static MinionFilterTargetedBattlecry filter = new MinionFilterTargetedBattlecry() {
+    private final static CharacterFilterTargetedBattlecry filter = new CharacterFilterTargetedBattlecry() {
         protected boolean includeEnemyMinions() { return true; }
         protected boolean includeOwnMinions() { return true; }
     };
