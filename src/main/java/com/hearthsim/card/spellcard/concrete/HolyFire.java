@@ -2,6 +2,7 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellDamage;
+import com.hearthsim.event.CharacterFilter;
 import com.hearthsim.event.CharacterFilterTargetedSpell;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
@@ -9,19 +10,24 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class HolyFire extends SpellDamage {
 
+    private static final CharacterFilter filter = new CharacterFilterTargetedSpell() {
+        @Override
+        protected boolean includeEnemyHero() { return true; }
+
+        @Override
+        protected boolean includeEnemyMinions() { return true; }
+
+        @Override
+        protected boolean includeOwnMinions() { return true; }
+    };
 
     public HolyFire() {
         super();
-        this.characterFilter = new CharacterFilterTargetedSpell() {
-            @Override
-            protected boolean includeEnemyHero() { return true; }
+    }
 
-            @Override
-            protected boolean includeEnemyMinions() { return true; }
-
-            @Override
-            protected boolean includeOwnMinions() { return true; }
-        };
+    @Override
+    protected CharacterFilter getTargetFilter() {
+        return HolyFire.filter;
     }
 
     @Deprecated

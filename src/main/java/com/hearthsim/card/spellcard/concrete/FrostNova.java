@@ -25,8 +25,11 @@ public class FrostNova extends SpellCard implements CardEffectAoeInterface {
      */
     public FrostNova() {
         super();
+    }
 
-        this.characterFilter = CharacterFilterTargetedSpell.OPPONENT;
+    @Override
+    protected CharacterFilter getTargetFilter() {
+        return CharacterFilterTargetedSpell.OPPONENT;
     }
 
     /**

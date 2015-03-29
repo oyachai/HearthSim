@@ -31,8 +31,11 @@ public class CircleOfHealing extends SpellCard implements CardEffectAoeInterface
      */
     public CircleOfHealing() {
         super();
+    }
 
-        this.characterFilter = CharacterFilterTargetedSpell.SELF;
+    @Override
+    protected CharacterFilter getTargetFilter() {
+        return CharacterFilterTargetedSpell.SELF;
     }
 
     /**

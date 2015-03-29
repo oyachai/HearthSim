@@ -19,7 +19,11 @@ public class Blizzard extends SpellDamage implements CardEffectAoeInterface {
      */
     public Blizzard() {
         super();
-        this.characterFilter = CharacterFilterTargetedSpell.OPPONENT;
+    }
+
+    @Override
+    protected CharacterFilter getTargetFilter() {
+        return CharacterFilterTargetedSpell.OPPONENT;
     }
 
     @Override

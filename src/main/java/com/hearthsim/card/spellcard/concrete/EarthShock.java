@@ -2,6 +2,7 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellDamage;
+import com.hearthsim.event.CharacterFilter;
 import com.hearthsim.event.CharacterFilterTargetedSpell;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
@@ -11,8 +12,11 @@ public class EarthShock extends SpellDamage {
 
     public EarthShock() {
         super();
+    }
 
-        this.characterFilter = CharacterFilterTargetedSpell.ALL_MINIONS;
+    @Override
+    protected CharacterFilter getTargetFilter() {
+        return CharacterFilterTargetedSpell.ALL_MINIONS;
     }
 
     @Deprecated

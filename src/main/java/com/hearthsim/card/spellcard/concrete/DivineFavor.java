@@ -51,8 +51,11 @@ public class DivineFavor extends SpellCard {
      */
     public DivineFavor() {
         super();
+    }
 
-        this.characterFilter = DivineFavor.filter;
+    @Override
+    protected CharacterFilter getTargetFilter() {
+        return DivineFavor.filter;
     }
 
     /**

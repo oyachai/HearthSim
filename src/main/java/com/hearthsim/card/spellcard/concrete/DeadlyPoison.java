@@ -50,8 +50,11 @@ public class DeadlyPoison extends SpellCard {
      */
     public DeadlyPoison() {
         super();
+    }
 
-        this.characterFilter = DeadlyPoison.filter;
+    @Override
+    protected CharacterFilter getTargetFilter() {
+        return DeadlyPoison.filter;
     }
 
     /**

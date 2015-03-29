@@ -13,14 +13,17 @@ public class Bloodlust extends SpellCard implements CardEffectAoeInterface {
 
     public Bloodlust() {
         super();
-
-        this.characterFilter = CharacterFilterTargetedSpell.SELF;
     }
 
     @Deprecated
     public Bloodlust(boolean hasBeenUsed) {
         this();
         this.hasBeenUsed = hasBeenUsed;
+    }
+
+    @Override
+    protected CharacterFilter getTargetFilter() {
+        return CharacterFilterTargetedSpell.SELF;
     }
 
     /**

@@ -32,7 +32,11 @@ public class HolyNova extends SpellDamage implements CardEffectAoeInterface {
      */
     public HolyNova() {
         super();
-        this.characterFilter = CharacterFilterTargetedSpell.OPPONENT;
+    }
+
+    @Override
+    protected CharacterFilter getTargetFilter() {
+        return CharacterFilterTargetedSpell.OPPONENT;
     }
 
     @Override

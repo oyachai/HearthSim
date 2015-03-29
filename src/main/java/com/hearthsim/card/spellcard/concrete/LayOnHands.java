@@ -3,6 +3,7 @@ package com.hearthsim.card.spellcard.concrete;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
+import com.hearthsim.event.CharacterFilter;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.CharacterFilterTargetedSpell;
 import com.hearthsim.exception.HSException;
@@ -30,9 +31,11 @@ public class LayOnHands extends SpellCard {
      */
     public LayOnHands() {
         super();
+    }
 
-        //Let's assume that it is never beneficial to heal an opponent... though this may not strictly be true under some very corner cases (e.g., with a Northshire Cleric)
-        this.characterFilter = CharacterFilterTargetedSpell.FRIENDLY_MINIONS;
+    //Let's assume that it is never beneficial to heal an opponent... though this may not strictly be true under some very corner cases (e.g., with a Northshire Cleric)
+    protected CharacterFilter getTargetFilter() {
+        return CharacterFilterTargetedSpell.FRIENDLY_MINIONS;
     }
 
     /**

@@ -2,6 +2,7 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellDamage;
+import com.hearthsim.event.CharacterFilter;
 import com.hearthsim.event.CharacterFilterTargetedSpell;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
@@ -10,20 +11,8 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class Shiv extends SpellDamage {
 
-
     public Shiv() {
         super();
-
-        this.characterFilter = new CharacterFilterTargetedSpell() {
-            @Override
-            protected boolean includeEnemyHero() { return true; }
-
-            @Override
-            protected boolean includeEnemyMinions() { return true; }
-
-            @Override
-            protected boolean includeOwnMinions() { return true; }
-        };
     }
 
     @Deprecated
@@ -35,6 +24,11 @@ public class Shiv extends SpellDamage {
     @Override
     public SpellDamage deepCopy() {
         return new Shiv(this.hasBeenUsed);
+    }
+
+    @Override
+    protected CharacterFilter getTargetFilter() {
+        return CharacterFilterTargetedSpell.ALL;
     }
 
     /**

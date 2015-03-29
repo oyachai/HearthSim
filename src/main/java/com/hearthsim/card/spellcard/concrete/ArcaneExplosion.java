@@ -25,7 +25,11 @@ public class ArcaneExplosion extends SpellDamage implements CardEffectAoeInterfa
      */
     public ArcaneExplosion() {
         super();
-        this.characterFilter = CharacterFilterTargetedSpell.OPPONENT;
+    }
+
+    @Override
+    protected CharacterFilter getTargetFilter() {
+        return CharacterFilterTargetedSpell.OPPONENT;
     }
 
     @Override

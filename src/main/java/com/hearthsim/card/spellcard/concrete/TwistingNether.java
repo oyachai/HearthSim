@@ -15,8 +15,11 @@ public class TwistingNether extends SpellCard implements CardEffectAoeInterface 
      */
     public TwistingNether() {
         super();
+    }
 
-        this.characterFilter = CharacterFilterTargetedSpell.SELF;
+    @Override
+    protected CharacterFilter getTargetFilter() {
+        return CharacterFilterTargetedSpell.SELF;
     }
 
     /**

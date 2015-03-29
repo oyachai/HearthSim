@@ -2,6 +2,7 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellDamage;
+import com.hearthsim.event.CharacterFilter;
 import com.hearthsim.event.CharacterFilterTargetedSpell;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
@@ -12,14 +13,17 @@ public class Slam extends SpellDamage {
 
     public Slam() {
         super();
-
-        this.characterFilter = CharacterFilterTargetedSpell.ALL_MINIONS;
     }
 
     @Deprecated
     public Slam(boolean hasBeenUsed) {
         this();
         this.hasBeenUsed = hasBeenUsed;
+    }
+
+    @Override
+    protected CharacterFilter getTargetFilter() {
+        return CharacterFilterTargetedSpell.ALL_MINIONS;
     }
 
     /**

@@ -47,8 +47,11 @@ public class ShadowWordDeath extends SpellCard {
      */
     public ShadowWordDeath() {
         super();
+    }
 
-        this.characterFilter = ShadowWordDeath.filter;
+    @Override
+    protected CharacterFilter getTargetFilter() {
+        return ShadowWordDeath.filter;
     }
 
     /**

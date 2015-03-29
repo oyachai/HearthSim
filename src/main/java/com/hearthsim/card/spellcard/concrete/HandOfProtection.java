@@ -49,8 +49,11 @@ public class HandOfProtection extends SpellCard {
      */
     public HandOfProtection() {
         super();
+    }
 
-        this.characterFilter = HandOfProtection.filter;
+    @Override
+    protected CharacterFilter getTargetFilter() {
+        return HandOfProtection.filter;
     }
 
     /**

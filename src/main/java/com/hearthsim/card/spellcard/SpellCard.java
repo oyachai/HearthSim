@@ -19,7 +19,6 @@ import java.util.Collection;
 
 public abstract class SpellCard extends Card {
 
-    protected CharacterFilter characterFilter = CharacterFilterTargetedSpell.ALL;
     protected CardEffectCharacter effect;
 
     public SpellCard() {
@@ -28,6 +27,10 @@ public abstract class SpellCard extends Card {
 
     // some cards require data from import so we have to use lazy loading
     protected abstract CardEffectCharacter getEffect();
+
+    protected CharacterFilter getTargetFilter() {
+        return CharacterFilterTargetedSpell.ALL;
+    }
 
     @Deprecated
     public SpellCard(byte mana, boolean hasBeenUsed) {
@@ -41,7 +44,7 @@ public abstract class SpellCard extends Card {
 
     @Override
     public final boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
-        return this.characterFilter.targetMatches(PlayerSide.CURRENT_PLAYER, this, playerSide, minion, boardModel);
+        return this.getTargetFilter().targetMatches(PlayerSide.CURRENT_PLAYER, this, playerSide, minion, boardModel);
     }
 
     /**

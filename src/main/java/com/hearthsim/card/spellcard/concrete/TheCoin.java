@@ -1,6 +1,7 @@
 package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.event.CharacterFilter;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.CharacterFilterTargetedSpell;
 import org.json.JSONObject;
@@ -20,8 +21,11 @@ public class TheCoin extends SpellCard {
 
     public TheCoin() {
         super();
+    }
 
-        this.characterFilter = CharacterFilterTargetedSpell.SELF;
+    @Override
+    protected CharacterFilter getTargetFilter() {
+        return CharacterFilterTargetedSpell.SELF;
     }
 
     /**

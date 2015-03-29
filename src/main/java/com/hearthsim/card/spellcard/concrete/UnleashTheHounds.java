@@ -4,6 +4,7 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.Hound;
 import com.hearthsim.card.spellcard.SpellCard;
+import com.hearthsim.event.CharacterFilter;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.CharacterFilterTargetedSpell;
 import com.hearthsim.exception.HSException;
@@ -21,8 +22,11 @@ public class UnleashTheHounds extends SpellCard {
 
     public UnleashTheHounds() {
         super();
+    }
 
-        this.characterFilter = CharacterFilterTargetedSpell.SELF;
+    @Override
+    protected CharacterFilter getTargetFilter() {
+        return CharacterFilterTargetedSpell.SELF;
     }
 
     /**

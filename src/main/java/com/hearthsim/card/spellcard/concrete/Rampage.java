@@ -34,8 +34,11 @@ public class Rampage extends SpellCard {
 
     public Rampage() {
         super();
+    }
 
-        this.characterFilter = Rampage.filter;
+    @Override
+    protected CharacterFilter getTargetFilter() {
+        return Rampage.filter;
     }
 
     @Override

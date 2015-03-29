@@ -30,7 +30,11 @@ public class FanOfKnives extends SpellDamage implements CardEffectAoeInterface {
      */
     public FanOfKnives() {
         super();
-        this.characterFilter = CharacterFilterTargetedSpell.OPPONENT;
+    }
+
+    @Override
+    protected CharacterFilter getTargetFilter() {
+        return CharacterFilterTargetedSpell.OPPONENT;
     }
 
     /**

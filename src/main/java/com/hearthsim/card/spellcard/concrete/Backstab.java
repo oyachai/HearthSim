@@ -30,8 +30,11 @@ public class Backstab extends SpellDamage {
 
     public Backstab() {
         super();
+    }
 
-        this.characterFilter = Backstab.filter;
+    @Override
+    protected CharacterFilter getTargetFilter() {
+        return Backstab.filter;
     }
 
     @Deprecated

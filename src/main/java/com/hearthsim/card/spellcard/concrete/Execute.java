@@ -46,8 +46,11 @@ public class Execute extends SpellCard {
      */
     public Execute() {
         super();
+    }
 
-        this.characterFilter = Execute.filter;
+    @Override
+    protected CharacterFilter getTargetFilter() {
+        return Execute.filter;
     }
 
     /**

@@ -4,6 +4,7 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.Minion.MinionTribe;
 import com.hearthsim.card.spellcard.SpellDamage;
+import com.hearthsim.event.CharacterFilter;
 import com.hearthsim.event.effect.SpellEffectCharacterDamage;
 import com.hearthsim.event.CharacterFilterTargetedSpell;
 import com.hearthsim.exception.HSException;
@@ -19,8 +20,11 @@ public class Demonheart extends SpellDamage {
      */
     public Demonheart() {
         super();
+    }
 
-        this.characterFilter = CharacterFilterTargetedSpell.ALL_MINIONS;
+    @Override
+    protected CharacterFilter getTargetFilter() {
+        return CharacterFilterTargetedSpell.ALL_MINIONS;
     }
 
     @Override

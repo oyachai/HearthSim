@@ -6,6 +6,7 @@ import com.hearthsim.card.minion.concrete.Leokk;
 import com.hearthsim.card.minion.concrete.Misha;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.card.spellcard.SpellRandom;
+import com.hearthsim.event.CharacterFilter;
 import com.hearthsim.event.CharacterFilterSummon;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.CharacterFilterTargetedSpell;
@@ -36,8 +37,11 @@ public class AnimalCompanion extends SpellCard implements SpellRandom {
      */
     public AnimalCompanion() {
         super();
+    }
 
-        this.characterFilter = CharacterFilterSummon.SELF;
+    @Override
+    protected CharacterFilter getTargetFilter() {
+        return CharacterFilterSummon.SELF;
     }
 
     @Override

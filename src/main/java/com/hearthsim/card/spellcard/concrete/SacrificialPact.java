@@ -31,24 +31,15 @@ public class SacrificialPact extends SpellCard {
     /**
      * Constructor
      *
-     * @param hasBeenUsed Whether the card has already been used or not
-     */
-    @Deprecated
-    public SacrificialPact(boolean hasBeenUsed) {
-        this();
-        this.hasBeenUsed = hasBeenUsed;
-        this.characterFilter = SacrificialPact.filter;
-    }
-
-    /**
-     * Constructor
-     *
      * Defaults to hasBeenUsed = false
      */
     public SacrificialPact() {
         super();
+    }
 
-        this.characterFilter = SacrificialPact.filter;
+    @Override
+    protected CharacterFilter getTargetFilter() {
+        return SacrificialPact.filter;
     }
 
     /**

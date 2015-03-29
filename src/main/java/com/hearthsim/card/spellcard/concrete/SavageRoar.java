@@ -29,7 +29,11 @@ public class SavageRoar extends SpellCard implements CardEffectAoeInterface {
      */
     public SavageRoar() {
         super();
-        this.characterFilter = CharacterFilterTargetedSpell.SELF;
+    }
+
+    @Override
+    protected CharacterFilter getTargetFilter() {
+        return CharacterFilterTargetedSpell.SELF;
     }
 
     /**

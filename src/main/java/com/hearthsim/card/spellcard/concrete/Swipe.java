@@ -2,6 +2,7 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellDamage;
+import com.hearthsim.event.CharacterFilter;
 import com.hearthsim.event.CharacterFilterTargetedSpell;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerModel;
@@ -31,7 +32,11 @@ public class Swipe extends SpellDamage {
         super();
 
         this.damage_ = Swipe.DAMAGE_AMOUNT;
-        this.characterFilter = CharacterFilterTargetedSpell.ALL_ENEMIES;
+    }
+
+    @Override
+    protected CharacterFilter getTargetFilter() {
+        return CharacterFilterTargetedSpell.ALL_ENEMIES;
     }
 
     /**

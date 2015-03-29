@@ -27,8 +27,11 @@ public class Equality extends SpellCard implements CardEffectAoeInterface {
      */
     public Equality() {
         super();
+    }
 
-        this.characterFilter = CharacterFilterTargetedSpell.SELF;
+    @Override
+    protected CharacterFilter getTargetFilter() {
+        return CharacterFilterTargetedSpell.SELF;
     }
 
     /**

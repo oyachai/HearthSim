@@ -1,6 +1,7 @@
 package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.spellcard.SpellCard;
+import com.hearthsim.event.CharacterFilter;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.CharacterFilterTargetedSpell;
 import com.hearthsim.event.effect.CardEffectCharacterBuff;
@@ -27,8 +28,11 @@ public class Humility extends SpellCard {
      */
     public Humility() {
         super();
+    }
 
-        this.characterFilter = CharacterFilterTargetedSpell.ALL_MINIONS;
+    @Override
+    protected CharacterFilter getTargetFilter() {
+        return CharacterFilterTargetedSpell.ALL_MINIONS;
     }
 
     /**

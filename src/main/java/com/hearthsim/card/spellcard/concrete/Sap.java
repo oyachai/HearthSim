@@ -1,6 +1,7 @@
 package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.spellcard.SpellCard;
+import com.hearthsim.event.CharacterFilter;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.CharacterFilterTargetedSpell;
 
@@ -26,8 +27,11 @@ public class Sap extends SpellCard {
      */
     public Sap() {
         super();
+    }
 
-        this.characterFilter = CharacterFilterTargetedSpell.ENEMY_MINIONS;
+    @Override
+    protected CharacterFilter getTargetFilter() {
+        return CharacterFilterTargetedSpell.ENEMY_MINIONS;
     }
 
     /**

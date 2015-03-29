@@ -50,8 +50,11 @@ public class ShadowWordPain extends SpellCard {
      */
     public ShadowWordPain() {
         super();
+    }
 
-        this.characterFilter = ShadowWordPain.filter;
+    @Override
+    protected CharacterFilter getTargetFilter() {
+        return ShadowWordPain.filter;
     }
 
     /**

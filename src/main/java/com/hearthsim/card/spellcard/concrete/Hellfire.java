@@ -28,7 +28,11 @@ public class Hellfire extends SpellDamage implements CardEffectAoeInterface {
      */
     public Hellfire() {
         super();
-        this.characterFilter = CharacterFilterTargetedSpell.OPPONENT;
+    }
+
+    @Override
+    protected CharacterFilter getTargetFilter() {
+        return CharacterFilterTargetedSpell.OPPONENT;
     }
 
     @Override
