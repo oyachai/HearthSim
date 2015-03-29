@@ -5,12 +5,15 @@ import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.event.CharacterFilter;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.CharacterFilterTargetedSpell;
+import com.hearthsim.event.effect.CardEffectCharacterDraw;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class ExcessMana extends SpellCard {
+
+    private static final CardEffectCharacter effect = new CardEffectCharacterDraw(1);
 
     /**
      * Constructor
@@ -52,18 +55,6 @@ public class ExcessMana extends SpellCard {
      */
     @Override
     public CardEffectCharacter getTargetableEffect() {
-        if (this.effect == null) {
-            this.effect = new CardEffectCharacter() {
-                @Override
-                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
-                    if (boardState instanceof CardDrawNode)
-                        ((CardDrawNode) boardState).addNumCardsToDraw(1);
-                    else
-                        boardState = new CardDrawNode(boardState, 1); //draw two cards
-                    return boardState;
-                }
-            };
-        }
-        return this.effect;
+        return ExcessMana.effect;
     }
 }
