@@ -7,6 +7,7 @@ import com.hearthsim.event.effect.SpellEffectCharacterDamage;
 import com.hearthsim.event.MinionFilter;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 import org.json.JSONObject;
@@ -85,18 +86,6 @@ public class SpellDamage extends SpellCard {
     public final HearthTreeNode attack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode boardState,
                                  Deck deckPlayer0, Deck deckPlayer1) throws HSException {
         return this.attack(targetMinionPlayerSide, targetMinion, boardState);
-    }
-
-    public HearthTreeNode effectAllUsingFilter(MinionFilter filter, HearthTreeNode boardState) throws HSException {
-        if (boardState != null && filter != null) {
-            for (BoardModel.CharacterLocation location : boardState.data_) {
-                Minion character = boardState.data_.getCharacter(location);
-                if(filter.targetMatches(PlayerSide.CURRENT_PLAYER, this, location.getPlayerSide(), character, boardState.data_)) {
-                    boardState = this.attack(location.getPlayerSide(), character, boardState);
-                }
-            }
-        }
-        return boardState;
     }
 
     @Override

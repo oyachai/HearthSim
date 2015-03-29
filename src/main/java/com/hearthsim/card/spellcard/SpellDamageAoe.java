@@ -8,7 +8,7 @@ import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class SpellDamageAoe extends SpellDamage {
+public class SpellDamageAoe extends SpellDamage implements SpellAoeInterface {
 
     protected MinionFilter hitsFilter;
 
@@ -44,23 +44,8 @@ public class SpellDamageAoe extends SpellDamage {
         return true;
     }
 
-    /**
-     * Use the card on the given target
-     *
-     * @param side
-     * @param boardState The BoardState before this card has performed its action. It will be manipulated and returned.
-     * @return The boardState is manipulated and returned
-     */
     @Override
-    protected HearthTreeNode use_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
-        boardState = this.effectAllUsingFilter(this.hitsFilter, boardState);
-
-        if (boardState != null) {
-            PlayerModel currentPlayer = boardState.data_.getCurrentPlayer();
-            currentPlayer.subtractMana(this.getManaCost(side, boardState.data_));
-            currentPlayer.getHand().remove(this);
-        }
-
-        return boardState;
+    public MinionFilter getHitsFilter() {
+        return this.hitsFilter;
     }
 }
