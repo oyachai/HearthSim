@@ -5,7 +5,6 @@ import com.hearthsim.card.minion.MinionHealedInterface;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.effect.CardEffectCharacterDraw;
 import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 /**

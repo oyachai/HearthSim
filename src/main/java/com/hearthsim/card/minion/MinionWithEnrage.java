@@ -1,6 +1,5 @@
 package com.hearthsim.card.minion;
 
-import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 
@@ -70,7 +69,6 @@ public abstract class MinionWithEnrage extends Minion {
      *
      * @param thisPlayerSide
      * @param boardState
-     * @throws HSInvalidPlayerIndexException
      */
     @Override
     public void silenced(PlayerSide thisPlayerSide, BoardModel boardState) {

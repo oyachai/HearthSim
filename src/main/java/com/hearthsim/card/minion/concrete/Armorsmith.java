@@ -1,10 +1,7 @@
 package com.hearthsim.card.minion.concrete;
 
-import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionDamagedInterface;
-import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectCharacterDraw;
 import com.hearthsim.event.effect.CardEffectHero;
 import com.hearthsim.event.effect.CardEffectHeroBuff;
 import com.hearthsim.model.PlayerSide;

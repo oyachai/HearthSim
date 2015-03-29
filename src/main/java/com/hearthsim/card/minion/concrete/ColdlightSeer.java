@@ -5,10 +5,7 @@ import com.hearthsim.card.minion.MinionUntargetableBattlecry;
 import com.hearthsim.event.CharacterFilter;
 import com.hearthsim.event.effect.CardEffectAoeInterface;
 import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectCharacterBuff;
 import com.hearthsim.event.effect.CardEffectCharacterBuffDelta;
-import com.hearthsim.model.PlayerModel;
-import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class ColdlightSeer extends Minion implements MinionUntargetableBattlecry, CardEffectAoeInterface {

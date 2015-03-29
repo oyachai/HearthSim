@@ -6,9 +6,7 @@ import com.hearthsim.event.effect.CardEffectAoeInterface;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.effect.CardEffectCharacterHeal;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class HealingTotem extends Minion implements CardEffectAoeInterface {

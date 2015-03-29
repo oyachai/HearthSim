@@ -1,22 +1,12 @@
 package com.hearthsim.card.spellcard;
 
 import com.hearthsim.card.Card;
-import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.CharacterFilter;
 import com.hearthsim.event.CharacterFilterTargetedSpell;
-import com.hearthsim.event.effect.CardEffectAoeInterface;
 import com.hearthsim.event.effect.CardEffectTargetableInterface;
-import com.hearthsim.exception.HSException;
-import com.hearthsim.model.BoardModel;
-import com.hearthsim.model.PlayerSide;
 
-import com.hearthsim.util.HearthAction;
-import com.hearthsim.util.tree.HearthTreeNode;
-import com.hearthsim.util.tree.RandomEffectNode;
 import org.json.JSONObject;
-
-import java.util.Collection;
 
 public abstract class SpellCard extends Card implements CardEffectTargetableInterface {
 

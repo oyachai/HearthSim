@@ -1,6 +1,5 @@
 package com.hearthsim.card.minion;
 
-import com.hearthsim.exception.HSException;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public interface MinionUntargetableBattlecry {

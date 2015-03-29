@@ -2,7 +2,6 @@ package com.hearthsim.event.deathrattle;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -38,7 +37,7 @@ public class DeathrattleSummonMinionAction extends DeathrattleAction {
 
         for (int index = 0; index < numMinionsToActuallySummon; ++index) {
             try {
-                Minion newMinion = (Minion) minionClass_.newInstance();
+                Minion newMinion = minionClass_.newInstance();
                 toRet = newMinion.summonMinion(playerSide, targetIndex, toRet, false, true);
             } catch (InstantiationException | IllegalAccessException e) {
                 throw new RuntimeException("Unable to instantiate card.");

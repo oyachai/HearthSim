@@ -1,7 +1,6 @@
 package com.hearthsim.card.minion;
 
 import com.hearthsim.card.Card;
-import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -15,7 +14,6 @@ public interface MinionTargetableBattlecry {
      * @param targetCharacterIndex
      * @param boardState
      * @return
-     * @throws HSException
      */
     public HearthTreeNode useTargetableBattlecry_core(PlayerSide originSide, Minion origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState);
 
