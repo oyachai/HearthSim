@@ -5,6 +5,7 @@ import com.hearthsim.card.spellcard.SpellDamage;
 import com.hearthsim.card.spellcard.SpellDamageAoe;
 import com.hearthsim.event.MinionFilter;
 import com.hearthsim.event.MinionFilterTargetedSpell;
+import com.hearthsim.event.effect.CardEffectCharacter;
 
 public class Flamestrike extends SpellDamage implements SpellAoeInterface {
 
@@ -30,7 +31,10 @@ public class Flamestrike extends SpellDamage implements SpellAoeInterface {
     }
 
     @Override
-    public MinionFilter getHitsFilter() {
+    public CardEffectCharacter getAoeEffect() { return this.getEffect(); }
+
+    @Override
+    public MinionFilter getAoeFilter() {
         return MinionFilter.ENEMY_MINIONS;
     }
 }

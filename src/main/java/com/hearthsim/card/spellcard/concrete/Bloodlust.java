@@ -49,7 +49,10 @@ public class Bloodlust extends SpellCard implements SpellAoeInterface {
     }
 
     @Override
-    public MinionFilter getHitsFilter() {
+    public CardEffectCharacter getAoeEffect() { return this.getEffect(); }
+
+    @Override
+    public MinionFilter getAoeFilter() {
         return MinionFilter.FRIENDLY_MINIONS;
     }
 }

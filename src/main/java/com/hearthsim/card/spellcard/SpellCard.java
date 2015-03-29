@@ -7,7 +7,6 @@ import com.hearthsim.event.MinionFilter;
 import com.hearthsim.event.MinionFilterTargetedSpell;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
-import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 
 import com.hearthsim.util.HearthAction;
@@ -81,7 +80,7 @@ public abstract class SpellCard extends Card {
         } else {
             if (effect != null) {
                 if (this instanceof SpellAoeInterface) {
-                    toRet = this.effectAllUsingFilter(((SpellAoeInterface)this).getHitsFilter(), toRet);
+                    toRet = this.effectAllUsingFilter(((SpellAoeInterface)this).getAoeEffect(), ((SpellAoeInterface)this).getAoeFilter(), toRet);
                 } else {
                     toRet = this.getEffect().applyEffect(PlayerSide.CURRENT_PLAYER, this, side, targetMinion, toRet);
                 }
@@ -94,12 +93,12 @@ public abstract class SpellCard extends Card {
         return toRet;
     }
 
-    public HearthTreeNode effectAllUsingFilter(MinionFilter filter, HearthTreeNode boardState) throws HSException {
+    public HearthTreeNode effectAllUsingFilter(CardEffectCharacter effect, MinionFilter filter, HearthTreeNode boardState) throws HSException {
         if (boardState != null && filter != null) {
             for (BoardModel.CharacterLocation location : boardState.data_) {
                 Minion character = boardState.data_.getCharacter(location);
                 if(filter.targetMatches(PlayerSide.CURRENT_PLAYER, this, location.getPlayerSide(), character, boardState.data_)) {
-                    boardState = this.getEffect().applyEffect(PlayerSide.CURRENT_PLAYER, this, location.getPlayerSide(), character, boardState);
+                    boardState = effect.applyEffect(PlayerSide.CURRENT_PLAYER, this, location.getPlayerSide(), character, boardState);
                 }
             }
         }

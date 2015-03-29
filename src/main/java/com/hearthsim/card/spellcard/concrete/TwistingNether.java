@@ -43,7 +43,10 @@ public class TwistingNether extends SpellCard implements SpellAoeInterface {
     }
 
     @Override
-    public MinionFilter getHitsFilter() {
+    public CardEffectCharacter getAoeEffect() { return this.getEffect(); }
+
+    @Override
+    public MinionFilter getAoeFilter() {
         return MinionFilter.ALL_MINIONS;
     }
 }
