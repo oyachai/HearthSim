@@ -18,14 +18,18 @@ public class CardEffectHeroMana extends CardEffectHero {
     }
 
     public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, HearthTreeNode boardState) {
-        if (this.manaDelta > 0) {
-            byte current = boardState.data_.modelForSide(targetSide).getMana();
-            boardState.data_.modelForSide(targetSide).setMana((byte)Math.min(current + this.manaDelta, 10));
+        if (this.manaDelta != 0) {
+            byte value = boardState.data_.modelForSide(targetSide).getMana();
+            value = (byte)Math.min(value + this.manaDelta, 10);
+            value = (byte)Math.max(value, 0);
+            boardState.data_.modelForSide(targetSide).setMana(value);
         }
 
-        if (this.maxManaDelta > 0) {
-            byte current = boardState.data_.modelForSide(targetSide).getMaxMana();
-            boardState.data_.modelForSide(targetSide).setMaxMana((byte) Math.min(current + this.manaDelta, 10));
+        if (this.maxManaDelta != 0) {
+            byte value = boardState.data_.modelForSide(targetSide).getMaxMana();
+            value = (byte)Math.min(value + this.maxManaDelta, 10);
+            value = (byte)Math.max(value, 0);
+            boardState.data_.modelForSide(targetSide).setMaxMana(value);
         }
         return boardState;
     }
