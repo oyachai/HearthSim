@@ -5,6 +5,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionTargetableBattlecry;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.MinionFilterTargetedBattlecry;
+import com.hearthsim.event.effect.CardEffectCharacterHeal;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
@@ -22,15 +23,7 @@ public class VoodooDoctor extends Minion implements MinionTargetableBattlecry {
         protected boolean includeOwnMinions() { return true; }
     };
 
-    private final static CardEffectCharacter battlecryAction = new CardEffectCharacter() {
-        @Override
-        public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
-            Minion targetMinion = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
-            HearthTreeNode toRet = boardState;
-            toRet = targetMinion.takeHealAndNotify((byte) 2, targetSide, toRet);
-            return toRet;
-        }
-    };
+    private final static CardEffectCharacter battlecryAction = new CardEffectCharacterHeal(2);
 
     public VoodooDoctor() {
         super();
