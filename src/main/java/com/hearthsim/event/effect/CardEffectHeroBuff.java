@@ -1,7 +1,6 @@
 package com.hearthsim.event.effect;
 
 import com.hearthsim.card.Card;
-import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -14,7 +13,7 @@ public class CardEffectHeroBuff extends CardEffectHero {
         this.armorDelta = (byte) armorDelta;
     }
 
-    public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, HearthTreeNode boardState) throws HSException {
+    public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, HearthTreeNode boardState) {
         if (this.attackDelta > 0) {
             boardState.data_.modelForSide(targetSide).getHero().addExtraAttackUntilTurnEnd(this.attackDelta);
         }

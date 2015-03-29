@@ -7,7 +7,6 @@ import com.hearthsim.event.CharacterFilterTargetedSpell;
 import org.json.JSONObject;
 
 import com.hearthsim.card.spellcard.SpellCard;
-import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -44,7 +43,7 @@ public class TheCoin extends SpellCard {
         if (this.effect == null) {
             this.effect = new CardEffectCharacter() {
                 @Override
-                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
+                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
                     byte newMana = boardState.data_.getCurrentPlayer().getMana();
                     newMana = newMana >= 10 ? newMana : (byte)(newMana + 1);
                     boardState.data_.getCurrentPlayer().setMana(newMana);

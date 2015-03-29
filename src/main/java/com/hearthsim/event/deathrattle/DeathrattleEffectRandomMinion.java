@@ -4,7 +4,6 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.CharacterFilterUntargetedDeathrattle;
-import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
@@ -24,7 +23,7 @@ public class DeathrattleEffectRandomMinion extends DeathrattleAction {
     }
 
     @Override
-    public HearthTreeNode performAction(Card origin, PlayerSide playerSide, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
+    public HearthTreeNode performAction(Card origin, PlayerSide playerSide, HearthTreeNode boardState, boolean singleRealizationOnly) {
         PlayerModel owner = boardState.data_.modelForSide(playerSide);
         PlayerModel opposing = boardState.data_.modelForSide(playerSide.getOtherPlayer());
 

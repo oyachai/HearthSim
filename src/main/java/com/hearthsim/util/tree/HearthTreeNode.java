@@ -201,7 +201,7 @@ public class HearthTreeNode {
         return toRet;
     }
 
-    public HearthTreeNode notifyMinionDead(PlayerSide deadMinionPlayerSide, Minion deadMinion) throws HSException {
+    public HearthTreeNode notifyMinionDead(PlayerSide deadMinionPlayerSide, Minion deadMinion) {
         HearthTreeNode toRet = this;
         for (BoardModel.CharacterLocation characterLocation : toRet.data_) {
             Minion character = toRet.data_.getCharacter(characterLocation);
@@ -213,7 +213,7 @@ public class HearthTreeNode {
         return toRet;
     }
 
-    public HearthTreeNode notifyMinionHealed(PlayerSide targetSide, Minion minion) throws HSException {
+    public HearthTreeNode notifyMinionHealed(PlayerSide targetSide, Minion minion) {
         HearthTreeNode toRet = this;
         for (BoardModel.CharacterLocation characterLocation : toRet.data_) {
             Minion character = toRet.data_.getCharacter(characterLocation);
@@ -237,7 +237,7 @@ public class HearthTreeNode {
         return toRet;
     }
 
-    public HearthTreeNode notifyMinionPlayed(PlayerSide targetSide, Minion minion) throws HSException {
+    public HearthTreeNode notifyMinionPlayed(PlayerSide targetSide, Minion minion) {
         HearthTreeNode toRet = this;
         for (BoardModel.CharacterLocation characterLocation : toRet.data_) {
             Minion character = toRet.data_.getCharacter(characterLocation);
@@ -249,7 +249,7 @@ public class HearthTreeNode {
         return toRet;
     }
 
-    public HearthTreeNode notifyMinionSummon(PlayerSide targetSide, Minion minion) throws HSException {
+    public HearthTreeNode notifyMinionSummon(PlayerSide targetSide, Minion minion) {
         HearthTreeNode toRet = this;
         for (BoardModel.CharacterLocation characterLocation : toRet.data_) {
             Minion character = toRet.data_.getCharacter(characterLocation);

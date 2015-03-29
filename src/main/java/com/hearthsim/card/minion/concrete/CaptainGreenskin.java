@@ -3,7 +3,6 @@ package com.hearthsim.card.minion.concrete;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionUntargetableBattlecry;
 import com.hearthsim.card.weapon.WeaponCard;
-import com.hearthsim.exception.HSException;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class CaptainGreenskin extends Minion implements MinionUntargetableBattlecry {
@@ -20,7 +19,7 @@ public class CaptainGreenskin extends Minion implements MinionUntargetableBattle
         int minionPlacementIndex,
         HearthTreeNode boardState,
         boolean singleRealizationOnly
-    ) throws HSException {
+    ) {
         WeaponCard weapon = boardState.data_.getCurrentPlayer().getHero().getWeapon();
         if (weapon != null) {
             weapon.setWeaponDamage((byte)(weapon.getWeaponDamage() + 1));

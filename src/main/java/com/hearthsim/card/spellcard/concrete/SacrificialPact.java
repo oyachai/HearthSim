@@ -7,7 +7,6 @@ import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.event.CharacterFilter;
 import com.hearthsim.event.CharacterFilterTargetedSpell;
 import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -59,7 +58,7 @@ public class SacrificialPact extends SpellCard {
         if (this.effect == null) {
             this.effect = new CardEffectCharacter() {
                 @Override
-                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
+                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
                     Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
                     boardState = boardState.data_.modelForSide(originSide).getHero().takeHealAndNotify((byte) 5, originSide, boardState);
                     targetCharacter.setHealth((byte) -99);

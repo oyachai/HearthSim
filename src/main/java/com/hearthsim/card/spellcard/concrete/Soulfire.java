@@ -1,6 +1,5 @@
 package com.hearthsim.card.spellcard.concrete;
 
-import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellDamage;
 import com.hearthsim.card.spellcard.SpellRandomInterface;
 import com.hearthsim.exception.HSException;
@@ -21,16 +20,6 @@ public class Soulfire extends SpellDamage implements SpellRandomInterface {
     public Soulfire(boolean hasBeenUsed) {
         this();
         this.hasBeenUsed = hasBeenUsed;
-    }
-
-    // TODO: find a better way to do this...
-    private HearthTreeNode callSuperUseOn(
-            PlayerSide side,
-            Minion targetMinion,
-            HearthTreeNode boardState,
-            boolean singleRealizationOnly)
-        throws HSException {
-        return super.useOn(side, targetMinion, boardState, singleRealizationOnly);
     }
 
     @Override

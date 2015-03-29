@@ -4,7 +4,6 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellDamage;
 import com.hearthsim.event.effect.SpellEffectCharacterDamage;
-import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -22,7 +21,7 @@ public class IceLance extends SpellDamage {
         if (this.effect == null) {
             this.effect = new SpellEffectCharacterDamage(damage_) {
                 @Override
-                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
+                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
                     HearthTreeNode toRet = boardState;
                     Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
                     if (targetCharacter.getFrozen()) {

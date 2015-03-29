@@ -4,7 +4,6 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionUntargetableBattlecry;
 import com.hearthsim.event.effect.CardEffectHero;
 import com.hearthsim.event.effect.CardEffectHeroMana;
-import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -20,7 +19,7 @@ public class ArcaneGolem extends Minion implements MinionUntargetableBattlecry {
      * Battlecry: Destroy your opponent's weapon
      */
     @Override
-    public HearthTreeNode useUntargetableBattlecry_core(int minionPlacementIndex, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
+    public HearthTreeNode useUntargetableBattlecry_core(int minionPlacementIndex, HearthTreeNode boardState, boolean singleRealizationOnly) {
         return ArcaneGolem.effect.applyEffect(PlayerSide.CURRENT_PLAYER, this, PlayerSide.WAITING_PLAYER, boardState);
     }
 }

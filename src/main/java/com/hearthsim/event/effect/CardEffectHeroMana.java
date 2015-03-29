@@ -1,7 +1,6 @@
 package com.hearthsim.event.effect;
 
 import com.hearthsim.card.Card;
-import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -18,7 +17,7 @@ public class CardEffectHeroMana extends CardEffectHero {
         this.maxManaDelta = (byte) maxManaDelta;
     }
 
-    public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, HearthTreeNode boardState) throws HSException {
+    public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, HearthTreeNode boardState) {
         if (this.manaDelta > 0) {
             byte current = boardState.data_.modelForSide(targetSide).getMana();
             boardState.data_.modelForSide(targetSide).setMana((byte)Math.min(current + this.manaDelta, 10));

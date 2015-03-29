@@ -2,7 +2,6 @@ package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionUntargetableBattlecry;
-import com.hearthsim.exception.HSException;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class TwilightDrake extends Minion implements MinionUntargetableBattlecry {
@@ -19,7 +18,7 @@ public class TwilightDrake extends Minion implements MinionUntargetableBattlecry
             int minionPlacementIndex,
             HearthTreeNode boardState,
             boolean singleRealizationOnly
-        ) throws HSException {
+        ) {
         HearthTreeNode toRet = boardState;
         this.addHealth((byte)toRet.data_.getCurrentPlayer().getHand().size());
         return toRet;

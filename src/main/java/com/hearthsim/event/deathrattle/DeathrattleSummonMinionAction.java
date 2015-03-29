@@ -10,9 +10,9 @@ import com.hearthsim.util.tree.HearthTreeNode;
 public class DeathrattleSummonMinionAction extends DeathrattleAction {
 
     private final int numMinions_;
-    private final Class<?> minionClass_;
+    private final Class<? extends Minion> minionClass_;
 
-    public DeathrattleSummonMinionAction(Class<?> minionClass, int numMnions) {
+    public DeathrattleSummonMinionAction(Class<? extends Minion> minionClass, int numMnions) {
         numMinions_ = numMnions;
         minionClass_ = minionClass;
     }
@@ -21,7 +21,7 @@ public class DeathrattleSummonMinionAction extends DeathrattleAction {
     public HearthTreeNode performAction(Card origin,
                                         PlayerSide playerSide,
                                         HearthTreeNode boardState,
-                                        boolean singleRealizationOnly) throws HSException {
+                                        boolean singleRealizationOnly) {
 
         HearthTreeNode toRet = super.performAction(origin, playerSide, boardState, singleRealizationOnly);
         PlayerModel targetPlayer = toRet.data_.modelForSide(playerSide);
@@ -41,8 +41,7 @@ public class DeathrattleSummonMinionAction extends DeathrattleAction {
                 Minion newMinion = (Minion) minionClass_.newInstance();
                 toRet = newMinion.summonMinion(playerSide, targetIndex, toRet, false, true);
             } catch (InstantiationException | IllegalAccessException e) {
-                // TODO Auto-generated catch block
-                throw new HSException();
+                throw new RuntimeException("Unable to instantiate card.");
             }
         }
         return toRet;

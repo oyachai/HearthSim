@@ -7,7 +7,6 @@ import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.event.CharacterFilter;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.CharacterFilterTargetedSpell;
-import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -73,7 +72,7 @@ public class DeadlyPoison extends SpellCard {
         if (this.effect == null) {
             this.effect = new CardEffectCharacter() {
                 @Override
-                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
+                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
                     Hero hero = (Hero)boardState.data_.getCharacter(targetSide, targetCharacterIndex);
                     hero.setAttack((byte)(hero.getAttack() + 2));
                     return boardState;

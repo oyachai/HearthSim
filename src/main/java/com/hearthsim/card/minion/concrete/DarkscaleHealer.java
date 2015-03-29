@@ -6,7 +6,6 @@ import com.hearthsim.event.CharacterFilter;
 import com.hearthsim.event.effect.CardEffectAoeInterface;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.effect.CardEffectCharacterHeal;
-import com.hearthsim.exception.HSException;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class DarkscaleHealer extends Minion implements MinionUntargetableBattlecry, CardEffectAoeInterface {
@@ -25,7 +24,7 @@ public class DarkscaleHealer extends Minion implements MinionUntargetableBattlec
             int minionPlacementIndex,
             HearthTreeNode boardState,
             boolean singleRealizationOnly
-        ) throws HSException {
+        ) {
         return this.effectAllUsingFilter(this.getAoeEffect(), this.getAoeFilter(), boardState);
     }
 

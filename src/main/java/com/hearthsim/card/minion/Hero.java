@@ -215,7 +215,7 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
     @Override
     public HearthTreeNode takeDamageAndNotify(byte damage, PlayerSide attackPlayerSide, PlayerSide thisPlayerSide,
                                      HearthTreeNode boardState, boolean isSpellDamage,
-                                     boolean handleMinionDeath) throws HSException {
+                                     boolean handleMinionDeath) {
         HearthTreeNode toRet = boardState;
         byte damageRemaining = (byte) (damage - armor_);
         if (damageRemaining > 0) {

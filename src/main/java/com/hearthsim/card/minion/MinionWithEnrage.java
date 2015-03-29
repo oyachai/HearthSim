@@ -73,7 +73,7 @@ public abstract class MinionWithEnrage extends Minion {
      * @throws HSInvalidPlayerIndexException
      */
     @Override
-    public void silenced(PlayerSide thisPlayerSide, BoardModel boardState) throws HSInvalidPlayerIndexException {
+    public void silenced(PlayerSide thisPlayerSide, BoardModel boardState) {
         super.silenced(thisPlayerSide, boardState);
         if (enraged_)
             this.pacify();

@@ -6,7 +6,6 @@ import com.hearthsim.card.minion.MinionTargetableBattlecry;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.effect.CardEffectCharacterBuffDelta;
 import com.hearthsim.event.CharacterFilterTargetedBattlecry;
-import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -28,7 +27,7 @@ public class ShatteredSunCleric extends Minion implements MinionTargetableBattle
     }
 
     @Override
-    public HearthTreeNode useTargetableBattlecry_core(PlayerSide originSide, Minion origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
+    public HearthTreeNode useTargetableBattlecry_core(PlayerSide originSide, Minion origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
         return ShatteredSunCleric.battlecryAction.applyEffect(originSide, origin, targetSide, targetCharacterIndex, boardState);
     }
 }

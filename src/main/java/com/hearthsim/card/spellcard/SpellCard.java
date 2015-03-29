@@ -26,10 +26,6 @@ public abstract class SpellCard extends Card implements CardEffectTargetableInte
         super();
     }
 
-    // some cards require data from import so we have to use lazy loading
-    @Override
-    public abstract CardEffectCharacter getTargetableEffect();
-
     @Override
     public CharacterFilter getTargetableFilter() {
         return CharacterFilterTargetedSpell.ALL;

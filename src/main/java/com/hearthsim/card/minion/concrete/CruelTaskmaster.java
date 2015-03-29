@@ -5,7 +5,6 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionTargetableBattlecry;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.CharacterFilterTargetedBattlecry;
-import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -22,7 +21,7 @@ public class CruelTaskmaster extends Minion implements MinionTargetableBattlecry
 
     private final static CardEffectCharacter battlecryAction = new CardEffectCharacter() {
         @Override
-        public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
+        public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
             Minion targetMinion = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
             HearthTreeNode toRet = boardState;
             targetMinion.setAttack((byte)(targetMinion.getAttack() + 2));
@@ -41,7 +40,7 @@ public class CruelTaskmaster extends Minion implements MinionTargetableBattlecry
     }
 
     @Override
-    public HearthTreeNode useTargetableBattlecry_core(PlayerSide originSide, Minion origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
+    public HearthTreeNode useTargetableBattlecry_core(PlayerSide originSide, Minion origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
         return CruelTaskmaster.battlecryAction.applyEffect(originSide, origin, targetSide, targetCharacterIndex, boardState);
     }
 }

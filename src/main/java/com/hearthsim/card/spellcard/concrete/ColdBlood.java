@@ -6,7 +6,6 @@ import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.event.CharacterFilter;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.CharacterFilterTargetedSpell;
-import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -53,7 +52,7 @@ public class ColdBlood extends SpellCard {
         if (this.effect == null) {
             this.effect = new CardEffectCharacter() {
                 @Override
-                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
+                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
                     Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
                     byte buffAmount = boardState.data_.getCurrentPlayer().isComboEnabled() ? (byte)4 : (byte)2;
                     targetCharacter.addAttack(buffAmount);

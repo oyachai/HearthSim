@@ -469,7 +469,7 @@ public class Card implements DeepCopyable<Card> {
         return toRet;
     }
 
-    public HearthTreeNode effectAllUsingFilter(CardEffectCharacter effect, CharacterFilter filter, HearthTreeNode boardState) throws HSException {
+    public HearthTreeNode effectAllUsingFilter(CardEffectCharacter effect, CharacterFilter filter, HearthTreeNode boardState) {
         if (boardState != null && filter != null) {
             for (BoardModel.CharacterLocation location : boardState.data_) {
                 Minion character = boardState.data_.getCharacter(location);

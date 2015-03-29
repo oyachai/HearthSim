@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionUntargetableBattlecry;
-import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.HearthAction;
@@ -27,7 +26,7 @@ public class StampedingKodo extends Minion implements MinionUntargetableBattlecr
             int minionPlacementIndex,
             HearthTreeNode boardState,
             boolean singleRealizationOnly
-        ) throws HSException {
+        ) {
         HearthTreeNode toRet = boardState;
         if (singleRealizationOnly) {
             PlayerModel waitingPlayer = toRet.data_.modelForSide(PlayerSide.WAITING_PLAYER);

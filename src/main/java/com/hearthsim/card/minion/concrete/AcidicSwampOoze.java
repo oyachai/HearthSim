@@ -3,7 +3,6 @@ package com.hearthsim.card.minion.concrete;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionUntargetableBattlecry;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
-import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -21,7 +20,7 @@ public class AcidicSwampOoze extends Minion implements MinionUntargetableBattlec
         int minionPlacementIndex,
         HearthTreeNode boardState,
         boolean singleRealizationOnly
-    ) throws HSException {
+    ) {
 
         DeathrattleAction action = boardState.data_.getWaitingPlayer().getHero().destroyWeapon();
         if (action != null) {
