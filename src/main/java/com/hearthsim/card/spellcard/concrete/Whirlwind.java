@@ -1,13 +1,12 @@
 package com.hearthsim.card.spellcard.concrete;
 
-import com.hearthsim.card.spellcard.SpellAoeInterface;
+import com.hearthsim.event.effect.CardEffectAoeInterface;
 import com.hearthsim.card.spellcard.SpellDamage;
-import com.hearthsim.card.spellcard.SpellDamageAoe;
 import com.hearthsim.event.MinionFilter;
 import com.hearthsim.event.MinionFilterTargetedSpell;
 import com.hearthsim.event.effect.CardEffectCharacter;
 
-public class Whirlwind extends SpellDamage implements SpellAoeInterface {
+public class Whirlwind extends SpellDamage implements CardEffectAoeInterface {
 
     /**
      * Constructor

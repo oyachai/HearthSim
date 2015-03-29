@@ -3,14 +3,12 @@ package com.hearthsim.card.spellcard;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.MinionFilter;
 import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.exception.HSException;
+import com.hearthsim.event.effect.CardEffectAoeInterface;
 import com.hearthsim.model.BoardModel;
-import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.tree.HearthTreeNode;
 
 @Deprecated
-public class SpellDamageAoe extends SpellDamage implements SpellAoeInterface {
+public class SpellDamageAoe extends SpellDamage implements CardEffectAoeInterface {
 
     protected MinionFilter hitsFilter;
 

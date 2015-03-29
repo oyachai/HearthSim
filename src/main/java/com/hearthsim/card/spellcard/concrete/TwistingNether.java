@@ -1,17 +1,12 @@
 package com.hearthsim.card.spellcard.concrete;
 
-import com.hearthsim.card.Card;
-import com.hearthsim.card.minion.Minion;
-import com.hearthsim.card.spellcard.SpellAoeInterface;
+import com.hearthsim.event.effect.CardEffectAoeInterface;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.event.MinionFilter;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.MinionFilterTargetedSpell;
-import com.hearthsim.exception.HSException;
-import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.tree.HearthTreeNode;
 
-public class TwistingNether extends SpellCard implements SpellAoeInterface {
+public class TwistingNether extends SpellCard implements CardEffectAoeInterface {
 
     /**
      * Constructor

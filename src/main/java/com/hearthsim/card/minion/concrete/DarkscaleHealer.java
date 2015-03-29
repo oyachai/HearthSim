@@ -2,12 +2,18 @@ package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionUntargetableBattlecry;
+import com.hearthsim.event.MinionFilter;
+import com.hearthsim.event.effect.CardEffectAoeInterface;
+import com.hearthsim.event.effect.CardEffectCharacter;
+import com.hearthsim.event.effect.CardEffectCharacterHeal;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class DarkscaleHealer extends Minion implements MinionUntargetableBattlecry {
+public class DarkscaleHealer extends Minion implements MinionUntargetableBattlecry, CardEffectAoeInterface {
+
+    private static final CardEffectCharacter effect = new CardEffectCharacterHeal(2);
 
     public DarkscaleHealer() {
         super();
@@ -22,13 +28,16 @@ public class DarkscaleHealer extends Minion implements MinionUntargetableBattlec
             HearthTreeNode boardState,
             boolean singleRealizationOnly
         ) throws HSException {
-        HearthTreeNode toRet = boardState;
-        PlayerModel currentPlayer = toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
-        toRet = currentPlayer.getHero().takeHealAndNotify((byte) 2, PlayerSide.CURRENT_PLAYER, toRet);
-        for (Minion minion : currentPlayer.getMinions()) {
-            toRet = minion.takeHealAndNotify((byte) 2, PlayerSide.CURRENT_PLAYER, toRet);
-        }
-        return toRet;
+        return this.effectAllUsingFilter(this.getAoeEffect(), this.getAoeFilter(), boardState);
     }
 
+    @Override
+    public CardEffectCharacter getAoeEffect() {
+        return DarkscaleHealer.effect;
+    }
+
+    @Override
+    public MinionFilter getAoeFilter() {
+        return MinionFilter.ALL_FRIENDLIES;
+    }
 }
