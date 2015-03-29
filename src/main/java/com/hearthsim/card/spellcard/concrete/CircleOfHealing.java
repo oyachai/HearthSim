@@ -3,16 +3,21 @@ package com.hearthsim.card.spellcard.concrete;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
+import com.hearthsim.event.MinionFilter;
+import com.hearthsim.event.effect.CardEffectAoeInterface;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.MinionFilterTargetedSpell;
+import com.hearthsim.event.effect.CardEffectCharacterHeal;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class CircleOfHealing extends SpellCard {
+public class CircleOfHealing extends SpellCard implements CardEffectAoeInterface {
 
     private static final byte HEAL_AMOUNT = 4;
+
+    private static final CardEffectCharacter effect = new CardEffectCharacterHeal(CircleOfHealing.HEAL_AMOUNT);
 
     /**
      * Constructor
@@ -51,23 +56,16 @@ public class CircleOfHealing extends SpellCard {
      */
     @Override
     protected CardEffectCharacter getEffect() {
-        if (this.effect == null) {
-            this.effect = new CardEffectCharacter() {
-                @Override
-                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
-                    PlayerModel currentPlayer = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
-                    PlayerModel waitingPlayer = boardState.data_.modelForSide(PlayerSide.WAITING_PLAYER);
-                    for (Minion minion : currentPlayer.getMinions()) {
-                        boardState = minion.takeHealAndNotify(HEAL_AMOUNT, PlayerSide.CURRENT_PLAYER, boardState);
-                    }
+        return this.getAoeEffect();
+    }
 
-                    for (Minion minion : waitingPlayer.getMinions()) {
-                        boardState = minion.takeHealAndNotify(HEAL_AMOUNT, PlayerSide.WAITING_PLAYER, boardState);
-                    }
-                    return boardState;
-                }
-            };
-        }
-        return this.effect;
+    @Override
+    public CardEffectCharacter getAoeEffect() {
+        return CircleOfHealing.effect;
+    }
+
+    @Override
+    public MinionFilter getAoeFilter() {
+        return MinionFilter.ALL_MINIONS;
     }
 }
