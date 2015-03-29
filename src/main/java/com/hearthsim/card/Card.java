@@ -5,6 +5,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.CharacterFilter;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.event.effect.CardEffectCharacter;
+import com.hearthsim.event.effect.CardEffectTargetableInterface;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
@@ -251,7 +252,15 @@ public class Card implements DeepCopyable<Card> {
      * @return
      */
     public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
-        return this.getManaCost(PlayerSide.CURRENT_PLAYER, boardModel) <= boardModel.getCurrentPlayer().getMana();
+        if(!(this.getManaCost(PlayerSide.CURRENT_PLAYER, boardModel) <= boardModel.getCurrentPlayer().getMana())) {
+            return false;
+        }
+
+        if (this instanceof CardEffectTargetableInterface && !((CardEffectTargetableInterface)this).getTargetableFilter().targetMatches(PlayerSide.CURRENT_PLAYER, this, playerSide, minion, boardModel)) {
+            return false;
+        }
+
+        return true;
     }
 
     public boolean canBeUsedOn(PlayerSide playerSide, int targetIndex, BoardModel boardModel) {

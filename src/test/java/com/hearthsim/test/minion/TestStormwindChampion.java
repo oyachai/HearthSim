@@ -37,7 +37,9 @@ public class TestStormwindChampion {
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, new BloodfenRaptor());
 
         currentPlayer.setMana((byte) 20);
+        currentPlayer.setMaxMana((byte) 20);
         waitingPlayer.setMana((byte) 20);
+        waitingPlayer.setMaxMana((byte) 20);
 
         Minion fb = new StormwindChampion();
         currentPlayer.placeCardHand(fb);

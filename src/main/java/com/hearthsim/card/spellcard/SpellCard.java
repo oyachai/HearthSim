@@ -45,11 +45,6 @@ public abstract class SpellCard extends Card implements CardEffectTargetableInte
         this(mana, false);
     }
 
-    @Override
-    public final boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
-        return this.getTargetableFilter().targetMatches(PlayerSide.CURRENT_PLAYER, this, playerSide, minion, boardModel);
-    }
-
     /**
      * Use the card on the given target
      * This is the core implementation of card's ability
@@ -87,7 +82,9 @@ public abstract class SpellCard extends Card implements CardEffectTargetableInte
         } else {
             if (effect != null) {
                 if (this instanceof CardEffectAoeInterface) {
-                    toRet = this.effectAllUsingFilter(((CardEffectAoeInterface)this).getAoeEffect(), ((CardEffectAoeInterface)this).getAoeFilter(), toRet);
+                    toRet = this.effectAllUsingFilter(((CardEffectAoeInterface) this).getAoeEffect(), ((CardEffectAoeInterface) this).getAoeFilter(), toRet);
+                } else if (this instanceof CardEffectTargetableInterface) {
+                    toRet = this.getTargetableEffect().applyEffect(PlayerSide.CURRENT_PLAYER, this, side, targetMinion, toRet);
                 } else {
                     toRet = this.getTargetableEffect().applyEffect(PlayerSide.CURRENT_PLAYER, this, side, targetMinion, toRet);
                 }
