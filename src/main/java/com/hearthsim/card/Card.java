@@ -53,26 +53,6 @@ public class Card implements DeepCopyable<Card> {
      * @param hasBeenUsed Has the card been used?
      * @param isInHand Is the card in your hand?
      */
-    @Deprecated
-    public Card(String name, byte baseManaCost, boolean hasBeenUsed, boolean isInHand, byte overload) {
-        this.baseManaCost = baseManaCost;
-        this.hasBeenUsed = hasBeenUsed;
-        isInHand_ = isInHand;
-        name_ = name;
-        this.overload = overload;
-    }
-
-    @Deprecated
-    public Card(byte baseManaCost, boolean hasBeenUsed, boolean isInHand) {
-        ImplementedCardList cardList = ImplementedCardList.getInstance();
-        ImplementedCardList.ImplementedCard implementedCard = cardList.getCardForClass(this.getClass());
-        name_ = implementedCard.name_;
-        this.baseManaCost = baseManaCost;
-        this.hasBeenUsed = hasBeenUsed;
-        isInHand_ = isInHand;
-        this.overload = (byte) implementedCard.overload;
-    }
-
     public Card() {
         ImplementedCardList cardList = ImplementedCardList.getInstance();
         ImplementedCardList.ImplementedCard implementedCard = cardList.getCardForClass(this.getClass());
@@ -103,18 +83,6 @@ public class Card implements DeepCopyable<Card> {
      */
     public void setName(String value) {
         name_ = value;
-    }
-
-    /**
-     * Get the mana cost of the card
-     *
-     * @param side The PlayerSide of the card for which you want the mana cost
-     * @param boardState The HearthTreeNode representing the current board state
-     * @return Mana cost of the card
-     */
-    @Deprecated
-    public final byte getManaCost(PlayerSide side, HearthTreeNode boardState) {
-        return getManaCost(side, boardState.data_);
     }
 
     /**
@@ -268,31 +236,6 @@ public class Card implements DeepCopyable<Card> {
         return this.canBeUsedOn(playerSide, targetMinion, boardModel);
     }
 
-    @Deprecated
-    public final HearthTreeNode useOn(PlayerSide side, Minion targetMinion, HearthTreeNode boardState,
-            Deck deckPlayer0, Deck deckPlayer1) throws HSException {
-        return this.useOn(side, targetMinion, boardState, false);
-    }
-
-    @Deprecated
-    public HearthTreeNode useOn(PlayerSide side, int targetIndex, HearthTreeNode boardState, Deck deckPlayer0,
-            Deck deckPlayer1) throws HSException {
-        return this.useOn(side, targetIndex, boardState, false);
-    }
-
-    @Deprecated
-    public HearthTreeNode useOn(PlayerSide side, int targetIndex, HearthTreeNode boardState, Deck deckPlayer0,
-            Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
-        Minion target = boardState.data_.modelForSide(side).getCharacter(targetIndex);
-        return this.useOn(side, target, boardState, singleRealizationOnly);
-    }
-
-    @Deprecated
-    public HearthTreeNode useOn(PlayerSide side, Minion targetMinion, HearthTreeNode boardState, Deck deckPlayer0,
-                                Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
-        return this.useOn(side, targetMinion, boardState, singleRealizationOnly);
-    }
-
     public final HearthTreeNode useOn(PlayerSide side, Minion targetMinion, HearthTreeNode boardState) throws HSException {
         return this.useOn(side, targetMinion, boardState, false);
     }
@@ -370,27 +313,9 @@ public class Card implements DeepCopyable<Card> {
         return boardState;
     }
 
-    @Deprecated
-    protected HearthTreeNode use_core(
-        PlayerSide side,
-        Minion targetMinion,
-        HearthTreeNode boardState,
-        Deck deckPlayer0,
-        Deck deckPlayer1,
-        boolean singleRealizationOnly)
-        throws HSException {
-        return this.use_core(side, targetMinion, boardState, singleRealizationOnly);
-    }
-
     // ======================================================================================
     // Various notifications
     // ======================================================================================
-    @Deprecated
-    protected HearthTreeNode notifyCardPlayBegin(HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1,
-                                                 boolean singleRealizationOnly) throws HSException {
-        return this.notifyCardPlayBegin(boardState, singleRealizationOnly);
-    }
-
     protected HearthTreeNode notifyCardPlayBegin(HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
         PlayerModel currentPlayer = boardState.data_.getCurrentPlayer();
         PlayerModel waitingPlayer = boardState.data_.getWaitingPlayer();
@@ -444,11 +369,6 @@ public class Card implements DeepCopyable<Card> {
         // check for and remove dead minions
         toRet = BoardStateFactoryBase.handleDeadMinions(toRet, singleRealizationOnly);
         return toRet;
-    }
-
-    @Deprecated
-    protected HearthTreeNode notifyCardPlayResolve(HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
-        return this.notifyCardPlayResolve(boardState, singleRealizationOnly);
     }
 
     protected HearthTreeNode notifyCardPlayResolve(HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
@@ -543,11 +463,6 @@ public class Card implements DeepCopyable<Card> {
         return PlayerSide.CURRENT_PLAYER == side;
     }
 
-    @Deprecated
-    protected boolean isHero(Minion targetMinion) {
-        return targetMinion instanceof Hero;
-    }
-
     public byte getOverload() {
         return overload;
     }
@@ -571,4 +486,91 @@ public class Card implements DeepCopyable<Card> {
     public void setDeathrattle(DeathrattleAction action) {
         deathrattleAction_ = action;
     }
+
+
+    @Deprecated
+    public Card(String name, byte baseManaCost, boolean hasBeenUsed, boolean isInHand, byte overload) {
+        this.baseManaCost = baseManaCost;
+        this.hasBeenUsed = hasBeenUsed;
+        isInHand_ = isInHand;
+        name_ = name;
+        this.overload = overload;
+    }
+
+    @Deprecated
+    public Card(byte baseManaCost, boolean hasBeenUsed, boolean isInHand) {
+        ImplementedCardList cardList = ImplementedCardList.getInstance();
+        ImplementedCardList.ImplementedCard implementedCard = cardList.getCardForClass(this.getClass());
+        name_ = implementedCard.name_;
+        this.baseManaCost = baseManaCost;
+        this.hasBeenUsed = hasBeenUsed;
+        isInHand_ = isInHand;
+        this.overload = (byte) implementedCard.overload;
+    }
+
+    /**
+     * Get the mana cost of the card
+     *
+     * @param side The PlayerSide of the card for which you want the mana cost
+     * @param boardState The HearthTreeNode representing the current board state
+     * @return Mana cost of the card
+     */
+    @Deprecated
+    public final byte getManaCost(PlayerSide side, HearthTreeNode boardState) {
+        return getManaCost(side, boardState.data_);
+    }
+
+    @Deprecated
+    public final HearthTreeNode useOn(PlayerSide side, Minion targetMinion, HearthTreeNode boardState,
+                                      Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+        return this.useOn(side, targetMinion, boardState, false);
+    }
+
+    @Deprecated
+    public HearthTreeNode useOn(PlayerSide side, int targetIndex, HearthTreeNode boardState, Deck deckPlayer0,
+                                Deck deckPlayer1) throws HSException {
+        return this.useOn(side, targetIndex, boardState, false);
+    }
+
+    @Deprecated
+    public HearthTreeNode useOn(PlayerSide side, int targetIndex, HearthTreeNode boardState, Deck deckPlayer0,
+                                Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
+        Minion target = boardState.data_.modelForSide(side).getCharacter(targetIndex);
+        return this.useOn(side, target, boardState, singleRealizationOnly);
+    }
+
+    @Deprecated
+    public HearthTreeNode useOn(PlayerSide side, Minion targetMinion, HearthTreeNode boardState, Deck deckPlayer0,
+                                Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
+        return this.useOn(side, targetMinion, boardState, singleRealizationOnly);
+    }
+
+    @Deprecated
+    protected HearthTreeNode use_core(
+        PlayerSide side,
+        Minion targetMinion,
+        HearthTreeNode boardState,
+        Deck deckPlayer0,
+        Deck deckPlayer1,
+        boolean singleRealizationOnly)
+        throws HSException {
+        return this.use_core(side, targetMinion, boardState, singleRealizationOnly);
+    }
+
+    @Deprecated
+    protected HearthTreeNode notifyCardPlayBegin(HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1,
+                                                 boolean singleRealizationOnly) throws HSException {
+        return this.notifyCardPlayBegin(boardState, singleRealizationOnly);
+    }
+
+    @Deprecated
+    protected HearthTreeNode notifyCardPlayResolve(HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
+        return this.notifyCardPlayResolve(boardState, singleRealizationOnly);
+    }
+
+    @Deprecated
+    protected boolean isHero(Minion targetMinion) {
+        return targetMinion instanceof Hero;
+    }
+
 }
