@@ -6,6 +6,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.MinionFilterTargetedSpell;
+import com.hearthsim.event.effect.CardEffectHeroBuff;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -14,6 +15,8 @@ public class Claw extends SpellCard {
 
     private static final byte DAMAGE_AMOUNT = 2;
     private static final byte ARMOR_AMOUNT = 2;
+
+    private static final CardEffectCharacter effect = new CardEffectHeroBuff(DAMAGE_AMOUNT, ARMOR_AMOUNT);
 
     /**
      * Constructor
@@ -51,17 +54,6 @@ public class Claw extends SpellCard {
      */
     @Override
     protected CardEffectCharacter getEffect() {
-        if (this.effect == null) {
-            this.effect = new CardEffectCharacter() {
-                @Override
-                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
-                    Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
-                    targetCharacter.setExtraAttackUntilTurnEnd((byte)(DAMAGE_AMOUNT + targetCharacter.getExtraAttackUntilTurnEnd()));
-                    ((Hero)targetCharacter).setArmor(ARMOR_AMOUNT);
-                    return boardState;
-                }
-            };
-        }
-        return this.effect;
+        return Claw.effect;
     }
 }

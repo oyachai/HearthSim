@@ -5,11 +5,14 @@ import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.MinionFilterTargetedSpell;
+import com.hearthsim.event.effect.CardEffectHeroBuff;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class Bite extends SpellCard {
+
+    private static final CardEffectCharacter effect = new CardEffectHeroBuff(4, 4);
 
     /**
      * Constructor
@@ -48,17 +51,6 @@ public class Bite extends SpellCard {
      */
     @Override
     protected CardEffectCharacter getEffect() {
-        if (this.effect == null) {
-            this.effect = new CardEffectCharacter() {
-                @Override
-                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
-                    Hero targetCharacter = (Hero)boardState.data_.getCharacter(targetSide, targetCharacterIndex);
-                    targetCharacter.setExtraAttackUntilTurnEnd((byte)(targetCharacter.getExtraAttackUntilTurnEnd() + 4));
-                    targetCharacter.setArmor((byte) (targetCharacter.getArmor() + 4));
-                    return boardState;
-                }
-            };
-        }
-        return this.effect;
+        return Bite.effect;
     }
 }
