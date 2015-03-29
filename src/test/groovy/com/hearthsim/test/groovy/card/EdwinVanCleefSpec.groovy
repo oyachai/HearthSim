@@ -51,7 +51,7 @@ class EdwinVanCleefSpec extends CardSpec {
         def copiedBoard = startingBoard.deepCopy()
 
         def theCoin = root.data_.getCurrentPlayer().getHand().get(1)
-        def ret0 = theCoin.useOn(CURRENT_PLAYER, 0, root)
+        theCoin.useOn(CURRENT_PLAYER, 0, root)
 
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
         def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
@@ -74,10 +74,10 @@ class EdwinVanCleefSpec extends CardSpec {
         def copiedBoard = startingBoard.deepCopy()
 
         def theCoin = root.data_.getCurrentPlayer().getHand().get(1)
-        def ret0 = theCoin.useOn(CURRENT_PLAYER, 0, root)
+        theCoin.useOn(CURRENT_PLAYER, 0, root)
 
         theCoin = root.data_.getCurrentPlayer().getHand().get(1)
-        ret0 = theCoin.useOn(CURRENT_PLAYER, 0, root)
+        theCoin.useOn(CURRENT_PLAYER, 0, root)
 
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
         def ret = theCard.useOn(CURRENT_PLAYER, 0, root)

@@ -22,7 +22,6 @@ class IllidanStormrageSpec extends CardSpec {
         def minionMana = 2;
         def attack = 5;
         def health0 = 3;
-        def health1 = 7;
 
         def commonField = [
                 [mana: minionMana, attack: attack, maxHealth: health0], //todo: attack may be irrelevant here
@@ -47,7 +46,7 @@ class IllidanStormrageSpec extends CardSpec {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
         def ret = theCard.useOn(CURRENT_PLAYER, 1, root, null, null)
-        def ret2 = ret.data_.getCurrentPlayer().getHand().get(0).useOn(CURRENT_PLAYER, 0, ret, null, null)
+        ret.data_.getCurrentPlayer().getHand().get(0).useOn(CURRENT_PLAYER, 0, ret, null, null)
         
         expect:
         assertFalse(ret == null);

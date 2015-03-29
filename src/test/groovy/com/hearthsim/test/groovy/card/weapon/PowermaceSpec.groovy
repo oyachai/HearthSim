@@ -47,10 +47,10 @@ class PowermaceSpec extends CardSpec {
         def copiedRoot = new HearthTreeNode(copiedBoard)
 
         def theCard = copiedBoard.getCurrentPlayer().getHand().get(0);
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot);
+        theCard.useOn(CURRENT_PLAYER, 0, copiedRoot);
 
         theCard = copiedBoard.getCurrentPlayer().getHand().get(0);
-        ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot);
+        def ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot);
 
         expect:
         ret != null
@@ -75,10 +75,10 @@ class PowermaceSpec extends CardSpec {
         def copiedRoot = new HearthTreeNode(copiedBoard)
 
         def theCard = copiedBoard.getCurrentPlayer().getHand().get(0);
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot);
+        theCard.useOn(CURRENT_PLAYER, 0, copiedRoot);
 
         theCard = copiedBoard.getCurrentPlayer().getHand().get(0);
-        ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot);
+        def ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot);
 
         expect:
         ret != null
@@ -104,10 +104,10 @@ class PowermaceSpec extends CardSpec {
         def copiedRoot = new HearthTreeNode(copiedBoard)
 
         def theCard = copiedBoard.getCurrentPlayer().getHand().get(0);
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot);
+        theCard.useOn(CURRENT_PLAYER, 0, copiedRoot);
 
         theCard = copiedBoard.getCurrentPlayer().getHand().get(0);
-        ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot);
+        def ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot);
 
         expect:
         ret != null
@@ -132,10 +132,10 @@ class PowermaceSpec extends CardSpec {
         def copiedRoot = new HearthTreeNode(copiedBoard)
 
         def theCard = copiedBoard.getCurrentPlayer().getHand().get(0);
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot);
+        theCard.useOn(CURRENT_PLAYER, 0, copiedRoot);
 
         theCard = copiedBoard.getCurrentPlayer().getHand().get(0);
-        ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot);
+        def ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot);
 
         expect:
         ret != null
@@ -161,10 +161,10 @@ class PowermaceSpec extends CardSpec {
         def copiedRoot = new HearthTreeNode(copiedBoard)
 
         def theCard = copiedBoard.getCurrentPlayer().getHand().get(0);
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot);
+        theCard.useOn(CURRENT_PLAYER, 0, copiedRoot);
 
         theCard = copiedBoard.getCurrentPlayer().getHand().get(0);
-        ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot);
+        def ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot);
 
         expect:
         ret != null

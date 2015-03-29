@@ -53,7 +53,7 @@ class Si7AgentSpec extends CardSpec {
     def "Playing SI:7 Agent with combo"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCoin = root.data_.getCurrentPlayerCardHand(0)
-        def ret1 = theCoin.useOn(CURRENT_PLAYER, 0, root, null, null)
+        theCoin.useOn(CURRENT_PLAYER, 0, root, null, null)
         def si7 = root.data_.getCurrentPlayerCardHand(0)
         def ret = si7.useOn(CURRENT_PLAYER, 0, root, null, null)
 

@@ -50,7 +50,6 @@ class RampageSpec extends CardSpec {
     }
 
     def "cannot target undamaged minion"() {
-        def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayerCardHand(0)
         def ret = theCard.useOn(CURRENT_PLAYER, 1, root, null, null)
 
