@@ -2,19 +2,24 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.spellcard.SpellAoeInterface;
+import com.hearthsim.card.spellcard.SpellDamage;
 import com.hearthsim.card.spellcard.SpellDamageAoe;
+import com.hearthsim.event.MinionFilter;
+import com.hearthsim.event.MinionFilterTargetedSpell;
 import com.hearthsim.event.effect.SpellEffectCharacterDamage;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class Blizzard extends SpellDamageAoe {
+public class Blizzard extends SpellDamage implements SpellAoeInterface {
 
     /*
      * Deal $2 damage to all enemy minions and <b>Freeze</b> them.
      */
     public Blizzard() {
         super();
+        this.minionFilter = MinionFilterTargetedSpell.OPPONENT;
     }
 
     @Override
@@ -30,5 +35,10 @@ public class Blizzard extends SpellDamageAoe {
             };
         }
         return this.effect;
+    }
+
+    @Override
+    public MinionFilter getHitsFilter() {
+        return MinionFilter.ENEMY_MINIONS;
     }
 }

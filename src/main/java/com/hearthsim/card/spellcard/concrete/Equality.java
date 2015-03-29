@@ -2,14 +2,17 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.spellcard.SpellAoeInterface;
 import com.hearthsim.card.spellcard.SpellCard;
+import com.hearthsim.event.MinionFilter;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.MinionFilterTargetedSpell;
+import com.hearthsim.event.effect.CardEffectCharacterBuff;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class Equality extends SpellCard {
+public class Equality extends SpellCard implements SpellAoeInterface {
 
     /**
      * Constructor
@@ -44,17 +47,11 @@ public class Equality extends SpellCard {
      */
     @Override
     protected CardEffectCharacter getEffect() {
-        if (this.effect == null) {
-            this.effect = new CardEffectCharacter() {
-                @Override
-                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
-                    for (Minion minion : boardState.data_.getAllMinions()) {
-                        minion.setHealth((byte)1);
-                    }
-                    return boardState;
-                }
-            };
-        }
-        return this.effect;
+        return new CardEffectCharacterBuff(0, 1);
+    }
+
+    @Override
+    public MinionFilter getHitsFilter() {
+        return MinionFilter.ALL_MINIONS;
     }
 }

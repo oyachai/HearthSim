@@ -1,8 +1,12 @@
 package com.hearthsim.card.spellcard.concrete;
 
+import com.hearthsim.card.spellcard.SpellAoeInterface;
+import com.hearthsim.card.spellcard.SpellDamage;
 import com.hearthsim.card.spellcard.SpellDamageAoe;
+import com.hearthsim.event.MinionFilter;
+import com.hearthsim.event.MinionFilterTargetedSpell;
 
-public class Flamestrike extends SpellDamageAoe {
+public class Flamestrike extends SpellDamage implements SpellAoeInterface {
 
     /**
      * Constructor
@@ -22,5 +26,11 @@ public class Flamestrike extends SpellDamageAoe {
      */
     public Flamestrike() {
         super();
+        this.minionFilter = MinionFilterTargetedSpell.OPPONENT;
+    }
+
+    @Override
+    public MinionFilter getHitsFilter() {
+        return MinionFilter.ENEMY_MINIONS;
     }
 }

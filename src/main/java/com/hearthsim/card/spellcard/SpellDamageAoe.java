@@ -8,6 +8,7 @@ import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
+@Deprecated
 public class SpellDamageAoe extends SpellDamage implements SpellAoeInterface {
 
     protected MinionFilter hitsFilter;

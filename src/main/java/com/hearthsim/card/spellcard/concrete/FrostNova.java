@@ -2,7 +2,9 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.spellcard.SpellAoeInterface;
 import com.hearthsim.card.spellcard.SpellCard;
+import com.hearthsim.event.MinionFilter;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.MinionFilterTargetedSpell;
 import com.hearthsim.exception.HSException;
@@ -10,7 +12,7 @@ import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class FrostNova extends SpellCard {
+public class FrostNova extends SpellCard implements SpellAoeInterface {
     /**
      * Constructor
      *
@@ -30,7 +32,7 @@ public class FrostNova extends SpellCard {
     public FrostNova() {
         super();
 
-        this.minionFilter = MinionFilterTargetedSpell.SELF;
+        this.minionFilter = MinionFilterTargetedSpell.OPPONENT;
     }
 
     /**
@@ -48,18 +50,11 @@ public class FrostNova extends SpellCard {
      */
     @Override
     protected CardEffectCharacter getEffect() {
-        if (this.effect == null) {
-            this.effect = new CardEffectCharacter() {
-                @Override
-                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
-                    PlayerModel waitingPlayer = boardState.data_.modelForSide(targetSide);
-                    for (Minion minion : waitingPlayer.getMinions()) {
-                        minion.setFrozen(true);
-                    }
-                    return boardState;
-                }
-            };
-        }
-        return this.effect;
+        return CardEffectCharacter.FREEZE;
+    }
+
+    @Override
+    public MinionFilter getHitsFilter() {
+        return MinionFilter.ENEMY_MINIONS;
     }
 }

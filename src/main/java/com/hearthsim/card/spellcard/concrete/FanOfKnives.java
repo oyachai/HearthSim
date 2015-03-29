@@ -1,13 +1,17 @@
 package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.spellcard.SpellAoeInterface;
+import com.hearthsim.card.spellcard.SpellDamage;
 import com.hearthsim.card.spellcard.SpellDamageAoe;
+import com.hearthsim.event.MinionFilter;
+import com.hearthsim.event.MinionFilterTargetedSpell;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class FanOfKnives extends SpellDamageAoe {
+public class FanOfKnives extends SpellDamage implements SpellAoeInterface {
 
     /**
      * Constructor
@@ -26,6 +30,7 @@ public class FanOfKnives extends SpellDamageAoe {
      */
     public FanOfKnives() {
         super();
+        this.minionFilter = MinionFilterTargetedSpell.OPPONENT;
     }
 
     /**
@@ -38,7 +43,6 @@ public class FanOfKnives extends SpellDamageAoe {
      */
     @Override
     protected HearthTreeNode use_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
-
         HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
 
         if (toRet != null) {
@@ -49,5 +53,10 @@ public class FanOfKnives extends SpellDamageAoe {
             }
         }
         return toRet;
+    }
+
+    @Override
+    public MinionFilter getHitsFilter() {
+        return MinionFilter.ENEMY_MINIONS;
     }
 }

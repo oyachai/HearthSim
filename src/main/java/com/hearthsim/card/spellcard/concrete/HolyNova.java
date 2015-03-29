@@ -1,14 +1,17 @@
 package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.spellcard.SpellAoeInterface;
+import com.hearthsim.card.spellcard.SpellDamage;
 import com.hearthsim.card.spellcard.SpellDamageAoe;
 import com.hearthsim.event.MinionFilter;
+import com.hearthsim.event.MinionFilterTargetedSpell;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class HolyNova extends SpellDamageAoe {
+public class HolyNova extends SpellDamage implements SpellAoeInterface {
 
     private static final byte DAMAGE_AMOUNT = 2;
 
@@ -29,8 +32,12 @@ public class HolyNova extends SpellDamageAoe {
      */
     public HolyNova() {
         super();
+        this.minionFilter = MinionFilterTargetedSpell.OPPONENT;
+    }
 
-        this.hitsFilter = MinionFilter.ALL_ENEMIES;
+    @Override
+    public MinionFilter getHitsFilter() {
+        return MinionFilter.ALL_ENEMIES;
     }
 
     /**

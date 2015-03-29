@@ -1,9 +1,12 @@
 package com.hearthsim.card.spellcard.concrete;
 
+import com.hearthsim.card.spellcard.SpellAoeInterface;
+import com.hearthsim.card.spellcard.SpellDamage;
 import com.hearthsim.card.spellcard.SpellDamageAoe;
 import com.hearthsim.event.MinionFilter;
+import com.hearthsim.event.MinionFilterTargetedSpell;
 
-public class Whirlwind extends SpellDamageAoe {
+public class Whirlwind extends SpellDamage implements SpellAoeInterface {
 
     /**
      * Constructor
@@ -23,6 +26,11 @@ public class Whirlwind extends SpellDamageAoe {
      */
     public Whirlwind() {
         super();
-        this.hitsFilter = MinionFilter.ALL_MINIONS;
+        this.minionFilter = MinionFilterTargetedSpell.OPPONENT;
+    }
+
+    @Override
+    public MinionFilter getHitsFilter() {
+        return MinionFilter.ALL_MINIONS;
     }
 }
