@@ -841,7 +841,6 @@ public class PlotBox extends JPanel implements Printable {
             // Have to first correct for the padding.
             result[0] = _xMin + ((_xMax - _xMin) * _padding);
             result[1] = _xMax - ((_xMax - _xMin) * _padding);
-            ;
         }
 
         return result;
@@ -914,7 +913,6 @@ public class PlotBox extends JPanel implements Printable {
             // Have to first correct for the padding.
             result[0] = _yMin + ((_yMax - _yMin) * _padding);
             result[1] = _yMax - ((_yMax - _yMin) * _padding);
-            ;
         }
 
         return result;
@@ -993,7 +991,7 @@ public class PlotBox extends JPanel implements Printable {
      */
     @Deprecated
     public void parseFile(String filespec) {
-        parseFile(filespec, (URL) null);
+        parseFile(filespec, null);
     }
 
     /** Open up the input file, which could be stdin, a URL, or a file.

@@ -13,7 +13,6 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.BloodKnight;
 import com.hearthsim.card.minion.concrete.ScarletCrusader;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -25,7 +24,7 @@ public class TestBloodKnight {
     private PlayerModel waitingPlayer;
 
     @Before
-    public void setup() throws HSInvalidPlayerIndexException, HSException {
+    public void setup() throws HSException {
         board = new HearthTreeNode(new BoardModel());
         currentPlayer = board.data_.getCurrentPlayer();
         waitingPlayer = board.data_.getWaitingPlayer();

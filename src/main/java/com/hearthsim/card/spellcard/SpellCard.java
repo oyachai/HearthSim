@@ -72,7 +72,7 @@ public abstract class SpellCard extends Card {
 
             // for each child, apply the effect and mana cost. we want to do as much as we can with the non-random effect portion (e.g., the damage part of Soulfire)
             for (HearthTreeNode child : children) {
-                if(effect != null) {
+                if (effect != null) {
                     child = this.getEffect().applyEffect(PlayerSide.CURRENT_PLAYER, null, side, targetIndex, child);
                 }
                 child.data_.modelForSide(PlayerSide.CURRENT_PLAYER).subtractMana(manaCost);

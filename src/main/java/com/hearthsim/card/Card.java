@@ -501,7 +501,7 @@ public class Card implements DeepCopyable<Card> {
         if (boardState != null && filter != null) {
             for (BoardModel.CharacterLocation location : boardState.data_) {
                 Minion character = boardState.data_.getCharacter(location);
-                if(filter.targetMatches(PlayerSide.CURRENT_PLAYER, this, location.getPlayerSide(), character, boardState.data_)) {
+                if (filter.targetMatches(PlayerSide.CURRENT_PLAYER, this, location.getPlayerSide(), character, boardState.data_)) {
                     boardState = effect.applyEffect(PlayerSide.CURRENT_PLAYER, this, location.getPlayerSide(), character, boardState);
                 }
             }

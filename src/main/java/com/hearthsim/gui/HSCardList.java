@@ -34,7 +34,7 @@ public class HSCardList extends JList<ImplementedCard> {
             public void mousePressed(MouseEvent evt) {
                 JList<?> list = (JList<?>)evt.getSource();
                 int index = list.locationToIndex(evt.getPoint());
-                String name = ((SortedListModel<ImplementedCard>) HSCardList.this.getModel()).getElementAt(index).name_;
+                String name = HSCardList.this.getModel().getElementAt(index).name_;
                 log.debug("clicked item " + index + ": " + name);
                 if (editing_ && list.getCellBounds(index, 100000).contains(evt.getPoint())) {
                     ((SortedListModel<ImplementedCard>) HSCardList.this.getModel()).remove(index);

@@ -29,5 +29,4 @@ public class AcidicSwampOoze extends Minion implements MinionUntargetableBattlec
         }
         return boardState;
     }
-
 }

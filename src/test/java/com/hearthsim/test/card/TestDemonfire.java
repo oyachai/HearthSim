@@ -7,7 +7,6 @@ import com.hearthsim.card.minion.concrete.DreadInfernal;
 import com.hearthsim.card.minion.concrete.RaidLeader;
 import com.hearthsim.card.spellcard.concrete.Demonfire;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
@@ -24,7 +23,7 @@ public class TestDemonfire {
     private PlayerModel waitingPlayer;
 
     @Before
-    public void setup() throws HSInvalidPlayerIndexException, HSException {
+    public void setup() throws HSException {
         board = new HearthTreeNode(new BoardModel());
         currentPlayer = board.data_.getCurrentPlayer();
         waitingPlayer = board.data_.getWaitingPlayer();

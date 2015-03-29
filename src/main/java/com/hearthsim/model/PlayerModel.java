@@ -260,7 +260,7 @@ public class PlayerModel implements DeepCopyable<PlayerModel>, Iterable<Minion> 
         Card card = drawFromDeck(deckPos);
         if (card == null) {
             //no more card left in deck, take fatigue damage
-            hero.takeDamage((byte)fatigueDamage);
+            hero.takeDamage(fatigueDamage);
             ++fatigueDamage;
         } else {
             card.isInHand(true);
