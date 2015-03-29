@@ -1,12 +1,20 @@
 package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.event.CharacterFilter;
+import com.hearthsim.event.effect.CardEffectAoeInterface;
+import com.hearthsim.event.effect.CardEffectCharacter;
+import com.hearthsim.event.effect.CardEffectCharacterBuffDelta;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class Doomsayer extends Minion {
+public class Doomsayer extends Minion implements CardEffectAoeInterface {
+
+    private static final CardEffectCharacter effect = CardEffectCharacter.DESTROY;
+
+    private static final CharacterFilter filter = CharacterFilter.ALL_MINIONS;
 
     public Doomsayer() {
         super();
@@ -16,17 +24,18 @@ public class Doomsayer extends Minion {
     public HearthTreeNode startTurn(PlayerSide thisMinionPlayerIndex, HearthTreeNode boardModel) throws HSException {
         HearthTreeNode toRet = boardModel;
         if (thisMinionPlayerIndex == PlayerSide.CURRENT_PLAYER) {
-            PlayerModel currentPlayer = toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
-            PlayerModel waitingPlayer = toRet.data_.modelForSide(PlayerSide.WAITING_PLAYER);
-
-            for (Minion minion : currentPlayer.getMinions()) {
-                minion.setHealth((byte)-99);
-            }
-            for (Minion minion : waitingPlayer.getMinions()) {
-                minion.setHealth((byte)-99);
-            }
+            toRet = this.effectAllUsingFilter(this.getAoeEffect(), this.getAoeFilter(), toRet);
         }
         return super.startTurn(thisMinionPlayerIndex, toRet);
     }
 
+    @Override
+    public CardEffectCharacter getAoeEffect() {
+        return Doomsayer.effect;
+    }
+
+    @Override
+    public CharacterFilter getAoeFilter() {
+        return Doomsayer.filter;
+    }
 }

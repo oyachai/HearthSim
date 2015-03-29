@@ -22,11 +22,19 @@ public class CharacterFilter {
         return false;
     }
 
+    protected boolean excludeSource() {
+        return false;
+    }
+
     protected Minion.MinionTribe tribeFilter() {
         return null;
     }
 
     public boolean targetMatches(PlayerSide originSide, Card origin, PlayerSide targetSide, Minion targetCharacter, BoardModel board) {
+        if (this.excludeSource() && targetCharacter == origin) {
+            return false;
+        }
+
         if (!this.includeOwnHero() && targetCharacter.isHero() && originSide == targetSide) {
             return false;
         }
