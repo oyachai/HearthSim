@@ -33,7 +33,7 @@ public class Backstab extends SpellDamage {
     }
 
     @Override
-    protected CharacterFilter getTargetFilter() {
+    public CharacterFilter getTargetableFilter() {
         return Backstab.filter;
     }
 

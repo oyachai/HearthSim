@@ -37,12 +37,12 @@ public class Rampage extends SpellCard {
     }
 
     @Override
-    protected CharacterFilter getTargetFilter() {
+    public CharacterFilter getTargetableFilter() {
         return Rampage.filter;
     }
 
     @Override
-    protected CardEffectCharacter getEffect() {
+    public CardEffectCharacter getTargetableEffect() {
         return Rampage.effect;
     }
 }

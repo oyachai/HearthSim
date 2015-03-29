@@ -13,7 +13,7 @@ public class Silence extends SpellCard {
     }
 
     @Override
-    protected CharacterFilter getTargetFilter() {
+    public CharacterFilter getTargetableFilter() {
         return CharacterFilterTargetedSpell.ALL_MINIONS;
     }
 
@@ -37,7 +37,7 @@ public class Silence extends SpellCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    protected CardEffectCharacter getEffect() {
+    public CardEffectCharacter getTargetableEffect() {
         return CardEffectCharacter.SILENCE;
     }
 }

@@ -1,12 +1,9 @@
 package com.hearthsim.card.spellcard;
 
-import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.CharacterFilter;
 import com.hearthsim.event.CharacterFilterTargetedSpell;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.effect.CardEffectAoeInterface;
-import com.hearthsim.model.BoardModel;
-import com.hearthsim.model.PlayerSide;
 
 @Deprecated
 public class SpellDamageAoe extends SpellDamage implements CardEffectAoeInterface {
@@ -19,7 +16,7 @@ public class SpellDamageAoe extends SpellDamage implements CardEffectAoeInterfac
     }
 
     @Override
-    protected CharacterFilter getTargetFilter() {
+    public CharacterFilter getTargetableFilter() {
         return CharacterFilterTargetedSpell.OPPONENT;
     }
 
@@ -34,7 +31,7 @@ public class SpellDamageAoe extends SpellDamage implements CardEffectAoeInterfac
     }
 
     @Override
-    public CardEffectCharacter getAoeEffect() { return this.getEffect(); }
+    public CardEffectCharacter getAoeEffect() { return this.getTargetableEffect(); }
 
     @Override
     public CharacterFilter getAoeFilter() {

@@ -4,7 +4,6 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.event.CharacterFilter;
-import com.hearthsim.event.CharacterFilterTargetedBattlecry;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.CharacterFilterTargetedSpell;
 import com.hearthsim.exception.HSException;
@@ -54,7 +53,7 @@ public class DivineFavor extends SpellCard {
     }
 
     @Override
-    protected CharacterFilter getTargetFilter() {
+    public CharacterFilter getTargetableFilter() {
         return DivineFavor.filter;
     }
 
@@ -72,7 +71,7 @@ public class DivineFavor extends SpellCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    protected CardEffectCharacter getEffect() {
+    public CardEffectCharacter getTargetableEffect() {
         if (this.effect == null) {
             this.effect = new CardEffectCharacter() {
                 @Override

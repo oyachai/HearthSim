@@ -31,7 +31,7 @@ public class RockbiterWeapon extends SpellCard {
     }
 
     @Override
-    protected CharacterFilter getTargetFilter() {
+    public CharacterFilter getTargetableFilter() {
         return CharacterFilterTargetedSpell.ALL_FRIENDLIES;
     }
 
@@ -49,7 +49,7 @@ public class RockbiterWeapon extends SpellCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    protected CardEffectCharacter getEffect() {
+    public CardEffectCharacter getTargetableEffect() {
         return RockbiterWeapon.effect;
     }
 }

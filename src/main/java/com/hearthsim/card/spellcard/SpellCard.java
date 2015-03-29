@@ -6,6 +6,7 @@ import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.CharacterFilter;
 import com.hearthsim.event.CharacterFilterTargetedSpell;
 import com.hearthsim.event.effect.CardEffectAoeInterface;
+import com.hearthsim.event.effect.CardEffectTargetableInterface;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
@@ -17,7 +18,7 @@ import org.json.JSONObject;
 
 import java.util.Collection;
 
-public abstract class SpellCard extends Card {
+public abstract class SpellCard extends Card implements CardEffectTargetableInterface {
 
     protected CardEffectCharacter effect;
 
@@ -26,9 +27,11 @@ public abstract class SpellCard extends Card {
     }
 
     // some cards require data from import so we have to use lazy loading
-    protected abstract CardEffectCharacter getEffect();
+    @Override
+    public abstract CardEffectCharacter getTargetableEffect();
 
-    protected CharacterFilter getTargetFilter() {
+    @Override
+    public CharacterFilter getTargetableFilter() {
         return CharacterFilterTargetedSpell.ALL;
     }
 
@@ -44,7 +47,7 @@ public abstract class SpellCard extends Card {
 
     @Override
     public final boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
-        return this.getTargetFilter().targetMatches(PlayerSide.CURRENT_PLAYER, this, playerSide, minion, boardModel);
+        return this.getTargetableFilter().targetMatches(PlayerSide.CURRENT_PLAYER, this, playerSide, minion, boardModel);
     }
 
     /**
@@ -59,7 +62,7 @@ public abstract class SpellCard extends Card {
     protected HearthTreeNode use_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
         HearthTreeNode toRet = boardState;
 
-        CardEffectCharacter effect = this.getEffect();
+        CardEffectCharacter effect = this.getTargetableEffect();
 
         // Check to see if this card generates RNG children
         if (this instanceof SpellRandom) {
@@ -76,7 +79,7 @@ public abstract class SpellCard extends Card {
             // for each child, apply the effect and mana cost. we want to do as much as we can with the non-random effect portion (e.g., the damage part of Soulfire)
             for (HearthTreeNode child : children) {
                 if (effect != null) {
-                    child = this.getEffect().applyEffect(PlayerSide.CURRENT_PLAYER, null, side, targetIndex, child);
+                    child = this.getTargetableEffect().applyEffect(PlayerSide.CURRENT_PLAYER, null, side, targetIndex, child);
                 }
                 child.data_.modelForSide(PlayerSide.CURRENT_PLAYER).subtractMana(manaCost);
                 toRet.addChild(child);
@@ -86,7 +89,7 @@ public abstract class SpellCard extends Card {
                 if (this instanceof CardEffectAoeInterface) {
                     toRet = this.effectAllUsingFilter(((CardEffectAoeInterface)this).getAoeEffect(), ((CardEffectAoeInterface)this).getAoeFilter(), toRet);
                 } else {
-                    toRet = this.getEffect().applyEffect(PlayerSide.CURRENT_PLAYER, this, side, targetMinion, toRet);
+                    toRet = this.getTargetableEffect().applyEffect(PlayerSide.CURRENT_PLAYER, this, side, targetMinion, toRet);
                 }
             }
             if (toRet != null) {

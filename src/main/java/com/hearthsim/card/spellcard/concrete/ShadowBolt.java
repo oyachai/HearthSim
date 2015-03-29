@@ -11,7 +11,7 @@ public class ShadowBolt extends SpellDamage {
     }
 
     @Override
-    protected CharacterFilter getTargetFilter() {
+    public CharacterFilter getTargetableFilter() {
         return CharacterFilterTargetedSpell.ALL_MINIONS;
     }
 

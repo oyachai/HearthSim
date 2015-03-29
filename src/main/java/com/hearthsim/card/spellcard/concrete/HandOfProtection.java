@@ -52,7 +52,7 @@ public class HandOfProtection extends SpellCard {
     }
 
     @Override
-    protected CharacterFilter getTargetFilter() {
+    public CharacterFilter getTargetableFilter() {
         return HandOfProtection.filter;
     }
 
@@ -70,7 +70,7 @@ public class HandOfProtection extends SpellCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    protected CardEffectCharacter getEffect() {
+    public CardEffectCharacter getTargetableEffect() {
         if (this.effect == null) {
             this.effect = new CardEffectCharacter() {
                 @Override

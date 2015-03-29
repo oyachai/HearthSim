@@ -34,7 +34,7 @@ public class LayOnHands extends SpellCard {
     }
 
     //Let's assume that it is never beneficial to heal an opponent... though this may not strictly be true under some very corner cases (e.g., with a Northshire Cleric)
-    protected CharacterFilter getTargetFilter() {
+    public CharacterFilter getTargetableFilter() {
         return CharacterFilterTargetedSpell.FRIENDLY_MINIONS;
     }
 
@@ -52,7 +52,7 @@ public class LayOnHands extends SpellCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    protected CardEffectCharacter getEffect() {
+    public CardEffectCharacter getTargetableEffect() {
         if (this.effect == null) {
             this.effect = new CardEffectCharacter() {
                 @Override

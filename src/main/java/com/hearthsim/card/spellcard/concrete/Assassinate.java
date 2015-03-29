@@ -28,7 +28,7 @@ public class Assassinate extends SpellCard {
     }
 
     @Override
-    protected CharacterFilter getTargetFilter() {
+    public CharacterFilter getTargetableFilter() {
         return CharacterFilterTargetedSpell.ENEMY_MINIONS;
     }
 
@@ -46,7 +46,7 @@ public class Assassinate extends SpellCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    protected CardEffectCharacter getEffect() {
+    public CardEffectCharacter getTargetableEffect() {
         return CardEffectCharacter.DESTROY;
     }
 }

@@ -27,7 +27,7 @@ public class Shiv extends SpellDamage {
     }
 
     @Override
-    protected CharacterFilter getTargetFilter() {
+    public CharacterFilter getTargetableFilter() {
         return CharacterFilterTargetedSpell.ALL;
     }
 

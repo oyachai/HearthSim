@@ -18,7 +18,7 @@ public class IceLance extends SpellDamage {
      * <b>Freeze</b> a character. If it was already <b>Frozen</b>, deal $4 damage instead.
      */
     @Override
-    protected SpellEffectCharacterDamage getEffect() {
+    public SpellEffectCharacterDamage getTargetableEffect() {
         if (this.effect == null) {
             this.effect = new SpellEffectCharacterDamage(damage_) {
                 @Override

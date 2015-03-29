@@ -21,7 +21,7 @@ public class FrostShock extends SpellDamage {
     }
 
     @Override
-    protected CharacterFilter getTargetFilter() {
+    public CharacterFilter getTargetableFilter() {
         return CharacterFilterTargetedSpell.ALL_ENEMIES;
     }
 

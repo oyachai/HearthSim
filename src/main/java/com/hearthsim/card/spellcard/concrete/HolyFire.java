@@ -26,7 +26,7 @@ public class HolyFire extends SpellDamage {
     }
 
     @Override
-    protected CharacterFilter getTargetFilter() {
+    public CharacterFilter getTargetableFilter() {
         return HolyFire.filter;
     }
 

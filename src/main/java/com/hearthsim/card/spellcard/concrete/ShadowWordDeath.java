@@ -50,7 +50,7 @@ public class ShadowWordDeath extends SpellCard {
     }
 
     @Override
-    protected CharacterFilter getTargetFilter() {
+    public CharacterFilter getTargetableFilter() {
         return ShadowWordDeath.filter;
     }
 
@@ -68,7 +68,7 @@ public class ShadowWordDeath extends SpellCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    protected CardEffectCharacter getEffect() {
+    public CardEffectCharacter getTargetableEffect() {
         return CardEffectCharacter.DESTROY;
     }
 }

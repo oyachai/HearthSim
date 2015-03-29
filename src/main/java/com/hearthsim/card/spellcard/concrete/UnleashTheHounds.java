@@ -25,7 +25,7 @@ public class UnleashTheHounds extends SpellCard {
     }
 
     @Override
-    protected CharacterFilter getTargetFilter() {
+    public CharacterFilter getTargetableFilter() {
         return CharacterFilterTargetedSpell.SELF;
     }
 
@@ -41,7 +41,7 @@ public class UnleashTheHounds extends SpellCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    protected CardEffectCharacter getEffect() {
+    public CardEffectCharacter getTargetableEffect() {
         if (this.effect == null) {
             this.effect = new CardEffectCharacter() {
                 @Override

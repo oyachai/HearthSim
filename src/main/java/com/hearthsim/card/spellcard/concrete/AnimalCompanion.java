@@ -9,9 +9,7 @@ import com.hearthsim.card.spellcard.SpellRandom;
 import com.hearthsim.event.CharacterFilter;
 import com.hearthsim.event.CharacterFilterSummon;
 import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.CharacterFilterTargetedSpell;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -40,12 +38,12 @@ public class AnimalCompanion extends SpellCard implements SpellRandom {
     }
 
     @Override
-    protected CharacterFilter getTargetFilter() {
+    public CharacterFilter getTargetableFilter() {
         return CharacterFilterSummon.SELF;
     }
 
     @Override
-    protected CardEffectCharacter getEffect() {
+    public CardEffectCharacter getTargetableEffect() {
         return null;
     }
 

@@ -26,7 +26,7 @@ public class DrainLife extends SpellDamage {
     }
 
     @Override
-    protected CharacterFilter getTargetFilter() {
+    public CharacterFilter getTargetableFilter() {
         return DrainLife.filter;
     }
 

@@ -31,7 +31,7 @@ public class HeroicStrike extends SpellCard {
     }
 
     @Override
-    protected CharacterFilter getTargetFilter() {
+    public CharacterFilter getTargetableFilter() {
         return CharacterFilterTargetedSpell.SELF;
     }
 
@@ -48,7 +48,7 @@ public class HeroicStrike extends SpellCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    protected CardEffectCharacter getEffect() {
+    public CardEffectCharacter getTargetableEffect() {
         return HeroicStrike.effect;
     }
 }

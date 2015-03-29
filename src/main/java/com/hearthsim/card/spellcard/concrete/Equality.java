@@ -30,7 +30,7 @@ public class Equality extends SpellCard implements CardEffectAoeInterface {
     }
 
     @Override
-    protected CharacterFilter getTargetFilter() {
+    public CharacterFilter getTargetableFilter() {
         return CharacterFilterTargetedSpell.SELF;
     }
 
@@ -44,12 +44,12 @@ public class Equality extends SpellCard implements CardEffectAoeInterface {
      * @return The boardState is manipulated and returned
      */
     @Override
-    protected CardEffectCharacter getEffect() {
+    public CardEffectCharacter getTargetableEffect() {
         return new CardEffectCharacterBuff(0, 1);
     }
 
     @Override
-    public CardEffectCharacter getAoeEffect() { return this.getEffect(); }
+    public CardEffectCharacter getAoeEffect() { return this.getTargetableEffect(); }
 
     @Override
     public CharacterFilter getAoeFilter() {

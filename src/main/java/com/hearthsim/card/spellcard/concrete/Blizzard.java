@@ -22,12 +22,12 @@ public class Blizzard extends SpellDamage implements CardEffectAoeInterface {
     }
 
     @Override
-    protected CharacterFilter getTargetFilter() {
+    public CharacterFilter getTargetableFilter() {
         return CharacterFilterTargetedSpell.OPPONENT;
     }
 
     @Override
-    protected SpellEffectCharacterDamage getEffect() {
+    public SpellEffectCharacterDamage getTargetableEffect() {
         if (this.effect == null) {
             this.effect = new SpellEffectCharacterDamage(damage_) {
                 @Override
@@ -42,7 +42,7 @@ public class Blizzard extends SpellDamage implements CardEffectAoeInterface {
     }
 
     @Override
-    public CardEffectCharacter getAoeEffect() { return this.getEffect(); }
+    public CardEffectCharacter getAoeEffect() { return this.getTargetableEffect(); }
 
     @Override
     public CharacterFilter getAoeFilter() {

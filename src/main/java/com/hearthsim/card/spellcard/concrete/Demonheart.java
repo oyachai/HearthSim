@@ -23,12 +23,12 @@ public class Demonheart extends SpellDamage {
     }
 
     @Override
-    protected CharacterFilter getTargetFilter() {
+    public CharacterFilter getTargetableFilter() {
         return CharacterFilterTargetedSpell.ALL_MINIONS;
     }
 
     @Override
-    protected SpellEffectCharacterDamage getEffect() {
+    public SpellEffectCharacterDamage getTargetableEffect() {
         if (this.effect == null) {
             this.effect = new SpellEffectCharacterDamage(damage_) {
                 @Override

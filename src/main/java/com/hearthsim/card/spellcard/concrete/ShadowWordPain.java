@@ -53,7 +53,7 @@ public class ShadowWordPain extends SpellCard {
     }
 
     @Override
-    protected CharacterFilter getTargetFilter() {
+    public CharacterFilter getTargetableFilter() {
         return ShadowWordPain.filter;
     }
 
@@ -71,7 +71,7 @@ public class ShadowWordPain extends SpellCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    protected CardEffectCharacter getEffect() {
+    public CardEffectCharacter getTargetableEffect() {
         return CardEffectCharacter.DESTROY;
     }
 }
