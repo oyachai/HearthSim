@@ -2,7 +2,7 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellDamage;
-import com.hearthsim.card.spellcard.SpellRandom;
+import com.hearthsim.card.spellcard.SpellRandomInterface;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
@@ -11,7 +11,7 @@ import com.hearthsim.util.tree.HearthTreeNode;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class Soulfire extends SpellDamage implements SpellRandom {
+public class Soulfire extends SpellDamage implements SpellRandomInterface {
 
     public Soulfire() {
         super();

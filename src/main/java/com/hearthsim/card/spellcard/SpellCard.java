@@ -65,7 +65,7 @@ public abstract class SpellCard extends Card implements CardEffectTargetableInte
         CardEffectCharacter effect = this.getTargetableEffect();
 
         // Check to see if this card generates RNG children
-        if (this instanceof SpellRandom) {
+        if (this instanceof SpellRandomInterface) {
             int originIndex = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getHand().indexOf(this);
             int targetIndex = boardState.data_.modelForSide(side).getIndexForCharacter(targetMinion);
 
@@ -74,7 +74,7 @@ public abstract class SpellCard extends Card implements CardEffectTargetableInte
 
             // create an RNG "base" that is untouched. This allows us to recreate the RNG children during history traversal.
             toRet = new RandomEffectNode(toRet, new HearthAction(HearthAction.Verb.USE_CARD, side, 0, side, 0));
-            Collection<HearthTreeNode> children = ((SpellRandom)this).createChildren(PlayerSide.CURRENT_PLAYER, originIndex, toRet);
+            Collection<HearthTreeNode> children = ((SpellRandomInterface)this).createChildren(PlayerSide.CURRENT_PLAYER, originIndex, toRet);
 
             // for each child, apply the effect and mana cost. we want to do as much as we can with the non-random effect portion (e.g., the damage part of Soulfire)
             for (HearthTreeNode child : children) {

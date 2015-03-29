@@ -5,7 +5,7 @@ import com.hearthsim.card.minion.concrete.Huffer;
 import com.hearthsim.card.minion.concrete.Leokk;
 import com.hearthsim.card.minion.concrete.Misha;
 import com.hearthsim.card.spellcard.SpellCard;
-import com.hearthsim.card.spellcard.SpellRandom;
+import com.hearthsim.card.spellcard.SpellRandomInterface;
 import com.hearthsim.event.CharacterFilter;
 import com.hearthsim.event.CharacterFilterSummon;
 import com.hearthsim.event.effect.CardEffectCharacter;
@@ -16,7 +16,7 @@ import com.hearthsim.util.tree.HearthTreeNode;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class AnimalCompanion extends SpellCard implements SpellRandom {
+public class AnimalCompanion extends SpellCard implements SpellRandomInterface {
 
     /**
      * Constructor

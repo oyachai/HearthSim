@@ -6,6 +6,6 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 import java.util.Collection;
 
-public interface SpellRandom {
+public interface SpellRandomInterface {
     public Collection<HearthTreeNode> createChildren(PlayerSide originSide, int originIndex, HearthTreeNode boardState) throws HSException;
 }
