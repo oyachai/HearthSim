@@ -4,6 +4,8 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.Minion.MinionTribe;
 import com.hearthsim.card.spellcard.SpellCard;
+import com.hearthsim.event.CharacterFilter;
+import com.hearthsim.event.CharacterFilterTargetedSpell;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
@@ -11,6 +13,20 @@ import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class SacrificialPact extends SpellCard {
+
+    private final static CharacterFilter filter = new CharacterFilterTargetedSpell() {
+        @Override
+        protected boolean includeEnemyHero() { return true; }
+
+        @Override
+        protected boolean includeEnemyMinions() { return true; }
+
+        @Override
+        protected boolean includeOwnMinions() { return true; }
+
+        @Override
+        protected MinionTribe tribeFilter() { return MinionTribe.DEMON; }
+    };
 
     /**
      * Constructor
@@ -21,6 +37,7 @@ public class SacrificialPact extends SpellCard {
     public SacrificialPact(boolean hasBeenUsed) {
         this();
         this.hasBeenUsed = hasBeenUsed;
+        this.characterFilter = SacrificialPact.filter;
     }
 
     /**
@@ -30,19 +47,8 @@ public class SacrificialPact extends SpellCard {
      */
     public SacrificialPact() {
         super();
-    }
 
-    @Override
-    public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
-        if (!super.canBeUsedOn(playerSide, minion, boardModel)) {
-            return false;
-        }
-
-        if (!(minion.getTribe() == MinionTribe.DEMON)) {
-            return false;
-        }
-
-        return true;
+        this.characterFilter = SacrificialPact.filter;
     }
 
     /**

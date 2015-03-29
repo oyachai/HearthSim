@@ -4,6 +4,7 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
+import com.hearthsim.event.CharacterFilter;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.CharacterFilterTargetedSpell;
 import com.hearthsim.exception.HSException;
@@ -13,6 +14,23 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class DeadlyPoison extends SpellCard {
 
+    private final static CharacterFilter filter = new CharacterFilterTargetedSpell() {
+        @Override
+        protected boolean includeOwnHero() { return true; }
+
+        @Override
+        public boolean targetMatches(PlayerSide originSide, Card origin, PlayerSide targetSide, Minion targetCharacter, BoardModel board) {
+            if (!super.targetMatches(originSide, origin, targetSide, targetCharacter, board)) {
+                return false;
+            }
+
+            if (((Hero)targetCharacter).getWeapon() == null) {
+                return false;
+            }
+
+            return true;
+        }
+    };
 
     /**
      * Constructor
@@ -33,20 +51,7 @@ public class DeadlyPoison extends SpellCard {
     public DeadlyPoison() {
         super();
 
-        this.characterFilter = CharacterFilterTargetedSpell.SELF;
-    }
-
-    @Override
-    public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
-        if (!super.canBeUsedOn(playerSide, minion, boardModel)) {
-            return false;
-        }
-
-        if (((Hero)minion).getWeapon() == null) {
-            return false;
-        }
-
-        return true;
+        this.characterFilter = DeadlyPoison.filter;
     }
 
     /**

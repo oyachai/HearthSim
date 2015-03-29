@@ -1,13 +1,32 @@
 package com.hearthsim.card.spellcard.concrete;
 
+import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
+import com.hearthsim.event.CharacterFilter;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.CharacterFilterTargetedSpell;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 
 public class Execute extends SpellCard {
+
+    private final static CharacterFilter filter = new CharacterFilterTargetedSpell() {
+        protected boolean includeEnemyMinions() { return true; }
+
+        @Override
+        public boolean targetMatches(PlayerSide originSide, Card origin, PlayerSide targetSide, Minion targetCharacter, BoardModel board) {
+            if (!super.targetMatches(originSide, origin, targetSide, targetCharacter, board)) {
+                return false;
+            }
+
+            if (targetCharacter.getHealth() == targetCharacter.getMaxHealth()) {
+                return false;
+            }
+
+            return true;
+        }
+    };
 
     /**
      * Constructor
@@ -28,20 +47,7 @@ public class Execute extends SpellCard {
     public Execute() {
         super();
 
-        this.characterFilter = CharacterFilterTargetedSpell.ENEMY_MINIONS;
-    }
-
-    @Override
-    public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
-        if (!super.canBeUsedOn(playerSide, minion, boardModel)) {
-            return false;
-        }
-
-        if (minion.getHealth() == minion.getMaxHealth()) {
-            return false;
-        }
-
-        return true;
+        this.characterFilter = Execute.filter;
     }
 
     /**

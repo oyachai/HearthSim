@@ -15,6 +15,7 @@ public class SpellDamageAoe extends SpellDamage implements CardEffectAoeInterfac
     public SpellDamageAoe() {
         super();
         this.hitsFilter = CharacterFilter.ENEMY_MINIONS;
+        this.characterFilter = CharacterFilter.OPPONENT;
     }
 
     /**
@@ -25,23 +26,6 @@ public class SpellDamageAoe extends SpellDamage implements CardEffectAoeInterfac
     @Deprecated
     public SpellDamageAoe(byte mana, byte damage, boolean hasBeenUsed) {
         super(mana, damage, hasBeenUsed);
-    }
-
-    @Override
-    public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
-        if (!super.canBeUsedOn(playerSide, minion, boardModel)) {
-            return false;
-        }
-
-        if (isCurrentPlayer(playerSide)) {
-            return false;
-        }
-
-        if (isNotHero(minion)) {
-            return false;
-        }
-
-        return true;
     }
 
     @Override

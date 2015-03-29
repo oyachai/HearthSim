@@ -40,7 +40,7 @@ public abstract class SpellCard extends Card {
     }
 
     @Override
-    public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
+    public final boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
         return this.characterFilter.targetMatches(PlayerSide.CURRENT_PLAYER, this, playerSide, minion, boardModel);
     }
 

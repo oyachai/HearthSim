@@ -3,6 +3,7 @@ package com.hearthsim.card.spellcard.concrete;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
+import com.hearthsim.event.CharacterFilter;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.CharacterFilterTargetedSpell;
 import com.hearthsim.exception.HSException;
@@ -11,6 +12,24 @@ import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class HandOfProtection extends SpellCard {
+
+    private final static CharacterFilter filter = new CharacterFilterTargetedSpell() {
+        protected boolean includeEnemyMinions() { return true; }
+        protected boolean includeOwnMinions() { return true; }
+
+        @Override
+        public boolean targetMatches(PlayerSide originSide, Card origin, PlayerSide targetSide, Minion targetCharacter, BoardModel board) {
+            if (!super.targetMatches(originSide, origin, targetSide, targetCharacter, board)) {
+                return false;
+            }
+
+            if (targetCharacter.getDivineShield()) {
+                return false;
+            }
+
+            return true;
+        }
+    };
 
     /**
      * Constructor
@@ -31,20 +50,7 @@ public class HandOfProtection extends SpellCard {
     public HandOfProtection() {
         super();
 
-        this.characterFilter = CharacterFilterTargetedSpell.ALL_MINIONS;
-    }
-
-    @Override
-    public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
-        if (!super.canBeUsedOn(playerSide, minion, boardModel)) {
-            return false;
-        }
-
-        if (minion.getDivineShield()) {
-            return false;
-        }
-
-        return true;
+        this.characterFilter = HandOfProtection.filter;
     }
 
     /**

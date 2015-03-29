@@ -3,6 +3,8 @@ package com.hearthsim.card.spellcard.concrete;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
+import com.hearthsim.event.CharacterFilter;
+import com.hearthsim.event.CharacterFilterTargetedBattlecry;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.CharacterFilterTargetedSpell;
 import com.hearthsim.exception.HSException;
@@ -13,6 +15,24 @@ import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class DivineFavor extends SpellCard {
+
+    private final static CharacterFilter filter = new CharacterFilterTargetedSpell() {
+        protected boolean includeOwnHero() { return true; }
+
+        @Override
+        public boolean targetMatches(PlayerSide originSide, Card origin, PlayerSide targetSide, Minion targetCharacter, BoardModel board) {
+            if (!super.targetMatches(originSide, origin, targetSide, targetCharacter, board)) {
+                return false;
+            }
+
+            int numCardsToDraw = board.modelForSide(targetSide).getHand().size() - board.modelForSide(originSide).getHand().size() + 1;
+            if (numCardsToDraw < 1) {
+                return false;
+            }
+            return true;
+        }
+    };
+
     /**
      * Constructor
      *
@@ -32,21 +52,7 @@ public class DivineFavor extends SpellCard {
     public DivineFavor() {
         super();
 
-        this.characterFilter = CharacterFilterTargetedSpell.SELF;
-    }
-
-    @Override
-    public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
-        if (!super.canBeUsedOn(playerSide, minion, boardModel)) {
-            return false;
-        }
-
-        int numCardsToDraw = boardModel.modelForSide(PlayerSide.WAITING_PLAYER).getHand().size() - boardModel.modelForSide(PlayerSide.CURRENT_PLAYER).getHand().size() + 1;
-        if (numCardsToDraw < 1) {
-            return false;
-        }
-
-        return true;
+        this.characterFilter = DivineFavor.filter;
     }
 
     /**
