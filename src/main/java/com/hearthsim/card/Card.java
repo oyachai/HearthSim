@@ -2,8 +2,10 @@ package com.hearthsim.card;
 
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.spellcard.SpellRandomInterface;
 import com.hearthsim.event.CharacterFilter;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
+import com.hearthsim.event.effect.CardEffectAoeInterface;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.effect.CardEffectTargetableInterface;
 import com.hearthsim.exception.HSException;
@@ -16,11 +18,13 @@ import com.hearthsim.util.HearthAction.Verb;
 import com.hearthsim.util.factory.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
 
+import com.hearthsim.util.tree.RandomEffectNode;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 public class Card implements DeepCopyable<Card> {
     protected final Logger log = LoggerFactory.getLogger(getClass());
@@ -306,11 +310,50 @@ public class Card implements DeepCopyable<Card> {
         HearthTreeNode boardState,
         boolean singleRealizationOnly)
         throws HSException {
-        //A generic card does nothing except for consuming mana
-        PlayerModel currentPlayer = boardState.data_.getCurrentPlayer();
-        currentPlayer.subtractMana(this.getManaCost(PlayerSide.CURRENT_PLAYER, boardState.data_));
-        currentPlayer.getHand().remove(this);
-        return boardState;
+        HearthTreeNode toRet = boardState;
+
+        CardEffectCharacter effect = null;
+        if (this instanceof CardEffectTargetableInterface) {
+            effect = ((CardEffectTargetableInterface)this).getTargetableEffect();
+        }
+
+        // Check to see if this card generates RNG children
+        if (this instanceof SpellRandomInterface) {
+            int originIndex = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getHand().indexOf(this);
+            int targetIndex = boardState.data_.modelForSide(side).getIndexForCharacter(targetMinion);
+
+            // TODO this is to workaround using super.use_core since we no longer have an accurate reference to the origin card (specifically, Soulfire messes things up)
+            byte manaCost = this.getManaCost(PlayerSide.CURRENT_PLAYER, boardState.data_);
+
+            // create an RNG "base" that is untouched. This allows us to recreate the RNG children during history traversal.
+            toRet = new RandomEffectNode(toRet, new HearthAction(HearthAction.Verb.USE_CARD, side, 0, side, 0));
+            Collection<HearthTreeNode> children = ((SpellRandomInterface)this).createChildren(PlayerSide.CURRENT_PLAYER, originIndex, toRet);
+
+            // for each child, apply the effect and mana cost. we want to do as much as we can with the non-random effect portion (e.g., the damage part of Soulfire)
+            for (HearthTreeNode child : children) {
+                if (effect != null) {
+                    child = effect.applyEffect(PlayerSide.CURRENT_PLAYER, null, side, targetIndex, child);
+                }
+                child.data_.modelForSide(PlayerSide.CURRENT_PLAYER).subtractMana(manaCost);
+                toRet.addChild(child);
+            }
+        } else {
+            // if we have an effect, we need to apply it
+            if (this instanceof CardEffectAoeInterface) {
+                toRet = this.effectAllUsingFilter(((CardEffectAoeInterface) this).getAoeEffect(), ((CardEffectAoeInterface) this).getAoeFilter(), toRet);
+            } else if (effect != null) {
+                toRet = effect.applyEffect(PlayerSide.CURRENT_PLAYER, this, side, targetMinion, toRet);
+            }
+
+            // apply standard card played effects
+            if (toRet != null) {
+                PlayerModel currentPlayer = toRet.data_.getCurrentPlayer();
+                currentPlayer.subtractMana(this.getManaCost(PlayerSide.CURRENT_PLAYER, toRet.data_));
+                currentPlayer.getHand().remove(this);
+            }
+        }
+
+        return toRet;
     }
 
     // ======================================================================================
