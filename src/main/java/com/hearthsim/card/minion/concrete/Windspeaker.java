@@ -22,9 +22,8 @@ public class Windspeaker extends Minion implements MinionTargetableBattlecry {
         @Override
         public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
             Minion targetMinion = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
-            HearthTreeNode toRet = boardState;
             targetMinion.setWindfury(true);
-            return toRet;
+            return boardState;
         }
     };
 

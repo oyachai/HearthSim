@@ -14,6 +14,15 @@ public class Kidnapper extends Minion implements MinionTargetableBattlecry {
     private final static CharacterFilterTargetedBattlecry filter = new CharacterFilterTargetedBattlecry() {
         protected boolean includeEnemyMinions() { return true; }
         protected boolean includeOwnMinions() { return true; }
+
+        @Override
+        public boolean targetMatches(PlayerSide originSide, Card origin, PlayerSide targetSide, Minion targetCharacter, BoardModel board) {
+            if (!super.targetMatches(originSide, origin, targetSide, targetCharacter, board)) {
+                return false;
+            }
+
+            return board.modelForSide(originSide).isComboEnabled();
+        }
     };
 
     private final static CardEffectCharacter effect = CardEffectCharacter.BOUNCE;
@@ -29,18 +38,11 @@ public class Kidnapper extends Minion implements MinionTargetableBattlecry {
 
     @Override
     public boolean canTargetWithBattlecry(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, BoardModel board) {
-        if (!board.modelForSide(originSide).isComboEnabled()) {
-            return false;
-        }
         return Kidnapper.filter.targetMatches(originSide, origin, targetSide, targetCharacterIndex, board);
     }
 
     @Override
     public HearthTreeNode useTargetableBattlecry_core(PlayerSide originSide, Minion origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
-        HearthTreeNode toRet = boardState;
-        if (toRet.data_.modelForSide(originSide).isComboEnabled()) {
-            toRet = Kidnapper.effect.applyEffect(originSide, origin, targetSide, targetCharacterIndex, boardState);
-        }
-        return toRet;
+        return Kidnapper.effect.applyEffect(originSide, origin, targetSide, targetCharacterIndex, boardState);
     }
 }
