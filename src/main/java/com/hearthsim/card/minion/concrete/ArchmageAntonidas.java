@@ -35,14 +35,13 @@ public class ArchmageAntonidas extends Minion implements CardPlayBeginInterface 
             HearthTreeNode boardState,
             boolean singleRealizationOnly)
         throws HSException {
-        HearthTreeNode toRet = boardState;
         if (thisCardPlayerSide != PlayerSide.CURRENT_PLAYER)
-            return toRet;
+            return boardState;
         if (isInHand_)
-            return toRet;
-        if (usedCard instanceof SpellCard && toRet.data_.getCurrentPlayer().getHand().size() < 10) {
-            toRet.data_.getCurrentPlayer().placeCardHand(new Fireball());
+            return boardState;
+        if (usedCard instanceof SpellCard && boardState.data_.getCurrentPlayer().getHand().size() < 10) {
+            boardState.data_.getCurrentPlayer().placeCardHand(new Fireball());
         }
-        return toRet;
+        return boardState;
     }
 }

@@ -19,7 +19,6 @@ public class TestGurubashiBerserker {
 
     private HearthTreeNode board;
     private PlayerModel currentPlayer;
-    private PlayerModel waitingPlayer;
 
     private static final byte mana = 2;
     private static final byte attack0 = 5;
@@ -29,7 +28,7 @@ public class TestGurubashiBerserker {
     public void setup() throws HSException {
         board = new HearthTreeNode(new BoardModel());
         currentPlayer = board.data_.getCurrentPlayer();
-        waitingPlayer = board.data_.getWaitingPlayer();
+        PlayerModel waitingPlayer = board.data_.getWaitingPlayer();
 
         Minion minion1_0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion1_0);

@@ -14,8 +14,7 @@ public class MasterSwordsmith extends Minion {
 
     @Override
     public HearthTreeNode endTurn(PlayerSide thisMinionPlayerIndex, HearthTreeNode boardModel) throws HSException {
-        HearthTreeNode toRet = boardModel;
-        PlayerModel currentPlayer = toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        PlayerModel currentPlayer = boardModel.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         int numMinions = currentPlayer.getNumMinions();
         if (thisMinionPlayerIndex == PlayerSide.CURRENT_PLAYER && numMinions > 1) {
             Minion buffTargetMinion = currentPlayer.getMinions().get((int)(Math.random() * numMinions));
@@ -24,6 +23,6 @@ public class MasterSwordsmith extends Minion {
             }
             buffTargetMinion.addAttack((byte)1);
         }
-        return super.endTurn(thisMinionPlayerIndex, toRet);
+        return super.endTurn(thisMinionPlayerIndex, boardModel);
     }
 }

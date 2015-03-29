@@ -18,7 +18,6 @@ public class TestFrostwolfWarlord {
 
     private HearthTreeNode board;
     private PlayerModel currentPlayer;
-    private PlayerModel waitingPlayer;
 
     private FrostwolfWarlord warlord;
 
@@ -26,7 +25,7 @@ public class TestFrostwolfWarlord {
     public void setup() throws HSException {
         board = new HearthTreeNode(new BoardModel());
         currentPlayer = board.data_.getCurrentPlayer();
-        waitingPlayer = board.data_.getWaitingPlayer();
+        PlayerModel waitingPlayer = board.data_.getWaitingPlayer();
 
         warlord = new FrostwolfWarlord();
         currentPlayer.placeCardHand(warlord);

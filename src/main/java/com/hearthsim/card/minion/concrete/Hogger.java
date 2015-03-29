@@ -14,13 +14,12 @@ public class Hogger extends Minion {
 
     @Override
     public HearthTreeNode endTurn(PlayerSide thisMinionPlayerIndex, HearthTreeNode boardModel) throws HSException {
-        HearthTreeNode toRet = boardModel;
-        PlayerModel currentPlayer = toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        PlayerModel currentPlayer = boardModel.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
 
         if (thisMinionPlayerIndex == PlayerSide.CURRENT_PLAYER && !currentPlayer.isBoardFull()) {
             Minion minion = new Gnoll();
-            minion.summonMinionAtEnd(PlayerSide.CURRENT_PLAYER, toRet, false, false);
+            minion.summonMinionAtEnd(PlayerSide.CURRENT_PLAYER, boardModel, false, false);
         }
-        return super.endTurn(thisMinionPlayerIndex, toRet);
+        return super.endTurn(thisMinionPlayerIndex, boardModel);
     }
 }

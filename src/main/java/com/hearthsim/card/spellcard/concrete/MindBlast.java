@@ -49,7 +49,6 @@ public class MindBlast extends SpellDamage {
             Minion targetMinion,
             HearthTreeNode boardState, boolean singleRealizationOnly)
         throws HSException {
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
-        return toRet;
+        return super.use_core(side, targetMinion, boardState, singleRealizationOnly);
     }
 }

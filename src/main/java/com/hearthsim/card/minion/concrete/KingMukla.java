@@ -22,14 +22,13 @@ public class KingMukla extends Minion implements MinionUntargetableBattlecry {
             HearthTreeNode boardState,
             boolean singleRealizationOnly
         ) {
-        HearthTreeNode toRet = boardState;
-        PlayerModel waitingPlayer = toRet.data_.modelForSide(PlayerSide.WAITING_PLAYER);
+        PlayerModel waitingPlayer = boardState.data_.modelForSide(PlayerSide.WAITING_PLAYER);
         for (int index = 0; index < 2; ++index) {
             int numCards = waitingPlayer.getHand().size();
             if (numCards < 10) {
                 waitingPlayer.placeCardHand(new Bananas());
             }
         }
-        return toRet;
+        return boardState;
     }
 }

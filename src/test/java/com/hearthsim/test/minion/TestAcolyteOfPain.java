@@ -31,8 +31,6 @@ public class TestAcolyteOfPain {
     private PlayerModel currentPlayer;
     private PlayerModel waitingPlayer;
 
-    private Deck deck;
-
     private AcolyteOfPain acolyteOnBoard;
 
     @Before
@@ -42,7 +40,7 @@ public class TestAcolyteOfPain {
             cards[index] = new BloodfenRaptor();
         }
 
-        deck = new Deck(cards);
+        Deck deck = new Deck(cards);
         PlayerModel playerModel0 = new PlayerModel((byte)0, "player0", new TestHero(), deck);
         PlayerModel playerModel1 = new PlayerModel((byte)1, "player1", new TestHero(), deck);
 

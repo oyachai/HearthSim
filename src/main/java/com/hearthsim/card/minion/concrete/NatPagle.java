@@ -13,11 +13,10 @@ public class NatPagle extends Minion {
 
     @Override
     public HearthTreeNode startTurn(PlayerSide thisMinionPlayerIndex, HearthTreeNode boardModel) throws HSException {
-        HearthTreeNode toRet = boardModel;
         if (thisMinionPlayerIndex == PlayerSide.CURRENT_PLAYER && Math.random() > 0.5) {
-            toRet.data_.drawCardFromCurrentPlayerDeck(1);
+            boardModel.data_.drawCardFromCurrentPlayerDeck(1);
         }
-        return super.startTurn(thisMinionPlayerIndex, toRet);
+        return super.startTurn(thisMinionPlayerIndex, boardModel);
     }
 
 }

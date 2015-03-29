@@ -25,7 +25,6 @@ public class TestMinionPlacement {
 
     private BloodfenRaptor raptor;
     private ChillwindYeti yeti;
-    private RiverCrocolisk croc;
 
     @Before
     public void setUp() throws Exception {
@@ -35,7 +34,7 @@ public class TestMinionPlacement {
 
         raptor = new BloodfenRaptor();
         yeti = new ChillwindYeti();
-        croc = new RiverCrocolisk();
+        RiverCrocolisk croc = new RiverCrocolisk();
 
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, raptor);
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, yeti);

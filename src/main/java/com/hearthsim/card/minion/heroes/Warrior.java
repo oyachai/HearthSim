@@ -32,12 +32,11 @@ public class Warrior extends Hero {
             HearthTreeNode boardState,
             boolean singleRealizationOnly)
         throws HSException {
-        HearthTreeNode toRet = boardState;
         if (targetMinion.isHero() && targetPlayerSide == PlayerSide.CURRENT_PLAYER) {
             this.hasBeenUsed = true;
-            toRet.data_.getCurrentPlayer().subtractMana(HERO_ABILITY_COST);
+            boardState.data_.getCurrentPlayer().subtractMana(HERO_ABILITY_COST);
             ((Hero)targetMinion).setArmor((byte)(((Hero)targetMinion).getArmor() + 2));
-            return toRet;
+            return boardState;
         } else {
             return null;
         }

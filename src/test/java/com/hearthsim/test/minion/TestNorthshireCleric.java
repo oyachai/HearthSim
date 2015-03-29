@@ -23,7 +23,6 @@ public class TestNorthshireCleric {
     private PlayerModel currentPlayer;
     private PlayerModel waitingPlayer;
 
-    private Deck deck;
     private static final byte mana = 2;
     private static final byte attack0 = 2;
     private static final byte health0 = 3;
@@ -36,7 +35,7 @@ public class TestNorthshireCleric {
             cards[index] = new TheCoin();
         }
 
-        deck = new Deck(cards);
+        Deck deck = new Deck(cards);
         board = new HearthTreeNode(new BoardModel(deck, deck));
         currentPlayer = board.data_.getCurrentPlayer();
         waitingPlayer = board.data_.getWaitingPlayer();

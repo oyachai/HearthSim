@@ -17,13 +17,12 @@ import com.hearthsim.util.tree.HearthTreeNode;
 public class TestArathiWeaponsmith {
     private HearthTreeNode board;
     private PlayerModel currentPlayer;
-    private PlayerModel waitingPlayer;
 
     @Before
     public void setup() {
         board = new HearthTreeNode(new BoardModel());
         currentPlayer = board.data_.getCurrentPlayer();
-        waitingPlayer = board.data_.getWaitingPlayer();
+        PlayerModel waitingPlayer = board.data_.getWaitingPlayer();
 
         currentPlayer.setMana((byte) 10);
         waitingPlayer.setMana((byte) 10);

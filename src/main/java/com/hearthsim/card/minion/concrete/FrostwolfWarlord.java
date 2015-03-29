@@ -20,12 +20,11 @@ public class FrostwolfWarlord extends Minion implements MinionUntargetableBattle
             HearthTreeNode boardState,
             boolean singleRealizationOnly
         ) {
-        HearthTreeNode toRet = boardState;
         int numBuffs = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getNumMinions() - 1; //Don't count the Warlord itself
         this.setAttack((byte)(this.getAttack() + numBuffs));
         this.setHealth((byte)(this.getHealth() + numBuffs));
         this.setMaxHealth((byte)(this.getMaxHealth() + numBuffs));
-        return toRet;
+        return boardState;
     }
 
 }

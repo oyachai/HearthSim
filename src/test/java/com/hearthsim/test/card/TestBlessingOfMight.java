@@ -20,7 +20,6 @@ public class TestBlessingOfMight {
 
     private HearthTreeNode board;
     private PlayerModel currentPlayer;
-    private PlayerModel waitingPlayer;
 
     private static final byte mana = 2;
     private static final byte attack0 = 2;
@@ -31,7 +30,7 @@ public class TestBlessingOfMight {
     public void setup() throws HSException {
         board = new HearthTreeNode(new BoardModel());
         currentPlayer = board.data_.getCurrentPlayer();
-        waitingPlayer = board.data_.getWaitingPlayer();
+        PlayerModel waitingPlayer = board.data_.getWaitingPlayer();
 
         Minion minion0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
         Minion minion1 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);

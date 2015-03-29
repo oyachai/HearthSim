@@ -21,8 +21,7 @@ public class DefenderOfArgus extends Minion implements MinionUntargetableBattlec
             HearthTreeNode boardState,
             boolean singleRealizationOnly
         ) {
-        HearthTreeNode toRet = boardState;
-        PlayerModel currentPlayer = toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        PlayerModel currentPlayer = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
 
         int thisMinionIndex = currentPlayer.getMinions().indexOf(this);
         for (Minion minion : currentPlayer.getMinionsAdjacentToCharacter(thisMinionIndex + 1)) {
@@ -30,7 +29,7 @@ public class DefenderOfArgus extends Minion implements MinionUntargetableBattlec
             minion.setHealth((byte)(minion.getHealth() + 1));
             minion.setTaunt(true);
         }
-        return toRet;
+        return boardState;
     }
 
 }

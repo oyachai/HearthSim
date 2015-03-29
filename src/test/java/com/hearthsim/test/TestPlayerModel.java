@@ -27,9 +27,6 @@ public class TestPlayerModel {
     private Deck deck0;
     private Deck deck1;
 
-    private Deck deckRandom0;
-    private Deck deckRandom1;
-
     @Before
     public void setup() {
 
@@ -66,8 +63,8 @@ public class TestPlayerModel {
                 cards1[i] = CARD_LIST.get(indx1);
             }
 
-            deckRandom0 = new Deck(cards0);
-            deckRandom1 = new Deck(cards1);
+            Deck deckRandom0 = new Deck(cards0);
+            Deck deckRandom1 = new Deck(cards1);
 
             PlayerModel player0 = new PlayerModel((byte)0, "player0", new Priest(), deckRandom0);
             PlayerModel player1 = new PlayerModel((byte)0, "player0", new Priest(), deckRandom1);

@@ -18,14 +18,12 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class TestWindspeaker {
     private HearthTreeNode board;
-    private PlayerModel currentPlayer;
-    private PlayerModel waitingPlayer;
 
     @Before
     public void setup() throws HSException {
         board = new HearthTreeNode(new BoardModel());
-        currentPlayer = board.data_.getCurrentPlayer();
-        waitingPlayer = board.data_.getWaitingPlayer();
+        PlayerModel currentPlayer = board.data_.getCurrentPlayer();
+        PlayerModel waitingPlayer = board.data_.getWaitingPlayer();
     }
 
     @Test

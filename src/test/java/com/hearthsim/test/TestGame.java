@@ -34,11 +34,8 @@ public class TestGame {
         Card[] cards2_ = new Card[numCardsInDeck_];
 
         for (int i = 0; i < numCardsInDeck_; ++i) {
-            byte attack = minionAttack;
-            byte health = minionHealth;
-            byte mana = minionMana;
-            cards1_[i] = new Minion("" + i, mana, attack, health, attack, health, health);
-            cards2_[i] = new Minion("" + i, mana, attack, health, attack, health, health);
+            cards1_[i] = new Minion("" + i, minionMana, minionAttack, minionHealth, minionAttack, minionHealth, minionHealth);
+            cards2_[i] = new Minion("" + i, minionMana, minionAttack, minionHealth, minionAttack, minionHealth, minionHealth);
         }
 
         int nt = 0;
@@ -97,10 +94,7 @@ public class TestGame {
         Card[] cards2_ = new Card[numCardsInDeck_];
 
         for (int i = 0; i < numCardsInDeck_; ++i) {
-            byte attack = minionAttack;
-            byte health = minionHealth;
-            byte mana = minionMana;
-            cards1_[i] = new Minion("" + i, mana, attack, health, attack, health, health);
+            cards1_[i] = new Minion("" + i, minionMana, minionAttack, minionHealth, minionAttack, minionHealth, minionHealth);
             cards2_[i] = new Minion("" + i, (byte)9, (byte)1, (byte)1, (byte)1, (byte)1, (byte)1);
         }
 

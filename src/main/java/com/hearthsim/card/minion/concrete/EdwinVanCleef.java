@@ -24,14 +24,12 @@ public class EdwinVanCleef extends Minion implements MinionUntargetableBattlecry
         HearthTreeNode boardState,
         boolean singleRealizationOnly
     ) {
-        HearthTreeNode toRet = boardState;
 
-        byte healthBuff = (byte) ((toRet.data_.getCurrentPlayer().getNumCardsUsed() - 1) * 2);
-        byte attackBuff = healthBuff;
-        this.addAttack(attackBuff);
-        this.addHealth(healthBuff);
-        this.addMaxHealth(healthBuff);
-        return toRet;
+        byte buff = (byte) ((boardState.data_.getCurrentPlayer().getNumCardsUsed() - 1) * 2);
+        this.addAttack(buff);
+        this.addHealth(buff);
+        this.addMaxHealth(buff);
+        return boardState;
     }
 
 }

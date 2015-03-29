@@ -21,13 +21,12 @@ public class TestPaladin {
 
     private HearthTreeNode board;
     private PlayerModel currentPlayer;
-    private PlayerModel waitingPlayer;
 
     @Before
     public void setup() throws HSException {
         board = new HearthTreeNode(new BoardModel(new Paladin(), new TestHero()));
         currentPlayer = board.data_.getCurrentPlayer();
-        waitingPlayer = board.data_.getWaitingPlayer();
+        PlayerModel waitingPlayer = board.data_.getWaitingPlayer();
 
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new RaidLeader());
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new BoulderfistOgre());
