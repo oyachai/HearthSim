@@ -2,16 +2,20 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.spellcard.SpellAoeInterface;
 import com.hearthsim.card.spellcard.SpellCard;
+import com.hearthsim.event.MinionFilter;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.MinionFilterTargetedSpell;
+import com.hearthsim.event.effect.CardEffectCharacterBuffTemp;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class SavageRoar extends SpellCard {
+public class SavageRoar extends SpellCard implements SpellAoeInterface {
 
+    private final static CardEffectCharacter effect = new CardEffectCharacterBuffTemp(2);
 
     /**
      * Constructor
@@ -31,7 +35,6 @@ public class SavageRoar extends SpellCard {
      */
     public SavageRoar() {
         super();
-
         this.minionFilter = MinionFilterTargetedSpell.SELF;
     }
 
@@ -50,18 +53,11 @@ public class SavageRoar extends SpellCard {
      */
     @Override
     protected CardEffectCharacter getEffect() {
-        if (this.effect == null) {
-            this.effect = new CardEffectCharacter() {
-                @Override
-                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
-                    PlayerModel currentPlayer = boardState.data_.modelForSide(originSide);
-                    currentPlayer.getHero().setExtraAttackUntilTurnEnd((byte)2);
-                    for (Minion minion : currentPlayer.getMinions())
-                        minion.setExtraAttackUntilTurnEnd((byte)2);
-                    return boardState;
-                }
-            };
-        }
-        return this.effect;
+        return SavageRoar.effect;
+    }
+
+    @Override
+    public MinionFilter getHitsFilter() {
+        return MinionFilter.ALL_FRIENDLIES;
     }
 }

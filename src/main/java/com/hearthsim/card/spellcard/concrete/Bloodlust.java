@@ -2,15 +2,21 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.spellcard.SpellAoeInterface;
 import com.hearthsim.card.spellcard.SpellCard;
+import com.hearthsim.event.MinionFilter;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.MinionFilterTargetedSpell;
+import com.hearthsim.event.effect.CardEffectCharacterBuff;
+import com.hearthsim.event.effect.CardEffectCharacterBuffTemp;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class Bloodlust extends SpellCard {
+public class Bloodlust extends SpellCard implements SpellAoeInterface {
+
+    private final static CardEffectCharacter effect = new CardEffectCharacterBuffTemp(3);
 
     public Bloodlust() {
         super();
@@ -39,19 +45,11 @@ public class Bloodlust extends SpellCard {
      */
     @Override
     protected CardEffectCharacter getEffect() {
-        if (this.effect == null) {
-            this.effect = new CardEffectCharacter() {
-                @Override
-                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) throws HSException {
-                    PlayerModel currentPlayer = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        return Bloodlust.effect;
+    }
 
-                    for (Minion minion : currentPlayer.getMinions()) {
-                        minion.setExtraAttackUntilTurnEnd((byte)3);
-                    }
-                    return boardState;
-                }
-            };
-        }
-        return this.effect;
+    @Override
+    public MinionFilter getHitsFilter() {
+        return MinionFilter.FRIENDLY_MINIONS;
     }
 }
