@@ -24,10 +24,10 @@ public class SparseChildNodeCreator extends ChildNodeCreatorBase {
     public ArrayList<HearthTreeNode> createPlayCardChildren(HearthTreeNode boardStateNode) throws HSException {
         ArrayList<HearthTreeNode> nodes = new ArrayList<>();
 
-        Minion targetMinion = null;
-        Card card = null;
-        Card copiedCard = null;
-        HearthTreeNode newState = null;
+        Minion targetMinion;
+        Card card;
+        Card copiedCard;
+        HearthTreeNode newState;
 
         PlayerModel currentPlayer = boardStateNode.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         PlayerModel waitingPlayer = boardStateNode.data_.modelForSide(PlayerSide.WAITING_PLAYER);

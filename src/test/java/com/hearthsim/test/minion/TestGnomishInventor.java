@@ -58,8 +58,6 @@ public class TestGnomishInventor {
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion1_0);
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion1_1);
 
-        deck = new Deck(cards);
-
         Minion fb = new GnomishInventor();
         currentPlayer.placeCardHand(fb);
 

@@ -161,7 +161,8 @@ public class TestNorthshireCleric {
         currentPlayer.placeCardHand(fb2);
 
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 2, board);
+        HearthTreeNode ret;
+        theCard.useOn(PlayerSide.CURRENT_PLAYER, 2, board);
 
         theCard = currentPlayer.getHand().get(0);
         ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 3, board);

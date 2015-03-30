@@ -125,7 +125,6 @@ public class TestYoungPriestess {
 
         BoardModel resBoard1 = Game.endTurn(resBoard0);
         currentPlayer = resBoard1.modelForSide(PlayerSide.CURRENT_PLAYER);
-        waitingPlayer = resBoard1.modelForSide(PlayerSide.WAITING_PLAYER);
 
         log.info("Raid Leader Health = " + currentPlayer.getMinions().get(1).getHealth());
         log.info("Boulderfist Ogre Health = " + currentPlayer.getMinions().get(2).getHealth());

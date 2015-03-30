@@ -49,8 +49,6 @@ public class TestColdlightOracle {
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, new RaidLeader());
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, new BoulderfistOgre());
 
-        deck = new Deck(cards);
-
         Card fb = new ColdlightOracle();
         currentPlayer.placeCardHand(fb);
 

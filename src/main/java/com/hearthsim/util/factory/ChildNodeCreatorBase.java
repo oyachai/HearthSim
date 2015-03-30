@@ -35,8 +35,8 @@ public class ChildNodeCreatorBase implements ChildNodeCreator {
 
         PlayerModel currentPlayer = boardStateNode.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
 
-        HearthTreeNode newState = null;
-        Minion tempMinion = null;
+        HearthTreeNode newState;
+        Minion tempMinion;
 
         // attack with characters
         for (int attackerIndex = 0; attackerIndex < currentPlayer
@@ -77,10 +77,10 @@ public class ChildNodeCreatorBase implements ChildNodeCreator {
     public ArrayList<HearthTreeNode> createPlayCardChildren(HearthTreeNode boardStateNode) throws HSException {
         ArrayList<HearthTreeNode> nodes = new ArrayList<>();
 
-        Minion targetMinion = null;
-        Card card = null;
-        Card copiedCard = null;
-        HearthTreeNode newState = null;
+        Minion targetMinion;
+        Card card;
+        Card copiedCard;
+        HearthTreeNode newState;
 
         PlayerModel currentPlayer = boardStateNode.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         PlayerModel waitingPlayer = boardStateNode.data_.modelForSide(PlayerSide.WAITING_PLAYER);
@@ -144,8 +144,7 @@ public class ChildNodeCreatorBase implements ChildNodeCreator {
         PlayerModel currentPlayer = boardStateNode.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         PlayerModel waitingPlayer = boardStateNode.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
-        HearthTreeNode newState = null;
-        Minion copiedTargetMinion = null;
+        HearthTreeNode newState;
 
         // Case0: Decided to use the hero ability -- Use it on everything!
         for (int i = 0; i <= currentPlayer.getNumMinions(); ++i) {

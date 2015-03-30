@@ -31,7 +31,6 @@ public class TestAssassinate {
     public void setup() throws HSException {
         board = new HearthTreeNode(new BoardModel());
         currentPlayer = board.data_.getCurrentPlayer();
-        PlayerModel waitingPlayer = board.data_.getWaitingPlayer();
 
         Minion minion0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
         Minion minion1 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
@@ -55,8 +54,6 @@ public class TestAssassinate {
         for (int index = 0; index < 10; ++index) {
             cards[index] = new TheCoin();
         }
-
-        Deck deck = new Deck(cards);
 
         Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode res;
@@ -85,8 +82,6 @@ public class TestAssassinate {
             cards[index] = new TheCoin();
         }
 
-        Deck deck = new Deck(cards);
-
         Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode res;
 
@@ -113,8 +108,6 @@ public class TestAssassinate {
         for (int index = 0; index < 10; ++index) {
             cards[index] = new TheCoin();
         }
-
-        Deck deck = new Deck(cards);
 
         Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode res;

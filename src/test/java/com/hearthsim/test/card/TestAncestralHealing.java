@@ -31,7 +31,6 @@ public class TestAncestralHealing {
     public void setup() throws HSException {
         board = new HearthTreeNode(new BoardModel());
         currentPlayer = board.data_.getCurrentPlayer();
-        PlayerModel waitingPlayer = board.data_.getWaitingPlayer();
         Minion minion0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
         Minion minion1 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
 

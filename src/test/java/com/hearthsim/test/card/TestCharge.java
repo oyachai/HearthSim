@@ -51,7 +51,6 @@ public class TestCharge {
             cards[index] = new TheCoin();
         }
 
-        Deck deck = new Deck(cards);
         currentPlayer.setMana((byte) 10);
         currentPlayer.setMaxMana((byte) 10);
     }

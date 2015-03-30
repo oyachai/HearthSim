@@ -360,7 +360,7 @@ public class TestBreadthBoardStateFactory {
         ArrayList<HearthTreeNode> unprocessed = new ArrayList<>();
         unprocessed.add(root);
 
-        HearthTreeNode current = null;
+        HearthTreeNode current;
         while(!unprocessed.isEmpty()) {
             current = unprocessed.remove(0);
             if (!current.isLeaf()) {
@@ -380,7 +380,7 @@ public class TestBreadthBoardStateFactory {
         ArrayList<HearthTreeNode> unprocessed = new ArrayList<>();
         unprocessed.add(them);
 
-        HearthTreeNode current = null;
+        HearthTreeNode current;
         while(!unprocessed.isEmpty()) {
             current = unprocessed.remove(0);
             this.assertDescendentsContainBoardModel(us, current.data_);
@@ -395,7 +395,7 @@ public class TestBreadthBoardStateFactory {
         ArrayList<HearthTreeNode> unprocessed = new ArrayList<>();
         unprocessed.add(root);
 
-        HearthTreeNode current = null;
+        HearthTreeNode current;
         while(!unprocessed.isEmpty()) {
             current = unprocessed.remove(0);
             if (current.data_.equals(expectedBoard)) {
@@ -415,7 +415,7 @@ public class TestBreadthBoardStateFactory {
         ArrayList<HearthTreeNode> unprocessed = new ArrayList<>();
         unprocessed.add(root);
 
-        HearthTreeNode current = null;
+        HearthTreeNode current;
         while(!unprocessed.isEmpty()) {
             current = unprocessed.remove(0);
             if (!(current instanceof StopNode)) {

@@ -25,7 +25,6 @@ public class TestMinionDamage {
     public void setUp() throws Exception {
         board = new HearthTreeNode(new BoardModel());
         PlayerModel currentPlayer = board.data_.getCurrentPlayer();
-        PlayerModel waitingPlayer = board.data_.getWaitingPlayer();
 
         BloodfenRaptor raptor = new BloodfenRaptor();
         ChillwindYeti yeti = new ChillwindYeti();

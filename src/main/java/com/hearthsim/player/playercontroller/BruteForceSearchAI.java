@@ -165,7 +165,7 @@ public class BruteForceSearchAI implements ArtificialPlayer {
         PlayerModel playerModel0 = board.getCurrentPlayer();
         PlayerModel playerModel1 = board.getWaitingPlayer();
 
-        BoardStateFactoryBase factory = null;
+        BoardStateFactoryBase factory;
         if (useSparseBoardStateFactory_) {
             factory = new SparseBoardStateFactory(playerModel0.getDeck(), playerModel1.getDeck(), MAX_THINK_TIME, useDuplicateNodePruning);
         } else {
@@ -178,7 +178,6 @@ public class BruteForceSearchAI implements ArtificialPlayer {
     public List<HearthActionBoardPair> playTurn(int turn, BoardModel board, BoardStateFactoryBase factory)
             throws HSException {
         PlayerModel playerModel0 = board.getCurrentPlayer();
-        PlayerModel playerModel1 = board.getWaitingPlayer();
 
         log.debug("playing turn for " + playerModel0.getName());
         // The goal of this ai is to maximize his board score

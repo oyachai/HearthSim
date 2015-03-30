@@ -71,7 +71,7 @@ public class TestCharge {
         BoardStateFactoryBase factory = new DepthBoardStateFactory(null, null, 2000000000, true);
         HearthTreeNode tree = new HearthTreeNode(board);
         try {
-            tree = factory.doMoves(tree, scoreFunc);
+            factory.doMoves(tree, scoreFunc);
         } catch(HSException e) {
             e.printStackTrace();
             assertTrue(false);
@@ -88,7 +88,7 @@ public class TestCharge {
         BoardStateFactoryBase factory = new DepthBoardStateFactory(null, null, true);
         HearthTreeNode tree = new HearthTreeNode(board);
         try {
-            tree = factory.doMoves(tree, scoreFunc);
+            factory.doMoves(tree, scoreFunc);
         } catch(HSException e) {
             e.printStackTrace();
             assertTrue(false);

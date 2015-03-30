@@ -595,7 +595,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
      */
     public HearthTreeNode useTargetableBattlecry(PlayerSide side, int targetCharacterIndex, HearthTreeNode boardState, boolean singleRealizationOnly) {
         if (this instanceof MinionTargetableBattlecry) {
-            PlayerModel player = boardState.data_.modelForSide(side);
+            boardState.data_.modelForSide(side);
 
             boardState = ((MinionTargetableBattlecry)this).useTargetableBattlecry_core(PlayerSide.CURRENT_PLAYER, this, side, targetCharacterIndex, boardState);
 
@@ -761,7 +761,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         PlayerModel targetPlayer = boardState.data_.modelForSide(targetMinionPlayerSide);
 
         // Notify all that an attack is beginning
-        HearthTreeNode toRet = boardState;
+        HearthTreeNode toRet;
         int attackerIndex = this instanceof Hero ? 0 : currentPlayer.getMinions()
                 .indexOf(this) + 1;
         int targetIndex = targetMinion instanceof Hero ? 0 : targetPlayer.getMinions()

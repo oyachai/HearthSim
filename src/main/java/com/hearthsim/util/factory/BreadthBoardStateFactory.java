@@ -35,7 +35,7 @@ public class BreadthBoardStateFactory extends BoardStateFactoryBase {
         int stateCompareCount = 0;
         int dupeSkip = 0;
 
-        HearthTreeNode current = null;
+        HearthTreeNode current;
         while(maxDepth > 0) {
             while(!currentDepth.isEmpty()) {
                 processedCount++;
@@ -47,7 +47,7 @@ public class BreadthBoardStateFactory extends BoardStateFactoryBase {
                 }
 
                 // Try to use existing children if possible. This can happen after an auto-populating node (e.g., Battlecries)
-                ArrayList<HearthTreeNode> children = null;
+                ArrayList<HearthTreeNode> children;
                 if (current.isLeaf()) {
                     children = this.createChildren(current);
                 } else {

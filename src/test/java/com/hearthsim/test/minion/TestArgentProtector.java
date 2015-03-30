@@ -22,8 +22,6 @@ public class TestArgentProtector {
     @Before
     public void setup() throws HSException {
         board = new HearthTreeNode(new BoardModel());
-        PlayerModel currentPlayer = board.data_.getCurrentPlayer();
-        PlayerModel waitingPlayer = board.data_.getWaitingPlayer();
     }
 
     @Test

@@ -133,7 +133,7 @@ public class MessageHandler {
      *  "Throwable".
      */
     public static String shortDescription(Throwable throwable) {
-        String throwableType = null;
+        String throwableType;
 
         if (throwable instanceof Exception) {
             throwableType = "Exception";

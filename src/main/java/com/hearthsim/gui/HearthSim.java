@@ -892,8 +892,8 @@ public class HearthSim implements HSSimulationEventListener {
         plot_aveCards.repaint();
         plot_aveHealth.repaint();
 
-        double[] data0 = null;
-        double[] data1 = null;
+        double[] data0;
+        double[] data1;
 
         if (currentShownPlot_ == plot_aveMinions) {
             data0 = hsModel_.getGameStats().getAveNumMinions_p0();

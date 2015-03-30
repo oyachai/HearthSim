@@ -95,7 +95,7 @@ public class TestVioletTeacher {
         // Use a spell now... p0 should get a Violet Apprentice
         Card cardToUse = new HolySmite();
         currentPlayer.placeCardHand(cardToUse);
-        ret = cardToUse.useOn(PlayerSide.WAITING_PLAYER, 1, ret);
+        cardToUse.useOn(PlayerSide.WAITING_PLAYER, 1, ret);
 
         assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 4);

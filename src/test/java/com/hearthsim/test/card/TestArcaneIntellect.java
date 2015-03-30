@@ -73,8 +73,6 @@ public class TestArcaneIntellect {
             cards[index] = new TheCoin();
         }
 
-        Deck deck = new Deck(cards);
-
         Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode res;
 
@@ -107,8 +105,6 @@ public class TestArcaneIntellect {
             cards[index] = new TheCoin();
         }
 
-        Deck deck = new Deck(cards);
-
         Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode res;
 
@@ -133,13 +129,6 @@ public class TestArcaneIntellect {
 
     @Test
     public void test2() throws HSException {
-
-        int numCards = 10;
-        Card cards[] = new Card[numCards];
-        for (int index = 0; index < numCards; ++index) {
-            cards[index] = new BloodfenRaptor();
-        }
-
         currentPlayer.setMana((byte) 3);
         waitingPlayer.setMana((byte) 3);
 
@@ -161,13 +150,6 @@ public class TestArcaneIntellect {
 
     @Test
     public void testCanPlayDrawnCard() throws HSException {
-
-        int numCards = 10;
-        Card cards[] = new Card[numCards];
-        for (int index = 0; index < numCards; ++index) {
-            cards[index] = new BloodfenRaptor();
-        }
-
         currentPlayer.setMana((byte) 6);
         waitingPlayer.setMana((byte) 6);
 
@@ -189,13 +171,6 @@ public class TestArcaneIntellect {
 
     @Test
     public void test4() throws HSException {
-
-        int numCards = 10;
-        Card cards[] = new Card[numCards];
-        for (int index = 0; index < numCards; ++index) {
-            cards[index] = new BloodfenRaptor();
-        }
-
         currentPlayer.setMana((byte) 9);
         waitingPlayer.setMana((byte) 9);
 

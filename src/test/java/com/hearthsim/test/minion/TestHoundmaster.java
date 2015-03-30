@@ -34,7 +34,6 @@ public class TestHoundmaster {
     public void setup() throws HSException {
         board = new HearthTreeNode(new BoardModel());
         currentPlayer = board.data_.getCurrentPlayer();
-        PlayerModel waitingPlayer = board.data_.getWaitingPlayer();
 
         Minion minion0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
         Minion minion1 = new StonetuskBoar();
@@ -94,8 +93,6 @@ public class TestHoundmaster {
     }
     @Test
     public void test0() throws HSException {
-
-        Deck deck = null;
 
         Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode res;

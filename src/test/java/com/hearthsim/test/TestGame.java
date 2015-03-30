@@ -65,7 +65,7 @@ public class TestGame {
 
         long t1 = System.nanoTime();
         Game game = new Game(playerModel1, playerModel2, ai0, ai1, false);
-        GameResult result = null;
+        GameResult result;
         try {
             result = game.runGame();
         } catch(HSException e) {
@@ -116,7 +116,7 @@ public class TestGame {
             BruteForceSearchAI ai1 = BruteForceSearchAI.buildStandardAI1();
 
             Game game = new Game(playerModel1, playerModel2, ai0, ai1, true);
-            GameResult result = null;
+            GameResult result;
             try {
                 result = game.runGame();
             } catch(HSException e) {
