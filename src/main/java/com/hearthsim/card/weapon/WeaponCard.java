@@ -48,10 +48,6 @@ public abstract class WeaponCard extends Card {
             return false;
         }
 
-        if (other == null) {
-            return false;
-        }
-
         if (this.getClass() != other.getClass()) {
             return false;
         }
