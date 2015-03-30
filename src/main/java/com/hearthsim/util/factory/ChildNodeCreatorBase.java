@@ -15,16 +15,11 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class ChildNodeCreatorBase implements ChildNodeCreator {
 
-    private final Deck deckPlayer0_;
-    private final Deck deckPlayer1_;
-
     /**
      * Constructor
      * maxThinkTime defaults to 10000 milliseconds (10 seconds)
      */
     public ChildNodeCreatorBase(Deck deckPlayer0, Deck deckPlayer1) {
-        deckPlayer0_ = deckPlayer0;
-        deckPlayer1_ = deckPlayer1;
     }
 
     @Override

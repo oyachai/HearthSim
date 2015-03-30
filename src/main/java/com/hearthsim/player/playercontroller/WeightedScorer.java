@@ -82,9 +82,7 @@ public class WeightedScorer implements BoardScorer, DeepCopyable<WeightedScorer>
         minionScore += myNumMinionsWeight * (board.getCurrentPlayer().getNumMinions());
         minionScore -= enemyNumMinionsWeight * (board.getWaitingPlayer().getNumMinions());
 
-        double score = boardScore + handScore + heroScore + minionScore + weaponScore;
-
-        return score;
+        return boardScore + handScore + heroScore + minionScore + weaponScore;
     }
 
     /**

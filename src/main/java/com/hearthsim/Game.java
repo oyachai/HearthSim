@@ -28,22 +28,19 @@ public class Game {
     private BoardModel boardModel;
 
     private PlayerModel playerGoingFirst;
-    private PlayerModel playerGoingSecond;
 
     private ArtificialPlayer aiForPlayerGoingFirst;
     private ArtificialPlayer aiForPlayerGoingSecond;
 
         private final ArrayList<HearthActionBoardPair> gameHistory = new ArrayList<>();
 
-        private int curTurn_;
-
-        public Game(PlayerModel playerModel0, PlayerModel playerModel1, ArtificialPlayer ai0, ArtificialPlayer ai1) {
+    public Game(PlayerModel playerModel0, PlayerModel playerModel1, ArtificialPlayer ai0, ArtificialPlayer ai1) {
             this(playerModel0, playerModel1, ai0, ai1, false);
         }
 
         public Game(PlayerModel playerModel0, PlayerModel playerModel1, ArtificialPlayer ai0, ArtificialPlayer ai1, int firstPlayerId) {
             playerGoingFirst = playerModel0;
-        playerGoingSecond = playerModel1;
+            PlayerModel playerGoingSecond = playerModel1;
 
         aiForPlayerGoingFirst = ai0;
         aiForPlayerGoingSecond = ai1;
@@ -66,7 +63,7 @@ public class Game {
     }
 
     public GameResult runGame() throws HSException {
-        curTurn_ = 0;
+        int curTurn_ = 0;
 
         //the first player draws 3 cards
         boardModel.getCurrentPlayer().placeCardHand(0);
