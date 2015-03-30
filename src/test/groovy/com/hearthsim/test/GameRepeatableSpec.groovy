@@ -15,7 +15,8 @@ import com.hearthsim.model.PlayerModel
 import com.hearthsim.player.playercontroller.BruteForceSearchAI
 import com.hearthsim.test.groovy.card.CardSpec
 import com.hearthsim.util.HearthActionBoardPair
-
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import spock.lang.Ignore
 
 import static org.junit.Assert.*
@@ -23,7 +24,7 @@ import static org.junit.Assert.*
 import com.hearthsim.util.tree.HearthTreeNode;
 
 class GameRepeatableSpec extends CardSpec {
-    private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     def "game history is repeatable"() {
         int numCardsInDeck_ = 12;

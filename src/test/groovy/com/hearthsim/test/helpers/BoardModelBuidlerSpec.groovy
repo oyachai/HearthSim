@@ -109,8 +109,8 @@ class BoardModelBuidlerSpec extends HearthBaseSpec {
         }
 
         then:
-        expect boardModel.modelForSide(PlayerSide.CURRENT_PLAYER).fatigueDamage, equalTo((byte)1)
-        expect boardModel.modelForSide(PlayerSide.WAITING_PLAYER).fatigueDamage, equalTo((byte)2)
+        expect boardModel.modelForSide(CURRENT_PLAYER).fatigueDamage, equalTo((byte)1)
+        expect boardModel.modelForSide(WAITING_PLAYER).fatigueDamage, equalTo((byte)2)
     }
 
 
