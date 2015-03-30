@@ -17,5 +17,5 @@ public interface CardPlayBeginInterface {
      */
     public HearthTreeNode onCardPlayBegin(PlayerSide thisCardPlayerSide, PlayerSide cardUserPlayerSide, Card usedCard,
             HearthTreeNode boardState, boolean singleRealizationOnly)
-            throws HSException;
+    ;
 }

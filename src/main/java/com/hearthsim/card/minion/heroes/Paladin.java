@@ -42,8 +42,7 @@ public class Paladin extends Hero {
             PlayerSide targetPlayerSide,
             Minion targetMinion,
             HearthTreeNode boardState,
-            boolean singleRealizationOnly)
-        throws HSException {
+            boolean singleRealizationOnly) {
 
         HearthTreeNode toRet = boardState;
 

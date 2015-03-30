@@ -23,7 +23,7 @@ public class Soulfire extends SpellDamage implements SpellRandomInterface {
     }
 
     @Override
-    public Collection<HearthTreeNode> createChildren(PlayerSide originSide, int originIndex, HearthTreeNode boardState) throws HSException {
+    public Collection<HearthTreeNode> createChildren(PlayerSide originSide, int originIndex, HearthTreeNode boardState) {
         PlayerModel currentPlayer = boardState.data_.modelForSide(originSide);
 
         int totalTargets = currentPlayer.getHand().size();

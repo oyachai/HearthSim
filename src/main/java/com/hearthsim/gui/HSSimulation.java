@@ -52,7 +52,7 @@ public class HSSimulation {
             simulation_.addGameEndListener(model_);
             simulation_.run();
             this.fireFinishEvent();
-        } catch (HSException | IOException | InterruptedException e) {
+        } catch (IOException | InterruptedException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
             this.fireFinishEvent();

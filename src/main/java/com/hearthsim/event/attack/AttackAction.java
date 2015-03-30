@@ -27,8 +27,7 @@ public abstract class AttackAction {
         Minion attackingMinion,
         int attackedPlayerIndex,
         Minion attackedMinion,
-        HearthTreeNode boardState)
-    throws HSInvalidPlayerIndexException {
+        HearthTreeNode boardState) {
         return boardState;
     }
 

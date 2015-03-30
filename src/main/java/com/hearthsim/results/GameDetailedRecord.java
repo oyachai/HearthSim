@@ -43,15 +43,11 @@ public class GameDetailedRecord implements GameRecord {
 
     @Override
     public int getNumCardsInHand(int playerId, int turn, int currentPlayerId) {
-        try {
-            BoardModel boardModel = boards_.get(currentPlayerId).get(turn);
-            PlayerSide playerByIndex = GameDetailedRecord.getPlayerByIndex(playerId);
-            PlayerSide otherPlayer = playerByIndex.getOtherPlayer();
+        BoardModel boardModel = boards_.get(currentPlayerId).get(turn);
+        PlayerSide playerByIndex = GameDetailedRecord.getPlayerByIndex(playerId);
+        PlayerSide otherPlayer = playerByIndex.getOtherPlayer();
 
-            return boardModel.getNumCards_hand(otherPlayer);
-        } catch (HSInvalidPlayerIndexException e) {
-            return 0;
-        }
+        return boardModel.getNumCards_hand(otherPlayer);
     }
 
     @Override

@@ -119,7 +119,7 @@ public abstract class HearthSimBase {
     }
 
 
-    public void run() throws HSException, IOException, InterruptedException {
+    public void run() throws IOException, InterruptedException {
         long simStartTime = System.currentTimeMillis();
 
         Path outputFilePath = FileSystems.getDefault().getPath(rootPath_.toString(), gameResultFileName_);

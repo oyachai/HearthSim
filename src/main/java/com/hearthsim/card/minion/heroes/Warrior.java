@@ -30,8 +30,7 @@ public class Warrior extends Hero {
             PlayerSide targetPlayerSide,
             Minion targetMinion,
             HearthTreeNode boardState,
-            boolean singleRealizationOnly)
-        throws HSException {
+            boolean singleRealizationOnly) {
         if (targetMinion.isHero() && targetPlayerSide == PlayerSide.CURRENT_PLAYER) {
             this.hasBeenUsed = true;
             boardState.data_.getCurrentPlayer().subtractMana(HERO_ABILITY_COST);

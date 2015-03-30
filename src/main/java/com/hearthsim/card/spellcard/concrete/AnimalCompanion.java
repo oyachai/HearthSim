@@ -56,7 +56,7 @@ public class AnimalCompanion extends SpellCard implements SpellRandomInterface {
      * @return The boardState is manipulated and returned
      */
     @Override
-    public Collection<HearthTreeNode> createChildren(PlayerSide originSide, int originIndex, HearthTreeNode boardState) throws HSException {
+    public Collection<HearthTreeNode> createChildren(PlayerSide originSide, int originIndex, HearthTreeNode boardState) {
         HearthTreeNode newState;
         ArrayList<HearthTreeNode> children = new ArrayList<>();
         for (Minion minion : new Minion[]{new Huffer(), new Leokk(), new Misha()}) {

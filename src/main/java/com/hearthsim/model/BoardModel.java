@@ -195,7 +195,7 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
         return this.allMinionsFIFOList_.size();
     }
 
-    public Card getCard_hand(PlayerSide playerSide, int index) throws HSInvalidPlayerIndexException {
+    public Card getCard_hand(PlayerSide playerSide, int index) {
         return modelForSide(playerSide).getHand().get(index);
     }
 
@@ -260,7 +260,7 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
         modelForSide(playerSide).getHand().remove(card);
     }
 
-    public int getNumCards_hand(PlayerSide playerSide) throws HSInvalidPlayerIndexException {
+    public int getNumCards_hand(PlayerSide playerSide) {
         return modelForSide(playerSide).getHand().size();
     }
 
@@ -291,7 +291,7 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
      * @param numCards Number of cards to draw.
      * @throws HSInvalidPlayerIndexException
      */
-    public void drawCardFromCurrentPlayerDeck(int numCards) throws HSInvalidPlayerIndexException {
+    public void drawCardFromCurrentPlayerDeck(int numCards) {
         for (int indx = 0; indx < numCards; ++indx) {
             this.getCurrentPlayer().drawNextCardFromDeck();
         }
@@ -671,7 +671,7 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
     }
 
     @Deprecated
-    public void placeCard_hand(PlayerSide playerSide, Card card) throws HSInvalidPlayerIndexException {
+    public void placeCard_hand(PlayerSide playerSide, Card card) {
         card.isInHand(true);
         modelForSide(playerSide).getHand().add(card);
     }
@@ -732,7 +732,7 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
     }
 
     @Deprecated
-    public IdentityLinkedList<Minion> getMinions(PlayerSide side) throws HSInvalidPlayerIndexException {
+    public IdentityLinkedList<Minion> getMinions(PlayerSide side) {
         return modelForSide(side).getMinions();
     }
 
@@ -750,12 +750,12 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
      * @param playerSide
      */
     @Deprecated
-    public byte getSpellDamage(PlayerSide playerSide) throws HSInvalidPlayerIndexException {
+    public byte getSpellDamage(PlayerSide playerSide) {
         return modelForSide(playerSide).getSpellDamage();
     }
 
     @Deprecated
-    public void addOverload(PlayerSide playerSide, byte overloadToAdd) throws HSException {
+    public void addOverload(PlayerSide playerSide, byte overloadToAdd) {
         PlayerModel playerModel = modelForSide(playerSide);
         playerModel.setOverload((byte) (playerModel.getOverload() + overloadToAdd));
     }

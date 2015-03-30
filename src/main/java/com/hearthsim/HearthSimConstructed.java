@@ -26,7 +26,7 @@ public class HearthSimConstructed extends HearthSimBase {
     private Path deckListFilePath0_;
     private Path deckListFilePath1_;
 
-    HearthSimConstructed(Path setupFilePath) throws IOException, HSInvalidCardException, HSInvalidParamFileException, HSParamNotFoundException {
+    HearthSimConstructed(Path setupFilePath) throws IOException, HSInvalidParamFileException, HSParamNotFoundException {
         super(setupFilePath);
         ParamFile masterParam = new ParamFile(setupFilePath);
         deckListFilePath0_ = FileSystems.getDefault().getPath(rootPath_.toString(), masterParam.getString("deckListFilePath0"));

@@ -29,8 +29,7 @@ public class Druid extends Hero {
      */
     @Override
     public HearthTreeNode useHeroAbility_core(PlayerSide targetPlayerSide, Minion targetMinion,
-            HearthTreeNode boardState, boolean singleRealizationOnly)
-            throws HSException {
+            HearthTreeNode boardState, boolean singleRealizationOnly) {
         if (targetMinion.isHero() && targetPlayerSide == PlayerSide.CURRENT_PLAYER) {
             this.hasBeenUsed = true;
             PlayerModel currentPlayer = boardState.data_.getCurrentPlayer();

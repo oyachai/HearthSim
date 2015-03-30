@@ -49,8 +49,7 @@ public class Shaman extends Hero {
             PlayerSide targetPlayerSide,
             Minion targetMinion,
             HearthTreeNode boardState,
-            boolean singleRealizationOnly)
-        throws HSException {
+            boolean singleRealizationOnly) {
         PlayerModel player = boardState.data_.modelForSide(targetPlayerSide);
 
         if (singleRealizationOnly) {

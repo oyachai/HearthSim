@@ -63,8 +63,7 @@ public abstract class BoardStateFactoryBase {
     public abstract HearthTreeNode doMoves(HearthTreeNode boardStateNode, BoardScorer ai) throws HSException;
 
     @Deprecated
-    public static HearthTreeNode handleDeadMinions(HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealization)
-        throws HSException {
+    public static HearthTreeNode handleDeadMinions(HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealization) {
         return handleDeadMinions(boardState, singleRealization);
     }
     /**

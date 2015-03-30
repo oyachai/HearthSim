@@ -225,7 +225,7 @@ public class HearthTreeNode {
         return toRet;
     }
 
-    public HearthTreeNode notifyMinionPlacement(PlayerSide targetSide, Minion minion) throws HSException {
+    public HearthTreeNode notifyMinionPlacement(PlayerSide targetSide, Minion minion) {
         HearthTreeNode toRet = this;
         for (BoardModel.CharacterLocation characterLocation : toRet.data_) {
             Minion character = toRet.data_.getCharacter(characterLocation);

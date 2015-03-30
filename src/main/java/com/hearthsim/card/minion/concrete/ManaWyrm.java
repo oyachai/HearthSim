@@ -16,8 +16,7 @@ public class ManaWyrm extends Minion implements CardPlayBeginInterface {
 
     @Override
     public HearthTreeNode onCardPlayBegin(PlayerSide thisCardPlayerSide, PlayerSide cardUserPlayerSide, Card usedCard,
-                                          HearthTreeNode boardState, boolean singleRealizationOnly)
-        throws HSException {
+                                          HearthTreeNode boardState, boolean singleRealizationOnly) {
         if (cardUserPlayerSide == thisCardPlayerSide && usedCard instanceof SpellCard) {
             this.addAttack((byte)1);
         }

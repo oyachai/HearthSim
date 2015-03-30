@@ -19,5 +19,5 @@ public abstract class StopNode extends HearthTreeNode {
         return this.finishAllEffects();
     }
 
-    public abstract HearthTreeNode finishAllEffects() throws HSException;
+    public abstract HearthTreeNode finishAllEffects();
 }

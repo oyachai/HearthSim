@@ -45,7 +45,7 @@ public class HearthSimGUI extends HearthSimBase {
     }
 
     @Override
-    public void run() throws HSException, IOException, InterruptedException {
+    public void run() throws IOException, InterruptedException {
         log.info("running {} sims on {} threads", numSims_, numThreads_);
 
         ThreadQueue tQueue = new ThreadQueue(numThreads_);

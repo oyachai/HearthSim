@@ -26,7 +26,7 @@ public class RandomEffectNode extends StopNode {
     }
 
     @Override
-    public HearthTreeNode finishAllEffects() throws HSException {
+    public HearthTreeNode finishAllEffects() {
         if (this.numChildren() > 0) {
             return this.getChildren().get((int)(Math.random() * this.numChildren()));
         }

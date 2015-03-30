@@ -198,7 +198,7 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
         return this.useHeroAbility_core(targetPlayerSide, targetMinion, boardState, singleRealizationOnly);
     }
 
-    protected abstract HearthTreeNode useHeroAbility_core(PlayerSide targetPlayerSide, Minion targetMinion, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException;
+    protected abstract HearthTreeNode useHeroAbility_core(PlayerSide targetPlayerSide, Minion targetMinion, HearthTreeNode boardState, boolean singleRealizationOnly);
 
     /**
      * Called when this minion takes damage

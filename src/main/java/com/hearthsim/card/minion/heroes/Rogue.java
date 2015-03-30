@@ -30,8 +30,7 @@ public class Rogue extends Hero {
         PlayerSide targetPlayerSide,
         Minion targetMinion,
         HearthTreeNode boardState,
-        boolean singleRealizationOnly)
-        throws HSException {
+        boolean singleRealizationOnly) {
         HearthTreeNode toRet = boardState;
         if (targetMinion.isHero() && targetPlayerSide == PlayerSide.CURRENT_PLAYER) {
             this.hasBeenUsed = true;

@@ -18,7 +18,7 @@ public class UnboundElemental extends Minion implements CardPlayBeginInterface {
     }
 
     @Override
-    public HearthTreeNode onCardPlayBegin(PlayerSide thisCardPlayerSide, PlayerSide cardUserPlayerSide, Card usedCard, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
+    public HearthTreeNode onCardPlayBegin(PlayerSide thisCardPlayerSide, PlayerSide cardUserPlayerSide, Card usedCard, HearthTreeNode boardState, boolean singleRealizationOnly) {
         if (usedCard != this && thisCardPlayerSide == cardUserPlayerSide && usedCard.triggersOverload()) {
             boardState = UnboundElemental.effect.applyEffect(cardUserPlayerSide, usedCard, thisCardPlayerSide, this, boardState);
         }
