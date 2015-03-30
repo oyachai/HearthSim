@@ -56,41 +56,41 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         }
     }
 
-    protected boolean taunt_;
-    protected boolean divineShield_;
+    private boolean taunt_;
+    private boolean divineShield_;
     protected boolean windFury_;
-    protected boolean charge_;
-    protected boolean immune_ = false; // Ignores damage
+    private boolean charge_;
+    private boolean immune_ = false; // Ignores damage
 
     protected boolean hasAttacked_;
     protected boolean hasWindFuryAttacked_;
 
-    protected boolean frozen_;
+    private boolean frozen_;
     protected boolean silenced_;
-    protected boolean stealthed_;
+    private boolean stealthed_;
     protected boolean heroTargetable_ = true;
 
     protected byte health_;
     protected byte maxHealth_;
     protected byte baseHealth_;
-    protected byte auraHealth_;
+    private byte auraHealth_;
 
     protected byte attack_;
     protected byte baseAttack_;
-    protected byte extraAttackUntilTurnEnd_;
-    protected byte auraAttack_;
+    private byte extraAttackUntilTurnEnd_;
+    private byte auraAttack_;
 
-    protected boolean destroyOnTurnStart_;
-    protected boolean destroyOnTurnEnd_;
+    private boolean destroyOnTurnStart_;
+    private boolean destroyOnTurnEnd_;
 
     protected byte spellDamage_;
 
-    protected AttackAction attackAction_;
+    private AttackAction attackAction_;
 
     protected MinionTribe tribe = MinionTribe.NONE;
 
     // This is a flag to tell the BoardState that it can't cheat on the placement of this minion
-    protected boolean placementImportant_ = false;
+    private boolean placementImportant_ = false;
 
     public Minion() {
         super();
@@ -503,8 +503,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
     public Minion createResetCopy() {
         try {
             Constructor<? extends Minion> ctor = this.getClass().getConstructor();
-            Minion object = ctor.newInstance();
-            return object;
+            return ctor.newInstance();
         } catch (NoSuchMethodException | InvocationTargetException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

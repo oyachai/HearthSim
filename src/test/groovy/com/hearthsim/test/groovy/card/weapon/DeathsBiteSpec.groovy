@@ -44,7 +44,7 @@ class DeathsBiteSpec extends CardSpec {
         theCard.useOn(CURRENT_PLAYER, 0, copiedRoot);
 
         theCard = copiedBoard.getCurrentPlayer().getHand().get(0);
-        ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot);
+        def ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot);
 
         expect:
         ret != null

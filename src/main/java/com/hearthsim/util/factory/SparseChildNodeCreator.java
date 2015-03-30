@@ -14,7 +14,7 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class SparseChildNodeCreator extends ChildNodeCreatorBase {
 
-    protected final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
+    private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
 
     public SparseChildNodeCreator(Deck deckPlayer0, Deck deckPlayer1) {
         super(deckPlayer0, deckPlayer1);

@@ -23,8 +23,8 @@ import java.nio.file.Path;
  */
 public class HearthSimConstructed extends HearthSimBase {
 
-    Path deckListFilePath0_;
-    Path deckListFilePath1_;
+    private Path deckListFilePath0_;
+    private Path deckListFilePath1_;
 
     HearthSimConstructed(Path setupFilePath) throws IOException, HSInvalidCardException, HSInvalidParamFileException, HSParamNotFoundException {
         super(setupFilePath);

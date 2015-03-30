@@ -17,9 +17,9 @@ public class HSCardSelectionList extends JList<ImplementedCard> {
 
     private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
 
-    ImplementedCardList list_;
-    ArrayList<ImplementedCard> cards_;
-    HSCardList cardListPane_;
+    private ImplementedCardList list_;
+    private ArrayList<ImplementedCard> cards_;
+    private HSCardList cardListPane_;
 
     boolean editing_;
 

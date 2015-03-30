@@ -155,7 +155,7 @@ public class WeightedScorer implements BoardScorer, DeepCopyable<WeightedScorer>
         return toRet;
     }
 
-    public double weaponScore(Hero hero) {
+    protected double weaponScore(Hero hero) {
         WeaponCard weapon = hero.getWeapon();
         if (weapon == null) {
             return 0;

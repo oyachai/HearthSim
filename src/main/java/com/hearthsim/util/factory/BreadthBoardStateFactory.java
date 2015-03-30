@@ -92,11 +92,11 @@ public class BreadthBoardStateFactory extends BoardStateFactoryBase {
                 + " childCount=" + childCount + " compareCount=" + stateCompareCount + " dupeSkip=" + dupeSkip);
     }
 
-    public void processScoresForTree(HearthTreeNode root, BoardScorer ai) {
+    private void processScoresForTree(HearthTreeNode root, BoardScorer ai) {
         this.processScoresForTree(root, ai, false);
     }
 
-    public void processScoresForTree(HearthTreeNode root, BoardScorer ai, boolean scoringPruning) {
+    private void processScoresForTree(HearthTreeNode root, BoardScorer ai, boolean scoringPruning) {
         double score = ai.boardScore(root.data_);
         root.setScore(score);
 
@@ -139,7 +139,7 @@ public class BreadthBoardStateFactory extends BoardStateFactoryBase {
         this.breadthFirstSearch(root, ai, 100, prune);
     }
 
-    public void breadthFirstSearch(HearthTreeNode root, BoardScorer ai, int maxDepth, boolean prune) throws HSException {
+    protected void breadthFirstSearch(HearthTreeNode root, BoardScorer ai, int maxDepth, boolean prune) throws HSException {
         this.addChildLayers(root, maxDepth);
         this.processScoresForTree(root, ai, prune);
     }

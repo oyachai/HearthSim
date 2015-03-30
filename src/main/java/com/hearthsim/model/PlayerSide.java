@@ -15,7 +15,7 @@ public enum PlayerSide {
     }
 
     @Deprecated
-    public PlayerModel getPlayer(BoardModel boardModel) {
+    protected PlayerModel getPlayer(BoardModel boardModel) {
         return boardModel.modelForSide(this);
     }
 

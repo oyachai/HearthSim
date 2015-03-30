@@ -5,7 +5,7 @@ import com.hearthsim.model.PlayerSide;
 
 public abstract class MinionWithEnrage extends Minion {
 
-    protected boolean enraged_;
+    private boolean enraged_;
 
     protected MinionWithEnrage() {
         super();
@@ -26,12 +26,12 @@ public abstract class MinionWithEnrage extends Minion {
      * Turn on enrage
      *
      */
-    public abstract void enrage();
+    protected abstract void enrage();
 
     /**
      * Turn off enrage
      */
-    public abstract void pacify();
+    protected abstract void pacify();
 
 
     @Override

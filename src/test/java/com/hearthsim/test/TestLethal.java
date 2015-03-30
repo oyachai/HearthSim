@@ -37,15 +37,15 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class TestLethal {
 
-    public Deck deck0;
-    public Deck deck1;
+    private Deck deck0;
+    private Deck deck1;
 
-    BreadthBoardStateFactory factory;
-    public BoardModel startingBoard;
-    HearthTreeNode root;
+    private BreadthBoardStateFactory factory;
+    private BoardModel startingBoard;
+    private HearthTreeNode root;
 
-    Hero ownHero;
-    Hero enemyHero;
+    private Hero ownHero;
+    private Hero enemyHero;
 
     @Before
     public void setup() {

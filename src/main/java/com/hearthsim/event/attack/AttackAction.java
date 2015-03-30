@@ -22,12 +22,12 @@ public abstract class AttackAction {
      * @return
      * @throws HSInvalidPlayerIndexException
      */
-    public HearthTreeNode performAction(
-            int attackingPlayerIndex,
-            Minion attackingMinion,
-            int attackedPlayerIndex,
-            Minion attackedMinion,
-            HearthTreeNode boardState)
+    protected HearthTreeNode performAction(
+        int attackingPlayerIndex,
+        Minion attackingMinion,
+        int attackedPlayerIndex,
+        Minion attackedMinion,
+        HearthTreeNode boardState)
     throws HSInvalidPlayerIndexException {
         return boardState;
     }

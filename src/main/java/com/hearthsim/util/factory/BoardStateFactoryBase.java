@@ -15,9 +15,8 @@ public abstract class BoardStateFactoryBase {
     protected final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
 
     protected final Deck deckPlayer0_;
-    protected final Deck deckPlayer1_;
 
-    protected final ChildNodeCreator childNodeCreator;
+    private final ChildNodeCreator childNodeCreator;
 
     /**
      * Constructor
@@ -37,12 +36,12 @@ public abstract class BoardStateFactoryBase {
      */
     public BoardStateFactoryBase(Deck deckPlayer0, Deck deckPlayer1, ChildNodeCreator creator) {
         deckPlayer0_ = deckPlayer0;
-        deckPlayer1_ = deckPlayer1;
+        Deck deckPlayer1_ = deckPlayer1;
 
         childNodeCreator = creator;
     }
 
-    public ArrayList<HearthTreeNode> createChildren(HearthTreeNode boardStateNode) throws HSException {
+    protected ArrayList<HearthTreeNode> createChildren(HearthTreeNode boardStateNode) throws HSException {
         ArrayList<HearthTreeNode> nodes = new ArrayList<HearthTreeNode>();
         nodes.addAll(this.childNodeCreator.createHeroAbilityChildren(boardStateNode));
         nodes.addAll(this.childNodeCreator.createPlayCardChildren(boardStateNode));

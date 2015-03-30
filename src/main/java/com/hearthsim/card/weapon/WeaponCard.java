@@ -11,18 +11,18 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public abstract class WeaponCard extends Card {
 
-    public boolean isImmune() {
+    protected boolean isImmune() {
         return immune;
     }
 
-    public void setImmune(boolean immune) {
+    protected void setImmune(boolean immune) {
         this.immune = immune;
     }
 
     private boolean immune = false; // Does not take damage from attacking
 
-    byte weaponCharge;
-    byte weaponDamage;
+    private byte weaponCharge;
+    private byte weaponDamage;
 
     public WeaponCard() {
         ImplementedCardList cardList = ImplementedCardList.getInstance();

@@ -31,7 +31,7 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
     private final PlayerModel currentPlayer;
     private final PlayerModel waitingPlayer;
 
-    IdentityLinkedList<MinionPlayerPair> allMinionsFIFOList_;
+    private IdentityLinkedList<MinionPlayerPair> allMinionsFIFOList_;
 
     public class MinionPlayerPair {
         private Minion minion;
@@ -169,7 +169,7 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
         buildModel();
     }
 
-    public void buildModel() {
+    private void buildModel() {
         allMinionsFIFOList_ = new IdentityLinkedList<MinionPlayerPair>();
     }
 
@@ -336,7 +336,7 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
      * @param side The PlayerSide of the minion
      * @param minion
      */
-    public void applyAuraOfMinion(PlayerSide side, Minion minion) {
+    private void applyAuraOfMinion(PlayerSide side, Minion minion) {
         if (minion instanceof MinionWithAura && !minion.isSilenced()) {
             EnumSet<AuraTargetType> targetTypes = ((MinionWithAura)minion).getAuraTargets();
             for (AuraTargetType targetType : targetTypes) {
@@ -365,7 +365,7 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
      * @param side The PlayerSide of the minion to apply the auras to
      * @param minion
      */
-    public void applyOtherMinionsAura(PlayerSide side, Minion minion) {
+    private void applyOtherMinionsAura(PlayerSide side, Minion minion) {
         for (Minion otherMinion : this.modelForSide(side).getMinions()) {
             if (otherMinion instanceof MinionWithAura &&
                     minion != otherMinion &&
@@ -737,7 +737,7 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
     }
 
     @Deprecated
-    public Minion getMinionForCharacter(PlayerSide playerSide, int index) {
+    private Minion getMinionForCharacter(PlayerSide playerSide, int index) {
         PlayerModel playerModel = modelForSide(playerSide);
         return index == 0 ? playerModel.getHero() : playerModel.getMinions().get(index - 1);
     }

@@ -47,10 +47,10 @@ public class TestBreadthBoardStateFactory {
     @Rule
     public TestName name = new TestName();
 
-    protected final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
+    private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
 
-    public Deck deck0;
-    public Deck deck1;
+    private Deck deck0;
+    private Deck deck1;
 
     @Before
     public void setup() {

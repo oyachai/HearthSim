@@ -15,8 +15,8 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class ChildNodeCreatorBase implements ChildNodeCreator {
 
-    protected final Deck deckPlayer0_;
-    protected final Deck deckPlayer1_;
+    private final Deck deckPlayer0_;
+    private final Deck deckPlayer1_;
 
     /**
      * Constructor

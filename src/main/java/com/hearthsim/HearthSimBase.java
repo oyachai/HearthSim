@@ -25,13 +25,13 @@ public abstract class HearthSimBase {
 
     int numSims_;
     int numThreads_;
-    String gameResultFileName_;
+    private String gameResultFileName_;
     protected Path rootPath_;
 
     protected Path aiParamFilePath0_;
     protected Path aiParamFilePath1_;
 
-    boolean isRunning_;
+    private boolean isRunning_;
 
     private List<HSGameEndEventListener> gameEndListeners_;
 
@@ -74,7 +74,7 @@ public abstract class HearthSimBase {
      * @throws HSException
      * @throws IOException
      */
-    public abstract GameResult runSingleGame(int gameId) throws HSException, IOException;
+    protected abstract GameResult runSingleGame(int gameId) throws HSException, IOException;
 
     protected GameResult runSingleGame(ArtificialPlayer ai0, Hero hero0, Deck deck0, ArtificialPlayer ai1, Hero hero1, Deck deck1) throws HSException {
         return this.runSingleGame(ai0, hero0, deck0, ai1, hero1, deck1, 0);

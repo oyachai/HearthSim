@@ -25,10 +25,10 @@ import com.hearthsim.util.tree.StopNode;
 public class BruteForceSearchAI implements ArtificialPlayer {
 
     private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
-    public final static int MAX_THINK_TIME = 20000;
+    private final static int MAX_THINK_TIME = 20000;
 
-    boolean useSparseBoardStateFactory_ = true;
-    boolean useDuplicateNodePruning = true;
+    private boolean useSparseBoardStateFactory_ = true;
+    private boolean useDuplicateNodePruning = true;
 
     public WeightedScorer scorer = new WeightedScorer();
 

@@ -15,7 +15,7 @@ import com.hearthsim.util.HearthAction;
  */
 public class CardDrawNode extends StopNode {
 
-    int numCardsToDraw_;
+    private int numCardsToDraw_;
 
     public CardDrawNode(HearthTreeNode origNode, int numCardsToDraw) {
         super(origNode);

@@ -10,8 +10,8 @@ import com.hearthsim.card.minion.concrete.BloodfenRaptor;
 
 public class TestMinionResetCopy {
 
-    BloodfenRaptor original;
-    BloodfenRaptor copy;
+    private BloodfenRaptor original;
+    private BloodfenRaptor copy;
 
     @Before
     public void setUp() throws Exception {

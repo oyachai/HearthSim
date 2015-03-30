@@ -13,7 +13,7 @@ import java.util.TreeMap;
 
 public class GameDetailedRecord implements GameRecord {
 
-    ArrayList<TreeMap<Integer, BoardModel>> boards_;
+    private ArrayList<TreeMap<Integer, BoardModel>> boards_;
 
     public GameDetailedRecord() {
         boards_ = new ArrayList<TreeMap<Integer, BoardModel>>(2);
@@ -72,8 +72,7 @@ public class GameDetailedRecord implements GameRecord {
 
     @Override
     public JSONObject toJSON() {
-        JSONObject json = new JSONObject();
-        return json;
+        return new JSONObject();
     }
 
     public BoardModel get(int turn, int playerID) {
@@ -81,7 +80,7 @@ public class GameDetailedRecord implements GameRecord {
     }
 
     // TODO: remove asap, simply to aid in refactoring
-    public static int getIndexOfPlayer(PlayerSide playerSide) {
+    private static int getIndexOfPlayer(PlayerSide playerSide) {
         if (playerSide == PlayerSide.CURRENT_PLAYER){
             return 0;
         } else {
@@ -90,7 +89,7 @@ public class GameDetailedRecord implements GameRecord {
     }
 
     // TODO: remove asap, simply to aid in refactoring
-    public static PlayerSide getPlayerByIndex(int index) {
+    private static PlayerSide getPlayerByIndex(int index) {
         if (index == 0){
             return PlayerSide.CURRENT_PLAYER;
         } else {

@@ -23,19 +23,19 @@ import com.hearthsim.util.tree.HearthTreeNode;
 public class Game {
         private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
 
-        final static int maxTurns_ = 100;
+        private final static int maxTurns_ = 100;
 
-    BoardModel boardModel;
+    private BoardModel boardModel;
 
-    PlayerModel playerGoingFirst;
-    PlayerModel playerGoingSecond;
+    private PlayerModel playerGoingFirst;
+    private PlayerModel playerGoingSecond;
 
-    ArtificialPlayer aiForPlayerGoingFirst;
-    ArtificialPlayer aiForPlayerGoingSecond;
+    private ArtificialPlayer aiForPlayerGoingFirst;
+    private ArtificialPlayer aiForPlayerGoingSecond;
 
-        public ArrayList<HearthActionBoardPair> gameHistory = new ArrayList<HearthActionBoardPair>();
+        private ArrayList<HearthActionBoardPair> gameHistory = new ArrayList<HearthActionBoardPair>();
 
-        int curTurn_;
+        private int curTurn_;
 
         public Game(PlayerModel playerModel0, PlayerModel playerModel1, ArtificialPlayer ai0, ArtificialPlayer ai1) {
             this(playerModel0, playerModel1, ai0, ai1, false);

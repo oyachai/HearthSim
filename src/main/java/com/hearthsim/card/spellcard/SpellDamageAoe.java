@@ -8,7 +8,7 @@ import com.hearthsim.event.effect.CardEffectAoeInterface;
 @Deprecated
 public class SpellDamageAoe extends SpellDamage implements CardEffectAoeInterface {
 
-    protected CharacterFilter hitsFilter;
+    private CharacterFilter hitsFilter;
 
     public SpellDamageAoe() {
         super();

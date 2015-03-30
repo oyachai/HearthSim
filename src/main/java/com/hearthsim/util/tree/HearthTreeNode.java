@@ -21,7 +21,7 @@ public class HearthTreeNode {
     public final BoardModel data_;
     HearthAction action;
     protected double score_;
-    protected double bestChildScore_;
+    private double bestChildScore_;
 
     List<HearthTreeNode> children_;
 
@@ -49,7 +49,7 @@ public class HearthTreeNode {
         this(data, action, 0.0);
     }
 
-    public HearthTreeNode(BoardModel data, HearthAction action, double score) {
+    private HearthTreeNode(BoardModel data, HearthAction action, double score) {
         this(data, action, score, (byte)0);
     }
 

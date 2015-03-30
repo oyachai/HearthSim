@@ -14,17 +14,17 @@ import com.hearthsim.util.tree.StopNode;
 
 public class DepthBoardStateFactory extends BoardStateFactoryBase {
 
-    protected boolean lethal_;
-    protected boolean timedOut_;
-    public final long maxTime_;
+    private boolean lethal_;
+    private boolean timedOut_;
+    private final long maxTime_;
 
-    protected long startTime_;
+    private long startTime_;
     protected long curTime_;
 
-    protected final boolean useDuplicateNodePruning;
-    int numNodes;
-    int numDuplicates;
-    HashSet<BoardModel> boardsAlreadySeen;
+    private final boolean useDuplicateNodePruning;
+    private int numNodes;
+    private int numDuplicates;
+    private HashSet<BoardModel> boardsAlreadySeen;
 
     /**
      * Constructor

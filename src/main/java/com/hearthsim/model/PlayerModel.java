@@ -28,7 +28,7 @@ public class PlayerModel implements DeepCopyable<PlayerModel>, Iterable<Minion> 
 
     private IdentityLinkedList<Minion> minions;
     private IdentityLinkedList<Card> hand;
-    byte overload;
+    private byte overload;
 
     private byte numCardsUsed;
 
@@ -44,7 +44,7 @@ public class PlayerModel implements DeepCopyable<PlayerModel>, Iterable<Minion> 
         this.fatigueDamage = 1;
     }
 
-    public Card drawFromDeck(int index) {
+    protected Card drawFromDeck(int index) {
         Card card = deck.drawCard(index);
         if (card == null) {
             return null;
@@ -296,7 +296,7 @@ public class PlayerModel implements DeepCopyable<PlayerModel>, Iterable<Minion> 
         resetNumCardsUsed();
     }
 
-    public void resetNumCardsUsed() {
+    protected void resetNumCardsUsed() {
         numCardsUsed = 0;
     }
 

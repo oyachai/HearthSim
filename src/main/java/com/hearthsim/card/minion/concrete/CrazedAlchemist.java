@@ -23,12 +23,11 @@ public class CrazedAlchemist extends Minion implements MinionTargetableBattlecry
         @Override
         public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
             Minion targetMinion = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
-            HearthTreeNode toRet = boardState;
             byte newHealth = targetMinion.getTotalAttack();
             byte newAttack = targetMinion.getTotalHealth();
             targetMinion.setAttack(newAttack);
             targetMinion.setHealth(newHealth);
-            return toRet;
+            return boardState;
         }
     };
 

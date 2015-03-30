@@ -19,8 +19,8 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
 
     protected static final byte HERO_ABILITY_COST = 2; // Assumed to be 2 for all heroes
 
-    protected WeaponCard weapon;
-    protected byte armor_;
+    private WeaponCard weapon;
+    private byte armor_;
 
     public Hero() {
         ImplementedCardList cardList = ImplementedCardList.getInstance();
@@ -198,7 +198,7 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
         return this.useHeroAbility_core(targetPlayerSide, targetMinion, boardState, singleRealizationOnly);
     }
 
-    public abstract HearthTreeNode useHeroAbility_core(PlayerSide targetPlayerSide, Minion targetMinion, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException;
+    protected abstract HearthTreeNode useHeroAbility_core(PlayerSide targetPlayerSide, Minion targetMinion, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException;
 
     /**
      * Called when this minion takes damage
@@ -321,10 +321,9 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
 
     @Override
     public HearthTreeNode minionSummonEvent(PlayerSide thisMinionPlayerSide, PlayerSide summonedMinionPlayerSide, Minion summonedMinion, HearthTreeNode boardState) {
-        HearthTreeNode hearthTreeNode = boardState;
         if (weapon != null) {
             weapon.minionSummonedEvent(thisMinionPlayerSide, summonedMinionPlayerSide, summonedMinion, boardState);
         }
-        return hearthTreeNode;
+        return boardState;
     }
 }
