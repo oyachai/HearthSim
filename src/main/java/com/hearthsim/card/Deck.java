@@ -6,7 +6,7 @@ import com.hearthsim.util.DeepCopyable;
 
 public class Deck implements DeepCopyable<Deck> {
 
-    private ArrayList<Card> cards;
+    private final ArrayList<Card> cards;
 
 
     /**

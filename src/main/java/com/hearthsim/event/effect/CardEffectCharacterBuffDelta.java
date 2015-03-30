@@ -6,9 +6,9 @@ import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class CardEffectCharacterBuffDelta extends CardEffectCharacter {
-    private byte attackDelta;
-    private byte healthDelta;
-    private boolean addTaunt;
+    private final byte attackDelta;
+    private final byte healthDelta;
+    private final boolean addTaunt;
 
     public CardEffectCharacterBuffDelta(int attackDelta, int healthDelta) {
         this(attackDelta, healthDelta, false);

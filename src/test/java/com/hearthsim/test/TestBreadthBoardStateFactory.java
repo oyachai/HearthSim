@@ -45,7 +45,7 @@ import com.hearthsim.util.tree.StopNode;
 
 public class TestBreadthBoardStateFactory {
     @Rule
-    public TestName name = new TestName();
+    public final TestName name = new TestName();
 
     private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
 

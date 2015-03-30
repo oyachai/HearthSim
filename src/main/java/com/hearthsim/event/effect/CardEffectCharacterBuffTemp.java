@@ -6,7 +6,7 @@ import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class CardEffectCharacterBuffTemp extends CardEffectCharacter {
-    private byte attackDelta;
+    private final byte attackDelta;
 
     public CardEffectCharacterBuffTemp(int attackDelta) {
         this.attackDelta = (byte) attackDelta;

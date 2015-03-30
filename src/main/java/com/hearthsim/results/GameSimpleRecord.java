@@ -12,11 +12,11 @@ import org.json.JSONObject;
 
 public class GameSimpleRecord implements GameRecord {
 
-    int maxTurns_;
-    byte[][][] numMinions_;
-    byte[][][] numCards_;
-    byte[][][] heroHealth_;
-    byte[][][] heroArmor_;
+    final int maxTurns_;
+    final byte[][][] numMinions_;
+    final byte[][][] numCards_;
+    final byte[][][] heroHealth_;
+    final byte[][][] heroArmor_;
 
     public GameSimpleRecord() {
         this(50);

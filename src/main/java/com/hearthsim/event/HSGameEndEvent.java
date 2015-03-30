@@ -4,7 +4,7 @@ import com.hearthsim.results.GameResult;
 
 public class HSGameEndEvent {
 
-    private GameResult result_;
+    private final GameResult result_;
 
     HSGameEndEvent(GameResult result) {
         result_ = result;

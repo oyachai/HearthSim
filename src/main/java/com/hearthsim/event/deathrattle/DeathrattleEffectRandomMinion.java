@@ -14,8 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DeathrattleEffectRandomMinion extends DeathrattleAction {
-    private CardEffectCharacter effect;
-    private CharacterFilterUntargetedDeathrattle filter;
+    private final CardEffectCharacter effect;
+    private final CharacterFilterUntargetedDeathrattle filter;
 
     public DeathrattleEffectRandomMinion(CardEffectCharacter effect, CharacterFilterUntargetedDeathrattle filter) {
         this.effect = effect;

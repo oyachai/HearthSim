@@ -34,7 +34,7 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
     private IdentityLinkedList<MinionPlayerPair> allMinionsFIFOList_;
 
     public class MinionPlayerPair {
-        private Minion minion;
+        private final Minion minion;
 
         private PlayerSide playerSide;
 
@@ -77,8 +77,8 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
     }
 
     public class CharacterLocation {
-        private PlayerSide playerSide;
-        private int index;
+        private final PlayerSide playerSide;
+        private final int index;
 
         public CharacterLocation(PlayerSide playerSide, int index) {
             this.playerSide = playerSide;
@@ -111,7 +111,7 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
         private PlayerSide playerSide;
         private PlayerModel.CharacterIterator characterIterator;
 
-        private BoardModel model;
+        private final BoardModel model;
 
         public CharacterLocationIterator(BoardModel model) {
             this.model = model;

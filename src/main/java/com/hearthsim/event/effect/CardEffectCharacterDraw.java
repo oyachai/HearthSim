@@ -6,7 +6,7 @@ import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class CardEffectCharacterDraw extends CardEffectCharacter {
-    private int amount;
+    private final int amount;
 
     public CardEffectCharacterDraw(int amount) {
         this.amount = amount;

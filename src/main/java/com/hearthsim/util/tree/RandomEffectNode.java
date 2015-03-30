@@ -16,7 +16,7 @@ import com.hearthsim.util.HearthAction;
  */
 public class RandomEffectNode extends StopNode {
 
-    private ArrayList<Double> childWeighting_;
+    private final ArrayList<Double> childWeighting_;
 
     public RandomEffectNode(HearthTreeNode origNode,
                             HearthAction action) {

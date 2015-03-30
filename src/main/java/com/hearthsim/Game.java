@@ -33,7 +33,7 @@ public class Game {
     private ArtificialPlayer aiForPlayerGoingFirst;
     private ArtificialPlayer aiForPlayerGoingSecond;
 
-        private ArrayList<HearthActionBoardPair> gameHistory = new ArrayList<HearthActionBoardPair>();
+        private final ArrayList<HearthActionBoardPair> gameHistory = new ArrayList<HearthActionBoardPair>();
 
         private int curTurn_;
 

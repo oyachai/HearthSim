@@ -13,7 +13,7 @@ import java.util.TreeMap;
 
 public class GameDetailedRecord implements GameRecord {
 
-    private ArrayList<TreeMap<Integer, BoardModel>> boards_;
+    private final ArrayList<TreeMap<Integer, BoardModel>> boards_;
 
     public GameDetailedRecord() {
         boards_ = new ArrayList<TreeMap<Integer, BoardModel>>(2);
