@@ -46,7 +46,7 @@ public class ChildNodeCreatorBase implements ChildNodeCreator {
             }
 
             for (final Integer integer : attackable) {
-                int targetIndex = integer.intValue();
+                int targetIndex = integer;
                 newState = new HearthTreeNode(boardStateNode.data_.deepCopy());
 
                 tempMinion = newState.data_.getCurrentPlayer().getCharacter(attackerIndex);

@@ -110,7 +110,7 @@ public class WeightedScorer implements BoardScorer, DeepCopyable<WeightedScorer>
         if (cardInHandExtraScore != null) {
             Double val = cardInHandExtraScore.get(card.getClass());
             if (val != null)
-                theScore += val.doubleValue();
+                theScore += val;
         }
 
         return theScore;
@@ -128,7 +128,7 @@ public class WeightedScorer implements BoardScorer, DeepCopyable<WeightedScorer>
         if (minionOnBoardExtraScore != null) {
             Double val = minionOnBoardExtraScore.get(minion.getClass());
             if (val != null)
-                score += val.doubleValue();
+                score += val;
         }
 
         return score;

@@ -589,7 +589,7 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
     }
 
     private String simpleString() {
-        StringBuffer stringBuffer = new StringBuffer();
+        StringBuilder stringBuffer = new StringBuilder();
         stringBuffer.append("[");
         stringBuffer.append("P0_health:").append(currentPlayer.getHero().getHealth()).append(", ");
         stringBuffer.append("P0_mana:").append(currentPlayer.getMana()).append(", ");
