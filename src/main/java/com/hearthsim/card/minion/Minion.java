@@ -504,13 +504,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         try {
             Constructor<? extends Minion> ctor = this.getClass().getConstructor();
             return ctor.newInstance();
-        } catch (NoSuchMethodException | InvocationTargetException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
+        } catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }

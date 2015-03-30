@@ -21,11 +21,7 @@ public class HeroFactory {
             Constructor<?> ctor = clazz.getConstructor();
             Object object = ctor.newInstance();
             return (Hero)object;
-        } catch (ClassNotFoundException e) {
-            throw new HSInvalidHeroException("Unknown hero: " + cleanedString);
-        } catch (NoSuchMethodException | SecurityException | InvocationTargetException e) {
-            throw new HSInvalidHeroException("Unknown hero: " + cleanedString);
-        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException e) {
+        } catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InvocationTargetException | InstantiationException | IllegalAccessException | IllegalArgumentException e) {
             throw new HSInvalidHeroException("Unknown hero: " + cleanedString);
         }
     }
