@@ -4,7 +4,7 @@ import com.hearthsim.model.BoardModel;
 
 public class HearthActionBoardPair {
 
-    private final HearthAction action;
+    public final HearthAction action;
     public final BoardModel board;
 
     public HearthActionBoardPair(HearthAction action, BoardModel board) {

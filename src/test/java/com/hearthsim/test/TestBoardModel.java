@@ -18,6 +18,7 @@ import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
+@SuppressWarnings("EqualsWithItself")
 public class TestBoardModel {
 
     private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());

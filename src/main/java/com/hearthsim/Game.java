@@ -21,9 +21,9 @@ import com.hearthsim.util.factory.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class Game {
-        private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
+    private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
 
-        private final static int maxTurns_ = 100;
+    private final static int maxTurns_ = 100;
 
     private BoardModel boardModel;
 
@@ -32,7 +32,7 @@ public class Game {
     private ArtificialPlayer aiForPlayerGoingFirst;
     private ArtificialPlayer aiForPlayerGoingSecond;
 
-        private final ArrayList<HearthActionBoardPair> gameHistory = new ArrayList<>();
+    public final ArrayList<HearthActionBoardPair> gameHistory = new ArrayList<>();
 
     public Game(PlayerModel playerModel0, PlayerModel playerModel1, ArtificialPlayer ai0, ArtificialPlayer ai1) {
             this(playerModel0, playerModel1, ai0, ai1, false);
@@ -63,8 +63,6 @@ public class Game {
     }
 
     public GameResult runGame() throws HSException {
-        int curTurn_ = 0;
-
         //the first player draws 3 cards
         boardModel.getCurrentPlayer().placeCardHand(0);
         boardModel.getCurrentPlayer().placeCardHand(1);
