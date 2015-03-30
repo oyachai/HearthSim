@@ -40,7 +40,7 @@ public class HSSimulation {
     public HSSimulation(HSMainFrameModel model) {
         config_ = new SimulationConfig();
         model_ = model;
-        listeners_ = new ArrayList<HSSimulationEventListener>();
+        listeners_ = new ArrayList<>();
         hero0_ = new TestHero();
         hero1_ = new TestHero();
     }

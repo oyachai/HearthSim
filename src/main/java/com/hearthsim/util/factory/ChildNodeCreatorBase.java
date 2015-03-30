@@ -29,7 +29,7 @@ public class ChildNodeCreatorBase implements ChildNodeCreator {
 
     @Override
     public ArrayList<HearthTreeNode> createAttackChildren(HearthTreeNode boardStateNode) throws HSException {
-        ArrayList<HearthTreeNode> nodes = new ArrayList<HearthTreeNode>();
+        ArrayList<HearthTreeNode> nodes = new ArrayList<>();
 
         ArrayList<Integer> attackable = boardStateNode.data_.getAttackableMinions();
 
@@ -75,7 +75,7 @@ public class ChildNodeCreatorBase implements ChildNodeCreator {
 
     @Override
     public ArrayList<HearthTreeNode> createPlayCardChildren(HearthTreeNode boardStateNode) throws HSException {
-        ArrayList<HearthTreeNode> nodes = new ArrayList<HearthTreeNode>();
+        ArrayList<HearthTreeNode> nodes = new ArrayList<>();
 
         Minion targetMinion = null;
         Card card = null;
@@ -134,7 +134,7 @@ public class ChildNodeCreatorBase implements ChildNodeCreator {
 
     @Override
     public ArrayList<HearthTreeNode> createHeroAbilityChildren(HearthTreeNode boardStateNode) throws HSException {
-        ArrayList<HearthTreeNode> nodes = new ArrayList<HearthTreeNode>();
+        ArrayList<HearthTreeNode> nodes = new ArrayList<>();
 
         Hero player = boardStateNode.data_.getCurrentPlayer().getHero();
         if (player.hasBeenUsed()) {

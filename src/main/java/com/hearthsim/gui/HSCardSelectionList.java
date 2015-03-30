@@ -28,8 +28,8 @@ public class HSCardSelectionList extends JList<ImplementedCard> {
         list_ = new ImplementedCardList();
         editing_ = false;
 
-        DefaultListModel<ImplementedCard> model = new DefaultListModel<ImplementedCard>();
-        cards_ = new ArrayList<ImplementedCard>();
+        DefaultListModel<ImplementedCard> model = new DefaultListModel<>();
+        cards_ = new ArrayList<>();
         for (ImplementedCard card : list_.getCardList()) {
             if (!card.isHero && card.collectible)
                 cards_.add(card);

@@ -301,13 +301,13 @@ public class WeightedScorer implements BoardScorer, DeepCopyable<WeightedScorer>
 
     public void putMinionOnBoardExtraScore(Class<? extends Minion> clazz, double value) {
         if (minionOnBoardExtraScore == null)
-            minionOnBoardExtraScore = new HashMap<Class<? extends Minion>, Double>();
+            minionOnBoardExtraScore = new HashMap<>();
         minionOnBoardExtraScore.put(clazz, value);
     }
 
     public void putCardInHandExtraScore(Class<? extends Card> class1, double value) {
         if (cardInHandExtraScore == null)
-            cardInHandExtraScore = new HashMap<Class<? extends Card>, Double>();
+            cardInHandExtraScore = new HashMap<>();
         cardInHandExtraScore.put(class1, value);
     }
 

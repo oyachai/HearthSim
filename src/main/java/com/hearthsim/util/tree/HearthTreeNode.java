@@ -101,7 +101,7 @@ public class HearthTreeNode {
     public HearthTreeNode addChild(HearthTreeNode node) {
         node.setDepth((byte)(depth_ + 1));
         if (children_ == null) {
-            children_ = new ArrayList<HearthTreeNode>();
+            children_ = new ArrayList<>();
         }
         children_.add(node);
         node.parent = this;

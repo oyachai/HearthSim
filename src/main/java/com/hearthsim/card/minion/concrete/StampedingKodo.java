@@ -31,7 +31,7 @@ public class StampedingKodo extends Minion implements MinionUntargetableBattlecr
         if (singleRealizationOnly) {
             PlayerModel waitingPlayer = toRet.data_.modelForSide(PlayerSide.WAITING_PLAYER);
             if (toRet != null) {
-                List<Minion> possibleTargets = new ArrayList<Minion>();
+                List<Minion> possibleTargets = new ArrayList<>();
                 for (Minion minion : waitingPlayer.getMinions()) {
                     if (minion.getTotalAttack() <= 2)
                         possibleTargets.add(minion);
@@ -46,7 +46,7 @@ public class StampedingKodo extends Minion implements MinionUntargetableBattlecr
             PlayerModel waitingPlayer = boardState.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
             int thisMinionIndex = currentPlayer.getMinions().indexOf(this) + 1;
-            List<Minion> possibleTargets = new ArrayList<Minion>();
+            List<Minion> possibleTargets = new ArrayList<>();
             for (Minion minion : waitingPlayer.getMinions()) {
                 if (minion.getTotalAttack() <= 2)
                     possibleTargets.add(minion);

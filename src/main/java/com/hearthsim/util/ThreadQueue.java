@@ -9,7 +9,7 @@ public class ThreadQueue {
 
     public ThreadQueue(int nThreads) {
         this.nThreads = nThreads;
-        queue = new LinkedList<Runnable>();
+        queue = new LinkedList<>();
         threads = new PoolWorker[nThreads];
     }
 

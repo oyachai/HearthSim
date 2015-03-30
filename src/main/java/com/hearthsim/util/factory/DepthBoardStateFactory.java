@@ -50,7 +50,7 @@ public class DepthBoardStateFactory extends BoardStateFactoryBase {
         timedOut_ = false;
         this.useDuplicateNodePruning = useDuplicateNodePruning;
         if (useDuplicateNodePruning)
-            boardsAlreadySeen = new HashSet<BoardModel>(500000);
+            boardsAlreadySeen = new HashSet<>(500000);
     }
 
     public DepthBoardStateFactory(Deck deckPlayer0, Deck deckPlayer1, long maxThinkTime, boolean useDuplicateNodePruning, SparseChildNodeCreator sparseChildNodeCreator) {
@@ -62,7 +62,7 @@ public class DepthBoardStateFactory extends BoardStateFactoryBase {
         timedOut_ = false;
         this.useDuplicateNodePruning = useDuplicateNodePruning;
         if (useDuplicateNodePruning)
-            boardsAlreadySeen = new HashSet<BoardModel>(500000);
+            boardsAlreadySeen = new HashSet<>(500000);
     }
 
     public boolean didTimeOut() {

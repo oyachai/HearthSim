@@ -22,7 +22,7 @@ public class SparseChildNodeCreator extends ChildNodeCreatorBase {
 
     @Override
     public ArrayList<HearthTreeNode> createPlayCardChildren(HearthTreeNode boardStateNode) throws HSException {
-        ArrayList<HearthTreeNode> nodes = new ArrayList<HearthTreeNode>();
+        ArrayList<HearthTreeNode> nodes = new ArrayList<>();
 
         Minion targetMinion = null;
         Card card = null;

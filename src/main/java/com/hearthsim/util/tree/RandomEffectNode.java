@@ -22,7 +22,7 @@ public class RandomEffectNode extends StopNode {
                             HearthAction action) {
         super(origNode);
         this.setAction(action);
-        childWeighting_ = new ArrayList<Double>();
+        childWeighting_ = new ArrayList<>();
     }
 
     @Override

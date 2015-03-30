@@ -42,7 +42,7 @@ public abstract class BoardStateFactoryBase {
     }
 
     protected ArrayList<HearthTreeNode> createChildren(HearthTreeNode boardStateNode) throws HSException {
-        ArrayList<HearthTreeNode> nodes = new ArrayList<HearthTreeNode>();
+        ArrayList<HearthTreeNode> nodes = new ArrayList<>();
         nodes.addAll(this.childNodeCreator.createHeroAbilityChildren(boardStateNode));
         nodes.addAll(this.childNodeCreator.createPlayCardChildren(boardStateNode));
         nodes.addAll(this.childNodeCreator.createAttackChildren(boardStateNode));
@@ -75,7 +75,7 @@ public abstract class BoardStateFactoryBase {
      */
     public static HearthTreeNode handleDeadMinions(HearthTreeNode boardState, boolean singleRealization) {
         HearthTreeNode toRet = boardState;
-        IdentityLinkedList<BoardModel.MinionPlayerPair> deadMinions = new IdentityLinkedList<BoardModel.MinionPlayerPair>();
+        IdentityLinkedList<BoardModel.MinionPlayerPair> deadMinions = new IdentityLinkedList<>();
         for (BoardModel.MinionPlayerPair minionIdPair : toRet.data_.getAllMinionsFIFOList()) {
             if (minionIdPair.getMinion().getTotalHealth() <= 0) {
                 deadMinions.add(minionIdPair);

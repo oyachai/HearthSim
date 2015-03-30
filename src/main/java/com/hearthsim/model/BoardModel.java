@@ -170,7 +170,7 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
     }
 
     private void buildModel() {
-        allMinionsFIFOList_ = new IdentityLinkedList<MinionPlayerPair>();
+        allMinionsFIFOList_ = new IdentityLinkedList<>();
     }
 
     public PlayerModel modelForSide(PlayerSide side){
@@ -427,7 +427,7 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
 
     @SuppressWarnings("unused")
     public ArrayList<Integer> getAttackableMinions() {
-        ArrayList<Integer> toRet = new ArrayList<Integer>();
+        ArrayList<Integer> toRet = new ArrayList<>();
         boolean hasTaunt = false;
         for (final Minion minion : waitingPlayer.getMinions()) {
             hasTaunt = hasTaunt || minion.getTaunt();

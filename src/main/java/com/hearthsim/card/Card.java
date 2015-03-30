@@ -364,7 +364,7 @@ public class Card implements DeepCopyable<Card> {
         PlayerModel waitingPlayer = boardState.data_.getWaitingPlayer();
 
         HearthTreeNode toRet = boardState;
-        ArrayList<CardPlayBeginInterface> matches = new ArrayList<CardPlayBeginInterface>();
+        ArrayList<CardPlayBeginInterface> matches = new ArrayList<>();
 
         for (Card card : currentPlayer.getHand()) {
             if (card instanceof CardPlayBeginInterface) {
@@ -419,7 +419,7 @@ public class Card implements DeepCopyable<Card> {
         PlayerModel waitingPlayer = boardState.data_.getWaitingPlayer();
 
         HearthTreeNode toRet = boardState;
-        ArrayList<CardPlayAfterInterface> matches = new ArrayList<CardPlayAfterInterface>();
+        ArrayList<CardPlayAfterInterface> matches = new ArrayList<>();
 
         for (Card card : currentPlayer.getHand()) {
             if (card instanceof CardPlayAfterInterface) {

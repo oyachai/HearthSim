@@ -20,11 +20,11 @@ public class BreadthBoardStateFactory extends BoardStateFactoryBase {
     public void addChildLayers(HearthTreeNode boardStateNode, int maxDepth) throws HSException {
 
         // Saving seen states lets us prune duplicate states. This saves us a ton of time when the trees get deep.
-        TreeSet<Integer> states = new TreeSet<Integer>();
+        TreeSet<Integer> states = new TreeSet<>();
 
         // We need to process things by batch so we can track how deep we've gone.
-        ArrayList<HearthTreeNode> currentDepth = new ArrayList<HearthTreeNode>();
-        ArrayList<HearthTreeNode> nextDepth = new ArrayList<HearthTreeNode>();
+        ArrayList<HearthTreeNode> currentDepth = new ArrayList<>();
+        ArrayList<HearthTreeNode> nextDepth = new ArrayList<>();
         currentDepth.add(boardStateNode);
 
         // Debugging variables for tracking loop complications
@@ -51,7 +51,7 @@ public class BreadthBoardStateFactory extends BoardStateFactoryBase {
                 if (current.isLeaf()) {
                     children = this.createChildren(current);
                 } else {
-                    children = new ArrayList<HearthTreeNode>(current.getChildren());
+                    children = new ArrayList<>(current.getChildren());
                 }
                 current.clearChildren(); // TODO suboptimal but we need to remove existing children so we can check for duplicates
 

@@ -13,7 +13,7 @@ public class Deck implements DeepCopyable<Deck> {
      * Constructor
      */
     public Deck() {
-        this.cards = new ArrayList<Card>();
+        this.cards = new ArrayList<>();
     }
 
     /**
@@ -21,7 +21,7 @@ public class Deck implements DeepCopyable<Deck> {
      * @param cards An array of cards from which to make the deck
      */
     public Deck(Card[] cards) {
-        this.cards = new ArrayList<Card>();
+        this.cards = new ArrayList<>();
         for (Card c : cards) {
             this.cards.add(c);
         }
@@ -111,7 +111,7 @@ public class Deck implements DeepCopyable<Deck> {
 
     @Override
     public Deck deepCopy() {
-        ArrayList<Card> copiedCards = new ArrayList<Card>();
+        ArrayList<Card> copiedCards = new ArrayList<>();
         for (Card card : cards) {
             copiedCards.add(card.deepCopy());
         }

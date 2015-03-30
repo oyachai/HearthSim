@@ -16,9 +16,9 @@ public class GameDetailedRecord implements GameRecord {
     private final ArrayList<TreeMap<Integer, BoardModel>> boards_;
 
     public GameDetailedRecord() {
-        boards_ = new ArrayList<TreeMap<Integer, BoardModel>>(2);
-        boards_.add(new TreeMap<Integer, BoardModel>());
-        boards_.add(new TreeMap<Integer, BoardModel>());
+        boards_ = new ArrayList<>(2);
+        boards_.add(new TreeMap<>());
+        boards_.add(new TreeMap<>());
     }
 
     @Override

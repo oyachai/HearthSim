@@ -186,7 +186,7 @@ public class BruteForceSearchAI implements ArtificialPlayer {
         HearthTreeNode toRet = new HearthTreeNode(board);
 
         HearthTreeNode allMoves = factory.doMoves(toRet, this.scorer);
-        ArrayList<HearthActionBoardPair> retList = new ArrayList<HearthActionBoardPair>();
+        ArrayList<HearthActionBoardPair> retList = new ArrayList<>();
         HearthTreeNode curMove = allMoves;
 
         while(curMove.getChildren() != null) {

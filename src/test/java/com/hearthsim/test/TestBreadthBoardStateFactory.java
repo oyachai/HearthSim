@@ -357,7 +357,7 @@ public class TestBreadthBoardStateFactory {
     }
 
     private void assertActionTreeIsRepeatable(HearthTreeNode root) throws HSException {
-        ArrayList<HearthTreeNode> unprocessed = new ArrayList<HearthTreeNode>();
+        ArrayList<HearthTreeNode> unprocessed = new ArrayList<>();
         unprocessed.add(root);
 
         HearthTreeNode current = null;
@@ -377,7 +377,7 @@ public class TestBreadthBoardStateFactory {
     }
 
     private void assertDescendentsCoversNode(HearthTreeNode us, HearthTreeNode them) {
-        ArrayList<HearthTreeNode> unprocessed = new ArrayList<HearthTreeNode>();
+        ArrayList<HearthTreeNode> unprocessed = new ArrayList<>();
         unprocessed.add(them);
 
         HearthTreeNode current = null;
@@ -392,7 +392,7 @@ public class TestBreadthBoardStateFactory {
 
     private void assertDescendentsContainBoardModel(HearthTreeNode root, BoardModel expectedBoard) {
         boolean success = false;
-        ArrayList<HearthTreeNode> unprocessed = new ArrayList<HearthTreeNode>();
+        ArrayList<HearthTreeNode> unprocessed = new ArrayList<>();
         unprocessed.add(root);
 
         HearthTreeNode current = null;
@@ -411,8 +411,8 @@ public class TestBreadthBoardStateFactory {
     }
 
     private void assertDescendentsDoNotContainDuplicates(HearthTreeNode root) {
-        ArrayList<BoardModel> states = new ArrayList<BoardModel>();
-        ArrayList<HearthTreeNode> unprocessed = new ArrayList<HearthTreeNode>();
+        ArrayList<BoardModel> states = new ArrayList<>();
+        ArrayList<HearthTreeNode> unprocessed = new ArrayList<>();
         unprocessed.add(root);
 
         HearthTreeNode current = null;

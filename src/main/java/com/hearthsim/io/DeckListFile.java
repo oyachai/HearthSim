@@ -53,7 +53,7 @@ public class DeckListFile {
      */
     protected void parseDeckList(String deckListStr) throws HSInvalidCardException, HSInvalidHeroException {
         String[] deckList = deckListStr.split(",");
-        ArrayList<Card> cards = new ArrayList<Card>();
+        ArrayList<Card> cards = new ArrayList<>();
         //Ignore the first entry for now... hero classes aren't implemented yet!
         for (int indx = 1; indx < deckList.length; ++indx) {
             cards.add(CardFactory.getCard(deckList[indx]));

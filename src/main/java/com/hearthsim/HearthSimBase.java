@@ -53,14 +53,14 @@ public abstract class HearthSimBase {
         aiParamFilePath0_ = FileSystems.getDefault().getPath(rootPath_.toString(), masterParam.getString("aiParamFilePath0"));
         aiParamFilePath1_ = FileSystems.getDefault().getPath(rootPath_.toString(), masterParam.getString("aiParamFilePath1"));
         gameResultFileName_ = masterParam.getString("output_file", "gameres.txt");
-        gameEndListeners_ = new ArrayList<HSGameEndEventListener>();
+        gameEndListeners_ = new ArrayList<>();
         isRunning_ = false;
     }
 
     HearthSimBase(int numSimulations, int numThreads) {
         numSims_ = numSimulations;
         numThreads_ = numThreads;
-        gameEndListeners_ = new ArrayList<HSGameEndEventListener>();
+        gameEndListeners_ = new ArrayList<>();
         isRunning_ = false;
     }
 

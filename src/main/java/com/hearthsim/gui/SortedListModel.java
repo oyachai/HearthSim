@@ -13,7 +13,7 @@ public class SortedListModel<E extends Comparable> extends AbstractListModel<E> 
     ArrayList<E> model; //can't use SortedSet... we need to support duplicates
 
     public SortedListModel() {
-        model = new ArrayList<E>();
+        model = new ArrayList<>();
     }
 
     @Override
