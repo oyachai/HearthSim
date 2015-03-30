@@ -1,6 +1,5 @@
 package com.hearthsim.card;
 
-import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 

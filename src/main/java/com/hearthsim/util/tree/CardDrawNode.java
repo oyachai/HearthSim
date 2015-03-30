@@ -1,7 +1,6 @@
 package com.hearthsim.util.tree;
 
 import com.hearthsim.card.Deck;
-import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.player.playercontroller.BoardScorer;
 import com.hearthsim.util.HearthAction;

@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.List;
 
 import com.hearthsim.card.minion.*;
-import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.player.playercontroller.BoardScorer;

@@ -6,7 +6,6 @@ import com.hearthsim.card.minion.concrete.HealingTotem;
 import com.hearthsim.card.minion.concrete.SearingTotem;
 import com.hearthsim.card.minion.concrete.StoneclawTotem;
 import com.hearthsim.card.minion.concrete.WrathOfAirTotem;
-import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;

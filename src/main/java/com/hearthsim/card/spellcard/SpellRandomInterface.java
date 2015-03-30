@@ -1,6 +1,5 @@
 package com.hearthsim.card.spellcard;
 
-import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 

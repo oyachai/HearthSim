@@ -3,7 +3,6 @@ package com.hearthsim;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.exception.HSInvalidCardException;
 import com.hearthsim.exception.HSInvalidParamFileException;
 import com.hearthsim.exception.HSParamNotFoundException;
 import com.hearthsim.io.DeckListFile;
