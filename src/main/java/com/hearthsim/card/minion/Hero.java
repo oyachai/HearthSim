@@ -173,8 +173,7 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
      * @param boardState
      * @return
      */
-    public final HearthTreeNode useHeroAbility(PlayerSide targetPlayerSide, Minion targetMinion, HearthTreeNode boardState, boolean singleRealizationOnly)
-        throws HSException {
+    public final HearthTreeNode useHeroAbility(PlayerSide targetPlayerSide, Minion targetMinion, HearthTreeNode boardState, boolean singleRealizationOnly) {
 
         if (!this.canBeUsedOn(targetPlayerSide, targetMinion, boardState.data_)) {
             return null;
@@ -194,7 +193,7 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
     }
 
     @Deprecated
-    public HearthTreeNode useHeroAbility_core(PlayerSide targetPlayerSide, Minion targetMinion, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
+    public HearthTreeNode useHeroAbility_core(PlayerSide targetPlayerSide, Minion targetMinion, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) {
         return this.useHeroAbility_core(targetPlayerSide, targetMinion, boardState, singleRealizationOnly);
     }
 

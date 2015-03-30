@@ -359,7 +359,7 @@ public class Card implements DeepCopyable<Card> {
     // ======================================================================================
     // Various notifications
     // ======================================================================================
-    private HearthTreeNode notifyCardPlayBegin(HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
+    private HearthTreeNode notifyCardPlayBegin(HearthTreeNode boardState, boolean singleRealizationOnly) {
         PlayerModel currentPlayer = boardState.data_.getCurrentPlayer();
         PlayerModel waitingPlayer = boardState.data_.getWaitingPlayer();
 
@@ -607,7 +607,7 @@ public class Card implements DeepCopyable<Card> {
     }
 
     @Deprecated
-    protected HearthTreeNode notifyCardPlayResolve(HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
+    protected HearthTreeNode notifyCardPlayResolve(HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) {
         return this.notifyCardPlayResolve(boardState, singleRealizationOnly);
     }
 

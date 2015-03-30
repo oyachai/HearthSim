@@ -81,7 +81,7 @@ public class SpellDamage extends SpellCard {
 
     @Deprecated
     public final HearthTreeNode attack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode boardState,
-                                 Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+                                 Deck deckPlayer0, Deck deckPlayer1) {
         return this.attack(targetMinionPlayerSide, targetMinion, boardState);
     }
 

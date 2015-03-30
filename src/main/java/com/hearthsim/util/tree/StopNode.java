@@ -15,7 +15,7 @@ public abstract class StopNode extends HearthTreeNode {
     }
 
     @Deprecated
-    public HearthTreeNode finishAllEffects(Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+    public HearthTreeNode finishAllEffects(Deck deckPlayer0, Deck deckPlayer1) {
         return this.finishAllEffects();
     }
 
