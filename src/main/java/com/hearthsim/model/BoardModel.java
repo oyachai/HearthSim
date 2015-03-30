@@ -416,12 +416,12 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
     //----------------------------------------------------------------------------
     //----------------------------------------------------------------------------
 
-    public boolean isAlive(PlayerSide playerSide) {
-        return modelForSide(playerSide).getHero().getHealth() > 0;
+    public boolean isDead(PlayerSide playerSide) {
+        return modelForSide(playerSide).getHero().getHealth() <= 0;
     }
 
     public boolean isLethalState() {
-        return !this.isAlive(PlayerSide.CURRENT_PLAYER) || !this.isAlive(PlayerSide.WAITING_PLAYER);
+        return this.isDead(PlayerSide.CURRENT_PLAYER) || this.isDead(PlayerSide.WAITING_PLAYER);
     }
 
     @SuppressWarnings("unused")

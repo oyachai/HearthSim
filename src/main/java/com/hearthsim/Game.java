@@ -147,10 +147,10 @@ public class Game {
     }
 
     public GameResult checkGameOver(int turnCount, GameRecord record) {
-        if (!boardModel.isAlive(PlayerSide.CURRENT_PLAYER)) {
+        if (boardModel.isDead(PlayerSide.CURRENT_PLAYER)) {
             PlayerModel winner = boardModel.modelForSide(PlayerSide.WAITING_PLAYER);
             return new GameResult(playerGoingFirst.getPlayerId(), winner.getPlayerId(), turnCount + 1, record);
-        } else if (!boardModel.isAlive(PlayerSide.WAITING_PLAYER)) {
+        } else if (boardModel.isDead(PlayerSide.WAITING_PLAYER)) {
             PlayerModel winner = boardModel.modelForSide(PlayerSide.CURRENT_PLAYER);
             return new GameResult(playerGoingFirst.getPlayerId(), winner.getPlayerId(), turnCount + 1, record);
         }
