@@ -1,21 +1,24 @@
 package com.hearthsim.card.spellcard;
 
 import com.hearthsim.card.Card;
-import com.hearthsim.card.minion.Minion;
-import com.hearthsim.model.BoardModel;
-import com.hearthsim.model.PlayerSide;
+import com.hearthsim.event.effect.CardEffectCharacter;
+import com.hearthsim.event.CharacterFilter;
+import com.hearthsim.event.CharacterFilterTargetedSpell;
+import com.hearthsim.event.effect.CardEffectTargetableInterface;
 
 import org.json.JSONObject;
 
-public class SpellCard extends Card {
+public abstract class SpellCard extends Card implements CardEffectTargetableInterface {
 
-    protected boolean canTargetOwnHero = true;
-    protected boolean canTargetOwnMinions = true;
-    protected boolean canTargetEnemyHero = true;
-    protected boolean canTargetEnemyMinions = true;
+    protected CardEffectCharacter effect;
 
     public SpellCard() {
         super();
+    }
+
+    @Override
+    public CharacterFilter getTargetableFilter() {
+        return CharacterFilterTargetedSpell.ALL;
     }
 
     @Deprecated
@@ -26,31 +29,6 @@ public class SpellCard extends Card {
     @Deprecated
     public SpellCard(byte mana) {
         this(mana, false);
-    }
-
-    @Override
-    public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
-        if (hasBeenUsed || minion.getStealthed() || !minion.isHeroTargetable()) {
-            return false;
-        }
-
-        if (!canTargetOwnHero && isCurrentPlayer(playerSide) && isHero(minion)) {
-            return false;
-        }
-
-        if (!canTargetOwnMinions && isCurrentPlayer(playerSide) && !isHero(minion)) {
-            return false;
-        }
-
-        if (!canTargetEnemyHero && isWaitingPlayer(playerSide) && isHero(minion)) {
-            return false;
-        }
-
-        if (!canTargetEnemyMinions && isWaitingPlayer(playerSide) && !isHero(minion)) {
-            return false;
-        }
-
-        return true;
     }
 
     @Override

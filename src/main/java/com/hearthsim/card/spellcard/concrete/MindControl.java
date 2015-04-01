@@ -1,12 +1,13 @@
 package com.hearthsim.card.spellcard.concrete;
 
-import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
-import com.hearthsim.exception.HSException;
-import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.tree.HearthTreeNode;
+import com.hearthsim.event.CharacterFilter;
+import com.hearthsim.event.effect.CardEffectCharacter;
+import com.hearthsim.event.CharacterFilterTargetedSpell;
 
 public class MindControl extends SpellCard {
+
+    private final static CardEffectCharacter effect = CardEffectCharacter.MIND_CONTROL;
 
     /**
      * Constructor
@@ -26,10 +27,11 @@ public class MindControl extends SpellCard {
      */
     public MindControl() {
         super();
+    }
 
-        this.canTargetEnemyHero = false;
-        this.canTargetOwnHero = false;
-        this.canTargetOwnMinions = false;
+    @Override
+    public CharacterFilter getTargetableFilter() {
+        return CharacterFilterTargetedSpell.ENEMY_MINIONS;
     }
 
     /**
@@ -46,17 +48,7 @@ public class MindControl extends SpellCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    protected HearthTreeNode use_core(
-            PlayerSide side,
-            Minion targetMinion,
-            HearthTreeNode boardState,
-            boolean singleRealizationOnly)
-        throws HSException {
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
-        if (toRet != null) {
-            toRet.data_.removeMinion(targetMinion);
-            toRet.data_.placeMinion(PlayerSide.CURRENT_PLAYER, targetMinion);
-        }
-        return toRet;
+    public CardEffectCharacter getTargetableEffect() {
+        return MindControl.effect;
     }
 }

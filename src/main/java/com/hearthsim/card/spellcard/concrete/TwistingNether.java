@@ -1,12 +1,12 @@
 package com.hearthsim.card.spellcard.concrete;
 
-import com.hearthsim.card.minion.Minion;
+import com.hearthsim.event.effect.CardEffectAoeInterface;
 import com.hearthsim.card.spellcard.SpellCard;
-import com.hearthsim.exception.HSException;
-import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.tree.HearthTreeNode;
+import com.hearthsim.event.CharacterFilter;
+import com.hearthsim.event.effect.CardEffectCharacter;
+import com.hearthsim.event.CharacterFilterTargetedSpell;
 
-public class TwistingNether extends SpellCard {
+public class TwistingNether extends SpellCard implements CardEffectAoeInterface {
 
     /**
      * Constructor
@@ -15,10 +15,11 @@ public class TwistingNether extends SpellCard {
      */
     public TwistingNether() {
         super();
+    }
 
-        this.canTargetEnemyHero = false;
-        this.canTargetEnemyMinions = false;
-        this.canTargetOwnMinions = false;
+    @Override
+    public CharacterFilter getTargetableFilter() {
+        return CharacterFilterTargetedSpell.SELF;
     }
 
     /**
@@ -35,16 +36,15 @@ public class TwistingNether extends SpellCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    protected HearthTreeNode use_core(
-        PlayerSide side,
-        Minion targetMinion,
-        HearthTreeNode boardState,
-        boolean singleRealizationOnly)
-        throws HSException {
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
-        for (Minion minion : toRet.data_.getAllMinions()) {
-            minion.setHealth((byte)-99);
-        }
-        return toRet;
+    public CardEffectCharacter getTargetableEffect() {
+        return CardEffectCharacter.DESTROY;
+    }
+
+    @Override
+    public CardEffectCharacter getAoeEffect() { return this.getTargetableEffect(); }
+
+    @Override
+    public CharacterFilter getAoeFilter() {
+        return CharacterFilter.ALL_MINIONS;
     }
 }

@@ -1,10 +1,12 @@
 package com.hearthsim.card.spellcard.concrete;
 
-import com.hearthsim.card.spellcard.SpellDamageAoe;
+import com.hearthsim.event.effect.CardEffectAoeInterface;
+import com.hearthsim.card.spellcard.SpellDamage;
+import com.hearthsim.event.CharacterFilter;
+import com.hearthsim.event.CharacterFilterTargetedSpell;
+import com.hearthsim.event.effect.CardEffectCharacter;
 
-public class Whirlwind extends SpellDamageAoe {
-
-    private static final byte DAMAGE_AMOUNT = 1;
+public class Whirlwind extends SpellDamage implements CardEffectAoeInterface {
 
     /**
      * Constructor
@@ -24,8 +26,18 @@ public class Whirlwind extends SpellDamageAoe {
      */
     public Whirlwind() {
         super();
+    }
 
-        this.hitsEnemyMinions = true;
-        this.hitsOwnMinions = true;
+    @Override
+    public CharacterFilter getTargetableFilter() {
+        return CharacterFilterTargetedSpell.OPPONENT;
+    }
+
+    @Override
+    public CardEffectCharacter getAoeEffect() { return this.getTargetableEffect(); }
+
+    @Override
+    public CharacterFilter getAoeFilter() {
+        return CharacterFilter.ALL_MINIONS;
     }
 }

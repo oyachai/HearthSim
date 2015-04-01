@@ -1,15 +1,13 @@
 package com.hearthsim.card.spellcard.concrete;
 
-import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
-import com.hearthsim.event.EffectMinionBounce;
-import com.hearthsim.exception.HSException;
-import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.tree.HearthTreeNode;
+import com.hearthsim.event.CharacterFilter;
+import com.hearthsim.event.effect.CardEffectCharacter;
+import com.hearthsim.event.CharacterFilterTargetedSpell;
 
 public class Sap extends SpellCard {
 
-    protected final EffectMinionBounce effect = new EffectMinionBounce();
+    private final static CardEffectCharacter effect = CardEffectCharacter.BOUNCE;
 
     /**
      * Constructor
@@ -29,10 +27,11 @@ public class Sap extends SpellCard {
      */
     public Sap() {
         super();
+    }
 
-        this.canTargetEnemyHero = false;
-        this.canTargetOwnHero = false;
-        this.canTargetOwnMinions = false;
+    @Override
+    public CharacterFilter getTargetableFilter() {
+        return CharacterFilterTargetedSpell.ENEMY_MINIONS;
     }
 
     /**
@@ -49,15 +48,7 @@ public class Sap extends SpellCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    protected HearthTreeNode use_core(
-            PlayerSide side,
-            Minion targetMinion,
-            HearthTreeNode boardState, boolean singleRealizationOnly)
-        throws HSException {
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
-        if (toRet != null) {
-            this.effect.applyEffect(PlayerSide.CURRENT_PLAYER, this, side, targetMinion, boardState.data_);
-        }
-        return toRet;
+    public CardEffectCharacter getTargetableEffect() {
+        return Sap.effect;
     }
 }

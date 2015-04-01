@@ -1,9 +1,12 @@
 package com.hearthsim.card.spellcard.concrete;
 
+import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.MirrorImageMinion;
 import com.hearthsim.card.spellcard.SpellCard;
-import com.hearthsim.exception.HSException;
+import com.hearthsim.event.CharacterFilter;
+import com.hearthsim.event.effect.CardEffectCharacter;
+import com.hearthsim.event.CharacterFilterTargetedSpell;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -29,10 +32,11 @@ public class MirrorImage extends SpellCard {
      */
     public MirrorImage() {
         super();
+    }
 
-        this.canTargetEnemyHero = false;
-        this.canTargetEnemyMinions = false;
-        this.canTargetOwnMinions = false;
+    @Override
+    public CharacterFilter getTargetableFilter() {
+        return CharacterFilterTargetedSpell.SELF;
     }
 
     /**
@@ -49,27 +53,27 @@ public class MirrorImage extends SpellCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    protected HearthTreeNode use_core(
-            PlayerSide side,
-            Minion targetMinion,
-            HearthTreeNode boardState,
-            boolean singleRealizationOnly)
-        throws HSException {
-        PlayerModel currentPlayer = boardState.data_.modelForSide(side);
-        if (currentPlayer.isBoardFull()) {
-            return null;
-        }
+    public CardEffectCharacter getTargetableEffect() {
+        if (this.effect == null) {
+            this.effect = new CardEffectCharacter() {
+                @Override
+                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
+                    PlayerModel currentPlayer = boardState.data_.modelForSide(targetSide);
+                    if (currentPlayer.isBoardFull()) {
+                        return null;
+                    }
 
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
-        if (toRet != null) {
-            Minion mi0 = new MirrorImageMinion();
-            toRet = mi0.summonMinionAtEnd(side, toRet, false, singleRealizationOnly);
+                    Minion mi0 = new MirrorImageMinion();
+                    boardState = mi0.summonMinionAtEnd(targetSide, boardState, false, false);
 
-            if (!currentPlayer.isBoardFull()) {
-                Minion mi1 = new MirrorImageMinion();
-                toRet = mi1.summonMinionAtEnd(side, toRet, false, singleRealizationOnly);
-            }
+                    if (!currentPlayer.isBoardFull()) {
+                        Minion mi1 = new MirrorImageMinion();
+                        boardState = mi1.summonMinionAtEnd(targetSide, boardState, false, false);
+                    }
+                    return boardState;
+                }
+            };
         }
-        return toRet;
+        return this.effect;
     }
 }

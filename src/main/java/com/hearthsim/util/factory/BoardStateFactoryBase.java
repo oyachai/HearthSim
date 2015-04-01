@@ -75,8 +75,7 @@ public abstract class BoardStateFactoryBase {
      * @return true if there are dead minions left (minions might have died during deathrattle). false otherwise.
      * @throws HSException
      */
-    public static HearthTreeNode handleDeadMinions(HearthTreeNode boardState, boolean singleRealization)
-            throws HSException {
+    public static HearthTreeNode handleDeadMinions(HearthTreeNode boardState, boolean singleRealization) {
         HearthTreeNode toRet = boardState;
         IdentityLinkedList<BoardModel.MinionPlayerPair> deadMinions = new IdentityLinkedList<BoardModel.MinionPlayerPair>();
         for (BoardModel.MinionPlayerPair minionIdPair : toRet.data_.getAllMinionsFIFOList()) {
@@ -86,7 +85,7 @@ public abstract class BoardStateFactoryBase {
         }
         for (BoardModel.MinionPlayerPair minionIdPair : deadMinions) {
             PlayerSide playerSide = minionIdPair.getPlayerSide();
-            toRet = minionIdPair.getMinion().destroyed(playerSide, toRet, singleRealization);
+            toRet = minionIdPair.getMinion().destroyAndNotify(playerSide, toRet, singleRealization);
             toRet.data_.removeMinion(minionIdPair);
         }
         if (toRet.data_.hasDeadMinions())

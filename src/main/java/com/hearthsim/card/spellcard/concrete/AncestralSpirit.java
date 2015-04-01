@@ -1,9 +1,12 @@
 package com.hearthsim.card.spellcard.concrete;
 
+import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
+import com.hearthsim.event.CharacterFilter;
+import com.hearthsim.event.effect.CardEffectCharacter;
+import com.hearthsim.event.CharacterFilterTargetedSpell;
 import com.hearthsim.event.deathrattle.DeathrattleSummonMinionAction;
-import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -26,9 +29,11 @@ public class AncestralSpirit extends SpellCard {
      */
     public AncestralSpirit() {
         super();
+    }
 
-        this.canTargetEnemyHero = false;
-        this.canTargetOwnHero = false;
+    @Override
+    public CharacterFilter getTargetableFilter() {
+        return CharacterFilterTargetedSpell.ALL_MINIONS;
     }
 
     /**
@@ -45,15 +50,17 @@ public class AncestralSpirit extends SpellCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    protected HearthTreeNode use_core(
-            PlayerSide side,
-            Minion targetMinion,
-            HearthTreeNode boardState, boolean singleRealizationOnly)
-        throws HSException {
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
-        if (toRet != null) {
-            targetMinion.setDeathrattle(new DeathrattleSummonMinionAction(targetMinion.getClass(), 1));
+    public CardEffectCharacter getTargetableEffect() {
+        if (this.effect == null) {
+            this.effect = new CardEffectCharacter() {
+                @Override
+                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
+                    Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
+                    targetCharacter.setDeathrattle(new DeathrattleSummonMinionAction(targetCharacter.getClass(), 1));
+                    return boardState;
+                }
+            };
         }
-        return toRet;
+        return this.effect;
     }
 }

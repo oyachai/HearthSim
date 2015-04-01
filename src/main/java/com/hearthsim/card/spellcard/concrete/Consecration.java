@@ -1,8 +1,12 @@
 package com.hearthsim.card.spellcard.concrete;
 
-import com.hearthsim.card.spellcard.SpellDamageAoe;
+import com.hearthsim.event.effect.CardEffectAoeInterface;
+import com.hearthsim.card.spellcard.SpellDamage;
+import com.hearthsim.event.CharacterFilter;
+import com.hearthsim.event.CharacterFilterTargetedSpell;
+import com.hearthsim.event.effect.CardEffectCharacter;
 
-public class Consecration extends SpellDamageAoe {
+public class Consecration extends SpellDamage implements CardEffectAoeInterface {
 
     private static final byte DAMAGE_AMOUNT = 2;
 
@@ -24,6 +28,18 @@ public class Consecration extends SpellDamageAoe {
      */
     public Consecration() {
         super();
-        this.hitsEnemyHero = true;
+    }
+
+    @Override
+    public CharacterFilter getTargetableFilter() {
+        return CharacterFilterTargetedSpell.OPPONENT;
+    }
+
+    @Override
+    public CardEffectCharacter getAoeEffect() { return this.getTargetableEffect(); }
+
+    @Override
+    public CharacterFilter getAoeFilter() {
+        return CharacterFilter.ALL_ENEMIES;
     }
 }

@@ -1,8 +1,12 @@
 package com.hearthsim.card.spellcard.concrete;
 
-import com.hearthsim.card.spellcard.SpellDamageAoe;
+import com.hearthsim.event.effect.CardEffectAoeInterface;
+import com.hearthsim.card.spellcard.SpellDamage;
+import com.hearthsim.event.CharacterFilter;
+import com.hearthsim.event.CharacterFilterTargetedSpell;
+import com.hearthsim.event.effect.CardEffectCharacter;
 
-public class ArcaneExplosion extends SpellDamageAoe {
+public class ArcaneExplosion extends SpellDamage implements CardEffectAoeInterface {
 
     /**
      * Constructor
@@ -21,5 +25,18 @@ public class ArcaneExplosion extends SpellDamageAoe {
      */
     public ArcaneExplosion() {
         super();
+    }
+
+    @Override
+    public CharacterFilter getTargetableFilter() {
+        return CharacterFilterTargetedSpell.OPPONENT;
+    }
+
+    @Override
+    public CardEffectCharacter getAoeEffect() { return this.getTargetableEffect(); }
+
+    @Override
+    public CharacterFilter getAoeFilter() {
+        return CharacterFilter.ENEMY_MINIONS;
     }
 }

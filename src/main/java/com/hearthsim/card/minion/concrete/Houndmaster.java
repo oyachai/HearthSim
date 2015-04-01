@@ -1,35 +1,38 @@
 package com.hearthsim.card.minion.concrete;
 
-import com.hearthsim.card.minion.BattlecryTargetType;
+import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionTargetableBattlecry;
-import com.hearthsim.exception.HSException;
+import com.hearthsim.event.effect.CardEffectCharacter;
+import com.hearthsim.event.effect.CardEffectCharacterBuffDelta;
+import com.hearthsim.event.CharacterFilterTargetedBattlecry;
+import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-import java.util.EnumSet;
-
 public class Houndmaster extends Minion implements MinionTargetableBattlecry {
+
+    /**
+     * Battlecry: Give a friendly beast +2/+2 and Taunt
+     */
+    private final static CharacterFilterTargetedBattlecry filter = new CharacterFilterTargetedBattlecry() {
+        protected boolean includeOwnMinions() { return true; }
+        protected MinionTribe tribeFilter() { return MinionTribe.BEAST; }
+    };
+
+    private final static CardEffectCharacter battlecryAction = new CardEffectCharacterBuffDelta(2, 2, true);
 
     public Houndmaster() {
         super();
     }
 
     @Override
-    public EnumSet<BattlecryTargetType> getBattlecryTargets() {
-        return EnumSet.of(BattlecryTargetType.FRIENDLY_BEASTS);
+    public boolean canTargetWithBattlecry(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, BoardModel board) {
+        return Houndmaster.filter.targetMatches(originSide, origin, targetSide, targetCharacterIndex, board);
     }
 
-    /**
-     * Battlecry: Give a friendly beast +2/+2 and Taunt
-     */
     @Override
-    public HearthTreeNode useTargetableBattlecry_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState) throws HSException {
-        HearthTreeNode toRet = boardState;
-        targetMinion.setAttack((byte) (targetMinion.getAttack() + 2));
-        targetMinion.setHealth((byte) (targetMinion.getHealth() + 2));
-        targetMinion.setTaunt(true);
-        return toRet;
+    public HearthTreeNode useTargetableBattlecry_core(PlayerSide originSide, Minion origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
+        return Houndmaster.battlecryAction.applyEffect(originSide, origin, targetSide, targetCharacterIndex, boardState);
     }
-
 }

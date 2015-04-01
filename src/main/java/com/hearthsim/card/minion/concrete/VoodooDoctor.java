@@ -1,34 +1,40 @@
 package com.hearthsim.card.minion.concrete;
 
-import com.hearthsim.card.minion.BattlecryTargetType;
+import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionTargetableBattlecry;
-import com.hearthsim.exception.HSException;
+import com.hearthsim.event.effect.CardEffectCharacter;
+import com.hearthsim.event.CharacterFilterTargetedBattlecry;
+import com.hearthsim.event.effect.CardEffectCharacterHeal;
+import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-import java.util.EnumSet;
-
 public class VoodooDoctor extends Minion implements MinionTargetableBattlecry {
 
+    /**
+     * Battlecry: Restore 2 health
+     */
+    private final static CharacterFilterTargetedBattlecry filter = new CharacterFilterTargetedBattlecry() {
+        protected boolean includeEnemyHero() { return true; }
+        protected boolean includeEnemyMinions() { return true; }
+        protected boolean includeOwnHero() { return true; }
+        protected boolean includeOwnMinions() { return true; }
+    };
+
+    private final static CardEffectCharacter battlecryAction = new CardEffectCharacterHeal(2);
 
     public VoodooDoctor() {
         super();
     }
 
     @Override
-    public EnumSet<BattlecryTargetType> getBattlecryTargets() {
-        return EnumSet.of(BattlecryTargetType.FRIENDLY_HERO, BattlecryTargetType.ENEMY_HERO, BattlecryTargetType.FRIENDLY_MINIONS, BattlecryTargetType.ENEMY_MINIONS);
+    public boolean canTargetWithBattlecry(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, BoardModel board) {
+        return VoodooDoctor.filter.targetMatches(originSide, origin, targetSide, targetCharacterIndex, board);
     }
 
-    /**
-     * Battlecry: Restore 2 health
-     */
     @Override
-    public HearthTreeNode useTargetableBattlecry_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState) throws HSException {
-        HearthTreeNode toRet = boardState;
-        toRet = targetMinion.takeHeal((byte)2, side, toRet);
-        return toRet;
+    public HearthTreeNode useTargetableBattlecry_core(PlayerSide originSide, Minion origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
+        return VoodooDoctor.battlecryAction.applyEffect(originSide, origin, targetSide, targetCharacterIndex, boardState);
     }
-
 }

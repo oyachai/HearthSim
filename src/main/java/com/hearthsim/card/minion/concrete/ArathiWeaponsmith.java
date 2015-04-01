@@ -6,7 +6,6 @@ import com.hearthsim.card.minion.MinionUntargetableBattlecry;
 import com.hearthsim.card.weapon.WeaponCard;
 import com.hearthsim.card.weapon.concrete.BattleAxe;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
-import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -24,7 +23,7 @@ public class ArathiWeaponsmith extends Minion implements MinionUntargetableBattl
         int minionPlacementIndex,
         HearthTreeNode boardState,
         boolean singleRealizationOnly
-    ) throws HSException {
+    ) {
         HearthTreeNode toRet = boardState;
         Hero theHero = toRet.data_.getCurrentPlayer().getHero();
 

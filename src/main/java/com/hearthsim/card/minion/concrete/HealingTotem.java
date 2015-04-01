@@ -1,13 +1,17 @@
 package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.event.CharacterFilter;
+import com.hearthsim.event.effect.CardEffectAoeInterface;
+import com.hearthsim.event.effect.CardEffectCharacter;
+import com.hearthsim.event.effect.CardEffectCharacterHeal;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class HealingTotem extends Minion {
+public class HealingTotem extends Minion implements CardEffectAoeInterface {
+
+    private static final CardEffectCharacter effect = new CardEffectCharacterHeal(1);
 
     public HealingTotem() {
         super();
@@ -22,18 +26,16 @@ public class HealingTotem extends Minion {
     @Override
     public HearthTreeNode endTurn(PlayerSide thisMinionPlayerIndex, HearthTreeNode boardModel) throws HSException {
         HearthTreeNode tmpState = super.endTurn(thisMinionPlayerIndex, boardModel);
-        if (isWaitingPlayer(thisMinionPlayerIndex))
-            return tmpState;
+        return this.effectAllUsingFilter(this.getAoeEffect(), this.getAoeFilter(), tmpState);
+    }
 
-        PlayerModel currentPlayer = tmpState.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
-        for (Minion minion : currentPlayer.getMinions()) {
-            tmpState = minion.takeHeal((byte)1, PlayerSide.CURRENT_PLAYER, tmpState);
-        }
+    @Override
+    public CardEffectCharacter getAoeEffect() {
+        return HealingTotem.effect;
+    }
 
-        if (tmpState instanceof CardDrawNode) {
-            tmpState = ((CardDrawNode) tmpState).finishAllEffects();
-        }
-
-        return tmpState;
+    @Override
+    public CharacterFilter getAoeFilter() {
+        return CharacterFilter.ALL_FRIENDLIES;
     }
 }

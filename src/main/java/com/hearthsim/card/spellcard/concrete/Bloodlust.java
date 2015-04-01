@@ -1,26 +1,29 @@
 package com.hearthsim.card.spellcard.concrete;
 
-import com.hearthsim.card.minion.Minion;
+import com.hearthsim.event.effect.CardEffectAoeInterface;
 import com.hearthsim.card.spellcard.SpellCard;
-import com.hearthsim.exception.HSException;
-import com.hearthsim.model.PlayerModel;
-import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.tree.HearthTreeNode;
+import com.hearthsim.event.CharacterFilter;
+import com.hearthsim.event.effect.CardEffectCharacter;
+import com.hearthsim.event.CharacterFilterTargetedSpell;
+import com.hearthsim.event.effect.CardEffectCharacterBuffTemp;
 
-public class Bloodlust extends SpellCard {
+public class Bloodlust extends SpellCard implements CardEffectAoeInterface {
+
+    private final static CardEffectCharacter effect = new CardEffectCharacterBuffTemp(3);
 
     public Bloodlust() {
         super();
-
-        this.canTargetEnemyHero = false;
-        this.canTargetEnemyMinions = false;
-        this.canTargetOwnMinions = false;
     }
 
     @Deprecated
     public Bloodlust(boolean hasBeenUsed) {
         this();
         this.hasBeenUsed = hasBeenUsed;
+    }
+
+    @Override
+    public CharacterFilter getTargetableFilter() {
+        return CharacterFilterTargetedSpell.SELF;
     }
 
     /**
@@ -37,18 +40,15 @@ public class Bloodlust extends SpellCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    protected HearthTreeNode use_core(
-            PlayerSide side,
-            Minion targetMinion,
-            HearthTreeNode boardState,
-            boolean singleRealizationOnly)
-        throws HSException {
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
-        PlayerModel currentPlayer = toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+    public CardEffectCharacter getTargetableEffect() {
+        return Bloodlust.effect;
+    }
 
-        for (Minion minion : currentPlayer.getMinions()) {
-            minion.setExtraAttackUntilTurnEnd((byte)3);
-        }
-        return toRet;
+    @Override
+    public CardEffectCharacter getAoeEffect() { return this.getTargetableEffect(); }
+
+    @Override
+    public CharacterFilter getAoeFilter() {
+        return CharacterFilter.FRIENDLY_MINIONS;
     }
 }

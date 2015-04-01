@@ -10,9 +10,7 @@ import static com.hearthsim.model.PlayerSide.CURRENT_PLAYER
 import static com.hearthsim.model.PlayerSide.WAITING_PLAYER
 import static org.junit.Assert.*
 
-import com.hearthsim.card.minion.concrete.StranglethornTiger
 import com.hearthsim.card.minion.concrete.WarGolem
-import com.hearthsim.card.spellcard.concrete.Rampage
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.helpers.BoardModelBuilder
 import com.hearthsim.util.tree.HearthTreeNode
@@ -55,7 +53,7 @@ class HuntersMarkSpec extends CardSpec {
     def "turns off enraged"() {
         def amani = new AmaniBerserker()
         startingBoard.placeMinion(WAITING_PLAYER, amani)
-        root = amani.takeDamage((byte) 1, CURRENT_PLAYER, WAITING_PLAYER, root, false, false)
+        root = amani.takeDamageAndNotify((byte) 1, CURRENT_PLAYER, WAITING_PLAYER, root, false, false)
 
         def copiedBoard = startingBoard.deepCopy()
         def theCard = startingBoard.getCurrentPlayer().getHand().get(0);

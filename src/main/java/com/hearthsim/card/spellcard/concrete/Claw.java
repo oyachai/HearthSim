@@ -1,16 +1,17 @@
 package com.hearthsim.card.spellcard.concrete;
 
-import com.hearthsim.card.minion.Hero;
-import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
-import com.hearthsim.exception.HSException;
-import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.tree.HearthTreeNode;
+import com.hearthsim.event.CharacterFilter;
+import com.hearthsim.event.effect.CardEffectCharacter;
+import com.hearthsim.event.CharacterFilterTargetedSpell;
+import com.hearthsim.event.effect.CardEffectHeroBuff;
 
 public class Claw extends SpellCard {
 
     private static final byte DAMAGE_AMOUNT = 2;
     private static final byte ARMOR_AMOUNT = 2;
+
+    private static final CardEffectCharacter effect = new CardEffectHeroBuff(DAMAGE_AMOUNT, ARMOR_AMOUNT);
 
     /**
      * Constructor
@@ -30,10 +31,11 @@ public class Claw extends SpellCard {
      */
     public Claw() {
         super();
+    }
 
-        this.canTargetEnemyHero = false;
-        this.canTargetEnemyMinions = false;
-        this.canTargetOwnMinions = false;
+    @Override
+    public CharacterFilter getTargetableFilter() {
+        return CharacterFilterTargetedSpell.SELF;
     }
 
     /**
@@ -49,18 +51,7 @@ public class Claw extends SpellCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    protected HearthTreeNode use_core(
-            PlayerSide side,
-            Minion targetMinion,
-            HearthTreeNode boardState,
-            boolean singleRealizationOnly)
-        throws HSException {
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
-        if (toRet != null) {
-            targetMinion.setExtraAttackUntilTurnEnd((byte)(DAMAGE_AMOUNT + targetMinion.getExtraAttackUntilTurnEnd()));
-            ((Hero)targetMinion).setArmor(ARMOR_AMOUNT);
-            this.hasBeenUsed(true);
-        }
-        return toRet;
+    public CardEffectCharacter getTargetableEffect() {
+        return Claw.effect;
     }
 }

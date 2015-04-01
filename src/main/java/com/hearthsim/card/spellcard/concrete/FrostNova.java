@@ -1,13 +1,12 @@
 package com.hearthsim.card.spellcard.concrete;
 
-import com.hearthsim.card.minion.Minion;
+import com.hearthsim.event.effect.CardEffectAoeInterface;
 import com.hearthsim.card.spellcard.SpellCard;
-import com.hearthsim.exception.HSException;
-import com.hearthsim.model.PlayerModel;
-import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.tree.HearthTreeNode;
+import com.hearthsim.event.CharacterFilter;
+import com.hearthsim.event.effect.CardEffectCharacter;
+import com.hearthsim.event.CharacterFilterTargetedSpell;
 
-public class FrostNova extends SpellCard {
+public class FrostNova extends SpellCard implements CardEffectAoeInterface {
     /**
      * Constructor
      *
@@ -26,10 +25,11 @@ public class FrostNova extends SpellCard {
      */
     public FrostNova() {
         super();
+    }
 
-        this.canTargetEnemyHero = false;
-        this.canTargetEnemyMinions = false;
-        this.canTargetOwnMinions = false;
+    @Override
+    public CharacterFilter getTargetableFilter() {
+        return CharacterFilterTargetedSpell.OPPONENT;
     }
 
     /**
@@ -46,19 +46,15 @@ public class FrostNova extends SpellCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    protected HearthTreeNode use_core(
-            PlayerSide side,
-            Minion targetMinion,
-            HearthTreeNode boardState, boolean singleRealizationOnly)
-        throws HSException {
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
-        if (toRet != null) {
-            PlayerModel waitingPlayer = boardState.data_.modelForSide(PlayerSide.WAITING_PLAYER);
-            for (Minion minion : waitingPlayer.getMinions()) {
-                minion.setFrozen(true);
-            }
-        }
-        return toRet;
+    public CardEffectCharacter getTargetableEffect() {
+        return CardEffectCharacter.FREEZE;
     }
 
+    @Override
+    public CardEffectCharacter getAoeEffect() { return this.getTargetableEffect(); }
+
+    @Override
+    public CharacterFilter getAoeFilter() {
+        return CharacterFilter.ENEMY_MINIONS;
+    }
 }

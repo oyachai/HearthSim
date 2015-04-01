@@ -1,13 +1,14 @@
 package com.hearthsim.card.spellcard.concrete;
 
-import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
-import com.hearthsim.exception.HSException;
-import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.tree.HearthTreeNode;
+import com.hearthsim.event.CharacterFilter;
+import com.hearthsim.event.effect.CardEffectCharacter;
+import com.hearthsim.event.CharacterFilterTargetedSpell;
+import com.hearthsim.event.effect.CardEffectCharacterBuffDelta;
 
 public class Bananas extends SpellCard {
 
+    private final static CardEffectCharacter effect = new CardEffectCharacterBuffDelta(1, 1);
 
     @Deprecated
     public Bananas(boolean hasBeenUsed) {
@@ -18,23 +19,15 @@ public class Bananas extends SpellCard {
 
     public Bananas() {
         super();
-
-        this.canTargetEnemyHero = false;
-        this.canTargetOwnHero = false;
     }
 
     @Override
-    protected HearthTreeNode use_core(
-            PlayerSide side,
-            Minion targetMinion,
-            HearthTreeNode boardState, boolean singleRealizationOnly)
-        throws HSException {
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
-        if (toRet != null) {
-            targetMinion.addAttack((byte)1);
-            targetMinion.addHealth((byte)1);
-            targetMinion.addMaxHealth((byte)1);
-        }
-        return toRet;
+    public CharacterFilter getTargetableFilter() {
+        return CharacterFilterTargetedSpell.ALL_MINIONS;
+    }
+
+    @Override
+    public CardEffectCharacter getTargetableEffect() {
+        return Bananas.effect;
     }
 }

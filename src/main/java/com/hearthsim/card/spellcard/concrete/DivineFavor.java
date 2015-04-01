@@ -1,8 +1,11 @@
 package com.hearthsim.card.spellcard.concrete;
 
+import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
-import com.hearthsim.exception.HSException;
+import com.hearthsim.event.CharacterFilter;
+import com.hearthsim.event.effect.CardEffectCharacter;
+import com.hearthsim.event.CharacterFilterTargetedSpell;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
@@ -10,6 +13,24 @@ import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class DivineFavor extends SpellCard {
+
+    private final static CharacterFilter filter = new CharacterFilterTargetedSpell() {
+        protected boolean includeOwnHero() { return true; }
+
+        @Override
+        public boolean targetMatches(PlayerSide originSide, Card origin, PlayerSide targetSide, Minion targetCharacter, BoardModel board) {
+            if (!super.targetMatches(originSide, origin, targetSide, targetCharacter, board)) {
+                return false;
+            }
+
+            int numCardsToDraw = board.modelForSide(targetSide).getHand().size() - board.modelForSide(originSide).getHand().size() + 1;
+            if (numCardsToDraw < 1) {
+                return false;
+            }
+            return true;
+        }
+    };
+
     /**
      * Constructor
      *
@@ -28,24 +49,11 @@ public class DivineFavor extends SpellCard {
      */
     public DivineFavor() {
         super();
-
-        this.canTargetEnemyHero = false;
-        this.canTargetEnemyMinions = false;
-        this.canTargetOwnMinions = false;
     }
 
     @Override
-    public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
-        if (!super.canBeUsedOn(playerSide, minion, boardModel)) {
-            return false;
-        }
-
-        int numCardsToDraw = boardModel.modelForSide(PlayerSide.WAITING_PLAYER).getHand().size() - boardModel.modelForSide(PlayerSide.CURRENT_PLAYER).getHand().size() + 1;
-        if (numCardsToDraw < 1) {
-            return false;
-        }
-
-        return true;
+    public CharacterFilter getTargetableFilter() {
+        return DivineFavor.filter;
     }
 
     /**
@@ -62,27 +70,28 @@ public class DivineFavor extends SpellCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    protected HearthTreeNode use_core(
-            PlayerSide side,
-            Minion targetMinion,
-            HearthTreeNode boardState,
-            boolean singleRealizationOnly)
-        throws HSException {
-        PlayerModel currentPlayer = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
-        PlayerModel waitingPlayer = boardState.data_.modelForSide(PlayerSide.WAITING_PLAYER);
+    public CardEffectCharacter getTargetableEffect() {
+        if (this.effect == null) {
+            this.effect = new CardEffectCharacter() {
+                @Override
+                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
+                    PlayerModel currentPlayer = boardState.data_.modelForSide(originSide);
+                    PlayerModel waitingPlayer = boardState.data_.modelForSide(targetSide);
 
-        int numCardsToDraw = waitingPlayer.getHand().size() - currentPlayer.getHand().size() + 1;
-        if (numCardsToDraw < 1) {
-            return null;
-        }
+                    int numCardsToDraw = waitingPlayer.getHand().size() - currentPlayer.getHand().size() + 1;
+                    if (numCardsToDraw < 1) {
+                        return null;
+                    }
 
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
-        if (toRet != null) {
-            if (toRet instanceof CardDrawNode)
-                ((CardDrawNode) toRet).addNumCardsToDraw(numCardsToDraw);
-            else
-                toRet = new CardDrawNode(toRet, numCardsToDraw); //draw two cards
+                    if (boardState instanceof CardDrawNode) {
+                        ((CardDrawNode) boardState).addNumCardsToDraw(numCardsToDraw);
+                    } else {
+                        boardState = new CardDrawNode(boardState, numCardsToDraw); //draw two cards
+                    }
+                    return boardState;
+                }
+            };
         }
-        return toRet;
+        return this.effect;
     }
 }

@@ -1,15 +1,35 @@
 package com.hearthsim.card.spellcard.concrete;
 
+import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
-import com.hearthsim.exception.HSException;
+import com.hearthsim.event.CharacterFilter;
+import com.hearthsim.event.effect.CardEffectCharacter;
+import com.hearthsim.event.CharacterFilterTargetedSpell;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class DeadlyPoison extends SpellCard {
 
+    private final static CharacterFilter filter = new CharacterFilterTargetedSpell() {
+        @Override
+        protected boolean includeOwnHero() { return true; }
+
+        @Override
+        public boolean targetMatches(PlayerSide originSide, Card origin, PlayerSide targetSide, Minion targetCharacter, BoardModel board) {
+            if (!super.targetMatches(originSide, origin, targetSide, targetCharacter, board)) {
+                return false;
+            }
+
+            if (((Hero)targetCharacter).getWeapon() == null) {
+                return false;
+            }
+
+            return true;
+        }
+    };
 
     /**
      * Constructor
@@ -29,23 +49,11 @@ public class DeadlyPoison extends SpellCard {
      */
     public DeadlyPoison() {
         super();
-
-        this.canTargetEnemyHero = false;
-        this.canTargetEnemyMinions = false;
-        this.canTargetOwnMinions = false;
     }
 
     @Override
-    public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
-        if (!super.canBeUsedOn(playerSide, minion, boardModel)) {
-            return false;
-        }
-
-        if (((Hero)minion).getWeapon() == null) {
-            return false;
-        }
-
-        return true;
+    public CharacterFilter getTargetableFilter() {
+        return DeadlyPoison.filter;
     }
 
     /**
@@ -60,18 +68,17 @@ public class DeadlyPoison extends SpellCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    protected HearthTreeNode use_core(
-            PlayerSide side,
-            Minion targetMinion,
-            HearthTreeNode boardState,
-            boolean singleRealizationOnly)
-        throws HSException {
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
-        if (toRet != null) {
-            Hero hero = (Hero)targetMinion;
-            hero.setAttack((byte)(hero.getAttack() + 2));
+    public CardEffectCharacter getTargetableEffect() {
+        if (this.effect == null) {
+            this.effect = new CardEffectCharacter() {
+                @Override
+                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
+                    Hero hero = (Hero)boardState.data_.getCharacter(targetSide, targetCharacterIndex);
+                    hero.setAttack((byte)(hero.getAttack() + 2));
+                    return boardState;
+                }
+            };
         }
-        return toRet;
+        return this.effect;
     }
-
 }

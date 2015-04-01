@@ -3,7 +3,6 @@ package com.hearthsim.card.minion.concrete;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionUntargetableBattlecry;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
-import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -22,7 +21,7 @@ public class BloodsailCorsair extends Minion implements MinionUntargetableBattle
         int minionPlacementIndex,
         HearthTreeNode boardState,
         boolean singleRealizationOnly
-    ) throws HSException {
+    ) {
         PlayerModel waitingPlayer = boardState.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
         boolean hasWeapon = waitingPlayer.getHero().getWeapon() != null;

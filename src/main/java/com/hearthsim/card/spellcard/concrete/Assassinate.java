@@ -1,10 +1,9 @@
 package com.hearthsim.card.spellcard.concrete;
 
-import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
-import com.hearthsim.exception.HSException;
-import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.tree.HearthTreeNode;
+import com.hearthsim.event.CharacterFilter;
+import com.hearthsim.event.effect.CardEffectCharacter;
+import com.hearthsim.event.CharacterFilterTargetedSpell;
 
 public class Assassinate extends SpellCard {
 
@@ -26,10 +25,11 @@ public class Assassinate extends SpellCard {
      */
     public Assassinate() {
         super();
+    }
 
-        this.canTargetEnemyHero = false;
-        this.canTargetOwnHero = false;
-        this.canTargetOwnMinions = false;
+    @Override
+    public CharacterFilter getTargetableFilter() {
+        return CharacterFilterTargetedSpell.ENEMY_MINIONS;
     }
 
     /**
@@ -46,16 +46,7 @@ public class Assassinate extends SpellCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    protected HearthTreeNode use_core(
-            PlayerSide side,
-            Minion targetMinion,
-            HearthTreeNode boardState,
-            boolean singleRealizationOnly)
-        throws HSException {
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
-        if (toRet != null) {
-            targetMinion.setHealth((byte)-99);
-        }
-        return toRet;
+    public CardEffectCharacter getTargetableEffect() {
+        return CardEffectCharacter.DESTROY;
     }
 }

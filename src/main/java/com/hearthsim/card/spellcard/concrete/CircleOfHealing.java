@@ -1,15 +1,17 @@
 package com.hearthsim.card.spellcard.concrete;
 
-import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
-import com.hearthsim.exception.HSException;
-import com.hearthsim.model.PlayerModel;
-import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.tree.HearthTreeNode;
+import com.hearthsim.event.CharacterFilter;
+import com.hearthsim.event.effect.CardEffectAoeInterface;
+import com.hearthsim.event.effect.CardEffectCharacter;
+import com.hearthsim.event.CharacterFilterTargetedSpell;
+import com.hearthsim.event.effect.CardEffectCharacterHeal;
 
-public class CircleOfHealing extends SpellCard {
+public class CircleOfHealing extends SpellCard implements CardEffectAoeInterface {
 
     private static final byte HEAL_AMOUNT = 4;
+
+    private static final CardEffectCharacter effect = new CardEffectCharacterHeal(CircleOfHealing.HEAL_AMOUNT);
 
     /**
      * Constructor
@@ -29,10 +31,11 @@ public class CircleOfHealing extends SpellCard {
      */
     public CircleOfHealing() {
         super();
+    }
 
-        this.canTargetEnemyHero = false;
-        this.canTargetEnemyMinions = false;
-        this.canTargetOwnMinions = false;
+    @Override
+    public CharacterFilter getTargetableFilter() {
+        return CharacterFilterTargetedSpell.SELF;
     }
 
     /**
@@ -49,23 +52,17 @@ public class CircleOfHealing extends SpellCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    protected HearthTreeNode use_core(
-            PlayerSide side,
-            Minion targetMinion,
-            HearthTreeNode boardState,
-            boolean singleRealizationOnly)
-        throws HSException {
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
-        PlayerModel currentPlayer = toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
-        PlayerModel waitingPlayer = toRet.data_.modelForSide(PlayerSide.WAITING_PLAYER);
-        for (Minion minion : currentPlayer.getMinions()) {
-            toRet = minion.takeHeal(HEAL_AMOUNT, PlayerSide.CURRENT_PLAYER, toRet);
-        }
+    public CardEffectCharacter getTargetableEffect() {
+        return this.getAoeEffect();
+    }
 
-        for (Minion minion : waitingPlayer.getMinions()) {
-            toRet = minion.takeHeal(HEAL_AMOUNT, PlayerSide.WAITING_PLAYER, toRet);
-        }
+    @Override
+    public CardEffectCharacter getAoeEffect() {
+        return CircleOfHealing.effect;
+    }
 
-        return toRet;
+    @Override
+    public CharacterFilter getAoeFilter() {
+        return CharacterFilter.ALL_MINIONS;
     }
 }

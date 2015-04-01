@@ -1,12 +1,13 @@
 package com.hearthsim.card.spellcard.concrete;
 
-import com.hearthsim.card.minion.Minion;
+import com.hearthsim.event.effect.CardEffectAoeInterface;
 import com.hearthsim.card.spellcard.SpellCard;
-import com.hearthsim.exception.HSException;
-import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.tree.HearthTreeNode;
+import com.hearthsim.event.CharacterFilter;
+import com.hearthsim.event.effect.CardEffectCharacter;
+import com.hearthsim.event.CharacterFilterTargetedSpell;
+import com.hearthsim.event.effect.CardEffectCharacterBuff;
 
-public class Equality extends SpellCard {
+public class Equality extends SpellCard implements CardEffectAoeInterface {
 
     /**
      * Constructor
@@ -26,10 +27,11 @@ public class Equality extends SpellCard {
      */
     public Equality() {
         super();
+    }
 
-        this.canTargetEnemyHero = false;
-        this.canTargetEnemyMinions = false;
-        this.canTargetOwnMinions = false;
+    @Override
+    public CharacterFilter getTargetableFilter() {
+        return CharacterFilterTargetedSpell.SELF;
     }
 
     /**
@@ -42,18 +44,15 @@ public class Equality extends SpellCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    protected HearthTreeNode use_core(
-            PlayerSide side,
-            Minion targetMinion,
-            HearthTreeNode boardState,
-            boolean singleRealizationOnly)
-        throws HSException {
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
-        if (toRet != null) {
-            for (Minion minion : toRet.data_.getAllMinions()) {
-                minion.setHealth((byte)1);
-            }
-        }
-        return toRet;
+    public CardEffectCharacter getTargetableEffect() {
+        return new CardEffectCharacterBuff(0, 1);
+    }
+
+    @Override
+    public CardEffectCharacter getAoeEffect() { return this.getTargetableEffect(); }
+
+    @Override
+    public CharacterFilter getAoeFilter() {
+        return CharacterFilter.ALL_MINIONS;
     }
 }

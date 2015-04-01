@@ -20,8 +20,8 @@ public class Maexxna extends Minion {
 
         HearthTreeNode toRet = boardState;
         byte origAttack = targetMinion.getTotalAttack();
-        toRet = targetMinion.takeDamage((byte)99, PlayerSide.CURRENT_PLAYER, targetMinionPlayerSide, toRet, false, false);
-        toRet = this.takeDamage(origAttack, targetMinionPlayerSide, PlayerSide.CURRENT_PLAYER, toRet, false, false);
+        toRet = targetMinion.takeDamageAndNotify((byte) 99, PlayerSide.CURRENT_PLAYER, targetMinionPlayerSide, toRet, false, false);
+        toRet = this.takeDamageAndNotify(origAttack, targetMinionPlayerSide, PlayerSide.CURRENT_PLAYER, toRet, false, false);
         if (windFury_ && !hasWindFuryAttacked_)
             hasWindFuryAttacked_ = true;
         else

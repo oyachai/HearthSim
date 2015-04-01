@@ -11,8 +11,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
-public class PlayerModel implements DeepCopyable<PlayerModel> {
+public class PlayerModel implements DeepCopyable<PlayerModel>, Iterable<Minion> {
 
     private final String name;
     private final byte playerId; // used for identifying player 0 vs player 1
@@ -259,7 +260,7 @@ public class PlayerModel implements DeepCopyable<PlayerModel> {
         Card card = drawFromDeck(deckPos);
         if (card == null) {
             //no more card left in deck, take fatigue damage
-            hero.takeDamage((byte)fatigueDamage);
+            hero.takeDamage(fatigueDamage);
             ++fatigueDamage;
         } else {
             card.isInHand(true);
@@ -377,5 +378,34 @@ public class PlayerModel implements DeepCopyable<PlayerModel> {
         }
 
         return json;
+    }
+
+    @Override
+    public CharacterIterator iterator() {
+        return new CharacterIterator(this);
+    }
+
+    public class CharacterIterator implements Iterator<Minion> {
+        private int location = -1;
+        private PlayerModel target;
+
+        public CharacterIterator(PlayerModel model) {
+            this.target = model;
+        }
+
+        // used by the BoardModel master iterator
+        public int getLocation() {
+            return location;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return location < (this.target.getNumCharacters() - 1);
+        }
+
+        @Override
+        public Minion next() {
+            return this.target.getCharacter(++location);
+        }
     }
 }

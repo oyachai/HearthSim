@@ -1,33 +1,46 @@
 package com.hearthsim.card.minion.concrete;
 
-import com.hearthsim.card.minion.BattlecryTargetType;
+import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionTargetableBattlecry;
-import com.hearthsim.exception.HSException;
+import com.hearthsim.event.effect.CardEffectCharacter;
+import com.hearthsim.event.CharacterFilterTargetedBattlecry;
+import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-import java.util.EnumSet;
-
 public class CruelTaskmaster extends Minion implements MinionTargetableBattlecry {
+
+    /**
+     * Battlecry: Deal 1 damage to a minion and give it +2 Attack
+     */
+    private final static CharacterFilterTargetedBattlecry filter = new CharacterFilterTargetedBattlecry() {
+        protected boolean includeEnemyMinions() { return true; }
+        protected boolean includeOwnMinions() { return true; }
+    };
+
+    private final static CardEffectCharacter battlecryAction = new CardEffectCharacter() {
+        @Override
+        public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
+            Minion targetMinion = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
+            HearthTreeNode toRet = boardState;
+            targetMinion.setAttack((byte)(targetMinion.getAttack() + 2));
+            toRet = targetMinion.takeDamageAndNotify((byte) 1, PlayerSide.CURRENT_PLAYER, targetSide, toRet, false, true);
+            return toRet;
+        }
+    };
 
     public CruelTaskmaster() {
         super();
     }
 
     @Override
-    public EnumSet<BattlecryTargetType> getBattlecryTargets() {
-        return EnumSet.of(BattlecryTargetType.FRIENDLY_MINIONS, BattlecryTargetType.ENEMY_MINIONS);
+    public boolean canTargetWithBattlecry(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, BoardModel board) {
+        return CruelTaskmaster.filter.targetMatches(originSide, origin, targetSide, targetCharacterIndex, board);
     }
 
-    /**
-     * Battlecry: Deal 1 damage to a minion and give it +2 Attack
-     */
     @Override
-    public HearthTreeNode useTargetableBattlecry_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState) throws HSException {
-        HearthTreeNode toRet = boardState;
-        targetMinion.setAttack((byte)(targetMinion.getAttack() + 2));
-        toRet = targetMinion.takeDamage((byte)1, PlayerSide.CURRENT_PLAYER, side, toRet, false, true);
-        return toRet;
+    public HearthTreeNode useTargetableBattlecry_core(PlayerSide originSide, Minion origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
+        return CruelTaskmaster.battlecryAction.applyEffect(originSide, origin, targetSide, targetCharacterIndex, boardState);
     }
 }

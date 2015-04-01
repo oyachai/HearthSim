@@ -18,12 +18,13 @@ import org.slf4j.MDC;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.EnumSet;
+import java.util.Iterator;
 
 /**
  * A class that represents the current state of the board (game)
  *
  */
-public class BoardModel implements DeepCopyable<BoardModel> {
+public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel.CharacterLocation> {
 
 //    private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
 
@@ -75,6 +76,79 @@ public class BoardModel implements DeepCopyable<BoardModel> {
         }
     }
 
+    public class CharacterLocation {
+        private PlayerSide playerSide;
+        private int index;
+
+        public CharacterLocation(PlayerSide playerSide, int index) {
+            this.playerSide = playerSide;
+            this.index = index;
+        }
+
+        public PlayerSide getPlayerSide() {
+            return this.playerSide;
+        }
+
+        public int getIndex() {
+            return this.index;
+        }
+
+        public JSONObject toJSON() {
+            JSONObject json = new JSONObject();
+
+            json.put("playerSide", playerSide);
+            json.put("index", index);
+
+            return json;
+        }
+
+        public String toString() {
+            return playerSide.toString() + ":" + index;
+        }
+    }
+
+    private class CharacterLocationIterator implements Iterator<CharacterLocation> {
+        private PlayerSide playerSide;
+        private PlayerModel.CharacterIterator characterIterator;
+
+        private BoardModel model;
+
+        public CharacterLocationIterator(BoardModel model) {
+            this.model = model;
+
+            this.playerSide = PlayerSide.CURRENT_PLAYER;
+            this.characterIterator = this.model.modelForSide(this.playerSide).iterator();
+        }
+
+        @Override
+        public boolean hasNext() {
+            // there is always at least one on the waiting player side
+            if (this.playerSide == PlayerSide.CURRENT_PLAYER) {
+                return true;
+            }
+
+            return this.characterIterator.hasNext();
+        }
+
+        @Override
+        public CharacterLocation next() {
+            if (this.characterIterator.hasNext()) {
+                this.characterIterator.next();
+            } else if (this.playerSide == PlayerSide.CURRENT_PLAYER) {
+                this.playerSide = this.playerSide.getOtherPlayer();
+                this.characterIterator = this.model.modelForSide(this.playerSide).iterator();
+                this.characterIterator.next();
+            }
+
+            return new CharacterLocation(this.playerSide, this.characterIterator.getLocation());
+        }
+    }
+
+    @Override
+    public Iterator<CharacterLocation> iterator() {
+        return new CharacterLocationIterator(this);
+    }
+
     public BoardModel() {
         this(new PlayerModel((byte)0, "player0", new TestHero("hero0", (byte)30), new Deck()),
              new PlayerModel((byte)1, "player1", new TestHero("hero1", (byte)30), new Deck()));
@@ -123,6 +197,15 @@ public class BoardModel implements DeepCopyable<BoardModel> {
 
     public Card getCard_hand(PlayerSide playerSide, int index) throws HSInvalidPlayerIndexException {
         return modelForSide(playerSide).getHand().get(index);
+    }
+
+    public Minion getCharacter(CharacterLocation location) {
+        return this.getCharacter(location.getPlayerSide(), location.getIndex());
+    }
+
+    public Minion getCharacter(PlayerSide playerSide, int index) {
+        PlayerModel playerModel = modelForSide(playerSide);
+        return playerModel.getCharacter(index);
     }
 
     //-----------------------------------------------------------------------------------
@@ -651,12 +734,6 @@ public class BoardModel implements DeepCopyable<BoardModel> {
     @Deprecated
     public IdentityLinkedList<Minion> getMinions(PlayerSide side) throws HSInvalidPlayerIndexException {
         return modelForSide(side).getMinions();
-    }
-
-    @Deprecated
-    public Minion getCharacter(PlayerSide playerSide, int index) throws HSInvalidPlayerIndexException {
-        PlayerModel playerModel = modelForSide(playerSide);
-        return playerModel.getCharacter(index);
     }
 
     @Deprecated

@@ -79,5 +79,32 @@ class QuestingAdventurerSpec extends CardSpec {
 
     }
 
-    
+    def "QuestingAdventurer in hand does not get buffed"() {
+
+        def startingBoard = new BoardModelBuilder().make {
+            currentPlayer {
+                hand([QuestingAdventurer])
+                mana(9)
+            }
+            waitingPlayer {
+                mana(9)
+            }
+        }
+
+        def root = new HearthTreeNode(startingBoard)
+
+        def copiedBoard = startingBoard.deepCopy()
+        def theCard = new TheCoin();
+        def ret = theCard.useOn(CURRENT_PLAYER, 0, root, null, null)
+
+        expect:
+        assertFalse(ret == null);
+        assertBoardDelta(copiedBoard, ret.data_) {
+            currentPlayer {
+                mana(10)
+                numCardsUsed(1)
+            }
+        }
+
+    }
 }

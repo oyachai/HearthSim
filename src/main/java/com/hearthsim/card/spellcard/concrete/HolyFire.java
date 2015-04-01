@@ -2,16 +2,32 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellDamage;
+import com.hearthsim.event.CharacterFilter;
+import com.hearthsim.event.CharacterFilterTargetedSpell;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class HolyFire extends SpellDamage {
 
+    private static final CharacterFilter filter = new CharacterFilterTargetedSpell() {
+        @Override
+        protected boolean includeEnemyHero() { return true; }
+
+        @Override
+        protected boolean includeEnemyMinions() { return true; }
+
+        @Override
+        protected boolean includeOwnMinions() { return true; }
+    };
 
     public HolyFire() {
         super();
-        this.canTargetOwnHero = false; // TODO card as printed allows this
+    }
+
+    @Override
+    public CharacterFilter getTargetableFilter() {
+        return HolyFire.filter;
     }
 
     @Deprecated
@@ -46,7 +62,7 @@ public class HolyFire extends SpellDamage {
         throws HSException {
         HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
         if (toRet != null) {
-            toRet.data_.getCurrentPlayer().getHero().takeHeal((byte)5, PlayerSide.CURRENT_PLAYER, toRet);
+            toRet.data_.getCurrentPlayer().getHero().takeHealAndNotify((byte) 5, PlayerSide.CURRENT_PLAYER, toRet);
         }
         return toRet;
     }

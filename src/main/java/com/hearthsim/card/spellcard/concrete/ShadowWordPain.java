@@ -1,13 +1,36 @@
 package com.hearthsim.card.spellcard.concrete;
 
+import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
-import com.hearthsim.exception.HSException;
+import com.hearthsim.event.CharacterFilter;
+import com.hearthsim.event.effect.CardEffectCharacter;
+import com.hearthsim.event.CharacterFilterTargetedSpell;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.tree.HearthTreeNode;
 
 public class ShadowWordPain extends SpellCard {
+
+    private final static CharacterFilter filter = new CharacterFilterTargetedSpell() {
+        @Override
+        protected boolean includeEnemyMinions() { return true; }
+
+        @Override
+        protected boolean includeOwnMinions() { return true; }
+
+        @Override
+        public boolean targetMatches(PlayerSide originSide, Card origin, PlayerSide targetSide, Minion targetCharacter, BoardModel board) {
+            if (!super.targetMatches(originSide, origin, targetSide, targetCharacter, board)) {
+                return false;
+            }
+
+            if (targetCharacter.getTotalAttack() > 3) {
+                return false;
+            }
+
+            return true;
+        }
+    };
 
     /**
      * Constructor
@@ -27,22 +50,11 @@ public class ShadowWordPain extends SpellCard {
      */
     public ShadowWordPain() {
         super();
-
-        this.canTargetEnemyHero = false;
-        this.canTargetOwnHero = false;
     }
 
     @Override
-    public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
-        if (!super.canBeUsedOn(playerSide, minion, boardModel)) {
-            return false;
-        }
-
-        if (minion.getTotalAttack() > 3) {
-            return false;
-        }
-
-        return true;
+    public CharacterFilter getTargetableFilter() {
+        return ShadowWordPain.filter;
     }
 
     /**
@@ -59,17 +71,7 @@ public class ShadowWordPain extends SpellCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    protected HearthTreeNode use_core(
-            PlayerSide side,
-            Minion targetMinion,
-            HearthTreeNode boardState,
-            boolean singleRealizationOnly)
-        throws HSException {
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
-        if (toRet != null) {
-            targetMinion.setHealth((byte)(-99));
-        }
-
-        return toRet;
+    public CardEffectCharacter getTargetableEffect() {
+        return CardEffectCharacter.DESTROY;
     }
 }

@@ -125,19 +125,22 @@ public class TestAnimalCompanion {
         //child node 0 = Huffer
         HearthTreeNode c0 = ret.getChildren().get(0);
         PlayerModel currentPlayer0 = c0.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
-        assertEquals(3, currentPlayer0 .getNumMinions());
-        assertTrue(currentPlayer0 .getMinions().get(2) instanceof Huffer);
+        assertEquals(3, currentPlayer0.getNumMinions());
+        assertEquals(1, currentPlayer0.getMana());
+        assertTrue(currentPlayer0.getMinions().get(2) instanceof Huffer);
 
         //child node 1 = Leokk
         HearthTreeNode c1 = ret.getChildren().get(1);
         PlayerModel currentPlayer1 = c1.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         assertEquals(3, currentPlayer1.getNumMinions());
+        assertEquals(1, currentPlayer1.getMana());
         assertTrue(currentPlayer1.getMinions().get(2) instanceof Leokk);
 
         //child node 2 = Misha
         HearthTreeNode c2 = ret.getChildren().get(2);
         PlayerModel currentPlayer2 = c2.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         assertEquals(3, currentPlayer2.getNumMinions());
+        assertEquals(1, currentPlayer2.getMana());
         assertTrue(currentPlayer2.getMinions().get(2) instanceof Misha);
     }
 

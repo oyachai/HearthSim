@@ -2,11 +2,14 @@ package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionSummonedInterface;
+import com.hearthsim.event.effect.CardEffectCharacter;
+import com.hearthsim.event.effect.CardEffectCharacterDraw;
 import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class StarvingBuzzard extends Minion implements MinionSummonedInterface {
+
+    private static final CardEffectCharacter effect = new CardEffectCharacterDraw(1);
 
     public StarvingBuzzard() {
         super();
@@ -36,11 +39,7 @@ public class StarvingBuzzard extends Minion implements MinionSummonedInterface {
 
         HearthTreeNode toRet = boardState;
         if (summonedMinion.getTribe() == MinionTribe.BEAST) { //TODO: this might be wrong..
-            if (toRet instanceof CardDrawNode) {
-                ((CardDrawNode) toRet).addNumCardsToDraw(1);
-            } else {
-                toRet = new CardDrawNode(toRet, 1); //draw one card
-            }
+            toRet = StarvingBuzzard.effect.applyEffect(thisMinionPlayerSide, this, thisMinionPlayerSide, 0, boardState);
         }
 
         return toRet;

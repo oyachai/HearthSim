@@ -30,16 +30,18 @@ public class TestAldorPeacekeeper {
     @Test
     public void testSetsAttack() throws HSException {
         BoulderfistOgre ogre = new BoulderfistOgre();
+        board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, ogre);
         AldorPeacekeeper peacekeeper = new AldorPeacekeeper();
-        peacekeeper.useTargetableBattlecry_core(PlayerSide.WAITING_PLAYER, ogre, board);
+        peacekeeper.useTargetableBattlecry_core(PlayerSide.CURRENT_PLAYER, peacekeeper, PlayerSide.CURRENT_PLAYER, 1, board);
         assertEquals(1, ogre.getAttack());
     }
 
     @Test
     public void testSetsAttackFromZero() throws HSException {
         StoneclawTotem totem = new StoneclawTotem();
+        board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, totem);
         AldorPeacekeeper peacekeeper = new AldorPeacekeeper();
-        peacekeeper.useTargetableBattlecry_core(PlayerSide.WAITING_PLAYER, totem, board);
+        peacekeeper.useTargetableBattlecry_core(PlayerSide.CURRENT_PLAYER, peacekeeper, PlayerSide.CURRENT_PLAYER, 1, board);
         assertEquals(1, totem.getAttack());
     }
 
@@ -49,8 +51,10 @@ public class TestAldorPeacekeeper {
     public void testOverridesExtraAttack() throws HSException {
         BoulderfistOgre ogre = new BoulderfistOgre();
         ogre.setExtraAttackUntilTurnEnd((byte)2);
+        board.data_.placeMinion(PlayerSide.WAITING_PLAYER, ogre);
+
         AldorPeacekeeper peacekeeper = new AldorPeacekeeper();
-        peacekeeper.useTargetableBattlecry_core(PlayerSide.WAITING_PLAYER, ogre, board);
+        peacekeeper.useTargetableBattlecry_core(PlayerSide.CURRENT_PLAYER, peacekeeper, PlayerSide.WAITING_PLAYER, 1, board);
         assertEquals(1, ogre.getAttack());
         assertEquals(0, ogre.getExtraAttackUntilTurnEnd());
     }
@@ -59,8 +63,10 @@ public class TestAldorPeacekeeper {
     public void testDoesNotOverrideAura() throws HSException {
         BoulderfistOgre ogre = new BoulderfistOgre();
         ogre.setAuraAttack((byte)1);
+        board.data_.placeMinion(PlayerSide.WAITING_PLAYER, ogre);
+
         AldorPeacekeeper peacekeeper = new AldorPeacekeeper();
-        peacekeeper.useTargetableBattlecry_core(PlayerSide.WAITING_PLAYER, ogre, board);
+        peacekeeper.useTargetableBattlecry_core(PlayerSide.CURRENT_PLAYER, peacekeeper, PlayerSide.WAITING_PLAYER, 1, board);
         assertEquals(1, ogre.getAttack());
         assertEquals(1, ogre.getAuraAttack());
     }

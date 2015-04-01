@@ -3,8 +3,8 @@ package com.hearthsim.card.spellcard;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.ImplementedCardList;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.event.effect.SpellEffectCharacterDamage;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 import org.json.JSONObject;
@@ -13,8 +13,19 @@ public class SpellDamage extends SpellCard {
 
     protected byte damage_;
 
+    protected SpellEffectCharacterDamage effect;
+
     public SpellDamage() {
         super();
+    }
+
+    // damage is set during card import so we need to lazy load this for each card
+    @Override
+    public SpellEffectCharacterDamage getTargetableEffect() {
+        if (this.effect == null) {
+            this.effect = new SpellEffectCharacterDamage(damage_);
+        }
+        return this.effect;
     }
 
     @Deprecated
@@ -63,45 +74,15 @@ public class SpellDamage extends SpellCard {
      * @param boardState The BoardState before this card has performed its action. It will be manipulated and returned.
      * @return The boardState is manipulated and returned
      */
-    public HearthTreeNode attack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode boardState) throws HSException {
-        return targetMinion.takeDamage(damage_, PlayerSide.CURRENT_PLAYER, targetMinionPlayerSide, boardState, true, false);
+    @Deprecated
+    public final HearthTreeNode attack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode boardState) throws HSException {
+        return this.getTargetableEffect().applyEffect(PlayerSide.CURRENT_PLAYER, this, targetMinionPlayerSide, targetMinion, boardState);
     }
 
     @Deprecated
-    public HearthTreeNode attack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode boardState,
+    public final HearthTreeNode attack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode boardState,
                                  Deck deckPlayer0, Deck deckPlayer1) throws HSException {
         return this.attack(targetMinionPlayerSide, targetMinion, boardState);
-    }
-
-    @Deprecated
-    public HearthTreeNode attackAllMinionsOnSide(PlayerSide targetMinionPlayerSide, HearthTreeNode boardState,
-                                                 Deck deckPlayer0, Deck deckPlayer1) throws HSException {
-        return this.attackAllMinionsOnSide(targetMinionPlayerSide, boardState);
-    }
-
-    public HearthTreeNode attackAllMinionsOnSide(PlayerSide targetMinionPlayerSide, HearthTreeNode boardState) throws HSException {
-        if (boardState != null) {
-            PlayerModel targetPlayer = boardState.data_.modelForSide(targetMinionPlayerSide);
-            for (Minion minion : targetPlayer.getMinions()) {
-                boardState = this.attack(targetMinionPlayerSide, minion, boardState);
-            }
-        }
-        return boardState;
-    }
-
-    /**
-     * Use the card on the given target
-     * This is the core implementation of card's ability
-     *
-     * @param side
-     * @param boardState The BoardState before this card has performed its action. It will be manipulated and returned.
-     * @return The boardState is manipulated and returned
-     */
-    @Override
-    protected HearthTreeNode use_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
-        toRet = this.attack(side, targetMinion, toRet);
-        return toRet;
     }
 
     @Override

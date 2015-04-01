@@ -15,7 +15,6 @@ import com.hearthsim.util.HearthActionBoardPair;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -67,7 +66,6 @@ public class TestArcaneGolem {
     }
 
     @Test
-    @Ignore("Existing bug")
     public void testDoesNotIncreaseOverTen() throws HSException {
         waitingPlayer.setMaxMana((byte) 10);
         Card theCard = currentPlayer.getHand().get(0);

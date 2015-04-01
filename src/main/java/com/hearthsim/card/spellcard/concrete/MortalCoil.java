@@ -2,6 +2,8 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellDamage;
+import com.hearthsim.event.CharacterFilter;
+import com.hearthsim.event.CharacterFilterTargetedSpell;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.CardDrawNode;
@@ -11,15 +13,17 @@ public class MortalCoil extends SpellDamage {
 
     public MortalCoil() {
         super();
-
-        this.canTargetEnemyHero = false;
-        this.canTargetOwnHero = false;
     }
 
     @Deprecated
     public MortalCoil(boolean hasBeenUsed) {
         this();
         this.hasBeenUsed = hasBeenUsed;
+    }
+
+    @Override
+    public CharacterFilter getTargetableFilter() {
+        return CharacterFilterTargetedSpell.ALL_MINIONS;
     }
 
     /**

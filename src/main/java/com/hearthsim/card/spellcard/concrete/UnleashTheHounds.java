@@ -1,9 +1,12 @@
 package com.hearthsim.card.spellcard.concrete;
 
+import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.Hound;
 import com.hearthsim.card.spellcard.SpellCard;
-import com.hearthsim.exception.HSException;
+import com.hearthsim.event.CharacterFilter;
+import com.hearthsim.event.effect.CardEffectCharacter;
+import com.hearthsim.event.CharacterFilterTargetedSpell;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -18,10 +21,11 @@ public class UnleashTheHounds extends SpellCard {
 
     public UnleashTheHounds() {
         super();
+    }
 
-        this.canTargetEnemyHero = false;
-        this.canTargetEnemyMinions = false;
-        this.canTargetOwnMinions = false;
+    @Override
+    public CharacterFilter getTargetableFilter() {
+        return CharacterFilterTargetedSpell.SELF;
     }
 
     /**
@@ -36,24 +40,24 @@ public class UnleashTheHounds extends SpellCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    protected HearthTreeNode use_core(
-            PlayerSide side,
-            Minion targetMinion,
-            HearthTreeNode boardState,
-            boolean singleRealizationOnly)
-        throws HSException {
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
-        if (toRet != null) {
-            PlayerModel currentPlayer = toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
-            PlayerModel waitingPlayer = toRet.data_.modelForSide(PlayerSide.WAITING_PLAYER);
-            int numHoundsToSummon = waitingPlayer.getNumMinions();
-            if (numHoundsToSummon + currentPlayer.getNumMinions() > 7)
-                numHoundsToSummon = 7 - currentPlayer.getNumMinions();
-            for (int indx = 0; indx < numHoundsToSummon; ++indx) {
-                Minion placementTarget = currentPlayer.getNumMinions() > 0 ? currentPlayer.getMinions().getLast() : currentPlayer.getHero();
-                toRet = new Hound().summonMinion(PlayerSide.CURRENT_PLAYER, placementTarget, toRet, false, singleRealizationOnly);
-            }
+    public CardEffectCharacter getTargetableEffect() {
+        if (this.effect == null) {
+            this.effect = new CardEffectCharacter() {
+                @Override
+                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
+                    PlayerModel currentPlayer = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+                    PlayerModel waitingPlayer = boardState.data_.modelForSide(PlayerSide.WAITING_PLAYER);
+                    int numHoundsToSummon = waitingPlayer.getNumMinions();
+                    if (numHoundsToSummon + currentPlayer.getNumMinions() > 7)
+                        numHoundsToSummon = 7 - currentPlayer.getNumMinions();
+                    for (int indx = 0; indx < numHoundsToSummon; ++indx) {
+                        Minion placementTarget = currentPlayer.getNumMinions() > 0 ? currentPlayer.getMinions().getLast() : currentPlayer.getHero();
+                        boardState = new Hound().summonMinion(PlayerSide.CURRENT_PLAYER, placementTarget, boardState, false, false);
+                    }
+                    return boardState;
+                }
+            };
         }
-        return toRet;
+        return this.effect;
     }
 }

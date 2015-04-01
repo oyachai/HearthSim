@@ -2,8 +2,6 @@ package com.hearthsim.card.minion;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.EnumSet;
 
 import com.hearthsim.model.PlayerModel;
 import org.json.JSONObject;
@@ -160,41 +158,6 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         heroTargetable_ = true;
     }
 
-    @Deprecated
-    public Minion(String name, byte mana, byte attack, byte health, byte baseAttack, byte extraAttackUntilTurnEnd,
-                  byte auraAttack, byte baseHealth, byte maxHealth, byte auraHealth, byte spellDamage, boolean taunt,
-                  boolean divineShield, boolean windFury, boolean charge, boolean hasAttacked, boolean hasWindFuryAttacked,
-                  boolean frozen, boolean silenced, boolean stealthed, boolean heroTargetable, boolean summoned,
-                  boolean transformed, boolean destroyOnTurnStart, boolean destroyOnTurnEnd, AttackAction attackAction,
-                  boolean isInHand, boolean hasBeenUsed) {
-        super(name, mana, hasBeenUsed, isInHand, (byte) 0);
-        attack_ = attack;
-        health_ = health;
-        taunt_ = taunt;
-        divineShield_ = divineShield;
-        windFury_ = windFury;
-        charge_ = charge;
-        hasAttacked_ = hasAttacked;
-        baseAttack_ = baseAttack;
-        extraAttackUntilTurnEnd_ = extraAttackUntilTurnEnd;
-        hasWindFuryAttacked_ = hasWindFuryAttacked;
-        frozen_ = frozen;
-        silenced_ = silenced;
-        baseHealth_ = baseHealth;
-        maxHealth_ = maxHealth;
-        destroyOnTurnStart_ = destroyOnTurnStart;
-        destroyOnTurnEnd_ = destroyOnTurnEnd;
-        attackAction_ = attackAction;
-
-        auraAttack_ = auraAttack;
-        auraHealth_ = auraHealth;
-
-        spellDamage_ = spellDamage;
-
-        stealthed_ = stealthed;
-        heroTargetable_ = heroTargetable;
-    }
-
     public boolean getTaunt() {
         return taunt_;
     }
@@ -257,11 +220,6 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 
     public boolean canAttack() {
         return !this.hasAttacked_ && (this.getTotalAttack()) > 0 && !this.frozen_;
-    }
-
-    @Deprecated
-    public boolean hasAttacked() {
-        return hasAttacked_;
     }
 
     public void hasAttacked(boolean hasAttacked) {
@@ -455,7 +413,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
     @Override
     public HearthTreeNode startTurn(PlayerSide thisMinionPlayerIndex, HearthTreeNode boardModel) throws HSException {
         if (destroyOnTurnStart_) {
-            // toRet = this.destroyed(thisMinionPlayerIndex, toRet, deckPlayer0, deckPlayer1);
+            // toRet = this.destroyAndNotify(thisMinionPlayerIndex, toRet, deckPlayer0, deckPlayer1);
             this.setHealth((byte) -99);
         }
         return boardModel;
@@ -472,17 +430,10 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
     public HearthTreeNode endTurn(PlayerSide thisMinionPlayerIndex, HearthTreeNode boardModel) throws HSException {
         extraAttackUntilTurnEnd_ = 0;
         if (destroyOnTurnEnd_) {
-            // toRet = this.destroyed(thisMinionPlayerIndex, toRet, deckPlayer0, deckPlayer1);
+            // toRet = this.destroyAndNotify(thisMinionPlayerIndex, toRet, deckPlayer0, deckPlayer1);
             this.setHealth((byte) -99);
         }
         return boardModel;
-    }
-
-    @Deprecated
-    public HearthTreeNode takeDamage(byte damage, PlayerSide attackPlayerSide, PlayerSide thisPlayerSide,
-                                     HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean isSpellDamage,
-                                     boolean handleMinionDeath) throws HSException {
-        return this.takeDamage(damage, attackPlayerSide, thisPlayerSide, boardState, isSpellDamage, handleMinionDeath);
     }
 
     /**
@@ -498,32 +449,35 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
      * @param handleMinionDeath Set this to True if you want the death event to trigger when (if) the minion dies from this damage. Setting this flag to True will also trigger deathrattle immediately.
      * @throws HSInvalidPlayerIndexException
      */
-    public HearthTreeNode takeDamage(byte damage, PlayerSide attackPlayerSide, PlayerSide thisPlayerSide, HearthTreeNode boardState, boolean isSpellDamage, boolean handleMinionDeath) throws HSException {
-        if (divineShield_) {
-            if (damage > 0)
-                divineShield_ = false;
-            return boardState;
+    public HearthTreeNode takeDamageAndNotify(byte damage, PlayerSide attackPlayerSide, PlayerSide thisPlayerSide, HearthTreeNode boardState, boolean isSpellDamage, boolean handleMinionDeath) {
+        byte damageDealt = this.takeDamage(damage, attackPlayerSide, thisPlayerSide, boardState.data_, isSpellDamage);
+        if (damageDealt > 0) {
+            return boardState.notifyMinionDamaged(thisPlayerSide, this);
         }
-
-        if (immune_) {
-            return boardState;
-        }
-
-        byte totalDamage = isSpellDamage ? (byte) (damage + boardState.data_.modelForSide(attackPlayerSide).getSpellDamage())
-            : damage;
-        health_ = (byte) (health_ - totalDamage);
-
-        return this.notifyMinionDamaged(boardState, thisPlayerSide);
+        return boardState;
     }
 
-    @Deprecated
-    public HearthTreeNode destroyed(PlayerSide thisPlayerSide, HearthTreeNode boardState, Deck deckPlayer0,
-                                    Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
-        return this.destroyed(thisPlayerSide, boardState, singleRealizationOnly);
+    public byte takeDamage(byte damage, PlayerSide originSide, PlayerSide thisPlayerSide, BoardModel board, boolean isSpellDamage) {
+        if (this.divineShield_) {
+            if (damage > 0)
+                this.divineShield_ = false;
+            return 0;
+        }
+
+        if (this.immune_) {
+            return 0;
+        }
+
+        byte totalDamage = damage;
+        if (isSpellDamage) {
+            totalDamage += board.modelForSide(originSide).getSpellDamage();
+        }
+        this.health_ = (byte) (this.health_ - totalDamage);
+        return totalDamage;
     }
 
     /**
-     * Called when this minion dies (destroyed)
+     * Called when this minion dies (destroyAndNotify)
      * <p>
      * Always use this function to "kill" minions
      *
@@ -531,7 +485,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
      * @param boardState
      * @throws HSInvalidPlayerIndexException
      */
-    public HearthTreeNode destroyed(PlayerSide thisPlayerSide, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
+    public HearthTreeNode destroyAndNotify(PlayerSide thisPlayerSide, HearthTreeNode boardState, boolean singleRealizationOnly) {
 
         health_ = 0;
         HearthTreeNode toRet = boardState;
@@ -541,8 +495,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
             toRet = deathrattleAction_.performAction(this, thisPlayerSide, toRet, singleRealizationOnly);
         }
 
-        // Notify all that it is dead
-        toRet = this.notifyMinionDead(thisPlayerSide, this, toRet);
+        toRet = toRet.notifyMinionDead(thisPlayerSide, this);
         return toRet;
     }
 
@@ -565,10 +518,6 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         return null;
     }
 
-    public void silenced(PlayerSide thisPlayerSide, HearthTreeNode boardState) throws HSInvalidPlayerIndexException {
-        this.silenced(thisPlayerSide, boardState.data_);
-    }
-
     /**
      * Called when this minion is silenced
      * <p>
@@ -578,7 +527,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
      * @param boardState
      * @throws HSInvalidPlayerIndexException
      */
-    public void silenced(PlayerSide thisPlayerSide, BoardModel boardState) throws HSInvalidPlayerIndexException {
+    public void silenced(PlayerSide thisPlayerSide, BoardModel boardState) {
         spellDamage_ = 0;
         divineShield_ = false;
         taunt_ = false;
@@ -605,33 +554,27 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         silenced_ = true;
     }
 
-    @Deprecated
-    public HearthTreeNode takeHeal(byte healAmount, PlayerSide thisPlayerSide, HearthTreeNode boardState,
-                                   Deck deckPlayer0, Deck deckPlayer1) throws HSException {
-        return this.takeHeal(healAmount, thisPlayerSide, boardState);
-    }
-
     /**
      * Called when this minion is healed
      * <p>
      * Always use this function to heal minions
-     *
-     * @param healAmount     The amount of healing to take
+     *  @param healAmount     The amount of healing to take
      * @param thisPlayerSide
      * @param boardState
      */
-    public HearthTreeNode takeHeal(byte healAmount, PlayerSide thisPlayerSide, HearthTreeNode boardState) throws HSException {
-
-        if (health_ < maxHealth_) {
-            if (health_ + healAmount > maxHealth_)
-                health_ = maxHealth_;
-            else
-                health_ = (byte) (health_ + healAmount);
-
-            // Notify all that it the minion is healed
-            return this.notifyMinionHealed(boardState, thisPlayerSide);
+    public HearthTreeNode takeHealAndNotify(byte healAmount, PlayerSide thisPlayerSide, HearthTreeNode boardState) {
+        byte actual = this.takeHeal(healAmount, thisPlayerSide, boardState.data_);
+        if (actual > 0) {
+            return boardState.notifyMinionHealed(thisPlayerSide, this);
         }
         return boardState;
+    }
+
+    public byte takeHeal(byte healAmount, PlayerSide thisPlayerSide, BoardModel board) {
+        int missing = this.maxHealth_ - this.health_;
+        int actual = healAmount > missing ? missing : healAmount;
+        this.health_ += actual;
+        return (byte) actual;
     }
 
     @Override
@@ -651,11 +594,11 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
      * @return
      * @throws HSException
      */
-    public HearthTreeNode useTargetableBattlecry(PlayerSide side, int targetCharacterIndex, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
+    public HearthTreeNode useTargetableBattlecry(PlayerSide side, int targetCharacterIndex, HearthTreeNode boardState, boolean singleRealizationOnly) {
         if (this instanceof MinionTargetableBattlecry) {
             PlayerModel player = boardState.data_.modelForSide(side);
 
-            boardState = ((MinionTargetableBattlecry)this).useTargetableBattlecry_core(side, player.getCharacter(targetCharacterIndex), boardState);
+            boardState = ((MinionTargetableBattlecry)this).useTargetableBattlecry_core(PlayerSide.CURRENT_PLAYER, this, side, targetCharacterIndex, boardState);
 
             if (boardState != null) {
                 int originCharacterIndex = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getIndexForCharacter(this);
@@ -676,7 +619,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
      * @return
      * @throws HSException
      */
-    public HearthTreeNode useUntargetableBattlecry(int minionPlacementIndex, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
+    public HearthTreeNode useUntargetableBattlecry(int minionPlacementIndex, HearthTreeNode boardState, boolean singleRealizationOnly) {
         HearthTreeNode toRet = boardState;
         if (this instanceof MinionUntargetableBattlecry) {
             MinionUntargetableBattlecry battlecryMinion = (MinionUntargetableBattlecry) this;
@@ -687,17 +630,6 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
             }
         }
         return toRet;
-    }
-
-    @Deprecated
-    public HearthTreeNode useUntargetableBattlecry(Minion minionPlacementTarget, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
-        return this.useUntargetableBattlecry(boardState.data_.getCurrentPlayer().getIndexForCharacter(minionPlacementTarget), boardState, singleRealizationOnly);
-    }
-
-    @Deprecated
-    public HearthTreeNode useUntargetableBattlecry(Minion minionPlacementTarget, HearthTreeNode boardState,
-                                                   Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
-        return this.useUntargetableBattlecry(minionPlacementTarget, boardState, singleRealizationOnly);
     }
 
     /**
@@ -731,7 +663,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
      * @param boardState     The BoardState before this card has performed its action. It will be manipulated and returned.
      * @return The boardState is manipulated and returned
      */
-    public HearthTreeNode summonMinion(PlayerSide targetSide, int targetMinionIndex, HearthTreeNode boardState, boolean wasPlayed, boolean singleRealizationOnly) throws HSException {
+    public HearthTreeNode summonMinion(PlayerSide targetSide, int targetMinionIndex, HearthTreeNode boardState, boolean wasPlayed, boolean singleRealizationOnly) {
         if (boardState.data_.modelForSide(targetSide).isBoardFull())
             return null;
 
@@ -744,127 +676,38 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         }
 
         if (this instanceof MinionTargetableBattlecry) {
-            PlayerModel currentPlayer = toRet.data_.getCurrentPlayer();
-            PlayerModel waitingPlayer = toRet.data_.getWaitingPlayer();
-
-            EnumSet<BattlecryTargetType> targets = ((MinionTargetableBattlecry) this).getBattlecryTargets();
-
-            ArrayList<Integer> friendlyMinions = new ArrayList<>();
-            ArrayList<Integer> enemyMinions = new ArrayList<>();
-
-            // Battlecry if available
-            for (BattlecryTargetType btt : targets) {
-                switch (btt) {
-                    case ENEMY_HERO:
-                        enemyMinions.add(0);
-                        break;
-                    case FRIENDLY_HERO:
-                        friendlyMinions.add(0);
-                        break;
-                    case ENEMY_MINIONS:
-                        for (Minion minion : waitingPlayer.getMinions()) {
-                            if (!minion.getStealthed()) {
-                                enemyMinions.add(waitingPlayer.getIndexForCharacter(minion));
-                            }
-                        }
-                        break;
-                    case FRIENDLY_MINIONS:
-                        for (Minion minion : currentPlayer.getMinions()) {
-                            if (minion != this) {
-                                friendlyMinions.add(currentPlayer.getIndexForCharacter(minion));
-                            }
-                        }
-                        break;
-                    case ENEMY_BEASTS:
-                        for (Minion minion : waitingPlayer.getMinions()) {
-                            if (minion.getTribe() == MinionTribe.BEAST) {
-                                enemyMinions.add(waitingPlayer.getIndexForCharacter(minion));
-                            }
-                        }
-                        break;
-                    case FRIENDLY_BEASTS:
-                        for (Minion minion : currentPlayer.getMinions()) {
-                            if (minion != this && minion.getTribe() == MinionTribe.BEAST) {
-                                friendlyMinions.add(currentPlayer.getIndexForCharacter(minion));
-                            }
-                        }
-                        break;
-                    case ENEMY_MURLOCS:
-                        for (Minion minion : waitingPlayer.getMinions()) {
-                            if (minion.getTribe() == MinionTribe.MURLOC) {
-                                enemyMinions.add(waitingPlayer.getIndexForCharacter(minion));
-                            }
-                        }
-                        break;
-                    case FRIENDLY_MURLOCS:
-                        for (Minion minion : currentPlayer.getMinions()) {
-                            if (minion != this && minion.getTribe() == MinionTribe.MURLOC) {
-                                friendlyMinions.add(currentPlayer.getIndexForCharacter(minion));
-                            }
-                        }
-                        break;
-                    default:
-                        break;
-                }
-            }
+            MinionTargetableBattlecry battlecryOrigin = ((MinionTargetableBattlecry) this);
 
             HearthTreeNode child;
             Minion origin;
             int originCharacterIndex = toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getIndexForCharacter(this);
 
-            for (Integer characterIndex : friendlyMinions) {
-                child = new HearthTreeNode(toRet.data_.deepCopy());
-                origin = child.data_.getCurrentPlayer().getCharacter(originCharacterIndex);
-                child = origin.useTargetableBattlecry(PlayerSide.CURRENT_PLAYER, characterIndex, child, singleRealizationOnly);
-                if (child != null) {
-                    toRet.addChild(child);
-                }
-            }
-
-            for (Integer characterIndex : enemyMinions) {
-                child = new HearthTreeNode(toRet.data_.deepCopy());
-                origin = child.data_.getCurrentPlayer().getCharacter(originCharacterIndex);
-                child = origin.useTargetableBattlecry(PlayerSide.WAITING_PLAYER, characterIndex, child, singleRealizationOnly);
-                if (child != null) {
-                    toRet.addChild(child);
+            for (BoardModel.CharacterLocation characterLocation : toRet.data_) {
+                if (battlecryOrigin.canTargetWithBattlecry(targetSide, this, characterLocation.getPlayerSide(), characterLocation.getIndex(), toRet.data_)) {
+                    child = new HearthTreeNode(toRet.data_.deepCopy());
+                    origin = child.data_.getCharacter(PlayerSide.CURRENT_PLAYER, originCharacterIndex);
+                    child = origin.useTargetableBattlecry(characterLocation.getPlayerSide(), characterLocation.getIndex(), child, singleRealizationOnly);
+                    if (child != null) {
+                        toRet.addChild(child);
+                    }
                 }
             }
         }
 
-        if (wasPlayed)
-            toRet = this.notifyMinionPlayed(toRet, targetSide);
+        if (wasPlayed) {
+            toRet = toRet.notifyMinionPlayed(targetSide, this);
+        }
 
-        toRet = this.notifyMinionSummon(toRet, targetSide);
+        toRet = toRet.notifyMinionSummon(targetSide, this);
 
         return toRet;
     }
 
-    public HearthTreeNode summonMinion(PlayerSide targetSide, Minion targetMinion, HearthTreeNode boardState, boolean wasPlayed, boolean singleRealizationOnly) throws HSException {
+    public HearthTreeNode summonMinion(PlayerSide targetSide, Minion targetMinion, HearthTreeNode boardState, boolean wasPlayed, boolean singleRealizationOnly) {
         return this.summonMinion(targetSide, boardState.data_.getCurrentPlayer().getIndexForCharacter(targetMinion), boardState, wasPlayed, singleRealizationOnly);
     }
 
-    public HearthTreeNode summonMinionAtEnd(PlayerSide targetSide, HearthTreeNode boardState, boolean wasPlayed, boolean singleRealizationOnly) throws HSException {
-        PlayerModel player = boardState.data_.modelForSide(targetSide);
-        return this.summonMinion(targetSide, player.getNumMinions(), boardState, wasPlayed, singleRealizationOnly);
-    }
-
-    @Deprecated
-    public HearthTreeNode summonMinion(PlayerSide targetSide, Minion targetMinion, HearthTreeNode boardState,
-                                       Deck deckPlayer0, Deck deckPlayer1, boolean wasPlayed, boolean singleRealizationOnly) throws HSException {
-        return this.summonMinion(targetSide, targetMinion, boardState, wasPlayed, singleRealizationOnly);
-    }
-
-    @Deprecated
-    public HearthTreeNode summonMinion(PlayerSide targetSide, int targetIndex, HearthTreeNode boardState,
-                                       Deck deckPlayer0, Deck deckPlayer1, boolean wasPlayed, boolean singleRealizationOnly) throws HSException {
-        PlayerModel player = boardState.data_.modelForSide(targetSide);
-        Minion targetLocation = player.getCharacter(targetIndex);
-        return this.summonMinion(targetSide, targetLocation, boardState, wasPlayed, singleRealizationOnly);
-    }
-
-    @Deprecated
-    public HearthTreeNode summonMinionAtEnd(PlayerSide targetSide, HearthTreeNode boardState,
-                                            Deck deckPlayer0, Deck deckPlayer1, boolean wasPlayed, boolean singleRealizationOnly) throws HSException {
+    public HearthTreeNode summonMinionAtEnd(PlayerSide targetSide, HearthTreeNode boardState, boolean wasPlayed, boolean singleRealizationOnly) {
         PlayerModel player = boardState.data_.modelForSide(targetSide);
         return this.summonMinion(targetSide, player.getNumMinions(), boardState, wasPlayed, singleRealizationOnly);
     }
@@ -881,65 +724,13 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
      * @return The boardState is manipulated and returned
      * @throws HSException
      */
-    protected HearthTreeNode summonMinion_core(PlayerSide targetSide, int targetIndex, HearthTreeNode boardState) throws HSException {
+    protected HearthTreeNode summonMinion_core(PlayerSide targetSide, int targetIndex, HearthTreeNode boardState) {
         boardState.data_.placeMinion(targetSide, this, targetIndex);
         if (!charge_) {
             hasAttacked_ = true;
         }
         hasBeenUsed = true;
         return boardState;
-    }
-
-    @Deprecated
-    protected HearthTreeNode summonMinion_core(PlayerSide targetSide, Minion targetMinion, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
-        int targetIndex = 0;
-        if (!targetMinion.isHero()) {
-            PlayerModel targetPlayer = boardState.data_.modelForSide(targetSide);
-            targetIndex = targetPlayer.getMinions().indexOf(targetMinion) + 1;
-        }
-
-        return this.summonMinion_core(targetSide, targetIndex, boardState);
-    }
-
-    @Deprecated
-    protected HearthTreeNode summonMinion_core(PlayerSide targetSide, Minion targetMinion, HearthTreeNode boardState,
-                                               Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
-        return this.summonMinion_core(targetSide, targetMinion, boardState, singleRealizationOnly);
-    }
-
-    /**
-     * Place a minion on the board
-     *
-     * Use this function if you need to place a minion on the board without triggering any of the "On Summon" effects
-     *
-     * @param targetSide
-     * @param targetMinion
-     * @param boardState
-     * @param singleRealizationOnly
-     * @return
-     * @throws HSException
-     */
-    @Deprecated
-    public HearthTreeNode placeMinion(PlayerSide targetSide, Minion targetMinion, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
-        if (isHero(targetMinion)) {
-            boardState.data_.placeMinion(targetSide, this, 0);
-        } else {
-            PlayerModel targetPlayer = boardState.data_.modelForSide(targetSide);
-            boardState.data_.placeMinion(targetSide, this,
-                targetPlayer.getMinions().indexOf(targetMinion) + 1);
-        }
-        return this.notifyMinionPlacement(boardState, targetSide);
-    }
-
-    @Deprecated
-    public HearthTreeNode placeMinion(PlayerSide targetSide, Minion targetMinion, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
-        return this.placeMinion(targetSide, targetMinion, boardState, singleRealizationOnly);
-    }
-
-    @Deprecated
-    public HearthTreeNode attack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode boardState,
-                                 Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
-        return this.attack(targetMinionPlayerSide, targetMinion, boardState, singleRealizationOnly);
     }
 
     /**
@@ -999,12 +790,6 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         return this.attack(targetMinionPlayerSide, targetCharacter, boardState, singleRealizationOnly);
     }
 
-    @Deprecated
-    public HearthTreeNode attack(PlayerSide targetMinionPlayerSide, int targetCharacterIndex, HearthTreeNode boardState,
-                                 Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
-        return this.attack(targetMinionPlayerSide, targetCharacterIndex, boardState, singleRealizationOnly);
-    }
-
     /**
      *
      * Attack with the minion
@@ -1020,303 +805,12 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 
         HearthTreeNode toRet = boardState;
         byte origAttack = targetMinion.getTotalAttack();
-        toRet = targetMinion.takeDamage(this.getTotalAttack(), PlayerSide.CURRENT_PLAYER, targetMinionPlayerSide, toRet, false, false);
-        toRet = this.takeDamage(origAttack, targetMinionPlayerSide, PlayerSide.CURRENT_PLAYER, toRet, false, false);
+        toRet = targetMinion.takeDamageAndNotify(this.getTotalAttack(), PlayerSide.CURRENT_PLAYER, targetMinionPlayerSide, toRet, false, false);
+        toRet = this.takeDamageAndNotify(origAttack, targetMinionPlayerSide, PlayerSide.CURRENT_PLAYER, toRet, false, false);
         if (windFury_ && !hasWindFuryAttacked_)
             hasWindFuryAttacked_ = true;
         else
             hasAttacked_ = true;
-        return toRet;
-    }
-
-    @Deprecated
-    protected HearthTreeNode attack_core(PlayerSide targetMinionPlayerSide, Minion targetMinion,
-                                         HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
-        return this.attack_core(targetMinionPlayerSide, targetMinion, boardState, singleRealizationOnly);
-    }
-
-        // ======================================================================================
-    // Various notifications
-    // ======================================================================================
-    @Deprecated
-    protected HearthTreeNode notifyMinionSummon(HearthTreeNode boardState, PlayerSide targetSide, Deck deckPlayer0,
-                                                    Deck deckPlayer1) throws HSException {
-        return this.notifyMinionSummon(boardState, targetSide);
-    }
-
-    protected HearthTreeNode notifyMinionSummon(HearthTreeNode boardState, PlayerSide targetSide) throws HSException {
-        HearthTreeNode toRet = boardState;
-        ArrayList<MinionSummonedInterface> matches = new ArrayList<MinionSummonedInterface>();
-
-        PlayerModel currentPlayer = boardState.data_.getCurrentPlayer();
-        PlayerModel waitingPlayer = boardState.data_.getWaitingPlayer();
-
-        Card hero = currentPlayer.getHero();
-        if (hero instanceof MinionSummonedInterface) {
-            matches.add((MinionSummonedInterface)hero);
-        }
-
-        for (Minion minion : currentPlayer.getMinions()) {
-            if (!minion.isSilenced() && minion instanceof MinionSummonedInterface) {
-                matches.add((MinionSummonedInterface)minion);
-            }
-        }
-
-        for (MinionSummonedInterface match : matches) {
-            toRet = match.minionSummonEvent(PlayerSide.CURRENT_PLAYER, targetSide, this, toRet);
-        }
-        matches.clear();
-
-        hero = waitingPlayer.getHero();
-        if (hero instanceof MinionSummonedInterface) {
-            matches.add((MinionSummonedInterface)hero);
-        }
-
-        for (Minion minion : waitingPlayer.getMinions()) {
-            if (!minion.isSilenced() && minion instanceof MinionSummonedInterface) {
-                matches.add((MinionSummonedInterface)minion);
-            }
-        }
-
-        for (MinionSummonedInterface match : matches) {
-            toRet = match.minionSummonEvent(PlayerSide.WAITING_PLAYER, targetSide, this, toRet);
-        }
-        return toRet;
-    }
-
-    @Deprecated
-    protected HearthTreeNode notifyMinionPlacement(HearthTreeNode boardState, PlayerSide targetSide, Deck deckPlayer0,
-                                                   Deck deckPlayer1) throws HSException {
-        return this.notifyMinionPlacement(boardState, targetSide);
-    }
-
-    protected HearthTreeNode notifyMinionPlacement(HearthTreeNode boardState, PlayerSide targetSide) throws HSException {
-        HearthTreeNode toRet = boardState;
-
-        ArrayList<MinionPlacedInterface> matches = new ArrayList<MinionPlacedInterface>();
-
-        PlayerModel currentPlayer = boardState.data_.getCurrentPlayer();
-        PlayerModel waitingPlayer = boardState.data_.getWaitingPlayer();
-
-        Card hero = currentPlayer.getHero();
-        if (hero instanceof MinionPlacedInterface) {
-            matches.add((MinionPlacedInterface)hero);
-        }
-
-        for (Minion minion : currentPlayer.getMinions()) {
-            if (!minion.isSilenced() && minion instanceof MinionPlacedInterface) {
-                matches.add((MinionPlacedInterface)minion);
-            }
-        }
-
-        for (MinionPlacedInterface match : matches) {
-            toRet = match.minionPlacedEvent(PlayerSide.CURRENT_PLAYER, targetSide, this, toRet);
-        }
-        matches.clear();
-
-        hero = waitingPlayer.getHero();
-        if (hero instanceof MinionPlacedInterface) {
-            matches.add((MinionPlacedInterface)hero);
-        }
-
-        for (Minion minion : waitingPlayer.getMinions()) {
-            if (!minion.isSilenced() && minion instanceof MinionPlacedInterface) {
-                matches.add((MinionPlacedInterface)minion);
-            }
-        }
-
-        for (MinionPlacedInterface match : matches) {
-            toRet = match.minionPlacedEvent(PlayerSide.WAITING_PLAYER, targetSide, this, toRet);
-        }
-
-        return toRet;
-    }
-
-    @Deprecated
-    protected HearthTreeNode notifyMinionPlayed(HearthTreeNode boardState, PlayerSide targetSide, Deck deckPlayer0,
-                                                Deck deckPlayer1) throws HSException {
-        return this.notifyMinionPlayed(boardState, targetSide);
-    }
-
-    protected HearthTreeNode notifyMinionPlayed(HearthTreeNode boardState, PlayerSide targetSide) throws HSException {
-        HearthTreeNode toRet = boardState;
-        ArrayList<MinionPlayedInterface> matches = new ArrayList<MinionPlayedInterface>();
-
-        PlayerModel currentPlayer = boardState.data_.getCurrentPlayer();
-        PlayerModel waitingPlayer = boardState.data_.getWaitingPlayer();
-
-        Card hero = currentPlayer.getHero();
-        if (hero instanceof MinionPlayedInterface) {
-            matches.add((MinionPlayedInterface)hero);
-        }
-
-        for (Minion minion : currentPlayer.getMinions()) {
-            if (!minion.isSilenced() && minion instanceof MinionPlayedInterface) {
-                matches.add((MinionPlayedInterface)minion);
-            }
-        }
-
-        for (MinionPlayedInterface match : matches) {
-            toRet = match.minionPlayedEvent(PlayerSide.CURRENT_PLAYER, targetSide, this, toRet);
-        }
-        matches.clear();
-
-        hero = waitingPlayer.getHero();
-        if (hero instanceof MinionPlayedInterface) {
-            matches.add((MinionPlayedInterface)hero);
-        }
-
-        for (Minion minion : waitingPlayer.getMinions()) {
-            if (!minion.isSilenced() && minion instanceof MinionPlayedInterface) {
-                matches.add((MinionPlayedInterface)minion);
-            }
-        }
-
-        for (MinionPlayedInterface match : matches) {
-            toRet = match.minionPlayedEvent(PlayerSide.WAITING_PLAYER, targetSide, this, toRet);
-        }
-
-        return toRet;
-    }
-
-    @Deprecated
-    protected HearthTreeNode notifyMinionDamaged(HearthTreeNode boardState, PlayerSide targetSide, Deck deckPlayer0,
-                                                 Deck deckPlayer1) throws HSException {
-        return this.notifyMinionDamaged(boardState, targetSide);
-    }
-
-    protected HearthTreeNode notifyMinionDamaged(HearthTreeNode boardState, PlayerSide targetSide) throws HSException {
-        HearthTreeNode toRet = boardState;
-        ArrayList<MinionDamagedInterface> matches = new ArrayList<MinionDamagedInterface>();
-
-        PlayerModel currentPlayer = boardState.data_.getCurrentPlayer();
-        PlayerModel waitingPlayer = boardState.data_.getWaitingPlayer();
-
-        Card hero = currentPlayer.getHero();
-        if (hero instanceof MinionDamagedInterface) {
-            matches.add((MinionDamagedInterface)hero);
-        }
-
-        for (Minion minion : currentPlayer.getMinions()) {
-            if (!minion.isSilenced() && minion instanceof MinionDamagedInterface) {
-                matches.add((MinionDamagedInterface)minion);
-            }
-        }
-
-        for (MinionDamagedInterface match : matches) {
-            toRet = match.minionDamagedEvent(PlayerSide.CURRENT_PLAYER, targetSide, this, toRet);
-        }
-        matches.clear();
-
-        hero = waitingPlayer.getHero();
-        if (hero instanceof MinionDamagedInterface) {
-            matches.add((MinionDamagedInterface)hero);
-        }
-
-        for (Minion minion : waitingPlayer.getMinions()) {
-            if (!minion.isSilenced() && minion instanceof MinionDamagedInterface) {
-                matches.add((MinionDamagedInterface)minion);
-            }
-        }
-
-        for (MinionDamagedInterface match : matches) {
-            toRet = match.minionDamagedEvent(PlayerSide.WAITING_PLAYER, targetSide, this, toRet);
-        }
-
-        return toRet;
-    }
-
-    @Deprecated
-    protected HearthTreeNode notifyMinionDead(PlayerSide deadMinionPlayerSide,
-                                              Minion deadMinion, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
-        return this.notifyMinionDead(deadMinionPlayerSide, deadMinion, boardState);
-    }
-
-    protected HearthTreeNode notifyMinionDead(PlayerSide deadMinionPlayerSide, Minion deadMinion, HearthTreeNode boardState) throws HSException {
-        HearthTreeNode toRet = boardState;
-        ArrayList<MinionDeadInterface> matches = new ArrayList<MinionDeadInterface>();
-
-        PlayerModel currentPlayer = boardState.data_.getCurrentPlayer();
-        PlayerModel waitingPlayer = boardState.data_.getWaitingPlayer();
-
-        Card hero = currentPlayer.getHero();
-        if (hero instanceof MinionDeadInterface) {
-            matches.add((MinionDeadInterface)hero);
-        }
-
-        for (Minion minion : currentPlayer.getMinions()) {
-            if (!minion.isSilenced() && minion instanceof MinionDeadInterface) {
-                matches.add((MinionDeadInterface)minion);
-            }
-        }
-
-        for (MinionDeadInterface match : matches) {
-            toRet = match.minionDeadEvent(PlayerSide.CURRENT_PLAYER, deadMinionPlayerSide, deadMinion, toRet);
-        }
-        matches.clear();
-
-        hero = waitingPlayer.getHero();
-        if (hero instanceof MinionDeadInterface) {
-            matches.add((MinionDeadInterface)hero);
-        }
-
-        for (Minion minion : waitingPlayer.getMinions()) {
-            if (!minion.isSilenced() && minion instanceof MinionDeadInterface) {
-                matches.add((MinionDeadInterface)minion);
-            }
-        }
-
-        for (MinionDeadInterface match : matches) {
-            toRet = match.minionDeadEvent(PlayerSide.WAITING_PLAYER, deadMinionPlayerSide, deadMinion, toRet);
-        }
-
-        return toRet;
-    }
-
-    @Deprecated
-    protected HearthTreeNode notifyMinionHealed(HearthTreeNode boardState, PlayerSide targetSide, Deck deckPlayer0,
-                                                Deck deckPlayer1) throws HSException {
-        return this.notifyMinionHealed(boardState, targetSide);
-    }
-
-    protected HearthTreeNode notifyMinionHealed(HearthTreeNode boardState, PlayerSide targetSide) throws HSException {
-        HearthTreeNode toRet = boardState;
-        ArrayList<MinionHealedInterface> matches = new ArrayList<MinionHealedInterface>();
-
-        PlayerModel currentPlayer = boardState.data_.getCurrentPlayer();
-        PlayerModel waitingPlayer = boardState.data_.getWaitingPlayer();
-
-        Card hero = currentPlayer.getHero();
-        if (hero instanceof MinionHealedInterface) {
-            matches.add((MinionHealedInterface)hero);
-        }
-
-        for (Minion minion : currentPlayer.getMinions()) {
-            if (!minion.isSilenced() && minion instanceof MinionHealedInterface) {
-                matches.add((MinionHealedInterface)minion);
-            }
-        }
-
-        for (MinionHealedInterface match : matches) {
-            toRet = match.minionHealedEvent(PlayerSide.CURRENT_PLAYER, targetSide, this, toRet);
-        }
-        matches.clear();
-
-        hero = waitingPlayer.getHero();
-        if (hero instanceof MinionHealedInterface) {
-            matches.add((MinionHealedInterface)hero);
-        }
-
-        for (Minion minion : waitingPlayer.getMinions()) {
-            if (!minion.isSilenced() && minion instanceof MinionHealedInterface) {
-                matches.add((MinionHealedInterface)minion);
-            }
-        }
-
-        for (MinionHealedInterface match : matches) {
-            toRet = match.minionHealedEvent(PlayerSide.WAITING_PLAYER, targetSide, this, toRet);
-        }
-
         return toRet;
     }
 
@@ -1486,6 +980,235 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         result = 31 * result + (attackAction_ != null ? attackAction_.hashCode() : 0);
         result = 31 * result + (placementImportant_ ? 1 : 0);
         return result;
+    }
+
+    @Deprecated
+    public Minion(String name, byte mana, byte attack, byte health, byte baseAttack, byte extraAttackUntilTurnEnd,
+                  byte auraAttack, byte baseHealth, byte maxHealth, byte auraHealth, byte spellDamage, boolean taunt,
+                  boolean divineShield, boolean windFury, boolean charge, boolean hasAttacked, boolean hasWindFuryAttacked,
+                  boolean frozen, boolean silenced, boolean stealthed, boolean heroTargetable, boolean summoned,
+                  boolean transformed, boolean destroyOnTurnStart, boolean destroyOnTurnEnd, AttackAction attackAction,
+                  boolean isInHand, boolean hasBeenUsed) {
+        super(name, mana, hasBeenUsed, isInHand, (byte) 0);
+        attack_ = attack;
+        health_ = health;
+        taunt_ = taunt;
+        divineShield_ = divineShield;
+        windFury_ = windFury;
+        charge_ = charge;
+        hasAttacked_ = hasAttacked;
+        baseAttack_ = baseAttack;
+        extraAttackUntilTurnEnd_ = extraAttackUntilTurnEnd;
+        hasWindFuryAttacked_ = hasWindFuryAttacked;
+        frozen_ = frozen;
+        silenced_ = silenced;
+        baseHealth_ = baseHealth;
+        maxHealth_ = maxHealth;
+        destroyOnTurnStart_ = destroyOnTurnStart;
+        destroyOnTurnEnd_ = destroyOnTurnEnd;
+        attackAction_ = attackAction;
+
+        auraAttack_ = auraAttack;
+        auraHealth_ = auraHealth;
+
+        spellDamage_ = spellDamage;
+
+        stealthed_ = stealthed;
+        heroTargetable_ = heroTargetable;
+    }
+
+    @Deprecated
+    public boolean hasAttacked() {
+        return hasAttacked_;
+    }
+
+    @Deprecated
+    public void silenced(PlayerSide thisPlayerSide, HearthTreeNode boardState) throws HSInvalidPlayerIndexException {
+        this.silenced(thisPlayerSide, boardState.data_);
+    }
+
+    @Deprecated
+    public HearthTreeNode takeDamage(byte damage, PlayerSide attackPlayerSide, PlayerSide thisPlayerSide,
+                                     HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean isSpellDamage,
+                                     boolean handleMinionDeath) throws HSException {
+        return this.takeDamageAndNotify(damage, attackPlayerSide, thisPlayerSide, boardState, isSpellDamage, handleMinionDeath);
+    }
+
+    @Deprecated
+    public HearthTreeNode destroyed(PlayerSide thisPlayerSide, HearthTreeNode boardState, Deck deckPlayer0,
+                                    Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
+        return this.destroyAndNotify(thisPlayerSide, boardState, singleRealizationOnly);
+    }
+
+    @Deprecated
+    public HearthTreeNode takeHeal(byte healAmount, PlayerSide thisPlayerSide, HearthTreeNode boardState,
+                                   Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+        return this.takeHealAndNotify(healAmount, thisPlayerSide, boardState);
+    }
+
+    @Deprecated
+    public HearthTreeNode useUntargetableBattlecry(Minion minionPlacementTarget, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
+        return this.useUntargetableBattlecry(boardState.data_.getCurrentPlayer().getIndexForCharacter(minionPlacementTarget), boardState, singleRealizationOnly);
+    }
+
+    @Deprecated
+    public HearthTreeNode useUntargetableBattlecry(Minion minionPlacementTarget, HearthTreeNode boardState,
+                                                   Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
+        return this.useUntargetableBattlecry(minionPlacementTarget, boardState, singleRealizationOnly);
+    }
+
+    @Deprecated
+    public HearthTreeNode summonMinion(PlayerSide targetSide, Minion targetMinion, HearthTreeNode boardState,
+                                       Deck deckPlayer0, Deck deckPlayer1, boolean wasPlayed, boolean singleRealizationOnly) throws HSException {
+        return this.summonMinion(targetSide, targetMinion, boardState, wasPlayed, singleRealizationOnly);
+    }
+
+    @Deprecated
+    public HearthTreeNode summonMinion(PlayerSide targetSide, int targetIndex, HearthTreeNode boardState,
+                                       Deck deckPlayer0, Deck deckPlayer1, boolean wasPlayed, boolean singleRealizationOnly) throws HSException {
+        PlayerModel player = boardState.data_.modelForSide(targetSide);
+        Minion targetLocation = player.getCharacter(targetIndex);
+        return this.summonMinion(targetSide, targetLocation, boardState, wasPlayed, singleRealizationOnly);
+    }
+
+    @Deprecated
+    public HearthTreeNode summonMinionAtEnd(PlayerSide targetSide, HearthTreeNode boardState,
+                                            Deck deckPlayer0, Deck deckPlayer1, boolean wasPlayed, boolean singleRealizationOnly) throws HSException {
+        PlayerModel player = boardState.data_.modelForSide(targetSide);
+        return this.summonMinion(targetSide, player.getNumMinions(), boardState, wasPlayed, singleRealizationOnly);
+    }
+
+    @Deprecated
+    protected HearthTreeNode summonMinion_core(PlayerSide targetSide, Minion targetMinion, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
+        int targetIndex = 0;
+        if (!targetMinion.isHero()) {
+            PlayerModel targetPlayer = boardState.data_.modelForSide(targetSide);
+            targetIndex = targetPlayer.getMinions().indexOf(targetMinion) + 1;
+        }
+
+        return this.summonMinion_core(targetSide, targetIndex, boardState);
+    }
+
+    @Deprecated
+    protected HearthTreeNode summonMinion_core(PlayerSide targetSide, Minion targetMinion, HearthTreeNode boardState,
+                                               Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
+        return this.summonMinion_core(targetSide, targetMinion, boardState, singleRealizationOnly);
+    }
+
+    /**
+     * Place a minion on the board
+     *
+     * Use this function if you need to place a minion on the board without triggering any of the "On Summon" effects
+     *
+     * @param targetSide
+     * @param targetMinion
+     * @param boardState
+     * @param singleRealizationOnly
+     * @return
+     * @throws HSException
+     */
+    @Deprecated
+    public HearthTreeNode placeMinion(PlayerSide targetSide, Minion targetMinion, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
+        if (isHero(targetMinion)) {
+            boardState.data_.placeMinion(targetSide, this, 0);
+        } else {
+            PlayerModel targetPlayer = boardState.data_.modelForSide(targetSide);
+            boardState.data_.placeMinion(targetSide, this,
+                targetPlayer.getMinions().indexOf(targetMinion) + 1);
+        }
+        return this.notifyMinionPlacement(boardState, targetSide);
+    }
+
+    @Deprecated
+    public HearthTreeNode placeMinion(PlayerSide targetSide, Minion targetMinion, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
+        return this.placeMinion(targetSide, targetMinion, boardState, singleRealizationOnly);
+    }
+
+    @Deprecated
+    public HearthTreeNode attack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode boardState,
+                                 Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
+        return this.attack(targetMinionPlayerSide, targetMinion, boardState, singleRealizationOnly);
+    }
+
+    @Deprecated
+    public HearthTreeNode attack(PlayerSide targetMinionPlayerSide, int targetCharacterIndex, HearthTreeNode boardState,
+                                 Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
+        return this.attack(targetMinionPlayerSide, targetCharacterIndex, boardState, singleRealizationOnly);
+    }
+
+    @Deprecated
+    protected HearthTreeNode attack_core(PlayerSide targetMinionPlayerSide, Minion targetMinion,
+                                         HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
+        return this.attack_core(targetMinionPlayerSide, targetMinion, boardState, singleRealizationOnly);
+    }
+
+        // ======================================================================================
+    // Various notifications
+    // ======================================================================================
+    @Deprecated
+    protected HearthTreeNode notifyMinionSummon(HearthTreeNode boardState, PlayerSide targetSide, Deck deckPlayer0,
+                                                    Deck deckPlayer1) throws HSException {
+        return this.notifyMinionSummon(boardState, targetSide);
+    }
+
+    @Deprecated
+    protected HearthTreeNode notifyMinionSummon(HearthTreeNode boardState, PlayerSide targetSide) throws HSException {
+        return boardState.notifyMinionSummon(targetSide, this);
+    }
+
+    @Deprecated
+    protected HearthTreeNode notifyMinionPlacement(HearthTreeNode boardState, PlayerSide targetSide, Deck deckPlayer0,
+                                                   Deck deckPlayer1) throws HSException {
+        return this.notifyMinionPlacement(boardState, targetSide);
+    }
+
+    @Deprecated
+    protected HearthTreeNode notifyMinionPlacement(HearthTreeNode boardState, PlayerSide targetSide) throws HSException {
+        return boardState.notifyMinionPlacement(targetSide, this);
+    }
+
+    @Deprecated
+    protected HearthTreeNode notifyMinionPlayed(HearthTreeNode boardState, PlayerSide targetSide, Deck deckPlayer0,
+                                                Deck deckPlayer1) throws HSException {
+        return this.notifyMinionPlayed(boardState, targetSide);
+    }
+
+    @Deprecated
+    protected HearthTreeNode notifyMinionPlayed(HearthTreeNode boardState, PlayerSide targetSide) throws HSException {
+        return boardState.notifyMinionPlayed(targetSide, this);
+    }
+
+    @Deprecated
+    protected HearthTreeNode notifyMinionDamaged(HearthTreeNode boardState, PlayerSide targetSide, Deck deckPlayer0,
+                                                 Deck deckPlayer1) throws HSException {
+        return this.notifyMinionDamaged(boardState, targetSide);
+    }
+
+    @Deprecated
+    protected HearthTreeNode notifyMinionDamaged(HearthTreeNode boardState, PlayerSide targetSide) throws HSException {
+        return boardState.notifyMinionDamaged(targetSide, this);
+    }
+
+    @Deprecated
+    protected HearthTreeNode notifyMinionDead(PlayerSide deadMinionPlayerSide,
+                                              Minion deadMinion, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+        return this.notifyMinionDead(deadMinionPlayerSide, deadMinion, boardState);
+    }
+
+    @Deprecated
+    protected HearthTreeNode notifyMinionDead(PlayerSide deadMinionPlayerSide, Minion deadMinion, HearthTreeNode boardState) throws HSException {
+        return boardState.notifyMinionDead(deadMinionPlayerSide, deadMinion);
+    }
+
+    @Deprecated
+    protected HearthTreeNode notifyMinionHealed(HearthTreeNode boardState, PlayerSide targetSide, Deck deckPlayer0,
+                                                Deck deckPlayer1) throws HSException {
+        return this.notifyMinionHealed(boardState, targetSide);
+    }
+
+    @Deprecated
+    protected HearthTreeNode notifyMinionHealed(HearthTreeNode boardState, PlayerSide targetSide) throws HSException {
+        return boardState.notifyMinionHealed(targetSide, this);
     }
 
     @Deprecated

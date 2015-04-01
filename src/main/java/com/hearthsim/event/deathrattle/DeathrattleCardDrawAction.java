@@ -1,7 +1,6 @@
 package com.hearthsim.event.deathrattle;
 
 import com.hearthsim.card.Card;
-import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -18,7 +17,7 @@ public class DeathrattleCardDrawAction extends DeathrattleAction {
     public HearthTreeNode performAction(Card origin,
                                         PlayerSide playerSide,
                                         HearthTreeNode boardState,
-                                        boolean singleRealizationOnly) throws HSException {
+                                        boolean singleRealizationOnly) {
         HearthTreeNode toRet = super.performAction(origin, playerSide, boardState, singleRealizationOnly);
         if (playerSide == PlayerSide.CURRENT_PLAYER) {
             if (toRet instanceof CardDrawNode) {

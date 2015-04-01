@@ -9,7 +9,7 @@ import com.hearthsim.util.tree.HearthTreeNode;
 /**
  * Actions triggered by a deathrattle
  */
-public abstract class DeathrattleAction {
+public abstract class DeathrattleAction<T extends Card> {
 
     /**
      * Perform the action
@@ -19,15 +19,15 @@ public abstract class DeathrattleAction {
      * @param boardState
      * @throws HSException
      */
-    public HearthTreeNode performAction(Card origin,
+    public HearthTreeNode performAction(T origin,
                                         PlayerSide playerSide,
                                         HearthTreeNode boardState,
-                                        boolean singleRealizationOnly) throws HSException {
+                                        boolean singleRealizationOnly) {
         return boardState;
     }
 
     @Deprecated
-    public HearthTreeNode performAction(Card origin,
+    public HearthTreeNode performAction(T origin,
                                         PlayerSide playerSide,
                                         HearthTreeNode boardState,
                                         Deck deckPlayer0,

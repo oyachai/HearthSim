@@ -30,7 +30,7 @@ public class Lightwell extends Minion {
             while (targetMinion.getTotalMaxHealth() == targetMinion.getTotalHealth()) {
                 targetMinion = currentPlayer.getCharacter((int)(Math.random()*(currentPlayer.getNumMinions() + 1)));
             }
-            toRet = targetMinion.takeHeal((byte)3, PlayerSide.CURRENT_PLAYER, toRet);
+            toRet = targetMinion.takeHealAndNotify((byte) 3, PlayerSide.CURRENT_PLAYER, toRet);
         }
         return super.startTurn(side, toRet);
     }

@@ -1,8 +1,11 @@
 package com.hearthsim.card.spellcard.concrete;
 
+import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
-import com.hearthsim.exception.HSException;
+import com.hearthsim.event.CharacterFilter;
+import com.hearthsim.event.effect.CardEffectCharacter;
+import com.hearthsim.event.CharacterFilterTargetedSpell;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -27,9 +30,11 @@ public class PowerWordShield extends SpellCard {
      */
     public PowerWordShield() {
         super();
+    }
 
-        this.canTargetEnemyHero = false;
-        this.canTargetOwnHero = false;
+    @Override
+    public CharacterFilter getTargetableFilter() {
+        return CharacterFilterTargetedSpell.ALL_MINIONS;
     }
 
     /**
@@ -46,22 +51,24 @@ public class PowerWordShield extends SpellCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    protected HearthTreeNode use_core(
-            PlayerSide side,
-            Minion targetMinion,
-            HearthTreeNode boardState,
-            boolean singleRealizationOnly)
-        throws HSException {
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
-        if (toRet != null) {
-            targetMinion.setHealth((byte)(targetMinion.getHealth() + 2));
-            targetMinion.setMaxHealth((byte)(targetMinion.getMaxHealth() + 2));
+    public CardEffectCharacter getTargetableEffect() {
+        if (this.effect == null) {
+            this.effect = new CardEffectCharacter() {
+                @Override
+                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
+                    Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
+                    targetCharacter.setHealth((byte)(targetCharacter.getHealth() + 2));
+                    targetCharacter.setMaxHealth((byte)(targetCharacter.getMaxHealth() + 2));
+
+                    if (boardState instanceof CardDrawNode) {
+                        ((CardDrawNode) boardState).addNumCardsToDraw(1);
+                    } else {
+                        boardState = new CardDrawNode(boardState, 1); //draw two cards
+                    }
+                    return boardState;
+                }
+            };
         }
-        if (toRet instanceof CardDrawNode) {
-            ((CardDrawNode) toRet).addNumCardsToDraw(1);
-        } else {
-            toRet = new CardDrawNode(toRet, 1); //draw two cards
-        }
-        return toRet;
+        return this.effect;
     }
 }

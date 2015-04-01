@@ -1,21 +1,23 @@
 package com.hearthsim.card.spellcard;
 
-import com.hearthsim.card.minion.Minion;
-import com.hearthsim.exception.HSException;
-import com.hearthsim.model.BoardModel;
-import com.hearthsim.model.PlayerModel;
-import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.tree.HearthTreeNode;
+import com.hearthsim.event.CharacterFilter;
+import com.hearthsim.event.CharacterFilterTargetedSpell;
+import com.hearthsim.event.effect.CardEffectCharacter;
+import com.hearthsim.event.effect.CardEffectAoeInterface;
 
-public class SpellDamageAoe extends SpellDamage {
+@Deprecated
+public class SpellDamageAoe extends SpellDamage implements CardEffectAoeInterface {
 
-    protected boolean hitsOwnHero = false;
-    protected boolean hitsOwnMinions = false;
-    protected boolean hitsEnemyHero = false;
-    protected boolean hitsEnemyMinions = true;
+    protected CharacterFilter hitsFilter;
 
     public SpellDamageAoe() {
         super();
+        this.hitsFilter = CharacterFilter.ENEMY_MINIONS;
+    }
+
+    @Override
+    public CharacterFilter getTargetableFilter() {
+        return CharacterFilterTargetedSpell.OPPONENT;
     }
 
     /**
@@ -29,53 +31,10 @@ public class SpellDamageAoe extends SpellDamage {
     }
 
     @Override
-    public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
-        if (!super.canBeUsedOn(playerSide, minion, boardModel)) {
-            return false;
-        }
+    public CardEffectCharacter getAoeEffect() { return this.getTargetableEffect(); }
 
-        if (isCurrentPlayer(playerSide)) {
-            return false;
-        }
-
-        if (isNotHero(minion)) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * Use the card on the given target
-     *
-     * @param side
-     * @param boardState The BoardState before this card has performed its action. It will be manipulated and returned.
-     * @return The boardState is manipulated and returned
-     */
     @Override
-    protected HearthTreeNode use_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
-        if (boardState != null && this.hitsOwnHero) {
-            Minion self = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(0);
-            boardState = this.attack(PlayerSide.CURRENT_PLAYER, self, boardState);
-        }
-
-        if (boardState != null && this.hitsOwnMinions) {
-            boardState = this.attackAllMinionsOnSide(PlayerSide.CURRENT_PLAYER, boardState);
-        }
-
-        if (boardState != null && this.hitsEnemyHero) {
-            boardState = this.attack(PlayerSide.WAITING_PLAYER, targetMinion, boardState);
-        }
-
-        if (boardState != null && this.hitsEnemyMinions) {
-            boardState = this.attackAllMinionsOnSide(PlayerSide.WAITING_PLAYER, boardState);
-        }
-
-        if (boardState != null) {
-            PlayerModel currentPlayer = boardState.data_.getCurrentPlayer();
-            currentPlayer.subtractMana(this.getManaCost(side, boardState.data_));
-            currentPlayer.getHand().remove(this);
-        }
-        return boardState;
+    public CharacterFilter getAoeFilter() {
+        return this.hitsFilter;
     }
 }

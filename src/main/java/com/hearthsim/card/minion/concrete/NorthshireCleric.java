@@ -2,8 +2,9 @@ package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionHealedInterface;
+import com.hearthsim.event.effect.CardEffectCharacter;
+import com.hearthsim.event.effect.CardEffectCharacterDraw;
 import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 /**
@@ -16,6 +17,8 @@ import com.hearthsim.util.tree.HearthTreeNode;
  *
  */
 public class NorthshireCleric extends Minion implements MinionHealedInterface {
+
+    private static final CardEffectCharacter effect = new CardEffectCharacterDraw(1);
 
     public NorthshireCleric() {
         super();
@@ -34,19 +37,6 @@ public class NorthshireCleric extends Minion implements MinionHealedInterface {
      */
     @Override
     public HearthTreeNode minionHealedEvent(PlayerSide thisMinionPlayerSide, PlayerSide healedMinionPlayerSide, Minion healedMinion, HearthTreeNode boardState) {
-        HearthTreeNode toRet = boardState;
-        if (!silenced_) {
-            if (thisMinionPlayerSide == PlayerSide.CURRENT_PLAYER) {
-                if (boardState instanceof CardDrawNode) {
-                    ((CardDrawNode)toRet).addNumCardsToDraw(1);
-                } else {
-                    toRet = new CardDrawNode(toRet, 1); //draw one card
-                }
-            } else {
-                //This minion is an enemy minion.  Let's draw a card for the enemy.  No need to use a StopNode for enemy card draws.
-                toRet.data_.drawCardFromWaitingPlayerDeck(1);
-            }
-        }
-        return toRet;
+        return NorthshireCleric.effect.applyEffect(thisMinionPlayerSide, this, thisMinionPlayerSide, 0, boardState);
     }
 }

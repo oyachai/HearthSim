@@ -2,7 +2,6 @@ package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionUntargetableBattlecry;
-import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -20,9 +19,9 @@ public class GuardianOfKings extends Minion implements MinionUntargetableBattlec
             int minionPlacementIndex,
             HearthTreeNode boardState,
             boolean singleRealizationOnly
-        ) throws HSException {
+        ) {
         HearthTreeNode toRet = boardState;
-        toRet = toRet.data_.getCurrentPlayer().getHero().takeHeal((byte)6, PlayerSide.CURRENT_PLAYER, toRet);
+        toRet = toRet.data_.getCurrentPlayer().getHero().takeHealAndNotify((byte) 6, PlayerSide.CURRENT_PLAYER, toRet);
         return toRet;
     }
 

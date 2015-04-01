@@ -1,12 +1,14 @@
 package com.hearthsim.card.spellcard.concrete;
 
-import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
-import com.hearthsim.exception.HSException;
-import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.tree.HearthTreeNode;
+import com.hearthsim.event.CharacterFilter;
+import com.hearthsim.event.effect.CardEffectCharacter;
+import com.hearthsim.event.CharacterFilterTargetedSpell;
+import com.hearthsim.event.effect.CardEffectCharacterBuffTemp;
 
 public class RockbiterWeapon extends SpellCard {
+
+    private final static CardEffectCharacter effect = new CardEffectCharacterBuffTemp(3);
 
     /**
      * Constructor
@@ -26,9 +28,11 @@ public class RockbiterWeapon extends SpellCard {
      */
     public RockbiterWeapon() {
         super();
+    }
 
-        this.canTargetEnemyHero = false;
-        this.canTargetEnemyMinions = false;
+    @Override
+    public CharacterFilter getTargetableFilter() {
+        return CharacterFilterTargetedSpell.ALL_FRIENDLIES;
     }
 
     /**
@@ -45,16 +49,7 @@ public class RockbiterWeapon extends SpellCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    protected HearthTreeNode use_core(
-            PlayerSide side,
-            Minion targetMinion,
-            HearthTreeNode boardState,
-            boolean singleRealizationOnly)
-        throws HSException {
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
-        if (toRet != null)
-            targetMinion.setExtraAttackUntilTurnEnd((byte)(3 + targetMinion.getExtraAttackUntilTurnEnd()));
-
-        return toRet;
+    public CardEffectCharacter getTargetableEffect() {
+        return RockbiterWeapon.effect;
     }
 }

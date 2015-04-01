@@ -1,8 +1,11 @@
 package com.hearthsim.card.spellcard.concrete;
 
+import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
-import com.hearthsim.exception.HSException;
+import com.hearthsim.event.CharacterFilter;
+import com.hearthsim.event.effect.CardEffectCharacter;
+import com.hearthsim.event.CharacterFilterTargetedSpell;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -27,10 +30,11 @@ public class LayOnHands extends SpellCard {
      */
     public LayOnHands() {
         super();
+    }
 
-        //Let's assume that it is never beneficial to heal an opponent... though this may not strictly be true under some very corner cases (e.g., with a Northshire Cleric)
-        this.canTargetEnemyHero = false; // TODO card as printed allows this
-        this.canTargetEnemyMinions = false;
+    //Let's assume that it is never beneficial to heal an opponent... though this may not strictly be true under some very corner cases (e.g., with a Northshire Cleric)
+    public CharacterFilter getTargetableFilter() {
+        return CharacterFilterTargetedSpell.FRIENDLY_MINIONS;
     }
 
     /**
@@ -47,19 +51,22 @@ public class LayOnHands extends SpellCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    protected HearthTreeNode use_core(
-            PlayerSide side,
-            Minion targetMinion,
-            HearthTreeNode boardState,
-            boolean singleRealizationOnly)
-        throws HSException {
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
-        toRet = targetMinion.takeHeal((byte)8, side, boardState);
-        if (toRet instanceof CardDrawNode)
-            ((CardDrawNode) toRet).addNumCardsToDraw(3);
-        else
-            toRet = new CardDrawNode(toRet, 3); //draw three cards
+    public CardEffectCharacter getTargetableEffect() {
+        if (this.effect == null) {
+            this.effect = new CardEffectCharacter() {
+                @Override
+                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
+                    Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
+                    boardState = targetCharacter.takeHealAndNotify((byte) 8, targetSide, boardState);
+                    if (boardState instanceof CardDrawNode)
+                        ((CardDrawNode) boardState).addNumCardsToDraw(3);
+                    else
+                        boardState = new CardDrawNode(boardState, 3); //draw three cards
 
-        return toRet;
+                    return boardState;
+                }
+            };
+        }
+        return this.effect;
     }
 }

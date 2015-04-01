@@ -1,36 +1,33 @@
 package com.hearthsim.card.minion.concrete;
 
-import java.util.EnumSet;
-
-import com.hearthsim.card.minion.BattlecryTargetType;
+import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionTargetableBattlecry;
-import com.hearthsim.event.EffectMinionBounce;
-import com.hearthsim.exception.HSException;
+import com.hearthsim.event.effect.CardEffectCharacter;
+import com.hearthsim.event.CharacterFilterTargetedBattlecry;
+import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class AncientBrewmaster extends Minion implements MinionTargetableBattlecry {
 
-    protected final EffectMinionBounce effect = new EffectMinionBounce();
+    private final static CharacterFilterTargetedBattlecry filter = new CharacterFilterTargetedBattlecry() {
+        protected boolean includeOwnMinions() { return true; }
+    };
+
+    private final static CardEffectCharacter effect = CardEffectCharacter.BOUNCE;
 
     public AncientBrewmaster() {
         super();
     }
 
     @Override
-    public EnumSet<BattlecryTargetType> getBattlecryTargets() {
-        return EnumSet.of(BattlecryTargetType.FRIENDLY_MINIONS);
+    public boolean canTargetWithBattlecry(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, BoardModel board) {
+        return AncientBrewmaster.filter.targetMatches(originSide, origin, targetSide, targetCharacterIndex, board);
     }
 
-    /**
-     * Battlecry: Change an enemy minion's attack to 1
-     */
     @Override
-    public HearthTreeNode useTargetableBattlecry_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState) throws HSException {
-        if (boardState != null) {
-            this.effect.applyEffect(PlayerSide.CURRENT_PLAYER, this, side, targetMinion, boardState.data_);
-        }
-        return boardState;
+    public HearthTreeNode useTargetableBattlecry_core(PlayerSide originSide, Minion origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
+        return AncientBrewmaster.effect.applyEffect(originSide, origin, targetSide, targetCharacterIndex, boardState);
     }
 }

@@ -2,7 +2,6 @@ package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionUntargetableBattlecry;
-import com.hearthsim.exception.HSException;
 import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -17,7 +16,7 @@ public class ColdlightOracle extends Minion implements MinionUntargetableBattlec
             int minionPlacementIndex,
             HearthTreeNode boardState,
             boolean singleRealizationOnly
-        ) throws HSException {
+        ) {
         HearthTreeNode toRet = boardState;
         if (toRet instanceof CardDrawNode)
             ((CardDrawNode) toRet).addNumCardsToDraw(2);

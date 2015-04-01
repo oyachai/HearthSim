@@ -1,12 +1,15 @@
 package com.hearthsim.card.spellcard.concrete;
 
-import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
-import com.hearthsim.exception.HSException;
-import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.tree.HearthTreeNode;
+import com.hearthsim.event.CharacterFilter;
+import com.hearthsim.event.effect.CardEffectCharacter;
+import com.hearthsim.event.effect.CardEffectCharacterBuffDelta;
+import com.hearthsim.event.CharacterFilterTargetedSpell;
 
 public class BlessingOfMight extends SpellCard {
+
+    private final static CardEffectCharacter effect = new CardEffectCharacterBuffDelta(3, 0);
+
     /**
      * Constructor
      *
@@ -25,9 +28,11 @@ public class BlessingOfMight extends SpellCard {
      */
     public BlessingOfMight() {
         super();
+    }
 
-        this.canTargetEnemyHero = false;
-        this.canTargetOwnHero = false;
+    @Override
+    public CharacterFilter getTargetableFilter() {
+        return CharacterFilterTargetedSpell.ALL_MINIONS;
     }
 
     /**
@@ -44,14 +49,7 @@ public class BlessingOfMight extends SpellCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    protected HearthTreeNode use_core(
-            PlayerSide side,
-            Minion targetMinion,
-            HearthTreeNode boardState, boolean singleRealizationOnly)
-        throws HSException {
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
-        if (toRet != null)
-            targetMinion.setAttack((byte)(targetMinion.getAttack() + 3));
-        return toRet;
+    public CardEffectCharacter getTargetableEffect() {
+        return BlessingOfMight.effect;
     }
 }
