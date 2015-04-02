@@ -35,15 +35,6 @@ public class CardDrawNode extends StopNode {
     }
 
     /**
-     * Queue up a specified number of cards for drawing from the deck
-     *
-     * @param value Number of cards to queue up for drawing
-     */
-    public void setNumCardsToDraw(int value) {
-        numCardsToDraw_ = value;
-    }
-
-    /**
      * Draw the cards that are queued
      * <p>
      * This function actually draws the cards that are queued up by the various card draw mechanics.

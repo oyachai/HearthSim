@@ -8,8 +8,6 @@ import com.hearthsim.event.effect.CardEffectCharacter;
 
 public class Consecration extends SpellDamage implements CardEffectAoeInterface {
 
-    private static final byte DAMAGE_AMOUNT = 2;
-
     /**
      * Constructor
      *

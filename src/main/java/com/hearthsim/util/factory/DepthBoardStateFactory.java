@@ -19,7 +19,6 @@ public class DepthBoardStateFactory extends BoardStateFactoryBase {
     private final long maxTime_;
 
     private long startTime_;
-    protected long curTime_;
 
     private final boolean useDuplicateNodePruning;
     private int numNodes;
@@ -63,23 +62,6 @@ public class DepthBoardStateFactory extends BoardStateFactoryBase {
         this.useDuplicateNodePruning = useDuplicateNodePruning;
         if (useDuplicateNodePruning)
             boardsAlreadySeen = new HashSet<>(500000);
-    }
-
-    public boolean didTimeOut() {
-        return timedOut_;
-    }
-
-    public void resetTimeOut() {
-        startTime_ = System.currentTimeMillis();
-        timedOut_ = false;
-    }
-
-    public int getNumNodes() {
-        return numNodes;
-    }
-
-    public int getNumDuplicates() {
-        return numDuplicates;
     }
 
     /**

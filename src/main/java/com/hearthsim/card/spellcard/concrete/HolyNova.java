@@ -13,8 +13,6 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class HolyNova extends SpellDamage implements CardEffectAoeInterface {
 
-    private static final byte DAMAGE_AMOUNT = 2;
-
     /**
      * Constructor
      *

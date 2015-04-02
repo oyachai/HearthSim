@@ -9,6 +9,7 @@ import com.hearthsim.util.tree.HearthTreeNode;
  * Actions (events) triggered by attacking
  *
  */
+@Deprecated
 public abstract class AttackAction {
 
     /**

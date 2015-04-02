@@ -101,13 +101,13 @@ public class CharacterFilter {
         protected boolean includeOwnMinions() { return true; }
     };
 
-    public final static CharacterFilter ALL_HEROES = new CharacterFilter() {
-        @Override
-        protected boolean includeEnemyHero() { return true; }
-
-        @Override
-        protected boolean includeOwnHero() { return true; }
-    };
+//    public final static CharacterFilter ALL_HEROES = new CharacterFilter() {
+//        @Override
+//        protected boolean includeEnemyHero() { return true; }
+//
+//        @Override
+//        protected boolean includeOwnHero() { return true; }
+//    };
 
     public final static CharacterFilter ENEMY_MINIONS = new CharacterFilter() {
         @Override
@@ -124,8 +124,8 @@ public class CharacterFilter {
         protected boolean includeOwnHero() { return true; }
     };
 
-    public final static CharacterFilter OPPONENT = new CharacterFilter() {
-        @Override
-        protected boolean includeEnemyHero() { return true; }
-    };
+//    public final static CharacterFilter OPPONENT = new CharacterFilter() {
+//        @Override
+//        protected boolean includeEnemyHero() { return true; }
+//    };
 }

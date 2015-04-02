@@ -50,10 +50,6 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
             return playerSide;
         }
 
-        public void setPlayerSide(PlayerSide playerSide) {
-            this.playerSide = playerSide;
-        }
-
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;
@@ -92,6 +88,7 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
             return this.index;
         }
 
+        @SuppressWarnings("UnusedDeclaration")
         public JSONObject toJSON() {
             JSONObject json = new JSONObject();
 

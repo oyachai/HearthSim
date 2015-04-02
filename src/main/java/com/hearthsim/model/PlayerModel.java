@@ -110,10 +110,6 @@ public class PlayerModel implements DeepCopyable<PlayerModel>, Iterable<Minion> 
         this.maxMana += value;
     }
 
-    public void subtractMaxMana(byte value) {
-        this.maxMana -= value;
-    }
-
     public IdentityLinkedList<Minion> getMinions() {
         return minions;
     }
@@ -167,10 +163,6 @@ public class PlayerModel implements DeepCopyable<PlayerModel>, Iterable<Minion> 
 
     public void setFatigueDamage(byte value) {
         fatigueDamage = value;
-    }
-
-    public void addFatigueDamage(byte value) {
-        fatigueDamage += value;
     }
 
     public byte getNumCardsUsed() {
