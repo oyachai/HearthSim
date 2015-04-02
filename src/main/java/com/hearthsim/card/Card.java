@@ -602,7 +602,7 @@ public class Card implements DeepCopyable<Card> {
 
     @Deprecated
     protected HearthTreeNode notifyCardPlayBegin(HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1,
-                                                 boolean singleRealizationOnly) throws HSException {
+                                                 boolean singleRealizationOnly) {
         return this.notifyCardPlayBegin(boardState, singleRealizationOnly);
     }
 

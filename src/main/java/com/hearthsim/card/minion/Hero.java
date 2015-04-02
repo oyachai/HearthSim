@@ -136,7 +136,7 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
 
     @Deprecated
     public final HearthTreeNode useHeroAbility(PlayerSide targetPlayerSide, Minion targetMinion,
-                                               HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
+                                               HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) {
         return this.useHeroAbility(targetPlayerSide, targetMinion, boardState, false);
     }
 
@@ -149,13 +149,12 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
 
     @Deprecated
     public final HearthTreeNode useHeroAbility(PlayerSide targetPlayerSide, Minion targetMinion,
-                                               HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly)
-        throws HSException {
+                                               HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) {
         return this.useHeroAbility(targetPlayerSide, targetMinion, boardState, singleRealizationOnly);
     }
 
     public final HearthTreeNode useHeroAbility(PlayerSide targetPlayerSide, Minion targetMinion,
-                                               HearthTreeNode boardState) throws HSException {
+                                               HearthTreeNode boardState) {
         return this.useHeroAbility(targetPlayerSide, targetMinion, boardState, false);
     }
 
