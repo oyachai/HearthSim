@@ -1,7 +1,6 @@
 package com.hearthsim.card.weapon;
 
 import com.hearthsim.card.Card;
-import com.hearthsim.card.Deck;
 import com.hearthsim.card.ImplementedCardList;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
