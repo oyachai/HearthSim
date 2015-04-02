@@ -1,9 +1,5 @@
 package com.hearthsim.test;
 
-import static org.junit.Assert.assertEquals;
-
-import org.junit.Test;
-
 import com.hearthsim.Game;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
@@ -16,6 +12,9 @@ import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.player.playercontroller.BruteForceSearchAI;
 import com.hearthsim.results.GameResult;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 public class TestGame {
     private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());

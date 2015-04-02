@@ -1,21 +1,16 @@
 package com.hearthsim.test;
 
-import static org.junit.Assert.*;
-
+import com.hearthsim.card.minion.concrete.*;
+import com.hearthsim.exception.HSException;
+import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
+import com.hearthsim.model.PlayerSide;
+import com.hearthsim.util.tree.HearthTreeNode;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.hearthsim.card.minion.concrete.Archmage;
-import com.hearthsim.card.minion.concrete.BloodfenRaptor;
-import com.hearthsim.card.minion.concrete.ChillwindYeti;
-import com.hearthsim.card.minion.concrete.KoboldGeomancer;
-import com.hearthsim.card.minion.concrete.RiverCrocolisk;
-import com.hearthsim.card.minion.concrete.SilverHandRecruit;
-import com.hearthsim.exception.HSException;
-import com.hearthsim.model.BoardModel;
-import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.tree.HearthTreeNode;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class TestMinionPlacement {
 

@@ -10,7 +10,6 @@ import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
-
 import org.junit.Before;
 import org.junit.Test;
 

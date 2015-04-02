@@ -12,7 +12,7 @@ import com.hearthsim.util.tree.HearthTreeNode;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class TestGrimscaleOracle {
     private HearthTreeNode board;

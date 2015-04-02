@@ -1,19 +1,18 @@
 package com.hearthsim.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-import com.hearthsim.model.PlayerModel;
-import org.junit.Before;
-import org.junit.Test;
-
 import com.hearthsim.card.minion.concrete.BloodfenRaptor;
 import com.hearthsim.card.minion.concrete.ChillwindYeti;
 import com.hearthsim.card.minion.concrete.RiverCrocolisk;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class TestMinionDamage {
 

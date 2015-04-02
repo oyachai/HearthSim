@@ -1,7 +1,5 @@
 package com.hearthsim.test.card;
 
-import java.util.List;
-
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.concrete.Innervate;
@@ -12,11 +10,13 @@ import com.hearthsim.model.PlayerSide;
 import com.hearthsim.player.playercontroller.BruteForceSearchAI;
 import com.hearthsim.util.HearthActionBoardPair;
 import com.hearthsim.util.tree.HearthTreeNode;
-
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 public class TestInnervate {
 

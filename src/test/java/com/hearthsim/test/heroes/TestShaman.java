@@ -1,34 +1,23 @@
 package com.hearthsim.test.heroes;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
-import java.util.List;
-
-import com.hearthsim.model.PlayerModel;
-import org.junit.Before;
-import org.junit.Test;
-
 import com.hearthsim.card.minion.Hero;
-import com.hearthsim.card.minion.concrete.BoulderfistOgre;
-import com.hearthsim.card.minion.concrete.HealingTotem;
-import com.hearthsim.card.minion.concrete.RaidLeader;
-import com.hearthsim.card.minion.concrete.SearingTotem;
-import com.hearthsim.card.minion.concrete.SilverHandRecruit;
-import com.hearthsim.card.minion.concrete.StoneclawTotem;
-import com.hearthsim.card.minion.concrete.WrathOfAirTotem;
+import com.hearthsim.card.minion.concrete.*;
 import com.hearthsim.card.minion.heroes.Shaman;
 import com.hearthsim.card.minion.heroes.TestHero;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.player.playercontroller.BruteForceSearchAI;
 import com.hearthsim.util.HearthActionBoardPair;
 import com.hearthsim.util.tree.HearthTreeNode;
 import com.hearthsim.util.tree.RandomEffectNode;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.util.List;
+
+import static org.junit.Assert.*;
 
 public class TestShaman {
 

@@ -1,7 +1,5 @@
 package com.hearthsim.test.minion;
 
-import java.util.List;
-
 import com.hearthsim.Game;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.concrete.BoulderfistOgre;
@@ -16,6 +14,8 @@ import com.hearthsim.util.HearthActionBoardPair;
 import com.hearthsim.util.tree.HearthTreeNode;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.List;
 
 import static org.junit.Assert.*;
 

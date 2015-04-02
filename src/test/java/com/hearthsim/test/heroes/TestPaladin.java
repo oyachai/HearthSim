@@ -1,9 +1,5 @@
 package com.hearthsim.test.heroes;
 
-import com.hearthsim.model.PlayerModel;
-import org.junit.Before;
-import org.junit.Test;
-
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.concrete.BoulderfistOgre;
 import com.hearthsim.card.minion.concrete.RaidLeader;
@@ -12,10 +8,14 @@ import com.hearthsim.card.minion.heroes.Paladin;
 import com.hearthsim.card.minion.heroes.TestHero;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
+import org.junit.Before;
+import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class TestPaladin {
 

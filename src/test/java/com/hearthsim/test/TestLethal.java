@@ -1,39 +1,19 @@
 package com.hearthsim.test;
 
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Before;
-import org.junit.Test;
-
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
-import com.hearthsim.card.minion.concrete.BluegillWarrior;
-import com.hearthsim.card.minion.concrete.Boar;
-import com.hearthsim.card.minion.concrete.BoulderfistOgre;
-import com.hearthsim.card.minion.concrete.ChillwindYeti;
-import com.hearthsim.card.minion.concrete.DarkIronDwarf;
-import com.hearthsim.card.minion.concrete.GoldshireFootman;
-import com.hearthsim.card.minion.concrete.KoboldGeomancer;
-import com.hearthsim.card.minion.concrete.RiverCrocolisk;
-import com.hearthsim.card.minion.concrete.SenjinShieldmasta;
-import com.hearthsim.card.minion.concrete.ShatteredSunCleric;
-import com.hearthsim.card.minion.concrete.SilverHandRecruit;
-import com.hearthsim.card.minion.concrete.TimberWolf;
-import com.hearthsim.card.spellcard.concrete.AnimalCompanion;
-import com.hearthsim.card.spellcard.concrete.Assassinate;
-import com.hearthsim.card.spellcard.concrete.Frostbolt;
-import com.hearthsim.card.spellcard.concrete.HolySmite;
-import com.hearthsim.card.spellcard.concrete.Innervate;
-import com.hearthsim.card.spellcard.concrete.MindControl;
-import com.hearthsim.card.spellcard.concrete.Sap;
-import com.hearthsim.card.spellcard.concrete.Silence;
-import com.hearthsim.card.spellcard.concrete.TheCoin;
+import com.hearthsim.card.minion.concrete.*;
+import com.hearthsim.card.spellcard.concrete.*;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.factory.BreadthBoardStateFactory;
 import com.hearthsim.util.tree.HearthTreeNode;
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.junit.Assert.assertTrue;
 
 public class TestLethal {
 

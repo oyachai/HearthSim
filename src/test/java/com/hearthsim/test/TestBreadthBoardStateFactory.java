@@ -1,36 +1,10 @@
 package com.hearthsim.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-import java.util.ArrayList;
-
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.TestName;
-
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.card.minion.concrete.ArgentSquire;
-import com.hearthsim.card.minion.concrete.BloodfenRaptor;
-import com.hearthsim.card.minion.concrete.DarkIronDwarf;
-import com.hearthsim.card.minion.concrete.FenCreeper;
-import com.hearthsim.card.minion.concrete.RiverCrocolisk;
-import com.hearthsim.card.minion.concrete.ShatteredSunCleric;
-import com.hearthsim.card.minion.concrete.StonetuskBoar;
-import com.hearthsim.card.minion.concrete.Sunwalker;
-import com.hearthsim.card.spellcard.concrete.AnimalCompanion;
-import com.hearthsim.card.spellcard.concrete.ArcaneIntellect;
-import com.hearthsim.card.spellcard.concrete.EarthShock;
-import com.hearthsim.card.spellcard.concrete.Frostbolt;
-import com.hearthsim.card.spellcard.concrete.HolySmite;
-import com.hearthsim.card.spellcard.concrete.Silence;
-import com.hearthsim.card.spellcard.concrete.TheCoin;
+import com.hearthsim.card.minion.concrete.*;
+import com.hearthsim.card.spellcard.concrete.*;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
@@ -42,6 +16,15 @@ import com.hearthsim.util.factory.BreadthBoardStateFactory;
 import com.hearthsim.util.factory.DepthBoardStateFactory;
 import com.hearthsim.util.tree.HearthTreeNode;
 import com.hearthsim.util.tree.StopNode;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.TestName;
+
+import java.util.ArrayList;
+
+import static org.junit.Assert.*;
 
 public class TestBreadthBoardStateFactory {
     @Rule

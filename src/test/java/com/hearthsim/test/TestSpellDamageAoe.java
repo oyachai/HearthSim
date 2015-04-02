@@ -1,12 +1,5 @@
 package com.hearthsim.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-
-import com.hearthsim.model.PlayerModel;
-import org.junit.Before;
-import org.junit.Test;
-
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.KoboldGeomancer;
@@ -15,8 +8,14 @@ import com.hearthsim.card.spellcard.concrete.Consecration;
 import com.hearthsim.card.spellcard.concrete.Hellfire;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class TestSpellDamageAoe {
 
