@@ -26,11 +26,6 @@ public abstract class SpellCard extends Card implements CardEffectTargetableInte
         super(mana, hasBeenUsed, true);
     }
 
-    @Deprecated
-    public SpellCard(byte mana) {
-        this(mana, false);
-    }
-
     @Override
     public JSONObject toJSON() {
         JSONObject json = super.toJSON();

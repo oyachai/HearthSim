@@ -14,17 +14,6 @@ public class Windfury extends SpellCard {
     /**
      * Constructor
      *
-     * @param hasBeenUsed Whether the card has already been used or not
-     */
-    @Deprecated
-    public Windfury(boolean hasBeenUsed) {
-        this();
-        this.hasBeenUsed = hasBeenUsed;
-    }
-
-    /**
-     * Constructor
-     *
      * Defaults to hasBeenUsed = false
      */
     public Windfury() {

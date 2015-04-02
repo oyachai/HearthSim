@@ -33,17 +33,6 @@ public class HandOfProtection extends SpellCard {
     /**
      * Constructor
      *
-     * @param hasBeenUsed Whether the card has already been used or not
-     */
-    @Deprecated
-    public HandOfProtection(boolean hasBeenUsed) {
-        this();
-        this.hasBeenUsed = hasBeenUsed;
-    }
-
-    /**
-     * Constructor
-     *
      * Defaults to hasBeenUsed = false
      */
     public HandOfProtection() {

@@ -14,9 +14,4 @@ public class SinisterStrike extends SpellDamage {
         return CharacterFilterTargetedSpell.OPPONENT;
     }
 
-    @Deprecated
-    public SinisterStrike(boolean hasBeenUsed) {
-        this();
-        this.hasBeenUsed = hasBeenUsed;
-    }
 }

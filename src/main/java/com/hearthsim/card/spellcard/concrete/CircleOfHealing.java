@@ -16,17 +16,6 @@ public class CircleOfHealing extends SpellCard implements CardEffectAoeInterface
     /**
      * Constructor
      *
-     * @param hasBeenUsed Whether the card has already been used or not
-     */
-    @Deprecated
-    public CircleOfHealing(boolean hasBeenUsed) {
-        this();
-        this.hasBeenUsed = hasBeenUsed;
-    }
-
-    /**
-     * Constructor
-     *
      * Defaults to hasBeenUsed = false
      */
     public CircleOfHealing() {

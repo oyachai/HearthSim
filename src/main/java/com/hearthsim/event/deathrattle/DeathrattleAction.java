@@ -26,16 +26,6 @@ public abstract class DeathrattleAction<T extends Card> {
         return boardState;
     }
 
-    @Deprecated
-    public HearthTreeNode performAction(T origin,
-                                        PlayerSide playerSide,
-                                        HearthTreeNode boardState,
-                                        Deck deckPlayer0,
-                                        Deck deckPlayer1,
-                                        boolean singleRealizationOnly) {
-        return this.performAction(origin, playerSide, boardState, singleRealizationOnly);
-    }
-
     @Override
     public boolean equals(Object other) {
         if (other == null) {

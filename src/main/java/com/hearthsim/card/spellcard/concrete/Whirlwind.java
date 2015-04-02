@@ -11,17 +11,6 @@ public class Whirlwind extends SpellDamage implements CardEffectAoeInterface {
     /**
      * Constructor
      *
-     * @param hasBeenUsed Whether the card has already been used or not
-     */
-    @Deprecated
-    public Whirlwind(boolean hasBeenUsed) {
-        this();
-        this.hasBeenUsed = hasBeenUsed;
-    }
-
-    /**
-     * Constructor
-     *
      * Defaults to hasBeenUsed = false
      */
     public Whirlwind() {

@@ -14,12 +14,6 @@ public class Starfire extends SpellDamage {
         super();
     }
 
-    @Deprecated
-    public Starfire(boolean hasBeenUsed) {
-        this();
-        this.hasBeenUsed = hasBeenUsed;
-    }
-
     /**
      *
      * Use the card on the given target

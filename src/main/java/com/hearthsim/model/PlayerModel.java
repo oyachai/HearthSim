@@ -77,11 +77,6 @@ public class PlayerModel implements DeepCopyable<PlayerModel>, Iterable<Minion> 
         return hero;
     }
 
-    @Deprecated
-    public Deck getDeck_() {
-        return deck;
-    }
-
     public byte getMana() {
         return mana;
     }

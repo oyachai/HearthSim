@@ -7,16 +7,6 @@ import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.CharacterFilterTargetedSpell;
 
 public class FrostNova extends SpellCard implements CardEffectAoeInterface {
-    /**
-     * Constructor
-     *
-     * @param hasBeenUsed Whether the card has already been used or not
-     */
-    @Deprecated
-    public FrostNova(boolean hasBeenUsed) {
-        this();
-        this.hasBeenUsed = hasBeenUsed;
-    }
 
     /**
      * Constructor

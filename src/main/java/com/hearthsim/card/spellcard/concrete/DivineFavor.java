@@ -34,17 +34,6 @@ public class DivineFavor extends SpellCard {
     /**
      * Constructor
      *
-     * @param hasBeenUsed Whether the card has already been used or not
-     */
-    @Deprecated
-    public DivineFavor(boolean hasBeenUsed) {
-        this();
-        this.hasBeenUsed = hasBeenUsed;
-    }
-
-    /**
-     * Constructor
-     *
      * Defaults to hasBeenUsed = false
      */
     public DivineFavor() {
