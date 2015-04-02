@@ -33,7 +33,7 @@ public class Warlock extends Hero {
             Minion targetMinion,
             HearthTreeNode boardState,
             boolean singleRealizationOnly) {
-        if (targetPlayerSide == PlayerSide.WAITING_PLAYER || isNotHero(targetMinion))
+        if (targetPlayerSide == PlayerSide.WAITING_PLAYER || !targetMinion.isHero())
             return null;
         HearthTreeNode toRet = targetMinion.takeDamageAndNotify((byte) 2, PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, boardState, false, false);
         if (toRet != null) {

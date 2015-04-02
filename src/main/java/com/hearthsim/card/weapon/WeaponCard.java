@@ -92,7 +92,7 @@ public abstract class WeaponCard extends Card {
             return null;
         }
 
-        if (isWaitingPlayer(side) || isNotHero(targetMinion)) {
+        if (isWaitingPlayer(side) || !targetMinion.isHero()) {
             return null;
         }
 
