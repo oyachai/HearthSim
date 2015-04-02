@@ -1,9 +1,9 @@
 package com.hearthsim.util.tree;
 
-import java.util.ArrayList;
-
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.HearthAction;
+
+import java.util.ArrayList;
 
 /**
  * Random effect node

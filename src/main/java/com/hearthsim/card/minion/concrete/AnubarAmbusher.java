@@ -1,9 +1,9 @@
 package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.CharacterFilterUntargetedDeathrattle;
 import com.hearthsim.event.deathrattle.DeathrattleEffectRandomMinion;
+import com.hearthsim.event.effect.CardEffectCharacter;
 
 public class AnubarAmbusher extends Minion {
 

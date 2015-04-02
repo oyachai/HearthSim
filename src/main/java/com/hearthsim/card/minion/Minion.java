@@ -1,25 +1,20 @@
 package com.hearthsim.card.minion;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-
-import com.hearthsim.model.PlayerModel;
-import org.json.JSONObject;
-
-import com.hearthsim.card.Card;
-import com.hearthsim.card.CardEndTurnInterface;
-import com.hearthsim.card.CardStartTurnInterface;
-import com.hearthsim.card.Deck;
-import com.hearthsim.card.ImplementedCardList;
+import com.hearthsim.card.*;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.model.BoardModel;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.HearthAction;
 import com.hearthsim.util.HearthAction.Verb;
 import com.hearthsim.util.factory.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
+import org.json.JSONObject;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 
 public class Minion extends Card implements CardEndTurnInterface, CardStartTurnInterface {
 

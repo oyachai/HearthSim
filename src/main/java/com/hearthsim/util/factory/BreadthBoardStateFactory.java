@@ -1,14 +1,14 @@
 package com.hearthsim.util.factory;
 
-import java.util.ArrayList;
-import java.util.TreeSet;
-
 import com.hearthsim.card.Deck;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.player.playercontroller.BoardScorer;
 import com.hearthsim.util.tree.HearthTreeNode;
 import com.hearthsim.util.tree.RandomEffectNode;
 import com.hearthsim.util.tree.StopNode;
+
+import java.util.ArrayList;
+import java.util.TreeSet;
 
 public class BreadthBoardStateFactory extends BoardStateFactoryBase {
 

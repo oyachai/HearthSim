@@ -1,7 +1,5 @@
 package com.hearthsim.util.factory;
 
-import java.util.ArrayList;
-
 import com.hearthsim.card.Deck;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
@@ -9,6 +7,8 @@ import com.hearthsim.model.PlayerSide;
 import com.hearthsim.player.playercontroller.BoardScorer;
 import com.hearthsim.util.IdentityLinkedList;
 import com.hearthsim.util.tree.HearthTreeNode;
+
+import java.util.ArrayList;
 
 public abstract class BoardStateFactoryBase {
 

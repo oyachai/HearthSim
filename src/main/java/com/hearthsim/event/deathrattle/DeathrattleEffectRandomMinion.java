@@ -2,8 +2,8 @@ package com.hearthsim.event.deathrattle;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.CharacterFilterUntargetedDeathrattle;
+import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;

@@ -1,9 +1,9 @@
 package com.hearthsim.util.factory;
 
-import java.util.ArrayList;
-
 import com.hearthsim.exception.HSException;
 import com.hearthsim.util.tree.HearthTreeNode;
+
+import java.util.ArrayList;
 
 public interface ChildNodeCreator {
 

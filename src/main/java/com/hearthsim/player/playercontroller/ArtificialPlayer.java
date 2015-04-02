@@ -1,12 +1,12 @@
 package com.hearthsim.player.playercontroller;
 
-import java.util.List;
-
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.HearthActionBoardPair;
 import com.hearthsim.util.factory.BoardStateFactoryBase;
+
+import java.util.List;
 
 public interface ArtificialPlayer extends DeepCopyable<ArtificialPlayer> {
 

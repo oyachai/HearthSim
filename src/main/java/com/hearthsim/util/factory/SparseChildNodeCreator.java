@@ -1,7 +1,5 @@
 package com.hearthsim.util.factory;
 
-import java.util.ArrayList;
-
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
@@ -11,6 +9,8 @@ import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.HearthAction;
 import com.hearthsim.util.HearthAction.Verb;
 import com.hearthsim.util.tree.HearthTreeNode;
+
+import java.util.ArrayList;
 
 public class SparseChildNodeCreator extends ChildNodeCreatorBase {
 

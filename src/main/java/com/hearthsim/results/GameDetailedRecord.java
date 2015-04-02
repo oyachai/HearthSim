@@ -3,7 +3,6 @@ package com.hearthsim.results;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.HearthActionBoardPair;
-
 import org.json.JSONObject;
 
 import java.util.ArrayList;

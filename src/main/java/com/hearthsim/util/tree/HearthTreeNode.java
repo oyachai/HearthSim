@@ -1,14 +1,14 @@
 package com.hearthsim.util.tree;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import com.hearthsim.card.minion.*;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.player.playercontroller.BoardScorer;
 import com.hearthsim.util.HearthAction;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * A tree that keeps track of possible game states

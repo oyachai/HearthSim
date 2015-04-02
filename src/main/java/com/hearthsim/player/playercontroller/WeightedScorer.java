@@ -1,7 +1,5 @@
 package com.hearthsim.player.playercontroller;
 
-import java.util.HashMap;
-
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
@@ -11,6 +9,8 @@ import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.IdentityLinkedList;
+
+import java.util.HashMap;
 
 public class WeightedScorer implements BoardScorer, DeepCopyable<WeightedScorer> {
 

@@ -11,7 +11,6 @@ import com.hearthsim.util.HearthAction;
 import com.hearthsim.util.HearthAction.Verb;
 import com.hearthsim.util.factory.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
-
 import org.json.JSONObject;
 
 public abstract class Hero extends Minion implements MinionSummonedInterface {

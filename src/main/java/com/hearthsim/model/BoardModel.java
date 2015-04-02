@@ -10,7 +10,6 @@ import com.hearthsim.card.minion.heroes.TestHero;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.IdentityLinkedList;
-
 import org.json.JSONObject;
 import org.slf4j.MDC;
 

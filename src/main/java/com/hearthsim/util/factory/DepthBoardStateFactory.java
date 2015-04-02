@@ -1,8 +1,5 @@
 package com.hearthsim.util.factory;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-
 import com.hearthsim.card.Deck;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
@@ -11,6 +8,9 @@ import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 import com.hearthsim.util.tree.RandomEffectNode;
 import com.hearthsim.util.tree.StopNode;
+
+import java.util.ArrayList;
+import java.util.HashSet;
 
 public class DepthBoardStateFactory extends BoardStateFactoryBase {
 

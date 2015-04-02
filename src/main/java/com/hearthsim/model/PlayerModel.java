@@ -6,7 +6,6 @@ import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.IdentityLinkedList;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 

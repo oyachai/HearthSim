@@ -17,7 +17,6 @@ import com.hearthsim.util.HearthAction;
 import com.hearthsim.util.HearthAction.Verb;
 import com.hearthsim.util.factory.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
-
 import com.hearthsim.util.tree.RandomEffectNode;
 import org.json.JSONObject;
 import org.slf4j.Logger;

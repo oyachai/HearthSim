@@ -1,11 +1,5 @@
 package com.hearthsim.player.playercontroller;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidCardException;
@@ -21,6 +15,12 @@ import com.hearthsim.util.factory.DepthBoardStateFactory;
 import com.hearthsim.util.factory.SparseBoardStateFactory;
 import com.hearthsim.util.tree.HearthTreeNode;
 import com.hearthsim.util.tree.StopNode;
+
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 public class BruteForceSearchAI implements ArtificialPlayer {
 

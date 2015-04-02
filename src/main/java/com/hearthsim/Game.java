@@ -1,8 +1,5 @@
 package com.hearthsim;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.hearthsim.card.CardEndTurnInterface;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
@@ -19,6 +16,9 @@ import com.hearthsim.util.HearthAction.Verb;
 import com.hearthsim.util.HearthActionBoardPair;
 import com.hearthsim.util.factory.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Game {
     private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());

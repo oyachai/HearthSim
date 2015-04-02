@@ -1,12 +1,12 @@
 package com.hearthsim.card.minion.concrete;
 
-import java.util.EnumSet;
-
 import com.hearthsim.card.minion.AuraTargetType;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionWithAura;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
+
+import java.util.EnumSet;
 
 public class TimberWolf extends Minion implements MinionWithAura {
 

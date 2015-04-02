@@ -2,8 +2,8 @@ package com.hearthsim.card.spellcard;
 
 import com.hearthsim.event.CharacterFilter;
 import com.hearthsim.event.CharacterFilterTargetedSpell;
-import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.effect.CardEffectAoeInterface;
+import com.hearthsim.event.effect.CardEffectCharacter;
 
 @Deprecated
 public class SpellDamageAoe extends SpellDamage implements CardEffectAoeInterface {

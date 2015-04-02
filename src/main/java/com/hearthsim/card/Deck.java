@@ -1,9 +1,9 @@
 package com.hearthsim.card;
 
+import com.hearthsim.util.DeepCopyable;
+
 import java.util.ArrayList;
 import java.util.Collections;
-
-import com.hearthsim.util.DeepCopyable;
 
 public class Deck implements DeepCopyable<Deck> {
 

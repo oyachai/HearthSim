@@ -5,8 +5,8 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.Minion.MinionTribe;
 import com.hearthsim.card.spellcard.SpellDamage;
 import com.hearthsim.event.CharacterFilter;
-import com.hearthsim.event.effect.SpellEffectCharacterDamage;
 import com.hearthsim.event.CharacterFilterTargetedSpell;
+import com.hearthsim.event.effect.SpellEffectCharacterDamage;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
