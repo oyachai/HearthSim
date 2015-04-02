@@ -13,9 +13,4 @@ public class Fireball extends SpellDamage {
         this();
         this.hasBeenUsed = hasBeenUsed;
     }
-
-    @Override
-    public SpellDamage deepCopy() {
-        return new Fireball(this.hasBeenUsed);
-    }
 }

@@ -22,11 +22,6 @@ public class Shiv extends SpellDamage {
     }
 
     @Override
-    public SpellDamage deepCopy() {
-        return new Shiv(this.hasBeenUsed);
-    }
-
-    @Override
     public CharacterFilter getTargetableFilter() {
         return CharacterFilterTargetedSpell.ALL;
     }

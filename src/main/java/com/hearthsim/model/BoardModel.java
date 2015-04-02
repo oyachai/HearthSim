@@ -311,7 +311,7 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
     }
 
     public boolean removeMinion(PlayerSide side, int minionIndex) {
-        return removeMinion(getMinion(side, minionIndex));
+        return removeMinion(this.getCharacter(side, minionIndex + 1));
     }
 
     //----------------------------------------------------------------------------

@@ -13,9 +13,4 @@ public class Pyroblast extends SpellDamage {
         this();
         this.hasBeenUsed = hasBeenUsed;
     }
-
-    @Override
-    public SpellDamage deepCopy() {
-        return new Pyroblast(this.hasBeenUsed);
-    }
 }

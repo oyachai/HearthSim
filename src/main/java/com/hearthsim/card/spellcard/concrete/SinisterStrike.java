@@ -19,9 +19,4 @@ public class SinisterStrike extends SpellDamage {
         this();
         this.hasBeenUsed = hasBeenUsed;
     }
-
-    @Override
-    public SpellDamage deepCopy() {
-        return new SinisterStrike(this.hasBeenUsed);
-    }
 }

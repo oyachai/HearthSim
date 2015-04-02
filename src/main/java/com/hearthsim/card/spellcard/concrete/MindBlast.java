@@ -25,11 +25,6 @@ public class MindBlast extends SpellDamage {
         this.hasBeenUsed = hasBeenUsed;
     }
 
-    @Override
-    public SpellDamage deepCopy() {
-        return new MindBlast(this.hasBeenUsed);
-    }
-
     /**
      *
      * Use the card on the given target

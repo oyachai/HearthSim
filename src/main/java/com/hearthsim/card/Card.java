@@ -498,6 +498,7 @@ public class Card implements DeepCopyable<Card> {
         return PlayerSide.WAITING_PLAYER == side;
     }
 
+    @Deprecated
     protected boolean isNotHero(Minion targetMinion) {
         return !isHero(targetMinion);
     }

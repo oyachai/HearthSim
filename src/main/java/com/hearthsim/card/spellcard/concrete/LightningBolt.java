@@ -13,10 +13,4 @@ public class LightningBolt extends SpellDamage {
         this();
         this.hasBeenUsed = hasBeenUsed;
     }
-
-    @Override
-    public SpellDamage deepCopy() {
-        return new LightningBolt(this.hasBeenUsed);
-    }
-
 }
