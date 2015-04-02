@@ -2,7 +2,6 @@ package com.hearthsim.event.attack;
 
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 /**
@@ -21,7 +20,6 @@ public abstract class AttackAction {
      * @param attackedMinion
      * @param boardState
      * @return
-     * @throws HSInvalidPlayerIndexException
      */
     protected HearthTreeNode performAction(
         int attackingPlayerIndex,

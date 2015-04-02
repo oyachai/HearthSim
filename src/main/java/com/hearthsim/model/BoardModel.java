@@ -7,7 +7,6 @@ import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionWithAura;
 import com.hearthsim.card.minion.heroes.TestHero;
-import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.IdentityLinkedList;
 import org.json.JSONObject;
@@ -216,7 +215,6 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
      * @param playerSide
      * @param minion The minion to be placed on the board.
      * @param position The position to place the minion.  The new minion goes to the "left" (lower index) of the postinion index.
-     * @throws HSInvalidPlayerIndexException
      */
     public void placeMinion(PlayerSide playerSide, Minion minion, int position) {
         PlayerModel playerModel = modelForSide(playerSide);
@@ -238,7 +236,6 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
      *
      * @param playerSide
      * @param minion The minion to be placed on the board.  The minion is placed on the right-most space.
-     * @throws HSInvalidPlayerIndexException
      */
     public void placeMinion(PlayerSide playerSide, Minion minion) {
         this.placeMinion(playerSide, minion, this.modelForSide(playerSide).getMinions().size());
@@ -268,7 +265,6 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
      *
      * @param deck Deck from which to draw.
      * @param numCards Number of cards to draw.
-     * @throws HSInvalidPlayerIndexException
      */
     public void drawCardFromWaitingPlayerDeck(int numCards) {
         //This minion is an enemy minion.  Let's draw a card for the enemy.  No need to use a StopNode for enemy card draws.
@@ -284,7 +280,6 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
      *
      * @param deck Deck from which to draw.
      * @param numCards Number of cards to draw.
-     * @throws HSInvalidPlayerIndexException
      */
     public void drawCardFromCurrentPlayerDeck(int numCards) {
         for (int indx = 0; indx < numCards; ++indx) {

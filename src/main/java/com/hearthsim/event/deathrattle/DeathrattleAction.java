@@ -1,7 +1,6 @@
 package com.hearthsim.event.deathrattle;
 
 import com.hearthsim.card.Card;
-import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -16,7 +15,6 @@ public abstract class DeathrattleAction<T extends Card> {
      * @param origin      The minion that is performing the action (aka, the dying minion)
      * @param playerSide
      * @param boardState
-     * @throws HSException
      */
     public HearthTreeNode performAction(T origin,
                                         PlayerSide playerSide,
