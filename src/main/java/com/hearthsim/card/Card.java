@@ -7,6 +7,7 @@ import com.hearthsim.event.CharacterFilter;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.event.effect.CardEffectAoeInterface;
 import com.hearthsim.event.effect.CardEffectCharacter;
+import com.hearthsim.event.effect.CardEffectRandomTargetInterface;
 import com.hearthsim.event.effect.CardEffectTargetableInterface;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
@@ -316,13 +317,13 @@ public class Card implements DeepCopyable<Card> {
             effect = ((CardEffectTargetableInterface)this).getTargetableEffect();
         }
 
+        // TODO this is to workaround using super.use_core since we no longer have an accurate reference to the origin card (specifically, Soulfire messes things up)
+        byte manaCost = this.getManaCost(PlayerSide.CURRENT_PLAYER, boardState.data_);
+
         // Check to see if this card generates RNG children
         if (this instanceof SpellRandomInterface) {
             int originIndex = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getHand().indexOf(this);
             int targetIndex = boardState.data_.modelForSide(side).getIndexForCharacter(targetMinion);
-
-            // TODO this is to workaround using super.use_core since we no longer have an accurate reference to the origin card (specifically, Soulfire messes things up)
-            byte manaCost = this.getManaCost(PlayerSide.CURRENT_PLAYER, boardState.data_);
 
             // create an RNG "base" that is untouched. This allows us to recreate the RNG children during history traversal.
             toRet = new RandomEffectNode(toRet, new HearthAction(HearthAction.Verb.USE_CARD, side, 0, side, 0));
@@ -337,9 +338,25 @@ public class Card implements DeepCopyable<Card> {
                 toRet.addChild(child);
             }
         } else {
+            boolean removeCard = true;
+
             // if we have an effect, we need to apply it
             if (this instanceof CardEffectAoeInterface) {
                 toRet = this.effectAllUsingFilter(((CardEffectAoeInterface) this).getAoeEffect(), ((CardEffectAoeInterface) this).getAoeFilter(), toRet);
+            } else if (this instanceof CardEffectRandomTargetInterface) {
+                removeCard = false;
+                CardEffectRandomTargetInterface that = (CardEffectRandomTargetInterface)this;
+
+                // create an RNG "base" that is untouched. This allows us to recreate the RNG children during history traversal.
+                toRet = new RandomEffectNode(toRet, new HearthAction(HearthAction.Verb.USE_CARD, side, 0, side, 0));
+                Collection<HearthTreeNode> children = this.effectRandomCharacterUsingFilter(that.getRandomTargetEffect(), that.getRandomTargetFilter(), toRet);
+
+                // for each child, apply the effect and mana cost. we want to do as much as we can with the non-random effect portion (e.g., the damage part of Soulfire)
+                for (HearthTreeNode child : children) {
+                    child.data_.modelForSide(PlayerSide.CURRENT_PLAYER).subtractMana(manaCost);
+                    this.notifyCardPlayResolve(child, singleRealizationOnly);
+                    toRet.addChild(child);
+                }
             } else if (effect != null) {
                 toRet = effect.applyEffect(PlayerSide.CURRENT_PLAYER, this, side, targetMinion, toRet);
             }
@@ -347,8 +364,10 @@ public class Card implements DeepCopyable<Card> {
             // apply standard card played effects
             if (toRet != null) {
                 PlayerModel currentPlayer = toRet.data_.getCurrentPlayer();
-                currentPlayer.subtractMana(this.getManaCost(PlayerSide.CURRENT_PLAYER, toRet.data_));
-                currentPlayer.getHand().remove(this);
+                currentPlayer.subtractMana(manaCost);
+                if (removeCard) {
+                    currentPlayer.getHand().remove(this);
+                }
             }
         }
 
@@ -478,6 +497,21 @@ public class Card implements DeepCopyable<Card> {
             }
         }
         return boardState;
+    }
+
+    protected Collection<HearthTreeNode> effectRandomCharacterUsingFilter(CardEffectCharacter effect, CharacterFilter filter, HearthTreeNode boardState) {
+        int originIndex = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getHand().indexOf(this);
+        ArrayList<HearthTreeNode> children = new ArrayList<>();
+        for (BoardModel.CharacterLocation location : boardState.data_) {
+            if (filter.targetMatches(PlayerSide.CURRENT_PLAYER, this, location.getPlayerSide(), location.getIndex(), boardState.data_)) {
+                HearthTreeNode newState = new HearthTreeNode(boardState.data_.deepCopy());
+                Card origin = newState.data_.getCharacter(PlayerSide.CURRENT_PLAYER, originIndex);
+                effect.applyEffect(PlayerSide.CURRENT_PLAYER, origin, location.getPlayerSide(), location.getIndex(), newState);
+                newState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getHand().remove(originIndex);
+                children.add(newState);
+            }
+        }
+        return children;
     }
 
     public JSONObject toJSON() {
