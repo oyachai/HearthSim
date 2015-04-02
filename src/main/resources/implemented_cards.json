@@ -449,6 +449,10 @@
         "class": "com.hearthsim.card.minion.concrete.FlameOfAzzinoth"
     },
     {
+        "name": "Flamecannon",
+        "class": "com.hearthsim.card.spellcard.concrete.Flamecannon"
+    },
+    {
         "name": "Flamestrike",
         "class": "com.hearthsim.card.spellcard.concrete.Flamestrike"
     },
