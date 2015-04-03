@@ -308,6 +308,10 @@
         "class": "com.hearthsim.card.spellcard.concrete.DeadlyPoison"
     },
     {
+        "name": "Deadly Shot",
+        "class": "com.hearthsim.card.spellcard.concrete.DeadlyShot"
+    },
+    {
         "name": "Death's Bite",
         "class": "com.hearthsim.card.weapon.concrete.DeathsBite"
     },
