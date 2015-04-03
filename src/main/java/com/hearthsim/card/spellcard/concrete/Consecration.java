@@ -1,12 +1,13 @@
 package com.hearthsim.card.spellcard.concrete;
 
+import com.hearthsim.card.spellcard.SpellDamage;
 import com.hearthsim.card.spellcard.SpellDamageTargetableCard;
 import com.hearthsim.event.CharacterFilter;
 import com.hearthsim.event.CharacterFilterTargetedSpell;
 import com.hearthsim.event.effect.CardEffectOnResolveAoeInterface;
 import com.hearthsim.event.effect.CardEffectCharacter;
 
-public class Consecration extends SpellDamageTargetableCard implements CardEffectOnResolveAoeInterface {
+public class Consecration extends SpellDamage implements CardEffectOnResolveAoeInterface {
 
     /**
      * Constructor
@@ -29,12 +30,7 @@ public class Consecration extends SpellDamageTargetableCard implements CardEffec
     }
 
     @Override
-    public CharacterFilter getTargetableFilter() {
-        return CharacterFilterTargetedSpell.OPPONENT;
-    }
-
-    @Override
-    public CardEffectCharacter getAoeEffect() { return this.getTargetableEffect(); }
+    public CardEffectCharacter getAoeEffect() { return this.getSpellDamageEffect(); }
 
     @Override
     public CharacterFilter getAoeFilter() {

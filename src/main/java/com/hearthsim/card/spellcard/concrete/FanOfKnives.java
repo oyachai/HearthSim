@@ -1,6 +1,7 @@
 package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.spellcard.SpellDamage;
 import com.hearthsim.card.spellcard.SpellDamageTargetableCard;
 import com.hearthsim.event.CharacterFilter;
 import com.hearthsim.event.CharacterFilterTargetedSpell;
@@ -11,7 +12,7 @@ import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class FanOfKnives extends SpellDamageTargetableCard implements CardEffectOnResolveAoeInterface {
+public class FanOfKnives extends SpellDamage implements CardEffectOnResolveAoeInterface {
 
     /**
      * Constructor
@@ -30,11 +31,6 @@ public class FanOfKnives extends SpellDamageTargetableCard implements CardEffect
      */
     public FanOfKnives() {
         super();
-    }
-
-    @Override
-    public CharacterFilter getTargetableFilter() {
-        return CharacterFilterTargetedSpell.OPPONENT;
     }
 
     /**
@@ -60,7 +56,7 @@ public class FanOfKnives extends SpellDamageTargetableCard implements CardEffect
     }
 
     @Override
-    public CardEffectCharacter getAoeEffect() { return this.getTargetableEffect(); }
+    public CardEffectCharacter getAoeEffect() { return this.getSpellDamageEffect(); }
 
     @Override
     public CharacterFilter getAoeFilter() {

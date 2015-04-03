@@ -2,6 +2,7 @@ package com.hearthsim.card;
 
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.card.spellcard.SpellRandomInterface;
 import com.hearthsim.event.CharacterFilter;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
@@ -228,8 +229,14 @@ public class Card implements DeepCopyable<Card> {
             return false;
         }
 
-        if (this instanceof CardEffectOnResolveTargetableInterface && !((CardEffectOnResolveTargetableInterface)this).getTargetableFilter().targetMatches(PlayerSide.CURRENT_PLAYER, this, playerSide, minion, boardModel)) {
-            return false;
+        if (this instanceof CardEffectOnResolveTargetableInterface) {
+            if(!((CardEffectOnResolveTargetableInterface)this).getTargetableFilter().targetMatches(PlayerSide.CURRENT_PLAYER, this, playerSide, minion, boardModel)) {
+                return false;
+            }
+        } else if (this instanceof SpellCard) { // ignore minion cards for now
+            if (playerSide != PlayerSide.WAITING_PLAYER || !minion.isHero()) {
+                return false;
+            }
         }
 
         return true;
