@@ -4,5 +4,6 @@ import com.hearthsim.event.CharacterFilter;
 
 public interface CardEffectOnResolveRandomCharacterInterface {
     public CardEffectCharacter getRandomTargetEffect();
+    public CardEffectCharacter getRandomTargetSecondaryEffect();
     public CharacterFilter getRandomTargetFilter();
 }

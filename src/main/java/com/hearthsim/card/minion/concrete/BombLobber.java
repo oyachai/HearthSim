@@ -15,6 +15,11 @@ public class BombLobber extends Minion implements CardEffectOnResolveRandomChara
     }
 
     @Override
+    public CardEffectCharacter getRandomTargetSecondaryEffect() {
+        return null;
+    }
+
+    @Override
     public CharacterFilter getRandomTargetFilter() {
         return CharacterFilter.ENEMY_MINIONS;
     }

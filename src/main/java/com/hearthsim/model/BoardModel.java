@@ -86,6 +86,29 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
             return this.index;
         }
 
+        @Override
+        public boolean equals(Object o) {
+            if (o == null) {
+                return false;
+            }
+
+            if (!(o instanceof CharacterLocation)) {
+                return false;
+            }
+
+            CharacterLocation other = (CharacterLocation)o;
+
+            if (other.playerSide != this.playerSide) {
+                return false;
+            }
+
+            if (other.index != this.index) {
+                return false;
+            }
+
+            return true;
+        }
+
         @SuppressWarnings("UnusedDeclaration")
         public JSONObject toJSON() {
             JSONObject json = new JSONObject();

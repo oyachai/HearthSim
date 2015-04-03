@@ -12,6 +12,11 @@ public class DeadlyShot extends SpellCard implements CardEffectOnResolveRandomCh
     }
 
     @Override
+    public CardEffectCharacter getRandomTargetSecondaryEffect() {
+        return null;
+    }
+
+    @Override
     public CharacterFilter getRandomTargetFilter() {
         return CharacterFilter.ENEMY_MINIONS;
     }

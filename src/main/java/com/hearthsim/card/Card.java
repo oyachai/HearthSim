@@ -353,7 +353,7 @@ public class Card implements DeepCopyable<Card> {
             rngChildren = ((SpellRandomInterface) this).createChildren(PlayerSide.CURRENT_PLAYER, originIndex, toRet);
         } else if (this instanceof CardEffectOnResolveRandomCharacterInterface) {
             CardEffectOnResolveRandomCharacterInterface that = (CardEffectOnResolveRandomCharacterInterface) this;
-            rngChildren = this.effectRandomCharacterUsingFilter(that.getRandomTargetEffect(), that.getRandomTargetFilter(), toRet);
+            rngChildren = this.effectRandomCharacterUsingFilter(that.getRandomTargetEffect(), that.getRandomTargetSecondaryEffect(), that.getRandomTargetFilter(), toRet);
         } else if (this instanceof CardEffectOnResolveAoeInterface) {
             toRet = this.effectAllUsingFilter(((CardEffectOnResolveAoeInterface) this).getAoeEffect(), ((CardEffectOnResolveAoeInterface) this).getAoeFilter(), toRet);
         }
@@ -526,16 +526,34 @@ public class Card implements DeepCopyable<Card> {
         return boardState;
     }
 
-    protected Collection<HearthTreeNode> effectRandomCharacterUsingFilter(CardEffectCharacter effect, CharacterFilter filter, HearthTreeNode boardState) {
+    protected Collection<HearthTreeNode> effectRandomCharacterUsingFilter(CardEffectCharacter effect, CardEffectCharacter effectOthers, CharacterFilter filter, HearthTreeNode boardState) {
         int originIndex = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getHand().indexOf(this);
         ArrayList<HearthTreeNode> children = new ArrayList<>();
         for (BoardModel.CharacterLocation location : boardState.data_) {
             if (filter.targetMatches(PlayerSide.CURRENT_PLAYER, this, location.getPlayerSide(), location.getIndex(), boardState.data_)) {
+                boolean somethingHappened = false;
                 HearthTreeNode newState = new HearthTreeNode(boardState.data_.deepCopy());
                 Card origin = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getHand().get(originIndex);
-                effect.applyEffect(PlayerSide.CURRENT_PLAYER, origin, location.getPlayerSide(), location.getIndex(), newState);
-                newState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getHand().remove(originIndex);
-                children.add(newState);
+                if (effect != null) {
+                    newState = effect.applyEffect(PlayerSide.CURRENT_PLAYER, origin, location.getPlayerSide(), location.getIndex(), newState);
+                    somethingHappened = newState != null;
+                }
+                if (effectOthers != null && newState != null) {
+                    for (BoardModel.CharacterLocation childLocation : newState.data_) {
+                        if (location.equals(childLocation)) {
+                            continue;
+                        }
+                        if (filter.targetMatches(PlayerSide.CURRENT_PLAYER, origin, childLocation.getPlayerSide(), childLocation.getIndex(), boardState.data_)) {
+                            newState = effectOthers.applyEffect(PlayerSide.CURRENT_PLAYER, origin, childLocation.getPlayerSide(), childLocation.getIndex(), newState);
+                            somethingHappened = newState != null;
+                        }
+                    }
+                }
+
+                if (somethingHappened) {
+                    newState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getHand().remove(originIndex);
+                    children.add(newState);
+                }
             }
         }
         return children;

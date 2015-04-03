@@ -220,6 +220,10 @@
         "class": "com.hearthsim.card.minion.concrete.BoulderfistOgre"
     },
     {
+        "name": "Brawl",
+        "class": "com.hearthsim.card.spellcard.concrete.Brawl"
+    },
+    {
         "name": "Captain Greenskin",
         "class": "com.hearthsim.card.minion.concrete.CaptainGreenskin"
     },
