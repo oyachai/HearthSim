@@ -288,6 +288,10 @@
         "class": "com.hearthsim.card.minion.concrete.CruelTaskmaster"
     },
     {
+        "name": "Coghammer",
+        "class": "com.hearthsim.card.weapon.concrete.Coghammer"
+    },
+    {
         "name": "Dalaran Mage",
         "class": "com.hearthsim.card.minion.concrete.DalaranMage"
     },
