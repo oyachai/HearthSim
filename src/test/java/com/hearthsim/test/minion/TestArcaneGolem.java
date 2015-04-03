@@ -1,7 +1,5 @@
 package com.hearthsim.test.minion;
 
-import java.util.List;
-
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.concrete.ArcaneGolem;
 import com.hearthsim.card.minion.concrete.BoulderfistOgre;
@@ -13,11 +11,12 @@ import com.hearthsim.model.PlayerSide;
 import com.hearthsim.player.playercontroller.BruteForceSearchAI;
 import com.hearthsim.util.HearthActionBoardPair;
 import com.hearthsim.util.tree.HearthTreeNode;
-
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 
 public class TestArcaneGolem {
 

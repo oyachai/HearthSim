@@ -2,7 +2,6 @@ package com.hearthsim.card.minion.heroes;
 
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -30,14 +29,12 @@ public class Warrior extends Hero {
             PlayerSide targetPlayerSide,
             Minion targetMinion,
             HearthTreeNode boardState,
-            boolean singleRealizationOnly)
-        throws HSException {
-        HearthTreeNode toRet = boardState;
+            boolean singleRealizationOnly) {
         if (targetMinion.isHero() && targetPlayerSide == PlayerSide.CURRENT_PLAYER) {
             this.hasBeenUsed = true;
-            toRet.data_.getCurrentPlayer().subtractMana(HERO_ABILITY_COST);
+            boardState.data_.getCurrentPlayer().subtractMana(HERO_ABILITY_COST);
             ((Hero)targetMinion).setArmor((byte)(((Hero)targetMinion).getArmor() + 2));
-            return toRet;
+            return boardState;
         } else {
             return null;
         }

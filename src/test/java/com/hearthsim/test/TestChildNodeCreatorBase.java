@@ -1,26 +1,9 @@
 package com.hearthsim.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import org.junit.Before;
-import org.junit.Test;
-
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.card.minion.concrete.ArgentSquire;
-import com.hearthsim.card.minion.concrete.BloodfenRaptor;
-import com.hearthsim.card.minion.concrete.Huffer;
-import com.hearthsim.card.minion.concrete.Leokk;
-import com.hearthsim.card.minion.concrete.Misha;
-import com.hearthsim.card.minion.concrete.RiverCrocolisk;
-import com.hearthsim.card.minion.concrete.StonetuskBoar;
+import com.hearthsim.card.minion.concrete.*;
 import com.hearthsim.card.minion.heroes.Mage;
 import com.hearthsim.card.minion.heroes.TestHero;
 import com.hearthsim.card.spellcard.concrete.AnimalCompanion;
@@ -33,12 +16,19 @@ import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.factory.ChildNodeCreatorBase;
 import com.hearthsim.util.tree.HearthTreeNode;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.*;
 
 public class TestChildNodeCreatorBase {
     protected final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
 
-    public Deck deck0;
-    public Deck deck1;
+    private Deck deck0;
+    private Deck deck1;
 
     @Before
     public void setup() {

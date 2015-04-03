@@ -18,11 +18,6 @@ public class Frostbolt extends SpellDamage {
         this.hasBeenUsed = hasBeenUsed;
     }
 
-    @Override
-    public SpellDamage deepCopy() {
-        return new Frostbolt(this.hasBeenUsed);
-    }
-
     /**
      *
      * Use the card on the given target

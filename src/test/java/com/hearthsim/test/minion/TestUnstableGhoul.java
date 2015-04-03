@@ -195,7 +195,7 @@ public class TestUnstableGhoul {
         Minion attacker = currentPlayer.getCharacter(1);
         attacker.silenced(PlayerSide.CURRENT_PLAYER, board);
         attacker.hasAttacked(false);
-        ret = attacker.attack(PlayerSide.WAITING_PLAYER, 3, ret, false);
+        attacker.attack(PlayerSide.WAITING_PLAYER, 3, ret, false);
 
         assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 2);

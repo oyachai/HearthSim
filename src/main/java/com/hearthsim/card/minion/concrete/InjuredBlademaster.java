@@ -20,7 +20,7 @@ public class InjuredBlademaster extends Minion implements MinionUntargetableBatt
             HearthTreeNode boardState,
             boolean singleRealizationOnly
         ) {
-        HearthTreeNode toRet = boardState;
+        HearthTreeNode toRet;
         toRet = this.takeDamageAndNotify((byte) 4, PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, boardState, false, true);
         return toRet;
     }

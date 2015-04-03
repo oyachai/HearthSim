@@ -41,7 +41,7 @@ public class ParamFile {
      */
     public ParamFile(Path paramFilePath) throws HSInvalidParamFileException, IOException {
         this.paramFilePath_ = paramFilePath;
-        this.params_ = new HashMap<String, String>();
+        this.params_ = new HashMap<>();
         this.read(paramFilePath);
     }
 
@@ -194,7 +194,7 @@ public class ParamFile {
 
 
     public Set<String> getKeysContaining(String partialKey) {
-        TreeSet<String> toRet = new TreeSet<String>();
+        TreeSet<String> toRet = new TreeSet<>();
         for (String key : params_.keySet()) {
             if (key.contains(partialKey)) {
                 toRet.add(key);

@@ -6,7 +6,7 @@ import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class CardEffectCharacterHeal extends CardEffectCharacter {
-    private byte amount;
+    private final byte amount;
 
     public CardEffectCharacterHeal(int amount) {
         this.amount = (byte) amount;

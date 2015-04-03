@@ -19,9 +19,8 @@ public class TwilightDrake extends Minion implements MinionUntargetableBattlecry
             HearthTreeNode boardState,
             boolean singleRealizationOnly
         ) {
-        HearthTreeNode toRet = boardState;
-        this.addHealth((byte)toRet.data_.getCurrentPlayer().getHand().size());
-        return toRet;
+        this.addHealth((byte) boardState.data_.getCurrentPlayer().getHand().size());
+        return boardState;
     }
 
 }

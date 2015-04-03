@@ -5,7 +5,7 @@ import org.json.JSONObject;
 
 public class GameResultSummary {
 
-    GameResult result_;
+    private final GameResult result_;
 
     public GameResultSummary(GameResult result) {
         result_ = result;

@@ -1,10 +1,8 @@
 package com.hearthsim.results;
 
-import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.HearthActionBoardPair;
-
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -13,12 +11,12 @@ import java.util.TreeMap;
 
 public class GameDetailedRecord implements GameRecord {
 
-    ArrayList<TreeMap<Integer, BoardModel>> boards_;
+    private final ArrayList<TreeMap<Integer, BoardModel>> boards_;
 
     public GameDetailedRecord() {
-        boards_ = new ArrayList<TreeMap<Integer, BoardModel>>(2);
-        boards_.add(new TreeMap<Integer, BoardModel>());
-        boards_.add(new TreeMap<Integer, BoardModel>());
+        boards_ = new ArrayList<>(2);
+        boards_.add(new TreeMap<>());
+        boards_.add(new TreeMap<>());
     }
 
     @Override
@@ -43,15 +41,11 @@ public class GameDetailedRecord implements GameRecord {
 
     @Override
     public int getNumCardsInHand(int playerId, int turn, int currentPlayerId) {
-        try {
-            BoardModel boardModel = boards_.get(currentPlayerId).get(turn);
-            PlayerSide playerByIndex = GameDetailedRecord.getPlayerByIndex(playerId);
-            PlayerSide otherPlayer = playerByIndex.getOtherPlayer();
+        BoardModel boardModel = boards_.get(currentPlayerId).get(turn);
+        PlayerSide playerByIndex = GameDetailedRecord.getPlayerByIndex(playerId);
+        PlayerSide otherPlayer = playerByIndex.getOtherPlayer();
 
-            return boardModel.getNumCards_hand(otherPlayer);
-        } catch (HSInvalidPlayerIndexException e) {
-            return 0;
-        }
+        return boardModel.getNumCards_hand(otherPlayer);
     }
 
     @Override
@@ -72,8 +66,7 @@ public class GameDetailedRecord implements GameRecord {
 
     @Override
     public JSONObject toJSON() {
-        JSONObject json = new JSONObject();
-        return json;
+        return new JSONObject();
     }
 
     public BoardModel get(int turn, int playerID) {
@@ -81,7 +74,7 @@ public class GameDetailedRecord implements GameRecord {
     }
 
     // TODO: remove asap, simply to aid in refactoring
-    public static int getIndexOfPlayer(PlayerSide playerSide) {
+    private static int getIndexOfPlayer(PlayerSide playerSide) {
         if (playerSide == PlayerSide.CURRENT_PLAYER){
             return 0;
         } else {
@@ -90,7 +83,7 @@ public class GameDetailedRecord implements GameRecord {
     }
 
     // TODO: remove asap, simply to aid in refactoring
-    public static PlayerSide getPlayerByIndex(int index) {
+    private static PlayerSide getPlayerByIndex(int index) {
         if (index == 0){
             return PlayerSide.CURRENT_PLAYER;
         } else {

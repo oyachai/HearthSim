@@ -6,8 +6,8 @@ import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class CardEffectCharacterDamage extends CardEffectCharacter {
-    private byte damage;
-    private boolean effectedBySpellpower;
+    private final byte damage;
+    private final boolean effectedBySpellpower;
 
     public CardEffectCharacterDamage(int damage) {
         this(damage, false);

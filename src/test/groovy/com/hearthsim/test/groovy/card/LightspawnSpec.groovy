@@ -50,7 +50,6 @@ class LightspawnSpec extends CardSpec {
     }
     
     def "Damaged Lightspawn is not killed by a Shadow Word: Death"() {
-        def copiedBoard = startingBoard.deepCopy()
         root.data_.getWaitingPlayer().getCharacter(1).health_ = 4
 
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)

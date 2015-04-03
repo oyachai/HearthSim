@@ -36,11 +36,6 @@ public class HolyFire extends SpellDamage {
         this.hasBeenUsed = hasBeenUsed;
     }
 
-    @Override
-    public SpellDamage deepCopy() {
-        return new HolyFire(this.hasBeenUsed);
-    }
-
     /**
      *
      * Use the card on the given target

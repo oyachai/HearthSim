@@ -7,8 +7,8 @@ import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class CardEffectCharacterBuff extends CardEffectCharacter {
-    private byte attack;
-    private byte health;
+    private final byte attack;
+    private final byte health;
 
     public CardEffectCharacterBuff(int attack, int health) {
         this.attack = (byte) attack;

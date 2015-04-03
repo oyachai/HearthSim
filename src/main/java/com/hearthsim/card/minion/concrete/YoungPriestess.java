@@ -19,7 +19,7 @@ public class YoungPriestess extends Minion {
     public HearthTreeNode endTurn(PlayerSide thisMinionPlayerIndex, HearthTreeNode boardModel) throws HSException {
         HearthTreeNode toRet = super.endTurn(thisMinionPlayerIndex, boardModel);
         PlayerModel currentPlayer = toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
-        if (toRet != null && thisMinionPlayerIndex == PlayerSide.CURRENT_PLAYER) {
+        if (thisMinionPlayerIndex == PlayerSide.CURRENT_PLAYER) {
             int numFriendlyMinions = currentPlayer.getNumMinions();
             if (numFriendlyMinions > 1) {
                 int minionToBuffIndex = (int)(Math.random() * numFriendlyMinions);

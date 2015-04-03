@@ -4,7 +4,6 @@ import com.hearthsim.card.ImplementedCardList;
 import com.hearthsim.card.ImplementedCardList.ImplementedCard;
 
 import javax.swing.*;
-
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -17,9 +16,9 @@ public class HSCardSelectionList extends JList<ImplementedCard> {
 
     private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
 
-    ImplementedCardList list_;
-    ArrayList<ImplementedCard> cards_;
-    HSCardList cardListPane_;
+    private ImplementedCardList list_;
+    private ArrayList<ImplementedCard> cards_;
+    private HSCardList cardListPane_;
 
     boolean editing_;
 
@@ -28,8 +27,8 @@ public class HSCardSelectionList extends JList<ImplementedCard> {
         list_ = new ImplementedCardList();
         editing_ = false;
 
-        DefaultListModel<ImplementedCard> model = new DefaultListModel<ImplementedCard>();
-        cards_ = new ArrayList<ImplementedCard>();
+        DefaultListModel<ImplementedCard> model = new DefaultListModel<>();
+        cards_ = new ArrayList<>();
         for (ImplementedCard card : list_.getCardList()) {
             if (!card.isHero && card.collectible)
                 cards_.add(card);

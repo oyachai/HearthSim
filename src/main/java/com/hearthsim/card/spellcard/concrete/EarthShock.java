@@ -25,11 +25,6 @@ public class EarthShock extends SpellDamage {
         this.hasBeenUsed = hasBeenUsed;
     }
 
-    @Override
-    public SpellDamage deepCopy() {
-        return new EarthShock(this.hasBeenUsed);
-    }
-
     /**
      *
      * Use the card on the given target
@@ -49,8 +44,7 @@ public class EarthShock extends SpellDamage {
             Minion targetMinion,
             HearthTreeNode boardState, boolean singleRealizationOnly)
         throws HSException {
-        targetMinion.silenced(side, boardState);
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
-        return toRet;
+        targetMinion.silenced(side, boardState.data_);
+        return super.use_core(side, targetMinion, boardState, singleRealizationOnly);
     }
 }

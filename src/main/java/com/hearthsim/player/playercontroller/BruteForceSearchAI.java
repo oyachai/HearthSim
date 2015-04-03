@@ -1,11 +1,5 @@
 package com.hearthsim.player.playercontroller;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidCardException;
@@ -22,13 +16,19 @@ import com.hearthsim.util.factory.SparseBoardStateFactory;
 import com.hearthsim.util.tree.HearthTreeNode;
 import com.hearthsim.util.tree.StopNode;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 public class BruteForceSearchAI implements ArtificialPlayer {
 
     private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
-    public final static int MAX_THINK_TIME = 20000;
+    private final static int MAX_THINK_TIME = 20000;
 
-    boolean useSparseBoardStateFactory_ = true;
-    boolean useDuplicateNodePruning = true;
+    private boolean useSparseBoardStateFactory_ = true;
+    private boolean useDuplicateNodePruning = true;
 
     public WeightedScorer scorer = new WeightedScorer();
 
@@ -165,7 +165,7 @@ public class BruteForceSearchAI implements ArtificialPlayer {
         PlayerModel playerModel0 = board.getCurrentPlayer();
         PlayerModel playerModel1 = board.getWaitingPlayer();
 
-        BoardStateFactoryBase factory = null;
+        BoardStateFactoryBase factory;
         if (useSparseBoardStateFactory_) {
             factory = new SparseBoardStateFactory(playerModel0.getDeck(), playerModel1.getDeck(), MAX_THINK_TIME, useDuplicateNodePruning);
         } else {
@@ -178,7 +178,6 @@ public class BruteForceSearchAI implements ArtificialPlayer {
     public List<HearthActionBoardPair> playTurn(int turn, BoardModel board, BoardStateFactoryBase factory)
             throws HSException {
         PlayerModel playerModel0 = board.getCurrentPlayer();
-        PlayerModel playerModel1 = board.getWaitingPlayer();
 
         log.debug("playing turn for " + playerModel0.getName());
         // The goal of this ai is to maximize his board score
@@ -186,7 +185,7 @@ public class BruteForceSearchAI implements ArtificialPlayer {
         HearthTreeNode toRet = new HearthTreeNode(board);
 
         HearthTreeNode allMoves = factory.doMoves(toRet, this.scorer);
-        ArrayList<HearthActionBoardPair> retList = new ArrayList<HearthActionBoardPair>();
+        ArrayList<HearthActionBoardPair> retList = new ArrayList<>();
         HearthTreeNode curMove = allMoves;
 
         while(curMove.getChildren() != null) {

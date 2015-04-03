@@ -21,8 +21,6 @@ public class TestFlesheatingGhoul {
     private PlayerModel currentPlayer;
     private PlayerModel waitingPlayer;
 
-    private Deck deck;
-
     @Before
     public void setup() throws HSException {
         Card cards[] = new Card[10];
@@ -30,7 +28,7 @@ public class TestFlesheatingGhoul {
             cards[index] = new TheCoin();
         }
 
-        deck = new Deck(cards);
+        Deck deck = new Deck(cards);
 
         board = new HearthTreeNode(new BoardModel(deck, deck));
         currentPlayer = board.data_.getCurrentPlayer();

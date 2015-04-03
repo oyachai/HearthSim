@@ -1,17 +1,16 @@
 package com.hearthsim.test;
 
-import static org.junit.Assert.*;
-
+import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.minion.concrete.BloodfenRaptor;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.hearthsim.card.minion.Minion;
-import com.hearthsim.card.minion.concrete.BloodfenRaptor;
+import static org.junit.Assert.assertEquals;
 
 public class TestMinionResetCopy {
 
-    BloodfenRaptor original;
-    BloodfenRaptor copy;
+    private BloodfenRaptor original;
+    private BloodfenRaptor copy;
 
     @Before
     public void setUp() throws Exception {

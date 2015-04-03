@@ -1,24 +1,22 @@
 package com.hearthsim.test.minion;
 
-import static org.junit.Assert.assertEquals;
-
-import com.hearthsim.model.PlayerModel;
-import org.junit.Before;
-import org.junit.Test;
-
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.concrete.FrostwolfWarlord;
 import com.hearthsim.card.minion.concrete.SilverHandRecruit;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 public class TestFrostwolfWarlord {
 
     private HearthTreeNode board;
     private PlayerModel currentPlayer;
-    private PlayerModel waitingPlayer;
 
     private FrostwolfWarlord warlord;
 
@@ -26,7 +24,6 @@ public class TestFrostwolfWarlord {
     public void setup() throws HSException {
         board = new HearthTreeNode(new BoardModel());
         currentPlayer = board.data_.getCurrentPlayer();
-        waitingPlayer = board.data_.getWaitingPlayer();
 
         warlord = new FrostwolfWarlord();
         currentPlayer.placeCardHand(warlord);

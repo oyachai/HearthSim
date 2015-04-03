@@ -1,13 +1,5 @@
 package com.hearthsim.test.minion;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-
-import java.util.List;
-
-import org.junit.Before;
-import org.junit.Test;
-
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
@@ -24,14 +16,19 @@ import com.hearthsim.player.playercontroller.BruteForceSearchAI;
 import com.hearthsim.util.HearthActionBoardPair;
 import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 public class TestAcolyteOfPain {
 
     private HearthTreeNode board;
     private PlayerModel currentPlayer;
     private PlayerModel waitingPlayer;
-
-    private Deck deck;
 
     private AcolyteOfPain acolyteOnBoard;
 
@@ -42,7 +39,7 @@ public class TestAcolyteOfPain {
             cards[index] = new BloodfenRaptor();
         }
 
-        deck = new Deck(cards);
+        Deck deck = new Deck(cards);
         PlayerModel playerModel0 = new PlayerModel((byte)0, "player0", new TestHero(), deck);
         PlayerModel playerModel1 = new PlayerModel((byte)1, "player1", new TestHero(), deck);
 

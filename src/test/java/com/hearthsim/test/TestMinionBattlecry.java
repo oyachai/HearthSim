@@ -1,23 +1,15 @@
 package com.hearthsim.test;
 
-import static org.junit.Assert.assertEquals;
-
+import com.hearthsim.card.minion.concrete.*;
+import com.hearthsim.exception.HSException;
+import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
+import com.hearthsim.model.PlayerSide;
+import com.hearthsim.util.tree.HearthTreeNode;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.hearthsim.card.minion.concrete.Alexstrasza;
-import com.hearthsim.card.minion.concrete.ArgentProtector;
-import com.hearthsim.card.minion.concrete.BloodfenRaptor;
-import com.hearthsim.card.minion.concrete.ChillwindYeti;
-import com.hearthsim.card.minion.concrete.DarkIronDwarf;
-import com.hearthsim.card.minion.concrete.FaerieDragon;
-import com.hearthsim.card.minion.concrete.RiverCrocolisk;
-import com.hearthsim.card.minion.concrete.StranglethornTiger;
-import com.hearthsim.exception.HSException;
-import com.hearthsim.model.BoardModel;
-import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.tree.HearthTreeNode;
+import static org.junit.Assert.assertEquals;
 
 public class TestMinionBattlecry {
 

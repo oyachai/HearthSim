@@ -5,8 +5,8 @@ import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class CardEffectHeroMana extends CardEffectHero {
-    private byte manaDelta;
-    private byte maxManaDelta;
+    private final byte manaDelta;
+    private final byte maxManaDelta;
 
     public CardEffectHeroMana(int manaDelta) {
         this(manaDelta, 0);

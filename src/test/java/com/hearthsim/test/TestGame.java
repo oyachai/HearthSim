@@ -1,9 +1,5 @@
 package com.hearthsim.test;
 
-import static org.junit.Assert.assertEquals;
-
-import org.junit.Test;
-
 import com.hearthsim.Game;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
@@ -16,6 +12,9 @@ import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.player.playercontroller.BruteForceSearchAI;
 import com.hearthsim.results.GameResult;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 public class TestGame {
     private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
@@ -34,11 +33,8 @@ public class TestGame {
         Card[] cards2_ = new Card[numCardsInDeck_];
 
         for (int i = 0; i < numCardsInDeck_; ++i) {
-            byte attack = minionAttack;
-            byte health = minionHealth;
-            byte mana = minionMana;
-            cards1_[i] = new Minion("" + i, mana, attack, health, attack, health, health);
-            cards2_[i] = new Minion("" + i, mana, attack, health, attack, health, health);
+            cards1_[i] = new Minion("" + i, minionMana, minionAttack, minionHealth, minionAttack, minionHealth, minionHealth);
+            cards2_[i] = new Minion("" + i, minionMana, minionAttack, minionHealth, minionAttack, minionHealth, minionHealth);
         }
 
         int nt = 0;
@@ -68,7 +64,7 @@ public class TestGame {
 
         long t1 = System.nanoTime();
         Game game = new Game(playerModel1, playerModel2, ai0, ai1, false);
-        GameResult result = null;
+        GameResult result;
         try {
             result = game.runGame();
         } catch(HSException e) {
@@ -97,10 +93,7 @@ public class TestGame {
         Card[] cards2_ = new Card[numCardsInDeck_];
 
         for (int i = 0; i < numCardsInDeck_; ++i) {
-            byte attack = minionAttack;
-            byte health = minionHealth;
-            byte mana = minionMana;
-            cards1_[i] = new Minion("" + i, mana, attack, health, attack, health, health);
+            cards1_[i] = new Minion("" + i, minionMana, minionAttack, minionHealth, minionAttack, minionHealth, minionHealth);
             cards2_[i] = new Minion("" + i, (byte)9, (byte)1, (byte)1, (byte)1, (byte)1, (byte)1);
         }
 
@@ -122,7 +115,7 @@ public class TestGame {
             BruteForceSearchAI ai1 = BruteForceSearchAI.buildStandardAI1();
 
             Game game = new Game(playerModel1, playerModel2, ai0, ai1, true);
-            GameResult result = null;
+            GameResult result;
             try {
                 result = game.runGame();
             } catch(HSException e) {

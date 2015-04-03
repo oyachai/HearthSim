@@ -1,9 +1,9 @@
 package com.hearthsim.card.minion;
 
-import java.util.EnumSet;
-
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
+
+import java.util.EnumSet;
 
 public interface MinionWithAura {
 

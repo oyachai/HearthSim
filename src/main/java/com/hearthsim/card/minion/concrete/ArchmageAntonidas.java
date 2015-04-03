@@ -5,7 +5,6 @@ import com.hearthsim.card.CardPlayBeginInterface;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.card.spellcard.concrete.Fireball;
-import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -33,16 +32,14 @@ public class ArchmageAntonidas extends Minion implements CardPlayBeginInterface 
             PlayerSide cardUserPlayerSide,
             Card usedCard,
             HearthTreeNode boardState,
-            boolean singleRealizationOnly)
-        throws HSException {
-        HearthTreeNode toRet = boardState;
+            boolean singleRealizationOnly) {
         if (thisCardPlayerSide != PlayerSide.CURRENT_PLAYER)
-            return toRet;
+            return boardState;
         if (isInHand_)
-            return toRet;
-        if (usedCard instanceof SpellCard && toRet.data_.getCurrentPlayer().getHand().size() < 10) {
-            toRet.data_.getCurrentPlayer().placeCardHand(new Fireball());
+            return boardState;
+        if (usedCard instanceof SpellCard && boardState.data_.getCurrentPlayer().getHand().size() < 10) {
+            boardState.data_.getCurrentPlayer().placeCardHand(new Fireball());
         }
-        return toRet;
+        return boardState;
     }
 }

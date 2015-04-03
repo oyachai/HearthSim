@@ -4,8 +4,8 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.event.CharacterFilter;
-import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.CharacterFilterTargetedSpell;
+import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
@@ -30,17 +30,6 @@ public class DivineFavor extends SpellCard {
             return true;
         }
     };
-
-    /**
-     * Constructor
-     *
-     * @param hasBeenUsed Whether the card has already been used or not
-     */
-    @Deprecated
-    public DivineFavor(boolean hasBeenUsed) {
-        this();
-        this.hasBeenUsed = hasBeenUsed;
-    }
 
     /**
      * Constructor

@@ -34,7 +34,7 @@ public class HSMainFrameModel implements HSGameEndEventListener {
         int p1_fst_;
 
         public GameStats() {
-            gameResults_ = new ArrayList<GameResult>();
+            gameResults_ = new ArrayList<>();
             p0_numMinionsOnTurn_ = new int[50];
             p1_numMinionsOnTurn_ = new int[50];
             p0_numCardsOnTurn_ = new int[50];
@@ -93,7 +93,7 @@ public class HSMainFrameModel implements HSGameEndEventListener {
             p0_fst_ = 0;
             p1_wins_fst_ = 0;
             p1_fst_ = 0;
-            gameResults_ = new ArrayList<GameResult>();
+            gameResults_ = new ArrayList<>();
             p0_numMinionsOnTurn_ = new int[50];
             p1_numMinionsOnTurn_ = new int[50];
             p0_numCardsOnTurn_ = new int[50];

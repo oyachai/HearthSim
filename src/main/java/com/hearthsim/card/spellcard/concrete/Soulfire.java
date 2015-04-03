@@ -2,7 +2,6 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.spellcard.SpellDamage;
 import com.hearthsim.card.spellcard.SpellRandomInterface;
-import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -23,7 +22,7 @@ public class Soulfire extends SpellDamage implements SpellRandomInterface {
     }
 
     @Override
-    public Collection<HearthTreeNode> createChildren(PlayerSide originSide, int originIndex, HearthTreeNode boardState) throws HSException {
+    public Collection<HearthTreeNode> createChildren(PlayerSide originSide, int originIndex, HearthTreeNode boardState) {
         PlayerModel currentPlayer = boardState.data_.modelForSide(originSide);
 
         int totalTargets = currentPlayer.getHand().size();

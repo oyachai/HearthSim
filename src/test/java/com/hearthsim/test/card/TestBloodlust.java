@@ -11,7 +11,8 @@ import com.hearthsim.util.tree.HearthTreeNode;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 public class TestBloodlust {
 
@@ -75,7 +76,7 @@ public class TestBloodlust {
         assertEquals(waitingPlayer.getMinions().get(1).getTotalAttack(), attack0);
 
         Minion theMinion = currentPlayer.getMinions().get(0);
-        ret = theMinion.attack(PlayerSide.WAITING_PLAYER, 0, ret, false);
+        theMinion.attack(PlayerSide.WAITING_PLAYER, 0, ret, false);
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), 30 - attackPlus3);
     }
@@ -104,7 +105,7 @@ public class TestBloodlust {
         assertEquals(waitingPlayer.getMinions().get(1).getTotalAttack(), attack0);
 
         Minion theMinion = currentPlayer.getMinions().get(0);
-        ret = theMinion.attack(PlayerSide.WAITING_PLAYER, 2, ret, false);
+        theMinion.attack(PlayerSide.WAITING_PLAYER, 2, ret, false);
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), 30);
         assertEquals(currentPlayer.getMinions().get(0).getHealth(), health0 - attack0);

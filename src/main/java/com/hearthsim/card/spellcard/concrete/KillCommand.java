@@ -49,8 +49,7 @@ public class KillCommand extends SpellDamage {
             this.damage_ = (byte)5;
         else
             this.damage_ = (byte)3;
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
 
-        return toRet;
+        return super.use_core(side, targetMinion, boardState, singleRealizationOnly);
     }
 }

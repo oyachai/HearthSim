@@ -1,7 +1,5 @@
 package com.hearthsim.test.minion;
 
-import java.util.List;
-
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.concrete.BoulderfistOgre;
@@ -20,6 +18,8 @@ import com.hearthsim.util.tree.HearthTreeNode;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class TestColdlightOracle {
@@ -28,8 +28,6 @@ public class TestColdlightOracle {
     private PlayerModel currentPlayer;
     private PlayerModel waitingPlayer;
 
-    private Deck deck;
-
     @Before
     public void setup() throws HSException {
         Card cards[] = new Card[10];
@@ -37,7 +35,7 @@ public class TestColdlightOracle {
             cards[index] = new TheCoin();
         }
 
-        deck = new Deck(cards);
+        Deck deck = new Deck(cards);
         PlayerModel playerModel0 = new PlayerModel((byte)0, "player0", new TestHero(), deck);
         PlayerModel playerModel1 = new PlayerModel((byte)1, "player1", new TestHero(), deck);
 
@@ -50,8 +48,6 @@ public class TestColdlightOracle {
 
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, new RaidLeader());
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, new BoulderfistOgre());
-
-        deck = new Deck(cards);
 
         Card fb = new ColdlightOracle();
         currentPlayer.placeCardHand(fb);

@@ -1,7 +1,6 @@
 package com.hearthsim.util.tree;
 
 import com.hearthsim.card.Deck;
-import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.player.playercontroller.BoardScorer;
 import com.hearthsim.util.HearthAction;
@@ -15,7 +14,7 @@ import com.hearthsim.util.HearthAction;
  */
 public class CardDrawNode extends StopNode {
 
-    int numCardsToDraw_;
+    private int numCardsToDraw_;
 
     public CardDrawNode(HearthTreeNode origNode, int numCardsToDraw) {
         super(origNode);
@@ -33,15 +32,6 @@ public class CardDrawNode extends StopNode {
 
     public int getNumCardsToDraw() {
         return numCardsToDraw_;
-    }
-
-    /**
-     * Queue up a specified number of cards for drawing from the deck
-     *
-     * @param value Number of cards to queue up for drawing
-     */
-    public void setNumCardsToDraw(int value) {
-        numCardsToDraw_ = value;
     }
 
     /**
@@ -95,7 +85,7 @@ public class CardDrawNode extends StopNode {
     }
 
     @Override
-    public HearthTreeNode finishAllEffects() throws HSException  {
+    public HearthTreeNode finishAllEffects() {
         this.drawQueuedCard();
         HearthAction drawAction = new HearthAction(HearthAction.Verb.DRAW_CARDS, PlayerSide.CURRENT_PLAYER, this.numCardsToDraw_);
         return new HearthTreeNode(this.data_, drawAction, this.score_, this.depth_, this.children_);

@@ -5,7 +5,6 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.ImplementedCardList.ImplementedCard;
 
 import javax.swing.*;
-
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -26,7 +25,7 @@ public class HSCardList extends JList<ImplementedCard> {
         super();
         editing_ = false;
 
-        SortedListModel<ImplementedCard> model = new SortedListModel<ImplementedCard>();
+        SortedListModel<ImplementedCard> model = new SortedListModel<>();
         this.setModel(model);
 
         this.addMouseListener(new MouseAdapter() {
@@ -53,7 +52,7 @@ public class HSCardList extends JList<ImplementedCard> {
     }
 
     public Deck getDeck() {
-        ArrayList<Card> cards = new ArrayList<Card>();
+        ArrayList<Card> cards = new ArrayList<>();
         Iterator<ImplementedCard> iter = ((SortedListModel<ImplementedCard>)this.getModel()).iterator();
         while (iter.hasNext()) {
             ImplementedCard ic = iter.next();

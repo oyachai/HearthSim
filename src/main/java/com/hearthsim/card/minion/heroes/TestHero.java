@@ -2,7 +2,6 @@ package com.hearthsim.card.minion.heroes;
 
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -45,13 +44,11 @@ public class TestHero extends Hero {
      * @return
      */
     @Override
-    public HearthTreeNode useHeroAbility_core(PlayerSide targetPlayerSide, Minion targetMinion, HearthTreeNode boardState, boolean singleRealizationOnly)
-            throws HSException {
+    public HearthTreeNode useHeroAbility_core(PlayerSide targetPlayerSide, Minion targetMinion, HearthTreeNode boardState, boolean singleRealizationOnly) {
         if (this.enableHeroAbility) {
-            HearthTreeNode toRet = boardState;
             this.hasBeenUsed = true;
-            toRet.data_.getCurrentPlayer().subtractMana(HERO_ABILITY_COST);
-            return toRet;
+            boardState.data_.getCurrentPlayer().subtractMana(HERO_ABILITY_COST);
+            return boardState;
         }
 
         return null;

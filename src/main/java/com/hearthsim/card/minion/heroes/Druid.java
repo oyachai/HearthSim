@@ -2,7 +2,6 @@ package com.hearthsim.card.minion.heroes;
 
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
@@ -29,8 +28,7 @@ public class Druid extends Hero {
      */
     @Override
     public HearthTreeNode useHeroAbility_core(PlayerSide targetPlayerSide, Minion targetMinion,
-            HearthTreeNode boardState, boolean singleRealizationOnly)
-            throws HSException {
+            HearthTreeNode boardState, boolean singleRealizationOnly) {
         if (targetMinion.isHero() && targetPlayerSide == PlayerSide.CURRENT_PLAYER) {
             this.hasBeenUsed = true;
             PlayerModel currentPlayer = boardState.data_.getCurrentPlayer();

@@ -1,25 +1,20 @@
 package com.hearthsim.card.minion;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-
-import com.hearthsim.model.PlayerModel;
-import org.json.JSONObject;
-
-import com.hearthsim.card.Card;
-import com.hearthsim.card.CardEndTurnInterface;
-import com.hearthsim.card.CardStartTurnInterface;
-import com.hearthsim.card.Deck;
-import com.hearthsim.card.ImplementedCardList;
+import com.hearthsim.card.*;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.model.BoardModel;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.HearthAction;
 import com.hearthsim.util.HearthAction.Verb;
 import com.hearthsim.util.factory.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
+import org.json.JSONObject;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 
 public class Minion extends Card implements CardEndTurnInterface, CardStartTurnInterface {
 
@@ -56,41 +51,41 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         }
     }
 
-    protected boolean taunt_;
-    protected boolean divineShield_;
+    private boolean taunt_;
+    private boolean divineShield_;
     protected boolean windFury_;
-    protected boolean charge_;
-    protected boolean immune_ = false; // Ignores damage
+    private boolean charge_;
+    private boolean immune_ = false; // Ignores damage
 
     protected boolean hasAttacked_;
     protected boolean hasWindFuryAttacked_;
 
-    protected boolean frozen_;
+    private boolean frozen_;
     protected boolean silenced_;
-    protected boolean stealthed_;
+    private boolean stealthed_;
     protected boolean heroTargetable_ = true;
 
     protected byte health_;
     protected byte maxHealth_;
     protected byte baseHealth_;
-    protected byte auraHealth_;
+    private byte auraHealth_;
 
     protected byte attack_;
     protected byte baseAttack_;
-    protected byte extraAttackUntilTurnEnd_;
-    protected byte auraAttack_;
+    private byte extraAttackUntilTurnEnd_;
+    private byte auraAttack_;
 
-    protected boolean destroyOnTurnStart_;
-    protected boolean destroyOnTurnEnd_;
+    private boolean destroyOnTurnStart_;
+    private boolean destroyOnTurnEnd_;
 
     protected byte spellDamage_;
 
-    protected AttackAction attackAction_;
+    private AttackAction attackAction_;
 
     protected MinionTribe tribe = MinionTribe.NONE;
 
     // This is a flag to tell the BoardState that it can't cheat on the placement of this minion
-    protected boolean placementImportant_ = false;
+    private boolean placementImportant_ = false;
 
     public Minion() {
         super();
@@ -503,15 +498,8 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
     public Minion createResetCopy() {
         try {
             Constructor<? extends Minion> ctor = this.getClass().getConstructor();
-            Minion object = ctor.newInstance();
-            return object;
-        } catch (NoSuchMethodException | InvocationTargetException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
+            return ctor.newInstance();
+        } catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
@@ -596,7 +584,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
      */
     public HearthTreeNode useTargetableBattlecry(PlayerSide side, int targetCharacterIndex, HearthTreeNode boardState, boolean singleRealizationOnly) {
         if (this instanceof MinionTargetableBattlecry) {
-            PlayerModel player = boardState.data_.modelForSide(side);
+            boardState.data_.modelForSide(side);
 
             boardState = ((MinionTargetableBattlecry)this).useTargetableBattlecry_core(PlayerSide.CURRENT_PLAYER, this, side, targetCharacterIndex, boardState);
 
@@ -762,7 +750,7 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
         PlayerModel targetPlayer = boardState.data_.modelForSide(targetMinionPlayerSide);
 
         // Notify all that an attack is beginning
-        HearthTreeNode toRet = boardState;
+        HearthTreeNode toRet;
         int attackerIndex = this instanceof Hero ? 0 : currentPlayer.getMinions()
                 .indexOf(this) + 1;
         int targetIndex = targetMinion instanceof Hero ? 0 : targetPlayer.getMinions()

@@ -17,16 +17,6 @@ class OnyxiaSpec extends CardSpec {
 
     def "playing Onyxia on an empty board summons 6 Whelps"() {
         
-        def minionMana = 2;
-        def attack = 5;
-        def health0 = 3;
-        def health1 = 7;
-
-        def commonField = [
-                [mana: minionMana, attack: attack, maxHealth: health0], //TODO: attack may be irrelevant here
-                [mana: minionMana, attack: attack, health: health1 - 1, maxHealth: health1]
-        ]
-
         startingBoard = new BoardModelBuilder().make {
             currentPlayer {
                 hand([Onyxia])

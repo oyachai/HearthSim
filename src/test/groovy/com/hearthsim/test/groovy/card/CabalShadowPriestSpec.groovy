@@ -18,11 +18,6 @@ class CabalShadowPriestSpec extends CardSpec {
 
     def setup() {
 
-        def minionMana = 2;
-        def attack = 5;
-        def health0 = 3;
-        def health1 = 7;
-
         def commonField = [
             [minion: GoldshireFootman], //TODO: attack may be irrelevant here
             [minion: ChillwindYeti]

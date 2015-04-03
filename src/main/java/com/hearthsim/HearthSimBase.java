@@ -25,13 +25,11 @@ public abstract class HearthSimBase {
 
     int numSims_;
     int numThreads_;
-    String gameResultFileName_;
+    private String gameResultFileName_;
     protected Path rootPath_;
 
     protected Path aiParamFilePath0_;
     protected Path aiParamFilePath1_;
-
-    boolean isRunning_;
 
     private List<HSGameEndEventListener> gameEndListeners_;
 
@@ -53,15 +51,13 @@ public abstract class HearthSimBase {
         aiParamFilePath0_ = FileSystems.getDefault().getPath(rootPath_.toString(), masterParam.getString("aiParamFilePath0"));
         aiParamFilePath1_ = FileSystems.getDefault().getPath(rootPath_.toString(), masterParam.getString("aiParamFilePath1"));
         gameResultFileName_ = masterParam.getString("output_file", "gameres.txt");
-        gameEndListeners_ = new ArrayList<HSGameEndEventListener>();
-        isRunning_ = false;
+        gameEndListeners_ = new ArrayList<>();
     }
 
     HearthSimBase(int numSimulations, int numThreads) {
         numSims_ = numSimulations;
         numThreads_ = numThreads;
-        gameEndListeners_ = new ArrayList<HSGameEndEventListener>();
-        isRunning_ = false;
+        gameEndListeners_ = new ArrayList<>();
     }
 
     /**
@@ -74,7 +70,7 @@ public abstract class HearthSimBase {
      * @throws HSException
      * @throws IOException
      */
-    public abstract GameResult runSingleGame(int gameId) throws HSException, IOException;
+    protected abstract GameResult runSingleGame(int gameId) throws HSException, IOException;
 
     protected GameResult runSingleGame(ArtificialPlayer ai0, Hero hero0, Deck deck0, ArtificialPlayer ai1, Hero hero1, Deck deck1) throws HSException {
         return this.runSingleGame(ai0, hero0, deck0, ai1, hero1, deck1, 0);
@@ -119,7 +115,7 @@ public abstract class HearthSimBase {
     }
 
 
-    public void run() throws HSException, IOException, InterruptedException {
+    public void run() throws IOException, InterruptedException {
         long simStartTime = System.currentTimeMillis();
 
         Path outputFilePath = FileSystems.getDefault().getPath(rootPath_.toString(), gameResultFileName_);

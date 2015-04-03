@@ -1,7 +1,5 @@
 package com.hearthsim.player.playercontroller;
 
-import java.util.HashMap;
-
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
@@ -11,6 +9,8 @@ import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.IdentityLinkedList;
+
+import java.util.HashMap;
 
 public class WeightedScorer implements BoardScorer, DeepCopyable<WeightedScorer> {
 
@@ -82,9 +82,7 @@ public class WeightedScorer implements BoardScorer, DeepCopyable<WeightedScorer>
         minionScore += myNumMinionsWeight * (board.getCurrentPlayer().getNumMinions());
         minionScore -= enemyNumMinionsWeight * (board.getWaitingPlayer().getNumMinions());
 
-        double score = boardScore + handScore + heroScore + minionScore + weaponScore;
-
-        return score;
+        return boardScore + handScore + heroScore + minionScore + weaponScore;
     }
 
     /**
@@ -110,7 +108,7 @@ public class WeightedScorer implements BoardScorer, DeepCopyable<WeightedScorer>
         if (cardInHandExtraScore != null) {
             Double val = cardInHandExtraScore.get(card.getClass());
             if (val != null)
-                theScore += val.doubleValue();
+                theScore += val;
         }
 
         return theScore;
@@ -128,7 +126,7 @@ public class WeightedScorer implements BoardScorer, DeepCopyable<WeightedScorer>
         if (minionOnBoardExtraScore != null) {
             Double val = minionOnBoardExtraScore.get(minion.getClass());
             if (val != null)
-                score += val.doubleValue();
+                score += val;
         }
 
         return score;
@@ -155,7 +153,7 @@ public class WeightedScorer implements BoardScorer, DeepCopyable<WeightedScorer>
         return toRet;
     }
 
-    public double weaponScore(Hero hero) {
+    protected double weaponScore(Hero hero) {
         WeaponCard weapon = hero.getWeapon();
         if (weapon == null) {
             return 0;
@@ -301,13 +299,13 @@ public class WeightedScorer implements BoardScorer, DeepCopyable<WeightedScorer>
 
     public void putMinionOnBoardExtraScore(Class<? extends Minion> clazz, double value) {
         if (minionOnBoardExtraScore == null)
-            minionOnBoardExtraScore = new HashMap<Class<? extends Minion>, Double>();
+            minionOnBoardExtraScore = new HashMap<>();
         minionOnBoardExtraScore.put(clazz, value);
     }
 
     public void putCardInHandExtraScore(Class<? extends Card> class1, double value) {
         if (cardInHandExtraScore == null)
-            cardInHandExtraScore = new HashMap<Class<? extends Card>, Double>();
+            cardInHandExtraScore = new HashMap<>();
         cardInHandExtraScore.put(class1, value);
     }
 

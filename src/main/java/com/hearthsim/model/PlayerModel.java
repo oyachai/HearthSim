@@ -6,7 +6,6 @@ import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.IdentityLinkedList;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -28,7 +27,7 @@ public class PlayerModel implements DeepCopyable<PlayerModel>, Iterable<Minion> 
 
     private IdentityLinkedList<Minion> minions;
     private IdentityLinkedList<Card> hand;
-    byte overload;
+    private byte overload;
 
     private byte numCardsUsed;
 
@@ -44,7 +43,7 @@ public class PlayerModel implements DeepCopyable<PlayerModel>, Iterable<Minion> 
         this.fatigueDamage = 1;
     }
 
-    public Card drawFromDeck(int index) {
+    protected Card drawFromDeck(int index) {
         Card card = deck.drawCard(index);
         if (card == null) {
             return null;
@@ -77,11 +76,6 @@ public class PlayerModel implements DeepCopyable<PlayerModel>, Iterable<Minion> 
         return hero;
     }
 
-    @Deprecated
-    public Deck getDeck_() {
-        return deck;
-    }
-
     public byte getMana() {
         return mana;
     }
@@ -108,10 +102,6 @@ public class PlayerModel implements DeepCopyable<PlayerModel>, Iterable<Minion> 
 
     public void addMaxMana(byte value) {
         this.maxMana += value;
-    }
-
-    public void subtractMaxMana(byte value) {
-        this.maxMana -= value;
     }
 
     public IdentityLinkedList<Minion> getMinions() {
@@ -167,10 +157,6 @@ public class PlayerModel implements DeepCopyable<PlayerModel>, Iterable<Minion> 
 
     public void setFatigueDamage(byte value) {
         fatigueDamage = value;
-    }
-
-    public void addFatigueDamage(byte value) {
-        fatigueDamage += value;
     }
 
     public byte getNumCardsUsed() {
@@ -270,7 +256,7 @@ public class PlayerModel implements DeepCopyable<PlayerModel>, Iterable<Minion> 
     }
 
     public ArrayList<Minion> getMinionsAdjacentToCharacter(int characterIndex) {
-        ArrayList<Minion> adjMinions = new ArrayList<Minion>();
+        ArrayList<Minion> adjMinions = new ArrayList<>();
 
         if (characterIndex >= this.getNumCharacters()) {
             return adjMinions;
@@ -296,7 +282,7 @@ public class PlayerModel implements DeepCopyable<PlayerModel>, Iterable<Minion> 
         resetNumCardsUsed();
     }
 
-    public void resetNumCardsUsed() {
+    protected void resetNumCardsUsed() {
         numCardsUsed = 0;
     }
 
@@ -387,7 +373,7 @@ public class PlayerModel implements DeepCopyable<PlayerModel>, Iterable<Minion> 
 
     public class CharacterIterator implements Iterator<Minion> {
         private int location = -1;
-        private PlayerModel target;
+        private final PlayerModel target;
 
         public CharacterIterator(PlayerModel model) {
             this.target = model;

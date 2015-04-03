@@ -1,8 +1,5 @@
 package com.hearthsim.util.factory;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-
 import com.hearthsim.card.Deck;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
@@ -12,19 +9,21 @@ import com.hearthsim.util.tree.HearthTreeNode;
 import com.hearthsim.util.tree.RandomEffectNode;
 import com.hearthsim.util.tree.StopNode;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+
 public class DepthBoardStateFactory extends BoardStateFactoryBase {
 
-    protected boolean lethal_;
-    protected boolean timedOut_;
-    public final long maxTime_;
+    private boolean lethal_;
+    private boolean timedOut_;
+    private final long maxTime_;
 
-    protected long startTime_;
-    protected long curTime_;
+    private long startTime_;
 
-    protected final boolean useDuplicateNodePruning;
-    int numNodes;
-    int numDuplicates;
-    HashSet<BoardModel> boardsAlreadySeen;
+    private final boolean useDuplicateNodePruning;
+    private int numNodes;
+    private int numDuplicates;
+    private HashSet<BoardModel> boardsAlreadySeen;
 
     /**
      * Constructor
@@ -50,7 +49,7 @@ public class DepthBoardStateFactory extends BoardStateFactoryBase {
         timedOut_ = false;
         this.useDuplicateNodePruning = useDuplicateNodePruning;
         if (useDuplicateNodePruning)
-            boardsAlreadySeen = new HashSet<BoardModel>(500000);
+            boardsAlreadySeen = new HashSet<>(500000);
     }
 
     public DepthBoardStateFactory(Deck deckPlayer0, Deck deckPlayer1, long maxThinkTime, boolean useDuplicateNodePruning, SparseChildNodeCreator sparseChildNodeCreator) {
@@ -62,24 +61,7 @@ public class DepthBoardStateFactory extends BoardStateFactoryBase {
         timedOut_ = false;
         this.useDuplicateNodePruning = useDuplicateNodePruning;
         if (useDuplicateNodePruning)
-            boardsAlreadySeen = new HashSet<BoardModel>(500000);
-    }
-
-    public boolean didTimeOut() {
-        return timedOut_;
-    }
-
-    public void resetTimeOut() {
-        startTime_ = System.currentTimeMillis();
-        timedOut_ = false;
-    }
-
-    public int getNumNodes() {
-        return numNodes;
-    }
-
-    public int getNumDuplicates() {
-        return numDuplicates;
+            boardsAlreadySeen = new HashSet<>(500000);
     }
 
     /**

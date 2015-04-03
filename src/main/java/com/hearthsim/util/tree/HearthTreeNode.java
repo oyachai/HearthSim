@@ -1,15 +1,14 @@
 package com.hearthsim.util.tree;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import com.hearthsim.card.minion.*;
-import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.player.playercontroller.BoardScorer;
 import com.hearthsim.util.HearthAction;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * A tree that keeps track of possible game states
@@ -21,7 +20,7 @@ public class HearthTreeNode {
     public final BoardModel data_;
     HearthAction action;
     protected double score_;
-    protected double bestChildScore_;
+    private double bestChildScore_;
 
     List<HearthTreeNode> children_;
 
@@ -49,7 +48,7 @@ public class HearthTreeNode {
         this(data, action, 0.0);
     }
 
-    public HearthTreeNode(BoardModel data, HearthAction action, double score) {
+    private HearthTreeNode(BoardModel data, HearthAction action, double score) {
         this(data, action, score, (byte)0);
     }
 
@@ -101,7 +100,7 @@ public class HearthTreeNode {
     public HearthTreeNode addChild(HearthTreeNode node) {
         node.setDepth((byte)(depth_ + 1));
         if (children_ == null) {
-            children_ = new ArrayList<HearthTreeNode>();
+            children_ = new ArrayList<>();
         }
         children_.add(node);
         node.parent = this;
@@ -225,7 +224,7 @@ public class HearthTreeNode {
         return toRet;
     }
 
-    public HearthTreeNode notifyMinionPlacement(PlayerSide targetSide, Minion minion) throws HSException {
+    public HearthTreeNode notifyMinionPlacement(PlayerSide targetSide, Minion minion) {
         HearthTreeNode toRet = this;
         for (BoardModel.CharacterLocation characterLocation : toRet.data_) {
             Minion character = toRet.data_.getCharacter(characterLocation);

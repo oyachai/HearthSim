@@ -66,13 +66,13 @@ public class CharacterFilterTargetedSpell extends CharacterFilter {
         protected boolean includeOwnMinions() { return true; }
     };
 
-    public final static CharacterFilterTargetedSpell ALL_HEROES = new CharacterFilterTargetedSpell() {
-        @Override
-        protected boolean includeEnemyHero() { return true; }
-
-        @Override
-        protected boolean includeOwnHero() { return true; }
-    };
+//    public final static CharacterFilterTargetedSpell ALL_HEROES = new CharacterFilterTargetedSpell() {
+//        @Override
+//        protected boolean includeEnemyHero() { return true; }
+//
+//        @Override
+//        protected boolean includeOwnHero() { return true; }
+//    };
 
     public final static CharacterFilterTargetedSpell ENEMY_MINIONS = new CharacterFilterTargetedSpell() {
         @Override

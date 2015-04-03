@@ -1,19 +1,20 @@
 package com.hearthsim.card;
 
-import java.util.ArrayList;
-
 import com.hearthsim.util.DeepCopyable;
+
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class Deck implements DeepCopyable<Deck> {
 
-    ArrayList<Card> cards;
+    private final ArrayList<Card> cards;
 
 
     /**
      * Constructor
      */
     public Deck() {
-        this.cards = new ArrayList<Card>();
+        this.cards = new ArrayList<>();
     }
 
     /**
@@ -21,10 +22,8 @@ public class Deck implements DeepCopyable<Deck> {
      * @param cards An array of cards from which to make the deck
      */
     public Deck(Card[] cards) {
-        this.cards = new ArrayList<Card>();
-        for (Card c : cards) {
-            this.cards.add(c);
-        }
+        this.cards = new ArrayList<>();
+        Collections.addAll(this.cards, cards);
     }
 
     /**
@@ -111,7 +110,7 @@ public class Deck implements DeepCopyable<Deck> {
 
     @Override
     public Deck deepCopy() {
-        ArrayList<Card> copiedCards = new ArrayList<Card>();
+        ArrayList<Card> copiedCards = new ArrayList<>();
         for (Card card : cards) {
             copiedCards.add(card.deepCopy());
         }

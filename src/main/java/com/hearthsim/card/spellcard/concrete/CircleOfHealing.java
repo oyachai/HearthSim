@@ -2,9 +2,9 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.event.CharacterFilter;
+import com.hearthsim.event.CharacterFilterTargetedSpell;
 import com.hearthsim.event.effect.CardEffectAoeInterface;
 import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.CharacterFilterTargetedSpell;
 import com.hearthsim.event.effect.CardEffectCharacterHeal;
 
 public class CircleOfHealing extends SpellCard implements CardEffectAoeInterface {
@@ -12,17 +12,6 @@ public class CircleOfHealing extends SpellCard implements CardEffectAoeInterface
     private static final byte HEAL_AMOUNT = 4;
 
     private static final CardEffectCharacter effect = new CardEffectCharacterHeal(CircleOfHealing.HEAL_AMOUNT);
-
-    /**
-     * Constructor
-     *
-     * @param hasBeenUsed Whether the card has already been used or not
-     */
-    @Deprecated
-    public CircleOfHealing(boolean hasBeenUsed) {
-        this();
-        this.hasBeenUsed = hasBeenUsed;
-    }
 
     /**
      * Constructor

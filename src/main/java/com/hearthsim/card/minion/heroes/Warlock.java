@@ -2,7 +2,6 @@ package com.hearthsim.card.minion.heroes;
 
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.CardDrawNode;
@@ -33,9 +32,8 @@ public class Warlock extends Hero {
             PlayerSide targetPlayerSide,
             Minion targetMinion,
             HearthTreeNode boardState,
-            boolean singleRealizationOnly)
-        throws HSException {
-        if (targetPlayerSide == PlayerSide.WAITING_PLAYER || isNotHero(targetMinion))
+            boolean singleRealizationOnly) {
+        if (targetPlayerSide == PlayerSide.WAITING_PLAYER || !targetMinion.isHero())
             return null;
         HearthTreeNode toRet = targetMinion.takeDamageAndNotify((byte) 2, PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, boardState, false, false);
         if (toRet != null) {

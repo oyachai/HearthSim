@@ -1,8 +1,5 @@
 package com.hearthsim.card.minion.concrete;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionUntargetableBattlecry;
 import com.hearthsim.model.PlayerModel;
@@ -11,6 +8,9 @@ import com.hearthsim.util.HearthAction;
 import com.hearthsim.util.factory.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
 import com.hearthsim.util.tree.RandomEffectNode;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class StampedingKodo extends Minion implements MinionUntargetableBattlecry {
 
@@ -30,23 +30,21 @@ public class StampedingKodo extends Minion implements MinionUntargetableBattlecr
         HearthTreeNode toRet = boardState;
         if (singleRealizationOnly) {
             PlayerModel waitingPlayer = toRet.data_.modelForSide(PlayerSide.WAITING_PLAYER);
-            if (toRet != null) {
-                List<Minion> possibleTargets = new ArrayList<Minion>();
-                for (Minion minion : waitingPlayer.getMinions()) {
-                    if (minion.getTotalAttack() <= 2)
-                        possibleTargets.add(minion);
-                }
-                if (possibleTargets.size() > 0) {
-                    Minion targetMinion = possibleTargets.get((int)(Math.random() * possibleTargets.size()));
-                    targetMinion.setHealth((byte)-99); //destroyed!
-                }
+            List<Minion> possibleTargets = new ArrayList<>();
+            for (Minion minion : waitingPlayer.getMinions()) {
+                if (minion.getTotalAttack() <= 2)
+                    possibleTargets.add(minion);
+            }
+            if (possibleTargets.size() > 0) {
+                Minion targetMinion = possibleTargets.get((int)(Math.random() * possibleTargets.size()));
+                targetMinion.setHealth((byte)-99); //destroyed!
             }
         } else {
             PlayerModel currentPlayer = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
             PlayerModel waitingPlayer = boardState.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
             int thisMinionIndex = currentPlayer.getMinions().indexOf(this) + 1;
-            List<Minion> possibleTargets = new ArrayList<Minion>();
+            List<Minion> possibleTargets = new ArrayList<>();
             for (Minion minion : waitingPlayer.getMinions()) {
                 if (minion.getTotalAttack() <= 2)
                     possibleTargets.add(minion);

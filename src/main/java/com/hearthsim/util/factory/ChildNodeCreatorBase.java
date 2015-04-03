@@ -1,7 +1,5 @@
 package com.hearthsim.util.factory;
 
-import java.util.ArrayList;
-
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
@@ -13,30 +11,27 @@ import com.hearthsim.util.HearthAction;
 import com.hearthsim.util.HearthAction.Verb;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class ChildNodeCreatorBase implements ChildNodeCreator {
+import java.util.ArrayList;
 
-    protected final Deck deckPlayer0_;
-    protected final Deck deckPlayer1_;
+public class ChildNodeCreatorBase implements ChildNodeCreator {
 
     /**
      * Constructor
      * maxThinkTime defaults to 10000 milliseconds (10 seconds)
      */
     public ChildNodeCreatorBase(Deck deckPlayer0, Deck deckPlayer1) {
-        deckPlayer0_ = deckPlayer0;
-        deckPlayer1_ = deckPlayer1;
     }
 
     @Override
     public ArrayList<HearthTreeNode> createAttackChildren(HearthTreeNode boardStateNode) throws HSException {
-        ArrayList<HearthTreeNode> nodes = new ArrayList<HearthTreeNode>();
+        ArrayList<HearthTreeNode> nodes = new ArrayList<>();
 
         ArrayList<Integer> attackable = boardStateNode.data_.getAttackableMinions();
 
         PlayerModel currentPlayer = boardStateNode.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
 
-        HearthTreeNode newState = null;
-        Minion tempMinion = null;
+        HearthTreeNode newState;
+        Minion tempMinion;
 
         // attack with characters
         for (int attackerIndex = 0; attackerIndex < currentPlayer
@@ -46,7 +41,7 @@ public class ChildNodeCreatorBase implements ChildNodeCreator {
             }
 
             for (final Integer integer : attackable) {
-                int targetIndex = integer.intValue();
+                int targetIndex = integer;
                 newState = new HearthTreeNode(boardStateNode.data_.deepCopy());
 
                 tempMinion = newState.data_.getCurrentPlayer().getCharacter(attackerIndex);
@@ -75,12 +70,12 @@ public class ChildNodeCreatorBase implements ChildNodeCreator {
 
     @Override
     public ArrayList<HearthTreeNode> createPlayCardChildren(HearthTreeNode boardStateNode) throws HSException {
-        ArrayList<HearthTreeNode> nodes = new ArrayList<HearthTreeNode>();
+        ArrayList<HearthTreeNode> nodes = new ArrayList<>();
 
-        Minion targetMinion = null;
-        Card card = null;
-        Card copiedCard = null;
-        HearthTreeNode newState = null;
+        Minion targetMinion;
+        Card card;
+        Card copiedCard;
+        HearthTreeNode newState;
 
         PlayerModel currentPlayer = boardStateNode.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         PlayerModel waitingPlayer = boardStateNode.data_.modelForSide(PlayerSide.WAITING_PLAYER);
@@ -134,7 +129,7 @@ public class ChildNodeCreatorBase implements ChildNodeCreator {
 
     @Override
     public ArrayList<HearthTreeNode> createHeroAbilityChildren(HearthTreeNode boardStateNode) throws HSException {
-        ArrayList<HearthTreeNode> nodes = new ArrayList<HearthTreeNode>();
+        ArrayList<HearthTreeNode> nodes = new ArrayList<>();
 
         Hero player = boardStateNode.data_.getCurrentPlayer().getHero();
         if (player.hasBeenUsed()) {
@@ -144,8 +139,7 @@ public class ChildNodeCreatorBase implements ChildNodeCreator {
         PlayerModel currentPlayer = boardStateNode.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         PlayerModel waitingPlayer = boardStateNode.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
-        HearthTreeNode newState = null;
-        Minion copiedTargetMinion = null;
+        HearthTreeNode newState;
 
         // Case0: Decided to use the hero ability -- Use it on everything!
         for (int i = 0; i <= currentPlayer.getNumMinions(); ++i) {

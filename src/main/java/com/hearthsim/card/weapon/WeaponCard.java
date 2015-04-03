@@ -1,7 +1,6 @@
 package com.hearthsim.card.weapon;
 
 import com.hearthsim.card.Card;
-import com.hearthsim.card.Deck;
 import com.hearthsim.card.ImplementedCardList;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
@@ -11,18 +10,18 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public abstract class WeaponCard extends Card {
 
-    public boolean isImmune() {
+    protected boolean isImmune() {
         return immune;
     }
 
-    public void setImmune(boolean immune) {
+    protected void setImmune(boolean immune) {
         this.immune = immune;
     }
 
     private boolean immune = false; // Does not take damage from attacking
 
-    byte weaponCharge;
-    byte weaponDamage;
+    private byte weaponCharge;
+    private byte weaponDamage;
 
     public WeaponCard() {
         ImplementedCardList cardList = ImplementedCardList.getInstance();
@@ -45,10 +44,6 @@ public abstract class WeaponCard extends Card {
     @Override
     public boolean equals(Object other) {
         if (!super.equals(other)) {
-            return false;
-        }
-
-        if (other == null) {
             return false;
         }
 
@@ -96,7 +91,7 @@ public abstract class WeaponCard extends Card {
             return null;
         }
 
-        if (isWaitingPlayer(side) || isNotHero(targetMinion)) {
+        if (isWaitingPlayer(side) || !targetMinion.isHero()) {
             return null;
         }
 
@@ -134,26 +129,11 @@ public abstract class WeaponCard extends Card {
         }
     }
 
-    @Deprecated
-    public void beforeAttack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode toRet, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
-        this.beforeAttack(targetMinionPlayerSide, targetMinion, toRet);
-    }
-
     public void beforeAttack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode toRet) throws HSException {
-    }
-
-    @Deprecated
-    public void afterAttack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode toRet, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
-        this.afterAttack(targetMinionPlayerSide, targetMinion, toRet);
     }
 
     public void afterAttack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode toRet) throws HSException {
         this.useWeaponCharge();
-    }
-
-    @Deprecated
-    public void minionSummonedEvent(PlayerSide thisMinionPlayerSide, PlayerSide summonedMinionPlayerSide, Minion summonedMinion, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) {
-        this.minionSummonedEvent(thisMinionPlayerSide, summonedMinionPlayerSide, summonedMinion, boardState);
     }
 
     public void minionSummonedEvent(PlayerSide thisMinionPlayerSide, PlayerSide summonedMinionPlayerSide, Minion summonedMinion, HearthTreeNode boardState) {

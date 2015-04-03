@@ -19,7 +19,6 @@ public class BloodKnight extends Minion implements MinionUntargetableBattlecry {
             HearthTreeNode boardState,
             boolean singleRealizationOnly
         ) {
-        HearthTreeNode toRet = boardState;
         for (Minion minion : boardState.data_.getAllMinions()) {
             if (minion != this && minion.getDivineShield()) {
                 minion.setDivineShield(false);
@@ -27,6 +26,6 @@ public class BloodKnight extends Minion implements MinionUntargetableBattlecry {
                 this.setAttack((byte)(this.getAttack() + 3));
             }
         }
-        return toRet;
+        return boardState;
     }
 }

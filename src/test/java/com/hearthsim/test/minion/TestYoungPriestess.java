@@ -1,7 +1,5 @@
 package com.hearthsim.test.minion;
 
-import java.util.List;
-
 import com.hearthsim.Game;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.concrete.BoulderfistOgre;
@@ -16,6 +14,8 @@ import com.hearthsim.util.HearthActionBoardPair;
 import com.hearthsim.util.tree.HearthTreeNode;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -125,7 +125,6 @@ public class TestYoungPriestess {
 
         BoardModel resBoard1 = Game.endTurn(resBoard0);
         currentPlayer = resBoard1.modelForSide(PlayerSide.CURRENT_PLAYER);
-        waitingPlayer = resBoard1.modelForSide(PlayerSide.WAITING_PLAYER);
 
         log.info("Raid Leader Health = " + currentPlayer.getMinions().get(1).getHealth());
         log.info("Boulderfist Ogre Health = " + currentPlayer.getMinions().get(2).getHealth());

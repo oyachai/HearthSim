@@ -20,7 +20,6 @@ class BloodImpSpec extends CardSpec {
         def minionMana = 2;
         def attack = 5;
         def health0 = 3;
-        def health1 = 7;
 
         def commonField = [
                 [mana: minionMana, attack: attack, maxHealth: health0], //todo: attack may be irrelevant here

@@ -3,8 +3,8 @@ package com.hearthsim.card.minion.concrete;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionTargetableBattlecry;
-import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.CharacterFilterTargetedBattlecry;
+import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -23,12 +23,11 @@ public class CrazedAlchemist extends Minion implements MinionTargetableBattlecry
         @Override
         public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
             Minion targetMinion = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
-            HearthTreeNode toRet = boardState;
             byte newHealth = targetMinion.getTotalAttack();
             byte newAttack = targetMinion.getTotalHealth();
             targetMinion.setAttack(newAttack);
             targetMinion.setHealth(newHealth);
-            return toRet;
+            return boardState;
         }
     };
 

@@ -1,6 +1,5 @@
 package com.hearthsim.card;
 
-import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -17,5 +16,5 @@ public interface CardPlayBeginInterface {
      */
     public HearthTreeNode onCardPlayBegin(PlayerSide thisCardPlayerSide, PlayerSide cardUserPlayerSide, Card usedCard,
             HearthTreeNode boardState, boolean singleRealizationOnly)
-            throws HSException;
+    ;
 }

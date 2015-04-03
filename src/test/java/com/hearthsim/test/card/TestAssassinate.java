@@ -1,27 +1,24 @@
 package com.hearthsim.test.card;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
-import com.hearthsim.model.PlayerModel;
-import org.junit.Before;
-import org.junit.Test;
-
 import com.hearthsim.card.Card;
-import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.concrete.Assassinate;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class TestAssassinate {
 
     private HearthTreeNode board;
     private PlayerModel currentPlayer;
-    private PlayerModel waitingPlayer;
 
     private static final byte mana = 2;
     private static final byte attack0 = 2;
@@ -32,7 +29,6 @@ public class TestAssassinate {
     public void setup() throws HSException {
         board = new HearthTreeNode(new BoardModel());
         currentPlayer = board.data_.getCurrentPlayer();
-        waitingPlayer = board.data_.getWaitingPlayer();
 
         Minion minion0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
         Minion minion1 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
@@ -56,8 +52,6 @@ public class TestAssassinate {
         for (int index = 0; index < 10; ++index) {
             cards[index] = new TheCoin();
         }
-
-        Deck deck = new Deck(cards);
 
         Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode res;
@@ -86,8 +80,6 @@ public class TestAssassinate {
             cards[index] = new TheCoin();
         }
 
-        Deck deck = new Deck(cards);
-
         Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode res;
 
@@ -114,8 +106,6 @@ public class TestAssassinate {
         for (int index = 0; index < 10; ++index) {
             cards[index] = new TheCoin();
         }
-
-        Deck deck = new Deck(cards);
 
         Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode res;

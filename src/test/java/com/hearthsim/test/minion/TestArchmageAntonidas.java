@@ -95,7 +95,7 @@ public class TestArchmageAntonidas {
         // Use a spell now... p0 should get a Fireball
         Card cardToUse = new HolySmite();
         currentPlayer.placeCardHand(cardToUse);
-        ret = cardToUse.useOn(PlayerSide.WAITING_PLAYER, 1, ret);
+        cardToUse.useOn(PlayerSide.WAITING_PLAYER, 1, ret);
 
         assertEquals(currentPlayer.getHand().size(), 1);
         assertEquals(currentPlayer.getNumMinions(), 3);
@@ -123,7 +123,7 @@ public class TestArchmageAntonidas {
         waitingPlayer = flp.data_.getWaitingPlayer();
         assertEquals(currentPlayer.getHand().size(), 1);
 
-        ret = cardToUse2.useOn(PlayerSide.WAITING_PLAYER, 1, flp);
+        cardToUse2.useOn(PlayerSide.WAITING_PLAYER, 1, flp);
 
         assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 1);

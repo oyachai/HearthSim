@@ -2,24 +2,13 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.event.CharacterFilter;
-import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.CharacterFilterTargetedSpell;
+import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.effect.CardEffectCharacterDraw;
 
 public class Sprint extends SpellCard {
 
     private static final CardEffectCharacter effect = new CardEffectCharacterDraw(4);
-
-    /**
-     * Constructor
-     *
-     * @param hasBeenUsed Whether the card has already been used or not
-     */
-    @Deprecated
-    public Sprint(boolean hasBeenUsed) {
-        this();
-        this.hasBeenUsed = hasBeenUsed;
-    }
 
     /**
      * Constructor

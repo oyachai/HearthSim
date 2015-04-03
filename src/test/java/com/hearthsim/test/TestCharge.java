@@ -1,10 +1,5 @@
 package com.hearthsim.test;
 
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Before;
-import org.junit.Test;
-
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
@@ -14,6 +9,10 @@ import com.hearthsim.player.playercontroller.BoardScorer;
 import com.hearthsim.util.factory.BoardStateFactoryBase;
 import com.hearthsim.util.factory.DepthBoardStateFactory;
 import com.hearthsim.util.tree.HearthTreeNode;
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.junit.Assert.assertTrue;
 
 public class TestCharge {
 
@@ -71,7 +70,7 @@ public class TestCharge {
         BoardStateFactoryBase factory = new DepthBoardStateFactory(null, null, 2000000000, true);
         HearthTreeNode tree = new HearthTreeNode(board);
         try {
-            tree = factory.doMoves(tree, scoreFunc);
+            factory.doMoves(tree, scoreFunc);
         } catch(HSException e) {
             e.printStackTrace();
             assertTrue(false);
@@ -88,7 +87,7 @@ public class TestCharge {
         BoardStateFactoryBase factory = new DepthBoardStateFactory(null, null, true);
         HearthTreeNode tree = new HearthTreeNode(board);
         try {
-            tree = factory.doMoves(tree, scoreFunc);
+            factory.doMoves(tree, scoreFunc);
         } catch(HSException e) {
             e.printStackTrace();
             assertTrue(false);

@@ -26,10 +26,10 @@ public class HearthAction {
 
     public final Verb verb_;
 
-    public final PlayerSide actionPerformerPlayerSide;
-    public final int cardOrCharacterIndex_;
+    private final PlayerSide actionPerformerPlayerSide;
+    private final int cardOrCharacterIndex_;
 
-    public final PlayerSide targetPlayerSide;
+    private final PlayerSide targetPlayerSide;
     public final int targetCharacterIndex_;
 
     public HearthAction(Verb verb) {

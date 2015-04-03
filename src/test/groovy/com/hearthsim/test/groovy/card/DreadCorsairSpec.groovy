@@ -17,11 +17,6 @@ class DreadCorsairSpec extends CardSpec {
 
     def setup() {
 
-        def minionMana = 2;
-        def attack = 5;
-        def health0 = 3;
-        def health1 = 7;
-
         startingBoard = new BoardModelBuilder().make {
             currentPlayer {
                 hand([DreadCorsair, FieryWarAxe])
@@ -60,7 +55,7 @@ class DreadCorsairSpec extends CardSpec {
         def ret = theCard.useOn(CURRENT_PLAYER, target, root, null, null)
         
         def dreadCorsair = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret2 = dreadCorsair.useOn(CURRENT_PLAYER, target, root, null, null)
+        dreadCorsair.useOn(CURRENT_PLAYER, target, root, null, null)
         
         expect:
         assertFalse(ret == null);

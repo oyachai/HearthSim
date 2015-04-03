@@ -21,13 +21,12 @@ public class AncientMage extends Minion implements MinionUntargetableBattlecry {
             HearthTreeNode boardState,
             boolean singleRealizationOnly
         ) {
-        HearthTreeNode toRet = boardState;
-        PlayerModel currentPlayer = toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+        PlayerModel currentPlayer = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
 
         int thisMinionIndex = currentPlayer.getMinions().indexOf(this);
         for (Minion minion : currentPlayer.getMinionsAdjacentToCharacter(thisMinionIndex + 1)) {
             minion.addSpellDamage((byte)1);
         }
-        return toRet;
+        return boardState;
     }
 }

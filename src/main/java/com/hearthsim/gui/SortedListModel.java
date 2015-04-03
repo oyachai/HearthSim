@@ -1,7 +1,6 @@
 package com.hearthsim.gui;
 
 import javax.swing.*;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -13,7 +12,7 @@ public class SortedListModel<E extends Comparable> extends AbstractListModel<E> 
     ArrayList<E> model; //can't use SortedSet... we need to support duplicates
 
     public SortedListModel() {
-        model = new ArrayList<E>();
+        model = new ArrayList<>();
     }
 
     @Override

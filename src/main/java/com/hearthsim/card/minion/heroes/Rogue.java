@@ -4,7 +4,6 @@ import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.weapon.concrete.WickedKnife;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
-import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -30,8 +29,7 @@ public class Rogue extends Hero {
         PlayerSide targetPlayerSide,
         Minion targetMinion,
         HearthTreeNode boardState,
-        boolean singleRealizationOnly)
-        throws HSException {
+        boolean singleRealizationOnly) {
         HearthTreeNode toRet = boardState;
         if (targetMinion.isHero() && targetPlayerSide == PlayerSide.CURRENT_PLAYER) {
             this.hasBeenUsed = true;

@@ -9,7 +9,6 @@ import com.hearthsim.card.spellcard.SpellRandomInterface;
 import com.hearthsim.event.CharacterFilter;
 import com.hearthsim.event.CharacterFilterSummon;
 import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -56,7 +55,7 @@ public class AnimalCompanion extends SpellCard implements SpellRandomInterface {
      * @return The boardState is manipulated and returned
      */
     @Override
-    public Collection<HearthTreeNode> createChildren(PlayerSide originSide, int originIndex, HearthTreeNode boardState) throws HSException {
+    public Collection<HearthTreeNode> createChildren(PlayerSide originSide, int originIndex, HearthTreeNode boardState) {
         HearthTreeNode newState;
         ArrayList<HearthTreeNode> children = new ArrayList<>();
         for (Minion minion : new Minion[]{new Huffer(), new Leokk(), new Misha()}) {

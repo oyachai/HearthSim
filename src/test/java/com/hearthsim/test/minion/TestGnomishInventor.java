@@ -1,7 +1,5 @@
 package com.hearthsim.test.minion;
 
-import java.util.List;
-
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
@@ -19,6 +17,8 @@ import com.hearthsim.util.tree.HearthTreeNode;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class TestGnomishInventor {
@@ -27,7 +27,6 @@ public class TestGnomishInventor {
     private PlayerModel currentPlayer;
     private PlayerModel waitingPlayer;
 
-    private Deck deck;
     private static final byte mana = 2;
     private static final byte attack0 = 5;
     private static final byte health0 = 3;
@@ -40,7 +39,7 @@ public class TestGnomishInventor {
             cards[index] = new BloodfenRaptor();
         }
 
-        deck = new Deck(cards);
+        Deck deck = new Deck(cards);
         PlayerModel playerModel0 = new PlayerModel((byte)0, "player0", new TestHero(), deck);
         PlayerModel playerModel1 = new PlayerModel((byte)1, "player1", new TestHero(), deck);
 
@@ -58,8 +57,6 @@ public class TestGnomishInventor {
 
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion1_0);
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion1_1);
-
-        deck = new Deck(cards);
 
         Minion fb = new GnomishInventor();
         currentPlayer.placeCardHand(fb);

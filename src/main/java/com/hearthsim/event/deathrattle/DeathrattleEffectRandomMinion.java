@@ -2,8 +2,8 @@ package com.hearthsim.event.deathrattle;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.CharacterFilterUntargetedDeathrattle;
+import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
@@ -14,8 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DeathrattleEffectRandomMinion extends DeathrattleAction {
-    private CardEffectCharacter effect;
-    private CharacterFilterUntargetedDeathrattle filter;
+    private final CardEffectCharacter effect;
+    private final CharacterFilterUntargetedDeathrattle filter;
 
     public DeathrattleEffectRandomMinion(CardEffectCharacter effect, CharacterFilterUntargetedDeathrattle filter) {
         this.effect = effect;

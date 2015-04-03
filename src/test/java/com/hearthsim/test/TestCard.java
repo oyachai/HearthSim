@@ -1,11 +1,10 @@
 package com.hearthsim.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-
+import com.hearthsim.card.Card;
 import org.junit.Test;
 
-import com.hearthsim.card.Card;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 public class TestCard {
     @Test

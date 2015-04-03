@@ -6,7 +6,6 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.effect.CardEffectCharacterBuffTemp;
-import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -19,8 +18,7 @@ public class ManaAddict extends Minion implements CardPlayBeginInterface {
     }
 
     public HearthTreeNode onCardPlayBegin(PlayerSide thisCardPlayerSide, PlayerSide cardUserPlayerSide, Card usedCard,
-            HearthTreeNode boardState, boolean singleRealizationOnly)
-            throws HSException {
+            HearthTreeNode boardState, boolean singleRealizationOnly) {
         if (cardUserPlayerSide == thisCardPlayerSide && usedCard instanceof SpellCard) {
             ManaAddict.effect.applyEffect(cardUserPlayerSide, usedCard, thisCardPlayerSide, this, boardState);
         }

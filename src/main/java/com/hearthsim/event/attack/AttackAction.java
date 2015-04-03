@@ -2,13 +2,13 @@ package com.hearthsim.event.attack;
 
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 /**
  * Actions (events) triggered by attacking
  *
  */
+@Deprecated
 public abstract class AttackAction {
 
     /**
@@ -20,15 +20,13 @@ public abstract class AttackAction {
      * @param attackedMinion
      * @param boardState
      * @return
-     * @throws HSInvalidPlayerIndexException
      */
-    public HearthTreeNode performAction(
-            int attackingPlayerIndex,
-            Minion attackingMinion,
-            int attackedPlayerIndex,
-            Minion attackedMinion,
-            HearthTreeNode boardState)
-    throws HSInvalidPlayerIndexException {
+    protected HearthTreeNode performAction(
+        int attackingPlayerIndex,
+        Minion attackingMinion,
+        int attackedPlayerIndex,
+        Minion attackedMinion,
+        HearthTreeNode boardState) {
         return boardState;
     }
 
@@ -40,8 +38,7 @@ public abstract class AttackAction {
         Minion attackedMinion,
         HearthTreeNode boardState,
         Deck deckPlayer0,
-        Deck deckPlayer1)
-        throws HSInvalidPlayerIndexException {
+        Deck deckPlayer1) {
         return this.performAction(attackingPlayerIndex, attackingMinion, attackedPlayerIndex, attackedMinion, boardState);
     }
 }

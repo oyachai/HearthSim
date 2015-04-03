@@ -1,7 +1,5 @@
 package com.hearthsim.util.factory;
 
-import java.util.ArrayList;
-
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Minion;
@@ -12,9 +10,11 @@ import com.hearthsim.util.HearthAction;
 import com.hearthsim.util.HearthAction.Verb;
 import com.hearthsim.util.tree.HearthTreeNode;
 
+import java.util.ArrayList;
+
 public class SparseChildNodeCreator extends ChildNodeCreatorBase {
 
-    protected final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
+    private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
 
     public SparseChildNodeCreator(Deck deckPlayer0, Deck deckPlayer1) {
         super(deckPlayer0, deckPlayer1);
@@ -22,12 +22,12 @@ public class SparseChildNodeCreator extends ChildNodeCreatorBase {
 
     @Override
     public ArrayList<HearthTreeNode> createPlayCardChildren(HearthTreeNode boardStateNode) throws HSException {
-        ArrayList<HearthTreeNode> nodes = new ArrayList<HearthTreeNode>();
+        ArrayList<HearthTreeNode> nodes = new ArrayList<>();
 
-        Minion targetMinion = null;
-        Card card = null;
-        Card copiedCard = null;
-        HearthTreeNode newState = null;
+        Minion targetMinion;
+        Card card;
+        Card copiedCard;
+        HearthTreeNode newState;
 
         PlayerModel currentPlayer = boardStateNode.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         PlayerModel waitingPlayer = boardStateNode.data_.modelForSide(PlayerSide.WAITING_PLAYER);

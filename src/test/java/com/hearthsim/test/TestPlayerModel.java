@@ -1,14 +1,5 @@
 package com.hearthsim.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-
-import java.util.Arrays;
-import java.util.List;
-
-import org.junit.Before;
-import org.junit.Test;
-
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.concrete.BloodfenRaptor;
@@ -17,6 +8,14 @@ import com.hearthsim.card.minion.heroes.Warlock;
 import com.hearthsim.card.spellcard.concrete.HolySmite;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.model.PlayerModel;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.util.Arrays;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 public class TestPlayerModel {
 
@@ -26,9 +25,6 @@ public class TestPlayerModel {
 
     private Deck deck0;
     private Deck deck1;
-
-    private Deck deckRandom0;
-    private Deck deckRandom1;
 
     @Before
     public void setup() {
@@ -66,8 +62,8 @@ public class TestPlayerModel {
                 cards1[i] = CARD_LIST.get(indx1);
             }
 
-            deckRandom0 = new Deck(cards0);
-            deckRandom1 = new Deck(cards1);
+            Deck deckRandom0 = new Deck(cards0);
+            Deck deckRandom1 = new Deck(cards1);
 
             PlayerModel player0 = new PlayerModel((byte)0, "player0", new Priest(), deckRandom0);
             PlayerModel player1 = new PlayerModel((byte)0, "player0", new Priest(), deckRandom1);

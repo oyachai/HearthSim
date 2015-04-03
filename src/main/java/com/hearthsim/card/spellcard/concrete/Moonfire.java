@@ -13,9 +13,4 @@ public class Moonfire extends SpellDamage {
         this();
         this.hasBeenUsed = hasBeenUsed;
     }
-
-    @Override
-    public SpellDamage deepCopy() {
-        return new Moonfire(this.hasBeenUsed);
-    }
 }

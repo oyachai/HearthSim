@@ -1,22 +1,21 @@
 package com.hearthsim.results;
 
-import java.util.List;
-
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.HearthActionBoardPair;
-
 import org.json.JSONObject;
+
+import java.util.List;
 
 public class GameSimpleRecord implements GameRecord {
 
-    int maxTurns_;
-    byte[][][] numMinions_;
-    byte[][][] numCards_;
-    byte[][][] heroHealth_;
-    byte[][][] heroArmor_;
+    final int maxTurns_;
+    final byte[][][] numMinions_;
+    final byte[][][] numCards_;
+    final byte[][][] heroHealth_;
+    final byte[][][] heroArmor_;
 
     public GameSimpleRecord() {
         this(50);

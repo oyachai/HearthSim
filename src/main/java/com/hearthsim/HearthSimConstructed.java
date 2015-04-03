@@ -3,7 +3,6 @@ package com.hearthsim;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.exception.HSException;
-import com.hearthsim.exception.HSInvalidCardException;
 import com.hearthsim.exception.HSInvalidParamFileException;
 import com.hearthsim.exception.HSParamNotFoundException;
 import com.hearthsim.io.DeckListFile;
@@ -23,10 +22,10 @@ import java.nio.file.Path;
  */
 public class HearthSimConstructed extends HearthSimBase {
 
-    Path deckListFilePath0_;
-    Path deckListFilePath1_;
+    private Path deckListFilePath0_;
+    private Path deckListFilePath1_;
 
-    HearthSimConstructed(Path setupFilePath) throws IOException, HSInvalidCardException, HSInvalidParamFileException, HSParamNotFoundException {
+    HearthSimConstructed(Path setupFilePath) throws IOException, HSInvalidParamFileException, HSParamNotFoundException {
         super(setupFilePath);
         ParamFile masterParam = new ParamFile(setupFilePath);
         deckListFilePath0_ = FileSystems.getDefault().getPath(rootPath_.toString(), masterParam.getString("deckListFilePath0"));

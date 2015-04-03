@@ -2,10 +2,10 @@ package com.hearthsim.card.weapon.concrete;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.weapon.WeaponCard;
-import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectCharacterBuffDelta;
 import com.hearthsim.event.CharacterFilterUntargetedDeathrattle;
 import com.hearthsim.event.deathrattle.DeathrattleEffectRandomMinion;
+import com.hearthsim.event.effect.CardEffectCharacter;
+import com.hearthsim.event.effect.CardEffectCharacterBuffDelta;
 
 public class Powermace extends WeaponCard {
     private final static CardEffectCharacter powermaceEffect = new CardEffectCharacterBuffDelta(2, 2);

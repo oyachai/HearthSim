@@ -23,7 +23,6 @@ public class TestNorthshireCleric {
     private PlayerModel currentPlayer;
     private PlayerModel waitingPlayer;
 
-    private Deck deck;
     private static final byte mana = 2;
     private static final byte attack0 = 2;
     private static final byte health0 = 3;
@@ -36,7 +35,7 @@ public class TestNorthshireCleric {
             cards[index] = new TheCoin();
         }
 
-        deck = new Deck(cards);
+        Deck deck = new Deck(cards);
         board = new HearthTreeNode(new BoardModel(deck, deck));
         currentPlayer = board.data_.getCurrentPlayer();
         waitingPlayer = board.data_.getWaitingPlayer();
@@ -162,7 +161,8 @@ public class TestNorthshireCleric {
         currentPlayer.placeCardHand(fb2);
 
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 2, board);
+        HearthTreeNode ret;
+        theCard.useOn(PlayerSide.CURRENT_PLAYER, 2, board);
 
         theCard = currentPlayer.getHand().get(0);
         ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 3, board);

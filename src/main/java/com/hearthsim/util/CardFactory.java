@@ -25,16 +25,10 @@ public class CardFactory {
                 Constructor<?> ctor = clazz.getConstructor();
                 Object object = ctor.newInstance();
                 return (Card)object;
-            } catch (ClassNotFoundException e2) {
-                throw new HSInvalidCardException("Unknown card: " + cleanedString);
-            } catch (NoSuchMethodException | SecurityException | InvocationTargetException e2) {
-                throw new HSInvalidCardException("Unknown card: " + cleanedString);
-            } catch (InstantiationException | IllegalAccessException | IllegalArgumentException e2) {
+            } catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InvocationTargetException | InstantiationException | IllegalAccessException | IllegalArgumentException e2) {
                 throw new HSInvalidCardException("Unknown card: " + cleanedString);
             }
-        } catch (NoSuchMethodException | SecurityException | InvocationTargetException e) {
-            throw new HSInvalidCardException("Unknown card: " + cleanedString);
-        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException e) {
+        } catch (NoSuchMethodException | SecurityException | InvocationTargetException | InstantiationException | IllegalAccessException | IllegalArgumentException e) {
             throw new HSInvalidCardException("Unknown card: " + cleanedString);
         }
     }

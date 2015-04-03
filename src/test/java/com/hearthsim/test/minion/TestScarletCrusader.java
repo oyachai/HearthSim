@@ -107,7 +107,7 @@ public class TestScarletCrusader {
         //------------------------------------------------------------
         Minion m0 = currentPlayer.getMinions().get(2);
         m0.hasAttacked(false);
-        ret = m0.attack(PlayerSide.WAITING_PLAYER, 0, board, false);
+        m0.attack(PlayerSide.WAITING_PLAYER, 0, board, false);
 
         assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 3);
@@ -138,7 +138,7 @@ public class TestScarletCrusader {
         //------------------------------------------------------------
         Minion m1 = currentPlayer.getMinions().get(2);
         m1.hasAttacked(false);
-        ret = m1.attack(PlayerSide.WAITING_PLAYER, 3, board, false);
+        m1.attack(PlayerSide.WAITING_PLAYER, 3, board, false);
 
         assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 3);
@@ -169,7 +169,7 @@ public class TestScarletCrusader {
         //------------------------------------------------------------
         Minion m2 = currentPlayer.getMinions().get(1);
         m2.hasAttacked(false);
-        ret = m2.attack(PlayerSide.WAITING_PLAYER, 1, board, false);
+        m2.attack(PlayerSide.WAITING_PLAYER, 1, board, false);
 
         assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 3);
@@ -200,7 +200,7 @@ public class TestScarletCrusader {
         //------------------------------------------------------------
         Minion m3 = currentPlayer.getMinions().get(2);
         m3.hasAttacked(false);
-        ret = m3.attack(PlayerSide.WAITING_PLAYER, 3, board, false);
+        m3.attack(PlayerSide.WAITING_PLAYER, 3, board, false);
 
         assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 2);

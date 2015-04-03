@@ -1,10 +1,9 @@
 package com.hearthsim.util.tree;
 
-import java.util.ArrayList;
-
-import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.HearthAction;
+
+import java.util.ArrayList;
 
 /**
  * Random effect node
@@ -16,17 +15,17 @@ import com.hearthsim.util.HearthAction;
  */
 public class RandomEffectNode extends StopNode {
 
-    private ArrayList<Double> childWeighting_;
+    private final ArrayList<Double> childWeighting_;
 
     public RandomEffectNode(HearthTreeNode origNode,
                             HearthAction action) {
         super(origNode);
         this.setAction(action);
-        childWeighting_ = new ArrayList<Double>();
+        childWeighting_ = new ArrayList<>();
     }
 
     @Override
-    public HearthTreeNode finishAllEffects() throws HSException {
+    public HearthTreeNode finishAllEffects() {
         if (this.numChildren() > 0) {
             return this.getChildren().get((int)(Math.random() * this.numChildren()));
         }
@@ -38,7 +37,7 @@ public class RandomEffectNode extends StopNode {
     public HearthTreeNode addChild(HearthTreeNode node) {
         node.setAction(new HearthAction(HearthAction.Verb.RNG, PlayerSide.CURRENT_PLAYER, this.numChildren()));
         HearthTreeNode toRet = super.addChild(node);
-        childWeighting_.add(new Double(1.0));
+        childWeighting_.add(1.0);
         return toRet;
     }
 
@@ -56,7 +55,7 @@ public class RandomEffectNode extends StopNode {
     public double weightedAverageScore() {
         double toRet = 0.0;
         for (int index = 0; index < children_.size(); ++index) {
-            toRet += childWeighting_.get(index).doubleValue() * children_.get(index).getScore();
+            toRet += childWeighting_.get(index) * children_.get(index).getScore();
         }
         toRet = toRet / children_.size();
         toRet += this.getManaBenefit();
@@ -66,7 +65,7 @@ public class RandomEffectNode extends StopNode {
     public double weightedAverageBestChildScore() {
         double toRet = 0.0;
         for (int index = 0; index < children_.size(); ++index) {
-            toRet += childWeighting_.get(index).doubleValue() * children_.get(index).getBestChildScore();
+            toRet += childWeighting_.get(index) * children_.get(index).getBestChildScore();
         }
         toRet = toRet / children_.size();
         toRet += this.getManaBenefit();

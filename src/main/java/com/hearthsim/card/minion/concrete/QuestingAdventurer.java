@@ -5,7 +5,6 @@ import com.hearthsim.card.CardPlayBeginInterface;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.effect.CardEffectCharacterBuffDelta;
-import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -23,8 +22,7 @@ public class QuestingAdventurer extends Minion implements CardPlayBeginInterface
             PlayerSide cardUserPlayerSide,
             Card usedCard,
             HearthTreeNode boardState,
-            boolean singleRealizationOnly)
-    throws HSException {
+            boolean singleRealizationOnly) {
         if (usedCard != this && !this.isInHand() && thisCardPlayerSide == cardUserPlayerSide) {
             return QuestingAdventurer.effect.applyEffect(cardUserPlayerSide, usedCard, thisCardPlayerSide, this, boardState);
         }

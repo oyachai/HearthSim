@@ -1,14 +1,14 @@
 package com.hearthsim.util.factory;
 
-import java.util.ArrayList;
-import java.util.TreeSet;
-
 import com.hearthsim.card.Deck;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.player.playercontroller.BoardScorer;
 import com.hearthsim.util.tree.HearthTreeNode;
 import com.hearthsim.util.tree.RandomEffectNode;
 import com.hearthsim.util.tree.StopNode;
+
+import java.util.ArrayList;
+import java.util.TreeSet;
 
 public class BreadthBoardStateFactory extends BoardStateFactoryBase {
 
@@ -20,11 +20,11 @@ public class BreadthBoardStateFactory extends BoardStateFactoryBase {
     public void addChildLayers(HearthTreeNode boardStateNode, int maxDepth) throws HSException {
 
         // Saving seen states lets us prune duplicate states. This saves us a ton of time when the trees get deep.
-        TreeSet<Integer> states = new TreeSet<Integer>();
+        TreeSet<Integer> states = new TreeSet<>();
 
         // We need to process things by batch so we can track how deep we've gone.
-        ArrayList<HearthTreeNode> currentDepth = new ArrayList<HearthTreeNode>();
-        ArrayList<HearthTreeNode> nextDepth = new ArrayList<HearthTreeNode>();
+        ArrayList<HearthTreeNode> currentDepth = new ArrayList<>();
+        ArrayList<HearthTreeNode> nextDepth = new ArrayList<>();
         currentDepth.add(boardStateNode);
 
         // Debugging variables for tracking loop complications
@@ -35,7 +35,7 @@ public class BreadthBoardStateFactory extends BoardStateFactoryBase {
         int stateCompareCount = 0;
         int dupeSkip = 0;
 
-        HearthTreeNode current = null;
+        HearthTreeNode current;
         while(maxDepth > 0) {
             while(!currentDepth.isEmpty()) {
                 processedCount++;
@@ -47,11 +47,11 @@ public class BreadthBoardStateFactory extends BoardStateFactoryBase {
                 }
 
                 // Try to use existing children if possible. This can happen after an auto-populating node (e.g., Battlecries)
-                ArrayList<HearthTreeNode> children = null;
+                ArrayList<HearthTreeNode> children;
                 if (current.isLeaf()) {
                     children = this.createChildren(current);
                 } else {
-                    children = new ArrayList<HearthTreeNode>(current.getChildren());
+                    children = new ArrayList<>(current.getChildren());
                 }
                 current.clearChildren(); // TODO suboptimal but we need to remove existing children so we can check for duplicates
 
@@ -92,11 +92,7 @@ public class BreadthBoardStateFactory extends BoardStateFactoryBase {
                 + " childCount=" + childCount + " compareCount=" + stateCompareCount + " dupeSkip=" + dupeSkip);
     }
 
-    public void processScoresForTree(HearthTreeNode root, BoardScorer ai) {
-        this.processScoresForTree(root, ai, false);
-    }
-
-    public void processScoresForTree(HearthTreeNode root, BoardScorer ai, boolean scoringPruning) {
+    private void processScoresForTree(HearthTreeNode root, BoardScorer ai, boolean scoringPruning) {
         double score = ai.boardScore(root.data_);
         root.setScore(score);
 
@@ -135,11 +131,7 @@ public class BreadthBoardStateFactory extends BoardStateFactoryBase {
         return root;
     }
 
-    public void breadthFirstSearch(HearthTreeNode root, BoardScorer ai, boolean prune) throws HSException {
-        this.breadthFirstSearch(root, ai, 100, prune);
-    }
-
-    public void breadthFirstSearch(HearthTreeNode root, BoardScorer ai, int maxDepth, boolean prune) throws HSException {
+    protected void breadthFirstSearch(HearthTreeNode root, BoardScorer ai, int maxDepth, boolean prune) throws HSException {
         this.addChildLayers(root, maxDepth);
         this.processScoresForTree(root, ai, prune);
     }

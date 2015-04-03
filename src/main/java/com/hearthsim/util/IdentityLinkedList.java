@@ -83,7 +83,7 @@ public class IdentityLinkedList<E>
     extends AbstractSequentialList<E>
     implements Deque<E> {
 
-    private transient Entry<E> header = new Entry<E>(null, null, null);
+    private transient Entry<E> header = new Entry<>(null, null, null);
     private transient int size = 0;
 
     /**
@@ -286,7 +286,7 @@ public class IdentityLinkedList<E>
         Entry<E> predecessor = successor.previous;
         for (int i=0; i<numNew; i++) {
             @SuppressWarnings("unchecked")
-            Entry<E> e = new Entry<E>((E)a[i], successor, predecessor);
+            Entry<E> e = new Entry<>((E)a[i], successor, predecessor);
             predecessor.next = e;
             predecessor = e;
         }
@@ -795,7 +795,7 @@ public class IdentityLinkedList<E>
     }
 
     private Entry<E> addBefore(E e, Entry<E> entry) {
-        Entry<E> newEntry = new Entry<E>(e, entry, entry.previous);
+        Entry<E> newEntry = new Entry<>(e, entry, entry.previous);
         newEntry.previous.next = newEntry;
         newEntry.next.previous = newEntry;
         size++;

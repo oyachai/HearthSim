@@ -25,11 +25,6 @@ public class MindBlast extends SpellDamage {
         this.hasBeenUsed = hasBeenUsed;
     }
 
-    @Override
-    public SpellDamage deepCopy() {
-        return new MindBlast(this.hasBeenUsed);
-    }
-
     /**
      *
      * Use the card on the given target
@@ -49,7 +44,6 @@ public class MindBlast extends SpellDamage {
             Minion targetMinion,
             HearthTreeNode boardState, boolean singleRealizationOnly)
         throws HSException {
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
-        return toRet;
+        return super.use_core(side, targetMinion, boardState, singleRealizationOnly);
     }
 }

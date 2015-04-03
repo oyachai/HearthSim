@@ -16,11 +16,6 @@ class GruulSpec extends CardSpec {
 
     def setup() {
 
-        def minionMana = 2;
-        def attack = 5;
-        def health0 = 3;
-        def health1 = 7;
-
         startingBoard = new BoardModelBuilder().make {
             currentPlayer {
                 hand([Gruul])

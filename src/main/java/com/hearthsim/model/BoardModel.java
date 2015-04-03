@@ -7,11 +7,8 @@ import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionWithAura;
 import com.hearthsim.card.minion.heroes.TestHero;
-import com.hearthsim.exception.HSException;
-import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.IdentityLinkedList;
-
 import org.json.JSONObject;
 import org.slf4j.MDC;
 
@@ -31,10 +28,10 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
     private final PlayerModel currentPlayer;
     private final PlayerModel waitingPlayer;
 
-    IdentityLinkedList<MinionPlayerPair> allMinionsFIFOList_;
+    private IdentityLinkedList<MinionPlayerPair> allMinionsFIFOList_;
 
     public class MinionPlayerPair {
-        private Minion minion;
+        private final Minion minion;
 
         private PlayerSide playerSide;
 
@@ -49,10 +46,6 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
 
         public PlayerSide getPlayerSide() {
             return playerSide;
-        }
-
-        public void setPlayerSide(PlayerSide playerSide) {
-            this.playerSide = playerSide;
         }
 
         @Override
@@ -77,8 +70,8 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
     }
 
     public class CharacterLocation {
-        private PlayerSide playerSide;
-        private int index;
+        private final PlayerSide playerSide;
+        private final int index;
 
         public CharacterLocation(PlayerSide playerSide, int index) {
             this.playerSide = playerSide;
@@ -93,6 +86,7 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
             return this.index;
         }
 
+        @SuppressWarnings("UnusedDeclaration")
         public JSONObject toJSON() {
             JSONObject json = new JSONObject();
 
@@ -111,7 +105,7 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
         private PlayerSide playerSide;
         private PlayerModel.CharacterIterator characterIterator;
 
-        private BoardModel model;
+        private final BoardModel model;
 
         public CharacterLocationIterator(BoardModel model) {
             this.model = model;
@@ -169,8 +163,8 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
         buildModel();
     }
 
-    public void buildModel() {
-        allMinionsFIFOList_ = new IdentityLinkedList<MinionPlayerPair>();
+    private void buildModel() {
+        allMinionsFIFOList_ = new IdentityLinkedList<>();
     }
 
     public PlayerModel modelForSide(PlayerSide side){
@@ -195,7 +189,7 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
         return this.allMinionsFIFOList_.size();
     }
 
-    public Card getCard_hand(PlayerSide playerSide, int index) throws HSInvalidPlayerIndexException {
+    public Card getCard_hand(PlayerSide playerSide, int index) {
         return modelForSide(playerSide).getHand().get(index);
     }
 
@@ -221,7 +215,6 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
      * @param playerSide
      * @param minion The minion to be placed on the board.
      * @param position The position to place the minion.  The new minion goes to the "left" (lower index) of the postinion index.
-     * @throws HSInvalidPlayerIndexException
      */
     public void placeMinion(PlayerSide playerSide, Minion minion, int position) {
         PlayerModel playerModel = modelForSide(playerSide);
@@ -243,7 +236,6 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
      *
      * @param playerSide
      * @param minion The minion to be placed on the board.  The minion is placed on the right-most space.
-     * @throws HSInvalidPlayerIndexException
      */
     public void placeMinion(PlayerSide playerSide, Minion minion) {
         this.placeMinion(playerSide, minion, this.modelForSide(playerSide).getMinions().size());
@@ -260,7 +252,7 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
         modelForSide(playerSide).getHand().remove(card);
     }
 
-    public int getNumCards_hand(PlayerSide playerSide) throws HSInvalidPlayerIndexException {
+    public int getNumCards_hand(PlayerSide playerSide) {
         return modelForSide(playerSide).getHand().size();
     }
 
@@ -273,7 +265,6 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
      *
      * @param deck Deck from which to draw.
      * @param numCards Number of cards to draw.
-     * @throws HSInvalidPlayerIndexException
      */
     public void drawCardFromWaitingPlayerDeck(int numCards) {
         //This minion is an enemy minion.  Let's draw a card for the enemy.  No need to use a StopNode for enemy card draws.
@@ -289,9 +280,8 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
      *
      * @param deck Deck from which to draw.
      * @param numCards Number of cards to draw.
-     * @throws HSInvalidPlayerIndexException
      */
-    public void drawCardFromCurrentPlayerDeck(int numCards) throws HSInvalidPlayerIndexException {
+    public void drawCardFromCurrentPlayerDeck(int numCards) {
         for (int indx = 0; indx < numCards; ++indx) {
             this.getCurrentPlayer().drawNextCardFromDeck();
         }
@@ -315,7 +305,7 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
     }
 
     public boolean removeMinion(PlayerSide side, int minionIndex) {
-        return removeMinion(getMinion(side, minionIndex));
+        return removeMinion(this.getCharacter(side, minionIndex + 1));
     }
 
     //----------------------------------------------------------------------------
@@ -336,7 +326,7 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
      * @param side The PlayerSide of the minion
      * @param minion
      */
-    public void applyAuraOfMinion(PlayerSide side, Minion minion) {
+    private void applyAuraOfMinion(PlayerSide side, Minion minion) {
         if (minion instanceof MinionWithAura && !minion.isSilenced()) {
             EnumSet<AuraTargetType> targetTypes = ((MinionWithAura)minion).getAuraTargets();
             for (AuraTargetType targetType : targetTypes) {
@@ -365,7 +355,7 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
      * @param side The PlayerSide of the minion to apply the auras to
      * @param minion
      */
-    public void applyOtherMinionsAura(PlayerSide side, Minion minion) {
+    private void applyOtherMinionsAura(PlayerSide side, Minion minion) {
         for (Minion otherMinion : this.modelForSide(side).getMinions()) {
             if (otherMinion instanceof MinionWithAura &&
                     minion != otherMinion &&
@@ -417,17 +407,17 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
     //----------------------------------------------------------------------------
     //----------------------------------------------------------------------------
 
-    public boolean isAlive(PlayerSide playerSide) {
-        return modelForSide(playerSide).getHero().getHealth() > 0;
+    public boolean isDead(PlayerSide playerSide) {
+        return modelForSide(playerSide).getHero().getHealth() <= 0;
     }
 
     public boolean isLethalState() {
-        return !this.isAlive(PlayerSide.CURRENT_PLAYER) || !this.isAlive(PlayerSide.WAITING_PLAYER);
+        return this.isDead(PlayerSide.CURRENT_PLAYER) || this.isDead(PlayerSide.WAITING_PLAYER);
     }
 
     @SuppressWarnings("unused")
     public ArrayList<Integer> getAttackableMinions() {
-        ArrayList<Integer> toRet = new ArrayList<Integer>();
+        ArrayList<Integer> toRet = new ArrayList<>();
         boolean hasTaunt = false;
         for (final Minion minion : waitingPlayer.getMinions()) {
             hasTaunt = hasTaunt || minion.getTaunt();
@@ -589,7 +579,7 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
     }
 
     private String simpleString() {
-        StringBuffer stringBuffer = new StringBuffer();
+        StringBuilder stringBuffer = new StringBuilder();
         stringBuffer.append("[");
         stringBuffer.append("P0_health:").append(currentPlayer.getHero().getHealth()).append(", ");
         stringBuffer.append("P0_mana:").append(currentPlayer.getMana()).append(", ");
@@ -671,7 +661,7 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
     }
 
     @Deprecated
-    public void placeCard_hand(PlayerSide playerSide, Card card) throws HSInvalidPlayerIndexException {
+    public void placeCard_hand(PlayerSide playerSide, Card card) {
         card.isInHand(true);
         modelForSide(playerSide).getHand().add(card);
     }
@@ -732,12 +722,12 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
     }
 
     @Deprecated
-    public IdentityLinkedList<Minion> getMinions(PlayerSide side) throws HSInvalidPlayerIndexException {
+    public IdentityLinkedList<Minion> getMinions(PlayerSide side) {
         return modelForSide(side).getMinions();
     }
 
     @Deprecated
-    public Minion getMinionForCharacter(PlayerSide playerSide, int index) {
+    private Minion getMinionForCharacter(PlayerSide playerSide, int index) {
         PlayerModel playerModel = modelForSide(playerSide);
         return index == 0 ? playerModel.getHero() : playerModel.getMinions().get(index - 1);
     }
@@ -750,12 +740,12 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
      * @param playerSide
      */
     @Deprecated
-    public byte getSpellDamage(PlayerSide playerSide) throws HSInvalidPlayerIndexException {
+    public byte getSpellDamage(PlayerSide playerSide) {
         return modelForSide(playerSide).getSpellDamage();
     }
 
     @Deprecated
-    public void addOverload(PlayerSide playerSide, byte overloadToAdd) throws HSException {
+    public void addOverload(PlayerSide playerSide, byte overloadToAdd) {
         PlayerModel playerModel = modelForSide(playerSide);
         playerModel.setOverload((byte) (playerModel.getOverload() + overloadToAdd));
     }

@@ -1,6 +1,5 @@
 package com.hearthsim.card.minion;
 
-import com.hearthsim.card.Deck;
 import com.hearthsim.card.ImplementedCardList;
 import com.hearthsim.card.weapon.WeaponCard;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
@@ -12,15 +11,14 @@ import com.hearthsim.util.HearthAction;
 import com.hearthsim.util.HearthAction.Verb;
 import com.hearthsim.util.factory.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
-
 import org.json.JSONObject;
 
 public abstract class Hero extends Minion implements MinionSummonedInterface {
 
     protected static final byte HERO_ABILITY_COST = 2; // Assumed to be 2 for all heroes
 
-    protected WeaponCard weapon;
-    protected byte armor_;
+    private WeaponCard weapon;
+    private byte armor_;
 
     public Hero() {
         ImplementedCardList cardList = ImplementedCardList.getInstance();
@@ -42,20 +40,6 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
         } else {
             return weapon.getWeaponCharge();
         }
-    }
-
-    @Deprecated
-    public void setWeaponCharge(byte weaponCharge) {
-        if (weaponCharge <= 0) {
-            this.destroyWeapon();
-        } else {
-            weapon.setWeaponCharge(weaponCharge);
-        }
-    }
-
-    @Deprecated
-    public void useWeaponCharge() {
-        this.setWeaponCharge((byte) (this.getWeaponCharge() - 1));
     }
 
     public void addArmor(byte armor) {
@@ -134,28 +118,8 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
         return true;
     }
 
-    @Deprecated
     public final HearthTreeNode useHeroAbility(PlayerSide targetPlayerSide, Minion targetMinion,
-                                               HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
-        return this.useHeroAbility(targetPlayerSide, targetMinion, boardState, false);
-    }
-
-    @Deprecated
-    public final HearthTreeNode useHeroAbility(PlayerSide targetPlayerSide, int targetIndex,
-                                               HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
-        Minion targetMinion = boardState.data_.modelForSide(targetPlayerSide).getCharacter(targetIndex);
-        return this.useHeroAbility(targetPlayerSide, targetMinion, boardState);
-    }
-
-    @Deprecated
-    public final HearthTreeNode useHeroAbility(PlayerSide targetPlayerSide, Minion targetMinion,
-                                               HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly)
-        throws HSException {
-        return this.useHeroAbility(targetPlayerSide, targetMinion, boardState, singleRealizationOnly);
-    }
-
-    public final HearthTreeNode useHeroAbility(PlayerSide targetPlayerSide, Minion targetMinion,
-                                               HearthTreeNode boardState) throws HSException {
+                                               HearthTreeNode boardState) {
         return this.useHeroAbility(targetPlayerSide, targetMinion, boardState, false);
     }
 
@@ -173,8 +137,7 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
      * @param boardState
      * @return
      */
-    public final HearthTreeNode useHeroAbility(PlayerSide targetPlayerSide, Minion targetMinion, HearthTreeNode boardState, boolean singleRealizationOnly)
-        throws HSException {
+    public final HearthTreeNode useHeroAbility(PlayerSide targetPlayerSide, Minion targetMinion, HearthTreeNode boardState, boolean singleRealizationOnly) {
 
         if (!this.canBeUsedOn(targetPlayerSide, targetMinion, boardState.data_)) {
             return null;
@@ -193,12 +156,7 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
         return toRet;
     }
 
-    @Deprecated
-    public HearthTreeNode useHeroAbility_core(PlayerSide targetPlayerSide, Minion targetMinion, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealizationOnly) throws HSException {
-        return this.useHeroAbility_core(targetPlayerSide, targetMinion, boardState, singleRealizationOnly);
-    }
-
-    public abstract HearthTreeNode useHeroAbility_core(PlayerSide targetPlayerSide, Minion targetMinion, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException;
+    protected abstract HearthTreeNode useHeroAbility_core(PlayerSide targetPlayerSide, Minion targetMinion, HearthTreeNode boardState, boolean singleRealizationOnly);
 
     /**
      * Called when this minion takes damage
@@ -321,10 +279,9 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
 
     @Override
     public HearthTreeNode minionSummonEvent(PlayerSide thisMinionPlayerSide, PlayerSide summonedMinionPlayerSide, Minion summonedMinion, HearthTreeNode boardState) {
-        HearthTreeNode hearthTreeNode = boardState;
         if (weapon != null) {
             weapon.minionSummonedEvent(thisMinionPlayerSide, summonedMinionPlayerSide, summonedMinion, boardState);
         }
-        return hearthTreeNode;
+        return boardState;
     }
 }

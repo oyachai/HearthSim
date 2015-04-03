@@ -5,7 +5,6 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.heroes.TestHero;
 import com.hearthsim.event.HSSimulationEventListener;
-import com.hearthsim.exception.HSException;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
 
 import java.io.IOException;
@@ -40,7 +39,7 @@ public class HSSimulation {
     public HSSimulation(HSMainFrameModel model) {
         config_ = new SimulationConfig();
         model_ = model;
-        listeners_ = new ArrayList<HSSimulationEventListener>();
+        listeners_ = new ArrayList<>();
         hero0_ = new TestHero();
         hero1_ = new TestHero();
     }
@@ -52,7 +51,7 @@ public class HSSimulation {
             simulation_.addGameEndListener(model_);
             simulation_.run();
             this.fireFinishEvent();
-        } catch (HSException | IOException | InterruptedException e) {
+        } catch (IOException | InterruptedException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
             this.fireFinishEvent();

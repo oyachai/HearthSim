@@ -1,8 +1,5 @@
 package com.hearthsim;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.hearthsim.card.CardEndTurnInterface;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
@@ -20,30 +17,30 @@ import com.hearthsim.util.HearthActionBoardPair;
 import com.hearthsim.util.factory.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Game {
-        private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
+    private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
 
-        final static int maxTurns_ = 100;
+    private final static int maxTurns_ = 100;
 
-    BoardModel boardModel;
+    private BoardModel boardModel;
 
-    PlayerModel playerGoingFirst;
-    PlayerModel playerGoingSecond;
+    private PlayerModel playerGoingFirst;
 
-    ArtificialPlayer aiForPlayerGoingFirst;
-    ArtificialPlayer aiForPlayerGoingSecond;
+    private ArtificialPlayer aiForPlayerGoingFirst;
+    private ArtificialPlayer aiForPlayerGoingSecond;
 
-        public ArrayList<HearthActionBoardPair> gameHistory = new ArrayList<HearthActionBoardPair>();
+    public final ArrayList<HearthActionBoardPair> gameHistory = new ArrayList<>();
 
-        int curTurn_;
-
-        public Game(PlayerModel playerModel0, PlayerModel playerModel1, ArtificialPlayer ai0, ArtificialPlayer ai1) {
+    public Game(PlayerModel playerModel0, PlayerModel playerModel1, ArtificialPlayer ai0, ArtificialPlayer ai1) {
             this(playerModel0, playerModel1, ai0, ai1, false);
         }
 
         public Game(PlayerModel playerModel0, PlayerModel playerModel1, ArtificialPlayer ai0, ArtificialPlayer ai1, int firstPlayerId) {
             playerGoingFirst = playerModel0;
-        playerGoingSecond = playerModel1;
+            PlayerModel playerGoingSecond = playerModel1;
 
         aiForPlayerGoingFirst = ai0;
         aiForPlayerGoingSecond = ai1;
@@ -66,8 +63,6 @@ public class Game {
     }
 
     public GameResult runGame() throws HSException {
-        curTurn_ = 0;
-
         //the first player draws 3 cards
         boardModel.getCurrentPlayer().placeCardHand(0);
         boardModel.getCurrentPlayer().placeCardHand(1);
@@ -147,10 +142,10 @@ public class Game {
     }
 
     public GameResult checkGameOver(int turnCount, GameRecord record) {
-        if (!boardModel.isAlive(PlayerSide.CURRENT_PLAYER)) {
+        if (boardModel.isDead(PlayerSide.CURRENT_PLAYER)) {
             PlayerModel winner = boardModel.modelForSide(PlayerSide.WAITING_PLAYER);
             return new GameResult(playerGoingFirst.getPlayerId(), winner.getPlayerId(), turnCount + 1, record);
-        } else if (!boardModel.isAlive(PlayerSide.WAITING_PLAYER)) {
+        } else if (boardModel.isDead(PlayerSide.WAITING_PLAYER)) {
             PlayerModel winner = boardModel.modelForSide(PlayerSide.CURRENT_PLAYER);
             return new GameResult(playerGoingFirst.getPlayerId(), winner.getPlayerId(), turnCount + 1, record);
         }

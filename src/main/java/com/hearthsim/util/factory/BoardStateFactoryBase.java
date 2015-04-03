@@ -1,7 +1,5 @@
 package com.hearthsim.util.factory;
 
-import java.util.ArrayList;
-
 import com.hearthsim.card.Deck;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
@@ -10,14 +8,15 @@ import com.hearthsim.player.playercontroller.BoardScorer;
 import com.hearthsim.util.IdentityLinkedList;
 import com.hearthsim.util.tree.HearthTreeNode;
 
+import java.util.ArrayList;
+
 public abstract class BoardStateFactoryBase {
 
     protected final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
 
     protected final Deck deckPlayer0_;
-    protected final Deck deckPlayer1_;
 
-    protected final ChildNodeCreator childNodeCreator;
+    private final ChildNodeCreator childNodeCreator;
 
     /**
      * Constructor
@@ -37,13 +36,12 @@ public abstract class BoardStateFactoryBase {
      */
     public BoardStateFactoryBase(Deck deckPlayer0, Deck deckPlayer1, ChildNodeCreator creator) {
         deckPlayer0_ = deckPlayer0;
-        deckPlayer1_ = deckPlayer1;
 
         childNodeCreator = creator;
     }
 
-    public ArrayList<HearthTreeNode> createChildren(HearthTreeNode boardStateNode) throws HSException {
-        ArrayList<HearthTreeNode> nodes = new ArrayList<HearthTreeNode>();
+    protected ArrayList<HearthTreeNode> createChildren(HearthTreeNode boardStateNode) throws HSException {
+        ArrayList<HearthTreeNode> nodes = new ArrayList<>();
         nodes.addAll(this.childNodeCreator.createHeroAbilityChildren(boardStateNode));
         nodes.addAll(this.childNodeCreator.createPlayCardChildren(boardStateNode));
         nodes.addAll(this.childNodeCreator.createAttackChildren(boardStateNode));
@@ -64,8 +62,7 @@ public abstract class BoardStateFactoryBase {
     public abstract HearthTreeNode doMoves(HearthTreeNode boardStateNode, BoardScorer ai) throws HSException;
 
     @Deprecated
-    public static HearthTreeNode handleDeadMinions(HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealization)
-        throws HSException {
+    public static HearthTreeNode handleDeadMinions(HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealization) {
         return handleDeadMinions(boardState, singleRealization);
     }
     /**
@@ -77,7 +74,7 @@ public abstract class BoardStateFactoryBase {
      */
     public static HearthTreeNode handleDeadMinions(HearthTreeNode boardState, boolean singleRealization) {
         HearthTreeNode toRet = boardState;
-        IdentityLinkedList<BoardModel.MinionPlayerPair> deadMinions = new IdentityLinkedList<BoardModel.MinionPlayerPair>();
+        IdentityLinkedList<BoardModel.MinionPlayerPair> deadMinions = new IdentityLinkedList<>();
         for (BoardModel.MinionPlayerPair minionIdPair : toRet.data_.getAllMinionsFIFOList()) {
             if (minionIdPair.getMinion().getTotalHealth() <= 0) {
                 deadMinions.add(minionIdPair);
