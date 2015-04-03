@@ -233,7 +233,7 @@ public class Card implements DeepCopyable<Card> {
             if(!((CardEffectOnResolveTargetableInterface)this).getTargetableFilter().targetMatches(PlayerSide.CURRENT_PLAYER, this, playerSide, minion, boardModel)) {
                 return false;
             }
-        } else if (this instanceof SpellCard) { // ignore minion cards for now
+        } else if (this instanceof SpellCard) { // TODO ignore minion cards for now
             if (playerSide != PlayerSide.CURRENT_PLAYER || !minion.isHero()) {
                 return false;
             }
@@ -338,14 +338,13 @@ public class Card implements DeepCopyable<Card> {
         int originIndex = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getHand().indexOf(this);
         int targetIndex = boardState.data_.modelForSide(side).getIndexForCharacter(targetMinion);
 
-        CardEffectCharacter effect = null;
+        CardEffectCharacter targetableEffect = null;
         if (this instanceof CardEffectOnResolveTargetableInterface) {
-            effect = ((CardEffectOnResolveTargetableInterface) this).getTargetableEffect();
+            targetableEffect = ((CardEffectOnResolveTargetableInterface) this).getTargetableEffect();
         }
 
         // TODO this is to workaround using super.use_core since we no longer have an accurate reference to the origin card (specifically, Soulfire messes things up)
         byte manaCost = this.getManaCost(PlayerSide.CURRENT_PLAYER, boardState.data_);
-        boolean doEffect = true; // TODO shouldn't be necessary; we should be able to detect this automatically
         Collection<HearthTreeNode> rngChildren = null;
 
         // different interfaces have different usage patterns
@@ -353,11 +352,9 @@ public class Card implements DeepCopyable<Card> {
         if (this instanceof SpellRandomInterface) {
             rngChildren = ((SpellRandomInterface) this).createChildren(PlayerSide.CURRENT_PLAYER, originIndex, toRet);
         } else if (this instanceof CardEffectOnResolveRandomCharacterInterface) {
-            doEffect = false;
             CardEffectOnResolveRandomCharacterInterface that = (CardEffectOnResolveRandomCharacterInterface) this;
             rngChildren = this.effectRandomCharacterUsingFilter(that.getRandomTargetEffect(), that.getRandomTargetFilter(), toRet);
         } else if (this instanceof CardEffectOnResolveAoeInterface) {
-            doEffect = false;
             toRet = this.effectAllUsingFilter(((CardEffectOnResolveAoeInterface) this).getAoeEffect(), ((CardEffectOnResolveAoeInterface) this).getAoeFilter(), toRet);
         }
 
@@ -375,8 +372,8 @@ public class Card implements DeepCopyable<Card> {
                 case 1:
                     toRet = rngChildren.stream().findAny().get(); // if only one RNG child, just use it
                     toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER).subtractMana(manaCost);
-                    if (doEffect && effect != null) {
-                        toRet = effect.applyEffect(PlayerSide.CURRENT_PLAYER, null, side, targetIndex, toRet);
+                    if (targetableEffect != null) {
+                        toRet = targetableEffect.applyEffect(PlayerSide.CURRENT_PLAYER, null, side, targetIndex, toRet);
                     }
                     break;
                 default: // more than 1
@@ -385,16 +382,16 @@ public class Card implements DeepCopyable<Card> {
 
                     // for each child, apply the effect and mana cost. we want to do as much as we can with the non-random effect portion (e.g., the damage part of Soulfire)
                     for (HearthTreeNode child : rngChildren) {
-                        if (doEffect && effect != null) {
-                            child = effect.applyEffect(PlayerSide.CURRENT_PLAYER, null, side, targetIndex, child);
+                        if (targetableEffect != null) {
+                            child = targetableEffect.applyEffect(PlayerSide.CURRENT_PLAYER, null, side, targetIndex, child);
                         }
                         child.data_.modelForSide(PlayerSide.CURRENT_PLAYER).subtractMana(manaCost);
                         toRet.addChild(child);
                     }
             }
         } else {
-            if (doEffect && effect != null) {
-                toRet = effect.applyEffect(PlayerSide.CURRENT_PLAYER, this, side, targetMinion, toRet);
+            if (targetableEffect != null) {
+                toRet = targetableEffect.applyEffect(PlayerSide.CURRENT_PLAYER, this, side, targetMinion, toRet);
             }
 
             if (toRet != null) {
