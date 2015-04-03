@@ -1,6 +1,6 @@
 package com.hearthsim.card.spellcard.concrete;
 
-import com.hearthsim.card.spellcard.SpellDamage;
+import com.hearthsim.card.spellcard.SpellDamageTargetableCard;
 import com.hearthsim.card.spellcard.SpellRandomInterface;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
@@ -9,7 +9,7 @@ import com.hearthsim.util.tree.HearthTreeNode;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class Soulfire extends SpellDamage implements SpellRandomInterface {
+public class Soulfire extends SpellDamageTargetableCard implements SpellRandomInterface {
 
     public Soulfire() {
         super();

@@ -12,19 +12,8 @@ public class SpellDamage extends SpellCard {
 
     protected byte damage_;
 
-    protected SpellEffectCharacterDamage effect;
-
     public SpellDamage() {
         super();
-    }
-
-    // damage is set during card import so we need to lazy load this for each card
-    @Override
-    public SpellEffectCharacterDamage getTargetableEffect() {
-        if (this.effect == null) {
-            this.effect = new SpellEffectCharacterDamage(damage_);
-        }
-        return this.effect;
     }
 
     @Deprecated
@@ -75,7 +64,8 @@ public class SpellDamage extends SpellCard {
      */
     @Deprecated
     protected final HearthTreeNode attack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode boardState) {
-        return this.getTargetableEffect().applyEffect(PlayerSide.CURRENT_PLAYER, this, targetMinionPlayerSide, targetMinion, boardState);
+        SpellEffectCharacterDamage effect = new SpellEffectCharacterDamage(damage_);
+        return effect.applyEffect(PlayerSide.CURRENT_PLAYER, this, targetMinionPlayerSide, targetMinion, boardState);
     }
 
     @Deprecated

@@ -1,12 +1,12 @@
 package com.hearthsim.card.spellcard.concrete;
 
-import com.hearthsim.card.spellcard.SpellDamage;
+import com.hearthsim.card.spellcard.SpellDamageTargetableCard;
 import com.hearthsim.event.CharacterFilter;
 import com.hearthsim.event.CharacterFilterTargetedSpell;
 import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectRandomTargetInterface;
+import com.hearthsim.event.effect.CardEffectOnResolveRandomCharacterInterface;
 
-public class Flamecannon extends SpellDamage implements CardEffectRandomTargetInterface {
+public class Flamecannon extends SpellDamageTargetableCard implements CardEffectOnResolveRandomCharacterInterface {
 
     @Override
     public CharacterFilter getTargetableFilter() {

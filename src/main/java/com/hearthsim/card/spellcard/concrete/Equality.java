@@ -1,13 +1,13 @@
 package com.hearthsim.card.spellcard.concrete;
 
-import com.hearthsim.card.spellcard.SpellCard;
+import com.hearthsim.card.spellcard.SpellTargetableCard;
 import com.hearthsim.event.CharacterFilter;
 import com.hearthsim.event.CharacterFilterTargetedSpell;
-import com.hearthsim.event.effect.CardEffectAoeInterface;
+import com.hearthsim.event.effect.CardEffectOnResolveAoeInterface;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.effect.CardEffectCharacterBuff;
 
-public class Equality extends SpellCard implements CardEffectAoeInterface {
+public class Equality extends SpellTargetableCard implements CardEffectOnResolveAoeInterface {
 
     /**
      * Constructor

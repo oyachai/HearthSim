@@ -1,7 +1,7 @@
 package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.card.spellcard.SpellDamage;
+import com.hearthsim.card.spellcard.SpellDamageTargetableCard;
 import com.hearthsim.event.CharacterFilter;
 import com.hearthsim.event.CharacterFilterTargetedSpell;
 import com.hearthsim.exception.HSException;
@@ -9,7 +9,7 @@ import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class Swipe extends SpellDamage {
+public class Swipe extends SpellDamageTargetableCard {
 
     private static final byte DAMAGE_AMOUNT = 4;
 

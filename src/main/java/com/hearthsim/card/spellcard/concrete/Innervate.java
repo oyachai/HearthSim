@@ -1,13 +1,13 @@
 package com.hearthsim.card.spellcard.concrete;
 
-import com.hearthsim.card.spellcard.SpellCard;
+import com.hearthsim.card.spellcard.SpellTargetableCard;
 import com.hearthsim.event.CharacterFilter;
 import com.hearthsim.event.CharacterFilterTargetedSpell;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.effect.CardEffectHero;
 import com.hearthsim.event.effect.CardEffectHeroMana;
 
-public class Innervate extends SpellCard {
+public class Innervate extends SpellTargetableCard {
 
     private final static CardEffectHero effect = new CardEffectHeroMana(2);
 

@@ -1,12 +1,12 @@
 package com.hearthsim.card.spellcard.concrete;
 
-import com.hearthsim.card.spellcard.SpellDamage;
+import com.hearthsim.card.spellcard.SpellDamageTargetableCard;
 import com.hearthsim.event.CharacterFilter;
 import com.hearthsim.event.CharacterFilterTargetedSpell;
-import com.hearthsim.event.effect.CardEffectAoeInterface;
+import com.hearthsim.event.effect.CardEffectOnResolveAoeInterface;
 import com.hearthsim.event.effect.CardEffectCharacter;
 
-public class Consecration extends SpellDamage implements CardEffectAoeInterface {
+public class Consecration extends SpellDamageTargetableCard implements CardEffectOnResolveAoeInterface {
 
     /**
      * Constructor

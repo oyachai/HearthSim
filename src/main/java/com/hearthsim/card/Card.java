@@ -5,10 +5,10 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellRandomInterface;
 import com.hearthsim.event.CharacterFilter;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
-import com.hearthsim.event.effect.CardEffectAoeInterface;
+import com.hearthsim.event.effect.CardEffectOnResolveAoeInterface;
 import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectRandomTargetInterface;
-import com.hearthsim.event.effect.CardEffectTargetableInterface;
+import com.hearthsim.event.effect.CardEffectOnResolveRandomCharacterInterface;
+import com.hearthsim.event.effect.CardEffectOnResolveTargetableInterface;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
@@ -228,7 +228,7 @@ public class Card implements DeepCopyable<Card> {
             return false;
         }
 
-        if (this instanceof CardEffectTargetableInterface && !((CardEffectTargetableInterface)this).getTargetableFilter().targetMatches(PlayerSide.CURRENT_PLAYER, this, playerSide, minion, boardModel)) {
+        if (this instanceof CardEffectOnResolveTargetableInterface && !((CardEffectOnResolveTargetableInterface)this).getTargetableFilter().targetMatches(PlayerSide.CURRENT_PLAYER, this, playerSide, minion, boardModel)) {
             return false;
         }
 
@@ -328,11 +328,12 @@ public class Card implements DeepCopyable<Card> {
         boolean singleRealizationOnly)
         throws HSException {
         HearthTreeNode toRet = boardState;
+        int originIndex = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getHand().indexOf(this);
         int targetIndex = boardState.data_.modelForSide(side).getIndexForCharacter(targetMinion);
 
         CardEffectCharacter effect = null;
-        if (this instanceof CardEffectTargetableInterface) {
-            effect = ((CardEffectTargetableInterface) this).getTargetableEffect();
+        if (this instanceof CardEffectOnResolveTargetableInterface) {
+            effect = ((CardEffectOnResolveTargetableInterface) this).getTargetableEffect();
         }
 
         // TODO this is to workaround using super.use_core since we no longer have an accurate reference to the origin card (specifically, Soulfire messes things up)
@@ -343,15 +344,14 @@ public class Card implements DeepCopyable<Card> {
         // different interfaces have different usage patterns
         // TODO right now these don't stack well with each other
         if (this instanceof SpellRandomInterface) {
-            int originIndex = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getHand().indexOf(this);
             rngChildren = ((SpellRandomInterface) this).createChildren(PlayerSide.CURRENT_PLAYER, originIndex, toRet);
-        } else if (this instanceof CardEffectRandomTargetInterface) {
+        } else if (this instanceof CardEffectOnResolveRandomCharacterInterface) {
             doEffect = false;
-            CardEffectRandomTargetInterface that = (CardEffectRandomTargetInterface) this;
+            CardEffectOnResolveRandomCharacterInterface that = (CardEffectOnResolveRandomCharacterInterface) this;
             rngChildren = this.effectRandomCharacterUsingFilter(that.getRandomTargetEffect(), that.getRandomTargetFilter(), toRet);
-        } else if (this instanceof CardEffectAoeInterface) {
+        } else if (this instanceof CardEffectOnResolveAoeInterface) {
             doEffect = false;
-            toRet = this.effectAllUsingFilter(((CardEffectAoeInterface) this).getAoeEffect(), ((CardEffectAoeInterface) this).getAoeFilter(), toRet);
+            toRet = this.effectAllUsingFilter(((CardEffectOnResolveAoeInterface) this).getAoeEffect(), ((CardEffectOnResolveAoeInterface) this).getAoeFilter(), toRet);
         }
 
         if (toRet == null) {

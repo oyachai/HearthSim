@@ -1,10 +1,10 @@
 package com.hearthsim.card.spellcard.concrete;
 
-import com.hearthsim.card.spellcard.SpellDamage;
+import com.hearthsim.card.spellcard.SpellDamageTargetableCard;
 import com.hearthsim.event.CharacterFilter;
 import com.hearthsim.event.CharacterFilterTargetedSpell;
 
-public class ShadowBolt extends SpellDamage {
+public class ShadowBolt extends SpellDamageTargetableCard {
 
     public ShadowBolt() {
         super();

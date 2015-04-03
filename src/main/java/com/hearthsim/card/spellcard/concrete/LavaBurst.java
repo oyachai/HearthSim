@@ -1,8 +1,8 @@
 package com.hearthsim.card.spellcard.concrete;
 
-import com.hearthsim.card.spellcard.SpellDamage;
+import com.hearthsim.card.spellcard.SpellDamageTargetableCard;
 
-public class LavaBurst extends SpellDamage {
+public class LavaBurst extends SpellDamageTargetableCard {
 
     public LavaBurst() {
         super();

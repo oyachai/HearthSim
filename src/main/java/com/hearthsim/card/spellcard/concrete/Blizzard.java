@@ -2,16 +2,16 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.card.spellcard.SpellDamage;
+import com.hearthsim.card.spellcard.SpellDamageTargetableCard;
 import com.hearthsim.event.CharacterFilter;
 import com.hearthsim.event.CharacterFilterTargetedSpell;
-import com.hearthsim.event.effect.CardEffectAoeInterface;
+import com.hearthsim.event.effect.CardEffectOnResolveAoeInterface;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.effect.SpellEffectCharacterDamage;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class Blizzard extends SpellDamage implements CardEffectAoeInterface {
+public class Blizzard extends SpellDamageTargetableCard implements CardEffectOnResolveAoeInterface {
 
     /*
      * Deal $2 damage to all enemy minions and <b>Freeze</b> them.

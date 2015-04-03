@@ -1,13 +1,13 @@
 package com.hearthsim.card.spellcard.concrete;
 
-import com.hearthsim.card.spellcard.SpellCard;
+import com.hearthsim.card.spellcard.SpellTargetableCard;
 import com.hearthsim.event.CharacterFilter;
 import com.hearthsim.event.CharacterFilterTargetedSpell;
-import com.hearthsim.event.effect.CardEffectAoeInterface;
+import com.hearthsim.event.effect.CardEffectOnResolveAoeInterface;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.effect.CardEffectCharacterBuffTemp;
 
-public class SavageRoar extends SpellCard implements CardEffectAoeInterface {
+public class SavageRoar extends SpellTargetableCard implements CardEffectOnResolveAoeInterface {
 
     private final static CardEffectCharacter effect = new CardEffectCharacterBuffTemp(2);
 
