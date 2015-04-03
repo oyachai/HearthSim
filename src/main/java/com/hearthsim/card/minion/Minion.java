@@ -1,7 +1,12 @@
 package com.hearthsim.card.minion;
 
 import com.hearthsim.card.*;
+import com.hearthsim.event.CharacterFilter;
+import com.hearthsim.event.CharacterFilterSummon;
 import com.hearthsim.event.attack.AttackAction;
+import com.hearthsim.event.effect.CardEffectCharacter;
+import com.hearthsim.event.effect.CardEffectCharacterSummon;
+import com.hearthsim.event.effect.CardEffectOnResolveTargetableInterface;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.model.BoardModel;
@@ -16,7 +21,7 @@ import org.json.JSONObject;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
-public class Minion extends Card implements CardEndTurnInterface, CardStartTurnInterface {
+public class Minion extends Card implements CardEffectOnResolveTargetableInterface, CardEndTurnInterface, CardStartTurnInterface {
 
     public enum MinionTribe {
         NONE,
@@ -637,8 +642,17 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
 
         HearthTreeNode toRet = boardState;
         toRet = super.use_core(side, targetMinion, toRet, singleRealizationOnly);
-        toRet = this.summonMinion(side, targetMinion, toRet, true, singleRealizationOnly);
         return toRet;
+    }
+
+    @Override
+    public CardEffectCharacter getTargetableEffect() {
+        return new CardEffectCharacterSummon(this);
+    }
+
+    @Override
+    public CharacterFilter getTargetableFilter() {
+        return CharacterFilterSummon.ALL_FRIENDLIES;
     }
 
     /**

@@ -362,43 +362,39 @@ public class Card implements DeepCopyable<Card> {
             return null;
         }
 
-        if (rngChildren != null) {
+        if (rngChildren != null && rngChildren.size() == 0 && targetableEffect == null) {
+            toRet = null;
+        }
+
+        if (rngChildren != null && rngChildren.size() == 1) {
+            toRet = rngChildren.stream().findAny().get(); // if only one RNG child, just use it
+            rngChildren = null;
+        }
+
+        if (rngChildren != null && rngChildren.size() > 1) {
+            // create an RNG "base" that is untouched. This allows us to recreate the RNG children during history traversal.
             toRet = new RandomEffectNode(toRet, new HearthAction(HearthAction.Verb.USE_CARD, side, 0, side, 0));
+            this.hasBeenUsed(false); // revert back to unused for the purposes of replays
 
-            switch (rngChildren.size()) {
-                case 0:
-                    toRet = null; // no valid targets; this is an invalid action
-                    break;
-                case 1:
-                    toRet = rngChildren.stream().findAny().get(); // if only one RNG child, just use it
-                    toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER).subtractMana(manaCost);
-                    if (targetableEffect != null) {
-                        toRet = targetableEffect.applyEffect(PlayerSide.CURRENT_PLAYER, null, side, targetIndex, toRet);
-                    }
-                    break;
-                default: // more than 1
-                    // create an RNG "base" that is untouched. This allows us to recreate the RNG children during history traversal.
-                    toRet = new RandomEffectNode(toRet, new HearthAction(HearthAction.Verb.USE_CARD, side, 0, side, 0));
-
-                    // for each child, apply the effect and mana cost. we want to do as much as we can with the non-random effect portion (e.g., the damage part of Soulfire)
-                    for (HearthTreeNode child : rngChildren) {
-                        if (targetableEffect != null) {
-                            child = targetableEffect.applyEffect(PlayerSide.CURRENT_PLAYER, null, side, targetIndex, child);
-                        }
-                        child.data_.modelForSide(PlayerSide.CURRENT_PLAYER).subtractMana(manaCost);
-                        toRet.addChild(child);
-                    }
+            // for each child, apply the effect and mana cost. we want to do as much as we can with the non-random effect portion (e.g., the damage part of Soulfire)
+            for (HearthTreeNode child : rngChildren) {
+                if (targetableEffect != null) {
+                    child = targetableEffect.applyEffect(PlayerSide.CURRENT_PLAYER, null, side, targetIndex, child);
+                }
+                child.data_.modelForSide(PlayerSide.CURRENT_PLAYER).subtractMana(manaCost);
+                toRet.addChild(child);
             }
         } else {
-            if (targetableEffect != null) {
-                toRet = targetableEffect.applyEffect(PlayerSide.CURRENT_PLAYER, this, side, targetMinion, toRet);
-            }
-
             if (toRet != null) {
                 // apply standard card played effects
                 PlayerModel currentPlayer = toRet.data_.getCurrentPlayer();
                 toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER).subtractMana(manaCost);
+                this.hasBeenUsed(true);
                 currentPlayer.getHand().remove(this);
+
+                if (targetableEffect != null) {
+                    toRet = targetableEffect.applyEffect(PlayerSide.CURRENT_PLAYER, this, side, targetMinion, toRet);
+                }
             }
         }
 

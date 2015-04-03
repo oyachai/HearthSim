@@ -208,6 +208,10 @@
         "class": "com.hearthsim.card.minion.concrete.Boar"
     },
     {
+        "name": "Bomb Lobber",
+        "class": "com.hearthsim.card.minion.concrete.BombLobber"
+    },
+    {
         "name": "Booty Bay Bodyguard",
         "class": "com.hearthsim.card.minion.concrete.BootyBayBodyguard"
     },
