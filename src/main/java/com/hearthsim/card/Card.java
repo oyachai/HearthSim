@@ -351,11 +351,20 @@ public class Card implements DeepCopyable<Card> {
                 toRet = new RandomEffectNode(toRet, new HearthAction(HearthAction.Verb.USE_CARD, side, 0, side, 0));
                 Collection<HearthTreeNode> children = this.effectRandomCharacterUsingFilter(that.getRandomTargetEffect(), that.getRandomTargetFilter(), toRet);
 
-                // for each child, apply the effect and mana cost. we want to do as much as we can with the non-random effect portion (e.g., the damage part of Soulfire)
-                for (HearthTreeNode child : children) {
-                    child.data_.modelForSide(PlayerSide.CURRENT_PLAYER).subtractMana(manaCost);
-                    this.notifyCardPlayResolve(child, singleRealizationOnly);
-                    toRet.addChild(child);
+                switch (children.size()) {
+                    case 0:
+                        toRet = null; // no valid targets; this is an invalid action
+                        break;
+                    case 1:
+                        toRet = children.stream().findAny().get();
+                        break;
+                    default: // more than 1
+                        // for each child, apply the effect and mana cost. we want to do as much as we can with the non-random effect portion (e.g., the damage part of Soulfire)
+                        for (HearthTreeNode child : children) {
+                            child.data_.modelForSide(PlayerSide.CURRENT_PLAYER).subtractMana(manaCost);
+                            this.notifyCardPlayResolve(child, singleRealizationOnly);
+                            toRet.addChild(child);
+                        }
                 }
             } else if (effect != null) {
                 toRet = effect.applyEffect(PlayerSide.CURRENT_PLAYER, this, side, targetMinion, toRet);
@@ -505,7 +514,7 @@ public class Card implements DeepCopyable<Card> {
         for (BoardModel.CharacterLocation location : boardState.data_) {
             if (filter.targetMatches(PlayerSide.CURRENT_PLAYER, this, location.getPlayerSide(), location.getIndex(), boardState.data_)) {
                 HearthTreeNode newState = new HearthTreeNode(boardState.data_.deepCopy());
-                Card origin = newState.data_.getCharacter(PlayerSide.CURRENT_PLAYER, originIndex);
+                Card origin = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getHand().get(originIndex);
                 effect.applyEffect(PlayerSide.CURRENT_PLAYER, origin, location.getPlayerSide(), location.getIndex(), newState);
                 newState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getHand().remove(originIndex);
                 children.add(newState);

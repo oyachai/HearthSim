@@ -126,6 +126,16 @@ class GameRepeatableSpec extends CardSpec {
         assertActionTreeIsRepeatable(history);
     }
 
+    def "with flamecannon"() {
+        String[] names1 = ["Flamecannon","Bloodfen Raptor","Flamecannon","Bloodfen Raptor","Flamecannon","Bloodfen Raptor","Flamecannon"];
+        String[] names2 = ["Bloodfen Raptor","Flamecannon","Bloodfen Raptor","Flamecannon","Bloodfen Raptor","Flamecannon","Bloodfen Raptor"];
+
+        def history = this.testRepeatableWithCardNames(names1, names2);
+
+        expect:
+        assertActionTreeIsRepeatable(history);
+    }
+
     @Ignore("Existing bug")
     def "with hogger"() {
         String[] names1 = ["Hogger","Hogger","Hogger","Hogger","Hogger","Hogger","Hogger"];
