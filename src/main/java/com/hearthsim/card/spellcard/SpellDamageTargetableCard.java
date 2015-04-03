@@ -16,9 +16,6 @@ public abstract class SpellDamageTargetableCard extends SpellDamage implements C
     // damage is set during card import so we need to lazy load this for each card
     @Override
     public SpellEffectCharacterDamage getTargetableEffect() {
-        if (this.effect == null) {
-            this.effect = new SpellEffectCharacterDamage(damage_);
-        }
-        return this.effect;
+        return this.getSpellDamageEffect();
     }
 }

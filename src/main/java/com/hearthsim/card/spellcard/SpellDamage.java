@@ -12,8 +12,17 @@ public class SpellDamage extends SpellCard {
 
     protected byte damage_;
 
+    protected SpellEffectCharacterDamage effect;
+
     public SpellDamage() {
         super();
+    }
+
+    public SpellEffectCharacterDamage getSpellDamageEffect() {
+        if (this.effect == null) {
+            this.effect = new SpellEffectCharacterDamage(damage_);
+        }
+        return this.effect;
     }
 
     @Deprecated
