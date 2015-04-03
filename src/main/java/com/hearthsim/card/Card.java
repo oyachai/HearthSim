@@ -234,7 +234,7 @@ public class Card implements DeepCopyable<Card> {
                 return false;
             }
         } else if (this instanceof SpellCard) { // ignore minion cards for now
-            if (playerSide != PlayerSide.WAITING_PLAYER || !minion.isHero()) {
+            if (playerSide != PlayerSide.CURRENT_PLAYER || !minion.isHero()) {
                 return false;
             }
         }

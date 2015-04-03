@@ -43,7 +43,7 @@ class FlamecannonSpec extends CardSpec {
 
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(WAITING_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
 
         expect:
         ret != null
@@ -65,7 +65,7 @@ class FlamecannonSpec extends CardSpec {
     def "returned node is RNG for two or more targets"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(WAITING_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
 
         expect:
         ret != null
@@ -85,7 +85,7 @@ class FlamecannonSpec extends CardSpec {
 
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(WAITING_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
 
         expect:
         ret == null
@@ -93,13 +93,14 @@ class FlamecannonSpec extends CardSpec {
 
     def "hits enemy minions"() {
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(WAITING_PLAYER, 0, root)
-        def copiedBoard = ret.data_.deepCopy()
+        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
 
         expect:
         ret != null
         ret instanceof RandomEffectNode
         ret.numChildren() == 2
+
+        def copiedBoard = ret.data_.deepCopy()
 
         HearthTreeNode child0 = ret.getChildren().get(0);
         assertBoardDelta(copiedBoard, child0.data_) {
@@ -128,13 +129,14 @@ class FlamecannonSpec extends CardSpec {
         startingBoard.placeMinion(CURRENT_PLAYER, new KoboldGeomancer())
 
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(WAITING_PLAYER, 0, root)
-        def copiedBoard = ret.data_.deepCopy()
+        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
 
         expect:
         ret != null
         ret instanceof RandomEffectNode
         ret.numChildren() == 2
+
+        def copiedBoard = ret.data_.deepCopy()
 
         HearthTreeNode child0 = ret.getChildren().get(0);
         assertBoardDelta(copiedBoard, child0.data_) {

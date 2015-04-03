@@ -56,7 +56,7 @@ public class TestHolyNova {
     public void test2() throws HSException {
         currentPlayer.getHero().setHealth((byte)23);
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 0, board);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
 
         assertFalse(ret == null);
 
@@ -85,7 +85,7 @@ public class TestHolyNova {
         waitingPlayer.getMinions().get(0).setHealth((byte)(waitingPlayer.getMinions().get(0).getHealth() - 1));
 
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 0, board);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
 
         assertFalse(ret == null);
         assertEquals(currentPlayer.getHand().size(), 0);

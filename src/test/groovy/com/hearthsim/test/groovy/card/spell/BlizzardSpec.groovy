@@ -36,7 +36,7 @@ class BlizzardSpec extends CardSpec {
     def "freezes unfrozen minion"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayerCardHand(0)
-        def ret = theCard.useOn(WAITING_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
 
         expect:
         assertEquals(root, ret);
