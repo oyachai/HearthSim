@@ -521,6 +521,10 @@
         "class": "com.hearthsim.card.weapon.concrete.GladiatorsLongbow"
     },
     {
+        "name": "Glaivezooka",
+        "class": "com.hearthsim.card.weapon.concrete.Glaivezooka"
+    },
+    {
         "name": "Gnomish Inventor",
         "class": "com.hearthsim.card.minion.concrete.GnomishInventor"
     },

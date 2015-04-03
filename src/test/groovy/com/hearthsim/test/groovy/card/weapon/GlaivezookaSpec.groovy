@@ -3,6 +3,7 @@ package com.hearthsim.test.groovy.card.weapon
 import com.hearthsim.card.minion.concrete.*
 import com.hearthsim.card.minion.concrete.BombLobber
 import com.hearthsim.card.weapon.concrete.Coghammer
+import com.hearthsim.card.weapon.concrete.Glaivezooka
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.groovy.card.CardSpec
 import com.hearthsim.test.helpers.BoardModelBuilder
@@ -12,7 +13,7 @@ import com.hearthsim.util.tree.RandomEffectNode
 import static com.hearthsim.model.PlayerSide.CURRENT_PLAYER
 import static com.hearthsim.model.PlayerSide.WAITING_PLAYER
 
-class CoghammerSpec extends CardSpec {
+class GlaivezookaSpec extends CardSpec {
 
     HearthTreeNode root
     BoardModel startingBoard
@@ -20,7 +21,7 @@ class CoghammerSpec extends CardSpec {
     def setup() {
         startingBoard = new BoardModelBuilder().make {
             currentPlayer {
-                hand([Coghammer])
+                hand([Glaivezooka])
                 field([[minion: Voidwalker], [minion: WarGolem]])
                 mana(10)
             }
@@ -47,10 +48,10 @@ class CoghammerSpec extends CardSpec {
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                weapon(Coghammer) {
+                weapon(Glaivezooka) {
                 }
-                removeCardFromHand(Coghammer)
-                mana(7)
+                removeCardFromHand(Glaivezooka)
+                mana(8)
                 numCardsUsed(1)
             }
         }
@@ -70,12 +71,12 @@ class CoghammerSpec extends CardSpec {
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                weapon(Coghammer) {
+                weapon(Glaivezooka) {
                 }
-                removeCardFromHand(Coghammer)
-                mana(7)
+                removeCardFromHand(Glaivezooka)
+                mana(8)
                 numCardsUsed(1)
-                updateMinion(0, [taunt: true, divineShield: true])
+                updateMinion(0, [deltaAttack: +1])
             }
         }
     }
@@ -111,22 +112,22 @@ class CoghammerSpec extends CardSpec {
         HearthTreeNode child0 = ret.getChildren().get(0);
         assertBoardDelta(copiedBoard, child0.data_) {
             currentPlayer {
-                weapon(Coghammer) {
+                weapon(Glaivezooka) {
                 }
-                removeCardFromHand(Coghammer)
-                mana(7)
-                updateMinion(0, [taunt: true, divineShield: true])
+                removeCardFromHand(Glaivezooka)
+                mana(8)
+                updateMinion(0, [deltaAttack: +1])
             }
         }
 
         HearthTreeNode child1 = ret.getChildren().get(1);
         assertBoardDelta(copiedBoard, child1.data_) {
             currentPlayer {
-                weapon(Coghammer) {
+                weapon(Glaivezooka) {
                 }
-                removeCardFromHand(Coghammer)
-                mana(7)
-                updateMinion(1, [taunt: true, divineShield: true])
+                removeCardFromHand(Glaivezooka)
+                mana(8)
+                updateMinion(1, [deltaAttack: +1])
             }
         }
     }
