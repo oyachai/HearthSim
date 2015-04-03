@@ -74,7 +74,6 @@ class FlamecannonSpec extends CardSpec {
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                mana(8)
                 numCardsUsed(1)
             }
         }
@@ -106,6 +105,7 @@ class FlamecannonSpec extends CardSpec {
         assertBoardDelta(copiedBoard, child0.data_) {
             currentPlayer {
                 removeCardFromHand(Flamecannon)
+                mana(8)
             }
             waitingPlayer {
                 removeMinion(0)
@@ -116,6 +116,7 @@ class FlamecannonSpec extends CardSpec {
         assertBoardDelta(copiedBoard, child1.data_) {
             currentPlayer {
                 removeCardFromHand(Flamecannon)
+                mana(8)
             }
             waitingPlayer {
                 updateMinion(1, [deltaHealth: -4])
@@ -139,6 +140,7 @@ class FlamecannonSpec extends CardSpec {
         assertBoardDelta(copiedBoard, child0.data_) {
             currentPlayer {
                 removeCardFromHand(Flamecannon)
+                mana(8)
             }
             waitingPlayer {
                 removeMinion(0)
@@ -149,6 +151,7 @@ class FlamecannonSpec extends CardSpec {
         assertBoardDelta(copiedBoard, child1.data_) {
             currentPlayer {
                 removeCardFromHand(Flamecannon)
+                mana(8)
             }
             waitingPlayer {
                 updateMinion(1, [deltaHealth: -5])

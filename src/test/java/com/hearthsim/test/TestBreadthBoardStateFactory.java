@@ -97,7 +97,7 @@ public class TestBreadthBoardStateFactory {
         firstPlayer.addMana((byte)5);
         firstPlayer.addMaxMana((byte)5);
         firstPlayer.placeCardHand(new AnimalCompanion());
-        firstPlayer.placeCardHand(new Frostbolt());
+        firstPlayer.placeCardHand(new Flamecannon());
         startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new BloodfenRaptor());
         startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new RiverCrocolisk());
 

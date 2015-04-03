@@ -631,14 +631,13 @@ public class Minion extends Card implements CardEndTurnInterface, CardStartTurnI
      */
     @Override
     protected HearthTreeNode use_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
-        if (hasBeenUsed || side == PlayerSide.WAITING_PLAYER || boardState.data_.modelForSide(side).isBoardFull())
+        if (hasBeenUsed || side == PlayerSide.WAITING_PLAYER || boardState.data_.modelForSide(side).isBoardFull()) {
             return null;
+        }
 
         HearthTreeNode toRet = boardState;
-        PlayerModel currentPlayer = toRet.data_.getCurrentPlayer();
-        currentPlayer.subtractMana(this.getManaCost(PlayerSide.CURRENT_PLAYER, boardState.data_));
-        currentPlayer.getHand().remove(this);
-        toRet = this.summonMinion(side, targetMinion, boardState, true, singleRealizationOnly);
+        toRet = super.use_core(side, targetMinion, toRet, singleRealizationOnly);
+        toRet = this.summonMinion(side, targetMinion, toRet, true, singleRealizationOnly);
         return toRet;
     }
 

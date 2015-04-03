@@ -8,9 +8,11 @@ import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.effect.CardEffectCharacterHeal;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class DarkscaleHealer extends Minion implements MinionUntargetableBattlecry, CardEffectAoeInterface {
+public class DarkscaleHealer extends Minion implements MinionUntargetableBattlecry {
 
     private static final CardEffectCharacter effect = new CardEffectCharacterHeal(2);
+
+    private static final CharacterFilter filter = CharacterFilter.ALL_FRIENDLIES;
 
     public DarkscaleHealer() {
         super();
@@ -25,16 +27,6 @@ public class DarkscaleHealer extends Minion implements MinionUntargetableBattlec
             HearthTreeNode boardState,
             boolean singleRealizationOnly
         ) {
-        return this.effectAllUsingFilter(this.getAoeEffect(), this.getAoeFilter(), boardState);
-    }
-
-    @Override
-    public CardEffectCharacter getAoeEffect() {
-        return DarkscaleHealer.effect;
-    }
-
-    @Override
-    public CharacterFilter getAoeFilter() {
-        return CharacterFilter.ALL_FRIENDLIES;
+        return this.effectAllUsingFilter(DarkscaleHealer.effect, DarkscaleHealer.filter, boardState);
     }
 }

@@ -8,7 +8,7 @@ import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class Doomsayer extends Minion implements CardEffectAoeInterface {
+public class Doomsayer extends Minion {
 
     private static final CardEffectCharacter effect = CardEffectCharacter.DESTROY;
 
@@ -22,18 +22,8 @@ public class Doomsayer extends Minion implements CardEffectAoeInterface {
     public HearthTreeNode startTurn(PlayerSide thisMinionPlayerIndex, HearthTreeNode boardModel) throws HSException {
         HearthTreeNode toRet = boardModel;
         if (thisMinionPlayerIndex == PlayerSide.CURRENT_PLAYER) {
-            toRet = this.effectAllUsingFilter(this.getAoeEffect(), this.getAoeFilter(), toRet);
+            toRet = this.effectAllUsingFilter(Doomsayer.effect, Doomsayer.filter, toRet);
         }
         return super.startTurn(thisMinionPlayerIndex, toRet);
-    }
-
-    @Override
-    public CardEffectCharacter getAoeEffect() {
-        return Doomsayer.effect;
-    }
-
-    @Override
-    public CharacterFilter getAoeFilter() {
-        return Doomsayer.filter;
     }
 }

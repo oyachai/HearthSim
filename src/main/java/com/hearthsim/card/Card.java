@@ -280,12 +280,17 @@ public class Card implements DeepCopyable<Card> {
         HearthTreeNode toRet = this.notifyCardPlayBegin(boardState, singleRealizationOnly);
         if (toRet != null) {
             toRet = this.use_core(side, targetMinion, toRet, singleRealizationOnly);
-            if (toRet != null && this.triggersOverload())
-                toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER).addOverload(this.getOverload());
         }
 
         if (toRet != null) {
-            toRet = this.notifyCardPlayResolve(toRet, singleRealizationOnly);
+            // we need to resolve each RNG child separately
+            if (toRet instanceof RandomEffectNode && toRet.numChildren() > 0) {
+                for (HearthTreeNode child : toRet.getChildren()) {
+                    this.resolveCardPlayedAndNotify(child, singleRealizationOnly); // TODO deal with null return
+                }
+            } else {
+                toRet = this.resolveCardPlayedAndNotify(toRet, singleRealizationOnly);
+            }
         }
 
         if (toRet != null) {
@@ -293,6 +298,18 @@ public class Card implements DeepCopyable<Card> {
         }
 
         return toRet;
+    }
+
+    private HearthTreeNode resolveCardPlayedAndNotify(HearthTreeNode boardState, boolean singleRealizationOnly) {
+        if (boardState != null && this.triggersOverload()) {
+            boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).addOverload(this.getOverload());
+        }
+
+        if (boardState != null) {
+            boardState = this.notifyCardPlayResolve(boardState, singleRealizationOnly);
+        }
+
+        return boardState;
     }
 
     /**
@@ -311,72 +328,73 @@ public class Card implements DeepCopyable<Card> {
         boolean singleRealizationOnly)
         throws HSException {
         HearthTreeNode toRet = boardState;
+        int targetIndex = boardState.data_.modelForSide(side).getIndexForCharacter(targetMinion);
 
         CardEffectCharacter effect = null;
         if (this instanceof CardEffectTargetableInterface) {
-            effect = ((CardEffectTargetableInterface)this).getTargetableEffect();
+            effect = ((CardEffectTargetableInterface) this).getTargetableEffect();
         }
 
         // TODO this is to workaround using super.use_core since we no longer have an accurate reference to the origin card (specifically, Soulfire messes things up)
         byte manaCost = this.getManaCost(PlayerSide.CURRENT_PLAYER, boardState.data_);
+        boolean doEffect = true; // TODO shouldn't be necessary; we should be able to detect this automatically
+        Collection<HearthTreeNode> rngChildren = null;
 
-        // Check to see if this card generates RNG children
+        // different interfaces have different usage patterns
+        // TODO right now these don't stack well with each other
         if (this instanceof SpellRandomInterface) {
             int originIndex = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getHand().indexOf(this);
-            int targetIndex = boardState.data_.modelForSide(side).getIndexForCharacter(targetMinion);
+            rngChildren = ((SpellRandomInterface) this).createChildren(PlayerSide.CURRENT_PLAYER, originIndex, toRet);
+        } else if (this instanceof CardEffectRandomTargetInterface) {
+            doEffect = false;
+            CardEffectRandomTargetInterface that = (CardEffectRandomTargetInterface) this;
+            rngChildren = this.effectRandomCharacterUsingFilter(that.getRandomTargetEffect(), that.getRandomTargetFilter(), toRet);
+        } else if (this instanceof CardEffectAoeInterface) {
+            doEffect = false;
+            toRet = this.effectAllUsingFilter(((CardEffectAoeInterface) this).getAoeEffect(), ((CardEffectAoeInterface) this).getAoeFilter(), toRet);
+        }
 
-            // create an RNG "base" that is untouched. This allows us to recreate the RNG children during history traversal.
+        if (toRet == null) {
+            return null;
+        }
+
+        if (rngChildren != null) {
             toRet = new RandomEffectNode(toRet, new HearthAction(HearthAction.Verb.USE_CARD, side, 0, side, 0));
-            Collection<HearthTreeNode> children = ((SpellRandomInterface)this).createChildren(PlayerSide.CURRENT_PLAYER, originIndex, toRet);
 
-            // for each child, apply the effect and mana cost. we want to do as much as we can with the non-random effect portion (e.g., the damage part of Soulfire)
-            for (HearthTreeNode child : children) {
-                if (effect != null) {
-                    child = effect.applyEffect(PlayerSide.CURRENT_PLAYER, null, side, targetIndex, child);
-                }
-                child.data_.modelForSide(PlayerSide.CURRENT_PLAYER).subtractMana(manaCost);
-                toRet.addChild(child);
+            switch (rngChildren.size()) {
+                case 0:
+                    toRet = null; // no valid targets; this is an invalid action
+                    break;
+                case 1:
+                    toRet = rngChildren.stream().findAny().get(); // if only one RNG child, just use it
+                    toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER).subtractMana(manaCost);
+                    if (doEffect && effect != null) {
+                        toRet = effect.applyEffect(PlayerSide.CURRENT_PLAYER, null, side, targetIndex, toRet);
+                    }
+                    break;
+                default: // more than 1
+                    // create an RNG "base" that is untouched. This allows us to recreate the RNG children during history traversal.
+                    toRet = new RandomEffectNode(toRet, new HearthAction(HearthAction.Verb.USE_CARD, side, 0, side, 0));
+
+                    // for each child, apply the effect and mana cost. we want to do as much as we can with the non-random effect portion (e.g., the damage part of Soulfire)
+                    for (HearthTreeNode child : rngChildren) {
+                        if (doEffect && effect != null) {
+                            child = effect.applyEffect(PlayerSide.CURRENT_PLAYER, null, side, targetIndex, child);
+                        }
+                        child.data_.modelForSide(PlayerSide.CURRENT_PLAYER).subtractMana(manaCost);
+                        toRet.addChild(child);
+                    }
             }
         } else {
-            boolean removeCard = true;
-
-            // if we have an effect, we need to apply it
-            if (this instanceof CardEffectAoeInterface) {
-                toRet = this.effectAllUsingFilter(((CardEffectAoeInterface) this).getAoeEffect(), ((CardEffectAoeInterface) this).getAoeFilter(), toRet);
-            } else if (this instanceof CardEffectRandomTargetInterface) {
-                removeCard = false;
-                CardEffectRandomTargetInterface that = (CardEffectRandomTargetInterface)this;
-
-                // create an RNG "base" that is untouched. This allows us to recreate the RNG children during history traversal.
-                toRet = new RandomEffectNode(toRet, new HearthAction(HearthAction.Verb.USE_CARD, side, 0, side, 0));
-                Collection<HearthTreeNode> children = this.effectRandomCharacterUsingFilter(that.getRandomTargetEffect(), that.getRandomTargetFilter(), toRet);
-
-                switch (children.size()) {
-                    case 0:
-                        toRet = null; // no valid targets; this is an invalid action
-                        break;
-                    case 1:
-                        toRet = children.stream().findAny().get();
-                        break;
-                    default: // more than 1
-                        // for each child, apply the effect and mana cost. we want to do as much as we can with the non-random effect portion (e.g., the damage part of Soulfire)
-                        for (HearthTreeNode child : children) {
-                            child.data_.modelForSide(PlayerSide.CURRENT_PLAYER).subtractMana(manaCost);
-                            this.notifyCardPlayResolve(child, singleRealizationOnly);
-                            toRet.addChild(child);
-                        }
-                }
-            } else if (effect != null) {
+            if (doEffect && effect != null) {
                 toRet = effect.applyEffect(PlayerSide.CURRENT_PLAYER, this, side, targetMinion, toRet);
             }
 
-            // apply standard card played effects
             if (toRet != null) {
+                // apply standard card played effects
                 PlayerModel currentPlayer = toRet.data_.getCurrentPlayer();
-                currentPlayer.subtractMana(manaCost);
-                if (removeCard) {
-                    currentPlayer.getHand().remove(this);
-                }
+                toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER).subtractMana(manaCost);
+                currentPlayer.getHand().remove(this);
             }
         }
 
