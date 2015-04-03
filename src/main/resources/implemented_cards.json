@@ -801,6 +801,10 @@
         "class": "com.hearthsim.card.spellcard.concrete.MindControl"
     },
     {
+        "name": "Mind Control Tech",
+        "class": "com.hearthsim.card.minion.concrete.MindControlTech"
+    },
+    {
         "name": "Mini-Mage",
         "class": "com.hearthsim.card.minion.concrete.MiniMage"
     },
