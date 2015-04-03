@@ -709,6 +709,10 @@
         "class": "com.hearthsim.card.minion.concrete.KingMukla"
     },
     {
+        "name": "Knife Juggler",
+        "class": "com.hearthsim.card.minion.concrete.KnifeJuggler"
+    },
+    {
         "name": "Kobold Geomancer",
         "class": "com.hearthsim.card.minion.concrete.KoboldGeomancer"
     },
