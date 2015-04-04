@@ -1037,6 +1037,10 @@
         "class": "com.hearthsim.card.minion.concrete.ShieldedMinibot"
     },
     {
+        "name": "Ship's Cannon",
+        "class": "com.hearthsim.card.minion.concrete.ShipsCannon"
+    },
+    {
         "name": "Shiv",
         "class": "com.hearthsim.card.spellcard.concrete.Shiv"
     },
