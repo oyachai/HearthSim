@@ -521,26 +521,30 @@ public class Card implements DeepCopyable<Card> {
         return boardState;
     }
 
-    protected Collection<HearthTreeNode> effectRandomCharacterUsingFilter(CardEffectCharacter effect, CardEffectCharacter effectOthers, CharacterFilter filter, HearthTreeNode boardState) {
-        int originIndex = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getHand().indexOf(this);
+    protected final Collection<HearthTreeNode> effectRandomCharacterUsingFilter(CardEffectCharacter effect, CardEffectCharacter effectOthers, CharacterFilter filter, HearthTreeNode boardState) {
+        return this.effectRandomCharacterUsingFilter(effect, effectOthers, filter, PlayerSide.CURRENT_PLAYER, boardState);
+    }
+
+    protected Collection<HearthTreeNode> effectRandomCharacterUsingFilter(CardEffectCharacter effect, CardEffectCharacter effectOthers, CharacterFilter filter, PlayerSide originSide, HearthTreeNode boardState) {
+        int originIndex = boardState.data_.modelForSide(originSide).getHand().indexOf(this);
         boolean originInHand = originIndex >= 0;
         if (!originInHand) {
-            originIndex = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getIndexForCharacter((Minion)this);
+            originIndex = boardState.data_.modelForSide(originSide).getIndexForCharacter((Minion)this);
         }
 
         ArrayList<HearthTreeNode> children = new ArrayList<>();
         for (BoardModel.CharacterLocation location : boardState.data_) {
-            if (filter.targetMatches(PlayerSide.CURRENT_PLAYER, this, location.getPlayerSide(), location.getIndex(), boardState.data_)) {
+            if (filter.targetMatches(originSide, this, location.getPlayerSide(), location.getIndex(), boardState.data_)) {
                 boolean somethingHappened = false;
                 HearthTreeNode newState = new HearthTreeNode(boardState.data_.deepCopy());
                 Card origin;
                 if (originInHand) {
-                    origin = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getHand().get(originIndex);
+                    origin = boardState.data_.modelForSide(originSide).getHand().get(originIndex);
                 } else {
-                    origin = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(originIndex);
+                    origin = boardState.data_.modelForSide(originSide).getCharacter(originIndex);
                 }
                 if (effect != null) {
-                    newState = effect.applyEffect(PlayerSide.CURRENT_PLAYER, origin, location.getPlayerSide(), location.getIndex(), newState);
+                    newState = effect.applyEffect(originSide, origin, location.getPlayerSide(), location.getIndex(), newState);
                     somethingHappened = newState != null;
                 }
                 if (effectOthers != null && newState != null) {
@@ -548,8 +552,8 @@ public class Card implements DeepCopyable<Card> {
                         if (location.equals(childLocation)) {
                             continue;
                         }
-                        if (filter.targetMatches(PlayerSide.CURRENT_PLAYER, origin, childLocation.getPlayerSide(), childLocation.getIndex(), boardState.data_)) {
-                            newState = effectOthers.applyEffect(PlayerSide.CURRENT_PLAYER, origin, childLocation.getPlayerSide(), childLocation.getIndex(), newState);
+                        if (filter.targetMatches(originSide, origin, childLocation.getPlayerSide(), childLocation.getIndex(), boardState.data_)) {
+                            newState = effectOthers.applyEffect(originSide, origin, childLocation.getPlayerSide(), childLocation.getIndex(), newState);
                             somethingHappened = newState != null;
                         }
                     }
@@ -557,7 +561,7 @@ public class Card implements DeepCopyable<Card> {
 
                 if (somethingHappened) {
                     if (originInHand) {
-                        newState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getHand().remove(originIndex);
+                        newState.data_.modelForSide(originSide).getHand().remove(originIndex);
                     }
                     children.add(newState);
                 }

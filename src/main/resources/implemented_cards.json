@@ -1013,6 +1013,10 @@
         "class": "com.hearthsim.card.spellcard.concrete.ShadowWordPain"
     },
     {
+        "name": "Shadowboxer",
+        "class": "com.hearthsim.card.minion.concrete.Shadowboxer"
+    },
+    {
         "name": "Shattered Sun Cleric",
         "class": "com.hearthsim.card.minion.concrete.ShatteredSunCleric"
     },

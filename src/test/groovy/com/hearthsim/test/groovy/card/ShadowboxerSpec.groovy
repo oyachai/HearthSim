@@ -1,9 +1,7 @@
 package com.hearthsim.test.groovy.card.weapon
 
 import com.hearthsim.card.minion.concrete.*
-import com.hearthsim.card.minion.concrete.BombLobber
-import com.hearthsim.card.weapon.concrete.Coghammer
-import com.hearthsim.card.weapon.concrete.Glaivezooka
+import com.hearthsim.card.spellcard.concrete.HealingTouch
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.groovy.card.CardSpec
 import com.hearthsim.test.helpers.BoardModelBuilder
@@ -13,7 +11,7 @@ import com.hearthsim.util.tree.RandomEffectNode
 import static com.hearthsim.model.PlayerSide.CURRENT_PLAYER
 import static com.hearthsim.model.PlayerSide.WAITING_PLAYER
 
-class KnifeJugglerSpec extends CardSpec {
+class ShadowboxerSpec extends CardSpec {
 
     HearthTreeNode root
     BoardModel startingBoard
@@ -21,8 +19,9 @@ class KnifeJugglerSpec extends CardSpec {
     def setup() {
         startingBoard = new BoardModelBuilder().make {
             currentPlayer {
-                hand([BloodfenRaptor])
-                field([[minion: KnifeJuggler], [minion: WarGolem]])
+                hand([HealingTouch])
+                heroHealth(20)
+                field([[minion: Shadowboxer], [minion: WarGolem]])
                 mana(10)
             }
             waitingPlayer {
@@ -49,8 +48,9 @@ class KnifeJugglerSpec extends CardSpec {
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                playMinion(BloodfenRaptor, 0)
-                mana(8)
+                removeCardFromHand(HealingTouch)
+                heroHealth(28)
+                mana(7)
                 numCardsUsed(1)
             }
             waitingPlayer {
@@ -59,9 +59,10 @@ class KnifeJugglerSpec extends CardSpec {
         }
     }
 
-    def "does not trigger on enemy play"() {
+    def "does trigger on enemy play"() {
         startingBoard.removeMinion(CURRENT_PLAYER, 0);
-        startingBoard.placeMinion(WAITING_PLAYER, new KnifeJuggler())
+        startingBoard.removeMinion(CURRENT_PLAYER, 0);
+        startingBoard.placeMinion(WAITING_PLAYER, new Shadowboxer())
 
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
@@ -74,8 +75,9 @@ class KnifeJugglerSpec extends CardSpec {
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                playMinion(BloodfenRaptor, 0)
-                mana(8)
+                removeCardFromHand(HealingTouch)
+                heroHealth(27)
+                mana(7)
                 numCardsUsed(1)
             }
         }
@@ -93,9 +95,10 @@ class KnifeJugglerSpec extends CardSpec {
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                playMinion(BloodfenRaptor, 0)
+                removeCardFromHand(HealingTouch)
+                heroHealth(28)
+                mana(7)
                 numCardsUsed(1)
-                mana(8)
             }
         }
     }
