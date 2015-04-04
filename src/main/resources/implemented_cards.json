@@ -256,6 +256,10 @@
         "class": "com.hearthsim.card.minion.concrete.ClockworkGiant"
     },
     {
+        "name": "Coghammer",
+        "class": "com.hearthsim.card.weapon.concrete.Coghammer"
+    },
+    {
         "name": "Cold Blood",
         "class": "com.hearthsim.card.spellcard.concrete.ColdBlood"
     },
@@ -288,8 +292,8 @@
         "class": "com.hearthsim.card.minion.concrete.CruelTaskmaster"
     },
     {
-        "name": "Coghammer",
-        "class": "com.hearthsim.card.weapon.concrete.Coghammer"
+        "name": "Cult Master",
+        "class": "com.hearthsim.card.minion.concrete.CultMaster"
     },
     {
         "name": "Dalaran Mage",
