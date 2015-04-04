@@ -1065,6 +1065,10 @@
         "class": "com.hearthsim.card.spellcard.concrete.Silence"
     },
     {
+        "name": "Siltfin Spiritwalker",
+        "class": "com.hearthsim.card.minion.concrete.SiltfinSpiritwalker"
+    },
+    {
         "name": "Silver Hand Knight",
         "class": "com.hearthsim.card.minion.concrete.SilverHandKnight"
     },
