@@ -993,6 +993,10 @@
         "class": "com.hearthsim.card.minion.concrete.ScarletCrusader"
     },
     {
+        "name": "Scavenging Hyena",
+        "class": "com.hearthsim.card.minion.concrete.ScavengingHyena"
+    },
+    {
         "name": "Sea Giant",
         "class": "com.hearthsim.card.minion.concrete.SeaGiant"
     },

@@ -1,23 +1,16 @@
 package com.hearthsim.test.groovy.card
 
 import com.hearthsim.card.minion.concrete.*
-import com.hearthsim.card.minion.concrete.BombLobber
 import com.hearthsim.card.spellcard.concrete.Fireball
-import com.hearthsim.card.spellcard.concrete.TwistingNether
 import com.hearthsim.card.spellcard.concrete.Whirlwind
-import com.hearthsim.card.weapon.concrete.Coghammer
-import com.hearthsim.card.weapon.concrete.Glaivezooka
 import com.hearthsim.model.BoardModel
-import com.hearthsim.test.groovy.card.CardSpec
 import com.hearthsim.test.helpers.BoardModelBuilder
-import com.hearthsim.util.tree.CardDrawNode
 import com.hearthsim.util.tree.HearthTreeNode
-import com.hearthsim.util.tree.RandomEffectNode
 
 import static com.hearthsim.model.PlayerSide.CURRENT_PLAYER
 import static com.hearthsim.model.PlayerSide.WAITING_PLAYER
 
-class CultMasterSpec extends CardSpec {
+class ScavengingHyenaSpec extends CardSpec {
 
     HearthTreeNode root
     BoardModel startingBoard
@@ -25,8 +18,8 @@ class CultMasterSpec extends CardSpec {
     def setup() {
         startingBoard = new BoardModelBuilder().make {
             currentPlayer {
-                hand([Fireball, Whirlwind, TwistingNether])
-                field([[minion: CultMaster], [minion: MurlocRaider], [minion: PatientAssassin]])
+                hand([Fireball, Whirlwind])
+                field([[minion: ScavengingHyena], [minion: IronbeakOwl], [minion: Boar], [minion: PatientAssassin]])
                 mana(10)
             }
             waitingPlayer {
@@ -37,16 +30,13 @@ class CultMasterSpec extends CardSpec {
         root = new HearthTreeNode(startingBoard)
     }
 
-    def "draws card on friendly minion death"() {
+    def "buffs on friendly beast death"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
         def ret = theCard.useOn(CURRENT_PLAYER, 2, root)
 
         expect:
         ret != null
-        ret instanceof CardDrawNode
-
-        ((CardDrawNode)ret).numCardsToDraw == 1
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
@@ -54,19 +44,18 @@ class CultMasterSpec extends CardSpec {
                 mana(6)
                 numCardsUsed(1)
                 removeMinion(1)
+                updateMinion(0, [deltaHealth: +2, deltaMaxHealth: +2, deltaAttack: +2])
             }
         }
     }
 
-    def "does not trigger on enemy minion death"() {
+    def "does not trigger on enemy beast death"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
         def ret = theCard.useOn(WAITING_PLAYER, 1, root)
 
         expect:
         ret != null
-        ret instanceof HearthTreeNode
-        !(ret instanceof CardDrawNode)
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
@@ -80,54 +69,45 @@ class CultMasterSpec extends CardSpec {
         }
     }
 
-    def "draws one card for each death"() {
+    def "does not trigger on non-beast death"() {
+        def copiedBoard = startingBoard.deepCopy()
+        def theCard = root.data_.getCurrentPlayer().getHand().get(0)
+        def ret = theCard.useOn(CURRENT_PLAYER, 4, root)
+
+        expect:
+        ret != null
+
+        assertBoardDelta(copiedBoard, ret.data_) {
+            currentPlayer {
+                removeCardFromHand(Fireball)
+                mana(6)
+                numCardsUsed(1)
+                removeMinion(3)
+            }
+        }
+    }
+
+    def "buffs for each death"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(1)
         def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
 
         expect:
         ret != null
-        ret instanceof CardDrawNode
-
-        ((CardDrawNode)ret).numCardsToDraw == 2
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
                 removeCardFromHand(Whirlwind)
                 mana(9)
                 numCardsUsed(1)
+                removeMinion(3)
                 removeMinion(2)
                 removeMinion(1)
-                updateMinion(0, [deltaHealth: -1])
+                updateMinion(0, [deltaHealth: +3, deltaMaxHealth: +4, deltaAttack: +4]) // +2/+2, +2/+2 and take one damage from Whirlwind
             }
             waitingPlayer {
                 updateMinion(1, [deltaHealth: -1])
                 updateMinion(0, [deltaHealth: -1])
-            }
-        }
-    }
-
-    def "does not draw if also died"() {
-        def copiedBoard = startingBoard.deepCopy()
-        def theCard = root.data_.getCurrentPlayer().getHand().get(2)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
-
-        expect:
-        ret != null
-        !(ret instanceof CardDrawNode)
-
-        assertBoardDelta(copiedBoard, ret.data_) {
-            currentPlayer {
-                removeCardFromHand(TwistingNether)
-                mana(2)
-                numCardsUsed(1)
-                removeMinion(2)
-                removeMinion(1)
-                removeMinion(0)
-            }
-            waitingPlayer {
-                removeMinion(1)
-                removeMinion(0)
             }
         }
     }
