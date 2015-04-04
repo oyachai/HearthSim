@@ -237,6 +237,26 @@ public class TestLethal {
         assertTrue(this.hasLethalAtDepth(this.root, 6));
     }
 
+    // http://www.reddit.com/r/hearthstone/comments/316kld/just_had_an_interesting_lethal_puzzle_fancy/
+    @Test
+    public void testPuzzleMindControlCharge() throws HSException {
+        this.enemyHero.setHealth((byte) 17);
+        this.startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new KnifeJuggler());
+        this.startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new ArcaneGolem());
+
+        this.startingBoard.modelForSide(PlayerSide.CURRENT_PLAYER).setMana((byte)9);
+        this.startingBoard.placeMinion(PlayerSide.CURRENT_PLAYER, new ChillwindYeti()); // attack; +1 = 1
+        this.startingBoard.placeMinion(PlayerSide.CURRENT_PLAYER, new SylvanasWindrunner()); // attack; +1 = 2
+
+        this.startingBoard.placeCardHand(PlayerSide.CURRENT_PLAYER, new TheBlackKnight());
+        this.startingBoard.placeCardHand(PlayerSide.CURRENT_PLAYER, new BigGameHunter()); // play second, target Syl, attack with golem; +3 = 7
+        this.startingBoard.placeCardHand(PlayerSide.CURRENT_PLAYER, new SavageRoar()); // play first and attack with hero; +2 = 4
+        this.startingBoard.placeCardHand(PlayerSide.CURRENT_PLAYER, new AncientOfLore());
+
+        this.factory.addChildLayers(this.root, 7);
+        assertTrue(this.hasLethalAtDepth(this.root, 7));
+    }
+
     private void removeTauntTest(Card removal) throws HSException {
         this.enemyHero.setHealth((byte)4);
         this.startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new SenjinShieldmasta());
