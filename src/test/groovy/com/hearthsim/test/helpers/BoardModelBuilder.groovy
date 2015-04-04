@@ -57,8 +57,12 @@ class BoardModelBuilder {
         }
     }
 
-    private updateMinion(int position, Map options){
+    private updateMinion(int position, Map options) {
         def minion = boardModel.getMinion(playerSide, position)
+        this.updateMinion(minion, options);
+    }
+
+    private updateMinion(Minion minion, Map options) {
         minion.attack += options.deltaAttack ? options.deltaAttack : 0;
         minion.extraAttackUntilTurnEnd += options.deltaExtraAttack ? options.deltaExtraAttack : 0;
 
@@ -82,6 +86,16 @@ class BoardModelBuilder {
         minion.silenced = options.containsKey('silenced') ? options.silenced : minion.silenced
         minion.taunt = options.containsKey('taunt') ? options.taunt : minion.taunt
         minion.divineShield = options.containsKey('divineShield') ? options.divineShield : minion.divineShield
+    }
+
+    private updateCardInHand(int position, Map options){
+        def card = boardModel.getCard_hand(playerSide, position)
+
+        if (card instanceof Minion) {
+            this.updateMinion((Minion)card, options);
+        }
+
+        card.hasBeenUsed = options.containsKey('hasBeenUsed') ? options.hasBeenUsed : card.hasBeenUsed
     }
 
     private fatigueDamage(Number fatigueDamage) {
