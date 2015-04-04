@@ -1,7 +1,6 @@
 package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.card.minion.MinionDamagedInterface;
 import com.hearthsim.card.minion.MinionDeadInterface;
 import com.hearthsim.event.CharacterFilter;
 import com.hearthsim.event.effect.CardEffectCharacter;
