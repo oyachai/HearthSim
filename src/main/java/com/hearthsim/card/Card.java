@@ -230,13 +230,11 @@ public class Card implements DeepCopyable<Card> {
         }
 
         if (this instanceof CardEffectOnResolveTargetableInterface) {
-            if(!((CardEffectOnResolveTargetableInterface)this).getTargetableFilter().targetMatches(PlayerSide.CURRENT_PLAYER, this, playerSide, minion, boardModel)) {
+            if (!((CardEffectOnResolveTargetableInterface)this).getTargetableFilter().targetMatches(PlayerSide.CURRENT_PLAYER, this, playerSide, minion, boardModel)) {
                 return false;
             }
-        } else if (this instanceof SpellCard) { // TODO ignore minion cards for now
-            if (playerSide != PlayerSide.CURRENT_PLAYER || !minion.isHero()) {
-                return false;
-            }
+        } else if (this instanceof SpellCard && playerSide != PlayerSide.CURRENT_PLAYER || !minion.isHero()) { // TODO ignore minion cards for now
+            return false;
         }
 
         return true;

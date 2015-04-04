@@ -87,6 +87,13 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
         }
 
         @Override
+        public int hashCode() {
+            int result = playerSide != null ? playerSide.hashCode() : 0;
+            result = 31 * result + index;
+            return result;
+        }
+
+        @Override
         public boolean equals(Object o) {
             if (o == null) {
                 return false;
