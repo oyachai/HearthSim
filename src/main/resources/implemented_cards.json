@@ -208,6 +208,10 @@
         "class": "com.hearthsim.card.minion.concrete.Boar"
     },
     {
+        "name": "Bolvar Fordragon",
+        "class": "com.hearthsim.card.minion.concrete.BolvarFordragon"
+    },
+    {
         "name": "Bomb Lobber",
         "class": "com.hearthsim.card.minion.concrete.BombLobber"
     },

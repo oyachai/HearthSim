@@ -10,7 +10,7 @@ import com.hearthsim.util.tree.HearthTreeNode
 import static com.hearthsim.model.PlayerSide.CURRENT_PLAYER
 import static com.hearthsim.model.PlayerSide.WAITING_PLAYER
 
-class ScavengingHyenaSpec extends CardSpec {
+class BolvarFordragonSpec extends CardSpec {
 
     HearthTreeNode root
     BoardModel startingBoard
@@ -18,8 +18,8 @@ class ScavengingHyenaSpec extends CardSpec {
     def setup() {
         startingBoard = new BoardModelBuilder().make {
             currentPlayer {
-                hand([Fireball, Whirlwind])
-                field([[minion: ScavengingHyena], [minion: IronbeakOwl], [minion: Boar], [minion: PatientAssassin]])
+                hand([Fireball, Whirlwind, BolvarFordragon])
+                field([[minion: IronbeakOwl], [minion: Boar]])
                 mana(10)
             }
             waitingPlayer {
@@ -30,26 +30,26 @@ class ScavengingHyenaSpec extends CardSpec {
         root = new HearthTreeNode(startingBoard)
     }
 
-    def "buffs on friendly beast death"() {
+    def "buffs on friendly minion death"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 2, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, 1, root)
 
         expect:
         ret != null
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
+                updateCardInHand(2, [deltaAttack: +1])
                 removeCardFromHand(Fireball)
                 mana(6)
                 numCardsUsed(1)
-                removeMinion(1)
-                updateMinion(0, [deltaHealth: +2, deltaMaxHealth: +2, deltaAttack: +2])
+                removeMinion(0)
             }
         }
     }
 
-    def "does not trigger on enemy beast death"() {
+    def "does not trigger on enemy minion death"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
         def ret = theCard.useOn(WAITING_PLAYER, 1, root)
@@ -69,10 +69,14 @@ class ScavengingHyenaSpec extends CardSpec {
         }
     }
 
-    def "does not trigger on non-beast death"() {
-        def copiedBoard = startingBoard.deepCopy()
-        def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 4, root)
+    def "does not trigger while in play"() {
+        def theCard = root.data_.getCurrentPlayer().getHand().get(2)
+        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+
+        def copiedBoard = ret.data_.deepCopy()
+
+        theCard = root.data_.getCurrentPlayer().getHand().get(0)
+        ret = theCard.useOn(CURRENT_PLAYER, 2, root)
 
         expect:
         ret != null
@@ -80,9 +84,9 @@ class ScavengingHyenaSpec extends CardSpec {
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
                 removeCardFromHand(Fireball)
-                mana(6)
-                numCardsUsed(1)
-                removeMinion(3)
+                mana(1)
+                numCardsUsed(2)
+                removeMinion(1)
             }
         }
     }
@@ -97,38 +101,16 @@ class ScavengingHyenaSpec extends CardSpec {
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
+                updateCardInHand(2, [deltaAttack: +2])
                 removeCardFromHand(Whirlwind)
                 mana(9)
                 numCardsUsed(1)
-                removeMinion(3)
-                removeMinion(2)
                 removeMinion(1)
-                updateMinion(0, [deltaHealth: +3, deltaMaxHealth: +4, deltaAttack: +4]) // +2/+2, +2/+2 and take one damage from Whirlwind
+                removeMinion(0)
             }
             waitingPlayer {
                 updateMinion(1, [deltaHealth: -1])
                 updateMinion(0, [deltaHealth: -1])
-            }
-        }
-    }
-
-    def "does not trigger while in hand"() {
-        startingBoard.modelForSide(CURRENT_PLAYER).placeCardHand(new ScavengingHyena())
-        startingBoard.removeMinion(CURRENT_PLAYER, 0)
-
-        def copiedBoard = startingBoard.deepCopy()
-        def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 1, root)
-
-        expect:
-        ret != null
-
-        assertBoardDelta(copiedBoard, ret.data_) {
-            currentPlayer {
-                removeCardFromHand(Fireball)
-                mana(6)
-                numCardsUsed(1)
-                removeMinion(0)
             }
         }
     }

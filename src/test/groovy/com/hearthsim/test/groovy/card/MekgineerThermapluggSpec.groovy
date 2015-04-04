@@ -118,4 +118,27 @@ class MekgineerThermapluggSpec extends CardSpec {
             }
         }
     }
+
+    def "does not trigger while in hand"() {
+        startingBoard.modelForSide(CURRENT_PLAYER).placeCardHand(new MekgineerThermaplugg())
+        startingBoard.removeMinion(CURRENT_PLAYER, 0)
+
+        def copiedBoard = startingBoard.deepCopy()
+        def theCard = root.data_.getCurrentPlayer().getHand().get(0)
+        def ret = theCard.useOn(WAITING_PLAYER, 1, root)
+
+        expect:
+        ret != null
+
+        assertBoardDelta(copiedBoard, ret.data_) {
+            currentPlayer {
+                removeCardFromHand(Fireball)
+                mana(6)
+                numCardsUsed(1)
+            }
+            waitingPlayer {
+                removeMinion(0)
+            }
+        }
+    }
 }

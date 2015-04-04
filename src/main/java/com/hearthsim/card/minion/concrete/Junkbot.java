@@ -34,6 +34,10 @@ public class Junkbot extends Minion implements MinionDeadInterface {
 
     @Override
     public HearthTreeNode minionDeadEvent(PlayerSide thisMinionPlayerSide, PlayerSide deadMinionPlayerSide, Minion deadMinion, HearthTreeNode boardState) {
+        if (this.isInHand()) {
+            return boardState;
+        }
+
         if (!Junkbot.filter.targetMatches(thisMinionPlayerSide, this, deadMinionPlayerSide, deadMinion, boardState.data_)) {
             return boardState;
         }

@@ -1,18 +1,13 @@
 package com.hearthsim.test.groovy.card
 
 import com.hearthsim.card.minion.concrete.*
-import com.hearthsim.card.minion.concrete.BombLobber
 import com.hearthsim.card.spellcard.concrete.Fireball
 import com.hearthsim.card.spellcard.concrete.TwistingNether
 import com.hearthsim.card.spellcard.concrete.Whirlwind
-import com.hearthsim.card.weapon.concrete.Coghammer
-import com.hearthsim.card.weapon.concrete.Glaivezooka
 import com.hearthsim.model.BoardModel
-import com.hearthsim.test.groovy.card.CardSpec
 import com.hearthsim.test.helpers.BoardModelBuilder
 import com.hearthsim.util.tree.CardDrawNode
 import com.hearthsim.util.tree.HearthTreeNode
-import com.hearthsim.util.tree.RandomEffectNode
 
 import static com.hearthsim.model.PlayerSide.CURRENT_PLAYER
 import static com.hearthsim.model.PlayerSide.WAITING_PLAYER
@@ -127,6 +122,29 @@ class CultMasterSpec extends CardSpec {
             }
             waitingPlayer {
                 removeMinion(1)
+                removeMinion(0)
+            }
+        }
+    }
+
+    def "does not trigger while in hand"() {
+        startingBoard.modelForSide(CURRENT_PLAYER).placeCardHand(new CultMaster())
+        startingBoard.removeMinion(CURRENT_PLAYER, 0)
+
+        def copiedBoard = startingBoard.deepCopy()
+        def theCard = root.data_.getCurrentPlayer().getHand().get(0)
+        def ret = theCard.useOn(CURRENT_PLAYER, 1, root)
+
+        expect:
+        ret != null
+        ret instanceof HearthTreeNode
+        !(ret instanceof CardDrawNode)
+
+        assertBoardDelta(copiedBoard, ret.data_) {
+            currentPlayer {
+                removeCardFromHand(Fireball)
+                mana(6)
+                numCardsUsed(1)
                 removeMinion(0)
             }
         }
