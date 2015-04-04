@@ -5,7 +5,6 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.weapon.WeaponCard;
 import com.hearthsim.event.CharacterFilter;
 import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectCharacterDamage;
 import com.hearthsim.event.effect.CardEffectOnResolveRandomCharacterInterface;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;

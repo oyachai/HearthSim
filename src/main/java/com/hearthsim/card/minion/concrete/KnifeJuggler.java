@@ -7,7 +7,6 @@ import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.effect.CardEffectCharacterDamage;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
-import com.hearthsim.util.tree.RandomEffectNode;
 
 import java.util.Collection;
 
