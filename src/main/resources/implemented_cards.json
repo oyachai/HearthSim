@@ -697,6 +697,10 @@
         "class": "com.hearthsim.card.minion.concrete.JunglePanther"
     },
     {
+        "name": "Junkbot",
+        "class": "com.hearthsim.card.minion.concrete.Junkbot"
+    },
+    {
         "name": "Kidnapper",
         "class": "com.hearthsim.card.minion.concrete.Kidnapper"
     },
