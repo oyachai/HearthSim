@@ -813,6 +813,10 @@
         "class": "com.hearthsim.card.minion.concrete.MasterSwordsmith"
     },
     {
+        "name": "Mekgineer Thermaplugg",
+        "class": "com.hearthsim.card.minion.concrete.MekgineerThermaplugg"
+    },
+    {
         "name": "Mind Blast",
         "class": "com.hearthsim.card.spellcard.concrete.MindBlast"
     },
