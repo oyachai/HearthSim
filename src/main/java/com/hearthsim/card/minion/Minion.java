@@ -17,11 +17,14 @@ import com.hearthsim.util.HearthAction.Verb;
 import com.hearthsim.util.factory.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 public class Minion extends Card implements CardEffectOnResolveTargetableInterface, CardEndTurnInterface, CardStartTurnInterface {
+    private static final Logger log = LoggerFactory.getLogger(Card.class);
 
     public enum MinionTribe {
         NONE,
@@ -850,9 +853,9 @@ public class Minion extends Card implements CardEffectOnResolveTargetableInterfa
         try {
             minion = getClass().newInstance();
         } catch(InstantiationException e) {
-            log.error("instantiation error", e);
+            Minion.log.error("instantiation error", e);
         } catch(IllegalAccessException e) {
-            log.error("illegal access error", e);
+            Minion.log.error("illegal access error", e);
         }
         if (minion == null) {
             throw new RuntimeException("unable to instantiate minion.");

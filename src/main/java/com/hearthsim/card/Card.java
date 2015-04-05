@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class Card implements DeepCopyable<Card> {
-    protected final Logger log = LoggerFactory.getLogger(getClass());
+    private static final Logger log = LoggerFactory.getLogger(Card.class);
 
     /**
      * Name of the card
@@ -154,9 +154,9 @@ public class Card implements DeepCopyable<Card> {
         try {
             copy = getClass().newInstance();
         } catch(InstantiationException e) {
-            log.error("instantiation error", e);
+            Card.log.error("instantiation error", e);
         } catch(IllegalAccessException e) {
-            log.error("illegal access error", e);
+            Card.log.error("illegal access error", e);
         }
         if (copy == null) {
             throw new RuntimeException("unable to instantiate card.");
