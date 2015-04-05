@@ -87,9 +87,6 @@ public class Minion extends Card implements CardEffectOnResolveTargetableInterfa
     protected byte spellDamage_;
     protected boolean cantAttack;
 
-    // This is a flag to tell the BoardState that it can't cheat on the placement of this minion
-    private boolean placementImportant_ = false;
-
     public Minion() {
         super();
     }
@@ -321,12 +318,9 @@ public class Minion extends Card implements CardEffectOnResolveTargetableInterfa
         immune_ = immune;
     }
 
+    // This is a flag to tell the BoardState that it can't cheat on the placement of this minion
     public boolean getPlacementImportant() {
-        return placementImportant_;
-    }
-
-    public void setPlacementImportant(boolean value) {
-        placementImportant_ = value;
+        return false;
     }
 
     public boolean isHeroTargetable() {
@@ -931,7 +925,7 @@ public class Minion extends Card implements CardEffectOnResolveTargetableInterfa
         result = 31 * result + (destroyOnTurnEnd_ ? 1 : 0);
         result = 31 * result + spellDamage_;
         result = 31 * result + (deathrattleAction_ != null ? deathrattleAction_.hashCode() : 0);
-        result = 31 * result + (placementImportant_ ? 1 : 0);
+        result = 31 * result + (this.getPlacementImportant() ? 1 : 0);
         return result;
     }
 
