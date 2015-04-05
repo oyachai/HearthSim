@@ -957,6 +957,10 @@
         "class": "com.hearthsim.card.minion.concrete.RagingWorgen"
     },
     {
+        "name": "Ragnaros the Firelord",
+        "class": "com.hearthsim.card.minion.concrete.RagnarosTheFirelord"
+    },
+    {
         "name": "Raid Leader",
         "class": "com.hearthsim.card.minion.concrete.RaidLeader"
     },
