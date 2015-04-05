@@ -176,7 +176,7 @@ class ImplementedCardList {
     public ImplementedCard getCardForClass(Class<?> clazz) {
         def card =map_.get(clazz)
         if (!card) {
-            if ([Card, Minion, MinionMock, TestHero].contains(clazz)) {
+            if ([Card, CardMock, Minion, MinionMock, TestHero].contains(clazz)) {
                 return null
             } else {
                 throw new RuntimeException("unable to find card for class [$clazz]")

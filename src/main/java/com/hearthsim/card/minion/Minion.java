@@ -809,7 +809,6 @@ public class Minion extends Card implements CardEffectOnResolveTargetableInterfa
             throw new RuntimeException("unable to instantiate minion.");
         }
 
-        minion.baseManaCost = baseManaCost;
         minion.attack_ = attack_;
         minion.health_ = health_;
         minion.extraAttackUntilTurnEnd_ = extraAttackUntilTurnEnd_;

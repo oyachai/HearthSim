@@ -4,6 +4,7 @@ public class MinionMock extends Minion {
     private String name;
     private byte baseAttack;
     private byte baseHealth;
+    private byte baseManaCost;
 
     public MinionMock() {
         this("", (byte)0, (byte)0, (byte)0, (byte)0, (byte)0, (byte)0);
@@ -21,13 +22,18 @@ public class MinionMock extends Minion {
     }
 
     @Override
+    public byte getBaseAttack() {
+        return this.baseAttack;
+    }
+
+    @Override
     public byte getBaseHealth() {
         return this.baseHealth;
     }
 
     @Override
-    public byte getBaseAttack() {
-        return this.baseAttack;
+    public byte getBaseManaCost() {
+        return this.baseManaCost;
     }
 
     @Override
@@ -41,6 +47,7 @@ public class MinionMock extends Minion {
         card.name = this.name;
         card.baseAttack = this.baseAttack;
         card.baseHealth = this.baseHealth;
+        card.baseManaCost = this.baseManaCost;
         return card;
     }
 }
