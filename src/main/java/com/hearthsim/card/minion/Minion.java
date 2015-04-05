@@ -719,10 +719,8 @@ public class Minion extends Card implements CardEffectOnResolveTargetableInterfa
 
         // Notify all that an attack is beginning
         HearthTreeNode toRet;
-        int attackerIndex = this instanceof Hero ? 0 : currentPlayer.getMinions()
-                .indexOf(this) + 1;
-        int targetIndex = targetMinion instanceof Hero ? 0 : targetPlayer.getMinions()
-                .indexOf(targetMinion) + 1;
+        int attackerIndex = currentPlayer.getIndexForCharacter(this);
+        int targetIndex = targetPlayer.getIndexForCharacter(targetMinion);
 
         // Do the actual attack
         toRet = this.attack_core(targetMinionPlayerSide, targetMinion, boardState, singleRealizationOnly);
@@ -1023,12 +1021,7 @@ public class Minion extends Card implements CardEffectOnResolveTargetableInterfa
 
     @Deprecated
     protected HearthTreeNode summonMinion_core(PlayerSide targetSide, Minion targetMinion, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
-        int targetIndex = 0;
-        if (!targetMinion.isHero()) {
-            PlayerModel targetPlayer = boardState.data_.modelForSide(targetSide);
-            targetIndex = targetPlayer.getMinions().indexOf(targetMinion) + 1;
-        }
-
+        int targetIndex = boardState.data_.modelForSide(targetSide).getIndexForCharacter(targetMinion);
         return this.summonMinion_core(targetSide, targetIndex, boardState);
     }
 
@@ -1056,8 +1049,7 @@ public class Minion extends Card implements CardEffectOnResolveTargetableInterfa
             boardState.data_.placeMinion(targetSide, this, 0);
         } else {
             PlayerModel targetPlayer = boardState.data_.modelForSide(targetSide);
-            boardState.data_.placeMinion(targetSide, this,
-                targetPlayer.getMinions().indexOf(targetMinion) + 1);
+            boardState.data_.placeMinion(targetSide, this, targetPlayer.getIndexForCharacter(targetMinion));
         }
         return this.notifyMinionPlacement(boardState, targetSide);
     }

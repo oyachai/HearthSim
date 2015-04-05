@@ -38,7 +38,7 @@ public class Doomguard extends Minion implements MinionUntargetableBattlecry {
                 }
             }
         } else {
-            int thisMinionIndex = currentPlayer.getMinions().indexOf(this) + 1;
+            int thisMinionIndex = currentPlayer.getIndexForCharacter(this);
             IdentityLinkedList<Card> hand = currentPlayer.getHand();
             if (hand.size() == 0) {
                 return toRet;
