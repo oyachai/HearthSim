@@ -2,6 +2,7 @@ package com.hearthsim.test;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.minion.MinionMock;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
@@ -57,13 +58,13 @@ public class TestCharge {
         board = new BoardModel();
         scoreFunc = new DummyStateFunc();
 
-        Minion minion1_0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
+        Minion minion1_0 = new MinionMock("" + 0, mana, attack0, health0, attack0, health0, health0);
         board.placeMinion(PlayerSide.WAITING_PLAYER, minion1_0);
     }
 
     @Test
     public void testAiMinionAttack() throws HSException {
-        Minion minion = new Minion("" + 0, mana, attack0, health1, attack0, (byte)0, (byte)0);
+        Minion minion = new MinionMock("" + 0, mana, attack0, health1, attack0, (byte)0, (byte)0);
         minion.setCharge(true);
         board.placeMinion(PlayerSide.CURRENT_PLAYER, minion);
 
@@ -79,7 +80,7 @@ public class TestCharge {
 
     @Test
     public void testAiPlayChargeAndAttack() {
-        Minion minion = new Minion("" + 0, mana, attack0, health1, attack0, (byte)0, (byte)0);
+        Minion minion = new MinionMock("" + 0, mana, attack0, health1, attack0, (byte)0, (byte)0);
         minion.setCharge(true);
         board.getCurrentPlayer().placeCardHand(minion);
         board.getCurrentPlayer().setMana((byte)1);

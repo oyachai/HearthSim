@@ -5,6 +5,7 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.minion.MinionMock;
 import com.hearthsim.card.minion.heroes.Mage;
 import com.hearthsim.card.minion.heroes.Paladin;
 import com.hearthsim.card.minion.heroes.TestHero;
@@ -33,8 +34,8 @@ public class TestGame {
         Card[] cards2_ = new Card[numCardsInDeck_];
 
         for (int i = 0; i < numCardsInDeck_; ++i) {
-            cards1_[i] = new Minion("" + i, minionMana, minionAttack, minionHealth, minionAttack, minionHealth, minionHealth);
-            cards2_[i] = new Minion("" + i, minionMana, minionAttack, minionHealth, minionAttack, minionHealth, minionHealth);
+            cards1_[i] = new MinionMock("" + i, minionMana, minionAttack, minionHealth, minionAttack, minionHealth, minionHealth);
+            cards2_[i] = new MinionMock("" + i, minionMana, minionAttack, minionHealth, minionAttack, minionHealth, minionHealth);
         }
 
         int nt = 0;
@@ -93,8 +94,8 @@ public class TestGame {
         Card[] cards2_ = new Card[numCardsInDeck_];
 
         for (int i = 0; i < numCardsInDeck_; ++i) {
-            cards1_[i] = new Minion("" + i, minionMana, minionAttack, minionHealth, minionAttack, minionHealth, minionHealth);
-            cards2_[i] = new Minion("" + i, (byte)9, (byte)1, (byte)1, (byte)1, (byte)1, (byte)1);
+            cards1_[i] = new MinionMock("" + i, minionMana, minionAttack, minionHealth, minionAttack, minionHealth, minionHealth);
+            cards2_[i] = new MinionMock("" + i, (byte)9, (byte)1, (byte)1, (byte)1, (byte)1, (byte)1);
         }
 
         for (int iter = 0; iter < 10; ++iter) {

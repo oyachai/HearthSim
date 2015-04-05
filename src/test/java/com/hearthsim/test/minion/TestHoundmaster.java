@@ -2,6 +2,7 @@ package com.hearthsim.test.minion;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.minion.MinionMock;
 import com.hearthsim.card.minion.concrete.BloodfenRaptor;
 import com.hearthsim.card.minion.concrete.Houndmaster;
 import com.hearthsim.card.minion.concrete.StonetuskBoar;
@@ -29,11 +30,11 @@ public class TestHoundmaster {
         board = new HearthTreeNode(new BoardModel());
         currentPlayer = board.data_.getCurrentPlayer();
 
-        Minion minion0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
+        Minion minion0 = new MinionMock("" + 0, mana, attack0, health0, attack0, health0, health0);
         Minion minion1 = new StonetuskBoar();
-        Minion minion2 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
+        Minion minion2 = new MinionMock("" + 0, mana, attack0, health0, attack0, health0, health0);
         Minion minion3 = new BloodfenRaptor();
-        Minion minion4 = new Minion("" + 0, mana, attack0, (byte)(health0-2), attack0, health0, health0);
+        Minion minion4 = new MinionMock("" + 0, mana, attack0, (byte)(health0-2), attack0, health0, health0);
 
         Houndmaster fb = new Houndmaster();
         currentPlayer.placeCardHand(fb);

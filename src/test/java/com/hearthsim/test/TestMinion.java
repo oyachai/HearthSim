@@ -1,6 +1,7 @@
 package com.hearthsim.test;
 
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.minion.MinionMock;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -10,7 +11,7 @@ public class TestMinion {
 
     @Test
     public void testAttackDeepCopy() {
-        Minion minion0 = new Minion("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
+        Minion minion0 = new MinionMock("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
         Minion copy = (Minion)minion0.deepCopy();
         assertEquals(minion0, copy);
         assertEquals(copy, minion0);
@@ -24,15 +25,15 @@ public class TestMinion {
 
     @Test
     public void testAttackNotEquals() {
-        Minion minion0 = new Minion("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
-        Minion minion1 = new Minion("" + 0, (byte)2, (byte)30, (byte)4, (byte)3, (byte)4, (byte)4);
+        Minion minion0 = new MinionMock("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
+        Minion minion1 = new MinionMock("" + 0, (byte)2, (byte)30, (byte)4, (byte)3, (byte)4, (byte)4);
         assertNotEquals(minion0, minion1);
         assertNotEquals(minion0.hashCode(), minion1.hashCode());
     }
 
     @Test
     public void testAuraAttackDeepCopy() {
-        Minion minion0 = new Minion("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
+        Minion minion0 = new MinionMock("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
         minion0.setAuraAttack((byte)3);
 
         Minion copy = (Minion)minion0.deepCopy();
@@ -48,7 +49,7 @@ public class TestMinion {
 
     @Test
     public void testAuraAttackNotEquals() {
-        Minion minion0 = new Minion("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
+        Minion minion0 = new MinionMock("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
         Minion copy = (Minion)minion0.deepCopy();
         copy.setAuraAttack((byte)3);
         assertNotEquals(minion0, copy);
@@ -57,7 +58,7 @@ public class TestMinion {
 
     @Test
     public void testAuraHealthDeepCopy() {
-        Minion minion0 = new Minion("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
+        Minion minion0 = new MinionMock("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
         minion0.setAuraHealth((byte)3);
 
         Minion copy = (Minion)minion0.deepCopy();
@@ -73,7 +74,7 @@ public class TestMinion {
 
     @Test
     public void testAuraHealthNotEquals() {
-        Minion minion0 = new Minion("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
+        Minion minion0 = new MinionMock("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
         Minion copy = (Minion)minion0.deepCopy();
         copy.setAuraHealth((byte)3);
         assertNotEquals(minion0, copy);
@@ -82,23 +83,23 @@ public class TestMinion {
 
     @Test
     public void testBaseAttackNotEquals() {
-        Minion minion0 = new Minion("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
-        Minion minion1 = new Minion("" + 0, (byte)2, (byte)3, (byte)4, (byte)30, (byte)4, (byte)4);
+        Minion minion0 = new MinionMock("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
+        Minion minion1 = new MinionMock("" + 0, (byte)2, (byte)3, (byte)4, (byte)30, (byte)4, (byte)4);
         assertNotEquals(minion0, minion1);
         assertNotEquals(minion0.hashCode(), minion1.hashCode());
     }
 
     @Test
     public void testBaseHealthNotEquals() {
-        Minion minion0 = new Minion("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
-        Minion minion1 = new Minion("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)40, (byte)4);
+        Minion minion0 = new MinionMock("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
+        Minion minion1 = new MinionMock("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)40, (byte)4);
         assertNotEquals(minion0, minion1);
         assertNotEquals(minion0.hashCode(), minion1.hashCode());
     }
 
     @Test
     public void testChargeDeepCopy() {
-        Minion minion0 = new Minion("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
+        Minion minion0 = new MinionMock("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
         minion0.setCharge(true);
 
         Minion copy = (Minion)minion0.deepCopy();
@@ -114,7 +115,7 @@ public class TestMinion {
 
     @Test
     public void testChargeNotEquals() {
-        Minion minion0 = new Minion("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
+        Minion minion0 = new MinionMock("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
         Minion copy = (Minion)minion0.deepCopy();
         copy.setCharge(true);
         assertNotEquals(minion0, copy);
@@ -123,7 +124,7 @@ public class TestMinion {
 
     @Test
     public void testDestroyOnTurnEndNotEquals() {
-        Minion minion0 = new Minion("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
+        Minion minion0 = new MinionMock("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
         Minion minion1 = (Minion)minion0.deepCopy();
         minion1.setDestroyOnTurnEnd(true);
         assertNotEquals(minion0, minion1);
@@ -132,7 +133,7 @@ public class TestMinion {
 
     @Test
     public void testDestroyOnTurnStartNotEquals() {
-        Minion minion0 = new Minion("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
+        Minion minion0 = new MinionMock("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
         Minion minion1 = (Minion)minion0.deepCopy();
         minion1.setDestroyOnTurnStart(true);
         assertNotEquals(minion0, minion1);
@@ -141,7 +142,7 @@ public class TestMinion {
 
     @Test
     public void testDivineShieldDeepCopy() {
-        Minion minion0 = new Minion("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
+        Minion minion0 = new MinionMock("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
         minion0.setDivineShield(true);
 
         Minion copy = (Minion)minion0.deepCopy();
@@ -157,7 +158,7 @@ public class TestMinion {
 
     @Test
     public void testDivineShieldNotEquals() {
-        Minion minion0 = new Minion("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
+        Minion minion0 = new MinionMock("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
         Minion copy = (Minion)minion0.deepCopy();
         copy.setDivineShield(true);
         assertNotEquals(minion0, copy);
@@ -166,8 +167,8 @@ public class TestMinion {
 
     @Test
     public void testEquals() {
-        Minion minion0 = new Minion("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
-        Minion minion1 = new Minion("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
+        Minion minion0 = new MinionMock("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
+        Minion minion1 = new MinionMock("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
         assertEquals(minion0, minion1);
         assertEquals(minion0.hashCode(), minion1.hashCode());
     }
@@ -179,8 +180,8 @@ public class TestMinion {
             byte mana = (byte)(Math.random() * 10);
             byte attack = (byte)(Math.random() * 10);
             byte health = (byte)(Math.random() * 10);
-            Minion minion1 = new Minion("minion1", mana, attack, health, attack, health, health);
-            Minion minion2 = new Minion("minion1", mana, attack, health, attack, health, health);
+            Minion minion1 = new MinionMock("minion1", mana, attack, health, attack, health, health);
+            Minion minion2 = new MinionMock("minion1", mana, attack, health, attack, health, health);
             assertEquals(minion1, minion2);
             assertEquals(minion2, minion1);
             assertEquals(minion1.hashCode(), minion2.hashCode());
@@ -189,13 +190,13 @@ public class TestMinion {
 
     @Test
     public void testEqualsSelf() {
-        Minion minion0 = new Minion("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
+        Minion minion0 = new MinionMock("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
         assertEquals(minion0, minion0);
     }
 
     @Test
     public void testFrozenDeepCopy() {
-        Minion minion0 = new Minion("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
+        Minion minion0 = new MinionMock("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
         minion0.setFrozen(true);
 
         Minion copy = (Minion)minion0.deepCopy();
@@ -211,7 +212,7 @@ public class TestMinion {
 
     @Test
     public void testFrozenNotEquals() {
-        Minion minion0 = new Minion("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
+        Minion minion0 = new MinionMock("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
         Minion copy = (Minion)minion0.deepCopy();
         copy.setFrozen(true);
         assertNotEquals(minion0, copy);
@@ -220,7 +221,7 @@ public class TestMinion {
 
     @Test
     public void testHasWindfuryAttackedDeepCopy() {
-        Minion minion0 = new Minion("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
+        Minion minion0 = new MinionMock("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
         minion0.hasWindFuryAttacked(true);
 
         Minion copy = (Minion)minion0.deepCopy();
@@ -236,7 +237,7 @@ public class TestMinion {
 
     @Test
     public void testHasWindfuryAttackedNotEquals() {
-        Minion minion0 = new Minion("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
+        Minion minion0 = new MinionMock("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
         Minion copy = (Minion)minion0.deepCopy();
         copy.hasWindFuryAttacked(true);
         assertNotEquals(minion0, copy);
@@ -245,15 +246,15 @@ public class TestMinion {
 
     @Test
     public void testHealthNotEquals() {
-        Minion minion0 = new Minion("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
-        Minion minion1 = new Minion("" + 0, (byte)2, (byte)3, (byte)40, (byte)3, (byte)4, (byte)4);
+        Minion minion0 = new MinionMock("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
+        Minion minion1 = new MinionMock("" + 0, (byte)2, (byte)3, (byte)40, (byte)3, (byte)4, (byte)4);
         assertNotEquals(minion0, minion1);
         assertNotEquals(minion0.hashCode(), minion1.hashCode());
     }
 
     @Test
     public void testHeroTargetableDeepCopy() {
-        Minion minion0 = new Minion("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
+        Minion minion0 = new MinionMock("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
         minion0.setHeroTargetable(false);
 
         Minion copy = (Minion)minion0.deepCopy();
@@ -269,7 +270,7 @@ public class TestMinion {
 
     @Test
     public void testHeroTargetableNotEquals() {
-        Minion minion0 = new Minion("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
+        Minion minion0 = new MinionMock("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
         Minion copy = (Minion)minion0.deepCopy();
         copy.setHeroTargetable(false);
         assertNotEquals(minion0, copy);
@@ -278,31 +279,31 @@ public class TestMinion {
 
     @Test
     public void testManaNotEquals() {
-        Minion minion0 = new Minion("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
-        Minion minion1 = new Minion("" + 0, (byte)20, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
+        Minion minion0 = new MinionMock("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
+        Minion minion1 = new MinionMock("" + 0, (byte)20, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
         assertNotEquals(minion0, minion1);
         assertNotEquals(minion0.hashCode(), minion1.hashCode());
     }
 
     @Test
     public void testMaxHealthNotEquals() {
-        Minion minion0 = new Minion("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
-        Minion minion1 = new Minion("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)40);
+        Minion minion0 = new MinionMock("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
+        Minion minion1 = new MinionMock("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)40);
         assertNotEquals(minion0, minion1);
         assertNotEquals(minion0.hashCode(), minion1.hashCode());
     }
 
     @Test
     public void testNameNotEquals() {
-        Minion minion0 = new Minion("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
-        Minion minion1 = new Minion("" + 1, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
+        Minion minion0 = new MinionMock("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
+        Minion minion1 = new MinionMock("" + 1, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
         assertNotEquals(minion0, minion1);
         assertNotEquals(minion0.hashCode(), minion1.hashCode());
     }
 
     @Test
     public void testSpellDamageDeepCopy() {
-        Minion minion0 = new Minion("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
+        Minion minion0 = new MinionMock("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
         minion0.setSpellDamage((byte)3);
 
         Minion copy = (Minion)minion0.deepCopy();
@@ -318,7 +319,7 @@ public class TestMinion {
 
     @Test
     public void testSpellDamageNotEquals() {
-        Minion minion0 = new Minion("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
+        Minion minion0 = new MinionMock("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
         Minion copy = (Minion)minion0.deepCopy();
         copy.setSpellDamage((byte)3);
         assertNotEquals(minion0, copy);
@@ -327,7 +328,7 @@ public class TestMinion {
 
     @Test
     public void testStealthedDeepCopy() {
-        Minion minion0 = new Minion("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
+        Minion minion0 = new MinionMock("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
         minion0.setStealthed(true);
 
         Minion copy = (Minion)minion0.deepCopy();
@@ -343,7 +344,7 @@ public class TestMinion {
 
     @Test
     public void testStealthedNotEquals() {
-        Minion minion0 = new Minion("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
+        Minion minion0 = new MinionMock("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
         Minion copy = (Minion)minion0.deepCopy();
         copy.setStealthed(true);
         assertNotEquals(minion0, copy);
@@ -352,7 +353,7 @@ public class TestMinion {
 
     @Test
     public void testTauntDeepCopy() {
-        Minion minion0 = new Minion("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
+        Minion minion0 = new MinionMock("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
         minion0.setTaunt(true);
 
         Minion copy = (Minion)minion0.deepCopy();
@@ -368,7 +369,7 @@ public class TestMinion {
 
     @Test
     public void testTauntNotEquals() {
-        Minion minion0 = new Minion("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
+        Minion minion0 = new MinionMock("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
         Minion copy = (Minion)minion0.deepCopy();
         copy.setTaunt(true);
         assertNotEquals(minion0, copy);
@@ -377,7 +378,7 @@ public class TestMinion {
 
     @Test
     public void testWindfuryDeepCopy() {
-        Minion minion0 = new Minion("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
+        Minion minion0 = new MinionMock("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
         minion0.setWindfury(true);
 
         Minion copy = (Minion)minion0.deepCopy();
@@ -393,7 +394,7 @@ public class TestMinion {
 
     @Test
     public void testWindfuryNotEquals() {
-        Minion minion0 = new Minion("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
+        Minion minion0 = new MinionMock("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
         Minion copy = (Minion)minion0.deepCopy();
         copy.setWindfury(true);
         assertNotEquals(minion0, copy);

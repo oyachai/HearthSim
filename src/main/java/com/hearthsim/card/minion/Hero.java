@@ -21,16 +21,7 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
     private byte armor_;
 
     public Hero() {
-        ImplementedCardList cardList = ImplementedCardList.getInstance();
-        ImplementedCardList.ImplementedCard implementedCard = cardList.getCardForClass(this.getClass());
-        if (implementedCard != null) {
-            this.name_ = implementedCard.name_;
-            this.health_ = (byte) implementedCard.health_;
-            this.attack_ = 0;
-            this.baseHealth_ = health_;
-            this.maxHealth_ = health_;
-            this.heroTargetable_ = true;
-        }
+        super();
     }
 
     @Deprecated

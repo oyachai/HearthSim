@@ -28,13 +28,16 @@ public abstract class WeaponCard extends Card implements CardEffectOnResolveTarg
     private byte weaponDamage;
 
     public WeaponCard() {
-        ImplementedCardList cardList = ImplementedCardList.getInstance();
-        ImplementedCardList.ImplementedCard implementedCard = cardList.getCardForClass(this.getClass());
-        weaponCharge = (byte) implementedCard.durability;
-        weaponDamage = (byte) implementedCard.attack_;
-        name_ = implementedCard.name_;
-        baseManaCost = (byte) implementedCard.mana_;
-        isInHand_ = true;
+        super();
+    }
+
+    @Override
+    protected void initFromImplementedCard(ImplementedCardList.ImplementedCard implementedCard) {
+        super.initFromImplementedCard(implementedCard);
+        if (implementedCard != null) {
+            this.weaponCharge = (byte) implementedCard.durability;
+            this.weaponDamage = (byte) implementedCard.attack_;
+        }
     }
 
     @Override

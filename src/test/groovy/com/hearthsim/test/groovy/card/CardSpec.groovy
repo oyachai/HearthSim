@@ -87,7 +87,7 @@ class CardSpec extends Specification {
     
     void assertMinionEquals(Minion oldMinion, Minion newMinion) {
         assert oldMinion.attack == newMinion.attack
-        assert oldMinion.baseAttack_ == newMinion.baseAttack_
+        assert oldMinion.baseAttack == newMinion.baseAttack
         assert oldMinion.auraAttack == newMinion.auraAttack
         assert oldMinion.health == newMinion.health
         assert oldMinion.baseHealth == newMinion.baseHealth

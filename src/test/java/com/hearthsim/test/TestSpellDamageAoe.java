@@ -2,6 +2,7 @@ package com.hearthsim.test;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.minion.MinionMock;
 import com.hearthsim.card.minion.concrete.KoboldGeomancer;
 import com.hearthsim.card.spellcard.concrete.ArcaneExplosion;
 import com.hearthsim.card.spellcard.concrete.Consecration;
@@ -34,10 +35,10 @@ public class TestSpellDamageAoe {
         currentPlayer = board.data_.getCurrentPlayer();
         waitingPlayer = board.data_.getWaitingPlayer();
 
-        Minion minion0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
-        Minion minion1 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
-        Minion minion2 = new Minion("" + 0, mana, attack0, health1, attack0, health1, health1);
-        Minion minion3 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
+        Minion minion0 = new MinionMock("" + 0, mana, attack0, health0, attack0, health0, health0);
+        Minion minion1 = new MinionMock("" + 0, mana, attack0, health0, attack0, health0, health0);
+        Minion minion2 = new MinionMock("" + 0, mana, attack0, health1, attack0, health1, health1);
+        Minion minion3 = new MinionMock("" + 0, mana, attack0, health0, attack0, health0, health0);
 
         ArcaneExplosion fb = new ArcaneExplosion();
         currentPlayer.placeCardHand(fb);

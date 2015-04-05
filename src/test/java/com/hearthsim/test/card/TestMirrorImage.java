@@ -2,6 +2,7 @@ package com.hearthsim.test.card;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.minion.MinionMock;
 import com.hearthsim.card.minion.concrete.BloodfenRaptor;
 import com.hearthsim.card.minion.concrete.MirrorImageMinion;
 import com.hearthsim.card.spellcard.concrete.MirrorImage;
@@ -32,10 +33,10 @@ public class TestMirrorImage {
         currentPlayer = board.data_.getCurrentPlayer();
         waitingPlayer = board.data_.getWaitingPlayer();
 
-        Minion minion0_0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
-        Minion minion0_1 = new Minion("" + 0, mana, attack0, (byte)(health1 - 1), attack0, health1, health1);
-        Minion minion1_0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
-        Minion minion1_1 = new Minion("" + 0, mana, attack0, (byte)(health1 - 1), attack0, health1, health1);
+        Minion minion0_0 = new MinionMock("" + 0, mana, attack0, health0, attack0, health0, health0);
+        Minion minion0_1 = new MinionMock("" + 0, mana, attack0, (byte)(health1 - 1), attack0, health1, health1);
+        Minion minion1_0 = new MinionMock("" + 0, mana, attack0, health0, attack0, health0, health0);
+        Minion minion1_1 = new MinionMock("" + 0, mana, attack0, (byte)(health1 - 1), attack0, health1, health1);
 
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, minion0_0);
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, minion0_1);

@@ -9,6 +9,7 @@ import java.lang.reflect.InvocationTargetException;
 import com.hearthsim.card.Card
 import com.hearthsim.card.minion.Hero
 import com.hearthsim.card.minion.Minion
+import com.hearthsim.card.minion.MinionMock
 import com.hearthsim.card.minion.heroes.TestHero
 import com.hearthsim.json.registry.ReferenceCardRegistry
 
@@ -175,7 +176,7 @@ class ImplementedCardList {
     public ImplementedCard getCardForClass(Class<?> clazz) {
         def card =map_.get(clazz)
         if (!card) {
-            if ([Card, Minion, TestHero].contains(clazz)) {
+            if ([Card, Minion, MinionMock, TestHero].contains(clazz)) {
                 return null
             } else {
                 throw new RuntimeException("unable to find card for class [$clazz]")

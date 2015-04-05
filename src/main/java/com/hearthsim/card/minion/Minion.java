@@ -26,7 +26,7 @@ import java.lang.reflect.InvocationTargetException;
 public class Minion extends Card implements CardEffectOnResolveTargetableInterface, CardEndTurnInterface, CardStartTurnInterface {
     private static final Logger log = LoggerFactory.getLogger(Card.class);
 
-    public enum MinionTribe {
+    public static enum MinionTribe {
         NONE,
         BEAST,
         MECH,
@@ -75,11 +75,9 @@ public class Minion extends Card implements CardEffectOnResolveTargetableInterfa
 
     protected byte health_;
     protected byte maxHealth_;
-    protected byte baseHealth_;
     private byte auraHealth_;
 
     protected byte attack_;
-    protected byte baseAttack_;
     private byte extraAttackUntilTurnEnd_;
     private byte auraAttack_;
 
@@ -89,79 +87,29 @@ public class Minion extends Card implements CardEffectOnResolveTargetableInterfa
     protected byte spellDamage_;
     protected boolean cantAttack;
 
-    private AttackAction attackAction_;
-
-    protected MinionTribe tribe = MinionTribe.NONE;
-
     // This is a flag to tell the BoardState that it can't cheat on the placement of this minion
     private boolean placementImportant_ = false;
 
     public Minion() {
         super();
-        ImplementedCardList cardList = ImplementedCardList.getInstance();
-        ImplementedCardList.ImplementedCard implementedCard = cardList.getCardForClass(this.getClass());
-        if (implementedCard != null) {
-            // only 'Minion' class is not implemented
-            baseManaCost = (byte) implementedCard.mana_;
-            name_ = implementedCard.name_;
-            attack_ = (byte) implementedCard.attack_;
-            baseAttack_ = attack_;
-            health_ = (byte) implementedCard.health_;
-            maxHealth_ = health_;
-            baseHealth_ = health_;
-            taunt_ = implementedCard.taunt_;
-            divineShield_ = implementedCard.divineShield_;
-            windFury_ = implementedCard.windfury_;
-            charge_ = implementedCard.charge_;
-            stealthed_ = implementedCard.stealth_;
-            tribe = Minion.StringToMinionTribe(implementedCard.race);
-            isInHand_ = true;
-            spellDamage_ = (byte) implementedCard.spellDamage;
-            cantAttack = implementedCard.cantAttack;
-        }
     }
 
-    /**
-     * Simplified constructor
-     *
-     * @param name
-     * @param mana
-     * @param attack
-     * @param health
-     * @param baseAttack
-     * @param baseHealth
-     * @param maxHealth
-     */
-    public Minion(String name, byte mana, byte attack, byte health, byte baseAttack, byte baseHealth, byte maxHealth) {
-        super();
-        name_ = name;
-        baseManaCost = mana;
-        attack_ = attack;
-        health_ = health;
-        taunt_ = false;
-        divineShield_ = false;
-        windFury_ = false;
-        charge_ = false;
-        hasAttacked_ = false;
-        baseAttack_ = baseAttack;
-        extraAttackUntilTurnEnd_ = 0;
-        hasWindFuryAttacked_ = false;
-        frozen_ = false;
-        silenced_ = false;
-        baseHealth_ = baseHealth;
-        maxHealth_ = maxHealth;
-        destroyOnTurnStart_ = false;
-        destroyOnTurnEnd_ = false;
-        attackAction_ = null;
-
-        auraAttack_ = 0;
-        auraHealth_ = 0;
-
-        spellDamage_ = 0;
-
-        stealthed_ = false;
-        heroTargetable_ = true;
-        cantAttack = false;
+    @Override
+    protected void initFromImplementedCard(ImplementedCardList.ImplementedCard implementedCard) {
+        super.initFromImplementedCard(implementedCard);
+        if (implementedCard != null) {
+            // only 'Minion' class is not implemented
+            this.attack_ = implementedCard.attack_ > 0 ? (byte) implementedCard.attack_ : 0;
+            this.health_ = (byte) implementedCard.health_;
+            this.maxHealth_ = health_;
+            this.taunt_ = implementedCard.taunt_;
+            this.divineShield_ = implementedCard.divineShield_;
+            this.windFury_ = implementedCard.windfury_;
+            this.charge_ = implementedCard.charge_;
+            this.stealthed_ = implementedCard.stealth_;
+            this.spellDamage_ = (byte) implementedCard.spellDamage;
+            this.cantAttack = implementedCard.cantAttack;
+        }
     }
 
     public boolean getTaunt() {
@@ -197,11 +145,10 @@ public class Minion extends Card implements CardEffectOnResolveTargetableInterfa
     }
 
     public byte getBaseHealth() {
-        return baseHealth_;
-    }
-
-    public void setBaseHealth(byte health) {
-        baseHealth_ = health;
+        if (this.implementedCard == null) {
+            return this.getMaxHealth();
+        }
+        return (byte) this.implementedCard.health_;
     }
 
     public byte getAttack() {
@@ -214,6 +161,13 @@ public class Minion extends Card implements CardEffectOnResolveTargetableInterfa
 
     public void addAttack(byte value) {
         attack_ += value;
+    }
+
+    public byte getBaseAttack() {
+        if (this.implementedCard == null) {
+            return this.attack_;
+        }
+        return (byte) this.implementedCard.attack_;
     }
 
     public boolean getDivineShield() {
@@ -333,11 +287,11 @@ public class Minion extends Card implements CardEffectOnResolveTargetableInterfa
     }
 
     public MinionTribe getTribe() {
-        return tribe;
-    }
+        if (this.implementedCard == null) {
+            return MinionTribe.NONE;
+        }
 
-    public void setTribe(MinionTribe value) {
-        this.tribe = value;
+        return Minion.StringToMinionTribe(this.implementedCard.race);
     }
 
     public void addAuraHealth(byte value) {
@@ -539,9 +493,9 @@ public class Minion extends Card implements CardEffectOnResolveTargetableInterfa
         cantAttack = false;
 
         // Reset the attack and health to base
-        this.attack_ = this.baseAttack_;
-        if (this.maxHealth_ > this.baseHealth_) {
-            this.maxHealth_ = this.baseHealth_;
+        this.attack_ = this.getBaseAttack();
+        if (this.maxHealth_ > this.getBaseHealth()) {
+            this.maxHealth_ = this.getBaseHealth();
             if (this.health_ > this.maxHealth_)
                 this.health_ = this.maxHealth_;
         }
@@ -826,9 +780,9 @@ public class Minion extends Card implements CardEffectOnResolveTargetableInterfa
     public JSONObject toJSON() {
         JSONObject json = super.toJSON();
         json.put("attack", attack_);
-        json.put("baseAttack", baseAttack_);
+        json.put("baseAttack", this.getBaseAttack());
         if (health_ != maxHealth_) json.put("health", health_);
-        json.put("baseHealth", baseHealth_);
+        json.put("baseHealth", this.getBaseHealth());
         json.put("maxHealth", maxHealth_);
         if (taunt_) json.put("taunt", taunt_);
         if (divineShield_) json.put("divineShield", divineShield_);
@@ -861,14 +815,11 @@ public class Minion extends Card implements CardEffectOnResolveTargetableInterfa
             throw new RuntimeException("unable to instantiate minion.");
         }
 
-        minion.name_ = name_;
         minion.baseManaCost = baseManaCost;
         minion.attack_ = attack_;
         minion.health_ = health_;
-        minion.baseAttack_ = baseAttack_;
         minion.extraAttackUntilTurnEnd_ = extraAttackUntilTurnEnd_;
         minion.auraAttack_ = auraAttack_;
-        minion.baseHealth_ = baseHealth_;
         minion.maxHealth_ = maxHealth_;
         minion.auraHealth_ = auraHealth_;
         minion.spellDamage_ = spellDamage_;
@@ -885,7 +836,6 @@ public class Minion extends Card implements CardEffectOnResolveTargetableInterfa
         minion.destroyOnTurnStart_ = destroyOnTurnStart_;
         minion.destroyOnTurnEnd_ = destroyOnTurnEnd_;
         minion.deathrattleAction_ = deathrattleAction_;
-        minion.attackAction_ = attackAction_;
         minion.isInHand_ = isInHand_;
         minion.hasBeenUsed = hasBeenUsed;
         // TODO: continue here.
@@ -904,14 +854,14 @@ public class Minion extends Card implements CardEffectOnResolveTargetableInterfa
             return false;
         if (maxHealth_ != otherMinion.maxHealth_)
             return false;
-        if (baseHealth_ != otherMinion.baseHealth_)
+        if (this.getBaseHealth() != otherMinion.getBaseHealth())
             return false;
         if (auraHealth_ != otherMinion.auraHealth_)
             return false;
 
         if (attack_ != otherMinion.attack_)
             return false;
-        if (baseAttack_ != otherMinion.baseAttack_)
+        if (this.getBaseAttack() != otherMinion.getBaseAttack())
             return false;
         if (extraAttackUntilTurnEnd_ != otherMinion.extraAttackUntilTurnEnd_)
             return false;
@@ -953,10 +903,6 @@ public class Minion extends Card implements CardEffectOnResolveTargetableInterfa
         if (deathrattleAction_ != null && !deathrattleAction_.equals(((Minion)other).deathrattleAction_))
             return false;
 
-        // This is checked for reference equality
-        if (attackAction_ != ((Minion)other).attackAction_)
-            return false;
-
         return true;
     }
 
@@ -975,17 +921,16 @@ public class Minion extends Card implements CardEffectOnResolveTargetableInterfa
         result = 31 * result + (heroTargetable_ ? 1 : 0);
         result = 31 * result + health_;
         result = 31 * result + maxHealth_;
-        result = 31 * result + baseHealth_;
+        result = 31 * result + this.getBaseHealth();
         result = 31 * result + auraHealth_;
         result = 31 * result + attack_;
-        result = 31 * result + baseAttack_;
+        result = 31 * result + this.getBaseAttack();
         result = 31 * result + extraAttackUntilTurnEnd_;
         result = 31 * result + auraAttack_;
         result = 31 * result + (destroyOnTurnStart_ ? 1 : 0);
         result = 31 * result + (destroyOnTurnEnd_ ? 1 : 0);
         result = 31 * result + spellDamage_;
         result = 31 * result + (deathrattleAction_ != null ? deathrattleAction_.hashCode() : 0);
-        result = 31 * result + (attackAction_ != null ? attackAction_.hashCode() : 0);
         result = 31 * result + (placementImportant_ ? 1 : 0);
         return result;
     }
@@ -1005,16 +950,13 @@ public class Minion extends Card implements CardEffectOnResolveTargetableInterfa
         windFury_ = windFury;
         charge_ = charge;
         hasAttacked_ = hasAttacked;
-        baseAttack_ = baseAttack;
         extraAttackUntilTurnEnd_ = extraAttackUntilTurnEnd;
         hasWindFuryAttacked_ = hasWindFuryAttacked;
         frozen_ = frozen;
         silenced_ = silenced;
-        baseHealth_ = baseHealth;
         maxHealth_ = maxHealth;
         destroyOnTurnStart_ = destroyOnTurnStart;
         destroyOnTurnEnd_ = destroyOnTurnEnd;
-        attackAction_ = attackAction;
 
         auraAttack_ = auraAttack;
         auraHealth_ = auraHealth;

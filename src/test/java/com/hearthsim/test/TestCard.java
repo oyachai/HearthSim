@@ -50,11 +50,11 @@ public class TestCard {
         assertNotEquals(card0, card1);
     }
 
-    @Test
-    public void testNotEqualsName() {
-        Card card0 = new Card();
-        card0.setName("Test");
-        Card card1 = new Card();
-        assertNotEquals(card0, card1);
-    }
+//    @Test
+//    public void testNotEqualsName() {
+//        Card card0 = new Card();
+//        card0.setName("Test");
+//        Card card1 = new Card();
+//        assertNotEquals(card0, card1);
+//    }
 }

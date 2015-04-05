@@ -2,6 +2,7 @@ package com.hearthsim.test;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.minion.MinionMock;
 import com.hearthsim.card.minion.concrete.AbusiveSergeant;
 import com.hearthsim.card.minion.concrete.BoulderfistOgre;
 import com.hearthsim.card.minion.concrete.RaidLeader;
@@ -20,15 +21,15 @@ public class TestBoardModel {
     private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
 
     private static Minion CreateMinionAlpha() {
-        return new Minion("alpha", (byte)2, (byte)1, (byte)4, (byte)1, (byte)4, (byte)4);
+        return new MinionMock("alpha", (byte)2, (byte)1, (byte)4, (byte)1, (byte)4, (byte)4);
     }
 
     private static Minion CreateMinionBeta() {
-        return new Minion("beta", (byte)2, (byte)1, (byte)5, (byte)1, (byte)5, (byte)4);
+        return new MinionMock("beta", (byte)2, (byte)1, (byte)5, (byte)1, (byte)5, (byte)4);
     }
 
     private static Minion CreateMinionCharlie() {
-        return new Minion("charlie", (byte)2, (byte)1, (byte)4, (byte)1, (byte)4, (byte)4);
+        return new MinionMock("charlie", (byte)2, (byte)1, (byte)4, (byte)1, (byte)4, (byte)4);
     }
 
     @Test
@@ -101,7 +102,7 @@ public class TestBoardModel {
             byte health = (byte)((int)(Math.random() * 2) + 1);
             byte mana = (byte)((int)(0.5 * (attack + health)));
 
-            cards1[i] = new Minion("" + i, mana, attack, health, attack, health, health);
+            cards1[i] = new MinionMock("" + i, mana, attack, health, attack, health, health);
         }
 
         for (int i = 0; i < numCards2; ++i) {
@@ -109,7 +110,7 @@ public class TestBoardModel {
             byte health = (byte)((int)(Math.random() * 2) + 1);
             byte mana = (byte)((int)(0.5 * (attack + health)));
 
-            cards2[i] = new Minion("" + i, mana, attack, health, attack, health, health);
+            cards2[i] = new MinionMock("" + i, mana, attack, health, attack, health, health);
         }
 
         for (int i = 0; i < numCards3; ++i) {
@@ -117,7 +118,7 @@ public class TestBoardModel {
             byte health = (byte)((int)(Math.random() * 2) + 1);
             byte mana = (byte)((int)(0.5 * (attack + health)));
 
-            cards3[i] = new Minion("" + i, mana, attack, health, attack, health, health);
+            cards3[i] = new MinionMock("" + i, mana, attack, health, attack, health, health);
         }
 
         for (int i = 0; i < numBoards; ++i) {

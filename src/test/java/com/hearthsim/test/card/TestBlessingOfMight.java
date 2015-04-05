@@ -2,6 +2,7 @@ package com.hearthsim.test.card;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.minion.MinionMock;
 import com.hearthsim.card.spellcard.concrete.BlessingOfMight;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
@@ -29,10 +30,10 @@ public class TestBlessingOfMight {
         board = new HearthTreeNode(new BoardModel());
         currentPlayer = board.data_.getCurrentPlayer();
 
-        Minion minion0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
-        Minion minion1 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
-        Minion minion2 = new Minion("" + 0, mana, attack0, health1, attack0, health1, health1);
-        Minion minion3 = new Minion("" + 0, mana, attack0, (byte)(health0-2), attack0, health0, health0);
+        Minion minion0 = new MinionMock("" + 0, mana, attack0, health0, attack0, health0, health0);
+        Minion minion1 = new MinionMock("" + 0, mana, attack0, health0, attack0, health0, health0);
+        Minion minion2 = new MinionMock("" + 0, mana, attack0, health1, attack0, health1, health1);
+        Minion minion3 = new MinionMock("" + 0, mana, attack0, (byte)(health0-2), attack0, health0, health0);
 
         BlessingOfMight fb = new BlessingOfMight();
         currentPlayer.placeCardHand(fb);
