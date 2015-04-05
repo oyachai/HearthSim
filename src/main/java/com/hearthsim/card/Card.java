@@ -2,12 +2,14 @@ package com.hearthsim.card;
 
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.card.spellcard.SpellRandomInterface;
 import com.hearthsim.event.CharacterFilter;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
-import com.hearthsim.event.effect.CardEffectAoeInterface;
 import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectTargetableInterface;
+import com.hearthsim.event.effect.CardEffectOnResolveAoeInterface;
+import com.hearthsim.event.effect.CardEffectOnResolveRandomCharacterInterface;
+import com.hearthsim.event.effect.CardEffectOnResolveTargetableInterface;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
@@ -227,7 +229,11 @@ public class Card implements DeepCopyable<Card> {
             return false;
         }
 
-        if (this instanceof CardEffectTargetableInterface && !((CardEffectTargetableInterface)this).getTargetableFilter().targetMatches(PlayerSide.CURRENT_PLAYER, this, playerSide, minion, boardModel)) {
+        if (this instanceof CardEffectOnResolveTargetableInterface) {
+            if (!((CardEffectOnResolveTargetableInterface)this).getTargetableFilter().targetMatches(PlayerSide.CURRENT_PLAYER, this, playerSide, minion, boardModel)) {
+                return false;
+            }
+        } else if (this instanceof SpellCard && playerSide != PlayerSide.CURRENT_PLAYER || !minion.isHero()) { // TODO ignore minion cards for now
             return false;
         }
 
@@ -279,12 +285,17 @@ public class Card implements DeepCopyable<Card> {
         HearthTreeNode toRet = this.notifyCardPlayBegin(boardState, singleRealizationOnly);
         if (toRet != null) {
             toRet = this.use_core(side, targetMinion, toRet, singleRealizationOnly);
-            if (toRet != null && this.triggersOverload())
-                toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER).addOverload(this.getOverload());
         }
 
         if (toRet != null) {
-            toRet = this.notifyCardPlayResolve(toRet, singleRealizationOnly);
+            // we need to resolve each RNG child separately
+            if (toRet instanceof RandomEffectNode && toRet.numChildren() > 0) {
+                for (HearthTreeNode child : toRet.getChildren()) {
+                    this.resolveCardPlayedAndNotify(child, singleRealizationOnly); // TODO deal with null return
+                }
+            } else {
+                toRet = this.resolveCardPlayedAndNotify(toRet, singleRealizationOnly);
+            }
         }
 
         if (toRet != null) {
@@ -292,6 +303,18 @@ public class Card implements DeepCopyable<Card> {
         }
 
         return toRet;
+    }
+
+    private HearthTreeNode resolveCardPlayedAndNotify(HearthTreeNode boardState, boolean singleRealizationOnly) {
+        if (boardState != null && this.triggersOverload()) {
+            boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).addOverload(this.getOverload());
+        }
+
+        if (boardState != null) {
+            boardState = this.notifyCardPlayResolve(boardState, singleRealizationOnly);
+        }
+
+        return boardState;
     }
 
     /**
@@ -310,45 +333,61 @@ public class Card implements DeepCopyable<Card> {
         boolean singleRealizationOnly)
         throws HSException {
         HearthTreeNode toRet = boardState;
+        int originIndex = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getHand().indexOf(this);
+        int targetIndex = boardState.data_.modelForSide(side).getIndexForCharacter(targetMinion);
 
-        CardEffectCharacter effect = null;
-        if (this instanceof CardEffectTargetableInterface) {
-            effect = ((CardEffectTargetableInterface)this).getTargetableEffect();
+        CardEffectCharacter targetableEffect = null;
+        if (this instanceof CardEffectOnResolveTargetableInterface) {
+            targetableEffect = ((CardEffectOnResolveTargetableInterface) this).getTargetableEffect();
         }
 
-        // Check to see if this card generates RNG children
+        // TODO this is to workaround using super.use_core since we no longer have an accurate reference to the origin card (specifically, Soulfire messes things up)
+        byte manaCost = this.getManaCost(PlayerSide.CURRENT_PLAYER, boardState.data_);
+        Collection<HearthTreeNode> rngChildren = null;
+
+        // different interfaces have different usage patterns
         if (this instanceof SpellRandomInterface) {
-            int originIndex = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getHand().indexOf(this);
-            int targetIndex = boardState.data_.modelForSide(side).getIndexForCharacter(targetMinion);
+            rngChildren = ((SpellRandomInterface) this).createChildren(PlayerSide.CURRENT_PLAYER, originIndex, toRet);
+        } else if (this instanceof CardEffectOnResolveRandomCharacterInterface) {
+            CardEffectOnResolveRandomCharacterInterface that = (CardEffectOnResolveRandomCharacterInterface) this;
+            rngChildren = this.effectRandomCharacterUsingFilter(that.getRandomTargetEffect(), that.getRandomTargetSecondaryEffect(), that.getRandomTargetFilter(), toRet);
+        } else if (this instanceof CardEffectOnResolveAoeInterface) {
+            toRet = this.effectAllUsingFilter(((CardEffectOnResolveAoeInterface) this).getAoeEffect(), ((CardEffectOnResolveAoeInterface) this).getAoeFilter(), toRet);
+        }
 
-            // TODO this is to workaround using super.use_core since we no longer have an accurate reference to the origin card (specifically, Soulfire messes things up)
-            byte manaCost = this.getManaCost(PlayerSide.CURRENT_PLAYER, boardState.data_);
+        // if we expected rngChildren but none were created, don't let this card be played if it was the only effect
+        if (rngChildren != null && rngChildren.size() == 0 && targetableEffect == null) {
+            toRet = null;
+        }
 
+        if (toRet == null) {
+            return null;
+        }
+
+        toRet = this.createRngNodeWithChildren(toRet, rngChildren);
+
+        if (toRet != null && toRet instanceof RandomEffectNode) {
             // create an RNG "base" that is untouched. This allows us to recreate the RNG children during history traversal.
-            toRet = new RandomEffectNode(toRet, new HearthAction(HearthAction.Verb.USE_CARD, side, 0, side, 0));
-            Collection<HearthTreeNode> children = ((SpellRandomInterface)this).createChildren(PlayerSide.CURRENT_PLAYER, originIndex, toRet);
+            this.hasBeenUsed(false); // revert back to unused for the purposes of replays
 
             // for each child, apply the effect and mana cost. we want to do as much as we can with the non-random effect portion (e.g., the damage part of Soulfire)
-            for (HearthTreeNode child : children) {
-                if (effect != null) {
-                    child = effect.applyEffect(PlayerSide.CURRENT_PLAYER, null, side, targetIndex, child);
+            for (HearthTreeNode child : toRet.getChildren()) {
+                if (targetableEffect != null) {
+                    child = targetableEffect.applyEffect(PlayerSide.CURRENT_PLAYER, null, side, targetIndex, child);
                 }
                 child.data_.modelForSide(PlayerSide.CURRENT_PLAYER).subtractMana(manaCost);
-                toRet.addChild(child);
             }
         } else {
-            // if we have an effect, we need to apply it
-            if (this instanceof CardEffectAoeInterface) {
-                toRet = this.effectAllUsingFilter(((CardEffectAoeInterface) this).getAoeEffect(), ((CardEffectAoeInterface) this).getAoeFilter(), toRet);
-            } else if (effect != null) {
-                toRet = effect.applyEffect(PlayerSide.CURRENT_PLAYER, this, side, targetMinion, toRet);
-            }
-
-            // apply standard card played effects
             if (toRet != null) {
+                // apply standard card played effects
                 PlayerModel currentPlayer = toRet.data_.getCurrentPlayer();
-                currentPlayer.subtractMana(this.getManaCost(PlayerSide.CURRENT_PLAYER, toRet.data_));
+                toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER).subtractMana(manaCost);
+                this.hasBeenUsed(true);
                 currentPlayer.getHand().remove(this);
+
+                if (targetableEffect != null) {
+                    toRet = targetableEffect.applyEffect(PlayerSide.CURRENT_PLAYER, this, side, targetMinion, toRet);
+                }
             }
         }
 
@@ -475,6 +514,68 @@ public class Card implements DeepCopyable<Card> {
                 if (filter.targetMatches(PlayerSide.CURRENT_PLAYER, this, location.getPlayerSide(), character, boardState.data_)) {
                     boardState = effect.applyEffect(PlayerSide.CURRENT_PLAYER, this, location.getPlayerSide(), character, boardState);
                 }
+            }
+        }
+        return boardState;
+    }
+
+    protected final Collection<HearthTreeNode> effectRandomCharacterUsingFilter(CardEffectCharacter effect, CardEffectCharacter effectOthers, CharacterFilter filter, HearthTreeNode boardState) {
+        return this.effectRandomCharacterUsingFilter(effect, effectOthers, filter, PlayerSide.CURRENT_PLAYER, boardState);
+    }
+
+    protected Collection<HearthTreeNode> effectRandomCharacterUsingFilter(CardEffectCharacter effect, CardEffectCharacter effectOthers, CharacterFilter filter, PlayerSide originSide, HearthTreeNode boardState) {
+        int originIndex = boardState.data_.modelForSide(originSide).getHand().indexOf(this);
+        boolean originInHand = originIndex >= 0;
+        if (!originInHand) {
+            originIndex = boardState.data_.modelForSide(originSide).getIndexForCharacter((Minion)this);
+        }
+
+        ArrayList<HearthTreeNode> children = new ArrayList<>();
+        for (BoardModel.CharacterLocation location : boardState.data_) {
+            if (filter.targetMatches(originSide, this, location.getPlayerSide(), location.getIndex(), boardState.data_)) {
+                boolean somethingHappened = false;
+                HearthTreeNode newState = new HearthTreeNode(boardState.data_.deepCopy());
+                Card origin;
+                if (originInHand) {
+                    origin = boardState.data_.modelForSide(originSide).getHand().get(originIndex);
+                } else {
+                    origin = boardState.data_.modelForSide(originSide).getCharacter(originIndex);
+                }
+                if (effect != null) {
+                    newState = effect.applyEffect(originSide, origin, location.getPlayerSide(), location.getIndex(), newState);
+                    somethingHappened = newState != null;
+                }
+                if (effectOthers != null && newState != null) {
+                    for (BoardModel.CharacterLocation childLocation : newState.data_) {
+                        if (location.equals(childLocation)) {
+                            continue;
+                        }
+                        if (filter.targetMatches(originSide, origin, childLocation.getPlayerSide(), childLocation.getIndex(), boardState.data_)) {
+                            newState = effectOthers.applyEffect(originSide, origin, childLocation.getPlayerSide(), childLocation.getIndex(), newState);
+                            somethingHappened = newState != null;
+                        }
+                    }
+                }
+
+                if (somethingHappened) {
+                    if (originInHand) {
+                        newState.data_.modelForSide(originSide).getHand().remove(originIndex);
+                    }
+                    children.add(newState);
+                }
+            }
+        }
+        return children;
+    }
+
+    protected HearthTreeNode createRngNodeWithChildren(HearthTreeNode boardState, Collection<HearthTreeNode> rngChildren) {
+        RandomEffectNode rngNode = new RandomEffectNode(boardState, boardState.getAction());
+        if (rngChildren != null) {
+            if (rngChildren.size() == 1) {
+                boardState = rngChildren.stream().findAny().get();
+            } else if (rngChildren.size() > 1) {
+                rngNode.addChildren(rngChildren);
+                boardState = rngNode;
             }
         }
         return boardState;

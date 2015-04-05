@@ -52,7 +52,7 @@ public class TestSpellDamageAoe {
     @Test
     public void testHitsEnemyMinions() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 0, board);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
         assertEquals(board, ret);
 
         assertEquals(currentPlayer.getMana(), 1);
@@ -79,7 +79,7 @@ public class TestSpellDamageAoe {
         currentPlayer.setMana((byte) 5);
 
         Card theCard = currentPlayer.getHand().get(1);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 0, board);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
         assertEquals(board, ret);
 
         assertEquals(currentPlayer.getMana(), 1);
@@ -106,7 +106,7 @@ public class TestSpellDamageAoe {
         currentPlayer.setMana((byte) 5);
 
         Card theCard = currentPlayer.getHand().get(1);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 0, board);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
         assertEquals(board, ret);
 
         assertEquals(currentPlayer.getMana(), 1);
@@ -132,7 +132,7 @@ public class TestSpellDamageAoe {
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, kobold);
 
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 0, board);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
         assertEquals(board, ret);
 
         assertEquals(currentPlayer.getMana(), 1);
@@ -176,9 +176,9 @@ public class TestSpellDamageAoe {
     }
 
     @Test
-    public void testCannotTargetSelf() throws HSException {
+    public void testCannotTargetOpponent() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 0, board);
         assertNull(ret);
 
         assertEquals(currentPlayer.getHand().size(), 1);

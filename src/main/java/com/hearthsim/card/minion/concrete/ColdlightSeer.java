@@ -3,12 +3,11 @@ package com.hearthsim.card.minion.concrete;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionUntargetableBattlecry;
 import com.hearthsim.event.CharacterFilter;
-import com.hearthsim.event.effect.CardEffectAoeInterface;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.effect.CardEffectCharacterBuffDelta;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class ColdlightSeer extends Minion implements MinionUntargetableBattlecry, CardEffectAoeInterface {
+public class ColdlightSeer extends Minion implements MinionUntargetableBattlecry {
 
     private static final CardEffectCharacter effect = new CardEffectCharacterBuffDelta(0, 2);
 
@@ -35,16 +34,6 @@ public class ColdlightSeer extends Minion implements MinionUntargetableBattlecry
 
     @Override
     public HearthTreeNode useUntargetableBattlecry_core(int minionPlacementIndex, HearthTreeNode boardState, boolean singleRealizationOnly) {
-        return this.effectAllUsingFilter(this.getAoeEffect(), this.getAoeFilter(), boardState);
-    }
-
-    @Override
-    public CardEffectCharacter getAoeEffect() {
-        return ColdlightSeer.effect;
-    }
-
-    @Override
-    public CharacterFilter getAoeFilter() {
-        return ColdlightSeer.filter;
+        return this.effectAllUsingFilter(ColdlightSeer.effect, ColdlightSeer.filter, boardState);
     }
 }

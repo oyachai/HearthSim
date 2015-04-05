@@ -2,7 +2,7 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.card.spellcard.SpellCard;
+import com.hearthsim.card.spellcard.SpellTargetableCard;
 import com.hearthsim.event.CharacterFilter;
 import com.hearthsim.event.CharacterFilterTargetedSpell;
 import com.hearthsim.event.effect.CardEffectCharacter;
@@ -10,7 +10,7 @@ import com.hearthsim.event.effect.CardEffectCharacterBuffDelta;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 
-public class Rampage extends SpellCard {
+public class Rampage extends SpellTargetableCard {
 
     private final static CardEffectCharacter effect = new CardEffectCharacterBuffDelta(3, 3);
 

@@ -208,12 +208,20 @@
         "class": "com.hearthsim.card.minion.concrete.Boar"
     },
     {
+        "name": "Bomb Lobber",
+        "class": "com.hearthsim.card.minion.concrete.BombLobber"
+    },
+    {
         "name": "Booty Bay Bodyguard",
         "class": "com.hearthsim.card.minion.concrete.BootyBayBodyguard"
     },
     {
         "name": "Boulderfist Ogre",
         "class": "com.hearthsim.card.minion.concrete.BoulderfistOgre"
+    },
+    {
+        "name": "Brawl",
+        "class": "com.hearthsim.card.spellcard.concrete.Brawl"
     },
     {
         "name": "Captain Greenskin",
@@ -280,6 +288,10 @@
         "class": "com.hearthsim.card.minion.concrete.CruelTaskmaster"
     },
     {
+        "name": "Coghammer",
+        "class": "com.hearthsim.card.weapon.concrete.Coghammer"
+    },
+    {
         "name": "Dalaran Mage",
         "class": "com.hearthsim.card.minion.concrete.DalaranMage"
     },
@@ -306,6 +318,10 @@
     {
         "name": "Deadly Poison",
         "class": "com.hearthsim.card.spellcard.concrete.DeadlyPoison"
+    },
+    {
+        "name": "Deadly Shot",
+        "class": "com.hearthsim.card.spellcard.concrete.DeadlyShot"
     },
     {
         "name": "Death's Bite",
@@ -449,6 +465,10 @@
         "class": "com.hearthsim.card.minion.concrete.FlameOfAzzinoth"
     },
     {
+        "name": "Flamecannon",
+        "class": "com.hearthsim.card.spellcard.concrete.Flamecannon"
+    },
+    {
         "name": "Flamestrike",
         "class": "com.hearthsim.card.spellcard.concrete.Flamestrike"
     },
@@ -499,6 +519,10 @@
     {
         "name": "Gladiator's Longbow",
         "class": "com.hearthsim.card.weapon.concrete.GladiatorsLongbow"
+    },
+    {
+        "name": "Glaivezooka",
+        "class": "com.hearthsim.card.weapon.concrete.Glaivezooka"
     },
     {
         "name": "Gnomish Inventor",
@@ -685,6 +709,10 @@
         "class": "com.hearthsim.card.minion.concrete.KingMukla"
     },
     {
+        "name": "Knife Juggler",
+        "class": "com.hearthsim.card.minion.concrete.KnifeJuggler"
+    },
+    {
         "name": "Kobold Geomancer",
         "class": "com.hearthsim.card.minion.concrete.KoboldGeomancer"
     },
@@ -783,6 +811,10 @@
     {
         "name": "Mind Control",
         "class": "com.hearthsim.card.spellcard.concrete.MindControl"
+    },
+    {
+        "name": "Mind Control Tech",
+        "class": "com.hearthsim.card.minion.concrete.MindControlTech"
     },
     {
         "name": "Mini-Mage",
@@ -981,6 +1013,10 @@
         "class": "com.hearthsim.card.spellcard.concrete.ShadowWordPain"
     },
     {
+        "name": "Shadowboxer",
+        "class": "com.hearthsim.card.minion.concrete.Shadowboxer"
+    },
+    {
         "name": "Shattered Sun Cleric",
         "class": "com.hearthsim.card.minion.concrete.ShatteredSunCleric"
     },
@@ -999,6 +1035,10 @@
     {
         "name": "Shielded Minibot",
         "class": "com.hearthsim.card.minion.concrete.ShieldedMinibot"
+    },
+    {
+        "name": "Ship's Cannon",
+        "class": "com.hearthsim.card.minion.concrete.ShipsCannon"
     },
     {
         "name": "Shiv",

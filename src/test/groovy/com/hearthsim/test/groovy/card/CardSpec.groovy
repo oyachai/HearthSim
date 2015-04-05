@@ -41,6 +41,7 @@ class CardSpec extends Specification {
         assertHandEquals(oldPlayerModel.hand, newPlayerModel.hand)
         assertHeroEquals(oldPlayerModel.hero, newPlayerModel.hero)
         assertMinionsEqual(oldPlayerModel.minions, newPlayerModel.minions)
+        assert oldPlayerModel.numCardsUsed == newPlayerModel.numCardsUsed
         assert oldPlayerModel == newPlayerModel //catch all
     }
 

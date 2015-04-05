@@ -2,13 +2,13 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.card.spellcard.SpellDamage;
+import com.hearthsim.card.spellcard.SpellDamageTargetableCard;
 import com.hearthsim.event.CharacterFilter;
 import com.hearthsim.event.CharacterFilterTargetedSpell;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 
-public class Backstab extends SpellDamage {
+public class Backstab extends SpellDamageTargetableCard {
 
     private final static CharacterFilter filter = new CharacterFilterTargetedSpell() {
         protected boolean includeEnemyMinions() { return true; }

@@ -1,10 +1,10 @@
 package com.hearthsim.card.spellcard.concrete;
 
-import com.hearthsim.card.spellcard.SpellCard;
+import com.hearthsim.card.spellcard.SpellTargetableCard;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.effect.CardEffectCharacterHeal;
 
-public class HealingTouch extends SpellCard {
+public class HealingTouch extends SpellTargetableCard {
 
     private static final byte HEAL_AMOUNT = 8;
 

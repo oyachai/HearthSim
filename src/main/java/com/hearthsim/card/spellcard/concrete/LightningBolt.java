@@ -1,8 +1,8 @@
 package com.hearthsim.card.spellcard.concrete;
 
-import com.hearthsim.card.spellcard.SpellDamage;
+import com.hearthsim.card.spellcard.SpellDamageTargetableCard;
 
-public class LightningBolt extends SpellDamage {
+public class LightningBolt extends SpellDamageTargetableCard {
 
     public LightningBolt() {
         super();

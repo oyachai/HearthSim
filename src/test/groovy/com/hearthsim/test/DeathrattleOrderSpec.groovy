@@ -43,7 +43,7 @@ class DeathrattleOrderSpec extends CardSpec {
         def copiedBoard = startingBoard.deepCopy()
 
         def hellfire = root.data_.getCurrentPlayer().getHand().get(0)
-        ret = hellfire.useOn(WAITING_PLAYER, 0, ret)
+        ret = hellfire.useOn(CURRENT_PLAYER, 0, ret)
 
         expect:
         ret != null
@@ -83,7 +83,7 @@ class DeathrattleOrderSpec extends CardSpec {
         def copiedBoard = startingBoard.deepCopy()
 
         def hellfire = root.data_.getCurrentPlayer().getHand().get(0)
-        ret = hellfire.useOn(WAITING_PLAYER, 0, ret)
+        ret = hellfire.useOn(CURRENT_PLAYER, 0, ret)
 
         expect:
         ret != null

@@ -1,12 +1,12 @@
 package com.hearthsim.card.spellcard.concrete;
 
-import com.hearthsim.card.spellcard.SpellCard;
+import com.hearthsim.card.spellcard.SpellTargetableCard;
 import com.hearthsim.event.CharacterFilter;
 import com.hearthsim.event.CharacterFilterTargetedSpell;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.effect.CardEffectCharacterDraw;
 
-public class ArcaneIntellect extends SpellCard {
+public class ArcaneIntellect extends SpellTargetableCard {
 
     private static final CardEffectCharacter effect = new CardEffectCharacterDraw(2);
 

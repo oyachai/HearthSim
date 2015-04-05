@@ -1,8 +1,8 @@
 package com.hearthsim.card.spellcard.concrete;
 
-import com.hearthsim.card.spellcard.SpellDamage;
+import com.hearthsim.card.spellcard.SpellDamageTargetableCard;
 
-public class Pyroblast extends SpellDamage {
+public class Pyroblast extends SpellDamageTargetableCard {
 
     public Pyroblast() {
         super();

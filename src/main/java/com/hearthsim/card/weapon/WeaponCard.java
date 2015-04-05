@@ -3,12 +3,16 @@ package com.hearthsim.card.weapon;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.ImplementedCardList;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.event.deathrattle.DeathrattleAction;
+import com.hearthsim.event.CharacterFilter;
+import com.hearthsim.event.CharacterFilterSummon;
+import com.hearthsim.event.effect.CardEffectCharacter;
+import com.hearthsim.event.effect.CardEffectHeroWeapon;
+import com.hearthsim.event.effect.CardEffectOnResolveTargetableInterface;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public abstract class WeaponCard extends Card {
+public abstract class WeaponCard extends Card implements CardEffectOnResolveTargetableInterface {
 
     protected boolean isImmune() {
         return immune;
@@ -70,41 +74,14 @@ public abstract class WeaponCard extends Card {
         return result;
     }
 
-    /**
-     * Use the card on the given target
-     * <p>
-     * This is the core implementation of card's ability
-     *
-     * @param side
-     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-     * @return The boardState is manipulated and returned
-     */
     @Override
-    protected HearthTreeNode use_core(
-        PlayerSide side,
-        Minion targetMinion,
-        HearthTreeNode boardState,
-        boolean singleRealizationOnly)
-        throws HSException {
-        if (this.hasBeenUsed()) {
-            //Card is already used, nothing to do
-            return null;
-        }
+    public CardEffectCharacter getTargetableEffect() {
+        return new CardEffectHeroWeapon(this);
+    }
 
-        if (isWaitingPlayer(side) || !targetMinion.isHero()) {
-            return null;
-        }
-
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
-        if (toRet != null) {
-            this.hasBeenUsed(true);
-            DeathrattleAction weaponDeathrattle = toRet.data_.getCurrentPlayer().getHero().setWeapon(this);
-            if (weaponDeathrattle != null) {
-                toRet = weaponDeathrattle.performAction(null, side, toRet, singleRealizationOnly);
-            }
-        }
-
-        return toRet;
+    @Override
+    public CharacterFilter getTargetableFilter() {
+        return CharacterFilterSummon.SELF;
     }
 
     public byte getWeaponCharge() {

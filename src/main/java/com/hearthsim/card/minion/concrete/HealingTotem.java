@@ -2,14 +2,14 @@ package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.CharacterFilter;
-import com.hearthsim.event.effect.CardEffectAoeInterface;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.effect.CardEffectCharacterHeal;
+import com.hearthsim.event.effect.CardEffectOnResolveAoeInterface;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class HealingTotem extends Minion implements CardEffectAoeInterface {
+public class HealingTotem extends Minion implements CardEffectOnResolveAoeInterface {
 
     private static final CardEffectCharacter effect = new CardEffectCharacterHeal(1);
 
