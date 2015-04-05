@@ -208,6 +208,10 @@
         "class": "com.hearthsim.card.minion.concrete.Boar"
     },
     {
+        "name": "Bolvar Fordragon",
+        "class": "com.hearthsim.card.minion.concrete.BolvarFordragon"
+    },
+    {
         "name": "Bomb Lobber",
         "class": "com.hearthsim.card.minion.concrete.BombLobber"
     },
@@ -256,6 +260,10 @@
         "class": "com.hearthsim.card.minion.concrete.ClockworkGiant"
     },
     {
+        "name": "Coghammer",
+        "class": "com.hearthsim.card.weapon.concrete.Coghammer"
+    },
+    {
         "name": "Cold Blood",
         "class": "com.hearthsim.card.spellcard.concrete.ColdBlood"
     },
@@ -288,8 +296,8 @@
         "class": "com.hearthsim.card.minion.concrete.CruelTaskmaster"
     },
     {
-        "name": "Coghammer",
-        "class": "com.hearthsim.card.weapon.concrete.Coghammer"
+        "name": "Cult Master",
+        "class": "com.hearthsim.card.minion.concrete.CultMaster"
     },
     {
         "name": "Dalaran Mage",
@@ -693,6 +701,10 @@
         "class": "com.hearthsim.card.minion.concrete.JunglePanther"
     },
     {
+        "name": "Junkbot",
+        "class": "com.hearthsim.card.minion.concrete.Junkbot"
+    },
+    {
         "name": "Kidnapper",
         "class": "com.hearthsim.card.minion.concrete.Kidnapper"
     },
@@ -803,6 +815,10 @@
     {
         "name": "Master Swordsmith",
         "class": "com.hearthsim.card.minion.concrete.MasterSwordsmith"
+    },
+    {
+        "name": "Mekgineer Thermaplugg",
+        "class": "com.hearthsim.card.minion.concrete.MekgineerThermaplugg"
     },
     {
         "name": "Mind Blast",
@@ -989,6 +1005,10 @@
         "class": "com.hearthsim.card.minion.concrete.ScarletCrusader"
     },
     {
+        "name": "Scavenging Hyena",
+        "class": "com.hearthsim.card.minion.concrete.ScavengingHyena"
+    },
+    {
         "name": "Sea Giant",
         "class": "com.hearthsim.card.minion.concrete.SeaGiant"
     },
@@ -1051,6 +1071,10 @@
     {
         "name": "Silence",
         "class": "com.hearthsim.card.spellcard.concrete.Silence"
+    },
+    {
+        "name": "Siltfin Spiritwalker",
+        "class": "com.hearthsim.card.minion.concrete.SiltfinSpiritwalker"
     },
     {
         "name": "Silver Hand Knight",

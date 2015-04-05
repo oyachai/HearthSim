@@ -1,5 +1,6 @@
 package com.hearthsim.util.tree;
 
+import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.*;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
@@ -206,6 +207,18 @@ public class HearthTreeNode {
             Minion character = toRet.data_.getCharacter(characterLocation);
             if (!character.isSilenced() && character instanceof MinionDeadInterface) {
                 toRet = ((MinionDeadInterface)character).minionDeadEvent(characterLocation.getPlayerSide(), deadMinionPlayerSide, deadMinion, toRet);
+            }
+        }
+
+        for (Card card : toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getHand()) {
+            if (card instanceof MinionDeadInterface) {
+                toRet = ((MinionDeadInterface)card).minionDeadEvent(PlayerSide.CURRENT_PLAYER, deadMinionPlayerSide, deadMinion, toRet);
+            }
+        }
+
+        for (Card card : toRet.data_.modelForSide(PlayerSide.WAITING_PLAYER).getHand()) {
+            if (card instanceof MinionDeadInterface) {
+                toRet = ((MinionDeadInterface)card).minionDeadEvent(PlayerSide.WAITING_PLAYER, deadMinionPlayerSide, deadMinion, toRet);
             }
         }
 
