@@ -84,6 +84,7 @@ public class Minion extends Card implements CardEffectOnResolveTargetableInterfa
     private boolean destroyOnTurnEnd_;
 
     protected byte spellDamage_;
+    protected boolean cantAttack;
 
     private AttackAction attackAction_;
 
@@ -113,6 +114,7 @@ public class Minion extends Card implements CardEffectOnResolveTargetableInterfa
             tribe = Minion.StringToMinionTribe(implementedCard.race);
             isInHand_ = true;
             spellDamage_ = (byte) implementedCard.spellDamage;
+            cantAttack = implementedCard.cantAttack;
         }
     }
 
@@ -156,6 +158,7 @@ public class Minion extends Card implements CardEffectOnResolveTargetableInterfa
 
         stealthed_ = false;
         heroTargetable_ = true;
+        cantAttack = false;
     }
 
     public boolean getTaunt() {
@@ -219,7 +222,7 @@ public class Minion extends Card implements CardEffectOnResolveTargetableInterfa
     }
 
     public boolean canAttack() {
-        return !this.hasAttacked_ && (this.getTotalAttack()) > 0 && !this.frozen_;
+        return !this.hasAttacked_ && (this.getTotalAttack()) > 0 && !this.frozen_ && !cantAttack;
     }
 
     public void hasAttacked(boolean hasAttacked) {
@@ -530,6 +533,7 @@ public class Minion extends Card implements CardEffectOnResolveTargetableInterfa
         deathrattleAction_ = null;
         stealthed_ = false;
         heroTargetable_ = true;
+        cantAttack = false;
 
         // Reset the attack and health to base
         this.attack_ = this.baseAttack_;

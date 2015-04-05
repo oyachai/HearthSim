@@ -56,6 +56,10 @@
         "class": "com.hearthsim.card.minion.concrete.AncientBrewmaster"
     },
     {
+        "name": "Ancient Watcher",
+        "class": "com.hearthsim.card.minion.concrete.AncientWatcher"
+    },
+    {
         "name": "Angry Chicken",
         "class": "com.hearthsim.card.minion.concrete.AngryChicken"
     },

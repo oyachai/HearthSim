@@ -293,7 +293,6 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
     /**
      * Draw a card from a deck and place it in the hand
      *
-     * @param deck Deck from which to draw.
      * @param numCards Number of cards to draw.
      */
     public void drawCardFromWaitingPlayerDeck(int numCards) {
@@ -308,7 +307,6 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
      *
      * Note: It is almost always correct to use CardDrawNode instead of this function!!!!
      *
-     * @param deck Deck from which to draw.
      * @param numCards Number of cards to draw.
      */
     public void drawCardFromCurrentPlayerDeck(int numCards) {

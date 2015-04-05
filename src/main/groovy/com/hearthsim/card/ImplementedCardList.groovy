@@ -44,6 +44,7 @@ class ImplementedCardList {
     private static String MECHANICS_WINDFURY = "Windfury";
     private static String MECHANICS_CHARGE = "Charge";
     private static String MECHANICS_STEALTH = "Stealth";
+    private static String MECHANICS_CANT_ATTACK = "Can\'t Attack.";
 
     public ArrayList<ImplementedCard> list_;
     public Map<Class<?>, ImplementedCard> map_;
@@ -87,6 +88,7 @@ class ImplementedCardList {
         public int overload;
         public int spellDamage;
         public int spellEffect;
+        public boolean cantAttack;
 
         @Override
         public int compareTo(ImplementedCard o) {
@@ -149,6 +151,7 @@ class ImplementedCardList {
                     windfury_: cardDefinition.mechanics?.contains(MECHANICS_WINDFURY) ?: false,
                     charge_: cardDefinition.mechanics?.contains(MECHANICS_CHARGE) ?: false,
                     stealth_: cardDefinition.mechanics?.contains(MECHANICS_STEALTH) ?: false,
+                    cantAttack: cardDefinition.text?.contains(MECHANICS_CANT_ATTACK) ?: false,
                     text_: cardDefinition.text?: '',
                     isHero: Hero.class.isAssignableFrom(clazz),
                     collectible: cardDefinition.collectible?: false,
