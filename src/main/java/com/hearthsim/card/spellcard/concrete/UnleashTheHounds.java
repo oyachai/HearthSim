@@ -1,7 +1,6 @@
 package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.Card;
-import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.Hound;
 import com.hearthsim.card.spellcard.SpellTargetableCard;
 import com.hearthsim.event.CharacterFilter;

@@ -116,10 +116,6 @@ public class PlayerModel implements DeepCopyable<PlayerModel>, Iterable<Minion> 
         return minions;
     }
 
-    public void setMinions(IdentityLinkedList<Minion> minions) {
-        this.minions = minions;
-    }
-
     public byte getSpellDamage() {
         byte spellDamage = 0;
         for (Minion minion : minions)
@@ -193,7 +189,7 @@ public class PlayerModel implements DeepCopyable<PlayerModel>, Iterable<Minion> 
     }
 
     public int getIndexForCharacter(Minion character) {
-        if (character.isHero()) {
+        if (this.hero.equals(character)) {
             return 0;
         } else {
             int minionIndex = this.minions.indexOf(character);

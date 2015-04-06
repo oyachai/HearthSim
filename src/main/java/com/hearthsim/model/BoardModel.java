@@ -13,7 +13,6 @@ import org.json.JSONObject;
 import org.slf4j.MDC;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.EnumSet;
 import java.util.Iterator;
 
@@ -22,8 +21,6 @@ import java.util.Iterator;
  *
  */
 public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel.CharacterLocation> {
-
-//    private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
 
     private final PlayerModel currentPlayer;
     private final PlayerModel waitingPlayer;
@@ -190,11 +187,7 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
     public BoardModel(PlayerModel currentPlayerModel, PlayerModel waitingPlayerModel) {
         this.currentPlayer = currentPlayerModel;
         this.waitingPlayer = waitingPlayerModel;
-        buildModel();
-    }
-
-    private void buildModel() {
-        allMinionsFIFOList_ = new IdentityLinkedList<>();
+        this.allMinionsFIFOList_ = new IdentityLinkedList<>();
     }
 
     public PlayerModel modelForSide(PlayerSide side){
@@ -477,14 +470,10 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
      * @return
      */
     public boolean hasDeadMinions() {
-        for (Minion minion : this.modelForSide(PlayerSide.CURRENT_PLAYER).getMinions()) {
-            if (minion.getTotalHealth() <= 0)
+        for (MinionPlayerPair pair : this.allMinionsFIFOList_) {
+            if (pair.minion.getTotalHealth() <= 0) {
                 return true;
-        }
-
-        for (Minion minion : this.modelForSide(PlayerSide.WAITING_PLAYER).getMinions()) {
-            if (minion.getTotalHealth() <= 0)
-                return true;
+            }
         }
         return false;
     }
