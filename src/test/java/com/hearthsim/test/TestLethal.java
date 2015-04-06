@@ -3,19 +3,25 @@ package com.hearthsim.test;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
+import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.concrete.*;
 import com.hearthsim.card.spellcard.concrete.*;
+import com.hearthsim.card.weapon.concrete.FieryWarAxe;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.factory.BreadthBoardStateFactory;
 import com.hearthsim.util.tree.HearthTreeNode;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static org.junit.Assert.assertTrue;
 
 public class TestLethal {
+    private static final Logger log = LoggerFactory.getLogger(Card.class);
 
     private Deck deck0;
     private Deck deck1;
@@ -257,6 +263,74 @@ public class TestLethal {
         assertTrue(this.hasLethalAtDepth(this.root, 7));
     }
 
+    // http://www.reddit.com/r/hearthstone/comments/2sx1js/reynad_lethal_puzzle/
+//    @Test
+//    public void testPuzzleShadowflameSilencePainVelens() throws HSException {
+//        this.enemyHero.setHealth((byte) 16);
+//
+//        Minion watcher = new ChillwindYeti(); // ancient watcher in puzzle, but we just need a 4/5 Taunt
+//        watcher.setTaunt(true);
+//        this.startingBoard.addMinion(PlayerSide.WAITING_PLAYER, watcher);
+//
+//        Minion belcher = new SludgeBelcher();
+//        belcher.setHealth((byte)1);
+//        this.startingBoard.addMinion(PlayerSide.WAITING_PLAYER, belcher);
+//
+//        Minion drake = new AzureDrake();
+//        drake.setMaxHealth((byte) 9);
+//        drake.setHealth((byte)9);
+//        this.startingBoard.addMinion(PlayerSide.WAITING_PLAYER, belcher);
+//
+//        this.startingBoard.modelForSide(PlayerSide.CURRENT_PLAYER).setMana((byte)10);
+//
+//        Minion shade = new ShadeOfNaxxramas();
+//        shade.setAttack((byte) 14);
+//        shade.setMaxHealth((byte) 14);
+//        shade.setHealth((byte) 14);
+//        this.startingBoard.addMinion(PlayerSide.CURRENT_PLAYER, shade); // attack; +1 = 1
+//
+//        this.startingBoard.placeCardHand(PlayerSide.CURRENT_PLAYER, new Silence());
+//        this.startingBoard.placeCardHand(PlayerSide.CURRENT_PLAYER, new Shadowflame());
+//        this.startingBoard.placeCardHand(PlayerSide.CURRENT_PLAYER, new SylvanasWindrunner());
+//        this.startingBoard.placeCardHand(PlayerSide.CURRENT_PLAYER, new ShadeOfNaxxramas());
+//        this.startingBoard.placeCardHand(PlayerSide.CURRENT_PLAYER, new NorthshireCleric());
+//        this.startingBoard.placeCardHand(PlayerSide.CURRENT_PLAYER, new ForceTankMax());
+////        this.startingBoard.placeCardHand(PlayerSide.CURRENT_PLAYER, new Voidcaller());
+//        this.startingBoard.placeCardHand(PlayerSide.CURRENT_PLAYER, new VelensChosen());
+//        this.startingBoard.placeCardHand(PlayerSide.CURRENT_PLAYER, new ShadowWordPain());
+//
+//        this.factory.addChildLayers(this.root, 7);
+//        assertTrue(this.hasLethalAtDepth(this.root, 7));
+//    }
+
+    // http://www.reddit.com/r/hearthstone/comments/1vkjsb/interesting_lethal_puzzle_on_veevs_stream/
+    // This tests playing UTH and killing off some hounds so the rest of them can fit on the board. Going 13 deep pushes
+    // our memory usage quite a bit so this is a good memory analysis test.
+    @Test
+    @Ignore("Long test")
+    public void testPuzzleUth() throws HSException {
+        this.enemyHero.setHealth((byte) 10);
+        this.startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new SunfuryProtector());
+        Minion chillwind = new ChillwindYeti();
+        chillwind.setTaunt(true);
+        this.startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, chillwind);
+        this.startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new SunfuryProtector());
+        Minion molten = new MoltenGiant();
+        molten.setTaunt(true);
+        this.startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, molten);
+
+        this.startingBoard.modelForSide(PlayerSide.CURRENT_PLAYER).setMana((byte) 9);
+//        this.startingBoard.modelForSide(PlayerSide.CURRENT_PLAYER).getHero().setWeapon(new FieryWarAxe()); // +1 subbed for Eaglehorn
+
+        this.startingBoard.placeCardHand(PlayerSide.CURRENT_PLAYER, new IronbeakOwl()); // +1, +1 for battlecry
+        this.startingBoard.placeCardHand(PlayerSide.CURRENT_PLAYER, new UnleashTheHounds()); // +1; +4 attacks
+        this.startingBoard.placeCardHand(PlayerSide.CURRENT_PLAYER, new TimberWolf()); // +1
+        this.startingBoard.placeCardHand(PlayerSide.CURRENT_PLAYER, new UnleashTheHounds()); // +1; +4 attacks
+
+        this.factory.addChildLayers(this.root, 13);
+        assertTrue(this.hasLethalAtDepth(this.root, 13));
+    }
+
     private void removeTauntTest(Card removal) throws HSException {
         this.enemyHero.setHealth((byte)4);
         this.startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new SenjinShieldmasta());
@@ -272,8 +346,12 @@ public class TestLethal {
         if (depth < 0) {
             return false;
         }
-        if (depth == 0) {
-            return node.data_.isLethalState();
+        if (node.data_.isLethalState()) {
+            if (depth == 0) {
+                return true;
+            } else {
+                TestLethal.log.debug("Found lethal " + depth + " depths earlier than expected");
+            }
         }
         if (node.isLeaf()) {
             return false;
