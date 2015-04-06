@@ -22,8 +22,8 @@ public class Onyxia extends Minion implements MinionUntargetableBattlecry  {
         PlayerModel currentPlayer = toRet.data_.getCurrentPlayer();
         while (!currentPlayer.isBoardFull()) {
             Minion placementTarget;
-            if (currentPlayer.getMinions().size() % 2 == 0) {
-                placementTarget = toRet.data_.getCurrentPlayer().getCharacter(currentPlayer.getMinions().indexOf(this));
+            if (currentPlayer.getNumMinions() % 2 == 0) {
+                placementTarget = toRet.data_.getCurrentPlayer().getCharacter(currentPlayer.getIndexForCharacter(this) - 1);
             } else {
                 placementTarget = this;
             }
@@ -31,5 +31,4 @@ public class Onyxia extends Minion implements MinionUntargetableBattlecry  {
         }
         return toRet;
     }
-
 }

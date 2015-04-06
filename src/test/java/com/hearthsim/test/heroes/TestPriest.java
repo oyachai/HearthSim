@@ -64,20 +64,20 @@ public class TestPriest {
         assertEquals(bestPlay.data_.getWaitingPlayer().getMana(), 8);
         assertEquals(bestPlay.data_.getCurrentPlayer().getHero().getHealth(), 30);
         assertEquals(bestPlay.data_.getWaitingPlayer().getHero().getHealth(), 30);
-        assertEquals(bestPlay.data_.getCurrentPlayer().getMinions().get(0).getHealth(), 3);
-        assertEquals(bestPlay.data_.getCurrentPlayer().getMinions().get(1).getHealth(), 1);
-        assertEquals(bestPlay.data_.getWaitingPlayer().getMinions().get(0).getHealth(), 5);
+        assertEquals(bestPlay.data_.getCurrentPlayer().getCharacter(1).getHealth(), 3);
+        assertEquals(bestPlay.data_.getCurrentPlayer().getCharacter(2).getHealth(), 1);
+        assertEquals(bestPlay.data_.getWaitingPlayer().getCharacter(1).getHealth(), 5);
 
-        assertEquals(bestPlay.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack(), 4);
-        assertEquals(bestPlay.data_.getCurrentPlayer().getMinions().get(1).getTotalAttack(), 4);
-        assertEquals(bestPlay.data_.getWaitingPlayer().getMinions().get(0).getTotalAttack(), 4);
+        assertEquals(bestPlay.data_.getCurrentPlayer().getCharacter(1).getTotalAttack(), 4);
+        assertEquals(bestPlay.data_.getCurrentPlayer().getCharacter(2).getTotalAttack(), 4);
+        assertEquals(bestPlay.data_.getWaitingPlayer().getCharacter(1).getTotalAttack(), 4);
     }
 
     @Test
     public void testAiHealBeforeTrading() throws HSException {
 
         // one of your yeti is damaged
-        currentPlayer.getMinions().get(0).setHealth((byte)3);
+        currentPlayer.getCharacter(1).setHealth((byte)3);
 
         BoardStateFactoryBase factory = new DepthBoardStateFactory(null, null, 2000000000, true);
         HearthTreeNode tree = new HearthTreeNode(board.data_);
@@ -101,13 +101,13 @@ public class TestPriest {
         assertEquals(bestPlay.data_.getWaitingPlayer().getMana(), 8);
         assertEquals(bestPlay.data_.getCurrentPlayer().getHero().getHealth(), 30);
         assertEquals(bestPlay.data_.getWaitingPlayer().getHero().getHealth(), 30);
-        assertEquals(bestPlay.data_.getCurrentPlayer().getMinions().get(0).getHealth(), 1);
-        assertEquals(bestPlay.data_.getCurrentPlayer().getMinions().get(1).getHealth(), 1);
-        assertEquals(bestPlay.data_.getWaitingPlayer().getMinions().get(0).getHealth(), 5);
+        assertEquals(bestPlay.data_.getCurrentPlayer().getCharacter(1).getHealth(), 1);
+        assertEquals(bestPlay.data_.getCurrentPlayer().getCharacter(2).getHealth(), 1);
+        assertEquals(bestPlay.data_.getWaitingPlayer().getCharacter(1).getHealth(), 5);
 
-        assertEquals(bestPlay.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack(), 4);
-        assertEquals(bestPlay.data_.getCurrentPlayer().getMinions().get(1).getTotalAttack(), 4);
-        assertEquals(bestPlay.data_.getWaitingPlayer().getMinions().get(0).getTotalAttack(), 4);
+        assertEquals(bestPlay.data_.getCurrentPlayer().getCharacter(1).getTotalAttack(), 4);
+        assertEquals(bestPlay.data_.getCurrentPlayer().getCharacter(2).getTotalAttack(), 4);
+        assertEquals(bestPlay.data_.getWaitingPlayer().getCharacter(1).getTotalAttack(), 4);
     }
 
     @Test
@@ -135,7 +135,7 @@ public class TestPriest {
         assertEquals(board, ret);
 
         assertEquals(currentPlayer.getMana(), 6);
-        assertEquals(waitingPlayer.getMinions().get(0).getHealth(), 3);
+        assertEquals(waitingPlayer.getCharacter(1).getHealth(), 3);
     }
 
     @Test
@@ -163,6 +163,6 @@ public class TestPriest {
         assertEquals(board, ret);
 
         assertEquals(currentPlayer.getMana(), 6);
-        assertEquals(currentPlayer.getMinions().get(0).getHealth(), 3);
+        assertEquals(currentPlayer.getCharacter(1).getHealth(), 3);
     }
 }

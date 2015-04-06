@@ -102,48 +102,48 @@ public class TestHoundmaster {
         assertEquals(res.data_.getWaitingPlayer().getNumMinions(), 3);
         assertEquals(res.data_.getCurrentPlayer().getMana(), 6);
 
-        assertEquals(res.data_.getCurrentPlayer().getMinions().get(0).getHealth(), 3);
-        assertEquals(res.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack(), 4);
-        assertFalse(res.data_.getCurrentPlayer().getMinions().get(0).getTaunt());
-        assertEquals(res.data_.getCurrentPlayer().getMinions().get(1).getHealth(), health0);
-        assertEquals(res.data_.getCurrentPlayer().getMinions().get(1).getTotalAttack(), attack0);
-        assertFalse(res.data_.getCurrentPlayer().getMinions().get(1).getTaunt());
-        assertEquals(res.data_.getCurrentPlayer().getMinions().get(2).getHealth(), 1);
-        assertEquals(res.data_.getCurrentPlayer().getMinions().get(2).getTotalAttack(), 1);
-        assertFalse(res.data_.getCurrentPlayer().getMinions().get(2).getTaunt());
+        assertEquals(res.data_.getCurrentPlayer().getCharacter(1).getHealth(), 3);
+        assertEquals(res.data_.getCurrentPlayer().getCharacter(1).getTotalAttack(), 4);
+        assertFalse(res.data_.getCurrentPlayer().getCharacter(1).getTaunt());
+        assertEquals(res.data_.getCurrentPlayer().getCharacter(2).getHealth(), health0);
+        assertEquals(res.data_.getCurrentPlayer().getCharacter(2).getTotalAttack(), attack0);
+        assertFalse(res.data_.getCurrentPlayer().getCharacter(2).getTaunt());
+        assertEquals(res.data_.getCurrentPlayer().getCharacter(3).getHealth(), 1);
+        assertEquals(res.data_.getCurrentPlayer().getCharacter(3).getTotalAttack(), 1);
+        assertFalse(res.data_.getCurrentPlayer().getCharacter(3).getTaunt());
 
-        assertEquals(res.data_.getWaitingPlayer().getMinions().get(0).getHealth(), health0);
-        assertEquals(res.data_.getWaitingPlayer().getMinions().get(0).getTotalAttack(), attack0);
-        assertFalse(res.data_.getWaitingPlayer().getMinions().get(0).getTaunt());
-        assertEquals(res.data_.getWaitingPlayer().getMinions().get(1).getHealth(), 2);
-        assertEquals(res.data_.getWaitingPlayer().getMinions().get(1).getTotalAttack(), 3);
-        assertFalse(res.data_.getWaitingPlayer().getMinions().get(1).getTaunt());
-        assertEquals(res.data_.getWaitingPlayer().getMinions().get(2).getHealth(), health0-2);
-        assertEquals(res.data_.getWaitingPlayer().getMinions().get(2).getTotalAttack(), attack0);
-        assertFalse(res.data_.getWaitingPlayer().getMinions().get(2).getTaunt());
+        assertEquals(res.data_.getWaitingPlayer().getCharacter(1).getHealth(), health0);
+        assertEquals(res.data_.getWaitingPlayer().getCharacter(1).getTotalAttack(), attack0);
+        assertFalse(res.data_.getWaitingPlayer().getCharacter(1).getTaunt());
+        assertEquals(res.data_.getWaitingPlayer().getCharacter(2).getHealth(), 2);
+        assertEquals(res.data_.getWaitingPlayer().getCharacter(2).getTotalAttack(), 3);
+        assertFalse(res.data_.getWaitingPlayer().getCharacter(2).getTaunt());
+        assertEquals(res.data_.getWaitingPlayer().getCharacter(3).getHealth(), health0-2);
+        assertEquals(res.data_.getWaitingPlayer().getCharacter(3).getTotalAttack(), attack0);
+        assertFalse(res.data_.getWaitingPlayer().getCharacter(3).getTaunt());
 
         assertEquals(res.data_.getCurrentPlayer().getHero().getHealth(), 30);
         assertEquals(res.data_.getWaitingPlayer().getHero().getHealth(), 30);
 
         assertEquals(res.numChildren(), 1);
-        assertEquals(res.getChildren().get(0).data_.getCurrentPlayer().getMinions().get(0).getHealth(), 3);
-        assertEquals(res.getChildren().get(0).data_.getCurrentPlayer().getMinions().get(0).getTotalAttack(), 4);
-        assertFalse(res.getChildren().get(0).data_.getCurrentPlayer().getMinions().get(0).getTaunt());
-        assertEquals(res.getChildren().get(0).data_.getCurrentPlayer().getMinions().get(1).getHealth(), health0);
-        assertEquals(res.getChildren().get(0).data_.getCurrentPlayer().getMinions().get(1).getTotalAttack(), attack0);
-        assertFalse(res.getChildren().get(0).data_.getCurrentPlayer().getMinions().get(1).getTaunt());
-        assertEquals(res.getChildren().get(0).data_.getCurrentPlayer().getMinions().get(2).getHealth(), 1 + 2);
-        assertEquals(res.getChildren().get(0).data_.getCurrentPlayer().getMinions().get(2).getTotalAttack(), 1 + 2);
-        assertTrue(res.getChildren().get(0).data_.getCurrentPlayer().getMinions().get(2).getTaunt());
+        assertEquals(res.getChildren().get(0).data_.getCurrentPlayer().getCharacter(1).getHealth(), 3);
+        assertEquals(res.getChildren().get(0).data_.getCurrentPlayer().getCharacter(1).getTotalAttack(), 4);
+        assertFalse(res.getChildren().get(0).data_.getCurrentPlayer().getCharacter(1).getTaunt());
+        assertEquals(res.getChildren().get(0).data_.getCurrentPlayer().getCharacter(2).getHealth(), health0);
+        assertEquals(res.getChildren().get(0).data_.getCurrentPlayer().getCharacter(2).getTotalAttack(), attack0);
+        assertFalse(res.getChildren().get(0).data_.getCurrentPlayer().getCharacter(2).getTaunt());
+        assertEquals(res.getChildren().get(0).data_.getCurrentPlayer().getCharacter(3).getHealth(), 1 + 2);
+        assertEquals(res.getChildren().get(0).data_.getCurrentPlayer().getCharacter(3).getTotalAttack(), 1 + 2);
+        assertTrue(res.getChildren().get(0).data_.getCurrentPlayer().getCharacter(3).getTaunt());
 
-        assertEquals(res.getChildren().get(0).data_.getWaitingPlayer().getMinions().get(0).getHealth(), health0);
-        assertEquals(res.getChildren().get(0).data_.getWaitingPlayer().getMinions().get(0).getTotalAttack(), attack0);
-        assertFalse(res.getChildren().get(0).data_.getWaitingPlayer().getMinions().get(0).getTaunt());
-        assertEquals(res.getChildren().get(0).data_.getWaitingPlayer().getMinions().get(1).getHealth(), 2);
-        assertEquals(res.getChildren().get(0).data_.getWaitingPlayer().getMinions().get(1).getTotalAttack(), 3);
-        assertFalse(res.getChildren().get(0).data_.getWaitingPlayer().getMinions().get(1).getTaunt());
-        assertEquals(res.getChildren().get(0).data_.getWaitingPlayer().getMinions().get(2).getHealth(), health0-2);
-        assertEquals(res.getChildren().get(0).data_.getWaitingPlayer().getMinions().get(2).getTotalAttack(), attack0);
-        assertFalse(res.getChildren().get(0).data_.getWaitingPlayer().getMinions().get(2).getTaunt());
+        assertEquals(res.getChildren().get(0).data_.getWaitingPlayer().getCharacter(1).getHealth(), health0);
+        assertEquals(res.getChildren().get(0).data_.getWaitingPlayer().getCharacter(1).getTotalAttack(), attack0);
+        assertFalse(res.getChildren().get(0).data_.getWaitingPlayer().getCharacter(1).getTaunt());
+        assertEquals(res.getChildren().get(0).data_.getWaitingPlayer().getCharacter(2).getHealth(), 2);
+        assertEquals(res.getChildren().get(0).data_.getWaitingPlayer().getCharacter(2).getTotalAttack(), 3);
+        assertFalse(res.getChildren().get(0).data_.getWaitingPlayer().getCharacter(2).getTaunt());
+        assertEquals(res.getChildren().get(0).data_.getWaitingPlayer().getCharacter(3).getHealth(), health0-2);
+        assertEquals(res.getChildren().get(0).data_.getWaitingPlayer().getCharacter(3).getTotalAttack(), attack0);
+        assertFalse(res.getChildren().get(0).data_.getWaitingPlayer().getCharacter(3).getTaunt());
     }
 }

@@ -68,20 +68,20 @@ public class TestMirrorImage {
         assertEquals(waitingPlayer.getMana(), 4);
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), 30);
-        assertEquals(currentPlayer.getMinions().get(0).getHealth(), health0);
-        assertEquals(currentPlayer.getMinions().get(1).getHealth(), health1 - 1);
-        assertEquals(currentPlayer.getMinions().get(2).getHealth(), 2);
-        assertEquals(currentPlayer.getMinions().get(3).getHealth(), 2);
-        assertEquals(waitingPlayer.getMinions().get(0).getHealth(), health0);
-        assertEquals(waitingPlayer.getMinions().get(1).getHealth(), health1 - 1);
+        assertEquals(currentPlayer.getCharacter(1).getHealth(), health0);
+        assertEquals(currentPlayer.getCharacter(2).getHealth(), health1 - 1);
+        assertEquals(currentPlayer.getCharacter(3).getHealth(), 2);
+        assertEquals(currentPlayer.getCharacter(4).getHealth(), 2);
+        assertEquals(waitingPlayer.getCharacter(1).getHealth(), health0);
+        assertEquals(waitingPlayer.getCharacter(2).getHealth(), health1 - 1);
 
-        assertEquals(currentPlayer.getMinions().get(0).getTotalAttack(), attack0);
-        assertEquals(currentPlayer.getMinions().get(1).getTotalAttack(), attack0);
-        assertEquals(currentPlayer.getMinions().get(2).getTotalAttack(), 0);
-        assertEquals(currentPlayer.getMinions().get(3).getTotalAttack(), 0);
+        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), attack0);
+        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), attack0);
+        assertEquals(currentPlayer.getCharacter(3).getTotalAttack(), 0);
+        assertEquals(currentPlayer.getCharacter(4).getTotalAttack(), 0);
 
-        assertTrue(currentPlayer.getMinions().get(2) instanceof MirrorImageMinion);
-        assertTrue(currentPlayer.getMinions().get(3) instanceof MirrorImageMinion);
+        assertTrue(currentPlayer.getCharacter(3) instanceof MirrorImageMinion);
+        assertTrue(currentPlayer.getCharacter(4) instanceof MirrorImageMinion);
     }
 
     @Test

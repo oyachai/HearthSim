@@ -51,8 +51,7 @@ public class UnleashTheHounds extends SpellTargetableCard {
                     if (numHoundsToSummon + currentPlayer.getNumMinions() > 7)
                         numHoundsToSummon = 7 - currentPlayer.getNumMinions();
                     for (int indx = 0; indx < numHoundsToSummon; ++indx) {
-                        Minion placementTarget = currentPlayer.getNumMinions() > 0 ? currentPlayer.getMinions().getLast() : currentPlayer.getHero();
-                        boardState = new Hound().summonMinion(PlayerSide.CURRENT_PLAYER, placementTarget, boardState, false, false);
+                        boardState = new Hound().summonMinionAtEnd(PlayerSide.CURRENT_PLAYER, boardState, false, false);
                     }
                     return boardState;
                 }

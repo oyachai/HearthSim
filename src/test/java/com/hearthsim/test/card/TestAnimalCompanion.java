@@ -70,20 +70,20 @@ public class TestAnimalCompanion {
         assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), 30);
-        assertEquals(currentPlayer.getMinions().get(0).getHealth(), health0);
-        assertEquals(currentPlayer.getMinions().get(1).getHealth(), health1 - 1);
-        assertEquals(currentPlayer.getMinions().get(2).getHealth(), 4);
-        assertEquals(waitingPlayer.getMinions().get(0).getHealth(), health0);
-        assertEquals(waitingPlayer.getMinions().get(1).getHealth(), health1 - 1);
+        assertEquals(currentPlayer.getCharacter(1).getHealth(), health0);
+        assertEquals(currentPlayer.getCharacter(2).getHealth(), health1 - 1);
+        assertEquals(currentPlayer.getCharacter(3).getHealth(), 4);
+        assertEquals(waitingPlayer.getCharacter(1).getHealth(), health0);
+        assertEquals(waitingPlayer.getCharacter(2).getHealth(), health1 - 1);
 
-        assertEquals(currentPlayer.getMinions().get(0).getTotalAttack(), attack0 + 1);
-        assertEquals(currentPlayer.getMinions().get(1).getTotalAttack(), attack0 + 1);
-        assertEquals(currentPlayer.getMinions().get(2).getTotalAttack(), 2);
-        assertEquals(waitingPlayer.getMinions().get(0).getTotalAttack(), attack0);
-        assertEquals(waitingPlayer.getMinions().get(1).getTotalAttack(), attack0);
+        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), attack0 + 1);
+        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), attack0 + 1);
+        assertEquals(currentPlayer.getCharacter(3).getTotalAttack(), 2);
+        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), attack0);
+        assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), attack0);
 
         //Now, attack and kill Leokk.  All minions should go back to their original attack
-        Minion minion = currentPlayer.getMinions().get(2);
+        Minion minion = currentPlayer.getCharacter(3);
         minion.hasAttacked(false);
         ret = minion.attack(PlayerSide.WAITING_PLAYER, 1, board, false);
 
@@ -93,15 +93,15 @@ public class TestAnimalCompanion {
         assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), 30);
-        assertEquals(currentPlayer.getMinions().get(0).getHealth(), health0);
-        assertEquals(currentPlayer.getMinions().get(1).getHealth(), health1 - 1);
-        assertEquals(waitingPlayer.getMinions().get(0).getHealth(), health0 - 2);
-        assertEquals(waitingPlayer.getMinions().get(1).getHealth(), health1 - 1);
+        assertEquals(currentPlayer.getCharacter(1).getHealth(), health0);
+        assertEquals(currentPlayer.getCharacter(2).getHealth(), health1 - 1);
+        assertEquals(waitingPlayer.getCharacter(1).getHealth(), health0 - 2);
+        assertEquals(waitingPlayer.getCharacter(2).getHealth(), health1 - 1);
 
-        assertEquals(currentPlayer.getMinions().get(0).getTotalAttack(), attack0);
-        assertEquals(currentPlayer.getMinions().get(1).getTotalAttack(), attack0);
-        assertEquals(waitingPlayer.getMinions().get(0).getTotalAttack(), attack0);
-        assertEquals(waitingPlayer.getMinions().get(1).getTotalAttack(), attack0);
+        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), attack0);
+        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), attack0);
+        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), attack0);
+        assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), attack0);
     }
 
     @Test
@@ -123,21 +123,21 @@ public class TestAnimalCompanion {
         PlayerModel currentPlayer0 = c0.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         assertEquals(3, currentPlayer0.getNumMinions());
         assertEquals(1, currentPlayer0.getMana());
-        assertTrue(currentPlayer0.getMinions().get(2) instanceof Huffer);
+        assertTrue(currentPlayer0.getCharacter(3) instanceof Huffer);
 
         //child node 1 = Leokk
         HearthTreeNode c1 = ret.getChildren().get(1);
         PlayerModel currentPlayer1 = c1.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         assertEquals(3, currentPlayer1.getNumMinions());
         assertEquals(1, currentPlayer1.getMana());
-        assertTrue(currentPlayer1.getMinions().get(2) instanceof Leokk);
+        assertTrue(currentPlayer1.getCharacter(3) instanceof Leokk);
 
         //child node 2 = Misha
         HearthTreeNode c2 = ret.getChildren().get(2);
         PlayerModel currentPlayer2 = c2.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         assertEquals(3, currentPlayer2.getNumMinions());
         assertEquals(1, currentPlayer2.getMana());
-        assertTrue(currentPlayer2.getMinions().get(2) instanceof Misha);
+        assertTrue(currentPlayer2.getCharacter(3) instanceof Misha);
     }
 
     @Test

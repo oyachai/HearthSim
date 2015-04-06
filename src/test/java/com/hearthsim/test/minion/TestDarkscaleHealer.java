@@ -61,10 +61,10 @@ public class TestDarkscaleHealer {
         assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), 30);
-        assertEquals(currentPlayer.getMinions().get(0).getHealth(), health0);
-        assertEquals(currentPlayer.getMinions().get(1).getHealth(), health1 - 1);
-        assertEquals(waitingPlayer.getMinions().get(0).getHealth(), health0);
-        assertEquals(waitingPlayer.getMinions().get(1).getHealth(), health1 - 1);
+        assertEquals(currentPlayer.getCharacter(1).getHealth(), health0);
+        assertEquals(currentPlayer.getCharacter(2).getHealth(), health1 - 1);
+        assertEquals(waitingPlayer.getCharacter(1).getHealth(), health0);
+        assertEquals(waitingPlayer.getCharacter(2).getHealth(), health1 - 1);
     }
 
     @Test
@@ -79,10 +79,10 @@ public class TestDarkscaleHealer {
         assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), 30);
-        assertEquals(currentPlayer.getMinions().get(0).getHealth(), health0);
-        assertEquals(currentPlayer.getMinions().get(1).getHealth(), health1 - 1);
-        assertEquals(waitingPlayer.getMinions().get(0).getHealth(), health0);
-        assertEquals(waitingPlayer.getMinions().get(1).getHealth(), health1 - 1);
+        assertEquals(currentPlayer.getCharacter(1).getHealth(), health0);
+        assertEquals(currentPlayer.getCharacter(2).getHealth(), health1 - 1);
+        assertEquals(waitingPlayer.getCharacter(1).getHealth(), health0);
+        assertEquals(waitingPlayer.getCharacter(2).getHealth(), health1 - 1);
     }
 
     @Test
@@ -100,9 +100,9 @@ public class TestDarkscaleHealer {
         assertEquals(waitingPlayer.getMana(), 4);
         assertEquals(currentPlayer.getHero().getHealth(), 29);
         assertEquals(waitingPlayer.getHero().getHealth(), 30);
-        assertEquals(currentPlayer.getMinions().get(0).getHealth(), health0);
-        assertEquals(currentPlayer.getMinions().get(1).getHealth(), health1);
-        assertEquals(waitingPlayer.getMinions().get(0).getHealth(), health0);
-        assertEquals(waitingPlayer.getMinions().get(1).getHealth(), health1 - 1);
+        assertEquals(currentPlayer.getCharacter(1).getHealth(), health0);
+        assertEquals(currentPlayer.getCharacter(2).getHealth(), health1);
+        assertEquals(waitingPlayer.getCharacter(1).getHealth(), health0);
+        assertEquals(waitingPlayer.getCharacter(2).getHealth(), health1 - 1);
     }
 }

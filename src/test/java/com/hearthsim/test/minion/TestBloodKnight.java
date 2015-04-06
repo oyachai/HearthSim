@@ -51,11 +51,11 @@ public class TestBloodKnight {
         assertEquals(currentPlayer.getNumMinions(), 2);
         assertEquals(currentPlayer.getMana(), 15);
 
-        assertEquals(currentPlayer.getMinions().get(1).getTotalHealth(), 9);
-        assertEquals(currentPlayer.getMinions().get(1).getTotalAttack(), 9);
+        assertEquals(currentPlayer.getCharacter(2).getTotalHealth(), 9);
+        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), 9);
 
-        assertFalse(currentPlayer.getMinions().get(0).getDivineShield());
-        assertFalse(waitingPlayer.getMinions().get(0).getDivineShield());
+        assertFalse(currentPlayer.getCharacter(1).getDivineShield());
+        assertFalse(waitingPlayer.getCharacter(1).getDivineShield());
     }
 
     @Test
@@ -71,11 +71,11 @@ public class TestBloodKnight {
         assertEquals(currentPlayer.getNumMinions(), 2);
         assertEquals(currentPlayer.getMana(), 15);
 
-        assertEquals(currentPlayer.getMinions().get(1).getTotalHealth(), 6);
-        assertEquals(currentPlayer.getMinions().get(1).getTotalAttack(), 6);
+        assertEquals(currentPlayer.getCharacter(2).getTotalHealth(), 6);
+        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), 6);
 
-        assertFalse(currentPlayer.getMinions().get(0).getDivineShield());
-        assertFalse(waitingPlayer.getMinions().get(0).getDivineShield());
+        assertFalse(currentPlayer.getCharacter(1).getDivineShield());
+        assertFalse(waitingPlayer.getCharacter(1).getDivineShield());
     }
 
     @Test
@@ -91,11 +91,11 @@ public class TestBloodKnight {
         assertEquals(currentPlayer.getNumMinions(), 2);
         assertEquals(currentPlayer.getMana(), 15);
 
-        assertEquals(currentPlayer.getMinions().get(1).getTotalHealth(), 3);
-        assertEquals(currentPlayer.getMinions().get(1).getTotalAttack(), 3);
+        assertEquals(currentPlayer.getCharacter(2).getTotalHealth(), 3);
+        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), 3);
 
-        assertFalse(currentPlayer.getMinions().get(0).getDivineShield());
-        assertFalse(waitingPlayer.getMinions().get(0).getDivineShield());
+        assertFalse(currentPlayer.getCharacter(1).getDivineShield());
+        assertFalse(waitingPlayer.getCharacter(1).getDivineShield());
     }
 
     @Test
@@ -108,10 +108,10 @@ public class TestBloodKnight {
         Minion target = currentPlayer.getCharacter(2);
         target.silenced(PlayerSide.CURRENT_PLAYER, board);
 
-        assertEquals(currentPlayer.getMinions().get(1).getTotalHealth(), 3);
-        assertEquals(currentPlayer.getMinions().get(1).getTotalAttack(), 3);
+        assertEquals(currentPlayer.getCharacter(2).getTotalHealth(), 3);
+        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), 3);
 
-        assertFalse(currentPlayer.getMinions().get(0).getDivineShield());
-        assertFalse(waitingPlayer.getMinions().get(0).getDivineShield());
+        assertFalse(currentPlayer.getCharacter(1).getDivineShield());
+        assertFalse(waitingPlayer.getCharacter(1).getDivineShield());
     }
 }

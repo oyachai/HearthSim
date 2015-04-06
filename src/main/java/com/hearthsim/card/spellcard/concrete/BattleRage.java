@@ -13,6 +13,8 @@ import com.hearthsim.util.IdentityLinkedList;
 import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 
+import java.util.Iterator;
+
 public class BattleRage extends SpellTargetableCard {
 
 
@@ -62,7 +64,7 @@ public class BattleRage extends SpellTargetableCard {
                 public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
                     PlayerModel playerModel = boardState.data_.modelForSide(targetSide);
                     Hero hero = playerModel.getHero();
-                    IdentityLinkedList<Minion> minions = playerModel.getMinions();
+                    Iterable<Minion> minions = playerModel.getMinions();
                     int numCardsToDraw = hero.getTotalHealth() < hero.getTotalMaxHealth() ? 1 : 0;
                     for (Minion minion : minions) {
                         numCardsToDraw += minion.getTotalHealth() < minion.getTotalMaxHealth() ? 1 : 0;

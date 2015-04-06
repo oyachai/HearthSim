@@ -17,9 +17,9 @@ public class MasterSwordsmith extends Minion {
         PlayerModel currentPlayer = boardModel.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         int numMinions = currentPlayer.getNumMinions();
         if (thisMinionPlayerIndex == PlayerSide.CURRENT_PLAYER && numMinions > 1) {
-            Minion buffTargetMinion = currentPlayer.getMinions().get((int)(Math.random() * numMinions));
+            Minion buffTargetMinion = currentPlayer.getCharacter((int) (Math.random() * numMinions) + 1);
             while (buffTargetMinion == this) {
-                buffTargetMinion = currentPlayer.getMinions().get((int)(Math.random() * numMinions));
+                buffTargetMinion = currentPlayer.getCharacter((int)(Math.random() * numMinions) + 1);
             }
             buffTargetMinion.addAttack((byte)1);
         }

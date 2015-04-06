@@ -53,23 +53,23 @@ public class TestAncientOfLore {
         assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), 30);
-        assertEquals(currentPlayer.getMinions().get(0).getTotalHealth(), 6);
-        assertEquals(currentPlayer.getMinions().get(1).getTotalHealth(), 3);
-        assertEquals(currentPlayer.getMinions().get(2).getTotalHealth(), 6);
-        assertEquals(waitingPlayer.getMinions().get(0).getTotalHealth(), 2);
-        assertEquals(waitingPlayer.getMinions().get(1).getTotalHealth(), 2);
+        assertEquals(currentPlayer.getCharacter(1).getTotalHealth(), 6);
+        assertEquals(currentPlayer.getCharacter(2).getTotalHealth(), 3);
+        assertEquals(currentPlayer.getCharacter(3).getTotalHealth(), 6);
+        assertEquals(waitingPlayer.getCharacter(1).getTotalHealth(), 2);
+        assertEquals(waitingPlayer.getCharacter(2).getTotalHealth(), 2);
 
-        assertEquals(currentPlayer.getMinions().get(0).getTotalAttack(), 7);
-        assertEquals(currentPlayer.getMinions().get(1).getTotalAttack(), 3);
-        assertEquals(currentPlayer.getMinions().get(2).getTotalAttack(), 7);
-        assertEquals(waitingPlayer.getMinions().get(0).getTotalAttack(), 2);
-        assertEquals(waitingPlayer.getMinions().get(1).getTotalAttack(), 4);
+        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), 7);
+        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), 3);
+        assertEquals(currentPlayer.getCharacter(3).getTotalAttack(), 7);
+        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), 2);
+        assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), 4);
 
-        assertEquals(currentPlayer.getMinions().get(0).getAuraAttack(), 2);
-        assertEquals(currentPlayer.getMinions().get(1).getAuraAttack(), 1);
-        assertEquals(currentPlayer.getMinions().get(2).getAuraAttack(), 1);
-        assertEquals(waitingPlayer.getMinions().get(0).getAuraAttack(), 0);
-        assertEquals(waitingPlayer.getMinions().get(1).getAuraAttack(), 1);
+        assertEquals(currentPlayer.getCharacter(1).getAuraAttack(), 2);
+        assertEquals(currentPlayer.getCharacter(2).getAuraAttack(), 1);
+        assertEquals(currentPlayer.getCharacter(3).getAuraAttack(), 1);
+        assertEquals(waitingPlayer.getCharacter(1).getAuraAttack(), 0);
+        assertEquals(waitingPlayer.getCharacter(2).getAuraAttack(), 1);
 
         //first child should be a CardDrawNode
         assertTrue( ret.getChildren().get(0) instanceof CardDrawNode );

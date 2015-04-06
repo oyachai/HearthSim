@@ -63,8 +63,8 @@ public class TestCorruption {
         assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(currentPlayer.getMana(), 3);
-        assertEquals(waitingPlayer.getMinions().get(0).getHealth(), health0);
-        assertTrue(waitingPlayer.getMinions().get(0).getDestroyOnTurnStart());
+        assertEquals(waitingPlayer.getCharacter(1).getHealth(), health0);
+        assertTrue(waitingPlayer.getCharacter(1).getDestroyOnTurnStart());
     }
 
     @Test
@@ -73,7 +73,7 @@ public class TestCorruption {
         HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 1, board);
         assertEquals(board, ret);
 
-        assertEquals(waitingPlayer.getMinions().get(0).getHealth(), health0);
+        assertEquals(waitingPlayer.getCharacter(1).getHealth(), health0);
 
         BoardModel nextTurn = Game.beginTurn(board.data_);
         assertNotNull(nextTurn);

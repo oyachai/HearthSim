@@ -64,18 +64,18 @@ public class TestHammerOfWrath {
         assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(currentPlayer.getHero().getHealth(), 27);
         assertEquals(waitingPlayer.getHero().getHealth(), 30);
-        assertEquals(currentPlayer.getMinions().get(0).getHealth(), health0);
-        assertEquals(currentPlayer.getMinions().get(1).getHealth(), health1 - 1);
-        assertEquals(waitingPlayer.getMinions().get(0).getHealth(), health0);
-        assertEquals(waitingPlayer.getMinions().get(1).getHealth(), health1 - 1);
-        assertEquals(currentPlayer.getMinions().get(0).getTotalAttack(), attack0);
-        assertEquals(currentPlayer.getMinions().get(1).getTotalAttack(), attack0);
-        assertEquals(waitingPlayer.getMinions().get(0).getTotalAttack(), attack0);
-        assertEquals(waitingPlayer.getMinions().get(1).getTotalAttack(), attack0);
-        assertFalse(currentPlayer.getMinions().get(0).getCharge());
-        assertFalse(currentPlayer.getMinions().get(1).getCharge());
-        assertFalse(currentPlayer.getMinions().get(0).getFrozen());
-        assertFalse(waitingPlayer.getMinions().get(0).getFrozen());
+        assertEquals(currentPlayer.getCharacter(1).getHealth(), health0);
+        assertEquals(currentPlayer.getCharacter(2).getHealth(), health1 - 1);
+        assertEquals(waitingPlayer.getCharacter(1).getHealth(), health0);
+        assertEquals(waitingPlayer.getCharacter(2).getHealth(), health1 - 1);
+        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), attack0);
+        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), attack0);
+        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), attack0);
+        assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), attack0);
+        assertFalse(currentPlayer.getCharacter(1).getCharge());
+        assertFalse(currentPlayer.getCharacter(2).getCharge());
+        assertFalse(currentPlayer.getCharacter(1).getFrozen());
+        assertFalse(waitingPlayer.getCharacter(1).getFrozen());
     }
 
     @Test
@@ -95,11 +95,11 @@ public class TestHammerOfWrath {
         assertEquals(waitingPlayer.getNumMinions(), 1);
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), 30);
-        assertEquals(currentPlayer.getMinions().get(0).getHealth(), health0);
-        assertEquals(currentPlayer.getMinions().get(1).getHealth(), health1 - 1);
-        assertEquals(waitingPlayer.getMinions().get(0).getHealth(), health1 - 1);
-        assertEquals(currentPlayer.getMinions().get(0).getTotalAttack(), attack0);
-        assertEquals(currentPlayer.getMinions().get(1).getTotalAttack(), attack0);
-        assertEquals(waitingPlayer.getMinions().get(0).getTotalAttack(), attack0);
+        assertEquals(currentPlayer.getCharacter(1).getHealth(), health0);
+        assertEquals(currentPlayer.getCharacter(2).getHealth(), health1 - 1);
+        assertEquals(waitingPlayer.getCharacter(1).getHealth(), health1 - 1);
+        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), attack0);
+        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), attack0);
+        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), attack0);
     }
 }

@@ -44,12 +44,12 @@ public class TestWaterElemental {
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
         assertEquals(board, ret);
 
-        Minion waterElemental = currentPlayer.getMinions().get(0);
+        Minion waterElemental = currentPlayer.getCharacter(1);
         assertTrue(waterElemental instanceof WaterElemental);
 
         waterElemental.hasAttacked(false); // unset summoning sickness
         waterElemental.attack(PlayerSide.WAITING_PLAYER, 2, board, false);
-        assertTrue(waitingPlayer.getMinions().get(1).getFrozen());
+        assertTrue(waitingPlayer.getCharacter(2).getFrozen());
     }
 
     @Test
@@ -58,7 +58,7 @@ public class TestWaterElemental {
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
         assertEquals(board, ret);
 
-        Minion waterElemental = currentPlayer.getMinions().get(0);
+        Minion waterElemental = currentPlayer.getCharacter(1);
         assertTrue(waterElemental instanceof WaterElemental);
 
         waterElemental.hasAttacked(false); // unset summoning sickness

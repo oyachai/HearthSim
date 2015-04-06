@@ -65,17 +65,17 @@ public class TestDustDevil {
 
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), 30);
-        assertEquals(currentPlayer.getMinions().get(0).getTotalHealth(), 2);
-        assertEquals(currentPlayer.getMinions().get(1).getTotalHealth(), 2);
-        assertEquals(currentPlayer.getMinions().get(2).getTotalHealth(), 1);
-        assertEquals(waitingPlayer.getMinions().get(0).getTotalHealth(), 1);
-        assertEquals(waitingPlayer.getMinions().get(1).getTotalHealth(), 1);
+        assertEquals(currentPlayer.getCharacter(1).getTotalHealth(), 2);
+        assertEquals(currentPlayer.getCharacter(2).getTotalHealth(), 2);
+        assertEquals(currentPlayer.getCharacter(3).getTotalHealth(), 1);
+        assertEquals(waitingPlayer.getCharacter(1).getTotalHealth(), 1);
+        assertEquals(waitingPlayer.getCharacter(2).getTotalHealth(), 1);
 
-        assertEquals(currentPlayer.getMinions().get(0).getTotalAttack(), 1);
-        assertEquals(currentPlayer.getMinions().get(1).getTotalAttack(), 1);
-        assertEquals(currentPlayer.getMinions().get(2).getTotalAttack(), 3);
-        assertEquals(waitingPlayer.getMinions().get(0).getTotalAttack(), 1);
-        assertEquals(waitingPlayer.getMinions().get(1).getTotalAttack(), 1);
+        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), 1);
+        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), 1);
+        assertEquals(currentPlayer.getCharacter(3).getTotalAttack(), 3);
+        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), 1);
+        assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), 1);
 
         //overloaded for 2, so when resetMana is called, it should set the mana to 5
         board.data_.resetMana();

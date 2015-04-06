@@ -65,10 +65,10 @@ public class TestClaw {
         assertEquals(currentPlayer.getHero().getTotalAttack(), 2);
         assertEquals(currentPlayer.getHero().getExtraAttackUntilTurnEnd(), 2);
         assertEquals(currentPlayer.getHero().getArmor(), 2);
-        assertEquals(currentPlayer.getMinions().get(0).getHealth(), health0);
-        assertEquals(currentPlayer.getMinions().get(1).getHealth(), health1 - 1);
-        assertEquals(waitingPlayer.getMinions().get(0).getHealth(), health0);
-        assertEquals(waitingPlayer.getMinions().get(1).getHealth(), health1 - 1);
+        assertEquals(currentPlayer.getCharacter(1).getHealth(), health0);
+        assertEquals(currentPlayer.getCharacter(2).getHealth(), health1 - 1);
+        assertEquals(waitingPlayer.getCharacter(1).getHealth(), health0);
+        assertEquals(waitingPlayer.getCharacter(2).getHealth(), health1 - 1);
 
         ret = currentPlayer.getHero().attack(PlayerSide.WAITING_PLAYER, 1, board, false);
         assertFalse(ret == null);
@@ -79,10 +79,10 @@ public class TestClaw {
         assertEquals(currentPlayer.getHero().getTotalAttack(), 2);
         assertEquals(currentPlayer.getHero().getExtraAttackUntilTurnEnd(), 2);
         assertEquals(currentPlayer.getHero().getArmor(), 0);
-        assertEquals(currentPlayer.getMinions().get(0).getHealth(), health0);
-        assertEquals(currentPlayer.getMinions().get(1).getHealth(), health1 - 1);
-        assertEquals(waitingPlayer.getMinions().get(0).getHealth(), health0 - 2);
-        assertEquals(waitingPlayer.getMinions().get(1).getHealth(), health1 - 1);
+        assertEquals(currentPlayer.getCharacter(1).getHealth(), health0);
+        assertEquals(currentPlayer.getCharacter(2).getHealth(), health1 - 1);
+        assertEquals(waitingPlayer.getCharacter(1).getHealth(), health0 - 2);
+        assertEquals(waitingPlayer.getCharacter(2).getHealth(), health1 - 1);
 
         currentPlayer.getHero().endTurn(PlayerSide.CURRENT_PLAYER, board);
         assertEquals(currentPlayer.getHero().getTotalAttack(), 0);

@@ -54,15 +54,15 @@ public class TestCairneBloodhoof {
         assertEquals(waitingPlayer.getMana(), 8);
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), 30);
-        assertEquals(currentPlayer.getMinions().get(0).getHealth(), 2);
-        assertEquals(currentPlayer.getMinions().get(1).getHealth(), 7);
-        assertEquals(waitingPlayer.getMinions().get(0).getHealth(), 2);
-        assertEquals(waitingPlayer.getMinions().get(1).getHealth(), 7);
+        assertEquals(currentPlayer.getCharacter(1).getHealth(), 2);
+        assertEquals(currentPlayer.getCharacter(2).getHealth(), 7);
+        assertEquals(waitingPlayer.getCharacter(1).getHealth(), 2);
+        assertEquals(waitingPlayer.getCharacter(2).getHealth(), 7);
 
-        assertEquals(currentPlayer.getMinions().get(0).getTotalAttack(), 2);
-        assertEquals(currentPlayer.getMinions().get(1).getTotalAttack(), 7);
-        assertEquals(waitingPlayer.getMinions().get(0).getTotalAttack(), 2);
-        assertEquals(waitingPlayer.getMinions().get(1).getTotalAttack(), 7);
+        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), 2);
+        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), 7);
+        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), 2);
+        assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), 7);
     }
 
     @Test
@@ -79,21 +79,21 @@ public class TestCairneBloodhoof {
         assertEquals(waitingPlayer.getMana(), 8);
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), 30);
-        assertEquals(currentPlayer.getMinions().get(0).getHealth(), 2);
-        assertEquals(currentPlayer.getMinions().get(1).getHealth(), 7);
-        assertEquals(currentPlayer.getMinions().get(2).getHealth(), 5);
-        assertEquals(waitingPlayer.getMinions().get(0).getHealth(), 2);
-        assertEquals(waitingPlayer.getMinions().get(1).getHealth(), 7);
+        assertEquals(currentPlayer.getCharacter(1).getHealth(), 2);
+        assertEquals(currentPlayer.getCharacter(2).getHealth(), 7);
+        assertEquals(currentPlayer.getCharacter(3).getHealth(), 5);
+        assertEquals(waitingPlayer.getCharacter(1).getHealth(), 2);
+        assertEquals(waitingPlayer.getCharacter(2).getHealth(), 7);
 
-        assertEquals(currentPlayer.getMinions().get(0).getTotalAttack(), 2);
-        assertEquals(currentPlayer.getMinions().get(1).getTotalAttack(), 7);
-        assertEquals(currentPlayer.getMinions().get(2).getTotalAttack(), 5);
-        assertEquals(waitingPlayer.getMinions().get(0).getTotalAttack(), 2);
-        assertEquals(waitingPlayer.getMinions().get(1).getTotalAttack(), 7);
+        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), 2);
+        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), 7);
+        assertEquals(currentPlayer.getCharacter(3).getTotalAttack(), 5);
+        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), 2);
+        assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), 7);
 
         //----------------------------------------------------------
 
-        Minion minion = currentPlayer.getMinions().get(2);
+        Minion minion = currentPlayer.getCharacter(3);
         assertTrue(minion instanceof CairneBloodhoof);
 
         minion.hasAttacked(false);
@@ -106,19 +106,19 @@ public class TestCairneBloodhoof {
         assertEquals(waitingPlayer.getMana(), 8);
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), 30);
-        assertEquals(currentPlayer.getMinions().get(0).getHealth(), 2);
-        assertEquals(currentPlayer.getMinions().get(1).getHealth(), 7);
-        assertEquals(currentPlayer.getMinions().get(2).getHealth(), 5);
-        assertEquals(waitingPlayer.getMinions().get(0).getHealth(), 2);
-        assertEquals(waitingPlayer.getMinions().get(1).getHealth(), 7 - 5);
+        assertEquals(currentPlayer.getCharacter(1).getHealth(), 2);
+        assertEquals(currentPlayer.getCharacter(2).getHealth(), 7);
+        assertEquals(currentPlayer.getCharacter(3).getHealth(), 5);
+        assertEquals(waitingPlayer.getCharacter(1).getHealth(), 2);
+        assertEquals(waitingPlayer.getCharacter(2).getHealth(), 7 - 5);
 
-        assertEquals(currentPlayer.getMinions().get(0).getTotalAttack(), 2);
-        assertEquals(currentPlayer.getMinions().get(1).getTotalAttack(), 7);
-        assertEquals(currentPlayer.getMinions().get(2).getTotalAttack(), 5);
-        assertEquals(waitingPlayer.getMinions().get(0).getTotalAttack(), 2);
-        assertEquals(waitingPlayer.getMinions().get(1).getTotalAttack(), 7);
+        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), 2);
+        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), 7);
+        assertEquals(currentPlayer.getCharacter(3).getTotalAttack(), 5);
+        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), 2);
+        assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), 7);
 
-        assertTrue(currentPlayer.getMinions().get(2) instanceof BaineBloodhoof);
+        assertTrue(currentPlayer.getCharacter(3) instanceof BaineBloodhoof);
     }
 
     @Test
@@ -135,21 +135,21 @@ public class TestCairneBloodhoof {
         assertEquals(waitingPlayer.getMana(), 8);
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), 30);
-        assertEquals(currentPlayer.getMinions().get(0).getHealth(), 2);
-        assertEquals(currentPlayer.getMinions().get(1).getHealth(), 5);
-        assertEquals(currentPlayer.getMinions().get(2).getHealth(), 7);
-        assertEquals(waitingPlayer.getMinions().get(0).getHealth(), 2);
-        assertEquals(waitingPlayer.getMinions().get(1).getHealth(), 7);
+        assertEquals(currentPlayer.getCharacter(1).getHealth(), 2);
+        assertEquals(currentPlayer.getCharacter(2).getHealth(), 5);
+        assertEquals(currentPlayer.getCharacter(3).getHealth(), 7);
+        assertEquals(waitingPlayer.getCharacter(1).getHealth(), 2);
+        assertEquals(waitingPlayer.getCharacter(2).getHealth(), 7);
 
-        assertEquals(currentPlayer.getMinions().get(0).getTotalAttack(), 2);
-        assertEquals(currentPlayer.getMinions().get(1).getTotalAttack(), 5);
-        assertEquals(currentPlayer.getMinions().get(2).getTotalAttack(), 7);
-        assertEquals(waitingPlayer.getMinions().get(0).getTotalAttack(), 2);
-        assertEquals(waitingPlayer.getMinions().get(1).getTotalAttack(), 7);
+        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), 2);
+        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), 5);
+        assertEquals(currentPlayer.getCharacter(3).getTotalAttack(), 7);
+        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), 2);
+        assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), 7);
 
         //----------------------------------------------------------
 
-        Minion minion = currentPlayer.getMinions().get(1);
+        Minion minion = currentPlayer.getCharacter(2);
         assertTrue(minion instanceof CairneBloodhoof);
 
         minion.hasAttacked(false);
@@ -162,19 +162,19 @@ public class TestCairneBloodhoof {
         assertEquals(waitingPlayer.getMana(), 8);
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), 30);
-        assertEquals(currentPlayer.getMinions().get(0).getHealth(), 2);
-        assertEquals(currentPlayer.getMinions().get(1).getHealth(), 5);
-        assertEquals(currentPlayer.getMinions().get(2).getHealth(), 7);
-        assertEquals(waitingPlayer.getMinions().get(0).getHealth(), 2);
-        assertEquals(waitingPlayer.getMinions().get(1).getHealth(), 7 - 5);
+        assertEquals(currentPlayer.getCharacter(1).getHealth(), 2);
+        assertEquals(currentPlayer.getCharacter(2).getHealth(), 5);
+        assertEquals(currentPlayer.getCharacter(3).getHealth(), 7);
+        assertEquals(waitingPlayer.getCharacter(1).getHealth(), 2);
+        assertEquals(waitingPlayer.getCharacter(2).getHealth(), 7 - 5);
 
-        assertEquals(currentPlayer.getMinions().get(0).getTotalAttack(), 2);
-        assertEquals(currentPlayer.getMinions().get(1).getTotalAttack(), 5);
-        assertEquals(currentPlayer.getMinions().get(2).getTotalAttack(), 7);
-        assertEquals(waitingPlayer.getMinions().get(0).getTotalAttack(), 2);
-        assertEquals(waitingPlayer.getMinions().get(1).getTotalAttack(), 7);
+        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), 2);
+        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), 5);
+        assertEquals(currentPlayer.getCharacter(3).getTotalAttack(), 7);
+        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), 2);
+        assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), 7);
 
-        assertTrue(currentPlayer.getMinions().get(1) instanceof BaineBloodhoof);
+        assertTrue(currentPlayer.getCharacter(2) instanceof BaineBloodhoof);
     }
 
     @Test
@@ -191,25 +191,24 @@ public class TestCairneBloodhoof {
         assertEquals(waitingPlayer.getMana(), 8);
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), 30);
-        assertEquals(currentPlayer.getMinions().get(0).getHealth(), 2);
-        assertEquals(currentPlayer.getMinions().get(1).getHealth(), 5);
-        assertEquals(currentPlayer.getMinions().get(2).getHealth(), 7);
-        assertEquals(waitingPlayer.getMinions().get(0).getHealth(), 2);
-        assertEquals(waitingPlayer.getMinions().get(1).getHealth(), 7);
+        assertEquals(currentPlayer.getCharacter(1).getHealth(), 2);
+        assertEquals(currentPlayer.getCharacter(2).getHealth(), 5);
+        assertEquals(currentPlayer.getCharacter(3).getHealth(), 7);
+        assertEquals(waitingPlayer.getCharacter(1).getHealth(), 2);
+        assertEquals(waitingPlayer.getCharacter(2).getHealth(), 7);
 
-        assertEquals(currentPlayer.getMinions().get(0).getTotalAttack(), 2);
-        assertEquals(currentPlayer.getMinions().get(1).getTotalAttack(), 5);
-        assertEquals(currentPlayer.getMinions().get(2).getTotalAttack(), 7);
-        assertEquals(waitingPlayer.getMinions().get(0).getTotalAttack(), 2);
-        assertEquals(waitingPlayer.getMinions().get(1).getTotalAttack(), 7);
+        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), 2);
+        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), 5);
+        assertEquals(currentPlayer.getCharacter(3).getTotalAttack(), 7);
+        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), 2);
+        assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), 7);
 
         //----------------------------------------------------------
         HearthTreeNode fb = new HearthTreeNode(board.data_.flipPlayers());
         currentPlayer = fb.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         waitingPlayer = fb.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
-        IdentityLinkedList<Minion> currentPlayerMinions = currentPlayer.getMinions();
-        Minion minion = currentPlayerMinions.get(1);
+        Minion minion = currentPlayer.getCharacter(2);
 
         minion.hasAttacked(false);
         minion.attack(PlayerSide.WAITING_PLAYER, 2, fb, false);
@@ -221,20 +220,19 @@ public class TestCairneBloodhoof {
         assertEquals(fb.data_.getWaitingPlayer().getMana(), 2);
         assertEquals(fb.data_.getCurrentPlayer().getHero().getHealth(), 30);
         assertEquals(fb.data_.getWaitingPlayer().getHero().getHealth(), 30);
-        assertEquals(currentPlayerMinions.get(0).getHealth(), 2);
-        assertEquals(currentPlayerMinions.get(1).getHealth(), 7 - 5);
-        IdentityLinkedList<Minion> waitingPlayerMinions = waitingPlayer.getMinions();
-        assertEquals(waitingPlayerMinions.get(0).getHealth(), 2);
-        assertEquals(waitingPlayerMinions.get(1).getHealth(), 5);
-        assertEquals(waitingPlayerMinions.get(2).getHealth(), 7);
+        assertEquals(currentPlayer.getCharacter(1).getHealth(), 2);
+        assertEquals(currentPlayer.getCharacter(2).getHealth(), 7 - 5);
+        assertEquals(waitingPlayer.getCharacter(1).getHealth(), 2);
+        assertEquals(waitingPlayer.getCharacter(2).getHealth(), 5);
+        assertEquals(waitingPlayer.getCharacter(3).getHealth(), 7);
 
-        assertEquals(currentPlayerMinions.get(0).getTotalAttack(), 2);
-        assertEquals(currentPlayerMinions.get(1).getTotalAttack(), 7);
-        assertEquals(waitingPlayerMinions.get(0).getTotalAttack(), 2);
-        assertEquals(waitingPlayerMinions.get(1).getTotalAttack(), 5);
-        assertEquals(waitingPlayerMinions.get(2).getTotalAttack(), 7);
+        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), 2);
+        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), 7);
+        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), 2);
+        assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), 5);
+        assertEquals(waitingPlayer.getCharacter(3).getTotalAttack(), 7);
 
-        assertTrue(waitingPlayerMinions.get(1) instanceof BaineBloodhoof);
+        assertTrue(waitingPlayer.getCharacter(2) instanceof BaineBloodhoof);
     }
 
     @Test
@@ -256,32 +254,32 @@ public class TestCairneBloodhoof {
         assertEquals(waitingPlayer.getMana(), 8);
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), 30);
-        assertEquals(currentPlayer.getMinions().get(0).getHealth(), 2);
-        assertEquals(currentPlayer.getMinions().get(1).getHealth(), 2);
-        assertEquals(currentPlayer.getMinions().get(2).getHealth(), 2);
-        assertEquals(currentPlayer.getMinions().get(3).getHealth(), 2);
-        assertEquals(currentPlayer.getMinions().get(4).getHealth(), 2);
-        assertEquals(currentPlayer.getMinions().get(5).getHealth(), 5);
-        assertEquals(currentPlayer.getMinions().get(6).getHealth(), 7);
-        assertEquals(waitingPlayer.getMinions().get(0).getHealth(), 2);
-        assertEquals(waitingPlayer.getMinions().get(1).getHealth(), 7);
+        assertEquals(currentPlayer.getCharacter(1).getHealth(), 2);
+        assertEquals(currentPlayer.getCharacter(2).getHealth(), 2);
+        assertEquals(currentPlayer.getCharacter(3).getHealth(), 2);
+        assertEquals(currentPlayer.getCharacter(4).getHealth(), 2);
+        assertEquals(currentPlayer.getCharacter(5).getHealth(), 2);
+        assertEquals(currentPlayer.getCharacter(6).getHealth(), 5);
+        assertEquals(currentPlayer.getCharacter(7).getHealth(), 7);
+        assertEquals(waitingPlayer.getCharacter(1).getHealth(), 2);
+        assertEquals(waitingPlayer.getCharacter(2).getHealth(), 7);
 
-        assertEquals(currentPlayer.getMinions().get(0).getTotalAttack(), 4);
-        assertEquals(currentPlayer.getMinions().get(1).getTotalAttack(), 4);
-        assertEquals(currentPlayer.getMinions().get(2).getTotalAttack(), 4);
-        assertEquals(currentPlayer.getMinions().get(3).getTotalAttack(), 4);
-        assertEquals(currentPlayer.getMinions().get(4).getTotalAttack(), 2);
-        assertEquals(currentPlayer.getMinions().get(5).getTotalAttack(), 5);
-        assertEquals(currentPlayer.getMinions().get(6).getTotalAttack(), 7);
-        assertEquals(waitingPlayer.getMinions().get(0).getTotalAttack(), 2);
-        assertEquals(waitingPlayer.getMinions().get(1).getTotalAttack(), 7);
+        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), 4);
+        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), 4);
+        assertEquals(currentPlayer.getCharacter(3).getTotalAttack(), 4);
+        assertEquals(currentPlayer.getCharacter(4).getTotalAttack(), 4);
+        assertEquals(currentPlayer.getCharacter(5).getTotalAttack(), 2);
+        assertEquals(currentPlayer.getCharacter(6).getTotalAttack(), 5);
+        assertEquals(currentPlayer.getCharacter(7).getTotalAttack(), 7);
+        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), 2);
+        assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), 7);
 
         //----------------------------------------------------------
         HearthTreeNode fb = new HearthTreeNode(board.data_.flipPlayers());
         currentPlayer = fb.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         waitingPlayer = fb.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
-        Minion minion = currentPlayer.getMinions().get(1);
+        Minion minion = currentPlayer.getCharacter(2);
 
         minion.hasAttacked(false);
         minion.attack(PlayerSide.WAITING_PLAYER, 6, fb, false);
@@ -293,27 +291,27 @@ public class TestCairneBloodhoof {
         assertEquals(fb.data_.getWaitingPlayer().getMana(), 2);
         assertEquals(fb.data_.getCurrentPlayer().getHero().getHealth(), 30);
         assertEquals(fb.data_.getWaitingPlayer().getHero().getHealth(), 30);
-        assertEquals(currentPlayer.getMinions().get(0).getHealth(), 2);
-        assertEquals(currentPlayer.getMinions().get(1).getHealth(), 7 - 5);
-        assertEquals(waitingPlayer.getMinions().get(0).getHealth(), 2);
-        assertEquals(waitingPlayer.getMinions().get(1).getHealth(), 2);
-        assertEquals(waitingPlayer.getMinions().get(2).getHealth(), 2);
-        assertEquals(waitingPlayer.getMinions().get(3).getHealth(), 2);
-        assertEquals(waitingPlayer.getMinions().get(4).getHealth(), 2);
-        assertEquals(waitingPlayer.getMinions().get(5).getHealth(), 5);
-        assertEquals(waitingPlayer.getMinions().get(6).getHealth(), 7);
+        assertEquals(currentPlayer.getCharacter(1).getHealth(), 2);
+        assertEquals(currentPlayer.getCharacter(2).getHealth(), 7 - 5);
+        assertEquals(waitingPlayer.getCharacter(1).getHealth(), 2);
+        assertEquals(waitingPlayer.getCharacter(2).getHealth(), 2);
+        assertEquals(waitingPlayer.getCharacter(3).getHealth(), 2);
+        assertEquals(waitingPlayer.getCharacter(4).getHealth(), 2);
+        assertEquals(waitingPlayer.getCharacter(5).getHealth(), 2);
+        assertEquals(waitingPlayer.getCharacter(6).getHealth(), 5);
+        assertEquals(waitingPlayer.getCharacter(7).getHealth(), 7);
 
-        assertEquals(currentPlayer.getMinions().get(0).getTotalAttack(), 2);
-        assertEquals(currentPlayer.getMinions().get(1).getTotalAttack(), 7);
-        assertEquals(waitingPlayer.getMinions().get(0).getTotalAttack(), 4);
-        assertEquals(waitingPlayer.getMinions().get(1).getTotalAttack(), 4);
-        assertEquals(waitingPlayer.getMinions().get(2).getTotalAttack(), 4);
-        assertEquals(waitingPlayer.getMinions().get(3).getTotalAttack(), 4);
-        assertEquals(waitingPlayer.getMinions().get(4).getTotalAttack(), 2);
-        assertEquals(waitingPlayer.getMinions().get(5).getTotalAttack(), 5);
-        assertEquals(waitingPlayer.getMinions().get(6).getTotalAttack(), 7);
+        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), 2);
+        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), 7);
+        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), 4);
+        assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), 4);
+        assertEquals(waitingPlayer.getCharacter(3).getTotalAttack(), 4);
+        assertEquals(waitingPlayer.getCharacter(4).getTotalAttack(), 4);
+        assertEquals(waitingPlayer.getCharacter(5).getTotalAttack(), 2);
+        assertEquals(waitingPlayer.getCharacter(6).getTotalAttack(), 5);
+        assertEquals(waitingPlayer.getCharacter(7).getTotalAttack(), 7);
 
-        assertTrue(waitingPlayer.getMinions().get(5) instanceof BaineBloodhoof);
+        assertTrue(waitingPlayer.getCharacter(6) instanceof BaineBloodhoof);
     }
 
     @Test
@@ -330,24 +328,24 @@ public class TestCairneBloodhoof {
         assertEquals(waitingPlayer.getMana(), 8);
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), 30);
-        assertEquals(currentPlayer.getMinions().get(0).getHealth(), 2);
-        assertEquals(currentPlayer.getMinions().get(1).getHealth(), 5);
-        assertEquals(currentPlayer.getMinions().get(2).getHealth(), 7);
-        assertEquals(waitingPlayer.getMinions().get(0).getHealth(), 2);
-        assertEquals(waitingPlayer.getMinions().get(1).getHealth(), 7);
+        assertEquals(currentPlayer.getCharacter(1).getHealth(), 2);
+        assertEquals(currentPlayer.getCharacter(2).getHealth(), 5);
+        assertEquals(currentPlayer.getCharacter(3).getHealth(), 7);
+        assertEquals(waitingPlayer.getCharacter(1).getHealth(), 2);
+        assertEquals(waitingPlayer.getCharacter(2).getHealth(), 7);
 
-        assertEquals(currentPlayer.getMinions().get(0).getTotalAttack(), 2);
-        assertEquals(currentPlayer.getMinions().get(1).getTotalAttack(), 5);
-        assertEquals(currentPlayer.getMinions().get(2).getTotalAttack(), 7);
-        assertEquals(waitingPlayer.getMinions().get(0).getTotalAttack(), 2);
-        assertEquals(waitingPlayer.getMinions().get(1).getTotalAttack(), 7);
+        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), 2);
+        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), 5);
+        assertEquals(currentPlayer.getCharacter(3).getTotalAttack(), 7);
+        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), 2);
+        assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), 7);
 
         //----------------------------------------------------------
         HearthTreeNode fb = new HearthTreeNode(board.data_.flipPlayers());
         currentPlayer = fb.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         waitingPlayer = fb.data_.modelForSide(PlayerSide.WAITING_PLAYER);
 
-        Minion minion = currentPlayer.getMinions().get(1);
+        Minion minion = currentPlayer.getCharacter(2);
 
         fb.data_.getCurrentPlayer().placeCardHand(new Fireball());
         Card fireball = fb.data_.getCurrentPlayer().getHand().get(0);
@@ -362,18 +360,18 @@ public class TestCairneBloodhoof {
         assertEquals(fb.data_.getWaitingPlayer().getMana(), 2);
         assertEquals(fb.data_.getCurrentPlayer().getHero().getHealth(), 30);
         assertEquals(fb.data_.getWaitingPlayer().getHero().getHealth(), 30);
-        assertEquals(currentPlayer.getMinions().get(0).getHealth(), 2);
-        assertEquals(currentPlayer.getMinions().get(1).getHealth(), 7);
-        assertEquals(waitingPlayer.getMinions().get(0).getHealth(), 2);
-        assertEquals(waitingPlayer.getMinions().get(1).getHealth(), 5);
-        assertEquals(waitingPlayer.getMinions().get(2).getHealth(), 7);
+        assertEquals(currentPlayer.getCharacter(1).getHealth(), 2);
+        assertEquals(currentPlayer.getCharacter(2).getHealth(), 7);
+        assertEquals(waitingPlayer.getCharacter(1).getHealth(), 2);
+        assertEquals(waitingPlayer.getCharacter(2).getHealth(), 5);
+        assertEquals(waitingPlayer.getCharacter(3).getHealth(), 7);
 
-        assertEquals(currentPlayer.getMinions().get(0).getTotalAttack(), 2);
-        assertEquals(currentPlayer.getMinions().get(1).getTotalAttack(), 7);
-        assertEquals(waitingPlayer.getMinions().get(0).getTotalAttack(), 2);
-        assertEquals(waitingPlayer.getMinions().get(1).getTotalAttack(), 5);
-        assertEquals(waitingPlayer.getMinions().get(2).getTotalAttack(), 7);
+        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), 2);
+        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), 7);
+        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), 2);
+        assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), 5);
+        assertEquals(waitingPlayer.getCharacter(3).getTotalAttack(), 7);
 
-        assertTrue(waitingPlayer.getMinions().get(1) instanceof BaineBloodhoof);
+        assertTrue(waitingPlayer.getCharacter(2) instanceof BaineBloodhoof);
     }
 }

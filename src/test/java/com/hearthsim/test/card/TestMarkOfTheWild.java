@@ -68,17 +68,17 @@ public class TestMarkOfTheWild {
         assertEquals(waitingPlayer.getMana(), 4);
         assertEquals(currentPlayer.getMaxMana(), 4);
         assertEquals(waitingPlayer.getMaxMana(), 4);
-        assertEquals(currentPlayer.getMinions().get(0).getHealth(), health0 + 2);
-        assertEquals(currentPlayer.getMinions().get(1).getHealth(), health1 - 1);
-        assertEquals(waitingPlayer.getMinions().get(0).getHealth(), health0);
-        assertEquals(waitingPlayer.getMinions().get(1).getHealth(), health1 - 1);
-        assertEquals(currentPlayer.getMinions().get(0).getTotalAttack(), attack0 + 2);
-        assertEquals(currentPlayer.getMinions().get(1).getTotalAttack(), attack0);
-        assertEquals(waitingPlayer.getMinions().get(0).getTotalAttack(), attack0);
-        assertEquals(waitingPlayer.getMinions().get(1).getTotalAttack(), attack0);
-        assertTrue(currentPlayer.getMinions().get(0).getTaunt());
-        assertFalse(currentPlayer.getMinions().get(1).getTaunt());
-        assertFalse(waitingPlayer.getMinions().get(0).getTaunt());
-        assertFalse(waitingPlayer.getMinions().get(1).getTaunt());
+        assertEquals(currentPlayer.getCharacter(1).getHealth(), health0 + 2);
+        assertEquals(currentPlayer.getCharacter(2).getHealth(), health1 - 1);
+        assertEquals(waitingPlayer.getCharacter(1).getHealth(), health0);
+        assertEquals(waitingPlayer.getCharacter(2).getHealth(), health1 - 1);
+        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), attack0 + 2);
+        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), attack0);
+        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), attack0);
+        assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), attack0);
+        assertTrue(currentPlayer.getCharacter(1).getTaunt());
+        assertFalse(currentPlayer.getCharacter(2).getTaunt());
+        assertFalse(waitingPlayer.getCharacter(1).getTaunt());
+        assertFalse(waitingPlayer.getCharacter(2).getTaunt());
     }
 }

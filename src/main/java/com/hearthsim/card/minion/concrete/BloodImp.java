@@ -19,7 +19,7 @@ public class BloodImp extends Minion {
             if (player.getNumMinions() > 1) {
                 Minion buffTargetMinion = this;
                 while (buffTargetMinion == this) {
-                    buffTargetMinion = player.getMinions().get((int)(Math.random() * player.getNumMinions()));
+                    buffTargetMinion = player.getCharacter((int)(Math.random() * player.getNumMinions()) + 1);
                 }
                 buffTargetMinion.addMaxHealth((byte)1);
                 buffTargetMinion.addHealth((byte)1);

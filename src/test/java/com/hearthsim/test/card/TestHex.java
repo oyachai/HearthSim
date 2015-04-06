@@ -60,17 +60,17 @@ public class TestHex {
         assertEquals(waitingPlayer.getMana(), 8);
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), 30);
-        assertEquals(currentPlayer.getMinions().get(0).getHealth(), 2);
-        assertEquals(currentPlayer.getMinions().get(1).getHealth(), 7);
-        assertEquals(waitingPlayer.getMinions().get(0).getHealth(), 1);
-        assertEquals(waitingPlayer.getMinions().get(1).getHealth(), 7);
+        assertEquals(currentPlayer.getCharacter(1).getHealth(), 2);
+        assertEquals(currentPlayer.getCharacter(2).getHealth(), 7);
+        assertEquals(waitingPlayer.getCharacter(1).getHealth(), 1);
+        assertEquals(waitingPlayer.getCharacter(2).getHealth(), 7);
 
-        assertEquals(currentPlayer.getMinions().get(0).getTotalAttack(), 2);
-        assertEquals(currentPlayer.getMinions().get(1).getTotalAttack(), 7);
-        assertEquals(waitingPlayer.getMinions().get(0).getTotalAttack(), 0);
-        assertEquals(waitingPlayer.getMinions().get(1).getTotalAttack(), 6);
+        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), 2);
+        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), 7);
+        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), 0);
+        assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), 6);
 
-        assertTrue(waitingPlayer.getMinions().get(0) instanceof Frog);
+        assertTrue(waitingPlayer.getCharacter(1) instanceof Frog);
     }
 
     @Test
@@ -87,16 +87,16 @@ public class TestHex {
         assertEquals(waitingPlayer.getMana(), 8);
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), 30);
-        assertEquals(currentPlayer.getMinions().get(0).getHealth(), 2);
-        assertEquals(currentPlayer.getMinions().get(1).getHealth(), 7);
-        assertEquals(waitingPlayer.getMinions().get(0).getHealth(), 2);
-        assertEquals(waitingPlayer.getMinions().get(1).getHealth(), 1);
+        assertEquals(currentPlayer.getCharacter(1).getHealth(), 2);
+        assertEquals(currentPlayer.getCharacter(2).getHealth(), 7);
+        assertEquals(waitingPlayer.getCharacter(1).getHealth(), 2);
+        assertEquals(waitingPlayer.getCharacter(2).getHealth(), 1);
 
-        assertEquals(currentPlayer.getMinions().get(0).getTotalAttack(), 2);
-        assertEquals(currentPlayer.getMinions().get(1).getTotalAttack(), 7);
-        assertEquals(waitingPlayer.getMinions().get(0).getTotalAttack(), 2);
-        assertEquals(waitingPlayer.getMinions().get(1).getTotalAttack(), 1);
+        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), 2);
+        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), 7);
+        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), 2);
+        assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), 1);
 
-        assertTrue(waitingPlayer.getMinions().get(1) instanceof Frog);
+        assertTrue(waitingPlayer.getCharacter(2) instanceof Frog);
     }
 }

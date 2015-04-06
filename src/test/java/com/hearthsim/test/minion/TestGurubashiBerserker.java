@@ -44,7 +44,7 @@ public class TestGurubashiBerserker {
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
         assertEquals(board, ret);
 
-        Minion berserker = currentPlayer.getMinions().get(0);
+        Minion berserker = currentPlayer.getCharacter(1);
         berserker.hasAttacked(false);
         ret = berserker.attack(PlayerSide.WAITING_PLAYER, 1, board, false);
         assertEquals(board, ret);
@@ -59,7 +59,7 @@ public class TestGurubashiBerserker {
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
         assertEquals(board, ret);
 
-        Minion berserker = currentPlayer.getMinions().get(0);
+        Minion berserker = currentPlayer.getCharacter(1);
         berserker.hasAttacked(false);
         berserker.setDivineShield(true);
         ret = berserker.attack(PlayerSide.WAITING_PLAYER, 1, board, false);

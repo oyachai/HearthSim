@@ -86,14 +86,14 @@ public class TestArcaneIntellect {
         assertEquals(currentPlayer.getNumMinions(), 1);
         assertEquals(waitingPlayer.getNumMinions(), 3);
         assertEquals(currentPlayer.getMana(), 2);
-        assertEquals(currentPlayer.getMinions().get(0).getHealth(), health0);
-        assertEquals(currentPlayer.getMinions().get(0).getTotalAttack(), attack0);
-        assertEquals(waitingPlayer.getMinions().get(0).getHealth(), health0);
-        assertEquals(waitingPlayer.getMinions().get(0).getTotalAttack(), attack0);
-        assertEquals(waitingPlayer.getMinions().get(1).getHealth(), health1);
-        assertEquals(waitingPlayer.getMinions().get(1).getTotalAttack(), attack0);
-        assertEquals(waitingPlayer.getMinions().get(2).getHealth(), health0);
-        assertEquals(waitingPlayer.getMinions().get(2).getTotalAttack(), attack0);
+        assertEquals(currentPlayer.getCharacter(1).getHealth(), health0);
+        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), attack0);
+        assertEquals(waitingPlayer.getCharacter(1).getHealth(), health0);
+        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), attack0);
+        assertEquals(waitingPlayer.getCharacter(2).getHealth(), health1);
+        assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), attack0);
+        assertEquals(waitingPlayer.getCharacter(3).getHealth(), health0);
+        assertEquals(waitingPlayer.getCharacter(3).getTotalAttack(), attack0);
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), 30);
     }
@@ -118,14 +118,14 @@ public class TestArcaneIntellect {
         assertEquals(currentPlayer.getNumMinions(), 1);
         assertEquals(waitingPlayer.getNumMinions(), 3);
         assertEquals(currentPlayer.getMana(), 2);
-        assertEquals(currentPlayer.getMinions().get(0).getHealth(), health0);
-        assertEquals(currentPlayer.getMinions().get(0).getTotalAttack(), attack0);
-        assertEquals(waitingPlayer.getMinions().get(0).getHealth(), health0);
-        assertEquals(waitingPlayer.getMinions().get(0).getTotalAttack(), attack0);
-        assertEquals(waitingPlayer.getMinions().get(1).getHealth(), health1);
-        assertEquals(waitingPlayer.getMinions().get(1).getTotalAttack(), attack0);
-        assertEquals(waitingPlayer.getMinions().get(2).getHealth(), health0);
-        assertEquals(waitingPlayer.getMinions().get(2).getTotalAttack(), attack0);
+        assertEquals(currentPlayer.getCharacter(1).getHealth(), health0);
+        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), attack0);
+        assertEquals(waitingPlayer.getCharacter(1).getHealth(), health0);
+        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), attack0);
+        assertEquals(waitingPlayer.getCharacter(2).getHealth(), health1);
+        assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), attack0);
+        assertEquals(waitingPlayer.getCharacter(3).getHealth(), health0);
+        assertEquals(waitingPlayer.getCharacter(3).getTotalAttack(), attack0);
     }
 
     @Test

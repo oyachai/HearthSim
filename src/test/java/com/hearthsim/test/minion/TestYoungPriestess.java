@@ -59,13 +59,13 @@ public class TestYoungPriestess {
         assertEquals(waitingPlayer.getMana(), 8);
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), 30);
-        assertEquals(currentPlayer.getMinions().get(0).getTotalHealth(), 2);
-        assertEquals(currentPlayer.getMinions().get(1).getTotalHealth(), 7);
-        assertEquals(waitingPlayer.getMinions().get(0).getTotalHealth(), 2);
+        assertEquals(currentPlayer.getCharacter(1).getTotalHealth(), 2);
+        assertEquals(currentPlayer.getCharacter(2).getTotalHealth(), 7);
+        assertEquals(waitingPlayer.getCharacter(1).getTotalHealth(), 2);
 
-        assertEquals(currentPlayer.getMinions().get(0).getTotalAttack(), 2);
-        assertEquals(currentPlayer.getMinions().get(1).getTotalAttack(), 7);
-        assertEquals(waitingPlayer.getMinions().get(0).getTotalAttack(), 2);
+        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), 2);
+        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), 7);
+        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), 2);
     }
 
     @Test
@@ -82,15 +82,15 @@ public class TestYoungPriestess {
         assertEquals(waitingPlayer.getMana(), 8);
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), 30);
-        assertEquals(currentPlayer.getMinions().get(0).getTotalHealth(), 2);
-        assertEquals(currentPlayer.getMinions().get(1).getTotalHealth(), 7);
-        assertEquals(currentPlayer.getMinions().get(2).getTotalHealth(), 1);
-        assertEquals(waitingPlayer.getMinions().get(0).getTotalHealth(), 2);
+        assertEquals(currentPlayer.getCharacter(1).getTotalHealth(), 2);
+        assertEquals(currentPlayer.getCharacter(2).getTotalHealth(), 7);
+        assertEquals(currentPlayer.getCharacter(3).getTotalHealth(), 1);
+        assertEquals(waitingPlayer.getCharacter(1).getTotalHealth(), 2);
 
-        assertEquals(currentPlayer.getMinions().get(0).getTotalAttack(), 2);
-        assertEquals(currentPlayer.getMinions().get(1).getTotalAttack(), 7);
-        assertEquals(currentPlayer.getMinions().get(2).getTotalAttack(), 3);
-        assertEquals(waitingPlayer.getMinions().get(0).getTotalAttack(), 2);
+        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), 2);
+        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), 7);
+        assertEquals(currentPlayer.getCharacter(3).getTotalAttack(), 3);
+        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), 2);
     }
 
     @Test
@@ -112,13 +112,13 @@ public class TestYoungPriestess {
         assertEquals(resBoard0.getWaitingPlayer().getMana(), 8);
         assertEquals(resBoard0.getCurrentPlayer().getHero().getHealth(), 30);
         assertEquals(resBoard0.getWaitingPlayer().getHero().getHealth(), 28);
-        assertEquals(currentPlayer.getMinions().get(0).getTotalHealth(), 1);
-        assertEquals(currentPlayer.getMinions().get(1).getTotalHealth(), 2);
-        assertEquals(currentPlayer.getMinions().get(2).getTotalHealth(), 5);
+        assertEquals(currentPlayer.getCharacter(1).getTotalHealth(), 1);
+        assertEquals(currentPlayer.getCharacter(2).getTotalHealth(), 2);
+        assertEquals(currentPlayer.getCharacter(3).getTotalHealth(), 5);
 
-        assertEquals(currentPlayer.getMinions().get(0).getTotalAttack(), 3);
-        assertEquals(currentPlayer.getMinions().get(1).getTotalAttack(), 2);
-        assertEquals(currentPlayer.getMinions().get(2).getTotalAttack(), 7);
+        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), 3);
+        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), 2);
+        assertEquals(currentPlayer.getCharacter(3).getTotalAttack(), 7);
 
         int origHealthMinion1 = 2;
         int origHealthMinion2 = 5;
@@ -126,10 +126,10 @@ public class TestYoungPriestess {
         BoardModel resBoard1 = Game.endTurn(resBoard0);
         currentPlayer = resBoard1.modelForSide(PlayerSide.CURRENT_PLAYER);
 
-        log.info("Raid Leader Health = " + currentPlayer.getMinions().get(1).getHealth());
-        log.info("Boulderfist Ogre Health = " + currentPlayer.getMinions().get(2).getHealth());
+        log.info("Raid Leader Health = " + currentPlayer.getCharacter(2).getHealth());
+        log.info("Boulderfist Ogre Health = " + currentPlayer.getCharacter(3).getHealth());
 
-        assertTrue((currentPlayer.getMinions().get(1).getHealth() != origHealthMinion1)
-                ^ (currentPlayer.getMinions().get(2).getHealth() != origHealthMinion2));
+        assertTrue((currentPlayer.getCharacter(2).getHealth() != origHealthMinion1)
+                ^ (currentPlayer.getCharacter(3).getHealth() != origHealthMinion2));
     }
 }

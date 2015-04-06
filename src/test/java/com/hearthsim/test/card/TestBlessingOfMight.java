@@ -57,14 +57,14 @@ public class TestBlessingOfMight {
         assertEquals(res.data_.getCurrentPlayer().getNumMinions(), 1);
         assertEquals(res.data_.getWaitingPlayer().getNumMinions(), 3);
         assertEquals(res.data_.getCurrentPlayer().getMana(), 9);
-        assertEquals(res.data_.getCurrentPlayer().getMinions().get(0).getHealth(), health0);
-        assertEquals(res.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack(), attack0 + 3);
-        assertEquals(res.data_.getWaitingPlayer().getMinions().get(0).getHealth(), health0);
-        assertEquals(res.data_.getWaitingPlayer().getMinions().get(0).getTotalAttack(), attack0);
-        assertEquals(res.data_.getWaitingPlayer().getMinions().get(1).getHealth(), health1);
-        assertEquals(res.data_.getWaitingPlayer().getMinions().get(1).getTotalAttack(), attack0);
-        assertEquals(res.data_.getWaitingPlayer().getMinions().get(2).getHealth(), health0-2);
-        assertEquals(res.data_.getWaitingPlayer().getMinions().get(2).getTotalAttack(), attack0);
+        assertEquals(res.data_.getCurrentPlayer().getCharacter(1).getHealth(), health0);
+        assertEquals(res.data_.getCurrentPlayer().getCharacter(1).getTotalAttack(), attack0 + 3);
+        assertEquals(res.data_.getWaitingPlayer().getCharacter(1).getHealth(), health0);
+        assertEquals(res.data_.getWaitingPlayer().getCharacter(1).getTotalAttack(), attack0);
+        assertEquals(res.data_.getWaitingPlayer().getCharacter(2).getHealth(), health1);
+        assertEquals(res.data_.getWaitingPlayer().getCharacter(2).getTotalAttack(), attack0);
+        assertEquals(res.data_.getWaitingPlayer().getCharacter(3).getHealth(), health0-2);
+        assertEquals(res.data_.getWaitingPlayer().getCharacter(3).getTotalAttack(), attack0);
         assertEquals(res.data_.getCurrentPlayer().getHero().getHealth(), 30);
         assertEquals(res.data_.getWaitingPlayer().getHero().getHealth(), 30);
     }
@@ -81,14 +81,14 @@ public class TestBlessingOfMight {
         assertEquals(res.data_.getCurrentPlayer().getNumMinions(), 1);
         assertEquals(res.data_.getWaitingPlayer().getNumMinions(), 3);
         assertEquals(res.data_.getCurrentPlayer().getMana(), 9);
-        assertEquals(res.data_.getCurrentPlayer().getMinions().get(0).getHealth(), health0);
-        assertEquals(res.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack(), attack0);
-        assertEquals(res.data_.getWaitingPlayer().getMinions().get(0).getHealth(), health0);
-        assertEquals(res.data_.getWaitingPlayer().getMinions().get(0).getTotalAttack(), attack0+3);
-        assertEquals(res.data_.getWaitingPlayer().getMinions().get(1).getHealth(), health1);
-        assertEquals(res.data_.getWaitingPlayer().getMinions().get(1).getTotalAttack(), attack0);
-        assertEquals(res.data_.getWaitingPlayer().getMinions().get(2).getHealth(), health0-2);
-        assertEquals(res.data_.getWaitingPlayer().getMinions().get(2).getTotalAttack(), attack0);
+        assertEquals(res.data_.getCurrentPlayer().getCharacter(1).getHealth(), health0);
+        assertEquals(res.data_.getCurrentPlayer().getCharacter(1).getTotalAttack(), attack0);
+        assertEquals(res.data_.getWaitingPlayer().getCharacter(1).getHealth(), health0);
+        assertEquals(res.data_.getWaitingPlayer().getCharacter(1).getTotalAttack(), attack0+3);
+        assertEquals(res.data_.getWaitingPlayer().getCharacter(2).getHealth(), health1);
+        assertEquals(res.data_.getWaitingPlayer().getCharacter(2).getTotalAttack(), attack0);
+        assertEquals(res.data_.getWaitingPlayer().getCharacter(3).getHealth(), health0-2);
+        assertEquals(res.data_.getWaitingPlayer().getCharacter(3).getTotalAttack(), attack0);
         assertEquals(res.data_.getCurrentPlayer().getHero().getHealth(), 30);
         assertEquals(res.data_.getWaitingPlayer().getHero().getHealth(), 30);
     }
@@ -105,14 +105,14 @@ public class TestBlessingOfMight {
         assertEquals(res.data_.getCurrentPlayer().getNumMinions(), 1);
         assertEquals(res.data_.getWaitingPlayer().getNumMinions(), 3);
         assertEquals(res.data_.getCurrentPlayer().getMana(), 9);
-        assertEquals(res.data_.getCurrentPlayer().getMinions().get(0).getHealth(), health0);
-        assertEquals(res.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack(), attack0);
-        assertEquals(res.data_.getWaitingPlayer().getMinions().get(0).getHealth(), health0);
-        assertEquals(res.data_.getWaitingPlayer().getMinions().get(0).getTotalAttack(), attack0);
-        assertEquals(res.data_.getWaitingPlayer().getMinions().get(1).getHealth(), health1);
-        assertEquals(res.data_.getWaitingPlayer().getMinions().get(1).getTotalAttack(), attack0+3);
-        assertEquals(res.data_.getWaitingPlayer().getMinions().get(2).getHealth(), health0-2);
-        assertEquals(res.data_.getWaitingPlayer().getMinions().get(2).getTotalAttack(), attack0);
+        assertEquals(res.data_.getCurrentPlayer().getCharacter(1).getHealth(), health0);
+        assertEquals(res.data_.getCurrentPlayer().getCharacter(1).getTotalAttack(), attack0);
+        assertEquals(res.data_.getWaitingPlayer().getCharacter(1).getHealth(), health0);
+        assertEquals(res.data_.getWaitingPlayer().getCharacter(1).getTotalAttack(), attack0);
+        assertEquals(res.data_.getWaitingPlayer().getCharacter(2).getHealth(), health1);
+        assertEquals(res.data_.getWaitingPlayer().getCharacter(2).getTotalAttack(), attack0+3);
+        assertEquals(res.data_.getWaitingPlayer().getCharacter(3).getHealth(), health0-2);
+        assertEquals(res.data_.getWaitingPlayer().getCharacter(3).getTotalAttack(), attack0);
         assertEquals(res.data_.getCurrentPlayer().getHero().getHealth(), 30);
         assertEquals(res.data_.getWaitingPlayer().getHero().getHealth(), 30);
     }

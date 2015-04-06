@@ -660,7 +660,7 @@ public class Minion extends Card implements CardEffectOnResolveTargetableInterfa
     }
 
     public HearthTreeNode summonMinion(PlayerSide targetSide, Minion targetMinion, HearthTreeNode boardState, boolean wasPlayed, boolean singleRealizationOnly) {
-        return this.summonMinion(targetSide, boardState.data_.getCurrentPlayer().getIndexForCharacter(targetMinion), boardState, wasPlayed, singleRealizationOnly);
+        return this.summonMinion(targetSide, boardState.data_.modelForSide(targetSide).getIndexForCharacter(targetMinion), boardState, wasPlayed, singleRealizationOnly);
     }
 
     public HearthTreeNode summonMinionAtEnd(PlayerSide targetSide, HearthTreeNode boardState, boolean wasPlayed, boolean singleRealizationOnly) {

@@ -240,8 +240,7 @@ public class Card implements DeepCopyable<Card> {
 
         // Need to record card and target index *before* the board state changes
         int cardIndex = currentPlayer.getHand().indexOf(this);
-        int targetIndex = targetMinion instanceof Hero ? 0 : targetPlayer.getMinions()
-                .indexOf(targetMinion) + 1;
+        int targetIndex = targetPlayer.getIndexForCharacter(targetMinion);
 
         currentPlayer.addNumCardsUsed((byte)1);
 

@@ -110,11 +110,11 @@ public class TestNorthshireCleric {
         assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), 30);
-        assertEquals(currentPlayer.getMinions().get(0).getHealth(), 3);
-        assertEquals(currentPlayer.getMinions().get(1).getHealth(), health0);
-        assertEquals(currentPlayer.getMinions().get(2).getHealth(), health1 - 1);
-        assertEquals(waitingPlayer.getMinions().get(0).getHealth(), health0);
-        assertEquals(waitingPlayer.getMinions().get(1).getHealth(), health1 - 1);
+        assertEquals(currentPlayer.getCharacter(1).getHealth(), 3);
+        assertEquals(currentPlayer.getCharacter(2).getHealth(), health0);
+        assertEquals(currentPlayer.getCharacter(3).getHealth(), health1 - 1);
+        assertEquals(waitingPlayer.getCharacter(1).getHealth(), health0);
+        assertEquals(waitingPlayer.getCharacter(2).getHealth(), health1 - 1);
 
         AncestralHealing ah = new AncestralHealing();
         currentPlayer.placeCardHand(ah);
@@ -127,11 +127,11 @@ public class TestNorthshireCleric {
         assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), 30);
-        assertEquals(currentPlayer.getMinions().get(0).getHealth(), 3);
-        assertEquals(currentPlayer.getMinions().get(1).getHealth(), health0);
-        assertEquals(currentPlayer.getMinions().get(2).getHealth(), health1 - 1);
-        assertEquals(waitingPlayer.getMinions().get(0).getHealth(), health0);
-        assertEquals(waitingPlayer.getMinions().get(1).getHealth(), health1 - 1);
+        assertEquals(currentPlayer.getCharacter(1).getHealth(), 3);
+        assertEquals(currentPlayer.getCharacter(2).getHealth(), health0);
+        assertEquals(currentPlayer.getCharacter(3).getHealth(), health1 - 1);
+        assertEquals(waitingPlayer.getCharacter(1).getHealth(), health0);
+        assertEquals(waitingPlayer.getCharacter(2).getHealth(), health1 - 1);
 
         ah = new AncestralHealing();
         currentPlayer.placeCardHand(ah);
@@ -146,11 +146,11 @@ public class TestNorthshireCleric {
         assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), 30);
-        assertEquals(currentPlayer.getMinions().get(0).getHealth(), 3);
-        assertEquals(currentPlayer.getMinions().get(1).getHealth(), health0);
-        assertEquals(currentPlayer.getMinions().get(2).getHealth(), health1);
-        assertEquals(waitingPlayer.getMinions().get(0).getHealth(), health0);
-        assertEquals(waitingPlayer.getMinions().get(1).getHealth(), health1 - 1);
+        assertEquals(currentPlayer.getCharacter(1).getHealth(), 3);
+        assertEquals(currentPlayer.getCharacter(2).getHealth(), health0);
+        assertEquals(currentPlayer.getCharacter(3).getHealth(), health1);
+        assertEquals(waitingPlayer.getCharacter(1).getHealth(), health0);
+        assertEquals(waitingPlayer.getCharacter(2).getHealth(), health1 - 1);
     }
 
     @Test
@@ -174,12 +174,12 @@ public class TestNorthshireCleric {
         assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), 30);
-        assertEquals(currentPlayer.getMinions().get(0).getHealth(), health0);
-        assertEquals(currentPlayer.getMinions().get(1).getHealth(), health1 - 1);
-        assertEquals(currentPlayer.getMinions().get(2).getHealth(), 3);
-        assertEquals(currentPlayer.getMinions().get(3).getHealth(), 3);
-        assertEquals(waitingPlayer.getMinions().get(0).getHealth(), health0);
-        assertEquals(waitingPlayer.getMinions().get(1).getHealth(), health1 - 1);
+        assertEquals(currentPlayer.getCharacter(1).getHealth(), health0);
+        assertEquals(currentPlayer.getCharacter(2).getHealth(), health1 - 1);
+        assertEquals(currentPlayer.getCharacter(3).getHealth(), 3);
+        assertEquals(currentPlayer.getCharacter(4).getHealth(), 3);
+        assertEquals(waitingPlayer.getCharacter(1).getHealth(), health0);
+        assertEquals(waitingPlayer.getCharacter(2).getHealth(), health1 - 1);
 
         AncestralHealing ah = new AncestralHealing();
         currentPlayer.placeCardHand(ah);
@@ -195,11 +195,11 @@ public class TestNorthshireCleric {
         assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), 30);
-        assertEquals(currentPlayer.getMinions().get(0).getHealth(), health0);
-        assertEquals(currentPlayer.getMinions().get(1).getHealth(), health1);
-        assertEquals(currentPlayer.getMinions().get(2).getHealth(), 3);
-        assertEquals(currentPlayer.getMinions().get(3).getHealth(), 3);
-        assertEquals(waitingPlayer.getMinions().get(0).getHealth(), health0);
-        assertEquals(waitingPlayer.getMinions().get(1).getHealth(), health1 - 1);
+        assertEquals(currentPlayer.getCharacter(1).getHealth(), health0);
+        assertEquals(currentPlayer.getCharacter(2).getHealth(), health1);
+        assertEquals(currentPlayer.getCharacter(3).getHealth(), 3);
+        assertEquals(currentPlayer.getCharacter(4).getHealth(), 3);
+        assertEquals(waitingPlayer.getCharacter(1).getHealth(), health0);
+        assertEquals(waitingPlayer.getCharacter(2).getHealth(), health1 - 1);
     }
 }
