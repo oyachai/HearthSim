@@ -25,6 +25,7 @@ public class PlayerModel implements DeepCopyable<PlayerModel>, Iterable<Minion> 
     private byte deckPos;
     private byte fatigueDamage;
 
+    // this uses identity list because we need exact reference equality and we modified Minion.equals
     private IdentityLinkedList<Minion> minions;
     private IdentityLinkedList<Card> hand;
     private byte overload;

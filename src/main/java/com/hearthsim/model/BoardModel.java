@@ -25,6 +25,7 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
     private final PlayerModel currentPlayer;
     private final PlayerModel waitingPlayer;
 
+    // this uses identity list because we need exact reference equality and we modified Minion.equals
     private IdentityLinkedList<MinionPlayerPair> allMinionsFIFOList_;
 
     public class MinionPlayerPair {
