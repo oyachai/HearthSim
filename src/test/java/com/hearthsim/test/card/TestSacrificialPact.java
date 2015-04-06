@@ -2,7 +2,6 @@ package com.hearthsim.test.card;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.card.minion.Minion.MinionTribe;
 import com.hearthsim.card.minion.MinionMock;
 import com.hearthsim.card.minion.concrete.BloodImp;
 import com.hearthsim.card.minion.concrete.Voidwalker;

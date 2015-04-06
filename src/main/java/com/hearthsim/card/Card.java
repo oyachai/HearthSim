@@ -154,7 +154,7 @@ public class Card implements DeepCopyable<Card> {
             return false;
 
         if (this.getName() == null) {
-            if(((Card)other).getName() != null) {
+            if (((Card)other).getName() != null) {
                 return false;
             }
         } else if (!this.getName().equals(((Card)other).getName())) {

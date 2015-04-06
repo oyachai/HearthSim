@@ -14,9 +14,6 @@ import com.hearthsim.util.factory.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
 import org.junit.Test;
 
-import java.util.Iterator;
-import java.util.List;
-
 import static org.junit.Assert.*;
 
 @SuppressWarnings("EqualsWithItself")
