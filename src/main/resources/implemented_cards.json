@@ -236,6 +236,10 @@
         "class": "com.hearthsim.card.spellcard.concrete.Brawl"
     },
     {
+        "name": "Burly Rockjaw Trogg",
+        "class": "com.hearthsim.card.minion.concrete.BurlyRockjawTrogg"
+    },
+    {
         "name": "Captain Greenskin",
         "class": "com.hearthsim.card.minion.concrete.CaptainGreenskin"
     },
