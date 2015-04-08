@@ -453,18 +453,6 @@ public class Minion extends Card implements CardEffectOnResolveTargetableInterfa
         return toRet;
     }
 
-    // Use for bounce (e.g., Brewmaster) or recreate (e.g., Reincarnate)
-    public Minion createResetCopy() {
-        try {
-            Constructor<? extends Minion> ctor = this.getClass().getConstructor();
-            return ctor.newInstance();
-        } catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return null;
-    }
-
     /**
      * Called when this minion is silenced
      * <p>

@@ -588,7 +588,6 @@
         "name": "Hand of Protection",
         "class": "com.hearthsim.card.spellcard.concrete.HandOfProtection"
     },
-
     {
         "name": "Harrison Jones",
         "class": "com.hearthsim.card.minion.concrete.HarrisonJones"
@@ -788,6 +787,10 @@
     {
         "name": "Lord of the Arena",
         "class": "com.hearthsim.card.minion.concrete.LordOfTheArena"
+    },
+    {
+        "name": "Lorewalker Cho",
+        "class": "com.hearthsim.card.minion.concrete.LorewalkerCho"
     },
     {
         "name": "Lost Tallstrider",
