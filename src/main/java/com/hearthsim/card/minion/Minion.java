@@ -20,9 +20,6 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-
 public class Minion extends Card implements CardEffectOnResolveTargetableInterface, CardEndTurnInterface, CardStartTurnInterface {
     private static final Logger log = LoggerFactory.getLogger(Card.class);
 
