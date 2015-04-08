@@ -3,10 +3,15 @@ package com.hearthsim.card.minion.concrete;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionUntargetableBattlecry;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
+import com.hearthsim.event.effect.CardEffectCharacter;
+import com.hearthsim.event.effect.CardEffectHero;
+import com.hearthsim.event.effect.CardEffectHeroWeaponDestroy;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class AcidicSwampOoze extends Minion implements MinionUntargetableBattlecry {
+
+    private static final CardEffectHero effect = CardEffectHeroWeaponDestroy.DESTROY;
 
     public AcidicSwampOoze() {
         super();
@@ -16,16 +21,7 @@ public class AcidicSwampOoze extends Minion implements MinionUntargetableBattlec
      * Battlecry: Destroy your opponent's weapon
      */
     @Override
-    public HearthTreeNode useUntargetableBattlecry_core(
-        int minionPlacementIndex,
-        HearthTreeNode boardState,
-        boolean singleRealizationOnly
-    ) {
-
-        DeathrattleAction action = boardState.data_.getWaitingPlayer().getHero().destroyWeapon();
-        if (action != null) {
-            boardState = action.performAction(null, PlayerSide.WAITING_PLAYER, boardState, singleRealizationOnly);
-        }
-        return boardState;
+    public HearthTreeNode useUntargetableBattlecry_core(int minionPlacementIndex, HearthTreeNode boardState, boolean singleRealizationOnly) {
+        return effect.applyEffect(PlayerSide.CURRENT_PLAYER, this, PlayerSide.WAITING_PLAYER, boardState);
     }
 }

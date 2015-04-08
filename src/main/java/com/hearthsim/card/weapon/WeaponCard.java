@@ -104,8 +104,12 @@ public abstract class WeaponCard extends Card implements CardEffectOnResolveTarg
     }
 
     public void useWeaponCharge() {
+        this.useWeaponCharge(1);
+    }
+
+    public void useWeaponCharge(int durabilityLoss) {
         if (!this.immune) {
-            this.setWeaponCharge((byte) (this.getWeaponCharge() - 1));
+            this.setWeaponCharge((byte) (this.getWeaponCharge() - durabilityLoss));
         }
     }
 

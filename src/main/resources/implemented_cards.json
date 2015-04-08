@@ -588,6 +588,11 @@
         "name": "Hand of Protection",
         "class": "com.hearthsim.card.spellcard.concrete.HandOfProtection"
     },
+
+    {
+        "name": "Harrison Jones",
+        "class": "com.hearthsim.card.minion.concrete.HarrisonJones"
+    },
     {
         "name": "Harvest Golem",
         "class": "com.hearthsim.card.minion.concrete.HarvestGolem"
