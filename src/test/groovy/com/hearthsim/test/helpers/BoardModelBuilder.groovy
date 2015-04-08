@@ -196,8 +196,12 @@ class BoardModelBuilder {
 
     private weapon(Class<WeaponCard> weaponCard, Closure weaponClosure){
         def side = boardModel.modelForSide(playerSide)
-        side.hero.weapon = weaponCard.newInstance()
-        side.hero.weapon.hasBeenUsed(true)
+        if (weaponCard == null) {
+            side.hero.destroyWeapon();
+        } else {
+            side.hero.weapon = weaponCard.newInstance()
+            side.hero.weapon.hasBeenUsed(true)
+        }
 
         runClosure weaponClosure
     }

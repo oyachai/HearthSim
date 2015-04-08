@@ -20,9 +20,6 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-
 public class Minion extends Card implements CardEffectOnResolveTargetableInterface, CardEndTurnInterface, CardStartTurnInterface {
     private static final Logger log = LoggerFactory.getLogger(Card.class);
 
@@ -451,18 +448,6 @@ public class Minion extends Card implements CardEffectOnResolveTargetableInterfa
 
         toRet = toRet.notifyMinionDead(thisPlayerSide, this);
         return toRet;
-    }
-
-    // Use for bounce (e.g., Brewmaster) or recreate (e.g., Reincarnate)
-    public Minion createResetCopy() {
-        try {
-            Constructor<? extends Minion> ctor = this.getClass().getConstructor();
-            return ctor.newInstance();
-        } catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return null;
     }
 
     /**

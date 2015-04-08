@@ -24,6 +24,8 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -110,6 +112,18 @@ public class Card implements DeepCopyable<Card> {
 
     protected boolean isInHand() {
         return isInHand_;
+    }
+
+    // Use for bounce (e.g., Brewmaster) or recreate (e.g., Reincarnate)
+    public Card createResetCopy() {
+        try {
+            Constructor<? extends Card> ctor = this.getClass().getConstructor();
+            return ctor.newInstance();
+        } catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return null;
     }
 
     // This deepCopy pattern is required because we use the class of each card to recreate it under certain circumstances

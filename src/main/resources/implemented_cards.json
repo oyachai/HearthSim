@@ -525,6 +525,10 @@
         "class": "com.hearthsim.card.minion.concrete.FrothingBerserker"
     },
     {
+        "name": "Gadgetzan Auctioneer",
+        "class": "com.hearthsim.card.minion.concrete.GadgetzanAuctioneer"
+    },
+    {
         "name": "Gilblin Stalker",
         "class": "com.hearthsim.card.minion.concrete.GilblinStalker"
     },
@@ -583,6 +587,10 @@
     {
         "name": "Hand of Protection",
         "class": "com.hearthsim.card.spellcard.concrete.HandOfProtection"
+    },
+    {
+        "name": "Harrison Jones",
+        "class": "com.hearthsim.card.minion.concrete.HarrisonJones"
     },
     {
         "name": "Harvest Golem",
@@ -779,6 +787,10 @@
     {
         "name": "Lord of the Arena",
         "class": "com.hearthsim.card.minion.concrete.LordOfTheArena"
+    },
+    {
+        "name": "Lorewalker Cho",
+        "class": "com.hearthsim.card.minion.concrete.LorewalkerCho"
     },
     {
         "name": "Lost Tallstrider",
