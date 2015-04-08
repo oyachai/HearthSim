@@ -1277,6 +1277,10 @@
         "class": "com.hearthsim.card.minion.concrete.VoodooDoctor"
     },
     {
+        "name": "Wailing Soul",
+        "class": "com.hearthsim.card.minion.concrete.WailingSoul"
+    },
+    {
         "name": "War Golem",
         "class": "com.hearthsim.card.minion.concrete.WarGolem"
     },
