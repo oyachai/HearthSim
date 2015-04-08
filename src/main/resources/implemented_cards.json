@@ -72,6 +72,10 @@
         "class": "com.hearthsim.card.minion.concrete.AnnoyOTron"
     },
     {
+        "name": "Antique Healbot",
+        "class": "com.hearthsim.card.minion.concrete.AntiqueHealbot"
+    },
+    {
         "name": "Anub'ar Ambusher",
         "class": "com.hearthsim.card.minion.concrete.AnubarAmbusher"
     },
