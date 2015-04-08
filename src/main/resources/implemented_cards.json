@@ -525,6 +525,10 @@
         "class": "com.hearthsim.card.minion.concrete.FrothingBerserker"
     },
     {
+        "name": "Gadgetzan Auctioneer",
+        "class": "com.hearthsim.card.minion.concrete.GadgetzanAuctioneer"
+    },
+    {
         "name": "Gilblin Stalker",
         "class": "com.hearthsim.card.minion.concrete.GilblinStalker"
     },
