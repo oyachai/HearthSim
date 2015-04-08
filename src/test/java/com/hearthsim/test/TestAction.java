@@ -1,6 +1,7 @@
 package com.hearthsim.test;
 
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.minion.MinionMock;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
@@ -29,14 +30,14 @@ public class TestAction {
     public void setup() throws HSException {
         board = new BoardModel();
 
-        Minion minion0_0 = new Minion("alpha", mana, attack0, health0, attack0, health0, health0);
+        Minion minion0_0 = new MinionMock("alpha", mana, attack0, health0, attack0, health0, health0);
 
         board.placeMinion(PlayerSide.CURRENT_PLAYER, minion0_0);
     }
 
     @Test
     public void testAiShouldAttackMinion() throws HSException {
-        Minion minion = new Minion("beta", mana, attack0, health1, attack0, health1, health1);
+        Minion minion = new MinionMock("beta", mana, attack0, health1, attack0, health1, health1);
         board.placeMinion(PlayerSide.WAITING_PLAYER, minion);
 
         BoardStateFactoryBase factory = new DepthBoardStateFactory(null, null, 2000000000, true);
@@ -54,7 +55,7 @@ public class TestAction {
 
     @Test
     public void testAiShouldAttackOpponent() throws HSException {
-        Minion minion = new Minion("beta", mana, attack1, health2, attack1, health2, health2);
+        Minion minion = new MinionMock("beta", mana, attack1, health2, attack1, health2, health2);
         board.placeMinion(PlayerSide.WAITING_PLAYER, minion);
 
         BoardStateFactoryBase factory = new DepthBoardStateFactory(null, null, 2000000000, true);

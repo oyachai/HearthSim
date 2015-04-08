@@ -2,6 +2,7 @@ package com.hearthsim.test;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.minion.MinionMock;
 import com.hearthsim.card.spellcard.concrete.HolySmite;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
@@ -58,11 +59,11 @@ public class TestTaunt {
         board = new BoardModel();
         scoreFunc = new DummyStateFunc();
 
-        Minion minion0_0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
+        Minion minion0_0 = new MinionMock("" + 0, mana, attack0, health0, attack0, health0, health0);
 
         board.placeMinion(PlayerSide.CURRENT_PLAYER, minion0_0);
 
-        Minion minion = new Minion("" + 0, mana, attack0, health1, attack0, health1, health1);
+        Minion minion = new MinionMock("" + 0, mana, attack0, health1, attack0, health1, health1);
         minion.setTaunt(true);
         board.placeMinion(PlayerSide.WAITING_PLAYER, minion);
     }
@@ -85,7 +86,7 @@ public class TestTaunt {
 
     @Test
     public void testBlocksAttacksAgainstMinions() throws HSException {
-        Minion minion2 = new Minion("" + 0, mana, attack0, health1, attack0, health1, health1);
+        Minion minion2 = new MinionMock("" + 0, mana, attack0, health1, attack0, health1, health1);
         board.placeMinion(PlayerSide.WAITING_PLAYER, minion2);
 
         BoardStateFactoryBase factory = new DepthBoardStateFactory(null, null, true);
@@ -104,8 +105,8 @@ public class TestTaunt {
 
     @Test
     public void testCanAttackEitherTaunt() throws HSException {
-        Minion minion2 = new Minion("" + 0, mana, attack0, health1, attack0, health1, health1);
-        Minion minion3 = new Minion("" + 0, mana, attack0, health1, attack0, health1, health1);
+        Minion minion2 = new MinionMock("" + 0, mana, attack0, health1, attack0, health1, health1);
+        Minion minion3 = new MinionMock("" + 0, mana, attack0, health1, attack0, health1, health1);
         minion3.setTaunt(true);
 
         board.placeMinion(PlayerSide.WAITING_PLAYER, minion2);

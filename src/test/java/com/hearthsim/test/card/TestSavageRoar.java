@@ -60,24 +60,24 @@ public class TestSavageRoar {
         assertEquals(waitingPlayer.getMana(), 10);
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), 30);
-        assertEquals(currentPlayer.getMinions().get(0).getHealth(), 2);
-        assertEquals(currentPlayer.getMinions().get(1).getHealth(), 7);
-        assertEquals(waitingPlayer.getMinions().get(0).getHealth(), 2);
-        assertEquals(waitingPlayer.getMinions().get(1).getHealth(), 7);
+        assertEquals(currentPlayer.getCharacter(1).getHealth(), 2);
+        assertEquals(currentPlayer.getCharacter(2).getHealth(), 7);
+        assertEquals(waitingPlayer.getCharacter(1).getHealth(), 2);
+        assertEquals(waitingPlayer.getCharacter(2).getHealth(), 7);
 
-        assertEquals(currentPlayer.getMinions().get(0).getTotalAttack(), 4);
-        assertEquals(currentPlayer.getMinions().get(1).getTotalAttack(), 9);
-        assertEquals(waitingPlayer.getMinions().get(0).getTotalAttack(), 2);
-        assertEquals(waitingPlayer.getMinions().get(1).getTotalAttack(), 7);
+        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), 4);
+        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), 9);
+        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), 2);
+        assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), 7);
 
         assertEquals(currentPlayer.getHero().getExtraAttackUntilTurnEnd(), 2);
         assertEquals(waitingPlayer.getHero().getExtraAttackUntilTurnEnd(), 0);
-        assertEquals(currentPlayer.getMinions().get(0).getExtraAttackUntilTurnEnd(), 2);
-        assertEquals(currentPlayer.getMinions().get(1).getExtraAttackUntilTurnEnd(), 2);
-        assertEquals(waitingPlayer.getMinions().get(0).getExtraAttackUntilTurnEnd(), 0);
-        assertEquals(waitingPlayer.getMinions().get(1).getExtraAttackUntilTurnEnd(), 0);
+        assertEquals(currentPlayer.getCharacter(1).getExtraAttackUntilTurnEnd(), 2);
+        assertEquals(currentPlayer.getCharacter(2).getExtraAttackUntilTurnEnd(), 2);
+        assertEquals(waitingPlayer.getCharacter(1).getExtraAttackUntilTurnEnd(), 0);
+        assertEquals(waitingPlayer.getCharacter(2).getExtraAttackUntilTurnEnd(), 0);
 
-        ret = currentPlayer.getMinions().get(0).attack(PlayerSide.WAITING_PLAYER, 2, board, false);
+        ret = currentPlayer.getCharacter(1).attack(PlayerSide.WAITING_PLAYER, 2, board, false);
 
         assertFalse(ret == null);
         assertEquals(currentPlayer.getHand().size(), 0);
@@ -87,19 +87,19 @@ public class TestSavageRoar {
         assertEquals(waitingPlayer.getMana(), 10);
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), 30);
-        assertEquals(currentPlayer.getMinions().get(0).getHealth(), 7);
-        assertEquals(waitingPlayer.getMinions().get(0).getHealth(), 2);
-        assertEquals(waitingPlayer.getMinions().get(1).getHealth(), 3);
+        assertEquals(currentPlayer.getCharacter(1).getHealth(), 7);
+        assertEquals(waitingPlayer.getCharacter(1).getHealth(), 2);
+        assertEquals(waitingPlayer.getCharacter(2).getHealth(), 3);
 
-        assertEquals(currentPlayer.getMinions().get(0).getTotalAttack(), 8);
-        assertEquals(waitingPlayer.getMinions().get(0).getTotalAttack(), 2);
-        assertEquals(waitingPlayer.getMinions().get(1).getTotalAttack(), 7);
+        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), 8);
+        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), 2);
+        assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), 7);
 
         assertEquals(currentPlayer.getHero().getExtraAttackUntilTurnEnd(), 2);
         assertEquals(waitingPlayer.getHero().getExtraAttackUntilTurnEnd(), 0);
-        assertEquals(currentPlayer.getMinions().get(0).getExtraAttackUntilTurnEnd(), 2);
-        assertEquals(waitingPlayer.getMinions().get(0).getExtraAttackUntilTurnEnd(), 0);
-        assertEquals(waitingPlayer.getMinions().get(1).getExtraAttackUntilTurnEnd(), 0);
+        assertEquals(currentPlayer.getCharacter(1).getExtraAttackUntilTurnEnd(), 2);
+        assertEquals(waitingPlayer.getCharacter(1).getExtraAttackUntilTurnEnd(), 0);
+        assertEquals(waitingPlayer.getCharacter(2).getExtraAttackUntilTurnEnd(), 0);
 
         ret = currentPlayer.getHero().attack(PlayerSide.WAITING_PLAYER, 2, board, false);
 
@@ -111,18 +111,18 @@ public class TestSavageRoar {
         assertEquals(waitingPlayer.getMana(), 10);
         assertEquals(currentPlayer.getHero().getHealth(), 23);
         assertEquals(waitingPlayer.getHero().getHealth(), 30);
-        assertEquals(currentPlayer.getMinions().get(0).getHealth(), 7);
-        assertEquals(waitingPlayer.getMinions().get(0).getHealth(), 2);
-        assertEquals(waitingPlayer.getMinions().get(1).getHealth(), 1);
+        assertEquals(currentPlayer.getCharacter(1).getHealth(), 7);
+        assertEquals(waitingPlayer.getCharacter(1).getHealth(), 2);
+        assertEquals(waitingPlayer.getCharacter(2).getHealth(), 1);
 
-        assertEquals(currentPlayer.getMinions().get(0).getTotalAttack(), 8);
-        assertEquals(waitingPlayer.getMinions().get(0).getTotalAttack(), 2);
-        assertEquals(waitingPlayer.getMinions().get(1).getTotalAttack(), 7);
+        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), 8);
+        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), 2);
+        assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), 7);
 
         assertEquals(currentPlayer.getHero().getExtraAttackUntilTurnEnd(), 2);
         assertEquals(waitingPlayer.getHero().getExtraAttackUntilTurnEnd(), 0);
-        assertEquals(currentPlayer.getMinions().get(0).getExtraAttackUntilTurnEnd(), 2);
-        assertEquals(waitingPlayer.getMinions().get(0).getExtraAttackUntilTurnEnd(), 0);
-        assertEquals(waitingPlayer.getMinions().get(1).getExtraAttackUntilTurnEnd(), 0);
+        assertEquals(currentPlayer.getCharacter(1).getExtraAttackUntilTurnEnd(), 2);
+        assertEquals(waitingPlayer.getCharacter(1).getExtraAttackUntilTurnEnd(), 0);
+        assertEquals(waitingPlayer.getCharacter(2).getExtraAttackUntilTurnEnd(), 0);
     }
 }

@@ -54,27 +54,27 @@ public class TestDefenderOfArgus {
         assertEquals(waitingPlayer.getMana(), 10);
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), 30);
-        assertEquals(currentPlayer.getMinions().get(0).getTotalHealth(), 4);
-        assertEquals(currentPlayer.getMinions().get(1).getTotalHealth(), 4);
-        assertEquals(currentPlayer.getMinions().get(2).getTotalHealth(), 6);
-        assertEquals(waitingPlayer.getMinions().get(0).getTotalHealth(), 2);
-        assertEquals(waitingPlayer.getMinions().get(1).getTotalHealth(), 2);
+        assertEquals(currentPlayer.getCharacter(1).getTotalHealth(), 4);
+        assertEquals(currentPlayer.getCharacter(2).getTotalHealth(), 4);
+        assertEquals(currentPlayer.getCharacter(3).getTotalHealth(), 6);
+        assertEquals(waitingPlayer.getCharacter(1).getTotalHealth(), 2);
+        assertEquals(waitingPlayer.getCharacter(2).getTotalHealth(), 2);
 
-        assertEquals(currentPlayer.getMinions().get(0).getTotalAttack(), 4);
-        assertEquals(currentPlayer.getMinions().get(1).getTotalAttack(), 4);
-        assertEquals(currentPlayer.getMinions().get(2).getTotalAttack(), 7);
-        assertEquals(waitingPlayer.getMinions().get(0).getTotalAttack(), 2);
-        assertEquals(waitingPlayer.getMinions().get(1).getTotalAttack(), 4);
+        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), 4);
+        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), 4);
+        assertEquals(currentPlayer.getCharacter(3).getTotalAttack(), 7);
+        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), 2);
+        assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), 4);
 
-        assertEquals(currentPlayer.getMinions().get(0).getAuraAttack(), 2);
-        assertEquals(currentPlayer.getMinions().get(1).getAuraAttack(), 1);
-        assertEquals(currentPlayer.getMinions().get(2).getAuraAttack(), 1);
-        assertEquals(waitingPlayer.getMinions().get(0).getAuraAttack(), 0);
-        assertEquals(waitingPlayer.getMinions().get(1).getAuraAttack(), 1);
+        assertEquals(currentPlayer.getCharacter(1).getAuraAttack(), 2);
+        assertEquals(currentPlayer.getCharacter(2).getAuraAttack(), 1);
+        assertEquals(currentPlayer.getCharacter(3).getAuraAttack(), 1);
+        assertEquals(waitingPlayer.getCharacter(1).getAuraAttack(), 0);
+        assertEquals(waitingPlayer.getCharacter(2).getAuraAttack(), 1);
 
-        assertFalse(currentPlayer.getMinions().get(0).getTaunt());
-        assertTrue(currentPlayer.getMinions().get(1).getTaunt());
-        assertFalse(currentPlayer.getMinions().get(2).getTaunt());
+        assertFalse(currentPlayer.getCharacter(1).getTaunt());
+        assertTrue(currentPlayer.getCharacter(2).getTaunt());
+        assertFalse(currentPlayer.getCharacter(3).getTaunt());
     }
 
     @Test
@@ -90,26 +90,26 @@ public class TestDefenderOfArgus {
         assertEquals(waitingPlayer.getMana(), 10);
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), 30);
-        assertEquals(currentPlayer.getMinions().get(0).getTotalHealth(), 4);
-        assertEquals(currentPlayer.getMinions().get(1).getTotalHealth(), 4);
-        assertEquals(currentPlayer.getMinions().get(2).getTotalHealth(), 7);
-        assertEquals(waitingPlayer.getMinions().get(0).getTotalHealth(), 2);
-        assertEquals(waitingPlayer.getMinions().get(1).getTotalHealth(), 2);
+        assertEquals(currentPlayer.getCharacter(1).getTotalHealth(), 4);
+        assertEquals(currentPlayer.getCharacter(2).getTotalHealth(), 4);
+        assertEquals(currentPlayer.getCharacter(3).getTotalHealth(), 7);
+        assertEquals(waitingPlayer.getCharacter(1).getTotalHealth(), 2);
+        assertEquals(waitingPlayer.getCharacter(2).getTotalHealth(), 2);
 
-        assertEquals(currentPlayer.getMinions().get(0).getTotalAttack(), 4);
-        assertEquals(currentPlayer.getMinions().get(1).getTotalAttack(), 4);
-        assertEquals(currentPlayer.getMinions().get(2).getTotalAttack(), 8);
-        assertEquals(waitingPlayer.getMinions().get(0).getTotalAttack(), 2);
-        assertEquals(waitingPlayer.getMinions().get(1).getTotalAttack(), 4);
+        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), 4);
+        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), 4);
+        assertEquals(currentPlayer.getCharacter(3).getTotalAttack(), 8);
+        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), 2);
+        assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), 4);
 
-        assertEquals(currentPlayer.getMinions().get(0).getAuraAttack(), 1);
-        assertEquals(currentPlayer.getMinions().get(1).getAuraAttack(), 2);
-        assertEquals(currentPlayer.getMinions().get(2).getAuraAttack(), 1);
-        assertEquals(waitingPlayer.getMinions().get(0).getAuraAttack(), 0);
-        assertEquals(waitingPlayer.getMinions().get(1).getAuraAttack(), 1);
+        assertEquals(currentPlayer.getCharacter(1).getAuraAttack(), 1);
+        assertEquals(currentPlayer.getCharacter(2).getAuraAttack(), 2);
+        assertEquals(currentPlayer.getCharacter(3).getAuraAttack(), 1);
+        assertEquals(waitingPlayer.getCharacter(1).getAuraAttack(), 0);
+        assertEquals(waitingPlayer.getCharacter(2).getAuraAttack(), 1);
 
-        assertTrue(currentPlayer.getMinions().get(0).getTaunt());
-        assertFalse(currentPlayer.getMinions().get(1).getTaunt());
-        assertTrue(currentPlayer.getMinions().get(2).getTaunt());
+        assertTrue(currentPlayer.getCharacter(1).getTaunt());
+        assertFalse(currentPlayer.getCharacter(2).getTaunt());
+        assertTrue(currentPlayer.getCharacter(3).getTaunt());
     }
 }

@@ -64,28 +64,28 @@ public class TestCruelTaskmaster {
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), 30);
 
-        assertEquals(currentPlayer.getMinions().get(0).getTotalHealth(), 4);
-        assertEquals(currentPlayer.getMinions().get(1).getTotalHealth(), 3);
-        assertEquals(currentPlayer.getMinions().get(2).getTotalHealth(), 6);
-        assertEquals(waitingPlayer.getMinions().get(0).getTotalHealth(), 1);
-        assertEquals(waitingPlayer.getMinions().get(1).getTotalHealth(), 4);
-        assertEquals(waitingPlayer.getMinions().get(2).getTotalHealth(), 2);
-        assertEquals(waitingPlayer.getMinions().get(3).getTotalHealth(), 7);
+        assertEquals(currentPlayer.getCharacter(1).getTotalHealth(), 4);
+        assertEquals(currentPlayer.getCharacter(2).getTotalHealth(), 3);
+        assertEquals(currentPlayer.getCharacter(3).getTotalHealth(), 6);
+        assertEquals(waitingPlayer.getCharacter(1).getTotalHealth(), 1);
+        assertEquals(waitingPlayer.getCharacter(2).getTotalHealth(), 4);
+        assertEquals(waitingPlayer.getCharacter(3).getTotalHealth(), 2);
+        assertEquals(waitingPlayer.getCharacter(4).getTotalHealth(), 7);
 
-        assertEquals(currentPlayer.getMinions().get(0).getTotalAttack(), 4);
-        assertEquals(currentPlayer.getMinions().get(1).getTotalAttack(), 3);
-        assertEquals(currentPlayer.getMinions().get(2).getTotalAttack(), 7);
-        assertEquals(waitingPlayer.getMinions().get(0).getTotalAttack(), 3);
-        assertEquals(waitingPlayer.getMinions().get(1).getTotalAttack(), 5);
-        assertEquals(waitingPlayer.getMinions().get(2).getTotalAttack(), 2);
-        assertEquals(waitingPlayer.getMinions().get(3).getTotalAttack(), 7);
+        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), 4);
+        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), 3);
+        assertEquals(currentPlayer.getCharacter(3).getTotalAttack(), 7);
+        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), 3);
+        assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), 5);
+        assertEquals(waitingPlayer.getCharacter(3).getTotalAttack(), 2);
+        assertEquals(waitingPlayer.getCharacter(4).getTotalAttack(), 7);
     }
 
     @Test
     public void test1() throws HSException {
 
         //set the remaining total health of Abomination to 1
-        waitingPlayer.getMinions().get(1).setHealth((byte)1);
+        waitingPlayer.getCharacter(2).setHealth((byte)1);
 
         Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
@@ -100,23 +100,23 @@ public class TestCruelTaskmaster {
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), 30);
 
-        assertEquals(currentPlayer.getMinions().get(0).getTotalHealth(), 3);
-        assertEquals(currentPlayer.getMinions().get(1).getTotalHealth(), 4);
-        assertEquals(currentPlayer.getMinions().get(2).getTotalHealth(), 3);
-        assertEquals(currentPlayer.getMinions().get(3).getTotalHealth(), 6);
-        assertEquals(waitingPlayer.getMinions().get(0).getTotalHealth(), 1);
-        assertEquals(waitingPlayer.getMinions().get(1).getTotalHealth(), 1);
-        assertEquals(waitingPlayer.getMinions().get(2).getTotalHealth(), 2);
-        assertEquals(waitingPlayer.getMinions().get(3).getTotalHealth(), 7);
+        assertEquals(currentPlayer.getCharacter(1).getTotalHealth(), 3);
+        assertEquals(currentPlayer.getCharacter(2).getTotalHealth(), 4);
+        assertEquals(currentPlayer.getCharacter(3).getTotalHealth(), 3);
+        assertEquals(currentPlayer.getCharacter(4).getTotalHealth(), 6);
+        assertEquals(waitingPlayer.getCharacter(1).getTotalHealth(), 1);
+        assertEquals(waitingPlayer.getCharacter(2).getTotalHealth(), 1);
+        assertEquals(waitingPlayer.getCharacter(3).getTotalHealth(), 2);
+        assertEquals(waitingPlayer.getCharacter(4).getTotalHealth(), 7);
 
-        assertEquals(currentPlayer.getMinions().get(0).getTotalAttack(), 4);
-        assertEquals(currentPlayer.getMinions().get(1).getTotalAttack(), 4);
-        assertEquals(currentPlayer.getMinions().get(2).getTotalAttack(), 3);
-        assertEquals(currentPlayer.getMinions().get(3).getTotalAttack(), 7);
-        assertEquals(waitingPlayer.getMinions().get(0).getTotalAttack(), 3);
-        assertEquals(waitingPlayer.getMinions().get(1).getTotalAttack(), 5);
-        assertEquals(waitingPlayer.getMinions().get(2).getTotalAttack(), 2);
-        assertEquals(waitingPlayer.getMinions().get(3).getTotalAttack(), 7);
+        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), 4);
+        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), 4);
+        assertEquals(currentPlayer.getCharacter(3).getTotalAttack(), 3);
+        assertEquals(currentPlayer.getCharacter(4).getTotalAttack(), 7);
+        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), 3);
+        assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), 5);
+        assertEquals(waitingPlayer.getCharacter(3).getTotalAttack(), 2);
+        assertEquals(waitingPlayer.getCharacter(4).getTotalAttack(), 7);
 
         assertEquals(ret.numChildren(), 7);
 
@@ -131,23 +131,23 @@ public class TestCruelTaskmaster {
         assertEquals(cn3.data_.getCurrentPlayer().getHero().getHealth(), 30);
         assertEquals(cn3.data_.getWaitingPlayer().getHero().getHealth(), 30);
 
-        assertEquals(cn3.data_.getCurrentPlayer().getMinions().get(0).getTotalHealth(), 3);
-        assertEquals(cn3.data_.getCurrentPlayer().getMinions().get(1).getTotalHealth(), 4);
-        assertEquals(cn3.data_.getCurrentPlayer().getMinions().get(2).getTotalHealth(), 3);
-        assertEquals(cn3.data_.getCurrentPlayer().getMinions().get(3).getTotalHealth(), 6);
-//        assertEquals(cn3.data_.getWaitingPlayer().getMinions().get(0).getTotalHealth(), 1);
-        assertEquals(cn3.data_.getWaitingPlayer().getMinions().get(0).getTotalHealth(), 1);
-        assertEquals(cn3.data_.getWaitingPlayer().getMinions().get(1).getTotalHealth(), 2);
-        assertEquals(cn3.data_.getWaitingPlayer().getMinions().get(2).getTotalHealth(), 7);
+        assertEquals(cn3.data_.getCurrentPlayer().getCharacter(1).getTotalHealth(), 3);
+        assertEquals(cn3.data_.getCurrentPlayer().getCharacter(2).getTotalHealth(), 4);
+        assertEquals(cn3.data_.getCurrentPlayer().getCharacter(3).getTotalHealth(), 3);
+        assertEquals(cn3.data_.getCurrentPlayer().getCharacter(4).getTotalHealth(), 6);
+//        assertEquals(cn3.data_.getWaitingPlayer().getCharacter(1).getTotalHealth(), 1);
+        assertEquals(cn3.data_.getWaitingPlayer().getCharacter(1).getTotalHealth(), 1);
+        assertEquals(cn3.data_.getWaitingPlayer().getCharacter(2).getTotalHealth(), 2);
+        assertEquals(cn3.data_.getWaitingPlayer().getCharacter(3).getTotalHealth(), 7);
 
-        assertEquals(cn3.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack(), 4);
-        assertEquals(cn3.data_.getCurrentPlayer().getMinions().get(1).getTotalAttack(), 4);
-        assertEquals(cn3.data_.getCurrentPlayer().getMinions().get(2).getTotalAttack(), 3);
-        assertEquals(cn3.data_.getCurrentPlayer().getMinions().get(3).getTotalAttack(), 7);
-//        assertEquals(cn3.data_.getWaitingPlayer().getMinions().get(0).getTotalAttack(), 3);
-        assertEquals(cn3.data_.getWaitingPlayer().getMinions().get(0).getTotalAttack(), 5);
-        assertEquals(cn3.data_.getWaitingPlayer().getMinions().get(1).getTotalAttack(), 2);
-        assertEquals(cn3.data_.getWaitingPlayer().getMinions().get(2).getTotalAttack(), 7);
+        assertEquals(cn3.data_.getCurrentPlayer().getCharacter(1).getTotalAttack(), 4);
+        assertEquals(cn3.data_.getCurrentPlayer().getCharacter(2).getTotalAttack(), 4);
+        assertEquals(cn3.data_.getCurrentPlayer().getCharacter(3).getTotalAttack(), 3);
+        assertEquals(cn3.data_.getCurrentPlayer().getCharacter(4).getTotalAttack(), 7);
+//        assertEquals(cn3.data_.getWaitingPlayer().getCharacter(1).getTotalAttack(), 3);
+        assertEquals(cn3.data_.getWaitingPlayer().getCharacter(1).getTotalAttack(), 5);
+        assertEquals(cn3.data_.getWaitingPlayer().getCharacter(2).getTotalAttack(), 2);
+        assertEquals(cn3.data_.getWaitingPlayer().getCharacter(3).getTotalAttack(), 7);
 
         //Fifth child node is the one that kills the Abomination
         HearthTreeNode cn4 = ret.getChildren().get(4);
@@ -160,16 +160,16 @@ public class TestCruelTaskmaster {
         assertEquals(cn4.data_.getCurrentPlayer().getHero().getHealth(), 28);
         assertEquals(cn4.data_.getWaitingPlayer().getHero().getHealth(), 28);
 
-        assertEquals(cn4.data_.getCurrentPlayer().getMinions().get(0).getTotalHealth(), 1);
-        assertEquals(cn4.data_.getCurrentPlayer().getMinions().get(1).getTotalHealth(), 2);
-        assertEquals(cn4.data_.getCurrentPlayer().getMinions().get(2).getTotalHealth(), 1);
-        assertEquals(cn4.data_.getCurrentPlayer().getMinions().get(3).getTotalHealth(), 4);
-        assertEquals(cn4.data_.getWaitingPlayer().getMinions().get(0).getTotalHealth(), 5);
+        assertEquals(cn4.data_.getCurrentPlayer().getCharacter(1).getTotalHealth(), 1);
+        assertEquals(cn4.data_.getCurrentPlayer().getCharacter(2).getTotalHealth(), 2);
+        assertEquals(cn4.data_.getCurrentPlayer().getCharacter(3).getTotalHealth(), 1);
+        assertEquals(cn4.data_.getCurrentPlayer().getCharacter(4).getTotalHealth(), 4);
+        assertEquals(cn4.data_.getWaitingPlayer().getCharacter(1).getTotalHealth(), 5);
 
-        assertEquals(cn4.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack(), 4);
-        assertEquals(cn4.data_.getCurrentPlayer().getMinions().get(1).getTotalAttack(), 4);
-        assertEquals(cn4.data_.getCurrentPlayer().getMinions().get(2).getTotalAttack(), 3);
-        assertEquals(cn4.data_.getCurrentPlayer().getMinions().get(3).getTotalAttack(), 7);
-        assertEquals(cn4.data_.getWaitingPlayer().getMinions().get(0).getTotalAttack(), 6);
+        assertEquals(cn4.data_.getCurrentPlayer().getCharacter(1).getTotalAttack(), 4);
+        assertEquals(cn4.data_.getCurrentPlayer().getCharacter(2).getTotalAttack(), 4);
+        assertEquals(cn4.data_.getCurrentPlayer().getCharacter(3).getTotalAttack(), 3);
+        assertEquals(cn4.data_.getCurrentPlayer().getCharacter(4).getTotalAttack(), 7);
+        assertEquals(cn4.data_.getWaitingPlayer().getCharacter(1).getTotalAttack(), 6);
     }
 }

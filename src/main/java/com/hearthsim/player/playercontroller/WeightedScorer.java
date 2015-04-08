@@ -41,8 +41,8 @@ public class WeightedScorer implements BoardScorer, DeepCopyable<WeightedScorer>
 
     @Override
     public double boardScore(BoardModel board) {
-        IdentityLinkedList<Minion> myBoardMinions;
-        IdentityLinkedList<Minion> opBoardMinions;
+        Iterable<Minion> myBoardMinions;
+        Iterable<Minion> opBoardMinions;
         IdentityLinkedList<Card> myHandCards;
         myBoardMinions = board.getCurrentPlayer().getMinions();
         opBoardMinions = board.getWaitingPlayer().getMinions();

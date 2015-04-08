@@ -2,6 +2,7 @@ package com.hearthsim.test;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.minion.MinionMock;
 import com.hearthsim.card.minion.concrete.AbusiveSergeant;
 import com.hearthsim.card.minion.concrete.BoulderfistOgre;
 import com.hearthsim.card.minion.concrete.RaidLeader;
@@ -9,6 +10,7 @@ import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
+import com.hearthsim.util.factory.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
 import org.junit.Test;
 
@@ -20,15 +22,15 @@ public class TestBoardModel {
     private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
 
     private static Minion CreateMinionAlpha() {
-        return new Minion("alpha", (byte)2, (byte)1, (byte)4, (byte)1, (byte)4, (byte)4);
+        return new MinionMock("alpha", (byte)2, (byte)1, (byte)4, (byte)1, (byte)4, (byte)4);
     }
 
     private static Minion CreateMinionBeta() {
-        return new Minion("beta", (byte)2, (byte)1, (byte)5, (byte)1, (byte)5, (byte)4);
+        return new MinionMock("beta", (byte)2, (byte)1, (byte)5, (byte)1, (byte)5, (byte)4);
     }
 
     private static Minion CreateMinionCharlie() {
-        return new Minion("charlie", (byte)2, (byte)1, (byte)4, (byte)1, (byte)4, (byte)4);
+        return new MinionMock("charlie", (byte)2, (byte)1, (byte)4, (byte)1, (byte)4, (byte)4);
     }
 
     @Test
@@ -101,7 +103,7 @@ public class TestBoardModel {
             byte health = (byte)((int)(Math.random() * 2) + 1);
             byte mana = (byte)((int)(0.5 * (attack + health)));
 
-            cards1[i] = new Minion("" + i, mana, attack, health, attack, health, health);
+            cards1[i] = new MinionMock("" + i, mana, attack, health, attack, health, health);
         }
 
         for (int i = 0; i < numCards2; ++i) {
@@ -109,7 +111,7 @@ public class TestBoardModel {
             byte health = (byte)((int)(Math.random() * 2) + 1);
             byte mana = (byte)((int)(0.5 * (attack + health)));
 
-            cards2[i] = new Minion("" + i, mana, attack, health, attack, health, health);
+            cards2[i] = new MinionMock("" + i, mana, attack, health, attack, health, health);
         }
 
         for (int i = 0; i < numCards3; ++i) {
@@ -117,7 +119,7 @@ public class TestBoardModel {
             byte health = (byte)((int)(Math.random() * 2) + 1);
             byte mana = (byte)((int)(0.5 * (attack + health)));
 
-            cards3[i] = new Minion("" + i, mana, attack, health, attack, health, health);
+            cards3[i] = new MinionMock("" + i, mana, attack, health, attack, health, health);
         }
 
         for (int i = 0; i < numBoards; ++i) {
@@ -177,5 +179,152 @@ public class TestBoardModel {
         assertTrue(board.data_.equals(board.data_.deepCopy()));
         assertEquals(board.data_.hashCode(), board.data_.deepCopy().hashCode());
         assertFalse(board.data_.equals(board.data_.flipPlayers().deepCopy()));
+    }
+
+    @Test
+    public void testBoardModelRemoveMinion() throws HSException {
+        HearthTreeNode board = new HearthTreeNode(new BoardModel());
+        PlayerModel currentPlayer = board.data_.getCurrentPlayer();
+        PlayerModel waitingPlayer = board.data_.getWaitingPlayer();
+
+        Minion boulder = new BoulderfistOgre();
+        Minion raid = new RaidLeader();
+        Minion abusive = new AbusiveSergeant();
+
+        board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, boulder);
+        board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, raid);
+
+        board.data_.placeMinion(PlayerSide.WAITING_PLAYER, abusive);
+
+        assertMinionReferences(board.data_);
+
+        board.data_.removeMinion(boulder);
+        assertMinionReferences(board.data_);
+        assertEquals(-1, currentPlayer.getIndexForCharacter(boulder));
+
+        board.data_.removeMinion(abusive);
+        assertMinionReferences(board.data_);
+        assertEquals(-1, waitingPlayer.getIndexForCharacter(boulder));
+    }
+
+    @Test
+    public void testBoardModelRemoveIdenticalMinion() throws HSException {
+        HearthTreeNode board = new HearthTreeNode(new BoardModel());
+        PlayerModel currentPlayer = board.data_.getCurrentPlayer();
+        PlayerModel waitingPlayer = board.data_.getWaitingPlayer();
+
+        Minion boulder = new BoulderfistOgre();
+        Minion boulder2 = new BoulderfistOgre();
+        Minion abusive = new AbusiveSergeant();
+
+        board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, boulder);
+        board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, boulder2);
+
+        board.data_.placeMinion(PlayerSide.WAITING_PLAYER, abusive);
+
+        assertMinionReferences(board.data_);
+
+        board.data_.removeMinion(boulder2);
+        assertMinionReferences(board.data_);
+        assertEquals(-1, currentPlayer.getIndexForCharacter(boulder2));
+        assertEquals(1, currentPlayer.getIndexForCharacter(boulder));
+    }
+
+    @Test
+    public void testBoardModelHandleDeadMinions() throws HSException {
+        HearthTreeNode board = new HearthTreeNode(new BoardModel());
+        PlayerModel currentPlayer = board.data_.getCurrentPlayer();
+        PlayerModel waitingPlayer = board.data_.getWaitingPlayer();
+
+        Minion boulder = new BoulderfistOgre();
+        boulder.setHealth((byte)-99);
+        Minion raid = new RaidLeader();
+        Minion abusive = new AbusiveSergeant();
+
+        board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, boulder);
+        board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, raid);
+
+        board.data_.placeMinion(PlayerSide.WAITING_PLAYER, abusive);
+
+        BoardStateFactoryBase.handleDeadMinions(board, false);
+        assertMinionReferences(board.data_);
+        assertEquals(-1, currentPlayer.getIndexForCharacter(boulder));
+    }
+
+    @Test
+    public void testBoardModelHandleMultipleDeadMinions() throws HSException {
+        HearthTreeNode board = new HearthTreeNode(new BoardModel());
+        PlayerModel currentPlayer = board.data_.getCurrentPlayer();
+        PlayerModel waitingPlayer = board.data_.getWaitingPlayer();
+
+        Minion boulder = new BoulderfistOgre();
+        boulder.setHealth((byte)-99);
+        Minion raid = new RaidLeader();
+        raid.setHealth((byte)-99);
+        Minion abusive = new AbusiveSergeant();
+        abusive.setHealth((byte)-99);
+
+        board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, boulder);
+        board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, raid);
+
+        board.data_.placeMinion(PlayerSide.WAITING_PLAYER, abusive);
+
+        BoardStateFactoryBase.handleDeadMinions(board, false);
+        assertMinionReferences(board.data_);
+        assertEquals(-1, currentPlayer.getIndexForCharacter(boulder));
+        assertEquals(-1, currentPlayer.getIndexForCharacter(raid));
+        assertEquals(-1, currentPlayer.getIndexForCharacter(abusive));
+    }
+
+    @Test
+    public void testBoardModelHandleIdenticalDeadMinions() throws HSException {
+        HearthTreeNode board = new HearthTreeNode(new BoardModel());
+        PlayerModel currentPlayer = board.data_.getCurrentPlayer();
+        PlayerModel waitingPlayer = board.data_.getWaitingPlayer();
+
+        Minion boulder = new BoulderfistOgre();
+        boulder.setHealth((byte)-99);
+        Minion boulder2 = new BoulderfistOgre();
+        boulder2.setHealth((byte)-99);
+        Minion abusive = new AbusiveSergeant();
+        abusive.setHealth((byte)-99);
+
+        board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, boulder);
+        board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, boulder2);
+
+        board.data_.placeMinion(PlayerSide.WAITING_PLAYER, abusive);
+
+        BoardStateFactoryBase.handleDeadMinions(board, false);
+        assertMinionReferences(board.data_);
+        assertEquals(-1, currentPlayer.getIndexForCharacter(boulder));
+        assertEquals(-1, currentPlayer.getIndexForCharacter(boulder2));
+        assertEquals(-1, currentPlayer.getIndexForCharacter(abusive));
+    }
+
+    @Test
+    public void testBoardModelFlipPlayers() throws HSException {
+        HearthTreeNode board = new HearthTreeNode(new BoardModel());
+        PlayerModel currentPlayer = board.data_.getCurrentPlayer();
+        PlayerModel waitingPlayer = board.data_.getWaitingPlayer();
+
+        Minion boulder = new BoulderfistOgre();
+        Minion raid = new RaidLeader();
+        Minion abusive = new AbusiveSergeant();
+
+        board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, boulder);
+        board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, raid);
+        board.data_.placeMinion(PlayerSide.WAITING_PLAYER, abusive);
+
+        BoardModel flipped = board.data_.flipPlayers();
+        assertMinionReferences(board.data_);
+        assertMinionReferences(flipped);
+    }
+
+    public void assertMinionReferences(BoardModel model) {
+        for (BoardModel.MinionPlayerPair pair : model.getAllMinionsFIFOList()) {
+            assertNotEquals(-1, model.modelForSide(pair.getPlayerSide()).getIndexForCharacter(pair.getMinion()));
+        }
+
+        // TODO also check that each minion in the models exists in FIFO
     }
 }

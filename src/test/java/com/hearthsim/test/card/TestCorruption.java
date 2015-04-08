@@ -3,6 +3,7 @@ package com.hearthsim.test.card;
 import com.hearthsim.Game;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.minion.MinionMock;
 import com.hearthsim.card.spellcard.concrete.Corruption;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
@@ -31,10 +32,10 @@ public class TestCorruption {
         currentPlayer = board.data_.getCurrentPlayer();
         waitingPlayer = board.data_.getWaitingPlayer();
 
-        Minion minion0_0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
-        Minion minion0_1 = new Minion("" + 0, mana, attack0, (byte)(health1 - 1), attack0, health1, health1);
-        Minion minion1_0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
-        Minion minion1_1 = new Minion("" + 0, mana, attack0, (byte)(health1 - 1), attack0, health1, health1);
+        Minion minion0_0 = new MinionMock("" + 0, mana, attack0, health0, attack0, health0, health0);
+        Minion minion0_1 = new MinionMock("" + 0, mana, attack0, (byte)(health1 - 1), attack0, health1, health1);
+        Minion minion1_0 = new MinionMock("" + 0, mana, attack0, health0, attack0, health0, health0);
+        Minion minion1_1 = new MinionMock("" + 0, mana, attack0, (byte)(health1 - 1), attack0, health1, health1);
 
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, minion0_0);
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, minion0_1);
@@ -62,8 +63,8 @@ public class TestCorruption {
         assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(currentPlayer.getMana(), 3);
-        assertEquals(waitingPlayer.getMinions().get(0).getHealth(), health0);
-        assertTrue(waitingPlayer.getMinions().get(0).getDestroyOnTurnStart());
+        assertEquals(waitingPlayer.getCharacter(1).getHealth(), health0);
+        assertTrue(waitingPlayer.getCharacter(1).getDestroyOnTurnStart());
     }
 
     @Test
@@ -72,7 +73,7 @@ public class TestCorruption {
         HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 1, board);
         assertEquals(board, ret);
 
-        assertEquals(waitingPlayer.getMinions().get(0).getHealth(), health0);
+        assertEquals(waitingPlayer.getCharacter(1).getHealth(), health0);
 
         BoardModel nextTurn = Game.beginTurn(board.data_);
         assertNotNull(nextTurn);

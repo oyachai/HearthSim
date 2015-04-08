@@ -12,7 +12,7 @@ public class MountainGiant extends Minion {
 
     @Override
     public byte getManaCost(PlayerSide side, BoardModel board) {
-        byte manaCost = (byte)(baseManaCost - board.modelForSide(side).getHand().size() + 1);
+        byte manaCost = (byte)(this.getBaseManaCost() - board.modelForSide(side).getHand().size() + 1);
         if (manaCost < 0)
             manaCost = 0;
         return manaCost;

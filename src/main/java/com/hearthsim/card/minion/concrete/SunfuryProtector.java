@@ -23,8 +23,8 @@ public class SunfuryProtector extends Minion implements MinionUntargetableBattle
         ) {
         PlayerModel currentPlayer = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
 
-        int thisMinionIndex = currentPlayer.getMinions().indexOf(this);
-        for (Minion minion : currentPlayer.getMinionsAdjacentToCharacter(thisMinionIndex + 1)) {
+        int thisMinionIndex = currentPlayer.getIndexForCharacter(this);
+        for (Minion minion : currentPlayer.getMinionsAdjacentToCharacter(thisMinionIndex)) {
             minion.setTaunt(true);
         }
         return boardState;

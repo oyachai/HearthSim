@@ -2,6 +2,7 @@ package com.hearthsim.test.card;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.minion.MinionMock;
 import com.hearthsim.card.spellcard.concrete.Assassinate;
 import com.hearthsim.card.spellcard.concrete.TheCoin;
 import com.hearthsim.exception.HSException;
@@ -30,10 +31,10 @@ public class TestAssassinate {
         board = new HearthTreeNode(new BoardModel());
         currentPlayer = board.data_.getCurrentPlayer();
 
-        Minion minion0 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
-        Minion minion1 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
-        Minion minion2 = new Minion("" + 0, mana, attack0, health1, attack0, health1, health1);
-        Minion minion3 = new Minion("" + 0, mana, attack0, health0, attack0, health0, health0);
+        Minion minion0 = new MinionMock("" + 0, mana, attack0, health0, attack0, health0, health0);
+        Minion minion1 = new MinionMock("" + 0, mana, attack0, health0, attack0, health0, health0);
+        Minion minion2 = new MinionMock("" + 0, mana, attack0, health1, attack0, health1, health1);
+        Minion minion3 = new MinionMock("" + 0, mana, attack0, health0, attack0, health0, health0);
 
         Assassinate fb = new Assassinate();
         currentPlayer.placeCardHand(fb);
@@ -62,12 +63,12 @@ public class TestAssassinate {
         assertEquals(res.data_.getCurrentPlayer().getNumMinions(), 1);
         assertEquals(res.data_.getWaitingPlayer().getNumMinions(), 2);
         assertEquals(res.data_.getCurrentPlayer().getMana(), 5);
-        assertEquals(res.data_.getCurrentPlayer().getMinions().get(0).getHealth(), health0);
-        assertEquals(res.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack(), attack0);
-        assertEquals(res.data_.getWaitingPlayer().getMinions().get(0).getHealth(), health1);
-        assertEquals(res.data_.getWaitingPlayer().getMinions().get(0).getTotalAttack(), attack0);
-        assertEquals(res.data_.getWaitingPlayer().getMinions().get(1).getHealth(), health0);
-        assertEquals(res.data_.getWaitingPlayer().getMinions().get(1).getTotalAttack(), attack0);
+        assertEquals(res.data_.getCurrentPlayer().getCharacter(1).getHealth(), health0);
+        assertEquals(res.data_.getCurrentPlayer().getCharacter(1).getTotalAttack(), attack0);
+        assertEquals(res.data_.getWaitingPlayer().getCharacter(1).getHealth(), health1);
+        assertEquals(res.data_.getWaitingPlayer().getCharacter(1).getTotalAttack(), attack0);
+        assertEquals(res.data_.getWaitingPlayer().getCharacter(2).getHealth(), health0);
+        assertEquals(res.data_.getWaitingPlayer().getCharacter(2).getTotalAttack(), attack0);
         assertEquals(res.data_.getCurrentPlayer().getHero().getHealth(), 30);
         assertEquals(res.data_.getWaitingPlayer().getHero().getHealth(), 30);
     }
@@ -89,12 +90,12 @@ public class TestAssassinate {
         assertEquals(res.data_.getCurrentPlayer().getNumMinions(), 1);
         assertEquals(res.data_.getWaitingPlayer().getNumMinions(), 2);
         assertEquals(res.data_.getCurrentPlayer().getMana(), 5);
-        assertEquals(res.data_.getCurrentPlayer().getMinions().get(0).getHealth(), health0);
-        assertEquals(res.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack(), attack0);
-        assertEquals(res.data_.getWaitingPlayer().getMinions().get(0).getHealth(), health0);
-        assertEquals(res.data_.getWaitingPlayer().getMinions().get(0).getTotalAttack(), attack0);
-        assertEquals(res.data_.getWaitingPlayer().getMinions().get(1).getHealth(), health0);
-        assertEquals(res.data_.getWaitingPlayer().getMinions().get(1).getTotalAttack(), attack0);
+        assertEquals(res.data_.getCurrentPlayer().getCharacter(1).getHealth(), health0);
+        assertEquals(res.data_.getCurrentPlayer().getCharacter(1).getTotalAttack(), attack0);
+        assertEquals(res.data_.getWaitingPlayer().getCharacter(1).getHealth(), health0);
+        assertEquals(res.data_.getWaitingPlayer().getCharacter(1).getTotalAttack(), attack0);
+        assertEquals(res.data_.getWaitingPlayer().getCharacter(2).getHealth(), health0);
+        assertEquals(res.data_.getWaitingPlayer().getCharacter(2).getTotalAttack(), attack0);
         assertEquals(res.data_.getCurrentPlayer().getHero().getHealth(), 30);
         assertEquals(res.data_.getWaitingPlayer().getHero().getHealth(), 30);
     }
@@ -116,12 +117,12 @@ public class TestAssassinate {
         assertEquals(res.data_.getCurrentPlayer().getNumMinions(), 1);
         assertEquals(res.data_.getWaitingPlayer().getNumMinions(), 2);
         assertEquals(res.data_.getCurrentPlayer().getMana(), 5);
-        assertEquals(res.data_.getCurrentPlayer().getMinions().get(0).getHealth(), health0);
-        assertEquals(res.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack(), attack0);
-        assertEquals(res.data_.getWaitingPlayer().getMinions().get(0).getHealth(), health0);
-        assertEquals(res.data_.getWaitingPlayer().getMinions().get(0).getTotalAttack(), attack0);
-        assertEquals(res.data_.getWaitingPlayer().getMinions().get(1).getHealth(), health1);
-        assertEquals(res.data_.getWaitingPlayer().getMinions().get(1).getTotalAttack(), attack0);
+        assertEquals(res.data_.getCurrentPlayer().getCharacter(1).getHealth(), health0);
+        assertEquals(res.data_.getCurrentPlayer().getCharacter(1).getTotalAttack(), attack0);
+        assertEquals(res.data_.getWaitingPlayer().getCharacter(1).getHealth(), health0);
+        assertEquals(res.data_.getWaitingPlayer().getCharacter(1).getTotalAttack(), attack0);
+        assertEquals(res.data_.getWaitingPlayer().getCharacter(2).getHealth(), health1);
+        assertEquals(res.data_.getWaitingPlayer().getCharacter(2).getTotalAttack(), attack0);
         assertEquals(res.data_.getCurrentPlayer().getHero().getHealth(), 30);
         assertEquals(res.data_.getWaitingPlayer().getHero().getHealth(), 30);
     }

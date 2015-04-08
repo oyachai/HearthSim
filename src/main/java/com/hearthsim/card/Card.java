@@ -28,48 +28,26 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class Card implements DeepCopyable<Card> {
-    protected final Logger log = LoggerFactory.getLogger(getClass());
-
-    /**
-     * Name of the card
-     */
-    protected String name_ = "";
-
-    /**
-     * Mana cost of the card
-     */
-    protected byte baseManaCost;
+    private static final Logger log = LoggerFactory.getLogger(Card.class);
 
     protected boolean hasBeenUsed;
     protected boolean isInHand_;
 
-    /**
-     * Overload handling
-     */
-    private byte overload;
-
     protected DeathrattleAction deathrattleAction_;
+
+    protected final ImplementedCardList.ImplementedCard implementedCard;
 
     /**
      * Constructor
-     *
-     * @param name Name of the card
-     * @param baseManaCost Base mana cost of the card
-     * @param hasBeenUsed Has the card been used?
-     * @param isInHand Is the card in your hand?
      */
     public Card() {
         ImplementedCardList cardList = ImplementedCardList.getInstance();
         ImplementedCardList.ImplementedCard implementedCard = cardList.getCardForClass(this.getClass());
+        this.implementedCard = implementedCard;
         this.initFromImplementedCard(implementedCard);
     }
 
     protected void initFromImplementedCard(ImplementedCardList.ImplementedCard implementedCard) {
-        if (implementedCard != null) {
-            this.name_ = implementedCard.name_;
-            this.baseManaCost = (byte) implementedCard.mana_;
-            this.overload = (byte) implementedCard.overload;
-        }
         this.hasBeenUsed = false;
         this.isInHand_ = true;
     }
@@ -80,14 +58,7 @@ public class Card implements DeepCopyable<Card> {
      * @return Name of the card
      */
     public String getName() {
-        return name_;
-    }
-
-    /**
-     * Set the name of the card
-     */
-    public void setName(String value) {
-        name_ = value;
+        return this.implementedCard != null ? this.implementedCard.name_ : null;
     }
 
     /**
@@ -99,16 +70,7 @@ public class Card implements DeepCopyable<Card> {
      * @return Mana cost of the card
      */
     public byte getManaCost(PlayerSide side, BoardModel board) {
-        return baseManaCost;
-    }
-
-    /**
-     * Set the mana cost of the card
-     *
-     * @param mana The new mana cost
-     */
-    public void setBaseManaCost(byte mana) {
-        this.baseManaCost = mana;
+        return this.getBaseManaCost();
     }
 
     /**
@@ -117,7 +79,10 @@ public class Card implements DeepCopyable<Card> {
      * @return Mana cost of the card
      */
     public byte getBaseManaCost() {
-        return baseManaCost;
+        if (this.implementedCard == null) {
+            return 0;
+        }
+        return (byte) this.implementedCard.mana_;
     }
 
 
@@ -154,19 +119,16 @@ public class Card implements DeepCopyable<Card> {
         try {
             copy = getClass().newInstance();
         } catch(InstantiationException e) {
-            log.error("instantiation error", e);
+            Card.log.error("instantiation error", e);
         } catch(IllegalAccessException e) {
-            log.error("illegal access error", e);
+            Card.log.error("illegal access error", e);
         }
         if (copy == null) {
             throw new RuntimeException("unable to instantiate card.");
         }
 
-        copy.name_ = this.name_;
-        copy.baseManaCost = this.baseManaCost;
         copy.hasBeenUsed = this.hasBeenUsed;
         copy.isInHand_ = this.isInHand_;
-        copy.overload = this.overload;
 
         return copy;
     }
@@ -182,7 +144,7 @@ public class Card implements DeepCopyable<Card> {
         }
 
         // More logic here to be discuss below...
-        if (baseManaCost != ((Card)other).baseManaCost)
+        if (this.getBaseManaCost() != ((Card)other).getBaseManaCost())
             return false;
 
         if (hasBeenUsed != ((Card)other).hasBeenUsed)
@@ -191,20 +153,21 @@ public class Card implements DeepCopyable<Card> {
         if (isInHand_ != ((Card)other).isInHand_)
             return false;
 
-        if (!name_.equals(((Card)other).name_))
+        if (this.getName() == null) {
+            if (((Card)other).getName() != null) {
+                return false;
+            }
+        } else if (!this.getName().equals(((Card)other).getName())) {
             return false;
-
-        if (overload != ((Card)other).overload)
-            return false;
+        }
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = name_ != null ? name_.hashCode() : 0;
-        result = 31 * result + baseManaCost;
-        result = 31 * result + overload;
+        int result = this.getName() != null ? this.getName().hashCode() : 0;
+        result = 31 * result + this.getBaseManaCost();
         result = 31 * result + (hasBeenUsed ? 1 : 0);
         result = 31 * result + (isInHand_ ? 1 : 0);
         return result;
@@ -277,8 +240,7 @@ public class Card implements DeepCopyable<Card> {
 
         // Need to record card and target index *before* the board state changes
         int cardIndex = currentPlayer.getHand().indexOf(this);
-        int targetIndex = targetMinion instanceof Hero ? 0 : targetPlayer.getMinions()
-                .indexOf(targetMinion) + 1;
+        int targetIndex = targetPlayer.getIndexForCharacter(targetMinion);
 
         currentPlayer.addNumCardsUsed((byte)1);
 
@@ -583,8 +545,8 @@ public class Card implements DeepCopyable<Card> {
 
     public JSONObject toJSON() {
         JSONObject json = new JSONObject();
-        json.put("name", name_);
-        json.put("mana", baseManaCost);
+        json.put("name", this.getName());
+        json.put("mana", this.getBaseManaCost());
         if (hasBeenUsed) json.put("hasBeenUsed", hasBeenUsed);
         return json;
     }
@@ -608,15 +570,14 @@ public class Card implements DeepCopyable<Card> {
     }
 
     protected byte getOverload() {
-        return overload;
-    }
-
-    public void setOverload(byte value) {
-        overload = value;
+        if (this.implementedCard == null) {
+            return 0;
+        }
+        return (byte) this.implementedCard.overload;
     }
 
     public boolean triggersOverload() {
-        return overload > 0;
+        return this.getOverload() > 0;
     }
 
     public boolean hasDeathrattle() {
@@ -634,22 +595,18 @@ public class Card implements DeepCopyable<Card> {
 
     @Deprecated
     public Card(String name, byte baseManaCost, boolean hasBeenUsed, boolean isInHand, byte overload) {
-        this.baseManaCost = baseManaCost;
         this.hasBeenUsed = hasBeenUsed;
         isInHand_ = isInHand;
-        name_ = name;
-        this.overload = overload;
+        this.implementedCard = null;
     }
 
     @Deprecated
     public Card(byte baseManaCost, boolean hasBeenUsed, boolean isInHand) {
         ImplementedCardList cardList = ImplementedCardList.getInstance();
         ImplementedCardList.ImplementedCard implementedCard = cardList.getCardForClass(this.getClass());
-        name_ = implementedCard.name_;
-        this.baseManaCost = baseManaCost;
         this.hasBeenUsed = hasBeenUsed;
         isInHand_ = isInHand;
-        this.overload = (byte) implementedCard.overload;
+        this.implementedCard = implementedCard;
     }
 
     @Deprecated

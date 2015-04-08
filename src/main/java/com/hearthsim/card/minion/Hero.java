@@ -1,6 +1,5 @@
 package com.hearthsim.card.minion;
 
-import com.hearthsim.card.ImplementedCardList;
 import com.hearthsim.card.weapon.WeaponCard;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.exception.HSException;
@@ -21,16 +20,7 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
     private byte armor_;
 
     public Hero() {
-        ImplementedCardList cardList = ImplementedCardList.getInstance();
-        ImplementedCardList.ImplementedCard implementedCard = cardList.getCardForClass(this.getClass());
-        if (implementedCard != null) {
-            this.name_ = implementedCard.name_;
-            this.health_ = (byte) implementedCard.health_;
-            this.attack_ = 0;
-            this.baseHealth_ = health_;
-            this.maxHealth_ = health_;
-            this.heroTargetable_ = true;
-        }
+        super();
     }
 
     @Deprecated
@@ -147,8 +137,7 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
 
         HearthTreeNode toRet = this.useHeroAbility_core(targetPlayerSide, targetMinion, boardState, singleRealizationOnly);
         if (toRet != null) {
-            int targetIndex = targetMinion instanceof Hero ? 0 : targetPlayer.getMinions()
-                .indexOf(targetMinion) + 1;
+            int targetIndex = targetPlayer.getIndexForCharacter(targetMinion);
             toRet.setAction(new HearthAction(Verb.HERO_ABILITY, PlayerSide.CURRENT_PLAYER, 0, targetPlayerSide,
                 targetIndex));
             toRet = BoardStateFactoryBase.handleDeadMinions(toRet, singleRealizationOnly);

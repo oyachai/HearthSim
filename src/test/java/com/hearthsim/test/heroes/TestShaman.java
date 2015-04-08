@@ -62,16 +62,16 @@ public class TestShaman {
         HearthTreeNode searingNode = ret.getChildren().get(0);
         assertEquals(searingNode.data_.getCurrentPlayer().getNumMinions(), 3);
         assertEquals(searingNode.data_.getCurrentPlayer().getMana(), 6);
-        assertTrue(searingNode.data_.getCurrentPlayer().getMinions().get(2) instanceof SearingTotem);
+        assertTrue(searingNode.data_.getCurrentPlayer().getCharacter(1 + 2) instanceof SearingTotem);
 
-        assertEquals(searingNode.data_.getCurrentPlayer().getMinions().get(0).getTotalHealth(), 2);
-        assertEquals(searingNode.data_.getCurrentPlayer().getMinions().get(1).getTotalHealth(), 7);
-        assertEquals(searingNode.data_.getCurrentPlayer().getMinions().get(2).getTotalHealth(), 1);
+        assertEquals(searingNode.data_.getCurrentPlayer().getCharacter(1 + 0).getTotalHealth(), 2);
+        assertEquals(searingNode.data_.getCurrentPlayer().getCharacter(1 + 1).getTotalHealth(), 7);
+        assertEquals(searingNode.data_.getCurrentPlayer().getCharacter(1 + 2).getTotalHealth(), 1);
 
         // Raid Leader is in effect
-        assertEquals(searingNode.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack(), 2);
-        assertEquals(searingNode.data_.getCurrentPlayer().getMinions().get(1).getTotalAttack(), 7);
-        assertEquals(searingNode.data_.getCurrentPlayer().getMinions().get(2).getTotalAttack(), 2);
+        assertEquals(searingNode.data_.getCurrentPlayer().getCharacter(1 + 0).getTotalAttack(), 2);
+        assertEquals(searingNode.data_.getCurrentPlayer().getCharacter(1 + 1).getTotalAttack(), 7);
+        assertEquals(searingNode.data_.getCurrentPlayer().getCharacter(1 + 2).getTotalAttack(), 2);
     }
 
     @Test
@@ -82,16 +82,16 @@ public class TestShaman {
         HearthTreeNode searingNode = ret.getChildren().get(1);
         assertEquals(searingNode.data_.getCurrentPlayer().getNumMinions(), 3);
         assertEquals(searingNode.data_.getCurrentPlayer().getMana(), 6);
-        assertTrue(searingNode.data_.getCurrentPlayer().getMinions().get(2) instanceof StoneclawTotem);
+        assertTrue(searingNode.data_.getCurrentPlayer().getCharacter(1 + 2) instanceof StoneclawTotem);
 
-        assertEquals(searingNode.data_.getCurrentPlayer().getMinions().get(0).getTotalHealth(), 2);
-        assertEquals(searingNode.data_.getCurrentPlayer().getMinions().get(1).getTotalHealth(), 7);
-        assertEquals(searingNode.data_.getCurrentPlayer().getMinions().get(2).getTotalHealth(), 2);
+        assertEquals(searingNode.data_.getCurrentPlayer().getCharacter(1 + 0).getTotalHealth(), 2);
+        assertEquals(searingNode.data_.getCurrentPlayer().getCharacter(1 + 1).getTotalHealth(), 7);
+        assertEquals(searingNode.data_.getCurrentPlayer().getCharacter(1 + 2).getTotalHealth(), 2);
 
         // Raid Leader is in effect
-        assertEquals(searingNode.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack(), 2);
-        assertEquals(searingNode.data_.getCurrentPlayer().getMinions().get(1).getTotalAttack(), 7);
-        assertEquals(searingNode.data_.getCurrentPlayer().getMinions().get(2).getTotalAttack(), 1);
+        assertEquals(searingNode.data_.getCurrentPlayer().getCharacter(1 + 0).getTotalAttack(), 2);
+        assertEquals(searingNode.data_.getCurrentPlayer().getCharacter(1 + 1).getTotalAttack(), 7);
+        assertEquals(searingNode.data_.getCurrentPlayer().getCharacter(1 + 2).getTotalAttack(), 1);
     }
 
     @Test
@@ -102,16 +102,16 @@ public class TestShaman {
         HearthTreeNode healingNode = ret.getChildren().get(2);
         assertEquals(healingNode.data_.getCurrentPlayer().getNumMinions(), 3);
         assertEquals(healingNode.data_.getCurrentPlayer().getMana(), 6);
-        assertTrue(healingNode.data_.getCurrentPlayer().getMinions().get(2) instanceof HealingTotem);
+        assertTrue(healingNode.data_.getCurrentPlayer().getCharacter(1 + 2) instanceof HealingTotem);
 
-        assertEquals(healingNode.data_.getCurrentPlayer().getMinions().get(0).getTotalHealth(), 2);
-        assertEquals(healingNode.data_.getCurrentPlayer().getMinions().get(1).getTotalHealth(), 7);
-        assertEquals(healingNode.data_.getCurrentPlayer().getMinions().get(2).getTotalHealth(), 2);
+        assertEquals(healingNode.data_.getCurrentPlayer().getCharacter(1 + 0).getTotalHealth(), 2);
+        assertEquals(healingNode.data_.getCurrentPlayer().getCharacter(1 + 1).getTotalHealth(), 7);
+        assertEquals(healingNode.data_.getCurrentPlayer().getCharacter(1 + 2).getTotalHealth(), 2);
 
         // Raid Leader is in effect
-        assertEquals(healingNode.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack(), 2);
-        assertEquals(healingNode.data_.getCurrentPlayer().getMinions().get(1).getTotalAttack(), 7);
-        assertEquals(healingNode.data_.getCurrentPlayer().getMinions().get(2).getTotalAttack(), 1);
+        assertEquals(healingNode.data_.getCurrentPlayer().getCharacter(1 + 0).getTotalAttack(), 2);
+        assertEquals(healingNode.data_.getCurrentPlayer().getCharacter(1 + 1).getTotalAttack(), 7);
+        assertEquals(healingNode.data_.getCurrentPlayer().getCharacter(1 + 2).getTotalAttack(), 1);
     }
 
     @Test
@@ -122,16 +122,16 @@ public class TestShaman {
         HearthTreeNode wrathOfAirNode = ret.getChildren().get(3);
         assertEquals(wrathOfAirNode.data_.getCurrentPlayer().getNumMinions(), 3);
         assertEquals(wrathOfAirNode.data_.getCurrentPlayer().getMana(), 6);
-        assertTrue(wrathOfAirNode.data_.getCurrentPlayer().getMinions().get(2) instanceof WrathOfAirTotem);
+        assertTrue(wrathOfAirNode.data_.getCurrentPlayer().getCharacter(1 + 2) instanceof WrathOfAirTotem);
 
-        assertEquals(wrathOfAirNode.data_.getCurrentPlayer().getMinions().get(0).getTotalHealth(), 2);
-        assertEquals(wrathOfAirNode.data_.getCurrentPlayer().getMinions().get(1).getTotalHealth(), 7);
-        assertEquals(wrathOfAirNode.data_.getCurrentPlayer().getMinions().get(2).getTotalHealth(), 2);
+        assertEquals(wrathOfAirNode.data_.getCurrentPlayer().getCharacter(1 + 0).getTotalHealth(), 2);
+        assertEquals(wrathOfAirNode.data_.getCurrentPlayer().getCharacter(1 + 1).getTotalHealth(), 7);
+        assertEquals(wrathOfAirNode.data_.getCurrentPlayer().getCharacter(1 + 2).getTotalHealth(), 2);
 
         // Raid Leader is in effect
-        assertEquals(wrathOfAirNode.data_.getCurrentPlayer().getMinions().get(0).getTotalAttack(), 2);
-        assertEquals(wrathOfAirNode.data_.getCurrentPlayer().getMinions().get(1).getTotalAttack(), 7);
-        assertEquals(wrathOfAirNode.data_.getCurrentPlayer().getMinions().get(2).getTotalAttack(), 1);
+        assertEquals(wrathOfAirNode.data_.getCurrentPlayer().getCharacter(1 + 0).getTotalAttack(), 2);
+        assertEquals(wrathOfAirNode.data_.getCurrentPlayer().getCharacter(1 + 1).getTotalAttack(), 7);
+        assertEquals(wrathOfAirNode.data_.getCurrentPlayer().getCharacter(1 + 2).getTotalAttack(), 1);
     }
 
     @Test
@@ -145,14 +145,15 @@ public class TestShaman {
         assertEquals(resBoard.modelForSide(PlayerSide.CURRENT_PLAYER).getNumMinions(), 3);
         assertEquals(resBoard.modelForSide(PlayerSide.WAITING_PLAYER).getNumMinions(), 1);
 
+        int index = resBoard.getCurrentPlayer().getNumMinions();
         boolean isRightTotem = false;
-        isRightTotem = isRightTotem || resBoard.getCurrentPlayer().getMinions().getLast() instanceof HealingTotem;
-        isRightTotem = isRightTotem || resBoard.getCurrentPlayer().getMinions().getLast() instanceof SearingTotem;
-        isRightTotem = isRightTotem || resBoard.getCurrentPlayer().getMinions().getLast() instanceof StoneclawTotem;
-        isRightTotem = isRightTotem || resBoard.getCurrentPlayer().getMinions().getLast() instanceof WrathOfAirTotem;
+        isRightTotem = isRightTotem || resBoard.getCurrentPlayer().getCharacter(index) instanceof HealingTotem;
+        isRightTotem = isRightTotem || resBoard.getCurrentPlayer().getCharacter(index) instanceof SearingTotem;
+        isRightTotem = isRightTotem || resBoard.getCurrentPlayer().getCharacter(index) instanceof StoneclawTotem;
+        isRightTotem = isRightTotem || resBoard.getCurrentPlayer().getCharacter(index) instanceof WrathOfAirTotem;
         assertTrue(isRightTotem);
 
-        log.info("{}", resBoard.modelForSide(PlayerSide.CURRENT_PLAYER).getMinions().get(2).getClass());
+        log.info("{}", resBoard.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(3).getClass());
     }
 
     @Test
@@ -186,13 +187,13 @@ public class TestShaman {
         assertEquals(ret.getChildren().size(), 3);
 
         HearthTreeNode childNode = ret.getChildren().get(0);
-        assertFalse(childNode.data_.getCurrentPlayer().getMinions().get(3) instanceof SearingTotem);
+        assertFalse(childNode.data_.getCurrentPlayer().getCharacter(4) instanceof SearingTotem);
 
         childNode = ret.getChildren().get(1);
-        assertFalse(childNode.data_.getCurrentPlayer().getMinions().get(3) instanceof SearingTotem);
+        assertFalse(childNode.data_.getCurrentPlayer().getCharacter(4) instanceof SearingTotem);
 
         childNode = ret.getChildren().get(2);
-        assertFalse(childNode.data_.getCurrentPlayer().getMinions().get(3) instanceof SearingTotem);
+        assertFalse(childNode.data_.getCurrentPlayer().getCharacter(4) instanceof SearingTotem);
 
         assertEquals(currentPlayer.getNumMinions(), 3);
         assertEquals(currentPlayer.getMana(), 8);

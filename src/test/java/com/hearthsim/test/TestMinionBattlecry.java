@@ -46,8 +46,8 @@ public class TestMinionBattlecry {
         assertEquals(currentPlayer.getNumMinions(), 3);
         assertEquals(waitingPlayer.getNumMinions(), 3);
         assertEquals(currentPlayer.getMana(), 6);
-        assertEquals(currentPlayer.getMinions().get(0).getHealth(), 4);
-        assertEquals(currentPlayer.getMinions().get(0).getTotalAttack(), 4);
+        assertEquals(currentPlayer.getCharacter(1).getHealth(), 4);
+        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), 4);
     }
 
     @Test

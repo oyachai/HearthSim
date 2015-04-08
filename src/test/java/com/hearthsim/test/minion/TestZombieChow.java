@@ -55,17 +55,17 @@ public class TestZombieChow {
         assertEquals(waitingPlayer.getMana(), 8);
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), 30);
-        assertEquals(currentPlayer.getMinions().get(0).getTotalHealth(), 2);
-        assertEquals(currentPlayer.getMinions().get(1).getTotalHealth(), 7);
-        assertEquals(waitingPlayer.getMinions().get(0).getTotalHealth(), 2);
-        assertEquals(waitingPlayer.getMinions().get(1).getTotalHealth(), 7);
-        assertEquals(waitingPlayer.getMinions().get(2).getTotalHealth(), 3);
+        assertEquals(currentPlayer.getCharacter(1).getTotalHealth(), 2);
+        assertEquals(currentPlayer.getCharacter(2).getTotalHealth(), 7);
+        assertEquals(waitingPlayer.getCharacter(1).getTotalHealth(), 2);
+        assertEquals(waitingPlayer.getCharacter(2).getTotalHealth(), 7);
+        assertEquals(waitingPlayer.getCharacter(3).getTotalHealth(), 3);
 
-        assertEquals(currentPlayer.getMinions().get(0).getTotalAttack(), 2);
-        assertEquals(currentPlayer.getMinions().get(1).getTotalAttack(), 7);
-        assertEquals(waitingPlayer.getMinions().get(0).getTotalAttack(), 2);
-        assertEquals(waitingPlayer.getMinions().get(1).getTotalAttack(), 7);
-        assertEquals(waitingPlayer.getMinions().get(2).getTotalAttack(), 3);
+        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), 2);
+        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), 7);
+        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), 2);
+        assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), 7);
+        assertEquals(waitingPlayer.getCharacter(3).getTotalAttack(), 3);
     }
 
     @Test
@@ -87,23 +87,23 @@ public class TestZombieChow {
         assertEquals(waitingPlayer.getMana(), 8);
         assertEquals(currentPlayer.getHero().getHealth(), 15);
         assertEquals(waitingPlayer.getHero().getHealth(), 15);
-        assertEquals(currentPlayer.getMinions().get(0).getTotalHealth(), 2);
-        assertEquals(currentPlayer.getMinions().get(1).getTotalHealth(), 7);
-        assertEquals(currentPlayer.getMinions().get(2).getTotalHealth(), 3);
-        assertEquals(waitingPlayer.getMinions().get(0).getTotalHealth(), 2);
-        assertEquals(waitingPlayer.getMinions().get(1).getTotalHealth(), 7);
-        assertEquals(waitingPlayer.getMinions().get(2).getTotalHealth(), 3);
+        assertEquals(currentPlayer.getCharacter(1).getTotalHealth(), 2);
+        assertEquals(currentPlayer.getCharacter(2).getTotalHealth(), 7);
+        assertEquals(currentPlayer.getCharacter(3).getTotalHealth(), 3);
+        assertEquals(waitingPlayer.getCharacter(1).getTotalHealth(), 2);
+        assertEquals(waitingPlayer.getCharacter(2).getTotalHealth(), 7);
+        assertEquals(waitingPlayer.getCharacter(3).getTotalHealth(), 3);
 
-        assertEquals(currentPlayer.getMinions().get(0).getTotalAttack(), 2);
-        assertEquals(currentPlayer.getMinions().get(1).getTotalAttack(), 7);
-        assertEquals(currentPlayer.getMinions().get(2).getTotalAttack(), 3);
-        assertEquals(waitingPlayer.getMinions().get(0).getTotalAttack(), 2);
-        assertEquals(waitingPlayer.getMinions().get(1).getTotalAttack(), 7);
-        assertEquals(waitingPlayer.getMinions().get(2).getTotalAttack(), 3);
+        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), 2);
+        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), 7);
+        assertEquals(currentPlayer.getCharacter(3).getTotalAttack(), 3);
+        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), 2);
+        assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), 7);
+        assertEquals(waitingPlayer.getCharacter(3).getTotalAttack(), 3);
 
         //----------------------------------------------------------
 
-        Minion minion = currentPlayer.getMinions().get(2);
+        Minion minion = currentPlayer.getCharacter(3);
         assertTrue(minion instanceof ZombieChow);
 
         minion.hasAttacked(false);
@@ -116,21 +116,21 @@ public class TestZombieChow {
         assertEquals(waitingPlayer.getMana(), 8);
         assertEquals(currentPlayer.getHero().getHealth(), 15);
         assertEquals(waitingPlayer.getHero().getHealth(), 20);
-        assertEquals(currentPlayer.getMinions().get(0).getTotalHealth(), 2);
-        assertEquals(currentPlayer.getMinions().get(1).getTotalHealth(), 7);
-        assertEquals(waitingPlayer.getMinions().get(0).getTotalHealth(), 2);
-        assertEquals(waitingPlayer.getMinions().get(1).getTotalHealth(), 7 - 3);
-        assertEquals(waitingPlayer.getMinions().get(2).getTotalHealth(), 3);
+        assertEquals(currentPlayer.getCharacter(1).getTotalHealth(), 2);
+        assertEquals(currentPlayer.getCharacter(2).getTotalHealth(), 7);
+        assertEquals(waitingPlayer.getCharacter(1).getTotalHealth(), 2);
+        assertEquals(waitingPlayer.getCharacter(2).getTotalHealth(), 7 - 3);
+        assertEquals(waitingPlayer.getCharacter(3).getTotalHealth(), 3);
 
-        assertEquals(currentPlayer.getMinions().get(0).getTotalAttack(), 2);
-        assertEquals(currentPlayer.getMinions().get(1).getTotalAttack(), 7);
-        assertEquals(waitingPlayer.getMinions().get(0).getTotalAttack(), 2);
-        assertEquals(waitingPlayer.getMinions().get(1).getTotalAttack(), 7);
-        assertEquals(waitingPlayer.getMinions().get(2).getTotalAttack(), 3);
+        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), 2);
+        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), 7);
+        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), 2);
+        assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), 7);
+        assertEquals(waitingPlayer.getCharacter(3).getTotalAttack(), 3);
 
         //----------------------------------------------------------
 
-        minion = currentPlayer.getMinions().get(1);
+        minion = currentPlayer.getCharacter(2);
 
         minion.hasAttacked(false);
         minion.attack(PlayerSide.WAITING_PLAYER, 3, board, false);
@@ -142,15 +142,15 @@ public class TestZombieChow {
         assertEquals(waitingPlayer.getMana(), 8);
         assertEquals(currentPlayer.getHero().getHealth(), 20);
         assertEquals(waitingPlayer.getHero().getHealth(), 20);
-        assertEquals(currentPlayer.getMinions().get(0).getTotalHealth(), 2);
-        assertEquals(currentPlayer.getMinions().get(1).getTotalHealth(), 7 - 3);
-        assertEquals(waitingPlayer.getMinions().get(0).getTotalHealth(), 2);
-        assertEquals(waitingPlayer.getMinions().get(1).getTotalHealth(), 7 - 3);
+        assertEquals(currentPlayer.getCharacter(1).getTotalHealth(), 2);
+        assertEquals(currentPlayer.getCharacter(2).getTotalHealth(), 7 - 3);
+        assertEquals(waitingPlayer.getCharacter(1).getTotalHealth(), 2);
+        assertEquals(waitingPlayer.getCharacter(2).getTotalHealth(), 7 - 3);
 
-        assertEquals(currentPlayer.getMinions().get(0).getTotalAttack(), 2);
-        assertEquals(currentPlayer.getMinions().get(1).getTotalAttack(), 7);
-        assertEquals(waitingPlayer.getMinions().get(0).getTotalAttack(), 2);
-        assertEquals(waitingPlayer.getMinions().get(1).getTotalAttack(), 7);
+        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), 2);
+        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), 7);
+        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), 2);
+        assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), 7);
     }
 
     @Test
@@ -172,23 +172,23 @@ public class TestZombieChow {
         assertEquals(waitingPlayer.getMana(), 8);
         assertEquals(currentPlayer.getHero().getHealth(), 15);
         assertEquals(waitingPlayer.getHero().getHealth(), 15);
-        assertEquals(currentPlayer.getMinions().get(0).getTotalHealth(), 2);
-        assertEquals(currentPlayer.getMinions().get(1).getTotalHealth(), 7);
-        assertEquals(currentPlayer.getMinions().get(2).getTotalHealth(), 3);
-        assertEquals(waitingPlayer.getMinions().get(0).getTotalHealth(), 2);
-        assertEquals(waitingPlayer.getMinions().get(1).getTotalHealth(), 7);
-        assertEquals(waitingPlayer.getMinions().get(2).getTotalHealth(), 3);
+        assertEquals(currentPlayer.getCharacter(1).getTotalHealth(), 2);
+        assertEquals(currentPlayer.getCharacter(2).getTotalHealth(), 7);
+        assertEquals(currentPlayer.getCharacter(3).getTotalHealth(), 3);
+        assertEquals(waitingPlayer.getCharacter(1).getTotalHealth(), 2);
+        assertEquals(waitingPlayer.getCharacter(2).getTotalHealth(), 7);
+        assertEquals(waitingPlayer.getCharacter(3).getTotalHealth(), 3);
 
-        assertEquals(currentPlayer.getMinions().get(0).getTotalAttack(), 2);
-        assertEquals(currentPlayer.getMinions().get(1).getTotalAttack(), 7);
-        assertEquals(currentPlayer.getMinions().get(2).getTotalAttack(), 3);
-        assertEquals(waitingPlayer.getMinions().get(0).getTotalAttack(), 2);
-        assertEquals(waitingPlayer.getMinions().get(1).getTotalAttack(), 7);
-        assertEquals(waitingPlayer.getMinions().get(2).getTotalAttack(), 3);
+        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), 2);
+        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), 7);
+        assertEquals(currentPlayer.getCharacter(3).getTotalAttack(), 3);
+        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), 2);
+        assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), 7);
+        assertEquals(waitingPlayer.getCharacter(3).getTotalAttack(), 3);
 
         //----------------------------------------------------------
 
-        Minion minion = currentPlayer.getMinions().get(2);
+        Minion minion = currentPlayer.getCharacter(3);
         assertTrue(minion instanceof ZombieChow);
 
         minion.hasAttacked(false);
@@ -201,14 +201,14 @@ public class TestZombieChow {
         assertEquals(waitingPlayer.getMana(), 8);
         assertEquals(currentPlayer.getHero().getHealth(), 20);
         assertEquals(waitingPlayer.getHero().getHealth(), 20);
-        assertEquals(currentPlayer.getMinions().get(0).getTotalHealth(), 2);
-        assertEquals(currentPlayer.getMinions().get(1).getTotalHealth(), 7);
-        assertEquals(waitingPlayer.getMinions().get(0).getTotalHealth(), 2);
-        assertEquals(waitingPlayer.getMinions().get(1).getTotalHealth(), 7);
+        assertEquals(currentPlayer.getCharacter(1).getTotalHealth(), 2);
+        assertEquals(currentPlayer.getCharacter(2).getTotalHealth(), 7);
+        assertEquals(waitingPlayer.getCharacter(1).getTotalHealth(), 2);
+        assertEquals(waitingPlayer.getCharacter(2).getTotalHealth(), 7);
 
-        assertEquals(currentPlayer.getMinions().get(0).getTotalAttack(), 2);
-        assertEquals(currentPlayer.getMinions().get(1).getTotalAttack(), 7);
-        assertEquals(waitingPlayer.getMinions().get(0).getTotalAttack(), 2);
-        assertEquals(waitingPlayer.getMinions().get(1).getTotalAttack(), 7);
+        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), 2);
+        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), 7);
+        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), 2);
+        assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), 7);
     }
 }

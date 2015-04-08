@@ -72,7 +72,7 @@ public class TestWarlock {
         assertEquals(currentPlayer.getMana(), 8);
         assertEquals(currentPlayer.getHero().getHealth(), 30);
 
-        assertEquals(currentPlayer.getMinions().get(1).getHealth(), 7);
+        assertEquals(currentPlayer.getCharacter(2).getHealth(), 7);
     }
 
     @Test
@@ -98,7 +98,7 @@ public class TestWarlock {
 
         Deck deck = new Deck(cards);
 
-        Minion minion = currentPlayer.getMinions().get(0);
+        Minion minion = currentPlayer.getCharacter(1);
         HearthTreeNode ret = minion.attack(PlayerSide.WAITING_PLAYER, 0, board, false);
         assertEquals(board, ret);
 

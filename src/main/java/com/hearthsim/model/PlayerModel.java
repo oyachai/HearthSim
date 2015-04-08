@@ -25,6 +25,7 @@ public class PlayerModel implements DeepCopyable<PlayerModel>, Iterable<Minion> 
     private byte deckPos;
     private byte fatigueDamage;
 
+    // this uses identity list because we need exact reference equality and we modified Minion.equals
     private IdentityLinkedList<Minion> minions;
     private IdentityLinkedList<Card> hand;
     private byte overload;
@@ -53,7 +54,7 @@ public class PlayerModel implements DeepCopyable<PlayerModel>, Iterable<Minion> 
     }
 
     public Minion getCharacter(int index) {
-        return index == 0 ? this.getHero() : this.getMinions().get(index - 1);
+        return index == 0 ? this.getHero() : this.minions.get(index - 1);
     }
 
     public int getNumCharacters() {
@@ -62,6 +63,14 @@ public class PlayerModel implements DeepCopyable<PlayerModel>, Iterable<Minion> 
 
     public int getNumMinions() {
         return minions.size();
+    }
+
+    public void addMinion(int position, Minion minion) {
+        this.minions.add(position, minion);
+    }
+
+    public boolean removeMinion(Minion minion) {
+        return this.minions.remove(minion);
     }
 
     public Deck getDeck() {
@@ -104,12 +113,8 @@ public class PlayerModel implements DeepCopyable<PlayerModel>, Iterable<Minion> 
         this.maxMana += value;
     }
 
-    public IdentityLinkedList<Minion> getMinions() {
+    public Iterable<Minion> getMinions() {
         return minions;
-    }
-
-    public void setMinions(IdentityLinkedList<Minion> minions) {
-        this.minions = minions;
     }
 
     public byte getSpellDamage() {
@@ -185,11 +190,11 @@ public class PlayerModel implements DeepCopyable<PlayerModel>, Iterable<Minion> 
     }
 
     public int getIndexForCharacter(Minion character) {
-        if (character.isHero()) {
+        if (this.hero.equals(character)) {
             return 0;
         } else {
-            int minionIndex = this.getMinions().indexOf(character);
-            return minionIndex >= 0 ? this.getMinions().indexOf(character) + 1 : minionIndex;
+            int minionIndex = this.minions.indexOf(character);
+            return minionIndex >= 0 ? this.minions.indexOf(character) + 1 : minionIndex;
         }
     }
 
@@ -216,7 +221,7 @@ public class PlayerModel implements DeepCopyable<PlayerModel>, Iterable<Minion> 
         copiedPlayerModel.numCardsUsed = numCardsUsed;
 
         for (Minion minion : minions) {
-            copiedPlayerModel.getMinions().add((Minion) (minion).deepCopy());
+            copiedPlayerModel.minions.add((Minion) (minion).deepCopy());
         }
 
         for (final Card card: hand) {

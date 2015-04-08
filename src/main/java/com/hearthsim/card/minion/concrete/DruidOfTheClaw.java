@@ -24,16 +24,16 @@ public class DruidOfTheClaw extends Minion {
         if (toRet != null) {
             PlayerModel currentPlayer = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
 
-            int thisMinionIndex = currentPlayer.getMinions().indexOf(this);
+            int thisMinionIndex = currentPlayer.getIndexForCharacter(this);
 
             HearthTreeNode tauntState = toRet.addChild(new HearthTreeNode(toRet.data_.deepCopy()));
-            Minion newMinion = tauntState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getMinions().get(thisMinionIndex);
+            Minion newMinion = tauntState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(thisMinionIndex);
             newMinion.setTaunt(true);
             newMinion.setMaxHealth((byte) 6);
             newMinion.setHealth((byte) 6);
 
             HearthTreeNode chargeState = toRet.addChild(new HearthTreeNode(toRet.data_.deepCopy()));
-            newMinion = chargeState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getMinions().get(thisMinionIndex);
+            newMinion = chargeState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(thisMinionIndex);
             newMinion.setCharge(true);
         }
         return toRet;

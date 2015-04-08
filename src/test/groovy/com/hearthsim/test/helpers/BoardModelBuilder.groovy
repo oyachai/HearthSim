@@ -2,6 +2,7 @@ package com.hearthsim.test.helpers
 
 import com.hearthsim.card.Card
 import com.hearthsim.card.minion.Minion
+import com.hearthsim.card.minion.MinionMock
 import com.hearthsim.card.weapon.WeaponCard
 import com.hearthsim.model.BoardModel
 import com.hearthsim.model.PlayerSide
@@ -45,7 +46,7 @@ class BoardModelBuilder {
                 if (it.maxHealth)
                     minion.maxHealth = maxHealth
             } else {
-                minion = new Minion("" + 0, (byte) mana, (byte) attack, (byte) health, (byte) attack, (byte) health, (byte) maxHealth)
+                minion = new MinionMock("" + 0, (byte) mana, (byte) attack, (byte) health, (byte) attack, (byte) health, (byte) maxHealth)
             }
             boardModel.placeMinion(playerSide, minion);
         }

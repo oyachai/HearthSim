@@ -23,11 +23,13 @@ public class YoungPriestess extends Minion {
             int numFriendlyMinions = currentPlayer.getNumMinions();
             if (numFriendlyMinions > 1) {
                 int minionToBuffIndex = (int)(Math.random() * numFriendlyMinions);
-                while (currentPlayer.getMinions().get(minionToBuffIndex) == this) {
+                Minion minionToBuff = currentPlayer.getCharacter(minionToBuffIndex + 1);
+                while (minionToBuff == this) {
                     minionToBuffIndex = (int)(Math.random() * numFriendlyMinions);
+                    minionToBuff = currentPlayer.getCharacter(minionToBuffIndex + 1);
                 }
-                currentPlayer.getMinions().get(minionToBuffIndex).addHealth((byte)1);
-                currentPlayer.getMinions().get(minionToBuffIndex).addMaxHealth((byte)1);
+                minionToBuff.addHealth((byte) 1);
+                minionToBuff.addMaxHealth((byte)1);
             }
         }
         return toRet;

@@ -58,7 +58,7 @@ public class TestHunter {
 
         assertEquals(currentPlayer.getMana(), 8);
         assertEquals(waitingPlayer.getHero().getHealth(), 30);
-        assertEquals(waitingPlayer.getMinions().get(1).getHealth(), 7);
+        assertEquals(waitingPlayer.getCharacter(2).getHealth(), 7);
     }
 
     @Test

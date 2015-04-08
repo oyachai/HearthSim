@@ -117,7 +117,7 @@ public class SparseChildNodeCreator extends ChildNodeCreatorBase {
             byte secondMaxAttack = -100;
             int secondMaxAttackIndex = 0;
             for (int midx = 0; midx < numMinions; ++midx) {
-                Minion tempMinion = currentPlayer.getMinions().get(midx);
+                Minion tempMinion = currentPlayer.getCharacter(midx + 1);
                 if (tempMinion.getTotalAttack() >= maxAttack) {
                     secondMaxAttackIndex = maxAttackIndex;
                     secondMaxAttack = maxAttack;

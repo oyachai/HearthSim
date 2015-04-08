@@ -13,8 +13,8 @@ public class DreadCorsair extends Minion {
     @Override
     public byte getManaCost(PlayerSide side, BoardModel board) {
         if (board.modelForSide(side).getHero().getWeapon() == null)
-            return baseManaCost;
-        byte manaCost = (byte)(baseManaCost - board.modelForSide(side).getHero().getWeapon().getWeaponDamage());
+            return this.getBaseManaCost();
+        byte manaCost = (byte)(this.getBaseManaCost() - board.modelForSide(side).getHero().getWeapon().getWeaponDamage());
         if (manaCost < 0)
             manaCost = 0;
         return manaCost;

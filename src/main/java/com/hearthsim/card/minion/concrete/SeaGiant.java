@@ -12,7 +12,7 @@ public class SeaGiant extends Minion {
 
     @Override
     public byte getManaCost(PlayerSide side, BoardModel board) {
-        byte manaCost = (byte)(baseManaCost - board.getTotalMinionCount());
+        byte manaCost = (byte)(this.getBaseManaCost() - board.getTotalMinionCount());
         if (manaCost < 0)
             manaCost = 0;
         return manaCost;

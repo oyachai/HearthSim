@@ -1,6 +1,7 @@
 package com.hearthsim.test;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.CardMock;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -10,18 +11,18 @@ public class TestCard {
     @Test
     public void testEqualsDeepCopy() {
         Card card0 = new Card();
-        card0.setBaseManaCost((byte)1);
+        card0.hasBeenUsed(true);
         Card copy = card0.deepCopy();
         assertEquals(card0, copy);
 
-        copy.setBaseManaCost((byte)3);
+        card0.hasBeenUsed(false);
         assertNotEquals(card0, copy);
     }
 
     @Test
     public void testEqualsSelf() {
         Card card0 = new Card();
-        card0.setBaseManaCost((byte)1);
+        card0.hasBeenUsed(true);
 
         assertEquals(card0, card0);
     }
@@ -44,17 +45,17 @@ public class TestCard {
 
     @Test
     public void testNotEqualsMana() {
-        Card card0 = new Card();
+        CardMock card0 = new CardMock();
         card0.setBaseManaCost((byte) 5);
-        Card card1 = new Card();
+        CardMock card1 = new CardMock();
         assertNotEquals(card0, card1);
     }
 
     @Test
     public void testNotEqualsName() {
-        Card card0 = new Card();
+        CardMock card0 = new CardMock();
         card0.setName("Test");
-        Card card1 = new Card();
+        CardMock card1 = new CardMock();
         assertNotEquals(card0, card1);
     }
 }

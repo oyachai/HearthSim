@@ -77,8 +77,8 @@ public class TestDruid {
         assertEquals(currentPlayer.getHero().getTotalAttack(), 0);
         assertEquals(currentPlayer.getHero().getExtraAttackUntilTurnEnd(), 0);
 
-        assertEquals(currentPlayer.getMinions().get(0).getAttack(), 2);
-        assertEquals(currentPlayer.getMinions().get(0).getTotalAttack(), 2);
+        assertEquals(currentPlayer.getCharacter(1).getAttack(), 2);
+        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), 2);
     }
 
     @Test

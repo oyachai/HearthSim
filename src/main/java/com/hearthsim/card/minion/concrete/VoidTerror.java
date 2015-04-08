@@ -2,8 +2,8 @@ package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionUntargetableBattlecry;
+import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.IdentityLinkedList;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class VoidTerror extends Minion implements MinionUntargetableBattlecry {
@@ -21,23 +21,15 @@ public class VoidTerror extends Minion implements MinionUntargetableBattlecry {
             HearthTreeNode boardState,
             boolean singleRealizationOnly
         ) {
-        IdentityLinkedList<Minion> minions = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getMinions();
-        int thisMinionIndex = minions.indexOf(this);
-        if (thisMinionIndex > 0) {
-            Minion minionToDestroy = minions.get(thisMinionIndex - 1);
-            this.addAttack(minionToDestroy.getTotalAttack());
-            this.addHealth(minionToDestroy.getTotalHealth());
-            this.addMaxHealth(minionToDestroy.getTotalHealth());
-            minionToDestroy.setHealth((byte)-99);
-        }
-        if (thisMinionIndex < minions.size() - 1) {
-            Minion minionToDestroy = minions.get(thisMinionIndex + 1);
-            this.addAttack(minionToDestroy.getTotalAttack());
-            this.addHealth(minionToDestroy.getTotalHealth());
-            this.addMaxHealth(minionToDestroy.getTotalHealth());
-            minionToDestroy.setHealth((byte)-99);
+        PlayerModel currentPlayer = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+
+        int thisMinionIndex = currentPlayer.getIndexForCharacter(this);
+        for (Minion minion : currentPlayer.getMinionsAdjacentToCharacter(thisMinionIndex)) {
+            this.addAttack(minion.getTotalAttack());
+            this.addHealth(minion.getTotalHealth());
+            this.addMaxHealth(minion.getTotalHealth());
+            minion.setHealth((byte) -99);
         }
         return boardState;
     }
-
 }

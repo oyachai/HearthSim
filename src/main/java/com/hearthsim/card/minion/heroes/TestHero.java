@@ -9,6 +9,9 @@ import com.hearthsim.util.tree.HearthTreeNode;
 public class TestHero extends Hero {
     public boolean enableHeroAbility = false;
 
+    private byte baseHealth_;
+    private String name_;
+
     public TestHero() {
         this("NoHero", (byte)30);
     }
@@ -19,6 +22,16 @@ public class TestHero extends Hero {
         this.baseHealth_ = health_;
         this.maxHealth_ = health_;
         this.heroTargetable_ = true;
+    }
+
+    @Override
+    public byte getBaseHealth() {
+        return this.baseHealth_;
+    }
+
+    @Override
+    public String getName() {
+        return this.name_;
     }
 
     @Override
@@ -58,6 +71,8 @@ public class TestHero extends Hero {
     public Hero deepCopy() {
         TestHero copy = (TestHero)super.deepCopy();
         copy.enableHeroAbility = this.enableHeroAbility;
+        copy.baseHealth_ = this.getBaseHealth();
+        copy.name_ = this.getName();
         return copy;
     }
 }
