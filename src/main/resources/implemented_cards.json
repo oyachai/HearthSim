@@ -272,6 +272,10 @@
         "class": "com.hearthsim.card.minion.concrete.ClockworkGiant"
     },
     {
+        "name": "Cobalt Guardian",
+        "class": "com.hearthsim.card.minion.concrete.CobaltGuardian"
+    },
+    {
         "name": "Coghammer",
         "class": "com.hearthsim.card.weapon.concrete.Coghammer"
     },
