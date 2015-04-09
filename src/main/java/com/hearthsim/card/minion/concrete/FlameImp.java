@@ -26,5 +26,4 @@ public class FlameImp extends Minion implements MinionUntargetableBattlecry {
         toRet = currentPlayer.getHero().takeDamageAndNotify((byte) 3, PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, toRet, false, false);
         return toRet;
     }
-
 }
