@@ -72,6 +72,10 @@
         "class": "com.hearthsim.card.minion.concrete.AnnoyOTron"
     },
     {
+        "name": "Antique Healbot",
+        "class": "com.hearthsim.card.minion.concrete.AntiqueHealbot"
+    },
+    {
         "name": "Anub'ar Ambusher",
         "class": "com.hearthsim.card.minion.concrete.AnubarAmbusher"
     },
@@ -232,6 +236,10 @@
         "class": "com.hearthsim.card.spellcard.concrete.Brawl"
     },
     {
+        "name": "Burly Rockjaw Trogg",
+        "class": "com.hearthsim.card.minion.concrete.BurlyRockjawTrogg"
+    },
+    {
         "name": "Captain Greenskin",
         "class": "com.hearthsim.card.minion.concrete.CaptainGreenskin"
     },
@@ -262,6 +270,10 @@
     {
         "name": "Clockwork Giant",
         "class": "com.hearthsim.card.minion.concrete.ClockworkGiant"
+    },
+    {
+        "name": "Cobalt Guardian",
+        "class": "com.hearthsim.card.minion.concrete.CobaltGuardian"
     },
     {
         "name": "Coghammer",
@@ -1275,6 +1287,10 @@
     {
         "name": "Voodoo Doctor",
         "class": "com.hearthsim.card.minion.concrete.VoodooDoctor"
+    },
+    {
+        "name": "Wailing Soul",
+        "class": "com.hearthsim.card.minion.concrete.WailingSoul"
     },
     {
         "name": "War Golem",
