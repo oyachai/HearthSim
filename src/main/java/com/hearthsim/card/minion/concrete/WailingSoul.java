@@ -4,7 +4,6 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionUntargetableBattlecry;
 import com.hearthsim.event.CharacterFilter;
 import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectCharacterHeal;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class WailingSoul extends Minion implements MinionUntargetableBattlecry {
