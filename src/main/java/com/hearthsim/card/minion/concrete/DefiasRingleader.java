@@ -15,11 +15,6 @@ public class DefiasRingleader extends Minion implements MinionUntargetableBattle
     }
 
     @Override
-    public boolean hasBattlecry() {
-        return false;
-    }
-
-    @Override
     public HearthTreeNode useUntargetableBattlecry_core(
         int minionPlacementIndex,
         HearthTreeNode boardState,

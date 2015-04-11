@@ -35,11 +35,6 @@ public class Si7Agent extends Minion implements MinionBattlecryInterface {
     }
 
     @Override
-    public boolean hasBattlecry() {
-        return false;
-    }
-
-    @Override
     public CharacterFilter getBattlecryFilter() {
         return Si7Agent.filter;
     }
