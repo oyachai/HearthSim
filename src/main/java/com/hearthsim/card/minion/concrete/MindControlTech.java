@@ -35,11 +35,6 @@ public class MindControlTech extends Minion implements CardEffectOnResolveRandom
     }
 
     @Override
-    public CardEffectCharacter getRandomTargetSecondaryEffect() {
-        return null;
-    }
-
-    @Override
     public CharacterFilter getRandomTargetFilter() {
         return MindControlTech.filter;
     }

@@ -23,11 +23,6 @@ public class Coghammer extends WeaponCard implements CardEffectOnResolveRandomCh
     }
 
     @Override
-    public CardEffectCharacter getRandomTargetSecondaryEffect() {
-        return null;
-    }
-
-    @Override
     public CharacterFilter getRandomTargetFilter() {
         return CharacterFilter.FRIENDLY_MINIONS;
     }

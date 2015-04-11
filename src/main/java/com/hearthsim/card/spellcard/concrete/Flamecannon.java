@@ -12,11 +12,6 @@ public class Flamecannon extends SpellDamage implements CardEffectOnResolveRando
     }
 
     @Override
-    public CardEffectCharacter getRandomTargetSecondaryEffect() {
-        return null;
-    }
-
-    @Override
     public CharacterFilter getRandomTargetFilter() {
         return CharacterFilter.ENEMY_MINIONS;
     }

@@ -15,11 +15,6 @@ public class Glaivezooka extends WeaponCard implements CardEffectOnResolveRandom
     }
 
     @Override
-    public CardEffectCharacter getRandomTargetSecondaryEffect() {
-        return null;
-    }
-
-    @Override
     public CharacterFilter getRandomTargetFilter() {
         return CharacterFilter.FRIENDLY_MINIONS;
     }
