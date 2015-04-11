@@ -124,8 +124,8 @@ public class CharacterFilter implements CharacterFilterInterface {
         protected boolean includeOwnHero() { return true; }
     };
 
-//    public final static CharacterFilter OPPONENT = new CharacterFilter() {
-//        @Override
-//        protected boolean includeEnemyHero() { return true; }
-//    };
+    public final static CharacterFilter OPPONENT = new CharacterFilter() {
+        @Override
+        protected boolean includeEnemyHero() { return true; }
+    };
 }

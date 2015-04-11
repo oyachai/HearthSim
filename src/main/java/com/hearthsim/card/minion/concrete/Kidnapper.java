@@ -2,14 +2,16 @@ package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.minion.MinionBattlecryInterface;
 import com.hearthsim.card.minion.MinionTargetableBattlecry;
+import com.hearthsim.event.CharacterFilter;
 import com.hearthsim.event.CharacterFilterTargetedBattlecry;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class Kidnapper extends Minion implements MinionTargetableBattlecry {
+public class Kidnapper extends Minion implements MinionBattlecryInterface {
 
     private final static CharacterFilterTargetedBattlecry filter = new CharacterFilterTargetedBattlecry() {
         protected boolean includeEnemyMinions() { return true; }
@@ -37,12 +39,12 @@ public class Kidnapper extends Minion implements MinionTargetableBattlecry {
     }
 
     @Override
-    public boolean canTargetWithBattlecry(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, BoardModel board) {
-        return Kidnapper.filter.targetMatches(originSide, origin, targetSide, targetCharacterIndex, board);
+    public CharacterFilter getBattlecryFilter() {
+        return Kidnapper.filter;
     }
 
     @Override
-    public HearthTreeNode useTargetableBattlecry_core(PlayerSide originSide, Minion origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
-        return Kidnapper.effect.applyEffect(originSide, origin, targetSide, targetCharacterIndex, boardState);
+    public CardEffectCharacter getBattlecryEffect() {
+        return Kidnapper.effect;
     }
 }

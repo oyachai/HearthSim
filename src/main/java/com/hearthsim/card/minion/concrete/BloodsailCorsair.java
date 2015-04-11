@@ -1,13 +1,16 @@
 package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.minion.MinionBattlecryInterface;
 import com.hearthsim.card.minion.MinionUntargetableBattlecry;
+import com.hearthsim.event.CharacterFilter;
+import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.effect.CardEffectHero;
 import com.hearthsim.event.effect.CardEffectHeroWeaponDestroy;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class BloodsailCorsair extends Minion implements MinionUntargetableBattlecry {
+public class BloodsailCorsair extends Minion implements MinionBattlecryInterface {
 
     private static final CardEffectHero effect = new CardEffectHeroWeaponDestroy(1);
 
@@ -19,7 +22,12 @@ public class BloodsailCorsair extends Minion implements MinionUntargetableBattle
     }
 
     @Override
-    public HearthTreeNode useUntargetableBattlecry_core(int minionPlacementIndex, HearthTreeNode boardState, boolean singleRealizationOnly) {
-        return effect.applyEffect(PlayerSide.CURRENT_PLAYER, this, PlayerSide.WAITING_PLAYER, boardState);
+    public CharacterFilter getBattlecryFilter() {
+        return CharacterFilter.OPPONENT;
+    }
+
+    @Override
+    public CardEffectCharacter getBattlecryEffect() {
+        return BloodsailCorsair.effect;
     }
 }

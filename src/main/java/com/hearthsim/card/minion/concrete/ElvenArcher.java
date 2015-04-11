@@ -2,7 +2,9 @@ package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.minion.MinionBattlecryInterface;
 import com.hearthsim.card.minion.MinionTargetableBattlecry;
+import com.hearthsim.event.CharacterFilter;
 import com.hearthsim.event.CharacterFilterTargetedBattlecry;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.effect.CardEffectCharacterDamage;
@@ -10,7 +12,7 @@ import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class ElvenArcher extends Minion implements MinionTargetableBattlecry {
+public class ElvenArcher extends Minion implements MinionBattlecryInterface {
 
     /**
      * Battlecry: Deal 1 damage to a chosen target
@@ -29,12 +31,12 @@ public class ElvenArcher extends Minion implements MinionTargetableBattlecry {
     }
 
     @Override
-    public boolean canTargetWithBattlecry(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, BoardModel board) {
-        return ElvenArcher.filter.targetMatches(originSide, origin, targetSide, targetCharacterIndex, board);
+    public CharacterFilter getBattlecryFilter() {
+        return ElvenArcher.filter;
     }
 
     @Override
-    public HearthTreeNode useTargetableBattlecry_core(PlayerSide originSide, Minion origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
-        return ElvenArcher.battlecryAction.applyEffect(originSide, origin, targetSide, targetCharacterIndex, boardState);
+    public CardEffectCharacter getBattlecryEffect() {
+        return ElvenArcher.battlecryAction;
     }
 }

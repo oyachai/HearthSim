@@ -9,7 +9,8 @@ import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public interface MinionTargetableBattlecry {
+@Deprecated
+public interface MinionTargetableBattlecry extends MinionBattlecryInterface {
     /**
      * Derived classes should implement this function for targtable battlecries.
      *
@@ -23,11 +24,13 @@ public interface MinionTargetableBattlecry {
 
     public boolean canTargetWithBattlecry(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, BoardModel board);
 
-    public default CharacterFilterInterface getTargetableBattlecryFilter() {
+    @Override
+    public default CharacterFilterInterface getBattlecryFilter() {
         return (PlayerSide originSide, Card origin, PlayerSide targetSide, Minion targetCharacter, BoardModel board) -> this.canTargetWithBattlecry(originSide, origin, targetSide, board.modelForSide(targetSide).getIndexForCharacter(targetCharacter), board);
     }
 
-    public default CardEffectCharacter<Minion> getTargetableBattlecryEffect() {
+    @Override
+    public default CardEffectCharacter<Minion> getBattlecryEffect() {
         return this::useTargetableBattlecry_core;
     }
 }
