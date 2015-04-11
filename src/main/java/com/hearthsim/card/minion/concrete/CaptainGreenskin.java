@@ -4,8 +4,6 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionBattlecryInterface;
 import com.hearthsim.card.weapon.WeaponCard;
 import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.tree.HearthTreeNode;
 
 public class CaptainGreenskin extends Minion implements MinionBattlecryInterface {
 

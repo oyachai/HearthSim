@@ -10,7 +10,6 @@ import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.CardDrawNode;
-import com.hearthsim.util.tree.HearthTreeNode;
 
 public class DivineFavor extends SpellTargetableCard {
 
