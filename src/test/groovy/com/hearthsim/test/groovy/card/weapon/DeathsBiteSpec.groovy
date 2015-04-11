@@ -75,7 +75,7 @@ class DeathsBiteSpec extends CardSpec {
 
         expect:
         ret != null
-        assertBoardDelta(startingBoard, copiedBoard) {
+        assertBoardDelta(startingBoard, ret.data_) {
             currentPlayer {
                 weapon(BattleAxe) {
                 }

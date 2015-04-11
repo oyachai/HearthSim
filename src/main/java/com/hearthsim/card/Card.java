@@ -545,13 +545,19 @@ public class Card implements DeepCopyable<Card> {
     }
 
     protected HearthTreeNode createRngNodeWithChildren(HearthTreeNode boardState, Collection<HearthTreeNode> rngChildren) {
-        RandomEffectNode rngNode = new RandomEffectNode(boardState, boardState.getAction());
-        if (rngChildren != null) {
-            if (rngChildren.size() == 1) {
-                boardState = rngChildren.stream().findAny().get();
-            } else if (rngChildren.size() > 1) {
-                rngNode.addChildren(rngChildren);
-                boardState = rngNode;
+        if (rngChildren != null && rngChildren.size() > 0) {
+            RandomEffectNode rngNode = new RandomEffectNode(boardState, boardState.getAction());
+            boardState = this.createNodeWithChildren(rngNode, rngChildren);
+        }
+        return boardState;
+    }
+
+    protected HearthTreeNode createNodeWithChildren(HearthTreeNode boardState, Collection<HearthTreeNode> children) {
+        if (children != null) {
+            if (children.size() == 1) {
+                boardState = children.stream().findAny().get();
+            } else if (children.size() > 1) {
+                boardState.addChildren(children);
             }
         }
         return boardState;

@@ -15,6 +15,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 
 public class TestBloodKnight {
 
@@ -45,7 +46,9 @@ public class TestBloodKnight {
         Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board);
 
-        assertEquals(board, ret);
+        assertNotNull(ret);
+        currentPlayer = ret.data_.getCurrentPlayer();
+        waitingPlayer = ret.data_.getWaitingPlayer();
 
         assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 2);
@@ -65,7 +68,9 @@ public class TestBloodKnight {
         Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board);
 
-        assertEquals(board, ret);
+        assertNotNull(ret);
+        currentPlayer = ret.data_.getCurrentPlayer();
+        waitingPlayer = ret.data_.getWaitingPlayer();
 
         assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 2);
@@ -85,7 +90,9 @@ public class TestBloodKnight {
         Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board);
 
-        assertEquals(board, ret);
+        assertNotNull(ret);
+        currentPlayer = ret.data_.getCurrentPlayer();
+        waitingPlayer = ret.data_.getWaitingPlayer();
 
         assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 2);

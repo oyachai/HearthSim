@@ -4,7 +4,7 @@ import com.hearthsim.card.Card;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class CardEffectHeroBuff extends CardEffectHero {
+public class CardEffectHeroBuff implements CardEffectHero {
     private final byte attackDelta;
     private final byte armorDelta;
 

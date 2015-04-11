@@ -122,17 +122,16 @@ public class TestTheBlackKnight {
         assertEquals(waitingPlayer.getCharacter(3).getTotalAttack(), 2);
         assertEquals(waitingPlayer.getCharacter(4).getTotalAttack(), 7);
 
-        assertEquals(board.numChildren(), 1);
-        HearthTreeNode c0 = board.getChildren().get(0);
-        currentPlayer = c0.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
-        waitingPlayer = c0.data_.modelForSide(PlayerSide.WAITING_PLAYER);
-        assertEquals(c0.data_.getCurrentPlayer().getHand().size(), 0);
+        assertEquals(board.numChildren(), 0);
+        currentPlayer = ret.data_.getCurrentPlayer();
+        waitingPlayer = ret.data_.getWaitingPlayer();
+        assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 4);
         assertEquals(waitingPlayer.getNumMinions(), 1);
-        assertEquals(c0.data_.getCurrentPlayer().getMana(), 4);
-        assertEquals(c0.data_.getWaitingPlayer().getMana(), 10);
-        assertEquals(c0.data_.getCurrentPlayer().getHero().getHealth(), 28);
-        assertEquals(c0.data_.getWaitingPlayer().getHero().getHealth(), 28);
+        assertEquals(currentPlayer.getMana(), 4);
+        assertEquals(waitingPlayer.getMana(), 10);
+        assertEquals(currentPlayer.getHero().getHealth(), 28);
+        assertEquals(waitingPlayer.getHero().getHealth(), 28);
 
         assertEquals(currentPlayer.getCharacter(1).getTotalHealth(), 2);
         assertEquals(currentPlayer.getCharacter(2).getTotalHealth(), 1);

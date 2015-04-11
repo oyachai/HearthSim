@@ -12,6 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 public class TestAcidicSwampOoze {
@@ -47,7 +48,9 @@ public class TestAcidicSwampOoze {
         Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
 
-        assertEquals(board, ret);
+        assertNotNull(ret);
+        currentPlayer = ret.data_.getCurrentPlayer();
+        waitingPlayer = ret.data_.getWaitingPlayer();
 
         assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 1);

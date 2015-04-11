@@ -20,6 +20,8 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+
 public class Minion extends Card implements CardEffectOnResolveTargetableInterface, CardEndTurnInterface, CardStartTurnInterface {
     private static final Logger log = LoggerFactory.getLogger(Card.class);
 
@@ -531,7 +533,8 @@ public class Minion extends Card implements CardEffectOnResolveTargetableInterfa
         if (this instanceof MinionTargetableBattlecry) {
             boardState.data_.modelForSide(side);
 
-            boardState = ((MinionTargetableBattlecry)this).useTargetableBattlecry_core(PlayerSide.CURRENT_PLAYER, this, side, targetCharacterIndex, boardState);
+            CardEffectCharacter<Minion> battlecryEffect = ((MinionTargetableBattlecry)this).getTargetableBattlecryEffect();
+            boardState = battlecryEffect.applyEffect(PlayerSide.CURRENT_PLAYER, this, side, targetCharacterIndex, boardState);
 
             if (boardState != null) {
                 int originCharacterIndex = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getIndexForCharacter(this);
@@ -552,11 +555,12 @@ public class Minion extends Card implements CardEffectOnResolveTargetableInterfa
      * @return
      * @throws HSException
      */
+    @Deprecated
     public HearthTreeNode useUntargetableBattlecry(int minionPlacementIndex, HearthTreeNode boardState, boolean singleRealizationOnly) {
         HearthTreeNode toRet = boardState;
         if (this instanceof MinionUntargetableBattlecry) {
-            MinionUntargetableBattlecry battlecryMinion = (MinionUntargetableBattlecry) this;
-            toRet = battlecryMinion.useUntargetableBattlecry_core(minionPlacementIndex, boardState, singleRealizationOnly);
+            CardEffectCharacter<Minion> battlecryEffect = ((MinionUntargetableBattlecry)this).getTargetableBattlecryEffect();
+            toRet = battlecryEffect.applyEffect(PlayerSide.CURRENT_PLAYER, this, PlayerSide.CURRENT_PLAYER, minionPlacementIndex, toRet);
             if (toRet != null) {
                 // Check for dead minions
                 toRet = BoardStateFactoryBase.handleDeadMinions(toRet, singleRealizationOnly);
@@ -611,11 +615,6 @@ public class Minion extends Card implements CardEffectOnResolveTargetableInterfa
         HearthTreeNode toRet = boardState;
         toRet = this.summonMinion_core(targetSide, targetMinionIndex, toRet);
 
-
-        if (this instanceof MinionUntargetableBattlecry) {
-            toRet = this.useUntargetableBattlecry(targetMinionIndex, toRet, singleRealizationOnly);
-        }
-
         if (this instanceof MinionTargetableBattlecry) {
             MinionTargetableBattlecry battlecryOrigin = ((MinionTargetableBattlecry) this);
 
@@ -623,16 +622,18 @@ public class Minion extends Card implements CardEffectOnResolveTargetableInterfa
             Minion origin;
             int originCharacterIndex = toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getIndexForCharacter(this);
 
+            ArrayList<HearthTreeNode> children = new ArrayList<>();
             for (BoardModel.CharacterLocation characterLocation : toRet.data_) {
                 if (battlecryOrigin.canTargetWithBattlecry(targetSide, this, characterLocation.getPlayerSide(), characterLocation.getIndex(), toRet.data_)) {
                     child = new HearthTreeNode(toRet.data_.deepCopy());
                     origin = child.data_.getCharacter(PlayerSide.CURRENT_PLAYER, originCharacterIndex);
                     child = origin.useTargetableBattlecry(characterLocation.getPlayerSide(), characterLocation.getIndex(), child, singleRealizationOnly);
                     if (child != null) {
-                        toRet.addChild(child);
+                        children.add(child);
                     }
                 }
             }
+            toRet = this.createNodeWithChildren(toRet, children);
         }
 
         if (wasPlayed) {

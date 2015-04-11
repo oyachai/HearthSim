@@ -5,7 +5,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class CardEffectCharacterDamage extends CardEffectCharacter {
+public class CardEffectCharacterDamage implements CardEffectCharacter {
     private final byte damage;
     private final boolean effectedBySpellpower;
 

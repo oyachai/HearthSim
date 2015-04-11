@@ -5,7 +5,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class CardEffectCharacterBuffTemp extends CardEffectCharacter {
+public class CardEffectCharacterBuffTemp implements CardEffectCharacter {
     private final byte attackDelta;
 
     public CardEffectCharacterBuffTemp(int attackDelta) {

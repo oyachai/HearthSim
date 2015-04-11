@@ -49,23 +49,17 @@ class AncientBrewmasterSpec extends CardSpec {
         startingBoard.placeMinion(CURRENT_PLAYER, new StormwindChampion())
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 1, root, null, null)
+        def ret = theCard.useOn(CURRENT_PLAYER, 1, root)
 
         expect:
         assertFalse(ret == null)
-        assertEquals(ret.numChildren(), 1)
+        assertEquals(ret.numChildren(), 0)
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
                 playMinion(AncientBrewmaster)
                 mana(3)
                 numCardsUsed(1)
-            }
-        }
-
-        HearthTreeNode child0 = ret.getChildren().get(0);
-        assertBoardDelta(ret.data_, child0.data_) {
-            currentPlayer {
                 addCardToHand(StormwindChampion)
                 removeMinion(0)
             }
@@ -86,19 +80,13 @@ class AncientBrewmasterSpec extends CardSpec {
 
         expect:
         assertFalse(ret == null)
-        assertEquals(ret.numChildren(), 1)
+        assertEquals(ret.numChildren(), 0)
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
                 playMinion(AncientBrewmaster)
                 mana(3)
                 numCardsUsed(1)
-            }
-        }
-
-        HearthTreeNode child0 = ret.getChildren().get(0);
-        assertBoardDelta(ret.data_, child0.data_) {
-            currentPlayer {
                 addCardToHand(StormwindChampion)
                 removeMinion(0)
             }

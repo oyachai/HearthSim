@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 public class TestNightblade {
@@ -36,7 +37,9 @@ public class TestNightblade {
     public void testDamagesEnemyHero() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
-        assertEquals(board, ret);
+        assertNotNull(ret);
+        currentPlayer = ret.data_.getCurrentPlayer();
+        waitingPlayer = ret.data_.getWaitingPlayer();
 
         assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getMana(), 5);
@@ -50,13 +53,15 @@ public class TestNightblade {
 
         Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
-        assertEquals(board, ret);
+        assertNotNull(ret);
+        currentPlayer = ret.data_.getCurrentPlayer();
+        waitingPlayer = ret.data_.getWaitingPlayer();
 
         assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getMana(), 5);
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), -1);
 
-        assertTrue(board.data_.isLethalState());
+        assertTrue(ret.data_.isLethalState());
     }
 }

@@ -12,6 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class TestFrostwolfWarlord {
 
@@ -39,21 +40,23 @@ public class TestFrostwolfWarlord {
 
         Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board);
-        assertEquals(board, ret);
+        assertNotNull(ret);
+        currentPlayer = ret.data_.getCurrentPlayer();
 
         assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 3);
         assertEquals(currentPlayer.getMana(), 2);
 
-        assertEquals(warlord.getHealth(), 4 + 2);
-        assertEquals(warlord.getAttack(), 4 + 2);
+        assertEquals(currentPlayer.getCharacter(2).getHealth(), 4 + 2);
+        assertEquals(currentPlayer.getCharacter(2).getAttack(), 4 + 2);
     }
 
     @Test
     public void testBattlecryWithNoMinions() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
-        assertEquals(board, ret);
+        assertNotNull(ret);
+        currentPlayer = ret.data_.getCurrentPlayer();
 
         assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 1);
@@ -70,7 +73,8 @@ public class TestFrostwolfWarlord {
 
         Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
-        assertEquals(board, ret);
+        assertNotNull(ret);
+        currentPlayer = ret.data_.getCurrentPlayer();
 
         warlord.silenced(PlayerSide.CURRENT_PLAYER, board);
 
