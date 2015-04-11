@@ -3,12 +3,10 @@ package com.hearthsim.card.minion.concrete;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionBattlecryInterface;
-import com.hearthsim.card.minion.MinionUntargetableBattlecry;
 import com.hearthsim.card.weapon.WeaponCard;
 import com.hearthsim.card.weapon.concrete.BattleAxe;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectCharacterSummon;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
