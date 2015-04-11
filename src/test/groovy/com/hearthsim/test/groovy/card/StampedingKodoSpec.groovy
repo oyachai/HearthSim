@@ -69,15 +69,13 @@ class StampedingKodoSpec extends CardSpec {
         startingBoard.placeMinion(WAITING_PLAYER, new RiverCrocolisk())
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root, null, null)
+        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
 
         expect:
         assertFalse(ret == null)
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                playMinion(StampedingKodo)
-                mana(2)
                 numCardsUsed(1)
             }
         }
@@ -87,6 +85,11 @@ class StampedingKodoSpec extends CardSpec {
         
         HearthTreeNode child0 = ret.getChildren().get(0);
         assertBoardDelta(startingBoard, child0.data_) {
+            currentPlayer {
+                playMinion(StampedingKodo)
+                mana(2)
+                numCardsUsed(1)
+            }
             waitingPlayer {
                 removeMinion(0)
             }
@@ -94,6 +97,11 @@ class StampedingKodoSpec extends CardSpec {
 
         HearthTreeNode child1 = ret.getChildren().get(1);
         assertBoardDelta(startingBoard, child1.data_) {
+            currentPlayer {
+                playMinion(StampedingKodo)
+                mana(2)
+                numCardsUsed(1)
+            }
             waitingPlayer {
                 removeMinion(2)
             }
