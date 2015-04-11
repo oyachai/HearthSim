@@ -11,7 +11,7 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class ManaAddict extends Minion implements CardPlayBeginInterface {
 
-    private final static CardEffectCharacter effect = new CardEffectCharacterBuffTemp(2);
+    private final static CardEffectCharacter<Card> effect = new CardEffectCharacterBuffTemp<>(2);
 
     public ManaAddict() {
         super();

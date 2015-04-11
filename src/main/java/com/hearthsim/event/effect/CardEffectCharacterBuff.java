@@ -6,7 +6,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class CardEffectCharacterBuff implements CardEffectCharacter {
+public class CardEffectCharacterBuff<T extends Card> implements CardEffectCharacter<T> {
     private final byte attack;
     private final byte health;
 
@@ -16,7 +16,7 @@ public class CardEffectCharacterBuff implements CardEffectCharacter {
     }
 
     @Override
-    public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
+    public HearthTreeNode applyEffect(PlayerSide originSide, T origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
         Minion targetCharacter = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
         if (this.attack > 0) {
             targetCharacter.setAttack(this.attack);

@@ -11,7 +11,7 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class GadgetzanAuctioneer extends Minion implements CardPlayBeginInterface {
 
-    private final static CardEffectCharacter effect = new CardEffectCharacterDraw(1);
+    private final static CardEffectCharacter<Card> effect = new CardEffectCharacterDraw<>(1);
 
     public GadgetzanAuctioneer() {
         super();

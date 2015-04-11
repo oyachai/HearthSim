@@ -25,7 +25,7 @@ public class HarrisonJones extends Minion implements MinionUntargetableBattlecry
     ) {
         WeaponCard weapon = boardState.data_.modelForSide(PlayerSide.WAITING_PLAYER).getHero().getWeapon();
         if (weapon != null) {
-            CardEffectCharacterDraw draw = new CardEffectCharacterDraw(weapon.getWeaponCharge());
+            CardEffectCharacterDraw<Minion> draw = new CardEffectCharacterDraw<>(weapon.getWeaponCharge());
             boardState = CardEffectHeroWeaponDestroy.DESTROY.applyEffect(PlayerSide.CURRENT_PLAYER, this, PlayerSide.WAITING_PLAYER, boardState);
             boardState = draw.applyEffect(PlayerSide.CURRENT_PLAYER, this, PlayerSide.CURRENT_PLAYER, boardState);
         }

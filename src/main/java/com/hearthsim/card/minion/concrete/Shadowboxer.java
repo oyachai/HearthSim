@@ -1,5 +1,6 @@
 package com.hearthsim.card.minion.concrete;
 
+import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionHealedInterface;
 import com.hearthsim.event.CharacterFilter;
@@ -12,7 +13,7 @@ import java.util.Collection;
 
 public class Shadowboxer extends Minion implements MinionHealedInterface {
 
-    private static final CardEffectCharacter effect = new CardEffectCharacterDamage(1);
+    private static final CardEffectCharacter<Card> effect = new CardEffectCharacterDamage<>(1);
 
     private final static CharacterFilter effectFilter = CharacterFilter.ALL_ENEMIES;
 

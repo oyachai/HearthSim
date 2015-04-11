@@ -9,7 +9,7 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class ShadeOfNaxxramas extends Minion {
 
-    private final static CardEffectCharacter effect = new CardEffectCharacterBuffDelta(1, 1);
+    private final static CardEffectCharacter<Minion> effect = new CardEffectCharacterBuffDelta<>(1, 1);
 
     public ShadeOfNaxxramas() {
         super();

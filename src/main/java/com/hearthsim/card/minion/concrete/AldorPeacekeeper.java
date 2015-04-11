@@ -16,7 +16,7 @@ public class AldorPeacekeeper extends Minion implements MinionBattlecryInterface
         protected boolean includeEnemyMinions() { return true; }
     };
 
-    private final static CardEffectCharacter battlecryAction = new CardEffectCharacterBuff(1, 0);
+    private final static CardEffectCharacter<Minion> battlecryAction = new CardEffectCharacterBuff<>(1, 0);
 
     public AldorPeacekeeper() {
         super();

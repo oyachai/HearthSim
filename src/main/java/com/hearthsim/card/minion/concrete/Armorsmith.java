@@ -9,7 +9,7 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class Armorsmith extends Minion implements MinionDamagedInterface {
 
-    private static final CardEffectHero effect = new CardEffectHeroBuff(0, 1);
+    private static final CardEffectHero<Minion> effect = new CardEffectHeroBuff<>(0, 1);
 
     public Armorsmith() {
         super();

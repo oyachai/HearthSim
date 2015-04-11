@@ -5,7 +5,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class CardEffectCharacterSummon implements CardEffectCharacter {
+public class CardEffectCharacterSummon<T extends Card> implements CardEffectCharacter<T> {
     private Minion minion;
 
     public CardEffectCharacterSummon(Minion minion) {
@@ -13,7 +13,7 @@ public class CardEffectCharacterSummon implements CardEffectCharacter {
     }
 
     @Override
-    public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
+    public HearthTreeNode applyEffect(PlayerSide originSide, T origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
         Minion summon = this.minion;
         // if no origin is set then we have no idea whether we are in the original state. copy our base minion and summon a copy.
         // this is used for Minions with RNG battlecries (e.g. Bomb Lobber)

@@ -17,7 +17,7 @@ public class GnomishInventor extends Minion implements MinionBattlecryInterface 
      * Battlecry: Draw one card
      */
     @Override
-    public CardEffectCharacter<Minion> getBattlecryEffect() {
+    public CardEffectCharacter getBattlecryEffect() {
         return GnomishInventor.effect;
     }
 }

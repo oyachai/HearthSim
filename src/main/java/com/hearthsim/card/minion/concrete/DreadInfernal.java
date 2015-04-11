@@ -1,5 +1,6 @@
 package com.hearthsim.card.minion.concrete;
 
+import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionUntargetableBattlecry;
 import com.hearthsim.event.CharacterFilter;
@@ -9,7 +10,7 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class DreadInfernal extends Minion implements MinionUntargetableBattlecry {
 
-    private static final CardEffectCharacter effect = new CardEffectCharacterDamage(1);
+    private static final CardEffectCharacter<Card> effect = new CardEffectCharacterDamage<>(1);
 
     private static final CharacterFilter filter = new CharacterFilter() {
         @Override

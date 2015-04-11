@@ -9,7 +9,7 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class StarvingBuzzard extends Minion implements MinionSummonedInterface {
 
-    private static final CardEffectCharacter effect = new CardEffectCharacterDraw(1);
+    private static final CardEffectCharacter<Minion> effect = new CardEffectCharacterDraw<>(1);
 
     public StarvingBuzzard() {
         super();

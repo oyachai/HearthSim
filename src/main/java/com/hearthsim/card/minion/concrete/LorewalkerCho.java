@@ -12,7 +12,7 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class LorewalkerCho extends Minion implements CardPlayBeginInterface {
 
-    private final static CardEffectCharacter effect = new CardEffectHero() {
+    private final static CardEffectCharacter<Card> effect = new CardEffectHero<Card>() {
         @Override
         public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, HearthTreeNode boardState) {
             PlayerModel targetPlayer = boardState.data_.modelForSide(targetSide);

@@ -9,7 +9,7 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class Felguard extends Minion implements MinionUntargetableBattlecry {
 
-    private final static CardEffectHero effect = new CardEffectHeroMana(0, -1);
+    private final static CardEffectHero<Minion> effect = new CardEffectHeroMana<>(0, -1);
 
     public Felguard() {
         super();

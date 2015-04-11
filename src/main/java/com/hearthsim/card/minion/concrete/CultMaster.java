@@ -10,7 +10,7 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class CultMaster extends Minion implements MinionDeadInterface {
 
-    private static final CardEffectCharacter effect = new CardEffectCharacterDraw(1);
+    private static final CardEffectCharacter<Minion> effect = new CardEffectCharacterDraw<>(1);
 
     private final static CharacterFilter filter = CharacterFilter.FRIENDLY_MINIONS;
 

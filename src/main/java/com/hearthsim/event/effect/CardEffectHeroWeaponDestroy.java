@@ -39,5 +39,5 @@ public class CardEffectHeroWeaponDestroy<T extends Card> implements CardEffectHe
         return boardState;
     }
 
-    public static final CardEffectHeroWeaponDestroy DESTROY = new CardEffectHeroWeaponDestroy();
+    public static final CardEffectHeroWeaponDestroy<Card> DESTROY = new CardEffectHeroWeaponDestroy<>();
 }

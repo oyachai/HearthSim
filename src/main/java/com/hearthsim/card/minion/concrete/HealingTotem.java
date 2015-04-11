@@ -1,5 +1,6 @@
 package com.hearthsim.card.minion.concrete;
 
+import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.CharacterFilter;
 import com.hearthsim.event.effect.CardEffectCharacter;
@@ -9,9 +10,9 @@ import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class HealingTotem extends Minion implements CardEffectOnResolveAoeInterface {
+public class HealingTotem extends Minion implements CardEffectOnResolveAoeInterface<Card> {
 
-    private static final CardEffectCharacter effect = new CardEffectCharacterHeal(1);
+    private static final CardEffectCharacter<Card> effect = new CardEffectCharacterHeal<>(1);
 
     public HealingTotem() {
         super();
@@ -30,7 +31,7 @@ public class HealingTotem extends Minion implements CardEffectOnResolveAoeInterf
     }
 
     @Override
-    public CardEffectCharacter getAoeEffect() {
+    public CardEffectCharacter<Card> getAoeEffect() {
         return HealingTotem.effect;
     }
 

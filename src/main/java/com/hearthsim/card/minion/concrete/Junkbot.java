@@ -10,7 +10,7 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class Junkbot extends Minion implements MinionDeadInterface {
 
-    private static final CardEffectCharacter effect = new CardEffectCharacterBuffDelta(2, 2);
+    private static final CardEffectCharacter<Minion> effect = new CardEffectCharacterBuffDelta<>(2, 2);
 
     private final static CharacterFilter filter = new CharacterFilter() {
 

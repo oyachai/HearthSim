@@ -12,15 +12,15 @@ public class SpellDamage extends SpellCard {
 
     protected byte damage_;
 
-    protected SpellEffectCharacterDamage effect;
+    protected SpellEffectCharacterDamage<SpellDamage> effect;
 
     public SpellDamage() {
         super();
     }
 
-    public SpellEffectCharacterDamage getSpellDamageEffect() {
+    public SpellEffectCharacterDamage<SpellDamage> getSpellDamageEffect() {
         if (this.effect == null) {
-            this.effect = new SpellEffectCharacterDamage(damage_);
+            this.effect = new SpellEffectCharacterDamage<>(damage_);
         }
         return this.effect;
     }
@@ -73,7 +73,7 @@ public class SpellDamage extends SpellCard {
      */
     @Deprecated
     protected final HearthTreeNode attack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode boardState) {
-        SpellEffectCharacterDamage effect = new SpellEffectCharacterDamage(damage_);
+        SpellEffectCharacterDamage<SpellDamage> effect = new SpellEffectCharacterDamage<>(damage_);
         return effect.applyEffect(PlayerSide.CURRENT_PLAYER, this, targetMinionPlayerSide, targetMinion, boardState);
     }
 

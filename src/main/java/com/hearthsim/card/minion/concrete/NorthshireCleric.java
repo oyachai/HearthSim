@@ -18,7 +18,7 @@ import com.hearthsim.util.tree.HearthTreeNode;
  */
 public class NorthshireCleric extends Minion implements MinionHealedInterface {
 
-    private static final CardEffectCharacter effect = new CardEffectCharacterDraw(1);
+    private static final CardEffectCharacter<Minion> effect = new CardEffectCharacterDraw<>(1);
 
     public NorthshireCleric() {
         super();

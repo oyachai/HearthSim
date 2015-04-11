@@ -5,7 +5,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class CardEffectCharacterDamage implements CardEffectCharacter {
+public class CardEffectCharacterDamage<T extends Card> implements CardEffectCharacter<T> {
     private final byte damage;
     private final boolean effectedBySpellpower;
 
@@ -19,7 +19,7 @@ public class CardEffectCharacterDamage implements CardEffectCharacter {
     }
 
     @Override
-    public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
+    public HearthTreeNode applyEffect(PlayerSide originSide, T origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
         Minion targetMinion = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
         return targetMinion.takeDamageAndNotify(this.damage, PlayerSide.CURRENT_PLAYER, targetSide, boardState, this.effectedBySpellpower, true);
     }

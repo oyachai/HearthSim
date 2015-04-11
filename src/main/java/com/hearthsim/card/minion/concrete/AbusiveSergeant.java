@@ -17,7 +17,7 @@ public class AbusiveSergeant extends Minion implements MinionBattlecryInterface 
         protected boolean includeOwnMinions() { return true; }
     };
 
-    private final static CardEffectCharacter battlecryAction = new CardEffectCharacterBuffTemp(2);
+    private final static CardEffectCharacter<Minion> battlecryAction = new CardEffectCharacterBuffTemp<>(2);
 
     public AbusiveSergeant() {
         super();

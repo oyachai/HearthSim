@@ -33,7 +33,7 @@ public class MekgineerThermaplugg extends Minion implements MinionDeadInterface 
             return boardState;
         }
 
-        CardEffectCharacter effect = new CardEffectCharacterSummon(new LeperGnome());
+        CardEffectCharacter<Minion> effect = new CardEffectCharacterSummon<>(new LeperGnome());
         return effect.applyEffect(thisMinionPlayerSide, this, thisMinionPlayerSide, this, boardState);
     }
 }

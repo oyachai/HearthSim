@@ -26,7 +26,7 @@ public interface CardEffectCharacter<T extends Card> {
         return boardState;
     };
 
-    public final static CardEffectCharacter DESTROY = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+    public final static CardEffectCharacter<Card> DESTROY = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
         Minion targetCharacter = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
         targetCharacter.setHealth((byte) -99);
         return boardState;

@@ -312,7 +312,7 @@ public class Card implements DeepCopyable<Card> {
         int originIndex = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getHand().indexOf(this);
         int targetIndex = boardState.data_.modelForSide(side).getIndexForCharacter(targetMinion);
 
-        CardEffectCharacter targetableEffect = null;
+        CardEffectCharacter<Card> targetableEffect = null;
         if (this instanceof CardEffectOnResolveTargetableInterface) {
             targetableEffect = ((CardEffectOnResolveTargetableInterface) this).getTargetableEffect();
         }
@@ -483,7 +483,7 @@ public class Card implements DeepCopyable<Card> {
         return toRet;
     }
 
-    protected HearthTreeNode effectAllUsingFilter(CardEffectCharacter effect, CharacterFilter filter, HearthTreeNode boardState) {
+    protected HearthTreeNode effectAllUsingFilter(CardEffectCharacter<Card> effect, CharacterFilter filter, HearthTreeNode boardState) {
         if (boardState != null && filter != null) {
             for (BoardModel.CharacterLocation location : boardState.data_) {
                 Minion character = boardState.data_.getCharacter(location);
@@ -495,11 +495,11 @@ public class Card implements DeepCopyable<Card> {
         return boardState;
     }
 
-    protected final Collection<HearthTreeNode> effectRandomCharacterUsingFilter(CardEffectCharacter effect, CardEffectCharacter effectOthers, CharacterFilter filter, HearthTreeNode boardState) {
+    protected final Collection<HearthTreeNode> effectRandomCharacterUsingFilter(CardEffectCharacter<Card> effect, CardEffectCharacter<Card> effectOthers, CharacterFilter filter, HearthTreeNode boardState) {
         return this.effectRandomCharacterUsingFilter(effect, effectOthers, filter, PlayerSide.CURRENT_PLAYER, boardState);
     }
 
-    protected Collection<HearthTreeNode> effectRandomCharacterUsingFilter(CardEffectCharacter effect, CardEffectCharacter effectOthers, CharacterFilter filter, PlayerSide originSide, HearthTreeNode boardState) {
+    protected Collection<HearthTreeNode> effectRandomCharacterUsingFilter(CardEffectCharacter<Card> effect, CardEffectCharacter<Card> effectOthers, CharacterFilter filter, PlayerSide originSide, HearthTreeNode boardState) {
         int originIndex = boardState.data_.modelForSide(originSide).getHand().indexOf(this);
         boolean originInHand = originIndex >= 0;
         if (!originInHand) {

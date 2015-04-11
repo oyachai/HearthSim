@@ -1,6 +1,8 @@
 package com.hearthsim.event.effect;
 
-public class SpellEffectCharacterDamage extends CardEffectCharacterDamage {
+import com.hearthsim.card.Card;
+
+public class SpellEffectCharacterDamage<T extends Card> extends CardEffectCharacterDamage<T> {
     public SpellEffectCharacterDamage(int damage) {
         super(damage, true);
     }

@@ -1,5 +1,6 @@
 package com.hearthsim.card.minion.concrete;
 
+import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.CharacterFilter;
 import com.hearthsim.event.effect.CardEffectCharacter;
@@ -9,7 +10,7 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class Doomsayer extends Minion {
 
-    private static final CardEffectCharacter effect = CardEffectCharacter.DESTROY;
+    private static final CardEffectCharacter<Card> effect = CardEffectCharacter.DESTROY;
 
     private static final CharacterFilter filter = CharacterFilter.ALL_MINIONS;
 

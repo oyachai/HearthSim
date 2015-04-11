@@ -10,7 +10,7 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class QuestingAdventurer extends Minion implements CardPlayBeginInterface {
 
-    private final static CardEffectCharacter effect = new CardEffectCharacterBuffDelta(1, 1);
+    private final static CardEffectCharacter<Card> effect = new CardEffectCharacterBuffDelta<>(1, 1);
 
     public QuestingAdventurer() {
         super();

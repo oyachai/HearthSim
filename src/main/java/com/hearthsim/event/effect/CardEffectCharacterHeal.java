@@ -5,7 +5,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class CardEffectCharacterHeal implements CardEffectCharacter {
+public class CardEffectCharacterHeal<T extends Card> implements CardEffectCharacter<T> {
     private final byte amount;
 
     public CardEffectCharacterHeal(int amount) {
@@ -13,7 +13,7 @@ public class CardEffectCharacterHeal implements CardEffectCharacter {
     }
 
     @Override
-    public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
+    public HearthTreeNode applyEffect(PlayerSide originSide, T origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
         Minion targetMinion = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
         return targetMinion.takeHealAndNotify(this.amount, targetSide, boardState);
     }

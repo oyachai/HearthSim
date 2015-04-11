@@ -9,7 +9,7 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class AcolyteOfPain extends Minion implements MinionDamagedInterface {
 
-    private static final CardEffectCharacter effect = new CardEffectCharacterDraw(1);
+    private static final CardEffectCharacter<Minion> effect = new CardEffectCharacterDraw<>(1);
 
     public AcolyteOfPain() {
         super();
