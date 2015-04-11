@@ -350,10 +350,6 @@ public class Minion extends Card implements CardEffectOnResolveTargetableInterfa
         return getTotalHealth() > 0;
     }
 
-    public boolean hasBattlecry() {
-        return this instanceof MinionTargetableBattlecry || this instanceof MinionUntargetableBattlecry;
-    }
-
     public boolean isHero() {
         return false;
     }
