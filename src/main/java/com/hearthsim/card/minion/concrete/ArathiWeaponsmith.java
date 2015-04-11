@@ -21,23 +21,19 @@ public class ArathiWeaponsmith extends Minion implements MinionBattlecryInterfac
      */
     @Override
     public CardEffectCharacter getBattlecryEffect() {
-        return new CardEffectCharacter<Minion>() {
+        return (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+            HearthTreeNode toRet = boardState;
+            Hero theHero = toRet.data_.getCurrentPlayer().getHero();
 
-            @Override
-            public HearthTreeNode applyEffect(PlayerSide originSide, Minion origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
-                HearthTreeNode toRet = boardState;
-                Hero theHero = toRet.data_.getCurrentPlayer().getHero();
+            WeaponCard newWeapon = new BattleAxe();
+            newWeapon.hasBeenUsed(true);
 
-                WeaponCard newWeapon = new BattleAxe();
-                newWeapon.hasBeenUsed(true);
-
-                DeathrattleAction action = theHero.setWeapon(newWeapon);
-                if (action != null) {
-                    toRet = action.performAction(null, PlayerSide.CURRENT_PLAYER, toRet, false);
-                }
-
-                return toRet;
+            DeathrattleAction action = theHero.setWeapon(newWeapon);
+            if (action != null) {
+                toRet = action.performAction(null, PlayerSide.CURRENT_PLAYER, toRet, false);
             }
+
+            return toRet;
         };
     }
 }

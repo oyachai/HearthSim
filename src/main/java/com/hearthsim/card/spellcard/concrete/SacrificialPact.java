@@ -56,14 +56,11 @@ public class SacrificialPact extends SpellTargetableCard {
     @Override
     public CardEffectCharacter getTargetableEffect() {
         if (this.effect == null) {
-            this.effect = new CardEffectCharacter() {
-                @Override
-                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
-                    Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
-                    boardState = boardState.data_.modelForSide(originSide).getHero().takeHealAndNotify((byte) 5, originSide, boardState);
-                    targetCharacter.setHealth((byte) -99);
-                    return boardState;
-                }
+            this.effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+                Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
+                boardState = boardState.data_.modelForSide(originSide).getHero().takeHealAndNotify((byte) 5, originSide, boardState);
+                targetCharacter.setHealth((byte) -99);
+                return boardState;
             };
         }
         return this.effect;

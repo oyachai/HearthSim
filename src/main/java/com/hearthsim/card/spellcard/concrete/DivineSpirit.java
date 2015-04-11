@@ -53,15 +53,12 @@ public class DivineSpirit extends SpellTargetableCard {
     @Override
     public CardEffectCharacter getTargetableEffect() {
         if (this.effect == null) {
-            this.effect = new CardEffectCharacter() {
-                @Override
-                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
-                    Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
-                    byte healthDiff = targetCharacter.getHealth();
-                    targetCharacter.setHealth((byte)(targetCharacter.getHealth() * 2));
-                    targetCharacter.setMaxHealth((byte)(targetCharacter.getMaxHealth() + healthDiff));
-                    return boardState;
-                }
+            this.effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+                Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
+                byte healthDiff = targetCharacter.getHealth();
+                targetCharacter.setHealth((byte)(targetCharacter.getHealth() * 2));
+                targetCharacter.setMaxHealth((byte)(targetCharacter.getMaxHealth() + healthDiff));
+                return boardState;
             };
         }
         return this.effect;

@@ -52,14 +52,11 @@ public class Polymorph extends SpellTargetableCard {
     @Override
     public CardEffectCharacter getTargetableEffect() {
         if (this.effect == null) {
-            this.effect = new CardEffectCharacter() {
-                @Override
-                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
-                    Sheep sheep = new Sheep();
-                    boardState.data_.removeMinion(targetSide, targetCharacterIndex - 1);
-                    boardState.data_.placeMinion(targetSide, sheep, targetCharacterIndex - 1);
-                    return boardState;
-                }
+            this.effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+                Sheep sheep = new Sheep();
+                boardState.data_.removeMinion(targetSide, targetCharacterIndex - 1);
+                boardState.data_.placeMinion(targetSide, sheep, targetCharacterIndex - 1);
+                return boardState;
             };
         }
         return this.effect;

@@ -40,14 +40,11 @@ public class TheCoin extends SpellTargetableCard {
     @Override
     public CardEffectCharacter getTargetableEffect() {
         if (this.effect == null) {
-            this.effect = new CardEffectCharacter() {
-                @Override
-                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
-                    byte newMana = boardState.data_.getCurrentPlayer().getMana();
-                    newMana = newMana >= 10 ? newMana : (byte)(newMana + 1);
-                    boardState.data_.getCurrentPlayer().setMana(newMana);
-                    return boardState;
-                }
+            this.effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+                byte newMana = boardState.data_.getCurrentPlayer().getMana();
+                newMana = newMana >= 10 ? newMana : (byte)(newMana + 1);
+                boardState.data_.getCurrentPlayer().setMana(newMana);
+                return boardState;
             };
         }
         return this.effect;

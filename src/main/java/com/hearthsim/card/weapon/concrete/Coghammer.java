@@ -10,15 +10,11 @@ import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class Coghammer extends WeaponCard implements CardEffectOnResolveRandomCharacterInterface {
-    private static final CardEffectCharacter effect = new CardEffectCharacter() {
-
-        @Override
-        public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
-            Minion targetCharacter = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
-            targetCharacter.setDivineShield(true);
-            targetCharacter.setTaunt(true);
-            return boardState;
-        }
+    private static final CardEffectCharacter effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+        Minion targetCharacter = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
+        targetCharacter.setDivineShield(true);
+        targetCharacter.setTaunt(true);
+        return boardState;
     };
 
     @Override

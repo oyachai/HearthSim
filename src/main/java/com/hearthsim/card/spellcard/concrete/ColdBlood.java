@@ -50,14 +50,11 @@ public class ColdBlood extends SpellTargetableCard {
     @Override
     public CardEffectCharacter getTargetableEffect() {
         if (this.effect == null) {
-            this.effect = new CardEffectCharacter() {
-                @Override
-                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
-                    Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
-                    byte buffAmount = boardState.data_.getCurrentPlayer().isComboEnabled() ? (byte)4 : (byte)2;
-                    targetCharacter.addAttack(buffAmount);
-                    return boardState;
-                }
+            this.effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+                Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
+                byte buffAmount = boardState.data_.getCurrentPlayer().isComboEnabled() ? (byte)4 : (byte)2;
+                targetCharacter.addAttack(buffAmount);
+                return boardState;
             };
         }
         return this.effect;

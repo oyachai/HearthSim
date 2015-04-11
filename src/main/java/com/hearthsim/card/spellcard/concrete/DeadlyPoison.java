@@ -70,13 +70,10 @@ public class DeadlyPoison extends SpellTargetableCard {
     @Override
     public CardEffectCharacter getTargetableEffect() {
         if (this.effect == null) {
-            this.effect = new CardEffectCharacter() {
-                @Override
-                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
-                    Hero hero = (Hero)boardState.data_.getCharacter(targetSide, targetCharacterIndex);
-                    hero.setAttack((byte)(hero.getAttack() + 2));
-                    return boardState;
-                }
+            this.effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+                Hero hero = (Hero)boardState.data_.getCharacter(targetSide, targetCharacterIndex);
+                hero.setAttack((byte)(hero.getAttack() + 2));
+                return boardState;
             };
         }
         return this.effect;

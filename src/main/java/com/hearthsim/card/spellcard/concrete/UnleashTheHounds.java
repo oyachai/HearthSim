@@ -41,19 +41,16 @@ public class UnleashTheHounds extends SpellTargetableCard {
     @Override
     public CardEffectCharacter getTargetableEffect() {
         if (this.effect == null) {
-            this.effect = new CardEffectCharacter() {
-                @Override
-                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
-                    PlayerModel currentPlayer = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
-                    PlayerModel waitingPlayer = boardState.data_.modelForSide(PlayerSide.WAITING_PLAYER);
-                    int numHoundsToSummon = waitingPlayer.getNumMinions();
-                    if (numHoundsToSummon + currentPlayer.getNumMinions() > 7)
-                        numHoundsToSummon = 7 - currentPlayer.getNumMinions();
-                    for (int indx = 0; indx < numHoundsToSummon; ++indx) {
-                        boardState = new Hound().summonMinionAtEnd(PlayerSide.CURRENT_PLAYER, boardState, false, false);
-                    }
-                    return boardState;
+            this.effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+                PlayerModel currentPlayer = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+                PlayerModel waitingPlayer = boardState.data_.modelForSide(PlayerSide.WAITING_PLAYER);
+                int numHoundsToSummon = waitingPlayer.getNumMinions();
+                if (numHoundsToSummon + currentPlayer.getNumMinions() > 7)
+                    numHoundsToSummon = 7 - currentPlayer.getNumMinions();
+                for (int indx = 0; indx < numHoundsToSummon; ++indx) {
+                    boardState = new Hound().summonMinionAtEnd(PlayerSide.CURRENT_PLAYER, boardState, false, false);
                 }
+                return boardState;
             };
         }
         return this.effect;

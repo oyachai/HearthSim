@@ -60,13 +60,10 @@ public class HandOfProtection extends SpellTargetableCard {
     @Override
     public CardEffectCharacter getTargetableEffect() {
         if (this.effect == null) {
-            this.effect = new CardEffectCharacter() {
-                @Override
-                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
-                    Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
-                    targetCharacter.setDivineShield(true);
-                    return boardState;
-                }
+            this.effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+                Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
+                targetCharacter.setDivineShield(true);
+                return boardState;
             };
         }
         return this.effect;

@@ -54,17 +54,14 @@ public class WildGrowth extends SpellTargetableCard {
     @Override
     public CardEffectCharacter getTargetableEffect() {
         if (this.effect == null) {
-            this.effect = new CardEffectCharacter() {
-                @Override
-                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
-                    PlayerModel player = boardState.data_.modelForSide(targetSide);
-                    if (player.getMaxMana() >= 10) {
-                        player.placeCardHand(new ExcessMana());
-                    } else {
-                        player.addMaxMana((byte) 1);
-                    }
-                    return boardState;
+            this.effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+                PlayerModel player = boardState.data_.modelForSide(targetSide);
+                if (player.getMaxMana() >= 10) {
+                    player.placeCardHand(new ExcessMana());
+                } else {
+                    player.addMaxMana((byte) 1);
                 }
+                return boardState;
             };
         }
         return this.effect;

@@ -56,23 +56,20 @@ public class BattleRage extends SpellTargetableCard {
     @Override
     public CardEffectCharacter getTargetableEffect() {
         if (this.effect == null) {
-            this.effect = new CardEffectCharacter() {
-                @Override
-                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
-                    PlayerModel playerModel = boardState.data_.modelForSide(targetSide);
-                    Hero hero = playerModel.getHero();
-                    Iterable<Minion> minions = playerModel.getMinions();
-                    int numCardsToDraw = hero.getTotalHealth() < hero.getTotalMaxHealth() ? 1 : 0;
-                    for (Minion minion : minions) {
-                        numCardsToDraw += minion.getTotalHealth() < minion.getTotalMaxHealth() ? 1 : 0;
-                    }
-                    if (boardState instanceof CardDrawNode) {
-                        ((CardDrawNode) boardState).addNumCardsToDraw(numCardsToDraw);
-                    } else {
-                        boardState = new CardDrawNode(boardState, numCardsToDraw); //draw two cards
-                    }
-                    return boardState;
+            this.effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+                PlayerModel playerModel = boardState.data_.modelForSide(targetSide);
+                Hero hero = playerModel.getHero();
+                Iterable<Minion> minions = playerModel.getMinions();
+                int numCardsToDraw = hero.getTotalHealth() < hero.getTotalMaxHealth() ? 1 : 0;
+                for (Minion minion : minions) {
+                    numCardsToDraw += minion.getTotalHealth() < minion.getTotalMaxHealth() ? 1 : 0;
                 }
+                if (boardState instanceof CardDrawNode) {
+                    ((CardDrawNode) boardState).addNumCardsToDraw(numCardsToDraw);
+                } else {
+                    boardState = new CardDrawNode(boardState, numCardsToDraw); //draw two cards
+                }
+                return boardState;
             };
         }
         return this.effect;

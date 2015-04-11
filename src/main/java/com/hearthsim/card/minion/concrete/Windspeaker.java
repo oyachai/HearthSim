@@ -18,13 +18,10 @@ public class Windspeaker extends Minion implements MinionBattlecryInterface {
         protected boolean includeOwnMinions() { return true; }
     };
 
-    private final static CardEffectCharacter battlecryAction = new CardEffectCharacter() {
-        @Override
-        public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
-            Minion targetMinion = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
-            targetMinion.setWindfury(true);
-            return boardState;
-        }
+    private final static CardEffectCharacter battlecryAction = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+        Minion targetMinion = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
+        targetMinion.setWindfury(true);
+        return boardState;
     };
 
     public Windspeaker() {

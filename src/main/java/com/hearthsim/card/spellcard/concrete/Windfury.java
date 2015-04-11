@@ -2,14 +2,14 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.card.spellcard.SpellCardTargetable;
+import com.hearthsim.card.spellcard.SpellTargetableCard;
 import com.hearthsim.event.CharacterFilter;
 import com.hearthsim.event.CharacterFilterTargetedSpell;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class Windfury extends SpellCardTargetable {
+public class Windfury extends SpellTargetableCard {
 
     /**
      * Constructor
@@ -41,13 +41,10 @@ public class Windfury extends SpellCardTargetable {
     @Override
     public CardEffectCharacter getTargetableEffect() {
         if (this.effect == null) {
-            this.effect = new CardEffectCharacter() {
-                @Override
-                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
-                    Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
-                    targetCharacter.hasWindFuryAttacked(true);
-                    return boardState;
-                }
+            this.effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+                Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
+                targetCharacter.hasWindFuryAttacked(true);
+                return boardState;
             };
         }
         return this.effect;

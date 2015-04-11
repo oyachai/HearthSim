@@ -20,19 +20,16 @@ public class HungryCrab extends Minion implements MinionBattlecryInterface {
         protected MinionTribe tribeFilter() { return MinionTribe.MURLOC; }
     };
 
-    private final static CardEffectCharacter battlecryAction = new CardEffectCharacter() {
-        @Override
-        public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
-            Minion targetMinion = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
-            if (targetMinion.getTribe() == MinionTribe.MURLOC) {
-                targetMinion.setHealth((byte) -99);
-                ((Minion)origin).addAttack((byte) 2);
-                ((Minion)origin).addHealth((byte) 2);
-                ((Minion)origin).addMaxHealth((byte) 2);
-                return boardState;
-            } else {
-                return null;
-            }
+    private final static CardEffectCharacter battlecryAction = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+        Minion targetMinion = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
+        if (targetMinion.getTribe() == MinionTribe.MURLOC) {
+            targetMinion.setHealth((byte) -99);
+            ((Minion)origin).addAttack((byte) 2);
+            ((Minion)origin).addHealth((byte) 2);
+            ((Minion)origin).addMaxHealth((byte) 2);
+            return boardState;
+        } else {
+            return null;
         }
     };
 

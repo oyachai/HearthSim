@@ -52,14 +52,11 @@ public class Hex extends SpellTargetableCard {
     @Override
     public CardEffectCharacter getTargetableEffect() {
         if (this.effect == null) {
-            this.effect = new CardEffectCharacter() {
-                @Override
-                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
-                    Frog frog = new Frog();
-                    boardState.data_.removeMinion(targetSide, targetCharacterIndex - 1);
-                    boardState.data_.placeMinion(targetSide, frog, targetCharacterIndex - 1);
-                    return boardState;
-                }
+            this.effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+                Frog frog = new Frog();
+                boardState.data_.removeMinion(targetSide, targetCharacterIndex - 1);
+                boardState.data_.placeMinion(targetSide, frog, targetCharacterIndex - 1);
+                return boardState;
             };
         }
         return this.effect;

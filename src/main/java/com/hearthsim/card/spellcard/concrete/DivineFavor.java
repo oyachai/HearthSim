@@ -61,24 +61,21 @@ public class DivineFavor extends SpellTargetableCard {
     @Override
     public CardEffectCharacter getTargetableEffect() {
         if (this.effect == null) {
-            this.effect = new CardEffectCharacter() {
-                @Override
-                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
-                    PlayerModel currentPlayer = boardState.data_.modelForSide(originSide);
-                    PlayerModel waitingPlayer = boardState.data_.modelForSide(targetSide);
+            this.effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+                PlayerModel currentPlayer = boardState.data_.modelForSide(originSide);
+                PlayerModel waitingPlayer = boardState.data_.modelForSide(targetSide);
 
-                    int numCardsToDraw = waitingPlayer.getHand().size() - currentPlayer.getHand().size() + 1;
-                    if (numCardsToDraw < 1) {
-                        return null;
-                    }
-
-                    if (boardState instanceof CardDrawNode) {
-                        ((CardDrawNode) boardState).addNumCardsToDraw(numCardsToDraw);
-                    } else {
-                        boardState = new CardDrawNode(boardState, numCardsToDraw); //draw two cards
-                    }
-                    return boardState;
+                int numCardsToDraw = waitingPlayer.getHand().size() - currentPlayer.getHand().size() + 1;
+                if (numCardsToDraw < 1) {
+                    return null;
                 }
+
+                if (boardState instanceof CardDrawNode) {
+                    ((CardDrawNode) boardState).addNumCardsToDraw(numCardsToDraw);
+                } else {
+                    boardState = new CardDrawNode(boardState, numCardsToDraw); //draw two cards
+                }
+                return boardState;
             };
         }
         return this.effect;

@@ -42,18 +42,15 @@ public class LayOnHands extends SpellTargetableCard {
     @Override
     public CardEffectCharacter getTargetableEffect() {
         if (this.effect == null) {
-            this.effect = new CardEffectCharacter() {
-                @Override
-                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
-                    Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
-                    boardState = targetCharacter.takeHealAndNotify((byte) 8, targetSide, boardState);
-                    if (boardState instanceof CardDrawNode)
-                        ((CardDrawNode) boardState).addNumCardsToDraw(3);
-                    else
-                        boardState = new CardDrawNode(boardState, 3); //draw three cards
+            this.effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+                Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
+                boardState = targetCharacter.takeHealAndNotify((byte) 8, targetSide, boardState);
+                if (boardState instanceof CardDrawNode)
+                    ((CardDrawNode) boardState).addNumCardsToDraw(3);
+                else
+                    boardState = new CardDrawNode(boardState, 3); //draw three cards
 
-                    return boardState;
-                }
+                return boardState;
             };
         }
         return this.effect;

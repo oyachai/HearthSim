@@ -15,18 +15,15 @@ public class ColdlightOracle extends Minion implements MinionBattlecryInterface 
 
     @Override
     public CardEffectCharacter getBattlecryEffect() {
-        return new CardEffectCharacter<Minion>() {
-            @Override
-            public HearthTreeNode applyEffect(PlayerSide originSide, Minion origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
-                HearthTreeNode toRet = boardState;
-                if (toRet instanceof CardDrawNode)
-                    ((CardDrawNode) toRet).addNumCardsToDraw(2);
-                else
-                    toRet = new CardDrawNode(toRet, 2); //draw two cards
+        return (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+            HearthTreeNode toRet = boardState;
+            if (toRet instanceof CardDrawNode)
+                ((CardDrawNode) toRet).addNumCardsToDraw(2);
+            else
+                toRet = new CardDrawNode(toRet, 2); //draw two cards
 
-                toRet.data_.drawCardFromWaitingPlayerDeck(2);
-                return toRet;
-            }
+            toRet.data_.drawCardFromWaitingPlayerDeck(2);
+            return toRet;
         };
     }
 }

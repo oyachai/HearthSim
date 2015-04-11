@@ -42,17 +42,14 @@ public class ShieldBlock extends SpellTargetableCard {
     @Override
     public CardEffectCharacter getTargetableEffect() {
         if (this.effect == null) {
-            this.effect = new CardEffectCharacter() {
-                @Override
-                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
-                    boardState.data_.getCurrentPlayer().getHero().setArmor((byte)(boardState.data_.getCurrentPlayer().getHero().getArmor() + 5));
-                    if (boardState instanceof CardDrawNode) {
-                        ((CardDrawNode) boardState).addNumCardsToDraw(1);
-                    } else {
-                        boardState = new CardDrawNode(boardState, 1); //draw two cards
-                    }
-                    return boardState;
+            this.effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+                boardState.data_.getCurrentPlayer().getHero().setArmor((byte)(boardState.data_.getCurrentPlayer().getHero().getArmor() + 5));
+                if (boardState instanceof CardDrawNode) {
+                    ((CardDrawNode) boardState).addNumCardsToDraw(1);
+                } else {
+                    boardState = new CardDrawNode(boardState, 1); //draw two cards
                 }
+                return boardState;
             };
         }
         return this.effect;

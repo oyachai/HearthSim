@@ -18,16 +18,13 @@ public class CaptainGreenskin extends Minion implements MinionBattlecryInterface
      */
     @Override
     public CardEffectCharacter getBattlecryEffect() {
-        return new CardEffectCharacter<Minion>() {
-            @Override
-            public HearthTreeNode applyEffect(PlayerSide originSide, Minion origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
-                WeaponCard weapon = boardState.data_.getCurrentPlayer().getHero().getWeapon();
-                if (weapon != null) {
-                    weapon.setWeaponDamage((byte) (weapon.getWeaponDamage() + 1));
-                    weapon.setWeaponCharge((byte)(weapon.getWeaponCharge() + 1));
-                }
-                return boardState;
+        return (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+            WeaponCard weapon = boardState.data_.getCurrentPlayer().getHero().getWeapon();
+            if (weapon != null) {
+                weapon.setWeaponDamage((byte) (weapon.getWeaponDamage() + 1));
+                weapon.setWeaponCharge((byte)(weapon.getWeaponCharge() + 1));
             }
+            return boardState;
         };
     }
 }

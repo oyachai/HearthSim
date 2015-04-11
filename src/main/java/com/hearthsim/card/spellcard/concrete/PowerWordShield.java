@@ -42,20 +42,17 @@ public class PowerWordShield extends SpellTargetableCard {
     @Override
     public CardEffectCharacter getTargetableEffect() {
         if (this.effect == null) {
-            this.effect = new CardEffectCharacter() {
-                @Override
-                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
-                    Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
-                    targetCharacter.setHealth((byte)(targetCharacter.getHealth() + 2));
-                    targetCharacter.setMaxHealth((byte)(targetCharacter.getMaxHealth() + 2));
+            this.effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+                Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
+                targetCharacter.setHealth((byte)(targetCharacter.getHealth() + 2));
+                targetCharacter.setMaxHealth((byte)(targetCharacter.getMaxHealth() + 2));
 
-                    if (boardState instanceof CardDrawNode) {
-                        ((CardDrawNode) boardState).addNumCardsToDraw(1);
-                    } else {
-                        boardState = new CardDrawNode(boardState, 1); //draw two cards
-                    }
-                    return boardState;
+                if (boardState instanceof CardDrawNode) {
+                    ((CardDrawNode) boardState).addNumCardsToDraw(1);
+                } else {
+                    boardState = new CardDrawNode(boardState, 1); //draw two cards
                 }
+                return boardState;
             };
         }
         return this.effect;

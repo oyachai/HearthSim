@@ -43,18 +43,15 @@ public class TotemicMight extends SpellTargetableCard {
     @Override
     public CardEffectCharacter getTargetableEffect() {
         if (this.effect == null) {
-            this.effect = new CardEffectCharacter() {
-                @Override
-                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
-                    PlayerModel currentPlayer = boardState.data_.modelForSide(originSide);
-                    for (Minion minion : currentPlayer.getMinions()) {
-                        if (minion.getTribe() == MinionTribe.TOTEM) {
-                            minion.setHealth((byte)(2 + minion.getHealth()));
-                            minion.setMaxHealth((byte)(2 + minion.getMaxHealth()));
-                        }
+            this.effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+                PlayerModel currentPlayer = boardState.data_.modelForSide(originSide);
+                for (Minion minion : currentPlayer.getMinions()) {
+                    if (minion.getTribe() == MinionTribe.TOTEM) {
+                        minion.setHealth((byte)(2 + minion.getHealth()));
+                        minion.setMaxHealth((byte)(2 + minion.getMaxHealth()));
                     }
-                    return boardState;
                 }
+                return boardState;
             };
         }
         return this.effect;

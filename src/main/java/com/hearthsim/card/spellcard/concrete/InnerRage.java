@@ -52,14 +52,11 @@ public class InnerRage extends SpellTargetableCard {
     @Override
     public CardEffectCharacter getTargetableEffect() {
         if (this.effect == null) {
-            this.effect = new CardEffectCharacter() {
-                @Override
-                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
-                    Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
-                    boardState = targetCharacter.takeDamageAndNotify((byte)1, originSide, targetSide, boardState, true, false);
-                    targetCharacter.setAttack((byte) (targetCharacter.getAttack() + 2));
-                    return boardState;
-                }
+            this.effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+                Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
+                boardState = targetCharacter.takeDamageAndNotify((byte)1, originSide, targetSide, boardState, true, false);
+                targetCharacter.setAttack((byte) (targetCharacter.getAttack() + 2));
+                return boardState;
             };
         }
         return this.effect;

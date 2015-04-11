@@ -55,23 +55,20 @@ public class MirrorImage extends SpellTargetableCard {
     @Override
     public CardEffectCharacter getTargetableEffect() {
         if (this.effect == null) {
-            this.effect = new CardEffectCharacter() {
-                @Override
-                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
-                    PlayerModel currentPlayer = boardState.data_.modelForSide(targetSide);
-                    if (currentPlayer.isBoardFull()) {
-                        return null;
-                    }
-
-                    Minion mi0 = new MirrorImageMinion();
-                    boardState = mi0.summonMinionAtEnd(targetSide, boardState, false, false);
-
-                    if (!currentPlayer.isBoardFull()) {
-                        Minion mi1 = new MirrorImageMinion();
-                        boardState = mi1.summonMinionAtEnd(targetSide, boardState, false, false);
-                    }
-                    return boardState;
+            this.effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+                PlayerModel currentPlayer = boardState.data_.modelForSide(targetSide);
+                if (currentPlayer.isBoardFull()) {
+                    return null;
                 }
+
+                Minion mi0 = new MirrorImageMinion();
+                boardState = mi0.summonMinionAtEnd(targetSide, boardState, false, false);
+
+                if (!currentPlayer.isBoardFull()) {
+                    Minion mi1 = new MirrorImageMinion();
+                    boardState = mi1.summonMinionAtEnd(targetSide, boardState, false, false);
+                }
+                return boardState;
             };
         }
         return this.effect;
