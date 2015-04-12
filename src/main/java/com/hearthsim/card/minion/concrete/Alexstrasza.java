@@ -13,8 +13,12 @@ public class Alexstrasza extends Minion implements MinionBattlecryInterface {
      * Battlecry: Set a hero's remaining health to 15
      */
     private final static CharacterFilterTargetedBattlecry filter = new CharacterFilterTargetedBattlecry() {
-        protected boolean includeEnemyHero() { return true; }
-        protected boolean includeOwnHero() { return true; }
+        protected boolean includeEnemyHero() {
+            return true;
+        }
+        protected boolean includeOwnHero() {
+            return true;
+        }
     };
 
     private final static CardEffectCharacter battlecryAction = new CardEffectCharacterBuff(0, 15);

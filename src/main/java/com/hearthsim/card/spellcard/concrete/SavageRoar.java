@@ -29,7 +29,9 @@ public class SavageRoar extends SpellCard implements CardEffectOnResolveAoeInter
     }
 
     @Override
-    public CardEffectCharacter getAoeEffect() { return SavageRoar.effect; }
+    public CardEffectCharacter getAoeEffect() {
+        return SavageRoar.effect;
+    }
 
     @Override
     public CharacterFilter getAoeFilter() {

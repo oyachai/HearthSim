@@ -65,40 +65,60 @@ public class CharacterFilter implements CharacterFilterInterface {
 
     public final static CharacterFilter ALL = new CharacterFilterTargetedSpell() {
         @Override
-        protected boolean includeEnemyHero() { return true; }
+        protected boolean includeEnemyHero() {
+            return true;
+        }
 
         @Override
-        protected boolean includeEnemyMinions() { return true; }
+        protected boolean includeEnemyMinions() {
+            return true;
+        }
 
         @Override
-        protected boolean includeOwnHero() { return true; }
+        protected boolean includeOwnHero() {
+            return true;
+        }
 
         @Override
-        protected boolean includeOwnMinions() { return true; }
+        protected boolean includeOwnMinions() {
+            return true;
+        }
     };
 
     public final static CharacterFilter ALL_ENEMIES = new CharacterFilter() {
         @Override
-        protected boolean includeEnemyHero() { return true; }
+        protected boolean includeEnemyHero() {
+            return true;
+        }
 
         @Override
-        protected boolean includeEnemyMinions() { return true; }
+        protected boolean includeEnemyMinions() {
+            return true;
+        }
     };
 
     public final static CharacterFilter ALL_FRIENDLIES = new CharacterFilter() {
         @Override
-        protected boolean includeOwnHero() { return true; }
+        protected boolean includeOwnHero() {
+            return true;
+        }
 
         @Override
-        protected boolean includeOwnMinions() { return true; }
+        protected boolean includeOwnMinions() {
+            return true;
+        }
     };
 
     public final static CharacterFilter ALL_MINIONS = new CharacterFilter() {
         @Override
-        protected boolean includeEnemyMinions() { return true; }
+        protected boolean includeEnemyMinions() {
+            return true;
+        }
 
         @Override
-        protected boolean includeOwnMinions() { return true; }
+        protected boolean includeOwnMinions() {
+            return true;
+        }
     };
 
 //    public final static CharacterFilter ALL_HEROES = new CharacterFilter() {
@@ -111,21 +131,29 @@ public class CharacterFilter implements CharacterFilterInterface {
 
     public final static CharacterFilter ENEMY_MINIONS = new CharacterFilter() {
         @Override
-        protected boolean includeEnemyMinions() { return true; }
+        protected boolean includeEnemyMinions() {
+            return true;
+        }
     };
 
     public final static CharacterFilter FRIENDLY_MINIONS = new CharacterFilter() {
         @Override
-        protected boolean includeOwnMinions() { return true; }
+        protected boolean includeOwnMinions() {
+            return true;
+        }
     };
 
     public final static CharacterFilter SELF = new CharacterFilter() {
         @Override
-        protected boolean includeOwnHero() { return true; }
+        protected boolean includeOwnHero() {
+            return true;
+        }
     };
 
     public final static CharacterFilter OPPONENT = new CharacterFilter() {
         @Override
-        protected boolean includeEnemyHero() { return true; }
+        protected boolean includeEnemyHero() {
+            return true;
+        }
     };
 }

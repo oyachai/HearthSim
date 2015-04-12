@@ -9,8 +9,12 @@ import com.hearthsim.event.effect.CardEffectCharacter;
 public class Spellbreaker extends Minion implements MinionBattlecryInterface {
 
     private final static CharacterFilterTargetedBattlecry filter = new CharacterFilterTargetedBattlecry() {
-        protected boolean includeEnemyMinions() { return true; }
-        protected boolean includeOwnMinions() { return true; }
+        protected boolean includeEnemyMinions() {
+            return true;
+        }
+        protected boolean includeOwnMinions() {
+            return true;
+        }
     };
 
     private final static CardEffectCharacter battlecryAction = CardEffectCharacter.SILENCE;

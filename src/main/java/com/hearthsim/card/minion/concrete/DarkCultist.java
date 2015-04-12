@@ -12,7 +12,9 @@ public class DarkCultist extends Minion {
 
     private final static CharacterFilterUntargetedDeathrattle filter = new CharacterFilterUntargetedDeathrattle() {
         @Override
-        protected boolean includeOwnMinions() { return true; }
+        protected boolean includeOwnMinions() {
+            return true;
+        }
     };
 
     public DarkCultist() {

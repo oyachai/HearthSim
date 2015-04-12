@@ -8,7 +8,9 @@ public class DeathrattleMindControl extends DeathrattleEffectRandomMinion {
     public DeathrattleMindControl() {
         super(CardEffectCharacter.MIND_CONTROL, new CharacterFilterUntargetedDeathrattle(){
             @Override
-            protected boolean includeEnemyMinions() { return true; }
+            protected boolean includeEnemyMinions() {
+                return true;
+            }
         });
     }
 

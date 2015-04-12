@@ -17,7 +17,9 @@ public class Flamestrike extends SpellDamage implements CardEffectOnResolveAoeIn
     }
 
     @Override
-    public CardEffectCharacter getAoeEffect() { return this.getSpellDamageEffect(); }
+    public CardEffectCharacter getAoeEffect() {
+        return this.getSpellDamageEffect();
+    }
 
     @Override
     public CharacterFilter getAoeFilter() {

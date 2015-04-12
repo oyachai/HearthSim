@@ -9,7 +9,9 @@ import com.hearthsim.event.effect.CardEffectCharacter;
 public class YouthfulBrewmaster extends Minion implements MinionBattlecryInterface {
 
     private final static CharacterFilterTargetedBattlecry filter = new CharacterFilterTargetedBattlecry() {
-        protected boolean includeOwnMinions() { return true; }
+        protected boolean includeOwnMinions() {
+            return true;
+        }
     };
 
     private final static CardEffectCharacter effect = CardEffectCharacter.BOUNCE;

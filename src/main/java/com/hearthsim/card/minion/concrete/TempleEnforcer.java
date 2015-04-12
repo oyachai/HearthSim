@@ -13,7 +13,9 @@ public class TempleEnforcer extends Minion implements MinionBattlecryInterface {
      * Battlecry: Give a friendly minion +3 Health
      */
     private final static CharacterFilterTargetedBattlecry filter = new CharacterFilterTargetedBattlecry() {
-        protected boolean includeOwnMinions() { return true; }
+        protected boolean includeOwnMinions() {
+            return true;
+        }
     };
 
     private final static CardEffectCharacter battlecryAction = new CardEffectCharacterBuffDelta(0, 3);

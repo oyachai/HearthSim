@@ -17,7 +17,9 @@ public class Whirlwind extends SpellDamage implements CardEffectOnResolveAoeInte
     }
 
     @Override
-    public CardEffectCharacter getAoeEffect() { return this.getSpellDamageEffect(); }
+    public CardEffectCharacter getAoeEffect() {
+        return this.getSpellDamageEffect();
+    }
 
     @Override
     public CharacterFilter getAoeFilter() {

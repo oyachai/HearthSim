@@ -12,9 +12,15 @@ public class HungryCrab extends Minion implements MinionBattlecryInterface {
      * Battlecry: Destroy a murloc and gain +2/+2
      */
     private final static CharacterFilterTargetedBattlecry filter = new CharacterFilterTargetedBattlecry() {
-        protected boolean includeEnemyMinions() { return true; }
-        protected boolean includeOwnMinions() { return true; }
-        protected MinionTribe tribeFilter() { return MinionTribe.MURLOC; }
+        protected boolean includeEnemyMinions() {
+            return true;
+        }
+        protected boolean includeOwnMinions() {
+            return true;
+        }
+        protected MinionTribe tribeFilter() {
+            return MinionTribe.MURLOC;
+        }
     };
 
     private final static CardEffectCharacter battlecryAction = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {

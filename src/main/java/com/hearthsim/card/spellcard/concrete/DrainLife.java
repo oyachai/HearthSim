@@ -12,13 +12,19 @@ public class DrainLife extends SpellDamageTargetableCard {
 
     private static final CharacterFilter filter = new CharacterFilterTargetedSpell() {
         @Override
-        protected boolean includeEnemyHero() { return true; }
+        protected boolean includeEnemyHero() {
+            return true;
+        }
 
         @Override
-        protected boolean includeEnemyMinions() { return true; }
+        protected boolean includeEnemyMinions() {
+            return true;
+        }
 
         @Override
-        protected boolean includeOwnMinions() { return true; }
+        protected boolean includeOwnMinions() {
+            return true;
+        }
     };
 
     public DrainLife() {

@@ -29,7 +29,9 @@ public class Equality extends SpellCard implements CardEffectOnResolveAoeInterfa
     }
 
     @Override
-    public CardEffectCharacter getAoeEffect() { return Equality.effect; }
+    public CardEffectCharacter getAoeEffect() {
+        return Equality.effect;
+    }
 
     @Override
     public CharacterFilter getAoeFilter() {

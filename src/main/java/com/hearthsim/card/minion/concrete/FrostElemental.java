@@ -12,8 +12,12 @@ public class FrostElemental extends Minion implements MinionBattlecryInterface {
      * Battlecry: Freeze a character
      */
     private final static CharacterFilterTargetedBattlecry filter = new CharacterFilterTargetedBattlecry() {
-        protected boolean includeEnemyHero() { return true; }
-        protected boolean includeEnemyMinions() { return true; }
+        protected boolean includeEnemyHero() {
+            return true;
+        }
+        protected boolean includeEnemyMinions() {
+            return true;
+        }
 //        protected boolean includeOwnHero() { return true; }
 //        protected boolean includeOwnMinions() { return true; }
     };

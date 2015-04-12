@@ -12,7 +12,9 @@ import com.hearthsim.model.PlayerSide;
 public class Execute extends SpellTargetableCard {
 
     private final static CharacterFilter filter = new CharacterFilterTargetedSpell() {
-        protected boolean includeEnemyMinions() { return true; }
+        protected boolean includeEnemyMinions() {
+            return true;
+        }
 
         @Override
         public boolean targetMatches(PlayerSide originSide, Card origin, PlayerSide targetSide, Minion targetCharacter, BoardModel board) {

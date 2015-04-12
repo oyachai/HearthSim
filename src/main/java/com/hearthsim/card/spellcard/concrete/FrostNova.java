@@ -15,7 +15,9 @@ public class FrostNova extends SpellCard implements CardEffectOnResolveAoeInterf
     }
 
     @Override
-    public CardEffectCharacter getAoeEffect() { return CardEffectCharacter.FREEZE; }
+    public CardEffectCharacter getAoeEffect() {
+        return CardEffectCharacter.FREEZE;
+    }
 
     @Override
     public CharacterFilter getAoeFilter() {

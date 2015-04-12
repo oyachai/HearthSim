@@ -12,8 +12,12 @@ public class CrazedAlchemist extends Minion implements MinionBattlecryInterface 
      * Battlecry: Swap the Attack and Health of a minion
      */
     private final static CharacterFilterTargetedBattlecry filter = new CharacterFilterTargetedBattlecry() {
-        protected boolean includeEnemyMinions() { return true; }
-        protected boolean includeOwnMinions() { return true; }
+        protected boolean includeEnemyMinions() {
+            return true;
+        }
+        protected boolean includeOwnMinions() {
+            return true;
+        }
     };
 
     private final static CardEffectCharacter battlecryAction = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {

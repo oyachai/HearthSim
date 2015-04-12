@@ -28,7 +28,9 @@ public class Consecration extends SpellDamage implements CardEffectOnResolveAoeI
     }
 
     @Override
-    public CardEffectCharacter getAoeEffect() { return this.getSpellDamageEffect(); }
+    public CardEffectCharacter getAoeEffect() {
+        return this.getSpellDamageEffect();
+    }
 
     @Override
     public CharacterFilter getAoeFilter() {

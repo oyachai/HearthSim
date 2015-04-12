@@ -12,7 +12,9 @@ public class TwistingNether extends SpellCard implements CardEffectOnResolveAoeI
     }
 
     @Override
-    public CardEffectCharacter getAoeEffect() { return CardEffectCharacter.DESTROY; }
+    public CardEffectCharacter getAoeEffect() {
+        return CardEffectCharacter.DESTROY;
+    }
 
     @Override
     public CharacterFilter getAoeFilter() {

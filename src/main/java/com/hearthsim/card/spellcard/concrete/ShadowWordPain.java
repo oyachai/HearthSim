@@ -13,10 +13,14 @@ public class ShadowWordPain extends SpellTargetableCard {
 
     private final static CharacterFilter filter = new CharacterFilterTargetedSpell() {
         @Override
-        protected boolean includeEnemyMinions() { return true; }
+        protected boolean includeEnemyMinions() {
+            return true;
+        }
 
         @Override
-        protected boolean includeOwnMinions() { return true; }
+        protected boolean includeOwnMinions() {
+            return true;
+        }
 
         @Override
         public boolean targetMatches(PlayerSide originSide, Card origin, PlayerSide targetSide, Minion targetCharacter, BoardModel board) {

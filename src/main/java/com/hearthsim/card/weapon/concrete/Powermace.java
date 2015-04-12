@@ -12,10 +12,14 @@ public class Powermace extends WeaponCard {
 
     private final static CharacterFilterUntargetedDeathrattle filter = new CharacterFilterUntargetedDeathrattle() {
         @Override
-        protected boolean includeOwnMinions() { return true; }
+        protected boolean includeOwnMinions() {
+            return true;
+        }
 
         @Override
-        protected Minion.MinionTribe tribeFilter() { return Minion.MinionTribe.MECH; }
+        protected Minion.MinionTribe tribeFilter() {
+            return Minion.MinionTribe.MECH;
+        }
     };
 
     public Powermace() {

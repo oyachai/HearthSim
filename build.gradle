@@ -3,6 +3,9 @@ apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'jacoco'
 apply plugin: 'checkstyle'
+checkstyle {
+    toolVersion = "6.5"
+}
 apply plugin: 'pmd'
 apply plugin: "groovy"
 

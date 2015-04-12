@@ -12,8 +12,12 @@ public class IronbeakOwl extends Minion implements MinionBattlecryInterface {
      * Battlecry: Silence a minion
      */
     private final static CharacterFilterTargetedBattlecry filter = new CharacterFilterTargetedBattlecry() {
-        protected boolean includeEnemyMinions() { return true; }
-        protected boolean includeOwnMinions() { return true; }
+        protected boolean includeEnemyMinions() {
+            return true;
+        }
+        protected boolean includeOwnMinions() {
+            return true;
+        }
     };
 
     private final static CardEffectCharacter battlecryAction = CardEffectCharacter.SILENCE;

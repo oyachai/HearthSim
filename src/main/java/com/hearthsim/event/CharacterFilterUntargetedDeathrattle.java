@@ -6,8 +6,12 @@ import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 
 public abstract class CharacterFilterUntargetedDeathrattle extends CharacterFilter {
-    protected boolean includeDead() { return false; }
-    protected boolean includeSelf() { return false; }
+    protected boolean includeDead() {
+        return false;
+    }
+    protected boolean includeSelf() {
+        return false;
+    }
 
     @Override
     public boolean targetMatches(PlayerSide originSide, Card origin, PlayerSide targetSide, Minion targetCharacter, BoardModel board) {

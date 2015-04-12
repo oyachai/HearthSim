@@ -11,8 +11,12 @@ import com.hearthsim.model.PlayerSide;
 public class Backstab extends SpellDamageTargetableCard {
 
     private final static CharacterFilter filter = new CharacterFilterTargetedSpell() {
-        protected boolean includeEnemyMinions() { return true; }
-        protected boolean includeOwnMinions() { return true; }
+        protected boolean includeEnemyMinions() {
+            return true;
+        }
+        protected boolean includeOwnMinions() {
+            return true;
+        }
 
         @Override
         public boolean targetMatches(PlayerSide originSide, Card origin, PlayerSide targetSide, Minion targetCharacter, BoardModel board) {

@@ -15,8 +15,12 @@ public class Rampage extends SpellTargetableCard {
     private final static CardEffectCharacter effect = new CardEffectCharacterBuffDelta(3, 3);
 
     private final static CharacterFilter filter = new CharacterFilterTargetedSpell() {
-        protected boolean includeEnemyMinions() { return true; }
-        protected boolean includeOwnMinions() { return true; }
+        protected boolean includeEnemyMinions() {
+            return true;
+        }
+        protected boolean includeOwnMinions() {
+            return true;
+        }
 
         @Override
         public boolean targetMatches(PlayerSide originSide, Card origin, PlayerSide targetSide, Minion targetCharacter, BoardModel board) {

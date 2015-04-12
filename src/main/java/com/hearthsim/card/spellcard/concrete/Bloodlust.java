@@ -24,7 +24,9 @@ public class Bloodlust extends SpellCard implements CardEffectOnResolveAoeInterf
     }
 
     @Override
-    public CardEffectCharacter getAoeEffect() { return Bloodlust.effect; }
+    public CardEffectCharacter getAoeEffect() {
+        return Bloodlust.effect;
+    }
 
     @Override
     public CharacterFilter getAoeFilter() {

@@ -14,7 +14,9 @@ public class DeadlyPoison extends SpellTargetableCard {
 
     private final static CharacterFilter filter = new CharacterFilterTargetedSpell() {
         @Override
-        protected boolean includeOwnHero() { return true; }
+        protected boolean includeOwnHero() {
+            return true;
+        }
 
         @Override
         public boolean targetMatches(PlayerSide originSide, Card origin, PlayerSide targetSide, Minion targetCharacter, BoardModel board) {

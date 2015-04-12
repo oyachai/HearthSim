@@ -13,8 +13,12 @@ public class Houndmaster extends Minion implements MinionBattlecryInterface {
      * Battlecry: Give a friendly beast +2/+2 and Taunt
      */
     private final static CharacterFilterTargetedBattlecry filter = new CharacterFilterTargetedBattlecry() {
-        protected boolean includeOwnMinions() { return true; }
-        protected MinionTribe tribeFilter() { return MinionTribe.BEAST; }
+        protected boolean includeOwnMinions() {
+            return true;
+        }
+        protected MinionTribe tribeFilter() {
+            return MinionTribe.BEAST;
+        }
     };
 
     private final static CardEffectCharacter battlecryAction = new CardEffectCharacterBuffDelta(2, 2, true);

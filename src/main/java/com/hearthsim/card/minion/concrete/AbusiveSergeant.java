@@ -13,8 +13,12 @@ public class AbusiveSergeant extends Minion implements MinionBattlecryInterface 
      * Battlecry: Give a minion +2 attack this turn
      */
     private final static CharacterFilterTargetedBattlecry filter = new CharacterFilterTargetedBattlecry() {
-        protected boolean includeEnemyMinions() { return true; }
-        protected boolean includeOwnMinions() { return true; }
+        protected boolean includeEnemyMinions() {
+            return true;
+        }
+        protected boolean includeOwnMinions() {
+            return true;
+        }
     };
 
     private final static CardEffectCharacter<Minion> battlecryAction = new CardEffectCharacterBuffTemp<>(2);

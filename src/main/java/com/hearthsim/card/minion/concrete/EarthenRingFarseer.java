@@ -13,10 +13,18 @@ public class EarthenRingFarseer extends Minion implements MinionBattlecryInterfa
      * Battlecry: Give a minion +2 attack this turn
      */
     private final static CharacterFilterTargetedBattlecry filter = new CharacterFilterTargetedBattlecry() {
-        protected boolean includeEnemyHero() { return true; }
-        protected boolean includeEnemyMinions() { return true; }
-        protected boolean includeOwnHero() { return true; }
-        protected boolean includeOwnMinions() { return true; }
+        protected boolean includeEnemyHero() {
+            return true;
+        }
+        protected boolean includeEnemyMinions() {
+            return true;
+        }
+        protected boolean includeOwnHero() {
+            return true;
+        }
+        protected boolean includeOwnMinions() {
+            return true;
+        }
     };
 
     private final static CardEffectCharacter battlecryAction = new CardEffectCharacterHeal(3);

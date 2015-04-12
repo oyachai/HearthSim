@@ -32,7 +32,9 @@ public class HolyNova extends SpellDamage implements CardEffectOnResolveAoeInter
     }
 
     @Override
-    public CardEffectCharacter getAoeEffect() { return this.getSpellDamageEffect(); }
+    public CardEffectCharacter getAoeEffect() {
+        return this.getSpellDamageEffect();
+    }
 
     @Override
     public CharacterFilter getAoeFilter() {

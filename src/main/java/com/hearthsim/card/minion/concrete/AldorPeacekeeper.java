@@ -13,7 +13,9 @@ public class AldorPeacekeeper extends Minion implements MinionBattlecryInterface
      * Battlecry: Change an enemy minion's attack to 1
      */
     private final static CharacterFilterTargetedBattlecry filter = new CharacterFilterTargetedBattlecry() {
-        protected boolean includeEnemyMinions() { return true; }
+        protected boolean includeEnemyMinions() {
+            return true;
+        }
     };
 
     private final static CardEffectCharacter<Minion> battlecryAction = new CardEffectCharacterBuff<>(1, 0);

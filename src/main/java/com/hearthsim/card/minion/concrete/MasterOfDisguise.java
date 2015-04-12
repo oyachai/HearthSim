@@ -9,7 +9,9 @@ import com.hearthsim.event.effect.CardEffectCharacter;
 public class MasterOfDisguise extends Minion implements MinionBattlecryInterface {
 
     private final static CharacterFilterTargetedBattlecry filter = new CharacterFilterTargetedBattlecry() {
-        protected boolean includeOwnMinions() { return true; }
+        protected boolean includeOwnMinions() {
+            return true;
+        }
     };
 
     private final static CardEffectCharacter battlecryAction = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {

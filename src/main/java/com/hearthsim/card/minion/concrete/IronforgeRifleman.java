@@ -13,10 +13,18 @@ public class IronforgeRifleman extends Minion implements MinionBattlecryInterfac
      * Battlecry: Deal 1 damage to a chosen target
      */
     private final static CharacterFilterTargetedBattlecry filter = new CharacterFilterTargetedBattlecry() {
-        protected boolean includeEnemyHero() { return true; }
-        protected boolean includeEnemyMinions() { return true; }
-        protected boolean includeOwnHero() { return true; }
-        protected boolean includeOwnMinions() { return true; }
+        protected boolean includeEnemyHero() {
+            return true;
+        }
+        protected boolean includeEnemyMinions() {
+            return true;
+        }
+        protected boolean includeOwnHero() {
+            return true;
+        }
+        protected boolean includeOwnMinions() {
+            return true;
+        }
     };
 
     private final static CardEffectCharacter battlecryAction = new CardEffectCharacterDamage(1);

@@ -21,6 +21,8 @@ public class CharacterFilterSummon extends CharacterFilter {
 
     public final static CharacterFilter SELF = new CharacterFilterSummon() {
         @Override
-        protected boolean includeOwnHero() { return true; }
+        protected boolean includeOwnHero() {
+            return true;
+        }
     };
 }

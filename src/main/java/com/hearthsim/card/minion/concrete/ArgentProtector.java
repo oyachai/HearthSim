@@ -12,7 +12,9 @@ public class ArgentProtector extends Minion implements MinionBattlecryInterface 
      * Battlecry: Give a friendly minion Divine Shield
      */
     private final static CharacterFilterTargetedBattlecry filter = new CharacterFilterTargetedBattlecry() {
-        protected boolean includeOwnMinions() { return true; }
+        protected boolean includeOwnMinions() {
+            return true;
+        }
     };
 
     private final static CardEffectCharacter battlecryAction = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
