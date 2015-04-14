@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 
-public class Minion extends Card implements CardEffectOnResolveTargetableInterface, CardEndTurnInterface, CardStartTurnInterface {
+public class Minion extends Card implements CardEffectOnResolveTargetableInterface<Card>, CardEndTurnInterface, CardStartTurnInterface {
     private static final Logger log = LoggerFactory.getLogger(Card.class);
 
     public static enum MinionTribe {

@@ -1,13 +1,12 @@
 package com.hearthsim.event.effect;
 
+import com.hearthsim.card.Card;
 import com.hearthsim.event.CharacterFilter;
 
-public interface CardEffectOnResolveRandomCharacterInterface {
-    public CardEffectCharacter getRandomTargetEffect();
+public interface CardEffectOnResolveRandomCharacterInterface extends CardEffectOnResolveRandomInterface<CardEffectCharacter<Card>, CharacterFilter> {
+    @Override
+    public CardEffectCharacter<Card> getRandomTargetEffect();
 
-    public default CardEffectCharacter getRandomTargetSecondaryEffect() {
-        return null;
-    }
-
+    @Override
     public CharacterFilter getRandomTargetFilter();
 }

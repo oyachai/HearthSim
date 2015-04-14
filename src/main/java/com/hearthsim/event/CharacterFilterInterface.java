@@ -6,7 +6,7 @@ import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 
 @FunctionalInterface
-public interface CharacterFilterInterface {
+public interface CharacterFilterInterface extends FilterInterface<Card, Minion> {
     public boolean targetMatches(PlayerSide originSide, Card origin, PlayerSide targetSide, Minion targetCharacter, BoardModel board);
 
     public default boolean targetMatches(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, BoardModel board) {
