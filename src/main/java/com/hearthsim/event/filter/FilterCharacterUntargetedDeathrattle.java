@@ -9,17 +9,15 @@ public abstract class FilterCharacterUntargetedDeathrattle extends FilterCharact
     protected boolean includeDead() {
         return false;
     }
-    protected boolean includeSelf() {
-        return false;
+
+    @Override
+    protected boolean excludeSource() {
+        return true;
     }
 
     @Override
     public boolean targetMatches(PlayerSide originSide, Card origin, PlayerSide targetSide, Minion targetCharacter, BoardModel board) {
         if (!super.targetMatches(originSide, origin, targetSide, targetCharacter, board)) {
-            return false;
-        }
-
-        if (!this.includeSelf() && targetCharacter == origin) {
             return false;
         }
 
