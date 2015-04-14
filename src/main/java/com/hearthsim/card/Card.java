@@ -4,9 +4,9 @@ import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.card.spellcard.SpellRandomInterface;
-import com.hearthsim.event.CharacterFilter;
-import com.hearthsim.event.FilterInterface;
-import com.hearthsim.event.HandFilter;
+import com.hearthsim.event.filter.FilterCharacter;
+import com.hearthsim.event.filter.FilterInterface;
+import com.hearthsim.event.filter.FilterHand;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.event.effect.*;
 import com.hearthsim.exception.HSException;
@@ -22,7 +22,6 @@ import com.hearthsim.util.tree.RandomEffectNode;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -483,7 +482,7 @@ public class Card implements DeepCopyable<Card> {
         return toRet;
     }
 
-    protected HearthTreeNode effectAllUsingFilter(CardEffectCharacter<Card> effect, CharacterFilter filter, HearthTreeNode boardState) {
+    protected HearthTreeNode effectAllUsingFilter(CardEffectCharacter<Card> effect, FilterCharacter filter, HearthTreeNode boardState) {
         if (boardState != null && filter != null) {
             for (BoardModel.CharacterLocation location : boardState.data_) {
                 Minion character = boardState.data_.getCharacter(location);
@@ -507,20 +506,20 @@ public class Card implements DeepCopyable<Card> {
         return null;
     }
 
-    protected final Collection<HearthTreeNode> effectRandomCharacterUsingFilter(CardEffectCharacter<Card> effect, CardEffectCharacter<Card> effectOthers, CharacterFilter filter, HearthTreeNode boardState) {
+    protected final Collection<HearthTreeNode> effectRandomCharacterUsingFilter(CardEffectCharacter<Card> effect, CardEffectCharacter<Card> effectOthers, FilterCharacter filter, HearthTreeNode boardState) {
         return this.effectRandomCharacterUsingFilter(effect, effectOthers, filter, PlayerSide.CURRENT_PLAYER, boardState);
     }
 
-    protected Collection<HearthTreeNode> effectRandomCharacterUsingFilter(CardEffectCharacter<Card> effect, CardEffectCharacter<Card> effectOthers, CharacterFilter filter, PlayerSide originSide, HearthTreeNode boardState) {
-        return this.iterateAndEffect(effect, effectOthers, filter, originSide, boardState, boardState.data_.iterator());
+    protected Collection<HearthTreeNode> effectRandomCharacterUsingFilter(CardEffectCharacter<Card> effect, CardEffectCharacter<Card> effectOthers, FilterCharacter filter, PlayerSide originSide, HearthTreeNode boardState) {
+        return this.iterateAndEffectRandom(effect, effectOthers, filter, originSide, boardState, boardState.data_.iterator());
     }
 
-    protected Collection<HearthTreeNode> effectRandomHandUsingFilter(CardEffectHand effect, CardEffectHand effectOthers, HandFilter filter, PlayerSide originSide, HearthTreeNode boardState) {
+    protected Collection<HearthTreeNode> effectRandomHandUsingFilter(CardEffectHand effect, CardEffectHand effectOthers, FilterHand filter, PlayerSide originSide, HearthTreeNode boardState) {
         Iterator<BoardModel.CharacterLocation> handIterator = boardState.data_.handIterator();
-        return this.iterateAndEffect(effect, effectOthers, filter, originSide, boardState, handIterator);
+        return this.iterateAndEffectRandom(effect, effectOthers, filter, originSide, boardState, handIterator);
     }
 
-    protected Collection<HearthTreeNode> iterateAndEffect(CardEffectInterface<Card> effect, CardEffectInterface<Card> effectOthers, FilterInterface<Card> filter, PlayerSide originSide, HearthTreeNode boardState, Iterator<BoardModel.CharacterLocation> targetIterator) {
+    protected Collection<HearthTreeNode> iterateAndEffectRandom(CardEffectInterface<Card> effect, CardEffectInterface<Card> effectOthers, FilterInterface<Card> filter, PlayerSide originSide, HearthTreeNode boardState, Iterator<BoardModel.CharacterLocation> targetIterator) {
         int originIndex = boardState.data_.modelForSide(originSide).getHand().indexOf(this);
         boolean originInHand = originIndex >= 0;
         if (!originInHand) {

@@ -1,10 +1,10 @@
-package com.hearthsim.event;
+package com.hearthsim.event.filter;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 
-public class HandFilter implements HandFilterInterface {
+public class FilterHand implements FilterHandInterface {
     protected boolean includeEnemyHand() {
         return false;
     }
@@ -34,7 +34,7 @@ public class HandFilter implements HandFilterInterface {
         return true;
     }
 
-    public static final HandFilter OWN = new HandFilter() {
+    public static final FilterHand OWN = new FilterHand() {
         @Override
         protected boolean includeOwnHand() {
             return true;

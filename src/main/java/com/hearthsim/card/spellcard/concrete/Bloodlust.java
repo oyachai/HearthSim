@@ -1,7 +1,7 @@
 package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.spellcard.SpellCard;
-import com.hearthsim.event.CharacterFilter;
+import com.hearthsim.event.filter.FilterCharacter;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.effect.CardEffectCharacterBuffTemp;
 import com.hearthsim.event.effect.CardEffectOnResolveAoeInterface;
@@ -29,7 +29,7 @@ public class Bloodlust extends SpellCard implements CardEffectOnResolveAoeInterf
     }
 
     @Override
-    public CharacterFilter getAoeFilter() {
-        return CharacterFilter.FRIENDLY_MINIONS;
+    public FilterCharacter getAoeFilter() {
+        return FilterCharacter.FRIENDLY_MINIONS;
     }
 }

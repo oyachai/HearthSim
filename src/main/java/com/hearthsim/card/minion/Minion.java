@@ -1,8 +1,8 @@
 package com.hearthsim.card.minion;
 
 import com.hearthsim.card.*;
-import com.hearthsim.event.CharacterFilter;
-import com.hearthsim.event.CharacterFilterSummon;
+import com.hearthsim.event.filter.FilterCharacter;
+import com.hearthsim.event.filter.FilterCharacterSummon;
 import com.hearthsim.event.attack.AttackAction;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.effect.CardEffectCharacterSummon;
@@ -591,8 +591,8 @@ public class Minion extends Card implements CardEffectOnResolveTargetableInterfa
     }
 
     @Override
-    public CharacterFilter getTargetableFilter() {
-        return CharacterFilterSummon.ALL_FRIENDLIES;
+    public FilterCharacter getTargetableFilter() {
+        return FilterCharacterSummon.ALL_FRIENDLIES;
     }
 
     /**

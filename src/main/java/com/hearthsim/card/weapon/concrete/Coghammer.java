@@ -2,7 +2,7 @@ package com.hearthsim.card.weapon.concrete;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.weapon.WeaponCard;
-import com.hearthsim.event.CharacterFilter;
+import com.hearthsim.event.filter.FilterCharacter;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.effect.CardEffectOnResolveRandomCharacterInterface;
 
@@ -20,7 +20,7 @@ public class Coghammer extends WeaponCard implements CardEffectOnResolveRandomCh
     }
 
     @Override
-    public CharacterFilter getRandomTargetFilter() {
-        return CharacterFilter.FRIENDLY_MINIONS;
+    public FilterCharacter getRandomTargetFilter() {
+        return FilterCharacter.FRIENDLY_MINIONS;
     }
 }

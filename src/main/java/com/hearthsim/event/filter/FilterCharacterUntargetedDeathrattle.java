@@ -1,23 +1,29 @@
-package com.hearthsim.event;
+package com.hearthsim.event.filter;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 
-public abstract class CharacterFilterTargetedBattlecry extends CharacterFilter {
+public abstract class FilterCharacterUntargetedDeathrattle extends FilterCharacter {
+    protected boolean includeDead() {
+        return false;
+    }
+    protected boolean includeSelf() {
+        return false;
+    }
+
     @Override
     public boolean targetMatches(PlayerSide originSide, Card origin, PlayerSide targetSide, Minion targetCharacter, BoardModel board) {
         if (!super.targetMatches(originSide, origin, targetSide, targetCharacter, board)) {
             return false;
         }
 
-        if (originSide != targetSide && targetCharacter.getStealthed()) {
+        if (!this.includeSelf() && targetCharacter == origin) {
             return false;
         }
 
-        // cannot target self with battlecry
-        if (origin == targetCharacter) {
+        if (!this.includeDead() && !targetCharacter.isAlive()) {
             return false;
         }
 

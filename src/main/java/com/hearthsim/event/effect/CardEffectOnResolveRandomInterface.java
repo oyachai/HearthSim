@@ -1,6 +1,6 @@
 package com.hearthsim.event.effect;
 
-import com.hearthsim.event.FilterInterface;
+import com.hearthsim.event.filter.FilterInterface;
 
 public interface CardEffectOnResolveRandomInterface<T extends CardEffectInterface, U extends FilterInterface> {
     public T getRandomTargetEffect();

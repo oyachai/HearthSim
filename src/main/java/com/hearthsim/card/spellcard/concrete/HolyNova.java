@@ -2,7 +2,7 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellDamage;
-import com.hearthsim.event.CharacterFilter;
+import com.hearthsim.event.filter.FilterCharacter;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.effect.CardEffectOnResolveAoeInterface;
 import com.hearthsim.exception.HSException;
@@ -37,8 +37,8 @@ public class HolyNova extends SpellDamage implements CardEffectOnResolveAoeInter
     }
 
     @Override
-    public CharacterFilter getAoeFilter() {
-        return CharacterFilter.ALL_ENEMIES;
+    public FilterCharacter getAoeFilter() {
+        return FilterCharacter.ALL_ENEMIES;
     }
 
     /**

@@ -3,13 +3,13 @@ package com.hearthsim.card.spellcard.concrete;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.Minion.MinionTribe;
 import com.hearthsim.card.spellcard.SpellTargetableCard;
-import com.hearthsim.event.CharacterFilter;
-import com.hearthsim.event.CharacterFilterTargetedSpell;
+import com.hearthsim.event.filter.FilterCharacter;
+import com.hearthsim.event.filter.FilterCharacterTargetedSpell;
 import com.hearthsim.event.effect.CardEffectCharacter;
 
 public class SacrificialPact extends SpellTargetableCard {
 
-    private final static CharacterFilter filter = new CharacterFilterTargetedSpell() {
+    private final static FilterCharacter filter = new FilterCharacterTargetedSpell() {
         @Override
         protected boolean includeEnemyHero() {
             return true;
@@ -41,7 +41,7 @@ public class SacrificialPact extends SpellTargetableCard {
     }
 
     @Override
-    public CharacterFilter getTargetableFilter() {
+    public FilterCharacter getTargetableFilter() {
         return SacrificialPact.filter;
     }
 

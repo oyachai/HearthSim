@@ -3,8 +3,8 @@ package com.hearthsim.card.weapon;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.ImplementedCardList;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.event.CharacterFilter;
-import com.hearthsim.event.CharacterFilterSummon;
+import com.hearthsim.event.filter.FilterCharacter;
+import com.hearthsim.event.filter.FilterCharacterSummon;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.effect.CardEffectHeroWeapon;
 import com.hearthsim.event.effect.CardEffectOnResolveTargetableInterface;
@@ -83,8 +83,8 @@ public abstract class WeaponCard extends Card implements CardEffectOnResolveTarg
     }
 
     @Override
-    public CharacterFilter getTargetableFilter() {
-        return CharacterFilterSummon.SELF;
+    public FilterCharacter getTargetableFilter() {
+        return FilterCharacterSummon.SELF;
     }
 
     public byte getWeaponCharge() {

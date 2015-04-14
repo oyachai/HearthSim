@@ -2,17 +2,11 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.spellcard.SpellDamageTargetableCard;
-import com.hearthsim.card.spellcard.SpellRandomInterface;
-import com.hearthsim.event.HandFilter;
+import com.hearthsim.event.filter.FilterHand;
 import com.hearthsim.event.effect.CardEffectHand;
-import com.hearthsim.event.effect.CardEffectOnResolveRandomCharacterInterface;
 import com.hearthsim.event.effect.CardEffectOnResolveRandomHandInterface;
-import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
-
-import java.util.ArrayList;
-import java.util.Collection;
 
 public class Soulfire extends SpellDamageTargetableCard implements CardEffectOnResolveRandomHandInterface {
 
@@ -24,7 +18,7 @@ public class Soulfire extends SpellDamageTargetableCard implements CardEffectOnR
         }
     };
 
-    private static final HandFilter filter = HandFilter.OWN;
+    private static final FilterHand filter = FilterHand.OWN;
 
     public Soulfire() {
         super();
@@ -42,7 +36,7 @@ public class Soulfire extends SpellDamageTargetableCard implements CardEffectOnR
     }
 
     @Override
-    public HandFilter getRandomTargetFilter() {
+    public FilterHand getRandomTargetFilter() {
         return Soulfire.filter;
     }
 }

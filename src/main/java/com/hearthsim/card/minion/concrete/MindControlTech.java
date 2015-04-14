@@ -2,7 +2,7 @@ package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.event.CharacterFilter;
+import com.hearthsim.event.filter.FilterCharacter;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.effect.CardEffectOnResolveRandomCharacterInterface;
 import com.hearthsim.model.BoardModel;
@@ -12,7 +12,7 @@ public class MindControlTech extends Minion implements CardEffectOnResolveRandom
 
     private static final CardEffectCharacter effect = CardEffectCharacter.MIND_CONTROL;
 
-    private static final CharacterFilter filter = new CharacterFilter() {
+    private static final FilterCharacter filter = new FilterCharacter() {
 
         @Override
         protected boolean includeEnemyMinions() {
@@ -35,7 +35,7 @@ public class MindControlTech extends Minion implements CardEffectOnResolveRandom
     }
 
     @Override
-    public CharacterFilter getRandomTargetFilter() {
+    public FilterCharacter getRandomTargetFilter() {
         return MindControlTech.filter;
     }
 }

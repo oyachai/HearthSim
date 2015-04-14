@@ -2,8 +2,8 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellTargetableCard;
-import com.hearthsim.event.CharacterFilter;
-import com.hearthsim.event.CharacterFilterTargetedSpell;
+import com.hearthsim.event.filter.FilterCharacter;
+import com.hearthsim.event.filter.FilterCharacterTargetedSpell;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.util.tree.CardDrawNode;
 
@@ -19,8 +19,8 @@ public class LayOnHands extends SpellTargetableCard {
     }
 
     //Let's assume that it is never beneficial to heal an opponent... though this may not strictly be true under some very corner cases (e.g., with a Northshire Cleric)
-    public CharacterFilter getTargetableFilter() {
-        return CharacterFilterTargetedSpell.FRIENDLY_MINIONS;
+    public FilterCharacter getTargetableFilter() {
+        return FilterCharacterTargetedSpell.FRIENDLY_MINIONS;
     }
 
     /**

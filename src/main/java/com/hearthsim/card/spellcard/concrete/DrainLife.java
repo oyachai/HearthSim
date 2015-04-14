@@ -2,15 +2,15 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellDamageTargetableCard;
-import com.hearthsim.event.CharacterFilter;
-import com.hearthsim.event.CharacterFilterTargetedSpell;
+import com.hearthsim.event.filter.FilterCharacter;
+import com.hearthsim.event.filter.FilterCharacterTargetedSpell;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class DrainLife extends SpellDamageTargetableCard {
 
-    private static final CharacterFilter filter = new CharacterFilterTargetedSpell() {
+    private static final FilterCharacter filter = new FilterCharacterTargetedSpell() {
         @Override
         protected boolean includeEnemyHero() {
             return true;
@@ -32,7 +32,7 @@ public class DrainLife extends SpellDamageTargetableCard {
     }
 
     @Override
-    public CharacterFilter getTargetableFilter() {
+    public FilterCharacter getTargetableFilter() {
         return DrainLife.filter;
     }
 

@@ -1,11 +1,11 @@
 package com.hearthsim.event.effect;
 
-import com.hearthsim.event.HandFilter;
+import com.hearthsim.event.filter.FilterHand;
 
-public interface CardEffectOnResolveRandomHandInterface extends CardEffectOnResolveRandomInterface<CardEffectHand, HandFilter> {
+public interface CardEffectOnResolveRandomHandInterface extends CardEffectOnResolveRandomInterface<CardEffectHand, FilterHand> {
     @Override
     public CardEffectHand getRandomTargetEffect();
 
     @Override
-    public HandFilter getRandomTargetFilter();
+    public FilterHand getRandomTargetFilter();
 }

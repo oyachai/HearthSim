@@ -2,8 +2,8 @@ package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionBattlecryInterface;
-import com.hearthsim.event.CharacterFilter;
-import com.hearthsim.event.CharacterFilterTargetedBattlecry;
+import com.hearthsim.event.filter.FilterCharacter;
+import com.hearthsim.event.filter.FilterCharacterTargetedBattlecry;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -13,7 +13,7 @@ public class CruelTaskmaster extends Minion implements MinionBattlecryInterface 
     /**
      * Battlecry: Deal 1 damage to a minion and give it +2 Attack
      */
-    private final static CharacterFilterTargetedBattlecry filter = new CharacterFilterTargetedBattlecry() {
+    private final static FilterCharacterTargetedBattlecry filter = new FilterCharacterTargetedBattlecry() {
         protected boolean includeEnemyMinions() {
             return true;
         }
@@ -35,7 +35,7 @@ public class CruelTaskmaster extends Minion implements MinionBattlecryInterface 
     }
 
     @Override
-    public CharacterFilter getBattlecryFilter() {
+    public FilterCharacter getBattlecryFilter() {
         return CruelTaskmaster.filter;
     }
 

@@ -3,8 +3,8 @@ package com.hearthsim.card.minion.concrete;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionBattlecryInterface;
-import com.hearthsim.event.CharacterFilter;
-import com.hearthsim.event.CharacterFilterTargetedBattlecry;
+import com.hearthsim.event.filter.FilterCharacter;
+import com.hearthsim.event.filter.FilterCharacterTargetedBattlecry;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
@@ -14,7 +14,7 @@ public class BigGameHunter extends Minion implements MinionBattlecryInterface {
     /**
      * Battlecry: Destroy a minion with an Attack of 7 or more
      */
-    private final static CharacterFilterTargetedBattlecry filter = new CharacterFilterTargetedBattlecry() {
+    private final static FilterCharacterTargetedBattlecry filter = new FilterCharacterTargetedBattlecry() {
         protected boolean includeEnemyMinions() {
             return true;
         }
@@ -39,7 +39,7 @@ public class BigGameHunter extends Minion implements MinionBattlecryInterface {
     }
 
     @Override
-    public CharacterFilter getBattlecryFilter() {
+    public FilterCharacter getBattlecryFilter() {
         return BigGameHunter.filter;
     }
 

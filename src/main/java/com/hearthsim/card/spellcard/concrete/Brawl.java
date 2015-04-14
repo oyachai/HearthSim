@@ -1,7 +1,7 @@
 package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.spellcard.SpellCard;
-import com.hearthsim.event.CharacterFilter;
+import com.hearthsim.event.filter.FilterCharacter;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.effect.CardEffectOnResolveRandomCharacterInterface;
 
@@ -17,7 +17,7 @@ public class Brawl extends SpellCard implements CardEffectOnResolveRandomCharact
     }
 
     @Override
-    public CharacterFilter getRandomTargetFilter() {
-        return CharacterFilter.ALL_MINIONS;
+    public FilterCharacter getRandomTargetFilter() {
+        return FilterCharacter.ALL_MINIONS;
     }
 }

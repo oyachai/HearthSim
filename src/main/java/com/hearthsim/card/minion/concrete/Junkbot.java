@@ -2,7 +2,7 @@ package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionDeadInterface;
-import com.hearthsim.event.CharacterFilter;
+import com.hearthsim.event.filter.FilterCharacter;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.effect.CardEffectCharacterBuffDelta;
 import com.hearthsim.model.PlayerSide;
@@ -12,7 +12,7 @@ public class Junkbot extends Minion implements MinionDeadInterface {
 
     private static final CardEffectCharacter<Minion> effect = new CardEffectCharacterBuffDelta<>(2, 2);
 
-    private final static CharacterFilter filter = new CharacterFilter() {
+    private final static FilterCharacter filter = new FilterCharacter() {
 
         @Override
         protected boolean includeOwnMinions() {

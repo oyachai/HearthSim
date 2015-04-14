@@ -1,7 +1,7 @@
 package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.spellcard.SpellCard;
-import com.hearthsim.event.CharacterFilter;
+import com.hearthsim.event.filter.FilterCharacter;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.effect.CardEffectOnResolveAoeInterface;
 
@@ -20,7 +20,7 @@ public class FrostNova extends SpellCard implements CardEffectOnResolveAoeInterf
     }
 
     @Override
-    public CharacterFilter getAoeFilter() {
-        return CharacterFilter.ENEMY_MINIONS;
+    public FilterCharacter getAoeFilter() {
+        return FilterCharacter.ENEMY_MINIONS;
     }
 }

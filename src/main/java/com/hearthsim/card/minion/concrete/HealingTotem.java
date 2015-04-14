@@ -2,7 +2,7 @@ package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.event.CharacterFilter;
+import com.hearthsim.event.filter.FilterCharacter;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.effect.CardEffectCharacterHeal;
 import com.hearthsim.event.effect.CardEffectOnResolveAoeInterface;
@@ -36,7 +36,7 @@ public class HealingTotem extends Minion implements CardEffectOnResolveAoeInterf
     }
 
     @Override
-    public CharacterFilter getAoeFilter() {
-        return CharacterFilter.ALL_FRIENDLIES;
+    public FilterCharacter getAoeFilter() {
+        return FilterCharacter.ALL_FRIENDLIES;
     }
 }

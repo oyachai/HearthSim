@@ -3,7 +3,7 @@ package com.hearthsim.card.minion.concrete;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionSummonedInterface;
-import com.hearthsim.event.CharacterFilter;
+import com.hearthsim.event.filter.FilterCharacter;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.effect.CardEffectCharacterDamage;
 import com.hearthsim.model.PlayerSide;
@@ -15,9 +15,9 @@ public class KnifeJuggler extends Minion implements MinionSummonedInterface {
 
     private static final CardEffectCharacter<Card> effect = new CardEffectCharacterDamage<>(1);
 
-    private final static CharacterFilter effectFilter = CharacterFilter.ALL_ENEMIES;
+    private final static FilterCharacter effectFilter = FilterCharacter.ALL_ENEMIES;
 
-    private final static CharacterFilter triggerFilter = CharacterFilter.FRIENDLY_MINIONS;
+    private final static FilterCharacter triggerFilter = FilterCharacter.FRIENDLY_MINIONS;
 
     public KnifeJuggler() {
         super();

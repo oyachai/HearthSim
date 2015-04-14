@@ -2,7 +2,7 @@ package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.event.CharacterFilter;
+import com.hearthsim.event.filter.FilterCharacter;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.effect.CardEffectOnResolveRandomCharacterInterface;
 import com.hearthsim.model.BoardModel;
@@ -20,8 +20,8 @@ public class StampedingKodo extends Minion implements CardEffectOnResolveRandomC
     }
 
     @Override
-    public CharacterFilter getRandomTargetFilter() {
-        return new CharacterFilter() {
+    public FilterCharacter getRandomTargetFilter() {
+        return new FilterCharacter() {
             @Override
             protected boolean includeEnemyMinions() {
                 return true;

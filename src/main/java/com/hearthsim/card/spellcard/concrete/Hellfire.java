@@ -1,7 +1,7 @@
 package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.spellcard.SpellDamage;
-import com.hearthsim.event.CharacterFilter;
+import com.hearthsim.event.filter.FilterCharacter;
 import com.hearthsim.event.effect.CardEffectCharacter;
 import com.hearthsim.event.effect.CardEffectOnResolveAoeInterface;
 
@@ -33,7 +33,7 @@ public class Hellfire extends SpellDamage implements CardEffectOnResolveAoeInter
     }
 
     @Override
-    public CharacterFilter getAoeFilter() {
-        return CharacterFilter.ALL;
+    public FilterCharacter getAoeFilter() {
+        return FilterCharacter.ALL;
     }
 }
