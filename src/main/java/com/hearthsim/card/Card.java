@@ -5,6 +5,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.card.spellcard.SpellRandomInterface;
 import com.hearthsim.event.CharacterFilter;
+import com.hearthsim.event.FilterInterface;
 import com.hearthsim.event.HandFilter;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.event.effect.*;
@@ -27,6 +28,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 
 public class Card implements DeepCopyable<Card> {
     private static final Logger log = LoggerFactory.getLogger(Card.class);
@@ -499,7 +501,7 @@ public class Card implements DeepCopyable<Card> {
             return this.effectRandomCharacterUsingFilter(character.getRandomTargetEffect(), character.getRandomTargetSecondaryEffect(), character.getRandomTargetFilter(), boardState);
         } else if (randomEffect instanceof CardEffectOnResolveRandomHandInterface) {
             CardEffectOnResolveRandomHandInterface hand = (CardEffectOnResolveRandomHandInterface)randomEffect;
-            return this.effectRandomHandUsingFilter(hand.getRandomTargetEffect(), hand.getRandomTargetSecondaryEffect(), hand.getRandomTargetFilter(), PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, boardState);
+            return this.effectRandomHandUsingFilter(hand.getRandomTargetEffect(), hand.getRandomTargetSecondaryEffect(), hand.getRandomTargetFilter(), PlayerSide.CURRENT_PLAYER, boardState);
         }
 
         return null;
@@ -510,6 +512,15 @@ public class Card implements DeepCopyable<Card> {
     }
 
     protected Collection<HearthTreeNode> effectRandomCharacterUsingFilter(CardEffectCharacter<Card> effect, CardEffectCharacter<Card> effectOthers, CharacterFilter filter, PlayerSide originSide, HearthTreeNode boardState) {
+        return this.iterateAndEffect(effect, effectOthers, filter, originSide, boardState, boardState.data_.iterator());
+    }
+
+    protected Collection<HearthTreeNode> effectRandomHandUsingFilter(CardEffectHand effect, CardEffectHand effectOthers, HandFilter filter, PlayerSide originSide, HearthTreeNode boardState) {
+        Iterator<BoardModel.CharacterLocation> handIterator = boardState.data_.handIterator();
+        return this.iterateAndEffect(effect, effectOthers, filter, originSide, boardState, handIterator);
+    }
+
+    protected Collection<HearthTreeNode> iterateAndEffect(CardEffectInterface<Card> effect, CardEffectInterface<Card> effectOthers, FilterInterface<Card> filter, PlayerSide originSide, HearthTreeNode boardState, Iterator<BoardModel.CharacterLocation> targetIterator) {
         int originIndex = boardState.data_.modelForSide(originSide).getHand().indexOf(this);
         boolean originInHand = originIndex >= 0;
         if (!originInHand) {
@@ -517,20 +528,22 @@ public class Card implements DeepCopyable<Card> {
         }
 
         ArrayList<HearthTreeNode> children = new ArrayList<>();
-        for (BoardModel.CharacterLocation location : boardState.data_) {
+        while (targetIterator.hasNext()) {
+            BoardModel.CharacterLocation location = targetIterator.next();
             if (filter.targetMatches(originSide, this, location.getPlayerSide(), location.getIndex(), boardState.data_)) {
                 boolean somethingHappened = false;
                 HearthTreeNode newState = new HearthTreeNode(boardState.data_.deepCopy());
                 Card origin;
                 if (originInHand) {
-                    origin = boardState.data_.modelForSide(originSide).getHand().get(originIndex);
+                    origin = newState.data_.modelForSide(originSide).getHand().get(originIndex);
                 } else {
-                    origin = boardState.data_.modelForSide(originSide).getCharacter(originIndex);
+                    origin = newState.data_.modelForSide(originSide).getCharacter(originIndex);
                 }
                 if (effect != null) {
                     newState = effect.applyEffect(originSide, origin, location.getPlayerSide(), location.getIndex(), newState);
                     somethingHappened = newState != null;
                 }
+
                 if (effectOthers != null && newState != null) {
                     for (BoardModel.CharacterLocation childLocation : newState.data_) {
                         if (location.equals(childLocation)) {
@@ -541,43 +554,6 @@ public class Card implements DeepCopyable<Card> {
                             somethingHappened = newState != null;
                         }
                     }
-                }
-
-                if (somethingHappened) {
-                    if (originInHand) {
-                        newState.data_.modelForSide(originSide).getHand().remove(originIndex);
-                    }
-                    children.add(newState);
-                }
-            }
-        }
-        return children;
-    }
-
-    protected Collection<HearthTreeNode> effectRandomHandUsingFilter(CardEffectHand effect, CardEffectHand effectOthers, HandFilter filter, PlayerSide originSide, PlayerSide targetSide, HearthTreeNode boardState) {
-        int originIndex = boardState.data_.modelForSide(originSide).getHand().indexOf(this);
-        boolean originInHand = originIndex >= 0;
-        if (!originInHand) {
-            originIndex = boardState.data_.modelForSide(originSide).getIndexForCharacter((Minion)this);
-        }
-
-        ArrayList<HearthTreeNode> children = new ArrayList<>();
-        for (int i = 0; i < boardState.data_.modelForSide(targetSide).getHand().size(); i++) {
-            if (filter.targetMatches(originSide, originIndex, targetSide, i, boardState.data_)) {
-                boolean somethingHappened = false;
-                HearthTreeNode newState = new HearthTreeNode(boardState.data_.deepCopy());
-                Card origin;
-                if (originInHand) {
-                    origin = newState.data_.modelForSide(originSide).getHand().get(originIndex);
-                } else {
-                    origin = newState.data_.modelForSide(originSide).getCharacter(originIndex);
-                }
-                if (effect != null) {
-                    newState = effect.applyEffect(originSide, originIndex, targetSide, i, newState);
-                    somethingHappened = newState != null;
-                }
-                if (effectOthers != null && newState != null) {
-                    throw new NotImplementedException(); // Soulfire can discard cards... so it mucks up the iteration
                 }
 
                 if (somethingHappened) {

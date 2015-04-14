@@ -6,6 +6,6 @@ import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 @FunctionalInterface
-public interface CardEffectInterface<T extends Card, U extends Card> {
-    public HearthTreeNode applyEffect(PlayerSide originSide, T origin, PlayerSide targetSide, U target, HearthTreeNode boardState);
+public interface CardEffectInterface<T extends Card> {
+    public HearthTreeNode applyEffect(PlayerSide originSide, T origin, PlayerSide targetSide, int targetIndex, HearthTreeNode boardState);
 }

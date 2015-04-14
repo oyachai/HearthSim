@@ -6,10 +6,10 @@ import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 @FunctionalInterface
-public interface CardEffectCharacter<T extends Card> extends CardEffectInterface<T, Card> {
+public interface CardEffectCharacter<T extends Card> extends CardEffectInterface<T> {
+    @Override
     public HearthTreeNode applyEffect(PlayerSide originSide, T origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState);
 
-    @Override
     public default HearthTreeNode applyEffect(PlayerSide originSide, T origin, PlayerSide targetSide, Card targetCharacter, HearthTreeNode boardState) {
         // MrHen: I have no idea why this (U) conversion is necessary but I get a weird compile assert if I set up the generics to use CardEffectInterface<T, Minion>
         int index = boardState.data_.modelForSide(targetSide).getIndexForCharacter((Minion)targetCharacter);

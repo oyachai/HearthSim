@@ -5,6 +5,14 @@ import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 
 public class HandFilter implements HandFilterInterface {
+    protected boolean includeEnemyHand() {
+        return false;
+    }
+
+    protected boolean includeOwnHand() {
+        return false;
+    }
+
     protected boolean excludeSource() {
         return true;
     }
@@ -15,6 +23,21 @@ public class HandFilter implements HandFilterInterface {
             return false;
         }
 
+        if (!this.includeEnemyHand() && originSide != targetSide) {
+            return false;
+        }
+
+        if (!this.includeOwnHand() && originSide == targetSide) {
+            return false;
+        }
+
         return true;
     }
+
+    public static final HandFilter OWN = new HandFilter() {
+        @Override
+        protected boolean includeOwnHand() {
+            return true;
+        }
+    };
 }

@@ -166,9 +166,58 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
         }
     }
 
+    private class HandLocationIterator implements Iterator<CharacterLocation> {
+        private PlayerSide playerSide;
+        private PlayerModel.HandIterator handIterator;
+
+        private final BoardModel model;
+
+        public HandLocationIterator(BoardModel model) {
+            this.model = model;
+
+            this.playerSide = PlayerSide.CURRENT_PLAYER;
+            this.handIterator = this.model.modelForSide(this.playerSide).handIterator();
+        }
+
+        @Override
+        public boolean hasNext() {
+            if (this.handIterator.hasNext()) {
+                return true;
+            }
+
+            // check hand size for other player
+            if (this.playerSide == PlayerSide.CURRENT_PLAYER) {
+                return this.model.modelForSide(this.playerSide.getOtherPlayer()).getHand().size() > 0;
+            }
+
+            return false;
+        }
+
+        @Override
+        public CharacterLocation next() {
+            if (this.handIterator.hasNext()) {
+                this.handIterator.next();
+            } else if (this.playerSide == PlayerSide.CURRENT_PLAYER) {
+                this.playerSide = this.playerSide.getOtherPlayer();
+                this.handIterator = this.model.modelForSide(this.playerSide).handIterator();
+                this.handIterator.next();
+            }
+
+            return new CharacterLocation(this.playerSide, this.handIterator.getLocation());
+        }
+    }
+
     @Override
     public Iterator<CharacterLocation> iterator() {
+        return this.characterIterator();
+    }
+
+    public Iterator<CharacterLocation> characterIterator() {
         return new CharacterLocationIterator(this);
+    }
+
+    public Iterator<CharacterLocation> handIterator() {
+        return new HandLocationIterator(this);
     }
 
     public BoardModel() {

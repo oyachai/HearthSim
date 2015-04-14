@@ -24,7 +24,7 @@ public class Soulfire extends SpellDamageTargetableCard implements CardEffectOnR
         }
     };
 
-    private static final HandFilter filter = new HandFilter();
+    private static final HandFilter filter = HandFilter.OWN;
 
     public Soulfire() {
         super();

@@ -373,7 +373,15 @@ public class PlayerModel implements DeepCopyable<PlayerModel>, Iterable<Minion> 
 
     @Override
     public CharacterIterator iterator() {
+        return this.characterIterator();
+    }
+
+    public CharacterIterator characterIterator() {
         return new CharacterIterator(this);
+    }
+
+    public HandIterator handIterator() {
+        return new HandIterator(this);
     }
 
     public class CharacterIterator implements Iterator<Minion> {
@@ -397,6 +405,30 @@ public class PlayerModel implements DeepCopyable<PlayerModel>, Iterable<Minion> 
         @Override
         public Minion next() {
             return this.target.getCharacter(++location);
+        }
+    }
+
+    public class HandIterator implements Iterator<Card> {
+        private int location = -1;
+        private final PlayerModel target;
+
+        public HandIterator(PlayerModel model) {
+            this.target = model;
+        }
+
+        // used by the BoardModel master iterator
+        public int getLocation() {
+            return location;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return location < (this.target.getHand().size() - 1);
+        }
+
+        @Override
+        public Card next() {
+            return this.target.getHand().get(++location);
         }
     }
 }
