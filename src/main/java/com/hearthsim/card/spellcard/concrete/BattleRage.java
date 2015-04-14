@@ -11,6 +11,21 @@ import com.hearthsim.util.tree.CardDrawNode;
 
 public class BattleRage extends SpellTargetableCard {
 
+    private static final EffectCharacter effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+        PlayerModel playerModel = boardState.data_.modelForSide(targetSide);
+        Hero hero = playerModel.getHero();
+        Iterable<Minion> minions = playerModel.getMinions();
+        int numCardsToDraw = hero.getTotalHealth() < hero.getTotalMaxHealth() ? 1 : 0;
+        for (Minion minion : minions) {
+            numCardsToDraw += minion.getTotalHealth() < minion.getTotalMaxHealth() ? 1 : 0;
+        }
+        if (boardState instanceof CardDrawNode) {
+            ((CardDrawNode) boardState).addNumCardsToDraw(numCardsToDraw);
+        } else {
+            boardState = new CardDrawNode(boardState, numCardsToDraw); //draw two cards
+        }
+        return boardState;
+    };
 
     /**
      * Constructor
@@ -52,23 +67,6 @@ public class BattleRage extends SpellTargetableCard {
      */
     @Override
     public EffectCharacter getTargetableEffect() {
-        if (this.effect == null) {
-            this.effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
-                PlayerModel playerModel = boardState.data_.modelForSide(targetSide);
-                Hero hero = playerModel.getHero();
-                Iterable<Minion> minions = playerModel.getMinions();
-                int numCardsToDraw = hero.getTotalHealth() < hero.getTotalMaxHealth() ? 1 : 0;
-                for (Minion minion : minions) {
-                    numCardsToDraw += minion.getTotalHealth() < minion.getTotalMaxHealth() ? 1 : 0;
-                }
-                if (boardState instanceof CardDrawNode) {
-                    ((CardDrawNode) boardState).addNumCardsToDraw(numCardsToDraw);
-                } else {
-                    boardState = new CardDrawNode(boardState, numCardsToDraw); //draw two cards
-                }
-                return boardState;
-            };
-        }
-        return this.effect;
+        return BattleRage.effect;
     }
 }

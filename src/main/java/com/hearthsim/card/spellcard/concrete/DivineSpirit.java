@@ -8,6 +8,13 @@ import com.hearthsim.event.effect.EffectCharacter;
 
 public class DivineSpirit extends SpellTargetableCard {
 
+    public static final EffectCharacter effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+        Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
+        byte healthDiff = targetCharacter.getHealth();
+        targetCharacter.setHealth((byte)(targetCharacter.getHealth() * 2));
+        targetCharacter.setMaxHealth((byte)(targetCharacter.getMaxHealth() + healthDiff));
+        return boardState;
+    };
 
     /**
      * Constructor
@@ -49,15 +56,6 @@ public class DivineSpirit extends SpellTargetableCard {
      */
     @Override
     public EffectCharacter getTargetableEffect() {
-        if (this.effect == null) {
-            this.effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
-                Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
-                byte healthDiff = targetCharacter.getHealth();
-                targetCharacter.setHealth((byte)(targetCharacter.getHealth() * 2));
-                targetCharacter.setMaxHealth((byte)(targetCharacter.getMaxHealth() + healthDiff));
-                return boardState;
-            };
-        }
-        return this.effect;
+        return DivineSpirit.effect;
     }
 }

@@ -8,6 +8,13 @@ import com.hearthsim.event.deathrattle.DeathrattleSummonMinionAction;
 import com.hearthsim.event.effect.EffectCharacter;
 
 public class AncestralSpirit extends SpellTargetableCard {
+
+    public static final EffectCharacter effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+        Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
+        targetCharacter.setDeathrattle(new DeathrattleSummonMinionAction(targetCharacter.getClass(), 1));
+        return boardState;
+    };
+
     /**
      * Constructor
      *
@@ -48,13 +55,6 @@ public class AncestralSpirit extends SpellTargetableCard {
      */
     @Override
     public EffectCharacter getTargetableEffect() {
-        if (this.effect == null) {
-            this.effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
-                Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
-                targetCharacter.setDeathrattle(new DeathrattleSummonMinionAction(targetCharacter.getClass(), 1));
-                return boardState;
-            };
-        }
-        return this.effect;
+        return AncestralSpirit.effect;
     }
 }

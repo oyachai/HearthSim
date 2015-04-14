@@ -8,6 +8,12 @@ import com.hearthsim.event.effect.EffectCharacter;
 
 public class BlessedChampion extends SpellTargetableCard {
 
+    public static final EffectCharacter effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+        Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
+        targetCharacter.setAttack((byte) (2 * targetCharacter.getTotalAttack()));
+        return boardState;
+    };
+
     /**
      * Constructor
      *
@@ -48,13 +54,6 @@ public class BlessedChampion extends SpellTargetableCard {
      */
     @Override
     public EffectCharacter getTargetableEffect() {
-        if (this.effect == null) {
-            this.effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
-                Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
-                targetCharacter.setAttack((byte) (2 * targetCharacter.getTotalAttack()));
-                return boardState;
-            };
-        }
-        return this.effect;
+        return BlessedChampion.effect;
     }
 }

@@ -12,6 +12,12 @@ import com.hearthsim.model.PlayerSide;
 
 public class DeadlyPoison extends SpellTargetableCard {
 
+    private final static EffectCharacter effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+        Hero hero = (Hero)boardState.data_.getCharacter(targetSide, targetCharacterIndex);
+        hero.setAttack((byte)(hero.getAttack() + 2));
+        return boardState;
+    };
+
     private final static FilterCharacter filter = new FilterCharacterTargetedSpell() {
         @Override
         protected boolean includeOwnHero() {
@@ -70,13 +76,6 @@ public class DeadlyPoison extends SpellTargetableCard {
      */
     @Override
     public EffectCharacter getTargetableEffect() {
-        if (this.effect == null) {
-            this.effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
-                Hero hero = (Hero)boardState.data_.getCharacter(targetSide, targetCharacterIndex);
-                hero.setAttack((byte)(hero.getAttack() + 2));
-                return boardState;
-            };
-        }
-        return this.effect;
+        return DeadlyPoison.effect;
     }
 }

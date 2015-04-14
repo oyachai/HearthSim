@@ -8,6 +8,13 @@ import com.hearthsim.event.effect.EffectCharacter;
 
 public class Charge extends SpellTargetableCard {
 
+    public static final EffectCharacter effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+        Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
+        targetCharacter.setAttack((byte)(targetCharacter.getAttack() + 2));
+        targetCharacter.setCharge(true);
+        return boardState;
+    };
+
     /**
      * Constructor
      *
@@ -48,14 +55,6 @@ public class Charge extends SpellTargetableCard {
      */
     @Override
     public EffectCharacter getTargetableEffect() {
-        if (this.effect == null) {
-            this.effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
-                Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
-                targetCharacter.setAttack((byte)(targetCharacter.getAttack() + 2));
-                targetCharacter.setCharge(true);
-                return boardState;
-            };
-        }
-        return this.effect;
+        return Charge.effect;
     }
 }

@@ -13,6 +13,23 @@ import com.hearthsim.util.tree.CardDrawNode;
 
 public class DivineFavor extends SpellTargetableCard {
 
+    private final static EffectCharacter effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+        PlayerModel currentPlayer = boardState.data_.modelForSide(originSide);
+        PlayerModel waitingPlayer = boardState.data_.modelForSide(targetSide);
+
+        int numCardsToDraw = waitingPlayer.getHand().size() - currentPlayer.getHand().size() + 1;
+        if (numCardsToDraw < 1) {
+            return null;
+        }
+
+        if (boardState instanceof CardDrawNode) {
+            ((CardDrawNode) boardState).addNumCardsToDraw(numCardsToDraw);
+        } else {
+            boardState = new CardDrawNode(boardState, numCardsToDraw);
+        }
+        return boardState;
+    };
+
     private final static FilterCharacter filter = new FilterCharacterTargetedSpell() {
         protected boolean includeOwnHero() {
             return true;
@@ -61,24 +78,6 @@ public class DivineFavor extends SpellTargetableCard {
      */
     @Override
     public EffectCharacter getTargetableEffect() {
-        if (this.effect == null) {
-            this.effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
-                PlayerModel currentPlayer = boardState.data_.modelForSide(originSide);
-                PlayerModel waitingPlayer = boardState.data_.modelForSide(targetSide);
-
-                int numCardsToDraw = waitingPlayer.getHand().size() - currentPlayer.getHand().size() + 1;
-                if (numCardsToDraw < 1) {
-                    return null;
-                }
-
-                if (boardState instanceof CardDrawNode) {
-                    ((CardDrawNode) boardState).addNumCardsToDraw(numCardsToDraw);
-                } else {
-                    boardState = new CardDrawNode(boardState, numCardsToDraw); //draw two cards
-                }
-                return boardState;
-            };
-        }
-        return this.effect;
+        return DivineFavor.effect;
     }
 }
