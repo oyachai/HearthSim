@@ -4,13 +4,13 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionBattlecryInterface;
 import com.hearthsim.event.filter.FilterCharacter;
-import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectHero;
-import com.hearthsim.event.effect.CardEffectHeroWeaponDestroy;
+import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.effect.EffectHero;
+import com.hearthsim.event.effect.EffectHeroWeaponDestroy;
 
 public class AcidicSwampOoze extends Minion implements MinionBattlecryInterface {
 
-    private static final CardEffectHero<Card> effect = CardEffectHeroWeaponDestroy.DESTROY;
+    private static final EffectHero<Card> effect = EffectHeroWeaponDestroy.DESTROY;
 
     /**
      * Battlecry: Destroy your opponent's weapon
@@ -25,7 +25,7 @@ public class AcidicSwampOoze extends Minion implements MinionBattlecryInterface 
     }
 
     @Override
-    public CardEffectCharacter<Card> getBattlecryEffect() {
+    public EffectCharacter<Card> getBattlecryEffect() {
         return AcidicSwampOoze.effect;
     }
 }

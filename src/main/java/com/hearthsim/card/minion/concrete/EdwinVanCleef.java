@@ -2,7 +2,7 @@ package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionBattlecryInterface;
-import com.hearthsim.event.effect.CardEffectCharacter;
+import com.hearthsim.event.effect.EffectCharacter;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -16,8 +16,8 @@ public class EdwinVanCleef extends Minion implements MinionBattlecryInterface {
     }
 
     @Override
-    public CardEffectCharacter getBattlecryEffect() {
-        return new CardEffectCharacter<Minion>() {
+    public EffectCharacter getBattlecryEffect() {
+        return new EffectCharacter<Minion>() {
 
             @Override
             public HearthTreeNode applyEffect(PlayerSide originSide, Minion origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {

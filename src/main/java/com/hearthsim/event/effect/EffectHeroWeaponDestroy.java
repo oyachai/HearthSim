@@ -6,15 +6,15 @@ import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class CardEffectHeroWeaponDestroy<T extends Card> implements CardEffectHero<T> {
+public class EffectHeroWeaponDestroy<T extends Card> implements EffectHero<T> {
     // -1 means destroy it completely
     private final int durabilityLoss;
 
-    public CardEffectHeroWeaponDestroy() {
+    public EffectHeroWeaponDestroy() {
         this(-1);
     }
 
-    public CardEffectHeroWeaponDestroy(int durabilityLoss) {
+    public EffectHeroWeaponDestroy(int durabilityLoss) {
         this.durabilityLoss = durabilityLoss;
     }
 
@@ -39,5 +39,5 @@ public class CardEffectHeroWeaponDestroy<T extends Card> implements CardEffectHe
         return boardState;
     }
 
-    public static final CardEffectHeroWeaponDestroy<Card> DESTROY = new CardEffectHeroWeaponDestroy<>();
+    public static final EffectHeroWeaponDestroy<Card> DESTROY = new EffectHeroWeaponDestroy<>();
 }

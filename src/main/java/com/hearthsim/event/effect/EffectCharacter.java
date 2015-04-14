@@ -6,7 +6,7 @@ import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 @FunctionalInterface
-public interface CardEffectCharacter<T extends Card> extends CardEffectInterface<T> {
+public interface EffectCharacter<T extends Card> extends EffectInterface<T> {
     @Override
     public HearthTreeNode applyEffect(PlayerSide originSide, T origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState);
 
@@ -16,7 +16,7 @@ public interface CardEffectCharacter<T extends Card> extends CardEffectInterface
         return this.applyEffect(originSide, origin, targetSide, index, boardState);
     }
 
-    public final static CardEffectCharacter BOUNCE = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+    public final static EffectCharacter BOUNCE = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
         Minion targetCharacter = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
         if (boardState.data_.modelForSide(targetSide).getHand().size() < 10) {
             Minion copy = (Minion)targetCharacter.createResetCopy();
@@ -28,25 +28,25 @@ public interface CardEffectCharacter<T extends Card> extends CardEffectInterface
         return boardState;
     };
 
-    public final static CardEffectCharacter<Card> DESTROY = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+    public final static EffectCharacter<Card> DESTROY = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
         Minion targetCharacter = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
         targetCharacter.setHealth((byte) -99);
         return boardState;
     };
 
-    public final static CardEffectCharacter FREEZE = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+    public final static EffectCharacter FREEZE = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
         Minion targetMinion = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
         targetMinion.setFrozen(true);
         return boardState;
     };
 
-    public final static CardEffectCharacter SILENCE = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+    public final static EffectCharacter SILENCE = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
         Minion targetMinion = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
         targetMinion.silenced(targetSide, boardState.data_);
         return boardState;
     };
 
-    public final static CardEffectCharacter MIND_CONTROL = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+    public final static EffectCharacter MIND_CONTROL = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
         Minion targetMinion = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
 
         boardState.data_.removeMinion(targetSide, targetCharacterIndex - 1);

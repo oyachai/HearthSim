@@ -4,8 +4,8 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionBattlecryInterface;
 import com.hearthsim.event.filter.FilterCharacter;
 import com.hearthsim.event.filter.FilterCharacterTargetedBattlecry;
-import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectCharacterHeal;
+import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.effect.EffectCharacterHeal;
 
 public class EarthenRingFarseer extends Minion implements MinionBattlecryInterface {
 
@@ -27,7 +27,7 @@ public class EarthenRingFarseer extends Minion implements MinionBattlecryInterfa
         }
     };
 
-    private final static CardEffectCharacter battlecryAction = new CardEffectCharacterHeal(3);
+    private final static EffectCharacter battlecryAction = new EffectCharacterHeal(3);
 
 
     public EarthenRingFarseer() {
@@ -40,7 +40,7 @@ public class EarthenRingFarseer extends Minion implements MinionBattlecryInterfa
     }
 
     @Override
-    public CardEffectCharacter getBattlecryEffect() {
+    public EffectCharacter getBattlecryEffect() {
         return EarthenRingFarseer.battlecryAction;
     }
 }

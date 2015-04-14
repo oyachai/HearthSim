@@ -6,7 +6,7 @@ import com.hearthsim.card.minion.MinionBattlecryInterface;
 import com.hearthsim.card.weapon.WeaponCard;
 import com.hearthsim.card.weapon.concrete.BattleAxe;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
-import com.hearthsim.event.effect.CardEffectCharacter;
+import com.hearthsim.event.effect.EffectCharacter;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -20,7 +20,7 @@ public class ArathiWeaponsmith extends Minion implements MinionBattlecryInterfac
      * Battlecry: Destroy your opponent's weapon
      */
     @Override
-    public CardEffectCharacter getBattlecryEffect() {
+    public EffectCharacter getBattlecryEffect() {
         return (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
             HearthTreeNode toRet = boardState;
             Hero theHero = toRet.data_.getCurrentPlayer().getHero();

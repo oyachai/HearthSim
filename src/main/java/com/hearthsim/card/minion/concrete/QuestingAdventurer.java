@@ -3,14 +3,14 @@ package com.hearthsim.card.minion.concrete;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.CardPlayBeginInterface;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectCharacterBuffDelta;
+import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.effect.EffectCharacterBuffDelta;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class QuestingAdventurer extends Minion implements CardPlayBeginInterface {
 
-    private final static CardEffectCharacter<Card> effect = new CardEffectCharacterBuffDelta<>(1, 1);
+    private final static EffectCharacter<Card> effect = new EffectCharacterBuffDelta<>(1, 1);
 
     public QuestingAdventurer() {
         super();

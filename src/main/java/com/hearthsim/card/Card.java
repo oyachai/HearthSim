@@ -206,8 +206,8 @@ public class Card implements DeepCopyable<Card> {
             return false;
         }
 
-        if (this instanceof CardEffectOnResolveTargetableInterface) {
-            if (!((CardEffectOnResolveTargetableInterface)this).getTargetableFilter().targetMatches(PlayerSide.CURRENT_PLAYER, this, playerSide, minion, boardModel)) {
+        if (this instanceof EffectOnResolveTargetable) {
+            if (!((EffectOnResolveTargetable)this).getTargetableFilter().targetMatches(PlayerSide.CURRENT_PLAYER, this, playerSide, minion, boardModel)) {
                 return false;
             }
         } else if (this instanceof SpellCard && playerSide != PlayerSide.CURRENT_PLAYER || !minion.isHero()) { // TODO ignore minion cards for now
@@ -312,9 +312,9 @@ public class Card implements DeepCopyable<Card> {
         int originIndex = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getHand().indexOf(this);
         int targetIndex = boardState.data_.modelForSide(side).getIndexForCharacter(targetMinion);
 
-        CardEffectCharacter<Card> targetableEffect = null;
-        if (this instanceof CardEffectOnResolveTargetableInterface) {
-            targetableEffect = ((CardEffectOnResolveTargetableInterface) this).getTargetableEffect();
+        EffectCharacter<Card> targetableEffect = null;
+        if (this instanceof EffectOnResolveTargetable) {
+            targetableEffect = ((EffectOnResolveTargetable) this).getTargetableEffect();
         }
 
         // TODO this is to workaround using super.use_core since we no longer have an accurate reference to the origin card (specifically, Soulfire messes things up)
@@ -324,10 +324,10 @@ public class Card implements DeepCopyable<Card> {
         // different interfaces have different usage patterns
         if (this instanceof SpellRandomInterface) {
             rngChildren = ((SpellRandomInterface) this).createChildren(PlayerSide.CURRENT_PLAYER, originIndex, toRet);
-        } else if (this instanceof CardEffectOnResolveRandomInterface) {
-            rngChildren = this.effectRandomUsingFilter((CardEffectOnResolveRandomInterface) this, toRet);
-        } else if (this instanceof CardEffectOnResolveAoeInterface) {
-            toRet = this.effectAllUsingFilter(((CardEffectOnResolveAoeInterface) this).getAoeEffect(), ((CardEffectOnResolveAoeInterface) this).getAoeFilter(), toRet);
+        } else if (this instanceof EffectOnResolveRandom) {
+            rngChildren = this.effectRandomUsingFilter((EffectOnResolveRandom) this, toRet);
+        } else if (this instanceof EffectOnResolveAoe) {
+            toRet = this.effectAllUsingFilter(((EffectOnResolveAoe) this).getAoeEffect(), ((EffectOnResolveAoe) this).getAoeFilter(), toRet);
         }
 
         // if we expected rngChildren but none were created, don't let this card be played if it was the only effect
@@ -482,7 +482,7 @@ public class Card implements DeepCopyable<Card> {
         return toRet;
     }
 
-    protected HearthTreeNode effectAllUsingFilter(CardEffectCharacter<Card> effect, FilterCharacter filter, HearthTreeNode boardState) {
+    protected HearthTreeNode effectAllUsingFilter(EffectCharacter<Card> effect, FilterCharacter filter, HearthTreeNode boardState) {
         if (boardState != null && filter != null) {
             for (BoardModel.CharacterLocation location : boardState.data_) {
                 Minion character = boardState.data_.getCharacter(location);
@@ -494,32 +494,32 @@ public class Card implements DeepCopyable<Card> {
         return boardState;
     }
 
-    protected final Collection<HearthTreeNode> effectRandomUsingFilter(CardEffectOnResolveRandomInterface randomEffect, HearthTreeNode boardState) {
-        if (randomEffect instanceof CardEffectOnResolveRandomCharacterInterface) {
-            CardEffectOnResolveRandomCharacterInterface character = (CardEffectOnResolveRandomCharacterInterface)randomEffect;
+    protected final Collection<HearthTreeNode> effectRandomUsingFilter(EffectOnResolveRandom randomEffect, HearthTreeNode boardState) {
+        if (randomEffect instanceof EffectOnResolveRandomCharacter) {
+            EffectOnResolveRandomCharacter character = (EffectOnResolveRandomCharacter)randomEffect;
             return this.effectRandomCharacterUsingFilter(character.getRandomTargetEffect(), character.getRandomTargetSecondaryEffect(), character.getRandomTargetFilter(), boardState);
-        } else if (randomEffect instanceof CardEffectOnResolveRandomHandInterface) {
-            CardEffectOnResolveRandomHandInterface hand = (CardEffectOnResolveRandomHandInterface)randomEffect;
+        } else if (randomEffect instanceof EffectOnResolveRandomHand) {
+            EffectOnResolveRandomHand hand = (EffectOnResolveRandomHand)randomEffect;
             return this.effectRandomHandUsingFilter(hand.getRandomTargetEffect(), hand.getRandomTargetSecondaryEffect(), hand.getRandomTargetFilter(), PlayerSide.CURRENT_PLAYER, boardState);
         }
 
         return null;
     }
 
-    protected final Collection<HearthTreeNode> effectRandomCharacterUsingFilter(CardEffectCharacter<Card> effect, CardEffectCharacter<Card> effectOthers, FilterCharacter filter, HearthTreeNode boardState) {
+    protected final Collection<HearthTreeNode> effectRandomCharacterUsingFilter(EffectCharacter<Card> effect, EffectCharacter<Card> effectOthers, FilterCharacter filter, HearthTreeNode boardState) {
         return this.effectRandomCharacterUsingFilter(effect, effectOthers, filter, PlayerSide.CURRENT_PLAYER, boardState);
     }
 
-    protected Collection<HearthTreeNode> effectRandomCharacterUsingFilter(CardEffectCharacter<Card> effect, CardEffectCharacter<Card> effectOthers, FilterCharacter filter, PlayerSide originSide, HearthTreeNode boardState) {
+    protected Collection<HearthTreeNode> effectRandomCharacterUsingFilter(EffectCharacter<Card> effect, EffectCharacter<Card> effectOthers, FilterCharacter filter, PlayerSide originSide, HearthTreeNode boardState) {
         return this.iterateAndEffectRandom(effect, effectOthers, filter, originSide, boardState, boardState.data_.iterator());
     }
 
-    protected Collection<HearthTreeNode> effectRandomHandUsingFilter(CardEffectHand effect, CardEffectHand effectOthers, FilterHand filter, PlayerSide originSide, HearthTreeNode boardState) {
+    protected Collection<HearthTreeNode> effectRandomHandUsingFilter(EffectHand effect, EffectHand effectOthers, FilterHand filter, PlayerSide originSide, HearthTreeNode boardState) {
         Iterator<BoardModel.CharacterLocation> handIterator = boardState.data_.handIterator();
         return this.iterateAndEffectRandom(effect, effectOthers, filter, originSide, boardState, handIterator);
     }
 
-    protected Collection<HearthTreeNode> iterateAndEffectRandom(CardEffectInterface<Card> effect, CardEffectInterface<Card> effectOthers, FilterInterface<Card> filter, PlayerSide originSide, HearthTreeNode boardState, Iterator<BoardModel.CharacterLocation> targetIterator) {
+    protected Collection<HearthTreeNode> iterateAndEffectRandom(EffectInterface<Card> effect, EffectInterface<Card> effectOthers, FilterInterface<Card> filter, PlayerSide originSide, HearthTreeNode boardState, Iterator<BoardModel.CharacterLocation> targetIterator) {
         int originIndex = boardState.data_.modelForSide(originSide).getHand().indexOf(this);
         boolean originInHand = originIndex >= 0;
         if (!originInHand) {

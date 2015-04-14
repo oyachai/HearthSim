@@ -4,8 +4,8 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionBattlecryInterface;
 import com.hearthsim.event.filter.FilterCharacterInterface;
 import com.hearthsim.event.filter.FilterCharacterTargetedBattlecry;
-import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectCharacterBuff;
+import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.effect.EffectCharacterBuff;
 
 public class AldorPeacekeeper extends Minion implements MinionBattlecryInterface {
 
@@ -18,7 +18,7 @@ public class AldorPeacekeeper extends Minion implements MinionBattlecryInterface
         }
     };
 
-    private final static CardEffectCharacter<Minion> battlecryAction = new CardEffectCharacterBuff<>(1, 0);
+    private final static EffectCharacter<Minion> battlecryAction = new EffectCharacterBuff<>(1, 0);
 
     public AldorPeacekeeper() {
         super();
@@ -30,7 +30,7 @@ public class AldorPeacekeeper extends Minion implements MinionBattlecryInterface
     }
 
     @Override
-    public CardEffectCharacter<Minion> getBattlecryEffect() {
+    public EffectCharacter<Minion> getBattlecryEffect() {
         return AldorPeacekeeper.battlecryAction;
     }
 }

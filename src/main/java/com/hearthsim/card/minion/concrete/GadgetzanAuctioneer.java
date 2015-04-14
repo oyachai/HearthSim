@@ -4,14 +4,14 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.CardPlayBeginInterface;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
-import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectCharacterDraw;
+import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.effect.EffectHeroDraw;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class GadgetzanAuctioneer extends Minion implements CardPlayBeginInterface {
 
-    private final static CardEffectCharacter<Card> effect = new CardEffectCharacterDraw<>(1);
+    private final static EffectCharacter<Card> effect = new EffectHeroDraw<>(1);
 
     public GadgetzanAuctioneer() {
         super();

@@ -5,10 +5,10 @@ import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class CardEffectCharacterDraw<T extends Card> implements CardEffectHero<T> {
+public class EffectHeroDraw<T extends Card> implements EffectHero<T> {
     private final int amount;
 
-    public CardEffectCharacterDraw(int amount) {
+    public EffectHeroDraw(int amount) {
         this.amount = amount;
     }
 

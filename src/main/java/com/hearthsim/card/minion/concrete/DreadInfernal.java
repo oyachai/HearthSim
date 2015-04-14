@@ -4,14 +4,14 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionBattlecryInterface;
 import com.hearthsim.event.filter.FilterCharacter;
-import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectCharacterDamage;
+import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.effect.EffectCharacterDamage;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class DreadInfernal extends Minion implements MinionBattlecryInterface {
 
-    private static final CardEffectCharacter<Card> effect = new CardEffectCharacterDamage<>(1);
+    private static final EffectCharacter<Card> effect = new EffectCharacterDamage<>(1);
 
     private static final FilterCharacter filter = new FilterCharacter() {
         @Override
@@ -48,7 +48,7 @@ public class DreadInfernal extends Minion implements MinionBattlecryInterface {
      * Battlecry: Deals 1 damage to all characters
      */
     @Override
-    public CardEffectCharacter<Minion> getBattlecryEffect() {
+    public EffectCharacter<Minion> getBattlecryEffect() {
         return (PlayerSide originSide, Minion origin, PlayerSide targetSide, int minionPlacementIndex, HearthTreeNode boardState) -> {
             return this.effectAllUsingFilter(DreadInfernal.effect, DreadInfernal.filter, boardState);
         };

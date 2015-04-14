@@ -5,7 +5,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionBattlecryInterface;
 import com.hearthsim.event.filter.FilterCharacter;
 import com.hearthsim.event.filter.FilterCharacterTargetedBattlecry;
-import com.hearthsim.event.effect.CardEffectCharacter;
+import com.hearthsim.event.effect.EffectCharacter;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 
@@ -26,7 +26,7 @@ public class TheBlackKnight extends Minion implements MinionBattlecryInterface {
         }
     };
 
-    private final static CardEffectCharacter battlecryAction = CardEffectCharacter.DESTROY;
+    private final static EffectCharacter battlecryAction = EffectCharacter.DESTROY;
 
     public TheBlackKnight() {
         super();
@@ -38,7 +38,7 @@ public class TheBlackKnight extends Minion implements MinionBattlecryInterface {
     }
 
     @Override
-    public CardEffectCharacter getBattlecryEffect() {
+    public EffectCharacter getBattlecryEffect() {
         return TheBlackKnight.battlecryAction;
     }
 }

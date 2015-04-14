@@ -3,14 +3,14 @@ package com.hearthsim.card.minion.concrete;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionDeadInterface;
 import com.hearthsim.event.filter.FilterCharacter;
-import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectCharacterBuffDelta;
+import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.effect.EffectCharacterBuffDelta;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class ScavengingHyena extends Minion implements MinionDeadInterface {
 
-    private static final CardEffectCharacter<Minion> effect = new CardEffectCharacterBuffDelta<>(2, 2);
+    private static final EffectCharacter<Minion> effect = new EffectCharacterBuffDelta<>(2, 2);
 
     private final static FilterCharacter filter = new FilterCharacter() {
 

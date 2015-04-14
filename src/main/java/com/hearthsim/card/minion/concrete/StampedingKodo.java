@@ -3,20 +3,20 @@ package com.hearthsim.card.minion.concrete;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.filter.FilterCharacter;
-import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectOnResolveRandomCharacterInterface;
+import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.effect.EffectOnResolveRandomCharacter;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 
-public class StampedingKodo extends Minion implements CardEffectOnResolveRandomCharacterInterface {
+public class StampedingKodo extends Minion implements EffectOnResolveRandomCharacter {
 
     public StampedingKodo() {
         super();
     }
 
     @Override
-    public CardEffectCharacter getRandomTargetEffect() {
-        return CardEffectCharacter.DESTROY;
+    public EffectCharacter getRandomTargetEffect() {
+        return EffectCharacter.DESTROY;
     }
 
     @Override

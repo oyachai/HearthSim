@@ -4,8 +4,8 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionBattlecryInterface;
 import com.hearthsim.event.filter.FilterCharacter;
 import com.hearthsim.event.filter.FilterCharacterTargetedBattlecry;
-import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectCharacterDamage;
+import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.effect.EffectCharacterDamage;
 
 public class StormpikeCommando extends Minion implements MinionBattlecryInterface {
 
@@ -27,7 +27,7 @@ public class StormpikeCommando extends Minion implements MinionBattlecryInterfac
         }
     };
 
-    private final static CardEffectCharacter battlecryAction = new CardEffectCharacterDamage(2);
+    private final static EffectCharacter battlecryAction = new EffectCharacterDamage(2);
 
     public StormpikeCommando() {
         super();
@@ -39,7 +39,7 @@ public class StormpikeCommando extends Minion implements MinionBattlecryInterfac
     }
 
     @Override
-    public CardEffectCharacter getBattlecryEffect() {
+    public EffectCharacter getBattlecryEffect() {
         return StormpikeCommando.battlecryAction;
     }
 }

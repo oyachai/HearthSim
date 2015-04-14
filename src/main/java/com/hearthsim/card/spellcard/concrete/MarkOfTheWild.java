@@ -3,12 +3,12 @@ package com.hearthsim.card.spellcard.concrete;
 import com.hearthsim.card.spellcard.SpellTargetableCard;
 import com.hearthsim.event.filter.FilterCharacter;
 import com.hearthsim.event.filter.FilterCharacterTargetedSpell;
-import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectCharacterBuffDelta;
+import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.effect.EffectCharacterBuffDelta;
 
 public class MarkOfTheWild extends SpellTargetableCard {
 
-    private final static CardEffectCharacter effect = new CardEffectCharacterBuffDelta(2, 2, true);
+    private final static EffectCharacter effect = new EffectCharacterBuffDelta(2, 2, true);
 
     /**
      * Constructor
@@ -49,7 +49,7 @@ public class MarkOfTheWild extends SpellTargetableCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    public CardEffectCharacter getTargetableEffect() {
+    public EffectCharacter getTargetableEffect() {
         return MarkOfTheWild.effect;
     }
 }

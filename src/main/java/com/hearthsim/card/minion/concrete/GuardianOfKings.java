@@ -2,12 +2,12 @@ package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionBattlecryInterface;
-import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectCharacterHeal;
+import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.effect.EffectCharacterHeal;
 
 public class GuardianOfKings extends Minion implements MinionBattlecryInterface {
 
-    private static final CardEffectCharacter effect = new CardEffectCharacterHeal(6);
+    private static final EffectCharacter effect = new EffectCharacterHeal(6);
 
     public GuardianOfKings() {
         super();
@@ -17,7 +17,7 @@ public class GuardianOfKings extends Minion implements MinionBattlecryInterface 
      * Battlecry: Restore 6 Health to your Hero
      */
     @Override
-    public CardEffectCharacter getBattlecryEffect() {
+    public EffectCharacter getBattlecryEffect() {
         return GuardianOfKings.effect;
     }
 }

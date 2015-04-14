@@ -2,7 +2,7 @@ package com.hearthsim.card.minion;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.event.filter.FilterCharacterInterface;
-import com.hearthsim.event.effect.CardEffectCharacter;
+import com.hearthsim.event.effect.EffectCharacter;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -28,7 +28,7 @@ public interface MinionTargetableBattlecry extends MinionBattlecryInterface {
     }
 
     @Override
-    public default CardEffectCharacter<Minion> getBattlecryEffect() {
+    public default EffectCharacter<Minion> getBattlecryEffect() {
         return this::useTargetableBattlecry_core;
     }
 }

@@ -2,7 +2,7 @@ package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionBattlecryInterface;
-import com.hearthsim.event.effect.CardEffectCharacter;
+import com.hearthsim.event.effect.EffectCharacter;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -17,7 +17,7 @@ public class MurlocTidehunter extends Minion implements MinionBattlecryInterface
      * Battlecry: Summon a Murloc Scout
      */
     @Override
-    public CardEffectCharacter<Minion> getBattlecryEffect() {
+    public EffectCharacter<Minion> getBattlecryEffect() {
         return (PlayerSide originSide, Minion origin, PlayerSide targetSide, int minionPlacementIndex, HearthTreeNode boardState) -> {
             HearthTreeNode toRet = boardState;
             if (toRet != null) {

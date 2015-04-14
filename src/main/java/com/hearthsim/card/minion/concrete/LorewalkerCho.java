@@ -4,15 +4,15 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.CardPlayBeginInterface;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
-import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectHero;
+import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.effect.EffectHero;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class LorewalkerCho extends Minion implements CardPlayBeginInterface {
 
-    private final static CardEffectCharacter<Card> effect = new CardEffectHero<Card>() {
+    private final static EffectCharacter<Card> effect = new EffectHero<Card>() {
         @Override
         public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, HearthTreeNode boardState) {
             PlayerModel targetPlayer = boardState.data_.modelForSide(targetSide);

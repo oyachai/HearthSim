@@ -4,8 +4,8 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionBattlecryInterface;
 import com.hearthsim.event.filter.FilterCharacter;
 import com.hearthsim.event.filter.FilterCharacterTargetedBattlecry;
-import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectCharacterBuffTemp;
+import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.effect.EffectCharacterBuffTemp;
 
 public class DarkIronDwarf extends Minion implements MinionBattlecryInterface {
 
@@ -21,7 +21,7 @@ public class DarkIronDwarf extends Minion implements MinionBattlecryInterface {
         }
     };
 
-    private final static CardEffectCharacter battlecryAction = new CardEffectCharacterBuffTemp(2);
+    private final static EffectCharacter battlecryAction = new EffectCharacterBuffTemp(2);
 
     public DarkIronDwarf() {
         super();
@@ -33,7 +33,7 @@ public class DarkIronDwarf extends Minion implements MinionBattlecryInterface {
     }
 
     @Override
-    public CardEffectCharacter getBattlecryEffect() {
+    public EffectCharacter getBattlecryEffect() {
         return DarkIronDwarf.battlecryAction;
     }
 }

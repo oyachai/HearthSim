@@ -5,10 +5,10 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class CardEffectCharacterHeal<T extends Card> implements CardEffectCharacter<T> {
+public class EffectCharacterHeal<T extends Card> implements EffectCharacter<T> {
     private final byte amount;
 
-    public CardEffectCharacterHeal(int amount) {
+    public EffectCharacterHeal(int amount) {
         this.amount = (byte) amount;
     }
 

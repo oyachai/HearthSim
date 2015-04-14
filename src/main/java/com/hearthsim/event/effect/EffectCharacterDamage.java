@@ -5,15 +5,15 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class CardEffectCharacterDamage<T extends Card> implements CardEffectCharacter<T> {
+public class EffectCharacterDamage<T extends Card> implements EffectCharacter<T> {
     private final byte damage;
     private final boolean effectedBySpellpower;
 
-    public CardEffectCharacterDamage(int damage) {
+    public EffectCharacterDamage(int damage) {
         this(damage, false);
     }
 
-    protected CardEffectCharacterDamage(int damage, boolean effectedBySpellpower) {
+    protected EffectCharacterDamage(int damage, boolean effectedBySpellpower) {
         this.damage = (byte) damage;
         this.effectedBySpellpower = effectedBySpellpower;
     }

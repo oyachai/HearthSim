@@ -4,8 +4,8 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionBattlecryInterface;
 import com.hearthsim.event.filter.FilterCharacter;
 import com.hearthsim.event.filter.FilterCharacterTargetedBattlecry;
-import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectCharacterHeal;
+import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.effect.EffectCharacterHeal;
 
 public class VoodooDoctor extends Minion implements MinionBattlecryInterface {
 
@@ -27,7 +27,7 @@ public class VoodooDoctor extends Minion implements MinionBattlecryInterface {
         }
     };
 
-    private final static CardEffectCharacter battlecryAction = new CardEffectCharacterHeal(2);
+    private final static EffectCharacter battlecryAction = new EffectCharacterHeal(2);
 
     public VoodooDoctor() {
         super();
@@ -39,7 +39,7 @@ public class VoodooDoctor extends Minion implements MinionBattlecryInterface {
     }
 
     @Override
-    public CardEffectCharacter getBattlecryEffect() {
+    public EffectCharacter getBattlecryEffect() {
         return VoodooDoctor.battlecryAction;
     }
 }

@@ -2,14 +2,14 @@ package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionSummonedInterface;
-import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectCharacterDraw;
+import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.effect.EffectHeroDraw;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class StarvingBuzzard extends Minion implements MinionSummonedInterface {
 
-    private static final CardEffectCharacter<Minion> effect = new CardEffectCharacterDraw<>(1);
+    private static final EffectCharacter<Minion> effect = new EffectHeroDraw<>(1);
 
     public StarvingBuzzard() {
         super();

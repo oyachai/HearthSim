@@ -5,14 +5,14 @@ import com.hearthsim.card.ImplementedCardList;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.filter.FilterCharacter;
 import com.hearthsim.event.filter.FilterCharacterSummon;
-import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectHeroWeapon;
-import com.hearthsim.event.effect.CardEffectOnResolveTargetableInterface;
+import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.effect.EffectHeroWeapon;
+import com.hearthsim.event.effect.EffectOnResolveTargetable;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public abstract class WeaponCard extends Card implements CardEffectOnResolveTargetableInterface {
+public abstract class WeaponCard extends Card implements EffectOnResolveTargetable {
 
     protected boolean isImmune() {
         return immune;
@@ -78,8 +78,8 @@ public abstract class WeaponCard extends Card implements CardEffectOnResolveTarg
     }
 
     @Override
-    public CardEffectCharacter getTargetableEffect() {
-        return new CardEffectHeroWeapon(this);
+    public EffectCharacter getTargetableEffect() {
+        return new EffectHeroWeapon(this);
     }
 
     @Override

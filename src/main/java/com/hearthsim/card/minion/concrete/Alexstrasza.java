@@ -4,8 +4,8 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionBattlecryInterface;
 import com.hearthsim.event.filter.FilterCharacter;
 import com.hearthsim.event.filter.FilterCharacterTargetedBattlecry;
-import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectCharacterBuff;
+import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.effect.EffectCharacterBuff;
 
 public class Alexstrasza extends Minion implements MinionBattlecryInterface {
 
@@ -21,7 +21,7 @@ public class Alexstrasza extends Minion implements MinionBattlecryInterface {
         }
     };
 
-    private final static CardEffectCharacter battlecryAction = new CardEffectCharacterBuff(0, 15);
+    private final static EffectCharacter battlecryAction = new EffectCharacterBuff(0, 15);
 
     public Alexstrasza() {
         super();
@@ -33,7 +33,7 @@ public class Alexstrasza extends Minion implements MinionBattlecryInterface {
     }
 
     @Override
-    public CardEffectCharacter getBattlecryEffect() {
+    public EffectCharacter getBattlecryEffect() {
         return Alexstrasza.battlecryAction;
     }
 }

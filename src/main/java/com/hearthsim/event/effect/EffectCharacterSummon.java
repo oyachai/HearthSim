@@ -5,10 +5,10 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class CardEffectCharacterSummon<T extends Card> implements CardEffectCharacter<T> {
+public class EffectCharacterSummon<T extends Card> implements EffectCharacter<T> {
     private Minion minion;
 
-    public CardEffectCharacterSummon(Minion minion) {
+    public EffectCharacterSummon(Minion minion) {
         this.minion = minion;
     }
 

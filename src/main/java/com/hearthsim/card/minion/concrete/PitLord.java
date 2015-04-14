@@ -2,12 +2,12 @@ package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionBattlecryInterface;
-import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectCharacterDamage;
+import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.effect.EffectCharacterDamage;
 
 public class PitLord extends Minion implements MinionBattlecryInterface {
 
-    private final static CardEffectCharacter effect = new CardEffectCharacterDamage(5);
+    private final static EffectCharacter effect = new EffectCharacterDamage(5);
 
 
     public PitLord() {
@@ -18,7 +18,7 @@ public class PitLord extends Minion implements MinionBattlecryInterface {
      * Battlecry: Deal 5 damage to your hero
      */
     @Override
-    public CardEffectCharacter getBattlecryEffect() {
+    public EffectCharacter getBattlecryEffect() {
         return PitLord.effect;
     }
 }

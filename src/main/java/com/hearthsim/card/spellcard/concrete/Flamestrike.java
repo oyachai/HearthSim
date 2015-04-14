@@ -2,10 +2,10 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.spellcard.SpellDamage;
 import com.hearthsim.event.filter.FilterCharacter;
-import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectOnResolveAoeInterface;
+import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.effect.EffectOnResolveAoe;
 
-public class Flamestrike extends SpellDamage implements CardEffectOnResolveAoeInterface {
+public class Flamestrike extends SpellDamage implements EffectOnResolveAoe {
 
     /**
      * Constructor
@@ -17,7 +17,7 @@ public class Flamestrike extends SpellDamage implements CardEffectOnResolveAoeIn
     }
 
     @Override
-    public CardEffectCharacter getAoeEffect() {
+    public EffectCharacter getAoeEffect() {
         return this.getSpellDamageEffect();
     }
 

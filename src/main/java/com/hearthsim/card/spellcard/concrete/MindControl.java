@@ -3,11 +3,11 @@ package com.hearthsim.card.spellcard.concrete;
 import com.hearthsim.card.spellcard.SpellTargetableCard;
 import com.hearthsim.event.filter.FilterCharacter;
 import com.hearthsim.event.filter.FilterCharacterTargetedSpell;
-import com.hearthsim.event.effect.CardEffectCharacter;
+import com.hearthsim.event.effect.EffectCharacter;
 
 public class MindControl extends SpellTargetableCard {
 
-    private final static CardEffectCharacter effect = CardEffectCharacter.MIND_CONTROL;
+    private final static EffectCharacter effect = EffectCharacter.MIND_CONTROL;
 
     /**
      * Constructor
@@ -48,7 +48,7 @@ public class MindControl extends SpellTargetableCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    public CardEffectCharacter getTargetableEffect() {
+    public EffectCharacter getTargetableEffect() {
         return MindControl.effect;
     }
 }

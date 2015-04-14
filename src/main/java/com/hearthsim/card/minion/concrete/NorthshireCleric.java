@@ -2,8 +2,8 @@ package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionHealedInterface;
-import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectCharacterDraw;
+import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.effect.EffectHeroDraw;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -18,7 +18,7 @@ import com.hearthsim.util.tree.HearthTreeNode;
  */
 public class NorthshireCleric extends Minion implements MinionHealedInterface {
 
-    private static final CardEffectCharacter<Minion> effect = new CardEffectCharacterDraw<>(1);
+    private static final EffectCharacter<Minion> effect = new EffectHeroDraw<>(1);
 
     public NorthshireCleric() {
         super();

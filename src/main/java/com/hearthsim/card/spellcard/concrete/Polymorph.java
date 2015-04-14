@@ -4,7 +4,7 @@ import com.hearthsim.card.minion.concrete.Sheep;
 import com.hearthsim.card.spellcard.SpellTargetableCard;
 import com.hearthsim.event.filter.FilterCharacter;
 import com.hearthsim.event.filter.FilterCharacterTargetedSpell;
-import com.hearthsim.event.effect.CardEffectCharacter;
+import com.hearthsim.event.effect.EffectCharacter;
 
 public class Polymorph extends SpellTargetableCard {
 
@@ -47,7 +47,7 @@ public class Polymorph extends SpellTargetableCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    public CardEffectCharacter getTargetableEffect() {
+    public EffectCharacter getTargetableEffect() {
         if (this.effect == null) {
             this.effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
                 Sheep sheep = new Sheep();

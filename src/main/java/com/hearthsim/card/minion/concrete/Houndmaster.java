@@ -4,8 +4,8 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionBattlecryInterface;
 import com.hearthsim.event.filter.FilterCharacter;
 import com.hearthsim.event.filter.FilterCharacterTargetedBattlecry;
-import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectCharacterBuffDelta;
+import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.effect.EffectCharacterBuffDelta;
 
 public class Houndmaster extends Minion implements MinionBattlecryInterface {
 
@@ -21,7 +21,7 @@ public class Houndmaster extends Minion implements MinionBattlecryInterface {
         }
     };
 
-    private final static CardEffectCharacter battlecryAction = new CardEffectCharacterBuffDelta(2, 2, true);
+    private final static EffectCharacter battlecryAction = new EffectCharacterBuffDelta(2, 2, true);
 
     public Houndmaster() {
         super();
@@ -33,7 +33,7 @@ public class Houndmaster extends Minion implements MinionBattlecryInterface {
     }
 
     @Override
-    public CardEffectCharacter getBattlecryEffect() {
+    public EffectCharacter getBattlecryEffect() {
         return Houndmaster.battlecryAction;
     }
 }

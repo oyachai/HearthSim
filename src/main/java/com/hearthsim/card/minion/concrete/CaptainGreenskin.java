@@ -3,7 +3,7 @@ package com.hearthsim.card.minion.concrete;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionBattlecryInterface;
 import com.hearthsim.card.weapon.WeaponCard;
-import com.hearthsim.event.effect.CardEffectCharacter;
+import com.hearthsim.event.effect.EffectCharacter;
 
 public class CaptainGreenskin extends Minion implements MinionBattlecryInterface {
 
@@ -15,7 +15,7 @@ public class CaptainGreenskin extends Minion implements MinionBattlecryInterface
      * Battlecry: Add +1/+1 to your weapon.
      */
     @Override
-    public CardEffectCharacter getBattlecryEffect() {
+    public EffectCharacter getBattlecryEffect() {
         return (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
             WeaponCard weapon = boardState.data_.getCurrentPlayer().getHero().getWeapon();
             if (weapon != null) {

@@ -6,11 +6,11 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class CardEffectCharacterBuff<T extends Card> implements CardEffectCharacter<T> {
+public class EffectCharacterBuff<T extends Card> implements EffectCharacter<T> {
     private final byte attack;
     private final byte health;
 
-    public CardEffectCharacterBuff(int attack, int health) {
+    public EffectCharacterBuff(int attack, int health) {
         this.attack = (byte) attack;
         this.health = (byte) health;
     }

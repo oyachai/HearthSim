@@ -2,12 +2,12 @@ package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionBattlecryInterface;
-import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectCharacterDraw;
+import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.effect.EffectHeroDraw;
 
 public class GnomishInventor extends Minion implements MinionBattlecryInterface {
 
-    private static final CardEffectCharacter effect = new CardEffectCharacterDraw(1);
+    private static final EffectCharacter effect = new EffectHeroDraw(1);
 
     public GnomishInventor() {
         super();
@@ -17,7 +17,7 @@ public class GnomishInventor extends Minion implements MinionBattlecryInterface 
      * Battlecry: Draw one card
      */
     @Override
-    public CardEffectCharacter getBattlecryEffect() {
+    public EffectCharacter getBattlecryEffect() {
         return GnomishInventor.effect;
     }
 }

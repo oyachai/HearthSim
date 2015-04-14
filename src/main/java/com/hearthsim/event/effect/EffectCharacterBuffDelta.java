@@ -5,16 +5,16 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class CardEffectCharacterBuffDelta<T extends Card> implements CardEffectCharacter<T> {
+public class EffectCharacterBuffDelta<T extends Card> implements EffectCharacter<T> {
     private final byte attackDelta;
     private final byte healthDelta;
     private final boolean addTaunt;
 
-    public CardEffectCharacterBuffDelta(int attackDelta, int healthDelta) {
+    public EffectCharacterBuffDelta(int attackDelta, int healthDelta) {
         this(attackDelta, healthDelta, false);
     }
 
-    public CardEffectCharacterBuffDelta(int attackDelta, int healthDelta, boolean addTaunt) {
+    public EffectCharacterBuffDelta(int attackDelta, int healthDelta, boolean addTaunt) {
         this.attackDelta = (byte) attackDelta;
         this.healthDelta = (byte) healthDelta;
         this.addTaunt = addTaunt;

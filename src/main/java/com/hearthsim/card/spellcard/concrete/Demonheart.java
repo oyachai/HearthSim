@@ -6,7 +6,7 @@ import com.hearthsim.card.spellcard.SpellDamage;
 import com.hearthsim.card.spellcard.SpellDamageTargetableCard;
 import com.hearthsim.event.filter.FilterCharacter;
 import com.hearthsim.event.filter.FilterCharacterTargetedSpell;
-import com.hearthsim.event.effect.SpellEffectCharacterDamage;
+import com.hearthsim.event.effect.EffectCharacterDamageSpell;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -27,9 +27,9 @@ public class Demonheart extends SpellDamageTargetableCard {
     }
 
     @Override
-    public SpellEffectCharacterDamage<SpellDamage> getTargetableEffect() {
+    public EffectCharacterDamageSpell<SpellDamage> getTargetableEffect() {
         if (this.effect == null) {
-            this.effect = new SpellEffectCharacterDamage<SpellDamage>(damage_) {
+            this.effect = new EffectCharacterDamageSpell<SpellDamage>(damage_) {
                 @Override
                 public HearthTreeNode applyEffect(PlayerSide originSide, SpellDamage origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
                     HearthTreeNode toRet = boardState;

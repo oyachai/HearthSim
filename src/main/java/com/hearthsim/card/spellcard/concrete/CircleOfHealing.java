@@ -2,15 +2,15 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.event.filter.FilterCharacter;
-import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectCharacterHeal;
-import com.hearthsim.event.effect.CardEffectOnResolveAoeInterface;
+import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.effect.EffectCharacterHeal;
+import com.hearthsim.event.effect.EffectOnResolveAoe;
 
-public class CircleOfHealing extends SpellCard implements CardEffectOnResolveAoeInterface {
+public class CircleOfHealing extends SpellCard implements EffectOnResolveAoe {
 
     private static final byte HEAL_AMOUNT = 4;
 
-    private static final CardEffectCharacter effect = new CardEffectCharacterHeal(CircleOfHealing.HEAL_AMOUNT);
+    private static final EffectCharacter effect = new EffectCharacterHeal(CircleOfHealing.HEAL_AMOUNT);
 
     /**
      * Heals all minions for 4
@@ -20,7 +20,7 @@ public class CircleOfHealing extends SpellCard implements CardEffectOnResolveAoe
     }
 
     @Override
-    public CardEffectCharacter getAoeEffect() {
+    public EffectCharacter getAoeEffect() {
         return CircleOfHealing.effect;
     }
 

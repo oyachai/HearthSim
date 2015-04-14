@@ -1,8 +1,8 @@
 package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.spellcard.SpellTargetableCard;
-import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectCharacterHeal;
+import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.effect.EffectCharacterHeal;
 
 public class HolyLight extends SpellTargetableCard {
 
@@ -42,9 +42,9 @@ public class HolyLight extends SpellTargetableCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    public CardEffectCharacter getTargetableEffect() {
+    public EffectCharacter getTargetableEffect() {
         if (this.effect == null) {
-            this.effect = new CardEffectCharacterHeal(HolyLight.HEAL_AMOUNT);
+            this.effect = new EffectCharacterHeal(HolyLight.HEAL_AMOUNT);
         }
         return this.effect;
     }

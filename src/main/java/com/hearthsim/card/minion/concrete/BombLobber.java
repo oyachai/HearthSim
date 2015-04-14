@@ -2,15 +2,15 @@ package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.filter.FilterCharacter;
-import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectCharacterDamage;
-import com.hearthsim.event.effect.CardEffectOnResolveRandomCharacterInterface;
+import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.effect.EffectCharacterDamage;
+import com.hearthsim.event.effect.EffectOnResolveRandomCharacter;
 
-public class BombLobber extends Minion implements CardEffectOnResolveRandomCharacterInterface {
-    private static final CardEffectCharacter effect = new CardEffectCharacterDamage(4);
+public class BombLobber extends Minion implements EffectOnResolveRandomCharacter {
+    private static final EffectCharacter effect = new EffectCharacterDamage(4);
 
     @Override
-    public CardEffectCharacter getRandomTargetEffect() {
+    public EffectCharacter getRandomTargetEffect() {
         return BombLobber.effect;
     }
 

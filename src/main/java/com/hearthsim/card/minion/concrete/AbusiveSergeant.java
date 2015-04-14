@@ -4,8 +4,8 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionBattlecryInterface;
 import com.hearthsim.event.filter.FilterCharacterInterface;
 import com.hearthsim.event.filter.FilterCharacterTargetedBattlecry;
-import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectCharacterBuffTemp;
+import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.effect.EffectCharacterBuffTemp;
 
 public class AbusiveSergeant extends Minion implements MinionBattlecryInterface {
 
@@ -21,7 +21,7 @@ public class AbusiveSergeant extends Minion implements MinionBattlecryInterface 
         }
     };
 
-    private final static CardEffectCharacter<Minion> battlecryAction = new CardEffectCharacterBuffTemp<>(2);
+    private final static EffectCharacter<Minion> battlecryAction = new EffectCharacterBuffTemp<>(2);
 
     public AbusiveSergeant() {
         super();
@@ -33,7 +33,7 @@ public class AbusiveSergeant extends Minion implements MinionBattlecryInterface 
     }
 
     @Override
-    public CardEffectCharacter<Minion> getBattlecryEffect() {
+    public EffectCharacter<Minion> getBattlecryEffect() {
         return AbusiveSergeant.battlecryAction;
     }
 }

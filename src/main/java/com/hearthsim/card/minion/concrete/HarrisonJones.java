@@ -3,9 +3,9 @@ package com.hearthsim.card.minion.concrete;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionBattlecryInterface;
 import com.hearthsim.card.weapon.WeaponCard;
-import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectCharacterDraw;
-import com.hearthsim.event.effect.CardEffectHeroWeaponDestroy;
+import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.effect.EffectHeroDraw;
+import com.hearthsim.event.effect.EffectHeroWeaponDestroy;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -19,12 +19,12 @@ public class HarrisonJones extends Minion implements MinionBattlecryInterface {
      * Battlecry: Destroy your opponent's weapon
      */
     @Override
-    public CardEffectCharacter<Minion> getBattlecryEffect() {
+    public EffectCharacter<Minion> getBattlecryEffect() {
         return (PlayerSide originSide, Minion origin, PlayerSide targetSide, int minionPlacementIndex, HearthTreeNode boardState) -> {
             WeaponCard weapon = boardState.data_.modelForSide(PlayerSide.WAITING_PLAYER).getHero().getWeapon();
             if (weapon != null) {
-                CardEffectCharacterDraw<Minion> draw = new CardEffectCharacterDraw<>(weapon.getWeaponCharge());
-                boardState = CardEffectHeroWeaponDestroy.DESTROY.applyEffect(PlayerSide.CURRENT_PLAYER, this, PlayerSide.WAITING_PLAYER, boardState);
+                EffectHeroDraw<Minion> draw = new EffectHeroDraw<>(weapon.getWeaponCharge());
+                boardState = EffectHeroWeaponDestroy.DESTROY.applyEffect(PlayerSide.CURRENT_PLAYER, this, PlayerSide.WAITING_PLAYER, boardState);
                 boardState = draw.applyEffect(PlayerSide.CURRENT_PLAYER, this, PlayerSide.CURRENT_PLAYER, boardState);
             }
 

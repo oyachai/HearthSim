@@ -3,14 +3,14 @@ package com.hearthsim.card.spellcard.concrete;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.spellcard.SpellDamageTargetableCard;
 import com.hearthsim.event.filter.FilterHand;
-import com.hearthsim.event.effect.CardEffectHand;
-import com.hearthsim.event.effect.CardEffectOnResolveRandomHandInterface;
+import com.hearthsim.event.effect.EffectHand;
+import com.hearthsim.event.effect.EffectOnResolveRandomHand;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class Soulfire extends SpellDamageTargetableCard implements CardEffectOnResolveRandomHandInterface {
+public class Soulfire extends SpellDamageTargetableCard implements EffectOnResolveRandomHand {
 
-    private static final CardEffectHand effect = new CardEffectHand() {
+    private static final EffectHand effect = new EffectHand() {
         @Override
         public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, Card target, HearthTreeNode boardState) {
             boardState.data_.modelForSide(originSide).getHand().remove(target);
@@ -31,7 +31,7 @@ public class Soulfire extends SpellDamageTargetableCard implements CardEffectOnR
     }
 
     @Override
-    public CardEffectHand getRandomTargetEffect() {
+    public EffectHand getRandomTargetEffect() {
         return Soulfire.effect;
     }
 

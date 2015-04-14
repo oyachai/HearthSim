@@ -4,7 +4,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionBattlecryInterface;
 import com.hearthsim.event.filter.FilterCharacter;
 import com.hearthsim.event.filter.FilterCharacterTargetedBattlecry;
-import com.hearthsim.event.effect.CardEffectCharacter;
+import com.hearthsim.event.effect.EffectCharacter;
 
 public class AncientBrewmaster extends Minion implements MinionBattlecryInterface {
 
@@ -14,7 +14,7 @@ public class AncientBrewmaster extends Minion implements MinionBattlecryInterfac
         }
     };
 
-    private final static CardEffectCharacter effect = CardEffectCharacter.BOUNCE;
+    private final static EffectCharacter effect = EffectCharacter.BOUNCE;
 
     public AncientBrewmaster() {
         super();
@@ -26,7 +26,7 @@ public class AncientBrewmaster extends Minion implements MinionBattlecryInterfac
     }
 
     @Override
-    public CardEffectCharacter getBattlecryEffect() {
+    public EffectCharacter getBattlecryEffect() {
         return AncientBrewmaster.effect;
     }
 }

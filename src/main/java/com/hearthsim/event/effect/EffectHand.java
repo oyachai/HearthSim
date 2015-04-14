@@ -1,12 +1,11 @@
 package com.hearthsim.event.effect;
 
 import com.hearthsim.card.Card;
-import com.hearthsim.card.minion.Minion;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 @FunctionalInterface
-public interface CardEffectHand extends CardEffectInterface<Card> {
+public interface EffectHand extends EffectInterface<Card> {
     public default HearthTreeNode applyEffect(PlayerSide originSide, int originIndex, PlayerSide targetSide, int targetCardIndex, HearthTreeNode boardState) {
         Card origin = boardState.data_.getCard_hand(originSide, originIndex);
         Card targetCard = boardState.data_.getCard_hand(targetSide, targetCardIndex);

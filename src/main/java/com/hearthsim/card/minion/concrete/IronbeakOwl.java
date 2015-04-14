@@ -4,7 +4,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionBattlecryInterface;
 import com.hearthsim.event.filter.FilterCharacter;
 import com.hearthsim.event.filter.FilterCharacterTargetedBattlecry;
-import com.hearthsim.event.effect.CardEffectCharacter;
+import com.hearthsim.event.effect.EffectCharacter;
 
 public class IronbeakOwl extends Minion implements MinionBattlecryInterface {
 
@@ -20,7 +20,7 @@ public class IronbeakOwl extends Minion implements MinionBattlecryInterface {
         }
     };
 
-    private final static CardEffectCharacter battlecryAction = CardEffectCharacter.SILENCE;
+    private final static EffectCharacter battlecryAction = EffectCharacter.SILENCE;
 
     public IronbeakOwl() {
         super();
@@ -32,7 +32,7 @@ public class IronbeakOwl extends Minion implements MinionBattlecryInterface {
     }
 
     @Override
-    public CardEffectCharacter getBattlecryEffect() {
+    public EffectCharacter getBattlecryEffect() {
         return IronbeakOwl.battlecryAction;
     }
 }

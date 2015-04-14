@@ -2,11 +2,11 @@ package com.hearthsim.card.spellcard;
 
 import com.hearthsim.event.filter.FilterCharacter;
 import com.hearthsim.event.filter.FilterCharacterTargetedSpell;
-import com.hearthsim.event.effect.CardEffectOnResolveTargetableInterface;
-import com.hearthsim.event.effect.SpellEffectCharacterDamage;
+import com.hearthsim.event.effect.EffectOnResolveTargetable;
+import com.hearthsim.event.effect.EffectCharacterDamageSpell;
 
-public abstract class SpellDamageTargetableCard extends SpellDamage implements CardEffectOnResolveTargetableInterface<SpellDamage> {
-    protected SpellEffectCharacterDamage<SpellDamage> effect;
+public abstract class SpellDamageTargetableCard extends SpellDamage implements EffectOnResolveTargetable<SpellDamage> {
+    protected EffectCharacterDamageSpell<SpellDamage> effect;
 
     @Override
     public FilterCharacter getTargetableFilter() {
@@ -15,7 +15,7 @@ public abstract class SpellDamageTargetableCard extends SpellDamage implements C
 
     // damage is set during card import so we need to lazy load this for each card
     @Override
-    public SpellEffectCharacterDamage<SpellDamage> getTargetableEffect() {
+    public EffectCharacterDamageSpell<SpellDamage> getTargetableEffect() {
         return this.getSpellDamageEffect();
     }
 }

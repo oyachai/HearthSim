@@ -2,14 +2,14 @@ package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionDamagedInterface;
-import com.hearthsim.event.effect.CardEffectHero;
-import com.hearthsim.event.effect.CardEffectHeroBuff;
+import com.hearthsim.event.effect.EffectHero;
+import com.hearthsim.event.effect.EffectHeroBuff;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class Armorsmith extends Minion implements MinionDamagedInterface {
 
-    private static final CardEffectHero<Minion> effect = new CardEffectHeroBuff<>(0, 1);
+    private static final EffectHero<Minion> effect = new EffectHeroBuff<>(0, 1);
 
     public Armorsmith() {
         super();

@@ -3,13 +3,13 @@ package com.hearthsim.card.minion.concrete;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionBattlecryInterface;
 import com.hearthsim.event.filter.FilterCharacter;
-import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectHero;
-import com.hearthsim.event.effect.CardEffectHeroWeaponDestroy;
+import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.effect.EffectHero;
+import com.hearthsim.event.effect.EffectHeroWeaponDestroy;
 
 public class BloodsailCorsair extends Minion implements MinionBattlecryInterface {
 
-    private static final CardEffectHero effect = new CardEffectHeroWeaponDestroy(1);
+    private static final EffectHero effect = new EffectHeroWeaponDestroy(1);
 
     /**
      * Battlecry: Remove 1 Durability from your opponent's weapon.
@@ -24,7 +24,7 @@ public class BloodsailCorsair extends Minion implements MinionBattlecryInterface
     }
 
     @Override
-    public CardEffectCharacter getBattlecryEffect() {
+    public EffectCharacter getBattlecryEffect() {
         return BloodsailCorsair.effect;
     }
 }

@@ -4,7 +4,7 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionBattlecryInterface;
 import com.hearthsim.event.filter.FilterCharacter;
 import com.hearthsim.event.filter.FilterCharacterTargetedBattlecry;
-import com.hearthsim.event.effect.CardEffectCharacter;
+import com.hearthsim.event.effect.EffectCharacter;
 
 public class CrazedAlchemist extends Minion implements MinionBattlecryInterface {
 
@@ -20,7 +20,7 @@ public class CrazedAlchemist extends Minion implements MinionBattlecryInterface 
         }
     };
 
-    private final static CardEffectCharacter battlecryAction = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+    private final static EffectCharacter battlecryAction = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
         Minion targetMinion = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
         byte newHealth = targetMinion.getTotalAttack();
         byte newAttack = targetMinion.getTotalHealth();
@@ -39,7 +39,7 @@ public class CrazedAlchemist extends Minion implements MinionBattlecryInterface 
     }
 
     @Override
-    public CardEffectCharacter getBattlecryEffect() {
+    public EffectCharacter getBattlecryEffect() {
         return CrazedAlchemist.battlecryAction;
     }
 }

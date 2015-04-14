@@ -3,12 +3,12 @@ package com.hearthsim.card.spellcard.concrete;
 import com.hearthsim.card.spellcard.SpellTargetableCard;
 import com.hearthsim.event.filter.FilterCharacter;
 import com.hearthsim.event.filter.FilterCharacterTargetedSpell;
-import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectCharacterBuffTemp;
+import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.effect.EffectCharacterBuffTemp;
 
 public class RockbiterWeapon extends SpellTargetableCard {
 
-    private final static CardEffectCharacter effect = new CardEffectCharacterBuffTemp(3);
+    private final static EffectCharacter effect = new EffectCharacterBuffTemp(3);
 
     /**
      * Constructor
@@ -49,7 +49,7 @@ public class RockbiterWeapon extends SpellTargetableCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    public CardEffectCharacter getTargetableEffect() {
+    public EffectCharacter getTargetableEffect() {
         return RockbiterWeapon.effect;
     }
 }

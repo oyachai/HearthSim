@@ -6,9 +6,9 @@ import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class CardEffectHeroWeapon implements CardEffectHero {
+public class EffectHeroWeapon implements EffectHero {
     WeaponCard weapon;
-    public CardEffectHeroWeapon(WeaponCard weapon) {
+    public EffectHeroWeapon(WeaponCard weapon) {
         this.weapon = weapon;
     }
 

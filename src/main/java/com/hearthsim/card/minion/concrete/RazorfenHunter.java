@@ -2,8 +2,8 @@ package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionBattlecryInterface;
-import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectCharacterSummon;
+import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.effect.EffectCharacterSummon;
 
 public class RazorfenHunter extends Minion implements MinionBattlecryInterface {
 
@@ -15,7 +15,7 @@ public class RazorfenHunter extends Minion implements MinionBattlecryInterface {
      * Battlecry: Summon a 1/1 Boar
      */
     @Override
-    public CardEffectCharacter getBattlecryEffect() {
-        return new CardEffectCharacterSummon(new Boar());
+    public EffectCharacter getBattlecryEffect() {
+        return new EffectCharacterSummon(new Boar());
     }
 }

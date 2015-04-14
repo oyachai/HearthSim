@@ -2,15 +2,15 @@ package com.hearthsim.card.weapon.concrete;
 
 import com.hearthsim.card.weapon.WeaponCard;
 import com.hearthsim.event.filter.FilterCharacter;
-import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectCharacterBuffDelta;
-import com.hearthsim.event.effect.CardEffectOnResolveRandomCharacterInterface;
+import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.effect.EffectCharacterBuffDelta;
+import com.hearthsim.event.effect.EffectOnResolveRandomCharacter;
 
-public class Glaivezooka extends WeaponCard implements CardEffectOnResolveRandomCharacterInterface {
-    private static final CardEffectCharacter effect = new CardEffectCharacterBuffDelta(1, 0);
+public class Glaivezooka extends WeaponCard implements EffectOnResolveRandomCharacter {
+    private static final EffectCharacter effect = new EffectCharacterBuffDelta(1, 0);
 
     @Override
-    public CardEffectCharacter getRandomTargetEffect() {
+    public EffectCharacter getRandomTargetEffect() {
         return Glaivezooka.effect;
     }
 

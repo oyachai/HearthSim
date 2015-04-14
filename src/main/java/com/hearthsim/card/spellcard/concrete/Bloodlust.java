@@ -2,13 +2,13 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.event.filter.FilterCharacter;
-import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectCharacterBuffTemp;
-import com.hearthsim.event.effect.CardEffectOnResolveAoeInterface;
+import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.effect.EffectCharacterBuffTemp;
+import com.hearthsim.event.effect.EffectOnResolveAoe;
 
-public class Bloodlust extends SpellCard implements CardEffectOnResolveAoeInterface {
+public class Bloodlust extends SpellCard implements EffectOnResolveAoe {
 
-    private final static CardEffectCharacter effect = new CardEffectCharacterBuffTemp(3);
+    private final static EffectCharacter effect = new EffectCharacterBuffTemp(3);
 
     /**
      * Give your minions +3 attack for this turn
@@ -24,7 +24,7 @@ public class Bloodlust extends SpellCard implements CardEffectOnResolveAoeInterf
     }
 
     @Override
-    public CardEffectCharacter getAoeEffect() {
+    public EffectCharacter getAoeEffect() {
         return Bloodlust.effect;
     }
 

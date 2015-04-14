@@ -4,9 +4,9 @@ import com.hearthsim.card.*;
 import com.hearthsim.event.filter.FilterCharacter;
 import com.hearthsim.event.filter.FilterCharacterSummon;
 import com.hearthsim.event.attack.AttackAction;
-import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectCharacterSummon;
-import com.hearthsim.event.effect.CardEffectOnResolveTargetableInterface;
+import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.effect.EffectCharacterSummon;
+import com.hearthsim.event.effect.EffectOnResolveTargetable;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.model.BoardModel;
@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 
-public class Minion extends Card implements CardEffectOnResolveTargetableInterface<Card>, CardEndTurnInterface, CardStartTurnInterface {
+public class Minion extends Card implements EffectOnResolveTargetable<Card>, CardEndTurnInterface, CardStartTurnInterface {
     private static final Logger log = LoggerFactory.getLogger(Card.class);
 
     public static enum MinionTribe {
@@ -529,7 +529,7 @@ public class Minion extends Card implements CardEffectOnResolveTargetableInterfa
         if (this instanceof MinionBattlecryInterface) {
             boardState.data_.modelForSide(side);
 
-            CardEffectCharacter<Minion> battlecryEffect = ((MinionBattlecryInterface)this).getBattlecryEffect();
+            EffectCharacter<Minion> battlecryEffect = ((MinionBattlecryInterface)this).getBattlecryEffect();
             boardState = battlecryEffect.applyEffect(PlayerSide.CURRENT_PLAYER, this, side, targetCharacterIndex, boardState);
 
             if (boardState != null) {
@@ -555,7 +555,7 @@ public class Minion extends Card implements CardEffectOnResolveTargetableInterfa
     public HearthTreeNode useUntargetableBattlecry(int minionPlacementIndex, HearthTreeNode boardState, boolean singleRealizationOnly) {
         HearthTreeNode toRet = boardState;
         if (this instanceof MinionUntargetableBattlecry) {
-            CardEffectCharacter<Minion> battlecryEffect = ((MinionUntargetableBattlecry)this).getBattlecryEffect();
+            EffectCharacter<Minion> battlecryEffect = ((MinionUntargetableBattlecry)this).getBattlecryEffect();
             toRet = battlecryEffect.applyEffect(PlayerSide.CURRENT_PLAYER, this, PlayerSide.CURRENT_PLAYER, minionPlacementIndex, toRet);
             if (toRet != null) {
                 // Check for dead minions
@@ -586,8 +586,8 @@ public class Minion extends Card implements CardEffectOnResolveTargetableInterfa
     }
 
     @Override
-    public CardEffectCharacter getTargetableEffect() {
-        return new CardEffectCharacterSummon(this);
+    public EffectCharacter getTargetableEffect() {
+        return new EffectCharacterSummon(this);
     }
 
     @Override

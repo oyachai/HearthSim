@@ -3,11 +3,11 @@ package com.hearthsim.card.spellcard.concrete;
 import com.hearthsim.card.spellcard.SpellTargetableCard;
 import com.hearthsim.event.filter.FilterCharacter;
 import com.hearthsim.event.filter.FilterCharacterTargetedSpell;
-import com.hearthsim.event.effect.CardEffectCharacter;
+import com.hearthsim.event.effect.EffectCharacter;
 
 public class Sap extends SpellTargetableCard {
 
-    private final static CardEffectCharacter effect = CardEffectCharacter.BOUNCE;
+    private final static EffectCharacter effect = EffectCharacter.BOUNCE;
 
     /**
      * Constructor
@@ -48,7 +48,7 @@ public class Sap extends SpellTargetableCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    public CardEffectCharacter getTargetableEffect() {
+    public EffectCharacter getTargetableEffect() {
         return Sap.effect;
     }
 }
