@@ -505,6 +505,10 @@
         "class": "com.hearthsim.card.minion.concrete.FlesheatingGhoul"
     },
     {
+        "name": "Floating Watcher",
+        "class": "com.hearthsim.card.minion.concrete.FloatingWatcher"
+    },
+    {
         "name": "Flying Machine",
         "class": "com.hearthsim.card.minion.concrete.FlyingMachine"
     },
