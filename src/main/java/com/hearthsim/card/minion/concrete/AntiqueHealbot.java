@@ -1,29 +1,20 @@
 package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.card.minion.MinionUntargetableBattlecry;
-import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectCharacterHeal;
-import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.tree.HearthTreeNode;
+import com.hearthsim.card.minion.MinionBattlecryInterface;
+import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.effect.EffectCharacterHeal;
 
-public class AntiqueHealbot extends Minion implements MinionUntargetableBattlecry {
+public class AntiqueHealbot extends Minion implements MinionBattlecryInterface {
 
-    private static final CardEffectCharacter effect = new CardEffectCharacterHeal(8);
+    private static final EffectCharacter effect = new EffectCharacterHeal(8);
 
     public AntiqueHealbot() {
         super();
     }
 
-    /**
-     * Battlecry: Heals friendly characters for 2
-     */
     @Override
-    public HearthTreeNode useUntargetableBattlecry_core(
-        int minionPlacementIndex,
-        HearthTreeNode boardState,
-        boolean singleRealizationOnly
-    ) {
-        return AntiqueHealbot.effect.applyEffect(PlayerSide.CURRENT_PLAYER, this, PlayerSide.CURRENT_PLAYER, 0, boardState);
+    public EffectCharacter getBattlecryEffect() {
+        return AntiqueHealbot.effect;
     }
 }
