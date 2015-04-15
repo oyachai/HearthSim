@@ -64,6 +64,7 @@ class BoardModelBuilder {
     }
 
     private updateMinion(Minion minion, Map options) {
+        minion.attack = options.containsKey('attack') ? options.attack : minion.attack;
         minion.attack += options.deltaAttack ? options.deltaAttack : 0;
         minion.extraAttackUntilTurnEnd += options.deltaExtraAttack ? options.deltaExtraAttack : 0;
 

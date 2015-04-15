@@ -549,6 +549,10 @@
         "class": "com.hearthsim.card.minion.concrete.GadgetzanAuctioneer"
     },
     {
+        "name": "Gahz'rilla",
+        "class": "com.hearthsim.card.minion.concrete.Gahzrilla"
+    },
+    {
         "name": "Gilblin Stalker",
         "class": "com.hearthsim.card.minion.concrete.GilblinStalker"
     },
