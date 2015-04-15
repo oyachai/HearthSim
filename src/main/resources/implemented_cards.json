@@ -453,6 +453,10 @@
         "class": "com.hearthsim.card.spellcard.concrete.Execute"
     },
     {
+        "name": "Explosive Sheep",
+        "class": "com.hearthsim.card.minion.concrete.ExplosiveSheep"
+    },
+    {
         "name": "Faerie Dragon",
         "class": "com.hearthsim.card.minion.concrete.FaerieDragon"
     },
