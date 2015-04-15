@@ -1,12 +1,12 @@
 package com.hearthsim.card.minion;
 
 import com.hearthsim.card.*;
-import com.hearthsim.event.CharacterFilter;
-import com.hearthsim.event.CharacterFilterSummon;
+import com.hearthsim.event.filter.FilterCharacter;
+import com.hearthsim.event.filter.FilterCharacterSummon;
 import com.hearthsim.event.attack.AttackAction;
-import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectCharacterSummon;
-import com.hearthsim.event.effect.CardEffectOnResolveTargetableInterface;
+import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.effect.EffectCharacterSummon;
+import com.hearthsim.event.effect.EffectOnResolveTargetable;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.model.BoardModel;
@@ -20,7 +20,9 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Minion extends Card implements CardEffectOnResolveTargetableInterface, CardEndTurnInterface, CardStartTurnInterface {
+import java.util.ArrayList;
+
+public class Minion extends Card implements EffectOnResolveTargetable<Card>, CardEndTurnInterface, CardStartTurnInterface {
     private static final Logger log = LoggerFactory.getLogger(Card.class);
 
     public static enum MinionTribe {
@@ -348,10 +350,6 @@ public class Minion extends Card implements CardEffectOnResolveTargetableInterfa
         return getTotalHealth() > 0;
     }
 
-    public boolean hasBattlecry() {
-        return this instanceof MinionTargetableBattlecry || this instanceof MinionUntargetableBattlecry;
-    }
-
     public boolean isHero() {
         return false;
     }
@@ -528,10 +526,11 @@ public class Minion extends Card implements CardEffectOnResolveTargetableInterfa
      * @throws HSException
      */
     public HearthTreeNode useTargetableBattlecry(PlayerSide side, int targetCharacterIndex, HearthTreeNode boardState, boolean singleRealizationOnly) {
-        if (this instanceof MinionTargetableBattlecry) {
+        if (this instanceof MinionBattlecryInterface) {
             boardState.data_.modelForSide(side);
 
-            boardState = ((MinionTargetableBattlecry)this).useTargetableBattlecry_core(PlayerSide.CURRENT_PLAYER, this, side, targetCharacterIndex, boardState);
+            EffectCharacter<Minion> battlecryEffect = ((MinionBattlecryInterface)this).getBattlecryEffect();
+            boardState = battlecryEffect.applyEffect(PlayerSide.CURRENT_PLAYER, this, side, targetCharacterIndex, boardState);
 
             if (boardState != null) {
                 int originCharacterIndex = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getIndexForCharacter(this);
@@ -552,11 +551,12 @@ public class Minion extends Card implements CardEffectOnResolveTargetableInterfa
      * @return
      * @throws HSException
      */
+    @Deprecated
     public HearthTreeNode useUntargetableBattlecry(int minionPlacementIndex, HearthTreeNode boardState, boolean singleRealizationOnly) {
         HearthTreeNode toRet = boardState;
         if (this instanceof MinionUntargetableBattlecry) {
-            MinionUntargetableBattlecry battlecryMinion = (MinionUntargetableBattlecry) this;
-            toRet = battlecryMinion.useUntargetableBattlecry_core(minionPlacementIndex, boardState, singleRealizationOnly);
+            EffectCharacter<Minion> battlecryEffect = ((MinionUntargetableBattlecry)this).getBattlecryEffect();
+            toRet = battlecryEffect.applyEffect(PlayerSide.CURRENT_PLAYER, this, PlayerSide.CURRENT_PLAYER, minionPlacementIndex, toRet);
             if (toRet != null) {
                 // Check for dead minions
                 toRet = BoardStateFactoryBase.handleDeadMinions(toRet, singleRealizationOnly);
@@ -586,13 +586,13 @@ public class Minion extends Card implements CardEffectOnResolveTargetableInterfa
     }
 
     @Override
-    public CardEffectCharacter getTargetableEffect() {
-        return new CardEffectCharacterSummon(this);
+    public EffectCharacter getTargetableEffect() {
+        return new EffectCharacterSummon(this);
     }
 
     @Override
-    public CharacterFilter getTargetableFilter() {
-        return CharacterFilterSummon.ALL_FRIENDLIES;
+    public FilterCharacter getTargetableFilter() {
+        return FilterCharacterSummon.ALL_FRIENDLIES;
     }
 
     /**
@@ -611,28 +611,25 @@ public class Minion extends Card implements CardEffectOnResolveTargetableInterfa
         HearthTreeNode toRet = boardState;
         toRet = this.summonMinion_core(targetSide, targetMinionIndex, toRet);
 
-
-        if (this instanceof MinionUntargetableBattlecry) {
-            toRet = this.useUntargetableBattlecry(targetMinionIndex, toRet, singleRealizationOnly);
-        }
-
-        if (this instanceof MinionTargetableBattlecry) {
-            MinionTargetableBattlecry battlecryOrigin = ((MinionTargetableBattlecry) this);
+        if (this instanceof MinionBattlecryInterface) {
+            MinionBattlecryInterface battlecryOrigin = ((MinionBattlecryInterface) this);
 
             HearthTreeNode child;
             Minion origin;
             int originCharacterIndex = toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getIndexForCharacter(this);
 
+            ArrayList<HearthTreeNode> children = new ArrayList<>();
             for (BoardModel.CharacterLocation characterLocation : toRet.data_) {
-                if (battlecryOrigin.canTargetWithBattlecry(targetSide, this, characterLocation.getPlayerSide(), characterLocation.getIndex(), toRet.data_)) {
+                if (battlecryOrigin.getBattlecryFilter().targetMatches(PlayerSide.CURRENT_PLAYER, this, characterLocation.getPlayerSide(), characterLocation.getIndex(), toRet.data_)) {
                     child = new HearthTreeNode(toRet.data_.deepCopy());
                     origin = child.data_.getCharacter(PlayerSide.CURRENT_PLAYER, originCharacterIndex);
                     child = origin.useTargetableBattlecry(characterLocation.getPlayerSide(), characterLocation.getIndex(), child, singleRealizationOnly);
                     if (child != null) {
-                        toRet.addChild(child);
+                        children.add(child);
                     }
                 }
             }
+            toRet = this.createNodeWithChildren(toRet, children);
         }
 
         if (wasPlayed) {

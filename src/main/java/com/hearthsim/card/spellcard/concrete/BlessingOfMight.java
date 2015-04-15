@@ -1,14 +1,14 @@
 package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.spellcard.SpellTargetableCard;
-import com.hearthsim.event.CharacterFilter;
-import com.hearthsim.event.CharacterFilterTargetedSpell;
-import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectCharacterBuffDelta;
+import com.hearthsim.event.filter.FilterCharacter;
+import com.hearthsim.event.filter.FilterCharacterTargetedSpell;
+import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.effect.EffectCharacterBuffDelta;
 
 public class BlessingOfMight extends SpellTargetableCard {
 
-    private final static CardEffectCharacter effect = new CardEffectCharacterBuffDelta(3, 0);
+    private final static EffectCharacter effect = new EffectCharacterBuffDelta(3, 0);
 
     /**
      * Constructor
@@ -31,8 +31,8 @@ public class BlessingOfMight extends SpellTargetableCard {
     }
 
     @Override
-    public CharacterFilter getTargetableFilter() {
-        return CharacterFilterTargetedSpell.ALL_MINIONS;
+    public FilterCharacter getTargetableFilter() {
+        return FilterCharacterTargetedSpell.ALL_MINIONS;
     }
 
     /**
@@ -49,7 +49,7 @@ public class BlessingOfMight extends SpellTargetableCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    public CardEffectCharacter getTargetableEffect() {
+    public EffectCharacter getTargetableEffect() {
         return BlessingOfMight.effect;
     }
 }

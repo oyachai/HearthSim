@@ -1,12 +1,11 @@
 package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.card.minion.MinionUntargetableBattlecry;
-import com.hearthsim.model.PlayerModel;
-import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.tree.HearthTreeNode;
+import com.hearthsim.card.minion.MinionBattlecryInterface;
+import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.effect.EffectCharacterSummon;
 
-public class RazorfenHunter extends Minion implements MinionUntargetableBattlecry {
+public class RazorfenHunter extends Minion implements MinionBattlecryInterface {
 
     public RazorfenHunter() {
         super();
@@ -16,18 +15,7 @@ public class RazorfenHunter extends Minion implements MinionUntargetableBattlecr
      * Battlecry: Summon a 1/1 Boar
      */
     @Override
-    public HearthTreeNode useUntargetableBattlecry_core(
-            int minionPlacementIndex,
-            HearthTreeNode boardState,
-            boolean singleRealizationOnly
-        ) {
-        HearthTreeNode toRet = boardState;
-        PlayerModel currentPlayer = toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
-        if (!currentPlayer.isBoardFull()) {
-            Minion mdragon = new Boar();
-            toRet = mdragon.summonMinion(PlayerSide.CURRENT_PLAYER, this, boardState, false, singleRealizationOnly);
-        }
-        return toRet;
+    public EffectCharacter getBattlecryEffect() {
+        return new EffectCharacterSummon(new Boar());
     }
-
 }

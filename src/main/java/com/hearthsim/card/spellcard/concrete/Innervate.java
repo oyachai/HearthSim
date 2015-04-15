@@ -1,15 +1,15 @@
 package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.spellcard.SpellTargetableCard;
-import com.hearthsim.event.CharacterFilter;
-import com.hearthsim.event.CharacterFilterTargetedSpell;
-import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectHero;
-import com.hearthsim.event.effect.CardEffectHeroMana;
+import com.hearthsim.event.filter.FilterCharacter;
+import com.hearthsim.event.filter.FilterCharacterTargetedSpell;
+import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.effect.EffectHero;
+import com.hearthsim.event.effect.EffectHeroMana;
 
 public class Innervate extends SpellTargetableCard {
 
-    private final static CardEffectHero effect = new CardEffectHeroMana(2);
+    private final static EffectHero effect = new EffectHeroMana(2);
 
     /**
      * Constructor
@@ -32,8 +32,8 @@ public class Innervate extends SpellTargetableCard {
     }
 
     @Override
-    public CharacterFilter getTargetableFilter() {
-        return CharacterFilterTargetedSpell.SELF;
+    public FilterCharacter getTargetableFilter() {
+        return FilterCharacterTargetedSpell.SELF;
     }
 
     /**
@@ -50,7 +50,7 @@ public class Innervate extends SpellTargetableCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    public CardEffectCharacter getTargetableEffect() {
+    public EffectCharacter getTargetableEffect() {
         return Innervate.effect;
     }
 }

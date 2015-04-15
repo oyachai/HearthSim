@@ -3,7 +3,7 @@ package com.hearthsim.card.spellcard;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.ImplementedCardList;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.event.effect.SpellEffectCharacterDamage;
+import com.hearthsim.event.effect.EffectCharacterDamageSpell;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 import org.json.JSONObject;
@@ -12,15 +12,15 @@ public class SpellDamage extends SpellCard {
 
     protected byte damage_;
 
-    protected SpellEffectCharacterDamage effect;
+    protected EffectCharacterDamageSpell<SpellDamage> effect;
 
     public SpellDamage() {
         super();
     }
 
-    public SpellEffectCharacterDamage getSpellDamageEffect() {
+    public EffectCharacterDamageSpell<SpellDamage> getSpellDamageEffect() {
         if (this.effect == null) {
-            this.effect = new SpellEffectCharacterDamage(damage_);
+            this.effect = new EffectCharacterDamageSpell<>(damage_);
         }
         return this.effect;
     }
@@ -73,7 +73,7 @@ public class SpellDamage extends SpellCard {
      */
     @Deprecated
     protected final HearthTreeNode attack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode boardState) {
-        SpellEffectCharacterDamage effect = new SpellEffectCharacterDamage(damage_);
+        EffectCharacterDamageSpell<SpellDamage> effect = new EffectCharacterDamageSpell<>(damage_);
         return effect.applyEffect(PlayerSide.CURRENT_PLAYER, this, targetMinionPlayerSide, targetMinion, boardState);
     }
 

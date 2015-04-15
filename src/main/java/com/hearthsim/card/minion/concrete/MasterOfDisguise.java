@@ -1,27 +1,23 @@
 package com.hearthsim.card.minion.concrete;
 
-import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.card.minion.MinionTargetableBattlecry;
-import com.hearthsim.event.CharacterFilterTargetedBattlecry;
-import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.model.BoardModel;
-import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.tree.HearthTreeNode;
+import com.hearthsim.card.minion.MinionBattlecryInterface;
+import com.hearthsim.event.filter.FilterCharacter;
+import com.hearthsim.event.filter.FilterCharacterTargetedBattlecry;
+import com.hearthsim.event.effect.EffectCharacter;
 
-public class MasterOfDisguise extends Minion implements MinionTargetableBattlecry {
+public class MasterOfDisguise extends Minion implements MinionBattlecryInterface {
 
-    private final static CharacterFilterTargetedBattlecry filter = new CharacterFilterTargetedBattlecry() {
-        protected boolean includeOwnMinions() { return true; }
+    private final static FilterCharacterTargetedBattlecry filter = new FilterCharacterTargetedBattlecry() {
+        protected boolean includeOwnMinions() {
+            return true;
+        }
     };
 
-    private final static CardEffectCharacter battlecryAction = new CardEffectCharacter() {
-        @Override
-        public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
-            Minion targetMinion = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
-            targetMinion.setStealthed(true);
-            return boardState;
-        }
+    private final static EffectCharacter battlecryAction = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+        Minion targetMinion = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
+        targetMinion.setStealthed(true);
+        return boardState;
     };
 
     public MasterOfDisguise() {
@@ -29,12 +25,12 @@ public class MasterOfDisguise extends Minion implements MinionTargetableBattlecr
     }
 
     @Override
-    public boolean canTargetWithBattlecry(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, BoardModel board) {
-        return MasterOfDisguise.filter.targetMatches(originSide, origin, targetSide, targetCharacterIndex, board);
+    public FilterCharacter getBattlecryFilter() {
+        return MasterOfDisguise.filter;
     }
 
     @Override
-    public HearthTreeNode useTargetableBattlecry_core(PlayerSide originSide, Minion origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
-        return MasterOfDisguise.battlecryAction.applyEffect(originSide, origin, targetSide, targetCharacterIndex, boardState);
+    public EffectCharacter getBattlecryEffect() {
+        return MasterOfDisguise.battlecryAction;
     }
 }

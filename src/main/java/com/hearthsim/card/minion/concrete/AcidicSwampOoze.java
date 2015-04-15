@@ -1,25 +1,31 @@
 package com.hearthsim.card.minion.concrete;
 
+import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.card.minion.MinionUntargetableBattlecry;
-import com.hearthsim.event.effect.CardEffectHero;
-import com.hearthsim.event.effect.CardEffectHeroWeaponDestroy;
-import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.tree.HearthTreeNode;
+import com.hearthsim.card.minion.MinionBattlecryInterface;
+import com.hearthsim.event.filter.FilterCharacter;
+import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.effect.EffectHero;
+import com.hearthsim.event.effect.EffectHeroWeaponDestroy;
 
-public class AcidicSwampOoze extends Minion implements MinionUntargetableBattlecry {
+public class AcidicSwampOoze extends Minion implements MinionBattlecryInterface {
 
-    private static final CardEffectHero effect = CardEffectHeroWeaponDestroy.DESTROY;
-
-    public AcidicSwampOoze() {
-        super();
-    }
+    private static final EffectHero<Card> effect = EffectHeroWeaponDestroy.DESTROY;
 
     /**
      * Battlecry: Destroy your opponent's weapon
      */
+    public AcidicSwampOoze() {
+        super();
+    }
+
     @Override
-    public HearthTreeNode useUntargetableBattlecry_core(int minionPlacementIndex, HearthTreeNode boardState, boolean singleRealizationOnly) {
-        return effect.applyEffect(PlayerSide.CURRENT_PLAYER, this, PlayerSide.WAITING_PLAYER, boardState);
+    public FilterCharacter getBattlecryFilter() {
+        return FilterCharacter.OPPONENT;
+    }
+
+    @Override
+    public EffectCharacter<Card> getBattlecryEffect() {
+        return AcidicSwampOoze.effect;
     }
 }

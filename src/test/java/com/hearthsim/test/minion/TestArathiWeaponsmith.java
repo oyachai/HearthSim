@@ -12,6 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class TestArathiWeaponsmith {
     private HearthTreeNode board;
@@ -33,7 +34,8 @@ public class TestArathiWeaponsmith {
     public void testEquipsWeapon() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
-        assertEquals(board, ret);
+        assertNotNull(ret);
+        currentPlayer = ret.data_.getCurrentPlayer();
 
         assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 1);
@@ -54,7 +56,9 @@ public class TestArathiWeaponsmith {
 
         Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
-        assertEquals(board, ret);
+        assertNotNull(ret);
+        currentPlayer = ret.data_.getCurrentPlayer();
+
         assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 1);
 

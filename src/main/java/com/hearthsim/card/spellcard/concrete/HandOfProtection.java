@@ -3,18 +3,21 @@ package com.hearthsim.card.spellcard.concrete;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellTargetableCard;
-import com.hearthsim.event.CharacterFilter;
-import com.hearthsim.event.CharacterFilterTargetedSpell;
-import com.hearthsim.event.effect.CardEffectCharacter;
+import com.hearthsim.event.filter.FilterCharacter;
+import com.hearthsim.event.filter.FilterCharacterTargetedSpell;
+import com.hearthsim.event.effect.EffectCharacter;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.tree.HearthTreeNode;
 
 public class HandOfProtection extends SpellTargetableCard {
 
-    private final static CharacterFilter filter = new CharacterFilterTargetedSpell() {
-        protected boolean includeEnemyMinions() { return true; }
-        protected boolean includeOwnMinions() { return true; }
+    private final static FilterCharacter filter = new FilterCharacterTargetedSpell() {
+        protected boolean includeEnemyMinions() {
+            return true;
+        }
+        protected boolean includeOwnMinions() {
+            return true;
+        }
 
         @Override
         public boolean targetMatches(PlayerSide originSide, Card origin, PlayerSide targetSide, Minion targetCharacter, BoardModel board) {
@@ -40,7 +43,7 @@ public class HandOfProtection extends SpellTargetableCard {
     }
 
     @Override
-    public CharacterFilter getTargetableFilter() {
+    public FilterCharacter getTargetableFilter() {
         return HandOfProtection.filter;
     }
 
@@ -58,15 +61,12 @@ public class HandOfProtection extends SpellTargetableCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    public CardEffectCharacter getTargetableEffect() {
+    public EffectCharacter getTargetableEffect() {
         if (this.effect == null) {
-            this.effect = new CardEffectCharacter() {
-                @Override
-                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
-                    Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
-                    targetCharacter.setDivineShield(true);
-                    return boardState;
-                }
+            this.effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+                Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
+                targetCharacter.setDivineShield(true);
+                return boardState;
             };
         }
         return this.effect;

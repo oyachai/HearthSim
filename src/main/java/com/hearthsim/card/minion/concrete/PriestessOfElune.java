@@ -1,12 +1,13 @@
 package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.card.minion.MinionUntargetableBattlecry;
-import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.tree.HearthTreeNode;
+import com.hearthsim.card.minion.MinionBattlecryInterface;
+import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.effect.EffectCharacterHeal;
 
-public class PriestessOfElune extends Minion implements MinionUntargetableBattlecry {
+public class PriestessOfElune extends Minion implements MinionBattlecryInterface {
 
+    private static final EffectCharacter effect = new EffectCharacterHeal(4);
 
     public PriestessOfElune() {
         super();
@@ -16,14 +17,7 @@ public class PriestessOfElune extends Minion implements MinionUntargetableBattle
      * Battlecry: Restore 4 Health to your Hero
      */
     @Override
-    public HearthTreeNode useUntargetableBattlecry_core(
-            int minionPlacementIndex,
-            HearthTreeNode boardState,
-            boolean singleRealizationOnly
-        ) {
-        HearthTreeNode toRet = boardState;
-        toRet = toRet.data_.getCurrentPlayer().getHero().takeHealAndNotify((byte) 4, PlayerSide.CURRENT_PLAYER, toRet);
-        return toRet;
+    public EffectCharacter getBattlecryEffect() {
+        return PriestessOfElune.effect;
     }
-
 }

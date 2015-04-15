@@ -1,19 +1,31 @@
 package com.hearthsim.card.spellcard.concrete;
 
-import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellTargetableCard;
-import com.hearthsim.event.CharacterFilter;
-import com.hearthsim.event.CharacterFilterTargetedSpell;
-import com.hearthsim.event.effect.CardEffectCharacter;
+import com.hearthsim.event.filter.FilterCharacter;
+import com.hearthsim.event.filter.FilterCharacterTargetedSpell;
+import com.hearthsim.event.effect.EffectCharacter;
 import com.hearthsim.model.PlayerModel;
-import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.CardDrawNode;
-import com.hearthsim.util.tree.HearthTreeNode;
 
 public class BattleRage extends SpellTargetableCard {
 
+    private static final EffectCharacter effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+        PlayerModel playerModel = boardState.data_.modelForSide(targetSide);
+        Hero hero = playerModel.getHero();
+        Iterable<Minion> minions = playerModel.getMinions();
+        int numCardsToDraw = hero.getTotalHealth() < hero.getTotalMaxHealth() ? 1 : 0;
+        for (Minion minion : minions) {
+            numCardsToDraw += minion.getTotalHealth() < minion.getTotalMaxHealth() ? 1 : 0;
+        }
+        if (boardState instanceof CardDrawNode) {
+            ((CardDrawNode) boardState).addNumCardsToDraw(numCardsToDraw);
+        } else {
+            boardState = new CardDrawNode(boardState, numCardsToDraw); //draw two cards
+        }
+        return boardState;
+    };
 
     /**
      * Constructor
@@ -36,8 +48,8 @@ public class BattleRage extends SpellTargetableCard {
     }
 
     @Override
-    public CharacterFilter getTargetableFilter() {
-        return CharacterFilterTargetedSpell.SELF;
+    public FilterCharacter getTargetableFilter() {
+        return FilterCharacterTargetedSpell.SELF;
     }
 
     /**
@@ -54,27 +66,7 @@ public class BattleRage extends SpellTargetableCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    public CardEffectCharacter getTargetableEffect() {
-        if (this.effect == null) {
-            this.effect = new CardEffectCharacter() {
-                @Override
-                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
-                    PlayerModel playerModel = boardState.data_.modelForSide(targetSide);
-                    Hero hero = playerModel.getHero();
-                    Iterable<Minion> minions = playerModel.getMinions();
-                    int numCardsToDraw = hero.getTotalHealth() < hero.getTotalMaxHealth() ? 1 : 0;
-                    for (Minion minion : minions) {
-                        numCardsToDraw += minion.getTotalHealth() < minion.getTotalMaxHealth() ? 1 : 0;
-                    }
-                    if (boardState instanceof CardDrawNode) {
-                        ((CardDrawNode) boardState).addNumCardsToDraw(numCardsToDraw);
-                    } else {
-                        boardState = new CardDrawNode(boardState, numCardsToDraw); //draw two cards
-                    }
-                    return boardState;
-                }
-            };
-        }
-        return this.effect;
+    public EffectCharacter getTargetableEffect() {
+        return BattleRage.effect;
     }
 }

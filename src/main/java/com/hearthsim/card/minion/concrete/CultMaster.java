@@ -2,17 +2,17 @@ package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionDeadInterface;
-import com.hearthsim.event.CharacterFilter;
-import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectCharacterDraw;
+import com.hearthsim.event.filter.FilterCharacter;
+import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.effect.EffectHeroDraw;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class CultMaster extends Minion implements MinionDeadInterface {
 
-    private static final CardEffectCharacter effect = new CardEffectCharacterDraw(1);
+    private static final EffectCharacter<Minion> effect = new EffectHeroDraw<>(1);
 
-    private final static CharacterFilter filter = CharacterFilter.FRIENDLY_MINIONS;
+    private final static FilterCharacter filter = FilterCharacter.FRIENDLY_MINIONS;
 
     public CultMaster() {
         super();

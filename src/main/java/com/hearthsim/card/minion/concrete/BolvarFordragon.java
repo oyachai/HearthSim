@@ -2,13 +2,13 @@ package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionDeadInterface;
-import com.hearthsim.event.CharacterFilter;
+import com.hearthsim.event.filter.FilterCharacter;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class BolvarFordragon extends Minion implements MinionDeadInterface {
 
-    private final static CharacterFilter filter = CharacterFilter.FRIENDLY_MINIONS;
+    private final static FilterCharacter filter = FilterCharacter.FRIENDLY_MINIONS;
 
     public BolvarFordragon() {
         super();

@@ -72,7 +72,9 @@ public class TestDreadInfernal {
         Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board);
 
-        assertFalse(ret == null);
+        assertNotNull(ret);
+        currentPlayer = ret.data_.getCurrentPlayer();
+        waitingPlayer = ret.data_.getWaitingPlayer();
 
         assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 3);

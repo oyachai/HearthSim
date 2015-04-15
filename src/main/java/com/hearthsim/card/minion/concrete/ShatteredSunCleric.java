@@ -1,33 +1,32 @@
 package com.hearthsim.card.minion.concrete;
 
-import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.card.minion.MinionTargetableBattlecry;
-import com.hearthsim.event.CharacterFilterTargetedBattlecry;
-import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectCharacterBuffDelta;
-import com.hearthsim.model.BoardModel;
-import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.tree.HearthTreeNode;
+import com.hearthsim.card.minion.MinionBattlecryInterface;
+import com.hearthsim.event.filter.FilterCharacter;
+import com.hearthsim.event.filter.FilterCharacterTargetedBattlecry;
+import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.effect.EffectCharacterBuffDelta;
 
-public class ShatteredSunCleric extends Minion implements MinionTargetableBattlecry {
-    private final static CharacterFilterTargetedBattlecry filter = new CharacterFilterTargetedBattlecry() {
-        protected boolean includeOwnMinions() { return true; }
+public class ShatteredSunCleric extends Minion implements MinionBattlecryInterface {
+    private final static FilterCharacterTargetedBattlecry filter = new FilterCharacterTargetedBattlecry() {
+        protected boolean includeOwnMinions() {
+            return true;
+        }
     };
 
-    private final static CardEffectCharacter battlecryAction = new CardEffectCharacterBuffDelta(1, 1);
+    private final static EffectCharacter battlecryAction = new EffectCharacterBuffDelta(1, 1);
 
     public ShatteredSunCleric() {
         super();
     }
 
     @Override
-    public boolean canTargetWithBattlecry(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, BoardModel board) {
-        return ShatteredSunCleric.filter.targetMatches(originSide, origin, targetSide, targetCharacterIndex, board);
+    public FilterCharacter getBattlecryFilter() {
+        return ShatteredSunCleric.filter;
     }
 
     @Override
-    public HearthTreeNode useTargetableBattlecry_core(PlayerSide originSide, Minion origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
-        return ShatteredSunCleric.battlecryAction.applyEffect(originSide, origin, targetSide, targetCharacterIndex, boardState);
+    public EffectCharacter getBattlecryEffect() {
+        return ShatteredSunCleric.battlecryAction;
     }
 }

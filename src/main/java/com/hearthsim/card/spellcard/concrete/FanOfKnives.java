@@ -2,15 +2,15 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellDamage;
-import com.hearthsim.event.CharacterFilter;
-import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectOnResolveAoeInterface;
+import com.hearthsim.event.filter.FilterCharacter;
+import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.effect.EffectOnResolveAoe;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class FanOfKnives extends SpellDamage implements CardEffectOnResolveAoeInterface {
+public class FanOfKnives extends SpellDamage implements EffectOnResolveAoe {
 
     /**
      * Constructor
@@ -54,10 +54,12 @@ public class FanOfKnives extends SpellDamage implements CardEffectOnResolveAoeIn
     }
 
     @Override
-    public CardEffectCharacter getAoeEffect() { return this.getSpellDamageEffect(); }
+    public EffectCharacter getAoeEffect() {
+        return this.getSpellDamageEffect();
+    }
 
     @Override
-    public CharacterFilter getAoeFilter() {
-        return CharacterFilter.ENEMY_MINIONS;
+    public FilterCharacter getAoeFilter() {
+        return FilterCharacter.ENEMY_MINIONS;
     }
 }

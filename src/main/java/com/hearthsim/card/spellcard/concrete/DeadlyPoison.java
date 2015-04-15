@@ -4,18 +4,25 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellTargetableCard;
-import com.hearthsim.event.CharacterFilter;
-import com.hearthsim.event.CharacterFilterTargetedSpell;
-import com.hearthsim.event.effect.CardEffectCharacter;
+import com.hearthsim.event.filter.FilterCharacter;
+import com.hearthsim.event.filter.FilterCharacterTargetedSpell;
+import com.hearthsim.event.effect.EffectCharacter;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.tree.HearthTreeNode;
 
 public class DeadlyPoison extends SpellTargetableCard {
 
-    private final static CharacterFilter filter = new CharacterFilterTargetedSpell() {
+    private final static EffectCharacter effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+        Hero hero = (Hero)boardState.data_.getCharacter(targetSide, targetCharacterIndex);
+        hero.setAttack((byte)(hero.getAttack() + 2));
+        return boardState;
+    };
+
+    private final static FilterCharacter filter = new FilterCharacterTargetedSpell() {
         @Override
-        protected boolean includeOwnHero() { return true; }
+        protected boolean includeOwnHero() {
+            return true;
+        }
 
         @Override
         public boolean targetMatches(PlayerSide originSide, Card origin, PlayerSide targetSide, Minion targetCharacter, BoardModel board) {
@@ -52,7 +59,7 @@ public class DeadlyPoison extends SpellTargetableCard {
     }
 
     @Override
-    public CharacterFilter getTargetableFilter() {
+    public FilterCharacter getTargetableFilter() {
         return DeadlyPoison.filter;
     }
 
@@ -68,17 +75,7 @@ public class DeadlyPoison extends SpellTargetableCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    public CardEffectCharacter getTargetableEffect() {
-        if (this.effect == null) {
-            this.effect = new CardEffectCharacter() {
-                @Override
-                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
-                    Hero hero = (Hero)boardState.data_.getCharacter(targetSide, targetCharacterIndex);
-                    hero.setAttack((byte)(hero.getAttack() + 2));
-                    return boardState;
-                }
-            };
-        }
-        return this.effect;
+    public EffectCharacter getTargetableEffect() {
+        return DeadlyPoison.effect;
     }
 }

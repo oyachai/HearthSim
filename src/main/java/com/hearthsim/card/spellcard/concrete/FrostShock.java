@@ -2,8 +2,8 @@ package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellDamageTargetableCard;
-import com.hearthsim.event.CharacterFilter;
-import com.hearthsim.event.CharacterFilterTargetedSpell;
+import com.hearthsim.event.filter.FilterCharacter;
+import com.hearthsim.event.filter.FilterCharacterTargetedSpell;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -21,8 +21,8 @@ public class FrostShock extends SpellDamageTargetableCard {
     }
 
     @Override
-    public CharacterFilter getTargetableFilter() {
-        return CharacterFilterTargetedSpell.ALL_ENEMIES;
+    public FilterCharacter getTargetableFilter() {
+        return FilterCharacterTargetedSpell.ALL_ENEMIES;
     }
 
     /**

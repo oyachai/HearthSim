@@ -1,15 +1,19 @@
 package com.hearthsim.card.spellcard.concrete;
 
-import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellTargetableCard;
-import com.hearthsim.event.CharacterFilter;
-import com.hearthsim.event.CharacterFilterTargetedSpell;
-import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.tree.HearthTreeNode;
+import com.hearthsim.event.filter.FilterCharacter;
+import com.hearthsim.event.filter.FilterCharacterTargetedSpell;
+import com.hearthsim.event.effect.EffectCharacter;
 
 public class Charge extends SpellTargetableCard {
+
+    public static final EffectCharacter effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+        Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
+        targetCharacter.setAttack((byte)(targetCharacter.getAttack() + 2));
+        targetCharacter.setCharge(true);
+        return boardState;
+    };
 
     /**
      * Constructor
@@ -32,8 +36,8 @@ public class Charge extends SpellTargetableCard {
     }
 
     @Override
-    public CharacterFilter getTargetableFilter() {
-        return CharacterFilterTargetedSpell.FRIENDLY_MINIONS;
+    public FilterCharacter getTargetableFilter() {
+        return FilterCharacterTargetedSpell.FRIENDLY_MINIONS;
     }
 
     /**
@@ -50,18 +54,7 @@ public class Charge extends SpellTargetableCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    public CardEffectCharacter getTargetableEffect() {
-        if (this.effect == null) {
-            this.effect = new CardEffectCharacter() {
-                @Override
-                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
-                    Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
-                    targetCharacter.setAttack((byte)(targetCharacter.getAttack() + 2));
-                    targetCharacter.setCharge(true);
-                    return boardState;
-                }
-            };
-        }
-        return this.effect;
+    public EffectCharacter getTargetableEffect() {
+        return Charge.effect;
     }
 }

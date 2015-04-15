@@ -46,19 +46,13 @@ class CabalShadowPriestSpec extends CardSpec {
 
         expect:
         assertFalse(ret == null);
-        assertEquals(ret.numChildren(), 1);
+        assertEquals(ret.numChildren(), 0);
 
-        assertBoardDelta(startingBoard, minionPlayedBoard) {
+        assertBoardDelta(startingBoard, ret.data_) {
             currentPlayer {
                 playMinion(CabalShadowPriest)
                 mana(1)
                 numCardsUsed(1)
-            }
-        }
-
-        HearthTreeNode child0 = ret.getChildren().get(0);
-        assertBoardDelta(minionPlayedBoard, child0.data_) {
-            currentPlayer {
                 addMinionToField(GoldshireFootman, true, true, 3)
             }
             waitingPlayer {

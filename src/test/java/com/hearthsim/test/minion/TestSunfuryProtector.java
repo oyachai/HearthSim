@@ -45,7 +45,9 @@ public class TestSunfuryProtector {
     public void test0() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
-        assertFalse(ret == null);
+        assertNotNull(ret);
+        currentPlayer = ret.data_.getCurrentPlayer();
+        waitingPlayer = ret.data_.getWaitingPlayer();
 
         assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 3);
@@ -81,7 +83,9 @@ public class TestSunfuryProtector {
     public void test1() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board);
-        assertFalse(ret == null);
+        assertNotNull(ret);
+        currentPlayer = ret.data_.getCurrentPlayer();
+        waitingPlayer = ret.data_.getWaitingPlayer();
 
         assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 3);

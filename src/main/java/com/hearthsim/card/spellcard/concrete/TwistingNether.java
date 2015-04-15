@@ -1,21 +1,23 @@
 package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.spellcard.SpellCard;
-import com.hearthsim.event.CharacterFilter;
-import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectOnResolveAoeInterface;
+import com.hearthsim.event.filter.FilterCharacter;
+import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.effect.EffectOnResolveAoe;
 
-public class TwistingNether extends SpellCard implements CardEffectOnResolveAoeInterface {
+public class TwistingNether extends SpellCard implements EffectOnResolveAoe {
 
     public TwistingNether() {
         super();
     }
 
     @Override
-    public CardEffectCharacter getAoeEffect() { return CardEffectCharacter.DESTROY; }
+    public EffectCharacter getAoeEffect() {
+        return EffectCharacter.DESTROY;
+    }
 
     @Override
-    public CharacterFilter getAoeFilter() {
-        return CharacterFilter.ALL_MINIONS;
+    public FilterCharacter getAoeFilter() {
+        return FilterCharacter.ALL_MINIONS;
     }
 }

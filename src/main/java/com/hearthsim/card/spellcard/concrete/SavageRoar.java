@@ -1,14 +1,14 @@
 package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.spellcard.SpellCard;
-import com.hearthsim.event.CharacterFilter;
-import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectCharacterBuffTemp;
-import com.hearthsim.event.effect.CardEffectOnResolveAoeInterface;
+import com.hearthsim.event.filter.FilterCharacter;
+import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.effect.EffectCharacterBuffTemp;
+import com.hearthsim.event.effect.EffectOnResolveAoe;
 
-public class SavageRoar extends SpellCard implements CardEffectOnResolveAoeInterface {
+public class SavageRoar extends SpellCard implements EffectOnResolveAoe {
 
-    private final static CardEffectCharacter effect = new CardEffectCharacterBuffTemp(2);
+    private final static EffectCharacter effect = new EffectCharacterBuffTemp(2);
 
     /**
      * Constructor
@@ -29,10 +29,12 @@ public class SavageRoar extends SpellCard implements CardEffectOnResolveAoeInter
     }
 
     @Override
-    public CardEffectCharacter getAoeEffect() { return SavageRoar.effect; }
+    public EffectCharacter getAoeEffect() {
+        return SavageRoar.effect;
+    }
 
     @Override
-    public CharacterFilter getAoeFilter() {
-        return CharacterFilter.ALL_FRIENDLIES;
+    public FilterCharacter getAoeFilter() {
+        return FilterCharacter.ALL_FRIENDLIES;
     }
 }

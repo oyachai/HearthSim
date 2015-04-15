@@ -1,16 +1,15 @@
 package com.hearthsim.card.spellcard.concrete;
 
-import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellDamage;
-import com.hearthsim.event.CharacterFilter;
-import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectOnResolveAoeInterface;
-import com.hearthsim.event.effect.SpellEffectCharacterDamage;
+import com.hearthsim.event.filter.FilterCharacter;
+import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.effect.EffectOnResolveAoe;
+import com.hearthsim.event.effect.EffectCharacterDamageSpell;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class Blizzard extends SpellDamage implements CardEffectOnResolveAoeInterface {
+public class Blizzard extends SpellDamage implements EffectOnResolveAoe {
 
     /*
      * Deal $2 damage to all enemy minions and <b>Freeze</b> them.
@@ -20,11 +19,11 @@ public class Blizzard extends SpellDamage implements CardEffectOnResolveAoeInter
     }
 
     @Override
-    public SpellEffectCharacterDamage getSpellDamageEffect() {
+    public EffectCharacterDamageSpell<SpellDamage> getSpellDamageEffect() {
         if (this.effect == null) {
-            this.effect = new SpellEffectCharacterDamage(damage_) {
+            this.effect = new EffectCharacterDamageSpell<SpellDamage>(damage_) {
                 @Override
-                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
+                public HearthTreeNode applyEffect(PlayerSide originSide, SpellDamage origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
                     Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
                     targetCharacter.setFrozen(true);
                     return super.applyEffect(originSide, origin, targetSide, targetCharacterIndex, boardState);
@@ -35,10 +34,12 @@ public class Blizzard extends SpellDamage implements CardEffectOnResolveAoeInter
     }
 
     @Override
-    public CardEffectCharacter getAoeEffect() { return this.getSpellDamageEffect(); }
+    public EffectCharacter getAoeEffect() {
+        return this.getSpellDamageEffect();
+    }
 
     @Override
-    public CharacterFilter getAoeFilter() {
-        return CharacterFilter.ENEMY_MINIONS;
+    public FilterCharacter getAoeFilter() {
+        return FilterCharacter.ENEMY_MINIONS;
     }
 }

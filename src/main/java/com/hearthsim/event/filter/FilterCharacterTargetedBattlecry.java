@@ -1,11 +1,16 @@
-package com.hearthsim.event;
+package com.hearthsim.event.filter;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 
-public abstract class CharacterFilterTargetedBattlecry extends CharacterFilter {
+public abstract class FilterCharacterTargetedBattlecry extends FilterCharacter {
+    @Override
+    protected boolean excludeSource() {
+        return true;
+    }
+
     @Override
     public boolean targetMatches(PlayerSide originSide, Card origin, PlayerSide targetSide, Minion targetCharacter, BoardModel board) {
         if (!super.targetMatches(originSide, origin, targetSide, targetCharacter, board)) {
@@ -13,11 +18,6 @@ public abstract class CharacterFilterTargetedBattlecry extends CharacterFilter {
         }
 
         if (originSide != targetSide && targetCharacter.getStealthed()) {
-            return false;
-        }
-
-        // cannot target self with battlecry
-        if (origin == targetCharacter) {
             return false;
         }
 

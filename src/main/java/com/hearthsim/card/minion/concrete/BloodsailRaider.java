@@ -1,11 +1,13 @@
 package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.card.minion.MinionUntargetableBattlecry;
+import com.hearthsim.card.minion.MinionBattlecryInterface;
+import com.hearthsim.event.effect.EffectCharacter;
 import com.hearthsim.model.PlayerModel;
+import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class BloodsailRaider extends Minion implements MinionUntargetableBattlecry {
+public class BloodsailRaider extends Minion implements MinionBattlecryInterface {
 
     public BloodsailRaider() {
         super();
@@ -15,15 +17,16 @@ public class BloodsailRaider extends Minion implements MinionUntargetableBattlec
      * Battlecry: Gain Attack equal to the Attack of your weapon
      */
     @Override
-    public HearthTreeNode useUntargetableBattlecry_core(
-        int minionPlacementIndex,
-        HearthTreeNode boardState,
-        boolean singleRealizationOnly
-    ) {
-        PlayerModel currentPlayer = boardState.data_.getCurrentPlayer();
-        if (currentPlayer.getHero().getWeapon() != null) {
-            this.addAttack(currentPlayer.getHero().getWeapon().getWeaponDamage());
-        }
-        return boardState;
+    public EffectCharacter getBattlecryEffect() {
+        return new EffectCharacter<Minion>() {
+            @Override
+            public HearthTreeNode applyEffect(PlayerSide originSide, Minion origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
+                PlayerModel currentPlayer = boardState.data_.getCurrentPlayer();
+                if (currentPlayer.getHero().getWeapon() != null) {
+                    origin.addAttack(currentPlayer.getHero().getWeapon().getWeaponDamage());
+                }
+                return boardState;
+            }
+        };
     }
 }

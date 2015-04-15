@@ -1,8 +1,8 @@
 package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.spellcard.SpellTargetableCard;
-import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectCharacterHeal;
+import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.effect.EffectCharacterHeal;
 
 public class HealingTouch extends SpellTargetableCard {
 
@@ -42,9 +42,9 @@ public class HealingTouch extends SpellTargetableCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    public CardEffectCharacter getTargetableEffect() {
+    public EffectCharacter getTargetableEffect() {
         if (this.effect == null) {
-            this.effect = new CardEffectCharacterHeal(HealingTouch.HEAL_AMOUNT);
+            this.effect = new EffectCharacterHeal(HealingTouch.HEAL_AMOUNT);
         }
         return this.effect;
     }

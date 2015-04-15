@@ -2,20 +2,24 @@ package com.hearthsim.card.weapon.concrete;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.weapon.WeaponCard;
-import com.hearthsim.event.CharacterFilterUntargetedDeathrattle;
+import com.hearthsim.event.filter.FilterCharacterUntargetedDeathrattle;
 import com.hearthsim.event.deathrattle.DeathrattleEffectRandomMinion;
-import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectCharacterBuffDelta;
+import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.effect.EffectCharacterBuffDelta;
 
 public class Powermace extends WeaponCard {
-    private final static CardEffectCharacter powermaceEffect = new CardEffectCharacterBuffDelta(2, 2);
+    private final static EffectCharacter powermaceEffect = new EffectCharacterBuffDelta(2, 2);
 
-    private final static CharacterFilterUntargetedDeathrattle filter = new CharacterFilterUntargetedDeathrattle() {
+    private final static FilterCharacterUntargetedDeathrattle filter = new FilterCharacterUntargetedDeathrattle() {
         @Override
-        protected boolean includeOwnMinions() { return true; }
+        protected boolean includeOwnMinions() {
+            return true;
+        }
 
         @Override
-        protected Minion.MinionTribe tribeFilter() { return Minion.MinionTribe.MECH; }
+        protected Minion.MinionTribe tribeFilter() {
+            return Minion.MinionTribe.MECH;
+        }
     };
 
     public Powermace() {

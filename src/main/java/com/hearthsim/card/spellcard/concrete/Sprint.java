@@ -1,14 +1,14 @@
 package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.spellcard.SpellTargetableCard;
-import com.hearthsim.event.CharacterFilter;
-import com.hearthsim.event.CharacterFilterTargetedSpell;
-import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectCharacterDraw;
+import com.hearthsim.event.filter.FilterCharacter;
+import com.hearthsim.event.filter.FilterCharacterTargetedSpell;
+import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.effect.EffectHeroDraw;
 
 public class Sprint extends SpellTargetableCard {
 
-    private static final CardEffectCharacter effect = new CardEffectCharacterDraw(4);
+    private static final EffectCharacter effect = new EffectHeroDraw(4);
 
     /**
      * Constructor
@@ -20,8 +20,8 @@ public class Sprint extends SpellTargetableCard {
     }
 
     @Override
-    public CharacterFilter getTargetableFilter() {
-        return CharacterFilterTargetedSpell.SELF;
+    public FilterCharacter getTargetableFilter() {
+        return FilterCharacterTargetedSpell.SELF;
     }
 
     /**
@@ -38,7 +38,7 @@ public class Sprint extends SpellTargetableCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    public CardEffectCharacter getTargetableEffect() {
+    public EffectCharacter getTargetableEffect() {
         return Sprint.effect;
     }
 }

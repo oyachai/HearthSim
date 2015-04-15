@@ -3,19 +3,37 @@ package com.hearthsim.card.spellcard.concrete;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellTargetableCard;
-import com.hearthsim.event.CharacterFilter;
-import com.hearthsim.event.CharacterFilterTargetedSpell;
-import com.hearthsim.event.effect.CardEffectCharacter;
+import com.hearthsim.event.filter.FilterCharacter;
+import com.hearthsim.event.filter.FilterCharacterTargetedSpell;
+import com.hearthsim.event.effect.EffectCharacter;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.CardDrawNode;
-import com.hearthsim.util.tree.HearthTreeNode;
 
 public class DivineFavor extends SpellTargetableCard {
 
-    private final static CharacterFilter filter = new CharacterFilterTargetedSpell() {
-        protected boolean includeOwnHero() { return true; }
+    private final static EffectCharacter effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+        PlayerModel currentPlayer = boardState.data_.modelForSide(originSide);
+        PlayerModel waitingPlayer = boardState.data_.modelForSide(targetSide);
+
+        int numCardsToDraw = waitingPlayer.getHand().size() - currentPlayer.getHand().size() + 1;
+        if (numCardsToDraw < 1) {
+            return null;
+        }
+
+        if (boardState instanceof CardDrawNode) {
+            ((CardDrawNode) boardState).addNumCardsToDraw(numCardsToDraw);
+        } else {
+            boardState = new CardDrawNode(boardState, numCardsToDraw);
+        }
+        return boardState;
+    };
+
+    private final static FilterCharacter filter = new FilterCharacterTargetedSpell() {
+        protected boolean includeOwnHero() {
+            return true;
+        }
 
         @Override
         public boolean targetMatches(PlayerSide originSide, Card origin, PlayerSide targetSide, Minion targetCharacter, BoardModel board) {
@@ -41,7 +59,7 @@ public class DivineFavor extends SpellTargetableCard {
     }
 
     @Override
-    public CharacterFilter getTargetableFilter() {
+    public FilterCharacter getTargetableFilter() {
         return DivineFavor.filter;
     }
 
@@ -59,28 +77,7 @@ public class DivineFavor extends SpellTargetableCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    public CardEffectCharacter getTargetableEffect() {
-        if (this.effect == null) {
-            this.effect = new CardEffectCharacter() {
-                @Override
-                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
-                    PlayerModel currentPlayer = boardState.data_.modelForSide(originSide);
-                    PlayerModel waitingPlayer = boardState.data_.modelForSide(targetSide);
-
-                    int numCardsToDraw = waitingPlayer.getHand().size() - currentPlayer.getHand().size() + 1;
-                    if (numCardsToDraw < 1) {
-                        return null;
-                    }
-
-                    if (boardState instanceof CardDrawNode) {
-                        ((CardDrawNode) boardState).addNumCardsToDraw(numCardsToDraw);
-                    } else {
-                        boardState = new CardDrawNode(boardState, numCardsToDraw); //draw two cards
-                    }
-                    return boardState;
-                }
-            };
-        }
-        return this.effect;
+    public EffectCharacter getTargetableEffect() {
+        return DivineFavor.effect;
     }
 }

@@ -1,29 +1,34 @@
 package com.hearthsim.card.spellcard.concrete;
 
-import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.Minion.MinionTribe;
 import com.hearthsim.card.spellcard.SpellTargetableCard;
-import com.hearthsim.event.CharacterFilter;
-import com.hearthsim.event.CharacterFilterTargetedSpell;
-import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.tree.HearthTreeNode;
+import com.hearthsim.event.filter.FilterCharacter;
+import com.hearthsim.event.filter.FilterCharacterTargetedSpell;
+import com.hearthsim.event.effect.EffectCharacter;
 
 public class SacrificialPact extends SpellTargetableCard {
 
-    private final static CharacterFilter filter = new CharacterFilterTargetedSpell() {
+    private final static FilterCharacter filter = new FilterCharacterTargetedSpell() {
         @Override
-        protected boolean includeEnemyHero() { return true; }
+        protected boolean includeEnemyHero() {
+            return true;
+        }
 
         @Override
-        protected boolean includeEnemyMinions() { return true; }
+        protected boolean includeEnemyMinions() {
+            return true;
+        }
 
         @Override
-        protected boolean includeOwnMinions() { return true; }
+        protected boolean includeOwnMinions() {
+            return true;
+        }
 
         @Override
-        protected MinionTribe tribeFilter() { return MinionTribe.DEMON; }
+        protected MinionTribe tribeFilter() {
+            return MinionTribe.DEMON;
+        }
     };
 
     /**
@@ -36,7 +41,7 @@ public class SacrificialPact extends SpellTargetableCard {
     }
 
     @Override
-    public CharacterFilter getTargetableFilter() {
+    public FilterCharacter getTargetableFilter() {
         return SacrificialPact.filter;
     }
 
@@ -54,16 +59,13 @@ public class SacrificialPact extends SpellTargetableCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    public CardEffectCharacter getTargetableEffect() {
+    public EffectCharacter getTargetableEffect() {
         if (this.effect == null) {
-            this.effect = new CardEffectCharacter() {
-                @Override
-                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
-                    Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
-                    boardState = boardState.data_.modelForSide(originSide).getHero().takeHealAndNotify((byte) 5, originSide, boardState);
-                    targetCharacter.setHealth((byte) -99);
-                    return boardState;
-                }
+            this.effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+                Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
+                boardState = boardState.data_.modelForSide(originSide).getHero().takeHealAndNotify((byte) 5, originSide, boardState);
+                targetCharacter.setHealth((byte) -99);
+                return boardState;
             };
         }
         return this.effect;

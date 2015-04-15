@@ -5,14 +5,15 @@ import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.CardDrawNode;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-public class CardEffectCharacterDraw extends CardEffectHero {
+public class EffectHeroDraw<T extends Card> implements EffectHero<T> {
     private final int amount;
 
-    public CardEffectCharacterDraw(int amount) {
+    public EffectHeroDraw(int amount) {
         this.amount = amount;
     }
 
-    public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, HearthTreeNode boardState) {
+    @Override
+    public HearthTreeNode applyEffect(PlayerSide originSide, T origin, PlayerSide targetSide, HearthTreeNode boardState) {
         if (targetSide == PlayerSide.CURRENT_PLAYER) {
              if (boardState instanceof CardDrawNode) {
                  ((CardDrawNode) boardState).addNumCardsToDraw(this.amount);

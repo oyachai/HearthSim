@@ -1,15 +1,14 @@
 package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.card.minion.MinionUntargetableBattlecry;
-import com.hearthsim.event.effect.CardEffectHero;
-import com.hearthsim.event.effect.CardEffectHeroMana;
-import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.tree.HearthTreeNode;
+import com.hearthsim.card.minion.MinionBattlecryInterface;
+import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.effect.EffectHero;
+import com.hearthsim.event.effect.EffectHeroMana;
 
-public class Felguard extends Minion implements MinionUntargetableBattlecry {
+public class Felguard extends Minion implements MinionBattlecryInterface {
 
-    private final static CardEffectHero effect = new CardEffectHeroMana(0, -1);
+    private final static EffectHero<Minion> effect = new EffectHeroMana<>(0, -1);
 
     public Felguard() {
         super();
@@ -19,7 +18,7 @@ public class Felguard extends Minion implements MinionUntargetableBattlecry {
      * Taunt.  Battlecry: Destroy one of your Mana Crystals
      */
     @Override
-    public HearthTreeNode useUntargetableBattlecry_core(int minionPlacementIndex, HearthTreeNode boardState, boolean singleRealizationOnly) {
-        return Felguard.effect.applyEffect(PlayerSide.CURRENT_PLAYER, this, PlayerSide.CURRENT_PLAYER, boardState);
+    public EffectCharacter<Minion> getBattlecryEffect() {
+        return Felguard.effect;
     }
 }

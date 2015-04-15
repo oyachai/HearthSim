@@ -1,15 +1,15 @@
 package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectCharacterBuffDelta;
+import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.effect.EffectCharacterBuffDelta;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class ShadeOfNaxxramas extends Minion {
 
-    private final static CardEffectCharacter effect = new CardEffectCharacterBuffDelta(1, 1);
+    private final static EffectCharacter<Minion> effect = new EffectCharacterBuffDelta<>(1, 1);
 
     public ShadeOfNaxxramas() {
         super();

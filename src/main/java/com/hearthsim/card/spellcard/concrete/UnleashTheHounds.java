@@ -1,14 +1,12 @@
 package com.hearthsim.card.spellcard.concrete;
 
-import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.concrete.Hound;
 import com.hearthsim.card.spellcard.SpellTargetableCard;
-import com.hearthsim.event.CharacterFilter;
-import com.hearthsim.event.CharacterFilterTargetedSpell;
-import com.hearthsim.event.effect.CardEffectCharacter;
+import com.hearthsim.event.filter.FilterCharacter;
+import com.hearthsim.event.filter.FilterCharacterTargetedSpell;
+import com.hearthsim.event.effect.EffectCharacter;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.tree.HearthTreeNode;
 
 public class UnleashTheHounds extends SpellTargetableCard {
 
@@ -23,8 +21,8 @@ public class UnleashTheHounds extends SpellTargetableCard {
     }
 
     @Override
-    public CharacterFilter getTargetableFilter() {
-        return CharacterFilterTargetedSpell.SELF;
+    public FilterCharacter getTargetableFilter() {
+        return FilterCharacterTargetedSpell.SELF;
     }
 
     /**
@@ -39,21 +37,18 @@ public class UnleashTheHounds extends SpellTargetableCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    public CardEffectCharacter getTargetableEffect() {
+    public EffectCharacter getTargetableEffect() {
         if (this.effect == null) {
-            this.effect = new CardEffectCharacter() {
-                @Override
-                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
-                    PlayerModel currentPlayer = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
-                    PlayerModel waitingPlayer = boardState.data_.modelForSide(PlayerSide.WAITING_PLAYER);
-                    int numHoundsToSummon = waitingPlayer.getNumMinions();
-                    if (numHoundsToSummon + currentPlayer.getNumMinions() > 7)
-                        numHoundsToSummon = 7 - currentPlayer.getNumMinions();
-                    for (int indx = 0; indx < numHoundsToSummon; ++indx) {
-                        boardState = new Hound().summonMinionAtEnd(PlayerSide.CURRENT_PLAYER, boardState, false, false);
-                    }
-                    return boardState;
+            this.effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+                PlayerModel currentPlayer = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
+                PlayerModel waitingPlayer = boardState.data_.modelForSide(PlayerSide.WAITING_PLAYER);
+                int numHoundsToSummon = waitingPlayer.getNumMinions();
+                if (numHoundsToSummon + currentPlayer.getNumMinions() > 7)
+                    numHoundsToSummon = 7 - currentPlayer.getNumMinions();
+                for (int indx = 0; indx < numHoundsToSummon; ++indx) {
+                    boardState = new Hound().summonMinionAtEnd(PlayerSide.CURRENT_PLAYER, boardState, false, false);
                 }
+                return boardState;
             };
         }
         return this.effect;

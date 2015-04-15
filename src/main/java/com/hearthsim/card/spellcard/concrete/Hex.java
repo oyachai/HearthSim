@@ -1,13 +1,10 @@
 package com.hearthsim.card.spellcard.concrete;
 
-import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.concrete.Frog;
 import com.hearthsim.card.spellcard.SpellTargetableCard;
-import com.hearthsim.event.CharacterFilter;
-import com.hearthsim.event.CharacterFilterTargetedSpell;
-import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.tree.HearthTreeNode;
+import com.hearthsim.event.filter.FilterCharacter;
+import com.hearthsim.event.filter.FilterCharacterTargetedSpell;
+import com.hearthsim.event.effect.EffectCharacter;
 
 public class Hex extends SpellTargetableCard {
 
@@ -32,8 +29,8 @@ public class Hex extends SpellTargetableCard {
     }
 
     @Override
-    public CharacterFilter getTargetableFilter() {
-        return CharacterFilterTargetedSpell.ALL_MINIONS;
+    public FilterCharacter getTargetableFilter() {
+        return FilterCharacterTargetedSpell.ALL_MINIONS;
     }
 
     /**
@@ -50,16 +47,13 @@ public class Hex extends SpellTargetableCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    public CardEffectCharacter getTargetableEffect() {
+    public EffectCharacter getTargetableEffect() {
         if (this.effect == null) {
-            this.effect = new CardEffectCharacter() {
-                @Override
-                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
-                    Frog frog = new Frog();
-                    boardState.data_.removeMinion(targetSide, targetCharacterIndex - 1);
-                    boardState.data_.placeMinion(targetSide, frog, targetCharacterIndex - 1);
-                    return boardState;
-                }
+            this.effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+                Frog frog = new Frog();
+                boardState.data_.removeMinion(targetSide, targetCharacterIndex - 1);
+                boardState.data_.placeMinion(targetSide, frog, targetCharacterIndex - 1);
+                return boardState;
             };
         }
         return this.effect;

@@ -1,14 +1,14 @@
 package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.spellcard.SpellCard;
-import com.hearthsim.event.CharacterFilter;
-import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectCharacterBuff;
-import com.hearthsim.event.effect.CardEffectOnResolveAoeInterface;
+import com.hearthsim.event.filter.FilterCharacter;
+import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.effect.EffectCharacterBuff;
+import com.hearthsim.event.effect.EffectOnResolveAoe;
 
-public class Equality extends SpellCard implements CardEffectOnResolveAoeInterface {
+public class Equality extends SpellCard implements EffectOnResolveAoe {
 
-    private static final CardEffectCharacter effect = new CardEffectCharacterBuff(0, 1);
+    private static final EffectCharacter effect = new EffectCharacterBuff(0, 1);
 
     /**
      * Constructor
@@ -29,10 +29,12 @@ public class Equality extends SpellCard implements CardEffectOnResolveAoeInterfa
     }
 
     @Override
-    public CardEffectCharacter getAoeEffect() { return Equality.effect; }
+    public EffectCharacter getAoeEffect() {
+        return Equality.effect;
+    }
 
     @Override
-    public CharacterFilter getAoeFilter() {
-        return CharacterFilter.ALL_MINIONS;
+    public FilterCharacter getAoeFilter() {
+        return FilterCharacter.ALL_MINIONS;
     }
 }

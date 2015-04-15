@@ -1,15 +1,24 @@
 package com.hearthsim.card.spellcard.concrete;
 
+import com.hearthsim.card.Card;
 import com.hearthsim.card.spellcard.SpellDamageTargetableCard;
-import com.hearthsim.card.spellcard.SpellRandomInterface;
-import com.hearthsim.model.PlayerModel;
+import com.hearthsim.event.filter.FilterHand;
+import com.hearthsim.event.effect.EffectHand;
+import com.hearthsim.event.effect.EffectOnResolveRandomHand;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-import java.util.ArrayList;
-import java.util.Collection;
+public class Soulfire extends SpellDamageTargetableCard implements EffectOnResolveRandomHand {
 
-public class Soulfire extends SpellDamageTargetableCard implements SpellRandomInterface {
+    private static final EffectHand effect = new EffectHand() {
+        @Override
+        public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, Card target, HearthTreeNode boardState) {
+            boardState.data_.modelForSide(originSide).getHand().remove(target);
+            return boardState;
+        }
+    };
+
+    private static final FilterHand filter = FilterHand.OWN;
 
     public Soulfire() {
         super();
@@ -22,34 +31,12 @@ public class Soulfire extends SpellDamageTargetableCard implements SpellRandomIn
     }
 
     @Override
-    public Collection<HearthTreeNode> createChildren(PlayerSide originSide, int originIndex, HearthTreeNode boardState) {
-        PlayerModel currentPlayer = boardState.data_.modelForSide(originSide);
+    public EffectHand getRandomTargetEffect() {
+        return Soulfire.effect;
+    }
 
-        int totalTargets = currentPlayer.getHand().size();
-
-        HearthTreeNode newState;
-        ArrayList<HearthTreeNode> children = new ArrayList<>();
-        switch (totalTargets) {
-            case 0: // shouldn't happen
-                break;
-            case 1: // only soulfire; remove it and carry on
-                newState = new HearthTreeNode(boardState.data_.deepCopy());
-                newState.data_.modelForSide(originSide).getHand().remove(originIndex);
-                children.add(newState);
-                break;
-            default: // more than 1 card in hand; create one child for each non-Soulfire card
-                for (int i = 0; i < totalTargets; i++) {
-                    if (i == originIndex) {
-                        continue; // don't target Soulfire with Soulfire
-                    }
-
-                    newState = new HearthTreeNode(boardState.data_.deepCopy());
-                    newState.data_.modelForSide(originSide).getHand().remove(originIndex);
-                    newState.data_.modelForSide(originSide).getHand().remove(i < originIndex ? i : i - 1);
-                    children.add(newState);
-                }
-                break;
-        }
-        return children;
+    @Override
+    public FilterHand getRandomTargetFilter() {
+        return Soulfire.filter;
     }
 }

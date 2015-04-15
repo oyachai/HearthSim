@@ -1,11 +1,13 @@
 package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.card.minion.MinionUntargetableBattlecry;
-import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.tree.HearthTreeNode;
+import com.hearthsim.card.minion.MinionBattlecryInterface;
+import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.effect.EffectCharacterHeal;
 
-public class GuardianOfKings extends Minion implements MinionUntargetableBattlecry {
+public class GuardianOfKings extends Minion implements MinionBattlecryInterface {
+
+    private static final EffectCharacter effect = new EffectCharacterHeal(6);
 
     public GuardianOfKings() {
         super();
@@ -15,14 +17,7 @@ public class GuardianOfKings extends Minion implements MinionUntargetableBattlec
      * Battlecry: Restore 6 Health to your Hero
      */
     @Override
-    public HearthTreeNode useUntargetableBattlecry_core(
-            int minionPlacementIndex,
-            HearthTreeNode boardState,
-            boolean singleRealizationOnly
-        ) {
-        HearthTreeNode toRet = boardState;
-        toRet = toRet.data_.getCurrentPlayer().getHero().takeHealAndNotify((byte) 6, PlayerSide.CURRENT_PLAYER, toRet);
-        return toRet;
+    public EffectCharacter getBattlecryEffect() {
+        return GuardianOfKings.effect;
     }
-
 }

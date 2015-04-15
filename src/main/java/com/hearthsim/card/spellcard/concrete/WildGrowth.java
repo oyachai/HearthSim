@@ -1,13 +1,10 @@
 package com.hearthsim.card.spellcard.concrete;
 
-import com.hearthsim.card.Card;
 import com.hearthsim.card.spellcard.SpellTargetableCard;
-import com.hearthsim.event.CharacterFilter;
-import com.hearthsim.event.CharacterFilterTargetedSpell;
-import com.hearthsim.event.effect.CardEffectCharacter;
+import com.hearthsim.event.filter.FilterCharacter;
+import com.hearthsim.event.filter.FilterCharacterTargetedSpell;
+import com.hearthsim.event.effect.EffectCharacter;
 import com.hearthsim.model.PlayerModel;
-import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.tree.HearthTreeNode;
 
 public class WildGrowth extends SpellTargetableCard {
 
@@ -33,8 +30,8 @@ public class WildGrowth extends SpellTargetableCard {
     }
 
     @Override
-    public CharacterFilter getTargetableFilter() {
-        return CharacterFilterTargetedSpell.SELF;
+    public FilterCharacter getTargetableFilter() {
+        return FilterCharacterTargetedSpell.SELF;
     }
 
     /**
@@ -52,19 +49,16 @@ public class WildGrowth extends SpellTargetableCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    public CardEffectCharacter getTargetableEffect() {
+    public EffectCharacter getTargetableEffect() {
         if (this.effect == null) {
-            this.effect = new CardEffectCharacter() {
-                @Override
-                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
-                    PlayerModel player = boardState.data_.modelForSide(targetSide);
-                    if (player.getMaxMana() >= 10) {
-                        player.placeCardHand(new ExcessMana());
-                    } else {
-                        player.addMaxMana((byte) 1);
-                    }
-                    return boardState;
+            this.effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+                PlayerModel player = boardState.data_.modelForSide(targetSide);
+                if (player.getMaxMana() >= 10) {
+                    player.placeCardHand(new ExcessMana());
+                } else {
+                    player.addMaxMana((byte) 1);
                 }
+                return boardState;
             };
         }
         return this.effect;

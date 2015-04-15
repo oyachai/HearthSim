@@ -1,23 +1,18 @@
 package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.spellcard.SpellCard;
-import com.hearthsim.event.CharacterFilter;
-import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectOnResolveRandomCharacterInterface;
+import com.hearthsim.event.filter.FilterCharacter;
+import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.effect.EffectOnResolveRandomCharacter;
 
-public class DeadlyShot extends SpellCard implements CardEffectOnResolveRandomCharacterInterface {
+public class DeadlyShot extends SpellCard implements EffectOnResolveRandomCharacter {
     @Override
-    public CardEffectCharacter getRandomTargetEffect() {
-        return CardEffectCharacter.DESTROY;
+    public EffectCharacter getRandomTargetEffect() {
+        return EffectCharacter.DESTROY;
     }
 
     @Override
-    public CardEffectCharacter getRandomTargetSecondaryEffect() {
-        return null;
-    }
-
-    @Override
-    public CharacterFilter getRandomTargetFilter() {
-        return CharacterFilter.ENEMY_MINIONS;
+    public FilterCharacter getRandomTargetFilter() {
+        return FilterCharacter.ENEMY_MINIONS;
     }
 }

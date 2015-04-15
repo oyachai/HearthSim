@@ -1,12 +1,12 @@
 package com.hearthsim.card.spellcard.concrete;
 
-import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.Minion.MinionTribe;
+import com.hearthsim.card.spellcard.SpellDamage;
 import com.hearthsim.card.spellcard.SpellDamageTargetableCard;
-import com.hearthsim.event.CharacterFilter;
-import com.hearthsim.event.CharacterFilterTargetedSpell;
-import com.hearthsim.event.effect.SpellEffectCharacterDamage;
+import com.hearthsim.event.filter.FilterCharacter;
+import com.hearthsim.event.filter.FilterCharacterTargetedSpell;
+import com.hearthsim.event.effect.EffectCharacterDamageSpell;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -22,16 +22,16 @@ public class Demonheart extends SpellDamageTargetableCard {
     }
 
     @Override
-    public CharacterFilter getTargetableFilter() {
-        return CharacterFilterTargetedSpell.ALL_MINIONS;
+    public FilterCharacter getTargetableFilter() {
+        return FilterCharacterTargetedSpell.ALL_MINIONS;
     }
 
     @Override
-    public SpellEffectCharacterDamage getTargetableEffect() {
+    public EffectCharacterDamageSpell<SpellDamage> getTargetableEffect() {
         if (this.effect == null) {
-            this.effect = new SpellEffectCharacterDamage(damage_) {
+            this.effect = new EffectCharacterDamageSpell<SpellDamage>(damage_) {
                 @Override
-                public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
+                public HearthTreeNode applyEffect(PlayerSide originSide, SpellDamage origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
                     HearthTreeNode toRet = boardState;
                     Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
                     if (isCurrentPlayer(targetSide) && targetCharacter.getTribe() == MinionTribe.DEMON) {

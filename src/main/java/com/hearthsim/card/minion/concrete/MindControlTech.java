@@ -2,17 +2,17 @@ package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.event.CharacterFilter;
-import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectOnResolveRandomCharacterInterface;
+import com.hearthsim.event.filter.FilterCharacter;
+import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.effect.EffectOnResolveRandomCharacter;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 
-public class MindControlTech extends Minion implements CardEffectOnResolveRandomCharacterInterface {
+public class MindControlTech extends Minion implements EffectOnResolveRandomCharacter {
 
-    private static final CardEffectCharacter effect = CardEffectCharacter.MIND_CONTROL;
+    private static final EffectCharacter effect = EffectCharacter.MIND_CONTROL;
 
-    private static final CharacterFilter filter = new CharacterFilter() {
+    private static final FilterCharacter filter = new FilterCharacter() {
 
         @Override
         protected boolean includeEnemyMinions() {
@@ -30,17 +30,12 @@ public class MindControlTech extends Minion implements CardEffectOnResolveRandom
     };
 
     @Override
-    public CardEffectCharacter getRandomTargetEffect() {
+    public EffectCharacter getRandomTargetEffect() {
         return MindControlTech.effect;
     }
 
     @Override
-    public CardEffectCharacter getRandomTargetSecondaryEffect() {
-        return null;
-    }
-
-    @Override
-    public CharacterFilter getRandomTargetFilter() {
+    public FilterCharacter getRandomTargetFilter() {
         return MindControlTech.filter;
     }
 }

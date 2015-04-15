@@ -60,22 +60,15 @@ class HungryCrabSpec extends CardSpec {
 
         expect:
         assertNotNull(ret);
-        assertEquals(ret.numChildren(), 1);
+        assertEquals(ret.numChildren(), 0);
 
-        assertBoardDelta(startingBoard, minionPlayedBoard) {
+        assertBoardDelta(startingBoard, ret.data_) {
             currentPlayer {
                 playMinion(HungryCrab)
                 mana(1)
                 numCardsUsed(1)
-            }
-        }
-
-        HearthTreeNode child0 = ret.getChildren().get(0);
-        assertBoardDelta(minionPlayedBoard, child0.data_) {
-            currentPlayer {
                 updateMinion(0, [deltaAttack: +2, deltaHealth: +2, deltaMaxHealth: +2])
             }
-
             waitingPlayer {
                 removeMinion(0)
             }
@@ -92,19 +85,13 @@ class HungryCrabSpec extends CardSpec {
 
         expect:
         assertNotNull(ret);
-        assertEquals(ret.numChildren(), 1);
+        assertEquals(ret.numChildren(), 0);
 
-        assertBoardDelta(startingBoard, minionPlayedBoard) {
+        assertBoardDelta(startingBoard, ret.data_) {
             currentPlayer {
                 playMinion(HungryCrab, 0)
                 mana(1)
                 numCardsUsed(1)
-            }
-        }
-
-        HearthTreeNode child0 = ret.getChildren().get(0);
-        assertBoardDelta(minionPlayedBoard, child0.data_) {
-            currentPlayer {
                 updateMinion(0, [deltaAttack: +2, deltaHealth: +2, deltaMaxHealth: +2])
                 removeMinion(1)
             }

@@ -1,17 +1,17 @@
 package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.spellcard.SpellTargetableCard;
-import com.hearthsim.event.CharacterFilter;
-import com.hearthsim.event.CharacterFilterTargetedSpell;
-import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectHeroBuff;
+import com.hearthsim.event.filter.FilterCharacter;
+import com.hearthsim.event.filter.FilterCharacterTargetedSpell;
+import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.effect.EffectHeroBuff;
 
 public class Claw extends SpellTargetableCard {
 
     private static final byte DAMAGE_AMOUNT = 2;
     private static final byte ARMOR_AMOUNT = 2;
 
-    private static final CardEffectCharacter effect = new CardEffectHeroBuff(DAMAGE_AMOUNT, ARMOR_AMOUNT);
+    private static final EffectCharacter effect = new EffectHeroBuff(DAMAGE_AMOUNT, ARMOR_AMOUNT);
 
     /**
      * Constructor
@@ -34,8 +34,8 @@ public class Claw extends SpellTargetableCard {
     }
 
     @Override
-    public CharacterFilter getTargetableFilter() {
-        return CharacterFilterTargetedSpell.SELF;
+    public FilterCharacter getTargetableFilter() {
+        return FilterCharacterTargetedSpell.SELF;
     }
 
     /**
@@ -51,7 +51,7 @@ public class Claw extends SpellTargetableCard {
      * @return The boardState is manipulated and returned
      */
     @Override
-    public CardEffectCharacter getTargetableEffect() {
+    public EffectCharacter getTargetableEffect() {
         return Claw.effect;
     }
 }

@@ -4,14 +4,14 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.CardPlayBeginInterface;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellCard;
-import com.hearthsim.event.effect.CardEffectCharacter;
-import com.hearthsim.event.effect.CardEffectCharacterBuffTemp;
+import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.effect.EffectCharacterBuffTemp;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class ManaAddict extends Minion implements CardPlayBeginInterface {
 
-    private final static CardEffectCharacter effect = new CardEffectCharacterBuffTemp(2);
+    private final static EffectCharacter<Card> effect = new EffectCharacterBuffTemp<>(2);
 
     public ManaAddict() {
         super();

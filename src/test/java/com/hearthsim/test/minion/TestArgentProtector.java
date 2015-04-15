@@ -27,7 +27,7 @@ public class TestArgentProtector {
         BoulderfistOgre ogre = new BoulderfistOgre();
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, ogre);
         ArgentProtector protector = new ArgentProtector();
-        protector.useTargetableBattlecry_core(PlayerSide.CURRENT_PLAYER, protector, PlayerSide.CURRENT_PLAYER, 1, board);
+        protector.getBattlecryEffect().applyEffect(PlayerSide.CURRENT_PLAYER, protector, PlayerSide.CURRENT_PLAYER, 1, board);
         assertTrue(ogre.getDivineShield());
     }
 
