@@ -4,6 +4,7 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellTargetableCard;
+import com.hearthsim.event.effect.EffectHeroWeaponBuffDelta;
 import com.hearthsim.event.filter.FilterCharacter;
 import com.hearthsim.event.filter.FilterCharacterTargetedSpell;
 import com.hearthsim.event.effect.EffectCharacter;
@@ -12,11 +13,7 @@ import com.hearthsim.model.PlayerSide;
 
 public class DeadlyPoison extends SpellTargetableCard {
 
-    private final static EffectCharacter effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
-        Hero hero = (Hero)boardState.data_.getCharacter(targetSide, targetCharacterIndex);
-        hero.setAttack((byte)(hero.getAttack() + 2));
-        return boardState;
-    };
+    private final static EffectCharacter effect = new EffectHeroWeaponBuffDelta<>(2);
 
     private final static FilterCharacter filter = new FilterCharacterTargetedSpell() {
         @Override

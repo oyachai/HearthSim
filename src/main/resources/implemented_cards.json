@@ -577,6 +577,10 @@
         "class": "com.hearthsim.card.minion.concrete.GnomereganInfantry"
     },
     {
+        "name": "Goblin Auto-Barber",
+        "class": "com.hearthsim.card.minion.concrete.GoblinAutoBarber"
+    },
+    {
         "name": "Goldshire Footman",
         "class": "com.hearthsim.card.minion.concrete.GoldshireFootman"
     },
