@@ -761,6 +761,10 @@
         "class": "com.hearthsim.card.minion.concrete.KingMukla"
     },
     {
+        "name": "King of Beasts",
+        "class": "com.hearthsim.card.minion.concrete.KingOfBeasts"
+    },
+    {
         "name": "Knife Juggler",
         "class": "com.hearthsim.card.minion.concrete.KnifeJuggler"
     },

@@ -13,4 +13,14 @@ public interface FilterCharacterInterface extends FilterInterface<Card> {
         Minion targetCharacter = board.getCharacter(targetSide, targetCharacterIndex);
         return this.targetMatches(originSide, origin, targetSide, targetCharacter, board);
     }
+
+    public default int countMatchesForBoard(PlayerSide originSide, Card origin, BoardModel board) {
+        int matches = 0;
+        for(BoardModel.CharacterLocation location : board) {
+            if (this.targetMatches(originSide, origin, location.getPlayerSide(), location.getIndex(), board)) {
+                matches++;
+            }
+        }
+        return matches;
+    }
 }
