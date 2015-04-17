@@ -3,7 +3,6 @@ package com.hearthsim.card.minion.concrete;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionBattlecryInterface;
 import com.hearthsim.event.effect.EffectCharacter;
-import com.hearthsim.event.effect.EffectHeroDraw;
 import com.hearthsim.event.effect.EffectHeroWeaponBuffDelta;
 
 public class GoblinAutoBarber extends Minion implements MinionBattlecryInterface {

@@ -4,7 +4,6 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionDamagedInterface;
 import com.hearthsim.event.effect.EffectCharacter;
 import com.hearthsim.event.effect.EffectCharacterBuffDelta;
-import com.hearthsim.event.effect.EffectHeroDraw;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 

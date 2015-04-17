@@ -1,9 +1,9 @@
 package com.hearthsim.card.spellcard;
 
+import com.hearthsim.event.effect.EffectCharacterDamageSpell;
+import com.hearthsim.event.effect.EffectOnResolveTargetable;
 import com.hearthsim.event.filter.FilterCharacter;
 import com.hearthsim.event.filter.FilterCharacterTargetedSpell;
-import com.hearthsim.event.effect.EffectOnResolveTargetable;
-import com.hearthsim.event.effect.EffectCharacterDamageSpell;
 
 public abstract class SpellDamageTargetableCard extends SpellDamage implements EffectOnResolveTargetable<SpellDamage> {
     protected EffectCharacterDamageSpell<SpellDamage> effect;

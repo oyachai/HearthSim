@@ -1,9 +1,9 @@
 package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.spellcard.SpellCard;
-import com.hearthsim.event.filter.FilterCharacter;
 import com.hearthsim.event.effect.EffectCharacter;
 import com.hearthsim.event.effect.EffectOnResolveRandomCharacter;
+import com.hearthsim.event.filter.FilterCharacter;
 
 public class DeadlyShot extends SpellCard implements EffectOnResolveRandomCharacter {
     @Override

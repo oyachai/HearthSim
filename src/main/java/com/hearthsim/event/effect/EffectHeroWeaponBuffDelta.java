@@ -3,8 +3,6 @@ package com.hearthsim.event.effect;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.weapon.WeaponCard;
-import com.hearthsim.event.deathrattle.DeathrattleAction;
-import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 

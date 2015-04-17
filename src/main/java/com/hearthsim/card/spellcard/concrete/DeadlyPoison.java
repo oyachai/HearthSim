@@ -4,10 +4,10 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellTargetableCard;
+import com.hearthsim.event.effect.EffectCharacter;
 import com.hearthsim.event.effect.EffectHeroWeaponBuffDelta;
 import com.hearthsim.event.filter.FilterCharacter;
 import com.hearthsim.event.filter.FilterCharacterTargetedSpell;
-import com.hearthsim.event.effect.EffectCharacter;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 

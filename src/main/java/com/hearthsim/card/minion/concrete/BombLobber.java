@@ -1,10 +1,10 @@
 package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.event.filter.FilterCharacter;
 import com.hearthsim.event.effect.EffectCharacter;
 import com.hearthsim.event.effect.EffectCharacterDamage;
 import com.hearthsim.event.effect.EffectOnResolveRandomCharacter;
+import com.hearthsim.event.filter.FilterCharacter;
 
 public class BombLobber extends Minion implements EffectOnResolveRandomCharacter {
     private static final EffectCharacter effect = new EffectCharacterDamage(4);
