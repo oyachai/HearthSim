@@ -793,6 +793,10 @@
         "class": "com.hearthsim.card.minion.concrete.LeperGnome"
     },
     {
+        "name": "Lil' Exorcist",
+        "class": "com.hearthsim.card.minion.concrete.LilExorcist"
+    },
+    {
         "name": "Light's Justice",
         "class": "com.hearthsim.card.weapon.concrete.LightsJustice"
     },
