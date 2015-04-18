@@ -1,10 +1,8 @@
 package com.hearthsim.card.minion.concrete;
 
-import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionBattlecryInterface;
 import com.hearthsim.event.effect.EffectCharacter;
-import com.hearthsim.event.effect.EffectCharacterBuff;
 import com.hearthsim.event.filter.FilterCharacterInterface;
 import com.hearthsim.event.filter.FilterCharacterTargetedBattlecry;
 import com.hearthsim.model.PlayerSide;
