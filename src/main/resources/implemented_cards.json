@@ -1345,6 +1345,10 @@
         "class": "com.hearthsim.card.minion.concrete.VioletTeacher"
     },
     {
+        "name": "Vitality Totem",
+        "class": "com.hearthsim.card.minion.concrete.VitalityTotem"
+    },
+    {
         "name": "Void Terror",
         "class": "com.hearthsim.card.minion.concrete.VoidTerror"
     },
