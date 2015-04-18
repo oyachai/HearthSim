@@ -1149,6 +1149,10 @@
         "class": "com.hearthsim.card.spellcard.concrete.Shiv"
     },
     {
+        "name": "Shrinkmeister",
+        "class": "com.hearthsim.card.minion.concrete.Shrinkmeister"
+    },
+    {
         "name": "SI:7 Agent",
         "class": "com.hearthsim.card.minion.concrete.Si7Agent"
     },
