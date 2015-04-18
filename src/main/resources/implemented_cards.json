@@ -1373,6 +1373,10 @@
         "class": "com.hearthsim.card.minion.concrete.WarGolem"
     },
     {
+        "name": "Warbot",
+        "class": "com.hearthsim.card.minion.concrete.Warbot"
+    },
+    {
         "name": "Water Elemental",
         "class": "com.hearthsim.card.minion.concrete.WaterElemental"
     },
