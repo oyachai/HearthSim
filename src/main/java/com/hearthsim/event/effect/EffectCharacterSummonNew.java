@@ -29,12 +29,13 @@ public class EffectCharacterSummonNew<T extends Card> implements EffectCharacter
 
     @Override
     public HearthTreeNode applyEffect(PlayerSide originSide, T origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
-        for (int i = 0; i < this.count; i++) {
-            PlayerModel player = boardState.data_.modelForSide(targetSide);
-            if (player.isBoardFull()) {
-                break;
-            }
+        // TODO this kind of check belongs in a pre-check/filter
+        PlayerModel player = boardState.data_.modelForSide(targetSide);
+        if (player.isBoardFull()) {
+            return null;
+        }
 
+        for (int i = 0; i < this.count; i++) {
             try {
                 Minion summon = this.minionClass.newInstance();
                 summon.hasBeenUsed(true);
@@ -46,6 +47,11 @@ public class EffectCharacterSummonNew<T extends Card> implements EffectCharacter
             } catch (InstantiationException | IllegalAccessException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
+            }
+
+            player = boardState.data_.modelForSide(targetSide);
+            if (player.isBoardFull()) {
+                break;
             }
         }
 
