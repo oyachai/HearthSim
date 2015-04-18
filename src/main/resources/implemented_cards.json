@@ -1073,6 +1073,10 @@
         "class": "com.hearthsim.card.minion.concrete.ScarletCrusader"
     },
     {
+        "name": "Scarlet Purifier",
+        "class": "com.hearthsim.card.minion.concrete.ScarletPurifier"
+    },
+    {
         "name": "Scavenging Hyena",
         "class": "com.hearthsim.card.minion.concrete.ScavengingHyena"
     },
