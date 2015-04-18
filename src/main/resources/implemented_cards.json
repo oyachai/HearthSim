@@ -1081,6 +1081,10 @@
         "class": "com.hearthsim.card.minion.concrete.ScavengingHyena"
     },
     {
+        "name": "Screwjank Clunker",
+        "class": "com.hearthsim.card.minion.concrete.ScrewjankClunker"
+    },
+    {
         "name": "Sea Giant",
         "class": "com.hearthsim.card.minion.concrete.SeaGiant"
     },
