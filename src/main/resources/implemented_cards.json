@@ -1337,6 +1337,10 @@
         "class": "com.hearthsim.card.minion.concrete.UnstableGhoul"
     },
     {
+        "name": "Upgraded Repair Bot",
+        "class": "com.hearthsim.card.minion.concrete.UpgradedRepairBot"
+    },
+    {
         "name": "Violet Teacher",
         "class": "com.hearthsim.card.minion.concrete.VioletTeacher"
     },
