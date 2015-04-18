@@ -1241,6 +1241,10 @@
         "class": "com.hearthsim.card.minion.concrete.StarvingBuzzard"
     },
     {
+        "name": "Stonesplinter Trogg",
+        "class": "com.hearthsim.card.minion.concrete.StonesplinterTrogg"
+    },
+    {
         "name": "Stonetusk Boar",
         "class": "com.hearthsim.card.minion.concrete.StonetuskBoar"
     },
