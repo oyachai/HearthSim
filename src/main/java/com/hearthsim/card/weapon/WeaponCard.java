@@ -3,11 +3,11 @@ package com.hearthsim.card.weapon;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.ImplementedCardList;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.event.filter.FilterCharacter;
-import com.hearthsim.event.filter.FilterCharacterSummon;
 import com.hearthsim.event.effect.EffectCharacter;
 import com.hearthsim.event.effect.EffectHeroWeapon;
 import com.hearthsim.event.effect.EffectOnResolveTargetable;
+import com.hearthsim.event.filter.FilterCharacter;
+import com.hearthsim.event.filter.FilterCharacterSummon;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -93,6 +93,10 @@ public abstract class WeaponCard extends Card implements EffectOnResolveTargetab
 
     public void setWeaponCharge(byte weaponCharge) {
         this.weaponCharge = weaponCharge;
+    }
+
+    public void addWeaponDamage(byte weaponDamage) {
+        this.weaponDamage += weaponDamage;
     }
 
     public byte getWeaponDamage() {

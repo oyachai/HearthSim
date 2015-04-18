@@ -17,10 +17,7 @@ public class DeathrattleSummonMinionAction extends DeathrattleAction {
     }
 
     @Override
-    public HearthTreeNode performAction(Card origin,
-                                        PlayerSide playerSide,
-                                        HearthTreeNode boardState,
-                                        boolean singleRealizationOnly) {
+    public HearthTreeNode performAction(Card origin, PlayerSide playerSide, HearthTreeNode boardState, boolean singleRealizationOnly) {
 
         HearthTreeNode toRet = super.performAction(origin, playerSide, boardState, singleRealizationOnly);
         PlayerModel targetPlayer = toRet.data_.modelForSide(playerSide);

@@ -2,10 +2,10 @@ package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionBattlecryInterface;
-import com.hearthsim.event.filter.FilterCharacter;
 import com.hearthsim.event.effect.EffectCharacter;
 import com.hearthsim.event.effect.EffectHero;
 import com.hearthsim.event.effect.EffectHeroWeaponDestroy;
+import com.hearthsim.event.filter.FilterCharacter;
 
 public class BloodsailCorsair extends Minion implements MinionBattlecryInterface {
 

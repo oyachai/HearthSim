@@ -72,6 +72,10 @@
         "class": "com.hearthsim.card.minion.concrete.AnnoyOTron"
     },
     {
+        "name": "Antique Healbot",
+        "class": "com.hearthsim.card.minion.concrete.AntiqueHealbot"
+    },
+    {
         "name": "Anub'ar Ambusher",
         "class": "com.hearthsim.card.minion.concrete.AnubarAmbusher"
     },
@@ -232,6 +236,10 @@
         "class": "com.hearthsim.card.spellcard.concrete.Brawl"
     },
     {
+        "name": "Burly Rockjaw Trogg",
+        "class": "com.hearthsim.card.minion.concrete.BurlyRockjawTrogg"
+    },
+    {
         "name": "Captain Greenskin",
         "class": "com.hearthsim.card.minion.concrete.CaptainGreenskin"
     },
@@ -262,6 +270,10 @@
     {
         "name": "Clockwork Giant",
         "class": "com.hearthsim.card.minion.concrete.ClockworkGiant"
+    },
+    {
+        "name": "Cobalt Guardian",
+        "class": "com.hearthsim.card.minion.concrete.CobaltGuardian"
     },
     {
         "name": "Coghammer",
@@ -441,6 +453,10 @@
         "class": "com.hearthsim.card.spellcard.concrete.Execute"
     },
     {
+        "name": "Explosive Sheep",
+        "class": "com.hearthsim.card.minion.concrete.ExplosiveSheep"
+    },
+    {
         "name": "Faerie Dragon",
         "class": "com.hearthsim.card.minion.concrete.FaerieDragon"
     },
@@ -489,6 +505,10 @@
         "class": "com.hearthsim.card.minion.concrete.FlesheatingGhoul"
     },
     {
+        "name": "Floating Watcher",
+        "class": "com.hearthsim.card.minion.concrete.FloatingWatcher"
+    },
+    {
         "name": "Flying Machine",
         "class": "com.hearthsim.card.minion.concrete.FlyingMachine"
     },
@@ -529,6 +549,10 @@
         "class": "com.hearthsim.card.minion.concrete.GadgetzanAuctioneer"
     },
     {
+        "name": "Gahz'rilla",
+        "class": "com.hearthsim.card.minion.concrete.Gahzrilla"
+    },
+    {
         "name": "Gilblin Stalker",
         "class": "com.hearthsim.card.minion.concrete.GilblinStalker"
     },
@@ -551,6 +575,10 @@
     {
         "name": "Gnomeregan Infantry",
         "class": "com.hearthsim.card.minion.concrete.GnomereganInfantry"
+    },
+    {
+        "name": "Goblin Auto-Barber",
+        "class": "com.hearthsim.card.minion.concrete.GoblinAutoBarber"
     },
     {
         "name": "Goldshire Footman",
@@ -731,6 +759,10 @@
     {
         "name": "King Mukla",
         "class": "com.hearthsim.card.minion.concrete.KingMukla"
+    },
+    {
+        "name": "King of Beasts",
+        "class": "com.hearthsim.card.minion.concrete.KingOfBeasts"
     },
     {
         "name": "Knife Juggler",
@@ -1275,6 +1307,10 @@
     {
         "name": "Voodoo Doctor",
         "class": "com.hearthsim.card.minion.concrete.VoodooDoctor"
+    },
+    {
+        "name": "Wailing Soul",
+        "class": "com.hearthsim.card.minion.concrete.WailingSoul"
     },
     {
         "name": "War Golem",

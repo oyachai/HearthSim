@@ -2,10 +2,10 @@ package com.hearthsim.card.minion.concrete;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionBattlecryInterface;
-import com.hearthsim.event.filter.FilterCharacter;
-import com.hearthsim.event.filter.FilterCharacterTargetedBattlecry;
 import com.hearthsim.event.effect.EffectCharacter;
 import com.hearthsim.event.effect.EffectCharacterDamage;
+import com.hearthsim.event.filter.FilterCharacter;
+import com.hearthsim.event.filter.FilterCharacterTargetedBattlecry;
 
 public class IronforgeRifleman extends Minion implements MinionBattlecryInterface {
 

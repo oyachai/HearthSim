@@ -25,5 +25,4 @@ public class FlameImp extends Minion implements MinionBattlecryInterface {
             return toRet;
         };
     }
-
 }

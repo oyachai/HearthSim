@@ -1,10 +1,10 @@
 package com.hearthsim.card.weapon.concrete;
 
 import com.hearthsim.card.weapon.WeaponCard;
-import com.hearthsim.event.filter.FilterCharacter;
 import com.hearthsim.event.effect.EffectCharacter;
 import com.hearthsim.event.effect.EffectCharacterBuffDelta;
 import com.hearthsim.event.effect.EffectOnResolveRandomCharacter;
+import com.hearthsim.event.filter.FilterCharacter;
 
 public class Glaivezooka extends WeaponCard implements EffectOnResolveRandomCharacter {
     private static final EffectCharacter effect = new EffectCharacterBuffDelta(1, 0);

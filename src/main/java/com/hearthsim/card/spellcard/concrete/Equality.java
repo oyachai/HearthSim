@@ -1,10 +1,10 @@
 package com.hearthsim.card.spellcard.concrete;
 
 import com.hearthsim.card.spellcard.SpellCard;
-import com.hearthsim.event.filter.FilterCharacter;
 import com.hearthsim.event.effect.EffectCharacter;
 import com.hearthsim.event.effect.EffectCharacterBuff;
 import com.hearthsim.event.effect.EffectOnResolveAoe;
+import com.hearthsim.event.filter.FilterCharacter;
 
 public class Equality extends SpellCard implements EffectOnResolveAoe {
 
