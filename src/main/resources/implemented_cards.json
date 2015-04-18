@@ -641,6 +641,10 @@
         "class": "com.hearthsim.card.spellcard.concrete.HealingTouch"
     },
     {
+        "name": "Heavy Axe",
+        "class": "com.hearthsim.card.weapon.concrete.HeavyAxe"
+    },
+    {
         "name": "Hellfire",
         "class": "com.hearthsim.card.spellcard.concrete.Hellfire"
     },
@@ -1352,6 +1356,10 @@
     {
         "name": "Twilight Drake",
         "class": "com.hearthsim.card.minion.concrete.TwilightDrake"
+    },
+    {
+        "name": "Upgrade!",
+        "class": "com.hearthsim.card.spellcard.concrete.Upgrade"
     },
     {
         "name": "Unbound Elemental",
