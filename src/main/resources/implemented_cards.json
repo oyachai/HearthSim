@@ -873,6 +873,10 @@
         "class": "com.hearthsim.card.minion.concrete.MekgineerThermaplugg"
     },
     {
+        "name": "Metaltooth Leaper",
+        "class": "com.hearthsim.card.minion.concrete.MetaltoothLeaper"
+    },
+    {
         "name": "Mind Blast",
         "class": "com.hearthsim.card.spellcard.concrete.MindBlast"
     },
