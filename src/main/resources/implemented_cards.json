@@ -1357,6 +1357,10 @@
         "class": "com.hearthsim.card.minion.concrete.Voidwalker"
     },
     {
+        "name": "Vol'jin",
+        "class": "com.hearthsim.card.minion.concrete.Voljin"
+    },
+    {
         "name": "Voodoo Doctor",
         "class": "com.hearthsim.card.minion.concrete.VoodooDoctor"
     },
