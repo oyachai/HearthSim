@@ -517,6 +517,10 @@
         "class": "com.hearthsim.card.minion.concrete.FlyingMachine"
     },
     {
+        "name": "Force of Nature",
+        "class": "com.hearthsim.card.spellcard.concrete.ForceOfNature"
+    },
+    {
         "name": "Force-Tank MAX",
         "class": "com.hearthsim.card.minion.concrete.ForceTankMax"
     },
@@ -1323,6 +1327,11 @@
     {
         "name": "Totemic Might",
         "class": "com.hearthsim.card.spellcard.concrete.TotemicMight"
+    },
+    {
+        "name": "Treant",
+        "id": "EX1_tk9",
+        "class": "com.hearthsim.card.minion.concrete.TreantWithCharge"
     },
     {
         "name": "Twilight Drake",
