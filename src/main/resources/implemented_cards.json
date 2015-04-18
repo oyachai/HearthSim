@@ -793,6 +793,10 @@
         "class": "com.hearthsim.card.minion.concrete.LeperGnome"
     },
     {
+        "name": "Lil' Exorcist",
+        "class": "com.hearthsim.card.minion.concrete.LilExorcist"
+    },
+    {
         "name": "Light's Justice",
         "class": "com.hearthsim.card.weapon.concrete.LightsJustice"
     },
@@ -867,6 +871,14 @@
     {
         "name": "Mekgineer Thermaplugg",
         "class": "com.hearthsim.card.minion.concrete.MekgineerThermaplugg"
+    },
+    {
+        "name": "Metaltooth Leaper",
+        "class": "com.hearthsim.card.minion.concrete.MetaltoothLeaper"
+    },
+    {
+        "name": "Micro Machine",
+        "class": "com.hearthsim.card.minion.concrete.MicroMachine"
     },
     {
         "name": "Mind Blast",
@@ -955,6 +967,10 @@
     {
         "name": "Ogre Magi",
         "class": "com.hearthsim.card.minion.concrete.OgreMagi"
+    },
+    {
+        "name": "One-eyed Cheat",
+        "class": "com.hearthsim.card.minion.concrete.OneEyedCheat"
     },
     {
         "name": "Onyxia",
@@ -1057,8 +1073,16 @@
         "class": "com.hearthsim.card.minion.concrete.ScarletCrusader"
     },
     {
+        "name": "Scarlet Purifier",
+        "class": "com.hearthsim.card.minion.concrete.ScarletPurifier"
+    },
+    {
         "name": "Scavenging Hyena",
         "class": "com.hearthsim.card.minion.concrete.ScavengingHyena"
+    },
+    {
+        "name": "Screwjank Clunker",
+        "class": "com.hearthsim.card.minion.concrete.ScrewjankClunker"
     },
     {
         "name": "Sea Giant",
@@ -1069,12 +1093,16 @@
         "class": "com.hearthsim.card.minion.concrete.SenjinShieldmasta"
     },
     {
+        "name": "Shade of Naxxramas",
+        "class": "com.hearthsim.card.minion.concrete.ShadeOfNaxxramas"
+    },
+    {
         "name": "Shadow Bolt",
         "class": "com.hearthsim.card.spellcard.concrete.ShadowBolt"
     },
     {
-        "name": "Shade of Naxxramas",
-        "class": "com.hearthsim.card.minion.concrete.ShadeOfNaxxramas"
+        "name": "Shadowbomber",
+        "class": "com.hearthsim.card.minion.concrete.Shadowbomber"
     },
     {
         "name": "Shadow Word: Death",
@@ -1109,12 +1137,20 @@
         "class": "com.hearthsim.card.minion.concrete.ShieldedMinibot"
     },
     {
+        "name": "Shieldmaiden",
+        "class": "com.hearthsim.card.minion.concrete.Shieldmaiden"
+    },
+    {
         "name": "Ship's Cannon",
         "class": "com.hearthsim.card.minion.concrete.ShipsCannon"
     },
     {
         "name": "Shiv",
         "class": "com.hearthsim.card.spellcard.concrete.Shiv"
+    },
+    {
+        "name": "Shrinkmeister",
+        "class": "com.hearthsim.card.minion.concrete.Shrinkmeister"
     },
     {
         "name": "SI:7 Agent",
