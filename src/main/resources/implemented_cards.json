@@ -877,6 +877,10 @@
         "class": "com.hearthsim.card.minion.concrete.MetaltoothLeaper"
     },
     {
+        "name": "Micro Machine",
+        "class": "com.hearthsim.card.minion.concrete.MicroMachine"
+    },
+    {
         "name": "Mind Blast",
         "class": "com.hearthsim.card.spellcard.concrete.MindBlast"
     },
