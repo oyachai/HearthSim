@@ -2,8 +2,10 @@ package com.hearthsim.test.groovy.card
 
 import com.hearthsim.card.Card
 import com.hearthsim.card.Deck
+import com.hearthsim.card.minion.concrete.BloodsailRaider
 import com.hearthsim.card.minion.concrete.BurlyRockjawTrogg
 import com.hearthsim.card.minion.concrete.ManaWyrm
+import com.hearthsim.card.minion.concrete.OneEyedCheat
 import com.hearthsim.card.spellcard.concrete.TheCoin
 import com.hearthsim.model.BoardModel
 import com.hearthsim.Game
@@ -14,37 +16,34 @@ import static com.hearthsim.model.PlayerSide.CURRENT_PLAYER
 import static com.hearthsim.model.PlayerSide.WAITING_PLAYER
 import static org.junit.Assert.*
 
-class BurlyRockjawTroggSpec extends CardSpec {
-    def "playing a spell card with a Burly Rockjaw Trogg on the field"() {
+class OneEyedCheatSpec extends CardSpec {
+    def "playing a pirate card with a One Eyed Cheat on the field"() {
         def startingBoard = new BoardModelBuilder().make {
             currentPlayer {
-                hand([BurlyRockjawTrogg, TheCoin])
-                field([[minion: BurlyRockjawTrogg]])
-                mana(9)
+                hand([BloodsailRaider, OneEyedCheat])
+                field([[minion: OneEyedCheat]])
+                mana(10)
             }
             waitingPlayer {
-                field([[minion: BurlyRockjawTrogg]])
+                field([[minion: OneEyedCheat]])
             }
         }
 
         def root = new HearthTreeNode(startingBoard)
 
         def copiedBoard = startingBoard.deepCopy()
-        def target = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(0)
-        def theCoin = root.data_.getCurrentPlayer().getHand().get(1)
-        def ret = theCoin.useOn(CURRENT_PLAYER, target, root)
+        def card = root.data_.getCurrentPlayer().getHand().get(0)
+        def ret = card.useOn(CURRENT_PLAYER, 0, root)
 
         expect:
         ret != null
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                removeCardFromHand(TheCoin)
-                mana(10)
+                playMinion(BloodsailRaider, 0)
+                mana(8)
                 numCardsUsed(1)
-            }
-            waitingPlayer {
-                updateMinion(0, [deltaAttack: 2])
+                updateMinion(1, [stealthed: true])
             }
         }
     }
