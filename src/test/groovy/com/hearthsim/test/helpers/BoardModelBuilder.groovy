@@ -117,6 +117,11 @@ class BoardModelBuilder {
         side.hero.health = health
     }
 
+    private heroArmor(Number armor){
+        def side = boardModel.modelForSide(playerSide)
+        side.hero.armor = armor
+    }
+
     private heroAttack(Number attack){
         def side = boardModel.modelForSide(playerSide)
         side.hero.attack = attack

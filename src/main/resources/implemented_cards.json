@@ -1137,6 +1137,10 @@
         "class": "com.hearthsim.card.minion.concrete.ShieldedMinibot"
     },
     {
+        "name": "Shieldmaiden",
+        "class": "com.hearthsim.card.minion.concrete.Shieldmaiden"
+    },
+    {
         "name": "Ship's Cannon",
         "class": "com.hearthsim.card.minion.concrete.ShipsCannon"
     },
