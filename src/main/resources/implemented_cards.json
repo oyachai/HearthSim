@@ -1077,6 +1077,10 @@
         "class": "com.hearthsim.card.spellcard.concrete.SavageRoar"
     },
     {
+        "name": "Savagery",
+        "class": "com.hearthsim.card.spellcard.concrete.Savagery"
+    },
+    {
         "name": "Savannah Highmane",
         "class": "com.hearthsim.card.minion.concrete.SavannahHighmane"
     },
