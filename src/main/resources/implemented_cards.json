@@ -1193,6 +1193,10 @@
         "class": "com.hearthsim.card.minion.concrete.SludgeBelcher"
     },
     {
+        "name": "Snowchugger",
+        "class": "com.hearthsim.card.minion.concrete.Snowchugger"
+    },
+    {
         "name": "Soot Spewer",
         "class": "com.hearthsim.card.minion.concrete.SootSpewer"
     },
