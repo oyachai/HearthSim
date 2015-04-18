@@ -1201,6 +1201,10 @@
         "class": "com.hearthsim.card.spellcard.concrete.SinisterStrike"
     },
     {
+        "name": "Siphon Soul",
+        "class": "com.hearthsim.card.spellcard.concrete.SiphonSoul"
+    },
+    {
         "name": "Slam",
         "class": "com.hearthsim.card.spellcard.concrete.Slam"
     },
