@@ -121,13 +121,13 @@ public class FilterCharacter implements FilterCharacterInterface {
         }
     };
 
-//    public final static CharacterFilter ALL_HEROES = new CharacterFilter() {
-//        @Override
-//        protected boolean includeEnemyHero() { return true; }
-//
-//        @Override
-//        protected boolean includeOwnHero() { return true; }
-//    };
+    public final static FilterCharacter ALL_HEROES = new FilterCharacter() {
+        @Override
+        protected boolean includeEnemyHero() { return true; }
+
+        @Override
+        protected boolean includeOwnHero() { return true; }
+    };
 
     public final static FilterCharacter ENEMY_MINIONS = new FilterCharacter() {
         @Override

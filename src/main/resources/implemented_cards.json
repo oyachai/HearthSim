@@ -1093,12 +1093,16 @@
         "class": "com.hearthsim.card.minion.concrete.SenjinShieldmasta"
     },
     {
+        "name": "Shade of Naxxramas",
+        "class": "com.hearthsim.card.minion.concrete.ShadeOfNaxxramas"
+    },
+    {
         "name": "Shadow Bolt",
         "class": "com.hearthsim.card.spellcard.concrete.ShadowBolt"
     },
     {
-        "name": "Shade of Naxxramas",
-        "class": "com.hearthsim.card.minion.concrete.ShadeOfNaxxramas"
+        "name": "Shadowbomber",
+        "class": "com.hearthsim.card.minion.concrete.Shadowbomber"
     },
     {
         "name": "Shadow Word: Death",
