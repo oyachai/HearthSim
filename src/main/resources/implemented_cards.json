@@ -869,6 +869,10 @@
         "class": "com.hearthsim.card.spellcard.concrete.MarkOfTheWild"
     },
     {
+        "name": "Mass Dispel",
+        "class": "com.hearthsim.card.spellcard.concrete.MassDispel"
+    },
+    {
         "name": "Master of Disguise",
         "class": "com.hearthsim.card.minion.concrete.MasterOfDisguise"
     },
