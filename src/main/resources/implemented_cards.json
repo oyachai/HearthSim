@@ -473,6 +473,10 @@
         "class": "com.hearthsim.card.minion.concrete.FenCreeper"
     },
     {
+        "name": "Feral Spirit",
+        "class": "com.hearthsim.card.spellcard.concrete.FeralSpirit"
+    },
+    {
         "name": "Fiery War Axe",
         "class": "com.hearthsim.card.weapon.concrete.FieryWarAxe"
     },
@@ -1219,6 +1223,10 @@
     {
         "name": "Spider Tank",
         "class": "com.hearthsim.card.minion.concrete.SpiderTank"
+    },
+    {
+        "name": "Spirit Wolf",
+        "class": "com.hearthsim.card.minion.concrete.SpiritWolf"
     },
     {
         "name": "Sprint",
