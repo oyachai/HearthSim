@@ -1145,6 +1145,10 @@
         "class": "com.hearthsim.card.spellcard.concrete.ShieldBlock"
     },
     {
+        "name": "Shield Slam",
+        "class": "com.hearthsim.card.spellcard.concrete.ShieldSlam"
+    },
+    {
         "name": "Shieldbearer",
         "class": "com.hearthsim.card.minion.concrete.Shieldbearer"
     },
