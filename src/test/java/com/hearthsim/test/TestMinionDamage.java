@@ -1,8 +1,8 @@
 package com.hearthsim.test;
 
-import com.hearthsim.card.minion.concrete.BloodfenRaptor;
-import com.hearthsim.card.minion.concrete.ChillwindYeti;
-import com.hearthsim.card.minion.concrete.RiverCrocolisk;
+import com.hearthsim.card.basic.minion.BloodfenRaptor;
+import com.hearthsim.card.basic.minion.ChillwindYeti;
+import com.hearthsim.card.basic.minion.RiverCrocolisk;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;

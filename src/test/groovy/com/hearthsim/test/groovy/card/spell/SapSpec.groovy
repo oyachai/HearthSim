@@ -1,7 +1,7 @@
 package com.hearthsim.test.groovy.card.spell
 
-import com.hearthsim.card.minion.concrete.BloodfenRaptor
-import com.hearthsim.card.spellcard.concrete.Sap
+import com.hearthsim.card.basic.minion.BloodfenRaptor
+import com.hearthsim.card.basic.spell.Sap
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.groovy.card.CardSpec
 import com.hearthsim.test.helpers.BoardModelBuilder

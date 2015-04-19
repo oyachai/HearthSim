@@ -4,11 +4,10 @@ import com.hearthsim.model.BoardModel;
 import com.hearthsim.test.helpers.BoardModelBuilder
 import com.hearthsim.util.tree.HearthTreeNode;
 
-import com.hearthsim.card.minion.concrete.KingMukla
-import com.hearthsim.card.spellcard.concrete.Bananas
+import com.hearthsim.card.classic.minion.legendary.KingMukla
+import com.hearthsim.card.classic.spell.common.Bananas
 
 import static com.hearthsim.model.PlayerSide.CURRENT_PLAYER
-import static com.hearthsim.model.PlayerSide.WAITING_PLAYER
 import static org.junit.Assert.*
 
 class KingMuklaSpec extends CardSpec {

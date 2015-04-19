@@ -1,13 +1,12 @@
 package com.hearthsim.test.groovy.card
 
-import com.hearthsim.card.minion.concrete.Onyxia
-import com.hearthsim.card.minion.concrete.Whelp
+import com.hearthsim.card.classic.minion.legendary.Onyxia
+import com.hearthsim.card.classic.minion.common.Whelp
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.helpers.BoardModelBuilder
 import com.hearthsim.util.tree.HearthTreeNode
 
 import static com.hearthsim.model.PlayerSide.CURRENT_PLAYER
-import static com.hearthsim.model.PlayerSide.WAITING_PLAYER
 import static org.junit.Assert.*
 
 class OnyxiaSpec extends CardSpec {

@@ -1,9 +1,9 @@
 package com.hearthsim.test.minion;
 
 import com.hearthsim.card.Card;
-import com.hearthsim.card.minion.concrete.AmaniBerserker;
-import com.hearthsim.card.minion.concrete.RiverCrocolisk;
-import com.hearthsim.card.spellcard.concrete.HolyLight;
+import com.hearthsim.card.classic.minion.common.AmaniBerserker;
+import com.hearthsim.card.basic.minion.RiverCrocolisk;
+import com.hearthsim.card.basic.spell.HolyLight;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;

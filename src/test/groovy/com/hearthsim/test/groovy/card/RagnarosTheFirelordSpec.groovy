@@ -1,8 +1,8 @@
 package com.hearthsim.test.groovy.card
 
 import com.hearthsim.Game
-import com.hearthsim.card.minion.concrete.GoldshireFootman
-import com.hearthsim.card.minion.concrete.RagnarosTheFirelord
+import com.hearthsim.card.basic.minion.GoldshireFootman
+import com.hearthsim.card.classic.minion.legendary.RagnarosTheFirelord
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.helpers.BoardModelBuilder
 import com.hearthsim.util.tree.HearthTreeNode

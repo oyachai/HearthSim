@@ -1,11 +1,9 @@
 package com.hearthsim.test.groovy.card
 
-import com.hearthsim.card.minion.concrete.*
-import com.hearthsim.card.spellcard.concrete.Fireball
-import com.hearthsim.card.spellcard.concrete.TwistingNether
-import com.hearthsim.card.spellcard.concrete.Whirlwind
+import com.hearthsim.card.basic.minion.BloodfenRaptor
+import com.hearthsim.card.classic.minion.rare.GadgetzanAuctioneer
+import com.hearthsim.card.basic.spell.Fireball
 import com.hearthsim.model.BoardModel
-import com.hearthsim.test.groovy.card.CardSpec
 import com.hearthsim.test.helpers.BoardModelBuilder
 import com.hearthsim.util.tree.CardDrawNode
 import com.hearthsim.util.tree.HearthTreeNode

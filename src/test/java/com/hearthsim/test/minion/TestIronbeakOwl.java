@@ -1,8 +1,14 @@
 package com.hearthsim.test.minion;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.basic.minion.BoulderfistOgre;
+import com.hearthsim.card.basic.minion.RaidLeader;
+import com.hearthsim.card.basic.minion.StormwindChampion;
+import com.hearthsim.card.classic.minion.rare.Abomination;
+import com.hearthsim.card.classic.minion.common.HarvestGolem;
+import com.hearthsim.card.classic.minion.common.IronbeakOwl;
+import com.hearthsim.card.classic.minion.common.LootHoarder;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.card.minion.concrete.*;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;

@@ -1,8 +1,8 @@
 package com.hearthsim.test.minion;
 
 import com.hearthsim.card.Card;
-import com.hearthsim.card.minion.concrete.AcidicSwampOoze;
-import com.hearthsim.card.weapon.concrete.FieryWarAxe;
+import com.hearthsim.card.basic.minion.AcidicSwampOoze;
+import com.hearthsim.card.basic.weapon.FieryWarAxe;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;

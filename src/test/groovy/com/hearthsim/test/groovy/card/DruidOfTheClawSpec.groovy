@@ -1,7 +1,7 @@
 package com.hearthsim.test.groovy.card
 
-import com.hearthsim.card.minion.concrete.DruidOfTheClaw
-import com.hearthsim.card.spellcard.concrete.Silence
+import com.hearthsim.card.classic.minion.common.DruidOfTheClaw
+import com.hearthsim.card.classic.spell.common.Silence
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.helpers.BoardModelBuilder
 import com.hearthsim.util.tree.HearthTreeNode

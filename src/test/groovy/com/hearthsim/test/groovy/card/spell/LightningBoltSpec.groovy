@@ -1,14 +1,12 @@
 package com.hearthsim.test.groovy.card.spell
 
-import com.hearthsim.card.spellcard.concrete.LightningBolt
+import com.hearthsim.card.classic.spell.common.LightningBolt
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.groovy.card.CardSpec
 import com.hearthsim.test.helpers.BoardModelBuilder
 import com.hearthsim.util.tree.HearthTreeNode
 
-import static com.hearthsim.model.PlayerSide.CURRENT_PLAYER
 import static com.hearthsim.model.PlayerSide.WAITING_PLAYER
-import static org.junit.Assert.*
 
 class LightningBoltSpec extends CardSpec {
 

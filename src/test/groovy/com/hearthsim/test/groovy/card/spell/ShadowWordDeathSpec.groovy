@@ -2,14 +2,13 @@ package com.hearthsim.test.groovy.card.spell
 
 import com.hearthsim.test.groovy.card.CardSpec
 
-import static com.hearthsim.model.PlayerSide.CURRENT_PLAYER
 import static com.hearthsim.model.PlayerSide.WAITING_PLAYER
 import static org.junit.Assert.*
 
-import com.hearthsim.card.minion.concrete.ChillwindYeti
-import com.hearthsim.card.minion.concrete.StranglethornTiger
-import com.hearthsim.card.minion.concrete.WarGolem
-import com.hearthsim.card.spellcard.concrete.ShadowWordDeath
+import com.hearthsim.card.basic.minion.ChillwindYeti
+import com.hearthsim.card.classic.minion.common.StranglethornTiger
+import com.hearthsim.card.basic.minion.WarGolem
+import com.hearthsim.card.basic.spell.ShadowWordDeath
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.helpers.BoardModelBuilder
 import com.hearthsim.util.tree.HearthTreeNode

@@ -1,6 +1,7 @@
 package com.hearthsim.test;
 
-import com.hearthsim.card.minion.concrete.*;
+import com.hearthsim.card.basic.minion.*;
+import com.hearthsim.card.basic.minion.SilverHandRecruit;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;

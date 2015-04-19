@@ -1,7 +1,7 @@
 package com.hearthsim.test.groovy.card
 
-import com.hearthsim.card.minion.concrete.ClockworkGiant
-import com.hearthsim.card.spellcard.concrete.TheCoin
+import com.hearthsim.card.goblinsvsgnomes.minion.epic.ClockworkGiant
+import com.hearthsim.card.basic.spell.TheCoin
 import com.hearthsim.test.helpers.BoardModelBuilder
 import com.hearthsim.util.tree.HearthTreeNode
 

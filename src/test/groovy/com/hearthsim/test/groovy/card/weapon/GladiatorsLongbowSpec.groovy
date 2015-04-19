@@ -1,9 +1,9 @@
 package com.hearthsim.test.groovy.card.weapon
 
 import com.hearthsim.card.minion.Minion
-import com.hearthsim.card.spellcard.concrete.ArcaneShot
-import com.hearthsim.card.minion.concrete.BoulderfistOgre
-import com.hearthsim.card.weapon.concrete.GladiatorsLongbow
+import com.hearthsim.card.basic.spell.ArcaneShot
+import com.hearthsim.card.basic.minion.BoulderfistOgre
+import com.hearthsim.card.classic.weapon.epic.GladiatorsLongbow
 import com.hearthsim.model.BoardModel
 import com.hearthsim.model.PlayerSide
 import com.hearthsim.test.groovy.card.CardSpec

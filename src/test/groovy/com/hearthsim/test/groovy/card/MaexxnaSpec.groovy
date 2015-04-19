@@ -1,6 +1,6 @@
 package com.hearthsim.test.groovy.card
 
-import com.hearthsim.card.minion.concrete.Maexxna
+import com.hearthsim.card.curseofnaxxramas.minion.legendary.Maexxna
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.helpers.BoardModelBuilder
 import com.hearthsim.util.tree.HearthTreeNode

@@ -22,9 +22,9 @@ class ImplementedCardList {
     private static ImplementedCardList instance
     
     static class TypeParser {
-        private static String TYPE_CLASSNAME_PATTERN_SPELL = "spellcard.concrete"
-        private static String TYPE_CLASSNAME_PATTERN_MINION = "minion.concrete"
-        private static String TYPE_CLASSNAME_PATTERN_WEAPON = "weapon.concrete"
+        private static String TYPE_CLASSNAME_PATTERN_SPELL = "spell."
+        private static String TYPE_CLASSNAME_PATTERN_MINION = "minion"
+        private static String TYPE_CLASSNAME_PATTERN_WEAPON = "weapon."
         private static String TYPE_CLASSNAME_PATTERN_HERO = "minion.heroes"
     
         public static String parse(String classPath) {
@@ -121,7 +121,7 @@ class ImplementedCardList {
 
             def className = implementedCardFromJson['class']
             def clazz = Class.forName(className)
-            
+
             def cleanedText = cardDefinition.text == null ? '' : ImplementedCard.htmlTagPattern.matcher(cardDefinition.text).replaceAll("")
             def overload = 0
             def spellDamage = 0

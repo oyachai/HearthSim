@@ -6,9 +6,9 @@ import static com.hearthsim.model.PlayerSide.CURRENT_PLAYER
 import static com.hearthsim.model.PlayerSide.WAITING_PLAYER
 import static org.junit.Assert.*
 
-import com.hearthsim.card.spellcard.concrete.Demonheart
-import com.hearthsim.card.minion.concrete.Voidwalker
-import com.hearthsim.card.minion.concrete.WarGolem
+import com.hearthsim.card.goblinsvsgnomes.spell.epic.Demonheart
+import com.hearthsim.card.basic.minion.Voidwalker
+import com.hearthsim.card.basic.minion.WarGolem
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.helpers.BoardModelBuilder
 import com.hearthsim.util.tree.HearthTreeNode

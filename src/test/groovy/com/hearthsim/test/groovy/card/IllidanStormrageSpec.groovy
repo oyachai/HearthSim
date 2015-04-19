@@ -1,15 +1,13 @@
 package com.hearthsim.test.groovy.card
 
-import com.hearthsim.card.minion.concrete.IllidanStormrage
-import com.hearthsim.card.minion.concrete.FlameOfAzzinoth
-import com.hearthsim.card.spellcard.concrete.TheCoin
+import com.hearthsim.card.classic.minion.legendary.IllidanStormrage
+import com.hearthsim.card.classic.minion.common.FlameOfAzzinoth
+import com.hearthsim.card.basic.spell.TheCoin
 import com.hearthsim.model.BoardModel
-import com.hearthsim.Game
 import com.hearthsim.test.helpers.BoardModelBuilder
 import com.hearthsim.util.tree.HearthTreeNode
 
 import static com.hearthsim.model.PlayerSide.CURRENT_PLAYER
-import static com.hearthsim.model.PlayerSide.WAITING_PLAYER
 import static org.junit.Assert.*
 
 class IllidanStormrageSpec extends CardSpec {

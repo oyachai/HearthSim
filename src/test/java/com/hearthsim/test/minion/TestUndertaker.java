@@ -1,10 +1,10 @@
 package com.hearthsim.test.minion;
 
 import com.hearthsim.card.Card;
-import com.hearthsim.card.minion.concrete.BoulderfistOgre;
-import com.hearthsim.card.minion.concrete.LootHoarder;
-import com.hearthsim.card.minion.concrete.RaidLeader;
-import com.hearthsim.card.minion.concrete.Undertaker;
+import com.hearthsim.card.basic.minion.BoulderfistOgre;
+import com.hearthsim.card.classic.minion.common.LootHoarder;
+import com.hearthsim.card.basic.minion.RaidLeader;
+import com.hearthsim.card.curseofnaxxramas.minion.common.Undertaker;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;

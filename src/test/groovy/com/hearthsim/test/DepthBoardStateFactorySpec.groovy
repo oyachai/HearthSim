@@ -5,13 +5,9 @@ import com.hearthsim.player.playercontroller.BruteForceSearchAI;
 import com.hearthsim.test.groovy.card.CardSpec;
 import com.hearthsim.test.helpers.BoardModelBuilder
 import com.hearthsim.util.tree.HearthTreeNode;
-import com.hearthsim.card.minion.concrete.GoldshireFootman
-import com.hearthsim.card.minion.concrete.MurlocRaider
-import com.hearthsim.card.minion.concrete.Wisp
-
-import static com.hearthsim.model.PlayerSide.CURRENT_PLAYER
-import static com.hearthsim.model.PlayerSide.WAITING_PLAYER
-import static org.junit.Assert.*
+import com.hearthsim.card.basic.minion.GoldshireFootman
+import com.hearthsim.card.basic.minion.MurlocRaider
+import com.hearthsim.card.classic.minion.common.Wisp
 
 class DepthBoardStateFactorySpec extends CardSpec {
 

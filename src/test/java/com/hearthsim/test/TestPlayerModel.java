@@ -2,11 +2,11 @@ package com.hearthsim.test;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
-import com.hearthsim.card.minion.concrete.BloodfenRaptor;
+import com.hearthsim.card.basic.minion.BloodfenRaptor;
 import com.hearthsim.card.minion.heroes.Priest;
 import com.hearthsim.card.minion.heroes.Warlock;
-import com.hearthsim.card.spellcard.concrete.HolySmite;
-import com.hearthsim.card.spellcard.concrete.TheCoin;
+import com.hearthsim.card.basic.spell.HolySmite;
+import com.hearthsim.card.basic.spell.TheCoin;
 import com.hearthsim.model.PlayerModel;
 import org.junit.Before;
 import org.junit.Test;

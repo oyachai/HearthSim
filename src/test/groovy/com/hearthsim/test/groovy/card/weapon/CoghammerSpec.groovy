@@ -1,8 +1,10 @@
 package com.hearthsim.test.groovy.card.weapon
 
-import com.hearthsim.card.minion.concrete.*
-import com.hearthsim.card.minion.concrete.BombLobber
-import com.hearthsim.card.weapon.concrete.Coghammer
+import com.hearthsim.card.basic.minion.WarGolem
+import com.hearthsim.card.classic.minion.common.FaerieDragon
+import com.hearthsim.card.classic.minion.common.StranglethornTiger
+import com.hearthsim.card.basic.minion.Voidwalker
+import com.hearthsim.card.goblinsvsgnomes.weapon.epic.Coghammer
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.groovy.card.CardSpec
 import com.hearthsim.test.helpers.BoardModelBuilder
@@ -10,7 +12,6 @@ import com.hearthsim.util.tree.HearthTreeNode
 import com.hearthsim.util.tree.RandomEffectNode
 
 import static com.hearthsim.model.PlayerSide.CURRENT_PLAYER
-import static com.hearthsim.model.PlayerSide.WAITING_PLAYER
 
 class CoghammerSpec extends CardSpec {
 

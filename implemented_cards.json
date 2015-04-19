@@ -1,0 +1,1459 @@
+[
+    {
+        "name": "Abomination", 
+        "class": "com.hearthsim.card.classic.minion.rare.Abomination"
+    }, 
+    {
+        "name": "Abusive Sergeant", 
+        "class": "com.hearthsim.card.classic.minion.common.AbusiveSergeant"
+    }, 
+    {
+        "name": "Acidic Swamp Ooze", 
+        "class": "com.hearthsim.card.basic.minion.AcidicSwampOoze"
+    }, 
+    {
+        "name": "Acolyte of Pain", 
+        "class": "com.hearthsim.card.classic.minion.common.AcolyteOfPain"
+    }, 
+    {
+        "name": "Al'Akir the Windlord", 
+        "class": "com.hearthsim.card.classic.minion.legendary.AlakirTheWindlord"
+    }, 
+    {
+        "name": "Aldor Peacekeeper", 
+        "class": "com.hearthsim.card.classic.minion.rare.AldorPeacekeeper"
+    }, 
+    {
+        "name": "Alexstrasza", 
+        "class": "com.hearthsim.card.classic.minion.legendary.Alexstrasza"
+    }, 
+    {
+        "name": "Amani Berserker", 
+        "class": "com.hearthsim.card.classic.minion.common.AmaniBerserker"
+    }, 
+    {
+        "name": "Ancestral Healing", 
+        "class": "com.hearthsim.card.basic.spell.AncestralHealing"
+    }, 
+    {
+        "name": "Ancestral Spirit", 
+        "class": "com.hearthsim.card.classic.spell.rare.AncestralSpirit"
+    }, 
+    {
+        "name": "Ancient Mage", 
+        "class": "com.hearthsim.card.classic.minion.rare.AncientMage"
+    }, 
+    {
+        "name": "Ancient of Lore", 
+        "class": "com.hearthsim.card.classic.minion.epic.AncientOfLore"
+    }, 
+    {
+        "name": "Ancient of War", 
+        "class": "com.hearthsim.card.classic.minion.epic.AncientOfWar"
+    }, 
+    {
+        "name": "Ancient Brewmaster", 
+        "class": "com.hearthsim.card.classic.minion.common.AncientBrewmaster"
+    }, 
+    {
+        "name": "Ancient Watcher", 
+        "class": "com.hearthsim.card.classic.minion.rare.AncientWatcher"
+    }, 
+    {
+        "name": "Angry Chicken", 
+        "class": "com.hearthsim.card.classic.minion.rare.AngryChicken"
+    }, 
+    {
+        "name": "Animal Companion", 
+        "class": "com.hearthsim.card.basic.spell.AnimalCompanion"
+    }, 
+    {
+        "name": "Annoy-o-Tron", 
+        "class": "com.hearthsim.card.goblinsvsgnomes.minion.common.AnnoyOTron"
+    }, 
+    {
+        "name": "Anub'ar Ambusher", 
+        "class": "com.hearthsim.card.curseofnaxxramas.minion.common.AnubarAmbusher"
+    }, 
+    {
+        "name": "Arathi Weaponsmith", 
+        "class": "com.hearthsim.card.classic.minion.common.ArathiWeaponsmith"
+    }, 
+    {
+        "name": "Arcane Explosion", 
+        "class": "com.hearthsim.card.basic.spell.ArcaneExplosion"
+    }, 
+    {
+        "name": "Arcane Golem", 
+        "class": "com.hearthsim.card.classic.minion.rare.ArcaneGolem"
+    }, 
+    {
+        "name": "Arcane Intellect", 
+        "class": "com.hearthsim.card.basic.spell.ArcaneIntellect"
+    }, 
+    {
+        "name": "Arcane Nullifier X-21", 
+        "class": "com.hearthsim.card.goblinsvsgnomes.minion.rare.ArcaneNullifierX21"
+    }, 
+    {
+        "name": "Arcane Shot", 
+        "class": "com.hearthsim.card.basic.spell.ArcaneShot"
+    }, 
+    {
+        "name": "Arcanite Reaper", 
+        "class": "com.hearthsim.card.basic.weapon.ArcaniteReaper"
+    }, 
+    {
+        "name": "Archmage", 
+        "class": "com.hearthsim.card.basic.minion.Archmage"
+    }, 
+    {
+        "name": "Archmage Antonidas", 
+        "class": "com.hearthsim.card.classic.minion.legendary.ArchmageAntonidas"
+    }, 
+    {
+        "name": "Argent Commander", 
+        "class": "com.hearthsim.card.classic.minion.rare.ArgentCommander"
+    }, 
+    {
+        "name": "Argent Protector", 
+        "class": "com.hearthsim.card.classic.minion.common.ArgentProtector"
+    }, 
+    {
+        "name": "Argent Squire", 
+        "class": "com.hearthsim.card.classic.minion.common.ArgentSquire"
+    }, 
+    {
+        "name": "Armorsmith", 
+        "class": "com.hearthsim.card.classic.minion.rare.Armorsmith"
+    }, 
+    {
+        "name": "Assassin's Blade", 
+        "class": "com.hearthsim.card.basic.weapon.AssassinsBlade"
+    }, 
+    {
+        "name": "Assassinate", 
+        "class": "com.hearthsim.card.basic.spell.Assassinate"
+    }, 
+    {
+        "name": "Azure Drake", 
+        "class": "com.hearthsim.card.classic.minion.rare.AzureDrake"
+    }, 
+    {
+        "name": "Backstab", 
+        "class": "com.hearthsim.card.basic.spell.Backstab"
+    }, 
+    {
+        "name": "Bananas", 
+        "class": "com.hearthsim.card.missions.spell.common.Bananas"
+    }, 
+    {
+        "name": "Battle Rage", 
+        "class": "com.hearthsim.card.classic.spell.common.BattleRage"
+    }, 
+    {
+        "name": "Big Game Hunter", 
+        "class": "com.hearthsim.card.classic.minion.epic.BigGameHunter"
+    }, 
+    {
+        "name": "Bite", 
+        "class": "com.hearthsim.card.classic.spell.rare.Bite"
+    }, 
+    {
+        "name": "Blessed Champion", 
+        "class": "com.hearthsim.card.classic.spell.rare.BlessedChampion"
+    }, 
+    {
+        "name": "Blessing of Kings", 
+        "class": "com.hearthsim.card.basic.spell.BlessingOfKings"
+    }, 
+    {
+        "name": "Blessing of Might", 
+        "class": "com.hearthsim.card.basic.spell.BlessingOfMight"
+    }, 
+    {
+        "name": "Blizzard", 
+        "class": "com.hearthsim.card.classic.spell.rare.Blizzard"
+    }, 
+    {
+        "name": "Blood Imp", 
+        "class": "com.hearthsim.card.classic.minion.common.BloodImp"
+    }, 
+    {
+        "name": "Blood Knight", 
+        "class": "com.hearthsim.card.classic.minion.epic.BloodKnight"
+    }, 
+    {
+        "name": "Bloodfen Raptor", 
+        "class": "com.hearthsim.card.basic.minion.BloodfenRaptor"
+    }, 
+    {
+        "name": "Bloodlust", 
+        "class": "com.hearthsim.card.basic.spell.Bloodlust"
+    }, 
+    {
+        "name": "Bloodmage Thalnos", 
+        "class": "com.hearthsim.card.classic.minion.legendary.BloodmageThalnos"
+    }, 
+    {
+        "name": "Bloodsail Raider", 
+        "class": "com.hearthsim.card.classic.minion.common.BloodsailRaider"
+    }, 
+    {
+        "name": "Bloodsail Corsair", 
+        "class": "com.hearthsim.card.classic.minion.rare.BloodsailCorsair"
+    }, 
+    {
+        "name": "Bluegill Warrior", 
+        "class": "com.hearthsim.card.basic.minion.BluegillWarrior"
+    }, 
+    {
+        "name": "Boar", 
+        "class": "com.hearthsim.card.basic.minion.Boar"
+    }, 
+    {
+        "name": "Bolvar Fordragon", 
+        "class": "com.hearthsim.card.goblinsvsgnomes.minion.legendary.BolvarFordragon"
+    }, 
+    {
+        "name": "Bomb Lobber", 
+        "class": "com.hearthsim.card.goblinsvsgnomes.minion.rare.BombLobber"
+    }, 
+    {
+        "name": "Booty Bay Bodyguard", 
+        "class": "com.hearthsim.card.basic.minion.BootyBayBodyguard"
+    }, 
+    {
+        "name": "Boulderfist Ogre", 
+        "class": "com.hearthsim.card.basic.minion.BoulderfistOgre"
+    }, 
+    {
+        "name": "Brawl", 
+        "class": "com.hearthsim.card.classic.spell.epic.Brawl"
+    }, 
+    {
+        "name": "Captain Greenskin", 
+        "class": "com.hearthsim.card.classic.minion.legendary.CaptainGreenskin"
+    }, 
+    {
+        "name": "Cairne Bloodhoof", 
+        "class": "com.hearthsim.card.classic.minion.legendary.CairneBloodhoof"
+    }, 
+    {
+        "name": "Cabal Shadow Priest", 
+        "class": "com.hearthsim.card.classic.minion.epic.CabalShadowPriest"
+    }, 
+    {
+        "name": "Charge", 
+        "class": "com.hearthsim.card.basic.spell.Charge"
+    }, 
+    {
+        "name": "Chillwind Yeti", 
+        "class": "com.hearthsim.card.basic.minion.ChillwindYeti"
+    }, 
+    {
+        "name": "Circle of Healing", 
+        "class": "com.hearthsim.card.classic.spell.common.CircleOfHealing"
+    }, 
+    {
+        "name": "Claw", 
+        "class": "com.hearthsim.card.basic.spell.Claw"
+    }, 
+    {
+        "name": "Clockwork Giant", 
+        "class": "com.hearthsim.card.goblinsvsgnomes.minion.epic.ClockworkGiant"
+    }, 
+    {
+        "name": "Coghammer", 
+        "class": "com.hearthsim.card.goblinsvsgnomes.weapon.epic.Coghammer"
+    }, 
+    {
+        "name": "Cold Blood", 
+        "class": "com.hearthsim.card.classic.spell.common.ColdBlood"
+    }, 
+    {
+        "name": "Coldlight Oracle", 
+        "class": "com.hearthsim.card.classic.minion.rare.ColdlightOracle"
+    }, 
+    {
+        "name": "Coldlight Seer", 
+        "class": "com.hearthsim.card.classic.minion.rare.ColdlightSeer"
+    }, 
+    {
+        "name": "Consecration", 
+        "class": "com.hearthsim.card.basic.spell.Consecration"
+    }, 
+    {
+        "name": "Core Hound", 
+        "class": "com.hearthsim.card.basic.minion.CoreHound"
+    }, 
+    {
+        "name": "Corruption", 
+        "class": "com.hearthsim.card.basic.spell.Corruption"
+    }, 
+    {
+        "name": "Crazed Alchemist", 
+        "class": "com.hearthsim.card.classic.minion.rare.CrazedAlchemist"
+    }, 
+    {
+        "name": "Cruel Taskmaster", 
+        "class": "com.hearthsim.card.classic.minion.common.CruelTaskmaster"
+    }, 
+    {
+        "name": "Cult Master", 
+        "class": "com.hearthsim.card.classic.minion.common.CultMaster"
+    }, 
+    {
+        "name": "Dalaran Mage", 
+        "class": "com.hearthsim.card.basic.minion.DalaranMage"
+    }, 
+    {
+        "name": "Damaged Golem", 
+        "class": "com.hearthsim.card.classic.minion.common.DamagedGolem"
+    }, 
+    {
+        "name": "Dark Iron Dwarf", 
+        "class": "com.hearthsim.card.classic.minion.common.DarkIronDwarf"
+    }, 
+    {
+        "name": "Darkbomb", 
+        "class": "com.hearthsim.card.goblinsvsgnomes.spell.common.Darkbomb"
+    }, 
+    {
+        "name": "Dark Cultist", 
+        "class": "com.hearthsim.card.curseofnaxxramas.minion.common.DarkCultist"
+    }, 
+    {
+        "name": "Darkscale Healer", 
+        "class": "com.hearthsim.card.basic.minion.DarkscaleHealer"
+    }, 
+    {
+        "name": "Deadly Poison", 
+        "class": "com.hearthsim.card.basic.spell.DeadlyPoison"
+    }, 
+    {
+        "name": "Deadly Shot", 
+        "class": "com.hearthsim.card.classic.spell.common.DeadlyShot"
+    }, 
+    {
+        "name": "Death's Bite", 
+        "class": "com.hearthsim.card.curseofnaxxramas.weapon.common.DeathsBite"
+    }, 
+    {
+        "name": "Defender of Argus", 
+        "class": "com.hearthsim.card.classic.minion.rare.DefenderOfArgus"
+    }, 
+    {
+        "name": "Defias Bandit", 
+        "class": "com.hearthsim.card.classic.minion..DefiasBandit"
+    }, 
+    {
+        "name": "Defias Ringleader", 
+        "class": "com.hearthsim.card.classic.minion.common.DefiasRingleader"
+    }, 
+    {
+        "name": "Demolisher", 
+        "class": "com.hearthsim.card.classic.minion.rare.Demolisher"
+    }, 
+    {
+        "name": "Demonfire", 
+        "class": "com.hearthsim.card.classic.spell.common.Demonfire"
+    }, 
+    {
+        "name": "Demonheart", 
+        "class": "com.hearthsim.card.goblinsvsgnomes.spell.epic.Demonheart"
+    }, 
+    {
+        "name": "Divine Favor", 
+        "class": "com.hearthsim.card.classic.spell.rare.DivineFavor"
+    }, 
+    {
+        "name": "Divine Spirit", 
+        "class": "com.hearthsim.card.basic.spell.DivineSpirit"
+    }, 
+    {
+        "name": "Doomguard", 
+        "class": "com.hearthsim.card.classic.minion.rare.Doomguard"
+    }, 
+    {
+        "name": "Doomsayer", 
+        "class": "com.hearthsim.card.classic.minion.epic.Doomsayer"
+    }, 
+    {
+        "name": "Dragonling Mechanic", 
+        "class": "com.hearthsim.card.basic.minion.DragonlingMechanic"
+    }, 
+    {
+        "name": "Drain Life", 
+        "class": "com.hearthsim.card.basic.spell.DrainLife"
+    }, 
+    {
+        "name": "Dread Corsair", 
+        "class": "com.hearthsim.card.classic.minion.common.DreadCorsair"
+    }, 
+    {
+        "name": "Dread Infernal", 
+        "class": "com.hearthsim.card.basic.minion.DreadInfernal"
+    }, 
+    {
+        "class": "com.hearthsim.card.classic.minion.common.DruidOfTheClaw", 
+        "name": "Druid of the Claw", 
+        "id": "EX1_165"
+    }, 
+    {
+        "name": "Dust Devil", 
+        "class": "com.hearthsim.card.classic.minion.common.DustDevil"
+    }, 
+    {
+        "name": "Earth Elemental", 
+        "class": "com.hearthsim.card.classic.minion.epic.EarthElemental"
+    }, 
+    {
+        "name": "Earth Shock", 
+        "class": "com.hearthsim.card.classic.spell.common.EarthShock"
+    }, 
+    {
+        "name": "Earthen Ring Farseer", 
+        "class": "com.hearthsim.card.classic.minion.common.EarthenRingFarseer"
+    }, 
+    {
+        "name": "Edwin VanCleef", 
+        "class": "com.hearthsim.card.classic.minion.legendary.EdwinVancleef"
+    }, 
+    {
+        "name": "Elven Archer", 
+        "class": "com.hearthsim.card.basic.minion.ElvenArcher"
+    }, 
+    {
+        "name": "Emperor Cobra", 
+        "class": "com.hearthsim.card.classic.minion.rare.EmperorCobra"
+    }, 
+    {
+        "name": "Equality", 
+        "class": "com.hearthsim.card.classic.spell.rare.Equality"
+    }, 
+    {
+        "name": "Eviscerate", 
+        "class": "com.hearthsim.card.classic.spell.common.Eviscerate"
+    }, 
+    {
+        "name": "Execute", 
+        "class": "com.hearthsim.card.basic.spell.Execute"
+    }, 
+    {
+        "name": "Faerie Dragon", 
+        "class": "com.hearthsim.card.classic.minion.common.FaerieDragon"
+    }, 
+    {
+        "name": "Fan of Knives", 
+        "class": "com.hearthsim.card.basic.spell.FanOfKnives"
+    }, 
+    {
+        "name": "Felguard", 
+        "class": "com.hearthsim.card.classic.minion.rare.Felguard"
+    }, 
+    {
+        "name": "Fen Creeper", 
+        "class": "com.hearthsim.card.classic.minion.common.FenCreeper"
+    }, 
+    {
+        "name": "Fiery War Axe", 
+        "class": "com.hearthsim.card.basic.weapon.FieryWarAxe"
+    }, 
+    {
+        "name": "Fire Elemental", 
+        "class": "com.hearthsim.card.basic.minion.FireElemental"
+    }, 
+    {
+        "name": "Fireball", 
+        "class": "com.hearthsim.card.basic.spell.Fireball"
+    }, 
+    {
+        "name": "Flame Imp", 
+        "class": "com.hearthsim.card.classic.minion.common.FlameImp"
+    }, 
+    {
+        "name": "Flame of Azzinoth", 
+        "class": "com.hearthsim.card.missions.minion.common.FlameOfAzzinoth"
+    }, 
+    {
+        "name": "Flamecannon", 
+        "class": "com.hearthsim.card.goblinsvsgnomes.spell.common.Flamecannon"
+    }, 
+    {
+        "name": "Flamestrike", 
+        "class": "com.hearthsim.card.basic.spell.Flamestrike"
+    }, 
+    {
+        "name": "Flesheating Ghoul", 
+        "class": "com.hearthsim.card.classic.minion.common.FlesheatingGhoul"
+    }, 
+    {
+        "name": "Flying Machine", 
+        "class": "com.hearthsim.card.goblinsvsgnomes.minion.common.FlyingMachine"
+    }, 
+    {
+        "name": "Force-Tank MAX", 
+        "class": "com.hearthsim.card.goblinsvsgnomes.minion.common.ForceTankMax"
+    }, 
+    {
+        "name": "Frost Elemental", 
+        "class": "com.hearthsim.card.classic.minion.common.FrostElemental"
+    }, 
+    {
+        "name": "Frost Nova", 
+        "class": "com.hearthsim.card.basic.spell.FrostNova"
+    }, 
+    {
+        "name": "Frost Shock", 
+        "class": "com.hearthsim.card.basic.spell.FrostShock"
+    }, 
+    {
+        "name": "Frostbolt", 
+        "class": "com.hearthsim.card.basic.spell.Frostbolt"
+    }, 
+    {
+        "name": "Frostwolf Grunt", 
+        "class": "com.hearthsim.card.basic.minion.FrostwolfGrunt"
+    }, 
+    {
+        "name": "Frostwolf Warlord", 
+        "class": "com.hearthsim.card.basic.minion.FrostwolfWarlord"
+    }, 
+    {
+        "name": "Frothing Berserker", 
+        "class": "com.hearthsim.card.classic.minion.rare.FrothingBerserker"
+    }, 
+    {
+        "name": "Gadgetzan Auctioneer", 
+        "class": "com.hearthsim.card.classic.minion.rare.GadgetzanAuctioneer"
+    }, 
+    {
+        "name": "Gilblin Stalker", 
+        "class": "com.hearthsim.card.goblinsvsgnomes.minion.common.GilblinStalker"
+    }, 
+    {
+        "name": "Gladiator's Longbow", 
+        "class": "com.hearthsim.card.classic.weapon.epic.GladiatorsLongbow"
+    }, 
+    {
+        "name": "Glaivezooka", 
+        "class": "com.hearthsim.card.goblinsvsgnomes.weapon.common.Glaivezooka"
+    }, 
+    {
+        "name": "Gnomish Inventor", 
+        "class": "com.hearthsim.card.basic.minion.GnomishInventor"
+    }, 
+    {
+        "name": "Gnoll", 
+        "class": "com.hearthsim.card.missions.minion.common.Gnoll"
+    }, 
+    {
+        "name": "Gnomeregan Infantry", 
+        "class": "com.hearthsim.card.goblinsvsgnomes.minion.common.GnomereganInfantry"
+    }, 
+    {
+        "name": "Goldshire Footman", 
+        "class": "com.hearthsim.card.basic.minion.GoldshireFootman"
+    }, 
+    {
+        "name": "Gorehowl", 
+        "class": "com.hearthsim.card.classic.weapon.epic.Gorehowl"
+    }, 
+    {
+        "name": "Grimscale Oracle", 
+        "class": "com.hearthsim.card.basic.minion.GrimscaleOracle"
+    }, 
+    {
+        "name": "Grommash Hellscream", 
+        "class": "com.hearthsim.card.classic.minion.legendary.GrommashHellscream"
+    }, 
+    {
+        "name": "Gruul", 
+        "class": "com.hearthsim.card.classic.minion.legendary.Gruul"
+    }, 
+    {
+        "name": "Guardian of Kings", 
+        "class": "com.hearthsim.card.basic.minion.GuardianOfKings"
+    }, 
+    {
+        "name": "Gurubashi Berserker", 
+        "class": "com.hearthsim.card.basic.minion.GurubashiBerserker"
+    }, 
+    {
+        "name": "Hammer of Wrath", 
+        "class": "com.hearthsim.card.basic.spell.HammerOfWrath"
+    }, 
+    {
+        "name": "Hand of Protection", 
+        "class": "com.hearthsim.card.basic.spell.HandOfProtection"
+    }, 
+    {
+        "name": "Harrison Jones", 
+        "class": "com.hearthsim.card.classic.minion.legendary.HarrisonJones"
+    }, 
+    {
+        "name": "Harvest Golem", 
+        "class": "com.hearthsim.card.classic.minion.common.HarvestGolem"
+    }, 
+    {
+        "name": "Haunted Creeper", 
+        "class": "com.hearthsim.card.curseofnaxxramas.minion.common.HauntedCreeper"
+    }, 
+    {
+        "name": "Healing Touch", 
+        "class": "com.hearthsim.card.basic.spell.HealingTouch"
+    }, 
+    {
+        "name": "Hellfire", 
+        "class": "com.hearthsim.card.basic.spell.Hellfire"
+    }, 
+    {
+        "name": "Heroic Strike", 
+        "class": "com.hearthsim.card.basic.spell.HeroicStrike"
+    }, 
+    {
+        "name": "Hex", 
+        "class": "com.hearthsim.card.basic.spell.Hex"
+    }, 
+    {
+        "name": "Hogger", 
+        "class": "com.hearthsim.card.missions.hero.common.Hogger"
+    }, 
+    {
+        "name": "Holy Fire", 
+        "class": "com.hearthsim.card.classic.spell.rare.HolyFire"
+    }, 
+    {
+        "name": "Holy Light", 
+        "class": "com.hearthsim.card.basic.spell.HolyLight"
+    }, 
+    {
+        "name": "Holy Nova", 
+        "class": "com.hearthsim.card.basic.spell.HolyNova"
+    }, 
+    {
+        "name": "Holy Smite", 
+        "class": "com.hearthsim.card.basic.spell.HolySmite"
+    }, 
+    {
+        "name": "Hound", 
+        "class": "com.hearthsim.card.classic.minion..Hound"
+    }, 
+    {
+        "name": "Houndmaster", 
+        "class": "com.hearthsim.card.basic.minion.Houndmaster"
+    }, 
+    {
+        "name": "Humility", 
+        "class": "com.hearthsim.card.basic.spell.Humility"
+    }, 
+    {
+        "name": "Hungry Crab", 
+        "class": "com.hearthsim.card.classic.minion.epic.HungryCrab"
+    }, 
+    {
+        "name": "Hunter's Mark", 
+        "class": "com.hearthsim.card.basic.spell.HuntersMark"
+    }, 
+    {
+        "name": "Hyena", 
+        "class": "com.hearthsim.card.classic.minion.rare.Hyena"
+    }, 
+    {
+        "name": "Ice Lance", 
+        "class": "com.hearthsim.card.classic.spell.common.IceLance"
+    }, 
+    {
+        "name": "Illidan Stormrage", 
+        "class": "com.hearthsim.card.missions.hero..IllidanStormrage"
+    }, 
+    {
+        "name": "Imp", 
+        "class": "com.hearthsim.card.classic.minion.rare.Imp"
+    }, 
+    {
+        "name": "Imp Master", 
+        "class": "com.hearthsim.card.classic.minion.rare.ImpMaster"
+    }, 
+    {
+        "name": "Injured Blademaster", 
+        "class": "com.hearthsim.card.classic.minion.rare.InjuredBlademaster"
+    }, 
+    {
+        "name": "Inner Fire", 
+        "class": "com.hearthsim.card.classic.spell.common.InnerFire"
+    }, 
+    {
+        "name": "Inner Rage", 
+        "class": "com.hearthsim.card.classic.spell.common.InnerRage"
+    }, 
+    {
+        "name": "Innervate", 
+        "class": "com.hearthsim.card.basic.spell.Innervate"
+    }, 
+    {
+        "name": "Ironbark Protector", 
+        "class": "com.hearthsim.card.basic.minion.IronbarkProtector"
+    }, 
+    {
+        "name": "Ironbeak Owl", 
+        "class": "com.hearthsim.card.classic.minion.common.IronbeakOwl"
+    }, 
+    {
+        "name": "Ironforge Rifleman", 
+        "class": "com.hearthsim.card.basic.minion.IronforgeRifleman"
+    }, 
+    {
+        "name": "Ironfur Grizzly", 
+        "class": "com.hearthsim.card.basic.minion.IronfurGrizzly"
+    }, 
+    {
+        "name": "Jungle Panther", 
+        "class": "com.hearthsim.card.classic.minion.common.JunglePanther"
+    }, 
+    {
+        "name": "Junkbot", 
+        "class": "com.hearthsim.card.goblinsvsgnomes.minion.epic.Junkbot"
+    }, 
+    {
+        "name": "Kidnapper", 
+        "class": "com.hearthsim.card.classic.minion.epic.Kidnapper"
+    }, 
+    {
+        "name": "Kill Command", 
+        "class": "com.hearthsim.card.basic.spell.KillCommand"
+    }, 
+    {
+        "name": "King Krush", 
+        "class": "com.hearthsim.card.classic.minion.legendary.KingKrush"
+    }, 
+    {
+        "name": "King Mukla", 
+        "class": "com.hearthsim.card.missions.hero.common.KingMukla"
+    }, 
+    {
+        "name": "Knife Juggler", 
+        "class": "com.hearthsim.card.classic.minion.rare.KnifeJuggler"
+    }, 
+    {
+        "name": "Kobold Geomancer", 
+        "class": "com.hearthsim.card.basic.minion.KoboldGeomancer"
+    }, 
+    {
+        "name": "Kor'kron Elite", 
+        "class": "com.hearthsim.card.basic.minion.KorkronElite"
+    }, 
+    {
+        "name": "Lava Burst", 
+        "class": "com.hearthsim.card.classic.spell.rare.LavaBurst"
+    }, 
+    {
+        "name": "Lay on Hands", 
+        "class": "com.hearthsim.card.classic.spell.epic.LayOnHands"
+    }, 
+    {
+        "name": "Leeroy Jenkins", 
+        "class": "com.hearthsim.card.classic.minion.legendary.LeeroyJenkins"
+    }, 
+    {
+        "name": "Leper Gnome", 
+        "class": "com.hearthsim.card.classic.minion.common.LeperGnome"
+    }, 
+    {
+        "name": "Light's Justice", 
+        "class": "com.hearthsim.card.basic.weapon.LightsJustice"
+    }, 
+    {
+        "name": "Lightning Bolt", 
+        "class": "com.hearthsim.card.classic.spell.common.LightningBolt"
+    }, 
+    {
+        "name": "Lightspawn", 
+        "class": "com.hearthsim.card.classic.minion.common.Lightspawn"
+    }, 
+    {
+        "name": "Lightwarden", 
+        "class": "com.hearthsim.card.classic.minion.rare.Lightwarden"
+    }, 
+    {
+        "name": "Lightwell", 
+        "class": "com.hearthsim.card.classic.minion.rare.Lightwell"
+    }, 
+    {
+        "name": "Loot Hoarder", 
+        "class": "com.hearthsim.card.classic.minion.common.LootHoarder"
+    }, 
+    {
+        "name": "Lord of the Arena", 
+        "class": "com.hearthsim.card.basic.minion.LordOfTheArena"
+    }, 
+    {
+        "name": "Lorewalker Cho", 
+        "class": "com.hearthsim.card.missions.hero..LorewalkerCho"
+    }, 
+    {
+        "name": "Lost Tallstrider", 
+        "class": "com.hearthsim.card.goblinsvsgnomes.minion.common.LostTallstrider"
+    }, 
+    {
+        "name": "Maexxna", 
+        "class": "com.hearthsim.card.curseofnaxxramas.minion.legendary.Maexxna"
+    }, 
+    {
+        "name": "Magma Rager", 
+        "class": "com.hearthsim.card.basic.minion.MagmaRager"
+    }, 
+    {
+        "name": "Malygos", 
+        "class": "com.hearthsim.card.classic.minion.legendary.Malygos"
+    }, 
+    {
+        "name": "Mana Addict", 
+        "class": "com.hearthsim.card.classic.minion.rare.ManaAddict"
+    }, 
+    {
+        "name": "Mana Tide Totem", 
+        "class": "com.hearthsim.card.classic.minion.rare.ManaTideTotem"
+    }, 
+    {
+        "name": "Mana Wyrm", 
+        "class": "com.hearthsim.card.classic.minion.common.ManaWyrm"
+    }, 
+    {
+        "name": "Mark of the Wild", 
+        "class": "com.hearthsim.card.basic.spell.MarkOfTheWild"
+    }, 
+    {
+        "name": "Master of Disguise", 
+        "class": "com.hearthsim.card.classic.minion.rare.MasterOfDisguise"
+    }, 
+    {
+        "name": "Master Swordsmith", 
+        "class": "com.hearthsim.card.classic.minion.rare.MasterSwordsmith"
+    }, 
+    {
+        "name": "Mekgineer Thermaplugg", 
+        "class": "com.hearthsim.card.goblinsvsgnomes.minion.legendary.MekgineerThermaplugg"
+    }, 
+    {
+        "name": "Mind Blast", 
+        "class": "com.hearthsim.card.basic.spell.MindBlast"
+    }, 
+    {
+        "name": "Mind Control", 
+        "class": "com.hearthsim.card.basic.spell.MindControl"
+    }, 
+    {
+        "name": "Mind Control Tech", 
+        "class": "com.hearthsim.card.classic.minion.rare.MindControlTech"
+    }, 
+    {
+        "name": "Mini-Mage", 
+        "class": "com.hearthsim.card.goblinsvsgnomes.minion.epic.MiniMage"
+    }, 
+    {
+        "name": "Mirror Image", 
+        "class": "com.hearthsim.card.basic.minion.MirrorImage"
+    }, 
+    {
+        "name": "Mogu'shan Warden", 
+        "class": "com.hearthsim.card.classic.minion.common.MogushanWarden"
+    }, 
+    {
+        "name": "Molten Giant", 
+        "class": "com.hearthsim.card.classic.minion.epic.MoltenGiant"
+    }, 
+    {
+        "name": "Moonfire", 
+        "class": "com.hearthsim.card.classic.spell..Moonfire"
+    }, 
+    {
+        "name": "Mortal Coil", 
+        "class": "com.hearthsim.card.basic.spell.MortalCoil"
+    }, 
+    {
+        "name": "Mountain Giant", 
+        "class": "com.hearthsim.card.classic.minion.epic.MountainGiant"
+    }, 
+    {
+        "name": "Murloc Raider", 
+        "class": "com.hearthsim.card.basic.minion.MurlocRaider"
+    }, 
+    {
+        "name": "Murloc Scout", 
+        "class": "com.hearthsim.card.basic.minion.MurlocScout"
+    }, 
+    {
+        "name": "Murloc Tidecaller", 
+        "class": "com.hearthsim.card.classic.minion.rare.MurlocTidecaller"
+    }, 
+    {
+        "name": "Murloc Tidehunter", 
+        "class": "com.hearthsim.card.basic.minion.MurlocTidehunter"
+    }, 
+    {
+        "name": "Nat Pagle", 
+        "class": "com.hearthsim.card.classic.minion.legendary.NatPagle"
+    }, 
+    {
+        "name": "Nightblade", 
+        "class": "com.hearthsim.card.basic.minion.Nightblade"
+    }, 
+    {
+        "name": "Northshire Cleric", 
+        "class": "com.hearthsim.card.basic.minion.NorthshireCleric"
+    }, 
+    {
+        "name": "Novice Engineer", 
+        "class": "com.hearthsim.card.basic.minion.NoviceEngineer"
+    }, 
+    {
+        "name": "Nerubian", 
+        "class": "com.hearthsim.card.curseofnaxxramas.minion..Nerubian"
+    }, 
+    {
+        "name": "Nerubian Egg", 
+        "class": "com.hearthsim.card.curseofnaxxramas.minion.rare.NerubianEgg"
+    }, 
+    {
+        "name": "Oasis Snapjaw", 
+        "class": "com.hearthsim.card.basic.minion.OasisSnapjaw"
+    }, 
+    {
+        "name": "Ogre Magi", 
+        "class": "com.hearthsim.card.basic.minion.OgreMagi"
+    }, 
+    {
+        "name": "Onyxia", 
+        "class": "com.hearthsim.card.classic.minion.legendary.Onyxia"
+    }, 
+    {
+        "name": "Pit Lord", 
+        "class": "com.hearthsim.card.classic.minion.epic.PitLord"
+    }, 
+    {
+        "name": "Patient Assassin", 
+        "class": "com.hearthsim.card.classic.minion.epic.PatientAssassin"
+    }, 
+    {
+        "name": "Polymorph", 
+        "class": "com.hearthsim.card.basic.spell.Polymorph"
+    }, 
+    {
+        "name": "Power Word: Shield", 
+        "class": "com.hearthsim.card.basic.spell.PowerWordShield"
+    }, 
+    {
+        "name": "Powermace", 
+        "class": "com.hearthsim.card.goblinsvsgnomes.weapon.rare.Powermace"
+    }, 
+    {
+        "name": "Priestess of Elune", 
+        "class": "com.hearthsim.card.classic.minion.common.PriestessOfElune"
+    }, 
+    {
+        "name": "Puddlestomper", 
+        "class": "com.hearthsim.card.goblinsvsgnomes.minion.common.Puddlestomper"
+    }, 
+    {
+        "name": "Pyroblast", 
+        "class": "com.hearthsim.card.classic.spell.epic.Pyroblast"
+    }, 
+    {
+        "name": "Questing Adventurer", 
+        "class": "com.hearthsim.card.classic.minion.rare.QuestingAdventurer"
+    }, 
+    {
+        "name": "Raging Worgen", 
+        "class": "com.hearthsim.card.classic.minion.common.RagingWorgen"
+    }, 
+    {
+        "name": "Ragnaros the Firelord", 
+        "class": "com.hearthsim.card.classic.minion.legendary.RagnarosTheFirelord"
+    }, 
+    {
+        "name": "Raid Leader", 
+        "class": "com.hearthsim.card.basic.minion.RaidLeader"
+    }, 
+    {
+        "name": "Rampage", 
+        "class": "com.hearthsim.card.classic.spell.common.Rampage"
+    }, 
+    {
+        "name": "Ravenholdt Assassin", 
+        "class": "com.hearthsim.card.classic.minion.rare.RavenholdtAssassin"
+    }, 
+    {
+        "name": "Razorfen Hunter", 
+        "class": "com.hearthsim.card.basic.minion.RazorfenHunter"
+    }, 
+    {
+        "name": "Reckless Rocketeer", 
+        "class": "com.hearthsim.card.basic.minion.RecklessRocketeer"
+    }, 
+    {
+        "name": "River Crocolisk", 
+        "class": "com.hearthsim.card.basic.minion.RiverCrocolisk"
+    }, 
+    {
+        "name": "Rockbiter Weapon", 
+        "class": "com.hearthsim.card.basic.spell.RockbiterWeapon"
+    }, 
+    {
+        "name": "Sacrificial Pact", 
+        "class": "com.hearthsim.card.basic.spell.SacrificialPact"
+    }, 
+    {
+        "name": "Salty Dog", 
+        "class": "com.hearthsim.card.goblinsvsgnomes.minion.common.SaltyDog"
+    }, 
+    {
+        "name": "Sap", 
+        "class": "com.hearthsim.card.basic.spell.Sap"
+    }, 
+    {
+        "name": "Savage Roar", 
+        "class": "com.hearthsim.card.basic.spell.SavageRoar"
+    }, 
+    {
+        "name": "Savannah Highmane", 
+        "class": "com.hearthsim.card.classic.minion.rare.SavannahHighmane"
+    }, 
+    {
+        "name": "Scarlet Crusader", 
+        "class": "com.hearthsim.card.classic.minion.common.ScarletCrusader"
+    }, 
+    {
+        "name": "Scavenging Hyena", 
+        "class": "com.hearthsim.card.classic.minion.common.ScavengingHyena"
+    }, 
+    {
+        "name": "Sea Giant", 
+        "class": "com.hearthsim.card.classic.minion.epic.SeaGiant"
+    }, 
+    {
+        "name": "Sen'jin Shieldmasta", 
+        "class": "com.hearthsim.card.basic.minion.SenjinShieldmasta"
+    }, 
+    {
+        "name": "Shadow Bolt", 
+        "class": "com.hearthsim.card.basic.spell.ShadowBolt"
+    }, 
+    {
+        "name": "Shade of Naxxramas", 
+        "class": "com.hearthsim.card.curseofnaxxramas.minion.epic.ShadeOfNaxxramas"
+    }, 
+    {
+        "name": "Shadow Word: Death", 
+        "class": "com.hearthsim.card.basic.spell.ShadowWordDeath"
+    }, 
+    {
+        "name": "Shadow Word: Pain", 
+        "class": "com.hearthsim.card.basic.spell.ShadowWordPain"
+    }, 
+    {
+        "name": "Shadowboxer", 
+        "class": "com.hearthsim.card.goblinsvsgnomes.minion.rare.Shadowboxer"
+    }, 
+    {
+        "name": "Shattered Sun Cleric", 
+        "class": "com.hearthsim.card.basic.minion.ShatteredSunCleric"
+    }, 
+    {
+        "name": "Sheep", 
+        "class": "com.hearthsim.card.basic.minion.Sheep"
+    }, 
+    {
+        "name": "Shield Block", 
+        "class": "com.hearthsim.card.basic.spell.ShieldBlock"
+    }, 
+    {
+        "name": "Shieldbearer", 
+        "class": "com.hearthsim.card.classic.minion.common.Shieldbearer"
+    }, 
+    {
+        "name": "Shielded Minibot", 
+        "class": "com.hearthsim.card.goblinsvsgnomes.minion.common.ShieldedMinibot"
+    }, 
+    {
+        "name": "Ship's Cannon", 
+        "class": "com.hearthsim.card.goblinsvsgnomes.minion.common.ShipsCannon"
+    }, 
+    {
+        "name": "Shiv", 
+        "class": "com.hearthsim.card.basic.spell.Shiv"
+    }, 
+    {
+        "name": "SI:7 Agent", 
+        "class": "com.hearthsim.card.classic.minion.rare.Si7Agent"
+    }, 
+    {
+        "name": "Silence", 
+        "class": "com.hearthsim.card.classic.spell.common.Silence"
+    }, 
+    {
+        "name": "Siltfin Spiritwalker", 
+        "class": "com.hearthsim.card.goblinsvsgnomes.minion.epic.SiltfinSpiritwalker"
+    }, 
+    {
+        "name": "Silver Hand Knight", 
+        "class": "com.hearthsim.card.classic.minion.common.SilverHandKnight"
+    }, 
+    {
+        "name": "Silverback Patriarch", 
+        "class": "com.hearthsim.card.basic.minion.SilverbackPatriarch"
+    }, 
+    {
+        "name": "Silvermoon Guardian", 
+        "class": "com.hearthsim.card.classic.minion.common.SilvermoonGuardian"
+    }, 
+    {
+        "name": "Sinister Strike", 
+        "class": "com.hearthsim.card.basic.spell.SinisterStrike"
+    }, 
+    {
+        "name": "Slam", 
+        "class": "com.hearthsim.card.classic.spell.common.Slam"
+    }, 
+    {
+        "name": "Slime", 
+        "class": "com.hearthsim.card.curseofnaxxramas.minion..Slime"
+    }, 
+    {
+        "name": "Sludge Belcher", 
+        "class": "com.hearthsim.card.curseofnaxxramas.minion.rare.SludgeBelcher"
+    }, 
+    {
+        "name": "Soot Spewer", 
+        "class": "com.hearthsim.card.goblinsvsgnomes.minion.rare.SootSpewer"
+    }, 
+    {
+        "name": "Soulfire", 
+        "class": "com.hearthsim.card.basic.spell.Soulfire"
+    }, 
+    {
+        "name": "Spectral Knight", 
+        "class": "com.hearthsim.card.curseofnaxxramas.minion.common.SpectralKnight"
+    }, 
+    {
+        "name": "Spectral Spider", 
+        "class": "com.hearthsim.card.curseofnaxxramas.minion..SpectralSpider"
+    }, 
+    {
+        "name": "Spellbreaker", 
+        "class": "com.hearthsim.card.classic.minion.common.Spellbreaker"
+    }, 
+    {
+        "name": "Spider Tank", 
+        "class": "com.hearthsim.card.goblinsvsgnomes.minion.common.SpiderTank"
+    }, 
+    {
+        "name": "Sprint", 
+        "class": "com.hearthsim.card.basic.spell.Sprint"
+    }, 
+    {
+        "name": "Squire", 
+        "class": "com.hearthsim.card.classic.minion.common.Squire"
+    }, 
+    {
+        "name": "Stampeding Kodo", 
+        "class": "com.hearthsim.card.classic.minion.rare.StampedingKodo"
+    }, 
+    {
+        "name": "Starfire", 
+        "class": "com.hearthsim.card.basic.spell.Starfire"
+    }, 
+    {
+        "name": "Starving Buzzard", 
+        "class": "com.hearthsim.card.basic.minion.StarvingBuzzard"
+    }, 
+    {
+        "name": "Stonetusk Boar", 
+        "class": "com.hearthsim.card.basic.minion.StonetuskBoar"
+    }, 
+    {
+        "name": "Stormforged Axe", 
+        "class": "com.hearthsim.card.classic.weapon.common.StormforgedAxe"
+    }, 
+    {
+        "name": "Stormpike Commando", 
+        "class": "com.hearthsim.card.basic.minion.StormpikeCommando"
+    }, 
+    {
+        "name": "Stormwind Champion", 
+        "class": "com.hearthsim.card.basic.minion.StormwindChampion"
+    }, 
+    {
+        "name": "Stormwind Knight", 
+        "class": "com.hearthsim.card.basic.minion.StormwindKnight"
+    }, 
+    {
+        "name": "Stranglethorn Tiger", 
+        "class": "com.hearthsim.card.classic.minion.common.StranglethornTiger"
+    }, 
+    {
+        "name": "Succubus", 
+        "class": "com.hearthsim.card.basic.minion.Succubus"
+    }, 
+    {
+        "name": "Sunfury Protector", 
+        "class": "com.hearthsim.card.classic.minion.rare.SunfuryProtector"
+    }, 
+    {
+        "name": "Sunwalker", 
+        "class": "com.hearthsim.card.classic.minion.rare.Sunwalker"
+    }, 
+    {
+        "name": "Swipe", 
+        "class": "com.hearthsim.card.basic.spell.Swipe"
+    }, 
+    {
+        "name": "Sylvanas Windrunner", 
+        "class": "com.hearthsim.card.classic.minion.legendary.SylvanasWindrunner"
+    }, 
+    {
+        "name": "Target Dummy", 
+        "class": "com.hearthsim.card.goblinsvsgnomes.minion.rare.TargetDummy"
+    }, 
+    {
+        "name": "Tauren Warrior", 
+        "class": "com.hearthsim.card.classic.minion.common.TaurenWarrior"
+    }, 
+    {
+        "name": "Temple Enforcer", 
+        "class": "com.hearthsim.card.classic.minion.common.TempleEnforcer"
+    }, 
+    {
+        "name": "The Black Knight", 
+        "class": "com.hearthsim.card.classic.minion.legendary.TheBlackKnight"
+    }, 
+    {
+        "name": "Thrallmar Farseer", 
+        "class": "com.hearthsim.card.classic.minion.common.ThrallmarFarseer"
+    }, 
+    {
+        "name": "Timber Wolf", 
+        "class": "com.hearthsim.card.basic.minion.TimberWolf"
+    }, 
+    {
+        "name": "Totemic Might", 
+        "class": "com.hearthsim.card.basic.spell.TotemicMight"
+    }, 
+    {
+        "name": "Twilight Drake", 
+        "class": "com.hearthsim.card.classic.minion.rare.TwilightDrake"
+    }, 
+    {
+        "name": "Unbound Elemental", 
+        "class": "com.hearthsim.card.classic.minion.common.UnboundElemental"
+    }, 
+    {
+        "name": "Undertaker", 
+        "class": "com.hearthsim.card.curseofnaxxramas.minion.common.Undertaker"
+    }, 
+    {
+        "name": "Unleash the Hounds", 
+        "class": "com.hearthsim.card.classic.spell.common.UnleashTheHounds"
+    }, 
+    {
+        "name": "Unstable Ghoul", 
+        "class": "com.hearthsim.card.curseofnaxxramas.minion.common.UnstableGhoul"
+    }, 
+    {
+        "name": "Violet Teacher", 
+        "class": "com.hearthsim.card.classic.minion.rare.VioletTeacher"
+    }, 
+    {
+        "name": "Void Terror", 
+        "class": "com.hearthsim.card.classic.minion.rare.VoidTerror"
+    }, 
+    {
+        "name": "Voidwalker", 
+        "class": "com.hearthsim.card.basic.minion.Voidwalker"
+    }, 
+    {
+        "name": "Voodoo Doctor", 
+        "class": "com.hearthsim.card.basic.minion.VoodooDoctor"
+    }, 
+    {
+        "name": "War Golem", 
+        "class": "com.hearthsim.card.basic.minion.WarGolem"
+    }, 
+    {
+        "name": "Water Elemental", 
+        "class": "com.hearthsim.card.basic.minion.WaterElemental"
+    }, 
+    {
+        "name": "Whelp", 
+        "class": "com.hearthsim.card.classic.minion..Whelp"
+    }, 
+    {
+        "name": "Whirling Zap-o-matic", 
+        "class": "com.hearthsim.card.goblinsvsgnomes.minion.common.WhirlingZapOMatic"
+    }, 
+    {
+        "name": "Whirlwind", 
+        "class": "com.hearthsim.card.basic.spell.Whirlwind"
+    }, 
+    {
+        "name": "Wild Growth", 
+        "class": "com.hearthsim.card.basic.spell.WildGrowth"
+    }, 
+    {
+        "name": "Windfury", 
+        "class": "com.hearthsim.card.basic.spell.Windfury"
+    }, 
+    {
+        "name": "Windfury Harpy", 
+        "class": "com.hearthsim.card.classic.minion.common.WindfuryHarpy"
+    }, 
+    {
+        "name": "Windspeaker", 
+        "class": "com.hearthsim.card.basic.minion.Windspeaker"
+    }, 
+    {
+        "name": "Wisp", 
+        "class": "com.hearthsim.card.classic.minion.common.Wisp"
+    }, 
+    {
+        "name": "Wolfrider", 
+        "class": "com.hearthsim.card.basic.minion.Wolfrider"
+    }, 
+    {
+        "name": "Worgen Infiltrator", 
+        "class": "com.hearthsim.card.classic.minion.common.WorgenInfiltrator"
+    }, 
+    {
+        "name": "Young Dragonhawk", 
+        "class": "com.hearthsim.card.classic.minion.common.YoungDragonhawk"
+    }, 
+    {
+        "name": "Young Priestess", 
+        "class": "com.hearthsim.card.classic.minion.rare.YoungPriestess"
+    }, 
+    {
+        "name": "Zombie Chow", 
+        "class": "com.hearthsim.card.curseofnaxxramas.minion.common.ZombieChow"
+    }, 
+    {
+        "name": "The Coin", 
+        "class": "com.hearthsim.card.basic.spell.TheCoin"
+    }, 
+    {
+        "name": "Excess Mana", 
+        "class": "com.hearthsim.card.basic.spell.ExcessMana"
+    }, 
+    {
+        "name": "Wrath of Air Totem", 
+        "class": "com.hearthsim.card.basic.minion.WrathOfAirTotem"
+    }, 
+    {
+        "name": "Huffer", 
+        "class": "com.hearthsim.card.basic.minion.Huffer"
+    }, 
+    {
+        "name": "Leokk", 
+        "class": "com.hearthsim.card.basic.minion.Leokk"
+    }, 
+    {
+        "name": "Misha", 
+        "class": "com.hearthsim.card.basic.minion.Misha"
+    }, 
+    {
+        "name": "Frog", 
+        "class": "com.hearthsim.card.basic.minion.Frog"
+    }, 
+    {
+        "name": "Searing Totem", 
+        "class": "com.hearthsim.card.basic.minion.SearingTotem"
+    }, 
+    {
+        "name": "Stoneclaw Totem", 
+        "class": "com.hearthsim.card.basic.minion.StoneclawTotem"
+    }, 
+    {
+        "name": "Healing Totem", 
+        "class": "com.hearthsim.card.basic.minion.HealingTotem"
+    }, 
+    {
+        "name": "Baine Bloodhoof", 
+        "class": "com.hearthsim.card.classic.minion.legendary.BaineBloodhoof"
+    }, 
+    {
+        "name": "Mirror Image", 
+        "class": "com.hearthsim.card.basic.minion.MirrorImage"
+    }, 
+    {
+        "name": "Mechanical Dragonling", 
+        "class": "com.hearthsim.card.basic.minion.MechanicalDragonling"
+    }, 
+    {
+        "name": "Silver Hand Recruit", 
+        "class": "com.hearthsim.card.basic.minion.SilverHandRecruit"
+    }, 
+    {
+        "name": "Violet Apprentice", 
+        "class": "com.hearthsim.card.classic.minion..VioletApprentice"
+    }, 
+    {
+        "name": "Truesilver Champion", 
+        "class": "com.hearthsim.card.basic.weapon.TruesilverChampion"
+    }, 
+    {
+        "name": "Twisting Nether", 
+        "class": "com.hearthsim.card.classic.spell.epic.TwistingNether"
+    }, 
+    {
+        "name": "Wicked Knife", 
+        "class": "com.hearthsim.card.basic.weapon.WickedKnife"
+    }, 
+    {
+        "name": "Battle Axe", 
+        "class": "com.hearthsim.card.classic.weapon..BattleAxe"
+    }, 
+    {
+        "name": "Anduin Wrynn", 
+        "class": "com.hearthsim.card.basic.hero.AnduinWrynn"
+    }, 
+    {
+        "name": "Thrall", 
+        "class": "com.hearthsim.card.basic.hero.Thrall"
+    }, 
+    {
+        "name": "Uther Lightbringer", 
+        "class": "com.hearthsim.card.basic.hero.UtherLightbringer"
+    }, 
+    {
+        "name": "Malfurion Stormrage", 
+        "class": "com.hearthsim.card.basic.hero.MalfurionStormrage"
+    }, 
+    {
+        "name": "Rexxar", 
+        "class": "com.hearthsim.card.basic.hero.Rexxar"
+    }, 
+    {
+        "name": "Jaina Proudmoore", 
+        "class": "com.hearthsim.card.missions.hero.common.JainaProudmoore"
+    }, 
+    {
+        "name": "Valeera Sanguinar", 
+        "class": "com.hearthsim.card.basic.hero.ValeeraSanguinar"
+    }, 
+    {
+        "name": "Gul'dan", 
+        "class": "com.hearthsim.card.basic.hero.Guldan"
+    }, 
+    {
+        "name": "Garrosh Hellscream", 
+        "class": "com.hearthsim.card.basic.hero.GarroshHellscream"
+    }, 
+    {
+        "name": "Doomhammer", 
+        "class": "com.hearthsim.card.classic.weapon.epic.Doomhammer"
+    }, 
+    {
+        "name": "Sword of Justice", 
+        "class": "com.hearthsim.card.classic.weapon.epic.SwordOfJustice"
+    }
+]

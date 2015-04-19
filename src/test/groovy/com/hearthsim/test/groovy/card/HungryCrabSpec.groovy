@@ -3,9 +3,9 @@ package com.hearthsim.test.groovy.card
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.test.helpers.BoardModelBuilder
 import com.hearthsim.util.tree.HearthTreeNode;
-import com.hearthsim.card.minion.concrete.HungryCrab
-import com.hearthsim.card.minion.concrete.MurlocRaider
-import com.hearthsim.card.minion.concrete.BloodfenRaptor
+import com.hearthsim.card.classic.minion.epic.HungryCrab
+import com.hearthsim.card.basic.minion.MurlocRaider
+import com.hearthsim.card.basic.minion.BloodfenRaptor
 
 import static com.hearthsim.model.PlayerSide.CURRENT_PLAYER
 import static com.hearthsim.model.PlayerSide.WAITING_PLAYER

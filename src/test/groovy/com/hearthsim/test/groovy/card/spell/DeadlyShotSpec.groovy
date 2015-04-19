@@ -1,7 +1,11 @@
 package com.hearthsim.test.groovy.card.spell
 
-import com.hearthsim.card.minion.concrete.*
-import com.hearthsim.card.spellcard.concrete.DeadlyShot
+import com.hearthsim.card.basic.minion.KoboldGeomancer
+import com.hearthsim.card.basic.minion.WarGolem
+import com.hearthsim.card.classic.minion.common.FaerieDragon
+import com.hearthsim.card.classic.minion.common.StranglethornTiger
+import com.hearthsim.card.basic.minion.Voidwalker
+import com.hearthsim.card.classic.spell.common.DeadlyShot
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.groovy.card.CardSpec
 import com.hearthsim.test.helpers.BoardModelBuilder

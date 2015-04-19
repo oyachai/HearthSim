@@ -2,7 +2,7 @@ package com.hearthsim.card.minion.heroes;
 
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.card.weapon.concrete.WickedKnife;
+import com.hearthsim.card.basic.weapon.WickedKnife;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;

@@ -4,13 +4,12 @@ import com.hearthsim.Game
 import com.hearthsim.card.Card
 import com.hearthsim.card.Deck
 import com.hearthsim.card.ImplementedCardList
-import com.hearthsim.card.minion.Minion
 import com.hearthsim.card.minion.MinionMock
-import com.hearthsim.card.minion.concrete.NoviceEngineer
+import com.hearthsim.card.basic.minion.NoviceEngineer
 import com.hearthsim.card.minion.heroes.TestHero
-import com.hearthsim.card.spellcard.concrete.AnimalCompanion
-import com.hearthsim.card.spellcard.concrete.ArcaneIntellect
-import com.hearthsim.card.spellcard.concrete.Soulfire
+import com.hearthsim.card.basic.spell.AnimalCompanion
+import com.hearthsim.card.basic.spell.ArcaneIntellect
+import com.hearthsim.card.basic.spell.Soulfire
 import com.hearthsim.exception.HSException
 import com.hearthsim.model.PlayerModel
 import com.hearthsim.player.playercontroller.BruteForceSearchAI

@@ -1,6 +1,6 @@
 package com.hearthsim.test.helpers
 
-import com.hearthsim.card.minion.concrete.ElvenArcher
+import com.hearthsim.card.basic.minion.ElvenArcher
 import com.hearthsim.model.BoardModel
 import com.hearthsim.model.PlayerSide
 import com.hearthsim.test.HearthBaseSpec

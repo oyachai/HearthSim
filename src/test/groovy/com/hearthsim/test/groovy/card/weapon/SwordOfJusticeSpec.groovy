@@ -1,7 +1,7 @@
 package com.hearthsim.test.groovy.card.weapon
 
-import com.hearthsim.card.minion.concrete.BloodfenRaptor
-import com.hearthsim.card.weapon.concrete.SwordOfJustice
+import com.hearthsim.card.basic.minion.BloodfenRaptor
+import com.hearthsim.card.classic.weapon.epic.SwordOfJustice
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.groovy.card.CardSpec
 import com.hearthsim.test.helpers.BoardModelBuilder

@@ -2,11 +2,11 @@ package com.hearthsim.test.minion;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.card.minion.concrete.Armorsmith;
-import com.hearthsim.card.minion.concrete.BloodfenRaptor;
-import com.hearthsim.card.minion.concrete.RaidLeader;
-import com.hearthsim.card.minion.concrete.StormwindChampion;
-import com.hearthsim.card.spellcard.concrete.HolySmite;
+import com.hearthsim.card.classic.minion.rare.Armorsmith;
+import com.hearthsim.card.basic.minion.BloodfenRaptor;
+import com.hearthsim.card.basic.minion.RaidLeader;
+import com.hearthsim.card.basic.minion.StormwindChampion;
+import com.hearthsim.card.basic.spell.HolySmite;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;

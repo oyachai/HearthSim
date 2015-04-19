@@ -1,10 +1,10 @@
 package com.hearthsim.test.groovy.card
 
-import com.hearthsim.card.minion.concrete.GoldshireFootman
-import com.hearthsim.card.minion.concrete.MurlocRaider
-import com.hearthsim.card.minion.concrete.MurlocScout
-import com.hearthsim.card.minion.concrete.MurlocTidecaller
-import com.hearthsim.card.minion.concrete.MurlocTidehunter
+import com.hearthsim.card.basic.minion.GoldshireFootman
+import com.hearthsim.card.basic.minion.MurlocRaider
+import com.hearthsim.card.basic.minion.MurlocScout
+import com.hearthsim.card.classic.minion.rare.MurlocTidecaller
+import com.hearthsim.card.basic.minion.MurlocTidehunter
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.helpers.BoardModelBuilder
 import com.hearthsim.util.tree.HearthTreeNode

@@ -1,11 +1,9 @@
 package com.hearthsim.test.groovy.card
 
-import com.hearthsim.card.minion.concrete.QuestingAdventurer
-import com.hearthsim.card.minion.concrete.UnboundElemental
-import com.hearthsim.card.spellcard.concrete.HolySmite
-import com.hearthsim.card.spellcard.concrete.LavaBurst
-import com.hearthsim.card.spellcard.concrete.LightningBolt
-import com.hearthsim.card.spellcard.concrete.TheCoin
+import com.hearthsim.card.classic.minion.common.UnboundElemental
+import com.hearthsim.card.basic.spell.HolySmite
+import com.hearthsim.card.classic.spell.rare.LavaBurst
+import com.hearthsim.card.classic.spell.common.LightningBolt
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.helpers.BoardModelBuilder
 import com.hearthsim.util.tree.HearthTreeNode

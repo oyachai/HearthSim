@@ -1,9 +1,11 @@
 package com.hearthsim.test.groovy.card.weapon
 
-import com.hearthsim.card.minion.concrete.*
-import com.hearthsim.card.minion.concrete.BombLobber
-import com.hearthsim.card.weapon.concrete.Coghammer
-import com.hearthsim.card.weapon.concrete.Glaivezooka
+import com.hearthsim.card.basic.minion.BloodfenRaptor
+import com.hearthsim.card.basic.minion.WarGolem
+import com.hearthsim.card.classic.minion.common.BloodsailRaider
+import com.hearthsim.card.classic.minion.common.FaerieDragon
+import com.hearthsim.card.classic.minion.common.StranglethornTiger
+import com.hearthsim.card.goblinsvsgnomes.minion.common.ShipsCannon
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.groovy.card.CardSpec
 import com.hearthsim.test.helpers.BoardModelBuilder

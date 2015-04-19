@@ -1,8 +1,8 @@
 package com.hearthsim.test.minion;
 
 import com.hearthsim.card.Card;
-import com.hearthsim.card.minion.concrete.FrostwolfWarlord;
-import com.hearthsim.card.minion.concrete.SilverHandRecruit;
+import com.hearthsim.card.basic.minion.FrostwolfWarlord;
+import com.hearthsim.card.basic.minion.SilverHandRecruit;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;

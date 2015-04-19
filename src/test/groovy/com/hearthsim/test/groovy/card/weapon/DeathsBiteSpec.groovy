@@ -1,17 +1,16 @@
 package com.hearthsim.test.groovy.card.weapon
 
 import com.hearthsim.card.minion.Minion
-import com.hearthsim.card.minion.concrete.ArathiWeaponsmith
-import com.hearthsim.card.minion.concrete.BoulderfistOgre
-import com.hearthsim.card.weapon.concrete.BattleAxe
-import com.hearthsim.card.weapon.concrete.DeathsBite
-import com.hearthsim.card.weapon.concrete.FieryWarAxe
+import com.hearthsim.card.classic.minion.common.ArathiWeaponsmith
+import com.hearthsim.card.basic.minion.BoulderfistOgre
+import com.hearthsim.card.classic.weapon.common.BattleAxe
+import com.hearthsim.card.curseofnaxxramas.weapon.common.DeathsBite
+import com.hearthsim.card.basic.weapon.FieryWarAxe
 import com.hearthsim.model.BoardModel
 import com.hearthsim.model.PlayerSide
 import com.hearthsim.test.groovy.card.CardSpec
 import com.hearthsim.test.helpers.BoardModelBuilder
 import com.hearthsim.util.tree.HearthTreeNode
-import spock.lang.Ignore
 
 import static com.hearthsim.model.PlayerSide.CURRENT_PLAYER
 

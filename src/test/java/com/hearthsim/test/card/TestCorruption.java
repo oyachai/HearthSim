@@ -4,7 +4,7 @@ import com.hearthsim.Game;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionMock;
-import com.hearthsim.card.spellcard.concrete.Corruption;
+import com.hearthsim.card.basic.spell.Corruption;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;

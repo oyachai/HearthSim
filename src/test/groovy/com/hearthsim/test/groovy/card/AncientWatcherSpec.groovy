@@ -1,6 +1,6 @@
 package com.hearthsim.test.groovy.card
 
-import com.hearthsim.card.minion.concrete.AncientWatcher
+import com.hearthsim.card.classic.minion.rare.AncientWatcher
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.helpers.BoardModelBuilder
 import com.hearthsim.util.tree.HearthTreeNode

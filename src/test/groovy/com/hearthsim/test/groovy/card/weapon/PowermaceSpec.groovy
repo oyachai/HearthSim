@@ -1,28 +1,18 @@
 package com.hearthsim.test.groovy.card.weapon
 
-import com.hearthsim.card.minion.Minion
-import com.hearthsim.card.minion.concrete.ArathiWeaponsmith
-import com.hearthsim.card.minion.concrete.BloodfenRaptor
-import com.hearthsim.card.minion.concrete.BoulderfistOgre
-import com.hearthsim.card.minion.concrete.HarvestGolem
-import com.hearthsim.card.minion.concrete.RiverCrocolisk
-import com.hearthsim.card.spellcard.concrete.ShadowWordPain
-import com.hearthsim.card.weapon.concrete.BattleAxe
-import com.hearthsim.card.weapon.concrete.DeathsBite
-import com.hearthsim.card.weapon.concrete.FieryWarAxe
-import com.hearthsim.card.weapon.concrete.Powermace
+import com.hearthsim.card.basic.minion.BloodfenRaptor
+import com.hearthsim.card.classic.minion.common.HarvestGolem
+import com.hearthsim.card.basic.weapon.FieryWarAxe
+import com.hearthsim.card.goblinsvsgnomes.weapon.rare.Powermace
 import com.hearthsim.model.BoardModel
-import com.hearthsim.model.PlayerSide
 import com.hearthsim.test.groovy.card.CardSpec
 import com.hearthsim.test.helpers.BoardModelBuilder
 import com.hearthsim.util.tree.HearthTreeNode
 import com.hearthsim.util.tree.RandomEffectNode
-import spock.lang.Ignore
 
 import static com.hearthsim.model.PlayerSide.CURRENT_PLAYER
 import static com.hearthsim.model.PlayerSide.WAITING_PLAYER
 import static org.junit.Assert.assertEquals
-import static org.junit.Assert.assertNotNull
 import static org.junit.Assert.assertTrue
 
 class PowermaceSpec extends CardSpec {

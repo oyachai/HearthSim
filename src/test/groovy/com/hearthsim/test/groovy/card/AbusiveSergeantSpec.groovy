@@ -3,8 +3,8 @@ package com.hearthsim.test.groovy.card
 import static com.hearthsim.model.PlayerSide.CURRENT_PLAYER
 import static org.junit.Assert.*
 
-import com.hearthsim.card.minion.concrete.AbusiveSergeant
-import com.hearthsim.card.minion.concrete.BoulderfistOgre
+import com.hearthsim.card.classic.minion.common.AbusiveSergeant
+import com.hearthsim.card.basic.minion.BoulderfistOgre
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.test.helpers.BoardModelBuilder
 import com.hearthsim.util.tree.HearthTreeNode;

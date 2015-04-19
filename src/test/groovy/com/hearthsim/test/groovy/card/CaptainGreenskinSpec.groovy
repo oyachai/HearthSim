@@ -1,8 +1,8 @@
 package com.hearthsim.test.groovy.card
 
 
-import com.hearthsim.card.minion.concrete.CaptainGreenskin
-import com.hearthsim.card.weapon.concrete.FieryWarAxe
+import com.hearthsim.card.classic.minion.legendary.CaptainGreenskin
+import com.hearthsim.card.basic.weapon.FieryWarAxe
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.helpers.BoardModelBuilder
 import com.hearthsim.util.tree.HearthTreeNode

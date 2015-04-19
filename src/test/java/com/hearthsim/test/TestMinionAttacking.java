@@ -1,8 +1,10 @@
 package com.hearthsim.test;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.basic.minion.*;
+import com.hearthsim.card.classic.minion.common.FaerieDragon;
+import com.hearthsim.card.classic.minion.common.StranglethornTiger;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.card.minion.concrete.*;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;

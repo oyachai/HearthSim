@@ -1,16 +1,12 @@
 package com.hearthsim.test.groovy.card
 
-import static com.hearthsim.model.PlayerSide.CURRENT_PLAYER
 import static com.hearthsim.model.PlayerSide.WAITING_PLAYER
 import static org.junit.Assert.assertEquals
 
-import com.hearthsim.card.minion.concrete.AncientBrewmaster
-import com.hearthsim.card.minion.concrete.StormwindChampion
-import com.hearthsim.card.minion.concrete.WarGolem
-import com.hearthsim.card.spellcard.concrete.Sap
-import com.hearthsim.card.spellcard.concrete.TheCoin
+import com.hearthsim.card.basic.minion.WarGolem
+import com.hearthsim.card.basic.spell.Sap
+import com.hearthsim.card.basic.spell.TheCoin
 import com.hearthsim.model.BoardModel
-import com.hearthsim.model.PlayerSide
 import com.hearthsim.test.helpers.BoardModelBuilder
 import com.hearthsim.util.tree.HearthTreeNode
 

@@ -1,5 +1,5 @@
 package com.hearthsim.test.groovy.card
-import com.hearthsim.card.minion.concrete.FrothingBerserker
+import com.hearthsim.card.classic.minion.rare.FrothingBerserker
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.helpers.BoardModelBuilder
 import com.hearthsim.util.tree.HearthTreeNode

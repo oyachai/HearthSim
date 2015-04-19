@@ -1,9 +1,9 @@
 package com.hearthsim.test.groovy.card
 
-import com.hearthsim.card.minion.concrete.BloodfenRaptor
-import com.hearthsim.card.minion.concrete.DarkCultist
-import com.hearthsim.card.minion.concrete.RiverCrocolisk
-import com.hearthsim.card.spellcard.concrete.ShadowWordPain
+import com.hearthsim.card.basic.minion.BloodfenRaptor
+import com.hearthsim.card.curseofnaxxramas.minion.common.DarkCultist
+import com.hearthsim.card.basic.minion.RiverCrocolisk
+import com.hearthsim.card.basic.spell.ShadowWordPain
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.helpers.BoardModelBuilder
 import com.hearthsim.util.tree.HearthTreeNode

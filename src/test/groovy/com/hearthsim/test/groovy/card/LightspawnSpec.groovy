@@ -1,11 +1,10 @@
 package com.hearthsim.test.groovy.card
 
-import static com.hearthsim.model.PlayerSide.CURRENT_PLAYER
 import static com.hearthsim.model.PlayerSide.WAITING_PLAYER
 import static org.junit.Assert.*
 
-import com.hearthsim.card.minion.concrete.Lightspawn
-import com.hearthsim.card.spellcard.concrete.ShadowWordDeath
+import com.hearthsim.card.classic.minion.common.Lightspawn
+import com.hearthsim.card.basic.spell.ShadowWordDeath
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.helpers.BoardModelBuilder
 import com.hearthsim.util.tree.HearthTreeNode

@@ -1,15 +1,14 @@
 package com.hearthsim.test.groovy.card
 
-import com.hearthsim.card.minion.concrete.CabalShadowPriest
-import com.hearthsim.card.minion.concrete.GoldshireFootman
-import com.hearthsim.card.minion.concrete.ChillwindYeti
+import com.hearthsim.card.classic.minion.epic.CabalShadowPriest
+import com.hearthsim.card.basic.minion.GoldshireFootman
+import com.hearthsim.card.basic.minion.ChillwindYeti
 
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.helpers.BoardModelBuilder
 import com.hearthsim.util.tree.HearthTreeNode
 
 import static com.hearthsim.model.PlayerSide.CURRENT_PLAYER
-import static com.hearthsim.model.PlayerSide.WAITING_PLAYER
 import static org.junit.Assert.*
 class CabalShadowPriestSpec extends CardSpec {
 

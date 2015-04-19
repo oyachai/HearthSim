@@ -5,9 +5,9 @@ import com.hearthsim.test.groovy.card.CardSpec;
 import com.hearthsim.test.helpers.BoardModelBuilder
 import com.hearthsim.util.tree.HearthTreeNode;
 
-import com.hearthsim.card.spellcard.concrete.UnleashTheHounds
-import com.hearthsim.card.minion.concrete.BloodfenRaptor
-import com.hearthsim.card.minion.concrete.Hound
+import com.hearthsim.card.classic.spell.common.UnleashTheHounds
+import com.hearthsim.card.basic.minion.BloodfenRaptor
+import com.hearthsim.card.classic.minion.common.Hound
 import static com.hearthsim.model.PlayerSide.CURRENT_PLAYER
 import static com.hearthsim.model.PlayerSide.WAITING_PLAYER
 import static org.junit.Assert.*

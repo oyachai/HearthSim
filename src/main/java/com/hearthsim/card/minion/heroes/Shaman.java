@@ -2,10 +2,10 @@ package com.hearthsim.card.minion.heroes;
 
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.card.minion.concrete.HealingTotem;
-import com.hearthsim.card.minion.concrete.SearingTotem;
-import com.hearthsim.card.minion.concrete.StoneclawTotem;
-import com.hearthsim.card.minion.concrete.WrathOfAirTotem;
+import com.hearthsim.card.basic.minion.HealingTotem;
+import com.hearthsim.card.basic.minion.SearingTotem;
+import com.hearthsim.card.basic.minion.StoneclawTotem;
+import com.hearthsim.card.basic.minion.WrathOfAirTotem;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;

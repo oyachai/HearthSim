@@ -2,8 +2,8 @@ package com.hearthsim.test.minion;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.card.minion.concrete.BloodKnight;
-import com.hearthsim.card.minion.concrete.ScarletCrusader;
+import com.hearthsim.card.classic.minion.epic.BloodKnight;
+import com.hearthsim.card.classic.minion.common.ScarletCrusader;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;

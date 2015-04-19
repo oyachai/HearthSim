@@ -1,14 +1,13 @@
 package com.hearthsim.test.groovy.card
 
 
-import com.hearthsim.card.minion.concrete.MasterSwordsmith
+import com.hearthsim.card.classic.minion.rare.MasterSwordsmith
 import com.hearthsim.model.BoardModel
 import com.hearthsim.Game
 import com.hearthsim.test.helpers.BoardModelBuilder
 import com.hearthsim.util.tree.HearthTreeNode
 
 import static com.hearthsim.model.PlayerSide.CURRENT_PLAYER
-import static com.hearthsim.model.PlayerSide.WAITING_PLAYER
 import static org.junit.Assert.*
 
 class MasterSwordsmithSpec extends CardSpec {

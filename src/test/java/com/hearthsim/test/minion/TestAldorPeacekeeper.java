@@ -1,8 +1,8 @@
 package com.hearthsim.test.minion;
 
-import com.hearthsim.card.minion.concrete.AldorPeacekeeper;
-import com.hearthsim.card.minion.concrete.BoulderfistOgre;
-import com.hearthsim.card.minion.concrete.StoneclawTotem;
+import com.hearthsim.card.classic.minion.rare.AldorPeacekeeper;
+import com.hearthsim.card.basic.minion.BoulderfistOgre;
+import com.hearthsim.card.basic.minion.StoneclawTotem;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;

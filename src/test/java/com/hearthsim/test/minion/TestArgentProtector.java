@@ -1,8 +1,8 @@
 package com.hearthsim.test.minion;
 
-import com.hearthsim.card.minion.concrete.ArgentProtector;
-import com.hearthsim.card.minion.concrete.ArgentSquire;
-import com.hearthsim.card.minion.concrete.BoulderfistOgre;
+import com.hearthsim.card.classic.minion.common.ArgentProtector;
+import com.hearthsim.card.classic.minion.common.ArgentSquire;
+import com.hearthsim.card.basic.minion.BoulderfistOgre;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;

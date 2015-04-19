@@ -2,7 +2,7 @@ package com.hearthsim;
 
 import com.hearthsim.card.CardEndTurnInterface;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.card.spellcard.concrete.TheCoin;
+import com.hearthsim.card.basic.spell.TheCoin;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;

@@ -1,8 +1,8 @@
 package com.hearthsim.test.groovy.card.spell
 
-import com.hearthsim.card.minion.concrete.AmaniBerserker
-import com.hearthsim.card.spellcard.concrete.HuntersMark
-import com.hearthsim.card.spellcard.concrete.Silence
+import com.hearthsim.card.classic.minion.common.AmaniBerserker
+import com.hearthsim.card.basic.spell.HuntersMark
+import com.hearthsim.card.classic.spell.common.Silence
 import com.hearthsim.test.groovy.card.CardSpec
 import spock.lang.Ignore
 
@@ -10,7 +10,7 @@ import static com.hearthsim.model.PlayerSide.CURRENT_PLAYER
 import static com.hearthsim.model.PlayerSide.WAITING_PLAYER
 import static org.junit.Assert.*
 
-import com.hearthsim.card.minion.concrete.WarGolem
+import com.hearthsim.card.basic.minion.WarGolem
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.helpers.BoardModelBuilder
 import com.hearthsim.util.tree.HearthTreeNode

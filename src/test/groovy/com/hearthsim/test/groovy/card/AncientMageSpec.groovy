@@ -1,14 +1,13 @@
 package com.hearthsim.test.groovy.card
 
-import com.hearthsim.card.minion.concrete.AncientMage
-import com.hearthsim.card.minion.concrete.SaltyDog
-import com.hearthsim.card.minion.concrete.SootSpewer
+import com.hearthsim.card.classic.minion.rare.AncientMage
+import com.hearthsim.card.goblinsvsgnomes.minion.common.SaltyDog
+import com.hearthsim.card.goblinsvsgnomes.minion.rare.SootSpewer
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.helpers.BoardModelBuilder
 import com.hearthsim.util.tree.HearthTreeNode
 
 import static com.hearthsim.model.PlayerSide.CURRENT_PLAYER
-import static com.hearthsim.model.PlayerSide.WAITING_PLAYER
 import static org.junit.Assert.*
 
 class AncientMageSpec extends CardSpec {

@@ -1,7 +1,7 @@
 package com.hearthsim.test.groovy.card
 
-import com.hearthsim.card.minion.concrete.AncientBrewmaster
-import com.hearthsim.card.minion.concrete.StormwindChampion
+import com.hearthsim.card.classic.minion.common.AncientBrewmaster
+import com.hearthsim.card.basic.minion.StormwindChampion
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.helpers.BoardModelBuilder
 import com.hearthsim.util.tree.HearthTreeNode
