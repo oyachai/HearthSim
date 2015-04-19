@@ -8,7 +8,6 @@ import com.hearthsim.model.BoardModel
 import com.hearthsim.model.PlayerModel
 import com.hearthsim.test.helpers.BoardModelBuilder
 import com.hearthsim.util.IdentityLinkedList
-import org.junit.Assert
 import spock.lang.Specification
 
 class CardSpec extends Specification {
