@@ -95,6 +95,10 @@ public abstract class WeaponCard extends Card implements EffectOnResolveTargetab
         this.weaponCharge = weaponCharge;
     }
 
+    public void addWeaponCharge(byte weaponCharge) {
+        this.weaponCharge += weaponCharge;
+    }
+
     public void addWeaponDamage(byte weaponDamage) {
         this.weaponDamage += weaponDamage;
     }

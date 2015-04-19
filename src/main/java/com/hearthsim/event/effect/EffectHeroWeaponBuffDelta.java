@@ -9,8 +9,15 @@ import com.hearthsim.util.tree.HearthTreeNode;
 public class EffectHeroWeaponBuffDelta<T extends Card> implements EffectHero<T> {
     private byte attackDelta;
 
+    private byte durabilityDelta;
+
     public EffectHeroWeaponBuffDelta(int attackDelta) {
+        this(attackDelta, 0);
+    }
+
+    public EffectHeroWeaponBuffDelta(int attackDelta, int durabilityDelta) {
         this.attackDelta = (byte) attackDelta;
+        this.durabilityDelta = (byte) durabilityDelta;
     }
 
     @Override
@@ -19,6 +26,7 @@ public class EffectHeroWeaponBuffDelta<T extends Card> implements EffectHero<T> 
         WeaponCard weapon = hero.getWeapon();
         if (weapon != null) {
             weapon.addWeaponDamage(this.attackDelta);
+            weapon.addWeaponCharge(this.durabilityDelta);
         }
         return boardState;
     }

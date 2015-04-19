@@ -7,7 +7,7 @@ import com.hearthsim.event.effect.EffectCharacterBuffDelta;
 import com.hearthsim.event.filter.FilterCharacter;
 import com.hearthsim.event.filter.FilterCharacterTargetedBattlecry;
 
-public class ScrewjankClunker extends Minion implements MinionBattlecryInterface {
+public class UpgradedRepairBot extends Minion implements MinionBattlecryInterface {
     private final static FilterCharacterTargetedBattlecry filter = new FilterCharacterTargetedBattlecry() {
         protected boolean includeOwnMinions() {
             return true;
@@ -17,19 +17,19 @@ public class ScrewjankClunker extends Minion implements MinionBattlecryInterface
         }
     };
 
-    private final static EffectCharacter battlecryAction = new EffectCharacterBuffDelta(2, 2);
+    private final static EffectCharacter battlecryAction = new EffectCharacterBuffDelta(0, 4);
 
-    public ScrewjankClunker() {
+    public UpgradedRepairBot() {
         super();
     }
 
     @Override
     public FilterCharacter getBattlecryFilter() {
-        return ScrewjankClunker.filter;
+        return UpgradedRepairBot.filter;
     }
 
     @Override
     public EffectCharacter getBattlecryEffect() {
-        return ScrewjankClunker.battlecryAction;
+        return UpgradedRepairBot.battlecryAction;
     }
 }
