@@ -469,12 +469,19 @@ public class Minion extends Card implements EffectOnResolveTargetable<Card>, Car
         heroTargetable_ = true;
         cantAttack = false;
 
+        int damageTaken = this.maxHealth_ - this.health_;
+
         // Reset the attack and health to base
         this.attack_ = this.getBaseAttack();
         if (this.maxHealth_ > this.getBaseHealth()) {
             this.maxHealth_ = this.getBaseHealth();
-            if (this.health_ > this.maxHealth_)
+
+            if (this.health_ > this.maxHealth_) {
                 this.health_ = this.maxHealth_;
+            }
+        } else if (this.maxHealth_ < this.getBaseHealth()) {
+            this.maxHealth_ = this.getBaseHealth();
+            this.health_ = (byte) (this.maxHealth_ - damageTaken);
         }
 
 
@@ -827,14 +834,10 @@ public class Minion extends Card implements EffectOnResolveTargetable<Card>, Car
             return false;
         if (maxHealth_ != otherMinion.maxHealth_)
             return false;
-        if (this.getBaseHealth() != otherMinion.getBaseHealth())
-            return false;
         if (auraHealth_ != otherMinion.auraHealth_)
             return false;
 
         if (attack_ != otherMinion.attack_)
-            return false;
-        if (this.getBaseAttack() != otherMinion.getBaseAttack())
             return false;
         if (extraAttackUntilTurnEnd_ != otherMinion.extraAttackUntilTurnEnd_)
             return false;

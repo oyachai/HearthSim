@@ -82,22 +82,6 @@ public class TestMinion {
     }
 
     @Test
-    public void testBaseAttackNotEquals() {
-        Minion minion0 = new MinionMock("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
-        Minion minion1 = new MinionMock("" + 0, (byte)2, (byte)3, (byte)4, (byte)30, (byte)4, (byte)4);
-        assertNotEquals(minion0, minion1);
-        assertNotEquals(minion0.hashCode(), minion1.hashCode());
-    }
-
-    @Test
-    public void testBaseHealthNotEquals() {
-        Minion minion0 = new MinionMock("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
-        Minion minion1 = new MinionMock("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)40, (byte)4);
-        assertNotEquals(minion0, minion1);
-        assertNotEquals(minion0.hashCode(), minion1.hashCode());
-    }
-
-    @Test
     public void testChargeDeepCopy() {
         Minion minion0 = new MinionMock("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
         minion0.setCharge(true);
