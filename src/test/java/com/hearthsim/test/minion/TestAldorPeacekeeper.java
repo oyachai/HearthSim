@@ -40,7 +40,6 @@ public class TestAldorPeacekeeper {
     }
 
     @Test
-    @Ignore("Existing bug")
     // Confirmed this is the case with Abusive Sergeant + Humility.
     public void testOverridesExtraAttack() throws HSException {
         BoulderfistOgre ogre = new BoulderfistOgre();
