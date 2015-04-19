@@ -11,8 +11,8 @@ import com.hearthsim.util.tree.HearthTreeNode;
 public class TruesilverChampion extends WeaponCard {
 
     @Override
-    public void afterAttack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode toRet) throws HSException {
-        super.afterAttack(targetMinionPlayerSide, targetMinion, toRet);
+    public void beforeAttack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode toRet) throws HSException {
+        super.beforeAttack(targetMinionPlayerSide, targetMinion, toRet);
 
         BoardModel boardModel = toRet.data_;
         PlayerModel currentPlayer = boardModel.getCurrentPlayer();
