@@ -2,10 +2,10 @@ package com.hearthsim.card.basic.minion;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionBattlecryInterface;
-import com.hearthsim.event.filter.FilterCharacter;
-import com.hearthsim.event.filter.FilterCharacterTargetedBattlecry;
 import com.hearthsim.event.effect.EffectCharacter;
 import com.hearthsim.event.effect.EffectCharacterBuffDelta;
+import com.hearthsim.event.filter.FilterCharacter;
+import com.hearthsim.event.filter.FilterCharacterTargetedBattlecry;
 
 public class ShatteredSunCleric extends Minion implements MinionBattlecryInterface {
     private final static FilterCharacterTargetedBattlecry filter = new FilterCharacterTargetedBattlecry() {

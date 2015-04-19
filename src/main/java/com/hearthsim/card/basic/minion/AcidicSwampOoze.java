@@ -3,10 +3,10 @@ package com.hearthsim.card.basic.minion;
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionBattlecryInterface;
-import com.hearthsim.event.filter.FilterCharacter;
 import com.hearthsim.event.effect.EffectCharacter;
 import com.hearthsim.event.effect.EffectHero;
 import com.hearthsim.event.effect.EffectHeroWeaponDestroy;
+import com.hearthsim.event.filter.FilterCharacter;
 
 public class AcidicSwampOoze extends Minion implements MinionBattlecryInterface {
 

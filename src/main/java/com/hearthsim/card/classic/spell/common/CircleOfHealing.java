@@ -1,10 +1,10 @@
 package com.hearthsim.card.classic.spell.common;
 
 import com.hearthsim.card.spellcard.SpellCard;
-import com.hearthsim.event.filter.FilterCharacter;
 import com.hearthsim.event.effect.EffectCharacter;
 import com.hearthsim.event.effect.EffectCharacterHeal;
 import com.hearthsim.event.effect.EffectOnResolveAoe;
+import com.hearthsim.event.filter.FilterCharacter;
 
 public class CircleOfHealing extends SpellCard implements EffectOnResolveAoe {
 

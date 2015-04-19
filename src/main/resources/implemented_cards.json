@@ -72,6 +72,10 @@
         "class": "com.hearthsim.card.goblinsvsgnomes.minion.common.AnnoyOTron"
     },
     {
+        "name": "Antique Healbot",
+        "class": "com.hearthsim.card.goblinsvsgnomes.minion.common.AntiqueHealbot"
+    },
+    {
         "name": "Anub'ar Ambusher",
         "class": "com.hearthsim.card.curseofnaxxramas.minion.common.AnubarAmbusher"
     },
@@ -232,6 +236,10 @@
         "class": "com.hearthsim.card.classic.spell.epic.Brawl"
     },
     {
+        "name": "Burly Rockjaw Trogg",
+        "class": "com.hearthsim.card.goblinsvsgnomes.minion.common.BurlyRockjawTrogg"
+    },
+    {
         "name": "Captain Greenskin",
         "class": "com.hearthsim.card.classic.minion.legendary.CaptainGreenskin"
     },
@@ -262,6 +270,10 @@
     {
         "name": "Clockwork Giant",
         "class": "com.hearthsim.card.goblinsvsgnomes.minion.epic.ClockworkGiant"
+    },
+    {
+        "name": "Cobalt Guardian",
+        "class": "com.hearthsim.card.goblinsvsgnomes.minion.rare.CobaltGuardian"
     },
     {
         "name": "Coghammer",
@@ -441,6 +453,10 @@
         "class": "com.hearthsim.card.basic.spell.Execute"
     },
     {
+        "name": "Explosive Sheep",
+        "class": "com.hearthsim.card.goblinsvsgnomes.minion.common.ExplosiveSheep"
+    },
+    {
         "name": "Faerie Dragon",
         "class": "com.hearthsim.card.classic.minion.common.FaerieDragon"
     },
@@ -489,6 +505,10 @@
         "class": "com.hearthsim.card.classic.minion.common.FlesheatingGhoul"
     },
     {
+        "name": "Floating Watcher",
+        "class": "com.hearthsim.card.goblinsvsgnomes.minion.common.FloatingWatcher"
+    },
+    {
         "name": "Flying Machine",
         "class": "com.hearthsim.card.goblinsvsgnomes.minion.common.FlyingMachine"
     },
@@ -529,6 +549,10 @@
         "class": "com.hearthsim.card.classic.minion.rare.GadgetzanAuctioneer"
     },
     {
+        "name": "Gahz'rilla",
+        "class": "com.hearthsim.card.goblinsvsgnomes.minion.legendary.Gahzrilla"
+    },
+    {
         "name": "Gilblin Stalker",
         "class": "com.hearthsim.card.goblinsvsgnomes.minion.common.GilblinStalker"
     },
@@ -551,6 +575,10 @@
     {
         "name": "Gnomeregan Infantry",
         "class": "com.hearthsim.card.goblinsvsgnomes.minion.common.GnomereganInfantry"
+    },
+    {
+        "name": "Goblin Auto-Barber",
+        "class": "com.hearthsim.card.goblinsvsgnomes.minion.common.GoblinAutoBarber"
     },
     {
         "name": "Goldshire Footman",
@@ -733,6 +761,10 @@
         "class": "com.hearthsim.card.classic.minion.legendary.KingMukla"
     },
     {
+        "name": "King of Beasts",
+        "class": "com.hearthsim.card.goblinsvsgnomes.minion.rare.KingOfBeasts"
+    },
+    {
         "name": "Knife Juggler",
         "class": "com.hearthsim.card.classic.minion.rare.KnifeJuggler"
     },
@@ -759,6 +791,10 @@
     {
         "name": "Leper Gnome",
         "class": "com.hearthsim.card.classic.minion.common.LeperGnome"
+    },
+    {
+        "name": "Lil' Exorcist",
+        "class": "com.hearthsim.card.goblinsvsgnomes.minion.rare.LilExorcist"
     },
     {
         "name": "Light's Justice",
@@ -835,6 +871,14 @@
     {
         "name": "Mekgineer Thermaplugg",
         "class": "com.hearthsim.card.goblinsvsgnomes.minion.legendary.MekgineerThermaplugg"
+    },
+    {
+        "name": "Metaltooth Leaper",
+        "class": "com.hearthsim.card.goblinsvsgnomes.minion.rare.MetaltoothLeaper"
+    },
+    {
+        "name": "Micro Machine",
+        "class": "com.hearthsim.card.goblinsvsgnomes.minion.common.MicroMachine"
     },
     {
         "name": "Mind Blast",
@@ -923,6 +967,10 @@
     {
         "name": "Ogre Magi",
         "class": "com.hearthsim.card.basic.minion.OgreMagi"
+    },
+    {
+        "name": "One-eyed Cheat",
+        "class": "com.hearthsim.card.goblinsvsgnomes.minion.rare.OneEyedCheat"
     },
     {
         "name": "Onyxia",
@@ -1025,8 +1073,16 @@
         "class": "com.hearthsim.card.classic.minion.common.ScarletCrusader"
     },
     {
+        "name": "Scarlet Purifier",
+        "class": "com.hearthsim.card.goblinsvsgnomes.minion.rare.ScarletPurifier"
+    },
+    {
         "name": "Scavenging Hyena",
         "class": "com.hearthsim.card.classic.minion.common.ScavengingHyena"
+    },
+    {
+        "name": "Screwjank Clunker",
+        "class": "com.hearthsim.card.goblinsvsgnomes.minion.rare.ScrewjankClunker"
     },
     {
         "name": "Sea Giant",
@@ -1037,12 +1093,16 @@
         "class": "com.hearthsim.card.basic.minion.SenjinShieldmasta"
     },
     {
+        "name": "Shade of Naxxramas",
+        "class": "com.hearthsim.card.curseofnaxxramas.minion.epic.ShadeOfNaxxramas"
+    },
+    {
         "name": "Shadow Bolt",
         "class": "com.hearthsim.card.basic.spell.ShadowBolt"
     },
     {
-        "name": "Shade of Naxxramas",
-        "class": "com.hearthsim.card.curseofnaxxramas.minion.epic.ShadeOfNaxxramas"
+        "name": "Shadowbomber",
+        "class": "com.hearthsim.card.goblinsvsgnomes.minion.epic.Shadowbomber"
     },
     {
         "name": "Shadow Word: Death",
@@ -1077,12 +1137,20 @@
         "class": "com.hearthsim.card.goblinsvsgnomes.minion.common.ShieldedMinibot"
     },
     {
+        "name": "Shieldmaiden",
+        "class": "com.hearthsim.card.goblinsvsgnomes.minion.rare.Shieldmaiden"
+    },
+    {
         "name": "Ship's Cannon",
         "class": "com.hearthsim.card.goblinsvsgnomes.minion.common.ShipsCannon"
     },
     {
         "name": "Shiv",
         "class": "com.hearthsim.card.basic.spell.Shiv"
+    },
+    {
+        "name": "Shrinkmeister",
+        "class": "com.hearthsim.card.goblinsvsgnomes.minion.common.Shrinkmeister"
     },
     {
         "name": "SI:7 Agent",
@@ -1275,6 +1343,10 @@
     {
         "name": "Voodoo Doctor",
         "class": "com.hearthsim.card.basic.minion.VoodooDoctor"
+    },
+    {
+        "name": "Wailing Soul",
+        "class": "com.hearthsim.card.curseofnaxxramas.minion.rare.WailingSoul"
     },
     {
         "name": "War Golem",

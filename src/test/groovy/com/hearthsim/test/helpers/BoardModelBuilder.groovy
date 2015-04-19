@@ -64,6 +64,7 @@ class BoardModelBuilder {
     }
 
     private updateMinion(Minion minion, Map options) {
+        minion.attack = options.containsKey('attack') ? options.attack : minion.attack;
         minion.attack += options.deltaAttack ? options.deltaAttack : 0;
         minion.extraAttackUntilTurnEnd += options.deltaExtraAttack ? options.deltaExtraAttack : 0;
 
@@ -114,6 +115,11 @@ class BoardModelBuilder {
     private heroHealth(Number health){
         def side = boardModel.modelForSide(playerSide)
         side.hero.health = health
+    }
+
+    private heroArmor(Number armor){
+        def side = boardModel.modelForSide(playerSide)
+        side.hero.armor = armor
     }
 
     private heroAttack(Number attack){

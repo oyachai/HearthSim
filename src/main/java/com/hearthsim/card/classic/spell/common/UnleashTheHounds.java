@@ -2,9 +2,9 @@ package com.hearthsim.card.classic.spell.common;
 
 import com.hearthsim.card.classic.minion.common.Hound;
 import com.hearthsim.card.spellcard.SpellTargetableCard;
+import com.hearthsim.event.effect.EffectCharacter;
 import com.hearthsim.event.filter.FilterCharacter;
 import com.hearthsim.event.filter.FilterCharacterTargetedSpell;
-import com.hearthsim.event.effect.EffectCharacter;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 

@@ -2,9 +2,9 @@ package com.hearthsim.card.classic.minion.common;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionDeadInterface;
-import com.hearthsim.event.filter.FilterCharacter;
 import com.hearthsim.event.effect.EffectCharacter;
 import com.hearthsim.event.effect.EffectHeroDraw;
+import com.hearthsim.event.filter.FilterCharacter;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 

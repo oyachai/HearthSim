@@ -2,10 +2,10 @@ package com.hearthsim.card.classic.spell.rare;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellTargetableCard;
-import com.hearthsim.event.filter.FilterCharacter;
-import com.hearthsim.event.filter.FilterCharacterTargetedSpell;
 import com.hearthsim.event.deathrattle.DeathrattleSummonMinionAction;
 import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.filter.FilterCharacter;
+import com.hearthsim.event.filter.FilterCharacterTargetedSpell;
 
 public class AncestralSpirit extends SpellTargetableCard {
 

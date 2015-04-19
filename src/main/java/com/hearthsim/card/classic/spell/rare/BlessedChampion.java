@@ -2,9 +2,9 @@ package com.hearthsim.card.classic.spell.rare;
 
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellTargetableCard;
+import com.hearthsim.event.effect.EffectCharacter;
 import com.hearthsim.event.filter.FilterCharacter;
 import com.hearthsim.event.filter.FilterCharacterTargetedSpell;
-import com.hearthsim.event.effect.EffectCharacter;
 
 public class BlessedChampion extends SpellTargetableCard {
 

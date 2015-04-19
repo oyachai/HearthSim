@@ -1,7 +1,7 @@
 package com.hearthsim.event.deathrattle;
 
-import com.hearthsim.event.filter.FilterCharacterUntargetedDeathrattle;
 import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.filter.FilterCharacterUntargetedDeathrattle;
 
 public class DeathrattleMindControl extends DeathrattleEffectRandomMinion {
 
