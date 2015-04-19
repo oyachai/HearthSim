@@ -106,14 +106,15 @@ public class TestBloodKnight {
     }
 
     @Test
-    @Ignore("Existing bug")
     public void testSilenced() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board);
-        assertEquals(board, ret);
+        assertNotNull(ret);
+        currentPlayer = ret.data_.getCurrentPlayer();
+        waitingPlayer = ret.data_.getWaitingPlayer();
 
         Minion target = currentPlayer.getCharacter(2);
-        target.silenced(PlayerSide.CURRENT_PLAYER, board);
+        target.silenced(PlayerSide.CURRENT_PLAYER, ret.data_);
 
         assertEquals(currentPlayer.getCharacter(2).getTotalHealth(), 3);
         assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), 3);

@@ -24,6 +24,7 @@ public class BloodKnight extends Minion implements MinionBattlecryInterface {
                     if (minion != origin && minion.getDivineShield()) {
                         minion.setDivineShield(false);
                         origin.setHealth((byte) (origin.getHealth() + 3));
+                        origin.setMaxHealth((byte) (origin.getMaxHealth() + 3));
                         origin.setAttack((byte) (origin.getAttack() + 3));
                     }
                 }
@@ -31,6 +32,7 @@ public class BloodKnight extends Minion implements MinionBattlecryInterface {
                     if (minion != origin && minion.getDivineShield()) {
                         minion.setDivineShield(false);
                         origin.setHealth((byte) (origin.getHealth() + 3));
+                        origin.setMaxHealth((byte) (origin.getMaxHealth() + 3));
                         origin.setAttack((byte) (origin.getAttack() + 3));
                     }
                 }
