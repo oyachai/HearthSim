@@ -139,7 +139,6 @@ class DeathrattleOrderSpec extends CardSpec {
         }
     }
 
-    @Ignore("Existing bug")
     def "Sylvanas played after Cairne will steal Baine"() {
         startingBoard = new BoardModelBuilder().make {
             currentPlayer {
@@ -153,8 +152,8 @@ class DeathrattleOrderSpec extends CardSpec {
         root = new HearthTreeNode(startingBoard)
         SylvanasWindrunner syl = new SylvanasWindrunner();
         syl.setHealth((byte) 1)
-        root.data_.placeMinion(CURRENT_PLAYER, syl);
         root.data_.placeMinion(WAITING_PLAYER, new CairneBloodhoof());
+        root.data_.placeMinion(CURRENT_PLAYER, syl);
         def copiedBoard = startingBoard.deepCopy()
 
         def attacker = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(1)
