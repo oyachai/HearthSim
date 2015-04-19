@@ -3,8 +3,8 @@ package com.hearthsim.test.groovy.card.classic.minion
 import com.hearthsim.card.basic.minion.BloodfenRaptor
 import com.hearthsim.card.basic.minion.WarGolem
 import com.hearthsim.card.classic.minion.common.FaerieDragon
-import com.hearthsim.card.classic.minion.rare.KnifeJuggler
 import com.hearthsim.card.classic.minion.common.StranglethornTiger
+import com.hearthsim.card.classic.minion.rare.KnifeJuggler
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.groovy.card.CardSpec
 import com.hearthsim.test.helpers.BoardModelBuilder

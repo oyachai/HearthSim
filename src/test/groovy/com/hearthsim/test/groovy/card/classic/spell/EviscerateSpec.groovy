@@ -1,8 +1,8 @@
 package com.hearthsim.test.groovy.card.classic.spell
 
 import com.hearthsim.card.basic.minion.WarGolem
-import com.hearthsim.card.classic.spell.common.Eviscerate
 import com.hearthsim.card.basic.spell.TheCoin
+import com.hearthsim.card.classic.spell.common.Eviscerate
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.groovy.card.CardSpec
 import com.hearthsim.test.helpers.BoardModelBuilder

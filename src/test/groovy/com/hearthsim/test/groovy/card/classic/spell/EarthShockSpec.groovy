@@ -1,14 +1,14 @@
 package com.hearthsim.test.groovy.card.classic.spell
 
-import com.hearthsim.card.classic.spell.common.EarthShock
 import com.hearthsim.card.basic.minion.Boar
+import com.hearthsim.card.classic.spell.common.EarthShock
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.groovy.card.CardSpec
 import com.hearthsim.test.helpers.BoardModelBuilder
 import com.hearthsim.util.tree.HearthTreeNode
 
 import static com.hearthsim.model.PlayerSide.WAITING_PLAYER
-import static org.junit.Assert.*
+import static org.junit.Assert.assertFalse
 
 class EarthShockSpec extends CardSpec {
     

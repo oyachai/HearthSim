@@ -1,15 +1,14 @@
 package com.hearthsim.test.groovy.card.classic.minion
 
-import com.hearthsim.model.BoardModel
-import com.hearthsim.test.groovy.card.CardSpec;
-import com.hearthsim.test.helpers.BoardModelBuilder
-import com.hearthsim.util.tree.HearthTreeNode;
-
-import com.hearthsim.card.classic.minion.legendary.LeeroyJenkins
 import com.hearthsim.card.classic.minion.common.Whelp
+import com.hearthsim.card.classic.minion.legendary.LeeroyJenkins
+import com.hearthsim.model.BoardModel
+import com.hearthsim.test.groovy.card.CardSpec
+import com.hearthsim.test.helpers.BoardModelBuilder
+import com.hearthsim.util.tree.HearthTreeNode
 
 import static com.hearthsim.model.PlayerSide.CURRENT_PLAYER
-import static org.junit.Assert.*
+import static org.junit.Assert.assertFalse
 
 class LeeroyJenkinsSpec extends CardSpec {
     

@@ -1,10 +1,10 @@
 package com.hearthsim.test.groovy.card.curseofnaxxramas.minion
 
-import com.hearthsim.card.curseofnaxxramas.minion.common.AnubarAmbusher
 import com.hearthsim.card.basic.minion.BloodfenRaptor
 import com.hearthsim.card.basic.minion.RiverCrocolisk
 import com.hearthsim.card.basic.spell.Fireball
 import com.hearthsim.card.basic.spell.TheCoin
+import com.hearthsim.card.curseofnaxxramas.minion.common.AnubarAmbusher
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.groovy.card.CardSpec
 import com.hearthsim.test.helpers.BoardModelBuilder

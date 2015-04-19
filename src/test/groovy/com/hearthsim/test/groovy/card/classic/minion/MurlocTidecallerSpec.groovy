@@ -3,8 +3,8 @@ package com.hearthsim.test.groovy.card.classic.minion
 import com.hearthsim.card.basic.minion.GoldshireFootman
 import com.hearthsim.card.basic.minion.MurlocRaider
 import com.hearthsim.card.basic.minion.MurlocScout
-import com.hearthsim.card.classic.minion.rare.MurlocTidecaller
 import com.hearthsim.card.basic.minion.MurlocTidehunter
+import com.hearthsim.card.classic.minion.rare.MurlocTidecaller
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.groovy.card.CardSpec
 import com.hearthsim.test.helpers.BoardModelBuilder
@@ -12,7 +12,7 @@ import com.hearthsim.util.tree.HearthTreeNode
 
 import static com.hearthsim.model.PlayerSide.CURRENT_PLAYER
 import static com.hearthsim.model.PlayerSide.WAITING_PLAYER
-import static org.junit.Assert.*
+import static org.junit.Assert.assertNotNull
 
 
 class MurlocTidecallerSpec extends CardSpec {

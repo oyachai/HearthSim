@@ -1,9 +1,9 @@
 package com.hearthsim.test.groovy.card.classic.minion
 
-import com.hearthsim.card.classic.minion.legendary.SylvanasWindrunner
-import com.hearthsim.card.basic.minion.WarGolem
 import com.hearthsim.card.basic.minion.GoldshireFootman
+import com.hearthsim.card.basic.minion.WarGolem
 import com.hearthsim.card.basic.spell.ShadowWordDeath
+import com.hearthsim.card.classic.minion.legendary.SylvanasWindrunner
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.groovy.card.CardSpec
 import com.hearthsim.test.helpers.BoardModelBuilder
@@ -12,7 +12,8 @@ import com.hearthsim.util.tree.RandomEffectNode
 
 import static com.hearthsim.model.PlayerSide.CURRENT_PLAYER
 import static com.hearthsim.model.PlayerSide.WAITING_PLAYER
-import static org.junit.Assert.*
+import static org.junit.Assert.assertFalse
+import static org.junit.Assert.assertTrue
 
 class SylvanasWindrunnerSpec extends CardSpec {
 

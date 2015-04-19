@@ -1,15 +1,15 @@
 package com.hearthsim.test.groovy.card.classic.minion
 
+import com.hearthsim.Game
 import com.hearthsim.card.classic.minion.common.Gnoll
 import com.hearthsim.card.classic.minion.legendary.Hogger
 import com.hearthsim.model.BoardModel
-import com.hearthsim.Game
 import com.hearthsim.test.groovy.card.CardSpec
 import com.hearthsim.test.helpers.BoardModelBuilder
 import com.hearthsim.util.tree.HearthTreeNode
 
 import static com.hearthsim.model.PlayerSide.CURRENT_PLAYER
-import static org.junit.Assert.*
+import static org.junit.Assert.assertFalse
 
 class HoggerSpec extends CardSpec {
 

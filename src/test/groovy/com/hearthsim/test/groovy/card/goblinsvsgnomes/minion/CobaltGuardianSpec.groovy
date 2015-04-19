@@ -1,8 +1,8 @@
 package com.hearthsim.test.groovy.card.goblinsvsgnomes.minion
 
-import com.hearthsim.card.goblinsvsgnomes.minion.rare.CobaltGuardian
-import com.hearthsim.card.goblinsvsgnomes.minion.common.SpiderTank
 import com.hearthsim.card.basic.spell.TheCoin
+import com.hearthsim.card.goblinsvsgnomes.minion.common.SpiderTank
+import com.hearthsim.card.goblinsvsgnomes.minion.rare.CobaltGuardian
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.groovy.card.CardSpec
 import com.hearthsim.test.helpers.BoardModelBuilder

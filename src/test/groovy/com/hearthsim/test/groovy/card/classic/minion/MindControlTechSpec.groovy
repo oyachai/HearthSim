@@ -1,11 +1,11 @@
 package com.hearthsim.test.groovy.card.classic.minion
 
+import com.hearthsim.card.basic.minion.SilverHandRecruit
+import com.hearthsim.card.basic.minion.Voidwalker
 import com.hearthsim.card.basic.minion.WarGolem
 import com.hearthsim.card.classic.minion.common.FaerieDragon
-import com.hearthsim.card.classic.minion.rare.MindControlTech
-import com.hearthsim.card.basic.minion.SilverHandRecruit
 import com.hearthsim.card.classic.minion.common.StranglethornTiger
-import com.hearthsim.card.basic.minion.Voidwalker
+import com.hearthsim.card.classic.minion.rare.MindControlTech
 import com.hearthsim.card.curseofnaxxramas.minion.rare.SludgeBelcher
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.groovy.card.CardSpec

@@ -1,9 +1,9 @@
 package com.hearthsim.test.groovy.card.curseofnaxxramas.minion
 
 import com.hearthsim.card.basic.minion.BloodfenRaptor
-import com.hearthsim.card.curseofnaxxramas.minion.common.DarkCultist
 import com.hearthsim.card.basic.minion.RiverCrocolisk
 import com.hearthsim.card.basic.spell.ShadowWordPain
+import com.hearthsim.card.curseofnaxxramas.minion.common.DarkCultist
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.groovy.card.CardSpec
 import com.hearthsim.test.helpers.BoardModelBuilder

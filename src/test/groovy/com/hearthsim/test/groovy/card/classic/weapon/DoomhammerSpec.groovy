@@ -1,7 +1,7 @@
 package com.hearthsim.test.groovy.card.classic.weapon
 
-import com.hearthsim.card.classic.weapon.epic.Doomhammer
 import com.hearthsim.card.basic.weapon.FieryWarAxe
+import com.hearthsim.card.classic.weapon.epic.Doomhammer
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.groovy.card.CardSpec
 import com.hearthsim.test.helpers.BoardModelBuilder

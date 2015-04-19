@@ -1,7 +1,7 @@
 package com.hearthsim.test.groovy.card.classic.spell
 
-import com.hearthsim.card.classic.spell.rare.Upgrade
 import com.hearthsim.card.basic.weapon.FieryWarAxe
+import com.hearthsim.card.classic.spell.rare.Upgrade
 import com.hearthsim.card.classic.weapon.common.HeavyAxe
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.groovy.card.CardSpec

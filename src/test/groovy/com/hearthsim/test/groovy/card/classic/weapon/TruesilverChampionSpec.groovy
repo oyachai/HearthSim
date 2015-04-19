@@ -1,8 +1,8 @@
 package com.hearthsim.test.groovy.card.classic.weapon
 
-import com.hearthsim.card.minion.Minion
 import com.hearthsim.card.basic.minion.BoulderfistOgre
 import com.hearthsim.card.basic.weapon.TruesilverChampion
+import com.hearthsim.card.minion.Minion
 import com.hearthsim.model.BoardModel
 import com.hearthsim.model.PlayerSide
 import com.hearthsim.test.groovy.card.CardSpec

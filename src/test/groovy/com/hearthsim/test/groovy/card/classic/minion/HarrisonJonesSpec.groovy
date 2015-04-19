@@ -1,7 +1,7 @@
 package com.hearthsim.test.groovy.card.classic.minion
 
-import com.hearthsim.card.classic.minion.legendary.HarrisonJones
 import com.hearthsim.card.basic.weapon.FieryWarAxe
+import com.hearthsim.card.classic.minion.legendary.HarrisonJones
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.groovy.card.CardSpec
 import com.hearthsim.test.helpers.BoardModelBuilder

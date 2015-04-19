@@ -1,14 +1,14 @@
 package com.hearthsim.test.groovy.card.classic.spell
 
-import com.hearthsim.model.BoardModel;
-import com.hearthsim.player.playercontroller.BruteForceSearchAI;
-import com.hearthsim.test.groovy.card.CardSpec;
-import com.hearthsim.test.helpers.BoardModelBuilder
-import com.hearthsim.util.tree.HearthTreeNode;
-import com.hearthsim.util.tree.RandomEffectNode
-import com.hearthsim.card.basic.spell.Soulfire
-import com.hearthsim.card.basic.spell.Polymorph
 import com.hearthsim.card.basic.minion.WarGolem
+import com.hearthsim.card.basic.spell.Polymorph
+import com.hearthsim.card.basic.spell.Soulfire
+import com.hearthsim.model.BoardModel
+import com.hearthsim.player.playercontroller.BruteForceSearchAI
+import com.hearthsim.test.groovy.card.CardSpec
+import com.hearthsim.test.helpers.BoardModelBuilder
+import com.hearthsim.util.tree.HearthTreeNode
+import com.hearthsim.util.tree.RandomEffectNode
 
 import static com.hearthsim.model.PlayerSide.CURRENT_PLAYER
 import static org.junit.Assert.*

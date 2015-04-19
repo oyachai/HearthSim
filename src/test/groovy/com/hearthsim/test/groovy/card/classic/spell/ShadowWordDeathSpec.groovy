@@ -1,17 +1,17 @@
 package com.hearthsim.test.groovy.card.classic.spell
 
-import com.hearthsim.test.groovy.card.CardSpec
-
-import static com.hearthsim.model.PlayerSide.WAITING_PLAYER
-import static org.junit.Assert.*
-
 import com.hearthsim.card.basic.minion.ChillwindYeti
-import com.hearthsim.card.classic.minion.common.StranglethornTiger
 import com.hearthsim.card.basic.minion.WarGolem
 import com.hearthsim.card.basic.spell.ShadowWordDeath
+import com.hearthsim.card.classic.minion.common.StranglethornTiger
 import com.hearthsim.model.BoardModel
+import com.hearthsim.test.groovy.card.CardSpec
 import com.hearthsim.test.helpers.BoardModelBuilder
 import com.hearthsim.util.tree.HearthTreeNode
+
+import static com.hearthsim.model.PlayerSide.WAITING_PLAYER
+import static org.junit.Assert.assertEquals
+import static org.junit.Assert.assertNull
 
 class ShadowWordDeathSpec extends CardSpec {
     HearthTreeNode root

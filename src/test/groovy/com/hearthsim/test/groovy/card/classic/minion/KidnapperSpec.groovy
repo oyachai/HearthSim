@@ -1,9 +1,9 @@
 package com.hearthsim.test.groovy.card.classic.minion
 
-import com.hearthsim.card.classic.minion.rare.Abomination
 import com.hearthsim.card.basic.minion.BoulderfistOgre
-import com.hearthsim.card.classic.minion.epic.Kidnapper
 import com.hearthsim.card.basic.spell.TheCoin
+import com.hearthsim.card.classic.minion.epic.Kidnapper
+import com.hearthsim.card.classic.minion.rare.Abomination
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.groovy.card.CardSpec
 import com.hearthsim.test.helpers.BoardModelBuilder

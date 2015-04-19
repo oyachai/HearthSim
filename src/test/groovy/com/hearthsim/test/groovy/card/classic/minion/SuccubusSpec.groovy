@@ -1,15 +1,16 @@
 package com.hearthsim.test.groovy.card.classic.minion
 
 import com.hearthsim.card.basic.minion.Succubus
-import com.hearthsim.card.basic.spell.TheCoin
 import com.hearthsim.card.basic.spell.HolySmite
+import com.hearthsim.card.basic.spell.TheCoin
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.groovy.card.CardSpec
 import com.hearthsim.test.helpers.BoardModelBuilder
 import com.hearthsim.util.tree.HearthTreeNode
 
 import static com.hearthsim.model.PlayerSide.CURRENT_PLAYER
-import static org.junit.Assert.*
+import static org.junit.Assert.assertEquals
+import static org.junit.Assert.assertFalse
 
 class SuccubusSpec extends CardSpec {
 

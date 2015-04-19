@@ -1,16 +1,15 @@
 package com.hearthsim.test.groovy.card.goblinsvsgnomes.minion
 
 import com.hearthsim.card.basic.minion.BloodfenRaptor
+import com.hearthsim.card.classic.minion.common.LootHoarder
 import com.hearthsim.card.curseofnaxxramas.minion.common.HauntedCreeper
 import com.hearthsim.card.goblinsvsgnomes.minion.rare.LilExorcist
-import com.hearthsim.card.classic.minion.common.LootHoarder
+import com.hearthsim.model.BoardModel
 import com.hearthsim.test.groovy.card.CardSpec
+import com.hearthsim.test.helpers.BoardModelBuilder
+import com.hearthsim.util.tree.HearthTreeNode
 
 import static com.hearthsim.model.PlayerSide.CURRENT_PLAYER
-
-import com.hearthsim.model.BoardModel;
-import com.hearthsim.test.helpers.BoardModelBuilder
-import com.hearthsim.util.tree.HearthTreeNode;
 
 class LilExorcistSpec extends CardSpec {
 

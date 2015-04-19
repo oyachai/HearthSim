@@ -2,12 +2,12 @@ package com.hearthsim.test.groovy.card.classic.minion
 
 import com.hearthsim.card.basic.minion.BloodfenRaptor
 import com.hearthsim.card.basic.minion.Boar
-import com.hearthsim.card.classic.minion.common.IronbeakOwl
-import com.hearthsim.card.classic.minion.epic.PatientAssassin
-import com.hearthsim.card.classic.minion.common.ScavengingHyena
-import com.hearthsim.card.classic.minion.common.StranglethornTiger
 import com.hearthsim.card.basic.spell.Fireball
 import com.hearthsim.card.basic.spell.Whirlwind
+import com.hearthsim.card.classic.minion.common.IronbeakOwl
+import com.hearthsim.card.classic.minion.common.ScavengingHyena
+import com.hearthsim.card.classic.minion.common.StranglethornTiger
+import com.hearthsim.card.classic.minion.epic.PatientAssassin
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.groovy.card.CardSpec
 import com.hearthsim.test.helpers.BoardModelBuilder

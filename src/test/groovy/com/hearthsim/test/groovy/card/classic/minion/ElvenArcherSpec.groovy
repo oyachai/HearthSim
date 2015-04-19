@@ -1,11 +1,7 @@
 package com.hearthsim.test.groovy.card.classic.minion
 
+import com.hearthsim.card.basic.minion.*
 import com.hearthsim.card.classic.minion.rare.Abomination
-import com.hearthsim.card.basic.minion.BloodfenRaptor
-import com.hearthsim.card.basic.minion.ChillwindYeti
-import com.hearthsim.card.basic.minion.ElvenArcher
-import com.hearthsim.card.basic.minion.RiverCrocolisk
-import com.hearthsim.card.basic.minion.WarGolem
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.groovy.card.CardSpec
 import com.hearthsim.test.helpers.BoardModelBuilder

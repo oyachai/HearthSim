@@ -1,8 +1,8 @@
 package com.hearthsim.test.groovy.card.classic.minion
 
 import com.hearthsim.card.basic.minion.BoulderfistOgre
-import com.hearthsim.card.classic.minion.rare.Si7Agent
 import com.hearthsim.card.basic.spell.TheCoin
+import com.hearthsim.card.classic.minion.rare.Si7Agent
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.groovy.card.CardSpec
 import com.hearthsim.test.helpers.BoardModelBuilder

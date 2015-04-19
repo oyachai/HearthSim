@@ -1,9 +1,9 @@
 package com.hearthsim.test.groovy.card.goblinsvsgnomes.minion
 
-import com.hearthsim.card.goblinsvsgnomes.minion.common.MicroMachine
-import com.hearthsim.card.basic.spell.TheCoin
-import com.hearthsim.model.BoardModel
 import com.hearthsim.Game
+import com.hearthsim.card.basic.spell.TheCoin
+import com.hearthsim.card.goblinsvsgnomes.minion.common.MicroMachine
+import com.hearthsim.model.BoardModel
 import com.hearthsim.test.groovy.card.CardSpec
 import com.hearthsim.test.helpers.BoardModelBuilder
 import com.hearthsim.util.tree.HearthTreeNode

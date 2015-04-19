@@ -1,16 +1,15 @@
 package com.hearthsim.test.groovy.card.goblinsvsgnomes.minion
 
-import com.hearthsim.card.goblinsvsgnomes.minion.common.AnnoyOTron
-import com.hearthsim.card.classic.minion.common.HarvestGolem
-import com.hearthsim.card.goblinsvsgnomes.minion.rare.MetaltoothLeaper
 import com.hearthsim.card.basic.minion.StonetuskBoar
+import com.hearthsim.card.classic.minion.common.HarvestGolem
+import com.hearthsim.card.goblinsvsgnomes.minion.common.AnnoyOTron
+import com.hearthsim.card.goblinsvsgnomes.minion.rare.MetaltoothLeaper
+import com.hearthsim.model.BoardModel
 import com.hearthsim.test.groovy.card.CardSpec
+import com.hearthsim.test.helpers.BoardModelBuilder
+import com.hearthsim.util.tree.HearthTreeNode
 
 import static com.hearthsim.model.PlayerSide.CURRENT_PLAYER
-
-import com.hearthsim.model.BoardModel;
-import com.hearthsim.test.helpers.BoardModelBuilder
-import com.hearthsim.util.tree.HearthTreeNode;
 
 class MetaltoothLeaperSpec extends CardSpec {
 

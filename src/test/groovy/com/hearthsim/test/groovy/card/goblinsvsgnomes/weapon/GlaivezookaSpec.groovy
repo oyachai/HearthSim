@@ -1,9 +1,9 @@
 package com.hearthsim.test.groovy.card.goblinsvsgnomes.weapon
 
+import com.hearthsim.card.basic.minion.Voidwalker
 import com.hearthsim.card.basic.minion.WarGolem
 import com.hearthsim.card.classic.minion.common.FaerieDragon
 import com.hearthsim.card.classic.minion.common.StranglethornTiger
-import com.hearthsim.card.basic.minion.Voidwalker
 import com.hearthsim.card.goblinsvsgnomes.weapon.common.Glaivezooka
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.groovy.card.CardSpec

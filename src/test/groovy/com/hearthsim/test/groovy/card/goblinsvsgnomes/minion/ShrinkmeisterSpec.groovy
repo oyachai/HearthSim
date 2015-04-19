@@ -1,15 +1,14 @@
 package com.hearthsim.test.groovy.card.goblinsvsgnomes.minion
 
+import com.hearthsim.card.basic.minion.BoulderfistOgre
 import com.hearthsim.card.goblinsvsgnomes.minion.common.Shrinkmeister
+import com.hearthsim.model.BoardModel
 import com.hearthsim.test.groovy.card.CardSpec
+import com.hearthsim.test.helpers.BoardModelBuilder
+import com.hearthsim.util.tree.HearthTreeNode
 
 import static com.hearthsim.model.PlayerSide.CURRENT_PLAYER
-import static org.junit.Assert.*
-
-import com.hearthsim.card.basic.minion.BoulderfistOgre
-import com.hearthsim.model.BoardModel;
-import com.hearthsim.test.helpers.BoardModelBuilder
-import com.hearthsim.util.tree.HearthTreeNode;
+import static org.junit.Assert.assertEquals;
 
 class ShrinkmeisterSpec extends CardSpec {
 

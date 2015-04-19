@@ -1,8 +1,7 @@
 package com.hearthsim.test.groovy.card.goblinsvsgnomes.minion
 
-
-import com.hearthsim.card.goblinsvsgnomes.minion.common.GoblinAutoBarber
 import com.hearthsim.card.basic.weapon.FieryWarAxe
+import com.hearthsim.card.goblinsvsgnomes.minion.common.GoblinAutoBarber
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.groovy.card.CardSpec
 import com.hearthsim.test.helpers.BoardModelBuilder

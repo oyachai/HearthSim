@@ -1,13 +1,13 @@
 package com.hearthsim.test.groovy.card.classic.minion
 
 import com.hearthsim.card.basic.minion.MechanicalDragonling
-import com.hearthsim.card.classic.minion.common.DamagedGolem
-import com.hearthsim.card.classic.minion.epic.PatientAssassin
-import com.hearthsim.card.classic.minion.common.StranglethornTiger
-import com.hearthsim.card.goblinsvsgnomes.minion.epic.Junkbot
-import com.hearthsim.card.goblinsvsgnomes.minion.rare.Shadowboxer
 import com.hearthsim.card.basic.spell.Fireball
 import com.hearthsim.card.basic.spell.Whirlwind
+import com.hearthsim.card.classic.minion.common.DamagedGolem
+import com.hearthsim.card.classic.minion.common.StranglethornTiger
+import com.hearthsim.card.classic.minion.epic.PatientAssassin
+import com.hearthsim.card.goblinsvsgnomes.minion.epic.Junkbot
+import com.hearthsim.card.goblinsvsgnomes.minion.rare.Shadowboxer
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.groovy.card.CardSpec
 import com.hearthsim.test.helpers.BoardModelBuilder

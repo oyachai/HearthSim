@@ -2,13 +2,13 @@ package com.hearthsim.test.groovy.card.goblinsvsgnomes.spell
 
 import com.hearthsim.card.basic.minion.KoboldGeomancer
 import com.hearthsim.card.basic.minion.Voidwalker
+import com.hearthsim.card.basic.minion.WarGolem
 import com.hearthsim.card.goblinsvsgnomes.spell.common.Flamecannon
 import com.hearthsim.model.BoardModel
-import com.hearthsim.test.groovy.card.CardSpec;
+import com.hearthsim.test.groovy.card.CardSpec
 import com.hearthsim.test.helpers.BoardModelBuilder
-import com.hearthsim.util.tree.HearthTreeNode;
+import com.hearthsim.util.tree.HearthTreeNode
 import com.hearthsim.util.tree.RandomEffectNode
-import com.hearthsim.card.basic.minion.WarGolem
 
 import static com.hearthsim.model.PlayerSide.CURRENT_PLAYER
 import static com.hearthsim.model.PlayerSide.WAITING_PLAYER
