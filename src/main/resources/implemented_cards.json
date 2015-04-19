@@ -473,6 +473,10 @@
         "class": "com.hearthsim.card.minion.concrete.FenCreeper"
     },
     {
+        "name": "Feral Spirit",
+        "class": "com.hearthsim.card.spellcard.concrete.FeralSpirit"
+    },
+    {
         "name": "Fiery War Axe",
         "class": "com.hearthsim.card.weapon.concrete.FieryWarAxe"
     },
@@ -511,6 +515,10 @@
     {
         "name": "Flying Machine",
         "class": "com.hearthsim.card.minion.concrete.FlyingMachine"
+    },
+    {
+        "name": "Force of Nature",
+        "class": "com.hearthsim.card.spellcard.concrete.ForceOfNature"
     },
     {
         "name": "Force-Tank MAX",
@@ -631,6 +639,10 @@
     {
         "name": "Healing Touch",
         "class": "com.hearthsim.card.spellcard.concrete.HealingTouch"
+    },
+    {
+        "name": "Heavy Axe",
+        "class": "com.hearthsim.card.weapon.concrete.HeavyAxe"
     },
     {
         "name": "Hellfire",
@@ -861,6 +873,10 @@
         "class": "com.hearthsim.card.spellcard.concrete.MarkOfTheWild"
     },
     {
+        "name": "Mass Dispel",
+        "class": "com.hearthsim.card.spellcard.concrete.MassDispel"
+    },
+    {
         "name": "Master of Disguise",
         "class": "com.hearthsim.card.minion.concrete.MasterOfDisguise"
     },
@@ -1065,6 +1081,10 @@
         "class": "com.hearthsim.card.spellcard.concrete.SavageRoar"
     },
     {
+        "name": "Savagery",
+        "class": "com.hearthsim.card.spellcard.concrete.Savagery"
+    },
+    {
         "name": "Savannah Highmane",
         "class": "com.hearthsim.card.minion.concrete.SavannahHighmane"
     },
@@ -1129,6 +1149,10 @@
         "class": "com.hearthsim.card.spellcard.concrete.ShieldBlock"
     },
     {
+        "name": "Shield Slam",
+        "class": "com.hearthsim.card.spellcard.concrete.ShieldSlam"
+    },
+    {
         "name": "Shieldbearer",
         "class": "com.hearthsim.card.minion.concrete.Shieldbearer"
     },
@@ -1181,6 +1205,10 @@
         "class": "com.hearthsim.card.spellcard.concrete.SinisterStrike"
     },
     {
+        "name": "Siphon Soul",
+        "class": "com.hearthsim.card.spellcard.concrete.SiphonSoul"
+    },
+    {
         "name": "Slam",
         "class": "com.hearthsim.card.spellcard.concrete.Slam"
     },
@@ -1191,6 +1219,10 @@
     {
         "name": "Sludge Belcher",
         "class": "com.hearthsim.card.minion.concrete.SludgeBelcher"
+    },
+    {
+        "name": "Snowchugger",
+        "class": "com.hearthsim.card.minion.concrete.Snowchugger"
     },
     {
         "name": "Soot Spewer",
@@ -1217,6 +1249,10 @@
         "class": "com.hearthsim.card.minion.concrete.SpiderTank"
     },
     {
+        "name": "Spirit Wolf",
+        "class": "com.hearthsim.card.minion.concrete.SpiritWolf"
+    },
+    {
         "name": "Sprint",
         "class": "com.hearthsim.card.spellcard.concrete.Sprint"
     },
@@ -1235,6 +1271,10 @@
     {
         "name": "Starving Buzzard",
         "class": "com.hearthsim.card.minion.concrete.StarvingBuzzard"
+    },
+    {
+        "name": "Stonesplinter Trogg",
+        "class": "com.hearthsim.card.minion.concrete.StonesplinterTrogg"
     },
     {
         "name": "Stonetusk Boar",
@@ -1309,8 +1349,17 @@
         "class": "com.hearthsim.card.spellcard.concrete.TotemicMight"
     },
     {
+        "name": "Treant",
+        "id": "EX1_tk9",
+        "class": "com.hearthsim.card.minion.concrete.TreantWithCharge"
+    },
+    {
         "name": "Twilight Drake",
         "class": "com.hearthsim.card.minion.concrete.TwilightDrake"
+    },
+    {
+        "name": "Upgrade!",
+        "class": "com.hearthsim.card.spellcard.concrete.Upgrade"
     },
     {
         "name": "Unbound Elemental",
@@ -1329,8 +1378,16 @@
         "class": "com.hearthsim.card.minion.concrete.UnstableGhoul"
     },
     {
+        "name": "Upgraded Repair Bot",
+        "class": "com.hearthsim.card.minion.concrete.UpgradedRepairBot"
+    },
+    {
         "name": "Violet Teacher",
         "class": "com.hearthsim.card.minion.concrete.VioletTeacher"
+    },
+    {
+        "name": "Vitality Totem",
+        "class": "com.hearthsim.card.minion.concrete.VitalityTotem"
     },
     {
         "name": "Void Terror",
@@ -1339,6 +1396,10 @@
     {
         "name": "Voidwalker",
         "class": "com.hearthsim.card.minion.concrete.Voidwalker"
+    },
+    {
+        "name": "Vol'jin",
+        "class": "com.hearthsim.card.minion.concrete.Voljin"
     },
     {
         "name": "Voodoo Doctor",
@@ -1351,6 +1412,10 @@
     {
         "name": "War Golem",
         "class": "com.hearthsim.card.minion.concrete.WarGolem"
+    },
+    {
+        "name": "Warbot",
+        "class": "com.hearthsim.card.minion.concrete.Warbot"
     },
     {
         "name": "Water Elemental",
