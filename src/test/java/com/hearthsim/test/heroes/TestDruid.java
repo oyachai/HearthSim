@@ -1,8 +1,8 @@
 package com.hearthsim.test.heroes;
 
-import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.basic.minion.BoulderfistOgre;
 import com.hearthsim.card.basic.minion.RaidLeader;
+import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.heroes.Druid;
 import com.hearthsim.card.minion.heroes.TestHero;
 import com.hearthsim.exception.HSException;

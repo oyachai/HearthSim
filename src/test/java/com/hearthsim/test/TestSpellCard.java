@@ -1,14 +1,14 @@
 package com.hearthsim.test;
 
 import com.hearthsim.card.Card;
-import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.basic.minion.BloodfenRaptor;
-import com.hearthsim.card.classic.minion.common.FaerieDragon;
 import com.hearthsim.card.basic.minion.RiverCrocolisk;
 import com.hearthsim.card.basic.spell.HolySmite;
 import com.hearthsim.card.basic.spell.RockbiterWeapon;
 import com.hearthsim.card.basic.spell.Sap;
 import com.hearthsim.card.basic.spell.ShadowBolt;
+import com.hearthsim.card.classic.minion.common.FaerieDragon;
+import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;

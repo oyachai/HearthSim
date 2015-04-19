@@ -1,14 +1,13 @@
 package com.hearthsim.test.minion;
 
-import com.hearthsim.card.classic.minion.rare.AldorPeacekeeper;
 import com.hearthsim.card.basic.minion.BoulderfistOgre;
 import com.hearthsim.card.basic.minion.StoneclawTotem;
+import com.hearthsim.card.classic.minion.rare.AldorPeacekeeper;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

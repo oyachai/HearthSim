@@ -1,8 +1,8 @@
 package com.hearthsim.test.minion;
 
 import com.hearthsim.card.basic.minion.BoulderfistOgre;
-import com.hearthsim.card.classic.minion.common.DustDevil;
 import com.hearthsim.card.basic.minion.Windspeaker;
+import com.hearthsim.card.classic.minion.common.DustDevil;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;

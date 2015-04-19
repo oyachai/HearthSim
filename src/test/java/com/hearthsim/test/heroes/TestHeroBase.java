@@ -1,20 +1,19 @@
 package com.hearthsim.test.heroes;
 
-import com.hearthsim.card.minion.Hero;
-import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.basic.minion.BoulderfistOgre;
 import com.hearthsim.card.basic.minion.KoboldGeomancer;
 import com.hearthsim.card.basic.minion.RaidLeader;
-import com.hearthsim.card.minion.heroes.TestHero;
 import com.hearthsim.card.basic.spell.HolySmite;
 import com.hearthsim.card.basic.weapon.FieryWarAxe;
+import com.hearthsim.card.minion.Hero;
+import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.minion.heroes.TestHero;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

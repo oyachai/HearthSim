@@ -1,9 +1,9 @@
 package com.hearthsim.test.spell;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.basic.spell.AncestralHealing;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionMock;
-import com.hearthsim.card.basic.spell.AncestralHealing;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidPlayerIndexException;
 import com.hearthsim.model.BoardModel;

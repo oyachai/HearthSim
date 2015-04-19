@@ -1,7 +1,7 @@
 package com.hearthsim.test;
 
-import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.basic.minion.BloodfenRaptor;
+import com.hearthsim.card.minion.Minion;
 import org.junit.Before;
 import org.junit.Test;
 

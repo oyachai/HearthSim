@@ -1,11 +1,11 @@
 package com.hearthsim.test.spell;
 
 import com.hearthsim.card.Card;
-import com.hearthsim.card.minion.Minion;
-import com.hearthsim.card.minion.MinionMock;
-import com.hearthsim.card.classic.minion.common.BloodImp;
 import com.hearthsim.card.basic.minion.Voidwalker;
 import com.hearthsim.card.basic.spell.SacrificialPact;
+import com.hearthsim.card.classic.minion.common.BloodImp;
+import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.minion.MinionMock;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;

@@ -1,13 +1,13 @@
 package com.hearthsim.test.spell;
 
 import com.hearthsim.card.Card;
-import com.hearthsim.card.minion.Minion;
-import com.hearthsim.card.minion.MinionMock;
 import com.hearthsim.card.basic.minion.BloodfenRaptor;
 import com.hearthsim.card.basic.minion.Huffer;
 import com.hearthsim.card.basic.minion.Leokk;
 import com.hearthsim.card.basic.minion.Misha;
 import com.hearthsim.card.basic.spell.AnimalCompanion;
+import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.minion.MinionMock;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;

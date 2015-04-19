@@ -1,7 +1,6 @@
 package com.hearthsim.test.heroes;
 
 import com.hearthsim.card.basic.minion.*;
-import com.hearthsim.card.basic.minion.SilverHandRecruit;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.heroes.Shaman;
 import com.hearthsim.card.minion.heroes.TestHero;
