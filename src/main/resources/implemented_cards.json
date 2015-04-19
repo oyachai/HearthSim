@@ -140,6 +140,10 @@
         "class": "com.hearthsim.card.basic.spell.Assassinate"
     },
     {
+        "name": "Axe Flinger",
+        "class": "com.hearthsim.card.blackrockmountain.minion.AxeFlinger"
+    },
+    {
         "name": "Azure Drake",
         "class": "com.hearthsim.card.classic.minion.rare.AzureDrake"
     },
