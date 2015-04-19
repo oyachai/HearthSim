@@ -182,7 +182,6 @@ public class TestHeroBase {
     }
 
     @Test
-    @Ignore("Existing bug")
     public void testSpellpowerEffectsArmor() throws HSException {
         Hero opponent = waitingPlayer.getHero();
         opponent.setArmor((byte)10);
