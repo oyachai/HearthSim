@@ -49,7 +49,6 @@ class HuntersMarkSpec extends CardSpec {
         }
     }
 
-    @Ignore("Existing bug")
     def "turns off enraged"() {
         def amani = new AmaniBerserker()
         startingBoard.placeMinion(WAITING_PLAYER, amani)
