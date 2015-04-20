@@ -49,7 +49,6 @@ class HuntersMarkSpec extends CardSpec {
         }
     }
 
-    @Ignore("Existing bug")
     def "turns off enraged"() {
         def amani = new AmaniBerserker()
         startingBoard.placeMinion(WAITING_PLAYER, amani)
@@ -75,7 +74,6 @@ class HuntersMarkSpec extends CardSpec {
         }
     }
 
-    @Ignore("Existing bug")
     def "silence returns health to normal"() {
         def copiedBoard = startingBoard.deepCopy()
 
@@ -92,6 +90,7 @@ class HuntersMarkSpec extends CardSpec {
             currentPlayer {
                 removeCardFromHand(HuntersMark)
                 numCardsUsed(2)
+                updateMinion(0, [silenced:true])
             }
         }
     }

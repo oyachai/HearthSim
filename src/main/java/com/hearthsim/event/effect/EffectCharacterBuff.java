@@ -20,6 +20,7 @@ public class EffectCharacterBuff<T extends Card> implements EffectCharacter<T> {
         Minion targetCharacter = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
         if (this.attack > 0) {
             targetCharacter.setAttack(this.attack);
+            targetCharacter.setExtraAttackUntilTurnEnd((byte) 0);
         }
 
         if (this.health > 0) {

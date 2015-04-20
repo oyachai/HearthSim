@@ -2,11 +2,11 @@ package com.hearthsim.test.minion;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
-import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.basic.minion.BloodfenRaptor;
-import com.hearthsim.card.classic.minion.common.LootHoarder;
 import com.hearthsim.card.basic.minion.RiverCrocolisk;
+import com.hearthsim.card.classic.minion.common.LootHoarder;
 import com.hearthsim.card.classic.minion.common.Wisp;
+import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.heroes.TestHero;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;

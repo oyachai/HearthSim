@@ -1,12 +1,12 @@
 package com.hearthsim.test;
 
 import com.hearthsim.card.Card;
-import com.hearthsim.card.minion.Minion;
-import com.hearthsim.card.minion.MinionMock;
 import com.hearthsim.card.basic.minion.KoboldGeomancer;
 import com.hearthsim.card.basic.spell.ArcaneExplosion;
 import com.hearthsim.card.basic.spell.Consecration;
 import com.hearthsim.card.basic.spell.Hellfire;
+import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.minion.MinionMock;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;

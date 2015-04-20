@@ -6,7 +6,6 @@ import com.hearthsim.card.basic.minion.*;
 import com.hearthsim.card.basic.spell.*;
 import com.hearthsim.card.classic.minion.common.DarkIronDwarf;
 import com.hearthsim.card.classic.minion.common.IronbeakOwl;
-import com.hearthsim.card.basic.minion.SilverHandRecruit;
 import com.hearthsim.card.classic.minion.epic.AncientOfLore;
 import com.hearthsim.card.classic.minion.epic.BigGameHunter;
 import com.hearthsim.card.classic.minion.epic.MoltenGiant;

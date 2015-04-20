@@ -1,9 +1,9 @@
 package com.hearthsim.test.spell;
 
 import com.hearthsim.card.Card;
-import com.hearthsim.card.classic.minion.common.AcolyteOfPain;
 import com.hearthsim.card.basic.minion.BoulderfistOgre;
 import com.hearthsim.card.basic.minion.RaidLeader;
+import com.hearthsim.card.classic.minion.common.AcolyteOfPain;
 import com.hearthsim.card.classic.spell.common.InnerRage;
 import com.hearthsim.card.classic.spell.common.Silence;
 import com.hearthsim.exception.HSException;

@@ -1,21 +1,18 @@
 package com.hearthsim.test.minion;
 
 import com.hearthsim.card.Card;
-import com.hearthsim.card.minion.Minion;
-import com.hearthsim.card.classic.minion.epic.BloodKnight;
 import com.hearthsim.card.classic.minion.common.ScarletCrusader;
+import com.hearthsim.card.classic.minion.epic.BloodKnight;
+import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 public class TestBloodKnight {
 
@@ -106,14 +103,15 @@ public class TestBloodKnight {
     }
 
     @Test
-    @Ignore("Existing bug")
     public void testSilenced() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board);
-        assertEquals(board, ret);
+        assertNotNull(ret);
+        currentPlayer = ret.data_.getCurrentPlayer();
+        waitingPlayer = ret.data_.getWaitingPlayer();
 
         Minion target = currentPlayer.getCharacter(2);
-        target.silenced(PlayerSide.CURRENT_PLAYER, board);
+        target.silenced(PlayerSide.CURRENT_PLAYER, ret.data_);
 
         assertEquals(currentPlayer.getCharacter(2).getTotalHealth(), 3);
         assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), 3);

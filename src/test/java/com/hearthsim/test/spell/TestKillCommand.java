@@ -1,10 +1,10 @@
 package com.hearthsim.test.spell;
 
 import com.hearthsim.card.Card;
-import com.hearthsim.card.minion.Minion;
-import com.hearthsim.card.minion.MinionMock;
 import com.hearthsim.card.basic.minion.IronfurGrizzly;
 import com.hearthsim.card.basic.spell.KillCommand;
+import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.minion.MinionMock;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;

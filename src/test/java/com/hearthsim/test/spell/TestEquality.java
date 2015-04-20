@@ -1,11 +1,11 @@
 package com.hearthsim.test.spell;
 
 import com.hearthsim.card.Card;
-import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.basic.minion.BoulderfistOgre;
 import com.hearthsim.card.basic.minion.RaidLeader;
 import com.hearthsim.card.basic.minion.StormwindChampion;
 import com.hearthsim.card.classic.spell.rare.Equality;
+import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;

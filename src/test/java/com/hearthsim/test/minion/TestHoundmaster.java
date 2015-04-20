@@ -1,11 +1,11 @@
 package com.hearthsim.test.minion;
 
 import com.hearthsim.card.Card;
-import com.hearthsim.card.minion.Minion;
-import com.hearthsim.card.minion.MinionMock;
 import com.hearthsim.card.basic.minion.BloodfenRaptor;
 import com.hearthsim.card.basic.minion.Houndmaster;
 import com.hearthsim.card.basic.minion.StonetuskBoar;
+import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.minion.MinionMock;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;

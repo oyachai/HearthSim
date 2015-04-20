@@ -12,6 +12,18 @@ public abstract class MinionWithEnrage extends Minion {
     }
 
     @Override
+    public void setHealth(byte health) {
+        super.setHealth(health);
+        this.enrageCheck();
+    }
+
+    @Override
+    public void setMaxHealth(byte health) {
+        super.setMaxHealth(health);
+        this.enrageCheck();
+    }
+
+    @Override
     public Minion deepCopy() {
         MinionWithEnrage minionWithEnrage = (MinionWithEnrage) super.deepCopy();
         minionWithEnrage.enraged_ = enraged_;

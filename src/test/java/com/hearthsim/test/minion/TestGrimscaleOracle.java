@@ -1,10 +1,10 @@
 package com.hearthsim.test.minion;
 
 import com.hearthsim.card.Card;
-import com.hearthsim.card.minion.Minion;
-import com.hearthsim.card.minion.MinionMock;
 import com.hearthsim.card.basic.minion.GrimscaleOracle;
 import com.hearthsim.card.basic.minion.MurlocRaider;
+import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.minion.MinionMock;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
