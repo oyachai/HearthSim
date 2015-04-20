@@ -31,6 +31,7 @@ class ReferenceCardRegistry {
                 'Reward',
                 'Curse of Naxxramas',
                 'Goblins vs Gnomes',
+                'Blackrock Mountain',
                 'Debug'
         ]
 
