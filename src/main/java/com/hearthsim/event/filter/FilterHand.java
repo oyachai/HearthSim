@@ -72,6 +72,18 @@ public class FilterHand implements FilterHandInterface {
         }
     };
 
+    public static final FilterHand FRIENDLY_MINIONS = new FilterHand() {
+        @Override
+        protected boolean includeOwnHand() {
+            return true;
+        }
+
+        @Override
+        protected Class<? extends Minion> classFilter() {
+            return Minion.class;
+        }
+    };
+
     public static final FilterHand FRIENDLY_SPELLS = new FilterHand() {
         @Override
         protected boolean includeOwnHand() {

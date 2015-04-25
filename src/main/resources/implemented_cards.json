@@ -1398,6 +1398,10 @@
         "class": "com.hearthsim.card.goblinsvsgnomes.minion.rare.UpgradedRepairBot"
     },
     {
+        "name": "Venture Co. Mercenary",
+        "class": "com.hearthsim.card.classic.minion.common.VentureCoMercenary"
+    },
+    {
         "name": "Violet Teacher",
         "class": "com.hearthsim.card.classic.minion.rare.VioletTeacher"
     },
