@@ -1,4 +1,4 @@
-package com.hearthsim.test.groovy.card.classic.minion
+package com.hearthsim.test.groovy.card.goblinsvsgnomes.minion
 
 import com.hearthsim.card.basic.minion.BloodfenRaptor
 import com.hearthsim.card.classic.minion.common.Wisp
