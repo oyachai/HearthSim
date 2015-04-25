@@ -22,9 +22,13 @@ public class FilterCharacter implements FilterCharacterInterface {
         return false;
     }
 
-    protected int maxAttack() { return -1; }
+    protected int maxAttack() {
+        return -1;
+    }
 
-    protected int minAttack() { return -1; }
+    protected int minAttack() {
+        return -1;
+    }
 
     protected boolean excludeSource() {
         return false;

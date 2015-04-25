@@ -1,9 +1,9 @@
 package com.hearthsim.card.basic.spell;
 
-import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.basic.minion.Huffer;
 import com.hearthsim.card.basic.minion.Leokk;
 import com.hearthsim.card.basic.minion.Misha;
+import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellRandomInterface;
 import com.hearthsim.card.spellcard.SpellTargetableCard;
 import com.hearthsim.event.effect.EffectCharacter;

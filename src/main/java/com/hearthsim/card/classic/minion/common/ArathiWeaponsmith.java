@@ -1,10 +1,10 @@
 package com.hearthsim.card.classic.minion.common;
 
+import com.hearthsim.card.classic.weapon.common.BattleAxe;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionBattlecryInterface;
 import com.hearthsim.card.weapon.WeaponCard;
-import com.hearthsim.card.classic.weapon.common.BattleAxe;
 import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.event.effect.EffectCharacter;
 import com.hearthsim.model.PlayerSide;
