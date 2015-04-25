@@ -19,6 +19,10 @@ public class FilterHand implements FilterHandInterface {
         return null;
     }
 
+    protected Minion.MinionTribe tribeFilter() {
+        return null;
+    }
+
     protected boolean excludeSource() {
         return true;
     }
@@ -42,6 +46,11 @@ public class FilterHand implements FilterHandInterface {
         }
 
         if (this.classFilter() != null && !this.classFilter().isAssignableFrom(targetCard.getClass())) {
+            return false;
+        }
+
+        // TODO could be moved into something like FilterHandMinion
+        if (this.tribeFilter() != null && targetCard instanceof Minion && ((Minion) targetCard).getTribe() != this.tribeFilter()) {
             return false;
         }
 

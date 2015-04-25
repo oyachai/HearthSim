@@ -897,6 +897,10 @@
         "class": "com.hearthsim.card.classic.minion.rare.MasterSwordsmith"
     },
     {
+        "name": "Mechwarper",
+        "class": "com.hearthsim.card.goblinsvsgnomes.minion.common.Mechwarper"
+    },
+    {
         "name": "Mekgineer Thermaplugg",
         "class": "com.hearthsim.card.goblinsvsgnomes.minion.legendary.MekgineerThermaplugg"
     },
