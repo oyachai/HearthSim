@@ -2,15 +2,7 @@ package com.hearthsim.test.groovy.card.goblinsvsgnomes.minion
 
 import com.hearthsim.card.basic.minion.BloodfenRaptor
 import com.hearthsim.card.basic.minion.RiverCrocolisk
-import com.hearthsim.card.basic.minion.WarGolem
 import com.hearthsim.card.basic.spell.Fireball
-import com.hearthsim.card.basic.spell.HolySmite
-import com.hearthsim.card.classic.minion.common.FaerieDragon
-import com.hearthsim.card.classic.minion.common.StranglethornTiger
-import com.hearthsim.card.classic.minion.epic.MoltenGiant
-import com.hearthsim.card.classic.minion.rare.KnifeJuggler
-import com.hearthsim.card.classic.minion.rare.ManaWraith
-import com.hearthsim.card.classic.spell.common.Silence
 import com.hearthsim.card.goblinsvsgnomes.minion.common.Mechwarper
 import com.hearthsim.card.goblinsvsgnomes.minion.common.SpiderTank
 import com.hearthsim.model.BoardModel
@@ -20,9 +12,6 @@ import com.hearthsim.util.tree.HearthTreeNode
 
 import static com.hearthsim.model.PlayerSide.CURRENT_PLAYER
 import static com.hearthsim.model.PlayerSide.WAITING_PLAYER
-import static org.junit.Assert.assertFalse
-import static org.junit.Assert.assertTrue
-
 
 class MechwarperSpec extends CardSpec {
 

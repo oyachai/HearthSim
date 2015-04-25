@@ -8,7 +8,6 @@ import com.hearthsim.model.PlayerSide
 import com.hearthsim.test.groovy.card.CardSpec
 import com.hearthsim.test.helpers.BoardModelBuilder
 import com.hearthsim.util.tree.HearthTreeNode
-import spock.lang.Ignore
 
 import static com.hearthsim.model.PlayerSide.CURRENT_PLAYER
 

@@ -1,13 +1,13 @@
 package com.hearthsim.test
 
-import com.hearthsim.model.BoardModel;
-import com.hearthsim.player.playercontroller.BruteForceSearchAI;
-import com.hearthsim.test.groovy.card.CardSpec;
-import com.hearthsim.test.helpers.BoardModelBuilder
-import com.hearthsim.util.tree.HearthTreeNode;
 import com.hearthsim.card.basic.minion.GoldshireFootman
 import com.hearthsim.card.basic.minion.MurlocRaider
 import com.hearthsim.card.classic.minion.common.Wisp
+import com.hearthsim.model.BoardModel
+import com.hearthsim.player.playercontroller.BruteForceSearchAI
+import com.hearthsim.test.groovy.card.CardSpec
+import com.hearthsim.test.helpers.BoardModelBuilder
+import com.hearthsim.util.tree.HearthTreeNode
 
 class DepthBoardStateFactorySpec extends CardSpec {
 

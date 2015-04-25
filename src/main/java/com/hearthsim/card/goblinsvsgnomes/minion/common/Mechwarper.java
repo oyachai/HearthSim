@@ -6,8 +6,6 @@ import com.hearthsim.event.effect.ActiveEffectHand;
 import com.hearthsim.event.effect.EffectHandManaCost;
 import com.hearthsim.event.effect.SimpleEffectHand;
 import com.hearthsim.event.filter.FilterHand;
-import com.hearthsim.model.BoardModel;
-import com.hearthsim.model.PlayerSide;
 
 public class Mechwarper extends Minion implements ActiveEffectHand {
     private static final SimpleEffectHand effect = new EffectHandManaCost(-1);

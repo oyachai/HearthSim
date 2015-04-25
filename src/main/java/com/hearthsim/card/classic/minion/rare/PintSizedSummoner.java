@@ -52,11 +52,9 @@ public class PintSizedSummoner extends Minion implements ActiveEffectHand, CardP
 
     @Override
     public HearthTreeNode onCardPlayResolve(PlayerSide thisCardPlayerSide, PlayerSide cardUserPlayerSide, Card usedCard, HearthTreeNode boardState, boolean singleRealizationOnly) {
-        if (usedCard instanceof Minion && thisCardPlayerSide == cardUserPlayerSide) {
-            if (this.isActive) {
-                boardState.data_.removeAuraOfMinion(thisCardPlayerSide, this);
-                this.isActive = false; // remove aura checks this
-            }
+        if (usedCard instanceof Minion && thisCardPlayerSide == cardUserPlayerSide && this.isActive) {
+            boardState.data_.removeAuraOfMinion(thisCardPlayerSide, this);
+            this.isActive = false; // remove aura checks this
         }
         return boardState;
     }

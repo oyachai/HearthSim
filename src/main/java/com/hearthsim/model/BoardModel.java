@@ -8,7 +8,6 @@ import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionWithAura;
 import com.hearthsim.card.minion.heroes.TestHero;
 import com.hearthsim.event.effect.ActiveEffectHand;
-import com.hearthsim.event.effect.EffectHand;
 import com.hearthsim.event.effect.SimpleEffectHand;
 import com.hearthsim.event.filter.FilterHand;
 import com.hearthsim.util.DeepCopyable;

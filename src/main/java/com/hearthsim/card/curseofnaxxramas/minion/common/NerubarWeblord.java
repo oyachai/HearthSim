@@ -31,11 +31,11 @@ public class NerubarWeblord extends Minion implements ActiveEffectHand {
 
         @Override
         public boolean targetMatches(PlayerSide originSide, Card origin, PlayerSide targetSide, Card targetCard, BoardModel board) {
-            if(!super.targetMatches(originSide, origin, targetSide, targetCard, board)) {
+            if (!super.targetMatches(originSide, origin, targetSide, targetCard, board)) {
                 return false;
             }
 
-            if(!(targetCard instanceof MinionBattlecryInterface)) {
+            if (!(targetCard instanceof MinionBattlecryInterface)) {
                 return false;
             }
 

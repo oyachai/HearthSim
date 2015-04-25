@@ -3,7 +3,6 @@ package com.hearthsim.event.effect;
 import com.hearthsim.card.Card;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.tree.HearthTreeNode;
 
 public class EffectHandManaCost implements SimpleEffectHand {
     byte manaEffect;
