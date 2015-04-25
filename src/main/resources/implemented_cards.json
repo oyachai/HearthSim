@@ -661,6 +661,10 @@
         "class": "com.hearthsim.card.basic.spell.Hex"
     },
     {
+        "name": "Hobgoblin",
+        "class": "com.hearthsim.card.goblinsvsgnomes.minion.epic.Hobgoblin"
+    },
+    {
         "name": "Hogger",
         "class": "com.hearthsim.card.classic.minion.legendary.Hogger"
     },
