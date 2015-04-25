@@ -35,6 +35,8 @@ public class Card implements DeepCopyable<Card> {
     protected boolean hasBeenUsed;
     protected boolean isInHand_;
 
+    private byte manaDelta = 0;
+
     protected DeathrattleAction deathrattleAction_;
 
     protected final ImplementedCardList.ImplementedCard implementedCard;
@@ -72,7 +74,15 @@ public class Card implements DeepCopyable<Card> {
      * @return Mana cost of the card
      */
     public byte getManaCost(PlayerSide side, BoardModel board) {
-        return this.getBaseManaCost();
+        return (byte) Math.max(this.getBaseManaCost() + this.getManaDelta(), 0);
+    }
+
+    public byte getManaDelta() {
+        return manaDelta;
+    }
+
+    public void setManaDelta(byte manaDelta) {
+        this.manaDelta = manaDelta;
     }
 
     /**
@@ -110,7 +120,7 @@ public class Card implements DeepCopyable<Card> {
         isInHand_ = value;
     }
 
-    protected boolean isInHand() {
+    public boolean isInHand() {
         return isInHand_;
     }
 
@@ -143,6 +153,7 @@ public class Card implements DeepCopyable<Card> {
 
         copy.hasBeenUsed = this.hasBeenUsed;
         copy.isInHand_ = this.isInHand_;
+        copy.manaDelta = this.manaDelta;
 
         return copy;
     }
@@ -158,6 +169,9 @@ public class Card implements DeepCopyable<Card> {
         }
 
         // More logic here to be discuss below...
+        if (this.getManaDelta() != ((Card)other).getManaDelta())
+            return false;
+
         if (this.getBaseManaCost() != ((Card)other).getBaseManaCost())
             return false;
 
@@ -590,6 +604,7 @@ public class Card implements DeepCopyable<Card> {
         json.put("name", this.getName());
         json.put("mana", this.getBaseManaCost());
         if (hasBeenUsed) json.put("hasBeenUsed", hasBeenUsed);
+        if (this.manaDelta != 0) json.put("manaDelta", this.manaDelta);
         return json;
     }
 

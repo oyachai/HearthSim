@@ -98,6 +98,7 @@ class BoardModelBuilder {
         }
 
         card.hasBeenUsed = options.containsKey('hasBeenUsed') ? options.hasBeenUsed : card.hasBeenUsed
+        card.manaDelta = options.containsKey('manaDelta') ? options.manaDelta : card.manaDelta
     }
 
     private fatigueDamage(Number fatigueDamage) {
@@ -138,6 +139,11 @@ class BoardModelBuilder {
         //TODO: only do this if maxMana hasn't been set explicitly already
         if (model.getMaxMana() == 0)
             model.setMaxMana((byte) mana)
+    }
+
+    private manaUsed(Number mana) {
+        def model = boardModel.modelForSide(playerSide)
+        model.setMana((byte) (model.getMana() - mana))
     }
     
     private maxMana(Number mana) {

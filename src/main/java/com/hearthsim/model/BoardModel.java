@@ -7,6 +7,9 @@ import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionWithAura;
 import com.hearthsim.card.minion.heroes.TestHero;
+import com.hearthsim.event.effect.ActiveEffectHand;
+import com.hearthsim.event.effect.SimpleEffectHand;
+import com.hearthsim.event.filter.FilterHand;
 import com.hearthsim.util.DeepCopyable;
 import com.hearthsim.util.IdentityLinkedList;
 import org.json.JSONObject;
@@ -294,6 +297,7 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
         playerModel.addMinion(position, minion);
         this.allMinionsFIFOList_.add(new MinionPlayerPair(minion, playerSide));
         minion.isInHand(false);
+        minion.setManaDelta((byte) 0); // once the minion hits the board it resets its mana cost
 
         //Apply the aura if any
         applyAuraOfMinion(playerSide, minion);
@@ -397,7 +401,7 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
      * @param side The PlayerSide of the minion
      * @param minion
      */
-    private void applyAuraOfMinion(PlayerSide side, Minion minion) {
+    public void applyAuraOfMinion(PlayerSide side, Minion minion) {
         if (minion instanceof MinionWithAura && !minion.isSilenced()) {
             EnumSet<AuraTargetType> targetTypes = ((MinionWithAura)minion).getAuraTargets();
             for (AuraTargetType targetType : targetTypes) {
@@ -415,6 +419,22 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
                     break;
                 default:
                     break;
+                }
+            }
+        }
+
+        if (minion instanceof ActiveEffectHand) {
+            ActiveEffectHand activeEffect = (ActiveEffectHand)minion;
+            if (activeEffect.isActive(side, minion, this)) {
+                FilterHand filter = activeEffect.getActiveFilter();
+                SimpleEffectHand effect = activeEffect.getActiveEffect();
+
+                Iterator<BoardModel.CharacterLocation> handIterator = this.handIterator();
+                while (handIterator.hasNext()) {
+                    BoardModel.CharacterLocation location = handIterator.next();
+                    if (filter.targetMatches(side, minion, location.getPlayerSide(), location.getIndex(), this)) {
+                        effect.applyEffect(side, minion, location.getPlayerSide(), location.getIndex(), this);
+                    }
                 }
             }
         }
@@ -445,8 +465,28 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
         }
     }
 
+    public void applyAurasToCardInHand(PlayerSide targetSide, Card target) {
+        Iterator<BoardModel.CharacterLocation> characterIterator = this.characterIterator();
+        while (characterIterator.hasNext()) {
+            BoardModel.CharacterLocation location = characterIterator.next();
+            Minion character = this.getCharacter(location);
+            if (character instanceof ActiveEffectHand) {
+                ActiveEffectHand activeEffect = (ActiveEffectHand)character;
+                if (activeEffect.isActive(location.playerSide, character, this)) {
+
+                    FilterHand filter = activeEffect.getActiveFilter();
+                    SimpleEffectHand effect = activeEffect.getActiveEffect();
+
+                    if (filter.targetMatches(location.playerSide, character, targetSide, target, this)) {
+                        effect.applyEffect(location.playerSide, character, targetSide, target, this);
+                    }
+                }
+            }
+        }
+    }
+
     /**
-     * Revomes any aura that the given minion might have
+     * Removes any aura that the given minion might have
      *
      * @param side The PlayerSide of the minion
      * @param minion
@@ -469,6 +509,22 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
                     break;
                 default:
                     break;
+                }
+            }
+        }
+
+        if (minion instanceof ActiveEffectHand) {
+            ActiveEffectHand activeEffect = (ActiveEffectHand)minion;
+            if (activeEffect.isActive(side, minion, this)) {
+                FilterHand filter = activeEffect.getActiveFilter();
+                SimpleEffectHand effect = activeEffect.undoActiveEffect();
+
+                Iterator<BoardModel.CharacterLocation> handIterator = this.handIterator();
+                while (handIterator.hasNext()) {
+                    BoardModel.CharacterLocation location = handIterator.next();
+                    if (filter.targetMatches(side, minion, location.getPlayerSide(), location.getIndex(), this)) {
+                        effect.applyEffect(side, minion, location.getPlayerSide(), location.getIndex(), this);
+                    }
                 }
             }
         }

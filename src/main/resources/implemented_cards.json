@@ -873,6 +873,10 @@
         "class": "com.hearthsim.card.classic.minion.rare.ManaTideTotem"
     },
     {
+        "name": "Mana Wraith",
+        "class": "com.hearthsim.card.classic.minion.rare.ManaWraith"
+    },
+    {
         "name": "Mana Wyrm",
         "class": "com.hearthsim.card.classic.minion.common.ManaWyrm"
     },
@@ -891,6 +895,10 @@
     {
         "name": "Master Swordsmith",
         "class": "com.hearthsim.card.classic.minion.rare.MasterSwordsmith"
+    },
+    {
+        "name": "Mechwarper",
+        "class": "com.hearthsim.card.goblinsvsgnomes.minion.common.Mechwarper"
     },
     {
         "name": "Mekgineer Thermaplugg",
@@ -977,6 +985,10 @@
         "class": "com.hearthsim.card.basic.minion.NoviceEngineer"
     },
     {
+        "name": "Nerub'ar Weblord",
+        "class": "com.hearthsim.card.curseofnaxxramas.minion.common.NerubarWeblord"
+    },
+    {
         "name": "Nerubian",
         "class": "com.hearthsim.card.curseofnaxxramas.minion.rare.Nerubian"
     },
@@ -999,6 +1011,10 @@
     {
         "name": "Onyxia",
         "class": "com.hearthsim.card.classic.minion.legendary.Onyxia"
+    },
+    {
+        "name": "Pint-Sized Summoner",
+        "class": "com.hearthsim.card.classic.minion.rare.PintSizedSummoner"
     },
     {
         "name": "Pit Lord",
@@ -1237,6 +1253,10 @@
         "class": "com.hearthsim.card.goblinsvsgnomes.minion.rare.SootSpewer"
     },
     {
+        "name": "Sorcerer's Apprentice",
+        "class": "com.hearthsim.card.classic.minion.common.SorcerersApprentice"
+    },
+    {
         "name": "Soulfire",
         "class": "com.hearthsim.card.basic.spell.Soulfire"
     },
@@ -1388,6 +1408,10 @@
     {
         "name": "Upgraded Repair Bot",
         "class": "com.hearthsim.card.goblinsvsgnomes.minion.rare.UpgradedRepairBot"
+    },
+    {
+        "name": "Venture Co. Mercenary",
+        "class": "com.hearthsim.card.classic.minion.common.VentureCoMercenary"
     },
     {
         "name": "Violet Teacher",

@@ -1,17 +1,16 @@
 package com.hearthsim.test
 
-import com.hearthsim.card.classic.minion.rare.Abomination
+import com.hearthsim.card.basic.spell.Hellfire
 import com.hearthsim.card.classic.minion.legendary.BaineBloodhoof
 import com.hearthsim.card.classic.minion.legendary.CairneBloodhoof
+import com.hearthsim.card.classic.minion.legendary.SylvanasWindrunner
+import com.hearthsim.card.classic.minion.rare.Abomination
 import com.hearthsim.card.curseofnaxxramas.minion.common.HauntedCreeper
 import com.hearthsim.card.curseofnaxxramas.minion.common.SpectralSpider
-import com.hearthsim.card.classic.minion.legendary.SylvanasWindrunner
-import com.hearthsim.card.basic.spell.Hellfire
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.groovy.card.CardSpec
 import com.hearthsim.test.helpers.BoardModelBuilder
 import com.hearthsim.util.tree.HearthTreeNode
-import spock.lang.Ignore
 
 import static com.hearthsim.model.PlayerSide.CURRENT_PLAYER
 import static com.hearthsim.model.PlayerSide.WAITING_PLAYER

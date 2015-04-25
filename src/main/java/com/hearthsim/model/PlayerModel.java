@@ -251,7 +251,7 @@ public class PlayerModel implements DeepCopyable<PlayerModel>, Iterable<Minion> 
         deck.addCard(card);
     }
 
-    public void drawNextCardFromDeck() {
+    public Card drawNextCardFromDeck() {
         Card card = drawFromDeck(deckPos);
         if (card == null) {
             //no more card left in deck, take fatigue damage
@@ -262,6 +262,7 @@ public class PlayerModel implements DeepCopyable<PlayerModel>, Iterable<Minion> 
             hand.add(card);
             ++deckPos;
         }
+        return card;
     }
 
     public ArrayList<Minion> getMinionsAdjacentToCharacter(int characterIndex) {
