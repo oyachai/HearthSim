@@ -2,6 +2,7 @@ package com.hearthsim.event.filter;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
+import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 
@@ -14,7 +15,7 @@ public class FilterHand implements FilterHandInterface {
         return false;
     }
 
-    protected Class<Card> classFilter() {
+    protected Class<? extends Card> classFilter() {
         return null;
     }
 
@@ -66,8 +67,20 @@ public class FilterHand implements FilterHandInterface {
         }
 
         @Override
-        protected Class classFilter() {
+        protected Class<? extends Minion> classFilter() {
             return Minion.class;
+        }
+    };
+
+    public static final FilterHand FRIENDLY_SPELLS = new FilterHand() {
+        @Override
+        protected boolean includeOwnHand() {
+            return true;
+        }
+
+        @Override
+        protected Class<? extends SpellCard> classFilter() {
+            return SpellCard.class;
         }
     };
 }

@@ -1241,6 +1241,10 @@
         "class": "com.hearthsim.card.goblinsvsgnomes.minion.rare.SootSpewer"
     },
     {
+        "name": "Sorcerer's Apprentice",
+        "class": "com.hearthsim.card.classic.minion.common.SorcerersApprentice"
+    },
+    {
         "name": "Soulfire",
         "class": "com.hearthsim.card.basic.spell.Soulfire"
     },

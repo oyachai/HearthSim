@@ -74,7 +74,7 @@ public class Card implements DeepCopyable<Card> {
      * @return Mana cost of the card
      */
     public byte getManaCost(PlayerSide side, BoardModel board) {
-        return (byte) (this.getBaseManaCost() + this.getManaDelta());
+        return (byte) Math.max(this.getBaseManaCost() + this.getManaDelta(), 0);
     }
 
     public byte getManaDelta() {
