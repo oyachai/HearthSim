@@ -1009,6 +1009,10 @@
         "class": "com.hearthsim.card.classic.minion.legendary.Onyxia"
     },
     {
+        "name": "Pint-Sized Summoner",
+        "class": "com.hearthsim.card.classic.minion.rare.PintSizedSummoner"
+    },
+    {
         "name": "Pit Lord",
         "class": "com.hearthsim.card.classic.minion.epic.PitLord"
     },

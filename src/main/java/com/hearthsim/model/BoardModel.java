@@ -402,7 +402,7 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
      * @param side The PlayerSide of the minion
      * @param minion
      */
-    private void applyAuraOfMinion(PlayerSide side, Minion minion) {
+    public void applyAuraOfMinion(PlayerSide side, Minion minion) {
         if (minion instanceof MinionWithAura && !minion.isSilenced()) {
             EnumSet<AuraTargetType> targetTypes = ((MinionWithAura)minion).getAuraTargets();
             for (AuraTargetType targetType : targetTypes) {
@@ -466,8 +466,28 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
         }
     }
 
+    public void applyAurasToCardInHand(PlayerSide targetSide, Card target) {
+        Iterator<BoardModel.CharacterLocation> characterIterator = this.characterIterator();
+        while (characterIterator.hasNext()) {
+            BoardModel.CharacterLocation location = characterIterator.next();
+            Minion character = this.getCharacter(location);
+            if (character instanceof ActiveEffectHand) {
+                ActiveEffectHand activeEffect = (ActiveEffectHand)character;
+                if (activeEffect.isActive(location.playerSide, character, this)) {
+
+                    FilterHand filter = activeEffect.getActiveFilter();
+                    SimpleEffectHand effect = activeEffect.getActiveEffect();
+
+                    if (filter.targetMatches(location.playerSide, character, targetSide, target, this)) {
+                        effect.applyEffect(location.playerSide, character, targetSide, target, this);
+                    }
+                }
+            }
+        }
+    }
+
     /**
-     * Revomes any aura that the given minion might have
+     * Removes any aura that the given minion might have
      *
      * @param side The PlayerSide of the minion
      * @param minion

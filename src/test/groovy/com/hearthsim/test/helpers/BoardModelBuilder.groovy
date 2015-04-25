@@ -140,6 +140,11 @@ class BoardModelBuilder {
         if (model.getMaxMana() == 0)
             model.setMaxMana((byte) mana)
     }
+
+    private manaUsed(Number mana) {
+        def model = boardModel.modelForSide(playerSide)
+        model.setMana((byte) (model.getMana() - mana))
+    }
     
     private maxMana(Number mana) {
         def model = boardModel.modelForSide(playerSide)

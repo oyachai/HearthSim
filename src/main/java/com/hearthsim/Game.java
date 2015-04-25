@@ -1,5 +1,6 @@
 package com.hearthsim;
 
+import com.hearthsim.card.Card;
 import com.hearthsim.card.CardEndTurnInterface;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.basic.spell.TheCoin;
@@ -171,7 +172,10 @@ public class Game {
 
         toRet = BoardStateFactoryBase.handleDeadMinions(toRet, true);
 
-        currentPlayer.drawNextCardFromDeck();
+        // TODO card draw will need to move into BoardModel at some point so we can react to them appropriately
+        Card drawn = currentPlayer.drawNextCardFromDeck();
+        toRet.data_.applyAurasToCardInHand(PlayerSide.CURRENT_PLAYER, drawn);
+
         if (currentPlayer.getMaxMana() < 10) {
             currentPlayer.addMaxMana((byte) 1);
         }
