@@ -28,12 +28,8 @@ public class StampedingKodo extends Minion implements EffectOnResolveRandomChara
             }
 
             @Override
-            public boolean targetMatches(PlayerSide originSide, Card origin, PlayerSide targetSide, Minion targetCharacter, BoardModel board) {
-                if (!super.targetMatches(originSide, origin, targetSide, targetCharacter, board)) {
-                    return false;
-                }
-
-                return targetCharacter.getTotalAttack() <= 2;
+            protected int maxAttack() {
+                return 2;
             }
         };
     }
