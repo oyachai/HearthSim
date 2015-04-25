@@ -873,6 +873,10 @@
         "class": "com.hearthsim.card.classic.minion.rare.ManaTideTotem"
     },
     {
+        "name": "Mana Wraith",
+        "class": "com.hearthsim.card.classic.minion.rare.ManaWraith"
+    },
+    {
         "name": "Mana Wyrm",
         "class": "com.hearthsim.card.classic.minion.common.ManaWyrm"
     },

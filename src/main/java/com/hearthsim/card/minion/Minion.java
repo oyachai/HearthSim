@@ -783,18 +783,7 @@ public class Minion extends Card implements EffectOnResolveTargetable<Card>, Car
      */
     @Override
     public Card deepCopy() {
-
-        Minion minion = null;
-        try {
-            minion = getClass().newInstance();
-        } catch(InstantiationException e) {
-            Minion.log.error("instantiation error", e);
-        } catch(IllegalAccessException e) {
-            Minion.log.error("illegal access error", e);
-        }
-        if (minion == null) {
-            throw new RuntimeException("unable to instantiate minion.");
-        }
+        Minion minion = (Minion)super.deepCopy();
 
         minion.attack_ = attack_;
         minion.health_ = health_;

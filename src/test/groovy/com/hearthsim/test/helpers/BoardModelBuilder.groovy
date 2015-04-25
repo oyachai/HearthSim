@@ -98,6 +98,7 @@ class BoardModelBuilder {
         }
 
         card.hasBeenUsed = options.containsKey('hasBeenUsed') ? options.hasBeenUsed : card.hasBeenUsed
+        card.manaDelta = options.containsKey('manaDelta') ? options.manaDelta : card.manaDelta
     }
 
     private fatigueDamage(Number fatigueDamage) {
