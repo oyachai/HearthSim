@@ -985,6 +985,10 @@
         "class": "com.hearthsim.card.basic.minion.NoviceEngineer"
     },
     {
+        "name": "Nerub'ar Weblord",
+        "class": "com.hearthsim.card.curseofnaxxramas.minion.common.NerubarWeblord"
+    },
+    {
         "name": "Nerubian",
         "class": "com.hearthsim.card.curseofnaxxramas.minion.rare.Nerubian"
     },
