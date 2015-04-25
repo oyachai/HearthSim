@@ -50,6 +50,26 @@ class WarsongCommanderSpec extends CardSpec {
         }
     }
 
+    def "does not trigger on self"() {
+        startingBoard.removeMinion(CURRENT_PLAYER, 0);
+        startingBoard.modelForSide(CURRENT_PLAYER).getHand().add(new WarsongCommander())
+
+        def copiedBoard = startingBoard.deepCopy()
+        def theCard = root.data_.getCurrentPlayer().getHand().get(2)
+        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+
+        expect:
+        ret != null
+
+        assertBoardDelta(copiedBoard, ret.data_) {
+            currentPlayer {
+                playMinion(WarsongCommander, 0)
+                mana(7)
+                numCardsUsed(1)
+            }
+        }
+    }
+
     def "does not trigger on enemy play"() {
         startingBoard.removeMinion(CURRENT_PLAYER, 0);
         startingBoard.placeMinion(WAITING_PLAYER, new WarsongCommander())

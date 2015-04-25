@@ -24,7 +24,7 @@ public class WarsongCommander extends Minion implements MinionSummonedInterface 
 
         @Override
         protected boolean excludeSource() {
-            return super.excludeSource();
+            return true;
         }
     };
 
