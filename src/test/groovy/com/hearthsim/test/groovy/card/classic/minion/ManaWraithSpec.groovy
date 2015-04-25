@@ -10,6 +10,7 @@ import com.hearthsim.card.classic.minion.common.StranglethornTiger
 import com.hearthsim.card.classic.minion.epic.MoltenGiant
 import com.hearthsim.card.classic.minion.rare.KnifeJuggler
 import com.hearthsim.card.classic.minion.rare.ManaWraith
+import com.hearthsim.card.classic.spell.common.Silence
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.groovy.card.CardSpec
 import com.hearthsim.test.helpers.BoardModelBuilder
@@ -29,7 +30,7 @@ class ManaWraithSpec extends CardSpec {
     def setup() {
         startingBoard = new BoardModelBuilder().make {
             currentPlayer {
-                hand([ManaWraith, BloodfenRaptor, HolySmite])
+                hand([ManaWraith, BloodfenRaptor, HolySmite, Silence])
                 mana(10)
             }
             waitingPlayer {
@@ -75,6 +76,28 @@ class ManaWraithSpec extends CardSpec {
             currentPlayer {
                 playMinion(BloodfenRaptor, 0)
                 mana(7)
+                numCardsUsed(2)
+            }
+        }
+    }
+
+    def "silencing a mana wraith returns minion mana cost back to normal"() {
+        startingBoard.placeMinion(WAITING_PLAYER, new ManaWraith())
+
+        def theCard = root.data_.getCurrentPlayer().getHand().get(3)
+        def ret = theCard.useOn(WAITING_PLAYER, 1, root)
+
+        def copiedBoard = ret.data_.deepCopy()
+        theCard = root.data_.getCurrentPlayer().getHand().get(1)
+        ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+
+        expect:
+        ret != null;
+
+        assertBoardDelta(copiedBoard, ret.data_) {
+            currentPlayer {
+                playMinion(BloodfenRaptor, 0)
+                mana(8)
                 numCardsUsed(2)
             }
         }
