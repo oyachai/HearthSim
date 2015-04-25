@@ -29,8 +29,8 @@ public class DeathrattleSummonMinionAction extends DeathrattleAction {
         }
 
         int numMinionsToActuallySummon = numMinions_;
-        if (targetPlayer.isBoardFull()) {
-            numMinionsToActuallySummon = 7 - targetPlayer.getNumMinions();
+        if (targetPlayer.getNumEmptyBoardSpace() < numMinionsToActuallySummon) {
+            numMinionsToActuallySummon = targetPlayer.getNumEmptyBoardSpace();
         }
 
         for (int index = 0; index < numMinionsToActuallySummon; ++index) {

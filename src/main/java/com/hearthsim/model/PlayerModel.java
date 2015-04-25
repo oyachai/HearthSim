@@ -185,6 +185,10 @@ public class PlayerModel implements DeepCopyable<PlayerModel>, Iterable<Minion> 
         return this.getNumMinions() >= 7;
     }
 
+    public int getNumEmptyBoardSpace() {
+        return 7 - this.getNumMinions();
+    }
+
     public boolean isHandFull() {
         return this.hand.size() >= 10;
     }
