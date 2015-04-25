@@ -1,8 +1,8 @@
 package com.hearthsim.card.minion.heroes;
 
+import com.hearthsim.card.basic.minion.SilverHandRecruit;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
-import com.hearthsim.card.basic.minion.SilverHandRecruit;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;

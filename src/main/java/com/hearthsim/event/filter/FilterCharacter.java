@@ -22,6 +22,14 @@ public class FilterCharacter implements FilterCharacterInterface {
         return false;
     }
 
+    protected int maxAttack() {
+        return -1;
+    }
+
+    protected int minAttack() {
+        return -1;
+    }
+
     protected boolean excludeSource() {
         return false;
     }
@@ -52,6 +60,14 @@ public class FilterCharacter implements FilterCharacterInterface {
         }
 
         if (this.tribeFilter() != null && targetCharacter.getTribe() != this.tribeFilter()) {
+            return false;
+        }
+
+        if (this.maxAttack() >= 0 && targetCharacter.getTotalAttack() > this.maxAttack()) {
+            return false;
+        }
+
+        if (this.minAttack() >= 0 && targetCharacter.getTotalAttack() < this.minAttack()) {
             return false;
         }
 

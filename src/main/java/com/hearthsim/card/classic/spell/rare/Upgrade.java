@@ -1,10 +1,10 @@
 package com.hearthsim.card.classic.spell.rare;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.classic.weapon.common.HeavyAxe;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.spellcard.SpellTargetableCard;
 import com.hearthsim.card.weapon.WeaponCard;
-import com.hearthsim.card.classic.weapon.common.HeavyAxe;
 import com.hearthsim.event.effect.EffectCharacter;
 import com.hearthsim.event.effect.EffectHero;
 import com.hearthsim.event.effect.EffectHeroWeapon;

@@ -661,6 +661,10 @@
         "class": "com.hearthsim.card.basic.spell.Hex"
     },
     {
+        "name": "Hobgoblin",
+        "class": "com.hearthsim.card.goblinsvsgnomes.minion.epic.Hobgoblin"
+    },
+    {
         "name": "Hogger",
         "class": "com.hearthsim.card.classic.minion.legendary.Hogger"
     },
@@ -1420,6 +1424,10 @@
     {
         "name": "Warbot",
         "class": "com.hearthsim.card.goblinsvsgnomes.minion.common.Warbot"
+    },
+    {
+        "name": "Warsong Commander",
+        "class": "com.hearthsim.card.basic.minion.WarsongCommander"
     },
     {
         "name": "Water Elemental",

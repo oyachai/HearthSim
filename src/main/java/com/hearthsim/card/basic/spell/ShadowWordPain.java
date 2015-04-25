@@ -1,13 +1,9 @@
 package com.hearthsim.card.basic.spell;
 
-import com.hearthsim.card.Card;
-import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellTargetableCard;
 import com.hearthsim.event.effect.EffectCharacter;
 import com.hearthsim.event.filter.FilterCharacter;
 import com.hearthsim.event.filter.FilterCharacterTargetedSpell;
-import com.hearthsim.model.BoardModel;
-import com.hearthsim.model.PlayerSide;
 
 public class ShadowWordPain extends SpellTargetableCard {
 
@@ -23,16 +19,8 @@ public class ShadowWordPain extends SpellTargetableCard {
         }
 
         @Override
-        public boolean targetMatches(PlayerSide originSide, Card origin, PlayerSide targetSide, Minion targetCharacter, BoardModel board) {
-            if (!super.targetMatches(originSide, origin, targetSide, targetCharacter, board)) {
-                return false;
-            }
-
-            if (targetCharacter.getTotalAttack() > 3) {
-                return false;
-            }
-
-            return true;
+        protected int maxAttack() {
+            return 3;
         }
     };
 
