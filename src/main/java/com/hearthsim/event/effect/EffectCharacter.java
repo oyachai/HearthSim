@@ -40,6 +40,12 @@ public interface EffectCharacter<T extends Card> extends EffectInterface<T> {
         return boardState;
     };
 
+    public final static EffectCharacter<Card> GIVE_CHARGE = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+        Minion targetCharacter = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
+        targetCharacter.setCharge(true);
+        return boardState;
+    };
+
     public final static EffectCharacter SILENCE = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
         Minion targetMinion = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
         targetMinion.silenced(targetSide, boardState.data_);

@@ -1422,6 +1422,10 @@
         "class": "com.hearthsim.card.goblinsvsgnomes.minion.common.Warbot"
     },
     {
+        "name": "Warsong Commander",
+        "class": "com.hearthsim.card.basic.minion.WarsongCommander"
+    },
+    {
         "name": "Water Elemental",
         "class": "com.hearthsim.card.basic.minion.WaterElemental"
     },
