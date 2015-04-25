@@ -31,11 +31,6 @@ public class Mechwarper extends Minion implements ActiveEffectHand {
     };
 
     @Override
-    public boolean isActive(PlayerSide originSide, Card origin, BoardModel board) {
-        return !origin.isInHand();
-    }
-
-    @Override
     public SimpleEffectHand getActiveEffect() {
         return Mechwarper.effect;
     }

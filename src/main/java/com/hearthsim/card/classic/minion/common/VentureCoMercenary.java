@@ -14,11 +14,6 @@ public class VentureCoMercenary extends Minion implements ActiveEffectHand {
     private static final SimpleEffectHand effectUndo = new EffectHandManaCost(-3);
 
     @Override
-    public boolean isActive(PlayerSide originSide, Card origin, BoardModel board) {
-        return !origin.isInHand();
-    }
-
-    @Override
     public SimpleEffectHand getActiveEffect() {
         return VentureCoMercenary.effect;
     }

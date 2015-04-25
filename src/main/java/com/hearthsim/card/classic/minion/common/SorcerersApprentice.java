@@ -14,11 +14,6 @@ public class SorcerersApprentice extends Minion implements ActiveEffectHand {
     private static final SimpleEffectHand effectUndo = new EffectHandManaCost(1);
 
     @Override
-    public boolean isActive(PlayerSide originSide, Card origin, BoardModel board) {
-        return !origin.isInHand();
-    }
-
-    @Override
     public SimpleEffectHand getActiveEffect() {
         return SorcerersApprentice.effect;
     }
