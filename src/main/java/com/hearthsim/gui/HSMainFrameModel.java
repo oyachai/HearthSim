@@ -236,6 +236,7 @@ public class HSMainFrameModel implements HSGameEndEventListener {
     }
 
     public void stopSimulation() {
+    	simulation_.stop();
         isRunning_ = false;
     }
 

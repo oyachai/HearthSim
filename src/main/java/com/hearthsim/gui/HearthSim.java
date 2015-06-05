@@ -584,6 +584,9 @@ public class HearthSim implements HSSimulationEventListener {
                     };
                     new Thread(runner).start();
                 }
+                else {
+                	hsModel_.stopSimulation();
+                }
             }
         });
         btnRun.setBackground(HSColors.SUCCESS_BUTTON_COLOR);

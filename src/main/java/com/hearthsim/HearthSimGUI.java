@@ -7,8 +7,8 @@ import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.results.GameResult;
 
 import java.io.IOException;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 public class HearthSimGUI extends HearthSimBase {
@@ -22,6 +22,7 @@ public class HearthSimGUI extends HearthSimBase {
 
     private ArtificialPlayer ai0_;
     private ArtificialPlayer ai1_;
+    private ThreadPoolExecutor queue;
 
 
     /**
@@ -51,7 +52,8 @@ public class HearthSimGUI extends HearthSimBase {
         log.info("running {} sims on {} threads", numSims_, numThreads_);
         long simStartTime = System.currentTimeMillis();
 
-        ExecutorService queue = Executors.newFixedThreadPool(this.numThreads_);
+        // The cast is so we can see how many tasks complete.
+        queue = (ThreadPoolExecutor)Executors.newFixedThreadPool(this.numThreads_);
         for (int i = 0; i < numSims_; ++i) {
             GameThread gThread = new GameThread(i, null);
             queue.execute(gThread);
@@ -66,7 +68,7 @@ public class HearthSimGUI extends HearthSimBase {
         double secondsPerGame = simDeltaTimeSeconds / numSims_;
         String prettySecondsPerGame = String.format("%.2f", secondsPerGame);
 
-        log.info("completed simulation of {} games in {} seconds on {} thread(s)", numSims_, prettyDeltaTimeSeconds, numThreads_);
+        log.info("completed simulation of {} games in {} seconds on {} thread(s)", queue.getCompletedTaskCount(), prettyDeltaTimeSeconds, numThreads_);
         log.info("average time per game: {} seconds", prettySecondsPerGame);
     }
 
@@ -82,6 +84,8 @@ public class HearthSimGUI extends HearthSimBase {
                 deck1_.deepCopy(), gameId % 2);
     }
 
-
-
+	public void stop()
+	{
+		queue.shutdownNow();
+	}
 }

@@ -132,4 +132,9 @@ public class HSSimulation {
         }
     }
 
+	public void stop()
+	{
+		simulation_.stop();
+	}
+
 }
