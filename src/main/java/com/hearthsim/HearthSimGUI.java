@@ -5,9 +5,11 @@ import com.hearthsim.card.minion.Hero;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.results.GameResult;
-import com.hearthsim.util.ThreadQueue;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class HearthSimGUI extends HearthSimBase {
     private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
@@ -47,16 +49,25 @@ public class HearthSimGUI extends HearthSimBase {
     @Override
     public void run() throws IOException, InterruptedException {
         log.info("running {} sims on {} threads", numSims_, numThreads_);
+        long simStartTime = System.currentTimeMillis();
 
-        ThreadQueue tQueue = new ThreadQueue(numThreads_);
+        ExecutorService queue = Executors.newFixedThreadPool(this.numThreads_);
         for (int i = 0; i < numSims_; ++i) {
             GameThread gThread = new GameThread(i, null);
-            tQueue.queue(gThread);
+            queue.execute(gThread);
         }
+        
+        queue.shutdown();
+        queue.awaitTermination(Long.MAX_VALUE, TimeUnit.DAYS);
+        
+        long simEndTime = System.currentTimeMillis();
+        double  simDeltaTimeSeconds = (simEndTime - simStartTime) / 1000.0;
+        String prettyDeltaTimeSeconds = String.format("%.2f", simDeltaTimeSeconds);
+        double secondsPerGame = simDeltaTimeSeconds / numSims_;
+        String prettySecondsPerGame = String.format("%.2f", secondsPerGame);
 
-        tQueue.runQueue();
-
-        log.info("done");
+        log.info("completed simulation of {} games in {} seconds on {} thread(s)", numSims_, prettyDeltaTimeSeconds, numThreads_);
+        log.info("average time per game: {} seconds", prettySecondsPerGame);
     }
 
     @Override

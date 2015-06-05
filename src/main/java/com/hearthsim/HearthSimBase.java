@@ -11,13 +11,15 @@ import com.hearthsim.model.PlayerModel;
 import com.hearthsim.player.playercontroller.ArtificialPlayer;
 import com.hearthsim.results.GameResult;
 import com.hearthsim.results.GameResultSummary;
-import com.hearthsim.util.ThreadQueue;
 
 import java.io.*;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public abstract class HearthSimBase {
 
@@ -121,13 +123,14 @@ public abstract class HearthSimBase {
         Path outputFilePath = FileSystems.getDefault().getPath(rootPath_.toString(), gameResultFileName_);
         Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outputFilePath.toString()), "utf-8"));
 
-        ThreadQueue tQueue = new ThreadQueue(numThreads_);
+        ExecutorService taskQueue = Executors.newFixedThreadPool(this.numThreads_);
         for (int i = 0; i < numSims_; ++i) {
             GameThread gThread = new GameThread(i, writer);
-            tQueue.queue(gThread);
+            taskQueue.execute(gThread);
         }
 
-        tQueue.runQueue();
+        taskQueue.shutdown();
+        taskQueue.awaitTermination(Long.MAX_VALUE, TimeUnit.DAYS);
         writer.close();
 
         long simEndTime = System.currentTimeMillis();
