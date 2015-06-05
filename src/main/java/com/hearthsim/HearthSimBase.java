@@ -2,7 +2,6 @@ package com.hearthsim;
 
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
-import com.hearthsim.event.HSGameEndEventListener;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.exception.HSInvalidParamFileException;
 import com.hearthsim.exception.HSParamNotFoundException;
@@ -15,13 +14,12 @@ import com.hearthsim.results.GameResultSummary;
 import java.io.*;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Observable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-public abstract class HearthSimBase {
+public abstract class HearthSimBase extends Observable {
 
     private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
 
@@ -32,10 +30,6 @@ public abstract class HearthSimBase {
 
     protected Path aiParamFilePath0_;
     protected Path aiParamFilePath1_;
-
-    private List<HSGameEndEventListener> gameEndListeners_;
-
-    private Object lockObject = new Object();
 
     /**
      * Constructor
@@ -53,13 +47,11 @@ public abstract class HearthSimBase {
         aiParamFilePath0_ = FileSystems.getDefault().getPath(rootPath_.toString(), masterParam.getString("aiParamFilePath0"));
         aiParamFilePath1_ = FileSystems.getDefault().getPath(rootPath_.toString(), masterParam.getString("aiParamFilePath1"));
         gameResultFileName_ = masterParam.getString("output_file", "gameres.txt");
-        gameEndListeners_ = new ArrayList<>();
     }
 
     HearthSimBase(int numSimulations, int numThreads) {
         numSims_ = numSimulations;
         numThreads_ = numThreads;
-        gameEndListeners_ = new ArrayList<>();
     }
 
     /**
@@ -142,6 +134,18 @@ public abstract class HearthSimBase {
         log.info("completed simulation of {} games in {} seconds on {} thread(s)", numSims_, prettyDeltaTimeSeconds, numThreads_);
         log.info("average time per game: {} seconds", prettySecondsPerGame);
     }
+    
+    @Override
+    public synchronized void notifyObservers(Object o)
+    {
+    	super.notifyObservers(o);
+    }
+    
+    @Override
+    public synchronized void notifyObservers()
+    {
+    	this.notifyObservers(null);
+    }
 
 
     class GameThread implements Runnable {
@@ -167,24 +171,12 @@ public abstract class HearthSimBase {
                         writer_.flush();
                     }
                 }
-                synchronized(lockObject) {
-                    log.info("game " + gameId_ + ", player " + res.winnerPlayerIndex_ + " wins");
-                    for (HSGameEndEventListener listener : gameEndListeners_) {
-                        listener.gameEnded(res);
-                    }
-                }
+                
+                setChanged();
+                notifyObservers(res);
             } catch (HSException | IOException e) {
                 log.error("Error! " + e);
             }
         }
     }
-
-    public void addGameEndListener(HSGameEndEventListener toAdd) {
-        gameEndListeners_.add(toAdd);
-    }
-
-    public void removeGameEndListener(HSGameEndEventListener toAdd) {
-        gameEndListeners_.remove(toAdd);
-    }
-
 }

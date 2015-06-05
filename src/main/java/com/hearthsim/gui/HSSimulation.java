@@ -48,7 +48,7 @@ public class HSSimulation {
         try {
             this.fireStartEvent();
             simulation_ = new HearthSimGUI(config_.numSimulations_, config_.numThreads_, hero0_, deck0_, ai0_, hero1_, deck1_, ai1_);
-            simulation_.addGameEndListener(model_);
+            simulation_.addObserver(model_);
             simulation_.run();
             this.fireFinishEvent();
         } catch (IOException | InterruptedException e) {

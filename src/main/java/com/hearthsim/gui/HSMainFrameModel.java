@@ -3,9 +3,11 @@ package com.hearthsim.gui;
 import com.hearthsim.event.HSGameEndEventListener;
 import com.hearthsim.player.playercontroller.BruteForceSearchAI;
 import com.hearthsim.results.GameResult;
+
 import org.apache.commons.math3.distribution.BetaDistribution;
 
 import java.util.ArrayList;
+import java.util.Observable;
 
 public class HSMainFrameModel implements HSGameEndEventListener {
 
@@ -220,7 +222,7 @@ public class HSMainFrameModel implements HSGameEndEventListener {
     }
 
     @Override
-    public void gameEnded(GameResult result) {
+    public synchronized void gameEnded(GameResult result) {
         gameStats_.add(result);
         view_.updatePlotPanel();
         view_.updateInfoPanel();
@@ -243,4 +245,10 @@ public class HSMainFrameModel implements HSGameEndEventListener {
     public void resetSimulationResults() {
         gameStats_.reset();
     }
+
+	@Override
+	public void update(Observable o, Object arg)
+	{
+		gameEnded((GameResult)arg);
+	}
 }
