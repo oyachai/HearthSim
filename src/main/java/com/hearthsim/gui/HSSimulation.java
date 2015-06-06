@@ -47,8 +47,10 @@ public class HSSimulation {
     public void run() {
         try {
             this.fireStartEvent();
-            simulation_ = new HearthSimGUI(config_.numSimulations_, config_.numThreads_, hero0_, deck0_, ai0_, hero1_, deck1_, ai1_);
-            simulation_.addGameEndListener(model_);
+            simulation_ = new HearthSimGUI(config_.numSimulations_,
+                    config_.numThreads_, hero0_, deck0_, ai0_, hero1_, deck1_,
+                    ai1_);
+            simulation_.addObserver(model_);
             simulation_.run();
             this.fireFinishEvent();
         } catch (IOException | InterruptedException e) {
@@ -57,7 +59,6 @@ public class HSSimulation {
             this.fireFinishEvent();
         }
     }
-
 
     public ArtificialPlayer getAI_p0() {
         return ai0_;
@@ -115,7 +116,6 @@ public class HSSimulation {
         this.config_ = config_;
     }
 
-
     public void addSimulationEventListener(HSSimulationEventListener listener) {
         listeners_.add(listener);
     }
@@ -130,6 +130,10 @@ public class HSSimulation {
         for (HSSimulationEventListener listener : listeners_) {
             listener.simulationFinished();
         }
+    }
+
+    public void stop() {
+        simulation_.stop();
     }
 
 }

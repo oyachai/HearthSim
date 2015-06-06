@@ -66,7 +66,6 @@ public class HearthSim implements HSSimulationEventListener {
 
     private Plot currentShownPlot_;
 
-
     /**
      * Launch the application.
      */
@@ -109,37 +108,53 @@ public class HearthSim implements HSSimulationEventListener {
         Player0Panel.setBorder(new MatteBorder(0, 0, 0, 1, Color.GRAY));
         Player0Panel.setOpaque(false);
         Player0Panel.setBackground(Color.DARK_GRAY);
-        springLayout.putConstraint(SpringLayout.NORTH, Player0Panel, 0, SpringLayout.NORTH, frame.getContentPane());
-        springLayout.putConstraint(SpringLayout.WEST, Player0Panel, 0, SpringLayout.WEST, frame.getContentPane());
-        springLayout.putConstraint(SpringLayout.SOUTH, Player0Panel, 0, SpringLayout.SOUTH, frame.getContentPane());
-        springLayout.putConstraint(SpringLayout.EAST, Player0Panel, 200, SpringLayout.WEST, frame.getContentPane());
+        springLayout.putConstraint(SpringLayout.NORTH, Player0Panel, 0,
+                SpringLayout.NORTH, frame.getContentPane());
+        springLayout.putConstraint(SpringLayout.WEST, Player0Panel, 0,
+                SpringLayout.WEST, frame.getContentPane());
+        springLayout.putConstraint(SpringLayout.SOUTH, Player0Panel, 0,
+                SpringLayout.SOUTH, frame.getContentPane());
+        springLayout.putConstraint(SpringLayout.EAST, Player0Panel, 200,
+                SpringLayout.WEST, frame.getContentPane());
         frame.getContentPane().add(Player0Panel);
         SpringLayout sl_Player0Panel = new SpringLayout();
         Player0Panel.setLayout(sl_Player0Panel);
 
         JPanel HeroPane_0 = new JPanel();
-        sl_Player0Panel.putConstraint(SpringLayout.SOUTH, HeroPane_0, 50, SpringLayout.NORTH, Player0Panel);
+        sl_Player0Panel.putConstraint(SpringLayout.SOUTH, HeroPane_0, 50,
+                SpringLayout.NORTH, Player0Panel);
         HeroPane_0.setOpaque(false);
         HeroPane_0.setBackground(Color.DARK_GRAY);
-        sl_Player0Panel.putConstraint(SpringLayout.NORTH, HeroPane_0, 0, SpringLayout.NORTH, Player0Panel);
-        sl_Player0Panel.putConstraint(SpringLayout.WEST, HeroPane_0, 0, SpringLayout.WEST, Player0Panel);
-        sl_Player0Panel.putConstraint(SpringLayout.EAST, HeroPane_0, 0, SpringLayout.EAST, Player0Panel);
-        springLayout.putConstraint(SpringLayout.NORTH, HeroPane_0, 0, SpringLayout.NORTH, Player0Panel);
-        springLayout.putConstraint(SpringLayout.WEST, HeroPane_0, 0, SpringLayout.WEST, Player0Panel);
-        springLayout.putConstraint(SpringLayout.SOUTH, HeroPane_0, 50, SpringLayout.NORTH, Player0Panel);
-        springLayout.putConstraint(SpringLayout.EAST, HeroPane_0, 0, SpringLayout.EAST, Player0Panel);
+        sl_Player0Panel.putConstraint(SpringLayout.NORTH, HeroPane_0, 0,
+                SpringLayout.NORTH, Player0Panel);
+        sl_Player0Panel.putConstraint(SpringLayout.WEST, HeroPane_0, 0,
+                SpringLayout.WEST, Player0Panel);
+        sl_Player0Panel.putConstraint(SpringLayout.EAST, HeroPane_0, 0,
+                SpringLayout.EAST, Player0Panel);
+        springLayout.putConstraint(SpringLayout.NORTH, HeroPane_0, 0,
+                SpringLayout.NORTH, Player0Panel);
+        springLayout.putConstraint(SpringLayout.WEST, HeroPane_0, 0,
+                SpringLayout.WEST, Player0Panel);
+        springLayout.putConstraint(SpringLayout.SOUTH, HeroPane_0, 50,
+                SpringLayout.NORTH, Player0Panel);
+        springLayout.putConstraint(SpringLayout.EAST, HeroPane_0, 0,
+                SpringLayout.EAST, Player0Panel);
         Player0Panel.add(HeroPane_0);
 
         JScrollPane DeckPane_0 = new JScrollPane();
-        sl_Player0Panel.putConstraint(SpringLayout.WEST, DeckPane_0, 5, SpringLayout.WEST, Player0Panel);
-        DeckPane_0.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-        DeckPane_0.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        sl_Player0Panel.putConstraint(SpringLayout.WEST, DeckPane_0, 5,
+                SpringLayout.WEST, Player0Panel);
+        DeckPane_0
+                .setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+        DeckPane_0
+                .setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         DeckPane_0.setOpaque(false);
         DeckPane_0.setBackground(Color.DARK_GRAY);
         DeckPane_0.setLayout(new ScrollPaneLayout());
         DeckPane_0.getViewport().setOpaque(false);
         DeckPane_0.setBorder(BorderFactory.createEmptyBorder());
-        sl_Player0Panel.putConstraint(SpringLayout.NORTH, DeckPane_0, 0, SpringLayout.SOUTH, HeroPane_0);
+        sl_Player0Panel.putConstraint(SpringLayout.NORTH, DeckPane_0, 0,
+                SpringLayout.SOUTH, HeroPane_0);
         HeroPane_0.setLayout(null);
 
         lblHero_0 = new JLabel("Hero0");
@@ -155,11 +170,13 @@ public class HearthSim implements HSSimulationEventListener {
         btnDeckCreate_0.setForeground(Color.WHITE);
         HeroPane_0.add(btnDeckCreate_0);
 
-        sl_Player0Panel.putConstraint(SpringLayout.EAST, DeckPane_0, 0, SpringLayout.EAST, Player0Panel);
+        sl_Player0Panel.putConstraint(SpringLayout.EAST, DeckPane_0, 0,
+                SpringLayout.EAST, Player0Panel);
         Player0Panel.add(DeckPane_0);
 
         JPanel ControlPane_0 = new JPanel();
-        sl_Player0Panel.putConstraint(SpringLayout.SOUTH, DeckPane_0, -20, SpringLayout.NORTH, ControlPane_0);
+        sl_Player0Panel.putConstraint(SpringLayout.SOUTH, DeckPane_0, -20,
+                SpringLayout.NORTH, ControlPane_0);
         ControlPane_0.setBackground(Color.DARK_GRAY);
         ControlPane_0.setOpaque(false);
 
@@ -168,10 +185,14 @@ public class HearthSim implements HSSimulationEventListener {
         deckList_0.setBackground(HSColors.BACKGROUND_COLOR);
         deckList_0.setOpaque(false);
         DeckPane_0.setViewportView(deckList_0);
-        sl_Player0Panel.putConstraint(SpringLayout.NORTH, ControlPane_0, -40, SpringLayout.SOUTH, Player0Panel);
-        sl_Player0Panel.putConstraint(SpringLayout.WEST, ControlPane_0, 0, SpringLayout.WEST, Player0Panel);
-        sl_Player0Panel.putConstraint(SpringLayout.SOUTH, ControlPane_0, 0, SpringLayout.SOUTH, Player0Panel);
-        sl_Player0Panel.putConstraint(SpringLayout.EAST, ControlPane_0, 0, SpringLayout.EAST, Player0Panel);
+        sl_Player0Panel.putConstraint(SpringLayout.NORTH, ControlPane_0, -40,
+                SpringLayout.SOUTH, Player0Panel);
+        sl_Player0Panel.putConstraint(SpringLayout.WEST, ControlPane_0, 0,
+                SpringLayout.WEST, Player0Panel);
+        sl_Player0Panel.putConstraint(SpringLayout.SOUTH, ControlPane_0, 0,
+                SpringLayout.SOUTH, Player0Panel);
+        sl_Player0Panel.putConstraint(SpringLayout.EAST, ControlPane_0, 0,
+                SpringLayout.EAST, Player0Panel);
         Player0Panel.add(ControlPane_0);
 
         SpringLayout sl_ControlPane_0 = new SpringLayout();
@@ -181,30 +202,34 @@ public class HearthSim implements HSSimulationEventListener {
         p0_load.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (fileChooser_ == null) fileChooser_ = new JFileChooser();
+                if (fileChooser_ == null)
+                    fileChooser_ = new JFileChooser();
                 int retVal = fileChooser_.showOpenDialog(frame);
                 if (retVal == JFileChooser.APPROVE_OPTION) {
                     try {
-                        DeckListFile deckList = new DeckListFile(fileChooser_.getSelectedFile().toPath());
-                        ((SortedListModel<ImplementedCard>) deckList_0.getModel()).clear();
-                        for (int indx = 0; indx < deckList.getDeck().getNumCards(); ++indx) {
+                        DeckListFile deckList = new DeckListFile(fileChooser_
+                                .getSelectedFile().toPath());
+                        ((SortedListModel<ImplementedCard>) deckList_0
+                                .getModel()).clear();
+                        for (int indx = 0; indx < deckList.getDeck()
+                                .getNumCards(); ++indx) {
                             Card card = deckList.getDeck().drawCard(indx);
-                            ((SortedListModel<ImplementedCard>) deckList_0.getModel()).addElement(IMPLEMENTED_CARD_LIST.getCardForClass(card.getClass()));
+                            ((SortedListModel<ImplementedCard>) deckList_0
+                                    .getModel())
+                                    .addElement(IMPLEMENTED_CARD_LIST
+                                            .getCardForClass(card.getClass()));
                         }
                         hsModel_.getSimulation().setDeck_p0(deckList.getDeck());
                         hsModel_.getSimulation().setHero_p0(deckList.getHero());
                         lblHero_0.setText(deckList.getHero().getName());
                     } catch (HSInvalidCardException e1) {
                         // TODO Auto-generated catch block
-                        JOptionPane.showMessageDialog(frame,
-                                e1.getMessage(),
-                                "Error",
-                                JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(frame, e1.getMessage(),
+                                "Error", JOptionPane.ERROR_MESSAGE);
                     } catch (HSInvalidHeroException | IOException e1) {
                         // TODO Auto-generated catch block
                         JOptionPane.showMessageDialog(frame,
-                                "Error opening the deck file",
-                                "Error",
+                                "Error opening the deck file", "Error",
                                 JOptionPane.ERROR_MESSAGE);
                     }
                 }
@@ -213,56 +238,83 @@ public class HearthSim implements HSSimulationEventListener {
         p0_load.setForeground(Color.WHITE);
         p0_load.setBackground(HSColors.DEFAULT_BUTTON_COLOR);
         p0_load.setPreferredSize(new Dimension(80, 30));
-        sl_ControlPane_0.putConstraint(SpringLayout.NORTH, p0_load, 5, SpringLayout.NORTH, ControlPane_0);
-        sl_ControlPane_0.putConstraint(SpringLayout.WEST, p0_load, 5, SpringLayout.WEST, ControlPane_0);
+        sl_ControlPane_0.putConstraint(SpringLayout.NORTH, p0_load, 5,
+                SpringLayout.NORTH, ControlPane_0);
+        sl_ControlPane_0.putConstraint(SpringLayout.WEST, p0_load, 5,
+                SpringLayout.WEST, ControlPane_0);
         ControlPane_0.add(p0_load);
 
         JButton p0_save = new HSButton("Save...");
         p0_save.setForeground(Color.WHITE);
         p0_save.setBackground(HSColors.DISABLED_BUTTON_COLOR);
-        sl_ControlPane_0.putConstraint(SpringLayout.EAST, p0_save, -5, SpringLayout.EAST, ControlPane_0);
+        sl_ControlPane_0.putConstraint(SpringLayout.EAST, p0_save, -5,
+                SpringLayout.EAST, ControlPane_0);
         p0_save.setPreferredSize(new Dimension(80, 30));
-        sl_ControlPane_0.putConstraint(SpringLayout.NORTH, p0_save, 5, SpringLayout.NORTH, ControlPane_0);
+        sl_ControlPane_0.putConstraint(SpringLayout.NORTH, p0_save, 5,
+                SpringLayout.NORTH, ControlPane_0);
         ControlPane_0.add(p0_save);
 
         middlePanel = new JPanel();
         middlePanel.setForeground(Color.WHITE);
         middlePanel.setBackground(HSColors.BACKGROUND_COLOR);
-        springLayout.putConstraint(SpringLayout.NORTH, ControlPane, -40, SpringLayout.SOUTH, middlePanel);
-        springLayout.putConstraint(SpringLayout.WEST, ControlPane, 0, SpringLayout.WEST, middlePanel);
-        springLayout.putConstraint(SpringLayout.SOUTH, ControlPane, 0, SpringLayout.SOUTH, middlePanel);
-        springLayout.putConstraint(SpringLayout.EAST, ControlPane, 0, SpringLayout.EAST, middlePanel);
-        springLayout.putConstraint(SpringLayout.NORTH, middlePanel, 0, SpringLayout.NORTH, frame.getContentPane());
-        springLayout.putConstraint(SpringLayout.WEST, middlePanel, 0, SpringLayout.EAST, Player0Panel);
-        springLayout.putConstraint(SpringLayout.SOUTH, middlePanel, 0, SpringLayout.SOUTH, frame.getContentPane());
+        springLayout.putConstraint(SpringLayout.NORTH, ControlPane, -40,
+                SpringLayout.SOUTH, middlePanel);
+        springLayout.putConstraint(SpringLayout.WEST, ControlPane, 0,
+                SpringLayout.WEST, middlePanel);
+        springLayout.putConstraint(SpringLayout.SOUTH, ControlPane, 0,
+                SpringLayout.SOUTH, middlePanel);
+        springLayout.putConstraint(SpringLayout.EAST, ControlPane, 0,
+                SpringLayout.EAST, middlePanel);
+        springLayout.putConstraint(SpringLayout.NORTH, middlePanel, 0,
+                SpringLayout.NORTH, frame.getContentPane());
+        springLayout.putConstraint(SpringLayout.WEST, middlePanel, 0,
+                SpringLayout.EAST, Player0Panel);
+        springLayout.putConstraint(SpringLayout.SOUTH, middlePanel, 0,
+                SpringLayout.SOUTH, frame.getContentPane());
         frame.getContentPane().add(middlePanel);
         SpringLayout sl_middlePanel = new SpringLayout();
-        sl_middlePanel.putConstraint(SpringLayout.NORTH, ControlPane, -40, SpringLayout.SOUTH, middlePanel);
-        sl_middlePanel.putConstraint(SpringLayout.WEST, ControlPane, 0, SpringLayout.WEST, middlePanel);
-        sl_middlePanel.putConstraint(SpringLayout.SOUTH, ControlPane, 0, SpringLayout.SOUTH, middlePanel);
-        sl_middlePanel.putConstraint(SpringLayout.EAST, ControlPane, 0, SpringLayout.EAST, middlePanel);
+        sl_middlePanel.putConstraint(SpringLayout.NORTH, ControlPane, -40,
+                SpringLayout.SOUTH, middlePanel);
+        sl_middlePanel.putConstraint(SpringLayout.WEST, ControlPane, 0,
+                SpringLayout.WEST, middlePanel);
+        sl_middlePanel.putConstraint(SpringLayout.SOUTH, ControlPane, 0,
+                SpringLayout.SOUTH, middlePanel);
+        sl_middlePanel.putConstraint(SpringLayout.EAST, ControlPane, 0,
+                SpringLayout.EAST, middlePanel);
         middlePanel.setLayout(sl_middlePanel);
 
         JPanel InfoPane = new JPanel();
-        sl_middlePanel.putConstraint(SpringLayout.NORTH, InfoPane, 0, SpringLayout.NORTH, middlePanel);
-        sl_middlePanel.putConstraint(SpringLayout.WEST, InfoPane, 0, SpringLayout.WEST, middlePanel);
-        sl_middlePanel.putConstraint(SpringLayout.SOUTH, InfoPane, 240, SpringLayout.NORTH, middlePanel);
-        sl_middlePanel.putConstraint(SpringLayout.EAST, InfoPane, 0, SpringLayout.EAST, middlePanel);
-        springLayout.putConstraint(SpringLayout.NORTH, InfoPane, 0, SpringLayout.NORTH, middlePanel);
-        springLayout.putConstraint(SpringLayout.WEST, InfoPane, 0, SpringLayout.WEST, middlePanel);
-        springLayout.putConstraint(SpringLayout.SOUTH, InfoPane, 250, SpringLayout.NORTH, middlePanel);
-        springLayout.putConstraint(SpringLayout.EAST, InfoPane, 0, SpringLayout.EAST, middlePanel);
+        sl_middlePanel.putConstraint(SpringLayout.NORTH, InfoPane, 0,
+                SpringLayout.NORTH, middlePanel);
+        sl_middlePanel.putConstraint(SpringLayout.WEST, InfoPane, 0,
+                SpringLayout.WEST, middlePanel);
+        sl_middlePanel.putConstraint(SpringLayout.SOUTH, InfoPane, 240,
+                SpringLayout.NORTH, middlePanel);
+        sl_middlePanel.putConstraint(SpringLayout.EAST, InfoPane, 0,
+                SpringLayout.EAST, middlePanel);
+        springLayout.putConstraint(SpringLayout.NORTH, InfoPane, 0,
+                SpringLayout.NORTH, middlePanel);
+        springLayout.putConstraint(SpringLayout.WEST, InfoPane, 0,
+                SpringLayout.WEST, middlePanel);
+        springLayout.putConstraint(SpringLayout.SOUTH, InfoPane, 250,
+                SpringLayout.NORTH, middlePanel);
+        springLayout.putConstraint(SpringLayout.EAST, InfoPane, 0,
+                SpringLayout.EAST, middlePanel);
         middlePanel.add(InfoPane);
         InfoPane.setOpaque(false);
         SpringLayout sl_InfoPane = new SpringLayout();
         InfoPane.setLayout(sl_InfoPane);
 
         JPanel Player0Info = new JPanel();
-        sl_InfoPane.putConstraint(SpringLayout.WEST, Player0Info, 15, SpringLayout.WEST, InfoPane);
-        sl_InfoPane.putConstraint(SpringLayout.SOUTH, Player0Info, 0, SpringLayout.SOUTH, InfoPane);
-        sl_InfoPane.putConstraint(SpringLayout.EAST, Player0Info, 225, SpringLayout.WEST, InfoPane);
+        sl_InfoPane.putConstraint(SpringLayout.WEST, Player0Info, 15,
+                SpringLayout.WEST, InfoPane);
+        sl_InfoPane.putConstraint(SpringLayout.SOUTH, Player0Info, 0,
+                SpringLayout.SOUTH, InfoPane);
+        sl_InfoPane.putConstraint(SpringLayout.EAST, Player0Info, 225,
+                SpringLayout.WEST, InfoPane);
         Player0Info.setOpaque(false);
-        sl_InfoPane.putConstraint(SpringLayout.NORTH, Player0Info, 5, SpringLayout.NORTH, InfoPane);
+        sl_InfoPane.putConstraint(SpringLayout.NORTH, Player0Info, 5,
+                SpringLayout.NORTH, InfoPane);
         InfoPane.add(Player0Info);
 
         JLabel lblLabel1_0 = new JLabel("P0 Wins");
@@ -320,11 +372,15 @@ public class HearthSim implements HSSimulationEventListener {
         Player0Info.add(lblConfNum_0);
 
         JPanel Player1Info = new JPanel();
-        sl_InfoPane.putConstraint(SpringLayout.WEST, Player1Info, -225, SpringLayout.EAST, InfoPane);
-        sl_InfoPane.putConstraint(SpringLayout.SOUTH, Player1Info, 0, SpringLayout.SOUTH, InfoPane);
-        sl_InfoPane.putConstraint(SpringLayout.EAST, Player1Info, -15, SpringLayout.EAST, InfoPane);
+        sl_InfoPane.putConstraint(SpringLayout.WEST, Player1Info, -225,
+                SpringLayout.EAST, InfoPane);
+        sl_InfoPane.putConstraint(SpringLayout.SOUTH, Player1Info, 0,
+                SpringLayout.SOUTH, InfoPane);
+        sl_InfoPane.putConstraint(SpringLayout.EAST, Player1Info, -15,
+                SpringLayout.EAST, InfoPane);
         Player1Info.setOpaque(false);
-        sl_InfoPane.putConstraint(SpringLayout.NORTH, Player1Info, 5, SpringLayout.NORTH, InfoPane);
+        sl_InfoPane.putConstraint(SpringLayout.NORTH, Player1Info, 5,
+                SpringLayout.NORTH, InfoPane);
         InfoPane.add(Player1Info);
 
         JLabel lblLabel1_1 = new JLabel("P1 Wins");
@@ -384,24 +440,37 @@ public class HearthSim implements HSSimulationEventListener {
         JPanel generalInfo = new JPanel();
         generalInfo.setForeground(Color.WHITE);
         generalInfo.setBackground(HSColors.BACKGROUND_COLOR);
-        sl_InfoPane.putConstraint(SpringLayout.NORTH, generalInfo, 0, SpringLayout.NORTH, InfoPane);
-        sl_InfoPane.putConstraint(SpringLayout.WEST, generalInfo, 0, SpringLayout.EAST, Player0Info);
-        sl_InfoPane.putConstraint(SpringLayout.SOUTH, generalInfo, 0, SpringLayout.SOUTH, InfoPane);
-        sl_InfoPane.putConstraint(SpringLayout.EAST, generalInfo, 0, SpringLayout.WEST, Player1Info);
+        sl_InfoPane.putConstraint(SpringLayout.NORTH, generalInfo, 0,
+                SpringLayout.NORTH, InfoPane);
+        sl_InfoPane.putConstraint(SpringLayout.WEST, generalInfo, 0,
+                SpringLayout.EAST, Player0Info);
+        sl_InfoPane.putConstraint(SpringLayout.SOUTH, generalInfo, 0,
+                SpringLayout.SOUTH, InfoPane);
+        sl_InfoPane.putConstraint(SpringLayout.EAST, generalInfo, 0,
+                SpringLayout.WEST, Player1Info);
         InfoPane.add(generalInfo);
 
         JPanel Player1Panel = new JPanel();
-        springLayout.putConstraint(SpringLayout.EAST, middlePanel, 0, SpringLayout.WEST, Player1Panel);
+        springLayout.putConstraint(SpringLayout.EAST, middlePanel, 0,
+                SpringLayout.WEST, Player1Panel);
 
         JPanel PlotPane = new JPanel();
-        sl_middlePanel.putConstraint(SpringLayout.NORTH, PlotPane, 0, SpringLayout.SOUTH, InfoPane);
-        sl_middlePanel.putConstraint(SpringLayout.WEST, PlotPane, 0, SpringLayout.WEST, middlePanel);
-        sl_middlePanel.putConstraint(SpringLayout.SOUTH, PlotPane, 0, SpringLayout.NORTH, ControlPane);
-        sl_middlePanel.putConstraint(SpringLayout.EAST, PlotPane, 0, SpringLayout.EAST, middlePanel);
-        springLayout.putConstraint(SpringLayout.NORTH, PlotPane, 0, SpringLayout.SOUTH, InfoPane);
-        springLayout.putConstraint(SpringLayout.WEST, PlotPane, 0, SpringLayout.WEST, middlePanel);
-        springLayout.putConstraint(SpringLayout.SOUTH, PlotPane, 0, SpringLayout.NORTH, middlePanel);
-        springLayout.putConstraint(SpringLayout.EAST, PlotPane, 0, SpringLayout.EAST, middlePanel);
+        sl_middlePanel.putConstraint(SpringLayout.NORTH, PlotPane, 0,
+                SpringLayout.SOUTH, InfoPane);
+        sl_middlePanel.putConstraint(SpringLayout.WEST, PlotPane, 0,
+                SpringLayout.WEST, middlePanel);
+        sl_middlePanel.putConstraint(SpringLayout.SOUTH, PlotPane, 0,
+                SpringLayout.NORTH, ControlPane);
+        sl_middlePanel.putConstraint(SpringLayout.EAST, PlotPane, 0,
+                SpringLayout.EAST, middlePanel);
+        springLayout.putConstraint(SpringLayout.NORTH, PlotPane, 0,
+                SpringLayout.SOUTH, InfoPane);
+        springLayout.putConstraint(SpringLayout.WEST, PlotPane, 0,
+                SpringLayout.WEST, middlePanel);
+        springLayout.putConstraint(SpringLayout.SOUTH, PlotPane, 0,
+                SpringLayout.NORTH, middlePanel);
+        springLayout.putConstraint(SpringLayout.EAST, PlotPane, 0,
+                SpringLayout.EAST, middlePanel);
         middlePanel.add(PlotPane);
         PlotPane.setBorder(null);
         PlotPane.setOpaque(false);
@@ -409,24 +478,29 @@ public class HearthSim implements HSSimulationEventListener {
         PlotPane.setLayout(sl_PlotPane);
 
         JPanel plotTabPane = new JPanel();
-        sl_PlotPane.putConstraint(SpringLayout.SOUTH, plotTabPane, 20, SpringLayout.NORTH, PlotPane);
+        sl_PlotPane.putConstraint(SpringLayout.SOUTH, plotTabPane, 20,
+                SpringLayout.NORTH, PlotPane);
         FlowLayout flowLayout = (FlowLayout) plotTabPane.getLayout();
         flowLayout.setVgap(1);
         flowLayout.setHgap(1);
         plotTabPane.setBackground(HSColors.BACKGROUND_COLOR);
-        sl_PlotPane.putConstraint(SpringLayout.NORTH, plotTabPane, 0, SpringLayout.NORTH, PlotPane);
-        sl_PlotPane.putConstraint(SpringLayout.WEST, plotTabPane, 0, SpringLayout.WEST, PlotPane);
-        sl_PlotPane.putConstraint(SpringLayout.EAST, plotTabPane, 0, SpringLayout.EAST, PlotPane);
+        sl_PlotPane.putConstraint(SpringLayout.NORTH, plotTabPane, 0,
+                SpringLayout.NORTH, PlotPane);
+        sl_PlotPane.putConstraint(SpringLayout.WEST, plotTabPane, 0,
+                SpringLayout.WEST, PlotPane);
+        sl_PlotPane.putConstraint(SpringLayout.EAST, plotTabPane, 0,
+                SpringLayout.EAST, PlotPane);
         PlotPane.add(plotTabPane);
 
         plotCardPane = new JPanel();
-        sl_PlotPane.putConstraint(SpringLayout.NORTH, plotCardPane, 0, SpringLayout.SOUTH, plotTabPane);
+        sl_PlotPane.putConstraint(SpringLayout.NORTH, plotCardPane, 0,
+                SpringLayout.SOUTH, plotTabPane);
 
         HSTabButton tabAveMinions = new HSTabButton("Ave # Minions");
         tabAveMinions.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                CardLayout cl = (CardLayout)(plotCardPane.getLayout());
+                CardLayout cl = (CardLayout) (plotCardPane.getLayout());
                 currentShownPlot_ = plot_aveMinions;
                 cl.show(plotCardPane, "plot_aveMinions");
                 HearthSim.this.updatePlotPanel();
@@ -442,7 +516,7 @@ public class HearthSim implements HSSimulationEventListener {
         tabAveCards.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                CardLayout cl = (CardLayout)(plotCardPane.getLayout());
+                CardLayout cl = (CardLayout) (plotCardPane.getLayout());
                 currentShownPlot_ = plot_aveCards;
                 cl.show(plotCardPane, "plot_aveCards");
                 HearthSim.this.updatePlotPanel();
@@ -458,7 +532,7 @@ public class HearthSim implements HSSimulationEventListener {
         tabAveHealth.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                CardLayout cl = (CardLayout)(plotCardPane.getLayout());
+                CardLayout cl = (CardLayout) (plotCardPane.getLayout());
                 currentShownPlot_ = plot_aveHealth;
                 cl.show(plotCardPane, "plot_aveHealth");
                 HearthSim.this.updatePlotPanel();
@@ -470,9 +544,12 @@ public class HearthSim implements HSSimulationEventListener {
         tabAveHealth.setForeground(HSColors.TEXT_COLOR);
         plotTabPane.add(tabAveHealth);
 
-        sl_PlotPane.putConstraint(SpringLayout.WEST, plotCardPane, 0, SpringLayout.WEST, PlotPane);
-        sl_PlotPane.putConstraint(SpringLayout.SOUTH, plotCardPane, 0, SpringLayout.SOUTH, PlotPane);
-        sl_PlotPane.putConstraint(SpringLayout.EAST, plotCardPane, 0, SpringLayout.EAST, PlotPane);
+        sl_PlotPane.putConstraint(SpringLayout.WEST, plotCardPane, 0,
+                SpringLayout.WEST, PlotPane);
+        sl_PlotPane.putConstraint(SpringLayout.SOUTH, plotCardPane, 0,
+                SpringLayout.SOUTH, PlotPane);
+        sl_PlotPane.putConstraint(SpringLayout.EAST, plotCardPane, 0,
+                SpringLayout.EAST, PlotPane);
         PlotPane.add(plotCardPane);
         plotCardPane.setLayout(new CardLayout(0, 0));
 
@@ -531,7 +608,8 @@ public class HearthSim implements HSSimulationEventListener {
         btnSetting.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                HSSimulationSettingsFrame settingsFrame = new HSSimulationSettingsFrame(frame, hsModel_.getSimulation());
+                HSSimulationSettingsFrame settingsFrame = new HSSimulationSettingsFrame(
+                        frame, hsModel_.getSimulation());
                 settingsFrame.setVisible(true);
             }
         });
@@ -563,15 +641,13 @@ public class HearthSim implements HSSimulationEventListener {
                 if (!isRunning_) {
                     if (hsModel_.getSimulation().getDeck_p0() == null) {
                         JOptionPane.showMessageDialog(frame,
-                                "Player0 deck is missing",
-                                "Error",
+                                "Player0 deck is missing", "Error",
                                 JOptionPane.ERROR_MESSAGE);
                         return;
                     }
                     if (hsModel_.getSimulation().getDeck_p1() == null) {
                         JOptionPane.showMessageDialog(frame,
-                                "Player1 deck is missing",
-                                "Error",
+                                "Player1 deck is missing", "Error",
                                 JOptionPane.ERROR_MESSAGE);
                         return;
                     }
@@ -583,6 +659,8 @@ public class HearthSim implements HSSimulationEventListener {
                         }
                     };
                     new Thread(runner).start();
+                } else {
+                    hsModel_.stopSimulation();
                 }
             }
         });
@@ -591,22 +669,29 @@ public class HearthSim implements HSSimulationEventListener {
         ControlPane.add(btnRun);
         Player1Panel.setBorder(new MatteBorder(0, 1, 0, 0, Color.GRAY));
         Player1Panel.setOpaque(false);
-        springLayout.putConstraint(SpringLayout.NORTH, Player1Panel, 0, SpringLayout.NORTH, frame.getContentPane());
-        springLayout.putConstraint(SpringLayout.WEST, Player1Panel, -200, SpringLayout.EAST, frame.getContentPane());
-        springLayout.putConstraint(SpringLayout.SOUTH, Player1Panel, 0, SpringLayout.SOUTH, frame.getContentPane());
-        springLayout.putConstraint(SpringLayout.EAST, Player1Panel, 0, SpringLayout.EAST, frame.getContentPane());
-
+        springLayout.putConstraint(SpringLayout.NORTH, Player1Panel, 0,
+                SpringLayout.NORTH, frame.getContentPane());
+        springLayout.putConstraint(SpringLayout.WEST, Player1Panel, -200,
+                SpringLayout.EAST, frame.getContentPane());
+        springLayout.putConstraint(SpringLayout.SOUTH, Player1Panel, 0,
+                SpringLayout.SOUTH, frame.getContentPane());
+        springLayout.putConstraint(SpringLayout.EAST, Player1Panel, 0,
+                SpringLayout.EAST, frame.getContentPane());
 
         frame.getContentPane().add(Player1Panel);
         SpringLayout sl_Player1Panel = new SpringLayout();
         Player1Panel.setLayout(sl_Player1Panel);
 
         JPanel HeroPane_1 = new JPanel();
-        sl_Player1Panel.putConstraint(SpringLayout.SOUTH, HeroPane_1, 50, SpringLayout.NORTH, Player1Panel);
+        sl_Player1Panel.putConstraint(SpringLayout.SOUTH, HeroPane_1, 50,
+                SpringLayout.NORTH, Player1Panel);
         HeroPane_1.setOpaque(false);
-        sl_Player1Panel.putConstraint(SpringLayout.NORTH, HeroPane_1, 0, SpringLayout.NORTH, Player1Panel);
-        sl_Player1Panel.putConstraint(SpringLayout.WEST, HeroPane_1, 0, SpringLayout.WEST, Player1Panel);
-        sl_Player1Panel.putConstraint(SpringLayout.EAST, HeroPane_1, 0, SpringLayout.EAST, Player1Panel);
+        sl_Player1Panel.putConstraint(SpringLayout.NORTH, HeroPane_1, 0,
+                SpringLayout.NORTH, Player1Panel);
+        sl_Player1Panel.putConstraint(SpringLayout.WEST, HeroPane_1, 0,
+                SpringLayout.WEST, Player1Panel);
+        sl_Player1Panel.putConstraint(SpringLayout.EAST, HeroPane_1, 0,
+                SpringLayout.EAST, Player1Panel);
         Player1Panel.add(HeroPane_1);
 
         JButton btnDeckCreate_1 = new HSDeckCreateButton();
@@ -615,15 +700,16 @@ public class HearthSim implements HSSimulationEventListener {
         btnDeckCreate_1.setForeground(Color.WHITE);
         HeroPane_1.add(btnDeckCreate_1);
 
-
         JScrollPane DeckPane_1 = new JScrollPane();
-        sl_Player1Panel.putConstraint(SpringLayout.WEST, DeckPane_1, 5, SpringLayout.WEST, Player1Panel);
+        sl_Player1Panel.putConstraint(SpringLayout.WEST, DeckPane_1, 5,
+                SpringLayout.WEST, Player1Panel);
         DeckPane_1.setOpaque(false);
         DeckPane_1.setBackground(Color.DARK_GRAY);
         DeckPane_1.setLayout(new ScrollPaneLayout());
         DeckPane_1.getViewport().setOpaque(false);
         DeckPane_1.setBorder(BorderFactory.createEmptyBorder());
-        sl_Player1Panel.putConstraint(SpringLayout.NORTH, DeckPane_1, 0, SpringLayout.SOUTH, HeroPane_1);
+        sl_Player1Panel.putConstraint(SpringLayout.NORTH, DeckPane_1, 0,
+                SpringLayout.SOUTH, HeroPane_1);
         HeroPane_1.setLayout(null);
 
         lblHero_1 = new JLabel("Hero1");
@@ -632,16 +718,22 @@ public class HearthSim implements HSSimulationEventListener {
         lblHero_1.setForeground(Color.WHITE);
         lblHero_1.setFont(new Font("Helvetica Neue", Font.PLAIN, 20));
         HeroPane_1.add(lblHero_1);
-        sl_Player1Panel.putConstraint(SpringLayout.EAST, DeckPane_1, 0, SpringLayout.EAST, Player1Panel);
+        sl_Player1Panel.putConstraint(SpringLayout.EAST, DeckPane_1, 0,
+                SpringLayout.EAST, Player1Panel);
         Player1Panel.add(DeckPane_1);
 
         JPanel ControlPane_1 = new JPanel();
-        sl_Player1Panel.putConstraint(SpringLayout.SOUTH, DeckPane_1, -20, SpringLayout.NORTH, ControlPane_1);
+        sl_Player1Panel.putConstraint(SpringLayout.SOUTH, DeckPane_1, -20,
+                SpringLayout.NORTH, ControlPane_1);
         ControlPane_1.setOpaque(false);
-        sl_Player1Panel.putConstraint(SpringLayout.NORTH, ControlPane_1, -40, SpringLayout.SOUTH, Player1Panel);
-        sl_Player1Panel.putConstraint(SpringLayout.WEST, ControlPane_1, 0, SpringLayout.WEST, Player1Panel);
-        sl_Player1Panel.putConstraint(SpringLayout.SOUTH, ControlPane_1, 0, SpringLayout.SOUTH, Player1Panel);
-        sl_Player1Panel.putConstraint(SpringLayout.EAST, ControlPane_1, 0, SpringLayout.EAST, Player1Panel);
+        sl_Player1Panel.putConstraint(SpringLayout.NORTH, ControlPane_1, -40,
+                SpringLayout.SOUTH, Player1Panel);
+        sl_Player1Panel.putConstraint(SpringLayout.WEST, ControlPane_1, 0,
+                SpringLayout.WEST, Player1Panel);
+        sl_Player1Panel.putConstraint(SpringLayout.SOUTH, ControlPane_1, 0,
+                SpringLayout.SOUTH, Player1Panel);
+        sl_Player1Panel.putConstraint(SpringLayout.EAST, ControlPane_1, 0,
+                SpringLayout.EAST, Player1Panel);
         Player1Panel.add(ControlPane_1);
         SpringLayout sl_ControlPane_1 = new SpringLayout();
         ControlPane_1.setLayout(sl_ControlPane_1);
@@ -651,46 +743,56 @@ public class HearthSim implements HSSimulationEventListener {
         deckList_1.setBackground(HSColors.BACKGROUND_COLOR);
         deckList_1.setOpaque(false);
         DeckPane_1.setViewportView(deckList_1);
-        sl_Player1Panel.putConstraint(SpringLayout.NORTH, ControlPane_1, -40, SpringLayout.SOUTH, Player1Panel);
-        sl_Player1Panel.putConstraint(SpringLayout.WEST, ControlPane_1, 0, SpringLayout.WEST, Player1Panel);
-        sl_Player1Panel.putConstraint(SpringLayout.SOUTH, ControlPane_1, 0, SpringLayout.SOUTH, Player1Panel);
-        sl_Player1Panel.putConstraint(SpringLayout.EAST, ControlPane_1, 0, SpringLayout.EAST, Player1Panel);
+        sl_Player1Panel.putConstraint(SpringLayout.NORTH, ControlPane_1, -40,
+                SpringLayout.SOUTH, Player1Panel);
+        sl_Player1Panel.putConstraint(SpringLayout.WEST, ControlPane_1, 0,
+                SpringLayout.WEST, Player1Panel);
+        sl_Player1Panel.putConstraint(SpringLayout.SOUTH, ControlPane_1, 0,
+                SpringLayout.SOUTH, Player1Panel);
+        sl_Player1Panel.putConstraint(SpringLayout.EAST, ControlPane_1, 0,
+                SpringLayout.EAST, Player1Panel);
 
         HSButton p1_Load = new HSButton("Load...");
         p1_Load.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (fileChooser_ == null) fileChooser_ = new JFileChooser();
+                if (fileChooser_ == null)
+                    fileChooser_ = new JFileChooser();
                 int retVal = fileChooser_.showOpenDialog(frame);
                 if (retVal == JFileChooser.APPROVE_OPTION) {
                     try {
-                        DeckListFile deckList = new DeckListFile(fileChooser_.getSelectedFile().toPath());
-                        ((SortedListModel<ImplementedCard>) deckList_1.getModel()).clear();
-                        for (int indx = 0; indx < deckList.getDeck().getNumCards(); ++indx) {
+                        DeckListFile deckList = new DeckListFile(fileChooser_
+                                .getSelectedFile().toPath());
+                        ((SortedListModel<ImplementedCard>) deckList_1
+                                .getModel()).clear();
+                        for (int indx = 0; indx < deckList.getDeck()
+                                .getNumCards(); ++indx) {
                             Card card = deckList.getDeck().drawCard(indx);
-                            ((SortedListModel<ImplementedCard>) deckList_1.getModel()).addElement(IMPLEMENTED_CARD_LIST.getCardForClass(card.getClass()));
+                            ((SortedListModel<ImplementedCard>) deckList_1
+                                    .getModel())
+                                    .addElement(IMPLEMENTED_CARD_LIST
+                                            .getCardForClass(card.getClass()));
                         }
                         hsModel_.getSimulation().setDeck_p1(deckList.getDeck());
                         hsModel_.getSimulation().setHero_p1(deckList.getHero());
                         lblHero_1.setText(deckList.getHero().getName());
                     } catch (HSInvalidCardException e1) {
                         // TODO Auto-generated catch block
-                        JOptionPane.showMessageDialog(frame,
-                                e1.getMessage(),
-                                "Error",
-                                JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(frame, e1.getMessage(),
+                                "Error", JOptionPane.ERROR_MESSAGE);
                     } catch (HSInvalidHeroException | IOException e1) {
                         // TODO Auto-generated catch block
                         JOptionPane.showMessageDialog(frame,
-                                "Error opening the deck file",
-                                "Error",
+                                "Error opening the deck file", "Error",
                                 JOptionPane.ERROR_MESSAGE);
                     }
                 }
             }
         });
-        sl_ControlPane_1.putConstraint(SpringLayout.NORTH, p1_Load, 5, SpringLayout.NORTH, ControlPane_1);
-        sl_ControlPane_1.putConstraint(SpringLayout.WEST, p1_Load, 5, SpringLayout.WEST, ControlPane_1);
+        sl_ControlPane_1.putConstraint(SpringLayout.NORTH, p1_Load, 5,
+                SpringLayout.NORTH, ControlPane_1);
+        sl_ControlPane_1.putConstraint(SpringLayout.WEST, p1_Load, 5,
+                SpringLayout.WEST, ControlPane_1);
         p1_Load.setPreferredSize(new Dimension(80, 30));
         p1_Load.setForeground(Color.WHITE);
         p1_Load.setBackground(HSColors.DEFAULT_BUTTON_COLOR);
@@ -700,20 +802,26 @@ public class HearthSim implements HSSimulationEventListener {
         p1_save.setForeground(Color.WHITE);
         p1_save.setBackground(HSColors.DISABLED_BUTTON_COLOR);
         p1_save.setPreferredSize(new Dimension(80, 30));
-        sl_ControlPane_1.putConstraint(SpringLayout.EAST, p1_save, -5, SpringLayout.EAST, ControlPane_1);
-        sl_ControlPane_1.putConstraint(SpringLayout.NORTH, p1_save, 5, SpringLayout.NORTH, ControlPane_1);
+        sl_ControlPane_1.putConstraint(SpringLayout.EAST, p1_save, -5,
+                SpringLayout.EAST, ControlPane_1);
+        sl_ControlPane_1.putConstraint(SpringLayout.NORTH, p1_save, 5,
+                SpringLayout.NORTH, ControlPane_1);
         ControlPane_1.add(p1_save);
 
-        //--------------------------------------------------------------------------------
-        //--------------------------------------------------------------------------------
+        // --------------------------------------------------------------------------------
+        // --------------------------------------------------------------------------------
 
         JPanel cardCountPanel_0 = new JPanel();
         cardCountPanel_0.setBackground(HSColors.BACKGROUND_COLOR);
         cardCountPanel_0.setForeground(HSColors.TEXT_COLOR);
-        sl_Player0Panel.putConstraint(SpringLayout.NORTH, cardCountPanel_0, 0, SpringLayout.SOUTH, DeckPane_0);
-        sl_Player0Panel.putConstraint(SpringLayout.WEST, cardCountPanel_0, 0, SpringLayout.WEST, DeckPane_0);
-        sl_Player0Panel.putConstraint(SpringLayout.SOUTH, cardCountPanel_0, 0, SpringLayout.NORTH, ControlPane_0);
-        sl_Player0Panel.putConstraint(SpringLayout.EAST, cardCountPanel_0, 0, SpringLayout.EAST, Player0Panel);
+        sl_Player0Panel.putConstraint(SpringLayout.NORTH, cardCountPanel_0, 0,
+                SpringLayout.SOUTH, DeckPane_0);
+        sl_Player0Panel.putConstraint(SpringLayout.WEST, cardCountPanel_0, 0,
+                SpringLayout.WEST, DeckPane_0);
+        sl_Player0Panel.putConstraint(SpringLayout.SOUTH, cardCountPanel_0, 0,
+                SpringLayout.NORTH, ControlPane_0);
+        sl_Player0Panel.putConstraint(SpringLayout.EAST, cardCountPanel_0, 0,
+                SpringLayout.EAST, Player0Panel);
         Player0Panel.add(cardCountPanel_0);
         cardCountPanel_0.setLayout(null);
 
@@ -727,10 +835,14 @@ public class HearthSim implements HSSimulationEventListener {
         JPanel cardCountPanel_1 = new JPanel();
         cardCountPanel_1.setBackground(HSColors.BACKGROUND_COLOR);
         cardCountPanel_1.setForeground(HSColors.TEXT_COLOR);
-        sl_Player1Panel.putConstraint(SpringLayout.NORTH, cardCountPanel_1, 0, SpringLayout.SOUTH, DeckPane_1);
-        sl_Player1Panel.putConstraint(SpringLayout.WEST, cardCountPanel_1, 0, SpringLayout.WEST, DeckPane_1);
-        sl_Player1Panel.putConstraint(SpringLayout.SOUTH, cardCountPanel_1, 0, SpringLayout.NORTH, ControlPane_1);
-        sl_Player1Panel.putConstraint(SpringLayout.EAST, cardCountPanel_1, 0, SpringLayout.EAST, Player1Panel);
+        sl_Player1Panel.putConstraint(SpringLayout.NORTH, cardCountPanel_1, 0,
+                SpringLayout.SOUTH, DeckPane_1);
+        sl_Player1Panel.putConstraint(SpringLayout.WEST, cardCountPanel_1, 0,
+                SpringLayout.WEST, DeckPane_1);
+        sl_Player1Panel.putConstraint(SpringLayout.SOUTH, cardCountPanel_1, 0,
+                SpringLayout.NORTH, ControlPane_1);
+        sl_Player1Panel.putConstraint(SpringLayout.EAST, cardCountPanel_1, 0,
+                SpringLayout.EAST, Player1Panel);
         Player1Panel.add(cardCountPanel_1);
         cardCountPanel_1.setLayout(null);
 
@@ -784,9 +896,9 @@ public class HearthSim implements HSSimulationEventListener {
             }
 
         });
-        //--------------------------------------------------------------------
+        // --------------------------------------------------------------------
         // Deck creation
-        //--------------------------------------------------------------------
+        // --------------------------------------------------------------------
 
         btnDeckCreate_0.addMouseListener(new MouseAdapter() {
             @Override
@@ -800,7 +912,8 @@ public class HearthSim implements HSSimulationEventListener {
                     deckCreatePanel_0.setVisible(false);
                     deckCreatePanel_0.setEditing(false);
                     if (deckList_0.getModel().getSize() > 0)
-                        hsModel_.getSimulation().setDeck_p0(deckList_0.getDeck());
+                        hsModel_.getSimulation().setDeck_p0(
+                                deckList_0.getDeck());
                 }
             }
         });
@@ -817,7 +930,8 @@ public class HearthSim implements HSSimulationEventListener {
                     deckCreatePanel_1.setVisible(false);
                     deckCreatePanel_1.setEditing(false);
                     if (deckList_1.getModel().getSize() > 0)
-                        hsModel_.getSimulation().setDeck_p1(deckList_1.getDeck());
+                        hsModel_.getSimulation().setDeck_p1(
+                                deckList_1.getDeck());
                 }
             }
         });
@@ -825,10 +939,14 @@ public class HearthSim implements HSSimulationEventListener {
         deckCreatePanel_0 = new HSDeckCreatePanel(0, hsModel_, lblHero_0);
         deckCreatePanel_0.setForeground(Color.WHITE);
         deckCreatePanel_0.setBackground(HSColors.LIGHTER_BACKGROUND_COLOR);
-        springLayout.putConstraint(SpringLayout.WEST, deckCreatePanel_0, 0, SpringLayout.EAST, Player0Panel);
-        springLayout.putConstraint(SpringLayout.EAST, deckCreatePanel_0, 0, SpringLayout.WEST, Player1Panel);
-        springLayout.putConstraint(SpringLayout.NORTH, deckCreatePanel_0, 0, SpringLayout.NORTH, frame.getContentPane());
-        springLayout.putConstraint(SpringLayout.SOUTH, deckCreatePanel_0, 0, SpringLayout.SOUTH, frame.getContentPane());
+        springLayout.putConstraint(SpringLayout.WEST, deckCreatePanel_0, 0,
+                SpringLayout.EAST, Player0Panel);
+        springLayout.putConstraint(SpringLayout.EAST, deckCreatePanel_0, 0,
+                SpringLayout.WEST, Player1Panel);
+        springLayout.putConstraint(SpringLayout.NORTH, deckCreatePanel_0, 0,
+                SpringLayout.NORTH, frame.getContentPane());
+        springLayout.putConstraint(SpringLayout.SOUTH, deckCreatePanel_0, 0,
+                SpringLayout.SOUTH, frame.getContentPane());
         deckCreatePanel_0.setPlayer(0);
         deckCreatePanel_0.setVisible(false);
         deckCreatePanel_0.setCardListPane(deckList_0);
@@ -837,16 +955,20 @@ public class HearthSim implements HSSimulationEventListener {
         deckCreatePanel_1 = new HSDeckCreatePanel(1, hsModel_, lblHero_1);
         deckCreatePanel_1.setForeground(Color.WHITE);
         deckCreatePanel_1.setBackground(HSColors.LIGHTER_BACKGROUND_COLOR);
-        springLayout.putConstraint(SpringLayout.WEST, deckCreatePanel_1, 0, SpringLayout.EAST, Player0Panel);
-        springLayout.putConstraint(SpringLayout.EAST, deckCreatePanel_1, 0, SpringLayout.WEST, Player1Panel);
-        springLayout.putConstraint(SpringLayout.NORTH, deckCreatePanel_1, 0, SpringLayout.NORTH, frame.getContentPane());
-        springLayout.putConstraint(SpringLayout.SOUTH, deckCreatePanel_1, 0, SpringLayout.SOUTH, frame.getContentPane());
+        springLayout.putConstraint(SpringLayout.WEST, deckCreatePanel_1, 0,
+                SpringLayout.EAST, Player0Panel);
+        springLayout.putConstraint(SpringLayout.EAST, deckCreatePanel_1, 0,
+                SpringLayout.WEST, Player1Panel);
+        springLayout.putConstraint(SpringLayout.NORTH, deckCreatePanel_1, 0,
+                SpringLayout.NORTH, frame.getContentPane());
+        springLayout.putConstraint(SpringLayout.SOUTH, deckCreatePanel_1, 0,
+                SpringLayout.SOUTH, frame.getContentPane());
         deckCreatePanel_1.setPlayer(1);
         deckCreatePanel_1.setVisible(false);
         deckCreatePanel_1.setCardListPane(deckList_1);
         frame.getContentPane().add(deckCreatePanel_1);
-        //--------------------------------------------------------------------
-        //--------------------------------------------------------------------
+        // --------------------------------------------------------------------
+        // --------------------------------------------------------------------
     }
 
     public void updateInfoPanel() {
@@ -854,28 +976,40 @@ public class HearthSim implements HSSimulationEventListener {
         int nWins_1 = hsModel_.getGameStats().getWins_p1();
         lblWin_0.setText("" + nWins_0);
         lblWin_1.setText("" + nWins_1);
-        lblWinRate_0.setText(pFormatter_.format(100.0 * hsModel_.getGameStats().getWinRate_p0()) + "%");
-        lblWinRate_1.setText(pFormatter_.format(100.0 * hsModel_.getGameStats().getWinRate_p1()) + "%");
+        lblWinRate_0.setText(pFormatter_.format(100.0 * hsModel_.getGameStats()
+                .getWinRate_p0()) + "%");
+        lblWinRate_1.setText(pFormatter_.format(100.0 * hsModel_.getGameStats()
+                .getWinRate_p1()) + "%");
 
-        lblWinRane_frst_0.setText(pFormatter_.format(100.0 * hsModel_.getGameStats().getWinRateWhenGoingFirst_p0()) + "% (going first)");
-        lblWinRane_frst_1.setText(pFormatter_.format(100.0 * hsModel_.getGameStats().getWinRateWhenGoingFirst_p1()) + "% (going first)");
+        lblWinRane_frst_0.setText(pFormatter_.format(100.0 * hsModel_
+                .getGameStats().getWinRateWhenGoingFirst_p0())
+                + "% (going first)");
+        lblWinRane_frst_1.setText(pFormatter_.format(100.0 * hsModel_
+                .getGameStats().getWinRateWhenGoingFirst_p1())
+                + "% (going first)");
 
         try {
-            lblConfNum_0.setText(
-                    pFormatter_.format(100.0 * hsModel_.getGameStats().getWinRateContRange_lower(0.95, nWins_0, nWins_0 + nWins_1)) + "%"
-                    + " -- " +
-                    pFormatter_.format(100.0 * hsModel_.getGameStats().getWinRateContRange_upper(0.95, nWins_0, nWins_0 + nWins_1)) + "%"
-                    );
+            lblConfNum_0.setText(pFormatter_.format(100.0 * hsModel_
+                    .getGameStats().getWinRateContRange_lower(0.95, nWins_0,
+                            nWins_0 + nWins_1))
+                    + "%"
+                    + " -- "
+                    + pFormatter_.format(100.0 * hsModel_.getGameStats()
+                            .getWinRateContRange_upper(0.95, nWins_0,
+                                    nWins_0 + nWins_1)) + "%");
         } catch (Exception e) {
             lblConfNum_0.setText("--");
         }
 
         try {
-            lblConfNum_1.setText(
-                    pFormatter_.format(100.0 * hsModel_.getGameStats().getWinRateContRange_lower(0.95, nWins_1, nWins_0 + nWins_1)) + "%"
-                    + " -- " +
-                    pFormatter_.format(100.0 * hsModel_.getGameStats().getWinRateContRange_upper(0.95, nWins_1, nWins_0 + nWins_1)) + "%"
-                    );
+            lblConfNum_1.setText(pFormatter_.format(100.0 * hsModel_
+                    .getGameStats().getWinRateContRange_lower(0.95, nWins_1,
+                            nWins_0 + nWins_1))
+                    + "%"
+                    + " -- "
+                    + pFormatter_.format(100.0 * hsModel_.getGameStats()
+                            .getWinRateContRange_upper(0.95, nWins_1,
+                                    nWins_0 + nWins_1)) + "%");
         } catch (Exception e) {
             lblConfNum_1.setText("--");
         }
