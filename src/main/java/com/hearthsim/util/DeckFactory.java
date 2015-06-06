@@ -10,20 +10,39 @@ import com.hearthsim.card.Deck;
 import com.hearthsim.card.ImplementedCardList;
 import com.hearthsim.card.ImplementedCardList.ImplementedCard;
 
+/**
+ * This class provides a mechanism for generating random decks.
+ * @author dyllonmgagnier
+ *
+ */
 public class DeckFactory
 {
 	private ArrayList<ImplementedCard> cards;
 	private boolean limitCopies;
 	private Random gen;
 
-	protected DeckFactory(Predicate<ImplementedCard> filter,
-			boolean limitCopies)
+	/**
+	 * This method initializes a new DeckFactory.
+	 * 
+	 * @param filter
+	 *            Any card for which this returns true will be removed from the
+	 *            potential card pool.
+	 * @param limitCopies
+	 *            If true, then any deck will contain no more than two copies of
+	 *            any card no more than one copy of any legendary.
+	 */
+	protected DeckFactory(Predicate<ImplementedCard> filter, boolean limitCopies)
 	{
 		cards = ImplementedCardList.getInstance().getCardList();
 		cards.removeIf(filter);
 		gen = new Random();
 	}
 
+	/**
+	 * This method generates a new random deck as specified by the builder.  The
+	 * decks are completely random so shuffling is unnecessary.
+	 * @return
+	 */
 	public Deck generateRandomDeck()
 	{
 		Card[] result = new Card[30];
@@ -65,12 +84,23 @@ public class DeckFactory
 		return new Deck(result);
 	}
 
+	/**
+	 * This class builds a DeckFactory and allows for various options to be selected for
+	 * the factory.
+	 * @author dyllonmgagnier
+	 *
+	 */
 	public static class DeckFactoryBuilder
 	{
 		private Predicate<ImplementedCard> filter;
 		private boolean limitCopies;
 		private boolean allowUncollectible;
 
+		/**
+		 * Constructs the default builder which does not allow for uncollectible cards and
+		 * will limit the number of copies of any card to no more than two and limits the number of
+		 * copies any particular legendar to no more than one.
+		 */
 		public DeckFactoryBuilder()
 		{
 			filter = (card) -> false;
@@ -78,32 +108,62 @@ public class DeckFactory
 			allowUncollectible = false;
 		}
 
-		public void filterByRarity(String rarity)
+		/**
+		 * Limits the the card pool to only those specified by the given rarities.
+		 * @param rarities 
+		 */
+		public void filterByRarity(String ... rarities)
 		{
-			filter.or((card) -> card.rarity_ != rarity);
+			filter.or((card) -> 
+			{
+				boolean result = true;
+				for(String rarity : rarities)
+					result = result && !card.rarity_.equals(rarity);
+				return result;
+			});
 		}
 
-		public void filterByHero(String hero)
+		/**
+		 * Only select cards usable by the input character class (i.e. warlock, priest, mage, rogue, etc.).
+		 * @param characterClass The class to filter by.
+		 */
+		public void filterByHero(String characterClass)
 		{
-			filter.or((card) -> card.charClass_ != hero);
+			filter.or((card) -> card.charClass_ != characterClass);
 		}
 
+		/**
+		 * This method allows for uncollectible cards to be in the card pool.
+		 */
 		public void allowUncollectible()
 		{
 			allowUncollectible = true;
 		}
 
+		/**
+		 * This method generates a DeckFactory based on the previously selected options.
+		 * @return A DeckFactory limited by the various options.
+		 */
 		public DeckFactory createDeckFactory()
 		{
 			if (!allowUncollectible) filter.or((card) -> !card.collectible);
 			return new DeckFactory(filter, limitCopies);
 		}
-		
+
+		/**
+		 * This method only allows for cards between the minimum and maximum mana cost.
+		 * @param minimumCost The minimum mana cost allowed.
+		 * @param maximumCost The maximum mana cost allowed.
+		 */
 		public void filterByManaCost(int minimumCost, int maximumCost)
 		{
-			filter.or((card) -> card.mana_ < minimumCost || card.mana_ > maximumCost);
+			filter.or((card) -> card.mana_ < minimumCost
+					|| card.mana_ > maximumCost);
 		}
 
+		/**
+		 * This method allows for unlimited copies of cards to be used (i.e. like in Arena).
+		 */
 		public void allowUnlimitedCopiesOfCards()
 		{
 			limitCopies = false;
