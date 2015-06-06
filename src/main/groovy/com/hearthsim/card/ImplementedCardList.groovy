@@ -106,6 +106,26 @@ class ImplementedCardList {
             Card card = (Card)ctor.newInstance();
             return card;
         }
+		
+		@Override
+		public boolean equals(Object o)
+		{
+			try
+			{
+				ImplementedCard otherCard = (ImplementedCard)o;
+				return this.name_.equals(otherCard.name_);
+			}
+			catch (Exception e)
+			{
+				return false;
+			}
+		}
+		
+		@Override
+		public int hashCode()
+		{
+			return this.name_.hashCode();
+		}
     }
 
     ImplementedCardList() {
@@ -169,7 +189,7 @@ class ImplementedCardList {
     }
 
     public ArrayList<ImplementedCard> getCardList() {
-        return list_;
+        return new ArrayList<ImplementedCard>(list_);
     }
 
     // TODO: existing clients need to filter out collectibles
