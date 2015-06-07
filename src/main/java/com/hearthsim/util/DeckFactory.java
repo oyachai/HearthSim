@@ -20,6 +20,7 @@ public class DeckFactory {
     private ArrayList<ImplementedCard> cards;
     private boolean limitCopies;
     private Random gen;
+    private ImplementedCard[] cardsToInclude;
 
     /**
      * This method initializes a new DeckFactory.
@@ -31,11 +32,12 @@ public class DeckFactory {
      *            If true, then any deck will contain no more than two copies of
      *            any card no more than one copy of any legendary.
      */
-    protected DeckFactory(Predicate<ImplementedCard> filter, boolean limitCopies) {
+    protected DeckFactory(Predicate<ImplementedCard> filter, boolean limitCopies, ImplementedCard[] cardsToInclude) {
         cards = ImplementedCardList.getInstance().getCardList();
         cards.removeIf(filter);
         gen = new Random();
         this.limitCopies = limitCopies;
+        this.cardsToInclude = cardsToInclude;
     }
 
     /**
@@ -55,9 +57,25 @@ public class DeckFactory {
      */
     public Deck generateRandomDeck() {
         Card[] result = new Card[30];
+        int resultPos = 0;
+        
+        // Add in cardsToInclude
+        for(ImplementedCard cardToInclude : cardsToInclude)
+            result[resultPos++] = cardToInclude.createCardInstance();
+        
         if (limitCopies) {
             HashMap<ImplementedCard, Integer> cardsInDeck = new HashMap<ImplementedCard, Integer>();
-            for (int i = 0; i < 30; i++) {
+            
+            // Insert included cards into HashMap.
+            for(ImplementedCard cardToInclude : cardsToInclude)
+            {
+                if (cardsInDeck.containsKey(cardToInclude))
+                    cardsInDeck.put(cardToInclude, cardsInDeck.get(cardToInclude) + 1);
+                else
+                    cardsInDeck.put(cardToInclude, 1);
+            }
+            
+            while(resultPos < 30) {
                 ImplementedCard toAdd;
                 // Keep going until a card is found that can be added to the
                 // deck.
@@ -72,16 +90,18 @@ public class DeckFactory {
                         break;
                     }
                 }
-                result[i] = toAdd.createCardInstance();
+                result[resultPos++] = toAdd.createCardInstance();
             }
         } else {
-            for (int i = 0; i < 30; i++) {
-                result[i] = cards.get(gen.nextInt(cards.size()))
+            while(resultPos < 30) {
+                result[resultPos++] = cards.get(gen.nextInt(cards.size()))
                         .createCardInstance();
             }
         }
-
-        return new Deck(result);
+        
+        Deck deckResult = new Deck(result);
+        deckResult.shuffle();
+        return deckResult;
     }
 
     /**
@@ -95,17 +115,20 @@ public class DeckFactory {
         private Predicate<ImplementedCard> filter;
         private boolean limitCopies;
         private boolean allowUncollectible;
+        private ImplementedCard[] cardsToInclude;
 
         /**
          * Constructs the default builder which does not allow for uncollectible
          * cards and will limit the number of copies of any card to no more than
-         * two and limits the number of copies any particular legendar to no
-         * more than one.
+         * two and limits the number of copies any particular legendary to no
+         * more than one.  Each method of the builder should only be called once and successive calls
+         * will produce unspecified behavior.
          */
         public DeckFactoryBuilder() {
             filter = (card) -> false;
             limitCopies = true;
             allowUncollectible = false;
+            cardsToInclude = new ImplementedCard[0];
         }
 
         /**
@@ -156,7 +179,7 @@ public class DeckFactory {
         public DeckFactory buildDeckFactory() {
             if (!allowUncollectible)
                 filter = filter.or((card) -> !card.collectible);
-            return new DeckFactory(filter, limitCopies);
+            return new DeckFactory(filter, limitCopies, cardsToInclude);
         }
 
         /**
@@ -179,6 +202,16 @@ public class DeckFactory {
          */
         public void allowUnlimitedCopiesOfCards() {
             limitCopies = false;
+        }
+        
+        /**
+         * This method guarantees that the input cards will be included in any generated deck.  However,
+         * the number of cards that are to be included should be less than 30.
+         * @param cardsToInclude
+         */
+        public void includeSpecificCards(ImplementedCard ... cardsToInclude)
+        {
+            this.cardsToInclude = cardsToInclude;
         }
     }
 }

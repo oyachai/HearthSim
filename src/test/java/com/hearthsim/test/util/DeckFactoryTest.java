@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Random;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -161,6 +162,7 @@ public class DeckFactoryTest {
                 testPassed);
     }
 
+    @Test
     public void checkUnlimitedCopiesNonLegendary() {
         DeckFactoryBuilder builder = new DeckFactoryBuilder();
         builder.allowUnlimitedCopiesOfCards();
@@ -196,5 +198,52 @@ public class DeckFactoryTest {
         assertTrue(
                 "DeckFactory could not generate a deck with more than one legendary within the time limit.",
                 testPassed);
+    }
+    
+    @Test
+    public void checkIncludeSpecifiedCardsLimitedCopies()
+    {
+        Random gen = new Random();
+        ImplementedCard card1, card2;
+        card1 = referenceCards.get(gen.nextInt(referenceCards.size()));
+        card2 = referenceCards.get(gen.nextInt(referenceCards.size()));
+        
+        DeckFactoryBuilder builder = new DeckFactoryBuilder();
+        builder.includeSpecificCards(card1, card2);
+        Deck testDeck = builder.buildDeckFactory().generateRandomDeck();
+        
+        boolean test1Passed = false;
+        boolean test2Passed = false;
+        for(int i = 0; i < 30; i++)
+            if (testDeck.drawCard(i).getName().equals(card1.name_))
+                test1Passed = true;
+            else if (testDeck.drawCard(i).getName().equals(card2.name_))
+                test2Passed = true;
+        assertTrue(test1Passed);
+        assertTrue(test2Passed);
+    }
+    
+    @Test
+    public void checkIncludeSpecifiedCardsUnlimitedCopies()
+    {
+        Random gen = new Random();
+        ImplementedCard card1, card2;
+        card1 = referenceCards.get(gen.nextInt(referenceCards.size()));
+        card2 = referenceCards.get(gen.nextInt(referenceCards.size()));
+        
+        DeckFactoryBuilder builder = new DeckFactoryBuilder();
+        builder.includeSpecificCards(card1, card2);
+        builder.allowUnlimitedCopiesOfCards();
+        Deck testDeck = builder.buildDeckFactory().generateRandomDeck();
+        
+        boolean test1Passed = false;
+        boolean test2Passed = false;
+        for(int i = 0; i < 30; i++)
+            if (testDeck.drawCard(i).getName().equals(card1.name_))
+                test1Passed = true;
+            else if (testDeck.drawCard(i).getName().equals(card2.name_))
+                test2Passed = true;
+        assertTrue(test1Passed);
+        assertTrue(test2Passed);
     }
 }
