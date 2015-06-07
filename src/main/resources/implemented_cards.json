@@ -485,6 +485,10 @@
         "class": "com.hearthsim.card.basic.weapon.FieryWarAxe"
     },
     {
+        "name": "Finkle Einhorn",
+        "class": "com.hearthsim.card.classic.minion.legendary.FinkleEinhorn"
+    },
+    {
         "name": "Fire Elemental",
         "class": "com.hearthsim.card.basic.minion.FireElemental"
     },
@@ -1363,6 +1367,10 @@
     {
         "name": "The Black Knight",
         "class": "com.hearthsim.card.classic.minion.legendary.TheBlackKnight"
+    },
+    {
+        "name": "The Beast",
+        "class": "com.hearthsim.card.classic.minion.legendary.TheBeast"
     },
     {
         "name": "Thrallmar Farseer",
