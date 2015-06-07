@@ -35,6 +35,7 @@ public class DeckFactory {
         cards = ImplementedCardList.getInstance().getCardList();
         cards.removeIf(filter);
         gen = new Random();
+        this.limitCopies = limitCopies;
     }
     
     /**
