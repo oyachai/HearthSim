@@ -1053,6 +1053,10 @@
         "class": "com.hearthsim.card.classic.spell.epic.Pyroblast"
     },
     {
+        "name": "Quartermaster",
+        "class": "com.hearthsim.card.goblinsvsgnomes.minion.epic.Quartermaster"
+    },
+    {
         "name": "Questing Adventurer",
         "class": "com.hearthsim.card.classic.minion.rare.QuestingAdventurer"
     },
