@@ -114,7 +114,7 @@ public class DeckFactory {
          * @param rarities
          */
         public void filterByRarity(String... rarities) {
-            filter.or((card) -> {
+            filter = filter.or((card) -> {
                 boolean result = true;
                 for (String rarity : rarities)
                     result = result && !card.rarity_.equals(rarity);
@@ -131,7 +131,7 @@ public class DeckFactory {
          *            The classes to filter by.
          */
         public void filterByHero(String ... characterClasses) {
-            filter.or((card) -> 
+            filter = filter.or((card) -> 
             {
             	boolean result = true;
             	for(String characterClass : characterClasses)
@@ -153,9 +153,9 @@ public class DeckFactory {
          *
          * @return A DeckFactory limited by the various options.
          */
-        public DeckFactory createDeckFactory() {
+        public DeckFactory buildDeckFactory() {
             if (!allowUncollectible)
-                filter.or((card) -> !card.collectible);
+                filter = filter.or((card) -> !card.collectible);
             return new DeckFactory(filter, limitCopies);
         }
 
@@ -169,7 +169,7 @@ public class DeckFactory {
          *            The maximum mana cost allowed.
          */
         public void filterByManaCost(int minimumCost, int maximumCost) {
-            filter.or((card) -> card.mana_ < minimumCost
+            filter = filter.or((card) -> card.mana_ < minimumCost
                     || card.mana_ > maximumCost);
         }
 
