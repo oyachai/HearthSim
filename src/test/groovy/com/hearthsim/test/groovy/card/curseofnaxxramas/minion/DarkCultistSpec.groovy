@@ -3,6 +3,7 @@ package com.hearthsim.test.groovy.card.curseofnaxxramas.minion
 import com.hearthsim.card.basic.minion.BloodfenRaptor
 import com.hearthsim.card.basic.minion.RiverCrocolisk
 import com.hearthsim.card.basic.spell.ShadowWordPain
+import com.hearthsim.card.classic.minion.epic.BigGameHunter
 import com.hearthsim.card.curseofnaxxramas.minion.common.DarkCultist
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.groovy.card.CardSpec
@@ -25,6 +26,9 @@ class DarkCultistSpec extends CardSpec {
             currentPlayer {
                 field([[minion:DarkCultist]])
                 mana(10)
+            }
+            waitingPlayer {
+                field([[minion:BigGameHunter]])
             }
         }
 
@@ -109,6 +113,81 @@ class DarkCultistSpec extends CardSpec {
                 removeMinion(2)
                 mana(8)
                 numCardsUsed(1)
+            }
+        }
+
+        assertTrue(ret instanceof RandomEffectNode)
+        assertEquals(ret.numChildren(), 2)
+
+        HearthTreeNode child0 = ret.getChildren().get(0);
+        assertBoardDelta(ret.data_, child0.data_) {
+            currentPlayer {
+                updateMinion(0, [deltaMaxHealth: +3, deltaHealth: +3])
+            }
+        }
+
+        HearthTreeNode child1 = ret.getChildren().get(1);
+        assertBoardDelta(ret.data_, child1.data_) {
+            currentPlayer {
+                updateMinion(1, [deltaMaxHealth: +3, deltaHealth: +3])
+            }
+        }
+    }
+
+    def "dying with 2 deathrattle target, dark cultist in the middle"() {
+        startingBoard.placeMinion(CURRENT_PLAYER, new BloodfenRaptor(), 0)
+        startingBoard.placeMinion(CURRENT_PLAYER, new RiverCrocolisk(), 2)
+
+        def copiedBoard = startingBoard.deepCopy()
+        def theCard = new ShadowWordPain()
+        def ret = theCard.useOn(CURRENT_PLAYER, 2, root)
+
+        expect:
+        assertNotNull(ret)
+
+        assertBoardDelta(copiedBoard, ret.data_) {
+            currentPlayer {
+                removeMinion(1)
+                mana(8)
+                numCardsUsed(1)
+            }
+        }
+
+        assertTrue(ret instanceof RandomEffectNode)
+        assertEquals(ret.numChildren(), 2)
+
+        HearthTreeNode child0 = ret.getChildren().get(0);
+        assertBoardDelta(ret.data_, child0.data_) {
+            currentPlayer {
+                updateMinion(0, [deltaMaxHealth: +3, deltaHealth: +3])
+            }
+        }
+
+        HearthTreeNode child1 = ret.getChildren().get(1);
+        assertBoardDelta(ret.data_, child1.data_) {
+            currentPlayer {
+                updateMinion(1, [deltaMaxHealth: +3, deltaHealth: +3])
+            }
+        }
+    }
+
+    def "dying with 2 deathrattle target, dark cultist dies by attacking"() {
+        startingBoard.placeMinion(CURRENT_PLAYER, new BloodfenRaptor(), 0)
+        startingBoard.placeMinion(CURRENT_PLAYER, new RiverCrocolisk(), 2)
+
+        def copiedBoard = startingBoard.deepCopy()
+        def darkCultist = root.data_.getCurrentPlayer().getCharacter(2)
+        def ret = darkCultist.attack(WAITING_PLAYER, 1, root, false)
+
+        expect:
+        assertNotNull(ret)
+
+        assertBoardDelta(copiedBoard, ret.data_) {
+            currentPlayer {
+                removeMinion(1)
+            }
+            waitingPlayer {
+                removeMinion(0)
             }
         }
 

@@ -6,6 +6,7 @@ import com.hearthsim.event.effect.EffectCharacter;
 import com.hearthsim.event.filter.FilterCharacterUntargetedDeathrattle;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
+import com.hearthsim.util.factory.BoardStateFactoryBase;
 import com.hearthsim.util.tree.HearthTreeNode;
 import com.hearthsim.util.tree.RandomEffectNode;
 
@@ -41,10 +42,16 @@ public class DeathrattleEffectRandomMinion extends DeathrattleAction {
                 RandomEffectNode rngNode = new RandomEffectNode(boardState, boardState.getAction());
                 for (BoardModel.CharacterLocation location : locations) {
                     HearthTreeNode newState = new HearthTreeNode(rngNode.data_.deepCopy());
-                    this.cleanupBoard(playerSide, origin, boardState.data_, newState.data_);
 
-                    this.effect.applyEffect(playerSide, origin, location.getPlayerSide(), location.getIndex(), newState);
+                    if (origin instanceof Minion) {
+                        Card originReferenceInNewState = newState.data_.modelForSide(playerSide).getCharacter(boardState.data_.modelForSide(playerSide).getIndexForCharacter((Minion) origin));
+                        this.effect.applyEffect(playerSide, origin, location.getPlayerSide(), location.getIndex(), newState);
+                        this.cleanupBoard(originReferenceInNewState, newState.data_);
+                    } else {
+                        this.effect.applyEffect(playerSide, origin, location.getPlayerSide(), location.getIndex(), newState);
+                    }
 
+                    BoardStateFactoryBase.handleDeadMinions(newState, singleRealizationOnly);
                     rngNode.addChild(newState);
                 }
 
@@ -59,6 +66,12 @@ public class DeathrattleEffectRandomMinion extends DeathrattleAction {
         if (origin instanceof Minion) {
             int originIndex = parent.modelForSide(originSide).getIndexForCharacter((Minion)origin);
             child.removeMinion(originSide, originIndex - 1);
+        }
+    }
+
+    private void cleanupBoard(Card originReferenceInNewState, BoardModel newState) {
+        if (originReferenceInNewState instanceof Minion) {
+            newState.removeMinion((Minion)originReferenceInNewState);
         }
     }
 }

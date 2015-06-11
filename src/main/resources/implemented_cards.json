@@ -485,6 +485,10 @@
         "class": "com.hearthsim.card.basic.weapon.FieryWarAxe"
     },
     {
+        "name": "Finkle Einhorn",
+        "class": "com.hearthsim.card.classic.minion.legendary.FinkleEinhorn"
+    },
+    {
         "name": "Fire Elemental",
         "class": "com.hearthsim.card.basic.minion.FireElemental"
     },
@@ -1049,6 +1053,10 @@
         "class": "com.hearthsim.card.classic.spell.epic.Pyroblast"
     },
     {
+        "name": "Quartermaster",
+        "class": "com.hearthsim.card.goblinsvsgnomes.minion.epic.Quartermaster"
+    },
+    {
         "name": "Questing Adventurer",
         "class": "com.hearthsim.card.classic.minion.rare.QuestingAdventurer"
     },
@@ -1365,6 +1373,10 @@
         "class": "com.hearthsim.card.classic.minion.legendary.TheBlackKnight"
     },
     {
+        "name": "The Beast",
+        "class": "com.hearthsim.card.classic.minion.legendary.TheBeast"
+    },
+    {
         "name": "Thrallmar Farseer",
         "class": "com.hearthsim.card.classic.minion.common.ThrallmarFarseer"
     },
@@ -1504,6 +1516,10 @@
     {
         "name": "Young Priestess",
         "class": "com.hearthsim.card.classic.minion.rare.YoungPriestess"
+    },
+    {
+        "name": "Youthful Brewmaster",
+        "class": "com.hearthsim.card.classic.minion.common.YouthfulBrewmaster"
     },
     {
         "name": "Zombie Chow",
