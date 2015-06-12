@@ -244,4 +244,15 @@ public class DeckFactoryTest {
         assertTrue(test1Passed);
         assertTrue(test2Passed);
     }
+    
+    @Test
+    public void checkFilterByRarity()
+    {
+        DeckFactoryBuilder builder = new DeckFactoryBuilder();
+        builder.filterByRarity("rare", "epic");
+        ArrayList<ImplementedCard> allCards = builder.buildDeckFactory().getAllPossibleCards();
+        
+        for(ImplementedCard card : allCards)
+            assertTrue(card.rarity_.equals("rare") || card.rarity_.equals("epic"));
+    }
 }
