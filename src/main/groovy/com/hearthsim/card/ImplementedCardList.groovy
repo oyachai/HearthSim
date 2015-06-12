@@ -19,7 +19,7 @@ import groovy.util.logging.Slf4j
 @Slf4j
 class ImplementedCardList {
 
-    private static ImplementedCardList instance
+    private static final ImplementedCardList instance
     
     static class TypeParser {
         private static String TYPE_CLASSNAME_PATTERN_SPELL = "spell."
@@ -52,11 +52,13 @@ class ImplementedCardList {
 
     //TODO: give singleton constructor, then use that in Card constructor
 
-    public synchronized static ImplementedCardList getInstance() {
-        if (!instance) {
-            instance = new ImplementedCardList()
-        }
+    public static ImplementedCardList getInstance() {
         return instance
+    }
+    
+    static
+    {
+        instance = new ImplementedCardList()
     }
 
 
@@ -106,6 +108,26 @@ class ImplementedCardList {
             Card card = (Card)ctor.newInstance();
             return card;
         }
+		
+		@Override
+		public boolean equals(Object o)
+		{
+			try
+			{
+				ImplementedCard otherCard = (ImplementedCard)o;
+				return this.name_.equals(otherCard.name_);
+			}
+			catch (Exception e)
+			{
+				return false;
+			}
+		}
+		
+		@Override
+		public int hashCode()
+		{
+			return this.name_.hashCode();
+		}
     }
 
     ImplementedCardList() {
@@ -169,7 +191,7 @@ class ImplementedCardList {
     }
 
     public ArrayList<ImplementedCard> getCardList() {
-        return list_;
+        return new ArrayList<ImplementedCard>(list_);
     }
 
     // TODO: existing clients need to filter out collectibles

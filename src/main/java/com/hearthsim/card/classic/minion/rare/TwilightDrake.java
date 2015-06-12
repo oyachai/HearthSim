@@ -19,6 +19,7 @@ public class TwilightDrake extends Minion implements MinionBattlecryInterface {
     public EffectCharacter<Minion> getBattlecryEffect() {
         return (PlayerSide originSide, Minion origin, PlayerSide targetSide,int minionPlacementIndex, HearthTreeNode boardState) -> {
             this.addHealth((byte) boardState.data_.getCurrentPlayer().getHand().size());
+            this.addMaxHealth((byte) boardState.data_.getCurrentPlayer().getHand().size());
             return boardState;
         };
     }

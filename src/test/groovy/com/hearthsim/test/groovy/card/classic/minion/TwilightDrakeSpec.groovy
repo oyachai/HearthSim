@@ -54,7 +54,7 @@ class TwilightDrakeSpec extends CardSpec {
             currentPlayer {
                 playMinion(TwilightDrake)
                 mana(3)
-                updateMinion(0, [deltaHealth: 3])
+                updateMinion(0, [deltaHealth: 3, deltaMaxHealth: 3])
                 numCardsUsed(1)
             }
         }
