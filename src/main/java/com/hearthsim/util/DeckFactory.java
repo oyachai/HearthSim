@@ -134,13 +134,21 @@ public class DeckFactory {
 
         /**
          * Limits the the card pool to only those specified by the given
-         * rarities.
+         * rarities.  This method will throw a NullPointerException if any of the input
+         * rarities is null.
          *
          * @param rarities
          */
         public void filterByRarity(String... rarities) {
+            // Validate input.
+            for(String rarity : rarities)
+                if (rarity == null)
+                    throw new NullPointerException("One of the input rarities was null.");
+            
             filter = filter.or((card) -> {
                 boolean result = true;
+                if (card.rarity_ == null)
+                    return true;
                 for (String rarity : rarities)
                     result = result && !card.rarity_.equals(rarity);
                 return result;
