@@ -1,6 +1,8 @@
 package com.hearthsim.test.groovy.card.classic.minion
 
 import com.hearthsim.card.basic.spell.HolySmite
+import com.hearthsim.card.basic.spell.TheCoin
+import com.hearthsim.card.classic.minion.common.ManaWyrm
 import com.hearthsim.card.classic.minion.common.UnboundElemental
 import com.hearthsim.card.classic.spell.common.LightningBolt
 import com.hearthsim.card.classic.spell.rare.LavaBurst
@@ -22,6 +24,7 @@ class UnboundElementalSpec extends CardSpec {
     def setup() {
         startingBoard = new BoardModelBuilder().make {
             currentPlayer {
+                hand([UnboundElemental, TheCoin])
                 field([[minion: UnboundElemental]])
                 mana(10)
             }

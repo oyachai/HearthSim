@@ -19,7 +19,7 @@ class ManaWyrmSpec extends CardSpec {
                 mana(9)
             }
             waitingPlayer {
-                field([[minion: ManaWyrm]]) //This Questing Adventurer should not be buffed
+                field([[minion: ManaWyrm]]) //This Mana Wyrm should not be buffed
                 mana(9)
             }
         }
@@ -29,12 +29,12 @@ class ManaWyrmSpec extends CardSpec {
         def copiedBoard = startingBoard.deepCopy()
         def target = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(0)
         def manaWyrm = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = manaWyrm.useOn(CURRENT_PLAYER, target, root, null, null)
+        def ret = manaWyrm.useOn(CURRENT_PLAYER, target, root)
 
         def board2 = new HearthTreeNode(root.data_.deepCopy())
         def theCoin = board2.data_.getCurrentPlayer().getHand().get(0)
         def coinTarget = board2.data_.modelForSide(CURRENT_PLAYER).getCharacter(0)
-        def ret2 = theCoin.useOn(CURRENT_PLAYER, coinTarget, board2, null, null)
+        def ret2 = theCoin.useOn(CURRENT_PLAYER, coinTarget, board2)
         
         expect:
         assertFalse(ret == null);
@@ -55,6 +55,37 @@ class ManaWyrmSpec extends CardSpec {
                 numCardsUsed(2)
             }
         }
+    }
 
+
+    def "playing a spell card with a Mana Wyrm in the hand"() {
+
+        def startingBoard = new BoardModelBuilder().make {
+            currentPlayer {
+                hand([ManaWyrm, TheCoin])
+                mana(9)
+            }
+            waitingPlayer {
+                field([[minion: ManaWyrm]]) //This Mana Wyrm should not be buffed
+                mana(9)
+            }
+        }
+
+        def root = new HearthTreeNode(startingBoard)
+
+        def copiedBoard = startingBoard.deepCopy()
+        def target = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(0)
+        def theCoin = root.data_.getCurrentPlayer().getHand().get(1)
+        def ret = theCoin.useOn(CURRENT_PLAYER, target, root)
+
+        expect:
+        assertFalse(ret == null);
+        assertBoardDelta(copiedBoard, ret.data_) {
+            currentPlayer {
+                removeCardFromHand(TheCoin)
+                mana(10)
+                numCardsUsed(1)
+            }
+        }
     }
 }
