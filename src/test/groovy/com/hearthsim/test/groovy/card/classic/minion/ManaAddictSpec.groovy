@@ -19,7 +19,7 @@ class ManaAddictSpec extends CardSpec {
                 mana(9)
             }
             waitingPlayer {
-                field([[minion: ManaAddict]]) //This Questing Adventurer should not be buffed
+                field([[minion: ManaAddict]]) //This Mana Addict should not be buffed
                 mana(9)
             }
         }
@@ -28,13 +28,13 @@ class ManaAddictSpec extends CardSpec {
 
         def copiedBoard = startingBoard.deepCopy()
         def target = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(0)
-        def manaWyrm = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = manaWyrm.useOn(CURRENT_PLAYER, target, root, null, null)
+        def manaAddict = root.data_.getCurrentPlayer().getHand().get(0)
+        def ret = manaAddict.useOn(CURRENT_PLAYER, target, root)
 
         def board2 = new HearthTreeNode(root.data_.deepCopy())
         def theCoin = board2.data_.getCurrentPlayer().getHand().get(0)
         def coinTarget = board2.data_.modelForSide(CURRENT_PLAYER).getCharacter(0)
-        def ret2 = theCoin.useOn(CURRENT_PLAYER, coinTarget, board2, null, null)
+        def ret2 = theCoin.useOn(CURRENT_PLAYER, coinTarget, board2)
         
         expect:
         assertFalse(ret == null);
@@ -53,6 +53,40 @@ class ManaAddictSpec extends CardSpec {
                 mana(8)
                 updateMinion(0, [deltaExtraAttack: 2])
                 numCardsUsed(2)
+            }
+        }
+
+    }
+
+
+    def "playing a spell card with a Mana Addict in the hand"() {
+
+        def startingBoard = new BoardModelBuilder().make {
+            currentPlayer {
+                hand([ManaAddict, TheCoin])
+                mana(9)
+            }
+            waitingPlayer {
+                field([[minion: ManaAddict]]) //This Mana Addict should not be buffed
+                mana(9)
+            }
+        }
+
+        def root = new HearthTreeNode(startingBoard)
+        def copiedBoard = startingBoard.deepCopy()
+
+        def board2 = new HearthTreeNode(root.data_.deepCopy())
+        def theCoin = board2.data_.getCurrentPlayer().getHand().get(1)
+        def coinTarget = board2.data_.modelForSide(CURRENT_PLAYER).getCharacter(0)
+        def ret2 = theCoin.useOn(CURRENT_PLAYER, coinTarget, board2)
+
+        expect:
+        assertFalse(ret2 == null);
+        assertBoardDelta(copiedBoard, ret2.data_) {
+            currentPlayer {
+                removeCardFromHand(TheCoin)
+                mana(10)
+                numCardsUsed(1)
             }
         }
 
