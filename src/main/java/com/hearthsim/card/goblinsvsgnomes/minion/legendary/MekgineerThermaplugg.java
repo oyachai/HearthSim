@@ -30,7 +30,7 @@ public class MekgineerThermaplugg extends Minion implements MinionDeadInterface 
             return boardState;
         }
 
-        if (!this.isAlive()) {
+        if (!this.isAlive() || boardState.data_.modelForSide(thisMinionPlayerSide).isBoardFull()) {
             return boardState;
         }
 
