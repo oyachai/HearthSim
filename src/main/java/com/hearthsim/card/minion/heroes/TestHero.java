@@ -25,6 +25,11 @@ public class TestHero extends Hero {
     }
 
     @Override
+    public String getHeroClass() {
+    	return "None";
+    }
+
+    @Override
     public byte getBaseHealth() {
         return this.baseHealth_;
     }

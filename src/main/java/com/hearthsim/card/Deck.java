@@ -82,6 +82,56 @@ public class Deck implements DeepCopyable<Deck> {
         }
         return "[\"" + String.join("\",\"", names) + "\"]";
     }
+    
+    /**
+     * 
+     * @return comma and new line separated list of cards in the deck
+     */
+    public String getDeckList() {
+        String[] names = new String[this.cards.size()];
+        for (int i = 0; i < this.cards.size(); i++) {
+            names[i] = this.cards.get(i).getName();
+        }
+    	
+        StringBuilder deckBuilder = new StringBuilder();
+
+        for (String n : names) {
+            deckBuilder.append(FormatCardName(n)).append(",").append(System.getProperty("line.separator"));
+        }
+
+        // remove the extra comma and new line characters after the last card
+        deckBuilder.delete(deckBuilder.length() - 3, deckBuilder.length() - 1);
+
+        return deckBuilder.toString();
+    }
+    
+    /**
+     * Format the name of a card so it adheres to the .hsdeck file specification
+     * @param cardName
+     * @return the formatted string
+     */
+    private String FormatCardName(String cardName) {
+        StringBuffer res = new StringBuffer();
+
+        // Upper case the first letter of each word
+        String[] strArr = cardName.split(" ");
+        for (String str : strArr) {
+            char[] stringArray = str.trim().toCharArray();
+            stringArray[0] = Character.toUpperCase(stringArray[0]);
+            str = new String(stringArray);
+
+            res.append(str).append(" ");
+        }
+        
+        // remove spaces and special characters
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < res.length(); i++) {
+            char ch = res.charAt(i);
+            if (Character.isLetter(ch))
+                sb.append(ch);
+        }
+        return sb.toString().trim();
+    }
 
     @Override
     public int hashCode() {
