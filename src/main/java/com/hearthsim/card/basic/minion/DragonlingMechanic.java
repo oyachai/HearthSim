@@ -24,7 +24,7 @@ public class DragonlingMechanic extends Minion implements MinionBattlecryInterfa
                 PlayerModel currentPlayer = toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
                 if (!currentPlayer.isBoardFull()) {
                     Minion mdragon = new MechanicalDragonling();
-                    toRet = mdragon.summonMinion(PlayerSide.CURRENT_PLAYER, this, boardState, false, false);
+                    toRet = mdragon.summonMinion(PlayerSide.CURRENT_PLAYER, this, boardState, false);
                 }
             }
             return toRet;

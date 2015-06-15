@@ -17,9 +17,8 @@ public class DeathrattleDamageAll extends DeathrattleAction {
     @Override
     public HearthTreeNode performAction(Card origin,
                                         PlayerSide playerSide,
-                                        HearthTreeNode boardState,
-                                        boolean singleRealizationOnly) {
-        HearthTreeNode toRet = super.performAction(origin, playerSide, boardState, singleRealizationOnly);
+                                        HearthTreeNode boardState) {
+        HearthTreeNode toRet = super.performAction(origin, playerSide, boardState);
         if (toRet != null) {
             PlayerModel currentPlayer = toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
             PlayerModel waitingPlayer = toRet.data_.modelForSide(PlayerSide.WAITING_PLAYER);

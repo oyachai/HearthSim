@@ -26,7 +26,7 @@ public class Onyxia extends Minion implements MinionBattlecryInterface {
                 } else {
                     placementTarget = this;
                 }
-                toRet = new Whelp().summonMinion(PlayerSide.CURRENT_PLAYER, placementTarget, toRet, false, false);
+                toRet = new Whelp().summonMinion(PlayerSide.CURRENT_PLAYER, placementTarget, toRet, false);
             }
             return toRet;
         };

@@ -14,5 +14,5 @@ public interface CardPlayAfterInterface {
      * @param boardState The BoardState before this card has performed its action. It will be manipulated and returned.
      * @return The boardState is manipulated and returned
      */
-    public HearthTreeNode onCardPlayResolve(PlayerSide thisCardPlayerSide, PlayerSide cardUserPlayerSide, Card usedCard, HearthTreeNode boardState, boolean singleRealizationOnly);
+    public HearthTreeNode onCardPlayResolve(PlayerSide thisCardPlayerSide, PlayerSide cardUserPlayerSide, Card usedCard, HearthTreeNode boardState);
 }

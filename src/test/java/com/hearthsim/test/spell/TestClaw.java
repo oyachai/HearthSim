@@ -70,7 +70,7 @@ public class TestClaw {
         assertEquals(waitingPlayer.getCharacter(1).getHealth(), health0);
         assertEquals(waitingPlayer.getCharacter(2).getHealth(), health1 - 1);
 
-        ret = currentPlayer.getHero().attack(PlayerSide.WAITING_PLAYER, 1, board, false);
+        ret = currentPlayer.getHero().attack(PlayerSide.WAITING_PLAYER, 1, board);
         assertFalse(ret == null);
         assertEquals(currentPlayer.getNumMinions(), 2);
         assertEquals(waitingPlayer.getNumMinions(), 2);

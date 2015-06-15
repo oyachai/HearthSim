@@ -34,8 +34,8 @@ public class TestBloodKnight {
         currentPlayer.setMana((byte) 18);
         waitingPlayer.setMana((byte) 18);
 
-        minion0_0.summonMinion(PlayerSide.CURRENT_PLAYER, currentPlayer.getHero(), board, false, true);
-        minion1_0.summonMinion(PlayerSide.WAITING_PLAYER, waitingPlayer.getHero(), board, false, true);
+        minion0_0.summonMinion(PlayerSide.CURRENT_PLAYER, currentPlayer.getHero(), board, false);
+        minion1_0.summonMinion(PlayerSide.WAITING_PLAYER, waitingPlayer.getHero(), board, false);
     }
 
     @Test
@@ -63,7 +63,7 @@ public class TestBloodKnight {
         Minion target = currentPlayer.getCharacter(1);
         target.setDivineShield(false);
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board);
 
         assertNotNull(ret);
         currentPlayer = ret.data_.getCurrentPlayer();

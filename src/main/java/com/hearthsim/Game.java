@@ -170,7 +170,7 @@ public class Game {
             toRet = targetMinion.startTurn(PlayerSide.WAITING_PLAYER, toRet);
         }
 
-        toRet = BoardStateFactoryBase.handleDeadMinions(toRet, true);
+        toRet = BoardStateFactoryBase.handleDeadMinions(toRet);
 
         // TODO card draw will need to move into BoardModel at some point so we can react to them appropriately
         Card drawn = currentPlayer.drawNextCardFromDeck();
@@ -211,7 +211,7 @@ public class Game {
             }
         }
 
-        toRet = BoardStateFactoryBase.handleDeadMinions(toRet, true);
+        toRet = BoardStateFactoryBase.handleDeadMinions(toRet);
 
         return toRet.data_;
     }

@@ -135,7 +135,7 @@ public class TestUnstableGhoul {
         //attack the Ogre... deal 1 damage to all
         Minion attacker = currentPlayer.getCharacter(1);
         attacker.hasAttacked(false);
-        ret = attacker.attack(PlayerSide.WAITING_PLAYER, 3, ret, false);
+        ret = attacker.attack(PlayerSide.WAITING_PLAYER, 3, ret);
 
         assertFalse(ret == null);
         assertEquals(currentPlayer.getHand().size(), 0);
@@ -195,7 +195,7 @@ public class TestUnstableGhoul {
         Minion attacker = currentPlayer.getCharacter(1);
         attacker.silenced(PlayerSide.CURRENT_PLAYER, board);
         attacker.hasAttacked(false);
-        attacker.attack(PlayerSide.WAITING_PLAYER, 3, ret, false);
+        attacker.attack(PlayerSide.WAITING_PLAYER, 3, ret);
 
         assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 2);

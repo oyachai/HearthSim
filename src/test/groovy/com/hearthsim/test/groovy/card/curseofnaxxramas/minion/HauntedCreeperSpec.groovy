@@ -64,7 +64,7 @@ class HauntedCreeperSpec extends CardSpec {
         def copiedBoard = startingBoard.deepCopy()
         def target = root.data_.modelForSide(WAITING_PLAYER).getCharacter(1)
         def hauntedCreeper = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(1)
-        def ret = hauntedCreeper.attack(WAITING_PLAYER, target, root, false);
+        def ret = hauntedCreeper.attack(WAITING_PLAYER, target, root);
 
         expect:
         assertNotNull(ret)
@@ -88,7 +88,7 @@ class HauntedCreeperSpec extends CardSpec {
         def target = root.data_.modelForSide(WAITING_PLAYER).getCharacter(1)
         target.setHealth((byte)1)
         def hauntedCreeper = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(1)
-        def ret = hauntedCreeper.attack(WAITING_PLAYER, target, root, false);
+        def ret = hauntedCreeper.attack(WAITING_PLAYER, target, root);
 
         expect:
         assertNotNull(ret)
@@ -121,7 +121,7 @@ class HauntedCreeperSpec extends CardSpec {
         def target = root.data_.modelForSide(WAITING_PLAYER).getCharacter(1)
         target.setHealth((byte)1)
         def hauntedCreeper = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(1)
-        def ret = hauntedCreeper.attack(WAITING_PLAYER, target, root, false);
+        def ret = hauntedCreeper.attack(WAITING_PLAYER, target, root);
 
         expect:
         assertNotNull(ret)

@@ -55,7 +55,7 @@ class AncientWatcherSpec extends CardSpec {
     def "Ancient Watcher can't attack"() {
         def copiedBoard = startingBoard.deepCopy()
         def ancientWatcher = root.data_.getCharacter(CURRENT_PLAYER, 1);
-        def ret = ancientWatcher.attack(WAITING_PLAYER, root.data_.getCharacter(WAITING_PLAYER, 0), root, false);
+        def ret = ancientWatcher.attack(WAITING_PLAYER, root.data_.getCharacter(WAITING_PLAYER, 0), root);
 
         expect:
         assertTrue(ret == null);
@@ -65,7 +65,7 @@ class AncientWatcherSpec extends CardSpec {
         def copiedBoard = startingBoard.deepCopy()
         def ancientWatcher = root.data_.getCharacter(CURRENT_PLAYER, 1);
         ancientWatcher.silenced(CURRENT_PLAYER, root.data_);
-        def ret = ancientWatcher.attack(WAITING_PLAYER, root.data_.getCharacter(WAITING_PLAYER, 0), root, false);
+        def ret = ancientWatcher.attack(WAITING_PLAYER, root.data_.getCharacter(WAITING_PLAYER, 0), root);
 
         expect:
         assertFalse(ret == null);

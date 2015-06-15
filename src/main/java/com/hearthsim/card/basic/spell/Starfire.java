@@ -31,10 +31,9 @@ public class Starfire extends SpellDamageTargetableCard {
     protected HearthTreeNode use_core(
             PlayerSide side,
             Minion targetMinion,
-            HearthTreeNode boardState,
-            boolean singleRealizationOnly)
+            HearthTreeNode boardState)
         throws HSException {
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
+        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState);
         if (toRet instanceof CardDrawNode) {
             ((CardDrawNode) toRet).addNumCardsToDraw(1);
         } else {

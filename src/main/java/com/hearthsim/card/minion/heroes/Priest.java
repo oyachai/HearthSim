@@ -28,8 +28,7 @@ public class Priest extends Hero {
     public HearthTreeNode useHeroAbility_core(
             PlayerSide targetPlayerSide,
             Minion targetMinion,
-            HearthTreeNode boardState,
-            boolean singleRealizationOnly) {
+            HearthTreeNode boardState) {
         HearthTreeNode toRet = boardState;
         this.hasBeenUsed = true;
         toRet.data_.getCurrentPlayer().subtractMana(HERO_ABILITY_COST);

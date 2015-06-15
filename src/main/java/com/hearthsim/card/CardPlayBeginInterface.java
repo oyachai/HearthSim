@@ -15,6 +15,6 @@ public interface CardPlayBeginInterface {
      * @return The boardState is manipulated and returned
      */
     public HearthTreeNode onCardPlayBegin(PlayerSide thisCardPlayerSide, PlayerSide cardUserPlayerSide, Card usedCard,
-            HearthTreeNode boardState, boolean singleRealizationOnly)
+            HearthTreeNode boardState)
     ;
 }

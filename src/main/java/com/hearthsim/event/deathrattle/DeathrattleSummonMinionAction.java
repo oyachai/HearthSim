@@ -23,9 +23,9 @@ public class DeathrattleSummonMinionAction extends DeathrattleAction {
     }
 
     @Override
-    public HearthTreeNode performAction(Card origin, PlayerSide playerSide, HearthTreeNode boardState, boolean singleRealizationOnly) {
+    public HearthTreeNode performAction(Card origin, PlayerSide playerSide, HearthTreeNode boardState) {
 
-        HearthTreeNode toRet = super.performAction(origin, playerSide, boardState, singleRealizationOnly);
+        HearthTreeNode toRet = super.performAction(origin, playerSide, boardState);
 
         PlayerModel targetPlayer = toRet.data_.modelForSide(playerSide);
         PlayerSide targetPlayerSide = playerSide;
@@ -48,7 +48,7 @@ public class DeathrattleSummonMinionAction extends DeathrattleAction {
         for (int index = 0; index < numMinionsToActuallySummon; ++index) {
             try {
                 Minion newMinion = minionClass_.newInstance();
-                toRet = newMinion.summonMinion(targetPlayerSide, targetIndex, toRet, false, true);
+                toRet = newMinion.summonMinion(targetPlayerSide, targetIndex, toRet, false);
             } catch (InstantiationException | IllegalAccessException e) {
                 throw new RuntimeException("Unable to instantiate card.");
             }

@@ -48,7 +48,7 @@ public class TestWaterElemental {
         assertTrue(waterElemental instanceof WaterElemental);
 
         waterElemental.hasAttacked(false); // unset summoning sickness
-        waterElemental.attack(PlayerSide.WAITING_PLAYER, 2, board, false);
+        waterElemental.attack(PlayerSide.WAITING_PLAYER, 2, board);
         assertTrue(waitingPlayer.getCharacter(2).getFrozen());
     }
 
@@ -62,7 +62,7 @@ public class TestWaterElemental {
         assertTrue(waterElemental instanceof WaterElemental);
 
         waterElemental.hasAttacked(false); // unset summoning sickness
-        waterElemental.attack(PlayerSide.WAITING_PLAYER, 0, board, false);
+        waterElemental.attack(PlayerSide.WAITING_PLAYER, 0, board);
         assertTrue(waitingPlayer.getCharacter(0).getFrozen());
     }
 }

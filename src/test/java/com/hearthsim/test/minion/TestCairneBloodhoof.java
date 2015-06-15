@@ -100,7 +100,7 @@ public class TestCairneBloodhoof {
         assertTrue(minion instanceof CairneBloodhoof);
 
         minion.hasAttacked(false);
-        minion.attack(PlayerSide.WAITING_PLAYER, 2, board, false);
+        minion.attack(PlayerSide.WAITING_PLAYER, 2, board);
 
         assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 3);
@@ -156,7 +156,7 @@ public class TestCairneBloodhoof {
         assertTrue(minion instanceof CairneBloodhoof);
 
         minion.hasAttacked(false);
-        minion.attack(PlayerSide.WAITING_PLAYER, 2, board, false);
+        minion.attack(PlayerSide.WAITING_PLAYER, 2, board);
 
         assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 3);
@@ -214,7 +214,7 @@ public class TestCairneBloodhoof {
         Minion minion = currentPlayer.getCharacter(2);
 
         minion.hasAttacked(false);
-        minion.attack(PlayerSide.WAITING_PLAYER, 2, fb, false);
+        minion.attack(PlayerSide.WAITING_PLAYER, 2, fb);
 
         assertEquals(fb.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 2);
@@ -243,10 +243,10 @@ public class TestCairneBloodhoof {
         Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board);
 
-        ret = new BloodfenRaptor().summonMinion(PlayerSide.CURRENT_PLAYER, currentPlayer.getHero(), ret, false, true);
-        ret = new BloodfenRaptor().summonMinion(PlayerSide.CURRENT_PLAYER, currentPlayer.getHero(), ret, false, true);
-        ret = new BloodfenRaptor().summonMinion(PlayerSide.CURRENT_PLAYER, currentPlayer.getHero(), ret, false, true);
-        ret = new BloodfenRaptor().summonMinion(PlayerSide.CURRENT_PLAYER, currentPlayer.getHero(), ret, false, true);
+        ret = new BloodfenRaptor().summonMinion(PlayerSide.CURRENT_PLAYER, currentPlayer.getHero(), ret, false);
+        ret = new BloodfenRaptor().summonMinion(PlayerSide.CURRENT_PLAYER, currentPlayer.getHero(), ret, false);
+        ret = new BloodfenRaptor().summonMinion(PlayerSide.CURRENT_PLAYER, currentPlayer.getHero(), ret, false);
+        ret = new BloodfenRaptor().summonMinion(PlayerSide.CURRENT_PLAYER, currentPlayer.getHero(), ret, false);
 
         assertFalse(ret == null);
 
@@ -285,7 +285,7 @@ public class TestCairneBloodhoof {
         Minion minion = currentPlayer.getCharacter(2);
 
         minion.hasAttacked(false);
-        minion.attack(PlayerSide.WAITING_PLAYER, 6, fb, false);
+        minion.attack(PlayerSide.WAITING_PLAYER, 6, fb);
 
         assertEquals(fb.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 2);

@@ -31,8 +31,7 @@ public class ArchmageAntonidas extends Minion implements CardPlayBeginInterface 
             PlayerSide thisCardPlayerSide,
             PlayerSide cardUserPlayerSide,
             Card usedCard,
-            HearthTreeNode boardState,
-            boolean singleRealizationOnly) {
+            HearthTreeNode boardState) {
         if (thisCardPlayerSide != PlayerSide.CURRENT_PLAYER)
             return boardState;
         if (isInHand_)

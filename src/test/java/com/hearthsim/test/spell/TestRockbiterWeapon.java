@@ -73,7 +73,7 @@ public class TestRockbiterWeapon {
         assertEquals(waitingPlayer.getCharacter(1).getHealth(), health0);
         assertEquals(waitingPlayer.getCharacter(2).getHealth(), health1 - 1);
 
-        ret = currentPlayer.getHero().attack(PlayerSide.WAITING_PLAYER, 2, board, false);
+        ret = currentPlayer.getHero().attack(PlayerSide.WAITING_PLAYER, 2, board);
 
         assertFalse(ret == null);
         assertEquals(currentPlayer.getHand().size(), 0);
@@ -112,7 +112,7 @@ public class TestRockbiterWeapon {
 
         assertEquals(currentPlayer.getCharacter(1).getExtraAttackUntilTurnEnd(), 3);
 
-        ret = currentPlayer.getCharacter(1).attack(PlayerSide.WAITING_PLAYER, 2, board, false);
+        ret = currentPlayer.getCharacter(1).attack(PlayerSide.WAITING_PLAYER, 2, board);
 
         assertFalse(ret == null);
         assertEquals(currentPlayer.getHand().size(), 0);

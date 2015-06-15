@@ -31,9 +31,9 @@ public class AncientOfLore extends Minion {
     public HearthTreeNode use_core(
             PlayerSide side,
             Minion targetMinion,
-            HearthTreeNode boardState, boolean singleRealizationOnly)
+            HearthTreeNode boardState)
         throws HSException {
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
+        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState);
 
         if (toRet != null) {
             PlayerModel currentPlayer = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER);

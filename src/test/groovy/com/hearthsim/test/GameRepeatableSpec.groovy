@@ -273,7 +273,7 @@ class GameRepeatableSpec extends CardSpec {
                     assertBoardDelta(current.data_, actionBoardPair.board) {}
                     assertNotNull(actionBoardPair.action);
                 }
-                current = actionBoardPair.action.perform(current, false);
+                current = actionBoardPair.action.perform(current);
 
                 assertNotNull("Should have new node after " + actionBoardPair.action.verb_ + " action", current);
                 assertBoardDelta(actionBoardPair.board, current.data_) {

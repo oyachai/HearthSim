@@ -6,10 +6,10 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 @Deprecated
 public interface MinionUntargetableBattlecry extends MinionBattlecryInterface {
-    public HearthTreeNode useUntargetableBattlecry_core(int minionPlacementIndex, HearthTreeNode boardState, boolean singleRealizationOnly);
+    public HearthTreeNode useUntargetableBattlecry_core(int minionPlacementIndex, HearthTreeNode boardState);
 
     @Override
     public default EffectCharacter<Minion> getBattlecryEffect() {
-        return (PlayerSide originSide, Minion origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) -> this.useUntargetableBattlecry_core(targetCharacterIndex, boardState, false);
+        return (PlayerSide originSide, Minion origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) -> this.useUntargetableBattlecry_core(targetCharacterIndex, boardState);
     }
 }

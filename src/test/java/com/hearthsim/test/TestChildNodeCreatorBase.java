@@ -437,7 +437,7 @@ public class TestChildNodeCreatorBase {
         for (HearthTreeNode child : children) {
             HearthTreeNode origin = new HearthTreeNode(model.deepCopy());
             assertNotNull(child.getAction());
-            HearthTreeNode reproduced = child.getAction().perform(origin, false);
+            HearthTreeNode reproduced = child.getAction().perform(origin);
             assertNotNull(reproduced);
             assertEquals(child.data_, reproduced.data_);
         }

@@ -23,7 +23,7 @@ public class DeathrattleEffectRandomMinion extends DeathrattleAction {
     }
 
     @Override
-    public HearthTreeNode performAction(Card origin, PlayerSide playerSide, HearthTreeNode boardState, boolean singleRealizationOnly) {
+    public HearthTreeNode performAction(Card origin, PlayerSide playerSide, HearthTreeNode boardState) {
         // TODO could probably be faster and belongs in a more common location
         List<BoardModel.CharacterLocation> locations = new ArrayList<>();
         for (BoardModel.CharacterLocation location : boardState.data_) {
@@ -51,7 +51,7 @@ public class DeathrattleEffectRandomMinion extends DeathrattleAction {
                         this.effect.applyEffect(playerSide, origin, location.getPlayerSide(), location.getIndex(), newState);
                     }
 
-                    BoardStateFactoryBase.handleDeadMinions(newState, singleRealizationOnly);
+                    BoardStateFactoryBase.handleDeadMinions(newState);
                     rngNode.addChild(newState);
                 }
 

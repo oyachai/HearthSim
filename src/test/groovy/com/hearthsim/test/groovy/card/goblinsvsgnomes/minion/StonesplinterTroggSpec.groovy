@@ -24,9 +24,8 @@ class StonesplinterTroggSpec extends CardSpec {
         def root = new HearthTreeNode(startingBoard)
 
         def copiedBoard = startingBoard.deepCopy()
-        def target = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(0)
         def theCoin = root.data_.getCurrentPlayer().getHand().get(1)
-        def ret = theCoin.useOn(CURRENT_PLAYER, target, root)
+        def ret = theCoin.useOn(CURRENT_PLAYER, 0, root)
 
         expect:
         ret != null

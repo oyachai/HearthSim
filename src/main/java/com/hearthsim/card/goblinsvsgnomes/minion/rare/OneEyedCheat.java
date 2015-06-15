@@ -24,8 +24,7 @@ public class OneEyedCheat extends Minion implements CardPlayBeginInterface {
         PlayerSide thisCardPlayerSide,
         PlayerSide cardUserPlayerSide,
         Card usedCard,
-        HearthTreeNode boardState,
-        boolean singleRealizationOnly) {
+        HearthTreeNode boardState) {
         if (usedCard != this && !this.isInHand() && thisCardPlayerSide == cardUserPlayerSide) {
             return OneEyedCheat.effect.applyEffect(cardUserPlayerSide, usedCard, thisCardPlayerSide, this, boardState);
         }

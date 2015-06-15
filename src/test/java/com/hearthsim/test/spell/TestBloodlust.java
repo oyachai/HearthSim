@@ -77,7 +77,7 @@ public class TestBloodlust {
         assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), attack0);
 
         Minion theMinion = currentPlayer.getCharacter(1);
-        theMinion.attack(PlayerSide.WAITING_PLAYER, 0, ret, false);
+        theMinion.attack(PlayerSide.WAITING_PLAYER, 0, ret);
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), 30 - attackPlus3);
     }
@@ -106,7 +106,7 @@ public class TestBloodlust {
         assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), attack0);
 
         Minion theMinion = currentPlayer.getCharacter(1);
-        theMinion.attack(PlayerSide.WAITING_PLAYER, 2, ret, false);
+        theMinion.attack(PlayerSide.WAITING_PLAYER, 2, ret);
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), 30);
         assertEquals(currentPlayer.getCharacter(1).getHealth(), health0 - attack0);

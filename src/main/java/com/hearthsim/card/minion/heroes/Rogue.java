@@ -28,8 +28,7 @@ public class Rogue extends Hero {
     public HearthTreeNode useHeroAbility_core(
         PlayerSide targetPlayerSide,
         Minion targetMinion,
-        HearthTreeNode boardState,
-        boolean singleRealizationOnly) {
+        HearthTreeNode boardState) {
         HearthTreeNode toRet = boardState;
         if (targetMinion.isHero() && targetPlayerSide == PlayerSide.CURRENT_PLAYER) {
             this.hasBeenUsed = true;
@@ -38,7 +37,7 @@ public class Rogue extends Hero {
 
             DeathrattleAction action = target.setWeapon(new WickedKnife());
             if (action != null) {
-                toRet = action.performAction(null, targetPlayerSide, toRet, singleRealizationOnly);
+                toRet = action.performAction(null, targetPlayerSide, toRet);
             }
 
             return toRet;

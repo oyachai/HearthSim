@@ -40,9 +40,9 @@ public class EffectCharacterSummonNew<T extends Card> implements EffectCharacter
                 Minion summon = this.minionClass.newInstance();
                 summon.hasBeenUsed(true);
                 if (atEnd) {
-                    boardState = summon.summonMinionAtEnd(targetSide, boardState, true, false);
+                    boardState = summon.summonMinionAtEnd(targetSide, boardState, true);
                 } else {
-                    boardState = summon.summonMinion(targetSide, targetCharacterIndex, boardState, true, false);
+                    boardState = summon.summonMinion(targetSide, targetCharacterIndex, boardState, true);
                 }
             } catch (InstantiationException | IllegalAccessException e) {
                 // TODO Auto-generated catch block

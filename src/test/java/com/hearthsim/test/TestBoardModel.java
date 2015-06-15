@@ -246,7 +246,7 @@ public class TestBoardModel {
 
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, abusive);
 
-        BoardStateFactoryBase.handleDeadMinions(board, false);
+        BoardStateFactoryBase.handleDeadMinions(board);
         assertMinionReferences(board.data_);
         assertEquals(-1, currentPlayer.getIndexForCharacter(boulder));
     }
@@ -269,7 +269,7 @@ public class TestBoardModel {
 
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, abusive);
 
-        BoardStateFactoryBase.handleDeadMinions(board, false);
+        BoardStateFactoryBase.handleDeadMinions(board);
         assertMinionReferences(board.data_);
         assertEquals(-1, currentPlayer.getIndexForCharacter(boulder));
         assertEquals(-1, currentPlayer.getIndexForCharacter(raid));
@@ -294,7 +294,7 @@ public class TestBoardModel {
 
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, abusive);
 
-        BoardStateFactoryBase.handleDeadMinions(board, false);
+        BoardStateFactoryBase.handleDeadMinions(board);
         assertMinionReferences(board.data_);
         assertEquals(-1, currentPlayer.getIndexForCharacter(boulder));
         assertEquals(-1, currentPlayer.getIndexForCharacter(boulder2));

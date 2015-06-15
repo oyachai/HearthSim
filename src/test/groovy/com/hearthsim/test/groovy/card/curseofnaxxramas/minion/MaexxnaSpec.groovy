@@ -42,12 +42,11 @@ class MaexxnaSpec extends CardSpec {
 
     def "playing Maexxna and attacking the Hero with it"() {
         def copiedBoard = startingBoard.deepCopy()
-        def target = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(2)
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, target, root, null, null)
+        def ret = theCard.useOn(CURRENT_PLAYER, 2, root)
 
         def maexxna = ret.data_.modelForSide(CURRENT_PLAYER).getCharacter(2)
-        def ret2 = maexxna.attack(WAITING_PLAYER, 0, ret, null, null, false)
+        def ret2 = maexxna.attack(WAITING_PLAYER, 0, ret)
 
         expect:
         assertFalse(ret == null);
@@ -67,12 +66,11 @@ class MaexxnaSpec extends CardSpec {
     
     def "playing Maexxna and attacking a minion with it"() {
         def copiedBoard = startingBoard.deepCopy()
-        def target = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(2)
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, target, root, null, null)
+        def ret = theCard.useOn(CURRENT_PLAYER, 2, root)
 
         def maexxna = ret.data_.modelForSide(CURRENT_PLAYER).getCharacter(2)
-        def ret2 = maexxna.attack(WAITING_PLAYER, 1, ret, null, null, false)
+        def ret2 = maexxna.attack(WAITING_PLAYER, 1, ret)
 
         expect:
         assertFalse(ret == null);

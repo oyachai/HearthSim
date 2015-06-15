@@ -99,7 +99,7 @@ public class TestWarlock {
         Deck deck = new Deck(cards);
 
         Minion minion = currentPlayer.getCharacter(1);
-        HearthTreeNode ret = minion.attack(PlayerSide.WAITING_PLAYER, 0, board, false);
+        HearthTreeNode ret = minion.attack(PlayerSide.WAITING_PLAYER, 0, board);
         assertEquals(board, ret);
 
         currentPlayer.setDeckPos((byte) 30);

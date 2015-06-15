@@ -30,8 +30,7 @@ public class Hunter extends Hero {
     public HearthTreeNode useHeroAbility_core(
             PlayerSide targetPlayerSide,
             Minion targetMinion,
-            HearthTreeNode boardState,
-            boolean singleRealizationOnly) {
+            HearthTreeNode boardState) {
         HearthTreeNode toRet = boardState;
         if (targetMinion.isHero() && targetPlayerSide == PlayerSide.WAITING_PLAYER) {
             this.hasBeenUsed = true;

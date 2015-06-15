@@ -14,7 +14,7 @@ public class CobaltGuardian extends Minion implements CardPlayBeginInterface {
 
     @Override
     public HearthTreeNode onCardPlayBegin(PlayerSide thisCardPlayerSide, PlayerSide cardUserPlayerSide, Card usedCard,
-                                          HearthTreeNode boardState, boolean singleRealizationOnly) {
+                                          HearthTreeNode boardState) {
         if (cardUserPlayerSide != thisCardPlayerSide) {
             return boardState;
         }

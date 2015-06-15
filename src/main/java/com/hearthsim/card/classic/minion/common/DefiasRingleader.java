@@ -22,7 +22,7 @@ public class DefiasRingleader extends Minion implements MinionBattlecryInterface
 
             if (toRet.data_.getCurrentPlayer().isComboEnabled()) {
                 Minion newMinion = new DefiasBandit();
-                toRet = newMinion.summonMinion(PlayerSide.CURRENT_PLAYER, this, toRet, false, true);
+                toRet = newMinion.summonMinion(PlayerSide.CURRENT_PLAYER, this, toRet, false);
             }
             return toRet;
         };

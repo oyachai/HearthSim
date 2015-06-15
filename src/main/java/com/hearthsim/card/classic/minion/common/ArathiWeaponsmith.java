@@ -30,7 +30,7 @@ public class ArathiWeaponsmith extends Minion implements MinionBattlecryInterfac
 
             DeathrattleAction action = theHero.setWeapon(newWeapon);
             if (action != null) {
-                toRet = action.performAction(null, PlayerSide.CURRENT_PLAYER, toRet, false);
+                toRet = action.performAction(null, PlayerSide.CURRENT_PLAYER, toRet);
             }
 
             return toRet;

@@ -26,8 +26,8 @@ public class DruidOfTheClaw extends Minion {
     }
 
     @Override
-    public HearthTreeNode use_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
+    public HearthTreeNode use_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState) throws HSException {
+        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState);
 
         if (toRet != null) {
             PlayerModel currentPlayer = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER);

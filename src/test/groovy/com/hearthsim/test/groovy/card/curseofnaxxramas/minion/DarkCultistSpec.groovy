@@ -177,7 +177,7 @@ class DarkCultistSpec extends CardSpec {
 
         def copiedBoard = startingBoard.deepCopy()
         def darkCultist = root.data_.getCurrentPlayer().getCharacter(2)
-        def ret = darkCultist.attack(WAITING_PLAYER, 1, root, false)
+        def ret = darkCultist.attack(WAITING_PLAYER, 1, root)
 
         expect:
         assertNotNull(ret)

@@ -56,7 +56,7 @@ public class TestRogue {
 
     @Test
     public void testHeropowerDestroysEquippedWeapon() throws HSException {
-        currentPlayer.getHand().get(0).useOn(PlayerSide.CURRENT_PLAYER, currentPlayer.getHero(), board);
+        currentPlayer.getHand().get(0).useOn(PlayerSide.CURRENT_PLAYER, 0, board);
         assertEquals(currentPlayer.getMana(), 3);
         assertEquals(currentPlayer.getHero().getWeapon().getWeaponCharge(), 4);
         assertEquals(currentPlayer.getHero().getTotalAttack(), 3);

@@ -48,7 +48,7 @@ public class TestHeroBase {
 
         assertFalse(hero.canAttack());
 
-        HearthTreeNode ret = hero.attack(PlayerSide.WAITING_PLAYER, 0, board, false);
+        HearthTreeNode ret = hero.attack(PlayerSide.WAITING_PLAYER, 0, board);
         assertNull(ret);
     }
 
@@ -57,7 +57,7 @@ public class TestHeroBase {
 
         // null case
         Minion minion = currentPlayer.getCharacter(1);
-        HearthTreeNode ret = minion.attack(PlayerSide.WAITING_PLAYER, 0, board, false);
+        HearthTreeNode ret = minion.attack(PlayerSide.WAITING_PLAYER, 0, board);
         assertEquals(board, ret);
 
         assertEquals(currentPlayer.getHand().size(), 0);
@@ -173,7 +173,7 @@ public class TestHeroBase {
         opponent.setArmor((byte)3);
 
         Minion minion = currentPlayer.getCharacter(1);
-        HearthTreeNode ret = minion.attack(PlayerSide.WAITING_PLAYER, opponent, board, false);
+        HearthTreeNode ret = minion.attack(PlayerSide.WAITING_PLAYER, opponent, board);
         assertEquals(board, ret);
 
         assertEquals(waitingPlayer.getHero().getHealth(), 30);
@@ -190,7 +190,7 @@ public class TestHeroBase {
         HolySmite smite = new HolySmite();
         board.data_.placeCardHand(PlayerSide.CURRENT_PLAYER, smite);
 
-        HearthTreeNode ret = smite.useOn(PlayerSide.WAITING_PLAYER, opponent, board);
+        HearthTreeNode ret = smite.useOn(PlayerSide.WAITING_PLAYER, 0, board);
         assertEquals(board, ret);
 
         assertEquals(waitingPlayer.getHero().getHealth(), 30);

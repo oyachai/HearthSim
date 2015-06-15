@@ -40,8 +40,7 @@ public class Paladin extends Hero {
     public HearthTreeNode useHeroAbility_core(
             PlayerSide targetPlayerSide,
             Minion targetMinion,
-            HearthTreeNode boardState,
-            boolean singleRealizationOnly) {
+            HearthTreeNode boardState) {
 
         HearthTreeNode toRet = boardState;
 
@@ -50,7 +49,7 @@ public class Paladin extends Hero {
         currentPlayer.subtractMana(HERO_ABILITY_COST);
 
         Minion theRecruit = new SilverHandRecruit();
-        toRet = theRecruit.summonMinionAtEnd(targetPlayerSide, toRet, false, singleRealizationOnly);
+        toRet = theRecruit.summonMinionAtEnd(targetPlayerSide, toRet, false);
         return toRet;
     }
 }

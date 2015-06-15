@@ -21,6 +21,6 @@ public class EffectCharacterSummon<T extends Card> implements EffectCharacter<T>
             summon = (Minion)minion.deepCopy();
         }
         summon.hasBeenUsed(true);
-        return summon.summonMinion(targetSide, targetCharacterIndex, boardState, true, false);
+        return summon.summonMinion(targetSide, targetCharacterIndex, boardState, true);
     }
 }

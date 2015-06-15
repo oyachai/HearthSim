@@ -24,7 +24,7 @@ public class MurlocTidehunter extends Minion implements MinionBattlecryInterface
                 PlayerModel currentPlayer = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
                 if (!currentPlayer.isBoardFull()) {
                     Minion mdragon = new MurlocScout();
-                    toRet = mdragon.summonMinion(PlayerSide.CURRENT_PLAYER, this, boardState, false, false);
+                    toRet = mdragon.summonMinion(PlayerSide.CURRENT_PLAYER, this, boardState, false);
                 }
             }
             return toRet;

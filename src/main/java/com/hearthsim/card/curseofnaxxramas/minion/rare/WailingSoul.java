@@ -30,8 +30,7 @@ public class WailingSoul extends Minion implements MinionUntargetableBattlecry {
     @Override
     public HearthTreeNode useUntargetableBattlecry_core(
         int minionPlacementIndex,
-        HearthTreeNode boardState,
-        boolean singleRealizationOnly
+        HearthTreeNode boardState
     ) {
         return this.effectAllUsingFilter(WailingSoul.effect, WailingSoul.filter, boardState);
     }

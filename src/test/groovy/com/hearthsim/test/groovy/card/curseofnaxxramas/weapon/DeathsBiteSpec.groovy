@@ -100,7 +100,7 @@ class DeathsBiteSpec extends CardSpec {
         Minion hero = ret.data_.getCurrentPlayer().getHero();
         hero.getWeapon().setWeaponCharge((byte)1);
 
-        ret = hero.attack(PlayerSide.WAITING_PLAYER, 0, ret, null, null, false);
+        ret = hero.attack(PlayerSide.WAITING_PLAYER, 0, ret);
 
         expect:
         ret != null

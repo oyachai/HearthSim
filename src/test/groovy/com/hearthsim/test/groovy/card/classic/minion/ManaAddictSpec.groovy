@@ -27,14 +27,12 @@ class ManaAddictSpec extends CardSpec {
         def root = new HearthTreeNode(startingBoard)
 
         def copiedBoard = startingBoard.deepCopy()
-        def target = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(0)
         def manaAddict = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = manaAddict.useOn(CURRENT_PLAYER, target, root)
+        def ret = manaAddict.useOn(CURRENT_PLAYER, 0, root)
 
         def board2 = new HearthTreeNode(root.data_.deepCopy())
         def theCoin = board2.data_.getCurrentPlayer().getHand().get(0)
-        def coinTarget = board2.data_.modelForSide(CURRENT_PLAYER).getCharacter(0)
-        def ret2 = theCoin.useOn(CURRENT_PLAYER, coinTarget, board2)
+        def ret2 = theCoin.useOn(CURRENT_PLAYER, 0, board2)
         
         expect:
         assertFalse(ret == null);
@@ -77,8 +75,7 @@ class ManaAddictSpec extends CardSpec {
 
         def board2 = new HearthTreeNode(root.data_.deepCopy())
         def theCoin = board2.data_.getCurrentPlayer().getHand().get(1)
-        def coinTarget = board2.data_.modelForSide(CURRENT_PLAYER).getCharacter(0)
-        def ret2 = theCoin.useOn(CURRENT_PLAYER, coinTarget, board2)
+        def ret2 = theCoin.useOn(CURRENT_PLAYER, 0, board2)
 
         expect:
         assertFalse(ret2 == null);

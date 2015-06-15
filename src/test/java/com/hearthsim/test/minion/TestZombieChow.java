@@ -107,7 +107,7 @@ public class TestZombieChow {
         assertTrue(minion instanceof ZombieChow);
 
         minion.hasAttacked(false);
-        minion.attack(PlayerSide.WAITING_PLAYER, 2, board, false);
+        minion.attack(PlayerSide.WAITING_PLAYER, 2, board);
 
         assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 2);
@@ -133,7 +133,7 @@ public class TestZombieChow {
         minion = currentPlayer.getCharacter(2);
 
         minion.hasAttacked(false);
-        minion.attack(PlayerSide.WAITING_PLAYER, 3, board, false);
+        minion.attack(PlayerSide.WAITING_PLAYER, 3, board);
 
         assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 2);
@@ -192,7 +192,7 @@ public class TestZombieChow {
         assertTrue(minion instanceof ZombieChow);
 
         minion.hasAttacked(false);
-        minion.attack(PlayerSide.WAITING_PLAYER, 3, board, false);
+        minion.attack(PlayerSide.WAITING_PLAYER, 3, board);
 
         assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 2);
