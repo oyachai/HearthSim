@@ -52,7 +52,7 @@ public class Polymorph extends SpellTargetableCard {
             this.effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
                 Sheep sheep = new Sheep();
                 boardState.data_.removeMinion(targetSide, targetCharacterIndex);
-                boardState.data_.placeMinion(targetSide, sheep, targetCharacterIndex);
+                boardState.data_.placeMinion(targetSide, sheep, targetCharacterIndex.indexToLeft());
                 return boardState;
             };
         }
