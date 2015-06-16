@@ -1,5 +1,6 @@
 package com.hearthsim.card.classic.minion.common;
 
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionBattlecryInterface;
 import com.hearthsim.event.effect.EffectCharacter;
@@ -20,7 +21,7 @@ public class BloodsailRaider extends Minion implements MinionBattlecryInterface 
     public EffectCharacter getBattlecryEffect() {
         return new EffectCharacter<Minion>() {
             @Override
-            public HearthTreeNode applyEffect(PlayerSide originSide, Minion origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
+            public HearthTreeNode applyEffect(PlayerSide originSide, Minion origin, PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState) {
                 PlayerModel currentPlayer = boardState.data_.getCurrentPlayer();
                 if (currentPlayer.getHero().getWeapon() != null) {
                     origin.addAttack(currentPlayer.getHero().getWeapon().getWeaponDamage());

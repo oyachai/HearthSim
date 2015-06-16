@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.classic.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.classic.minion.common.FlameImp
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.groovy.card.CardSpec
@@ -46,7 +47,7 @@ class FlameImpSpec extends CardSpec {
     def "playing FlameImp damages the hero"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 2, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_2, root)
 
         expect:
         assertFalse(ret == null);
@@ -64,10 +65,10 @@ class FlameImpSpec extends CardSpec {
 
     def "playing FlameImp can kill own hero"() {
         def copiedBoard = startingBoard.deepCopy()
-        root.data_.modelForSide(CURRENT_PLAYER).getCharacter(0).setHealth((byte)2)
+        root.data_.modelForSide(CURRENT_PLAYER).getCharacter(CharacterIndex.HERO).setHealth((byte)2)
 
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 2, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_2, root)
 
         expect:
         assertFalse(ret == null);

@@ -1,6 +1,7 @@
 package com.hearthsim.test.minion;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.basic.minion.BloodfenRaptor;
 import com.hearthsim.card.basic.minion.Houndmaster;
 import com.hearthsim.card.basic.minion.StonetuskBoar;
@@ -92,35 +93,35 @@ public class TestHoundmaster {
         Card theCard = currentPlayer.getHand().get(0);
         HearthTreeNode res;
 
-        res = theCard.useOn(PlayerSide.WAITING_PLAYER, 0, board);
+        res = theCard.useOn(PlayerSide.WAITING_PLAYER, CharacterIndex.HERO, board);
         assertNull(res);
 
-        res = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
+        res = theCard.useOn(PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO, board);
         assertNotNull(res);
         assertEquals(res.data_.getCurrentPlayer().getHand().size(), 0);
         assertEquals(res.data_.getCurrentPlayer().getNumMinions(), 3);
         assertEquals(res.data_.getWaitingPlayer().getNumMinions(), 3);
         assertEquals(res.data_.getCurrentPlayer().getMana(), 6);
 
-        assertEquals(res.data_.getCurrentPlayer().getCharacter(1).getHealth(), 3);
-        assertEquals(res.data_.getCurrentPlayer().getCharacter(1).getTotalAttack(), 4);
-        assertFalse(res.data_.getCurrentPlayer().getCharacter(1).getTaunt());
-        assertEquals(res.data_.getCurrentPlayer().getCharacter(2).getHealth(), health0);
-        assertEquals(res.data_.getCurrentPlayer().getCharacter(2).getTotalAttack(), attack0);
-        assertFalse(res.data_.getCurrentPlayer().getCharacter(2).getTaunt());
-        assertEquals(res.data_.getCurrentPlayer().getCharacter(3).getHealth(), 1 + 2);
-        assertEquals(res.data_.getCurrentPlayer().getCharacter(3).getTotalAttack(), 1 + 2);
-        assertTrue(res.data_.getCurrentPlayer().getCharacter(3).getTaunt());
+        assertEquals(res.data_.getCurrentPlayer().getCharacter(CharacterIndex.MINION_1).getHealth(), 3);
+        assertEquals(res.data_.getCurrentPlayer().getCharacter(CharacterIndex.MINION_1).getTotalAttack(), 4);
+        assertFalse(res.data_.getCurrentPlayer().getCharacter(CharacterIndex.MINION_1).getTaunt());
+        assertEquals(res.data_.getCurrentPlayer().getCharacter(CharacterIndex.MINION_2).getHealth(), health0);
+        assertEquals(res.data_.getCurrentPlayer().getCharacter(CharacterIndex.MINION_2).getTotalAttack(), attack0);
+        assertFalse(res.data_.getCurrentPlayer().getCharacter(CharacterIndex.MINION_2).getTaunt());
+        assertEquals(res.data_.getCurrentPlayer().getCharacter(CharacterIndex.MINION_3).getHealth(), 1 + 2);
+        assertEquals(res.data_.getCurrentPlayer().getCharacter(CharacterIndex.MINION_3).getTotalAttack(), 1 + 2);
+        assertTrue(res.data_.getCurrentPlayer().getCharacter(CharacterIndex.MINION_3).getTaunt());
 
-        assertEquals(res.data_.getWaitingPlayer().getCharacter(1).getHealth(), health0);
-        assertEquals(res.data_.getWaitingPlayer().getCharacter(1).getTotalAttack(), attack0);
-        assertFalse(res.data_.getWaitingPlayer().getCharacter(1).getTaunt());
-        assertEquals(res.data_.getWaitingPlayer().getCharacter(2).getHealth(), 2);
-        assertEquals(res.data_.getWaitingPlayer().getCharacter(2).getTotalAttack(), 3);
-        assertFalse(res.data_.getWaitingPlayer().getCharacter(2).getTaunt());
-        assertEquals(res.data_.getWaitingPlayer().getCharacter(3).getHealth(), health0-2);
-        assertEquals(res.data_.getWaitingPlayer().getCharacter(3).getTotalAttack(), attack0);
-        assertFalse(res.data_.getWaitingPlayer().getCharacter(3).getTaunt());
+        assertEquals(res.data_.getWaitingPlayer().getCharacter(CharacterIndex.MINION_1).getHealth(), health0);
+        assertEquals(res.data_.getWaitingPlayer().getCharacter(CharacterIndex.MINION_1).getTotalAttack(), attack0);
+        assertFalse(res.data_.getWaitingPlayer().getCharacter(CharacterIndex.MINION_1).getTaunt());
+        assertEquals(res.data_.getWaitingPlayer().getCharacter(CharacterIndex.MINION_2).getHealth(), 2);
+        assertEquals(res.data_.getWaitingPlayer().getCharacter(CharacterIndex.MINION_2).getTotalAttack(), 3);
+        assertFalse(res.data_.getWaitingPlayer().getCharacter(CharacterIndex.MINION_2).getTaunt());
+        assertEquals(res.data_.getWaitingPlayer().getCharacter(CharacterIndex.MINION_3).getHealth(), health0-2);
+        assertEquals(res.data_.getWaitingPlayer().getCharacter(CharacterIndex.MINION_3).getTotalAttack(), attack0);
+        assertFalse(res.data_.getWaitingPlayer().getCharacter(CharacterIndex.MINION_3).getTaunt());
 
         assertEquals(res.data_.getCurrentPlayer().getHero().getHealth(), 30);
         assertEquals(res.data_.getWaitingPlayer().getHero().getHealth(), 30);

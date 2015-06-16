@@ -1,6 +1,7 @@
 package com.hearthsim.test.groovy.card.classic.minion
 
 import com.hearthsim.Game
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.minion.GoldshireFootman
 import com.hearthsim.card.basic.spell.TheCoin
 import com.hearthsim.card.classic.minion.epic.Doomsayer
@@ -31,7 +32,7 @@ class DoomsayerSpec extends CardSpec {
 
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root, null, null)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         assertFalse(ret == null);
@@ -72,7 +73,7 @@ class DoomsayerSpec extends CardSpec {
 
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 1, root, null, null)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         assertFalse(ret == null);
@@ -88,12 +89,12 @@ class DoomsayerSpec extends CardSpec {
         assertBoardDelta(copiedBoard, retAfterStartTurn.data_) {
             currentPlayer {
                 removeCardFromHand(Doomsayer)
-                removeMinion(0)
+                removeMinion(CharacterIndex.MINION_1)
                 addCardToHand([TheCoin])
                 addDeckPos(1)
             }
             waitingPlayer {
-                removeMinion(0)
+                removeMinion(CharacterIndex.MINION_1)
             }
         }
 

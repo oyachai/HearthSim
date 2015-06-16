@@ -1,5 +1,6 @@
 package com.hearthsim.card.classic.minion.legendary;
 
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionBattlecryInterface;
 import com.hearthsim.card.weapon.WeaponCard;
@@ -20,7 +21,7 @@ public class HarrisonJones extends Minion implements MinionBattlecryInterface {
      */
     @Override
     public EffectCharacter<Minion> getBattlecryEffect() {
-        return (PlayerSide originSide, Minion origin, PlayerSide targetSide, int minionPlacementIndex, HearthTreeNode boardState) -> {
+        return (PlayerSide originSide, Minion origin, PlayerSide targetSide, CharacterIndex minionPlacementIndex, HearthTreeNode boardState) -> {
             WeaponCard weapon = boardState.data_.modelForSide(PlayerSide.WAITING_PLAYER).getHero().getWeapon();
             if (weapon != null) {
                 EffectHeroDraw<Minion> draw = new EffectHeroDraw<>(weapon.getWeaponCharge());

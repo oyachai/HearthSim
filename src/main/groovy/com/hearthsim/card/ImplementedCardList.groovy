@@ -1,20 +1,14 @@
 package com.hearthsim.card
 
-import java.util.regex.Matcher
-import java.util.regex.Pattern
-
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-
-import com.hearthsim.card.Card
 import com.hearthsim.card.minion.Hero
 import com.hearthsim.card.minion.Minion
 import com.hearthsim.card.minion.MinionMock
 import com.hearthsim.card.minion.heroes.TestHero
 import com.hearthsim.json.registry.ReferenceCardRegistry
-
 import groovy.json.JsonSlurper
 import groovy.util.logging.Slf4j
+
+import java.lang.reflect.Constructor
 
 @Slf4j
 class ImplementedCardList {

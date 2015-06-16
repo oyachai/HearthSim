@@ -1,5 +1,6 @@
 package com.hearthsim.test.heroes;
 
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.basic.minion.BoulderfistOgre;
 import com.hearthsim.card.basic.minion.ChillwindYeti;
 import com.hearthsim.card.classic.minion.common.FaerieDragon;
@@ -44,7 +45,7 @@ public class TestMage {
     public void testHeropowerAgainstOpponent() throws HSException {
         Hero mage = currentPlayer.getHero();
 
-        HearthTreeNode ret = mage.useHeroAbility(PlayerSide.WAITING_PLAYER, 0, board);
+        HearthTreeNode ret = mage.useHeroAbility(PlayerSide.WAITING_PLAYER, CharacterIndex.HERO, board);
         assertEquals(board, ret);
 
         assertEquals(currentPlayer.getMana(), 6);
@@ -55,15 +56,15 @@ public class TestMage {
     public void testHeropowerAgainstMinion() throws HSException {
         Hero mage = currentPlayer.getHero();
 
-        HearthTreeNode ret = mage.useHeroAbility(PlayerSide.WAITING_PLAYER, 1, board);
+        HearthTreeNode ret = mage.useHeroAbility(PlayerSide.WAITING_PLAYER, CharacterIndex.MINION_1, board);
         assertEquals(board, ret);
 
         assertEquals(currentPlayer.getMana(), 6);
 
-        assertEquals(currentPlayer.getCharacter(1).getHealth(), 5);
-        assertEquals(currentPlayer.getCharacter(2).getHealth(), 7);
-        assertEquals(waitingPlayer.getCharacter(1).getHealth(), 4);
-        assertEquals(waitingPlayer.getCharacter(2).getHealth(), 7);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), 5);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getHealth(), 7);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), 4);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getHealth(), 7);
     }
 
     @Test
@@ -71,7 +72,7 @@ public class TestMage {
     public void testHeropowerAgainstSelf() throws HSException {
         Hero mage = currentPlayer.getHero();
 
-        HearthTreeNode ret = mage.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board);
+        HearthTreeNode ret = mage.useHeroAbility(PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO, board);
         assertEquals(board, ret);
 
         assertEquals(currentPlayer.getMana(), 6);
@@ -82,15 +83,15 @@ public class TestMage {
     public void testHeropowerAgainstOwnMinion() throws HSException {
         Hero mage = currentPlayer.getHero();
 
-        HearthTreeNode ret = mage.useHeroAbility(PlayerSide.CURRENT_PLAYER, 1, board);
+        HearthTreeNode ret = mage.useHeroAbility(PlayerSide.CURRENT_PLAYER, CharacterIndex.MINION_1, board);
         assertEquals(board, ret);
 
         assertEquals(currentPlayer.getMana(), 6);
 
-        assertEquals(currentPlayer.getCharacter(1).getHealth(), 4);
-        assertEquals(currentPlayer.getCharacter(2).getHealth(), 7);
-        assertEquals(waitingPlayer.getCharacter(1).getHealth(), 5);
-        assertEquals(waitingPlayer.getCharacter(2).getHealth(), 7);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), 4);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getHealth(), 7);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), 5);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getHealth(), 7);
     }
 
     @Test
@@ -99,17 +100,17 @@ public class TestMage {
 
         Hero mage = currentPlayer.getHero();
 
-        assertFalse(mage.canBeUsedOn(PlayerSide.WAITING_PLAYER, 3, board.data_));
-        HearthTreeNode ret = mage.useHeroAbility(PlayerSide.WAITING_PLAYER, 3, board);
+        assertFalse(mage.canBeUsedOn(PlayerSide.WAITING_PLAYER, CharacterIndex.MINION_3, board.data_));
+        HearthTreeNode ret = mage.useHeroAbility(PlayerSide.WAITING_PLAYER, CharacterIndex.MINION_3, board);
         assertNull(ret);
 
         assertEquals(currentPlayer.getMana(), 8);
-        assertEquals(waitingPlayer.getCharacter(3).getHealth(), 2);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_3).getHealth(), 2);
     }
 
     @Test
     public void testHeropowerKillsMinion() throws HSException {
-        Minion target = waitingPlayer.getCharacter(1); // Yeti
+        Minion target = waitingPlayer.getCharacter(CharacterIndex.MINION_1); // Yeti
         target.setHealth((byte)1);
 
         Hero mage = currentPlayer.getHero();
@@ -122,12 +123,12 @@ public class TestMage {
 
         assertEquals(currentPlayer.getMana(), 6);
 
-        assertEquals(currentPlayer.getCharacter(1).getHealth(), 5);
-        assertEquals(currentPlayer.getCharacter(2).getHealth(), 7);
-        assertEquals(waitingPlayer.getCharacter(1).getHealth(), 7);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), 5);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getHealth(), 7);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), 7);
 
-        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), 4);
-        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), 6);
-        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), 6);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), 4);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getTotalAttack(), 6);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), 6);
     }
 }

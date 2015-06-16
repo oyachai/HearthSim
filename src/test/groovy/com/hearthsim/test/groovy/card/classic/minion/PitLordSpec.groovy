@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.classic.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.classic.minion.epic.PitLord
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.groovy.card.CardSpec
@@ -44,7 +45,7 @@ class PitLordSpec extends CardSpec {
     def "playing PitLord damages the hero"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 2, root, null, null)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_2, root)
 
         expect:
         assertFalse(ret == null);

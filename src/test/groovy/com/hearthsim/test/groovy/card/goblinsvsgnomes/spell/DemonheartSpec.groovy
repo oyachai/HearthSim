@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.goblinsvsgnomes.spell
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.minion.Voidwalker
 import com.hearthsim.card.basic.minion.WarGolem
 import com.hearthsim.card.goblinsvsgnomes.spell.epic.Demonheart
@@ -36,7 +37,7 @@ class DemonheartSpec extends CardSpec {
     def "damages enemy non-demon"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(WAITING_PLAYER, 2, root, null, null)
+        def ret = theCard.useOn(WAITING_PLAYER, CharacterIndex.MINION_2, root)
 
         expect:
         assertEquals(root, ret);
@@ -48,7 +49,7 @@ class DemonheartSpec extends CardSpec {
                 numCardsUsed(1)
             }
             waitingPlayer {
-                updateMinion(1, [deltaHealth: -5])
+                updateMinion(CharacterIndex.MINION_2, [deltaHealth: -5])
             }
         }
     }
@@ -56,7 +57,7 @@ class DemonheartSpec extends CardSpec {
     def "damages enemy demon"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(WAITING_PLAYER, 1, root, null, null)
+        def ret = theCard.useOn(WAITING_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         assertEquals(root, ret);
@@ -68,7 +69,7 @@ class DemonheartSpec extends CardSpec {
                 numCardsUsed(1)
             }
             waitingPlayer {
-                removeMinion(0)
+                removeMinion(CharacterIndex.MINION_1)
             }
         }
     }
@@ -76,7 +77,7 @@ class DemonheartSpec extends CardSpec {
     def "damages friendly non-demon"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 2, root, null, null)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_2, root)
 
         expect:
         assertEquals(root, ret);
@@ -85,7 +86,7 @@ class DemonheartSpec extends CardSpec {
             currentPlayer {
                 removeCardFromHand(Demonheart)
                 mana(5)
-                updateMinion(1, [deltaHealth: -5])
+                updateMinion(CharacterIndex.MINION_2, [deltaHealth: -5])
                 numCardsUsed(1)
             }
         }
@@ -94,7 +95,7 @@ class DemonheartSpec extends CardSpec {
     def "buffs friendly demon"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 1, root, null, null)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         assertEquals(root, ret);
@@ -103,7 +104,7 @@ class DemonheartSpec extends CardSpec {
             currentPlayer {
                 removeCardFromHand(Demonheart)
                 mana(5)
-                updateMinion(0, [deltaAttack: +5, deltaMaxHealth: +5, deltaHealth: +5])
+                updateMinion(CharacterIndex.MINION_1, [deltaAttack: +5, deltaMaxHealth: +5, deltaHealth: +5])
                 numCardsUsed(1)
             }
         }

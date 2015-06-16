@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.goblinsvsgnomes.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.minion.BloodfenRaptor
 import com.hearthsim.card.goblinsvsgnomes.minion.common.AntiqueHealbot
 import com.hearthsim.model.BoardModel
@@ -30,7 +31,7 @@ class AntiqueHealbotSpec extends CardSpec {
     def "playing FlameImp damages the hero"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 1, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         ret != null;

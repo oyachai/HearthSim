@@ -1,6 +1,7 @@
 package com.hearthsim.card.classic.minion.rare;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionUntargetableBattlecry;
 import com.hearthsim.model.PlayerModel;
@@ -21,19 +22,19 @@ public class Doomguard extends Minion implements MinionUntargetableBattlecry {
      */
     @Override
     public HearthTreeNode useUntargetableBattlecry_core(
-            int minionPlacementIndex,
+            CharacterIndex minionPlacementIndex,
             HearthTreeNode boardState
         ) {
         HearthTreeNode toRet = boardState;
 
         PlayerModel currentPlayer = toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
 
-        int thisMinionIndex = currentPlayer.getIndexForCharacter(this);
+        CharacterIndex thisMinionIndex = currentPlayer.getIndexForCharacter(this);
         IdentityLinkedList<Card> hand = currentPlayer.getHand();
         if (hand.size() == 0) {
             return toRet;
         }
-        toRet = new RandomEffectNode(boardState, new HearthAction(HearthAction.Verb.UNTARGETABLE_BATTLECRY, PlayerSide.CURRENT_PLAYER, thisMinionIndex, PlayerSide.CURRENT_PLAYER, minionPlacementIndex));
+        toRet = new RandomEffectNode(boardState, new HearthAction(HearthAction.Verb.UNTARGETABLE_BATTLECRY, PlayerSide.CURRENT_PLAYER, thisMinionIndex.getInt(), PlayerSide.CURRENT_PLAYER, minionPlacementIndex));
         for (int indx0 = 0; indx0 < hand.size(); ++indx0) {
             if (hand.size() > 1) {
                 for (int indx1 = indx0+1; indx1 < hand.size(); ++indx1) {

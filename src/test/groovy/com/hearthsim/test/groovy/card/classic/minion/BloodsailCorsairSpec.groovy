@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.classic.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.weapon.FieryWarAxe
 import com.hearthsim.card.classic.minion.rare.BloodsailCorsair
 import com.hearthsim.model.BoardModel
@@ -46,7 +47,7 @@ class BloodsailCorsairSpec extends CardSpec {
     def "playing Bloodsail Corsair with weapon"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 1, root, null, null)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         assertFalse(ret == null);

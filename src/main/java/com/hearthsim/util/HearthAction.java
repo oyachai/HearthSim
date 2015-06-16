@@ -2,6 +2,7 @@ package com.hearthsim.util;
 
 import com.hearthsim.Game;
 import com.hearthsim.card.Card;
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
@@ -30,23 +31,23 @@ public class HearthAction {
     private final int cardOrCharacterIndex_;
 
     private final PlayerSide targetPlayerSide;
-    public final int targetCharacterIndex_;
+    public final CharacterIndex targetCharacterIndex;
 
     public HearthAction(Verb verb) {
-        this(verb, PlayerSide.CURRENT_PLAYER, -1, null, -1);
+        this(verb, PlayerSide.CURRENT_PLAYER, -1, null, CharacterIndex.UNKNOWN);
     }
 
     public HearthAction(Verb verb, PlayerSide actionPerformerPlayerSide, int cardOrCharacterIndex) {
-        this(verb, actionPerformerPlayerSide, cardOrCharacterIndex, null, -1);
+        this(verb, actionPerformerPlayerSide, cardOrCharacterIndex, null, CharacterIndex.UNKNOWN);
     }
 
-    public HearthAction(Verb verb, PlayerSide actionPerformerPlayerSide, int cardOrCharacterIndex, PlayerSide targetPlayerSide, int targetCharacterIndex) {
+    public HearthAction(Verb verb, PlayerSide actionPerformerPlayerSide, int cardOrCharacterIndex, PlayerSide targetPlayerSide, CharacterIndex targetCharacterIndex) {
         verb_ = verb;
         this.actionPerformerPlayerSide = actionPerformerPlayerSide;
         cardOrCharacterIndex_ = cardOrCharacterIndex;
 
         this.targetPlayerSide = targetPlayerSide;
-        targetCharacterIndex_ = targetCharacterIndex;
+        this.targetCharacterIndex = targetCharacterIndex;
     }
 
     public JSONObject toJSON() {
@@ -56,7 +57,7 @@ public class HearthAction {
         json.put("actionPerformerPlayerSide", actionPerformerPlayerSide);
         json.put("cardOrCharacterIndex_", cardOrCharacterIndex_);
         json.put("targetPlayerSide", targetPlayerSide);
-        json.put("targetCharacterIndex_", targetCharacterIndex_);
+        json.put("targetCharacterIndex", targetCharacterIndex);
 
         return json;
     }
@@ -74,28 +75,28 @@ public class HearthAction {
         switch(verb_) {
             case USE_CARD: {
                 Card card = actingPlayer.getHand().get(cardOrCharacterIndex_);
-                toRet = card.useOn(targetPlayerSide, targetCharacterIndex_, toRet);
+                toRet = card.useOn(targetPlayerSide, targetCharacterIndex, toRet);
             }
             break;
             case HERO_ABILITY: {
                 Hero hero = actingPlayer.getHero();
-                Minion target = targetPlayer.getCharacter(targetCharacterIndex_);
+                Minion target = targetPlayer.getCharacter(targetCharacterIndex);
                 toRet = hero.useHeroAbility(targetPlayerSide, target, toRet);
             }
             break;
             case ATTACK: {
-                Minion attacker = actingPlayer.getCharacter(cardOrCharacterIndex_);
-                toRet = attacker.attack(targetPlayerSide, targetCharacterIndex_, toRet);
+                Minion attacker = actingPlayer.getCharacter(CharacterIndex.fromInteger(cardOrCharacterIndex_));
+                toRet = attacker.attack(targetPlayerSide, targetCharacterIndex, toRet);
             }
             break;
             case UNTARGETABLE_BATTLECRY: {
-                Minion minion = actingPlayer.getCharacter(cardOrCharacterIndex_);
-                toRet = minion.useUntargetableBattlecry(targetCharacterIndex_, toRet);
+                Minion minion = actingPlayer.getCharacter(CharacterIndex.fromInteger(cardOrCharacterIndex_));
+                toRet = minion.useUntargetableBattlecry(targetCharacterIndex, toRet);
                 break;
             }
             case TARGETABLE_BATTLECRY: {
-                Minion minion = actingPlayer.getCharacter(cardOrCharacterIndex_);
-                toRet = minion.useTargetableBattlecry(targetPlayerSide, targetCharacterIndex_, toRet);
+                Minion minion = actingPlayer.getCharacter(CharacterIndex.fromInteger(cardOrCharacterIndex_));
+                toRet = minion.useTargetableBattlecry(targetPlayerSide, targetCharacterIndex, toRet);
                 break;
             }
             case START_TURN: {

@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.goblinsvsgnomes.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.minion.BloodfenRaptor
 import com.hearthsim.card.basic.minion.RiverCrocolisk
 import com.hearthsim.card.basic.spell.Fireball
@@ -36,10 +37,10 @@ class MechwarperSpec extends CardSpec {
     def "playing Mechwarper decreases minion mana cost"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        ret = theCard.useOn(CURRENT_PLAYER, 0, ret)
+        ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, ret)
 
 
         expect:
@@ -47,8 +48,8 @@ class MechwarperSpec extends CardSpec {
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                playMinion(Mechwarper, 0)
-                playMinion(SpiderTank, 0)
+                playMinion(Mechwarper, CharacterIndex.HERO)
+                playMinion(SpiderTank, CharacterIndex.HERO)
                 mana(6)
                 numCardsUsed(2)
             }
@@ -60,14 +61,14 @@ class MechwarperSpec extends CardSpec {
 
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(1)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         ret != null;
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                playMinion(SpiderTank, 0)
+                playMinion(SpiderTank, CharacterIndex.HERO)
                 mana(7)
                 numCardsUsed(1)
             }
@@ -79,14 +80,14 @@ class MechwarperSpec extends CardSpec {
 
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(2)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         ret != null;
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                playMinion(BloodfenRaptor, 0)
+                playMinion(BloodfenRaptor, CharacterIndex.HERO)
                 mana(8)
                 numCardsUsed(1)
             }

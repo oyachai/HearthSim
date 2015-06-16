@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.classic.spell
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.classic.spell.common.LightningBolt
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.groovy.card.CardSpec
@@ -29,7 +30,7 @@ class LightningBoltSpec extends CardSpec {
         def copiedBoard = startingBoard.deepCopy()
         def copiedRoot = new HearthTreeNode(copiedBoard)
         def theCard = copiedBoard.getCurrentPlayer().getHand().get(0);
-        def ret = theCard.useOn(WAITING_PLAYER, 0, copiedRoot);
+        def ret = theCard.useOn(WAITING_PLAYER, CharacterIndex.HERO, copiedRoot);
 
         expect:
         ret != null

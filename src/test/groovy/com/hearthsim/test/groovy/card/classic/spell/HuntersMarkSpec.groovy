@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.classic.spell
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.minion.WarGolem
 import com.hearthsim.card.basic.spell.HuntersMark
 import com.hearthsim.card.classic.minion.common.AmaniBerserker
@@ -34,7 +35,7 @@ class HuntersMarkSpec extends CardSpec {
     def "sets health to 1"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = startingBoard.getCurrentPlayer().getHand().get(0);
-        def ret = theCard.useOn(CURRENT_PLAYER, 1, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         assertEquals(root, ret);
@@ -42,7 +43,7 @@ class HuntersMarkSpec extends CardSpec {
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
                 removeCardFromHand(HuntersMark)
-                updateMinion(0, [health: 1, maxHealth: 1])
+                updateMinion(CharacterIndex.MINION_1, [health: 1, maxHealth: 1])
                 numCardsUsed(1)
             }
         }
@@ -55,7 +56,7 @@ class HuntersMarkSpec extends CardSpec {
 
         def copiedBoard = startingBoard.deepCopy()
         def theCard = startingBoard.getCurrentPlayer().getHand().get(0);
-        def ret = theCard.useOn(WAITING_PLAYER, 1, root)
+        def ret = theCard.useOn(WAITING_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         assertEquals(root, ret);
@@ -68,7 +69,7 @@ class HuntersMarkSpec extends CardSpec {
                 numCardsUsed(1)
             }
             waitingPlayer {
-                updateMinion(0, [health: 1, maxHealth: 1])
+                updateMinion(CharacterIndex.MINION_1, [health: 1, maxHealth: 1])
             }
         }
     }
@@ -77,10 +78,10 @@ class HuntersMarkSpec extends CardSpec {
         def copiedBoard = startingBoard.deepCopy()
 
         def theCard = startingBoard.getCurrentPlayer().getHand().get(0);
-        def ret = theCard.useOn(CURRENT_PLAYER, 1, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_1, root)
 
         theCard = new Silence()
-        ret = theCard.useOn(CURRENT_PLAYER, 1, ret)
+        ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_1, ret)
 
         expect:
         assertEquals(root, ret);
@@ -89,7 +90,7 @@ class HuntersMarkSpec extends CardSpec {
             currentPlayer {
                 removeCardFromHand(HuntersMark)
                 numCardsUsed(2)
-                updateMinion(0, [silenced:true])
+                updateMinion(CharacterIndex.MINION_1, [silenced:true])
             }
         }
     }

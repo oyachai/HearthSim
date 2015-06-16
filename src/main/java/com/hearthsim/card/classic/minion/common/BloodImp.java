@@ -1,5 +1,6 @@
 package com.hearthsim.card.classic.minion.common;
 
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerModel;
@@ -19,7 +20,7 @@ public class BloodImp extends Minion {
             if (player.getNumMinions() > 1) {
                 Minion buffTargetMinion = this;
                 while (buffTargetMinion == this) {
-                    buffTargetMinion = player.getCharacter((int) (Math.random() * player.getNumMinions()) + 1);
+                    buffTargetMinion = player.getCharacter(CharacterIndex.fromInteger((int) (Math.random() * player.getNumMinions()) + 1));
                 }
                 buffTargetMinion.addMaxHealth((byte)1);
                 buffTargetMinion.addHealth((byte)1);

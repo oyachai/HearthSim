@@ -1,14 +1,14 @@
 package com.hearthsim.util;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Random;
-import java.util.function.Predicate;
-
 import com.hearthsim.card.Card;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.ImplementedCardList;
 import com.hearthsim.card.ImplementedCardList.ImplementedCard;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Random;
+import java.util.function.Predicate;
 
 /**
  * This class provides a mechanism for generating random decks.

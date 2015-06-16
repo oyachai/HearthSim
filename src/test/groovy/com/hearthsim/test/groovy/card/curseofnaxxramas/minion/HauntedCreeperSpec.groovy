@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.curseofnaxxramas.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.spell.ShadowWordPain
 import com.hearthsim.card.curseofnaxxramas.minion.common.HauntedCreeper
 import com.hearthsim.card.curseofnaxxramas.minion.common.SpectralSpider
@@ -12,9 +13,7 @@ import com.hearthsim.util.tree.RandomEffectNode
 
 import static com.hearthsim.model.PlayerSide.CURRENT_PLAYER
 import static com.hearthsim.model.PlayerSide.WAITING_PLAYER
-import static org.junit.Assert.assertEquals
-import static org.junit.Assert.assertFalse
-import static org.junit.Assert.assertNotNull
+import static org.junit.Assert.*
 
 /**
  * Created by oyachai on 4/25/15.
@@ -42,7 +41,7 @@ class HauntedCreeperSpec extends CardSpec {
     def "Haunted creeper dying"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = new ShadowWordPain()
-        def ret = theCard.useOn(CURRENT_PLAYER, 1, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         assertNotNull(ret)
@@ -51,19 +50,19 @@ class HauntedCreeperSpec extends CardSpec {
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                removeMinion(0)
+                removeMinion(CharacterIndex.MINION_1)
                 mana(8)
                 numCardsUsed(1)
-                addMinionToField(SpectralSpider, 0)
-                addMinionToField(SpectralSpider, 0)
+                addMinionToField(SpectralSpider, CharacterIndex.HERO)
+                addMinionToField(SpectralSpider, CharacterIndex.HERO)
             }
         }
     }
 
     def "Haunted creeper death by attacking"() {
         def copiedBoard = startingBoard.deepCopy()
-        def target = root.data_.modelForSide(WAITING_PLAYER).getCharacter(1)
-        def hauntedCreeper = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(1)
+        def target = root.data_.modelForSide(WAITING_PLAYER).getCharacter(CharacterIndex.MINION_1)
+        def hauntedCreeper = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(CharacterIndex.MINION_1)
         def ret = hauntedCreeper.attack(WAITING_PLAYER, target, root);
 
         expect:
@@ -73,21 +72,21 @@ class HauntedCreeperSpec extends CardSpec {
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                removeMinion(0)
-                addMinionToField(SpectralSpider, 0)
-                addMinionToField(SpectralSpider, 0)
+                removeMinion(CharacterIndex.MINION_1)
+                addMinionToField(SpectralSpider, CharacterIndex.HERO)
+                addMinionToField(SpectralSpider, CharacterIndex.HERO)
             }
             waitingPlayer {
-                updateMinion(0, [deltaHealth:-1])
+                updateMinion(CharacterIndex.MINION_1, [deltaHealth:-1])
             }
         }
     }
 
     def "Haunted creeper kills minion, death by attacking"() {
         def copiedBoard = startingBoard.deepCopy()
-        def target = root.data_.modelForSide(WAITING_PLAYER).getCharacter(1)
+        def target = root.data_.modelForSide(WAITING_PLAYER).getCharacter(CharacterIndex.MINION_1)
         target.setHealth((byte)1)
-        def hauntedCreeper = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(1)
+        def hauntedCreeper = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(CharacterIndex.MINION_1)
         def ret = hauntedCreeper.attack(WAITING_PLAYER, target, root);
 
         expect:
@@ -97,12 +96,12 @@ class HauntedCreeperSpec extends CardSpec {
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                removeMinion(0)
-                addMinionToField(SpectralSpider, 0)
-                addMinionToField(SpectralSpider, 0)
+                removeMinion(CharacterIndex.MINION_1)
+                addMinionToField(SpectralSpider, CharacterIndex.HERO)
+                addMinionToField(SpectralSpider, CharacterIndex.HERO)
             }
             waitingPlayer {
-                removeMinion(0)
+                removeMinion(CharacterIndex.MINION_1)
             }
         }
     }
@@ -118,9 +117,9 @@ class HauntedCreeperSpec extends CardSpec {
 
         def copiedBoard = startingBoard.deepCopy()
 
-        def target = root.data_.modelForSide(WAITING_PLAYER).getCharacter(1)
+        def target = root.data_.modelForSide(WAITING_PLAYER).getCharacter(CharacterIndex.MINION_1)
         target.setHealth((byte)1)
-        def hauntedCreeper = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(1)
+        def hauntedCreeper = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(CharacterIndex.MINION_1)
         def ret = hauntedCreeper.attack(WAITING_PLAYER, target, root);
 
         expect:
@@ -130,11 +129,11 @@ class HauntedCreeperSpec extends CardSpec {
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                removeMinion(0)
-                addMinionToField(SpectralSpider, 0)
+                removeMinion(CharacterIndex.MINION_1)
+                addMinionToField(SpectralSpider, CharacterIndex.HERO)
             }
             waitingPlayer {
-                removeMinion(0)
+                removeMinion(CharacterIndex.MINION_1)
             }
         }
     }

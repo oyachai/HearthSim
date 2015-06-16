@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.classic.weapon
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.minion.BloodfenRaptor
 import com.hearthsim.card.classic.weapon.epic.SwordOfJustice
 import com.hearthsim.model.BoardModel
@@ -30,9 +31,9 @@ class SwordOfJusticeSpec extends CardSpec{
         def copiedBoard = startingBoard.deepCopy()
         def copiedRoot = new HearthTreeNode(copiedBoard)
         def swordOfJustice = copiedBoard.getCurrentPlayer().getHand().get(0);
-        def ret = swordOfJustice.useOn(CURRENT_PLAYER, 0, copiedRoot);
+        def ret = swordOfJustice.useOn(CURRENT_PLAYER, CharacterIndex.HERO, copiedRoot);
         def raptor = copiedBoard.getCurrentPlayer().getHand().get(0);
-        ret = raptor.useOn(CURRENT_PLAYER, 0, ret);
+        ret = raptor.useOn(CURRENT_PLAYER, CharacterIndex.HERO, ret);
 
         expect:
         ret != null
@@ -42,8 +43,8 @@ class SwordOfJusticeSpec extends CardSpec{
                     weaponCharge(4)
                 }
                 playMinion(BloodfenRaptor)
-                updateMinion(0, [deltaHealth: +1])
-                updateMinion(0, [deltaAttack: +1])
+                updateMinion(CharacterIndex.MINION_1, [deltaHealth: +1])
+                updateMinion(CharacterIndex.MINION_1, [deltaAttack: +1])
                 mana(0)
                 removeCardFromHand(SwordOfJustice)
                 numCardsUsed(2)

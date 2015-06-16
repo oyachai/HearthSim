@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.classic.spell
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.minion.BoulderfistOgre
 import com.hearthsim.card.basic.minion.KoboldGeomancer
 import com.hearthsim.card.classic.spell.epic.ShieldSlam
@@ -35,7 +36,7 @@ class ShieldSlamSpec extends CardSpec {
         def copiedBoard = startingBoard.deepCopy()
         def copiedRoot = new HearthTreeNode(copiedBoard)
         def theCard = copiedBoard.getCurrentPlayer().getHand().get(0);
-        def ret = theCard.useOn(WAITING_PLAYER, 1, copiedRoot);
+        def ret = theCard.useOn(WAITING_PLAYER, CharacterIndex.MINION_1, copiedRoot);
 
         expect:
         ret != null
@@ -47,7 +48,7 @@ class ShieldSlamSpec extends CardSpec {
                 numCardsUsed(1)
             }
             waitingPlayer {
-                updateMinion(0, [deltaHealth: -5])
+                updateMinion(CharacterIndex.MINION_1, [deltaHealth: -5])
             }
         }
     }
@@ -58,7 +59,7 @@ class ShieldSlamSpec extends CardSpec {
         def copiedBoard = startingBoard.deepCopy()
         def copiedRoot = new HearthTreeNode(copiedBoard)
         def theCard = copiedBoard.getCurrentPlayer().getHand().get(0);
-        def ret = theCard.useOn(WAITING_PLAYER, 1, copiedRoot);
+        def ret = theCard.useOn(WAITING_PLAYER, CharacterIndex.MINION_1, copiedRoot);
 
         expect:
         ret != null
@@ -70,7 +71,7 @@ class ShieldSlamSpec extends CardSpec {
                 numCardsUsed(1)
             }
             waitingPlayer {
-                updateMinion(0, [deltaHealth: -6])
+                updateMinion(CharacterIndex.MINION_1, [deltaHealth: -6])
             }
         }
     }

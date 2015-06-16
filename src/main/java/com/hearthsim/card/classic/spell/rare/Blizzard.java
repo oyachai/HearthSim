@@ -1,5 +1,6 @@
 package com.hearthsim.card.classic.spell.rare;
 
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.spellcard.SpellDamage;
 import com.hearthsim.event.effect.EffectCharacter;
@@ -23,7 +24,7 @@ public class Blizzard extends SpellDamage implements EffectOnResolveAoe {
         if (this.effect == null) {
             this.effect = new EffectCharacterDamageSpell<SpellDamage>(damage_) {
                 @Override
-                public HearthTreeNode applyEffect(PlayerSide originSide, SpellDamage origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
+                public HearthTreeNode applyEffect(PlayerSide originSide, SpellDamage origin, PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState) {
                     Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
                     targetCharacter.setFrozen(true);
                     return super.applyEffect(originSide, origin, targetSide, targetCharacterIndex, boardState);

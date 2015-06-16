@@ -1,6 +1,7 @@
 package com.hearthsim.card.classic.spell.rare;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.classic.weapon.common.HeavyAxe;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.spellcard.SpellTargetableCard;
@@ -19,7 +20,7 @@ public class Upgrade extends SpellTargetableCard {
 
     private final static EffectCharacter effect = new EffectCharacter() {
         @Override
-        public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
+        public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState) {
             Hero hero = boardState.data_.modelForSide(targetSide).getHero();
             WeaponCard weapon = hero.getWeapon();
             if (weapon != null) {

@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.classic.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.classic.minion.common.FlameImp
 import com.hearthsim.card.classic.minion.rare.TwilightDrake
 import com.hearthsim.model.BoardModel
@@ -34,7 +35,7 @@ class TwilightDrakeSpec extends CardSpec {
     def "cannot play for waiting player's side"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(WAITING_PLAYER, 0, root, null, null)
+        def ret = theCard.useOn(WAITING_PLAYER, CharacterIndex.HERO, root)
 
         expect:
 
@@ -45,7 +46,7 @@ class TwilightDrakeSpec extends CardSpec {
     def "playing TwighlightDrake with 3 other cards in hand"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root, null, null)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         assertFalse(ret == null);
@@ -54,7 +55,7 @@ class TwilightDrakeSpec extends CardSpec {
             currentPlayer {
                 playMinion(TwilightDrake)
                 mana(3)
-                updateMinion(0, [deltaHealth: 3, deltaMaxHealth: 3])
+                updateMinion(CharacterIndex.MINION_1, [deltaHealth: 3, deltaMaxHealth: 3])
                 numCardsUsed(1)
             }
         }

@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.classic.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.classic.minion.common.FrostElemental
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.groovy.card.CardSpec
@@ -47,7 +48,7 @@ class FrostElementalSpec extends CardSpec {
         def minionPlayedBoard = startingBoard.deepCopy()
         def copiedRoot = new HearthTreeNode(minionPlayedBoard)
         def theCard = minionPlayedBoard.getCurrentPlayer().getHand().get(0);
-        def ret = theCard.useOn(CURRENT_PLAYER, 2, copiedRoot);
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_2, copiedRoot);
 
         expect:
         assertFalse(ret == null);
@@ -71,14 +72,14 @@ class FrostElementalSpec extends CardSpec {
         HearthTreeNode child1 = ret.getChildren().get(1);
         assertBoardDelta(minionPlayedBoard, child1.data_) {
             waitingPlayer {
-                updateMinion(0, [frozen : true])
+                updateMinion(CharacterIndex.MINION_1, [frozen : true])
             }
         }
 
         HearthTreeNode child2 = ret.getChildren().get(2);
         assertBoardDelta(minionPlayedBoard, child2.data_) {
             waitingPlayer {
-                updateMinion(1, [frozen : true])
+                updateMinion(CharacterIndex.MINION_2, [frozen : true])
             }
         }
 

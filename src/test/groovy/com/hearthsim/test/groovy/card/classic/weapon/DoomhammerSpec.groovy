@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.classic.weapon
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.weapon.FieryWarAxe
 import com.hearthsim.card.classic.weapon.epic.Doomhammer
 import com.hearthsim.model.BoardModel
@@ -31,7 +32,7 @@ class DoomhammerSpec extends CardSpec{
         def copiedBoard = startingBoard.deepCopy()
         def copiedRoot = new HearthTreeNode(copiedBoard)
         def theCard = copiedBoard.getCurrentPlayer().getHand().get(0);
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot);
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, copiedRoot);
 
         expect:
         ret != null
@@ -55,10 +56,10 @@ class DoomhammerSpec extends CardSpec{
         def copiedBoard = startingBoard.deepCopy()
         def copiedRoot = new HearthTreeNode(copiedBoard)
         def theCard = copiedBoard.getCurrentPlayer().getHand().get(0);
-        theCard.useOn(CURRENT_PLAYER, 0, copiedRoot);
+        theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, copiedRoot);
 
         theCard = copiedBoard.getCurrentPlayer().getHand().get(0);
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot);
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, copiedRoot);
 
         expect:
         ret != null

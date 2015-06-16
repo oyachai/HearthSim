@@ -1,6 +1,7 @@
 package com.hearthsim.event.deathrattle;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.effect.EffectCharacter;
 import com.hearthsim.event.filter.FilterCharacterUntargetedDeathrattle;
@@ -25,8 +26,8 @@ public class DeathrattleEffectRandomMinion extends DeathrattleAction {
     @Override
     public HearthTreeNode performAction(Card origin, PlayerSide playerSide, HearthTreeNode boardState) {
         // TODO could probably be faster and belongs in a more common location
-        List<BoardModel.CharacterLocation> locations = new ArrayList<>();
-        for (BoardModel.CharacterLocation location : boardState.data_) {
+        List<CharacterIndex.CharacterLocation> locations = new ArrayList<>();
+        for (CharacterIndex.CharacterLocation location : boardState.data_) {
             if (this.filter.targetMatches(playerSide, origin, location.getPlayerSide(), location.getIndex(), boardState.data_)) {
                 locations.add(location);
             }
@@ -40,7 +41,7 @@ public class DeathrattleEffectRandomMinion extends DeathrattleAction {
                 break;
             default: // more than 1 option, generate all possible futures
                 RandomEffectNode rngNode = new RandomEffectNode(boardState, boardState.getAction());
-                for (BoardModel.CharacterLocation location : locations) {
+                for (CharacterIndex.CharacterLocation location : locations) {
                     HearthTreeNode newState = new HearthTreeNode(rngNode.data_.deepCopy());
 
                     if (origin instanceof Minion) {
@@ -64,8 +65,8 @@ public class DeathrattleEffectRandomMinion extends DeathrattleAction {
     // TODO need to do this manually for now. we should handle this in the death handler
     private void cleanupBoard(PlayerSide originSide, Card origin, BoardModel parent, BoardModel child) {
         if (origin instanceof Minion) {
-            int originIndex = parent.modelForSide(originSide).getIndexForCharacter((Minion)origin);
-            child.removeMinion(originSide, originIndex - 1);
+            CharacterIndex originIndex = parent.modelForSide(originSide).getIndexForCharacter((Minion)origin);
+            child.removeMinion(originSide, originIndex);
         }
     }
 

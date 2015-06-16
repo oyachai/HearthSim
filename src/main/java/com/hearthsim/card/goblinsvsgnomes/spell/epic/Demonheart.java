@@ -1,5 +1,6 @@
 package com.hearthsim.card.goblinsvsgnomes.spell.epic;
 
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.Minion.MinionTribe;
 import com.hearthsim.card.spellcard.SpellDamage;
@@ -31,7 +32,7 @@ public class Demonheart extends SpellDamageTargetableCard {
         if (this.effect == null) {
             this.effect = new EffectCharacterDamageSpell<SpellDamage>(damage_) {
                 @Override
-                public HearthTreeNode applyEffect(PlayerSide originSide, SpellDamage origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
+                public HearthTreeNode applyEffect(PlayerSide originSide, SpellDamage origin, PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState) {
                     HearthTreeNode toRet = boardState;
                     Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
                     if (isCurrentPlayer(targetSide) && targetCharacter.getTribe() == MinionTribe.DEMON) {

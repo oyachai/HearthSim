@@ -1,6 +1,7 @@
 package com.hearthsim.event.effect;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
@@ -28,7 +29,7 @@ public class EffectCharacterSummonNew<T extends Card> implements EffectCharacter
     }
 
     @Override
-    public HearthTreeNode applyEffect(PlayerSide originSide, T origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
+    public HearthTreeNode applyEffect(PlayerSide originSide, T origin, PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState) {
         // TODO this kind of check belongs in a pre-check/filter
         PlayerModel player = boardState.data_.modelForSide(targetSide);
         if (player.isBoardFull()) {

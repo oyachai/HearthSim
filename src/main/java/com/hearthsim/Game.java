@@ -2,6 +2,7 @@ package com.hearthsim;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.CardEndTurnInterface;
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.basic.spell.TheCoin;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
@@ -195,7 +196,7 @@ public class Game {
 
         // TODO: The minions should trigger end-of-turn effects in the order that they were played
         for (int index = 0; index < currentPlayer.getNumMinions(); ++index) {
-            CardEndTurnInterface targetMinion = currentPlayer.getCharacter(index + 1);
+            CardEndTurnInterface targetMinion = currentPlayer.getCharacter(CharacterIndex.fromInteger(index + 1));
             try {
                 toRet = targetMinion.endTurn(PlayerSide.CURRENT_PLAYER, toRet);
             } catch(HSException e) {
@@ -203,7 +204,7 @@ public class Game {
             }
         }
         for (int index = 0; index < waitingPlayer.getNumMinions(); ++index) {
-            CardEndTurnInterface targetMinion = waitingPlayer.getCharacter(index + 1);
+            CardEndTurnInterface targetMinion = waitingPlayer.getCharacter(CharacterIndex.fromInteger(index + 1));
             try {
                 toRet = targetMinion.endTurn(PlayerSide.WAITING_PLAYER, toRet);
             } catch(HSException e) {

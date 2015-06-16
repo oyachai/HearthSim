@@ -1,6 +1,7 @@
 package com.hearthsim.test;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.basic.minion.BloodfenRaptor;
 import com.hearthsim.card.basic.minion.RiverCrocolisk;
@@ -199,7 +200,7 @@ public class TestBreadthBoardStateFactory {
         BoardModel startingBoard = new BoardModel();
         startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new RiverCrocolisk());
         startingBoard.placeMinion(PlayerSide.WAITING_PLAYER, new StonetuskBoar());
-        startingBoard.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(0).addAttack((byte)1);
+        startingBoard.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(CharacterIndex.HERO).addAttack((byte)1);
 
         this.testBreadthDepth(startingBoard);
     }

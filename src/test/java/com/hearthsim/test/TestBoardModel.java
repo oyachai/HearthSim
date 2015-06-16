@@ -1,6 +1,7 @@
 package com.hearthsim.test;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.basic.minion.BoulderfistOgre;
 import com.hearthsim.card.basic.minion.RaidLeader;
 import com.hearthsim.card.classic.minion.common.AbusiveSergeant;
@@ -200,11 +201,11 @@ public class TestBoardModel {
 
         board.data_.removeMinion(boulder);
         assertMinionReferences(board.data_);
-        assertEquals(-1, currentPlayer.getIndexForCharacter(boulder));
+        assertEquals(CharacterIndex.UNKNOWN, currentPlayer.getIndexForCharacter(boulder));
 
         board.data_.removeMinion(abusive);
         assertMinionReferences(board.data_);
-        assertEquals(-1, waitingPlayer.getIndexForCharacter(boulder));
+        assertEquals(CharacterIndex.UNKNOWN, waitingPlayer.getIndexForCharacter(boulder));
     }
 
     @Test
@@ -226,8 +227,8 @@ public class TestBoardModel {
 
         board.data_.removeMinion(boulder2);
         assertMinionReferences(board.data_);
-        assertEquals(-1, currentPlayer.getIndexForCharacter(boulder2));
-        assertEquals(1, currentPlayer.getIndexForCharacter(boulder));
+        assertEquals(CharacterIndex.UNKNOWN, currentPlayer.getIndexForCharacter(boulder2));
+        assertEquals(CharacterIndex.MINION_1, currentPlayer.getIndexForCharacter(boulder));
     }
 
     @Test
@@ -248,7 +249,7 @@ public class TestBoardModel {
 
         BoardStateFactoryBase.handleDeadMinions(board);
         assertMinionReferences(board.data_);
-        assertEquals(-1, currentPlayer.getIndexForCharacter(boulder));
+        assertEquals(CharacterIndex.UNKNOWN, currentPlayer.getIndexForCharacter(boulder));
     }
 
     @Test
@@ -271,9 +272,9 @@ public class TestBoardModel {
 
         BoardStateFactoryBase.handleDeadMinions(board);
         assertMinionReferences(board.data_);
-        assertEquals(-1, currentPlayer.getIndexForCharacter(boulder));
-        assertEquals(-1, currentPlayer.getIndexForCharacter(raid));
-        assertEquals(-1, currentPlayer.getIndexForCharacter(abusive));
+        assertEquals(CharacterIndex.UNKNOWN, currentPlayer.getIndexForCharacter(boulder));
+        assertEquals(CharacterIndex.UNKNOWN, currentPlayer.getIndexForCharacter(raid));
+        assertEquals(CharacterIndex.UNKNOWN, currentPlayer.getIndexForCharacter(abusive));
     }
 
     @Test
@@ -296,9 +297,9 @@ public class TestBoardModel {
 
         BoardStateFactoryBase.handleDeadMinions(board);
         assertMinionReferences(board.data_);
-        assertEquals(-1, currentPlayer.getIndexForCharacter(boulder));
-        assertEquals(-1, currentPlayer.getIndexForCharacter(boulder2));
-        assertEquals(-1, currentPlayer.getIndexForCharacter(abusive));
+        assertEquals(CharacterIndex.UNKNOWN, currentPlayer.getIndexForCharacter(boulder));
+        assertEquals(CharacterIndex.UNKNOWN, currentPlayer.getIndexForCharacter(boulder2));
+        assertEquals(CharacterIndex.UNKNOWN, currentPlayer.getIndexForCharacter(abusive));
     }
 
     @Test
@@ -322,7 +323,7 @@ public class TestBoardModel {
 
     public void assertMinionReferences(BoardModel model) {
         for (BoardModel.MinionPlayerPair pair : model.getAllMinionsFIFOList()) {
-            assertNotEquals(-1, model.modelForSide(pair.getPlayerSide()).getIndexForCharacter(pair.getMinion()));
+            assertNotEquals(CharacterIndex.UNKNOWN, model.modelForSide(pair.getPlayerSide()).getIndexForCharacter(pair.getMinion()));
         }
 
         // TODO also check that each minion in the models exists in FIFO

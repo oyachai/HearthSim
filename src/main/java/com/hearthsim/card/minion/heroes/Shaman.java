@@ -1,5 +1,6 @@
 package com.hearthsim.card.minion.heroes;
 
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.basic.minion.HealingTotem;
 import com.hearthsim.card.basic.minion.SearingTotem;
 import com.hearthsim.card.basic.minion.StoneclawTotem;
@@ -50,7 +51,7 @@ public class Shaman extends Hero {
             HearthTreeNode boardState) {
         PlayerModel player = boardState.data_.modelForSide(targetPlayerSide);
 
-        HearthTreeNode toRet = new RandomEffectNode(boardState, new HearthAction(HearthAction.Verb.HERO_ABILITY, PlayerSide.CURRENT_PLAYER, 0, targetPlayerSide, 0));
+        HearthTreeNode toRet = new RandomEffectNode(boardState, new HearthAction(HearthAction.Verb.HERO_ABILITY, PlayerSide.CURRENT_PLAYER, 0, targetPlayerSide, CharacterIndex.HERO));
         Minion[] totems = {new SearingTotem(), new StoneclawTotem(), new HealingTotem(), new WrathOfAirTotem()};
         boolean allTotemsNotSummonable = true;
         for (Minion totemToSummon : totems) {

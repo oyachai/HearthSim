@@ -1,6 +1,7 @@
 package com.hearthsim.test.minion;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.basic.minion.FrostwolfWarlord;
 import com.hearthsim.card.basic.minion.SilverHandRecruit;
 import com.hearthsim.exception.HSException;
@@ -39,7 +40,7 @@ public class TestFrostwolfWarlord {
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new SilverHandRecruit());
 
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, CharacterIndex.MINION_1, board);
         assertNotNull(ret);
         currentPlayer = ret.data_.getCurrentPlayer();
 
@@ -47,14 +48,14 @@ public class TestFrostwolfWarlord {
         assertEquals(currentPlayer.getNumMinions(), 3);
         assertEquals(currentPlayer.getMana(), 2);
 
-        assertEquals(currentPlayer.getCharacter(2).getHealth(), 4 + 2);
-        assertEquals(currentPlayer.getCharacter(2).getAttack(), 4 + 2);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getHealth(), 4 + 2);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getAttack(), 4 + 2);
     }
 
     @Test
     public void testBattlecryWithNoMinions() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO, board);
         assertNotNull(ret);
         currentPlayer = ret.data_.getCurrentPlayer();
 
@@ -72,7 +73,7 @@ public class TestFrostwolfWarlord {
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new SilverHandRecruit());
 
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO, board);
         assertNotNull(ret);
         currentPlayer = ret.data_.getCurrentPlayer();
 

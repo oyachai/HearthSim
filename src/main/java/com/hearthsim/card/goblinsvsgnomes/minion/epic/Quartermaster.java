@@ -1,5 +1,6 @@
 package com.hearthsim.card.goblinsvsgnomes.minion.epic;
 
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.basic.minion.SilverHandRecruit;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionBattlecryInterface;
@@ -21,7 +22,7 @@ public class Quartermaster extends Minion implements MinionBattlecryInterface {
      */
     @Override
     public EffectCharacter<Minion> getBattlecryEffect() {
-        return (PlayerSide originSide, Minion origin, PlayerSide targetSide, int minionPlacementIndex, HearthTreeNode boardState) -> {
+        return (PlayerSide originSide, Minion origin, PlayerSide targetSide, CharacterIndex minionPlacementIndex, HearthTreeNode boardState) -> {
             for (Minion minion : boardState.data_.getCurrentPlayer().getMinions()) {
                 if (minion instanceof SilverHandRecruit) {
                     minion.addMaxHealth((byte)2);

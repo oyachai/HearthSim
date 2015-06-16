@@ -1,5 +1,6 @@
 package com.hearthsim.card.classic.minion.epic;
 
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerModel;
@@ -34,7 +35,7 @@ public class AncientOfWar extends Minion {
         if (toRet != null) {
             PlayerModel currentPlayer = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
 
-            int thisMinionIndex = currentPlayer.getIndexForCharacter(this);
+            CharacterIndex thisMinionIndex = currentPlayer.getIndexForCharacter(this);
             {
                 HearthTreeNode newState = toRet.addChild(new HearthTreeNode(toRet.data_.deepCopy()));
                 Minion newMinion = newState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(thisMinionIndex);

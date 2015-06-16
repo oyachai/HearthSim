@@ -23,7 +23,7 @@ public class CobaltGuardian extends Minion implements CardPlayBeginInterface {
             return boardState;
         }
 
-        if (this.isInHand()) {
+        if (this.setInHand()) {
             return boardState;
         }
 

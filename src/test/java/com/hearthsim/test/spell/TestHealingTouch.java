@@ -1,6 +1,7 @@
 package com.hearthsim.test.spell;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.basic.minion.NorthshireCleric;
 import com.hearthsim.card.basic.spell.HealingTouch;
 import com.hearthsim.card.minion.Minion;
@@ -54,7 +55,7 @@ public class TestHealingTouch {
         currentPlayer.placeCardHand(fb);
 
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO, board);
         assertFalse(ret == null);
 
         assertEquals(currentPlayer.getHand().size(), 0);
@@ -62,10 +63,10 @@ public class TestHealingTouch {
         assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), 30);
-        assertEquals(currentPlayer.getCharacter(1).getHealth(), 3);
-        assertEquals(currentPlayer.getCharacter(2).getHealth(), health1 - 1);
-        assertEquals(waitingPlayer.getCharacter(1).getHealth(), health0);
-        assertEquals(waitingPlayer.getCharacter(2).getHealth(), health1 - 1);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), 3);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getHealth(), health1 - 1);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), health0);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getHealth(), health1 - 1);
     }
 
     @Test
@@ -74,7 +75,7 @@ public class TestHealingTouch {
         currentPlayer.placeCardHand(fb);
 
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 2, board);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, CharacterIndex.MINION_2, board);
         assertFalse(ret == null);
 
         assertTrue( ret instanceof CardDrawNode );
@@ -84,10 +85,10 @@ public class TestHealingTouch {
         assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), 30);
-        assertEquals(currentPlayer.getCharacter(1).getHealth(), 3);
-        assertEquals(currentPlayer.getCharacter(2).getHealth(), health1);
-        assertEquals(waitingPlayer.getCharacter(1).getHealth(), health0);
-        assertEquals(waitingPlayer.getCharacter(2).getHealth(), health1 - 1);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), 3);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getHealth(), health1);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), health0);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getHealth(), health1 - 1);
     }
 
     @Test
@@ -96,7 +97,7 @@ public class TestHealingTouch {
         currentPlayer.placeCardHand(fb);
 
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 2, board);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, CharacterIndex.MINION_2, board);
         assertFalse(ret == null);
         assertTrue( ret instanceof CardDrawNode );
 
@@ -106,9 +107,9 @@ public class TestHealingTouch {
         assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), 30);
-        assertEquals(currentPlayer.getCharacter(1).getHealth(), 3);
-        assertEquals(currentPlayer.getCharacter(2).getHealth(), health1 - 1);
-        assertEquals(waitingPlayer.getCharacter(1).getHealth(), health0);
-        assertEquals(waitingPlayer.getCharacter(2).getHealth(), health1);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), 3);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getHealth(), health1 - 1);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), health0);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getHealth(), health1);
     }
 }

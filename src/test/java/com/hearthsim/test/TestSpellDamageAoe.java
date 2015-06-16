@@ -1,6 +1,7 @@
 package com.hearthsim.test;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.basic.minion.KoboldGeomancer;
 import com.hearthsim.card.basic.spell.ArcaneExplosion;
 import com.hearthsim.card.basic.spell.Consecration;
@@ -53,7 +54,7 @@ public class TestSpellDamageAoe {
     @Test
     public void testHitsEnemyMinions() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO, board);
         assertEquals(board, ret);
 
         assertEquals(currentPlayer.getMana(), 1);
@@ -64,13 +65,13 @@ public class TestSpellDamageAoe {
         assertEquals(currentPlayer.getNumMinions(), 1);
         assertEquals(waitingPlayer.getNumMinions(), 2);
 
-        assertEquals(currentPlayer.getCharacter(1).getHealth(), health0);
-        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), attack0);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), health0);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), attack0);
 
-        assertEquals(waitingPlayer.getCharacter(1).getHealth(), health0 - 1);
-        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), attack0);
-        assertEquals(waitingPlayer.getCharacter(2).getHealth(), health0 - 1);
-        assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), attack0);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), health0 - 1);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), attack0);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getHealth(), health0 - 1);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getTotalAttack(), attack0);
     }
 
     @Test
@@ -80,7 +81,7 @@ public class TestSpellDamageAoe {
         currentPlayer.setMana((byte) 5);
 
         Card theCard = currentPlayer.getHand().get(1);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO, board);
         assertEquals(board, ret);
 
         assertEquals(currentPlayer.getMana(), 1);
@@ -91,13 +92,13 @@ public class TestSpellDamageAoe {
         assertEquals(currentPlayer.getNumMinions(), 1);
         assertEquals(waitingPlayer.getNumMinions(), 2);
 
-        assertEquals(currentPlayer.getCharacter(1).getHealth(), health0);
-        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), attack0);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), health0);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), attack0);
 
-        assertEquals(waitingPlayer.getCharacter(1).getHealth(), health0 - 2);
-        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), attack0);
-        assertEquals(waitingPlayer.getCharacter(2).getHealth(), health0 - 2);
-        assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), attack0);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), health0 - 2);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), attack0);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getHealth(), health0 - 2);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getTotalAttack(), attack0);
     }
 
     @Test
@@ -107,7 +108,7 @@ public class TestSpellDamageAoe {
         currentPlayer.setMana((byte) 5);
 
         Card theCard = currentPlayer.getHand().get(1);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO, board);
         assertEquals(board, ret);
 
         assertEquals(currentPlayer.getMana(), 1);
@@ -118,13 +119,13 @@ public class TestSpellDamageAoe {
         assertEquals(currentPlayer.getNumMinions(), 1);
         assertEquals(waitingPlayer.getNumMinions(), 2);
 
-        assertEquals(currentPlayer.getCharacter(1).getHealth(), health0 - 3);
-        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), attack0);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), health0 - 3);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), attack0);
 
-        assertEquals(waitingPlayer.getCharacter(1).getHealth(), health0 - 3);
-        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), attack0);
-        assertEquals(waitingPlayer.getCharacter(2).getHealth(), health0 - 3);
-        assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), attack0);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), health0 - 3);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), attack0);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getHealth(), health0 - 3);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getTotalAttack(), attack0);
     }
 
     @Test
@@ -133,7 +134,7 @@ public class TestSpellDamageAoe {
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, kobold);
 
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO, board);
         assertEquals(board, ret);
 
         assertEquals(currentPlayer.getMana(), 1);
@@ -144,19 +145,19 @@ public class TestSpellDamageAoe {
         assertEquals(currentPlayer.getNumMinions(), 2);
         assertEquals(waitingPlayer.getNumMinions(), 2);
 
-        assertEquals(currentPlayer.getCharacter(1).getHealth(), health0);
-        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), attack0);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), health0);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), attack0);
 
-        assertEquals(waitingPlayer.getCharacter(1).getHealth(), health0 - 2);
-        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), attack0);
-        assertEquals(waitingPlayer.getCharacter(2).getHealth(), health0 - 2);
-        assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), attack0);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), health0 - 2);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), attack0);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getHealth(), health0 - 2);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getTotalAttack(), attack0);
     }
 
     @Test
     public void testCannotTargetOpponentMinion() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 1, board);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, CharacterIndex.MINION_1, board);
         assertNull(ret);
 
         assertEquals(currentPlayer.getHand().size(), 1);
@@ -165,21 +166,21 @@ public class TestSpellDamageAoe {
         assertEquals(currentPlayer.getNumMinions(), 1);
         assertEquals(waitingPlayer.getNumMinions(), 3);
 
-        assertEquals(currentPlayer.getCharacter(1).getHealth(), health0);
-        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), attack0);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), health0);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), attack0);
 
-        assertEquals(waitingPlayer.getCharacter(1).getHealth(), health0);
-        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), attack0);
-        assertEquals(waitingPlayer.getCharacter(2).getHealth(), health1);
-        assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), attack0);
-        assertEquals(waitingPlayer.getCharacter(3).getHealth(), health0);
-        assertEquals(waitingPlayer.getCharacter(3).getTotalAttack(), attack0);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), health0);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), attack0);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getHealth(), health1);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getTotalAttack(), attack0);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_3).getHealth(), health0);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_3).getTotalAttack(), attack0);
     }
 
     @Test
     public void testCannotTargetOpponent() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 0, board);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, CharacterIndex.HERO, board);
         assertNull(ret);
 
         assertEquals(currentPlayer.getHand().size(), 1);
@@ -188,21 +189,21 @@ public class TestSpellDamageAoe {
         assertEquals(currentPlayer.getNumMinions(), 1);
         assertEquals(waitingPlayer.getNumMinions(), 3);
 
-        assertEquals(currentPlayer.getCharacter(1).getHealth(), health0);
-        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), attack0);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), health0);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), attack0);
 
-        assertEquals(waitingPlayer.getCharacter(1).getHealth(), health0);
-        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), attack0);
-        assertEquals(waitingPlayer.getCharacter(2).getHealth(), health1);
-        assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), attack0);
-        assertEquals(waitingPlayer.getCharacter(3).getHealth(), health0);
-        assertEquals(waitingPlayer.getCharacter(3).getTotalAttack(), attack0);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), health0);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), attack0);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getHealth(), health1);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getTotalAttack(), attack0);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_3).getHealth(), health0);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_3).getTotalAttack(), attack0);
     }
 
     @Test
     public void testCannotTargetMinion() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, CharacterIndex.MINION_1, board);
         assertNull(ret);
 
         assertEquals(currentPlayer.getHand().size(), 1);
@@ -211,22 +212,22 @@ public class TestSpellDamageAoe {
         assertEquals(currentPlayer.getNumMinions(), 1);
         assertEquals(waitingPlayer.getNumMinions(), 3);
 
-        assertEquals(currentPlayer.getCharacter(1).getHealth(), health0);
-        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), attack0);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), health0);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), attack0);
 
-        assertEquals(waitingPlayer.getCharacter(1).getHealth(), health0);
-        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), attack0);
-        assertEquals(waitingPlayer.getCharacter(2).getHealth(), health1);
-        assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), attack0);
-        assertEquals(waitingPlayer.getCharacter(3).getHealth(), health0);
-        assertEquals(waitingPlayer.getCharacter(3).getTotalAttack(), attack0);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), health0);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), attack0);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getHealth(), health1);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getTotalAttack(), attack0);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_3).getHealth(), health0);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_3).getTotalAttack(), attack0);
     }
 
     @Test
     public void testCannotReuse() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
         theCard.hasBeenUsed(true);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, CharacterIndex.MINION_1, board);
         assertNull(ret);
 
         assertEquals(currentPlayer.getHand().size(), 1);

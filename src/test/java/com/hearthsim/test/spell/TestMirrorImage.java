@@ -1,6 +1,7 @@
 package com.hearthsim.test.spell;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.basic.minion.BloodfenRaptor;
 import com.hearthsim.card.basic.minion.MirrorImageMinion;
 import com.hearthsim.card.basic.spell.MirrorImage;
@@ -57,7 +58,7 @@ public class TestMirrorImage {
     @Test
     public void test2() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO, board);
 
         assertFalse(ret == null);
 
@@ -68,20 +69,20 @@ public class TestMirrorImage {
         assertEquals(waitingPlayer.getMana(), 4);
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), 30);
-        assertEquals(currentPlayer.getCharacter(1).getHealth(), health0);
-        assertEquals(currentPlayer.getCharacter(2).getHealth(), health1 - 1);
-        assertEquals(currentPlayer.getCharacter(3).getHealth(), 2);
-        assertEquals(currentPlayer.getCharacter(4).getHealth(), 2);
-        assertEquals(waitingPlayer.getCharacter(1).getHealth(), health0);
-        assertEquals(waitingPlayer.getCharacter(2).getHealth(), health1 - 1);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), health0);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getHealth(), health1 - 1);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_3).getHealth(), 2);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_4).getHealth(), 2);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), health0);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getHealth(), health1 - 1);
 
-        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), attack0);
-        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), attack0);
-        assertEquals(currentPlayer.getCharacter(3).getTotalAttack(), 0);
-        assertEquals(currentPlayer.getCharacter(4).getTotalAttack(), 0);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), attack0);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getTotalAttack(), attack0);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_3).getTotalAttack(), 0);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_4).getTotalAttack(), 0);
 
-        assertTrue(currentPlayer.getCharacter(3) instanceof MirrorImageMinion);
-        assertTrue(currentPlayer.getCharacter(4) instanceof MirrorImageMinion);
+        assertTrue(currentPlayer.getCharacter(CharacterIndex.MINION_3) instanceof MirrorImageMinion);
+        assertTrue(currentPlayer.getCharacter(CharacterIndex.MINION_4) instanceof MirrorImageMinion);
     }
 
     @Test
@@ -93,8 +94,8 @@ public class TestMirrorImage {
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new BloodfenRaptor());
 
         Card theCard = currentPlayer.getHand().get(0);
-        assertTrue(theCard.canBeUsedOn(PlayerSide.CURRENT_PLAYER, 0, board.data_));
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
+        assertTrue(theCard.canBeUsedOn(PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO, board.data_));
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO, board);
         assertNull(ret);
     }
 }

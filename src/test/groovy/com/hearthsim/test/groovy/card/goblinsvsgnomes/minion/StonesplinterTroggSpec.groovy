@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.goblinsvsgnomes.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.spell.TheCoin
 import com.hearthsim.card.goblinsvsgnomes.minion.common.StonesplinterTrogg
 import com.hearthsim.test.groovy.card.CardSpec
@@ -25,7 +26,7 @@ class StonesplinterTroggSpec extends CardSpec {
 
         def copiedBoard = startingBoard.deepCopy()
         def theCoin = root.data_.getCurrentPlayer().getHand().get(1)
-        def ret = theCoin.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCoin.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         ret != null
@@ -37,7 +38,7 @@ class StonesplinterTroggSpec extends CardSpec {
                 numCardsUsed(1)
             }
             waitingPlayer {
-                updateMinion(0, [deltaAttack: 1])
+                updateMinion(CharacterIndex.MINION_1, [deltaAttack: 1])
             }
         }
     }

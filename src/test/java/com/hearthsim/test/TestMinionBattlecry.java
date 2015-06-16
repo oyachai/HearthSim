@@ -1,5 +1,6 @@
 package com.hearthsim.test;
 
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.basic.minion.BloodfenRaptor;
 import com.hearthsim.card.basic.minion.ChillwindYeti;
 import com.hearthsim.card.basic.minion.RiverCrocolisk;
@@ -46,15 +47,15 @@ public class TestMinionBattlecry {
         DarkIronDwarf darkIronDwarf = new DarkIronDwarf();
         board.data_.placeCardHand(PlayerSide.CURRENT_PLAYER, darkIronDwarf);
 
-        HearthTreeNode ret = darkIronDwarf.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
+        HearthTreeNode ret = darkIronDwarf.useOn(PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO, board);
         assertEquals(board, ret);
 
         assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 3);
         assertEquals(waitingPlayer.getNumMinions(), 3);
         assertEquals(currentPlayer.getMana(), 6);
-        assertEquals(currentPlayer.getCharacter(1).getHealth(), 4);
-        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), 4);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), 4);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), 4);
     }
 
     @Test
@@ -63,7 +64,7 @@ public class TestMinionBattlecry {
         DarkIronDwarf darkIronDwarf = new DarkIronDwarf();
         board.data_.placeCardHand(PlayerSide.CURRENT_PLAYER, darkIronDwarf);
 
-        HearthTreeNode ret = darkIronDwarf.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
+        HearthTreeNode ret = darkIronDwarf.useOn(PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO, board);
         assertEquals(board, ret);
 
         // At this point, the BoardState should have 5 children: 2 buffs on friendly side
@@ -77,7 +78,7 @@ public class TestMinionBattlecry {
         ArgentProtector protector = new ArgentProtector();
         board.data_.placeCardHand(PlayerSide.CURRENT_PLAYER, protector);
 
-        HearthTreeNode ret = protector.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
+        HearthTreeNode ret = protector.useOn(PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO, board);
         assertEquals(board, ret);
 
         // At this point, the BoardState should have 2 children: 2 buffs on friendly side
@@ -89,7 +90,7 @@ public class TestMinionBattlecry {
         Alexstrasza alexstrasza = new Alexstrasza();
         board.data_.placeCardHand(PlayerSide.CURRENT_PLAYER, alexstrasza);
 
-        HearthTreeNode ret = alexstrasza.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
+        HearthTreeNode ret = alexstrasza.useOn(PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO, board);
         assertEquals(board, ret);
 
         // At this point, the BoardState should have 2 children: own hero and enemy hero
@@ -102,7 +103,7 @@ public class TestMinionBattlecry {
         board.data_.placeCardHand(PlayerSide.CURRENT_PLAYER, darkIronDwarf);
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new StranglethornTiger());
 
-        HearthTreeNode ret = darkIronDwarf.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
+        HearthTreeNode ret = darkIronDwarf.useOn(PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO, board);
         assertEquals(board, ret);
         assertEquals(board.numChildren(), 6); // 3 on friendly (including Tiger) and 3 on enemy
     }
@@ -113,7 +114,7 @@ public class TestMinionBattlecry {
         board.data_.placeCardHand(PlayerSide.CURRENT_PLAYER, darkIronDwarf);
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, new StranglethornTiger());
 
-        HearthTreeNode ret = darkIronDwarf.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
+        HearthTreeNode ret = darkIronDwarf.useOn(PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO, board);
         assertEquals(board, ret);
         assertEquals(board.numChildren(), 5); // 2 on friendly and 3 on enemy (excluding Tiger)
     }
@@ -124,7 +125,7 @@ public class TestMinionBattlecry {
         board.data_.placeCardHand(PlayerSide.CURRENT_PLAYER, darkIronDwarf);
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new FaerieDragon());
 
-        HearthTreeNode ret = darkIronDwarf.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
+        HearthTreeNode ret = darkIronDwarf.useOn(PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO, board);
         assertEquals(board, ret);
         assertEquals(board.numChildren(), 6); // 3 on friendly (including Faerie) and 3 on enemy
     }
@@ -135,7 +136,7 @@ public class TestMinionBattlecry {
         board.data_.placeCardHand(PlayerSide.CURRENT_PLAYER, darkIronDwarf);
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, new FaerieDragon());
 
-        HearthTreeNode ret = darkIronDwarf.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
+        HearthTreeNode ret = darkIronDwarf.useOn(PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO, board);
         assertEquals(board, ret);
         assertEquals(board.numChildren(), 6); // 2 on friendly and 4 on enemy (including Faerie)
     }

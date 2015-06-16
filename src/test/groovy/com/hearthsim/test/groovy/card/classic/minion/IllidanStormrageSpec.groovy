@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.classic.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.spell.TheCoin
 import com.hearthsim.card.classic.minion.common.FlameOfAzzinoth
 import com.hearthsim.card.classic.minion.legendary.IllidanStormrage
@@ -44,8 +45,8 @@ class IllidanStormrageSpec extends CardSpec {
     def "playing Illidan Stormrage"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 1, root, null, null)
-        ret.data_.getCurrentPlayer().getHand().get(0).useOn(CURRENT_PLAYER, 0, ret, null, null)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_1, root)
+        ret.data_.getCurrentPlayer().getHand().get(0).useOn(CURRENT_PLAYER, CharacterIndex.HERO, ret)
         
         expect:
         assertFalse(ret == null);
@@ -64,7 +65,7 @@ class IllidanStormrageSpec extends CardSpec {
     def "does not create minions while sitting in hand"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(1)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         assertFalse(ret == null);

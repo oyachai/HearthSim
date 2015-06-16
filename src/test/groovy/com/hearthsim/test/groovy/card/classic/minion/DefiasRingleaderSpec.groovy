@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.classic.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.spell.TheCoin
 import com.hearthsim.card.classic.minion.common.DefiasBandit
 import com.hearthsim.card.classic.minion.common.DefiasRingleader
@@ -35,14 +36,14 @@ class DefiasRingleaderSpec extends CardSpec {
     def "Playing Defias Ringleader without combo"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(1)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         assertFalse(ret == null);
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                playMinion(DefiasRingleader, 0)
+                playMinion(DefiasRingleader, CharacterIndex.HERO)
                 numCardsUsed(1)
                 mana(0)
             }
@@ -53,10 +54,10 @@ class DefiasRingleaderSpec extends CardSpec {
         def copiedBoard = startingBoard.deepCopy()
 
         def theCoin = root.data_.getCurrentPlayer().getHand().get(0)
-        theCoin.useOn(CURRENT_PLAYER, 0, root)
+        theCoin.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         assertFalse(ret == null);
@@ -64,8 +65,8 @@ class DefiasRingleaderSpec extends CardSpec {
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
                 removeCardFromHand(TheCoin)
-                playMinion(DefiasRingleader, 0)
-                playMinion(DefiasBandit, 1)
+                playMinion(DefiasRingleader, CharacterIndex.HERO)
+                playMinion(DefiasBandit, CharacterIndex.MINION_1)
                 numCardsUsed(2)
                 mana(1)
             }

@@ -6,11 +6,10 @@ import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 @FunctionalInterface
-public interface SimpleEffectInterface<T extends Card> extends EffectInterface<T> {
-    public void applyEffect(PlayerSide originSide, T origin, PlayerSide targetSide, int targetIndex, BoardModel board);
+public interface SimpleEffectInterface<T extends Card, V> {
+    public void applyEffect(PlayerSide originSide, T origin, PlayerSide targetSide, V targetIndex, BoardModel board);
 
-    @Override
-    public default HearthTreeNode applyEffect(PlayerSide originSide, T origin, PlayerSide targetSide, int targetIndex, HearthTreeNode boardState) {
+    public default HearthTreeNode applyEffect(PlayerSide originSide, T origin, PlayerSide targetSide, V targetIndex, HearthTreeNode boardState) {
         this.applyEffect(originSide, origin, targetSide, targetIndex, boardState.data_);
         return boardState;
     }

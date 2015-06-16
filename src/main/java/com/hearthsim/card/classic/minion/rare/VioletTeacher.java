@@ -35,7 +35,7 @@ public class VioletTeacher extends Minion implements CardPlayBeginInterface {
         HearthTreeNode toRet = boardState;
         if (thisCardPlayerSide != PlayerSide.CURRENT_PLAYER)
             return toRet;
-        if (isInHand_)
+        if (inHand)
             return toRet;
         PlayerModel currentPlayer = toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         if (usedCard instanceof SpellCard && !currentPlayer.isBoardFull()) {

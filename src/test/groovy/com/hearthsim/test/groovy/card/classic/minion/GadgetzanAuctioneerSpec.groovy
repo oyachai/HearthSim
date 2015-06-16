@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.classic.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.minion.BloodfenRaptor
 import com.hearthsim.card.basic.spell.Fireball
 import com.hearthsim.card.classic.minion.rare.GadgetzanAuctioneer
@@ -32,7 +33,7 @@ class GadgetzanAuctioneerSpec extends CardSpec {
     def "draws card after spell played"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(WAITING_PLAYER, 0, root)
+        def ret = theCard.useOn(WAITING_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         ret != null
@@ -54,7 +55,7 @@ class GadgetzanAuctioneerSpec extends CardSpec {
     def "does not draw card after minion played"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(1)
-        def ret = theCard.useOn(CURRENT_PLAYER, 1, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         ret != null
@@ -70,12 +71,12 @@ class GadgetzanAuctioneerSpec extends CardSpec {
     }
 
     def "does not draw card after opponent spell"() {
-        startingBoard.removeMinion(CURRENT_PLAYER, 0)
+        startingBoard.removeMinion(CURRENT_PLAYER, CharacterIndex.MINION_1)
         startingBoard.placeMinion(WAITING_PLAYER, new GadgetzanAuctioneer())
 
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(WAITING_PLAYER, 0, root)
+        def ret = theCard.useOn(WAITING_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         ret != null

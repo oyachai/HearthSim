@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.goblinsvsgnomes.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.minion.BloodfenRaptor
 import com.hearthsim.card.classic.minion.common.LootHoarder
 import com.hearthsim.card.curseofnaxxramas.minion.common.HauntedCreeper
@@ -32,17 +33,17 @@ class LilExorcistSpec extends CardSpec {
     def "adds extra 1/1 for each enemy deathrattle"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         ret != null;
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                playMinion(LilExorcist, 0)
+                playMinion(LilExorcist, CharacterIndex.HERO)
                 mana(7)
                 numCardsUsed(1)
-                updateMinion(0, [deltaAttack: +2, deltaHealth: +2, deltaMaxHealth: +2])
+                updateMinion(CharacterIndex.MINION_1, [deltaAttack: +2, deltaHealth: +2, deltaMaxHealth: +2])
             }
         }
     }

@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.curseofnaxxramas.weapon
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.minion.BoulderfistOgre
 import com.hearthsim.card.basic.weapon.FieryWarAxe
 import com.hearthsim.card.classic.minion.common.ArathiWeaponsmith
@@ -40,10 +41,10 @@ class DeathsBiteSpec extends CardSpec {
         def copiedRoot = new HearthTreeNode(copiedBoard)
 
         def theCard = copiedBoard.getCurrentPlayer().getHand().get(0);
-        theCard.useOn(CURRENT_PLAYER, 0, copiedRoot);
+        theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, copiedRoot);
 
         theCard = copiedBoard.getCurrentPlayer().getHand().get(0);
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot);
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, copiedRoot);
 
         expect:
         ret != null
@@ -57,7 +58,7 @@ class DeathsBiteSpec extends CardSpec {
                 numCardsUsed(2)
             }
             waitingPlayer {
-                updateMinion(0, [deltaHealth: -1])
+                updateMinion(CharacterIndex.MINION_1, [deltaHealth: -1])
             }
         }
     }
@@ -67,10 +68,10 @@ class DeathsBiteSpec extends CardSpec {
         def copiedRoot = new HearthTreeNode(copiedBoard)
 
         def theCard = copiedBoard.getCurrentPlayer().getHand().get(0);
-        theCard.useOn(CURRENT_PLAYER, 0, copiedRoot);
+        theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, copiedRoot);
 
         theCard = copiedBoard.getCurrentPlayer().getHand().get(1); // play ArathiWeaponsmith
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot);
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, copiedRoot);
 
         expect:
         ret != null
@@ -81,11 +82,11 @@ class DeathsBiteSpec extends CardSpec {
                 mana(2)
                 removeCardFromHand(DeathsBite)
                 playMinion(ArathiWeaponsmith)
-                updateMinion(0, [deltaHealth: -1])
+                updateMinion(CharacterIndex.MINION_1, [deltaHealth: -1])
                 numCardsUsed(2)
             }
             waitingPlayer {
-                updateMinion(0, [deltaHealth: -1])
+                updateMinion(CharacterIndex.MINION_1, [deltaHealth: -1])
             }
         }
     }
@@ -95,12 +96,12 @@ class DeathsBiteSpec extends CardSpec {
         def copiedRoot = new HearthTreeNode(copiedBoard)
 
         def theCard = copiedBoard.getCurrentPlayer().getHand().get(0);
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot);
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, copiedRoot);
 
         Minion hero = ret.data_.getCurrentPlayer().getHero();
         hero.getWeapon().setWeaponCharge((byte)1);
 
-        ret = hero.attack(PlayerSide.WAITING_PLAYER, 0, ret);
+        ret = hero.attack(PlayerSide.WAITING_PLAYER, CharacterIndex.HERO, ret);
 
         expect:
         ret != null
@@ -113,7 +114,7 @@ class DeathsBiteSpec extends CardSpec {
             }
             waitingPlayer {
                 heroHealth(26)
-                updateMinion(0, [deltaHealth: -1])
+                updateMinion(CharacterIndex.MINION_1, [deltaHealth: -1])
             }
         }
     }

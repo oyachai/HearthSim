@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.classic.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.spell.TheCoin
 import com.hearthsim.card.classic.minion.rare.QuestingAdventurer
 import com.hearthsim.test.groovy.card.CardSpec
@@ -28,7 +29,7 @@ class QuestingAdventurerSpec extends CardSpec {
 
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root, null, null)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         assertFalse(ret == null);
@@ -60,7 +61,7 @@ class QuestingAdventurerSpec extends CardSpec {
 
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root, null, null)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         assertFalse(ret == null);
@@ -68,7 +69,7 @@ class QuestingAdventurerSpec extends CardSpec {
             currentPlayer {
                 removeCardFromHand(TheCoin)
                 mana(10)
-                updateMinion(0, [deltaHealth: 1, deltaAttack: 1, deltaMaxHealth: 1])
+                updateMinion(CharacterIndex.MINION_1, [deltaHealth: 1, deltaAttack: 1, deltaMaxHealth: 1])
                 numCardsUsed(1)
             }
         }
@@ -91,7 +92,7 @@ class QuestingAdventurerSpec extends CardSpec {
 
         def copiedBoard = startingBoard.deepCopy()
         def theCard = new TheCoin();
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root, null, null)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         assertFalse(ret == null);

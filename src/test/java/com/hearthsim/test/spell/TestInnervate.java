@@ -1,6 +1,7 @@
 package com.hearthsim.test.spell;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.basic.spell.Innervate;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionMock;
@@ -60,7 +61,7 @@ public class TestInnervate {
     @Test
     public void test2() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO, board);
 
         assertFalse(ret == null);
 
@@ -73,10 +74,10 @@ public class TestInnervate {
         assertEquals(waitingPlayer.getMana(), 4);
         assertEquals(currentPlayer.getMaxMana(), 4);
         assertEquals(waitingPlayer.getMaxMana(), 4);
-        assertEquals(currentPlayer.getCharacter(1).getHealth(), health0);
-        assertEquals(currentPlayer.getCharacter(2).getHealth(), health1 - 1);
-        assertEquals(waitingPlayer.getCharacter(1).getHealth(), health0);
-        assertEquals(waitingPlayer.getCharacter(2).getHealth(), health1 - 1);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), health0);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getHealth(), health1 - 1);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), health0);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getHealth(), health1 - 1);
     }
 
     @Test
@@ -86,7 +87,7 @@ public class TestInnervate {
         currentPlayer.setMaxMana((byte) 10);
 
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO, board);
 
         assertFalse(ret == null);
 
@@ -99,10 +100,10 @@ public class TestInnervate {
         assertEquals(waitingPlayer.getMana(), 4);
         assertEquals(currentPlayer.getMaxMana(), 10);
         assertEquals(waitingPlayer.getMaxMana(), 4);
-        assertEquals(currentPlayer.getCharacter(1).getHealth(), health0);
-        assertEquals(currentPlayer.getCharacter(2).getHealth(), health1 - 1);
-        assertEquals(waitingPlayer.getCharacter(1).getHealth(), health0);
-        assertEquals(waitingPlayer.getCharacter(2).getHealth(), health1 - 1);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), health0);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getHealth(), health1 - 1);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), health0);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getHealth(), health1 - 1);
     }
 
     @Test
@@ -114,8 +115,8 @@ public class TestInnervate {
         currentPlayer.setMaxMana((byte) 3);
         waitingPlayer.setMaxMana((byte) 3);
 
-        currentPlayer.getCharacter(1).hasAttacked(true);
-        currentPlayer.getCharacter(2).hasAttacked(true);
+        currentPlayer.getCharacter(CharacterIndex.MINION_1).hasAttacked(true);
+        currentPlayer.getCharacter(CharacterIndex.MINION_2).hasAttacked(true);
 
         BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
         List<HearthActionBoardPair> ab = ai0.playTurn(0, board.data_);

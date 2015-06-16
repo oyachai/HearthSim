@@ -6,6 +6,7 @@ import com.hearthsim.model.BoardModel
 import com.hearthsim.test.groovy.card.CardSpec
 import com.hearthsim.test.helpers.BoardModelBuilder
 import com.hearthsim.util.tree.HearthTreeNode
+import com.hearthsim.card.CharacterIndex
 
 import static com.hearthsim.model.PlayerSide.CURRENT_PLAYER
 import static org.junit.Assert.assertEquals
@@ -31,7 +32,7 @@ class AncientBrewmasterSpec extends CardSpec {
     def "playing Ancient Brewmaster while there are no other minions no board"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root, null, null)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root, null, null)
 
         expect:
         assertFalse(ret == null)
@@ -50,7 +51,7 @@ class AncientBrewmasterSpec extends CardSpec {
         startingBoard.placeMinion(CURRENT_PLAYER, new StormwindChampion())
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 1, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         assertFalse(ret == null)
@@ -62,22 +63,22 @@ class AncientBrewmasterSpec extends CardSpec {
                 mana(3)
                 numCardsUsed(1)
                 addCardToHand(StormwindChampion)
-                removeMinion(0)
+                removeMinion(CharacterIndex.MINION_1)
             }
         }
     }
 
     def "bounced minion does not remember state"() {
         startingBoard.placeMinion(CURRENT_PLAYER, new StormwindChampion())
-        startingBoard.modelForSide(CURRENT_PLAYER).getCharacter(1).health = 2
-        startingBoard.modelForSide(CURRENT_PLAYER).getCharacter(1).attack = 2
-        startingBoard.modelForSide(CURRENT_PLAYER).getCharacter(1).divineShield = true
-        startingBoard.modelForSide(CURRENT_PLAYER).getCharacter(1).windfury = true
-        startingBoard.modelForSide(CURRENT_PLAYER).getCharacter(1).spellDamage = 4
+        startingBoard.modelForSide(CURRENT_PLAYER).getCharacter(CharacterIndex.MINION_1).health = 2
+        startingBoard.modelForSide(CURRENT_PLAYER).getCharacter(CharacterIndex.MINION_1).attack = 2
+        startingBoard.modelForSide(CURRENT_PLAYER).getCharacter(CharacterIndex.MINION_1).divineShield = true
+        startingBoard.modelForSide(CURRENT_PLAYER).getCharacter(CharacterIndex.MINION_1).windfury = true
+        startingBoard.modelForSide(CURRENT_PLAYER).getCharacter(CharacterIndex.MINION_1).spellDamage = 4
 
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 1, root, null, null)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         assertFalse(ret == null)
@@ -89,7 +90,7 @@ class AncientBrewmasterSpec extends CardSpec {
                 mana(3)
                 numCardsUsed(1)
                 addCardToHand(StormwindChampion)
-                removeMinion(0)
+                removeMinion(CharacterIndex.MINION_1)
             }
         }
     }

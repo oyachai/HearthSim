@@ -3,7 +3,6 @@ package com.hearthsim.gui;
 import com.hearthsim.event.HSGameEndEventListener;
 import com.hearthsim.player.playercontroller.BruteForceSearchAI;
 import com.hearthsim.results.GameResult;
-
 import org.apache.commons.math3.distribution.BetaDistribution;
 
 import java.util.ArrayList;

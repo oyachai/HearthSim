@@ -1,6 +1,7 @@
 package com.hearthsim.card.classic.spell.rare;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.spellcard.SpellTargetableCard;
 import com.hearthsim.event.effect.EffectCharacter;
 import com.hearthsim.event.effect.EffectCharacterHeal;
@@ -15,9 +16,9 @@ public class SiphonSoul extends SpellTargetableCard {
 
     private static final EffectCharacter effect = new EffectCharacter() {
         @Override
-        public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
+        public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState) {
             boardState = EffectCharacter.DESTROY.applyEffect(originSide, origin, targetSide, targetCharacterIndex, boardState);
-            boardState = SiphonSoul.heal.applyEffect(originSide, origin, originSide, 0, boardState);
+            boardState = SiphonSoul.heal.applyEffect(originSide, origin, originSide, CharacterIndex.HERO, boardState);
             return boardState;
         }
     };

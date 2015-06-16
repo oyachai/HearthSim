@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.classic.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.weapon.FieryWarAxe
 import com.hearthsim.card.classic.minion.legendary.CaptainGreenskin
 import com.hearthsim.model.BoardModel
@@ -30,7 +31,7 @@ class CaptainGreenskinSpec extends CardSpec {
     def "playing Captain Greenskin without weapon"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayerCardHand(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root, null, null)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         assertNotNull(ret);
@@ -49,7 +50,7 @@ class CaptainGreenskinSpec extends CardSpec {
         startingBoard.getCurrentPlayerHero().setWeapon(new FieryWarAxe());
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayerCardHand(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root, null, null)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         assertNotNull(ret);

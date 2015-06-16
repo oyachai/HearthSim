@@ -1,6 +1,7 @@
 package com.hearthsim.event.effect;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.weapon.WeaponCard;
 import com.hearthsim.model.PlayerSide;
@@ -22,7 +23,7 @@ public class EffectHeroWeaponBuffDelta<T extends Card> implements EffectHero<T> 
 
     @Override
     public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, HearthTreeNode boardState) {
-        Hero hero = (Hero)boardState.data_.getCharacter(targetSide, 0);
+        Hero hero = (Hero)boardState.data_.getCharacter(targetSide, CharacterIndex.HERO);
         WeaponCard weapon = hero.getWeapon();
         if (weapon != null) {
             weapon.addWeaponDamage(this.attackDelta);

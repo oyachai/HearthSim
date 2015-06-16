@@ -1,6 +1,7 @@
 package com.hearthsim.util.factory;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
@@ -36,15 +37,15 @@ public class ChildNodeCreatorBase implements ChildNodeCreator {
         // attack with characters
         for (int attackerIndex = 0; attackerIndex < currentPlayer
                 .getNumCharacters(); ++attackerIndex) {
-            if (!currentPlayer.getCharacter(attackerIndex).canAttack()) {
+            if (!currentPlayer.getCharacter(CharacterIndex.fromInteger(attackerIndex)).canAttack()) {
                 continue;
             }
 
             for (final Integer integer : attackable) {
-                int targetIndex = integer;
+                CharacterIndex targetIndex = CharacterIndex.fromInteger(integer);
                 newState = new HearthTreeNode(boardStateNode.data_.deepCopy());
 
-                tempMinion = newState.data_.getCurrentPlayer().getCharacter(attackerIndex);
+                tempMinion = newState.data_.getCurrentPlayer().getCharacter(CharacterIndex.fromInteger(attackerIndex));
 
                 newState = tempMinion.attack(PlayerSide.WAITING_PLAYER, targetIndex, newState);
 
@@ -86,7 +87,8 @@ public class ChildNodeCreatorBase implements ChildNodeCreator {
             if (card.getManaCost(PlayerSide.CURRENT_PLAYER, boardStateNode.data_) <= mana && !card.hasBeenUsed()) {
 
                 // we can use this card! Let's try using it on everything
-                for (int targetIndex = 0; targetIndex <= currentPlayer.getNumMinions(); ++targetIndex) {
+                for (int tIndex = 0; tIndex <= currentPlayer.getNumMinions(); ++tIndex) {
+                    CharacterIndex targetIndex = CharacterIndex.fromInteger(tIndex);
                     targetMinion = boardStateNode.data_.getCurrentPlayer().getCharacter(targetIndex);
 
                     if (card.canBeUsedOn(PlayerSide.CURRENT_PLAYER, targetMinion, boardStateNode.data_)) {
@@ -99,7 +101,8 @@ public class ChildNodeCreatorBase implements ChildNodeCreator {
                     }
                 }
 
-                for (int targetIndex = 0; targetIndex <= waitingPlayer.getNumMinions(); ++targetIndex) {
+                for (int tIndex = 0; tIndex <= waitingPlayer.getNumMinions(); ++tIndex) {
+                    CharacterIndex targetIndex = CharacterIndex.fromInteger(tIndex);
                     targetMinion = boardStateNode.data_.getWaitingPlayer().getCharacter(targetIndex);
 
                     if (card.canBeUsedOn(PlayerSide.WAITING_PLAYER, targetMinion, boardStateNode.data_)) {
@@ -143,9 +146,10 @@ public class ChildNodeCreatorBase implements ChildNodeCreator {
 
         // Case0: Decided to use the hero ability -- Use it on everything!
         for (int i = 0; i <= currentPlayer.getNumMinions(); ++i) {
-            if (player.canBeUsedOn(PlayerSide.CURRENT_PLAYER, i, boardStateNode.data_)) {
+            CharacterIndex targetIndex = CharacterIndex.fromInteger(i);
+            if (player.canBeUsedOn(PlayerSide.CURRENT_PLAYER, targetIndex, boardStateNode.data_)) {
                 newState = new HearthTreeNode(boardStateNode.data_.deepCopy());
-                newState = newState.data_.getCurrentPlayer().getHero().useHeroAbility(PlayerSide.CURRENT_PLAYER, i, newState);
+                newState = newState.data_.getCurrentPlayer().getHero().useHeroAbility(PlayerSide.CURRENT_PLAYER, targetIndex, newState);
 
                 if (newState != null) {
                     nodes.add(newState);
@@ -154,9 +158,10 @@ public class ChildNodeCreatorBase implements ChildNodeCreator {
         }
 
         for (int i = 0; i <= waitingPlayer.getNumMinions(); ++i) {
-            if (player.canBeUsedOn(PlayerSide.WAITING_PLAYER, i, boardStateNode.data_)) {
+            CharacterIndex targetIndex = CharacterIndex.fromInteger(i);
+            if (player.canBeUsedOn(PlayerSide.WAITING_PLAYER, targetIndex, boardStateNode.data_)) {
                 newState = new HearthTreeNode(boardStateNode.data_.deepCopy());
-                newState = newState.data_.getCurrentPlayer().getHero().useHeroAbility(PlayerSide.WAITING_PLAYER, i, newState);
+                newState = newState.data_.getCurrentPlayer().getHero().useHeroAbility(PlayerSide.WAITING_PLAYER, targetIndex, newState);
 
                 if (newState != null) {
                     nodes.add(newState);

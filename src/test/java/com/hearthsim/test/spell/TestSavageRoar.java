@@ -1,6 +1,7 @@
 package com.hearthsim.test.spell;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.basic.minion.BoulderfistOgre;
 import com.hearthsim.card.basic.minion.RaidLeader;
 import com.hearthsim.card.basic.spell.SavageRoar;
@@ -49,7 +50,7 @@ public class TestSavageRoar {
     @Test
     public void test2() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO, board);
 
         assertFalse(ret == null);
 
@@ -60,24 +61,24 @@ public class TestSavageRoar {
         assertEquals(waitingPlayer.getMana(), 10);
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), 30);
-        assertEquals(currentPlayer.getCharacter(1).getHealth(), 2);
-        assertEquals(currentPlayer.getCharacter(2).getHealth(), 7);
-        assertEquals(waitingPlayer.getCharacter(1).getHealth(), 2);
-        assertEquals(waitingPlayer.getCharacter(2).getHealth(), 7);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), 2);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getHealth(), 7);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), 2);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getHealth(), 7);
 
-        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), 4);
-        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), 9);
-        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), 2);
-        assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), 7);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), 4);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getTotalAttack(), 9);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), 2);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getTotalAttack(), 7);
 
         assertEquals(currentPlayer.getHero().getExtraAttackUntilTurnEnd(), 2);
         assertEquals(waitingPlayer.getHero().getExtraAttackUntilTurnEnd(), 0);
-        assertEquals(currentPlayer.getCharacter(1).getExtraAttackUntilTurnEnd(), 2);
-        assertEquals(currentPlayer.getCharacter(2).getExtraAttackUntilTurnEnd(), 2);
-        assertEquals(waitingPlayer.getCharacter(1).getExtraAttackUntilTurnEnd(), 0);
-        assertEquals(waitingPlayer.getCharacter(2).getExtraAttackUntilTurnEnd(), 0);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getExtraAttackUntilTurnEnd(), 2);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getExtraAttackUntilTurnEnd(), 2);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getExtraAttackUntilTurnEnd(), 0);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getExtraAttackUntilTurnEnd(), 0);
 
-        ret = currentPlayer.getCharacter(1).attack(PlayerSide.WAITING_PLAYER, 2, board);
+        ret = currentPlayer.getCharacter(CharacterIndex.MINION_1).attack(PlayerSide.WAITING_PLAYER, CharacterIndex.MINION_2, board);
 
         assertFalse(ret == null);
         assertEquals(currentPlayer.getHand().size(), 0);
@@ -87,21 +88,21 @@ public class TestSavageRoar {
         assertEquals(waitingPlayer.getMana(), 10);
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), 30);
-        assertEquals(currentPlayer.getCharacter(1).getHealth(), 7);
-        assertEquals(waitingPlayer.getCharacter(1).getHealth(), 2);
-        assertEquals(waitingPlayer.getCharacter(2).getHealth(), 3);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), 7);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), 2);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getHealth(), 3);
 
-        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), 8);
-        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), 2);
-        assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), 7);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), 8);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), 2);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getTotalAttack(), 7);
 
         assertEquals(currentPlayer.getHero().getExtraAttackUntilTurnEnd(), 2);
         assertEquals(waitingPlayer.getHero().getExtraAttackUntilTurnEnd(), 0);
-        assertEquals(currentPlayer.getCharacter(1).getExtraAttackUntilTurnEnd(), 2);
-        assertEquals(waitingPlayer.getCharacter(1).getExtraAttackUntilTurnEnd(), 0);
-        assertEquals(waitingPlayer.getCharacter(2).getExtraAttackUntilTurnEnd(), 0);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getExtraAttackUntilTurnEnd(), 2);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getExtraAttackUntilTurnEnd(), 0);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getExtraAttackUntilTurnEnd(), 0);
 
-        ret = currentPlayer.getHero().attack(PlayerSide.WAITING_PLAYER, 2, board);
+        ret = currentPlayer.getHero().attack(PlayerSide.WAITING_PLAYER, CharacterIndex.MINION_2, board);
 
         assertFalse(ret == null);
         assertEquals(currentPlayer.getHand().size(), 0);
@@ -111,18 +112,18 @@ public class TestSavageRoar {
         assertEquals(waitingPlayer.getMana(), 10);
         assertEquals(currentPlayer.getHero().getHealth(), 23);
         assertEquals(waitingPlayer.getHero().getHealth(), 30);
-        assertEquals(currentPlayer.getCharacter(1).getHealth(), 7);
-        assertEquals(waitingPlayer.getCharacter(1).getHealth(), 2);
-        assertEquals(waitingPlayer.getCharacter(2).getHealth(), 1);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), 7);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), 2);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getHealth(), 1);
 
-        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), 8);
-        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), 2);
-        assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), 7);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), 8);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), 2);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getTotalAttack(), 7);
 
         assertEquals(currentPlayer.getHero().getExtraAttackUntilTurnEnd(), 2);
         assertEquals(waitingPlayer.getHero().getExtraAttackUntilTurnEnd(), 0);
-        assertEquals(currentPlayer.getCharacter(1).getExtraAttackUntilTurnEnd(), 2);
-        assertEquals(waitingPlayer.getCharacter(1).getExtraAttackUntilTurnEnd(), 0);
-        assertEquals(waitingPlayer.getCharacter(2).getExtraAttackUntilTurnEnd(), 0);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getExtraAttackUntilTurnEnd(), 2);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getExtraAttackUntilTurnEnd(), 0);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getExtraAttackUntilTurnEnd(), 0);
     }
 }

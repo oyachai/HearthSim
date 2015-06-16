@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.curseofnaxxramas.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.minion.BloodfenRaptor
 import com.hearthsim.card.basic.minion.RiverCrocolisk
 import com.hearthsim.card.basic.spell.ShadowWordPain
@@ -38,7 +39,7 @@ class DarkCultistSpec extends CardSpec {
     def "dying with no deathrattle targets"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = new ShadowWordPain()
-        def ret = theCard.useOn(CURRENT_PLAYER, 1, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         assertNotNull(ret)
@@ -47,7 +48,7 @@ class DarkCultistSpec extends CardSpec {
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                removeMinion(0)
+                removeMinion(CharacterIndex.MINION_1)
                 mana(8)
                 numCardsUsed(1)
             }
@@ -55,11 +56,11 @@ class DarkCultistSpec extends CardSpec {
     }
 
     def "does not buff enemies"() {
-        startingBoard.placeMinion(WAITING_PLAYER, new BloodfenRaptor(), 0)
+        startingBoard.placeMinion(WAITING_PLAYER, new BloodfenRaptor(), CharacterIndex.HERO)
 
         def copiedBoard = startingBoard.deepCopy()
         def theCard = new ShadowWordPain()
-        def ret = theCard.useOn(CURRENT_PLAYER, 1, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         assertNotNull(ret)
@@ -68,7 +69,7 @@ class DarkCultistSpec extends CardSpec {
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                removeMinion(0)
+                removeMinion(CharacterIndex.MINION_1)
                 mana(8)
                 numCardsUsed(1)
             }
@@ -76,11 +77,11 @@ class DarkCultistSpec extends CardSpec {
     }
 
     def "dying with 1 deathrattle target"() {
-        startingBoard.placeMinion(CURRENT_PLAYER, new BloodfenRaptor(), 0)
+        startingBoard.placeMinion(CURRENT_PLAYER, new BloodfenRaptor(), CharacterIndex.HERO)
 
         def copiedBoard = startingBoard.deepCopy()
         def theCard = new ShadowWordPain()
-        def ret = theCard.useOn(CURRENT_PLAYER, 2, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_2, root)
 
         expect:
         assertNotNull(ret)
@@ -89,28 +90,28 @@ class DarkCultistSpec extends CardSpec {
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                removeMinion(1)
+                removeMinion(CharacterIndex.MINION_2)
                 mana(8)
                 numCardsUsed(1)
-                updateMinion(0, [deltaMaxHealth: +3, deltaHealth: +3])
+                updateMinion(CharacterIndex.MINION_1, [deltaMaxHealth: +3, deltaHealth: +3])
             }
         }
     }
 
     def "dying with 2 deathrattle target"() {
-        startingBoard.placeMinion(CURRENT_PLAYER, new BloodfenRaptor(), 0)
-        startingBoard.placeMinion(CURRENT_PLAYER, new RiverCrocolisk(), 1)
+        startingBoard.placeMinion(CURRENT_PLAYER, new BloodfenRaptor(), CharacterIndex.HERO)
+        startingBoard.placeMinion(CURRENT_PLAYER, new RiverCrocolisk(), CharacterIndex.MINION_1)
 
         def copiedBoard = startingBoard.deepCopy()
         def theCard = new ShadowWordPain()
-        def ret = theCard.useOn(CURRENT_PLAYER, 3, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_3, root)
 
         expect:
         assertNotNull(ret)
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                removeMinion(2)
+                removeMinion(CharacterIndex.MINION_3)
                 mana(8)
                 numCardsUsed(1)
             }
@@ -122,32 +123,32 @@ class DarkCultistSpec extends CardSpec {
         HearthTreeNode child0 = ret.getChildren().get(0);
         assertBoardDelta(ret.data_, child0.data_) {
             currentPlayer {
-                updateMinion(0, [deltaMaxHealth: +3, deltaHealth: +3])
+                updateMinion(CharacterIndex.MINION_1, [deltaMaxHealth: +3, deltaHealth: +3])
             }
         }
 
         HearthTreeNode child1 = ret.getChildren().get(1);
         assertBoardDelta(ret.data_, child1.data_) {
             currentPlayer {
-                updateMinion(1, [deltaMaxHealth: +3, deltaHealth: +3])
+                updateMinion(CharacterIndex.MINION_2, [deltaMaxHealth: +3, deltaHealth: +3])
             }
         }
     }
 
     def "dying with 2 deathrattle target, dark cultist in the middle"() {
-        startingBoard.placeMinion(CURRENT_PLAYER, new BloodfenRaptor(), 0)
-        startingBoard.placeMinion(CURRENT_PLAYER, new RiverCrocolisk(), 2)
+        startingBoard.placeMinion(CURRENT_PLAYER, new BloodfenRaptor(), CharacterIndex.HERO)
+        startingBoard.placeMinion(CURRENT_PLAYER, new RiverCrocolisk(), CharacterIndex.MINION_2)
 
         def copiedBoard = startingBoard.deepCopy()
         def theCard = new ShadowWordPain()
-        def ret = theCard.useOn(CURRENT_PLAYER, 2, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_2, root)
 
         expect:
         assertNotNull(ret)
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                removeMinion(1)
+                removeMinion(CharacterIndex.MINION_2)
                 mana(8)
                 numCardsUsed(1)
             }
@@ -159,35 +160,35 @@ class DarkCultistSpec extends CardSpec {
         HearthTreeNode child0 = ret.getChildren().get(0);
         assertBoardDelta(ret.data_, child0.data_) {
             currentPlayer {
-                updateMinion(0, [deltaMaxHealth: +3, deltaHealth: +3])
+                updateMinion(CharacterIndex.MINION_1, [deltaMaxHealth: +3, deltaHealth: +3])
             }
         }
 
         HearthTreeNode child1 = ret.getChildren().get(1);
         assertBoardDelta(ret.data_, child1.data_) {
             currentPlayer {
-                updateMinion(1, [deltaMaxHealth: +3, deltaHealth: +3])
+                updateMinion(CharacterIndex.MINION_2, [deltaMaxHealth: +3, deltaHealth: +3])
             }
         }
     }
 
     def "dying with 2 deathrattle target, dark cultist dies by attacking"() {
-        startingBoard.placeMinion(CURRENT_PLAYER, new BloodfenRaptor(), 0)
-        startingBoard.placeMinion(CURRENT_PLAYER, new RiverCrocolisk(), 2)
+        startingBoard.placeMinion(CURRENT_PLAYER, new BloodfenRaptor(), CharacterIndex.HERO)
+        startingBoard.placeMinion(CURRENT_PLAYER, new RiverCrocolisk(), CharacterIndex.MINION_2)
 
         def copiedBoard = startingBoard.deepCopy()
-        def darkCultist = root.data_.getCurrentPlayer().getCharacter(2)
-        def ret = darkCultist.attack(WAITING_PLAYER, 1, root)
+        def darkCultist = root.data_.getCurrentPlayer().getCharacter(CharacterIndex.MINION_2)
+        def ret = darkCultist.attack(WAITING_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         assertNotNull(ret)
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                removeMinion(1)
+                removeMinion(CharacterIndex.MINION_2)
             }
             waitingPlayer {
-                removeMinion(0)
+                removeMinion(CharacterIndex.MINION_1)
             }
         }
 
@@ -197,14 +198,14 @@ class DarkCultistSpec extends CardSpec {
         HearthTreeNode child0 = ret.getChildren().get(0);
         assertBoardDelta(ret.data_, child0.data_) {
             currentPlayer {
-                updateMinion(0, [deltaMaxHealth: +3, deltaHealth: +3])
+                updateMinion(CharacterIndex.MINION_1, [deltaMaxHealth: +3, deltaHealth: +3])
             }
         }
 
         HearthTreeNode child1 = ret.getChildren().get(1);
         assertBoardDelta(ret.data_, child1.data_) {
             currentPlayer {
-                updateMinion(1, [deltaMaxHealth: +3, deltaHealth: +3])
+                updateMinion(CharacterIndex.MINION_2, [deltaMaxHealth: +3, deltaHealth: +3])
             }
         }
     }

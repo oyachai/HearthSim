@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.classic.weapon
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.minion.BoulderfistOgre
 import com.hearthsim.card.classic.weapon.epic.Gorehowl
 import com.hearthsim.card.minion.Minion
@@ -37,10 +38,10 @@ class GorehowlSpec extends CardSpec {
         def copiedRoot = new HearthTreeNode(copiedBoard)
 
         def theCard = copiedBoard.getCurrentPlayer().getHand().get(0);
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot);
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, copiedRoot);
 
         Minion hero = ret.data_.getCurrentPlayer().getHero();
-        ret = hero.attack(PlayerSide.WAITING_PLAYER, 1, ret);
+        ret = hero.attack(PlayerSide.WAITING_PLAYER, CharacterIndex.MINION_1, ret);
 
         expect:
         ret != null
@@ -56,7 +57,7 @@ class GorehowlSpec extends CardSpec {
                 numCardsUsed(1)
             }
             waitingPlayer {
-                removeMinion(0)
+                removeMinion(CharacterIndex.MINION_1)
             }
         }
     }
@@ -66,12 +67,12 @@ class GorehowlSpec extends CardSpec {
         def copiedRoot = new HearthTreeNode(copiedBoard)
 
         def theCard = copiedBoard.getCurrentPlayer().getHand().get(0);
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot);
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, copiedRoot);
 
         Minion hero = ret.data_.getCurrentPlayer().getHero();
         hero.getWeapon().setWeaponDamage((byte)1);
 
-        ret = hero.attack(PlayerSide.WAITING_PLAYER, 1, ret);
+        ret = hero.attack(PlayerSide.WAITING_PLAYER, CharacterIndex.MINION_1, ret);
 
         expect:
         ret != null
@@ -84,7 +85,7 @@ class GorehowlSpec extends CardSpec {
                 numCardsUsed(1)
             }
             waitingPlayer {
-                updateMinion(0, [deltaHealth: -1])
+                updateMinion(CharacterIndex.MINION_1, [deltaHealth: -1])
             }
         }
     }
@@ -94,10 +95,10 @@ class GorehowlSpec extends CardSpec {
         def copiedRoot = new HearthTreeNode(copiedBoard)
 
         def theCard = copiedBoard.getCurrentPlayer().getHand().get(0);
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot);
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, copiedRoot);
 
         Minion hero = ret.data_.getCurrentPlayer().getHero();
-        ret = hero.attack(PlayerSide.WAITING_PLAYER, 0, ret);
+        ret = hero.attack(PlayerSide.WAITING_PLAYER, CharacterIndex.HERO, ret);
 
         expect:
         ret != null

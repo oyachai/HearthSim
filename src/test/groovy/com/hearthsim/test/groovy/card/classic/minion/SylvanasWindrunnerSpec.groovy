@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.classic.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.minion.GoldshireFootman
 import com.hearthsim.card.basic.minion.WarGolem
 import com.hearthsim.card.basic.spell.ShadowWordDeath
@@ -39,7 +40,7 @@ class SylvanasWindrunnerSpec extends CardSpec {
 
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 1, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         assertFalse(ret == null);
@@ -47,7 +48,7 @@ class SylvanasWindrunnerSpec extends CardSpec {
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
                 removeCardFromHand(ShadowWordDeath)
-                removeMinion(0)
+                removeMinion(CharacterIndex.MINION_1)
                 mana(6)
                 numCardsUsed(1)
             }
@@ -62,7 +63,7 @@ class SylvanasWindrunnerSpec extends CardSpec {
                 mana(6)
             }
             waitingPlayer {
-                removeMinion(0)
+                removeMinion(CharacterIndex.MINION_1)
             }
         }
         
@@ -73,7 +74,7 @@ class SylvanasWindrunnerSpec extends CardSpec {
                 mana(6)
             }
             waitingPlayer {
-                removeMinion(1)
+                removeMinion(CharacterIndex.MINION_2)
             }
         }
     }
@@ -94,8 +95,8 @@ class SylvanasWindrunnerSpec extends CardSpec {
         root = new HearthTreeNode(startingBoard)
 
         def copiedBoard = startingBoard.deepCopy()
-        def attacker = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(1)
-        def ret = attacker.attack(WAITING_PLAYER, 1, root)
+        def attacker = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(CharacterIndex.MINION_1)
+        def ret = attacker.attack(WAITING_PLAYER, CharacterIndex.MINION_1, root)
         
         expect:
         assertFalse(ret == null);
@@ -103,28 +104,28 @@ class SylvanasWindrunnerSpec extends CardSpec {
         
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                updateMinion(0, [deltaHealth: -5, hasAttacked: true])
+                updateMinion(CharacterIndex.MINION_1, [deltaHealth: -5, hasAttacked: true])
             }
             waitingPlayer {
-                removeMinion(0)
+                removeMinion(CharacterIndex.MINION_1)
             }
         }
         
         HearthTreeNode child0 = ret.getChildren().get(0);
         assertBoardDelta(ret.data_, child0.data_) {
             currentPlayer {
-                removeMinion(0)
+                removeMinion(CharacterIndex.MINION_1)
             }
             waitingPlayer {
                 addMinionToField(WarGolem)
-                updateMinion(0, [deltaHealth: -5])
+                updateMinion(CharacterIndex.MINION_1, [deltaHealth: -5])
             }
         }
 
         HearthTreeNode child1 = ret.getChildren().get(1);
         assertBoardDelta(ret.data_, child1.data_) {
             currentPlayer {
-                removeMinion(1)
+                removeMinion(CharacterIndex.MINION_2)
             }
             waitingPlayer {
                 addMinionToField(GoldshireFootman)
@@ -150,36 +151,36 @@ class SylvanasWindrunnerSpec extends CardSpec {
 
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 1, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         assertTrue(ret instanceof RandomEffectNode);
         
-        def ret3 = ret.finishAllEffects(null, null);
-        if (ret3.data_.getMinion(CURRENT_PLAYER, 0) instanceof WarGolem) {
+        HearthTreeNode ret3 = ret.finishAllEffects(null, null);
+        if (ret3.data_.modelForSide(CURRENT_PLAYER).getCharacter(CharacterIndex.MINION_1) instanceof WarGolem) {
             assertBoardDelta(copiedBoard, ret3.data_) {
                 currentPlayer {
-                    removeMinion(0)
+                    removeMinion(CharacterIndex.MINION_1)
                     removeCardFromHand(ShadowWordDeath)
                     mana(6)
                     playMinion(WarGolem)
                     numCardsUsed(1)
                 }
                 waitingPlayer {
-                    removeMinion(0)
+                    removeMinion(CharacterIndex.MINION_1)
                 }
             }
         } else {
             assertBoardDelta(copiedBoard, ret3.data_) {
                 currentPlayer {
-                    removeMinion(0)
+                    removeMinion(CharacterIndex.MINION_1)
                     removeCardFromHand(ShadowWordDeath)
                     mana(6)
                     playMinion(GoldshireFootman)
                     numCardsUsed(1)
                 }
                 waitingPlayer {
-                    removeMinion(1)
+                    removeMinion(CharacterIndex.MINION_2)
                 }
             }
         }

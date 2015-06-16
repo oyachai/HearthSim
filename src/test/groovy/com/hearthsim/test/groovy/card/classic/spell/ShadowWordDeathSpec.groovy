@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.classic.spell
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.minion.ChillwindYeti
 import com.hearthsim.card.basic.minion.WarGolem
 import com.hearthsim.card.basic.spell.ShadowWordDeath
@@ -34,7 +35,7 @@ class ShadowWordDeathSpec extends CardSpec {
     def "cannot target low attack minion"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(WAITING_PLAYER, 2, root, null, null)
+        def ret = theCard.useOn(WAITING_PLAYER, CharacterIndex.MINION_2, root)
 
         expect:
         assertNull(ret);
@@ -44,7 +45,7 @@ class ShadowWordDeathSpec extends CardSpec {
     def "kills high attack minion"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(WAITING_PLAYER, 1, root, null, null)
+        def ret = theCard.useOn(WAITING_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         assertEquals(root, ret);
@@ -55,14 +56,14 @@ class ShadowWordDeathSpec extends CardSpec {
                 mana(2)
                 numCardsUsed(1)
             }
-            waitingPlayer { removeMinion(0) }
+            waitingPlayer { removeMinion(CharacterIndex.MINION_1) }
         }
     }
 
     def "can target minion with extra attack"() {
         def copiedBoard = startingBoard.deepCopy()
 
-        def target = root.data_.modelForSide(WAITING_PLAYER).getCharacter(1)
+        def target = root.data_.modelForSide(WAITING_PLAYER).getCharacter(CharacterIndex.MINION_1)
         target.extraAttackUntilTurnEnd += 2
 
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
@@ -77,14 +78,14 @@ class ShadowWordDeathSpec extends CardSpec {
                 mana(2)
                 numCardsUsed(1)
             }
-            waitingPlayer { removeMinion(0) }
+            waitingPlayer { removeMinion(CharacterIndex.MINION_1) }
         }
     }
 
     def "follows normal targeting rules"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(WAITING_PLAYER, 3, root, null, null)
+        def ret = theCard.useOn(WAITING_PLAYER, CharacterIndex.MINION_3, root)
 
         expect:
         assertNull(ret);

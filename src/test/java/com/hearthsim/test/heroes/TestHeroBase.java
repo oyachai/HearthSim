@@ -1,5 +1,6 @@
 package com.hearthsim.test.heroes;
 
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.basic.minion.BoulderfistOgre;
 import com.hearthsim.card.basic.minion.KoboldGeomancer;
 import com.hearthsim.card.basic.minion.RaidLeader;
@@ -48,7 +49,7 @@ public class TestHeroBase {
 
         assertFalse(hero.canAttack());
 
-        HearthTreeNode ret = hero.attack(PlayerSide.WAITING_PLAYER, 0, board);
+        HearthTreeNode ret = hero.attack(PlayerSide.WAITING_PLAYER, CharacterIndex.HERO, board);
         assertNull(ret);
     }
 
@@ -56,8 +57,8 @@ public class TestHeroBase {
     public void testMinionAttackingHero() throws HSException {
 
         // null case
-        Minion minion = currentPlayer.getCharacter(1);
-        HearthTreeNode ret = minion.attack(PlayerSide.WAITING_PLAYER, 0, board);
+        Minion minion = currentPlayer.getCharacter(CharacterIndex.MINION_1);
+        HearthTreeNode ret = minion.attack(PlayerSide.WAITING_PLAYER, CharacterIndex.HERO, board);
         assertEquals(board, ret);
 
         assertEquals(currentPlayer.getHand().size(), 0);
@@ -69,21 +70,21 @@ public class TestHeroBase {
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), 28);
 
-        assertEquals(currentPlayer.getCharacter(1).getHealth(), 2);
-        assertEquals(currentPlayer.getCharacter(2).getHealth(), 7);
-        assertEquals(waitingPlayer.getCharacter(1).getHealth(), 2);
-        assertEquals(waitingPlayer.getCharacter(2).getHealth(), 7);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), 2);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getHealth(), 7);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), 2);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getHealth(), 7);
 
-        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), 2);
-        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), 7);
-        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), 2);
-        assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), 7);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), 2);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getTotalAttack(), 7);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), 2);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getTotalAttack(), 7);
     }
 
     @Test
     public void testHeropowerIsMarkedUsed() throws HSException {
         Hero hero = currentPlayer.getHero();
-        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board);
+        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO, board);
         assertEquals(board, ret);
         assertTrue(hero.hasBeenUsed());
     }
@@ -91,7 +92,7 @@ public class TestHeroBase {
     @Test
     public void testHeropowerSubtractsMana() throws HSException {
         Hero hero = currentPlayer.getHero();
-        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board);
+        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO, board);
         assertEquals(board, ret);
         assertEquals(currentPlayer.getMana(), 6);
     }
@@ -99,12 +100,12 @@ public class TestHeroBase {
     @Test
     public void testHeropowerCannotBeUsedTwice() throws HSException {
         Hero hero = currentPlayer.getHero();
-        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board);
+        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO, board);
         assertEquals(board, ret);
 
-        assertFalse(hero.canBeUsedOn(PlayerSide.CURRENT_PLAYER, 0, board.data_));
+        assertFalse(hero.canBeUsedOn(PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO, board.data_));
 
-        ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board);
+        ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO, board);
         assertNull(ret);
 
         assertTrue(hero.hasBeenUsed());
@@ -114,7 +115,7 @@ public class TestHeroBase {
     @Test
     public void testHeropowerResets() throws HSException {
         Hero hero = currentPlayer.getHero();
-        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board);
+        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO, board);
         assertEquals(board, ret);
 
         board.data_.resetMinions();
@@ -126,9 +127,9 @@ public class TestHeroBase {
         Hero hero = currentPlayer.getHero();
         currentPlayer.setMana((byte) 1);
 
-        //assertFalse(hero.canBeUsedOn(PlayerSide.CURRENT_PLAYER, 0, board.data_)); // TODO doesn't work yet
+        //assertFalse(hero.canBeUsedOn(PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO, board.data_)); // TODO doesn't work yet
 
-        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board);
+        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO, board);
         assertNull(ret);
 
         assertFalse(hero.hasBeenUsed());
@@ -172,7 +173,7 @@ public class TestHeroBase {
         Hero opponent = waitingPlayer.getHero();
         opponent.setArmor((byte)3);
 
-        Minion minion = currentPlayer.getCharacter(1);
+        Minion minion = currentPlayer.getCharacter(CharacterIndex.MINION_1);
         HearthTreeNode ret = minion.attack(PlayerSide.WAITING_PLAYER, opponent, board);
         assertEquals(board, ret);
 
@@ -190,7 +191,7 @@ public class TestHeroBase {
         HolySmite smite = new HolySmite();
         board.data_.placeCardHand(PlayerSide.CURRENT_PLAYER, smite);
 
-        HearthTreeNode ret = smite.useOn(PlayerSide.WAITING_PLAYER, 0, board);
+        HearthTreeNode ret = smite.useOn(PlayerSide.WAITING_PLAYER, CharacterIndex.HERO, board);
         assertEquals(board, ret);
 
         assertEquals(waitingPlayer.getHero().getHealth(), 30);

@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.classic.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.minion.SenjinShieldmasta
 import com.hearthsim.card.classic.minion.common.ScarletCrusader
 import com.hearthsim.card.classic.spell.rare.MassDispel
@@ -34,7 +35,7 @@ class MassDispelSpec extends CardSpec {
 
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         ret != null
@@ -48,8 +49,8 @@ class MassDispelSpec extends CardSpec {
                 numCardsUsed(1)
             }
             waitingPlayer {
-                updateMinion(0, [silenced:true, taunt:false])
-                updateMinion(1, [silenced:true, divineShield:false])
+                updateMinion(CharacterIndex.MINION_1, [silenced:true, taunt:false])
+                updateMinion(CharacterIndex.MINION_2, [silenced:true, divineShield:false])
             }
         }
     }
@@ -57,7 +58,7 @@ class MassDispelSpec extends CardSpec {
     def "ignores own minions"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         ret != null

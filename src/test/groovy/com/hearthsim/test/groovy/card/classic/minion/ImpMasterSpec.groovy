@@ -1,6 +1,7 @@
 package com.hearthsim.test.groovy.card.classic.minion
 
 import com.hearthsim.Game
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.classic.minion.common.Imp
 import com.hearthsim.card.classic.minion.rare.ImpMaster
 import com.hearthsim.model.BoardModel
@@ -34,7 +35,7 @@ public class ImpMasterSpec extends CardSpec {
     def "playing Imp Master"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root, null, null)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         assertFalse(ret == null);
@@ -53,7 +54,7 @@ public class ImpMasterSpec extends CardSpec {
                 playMinion(ImpMaster)
                 addMinionToField(Imp)
                 mana(5)
-                updateMinion(0, [deltaHealth: -1])
+                updateMinion(CharacterIndex.MINION_1, [deltaHealth: -1])
                 numCardsUsed(1)
             }
         }
@@ -62,7 +63,7 @@ public class ImpMasterSpec extends CardSpec {
     def "playing Imp Master with 1 health left"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root, null, null)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
         theCard.health_ = 1
         
         expect:
@@ -71,7 +72,7 @@ public class ImpMasterSpec extends CardSpec {
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
                 playMinion(ImpMaster)
-                updateMinion(0, [deltaHealth: -4])
+                updateMinion(CharacterIndex.MINION_1, [deltaHealth: -4])
                 mana(5)
                 numCardsUsed(1)
             }
@@ -81,7 +82,7 @@ public class ImpMasterSpec extends CardSpec {
         assertBoardDelta(copiedBoard, retAfterEndTurn.data_) {
             currentPlayer {
                 playMinion(ImpMaster)
-                removeMinion(0)
+                removeMinion(CharacterIndex.MINION_1)
                 addMinionToField(Imp)
                 mana(5)
                 numCardsUsed(1)

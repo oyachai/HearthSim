@@ -1,6 +1,7 @@
 package com.hearthsim.test.minion;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.basic.minion.BoulderfistOgre;
 import com.hearthsim.card.basic.minion.RaidLeader;
 import com.hearthsim.card.basic.minion.StormwindChampion;
@@ -50,7 +51,7 @@ public class TestIronbeakOwl {
     @Test
     public void test0() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 0, board);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, CharacterIndex.HERO, board);
 
         assertNull(ret);
 
@@ -62,29 +63,29 @@ public class TestIronbeakOwl {
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), 30);
 
-        assertEquals(currentPlayer.getCharacter(1).getTotalHealth(), 4);
-        assertEquals(currentPlayer.getCharacter(2).getTotalHealth(), 3);
-        assertEquals(currentPlayer.getCharacter(3).getTotalHealth(), 6);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getTotalHealth(), 4);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getTotalHealth(), 3);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_3).getTotalHealth(), 6);
 
-        assertEquals(waitingPlayer.getCharacter(1).getTotalHealth(), 1);
-        assertEquals(waitingPlayer.getCharacter(2).getTotalHealth(), 4);
-        assertEquals(waitingPlayer.getCharacter(3).getTotalHealth(), 2);
-        assertEquals(waitingPlayer.getCharacter(4).getTotalHealth(), 7);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getTotalHealth(), 1);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getTotalHealth(), 4);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_3).getTotalHealth(), 2);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_4).getTotalHealth(), 7);
 
-        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), 4);
-        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), 3);
-        assertEquals(currentPlayer.getCharacter(3).getTotalAttack(), 7);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), 4);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getTotalAttack(), 3);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_3).getTotalAttack(), 7);
 
-        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), 3);
-        assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), 5);
-        assertEquals(waitingPlayer.getCharacter(3).getTotalAttack(), 2);
-        assertEquals(waitingPlayer.getCharacter(4).getTotalAttack(), 7);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), 3);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getTotalAttack(), 5);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_3).getTotalAttack(), 2);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_4).getTotalAttack(), 7);
     }
 
     @Test
     public void test1() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 3, board);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, CharacterIndex.MINION_3, board);
 
         assertFalse(ret == null);
 
@@ -96,25 +97,25 @@ public class TestIronbeakOwl {
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), 30);
 
-        assertEquals(currentPlayer.getCharacter(1).getTotalHealth(), 4);
-        assertEquals(currentPlayer.getCharacter(2).getTotalHealth(), 3);
-        assertEquals(currentPlayer.getCharacter(3).getTotalHealth(), 6);
-        assertEquals(currentPlayer.getCharacter(4).getTotalHealth(), 2);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getTotalHealth(), 4);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getTotalHealth(), 3);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_3).getTotalHealth(), 6);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_4).getTotalHealth(), 2);
 
-        assertEquals(waitingPlayer.getCharacter(1).getTotalHealth(), 1);
-        assertEquals(waitingPlayer.getCharacter(2).getTotalHealth(), 4);
-        assertEquals(waitingPlayer.getCharacter(3).getTotalHealth(), 2);
-        assertEquals(waitingPlayer.getCharacter(4).getTotalHealth(), 7);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getTotalHealth(), 1);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getTotalHealth(), 4);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_3).getTotalHealth(), 2);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_4).getTotalHealth(), 7);
 
-        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), 4);
-        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), 3);
-        assertEquals(currentPlayer.getCharacter(3).getTotalAttack(), 7);
-        assertEquals(currentPlayer.getCharacter(4).getTotalAttack(), 4);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), 4);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getTotalAttack(), 3);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_3).getTotalAttack(), 7);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_4).getTotalAttack(), 4);
 
-        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), 3);
-        assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), 5);
-        assertEquals(waitingPlayer.getCharacter(3).getTotalAttack(), 2);
-        assertEquals(waitingPlayer.getCharacter(4).getTotalAttack(), 7);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), 3);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getTotalAttack(), 5);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_3).getTotalAttack(), 2);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_4).getTotalAttack(), 7);
 
         assertEquals(ret.numChildren(), 7);
 
@@ -130,25 +131,25 @@ public class TestIronbeakOwl {
         assertEquals(ret0.data_.getCurrentPlayer().getHero().getHealth(), 30);
         assertEquals(ret0.data_.getWaitingPlayer().getHero().getHealth(), 30);
 
-        assertEquals(ret0.data_.getCurrentPlayer().getCharacter(1).getTotalHealth(), 4);
-        assertEquals(ret0.data_.getCurrentPlayer().getCharacter(2).getTotalHealth(), 3);
-        assertEquals(ret0.data_.getCurrentPlayer().getCharacter(3).getTotalHealth(), 6);
-        assertEquals(ret0.data_.getCurrentPlayer().getCharacter(4).getTotalHealth(), 2);
+        assertEquals(ret0.data_.getCurrentPlayer().getCharacter(CharacterIndex.MINION_1).getTotalHealth(), 4);
+        assertEquals(ret0.data_.getCurrentPlayer().getCharacter(CharacterIndex.MINION_2).getTotalHealth(), 3);
+        assertEquals(ret0.data_.getCurrentPlayer().getCharacter(CharacterIndex.MINION_3).getTotalHealth(), 6);
+        assertEquals(ret0.data_.getCurrentPlayer().getCharacter(CharacterIndex.MINION_4).getTotalHealth(), 2);
 
-        assertEquals(ret0.data_.getWaitingPlayer().getCharacter(1).getTotalHealth(), 1);
-        assertEquals(ret0.data_.getWaitingPlayer().getCharacter(2).getTotalHealth(), 4);
-        assertEquals(ret0.data_.getWaitingPlayer().getCharacter(3).getTotalHealth(), 2);
-        assertEquals(ret0.data_.getWaitingPlayer().getCharacter(4).getTotalHealth(), 7);
+        assertEquals(ret0.data_.getWaitingPlayer().getCharacter(CharacterIndex.MINION_1).getTotalHealth(), 1);
+        assertEquals(ret0.data_.getWaitingPlayer().getCharacter(CharacterIndex.MINION_2).getTotalHealth(), 4);
+        assertEquals(ret0.data_.getWaitingPlayer().getCharacter(CharacterIndex.MINION_3).getTotalHealth(), 2);
+        assertEquals(ret0.data_.getWaitingPlayer().getCharacter(CharacterIndex.MINION_4).getTotalHealth(), 7);
 
-        assertEquals(ret0.data_.getCurrentPlayer().getCharacter(1).getTotalAttack(), 4);
-        assertEquals(ret0.data_.getCurrentPlayer().getCharacter(2).getTotalAttack(), 3);
-        assertEquals(ret0.data_.getCurrentPlayer().getCharacter(3).getTotalAttack(), 7);
-        assertEquals(ret0.data_.getCurrentPlayer().getCharacter(4).getTotalAttack(), 4);
+        assertEquals(ret0.data_.getCurrentPlayer().getCharacter(CharacterIndex.MINION_1).getTotalAttack(), 4);
+        assertEquals(ret0.data_.getCurrentPlayer().getCharacter(CharacterIndex.MINION_2).getTotalAttack(), 3);
+        assertEquals(ret0.data_.getCurrentPlayer().getCharacter(CharacterIndex.MINION_3).getTotalAttack(), 7);
+        assertEquals(ret0.data_.getCurrentPlayer().getCharacter(CharacterIndex.MINION_4).getTotalAttack(), 4);
 
-        assertEquals(ret0.data_.getWaitingPlayer().getCharacter(1).getTotalAttack(), 3);
-        assertEquals(ret0.data_.getWaitingPlayer().getCharacter(2).getTotalAttack(), 5);
-        assertEquals(ret0.data_.getWaitingPlayer().getCharacter(3).getTotalAttack(), 2);
-        assertEquals(ret0.data_.getWaitingPlayer().getCharacter(4).getTotalAttack(), 7);
+        assertEquals(ret0.data_.getWaitingPlayer().getCharacter(CharacterIndex.MINION_1).getTotalAttack(), 3);
+        assertEquals(ret0.data_.getWaitingPlayer().getCharacter(CharacterIndex.MINION_2).getTotalAttack(), 5);
+        assertEquals(ret0.data_.getWaitingPlayer().getCharacter(CharacterIndex.MINION_3).getTotalAttack(), 2);
+        assertEquals(ret0.data_.getWaitingPlayer().getCharacter(CharacterIndex.MINION_4).getTotalAttack(), 7);
 
         //------------------------------------------------------------------
         //------------------------------------------------------------------
@@ -162,25 +163,25 @@ public class TestIronbeakOwl {
         assertEquals(ret1.data_.getCurrentPlayer().getHero().getHealth(), 30);
         assertEquals(ret1.data_.getWaitingPlayer().getHero().getHealth(), 30);
 
-        assertEquals(ret1.data_.getCurrentPlayer().getCharacter(1).getTotalHealth(), 4);
-        assertEquals(ret1.data_.getCurrentPlayer().getCharacter(2).getTotalHealth(), 3);
-        assertEquals(ret1.data_.getCurrentPlayer().getCharacter(3).getTotalHealth(), 6);
-        assertEquals(ret1.data_.getCurrentPlayer().getCharacter(4).getTotalHealth(), 2);
+        assertEquals(ret1.data_.getCurrentPlayer().getCharacter(CharacterIndex.MINION_1).getTotalHealth(), 4);
+        assertEquals(ret1.data_.getCurrentPlayer().getCharacter(CharacterIndex.MINION_2).getTotalHealth(), 3);
+        assertEquals(ret1.data_.getCurrentPlayer().getCharacter(CharacterIndex.MINION_3).getTotalHealth(), 6);
+        assertEquals(ret1.data_.getCurrentPlayer().getCharacter(CharacterIndex.MINION_4).getTotalHealth(), 2);
 
-        assertEquals(ret1.data_.getWaitingPlayer().getCharacter(1).getTotalHealth(), 1);
-        assertEquals(ret1.data_.getWaitingPlayer().getCharacter(2).getTotalHealth(), 4);
-        assertEquals(ret1.data_.getWaitingPlayer().getCharacter(3).getTotalHealth(), 2);
-        assertEquals(ret1.data_.getWaitingPlayer().getCharacter(4).getTotalHealth(), 7);
+        assertEquals(ret1.data_.getWaitingPlayer().getCharacter(CharacterIndex.MINION_1).getTotalHealth(), 1);
+        assertEquals(ret1.data_.getWaitingPlayer().getCharacter(CharacterIndex.MINION_2).getTotalHealth(), 4);
+        assertEquals(ret1.data_.getWaitingPlayer().getCharacter(CharacterIndex.MINION_3).getTotalHealth(), 2);
+        assertEquals(ret1.data_.getWaitingPlayer().getCharacter(CharacterIndex.MINION_4).getTotalHealth(), 7);
 
-        assertEquals(ret1.data_.getCurrentPlayer().getCharacter(1).getTotalAttack(), 3);
-        assertEquals(ret1.data_.getCurrentPlayer().getCharacter(2).getTotalAttack(), 3);
-        assertEquals(ret1.data_.getCurrentPlayer().getCharacter(3).getTotalAttack(), 6);
-        assertEquals(ret1.data_.getCurrentPlayer().getCharacter(4).getTotalAttack(), 3);
+        assertEquals(ret1.data_.getCurrentPlayer().getCharacter(CharacterIndex.MINION_1).getTotalAttack(), 3);
+        assertEquals(ret1.data_.getCurrentPlayer().getCharacter(CharacterIndex.MINION_2).getTotalAttack(), 3);
+        assertEquals(ret1.data_.getCurrentPlayer().getCharacter(CharacterIndex.MINION_3).getTotalAttack(), 6);
+        assertEquals(ret1.data_.getCurrentPlayer().getCharacter(CharacterIndex.MINION_4).getTotalAttack(), 3);
 
-        assertEquals(ret1.data_.getWaitingPlayer().getCharacter(1).getTotalAttack(), 3);
-        assertEquals(ret1.data_.getWaitingPlayer().getCharacter(2).getTotalAttack(), 5);
-        assertEquals(ret1.data_.getWaitingPlayer().getCharacter(3).getTotalAttack(), 2);
-        assertEquals(ret1.data_.getWaitingPlayer().getCharacter(4).getTotalAttack(), 7);
+        assertEquals(ret1.data_.getWaitingPlayer().getCharacter(CharacterIndex.MINION_1).getTotalAttack(), 3);
+        assertEquals(ret1.data_.getWaitingPlayer().getCharacter(CharacterIndex.MINION_2).getTotalAttack(), 5);
+        assertEquals(ret1.data_.getWaitingPlayer().getCharacter(CharacterIndex.MINION_3).getTotalAttack(), 2);
+        assertEquals(ret1.data_.getWaitingPlayer().getCharacter(CharacterIndex.MINION_4).getTotalAttack(), 7);
 
         //------------------------------------------------------------------
         //------------------------------------------------------------------
@@ -194,25 +195,25 @@ public class TestIronbeakOwl {
         assertEquals(ret2.data_.getCurrentPlayer().getHero().getHealth(), 30);
         assertEquals(ret2.data_.getWaitingPlayer().getHero().getHealth(), 30);
 
-        assertEquals(ret2.data_.getCurrentPlayer().getCharacter(1).getTotalHealth(), 3);
-        assertEquals(ret2.data_.getCurrentPlayer().getCharacter(2).getTotalHealth(), 2);
-        assertEquals(ret2.data_.getCurrentPlayer().getCharacter(3).getTotalHealth(), 6);
-        assertEquals(ret2.data_.getCurrentPlayer().getCharacter(4).getTotalHealth(), 1);
+        assertEquals(ret2.data_.getCurrentPlayer().getCharacter(CharacterIndex.MINION_1).getTotalHealth(), 3);
+        assertEquals(ret2.data_.getCurrentPlayer().getCharacter(CharacterIndex.MINION_2).getTotalHealth(), 2);
+        assertEquals(ret2.data_.getCurrentPlayer().getCharacter(CharacterIndex.MINION_3).getTotalHealth(), 6);
+        assertEquals(ret2.data_.getCurrentPlayer().getCharacter(CharacterIndex.MINION_4).getTotalHealth(), 1);
 
-        assertEquals(ret2.data_.getWaitingPlayer().getCharacter(1).getTotalHealth(), 1);
-        assertEquals(ret2.data_.getWaitingPlayer().getCharacter(2).getTotalHealth(), 4);
-        assertEquals(ret2.data_.getWaitingPlayer().getCharacter(3).getTotalHealth(), 2);
-        assertEquals(ret2.data_.getWaitingPlayer().getCharacter(4).getTotalHealth(), 7);
+        assertEquals(ret2.data_.getWaitingPlayer().getCharacter(CharacterIndex.MINION_1).getTotalHealth(), 1);
+        assertEquals(ret2.data_.getWaitingPlayer().getCharacter(CharacterIndex.MINION_2).getTotalHealth(), 4);
+        assertEquals(ret2.data_.getWaitingPlayer().getCharacter(CharacterIndex.MINION_3).getTotalHealth(), 2);
+        assertEquals(ret2.data_.getWaitingPlayer().getCharacter(CharacterIndex.MINION_4).getTotalHealth(), 7);
 
-        assertEquals(ret2.data_.getCurrentPlayer().getCharacter(1).getTotalAttack(), 3);
-        assertEquals(ret2.data_.getCurrentPlayer().getCharacter(2).getTotalAttack(), 2);
-        assertEquals(ret2.data_.getCurrentPlayer().getCharacter(3).getTotalAttack(), 7);
-        assertEquals(ret2.data_.getCurrentPlayer().getCharacter(4).getTotalAttack(), 3);
+        assertEquals(ret2.data_.getCurrentPlayer().getCharacter(CharacterIndex.MINION_1).getTotalAttack(), 3);
+        assertEquals(ret2.data_.getCurrentPlayer().getCharacter(CharacterIndex.MINION_2).getTotalAttack(), 2);
+        assertEquals(ret2.data_.getCurrentPlayer().getCharacter(CharacterIndex.MINION_3).getTotalAttack(), 7);
+        assertEquals(ret2.data_.getCurrentPlayer().getCharacter(CharacterIndex.MINION_4).getTotalAttack(), 3);
 
-        assertEquals(ret2.data_.getWaitingPlayer().getCharacter(1).getTotalAttack(), 3);
-        assertEquals(ret2.data_.getWaitingPlayer().getCharacter(2).getTotalAttack(), 5);
-        assertEquals(ret2.data_.getWaitingPlayer().getCharacter(3).getTotalAttack(), 2);
-        assertEquals(ret2.data_.getWaitingPlayer().getCharacter(4).getTotalAttack(), 7);
+        assertEquals(ret2.data_.getWaitingPlayer().getCharacter(CharacterIndex.MINION_1).getTotalAttack(), 3);
+        assertEquals(ret2.data_.getWaitingPlayer().getCharacter(CharacterIndex.MINION_2).getTotalAttack(), 5);
+        assertEquals(ret2.data_.getWaitingPlayer().getCharacter(CharacterIndex.MINION_3).getTotalAttack(), 2);
+        assertEquals(ret2.data_.getWaitingPlayer().getCharacter(CharacterIndex.MINION_4).getTotalAttack(), 7);
 
         //------------------------------------------------------------------
         //------------------------------------------------------------------

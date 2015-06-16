@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.classic.weapon
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.minion.BoulderfistOgre
 import com.hearthsim.card.basic.weapon.TruesilverChampion
 import com.hearthsim.card.minion.Minion
@@ -37,9 +38,9 @@ class TruesilverChampionSpec extends CardSpec {
         def copiedBoard = startingBoard.deepCopy()
         def copiedRoot = new HearthTreeNode(copiedBoard)
         def theCard = copiedBoard.getCurrentPlayer().getHand().get(0);
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot);
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, copiedRoot);
         Minion hero = ret.data_.getCurrentPlayer().getHero();
-        ret = hero.attack(PlayerSide.WAITING_PLAYER, 0, ret);
+        ret = hero.attack(PlayerSide.WAITING_PLAYER, CharacterIndex.HERO, ret);
 
         expect:
         ret != null
@@ -62,15 +63,15 @@ class TruesilverChampionSpec extends CardSpec {
     }
 
     def 'cannot overheal before attack'() {
-        startingBoard.getCurrentPlayer().getCharacter(0).setHealth((byte)30);
+        startingBoard.getCurrentPlayer().getCharacter(CharacterIndex.HERO).setHealth((byte)30);
         def copiedBoard = startingBoard.deepCopy()
         def copiedRoot = new HearthTreeNode(copiedBoard)
 
         def theCard = copiedBoard.getCurrentPlayer().getHand().get(0);
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot);
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, copiedRoot);
 
         Minion hero = ret.data_.getCurrentPlayer().getHero();
-        ret = hero.attack(PlayerSide.WAITING_PLAYER, 1, ret);
+        ret = hero.attack(PlayerSide.WAITING_PLAYER, CharacterIndex.MINION_1, ret);
 
         expect:
         ret != null
@@ -87,7 +88,7 @@ class TruesilverChampionSpec extends CardSpec {
                 numCardsUsed(1)
             }
             waitingPlayer {
-                updateMinion(0, [deltaHealth: -4])
+                updateMinion(CharacterIndex.MINION_1, [deltaHealth: -4])
             }
         }
     }

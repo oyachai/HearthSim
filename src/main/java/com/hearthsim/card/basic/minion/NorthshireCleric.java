@@ -1,5 +1,6 @@
 package com.hearthsim.card.basic.minion;
 
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionHealedInterface;
 import com.hearthsim.event.effect.EffectCharacter;
@@ -37,6 +38,6 @@ public class NorthshireCleric extends Minion implements MinionHealedInterface {
      */
     @Override
     public HearthTreeNode minionHealedEvent(PlayerSide thisMinionPlayerSide, PlayerSide healedMinionPlayerSide, Minion healedMinion, HearthTreeNode boardState) {
-        return NorthshireCleric.effect.applyEffect(thisMinionPlayerSide, this, thisMinionPlayerSide, 0, boardState);
+        return NorthshireCleric.effect.applyEffect(thisMinionPlayerSide, this, thisMinionPlayerSide, CharacterIndex.HERO, boardState);
     }
 }

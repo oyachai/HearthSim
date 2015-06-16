@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.classic.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.minion.BoulderfistOgre
 import com.hearthsim.card.classic.minion.rare.MasterOfDisguise
 import com.hearthsim.model.BoardModel
@@ -28,14 +29,14 @@ class MasterOfDisguiseSpec extends CardSpec {
     def "adds stealth"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = new MasterOfDisguise()
-        def ret = theCard.getBattlecryEffect().applyEffect(CURRENT_PLAYER, theCard, CURRENT_PLAYER, 1, root)
+        def ret = theCard.getBattlecryEffect().applyEffect(CURRENT_PLAYER, theCard, CURRENT_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         assertEquals(root, ret);
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                updateMinion(0, [stealthed: true])
+                updateMinion(CharacterIndex.MINION_1, [stealthed: true])
             }
         }
     }

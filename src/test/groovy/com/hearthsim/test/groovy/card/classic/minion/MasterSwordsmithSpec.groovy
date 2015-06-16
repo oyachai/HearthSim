@@ -1,6 +1,7 @@
 package com.hearthsim.test.groovy.card.classic.minion
 
 import com.hearthsim.Game
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.classic.minion.rare.MasterSwordsmith
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.groovy.card.CardSpec
@@ -43,7 +44,7 @@ class MasterSwordsmithSpec extends CardSpec {
     def "playing Master Swordsmith"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 1, root, null, null)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         assertFalse(ret == null);
@@ -61,7 +62,7 @@ class MasterSwordsmithSpec extends CardSpec {
             currentPlayer {
                 playMinion(MasterSwordsmith)
                 mana(5)
-                updateMinion(0, [deltaAttack: 1])
+                updateMinion(CharacterIndex.MINION_1, [deltaAttack: 1])
                 numCardsUsed(1)
             }
         }

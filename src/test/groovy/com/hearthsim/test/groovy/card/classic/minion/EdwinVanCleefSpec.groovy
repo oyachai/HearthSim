@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.classic.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.spell.TheCoin
 import com.hearthsim.card.classic.minion.legendary.EdwinVanCleef
 import com.hearthsim.model.BoardModel
@@ -34,14 +35,14 @@ class EdwinVanCleefSpec extends CardSpec {
     def "Playing Ewdin VanCleef without combo"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         assertFalse(ret == null);
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                playMinion(EdwinVanCleef, 0)
+                playMinion(EdwinVanCleef, CharacterIndex.HERO)
                 numCardsUsed(1)
                 mana(0)
             }
@@ -52,10 +53,10 @@ class EdwinVanCleefSpec extends CardSpec {
         def copiedBoard = startingBoard.deepCopy()
 
         def theCoin = root.data_.getCurrentPlayer().getHand().get(1)
-        theCoin.useOn(CURRENT_PLAYER, 0, root)
+        theCoin.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         assertFalse(ret == null);
@@ -63,10 +64,10 @@ class EdwinVanCleefSpec extends CardSpec {
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
                 removeCardFromHand(TheCoin)
-                playMinion(EdwinVanCleef, 0)
+                playMinion(EdwinVanCleef, CharacterIndex.HERO)
                 numCardsUsed(2)
                 mana(1)
-                updateMinion(0, [deltaHealth: 2, deltaMaxHealth: 2, deltaAttack: 2])
+                updateMinion(CharacterIndex.MINION_1, [deltaHealth: 2, deltaMaxHealth: 2, deltaAttack: 2])
             }
         }
     }
@@ -75,13 +76,13 @@ class EdwinVanCleefSpec extends CardSpec {
         def copiedBoard = startingBoard.deepCopy()
 
         def theCoin = root.data_.getCurrentPlayer().getHand().get(1)
-        theCoin.useOn(CURRENT_PLAYER, 0, root)
+        theCoin.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         theCoin = root.data_.getCurrentPlayer().getHand().get(1)
-        theCoin.useOn(CURRENT_PLAYER, 0, root)
+        theCoin.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         assertFalse(ret == null);
@@ -90,10 +91,10 @@ class EdwinVanCleefSpec extends CardSpec {
             currentPlayer {
                 removeCardFromHand(TheCoin)
                 removeCardFromHand(TheCoin)
-                playMinion(EdwinVanCleef, 0)
+                playMinion(EdwinVanCleef, CharacterIndex.HERO)
                 numCardsUsed(3)
                 mana(2)
-                updateMinion(0, [deltaHealth: 4, deltaMaxHealth: 4, deltaAttack: 4])
+                updateMinion(CharacterIndex.MINION_1, [deltaHealth: 4, deltaMaxHealth: 4, deltaAttack: 4])
             }
         }
     }

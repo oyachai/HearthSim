@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.classic.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.minion.BloodfenRaptor
 import com.hearthsim.card.basic.spell.Fireball
 import com.hearthsim.card.basic.spell.TheCoin
@@ -33,7 +34,7 @@ class LorewalkerChoSpec extends CardSpec {
     def "gives opponent copy after spell played"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(WAITING_PLAYER, 0, root)
+        def ret = theCard.useOn(WAITING_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         ret != null
@@ -55,7 +56,7 @@ class LorewalkerChoSpec extends CardSpec {
     def "does not copy card after minion played"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(1)
-        def ret = theCard.useOn(CURRENT_PLAYER, 1, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         ret != null
@@ -71,12 +72,12 @@ class LorewalkerChoSpec extends CardSpec {
     }
 
     def "copies after opponent spell"() {
-        startingBoard.removeMinion(CURRENT_PLAYER, 0)
+        startingBoard.removeMinion(CURRENT_PLAYER, CharacterIndex.MINION_1)
         startingBoard.placeMinion(WAITING_PLAYER, new LorewalkerCho())
 
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(WAITING_PLAYER, 0, root)
+        def ret = theCard.useOn(WAITING_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         ret != null
@@ -109,7 +110,7 @@ class LorewalkerChoSpec extends CardSpec {
 
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(WAITING_PLAYER, 0, root)
+        def ret = theCard.useOn(WAITING_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         ret != null

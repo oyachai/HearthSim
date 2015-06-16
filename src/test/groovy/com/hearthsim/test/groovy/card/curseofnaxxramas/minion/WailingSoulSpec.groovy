@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.curseofnaxxramas.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.classic.minion.rare.AncientWatcher
 import com.hearthsim.card.curseofnaxxramas.minion.rare.WailingSoul
 import com.hearthsim.model.BoardModel
@@ -32,18 +33,18 @@ class WailingSoulSpec extends CardSpec {
 
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         ret != null
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                playMinion(WailingSoul, 0)
+                playMinion(WailingSoul, CharacterIndex.HERO)
                 mana(6)
                 numCardsUsed(1)
-                updateMinion(1, [silenced:true])
-                updateMinion(2, [silenced:true])
+                updateMinion(CharacterIndex.MINION_2, [silenced:true])
+                updateMinion(CharacterIndex.MINION_3, [silenced:true])
             }
         }
     }
@@ -53,7 +54,7 @@ class WailingSoulSpec extends CardSpec {
 
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         ret != null

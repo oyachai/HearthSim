@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.classic.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.minion.GoldshireFootman
 import com.hearthsim.card.basic.minion.MurlocRaider
 import com.hearthsim.card.basic.minion.MurlocScout
@@ -36,7 +37,7 @@ class MurlocTidecallerSpec extends CardSpec {
     def "playing murlocs adds attack"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = new MurlocRaider()
-        def ret = theCard.useOn(CURRENT_PLAYER, 1, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         assertNotNull(ret);
@@ -46,7 +47,7 @@ class MurlocTidecallerSpec extends CardSpec {
                 playMinion(MurlocRaider)
                 mana(9)
                 numCardsUsed(1)
-                updateMinion(0, [deltaAttack: 1])
+                updateMinion(CharacterIndex.MINION_1, [deltaAttack: 1])
             }
         }
     }
@@ -54,7 +55,7 @@ class MurlocTidecallerSpec extends CardSpec {
     def "playing non-murlocs does nothing"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = new GoldshireFootman()
-        def ret = theCard.useOn(CURRENT_PLAYER, 1, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         assertNotNull(ret);
@@ -73,7 +74,7 @@ class MurlocTidecallerSpec extends CardSpec {
 
         def copiedBoard = startingBoard.deepCopy()
         def theCard = new MurlocRaider()
-        def ret = theCard.useOn(CURRENT_PLAYER, 1, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         assertNotNull(ret);
@@ -83,10 +84,10 @@ class MurlocTidecallerSpec extends CardSpec {
                 playMinion(MurlocRaider)
                 mana(9)
                 numCardsUsed(1)
-                updateMinion(0, [deltaAttack: 1])
+                updateMinion(CharacterIndex.MINION_1, [deltaAttack: 1])
             }
             waitingPlayer {
-                updateMinion(0, [deltaAttack: 1])
+                updateMinion(CharacterIndex.MINION_1, [deltaAttack: 1])
             }
         }
     }
@@ -94,7 +95,7 @@ class MurlocTidecallerSpec extends CardSpec {
     def "buffs after battlecry"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = new MurlocTidehunter()
-        def ret = theCard.useOn(CURRENT_PLAYER, 1, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         assertNotNull(ret);
@@ -105,7 +106,7 @@ class MurlocTidecallerSpec extends CardSpec {
                 addMinionToField(MurlocScout)
                 mana(8)
                 numCardsUsed(1)
-                updateMinion(0, [deltaAttack: 2])
+                updateMinion(CharacterIndex.MINION_1, [deltaAttack: 2])
             }
         }
     }

@@ -1,6 +1,7 @@
 package com.hearthsim.test.minion;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.basic.minion.AcidicSwampOoze;
 import com.hearthsim.card.basic.weapon.FieryWarAxe;
 import com.hearthsim.exception.HSException;
@@ -44,7 +45,7 @@ public class TestAcidicSwampOoze {
         assertEquals(waitingPlayer.getHero().getWeapon().getWeaponCharge(), 2);
 
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO, board);
 
         assertNotNull(ret);
         currentPlayer = ret.data_.getCurrentPlayer();

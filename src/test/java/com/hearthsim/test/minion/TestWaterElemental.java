@@ -1,6 +1,7 @@
 package com.hearthsim.test.minion;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.basic.minion.BoulderfistOgre;
 import com.hearthsim.card.basic.minion.RaidLeader;
 import com.hearthsim.card.basic.minion.WaterElemental;
@@ -41,28 +42,28 @@ public class TestWaterElemental {
     @Test
     public void testFreezesMinionOnAttack() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO, board);
         assertEquals(board, ret);
 
-        Minion waterElemental = currentPlayer.getCharacter(1);
+        Minion waterElemental = currentPlayer.getCharacter(CharacterIndex.MINION_1);
         assertTrue(waterElemental instanceof WaterElemental);
 
         waterElemental.hasAttacked(false); // unset summoning sickness
-        waterElemental.attack(PlayerSide.WAITING_PLAYER, 2, board);
-        assertTrue(waitingPlayer.getCharacter(2).getFrozen());
+        waterElemental.attack(PlayerSide.WAITING_PLAYER, CharacterIndex.MINION_2, board);
+        assertTrue(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getFrozen());
     }
 
     @Test
     public void testFreezesHeroOnAttack() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO, board);
         assertEquals(board, ret);
 
-        Minion waterElemental = currentPlayer.getCharacter(1);
+        Minion waterElemental = currentPlayer.getCharacter(CharacterIndex.MINION_1);
         assertTrue(waterElemental instanceof WaterElemental);
 
         waterElemental.hasAttacked(false); // unset summoning sickness
-        waterElemental.attack(PlayerSide.WAITING_PLAYER, 0, board);
-        assertTrue(waitingPlayer.getCharacter(0).getFrozen());
+        waterElemental.attack(PlayerSide.WAITING_PLAYER, CharacterIndex.HERO, board);
+        assertTrue(waitingPlayer.getCharacter(CharacterIndex.HERO).getFrozen());
     }
 }

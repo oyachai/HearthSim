@@ -1,5 +1,6 @@
 package com.hearthsim.card.classic.minion.legendary;
 
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.classic.minion.common.Whelp;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionBattlecryInterface;
@@ -19,7 +20,7 @@ public class LeeroyJenkins extends Minion implements MinionBattlecryInterface {
      */
     @Override
     public EffectCharacter<Minion> getBattlecryEffect() {
-        return (PlayerSide originSide, Minion origin, PlayerSide targetSide, int minionPlacementIndex, HearthTreeNode boardState) -> {
+        return (PlayerSide originSide, Minion origin, PlayerSide targetSide, CharacterIndex minionPlacementIndex, HearthTreeNode boardState) -> {
             HearthTreeNode toRet = boardState;
             PlayerModel waitingPlayer = toRet.data_.modelForSide(PlayerSide.WAITING_PLAYER);
             for (int index = 0; index < 2; ++index) {

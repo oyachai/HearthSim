@@ -1,6 +1,7 @@
 package com.hearthsim.test.minion;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.basic.minion.GurubashiBerserker;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionMock;
@@ -41,12 +42,12 @@ public class TestGurubashiBerserker {
     @Test
     public void testBuffsAfterAttackingEnemyMinion() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO, board);
         assertEquals(board, ret);
 
-        Minion berserker = currentPlayer.getCharacter(1);
+        Minion berserker = currentPlayer.getCharacter(CharacterIndex.MINION_1);
         berserker.hasAttacked(false);
-        ret = berserker.attack(PlayerSide.WAITING_PLAYER, 1, board);
+        ret = berserker.attack(PlayerSide.WAITING_PLAYER, CharacterIndex.MINION_1, board);
         assertEquals(board, ret);
 
         assertEquals(berserker.getHealth(), 7 - attack0);
@@ -56,13 +57,13 @@ public class TestGurubashiBerserker {
     @Test
     public void testDivineShieldPreventsBuff() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO, board);
         assertEquals(board, ret);
 
-        Minion berserker = currentPlayer.getCharacter(1);
+        Minion berserker = currentPlayer.getCharacter(CharacterIndex.MINION_1);
         berserker.hasAttacked(false);
         berserker.setDivineShield(true);
-        ret = berserker.attack(PlayerSide.WAITING_PLAYER, 1, board);
+        ret = berserker.attack(PlayerSide.WAITING_PLAYER, CharacterIndex.MINION_1, board);
         assertEquals(board, ret);
 
         assertEquals(berserker.getHealth(), 7);

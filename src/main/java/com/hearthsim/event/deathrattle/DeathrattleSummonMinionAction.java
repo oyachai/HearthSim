@@ -1,6 +1,7 @@
 package com.hearthsim.event.deathrattle;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
@@ -34,9 +35,9 @@ public class DeathrattleSummonMinionAction extends DeathrattleAction {
             targetPlayerSide = playerSide.getOtherPlayer();
         }
 
-        int targetIndex = targetPlayer.getNumMinions();
+        CharacterIndex targetIndex = CharacterIndex.fromInteger(targetPlayer.getNumMinions());
         if (origin instanceof Minion && targetPlayerSide == playerSide) {
-            targetIndex = targetPlayer.getIndexForCharacter((Minion)origin) - 1;
+            targetIndex = targetPlayer.getIndexForCharacter((Minion)origin);
             toRet.data_.removeMinion((Minion) origin);
         }
 
@@ -48,7 +49,10 @@ public class DeathrattleSummonMinionAction extends DeathrattleAction {
         for (int index = 0; index < numMinionsToActuallySummon; ++index) {
             try {
                 Minion newMinion = minionClass_.newInstance();
-                toRet = newMinion.summonMinion(targetPlayerSide, targetIndex, toRet, false);
+                if (sideToSummon == PlayerSide.WAITING_PLAYER)
+                    toRet = newMinion.summonMinion(targetPlayerSide, targetIndex, toRet, false);
+                else
+                    toRet = newMinion.summonMinion(targetPlayerSide, targetIndex.indexToLeft(), toRet, false);
             } catch (InstantiationException | IllegalAccessException e) {
                 throw new RuntimeException("Unable to instantiate card.");
             }

@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.goblinsvsgnomes.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.minion.StonetuskBoar
 import com.hearthsim.card.classic.minion.common.HarvestGolem
 import com.hearthsim.card.goblinsvsgnomes.minion.common.AnnoyOTron
@@ -30,18 +31,18 @@ class MetaltoothLeaperSpec extends CardSpec {
     def "buffs friendly minions"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         ret != null;
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                playMinion(MetaltoothLeaper, 0)
+                playMinion(MetaltoothLeaper, CharacterIndex.HERO)
                 mana(7)
                 numCardsUsed(1)
-                updateMinion(1, [deltaAttack: +2])
-                updateMinion(3, [deltaAttack: +2])
+                updateMinion(CharacterIndex.MINION_2, [deltaAttack: +2])
+                updateMinion(CharacterIndex.MINION_4, [deltaAttack: +2])
             }
         }
     }
