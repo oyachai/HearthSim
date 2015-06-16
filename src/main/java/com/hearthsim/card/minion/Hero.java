@@ -45,6 +45,14 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
         armor_ = armor;
     }
 
+    /**
+     *
+     * @return the class name of the hero, e.g. Hunter
+     */
+    public String getHeroClass() {
+        return this.getClass().getSimpleName();
+    }
+
     @Override
     public boolean isHero() {
         return true;
