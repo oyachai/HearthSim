@@ -1,6 +1,7 @@
 package com.hearthsim.gui;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.Deck;
 import com.hearthsim.card.ImplementedCardList;
 import com.hearthsim.card.ImplementedCardList.ImplementedCard;
 import com.hearthsim.event.HSSimulationEventListener;
@@ -13,9 +14,12 @@ import javax.swing.*;
 import javax.swing.border.MatteBorder;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.io.IOException;
 import java.text.DecimalFormat;
 
@@ -157,7 +161,7 @@ public class HearthSim implements HSSimulationEventListener {
                 SpringLayout.SOUTH, HeroPane_0);
         HeroPane_0.setLayout(null);
 
-        lblHero_0 = new JLabel("Hero0");
+        lblHero_0 = new JLabel("None");
         lblHero_0.setHorizontalAlignment(SwingConstants.CENTER);
         lblHero_0.setBounds(0, 0, 200, 50);
         lblHero_0.setFont(new Font("Helvetica Neue", Font.PLAIN, 20));
@@ -202,8 +206,12 @@ public class HearthSim implements HSSimulationEventListener {
         p0_load.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (fileChooser_ == null)
+                if (fileChooser_ == null) {
                     fileChooser_ = new JFileChooser();
+                }
+                FileFilter filter = new FileNameExtensionFilter("HSDeck file", new String[] {"hsdeck"});
+                fileChooser_.addChoosableFileFilter(filter);
+                fileChooser_.setFileFilter(filter);
                 int retVal = fileChooser_.showOpenDialog(frame);
                 if (retVal == JFileChooser.APPROVE_OPTION) {
                     try {
@@ -221,13 +229,15 @@ public class HearthSim implements HSSimulationEventListener {
                         }
                         hsModel_.getSimulation().setDeck_p0(deckList.getDeck());
                         hsModel_.getSimulation().setHero_p0(deckList.getHero());
-                        lblHero_0.setText(deckList.getHero().getName());
+                        lblHero_0.setText(deckList.getHero().getHeroClass());
                     } catch (HSInvalidCardException e1) {
-                        // TODO Auto-generated catch block
                         JOptionPane.showMessageDialog(frame, e1.getMessage(),
-                                "Error", JOptionPane.ERROR_MESSAGE);
-                    } catch (HSInvalidHeroException | IOException e1) {
-                        // TODO Auto-generated catch block
+                                "Error: Card not valid.", JOptionPane.ERROR_MESSAGE);
+                    } catch (HSInvalidHeroException e1) {
+                        JOptionPane.showMessageDialog(frame,
+                                "Error: Hero not valid.", "Error",
+                                JOptionPane.ERROR_MESSAGE);
+                    } catch (IOException e1) {
                         JOptionPane.showMessageDialog(frame,
                                 "Error opening the deck file", "Error",
                                 JOptionPane.ERROR_MESSAGE);
@@ -245,11 +255,42 @@ public class HearthSim implements HSSimulationEventListener {
         ControlPane_0.add(p0_load);
 
         JButton p0_save = new HSButton("Save...");
+        p0_save.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (fileChooser_ == null) {
+                    fileChooser_ = new JFileChooser();
+                }
+                FileFilter filter = new FileNameExtensionFilter("HSDeck file", new String[] {"hsdeck"});
+                fileChooser_.addChoosableFileFilter(filter);
+                fileChooser_.setFileFilter(filter);
+                fileChooser_.setCurrentDirectory(new File("/home/me/Documents"));
+                int retVal = fileChooser_.showSaveDialog(null);
+                if (retVal == JFileChooser.APPROVE_OPTION) {
+                    try {
+                        File saveFile = fileChooser_.getSelectedFile();
+                        String p0_heroName = lblHero_0.getText();
+                        Deck p0_Deck = deckList_0.getDeck();
+
+                        DeckListFile deckList = new DeckListFile(p0_heroName, p0_Deck);
+                        deckList.writeDeckListToFile(saveFile);
+                    } catch (HSInvalidHeroException e1) {
+                        JOptionPane.showMessageDialog(frame,
+                                "Error: Hero not valid.", "Error",
+                                JOptionPane.ERROR_MESSAGE);
+                    } catch (IOException e1) {
+                        JOptionPane.showMessageDialog(frame,
+                                "Error opening the deck file", "Error",
+                                JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }
+        });
         p0_save.setForeground(Color.WHITE);
-        p0_save.setBackground(HSColors.DISABLED_BUTTON_COLOR);
+        p0_save.setBackground(HSColors.DEFAULT_BUTTON_COLOR);
+        p0_save.setPreferredSize(new Dimension(80, 30));
         sl_ControlPane_0.putConstraint(SpringLayout.EAST, p0_save, -5,
                 SpringLayout.EAST, ControlPane_0);
-        p0_save.setPreferredSize(new Dimension(80, 30));
         sl_ControlPane_0.putConstraint(SpringLayout.NORTH, p0_save, 5,
                 SpringLayout.NORTH, ControlPane_0);
         ControlPane_0.add(p0_save);
@@ -712,7 +753,7 @@ public class HearthSim implements HSSimulationEventListener {
                 SpringLayout.SOUTH, HeroPane_1);
         HeroPane_1.setLayout(null);
 
-        lblHero_1 = new JLabel("Hero1");
+        lblHero_1 = new JLabel("None");
         lblHero_1.setBounds(0, 0, 200, 50);
         lblHero_1.setHorizontalAlignment(SwingConstants.CENTER);
         lblHero_1.setForeground(Color.WHITE);
@@ -756,8 +797,12 @@ public class HearthSim implements HSSimulationEventListener {
         p1_Load.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (fileChooser_ == null)
+                if (fileChooser_ == null) {
                     fileChooser_ = new JFileChooser();
+                    FileFilter filter = new FileNameExtensionFilter("HSDeck file", new String[] {"hsdeck"});
+                    fileChooser_.addChoosableFileFilter(filter);
+                    fileChooser_.setFileFilter(filter);
+                }
                 int retVal = fileChooser_.showOpenDialog(frame);
                 if (retVal == JFileChooser.APPROVE_OPTION) {
                     try {
@@ -775,13 +820,15 @@ public class HearthSim implements HSSimulationEventListener {
                         }
                         hsModel_.getSimulation().setDeck_p1(deckList.getDeck());
                         hsModel_.getSimulation().setHero_p1(deckList.getHero());
-                        lblHero_1.setText(deckList.getHero().getName());
+                        lblHero_1.setText(deckList.getHero().getHeroClass());
                     } catch (HSInvalidCardException e1) {
-                        // TODO Auto-generated catch block
                         JOptionPane.showMessageDialog(frame, e1.getMessage(),
-                                "Error", JOptionPane.ERROR_MESSAGE);
-                    } catch (HSInvalidHeroException | IOException e1) {
-                        // TODO Auto-generated catch block
+                                "Error: Card not valid.", JOptionPane.ERROR_MESSAGE);
+                    } catch (HSInvalidHeroException e1) {
+                        JOptionPane.showMessageDialog(frame,
+                                "Error: Hero not valid.", "Error",
+                                JOptionPane.ERROR_MESSAGE);
+                    } catch (IOException e1) {
                         JOptionPane.showMessageDialog(frame,
                                 "Error opening the deck file", "Error",
                                 JOptionPane.ERROR_MESSAGE);
@@ -799,8 +846,39 @@ public class HearthSim implements HSSimulationEventListener {
         ControlPane_1.add(p1_Load);
 
         JButton p1_save = new HSButton("Save...");
+        p1_save.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (fileChooser_ == null) {
+                    fileChooser_ = new JFileChooser();
+                }
+                FileFilter filter = new FileNameExtensionFilter("HSDeck file", new String[] {"hsdeck"});
+                fileChooser_.addChoosableFileFilter(filter);
+                fileChooser_.setFileFilter(filter);
+                fileChooser_.setCurrentDirectory(new File("/home/me/Documents"));
+                int retVal = fileChooser_.showSaveDialog(null);
+                if (retVal == JFileChooser.APPROVE_OPTION) {
+                    try {
+                        File saveFile = fileChooser_.getSelectedFile();
+                        String p1_HeroName = lblHero_1.getText();
+                        Deck p1_Deck = deckList_1.getDeck();
+
+                        DeckListFile deckList = new DeckListFile(p1_HeroName, p1_Deck);
+                        deckList.writeDeckListToFile(saveFile);
+                    } catch (HSInvalidHeroException e1) {
+                        JOptionPane.showMessageDialog(frame,
+                                "Error: Hero not valid.", "Error",
+                                JOptionPane.ERROR_MESSAGE);
+                    } catch (IOException e1) {
+                        JOptionPane.showMessageDialog(frame,
+                                "Error opening the deck file", "Error",
+                                JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }
+        });
         p1_save.setForeground(Color.WHITE);
-        p1_save.setBackground(HSColors.DISABLED_BUTTON_COLOR);
+        p1_save.setBackground(HSColors.DEFAULT_BUTTON_COLOR);
         p1_save.setPreferredSize(new Dimension(80, 30));
         sl_ControlPane_1.putConstraint(SpringLayout.EAST, p1_save, -5,
                 SpringLayout.EAST, ControlPane_1);
