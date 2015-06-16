@@ -82,9 +82,9 @@ public class Deck implements DeepCopyable<Deck> {
         }
         return "[\"" + String.join("\",\"", names) + "\"]";
     }
-    
+
     /**
-     * 
+     *
      * @return comma and new line separated list of cards in the deck
      */
     public String getDeckList() {
@@ -92,7 +92,7 @@ public class Deck implements DeepCopyable<Deck> {
         for (int i = 0; i < this.cards.size(); i++) {
             names[i] = this.cards.get(i).getName();
         }
-    	
+
         StringBuilder deckBuilder = new StringBuilder();
 
         for (String n : names) {
@@ -104,7 +104,7 @@ public class Deck implements DeepCopyable<Deck> {
 
         return deckBuilder.toString();
     }
-    
+
     /**
      * Format the name of a card so it adheres to the .hsdeck file specification
      * @param cardName
@@ -122,7 +122,7 @@ public class Deck implements DeepCopyable<Deck> {
 
             res.append(str).append(" ");
         }
-        
+
         // remove spaces and special characters
         StringBuffer sb = new StringBuffer();
         for (int i = 0; i < res.length(); i++) {

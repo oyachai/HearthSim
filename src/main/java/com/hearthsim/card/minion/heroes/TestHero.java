@@ -26,7 +26,7 @@ public class TestHero extends Hero {
 
     @Override
     public String getHeroClass() {
-    	return "None";
+        return "None";
     }
 
     @Override

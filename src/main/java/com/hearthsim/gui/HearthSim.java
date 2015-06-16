@@ -207,11 +207,11 @@ public class HearthSim implements HSSimulationEventListener {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (fileChooser_ == null) {
-                    fileChooser_ = new JFileChooser();             	
+                    fileChooser_ = new JFileChooser();
                 }
-				FileFilter filter = new FileNameExtensionFilter("HSDeck file", new String[] {"hsdeck"});
-				fileChooser_.addChoosableFileFilter(filter);
-				fileChooser_.setFileFilter(filter);
+                FileFilter filter = new FileNameExtensionFilter("HSDeck file", new String[] {"hsdeck"});
+                fileChooser_.addChoosableFileFilter(filter);
+                fileChooser_.setFileFilter(filter);
                 int retVal = fileChooser_.showOpenDialog(frame);
                 if (retVal == JFileChooser.APPROVE_OPTION) {
                     try {
@@ -261,19 +261,19 @@ public class HearthSim implements HSSimulationEventListener {
                 if (fileChooser_ == null) {
                     fileChooser_ = new JFileChooser();
                 }
-				FileFilter filter = new FileNameExtensionFilter("HSDeck file", new String[] {"hsdeck"});
-				fileChooser_.addChoosableFileFilter(filter);
-				fileChooser_.setFileFilter(filter);
-				fileChooser_.setCurrentDirectory(new File("/home/me/Documents"));
+                FileFilter filter = new FileNameExtensionFilter("HSDeck file", new String[] {"hsdeck"});
+                fileChooser_.addChoosableFileFilter(filter);
+                fileChooser_.setFileFilter(filter);
+                fileChooser_.setCurrentDirectory(new File("/home/me/Documents"));
                 int retVal = fileChooser_.showSaveDialog(null);
-                if (retVal == JFileChooser.APPROVE_OPTION) {          	
+                if (retVal == JFileChooser.APPROVE_OPTION) {
                     try {
-                    	File saveFile = fileChooser_.getSelectedFile();
-                    	String p0_heroName = lblHero_0.getText();
-                    	Deck p0_Deck = deckList_0.getDeck();
-                    	
-                    	DeckListFile deckList = new DeckListFile(p0_heroName, p0_Deck);
-                    	deckList.writeDeckListToFile(saveFile);
+                        File saveFile = fileChooser_.getSelectedFile();
+                        String p0_heroName = lblHero_0.getText();
+                        Deck p0_Deck = deckList_0.getDeck();
+
+                        DeckListFile deckList = new DeckListFile(p0_heroName, p0_Deck);
+                        deckList.writeDeckListToFile(saveFile);
                     } catch (HSInvalidHeroException e1) {
                         JOptionPane.showMessageDialog(frame,
                                 "Error: Hero not valid.", "Error",
@@ -798,10 +798,10 @@ public class HearthSim implements HSSimulationEventListener {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (fileChooser_ == null) {
-                    fileChooser_ = new JFileChooser();             	
-                	FileFilter filter = new FileNameExtensionFilter("HSDeck file", new String[] {"hsdeck"});
-                	fileChooser_.addChoosableFileFilter(filter);
-                	fileChooser_.setFileFilter(filter);
+                    fileChooser_ = new JFileChooser();
+                    FileFilter filter = new FileNameExtensionFilter("HSDeck file", new String[] {"hsdeck"});
+                    fileChooser_.addChoosableFileFilter(filter);
+                    fileChooser_.setFileFilter(filter);
                 }
                 int retVal = fileChooser_.showOpenDialog(frame);
                 if (retVal == JFileChooser.APPROVE_OPTION) {
@@ -852,19 +852,19 @@ public class HearthSim implements HSSimulationEventListener {
                 if (fileChooser_ == null) {
                     fileChooser_ = new JFileChooser();
                 }
-				FileFilter filter = new FileNameExtensionFilter("HSDeck file", new String[] {"hsdeck"});
-				fileChooser_.addChoosableFileFilter(filter);
-				fileChooser_.setFileFilter(filter);
-				fileChooser_.setCurrentDirectory(new File("/home/me/Documents"));
+                FileFilter filter = new FileNameExtensionFilter("HSDeck file", new String[] {"hsdeck"});
+                fileChooser_.addChoosableFileFilter(filter);
+                fileChooser_.setFileFilter(filter);
+                fileChooser_.setCurrentDirectory(new File("/home/me/Documents"));
                 int retVal = fileChooser_.showSaveDialog(null);
                 if (retVal == JFileChooser.APPROVE_OPTION) {
                     try {
-                    	File saveFile = fileChooser_.getSelectedFile();
-                    	String p1_HeroName = lblHero_1.getText();
-                    	Deck p1_Deck = deckList_1.getDeck();
-                    	
-                    	DeckListFile deckList = new DeckListFile(p1_HeroName, p1_Deck);
-                    	deckList.writeDeckListToFile(saveFile);
+                        File saveFile = fileChooser_.getSelectedFile();
+                        String p1_HeroName = lblHero_1.getText();
+                        Deck p1_Deck = deckList_1.getDeck();
+
+                        DeckListFile deckList = new DeckListFile(p1_HeroName, p1_Deck);
+                        deckList.writeDeckListToFile(saveFile);
                     } catch (HSInvalidHeroException e1) {
                         JOptionPane.showMessageDialog(frame,
                                 "Error: Hero not valid.", "Error",
@@ -878,7 +878,7 @@ public class HearthSim implements HSSimulationEventListener {
             }
         });
         p1_save.setForeground(Color.WHITE);
-        p1_save.setBackground(HSColors.DEFAULT_BUTTON_COLOR);        
+        p1_save.setBackground(HSColors.DEFAULT_BUTTON_COLOR);
         p1_save.setPreferredSize(new Dimension(80, 30));
         sl_ControlPane_1.putConstraint(SpringLayout.EAST, p1_save, -5,
                 SpringLayout.EAST, ControlPane_1);
