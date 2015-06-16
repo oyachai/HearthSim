@@ -1,7 +1,6 @@
 package com.hearthsim.event.effect;
 
 import com.hearthsim.card.Card;
-import com.hearthsim.card.CardInHandIndex;
 import com.hearthsim.event.filter.FilterHand;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;

@@ -1,7 +1,6 @@
 package com.hearthsim.event.effect;
 
 import com.hearthsim.card.Card;
-import com.hearthsim.card.CardInHandIndex;
 import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;

@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.classic.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.minion.BloodfenRaptor
 import com.hearthsim.card.basic.minion.MurlocRaider
 import com.hearthsim.card.basic.spell.Fireball
@@ -16,7 +17,6 @@ import com.hearthsim.util.tree.HearthTreeNode
 
 import static com.hearthsim.model.PlayerSide.CURRENT_PLAYER
 import static com.hearthsim.model.PlayerSide.WAITING_PLAYER
-import com.hearthsim.card.CharacterIndex
 
 class CultMasterSpec extends CardSpec {
 
