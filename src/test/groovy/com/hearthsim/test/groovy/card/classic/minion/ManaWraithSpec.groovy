@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.classic.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.minion.BloodfenRaptor
 import com.hearthsim.card.basic.minion.RiverCrocolisk
 import com.hearthsim.card.basic.spell.Fireball
@@ -37,14 +38,14 @@ class ManaWraithSpec extends CardSpec {
     def "playing mana wraith increases minion mana cost"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         ret != null;
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                playMinion(ManaWraith, 0)
+                playMinion(ManaWraith, CharacterIndex.HERO)
                 mana(8)
                 numCardsUsed(1)
             }
@@ -55,18 +56,18 @@ class ManaWraithSpec extends CardSpec {
         startingBoard.placeMinion(WAITING_PLAYER, new ManaWraith())
 
         def theCard = root.data_.getCurrentPlayer().getHand().get(2)
-        def ret = theCard.useOn(WAITING_PLAYER, 1, root)
+        def ret = theCard.useOn(WAITING_PLAYER, CharacterIndex.MINION_1, root)
 
         def copiedBoard = ret.data_.deepCopy()
         theCard = root.data_.getCurrentPlayer().getHand().get(1)
-        ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         ret != null;
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                playMinion(BloodfenRaptor, 0)
+                playMinion(BloodfenRaptor, CharacterIndex.HERO)
                 mana(7)
                 numCardsUsed(2)
             }
@@ -77,18 +78,18 @@ class ManaWraithSpec extends CardSpec {
         startingBoard.placeMinion(WAITING_PLAYER, new ManaWraith())
 
         def theCard = root.data_.getCurrentPlayer().getHand().get(3)
-        def ret = theCard.useOn(WAITING_PLAYER, 1, root)
+        def ret = theCard.useOn(WAITING_PLAYER, CharacterIndex.MINION_1, root)
 
         def copiedBoard = ret.data_.deepCopy()
         theCard = root.data_.getCurrentPlayer().getHand().get(1)
-        ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         ret != null;
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                playMinion(BloodfenRaptor, 0)
+                playMinion(BloodfenRaptor, CharacterIndex.HERO)
                 mana(8)
                 numCardsUsed(2)
             }
@@ -101,14 +102,14 @@ class ManaWraithSpec extends CardSpec {
 
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(1)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         ret != null;
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                playMinion(BloodfenRaptor, 0)
+                playMinion(BloodfenRaptor, CharacterIndex.HERO)
                 mana(7)
                 numCardsUsed(1)
             }
@@ -121,14 +122,14 @@ class ManaWraithSpec extends CardSpec {
 
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(1)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         ret != null;
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                playMinion(BloodfenRaptor, 0)
+                playMinion(BloodfenRaptor, CharacterIndex.HERO)
                 mana(6)
                 numCardsUsed(1)
             }

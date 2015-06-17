@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.goblinsvsgnomes.weapon
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.minion.BloodfenRaptor
 import com.hearthsim.card.basic.weapon.FieryWarAxe
 import com.hearthsim.card.classic.minion.common.HarvestGolem
@@ -37,10 +38,10 @@ class PowermaceSpec extends CardSpec {
         def copiedRoot = new HearthTreeNode(copiedBoard)
 
         def theCard = copiedBoard.getCurrentPlayer().getHand().get(0);
-        theCard.useOn(CURRENT_PLAYER, 0, copiedRoot);
+        theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, copiedRoot);
 
         theCard = copiedBoard.getCurrentPlayer().getHand().get(0);
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot);
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, copiedRoot);
 
         expect:
         ret != null
@@ -59,16 +60,16 @@ class PowermaceSpec extends CardSpec {
     }
 
     def 'deathrattle buffs friendly mech'() {
-        startingBoard.placeMinion(CURRENT_PLAYER, new HarvestGolem(), 0)
+        startingBoard.placeMinion(CURRENT_PLAYER, new HarvestGolem(), CharacterIndex.HERO)
 
         def copiedBoard = startingBoard.deepCopy()
         def copiedRoot = new HearthTreeNode(copiedBoard)
 
         def theCard = copiedBoard.getCurrentPlayer().getHand().get(0);
-        theCard.useOn(CURRENT_PLAYER, 0, copiedRoot);
+        theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, copiedRoot);
 
         theCard = copiedBoard.getCurrentPlayer().getHand().get(0);
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot);
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, copiedRoot);
 
         expect:
         ret != null
@@ -82,22 +83,22 @@ class PowermaceSpec extends CardSpec {
                 removeCardFromHand(Powermace)
                 removeCardFromHand(FieryWarAxe)
                 numCardsUsed(2)
-                updateMinion(0, [deltaMaxHealth: +2, deltaHealth: +2, deltaAttack: +2])
+                updateMinion(CharacterIndex.MINION_1, [deltaMaxHealth: +2, deltaHealth: +2, deltaAttack: +2])
             }
         }
     }
 
     def 'deathrattle ignores friendly non-mech'() {
-        startingBoard.placeMinion(CURRENT_PLAYER, new BloodfenRaptor(), 0)
+        startingBoard.placeMinion(CURRENT_PLAYER, new BloodfenRaptor(), CharacterIndex.HERO)
 
         def copiedBoard = startingBoard.deepCopy()
         def copiedRoot = new HearthTreeNode(copiedBoard)
 
         def theCard = copiedBoard.getCurrentPlayer().getHand().get(0);
-        theCard.useOn(CURRENT_PLAYER, 0, copiedRoot);
+        theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, copiedRoot);
 
         theCard = copiedBoard.getCurrentPlayer().getHand().get(0);
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot);
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, copiedRoot);
 
         expect:
         ret != null
@@ -116,16 +117,16 @@ class PowermaceSpec extends CardSpec {
     }
 
     def 'deathrattle ignores enemy mech'() {
-        startingBoard.placeMinion(WAITING_PLAYER, new HarvestGolem(), 0)
+        startingBoard.placeMinion(WAITING_PLAYER, new HarvestGolem(), CharacterIndex.HERO)
 
         def copiedBoard = startingBoard.deepCopy()
         def copiedRoot = new HearthTreeNode(copiedBoard)
 
         def theCard = copiedBoard.getCurrentPlayer().getHand().get(0);
-        theCard.useOn(CURRENT_PLAYER, 0, copiedRoot);
+        theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, copiedRoot);
 
         theCard = copiedBoard.getCurrentPlayer().getHand().get(0);
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot);
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, copiedRoot);
 
         expect:
         ret != null
@@ -144,17 +145,17 @@ class PowermaceSpec extends CardSpec {
     }
 
     def "dying with 2 friendly minions"() {
-        startingBoard.placeMinion(CURRENT_PLAYER, new HarvestGolem(), 0)
-        startingBoard.placeMinion(CURRENT_PLAYER, new HarvestGolem(), 1)
+        startingBoard.placeMinion(CURRENT_PLAYER, new HarvestGolem(), CharacterIndex.HERO)
+        startingBoard.placeMinion(CURRENT_PLAYER, new HarvestGolem(), CharacterIndex.MINION_1)
 
         def copiedBoard = startingBoard.deepCopy()
         def copiedRoot = new HearthTreeNode(copiedBoard)
 
         def theCard = copiedBoard.getCurrentPlayer().getHand().get(0);
-        theCard.useOn(CURRENT_PLAYER, 0, copiedRoot);
+        theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, copiedRoot);
 
         theCard = copiedBoard.getCurrentPlayer().getHand().get(0);
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot);
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, copiedRoot);
 
         expect:
         ret != null
@@ -176,14 +177,14 @@ class PowermaceSpec extends CardSpec {
         HearthTreeNode child0 = ret.getChildren().get(0);
         assertBoardDelta(ret.data_, child0.data_) {
             currentPlayer {
-                updateMinion(0, [deltaMaxHealth: +2, deltaHealth: +2, deltaAttack: +2])
+                updateMinion(CharacterIndex.MINION_1, [deltaMaxHealth: +2, deltaHealth: +2, deltaAttack: +2])
             }
         }
 
         HearthTreeNode child1 = ret.getChildren().get(1);
         assertBoardDelta(ret.data_, child1.data_) {
             currentPlayer {
-                updateMinion(1, [deltaMaxHealth: +2, deltaHealth: +2, deltaAttack: +2])
+                updateMinion(CharacterIndex.MINION_2, [deltaMaxHealth: +2, deltaHealth: +2, deltaAttack: +2])
             }
         }
     }

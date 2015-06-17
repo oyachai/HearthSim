@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.classic.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.minion.Succubus
 import com.hearthsim.card.basic.spell.HolySmite
 import com.hearthsim.card.basic.spell.TheCoin
@@ -32,7 +33,7 @@ class SuccubusSpec extends CardSpec {
         root = new HearthTreeNode(startingBoard)
 
         def copiedBoard = startingBoard.deepCopy()
-        def target = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(0)
+        def target = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(CharacterIndex.HERO)
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
         def ret = theCard.useOn(CURRENT_PLAYER, target, root, null, null)
 
@@ -64,7 +65,7 @@ class SuccubusSpec extends CardSpec {
         root = new HearthTreeNode(startingBoard)
 
         def copiedBoard = startingBoard.deepCopy()
-        def target = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(0)
+        def target = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(CharacterIndex.HERO)
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
         def ret = theCard.useOn(CURRENT_PLAYER, target, root, null, null)
 
@@ -111,7 +112,7 @@ class SuccubusSpec extends CardSpec {
         root = new HearthTreeNode(startingBoard)
 
         def copiedBoard = startingBoard.deepCopy()
-        def target = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(0)
+        def target = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(CharacterIndex.HERO)
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
         def ret = theCard.useOn(CURRENT_PLAYER, target, root, null, null)
 

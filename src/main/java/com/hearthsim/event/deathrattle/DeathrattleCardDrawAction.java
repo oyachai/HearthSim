@@ -16,9 +16,8 @@ public class DeathrattleCardDrawAction extends DeathrattleAction {
     @Override
     public HearthTreeNode performAction(Card origin,
                                         PlayerSide playerSide,
-                                        HearthTreeNode boardState,
-                                        boolean singleRealizationOnly) {
-        HearthTreeNode toRet = super.performAction(origin, playerSide, boardState, singleRealizationOnly);
+                                        HearthTreeNode boardState) {
+        HearthTreeNode toRet = super.performAction(origin, playerSide, boardState);
         if (playerSide == PlayerSide.CURRENT_PLAYER) {
             if (toRet instanceof CardDrawNode) {
                 ((CardDrawNode) toRet).addNumCardsToDraw(numCards_);

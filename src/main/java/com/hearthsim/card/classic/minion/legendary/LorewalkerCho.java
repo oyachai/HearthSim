@@ -29,8 +29,8 @@ public class LorewalkerCho extends Minion implements CardPlayBeginInterface {
     }
 
     @Override
-    public HearthTreeNode onCardPlayBegin(PlayerSide thisCardPlayerSide, PlayerSide cardUserPlayerSide, Card usedCard, HearthTreeNode boardState, boolean singleRealizationOnly) {
-        if (!this.isInHand() && usedCard instanceof SpellCard) {
+    public HearthTreeNode onCardPlayBegin(PlayerSide thisCardPlayerSide, PlayerSide cardUserPlayerSide, Card usedCard, HearthTreeNode boardState) {
+        if (!this.setInHand() && usedCard instanceof SpellCard) {
             return LorewalkerCho.effect.applyEffect(cardUserPlayerSide, usedCard, cardUserPlayerSide.getOtherPlayer(), this, boardState);
         }
 

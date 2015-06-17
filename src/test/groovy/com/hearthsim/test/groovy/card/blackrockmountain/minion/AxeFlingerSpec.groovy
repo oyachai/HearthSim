@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.blackrockmountain.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.spell.HolySmite
 import com.hearthsim.card.blackrockmountain.minion.AxeFlinger
 import com.hearthsim.model.BoardModel
@@ -35,7 +36,7 @@ class AxeFlingerSpec extends CardSpec {
         def minionPlayedBoard = startingBoard.deepCopy()
         def copiedRoot = new HearthTreeNode(minionPlayedBoard)
         def theCard = minionPlayedBoard.getCurrentPlayer().getHand().get(0);
-        def ret = theCard.useOn(CURRENT_PLAYER, 1, copiedRoot);
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_1, copiedRoot);
 
         expect:
         ret != null
@@ -43,7 +44,7 @@ class AxeFlingerSpec extends CardSpec {
         assertBoardDelta(startingBoard, minionPlayedBoard) {
             currentPlayer {
                 removeCardFromHand(HolySmite)
-                updateMinion(0, [deltaHealth: -2])
+                updateMinion(CharacterIndex.MINION_1, [deltaHealth: -2])
                 mana(9)
                 numCardsUsed(1)
             }
@@ -57,7 +58,7 @@ class AxeFlingerSpec extends CardSpec {
         def minionPlayedBoard = startingBoard.deepCopy()
         def copiedRoot = new HearthTreeNode(minionPlayedBoard)
         def theCard = minionPlayedBoard.getCurrentPlayer().getHand().get(0);
-        def ret = theCard.useOn(WAITING_PLAYER, 1, copiedRoot);
+        def ret = theCard.useOn(WAITING_PLAYER, CharacterIndex.MINION_1, copiedRoot);
 
         expect:
         ret != null
@@ -70,7 +71,7 @@ class AxeFlingerSpec extends CardSpec {
                 heroHealth(28)
             }
             waitingPlayer {
-                updateMinion(0, [deltaHealth: -2])
+                updateMinion(CharacterIndex.MINION_1, [deltaHealth: -2])
             }
         }
     }

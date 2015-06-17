@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.classic.spell
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.minion.WarGolem
 import com.hearthsim.card.basic.spell.Backstab
 import com.hearthsim.card.classic.minion.common.StranglethornTiger
@@ -35,7 +36,7 @@ class BackstabSpec extends CardSpec {
     def "can target undamaged minion"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(WAITING_PLAYER, 1, root, null, null)
+        def ret = theCard.useOn(WAITING_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         assertEquals(root, ret);
@@ -46,7 +47,7 @@ class BackstabSpec extends CardSpec {
                 numCardsUsed(1)
             }
             waitingPlayer {
-                updateMinion(0, [deltaHealth: -2])
+                updateMinion(CharacterIndex.MINION_1, [deltaHealth: -2])
             }
         }
     }
@@ -54,7 +55,7 @@ class BackstabSpec extends CardSpec {
     def "cannot target damaged minion"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(WAITING_PLAYER, 2, root, null, null)
+        def ret = theCard.useOn(WAITING_PLAYER, CharacterIndex.MINION_2, root)
 
         expect:
         assertNull(ret);
@@ -65,7 +66,7 @@ class BackstabSpec extends CardSpec {
     def "follows normal targeting rules"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(WAITING_PLAYER, 3, root, null, null)
+        def ret = theCard.useOn(WAITING_PLAYER, CharacterIndex.MINION_3, root)
 
         expect:
         assertNull(ret);

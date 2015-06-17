@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.classic.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.minion.BloodfenRaptor
 import com.hearthsim.card.basic.minion.RiverCrocolisk
 import com.hearthsim.card.basic.spell.Fireball
@@ -36,17 +37,17 @@ class SorcerersApprenticeSpec extends CardSpec {
     def "playing Scorcer's Apprentice decreases spell mana cost"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         theCard = root.data_.getCurrentPlayer().getHand().get(1)
-        ret = theCard.useOn(WAITING_PLAYER, 0, ret)
+        ret = theCard.useOn(WAITING_PLAYER, CharacterIndex.HERO, ret)
 
         expect:
         ret != null;
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                playMinion(SorcerersApprentice, 0)
+                playMinion(SorcerersApprentice, CharacterIndex.HERO)
                 mana(5)
                 removeCardFromHand(Fireball)
                 numCardsUsed(2)
@@ -62,7 +63,7 @@ class SorcerersApprenticeSpec extends CardSpec {
 
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(2)
-        def ret = theCard.useOn(WAITING_PLAYER, 0, root)
+        def ret = theCard.useOn(WAITING_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         ret != null;
@@ -85,7 +86,7 @@ class SorcerersApprenticeSpec extends CardSpec {
 
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(2)
-        def ret = theCard.useOn(WAITING_PLAYER, 0, root)
+        def ret = theCard.useOn(WAITING_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         ret != null;
@@ -108,7 +109,7 @@ class SorcerersApprenticeSpec extends CardSpec {
 
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(3)
-        def ret = theCard.useOn(WAITING_PLAYER, 0, root)
+        def ret = theCard.useOn(WAITING_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         ret != null;

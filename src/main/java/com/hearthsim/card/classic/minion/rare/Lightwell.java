@@ -1,5 +1,6 @@
 package com.hearthsim.card.classic.minion.rare;
 
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerModel;
@@ -26,9 +27,9 @@ public class Lightwell extends Minion {
             if (!isDamaged)
                 return super.startTurn(side, toRet);
 
-            Minion targetMinion = currentPlayer.getCharacter((int) (Math.random() * (currentPlayer.getNumMinions() + 1)));
+            Minion targetMinion = currentPlayer.getCharacter(CharacterIndex.fromInteger((int) (Math.random() * (currentPlayer.getNumMinions() + 1))));
             while (targetMinion.getTotalMaxHealth() == targetMinion.getTotalHealth()) {
-                targetMinion = currentPlayer.getCharacter((int)(Math.random()*(currentPlayer.getNumMinions() + 1)));
+                targetMinion = currentPlayer.getCharacter(CharacterIndex.fromInteger((int)(Math.random()*(currentPlayer.getNumMinions() + 1))));
             }
             toRet = targetMinion.takeHealAndNotify((byte) 3, PlayerSide.CURRENT_PLAYER, toRet);
         }

@@ -21,9 +21,8 @@ public class QuestingAdventurer extends Minion implements CardPlayBeginInterface
             PlayerSide thisCardPlayerSide,
             PlayerSide cardUserPlayerSide,
             Card usedCard,
-            HearthTreeNode boardState,
-            boolean singleRealizationOnly) {
-        if (usedCard != this && !this.isInHand() && thisCardPlayerSide == cardUserPlayerSide) {
+            HearthTreeNode boardState) {
+        if (usedCard != this && !this.setInHand() && thisCardPlayerSide == cardUserPlayerSide) {
             return QuestingAdventurer.effect.applyEffect(cardUserPlayerSide, usedCard, thisCardPlayerSide, this, boardState);
         }
 

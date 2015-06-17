@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.classic.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.classic.minion.rare.AncientWatcher
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.groovy.card.CardSpec
@@ -37,14 +38,14 @@ class AncientWatcherSpec extends CardSpec {
     def "playing Ancient Watcher"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         assertFalse(ret == null);
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                playMinion(AncientWatcher, 0)
+                playMinion(AncientWatcher, CharacterIndex.HERO)
                 mana(5)
                 numCardsUsed(1)
             }
@@ -54,8 +55,8 @@ class AncientWatcherSpec extends CardSpec {
 
     def "Ancient Watcher can't attack"() {
         def copiedBoard = startingBoard.deepCopy()
-        def ancientWatcher = root.data_.getCharacter(CURRENT_PLAYER, 1);
-        def ret = ancientWatcher.attack(WAITING_PLAYER, root.data_.getCharacter(WAITING_PLAYER, 0), root, false);
+        def ancientWatcher = root.data_.getCharacter(CURRENT_PLAYER, CharacterIndex.MINION_1);
+        def ret = ancientWatcher.attack(WAITING_PLAYER, root.data_.getCharacter(WAITING_PLAYER, CharacterIndex.HERO), root);
 
         expect:
         assertTrue(ret == null);
@@ -63,16 +64,16 @@ class AncientWatcherSpec extends CardSpec {
 
     def "Silenced Ancient Watcher can attack"() {
         def copiedBoard = startingBoard.deepCopy()
-        def ancientWatcher = root.data_.getCharacter(CURRENT_PLAYER, 1);
+        def ancientWatcher = root.data_.getCharacter(CURRENT_PLAYER, CharacterIndex.MINION_1);
         ancientWatcher.silenced(CURRENT_PLAYER, root.data_);
-        def ret = ancientWatcher.attack(WAITING_PLAYER, root.data_.getCharacter(WAITING_PLAYER, 0), root, false);
+        def ret = ancientWatcher.attack(WAITING_PLAYER, root.data_.getCharacter(WAITING_PLAYER, CharacterIndex.HERO), root);
 
         expect:
         assertFalse(ret == null);
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                updateMinion(0, [hasAttacked: true, silenced: true])
+                updateMinion(CharacterIndex.MINION_1, [hasAttacked: true, silenced: true])
             }
             waitingPlayer {
                 heroHealth(26)

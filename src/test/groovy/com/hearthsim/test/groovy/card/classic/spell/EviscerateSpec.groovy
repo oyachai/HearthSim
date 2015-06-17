@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.classic.spell
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.minion.WarGolem
 import com.hearthsim.card.basic.spell.TheCoin
 import com.hearthsim.card.classic.spell.common.Eviscerate
@@ -38,7 +39,7 @@ class EviscerateSpec extends CardSpec {
     def "2 damage when used without combo"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(WAITING_PLAYER, 1, root)
+        def ret = theCard.useOn(WAITING_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         assertEquals(root, ret);
@@ -50,7 +51,7 @@ class EviscerateSpec extends CardSpec {
                 numCardsUsed(1)
             }
             waitingPlayer {
-                updateMinion(0, [deltaHealth : -2])
+                updateMinion(CharacterIndex.MINION_1, [deltaHealth : -2])
             }
         }
     }
@@ -58,10 +59,10 @@ class EviscerateSpec extends CardSpec {
     def "4 damage when used with combo"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCoin = root.data_.getCurrentPlayer().getHand().get(1)
-        def ret0 = theCoin.useOn(CURRENT_PLAYER, 0, root)
+        def ret0 = theCoin.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         def theCard = ret0.data_.getCurrentPlayer().getHand().get(0)
-        def ret1 = theCard.useOn(WAITING_PLAYER, 1, root)
+        def ret1 = theCard.useOn(WAITING_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         assertEquals(root, ret1);
@@ -74,7 +75,7 @@ class EviscerateSpec extends CardSpec {
                 numCardsUsed(2)
             }
             waitingPlayer {
-                updateMinion(0, [deltaHealth : -4])
+                updateMinion(CharacterIndex.MINION_1, [deltaHealth : -4])
             }
         }
     }
@@ -82,7 +83,7 @@ class EviscerateSpec extends CardSpec {
     def "Can target Hero"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(WAITING_PLAYER, 0, root)
+        def ret = theCard.useOn(WAITING_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         assertEquals(root, ret);
@@ -102,7 +103,7 @@ class EviscerateSpec extends CardSpec {
     def "Can target own Hero"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         assertEquals(root, ret);

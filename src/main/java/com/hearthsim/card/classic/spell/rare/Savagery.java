@@ -1,6 +1,7 @@
 package com.hearthsim.card.classic.spell.rare;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.spellcard.SpellTargetableCard;
 import com.hearthsim.event.effect.EffectCharacter;
 import com.hearthsim.event.effect.EffectCharacterDamageSpell;
@@ -25,8 +26,8 @@ public class Savagery extends SpellTargetableCard {
     public EffectCharacter getTargetableEffect() {
         return new EffectCharacter() {
             @Override
-            public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
-                EffectCharacter<Card> effect = new EffectCharacterDamageSpell<>(boardState.data_.getCharacter(originSide, 0).getTotalAttack());
+            public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState) {
+                EffectCharacter<Card> effect = new EffectCharacterDamageSpell<>(boardState.data_.getCharacter(originSide, CharacterIndex.HERO).getTotalAttack());
                 return effect.applyEffect(originSide, origin, targetSide, targetCharacterIndex, boardState);
             }
         };

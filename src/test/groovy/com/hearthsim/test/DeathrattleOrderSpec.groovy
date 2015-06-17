@@ -1,5 +1,6 @@
 package com.hearthsim.test
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.spell.Hellfire
 import com.hearthsim.card.classic.minion.legendary.BaineBloodhoof
 import com.hearthsim.card.classic.minion.legendary.CairneBloodhoof
@@ -32,16 +33,16 @@ class DeathrattleOrderSpec extends CardSpec {
         root = new HearthTreeNode(startingBoard)
 
         def creeper = new HauntedCreeper()
-        def ret = creeper.useOn(CURRENT_PLAYER, 0, root)
+        def ret = creeper.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         def abom = new Abomination()
-        ret = abom.useOn(CURRENT_PLAYER, 0, ret)
+        ret = abom.useOn(CURRENT_PLAYER, CharacterIndex.HERO, ret)
         abom.setHealth((byte) 1)
 
         def copiedBoard = startingBoard.deepCopy()
 
         def hellfire = root.data_.getCurrentPlayer().getHand().get(0)
-        ret = hellfire.useOn(CURRENT_PLAYER, 0, ret)
+        ret = hellfire.useOn(CURRENT_PLAYER, CharacterIndex.HERO, ret)
 
         expect:
         ret != null
@@ -49,8 +50,8 @@ class DeathrattleOrderSpec extends CardSpec {
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
                 removeCardFromHand(Hellfire)
-                removeMinion(1)
-                removeMinion(0)
+                removeMinion(CharacterIndex.MINION_2)
+                removeMinion(CharacterIndex.MINION_1)
                 mana(9)
                 numCardsUsed(3)
                 heroHealth(25)
@@ -72,16 +73,16 @@ class DeathrattleOrderSpec extends CardSpec {
         root = new HearthTreeNode(startingBoard)
 
         def abom = new Abomination()
-        def ret = abom.useOn(CURRENT_PLAYER, 0, root)
+        def ret = abom.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
         abom.setHealth((byte) 1)
 
         def creeper = new HauntedCreeper()
-        ret = creeper.useOn(CURRENT_PLAYER, 0, ret)
+        ret = creeper.useOn(CURRENT_PLAYER, CharacterIndex.HERO, ret)
 
         def copiedBoard = startingBoard.deepCopy()
 
         def hellfire = root.data_.getCurrentPlayer().getHand().get(0)
-        ret = hellfire.useOn(CURRENT_PLAYER, 0, ret)
+        ret = hellfire.useOn(CURRENT_PLAYER, CharacterIndex.HERO, ret)
 
         expect:
         ret != null
@@ -89,8 +90,8 @@ class DeathrattleOrderSpec extends CardSpec {
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
                 removeCardFromHand(Hellfire)
-                removeMinion(1)
-                removeMinion(0)
+                removeMinion(CharacterIndex.MINION_2)
+                removeMinion(CharacterIndex.MINION_1)
                 mana(9)
                 numCardsUsed(3)
                 heroHealth(25)
@@ -120,8 +121,8 @@ class DeathrattleOrderSpec extends CardSpec {
         root.data_.placeMinion(WAITING_PLAYER, new CairneBloodhoof());
         def copiedBoard = startingBoard.deepCopy()
 
-        def attacker = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(1)
-        def ret = attacker.attack(WAITING_PLAYER, 1, root, false)
+        def attacker = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(CharacterIndex.MINION_1)
+        def ret = attacker.attack(WAITING_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         assertFalse(ret == null);
@@ -129,10 +130,10 @@ class DeathrattleOrderSpec extends CardSpec {
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                removeMinion(0)
+                removeMinion(CharacterIndex.MINION_1)
             }
             waitingPlayer {
-                removeMinion(0)
+                removeMinion(CharacterIndex.MINION_1)
                 addMinionToField(BaineBloodhoof)
             }
         }
@@ -155,8 +156,8 @@ class DeathrattleOrderSpec extends CardSpec {
         root.data_.placeMinion(CURRENT_PLAYER, syl);
         def copiedBoard = startingBoard.deepCopy()
 
-        def attacker = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(1)
-        def ret = attacker.attack(WAITING_PLAYER, 1, root, false)
+        def attacker = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(CharacterIndex.MINION_1)
+        def ret = attacker.attack(WAITING_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         assertFalse(ret == null);
@@ -164,11 +165,11 @@ class DeathrattleOrderSpec extends CardSpec {
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                removeMinion(0)
+                removeMinion(CharacterIndex.MINION_1)
                 addMinionToField(BaineBloodhoof)
             }
             waitingPlayer {
-                removeMinion(0)
+                removeMinion(CharacterIndex.MINION_1)
             }
         }
     }

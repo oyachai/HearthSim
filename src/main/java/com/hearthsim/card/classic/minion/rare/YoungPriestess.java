@@ -1,5 +1,6 @@
 package com.hearthsim.card.classic.minion.rare;
 
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerModel;
@@ -23,10 +24,10 @@ public class YoungPriestess extends Minion {
             int numFriendlyMinions = currentPlayer.getNumMinions();
             if (numFriendlyMinions > 1) {
                 int minionToBuffIndex = (int)(Math.random() * numFriendlyMinions);
-                Minion minionToBuff = currentPlayer.getCharacter(minionToBuffIndex + 1);
+                Minion minionToBuff = currentPlayer.getCharacter(CharacterIndex.fromInteger(minionToBuffIndex + 1));
                 while (minionToBuff == this) {
                     minionToBuffIndex = (int)(Math.random() * numFriendlyMinions);
-                    minionToBuff = currentPlayer.getCharacter(minionToBuffIndex + 1);
+                    minionToBuff = currentPlayer.getCharacter(CharacterIndex.fromInteger(minionToBuffIndex + 1));
                 }
                 minionToBuff.addHealth((byte) 1);
                 minionToBuff.addMaxHealth((byte)1);

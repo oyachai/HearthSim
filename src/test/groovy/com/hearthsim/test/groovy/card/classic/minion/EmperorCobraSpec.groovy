@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.classic.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.classic.minion.rare.EmperorCobra
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.groovy.card.CardSpec
@@ -42,12 +43,11 @@ class EmperorCobraSpec extends CardSpec {
 
     def "playing Emperor Cobra and attacking the Hero with it"() {
         def copiedBoard = startingBoard.deepCopy()
-        def target = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(2)
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, target, root, null, null)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_2, root)
 
-        def theCobra = ret.data_.modelForSide(CURRENT_PLAYER).getCharacter(2)
-        def ret2 = theCobra.attack(WAITING_PLAYER, 0, ret, null, null, false)
+        def theCobra = ret.data_.modelForSide(CURRENT_PLAYER).getCharacter(CharacterIndex.MINION_2)
+        def ret2 = theCobra.attack(WAITING_PLAYER, CharacterIndex.HERO, ret)
 
         expect:
         assertFalse(ret == null);
@@ -56,7 +56,7 @@ class EmperorCobraSpec extends CardSpec {
             currentPlayer {
                 playMinion(EmperorCobra)
                 mana(4)
-                updateMinion(1, [hasAttacked: true])
+                updateMinion(CharacterIndex.MINION_2, [hasAttacked: true])
                 numCardsUsed(1)
             }
             waitingPlayer {
@@ -67,12 +67,11 @@ class EmperorCobraSpec extends CardSpec {
     
     def "playing Emperor Cobra and attacking a minion with it"() {
         def copiedBoard = startingBoard.deepCopy()
-        def target = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(2)
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, target, root, null, null)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_2, root)
 
-        def theCobra = ret.data_.modelForSide(CURRENT_PLAYER).getCharacter(2)
-        def ret2 = theCobra.attack(WAITING_PLAYER, 1, ret, null, null, false)
+        def theCobra = ret.data_.modelForSide(CURRENT_PLAYER).getCharacter(CharacterIndex.MINION_2)
+        def ret2 = theCobra.attack(WAITING_PLAYER, CharacterIndex.MINION_1, ret)
 
         expect:
         assertFalse(ret == null);
@@ -81,11 +80,11 @@ class EmperorCobraSpec extends CardSpec {
             currentPlayer {
                 playMinion(EmperorCobra)
                 mana(4)
-                removeMinion(1)
+                removeMinion(CharacterIndex.MINION_2)
                 numCardsUsed(1)
             }
             waitingPlayer {
-                removeMinion(0)
+                removeMinion(CharacterIndex.MINION_1)
             }
         }
     }

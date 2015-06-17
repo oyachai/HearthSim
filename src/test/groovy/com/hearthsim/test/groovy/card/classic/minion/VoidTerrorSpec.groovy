@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.classic.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.minion.GoldshireFootman
 import com.hearthsim.card.basic.minion.WarGolem
 import com.hearthsim.card.classic.minion.rare.VoidTerror
@@ -36,17 +37,17 @@ class VoidTerrorSpec extends CardSpec {
     def "playing Void Terror to the left of all minions"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root, null, null)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         assertFalse(ret == null);
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                playMinion(VoidTerror, 0)
-                removeMinion(1)
+                playMinion(VoidTerror, CharacterIndex.HERO)
+                removeMinion(CharacterIndex.MINION_2)
                 mana(4)
-                updateMinion(0, [deltaHealth: 2, deltaMaxHealth: 2, deltaAttack: 1])
+                updateMinion(CharacterIndex.MINION_1, [deltaHealth: 2, deltaMaxHealth: 2, deltaAttack: 1])
                 numCardsUsed(1)
             }
         }
@@ -55,17 +56,17 @@ class VoidTerrorSpec extends CardSpec {
     def "playing Void Terror to the right of all minions"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 2, root, null, null)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_2, root)
 
         expect:
         assertFalse(ret == null);
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                playMinion(VoidTerror, 2)
-                removeMinion(1)
+                playMinion(VoidTerror, CharacterIndex.MINION_2)
+                removeMinion(CharacterIndex.MINION_2)
                 mana(4)
-                updateMinion(1, [deltaHealth: 7, deltaMaxHealth: 7, deltaAttack: 7])
+                updateMinion(CharacterIndex.MINION_2, [deltaHealth: 7, deltaMaxHealth: 7, deltaAttack: 7])
                 numCardsUsed(1)
             }
         }
@@ -74,18 +75,18 @@ class VoidTerrorSpec extends CardSpec {
     def "playing Void Terror in the middle"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 1, root, null, null)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         assertFalse(ret == null);
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                playMinion(VoidTerror, 1)
-                removeMinion(0)
-                removeMinion(1)
+                playMinion(VoidTerror, CharacterIndex.MINION_1)
+                removeMinion(CharacterIndex.MINION_1)
+                removeMinion(CharacterIndex.MINION_2)
                 mana(4)
-                updateMinion(0, [deltaHealth: 9, deltaMaxHealth: 9, deltaAttack: 8])
+                updateMinion(CharacterIndex.MINION_1, [deltaHealth: 9, deltaMaxHealth: 9, deltaAttack: 8])
                 numCardsUsed(1)
             }
         }

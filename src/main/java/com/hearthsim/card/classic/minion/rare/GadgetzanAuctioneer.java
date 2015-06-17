@@ -18,8 +18,8 @@ public class GadgetzanAuctioneer extends Minion implements CardPlayBeginInterfac
     }
 
     @Override
-    public HearthTreeNode onCardPlayBegin(PlayerSide thisCardPlayerSide, PlayerSide cardUserPlayerSide, Card usedCard, HearthTreeNode boardState, boolean singleRealizationOnly) {
-        if (!this.isInHand() && thisCardPlayerSide == cardUserPlayerSide && usedCard instanceof SpellCard) {
+    public HearthTreeNode onCardPlayBegin(PlayerSide thisCardPlayerSide, PlayerSide cardUserPlayerSide, Card usedCard, HearthTreeNode boardState) {
+        if (!this.setInHand() && thisCardPlayerSide == cardUserPlayerSide && usedCard instanceof SpellCard) {
             return GadgetzanAuctioneer.effect.applyEffect(cardUserPlayerSide, usedCard, thisCardPlayerSide, this, boardState);
         }
 

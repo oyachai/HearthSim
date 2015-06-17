@@ -23,7 +23,7 @@ public class EffectHeroWeapon<T extends Card> implements EffectHero<T> {
         newWeapon.hasBeenUsed(true);
         DeathrattleAction weaponDeathrattle = boardState.data_.getCurrentPlayer().getHero().setWeapon(newWeapon);
         if (weaponDeathrattle != null) {
-            boardState = weaponDeathrattle.performAction(origin, targetSide, boardState, false);
+            boardState = weaponDeathrattle.performAction(origin, targetSide, boardState);
         }
         return boardState;
     }

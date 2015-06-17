@@ -2,10 +2,14 @@ package com.hearthsim.event.effect;
 
 import com.hearthsim.event.filter.FilterHand;
 
-public interface EffectOnResolveRandomHand extends EffectOnResolveRandom<EffectHand, FilterHand> {
-    @Override
+public interface EffectOnResolveRandomHand {
+
     public EffectHand getRandomTargetEffect();
 
-    @Override
     public FilterHand getRandomTargetFilter();
+
+    public default EffectHand getRandomTargetSecondaryEffect() {
+        return null;
+    }
+
 }

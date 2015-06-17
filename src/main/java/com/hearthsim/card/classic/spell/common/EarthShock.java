@@ -42,9 +42,9 @@ public class EarthShock extends SpellDamageTargetableCard {
     protected HearthTreeNode use_core(
             PlayerSide side,
             Minion targetMinion,
-            HearthTreeNode boardState, boolean singleRealizationOnly)
+            HearthTreeNode boardState)
         throws HSException {
         targetMinion.silenced(side, boardState.data_);
-        return super.use_core(side, targetMinion, boardState, singleRealizationOnly);
+        return super.use_core(side, targetMinion, boardState);
     }
 }

@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.classic.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.minion.BloodfenRaptor
 import com.hearthsim.card.basic.minion.MurlocRaider
 import com.hearthsim.card.classic.minion.epic.HungryCrab
@@ -37,7 +38,7 @@ class HungryCrabSpec extends CardSpec {
     def "playing Hungry Crab without a murloc does not get buff"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayerCardHand(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root, null, null)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         assertNotNull(ret);
@@ -58,7 +59,7 @@ class HungryCrabSpec extends CardSpec {
         def minionPlayedBoard = startingBoard.deepCopy()
         def copiedRoot = new HearthTreeNode(minionPlayedBoard)
         def theCard = minionPlayedBoard.getCurrentPlayerCardHand(0);
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot);
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, copiedRoot);
 
         expect:
         assertNotNull(ret);
@@ -69,10 +70,10 @@ class HungryCrabSpec extends CardSpec {
                 playMinion(HungryCrab)
                 mana(1)
                 numCardsUsed(1)
-                updateMinion(0, [deltaAttack: +2, deltaHealth: +2, deltaMaxHealth: +2])
+                updateMinion(CharacterIndex.MINION_1, [deltaAttack: +2, deltaHealth: +2, deltaMaxHealth: +2])
             }
             waitingPlayer {
-                removeMinion(0)
+                removeMinion(CharacterIndex.MINION_1)
             }
         }
     }
@@ -83,7 +84,7 @@ class HungryCrabSpec extends CardSpec {
         def minionPlayedBoard = startingBoard.deepCopy()
         def copiedRoot = new HearthTreeNode(minionPlayedBoard)
         def theCard = minionPlayedBoard.getCurrentPlayerCardHand(0);
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot);
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, copiedRoot);
 
         expect:
         assertNotNull(ret);
@@ -91,11 +92,11 @@ class HungryCrabSpec extends CardSpec {
 
         assertBoardDelta(startingBoard, ret.data_) {
             currentPlayer {
-                playMinion(HungryCrab, 0)
+                playMinion(HungryCrab, CharacterIndex.HERO)
                 mana(1)
                 numCardsUsed(1)
-                updateMinion(0, [deltaAttack: +2, deltaHealth: +2, deltaMaxHealth: +2])
-                removeMinion(1)
+                updateMinion(CharacterIndex.MINION_1, [deltaAttack: +2, deltaHealth: +2, deltaMaxHealth: +2])
+                removeMinion(CharacterIndex.MINION_2)
             }
         }
     }
@@ -106,7 +107,7 @@ class HungryCrabSpec extends CardSpec {
         def minionPlayedBoard = startingBoard.deepCopy()
         def copiedRoot = new HearthTreeNode(minionPlayedBoard)
         def theCard = minionPlayedBoard.getCurrentPlayerCardHand(0);
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot);
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, copiedRoot);
 
         expect:
         assertNotNull(ret);

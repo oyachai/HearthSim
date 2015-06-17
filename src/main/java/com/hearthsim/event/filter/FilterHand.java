@@ -29,7 +29,7 @@ public class FilterHand implements FilterHandInterface {
 
     @Override
     public boolean targetMatches(PlayerSide originSide, Card origin, PlayerSide targetSide, Card targetCard, BoardModel board) {
-        if (!targetCard.isInHand()) {
+        if (!targetCard.setInHand()) {
             return false; // shouldn't happen
         }
 

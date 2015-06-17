@@ -40,8 +40,8 @@ public class FanOfKnives extends SpellDamage implements EffectOnResolveAoe {
      * @return The boardState is manipulated and returned
      */
     @Override
-    protected HearthTreeNode use_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
+    protected HearthTreeNode use_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState) throws HSException {
+        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState);
 
         if (toRet != null) {
             if (toRet instanceof CardDrawNode) {

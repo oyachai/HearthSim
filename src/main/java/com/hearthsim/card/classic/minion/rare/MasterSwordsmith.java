@@ -1,5 +1,6 @@
 package com.hearthsim.card.classic.minion.rare;
 
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerModel;
@@ -17,9 +18,9 @@ public class MasterSwordsmith extends Minion {
         PlayerModel currentPlayer = boardModel.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         int numMinions = currentPlayer.getNumMinions();
         if (thisMinionPlayerIndex == PlayerSide.CURRENT_PLAYER && numMinions > 1) {
-            Minion buffTargetMinion = currentPlayer.getCharacter((int) (Math.random() * numMinions) + 1);
+            Minion buffTargetMinion = currentPlayer.getCharacter(CharacterIndex.fromInteger((int) (Math.random() * numMinions) + 1));
             while (buffTargetMinion == this) {
-                buffTargetMinion = currentPlayer.getCharacter((int)(Math.random() * numMinions) + 1);
+                buffTargetMinion = currentPlayer.getCharacter(CharacterIndex.fromInteger((int)(Math.random() * numMinions) + 1));
             }
             buffTargetMinion.addAttack((byte)1);
         }

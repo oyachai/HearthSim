@@ -1,5 +1,6 @@
 package com.hearthsim.card.goblinsvsgnomes.minion.epic;
 
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionDeadInterface;
 import com.hearthsim.event.effect.EffectCharacter;
@@ -29,12 +30,9 @@ public class SiltfinSpiritwalker extends Minion implements MinionDeadInterface {
         super();
     }
 
-    /**
-     * Draw a card whenever this minion takes damage
-     * */
     @Override
     public HearthTreeNode minionDeadEvent(PlayerSide thisMinionPlayerSide, PlayerSide deadMinionPlayerSide, Minion deadMinion, HearthTreeNode boardState) {
-        if (this.isInHand()) {
+        if (this.setInHand()) {
             return boardState;
         }
 
@@ -46,6 +44,6 @@ public class SiltfinSpiritwalker extends Minion implements MinionDeadInterface {
             return boardState;
         }
 
-        return SiltfinSpiritwalker.effect.applyEffect(thisMinionPlayerSide, this, thisMinionPlayerSide, 0, boardState);
+        return SiltfinSpiritwalker.effect.applyEffect(thisMinionPlayerSide, this, thisMinionPlayerSide, CharacterIndex.HERO, boardState);
     }
 }

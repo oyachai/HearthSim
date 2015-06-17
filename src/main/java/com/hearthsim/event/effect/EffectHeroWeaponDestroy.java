@@ -34,7 +34,7 @@ public class EffectHeroWeaponDestroy<T extends Card> implements EffectHero<T> {
         }
 
         if (action != null) {
-            boardState = action.performAction(null, targetSide, boardState, false);
+            boardState = action.performAction(null, targetSide, boardState);
         }
         return boardState;
     }

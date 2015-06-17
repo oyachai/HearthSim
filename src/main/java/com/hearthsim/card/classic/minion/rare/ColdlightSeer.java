@@ -1,6 +1,7 @@
 package com.hearthsim.card.classic.minion.rare;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionBattlecryInterface;
 import com.hearthsim.event.effect.EffectCharacter;
@@ -36,7 +37,7 @@ public class ColdlightSeer extends Minion implements MinionBattlecryInterface {
 
     @Override
     public EffectCharacter<Minion> getBattlecryEffect() {
-        return (PlayerSide originSide, Minion origin, PlayerSide targetSide, int minionPlacementIndex, HearthTreeNode boardState) -> {
+        return (PlayerSide originSide, Minion origin, PlayerSide targetSide, CharacterIndex minionPlacementIndex, HearthTreeNode boardState) -> {
             return this.effectAllUsingFilter(ColdlightSeer.effect, ColdlightSeer.filter, boardState);
         };
     }

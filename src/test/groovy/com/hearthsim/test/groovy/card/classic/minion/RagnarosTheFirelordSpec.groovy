@@ -1,6 +1,7 @@
 package com.hearthsim.test.groovy.card.classic.minion
 
 import com.hearthsim.Game
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.minion.GoldshireFootman
 import com.hearthsim.card.classic.minion.legendary.RagnarosTheFirelord
 import com.hearthsim.model.BoardModel
@@ -39,7 +40,7 @@ class RagnarosTheFirelordSpec extends CardSpec {
     def "playing Blood Imp"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         assertFalse(ret == null);
@@ -72,7 +73,7 @@ class RagnarosTheFirelordSpec extends CardSpec {
                     numCardsUsed(1)
                 }
                 waitingPlayer {
-                    removeMinion(0)
+                    removeMinion(CharacterIndex.MINION_1)
                 }
             }
         }

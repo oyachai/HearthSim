@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.curseofnaxxramas.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.minion.BloodfenRaptor
 import com.hearthsim.card.basic.minion.RiverCrocolisk
 import com.hearthsim.card.basic.spell.Fireball
@@ -35,7 +36,7 @@ class AnubarAmbusherSpec extends CardSpec {
     def "dying with no deathrattle targets"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = new Fireball()
-        def ret = theCard.useOn(CURRENT_PLAYER, 1, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         assertNotNull(ret)
@@ -44,7 +45,7 @@ class AnubarAmbusherSpec extends CardSpec {
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                removeMinion(0)
+                removeMinion(CharacterIndex.MINION_1)
                 mana(6)
                 numCardsUsed(1)
             }
@@ -52,11 +53,11 @@ class AnubarAmbusherSpec extends CardSpec {
     }
 
     def "does not bounce enemies"() {
-        startingBoard.placeMinion(WAITING_PLAYER, new BloodfenRaptor(), 0)
+        startingBoard.placeMinion(WAITING_PLAYER, new BloodfenRaptor(), CharacterIndex.HERO)
 
         def copiedBoard = startingBoard.deepCopy()
         def theCard = new Fireball()
-        def ret = theCard.useOn(CURRENT_PLAYER, 1, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         assertNotNull(ret)
@@ -65,7 +66,7 @@ class AnubarAmbusherSpec extends CardSpec {
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                removeMinion(0)
+                removeMinion(CharacterIndex.MINION_1)
                 mana(6)
                 numCardsUsed(1)
             }
@@ -73,11 +74,11 @@ class AnubarAmbusherSpec extends CardSpec {
     }
 
     def "dying with 1 deathrattle target"() {
-        startingBoard.placeMinion(CURRENT_PLAYER, new BloodfenRaptor(), 0)
+        startingBoard.placeMinion(CURRENT_PLAYER, new BloodfenRaptor(), CharacterIndex.HERO)
 
         def copiedBoard = startingBoard.deepCopy()
         def theCard = new Fireball()
-        def ret = theCard.useOn(CURRENT_PLAYER, 2, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_2, root)
 
         expect:
         assertNotNull(ret)
@@ -86,8 +87,8 @@ class AnubarAmbusherSpec extends CardSpec {
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                removeMinion(1)
-                removeMinion(0)
+                removeMinion(CharacterIndex.MINION_2)
+                removeMinion(CharacterIndex.MINION_1)
                 mana(6)
                 numCardsUsed(1)
                 addCardToHand(BloodfenRaptor)
@@ -96,7 +97,7 @@ class AnubarAmbusherSpec extends CardSpec {
     }
 
     def "bouncing with full hand"() {
-        startingBoard.placeMinion(CURRENT_PLAYER, new BloodfenRaptor(), 0)
+        startingBoard.placeMinion(CURRENT_PLAYER, new BloodfenRaptor(), CharacterIndex.HERO)
         startingBoard.placeCardHand(CURRENT_PLAYER, new TheCoin())
         startingBoard.placeCardHand(CURRENT_PLAYER, new TheCoin())
         startingBoard.placeCardHand(CURRENT_PLAYER, new TheCoin())
@@ -110,7 +111,7 @@ class AnubarAmbusherSpec extends CardSpec {
 
         def copiedBoard = startingBoard.deepCopy()
         def theCard = new Fireball()
-        def ret = theCard.useOn(CURRENT_PLAYER, 2, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_2, root)
 
         expect:
         assertNotNull(ret)
@@ -119,8 +120,8 @@ class AnubarAmbusherSpec extends CardSpec {
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                removeMinion(1)
-                removeMinion(0)
+                removeMinion(CharacterIndex.MINION_2)
+                removeMinion(CharacterIndex.MINION_1)
                 mana(6)
                 numCardsUsed(1)
             }
@@ -128,19 +129,19 @@ class AnubarAmbusherSpec extends CardSpec {
     }
 
     def "dying with 2 deathrattle target"() {
-        startingBoard.placeMinion(CURRENT_PLAYER, new BloodfenRaptor(), 0)
-        startingBoard.placeMinion(CURRENT_PLAYER, new RiverCrocolisk(), 1)
+        startingBoard.placeMinion(CURRENT_PLAYER, new BloodfenRaptor(), CharacterIndex.HERO)
+        startingBoard.placeMinion(CURRENT_PLAYER, new RiverCrocolisk(), CharacterIndex.MINION_1)
 
         def copiedBoard = startingBoard.deepCopy()
         def theCard = new Fireball()
-        def ret = theCard.useOn(CURRENT_PLAYER, 3, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_3, root)
 
         expect:
         assertNotNull(ret)
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                removeMinion(2)
+                removeMinion(CharacterIndex.MINION_3)
                 mana(6)
                 numCardsUsed(1)
             }
@@ -152,7 +153,7 @@ class AnubarAmbusherSpec extends CardSpec {
         HearthTreeNode child0 = ret.getChildren().get(0);
         assertBoardDelta(ret.data_, child0.data_) {
             currentPlayer {
-                removeMinion(0)
+                removeMinion(CharacterIndex.MINION_1)
                 addCardToHand(BloodfenRaptor)
             }
         }
@@ -160,7 +161,7 @@ class AnubarAmbusherSpec extends CardSpec {
         HearthTreeNode child1 = ret.getChildren().get(1);
         assertBoardDelta(ret.data_, child1.data_) {
             currentPlayer {
-                removeMinion(1)
+                removeMinion(CharacterIndex.MINION_2)
                 addCardToHand(RiverCrocolisk)
             }
         }

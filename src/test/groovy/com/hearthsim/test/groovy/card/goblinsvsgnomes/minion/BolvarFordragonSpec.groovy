@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.goblinsvsgnomes.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.minion.BloodfenRaptor
 import com.hearthsim.card.basic.minion.Boar
 import com.hearthsim.card.basic.spell.Fireball
@@ -38,7 +39,7 @@ class BolvarFordragonSpec extends CardSpec {
     def "buffs on friendly minion death"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 1, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         ret != null
@@ -49,7 +50,7 @@ class BolvarFordragonSpec extends CardSpec {
                 removeCardFromHand(Fireball)
                 mana(6)
                 numCardsUsed(1)
-                removeMinion(0)
+                removeMinion(CharacterIndex.MINION_1)
             }
         }
     }
@@ -57,7 +58,7 @@ class BolvarFordragonSpec extends CardSpec {
     def "does not trigger on enemy minion death"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(WAITING_PLAYER, 1, root)
+        def ret = theCard.useOn(WAITING_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         ret != null
@@ -69,19 +70,19 @@ class BolvarFordragonSpec extends CardSpec {
                 numCardsUsed(1)
             }
             waitingPlayer {
-                removeMinion(0)
+                removeMinion(CharacterIndex.MINION_1)
             }
         }
     }
 
     def "does not trigger while in play"() {
         def theCard = root.data_.getCurrentPlayer().getHand().get(2)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         def copiedBoard = ret.data_.deepCopy()
 
         theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        ret = theCard.useOn(CURRENT_PLAYER, 2, root)
+        ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_2, root)
 
         expect:
         ret != null
@@ -91,7 +92,7 @@ class BolvarFordragonSpec extends CardSpec {
                 removeCardFromHand(Fireball)
                 mana(1)
                 numCardsUsed(2)
-                removeMinion(1)
+                removeMinion(CharacterIndex.MINION_2)
             }
         }
     }
@@ -99,7 +100,7 @@ class BolvarFordragonSpec extends CardSpec {
     def "buffs for each death"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(1)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         ret != null
@@ -110,12 +111,12 @@ class BolvarFordragonSpec extends CardSpec {
                 removeCardFromHand(Whirlwind)
                 mana(9)
                 numCardsUsed(1)
-                removeMinion(1)
-                removeMinion(0)
+                removeMinion(CharacterIndex.MINION_2)
+                removeMinion(CharacterIndex.MINION_1)
             }
             waitingPlayer {
-                updateMinion(1, [deltaHealth: -1])
-                updateMinion(0, [deltaHealth: -1])
+                updateMinion(CharacterIndex.MINION_2, [deltaHealth: -1])
+                updateMinion(CharacterIndex.MINION_1, [deltaHealth: -1])
             }
         }
     }

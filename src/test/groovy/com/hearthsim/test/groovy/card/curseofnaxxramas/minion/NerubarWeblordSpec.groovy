@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.curseofnaxxramas.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.minion.BloodfenRaptor
 import com.hearthsim.card.basic.spell.Fireball
 import com.hearthsim.card.classic.minion.common.FlameImp
@@ -36,14 +37,14 @@ class NerubarWeblordSpec extends CardSpec {
     def "playing Weblord increases battlecry mana cost"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         ret != null;
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                playMinion(NerubarWeblord, 0)
+                playMinion(NerubarWeblord, CharacterIndex.HERO)
                 mana(8)
                 numCardsUsed(1)
             }
@@ -56,7 +57,7 @@ class NerubarWeblordSpec extends CardSpec {
 
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(1)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         ret != null;
@@ -64,7 +65,7 @@ class NerubarWeblordSpec extends CardSpec {
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
                 heroHealth(27)
-                playMinion(FlameImp, 0)
+                playMinion(FlameImp, CharacterIndex.HERO)
                 manaUsed(3)
                 numCardsUsed(1)
             }

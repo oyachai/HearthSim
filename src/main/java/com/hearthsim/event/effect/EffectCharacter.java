@@ -1,18 +1,19 @@
 package com.hearthsim.event.effect;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 @FunctionalInterface
-public interface EffectCharacter<T extends Card> extends EffectInterface<T> {
-    @Override
-    public HearthTreeNode applyEffect(PlayerSide originSide, T origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState);
+public interface EffectCharacter<T extends Card> {
+
+    public HearthTreeNode applyEffect(PlayerSide originSide, T origin, PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState);
 
     public default HearthTreeNode applyEffect(PlayerSide originSide, T origin, PlayerSide targetSide, Card targetCharacter, HearthTreeNode boardState) {
         // MrHen: I have no idea why this (U) conversion is necessary but I get a weird compile assert if I set up the generics to use CardEffectInterface<T, Minion>
-        int index = boardState.data_.modelForSide(targetSide).getIndexForCharacter((Minion)targetCharacter);
+        CharacterIndex index = boardState.data_.modelForSide(targetSide).getIndexForCharacter((Minion)targetCharacter);
         return this.applyEffect(originSide, origin, targetSide, index, boardState);
     }
 
@@ -55,7 +56,7 @@ public interface EffectCharacter<T extends Card> extends EffectInterface<T> {
     public final static EffectCharacter MIND_CONTROL = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
         Minion targetMinion = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
 
-        boardState.data_.removeMinion(targetSide, targetCharacterIndex - 1);
+        boardState.data_.removeMinion(targetSide, targetCharacterIndex);
         boardState.data_.placeMinion(originSide, targetMinion);
 
         if (targetMinion.getCharge()) {

@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.goblinsvsgnomes.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.spell.Moonfire
 import com.hearthsim.card.goblinsvsgnomes.minion.legendary.Gahzrilla
 import com.hearthsim.model.BoardModel
@@ -30,7 +31,7 @@ class GahzrillaSpec extends CardSpec {
     def "buffs after takes damage"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 1, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         ret != null
@@ -39,18 +40,18 @@ class GahzrillaSpec extends CardSpec {
             currentPlayer {
                 removeCardFromHand(Moonfire)
                 numCardsUsed(1)
-                updateMinion(0, [attack: 12, deltaHealth: -1])
+                updateMinion(CharacterIndex.MINION_1, [attack: 12, deltaHealth: -1])
             }
         }
     }
 
     def "buffs stack"() {
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def first = theCard.useOn(CURRENT_PLAYER, 1, root)
+        def first = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_1, root)
         def copiedBoard = first.data_.deepCopy()
 
         theCard = first.data_.getCurrentPlayer().getHand().get(0)
-        def second = theCard.useOn(CURRENT_PLAYER, 1, root)
+        def second = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         second != null
@@ -59,18 +60,18 @@ class GahzrillaSpec extends CardSpec {
             currentPlayer {
                 removeCardFromHand(Moonfire)
                 numCardsUsed(2)
-                updateMinion(0, [attack: 24, deltaHealth: -1])
+                updateMinion(CharacterIndex.MINION_1, [attack: 24, deltaHealth: -1])
             }
         }
     }
 
     def "does buff if opponent's turn"() {
-        startingBoard.removeMinion(CURRENT_PLAYER, 0);
+        startingBoard.removeMinion(CURRENT_PLAYER, CharacterIndex.MINION_1);
         startingBoard.placeMinion(WAITING_PLAYER, new Gahzrilla());
 
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(WAITING_PLAYER, 1, root)
+        def ret = theCard.useOn(WAITING_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         ret != null
@@ -81,7 +82,7 @@ class GahzrillaSpec extends CardSpec {
                 numCardsUsed(1)
             }
             waitingPlayer {
-                updateMinion(0, [deltaAttack: 6, deltaHealth: -1])
+                updateMinion(CharacterIndex.MINION_1, [deltaAttack: 6, deltaHealth: -1])
             }
         }
     }

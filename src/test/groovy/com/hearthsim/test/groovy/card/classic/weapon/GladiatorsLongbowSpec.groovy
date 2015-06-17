@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.classic.weapon
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.minion.BoulderfistOgre
 import com.hearthsim.card.basic.spell.ArcaneShot
 import com.hearthsim.card.classic.weapon.epic.GladiatorsLongbow
@@ -38,10 +39,10 @@ class GladiatorsLongbowSpec extends CardSpec {
         def copiedRoot = new HearthTreeNode(copiedBoard)
 
         def theCard = copiedBoard.getCurrentPlayer().getHand().get(0);
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot);
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, copiedRoot);
 
         Minion hero = ret.data_.getCurrentPlayer().getHero();
-        ret = hero.attack(PlayerSide.WAITING_PLAYER, 1, ret, null, null, false);
+        ret = hero.attack(PlayerSide.WAITING_PLAYER, CharacterIndex.MINION_1, ret);
 
         expect:
         ret != null
@@ -57,7 +58,7 @@ class GladiatorsLongbowSpec extends CardSpec {
                 numCardsUsed(1)
             }
             waitingPlayer {
-                updateMinion(0, [deltaHealth: -5])
+                updateMinion(CharacterIndex.MINION_1, [deltaHealth: -5])
             }
         }
     }
@@ -67,13 +68,13 @@ class GladiatorsLongbowSpec extends CardSpec {
         def copiedRoot = new HearthTreeNode(copiedBoard)
 
         def theCard = copiedBoard.getCurrentPlayer().getHand().get(0);
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot);
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, copiedRoot);
 
         Minion hero = ret.data_.getCurrentPlayer().getHero();
-        hero.attack(PlayerSide.WAITING_PLAYER, 1, ret, null, null, false);
+        hero.attack(PlayerSide.WAITING_PLAYER, CharacterIndex.MINION_1, ret);
 
         def arcaneShot = new ArcaneShot();
-        ret = arcaneShot.useOn(CURRENT_PLAYER, 0, copiedRoot);
+        ret = arcaneShot.useOn(CURRENT_PLAYER, CharacterIndex.HERO, copiedRoot);
 
         expect:
         ret != null
@@ -90,7 +91,7 @@ class GladiatorsLongbowSpec extends CardSpec {
                 numCardsUsed(2)
             }
             waitingPlayer {
-                updateMinion(0, [deltaHealth: -5])
+                updateMinion(CharacterIndex.MINION_1, [deltaHealth: -5])
             }
         }
     }

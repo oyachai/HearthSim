@@ -1,6 +1,7 @@
 package com.hearthsim.event.effect;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.model.PlayerSide;
@@ -16,7 +17,7 @@ public class EffectCharacterBuff<T extends Card> implements EffectCharacter<T> {
     }
 
     @Override
-    public HearthTreeNode applyEffect(PlayerSide originSide, T origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
+    public HearthTreeNode applyEffect(PlayerSide originSide, T origin, PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState) {
         Minion targetCharacter = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
         if (this.attack > 0) {
             targetCharacter.setAttack(this.attack);

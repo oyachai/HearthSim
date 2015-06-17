@@ -1,5 +1,6 @@
 package com.hearthsim.test;
 
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionMock;
 import com.hearthsim.exception.HSException;
@@ -50,7 +51,7 @@ public class TestAction {
         }
 
         assertEquals(tree.getChildren().get(0).getAction().verb_, Verb.ATTACK);
-        assertEquals(tree.getChildren().get(0).getAction().targetCharacterIndex_, 1); // should hit the enemy minion
+        assertEquals(tree.getChildren().get(0).getAction().targetCharacterIndex, CharacterIndex.MINION_1); // should hit the enemy minion
     }
 
     @Test
@@ -68,6 +69,6 @@ public class TestAction {
         }
 
         assertEquals(tree.getChildren().get(0).getAction().verb_, Verb.ATTACK);
-        assertEquals(tree.getChildren().get(0).getAction().targetCharacterIndex_, 0); // should hit the enemy hero
+        assertEquals(tree.getChildren().get(0).getAction().targetCharacterIndex, CharacterIndex.HERO); // should hit the enemy hero
     }
 }

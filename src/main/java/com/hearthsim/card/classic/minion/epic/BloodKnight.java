@@ -1,5 +1,6 @@
 package com.hearthsim.card.classic.minion.epic;
 
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionBattlecryInterface;
 import com.hearthsim.event.effect.EffectCharacter;
@@ -19,7 +20,7 @@ public class BloodKnight extends Minion implements MinionBattlecryInterface {
     public EffectCharacter getBattlecryEffect() {
         return new EffectCharacter<Minion>() {
             @Override
-            public HearthTreeNode applyEffect(PlayerSide originSide, Minion origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
+            public HearthTreeNode applyEffect(PlayerSide originSide, Minion origin, PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState) {
                 for (Minion minion : boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getMinions()) {
                     if (minion != origin && minion.getDivineShield()) {
                         minion.setDivineShield(false);

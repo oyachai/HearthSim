@@ -1,6 +1,7 @@
 package com.hearthsim.test.groovy.card.classic.minion
 
 import com.hearthsim.Game
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.classic.minion.common.BloodImp
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.groovy.card.CardSpec
@@ -43,7 +44,7 @@ class BloodImpSpec extends CardSpec {
     def "playing Blood Imp"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 1, root, null, null)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         assertFalse(ret == null);
@@ -61,7 +62,7 @@ class BloodImpSpec extends CardSpec {
             currentPlayer {
                 playMinion(BloodImp)
                 mana(6)
-                updateMinion(0, [deltaHealth: 1, deltaMaxHealth: 1])
+                updateMinion(CharacterIndex.MINION_1, [deltaHealth: 1, deltaMaxHealth: 1])
                 numCardsUsed(1)
             }
         }

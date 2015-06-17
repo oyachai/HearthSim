@@ -1,5 +1,6 @@
 package com.hearthsim.card.curseofnaxxramas.minion.rare;
 
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionUntargetableBattlecry;
 import com.hearthsim.event.effect.EffectCharacter;
@@ -29,9 +30,8 @@ public class WailingSoul extends Minion implements MinionUntargetableBattlecry {
 
     @Override
     public HearthTreeNode useUntargetableBattlecry_core(
-        int minionPlacementIndex,
-        HearthTreeNode boardState,
-        boolean singleRealizationOnly
+        CharacterIndex minionPlacementIndex,
+        HearthTreeNode boardState
     ) {
         return this.effectAllUsingFilter(WailingSoul.effect, WailingSoul.filter, boardState);
     }

@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.goblinsvsgnomes.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.spell.TheCoin
 import com.hearthsim.card.goblinsvsgnomes.minion.common.BurlyRockjawTrogg
 import com.hearthsim.test.groovy.card.CardSpec
@@ -24,9 +25,8 @@ class BurlyRockjawTroggSpec extends CardSpec {
         def root = new HearthTreeNode(startingBoard)
 
         def copiedBoard = startingBoard.deepCopy()
-        def target = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(0)
         def theCoin = root.data_.getCurrentPlayer().getHand().get(1)
-        def ret = theCoin.useOn(CURRENT_PLAYER, target, root)
+        def ret = theCoin.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         ret != null
@@ -38,7 +38,7 @@ class BurlyRockjawTroggSpec extends CardSpec {
                 numCardsUsed(1)
             }
             waitingPlayer {
-                updateMinion(0, [deltaAttack: 2])
+                updateMinion(CharacterIndex.MINION_1, [deltaAttack: 2])
             }
         }
     }

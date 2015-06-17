@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.classic.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.minion.BoulderfistOgre
 import com.hearthsim.card.basic.spell.TheCoin
 import com.hearthsim.card.classic.minion.epic.Kidnapper
@@ -40,14 +41,14 @@ class KidnapperSpec extends CardSpec {
     def "Playing Kidnapper without combo"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(1)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         assertFalse(ret == null);
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                playMinion(Kidnapper, 0)
+                playMinion(Kidnapper, CharacterIndex.HERO)
                 numCardsUsed(1)
                 mana(4)
             }
@@ -58,10 +59,10 @@ class KidnapperSpec extends CardSpec {
         def copiedBoard = startingBoard.deepCopy()
 
         def theCoin = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret0 = theCoin.useOn(CURRENT_PLAYER, 0, root)
+        def ret0 = theCoin.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         def theCard = ret0.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         assertFalse(ret == null);
@@ -69,7 +70,7 @@ class KidnapperSpec extends CardSpec {
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
                 removeCardFromHand(TheCoin)
-                playMinion(Kidnapper, 0)
+                playMinion(Kidnapper, CharacterIndex.HERO)
                 numCardsUsed(2)
                 mana(4)
             }
@@ -81,7 +82,7 @@ class KidnapperSpec extends CardSpec {
         assertBoardDelta(ret.data_, child0.data_) {
             currentPlayer {
                 addCardToHand(BoulderfistOgre)
-                removeMinion(1)
+                removeMinion(CharacterIndex.MINION_2)
             }
         }
 
@@ -89,7 +90,7 @@ class KidnapperSpec extends CardSpec {
         assertBoardDelta(ret.data_, child1.data_) {
             waitingPlayer {
                 addCardToHand(Abomination)
-                removeMinion(0)
+                removeMinion(CharacterIndex.MINION_1)
             }
         }
 
@@ -111,10 +112,10 @@ class KidnapperSpec extends CardSpec {
 
 
         def theCoin = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret0 = theCoin.useOn(CURRENT_PLAYER, 0, root)
+        def ret0 = theCoin.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         def theCard = ret0.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         assertFalse(ret == null);
@@ -122,7 +123,7 @@ class KidnapperSpec extends CardSpec {
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
                 removeCardFromHand(TheCoin)
-                playMinion(Kidnapper, 0)
+                playMinion(Kidnapper, CharacterIndex.HERO)
                 numCardsUsed(2)
                 mana(4)
             }
@@ -134,7 +135,7 @@ class KidnapperSpec extends CardSpec {
         assertBoardDelta(ret.data_, child0.data_) {
             currentPlayer {
                 addCardToHand(BoulderfistOgre)
-                removeMinion(1)
+                removeMinion(CharacterIndex.MINION_2)
             }
         }
 
@@ -142,12 +143,12 @@ class KidnapperSpec extends CardSpec {
         assertBoardDelta(ret.data_, child1.data_) {
             currentPlayer {
                 heroHealth(28)
-                updateMinion(0, [deltaHealth: -2])
-                updateMinion(1, [deltaHealth: -2])
+                updateMinion(CharacterIndex.MINION_1, [deltaHealth: -2])
+                updateMinion(CharacterIndex.MINION_2, [deltaHealth: -2])
             }
             waitingPlayer {
                 heroHealth(28)
-                removeMinion(0)
+                removeMinion(CharacterIndex.MINION_1)
             }
         }
     }

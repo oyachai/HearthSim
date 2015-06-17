@@ -1,5 +1,6 @@
 package com.hearthsim.card.classic.minion.rare;
 
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionBattlecryInterface;
 import com.hearthsim.event.effect.EffectCharacter;
@@ -21,10 +22,10 @@ public class SunfuryProtector extends Minion implements MinionBattlecryInterface
         return new EffectCharacter<Minion>() {
 
             @Override
-            public HearthTreeNode applyEffect(PlayerSide originSide, Minion origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
+            public HearthTreeNode applyEffect(PlayerSide originSide, Minion origin, PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState) {
                 PlayerModel currentPlayer = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
 
-                int thisMinionIndex = currentPlayer.getIndexForCharacter(origin);
+                CharacterIndex thisMinionIndex = currentPlayer.getIndexForCharacter(origin);
                 for (Minion minion : currentPlayer.getMinionsAdjacentToCharacter(thisMinionIndex)) {
                     minion.setTaunt(true);
                 }

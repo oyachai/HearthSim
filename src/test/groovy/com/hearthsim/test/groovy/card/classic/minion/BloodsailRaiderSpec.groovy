@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.classic.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.weapon.FieryWarAxe
 import com.hearthsim.card.classic.minion.common.BloodsailRaider
 import com.hearthsim.model.BoardModel
@@ -42,7 +43,7 @@ class BloodsailRaiderSpec extends CardSpec {
     
     def "playing Bloodsail Raider without weapon"() {
         def copiedBoard = startingBoard.deepCopy()
-        def target = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(1)
+        def target = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(CharacterIndex.MINION_1)
         def theCard = root.data_.getCurrentPlayer().getHand().get(1)
         def ret = theCard.useOn(CURRENT_PLAYER, target, root, null, null)
 
@@ -61,10 +62,10 @@ class BloodsailRaiderSpec extends CardSpec {
     def "playing Bloodsail Raider with weapon"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root, null, null)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
         
         theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        ret = theCard.useOn(CURRENT_PLAYER, 1, ret, null, null)
+        ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_1, ret)
 
         expect:
         assertFalse(ret == null);
@@ -77,7 +78,7 @@ class BloodsailRaiderSpec extends CardSpec {
                 }
                 removeCardFromHand(FieryWarAxe)
                 mana(3)
-                updateMinion(1, [ deltaAttack: 3])
+                updateMinion(CharacterIndex.MINION_2, [ deltaAttack: 3])
                 numCardsUsed(2)
             }
         }

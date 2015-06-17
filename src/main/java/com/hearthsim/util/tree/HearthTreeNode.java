@@ -1,6 +1,7 @@
 package com.hearthsim.util.tree;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.minion.*;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
@@ -191,7 +192,7 @@ public class HearthTreeNode {
 
     public HearthTreeNode notifyMinionDamaged(PlayerSide targetSide, Minion minion) {
         HearthTreeNode toRet = this;
-        for (BoardModel.CharacterLocation characterLocation : toRet.data_) {
+        for (CharacterIndex.CharacterLocation characterLocation : toRet.data_) {
             Minion character = toRet.data_.getCharacter(characterLocation);
             if (!character.isSilenced() && character instanceof MinionDamagedInterface) {
                 toRet = ((MinionDamagedInterface)character).minionDamagedEvent(characterLocation.getPlayerSide(), targetSide, minion, toRet);
@@ -203,7 +204,7 @@ public class HearthTreeNode {
 
     public HearthTreeNode notifyMinionDead(PlayerSide deadMinionPlayerSide, Minion deadMinion) {
         HearthTreeNode toRet = this;
-        for (BoardModel.CharacterLocation characterLocation : toRet.data_) {
+        for (CharacterIndex.CharacterLocation characterLocation : toRet.data_) {
             Minion character = toRet.data_.getCharacter(characterLocation);
             if (!character.isSilenced() && character instanceof MinionDeadInterface) {
                 toRet = ((MinionDeadInterface)character).minionDeadEvent(characterLocation.getPlayerSide(), deadMinionPlayerSide, deadMinion, toRet);
@@ -227,7 +228,7 @@ public class HearthTreeNode {
 
     public HearthTreeNode notifyMinionHealed(PlayerSide targetSide, Minion minion) {
         HearthTreeNode toRet = this;
-        for (BoardModel.CharacterLocation characterLocation : toRet.data_) {
+        for (CharacterIndex.CharacterLocation characterLocation : toRet.data_) {
             Minion character = toRet.data_.getCharacter(characterLocation);
             if (!character.isSilenced() && character instanceof MinionHealedInterface) {
                 toRet = ((MinionHealedInterface)character).minionHealedEvent(characterLocation.getPlayerSide(), targetSide, minion, toRet);
@@ -239,7 +240,7 @@ public class HearthTreeNode {
 
     public HearthTreeNode notifyMinionPlacement(PlayerSide targetSide, Minion minion) {
         HearthTreeNode toRet = this;
-        for (BoardModel.CharacterLocation characterLocation : toRet.data_) {
+        for (CharacterIndex.CharacterLocation characterLocation : toRet.data_) {
             Minion character = toRet.data_.getCharacter(characterLocation);
             if (!character.isSilenced() && character instanceof MinionPlacedInterface) {
                 toRet = ((MinionPlacedInterface)character).minionPlacedEvent(characterLocation.getPlayerSide(), targetSide, minion, toRet);
@@ -251,7 +252,7 @@ public class HearthTreeNode {
 
     public HearthTreeNode notifyMinionPlayed(PlayerSide targetSide, Minion minion) {
         HearthTreeNode toRet = this;
-        for (BoardModel.CharacterLocation characterLocation : toRet.data_) {
+        for (CharacterIndex.CharacterLocation characterLocation : toRet.data_) {
             Minion character = toRet.data_.getCharacter(characterLocation);
             if (!character.isSilenced() && character instanceof MinionPlayedInterface) {
                 toRet = ((MinionPlayedInterface)character).minionPlayedEvent(characterLocation.getPlayerSide(), targetSide, minion, toRet);
@@ -263,7 +264,7 @@ public class HearthTreeNode {
 
     public HearthTreeNode notifyMinionSummon(PlayerSide targetSide, Minion minion) {
         HearthTreeNode toRet = this;
-        for (BoardModel.CharacterLocation characterLocation : toRet.data_) {
+        for (CharacterIndex.CharacterLocation characterLocation : toRet.data_) {
             Minion character = toRet.data_.getCharacter(characterLocation);
             if (!character.isSilenced() && character instanceof MinionSummonedInterface) {
                 toRet = ((MinionSummonedInterface)character).minionSummonEvent(characterLocation.getPlayerSide(), targetSide, minion, toRet);

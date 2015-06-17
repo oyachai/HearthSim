@@ -1,6 +1,7 @@
 package com.hearthsim.card.blackrockmountain.minion;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionDamagedInterface;
 import com.hearthsim.event.effect.EffectCharacter;
@@ -19,7 +20,7 @@ public class AxeFlinger extends Minion implements MinionDamagedInterface {
     @Override
     public HearthTreeNode minionDamagedEvent(PlayerSide thisMinionPlayerSide, PlayerSide damagedPlayerSide, Minion damagedMinion, HearthTreeNode boardState) {
         if (damagedMinion == this) {
-            boardState = AxeFlinger.effect.applyEffect(thisMinionPlayerSide, this, thisMinionPlayerSide.getOtherPlayer(), 0, boardState);
+            boardState = AxeFlinger.effect.applyEffect(thisMinionPlayerSide, this, thisMinionPlayerSide.getOtherPlayer(), CharacterIndex.HERO, boardState);
         }
         return boardState;
     }

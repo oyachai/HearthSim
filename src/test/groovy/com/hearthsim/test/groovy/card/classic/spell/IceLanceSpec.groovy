@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.classic.spell
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.minion.KoboldGeomancer
 import com.hearthsim.card.basic.minion.WarGolem
 import com.hearthsim.card.classic.spell.common.IceLance
@@ -35,7 +36,7 @@ class IceLanceSpec extends CardSpec {
     def "freezes unfrozen minion"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayerCardHand(0)
-        def ret = theCard.useOn(WAITING_PLAYER, 1, root, null, null)
+        def ret = theCard.useOn(WAITING_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         assertEquals(root, ret);
@@ -47,17 +48,17 @@ class IceLanceSpec extends CardSpec {
                 numCardsUsed(1)
             }
             waitingPlayer {
-                updateMinion(0, [frozen : true])
+                updateMinion(CharacterIndex.MINION_1, [frozen : true])
             }
         }
     }
 
     def "damages frozen minion"() {
-        startingBoard.getMinion(WAITING_PLAYER, 0).setFrozen(true)
+        startingBoard.modelForSide(WAITING_PLAYER).getCharacter(CharacterIndex.MINION_1).setFrozen(true)
 
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayerCardHand(0)
-        def ret = theCard.useOn(WAITING_PLAYER, 1, root, null, null)
+        def ret = theCard.useOn(WAITING_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         assertEquals(root, ret);
@@ -69,18 +70,18 @@ class IceLanceSpec extends CardSpec {
                 numCardsUsed(1)
             }
             waitingPlayer {
-                updateMinion(0, [deltaHealth: -4])
+                updateMinion(CharacterIndex.MINION_1, [deltaHealth: -4])
             }
         }
     }
 
     def "affected by spellpower"() {
-        startingBoard.getMinion(WAITING_PLAYER, 0).setFrozen(true)
+        startingBoard.modelForSide(WAITING_PLAYER).getCharacter(CharacterIndex.MINION_1).setFrozen(true)
         startingBoard.placeMinion(CURRENT_PLAYER, new KoboldGeomancer())
 
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayerCardHand(0)
-        def ret = theCard.useOn(WAITING_PLAYER, 1, root, null, null)
+        def ret = theCard.useOn(WAITING_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         assertEquals(root, ret);
@@ -92,7 +93,7 @@ class IceLanceSpec extends CardSpec {
                 numCardsUsed(1)
             }
             waitingPlayer {
-                updateMinion(0, [deltaHealth: -5])
+                updateMinion(CharacterIndex.MINION_1, [deltaHealth: -5])
             }
         }
     }

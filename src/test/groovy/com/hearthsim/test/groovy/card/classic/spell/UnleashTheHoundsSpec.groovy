@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.classic.spell
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.minion.BloodfenRaptor
 import com.hearthsim.card.classic.minion.common.Hound
 import com.hearthsim.card.classic.spell.common.UnleashTheHounds
@@ -46,7 +47,7 @@ class UnleashTheHoundsSpec extends CardSpec {
     def "playing UnleashTheHounds with 1 enemy minion"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root, null, null)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         assertFalse(ret == null);
@@ -74,7 +75,7 @@ class UnleashTheHoundsSpec extends CardSpec {
         def copiedBoard = startingBoard.deepCopy()
 
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root, null, null)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         assertNotNull(ret);

@@ -5,9 +5,15 @@ import com.hearthsim.event.filter.FilterHand;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 
-public interface ActiveEffectHand extends ActiveEffectInterface<Card, SimpleEffectHand, FilterHand> {
-    @Override
+public interface ActiveEffectHand {
+
+    public SimpleEffectHand getActiveEffect();
+
+    public SimpleEffectHand undoActiveEffect();
+
+    public FilterHand getActiveFilter();
+
     public default boolean isActive(PlayerSide originSide, Card origin, BoardModel board) {
-        return !origin.isInHand();
+        return !origin.setInHand();
     }
 }

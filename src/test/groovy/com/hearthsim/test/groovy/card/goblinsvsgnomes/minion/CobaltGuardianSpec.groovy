@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.goblinsvsgnomes.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.spell.TheCoin
 import com.hearthsim.card.goblinsvsgnomes.minion.common.SpiderTank
 import com.hearthsim.card.goblinsvsgnomes.minion.rare.CobaltGuardian
@@ -32,7 +33,7 @@ class CobaltGuardianSpec extends CardSpec {
     def "gain divine shield on friendly mech play"() {
         def copiedBoard = startingBoard.deepCopy()
         def card = root.data_.getCurrentPlayer().getHand().get(1)
-        def ret = card.useOn(CURRENT_PLAYER, 1, root)
+        def ret = card.useOn(CURRENT_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         ret != null
@@ -42,17 +43,17 @@ class CobaltGuardianSpec extends CardSpec {
                 playMinion(SpiderTank)
                 mana(6)
                 numCardsUsed(1)
-                updateMinion(0, [divineShield: true])
+                updateMinion(CharacterIndex.MINION_1, [divineShield: true])
             }
         }
     }
 
     def "does not give divine shield after playing self"() {
-        startingBoard.removeMinion(CURRENT_PLAYER, 0)
+        startingBoard.removeMinion(CURRENT_PLAYER, CharacterIndex.MINION_1)
         startingBoard.modelForSide(CURRENT_PLAYER).getHand().add(new CobaltGuardian())
         def copiedBoard = startingBoard.deepCopy()
         def card = root.data_.getCurrentPlayer().getHand().get(2)
-        def ret = card.useOn(CURRENT_PLAYER, 0, root)
+        def ret = card.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         ret != null
@@ -69,7 +70,7 @@ class CobaltGuardianSpec extends CardSpec {
     def "does not give divine shield on spell"() {
         def copiedBoard = startingBoard.deepCopy()
         def card = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = card.useOn(CURRENT_PLAYER, 0, root)
+        def ret = card.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         ret != null
@@ -84,11 +85,11 @@ class CobaltGuardianSpec extends CardSpec {
     }
 
     def "does not gain divine shield while in hand"() {
-        startingBoard.removeMinion(CURRENT_PLAYER, 0)
+        startingBoard.removeMinion(CURRENT_PLAYER, CharacterIndex.MINION_1)
         startingBoard.modelForSide(CURRENT_PLAYER).getHand().add(new CobaltGuardian())
         def copiedBoard = startingBoard.deepCopy()
         def card = root.data_.getCurrentPlayer().getHand().get(1)
-        def ret = card.useOn(CURRENT_PLAYER, 0, root)
+        def ret = card.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         ret != null

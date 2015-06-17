@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.classic.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.minion.ChillwindYeti
 import com.hearthsim.card.basic.minion.GoldshireFootman
 import com.hearthsim.card.classic.minion.epic.CabalShadowPriest
@@ -43,7 +44,7 @@ class CabalShadowPriestSpec extends CardSpec {
         def minionPlayedBoard = startingBoard.deepCopy()
         def copiedRoot = new HearthTreeNode(minionPlayedBoard)
         def theCard = minionPlayedBoard.getCurrentPlayer().getHand().get(0);
-        def ret = theCard.useOn(CURRENT_PLAYER, 2, copiedRoot);
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_2, copiedRoot);
 
         expect:
         assertFalse(ret == null);
@@ -54,10 +55,10 @@ class CabalShadowPriestSpec extends CardSpec {
                 playMinion(CabalShadowPriest)
                 mana(1)
                 numCardsUsed(1)
-                addMinionToField(GoldshireFootman, true, true, 3)
+                addMinionToField(GoldshireFootman, true, true, CharacterIndex.MINION_3)
             }
             waitingPlayer {
-                removeMinion(0)
+                removeMinion(CharacterIndex.MINION_1)
             }
         }
     }

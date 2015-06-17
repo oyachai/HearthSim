@@ -1,5 +1,6 @@
 package com.hearthsim.card.classic.minion.legendary;
 
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerModel;
@@ -19,7 +20,7 @@ public class RagnarosTheFirelord extends Minion {
     public HearthTreeNode endTurn(PlayerSide thisMinionPlayerIndex, HearthTreeNode boardModel) throws HSException {
         if (thisMinionPlayerIndex == PlayerSide.CURRENT_PLAYER) {
             PlayerModel waitingPlayer = boardModel.data_.modelForSide(PlayerSide.WAITING_PLAYER);
-            int targetIndex = (int)(Math.random() * waitingPlayer.getNumCharacters());
+            CharacterIndex targetIndex = CharacterIndex.fromInteger((int)(Math.random() * waitingPlayer.getNumCharacters()));
             Minion targetMinion = waitingPlayer.getCharacter(targetIndex);
             boardModel = targetMinion.takeDamageAndNotify((byte)8, PlayerSide.CURRENT_PLAYER, PlayerSide.WAITING_PLAYER, boardModel, false, false);
         }

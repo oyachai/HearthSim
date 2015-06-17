@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.classic.spell
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.minion.Boar
 import com.hearthsim.card.classic.spell.common.EarthShock
 import com.hearthsim.model.BoardModel
@@ -34,7 +35,7 @@ class EarthShockSpec extends CardSpec {
     def "playing Earth Shock on a buffed health 1 target"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(WAITING_PLAYER, 1, root, null, null)
+        def ret = theCard.useOn(WAITING_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         assertFalse(ret == null);
@@ -46,7 +47,7 @@ class EarthShockSpec extends CardSpec {
                 numCardsUsed(1)
             }
             waitingPlayer {
-                removeMinion(0);
+                removeMinion(CharacterIndex.MINION_1);
             }
         }
 

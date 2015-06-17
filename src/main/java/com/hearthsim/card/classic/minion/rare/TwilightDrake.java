@@ -1,5 +1,6 @@
 package com.hearthsim.card.classic.minion.rare;
 
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionBattlecryInterface;
 import com.hearthsim.event.effect.EffectCharacter;
@@ -17,7 +18,7 @@ public class TwilightDrake extends Minion implements MinionBattlecryInterface {
      */
     @Override
     public EffectCharacter<Minion> getBattlecryEffect() {
-        return (PlayerSide originSide, Minion origin, PlayerSide targetSide,int minionPlacementIndex, HearthTreeNode boardState) -> {
+        return (PlayerSide originSide, Minion origin, PlayerSide targetSide,CharacterIndex minionPlacementIndex, HearthTreeNode boardState) -> {
             this.addHealth((byte) boardState.data_.getCurrentPlayer().getHand().size());
             this.addMaxHealth((byte) boardState.data_.getCurrentPlayer().getHand().size());
             return boardState;

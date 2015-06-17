@@ -2,6 +2,7 @@ package com.hearthsim.util;
 
 import com.hearthsim.Game;
 import com.hearthsim.card.Card;
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
@@ -30,23 +31,23 @@ public class HearthAction {
     private final int cardOrCharacterIndex_;
 
     private final PlayerSide targetPlayerSide;
-    public final int targetCharacterIndex_;
+    public final CharacterIndex targetCharacterIndex;
 
     public HearthAction(Verb verb) {
-        this(verb, PlayerSide.CURRENT_PLAYER, -1, null, -1);
+        this(verb, PlayerSide.CURRENT_PLAYER, -1, null, CharacterIndex.UNKNOWN);
     }
 
     public HearthAction(Verb verb, PlayerSide actionPerformerPlayerSide, int cardOrCharacterIndex) {
-        this(verb, actionPerformerPlayerSide, cardOrCharacterIndex, null, -1);
+        this(verb, actionPerformerPlayerSide, cardOrCharacterIndex, null, CharacterIndex.UNKNOWN);
     }
 
-    public HearthAction(Verb verb, PlayerSide actionPerformerPlayerSide, int cardOrCharacterIndex, PlayerSide targetPlayerSide, int targetCharacterIndex) {
+    public HearthAction(Verb verb, PlayerSide actionPerformerPlayerSide, int cardOrCharacterIndex, PlayerSide targetPlayerSide, CharacterIndex targetCharacterIndex) {
         verb_ = verb;
         this.actionPerformerPlayerSide = actionPerformerPlayerSide;
         cardOrCharacterIndex_ = cardOrCharacterIndex;
 
         this.targetPlayerSide = targetPlayerSide;
-        targetCharacterIndex_ = targetCharacterIndex;
+        this.targetCharacterIndex = targetCharacterIndex;
     }
 
     public JSONObject toJSON() {
@@ -56,26 +57,17 @@ public class HearthAction {
         json.put("actionPerformerPlayerSide", actionPerformerPlayerSide);
         json.put("cardOrCharacterIndex_", cardOrCharacterIndex_);
         json.put("targetPlayerSide", targetPlayerSide);
-        json.put("targetCharacterIndex_", targetCharacterIndex_);
+        json.put("targetCharacterIndex", targetCharacterIndex);
 
         return json;
     }
 
     @Deprecated
     public HearthTreeNode perform(HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
-        return this.perform(boardState, true);
-    }
-
-    @Deprecated
-    public HearthTreeNode perform(HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1, boolean singleRealization) throws HSException {
-        return this.perform(boardState, singleRealization);
+        return this.perform(boardState);
     }
 
     public HearthTreeNode perform(HearthTreeNode boardState) throws HSException {
-        return this.perform(boardState, true);
-    }
-
-    public HearthTreeNode perform(HearthTreeNode boardState, boolean singleRealization) throws HSException {
         HearthTreeNode toRet = boardState;
         PlayerModel actingPlayer = actionPerformerPlayerSide != null ? boardState.data_.modelForSide(actionPerformerPlayerSide) : null;
         PlayerModel targetPlayer = targetPlayerSide != null ? boardState.data_.modelForSide(targetPlayerSide) : null;
@@ -83,28 +75,28 @@ public class HearthAction {
         switch(verb_) {
             case USE_CARD: {
                 Card card = actingPlayer.getHand().get(cardOrCharacterIndex_);
-                toRet = card.useOn(targetPlayerSide, targetCharacterIndex_, toRet, singleRealization);
+                toRet = card.useOn(targetPlayerSide, targetCharacterIndex, toRet);
             }
             break;
             case HERO_ABILITY: {
                 Hero hero = actingPlayer.getHero();
-                Minion target = targetPlayer.getCharacter(targetCharacterIndex_);
-                toRet = hero.useHeroAbility(targetPlayerSide, target, toRet, singleRealization);
+                Minion target = targetPlayer.getCharacter(targetCharacterIndex);
+                toRet = hero.useHeroAbility(targetPlayerSide, target, toRet);
             }
             break;
             case ATTACK: {
-                Minion attacker = actingPlayer.getCharacter(cardOrCharacterIndex_);
-                toRet = attacker.attack(targetPlayerSide, targetCharacterIndex_, toRet, singleRealization);
+                Minion attacker = actingPlayer.getCharacter(CharacterIndex.fromInteger(cardOrCharacterIndex_));
+                toRet = attacker.attack(targetPlayerSide, targetCharacterIndex, toRet);
             }
             break;
             case UNTARGETABLE_BATTLECRY: {
-                Minion minion = actingPlayer.getCharacter(cardOrCharacterIndex_);
-                toRet = minion.useUntargetableBattlecry(targetCharacterIndex_, toRet, singleRealization);
+                Minion minion = actingPlayer.getCharacter(CharacterIndex.fromInteger(cardOrCharacterIndex_));
+                toRet = minion.useUntargetableBattlecry(targetCharacterIndex, toRet);
                 break;
             }
             case TARGETABLE_BATTLECRY: {
-                Minion minion = actingPlayer.getCharacter(cardOrCharacterIndex_);
-                toRet = minion.useTargetableBattlecry(targetPlayerSide, targetCharacterIndex_, toRet, singleRealization);
+                Minion minion = actingPlayer.getCharacter(CharacterIndex.fromInteger(cardOrCharacterIndex_));
+                toRet = minion.useTargetableBattlecry(targetPlayerSide, targetCharacterIndex, toRet);
                 break;
             }
             case START_TURN: {
@@ -137,7 +129,7 @@ public class HearthAction {
                 // Do not do this if the previous action was *also* RNG or we will end up in an infinite loop.
                 if (toRet.isLeaf() && boardState.getAction().verb_ != Verb.RNG) {
                     boardState.data_.getCurrentPlayer().addNumCardsUsed((byte)-1); //do not double count
-                    toRet = boardState.getAction().perform(boardState, singleRealization);
+                    toRet = boardState.getAction().perform(boardState);
                 }
                 // RNG has declared this child happened
                 toRet = toRet.getChildren().get(cardOrCharacterIndex_);

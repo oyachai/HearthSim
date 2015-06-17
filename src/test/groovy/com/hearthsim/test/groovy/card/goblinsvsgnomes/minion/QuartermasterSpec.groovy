@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.goblinsvsgnomes.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.minion.GoldshireFootman
 import com.hearthsim.card.basic.minion.SilverHandRecruit
 import com.hearthsim.card.goblinsvsgnomes.minion.epic.Quartermaster
@@ -36,18 +37,18 @@ class QuartermasterSpec extends CardSpec {
     def "playing Quartermaster buffs your own Silverhand Recruits"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         ret != null
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                playMinion(Quartermaster, 0)
+                playMinion(Quartermaster, CharacterIndex.HERO)
                 mana(5)
                 numCardsUsed(1)
-                updateMinion(1, [deltaHealth: 2, deltaMaxHealth: 2, deltaAttack: 2])
-                updateMinion(2, [deltaHealth: 2, deltaMaxHealth: 2, deltaAttack: 2])
+                updateMinion(CharacterIndex.MINION_2, [deltaHealth: 2, deltaMaxHealth: 2, deltaAttack: 2])
+                updateMinion(CharacterIndex.MINION_3, [deltaHealth: 2, deltaMaxHealth: 2, deltaAttack: 2])
 
             }
         }

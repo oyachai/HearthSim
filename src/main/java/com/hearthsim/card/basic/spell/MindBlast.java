@@ -42,8 +42,8 @@ public class MindBlast extends SpellDamageTargetableCard {
     protected HearthTreeNode use_core(
             PlayerSide side,
             Minion targetMinion,
-            HearthTreeNode boardState, boolean singleRealizationOnly)
+            HearthTreeNode boardState)
         throws HSException {
-        return super.use_core(side, targetMinion, boardState, singleRealizationOnly);
+        return super.use_core(side, targetMinion, boardState);
     }
 }

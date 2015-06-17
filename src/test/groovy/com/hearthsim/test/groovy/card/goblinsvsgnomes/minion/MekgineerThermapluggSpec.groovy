@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.goblinsvsgnomes.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.minion.Boar
 import com.hearthsim.card.basic.minion.MurlocRaider
 import com.hearthsim.card.basic.spell.Fireball
@@ -39,7 +40,7 @@ class MekgineerThermapluggSpec extends CardSpec {
     def "summons leper gnome on enemy minion death"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(WAITING_PLAYER, 1, root)
+        def ret = theCard.useOn(WAITING_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         ret != null
@@ -49,10 +50,10 @@ class MekgineerThermapluggSpec extends CardSpec {
                 removeCardFromHand(Fireball)
                 mana(6)
                 numCardsUsed(1)
-                addMinionToField(LeperGnome, 1)
+                addMinionToField(LeperGnome, CharacterIndex.MINION_1)
             }
             waitingPlayer {
-                removeMinion(0)
+                removeMinion(CharacterIndex.MINION_1)
             }
         }
     }
@@ -60,7 +61,7 @@ class MekgineerThermapluggSpec extends CardSpec {
     def "does not trigger on friendly minion death"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 2, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_2, root)
 
         expect:
         ret != null
@@ -70,7 +71,7 @@ class MekgineerThermapluggSpec extends CardSpec {
                 removeCardFromHand(Fireball)
                 mana(6)
                 numCardsUsed(1)
-                removeMinion(1)
+                removeMinion(CharacterIndex.MINION_2)
             }
         }
     }
@@ -78,7 +79,7 @@ class MekgineerThermapluggSpec extends CardSpec {
     def "triggers for each death"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(1)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         ret != null
@@ -88,14 +89,14 @@ class MekgineerThermapluggSpec extends CardSpec {
                 removeCardFromHand(Whirlwind)
                 mana(9)
                 numCardsUsed(1)
-                removeMinion(1)
-                addMinionToField(LeperGnome, 1)
-                addMinionToField(LeperGnome, 1)
-                updateMinion(0, [deltaHealth: -1])
+                removeMinion(CharacterIndex.MINION_2)
+                addMinionToField(LeperGnome, CharacterIndex.MINION_1)
+                addMinionToField(LeperGnome, CharacterIndex.MINION_1)
+                updateMinion(CharacterIndex.MINION_1, [deltaHealth: -1])
             }
             waitingPlayer {
-                removeMinion(1)
-                removeMinion(0)
+                removeMinion(CharacterIndex.MINION_2)
+                removeMinion(CharacterIndex.MINION_1)
             }
         }
     }
@@ -104,7 +105,7 @@ class MekgineerThermapluggSpec extends CardSpec {
     def "does not trigger if also died"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(2)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         ret != null
@@ -114,23 +115,23 @@ class MekgineerThermapluggSpec extends CardSpec {
                 removeCardFromHand(TwistingNether)
                 mana(2)
                 numCardsUsed(1)
-                removeMinion(1)
-                removeMinion(0)
+                removeMinion(CharacterIndex.MINION_2)
+                removeMinion(CharacterIndex.MINION_1)
             }
             waitingPlayer {
-                removeMinion(1)
-                removeMinion(0)
+                removeMinion(CharacterIndex.MINION_2)
+                removeMinion(CharacterIndex.MINION_1)
             }
         }
     }
 
     def "does not trigger while in hand"() {
         startingBoard.modelForSide(CURRENT_PLAYER).placeCardHand(new MekgineerThermaplugg())
-        startingBoard.removeMinion(CURRENT_PLAYER, 0)
+        startingBoard.removeMinion(CURRENT_PLAYER, CharacterIndex.MINION_1)
 
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(WAITING_PLAYER, 1, root)
+        def ret = theCard.useOn(WAITING_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         ret != null
@@ -142,7 +143,7 @@ class MekgineerThermapluggSpec extends CardSpec {
                 numCardsUsed(1)
             }
             waitingPlayer {
-                removeMinion(0)
+                removeMinion(CharacterIndex.MINION_1)
             }
         }
     }

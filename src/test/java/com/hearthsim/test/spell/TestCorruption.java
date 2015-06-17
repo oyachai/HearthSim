@@ -2,6 +2,7 @@ package com.hearthsim.test.spell;
 
 import com.hearthsim.Game;
 import com.hearthsim.card.Card;
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.basic.spell.Corruption;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionMock;
@@ -56,24 +57,24 @@ public class TestCorruption {
     @Test
     public void testSetsDestroyOnTurnStart() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 1, board);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, CharacterIndex.MINION_1, board);
 
         assertEquals(board, ret);
 
         assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(currentPlayer.getMana(), 3);
-        assertEquals(waitingPlayer.getCharacter(1).getHealth(), health0);
-        assertTrue(waitingPlayer.getCharacter(1).getDestroyOnTurnStart());
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), health0);
+        assertTrue(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getDestroyOnTurnStart());
     }
 
     @Test
     public void testMinionIsDestroyedNextTurnStart() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 1, board);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, CharacterIndex.MINION_1, board);
         assertEquals(board, ret);
 
-        assertEquals(waitingPlayer.getCharacter(1).getHealth(), health0);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), health0);
 
         BoardModel nextTurn = Game.beginTurn(board.data_);
         assertNotNull(nextTurn);

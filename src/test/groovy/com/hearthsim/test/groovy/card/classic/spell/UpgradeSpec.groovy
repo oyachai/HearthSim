@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.classic.spell
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.weapon.FieryWarAxe
 import com.hearthsim.card.classic.spell.rare.Upgrade
 import com.hearthsim.card.classic.weapon.common.HeavyAxe
@@ -32,7 +33,7 @@ class UpgradeSpec extends CardSpec {
         def copiedRoot = new HearthTreeNode(copiedBoard)
 
         def theCard = copiedBoard.getCurrentPlayer().getHand().get(0);
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot);
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, copiedRoot);
 
         expect:
         ret != null
@@ -49,13 +50,13 @@ class UpgradeSpec extends CardSpec {
 
     def 'playing with a weapon buffs 1/1'() {
         def theCard = startingBoard.getCurrentPlayer().getHand().get(1);
-        root = theCard.useOn(CURRENT_PLAYER, 0, root);
+        root = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root);
 
         def copiedBoard = startingBoard.deepCopy()
         def copiedRoot = new HearthTreeNode(copiedBoard)
 
         theCard = copiedBoard.getCurrentPlayer().getHand().get(0);
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, copiedRoot);
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, copiedRoot);
 
         expect:
         ret != null

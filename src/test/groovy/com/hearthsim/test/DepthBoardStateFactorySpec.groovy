@@ -1,5 +1,6 @@
 package com.hearthsim.test
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.minion.GoldshireFootman
 import com.hearthsim.card.basic.minion.MurlocRaider
 import com.hearthsim.card.classic.minion.common.Wisp
@@ -35,8 +36,8 @@ class DepthBoardStateFactorySpec extends CardSpec {
         assertBoardDelta(copiedBoard, newBoardModel) {
             currentPlayer {
                 playMinion(Wisp)
-                playMinion(GoldshireFootman, 0)
-                playMinion(MurlocRaider, 0)
+                playMinion(GoldshireFootman, CharacterIndex.HERO)
+                playMinion(MurlocRaider, CharacterIndex.HERO)
                 mana(8)
                 numCardsUsed(3)
             }

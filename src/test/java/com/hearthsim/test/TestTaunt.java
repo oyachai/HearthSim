@@ -1,6 +1,7 @@
 package com.hearthsim.test;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.basic.spell.HolySmite;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionMock;
@@ -131,7 +132,7 @@ public class TestTaunt {
     public void testCannotCastSpellWithoutMana() throws HSException {
         HolySmite holySmite = new HolySmite();
 
-        board.removeMinion(PlayerSide.CURRENT_PLAYER, 0);
+        board.removeMinion(PlayerSide.CURRENT_PLAYER, CharacterIndex.MINION_1);
         board.getCurrentPlayer().placeCardHand(holySmite);
 
         BoardStateFactoryBase factory = new DepthBoardStateFactory(null, null, 2000000000, true);
@@ -151,7 +152,7 @@ public class TestTaunt {
     public void testDoesNotBlockSpells() throws HSException {
         HolySmite holySmite = new HolySmite();
 
-        board.removeMinion(PlayerSide.CURRENT_PLAYER, 0);
+        board.removeMinion(PlayerSide.CURRENT_PLAYER, CharacterIndex.MINION_1);
         board.getCurrentPlayer().placeCardHand(holySmite);
         board.getCurrentPlayer().setMana((byte)1);
 

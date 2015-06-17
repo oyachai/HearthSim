@@ -1,6 +1,7 @@
 package com.hearthsim.test;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.basic.minion.BloodfenRaptor;
 import com.hearthsim.card.basic.minion.RiverCrocolisk;
 import com.hearthsim.card.basic.spell.HolySmite;
@@ -46,7 +47,7 @@ public class TestSpellCard {
         currentPlayer.placeCardHand(new HolySmite());
 
         Card theCard = currentPlayer.getHand().get(0);
-        assertTrue(theCard.canBeUsedOn(PlayerSide.CURRENT_PLAYER, 0, board.data_));
+        assertTrue(theCard.canBeUsedOn(PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO, board.data_));
     }
 
     @Test
@@ -54,7 +55,7 @@ public class TestSpellCard {
         currentPlayer.placeCardHand(new ShadowBolt());
 
         Card theCard = currentPlayer.getHand().get(0);
-        assertFalse(theCard.canBeUsedOn(PlayerSide.CURRENT_PLAYER, 0, board.data_));
+        assertFalse(theCard.canBeUsedOn(PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO, board.data_));
     }
 
     @Test
@@ -62,7 +63,7 @@ public class TestSpellCard {
         currentPlayer.placeCardHand(new RockbiterWeapon());
 
         Card theCard = currentPlayer.getHand().get(0);
-        assertTrue(theCard.canBeUsedOn(PlayerSide.CURRENT_PLAYER, 1, board.data_));
+        assertTrue(theCard.canBeUsedOn(PlayerSide.CURRENT_PLAYER, CharacterIndex.MINION_1, board.data_));
     }
 
     @Test
@@ -70,7 +71,7 @@ public class TestSpellCard {
         currentPlayer.placeCardHand(new Sap());
 
         Card theCard = currentPlayer.getHand().get(0);
-        assertFalse(theCard.canBeUsedOn(PlayerSide.CURRENT_PLAYER, 1, board.data_));
+        assertFalse(theCard.canBeUsedOn(PlayerSide.CURRENT_PLAYER, CharacterIndex.MINION_1, board.data_));
     }
 
     @Test
@@ -78,7 +79,7 @@ public class TestSpellCard {
         currentPlayer.placeCardHand(new HolySmite());
 
         Card theCard = currentPlayer.getHand().get(0);
-        assertTrue(theCard.canBeUsedOn(PlayerSide.WAITING_PLAYER, 0, board.data_));
+        assertTrue(theCard.canBeUsedOn(PlayerSide.WAITING_PLAYER, CharacterIndex.HERO, board.data_));
     }
 
     @Test
@@ -86,7 +87,7 @@ public class TestSpellCard {
         currentPlayer.placeCardHand(new ShadowBolt());
 
         Card theCard = currentPlayer.getHand().get(0);
-        assertFalse(theCard.canBeUsedOn(PlayerSide.WAITING_PLAYER, 0, board.data_));
+        assertFalse(theCard.canBeUsedOn(PlayerSide.WAITING_PLAYER, CharacterIndex.HERO, board.data_));
     }
 
     @Test
@@ -94,7 +95,7 @@ public class TestSpellCard {
         currentPlayer.placeCardHand(new Sap());
 
         Card theCard = currentPlayer.getHand().get(0);
-        assertTrue(theCard.canBeUsedOn(PlayerSide.WAITING_PLAYER, 1, board.data_));
+        assertTrue(theCard.canBeUsedOn(PlayerSide.WAITING_PLAYER, CharacterIndex.MINION_1, board.data_));
     }
 
     @Test
@@ -102,14 +103,14 @@ public class TestSpellCard {
         currentPlayer.placeCardHand(new RockbiterWeapon());
 
         Card theCard = currentPlayer.getHand().get(0);
-        assertFalse(theCard.canBeUsedOn(PlayerSide.WAITING_PLAYER, 1, board.data_));
+        assertFalse(theCard.canBeUsedOn(PlayerSide.WAITING_PLAYER, CharacterIndex.MINION_1, board.data_));
     }
 
     @Test
     public void testTargetStealthedMinion() throws HSException {
         currentPlayer.placeCardHand(new HolySmite());
 
-        Minion target = waitingPlayer.getCharacter(1);
+        Minion target = waitingPlayer.getCharacter(CharacterIndex.MINION_1);
         target.setStealthed(true);
         Card theCard = currentPlayer.getHand().get(0);
         assertFalse(theCard.canBeUsedOn(PlayerSide.WAITING_PLAYER, target, board.data_));
@@ -121,7 +122,7 @@ public class TestSpellCard {
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, new FaerieDragon());
 
         Card theCard = currentPlayer.getHand().get(0);
-        assertFalse(theCard.canBeUsedOn(PlayerSide.WAITING_PLAYER, 2, board.data_));
+        assertFalse(theCard.canBeUsedOn(PlayerSide.WAITING_PLAYER, CharacterIndex.MINION_2, board.data_));
     }
 
     @Test
@@ -129,10 +130,10 @@ public class TestSpellCard {
         Sap sap = new Sap();
         Card copy = sap.deepCopy();
 
-        assertFalse(copy.canBeUsedOn(PlayerSide.CURRENT_PLAYER, 1, board.data_));
-        assertFalse(copy.canBeUsedOn(PlayerSide.CURRENT_PLAYER, 0, board.data_));
-        assertTrue(copy.canBeUsedOn(PlayerSide.WAITING_PLAYER, 1, board.data_));
-        assertFalse(copy.canBeUsedOn(PlayerSide.WAITING_PLAYER, 0, board.data_));
+        assertFalse(copy.canBeUsedOn(PlayerSide.CURRENT_PLAYER, CharacterIndex.MINION_1, board.data_));
+        assertFalse(copy.canBeUsedOn(PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO, board.data_));
+        assertTrue(copy.canBeUsedOn(PlayerSide.WAITING_PLAYER, CharacterIndex.MINION_1, board.data_));
+        assertFalse(copy.canBeUsedOn(PlayerSide.WAITING_PLAYER, CharacterIndex.HERO, board.data_));
     }
 
     @Test
@@ -140,9 +141,9 @@ public class TestSpellCard {
         RockbiterWeapon rockbiter = new RockbiterWeapon();
         Card copy = rockbiter.deepCopy();
 
-        assertTrue(copy.canBeUsedOn(PlayerSide.CURRENT_PLAYER, 1, board.data_));
-        assertTrue(copy.canBeUsedOn(PlayerSide.CURRENT_PLAYER, 0, board.data_));
-        assertFalse(copy.canBeUsedOn(PlayerSide.WAITING_PLAYER, 1, board.data_));
-        assertFalse(copy.canBeUsedOn(PlayerSide.WAITING_PLAYER, 0, board.data_));
+        assertTrue(copy.canBeUsedOn(PlayerSide.CURRENT_PLAYER, CharacterIndex.MINION_1, board.data_));
+        assertTrue(copy.canBeUsedOn(PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO, board.data_));
+        assertFalse(copy.canBeUsedOn(PlayerSide.WAITING_PLAYER, CharacterIndex.MINION_1, board.data_));
+        assertFalse(copy.canBeUsedOn(PlayerSide.WAITING_PLAYER, CharacterIndex.HERO, board.data_));
     }
 }

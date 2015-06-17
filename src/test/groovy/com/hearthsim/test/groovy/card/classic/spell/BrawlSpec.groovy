@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.classic.spell
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.minion.Voidwalker
 import com.hearthsim.card.basic.minion.WarGolem
 import com.hearthsim.card.classic.minion.common.FaerieDragon
@@ -35,25 +36,25 @@ class BrawlSpec extends CardSpec {
     }
 
     def "returned node is null for no targets"() {
-        startingBoard.removeMinion(CURRENT_PLAYER, 0);
-        startingBoard.removeMinion(CURRENT_PLAYER, 0);
-        startingBoard.removeMinion(WAITING_PLAYER, 0);
-        startingBoard.removeMinion(WAITING_PLAYER, 0);
+        startingBoard.removeMinion(CURRENT_PLAYER, CharacterIndex.MINION_1);
+        startingBoard.removeMinion(CURRENT_PLAYER, CharacterIndex.MINION_1);
+        startingBoard.removeMinion(WAITING_PLAYER, CharacterIndex.MINION_1);
+        startingBoard.removeMinion(WAITING_PLAYER, CharacterIndex.MINION_1);
 
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         ret == null
     }
 
     def "returned node is null for only one target"() {
-        startingBoard.removeMinion(CURRENT_PLAYER, 0);
-        startingBoard.removeMinion(WAITING_PLAYER, 0);
-        startingBoard.removeMinion(WAITING_PLAYER, 0);
+        startingBoard.removeMinion(CURRENT_PLAYER, CharacterIndex.MINION_1);
+        startingBoard.removeMinion(WAITING_PLAYER, CharacterIndex.MINION_1);
+        startingBoard.removeMinion(WAITING_PLAYER, CharacterIndex.MINION_1);
 
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         ret == null
@@ -62,7 +63,7 @@ class BrawlSpec extends CardSpec {
     def "returned node is RNG for two or more targets"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         ret != null
@@ -78,7 +79,7 @@ class BrawlSpec extends CardSpec {
 
     def "hits all minions but one"() {
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         ret != null
@@ -92,11 +93,11 @@ class BrawlSpec extends CardSpec {
             currentPlayer {
                 removeCardFromHand(Brawl)
                 mana(5)
-                removeMinion(1)
+                removeMinion(CharacterIndex.MINION_2)
             }
             waitingPlayer {
-                removeMinion(1)
-                removeMinion(0)
+                removeMinion(CharacterIndex.MINION_2)
+                removeMinion(CharacterIndex.MINION_1)
             }
         }
 
@@ -105,11 +106,11 @@ class BrawlSpec extends CardSpec {
             currentPlayer {
                 removeCardFromHand(Brawl)
                 mana(5)
-                removeMinion(0)
+                removeMinion(CharacterIndex.MINION_1)
             }
             waitingPlayer {
-                removeMinion(1)
-                removeMinion(0)
+                removeMinion(CharacterIndex.MINION_2)
+                removeMinion(CharacterIndex.MINION_1)
             }
         }
 
@@ -118,11 +119,11 @@ class BrawlSpec extends CardSpec {
             currentPlayer {
                 removeCardFromHand(Brawl)
                 mana(5)
-                removeMinion(1)
-                removeMinion(0)
+                removeMinion(CharacterIndex.MINION_2)
+                removeMinion(CharacterIndex.MINION_1)
             }
             waitingPlayer {
-                removeMinion(1)
+                removeMinion(CharacterIndex.MINION_2)
             }
         }
 
@@ -131,11 +132,11 @@ class BrawlSpec extends CardSpec {
             currentPlayer {
                 removeCardFromHand(Brawl)
                 mana(5)
-                removeMinion(1)
-                removeMinion(0)
+                removeMinion(CharacterIndex.MINION_2)
+                removeMinion(CharacterIndex.MINION_1)
             }
             waitingPlayer {
-                removeMinion(0)
+                removeMinion(CharacterIndex.MINION_1)
             }
         }
     }

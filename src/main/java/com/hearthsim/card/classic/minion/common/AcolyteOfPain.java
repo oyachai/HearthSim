@@ -1,5 +1,6 @@
 package com.hearthsim.card.classic.minion.common;
 
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionDamagedInterface;
 import com.hearthsim.event.effect.EffectCharacter;
@@ -21,7 +22,7 @@ public class AcolyteOfPain extends Minion implements MinionDamagedInterface {
     @Override
     public HearthTreeNode minionDamagedEvent(PlayerSide thisMinionPlayerSide, PlayerSide damagedPlayerSide, Minion damagedMinion, HearthTreeNode boardState) {
         if (damagedMinion == this) {
-            boardState = AcolyteOfPain.effect.applyEffect(thisMinionPlayerSide, this, thisMinionPlayerSide, 0, boardState);
+            boardState = AcolyteOfPain.effect.applyEffect(thisMinionPlayerSide, this, thisMinionPlayerSide, CharacterIndex.HERO, boardState);
         }
         return boardState;
     }
