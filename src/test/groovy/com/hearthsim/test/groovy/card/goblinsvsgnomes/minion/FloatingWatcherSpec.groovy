@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.goblinsvsgnomes.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.spell.Moonfire
 import com.hearthsim.card.goblinsvsgnomes.minion.common.FloatingWatcher
 import com.hearthsim.model.BoardModel
@@ -30,7 +31,7 @@ class FloatingWatcherSpec extends CardSpec {
     def "buffs after hero takes damage"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         ret != null
@@ -40,7 +41,7 @@ class FloatingWatcherSpec extends CardSpec {
                 removeCardFromHand(Moonfire)
                 heroHealth(29)
                 numCardsUsed(1)
-                updateMinion(0, [deltaAttack: 2, deltaHealth: 2, deltaMaxHealth: 2])
+                updateMinion(CharacterIndex.MINION_1, [deltaAttack: 2, deltaHealth: 2, deltaMaxHealth: 2])
             }
         }
     }
@@ -48,7 +49,7 @@ class FloatingWatcherSpec extends CardSpec {
     def "does not buff after hurting enemy"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(WAITING_PLAYER, 0, root)
+        def ret = theCard.useOn(WAITING_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         ret != null
@@ -65,12 +66,12 @@ class FloatingWatcherSpec extends CardSpec {
     }
 
     def "does not buff if opponent's turn"() {
-        startingBoard.removeMinion(CURRENT_PLAYER, 0);
+        startingBoard.removeMinion(CURRENT_PLAYER, CharacterIndex.MINION_1);
         startingBoard.placeMinion(WAITING_PLAYER, new FloatingWatcher());
 
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(WAITING_PLAYER, 0, root)
+        def ret = theCard.useOn(WAITING_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         ret != null

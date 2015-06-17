@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.classic.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.spell.TheCoin
 import com.hearthsim.card.classic.minion.rare.ManaAddict
 import com.hearthsim.test.groovy.card.CardSpec
@@ -27,14 +28,12 @@ class ManaAddictSpec extends CardSpec {
         def root = new HearthTreeNode(startingBoard)
 
         def copiedBoard = startingBoard.deepCopy()
-        def target = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(0)
         def manaAddict = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = manaAddict.useOn(CURRENT_PLAYER, target, root)
+        def ret = manaAddict.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         def board2 = new HearthTreeNode(root.data_.deepCopy())
         def theCoin = board2.data_.getCurrentPlayer().getHand().get(0)
-        def coinTarget = board2.data_.modelForSide(CURRENT_PLAYER).getCharacter(0)
-        def ret2 = theCoin.useOn(CURRENT_PLAYER, coinTarget, board2)
+        def ret2 = theCoin.useOn(CURRENT_PLAYER, CharacterIndex.HERO, board2)
         
         expect:
         assertFalse(ret == null);
@@ -51,7 +50,7 @@ class ManaAddictSpec extends CardSpec {
                 playMinion(ManaAddict)
                 removeCardFromHand(TheCoin)
                 mana(8)
-                updateMinion(0, [deltaExtraAttack: 2])
+                updateMinion(CharacterIndex.MINION_1, [deltaExtraAttack: 2])
                 numCardsUsed(2)
             }
         }
@@ -77,8 +76,7 @@ class ManaAddictSpec extends CardSpec {
 
         def board2 = new HearthTreeNode(root.data_.deepCopy())
         def theCoin = board2.data_.getCurrentPlayer().getHand().get(1)
-        def coinTarget = board2.data_.modelForSide(CURRENT_PLAYER).getCharacter(0)
-        def ret2 = theCoin.useOn(CURRENT_PLAYER, coinTarget, board2)
+        def ret2 = theCoin.useOn(CURRENT_PLAYER, CharacterIndex.HERO, board2)
 
         expect:
         assertFalse(ret2 == null);

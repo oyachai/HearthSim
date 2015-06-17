@@ -23,14 +23,13 @@ public class Eviscerate extends SpellDamageTargetableCard {
     protected HearthTreeNode use_core(
         PlayerSide side,
         Minion targetMinion,
-        HearthTreeNode boardState,
-        boolean singleRealizationOnly)
+        HearthTreeNode boardState)
         throws HSException {
         byte origDamage = damage_;
         if (boardState.data_.getCurrentPlayer().isComboEnabled()) {
             damage_ = 4;
         }
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
+        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState);
         damage_ = origDamage;
         return toRet;
     }

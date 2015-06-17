@@ -1,6 +1,7 @@
 package com.hearthsim.test.spell;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.basic.spell.Execute;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionMock;
@@ -51,7 +52,7 @@ public class TestExecute {
         Execute fb = new Execute();
         currentPlayer.placeCardHand(fb);
 
-        HearthTreeNode ret = fb.useOn(PlayerSide.WAITING_PLAYER, 0, board);
+        HearthTreeNode ret = fb.useOn(PlayerSide.WAITING_PLAYER, CharacterIndex.HERO, board);
         assertNull(ret);
     }
 
@@ -61,7 +62,7 @@ public class TestExecute {
         currentPlayer.placeCardHand(fb);
 
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 1, board);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, CharacterIndex.MINION_1, board);
         assertNull(ret);
 
         assertEquals(currentPlayer.getHand().size(), 1);
@@ -69,16 +70,16 @@ public class TestExecute {
         assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), 30);
-        assertEquals(currentPlayer.getCharacter(1).getHealth(), health0);
-        assertEquals(currentPlayer.getCharacter(2).getHealth(), health1 - 1);
-        assertEquals(waitingPlayer.getCharacter(1).getHealth(), health0);
-        assertEquals(waitingPlayer.getCharacter(2).getHealth(), health1 - 1);
-        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), attack0);
-        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), attack0);
-        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), attack0);
-        assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), attack0);
-        assertFalse(currentPlayer.getCharacter(1).getCharge());
-        assertFalse(currentPlayer.getCharacter(2).getCharge());
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), health0);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getHealth(), health1 - 1);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), health0);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getHealth(), health1 - 1);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), attack0);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getTotalAttack(), attack0);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), attack0);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getTotalAttack(), attack0);
+        assertFalse(currentPlayer.getCharacter(CharacterIndex.MINION_1).getCharge());
+        assertFalse(currentPlayer.getCharacter(CharacterIndex.MINION_2).getCharge());
     }
 
     @Test
@@ -87,7 +88,7 @@ public class TestExecute {
         currentPlayer.placeCardHand(fb);
 
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 2, board);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, CharacterIndex.MINION_2, board);
         assertFalse(ret == null);
 
         assertEquals(currentPlayer.getHand().size(), 0);
@@ -95,13 +96,13 @@ public class TestExecute {
         assertEquals(waitingPlayer.getNumMinions(), 1);
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), 30);
-        assertEquals(currentPlayer.getCharacter(1).getHealth(), health0);
-        assertEquals(currentPlayer.getCharacter(2).getHealth(), health1 - 1);
-        assertEquals(waitingPlayer.getCharacter(1).getHealth(), health0);
-        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), attack0);
-        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), attack0);
-        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), attack0);
-        assertFalse(currentPlayer.getCharacter(1).getCharge());
-        assertFalse(currentPlayer.getCharacter(2).getCharge());
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), health0);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getHealth(), health1 - 1);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), health0);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), attack0);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getTotalAttack(), attack0);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), attack0);
+        assertFalse(currentPlayer.getCharacter(CharacterIndex.MINION_1).getCharge());
+        assertFalse(currentPlayer.getCharacter(CharacterIndex.MINION_2).getCharge());
     }
 }

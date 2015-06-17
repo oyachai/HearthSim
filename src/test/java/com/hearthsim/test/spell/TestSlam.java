@@ -1,6 +1,7 @@
 package com.hearthsim.test.spell;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.basic.minion.BoulderfistOgre;
 import com.hearthsim.card.basic.minion.RaidLeader;
 import com.hearthsim.card.classic.spell.common.Slam;
@@ -49,7 +50,7 @@ public class TestSlam {
     @Test
     public void test1() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 2, board);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, CharacterIndex.MINION_2, board);
 
         assertFalse(ret == null);
 
@@ -60,15 +61,15 @@ public class TestSlam {
         assertEquals(waitingPlayer.getMana(), 10);
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), 30);
-        assertEquals(currentPlayer.getCharacter(1).getHealth(), 2);
-        assertEquals(currentPlayer.getCharacter(2).getHealth(), 5);
-        assertEquals(waitingPlayer.getCharacter(1).getHealth(), 2);
-        assertEquals(waitingPlayer.getCharacter(2).getHealth(), 7);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), 2);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getHealth(), 5);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), 2);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getHealth(), 7);
 
-        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), 2);
-        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), 7);
-        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), 2);
-        assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), 7);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), 2);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getTotalAttack(), 7);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), 2);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getTotalAttack(), 7);
 
         assertTrue(ret instanceof CardDrawNode);
         assertEquals(((CardDrawNode) ret).getNumCardsToDraw(), 1);
@@ -77,7 +78,7 @@ public class TestSlam {
     @Test
     public void test2() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 2, board);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, CharacterIndex.MINION_2, board);
 
         assertFalse(ret == null);
 
@@ -88,15 +89,15 @@ public class TestSlam {
         assertEquals(waitingPlayer.getMana(), 10);
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), 30);
-        assertEquals(currentPlayer.getCharacter(1).getHealth(), 2);
-        assertEquals(currentPlayer.getCharacter(2).getHealth(), 7);
-        assertEquals(waitingPlayer.getCharacter(1).getHealth(), 2);
-        assertEquals(waitingPlayer.getCharacter(2).getHealth(), 5);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), 2);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getHealth(), 7);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), 2);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getHealth(), 5);
 
-        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), 2);
-        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), 7);
-        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), 2);
-        assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), 7);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), 2);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getTotalAttack(), 7);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), 2);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getTotalAttack(), 7);
 
         assertTrue(ret instanceof CardDrawNode);
         assertEquals(((CardDrawNode)ret).getNumCardsToDraw(), 1);
@@ -105,7 +106,7 @@ public class TestSlam {
     @Test
     public void test3() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 1, board);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, CharacterIndex.MINION_1, board);
 
         assertFalse(ret == null);
 
@@ -116,13 +117,13 @@ public class TestSlam {
         assertEquals(waitingPlayer.getMana(), 10);
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), 30);
-        assertEquals(currentPlayer.getCharacter(1).getHealth(), 2);
-        assertEquals(currentPlayer.getCharacter(2).getHealth(), 7);
-        assertEquals(waitingPlayer.getCharacter(1).getHealth(), 7);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), 2);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getHealth(), 7);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), 7);
 
-        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), 2);
-        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), 7);
-        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), 6);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), 2);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getTotalAttack(), 7);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), 6);
 
         assertFalse(ret instanceof CardDrawNode);
     }

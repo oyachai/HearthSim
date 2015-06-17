@@ -51,8 +51,8 @@ public class Hex extends SpellTargetableCard {
         if (this.effect == null) {
             this.effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
                 Frog frog = new Frog();
-                boardState.data_.removeMinion(targetSide, targetCharacterIndex - 1);
-                boardState.data_.placeMinion(targetSide, frog, targetCharacterIndex - 1);
+                boardState.data_.removeMinion(targetSide, targetCharacterIndex);
+                boardState.data_.placeMinion(targetSide, frog, targetCharacterIndex.indexToLeft());
                 return boardState;
             };
         }

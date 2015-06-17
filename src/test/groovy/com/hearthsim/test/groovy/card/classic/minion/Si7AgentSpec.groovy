@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.classic.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.minion.BoulderfistOgre
 import com.hearthsim.card.basic.spell.TheCoin
 import com.hearthsim.card.classic.minion.rare.Si7Agent
@@ -37,14 +38,14 @@ class Si7AgentSpec extends CardSpec {
     def "Playing SI:7 Agent without combo"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayerCardHand(1)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root, null, null)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         assertFalse(ret == null);
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                playMinion(Si7Agent, 0)
+                playMinion(Si7Agent, CharacterIndex.HERO)
                 numCardsUsed(1)
                 mana(7)
             }
@@ -54,9 +55,9 @@ class Si7AgentSpec extends CardSpec {
     def "Playing SI:7 Agent with combo"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCoin = root.data_.getCurrentPlayerCardHand(0)
-        theCoin.useOn(CURRENT_PLAYER, 0, root, null, null)
+        theCoin.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
         def si7 = root.data_.getCurrentPlayerCardHand(0)
-        def ret = si7.useOn(CURRENT_PLAYER, 0, root, null, null)
+        def ret = si7.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         assertFalse(ret == null);
@@ -64,7 +65,7 @@ class Si7AgentSpec extends CardSpec {
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
                 removeCardFromHand(TheCoin)
-                playMinion(Si7Agent, 0)
+                playMinion(Si7Agent, CharacterIndex.HERO)
                 numCardsUsed(2)
                 mana(7)
             }
@@ -89,14 +90,14 @@ class Si7AgentSpec extends CardSpec {
         HearthTreeNode child2 = ret.getChildren().get(1);
         assertBoardDelta(ret.data_, child2.data_) {
             currentPlayer {
-                updateMinion(1, [deltaHealth: -2])
+                updateMinion(CharacterIndex.MINION_2, [deltaHealth: -2])
             }
         }
 
         HearthTreeNode child3 = ret.getChildren().get(3);
         assertBoardDelta(ret.data_, child3.data_) {
             waitingPlayer {
-                updateMinion(0, [deltaHealth: -2])
+                updateMinion(CharacterIndex.MINION_1, [deltaHealth: -2])
             }
         }
 

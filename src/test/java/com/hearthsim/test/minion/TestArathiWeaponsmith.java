@@ -1,6 +1,7 @@
 package com.hearthsim.test.minion;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.basic.weapon.FieryWarAxe;
 import com.hearthsim.card.classic.minion.common.ArathiWeaponsmith;
 import com.hearthsim.exception.HSException;
@@ -33,7 +34,7 @@ public class TestArathiWeaponsmith {
     @Test
     public void testEquipsWeapon() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO, board);
         assertNotNull(ret);
         currentPlayer = ret.data_.getCurrentPlayer();
 
@@ -48,14 +49,14 @@ public class TestArathiWeaponsmith {
     @Test
     public void testDestroysExistingWeapon() throws HSException {
         currentPlayer.placeCardHand(new FieryWarAxe());
-        currentPlayer.getHand().get(1).useOn(PlayerSide.CURRENT_PLAYER, 0, board);
+        currentPlayer.getHand().get(1).useOn(PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO, board);
 
         assertEquals(currentPlayer.getMana(), 8);
         assertEquals(currentPlayer.getHero().getWeapon().getWeaponCharge(), 2);
         assertEquals(currentPlayer.getHero().getTotalAttack(), 3);
 
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO, board);
         assertNotNull(ret);
         currentPlayer = ret.data_.getCurrentPlayer();
 

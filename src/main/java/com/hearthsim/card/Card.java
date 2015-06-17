@@ -8,7 +8,6 @@ import com.hearthsim.event.deathrattle.DeathrattleAction;
 import com.hearthsim.event.effect.*;
 import com.hearthsim.event.filter.FilterCharacter;
 import com.hearthsim.event.filter.FilterHand;
-import com.hearthsim.event.filter.FilterInterface;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerModel;
@@ -33,7 +32,7 @@ public class Card implements DeepCopyable<Card> {
     private static final Logger log = LoggerFactory.getLogger(Card.class);
 
     protected boolean hasBeenUsed;
-    protected boolean isInHand_;
+    protected boolean inHand;
 
     private byte manaDelta = 0;
 
@@ -53,7 +52,7 @@ public class Card implements DeepCopyable<Card> {
 
     protected void initFromImplementedCard(ImplementedCardList.ImplementedCard implementedCard) {
         this.hasBeenUsed = false;
-        this.isInHand_ = true;
+        this.inHand = true;
     }
 
     /**
@@ -116,12 +115,12 @@ public class Card implements DeepCopyable<Card> {
         hasBeenUsed = value;
     }
 
-    public void isInHand(boolean value) {
-        isInHand_ = value;
+    public void setInHand(boolean value) {
+        inHand = value;
     }
 
-    public boolean isInHand() {
-        return isInHand_;
+    public boolean setInHand() {
+        return inHand;
     }
 
     // Use for bounce (e.g., Brewmaster) or recreate (e.g., Reincarnate)
@@ -152,7 +151,7 @@ public class Card implements DeepCopyable<Card> {
         }
 
         copy.hasBeenUsed = this.hasBeenUsed;
-        copy.isInHand_ = this.isInHand_;
+        copy.inHand = this.inHand;
         copy.manaDelta = this.manaDelta;
 
         return copy;
@@ -178,7 +177,7 @@ public class Card implements DeepCopyable<Card> {
         if (hasBeenUsed != ((Card)other).hasBeenUsed)
             return false;
 
-        if (isInHand_ != ((Card)other).isInHand_)
+        if (inHand != ((Card)other).inHand)
             return false;
 
         if (this.getName() == null) {
@@ -197,7 +196,7 @@ public class Card implements DeepCopyable<Card> {
         int result = this.getName() != null ? this.getName().hashCode() : 0;
         result = 31 * result + this.getBaseManaCost();
         result = 31 * result + (hasBeenUsed ? 1 : 0);
-        result = 31 * result + (isInHand_ ? 1 : 0);
+        result = 31 * result + (inHand ? 1 : 0);
         return result;
     }
 
@@ -231,22 +230,14 @@ public class Card implements DeepCopyable<Card> {
         return true;
     }
 
-    public boolean canBeUsedOn(PlayerSide playerSide, int targetIndex, BoardModel boardModel) {
+    public boolean canBeUsedOn(PlayerSide playerSide, CharacterIndex targetIndex, BoardModel boardModel) {
         Minion targetMinion = boardModel.modelForSide(playerSide).getCharacter(targetIndex);
         return this.canBeUsedOn(playerSide, targetMinion, boardModel);
     }
 
-    public final HearthTreeNode useOn(PlayerSide side, Minion targetMinion, HearthTreeNode boardState) throws HSException {
-        return this.useOn(side, targetMinion, boardState, false);
-    }
-
-    public HearthTreeNode useOn(PlayerSide side, int targetIndex, HearthTreeNode boardState) throws HSException {
-        return this.useOn(side, targetIndex, boardState, false);
-    }
-
-    public HearthTreeNode useOn(PlayerSide side, int targetIndex, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
+    public HearthTreeNode useOn(PlayerSide side, CharacterIndex targetIndex, HearthTreeNode boardState) throws HSException {
         Minion target = boardState.data_.modelForSide(side).getCharacter(targetIndex);
-        return this.useOn(side, target, boardState, singleRealizationOnly);
+        return this.useOn(side, target, boardState);
     }
 
     /**
@@ -255,11 +246,10 @@ public class Card implements DeepCopyable<Card> {
      * @param side
      * @param targetMinion The target minion (can be a Hero)
      * @param boardState The BoardState before this card has performed its action. It will be manipulated and returned.
-     * @param singleRealizationOnly For cards with random effects, setting this to true will return only a single realization of the random event.
      *
      * @return The boardState is manipulated and returned
      */
-    private HearthTreeNode useOn(PlayerSide side, Minion targetMinion, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
+    private HearthTreeNode useOn(PlayerSide side, Minion targetMinion, HearthTreeNode boardState) throws HSException {
         if (!this.canBeUsedOn(side, targetMinion, boardState.data_))
             return null;
 
@@ -268,23 +258,23 @@ public class Card implements DeepCopyable<Card> {
 
         // Need to record card and target index *before* the board state changes
         int cardIndex = currentPlayer.getHand().indexOf(this);
-        int targetIndex = targetPlayer.getIndexForCharacter(targetMinion);
+        CharacterIndex targetIndex = targetPlayer.getIndexForCharacter(targetMinion);
 
         currentPlayer.addNumCardsUsed((byte)1);
 
-        HearthTreeNode toRet = this.notifyCardPlayBegin(boardState, singleRealizationOnly);
+        HearthTreeNode toRet = this.notifyCardPlayBegin(boardState);
         if (toRet != null) {
-            toRet = this.use_core(side, targetMinion, toRet, singleRealizationOnly);
+            toRet = this.use_core(side, targetMinion, toRet);
         }
 
         if (toRet != null) {
             // we need to resolve each RNG child separately
             if (toRet instanceof RandomEffectNode && toRet.numChildren() > 0) {
                 for (HearthTreeNode child : toRet.getChildren()) {
-                    this.resolveCardPlayedAndNotify(child, singleRealizationOnly); // TODO deal with null return
+                    this.resolveCardPlayedAndNotify(child); // TODO deal with null return
                 }
             } else {
-                toRet = this.resolveCardPlayedAndNotify(toRet, singleRealizationOnly);
+                toRet = this.resolveCardPlayedAndNotify(toRet);
             }
         }
 
@@ -295,13 +285,13 @@ public class Card implements DeepCopyable<Card> {
         return toRet;
     }
 
-    private HearthTreeNode resolveCardPlayedAndNotify(HearthTreeNode boardState, boolean singleRealizationOnly) {
+    private HearthTreeNode resolveCardPlayedAndNotify(HearthTreeNode boardState) {
         if (boardState != null && this.triggersOverload()) {
             boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).addOverload(this.getOverload());
         }
 
         if (boardState != null) {
-            boardState = this.notifyCardPlayResolve(boardState, singleRealizationOnly);
+            boardState = this.notifyCardPlayResolve(boardState);
         }
 
         return boardState;
@@ -319,12 +309,12 @@ public class Card implements DeepCopyable<Card> {
     protected HearthTreeNode use_core(
         PlayerSide side,
         Minion targetMinion,
-        HearthTreeNode boardState,
-        boolean singleRealizationOnly)
+        HearthTreeNode boardState)
         throws HSException {
+
         HearthTreeNode toRet = boardState;
         int originIndex = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getHand().indexOf(this);
-        int targetIndex = boardState.data_.modelForSide(side).getIndexForCharacter(targetMinion);
+        CharacterIndex targetIndex = boardState.data_.modelForSide(side).getIndexForCharacter(targetMinion);
 
         EffectCharacter<Card> targetableEffect = null;
         if (this instanceof EffectOnResolveTargetable) {
@@ -338,8 +328,12 @@ public class Card implements DeepCopyable<Card> {
         // different interfaces have different usage patterns
         if (this instanceof SpellRandomInterface) {
             rngChildren = ((SpellRandomInterface) this).createChildren(PlayerSide.CURRENT_PLAYER, originIndex, toRet);
-        } else if (this instanceof EffectOnResolveRandom) {
-            rngChildren = this.effectRandomUsingFilter((EffectOnResolveRandom) this, toRet);
+        } else if (this instanceof EffectOnResolveRandomCharacter) {
+            EffectOnResolveRandomCharacter character = (EffectOnResolveRandomCharacter)this;
+            rngChildren = this.effectRandomCharacterUsingFilter(character.getRandomTargetEffect(), character.getRandomTargetSecondaryEffect(), character.getRandomTargetFilter(), boardState);
+        } else if (this instanceof EffectOnResolveRandomHand) {
+            EffectOnResolveRandomHand hand = (EffectOnResolveRandomHand)this;
+            rngChildren =  this.effectRandomHandUsingFilter(hand.getRandomTargetEffect(), hand.getRandomTargetSecondaryEffect(), hand.getRandomTargetFilter(), PlayerSide.CURRENT_PLAYER, boardState);
         } else if (this instanceof EffectOnResolveAoe) {
             toRet = this.effectAllUsingFilter(((EffectOnResolveAoe) this).getAoeEffect(), ((EffectOnResolveAoe) this).getAoeFilter(), toRet);
         }
@@ -386,7 +380,7 @@ public class Card implements DeepCopyable<Card> {
     // ======================================================================================
     // Various notifications
     // ======================================================================================
-    private HearthTreeNode notifyCardPlayBegin(HearthTreeNode boardState, boolean singleRealizationOnly) {
+    private HearthTreeNode notifyCardPlayBegin(HearthTreeNode boardState) {
         PlayerModel currentPlayer = boardState.data_.getCurrentPlayer();
         PlayerModel waitingPlayer = boardState.data_.getWaitingPlayer();
 
@@ -411,7 +405,7 @@ public class Card implements DeepCopyable<Card> {
         }
 
         for (CardPlayBeginInterface match : matches) {
-            toRet = match.onCardPlayBegin(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, singleRealizationOnly);
+            toRet = match.onCardPlayBegin(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet);
         }
         matches.clear();
 
@@ -433,15 +427,15 @@ public class Card implements DeepCopyable<Card> {
         }
 
         for (CardPlayBeginInterface match : matches) {
-            toRet = match.onCardPlayBegin(PlayerSide.WAITING_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, singleRealizationOnly);
+            toRet = match.onCardPlayBegin(PlayerSide.WAITING_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet);
         }
 
         // check for and remove dead minions
-        toRet = BoardStateFactoryBase.handleDeadMinions(toRet, singleRealizationOnly);
+        toRet = BoardStateFactoryBase.handleDeadMinions(toRet);
         return toRet;
     }
 
-    private HearthTreeNode notifyCardPlayResolve(HearthTreeNode boardState, boolean singleRealizationOnly) {
+    private HearthTreeNode notifyCardPlayResolve(HearthTreeNode boardState) {
         PlayerModel currentPlayer = boardState.data_.getCurrentPlayer();
         PlayerModel waitingPlayer = boardState.data_.getWaitingPlayer();
 
@@ -466,7 +460,7 @@ public class Card implements DeepCopyable<Card> {
         }
 
         for (CardPlayAfterInterface match : matches) {
-            toRet = match.onCardPlayResolve(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, singleRealizationOnly);
+            toRet = match.onCardPlayResolve(PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet);
         }
         matches.clear();
 
@@ -488,17 +482,17 @@ public class Card implements DeepCopyable<Card> {
         }
 
         for (CardPlayAfterInterface match : matches) {
-            toRet = match.onCardPlayResolve(PlayerSide.WAITING_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet, singleRealizationOnly);
+            toRet = match.onCardPlayResolve(PlayerSide.WAITING_PLAYER, PlayerSide.CURRENT_PLAYER, this, toRet);
         }
 
         // check for and remove dead minions
-        toRet = BoardStateFactoryBase.handleDeadMinions(toRet, singleRealizationOnly);
+        toRet = BoardStateFactoryBase.handleDeadMinions(toRet);
         return toRet;
     }
 
     protected final HearthTreeNode effectAllUsingFilter(EffectCharacter<Card> effect, FilterCharacter filter, HearthTreeNode boardState) {
         if (boardState != null && filter != null) {
-            for (BoardModel.CharacterLocation location : boardState.data_) {
+            for (CharacterIndex.CharacterLocation location : boardState.data_) {
                 Minion character = boardState.data_.getCharacter(location);
                 if (filter.targetMatches(PlayerSide.CURRENT_PLAYER, this, location.getPlayerSide(), character, boardState.data_)) {
                     boardState = effect.applyEffect(PlayerSide.CURRENT_PLAYER, this, location.getPlayerSide(), character, boardState);
@@ -506,18 +500,6 @@ public class Card implements DeepCopyable<Card> {
             }
         }
         return boardState;
-    }
-
-    protected final Collection<HearthTreeNode> effectRandomUsingFilter(EffectOnResolveRandom randomEffect, HearthTreeNode boardState) {
-        if (randomEffect instanceof EffectOnResolveRandomCharacter) {
-            EffectOnResolveRandomCharacter character = (EffectOnResolveRandomCharacter)randomEffect;
-            return this.effectRandomCharacterUsingFilter(character.getRandomTargetEffect(), character.getRandomTargetSecondaryEffect(), character.getRandomTargetFilter(), boardState);
-        } else if (randomEffect instanceof EffectOnResolveRandomHand) {
-            EffectOnResolveRandomHand hand = (EffectOnResolveRandomHand)randomEffect;
-            return this.effectRandomHandUsingFilter(hand.getRandomTargetEffect(), hand.getRandomTargetSecondaryEffect(), hand.getRandomTargetFilter(), PlayerSide.CURRENT_PLAYER, boardState);
-        }
-
-        return null;
     }
 
     protected final Collection<HearthTreeNode> effectRandomCharacterUsingFilter(EffectCharacter<Card> effect, EffectCharacter<Card> effectOthers, FilterCharacter filter, HearthTreeNode boardState) {
@@ -529,20 +511,27 @@ public class Card implements DeepCopyable<Card> {
     }
 
     protected final Collection<HearthTreeNode> effectRandomHandUsingFilter(EffectHand effect, EffectHand effectOthers, FilterHand filter, PlayerSide originSide, HearthTreeNode boardState) {
-        Iterator<BoardModel.CharacterLocation> handIterator = boardState.data_.handIterator();
+        Iterator<CardInHandIndex.CardInHandLocation> handIterator = boardState.data_.handIterator();
         return this.iterateAndEffectRandom(effect, effectOthers, filter, originSide, boardState, handIterator);
     }
 
-    protected final Collection<HearthTreeNode> iterateAndEffectRandom(EffectInterface<Card> effect, EffectInterface<Card> effectOthers, FilterInterface<Card> filter, PlayerSide originSide, HearthTreeNode boardState, Iterator<BoardModel.CharacterLocation> targetIterator) {
+
+    protected final Collection<HearthTreeNode> iterateAndEffectRandom(EffectHand effect,
+                                                                      EffectHand effectOthers,
+                                                                      FilterHand filter,
+                                                                      PlayerSide originSide,
+                                                                      HearthTreeNode boardState,
+                                                                      Iterator<CardInHandIndex.CardInHandLocation> targetIterator) {
         int originIndex = boardState.data_.modelForSide(originSide).getHand().indexOf(this);
         boolean originInHand = originIndex >= 0;
+        CharacterIndex originCharacterIndex = CharacterIndex.UNKNOWN;
         if (!originInHand) {
-            originIndex = boardState.data_.modelForSide(originSide).getIndexForCharacter((Minion)this);
+            originCharacterIndex = boardState.data_.modelForSide(originSide).getIndexForCharacter((Minion)this);
         }
 
         ArrayList<HearthTreeNode> children = new ArrayList<>();
         while (targetIterator.hasNext()) {
-            BoardModel.CharacterLocation location = targetIterator.next();
+            CardInHandIndex.CardInHandLocation location = targetIterator.next();
             if (filter.targetMatches(originSide, this, location.getPlayerSide(), location.getIndex(), boardState.data_)) {
                 boolean somethingHappened = false;
                 HearthTreeNode newState = new HearthTreeNode(boardState.data_.deepCopy());
@@ -550,7 +539,7 @@ public class Card implements DeepCopyable<Card> {
                 if (originInHand) {
                     origin = newState.data_.modelForSide(originSide).getHand().get(originIndex);
                 } else {
-                    origin = newState.data_.modelForSide(originSide).getCharacter(originIndex);
+                    origin = newState.data_.modelForSide(originSide).getCharacter(originCharacterIndex);
                 }
                 if (effect != null) {
                     newState = effect.applyEffect(originSide, origin, location.getPlayerSide(), location.getIndex(), newState);
@@ -558,7 +547,62 @@ public class Card implements DeepCopyable<Card> {
                 }
 
                 if (effectOthers != null && newState != null) {
-                    for (BoardModel.CharacterLocation childLocation : newState.data_) {
+                    Iterator<CardInHandIndex.CardInHandLocation> secondaryIterator = newState.data_.handIterator();
+                    while (secondaryIterator.hasNext()) {
+                        CardInHandIndex.CardInHandLocation childLocation = secondaryIterator.next();
+                        if (location.equals(childLocation)) {
+                            continue;
+                        }
+                        if (filter.targetMatches(originSide, origin, childLocation.getPlayerSide(), childLocation.getIndex(), boardState.data_)) {
+                            newState = effectOthers.applyEffect(originSide, origin, childLocation.getPlayerSide(), childLocation.getIndex(), newState);
+                            somethingHappened = newState != null;
+                        }
+                    }
+                }
+
+                if (somethingHappened) {
+                    if (originInHand) {
+                        newState.data_.modelForSide(originSide).getHand().remove(origin);
+                    }
+                    children.add(newState);
+                }
+            }
+        }
+        return children;
+    }
+
+    protected final Collection<HearthTreeNode> iterateAndEffectRandom(EffectCharacter<Card> effect,
+                                                                      EffectCharacter<Card> effectOthers,
+                                                                      FilterCharacter filter,
+                                                                      PlayerSide originSide,
+                                                                      HearthTreeNode boardState,
+                                                                      Iterator<CharacterIndex.CharacterLocation> targetIterator) {
+        int originIndex = boardState.data_.modelForSide(originSide).getHand().indexOf(this);
+        boolean originInHand = originIndex >= 0;
+        CharacterIndex originCharacterIndex = CharacterIndex.UNKNOWN;
+        if (!originInHand) {
+            originCharacterIndex = boardState.data_.modelForSide(originSide).getIndexForCharacter((Minion)this);
+        }
+
+        ArrayList<HearthTreeNode> children = new ArrayList<>();
+        while (targetIterator.hasNext()) {
+            CharacterIndex.CharacterLocation location = targetIterator.next();
+            if (filter.targetMatches(originSide, this, location.getPlayerSide(), location.getIndex(), boardState.data_)) {
+                boolean somethingHappened = false;
+                HearthTreeNode newState = new HearthTreeNode(boardState.data_.deepCopy());
+                Card origin;
+                if (originInHand) {
+                    origin = newState.data_.modelForSide(originSide).getHand().get(originIndex);
+                } else {
+                    origin = newState.data_.modelForSide(originSide).getCharacter(originCharacterIndex);
+                }
+                if (effect != null) {
+                    newState = effect.applyEffect(originSide, origin, location.getPlayerSide(), location.getIndex(), newState);
+                    somethingHappened = newState != null;
+                }
+
+                if (effectOthers != null && newState != null) {
+                    for (CharacterIndex.CharacterLocation childLocation : newState.data_) {
                         if (location.equals(childLocation)) {
                             continue;
                         }
@@ -651,31 +695,31 @@ public class Card implements DeepCopyable<Card> {
 
 
     @Deprecated
-    public Card(String name, byte baseManaCost, boolean hasBeenUsed, boolean isInHand, byte overload) {
+    public Card(String name, byte baseManaCost, boolean hasBeenUsed, boolean inHand, byte overload) {
         this.hasBeenUsed = hasBeenUsed;
-        isInHand_ = isInHand;
+        this.inHand = inHand;
         this.implementedCard = null;
     }
 
     @Deprecated
-    public Card(byte baseManaCost, boolean hasBeenUsed, boolean isInHand) {
+    public Card(byte baseManaCost, boolean hasBeenUsed, boolean inHand) {
         ImplementedCardList cardList = ImplementedCardList.getInstance();
         ImplementedCardList.ImplementedCard implementedCard = cardList.getCardForClass(this.getClass());
         this.hasBeenUsed = hasBeenUsed;
-        isInHand_ = isInHand;
+        this.inHand = inHand;
         this.implementedCard = implementedCard;
     }
 
     @Deprecated
     public final HearthTreeNode useOn(PlayerSide side, Minion targetMinion, HearthTreeNode boardState,
                                       Deck deckPlayer0, Deck deckPlayer1) throws HSException {
-        return this.useOn(side, targetMinion, boardState, false);
+        return this.useOn(side, targetMinion, boardState);
     }
 
     @Deprecated
-    public HearthTreeNode useOn(PlayerSide side, int targetIndex, HearthTreeNode boardState, Deck deckPlayer0,
+    public HearthTreeNode useOn(PlayerSide side, CharacterIndex targetIndex, HearthTreeNode boardState, Deck deckPlayer0,
                                 Deck deckPlayer1) throws HSException {
-        return this.useOn(side, targetIndex, boardState, false);
+        return this.useOn(side, targetIndex, boardState);
     }
 
     @Deprecated

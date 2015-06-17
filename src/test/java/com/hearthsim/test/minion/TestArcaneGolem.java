@@ -1,6 +1,7 @@
 package com.hearthsim.test.minion;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.basic.minion.BoulderfistOgre;
 import com.hearthsim.card.basic.minion.RaidLeader;
 import com.hearthsim.card.classic.minion.rare.ArcaneGolem;
@@ -53,7 +54,7 @@ public class TestArcaneGolem {
     @Test
     public void testIncreasesEnemyMana() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO, board);
         assertNotNull(ret);
         currentPlayer = ret.data_.getCurrentPlayer();
         waitingPlayer = ret.data_.getWaitingPlayer();
@@ -71,7 +72,7 @@ public class TestArcaneGolem {
     public void testDoesNotIncreaseOverTen() throws HSException {
         waitingPlayer.setMaxMana((byte) 10);
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO, board);
         assertNotNull(ret);
         waitingPlayer = ret.data_.getWaitingPlayer();
         assertEquals(waitingPlayer.getMana(), 9);
@@ -86,8 +87,8 @@ public class TestArcaneGolem {
         currentPlayer.setMaxMana((byte) 3);
         waitingPlayer.setMaxMana((byte) 3);
 
-        currentPlayer.getCharacter(1).hasAttacked(true);
-        currentPlayer.getCharacter(2).hasAttacked(true);
+        currentPlayer.getCharacter(CharacterIndex.MINION_1).hasAttacked(true);
+        currentPlayer.getCharacter(CharacterIndex.MINION_2).hasAttacked(true);
 
         BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
         List<HearthActionBoardPair> ab = ai0.playTurn(0, board.data_);

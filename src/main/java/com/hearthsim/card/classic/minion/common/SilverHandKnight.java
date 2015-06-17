@@ -1,5 +1,6 @@
 package com.hearthsim.card.classic.minion.common;
 
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionBattlecryInterface;
 import com.hearthsim.event.effect.EffectCharacter;
@@ -18,13 +19,13 @@ public class SilverHandKnight extends Minion implements MinionBattlecryInterface
      */
     @Override
     public EffectCharacter<Minion> getBattlecryEffect() {
-        return (PlayerSide originSide, Minion origin, PlayerSide targetSide, int minionPlacementIndex, HearthTreeNode boardState)->{
+        return (PlayerSide originSide, Minion origin, PlayerSide targetSide, CharacterIndex minionPlacementIndex, HearthTreeNode boardState)->{
             HearthTreeNode toRet = boardState;
             if (toRet != null) {
                 PlayerModel currentPlayer = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
                 if (!currentPlayer.isBoardFull()) {
                     Minion mdragon = new Squire();
-                    toRet = mdragon.summonMinion(PlayerSide.CURRENT_PLAYER, this, boardState, false, false);
+                    toRet = mdragon.summonMinion(PlayerSide.CURRENT_PLAYER, this, boardState, false);
                 }
             }
             return toRet;

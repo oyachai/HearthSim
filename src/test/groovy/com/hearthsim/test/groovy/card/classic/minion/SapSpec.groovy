@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.classic.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.minion.WarGolem
 import com.hearthsim.card.basic.spell.Sap
 import com.hearthsim.card.basic.spell.TheCoin
@@ -33,7 +34,7 @@ class SapSpec extends CardSpec {
     def "sap enemy minion"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(WAITING_PLAYER, 1, root, null, null)
+        def ret = theCard.useOn(WAITING_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         assertEquals(root, ret)
@@ -46,7 +47,7 @@ class SapSpec extends CardSpec {
             }
             waitingPlayer {
                 addCardToHand(WarGolem)
-                removeMinion(0)
+                removeMinion(CharacterIndex.MINION_1)
             }
         }
     }
@@ -58,7 +59,7 @@ class SapSpec extends CardSpec {
 
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(WAITING_PLAYER, 1, root, null, null)
+        def ret = theCard.useOn(WAITING_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         assertEquals(root, ret)
@@ -69,7 +70,7 @@ class SapSpec extends CardSpec {
                 mana(5)
                 numCardsUsed(1)
             }
-            waitingPlayer { removeMinion(0) }
+            waitingPlayer { removeMinion(CharacterIndex.MINION_1) }
         }
     }
 }

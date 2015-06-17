@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.classic.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.spell.ShadowWordDeath
 import com.hearthsim.card.classic.minion.common.Lightspawn
 import com.hearthsim.model.BoardModel
@@ -33,7 +34,7 @@ class LightspawnSpec extends CardSpec {
     def "Lightspawn is killed by a Shadow Word: Death"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(WAITING_PLAYER, 1, root, null, null)
+        def ret = theCard.useOn(WAITING_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         assertEquals(root, ret);
@@ -45,16 +46,16 @@ class LightspawnSpec extends CardSpec {
                 numCardsUsed(1)
             }
             waitingPlayer {
-                removeMinion(0)
+                removeMinion(CharacterIndex.MINION_1)
             }
         }
     }
     
     def "Damaged Lightspawn is not killed by a Shadow Word: Death"() {
-        root.data_.getWaitingPlayer().getCharacter(1).health_ = 4
+        root.data_.getWaitingPlayer().getCharacter(CharacterIndex.MINION_1).health_ = 4
 
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(WAITING_PLAYER, 1, root, null, null)
+        def ret = theCard.useOn(WAITING_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         assertTrue(ret == null);

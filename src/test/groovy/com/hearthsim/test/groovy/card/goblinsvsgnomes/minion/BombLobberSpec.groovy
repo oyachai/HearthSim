@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.goblinsvsgnomes.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.minion.KoboldGeomancer
 import com.hearthsim.card.basic.minion.Voidwalker
 import com.hearthsim.card.basic.minion.WarGolem
@@ -36,11 +37,11 @@ class BombLobberSpec extends CardSpec {
     }
 
     def "returned node is normal for only one target"() {
-        startingBoard.removeMinion(WAITING_PLAYER, 0);
+        startingBoard.removeMinion(WAITING_PLAYER, CharacterIndex.MINION_1);
 
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         ret != null
@@ -49,12 +50,12 @@ class BombLobberSpec extends CardSpec {
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                playMinion(BombLobber, 0)
+                playMinion(BombLobber, CharacterIndex.HERO)
                 mana(5)
                 numCardsUsed(1)
             }
             waitingPlayer {
-                updateMinion(0, [deltaHealth: -4])
+                updateMinion(CharacterIndex.MINION_1, [deltaHealth: -4])
             }
         }
     }
@@ -62,7 +63,7 @@ class BombLobberSpec extends CardSpec {
     def "returned node is RNG for two or more targets"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         ret != null
@@ -77,12 +78,12 @@ class BombLobberSpec extends CardSpec {
     }
 
     def "returned node is normal for no targets"() {
-        startingBoard.removeMinion(WAITING_PLAYER, 0);
-        startingBoard.removeMinion(WAITING_PLAYER, 0);
+        startingBoard.removeMinion(WAITING_PLAYER, CharacterIndex.MINION_1);
+        startingBoard.removeMinion(WAITING_PLAYER, CharacterIndex.MINION_1);
 
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         ret != null
@@ -91,7 +92,7 @@ class BombLobberSpec extends CardSpec {
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                playMinion(BombLobber, 0)
+                playMinion(BombLobber, CharacterIndex.HERO)
                 mana(5)
                 numCardsUsed(1)
             }
@@ -100,7 +101,7 @@ class BombLobberSpec extends CardSpec {
 
     def "hits enemy minions"() {
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         ret != null
@@ -112,22 +113,22 @@ class BombLobberSpec extends CardSpec {
         HearthTreeNode child0 = ret.getChildren().get(0);
         assertBoardDelta(copiedBoard, child0.data_) {
             currentPlayer {
-                playMinion(BombLobber, 0)
+                playMinion(BombLobber, CharacterIndex.HERO)
                 mana(5)
             }
             waitingPlayer {
-                removeMinion(0)
+                removeMinion(CharacterIndex.MINION_1)
             }
         }
 
         HearthTreeNode child1 = ret.getChildren().get(1);
         assertBoardDelta(copiedBoard, child1.data_) {
             currentPlayer {
-                playMinion(BombLobber, 0)
+                playMinion(BombLobber, CharacterIndex.HERO)
                 mana(5)
             }
             waitingPlayer {
-                updateMinion(1, [deltaHealth: -4])
+                updateMinion(CharacterIndex.MINION_2, [deltaHealth: -4])
             }
         }
     }
@@ -136,7 +137,7 @@ class BombLobberSpec extends CardSpec {
         startingBoard.placeMinion(CURRENT_PLAYER, new KoboldGeomancer())
 
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         ret != null
@@ -148,22 +149,22 @@ class BombLobberSpec extends CardSpec {
         HearthTreeNode child0 = ret.getChildren().get(0);
         assertBoardDelta(copiedBoard, child0.data_) {
             currentPlayer {
-                playMinion(BombLobber, 0)
+                playMinion(BombLobber, CharacterIndex.HERO)
                 mana(5)
             }
             waitingPlayer {
-                removeMinion(0)
+                removeMinion(CharacterIndex.MINION_1)
             }
         }
 
         HearthTreeNode child1 = ret.getChildren().get(1);
         assertBoardDelta(copiedBoard, child1.data_) {
             currentPlayer {
-                playMinion(BombLobber, 0)
+                playMinion(BombLobber, CharacterIndex.HERO)
                 mana(5)
             }
             waitingPlayer {
-                updateMinion(1, [deltaHealth: -4])
+                updateMinion(CharacterIndex.MINION_2, [deltaHealth: -4])
             }
         }
     }

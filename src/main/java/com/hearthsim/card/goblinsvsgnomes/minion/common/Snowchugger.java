@@ -12,8 +12,8 @@ public class Snowchugger extends Minion {
     }
 
     @Override
-    protected HearthTreeNode attack_core(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode boardState, boolean singleRealization) throws HSException {
-        HearthTreeNode toRet = super.attack_core(targetMinionPlayerSide, targetMinion, boardState, singleRealization);
+    protected HearthTreeNode attack_core(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode boardState) throws HSException {
+        HearthTreeNode toRet = super.attack_core(targetMinionPlayerSide, targetMinion, boardState);
         if (!silenced_ && toRet != null) {
             targetMinion.setFrozen(true);
         }

@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.classic.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.minion.BloodfenRaptor
 import com.hearthsim.card.basic.minion.GoldshireFootman
 import com.hearthsim.card.basic.minion.RiverCrocolisk
@@ -38,7 +39,7 @@ class StampedingKodoSpec extends CardSpec {
     def "cannot play for waiting player's side"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(WAITING_PLAYER, 0, root, null, null)
+        def ret = theCard.useOn(WAITING_PLAYER, CharacterIndex.HERO, root)
 
         expect:
 
@@ -49,7 +50,7 @@ class StampedingKodoSpec extends CardSpec {
     def "playing Stampeding Kodo while there are no other minions no board"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root, null, null)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         assertFalse(ret == null)
@@ -70,7 +71,7 @@ class StampedingKodoSpec extends CardSpec {
         startingBoard.placeMinion(WAITING_PLAYER, new RiverCrocolisk())
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         assertFalse(ret == null)
@@ -92,7 +93,7 @@ class StampedingKodoSpec extends CardSpec {
                 numCardsUsed(1)
             }
             waitingPlayer {
-                removeMinion(0)
+                removeMinion(CharacterIndex.MINION_1)
             }
         }
 
@@ -104,7 +105,7 @@ class StampedingKodoSpec extends CardSpec {
                 numCardsUsed(1)
             }
             waitingPlayer {
-                removeMinion(2)
+                removeMinion(CharacterIndex.MINION_3)
             }
         }
 

@@ -1,6 +1,7 @@
 package com.hearthsim.test.groovy.card.classic.minion
 
 import com.hearthsim.Game
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.classic.minion.common.Gnoll
 import com.hearthsim.card.classic.minion.legendary.Hogger
 import com.hearthsim.model.BoardModel
@@ -44,7 +45,7 @@ class HoggerSpec extends CardSpec {
     def "playing Hogger"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 1, root, null, null)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         assertFalse(ret == null);

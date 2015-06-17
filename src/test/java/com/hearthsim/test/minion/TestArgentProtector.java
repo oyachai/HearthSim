@@ -1,5 +1,6 @@
 package com.hearthsim.test.minion;
 
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.basic.minion.BoulderfistOgre;
 import com.hearthsim.card.classic.minion.common.ArgentProtector;
 import com.hearthsim.card.classic.minion.common.ArgentSquire;
@@ -27,7 +28,7 @@ public class TestArgentProtector {
         BoulderfistOgre ogre = new BoulderfistOgre();
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, ogre);
         ArgentProtector protector = new ArgentProtector();
-        protector.getBattlecryEffect().applyEffect(PlayerSide.CURRENT_PLAYER, protector, PlayerSide.CURRENT_PLAYER, 1, board);
+        protector.getBattlecryEffect().applyEffect(PlayerSide.CURRENT_PLAYER, protector, PlayerSide.CURRENT_PLAYER, CharacterIndex.MINION_1, board);
         assertTrue(ogre.getDivineShield());
     }
 
@@ -41,7 +42,7 @@ public class TestArgentProtector {
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new BoulderfistOgre());
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new ArgentSquire());
 
-        HearthTreeNode ret = protector.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
+        HearthTreeNode ret = protector.useOn(PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO, board);
         assertEquals(board, ret);
 
         assertEquals(board.numChildren(), 1);

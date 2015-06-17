@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.goblinsvsgnomes.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.goblinsvsgnomes.minion.epic.Shadowbomber
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.groovy.card.CardSpec
@@ -27,7 +28,7 @@ class ShadowbomberSpec extends CardSpec {
     def "damages both heroes"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         ret != null

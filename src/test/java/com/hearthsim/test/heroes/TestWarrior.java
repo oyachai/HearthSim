@@ -1,5 +1,6 @@
 package com.hearthsim.test.heroes;
 
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.basic.minion.BoulderfistOgre;
 import com.hearthsim.card.basic.minion.RaidLeader;
 import com.hearthsim.card.minion.Hero;
@@ -42,7 +43,7 @@ public class TestWarrior {
     public void testHeropower() throws HSException {
         Hero warrior = currentPlayer.getHero();
 
-        HearthTreeNode ret = warrior.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board);
+        HearthTreeNode ret = warrior.useHeroAbility(PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO, board);
         assertEquals(board, ret);
 
         assertEquals(currentPlayer.getHero().getArmor(), 2);
@@ -53,7 +54,7 @@ public class TestWarrior {
         Hero hero = currentPlayer.getHero();
         hero.setArmor((byte)1);
 
-        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board);
+        HearthTreeNode ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO, board);
         assertEquals(board, ret);
         assertEquals(currentPlayer.getHero().getArmor(), 3);
     }
@@ -62,7 +63,7 @@ public class TestWarrior {
     public void testHeropowerCannotTargetMinion() throws HSException {
         Hero warrior = currentPlayer.getHero();
 
-        HearthTreeNode ret = warrior.useHeroAbility(PlayerSide.WAITING_PLAYER, 2, board);
+        HearthTreeNode ret = warrior.useHeroAbility(PlayerSide.WAITING_PLAYER, CharacterIndex.MINION_2, board);
         assertNull(ret);
 
         assertEquals(currentPlayer.getMana(), 8);
@@ -74,7 +75,7 @@ public class TestWarrior {
     public void testHeropowerCannotTargetOpponent() throws HSException {
         Hero warrior = currentPlayer.getHero();
 
-        HearthTreeNode ret = warrior.useHeroAbility(PlayerSide.WAITING_PLAYER, 0, board);
+        HearthTreeNode ret = warrior.useHeroAbility(PlayerSide.WAITING_PLAYER, CharacterIndex.HERO, board);
         assertNull(ret);
 
         assertEquals(currentPlayer.getMana(), 8);

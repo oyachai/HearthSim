@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.classic.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.minion.MechanicalDragonling
 import com.hearthsim.card.basic.spell.Fireball
 import com.hearthsim.card.basic.spell.Whirlwind
@@ -39,7 +40,7 @@ class JunkbotSpec extends CardSpec {
     def "buffs on friendly mech death"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 2, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_2, root)
 
         expect:
         ret != null
@@ -49,8 +50,8 @@ class JunkbotSpec extends CardSpec {
                 removeCardFromHand(Fireball)
                 mana(6)
                 numCardsUsed(1)
-                removeMinion(1)
-                updateMinion(0, [deltaHealth: +2, deltaMaxHealth: +2, deltaAttack: +2])
+                removeMinion(CharacterIndex.MINION_2)
+                updateMinion(CharacterIndex.MINION_1, [deltaHealth: +2, deltaMaxHealth: +2, deltaAttack: +2])
             }
         }
     }
@@ -58,7 +59,7 @@ class JunkbotSpec extends CardSpec {
     def "does not trigger on enemy mech death"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(WAITING_PLAYER, 1, root)
+        def ret = theCard.useOn(WAITING_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         ret != null
@@ -70,7 +71,7 @@ class JunkbotSpec extends CardSpec {
                 numCardsUsed(1)
             }
             waitingPlayer {
-                removeMinion(0)
+                removeMinion(CharacterIndex.MINION_1)
             }
         }
     }
@@ -78,7 +79,7 @@ class JunkbotSpec extends CardSpec {
     def "does not trigger on non-mech death"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 4, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_4, root)
 
         expect:
         ret != null
@@ -88,7 +89,7 @@ class JunkbotSpec extends CardSpec {
                 removeCardFromHand(Fireball)
                 mana(6)
                 numCardsUsed(1)
-                removeMinion(3)
+                removeMinion(CharacterIndex.MINION_4)
             }
         }
     }
@@ -96,7 +97,7 @@ class JunkbotSpec extends CardSpec {
     def "buffs for each death"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(1)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         ret != null
@@ -106,25 +107,25 @@ class JunkbotSpec extends CardSpec {
                 removeCardFromHand(Whirlwind)
                 mana(9)
                 numCardsUsed(1)
-                removeMinion(3)
-                removeMinion(2)
-                removeMinion(1)
-                updateMinion(0, [deltaHealth: +3, deltaMaxHealth: +4, deltaAttack: +4]) // +2/+2, +2/+2 and take one damage from Whirlwind
+                removeMinion(CharacterIndex.MINION_4)
+                removeMinion(CharacterIndex.MINION_3)
+                removeMinion(CharacterIndex.MINION_2)
+                updateMinion(CharacterIndex.MINION_1, [deltaHealth: +3, deltaMaxHealth: +4, deltaAttack: +4]) // +2/+2, +2/+2 and take one damage from Whirlwind
             }
             waitingPlayer {
-                updateMinion(1, [deltaHealth: -1])
-                updateMinion(0, [deltaHealth: -1])
+                updateMinion(CharacterIndex.MINION_2, [deltaHealth: -1])
+                updateMinion(CharacterIndex.MINION_1, [deltaHealth: -1])
             }
         }
     }
 
     def "does not trigger while in hand"() {
         startingBoard.modelForSide(CURRENT_PLAYER).placeCardHand(new Junkbot())
-        startingBoard.removeMinion(CURRENT_PLAYER, 0)
+        startingBoard.removeMinion(CURRENT_PLAYER, CharacterIndex.MINION_1)
 
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 1, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         ret != null
@@ -134,7 +135,7 @@ class JunkbotSpec extends CardSpec {
                 removeCardFromHand(Fireball)
                 mana(6)
                 numCardsUsed(1)
-                removeMinion(0)
+                removeMinion(CharacterIndex.MINION_1)
             }
         }
     }

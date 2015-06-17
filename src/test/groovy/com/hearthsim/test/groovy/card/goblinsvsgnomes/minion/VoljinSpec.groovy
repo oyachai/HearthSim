@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.goblinsvsgnomes.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.minion.BoulderfistOgre
 import com.hearthsim.card.goblinsvsgnomes.minion.legendary.Voljin
 import com.hearthsim.model.BoardModel
@@ -29,7 +30,7 @@ class VoljinSpec extends CardSpec {
     def "successfully summoned with no target"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayerCardHand(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         ret != null
@@ -49,7 +50,7 @@ class VoljinSpec extends CardSpec {
 
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayerCardHand(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         ret != null
@@ -57,11 +58,11 @@ class VoljinSpec extends CardSpec {
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                playMinion(Voljin, 0)
+                playMinion(Voljin, CharacterIndex.HERO)
                 mana(5)
                 numCardsUsed(1)
-                updateMinion(0, [health:7, maxHealth:7])
-                updateMinion(1, [health:2, maxHealth:2])
+                updateMinion(CharacterIndex.MINION_1, [health:7, maxHealth:7])
+                updateMinion(CharacterIndex.MINION_2, [health:2, maxHealth:2])
             }
         }
     }
@@ -71,7 +72,7 @@ class VoljinSpec extends CardSpec {
 
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayerCardHand(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         ret != null
@@ -79,13 +80,13 @@ class VoljinSpec extends CardSpec {
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                playMinion(Voljin, 0)
+                playMinion(Voljin, CharacterIndex.HERO)
                 mana(5)
                 numCardsUsed(1)
-                updateMinion(0, [health:7, maxHealth:7])
+                updateMinion(CharacterIndex.MINION_1, [health:7, maxHealth:7])
             }
             waitingPlayer {
-                updateMinion(0, [health:2, maxHealth:2])
+                updateMinion(CharacterIndex.MINION_1, [health:2, maxHealth:2])
             }
         }
     }

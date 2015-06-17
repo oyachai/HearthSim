@@ -1,6 +1,7 @@
 package com.hearthsim.test.minion;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.basic.minion.BloodfenRaptor;
 import com.hearthsim.card.basic.minion.SilverHandRecruit;
@@ -92,7 +93,7 @@ public class TestAcolyteOfPain {
     public void testDamagingEnemyAcolyteDrawsCard() throws HSException {
         currentPlayer.setMana((byte) 1);
 
-        board.data_.removeMinion(PlayerSide.WAITING_PLAYER, 0);
+        board.data_.removeMinion(PlayerSide.WAITING_PLAYER, CharacterIndex.MINION_1);
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, new AcolyteOfPain());
 
         assertEquals(waitingPlayer.getHand().size(), 0);
@@ -110,7 +111,7 @@ public class TestAcolyteOfPain {
     @Test
     public void testDivineShieldPreventsDraw() throws HSException {
         acolyteOnBoard.setDivineShield(true);
-        HearthTreeNode ret = acolyteOnBoard.attack(PlayerSide.WAITING_PLAYER, 1, board, false);
+        HearthTreeNode ret = acolyteOnBoard.attack(PlayerSide.WAITING_PLAYER, CharacterIndex.MINION_1, board);
         assertEquals(board, ret);
 
         assertFalse(board instanceof CardDrawNode);
@@ -122,13 +123,13 @@ public class TestAcolyteOfPain {
         currentPlayer.setMana((byte) 5);
 
         AcolyteOfPain enemyAcolyte = new AcolyteOfPain();
-        board.data_.removeMinion(PlayerSide.WAITING_PLAYER, 0);
+        board.data_.removeMinion(PlayerSide.WAITING_PLAYER, CharacterIndex.MINION_1);
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, enemyAcolyte);
 
         assertEquals(waitingPlayer.getHand().size(), 0);
         Assassinate assassinate = new Assassinate();
         currentPlayer.placeCardHand(assassinate);
-        HearthTreeNode ret = assassinate.useOn(PlayerSide.WAITING_PLAYER, enemyAcolyte, board);
+        HearthTreeNode ret = assassinate.useOn(PlayerSide.WAITING_PLAYER, CharacterIndex.MINION_1, board);
         assertEquals(board, ret);
         assertFalse(board instanceof CardDrawNode);
 

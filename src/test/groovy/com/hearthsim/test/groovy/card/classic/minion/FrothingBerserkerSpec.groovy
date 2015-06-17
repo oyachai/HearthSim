@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.classic.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.classic.minion.rare.FrothingBerserker
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.groovy.card.CardSpec
@@ -47,10 +48,10 @@ class FrothingBerserkerSpec extends CardSpec {
         def minionPlayedBoard = startingBoard.deepCopy()
         def copiedRoot = new HearthTreeNode(minionPlayedBoard)
         def theCard = minionPlayedBoard.getCurrentPlayer().getHand().get(0);
-        theCard.useOn(CURRENT_PLAYER, 2, copiedRoot);
+        theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_2, copiedRoot);
 
-        def attacker = minionPlayedBoard.modelForSide(CURRENT_PLAYER).getCharacter(1)
-        def ret =  attacker.attack(WAITING_PLAYER, 1, copiedRoot, null, null, false)
+        def attacker = minionPlayedBoard.modelForSide(CURRENT_PLAYER).getCharacter(CharacterIndex.MINION_1)
+        def ret =  attacker.attack(WAITING_PLAYER, CharacterIndex.MINION_1, copiedRoot)
         
         expect:
         assertFalse(ret == null);
@@ -58,13 +59,13 @@ class FrothingBerserkerSpec extends CardSpec {
         assertBoardDelta(startingBoard, minionPlayedBoard) {
             currentPlayer {
                 playMinion(FrothingBerserker)
-                removeMinion(0)
-                updateMinion(1, [deltaAttack: 2])
+                removeMinion(CharacterIndex.MINION_1)
+                updateMinion(CharacterIndex.MINION_2, [deltaAttack: 2])
                 mana(4)
                 numCardsUsed(1)
             }
             waitingPlayer {
-                removeMinion(0)
+                removeMinion(CharacterIndex.MINION_1)
             }
         }
     }

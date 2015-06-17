@@ -1,6 +1,7 @@
 package com.hearthsim.card.classic.spell.epic;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.spellcard.SpellTargetableCard;
 import com.hearthsim.event.effect.EffectCharacter;
@@ -26,7 +27,7 @@ public class ShieldSlam extends SpellTargetableCard {
     public EffectCharacter getTargetableEffect() {
         return new EffectCharacter() {
             @Override
-            public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState) {
+            public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState) {
                 Hero hero = boardState.data_.modelForSide(originSide).getHero();
                 EffectCharacter<Card> effect = new EffectCharacterDamageSpell<>(hero.getArmor());
                 return effect.applyEffect(originSide, origin, targetSide, targetCharacterIndex, boardState);

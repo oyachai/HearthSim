@@ -1,5 +1,6 @@
 package com.hearthsim.card.goblinsvsgnomes.minion.rare;
 
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.event.effect.EffectCharacter;
 import com.hearthsim.event.effect.EffectCharacterHeal;
@@ -18,7 +19,7 @@ public class VitalityTotem extends Minion {
     @Override
     public HearthTreeNode endTurn(PlayerSide thisMinionPlayerIndex, HearthTreeNode boardModel) throws HSException {
         if (thisMinionPlayerIndex == PlayerSide.CURRENT_PLAYER) {
-            boardModel = VitalityTotem.effect.applyEffect(thisMinionPlayerIndex, this, thisMinionPlayerIndex, 0, boardModel);
+            boardModel = VitalityTotem.effect.applyEffect(thisMinionPlayerIndex, this, thisMinionPlayerIndex, CharacterIndex.HERO, boardModel);
         }
         return super.endTurn(thisMinionPlayerIndex, boardModel);
     }

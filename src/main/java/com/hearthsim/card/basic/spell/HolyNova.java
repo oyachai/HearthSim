@@ -50,9 +50,9 @@ public class HolyNova extends SpellDamage implements EffectOnResolveAoe {
      * @return The boardState is manipulated and returned
      */
     @Override
-    protected HearthTreeNode use_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
+    protected HearthTreeNode use_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState) throws HSException {
 
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
+        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState);
 
         if (toRet != null) {
             PlayerModel currentPlayer = toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER);

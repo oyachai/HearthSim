@@ -1,6 +1,7 @@
 package com.hearthsim.test.groovy.card.classic.minion
 
 import com.hearthsim.Game
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.Deck
 import com.hearthsim.card.basic.spell.TheCoin
 import com.hearthsim.card.classic.minion.rare.Lightwell
@@ -48,7 +49,7 @@ class LightwellSpec extends CardSpec {
         def deck = new Deck(cards)
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 1, root, deck, deck)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_1, root, deck, deck)
 
         expect:
         assertFalse(ret == null);
@@ -68,8 +69,8 @@ class LightwellSpec extends CardSpec {
                 mana(8)
                 maxMana(8)
                 addCardToHand(TheCoin)
-                updateMinion(0, [deltaHealth: 1])
-                updateMinion(1, [hasAttacked: false, hasBeenUsed: false])
+                updateMinion(CharacterIndex.MINION_1, [deltaHealth: 1])
+                updateMinion(CharacterIndex.MINION_2, [hasAttacked: false, hasBeenUsed: false])
                 addDeckPos(1)
             }
         }

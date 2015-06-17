@@ -1,6 +1,8 @@
 package com.hearthsim.test.helpers
 
 import com.hearthsim.card.Card
+import com.hearthsim.card.CardInHandIndex
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.minion.Minion
 import com.hearthsim.card.minion.MinionMock
 import com.hearthsim.card.weapon.WeaponCard
@@ -59,7 +61,12 @@ class BoardModelBuilder {
     }
 
     private updateMinion(int position, Map options) {
-        def minion = boardModel.getMinion(playerSide, position)
+        Minion minion = boardModel.modelForSide(playerSide).getCharacter(CharacterIndex.fromInteger(position))
+        this.updateMinion(minion, options);
+    }
+
+    private updateMinion(CharacterIndex position, Map options) {
+        Minion minion = boardModel.modelForSide(playerSide).getCharacter(position)
         this.updateMinion(minion, options);
     }
 
@@ -91,7 +98,7 @@ class BoardModelBuilder {
     }
 
     private updateCardInHand(int position, Map options){
-        def card = boardModel.getCard_hand(playerSide, position)
+        def card = boardModel.getCard_hand(playerSide, CardInHandIndex.fromInteger(position))
 
         if (card instanceof Minion) {
             this.updateMinion((Minion)card, options);
@@ -156,7 +163,7 @@ class BoardModelBuilder {
         addMinionToField(minionClass)
     }
 
-    private playMinion(Class<Minion> minionClass, int placementIndex) {
+    private playMinion(Class<Minion> minionClass, CharacterIndex placementIndex) {
         removeCardFromHand(minionClass)
         addMinionToField(minionClass, placementIndex)
     }
@@ -166,7 +173,7 @@ class BoardModelBuilder {
         addMinionToField(minionClass, false, true)
     }
 
-    private removeMinion(int index){
+    private removeMinion(CharacterIndex index){
         boardModel.removeMinion(playerSide, index)
     }
     
@@ -182,19 +189,19 @@ class BoardModelBuilder {
     }
 
     private addMinionToField(Class<Minion> minionClass) {
-        addMinionToField(minionClass, true, true)    
+        addMinionToField(minionClass, true, true)
     }
 
-    private addMinionToField(Class<Minion> minionClass, int placementIndex) {
+    private addMinionToField(Class<Minion> minionClass, CharacterIndex placementIndex) {
         addMinionToField(minionClass, true, true, placementIndex)
     }
     
     private addMinionToField(Class<Minion> minionClass, boolean hasAttacked, boolean hasBeenUsed) {
         def numMinions = boardModel.modelForSide(playerSide).numMinions
-        addMinionToField(minionClass, hasAttacked, hasBeenUsed, numMinions)
+        addMinionToField(minionClass, hasAttacked, hasBeenUsed, CharacterIndex.fromInteger(numMinions))
     }
         
-    private addMinionToField(Class<Minion> minionClass, boolean hasAttacked, boolean hasBeenUsed, int placementIndex) {
+    private addMinionToField(Class<Minion> minionClass, boolean hasAttacked, boolean hasBeenUsed, CharacterIndex placementIndex) {
         Minion minion = minionClass.newInstance()
         minion.hasAttacked(hasAttacked)
         minion.hasBeenUsed(hasBeenUsed)

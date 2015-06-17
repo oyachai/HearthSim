@@ -20,7 +20,7 @@ public class ImpMaster extends Minion {
 
         tmpState = this.takeDamageAndNotify((byte) 1, thisMinionPlayerIndex, thisMinionPlayerIndex, tmpState, false, false);
         if (!tmpState.data_.getCurrentPlayer().isBoardFull()) {
-            tmpState = new Imp().summonMinion(thisMinionPlayerIndex, this, tmpState, false, true);
+            tmpState = new Imp().summonMinion(thisMinionPlayerIndex, this, tmpState, false);
         }
 
         return tmpState;

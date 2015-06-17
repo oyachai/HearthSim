@@ -1,6 +1,7 @@
 package com.hearthsim.test.spell;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.basic.spell.FanOfKnives;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionMock;
@@ -56,7 +57,7 @@ public class TestFanOfKnives {
     @Test
     public void testDrawsCardOnSuccess() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO, board);
         assertNotNull(ret);
 
         assertTrue(ret instanceof CardDrawNode);
@@ -67,9 +68,9 @@ public class TestFanOfKnives {
         assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), 30);
-        assertEquals(currentPlayer.getCharacter(1).getHealth(), health0);
-        assertEquals(currentPlayer.getCharacter(2).getHealth(), health1 - 1);
-        assertEquals(waitingPlayer.getCharacter(1).getHealth(), health0 - 1);
-        assertEquals(waitingPlayer.getCharacter(2).getHealth(), health1 - 1 - 1);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), health0);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getHealth(), health1 - 1);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), health0 - 1);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getHealth(), health1 - 1 - 1);
     }
 }

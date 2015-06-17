@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.classic.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.minion.GoldshireFootman
 import com.hearthsim.card.basic.minion.WarGolem
 import com.hearthsim.card.basic.spell.ShadowWordDeath
@@ -39,7 +40,7 @@ class TheBeastSpec extends CardSpec {
 
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 1, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         assertFalse(ret == null);
@@ -47,7 +48,7 @@ class TheBeastSpec extends CardSpec {
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
                 removeCardFromHand(ShadowWordDeath)
-                removeMinion(0)
+                removeMinion(CharacterIndex.MINION_1)
                 mana(6)
                 numCardsUsed(1)
             }

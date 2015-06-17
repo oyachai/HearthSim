@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.goblinsvsgnomes.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.minion.BloodfenRaptor
 import com.hearthsim.card.curseofnaxxramas.minion.common.HauntedCreeper
 import com.hearthsim.card.curseofnaxxramas.minion.common.SpectralSpider
@@ -35,22 +36,22 @@ class ScarletPurifierSpec extends CardSpec {
     def "deals damage to deathrattle minions"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         ret != null
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                playMinion(ScarletPurifier, 0)
+                playMinion(ScarletPurifier, CharacterIndex.HERO)
                 mana(7)
                 numCardsUsed(1)
-                removeMinion(2)
+                removeMinion(CharacterIndex.MINION_3)
                 addMinionToField(SpectralSpider)
                 addMinionToField(SpectralSpider)
             }
             waitingPlayer {
-                updateMinion(0, [deltaHealth: -2])
+                updateMinion(CharacterIndex.MINION_1, [deltaHealth: -2])
             }
         }
     }

@@ -1,6 +1,7 @@
 package com.hearthsim.test.minion;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.basic.minion.BoulderfistOgre;
 import com.hearthsim.card.basic.minion.RaidLeader;
 import com.hearthsim.card.classic.minion.common.ScarletCrusader;
@@ -44,7 +45,7 @@ public class TestScarletCrusader {
     @Test
     public void test0() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 0, board);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.WAITING_PLAYER, CharacterIndex.HERO, board);
 
         assertNull(ret);
 
@@ -55,25 +56,25 @@ public class TestScarletCrusader {
         assertEquals(waitingPlayer.getMana(), 8);
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), 30);
-        assertEquals(currentPlayer.getCharacter(1).getHealth(), 2);
-        assertEquals(currentPlayer.getCharacter(2).getHealth(), 7);
-        assertEquals(waitingPlayer.getCharacter(1).getHealth(), 1);
-        assertEquals(waitingPlayer.getCharacter(2).getHealth(), 2);
-        assertEquals(waitingPlayer.getCharacter(3).getHealth(), 7);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), 2);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getHealth(), 7);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), 1);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getHealth(), 2);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_3).getHealth(), 7);
 
-        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), 2);
-        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), 7);
-        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), 4);
-        assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), 2);
-        assertEquals(waitingPlayer.getCharacter(3).getTotalAttack(), 7);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), 2);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getTotalAttack(), 7);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), 4);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getTotalAttack(), 2);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_3).getTotalAttack(), 7);
 
-        assertTrue(waitingPlayer.getCharacter(1).getDivineShield());
+        assertTrue(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getDivineShield());
     }
 
     @Test
     public void test2() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 2, board);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, CharacterIndex.MINION_2, board);
 
         assertFalse(ret == null);
 
@@ -84,30 +85,30 @@ public class TestScarletCrusader {
         assertEquals(waitingPlayer.getMana(), 8);
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), 30);
-        assertEquals(currentPlayer.getCharacter(1).getHealth(), 2);
-        assertEquals(currentPlayer.getCharacter(2).getHealth(), 7);
-        assertEquals(currentPlayer.getCharacter(3).getHealth(), 1);
-        assertEquals(waitingPlayer.getCharacter(1).getHealth(), 1);
-        assertEquals(waitingPlayer.getCharacter(2).getHealth(), 2);
-        assertEquals(waitingPlayer.getCharacter(3).getHealth(), 7);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), 2);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getHealth(), 7);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_3).getHealth(), 1);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), 1);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getHealth(), 2);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_3).getHealth(), 7);
 
-        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), 2);
-        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), 7);
-        assertEquals(currentPlayer.getCharacter(3).getTotalAttack(), 4);
-        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), 4);
-        assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), 2);
-        assertEquals(waitingPlayer.getCharacter(3).getTotalAttack(), 7);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), 2);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getTotalAttack(), 7);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_3).getTotalAttack(), 4);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), 4);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getTotalAttack(), 2);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_3).getTotalAttack(), 7);
 
-        assertTrue(waitingPlayer.getCharacter(1).getDivineShield());
-        assertTrue(currentPlayer.getCharacter(3).getDivineShield());
+        assertTrue(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getDivineShield());
+        assertTrue(currentPlayer.getCharacter(CharacterIndex.MINION_3).getDivineShield());
 
         //------------------------------------------------------------
         //Attacking with divine shield vs Hero, divine shield should
         // stay on
         //------------------------------------------------------------
-        Minion m0 = currentPlayer.getCharacter(3);
+        Minion m0 = currentPlayer.getCharacter(CharacterIndex.MINION_3);
         m0.hasAttacked(false);
-        m0.attack(PlayerSide.WAITING_PLAYER, 0, board, false);
+        m0.attack(PlayerSide.WAITING_PLAYER, CharacterIndex.HERO, board);
 
         assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 3);
@@ -116,29 +117,29 @@ public class TestScarletCrusader {
         assertEquals(waitingPlayer.getMana(), 8);
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), 26);
-        assertEquals(currentPlayer.getCharacter(1).getHealth(), 2);
-        assertEquals(currentPlayer.getCharacter(2).getHealth(), 7);
-        assertEquals(currentPlayer.getCharacter(3).getHealth(), 1);
-        assertEquals(waitingPlayer.getCharacter(1).getHealth(), 1);
-        assertEquals(waitingPlayer.getCharacter(2).getHealth(), 2);
-        assertEquals(waitingPlayer.getCharacter(3).getHealth(), 7);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), 2);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getHealth(), 7);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_3).getHealth(), 1);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), 1);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getHealth(), 2);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_3).getHealth(), 7);
 
-        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), 2);
-        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), 7);
-        assertEquals(currentPlayer.getCharacter(3).getTotalAttack(), 4);
-        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), 4);
-        assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), 2);
-        assertEquals(waitingPlayer.getCharacter(3).getTotalAttack(), 7);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), 2);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getTotalAttack(), 7);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_3).getTotalAttack(), 4);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), 4);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getTotalAttack(), 2);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_3).getTotalAttack(), 7);
 
-        assertTrue(waitingPlayer.getCharacter(1).getDivineShield());
-        assertTrue(currentPlayer.getCharacter(3).getDivineShield());
+        assertTrue(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getDivineShield());
+        assertTrue(currentPlayer.getCharacter(CharacterIndex.MINION_3).getDivineShield());
 
         //------------------------------------------------------------
         //Attacking with divine shield
         //------------------------------------------------------------
-        Minion m1 = currentPlayer.getCharacter(3);
+        Minion m1 = currentPlayer.getCharacter(CharacterIndex.MINION_3);
         m1.hasAttacked(false);
-        m1.attack(PlayerSide.WAITING_PLAYER, 3, board, false);
+        m1.attack(PlayerSide.WAITING_PLAYER, CharacterIndex.MINION_3, board);
 
         assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 3);
@@ -147,29 +148,29 @@ public class TestScarletCrusader {
         assertEquals(waitingPlayer.getMana(), 8);
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), 26);
-        assertEquals(currentPlayer.getCharacter(1).getHealth(), 2);
-        assertEquals(currentPlayer.getCharacter(2).getHealth(), 7);
-        assertEquals(currentPlayer.getCharacter(3).getHealth(), 1);
-        assertEquals(waitingPlayer.getCharacter(1).getHealth(), 1);
-        assertEquals(waitingPlayer.getCharacter(2).getHealth(), 2);
-        assertEquals(waitingPlayer.getCharacter(3).getHealth(), 3);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), 2);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getHealth(), 7);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_3).getHealth(), 1);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), 1);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getHealth(), 2);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_3).getHealth(), 3);
 
-        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), 2);
-        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), 7);
-        assertEquals(currentPlayer.getCharacter(3).getTotalAttack(), 4);
-        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), 4);
-        assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), 2);
-        assertEquals(waitingPlayer.getCharacter(3).getTotalAttack(), 7);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), 2);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getTotalAttack(), 7);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_3).getTotalAttack(), 4);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), 4);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getTotalAttack(), 2);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_3).getTotalAttack(), 7);
 
-        assertTrue(waitingPlayer.getCharacter(1).getDivineShield());
-        assertFalse(currentPlayer.getCharacter(3).getDivineShield());
+        assertTrue(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getDivineShield());
+        assertFalse(currentPlayer.getCharacter(CharacterIndex.MINION_3).getDivineShield());
 
         //------------------------------------------------------------
         //Being attacked with a divine shield
         //------------------------------------------------------------
-        Minion m2 = currentPlayer.getCharacter(2);
+        Minion m2 = currentPlayer.getCharacter(CharacterIndex.MINION_2);
         m2.hasAttacked(false);
-        m2.attack(PlayerSide.WAITING_PLAYER, 1, board, false);
+        m2.attack(PlayerSide.WAITING_PLAYER, CharacterIndex.MINION_1, board);
 
         assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 3);
@@ -178,29 +179,29 @@ public class TestScarletCrusader {
         assertEquals(waitingPlayer.getMana(), 8);
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), 26);
-        assertEquals(currentPlayer.getCharacter(1).getHealth(), 2);
-        assertEquals(currentPlayer.getCharacter(2).getHealth(), 3);
-        assertEquals(currentPlayer.getCharacter(3).getHealth(), 1);
-        assertEquals(waitingPlayer.getCharacter(1).getHealth(), 1);
-        assertEquals(waitingPlayer.getCharacter(2).getHealth(), 2);
-        assertEquals(waitingPlayer.getCharacter(3).getHealth(), 3);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), 2);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getHealth(), 3);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_3).getHealth(), 1);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), 1);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getHealth(), 2);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_3).getHealth(), 3);
 
-        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), 2);
-        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), 7);
-        assertEquals(currentPlayer.getCharacter(3).getTotalAttack(), 4);
-        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), 4);
-        assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), 2);
-        assertEquals(waitingPlayer.getCharacter(3).getTotalAttack(), 7);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), 2);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getTotalAttack(), 7);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_3).getTotalAttack(), 4);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), 4);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getTotalAttack(), 2);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_3).getTotalAttack(), 7);
 
-        assertFalse(waitingPlayer.getCharacter(1).getDivineShield());
-        assertFalse(currentPlayer.getCharacter(3).getDivineShield());
+        assertFalse(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getDivineShield());
+        assertFalse(currentPlayer.getCharacter(CharacterIndex.MINION_3).getDivineShield());
 
         //------------------------------------------------------------
         //Being attacked with a divine shield that wore off
         //------------------------------------------------------------
-        Minion m3 = currentPlayer.getCharacter(3);
+        Minion m3 = currentPlayer.getCharacter(CharacterIndex.MINION_3);
         m3.hasAttacked(false);
-        m3.attack(PlayerSide.WAITING_PLAYER, 3, board, false);
+        m3.attack(PlayerSide.WAITING_PLAYER, CharacterIndex.MINION_3, board);
 
         assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getNumMinions(), 2);
@@ -209,16 +210,16 @@ public class TestScarletCrusader {
         assertEquals(waitingPlayer.getMana(), 8);
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), 26);
-        assertEquals(currentPlayer.getCharacter(1).getHealth(), 2);
-        assertEquals(currentPlayer.getCharacter(2).getHealth(), 3);
-        assertEquals(waitingPlayer.getCharacter(1).getHealth(), 1);
-        assertEquals(waitingPlayer.getCharacter(2).getHealth(), 2);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), 2);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getHealth(), 3);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), 1);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getHealth(), 2);
 
-        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), 2);
-        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), 7);
-        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), 4);
-        assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), 2);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), 2);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getTotalAttack(), 7);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), 4);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getTotalAttack(), 2);
 
-        assertFalse(waitingPlayer.getCharacter(1).getDivineShield());
+        assertFalse(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getDivineShield());
     }
 }

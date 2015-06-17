@@ -1,6 +1,7 @@
 package com.hearthsim.test.heroes;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.basic.minion.BoulderfistOgre;
 import com.hearthsim.card.basic.minion.RaidLeader;
@@ -47,7 +48,7 @@ public class TestWarlock {
     public void testHeropower() throws HSException {
         Hero warrior = currentPlayer.getHero();
 
-        HearthTreeNode ret = warrior.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board);
+        HearthTreeNode ret = warrior.useHeroAbility(PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO, board);
         assertNotEquals(board, ret);
         assertTrue(ret instanceof CardDrawNode);
 
@@ -65,21 +66,21 @@ public class TestWarlock {
     public void testHeropowerCannotTargetMinion() throws HSException {
         Hero warrior = currentPlayer.getHero();
 
-        HearthTreeNode ret = warrior.useHeroAbility(PlayerSide.WAITING_PLAYER, 2, board);
+        HearthTreeNode ret = warrior.useHeroAbility(PlayerSide.WAITING_PLAYER, CharacterIndex.MINION_2, board);
         assertNull(ret);
 
         assertEquals(currentPlayer.getHand().size(), 0);
         assertEquals(currentPlayer.getMana(), 8);
         assertEquals(currentPlayer.getHero().getHealth(), 30);
 
-        assertEquals(currentPlayer.getCharacter(2).getHealth(), 7);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getHealth(), 7);
     }
 
     @Test
     public void testHeropowerCannotTargetOpponent() throws HSException {
         Hero warrior = currentPlayer.getHero();
 
-        HearthTreeNode ret = warrior.useHeroAbility(PlayerSide.WAITING_PLAYER, 0, board);
+        HearthTreeNode ret = warrior.useHeroAbility(PlayerSide.WAITING_PLAYER, CharacterIndex.HERO, board);
         assertNull(ret);
 
         assertEquals(currentPlayer.getHand().size(), 0);
@@ -98,14 +99,14 @@ public class TestWarlock {
 
         Deck deck = new Deck(cards);
 
-        Minion minion = currentPlayer.getCharacter(1);
-        HearthTreeNode ret = minion.attack(PlayerSide.WAITING_PLAYER, 0, board, false);
+        Minion minion = currentPlayer.getCharacter(CharacterIndex.MINION_1);
+        HearthTreeNode ret = minion.attack(PlayerSide.WAITING_PLAYER, CharacterIndex.HERO, board);
         assertEquals(board, ret);
 
         currentPlayer.setDeckPos((byte) 30);
 
         Hero hero = currentPlayer.getHero();
-        ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, 0, board);
+        ret = hero.useHeroAbility(PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO, board);
         assertEquals(currentPlayer.getHand().size(), 0);
 
         assertTrue(ret instanceof CardDrawNode);

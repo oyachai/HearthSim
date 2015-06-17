@@ -1,5 +1,6 @@
 package com.hearthsim.test.heroes;
 
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.basic.minion.ChillwindYeti;
 import com.hearthsim.card.minion.Hero;
 import com.hearthsim.card.minion.Minion;
@@ -64,20 +65,20 @@ public class TestPriest {
         assertEquals(bestPlay.data_.getWaitingPlayer().getMana(), 8);
         assertEquals(bestPlay.data_.getCurrentPlayer().getHero().getHealth(), 30);
         assertEquals(bestPlay.data_.getWaitingPlayer().getHero().getHealth(), 30);
-        assertEquals(bestPlay.data_.getCurrentPlayer().getCharacter(1).getHealth(), 3);
-        assertEquals(bestPlay.data_.getCurrentPlayer().getCharacter(2).getHealth(), 1);
-        assertEquals(bestPlay.data_.getWaitingPlayer().getCharacter(1).getHealth(), 5);
+        assertEquals(bestPlay.data_.getCurrentPlayer().getCharacter(CharacterIndex.MINION_1).getHealth(), 3);
+        assertEquals(bestPlay.data_.getCurrentPlayer().getCharacter(CharacterIndex.MINION_2).getHealth(), 1);
+        assertEquals(bestPlay.data_.getWaitingPlayer().getCharacter(CharacterIndex.MINION_1).getHealth(), 5);
 
-        assertEquals(bestPlay.data_.getCurrentPlayer().getCharacter(1).getTotalAttack(), 4);
-        assertEquals(bestPlay.data_.getCurrentPlayer().getCharacter(2).getTotalAttack(), 4);
-        assertEquals(bestPlay.data_.getWaitingPlayer().getCharacter(1).getTotalAttack(), 4);
+        assertEquals(bestPlay.data_.getCurrentPlayer().getCharacter(CharacterIndex.MINION_1).getTotalAttack(), 4);
+        assertEquals(bestPlay.data_.getCurrentPlayer().getCharacter(CharacterIndex.MINION_2).getTotalAttack(), 4);
+        assertEquals(bestPlay.data_.getWaitingPlayer().getCharacter(CharacterIndex.MINION_1).getTotalAttack(), 4);
     }
 
     @Test
     public void testAiHealBeforeTrading() throws HSException {
 
         // one of your yeti is damaged
-        currentPlayer.getCharacter(1).setHealth((byte)3);
+        currentPlayer.getCharacter(CharacterIndex.MINION_1).setHealth((byte)3);
 
         BoardStateFactoryBase factory = new DepthBoardStateFactory(null, null, 2000000000, true);
         HearthTreeNode tree = new HearthTreeNode(board.data_);
@@ -101,18 +102,18 @@ public class TestPriest {
         assertEquals(bestPlay.data_.getWaitingPlayer().getMana(), 8);
         assertEquals(bestPlay.data_.getCurrentPlayer().getHero().getHealth(), 30);
         assertEquals(bestPlay.data_.getWaitingPlayer().getHero().getHealth(), 30);
-        assertEquals(bestPlay.data_.getCurrentPlayer().getCharacter(1).getHealth(), 1);
-        assertEquals(bestPlay.data_.getCurrentPlayer().getCharacter(2).getHealth(), 1);
-        assertEquals(bestPlay.data_.getWaitingPlayer().getCharacter(1).getHealth(), 5);
+        assertEquals(bestPlay.data_.getCurrentPlayer().getCharacter(CharacterIndex.MINION_1).getHealth(), 1);
+        assertEquals(bestPlay.data_.getCurrentPlayer().getCharacter(CharacterIndex.MINION_2).getHealth(), 1);
+        assertEquals(bestPlay.data_.getWaitingPlayer().getCharacter(CharacterIndex.MINION_1).getHealth(), 5);
 
-        assertEquals(bestPlay.data_.getCurrentPlayer().getCharacter(1).getTotalAttack(), 4);
-        assertEquals(bestPlay.data_.getCurrentPlayer().getCharacter(2).getTotalAttack(), 4);
-        assertEquals(bestPlay.data_.getWaitingPlayer().getCharacter(1).getTotalAttack(), 4);
+        assertEquals(bestPlay.data_.getCurrentPlayer().getCharacter(CharacterIndex.MINION_1).getTotalAttack(), 4);
+        assertEquals(bestPlay.data_.getCurrentPlayer().getCharacter(CharacterIndex.MINION_2).getTotalAttack(), 4);
+        assertEquals(bestPlay.data_.getWaitingPlayer().getCharacter(CharacterIndex.MINION_1).getTotalAttack(), 4);
     }
 
     @Test
     public void testHeropowerAgainstOpponent() throws HSException {
-        Minion target = waitingPlayer.getCharacter(0); // Opponent hero
+        Minion target = waitingPlayer.getCharacter(CharacterIndex.HERO); // Opponent hero
         target.setHealth((byte)20);
 
         Hero priest = currentPlayer.getHero();
@@ -126,7 +127,7 @@ public class TestPriest {
 
     @Test
     public void testHeropowerAgainstMinion() throws HSException {
-        Minion target = waitingPlayer.getCharacter(1);
+        Minion target = waitingPlayer.getCharacter(CharacterIndex.MINION_1);
         target.setHealth((byte)1);
 
         Hero priest = currentPlayer.getHero();
@@ -135,12 +136,12 @@ public class TestPriest {
         assertEquals(board, ret);
 
         assertEquals(currentPlayer.getMana(), 6);
-        assertEquals(waitingPlayer.getCharacter(1).getHealth(), 3);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), 3);
     }
 
     @Test
     public void testHeropowerAgainstSelf() throws HSException {
-        Minion target = currentPlayer.getCharacter(0); // Self
+        Minion target = currentPlayer.getCharacter(CharacterIndex.HERO); // Self
         target.setHealth((byte)20);
 
         Hero priest = currentPlayer.getHero();
@@ -154,7 +155,7 @@ public class TestPriest {
 
     @Test
     public void testHeropowerAgainstOwnMinion() throws HSException {
-        Minion target = currentPlayer.getCharacter(1);
+        Minion target = currentPlayer.getCharacter(CharacterIndex.MINION_1);
         target.setHealth((byte)1);
 
         Hero priest = currentPlayer.getHero();
@@ -163,6 +164,6 @@ public class TestPriest {
         assertEquals(board, ret);
 
         assertEquals(currentPlayer.getMana(), 6);
-        assertEquals(currentPlayer.getCharacter(1).getHealth(), 3);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getHealth(), 3);
     }
 }

@@ -25,6 +25,11 @@ public class TestHero extends Hero {
     }
 
     @Override
+    public String getHeroClass() {
+        return "None";
+    }
+
+    @Override
     public byte getBaseHealth() {
         return this.baseHealth_;
     }
@@ -51,13 +56,11 @@ public class TestHero extends Hero {
      * @param targetMinion
      *            The target minion
      * @param boardState
-     * @param deckPlayer0
-     * @param deckPlayer1
      *
      * @return
      */
     @Override
-    public HearthTreeNode useHeroAbility_core(PlayerSide targetPlayerSide, Minion targetMinion, HearthTreeNode boardState, boolean singleRealizationOnly) {
+    public HearthTreeNode useHeroAbility_core(PlayerSide targetPlayerSide, Minion targetMinion, HearthTreeNode boardState) {
         if (this.enableHeroAbility) {
             this.hasBeenUsed = true;
             boardState.data_.getCurrentPlayer().subtractMana(HERO_ABILITY_COST);

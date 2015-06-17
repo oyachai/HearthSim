@@ -61,7 +61,7 @@ public class AnimalCompanion extends SpellTargetableCard implements SpellRandomI
         for (Minion minion : new Minion[]{new Huffer(), new Leokk(), new Misha()}) {
             newState = new HearthTreeNode(boardState.data_.deepCopy());
             newState.data_.modelForSide(originSide).getHand().remove(originIndex);
-            newState = minion.summonMinionAtEnd(originSide, newState, false, false);
+            newState = minion.summonMinionAtEnd(originSide, newState, false);
             children.add(newState);
         }
 

@@ -1,5 +1,6 @@
 package com.hearthsim.card.classic.minion.common;
 
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionBattlecryInterface;
 import com.hearthsim.event.effect.EffectCharacter;
@@ -18,7 +19,7 @@ public class FlameImp extends Minion implements MinionBattlecryInterface {
      */
     @Override
     public EffectCharacter<Minion> getBattlecryEffect() {
-        return (PlayerSide originSide, Minion origin, PlayerSide targetSide, int minionPlacementIndex, HearthTreeNode boardState) -> {
+        return (PlayerSide originSide, Minion origin, PlayerSide targetSide, CharacterIndex minionPlacementIndex, HearthTreeNode boardState) -> {
             HearthTreeNode toRet = boardState;
             PlayerModel currentPlayer = toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
             toRet = currentPlayer.getHero().takeDamageAndNotify((byte) 3, PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, toRet, false, false);

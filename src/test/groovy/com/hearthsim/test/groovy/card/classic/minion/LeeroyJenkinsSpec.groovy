@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.classic.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.classic.minion.common.Whelp
 import com.hearthsim.card.classic.minion.legendary.LeeroyJenkins
 import com.hearthsim.model.BoardModel
@@ -33,7 +34,7 @@ class LeeroyJenkinsSpec extends CardSpec {
     def "playing Leeroy Jenkins"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root, null, null)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
 

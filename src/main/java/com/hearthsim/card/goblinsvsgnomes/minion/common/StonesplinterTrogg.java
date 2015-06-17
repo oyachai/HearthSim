@@ -15,7 +15,7 @@ public class StonesplinterTrogg extends Minion implements CardPlayBeginInterface
 
     @Override
     public HearthTreeNode onCardPlayBegin(PlayerSide thisCardPlayerSide, PlayerSide cardUserPlayerSide, Card usedCard,
-                                          HearthTreeNode boardState, boolean singleRealizationOnly) {
+                                          HearthTreeNode boardState) {
         if (cardUserPlayerSide != thisCardPlayerSide && usedCard instanceof SpellCard) {
             this.addAttack((byte)1);
         }

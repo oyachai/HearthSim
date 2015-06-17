@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.goblinsvsgnomes.spell
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.minion.KoboldGeomancer
 import com.hearthsim.card.basic.minion.Voidwalker
 import com.hearthsim.card.basic.minion.WarGolem
@@ -34,11 +35,11 @@ class FlamecannonSpec extends CardSpec {
     }
 
     def "returned node is normal for only one target"() {
-        startingBoard.removeMinion(WAITING_PLAYER, 0);
+        startingBoard.removeMinion(WAITING_PLAYER, CharacterIndex.MINION_1);
 
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         ret != null
@@ -52,7 +53,7 @@ class FlamecannonSpec extends CardSpec {
                 numCardsUsed(1)
             }
             waitingPlayer {
-                updateMinion(0, [deltaHealth: -4])
+                updateMinion(CharacterIndex.MINION_1, [deltaHealth: -4])
             }
         }
     }
@@ -60,7 +61,7 @@ class FlamecannonSpec extends CardSpec {
     def "returned node is RNG for two or more targets"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         ret != null
@@ -75,12 +76,12 @@ class FlamecannonSpec extends CardSpec {
     }
 
     def "returned node is null for no targets"() {
-        startingBoard.removeMinion(WAITING_PLAYER, 0);
-        startingBoard.removeMinion(WAITING_PLAYER, 0);
+        startingBoard.removeMinion(WAITING_PLAYER, CharacterIndex.MINION_1);
+        startingBoard.removeMinion(WAITING_PLAYER, CharacterIndex.MINION_1);
 
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         ret == null
@@ -88,7 +89,7 @@ class FlamecannonSpec extends CardSpec {
 
     def "hits enemy minions"() {
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         ret != null
@@ -104,7 +105,7 @@ class FlamecannonSpec extends CardSpec {
                 mana(8)
             }
             waitingPlayer {
-                removeMinion(0)
+                removeMinion(CharacterIndex.MINION_1)
             }
         }
 
@@ -115,7 +116,7 @@ class FlamecannonSpec extends CardSpec {
                 mana(8)
             }
             waitingPlayer {
-                updateMinion(1, [deltaHealth: -4])
+                updateMinion(CharacterIndex.MINION_2, [deltaHealth: -4])
             }
         }
     }
@@ -124,7 +125,7 @@ class FlamecannonSpec extends CardSpec {
         startingBoard.placeMinion(CURRENT_PLAYER, new KoboldGeomancer())
 
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         ret != null
@@ -140,7 +141,7 @@ class FlamecannonSpec extends CardSpec {
                 mana(8)
             }
             waitingPlayer {
-                removeMinion(0)
+                removeMinion(CharacterIndex.MINION_1)
             }
         }
 
@@ -151,7 +152,7 @@ class FlamecannonSpec extends CardSpec {
                 mana(8)
             }
             waitingPlayer {
-                updateMinion(1, [deltaHealth: -5])
+                updateMinion(CharacterIndex.MINION_2, [deltaHealth: -5])
             }
         }
     }

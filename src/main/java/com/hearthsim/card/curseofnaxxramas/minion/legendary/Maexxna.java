@@ -13,10 +13,10 @@ public class Maexxna extends Minion {
     }
 
     @Override
-    protected HearthTreeNode attack_core(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode boardState, boolean singleRealization) throws HSException {
+    protected HearthTreeNode attack_core(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode boardState) throws HSException {
 
         if (targetMinion instanceof Hero)
-            return super.attack_core(targetMinionPlayerSide, targetMinion, boardState, singleRealization);
+            return super.attack_core(targetMinionPlayerSide, targetMinion, boardState);
 
         HearthTreeNode toRet = boardState;
         byte origAttack = targetMinion.getTotalAttack();

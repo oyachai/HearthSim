@@ -1,5 +1,6 @@
 package com.hearthsim.card.classic.minion.common;
 
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.PlayerModel;
@@ -26,13 +27,13 @@ public class DruidOfTheClaw extends Minion {
     }
 
     @Override
-    public HearthTreeNode use_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState, boolean singleRealizationOnly) throws HSException {
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState, singleRealizationOnly);
+    public HearthTreeNode use_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState) throws HSException {
+        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState);
 
         if (toRet != null) {
             PlayerModel currentPlayer = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
 
-            int thisMinionIndex = currentPlayer.getIndexForCharacter(this);
+            CharacterIndex thisMinionIndex = currentPlayer.getIndexForCharacter(this);
 
             HearthTreeNode tauntState = toRet.addChild(new HearthTreeNode(toRet.data_.deepCopy()));
             DruidOfTheClaw newMinion = (DruidOfTheClaw)tauntState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getCharacter(thisMinionIndex);

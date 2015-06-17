@@ -1,6 +1,7 @@
 package com.hearthsim.test.groovy.card.classic.minion
 
 import com.hearthsim.Game
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.spell.TheCoin
 import com.hearthsim.card.classic.minion.rare.ManaTideTotem
 import com.hearthsim.model.BoardModel
@@ -35,7 +36,7 @@ class ManaTideTotemSpec extends CardSpec {
 	def "playing Master Swordsmith"() {
 		def copiedBoard = startingBoard.deepCopy()
 		def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-		def ret = theCard.useOn(CURRENT_PLAYER, 0, root, null, null)
+		def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
 		expect:
 		assertFalse(ret == null);

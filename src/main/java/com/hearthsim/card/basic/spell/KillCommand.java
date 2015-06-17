@@ -38,7 +38,7 @@ public class KillCommand extends SpellDamageTargetableCard {
     protected HearthTreeNode use_core(
             PlayerSide side,
             Minion targetMinion,
-            HearthTreeNode boardState, boolean singleRealizationOnly)
+            HearthTreeNode boardState)
         throws HSException {
         boolean haveBeast = false;
         PlayerModel currentPlayer = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
@@ -50,6 +50,6 @@ public class KillCommand extends SpellDamageTargetableCard {
         else
             this.damage_ = (byte)3;
 
-        return super.use_core(side, targetMinion, boardState, singleRealizationOnly);
+        return super.use_core(side, targetMinion, boardState);
     }
 }

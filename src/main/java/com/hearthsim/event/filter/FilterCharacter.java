@@ -1,6 +1,7 @@
 package com.hearthsim.event.filter;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
@@ -74,7 +75,7 @@ public class FilterCharacter implements FilterCharacterInterface {
         return true;
     }
 
-    public final boolean targetMatches(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, BoardModel board) {
+    public final boolean targetMatches(PlayerSide originSide, Card origin, PlayerSide targetSide, CharacterIndex targetCharacterIndex, BoardModel board) {
         Minion targetCharacter = board.modelForSide(targetSide).getCharacter(targetCharacterIndex);
         return this.targetMatches(originSide, origin, targetSide, targetCharacter, board);
     }

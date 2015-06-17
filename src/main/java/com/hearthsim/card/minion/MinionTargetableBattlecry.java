@@ -1,6 +1,7 @@
 package com.hearthsim.card.minion;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.event.effect.EffectCharacter;
 import com.hearthsim.event.filter.FilterCharacterInterface;
 import com.hearthsim.model.BoardModel;
@@ -18,9 +19,9 @@ public interface MinionTargetableBattlecry extends MinionBattlecryInterface {
      * @param boardState
      * @return
      */
-    public HearthTreeNode useTargetableBattlecry_core(PlayerSide originSide, Minion origin, PlayerSide targetSide, int targetCharacterIndex, HearthTreeNode boardState);
+    public HearthTreeNode useTargetableBattlecry_core(PlayerSide originSide, Minion origin, PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState);
 
-    public boolean canTargetWithBattlecry(PlayerSide originSide, Card origin, PlayerSide targetSide, int targetCharacterIndex, BoardModel board);
+    public boolean canTargetWithBattlecry(PlayerSide originSide, Card origin, PlayerSide targetSide, CharacterIndex targetCharacterIndex, BoardModel board);
 
     @Override
     public default FilterCharacterInterface getBattlecryFilter() {

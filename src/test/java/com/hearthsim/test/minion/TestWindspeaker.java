@@ -1,5 +1,6 @@
 package com.hearthsim.test.minion;
 
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.basic.minion.BoulderfistOgre;
 import com.hearthsim.card.basic.minion.Windspeaker;
 import com.hearthsim.card.classic.minion.common.DustDevil;
@@ -27,7 +28,7 @@ public class TestWindspeaker {
         BoulderfistOgre ogre = new BoulderfistOgre();
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, ogre);
         Windspeaker windspeaker = new Windspeaker();
-        windspeaker.getBattlecryEffect().applyEffect(PlayerSide.CURRENT_PLAYER, windspeaker, PlayerSide.CURRENT_PLAYER, 1, board);
+        windspeaker.getBattlecryEffect().applyEffect(PlayerSide.CURRENT_PLAYER, windspeaker, PlayerSide.CURRENT_PLAYER, CharacterIndex.MINION_1, board);
         assertTrue(ogre.getWindfury());
     }
 
@@ -41,7 +42,7 @@ public class TestWindspeaker {
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new BoulderfistOgre());
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new DustDevil());
 
-        HearthTreeNode ret = windspeaker.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
+        HearthTreeNode ret = windspeaker.useOn(PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO, board);
         assertEquals(board, ret);
 
         assertEquals(board.numChildren(), 1);

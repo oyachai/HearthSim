@@ -1,6 +1,7 @@
 package com.hearthsim.test.minion;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.basic.minion.BoulderfistOgre;
 import com.hearthsim.card.basic.minion.RaidLeader;
 import com.hearthsim.card.classic.minion.common.ArgentSquire;
@@ -45,26 +46,26 @@ public class TestAlexstrasza {
 
     @Test
     public void testSetsOwnHealth() throws HSException {
-        Minion hero = currentPlayer.getCharacter(0);
+        Minion hero = currentPlayer.getCharacter(CharacterIndex.HERO);
         Alexstrasza alexstrasza = new Alexstrasza();
-        alexstrasza.getBattlecryEffect().applyEffect(PlayerSide.CURRENT_PLAYER, alexstrasza, PlayerSide.CURRENT_PLAYER, 0, board);
+        alexstrasza.getBattlecryEffect().applyEffect(PlayerSide.CURRENT_PLAYER, alexstrasza, PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO, board);
         assertEquals(15, hero.getHealth());
     }
 
     @Test
     public void testSetsEnemyHealth() throws HSException {
-        Minion hero = waitingPlayer.getCharacter(0);
+        Minion hero = waitingPlayer.getCharacter(CharacterIndex.HERO);
         Alexstrasza alexstrasza = new Alexstrasza();
-        alexstrasza.getBattlecryEffect().applyEffect(PlayerSide.CURRENT_PLAYER, alexstrasza, PlayerSide.WAITING_PLAYER, 0, board);
+        alexstrasza.getBattlecryEffect().applyEffect(PlayerSide.CURRENT_PLAYER, alexstrasza, PlayerSide.WAITING_PLAYER, CharacterIndex.HERO, board);
         assertEquals(15, hero.getHealth());
     }
 
     @Test
     public void testSetsDamagedHealth() throws HSException {
-        Minion hero = currentPlayer.getCharacter(0);
+        Minion hero = currentPlayer.getCharacter(CharacterIndex.HERO);
         hero.setHealth((byte)20);
         Alexstrasza alexstrasza = new Alexstrasza();
-        alexstrasza.getBattlecryEffect().applyEffect(PlayerSide.CURRENT_PLAYER, alexstrasza, PlayerSide.CURRENT_PLAYER, 0, board);
+        alexstrasza.getBattlecryEffect().applyEffect(PlayerSide.CURRENT_PLAYER, alexstrasza, PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO, board);
         assertEquals(15, hero.getHealth());
     }
 
@@ -73,7 +74,7 @@ public class TestAlexstrasza {
         Hero hero = currentPlayer.getHero();
         hero.setArmor((byte)20);
         Alexstrasza alexstrasza = new Alexstrasza();
-        alexstrasza.getBattlecryEffect().applyEffect(PlayerSide.CURRENT_PLAYER, alexstrasza, PlayerSide.CURRENT_PLAYER, 0, board);
+        alexstrasza.getBattlecryEffect().applyEffect(PlayerSide.CURRENT_PLAYER, alexstrasza, PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO, board);
         assertEquals(15, hero.getHealth());
         assertEquals(20, hero.getArmor());
     }
@@ -81,10 +82,10 @@ public class TestAlexstrasza {
     @Test
     // TODO check to see if this counts as an actual heal effect (e.g., Soulpriest or Lightwarden)
     public void testHealsLowHealthTarget() throws HSException {
-        Minion hero = currentPlayer.getCharacter(0);
+        Minion hero = currentPlayer.getCharacter(CharacterIndex.HERO);
         hero.setHealth((byte)2);
         Alexstrasza alexstrasza = new Alexstrasza();
-        alexstrasza.getBattlecryEffect().applyEffect(PlayerSide.CURRENT_PLAYER, alexstrasza, PlayerSide.CURRENT_PLAYER, 0, board);
+        alexstrasza.getBattlecryEffect().applyEffect(PlayerSide.CURRENT_PLAYER, alexstrasza, PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO, board);
         assertEquals(15, hero.getHealth());
     }
 }

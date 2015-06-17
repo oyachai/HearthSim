@@ -31,7 +31,7 @@ public class ScavengingHyena extends Minion implements MinionDeadInterface {
 
     @Override
     public HearthTreeNode minionDeadEvent(PlayerSide thisMinionPlayerSide, PlayerSide deadMinionPlayerSide, Minion deadMinion, HearthTreeNode boardState) {
-        if (this.isInHand()) {
+        if (this.setInHand()) {
             return boardState;
         }
 

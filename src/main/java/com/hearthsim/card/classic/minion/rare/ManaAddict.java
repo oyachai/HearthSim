@@ -18,8 +18,8 @@ public class ManaAddict extends Minion implements CardPlayBeginInterface {
     }
 
     public HearthTreeNode onCardPlayBegin(PlayerSide thisCardPlayerSide, PlayerSide cardUserPlayerSide, Card usedCard,
-            HearthTreeNode boardState, boolean singleRealizationOnly) {
-        if (this.isInHand()) {
+            HearthTreeNode boardState) {
+        if (this.setInHand()) {
             return boardState;
         }
         if (cardUserPlayerSide == thisCardPlayerSide && usedCard instanceof SpellCard) {

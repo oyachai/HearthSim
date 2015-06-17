@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.classic.spell
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.minion.WarGolem
 import com.hearthsim.card.classic.minion.common.StranglethornTiger
 import com.hearthsim.card.classic.spell.rare.Blizzard
@@ -34,7 +35,7 @@ class BlizzardSpec extends CardSpec {
     def "freezes unfrozen minion"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayerCardHand(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         assertEquals(root, ret);
@@ -46,8 +47,8 @@ class BlizzardSpec extends CardSpec {
                 numCardsUsed(1)
             }
             waitingPlayer {
-                updateMinion(0, [frozen : true, deltaHealth:-2])
-                updateMinion(1, [frozen : true, deltaHealth:-2])
+                updateMinion(CharacterIndex.MINION_1, [frozen : true, deltaHealth:-2])
+                updateMinion(CharacterIndex.MINION_2, [frozen : true, deltaHealth:-2])
             }
         }
     }

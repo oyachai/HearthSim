@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.classic.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.spell.TheCoin
 import com.hearthsim.card.classic.minion.epic.MountainGiant
 import com.hearthsim.test.groovy.card.CardSpec
@@ -28,7 +29,7 @@ class MountainGiantSpec extends CardSpec {
         def root = new HearthTreeNode(startingBoard)
 
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root, null, null)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         assertTrue(ret == null);
@@ -51,7 +52,7 @@ class MountainGiantSpec extends CardSpec {
 
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root, null, null)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         assertFalse(ret == null);

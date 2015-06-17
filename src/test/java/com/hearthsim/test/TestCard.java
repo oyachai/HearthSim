@@ -38,7 +38,7 @@ public class TestCard {
     @Test
     public void testNotEqualsIsInHand() {
         Card card0 = new Card();
-        card0.isInHand(false);
+        card0.setInHand(false);
         Card card1 = new Card();
         assertNotEquals(card0, card1);
     }

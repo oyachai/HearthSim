@@ -1,6 +1,7 @@
 package com.hearthsim.card.goblinsvsgnomes.minion.rare;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionBattlecryInterface;
 import com.hearthsim.event.effect.EffectCharacter;
@@ -48,7 +49,7 @@ public class LilExorcist extends Minion implements MinionBattlecryInterface {
      */
     @Override
     public EffectCharacter<Minion> getBattlecryEffect() {
-        return (PlayerSide originSide, Minion origin, PlayerSide targetSide, int minionPlacementIndex, HearthTreeNode boardState) -> {
+        return (PlayerSide originSide, Minion origin, PlayerSide targetSide, CharacterIndex minionPlacementIndex, HearthTreeNode boardState) -> {
             int numBuffs = LilExorcist.filter.countMatchesForBoard(originSide, this, boardState.data_);
             this.setAttack((byte) (this.getAttack() + numBuffs));
             this.setHealth((byte) (this.getHealth() + numBuffs));

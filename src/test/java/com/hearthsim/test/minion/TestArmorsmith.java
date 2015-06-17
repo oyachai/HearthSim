@@ -1,6 +1,7 @@
 package com.hearthsim.test.minion;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.basic.minion.BloodfenRaptor;
 import com.hearthsim.card.basic.minion.RaidLeader;
 import com.hearthsim.card.basic.minion.StormwindChampion;
@@ -46,7 +47,7 @@ public class TestArmorsmith {
     @Test
     public void test0() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 0, board);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO, board);
         assertFalse(ret == null);
 
         assertEquals(currentPlayer.getHand().size(), 0);
@@ -54,27 +55,27 @@ public class TestArmorsmith {
         assertEquals(waitingPlayer.getNumMinions(), 2);
         assertEquals(currentPlayer.getHero().getHealth(), 30);
         assertEquals(waitingPlayer.getHero().getHealth(), 30);
-        assertEquals(currentPlayer.getCharacter(1).getTotalHealth(), 5);
-        assertEquals(currentPlayer.getCharacter(2).getTotalHealth(), 3);
-        assertEquals(currentPlayer.getCharacter(3).getTotalHealth(), 6);
-        assertEquals(waitingPlayer.getCharacter(1).getTotalHealth(), 2);
-        assertEquals(waitingPlayer.getCharacter(2).getTotalHealth(), 2);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getTotalHealth(), 5);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getTotalHealth(), 3);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_3).getTotalHealth(), 6);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getTotalHealth(), 2);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getTotalHealth(), 2);
 
-        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), 3);
-        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), 3);
-        assertEquals(currentPlayer.getCharacter(3).getTotalAttack(), 7);
-        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), 2);
-        assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), 4);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), 3);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getTotalAttack(), 3);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_3).getTotalAttack(), 7);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), 2);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getTotalAttack(), 4);
 
-        assertEquals(currentPlayer.getCharacter(1).getAuraAttack(), 2);
-        assertEquals(currentPlayer.getCharacter(2).getAuraAttack(), 1);
-        assertEquals(currentPlayer.getCharacter(3).getAuraAttack(), 1);
-        assertEquals(waitingPlayer.getCharacter(1).getAuraAttack(), 0);
-        assertEquals(waitingPlayer.getCharacter(2).getAuraAttack(), 1);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getAuraAttack(), 2);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getAuraAttack(), 1);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_3).getAuraAttack(), 1);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getAuraAttack(), 0);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getAuraAttack(), 1);
 
         currentPlayer.placeCardHand(new HolySmite());
         theCard = currentPlayer.getHand().get(0);
-        ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 3, ret);
+        ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, CharacterIndex.MINION_3, ret);
         assertFalse(ret == null);
 
         assertEquals(currentPlayer.getHand().size(), 0);
@@ -85,27 +86,27 @@ public class TestArmorsmith {
         assertEquals(currentPlayer.getHero().getArmor(), 1);
         assertEquals(waitingPlayer.getHero().getArmor(), 0);
 
-        assertEquals(currentPlayer.getCharacter(1).getTotalHealth(), 5);
-        assertEquals(currentPlayer.getCharacter(2).getTotalHealth(), 3);
-        assertEquals(currentPlayer.getCharacter(3).getTotalHealth(), 4);
-        assertEquals(waitingPlayer.getCharacter(1).getTotalHealth(), 2);
-        assertEquals(waitingPlayer.getCharacter(2).getTotalHealth(), 2);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getTotalHealth(), 5);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getTotalHealth(), 3);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_3).getTotalHealth(), 4);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getTotalHealth(), 2);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getTotalHealth(), 2);
 
-        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), 3);
-        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), 3);
-        assertEquals(currentPlayer.getCharacter(3).getTotalAttack(), 7);
-        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), 2);
-        assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), 4);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), 3);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getTotalAttack(), 3);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_3).getTotalAttack(), 7);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), 2);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getTotalAttack(), 4);
 
-        assertEquals(currentPlayer.getCharacter(1).getAuraAttack(), 2);
-        assertEquals(currentPlayer.getCharacter(2).getAuraAttack(), 1);
-        assertEquals(currentPlayer.getCharacter(3).getAuraAttack(), 1);
-        assertEquals(waitingPlayer.getCharacter(1).getAuraAttack(), 0);
-        assertEquals(waitingPlayer.getCharacter(2).getAuraAttack(), 1);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getAuraAttack(), 2);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getAuraAttack(), 1);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_3).getAuraAttack(), 1);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getAuraAttack(), 0);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getAuraAttack(), 1);
 
         currentPlayer.placeCardHand(new HolySmite());
         theCard = currentPlayer.getHand().get(0);
-        ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 2, ret);
+        ret = theCard.useOn(PlayerSide.WAITING_PLAYER, CharacterIndex.MINION_2, ret);
         assertFalse(ret == null);
 
         assertEquals(currentPlayer.getHand().size(), 0);
@@ -116,25 +117,25 @@ public class TestArmorsmith {
         assertEquals(currentPlayer.getHero().getArmor(), 1);
         assertEquals(waitingPlayer.getHero().getArmor(), 0);
 
-        assertEquals(currentPlayer.getCharacter(1).getTotalHealth(), 5);
-        assertEquals(currentPlayer.getCharacter(2).getTotalHealth(), 3);
-        assertEquals(currentPlayer.getCharacter(3).getTotalHealth(), 4);
-        assertEquals(waitingPlayer.getCharacter(1).getTotalHealth(), 2);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getTotalHealth(), 5);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getTotalHealth(), 3);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_3).getTotalHealth(), 4);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getTotalHealth(), 2);
 
-        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), 3);
-        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), 3);
-        assertEquals(currentPlayer.getCharacter(3).getTotalAttack(), 7);
-        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), 2);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), 3);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getTotalAttack(), 3);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_3).getTotalAttack(), 7);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), 2);
 
-        assertEquals(currentPlayer.getCharacter(1).getAuraAttack(), 2);
-        assertEquals(currentPlayer.getCharacter(2).getAuraAttack(), 1);
-        assertEquals(currentPlayer.getCharacter(3).getAuraAttack(), 1);
-        assertEquals(waitingPlayer.getCharacter(1).getAuraAttack(), 0);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getAuraAttack(), 2);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getAuraAttack(), 1);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_3).getAuraAttack(), 1);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getAuraAttack(), 0);
 
         ret = new HearthTreeNode(ret.data_.flipPlayers());
         currentPlayer.placeCardHand(new HolySmite());
         theCard = currentPlayer.getHand().get(0);
-        ret = theCard.useOn(PlayerSide.WAITING_PLAYER, 2, ret);
+        ret = theCard.useOn(PlayerSide.WAITING_PLAYER, CharacterIndex.MINION_2, ret);
         assertFalse(ret == null);
         currentPlayer = ret.data_.getCurrentPlayer();
         waitingPlayer = ret.data_.getWaitingPlayer();
@@ -147,19 +148,19 @@ public class TestArmorsmith {
         assertEquals(waitingPlayer.getHero().getArmor(), 2);
         assertEquals(currentPlayer.getHero().getArmor(), 0);
 
-        assertEquals(waitingPlayer.getCharacter(1).getTotalHealth(), 5);
-        assertEquals(waitingPlayer.getCharacter(2).getTotalHealth(), 1);
-        assertEquals(waitingPlayer.getCharacter(3).getTotalHealth(), 4);
-        assertEquals(currentPlayer.getCharacter(1).getTotalHealth(), 2);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getTotalHealth(), 5);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getTotalHealth(), 1);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_3).getTotalHealth(), 4);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getTotalHealth(), 2);
 
-        assertEquals(waitingPlayer.getCharacter(1).getTotalAttack(), 3);
-        assertEquals(waitingPlayer.getCharacter(2).getTotalAttack(), 3);
-        assertEquals(waitingPlayer.getCharacter(3).getTotalAttack(), 7);
-        assertEquals(currentPlayer.getCharacter(1).getTotalAttack(), 2);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), 3);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getTotalAttack(), 3);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_3).getTotalAttack(), 7);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), 2);
 
-        assertEquals(waitingPlayer.getCharacter(1).getAuraAttack(), 2);
-        assertEquals(waitingPlayer.getCharacter(2).getAuraAttack(), 1);
-        assertEquals(waitingPlayer.getCharacter(3).getAuraAttack(), 1);
-        assertEquals(currentPlayer.getCharacter(1).getAuraAttack(), 0);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getAuraAttack(), 2);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getAuraAttack(), 1);
+        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_3).getAuraAttack(), 1);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getAuraAttack(), 0);
     }
 }

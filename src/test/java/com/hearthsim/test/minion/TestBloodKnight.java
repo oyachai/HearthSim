@@ -1,6 +1,7 @@
 package com.hearthsim.test.minion;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.classic.minion.common.ScarletCrusader;
 import com.hearthsim.card.classic.minion.epic.BloodKnight;
 import com.hearthsim.card.minion.Minion;
@@ -34,14 +35,14 @@ public class TestBloodKnight {
         currentPlayer.setMana((byte) 18);
         waitingPlayer.setMana((byte) 18);
 
-        minion0_0.summonMinion(PlayerSide.CURRENT_PLAYER, currentPlayer.getHero(), board, false, true);
-        minion1_0.summonMinion(PlayerSide.WAITING_PLAYER, waitingPlayer.getHero(), board, false, true);
+        minion0_0.summonMinion(PlayerSide.CURRENT_PLAYER, currentPlayer.getHero(), board, false);
+        minion1_0.summonMinion(PlayerSide.WAITING_PLAYER, waitingPlayer.getHero(), board, false);
     }
 
     @Test
     public void testStealsDivineShieldMultiple() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, CharacterIndex.MINION_1, board);
 
         assertNotNull(ret);
         currentPlayer = ret.data_.getCurrentPlayer();
@@ -51,19 +52,19 @@ public class TestBloodKnight {
         assertEquals(currentPlayer.getNumMinions(), 2);
         assertEquals(currentPlayer.getMana(), 15);
 
-        assertEquals(currentPlayer.getCharacter(2).getTotalHealth(), 9);
-        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), 9);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getTotalHealth(), 9);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getTotalAttack(), 9);
 
-        assertFalse(currentPlayer.getCharacter(1).getDivineShield());
-        assertFalse(waitingPlayer.getCharacter(1).getDivineShield());
+        assertFalse(currentPlayer.getCharacter(CharacterIndex.MINION_1).getDivineShield());
+        assertFalse(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getDivineShield());
     }
 
     @Test
     public void testStealsDivineShieldSingle() throws HSException {
-        Minion target = currentPlayer.getCharacter(1);
+        Minion target = currentPlayer.getCharacter(CharacterIndex.MINION_1);
         target.setDivineShield(false);
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, target, board);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, CharacterIndex.MINION_1, board);
 
         assertNotNull(ret);
         currentPlayer = ret.data_.getCurrentPlayer();
@@ -73,19 +74,19 @@ public class TestBloodKnight {
         assertEquals(currentPlayer.getNumMinions(), 2);
         assertEquals(currentPlayer.getMana(), 15);
 
-        assertEquals(currentPlayer.getCharacter(2).getTotalHealth(), 6);
-        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), 6);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getTotalHealth(), 6);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getTotalAttack(), 6);
 
-        assertFalse(currentPlayer.getCharacter(1).getDivineShield());
-        assertFalse(waitingPlayer.getCharacter(1).getDivineShield());
+        assertFalse(currentPlayer.getCharacter(CharacterIndex.MINION_1).getDivineShield());
+        assertFalse(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getDivineShield());
     }
 
     @Test
     public void testNoDivineShields() throws HSException {
-        currentPlayer.getCharacter(1).setDivineShield(false);
-        waitingPlayer.getCharacter(1).setDivineShield(false);
+        currentPlayer.getCharacter(CharacterIndex.MINION_1).setDivineShield(false);
+        waitingPlayer.getCharacter(CharacterIndex.MINION_1).setDivineShield(false);
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, CharacterIndex.MINION_1, board);
 
         assertNotNull(ret);
         currentPlayer = ret.data_.getCurrentPlayer();
@@ -95,28 +96,28 @@ public class TestBloodKnight {
         assertEquals(currentPlayer.getNumMinions(), 2);
         assertEquals(currentPlayer.getMana(), 15);
 
-        assertEquals(currentPlayer.getCharacter(2).getTotalHealth(), 3);
-        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), 3);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getTotalHealth(), 3);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getTotalAttack(), 3);
 
-        assertFalse(currentPlayer.getCharacter(1).getDivineShield());
-        assertFalse(waitingPlayer.getCharacter(1).getDivineShield());
+        assertFalse(currentPlayer.getCharacter(CharacterIndex.MINION_1).getDivineShield());
+        assertFalse(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getDivineShield());
     }
 
     @Test
     public void testSilenced() throws HSException {
         Card theCard = currentPlayer.getHand().get(0);
-        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, 1, board);
+        HearthTreeNode ret = theCard.useOn(PlayerSide.CURRENT_PLAYER, CharacterIndex.MINION_1, board);
         assertNotNull(ret);
         currentPlayer = ret.data_.getCurrentPlayer();
         waitingPlayer = ret.data_.getWaitingPlayer();
 
-        Minion target = currentPlayer.getCharacter(2);
+        Minion target = currentPlayer.getCharacter(CharacterIndex.MINION_2);
         target.silenced(PlayerSide.CURRENT_PLAYER, ret.data_);
 
-        assertEquals(currentPlayer.getCharacter(2).getTotalHealth(), 3);
-        assertEquals(currentPlayer.getCharacter(2).getTotalAttack(), 3);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getTotalHealth(), 3);
+        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getTotalAttack(), 3);
 
-        assertFalse(currentPlayer.getCharacter(1).getDivineShield());
-        assertFalse(waitingPlayer.getCharacter(1).getDivineShield());
+        assertFalse(currentPlayer.getCharacter(CharacterIndex.MINION_1).getDivineShield());
+        assertFalse(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getDivineShield());
     }
 }

@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.classic.spell
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.minion.WarGolem
 import com.hearthsim.card.basic.spell.Polymorph
 import com.hearthsim.card.basic.spell.Soulfire
@@ -32,7 +33,7 @@ class SoulfireSpec extends CardSpec {
         
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root, null, null)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         assertFalse(ret == null);

@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.classic.spell
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.minion.WarGolem
 import com.hearthsim.card.classic.spell.common.Rampage
 import com.hearthsim.model.BoardModel
@@ -32,7 +33,7 @@ class RampageSpec extends CardSpec {
     def "can target damaged minion"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayerCardHand(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 2, root, null, null)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_2, root)
 
         expect:
         assertEquals(root, ret);
@@ -41,7 +42,7 @@ class RampageSpec extends CardSpec {
             currentPlayer {
                 removeCardFromHand(Rampage)
                 mana(1)
-                updateMinion(1, [deltaHealth: +3, deltaAttack: +3, deltaMaxHealth: +3])
+                updateMinion(CharacterIndex.MINION_2, [deltaHealth: +3, deltaAttack: +3, deltaMaxHealth: +3])
                 numCardsUsed(1)
             }
         }
@@ -49,7 +50,7 @@ class RampageSpec extends CardSpec {
 
     def "cannot target undamaged minion"() {
         def theCard = root.data_.getCurrentPlayerCardHand(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 1, root, null, null)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         assertNull(ret);

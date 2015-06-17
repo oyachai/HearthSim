@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.classic.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.classic.minion.rare.AncientMage
 import com.hearthsim.card.goblinsvsgnomes.minion.common.SaltyDog
 import com.hearthsim.card.goblinsvsgnomes.minion.rare.SootSpewer
@@ -35,16 +36,16 @@ class AncientMageSpec extends CardSpec {
     def "playing Ancient Mage on the left edge"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         assertFalse(ret == null);
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                playMinion(AncientMage, 0)
+                playMinion(AncientMage, CharacterIndex.HERO)
                 mana(3)
-                updateMinion(1, [deltaSpellDamage: 1])
+                updateMinion(CharacterIndex.MINION_2, [deltaSpellDamage: 1])
                 numCardsUsed(1)
             }
         }
@@ -54,17 +55,17 @@ class AncientMageSpec extends CardSpec {
     def "playing Ancient Mage the middle"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 1, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         assertFalse(ret == null);
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                playMinion(AncientMage, 1)
+                playMinion(AncientMage, CharacterIndex.MINION_1)
                 mana(3)
-                updateMinion(0, [deltaSpellDamage: 1])
-                updateMinion(2, [deltaSpellDamage: 1])
+                updateMinion(CharacterIndex.MINION_1, [deltaSpellDamage: 1])
+                updateMinion(CharacterIndex.MINION_3, [deltaSpellDamage: 1])
                 numCardsUsed(1)
             }
         }
@@ -73,16 +74,16 @@ class AncientMageSpec extends CardSpec {
     def "playing Ancient Mage on the right edge"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 3, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_3, root)
 
         expect:
         assertFalse(ret == null);
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                playMinion(AncientMage, 3)
+                playMinion(AncientMage, CharacterIndex.MINION_3)
                 mana(3)
-                updateMinion(2, [deltaSpellDamage: 1])
+                updateMinion(CharacterIndex.MINION_3, [deltaSpellDamage: 1])
                 numCardsUsed(1)
             }
         }
@@ -100,7 +101,7 @@ class AncientMageSpec extends CardSpec {
 
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         assertFalse(ret == null);

@@ -31,8 +31,7 @@ public class Warlock extends Hero {
     public HearthTreeNode useHeroAbility_core(
             PlayerSide targetPlayerSide,
             Minion targetMinion,
-            HearthTreeNode boardState,
-            boolean singleRealizationOnly) {
+            HearthTreeNode boardState) {
         if (targetPlayerSide == PlayerSide.WAITING_PLAYER || !targetMinion.isHero())
             return null;
         HearthTreeNode toRet = targetMinion.takeDamageAndNotify((byte) 2, PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, boardState, false, false);

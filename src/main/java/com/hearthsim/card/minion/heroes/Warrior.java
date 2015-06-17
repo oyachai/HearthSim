@@ -28,8 +28,7 @@ public class Warrior extends Hero {
     public HearthTreeNode useHeroAbility_core(
             PlayerSide targetPlayerSide,
             Minion targetMinion,
-            HearthTreeNode boardState,
-            boolean singleRealizationOnly) {
+            HearthTreeNode boardState) {
         if (targetMinion.isHero() && targetPlayerSide == PlayerSide.CURRENT_PLAYER) {
             this.hasBeenUsed = true;
             boardState.data_.getCurrentPlayer().subtractMana(HERO_ABILITY_COST);

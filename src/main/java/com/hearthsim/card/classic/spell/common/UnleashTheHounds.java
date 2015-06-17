@@ -25,17 +25,6 @@ public class UnleashTheHounds extends SpellTargetableCard {
         return FilterCharacterTargetedSpell.SELF;
     }
 
-    /**
-     *
-     * Use the card on the given target
-     *
-     * @param side
-     * @param targetMinion
-     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-     * @param singleRealizationOnly
-     *
-     * @return The boardState is manipulated and returned
-     */
     @Override
     public EffectCharacter getTargetableEffect() {
         if (this.effect == null) {
@@ -46,7 +35,7 @@ public class UnleashTheHounds extends SpellTargetableCard {
                 if (numHoundsToSummon + currentPlayer.getNumMinions() > 7)
                     numHoundsToSummon = 7 - currentPlayer.getNumMinions();
                 for (int indx = 0; indx < numHoundsToSummon; ++indx) {
-                    boardState = new Hound().summonMinionAtEnd(PlayerSide.CURRENT_PLAYER, boardState, false, false);
+                    boardState = new Hound().summonMinionAtEnd(PlayerSide.CURRENT_PLAYER, boardState, false);
                 }
                 return boardState;
             };

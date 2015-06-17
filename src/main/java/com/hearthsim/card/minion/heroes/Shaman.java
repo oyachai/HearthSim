@@ -1,5 +1,6 @@
 package com.hearthsim.card.minion.heroes;
 
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.basic.minion.HealingTotem;
 import com.hearthsim.card.basic.minion.SearingTotem;
 import com.hearthsim.card.basic.minion.StoneclawTotem;
@@ -47,41 +48,10 @@ public class Shaman extends Hero {
     public HearthTreeNode useHeroAbility_core(
             PlayerSide targetPlayerSide,
             Minion targetMinion,
-            HearthTreeNode boardState,
-            boolean singleRealizationOnly) {
+            HearthTreeNode boardState) {
         PlayerModel player = boardState.data_.modelForSide(targetPlayerSide);
 
-        if (singleRealizationOnly) {
-            HearthTreeNode toRet = boardState;
-            Minion minionToSummon = null;
-            Minion[] allTotems = {new SearingTotem(), new StoneclawTotem(), new HealingTotem(), new WrathOfAirTotem()};
-            for (int i = allTotems.length - 1; i > 0; --i) {
-                int j = (int)(Math.random() * (i + 1));
-                Minion ci = allTotems[i];
-                allTotems[i] = allTotems[j];
-                allTotems[j] = ci;
-            }
-            for (int index = 0; index < 4; ++index) {
-                boolean totemAlreadySummoned = false;
-                for (Minion minion : player.getMinions()) {
-                    if (minion.getClass().equals(allTotems[index].getClass())) {
-                        totemAlreadySummoned = true;
-                    }
-                }
-                if (!totemAlreadySummoned) {
-                    minionToSummon = allTotems[index];
-                    break;
-                }
-            }
-            if (minionToSummon == null)
-                return null;
-            this.hasBeenUsed = true;
-            player.subtractMana(HERO_ABILITY_COST);
-            toRet = minionToSummon.summonMinionAtEnd(targetPlayerSide, toRet, false, singleRealizationOnly);
-            return toRet;
-        }
-
-        HearthTreeNode toRet = new RandomEffectNode(boardState, new HearthAction(HearthAction.Verb.HERO_ABILITY, PlayerSide.CURRENT_PLAYER, 0, targetPlayerSide, 0));
+        HearthTreeNode toRet = new RandomEffectNode(boardState, new HearthAction(HearthAction.Verb.HERO_ABILITY, PlayerSide.CURRENT_PLAYER, 0, targetPlayerSide, CharacterIndex.HERO));
         Minion[] totems = {new SearingTotem(), new StoneclawTotem(), new HealingTotem(), new WrathOfAirTotem()};
         boolean allTotemsNotSummonable = true;
         for (Minion totemToSummon : totems) {
@@ -101,7 +71,7 @@ public class Shaman extends Hero {
                 newCurrentPlayer.subtractMana(HERO_ABILITY_COST);
                 newCurrentPlayer.getHero().hasBeenUsed(true);
 
-                totemToSummon.summonMinionAtEnd(targetPlayerSide, newState, false, singleRealizationOnly);
+                totemToSummon.summonMinionAtEnd(targetPlayerSide, newState, false);
             }
         }
         if (allTotemsNotSummonable)

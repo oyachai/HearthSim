@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.goblinsvsgnomes.weapon
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.minion.Voidwalker
 import com.hearthsim.card.basic.minion.WarGolem
 import com.hearthsim.card.classic.minion.common.FaerieDragon
@@ -34,12 +35,12 @@ class CoghammerSpec extends CardSpec {
     }
 
     def "returned node is normal for no targets"() {
-        startingBoard.removeMinion(CURRENT_PLAYER, 0);
-        startingBoard.removeMinion(CURRENT_PLAYER, 0);
+        startingBoard.removeMinion(CURRENT_PLAYER, CharacterIndex.MINION_1);
+        startingBoard.removeMinion(CURRENT_PLAYER, CharacterIndex.MINION_1);
 
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         ret != null
@@ -58,11 +59,11 @@ class CoghammerSpec extends CardSpec {
     }
 
     def "returned node is normal for only one target"() {
-        startingBoard.removeMinion(CURRENT_PLAYER, 0);
+        startingBoard.removeMinion(CURRENT_PLAYER, CharacterIndex.MINION_1);
 
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         ret != null
@@ -76,7 +77,7 @@ class CoghammerSpec extends CardSpec {
                 removeCardFromHand(Coghammer)
                 mana(7)
                 numCardsUsed(1)
-                updateMinion(0, [taunt: true, divineShield: true])
+                updateMinion(CharacterIndex.MINION_1, [taunt: true, divineShield: true])
             }
         }
     }
@@ -84,7 +85,7 @@ class CoghammerSpec extends CardSpec {
     def "returned node is RNG for two or more targets"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         ret != null
@@ -100,7 +101,7 @@ class CoghammerSpec extends CardSpec {
 
     def "hits friendly minions"() {
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         ret != null
@@ -116,7 +117,7 @@ class CoghammerSpec extends CardSpec {
                 }
                 removeCardFromHand(Coghammer)
                 mana(7)
-                updateMinion(0, [taunt: true, divineShield: true])
+                updateMinion(CharacterIndex.MINION_1, [taunt: true, divineShield: true])
             }
         }
 
@@ -127,7 +128,7 @@ class CoghammerSpec extends CardSpec {
                 }
                 removeCardFromHand(Coghammer)
                 mana(7)
-                updateMinion(1, [taunt: true, divineShield: true])
+                updateMinion(CharacterIndex.MINION_2, [taunt: true, divineShield: true])
             }
         }
     }

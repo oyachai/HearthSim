@@ -1,6 +1,7 @@
 package com.hearthsim.test.minion;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.basic.minion.BloodfenRaptor;
 import com.hearthsim.card.basic.minion.RiverCrocolisk;
@@ -97,11 +98,11 @@ public class TestLootHorder {
         BruteForceSearchAI ai0 = BruteForceSearchAI.buildStandardAI1();
 
         //remove the loot hoarder from player0, add a Wisp
-        board.data_.removeMinion(PlayerSide.CURRENT_PLAYER, 0);
+        board.data_.removeMinion(PlayerSide.CURRENT_PLAYER, CharacterIndex.MINION_1);
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, new Wisp());
 
         //remove the Bloodfen Raptor from player0, add a Loot Hoarder
-        board.data_.removeMinion(PlayerSide.WAITING_PLAYER, 0);
+        board.data_.removeMinion(PlayerSide.WAITING_PLAYER, CharacterIndex.MINION_1);
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, new LootHoarder());
 
         currentPlayer.setMana((byte) 3);

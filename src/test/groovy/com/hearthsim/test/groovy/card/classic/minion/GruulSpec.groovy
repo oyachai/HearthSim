@@ -1,6 +1,7 @@
 package com.hearthsim.test.groovy.card.classic.minion
 
 import com.hearthsim.Game
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.classic.minion.legendary.Gruul
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.groovy.card.CardSpec
@@ -32,7 +33,7 @@ class GruulSpec extends CardSpec {
     def "playing Gruul"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, 0, root, null, null)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         assertFalse(ret == null);
@@ -50,7 +51,7 @@ class GruulSpec extends CardSpec {
             currentPlayer {
                 playMinion(Gruul)
                 mana(0)
-                updateMinion(0, [deltaHealth: 1, deltaAttack: 1, deltaMaxHealth: 1])
+                updateMinion(CharacterIndex.MINION_1, [deltaHealth: 1, deltaAttack: 1, deltaMaxHealth: 1])
                 numCardsUsed(1)
             }
         }

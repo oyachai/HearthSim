@@ -31,17 +31,16 @@ public class VioletTeacher extends Minion implements CardPlayBeginInterface {
         PlayerSide thisCardPlayerSide,
         PlayerSide cardUserPlayerSide,
         Card usedCard,
-        HearthTreeNode boardState,
-        boolean singleRealizationOnly) {
+        HearthTreeNode boardState) {
         HearthTreeNode toRet = boardState;
         if (thisCardPlayerSide != PlayerSide.CURRENT_PLAYER)
             return toRet;
-        if (isInHand_)
+        if (inHand)
             return toRet;
         PlayerModel currentPlayer = toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         if (usedCard instanceof SpellCard && !currentPlayer.isBoardFull()) {
             Minion newMinion = new VioletApprentice();
-            toRet = newMinion.summonMinion(thisCardPlayerSide, this, toRet, false, singleRealizationOnly);
+            toRet = newMinion.summonMinion(thisCardPlayerSide, this, toRet, false);
         }
         return toRet;
     }

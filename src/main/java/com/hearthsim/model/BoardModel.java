@@ -1,6 +1,8 @@
 package com.hearthsim.model;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.CardInHandIndex;
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.Deck;
 import com.hearthsim.card.minion.AuraTargetType;
 import com.hearthsim.card.minion.Hero;
@@ -23,7 +25,7 @@ import java.util.Iterator;
  * A class that represents the current state of the board (game)
  *
  */
-public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel.CharacterLocation> {
+public class BoardModel implements DeepCopyable<BoardModel>, Iterable<CharacterIndex.CharacterLocation> {
 
     private final PlayerModel currentPlayer;
     private final PlayerModel waitingPlayer;
@@ -70,69 +72,7 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
         }
     }
 
-    public class CharacterLocation {
-        private final PlayerSide playerSide;
-        private final int index;
-
-        public CharacterLocation(PlayerSide playerSide, int index) {
-            this.playerSide = playerSide;
-            this.index = index;
-        }
-
-        public PlayerSide getPlayerSide() {
-            return this.playerSide;
-        }
-
-        public int getIndex() {
-            return this.index;
-        }
-
-        @Override
-        public int hashCode() {
-            int result = playerSide != null ? playerSide.hashCode() : 0;
-            result = 31 * result + index;
-            return result;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (o == null) {
-                return false;
-            }
-
-            if (!(o instanceof CharacterLocation)) {
-                return false;
-            }
-
-            CharacterLocation other = (CharacterLocation)o;
-
-            if (other.playerSide != this.playerSide) {
-                return false;
-            }
-
-            if (other.index != this.index) {
-                return false;
-            }
-
-            return true;
-        }
-
-        @SuppressWarnings("UnusedDeclaration")
-        public JSONObject toJSON() {
-            JSONObject json = new JSONObject();
-
-            json.put("playerSide", playerSide);
-            json.put("index", index);
-
-            return json;
-        }
-
-        public String toString() {
-            return playerSide.toString() + ":" + index;
-        }
-    }
-
-    private class CharacterLocationIterator implements Iterator<CharacterLocation> {
+    private class CharacterLocationIterator implements Iterator<CharacterIndex.CharacterLocation> {
         private PlayerSide playerSide;
         private PlayerModel.CharacterIterator characterIterator;
 
@@ -156,7 +96,7 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
         }
 
         @Override
-        public CharacterLocation next() {
+        public CharacterIndex.CharacterLocation next() {
             if (this.characterIterator.hasNext()) {
                 this.characterIterator.next();
             } else if (this.playerSide == PlayerSide.CURRENT_PLAYER) {
@@ -165,11 +105,11 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
                 this.characterIterator.next();
             }
 
-            return new CharacterLocation(this.playerSide, this.characterIterator.getLocation());
+            return new CharacterIndex.CharacterLocation(this.playerSide, this.characterIterator.getLocation());
         }
     }
 
-    private class HandLocationIterator implements Iterator<CharacterLocation> {
+    private class HandLocationIterator implements Iterator<CardInHandIndex.CardInHandLocation> {
         private PlayerSide playerSide;
         private PlayerModel.HandIterator handIterator;
 
@@ -197,7 +137,7 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
         }
 
         @Override
-        public CharacterLocation next() {
+        public CardInHandIndex.CardInHandLocation next() {
             if (this.handIterator.hasNext()) {
                 this.handIterator.next();
             } else if (this.playerSide == PlayerSide.CURRENT_PLAYER) {
@@ -206,20 +146,20 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
                 this.handIterator.next();
             }
 
-            return new CharacterLocation(this.playerSide, this.handIterator.getLocation());
+            return new CardInHandIndex.CardInHandLocation(this.playerSide, this.handIterator.getLocation());
         }
     }
 
     @Override
-    public Iterator<CharacterLocation> iterator() {
+    public Iterator<CharacterIndex.CharacterLocation> iterator() {
         return this.characterIterator();
     }
 
-    public Iterator<CharacterLocation> characterIterator() {
+    public Iterator<CharacterIndex.CharacterLocation> characterIterator() {
         return new CharacterLocationIterator(this);
     }
 
-    public Iterator<CharacterLocation> handIterator() {
+    public Iterator<CardInHandIndex.CardInHandLocation> handIterator() {
         return new HandLocationIterator(this);
     }
 
@@ -265,15 +205,15 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
         return this.allMinionsFIFOList_.size();
     }
 
-    public Card getCard_hand(PlayerSide playerSide, int index) {
-        return modelForSide(playerSide).getHand().get(index);
+    public Card getCard_hand(PlayerSide playerSide, CardInHandIndex index) {
+        return modelForSide(playerSide).getHand().get(index.getInt());
     }
 
-    public Minion getCharacter(CharacterLocation location) {
+    public Minion getCharacter(CharacterIndex.CharacterLocation location) {
         return this.getCharacter(location.getPlayerSide(), location.getIndex());
     }
 
-    public Minion getCharacter(PlayerSide playerSide, int index) {
+    public Minion getCharacter(PlayerSide playerSide, CharacterIndex index) {
         PlayerModel playerModel = modelForSide(playerSide);
         return playerModel.getCharacter(index);
     }
@@ -292,11 +232,11 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
      * @param minion The minion to be placed on the board.
      * @param position The position to place the minion.  The new minion goes to the "left" (lower index) of the postinion index.
      */
-    public void placeMinion(PlayerSide playerSide, Minion minion, int position) {
+    public void placeMinion(PlayerSide playerSide, Minion minion, CharacterIndex position) {
         PlayerModel playerModel = modelForSide(playerSide);
-        playerModel.addMinion(position, minion);
+        playerModel.addMinion(position.getInt(), minion);
         this.allMinionsFIFOList_.add(new MinionPlayerPair(minion, playerSide));
-        minion.isInHand(false);
+        minion.setInHand(false);
         minion.setManaDelta((byte) 0); // once the minion hits the board it resets its mana cost
 
         //Apply the aura if any
@@ -315,7 +255,7 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
      * @param minion The minion to be placed on the board.  The minion is placed on the right-most space.
      */
     public void placeMinion(PlayerSide playerSide, Minion minion) {
-        this.placeMinion(playerSide, minion, this.modelForSide(playerSide).getNumMinions());
+        this.placeMinion(playerSide, minion, CharacterIndex.fromInteger(this.modelForSide(playerSide).getNumMinions()));
     }
 
     //-----------------------------------------------------------------------------------
@@ -379,8 +319,8 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
         return this.removeMinion(mP);
     }
 
-    public boolean removeMinion(PlayerSide side, int minionIndex) {
-        return removeMinion(this.getCharacter(side, minionIndex + 1));
+    public boolean removeMinion(PlayerSide side, CharacterIndex minionIndex) {
+        return removeMinion(this.getCharacter(side, minionIndex));
     }
 
     //----------------------------------------------------------------------------
@@ -429,9 +369,9 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
                 FilterHand filter = activeEffect.getActiveFilter();
                 SimpleEffectHand effect = activeEffect.getActiveEffect();
 
-                Iterator<BoardModel.CharacterLocation> handIterator = this.handIterator();
+                Iterator<CardInHandIndex.CardInHandLocation> handIterator = this.handIterator();
                 while (handIterator.hasNext()) {
-                    BoardModel.CharacterLocation location = handIterator.next();
+                    CardInHandIndex.CardInHandLocation location = handIterator.next();
                     if (filter.targetMatches(side, minion, location.getPlayerSide(), location.getIndex(), this)) {
                         effect.applyEffect(side, minion, location.getPlayerSide(), location.getIndex(), this);
                     }
@@ -466,19 +406,19 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
     }
 
     public void applyAurasToCardInHand(PlayerSide targetSide, Card target) {
-        Iterator<BoardModel.CharacterLocation> characterIterator = this.characterIterator();
+        Iterator<CharacterIndex.CharacterLocation> characterIterator = this.characterIterator();
         while (characterIterator.hasNext()) {
-            BoardModel.CharacterLocation location = characterIterator.next();
+            CharacterIndex.CharacterLocation location = characterIterator.next();
             Minion character = this.getCharacter(location);
             if (character instanceof ActiveEffectHand) {
                 ActiveEffectHand activeEffect = (ActiveEffectHand)character;
-                if (activeEffect.isActive(location.playerSide, character, this)) {
+                if (activeEffect.isActive(location.getPlayerSide(), character, this)) {
 
                     FilterHand filter = activeEffect.getActiveFilter();
                     SimpleEffectHand effect = activeEffect.getActiveEffect();
 
-                    if (filter.targetMatches(location.playerSide, character, targetSide, target, this)) {
-                        effect.applyEffect(location.playerSide, character, targetSide, target, this);
+                    if (filter.targetMatches(location.getPlayerSide(), character, targetSide, target, this)) {
+                        effect.applyEffect(location.getPlayerSide(), character, targetSide, target, this);
                     }
                 }
             }
@@ -519,9 +459,9 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
                 FilterHand filter = activeEffect.getActiveFilter();
                 SimpleEffectHand effect = activeEffect.undoActiveEffect();
 
-                Iterator<BoardModel.CharacterLocation> handIterator = this.handIterator();
+                Iterator<CardInHandIndex.CardInHandLocation> handIterator = this.handIterator();
                 while (handIterator.hasNext()) {
-                    BoardModel.CharacterLocation location = handIterator.next();
+                    CardInHandIndex.CardInHandLocation location = handIterator.next();
                     if (filter.targetMatches(side, minion, location.getPlayerSide(), location.getIndex(), this)) {
                         effect.applyEffect(side, minion, location.getPlayerSide(), location.getIndex(), this);
                     }
@@ -665,7 +605,7 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
 
             PlayerModel oldPlayerModel = this.modelForSide(minionPlayerPair.getPlayerSide());
             Minion oldMinion = minionPlayerPair.getMinion();
-            int indexOfOldMinion = oldPlayerModel.getIndexForCharacter(oldMinion);
+            CharacterIndex indexOfOldMinion = oldPlayerModel.getIndexForCharacter(oldMinion);
 
             PlayerModel newPlayerModel = newBoard.modelForSide(minionPlayerPair.getPlayerSide().getOtherPlayer());
             newBoard.allMinionsFIFOList_.add(new MinionPlayerPair(newPlayerModel.getCharacter(indexOfOldMinion), minionPlayerPair.getPlayerSide().getOtherPlayer()));
@@ -682,7 +622,7 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
 
             PlayerModel oldPlayerModel = this.modelForSide(minionPlayerPair.getPlayerSide());
             Minion oldMinion = minionPlayerPair.getMinion();
-            int indexOfOldMinion = oldPlayerModel.getIndexForCharacter(oldMinion);
+            CharacterIndex indexOfOldMinion = oldPlayerModel.getIndexForCharacter(oldMinion);
 
             PlayerModel newPlayerModel = newBoard.modelForSide(minionPlayerPair.getPlayerSide());
             newBoard.allMinionsFIFOList_.add(new MinionPlayerPair(newPlayerModel.getCharacter(indexOfOldMinion), minionPlayerPair.getPlayerSide()));
@@ -783,18 +723,8 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
     }
 
     @Deprecated
-    public Minion getCurrentPlayerCharacter(int index) {
-        return getMinionForCharacter(PlayerSide.CURRENT_PLAYER, index);
-    }
-
-    @Deprecated
-    public Minion getWaitingPlayerCharacter(int index) {
-        return getMinionForCharacter(PlayerSide.WAITING_PLAYER, index);
-    }
-
-    @Deprecated
     public void placeCard_hand(PlayerSide playerSide, Card card) {
-        card.isInHand(true);
+        card.setInHand(true);
         modelForSide(playerSide).getHand().add(card);
     }
 
@@ -853,11 +783,6 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
         return modelForSide(playerSide).getHero();
     }
 
-    @Deprecated
-    private Minion getMinionForCharacter(PlayerSide playerSide, int index) {
-        return modelForSide(playerSide).getCharacter(index);
-    }
-
     /**
      * Get the spell damage
      *
@@ -876,8 +801,4 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<BoardModel
         playerModel.setOverload((byte) (playerModel.getOverload() + overloadToAdd));
     }
 
-    @Deprecated // use PlayerModel.getCharacter instead
-    public Minion getMinion(PlayerSide side, int index) {
-        return modelForSide(side).getCharacter(index + 1);
-    }
 }

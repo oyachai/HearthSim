@@ -1,5 +1,6 @@
 package com.hearthsim.test.groovy.card.classic.minion
 
+import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.spell.TheCoin
 import com.hearthsim.card.classic.minion.common.ManaWyrm
 import com.hearthsim.test.groovy.card.CardSpec
@@ -27,14 +28,12 @@ class ManaWyrmSpec extends CardSpec {
         def root = new HearthTreeNode(startingBoard)
 
         def copiedBoard = startingBoard.deepCopy()
-        def target = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(0)
         def manaWyrm = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = manaWyrm.useOn(CURRENT_PLAYER, target, root)
+        def ret = manaWyrm.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         def board2 = new HearthTreeNode(root.data_.deepCopy())
         def theCoin = board2.data_.getCurrentPlayer().getHand().get(0)
-        def coinTarget = board2.data_.modelForSide(CURRENT_PLAYER).getCharacter(0)
-        def ret2 = theCoin.useOn(CURRENT_PLAYER, coinTarget, board2)
+        def ret2 = theCoin.useOn(CURRENT_PLAYER, CharacterIndex.HERO, board2)
         
         expect:
         assertFalse(ret == null);
@@ -51,7 +50,7 @@ class ManaWyrmSpec extends CardSpec {
                 playMinion(ManaWyrm)
                 removeCardFromHand(TheCoin)
                 mana(9)
-                updateMinion(0, [deltaAttack: 1])
+                updateMinion(CharacterIndex.MINION_1, [deltaAttack: 1])
                 numCardsUsed(2)
             }
         }
@@ -74,9 +73,8 @@ class ManaWyrmSpec extends CardSpec {
         def root = new HearthTreeNode(startingBoard)
 
         def copiedBoard = startingBoard.deepCopy()
-        def target = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(0)
         def theCoin = root.data_.getCurrentPlayer().getHand().get(1)
-        def ret = theCoin.useOn(CURRENT_PLAYER, target, root)
+        def ret = theCoin.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         assertFalse(ret == null);

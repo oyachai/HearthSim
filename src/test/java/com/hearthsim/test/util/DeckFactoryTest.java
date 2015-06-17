@@ -1,20 +1,19 @@
 package com.hearthsim.test.util;
 
-import static org.junit.Assert.*;
+import com.hearthsim.card.Deck;
+import com.hearthsim.card.ImplementedCardList;
+import com.hearthsim.card.ImplementedCardList.ImplementedCard;
+import com.hearthsim.util.DeckFactory;
+import com.hearthsim.util.DeckFactory.DeckFactoryBuilder;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Random;
 
-import org.junit.Before;
-import org.junit.Test;
-
-import com.hearthsim.card.Deck;
-import com.hearthsim.card.ImplementedCardList;
-import com.hearthsim.card.ImplementedCardList.*;
-import com.hearthsim.util.DeckFactory;
-import com.hearthsim.util.DeckFactory.DeckFactoryBuilder;
+import static org.junit.Assert.*;
 
 public class DeckFactoryTest {
     private ArrayList<ImplementedCard> referenceCards;
