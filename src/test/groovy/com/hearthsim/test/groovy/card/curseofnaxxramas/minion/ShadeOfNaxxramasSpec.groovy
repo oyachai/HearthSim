@@ -45,11 +45,9 @@ class ShadeOfNaxxramasSpec extends CardSpec {
     }
     
     def "playing Shade of Naxxramas"() {
-        def cards = [ new TheCoin(), new TheCoin() ]
-        def deck = new Deck(cards)
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_1, root, deck, deck)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         assertFalse(ret == null);

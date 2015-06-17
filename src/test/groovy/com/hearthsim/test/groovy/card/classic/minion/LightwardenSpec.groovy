@@ -48,10 +48,9 @@ class LightwardenSpec extends CardSpec {
     
     def "playing Lightwarden"() {
         def cards = [ new TheCoin(), new TheCoin() ]
-        def deck = new Deck(cards)
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_2, root, deck, deck)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_2, root)
 
         expect:
         assertFalse(ret == null);
