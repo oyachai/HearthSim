@@ -617,7 +617,7 @@ public class Minion extends Card implements EffectOnResolveTargetable<Card>, Car
         HearthTreeNode toRet = boardState;
         toRet = this.summonMinion_core(targetSide, targetMinionIndex, toRet);
 
-        if (this instanceof MinionBattlecryInterface) {
+        if (this instanceof MinionBattlecryInterface && wasPlayed) {
             MinionBattlecryInterface battlecryOrigin = ((MinionBattlecryInterface) this);
 
             HearthTreeNode child;
