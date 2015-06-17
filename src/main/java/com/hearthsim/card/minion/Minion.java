@@ -941,28 +941,6 @@ public class Minion extends Card implements EffectOnResolveTargetable<Card>, Car
         this.silenced(thisPlayerSide, boardState.data_);
     }
 
-    /**
-     * Place a minion on the board
-     *
-     * Use this function if you need to place a minion on the board without triggering any of the "On Summon" effects
-     *
-     * @param targetSide
-     * @param targetMinion
-     * @param boardState
-     * @return
-     * @throws HSException
-     */
-    @Deprecated
-    public HearthTreeNode placeMinion(PlayerSide targetSide, Minion targetMinion, HearthTreeNode boardState) throws HSException {
-        if (isHero(targetMinion)) {
-            boardState.data_.placeMinion(targetSide, this, CharacterIndex.HERO);
-        } else {
-            PlayerModel targetPlayer = boardState.data_.modelForSide(targetSide);
-            boardState.data_.placeMinion(targetSide, this, targetPlayer.getIndexForCharacter(targetMinion));
-        }
-        return this.notifyMinionPlacement(boardState, targetSide);
-    }
-
     // ======================================================================================
     // Various notifications
     // ======================================================================================
