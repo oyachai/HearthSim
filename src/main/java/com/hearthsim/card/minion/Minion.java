@@ -963,11 +963,6 @@ public class Minion extends Card implements EffectOnResolveTargetable<Card>, Car
         return this.notifyMinionPlacement(boardState, targetSide);
     }
 
-    @Deprecated
-    public HearthTreeNode placeMinion(PlayerSide targetSide, Minion targetMinion, HearthTreeNode boardState, Deck deckPlayer0, Deck deckPlayer1) throws HSException {
-        return this.placeMinion(targetSide, targetMinion, boardState);
-    }
-
     // ======================================================================================
     // Various notifications
     // ======================================================================================
