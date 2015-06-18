@@ -661,11 +661,6 @@ public class Card implements DeepCopyable<Card> {
         return PlayerSide.WAITING_PLAYER == side;
     }
 
-    @Deprecated
-    protected boolean isNotHero(Minion targetMinion) {
-        return !isHero(targetMinion);
-    }
-
     protected boolean isCurrentPlayer(PlayerSide side) {
         return PlayerSide.CURRENT_PLAYER == side;
     }
@@ -708,18 +703,6 @@ public class Card implements DeepCopyable<Card> {
         this.hasBeenUsed = hasBeenUsed;
         this.inHand = inHand;
         this.implementedCard = implementedCard;
-    }
-
-    @Deprecated
-    public final HearthTreeNode useOn(PlayerSide side, Minion targetMinion, HearthTreeNode boardState,
-                                      Deck deckPlayer0, Deck deckPlayer1) throws HSException {
-        return this.useOn(side, targetMinion, boardState);
-    }
-
-    @Deprecated
-    public HearthTreeNode useOn(PlayerSide side, CharacterIndex targetIndex, HearthTreeNode boardState, Deck deckPlayer0,
-                                Deck deckPlayer1) throws HSException {
-        return this.useOn(side, targetIndex, boardState);
     }
 
     @Deprecated

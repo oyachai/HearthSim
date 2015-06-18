@@ -32,7 +32,7 @@ class AncientBrewmasterSpec extends CardSpec {
     def "playing Ancient Brewmaster while there are no other minions no board"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root, null, null)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         assertFalse(ret == null)

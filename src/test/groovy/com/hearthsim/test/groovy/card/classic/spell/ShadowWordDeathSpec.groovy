@@ -67,7 +67,7 @@ class ShadowWordDeathSpec extends CardSpec {
         target.extraAttackUntilTurnEnd += 2
 
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(WAITING_PLAYER, target, root, null, null)
+        def ret = theCard.useOn(WAITING_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         assertEquals(root, ret);
