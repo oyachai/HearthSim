@@ -69,7 +69,7 @@ public class DeckFactoryTest {
     @Test
     public void checkHasOnlyCollectible() {
         ArrayList<ImplementedCard> onlyCollectible = new DeckFactoryBuilder()
-        .buildDeckFactory().getAllPossibleCards();
+                .buildDeckFactory().getAllPossibleCards();
 
         for (ImplementedCard card : onlyCollectible) {
             String errorMessage = card.name_ + " is not collectible.";
@@ -243,15 +243,16 @@ public class DeckFactoryTest {
         assertTrue(test1Passed);
         assertTrue(test2Passed);
     }
-    
+
     @Test
-    public void checkFilterByRarity()
-    {
+    public void checkFilterByRarity() {
         DeckFactoryBuilder builder = new DeckFactoryBuilder();
         builder.filterByRarity("rare", "epic");
-        ArrayList<ImplementedCard> allCards = builder.buildDeckFactory().getAllPossibleCards();
-        
-        for(ImplementedCard card : allCards)
-            assertTrue(card.rarity_.equals("rare") || card.rarity_.equals("epic"));
+        ArrayList<ImplementedCard> allCards = builder.buildDeckFactory()
+                .getAllPossibleCards();
+
+        for (ImplementedCard card : allCards)
+            assertTrue(card.rarity_.equals("rare")
+                    || card.rarity_.equals("epic"));
     }
 }
