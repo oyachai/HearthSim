@@ -124,6 +124,9 @@ public class DeckFactory {
          * two and limits the number of copies any particular legendary to no
          * more than one. Each method of the builder should only be called once
          * and successive calls will produce unspecified behavior.
+         *
+         * All of the methods return this DeckFactoryBuilder so that they can be
+         * chained together if so desired or called one at a time.
          */
         public DeckFactoryBuilder() {
             filter = (card) -> false;
@@ -134,17 +137,27 @@ public class DeckFactory {
 
         /**
          * Limits the the card pool to only those specified by the given
-         * rarities.
+         * rarities. This method will throw a NullPointerException if any of the
+         * input rarities is null.
          *
          * @param rarities
          */
-        public void filterByRarity(String... rarities) {
+        public DeckFactoryBuilder filterByRarity(String... rarities) {
+            // Validate input.
+            for (String rarity : rarities)
+                if (rarity == null)
+                    throw new NullPointerException(
+                            "One of the input rarities was null.");
+
             filter = filter.or((card) -> {
                 boolean result = true;
+                if (card.rarity_ == null)
+                    return true;
                 for (String rarity : rarities)
                     result = result && !card.rarity_.equals(rarity);
                 return result;
             });
+            return this;
         }
 
         /**
@@ -155,20 +168,23 @@ public class DeckFactory {
          * @param characterClass
          *            The classes to filter by.
          */
-        public void filterByHero(String... characterClasses) {
+        public DeckFactoryBuilder filterByHero(String... characterClasses) {
             filter = filter.or((card) -> {
                 boolean result = true;
                 for (String characterClass : characterClasses)
                     result = result && !card.charClass_.equals(characterClass);
                 return result;
             });
+
+            return this;
         }
 
         /**
          * This method allows for uncollectible cards to be in the card pool.
          */
-        public void allowUncollectible() {
+        public DeckFactoryBuilder allowUncollectible() {
             allowUncollectible = true;
+            return this;
         }
 
         /**
@@ -192,17 +208,21 @@ public class DeckFactory {
          * @param maximumCost
          *            The maximum mana cost allowed.
          */
-        public void filterByManaCost(int minimumCost, int maximumCost) {
+        public DeckFactoryBuilder filterByManaCost(int minimumCost,
+                int maximumCost) {
             filter = filter.or((card) -> card.mana_ < minimumCost
                     || card.mana_ > maximumCost);
+            return this;
         }
 
         /**
          * This method allows for unlimited copies of cards to be used (i.e.
          * like in Arena).
          */
-        public void allowUnlimitedCopiesOfCards() {
+        public DeckFactoryBuilder allowUnlimitedCopiesOfCards() {
             limitCopies = false;
+
+            return this;
         }
 
         /**
@@ -212,8 +232,10 @@ public class DeckFactory {
          *
          * @param cardsToInclude
          */
-        public void includeSpecificCards(ImplementedCard... cardsToInclude) {
+        public DeckFactoryBuilder includeSpecificCards(
+                ImplementedCard... cardsToInclude) {
             this.cardsToInclude = cardsToInclude;
+            return this;
         }
     }
 }
