@@ -35,7 +35,7 @@ class CaptainGreenskinSpec extends CardSpec {
 
         expect:
         assertNotNull(ret);
-        assertNull(ret.data_.getCurrentPlayerHero().getWeapon())
+        assertNull(ret.data_.modelForSide(CURRENT_PLAYER).getHero().getWeapon())
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
@@ -47,7 +47,7 @@ class CaptainGreenskinSpec extends CardSpec {
     }
 
     def "playing Captain Greenskin with weapon"() {
-        startingBoard.getCurrentPlayerHero().setWeapon(new FieryWarAxe());
+        startingBoard.modelForSide(CURRENT_PLAYER).getHero().setWeapon(new FieryWarAxe());
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayerCardHand(0)
         def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
