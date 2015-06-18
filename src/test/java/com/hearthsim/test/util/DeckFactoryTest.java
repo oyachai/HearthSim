@@ -69,7 +69,7 @@ public class DeckFactoryTest {
     @Test
     public void checkHasOnlyCollectible() {
         ArrayList<ImplementedCard> onlyCollectible = new DeckFactoryBuilder()
-                .buildDeckFactory().getAllPossibleCards();
+        .buildDeckFactory().getAllPossibleCards();
 
         for (ImplementedCard card : onlyCollectible) {
             String errorMessage = card.name_ + " is not collectible.";
@@ -212,13 +212,15 @@ public class DeckFactoryTest {
 
         boolean test1Passed = false;
         boolean test2Passed = false;
-        for (int i = 0; i < 30; i++)
+        for (int i = 0; i < 30; i++) {
             if (testDeck.drawCard(i).getName().equals(card1.name_))
                 test1Passed = true;
-            else if (testDeck.drawCard(i).getName().equals(card2.name_))
+            if (testDeck.drawCard(i).getName().equals(card2.name_))
                 test2Passed = true;
-        assertTrue(test1Passed);
-        assertTrue(test2Passed);
+        }
+
+        assertTrue(card1.name_, test1Passed);
+        assertTrue(card2.name_, test2Passed);
     }
 
     @Test
@@ -235,13 +237,35 @@ public class DeckFactoryTest {
 
         boolean test1Passed = false;
         boolean test2Passed = false;
-        for (int i = 0; i < 30; i++)
+        for (int i = 0; i < 30; i++) {
             if (testDeck.drawCard(i).getName().equals(card1.name_))
                 test1Passed = true;
-            else if (testDeck.drawCard(i).getName().equals(card2.name_))
+            if (testDeck.drawCard(i).getName().equals(card2.name_))
                 test2Passed = true;
-        assertTrue(test1Passed);
-        assertTrue(test2Passed);
+        }
+
+        assertTrue(card1.name_, test1Passed);
+        assertTrue(card2.name_, test2Passed);
+    }
+
+    @Test
+    public void checkIncludeDuplicateSpecificCards() {
+        Random gen = new Random();
+        ImplementedCard card1, card2;
+        card1 = referenceCards.get(gen.nextInt(referenceCards.size()));
+        card2 = card1;
+
+        DeckFactoryBuilder builder = new DeckFactoryBuilder();
+        builder.includeSpecificCards(card1, card2);
+        Deck testDeck = builder.buildDeckFactory().generateRandomDeck();
+
+        int count = 0;
+        for (int i = 0; i < 30; i++) {
+            if (testDeck.drawCard(i).getName().equals(card1.name_))
+                count++;
+        }
+
+        assertTrue(card1.name_, count >= 2);
     }
 
     @Test
