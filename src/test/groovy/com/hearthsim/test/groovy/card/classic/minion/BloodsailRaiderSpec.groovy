@@ -43,9 +43,8 @@ class BloodsailRaiderSpec extends CardSpec {
     
     def "playing Bloodsail Raider without weapon"() {
         def copiedBoard = startingBoard.deepCopy()
-        def target = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(CharacterIndex.MINION_1)
         def theCard = root.data_.getCurrentPlayer().getHand().get(1)
-        def ret = theCard.useOn(CURRENT_PLAYER, target, root, null, null)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         assertFalse(ret == null);

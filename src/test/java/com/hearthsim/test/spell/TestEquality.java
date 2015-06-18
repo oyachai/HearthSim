@@ -45,11 +45,11 @@ public class TestEquality {
         currentPlayer.setMaxMana((byte) 8);
         waitingPlayer.setMaxMana((byte) 8);
 
-        minion0_0.placeMinion(PlayerSide.CURRENT_PLAYER, currentPlayer.getHero(), board);
-        minion0_1.placeMinion(PlayerSide.CURRENT_PLAYER, currentPlayer.getHero(), board);
-        minion0_2.placeMinion(PlayerSide.CURRENT_PLAYER, currentPlayer.getHero(), board);
-        minion1_0.placeMinion(PlayerSide.WAITING_PLAYER, waitingPlayer.getHero(), board);
-        minion1_1.placeMinion(PlayerSide.WAITING_PLAYER, waitingPlayer.getHero(), board);
+        board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, minion0_0, CharacterIndex.HERO);
+        board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, minion0_1, CharacterIndex.HERO);
+        board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, minion0_2, CharacterIndex.HERO);
+        board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion1_0, CharacterIndex.HERO);
+        board.data_.placeMinion(PlayerSide.WAITING_PLAYER, minion1_1, CharacterIndex.HERO);
     }
 
     @Test

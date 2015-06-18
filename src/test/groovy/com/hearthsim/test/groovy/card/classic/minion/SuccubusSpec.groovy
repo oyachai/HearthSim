@@ -33,9 +33,8 @@ class SuccubusSpec extends CardSpec {
         root = new HearthTreeNode(startingBoard)
 
         def copiedBoard = startingBoard.deepCopy()
-        def target = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(CharacterIndex.HERO)
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, target, root, null, null)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         assertFalse(ret == null);
@@ -65,9 +64,8 @@ class SuccubusSpec extends CardSpec {
         root = new HearthTreeNode(startingBoard)
 
         def copiedBoard = startingBoard.deepCopy()
-        def target = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(CharacterIndex.HERO)
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, target, root, null, null)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         assertFalse(ret == null);
@@ -112,9 +110,8 @@ class SuccubusSpec extends CardSpec {
         root = new HearthTreeNode(startingBoard)
 
         def copiedBoard = startingBoard.deepCopy()
-        def target = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(CharacterIndex.HERO)
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
-        def ret = theCard.useOn(CURRENT_PLAYER, target, root, null, null)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
         expect:
         assertFalse(ret == null);
