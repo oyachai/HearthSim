@@ -29,7 +29,7 @@ public class KnifeJuggler extends Minion implements MinionSummonedInterface {
             return boardState;
         }
 
-        Collection<HearthTreeNode> rngChildren = this.effectRandomCharacterUsingFilter(KnifeJuggler.effect, null, KnifeJuggler.effectFilter, boardState);
+        Collection<HearthTreeNode> rngChildren = this.effectRandomCharacterUsingFilter(KnifeJuggler.effect, null, KnifeJuggler.effectFilter, thisMinionPlayerSide, boardState);
         return this.createRngNodeWithChildren(boardState, rngChildren);
     }
 }
