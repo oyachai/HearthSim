@@ -95,6 +95,7 @@ class BoardModelBuilder {
         minion.silenced = options.containsKey('silenced') ? options.silenced : minion.silenced
         minion.taunt = options.containsKey('taunt') ? options.taunt : minion.taunt
         minion.divineShield = options.containsKey('divineShield') ? options.divineShield : minion.divineShield
+        minion.destroyOnTurnStart = options.containsKey("destroyOnTurnStart") ? options.destroyOnTurnStart : minion.destroyOnTurnStart
     }
 
     private updateCardInHand(int position, Map options){
