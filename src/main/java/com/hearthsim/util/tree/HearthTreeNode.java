@@ -24,7 +24,7 @@ public class HearthTreeNode {
     protected double score_;
     private double bestChildScore_;
 
-    List<HearthTreeNode> children_;
+    protected List<HearthTreeNode> children_;
 
     private HearthTreeNode parent;
 
