@@ -195,7 +195,7 @@ public class DeckFactory {
          */
         public DeckFactory buildDeckFactory() {
             if (!allowUncollectible)
-                filter = filter.or((card) -> !card.collectible);
+                filter = filter.or((card) -> !card.collectible).or((card) -> card.isHero);
             return new DeckFactory(filter, limitCopies, cardsToInclude);
         }
 
