@@ -175,7 +175,7 @@ public class Minion extends Card implements EffectOnResolveTargetable<Card>, Car
     }
 
     public boolean canAttack() {
-        return !this.hasAttacked_ && (this.getTotalAttack()) > 0 && !this.frozen_ && !cantAttack;
+        return !this.hasAttacked_ && this.getTotalAttack() > 0 && !this.frozen_ && !cantAttack;
     }
 
     public void hasAttacked(boolean hasAttacked) {
@@ -772,6 +772,7 @@ public class Minion extends Card implements EffectOnResolveTargetable<Card>, Car
         if (silenced_) json.put("silenced", silenced_);
         if (hasAttacked_) json.put("hasAttacked", hasAttacked_);
         if (spellDamage_ != 0) json.put("spellDamage", spellDamage_);
+        if (destroyOnTurnStart_) json.put("destroyOnTurnStart", true);
         return json;
     }
 
