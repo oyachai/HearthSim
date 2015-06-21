@@ -34,7 +34,12 @@ public class MekgineerThermaplugg extends Minion implements MinionDeadInterface 
             return boardState;
         }
 
+        if (boardState.data_.modelForSide(thisMinionPlayerSide).getNumMinions() >= 7) {
+            return boardState;
+        }
+
         EffectCharacter<Minion> effect = new EffectCharacterSummon<>(new LeperGnome());
+
         return effect.applyEffect(thisMinionPlayerSide, this, thisMinionPlayerSide, this, boardState);
     }
 }
