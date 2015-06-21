@@ -4,6 +4,7 @@ import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.HearthAction;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Random effect node
@@ -15,13 +16,15 @@ import java.util.ArrayList;
  */
 public class RandomEffectNode extends StopNode {
 
-    private final ArrayList<Double> childWeighting_;
+    private final ArrayList<Double> childWeighting_ = new ArrayList<>();
 
     public RandomEffectNode(HearthTreeNode origNode,
                             HearthAction action) {
         super(origNode);
         this.setAction(action);
-        childWeighting_ = new ArrayList<>();
+        for(int indx = 0; indx < numChildren(); ++indx) {
+            childWeighting_.add(1.0);
+        }
     }
 
     @Override
@@ -39,6 +42,15 @@ public class RandomEffectNode extends StopNode {
         HearthTreeNode toRet = super.addChild(node);
         childWeighting_.add(1.0);
         return toRet;
+    }
+
+    @Override
+    public void setChildren(List<HearthTreeNode> children) {
+        super.setChildren(children);
+        childWeighting_.clear();
+        for(int indx = 0; indx < children.size(); ++indx) {
+            childWeighting_.add(1.0);
+        }
     }
 
     @Override
