@@ -22,7 +22,7 @@ public class RandomEffectNode extends StopNode {
                             HearthAction action) {
         super(origNode);
         this.setAction(action);
-        for(int indx = 0; indx < numChildren(); ++indx) {
+        for (int indx = 0; indx < numChildren(); ++indx) {
             childWeighting_.add(1.0);
         }
     }
@@ -48,7 +48,7 @@ public class RandomEffectNode extends StopNode {
     public void setChildren(List<HearthTreeNode> children) {
         super.setChildren(children);
         childWeighting_.clear();
-        for(int indx = 0; indx < children.size(); ++indx) {
+        for (int indx = 0; indx < children.size(); ++indx) {
             childWeighting_.add(1.0);
         }
     }
