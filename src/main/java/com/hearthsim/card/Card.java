@@ -564,6 +564,7 @@ public class Card implements DeepCopyable<Card> {
                     if (originInHand) {
                         newState.data_.modelForSide(originSide).getHand().remove(origin);
                     }
+                    newState = BoardStateFactoryBase.handleDeadMinions(newState);
                     children.add(newState);
                 }
             }
@@ -617,6 +618,7 @@ public class Card implements DeepCopyable<Card> {
                     if (originInHand) {
                         newState.data_.modelForSide(originSide).getHand().remove(origin);
                     }
+                    newState = BoardStateFactoryBase.handleDeadMinions(newState);
                     children.add(newState);
                 }
             }
