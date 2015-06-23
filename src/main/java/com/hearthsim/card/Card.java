@@ -636,11 +636,7 @@ public class Card implements DeepCopyable<Card> {
 
     protected HearthTreeNode createNodeWithChildren(HearthTreeNode boardState, Collection<HearthTreeNode> children) {
         if (children != null) {
-            if (children.size() == 1) {
-                boardState = children.stream().findAny().get();
-            } else if (children.size() > 1) {
-                boardState.addChildren(children);
-            }
+            boardState.addChildren(children);
         }
         return boardState;
     }

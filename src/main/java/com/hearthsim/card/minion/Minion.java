@@ -624,18 +624,31 @@ public class Minion extends Card implements EffectOnResolveTargetable<Card>, Car
             Minion origin;
             CharacterIndex originCharacterIndex = toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getIndexForCharacter(this);
 
-            ArrayList<HearthTreeNode> children = new ArrayList<>();
-            for (CharacterIndex.CharacterLocation characterLocation : toRet.data_) {
+            // Find out if there are going to be more than one target match
+            int numTargets = 0;
+            CharacterIndex.CharacterLocation onlyTargetLocation = null;
+            for (CharacterIndex.CharacterLocation characterLocation : toRet.data_)
                 if (battlecryOrigin.getBattlecryFilter().targetMatches(PlayerSide.CURRENT_PLAYER, this, characterLocation.getPlayerSide(), characterLocation.getIndex(), toRet.data_)) {
-                    child = new HearthTreeNode(toRet.data_.deepCopy());
-                    origin = child.data_.getCharacter(PlayerSide.CURRENT_PLAYER, originCharacterIndex);
-                    child = origin.useTargetableBattlecry(characterLocation.getPlayerSide(), characterLocation.getIndex(), child);
-                    if (child != null) {
-                        children.add(child);
+                    ++numTargets;
+                    onlyTargetLocation = characterLocation;
+                }
+
+            if (numTargets > 1) {
+                ArrayList<HearthTreeNode> children = new ArrayList<>();
+                for (CharacterIndex.CharacterLocation characterLocation : toRet.data_) {
+                    if (battlecryOrigin.getBattlecryFilter().targetMatches(PlayerSide.CURRENT_PLAYER, this, characterLocation.getPlayerSide(), characterLocation.getIndex(), toRet.data_)) {
+                        child = new HearthTreeNode(toRet.data_.deepCopy());
+                        origin = child.data_.getCharacter(PlayerSide.CURRENT_PLAYER, originCharacterIndex);
+                        child = origin.useTargetableBattlecry(characterLocation.getPlayerSide(), characterLocation.getIndex(), child);
+                        if (child != null) {
+                            children.add(child);
+                        }
                     }
                 }
+                toRet = this.createNodeWithChildren(toRet, children);
+            } else if (numTargets == 1) {
+                toRet = this.useTargetableBattlecry(onlyTargetLocation.getPlayerSide(), onlyTargetLocation.getIndex(), toRet);
             }
-            toRet = this.createNodeWithChildren(toRet, children);
         }
 
         if (wasPlayed) {

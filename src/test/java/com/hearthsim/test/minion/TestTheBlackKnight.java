@@ -101,34 +101,6 @@ public class TestTheBlackKnight {
 
         assertFalse(ret == null);
 
-        assertEquals(currentPlayer.getHand().size(), 0);
-        assertEquals(currentPlayer.getNumMinions(), 4);
-        assertEquals(waitingPlayer.getNumMinions(), 4);
-        assertEquals(currentPlayer.getMana(), 4);
-        assertEquals(waitingPlayer.getMana(), 10);
-        assertEquals(currentPlayer.getHero().getHealth(), 30);
-        assertEquals(waitingPlayer.getHero().getHealth(), 30);
-
-        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getTotalHealth(), 4);
-        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getTotalHealth(), 3);
-        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_3).getTotalHealth(), 6);
-        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_4).getTotalHealth(), 6);
-
-        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getTotalHealth(), 1);
-        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getTotalHealth(), 4);
-        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_3).getTotalHealth(), 2);
-        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_4).getTotalHealth(), 7);
-
-        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), 4);
-        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_2).getTotalAttack(), 3);
-        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_3).getTotalAttack(), 7);
-        assertEquals(currentPlayer.getCharacter(CharacterIndex.MINION_4).getTotalAttack(), 6);
-
-        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_1).getTotalAttack(), 3);
-        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_2).getTotalAttack(), 5);
-        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_3).getTotalAttack(), 2);
-        assertEquals(waitingPlayer.getCharacter(CharacterIndex.MINION_4).getTotalAttack(), 7);
-
         assertEquals(board.numChildren(), 0);
         currentPlayer = ret.data_.getCurrentPlayer();
         waitingPlayer = ret.data_.getWaitingPlayer();

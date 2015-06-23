@@ -43,6 +43,7 @@ class KnifeJugglerSpec extends CardSpec {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
         def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
+        ret = ret.getChildren().get(0);
 
         expect:
         ret != null
