@@ -79,8 +79,11 @@ public abstract class BoardStateFactoryBase {
         for (BoardModel.MinionPlayerPair minionIdPair : deadMinions) {
             PlayerSide playerSide = minionIdPair.getPlayerSide();
             toRet = minionIdPair.getMinion().destroyAndNotify(playerSide, toRet);
+        }
+        for (BoardModel.MinionPlayerPair minionIdPair : deadMinions) {
             toRet.data_.removeMinion(minionIdPair);
         }
+
         if (toRet.data_.hasDeadMinions())
             return BoardStateFactoryBase.handleDeadMinions(toRet);
         else

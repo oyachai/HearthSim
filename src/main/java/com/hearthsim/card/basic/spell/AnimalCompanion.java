@@ -9,6 +9,7 @@ import com.hearthsim.card.spellcard.SpellTargetableCard;
 import com.hearthsim.event.effect.EffectCharacter;
 import com.hearthsim.event.filter.FilterCharacter;
 import com.hearthsim.event.filter.FilterCharacterSummon;
+import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -44,6 +45,15 @@ public class AnimalCompanion extends SpellTargetableCard implements SpellRandomI
     @Override
     public EffectCharacter getTargetableEffect() {
         return null;
+    }
+
+    public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
+        if (!super.canBeUsedOn(playerSide, minion, boardModel))
+            return false;
+        if (boardModel.modelForSide(PlayerSide.CURRENT_PLAYER).isBoardFull()) {
+            return false;
+        }
+        return true;
     }
 
     /**

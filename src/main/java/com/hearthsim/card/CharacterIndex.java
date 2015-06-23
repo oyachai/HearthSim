@@ -18,6 +18,8 @@ public enum CharacterIndex {
     MINION_5(5),
     MINION_6(6),
     MINION_7(7),
+    MINION_8(8),
+    MINION_9(9),
     UNKNOWN(99);
 
     private final int index;

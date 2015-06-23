@@ -651,11 +651,12 @@ public class Minion extends Card implements EffectOnResolveTargetable<Card>, Car
             }
         }
 
-        if (wasPlayed) {
+        if (toRet != null && wasPlayed) {
             toRet = toRet.notifyMinionPlayed(targetSide, this);
         }
 
-        toRet = toRet.notifyMinionSummon(targetSide, this);
+        if (toRet != null)
+            toRet = toRet.notifyMinionSummon(targetSide, this);
 
         return toRet;
     }
