@@ -40,7 +40,7 @@ public class ShipsCannon extends Minion implements MinionSummonedInterface {
             return boardState;
         }
 
-        Collection<HearthTreeNode> rngChildren = this.effectRandomCharacterUsingFilter(ShipsCannon.effect, null, ShipsCannon.effectFilter, boardState);
+        Collection<HearthTreeNode> rngChildren = this.effectRandomCharacterUsingFilter(ShipsCannon.effect, null, ShipsCannon.effectFilter, summonedMinionPlayerSide, boardState);
         return this.createRngNodeWithChildren(boardState, rngChildren);
     }
 }
