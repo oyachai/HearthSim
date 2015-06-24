@@ -29,7 +29,7 @@ public class PlayerModel implements DeepCopyable<PlayerModel>, Iterable<Minion> 
 
     // this uses identity list because we need exact reference equality and we modified Minion.equals
     private IdentityLinkedList<Minion> minions;
-    private IdentityLinkedList<Card> hand;
+    private HandModel hand;
     private byte overload;
 
     private byte numCardsUsed;
@@ -40,7 +40,7 @@ public class PlayerModel implements DeepCopyable<PlayerModel>, Iterable<Minion> 
         this.hero = hero;
         this.deck = deck;
         this.minions = new IdentityLinkedList<>();
-        this.hand = new IdentityLinkedList<>();
+        this.hand = new HandModel();
         this.numCardsUsed = 0;
         this.deckPos = 0;
         this.fatigueDamage = 1;
@@ -130,7 +130,7 @@ public class PlayerModel implements DeepCopyable<PlayerModel>, Iterable<Minion> 
         return hand;
     }
 
-    public void setHand(IdentityLinkedList<Card> hand) {
+    public void setHand(HandModel hand) {
         this.hand = hand;
     }
 
@@ -239,14 +239,16 @@ public class PlayerModel implements DeepCopyable<PlayerModel>, Iterable<Minion> 
     }
 
     public void placeCardHand(Card card) {
+        if (hand.isFull())
+            return;
         card.setInHand(true);
         hand.add(card);
     }
 
     public void placeCardHand(int cardIndex) {
         Card card = drawFromDeck(cardIndex);
-        card.setInHand(true);
-        hand.add(card);
+        if (card != null)
+            placeCardHand(card);
     }
 
     public void placeCardDeck(Card card) {
@@ -260,8 +262,7 @@ public class PlayerModel implements DeepCopyable<PlayerModel>, Iterable<Minion> 
             hero.takeDamage(fatigueDamage);
             ++fatigueDamage;
         } else {
-            card.setInHand(true);
-            hand.add(card);
+            placeCardHand(card);
             ++deckPos;
         }
         return card;
