@@ -60,7 +60,7 @@ public class AnimalCompanion extends SpellTargetableCard implements SpellRandomI
      * Use the card on the given target
      * Summons either Huffer, Leokk, or Misha
      *
-     * @param side
+     * @param originSide
      * @param boardState The BoardState before this card has performed its action. It will be manipulated and returned.
      * @return The boardState is manipulated and returned
      */
@@ -72,7 +72,8 @@ public class AnimalCompanion extends SpellTargetableCard implements SpellRandomI
             newState = new HearthTreeNode(boardState.data_.deepCopy());
             newState.data_.modelForSide(originSide).getHand().remove(originIndex);
             newState = minion.summonMinionAtEnd(originSide, newState, false);
-            children.add(newState);
+            if (newState != null)
+                children.add(newState);
         }
 
         return children;
