@@ -78,6 +78,8 @@ class StampedingKodoSpec extends CardSpec {
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
+                playMinion(StampedingKodo)
+                mana(2)
                 numCardsUsed(1)
             }
         }
@@ -86,24 +88,14 @@ class StampedingKodoSpec extends CardSpec {
         assertEquals(ret.numChildren(), 2)
         
         HearthTreeNode child0 = ret.getChildren().get(0);
-        assertBoardDelta(startingBoard, child0.data_) {
-            currentPlayer {
-                playMinion(StampedingKodo)
-                mana(2)
-                numCardsUsed(1)
-            }
+        assertBoardDelta(ret.data_, child0.data_) {
             waitingPlayer {
                 removeMinion(CharacterIndex.MINION_1)
             }
         }
 
         HearthTreeNode child1 = ret.getChildren().get(1);
-        assertBoardDelta(startingBoard, child1.data_) {
-            currentPlayer {
-                playMinion(StampedingKodo)
-                mana(2)
-                numCardsUsed(1)
-            }
+        assertBoardDelta(ret.data_, child1.data_) {
             waitingPlayer {
                 removeMinion(CharacterIndex.MINION_3)
             }

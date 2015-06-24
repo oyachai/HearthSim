@@ -73,6 +73,8 @@ class BombLobberSpec extends CardSpec {
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
+                playMinion(BombLobber, CharacterIndex.HERO)
+                mana(5)
                 numCardsUsed(1)
             }
         }
@@ -101,6 +103,9 @@ class BombLobberSpec extends CardSpec {
     }
 
     def "hits enemy minions"() {
+
+        def copiedBoard = root.data_.deepCopy()
+
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
         def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
 
@@ -109,13 +114,12 @@ class BombLobberSpec extends CardSpec {
         ret instanceof RandomEffectNode
         ret.numChildren() == 2
 
-        def copiedBoard = ret.data_.deepCopy()
-
         HearthTreeNode child0 = ret.getChildren().get(0);
         assertBoardDelta(copiedBoard, child0.data_) {
             currentPlayer {
                 playMinion(BombLobber, CharacterIndex.HERO)
                 mana(5)
+                numCardsUsed(1)
             }
             waitingPlayer {
                 removeMinion(CharacterIndex.MINION_1)
@@ -127,6 +131,7 @@ class BombLobberSpec extends CardSpec {
             currentPlayer {
                 playMinion(BombLobber, CharacterIndex.HERO)
                 mana(5)
+                numCardsUsed(1)
             }
             waitingPlayer {
                 updateMinion(CharacterIndex.MINION_2, [deltaHealth: -4])
@@ -136,6 +141,7 @@ class BombLobberSpec extends CardSpec {
 
     def "is not effected by spellpower"() {
         startingBoard.placeMinion(CURRENT_PLAYER, new KoboldGeomancer())
+        def copiedBoard = root.data_.deepCopy()
 
         def theCard = root.data_.getCurrentPlayer().getHand().get(0)
         def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
@@ -145,13 +151,12 @@ class BombLobberSpec extends CardSpec {
         ret instanceof RandomEffectNode
         ret.numChildren() == 2
 
-        def copiedBoard = ret.data_.deepCopy()
-
         HearthTreeNode child0 = ret.getChildren().get(0);
         assertBoardDelta(copiedBoard, child0.data_) {
             currentPlayer {
                 playMinion(BombLobber, CharacterIndex.HERO)
                 mana(5)
+                numCardsUsed(1)
             }
             waitingPlayer {
                 removeMinion(CharacterIndex.MINION_1)
@@ -163,6 +168,7 @@ class BombLobberSpec extends CardSpec {
             currentPlayer {
                 playMinion(BombLobber, CharacterIndex.HERO)
                 mana(5)
+                numCardsUsed(1)
             }
             waitingPlayer {
                 updateMinion(CharacterIndex.MINION_2, [deltaHealth: -4])

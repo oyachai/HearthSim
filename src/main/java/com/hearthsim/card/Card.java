@@ -328,8 +328,21 @@ public class Card implements DeepCopyable<Card> {
             targetableEffect = ((EffectOnResolveTargetable) this).getTargetableEffect();
         }
 
-        // TODO this is to workaround using super.use_core since we no longer have an accurate reference to the origin card (specifically, Soulfire messes things up)
         byte manaCost = this.getManaCost(PlayerSide.CURRENT_PLAYER, boardState.data_);
+
+        // If this card is a minion card, the summon phase happens first
+        if (this instanceof Minion) {
+            PlayerModel currentPlayer = toRet.data_.getCurrentPlayer();
+            toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER).subtractMana(manaCost);
+            this.hasBeenUsed(true);
+            currentPlayer.getHand().remove(this);
+
+            if (targetableEffect != null) {
+                toRet = targetableEffect.applyEffect(PlayerSide.CURRENT_PLAYER, this, side, targetMinion, toRet);
+            }
+        }
+
+        // TODO this is to workaround using super.use_core since we no longer have an accurate reference to the origin card (specifically, Soulfire messes things up)
         Collection<HearthTreeNode> rngChildren = null;
 
         // different interfaces have different usage patterns
@@ -358,17 +371,19 @@ public class Card implements DeepCopyable<Card> {
 
         if (toRet != null && toRet instanceof RandomEffectNode) {
             // create an RNG "base" that is untouched. This allows us to recreate the RNG children during history traversal.
-            this.hasBeenUsed(false); // revert back to unused for the purposes of replays
+//            this.hasBeenUsed(false); // revert back to unused for the purposes of replays
 
             // for each child, apply the effect and mana cost. we want to do as much as we can with the non-random effect portion (e.g., the damage part of Soulfire)
-            for (HearthTreeNode child : toRet.getChildren()) {
-                if (targetableEffect != null) {
-                    child = targetableEffect.applyEffect(PlayerSide.CURRENT_PLAYER, null, side, targetIndex, child);
+            if (!(this instanceof Minion)) {
+                for (HearthTreeNode child : toRet.getChildren()) {
+                    if (targetableEffect != null) {
+                        child = targetableEffect.applyEffect(PlayerSide.CURRENT_PLAYER, null, side, targetIndex, child);
+                    }
+                    child.data_.modelForSide(PlayerSide.CURRENT_PLAYER).subtractMana(manaCost);
                 }
-                child.data_.modelForSide(PlayerSide.CURRENT_PLAYER).subtractMana(manaCost);
             }
         } else {
-            if (toRet != null) {
+            if (toRet != null && !(this instanceof Minion)) {
                 // apply standard card played effects
                 PlayerModel currentPlayer = toRet.data_.getCurrentPlayer();
                 toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER).subtractMana(manaCost);

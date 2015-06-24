@@ -1,19 +1,12 @@
 package com.hearthsim.test
 
 import com.hearthsim.card.CharacterIndex
-import com.hearthsim.card.basic.minion.BloodfenRaptor
 import com.hearthsim.card.basic.minion.GoldshireFootman
-import com.hearthsim.card.basic.spell.Corruption
 import com.hearthsim.card.basic.spell.DrainLife
 import com.hearthsim.card.classic.minion.common.BloodsailRaider
-import com.hearthsim.card.classic.minion.common.FlameOfAzzinoth
-import com.hearthsim.card.classic.minion.epic.AncientOfLore
-import com.hearthsim.card.classic.minion.legendary.IllidanStormrage
 import com.hearthsim.card.classic.minion.legendary.Malygos
 import com.hearthsim.card.classic.minion.legendary.TheBlackKnight
 import com.hearthsim.card.classic.minion.rare.SunfuryProtector
-import com.hearthsim.card.classic.spell.epic.TwistingNether
-import com.hearthsim.card.goblinsvsgnomes.minion.common.AntiqueHealbot
 import com.hearthsim.card.goblinsvsgnomes.minion.common.ExplosiveSheep
 import com.hearthsim.card.goblinsvsgnomes.minion.common.MicroMachine
 import com.hearthsim.card.goblinsvsgnomes.minion.rare.BombLobber
@@ -80,6 +73,7 @@ class TestCombos extends CardSpec {
                 playMinion(BombLobber, CharacterIndex.MINION_2)
                 removeMinion(CharacterIndex.MINION_1)
                 updateMinion(CharacterIndex.MINION_1, [deltaHealth: -2])
+                updateMinion(CharacterIndex.MINION_2, [deltaHealth: -2])
                 mana(0)
                 numCardsUsed(1)
             }
