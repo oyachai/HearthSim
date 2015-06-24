@@ -27,7 +27,8 @@ public class DeathrattleSummonMinionAction extends DeathrattleAction {
     public HearthTreeNode performAction(Card origin, PlayerSide playerSide, HearthTreeNode boardState) {
 
         HearthTreeNode toRet = super.performAction(origin, playerSide, boardState);
-
+        if (toRet == null)
+            return boardState;
         PlayerModel targetPlayer = toRet.data_.modelForSide(playerSide);
         PlayerSide targetPlayerSide = playerSide;
         if (sideToSummon == PlayerSide.WAITING_PLAYER) {

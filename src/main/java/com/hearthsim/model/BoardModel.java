@@ -406,6 +406,8 @@ public class BoardModel implements DeepCopyable<BoardModel>, Iterable<CharacterI
     }
 
     public void applyAurasToCardInHand(PlayerSide targetSide, Card target) {
+        if (target == null)
+            return;
         Iterator<CharacterIndex.CharacterLocation> characterIterator = this.characterIterator();
         while (characterIterator.hasNext()) {
             CharacterIndex.CharacterLocation location = characterIterator.next();

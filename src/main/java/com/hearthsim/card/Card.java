@@ -37,6 +37,7 @@ public class Card implements DeepCopyable<Card> {
     private byte manaDelta = 0;
 
     protected DeathrattleAction deathrattleAction_;
+    protected boolean deathrattleTriggered;
 
     protected final ImplementedCardList.ImplementedCard implementedCard;
 
@@ -53,6 +54,7 @@ public class Card implements DeepCopyable<Card> {
     protected void initFromImplementedCard(ImplementedCardList.ImplementedCard implementedCard) {
         this.hasBeenUsed = false;
         this.inHand = true;
+        this.deathrattleTriggered = false;
     }
 
     /**
@@ -153,6 +155,7 @@ public class Card implements DeepCopyable<Card> {
         copy.hasBeenUsed = this.hasBeenUsed;
         copy.inHand = this.inHand;
         copy.manaDelta = this.manaDelta;
+        copy.deathrattleTriggered = deathrattleTriggered;
 
         return copy;
     }
@@ -180,6 +183,9 @@ public class Card implements DeepCopyable<Card> {
         if (inHand != ((Card)other).inHand)
             return false;
 
+        if (deathrattleTriggered != ((Card)other).deathrattleTriggered)
+            return false;
+
         if (this.getName() == null) {
             if (((Card)other).getName() != null) {
                 return false;
@@ -197,6 +203,7 @@ public class Card implements DeepCopyable<Card> {
         result = 31 * result + this.getBaseManaCost();
         result = 31 * result + (hasBeenUsed ? 1 : 0);
         result = 31 * result + (inHand ? 1 : 0);
+        result = 31 * result + (deathrattleTriggered ? 1 : 0);
         return result;
     }
 
@@ -686,6 +693,13 @@ public class Card implements DeepCopyable<Card> {
         deathrattleAction_ = action;
     }
 
+    public boolean isDeathrattleTriggered() {
+        return deathrattleTriggered;
+    }
+
+    public void setDeathrattleTriggered(boolean deathrattleTriggered) {
+        this.deathrattleTriggered = deathrattleTriggered;
+    }
 
     @Deprecated
     public Card(String name, byte baseManaCost, boolean hasBeenUsed, boolean inHand, byte overload) {

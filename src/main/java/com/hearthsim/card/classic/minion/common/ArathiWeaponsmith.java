@@ -16,9 +16,6 @@ public class ArathiWeaponsmith extends Minion implements MinionBattlecryInterfac
         super();
     }
 
-    /**
-     * Battlecry: Destroy your opponent's weapon
-     */
     @Override
     public EffectCharacter getBattlecryEffect() {
         return (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {

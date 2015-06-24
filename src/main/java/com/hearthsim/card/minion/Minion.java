@@ -444,7 +444,10 @@ public class Minion extends Card implements EffectOnResolveTargetable<Card>, Car
             toRet = deathrattleAction_.performAction(this, thisPlayerSide, toRet);
         }
 
-        toRet = toRet.notifyMinionDead(thisPlayerSide, this);
+        if (toRet != null)
+            toRet = toRet.notifyMinionDead(thisPlayerSide, this);
+        else
+            return boardState;
         return toRet;
     }
 
