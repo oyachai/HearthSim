@@ -55,8 +55,8 @@ class CardSpec extends Specification {
     }
 
     void assertHandEquals(IdentityLinkedList<Card> oldHand, IdentityLinkedList<Card> newHand) {
-        assert oldHand.size == newHand.size
-        for (int indx = 0; indx < oldHand.size; ++indx) {
+        assert oldHand.size() == newHand.size()
+        for (int indx = 0; indx < oldHand.size(); ++indx) {
             assert oldHand.get(indx).baseManaCost == newHand.get(indx).baseManaCost
             assert oldHand.get(indx).hasBeenUsed == newHand.get(indx).hasBeenUsed
             assert oldHand.get(indx).inHand == newHand.get(indx).inHand

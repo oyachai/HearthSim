@@ -686,6 +686,14 @@ public class Minion extends Card implements EffectOnResolveTargetable<Card>, Car
      * @throws HSException
      */
     protected HearthTreeNode summonMinion_core(PlayerSide targetSide, CharacterIndex targetIndex, HearthTreeNode boardState) {
+
+        // The minion summon placement target might have died during the previous chain of events.
+        // So, we need to check to see if the target position is still valid.  If it is not, we
+        // will place the target on the right most position.
+        if (boardState.data_.modelForSide(targetSide).getNumMinions() < targetIndex.getInt()) {
+            targetIndex = CharacterIndex.fromInteger(boardState.data_.modelForSide(targetSide).getNumMinions());
+        }
+
         boardState.data_.placeMinion(targetSide, this, targetIndex);
         if (!charge_) {
             hasAttacked_ = true;
