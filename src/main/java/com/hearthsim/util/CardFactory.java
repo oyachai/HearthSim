@@ -21,6 +21,7 @@ import java.util.Map;
 public class CardFactory {
 
     private static Map<String, String> cardCache;
+    private static Map<String, String> cardIdCache;
 
     private static void loadCardData() {
         JSONArray implementedCards;
@@ -38,11 +39,13 @@ public class CardFactory {
         }
         if (implementedCards != null) {
             cardCache = new HashMap<>();
+            cardIdCache = new HashMap<>();
             synchronized (cardCache) {
                 for (int indx = 0; indx < implementedCards.length(); ++indx) {
                     JSONObject obj = implementedCards.getJSONObject(indx);
                     String[] cardName = obj.optString("class").split("\\.");
                     cardCache.put(cardName[cardName.length - 1].trim(), obj.optString("class"));
+                    cardIdCache.put(obj.getString("id"), obj.optString("class"));
                 }
             }
         }
@@ -64,4 +67,22 @@ public class CardFactory {
             throw new HSInvalidCardException("Unknown card: " + cleanedString);
         }
     }
+
+    public static Card getCardById(String cardId) throws HSInvalidCardException {
+        if (cardIdCache == null)
+            loadCardData();
+        String cleanedString = cardId.trim();
+        if (cardIdCache == null)
+            throw new HSInvalidCardException("Unable to open implemented_cards.json");
+
+        try {
+            Class<?> clazz = Class.forName(cardIdCache.get(cleanedString));
+            Constructor<?> ctor = clazz.getConstructor();
+            Object object = ctor.newInstance();
+            return (Card)object;
+        } catch (ClassNotFoundException | NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
+            throw new HSInvalidCardException("Unknown card: " + cleanedString);
+        }
+    }
+
 }
