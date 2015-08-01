@@ -1775,6 +1775,11 @@
         "name": "Upgraded Repair Bot"
     },
     {
+        "class": "com.hearthsim.card.goblinsvsgnomes.spell.common.VelensChosen",
+        "id": "GVG_010",
+        "name": "Velen's Chosen"
+    },
+    {
         "class": "com.hearthsim.card.classic.minion.common.VentureCoMercenary",
         "id": "CS2_227",
         "name": "Venture Co. Mercenary"
