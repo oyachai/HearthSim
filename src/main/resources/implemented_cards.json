@@ -206,7 +206,7 @@
     },
     {
         "class": "com.hearthsim.card.classic.spell.rare.Bite",
-        "id": "EX1_570e",
+        "id": "EX1_570",
         "name": "Bite"
     },
     {
@@ -881,7 +881,7 @@
     },
     {
         "class": "com.hearthsim.card.basic.spell.HuntersMark",
-        "id": "CS2_084e",
+        "id": "CS2_084",
         "name": "Hunter's Mark"
     },
     {
@@ -1071,7 +1071,7 @@
     },
     {
         "class": "com.hearthsim.card.curseofnaxxramas.minion.legendary.Maexxna",
-        "id": "NAX3_01H",
+        "id": "FP1_010",
         "name": "Maexxna"
     },
     {
@@ -1286,7 +1286,7 @@
     },
     {
         "class": "com.hearthsim.card.basic.spell.Polymorph",
-        "id": "CS2_022e",
+        "id": "CS2_022",
         "name": "Polymorph"
     },
     {
@@ -1366,7 +1366,7 @@
     },
     {
         "class": "com.hearthsim.card.basic.spell.RockbiterWeapon",
-        "id": "CS2_045e",
+        "id": "CS2_045",
         "name": "Rockbiter Weapon"
     },
     {
