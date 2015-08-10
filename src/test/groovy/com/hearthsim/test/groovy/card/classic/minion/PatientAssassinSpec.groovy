@@ -56,7 +56,7 @@ class PatientAssassinSpec extends CardSpec {
             currentPlayer {
                 playMinion(PatientAssassin)
                 mana(5)
-                updateMinion(CharacterIndex.MINION_1, [hasAttacked: true, stealthed: false])
+                updateMinion(CharacterIndex.MINION_1, [hasAttacked: true, stealthedUntilRevealed: false])
                 numCardsUsed(1)
             }
             waitingPlayer {

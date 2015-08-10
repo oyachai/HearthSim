@@ -1,6 +1,9 @@
 package com.hearthsim.card.spellcard;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.minion.Minion;
+import com.hearthsim.model.BoardModel;
+import com.hearthsim.model.PlayerSide;
 import org.json.JSONObject;
 
 public abstract class SpellCard extends Card {
@@ -20,4 +23,17 @@ public abstract class SpellCard extends Card {
         json.put("type", "SpellCard");
         return json;
     }
+
+    @Override
+    public boolean canBeUsedOn(PlayerSide playerSide, Minion minion, BoardModel boardModel) {
+        if (!super.canBeUsedOn(playerSide, minion, boardModel))
+            return false;
+
+        if (playerSide == PlayerSide.WAITING_PLAYER && minion.isStealthed()) {
+            return false;
+        }
+
+        return true;
+    }
+
 }

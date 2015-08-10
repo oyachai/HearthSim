@@ -11,7 +11,7 @@ public class OneEyedCheat extends Minion implements CardPlayBeginInterface {
 
     private final static EffectCharacter<Card> effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
         Minion minion = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
-        minion.setStealthed(true);
+        minion.setStealthedUntilRevealed(true);
         return boardState;
     };
 

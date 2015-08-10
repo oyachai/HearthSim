@@ -69,7 +69,8 @@ public class Minion extends Card implements EffectOnResolveTargetable<Card>, Car
 
     private boolean frozen_;
     protected boolean silenced_;
-    private boolean stealthed_;
+    private boolean stealthedUntilRevealed;
+    private boolean stealthedUntilNextTurn = false;
     protected boolean heroTargetable_ = true;
 
     protected byte health_;
@@ -102,7 +103,7 @@ public class Minion extends Card implements EffectOnResolveTargetable<Card>, Car
             this.divineShield_ = implementedCard.divineShield_;
             this.windFury_ = implementedCard.windfury_;
             this.charge_ = implementedCard.charge_;
-            this.stealthed_ = implementedCard.stealth_;
+            this.stealthedUntilRevealed = implementedCard.stealth_;
             this.spellDamage_ = (byte) implementedCard.spellDamage;
             this.cantAttack = implementedCard.cantAttack;
         }
@@ -301,12 +302,24 @@ public class Minion extends Card implements EffectOnResolveTargetable<Card>, Car
         auraHealth_ -= value;
     }
 
-    public boolean getStealthed() {
-        return stealthed_;
+    public boolean isStealthed() {
+        return stealthedUntilRevealed || stealthedUntilNextTurn;
     }
 
-    public void setStealthed(boolean value) {
-        stealthed_ = value;
+    public boolean getStealthedUntilRevealed() {
+        return this.stealthedUntilRevealed;
+    }
+
+    public void setStealthedUntilRevealed(boolean value) {
+        stealthedUntilRevealed = value;
+    }
+
+    public boolean getStealthedUntilNextTurn() {
+        return this.stealthedUntilNextTurn;
+    }
+
+    public void setStealthedUntilNextTurn(boolean stealthedUntilNextTurn) {
+        this.stealthedUntilNextTurn = stealthedUntilNextTurn;
     }
 
     public boolean getImmune() {
@@ -365,6 +378,8 @@ public class Minion extends Card implements EffectOnResolveTargetable<Card>, Car
             // toRet = this.destroyAndNotify(thisMinionPlayerIndex, toRet, deckPlayer0, deckPlayer1);
             this.setHealth((byte) -99);
         }
+        if (stealthedUntilNextTurn)
+            this.setStealthedUntilNextTurn(false);
         return boardModel;
     }
 
@@ -468,7 +483,8 @@ public class Minion extends Card implements EffectOnResolveTargetable<Card>, Car
         frozen_ = false;
         windFury_ = false;
         deathrattleAction_ = null;
-        stealthed_ = false;
+        stealthedUntilRevealed = false;
+        stealthedUntilNextTurn = false;
         heroTargetable_ = true;
         cantAttack = false;
 
@@ -716,7 +732,7 @@ public class Minion extends Card implements EffectOnResolveTargetable<Card>, Car
     public HearthTreeNode attack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode boardState) throws HSException {
 
         // can't attack a stealthed target
-        if (targetMinion.getStealthed())
+        if (targetMinion.isStealthed())
             return null;
 
         if (!this.canAttack()) {
@@ -746,8 +762,10 @@ public class Minion extends Card implements EffectOnResolveTargetable<Card>, Car
         }
 
         // Attacking means you lose stealth
-        if (toRet != null)
-            this.stealthed_ = false;
+        if (toRet != null) {
+            this.stealthedUntilRevealed = false;
+            this.stealthedUntilNextTurn = false;
+        }
 
         return toRet;
     }
@@ -825,7 +843,8 @@ public class Minion extends Card implements EffectOnResolveTargetable<Card>, Car
         minion.hasWindFuryAttacked_ = hasWindFuryAttacked_;
         minion.frozen_ = frozen_;
         minion.silenced_ = silenced_;
-        minion.stealthed_ = stealthed_;
+        minion.stealthedUntilRevealed = stealthedUntilRevealed;
+        minion.stealthedUntilNextTurn = stealthedUntilNextTurn;
         minion.heroTargetable_ = heroTargetable_;
         minion.destroyOnTurnStart_ = destroyOnTurnStart_;
         minion.destroyOnTurnEnd_ = destroyOnTurnEnd_;
@@ -866,7 +885,9 @@ public class Minion extends Card implements EffectOnResolveTargetable<Card>, Car
             return false;
         if (charge_ != otherMinion.charge_)
             return false;
-        if (stealthed_ != otherMinion.stealthed_)
+        if (stealthedUntilRevealed != otherMinion.stealthedUntilRevealed)
+            return false;
+        if (stealthedUntilNextTurn != otherMinion.stealthedUntilNextTurn)
             return false;
         if (hasAttacked_ != otherMinion.hasAttacked_)
             return false;
@@ -907,7 +928,8 @@ public class Minion extends Card implements EffectOnResolveTargetable<Card>, Car
         result = 31 * result + (hasWindFuryAttacked_ ? 1 : 0);
         result = 31 * result + (frozen_ ? 1 : 0);
         result = 31 * result + (silenced_ ? 1 : 0);
-        result = 31 * result + (stealthed_ ? 1 : 0);
+        result = 31 * result + (stealthedUntilRevealed ? 1 : 0);
+        result = 31 * result + (stealthedUntilNextTurn ? 1 : 0);
         result = 31 * result + (heroTargetable_ ? 1 : 0);
         result = 31 * result + health_;
         result = 31 * result + maxHealth_;
@@ -953,7 +975,7 @@ public class Minion extends Card implements EffectOnResolveTargetable<Card>, Car
 
         spellDamage_ = spellDamage;
 
-        stealthed_ = stealthed;
+        stealthedUntilRevealed = stealthed;
         heroTargetable_ = heroTargetable;
     }
 

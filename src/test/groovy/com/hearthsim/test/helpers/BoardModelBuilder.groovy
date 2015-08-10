@@ -88,8 +88,9 @@ class BoardModelBuilder {
         
         minion.hasAttacked_ = options.containsKey('hasAttacked') ? options.hasAttacked : minion.hasAttacked_
         minion.hasBeenUsed = options.containsKey('hasBeenUsed') ? options.hasBeenUsed : minion.hasBeenUsed
-        minion.stealthed = options.containsKey('stealthed') ? options.stealthed : minion.stealthed
-        
+        minion.stealthedUntilNextTurn = options.containsKey('stealthedUntilNextTurn') ? options.stealthedUntilNextTurn : minion.stealthedUntilNextTurn
+        minion.stealthedUntilRevealed = options.containsKey('stealthedUntilRevealed') ? options.stealthedUntilRevealed : minion.stealthedUntilRevealed
+
         minion.charge = options.containsKey('charge') ? options.charge : minion.charge
         minion.frozen = options.containsKey('frozen') ? options.frozen : minion.frozen
         minion.silenced = options.containsKey('silenced') ? options.silenced : minion.silenced

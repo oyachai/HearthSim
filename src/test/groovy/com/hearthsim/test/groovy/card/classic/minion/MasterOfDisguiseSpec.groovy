@@ -36,7 +36,7 @@ class MasterOfDisguiseSpec extends CardSpec {
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                updateMinion(CharacterIndex.MINION_1, [stealthed: true])
+                updateMinion(CharacterIndex.MINION_1, [stealthedUntilRevealed: true])
             }
         }
     }

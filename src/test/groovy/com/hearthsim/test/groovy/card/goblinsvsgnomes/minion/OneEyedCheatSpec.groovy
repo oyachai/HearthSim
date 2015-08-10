@@ -36,7 +36,7 @@ class OneEyedCheatSpec extends CardSpec {
                 playMinion(BloodsailRaider, CharacterIndex.HERO)
                 mana(8)
                 numCardsUsed(1)
-                updateMinion(CharacterIndex.MINION_2, [stealthed: true])
+                updateMinion(CharacterIndex.MINION_2, [stealthedUntilRevealed: true])
             }
         }
     }

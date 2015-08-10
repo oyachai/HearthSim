@@ -370,6 +370,11 @@
         "name": "Coldlight Seer"
     },
     {
+        "class": "com.hearthsim.card.classic.spell.common.Conceal",
+        "id": "EX1_128",
+        "name": "Conceal"
+    },
+    {
         "class": "com.hearthsim.card.basic.spell.Consecration",
         "id": "CS2_093",
         "name": "Consecration"

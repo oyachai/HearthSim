@@ -53,6 +53,12 @@ public interface EffectCharacter<T extends Card> {
         return boardState;
     };
 
+    public final static EffectCharacter STEALTH_UNTIL_NEXT_TURN = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+        Minion targetMinion = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
+        targetMinion.setStealthedUntilNextTurn(true);
+        return boardState;
+    };
+
     public final static EffectCharacter MIND_CONTROL = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
         Minion targetMinion = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
 

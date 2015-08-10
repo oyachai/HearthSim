@@ -126,11 +126,11 @@ public class TestMinionAttacking {
 
     @Test
     public void testAttackBreaksStealth() throws HSException {
-        raptor.setStealthed(true);
+        raptor.setStealthedUntilRevealed(true);
         HearthTreeNode ret = raptor.attack(PlayerSide.WAITING_PLAYER, CharacterIndex.HERO, board);
         assertEquals(board, ret);
 
-        assertFalse(raptor.getStealthed());
+        assertFalse(raptor.isStealthed());
         assertEquals(30, currentPlayer.getHero().getHealth());
         assertEquals(27, waitingPlayer.getHero().getHealth());
     }

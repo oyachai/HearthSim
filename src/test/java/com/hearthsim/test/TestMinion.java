@@ -313,7 +313,7 @@ public class TestMinion {
     @Test
     public void testStealthedDeepCopy() {
         Minion minion0 = new MinionMock("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
-        minion0.setStealthed(true);
+        minion0.setStealthedUntilRevealed(true);
 
         Minion copy = (Minion)minion0.deepCopy();
         assertEquals(minion0, copy);
@@ -321,16 +321,16 @@ public class TestMinion {
         assertEquals(minion0.hashCode(), copy.hashCode());
 
         // Verify the copy is a different object
-        copy.setStealthed(false);
-        assertFalse(copy.getStealthed());
-        assertTrue(minion0.getStealthed());
+        copy.setStealthedUntilRevealed(false);
+        assertFalse(copy.isStealthed());
+        assertTrue(minion0.isStealthed());
     }
 
     @Test
     public void testStealthedNotEquals() {
         Minion minion0 = new MinionMock("" + 0, (byte)2, (byte)3, (byte)4, (byte)3, (byte)4, (byte)4);
         Minion copy = (Minion)minion0.deepCopy();
-        copy.setStealthed(true);
+        copy.setStealthedUntilRevealed(true);
         assertNotEquals(minion0, copy);
         assertNotEquals(minion0.hashCode(), copy.hashCode());
     }

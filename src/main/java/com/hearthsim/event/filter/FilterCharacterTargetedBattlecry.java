@@ -17,7 +17,7 @@ public abstract class FilterCharacterTargetedBattlecry extends FilterCharacter {
             return false;
         }
 
-        if (originSide != targetSide && targetCharacter.getStealthed()) {
+        if (originSide != targetSide && targetCharacter.isStealthed()) {
             return false;
         }
 

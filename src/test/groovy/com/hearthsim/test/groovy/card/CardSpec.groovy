@@ -99,7 +99,8 @@ class CardSpec extends Specification {
         assert oldMinion.hasAttacked() == newMinion.hasAttacked()
         assert oldMinion.heroTargetable == newMinion.heroTargetable
         assert oldMinion.silenced == newMinion.silenced
-        assert oldMinion.stealthed == newMinion.stealthed
+        assert oldMinion.stealthedUntilRevealed == newMinion.stealthedUntilRevealed
+        assert oldMinion.stealthedUntilNextTurn == newMinion.stealthedUntilNextTurn
         assert oldMinion.hasBeenUsed == newMinion.hasBeenUsed
         assert oldMinion == newMinion //catch all
     }

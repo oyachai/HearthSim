@@ -111,7 +111,7 @@ public class TestSpellCard {
         currentPlayer.placeCardHand(new HolySmite());
 
         Minion target = waitingPlayer.getCharacter(CharacterIndex.MINION_1);
-        target.setStealthed(true);
+        target.setStealthedUntilRevealed(true);
         Card theCard = currentPlayer.getHand().get(0);
         assertFalse(theCard.canBeUsedOn(PlayerSide.WAITING_PLAYER, target, board.data_));
     }
