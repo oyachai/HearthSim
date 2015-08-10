@@ -46,7 +46,7 @@
     },
     {
         "class": "com.hearthsim.card.classic.spell.rare.AncestralSpirit",
-        "id": "CS2_038e",
+        "id": "CS2_038",
         "name": "Ancestral Spirit"
     },
     {
@@ -246,7 +246,7 @@
     },
     {
         "class": "com.hearthsim.card.basic.spell.Bloodlust",
-        "id": "CS2_046e",
+        "id": "CS2_046",
         "name": "Bloodlust"
     },
     {
@@ -356,7 +356,7 @@
     },
     {
         "class": "com.hearthsim.card.classic.spell.common.ColdBlood",
-        "id": "CS2_073e",
+        "id": "CS2_073",
         "name": "Cold Blood"
     },
     {
@@ -431,7 +431,7 @@
     },
     {
         "class": "com.hearthsim.card.basic.spell.DeadlyPoison",
-        "id": "CS2_074e",
+        "id": "CS2_074",
         "name": "Deadly Poison"
     },
     {
@@ -481,7 +481,7 @@
     },
     {
         "class": "com.hearthsim.card.basic.spell.DivineSpirit",
-        "id": "CS2_236e",
+        "id": "CS2_236",
         "name": "Divine Spirit"
     },
     {
@@ -721,7 +721,7 @@
     },
     {
         "class": "com.hearthsim.card.goblinsvsgnomes.weapon.common.Glaivezooka",
-        "id": "GVG_043e",
+        "id": "GVG_043",
         "name": "Glaivezooka"
     },
     {
@@ -821,7 +821,7 @@
     },
     {
         "class": "com.hearthsim.card.basic.spell.HeroicStrike",
-        "id": "CS2_105e",
+        "id": "CS2_105",
         "name": "Heroic Strike"
     },
     {
@@ -871,7 +871,7 @@
     },
     {
         "class": "com.hearthsim.card.basic.spell.Humility",
-        "id": "EX1_360e",
+        "id": "EX1_360",
         "name": "Humility"
     },
     {
@@ -916,7 +916,7 @@
     },
     {
         "class": "com.hearthsim.card.classic.spell.common.InnerFire",
-        "id": "CS1_129e",
+        "id": "CS1_129",
         "name": "Inner Fire"
     },
     {
@@ -1341,7 +1341,7 @@
     },
     {
         "class": "com.hearthsim.card.classic.spell.common.Rampage",
-        "id": "CS2_104e",
+        "id": "CS2_104",
         "name": "Rampage"
     },
     {
@@ -1731,7 +1731,7 @@
     },
     {
         "class": "com.hearthsim.card.basic.spell.TotemicMight",
-        "id": "EX1_244e",
+        "id": "EX1_244",
         "name": "Totemic Might"
     },
     {
