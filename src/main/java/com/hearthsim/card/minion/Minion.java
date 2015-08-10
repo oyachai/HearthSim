@@ -378,7 +378,7 @@ public class Minion extends Card implements EffectOnResolveTargetable<Card>, Car
             // toRet = this.destroyAndNotify(thisMinionPlayerIndex, toRet, deckPlayer0, deckPlayer1);
             this.setHealth((byte) -99);
         }
-        if (stealthedUntilNextTurn)
+        if (stealthedUntilNextTurn && thisMinionPlayerIndex == PlayerSide.CURRENT_PLAYER)
             this.setStealthedUntilNextTurn(false);
         return boardModel;
     }
