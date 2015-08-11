@@ -1745,6 +1745,11 @@
         "name": "Treant"
     },
     {
+        "id": "GVG_033",
+        "class": "com.hearthsim.card.goblinsvsgnomes.spell.epic.TreeOfLife",
+        "name": "Tree of Life"
+    },
+    {
         "class": "com.hearthsim.card.classic.minion.rare.TwilightDrake",
         "id": "EX1_043",
         "name": "Twilight Drake"

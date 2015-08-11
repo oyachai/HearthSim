@@ -56,7 +56,7 @@ public abstract class HearthSimBase extends Observable {
                 "gameres.txt");
     }
 
-    HearthSimBase(int numSimulations, int numThreads) {
+    public HearthSimBase(int numSimulations, int numThreads) {
         numSims_ = numSimulations;
         numThreads_ = numThreads;
     }
@@ -178,7 +178,7 @@ public abstract class HearthSimBase extends Observable {
         this.notifyObservers(null);
     }
 
-    class GameThread implements Runnable {
+    public class GameThread implements Runnable {
 
         final int gameId_;
         Writer writer_;
