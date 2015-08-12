@@ -200,6 +200,11 @@
         "name": "Battle Rage"
     },
     {
+        "class": "com.hearthsim.card.classic.spell.common.Betrayal",
+        "id": "EX1_126",
+        "name": "Betrayal"
+    },
+    {
         "class": "com.hearthsim.card.classic.minion.epic.BigGameHunter",
         "id": "EX1_005",
         "name": "Big Game Hunter"

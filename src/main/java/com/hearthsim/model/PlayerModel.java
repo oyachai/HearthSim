@@ -56,6 +56,8 @@ public class PlayerModel implements DeepCopyable<PlayerModel>, Iterable<Minion> 
     }
 
     public Minion getCharacter(CharacterIndex index) {
+        if (index.getInt() > getNumMinions())
+            return null;
         return index == CharacterIndex.HERO ? this.getHero() : this.minions.get(index.getInt() - 1);
     }
 
