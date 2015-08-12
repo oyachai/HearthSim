@@ -74,7 +74,7 @@ public class SpellDamage extends SpellCard {
     @Deprecated
     protected final HearthTreeNode attack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode boardState) {
         EffectCharacterDamageSpell<SpellDamage> effect = new EffectCharacterDamageSpell<>(damage_);
-        return effect.applyEffect(PlayerSide.CURRENT_PLAYER, this, targetMinionPlayerSide, targetMinion, boardState);
+        return effect.applyEffect(targetMinionPlayerSide, targetMinion, boardState);
     }
 
     @Deprecated

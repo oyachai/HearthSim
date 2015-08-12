@@ -14,7 +14,7 @@ public class MasterOfDisguise extends Minion implements MinionBattlecryInterface
         }
     };
 
-    private final static EffectCharacter battlecryAction = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+    private final static EffectCharacter battlecryAction = (targetSide, targetCharacterIndex, boardState) -> {
         Minion targetMinion = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
         targetMinion.setStealthedUntilRevealed(true);
         return boardState;

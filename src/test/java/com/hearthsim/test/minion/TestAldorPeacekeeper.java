@@ -26,7 +26,7 @@ public class TestAldorPeacekeeper {
         BoulderfistOgre ogre = new BoulderfistOgre();
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, ogre);
         AldorPeacekeeper peacekeeper = new AldorPeacekeeper();
-        peacekeeper.getBattlecryEffect().applyEffect(PlayerSide.CURRENT_PLAYER, peacekeeper, PlayerSide.CURRENT_PLAYER, CharacterIndex.MINION_1, board);
+        peacekeeper.getBattlecryEffect().applyEffect(PlayerSide.CURRENT_PLAYER, CharacterIndex.MINION_1, board);
         assertEquals(1, ogre.getAttack());
     }
 
@@ -35,7 +35,7 @@ public class TestAldorPeacekeeper {
         StoneclawTotem totem = new StoneclawTotem();
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, totem);
         AldorPeacekeeper peacekeeper = new AldorPeacekeeper();
-        peacekeeper.getBattlecryEffect().applyEffect(PlayerSide.CURRENT_PLAYER, peacekeeper, PlayerSide.CURRENT_PLAYER, CharacterIndex.MINION_1, board);
+        peacekeeper.getBattlecryEffect().applyEffect(PlayerSide.CURRENT_PLAYER, CharacterIndex.MINION_1, board);
         assertEquals(1, totem.getAttack());
     }
 
@@ -47,7 +47,7 @@ public class TestAldorPeacekeeper {
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, ogre);
 
         AldorPeacekeeper peacekeeper = new AldorPeacekeeper();
-        peacekeeper.getBattlecryEffect().applyEffect(PlayerSide.CURRENT_PLAYER, peacekeeper, PlayerSide.WAITING_PLAYER, CharacterIndex.MINION_1, board);
+        peacekeeper.getBattlecryEffect().applyEffect(PlayerSide.WAITING_PLAYER, CharacterIndex.MINION_1, board);
         assertEquals(1, ogre.getAttack());
         assertEquals(0, ogre.getExtraAttackUntilTurnEnd());
     }
@@ -59,7 +59,7 @@ public class TestAldorPeacekeeper {
         board.data_.placeMinion(PlayerSide.WAITING_PLAYER, ogre);
 
         AldorPeacekeeper peacekeeper = new AldorPeacekeeper();
-        peacekeeper.getBattlecryEffect().applyEffect(PlayerSide.CURRENT_PLAYER, peacekeeper, PlayerSide.WAITING_PLAYER, CharacterIndex.MINION_1, board);
+        peacekeeper.getBattlecryEffect().applyEffect(PlayerSide.WAITING_PLAYER, CharacterIndex.MINION_1, board);
         assertEquals(1, ogre.getAttack());
         assertEquals(1, ogre.getAuraAttack());
     }

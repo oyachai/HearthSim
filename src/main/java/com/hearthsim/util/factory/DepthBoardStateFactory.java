@@ -131,8 +131,11 @@ public class DepthBoardStateFactory extends BoardStateFactoryBase {
             HearthTreeNode bestBranch = null;
 
             for (HearthTreeNode child : boardStateNode.getChildren()) {
-                this.doMoves(child, ai); // Don't need to check lethal because lethal states shouldn't get children. Even if they do, doMoves resolves the issue.
-
+//                try {
+                    this.doMoves(child, ai); // Don't need to check lethal because lethal states shouldn't get children. Even if they do, doMoves resolves the issue.
+//                } catch (StackOverflowError e) {
+//                    e.printStackTrace();
+//                }
                 tmpScore = child.getBestChildScore();
 
                 // We need to add the card score after child scoring because CardDrawNode children

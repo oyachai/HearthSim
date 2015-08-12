@@ -1,6 +1,7 @@
 package com.hearthsim.event.deathrattle;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
@@ -16,15 +17,9 @@ public abstract class DeathrattleAction<T extends Card> {
      * @param playerSide
      * @param boardState
      */
-    public HearthTreeNode performAction(T origin,
+    public HearthTreeNode performAction(CharacterIndex originIndex,
                                         PlayerSide playerSide,
                                         HearthTreeNode boardState) {
-        if (origin == null)
-            return boardState;
-        if (origin.isDeathrattleTriggered())
-            return null;
-        else
-            origin.setDeathrattleTriggered(true);
         return boardState;
     }
 

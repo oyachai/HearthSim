@@ -1,14 +1,17 @@
 package com.hearthsim.util.factory;
 
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.Deck;
+import com.hearthsim.card.Location;
 import com.hearthsim.exception.HSException;
 import com.hearthsim.model.BoardModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.player.playercontroller.BoardScorer;
-import com.hearthsim.util.IdentityLinkedList;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public abstract class BoardStateFactoryBase {
 
@@ -70,23 +73,46 @@ public abstract class BoardStateFactoryBase {
      */
     public static HearthTreeNode handleDeadMinions(HearthTreeNode boardState) {
         HearthTreeNode toRet = boardState;
-        IdentityLinkedList<BoardModel.MinionPlayerPair> deadMinions = new IdentityLinkedList<>();
-        for (BoardModel.MinionPlayerPair minionIdPair : toRet.data_.getAllMinionsFIFOList()) {
+
+        // First, remove all the dead minions.  If the dead minions had deathrattles, queue them up.
+        List<MinionPlayerLocation> deadMinions = new ArrayList<>();
+        Iterator<BoardModel.MinionPlayerPair> minionIter = toRet.data_.getAllMinionsFIFOList().iterator();
+        while (minionIter.hasNext()) {
+            BoardModel.MinionPlayerPair minionIdPair = minionIter.next();
             if (minionIdPair.getMinion().getTotalHealth() <= 0) {
-                deadMinions.add(minionIdPair);
+                // Determine the proper character location
+                CharacterIndex leftIndex = boardState.data_.modelForSide(minionIdPair.getPlayerSide()).getIndexForCharacter(minionIdPair.getMinion());
+                while (leftIndex != CharacterIndex.HERO && leftIndex != CharacterIndex.UNKNOWN &&
+                    boardState.data_.modelForSide(minionIdPair.getPlayerSide()).getCharacter(leftIndex.indexToLeft()).getTotalHealth() <= 0) {
+                    leftIndex = leftIndex.indexToLeft();
+                }
+                deadMinions.add(new MinionPlayerLocation(minionIdPair, new Location<>(minionIdPair.getPlayerSide(), leftIndex)));
             }
         }
-        for (BoardModel.MinionPlayerPair minionIdPair : deadMinions) {
-            PlayerSide playerSide = minionIdPair.getPlayerSide();
-            toRet = minionIdPair.getMinion().destroyAndNotify(playerSide, toRet);
+        for (MinionPlayerLocation minionPlayerLocation : deadMinions) {
+            toRet.data_.removeMinion(minionPlayerLocation.minionPlayerPair);
         }
-        for (BoardModel.MinionPlayerPair minionIdPair : deadMinions) {
-            toRet.data_.removeMinion(minionIdPair);
+
+        // Next, resolve each minion's death sequence
+        for (MinionPlayerLocation minionPlayerLocation : deadMinions) {
+            PlayerSide playerSide = minionPlayerLocation.minionPlayerPair.getPlayerSide();
+            toRet = minionPlayerLocation.minionPlayerPair.getMinion()
+                .destroyAndNotify(playerSide, minionPlayerLocation.location.getIndex(), toRet);
         }
 
         if (toRet.data_.hasDeadMinions())
             return BoardStateFactoryBase.handleDeadMinions(toRet);
         else
             return toRet;
+    }
+
+    private static class MinionPlayerLocation {
+        public final BoardModel.MinionPlayerPair minionPlayerPair;
+        public final Location<CharacterIndex> location;
+
+        public MinionPlayerLocation(BoardModel.MinionPlayerPair minionPlayerPair, Location<CharacterIndex> location) {
+            this.minionPlayerPair = minionPlayerPair;
+            this.location = location;
+        }
     }
 }

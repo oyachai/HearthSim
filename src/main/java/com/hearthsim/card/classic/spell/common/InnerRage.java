@@ -5,6 +5,7 @@ import com.hearthsim.card.spellcard.SpellTargetableCard;
 import com.hearthsim.event.effect.EffectCharacter;
 import com.hearthsim.event.filter.FilterCharacter;
 import com.hearthsim.event.filter.FilterCharacterTargetedSpell;
+import com.hearthsim.model.PlayerSide;
 
 public class InnerRage extends SpellTargetableCard {
 
@@ -39,19 +40,14 @@ public class InnerRage extends SpellTargetableCard {
      *
      * Deal 1 damage to a minion and give it +2 attack
      *
-     *
-     *
-     * @param side
-     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-     *
      * @return The boardState is manipulated and returned
      */
     @Override
     public EffectCharacter getTargetableEffect() {
         if (this.effect == null) {
-            this.effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+            this.effect = (targetSide, targetCharacterIndex, boardState) -> {
                 Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
-                boardState = targetCharacter.takeDamageAndNotify((byte)1, originSide, targetSide, boardState, true, false);
+                boardState = targetCharacter.takeDamageAndNotify((byte)1, PlayerSide.CURRENT_PLAYER, targetSide, boardState, true, false);
                 targetCharacter.setAttack((byte) (targetCharacter.getAttack() + 2));
                 return boardState;
             };

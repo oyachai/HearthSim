@@ -22,7 +22,7 @@ public class UnboundElemental extends Minion implements CardPlayBeginInterface {
             return boardState;
         }
         if (usedCard != this && thisCardPlayerSide == cardUserPlayerSide && usedCard.triggersOverload()) {
-            boardState = UnboundElemental.effect.applyEffect(cardUserPlayerSide, usedCard, thisCardPlayerSide, this, boardState);
+            boardState = UnboundElemental.effect.applyEffect(thisCardPlayerSide, this, boardState);
         }
         return boardState;
     }

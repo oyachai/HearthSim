@@ -9,7 +9,7 @@ import com.hearthsim.event.filter.FilterCharacterTargetedSpell;
 
 public class AncestralSpirit extends SpellTargetableCard {
 
-    public static final EffectCharacter effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+    public static final EffectCharacter effect = (targetSide, targetCharacterIndex, boardState) -> {
         Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
         targetCharacter.setDeathrattle(new DeathrattleSummonMinionAction(targetCharacter.getClass(), 1));
         return boardState;
@@ -45,11 +45,6 @@ public class AncestralSpirit extends SpellTargetableCard {
      * Use the card on the given target
      *
      * Give a minion 'Deathrattle: Resummon this minion'
-     *
-     *
-     *
-     * @param side
-     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
      *
      * @return The boardState is manipulated and returned
      */

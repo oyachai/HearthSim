@@ -44,6 +44,6 @@ public class SiltfinSpiritwalker extends Minion implements MinionDeadInterface {
             return boardState;
         }
 
-        return SiltfinSpiritwalker.effect.applyEffect(thisMinionPlayerSide, this, thisMinionPlayerSide, CharacterIndex.HERO, boardState);
+        return SiltfinSpiritwalker.effect.applyEffect(thisMinionPlayerSide, CharacterIndex.HERO, boardState);
     }
 }

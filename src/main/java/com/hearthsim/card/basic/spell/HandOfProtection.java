@@ -53,17 +53,12 @@ public class HandOfProtection extends SpellTargetableCard {
      *
      * This card gives a minion Divine Shield.
      *
-     *
-     *
-     * @param side
-     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-     *
      * @return The boardState is manipulated and returned
      */
     @Override
     public EffectCharacter getTargetableEffect() {
         if (this.effect == null) {
-            this.effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+            this.effect = (targetSide, targetCharacterIndex, boardState) -> {
                 Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
                 targetCharacter.setDivineShield(true);
                 return boardState;

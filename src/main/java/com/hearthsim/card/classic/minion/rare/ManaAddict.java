@@ -23,7 +23,7 @@ public class ManaAddict extends Minion implements CardPlayBeginInterface {
             return boardState;
         }
         if (cardUserPlayerSide == thisCardPlayerSide && usedCard instanceof SpellCard) {
-            ManaAddict.effect.applyEffect(cardUserPlayerSide, usedCard, thisCardPlayerSide, this, boardState);
+            ManaAddict.effect.applyEffect(thisCardPlayerSide, this, boardState);
         }
         return boardState;
     }

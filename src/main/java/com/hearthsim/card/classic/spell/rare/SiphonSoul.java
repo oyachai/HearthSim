@@ -16,9 +16,9 @@ public class SiphonSoul extends SpellTargetableCard {
 
     private static final EffectCharacter effect = new EffectCharacter() {
         @Override
-        public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState) {
-            boardState = EffectCharacter.DESTROY.applyEffect(originSide, origin, targetSide, targetCharacterIndex, boardState);
-            boardState = SiphonSoul.heal.applyEffect(originSide, origin, originSide, CharacterIndex.HERO, boardState);
+        public HearthTreeNode applyEffect(PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState) {
+            boardState = EffectCharacter.DESTROY.applyEffect(targetSide, targetCharacterIndex, boardState);
+            boardState = SiphonSoul.heal.applyEffect(PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO, boardState);
             return boardState;
         }
     };

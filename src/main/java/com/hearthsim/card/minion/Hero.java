@@ -98,7 +98,7 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
             attackingWeapon.afterAttack(targetMinionPlayerSide, targetMinion, boardState);
             DeathrattleAction weaponDeathrattle = this.checkForWeaponDeath();
             if (weaponDeathrattle != null) {
-                toRet = weaponDeathrattle.performAction(attackingWeapon, PlayerSide.CURRENT_PLAYER, toRet);
+                toRet = weaponDeathrattle.performAction(CharacterIndex.HERO, PlayerSide.CURRENT_PLAYER, toRet);
                 toRet = BoardStateFactoryBase.handleDeadMinions(toRet);
             }
         }

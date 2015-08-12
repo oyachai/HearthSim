@@ -1,10 +1,13 @@
 package com.hearthsim.card.classic.minion.epic;
 
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionBattlecryInterface;
 import com.hearthsim.event.effect.EffectCharacter;
 import com.hearthsim.event.filter.FilterCharacter;
 import com.hearthsim.event.filter.FilterCharacterTargetedBattlecry;
+import com.hearthsim.model.PlayerSide;
+import com.hearthsim.util.tree.HearthTreeNode;
 
 public class HungryCrab extends Minion implements MinionBattlecryInterface {
 
@@ -23,18 +26,6 @@ public class HungryCrab extends Minion implements MinionBattlecryInterface {
         }
     };
 
-    private final static EffectCharacter battlecryAction = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
-        Minion targetMinion = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
-        if (targetMinion.getTribe() == MinionTribe.MURLOC) {
-            targetMinion.setHealth((byte) -99);
-            ((Minion)origin).addAttack((byte) 2);
-            ((Minion)origin).addHealth((byte) 2);
-            ((Minion)origin).addMaxHealth((byte) 2);
-            return boardState;
-        } else {
-            return null;
-        }
-    };
 
     public HungryCrab() {
         super();
@@ -47,6 +38,16 @@ public class HungryCrab extends Minion implements MinionBattlecryInterface {
 
     @Override
     public EffectCharacter getBattlecryEffect() {
-        return HungryCrab.battlecryAction;
-    }
+        return new EffectCharacter<Minion>() {
+
+            @Override
+            public HearthTreeNode applyEffect(PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState) {
+                Minion targetMinion = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
+                targetMinion.setHealth((byte) -99);
+                HungryCrab.this.addAttack((byte) 2);
+                HungryCrab.this.addHealth((byte) 2);
+                HungryCrab.this.addMaxHealth((byte) 2);
+                return boardState;
+            }
+        };    }
 }

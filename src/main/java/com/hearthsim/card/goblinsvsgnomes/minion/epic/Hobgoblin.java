@@ -4,13 +4,13 @@ import com.hearthsim.card.Card;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionSummonedInterface;
 import com.hearthsim.event.effect.EffectCharacter;
-import com.hearthsim.event.effect.EffectHeroWeaponBuffDelta;
+import com.hearthsim.event.effect.EffectCharacterBuffDelta;
 import com.hearthsim.event.filter.FilterCharacter;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public class Hobgoblin extends Minion implements MinionSummonedInterface {
-    private static final EffectCharacter<Card> effect = new EffectHeroWeaponBuffDelta<>(2, 2);
+    private static final EffectCharacter<Card> effect = new EffectCharacterBuffDelta<>(2, 2);
 
     private final static FilterCharacter triggerFilter = new FilterCharacter() {
         @Override
@@ -39,6 +39,6 @@ public class Hobgoblin extends Minion implements MinionSummonedInterface {
             return boardState;
         }
 
-        return Hobgoblin.effect.applyEffect(thisMinionPlayerSide, this, summonedMinionPlayerSide, summonedMinion, boardState);
+        return Hobgoblin.effect.applyEffect(summonedMinionPlayerSide, summonedMinion, boardState);
     }
 }

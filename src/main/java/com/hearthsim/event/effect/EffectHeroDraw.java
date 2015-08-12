@@ -13,7 +13,7 @@ public class EffectHeroDraw<T extends Card> implements EffectHero<T> {
     }
 
     @Override
-    public HearthTreeNode applyEffect(PlayerSide originSide, T origin, PlayerSide targetSide, HearthTreeNode boardState) {
+    public HearthTreeNode applyEffect(PlayerSide targetSide, HearthTreeNode boardState) {
         if (targetSide == PlayerSide.CURRENT_PLAYER) {
              if (boardState instanceof CardDrawNode) {
                  ((CardDrawNode) boardState).addNumCardsToDraw(this.amount);

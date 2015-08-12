@@ -21,10 +21,10 @@ public class BloodsailRaider extends Minion implements MinionBattlecryInterface 
     public EffectCharacter getBattlecryEffect() {
         return new EffectCharacter<Minion>() {
             @Override
-            public HearthTreeNode applyEffect(PlayerSide originSide, Minion origin, PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState) {
+            public HearthTreeNode applyEffect(PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState) {
                 PlayerModel currentPlayer = boardState.data_.getCurrentPlayer();
                 if (currentPlayer.getHero().getWeapon() != null) {
-                    origin.addAttack(currentPlayer.getHero().getWeapon().getWeaponDamage());
+                    BloodsailRaider.this.addAttack(currentPlayer.getHero().getWeapon().getWeaponDamage());
                 }
                 return boardState;
             }

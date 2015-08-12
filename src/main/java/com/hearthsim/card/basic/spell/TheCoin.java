@@ -27,17 +27,12 @@ public class TheCoin extends SpellTargetableCard {
      *
      * Use the card on the given target
      *
-     *
-     *
-     * @param side
-     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-     *
      * @return The boardState is manipulated and returned
      */
     @Override
     public EffectCharacter getTargetableEffect() {
         if (this.effect == null) {
-            this.effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+            this.effect = (targetSide, targetCharacterIndex, boardState) -> {
                 byte newMana = boardState.data_.getCurrentPlayer().getMana();
                 newMana = newMana >= 10 ? newMana : (byte)(newMana + 1);
                 boardState.data_.getCurrentPlayer().setMana(newMana);

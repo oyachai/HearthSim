@@ -50,7 +50,7 @@ public class DreadInfernal extends Minion implements MinionBattlecryInterface {
      */
     @Override
     public EffectCharacter<Minion> getBattlecryEffect() {
-        return (PlayerSide originSide, Minion origin, PlayerSide targetSide, CharacterIndex minionPlacementIndex, HearthTreeNode boardState) -> {
+        return (PlayerSide targetSide, CharacterIndex minionPlacementIndex, HearthTreeNode boardState) -> {
             return this.effectAllUsingFilter(DreadInfernal.effect, DreadInfernal.filter, boardState);
         };
     }

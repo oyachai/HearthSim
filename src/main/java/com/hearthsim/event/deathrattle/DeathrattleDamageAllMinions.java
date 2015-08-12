@@ -1,6 +1,6 @@
 package com.hearthsim.event.deathrattle;
 
-import com.hearthsim.card.Card;
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
@@ -15,10 +15,10 @@ public class DeathrattleDamageAllMinions extends DeathrattleAction {
     }
 
     @Override
-    public HearthTreeNode performAction(Card origin,
+    public HearthTreeNode performAction(CharacterIndex originIndex,
                                         PlayerSide playerSide,
                                         HearthTreeNode boardState) {
-        HearthTreeNode toRet = super.performAction(origin, playerSide, boardState);
+        HearthTreeNode toRet = super.performAction(originIndex, playerSide, boardState);
         if (toRet != null) {
             PlayerModel currentPlayer = toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
             PlayerModel waitingPlayer = toRet.data_.modelForSide(PlayerSide.WAITING_PLAYER);

@@ -25,7 +25,7 @@ public class DarkscaleHealer extends Minion implements MinionBattlecryInterface 
      */
     @Override
     public EffectCharacter<Minion> getBattlecryEffect() {
-        return (PlayerSide originSide, Minion origin, PlayerSide targetSide, CharacterIndex minionPlacementIndex, HearthTreeNode boardState) ->
+        return (PlayerSide targetSide, CharacterIndex minionPlacementIndex, HearthTreeNode boardState) ->
             this.effectAllUsingFilter(DarkscaleHealer.effect, DarkscaleHealer.filter, boardState);
     }
 }

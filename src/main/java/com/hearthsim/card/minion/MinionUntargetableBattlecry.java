@@ -11,6 +11,6 @@ public interface MinionUntargetableBattlecry extends MinionBattlecryInterface {
 
     @Override
     public default EffectCharacter<Minion> getBattlecryEffect() {
-        return (PlayerSide originSide, Minion origin, PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState) -> this.useUntargetableBattlecry_core(targetCharacterIndex, boardState);
+        return (PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState) -> this.useUntargetableBattlecry_core(targetCharacterIndex, boardState);
     }
 }

@@ -7,7 +7,7 @@ import com.hearthsim.event.effect.EffectOnResolveRandomCharacter;
 import com.hearthsim.event.filter.FilterCharacter;
 
 public class Coghammer extends WeaponCard implements EffectOnResolveRandomCharacter {
-    private static final EffectCharacter effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+    private static final EffectCharacter effect = (targetSide, targetCharacterIndex, boardState) -> {
         Minion targetCharacter = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
         targetCharacter.setDivineShield(true);
         targetCharacter.setTaunt(true);

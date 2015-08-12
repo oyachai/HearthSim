@@ -17,7 +17,7 @@ public class EffectHeroMana<T extends Card> implements EffectHero<T> {
         this.maxManaDelta = (byte) maxManaDelta;
     }
 
-    public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, HearthTreeNode boardState) {
+    public HearthTreeNode applyEffect(PlayerSide targetSide, HearthTreeNode boardState) {
         if (this.manaDelta != 0) {
             byte value = boardState.data_.modelForSide(targetSide).getMana();
             value = (byte)Math.min(value + this.manaDelta, 10);

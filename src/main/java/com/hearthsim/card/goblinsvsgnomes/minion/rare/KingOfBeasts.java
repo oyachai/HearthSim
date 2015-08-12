@@ -37,8 +37,8 @@ public class KingOfBeasts extends Minion implements MinionBattlecryInterface {
      */
     @Override
     public EffectCharacter<Minion> getBattlecryEffect() {
-        return (PlayerSide originSide, Minion origin, PlayerSide targetSide, CharacterIndex minionPlacementIndex, HearthTreeNode boardState) -> {
-            int numBuffs = KingOfBeasts.filter.countMatchesForBoard(originSide, this, boardState.data_);
+        return (PlayerSide targetSide, CharacterIndex minionPlacementIndex, HearthTreeNode boardState) -> {
+            int numBuffs = KingOfBeasts.filter.countMatchesForBoard(PlayerSide.CURRENT_PLAYER, this, boardState.data_);
             this.setAttack((byte) (this.getAttack() + numBuffs));
             return boardState;
         };

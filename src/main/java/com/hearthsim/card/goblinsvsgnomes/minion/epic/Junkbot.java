@@ -39,6 +39,6 @@ public class Junkbot extends Minion implements MinionDeadInterface {
             return boardState;
         }
 
-        return Junkbot.effect.applyEffect(thisMinionPlayerSide, this, thisMinionPlayerSide, this, boardState);
+        return Junkbot.effect.applyEffect(thisMinionPlayerSide, this, boardState);
     }
 }

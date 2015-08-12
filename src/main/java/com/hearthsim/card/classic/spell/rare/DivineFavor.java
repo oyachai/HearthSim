@@ -13,8 +13,8 @@ import com.hearthsim.util.tree.CardDrawNode;
 
 public class DivineFavor extends SpellTargetableCard {
 
-    private final static EffectCharacter effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
-        PlayerModel currentPlayer = boardState.data_.modelForSide(originSide);
+    private final static EffectCharacter effect = (targetSide, targetCharacterIndex, boardState) -> {
+        PlayerModel currentPlayer = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
         PlayerModel waitingPlayer = boardState.data_.modelForSide(targetSide);
 
         int numCardsToDraw = waitingPlayer.getHand().size() - currentPlayer.getHand().size() + 1;

@@ -13,13 +13,11 @@ public interface MinionTargetableBattlecry extends MinionBattlecryInterface {
     /**
      * Derived classes should implement this function for targtable battlecries.
      *
-     * @param originSide
-     * @param origin
      * @param targetCharacterIndex
      * @param boardState
      * @return
      */
-    public HearthTreeNode useTargetableBattlecry_core(PlayerSide originSide, Minion origin, PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState);
+    public HearthTreeNode useTargetableBattlecry_core(PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState);
 
     public boolean canTargetWithBattlecry(PlayerSide originSide, Card origin, PlayerSide targetSide, CharacterIndex targetCharacterIndex, BoardModel board);
 

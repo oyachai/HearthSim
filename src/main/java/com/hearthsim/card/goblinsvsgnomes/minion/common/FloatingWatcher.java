@@ -29,7 +29,7 @@ public class FloatingWatcher extends Minion implements MinionDamagedInterface {
             return boardState;
         }
 
-        boardState = FloatingWatcher.effect.applyEffect(thisMinionPlayerSide, this, thisMinionPlayerSide, this, boardState);
+        boardState = FloatingWatcher.effect.applyEffect(thisMinionPlayerSide, this, boardState);
 
         return boardState;
     }

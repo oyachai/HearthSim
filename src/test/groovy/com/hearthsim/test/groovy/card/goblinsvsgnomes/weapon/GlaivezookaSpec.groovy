@@ -95,6 +95,7 @@ class GlaivezookaSpec extends CardSpec {
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
+                updateCardInHand(0, [hasBeenUsed: true])
                 numCardsUsed(1)
             }
         }

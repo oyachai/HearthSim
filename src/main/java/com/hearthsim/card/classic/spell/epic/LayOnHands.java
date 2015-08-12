@@ -28,18 +28,12 @@ public class LayOnHands extends SpellTargetableCard {
      * Use the card on the given target
      *
      * Restore 8 Health and draw 3 cards
-     *
-     *
-     *
-     * @param side
-     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-     *
      * @return The boardState is manipulated and returned
      */
     @Override
     public EffectCharacter getTargetableEffect() {
         if (this.effect == null) {
-            this.effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+            this.effect = (targetSide, targetCharacterIndex, boardState) -> {
                 Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
                 boardState = targetCharacter.takeHealAndNotify((byte) 8, targetSide, boardState);
                 if (boardState instanceof CardDrawNode)

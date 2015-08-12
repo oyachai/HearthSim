@@ -28,18 +28,12 @@ public class ShieldBlock extends SpellTargetableCard {
      * Use the card on the given target
      *
      * Gives all friendly characters +2 attack for this turn
-     *
-     *
-     *
-     * @param side
-     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-     *
      * @return The boardState is manipulated and returned
      */
     @Override
     public EffectCharacter getTargetableEffect() {
         if (this.effect == null) {
-            this.effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+            this.effect = (targetSide, targetCharacterIndex, boardState) -> {
                 boardState.data_.getCurrentPlayer().getHero().setArmor((byte)(boardState.data_.getCurrentPlayer().getHero().getArmor() + 5));
                 if (boardState instanceof CardDrawNode) {
                     ((CardDrawNode) boardState).addNumCardsToDraw(1);

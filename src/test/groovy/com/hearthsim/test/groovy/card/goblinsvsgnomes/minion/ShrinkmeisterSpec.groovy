@@ -29,7 +29,7 @@ class ShrinkmeisterSpec extends CardSpec {
     def "subtracts extra attack"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = new Shrinkmeister()
-        def ret = theCard.battlecryEffect.applyEffect(CURRENT_PLAYER, theCard, CURRENT_PLAYER, CharacterIndex.MINION_1, root)
+        def ret = theCard.battlecryEffect.applyEffect(CURRENT_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         assertEquals(root, ret);
@@ -46,7 +46,7 @@ class ShrinkmeisterSpec extends CardSpec {
         def target = root.data_.modelForSide(CURRENT_PLAYER).getCharacter(CharacterIndex.MINION_1)
         target.extraAttackUntilTurnEnd = 2
         def theCard = new Shrinkmeister()
-        def ret = theCard.battlecryEffect.applyEffect(CURRENT_PLAYER, theCard, CURRENT_PLAYER, CharacterIndex.MINION_1, root)
+        def ret = theCard.battlecryEffect.applyEffect(CURRENT_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         assertEquals(root, ret);

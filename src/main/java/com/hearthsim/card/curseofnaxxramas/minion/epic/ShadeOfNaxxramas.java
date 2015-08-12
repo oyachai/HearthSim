@@ -19,7 +19,7 @@ public class ShadeOfNaxxramas extends Minion {
     public HearthTreeNode startTurn(PlayerSide thisMinionPlayerIndex, HearthTreeNode boardModel) throws HSException {
         HearthTreeNode toRet = boardModel;
         if (thisMinionPlayerIndex == PlayerSide.CURRENT_PLAYER) {
-            toRet = ShadeOfNaxxramas.effect.applyEffect(thisMinionPlayerIndex, null, thisMinionPlayerIndex, this, toRet);
+            toRet = ShadeOfNaxxramas.effect.applyEffect(thisMinionPlayerIndex, this, toRet);
         }
         return super.startTurn(thisMinionPlayerIndex, toRet);
     }

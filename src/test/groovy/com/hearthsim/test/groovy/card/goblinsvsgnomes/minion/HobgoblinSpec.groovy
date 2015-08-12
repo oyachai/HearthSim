@@ -43,12 +43,12 @@ class HobgoblinSpec extends CardSpec {
                 playMinion(Wisp, CharacterIndex.HERO)
                 mana(10)
                 numCardsUsed(1)
-                updateMinion(CharacterIndex.MINION_1, [attackDelta: 2, healthDelta: 2, maxHealthDelta: 2])
+                updateMinion(CharacterIndex.MINION_1, [deltaAttack: 2, deltaHealth: 2, deltaMaxHealth: 2])
             }
         }
     }
 
-    // TODO unverified behavior
+    // TODO unverified behavior (apparently both should trigger)
     def "only one hobgobin triggers"() {
         startingBoard.placeMinion(CURRENT_PLAYER, new Hobgoblin())
 
@@ -64,7 +64,7 @@ class HobgoblinSpec extends CardSpec {
                 playMinion(Wisp, CharacterIndex.HERO)
                 mana(10)
                 numCardsUsed(1)
-                updateMinion(CharacterIndex.MINION_1, [attackDelta: 2, healthDelta: 2, maxHealthDelta: 2])
+                updateMinion(CharacterIndex.MINION_1, [deltaAttack: 2, deltaHealth: 2, deltaMaxHealth: 2])
             }
         }
     }

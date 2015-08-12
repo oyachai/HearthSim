@@ -8,7 +8,7 @@ import com.hearthsim.event.filter.FilterCharacterTargetedSpell;
 
 public class Corruption extends SpellTargetableCard {
 
-    private static final EffectCharacter effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+    private static final EffectCharacter effect = (targetSide, targetCharacterIndex, boardState) -> {
         Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
         targetCharacter.setDestroyOnTurnStart(true);
         return boardState;
@@ -44,11 +44,6 @@ public class Corruption extends SpellTargetableCard {
      * Use the card on the given target
      *
      * Choose an enemy minion.  At the start of your turn, destroy it.
-     *
-     *
-     *
-     * @param side
-     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
      *
      * @return The boardState is manipulated and returned
      */

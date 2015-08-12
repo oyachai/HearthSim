@@ -8,7 +8,7 @@ import com.hearthsim.event.filter.FilterCharacterTargetedSpell;
 
 public class ColdBlood extends SpellTargetableCard {
 
-    private static final EffectCharacter effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+    private static final EffectCharacter effect = (targetSide, targetCharacterIndex, boardState) -> {
         Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
         byte buffAmount = boardState.data_.getCurrentPlayer().isComboEnabled() ? (byte)4 : (byte)2;
         targetCharacter.addAttack(buffAmount);
@@ -45,9 +45,6 @@ public class ColdBlood extends SpellTargetableCard {
      * Use the card on the given target
      *
      * Give a minion +2 Attack. Combo: +4 Attack instead.
-     *
-     * @param side
-     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
      *
      * @return The boardState is manipulated and returned
      */

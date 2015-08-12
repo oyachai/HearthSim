@@ -338,7 +338,7 @@ public class Card implements DeepCopyable<Card> {
             currentPlayer.getHand().remove(this);
 
             if (targetableEffect != null) {
-                toRet = targetableEffect.applyEffect(PlayerSide.CURRENT_PLAYER, this, side, targetMinion, toRet);
+                toRet = targetableEffect.applyEffect(side, targetMinion, toRet);
             }
         }
 
@@ -377,7 +377,12 @@ public class Card implements DeepCopyable<Card> {
             if (!(this instanceof Minion)) {
                 for (HearthTreeNode child : toRet.getChildren()) {
                     if (targetableEffect != null) {
-                        child = targetableEffect.applyEffect(PlayerSide.CURRENT_PLAYER, null, side, targetIndex, child);
+                        // Sometimes, the target of the card use is already dead.  In this case, if this is not a minion card, the effect should just fizzle.
+                        try {
+                            child = targetableEffect.applyEffect(side, targetIndex, child);
+                        } catch (IndexOutOfBoundsException e) {
+                            log.debug("Target already dead");
+                        }
                     }
                     child.data_.modelForSide(PlayerSide.CURRENT_PLAYER).subtractMana(manaCost);
                 }
@@ -391,7 +396,7 @@ public class Card implements DeepCopyable<Card> {
                 currentPlayer.getHand().remove(this);
 
                 if (targetableEffect != null) {
-                    toRet = targetableEffect.applyEffect(PlayerSide.CURRENT_PLAYER, this, side, targetMinion, toRet);
+                    toRet = targetableEffect.applyEffect(side, targetMinion, toRet);
                 }
             }
         }
@@ -517,7 +522,7 @@ public class Card implements DeepCopyable<Card> {
             for (CharacterIndex.CharacterLocation location : boardState.data_) {
                 Minion character = boardState.data_.getCharacter(location);
                 if (filter.targetMatches(PlayerSide.CURRENT_PLAYER, this, location.getPlayerSide(), character, boardState.data_)) {
-                    boardState = effect.applyEffect(PlayerSide.CURRENT_PLAYER, this, location.getPlayerSide(), character, boardState);
+                    boardState = effect.applyEffect(location.getPlayerSide(), character, boardState);
                 }
             }
         }
@@ -620,7 +625,7 @@ public class Card implements DeepCopyable<Card> {
                     origin = newState.data_.modelForSide(originSide).getCharacter(originCharacterIndex);
                 }
                 if (effect != null) {
-                    newState = effect.applyEffect(originSide, origin, location.getPlayerSide(), location.getIndex(), newState);
+                    newState = effect.applyEffect(location.getPlayerSide(), location.getIndex(), newState);
                     somethingHappened = newState != null;
                 }
 
@@ -630,7 +635,7 @@ public class Card implements DeepCopyable<Card> {
                             continue;
                         }
                         if (filter.targetMatches(originSide, origin, childLocation.getPlayerSide(), childLocation.getIndex(), boardState.data_)) {
-                            newState = effectOthers.applyEffect(originSide, origin, childLocation.getPlayerSide(), childLocation.getIndex(), newState);
+                            newState = effectOthers.applyEffect(childLocation.getPlayerSide(), childLocation.getIndex(), newState);
                             somethingHappened = newState != null;
                         }
                     }

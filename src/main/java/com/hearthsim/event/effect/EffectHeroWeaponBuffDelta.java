@@ -22,7 +22,7 @@ public class EffectHeroWeaponBuffDelta<T extends Card> implements EffectHero<T> 
     }
 
     @Override
-    public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, HearthTreeNode boardState) {
+    public HearthTreeNode applyEffect(PlayerSide targetSide, HearthTreeNode boardState) {
         Hero hero = (Hero)boardState.data_.getCharacter(targetSide, CharacterIndex.HERO);
         WeaponCard weapon = hero.getWeapon();
         if (weapon != null) {

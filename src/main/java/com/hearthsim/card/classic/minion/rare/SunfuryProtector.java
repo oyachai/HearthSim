@@ -22,10 +22,10 @@ public class SunfuryProtector extends Minion implements MinionBattlecryInterface
         return new EffectCharacter<Minion>() {
 
             @Override
-            public HearthTreeNode applyEffect(PlayerSide originSide, Minion origin, PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState) {
+            public HearthTreeNode applyEffect(PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState) {
                 PlayerModel currentPlayer = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
 
-                CharacterIndex thisMinionIndex = currentPlayer.getIndexForCharacter(origin);
+                CharacterIndex thisMinionIndex = currentPlayer.getIndexForCharacter(SunfuryProtector.this);
                 for (Minion minion : currentPlayer.getMinionsAdjacentToCharacter(thisMinionIndex)) {
                     minion.setTaunt(true);
                 }

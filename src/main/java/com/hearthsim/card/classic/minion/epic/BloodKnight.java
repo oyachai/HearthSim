@@ -20,21 +20,21 @@ public class BloodKnight extends Minion implements MinionBattlecryInterface {
     public EffectCharacter getBattlecryEffect() {
         return new EffectCharacter<Minion>() {
             @Override
-            public HearthTreeNode applyEffect(PlayerSide originSide, Minion origin, PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState) {
+            public HearthTreeNode applyEffect(PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState) {
                 for (Minion minion : boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getMinions()) {
-                    if (minion != origin && minion.getDivineShield()) {
+                    if (minion != BloodKnight.this && minion.getDivineShield()) {
                         minion.setDivineShield(false);
-                        origin.setHealth((byte) (origin.getHealth() + 3));
-                        origin.setMaxHealth((byte) (origin.getMaxHealth() + 3));
-                        origin.setAttack((byte) (origin.getAttack() + 3));
+                        BloodKnight.this.setHealth((byte) (BloodKnight.this.getHealth() + 3));
+                        BloodKnight.this.setMaxHealth((byte) (BloodKnight.this.getMaxHealth() + 3));
+                        BloodKnight.this.setAttack((byte) (BloodKnight.this.getAttack() + 3));
                     }
                 }
                 for (Minion minion : boardState.data_.modelForSide(PlayerSide.WAITING_PLAYER).getMinions()) {
-                    if (minion != origin && minion.getDivineShield()) {
+                    if (minion != BloodKnight.this && minion.getDivineShield()) {
                         minion.setDivineShield(false);
-                        origin.setHealth((byte) (origin.getHealth() + 3));
-                        origin.setMaxHealth((byte) (origin.getMaxHealth() + 3));
-                        origin.setAttack((byte) (origin.getAttack() + 3));
+                        BloodKnight.this.setHealth((byte) (BloodKnight.this.getHealth() + 3));
+                        BloodKnight.this.setMaxHealth((byte) (BloodKnight.this.getMaxHealth() + 3));
+                        BloodKnight.this.setAttack((byte) (BloodKnight.this.getAttack() + 3));
                     }
                 }
                 return boardState;

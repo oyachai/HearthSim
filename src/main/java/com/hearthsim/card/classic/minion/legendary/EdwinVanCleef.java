@@ -21,11 +21,11 @@ public class EdwinVanCleef extends Minion implements MinionBattlecryInterface {
         return new EffectCharacter<Minion>() {
 
             @Override
-            public HearthTreeNode applyEffect(PlayerSide originSide, Minion origin, PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState) {
+            public HearthTreeNode applyEffect(PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState) {
                 byte buff = (byte) ((boardState.data_.getCurrentPlayer().getNumCardsUsed() - 1) * 2);
-                origin.addAttack(buff);
-                origin.addHealth(buff);
-                origin.addMaxHealth(buff);
+                EdwinVanCleef.this.addAttack(buff);
+                EdwinVanCleef.this.addHealth(buff);
+                EdwinVanCleef.this.addMaxHealth(buff);
                 return boardState;
             }
         };

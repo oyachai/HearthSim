@@ -22,7 +22,7 @@ public class Quartermaster extends Minion implements MinionBattlecryInterface {
      */
     @Override
     public EffectCharacter<Minion> getBattlecryEffect() {
-        return (PlayerSide originSide, Minion origin, PlayerSide targetSide, CharacterIndex minionPlacementIndex, HearthTreeNode boardState) -> {
+        return (PlayerSide targetSide, CharacterIndex minionPlacementIndex, HearthTreeNode boardState) -> {
             for (Minion minion : boardState.data_.getCurrentPlayer().getMinions()) {
                 if (minion instanceof SilverHandRecruit) {
                     minion.addMaxHealth((byte)2);

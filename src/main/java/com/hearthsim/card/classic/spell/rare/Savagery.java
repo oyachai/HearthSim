@@ -26,9 +26,9 @@ public class Savagery extends SpellTargetableCard {
     public EffectCharacter getTargetableEffect() {
         return new EffectCharacter() {
             @Override
-            public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState) {
-                EffectCharacter<Card> effect = new EffectCharacterDamageSpell<>(boardState.data_.getCharacter(originSide, CharacterIndex.HERO).getTotalAttack());
-                return effect.applyEffect(originSide, origin, targetSide, targetCharacterIndex, boardState);
+            public HearthTreeNode applyEffect(PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState) {
+                EffectCharacter<Card> effect = new EffectCharacterDamageSpell<>(boardState.data_.getCharacter(PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO).getTotalAttack());
+                return effect.applyEffect(targetSide, targetCharacterIndex, boardState);
             }
         };
     }

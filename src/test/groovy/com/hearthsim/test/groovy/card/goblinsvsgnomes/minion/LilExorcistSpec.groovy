@@ -47,4 +47,24 @@ class LilExorcistSpec extends CardSpec {
             }
         }
     }
+
+    def "does not count friendly deathrattle"() {
+        startingBoard.placeMinion(CURRENT_PLAYER, new HauntedCreeper())
+
+        def copiedBoard = startingBoard.deepCopy()
+        def theCard = root.data_.getCurrentPlayer().getHand().get(0)
+        def ret = theCard.useOn(CURRENT_PLAYER, CharacterIndex.HERO, root)
+
+        expect:
+        ret != null;
+
+        assertBoardDelta(copiedBoard, ret.data_) {
+            currentPlayer {
+                playMinion(LilExorcist, CharacterIndex.HERO)
+                mana(7)
+                numCardsUsed(1)
+                updateMinion(CharacterIndex.MINION_1, [deltaAttack: +2, deltaHealth: +2, deltaMaxHealth: +2])
+            }
+        }
+    }
 }

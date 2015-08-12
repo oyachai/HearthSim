@@ -47,7 +47,7 @@ public class VelensChosen extends SpellTargetableCard {
     @Override
     public EffectCharacter getTargetableEffect() {
         if (this.effect == null) {
-            this.effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+            this.effect = (targetSide, targetCharacterIndex, boardState) -> {
                 Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
                 targetCharacter.addAttack((byte)2);
                 targetCharacter.addHealth((byte)4);

@@ -23,6 +23,6 @@ public class Gruul extends Minion {
     @Override
     public HearthTreeNode endTurn(PlayerSide thisMinionPlayerIndex, HearthTreeNode boardModel) throws HSException {
         HearthTreeNode tmpState = super.endTurn(thisMinionPlayerIndex, boardModel);
-        return Gruul.effect.applyEffect(thisMinionPlayerIndex, null, thisMinionPlayerIndex, this, tmpState);
+        return Gruul.effect.applyEffect(thisMinionPlayerIndex, this, tmpState);
     }
 }

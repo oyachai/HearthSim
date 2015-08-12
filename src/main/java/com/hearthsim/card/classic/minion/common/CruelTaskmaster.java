@@ -22,7 +22,7 @@ public class CruelTaskmaster extends Minion implements MinionBattlecryInterface 
         }
     };
 
-    private final static EffectCharacter battlecryAction = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+    private final static EffectCharacter battlecryAction = (targetSide, targetCharacterIndex, boardState) -> {
         Minion targetMinion = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
         HearthTreeNode toRet = boardState;
         targetMinion.setAttack((byte)(targetMinion.getAttack() + 2));

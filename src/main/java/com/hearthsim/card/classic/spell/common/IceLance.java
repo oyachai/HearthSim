@@ -22,11 +22,11 @@ public class IceLance extends SpellDamageTargetableCard {
         if (this.effect == null) {
             this.effect = new EffectCharacterDamageSpell<SpellDamage>(damage_) {
                 @Override
-                public HearthTreeNode applyEffect(PlayerSide originSide, SpellDamage origin, PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState) {
+                public HearthTreeNode applyEffect(PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState) {
                     HearthTreeNode toRet = boardState;
                     Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
                     if (targetCharacter.getFrozen()) {
-                        toRet = super.applyEffect(originSide, origin, targetSide, targetCharacterIndex, boardState);
+                        toRet = super.applyEffect(targetSide, targetCharacterIndex, boardState);
                     } else {
                         targetCharacter.setFrozen(true);
                     }

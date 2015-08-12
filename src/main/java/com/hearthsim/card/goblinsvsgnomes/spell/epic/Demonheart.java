@@ -32,7 +32,7 @@ public class Demonheart extends SpellDamageTargetableCard {
         if (this.effect == null) {
             this.effect = new EffectCharacterDamageSpell<SpellDamage>(damage_) {
                 @Override
-                public HearthTreeNode applyEffect(PlayerSide originSide, SpellDamage origin, PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState) {
+                public HearthTreeNode applyEffect(PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState) {
                     HearthTreeNode toRet = boardState;
                     Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
                     if (isCurrentPlayer(targetSide) && targetCharacter.getTribe() == MinionTribe.DEMON) {
@@ -40,7 +40,7 @@ public class Demonheart extends SpellDamageTargetableCard {
                         targetCharacter.setMaxHealth((byte) (targetCharacter.getMaxHealth() + 5));
                         targetCharacter.setHealth((byte)(targetCharacter.getHealth() + 5));
                     } else {
-                        toRet = super.applyEffect(originSide, origin, targetSide, targetCharacterIndex, boardState);
+                        toRet = super.applyEffect(targetSide, targetCharacterIndex, boardState);
                     }
                     return toRet;
                 }

@@ -20,7 +20,7 @@ public class AxeFlinger extends Minion implements MinionDamagedInterface {
     @Override
     public HearthTreeNode minionDamagedEvent(PlayerSide thisMinionPlayerSide, PlayerSide damagedPlayerSide, Minion damagedMinion, HearthTreeNode boardState) {
         if (damagedMinion == this) {
-            boardState = AxeFlinger.effect.applyEffect(thisMinionPlayerSide, this, thisMinionPlayerSide.getOtherPlayer(), CharacterIndex.HERO, boardState);
+            boardState = AxeFlinger.effect.applyEffect(thisMinionPlayerSide.getOtherPlayer(), CharacterIndex.HERO, boardState);
         }
         return boardState;
     }

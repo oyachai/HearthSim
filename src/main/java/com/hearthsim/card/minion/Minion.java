@@ -449,14 +449,14 @@ public class Minion extends Card implements EffectOnResolveTargetable<Card>, Car
      * @param boardState
      * @throws HSInvalidPlayerIndexException
      */
-    public HearthTreeNode destroyAndNotify(PlayerSide thisPlayerSide, HearthTreeNode boardState) {
+    public HearthTreeNode destroyAndNotify(PlayerSide thisPlayerSide, CharacterIndex destroyedMinionIndex, HearthTreeNode boardState) {
 
         health_ = 0;
         HearthTreeNode toRet = boardState;
 
         // perform the deathrattle action if there is one
         if (deathrattleAction_ != null) {
-            toRet = deathrattleAction_.performAction(this, thisPlayerSide, toRet);
+            toRet = deathrattleAction_.performAction(destroyedMinionIndex, thisPlayerSide, toRet);
         }
 
         if (toRet != null)
@@ -556,7 +556,7 @@ public class Minion extends Card implements EffectOnResolveTargetable<Card>, Car
             boardState.data_.modelForSide(side);
 
             EffectCharacter<Minion> battlecryEffect = ((MinionBattlecryInterface)this).getBattlecryEffect();
-            boardState = battlecryEffect.applyEffect(PlayerSide.CURRENT_PLAYER, this, side, targetCharacterIndex, boardState);
+            boardState = battlecryEffect.applyEffect(side, targetCharacterIndex, boardState);
 
             if (boardState != null) {
                 CharacterIndex originCharacterIndex = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getIndexForCharacter(this);
@@ -581,7 +581,7 @@ public class Minion extends Card implements EffectOnResolveTargetable<Card>, Car
         HearthTreeNode toRet = boardState;
         if (this instanceof MinionUntargetableBattlecry) {
             EffectCharacter<Minion> battlecryEffect = ((MinionUntargetableBattlecry)this).getBattlecryEffect();
-            toRet = battlecryEffect.applyEffect(PlayerSide.CURRENT_PLAYER, this, PlayerSide.CURRENT_PLAYER, minionPlacementIndex, toRet);
+            toRet = battlecryEffect.applyEffect(PlayerSide.CURRENT_PLAYER, minionPlacementIndex, toRet);
             if (toRet != null) {
                 // Check for dead minions
                 toRet = BoardStateFactoryBase.handleDeadMinions(toRet);

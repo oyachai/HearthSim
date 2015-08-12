@@ -1,6 +1,5 @@
 package com.hearthsim.event.deathrattle;
 
-import com.hearthsim.card.Card;
 import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.model.PlayerModel;
@@ -24,9 +23,9 @@ public class DeathrattleSummonMinionAction extends DeathrattleAction {
     }
 
     @Override
-    public HearthTreeNode performAction(Card origin, PlayerSide playerSide, HearthTreeNode boardState) {
+    public HearthTreeNode performAction(CharacterIndex originIndex, PlayerSide playerSide, HearthTreeNode boardState) {
 
-        HearthTreeNode toRet = super.performAction(origin, playerSide, boardState);
+        HearthTreeNode toRet = super.performAction(originIndex, playerSide, boardState);
         if (toRet == null)
             return boardState;
         PlayerModel targetPlayer = toRet.data_.modelForSide(playerSide);
@@ -34,12 +33,6 @@ public class DeathrattleSummonMinionAction extends DeathrattleAction {
         if (sideToSummon == PlayerSide.WAITING_PLAYER) {
             targetPlayer = toRet.data_.modelForSide(playerSide.getOtherPlayer());
             targetPlayerSide = playerSide.getOtherPlayer();
-        }
-
-        CharacterIndex targetIndex = CharacterIndex.fromInteger(targetPlayer.getNumMinions());
-        if (origin instanceof Minion && targetPlayerSide == playerSide) {
-            targetIndex = targetPlayer.getIndexForCharacter((Minion)origin);
-            toRet.data_.removeMinion((Minion) origin);
         }
 
         int numMinionsToActuallySummon = numMinions_;
@@ -51,9 +44,9 @@ public class DeathrattleSummonMinionAction extends DeathrattleAction {
             try {
                 Minion newMinion = minionClass_.newInstance();
                 if (sideToSummon == PlayerSide.WAITING_PLAYER)
-                    toRet = newMinion.summonMinion(targetPlayerSide, targetIndex, toRet, false);
+                    toRet = newMinion.summonMinion(targetPlayerSide, CharacterIndex.fromInteger(targetPlayer.getNumMinions()), toRet, false);
                 else
-                    toRet = newMinion.summonMinion(targetPlayerSide, targetIndex.indexToLeft(), toRet, false);
+                    toRet = newMinion.summonMinion(targetPlayerSide, originIndex.indexToLeft(), toRet, false);
             } catch (InstantiationException | IllegalAccessException e) {
                 throw new RuntimeException("Unable to instantiate card.");
             }

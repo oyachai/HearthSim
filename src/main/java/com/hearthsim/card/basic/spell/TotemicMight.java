@@ -7,6 +7,7 @@ import com.hearthsim.event.effect.EffectCharacter;
 import com.hearthsim.event.filter.FilterCharacter;
 import com.hearthsim.event.filter.FilterCharacterTargetedSpell;
 import com.hearthsim.model.PlayerModel;
+import com.hearthsim.model.PlayerSide;
 
 public class TotemicMight extends SpellTargetableCard {
 
@@ -30,18 +31,13 @@ public class TotemicMight extends SpellTargetableCard {
      *
      * Gives all friendly totems +2 health
      *
-     *
-     *
-     * @param side
-     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-     *
      * @return The boardState is manipulated and returned
      */
     @Override
     public EffectCharacter getTargetableEffect() {
         if (this.effect == null) {
-            this.effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
-                PlayerModel currentPlayer = boardState.data_.modelForSide(originSide);
+            this.effect = (targetSide, targetCharacterIndex, boardState) -> {
+                PlayerModel currentPlayer = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
                 for (Minion minion : currentPlayer.getMinions()) {
                     if (minion.getTribe() == MinionTribe.TOTEM) {
                         minion.setHealth((byte)(2 + minion.getHealth()));

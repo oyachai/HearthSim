@@ -21,14 +21,14 @@ public class VoidTerror extends Minion implements MinionBattlecryInterface {
     public EffectCharacter getBattlecryEffect() {
         return new EffectCharacter<Minion>() {
             @Override
-            public HearthTreeNode applyEffect(PlayerSide originSide, Minion origin, PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState) {
+            public HearthTreeNode applyEffect(PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState) {
                 PlayerModel currentPlayer = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
 
-                CharacterIndex thisMinionIndex = currentPlayer.getIndexForCharacter(origin);
+                CharacterIndex thisMinionIndex = currentPlayer.getIndexForCharacter(VoidTerror.this);
                 for (Minion minion : currentPlayer.getMinionsAdjacentToCharacter(thisMinionIndex)) {
-                    origin.addAttack(minion.getTotalAttack());
-                    origin.addHealth(minion.getTotalHealth());
-                    origin.addMaxHealth(minion.getTotalHealth());
+                    VoidTerror.this.addAttack(minion.getTotalAttack());
+                    VoidTerror.this.addHealth(minion.getTotalHealth());
+                    VoidTerror.this.addMaxHealth(minion.getTotalHealth());
                     minion.setHealth((byte) -99);
                 }
                 return boardState;

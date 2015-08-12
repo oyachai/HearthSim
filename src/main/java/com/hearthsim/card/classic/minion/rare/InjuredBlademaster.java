@@ -21,9 +21,9 @@ public class InjuredBlademaster extends Minion implements MinionBattlecryInterfa
         return new EffectCharacter<Minion>() {
 
             @Override
-            public HearthTreeNode applyEffect(PlayerSide originSide, Minion origin, PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState) {
+            public HearthTreeNode applyEffect(PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState) {
                 HearthTreeNode toRet;
-                toRet = origin.takeDamageAndNotify((byte) 4, PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, boardState, false, true);
+                toRet = InjuredBlademaster.this.takeDamageAndNotify((byte) 4, PlayerSide.CURRENT_PLAYER, PlayerSide.CURRENT_PLAYER, boardState, false, true);
                 return toRet;
             }
         };

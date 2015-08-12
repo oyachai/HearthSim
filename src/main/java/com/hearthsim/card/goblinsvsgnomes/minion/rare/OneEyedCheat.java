@@ -9,7 +9,7 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class OneEyedCheat extends Minion implements CardPlayBeginInterface {
 
-    private final static EffectCharacter<Card> effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+    private final static EffectCharacter<Card> effect = (targetSide, targetCharacterIndex, boardState) -> {
         Minion minion = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
         minion.setStealthedUntilRevealed(true);
         return boardState;
@@ -26,7 +26,7 @@ public class OneEyedCheat extends Minion implements CardPlayBeginInterface {
         Card usedCard,
         HearthTreeNode boardState) {
         if (usedCard != this && !this.setInHand() && thisCardPlayerSide == cardUserPlayerSide) {
-            return OneEyedCheat.effect.applyEffect(cardUserPlayerSide, usedCard, thisCardPlayerSide, this, boardState);
+            return OneEyedCheat.effect.applyEffect(thisCardPlayerSide, this, boardState);
         }
 
         return boardState;

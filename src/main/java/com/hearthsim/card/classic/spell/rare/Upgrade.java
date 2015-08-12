@@ -20,14 +20,14 @@ public class Upgrade extends SpellTargetableCard {
 
     private final static EffectCharacter effect = new EffectCharacter() {
         @Override
-        public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState) {
+        public HearthTreeNode applyEffect(PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState) {
             Hero hero = boardState.data_.modelForSide(targetSide).getHero();
             WeaponCard weapon = hero.getWeapon();
             if (weapon != null) {
-                boardState = Upgrade.buff.applyEffect(originSide, origin, targetSide, boardState);
+                boardState = Upgrade.buff.applyEffect(targetSide, boardState);
             } else {
                 EffectHero<Card> newWeapon = new EffectHeroWeapon<>(new HeavyAxe());
-                boardState = newWeapon.applyEffect(originSide, origin, targetSide, boardState);
+                boardState = newWeapon.applyEffect(targetSide, boardState);
             }
             return boardState;
         }

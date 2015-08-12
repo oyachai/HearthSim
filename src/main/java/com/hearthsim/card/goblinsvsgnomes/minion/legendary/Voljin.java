@@ -22,18 +22,6 @@ public class Voljin extends Minion implements MinionBattlecryInterface {
         }
     };
 
-    private final static EffectCharacter<Minion> battlecryAction = new EffectCharacter<Minion>() {
-        @Override
-        public HearthTreeNode applyEffect(PlayerSide originSide, Minion origin, PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState) {
-            Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
-            origin.setHealth(targetCharacter.getHealth());
-            origin.setMaxHealth(targetCharacter.getMaxHealth());
-            targetCharacter.setHealth((byte) 2);
-            targetCharacter.setMaxHealth((byte) 2);
-            return boardState;
-        }
-    };
-
     public Voljin() {
         super();
     }
@@ -45,6 +33,13 @@ public class Voljin extends Minion implements MinionBattlecryInterface {
 
     @Override
     public EffectCharacter<Minion> getBattlecryEffect() {
-        return Voljin.battlecryAction;
+        return (PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState) -> {
+            Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
+            Voljin.this.setHealth(targetCharacter.getHealth());
+            Voljin.this.setMaxHealth(targetCharacter.getMaxHealth());
+            targetCharacter.setHealth((byte) 2);
+            targetCharacter.setMaxHealth((byte) 2);
+            return boardState;
+        };
     }
 }

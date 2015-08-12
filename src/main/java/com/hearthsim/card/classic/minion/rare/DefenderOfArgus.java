@@ -21,10 +21,10 @@ public class DefenderOfArgus extends Minion implements MinionBattlecryInterface 
     public EffectCharacter getBattlecryEffect() {
         return new EffectCharacter<Minion>() {
             @Override
-            public HearthTreeNode applyEffect(PlayerSide originSide, Minion origin, PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState) {
+            public HearthTreeNode applyEffect(PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState) {
                 PlayerModel currentPlayer = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
 
-                CharacterIndex thisMinionIndex = currentPlayer.getIndexForCharacter(origin);
+                CharacterIndex thisMinionIndex = currentPlayer.getIndexForCharacter(DefenderOfArgus.this);
                 for (Minion minion : currentPlayer.getMinionsAdjacentToCharacter(thisMinionIndex)) {
                     minion.setAttack((byte)(minion.getAttack() + 1));
                     minion.setHealth((byte)(minion.getHealth() + 1));

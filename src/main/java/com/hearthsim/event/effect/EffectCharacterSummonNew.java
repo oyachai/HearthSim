@@ -29,7 +29,7 @@ public class EffectCharacterSummonNew<T extends Card> implements EffectCharacter
     }
 
     @Override
-    public HearthTreeNode applyEffect(PlayerSide originSide, T origin, PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState) {
+    public HearthTreeNode applyEffect(PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState) {
         // TODO this kind of check belongs in a pre-check/filter
         PlayerModel player = boardState.data_.modelForSide(targetSide);
         if (player.isBoardFull()) {

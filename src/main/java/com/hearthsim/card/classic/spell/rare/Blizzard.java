@@ -24,10 +24,10 @@ public class Blizzard extends SpellDamage implements EffectOnResolveAoe {
         if (this.effect == null) {
             this.effect = new EffectCharacterDamageSpell<SpellDamage>(damage_) {
                 @Override
-                public HearthTreeNode applyEffect(PlayerSide originSide, SpellDamage origin, PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState) {
+                public HearthTreeNode applyEffect(PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState) {
                     Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
                     targetCharacter.setFrozen(true);
-                    return super.applyEffect(originSide, origin, targetSide, targetCharacterIndex, boardState);
+                    return super.applyEffect(targetSide, targetCharacterIndex, boardState);
                 }
             };
         }

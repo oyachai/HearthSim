@@ -29,7 +29,7 @@ public class Armorsmith extends Minion implements MinionDamagedInterface {
     public HearthTreeNode minionDamagedEvent(PlayerSide thisMinionPlayerSide, PlayerSide damagedPlayerSide, Minion damagedMinion, HearthTreeNode boardState) {
         HearthTreeNode toRet = boardState;
         if (thisMinionPlayerSide == damagedPlayerSide) {
-            toRet = Armorsmith.effect.applyEffect(thisMinionPlayerSide, this, thisMinionPlayerSide, toRet);
+            toRet = Armorsmith.effect.applyEffect(thisMinionPlayerSide, toRet);
         }
         return toRet;
     }

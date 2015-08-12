@@ -6,10 +6,10 @@ import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
 public interface EffectHero<T extends Card> extends EffectCharacter<T> {
-    public HearthTreeNode applyEffect(PlayerSide originSide, T origin, PlayerSide targetSide, HearthTreeNode boardState);
+    public HearthTreeNode applyEffect(PlayerSide targetSide, HearthTreeNode boardState);
 
     @Override
-    public default HearthTreeNode applyEffect(PlayerSide originSide, T origin, PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState) {
-        return this.applyEffect(originSide, origin, targetSide, boardState);
+    public default HearthTreeNode applyEffect(PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState) {
+        return this.applyEffect(targetSide, boardState);
     }
 }

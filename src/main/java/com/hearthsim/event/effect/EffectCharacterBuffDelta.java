@@ -23,7 +23,7 @@ public class EffectCharacterBuffDelta<T extends Card> implements EffectCharacter
 
 
     @Override
-    public HearthTreeNode applyEffect(PlayerSide originSide, T origin, PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState) {
+    public HearthTreeNode applyEffect(PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState) {
         Minion targetCharacter = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
         targetCharacter.addAttack(this.attackDelta);
         targetCharacter.addHealth(this.healthDelta);

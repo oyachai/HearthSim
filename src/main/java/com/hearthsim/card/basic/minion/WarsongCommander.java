@@ -38,6 +38,6 @@ public class WarsongCommander extends Minion implements MinionSummonedInterface 
             return boardState;
         }
 
-        return WarsongCommander.effect.applyEffect(thisMinionPlayerSide, this, summonedMinionPlayerSide, summonedMinion, boardState);
+        return WarsongCommander.effect.applyEffect(summonedMinionPlayerSide, summonedMinion, boardState);
     }
 }

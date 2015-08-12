@@ -39,17 +39,12 @@ public class InnerFire extends SpellTargetableCard {
      *
      * Change a minion's Attack to be equal to its Health
      *
-     *
-     *
-     * @param side
-     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-     *
      * @return The boardState is manipulated and returned
      */
     @Override
     public EffectCharacter getTargetableEffect() {
         if (this.effect == null) {
-            this.effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+            this.effect = (targetSide, targetCharacterIndex, boardState) -> {
                 Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
                 targetCharacter.setAttack(targetCharacter.getTotalHealth());
                 return boardState;

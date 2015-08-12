@@ -29,7 +29,7 @@ class MasterOfDisguiseSpec extends CardSpec {
     def "adds stealth"() {
         def copiedBoard = startingBoard.deepCopy()
         def theCard = new MasterOfDisguise()
-        def ret = theCard.getBattlecryEffect().applyEffect(CURRENT_PLAYER, theCard, CURRENT_PLAYER, CharacterIndex.MINION_1, root)
+        def ret = theCard.getBattlecryEffect().applyEffect(CURRENT_PLAYER, CharacterIndex.MINION_1, root)
 
         expect:
         assertEquals(root, ret);

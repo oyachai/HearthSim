@@ -16,7 +16,7 @@ public class CaptainGreenskin extends Minion implements MinionBattlecryInterface
      */
     @Override
     public EffectCharacter getBattlecryEffect() {
-        return (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+        return (targetSide, targetCharacterIndex, boardState) -> {
             WeaponCard weapon = boardState.data_.getCurrentPlayer().getHero().getWeapon();
             if (weapon != null) {
                 weapon.setWeaponDamage((byte) (weapon.getWeaponDamage() + 1));

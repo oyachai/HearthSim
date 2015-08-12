@@ -19,10 +19,10 @@ public class AncientMage extends Minion implements MinionBattlecryInterface {
         return new EffectCharacter<Minion>() {
 
             @Override
-            public HearthTreeNode applyEffect(PlayerSide originSide, Minion origin, PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState) {
+            public HearthTreeNode applyEffect(PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState) {
                 PlayerModel currentPlayer = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
 
-                CharacterIndex thisMinionIndex = currentPlayer.getIndexForCharacter(origin);
+                CharacterIndex thisMinionIndex = currentPlayer.getIndexForCharacter(AncientMage.this);
                 for (Minion minion : currentPlayer.getMinionsAdjacentToCharacter(thisMinionIndex)) {
                     minion.addSpellDamage((byte)1);
                 }

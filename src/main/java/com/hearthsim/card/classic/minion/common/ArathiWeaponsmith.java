@@ -18,7 +18,7 @@ public class ArathiWeaponsmith extends Minion implements MinionBattlecryInterfac
 
     @Override
     public EffectCharacter getBattlecryEffect() {
-        return (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+        return (targetSide, targetCharacterIndex, boardState) -> {
             HearthTreeNode toRet = boardState;
             Hero theHero = toRet.data_.getCurrentPlayer().getHero();
 

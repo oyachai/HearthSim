@@ -36,6 +36,6 @@ public class CultMaster extends Minion implements MinionDeadInterface {
             return boardState;
         }
 
-        return CultMaster.effect.applyEffect(thisMinionPlayerSide, this, thisMinionPlayerSide, CharacterIndex.HERO, boardState);
+        return CultMaster.effect.applyEffect(thisMinionPlayerSide, CharacterIndex.HERO, boardState);
     }
 }

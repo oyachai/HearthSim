@@ -28,7 +28,7 @@ public class TestWindspeaker {
         BoulderfistOgre ogre = new BoulderfistOgre();
         board.data_.placeMinion(PlayerSide.CURRENT_PLAYER, ogre);
         Windspeaker windspeaker = new Windspeaker();
-        windspeaker.getBattlecryEffect().applyEffect(PlayerSide.CURRENT_PLAYER, windspeaker, PlayerSide.CURRENT_PLAYER, CharacterIndex.MINION_1, board);
+        windspeaker.getBattlecryEffect().applyEffect(PlayerSide.CURRENT_PLAYER, CharacterIndex.MINION_1, board);
         assertTrue(ogre.getWindfury());
     }
 

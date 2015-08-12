@@ -13,13 +13,13 @@ public class EffectHeroWeapon<T extends Card> implements EffectHero<T> {
     }
 
     @Override
-    public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, HearthTreeNode boardState) {
+    public HearthTreeNode applyEffect(PlayerSide targetSide, HearthTreeNode boardState) {
         WeaponCard newWeapon = this.weapon;
         // if no origin is set then we have no idea whether we are in the original state. copy our base minion and summon a copy.
         // this is used for Minions with RNG battlecries (e.g. Bomb Lobber)
-        if (origin == null) {
-            newWeapon = weapon.deepCopy();
-        }
+//        if (origin == null) {
+//            newWeapon = weapon.deepCopy();
+//        }
         newWeapon.hasBeenUsed(true);
         DeathrattleAction weaponDeathrattle = boardState.data_.getCurrentPlayer().getHero().setWeapon(newWeapon);
         if (weaponDeathrattle != null) {

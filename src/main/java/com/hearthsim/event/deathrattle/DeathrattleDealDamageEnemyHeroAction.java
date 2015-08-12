@@ -1,6 +1,6 @@
 package com.hearthsim.event.deathrattle;
 
-import com.hearthsim.card.Card;
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.model.PlayerModel;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
@@ -13,10 +13,10 @@ public class DeathrattleDealDamageEnemyHeroAction extends DeathrattleAction {
     }
 
     @Override
-    public HearthTreeNode performAction(Card origin,
+    public HearthTreeNode performAction(CharacterIndex originIndex,
                                         PlayerSide playerSide,
                                         HearthTreeNode boardState) {
-        HearthTreeNode toRet = super.performAction(origin, playerSide, boardState);
+        HearthTreeNode toRet = super.performAction(originIndex, playerSide, boardState);
         if (toRet != null) {
             PlayerModel otherPlayer = toRet.data_.modelForSide(playerSide.getOtherPlayer());
             toRet = otherPlayer.getHero().takeDamageAndNotify(damage_, playerSide, playerSide, toRet, false, false);

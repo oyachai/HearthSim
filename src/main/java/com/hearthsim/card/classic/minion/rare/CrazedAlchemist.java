@@ -20,7 +20,7 @@ public class CrazedAlchemist extends Minion implements MinionBattlecryInterface 
         }
     };
 
-    private final static EffectCharacter battlecryAction = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+    private final static EffectCharacter battlecryAction = (targetSide, targetCharacterIndex, boardState) -> {
         Minion targetMinion = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
         byte newHealth = targetMinion.getTotalAttack();
         byte newAttack = targetMinion.getTotalHealth();

@@ -39,6 +39,6 @@ public class ScavengingHyena extends Minion implements MinionDeadInterface {
             return boardState;
         }
 
-        return ScavengingHyena.effect.applyEffect(thisMinionPlayerSide, this, thisMinionPlayerSide, this, boardState);
+        return ScavengingHyena.effect.applyEffect(thisMinionPlayerSide, this, boardState);
     }
 }

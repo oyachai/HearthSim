@@ -39,17 +39,12 @@ public class Hex extends SpellTargetableCard {
      *
      * Transform a minion into 0/1 frog with Taunt
      *
-     *
-     *
-     * @param side
-     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-     *
      * @return The boardState is manipulated and returned
      */
     @Override
     public EffectCharacter getTargetableEffect() {
         if (this.effect == null) {
-            this.effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+            this.effect = (targetSide, targetCharacterIndex, boardState) -> {
                 Frog frog = new Frog();
                 boardState.data_.removeMinion(targetSide, targetCharacterIndex);
                 boardState.data_.placeMinion(targetSide, frog, targetCharacterIndex.indexToLeft());

@@ -8,7 +8,7 @@ import com.hearthsim.util.tree.HearthTreeNode;
 
 public class Gahzrilla extends Minion implements MinionDamagedInterface {
 
-    private static final EffectCharacter<Minion> effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+    private static final EffectCharacter<Minion> effect = (targetSide, targetCharacterIndex, boardState) -> {
         Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
         targetCharacter.setAttack((byte) (targetCharacter.getAttack() * 2));
         return boardState;
@@ -23,7 +23,7 @@ public class Gahzrilla extends Minion implements MinionDamagedInterface {
         if (this != damagedMinion) {
             return boardState;
         }
-        boardState = Gahzrilla.effect.applyEffect(thisMinionPlayerSide, this, thisMinionPlayerSide, this, boardState);
+        boardState = Gahzrilla.effect.applyEffect(thisMinionPlayerSide, this, boardState);
         return boardState;
     }
 }

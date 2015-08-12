@@ -8,7 +8,7 @@ import com.hearthsim.event.filter.FilterCharacterTargetedSpell;
 
 public class Charge extends SpellTargetableCard {
 
-    public static final EffectCharacter effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+    public static final EffectCharacter effect = (targetSide, targetCharacterIndex, boardState) -> {
         Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
         targetCharacter.setAttack((byte)(targetCharacter.getAttack() + 2));
         targetCharacter.setCharge(true);
@@ -45,11 +45,6 @@ public class Charge extends SpellTargetableCard {
      * Use the card on the given target
      *
      * This card gives the target +2 attack and Charge.
-     *
-     *
-     *
-     * @param side
-     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
      *
      * @return The boardState is manipulated and returned
      */

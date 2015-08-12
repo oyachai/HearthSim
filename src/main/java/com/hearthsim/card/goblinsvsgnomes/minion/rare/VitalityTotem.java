@@ -19,7 +19,7 @@ public class VitalityTotem extends Minion {
     @Override
     public HearthTreeNode endTurn(PlayerSide thisMinionPlayerIndex, HearthTreeNode boardModel) throws HSException {
         if (thisMinionPlayerIndex == PlayerSide.CURRENT_PLAYER) {
-            boardModel = VitalityTotem.effect.applyEffect(thisMinionPlayerIndex, this, thisMinionPlayerIndex, CharacterIndex.HERO, boardModel);
+            boardModel = VitalityTotem.effect.applyEffect(thisMinionPlayerIndex, CharacterIndex.HERO, boardModel);
         }
         return super.endTurn(thisMinionPlayerIndex, boardModel);
     }

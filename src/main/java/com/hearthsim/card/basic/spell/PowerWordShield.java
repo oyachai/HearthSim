@@ -29,17 +29,12 @@ public class PowerWordShield extends SpellTargetableCard {
      *
      * Gives a minion +2 health and draw a card
      *
-     *
-     *
-     * @param side
-     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-     *
      * @return The boardState is manipulated and returned
      */
     @Override
     public EffectCharacter getTargetableEffect() {
         if (this.effect == null) {
-            this.effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+            this.effect = (targetSide, targetCharacterIndex, boardState) -> {
                 Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
                 targetCharacter.setHealth((byte)(targetCharacter.getHealth() + 2));
                 targetCharacter.setMaxHealth((byte)(targetCharacter.getMaxHealth() + 2));

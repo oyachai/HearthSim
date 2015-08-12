@@ -22,7 +22,7 @@ public class AcolyteOfPain extends Minion implements MinionDamagedInterface {
     @Override
     public HearthTreeNode minionDamagedEvent(PlayerSide thisMinionPlayerSide, PlayerSide damagedPlayerSide, Minion damagedMinion, HearthTreeNode boardState) {
         if (damagedMinion == this) {
-            boardState = AcolyteOfPain.effect.applyEffect(thisMinionPlayerSide, this, thisMinionPlayerSide, CharacterIndex.HERO, boardState);
+            boardState = AcolyteOfPain.effect.applyEffect(thisMinionPlayerSide, CharacterIndex.HERO, boardState);
         }
         return boardState;
     }

@@ -39,17 +39,12 @@ public class Polymorph extends SpellTargetableCard {
      *
      * Transform a minion into 1/1 sheep
      *
-     *
-     *
-     * @param side
-     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-     *
      * @return The boardState is manipulated and returned
      */
     @Override
     public EffectCharacter getTargetableEffect() {
         if (this.effect == null) {
-            this.effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+            this.effect = (targetSide, targetCharacterIndex, boardState) -> {
                 Sheep sheep = new Sheep();
                 boardState.data_.removeMinion(targetSide, targetCharacterIndex);
                 boardState.data_.placeMinion(targetSide, sheep, targetCharacterIndex.indexToLeft());

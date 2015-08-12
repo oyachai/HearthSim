@@ -17,7 +17,7 @@ public class MicroMachine extends Minion {
 
     @Override
     public HearthTreeNode startTurn(PlayerSide thisMinionPlayerIndex, HearthTreeNode boardModel) throws HSException {
-        HearthTreeNode toRet = MicroMachine.effect.applyEffect(thisMinionPlayerIndex, null, thisMinionPlayerIndex, this, boardModel);
+        HearthTreeNode toRet = MicroMachine.effect.applyEffect(thisMinionPlayerIndex, this, boardModel);
         return super.startTurn(thisMinionPlayerIndex, toRet);
     }
 }

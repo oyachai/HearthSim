@@ -38,6 +38,6 @@ public class NorthshireCleric extends Minion implements MinionHealedInterface {
      */
     @Override
     public HearthTreeNode minionHealedEvent(PlayerSide thisMinionPlayerSide, PlayerSide healedMinionPlayerSide, Minion healedMinion, HearthTreeNode boardState) {
-        return NorthshireCleric.effect.applyEffect(thisMinionPlayerSide, this, thisMinionPlayerSide, CharacterIndex.HERO, boardState);
+        return NorthshireCleric.effect.applyEffect(thisMinionPlayerSide, CharacterIndex.HERO, boardState);
     }
 }

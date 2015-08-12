@@ -25,7 +25,7 @@ public class Shadowbomber extends Minion implements MinionBattlecryInterface {
      */
     @Override
     public EffectCharacter<Minion> getBattlecryEffect() {
-        return (PlayerSide originSide, Minion origin, PlayerSide targetSide, CharacterIndex minionPlacementIndex, HearthTreeNode boardState) ->
+        return (PlayerSide targetSide, CharacterIndex minionPlacementIndex, HearthTreeNode boardState) ->
             this.effectAllUsingFilter(Shadowbomber.effect, Shadowbomber.filter, boardState);
     }
 }

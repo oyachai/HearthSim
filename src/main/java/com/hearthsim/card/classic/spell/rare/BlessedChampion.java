@@ -8,7 +8,7 @@ import com.hearthsim.event.filter.FilterCharacterTargetedSpell;
 
 public class BlessedChampion extends SpellTargetableCard {
 
-    public static final EffectCharacter effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+    public static final EffectCharacter effect = (targetSide, targetCharacterIndex, boardState) -> {
         Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
         targetCharacter.setAttack((byte) (2 * targetCharacter.getTotalAttack()));
         return boardState;
@@ -44,11 +44,6 @@ public class BlessedChampion extends SpellTargetableCard {
      * Use the card on the given target
      *
      * Double a minion's Attack
-     *
-     *
-     *
-     * @param side
-     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
      *
      * @return The boardState is manipulated and returned
      */

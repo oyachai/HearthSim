@@ -40,6 +40,6 @@ public class MekgineerThermaplugg extends Minion implements MinionDeadInterface 
 
         EffectCharacter<Minion> effect = new EffectCharacterSummon<>(new LeperGnome());
 
-        return effect.applyEffect(thisMinionPlayerSide, this, thisMinionPlayerSide, this, boardState);
+        return effect.applyEffect(thisMinionPlayerSide, this, boardState);
     }
 }

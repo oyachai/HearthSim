@@ -27,10 +27,10 @@ public class ShieldSlam extends SpellTargetableCard {
     public EffectCharacter getTargetableEffect() {
         return new EffectCharacter() {
             @Override
-            public HearthTreeNode applyEffect(PlayerSide originSide, Card origin, PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState) {
-                Hero hero = boardState.data_.modelForSide(originSide).getHero();
+            public HearthTreeNode applyEffect(PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState) {
+                Hero hero = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getHero();
                 EffectCharacter<Card> effect = new EffectCharacterDamageSpell<>(hero.getArmor());
-                return effect.applyEffect(originSide, origin, targetSide, targetCharacterIndex, boardState);
+                return effect.applyEffect(targetSide, targetCharacterIndex, boardState);
             }
         };
     }

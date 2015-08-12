@@ -11,7 +11,7 @@ import com.hearthsim.util.tree.CardDrawNode;
 
 public class BattleRage extends SpellTargetableCard {
 
-    private static final EffectCharacter effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+    private static final EffectCharacter effect = (targetSide, targetCharacterIndex, boardState) -> {
         PlayerModel playerModel = boardState.data_.modelForSide(targetSide);
         Hero hero = playerModel.getHero();
         Iterable<Minion> minions = playerModel.getMinions();
@@ -57,12 +57,6 @@ public class BattleRage extends SpellTargetableCard {
      * Use the card on the given target
      *
      * Draw a card for each damaged friendly character
-     *
-     * @param thisCardIndex The index (position) of the card in the hand
-     * @param playerIndex The index of the target player.  0 if targeting yourself or your own minions, 1 if targeting the enemy
-     * @param minionIndex The index of the target minion.
-     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-     *
      * @return The boardState is manipulated and returned
      */
     @Override

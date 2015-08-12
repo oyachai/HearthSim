@@ -6,6 +6,7 @@ import com.hearthsim.card.spellcard.SpellTargetableCard;
 import com.hearthsim.event.effect.EffectCharacter;
 import com.hearthsim.event.filter.FilterCharacter;
 import com.hearthsim.event.filter.FilterCharacterTargetedSpell;
+import com.hearthsim.model.PlayerSide;
 
 public class SacrificialPact extends SpellTargetableCard {
 
@@ -49,21 +50,14 @@ public class SacrificialPact extends SpellTargetableCard {
      *
      * Use the card on the given target
      *
-     * Gives a destroy a demon
-     *
-     *
-     *
-     * @param side
-     * @param boardState The BoardState before this card has performed its action.  It will be manipulated and returned.
-     *
      * @return The boardState is manipulated and returned
      */
     @Override
     public EffectCharacter getTargetableEffect() {
         if (this.effect == null) {
-            this.effect = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+            this.effect = (targetSide, targetCharacterIndex, boardState) -> {
                 Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
-                boardState = boardState.data_.modelForSide(originSide).getHero().takeHealAndNotify((byte) 5, originSide, boardState);
+                boardState = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getHero().takeHealAndNotify((byte) 5, PlayerSide.CURRENT_PLAYER, boardState);
                 targetCharacter.setHealth((byte) -99);
                 return boardState;
             };

@@ -9,15 +9,15 @@ import com.hearthsim.util.tree.HearthTreeNode;
 @FunctionalInterface
 public interface EffectCharacter<T extends Card> {
 
-    public HearthTreeNode applyEffect(PlayerSide originSide, T origin, PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState);
+    public HearthTreeNode applyEffect(PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState);
 
-    public default HearthTreeNode applyEffect(PlayerSide originSide, T origin, PlayerSide targetSide, Card targetCharacter, HearthTreeNode boardState) {
+    public default HearthTreeNode applyEffect(PlayerSide targetSide, Card targetCharacter, HearthTreeNode boardState) {
         // MrHen: I have no idea why this (U) conversion is necessary but I get a weird compile assert if I set up the generics to use CardEffectInterface<T, Minion>
         CharacterIndex index = boardState.data_.modelForSide(targetSide).getIndexForCharacter((Minion)targetCharacter);
-        return this.applyEffect(originSide, origin, targetSide, index, boardState);
+        return this.applyEffect(targetSide, index, boardState);
     }
 
-    public final static EffectCharacter BOUNCE = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+    public final static EffectCharacter BOUNCE = (targetSide, targetCharacterIndex, boardState) -> {
         Minion targetCharacter = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
         if (boardState.data_.modelForSide(targetSide).getHand().size() < 10) {
             Minion copy = (Minion)targetCharacter.createResetCopy();
@@ -29,41 +29,41 @@ public interface EffectCharacter<T extends Card> {
         return boardState;
     };
 
-    public final static EffectCharacter<Card> DESTROY = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+    public final static EffectCharacter<Card> DESTROY = (targetSide, targetCharacterIndex, boardState) -> {
         Minion targetCharacter = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
         targetCharacter.setHealth((byte) -99);
         return boardState;
     };
 
-    public final static EffectCharacter FREEZE = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+    public final static EffectCharacter FREEZE = (targetSide, targetCharacterIndex, boardState) -> {
         Minion targetMinion = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
         targetMinion.setFrozen(true);
         return boardState;
     };
 
-    public final static EffectCharacter<Card> GIVE_CHARGE = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+    public final static EffectCharacter<Card> GIVE_CHARGE = (targetSide, targetCharacterIndex, boardState) -> {
         Minion targetCharacter = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
         targetCharacter.setCharge(true);
         return boardState;
     };
 
-    public final static EffectCharacter SILENCE = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+    public final static EffectCharacter SILENCE = (targetSide, targetCharacterIndex, boardState) -> {
         Minion targetMinion = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
         targetMinion.silenced(targetSide, boardState.data_);
         return boardState;
     };
 
-    public final static EffectCharacter STEALTH_UNTIL_NEXT_TURN = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+    public final static EffectCharacter STEALTH_UNTIL_NEXT_TURN = (targetSide, targetCharacterIndex, boardState) -> {
         Minion targetMinion = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
         targetMinion.setStealthedUntilNextTurn(true);
         return boardState;
     };
 
-    public final static EffectCharacter MIND_CONTROL = (originSide, origin, targetSide, targetCharacterIndex, boardState) -> {
+    public final static EffectCharacter MIND_CONTROL = (targetSide, targetCharacterIndex, boardState) -> {
         Minion targetMinion = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
 
         boardState.data_.removeMinion(targetSide, targetCharacterIndex);
-        boardState.data_.placeMinion(originSide, targetMinion);
+        boardState.data_.placeMinion(targetSide.getOtherPlayer(), targetMinion);
 
         if (targetMinion.getCharge()) {
             if (!targetMinion.canAttack()) {

@@ -14,13 +14,13 @@ public class EffectCharacterSummon<T extends Card> implements EffectCharacter<T>
     }
 
     @Override
-    public HearthTreeNode applyEffect(PlayerSide originSide, T origin, PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState) {
+    public HearthTreeNode applyEffect(PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState) {
         Minion summon = this.minion;
         // if no origin is set then we have no idea whether we are in the original state. copy our base minion and summon a copy.
         // this is used for Minions with RNG battlecries (e.g. Bomb Lobber)
-        if (origin == null) {
-            summon = (Minion)minion.deepCopy();
-        }
+//        if (origin == null) {
+//            summon = (Minion)minion.deepCopy();
+//        }
         summon.hasBeenUsed(true);
         return summon.summonMinion(targetSide, targetCharacterIndex, boardState, true);
     }

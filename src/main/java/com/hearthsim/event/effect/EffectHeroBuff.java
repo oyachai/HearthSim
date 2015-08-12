@@ -13,7 +13,7 @@ public class EffectHeroBuff<T extends Card> implements EffectHero<T> {
         this.armorDelta = (byte) armorDelta;
     }
 
-    public HearthTreeNode applyEffect(PlayerSide originSide, T origin, PlayerSide targetSide, HearthTreeNode boardState) {
+    public HearthTreeNode applyEffect(PlayerSide targetSide, HearthTreeNode boardState) {
         if (this.attackDelta > 0) {
             boardState.data_.modelForSide(targetSide).getHero().addExtraAttackUntilTurnEnd(this.attackDelta);
         }
