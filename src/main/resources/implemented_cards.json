@@ -345,6 +345,11 @@
         "name": "Clockwork Giant"
     },
     {
+        "class": "com.hearthsim.card.goblinsvsgnomes.minion.common.ClockworkGnome",
+        "id": "GVG_082",
+        "name": "Clockwork Gnome"
+    },
+    {
         "class": "com.hearthsim.card.goblinsvsgnomes.minion.rare.CobaltGuardian",
         "id": "GVG_062",
         "name": "Cobalt Guardian"
@@ -2068,5 +2073,40 @@
         "class": "com.hearthsim.card.classic.weapon.epic.SwordOfJustice",
         "id": "EX1_366",
         "name": "Sword of Justice"
+    },
+    {
+        "class": "com.hearthsim.card.goblinsvsgnomes.spell.spareparts.ArmorPlating",
+        "id": "PART_001",
+        "name": "Armor Plating"
+    },
+    {
+        "class": "com.hearthsim.card.goblinsvsgnomes.spell.spareparts.EmergencyCoolant",
+        "id": "PART_005",
+        "name": "Emergency Coolant"
+    },
+    {
+        "class": "com.hearthsim.card.goblinsvsgnomes.spell.spareparts.FinickyCloakfield",
+        "id": "PART_004",
+        "name": "Finicky Cloakfield"
+    },
+    {
+        "class": "com.hearthsim.card.goblinsvsgnomes.spell.spareparts.RustyHorn",
+        "id": "PART_003",
+        "name": "Rusty Horn"
+    },
+    {
+        "class": "com.hearthsim.card.goblinsvsgnomes.spell.spareparts.TimeRewinder",
+        "id": "PART_002",
+        "name": "Time Rewinder"
+    },
+    {
+        "class": "com.hearthsim.card.goblinsvsgnomes.spell.spareparts.ReversingSwitch",
+        "id": "PART_006",
+        "name": "Reversing Switch"
+    },
+    {
+        "class": "com.hearthsim.card.goblinsvsgnomes.spell.spareparts.WhirlingBlades",
+        "id": "PART_007",
+        "name": "Whirling Blades"
     }
 ]

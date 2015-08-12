@@ -47,6 +47,15 @@ public interface EffectCharacter<T extends Card> {
         return boardState;
     };
 
+    public final static EffectCharacter<Card> SWAP_ATTACK_HEALTH = (targetSide, targetCharacterIndex, boardState) -> {
+        Minion targetCharacter = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
+        byte attack = targetCharacter.getTotalAttack();
+        targetCharacter.setAttack(targetCharacter.getTotalHealth());
+        targetCharacter.setHealth(attack);
+        targetCharacter.setMaxHealth(attack);
+        return boardState;
+    };
+
     public final static EffectCharacter SILENCE = (targetSide, targetCharacterIndex, boardState) -> {
         Minion targetMinion = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
         targetMinion.silenced(targetSide, boardState.data_);
