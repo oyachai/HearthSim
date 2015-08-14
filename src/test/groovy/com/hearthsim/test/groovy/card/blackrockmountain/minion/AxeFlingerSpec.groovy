@@ -2,7 +2,7 @@ package com.hearthsim.test.groovy.card.blackrockmountain.minion
 
 import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.spell.HolySmite
-import com.hearthsim.card.blackrockmountain.minion.AxeFlinger
+import com.hearthsim.card.blackrockmountain.minion.common.AxeFlinger
 import com.hearthsim.model.BoardModel
 import com.hearthsim.test.groovy.card.CardSpec
 import com.hearthsim.test.helpers.BoardModelBuilder

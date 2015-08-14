@@ -1,4 +1,4 @@
-package com.hearthsim.card.blackrockmountain.minion;
+package com.hearthsim.card.blackrockmountain.minion.common;
 
 import com.hearthsim.card.Card;
 import com.hearthsim.card.CharacterIndex;

@@ -175,7 +175,7 @@
         "name": "Assassinate"
     },
     {
-        "class": "com.hearthsim.card.blackrockmountain.minion.AxeFlinger",
+        "class": "com.hearthsim.card.blackrockmountain.minion.common.AxeFlinger",
         "id": "BRM_016",
         "name": "Axe Flinger"
     },
@@ -213,6 +213,11 @@
         "class": "com.hearthsim.card.classic.spell.rare.Bite",
         "id": "EX1_570",
         "name": "Bite"
+    },
+    {
+        "class": "com.hearthsim.card.blackrockmountain.minion.common.BlackWhelp",
+        "id": "BRM_022t",
+        "name": "Black Whelp"
     },
     {
         "class": "com.hearthsim.card.classic.spell.rare.BlessedChampion",
@@ -513,6 +518,11 @@
         "class": "com.hearthsim.card.basic.minion.DragonlingMechanic",
         "id": "EX1_025",
         "name": "Dragonling Mechanic"
+    },
+    {
+        "class": "com.hearthsim.card.blackrockmountain.minion.rare.DragonEgg",
+        "id": "BRM_022",
+        "name": "Dragon Egg"
     },
     {
         "class": "com.hearthsim.card.basic.spell.DrainLife",
