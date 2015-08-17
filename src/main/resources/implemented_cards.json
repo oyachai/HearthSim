@@ -400,6 +400,11 @@
         "name": "Core Hound"
     },
     {
+        "class": "com.hearthsim.card.blackrockmountain.minion.rare.CoreRager",
+        "id": "BRM_014",
+        "name": "Core Rager"
+    },
+    {
         "class": "com.hearthsim.card.basic.spell.Corruption",
         "id": "CS2_063",
         "name": "Corruption"
