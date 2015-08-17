@@ -35,11 +35,20 @@ public class FilterCharacter implements FilterCharacterInterface {
         return false;
     }
 
+    protected boolean includeOrigin() {
+        return false;
+    }
+
     protected Minion.MinionTribe tribeFilter() {
         return null;
     }
 
     public boolean targetMatches(PlayerSide originSide, Card origin, PlayerSide targetSide, Minion targetCharacter, BoardModel board) {
+
+        if (this.includeOrigin() && targetCharacter == origin) {
+            return true;
+        }
+
         if (this.excludeSource() && targetCharacter == origin) {
             return false;
         }
@@ -174,6 +183,13 @@ public class FilterCharacter implements FilterCharacterInterface {
     public final static FilterCharacter OPPONENT = new FilterCharacter() {
         @Override
         protected boolean includeEnemyHero() {
+            return true;
+        }
+    };
+
+    public final static FilterCharacter ORIGIN = new FilterCharacter() {
+        @Override
+        protected boolean includeOrigin() {
             return true;
         }
     };

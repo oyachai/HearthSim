@@ -32,6 +32,7 @@ class ReferenceCardRegistry {
                 'Curse of Naxxramas',
                 'Goblins vs Gnomes',
                 'Blackrock Mountain',
+                'The Grand Tournament',
                 'Debug'
         ]
 
@@ -93,6 +94,10 @@ class ReferenceCardRegistry {
 
     public ReferenceCard cardByNameAndType(String name, String type) {
         cardDefinitions.find { it.name == name && it.type == type && (it.type != 'Hero' || it.collectible) }
+    }
+
+    public ReferenceCard cardById(String id) {
+        cardDefinitions.find { it.id == id }
     }
 
     public List<ReferenceCard> getCollectibles(){

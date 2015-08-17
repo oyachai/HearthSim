@@ -3,8 +3,10 @@ package com.hearthsim.test.helpers
 import com.hearthsim.card.Card
 import com.hearthsim.card.CardInHandIndex
 import com.hearthsim.card.CharacterIndex
+import com.hearthsim.card.minion.Hero
 import com.hearthsim.card.minion.Minion
 import com.hearthsim.card.minion.MinionMock
+import com.hearthsim.card.minion.heroes.TestHero
 import com.hearthsim.card.weapon.WeaponCard
 import com.hearthsim.model.BoardModel
 import com.hearthsim.model.PlayerSide
@@ -14,13 +16,17 @@ class BoardModelBuilder {
     private BoardModel boardModel
     private PlayerSide playerSide;
 
-    BoardModel make(Closure definition) {
+    BoardModel make(Hero hero1, Hero hero2, Closure definition) {
         if (!boardModel)
-            boardModel = new BoardModel()
+            boardModel = new BoardModel(hero1, hero2)
 
         runClosure definition
 
         boardModel
+    }
+
+    BoardModel make(Closure definition) {
+        return make(new TestHero("hero0", (byte)30), new TestHero("hero1", (byte)30), definition)
     }
 
     private hand(List cardsInHand) {
@@ -125,6 +131,11 @@ class BoardModelBuilder {
     private heroHealth(Number health){
         def side = boardModel.modelForSide(playerSide)
         side.hero.health = health
+    }
+
+    private heroHasBeenUsed(Boolean hasBeenUsed){
+        def side = boardModel.modelForSide(playerSide)
+        side.hero.hasBeenUsed = hasBeenUsed
     }
 
     private heroArmor(Number armor){
