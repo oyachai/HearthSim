@@ -19,7 +19,7 @@ public class EffectHeroAddCardHand<T extends Card> implements EffectHero<T> {
     @Override
     public HearthTreeNode applyEffect(PlayerSide targetSide, HearthTreeNode boardState) {
         if (boardState.data_.modelForSide(targetSide).isHandFull()) {
-            return null;
+            return boardState;
         }
         try {
             Card newCard = this.cardClass.newInstance();
