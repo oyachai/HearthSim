@@ -48,7 +48,7 @@ class RecruiterSpec extends CardSpec {
                 mana(8)
                 heroHealth(12)
                 heroHasBeenUsed(true)
-                addMinionToField(Squire)
+                addCardToHand(Squire)
             }
         }
     }

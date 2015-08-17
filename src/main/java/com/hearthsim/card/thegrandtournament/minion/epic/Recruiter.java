@@ -4,7 +4,7 @@ import com.hearthsim.card.classic.minion.common.Squire;
 import com.hearthsim.card.minion.Minion;
 import com.hearthsim.card.minion.MinionWithInspire;
 import com.hearthsim.event.effect.EffectCharacter;
-import com.hearthsim.event.effect.EffectCharacterSummonNew;
+import com.hearthsim.event.effect.EffectHeroAddCardHand;
 import com.hearthsim.event.filter.FilterCharacter;
 import com.hearthsim.event.filter.FilterCharacterInterface;
 
@@ -13,7 +13,7 @@ import com.hearthsim.event.filter.FilterCharacterInterface;
  */
 public class Recruiter extends MinionWithInspire<Minion> {
 
-    private static final EffectCharacter<Minion> effect = new EffectCharacterSummonNew<>(Squire.class);
+    private static final EffectCharacter<Minion> effect = new EffectHeroAddCardHand<>(Squire.class);
 
     @Override
     public FilterCharacterInterface getInspireFilter() {
