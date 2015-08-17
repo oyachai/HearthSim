@@ -14383,8 +14383,56 @@
             "rarity": "Common",
             "cost": 1,
             "text": "Restore 5 Health",
+            "collectible": true
+        },
+        {
+            "id": "TGT_005_DUMMY",
+            "name": "Boneguard Lieutenant",
+            "type": "Minion",
+            "rarity": "Common",
+            "cost": 2,
+            "attack": 3,
+            "health": 2,
+            "text": "<b>Inspire</b>: Gain +1 Health",
             "collectible": true,
+            "mechanics": ["Inspire"]
+        },
+        {
+            "id": "TGT_006_DUMMY",
+            "name": "Lowly Squire",
+            "type": "Minion",
+            "rarity": "Common",
+            "cost": 1,
+            "attack": 1,
+            "health": 2,
+            "text": "<b>Inspire</b>: Gain +1 Attack",
+            "collectible": true,
+            "mechanics": ["Inspire"]
+        },
+        {
+            "id": "TGT_007_DUMMY",
+            "name": "Silver Hand Regent",
+            "type": "Minion",
+            "rarity": "Common",
+            "cost": 3,
+            "attack": 3,
+            "health": 3,
+            "text": "<b>Inspire</b>: Summon a 1/1 Silver Hand Recruit",
+            "collectible": true,
+            "mechanics": ["Inspire"]
+        },
+        {
+            "id": "TGT_008_DUMMY",
+            "name": "Tournament Medic",
+            "type": "Minion",
+            "rarity": "Common",
+            "cost": 4,
+            "attack": 1,
+            "health": 8,
+            "text": "<b>Inspire</b>: Restore 2 Health to your Hero",
+            "collectible": true,
+            "mechanics": ["Inspire"]
         }
     ]
-    }
 }
+

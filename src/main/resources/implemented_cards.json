@@ -2140,6 +2140,31 @@
         "name": "Recruiter"
     },
     {
+        "class": "com.hearthsim.card.thegrandtournament.minion.common.MuklasChampion",
+        "id": "TGT_003_DUMMY",
+        "name": "Mukla's Champion"
+    },
+    {
+        "class": "com.hearthsim.card.thegrandtournament.minion.common.BoneguardLieutenant",
+        "id": "TGT_005_DUMMY",
+        "name": "Boneguard Lieutenant"
+    },
+    {
+        "class": "com.hearthsim.card.thegrandtournament.minion.common.LowlySquire",
+        "id": "TGT_006_DUMMY",
+        "name": "Lowly Squire"
+    },
+    {
+        "class": "com.hearthsim.card.thegrandtournament.minion.common.SilverHandRegent",
+        "id": "TGT_007_DUMMY",
+        "name": "Silver Hand Regent"
+    },
+    {
+        "class": "com.hearthsim.card.thegrandtournament.minion.common.TournamentMedic",
+        "id": "TGT_008_DUMMY",
+        "name": "Tournament Medic"
+    },
+    {
         "class": "com.hearthsim.card.thegrandtournament.spell.common.FlashHeal",
         "id": "TGT_004_DUMMY",
         "name": "Flash Heal"
