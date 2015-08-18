@@ -2128,5 +2128,20 @@
         "class": "com.hearthsim.card.goblinsvsgnomes.spell.spareparts.WhirlingBlades",
         "id": "PART_007",
         "name": "Whirling Blades"
+    },
+    {
+        "class": "com.hearthsim.card.thegrandtournament.minion.common.KvaldirRaider",
+        "id": "TGT_002_DUMMY",
+        "name": "Kvaldir Raider"
+    },
+    {
+        "class": "com.hearthsim.card.thegrandtournament.minion.epic.Recruiter",
+        "id": "TGT_001_DUMMY",
+        "name": "Recruiter"
+    },
+    {
+        "class": "com.hearthsim.card.thegrandtournament.spell.common.FlashHeal",
+        "id": "TGT_004_DUMMY",
+        "name": "Flash Heal"
     }
 ]

@@ -133,7 +133,7 @@ class ImplementedCardList {
 
         def registry = ReferenceCardRegistry.instance
         implementedCardsFromJson.each { implementedCardFromJson ->
-            def cardDefinition = registry.cardByNameAndType(implementedCardFromJson.name, TypeParser.parse(implementedCardFromJson.class))
+            def cardDefinition = registry.cardById(implementedCardFromJson.id)
 
             def className = implementedCardFromJson['class']
             def clazz = Class.forName(className)

@@ -14326,5 +14326,65 @@
             "text": "Battlecry: Someone remembers to publish this card.",
             "playerClass": "Mage"
         }
+    ],
+    "The Grand Tournament": [
+        {
+            "id": "TGT_000_DUMMY",
+            "name": "Kodorider",
+            "type": "Minion",
+            "rarity": "Epic",
+            "cost": 6,
+            "attack": 3,
+            "health": 5,
+            "text": "<b>Inspire</b>: Summon a 3/5 War Kodo",
+            "collectible": true,
+            "mechanics": ["Inspire"]
+        },
+        {
+            "id": "TGT_002_DUMMY",
+            "name": "Kvaldir Raider",
+            "type": "Minion",
+            "rarity": "Common",
+            "cost": 5,
+            "attack": 4,
+            "health": 4,
+            "text": "<b>Inspire</b>: Gain +2/+2",
+            "collectible": true,
+            "mechanics": ["Inspire"]
+        },
+        {
+            "id": "TGT_003_DUMMY",
+            "name": "Mukla's Champion",
+            "type": "Minion",
+            "rarity": "Common",
+            "cost": 5,
+            "attack": 4,
+            "health": 3,
+            "text": "<b>Inspire</b>: Give your other minions +1/+1",
+            "collectible": true,
+            "mechanics": ["Inspire"]
+        },
+        {
+            "id": "TGT_001_DUMMY",
+            "name": "Recruiter",
+            "type": "Minion",
+            "rarity": "Epic",
+            "cost": 5,
+            "attack": 5,
+            "health": 4,
+            "text": "<b>Inspire</b>: Add a 2/2 Squire to your hand",
+            "collectible": true,
+            "mechanics": ["Inspire"]
+        },
+        {
+            "id": "TGT_004_DUMMY",
+            "name": "Flash Heal",
+            "type": "Spell",
+            "rarity": "Common",
+            "cost": 1,
+            "text": "Restore 5 Health",
+            "collectible": true,
+        }
     ]
+    }
 }

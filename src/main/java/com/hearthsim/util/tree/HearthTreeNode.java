@@ -273,4 +273,20 @@ public class HearthTreeNode {
 
         return toRet;
     }
+
+    public HearthTreeNode notifyHeroAbilityUsed(PlayerSide targetSide, Minion targetCharacter) {
+        HearthTreeNode toRet = this;
+        ArrayList<BoardModel.MinionPlayerPair> inspiredMinions = new ArrayList<>();
+        for (BoardModel.MinionPlayerPair mp : toRet.data_.getAllMinionsFIFOList()) {
+            if (mp.getMinion() instanceof MinionWithInspire && !mp.getMinion().isSilenced()) {
+                inspiredMinions.add(mp);
+            }
+        }
+
+        for (BoardModel.MinionPlayerPair mp : inspiredMinions) {
+            toRet = ((MinionWithInspire)mp.getMinion()).heroAbilityUsedEvent(mp.getPlayerSide(), targetSide, targetCharacter, toRet);
+        }
+
+        return toRet;
+    }
 }

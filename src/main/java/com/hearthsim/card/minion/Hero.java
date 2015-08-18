@@ -123,7 +123,10 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
     public final HearthTreeNode useHeroAbility(PlayerSide targetPlayerSide, CharacterIndex targetIndex,
                                                HearthTreeNode boardState) throws HSException {
         Minion targetMinion = boardState.data_.modelForSide(targetPlayerSide).getCharacter(targetIndex);
-        return this.useHeroAbility(targetPlayerSide, targetMinion, boardState);
+        HearthTreeNode toRet = this.useHeroAbility(targetPlayerSide, targetMinion, boardState);
+        if (toRet != null)
+            toRet = toRet.notifyHeroAbilityUsed(targetPlayerSide, targetMinion);
+        return toRet;
     }
 
     /**
