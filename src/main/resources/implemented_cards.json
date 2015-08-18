@@ -1060,6 +1060,11 @@
         "name": "Light's Justice"
     },
     {
+        "class": "com.hearthsim.card.goblinsvsgnomes.spell.epic.Lightbomb",
+        "id": "GVG_008",
+        "name": "Lightbomb"
+    },
+    {
         "class": "com.hearthsim.card.classic.spell.common.LightningBolt",
         "id": "EX1_238",
         "name": "Lightning Bolt"
