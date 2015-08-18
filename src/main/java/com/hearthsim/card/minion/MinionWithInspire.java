@@ -1,6 +1,7 @@
 package com.hearthsim.card.minion;
 
 import com.hearthsim.card.Card;
+import com.hearthsim.card.CharacterIndex;
 import com.hearthsim.event.effect.EffectCharacter;
 import com.hearthsim.event.filter.FilterCharacterInterface;
 import com.hearthsim.model.BoardModel;
@@ -29,6 +30,10 @@ public abstract class MinionWithInspire<T extends Card> extends Minion implement
                 filter.targetMatches(thisMinionPlayerSide, this, mp.getPlayerSide(), mp.getMinion(), boardState.data_)) {
                 toRet = effect.applyEffect(mp.getPlayerSide(), mp.getMinion(), toRet);
             }
+        }
+
+        if (filter.targetMatches(thisMinionPlayerSide, this, PlayerSide.CURRENT_PLAYER, toRet.data_.getCharacter(PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO), boardState.data_)) {
+            toRet = effect.applyEffect(PlayerSide.CURRENT_PLAYER, toRet.data_.getCharacter(PlayerSide.CURRENT_PLAYER, CharacterIndex.HERO), toRet);
         }
         return toRet;
     }

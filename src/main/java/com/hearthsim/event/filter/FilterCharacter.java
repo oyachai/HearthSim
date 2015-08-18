@@ -173,6 +173,17 @@ public class FilterCharacter implements FilterCharacterInterface {
         }
     };
 
+    public final static FilterCharacter FRIENDLY_OTHER_MINIONS = new FilterCharacter() {
+        @Override
+        protected boolean includeOwnMinions() {
+            return true;
+        }
+        @Override
+        protected boolean excludeSource() {
+            return true;
+        }
+    };
+
     public final static FilterCharacter SELF = new FilterCharacter() {
         @Override
         protected boolean includeOwnHero() {
