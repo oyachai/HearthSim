@@ -39,7 +39,7 @@ class ImplementedCardList {
     private static String MECHANICS_WINDFURY = "Windfury";
     private static String MECHANICS_CHARGE = "Charge";
     private static String MECHANICS_STEALTH = "Stealth";
-    private static String MECHANICS_CANT_ATTACK = "Can\'t Attack.";
+    private static String MECHANICS_CANT_ATTACK = "Can't attack.";
 
     public ArrayList<ImplementedCard> list_;
     public Map<Class<?>, ImplementedCard> map_;

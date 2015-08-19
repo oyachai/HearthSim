@@ -2136,42 +2136,42 @@
     },
     {
         "class": "com.hearthsim.card.thegrandtournament.minion.common.KvaldirRaider",
-        "id": "TGT_002_DUMMY",
+        "id": "AT_119",
         "name": "Kvaldir Raider"
     },
     {
         "class": "com.hearthsim.card.thegrandtournament.minion.epic.Recruiter",
-        "id": "TGT_001_DUMMY",
+        "id": "AT_113",
         "name": "Recruiter"
     },
     {
         "class": "com.hearthsim.card.thegrandtournament.minion.common.MuklasChampion",
-        "id": "TGT_003_DUMMY",
+        "id": "AT_090",
         "name": "Mukla's Champion"
     },
     {
         "class": "com.hearthsim.card.thegrandtournament.minion.common.BoneguardLieutenant",
-        "id": "TGT_005_DUMMY",
+        "id": "AT_089",
         "name": "Boneguard Lieutenant"
     },
     {
         "class": "com.hearthsim.card.thegrandtournament.minion.common.LowlySquire",
-        "id": "TGT_006_DUMMY",
+        "id": "AT_082",
         "name": "Lowly Squire"
     },
     {
         "class": "com.hearthsim.card.thegrandtournament.minion.common.SilverHandRegent",
-        "id": "TGT_007_DUMMY",
+        "id": "AT_100",
         "name": "Silver Hand Regent"
     },
     {
         "class": "com.hearthsim.card.thegrandtournament.minion.common.TournamentMedic",
-        "id": "TGT_008_DUMMY",
+        "id": "AT_091",
         "name": "Tournament Medic"
     },
     {
         "class": "com.hearthsim.card.thegrandtournament.spell.common.FlashHeal",
-        "id": "TGT_004_DUMMY",
+        "id": "AT_055",
         "name": "Flash Heal"
     }
 ]
