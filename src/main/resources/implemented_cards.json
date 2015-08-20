@@ -2168,5 +2168,10 @@
         "class": "com.hearthsim.card.thegrandtournament.spell.common.FlashHeal",
         "id": "AT_055",
         "name": "Flash Heal"
+    },
+    {
+        "class": "com.hearthsim.card.blackrockmountain.spell.rare.Revenge",
+        "id": "BRM_015",
+        "name": "Revenge"
     }
 ]
