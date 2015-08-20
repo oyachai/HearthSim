@@ -1354,6 +1354,11 @@
         "id": "EX1_044",
         "name": "Questing Adventurer"
     },
+	{
+        "class": "com.hearthsim.card.blackrockmountain.spell.QuickShot",
+        "id": "BRM_013",
+        "name": "Quick Shot"
+    },
     {
         "class": "com.hearthsim.card.classic.minion.common.RagingWorgen",
         "id": "EX1_412",
