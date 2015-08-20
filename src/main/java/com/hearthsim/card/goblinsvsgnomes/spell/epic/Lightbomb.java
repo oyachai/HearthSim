@@ -1,16 +1,14 @@
 package com.hearthsim.card.goblinsvsgnomes.spell.epic;
 
-import com.hearthsim.card.minion.Minion;
-import com.hearthsim.card.spellcard.SpellDamage;
+import com.hearthsim.card.spellcard.SpellCard;
 import com.hearthsim.event.effect.EffectCharacter;
+import com.hearthsim.event.effect.EffectCharacterDamageByAttack;
 import com.hearthsim.event.effect.EffectOnResolveAoe;
 import com.hearthsim.event.filter.FilterCharacter;
-import com.hearthsim.exception.HSException;
-import com.hearthsim.model.PlayerModel;
-import com.hearthsim.model.PlayerSide;
-import com.hearthsim.util.tree.HearthTreeNode;
 
-public class Lightbomb extends SpellDamage implements EffectOnResolveAoe {
+public class Lightbomb extends SpellCard implements EffectOnResolveAoe {
+
+    private static final EffectCharacter effect = new EffectCharacterDamageByAttack(true);
 
     public Lightbomb() {
         super();
@@ -18,7 +16,7 @@ public class Lightbomb extends SpellDamage implements EffectOnResolveAoe {
 
     @Override
     public EffectCharacter getAoeEffect() {
-        return this.getSpellDamageEffect();
+        return effect;
     }
 
     @Override
@@ -26,22 +24,4 @@ public class Lightbomb extends SpellDamage implements EffectOnResolveAoe {
         return FilterCharacter.ALL_MINIONS;
     }
 
-    @Override
-    protected HearthTreeNode use_core(PlayerSide side, Minion targetMinion, HearthTreeNode boardState) throws HSException {
-
-        HearthTreeNode toRet = super.use_core(side, targetMinion, boardState);
-
-        PlayerModel currentPlayer = toRet.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
-
-        for (Minion minion : currentPlayer.getMinions()) {
-            toRet = minion.takeDamageAndNotify(minion.getAttack(), PlayerSide.CURRENT_PLAYER, side, toRet, false, false);
-        }
-
-        PlayerModel waitingPlayer = toRet.data_.modelForSide(PlayerSide.WAITING_PLAYER);
-        for (Minion minion : waitingPlayer.getMinions()) {
-            toRet = minion.takeDamageAndNotify(minion.getAttack(), PlayerSide.CURRENT_PLAYER, side, toRet, false, false);
-        }
-
-        return toRet;
-    }
 }

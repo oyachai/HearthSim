@@ -3,7 +3,6 @@ package com.hearthsim.test.groovy.card.goblinsvsgnomes.spell
 import com.hearthsim.card.CharacterIndex
 import com.hearthsim.card.basic.minion.ChillwindYeti
 import com.hearthsim.card.basic.minion.DalaranMage
-import com.hearthsim.card.basic.minion.KoboldGeomancer
 import com.hearthsim.card.classic.minion.common.Shieldbearer
 import com.hearthsim.card.goblinsvsgnomes.minion.common.GilblinStalker
 import com.hearthsim.card.goblinsvsgnomes.spell.epic.Lightbomb
