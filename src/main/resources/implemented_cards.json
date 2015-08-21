@@ -440,6 +440,11 @@
         "name": "Dark Iron Dwarf"
     },
     {
+        "class": "com.hearthsim.card.blackrockmountain.minion.rare.DarkIronSkulker",
+        "id": "BRM_008",
+        "name": "Dark Iron Skulker"
+    },
+    {
         "class": "com.hearthsim.card.goblinsvsgnomes.spell.common.Darkbomb",
         "id": "GVG_015",
         "name": "Darkbomb"
