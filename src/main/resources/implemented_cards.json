@@ -931,8 +931,18 @@
     },
     {
         "class": "com.hearthsim.card.classic.minion.common.Imp",
+        "id": "EX1_598",
+        "name": "Imp"
+    },
+    {
+        "class": "com.hearthsim.card.blackrockmountain.minion.common.Imp",
         "id": "BRM_006t",
         "name": "Imp"
+    },
+    {
+        "class": "com.hearthsim.card.blackrockmountain.minion.common.ImpGangBoss",
+        "id": "BRM_006",
+        "name": "Imp Gang Boss"
     },
     {
         "class": "com.hearthsim.card.classic.minion.rare.ImpMaster",
