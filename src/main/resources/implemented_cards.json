@@ -225,6 +225,11 @@
         "name": "Blackwing Technicial"
     },
     {
+        "class": "com.hearthsim.card.blackrockmountain.minion.common.BlackwingCorruptor",
+        "id": "BRM_034",
+        "name": "Blackwing Corruptor"
+    },
+    {
         "class": "com.hearthsim.card.classic.spell.rare.BlessedChampion",
         "id": "EX1_355",
         "name": "Blessed Champion"

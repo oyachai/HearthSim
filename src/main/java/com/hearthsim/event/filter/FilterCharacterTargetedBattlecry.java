@@ -23,4 +23,19 @@ public abstract class FilterCharacterTargetedBattlecry extends FilterCharacter {
 
         return true;
     }
+
+    public static final FilterCharacterTargetedBattlecry ALL = new FilterCharacterTargetedBattlecry() {
+        protected boolean includeEnemyHero() {
+            return true;
+        }
+        protected boolean includeEnemyMinions() {
+            return true;
+        }
+        protected boolean includeOwnHero() {
+            return true;
+        }
+        protected boolean includeOwnMinions() {
+            return true;
+        }
+    };
 }
