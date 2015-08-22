@@ -1805,6 +1805,11 @@
         "name": "Twilight Drake"
     },
     {
+        "class": "com.hearthsim.card.blackrockmountain.minion.common.TwilightWhelp",
+        "id": "BRM_004",
+        "name": "Twilight Whelp"
+    },
+    {
         "class": "com.hearthsim.card.classic.spell.rare.Upgrade",
         "id": "EX1_409",
         "name": "Upgrade!"
