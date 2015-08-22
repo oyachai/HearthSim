@@ -220,6 +220,11 @@
         "name": "Black Whelp"
     },
     {
+        "class": "com.hearthsim.card.blackrockmountain.minion.common.BlackwingTechnician",
+        "id": "BRM_033",
+        "name": "Blackwing Technicial"
+    },
+    {
         "class": "com.hearthsim.card.classic.spell.rare.BlessedChampion",
         "id": "EX1_355",
         "name": "Blessed Champion"
