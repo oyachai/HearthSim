@@ -41,6 +41,33 @@ public class Card implements DeepCopyable<Card> {
 
     protected final ImplementedCardList.ImplementedCard implementedCard;
 
+    public enum CardRarity {
+        UNKNOWN,
+        FREE,
+        COMMON,
+        RARE,
+        EPIC,
+        LEGENDARY
+    }
+
+    public static CardRarity StringToCardRarity(String rarity) {
+        rarity = rarity == null ? "" : rarity.toLowerCase();
+        switch (rarity) {
+            case "free":
+                return CardRarity.FREE;
+            case "common":
+                return CardRarity.COMMON;
+            case "rare":
+                return CardRarity.RARE;
+            case "epic":
+                return CardRarity.EPIC;
+            case "legendary":
+                return CardRarity.LEGENDARY;
+            default:
+                return CardRarity.UNKNOWN;
+        }
+    }
+
     /**
      * Constructor
      */
@@ -719,6 +746,13 @@ public class Card implements DeepCopyable<Card> {
 
     public void setDeathrattleTriggered(boolean deathrattleTriggered) {
         this.deathrattleTriggered = deathrattleTriggered;
+    }
+
+    public CardRarity getRarity() {
+        if (this.implementedCard == null) {
+            return CardRarity.UNKNOWN;
+        }
+        return StringToCardRarity(implementedCard.rarity_);
     }
 
     @Deprecated

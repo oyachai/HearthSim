@@ -1420,6 +1420,11 @@
         "name": "Razorfen Hunter"
     },
     {
+        "class": "com.hearthsim.card.blackrockmountain.minion.legendary.RendBlackhand",
+        "id": "BRM_029",
+        "name": "Rend Blackhand"
+    },
+    {
         "class": "com.hearthsim.card.basic.minion.RecklessRocketeer",
         "id": "CS2_213",
         "name": "Reckless Rocketeer"

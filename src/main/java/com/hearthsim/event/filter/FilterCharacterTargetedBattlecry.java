@@ -11,9 +11,17 @@ public abstract class FilterCharacterTargetedBattlecry extends FilterCharacter {
         return true;
     }
 
+    protected Card.CardRarity rarityFilter() {
+        return null;
+    }
+
     @Override
     public boolean targetMatches(PlayerSide originSide, Card origin, PlayerSide targetSide, Minion targetCharacter, BoardModel board) {
         if (!super.targetMatches(originSide, origin, targetSide, targetCharacter, board)) {
+            return false;
+        }
+
+        if (this.rarityFilter() != null && targetCharacter.getRarity() != this.rarityFilter()) {
             return false;
         }
 
@@ -23,6 +31,28 @@ public abstract class FilterCharacterTargetedBattlecry extends FilterCharacter {
 
         return true;
     }
+
+    public static final FilterCharacterTargetedBattlecry ALL_MINIONS = new FilterCharacterTargetedBattlecry() {
+        protected boolean includeEnemyMinions() {
+            return true;
+        }
+        protected boolean includeOwnMinions() {
+            return true;
+        }
+    };
+
+    public static final FilterCharacterTargetedBattlecry ALL_LEGENDARY_MINIONS = new FilterCharacterTargetedBattlecry() {
+        protected boolean includeEnemyMinions() {
+            return true;
+        }
+        protected boolean includeOwnMinions() {
+            return true;
+        }
+        @Override
+        protected Card.CardRarity rarityFilter() {
+            return Card.CardRarity.LEGENDARY;
+        }
+    };
 
     public static final FilterCharacterTargetedBattlecry ALL = new FilterCharacterTargetedBattlecry() {
         protected boolean includeEnemyHero() {
