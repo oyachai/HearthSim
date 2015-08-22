@@ -13,9 +13,6 @@ import com.hearthsim.util.tree.HearthTreeNode
 import static com.hearthsim.model.PlayerSide.CURRENT_PLAYER
 import static com.hearthsim.model.PlayerSide.WAITING_PLAYER
 
-/**
- * Created by oyachai on 8/21/15.
- */
 class BlackwingTechnicialSpec extends CardSpec {
 
     HearthTreeNode root

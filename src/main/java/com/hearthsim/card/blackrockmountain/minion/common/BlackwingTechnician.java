@@ -9,9 +9,6 @@ import com.hearthsim.event.effect.conditional.EffectCharacterConditional;
 import com.hearthsim.model.PlayerSide;
 import com.hearthsim.util.tree.HearthTreeNode;
 
-/**
- * Created by oyachai on 8/21/15.
- */
 public class BlackwingTechnician extends Minion implements MinionBattlecryInterface<Minion> {
 
     private EffectCharacter<Minion> effect;
