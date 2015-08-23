@@ -515,6 +515,11 @@
         "name": "Demonheart"
     },
     {
+        "class": "com.hearthsim.card.blackrockmountain.spell.rare.Demonwrath",
+        "id": "BRM_005",
+        "name": "Demonwrath"
+    },
+    {
         "class": "com.hearthsim.card.classic.spell.rare.DivineFavor",
         "id": "EX1_349",
         "name": "Divine Favor"
