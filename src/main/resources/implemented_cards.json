@@ -600,6 +600,11 @@
         "name": "Emperor Cobra"
     },
     {
+        "class": "com.hearthsim.card.blackrockmountain.minion.legendary.EmperorThaurissan",
+        "id": "BRM_028",
+        "name": "Emperor Thaurissan"
+    },
+    {
         "class": "com.hearthsim.card.classic.spell.rare.Equality",
         "id": "EX1_619",
         "name": "Equality"
