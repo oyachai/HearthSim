@@ -665,6 +665,11 @@
         "name": "Fire Elemental"
     },
     {
+        "class": "com.hearthsim.card.blackrockmountain.minion.common.FireguardDestroyer",
+        "id": "BRM_012",
+        "name": "Fireguard Destroyer"
+    },
+    {
         "class": "com.hearthsim.card.basic.spell.Fireball",
         "id": "CS2_029",
         "name": "Fireball"
