@@ -101,6 +101,8 @@ class BoardModelBuilder {
         minion.frozen = options.containsKey('frozen') ? options.frozen : minion.frozen
         minion.silenced = options.containsKey('silenced') ? options.silenced : minion.silenced
         minion.taunt = options.containsKey('taunt') ? options.taunt : minion.taunt
+        minion.cantAttack = options.containsKey('cantAttack') ? options.cantAttack : minion.cantAttack
+        minion.immune = options.containsKey('immune') ? options.immune : minion.immune
         minion.divineShield = options.containsKey('divineShield') ? options.divineShield : minion.divineShield
         minion.destroyOnTurnStart = options.containsKey("destroyOnTurnStart") ? options.destroyOnTurnStart : minion.destroyOnTurnStart
     }

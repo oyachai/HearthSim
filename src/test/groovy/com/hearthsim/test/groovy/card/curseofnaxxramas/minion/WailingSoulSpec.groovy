@@ -43,8 +43,8 @@ class WailingSoulSpec extends CardSpec {
                 playMinion(WailingSoul, CharacterIndex.HERO)
                 mana(6)
                 numCardsUsed(1)
-                updateMinion(CharacterIndex.MINION_2, [silenced:true])
-                updateMinion(CharacterIndex.MINION_3, [silenced:true])
+                updateMinion(CharacterIndex.MINION_2, [silenced:true, cantAttack: false])
+                updateMinion(CharacterIndex.MINION_3, [silenced:true, cantAttack: false])
             }
         }
     }
