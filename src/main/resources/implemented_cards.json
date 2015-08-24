@@ -2240,6 +2240,11 @@
         "name": "Injured Kvaldir"
     },
     {
+        "class": "com.hearthsim.card.thegrandtournament.spell.epic.Confuse",
+        "id": "AT_016",
+        "name": "Confuse"
+    },
+    {
         "class": "com.hearthsim.card.blackrockmountain.spell.rare.Revenge",
         "id": "BRM_015",
         "name": "Revenge"
