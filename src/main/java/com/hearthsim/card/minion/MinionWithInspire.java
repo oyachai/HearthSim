@@ -28,7 +28,9 @@ public abstract class MinionWithInspire<T extends Card> extends Minion implement
         for (BoardModel.MinionPlayerPair mp : minions) {
             if (mp.getPlayerSide() == PlayerSide.CURRENT_PLAYER &&
                 filter.targetMatches(thisMinionPlayerSide, this, mp.getPlayerSide(), mp.getMinion(), boardState.data_)) {
-                toRet = effect.applyEffect(mp.getPlayerSide(), mp.getMinion(), toRet);
+                HearthTreeNode tempNode = effect.applyEffect(mp.getPlayerSide(), mp.getMinion(), toRet);
+                if (tempNode != null)
+                    toRet = tempNode;
             }
         }
 
