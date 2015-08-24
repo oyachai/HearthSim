@@ -2235,6 +2235,11 @@
         "name": "Tournament Attendee"
     },
     {
+        "class": "com.hearthsim.card.thegrandtournament.minion.rare.InjuredKvaldir",
+        "id": "AT_105",
+        "name": "Injured Kvaldir"
+    },
+    {
         "class": "com.hearthsim.card.blackrockmountain.spell.rare.Revenge",
         "id": "BRM_015",
         "name": "Revenge"
