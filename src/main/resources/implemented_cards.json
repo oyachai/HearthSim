@@ -2230,6 +2230,11 @@
         "name": "Flash Heal"
     },
     {
+        "class": "com.hearthsim.card.thegrandtournament.minion.common.TournamentAttendee",
+        "id": "AT_097",
+        "name": "Tournament Attendee"
+    },
+    {
         "class": "com.hearthsim.card.blackrockmountain.spell.rare.Revenge",
         "id": "BRM_015",
         "name": "Revenge"
