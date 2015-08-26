@@ -43,6 +43,10 @@ public class FilterCharacter implements FilterCharacterInterface {
         return null;
     }
 
+    protected Minion.MinionTribe excludeTribe() {
+        return null;
+    }
+
     public boolean targetMatches(PlayerSide originSide, Card origin, PlayerSide targetSide, Minion targetCharacter, BoardModel board) {
 
         if (this.includeOrigin() && targetCharacter == origin) {
@@ -70,6 +74,10 @@ public class FilterCharacter implements FilterCharacterInterface {
         }
 
         if (this.tribeFilter() != null && targetCharacter.getTribe() != this.tribeFilter()) {
+            return false;
+        }
+
+        if (this.excludeTribe() != null && targetCharacter.getTribe() == this.excludeTribe()) {
             return false;
         }
 
@@ -144,6 +152,23 @@ public class FilterCharacter implements FilterCharacterInterface {
         @Override
         protected boolean includeOwnMinions() {
             return true;
+        }
+    };
+
+    public final static FilterCharacter ALL_NON_DEMONS = new FilterCharacter() {
+        @Override
+        protected boolean includeEnemyMinions() {
+            return true;
+        }
+
+        @Override
+        protected boolean includeOwnMinions() {
+            return true;
+        }
+
+        @Override
+        protected Minion.MinionTribe excludeTribe() {
+            return Minion.MinionTribe.DEMON;
         }
     };
 

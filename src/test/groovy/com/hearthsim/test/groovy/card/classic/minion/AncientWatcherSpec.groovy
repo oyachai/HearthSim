@@ -73,7 +73,7 @@ class AncientWatcherSpec extends CardSpec {
 
         assertBoardDelta(copiedBoard, ret.data_) {
             currentPlayer {
-                updateMinion(CharacterIndex.MINION_1, [hasAttacked: true, silenced: true])
+                updateMinion(CharacterIndex.MINION_1, [hasAttacked: true, silenced: true, cantAttack: false])
             }
             waitingPlayer {
                 heroHealth(26)

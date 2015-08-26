@@ -849,6 +849,8 @@ public class Minion extends Card implements EffectOnResolveTargetable<Card>, Car
         minion.destroyOnTurnStart_ = destroyOnTurnStart_;
         minion.destroyOnTurnEnd_ = destroyOnTurnEnd_;
         minion.deathrattleAction_ = deathrattleAction_;
+        minion.immune_ = immune_;
+        minion.cantAttack = cantAttack;
         minion.inHand = inHand;
         minion.hasBeenUsed = hasBeenUsed;
         // TODO: continue here.
@@ -907,6 +909,12 @@ public class Minion extends Card implements EffectOnResolveTargetable<Card>, Car
         if (spellDamage_ != otherMinion.spellDamage_)
             return false;
 
+        if (immune_ != otherMinion.immune_)
+            return false;
+
+        if (cantAttack != otherMinion.cantAttack)
+            return false;
+
         // This is checked for reference equality
         if (deathrattleAction_ == null && ((Minion)other).deathrattleAction_ != null)
             return false;
@@ -942,6 +950,8 @@ public class Minion extends Card implements EffectOnResolveTargetable<Card>, Car
         result = 31 * result + (destroyOnTurnStart_ ? 1 : 0);
         result = 31 * result + (destroyOnTurnEnd_ ? 1 : 0);
         result = 31 * result + spellDamage_;
+        result = 31 * result + (immune_ ? 1 : 0);
+        result = 31 * result + (cantAttack ? 1 : 0);
         result = 31 * result + (deathrattleAction_ != null ? deathrattleAction_.hashCode() : 0);
         result = 31 * result + (this.getPlacementImportant() ? 1 : 0);
         return result;

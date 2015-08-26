@@ -515,6 +515,11 @@
         "name": "Demonheart"
     },
     {
+        "class": "com.hearthsim.card.blackrockmountain.spell.rare.Demonwrath",
+        "id": "BRM_005",
+        "name": "Demonwrath"
+    },
+    {
         "class": "com.hearthsim.card.classic.spell.rare.DivineFavor",
         "id": "EX1_349",
         "name": "Divine Favor"
@@ -600,6 +605,11 @@
         "name": "Emperor Cobra"
     },
     {
+        "class": "com.hearthsim.card.blackrockmountain.minion.legendary.EmperorThaurissan",
+        "id": "BRM_028",
+        "name": "Emperor Thaurissan"
+    },
+    {
         "class": "com.hearthsim.card.classic.spell.rare.Equality",
         "id": "EX1_619",
         "name": "Equality"
@@ -658,6 +668,11 @@
         "class": "com.hearthsim.card.basic.minion.FireElemental",
         "id": "CS2_042",
         "name": "Fire Elemental"
+    },
+    {
+        "class": "com.hearthsim.card.blackrockmountain.minion.common.FireguardDestroyer",
+        "id": "BRM_012",
+        "name": "Fireguard Destroyer"
     },
     {
         "class": "com.hearthsim.card.basic.spell.Fireball",
@@ -2213,6 +2228,21 @@
         "class": "com.hearthsim.card.thegrandtournament.spell.common.FlashHeal",
         "id": "AT_055",
         "name": "Flash Heal"
+    },
+    {
+        "class": "com.hearthsim.card.thegrandtournament.minion.common.TournamentAttendee",
+        "id": "AT_097",
+        "name": "Tournament Attendee"
+    },
+    {
+        "class": "com.hearthsim.card.thegrandtournament.minion.rare.InjuredKvaldir",
+        "id": "AT_105",
+        "name": "Injured Kvaldir"
+    },
+    {
+        "class": "com.hearthsim.card.thegrandtournament.spell.epic.Confuse",
+        "id": "AT_016",
+        "name": "Confuse"
     },
     {
         "class": "com.hearthsim.card.blackrockmountain.spell.rare.Revenge",
