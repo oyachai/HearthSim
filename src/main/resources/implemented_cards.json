@@ -445,6 +445,11 @@
         "name": "Damaged Golem"
     },
     {
+        "class": "com.hearthsim.card.curseofnaxxramas.minion.common.DancingSwords",
+        "id": "FP1_029",
+        "name": "Dancing Swords"
+    },
+    {
         "class": "com.hearthsim.card.classic.minion.common.DarkIronDwarf",
         "id": "EX1_046",
         "name": "Dark Iron Dwarf"

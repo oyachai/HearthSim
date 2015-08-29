@@ -8,9 +8,16 @@ import com.hearthsim.util.tree.HearthTreeNode;
 public class DeathrattleCardDrawAction extends DeathrattleAction {
 
     private final int numCards_;
+    private final boolean targetEnemyHero_;
 
     public DeathrattleCardDrawAction(int numCards) {
         numCards_ = numCards;
+        targetEnemyHero_ = false;
+    }
+
+    public DeathrattleCardDrawAction(int numCards, boolean targetEnemyHero) {
+        numCards_ = numCards;
+        targetEnemyHero_ = targetEnemyHero;
     }
 
     @Override
@@ -20,7 +27,8 @@ public class DeathrattleCardDrawAction extends DeathrattleAction {
         HearthTreeNode toRet = super.performAction(originIndex, playerSide, boardState);
         if (toRet == null)
             return null;
-        if (playerSide == PlayerSide.CURRENT_PLAYER) {
+        PlayerSide targetSide = targetEnemyHero_ ? playerSide.getOtherPlayer() : playerSide;
+        if (targetSide == PlayerSide.CURRENT_PLAYER) {
             if (toRet instanceof CardDrawNode) {
                 ((CardDrawNode) toRet).addNumCardsToDraw(numCards_);
             } else {
