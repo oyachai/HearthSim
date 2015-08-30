@@ -66,6 +66,8 @@ public class PlayerModel implements DeepCopyable<PlayerModel>, Iterable<Minion> 
     }
 
     public int getNumMinions() {
+        if (minions == null)
+            return 0;
         return minions.size();
     }
 
