@@ -48,8 +48,8 @@ public class Demonfire extends SpellTargetableCard {
             this.effect = (targetSide, targetCharacterIndex, boardState) -> {
                 Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
                 if (isCurrentPlayer(targetSide) && targetCharacter.getTribe() == MinionTribe.DEMON) {
-                    targetCharacter.setAttack((byte)(targetCharacter.getAttack() + 2));
-                    targetCharacter.setHealth((byte)(targetCharacter.getHealth() + 2));
+                    targetCharacter.addAttack(2);
+                    targetCharacter.addHealth(2);
                 } else {
                     boardState = targetCharacter.takeDamageAndNotify((byte) 2, PlayerSide.CURRENT_PLAYER, targetSide, boardState, true, false);
                 }

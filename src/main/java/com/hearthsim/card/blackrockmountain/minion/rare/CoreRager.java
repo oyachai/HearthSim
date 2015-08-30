@@ -21,9 +21,9 @@ public class CoreRager extends Minion implements MinionBattlecryInterface {
             public HearthTreeNode applyEffect(PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState) {
                 PlayerModel currentPlayer = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER);
                 if (currentPlayer.getHand().size() == 0) {
-                    CoreRager.this.setAttack((byte) (CoreRager.this.getAttack() + 3));
-                    CoreRager.this.setHealth((byte) (CoreRager.this.getHealth() + 3));
-                    CoreRager.this.setMaxHealth((byte) (CoreRager.this.getMaxHealth() + 3));
+                    CoreRager.this.addAttack(3);
+                    CoreRager.this.addHealth(3);
+                    CoreRager.this.addMaxHealth(3);
                 }
                 return boardState;
             }

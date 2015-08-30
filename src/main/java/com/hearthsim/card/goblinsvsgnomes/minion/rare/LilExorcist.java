@@ -48,9 +48,9 @@ public class LilExorcist extends Minion implements MinionBattlecryInterface {
     public EffectCharacter<Minion> getBattlecryEffect() {
         return (PlayerSide targetSide, CharacterIndex minionPlacementIndex, HearthTreeNode boardState) -> {
             int numBuffs = LilExorcist.filter.countMatchesForBoard(PlayerSide.CURRENT_PLAYER, this, boardState.data_);
-            this.setAttack((byte) (this.getAttack() + numBuffs));
-            this.setHealth((byte) (this.getHealth() + numBuffs));
-            this.setMaxHealth((byte) (this.getMaxHealth() + numBuffs));
+            this.addAttack(numBuffs);
+            this.addHealth(numBuffs);
+            this.addMaxHealth(numBuffs);
             return boardState;
         };
     }

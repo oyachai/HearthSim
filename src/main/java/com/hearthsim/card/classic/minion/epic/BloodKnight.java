@@ -24,17 +24,17 @@ public class BloodKnight extends Minion implements MinionBattlecryInterface {
                 for (Minion minion : boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getMinions()) {
                     if (minion != BloodKnight.this && minion.getDivineShield()) {
                         minion.setDivineShield(false);
-                        BloodKnight.this.setHealth((byte) (BloodKnight.this.getHealth() + 3));
-                        BloodKnight.this.setMaxHealth((byte) (BloodKnight.this.getMaxHealth() + 3));
-                        BloodKnight.this.setAttack((byte) (BloodKnight.this.getAttack() + 3));
+                        BloodKnight.this.addHealth(3);
+                        BloodKnight.this.addMaxHealth(3);
+                        BloodKnight.this.addAttack(3);
                     }
                 }
                 for (Minion minion : boardState.data_.modelForSide(PlayerSide.WAITING_PLAYER).getMinions()) {
                     if (minion != BloodKnight.this && minion.getDivineShield()) {
                         minion.setDivineShield(false);
-                        BloodKnight.this.setHealth((byte) (BloodKnight.this.getHealth() + 3));
-                        BloodKnight.this.setMaxHealth((byte) (BloodKnight.this.getMaxHealth() + 3));
-                        BloodKnight.this.setAttack((byte) (BloodKnight.this.getAttack() + 3));
+                        BloodKnight.this.addHealth(3);
+                        BloodKnight.this.addMaxHealth(3);
+                        BloodKnight.this.addAttack(3);
                     }
                 }
                 return boardState;

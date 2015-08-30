@@ -10,7 +10,7 @@ public class Charge extends SpellTargetableCard {
 
     public static final EffectCharacter effect = (targetSide, targetCharacterIndex, boardState) -> {
         Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
-        targetCharacter.setAttack((byte)(targetCharacter.getAttack() + 2));
+        targetCharacter.addAttack(2);
         targetCharacter.setCharge(true);
         return boardState;
     };

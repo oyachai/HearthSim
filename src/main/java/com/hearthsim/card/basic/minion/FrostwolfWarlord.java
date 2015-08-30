@@ -19,10 +19,10 @@ public class FrostwolfWarlord extends Minion implements MinionBattlecryInterface
     @Override
     public EffectCharacter<Minion> getBattlecryEffect() {
         return (PlayerSide targetSide, CharacterIndex minionPlacementIndex, HearthTreeNode boardState) -> {
-            int numBuffs = boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getNumMinions() - 1; //Don't count the Warlord itself
-            this.setAttack((byte) (this.getAttack() + numBuffs));
-            this.setHealth((byte) (this.getHealth() + numBuffs));
-            this.setMaxHealth((byte) (this.getMaxHealth() + numBuffs));
+            byte numBuffs = (byte) (boardState.data_.modelForSide(PlayerSide.CURRENT_PLAYER).getNumMinions() - 1); //Don't count the Warlord itself
+            this.addAttack(numBuffs);
+            this.addHealth(numBuffs);
+            this.addMaxHealth(numBuffs);
             return boardState;
         };
     }

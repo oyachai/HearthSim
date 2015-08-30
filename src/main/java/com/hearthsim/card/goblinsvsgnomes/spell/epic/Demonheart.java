@@ -36,9 +36,9 @@ public class Demonheart extends SpellDamageTargetableCard {
                     HearthTreeNode toRet = boardState;
                     Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
                     if (isCurrentPlayer(targetSide) && targetCharacter.getTribe() == MinionTribe.DEMON) {
-                        targetCharacter.setAttack((byte) (targetCharacter.getAttack() + 5));
-                        targetCharacter.setMaxHealth((byte) (targetCharacter.getMaxHealth() + 5));
-                        targetCharacter.setHealth((byte)(targetCharacter.getHealth() + 5));
+                        targetCharacter.addAttack(5);
+                        targetCharacter.addMaxHealth(5);
+                        targetCharacter.addHealth(5);
                     } else {
                         toRet = super.applyEffect(targetSide, targetCharacterIndex, boardState);
                     }

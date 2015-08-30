@@ -48,7 +48,7 @@ public class InnerRage extends SpellTargetableCard {
             this.effect = (targetSide, targetCharacterIndex, boardState) -> {
                 Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
                 boardState = targetCharacter.takeDamageAndNotify((byte)1, PlayerSide.CURRENT_PLAYER, targetSide, boardState, true, false);
-                targetCharacter.setAttack((byte) (targetCharacter.getAttack() + 2));
+                targetCharacter.addAttack(2);
                 return boardState;
             };
         }

@@ -129,6 +129,10 @@ public class Minion extends Card implements EffectOnResolveTargetable<Card>, Car
         this.setHealth((byte) (this.getHealth() + value));
     }
 
+    public final void addHealth(int value) {
+        this.setHealth((byte) (this.getHealth() + value));
+    }
+
     public byte getMaxHealth() {
         return maxHealth_;
     }
@@ -138,6 +142,10 @@ public class Minion extends Card implements EffectOnResolveTargetable<Card>, Car
     }
 
     public final void addMaxHealth(byte value) {
+        this.setMaxHealth((byte) (this.getMaxHealth() + value));
+    }
+
+    public final void addMaxHealth(int value) {
         this.setMaxHealth((byte) (this.getMaxHealth() + value));
     }
 
@@ -157,6 +165,10 @@ public class Minion extends Card implements EffectOnResolveTargetable<Card>, Car
     }
 
     public void addAttack(byte value) {
+        attack_ += value;
+    }
+
+    public void addAttack(int value) {
         attack_ += value;
     }
 

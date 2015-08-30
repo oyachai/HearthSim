@@ -26,8 +26,8 @@ public class DefenderOfArgus extends Minion implements MinionBattlecryInterface 
 
                 CharacterIndex thisMinionIndex = currentPlayer.getIndexForCharacter(DefenderOfArgus.this);
                 for (Minion minion : currentPlayer.getMinionsAdjacentToCharacter(thisMinionIndex)) {
-                    minion.setAttack((byte)(minion.getAttack() + 1));
-                    minion.setHealth((byte)(minion.getHealth() + 1));
+                    minion.addAttack(1);
+                    minion.addHealth(1);
                     minion.setTaunt(true);
                 }
                 return boardState;
