@@ -49,7 +49,7 @@ public interface EffectCharacter<T extends Card> {
 
     public final static EffectCharacter<Card> SWAP_ATTACK_HEALTH = (targetSide, targetCharacterIndex, boardState) -> {
         Minion targetCharacter = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
-        byte attack = targetCharacter.getTotalAttack();
+        byte attack = targetCharacter.getTotalAttack(boardState.data_, targetSide);
         targetCharacter.setAttack(targetCharacter.getTotalHealth());
         targetCharacter.setHealth(attack);
         targetCharacter.setMaxHealth(attack);
@@ -75,7 +75,7 @@ public interface EffectCharacter<T extends Card> {
         boardState.data_.placeMinion(targetSide.getOtherPlayer(), targetMinion);
 
         if (targetMinion.getCharge()) {
-            if (!targetMinion.canAttack()) {
+            if (!targetMinion.canAttack(boardState.data_, targetSide.getOtherPlayer())) {
                 targetMinion.hasAttacked(false);
             }
         } else {

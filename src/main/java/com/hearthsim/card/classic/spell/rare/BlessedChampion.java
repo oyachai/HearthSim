@@ -10,7 +10,7 @@ public class BlessedChampion extends SpellTargetableCard {
 
     public static final EffectCharacter effect = (targetSide, targetCharacterIndex, boardState) -> {
         Minion targetCharacter = boardState.data_.getCharacter(targetSide, targetCharacterIndex);
-        targetCharacter.setAttack((byte) (2 * targetCharacter.getTotalAttack()));
+        targetCharacter.setAttack((byte) (2 * targetCharacter.getTotalAttack(boardState, targetSide)));
         return boardState;
     };
 

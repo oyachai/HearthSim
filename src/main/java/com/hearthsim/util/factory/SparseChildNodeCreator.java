@@ -113,7 +113,7 @@ public class SparseChildNodeCreator extends ChildNodeCreatorBase {
 
         // if there are minions on the board already, place the minion farthest away from the highest attack minion on the board
         if (currentPlayer.getNumMinions() > 1) {
-            byte thisMinionAttack = minion.getTotalAttack();
+            byte thisMinionAttack = minion.getTotalAttack(boardStateNode, PlayerSide.CURRENT_PLAYER);
             int numMinions = currentPlayer.getNumMinions();
             byte maxAttack = -100;
             int maxAttackIndex = 0;
@@ -121,14 +121,14 @@ public class SparseChildNodeCreator extends ChildNodeCreatorBase {
             int secondMaxAttackIndex = 0;
             for (int midx = 0; midx < numMinions; ++midx) {
                 Minion tempMinion = currentPlayer.getCharacter(CharacterIndex.fromInteger(midx + 1));
-                if (tempMinion.getTotalAttack() >= maxAttack) {
+                if (tempMinion.getTotalAttack(boardStateNode, PlayerSide.CURRENT_PLAYER) >= maxAttack) {
                     secondMaxAttackIndex = maxAttackIndex;
                     secondMaxAttack = maxAttack;
                     maxAttackIndex = midx;
-                    maxAttack = tempMinion.getTotalAttack();
-                } else if (tempMinion.getTotalAttack() >= secondMaxAttack) {
+                    maxAttack = tempMinion.getTotalAttack(boardStateNode, PlayerSide.CURRENT_PLAYER);
+                } else if (tempMinion.getTotalAttack(boardStateNode, PlayerSide.CURRENT_PLAYER) >= secondMaxAttack) {
                     secondMaxAttackIndex = midx;
-                    secondMaxAttack = tempMinion.getTotalAttack();
+                    secondMaxAttack = tempMinion.getTotalAttack(boardStateNode, PlayerSide.CURRENT_PLAYER);
                 }
             }
             if (thisMinionAttack > secondMaxAttack && thisMinionAttack <= maxAttack) {

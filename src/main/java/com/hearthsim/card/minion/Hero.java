@@ -82,7 +82,7 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
     @Override
     public HearthTreeNode attack(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode boardState) throws HSException {
 
-        if (!this.canAttack()) {
+        if (!this.canAttack(boardState.data_, PlayerSide.CURRENT_PLAYER)) {
             return null;
         }
 
@@ -163,11 +163,8 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
      * Overridden from Minion. Need to handle armor.
      *
      * @param damage           The amount of damage to take
-     * @param attackPlayerSide The player index of the attacker. This is needed to do things like +spell damage.
      * @param thisPlayerSide
-     * @param boardState
      * @param isSpellDamage
-     * @throws HSInvalidPlayerIndexException
      */
     @Override
     public byte takeDamage(byte damage, PlayerSide originSide, PlayerSide thisPlayerSide, BoardModel board, boolean isSpellDamage) {
@@ -239,8 +236,8 @@ public abstract class Hero extends Minion implements MinionSummonedInterface {
     }
 
     @Override
-    public byte getTotalAttack() {
-        byte attack = super.getTotalAttack();
+    public byte getTotalAttack(BoardModel boardModel, PlayerSide thisMinionPlayerSide) {
+        byte attack = super.getTotalAttack(boardModel, thisMinionPlayerSide);
         if (this.getWeapon() != null) {
             attack += this.getWeapon().getWeaponDamage();
         }

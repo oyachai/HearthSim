@@ -28,7 +28,7 @@ public class Betrayal extends SpellTargetableCard {
                     return null;
                 HearthTreeNode toRet = boardState;
                 Minion targetCharacter = toRet.data_.getCharacter(targetSide, targetCharacterIndex);
-                byte damageToDeal = targetCharacter.getTotalAttack();
+                byte damageToDeal = targetCharacter.getTotalAttack(toRet, targetSide);
 
                 CharacterIndex minionIndexToLeft = targetCharacterIndex.indexToLeft();
                 if (minionIndexToLeft != CharacterIndex.HERO && minionIndexToLeft != CharacterIndex.UNKNOWN) {

@@ -17,6 +17,7 @@ public class EffectCharacterDamageByAttack<T extends Card> implements EffectChar
     @Override
     public HearthTreeNode applyEffect(PlayerSide targetSide, CharacterIndex targetCharacterIndex, HearthTreeNode boardState) {
         Minion targetMinion = boardState.data_.modelForSide(targetSide).getCharacter(targetCharacterIndex);
-        return targetMinion.takeDamageAndNotify(targetMinion.getTotalAttack(), PlayerSide.CURRENT_PLAYER, targetSide, boardState, this.effectedBySpellpower, true);
+        return targetMinion.takeDamageAndNotify(targetMinion.getTotalAttack(boardState, targetSide),
+            PlayerSide.CURRENT_PLAYER, targetSide, boardState, this.effectedBySpellpower, true);
     }
 }

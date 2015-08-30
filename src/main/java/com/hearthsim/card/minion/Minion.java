@@ -156,6 +156,7 @@ public class Minion extends Card implements EffectOnResolveTargetable<Card>, Car
         return (byte) this.implementedCard.health_;
     }
 
+    @Deprecated
     public byte getAttack() {
         return attack_;
     }
@@ -187,8 +188,13 @@ public class Minion extends Card implements EffectOnResolveTargetable<Card>, Car
         divineShield_ = divineShield;
     }
 
+    @Deprecated
     public boolean canAttack() {
-        return !this.hasAttacked_ && this.getTotalAttack() > 0 && !this.frozen_ && !cantAttack;
+        return this.canAttack(null, null);
+    }
+
+    public boolean canAttack(BoardModel boardModel, PlayerSide thisMinionPlayerSide) {
+        return !this.hasAttacked_ && this.getTotalAttack(boardModel, thisMinionPlayerSide) > 0 && !this.frozen_ && !cantAttack;
     }
 
     public void hasAttacked(boolean hasAttacked) {
@@ -283,7 +289,16 @@ public class Minion extends Card implements EffectOnResolveTargetable<Card>, Car
         auraHealth_ = value;
     }
 
+    @Deprecated
     public byte getTotalAttack() {
+        BoardModel temp = null;
+        return this.getTotalAttack(temp, null);
+    }
+
+    public byte getTotalAttack(HearthTreeNode treeNode, PlayerSide thisMinionPlayerSide) {
+        return this.getTotalAttack(treeNode.data_, thisMinionPlayerSide);
+    }
+    public byte getTotalAttack(BoardModel boardModel, PlayerSide thisMinionPlayerSide) {
         return (byte) (attack_ + auraAttack_ + extraAttackUntilTurnEnd_);
     }
 
@@ -423,7 +438,6 @@ public class Minion extends Card implements EffectOnResolveTargetable<Card>, Car
      * @param boardState
      * @param isSpellDamage     True if this is a spell damage
      * @param handleMinionDeath Set this to True if you want the death event to trigger when (if) the minion dies from this damage. Setting this flag to True will also trigger deathrattle immediately.
-     * @throws HSInvalidPlayerIndexException
      */
     public HearthTreeNode takeDamageAndNotify(byte damage, PlayerSide attackPlayerSide, PlayerSide thisPlayerSide, HearthTreeNode boardState, boolean isSpellDamage, boolean handleMinionDeath) {
         byte damageDealt = this.takeDamage(damage, attackPlayerSide, thisPlayerSide, boardState.data_, isSpellDamage);
@@ -459,7 +473,6 @@ public class Minion extends Card implements EffectOnResolveTargetable<Card>, Car
      *
      * @param thisPlayerSide
      * @param boardState
-     * @throws HSInvalidPlayerIndexException
      */
     public HearthTreeNode destroyAndNotify(PlayerSide thisPlayerSide, CharacterIndex destroyedMinionIndex, HearthTreeNode boardState) {
 
@@ -485,7 +498,6 @@ public class Minion extends Card implements EffectOnResolveTargetable<Card>, Car
      *
      * @param thisPlayerSide
      * @param boardState
-     * @throws HSInvalidPlayerIndexException
      */
     public void silenced(PlayerSide thisPlayerSide, BoardModel boardState) {
         spellDamage_ = 0;
@@ -561,7 +573,6 @@ public class Minion extends Card implements EffectOnResolveTargetable<Card>, Car
      * @param targetCharacterIndex
      * @param boardState
      * @return
-     * @throws HSException
      */
     public HearthTreeNode useTargetableBattlecry(PlayerSide side, CharacterIndex targetCharacterIndex, HearthTreeNode boardState) {
         if (this instanceof MinionBattlecryInterface) {
@@ -586,7 +597,6 @@ public class Minion extends Card implements EffectOnResolveTargetable<Card>, Car
      * @param minionPlacementIndex
      * @param boardState
      * @return
-     * @throws HSException
      */
     @Deprecated
     public HearthTreeNode useUntargetableBattlecry(CharacterIndex minionPlacementIndex, HearthTreeNode boardState) {
@@ -711,7 +721,6 @@ public class Minion extends Card implements EffectOnResolveTargetable<Card>, Car
      * @param targetIndex The target character (can be a Hero). The new minion is always placed to the right of (higher index) the target minion. If the target minion is a hero, then it is placed at the left-most position.
      * @param boardState The BoardState before this card has performed its action. It will be manipulated and returned.
      * @return The boardState is manipulated and returned
-     * @throws HSException
      */
     protected HearthTreeNode summonMinion_core(PlayerSide targetSide, CharacterIndex targetIndex, HearthTreeNode boardState) {
 
@@ -747,7 +756,7 @@ public class Minion extends Card implements EffectOnResolveTargetable<Card>, Car
         if (targetMinion.isStealthed())
             return null;
 
-        if (!this.canAttack()) {
+        if (!this.canAttack(boardState.data_, PlayerSide.CURRENT_PLAYER)) {
             return null;
         }
 
@@ -801,8 +810,8 @@ public class Minion extends Card implements EffectOnResolveTargetable<Card>, Car
     protected HearthTreeNode attack_core(PlayerSide targetMinionPlayerSide, Minion targetMinion, HearthTreeNode boardState) throws HSException {
 
         HearthTreeNode toRet = boardState;
-        byte origAttack = targetMinion.getTotalAttack();
-        toRet = targetMinion.takeDamageAndNotify(this.getTotalAttack(), PlayerSide.CURRENT_PLAYER, targetMinionPlayerSide, toRet, false, false);
+        byte origAttack = targetMinion.getTotalAttack(boardState, targetMinionPlayerSide);
+        toRet = targetMinion.takeDamageAndNotify(this.getTotalAttack(boardState, PlayerSide.CURRENT_PLAYER), PlayerSide.CURRENT_PLAYER, targetMinionPlayerSide, toRet, false, false);
         toRet = this.takeDamageAndNotify(origAttack, targetMinionPlayerSide, PlayerSide.CURRENT_PLAYER, toRet, false, false);
         if (windFury_ && !hasWindFuryAttacked_)
             hasWindFuryAttacked_ = true;

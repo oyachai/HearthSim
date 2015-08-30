@@ -20,7 +20,7 @@ public class EmperorCobra extends Minion {
             return super.attack_core(targetMinionPlayerSide, targetMinion, boardState);
 
         HearthTreeNode toRet = boardState;
-        byte origAttack = targetMinion.getTotalAttack();
+        byte origAttack = targetMinion.getTotalAttack(toRet, targetMinionPlayerSide);
         toRet = targetMinion.takeDamageAndNotify((byte) 99, PlayerSide.CURRENT_PLAYER, targetMinionPlayerSide, toRet, false, false);
         toRet = this.takeDamageAndNotify(origAttack, targetMinionPlayerSide, PlayerSide.CURRENT_PLAYER, toRet, false, false);
         if (windFury_ && !hasWindFuryAttacked_)

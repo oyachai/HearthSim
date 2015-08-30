@@ -37,7 +37,7 @@ public class ChildNodeCreatorBase implements ChildNodeCreator {
         // attack with characters
         for (int attackerIndex = 0; attackerIndex < currentPlayer
                 .getNumCharacters(); ++attackerIndex) {
-            if (!currentPlayer.getCharacter(CharacterIndex.fromInteger(attackerIndex)).canAttack()) {
+            if (!currentPlayer.getCharacter(CharacterIndex.fromInteger(attackerIndex)).canAttack(boardStateNode.data_, PlayerSide.CURRENT_PLAYER)) {
                 continue;
             }
 

@@ -26,7 +26,7 @@ public class VoidTerror extends Minion implements MinionBattlecryInterface {
 
                 CharacterIndex thisMinionIndex = currentPlayer.getIndexForCharacter(VoidTerror.this);
                 for (Minion minion : currentPlayer.getMinionsAdjacentToCharacter(thisMinionIndex)) {
-                    VoidTerror.this.addAttack(minion.getTotalAttack());
+                    VoidTerror.this.addAttack(minion.getTotalAttack(boardState, targetSide));
                     VoidTerror.this.addHealth(minion.getTotalHealth());
                     VoidTerror.this.addMaxHealth(minion.getTotalHealth());
                     minion.setHealth((byte) -99);

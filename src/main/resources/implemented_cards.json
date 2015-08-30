@@ -380,6 +380,11 @@
         "name": "Coghammer"
     },
     {
+        "class": "com.hearthsim.card.goblinsvsgnomes.minion.common.Cogmaster",
+        "id": "GVG_013",
+        "name": "Cogmaster"
+    },
+    {
         "class": "com.hearthsim.card.classic.spell.common.ColdBlood",
         "id": "CS2_073",
         "name": "Cold Blood"

@@ -81,11 +81,11 @@ public class FilterCharacter implements FilterCharacterInterface {
             return false;
         }
 
-        if (this.maxAttack() >= 0 && targetCharacter.getTotalAttack() > this.maxAttack()) {
+        if (this.maxAttack() >= 0 && targetCharacter.getTotalAttack(board, targetSide) > this.maxAttack()) {
             return false;
         }
 
-        if (this.minAttack() >= 0 && targetCharacter.getTotalAttack() < this.minAttack()) {
+        if (this.minAttack() >= 0 && targetCharacter.getTotalAttack(board, targetSide) < this.minAttack()) {
             return false;
         }
 
