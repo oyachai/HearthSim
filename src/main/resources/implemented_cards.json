@@ -1075,6 +1075,11 @@
         "name": "Kor'kron Elite"
     },
     {
+        "class": "com.hearthsim.card.thegrandtournament.minion.common.LanceCarrier",
+        "id": "AT_084",
+        "name": "Lance Carrier"
+    },
+    {
         "class": "com.hearthsim.card.classic.spell.rare.LavaBurst",
         "id": "EX1_241",
         "name": "Lava Burst"
