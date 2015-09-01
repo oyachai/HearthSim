@@ -150,6 +150,11 @@
         "name": "Argent Commander"
     },
     {
+        "class": "com.hearthsim.card.thegrandtournament.minion.common.ArgentHorserider",
+        "id": "AT_087",
+        "name": "Argent Horserider"
+    },
+    {
         "class": "com.hearthsim.card.classic.minion.common.ArgentProtector",
         "id": "EX1_362",
         "name": "Argent Protector"
@@ -328,6 +333,11 @@
         "class": "com.hearthsim.card.classic.minion.legendary.CaptainGreenskin",
         "id": "NEW1_024",
         "name": "Captain Greenskin"
+    },
+    {
+        "class": "com.hearthsim.card.thegrandtournament.minion.common.CapturedJormungar",
+        "id": "AT_102",
+        "name": "Captured Jormungar"
     },
     {
         "class": "com.hearthsim.card.classic.minion.legendary.CairneBloodhoof",
@@ -625,6 +635,11 @@
         "name": "Equality"
     },
     {
+        "class": "com.hearthsim.card.thegrandtournament.minion.common.EvilHeckler",
+        "id": "AT_114",
+        "name": "Evil Heckler"
+    },
+    {
         "class": "com.hearthsim.card.classic.spell.common.Eviscerate",
         "id": "EX1_124",
         "name": "Eviscerate"
@@ -733,6 +748,11 @@
         "class": "com.hearthsim.card.goblinsvsgnomes.minion.common.ForceTankMax",
         "id": "GVG_079",
         "name": "Force-Tank MAX"
+    },
+    {
+        "class": "com.hearthsim.card.thegrandtournament.minion.common.FrigidSnobold",
+        "id": "AT_093",
+        "name": "Frigid Snobold"
     },
     {
         "class": "com.hearthsim.card.classic.minion.common.FrostElemental",
@@ -963,6 +983,11 @@
         "class": "com.hearthsim.card.classic.spell.common.IceLance",
         "id": "CS2_031",
         "name": "Ice Lance"
+    },
+    {
+        "class": "com.hearthsim.card.thegrandtournament.minion.common.IceRager",
+        "id": "AT_092",
+        "name": "Ice Rager"
     },
     {
         "class": "com.hearthsim.card.classic.minion.legendary.IllidanStormrage",
@@ -1365,6 +1390,11 @@
         "name": "Pint-Sized Summoner"
     },
     {
+        "class": "com.hearthsim.card.thegrandtournament.minion.common.PitFighter",
+        "id": "AT_101",
+        "name": "Pit Fighter"
+    },
+    {
         "class": "com.hearthsim.card.classic.minion.epic.PitLord",
         "id": "EX1_313",
         "name": "Pit Lord"
@@ -1618,6 +1648,11 @@
         "class": "com.hearthsim.card.classic.spell.common.Silence",
         "id": "EX1_332",
         "name": "Silence"
+    },
+    {
+        "class": "com.hearthsim.card.thegrandtournament.minion.common.SilentKnight",
+        "id": "AT_095",
+        "name": "Silent Knight"
     },
     {
         "class": "com.hearthsim.card.goblinsvsgnomes.minion.epic.SiltfinSpiritwalker",
