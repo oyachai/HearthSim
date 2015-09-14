@@ -2298,5 +2298,10 @@
         "class": "com.hearthsim.card.blackrockmountain.spell.rare.Revenge",
         "id": "BRM_015",
         "name": "Revenge"
+    },
+    {
+        "class": "com.hearthsim.card.thegrandtournament.minion.rare.AlexstraszasChampion",
+        "id": "AT_071",
+        "name": "Alexstrasza's Champion"
     }
 ]
